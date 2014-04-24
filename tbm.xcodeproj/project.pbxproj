@@ -22,6 +22,7 @@
 		220E904A1909A18C003C4F82 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902E1909A18B003C4F82 /* CoreData.framework */; };
 		220E90521909A18C003C4F82 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 220E90501909A18C003C4F82 /* InfoPlist.strings */; };
 		220E90541909A18C003C4F82 /* tbmTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E90531909A18C003C4F82 /* tbmTests.m */; };
+		220E905E1909A1A9003C4F82 /* TBM.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 220E905D1909A1A9003C4F82 /* TBM.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		220E904F1909A18C003C4F82 /* tbmTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "tbmTests-Info.plist"; sourceTree = "<group>"; };
 		220E90511909A18C003C4F82 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		220E90531909A18C003C4F82 /* tbmTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tbmTests.m; sourceTree = "<group>"; };
+		220E905D1909A1A9003C4F82 /* TBM.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TBM.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 				220E903F1909A18B003C4F82 /* Images.xcassets */,
 				220E903C1909A18B003C4F82 /* tbm.xcdatamodeld */,
 				220E90311909A18B003C4F82 /* Supporting Files */,
+				220E905D1909A1A9003C4F82 /* TBM.storyboard */,
 			);
 			path = tbm;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 			files = (
 				220E90351909A18B003C4F82 /* InfoPlist.strings in Resources */,
 				220E90401909A18B003C4F82 /* Images.xcassets in Resources */,
+				220E905E1909A1A9003C4F82 /* TBM.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
