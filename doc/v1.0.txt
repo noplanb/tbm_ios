@@ -1,4 +1,13 @@
- - add story board
- - add 9-grid of views
- - adjust their heights
+x Layout
+ x add story board
+ x add 9-grid of views
+ x adjust their heights
+ 
+x Clicks on friend views
+  x Add a view controller class
+  
+- Create a test project to play with touch
+  - Add a super view with 2 subviews.
+  - Add a touch event handler for the super view.
+  - Look at the touch events and see if you can tell what subview they originated on.
  

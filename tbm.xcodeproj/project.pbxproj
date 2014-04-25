@@ -23,6 +23,7 @@
 		220E90521909A18C003C4F82 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 220E90501909A18C003C4F82 /* InfoPlist.strings */; };
 		220E90541909A18C003C4F82 /* tbmTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E90531909A18C003C4F82 /* tbmTests.m */; };
 		220E905E1909A1A9003C4F82 /* TBM.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 220E905D1909A1A9003C4F82 /* TBM.storyboard */; };
+		220E90611909C3D4003C4F82 /* TBMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E90601909C3D4003C4F82 /* TBMHomeViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		220E90511909A18C003C4F82 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		220E90531909A18C003C4F82 /* tbmTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tbmTests.m; sourceTree = "<group>"; };
 		220E905D1909A1A9003C4F82 /* TBM.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TBM.storyboard; sourceTree = "<group>"; };
+		220E905F1909C3D4003C4F82 /* TBMHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHomeViewController.h; sourceTree = "<group>"; };
+		220E90601909C3D4003C4F82 /* TBMHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHomeViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +126,8 @@
 				220E903C1909A18B003C4F82 /* tbm.xcdatamodeld */,
 				220E90311909A18B003C4F82 /* Supporting Files */,
 				220E905D1909A1A9003C4F82 /* TBM.storyboard */,
+				220E905F1909C3D4003C4F82 /* TBMHomeViewController.h */,
+				220E90601909C3D4003C4F82 /* TBMHomeViewController.m */,
 			);
 			path = tbm;
 			sourceTree = "<group>";
@@ -254,6 +259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				220E903B1909A18B003C4F82 /* TBMAppDelegate.m in Sources */,
+				220E90611909C3D4003C4F82 /* TBMHomeViewController.m in Sources */,
 				220E903E1909A18B003C4F82 /* tbm.xcdatamodeld in Sources */,
 				220E90371909A18B003C4F82 /* main.m in Sources */,
 			);
