@@ -24,6 +24,9 @@
 		220E90541909A18C003C4F82 /* tbmTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E90531909A18C003C4F82 /* tbmTests.m */; };
 		220E905E1909A1A9003C4F82 /* TBM.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 220E905D1909A1A9003C4F82 /* TBM.storyboard */; };
 		220E90611909C3D4003C4F82 /* TBMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E90601909C3D4003C4F82 /* TBMHomeViewController.m */; };
+		22249586190B52E4008EF394 /* TBMLongPressTouchHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 22249585190B52E4008EF394 /* TBMLongPressTouchHandler.m */; };
+		2266439B190AD932006C9072 /* TBMViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2266439A190AD932006C9072 /* TBMViewUtils.m */; };
+		226643A7190B13E2006C9072 /* TBMGeometryUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 226643A6190B13E2006C9072 /* TBMGeometryUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +61,13 @@
 		220E905D1909A1A9003C4F82 /* TBM.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TBM.storyboard; sourceTree = "<group>"; };
 		220E905F1909C3D4003C4F82 /* TBMHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHomeViewController.h; sourceTree = "<group>"; };
 		220E90601909C3D4003C4F82 /* TBMHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHomeViewController.m; sourceTree = "<group>"; };
+		22249583190B52BD008EF394 /* TBMLongPressTouchHandlerCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBMLongPressTouchHandlerCallback.h; sourceTree = "<group>"; };
+		22249584190B52E4008EF394 /* TBMLongPressTouchHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMLongPressTouchHandler.h; sourceTree = "<group>"; };
+		22249585190B52E4008EF394 /* TBMLongPressTouchHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMLongPressTouchHandler.m; sourceTree = "<group>"; };
+		22664399190AD932006C9072 /* TBMViewUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMViewUtils.h; sourceTree = "<group>"; };
+		2266439A190AD932006C9072 /* TBMViewUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMViewUtils.m; sourceTree = "<group>"; };
+		226643A5190B13E2006C9072 /* TBMGeometryUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMGeometryUtils.h; sourceTree = "<group>"; };
+		226643A6190B13E2006C9072 /* TBMGeometryUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMGeometryUtils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +130,7 @@
 		220E90301909A18B003C4F82 /* tbm */ = {
 			isa = PBXGroup;
 			children = (
+				22664395190AD8C8006C9072 /* Utils */,
 				220E90391909A18B003C4F82 /* TBMAppDelegate.h */,
 				220E903A1909A18B003C4F82 /* TBMAppDelegate.m */,
 				220E903F1909A18B003C4F82 /* Images.xcassets */,
@@ -128,6 +139,9 @@
 				220E905D1909A1A9003C4F82 /* TBM.storyboard */,
 				220E905F1909C3D4003C4F82 /* TBMHomeViewController.h */,
 				220E90601909C3D4003C4F82 /* TBMHomeViewController.m */,
+				22249583190B52BD008EF394 /* TBMLongPressTouchHandlerCallback.h */,
+				22249584190B52E4008EF394 /* TBMLongPressTouchHandler.h */,
+				22249585190B52E4008EF394 /* TBMLongPressTouchHandler.m */,
 			);
 			path = tbm;
 			sourceTree = "<group>";
@@ -159,6 +173,17 @@
 				220E90501909A18C003C4F82 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		22664395190AD8C8006C9072 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				22664399190AD932006C9072 /* TBMViewUtils.h */,
+				2266439A190AD932006C9072 /* TBMViewUtils.m */,
+				226643A5190B13E2006C9072 /* TBMGeometryUtils.h */,
+				226643A6190B13E2006C9072 /* TBMGeometryUtils.m */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,10 +283,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2266439B190AD932006C9072 /* TBMViewUtils.m in Sources */,
+				22249586190B52E4008EF394 /* TBMLongPressTouchHandler.m in Sources */,
 				220E903B1909A18B003C4F82 /* TBMAppDelegate.m in Sources */,
 				220E90611909C3D4003C4F82 /* TBMHomeViewController.m in Sources */,
 				220E903E1909A18B003C4F82 /* tbm.xcdatamodeld in Sources */,
 				220E90371909A18B003C4F82 /* main.m in Sources */,
+				226643A7190B13E2006C9072 /* TBMGeometryUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +486,7 @@
 				220E90591909A18C003C4F82 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		220E905A1909A18C003C4F82 /* Build configuration list for PBXNativeTarget "tbmTests" */ = {
 			isa = XCConfigurationList;
@@ -466,6 +495,7 @@
 				220E905C1909A18C003C4F82 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

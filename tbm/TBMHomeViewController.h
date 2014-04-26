@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TBMLongPressTouchHandlerCallback.h"
 
-@interface TBMHomeViewController : UIViewController
+@interface TBMHomeViewController : UIViewController <TBMLongPressTouchHandlerCallback>
 
 @end

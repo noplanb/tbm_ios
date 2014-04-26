@@ -10,4 +10,12 @@ x Clicks on friend views
   - Add a super view with 2 subviews.
   - Add a touch event handler for the super view.
   - Look at the touch events and see if you can tell what subview they originated on.
- 
+  - Print the tag of the view the 
+  - Make the outer the first responder.
+  
+x Create a view helper class 
+
+x LongpressTouchHandler
+  - migrate the long press touch handler to tbm
+  - Test
+  - checkin.  
