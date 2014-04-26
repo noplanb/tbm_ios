@@ -58,7 +58,7 @@
 - (BOOL)moveTouchIsLongSwipe:(UITouch *)touch{
     CGPoint p = [touch locationInView:nil];
     float d = [TBMGeometryUtils distanceFromPoint:_beginPoint toPoint:p];
-    return d > 120;
+    return d > 80;
 }
 
 
