@@ -29,8 +29,8 @@ INCOMING_VIDEO_STATUS_VIEWED,
 @property (nonatomic, retain) NSString * lastName;
 @property (nonatomic) TBMOutgoingVideoStatus outgoingVideoStatus;
 @property (nonatomic) TBMIncomingVideoStatus incomingVideoStatus;
-@property (nonatomic, retain) NSNumber * viewIndex;
-@property (nonatomic, retain) NSNumber * idTbm;
+@property (nonatomic) NSNumber * viewIndex;
+@property (nonatomic) NSNumber * idTbm;
 
 // Finders
 + (NSArray *)all;

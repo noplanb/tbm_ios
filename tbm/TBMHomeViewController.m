@@ -6,9 +6,11 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
+#import "TBMBoot.h"
 #import "TBMHomeViewController.h"
 #import "TBMLongPressTouchHandler.h"
 #import "TBMVideoRecorder.h"
+#import "TBMFriend.h"
 #import <UIKit/UIKit.h>
 
 @interface TBMHomeViewController ()
@@ -18,6 +20,9 @@
 @property TBMLongPressTouchHandler *longPressTouchHandler;
 @property TBMVideoRecorder *videoRecorder;
 @end
+
+static NSInteger TBM_HOME_FRIEND_VIEW_INDEX_OFFSET = 10;
+static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 
 @implementation TBMHomeViewController
 
@@ -33,6 +38,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [TBMBoot boot];
+    [self setupFriendViews];
+    
     _longPressTouchHandler = [[TBMLongPressTouchHandler alloc] initWithTargetViews:_friendViews instantiator:self];
     
     NSError * error;
@@ -41,11 +50,6 @@
         NSLog(@"%@", error);
     }
     
-    for (UIView *view in self.friendViews){
-        NSInteger tag = view.tag;
-        UILabel *label = [self friendLabelWithTag:tag];
-        label.text = [NSString stringWithFormat:@"%ld", (long)tag];
-    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,9 +70,18 @@
 */
 
 
-
-- (UIView *)friendViewWithTag:(NSInteger)tag
+- (void)setupFriendViews
 {
+    for (TBMFriend *friend in [TBMFriend all]){
+        UILabel *label = [self friendLabelWithViewIndex:friend.viewIndex];
+        label.text = friend.firstName;
+    }
+}
+
+- (UIView *)friendViewWithViewIndex:(NSNumber *)viewIndex
+{
+    NSInteger tag = [viewIndex integerValue];
+    tag += TBM_HOME_FRIEND_VIEW_INDEX_OFFSET;
     for (UIView *view in self.friendViews) {
         if (view.tag == tag){
             return view;
@@ -77,11 +90,11 @@
     return nil;
 }
 
-- (UILabel *)friendLabelWithTag:(NSInteger)tag
+- (UILabel *)friendLabelWithViewIndex:(NSNumber *)viewIndex
 {
-    NSLog(@"Looking for label with tag = %ld", (long)tag);
+    NSInteger tag = [viewIndex integerValue];
+    tag += TBM_HOME_FRIEND_LABEL_INDEX_OFFSET;
     for (UILabel *label in self.friendLabels){
-        NSLog(@"found %ld", (long)label.tag);
         if (label.tag == tag){
             return label;
         }

@@ -1,7 +1,6 @@
 x Layout   
 x LongpressTouchHandler
+x Friend model and class
+x Video record preview
 
-- Friend model and class
-  - Add friend model.
-  - Add a friend.
-  - Save and restore with tests on video status.
+

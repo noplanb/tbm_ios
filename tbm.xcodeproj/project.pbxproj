@@ -28,6 +28,7 @@
 		224101D2190D40B1005128F9 /* TBMCameraHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 224101D1190D40B1005128F9 /* TBMCameraHandler.m */; };
 		224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
 		224101D7190D5171005128F9 /* TBMVideoRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 224101D6190D5171005128F9 /* TBMVideoRecorder.m */; };
+		224101DA190EC1D8005128F9 /* TBMBoot.m in Sources */ = {isa = PBXBuildFile; fileRef = 224101D9190EC1D8005128F9 /* TBMBoot.m */; };
 		2266439B190AD932006C9072 /* TBMViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2266439A190AD932006C9072 /* TBMViewUtils.m */; };
 		226643A7190B13E2006C9072 /* TBMGeometryUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 226643A6190B13E2006C9072 /* TBMGeometryUtils.m */; };
 		22B0AE25190C14BE0014B823 /* TBMFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0AE24190C14BE0014B823 /* TBMFriend.m */; };
@@ -73,6 +74,8 @@
 		224101D3190D4180005128F9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		224101D5190D5171005128F9 /* TBMVideoRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoRecorder.h; sourceTree = "<group>"; };
 		224101D6190D5171005128F9 /* TBMVideoRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoRecorder.m; sourceTree = "<group>"; };
+		224101D8190EC1D8005128F9 /* TBMBoot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMBoot.h; sourceTree = "<group>"; };
+		224101D9190EC1D8005128F9 /* TBMBoot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMBoot.m; sourceTree = "<group>"; };
 		22664399190AD932006C9072 /* TBMViewUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMViewUtils.h; sourceTree = "<group>"; };
 		2266439A190AD932006C9072 /* TBMViewUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMViewUtils.m; sourceTree = "<group>"; };
 		226643A5190B13E2006C9072 /* TBMGeometryUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMGeometryUtils.h; sourceTree = "<group>"; };
@@ -161,6 +164,8 @@
 				224101D1190D40B1005128F9 /* TBMCameraHandler.m */,
 				224101D5190D5171005128F9 /* TBMVideoRecorder.h */,
 				224101D6190D5171005128F9 /* TBMVideoRecorder.m */,
+				224101D8190EC1D8005128F9 /* TBMBoot.h */,
+				224101D9190EC1D8005128F9 /* TBMBoot.m */,
 			);
 			path = tbm;
 			sourceTree = "<group>";
@@ -312,6 +317,7 @@
 				224101D7190D5171005128F9 /* TBMVideoRecorder.m in Sources */,
 				220E90371909A18B003C4F82 /* main.m in Sources */,
 				226643A7190B13E2006C9072 /* TBMGeometryUtils.m in Sources */,
+				224101DA190EC1D8005128F9 /* TBMBoot.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
