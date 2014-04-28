@@ -16,12 +16,17 @@
     self = [super init];
     if (self){
         _previewView = previewView;
+        NSLog(@"TBMVideoRecorder: Setting up preview on view: %@", _previewView);
         if (![self setupSessionWithError:&*error]){
             return nil;
         }
-        if (![self getDeviceWithError:&*error]){
+        NSLog(@"TBMVideoRecorder: Set up session: %@", _captureSession);
+
+        if (![self getCaptureInputWithError:&*error]){
             return nil;
         }
+        NSLog(@"TBMVideoRecorder: Got captureInput: %@", _captureInput);
+        [_captureSession addInput:_captureInput];
         [self setupPreview];
         [self startPreview];
     }
@@ -41,7 +46,7 @@
     return _captureSession;
 }
 
-- (AVCaptureInput *)getDeviceWithError:(NSError **)error
+- (AVCaptureInput *)getCaptureInputWithError:(NSError **)error
 {
     _captureInput = [TBMCameraHandler getAvailableFrontVideoInputWithError:&*error];
     return _captureInput;

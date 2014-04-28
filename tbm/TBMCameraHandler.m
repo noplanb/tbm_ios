@@ -20,6 +20,7 @@
     if (!input){
         return nil;
     }
+    NSLog(@"TBMCameraHandler: Got available input: %@", input);
     return input;
 }
 
@@ -39,6 +40,7 @@
         *error = [NSError errorWithDomain:@"TBM" code:0 userInfo:userInfo];
         return nil;
     }
+    NSLog(@"TBMCameraHandler: Got available camera: %@", camera.localizedName);
     return camera;
 }
 

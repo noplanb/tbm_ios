@@ -8,12 +8,15 @@
 
 #import "TBMHomeViewController.h"
 #import "TBMLongPressTouchHandler.h"
+#import "TBMVideoRecorder.h"
 #import <UIKit/UIKit.h>
 
 @interface TBMHomeViewController ()
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *friendViews;
+@property (weak, nonatomic) IBOutlet UIView *centerView;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *friendLabels;
 @property TBMLongPressTouchHandler *longPressTouchHandler;
+@property TBMVideoRecorder *videoRecorder;
 @end
 
 @implementation TBMHomeViewController
@@ -31,7 +34,13 @@
 {
     [super viewDidLoad];
     _longPressTouchHandler = [[TBMLongPressTouchHandler alloc] initWithTargetViews:_friendViews instantiator:self];
-
+    
+    NSError * error;
+    _videoRecorder = [[TBMVideoRecorder alloc] initWithPreivewView:_centerView error:&error];
+    if (!_videoRecorder){
+        NSLog(@"%@", error);
+    }
+    
     for (UIView *view in self.friendViews){
         NSInteger tag = view.tag;
         UILabel *label = [self friendLabelWithTag:tag];
@@ -56,6 +65,8 @@
 }
 */
 
+
+
 - (UIView *)friendViewWithTag:(NSInteger)tag
 {
     for (UIView *view in self.friendViews) {
@@ -79,6 +90,9 @@
 }
 
 
+//------------------------------------------
+// Longpress touch handling for friend views
+//------------------------------------------
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     if (self.longPressTouchHandler != nil) {
         [self.longPressTouchHandler touchesBegan:touches withEvent:event];
