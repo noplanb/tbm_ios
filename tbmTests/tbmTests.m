@@ -39,11 +39,12 @@
     [TBMFriend destroyAll];
     friends = [TBMFriend all];
     XCTAssertEqual([friends count], (NSUInteger)0, @"");
-    [TBMFriend newWithId:0];
+    [TBMFriend newWithId:@(0)];
     friends = [TBMFriend all];
     XCTAssertEqual([friends count], (NSUInteger)1, @"");
     for (int i = 1; i<6; i++) {
-        [TBMFriend newWithId:@(i)];
+        friend = [TBMFriend newWithId:@(i)];
+        friend.viewIndex = @(i+10);
     }
     friends = [TBMFriend all];
     XCTAssertEqual([friends count], (NSUInteger)6, @"");
@@ -51,7 +52,13 @@
     friend = [TBMFriend findWithId:@(0)];
     friend.outgoingVideoStatus = OUTGOING_VIDEO_STATUS_NEW;
     friend = [TBMFriend findWithId:@(0)];
+    XCTAssertNotNil(friend);
     XCTAssertEqual(friend.outgoingVideoStatus, OUTGOING_VIDEO_STATUS_NEW, @"");
+    
+    friend = [TBMFriend findWithViewIndex:@(11)];
+    XCTAssertNotNil(friend);
+    XCTAssertEqual(friend.idTbm, @(1));
+    
     [TBMFriend destroyAll];
 }
 

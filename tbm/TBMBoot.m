@@ -21,5 +21,6 @@
         friend.firstName = [NSString stringWithFormat:@"First %@", index];
         friend.lastName = [NSString stringWithFormat:@"Last %@", index];
     }
+    NSLog(@"TBMBoot: loaded %lu dummy friends.", (unsigned long)[[TBMFriend all] count]);
 }
 @end

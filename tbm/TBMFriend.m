@@ -54,8 +54,17 @@
 
 + (id)findWithId:(NSNumber *)idTbm
 {
+    return [self findWithAttributeString:@"idTbm" numberValue:idTbm];
+}
+
++ (id)findWithViewIndex:(NSNumber *)viewIndex
+{
+    return [self findWithAttributeString:@"viewIndex" numberValue:viewIndex];
+}
+
++ (id)findWithAttributeString:(NSString *)attribute numberValue:(NSNumber *)value{
     NSFetchRequest *request = [TBMFriend fetchRequest];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idTbm = %@", idTbm];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", attribute, value];
     [request setPredicate:predicate];
     NSError *error = nil;
     NSArray *friends = [[TBMFriend managedObjectContext] executeFetchRequest:request error:&error];

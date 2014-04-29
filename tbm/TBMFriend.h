@@ -35,6 +35,7 @@ INCOMING_VIDEO_STATUS_VIEWED,
 // Finders
 + (NSArray *)all;
 + (id)findWithId:(NSNumber *)idTbm;
++ (id)findWithViewIndex:(NSNumber *)viewIndex;
 
 // Create and destroy
 + (id)newWithId:(NSNumber *)idTbm;

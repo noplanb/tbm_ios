@@ -10,6 +10,7 @@
 #import "TBMHomeViewController.h"
 #import "TBMLongPressTouchHandler.h"
 #import "TBMVideoRecorder.h"
+#import "TBMVideoPlayer.h"
 #import "TBMFriend.h"
 #import <UIKit/UIKit.h>
 
@@ -108,6 +109,11 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     return nil;
 }
 
+- (TBMFriend *)friendWithViewTag:(NSUInteger)tag
+{
+    return [TBMFriend findWithViewIndex:@(tag-TBM_HOME_FRIEND_VIEW_INDEX_OFFSET)];
+}
+
 
 //------------------------------------------
 // Longpress touch handling for friend views
@@ -137,11 +143,14 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 // Callbacks per the TBMLongPressTouchHandlerCallback protocol.
 - (void)LPTHClickWithTargetView:(UIView *)view{
     NSLog(@"TBMHomeViewController: LPTH: click %ld", (long)view.tag);
+    TBMFriend *friend = [self friendWithViewTag:view.tag];
+    [TBMVideoPlayer playWIthView:view friendId:friend.idTbm];
 }
 
 - (void)LPTHStartLongPressWithTargetView:(UIView *)view{
     NSLog(@"TBMHomeViewController: LPTH: startLongPress %ld", (long)view.tag);
-    [_videoRecorder startRecording];
+    TBMFriend *friend = [self friendWithViewTag:view.tag];
+    [_videoRecorder startRecordingWithFriendId:friend.idTbm];
     [self showRecordingIndicator];
 }
 

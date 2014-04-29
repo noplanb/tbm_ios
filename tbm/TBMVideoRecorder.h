@@ -12,10 +12,12 @@
 @interface TBMVideoRecorder : NSObject
 
 @property UIView *previewView;
-- (void)startRecording;
-- (void)stopRecording;
-- (void)cancelRecording;
+
++ (NSURL *)outgoingVideoUrlWithFriendId:(NSNumber *)friendId;
 
 -(id)initWithPreivewView:(UIView *)previewView error:(NSError **)error;
 
+- (void)startRecordingWithFriendId:(NSNumber *)friendId;
+- (void)stopRecording;
+- (void)cancelRecording;
 @end

@@ -9,6 +9,7 @@
 #import "TBMVideoRecorder.h"
 #import "TBMCameraHandler.h"
 #import "TBMSoundEffect.h"
+#import "TBMConfig.h"
 
 @interface TBMVideoRecorder () <AVCaptureFileOutputRecordingDelegate>
 @property AVCaptureSession *captureSession;
@@ -19,9 +20,16 @@
 @property NSURL *recordingVideoUrl;
 @property CALayer *recordingOverlay;
 @property TBMSoundEffect *dingSoundEffect;
+@property NSNumber *friendId;
 @end
 
 @implementation TBMVideoRecorder
+
++ (NSURL *)outgoingVideoUrlWithFriendId:(NSNumber *)friendId
+{
+    NSString *filename = [NSString stringWithFormat:@"outgoingVidToFriend%@", friendId];
+    return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"mov"]];
+}
 
 -(id)initWithPreivewView:(UIView *)previewView error:(NSError **)error
 {
@@ -29,8 +37,8 @@
     if (self){
         _fileManager = [NSFileManager defaultManager];
         _previewView = previewView;
-        _videosDirectoryUrl = [[_fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
-        _recordingVideoUrl = [[self videosDirectoryUrl] URLByAppendingPathComponent:[@"new" stringByAppendingPathExtension:@"mov"]];
+        _videosDirectoryUrl = [TBMConfig videosDirectoryUrl];
+        _recordingVideoUrl = [_videosDirectoryUrl URLByAppendingPathComponent:[@"new" stringByAppendingPathExtension:@"mov"]];
         _dingSoundEffect = [[TBMSoundEffect alloc] initWithSoundNamed:@"single_ding_chimes2.wav"];
         
         NSLog(@"TBMVideoRecorder: Setting up preview on view: %@", _previewView);
@@ -112,8 +120,10 @@
     [_captureSession startRunning];
 }
 
-- (void)startRecording
+- (void)startRecordingWithFriendId:(NSNumber *)friendId
 {
+    _friendId = friendId;
+    NSLog(@"TBMVideoRecorder: Started recording with friendId %@", _friendId);
     NSError *error = nil;
     [_fileManager removeItemAtURL:_recordingVideoUrl error:&error];
     [_captureOutput startRecordingToOutputFileURL:_recordingVideoUrl recordingDelegate:self];
@@ -126,6 +136,7 @@
     [self hideRecordingOverlay];
     [_dingSoundEffect play];
     [_captureOutput stopRecording];
+    [self moveRecordingToOutgoingFile];
 }
 
 - (void)cancelRecording
@@ -143,6 +154,13 @@
 {
     _recordingOverlay.hidden = YES;
 }
+
+- (void)moveRecordingToOutgoingFile
+{
+    NSError *error = nil;
+    [_fileManager moveItemAtURL:_recordingVideoUrl toURL:[TBMVideoRecorder outgoingVideoUrlWithFriendId:_friendId] error:&error];
+}
+
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error
 {
