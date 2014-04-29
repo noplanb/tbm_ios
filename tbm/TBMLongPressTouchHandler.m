@@ -26,6 +26,7 @@
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    // Cancel any gesture that becomes multitouch.
     if ([[event allTouches] count] > 1){
         [self cancelGesture];
         return;
@@ -113,25 +114,37 @@
 }
 
 - (void)click{
-    //    NSLog(@"click %ld", (long)[self targetView].tag);
-    [_instantiator LPTHClickWithTargetView:[self targetView]];
+    UIView *targetView = [self targetView];
+    if (targetView){
+        //    NSLog(@"click %ld", (long)[self targetView].tag);
+        [_instantiator LPTHClickWithTargetView:[self targetView]];
+    }
 }
 
 - (void)startLongPress{
-    //    NSLog(@"startLongPress %ld", (long)[self targetView].tag);
-    _isLongPress = YES;
-    [_instantiator LPTHStartLongPressWithTargetView:[self targetView]];
+    UIView *targetView = [self targetView];
+    if (targetView){
+        //    NSLog(@"startLongPress %ld", (long)[self targetView].tag);
+        _isLongPress = YES;
+        [_instantiator LPTHStartLongPressWithTargetView:[self targetView]];
+    }
 }
 
 - (void)endLongPress{
-    //    NSLog(@"endLongPress %ld", (long)[self targetView].tag);
-    _isLongPress = NO;
-    [_instantiator LPTHEndLongPressWithTargetView:[self targetView]];
+    UIView *targetView = [self targetView];
+    if (targetView){
+        //    NSLog(@"endLongPress %ld", (long)[self targetView].tag);
+        _isLongPress = NO;
+        [_instantiator LPTHEndLongPressWithTargetView:[self targetView]];
+    }
 }
 
 - (void)cancelLongPress{
-    //    NSLog(@"cancelLongPress %ld", (long)[self targetView].tag);
-    [_instantiator LPTHCancelLongPressWithTargetView:[self targetView]];
+    UIView *targetView = [self targetView];
+    if (targetView){
+        //    NSLog(@"cancelLongPress %ld", (long)[self targetView].tag);
+        [_instantiator LPTHCancelLongPressWithTargetView:[self targetView]];
+    }
 }
 
 

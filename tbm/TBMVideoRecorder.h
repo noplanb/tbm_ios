@@ -12,8 +12,9 @@
 @interface TBMVideoRecorder : NSObject
 
 @property UIView *previewView;
-@property AVCaptureSession *captureSession;
-@property AVCaptureInput *captureInput;
+- (void)startRecording;
+- (void)stopRecording;
+- (void)cancelRecording;
 
 -(id)initWithPreivewView:(UIView *)previewView error:(NSError **)error;
 

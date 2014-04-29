@@ -15,10 +15,10 @@
 
 @interface TBMHomeViewController ()
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *friendViews;
-@property (weak, nonatomic) IBOutlet UIView *centerView;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *friendLabels;
 @property TBMLongPressTouchHandler *longPressTouchHandler;
 @property TBMVideoRecorder *videoRecorder;
+@property BOOL isPlaying;
 @end
 
 static NSInteger TBM_HOME_FRIEND_VIEW_INDEX_OFFSET = 10;
@@ -46,6 +46,7 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     
     NSError * error;
     _videoRecorder = [[TBMVideoRecorder alloc] initWithPreivewView:_centerView error:&error];
+    [self hideRecordingIndicator];
     if (!_videoRecorder){
         NSLog(@"%@", error);
     }
@@ -69,6 +70,11 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 }
 */
 
+
+- (void)indicateIsRecording
+{
+    
+}
 
 - (void)setupFriendViews
 {
@@ -106,6 +112,7 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 //------------------------------------------
 // Longpress touch handling for friend views
 //------------------------------------------
+// We detect the touches for the entire window using this view controller but pass them to the longPressTouchHandler.
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     if (self.longPressTouchHandler != nil) {
         [self.longPressTouchHandler touchesBegan:touches withEvent:event];
@@ -127,20 +134,37 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     }
 }
 
+// Callbacks per the TBMLongPressTouchHandlerCallback protocol.
 - (void)LPTHClickWithTargetView:(UIView *)view{
-    NSLog(@"Holy shit it worked! click %ld", (long)view.tag);
+    NSLog(@"TBMHomeViewController: LPTH: click %ld", (long)view.tag);
 }
 
 - (void)LPTHStartLongPressWithTargetView:(UIView *)view{
-    NSLog(@"Holy shit it worked! startLongPress %ld", (long)view.tag);
+    NSLog(@"TBMHomeViewController: LPTH: startLongPress %ld", (long)view.tag);
+    [_videoRecorder startRecording];
+    [self showRecordingIndicator];
 }
 
 - (void)LPTHEndLongPressWithTargetView:(UIView *)view{
-    NSLog(@"Holy shit it worked! endLongPressed %ld", (long)view.tag);
+    NSLog(@"TBMHomeViewController: LPTH:  endLongPressed %ld", (long)view.tag);
+    [_videoRecorder stopRecording];
+    [self hideRecordingIndicator];
 }
 
 - (void)LPTHCancelLongPressWithTargetView:(UIView *)view{
-    NSLog(@"Holy shit it worked! cancelLongPress %ld", (long)view.tag);
+    NSLog(@"TBMHomeViewController: LPTH:  cancelLongPress %ld", (long)view.tag);
+    [_videoRecorder cancelRecording];
+    [self hideRecordingIndicator];
+}
+
+- (void)showRecordingIndicator
+{
+    _centerLabel.hidden = NO;
+}
+
+- (void)hideRecordingIndicator
+{
+    _centerLabel.hidden = YES;
 }
 
 

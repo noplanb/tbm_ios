@@ -2,5 +2,15 @@ x Layout
 x LongpressTouchHandler
 x Friend model and class
 x Video record preview
+x Boot placeholder
+x Recording indicator
+
+- Record for friend.
 
 
+
+
+
+- Video Record todo
+  - Put video recorder setup in the background.
+  
