@@ -24,6 +24,9 @@
 		220E90541909A18C003C4F82 /* tbmTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E90531909A18C003C4F82 /* tbmTests.m */; };
 		220E905E1909A1A9003C4F82 /* TBM.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 220E905D1909A1A9003C4F82 /* TBM.storyboard */; };
 		220E90611909C3D4003C4F82 /* TBMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E90601909C3D4003C4F82 /* TBMHomeViewController.m */; };
+		221EA28C1912B4F600649BC5 /* vid.MOV in Resources */ = {isa = PBXBuildFile; fileRef = 221EA28B1912B4F600649BC5 /* vid.MOV */; };
+		221EA28E1912B85A00649BC5 /* vid2.MOV in Resources */ = {isa = PBXBuildFile; fileRef = 221EA28D1912B85A00649BC5 /* vid2.MOV */; };
+		221EA2911912E86300649BC5 /* TBMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 221EA2901912E86300649BC5 /* TBMUser.m */; };
 		22249586190B52E4008EF394 /* TBMLongPressTouchHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 22249585190B52E4008EF394 /* TBMLongPressTouchHandler.m */; };
 		224101D2190D40B1005128F9 /* TBMCameraHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 224101D1190D40B1005128F9 /* TBMCameraHandler.m */; };
 		224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
@@ -71,6 +74,10 @@
 		220E905D1909A1A9003C4F82 /* TBM.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TBM.storyboard; sourceTree = "<group>"; };
 		220E905F1909C3D4003C4F82 /* TBMHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHomeViewController.h; sourceTree = "<group>"; };
 		220E90601909C3D4003C4F82 /* TBMHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHomeViewController.m; sourceTree = "<group>"; };
+		221EA28B1912B4F600649BC5 /* vid.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = vid.MOV; sourceTree = "<group>"; };
+		221EA28D1912B85A00649BC5 /* vid2.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = vid2.MOV; sourceTree = "<group>"; };
+		221EA28F1912E86300649BC5 /* TBMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMUser.h; sourceTree = "<group>"; };
+		221EA2901912E86300649BC5 /* TBMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMUser.m; sourceTree = "<group>"; };
 		22249583190B52BD008EF394 /* TBMLongPressTouchHandlerCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBMLongPressTouchHandlerCallback.h; sourceTree = "<group>"; };
 		22249584190B52E4008EF394 /* TBMLongPressTouchHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMLongPressTouchHandler.h; sourceTree = "<group>"; };
 		22249585190B52E4008EF394 /* TBMLongPressTouchHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMLongPressTouchHandler.m; sourceTree = "<group>"; };
@@ -159,6 +166,8 @@
 		220E90301909A18B003C4F82 /* tbm */ = {
 			isa = PBXGroup;
 			children = (
+				221EA28D1912B85A00649BC5 /* vid2.MOV */,
+				221EA28B1912B4F600649BC5 /* vid.MOV */,
 				22EA56B419103A2B00646D3E /* Sounds */,
 				22664395190AD8C8006C9072 /* Utils */,
 				220E90391909A18B003C4F82 /* TBMAppDelegate.h */,
@@ -184,6 +193,8 @@
 				22EA56BD191068B700646D3E /* TBMVideoPlayer.m */,
 				22EA56BF19106AD100646D3E /* TBMConfig.h */,
 				22EA56C019106AD100646D3E /* TBMConfig.m */,
+				221EA28F1912E86300649BC5 /* TBMUser.h */,
+				221EA2901912E86300649BC5 /* TBMUser.m */,
 			);
 			path = tbm;
 			sourceTree = "<group>";
@@ -315,11 +326,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				221EA28C1912B4F600649BC5 /* vid.MOV in Resources */,
 				220E90351909A18B003C4F82 /* InfoPlist.strings in Resources */,
 				22EA56BB19103E4B00646D3E /* single_ding_chimes2.wav in Resources */,
 				22EA56B619103A3F00646D3E /* single_ding_chimes.wav in Resources */,
 				220E90401909A18B003C4F82 /* Images.xcassets in Resources */,
 				220E905E1909A1A9003C4F82 /* TBM.storyboard in Resources */,
+				221EA28E1912B85A00649BC5 /* vid2.MOV in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +358,7 @@
 				22B0AE25190C14BE0014B823 /* TBMFriend.m in Sources */,
 				220E90611909C3D4003C4F82 /* TBMHomeViewController.m in Sources */,
 				220E903E1909A18B003C4F82 /* tbm.xcdatamodeld in Sources */,
+				221EA2911912E86300649BC5 /* TBMUser.m in Sources */,
 				22EA56C119106AD100646D3E /* TBMConfig.m in Sources */,
 				224101D7190D5171005128F9 /* TBMVideoRecorder.m in Sources */,
 				22EA56B919103AE600646D3E /* TBMSoundEffect.m in Sources */,

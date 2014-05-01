@@ -136,7 +136,6 @@
     [self hideRecordingOverlay];
     [_dingSoundEffect play];
     [_captureOutput stopRecording];
-    [self moveRecordingToOutgoingFile];
 }
 
 - (void)cancelRecording
@@ -158,7 +157,12 @@
 - (void)moveRecordingToOutgoingFile
 {
     NSError *error = nil;
-    [_fileManager moveItemAtURL:_recordingVideoUrl toURL:[TBMVideoRecorder outgoingVideoUrlWithFriendId:_friendId] error:&error];
+    
+    NSURL *outgoingVideoUrl = [TBMVideoRecorder outgoingVideoUrlWithFriendId:_friendId];
+    [_fileManager removeItemAtURL:outgoingVideoUrl error:&error];
+    [_fileManager moveItemAtURL:_recordingVideoUrl toURL:outgoingVideoUrl error:&error];
+    NSDictionary *ova = [_fileManager attributesOfItemAtPath:outgoingVideoUrl.path error:&error];
+    NSLog(@"TBMVideoRecorder: recorded filesize=%llu path=%@", ova.fileSize, outgoingVideoUrl.path);
 }
 
 
@@ -171,6 +175,7 @@
     }
     NSDictionary *fileAttributes = [_fileManager attributesOfItemAtPath:[_recordingVideoUrl path] error:&error];
     NSLog(@"TBMVideoRecorder: recorded file size = %llu", fileAttributes.fileSize);
+    [self moveRecordingToOutgoingFile];
 }
 
 - (AVCaptureSession *)addCaptureOutputWithError:(NSError **)error

@@ -7,7 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MediaPlayer/MediaPlayer.h"
 
 @interface TBMVideoPlayer : NSObject
-+ (void)playWIthView:(UIView *)playView friendId:(NSNumber *)friendId;
+
+@property NSNumber *friendId;
+
+@property MPMoviePlayerController *moviePlayerController;
+@property NSURL *videoUrl;
+@property UIView *playView;
+
+// Class methods
++ (id)createWithView:(UIView *)playView friendId:(NSNumber *)friendId;
++ (id)findWithFriendId:(NSNumber *)friendId;
++ (void)removeWithFriendId:(NSNumber *)friendId;
++ (void)removeAll;
+
+
+// Instance methods
+- (void)togglePlay;
 @end

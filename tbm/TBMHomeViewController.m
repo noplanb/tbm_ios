@@ -19,6 +19,7 @@
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *friendLabels;
 @property TBMLongPressTouchHandler *longPressTouchHandler;
 @property TBMVideoRecorder *videoRecorder;
+@property TBMVideoPlayer *videoPlayer;
 @property BOOL isPlaying;
 @end
 
@@ -52,6 +53,7 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
         NSLog(@"%@", error);
     }
     
+    [self setupVideoPlayers];
 }
 
 - (void)didReceiveMemoryWarning
@@ -72,9 +74,13 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 */
 
 
-- (void)indicateIsRecording
+- (void) setupVideoPlayers
 {
-    
+    [TBMVideoPlayer removeAll];
+    for (TBMFriend *friend in [TBMFriend all]){
+        UIView *playerView = [self friendViewWithViewIndex:friend.viewIndex];
+        [TBMVideoPlayer createWithView:playerView friendId:friend.idTbm];
+    }
 }
 
 - (void)setupFriendViews
@@ -87,6 +93,9 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 
 - (UIView *)friendViewWithViewIndex:(NSNumber *)viewIndex
 {
+    if (!viewIndex)
+        return nil;
+    
     NSInteger tag = [viewIndex integerValue];
     tag += TBM_HOME_FRIEND_VIEW_INDEX_OFFSET;
     for (UIView *view in self.friendViews) {
@@ -144,7 +153,7 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 - (void)LPTHClickWithTargetView:(UIView *)view{
     NSLog(@"TBMHomeViewController: LPTH: click %ld", (long)view.tag);
     TBMFriend *friend = [self friendWithViewTag:view.tag];
-    [TBMVideoPlayer playWIthView:view friendId:friend.idTbm];
+    [(TBMVideoPlayer *)[TBMVideoPlayer findWithFriendId:friend.idTbm] togglePlay];
 }
 
 - (void)LPTHStartLongPressWithTargetView:(UIView *)view{

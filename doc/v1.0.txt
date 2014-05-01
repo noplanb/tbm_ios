@@ -5,10 +5,15 @@ x Video record preview
 x Boot placeholder
 x Recording indicator
 
-- Record for friend.
+x Record for friend.
+x Video player
 
 
-
+- Boot
+  x User model 
+  - View to pick user
+  - Call server
+  
 
 
 - Video Record todo
