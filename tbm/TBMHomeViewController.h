@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TBMLongPressTouchHandlerCallback.h"
 
-@interface TBMHomeViewController : UIViewController <TBMLongPressTouchHandlerCallback>
+@interface TBMHomeViewController : UIViewController <TBMLongPressTouchHandlerCallback, TBMRegisterProtocol>
 @property (weak, nonatomic) IBOutlet UIView *centerView;
 @property (weak, nonatomic) IBOutlet UILabel *centerLabel;
 @end

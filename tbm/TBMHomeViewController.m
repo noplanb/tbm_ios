@@ -5,7 +5,7 @@
 //  Created by Sani Elfishawy on 4/24/14.
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
-
+#import "TBMRegisterTableViewController.h"
 #import "TBMBoot.h"
 #import "TBMHomeViewController.h"
 #import "TBMLongPressTouchHandler.h"
@@ -56,6 +56,11 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     [self setupVideoPlayers];
 }
 
+- (void) viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self showRegister];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -73,6 +78,17 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 }
 */
 
+- (void) showRegister{
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"TBM" bundle:nil];
+    TBMRegisterTableViewController *registerViewController = [storyBoard instantiateViewControllerWithIdentifier:@"TBMRegisterViewController"];    
+    registerViewController.delegate = self;
+    [self presentViewController:registerViewController animated:YES completion:nil];
+}
+
+- (void) didSelectUser{
+    NSLog(@"TBMHomeViewController: didSelectUser");
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (void) setupVideoPlayers
 {
