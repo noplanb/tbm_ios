@@ -41,7 +41,7 @@
 
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
-    //    NSLog(@"touchesMoved");
+    //    DebugLog(@"touchesMoved");
     if (_gestureCanceled){
         return;
     }
@@ -64,9 +64,9 @@
 
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    //    NSLog(@"touchesEnded");
+    //    DebugLog(@"touchesEnded");
     if (_gestureCanceled) {
-        //        NSLog(@"touchesEnded: in canceled state");
+        //        DebugLog(@"touchesEnded: in canceled state");
         return;
     }
     if (_isLongPress) {
@@ -78,13 +78,13 @@
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
-    //    NSLog(@"touchesCancelled");
+    //    DebugLog(@"touchesCancelled");
     [self cancelGesture];
 }
 
 
 - (void)cancelGesture{
-    //    NSLog(@"cancelGesture");
+    //    DebugLog(@"cancelGesture");
     _gestureCanceled = YES;
     [self cancelLongPressTimer];
     if (_isLongPress) {
@@ -94,12 +94,12 @@
 }
 
 - (void)startLongPressTimer{
-    //    NSLog(@"startLongPressTimer");
+    //    DebugLog(@"startLongPressTimer");
     [self performSelector:@selector(startLongPress) withObject:nil afterDelay: (NSTimeInterval)0.2];
 }
 
 - (void)cancelLongPressTimer{
-    //    NSLog(@"cancelLongPressTimer");
+    //    DebugLog(@"cancelLongPressTimer");
     [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(startLongPress) object:nil];
 }
 
@@ -116,7 +116,7 @@
 - (void)click{
     UIView *targetView = [self targetView];
     if (targetView){
-        //    NSLog(@"click %ld", (long)[self targetView].tag);
+        //    DebugLog(@"click %ld", (long)[self targetView].tag);
         [_instantiator LPTHClickWithTargetView:[self targetView]];
     }
 }
@@ -124,7 +124,7 @@
 - (void)startLongPress{
     UIView *targetView = [self targetView];
     if (targetView){
-        //    NSLog(@"startLongPress %ld", (long)[self targetView].tag);
+        //    DebugLog(@"startLongPress %ld", (long)[self targetView].tag);
         _isLongPress = YES;
         [_instantiator LPTHStartLongPressWithTargetView:[self targetView]];
     }
@@ -133,7 +133,7 @@
 - (void)endLongPress{
     UIView *targetView = [self targetView];
     if (targetView){
-        //    NSLog(@"endLongPress %ld", (long)[self targetView].tag);
+        //    DebugLog(@"endLongPress %ld", (long)[self targetView].tag);
         _isLongPress = NO;
         [_instantiator LPTHEndLongPressWithTargetView:[self targetView]];
     }
@@ -142,7 +142,7 @@
 - (void)cancelLongPress{
     UIView *targetView = [self targetView];
     if (targetView){
-        //    NSLog(@"cancelLongPress %ld", (long)[self targetView].tag);
+        //    DebugLog(@"cancelLongPress %ld", (long)[self targetView].tag);
         [_instantiator LPTHCancelLongPressWithTargetView:[self targetView]];
     }
 }

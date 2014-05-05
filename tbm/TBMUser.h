@@ -14,6 +14,9 @@
 
 @property (nonatomic, retain) NSString * firstName;
 @property (nonatomic, retain) NSString * lastName;
-@property (nonatomic, retain) NSNumber * idTbm;
+@property (nonatomic, retain) NSString * idTbm;
+
++ (instancetype)getUser;
++ (instancetype)createWithIdTbm:(NSNumber *)idTbm;
 
 @end

@@ -2,17 +2,14 @@ x Layout
 x LongpressTouchHandler
 x Friend model and class
 x Video record preview
-x Boot placeholder
 x Recording indicator
-
 x Record for friend.
 x Video player
+x Boot with register
 
 
-- Boot
-  x User model 
-  - View to pick user
-  - Call server
+- plus signs in startup screen.
+
   
 
 

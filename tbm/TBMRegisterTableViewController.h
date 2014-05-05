@@ -7,10 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@protocol TBMRegisterProtocol <NSObject>
-- (void) didSelectUser;
-@end
+#import "TBMRegisterProtocol.h"
 
 @interface TBMRegisterTableViewController : UITableViewController
 @property NSMutableArray *users;

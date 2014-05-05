@@ -6,7 +6,9 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
+#import "TBMHttpClient.h"
 #import "TBMRegisterTableViewController.h"
+#import "UIAlertView+AFNetworking.h"
 
 @interface TBMRegisterTableViewController ()
 
@@ -36,13 +38,16 @@
 }
 
 - (void)getUsers{
-    _users = [[NSMutableArray alloc] init];
-    for (int i=0; i<30; i++) {
-        NSMutableDictionary *u = [[NSMutableDictionary alloc] init];
-        [u setObject:[NSString stringWithFormat:@"firstName%@", @(i)] forKey:@"firstName"];
-        [u setObject:[NSString stringWithFormat:@"lastName%@", @(i)] forKey:@"lastName"];
-        [_users addObject:u];
-    }
+    TBMHttpClient *httpClient = [TBMHttpClient sharedClient];
+    NSURLSessionDataTask *task = [httpClient GET:@"reg/user_list" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        DebugLog(@"getUsers: %@", responseObject);
+        _users = responseObject;
+        [self.tableView reloadData];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        DebugLog(@"getUsers: ERROR: %@", error);
+    }];
+    [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:nil];
+    [task resume];
 }
 
 - (void)didReceiveMemoryWarning
@@ -69,7 +74,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     NSDictionary *u = [_users objectAtIndex:indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", [u objectForKey:@"firstName"], [u objectForKey:@"lastName"]];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", [u objectForKey:@"first_name"], [u objectForKey:@"last_name"]];
     return cell;
 }
 
@@ -122,8 +127,9 @@
 }
 */
 
--(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"%ld", (long)indexPath.row);
-    [_delegate didSelectUser];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    DebugLog(@"%ld", (long)indexPath.row);
+    NSDictionary *user = [_users objectAtIndex:indexPath.row];
+    [_delegate didSelectUser: user];
 }
 @end

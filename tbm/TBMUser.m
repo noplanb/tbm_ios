@@ -34,15 +34,13 @@
 //-------
 // Getter
 //-------
-+ (NSFetchRequest *)fetchRequest
-{
++ (NSFetchRequest *)fetchRequest{
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:[TBMUser entityDescription]];
     return request;
 }
 
-+ (id)get
-{
++ (instancetype)getUser{
     NSError *error;
     NSArray *users = [[TBMUser managedObjectContext] executeFetchRequest:[TBMUser fetchRequest] error:&error];
     return [users firstObject];
@@ -53,10 +51,12 @@
 // Create and destroy
 //-------------------
 + (void)destroy{
-    [[TBMUser managedObjectContext] deleteObject:[TBMUser get]];
+    TBMUser *u = [TBMUser getUser];
+    if (u)
+        [[TBMUser managedObjectContext] deleteObject:u];
 }
 
-+ (id)createWithidTbm:(NSNumber *)idTbm{
++ (instancetype)createWithIdTbm:(NSString *)idTbm{
     [TBMUser destroy];
     TBMUser *user = (TBMUser *)[[NSManagedObject alloc] initWithEntity:[TBMUser entityDescription] insertIntoManagedObjectContext:[TBMUser managedObjectContext]];
     user.idTbm = idTbm;

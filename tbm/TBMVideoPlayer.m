@@ -72,7 +72,7 @@ static NSMutableDictionary *instances;
     NSFileManager *fm = [NSFileManager defaultManager];
     NSError *error = nil;
     NSDictionary *fa = [fm attributesOfItemAtPath:_videoUrl.path error:&error];
-    NSLog(@"Playing filesize=%llu path=%@", fa.fileSize, _videoUrl.path);
+    DebugLog(@"Playing filesize=%llu path=%@", fa.fileSize, _videoUrl.path);
     _moviePlayerController.contentURL = _videoUrl;
     [_moviePlayerController play];
 }

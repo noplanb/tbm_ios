@@ -5,9 +5,8 @@
 //  Created by Sani Elfishawy on 4/24/14.
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
-#import "TBMRegisterTableViewController.h"
-#import "TBMBoot.h"
 #import "TBMHomeViewController.h"
+#import "TBMHomeViewController+Boot.h"
 #import "TBMLongPressTouchHandler.h"
 #import "TBMVideoRecorder.h"
 #import "TBMVideoPlayer.h"
@@ -40,8 +39,11 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [TBMBoot boot];
+}
+
+- (void) viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self boot];
     [self setupFriendViews];
     
     _longPressTouchHandler = [[TBMLongPressTouchHandler alloc] initWithTargetViews:_friendViews instantiator:self];
@@ -50,15 +52,10 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     _videoRecorder = [[TBMVideoRecorder alloc] initWithPreivewView:_centerView error:&error];
     [self hideRecordingIndicator];
     if (!_videoRecorder){
-        NSLog(@"%@", error);
+        DebugLog(@"%@", error);
     }
     
     [self setupVideoPlayers];
-}
-
-- (void) viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    [self showRegister];
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,17 +75,6 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 }
 */
 
-- (void) showRegister{
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"TBM" bundle:nil];
-    TBMRegisterTableViewController *registerViewController = [storyBoard instantiateViewControllerWithIdentifier:@"TBMRegisterViewController"];    
-    registerViewController.delegate = self;
-    [self presentViewController:registerViewController animated:YES completion:nil];
-}
-
-- (void) didSelectUser{
-    NSLog(@"TBMHomeViewController: didSelectUser");
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 
 - (void) setupVideoPlayers
 {
@@ -167,26 +153,26 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 
 // Callbacks per the TBMLongPressTouchHandlerCallback protocol.
 - (void)LPTHClickWithTargetView:(UIView *)view{
-    NSLog(@"TBMHomeViewController: LPTH: click %ld", (long)view.tag);
+    DebugLog(@"TBMHomeViewController: LPTH: click %ld", (long)view.tag);
     TBMFriend *friend = [self friendWithViewTag:view.tag];
     [(TBMVideoPlayer *)[TBMVideoPlayer findWithFriendId:friend.idTbm] togglePlay];
 }
 
 - (void)LPTHStartLongPressWithTargetView:(UIView *)view{
-    NSLog(@"TBMHomeViewController: LPTH: startLongPress %ld", (long)view.tag);
+    DebugLog(@"TBMHomeViewController: LPTH: startLongPress %ld", (long)view.tag);
     TBMFriend *friend = [self friendWithViewTag:view.tag];
     [_videoRecorder startRecordingWithFriendId:friend.idTbm];
     [self showRecordingIndicator];
 }
 
 - (void)LPTHEndLongPressWithTargetView:(UIView *)view{
-    NSLog(@"TBMHomeViewController: LPTH:  endLongPressed %ld", (long)view.tag);
+    DebugLog(@"TBMHomeViewController: LPTH:  endLongPressed %ld", (long)view.tag);
     [_videoRecorder stopRecording];
     [self hideRecordingIndicator];
 }
 
 - (void)LPTHCancelLongPressWithTargetView:(UIView *)view{
-    NSLog(@"TBMHomeViewController: LPTH:  cancelLongPress %ld", (long)view.tag);
+    DebugLog(@"TBMHomeViewController: LPTH:  cancelLongPress %ld", (long)view.tag);
     [_videoRecorder cancelRecording];
     [self hideRecordingIndicator];
 }

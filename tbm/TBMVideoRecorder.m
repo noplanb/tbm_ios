@@ -41,21 +41,21 @@
         _recordingVideoUrl = [_videosDirectoryUrl URLByAppendingPathComponent:[@"new" stringByAppendingPathExtension:@"mov"]];
         _dingSoundEffect = [[TBMSoundEffect alloc] initWithSoundNamed:@"single_ding_chimes2.wav"];
         
-        NSLog(@"TBMVideoRecorder: Setting up preview on view: %@", _previewView);
+        DebugLog(@"TBMVideoRecorder: Setting up preview on view: %@", _previewView);
         
         if (![self setupSessionWithError:&*error])
             return nil;
-        NSLog(@"TBMVideoRecorder: Set up session: %@", _captureSession);
+        DebugLog(@"TBMVideoRecorder: Set up session: %@", _captureSession);
 
         if (![self getCaptureInputWithError:&*error])
             return nil;
         [_captureSession addInput:_captureInput];
-        NSLog(@"TBMVideoRecorder: Added captureInput: %@", _captureInput);
+        DebugLog(@"TBMVideoRecorder: Added captureInput: %@", _captureInput);
 
         _captureOutput = [[AVCaptureMovieFileOutput alloc] init];
         if (![self addCaptureOutputWithError:&*error])
             return nil;
-        NSLog(@"TBMVideoRecorder: Added captureOutput: %@", _captureOutput);
+        DebugLog(@"TBMVideoRecorder: Added captureOutput: %@", _captureOutput);
 
         [self setupPreview];
         [self setupRecordingOverlay];
@@ -123,7 +123,7 @@
 - (void)startRecordingWithFriendId:(NSNumber *)friendId
 {
     _friendId = friendId;
-    NSLog(@"TBMVideoRecorder: Started recording with friendId %@", _friendId);
+    DebugLog(@"TBMVideoRecorder: Started recording with friendId %@", _friendId);
     NSError *error = nil;
     [_fileManager removeItemAtURL:_recordingVideoUrl error:&error];
     [_captureOutput startRecordingToOutputFileURL:_recordingVideoUrl recordingDelegate:self];
@@ -162,19 +162,19 @@
     [_fileManager removeItemAtURL:outgoingVideoUrl error:&error];
     [_fileManager moveItemAtURL:_recordingVideoUrl toURL:outgoingVideoUrl error:&error];
     NSDictionary *ova = [_fileManager attributesOfItemAtPath:outgoingVideoUrl.path error:&error];
-    NSLog(@"TBMVideoRecorder: recorded filesize=%llu path=%@", ova.fileSize, outgoingVideoUrl.path);
+    DebugLog(@"TBMVideoRecorder: recorded filesize=%llu path=%@", ova.fileSize, outgoingVideoUrl.path);
 }
 
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error
 {
-    NSLog(@"TBMVideoRecorder: didFinishRecording.");
+    DebugLog(@"TBMVideoRecorder: didFinishRecording.");
     if (error){
-		NSLog(@"%@", error);
+		DebugLog(@"%@", error);
         return;
     }
     NSDictionary *fileAttributes = [_fileManager attributesOfItemAtPath:[_recordingVideoUrl path] error:&error];
-    NSLog(@"TBMVideoRecorder: recorded file size = %llu", fileAttributes.fileSize);
+    DebugLog(@"TBMVideoRecorder: recorded file size = %llu", fileAttributes.fileSize);
     [self moveRecordingToOutgoingFile];
 }
 

@@ -71,14 +71,17 @@
     return [friends lastObject];
 }
 
++ (NSUInteger)count{
+    return [[TBMFriend all] count];
+}
+
 //-------------------
 // Create and destroy
 //-------------------
-+ (id)newWithId:(NSNumber *)idTbm
++ (id)newWithId:(NSString *)idTbm
 {
     TBMFriend *friend = (TBMFriend *)[[NSManagedObject alloc] initWithEntity:[TBMFriend entityDescription] insertIntoManagedObjectContext:[TBMFriend managedObjectContext]];
     friend.idTbm = idTbm;
-    [[TBMFriend appDelegate] saveContext];
     return friend;
 }
 
@@ -98,6 +101,10 @@
     if ( friend != nil ){
         [[TBMFriend managedObjectContext] deleteObject:friend];
     }
+}
+
++ (void)saveAll{
+    [[TBMFriend appDelegate] saveContext];
 }
 
 @end

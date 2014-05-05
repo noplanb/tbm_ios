@@ -30,16 +30,18 @@ INCOMING_VIDEO_STATUS_VIEWED,
 @property (nonatomic) TBMOutgoingVideoStatus outgoingVideoStatus;
 @property (nonatomic) TBMIncomingVideoStatus incomingVideoStatus;
 @property (nonatomic) NSNumber * viewIndex;
-@property (nonatomic) NSNumber * idTbm;
+@property (nonatomic) NSString * idTbm;
 
 // Finders
 + (NSArray *)all;
 + (id)findWithId:(NSNumber *)idTbm;
 + (id)findWithViewIndex:(NSNumber *)viewIndex;
++ (NSUInteger)count;
 
 // Create and destroy
 + (id)newWithId:(NSNumber *)idTbm;
 + (NSUInteger)destroyAll;
 + (void)destroyWithId:(NSNumber *)idTbm;
++ (void)saveAll;
 
 @end
