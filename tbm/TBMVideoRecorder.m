@@ -20,12 +20,12 @@
 @property NSURL *recordingVideoUrl;
 @property CALayer *recordingOverlay;
 @property TBMSoundEffect *dingSoundEffect;
-@property NSNumber *friendId;
+@property NSString *friendId;
 @end
 
 @implementation TBMVideoRecorder
 
-+ (NSURL *)outgoingVideoUrlWithFriendId:(NSNumber *)friendId
++ (NSURL *)outgoingVideoUrlWithFriendId:(NSString *)friendId
 {
     NSString *filename = [NSString stringWithFormat:@"outgoingVidToFriend%@", friendId];
     return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"mov"]];
@@ -120,7 +120,7 @@
     [_captureSession startRunning];
 }
 
-- (void)startRecordingWithFriendId:(NSNumber *)friendId
+- (void)startRecordingWithFriendId:(NSString *)friendId
 {
     _friendId = friendId;
     DebugLog(@"TBMVideoRecorder: Started recording with friendId %@", _friendId);

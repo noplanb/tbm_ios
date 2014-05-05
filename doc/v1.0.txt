@@ -6,11 +6,10 @@ x Recording indicator
 x Record for friend.
 x Video player
 x Boot with register
+x Thumbnails
+x Plus signs in startup screen.
 
 
-- plus signs in startup screen.
-
-  
 
 
 - Video Record todo

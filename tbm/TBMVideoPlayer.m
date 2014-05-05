@@ -20,7 +20,7 @@ static NSMutableDictionary *instances;
 //--------------
 // Class Methods
 //--------------
-+ (id)createWithView:(UIView *)playView friendId:(NSNumber *)friendId
++ (id)createWithView:(UIView *)playView friendId:(NSString *)friendId
 {
     if (!instances){
         instances = [[NSMutableDictionary alloc] init];
@@ -54,25 +54,51 @@ static NSMutableDictionary *instances;
     return self;
 }
 
-- (id)initWIthView:(UIView *)playView friendId:(NSNumber *)friendId{
+- (id)initWIthView:(UIView *)friendView friendId:(NSString *)friendId{
     self = [super init];
     if (self){
-        _playView = playView;
+        _friendView = friendView;
         _friendId = friendId;
-        _videoUrl = [TBMVideoRecorder outgoingVideoUrlWithFriendId:friendId];
-        _moviePlayerController = [[MPMoviePlayerController alloc] init];
-        _moviePlayerController.controlStyle = MPMovieControlStyleNone;
-        [_moviePlayerController.view setFrame: playView.bounds];
-        [_playView addSubview:_moviePlayerController.view];
+        _friend = [TBMFriend findWithId:friendId];
+        
+        [_friendView setBackgroundColor:[UIColor clearColor]];
+        [self addVideoPlayer];
+        [self addThumbnail];
+        [self showThumb];
+        DebugLog(@"Set up player for %@", _friend.firstName);
     }
     return self;
 }
 
+- (void)addVideoPlayer{
+    _videoUrl = [TBMVideoRecorder outgoingVideoUrlWithFriendId:_friendId];
+    _moviePlayerController = [[MPMoviePlayerController alloc] init];
+    _playerView = _moviePlayerController.view;
+    _moviePlayerController.controlStyle = MPMovieControlStyleNone;
+    [_playerView setFrame: _friendView.bounds];
+    [_friendView addSubview:_playerView];
+}
+
+- (void)addThumbnail{
+    _thumbView = [[UIImageView alloc] init];
+    _thumbView.contentMode = UIViewContentModeScaleAspectFit;
+    [_thumbView setFrame: _friendView.bounds];
+    _thumbView.image = [_friend thumbImageOrThumbMissingImage];
+    [_friendView addSubview:_thumbView];
+}
+
+- (void)showPlayer{
+    _playerView.hidden = NO;
+    _thumbView.hidden = YES;
+}
+
+- (void)showThumb{
+    _playerView.hidden = YES;
+    _thumbView.hidden = NO;
+}
+
 - (void)play{
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NSError *error = nil;
-    NSDictionary *fa = [fm attributesOfItemAtPath:_videoUrl.path error:&error];
-    DebugLog(@"Playing filesize=%llu path=%@", fa.fileSize, _videoUrl.path);
+    DebugLog(@"Playing path=%@", _videoUrl.path);
     _moviePlayerController.contentURL = _videoUrl;
     [_moviePlayerController play];
 }

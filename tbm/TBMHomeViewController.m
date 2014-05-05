@@ -45,16 +45,8 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     [super viewDidAppear:animated];
     [self boot];
     [self setupFriendViews];
-    
-    _longPressTouchHandler = [[TBMLongPressTouchHandler alloc] initWithTargetViews:_friendViews instantiator:self];
-    
-    NSError * error;
-    _videoRecorder = [[TBMVideoRecorder alloc] initWithPreivewView:_centerView error:&error];
-    [self hideRecordingIndicator];
-    if (!_videoRecorder){
-        DebugLog(@"%@", error);
-    }
-    
+    [self setupLongPressTouchHandler];
+    [self setupVideoRecorder];
     [self setupVideoPlayers];
 }
 
@@ -75,9 +67,16 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 }
 */
 
+- (void) setupVideoRecorder{
+    NSError * error;
+    _videoRecorder = [[TBMVideoRecorder alloc] initWithPreivewView:_centerView error:&error];
+    [self hideRecordingIndicator];
+    if (!_videoRecorder){
+        DebugLog(@"%@", error);
+    }
+}
 
-- (void) setupVideoPlayers
-{
+- (void) setupVideoPlayers{
     [TBMVideoPlayer removeAll];
     for (TBMFriend *friend in [TBMFriend all]){
         UIView *playerView = [self friendViewWithViewIndex:friend.viewIndex];
@@ -85,16 +84,26 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     }
 }
 
-- (void)setupFriendViews
-{
+- (void)setupFriendViews{
     for (TBMFriend *friend in [TBMFriend all]){
         UILabel *label = [self friendLabelWithViewIndex:friend.viewIndex];
         label.text = friend.firstName;
     }
 }
 
-- (UIView *)friendViewWithViewIndex:(NSNumber *)viewIndex
-{
+- (void)setupLongPressTouchHandler{
+    _longPressTouchHandler = [[TBMLongPressTouchHandler alloc] initWithTargetViews:[self activeFriendViews] instantiator:self];
+}
+
+- (NSMutableArray *)activeFriendViews{
+    NSMutableArray *result = [[NSMutableArray alloc] init];
+    for (TBMFriend *friend in [TBMFriend all]){
+        [result addObject:[self friendViewWithViewIndex:friend.viewIndex]];
+    }
+    return result;
+}
+
+- (UIView *)friendViewWithViewIndex:(NSNumber *)viewIndex{
     if (!viewIndex)
         return nil;
     
@@ -108,8 +117,7 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     return nil;
 }
 
-- (UILabel *)friendLabelWithViewIndex:(NSNumber *)viewIndex
-{
+- (UILabel *)friendLabelWithViewIndex:(NSNumber *)viewIndex{
     NSInteger tag = [viewIndex integerValue];
     tag += TBM_HOME_FRIEND_LABEL_INDEX_OFFSET;
     for (UILabel *label in self.friendLabels){
@@ -120,8 +128,7 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     return nil;
 }
 
-- (TBMFriend *)friendWithViewTag:(NSUInteger)tag
-{
+- (TBMFriend *)friendWithViewTag:(NSUInteger)tag{
     return [TBMFriend findWithViewIndex:@(tag-TBM_HOME_FRIEND_VIEW_INDEX_OFFSET)];
 }
 

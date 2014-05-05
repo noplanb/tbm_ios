@@ -9,18 +9,22 @@
 #import <Foundation/Foundation.h>
 #import "MediaPlayer/MediaPlayer.h"
 
+#import "TBMFriend.h"
+
 @interface TBMVideoPlayer : NSObject
 
-@property NSNumber *friendId;
-
+@property NSString *friendId;
+@property (weak) TBMFriend *friend;
 @property MPMoviePlayerController *moviePlayerController;
 @property NSURL *videoUrl;
-@property UIView *playView;
+@property UIView *friendView;
+@property UIView *playerView;
+@property UIImageView *thumbView;
 
 // Class methods
-+ (id)createWithView:(UIView *)playView friendId:(NSNumber *)friendId;
-+ (id)findWithFriendId:(NSNumber *)friendId;
-+ (void)removeWithFriendId:(NSNumber *)friendId;
++ (id)createWithView:(UIView *)playView friendId:(NSString *)friendId;
++ (id)findWithFriendId:(NSString *)friendId;
++ (void)removeWithFriendId:(NSString *)friendId;
 + (void)removeAll;
 
 

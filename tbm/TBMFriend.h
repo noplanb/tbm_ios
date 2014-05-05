@@ -34,14 +34,18 @@ INCOMING_VIDEO_STATUS_VIEWED,
 
 // Finders
 + (NSArray *)all;
-+ (id)findWithId:(NSNumber *)idTbm;
-+ (id)findWithViewIndex:(NSNumber *)viewIndex;
++ (instancetype)findWithId:(NSString *)idTbm;
++ (instancetype)findWithViewIndex:(NSNumber *)viewIndex;
 + (NSUInteger)count;
 
 // Create and destroy
-+ (id)newWithId:(NSNumber *)idTbm;
++ (instancetype)newWithId:(NSNumber *)idTbm;
 + (NSUInteger)destroyAll;
 + (void)destroyWithId:(NSNumber *)idTbm;
 + (void)saveAll;
+
+// Instance methods
+- (NSURL *)incomingVideoUrl;
+- (UIImage *)thumbImageOrThumbMissingImage;
 
 @end

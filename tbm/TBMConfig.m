@@ -14,4 +14,12 @@
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
 }
 
++ (NSURL *)thumbMissingUrl{
+    return [[[TBMConfig resourceUrl] URLByAppendingPathComponent:@"head"] URLByAppendingPathExtension:@"png"];
+}
+
++ (NSURL *)resourceUrl{
+    return [[NSBundle mainBundle] resourceURL];
+}
+
 @end

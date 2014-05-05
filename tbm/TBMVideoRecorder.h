@@ -13,11 +13,11 @@
 
 @property UIView *previewView;
 
-+ (NSURL *)outgoingVideoUrlWithFriendId:(NSNumber *)friendId;
++ (NSURL *)outgoingVideoUrlWithFriendId:(NSString *)friendId;
 
 -(id)initWithPreivewView:(UIView *)previewView error:(NSError **)error;
 
-- (void)startRecordingWithFriendId:(NSNumber *)friendId;
+- (void)startRecordingWithFriendId:(NSString *)friendId;
 - (void)stopRecording;
 - (void)cancelRecording;
 @end

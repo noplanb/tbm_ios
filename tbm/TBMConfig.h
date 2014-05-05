@@ -11,5 +11,7 @@
 @interface TBMConfig : NSObject
 
 + (NSURL *)videosDirectoryUrl;
++ (NSURL *)resourceUrl;
++ (NSURL *)thumbMissingUrl;
 
 @end
