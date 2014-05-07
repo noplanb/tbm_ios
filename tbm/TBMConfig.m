@@ -8,6 +8,8 @@
 
 #import "TBMConfig.h"
 
+static NSString * const TBMBaseUrlString = @"http://www.threebyme.com";
+
 @implementation TBMConfig
 
 + (NSURL *)videosDirectoryUrl{
@@ -20,6 +22,10 @@
 
 + (NSURL *)resourceUrl{
     return [[NSBundle mainBundle] resourceURL];
+}
+
++ (NSURL *)tbmBaseUrl{
+    return [NSURL URLWithString:TBMBaseUrlString];
 }
 
 @end

@@ -1,0 +1,32 @@
+ - Handle uploads of multiple videos simultaneously in the background.
+ - Multiple uploads in a row for same friend.
+   - Save the latest upload task for each friend with its status. 
+   - A way to identify upload tasks.
+   
+
+- Architecture
+  - Upload manager.
+    - Saves upload task identifier of latest upload task for each friend.
+    - Status of upload for each task. 
+  - Handles task events
+  - Schedules retries.
+  - Produces the correct headers  
+  
+ - Upload for friend
+   x Cancel any running upload task for that friend. Should probably do this so that we dont have an issue with overwriting the output file.
+   x Change the description for that task to nil.
+   x Move the file to the upload url for the friend.
+   x Create a task.
+      x Add the friendId to the description for the new task. 
+   x Resume it. 
+
+
+Android notification.
+1) Notification banners to the user.
+  a) Need to send anytime app is paused. Currently I try to resume the app in those cases. But i think the app can be paused while the screen is off. In that case you dont get a notification and the app does not come on. So you miss the fact that a message came in. This is probably the biggest problem. My bad in designing that way. My phone never turned screen off in all my testing so I thought it made sense but doesnt.
+  b) Remove stale notification banners whenever you launch the app. Jill just sees the old ones and thinks nothing new has happened. 
+  c) Add notification splash banner to off screen. This will be huge for android. 
+  
+2) Notification unreliability.
+  This is not as big a problem but definitely one that has come up in many cases for Kon and some cases with Jill. Often you are connected to wifi but the port for notifications is not allowed by router policy, tcp socket not allowed, or you dont get notification for some other reason. In this case messages are stuck on the server even if you check your app when you think you have good coverage. This is the case for Kon right now with a message stuck on server.
+  This can significantly improved with some simple polling on startup. And periodic smart polling when running and you are in a state that is expecting a reply might be even better with a trade off on expense. 

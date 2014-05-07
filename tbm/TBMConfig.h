@@ -13,5 +13,6 @@
 + (NSURL *)videosDirectoryUrl;
 + (NSURL *)resourceUrl;
 + (NSURL *)thumbMissingUrl;
++ (NSURL *)tbmBaseUrl;
 
 @end

@@ -142,4 +142,15 @@
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
+- (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler{
+    if (identifier == [TBMUploadManager sessionIdentifier]){
+        DebugLog(@"handleEventsForBackgroundURLSession: for uploadSession: ");
+        _backgroundUploadSessionCompletionHandler = completionHandler;
+        _uploadManager = [TBMUploadManager sharedInstance];
+    } else {
+        
+    }
+}
+
+
 @end

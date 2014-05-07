@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TBMUploadManager.h"
 
 @interface TBMAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -15,6 +16,9 @@
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
+@property (copy) void (^backgroundUploadSessionCompletionHandler)();
+@property TBMUploadManager *uploadManager;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

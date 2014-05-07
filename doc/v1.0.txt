@@ -9,7 +9,7 @@ x Boot with register
 x Thumbnails
 x Plus signs in startup screen.
 
-
+- Upload movie
 
 
 - Video Record todo

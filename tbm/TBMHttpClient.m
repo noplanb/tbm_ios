@@ -7,9 +7,7 @@
 //
 
 #import "TBMHttpClient.h"
-
-static NSString * const TBMBaseUrlString = @"http://www.threebyme.com";
-
+#import "TBMConfig.h"
 @implementation TBMHttpClient
 
 + (instancetype)sharedClient {
@@ -17,7 +15,7 @@ static NSString * const TBMBaseUrlString = @"http://www.threebyme.com";
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
-        _sharedClient = [[TBMHttpClient alloc] initWithBaseURL:[NSURL URLWithString:TBMBaseUrlString]];
+        _sharedClient = [[TBMHttpClient alloc] initWithBaseURL:[TBMConfig tbmBaseUrl]];
     });
     return _sharedClient;
 }
