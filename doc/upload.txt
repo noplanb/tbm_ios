@@ -20,13 +20,31 @@
       x Add the friendId to the description for the new task. 
    x Resume it. 
 
-
-Android notification.
-1) Notification banners to the user.
-  a) Need to send anytime app is paused. Currently I try to resume the app in those cases. But i think the app can be paused while the screen is off. In that case you dont get a notification and the app does not come on. So you miss the fact that a message came in. This is probably the biggest problem. My bad in designing that way. My phone never turned screen off in all my testing so I thought it made sense but doesnt.
-  b) Remove stale notification banners whenever you launch the app. Jill just sees the old ones and thinks nothing new has happened. 
-  c) Add notification splash banner to off screen. This will be huge for android. 
+QUESTION 
+  What state does task go to when cancelled? 
   
-2) Notification unreliability.
-  This is not as big a problem but definitely one that has come up in many cases for Kon and some cases with Jill. Often you are connected to wifi but the port for notifications is not allowed by router policy, tcp socket not allowed, or you dont get notification for some other reason. In this case messages are stuck on the server even if you check your app when you think you have good coverage. This is the case for Kon right now with a message stuck on server.
-  This can significantly improved with some simple polling on startup. And periodic smart polling when running and you are in a state that is expecting a reply might be even better with a trade off on expense. 
+ - Test 
+   
+   - New video for same user before original has finished uploading.
+   - Phone in airplane mode.
+
+
+   Note: NSURLSession does not report server errors through the error parameter. The only errors your delegate receives through the error parameter are client-side errors, such as being unable to resolve the hostname or connect to the host. The error codes are described in URL Loading System Error Codes.
+   Server-side errors are reported through the HTTP status code in the NSHTTPURLResponse object. For more information, read the documentation for the NSHTTPURLResponse and NSURLResponse classes.
+
+
+   Important: The session object keeps a strong reference to the delegate until your app explicitly invalidates the session. If you do not invalidate the session, your app leaks memory.
+
+
+ - If server does not receive a file it should respond with an error.
+ 
+ 
+ uploadTasksStates.friendId ||= {}
+ 
+ NSMutableDictionary *states = [uploadTasksStates objectForKey:friendId];
+ if (!states){
+     states = [[NSMutableDictionary alloc] init];
+     [uploadTasksState setObject:states forKey:friendId];
+ }
+ 
+ 

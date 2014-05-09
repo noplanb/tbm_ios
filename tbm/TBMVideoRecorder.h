@@ -8,15 +8,18 @@
 
 #import <Foundation/Foundation.h>
 #import "AVFoundation/AVFoundation.h"
+@protocol TBMVideoRecorderDelegate <NSObject>
+- (void)didFinishVideoRecordingWithFriendId:(NSString *)friendId;
+@end
 
 @interface TBMVideoRecorder : NSObject
 
 @property UIView *previewView;
+@property (nonatomic) id <TBMVideoRecorderDelegate> delegate;
 
 + (NSURL *)outgoingVideoUrlWithFriendId:(NSString *)friendId;
 
--(id)initWithPreivewView:(UIView *)previewView error:(NSError **)error;
-
+-(instancetype)initWithPreivewView:(UIView *)previewView TBMVideoRecorderDelegate:(id)delegate error:(NSError **)error;
 - (void)startRecordingWithFriendId:(NSString *)friendId;
 - (void)stopRecording;
 - (void)cancelRecording;

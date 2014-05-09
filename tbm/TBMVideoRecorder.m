@@ -31,10 +31,10 @@
     return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"mov"]];
 }
 
--(id)initWithPreivewView:(UIView *)previewView error:(NSError **)error
-{
+-(instancetype)initWithPreivewView:(UIView *)previewView TBMVideoRecorderDelegate:(id)delegate error:(NSError **)error{
     self = [super init];
     if (self){
+        _delegate = delegate;
         _fileManager = [NSFileManager defaultManager];
         _previewView = previewView;
         _videosDirectoryUrl = [TBMConfig videosDirectoryUrl];
@@ -154,15 +154,19 @@
     _recordingOverlay.hidden = YES;
 }
 
-- (void)moveRecordingToOutgoingFile
+- (void)moveRecordingToOutgoingFileWithError:(NSError **)error
 {
-    NSError *error = nil;
-    
+    DebugLog(@"moveRecordingToOutgoingFileWithError");
     NSURL *outgoingVideoUrl = [TBMVideoRecorder outgoingVideoUrlWithFriendId:_friendId];
-    [_fileManager removeItemAtURL:outgoingVideoUrl error:&error];
-    [_fileManager moveItemAtURL:_recordingVideoUrl toURL:outgoingVideoUrl error:&error];
-    NSDictionary *ova = [_fileManager attributesOfItemAtPath:outgoingVideoUrl.path error:&error];
-    DebugLog(@"TBMVideoRecorder: recorded filesize=%llu path=%@", ova.fileSize, outgoingVideoUrl.path);
+    [_fileManager removeItemAtURL:outgoingVideoUrl error:&*error];
+    error = nil;
+    [_fileManager moveItemAtURL:_recordingVideoUrl toURL:outgoingVideoUrl error:&*error];
+    if (error) {
+        DebugLog(@"moveRecordingToOutgoingFile: ERROR: unable to move file. This should never happen. %@", *error);
+        return;
+    }
+    NSDictionary *fileAttributes = [_fileManager attributesOfItemAtPath:outgoingVideoUrl.path error:&*error];
+    DebugLog(@"moveRecordingToOutgoingFile: Outgoing file size %llu", fileAttributes.fileSize);
 }
 
 
@@ -175,7 +179,13 @@
     }
     NSDictionary *fileAttributes = [_fileManager attributesOfItemAtPath:[_recordingVideoUrl path] error:&error];
     DebugLog(@"TBMVideoRecorder: recorded file size = %llu", fileAttributes.fileSize);
-    [self moveRecordingToOutgoingFile];
+    
+    error = nil;
+    [self moveRecordingToOutgoingFileWithError:&error];
+    if (error)
+        return;
+    
+    [_delegate didFinishVideoRecordingWithFriendId:_friendId];
 }
 
 - (AVCaptureSession *)addCaptureOutputWithError:(NSError **)error

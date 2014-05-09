@@ -14,5 +14,6 @@
 + (NSURL *)resourceUrl;
 + (NSURL *)thumbMissingUrl;
 + (NSURL *)tbmBaseUrl;
++ (NSString *)tbmBasePath;
 
 @end

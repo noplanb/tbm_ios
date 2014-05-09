@@ -8,10 +8,10 @@
 #import "TBMHomeViewController.h"
 #import "TBMHomeViewController+Boot.h"
 #import "TBMLongPressTouchHandler.h"
-#import "TBMVideoRecorder.h"
 #import "TBMVideoPlayer.h"
 #import "TBMFriend.h"
 #import <UIKit/UIKit.h>
+#import "TBMUploadManager.h"
 
 @interface TBMHomeViewController ()
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *friendViews;
@@ -69,7 +69,7 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 
 - (void) setupVideoRecorder{
     NSError * error;
-    _videoRecorder = [[TBMVideoRecorder alloc] initWithPreivewView:_centerView error:&error];
+    _videoRecorder = [[TBMVideoRecorder alloc] initWithPreivewView:_centerView TBMVideoRecorderDelegate:self error:&error];
     [self hideRecordingIndicator];
     if (!_videoRecorder){
         DebugLog(@"%@", error);
@@ -132,6 +132,12 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     return [TBMFriend findWithViewIndex:@(tag-TBM_HOME_FRIEND_VIEW_INDEX_OFFSET)];
 }
 
+//-----------------------------------
+// TBMVideoRecorderDelegate callbacks
+//-----------------------------------
+- (void)didFinishVideoRecordingWithFriendId:(NSString *)friendId{
+    [[TBMUploadManager sharedManager] uploadWithFriendId:friendId];
+}
 
 //------------------------------------------
 // Longpress touch handling for friend views

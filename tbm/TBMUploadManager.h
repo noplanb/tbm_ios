@@ -10,7 +10,7 @@
 
 @interface TBMUploadManager : NSObject <NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate>
 
-+ (instancetype)sharedInstance;
++ (instancetype)sharedManager;
 + (NSString *)sessionIdentifier;
 
 - (void) uploadWithFriendId:(NSString *)friendId;

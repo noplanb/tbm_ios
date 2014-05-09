@@ -143,10 +143,11 @@
 }
 
 - (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler{
-    if (identifier == [TBMUploadManager sessionIdentifier]){
-        DebugLog(@"handleEventsForBackgroundURLSession: for uploadSession: ");
+    DebugLog(@"handleEventsForBackgroundURLSession: for sessionId=%@",identifier);
+    if ([identifier isEqualToString:[TBMUploadManager sessionIdentifier]]){
+        DebugLog(@"handlingEventsFor TBMUploadManager");
         _backgroundUploadSessionCompletionHandler = completionHandler;
-        _uploadManager = [TBMUploadManager sharedInstance];
+        _uploadManager = [TBMUploadManager sharedManager];
     } else {
         
     }

@@ -8,7 +8,8 @@
 
 #import "TBMConfig.h"
 
-static NSString * const TBMBaseUrlString = @"http://www.threebyme.com";
+//static NSString * const TBMBaseUrlString = @"http://www.threebyme.com";
+static NSString * const TBMBaseUrlString = @"http://192.168.1.91:3000";
 
 @implementation TBMConfig
 
@@ -26,6 +27,10 @@ static NSString * const TBMBaseUrlString = @"http://www.threebyme.com";
 
 + (NSURL *)tbmBaseUrl{
     return [NSURL URLWithString:TBMBaseUrlString];
+}
+
++ (NSString *)tbmBasePath{
+    return TBMBaseUrlString;
 }
 
 @end
