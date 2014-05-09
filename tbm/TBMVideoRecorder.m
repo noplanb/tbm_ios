@@ -10,6 +10,7 @@
 #import "TBMCameraHandler.h"
 #import "TBMSoundEffect.h"
 #import "TBMConfig.h"
+#import "TBMFriend.h"
 
 @interface TBMVideoRecorder () <AVCaptureFileOutputRecordingDelegate>
 @property AVCaptureSession *captureSession;
@@ -156,7 +157,6 @@
 
 - (void)moveRecordingToOutgoingFileWithError:(NSError **)error
 {
-    DebugLog(@"moveRecordingToOutgoingFileWithError");
     NSURL *outgoingVideoUrl = [TBMVideoRecorder outgoingVideoUrlWithFriendId:_friendId];
     [_fileManager removeItemAtURL:outgoingVideoUrl error:&*error];
     error = nil;
@@ -184,6 +184,11 @@
     [self moveRecordingToOutgoingFileWithError:&error];
     if (error)
         return;
+    
+    TBMFriend *friend = [TBMFriend findWithId:_friendId];
+    [friend setRetryCountWithInteger:0];
+    friend.outgoingVideoStatus = OUTGOING_VIDEO_STATUS_NEW;
+    [TBMFriend saveAll];
     
     [_delegate didFinishVideoRecordingWithFriendId:_friendId];
 }

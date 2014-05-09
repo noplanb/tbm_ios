@@ -29,19 +29,33 @@
     - Dont call completion function if we are going to retry.
     - If user relaunches app short circuit retry timer and add the tasks immediately.
     
-    - Todo
+    - Todo for retry 
        x Add field for retry count to friend
        x getRetryCountAsInt, setRetryCountWithInt
-       - Set it to zero on successful upload
-       - Change the state appropriately for 
-         - new
-         - uploading
-         - retry
-         - uploaded
-       - Methods to handle retry
-         - retry with friend (has timer)
-         - retries pending? returns an array of friendIds. Must probably run on the main thread. 
-         - cancel retry with friend
+       x Set it to zero on successful upload
+       x Change the state appropriately for 
+         x new
+         x uploading
+         x retry
+         x uploaded
+       x Methods to handle retry
+         x retry with friend (has timer)
+         x cancel pending retries and restart them
+     
+     - Test retry
+       x Continuous errors
+       x A long upload that starts in the foreground but later fails in the background.
+       x Retries going to long hold off in the background starting again immediately when you go to the foreground.
+
+  - Background time for retry architecture
+    - When doing a retry ask for background time if we havent asked for it before.
+    - Dont end the background task even they call our expiration block because:
+    // The apple docs say you must terminate the background task you requested when they call the expiration handler
+    // or before or they will terminate your app. I have found however that if I dont terminate and if
+    // the usage of the phone is low by other apps they will let us run in the background indefinitely
+    // even after the backgroundTimeRemaining has long gone to 0. This is good for our users as it allows us
+    // to continue retries in the background for a long time in the case of poor coverage.
+     
 
 QUESTION 
   What state does task go to when cancelled? 

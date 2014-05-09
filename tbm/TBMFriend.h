@@ -38,6 +38,7 @@ INCOMING_VIDEO_STATUS_VIEWED,
 + (instancetype)findWithId:(NSString *)idTbm;
 + (instancetype)findWithViewIndex:(NSNumber *)viewIndex;
 + (NSUInteger)count;
++ (NSMutableArray *)whereUploadPendingRetry;
 
 // Create and destroy
 + (instancetype)newWithId:(NSNumber *)idTbm;
@@ -51,5 +52,6 @@ INCOMING_VIDEO_STATUS_VIEWED,
 - (void)setRetryCountWithInteger:(NSInteger)count;
 - (NSInteger)getRetryCount;
 - (void)incrementRetryCount;
+- (BOOL)hasUploadPendingRetry;
 
 @end

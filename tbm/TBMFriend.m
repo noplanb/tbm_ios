@@ -54,6 +54,15 @@
     return [[TBMFriend managedObjectContext] executeFetchRequest:[TBMFriend fetchRequest] error:&error];
 }
 
++ (NSMutableArray *)whereUploadPendingRetry{
+    NSMutableArray *result = [[NSMutableArray alloc] init];
+    for (TBMFriend *friend in [TBMFriend all]){
+        if ([friend hasUploadPendingRetry])
+            [result addObject:friend];
+    }
+    return result;
+}
+
 + (instancetype)findWithId:(NSString *)idTbm{
     return [self findWithAttributeKey:@"idTbm" value:idTbm];
 }
@@ -193,5 +202,9 @@
 - (void)incrementRetryCount{
     NSInteger count = [self getRetryCount] + 1;
     [self setRetryCountWithInteger:count];
+}
+
+- (BOOL)hasUploadPendingRetry{
+    return self.outgoingVideoStatus == OUTGOING_VIDEO_STATUS_UPLOADING && [self getRetryCount] > 0;
 }
 @end

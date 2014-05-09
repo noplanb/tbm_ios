@@ -10,9 +10,13 @@
 
 @interface TBMUploadManager : NSObject <NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate>
 
+@property UIBackgroundTaskIdentifier backgroundTaskIdentifier;
+
 + (instancetype)sharedManager;
 + (NSString *)sessionIdentifier;
 
 - (void) uploadWithFriendId:(NSString *)friendId;
+- (void) restartUploadsPendingRetry;
+
 
 @end
