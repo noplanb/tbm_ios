@@ -159,6 +159,21 @@ static NSString * const TBMHttpFormBoundary = @"*****tbm*****";
     }
 }
 
+-(BOOL)isSuccessfulUploadTask:(NSURLSessionTask *)task{
+    if (task.error){
+        DebugLog(@"ERROR: upload task for friendId=%@ error=%@", [self friendIdWithTask:task], [task.error localizedDescription]);
+        return NO;
+    }
+    
+    NSInteger statusCode = [(NSHTTPURLResponse *)task.response  statusCode];
+    if (statusCode != 200){
+        DebugLog(@"ERROR: upload task for friendId=%@ statusCode=%ld", [self friendIdWithTask:task], (long)statusCode);
+        return NO;
+    }
+    
+    return YES;
+}
+
 // --------------------------
 // Methods relating to upload
 // --------------------------
@@ -219,6 +234,24 @@ static NSString * const TBMHttpFormBoundary = @"*****tbm*****";
     [task resume];
 }
 
+
+// ---------------------
+// Upload status logging
+// ---------------------
+- (void) updateStatusForSuccessfulUploadWithTask:(NSURLSessionTask *)task{
+    TBMFriend *friend = [TBMFriend findWithId:[self friendIdWithTask:task]];
+    [friend setRetryCountWithInteger:0];
+    friend.outgoingVideoStatus = OUTGOING_VIDEO_STATUS_UPLOADED;
+    [TBMFriend saveAll];
+}
+
+- (void) updateStatusForFailedUploadWithTask:(NSURLSessionTask *)task{
+    TBMFriend *friend = [TBMFriend findWithId:[self friendIdWithTask:task]];
+    [friend incrementRetryCount];
+    friend.outgoingVideoStatus = OUTGOING_VIDEO_STATUS_UPLOADING;
+    [TBMFriend saveAll];
+}
+
 // ---------------------------
 // Session delegate callbacks.
 // ---------------------------
@@ -228,11 +261,12 @@ static NSString * const TBMHttpFormBoundary = @"*****tbm*****";
 }
 
 - (void) URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error{
-    if (error){
-        DebugLog(@"taskDidComplete: %@ error: %@", task, [error localizedDescription]);
+    if ([self isSuccessfulUploadTask:task]){
+        DebugLog(@"upload for friend=%@ successful", [self friendIdWithTask:task]);
+        
     } else {
-        DebugLog(@"taskDidComplete: %@ success.", task);
-        [self performSelectorOnMainThread:@selector(printTest) withObject:nil waitUntilDone:NO];
+//        DebugLog(@"taskDidComplete: %@ success.", task);
+//        [self performSelectorOnMainThread:@selector(printTest) withObject:nil waitUntilDone:NO];
 //        NSString *friendId = [self friendIdWithTask:task];
 //        [self uploadWithFriendId:friendId];
     }

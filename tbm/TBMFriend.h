@@ -29,8 +29,9 @@ INCOMING_VIDEO_STATUS_VIEWED,
 @property (nonatomic, retain) NSString * lastName;
 @property (nonatomic) TBMOutgoingVideoStatus outgoingVideoStatus;
 @property (nonatomic) TBMIncomingVideoStatus incomingVideoStatus;
-@property (nonatomic) NSNumber * viewIndex;
-@property (nonatomic) NSString * idTbm;
+@property (nonatomic, retain) NSNumber * viewIndex;
+@property (nonatomic, retain) NSNumber * uploadRetryCount;
+@property (nonatomic, retain) NSString * idTbm;
 
 // Finders
 + (NSArray *)all;
@@ -47,5 +48,8 @@ INCOMING_VIDEO_STATUS_VIEWED,
 // Instance methods
 - (NSURL *)incomingVideoUrl;
 - (UIImage *)thumbImageOrThumbMissingImage;
+- (void)setRetryCountWithInteger:(NSInteger)count;
+- (NSInteger)getRetryCount;
+- (void)incrementRetryCount;
 
 @end

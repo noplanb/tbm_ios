@@ -19,6 +19,7 @@
 @dynamic outgoingVideoStatus;
 @dynamic incomingVideoStatus;
 @dynamic viewIndex;
+@dynamic uploadRetryCount;
 @dynamic idTbm;
 
 //==============
@@ -178,5 +179,19 @@
 
 - (UIImage *)thumbImageOrThumbMissingImage{
     return [UIImage imageWithContentsOfFile:[self thumbUrlOrThumbMissingUrl].path];
+}
+
+// Upload stuff
+- (void)setRetryCountWithInteger:(NSInteger)count{
+    self.uploadRetryCount = [NSNumber numberWithInteger:count];
+}
+
+- (NSInteger)getRetryCount{
+    return [self.uploadRetryCount integerValue];
+}
+
+- (void)incrementRetryCount{
+    NSInteger count = [self getRetryCount] + 1;
+    [self setRetryCountWithInteger:count];
 }
 @end

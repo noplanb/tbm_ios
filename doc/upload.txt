@@ -6,29 +6,52 @@
 
 - Architecture
   - Upload manager.
-    - Saves upload task identifier of latest upload task for each friend.
-    - Status of upload for each task. 
+    - Tags upload tasks with friend ids.
+    - Produces the correct headers. 
   - Handles task events
+    - Changes video status on friend object
   - Schedules retries.
-  - Produces the correct headers  
   
  - Upload for friend
-   x Cancel any running upload task for that friend. Should probably do this so that we dont have an issue with overwriting the output file.
-   x Change the description for that task to nil.
-   x Move the file to the upload url for the friend.
+   x Cancel any running upload task for that friend. Should probably do this so that we dont have an issue with overwriting the output file while it is being accessed.
    x Create a task.
+      x Put the body with the body headers in a file for the task.
       x Add the friendId to the description for the new task. 
    x Resume it. 
 
+  - Retry Architecture
+    - Exponential holdoff from 10seconds up to 2 minutes then retry every 2 minutes.
+    - Save retry count on friend object.
+    - Set it to zero when successfully sent. 
+    x Look at the response code as well as the error state to determine whether to retry. 
+      x Test non 200 response code
+      x client failure.
+    - Dont call completion function if we are going to retry.
+    - If user relaunches app short circuit retry timer and add the tasks immediately.
+    
+    - Todo
+       x Add field for retry count to friend
+       x getRetryCountAsInt, setRetryCountWithInt
+       - Set it to zero on successful upload
+       - Change the state appropriately for 
+         - new
+         - uploading
+         - retry
+         - uploaded
+       - Methods to handle retry
+         - retry with friend (has timer)
+         - retries pending? returns an array of friendIds. Must probably run on the main thread. 
+         - cancel retry with friend
+
 QUESTION 
   What state does task go to when cancelled? 
+  ANSWER: Have never seen canceled state. Probably transitions through so fast and then the task is removed.
   
- - Test 
-   
+TESTS   
    - New video for same user before original has finished uploading.
    - Phone in airplane mode.
 
-
+NOTES:
    Note: NSURLSession does not report server errors through the error parameter. The only errors your delegate receives through the error parameter are client-side errors, such as being unable to resolve the hostname or connect to the host. The error codes are described in URL Loading System Error Codes.
    Server-side errors are reported through the HTTP status code in the NSHTTPURLResponse object. For more information, read the documentation for the NSHTTPURLResponse and NSURLResponse classes.
 
