@@ -1,1 +1,13 @@
+ - Create PushNotificationHandler category on TBMAppDelegate.
+   - Register for notification and get the push token.
+   - Send the push token up to the server
+   
+ - Server
+   - Device type ios / android.
+   
+
+
+
+NOTES:
+
 http://blog.layer.com/how-we-leverage-ios-push-notifications/

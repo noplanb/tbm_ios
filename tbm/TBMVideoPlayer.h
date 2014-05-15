@@ -11,15 +11,16 @@
 
 #import "TBMFriend.h"
 
-@interface TBMVideoPlayer : NSObject
+@interface TBMVideoPlayer : NSObject <TBMVideoStatusNotoficationProtocol>
 
 @property NSString *friendId;
-@property (weak) TBMFriend *friend;
+@property TBMFriend *friend;
 @property MPMoviePlayerController *moviePlayerController;
 @property NSURL *videoUrl;
 @property UIView *friendView;
 @property UIView *playerView;
 @property UIImageView *thumbView;
+@property CALayer *viewedIndicatorLayer;
 
 // Class methods
 + (id)createWithView:(UIView *)playView friendId:(NSString *)friendId;

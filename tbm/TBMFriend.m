@@ -12,6 +12,7 @@
 #import "TBMAppDelegate.h"
 #import "TBMConfig.h"
 
+#import "TBMHomeViewController.h"
 @implementation TBMFriend
 
 @dynamic firstName;
@@ -20,25 +21,26 @@
 @dynamic incomingVideoStatus;
 @dynamic viewIndex;
 @dynamic uploadRetryCount;
+@dynamic downloadRetryCount;
 @dynamic idTbm;
+
+static NSMutableArray * videoStatusNotificationDelegates;
 
 //==============
 // Class methods
 //==============
-+ (TBMAppDelegate *)appDelegate
-{
++ (TBMAppDelegate *)appDelegate{
     return [[UIApplication sharedApplication] delegate];
 }
 
-+ (NSManagedObjectContext *)managedObjectContext
-{
++ (NSManagedObjectContext *)managedObjectContext{
     return [[TBMFriend appDelegate] managedObjectContext];
 }
 
-+ (NSEntityDescription *)entityDescription
-{
++ (NSEntityDescription *)entityDescription{
     return [NSEntityDescription entityForName:@"TBMFriend" inManagedObjectContext:[TBMFriend managedObjectContext]];
 }
+
 
 //--------
 // Finders
@@ -58,6 +60,15 @@
     NSMutableArray *result = [[NSMutableArray alloc] init];
     for (TBMFriend *friend in [TBMFriend all]){
         if ([friend hasUploadPendingRetry])
+            [result addObject:friend];
+    }
+    return result;
+}
+
++ (NSMutableArray *)whereDownloadPendingRetry{
+    NSMutableArray *result = [[NSMutableArray alloc] init];
+    for (TBMFriend *friend in [TBMFriend all]){
+        if ([friend hasDownloadPendingRetry])
             [result addObject:friend];
     }
     return result;
@@ -91,6 +102,7 @@
 {
     TBMFriend *friend = (TBMFriend *)[[NSManagedObject alloc] initWithEntity:[TBMFriend entityDescription] insertIntoManagedObjectContext:[TBMFriend managedObjectContext]];
     friend.idTbm = idTbm;
+    [TBMFriend saveAll];
     return friend;
 }
 
@@ -113,15 +125,16 @@
 }
 
 + (void)saveAll{
-    [[TBMFriend appDelegate] saveContext];
+    [[self appDelegate] saveContext];
 }
 
-
-//-----------------
+//=================
 // Instance methods
-//-----------------
+//=================
 
+//----------------
 // Video URL stuff
+//----------------
 - (NSURL *)incomingVideoUrl{
     NSString *filename = [NSString stringWithFormat:@"incomingVidFromFriend%@", self.idTbm];
     return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"mov"]];
@@ -136,7 +149,7 @@
 }
 
 - (unsigned long long)incomingVideoFileSize{
-    if (![self incomingVideoFileSize])
+    if (![self incomingVideoFileExists])
         return 0;
     
     NSError *error;
@@ -151,7 +164,30 @@
     return [self incomingVideoFileSize] > 0;
 }
 
+- (void)deleteIncomingVideo{
+    DebugLog(@"deleteIncomingVideo");
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSError *error = nil;
+    [fm removeItemAtURL:[self incomingVideoUrl] error:&error];
+}
+
+- (void)loadIncomingVideoWithUrl:(NSURL *)location{
+    DebugLog(@"loadIncomingVideoWithUrl for %@", self.firstName);
+    [self deleteIncomingVideo];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSError *error = nil;
+    DebugLog(@"moveIncomingVideo");
+    [fm moveItemAtURL:location toURL:[self incomingVideoUrl] error:&error];
+    if (error){
+        DebugLog(@"loadIncomingVideoWithUrl: ERROR. This should never occur");
+        return;
+    }
+    [self generateThumb];
+}
+
+//----------------
 // Thumb URL stuff
+//----------------
 - (NSURL *)thumbUrl{
     NSString *filename = [NSString stringWithFormat:@"thumbFromFriend%@", self.idTbm];
     return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"png"]];
@@ -166,6 +202,7 @@
 }
 
 - (void)generateThumb{
+    DebugLog(@"generateThumb for %@", self.firstName);
     if (![self hasValidIncomingVideoFile])
         return;
     
@@ -190,21 +227,151 @@
     return [UIImage imageWithContentsOfFile:[self thumbUrlOrThumbMissingUrl].path];
 }
 
-// Upload stuff
-- (void)setRetryCountWithInteger:(NSInteger)count{
-    self.uploadRetryCount = [NSNumber numberWithInteger:count];
+//-------------
+// VideoStatus
+//-------------
++ (void)addVideoStatusNotificationDelegate:(id)delegate{
+    if (!videoStatusNotificationDelegates) {
+        videoStatusNotificationDelegates = [[NSMutableArray alloc] init];
+    }
+    [TBMFriend removeVideoStatusNotificationDelegate:delegate];
+    [videoStatusNotificationDelegates addObject:delegate];
 }
 
-- (NSInteger)getRetryCount{
++ (void)removeVideoStatusNotificationDelegate:(id)delegate{
+    [videoStatusNotificationDelegates removeObject:delegate];
+}
+
+- (void)notifyVideoStatusChangeOnMainThread{
+    DebugLog(@"notifyVideoStatusChangeOnMainThread");
+    [self performSelectorOnMainThread:@selector(notifyVideoStatusChange) withObject:nil waitUntilDone:YES];
+}
+
+- (void)notifyVideoStatusChange{
+    for (id<TBMVideoStatusNotoficationProtocol> delegate in videoStatusNotificationDelegates){
+        DebugLog(@"notifyVideoStatusChange for %@ on delegate %@", self.firstName, delegate);
+        [delegate videoStatusDidChange:self];
+    }
+}
+
+- (NSString *)videoStatusString{
+    NSString *statusString;
+    
+    switch (self.incomingVideoStatus) {
+        case INCOMING_VIDEO_STATUS_DOWNLOADING:
+            return @"Downloading...";
+        case INCOMING_VIDEO_STATUS_DOWNLOADED:
+            return self.firstName;
+        default:
+            break;
+    }
+    
+    switch (self.outgoingVideoStatus) {
+        case OUTGOING_VIDEO_STATUS_NEW:
+            statusString = nil;
+            break;
+        case OUTGOING_VIDEO_STATUS_UPLOADING:
+            if ([self getUploadRetryCount] == 0) {
+                statusString = @"p...";
+            } else {
+                statusString = [NSString stringWithFormat:@"r%lu...", (long)[self getUploadRetryCount]];
+            }
+            break;
+        case OUTGOING_VIDEO_STATUS_UPLOADED:
+            statusString = @".s..";
+            break;
+        case OUTGOING_VIDEO_STATUS_DOWNLOADED:
+            statusString = @"..p.";
+            break;
+        case OUTGOING_VIDEO_STATUS_VIEWED:
+            statusString = @"...v!";
+            break;
+        default:
+            statusString = nil;
+    }
+    
+    if (statusString) {
+        return [NSString stringWithFormat:@"%@ %@", [self shortFirstName], statusString];
+    } else {
+        return self.firstName;
+    }
+}
+
+- (NSString *)shortFirstName{
+    return [self.firstName substringWithRange:NSMakeRange(0, MIN(6, [self.firstName length]))];
+}
+
+
+
+- (void)setAndNotifyOutgoingVideoStatus:(TBMOutgoingVideoStatus)newStatus{
+    if (newStatus != self.outgoingVideoStatus){
+        self.outgoingVideoStatus = newStatus;
+        [self notifyVideoStatusChangeOnMainThread];
+    }
+}
+
+- (void)setAndNotifyIncomingVideoStatus:(TBMIncomingVideoStatus)newStatus{
+    DebugLog(@"setAndNotifyIncomingVideoStatus for %@", self.firstName);
+    if (newStatus != self.incomingVideoStatus){
+        self.incomingVideoStatus = newStatus;
+        [self notifyVideoStatusChangeOnMainThread];
+    }
+}
+
+// ------------
+// Retry Counts
+// ------------
+
+// UPLOADING
+- (void)setUploadRetryCountWithInteger:(NSInteger)count{
+    [self setAndNotifyUploadRetryCount:[NSNumber numberWithInteger:count]];
+}
+
+- (NSInteger)getUploadRetryCount{
     return [self.uploadRetryCount integerValue];
 }
 
-- (void)incrementRetryCount{
-    NSInteger count = [self getRetryCount] + 1;
-    [self setRetryCountWithInteger:count];
+- (void)incrementUploadRetryCount{
+    NSInteger count = [self getUploadRetryCount] + 1;
+    [self setUploadRetryCountWithInteger:count];
 }
 
 - (BOOL)hasUploadPendingRetry{
-    return self.outgoingVideoStatus == OUTGOING_VIDEO_STATUS_UPLOADING && [self getRetryCount] > 0;
+    return self.outgoingVideoStatus == OUTGOING_VIDEO_STATUS_UPLOADING && [self getUploadRetryCount] > 0;
 }
+
+
+- (void)setAndNotifyUploadRetryCount:(NSNumber *)newRetryCount{
+    if (newRetryCount != self.uploadRetryCount){
+        self.uploadRetryCount = newRetryCount;
+        [self notifyVideoStatusChangeOnMainThread];
+    }
+}
+
+// DOWNLOADING
+- (void)setDownloadRetryCountWithInteger:(NSInteger)count{
+    [self setAndNotifyDownloadRetryCount:[NSNumber numberWithInteger:count]];
+}
+
+- (NSInteger)getDownloadRetryCount{
+    return [self.downloadRetryCount integerValue];
+}
+
+- (void)incrementDownloadRetryCount{
+    NSInteger count = [self getDownloadRetryCount] + 1;
+    [self setDownloadRetryCountWithInteger:count];
+}
+
+- (BOOL)hasDownloadPendingRetry{
+    return self.incomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING && [self getDownloadRetryCount] > 0;
+}
+
+
+- (void)setAndNotifyDownloadRetryCount:(NSNumber *)newRetryCount{
+    if (newRetryCount != self.downloadRetryCount){
+        self.downloadRetryCount = newRetryCount;
+        [self notifyVideoStatusChangeOnMainThread];
+    }
+}
+
 @end

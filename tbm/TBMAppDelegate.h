@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TBMUploadManager.h"
+#import "TBMDownloadManager.h"
 
 @interface TBMAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -18,7 +19,10 @@
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 @property (copy) void (^backgroundUploadSessionCompletionHandler)();
+@property (copy) void (^backgroundDownloadSessionCompletionHandler)();
+
 @property TBMUploadManager *uploadManager;
+@property TBMDownloadManager *downloadManager;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

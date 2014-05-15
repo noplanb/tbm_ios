@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+@protocol TBMVideoStatusNotoficationProtocol <NSObject>
+- (void)videoStatusDidChange:(id)object;
+@end
+
 
 @interface TBMFriend : NSManagedObject
 
@@ -31,6 +35,7 @@ INCOMING_VIDEO_STATUS_VIEWED,
 @property (nonatomic) TBMIncomingVideoStatus incomingVideoStatus;
 @property (nonatomic, retain) NSNumber * viewIndex;
 @property (nonatomic, retain) NSNumber * uploadRetryCount;
+@property (nonatomic, retain) NSNumber * downloadRetryCount;
 @property (nonatomic, retain) NSString * idTbm;
 
 // Finders
@@ -39,6 +44,7 @@ INCOMING_VIDEO_STATUS_VIEWED,
 + (instancetype)findWithViewIndex:(NSNumber *)viewIndex;
 + (NSUInteger)count;
 + (NSMutableArray *)whereUploadPendingRetry;
++ (NSMutableArray *)whereDownloadPendingRetry;
 
 // Create and destroy
 + (instancetype)newWithId:(NSNumber *)idTbm;
@@ -46,12 +52,31 @@ INCOMING_VIDEO_STATUS_VIEWED,
 + (void)destroyWithId:(NSNumber *)idTbm;
 + (void)saveAll;
 
+// VideoStatusNotification
++ (void)addVideoStatusNotificationDelegate:(id)delegate;
++ (void)removeVideoStatusNotificationDelegate:(id)delegate;
+
 // Instance methods
+- (BOOL) hasValidIncomingVideoFile;
+- (void)loadIncomingVideoWithUrl:(NSURL *)location;
+
 - (NSURL *)incomingVideoUrl;
 - (UIImage *)thumbImageOrThumbMissingImage;
-- (void)setRetryCountWithInteger:(NSInteger)count;
-- (NSInteger)getRetryCount;
-- (void)incrementRetryCount;
-- (BOOL)hasUploadPendingRetry;
 
+- (void)setUploadRetryCountWithInteger:(NSInteger)count;
+- (void)setDownloadRetryCountWithInteger:(NSInteger)count;
+
+- (NSInteger)getUploadRetryCount;
+- (NSInteger)getDownloadRetryCount;
+
+- (void)incrementUploadRetryCount;
+- (void)incrementDownloadRetryCount;
+
+- (BOOL)hasUploadPendingRetry;
+- (BOOL)hasDownloadPendingRetry;
+
+- (NSString *)videoStatusString;
+- (void)setAndNotifyOutgoingVideoStatus:(TBMOutgoingVideoStatus)newStatus;- (void)setAndNotifyIncomingVideoStatus:(TBMIncomingVideoStatus)newStatus;
+- (void)setAndNotifyUploadRetryCount:(NSNumber *)newRetryCount;
 @end
+

@@ -159,7 +159,7 @@
 {
     NSURL *outgoingVideoUrl = [TBMVideoRecorder outgoingVideoUrlWithFriendId:_friendId];
     [_fileManager removeItemAtURL:outgoingVideoUrl error:&*error];
-    error = nil;
+    *error = nil;
     [_fileManager moveItemAtURL:_recordingVideoUrl toURL:outgoingVideoUrl error:&*error];
     if (error) {
         DebugLog(@"moveRecordingToOutgoingFile: ERROR: unable to move file. This should never happen. %@", *error);
@@ -182,14 +182,17 @@
     
     error = nil;
     [self moveRecordingToOutgoingFileWithError:&error];
-    if (error)
+    if (error){
+        DebugLog(@"ERROR: moveRecordingToOutgoingFileWithError this should never happen. error=%@", error);
         return;
+    }
     
     TBMFriend *friend = [TBMFriend findWithId:_friendId];
-    [friend setRetryCountWithInteger:0];
-    friend.outgoingVideoStatus = OUTGOING_VIDEO_STATUS_NEW;
+    [friend setUploadRetryCountWithInteger:0];
+    [friend setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_NEW];
     [TBMFriend saveAll];
     
+    DebugLog(@"didFinishRecording calling delegate=%@", _delegate);
     [_delegate didFinishVideoRecordingWithFriendId:_friendId];
 }
 

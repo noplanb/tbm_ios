@@ -13,20 +13,31 @@
 #import "TBMHttpClient.h"
 #import "UIAlertView+AFNetworking.h"
 #import "NSArray+NSArrayExtensions.h"
+#import "TBMAppDelegate+PushNotification.h"
 
 @implementation TBMHomeViewController (Boot)
 
-- (void)boot{
+static UIAlertView *getFriendsErrorAlert = nil;
+
+- (void) boot{
+    DebugLog(@"Boot");
     TBMUser *user = [TBMUser getUser];
     NSArray *friends = [TBMFriend all];
-    DebugLog(@"User = %@", user.firstName);
-    DebugLog(@"Friends:");
-    for (TBMFriend *f in friends){
-        DebugLog(@"%@: %@", f.firstName, f);
-    }
-
-    if (!user || [friends count] == 0)
+    if (!user || [friends count] == 0){
         [self showRegister];
+    } else {
+        [self userAndFriendModelsAreSetup];
+    }
+}
+
+- (void) userAndFriendModelsAreSetup{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self registerForPushNotification];
+}
+
+- (void) registerForPushNotification{
+    TBMAppDelegate *tbmAppDelegate = [[UIApplication sharedApplication] delegate];
+    [tbmAppDelegate registerForPushNotification];
 }
 
 - (void) showRegister{
@@ -38,7 +49,6 @@
 
 - (void) didSelectUser:(NSDictionary *)user{
     DebugLog(@"didSelectUser: %@", user);
-    [self dismissViewControllerAnimated:YES completion:nil];
     TBMUser *u = [TBMUser createWithIdTbm:[user objectForKey:@"id"]];
     u.firstName = [user objectForKey:@"first_name"];
     u.lastName = [user objectForKey:@"last_name"];
@@ -52,9 +62,21 @@
         [self addFriends:responseObject];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         DebugLog(@"getFriends: ERROR: %@", error);
+        [self showGetFriendsErrorAlertWithError:error];
     }];
-    [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:nil];
     [task resume];
+}
+
+- (void) showGetFriendsErrorAlertWithError:(NSError *)error{
+    NSString *errorMsg = [NSString stringWithFormat:@"%@ Check your internet connection and try again.", [error localizedDescription]];
+    getFriendsErrorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles:nil];
+    [getFriendsErrorAlert show];
+}
+
+- (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    if (alertView == getFriendsErrorAlert){
+        [self getFriends];
+    }
 }
 
 - (void) addFriends:(NSMutableArray *)friends{
@@ -68,6 +90,7 @@
         i++;
     }
     [TBMFriend saveAll];
+    [self userAndFriendModelsAreSetup];
 }
 
 @end

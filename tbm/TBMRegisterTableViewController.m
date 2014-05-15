@@ -45,9 +45,17 @@
         [self.tableView reloadData];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         DebugLog(@"getUsers: ERROR: %@", error);
+        NSString *errorMsg = [NSString stringWithFormat:@"%@ Check your internet connection and try again.", [error localizedDescription]];
+        _getUsersErrorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles:nil];
+        [_getUsersErrorAlert show];
     }];
-    [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:nil];
     [task resume];
+}
+
+- (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    if (alertView == _getUsersErrorAlert) {
+        [self getUsers];
+    }
 }
 
 - (void)didReceiveMemoryWarning

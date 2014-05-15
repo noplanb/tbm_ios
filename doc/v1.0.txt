@@ -8,8 +8,10 @@ x Video player
 x Boot with register
 x Thumbnails
 x Plus signs in startup screen.
+x Uploads see upload.txt
+x Upload status indicator.
 
-- Upload movie
+- Notifications
 
 
 - Video Record todo

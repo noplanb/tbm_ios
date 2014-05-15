@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "TBMLongPressTouchHandlerCallback.h"
 #import "TBMVideoRecorder.h"
+#import "TBMFriend.h"
 
-@interface TBMHomeViewController : UIViewController <TBMLongPressTouchHandlerCallback, TBMVideoRecorderDelegate>
+@interface TBMHomeViewController : UIViewController <TBMLongPressTouchHandlerCallback, TBMVideoRecorderDelegate, TBMVideoStatusNotoficationProtocol>
 @property (weak, nonatomic) IBOutlet UIView *centerView;
 @property (weak, nonatomic) IBOutlet UILabel *centerLabel;
+
 @end

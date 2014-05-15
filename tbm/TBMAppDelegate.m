@@ -7,6 +7,7 @@
 //
 
 #import "TBMAppDelegate.h"
+#import "TBMAppDelegate+PushNotification.h"
 
 @implementation TBMAppDelegate
 
@@ -16,8 +17,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    DebugLog(@"didFinishLaunchingWithOptions:");
     return YES;
 }
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -41,7 +44,7 @@
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     _uploadManager = [TBMUploadManager sharedManager];
-    [_uploadManager restartUploadsPendingRetry];
+    [_uploadManager restartTasksPendingRetry];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -148,12 +151,14 @@
 
 - (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler{
     DebugLog(@"handleEventsForBackgroundURLSession: for sessionId=%@",identifier);
-    if ([identifier isEqualToString:[TBMUploadManager sessionIdentifier]]){
+    if ([identifier isEqualToString:[_uploadManager sessionIdentifier]]){
         DebugLog(@"handlingEventsFor TBMUploadManager");
         _backgroundUploadSessionCompletionHandler = completionHandler;
         _uploadManager = [TBMUploadManager sharedManager];
     } else {
-        
+        DebugLog(@"handlingEventsFor TBMDownloadManager");
+        _backgroundDownloadSessionCompletionHandler = completionHandler;
+        _downloadManager = [TBMDownloadManager sharedManager];
     }
 }
 

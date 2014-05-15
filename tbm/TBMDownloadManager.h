@@ -1,5 +1,5 @@
 //
-//  TBMUploadManager.h
+//  TBMDownloadManager.h
 //  tbm
 //
 //  Created by Sani Elfishawy on 5/14/14.
@@ -8,6 +8,6 @@
 
 #import "TBMFileTransferManger.h"
 
-@interface TBMUploadManager : TBMFileTransferManger
+@interface TBMDownloadManager : TBMFileTransferManger
 + (instancetype)sharedManager;
 @end

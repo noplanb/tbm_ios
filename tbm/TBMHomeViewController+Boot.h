@@ -9,6 +9,6 @@
 #import "TBMHomeViewController.h"
 #import "TBMRegisterProtocol.h"
 
-@interface TBMHomeViewController (Boot) <TBMRegisterProtocol>
+@interface TBMHomeViewController (Boot) <TBMRegisterProtocol, UIAlertViewDelegate>
 - (void)boot;
 @end

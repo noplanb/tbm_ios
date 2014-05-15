@@ -60,7 +60,7 @@
     [TBMUser destroy];
     TBMUser *user = (TBMUser *)[[NSManagedObject alloc] initWithEntity:[TBMUser entityDescription] insertIntoManagedObjectContext:[TBMUser managedObjectContext]];
     user.idTbm = idTbm;
-    [[TBMUser appDelegate] saveContext];
+//    [[TBMUser appDelegate] saveContext];
     return user;
 }
 

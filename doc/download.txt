@@ -1,0 +1,10 @@
+x Factor upload code for fileTransfer
+x Deprecate the old upload manager
+x Create a new upload by subclassing.
+x Create a new download manager by subclassing.
+
+
+
+
+TODO
+- Add code to atomically expire the session and recreate it.

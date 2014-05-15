@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "TBMRegisterProtocol.h"
 
-@interface TBMRegisterTableViewController : UITableViewController
+@interface TBMRegisterTableViewController : UITableViewController <UIAlertViewDelegate>
 @property NSMutableArray *users;
 @property (nonatomic) id <TBMRegisterProtocol> delegate;
+@property UIAlertView *getUsersErrorAlert;
 @end

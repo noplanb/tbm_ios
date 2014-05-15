@@ -1,35 +1,33 @@
- - Handle uploads of multiple videos simultaneously in the background.
- - Multiple uploads in a row for same friend.
-   - Save the latest upload task for each friend with its status. 
-   - A way to identify upload tasks.
+ x Handle uploads of multiple videos simultaneously in the background.
+ x Multiple uploads in a row for same friend.
    
 
-- Architecture
-  - Upload manager.
-    - Tags upload tasks with friend ids.
-    - Produces the correct headers. 
-  - Handles task events
-    - Changes video status on friend object
-  - Schedules retries.
+x Architecture
+  x Upload manager.
+    x Tags upload tasks with friend ids.
+    x Produces the correct headers. 
+  x Handles task events
+    x Changes video status on friend object
+  x Schedules retries.
   
- - Upload for friend
+ x Upload for friend
    x Cancel any running upload task for that friend. Should probably do this so that we dont have an issue with overwriting the output file while it is being accessed.
    x Create a task.
       x Put the body with the body headers in a file for the task.
       x Add the friendId to the description for the new task. 
    x Resume it. 
 
-  - Retry Architecture
-    - Exponential holdoff from 10seconds up to 2 minutes then retry every 2 minutes.
-    - Save retry count on friend object.
-    - Set it to zero when successfully sent. 
+  x Retry Architecture
+    x Exponential holdoff from 10seconds up to 2 minutes then retry every 2 minutes.
+    x Save retry count on friend object.
+    x Set it to zero when successfully sent. 
     x Look at the response code as well as the error state to determine whether to retry. 
       x Test non 200 response code
       x client failure.
-    - Dont call completion function if we are going to retry.
-    - If user relaunches app short circuit retry timer and add the tasks immediately.
+    x Dont call completion function if we are going to retry.
+    x If user relaunches app short circuit retry timer and add the tasks immediately.
     
-    - Todo for retry 
+    x Todo for retry 
        x Add field for retry count to friend
        x getRetryCountAsInt, setRetryCountWithInt
        x Set it to zero on successful upload
@@ -42,14 +40,14 @@
          x retry with friend (has timer)
          x cancel pending retries and restart them
      
-     - Test retry
+     x Test retry
        x Continuous errors
        x A long upload that starts in the foreground but later fails in the background.
        x Retries going to long hold off in the background starting again immediately when you go to the foreground.
 
-  - Background time for retry architecture
-    - When doing a retry ask for background time if we havent asked for it before.
-    - Dont end the background task even they call our expiration block because:
+  x Background time for retry architecture
+    x When doing a retry ask for background time if we havent asked for it before.
+    x Dont end the background task even they call our expiration block because:
     // The apple docs say you must terminate the background task you requested when they call the expiration handler
     // or before or they will terminate your app. I have found however that if I dont terminate and if
     // the usage of the phone is low by other apps they will let us run in the background indefinitely
@@ -60,6 +58,20 @@
 QUESTION 
   What state does task go to when cancelled? 
   ANSWER: Have never seen canceled state. Probably transitions through so fast and then the task is removed.
+
+
+PROBLEM
+  - When I use KVO observers on the managed object Friends I get bizarre behavior:
+    - The callback from the observer often return objects with all attributes set to nil
+    - The situation seems to get worse when I using managedObjectContext save.
+  
+  - TRY forget about using KVO observers in this case.
+    - Add a VideoStatusNotification protocol to friend
+    - Add a videoStatusDidChangeMethod.
+    - Add a static variable to hold the delegate
+    - Add implementation of the delegate to homeviewcontroller
+  - Works well.  
+  
   
 TESTS   
    - New video for same user before original has finished uploading.

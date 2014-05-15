@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="12F45" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="TBMFriend" representedClassName="TBMFriend" syncable="YES">
+        <attribute name="downloadRetryCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="idTbm" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="incomingVideoStatus" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -15,7 +16,7 @@
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="TBMFriend" positionX="0" positionY="0" width="128" height="150"/>
-        <element name="TBMUser" positionX="0" positionY="45" width="128" height="90"/>
+        <element name="TBMFriend" positionX="0" positionY="0" width="144" height="165"/>
+        <element name="TBMUser" positionX="-218" positionY="-0" width="128" height="90"/>
     </elements>
 </model>
