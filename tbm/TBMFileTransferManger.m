@@ -55,15 +55,22 @@ static NSString * const TBMHttpFormBoundary = @"*****tbm*****";
 // Session methods
 // ---------------
 
-// Singleton with unique identifier so our session is matched when our app is relaunched either in foreground or background.
+/*
+ Singleton with unique identifier so our session is matched when our app is relaunched either in foreground or background. From: apple docuementation :: Note: You must create exactly one session per identifier (specified when you create the configuration object). The behavior of multiple sessions sharing the same identifier is undefined.
+*/
+
 - (NSURLSession *) session{
-    static NSURLSession *session = nil;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration backgroundSessionConfiguration:[self sessionIdentifier]];
-		session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
-	});
-	return session;
+    if (_backgroundSession) {
+        // DebugLog(@"Using existing session id=%@ for %@", _backgroundSession.configuration.identifier, _transferTypeString);
+        return _backgroundSession;
+    }
+    
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration backgroundSessionConfiguration:[self sessionIdentifier]];
+    _backgroundSession = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+    // DebugLog(@"Creating new session id=%@ for %@", _backgroundSession.configuration.identifier, _transferTypeString);
+    
+	return _backgroundSession;
 }
 
 - (NSString *)sessionIdentifier{
@@ -201,7 +208,7 @@ static NSString * const TBMHttpFormBoundary = @"*****tbm*****";
 // Methods relating to file transfer
 // ---------------------------------
 - (void) fileTransferWithFriendId:(NSString *)friendId{
-    DebugLog(@"%@WithFriendId session=%@", _transferTypeString, [self session]);
+    DebugLog(@"%@WithFriendId session=%@", _transferTypeString, [self session].configuration.identifier);
     
     [self setStatusForFileTransferStartWithFriendId:friendId];
     
@@ -433,6 +440,12 @@ static NSString * const TBMHttpFormBoundary = @"*****tbm*****";
 
 - (void) URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error{
     if ([self isSuccessfulTask:task]){
+        // Dont use this callback for downloads use downloadTaskdidFinishDownloadingToURL below.
+        // This callback is used in for both upload and download. Only use it for upload.
+        if (_transferType == TBM_FILE_TRANSFER_TYPE_DOWNLOAD){
+            return;
+        }
+        
         DebugLog(@"%@ for %@ successful", _transferTypeString, [self friendWithTask:task].firstName);
         [self setStatusForSuccessfulFileTransferWithTask:task];
     } else {
@@ -491,6 +504,11 @@ static NSString * const TBMHttpFormBoundary = @"*****tbm*****";
                 appDelegate.backgroundUploadSessionCompletionHandler = nil;
             }
         }
+        
+        DebugLog(@"Flusing session %@.", [self session].configuration.identifier);
+        [[self session] flushWithCompletionHandler:^{
+            DebugLog(@"Flushed session shoul be using new socket.");
+        }];
     }
 }
 @end

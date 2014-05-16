@@ -11,7 +11,21 @@ x Plus signs in startup screen.
 x Uploads see upload.txt
 x Upload status indicator.
 
+
+- Video recording
+  x Sound 
+  x Size
+  - Compatibility with android
+  
 - Notifications
+  - Handler on the phone
+  - Server handle ios and android notifications.
+
+- Polling 
+  - Sent video status
+  - Videos waiting for upload.
+  
+
 
 
 - Video Record todo

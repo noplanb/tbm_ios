@@ -1,0 +1,24 @@
+Experiment with various AVCaptureSessionPresets:
+
+ - AVCaptureSessionPresetLow
+   - 30 seconds of recording
+     - Filesize 440K
+
+ - AVCaptureSessionPresetMedium
+   - 30 seconds of recording
+     - Filesize 2.6M
+ 
+  - AVCaptureSessionPreset640x480
+   - 30 seconds of recording
+     - Filesize 8.0M
+     
+Use AVCaptureSessionPresetLow.
+
+
+PROBLEM: 
+ - Cant play videos recorded on android on 
+
+
+
+NOTES:
+Good article on choosing microphones and doing noise canceling: https://developer.apple.com/library/iOS/qa/qa1799/_index.html. 

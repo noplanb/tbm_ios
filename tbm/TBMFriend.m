@@ -19,6 +19,7 @@
 @dynamic lastName;
 @dynamic outgoingVideoStatus;
 @dynamic incomingVideoStatus;
+@dynamic lastVideoStatusEventType;
 @dynamic viewIndex;
 @dynamic uploadRetryCount;
 @dynamic downloadRetryCount;
@@ -208,9 +209,10 @@ static NSMutableArray * videoStatusNotificationDelegates;
     
     AVAsset *asset = [AVAsset assetWithURL:[self incomingVideoUrl]];
     AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc]initWithAsset:asset];
+    imageGenerator.appliesPreferredTrackTransform = YES;
     CMTime time = CMTimeMake(1, 1);
     CGImageRef imageRef = [imageGenerator copyCGImageAtTime:time actualTime:NULL error:NULL];
-    UIImage *thumbnail = [UIImage imageWithCGImage:imageRef];
+    UIImage *thumbnail = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationUp];
     CGImageRelease(imageRef);  // CGImageRef won't be released by ARC
     [UIImagePNGRepresentation(thumbnail) writeToURL:[self thumbUrl] atomically:YES];
 }
@@ -230,6 +232,10 @@ static NSMutableArray * videoStatusNotificationDelegates;
 //-------------
 // VideoStatus
 //-------------
+// I just could not get KVO to work reliably on attributes of a managedModel.
+// So I rolled my own notification registry.
+// In hindsight I should have probably used the NSNotificationCenter for this rather than rolling my own.
+
 + (void)addVideoStatusNotificationDelegate:(id)delegate{
     if (!videoStatusNotificationDelegates) {
         videoStatusNotificationDelegates = [[NSMutableArray alloc] init];
@@ -248,24 +254,30 @@ static NSMutableArray * videoStatusNotificationDelegates;
 }
 
 - (void)notifyVideoStatusChange{
+    DebugLog(@"notifyVideoStatusChange for %@ on %lu delegates", self.firstName, (unsigned long)[videoStatusNotificationDelegates count]);
     for (id<TBMVideoStatusNotoficationProtocol> delegate in videoStatusNotificationDelegates){
-        DebugLog(@"notifyVideoStatusChange for %@ on delegate %@", self.firstName, delegate);
         [delegate videoStatusDidChange:self];
     }
 }
 
 - (NSString *)videoStatusString{
-    NSString *statusString;
-    
-    switch (self.incomingVideoStatus) {
-        case INCOMING_VIDEO_STATUS_DOWNLOADING:
-            return @"Downloading...";
-        case INCOMING_VIDEO_STATUS_DOWNLOADED:
-            return self.firstName;
-        default:
-            break;
+    if (self.lastVideoStatusEventType == OUTGOING_VIDEO_STATUS_EVENT_TYPE) {
+        return [self outgoingVideoStatusString];
+    } else {
+        return [self incomingVideoStatusString];
     }
-    
+}
+
+- (NSString *)incomingVideoStatusString{
+    if (self.incomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING){
+        return @"Downloading...";
+    } else {
+        return self.firstName;
+    }
+}
+
+- (NSString *)outgoingVideoStatusString{
+    NSString *statusString;
     switch (self.outgoingVideoStatus) {
         case OUTGOING_VIDEO_STATUS_NEW:
             statusString = nil;
@@ -284,27 +296,23 @@ static NSMutableArray * videoStatusNotificationDelegates;
             statusString = @"..p.";
             break;
         case OUTGOING_VIDEO_STATUS_VIEWED:
-            statusString = @"...v!";
+            statusString = @"v!";
             break;
         default:
             statusString = nil;
     }
     
-    if (statusString) {
-        return [NSString stringWithFormat:@"%@ %@", [self shortFirstName], statusString];
-    } else {
-        return self.firstName;
-    }
+    NSString *fn = (!statusString || self.outgoingVideoStatus == OUTGOING_VIDEO_STATUS_VIEWED) ? self.firstName : [self shortFirstName];
+    return [NSString stringWithFormat:@"%@ %@", fn, statusString];
 }
 
 - (NSString *)shortFirstName{
     return [self.firstName substringWithRange:NSMakeRange(0, MIN(6, [self.firstName length]))];
 }
 
-
-
 - (void)setAndNotifyOutgoingVideoStatus:(TBMOutgoingVideoStatus)newStatus{
     if (newStatus != self.outgoingVideoStatus){
+        self.lastVideoStatusEventType = OUTGOING_VIDEO_STATUS_EVENT_TYPE;
         self.outgoingVideoStatus = newStatus;
         [self notifyVideoStatusChangeOnMainThread];
     }
@@ -313,9 +321,15 @@ static NSMutableArray * videoStatusNotificationDelegates;
 - (void)setAndNotifyIncomingVideoStatus:(TBMIncomingVideoStatus)newStatus{
     DebugLog(@"setAndNotifyIncomingVideoStatus for %@", self.firstName);
     if (newStatus != self.incomingVideoStatus){
+        self.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
         self.incomingVideoStatus = newStatus;
         [self notifyVideoStatusChangeOnMainThread];
     }
+}
+
+- (void)setIncomingViewed{
+    [self setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_VIEWED];
+    [TBMFriend saveAll];
 }
 
 // ------------

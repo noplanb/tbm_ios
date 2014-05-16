@@ -2,15 +2,16 @@
 //  TBMSoundEffect.h
 //  tbm
 //
-//  Created by Sani Elfishawy on 4/29/14.
+//  Created by Sani Elfishawy on 5/15/14.
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import <AudioToolbox/AudioServices.h>
+#import "AVFoundation/AVFoundation.h"
 
 @interface TBMSoundEffect : NSObject
-@property SystemSoundID soundId;
+@property AVAudioPlayer *player;
+
 - (id)initWithSoundNamed:(NSString *)filename;
 - (void)play;
 @end

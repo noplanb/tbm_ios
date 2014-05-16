@@ -15,24 +15,34 @@
 
 @interface TBMFriend : NSManagedObject
 
+// Note order matters. The first enum is chosen intentionally since that is what the
+// property initializes to.
 typedef NS_ENUM (NSInteger, TBMOutgoingVideoStatus) {
-OUTGOING_VIDEO_STATUS_NEW,
-OUTGOING_VIDEO_STATUS_UPLOADING,
-OUTGOING_VIDEO_STATUS_UPLOADED,
-OUTGOING_VIDEO_STATUS_DOWNLOADED,
-OUTGOING_VIDEO_STATUS_VIEWED
+    OUTGOING_VIDEO_STATUS_NEW,
+    OUTGOING_VIDEO_STATUS_UPLOADING,
+    OUTGOING_VIDEO_STATUS_UPLOADED,
+    OUTGOING_VIDEO_STATUS_DOWNLOADED,
+    OUTGOING_VIDEO_STATUS_VIEWED,
 };
 
+// Note order matters. The first enum is chosen intentionally since that is what the
+// property initializes to.
 typedef NS_ENUM (NSInteger, TBMIncomingVideoStatus) {
-INCOMING_VIDEO_STATUS_DOWNLOADING,
-INCOMING_VIDEO_STATUS_DOWNLOADED,
-INCOMING_VIDEO_STATUS_VIEWED,
+    INCOMING_VIDEO_STATUS_VIEWED,
+    INCOMING_VIDEO_STATUS_DOWNLOADING,
+    INCOMING_VIDEO_STATUS_DOWNLOADED,
+};
+
+typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
+    INCOMING_VIDEO_STATUS_EVENT_TYPE,
+    OUTGOING_VIDEO_STATUS_EVENT_TYPE
 };
 
 @property (nonatomic, retain) NSString * firstName;
 @property (nonatomic, retain) NSString * lastName;
 @property (nonatomic) TBMOutgoingVideoStatus outgoingVideoStatus;
 @property (nonatomic) TBMIncomingVideoStatus incomingVideoStatus;
+@property (nonatomic) TBMVideoStatusEventType lastVideoStatusEventType;
 @property (nonatomic, retain) NSNumber * viewIndex;
 @property (nonatomic, retain) NSNumber * uploadRetryCount;
 @property (nonatomic, retain) NSNumber * downloadRetryCount;
@@ -76,7 +86,10 @@ INCOMING_VIDEO_STATUS_VIEWED,
 - (BOOL)hasDownloadPendingRetry;
 
 - (NSString *)videoStatusString;
-- (void)setAndNotifyOutgoingVideoStatus:(TBMOutgoingVideoStatus)newStatus;- (void)setAndNotifyIncomingVideoStatus:(TBMIncomingVideoStatus)newStatus;
+// Probably should not expose this and rather have setters for various states.
+- (void)setAndNotifyOutgoingVideoStatus:(TBMOutgoingVideoStatus)newStatus;
+- (void)setAndNotifyIncomingVideoStatus:(TBMIncomingVideoStatus)newStatus;
 - (void)setAndNotifyUploadRetryCount:(NSNumber *)newRetryCount;
+- (void)setIncomingViewed;
 @end
 

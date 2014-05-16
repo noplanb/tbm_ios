@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		22093F151923ED410021EB0C /* TBMUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22093F141923ED410021EB0C /* TBMUploadManager.m */; };
 		22093F181923F4B70021EB0C /* TBMDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22093F171923F4B70021EB0C /* TBMDownloadManager.m */; };
+		22093F1B192590CE0021EB0C /* TBMSoundEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 22093F1A192590CE0021EB0C /* TBMSoundEffect.m */; };
 		220E90291909A18B003C4F82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E90281909A18B003C4F82 /* Foundation.framework */; };
 		220E902B1909A18B003C4F82 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902A1909A18B003C4F82 /* CoreGraphics.framework */; };
 		220E902D1909A18B003C4F82 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902C1909A18B003C4F82 /* UIKit.framework */; };
@@ -26,8 +27,6 @@
 		220E90541909A18C003C4F82 /* tbmTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E90531909A18C003C4F82 /* tbmTests.m */; };
 		220E905E1909A1A9003C4F82 /* TBM.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 220E905D1909A1A9003C4F82 /* TBM.storyboard */; };
 		220E90611909C3D4003C4F82 /* TBMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E90601909C3D4003C4F82 /* TBMHomeViewController.m */; };
-		221EA28C1912B4F600649BC5 /* vid.MOV in Resources */ = {isa = PBXBuildFile; fileRef = 221EA28B1912B4F600649BC5 /* vid.MOV */; };
-		221EA28E1912B85A00649BC5 /* vid2.MOV in Resources */ = {isa = PBXBuildFile; fileRef = 221EA28D1912B85A00649BC5 /* vid2.MOV */; };
 		221EA2911912E86300649BC5 /* TBMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 221EA2901912E86300649BC5 /* TBMUser.m */; };
 		221EA2941912F83400649BC5 /* TBMRegisterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 221EA2931912F83400649BC5 /* TBMRegisterTableViewController.m */; };
 		22249586190B52E4008EF394 /* TBMLongPressTouchHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 22249585190B52E4008EF394 /* TBMLongPressTouchHandler.m */; };
@@ -35,7 +34,7 @@
 		2227243519182A1000DA6865 /* head.png in Resources */ = {isa = PBXBuildFile; fileRef = 2227243419182A1000DA6865 /* head.png */; };
 		223A11461915926800177481 /* TBMHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 223A11451915926800177481 /* TBMHttpClient.m */; };
 		223A11491915AED900177481 /* TBMHomeViewController+Boot.m in Sources */ = {isa = PBXBuildFile; fileRef = 223A11481915AED900177481 /* TBMHomeViewController+Boot.m */; };
-		224101D2190D40B1005128F9 /* TBMCameraHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 224101D1190D40B1005128F9 /* TBMCameraHandler.m */; };
+		224101D2190D40B1005128F9 /* TBMDeviceHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 224101D1190D40B1005128F9 /* TBMDeviceHandler.m */; };
 		224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
 		224101D7190D5171005128F9 /* TBMVideoRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 224101D6190D5171005128F9 /* TBMVideoRecorder.m */; };
 		2266439B190AD932006C9072 /* TBMViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2266439A190AD932006C9072 /* TBMViewUtils.m */; };
@@ -44,7 +43,6 @@
 		2287DB511923141A00B1C298 /* TBMFileTransferManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2287DB501923141A00B1C298 /* TBMFileTransferManger.m */; };
 		22B0AE25190C14BE0014B823 /* TBMFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0AE24190C14BE0014B823 /* TBMFriend.m */; };
 		22EA56B619103A3F00646D3E /* single_ding_chimes.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22EA56B519103A3F00646D3E /* single_ding_chimes.wav */; };
-		22EA56B919103AE600646D3E /* TBMSoundEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 22EA56B819103AE600646D3E /* TBMSoundEffect.m */; };
 		22EA56BB19103E4B00646D3E /* single_ding_chimes2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22EA56BA19103E4B00646D3E /* single_ding_chimes2.wav */; };
 		22EA56BE191068B700646D3E /* TBMVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 22EA56BD191068B700646D3E /* TBMVideoPlayer.m */; };
 		22EA56C119106AD100646D3E /* TBMConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 22EA56C019106AD100646D3E /* TBMConfig.m */; };
@@ -68,6 +66,8 @@
 		22093F141923ED410021EB0C /* TBMUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMUploadManager.m; sourceTree = "<group>"; };
 		22093F161923F4B70021EB0C /* TBMDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDownloadManager.h; sourceTree = "<group>"; };
 		22093F171923F4B70021EB0C /* TBMDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDownloadManager.m; sourceTree = "<group>"; };
+		22093F19192590CE0021EB0C /* TBMSoundEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSoundEffect.h; sourceTree = "<group>"; };
+		22093F1A192590CE0021EB0C /* TBMSoundEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSoundEffect.m; sourceTree = "<group>"; };
 		220E90251909A18B003C4F82 /* tbm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tbm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		220E90281909A18B003C4F82 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		220E902A1909A18B003C4F82 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -89,8 +89,6 @@
 		220E905D1909A1A9003C4F82 /* TBM.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TBM.storyboard; sourceTree = "<group>"; };
 		220E905F1909C3D4003C4F82 /* TBMHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHomeViewController.h; sourceTree = "<group>"; };
 		220E90601909C3D4003C4F82 /* TBMHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TBMHomeViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		221EA28B1912B4F600649BC5 /* vid.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = vid.MOV; sourceTree = "<group>"; };
-		221EA28D1912B85A00649BC5 /* vid2.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = vid2.MOV; sourceTree = "<group>"; };
 		221EA28F1912E86300649BC5 /* TBMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMUser.h; sourceTree = "<group>"; };
 		221EA2901912E86300649BC5 /* TBMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMUser.m; sourceTree = "<group>"; };
 		221EA2921912F83400649BC5 /* TBMRegisterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMRegisterTableViewController.h; sourceTree = "<group>"; };
@@ -106,8 +104,8 @@
 		223A11471915AED900177481 /* TBMHomeViewController+Boot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMHomeViewController+Boot.h"; sourceTree = "<group>"; };
 		223A11481915AED900177481 /* TBMHomeViewController+Boot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMHomeViewController+Boot.m"; sourceTree = "<group>"; };
 		223A114A1915B25100177481 /* TBMRegisterProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBMRegisterProtocol.h; sourceTree = "<group>"; };
-		224101D0190D40B1005128F9 /* TBMCameraHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMCameraHandler.h; sourceTree = "<group>"; };
-		224101D1190D40B1005128F9 /* TBMCameraHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TBMCameraHandler.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		224101D0190D40B1005128F9 /* TBMDeviceHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDeviceHandler.h; sourceTree = "<group>"; };
+		224101D1190D40B1005128F9 /* TBMDeviceHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TBMDeviceHandler.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		224101D3190D4180005128F9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		224101D5190D5171005128F9 /* TBMVideoRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoRecorder.h; sourceTree = "<group>"; };
 		224101D6190D5171005128F9 /* TBMVideoRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoRecorder.m; sourceTree = "<group>"; };
@@ -122,8 +120,6 @@
 		22B0AE23190C14BE0014B823 /* TBMFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFriend.h; sourceTree = "<group>"; };
 		22B0AE24190C14BE0014B823 /* TBMFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFriend.m; sourceTree = "<group>"; };
 		22EA56B519103A3F00646D3E /* single_ding_chimes.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = single_ding_chimes.wav; sourceTree = "<group>"; };
-		22EA56B719103AE600646D3E /* TBMSoundEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSoundEffect.h; sourceTree = "<group>"; };
-		22EA56B819103AE600646D3E /* TBMSoundEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSoundEffect.m; sourceTree = "<group>"; };
 		22EA56BA19103E4B00646D3E /* single_ding_chimes2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = single_ding_chimes2.wav; sourceTree = "<group>"; };
 		22EA56BC191068B700646D3E /* TBMVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoPlayer.h; sourceTree = "<group>"; };
 		22EA56BD191068B700646D3E /* TBMVideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoPlayer.m; sourceTree = "<group>"; };
@@ -203,8 +199,6 @@
 				2287DB491922BB5D00B1C298 /* TBMAppDelegate+PushNotification.h */,
 				2287DB4A1922BB5D00B1C298 /* TBMAppDelegate+PushNotification.m */,
 				2227243619182A2D00DA6865 /* Images */,
-				221EA28D1912B85A00649BC5 /* vid2.MOV */,
-				221EA28B1912B4F600649BC5 /* vid.MOV */,
 				22EA56B419103A2B00646D3E /* Sounds */,
 				22664395190AD8C8006C9072 /* Utils */,
 				220E90391909A18B003C4F82 /* TBMAppDelegate.h */,
@@ -220,8 +214,8 @@
 				22249585190B52E4008EF394 /* TBMLongPressTouchHandler.m */,
 				22B0AE23190C14BE0014B823 /* TBMFriend.h */,
 				22B0AE24190C14BE0014B823 /* TBMFriend.m */,
-				224101D0190D40B1005128F9 /* TBMCameraHandler.h */,
-				224101D1190D40B1005128F9 /* TBMCameraHandler.m */,
+				224101D0190D40B1005128F9 /* TBMDeviceHandler.h */,
+				224101D1190D40B1005128F9 /* TBMDeviceHandler.m */,
 				224101D5190D5171005128F9 /* TBMVideoRecorder.h */,
 				224101D6190D5171005128F9 /* TBMVideoRecorder.m */,
 				22EA56BC191068B700646D3E /* TBMVideoPlayer.h */,
@@ -292,8 +286,8 @@
 				2266439A190AD932006C9072 /* TBMViewUtils.m */,
 				226643A5190B13E2006C9072 /* TBMGeometryUtils.h */,
 				226643A6190B13E2006C9072 /* TBMGeometryUtils.m */,
-				22EA56B719103AE600646D3E /* TBMSoundEffect.h */,
-				22EA56B819103AE600646D3E /* TBMSoundEffect.m */,
+				22093F19192590CE0021EB0C /* TBMSoundEffect.h */,
+				22093F1A192590CE0021EB0C /* TBMSoundEffect.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -394,14 +388,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				221EA28C1912B4F600649BC5 /* vid.MOV in Resources */,
 				220E90351909A18B003C4F82 /* InfoPlist.strings in Resources */,
 				22EA56BB19103E4B00646D3E /* single_ding_chimes2.wav in Resources */,
 				22EA56B619103A3F00646D3E /* single_ding_chimes.wav in Resources */,
 				220E90401909A18B003C4F82 /* Images.xcassets in Resources */,
 				2227243519182A1000DA6865 /* head.png in Resources */,
 				220E905E1909A1A9003C4F82 /* TBM.storyboard in Resources */,
-				221EA28E1912B85A00649BC5 /* vid2.MOV in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,7 +449,7 @@
 				22249586190B52E4008EF394 /* TBMLongPressTouchHandler.m in Sources */,
 				220E903B1909A18B003C4F82 /* TBMAppDelegate.m in Sources */,
 				2287DB4B1922BB5D00B1C298 /* TBMAppDelegate+PushNotification.m in Sources */,
-				224101D2190D40B1005128F9 /* TBMCameraHandler.m in Sources */,
+				224101D2190D40B1005128F9 /* TBMDeviceHandler.m in Sources */,
 				22093F181923F4B70021EB0C /* TBMDownloadManager.m in Sources */,
 				221EA2941912F83400649BC5 /* TBMRegisterTableViewController.m in Sources */,
 				22093F151923ED410021EB0C /* TBMUploadManager.m in Sources */,
@@ -466,11 +458,11 @@
 				222724331917F2F500DA6865 /* NSArray+NSArrayExtensions.m in Sources */,
 				223A11491915AED900177481 /* TBMHomeViewController+Boot.m in Sources */,
 				220E903E1909A18B003C4F82 /* tbm.xcdatamodeld in Sources */,
+				22093F1B192590CE0021EB0C /* TBMSoundEffect.m in Sources */,
 				221EA2911912E86300649BC5 /* TBMUser.m in Sources */,
 				2287DB511923141A00B1C298 /* TBMFileTransferManger.m in Sources */,
 				22EA56C119106AD100646D3E /* TBMConfig.m in Sources */,
 				224101D7190D5171005128F9 /* TBMVideoRecorder.m in Sources */,
-				22EA56B919103AE600646D3E /* TBMSoundEffect.m in Sources */,
 				220E90371909A18B003C4F82 /* main.m in Sources */,
 				22EA56BE191068B700646D3E /* TBMVideoPlayer.m in Sources */,
 				226643A7190B13E2006C9072 /* TBMGeometryUtils.m in Sources */,

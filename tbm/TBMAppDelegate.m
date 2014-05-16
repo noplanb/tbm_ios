@@ -155,10 +155,12 @@
         DebugLog(@"handlingEventsFor TBMUploadManager");
         _backgroundUploadSessionCompletionHandler = completionHandler;
         _uploadManager = [TBMUploadManager sharedManager];
-    } else {
+    } else if ([identifier isEqualToString:[_downloadManager sessionIdentifier]]){
         DebugLog(@"handlingEventsFor TBMDownloadManager");
         _backgroundDownloadSessionCompletionHandler = completionHandler;
         _downloadManager = [TBMDownloadManager sharedManager];
+    } else {
+        DebugLog(@"ERROR: handleEventsFor unknown session=%@ this should never happen.", identifier);
     }
 }
 

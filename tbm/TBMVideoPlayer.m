@@ -34,10 +34,6 @@ static NSMutableDictionary *instances;
 }
 
 + (id)findWithFriendId:(NSNumber *)friendId{
-    DebugLog(@"findWithFriendId instances = %@", instances);
-    for (TBMVideoPlayer *player in [instances allValues]) {
-        DebugLog(@"%@ %@ %@", player, player.friend, player.friend.firstName);
-    }
     return [instances objectForKey:friendId];
 }
 
@@ -66,12 +62,18 @@ static NSMutableDictionary *instances;
 //-----------------
 // Instance Methods
 //-----------------
+
+// -------------
+// Instantiation
+// -------------
 - (id)initWIthView:(UIView *)friendView friendId:(NSString *)friendId{
     self = [super init];
     if (self){
         _friendView = friendView;
         _friendId = friendId;
         _friend = [TBMFriend findWithId:friendId];
+        _messageTone = [[TBMSoundEffect alloc] initWithSoundNamed:@"single_ding_chimes2.wav"];
+
         
         [_friendView setBackgroundColor:[UIColor clearColor]];
         [self addVideoPlayer];
@@ -79,6 +81,7 @@ static NSMutableDictionary *instances;
         [self showThumb];
         [self setupViewedIndicator];
         [self updateViewedIndicator];
+        [self addPlayerNotifications];
         DebugLog(@"Set up player: %@ for %@",self, _friend.firstName);
     }
     return self;
@@ -101,25 +104,6 @@ static NSMutableDictionary *instances;
     [_friendView addSubview:_thumbView];
 }
 
-- (void)updateThumbNail{
-    _thumbView.image = [_friend thumbImageOrThumbMissingImage];
-}
-
-- (void)videoStatusDidChange:(id)object{
-    if (object == self) {
-        [self updateViewedIndicator];
-        [self updateThumbNail];
-    }
-}
-
-- (void)updateViewedIndicator{
-    if (_friend.incomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED) {
-        [self indicateUnviewed];
-    } else {
-        [self indicateViewed];
-    }
-}
-
 - (void)setupViewedIndicator{
     _viewedIndicatorLayer = [CALayer layer];
     _viewedIndicatorLayer.hidden = YES;
@@ -132,14 +116,76 @@ static NSMutableDictionary *instances;
     [_viewedIndicatorLayer setNeedsDisplay];
 }
 
+// ------------------------------
+// Notifications of state changes
+// ------------------------------
+
+- (void)videoStatusDidChange:(id)object{
+    if (object == _friend) {
+        DebugLog(@"videoStatusDidChange for %@", _friend.firstName);
+        [self updateViewedIndicator];
+        [self playNewMessageToneIfNecessary];
+        [self updateThumbNail];
+    }
+}
+
+- (void)playNewMessageToneIfNecessary{
+    if (_friend.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
+        _friend.incomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED) {
+        [_messageTone play];
+    }
+}
+
+- (void)addPlayerNotifications{
+    DebugLog(@"Adding player notifications");
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackDidFinishNotification) name:MPMoviePlayerPlaybackDidFinishNotification object:_moviePlayerController];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackStateDidChangeNotification) name:MPMoviePlayerPlaybackStateDidChangeNotification object:_moviePlayerController];
+}
+
+- (void) playbackDidFinishNotification{
+    //Unused.
+    //DebugLog(@"playbackDidFinishNotification");
+}
+
+- (void) playbackStateDidChangeNotification{
+    //DebugLog(@"playbackStateDidChangeNotification");
+    if (_moviePlayerController.playbackState == MPMoviePlaybackStatePlaying){
+        [self showPlayer];
+    } else {
+        [self showThumb];
+    }
+}
+
+// ------------
+// View control
+// ------------
+- (void)updateThumbNail{
+    _thumbView.image = [_friend thumbImageOrThumbMissingImage];
+    [_thumbView setNeedsDisplay];
+}
+
+
+- (void)updateViewedIndicator{
+    if (_friend.incomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED) {
+        DebugLog(@"****** setting unviewed for %@", _friend.firstName);
+        [self indicateUnviewed];
+    } else {
+        DebugLog(@"****** setting viewed for %@", _friend.firstName);
+        [self indicateViewed];
+    }
+}
+
 - (void)indicateUnviewed{
     DebugLog(@"indicateUnviewed %@", _friend.firstName);
     _viewedIndicatorLayer.hidden = NO;
+    [_friendView setNeedsDisplay];
 }
 
 - (void)indicateViewed{
     DebugLog(@"indicateViewed for %@", _friend.firstName);
     _viewedIndicatorLayer.hidden = YES;
+    [_friendView setNeedsDisplay];
 }
 
 - (void)showPlayer{
@@ -152,16 +198,17 @@ static NSMutableDictionary *instances;
     _thumbView.hidden = NO;
 }
 
+// ----------------
+// Control playback
+// ----------------
 - (void)play{
     DebugLog(@"play for %@", _friend.firstName);
+    [_friend setIncomingViewed];
     if (![_friend hasValidIncomingVideoFile]) {
         DebugLog(@"Cant play no valid video file for %@", _friend.firstName);
         return;
     }
-    
-    DebugLog(@"Playing path=%@", _videoUrl.path);
     _moviePlayerController.contentURL = _videoUrl;
-    [self showPlayer];
     [_moviePlayerController play];
 }
 
@@ -174,6 +221,7 @@ static NSMutableDictionary *instances;
 }
 
 - (void)stop{
+    DebugLog(@"stop for %@", _friend.firstName);
     [_moviePlayerController stop];
 }
 

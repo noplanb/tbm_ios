@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MediaPlayer/MediaPlayer.h"
+#import "TBMSoundEffect.h"
 
 #import "TBMFriend.h"
 
@@ -21,6 +22,7 @@
 @property UIView *playerView;
 @property UIImageView *thumbView;
 @property CALayer *viewedIndicatorLayer;
+@property TBMSoundEffect *messageTone;
 
 // Class methods
 + (id)createWithView:(UIView *)playView friendId:(NSString *)friendId;

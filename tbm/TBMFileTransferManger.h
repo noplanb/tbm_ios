@@ -18,10 +18,11 @@ typedef NS_ENUM (NSInteger, TBMFileTransferType) {
 @property UIBackgroundTaskIdentifier backgroundTaskIdentifier;
 @property TBMFileTransferType transferType;
 @property NSString *transferTypeString;
+@property NSURLSession *backgroundSession;
 
-- (NSString *)sessionIdentifier;
 - (void) fileTransferWithFriendId:(NSString *)friendId;
 - (void) restartTasksPendingRetry;
+- (NSString *)sessionIdentifier;
 
 
 @end

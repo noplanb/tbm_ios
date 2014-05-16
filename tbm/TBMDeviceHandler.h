@@ -10,6 +10,8 @@
 #import "AVFoundation/AVFoundation.h"
 
 
-@interface TBMCameraHandler : NSObject
+@interface TBMDeviceHandler : NSObject
++ (AVCaptureDeviceInput *)getAudioInputWithError:(NSError **)error;
 + (AVCaptureDeviceInput *) getAvailableFrontVideoInputWithError:(NSError **)error;
++ (void)showAllAudioDevices;
 @end

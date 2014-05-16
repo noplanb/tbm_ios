@@ -161,7 +161,7 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 //-----------------------------------
 -(void)videoStatusDidChange:(id)object{
     TBMFriend *friend = (TBMFriend *)object;
-    DebugLog(@"videoStatusDidChange for %@ to %@", friend.firstName, friend.videoStatusString);
+    // DebugLog(@"videoStatusDidChange for %@ to %@", friend.firstName, friend.videoStatusString);
     [self updateFriendLabelWithFriendOnMainThread:friend];
 }
 
@@ -194,25 +194,25 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 - (void)LPTHClickWithTargetView:(UIView *)view{
     TBMFriend *friend = [self friendWithViewTag:view.tag];
     TBMVideoPlayer * player = [TBMVideoPlayer findWithFriendId:friend.idTbm];
-    DebugLog(@"TBMHomeViewController: LPTH: click on %@ calling play with player: %@", friend.firstName, player);
+    // DebugLog(@"TBMHomeViewController: LPTH: click on %@ calling toggle with player: %@", friend.firstName, player);
     [player togglePlay];
 }
 
 - (void)LPTHStartLongPressWithTargetView:(UIView *)view{
-    DebugLog(@"TBMHomeViewController: LPTH: startLongPress %ld", (long)view.tag);
+    // DebugLog(@"TBMHomeViewController: LPTH: startLongPress %ld", (long)view.tag);
     TBMFriend *friend = [self friendWithViewTag:view.tag];
     [_videoRecorder startRecordingWithFriendId:friend.idTbm];
     [self showRecordingIndicator];
 }
 
 - (void)LPTHEndLongPressWithTargetView:(UIView *)view{
-    DebugLog(@"TBMHomeViewController: LPTH:  endLongPressed %ld", (long)view.tag);
+    // DebugLog(@"TBMHomeViewController: LPTH:  endLongPressed %ld", (long)view.tag);
     [_videoRecorder stopRecording];
     [self hideRecordingIndicator];
 }
 
 - (void)LPTHCancelLongPressWithTargetView:(UIView *)view{
-    DebugLog(@"TBMHomeViewController: LPTH:  cancelLongPress %ld", (long)view.tag);
+    // DebugLog(@"TBMHomeViewController: LPTH:  cancelLongPress %ld", (long)view.tag);
     [_videoRecorder cancelRecording];
     [self hideRecordingIndicator];
 }
