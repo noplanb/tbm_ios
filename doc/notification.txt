@@ -3,8 +3,13 @@
    - Send the push token up to the server
    
  - Server
-   - Device type ios / android.
+   - Device_platform ios / android.
    
+Handling Notifications
+----------------------
+  - video_status_update 
+    - running or not update the status accordingly.
+  - video_received
 
 
 

@@ -8,6 +8,8 @@
 
 #import "TBMSoundEffect.h"
 
+// Note I had to change from using system sounds because they are silence during a recording session
+// and our app has a recording session running fulltime.
 @implementation TBMSoundEffect
 - (id)initWithSoundNamed:(NSString *)filename{
     if ((self = [super init])){

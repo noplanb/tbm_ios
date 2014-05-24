@@ -21,6 +21,7 @@
 @property AVCaptureMovieFileOutput *captureOutput;
 @property NSURL *videosDirectoryUrl;
 @property NSURL *recordingVideoUrl;
+@property NSURL *recordedVideoMpeg4Url;
 @property CALayer *recordingOverlay;
 @property TBMSoundEffect *dingSoundEffect;
 @property NSString *friendId;
@@ -28,8 +29,7 @@
 
 @implementation TBMVideoRecorder
 
-+ (NSURL *)outgoingVideoUrlWithFriendId:(NSString *)friendId
-{
++ (NSURL *)outgoingVideoUrlWithFriendId:(NSString *)friendId{
     NSString *filename = [NSString stringWithFormat:@"outgoingVidToFriend%@", friendId];
     return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"mov"]];
 }
@@ -42,6 +42,7 @@
         _previewView = previewView;
         _videosDirectoryUrl = [TBMConfig videosDirectoryUrl];
         _recordingVideoUrl = [_videosDirectoryUrl URLByAppendingPathComponent:[@"new" stringByAppendingPathExtension:@"mov"]];
+        _recordedVideoMpeg4Url = [_videosDirectoryUrl URLByAppendingPathComponent:[@"newConverted" stringByAppendingPathExtension:@"mp4"]];
         _dingSoundEffect = [[TBMSoundEffect alloc] initWithSoundNamed:@"single_ding_chimes2.wav"];
         
         DebugLog(@"Setting up preview on view: %@", _previewView);
@@ -79,8 +80,7 @@
     _captureSession = [[AVCaptureSession alloc] init];
     
     if (![_captureSession canSetSessionPreset:AVCaptureSessionPresetLow]){
-        NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                  @"Cannot set AVCaptureSessionPresetLow", NSLocalizedFailureReasonErrorKey, nil];
+        NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:@"Cannot set AVCaptureSessionPresetLow", NSLocalizedFailureReasonErrorKey, nil];
         *error = [NSError errorWithDomain:@"TBM" code:0 userInfo:userInfo];
         return nil;
     }
@@ -155,8 +155,7 @@
     [_captureSession startRunning];
 }
 
-- (void)startRecordingWithFriendId:(NSString *)friendId
-{
+- (void)startRecordingWithFriendId:(NSString *)friendId{
     [_dingSoundEffect play];
     _friendId = friendId;
     DebugLog(@"Started recording with friendId %@", _friendId);
@@ -169,21 +168,18 @@
     [self showRecordingOverlay];
 }
 
-- (void)stopRecording
-{
+- (void)stopRecording{
     [self hideRecordingOverlay];
     [_captureOutput stopRecording];
     [_dingSoundEffect play];
 }
 
-- (void)cancelRecording
-{
+- (void)cancelRecording{
     [self hideRecordingOverlay];
     [_dingSoundEffect play];
 }
 
-- (void)showRecordingOverlay
-{
+- (void)showRecordingOverlay{
     _recordingOverlay.hidden = NO;
 }
 
@@ -192,28 +188,7 @@
     _recordingOverlay.hidden = YES;
 }
 
-- (void)moveRecordingToOutgoingFileWithError:(NSError **)error
-{
-    NSURL *outgoingVideoUrl = [TBMVideoRecorder outgoingVideoUrlWithFriendId:_friendId];
-    
-    NSError *dontCareError = nil;
-    
-    [_fileManager removeItemAtURL:outgoingVideoUrl error:&dontCareError];
-    
-    *error = nil;
-    [_fileManager moveItemAtURL:_recordingVideoUrl toURL:outgoingVideoUrl error:&*error];
-    if (*error) {
-        DebugLog(@"ERROR: moveRecordingToOutgoingFile: ERROR: unable to move file. This should never happen. %@", *error);
-        return;
-    }
-    
-    NSDictionary *fileAttributes = [_fileManager attributesOfItemAtPath:outgoingVideoUrl.path error:&dontCareError];
-    DebugLog(@"moveRecordingToOutgoingFile: Outgoing file size %llu", fileAttributes.fileSize);
-}
-
-
-- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error
-{
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error{
     DebugLog(@"didFinishRecording.");
     if (error){
 		DebugLog(@"%@", error);
@@ -222,7 +197,27 @@
     NSDictionary *fileAttributes = [_fileManager attributesOfItemAtPath:[_recordingVideoUrl path] error:&error];
     DebugLog(@"Recorded file size = %llu", fileAttributes.fileSize);
     
-    error = nil;
+    [self convertOutgoingFileToMpeg4];
+}
+
+- (void)convertOutgoingFileToMpeg4{
+    NSError *dontCareError = nil;
+    [_fileManager removeItemAtURL:_recordedVideoMpeg4Url error:&dontCareError];
+    
+    AVAsset *asset = [AVAsset assetWithURL:_recordingVideoUrl];
+    NSArray *allPresets = [AVAssetExportSession exportPresetsCompatibleWithAsset:asset];
+    DebugLog(@"%@", allPresets);
+    
+    AVAssetExportSession *session = [AVAssetExportSession exportSessionWithAsset:asset presetName:AVAssetExportPresetLowQuality];
+    DebugLog(@"Filetypes: %@", session.supportedFileTypes);
+    
+    session.outputFileType = AVFileTypeMPEG4;
+    session.outputURL = _recordedVideoMpeg4Url;
+    [session exportAsynchronouslyWithCompletionHandler:^{[self didFinishConvertingToMpeg4];}];
+}
+
+- (void)didFinishConvertingToMpeg4{
+    NSError *error = nil;
     [self moveRecordingToOutgoingFileWithError:&error];
     if (error){
         DebugLog(@"ERROR2: moveRecordingToOutgoingFileWithError this should never happen. error=%@", error);
@@ -234,15 +229,30 @@
     [friend setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_NEW];
     [TBMFriend saveAll];
     
-    DebugLog(@"didFinishRecording calling delegate=%@", _delegate);
+    DebugLog(@"calling delegate=%@", _delegate);
     [_delegate didFinishVideoRecordingWithFriendId:_friendId];
 }
 
-- (AVCaptureSession *)addCaptureOutputWithError:(NSError **)error
-{
+- (void)moveRecordingToOutgoingFileWithError:(NSError **)error{
+    NSURL *outgoingVideoUrl = [TBMVideoRecorder outgoingVideoUrlWithFriendId:_friendId];
+    
+    NSError *dontCareError = nil;
+    [_fileManager removeItemAtURL:outgoingVideoUrl error:&dontCareError];
+    
+    *error = nil;
+    [_fileManager moveItemAtURL:_recordedVideoMpeg4Url toURL:outgoingVideoUrl error:&*error];
+    if (*error) {
+        DebugLog(@"ERROR: moveRecordingToOutgoingFile: ERROR: unable to move file. This should never happen. %@", *error);
+        return;
+    }
+    
+    NSDictionary *fileAttributes = [_fileManager attributesOfItemAtPath:outgoingVideoUrl.path error:&dontCareError];
+    DebugLog(@"moveRecordingToOutgoingFile: Outgoing file size %llu", fileAttributes.fileSize);
+}
+
+- (AVCaptureSession *)addCaptureOutputWithError:(NSError **)error{
     if (![_captureSession canAddOutput:_captureOutput]) {
-        NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                  @"Could not add captureOutput to capture session.", NSLocalizedFailureReasonErrorKey, nil];
+        NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys: @"Could not add captureOutput to capture session.", NSLocalizedFailureReasonErrorKey, nil];
         *error = [NSError errorWithDomain:@"TBM" code:0 userInfo:userInfo];
         return nil;
     }

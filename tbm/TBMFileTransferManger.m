@@ -261,7 +261,7 @@ static NSString * const TBMHttpFormBoundary = @"*****tbm*****";
     [preString appendString:@"--"];
     [preString appendString:TBMHttpFormBoundary];
     [preString appendString:@"\r\n"];
-    [preString appendString:@"Content-Disposition: form-data; name=\"file\"; filename=\"vid.mov\"\r\n"];
+    [preString appendString:@"Content-Disposition: form-data; name=\"file\"; filename=\"vid.mp4\"\r\n"];
     [preString appendString:@"Content-Type: video/mp4\r\n"];
     [preString appendString:@"Content-Transfer-Encoding: binary\r\n"];
     [preString appendString:@"\r\n"];

@@ -34,7 +34,7 @@
 - (void) sendPushTokenToServer:(NSString *)token{
     NSDictionary *params = @{@"user_id": [TBMUser getUser].idTbm,
                              @"push_token": token,
-                             @"device_type": @"ios"};
+                             @"device_platform": @"ios"};
     
     NSURLSessionDataTask *task = [[TBMHttpClient sharedClient] POST:@"reg/push_token" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         DebugLog(@"reg/push_token: %@", responseObject);
@@ -45,5 +45,16 @@
 
 }
 
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
+    DebugLog(@"didReceiveRemoteNotification");
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
+    DebugLog(@"didReceiveRemoteNotification fetch");
+//    UILocalNotification *notification = [[UILocalNotification alloc] init];
+//    notification.alertBody =  @"Looks like i got a notification - fetch thingy";
+//    [application presentLocalNotificationNow:notification];
+    completionHandler(UIBackgroundFetchResultNewData);
+}
 
 @end

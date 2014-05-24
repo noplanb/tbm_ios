@@ -40,6 +40,8 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 
 @property (nonatomic, retain) NSString * firstName;
 @property (nonatomic, retain) NSString * lastName;
+@property (nonatomic, retain) NSString * outgoingVideoId;
+@property (nonatomic, retain) NSString * incomingVideoId;
 @property (nonatomic) TBMOutgoingVideoStatus outgoingVideoStatus;
 @property (nonatomic) TBMIncomingVideoStatus incomingVideoStatus;
 @property (nonatomic) TBMVideoStatusEventType lastVideoStatusEventType;

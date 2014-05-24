@@ -12,10 +12,41 @@ x Uploads see upload.txt
 x Upload status indicator.
 
 
+- Implement the creator generated video_id for videos
+  - IOS & ANDROID
+    - OutgoingVideoId
+      x Add outgoingVideoId and incomingVideoId as attributes to friend.
+      - Set outgoingVideoId when new video is created.
+      - Send outgoingVideoId as well as the outgoingVideoId it just replaced with upload
+      - Save it with the video in the server.
+      - Delete the replaced video
+    - IncomingVideoId
+      - Set incomingVideoId when it is first put in the download queue either due to notification or polling.
+      - Only add a video to the download queue if its incomingVideoId doest already exist under a friend.
+      - Use it in download to request a videoId rather than asking for to and from.
+    - Download
+      - Ask for a videoId
+      - Get the to and from info from the videoId
+    - Notifications
+      - Parse the videoId for the friend id.
+  - SERVER
+    - Add video_id to the video
+    - Add status to the video
+    - Polling
+      - Allow polling for status of a list of videoIds 
+      - Same poll for received_videos awaiting download from a list of friends.
+    - Download using a request asking for a videoId preferentially over using the to and from.
+    - Notifications
+      - Send videoId with videoStatusUpdates as well as with video_received notifications.
+  
 - Video recording
   x Sound 
   x Size
-  - Compatibility with android
+  x Compatibility with android
+  x Remove the changes I made to process the video on upload.
+  - Toasts for:
+    - Not sent due to small filesize
+    - Not sent due to aborts
   
 - Notifications
   - Handler on the phone
@@ -24,9 +55,6 @@ x Upload status indicator.
 - Polling 
   - Sent video status
   - Videos waiting for upload.
-  
-
-
 
 - Video Record todo
   - Put video recorder setup in the background.

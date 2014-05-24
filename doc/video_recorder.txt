@@ -14,11 +14,408 @@ Experiment with various AVCaptureSessionPresets:
      
 Use AVCaptureSessionPresetLow.
 
+QUESTION - What is the best audiosample rate and bit rate and video frame rate and bit rate to use?
+  - What does ios put out after conversion to mp4?
+    - audio acc 24kbps 22Khz
+    - video 192x144 15fps 100Kpbs
+  - What does ios put out as .mov before conversion to mp4
+    - Same as above but in a quickTime container.
+  - After messing around with android for a bit the following settings seem like a good compromise:
+  				mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+  				mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC); // Very tinny but plays on ios
+  				mediaRecorder.setAudioChannels(2);
+  				mediaRecorder.setAudioEncodingBitRate(96000);
+  				mediaRecorder.setAudioSamplingRate(48000);
+  				mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264); // Plays back on android but not on ios.
+  				mediaRecorder.setVideoEncodingBitRate(150000);
+  				mediaRecorder.setVideoFrameRate(15);
+  				mediaRecorder.setVideoSize(320, 240); 
+  				
+  				 
+SOLUTION TO THE PROBLEMS WITH IOS ANDROID COMPATIBILITY BELOW
+  - For recordings made on ios convert to mp4 before sending to the server.
+  - For android record using ACC audio encoder. Videos recorded with AMR wont play.
 
-PROBLEM: 
- - Cant play videos recorded on android on 
+
+PROBLEM: SEE ABOVE FOR SOLUTION TO THIS PROBLEM FROM THE RESEARCH BELOW.
+ - Cant play videos recorded on android on ios and vice versa.
+ PROBLEM 1 - Play mp4 recorded on android on ios.
+   - TRY change file extension to .mov when it is downloaded at iphone Result - NO wont play
+   - TRY keeping file extension as .mp4 when it is downloaded at iphone Result - NO wont play.
+   HYPOTHESIS - Is there something wrong with the mp4 file that android is creating that makes it unplayable on ios?
+     - TRY - find a different mp4 file that wasnt created on android and see if that will play on ios.
+       - Used the sample_mpeg4.mp4 file from http://support.apple.com/kb/ht1425  This played on ios.
+     - TRY - using the app media_info to pull the data on a file that plays on ios vs one that does not see below:
+
+     VIDEO THAT DOES NOT PLAY ON IOS - used media info to pull this.
+       General
+       Complete name : /Users/sani/dev/tbm-server/public/system/videos/files/000/000/076/original/vid_orig.mp4
+       Format : MPEG-4
+       Format profile : 3GPP Media Release 4
+       Codec ID : 3gp4
+       File size : 139 KiB
+       Duration : 8s 200ms
+       Overall bit rate mode : Constant
+       Overall bit rate : 139 Kbps
+       Encoded date : UTC 2014-05-22 16:23:44
+       Tagged date : UTC 2014-05-22 16:23:44
+
+       Video
+       ID : 1
+       Format : MPEG-4 Visual
+       Format profile : Simple@L2
+       Format settings, BVOP : Yes
+       Format settings, QPel : No
+       Format settings, GMC : No warppoints
+       Format settings, Matrix : Default (H.263)
+       Codec ID : 20
+       Duration : 7s 798ms
+       Bit rate mode : Constant
+       Bit rate : 125 Kbps
+       Nominal bit rate : 256 Kbps
+       Width : 320 pixels
+       Height : 240 pixels
+       Display aspect ratio : 4:3
+       Rotation : 270°
+       Frame rate mode : Variable
+       Frame rate : 15.000 fps
+       Minimum frame rate : 15.000 fps
+       Maximum frame rate : 15.008 fps
+       Color space : YUV
+       Bit depth : 8 bits
+       Scan type : Progressive
+       Compression mode : Lossy
+       Bits/(Pixel*Frame) : 0.109
+       Stream size : 119 KiB (86%)
+       Title : VideoHandle
+       Language : English
+       Encoded date : UTC 2014-05-22 16:23:44
+       Tagged date : UTC 2014-05-22 16:23:44
+
+       
+    VIDEO THAT PLAYS ON IOS - used media info to pull this.
+       General
+       Complete name : /Users/sani/dev/tbm-server/public/system/videos/files/000/000/076/original/vid.mp4
+       Format : MPEG-4
+       Format profile : Base Media / Version 2
+       Codec ID : mp42
+       File size : 240 KiB
+       Duration : 4s 967ms
+       Overall bit rate mode : Constant
+       Overall bit rate : 396 Kbps
+       Encoded date : UTC 2005-10-28 17:46:46
+       Tagged date : UTC 2005-10-28 17:46:46
+
+       Video
+       ID : 2
+       Format : MPEG-4 Visual
+       Format profile : Advanced Simple@L3
+       Format settings, BVOP : Yes
+       Format settings, QPel : No
+       Format settings, GMC : No warppoints
+       Format settings, Matrix : Default (H.263)
+       Codec ID : 20
+       Duration : 4s 967ms
+       Bit rate mode : Constant
+       Bit rate : 342 Kbps
+       Nominal bit rate : 512 Kbps
+       Width : 190 pixels
+       Height : 240 pixels
+       Display aspect ratio : 0.792
+       Frame rate mode : Constant
+       Frame rate : 30.000 fps
+       Color space : YUV
+       Bit depth : 8 bits
+       Scan type : Progressive
+       Compression mode : Lossy
+       Bits/(Pixel*Frame) : 0.250
+       Stream size : 207 KiB (86%)
+       Language : English
+       Encoded date : UTC 2005-10-28 17:46:46
+       Tagged date : UTC 2005-10-28 17:46:46
+       Transfer characteristics : BT.601
+       Matrix coefficients : BT.601
+
+  - HYPOTHESIS - Is ios having trouble with the 3gp file format and codec? 
+    - TRY - Rather than using presets on android to record specify the specific codec and output format.
+      - CamcorderProfile.QUALITY_QVGA -> fileformat=3gpp, videoCodec=MPEG_4_SP 320,240 - Plays android, mac, creats thumb but wont play on ios. 
+      - MediaRecorder.OutputFormat.MPEG_4, MediaRecorder.VideoEncoder.H263, mediaRecorder.setVideoSize(320, 240) => NO GOOD. black screen on android, mac and doesnt create thumb or play ios
+      - MediaRecorder.OutputFormat.MPEG_4, MediaRecorder.VideoEncoder.H264, mediaRecorder.setVideoSize(320, 240) => Plays android, mac, creates thumb but wont play on ios using MVMoviePlayerController
+      
+      INFO For Android recording with - MediaRecorder.OutputFormat.MPEG_4, MediaRecorder.VideoEncoder.H264
+      General
+      Complete name : /Users/sani/dev/tbm-server/public/system/videos/files/000/000/076/original/vid.mp4
+      Format : MPEG-4
+      Format profile : Base Media
+      Codec ID : isom
+      File size : 73.0 KiB
+      Duration : 3s 180ms
+      Overall bit rate : 188 Kbps
+      Encoded date : UTC 2014-05-22 22:02:40
+      Tagged date : UTC 2014-05-22 22:02:40
+
+      Video
+      ID : 1
+      Format : AVC
+      Format/Info : Advanced Video Codec
+      Format profile : Baseline@L1.2
+      Format settings, CABAC : No
+      Format settings, ReFrames : 1 frame
+      Codec ID : avc1
+      Codec ID/Info : Advanced Video Coding
+      Duration : 2s 866ms
+      Source duration : 2s 912ms
+      Bit rate : 184 Kbps
+      Width : 320 pixels
+      Height : 240 pixels
+      Display aspect ratio : 4:3
+      Rotation : 270°
+      Frame rate mode : Variable
+      Frame rate : 14.769 fps
+      Minimum frame rate : 8.895 fps
+      Maximum frame rate : 15.010 fps
+      Color space : YUV
+      Chroma subsampling : 4:2:0
+      Bit depth : 8 bits
+      Scan type : Progressive
+      Bits/(Pixel*Frame) : 0.162
+      Stream size : 63.9 KiB (88%)
+      Source stream size : 65.0 KiB (89%)
+      Title : VideoHandle
+      Language : English
+      Encoded date : UTC 2014-05-22 22:02:40
+      Tagged date : UTC 2014-05-22 22:02:40
+      mdhd_Duration : 2866
 
 
+RESEARCH 
+  QUESTION - What are all the settings I can record with on ios. 
+    - From reading the documentation for AVcapture session it seems that the only option is to record a quicktime .mov format.
+    - Need to look into converting the file after recording using AVAssetExportSession.
+  RESULT - SUCCESS! Converting works great and the mp4 can be played on Android.
+  
+  QUESTION - What are all the settings I can record with on Android?
+   - mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H263); // Plays back on android but not on ios
+   - mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264); 320x240 // Plays back on android but not on ios.
+   - mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.MPEG_4_SP);  // Plays back on android but not on ios.  
+   - mediaRecorder.setProfile(CamcorderProfile_Quality_720p back camera) Plays on ios!
+     - fileFormat = MPEG_4
+     - videocodec = h264
+     - videoframesize = 1280x720
+   - mediaRecorder.setProfile(CamcorderProfile_Quality_LOW front camera) Doesnt play on ios
+     - fileFormat = THREE_GPP
+     - videocodec = MPEG_4_SP
+     - videoframesize = 320x240
+     
+     
+  Compare these 2
+  NO play on ios:
+  - mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264); 720x480 // Plays back on android but not on ios.
+        General
+        Complete name : /Users/sani/dev/tbm-server/public/system/videos/files/000/000/092/original/front_cam_h264_720x480.mp4
+        Format : MPEG-4
+        Format profile : Base Media
+        Codec ID : isom
+        File size : 239 KiB
+        Duration : 8s 920ms
+        Overall bit rate : 220 Kbps
+        Encoded date : UTC 2014-05-23 18:19:38
+        Tagged date : UTC 2014-05-23 18:19:38
+
+        Video
+        ID : 1
+        Format : AVC
+        Format/Info : Advanced Video Codec
+        Format profile : Baseline@L2.2
+        Format settings, CABAC : No
+        Format settings, ReFrames : 1 frame
+        Format settings, GOP : M=1, N=15
+        Codec ID : avc1
+        Codec ID/Info : Advanced Video Coding
+        Duration : 8s 712ms
+        Source duration : 8s 765ms
+        Bit rate : 205 Kbps
+        Width : 720 pixels
+        Height : 480 pixels
+        Display aspect ratio : 3:2
+        Rotation : 90°
+        Frame rate mode : Variable
+        Frame rate : 14.832 fps
+        Minimum frame rate : 8.329 fps
+        Maximum frame rate : 14.928 fps
+        Standard : NTSC
+        Color space : YUV
+        Chroma subsampling : 4:2:0
+        Bit depth : 8 bits
+        Scan type : Progressive
+        Bits/(Pixel*Frame) : 0.040
+        Stream size : 217 KiB (91%)
+        Source stream size : 218 KiB (91%)
+        Title : VideoHandle
+        Language : English
+        Encoded date : UTC 2014-05-23 18:19:38
+        Tagged date : UTC 2014-05-23 18:19:38
+        mdhd_Duration : 8712
+  
+  Plays on ios:
+  - mediaRecorder.setProfile(CamcorderProfile_Quality_480p front camera) Plays on ios!
+    - fileFormat = MPEG_4
+    - videocodec = h264
+    - videoframesize = 720x480
+        General
+        Complete name : /Users/sani/dev/tbm-server/public/system/videos/files/000/000/092/original/front_cam_480p_mpeg4_quality_4_h264.mp4
+        Format : MPEG-4
+        Format profile : Base Media
+        Codec ID : isom
+        File size : 4.81 MiB
+        Duration : 6s 869ms
+        Overall bit rate : 5 876 Kbps
+        Encoded date : UTC 2014-05-23 18:01:36
+        Tagged date : UTC 2014-05-23 18:01:36
+
+        Video
+        ID : 1
+        Format : AVC
+        Format/Info : Advanced Video Codec
+        Format profile : Baseline@L3.0
+        Format settings, CABAC : No
+        Format settings, ReFrames : 1 frame
+        Format settings, GOP : M=1, N=30
+        Codec ID : avc1
+        Codec ID/Info : Advanced Video Coding
+        Duration : 6s 633ms
+        Source duration : 6s 648ms
+        Bit rate : 5 963 Kbps
+        Width : 720 pixels
+        Height : 480 pixels
+        Display aspect ratio : 3:2
+        Rotation : 270°
+        Frame rate mode : Variable
+        Frame rate : 29.784 fps
+        Minimum frame rate : 14.988 fps
+        Maximum frame rate : 30.283 fps
+        Standard : NTSC
+        Color space : YUV
+        Chroma subsampling : 4:2:0
+        Bit depth : 8 bits
+        Scan type : Progressive
+        Bits/(Pixel*Frame) : 0.579
+        Stream size : 4.73 MiB (98%)
+        Source stream size : 4.73 MiB (98%)
+        Title : VideoHandle
+        Language : English
+        Encoded date : UTC 2014-05-23 18:01:36
+        Tagged date : UTC 2014-05-23 18:01:36
+        mdhd_Duration : 6633
+        
+ HMMM lets try to change the encoding bit rate to 6,000,000 explicitly. // Plays back on android but not on ios. Picture much clearer on android.
+ 	mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+	mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264); 
+  mediaRecorder.setVideoEncodingBitRate(6000000);
+	mediaRecorder.setVideoSize(720, 480);
+    General
+    Complete name : /Users/sani/dev/tbm-server/public/system/videos/files/000/000/092/original/front_cam_h264_bit_rate_6M_720x480.mp4
+    Format : MPEG-4
+    Format profile : Base Media
+    Codec ID : isom
+    File size : 10.4 MiB
+    Duration : 14s 960ms
+    Overall bit rate : 5 841 Kbps
+    Encoded date : UTC 2014-05-23 18:36:07
+    Tagged date : UTC 2014-05-23 18:36:07
+
+    Video
+    ID : 1
+    Format : AVC
+    Format/Info : Advanced Video Codec
+    Format profile : Baseline@L3.0
+    Format settings, CABAC : No
+    Format settings, ReFrames : 1 frame
+    Format settings, GOP : M=1, N=15
+    Codec ID : avc1
+    Codec ID/Info : Advanced Video Coding
+    Duration : 14s 529ms
+    Source duration : 14s 565ms
+    Bit rate : 5 981 Kbps
+    Width : 720 pixels
+    Height : 480 pixels
+    Display aspect ratio : 3:2
+    Rotation : 270°
+    Frame rate mode : Variable
+    Frame rate : 14.967 fps
+    Minimum frame rate : 9.764 fps
+    Maximum frame rate : 15.013 fps
+    Standard : NTSC
+    Color space : YUV
+    Chroma subsampling : 4:2:0
+    Bit depth : 8 bits
+    Scan type : Progressive
+    Bits/(Pixel*Frame) : 1.156
+    Stream size : 10.3 MiB (99%)
+    Source stream size : 10.4 MiB (100%)
+    Title : VideoHandle
+    Language : English
+    Encoded date : UTC 2014-05-23 18:36:07
+    Tagged date : UTC 2014-05-23 18:36:07
+    mdhd_Duration : 14529
+  
+ - OK lets take the frame rate up to 30fps Still NO PLAY ON IOS
+  	mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264); 
+  	mediaRecorder.setVideoEncodingBitRate(6000000);
+  	mediaRecorder.setVideoFrameRate(30);
+  	mediaRecorder.setVideoSize(720, 480);
+  	  General
+      Complete name : /Users/sani/dev/tbm-server/public/system/videos/files/000/000/092/original/front_cam_h264_bit_rate_6M_frame_rate_30_720x480.mp4
+      Format : MPEG-4
+      Format profile : Base Media
+      Codec ID : isom
+      File size : 4.81 MiB
+      Duration : 6s 667ms
+      Overall bit rate : 6 054 Kbps
+      Encoded date : UTC 2014-05-23 18:45:22
+      Tagged date : UTC 2014-05-23 18:45:22
+
+      Video
+      ID : 1
+      Format : AVC
+      Format/Info : Advanced Video Codec
+      Format profile : Baseline@L3.0
+      Format settings, CABAC : No
+      Format settings, ReFrames : 1 frame
+      Format settings, GOP : M=1, N=30
+      Codec ID : avc1
+      Codec ID/Info : Advanced Video Coding
+      Duration : 6s 667ms
+      Bit rate : 6 032 Kbps
+      Width : 720 pixels
+      Height : 480 pixels
+      Display aspect ratio : 3:2
+      Rotation : 270°
+      Frame rate mode : Variable
+      Frame rate : 29.849 fps
+      Minimum frame rate : 14.988 fps
+      Maximum frame rate : 30.191 fps
+      Standard : NTSC
+      Color space : YUV
+      Chroma subsampling : 4:2:0
+      Bit depth : 8 bits
+      Scan type : Progressive
+      Bits/(Pixel*Frame) : 0.585
+      Stream size : 4.79 MiB (100%)
+      Title : VideoHandle
+      Language : English
+      Encoded date : UTC 2014-05-23 18:45:22
+      Tagged date : UTC 2014-05-23 18:45:22
+      mdhd_Duration : 6667
+
+
+  There is virtually no difference between the info for the file with a camcorder preset vs the file recorded by setting the settings directly. Yet the latter wont play on ios.
+  
+  TRY - converting the mp4 files that android creates before trying to play them on ios.
+      - Still doesnt work.
+      
+  I FOUND IT!!!! The problem is video files recorded with AMR audio wont play on ios! Need to record with ACC.
+  
 
 NOTES:
 Good article on choosing microphones and doing noise canceling: https://developer.apple.com/library/iOS/qa/qa1799/_index.html. 

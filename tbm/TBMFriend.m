@@ -11,6 +11,7 @@
 #import "TBMFriend.h"
 #import "TBMAppDelegate.h"
 #import "TBMConfig.h"
+#import "TBMUser.h"
 
 #import "TBMHomeViewController.h"
 @implementation TBMFriend
@@ -19,6 +20,8 @@
 @dynamic lastName;
 @dynamic outgoingVideoStatus;
 @dynamic incomingVideoStatus;
+@dynamic outgoingVideoId;
+@dynamic incomingVideoId;
 @dynamic lastVideoStatusEventType;
 @dynamic viewIndex;
 @dynamic uploadRetryCount;
@@ -138,7 +141,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
 //----------------
 - (NSURL *)incomingVideoUrl{
     NSString *filename = [NSString stringWithFormat:@"incomingVidFromFriend%@", self.idTbm];
-    return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"mov"]];
+    return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"mp4"]];
 }
 
 - (NSString *)incomingVideoPath{
@@ -172,9 +175,11 @@ static NSMutableArray * videoStatusNotificationDelegates;
     [fm removeItemAtURL:[self incomingVideoUrl] error:&error];
 }
 
+
 - (void)loadIncomingVideoWithUrl:(NSURL *)location{
     DebugLog(@"loadIncomingVideoWithUrl for %@", self.firstName);
     [self deleteIncomingVideo];
+    
     NSFileManager *fm = [NSFileManager defaultManager];
     NSError *error = nil;
     DebugLog(@"moveIncomingVideo");
@@ -183,8 +188,11 @@ static NSMutableArray * videoStatusNotificationDelegates;
         DebugLog(@"loadIncomingVideoWithUrl: ERROR. This should never occur");
         return;
     }
+    NSDictionary *fa = [fm attributesOfItemAtPath:[self incomingVideoPath] error:&error];
+    DebugLog(@"Incoming video %@ size = %lld", [self incomingVideoPath], fa.fileSize);
     [self generateThumb];
 }
+
 
 //----------------
 // Thumb URL stuff
@@ -388,4 +396,17 @@ static NSMutableArray * videoStatusNotificationDelegates;
     }
 }
 
+// -------------
+// videoId stuff
+// -------------
+- (NSString *)createNewOutgoingVideoId{
+    // Pattern senderId-receiverId-senderFristname-receiverFirstname-32randomcharacters.
+    NSMutableString *r = [[NSMutableString alloc] init];
+    [r appendString:[TBMUser getUser].idTbm];
+    [r appendString:@"-"];
+    r app
+    r appendString:[TBMUser getUser].f
+    [r appendString:[TBMUser getUser].firstName];
+    return r;
+}
 @end

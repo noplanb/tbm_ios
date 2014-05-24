@@ -355,6 +355,9 @@
 					220E90241909A18B003C4F82 = {
 						DevelopmentTeam = DYQN26F8U9;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
