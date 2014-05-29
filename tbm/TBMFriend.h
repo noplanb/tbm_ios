@@ -59,6 +59,7 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 + (NSUInteger)count;
 + (NSMutableArray *)whereUploadPendingRetry;
 + (NSMutableArray *)whereDownloadPendingRetry;
++ (int)unviewedCount;
 
 // Create and destroy
 + (instancetype)newWithId:(NSNumber *)idTbm;

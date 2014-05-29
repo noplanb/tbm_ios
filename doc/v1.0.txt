@@ -11,6 +11,13 @@ x Plus signs in startup screen.
 x Uploads see upload.txt
 x Upload status indicator.
 
+x Remove download button
+x Download indicate number of retries.
+
+- Notification alerts and badges
+  - Remove old notifications when app becomes active.
+  - Reset badge when app becomes active.
+  
 
 - Implement the creator generated video_id for videos
   - IOS & ANDROID
@@ -22,25 +29,26 @@ x Upload status indicator.
       x Delete the replaced video
     x IncomingVideoId
       x Set incomingVideoId when it is first put in the download queue either due to notification or polling.
-      - Only add a video to the download queue if its incomingVideoId doest already exist under a friend.
-      - Use it in download to request a videoId rather than asking for to and from.
-    - Download
+      x Only add a video to the download queue if its incomingVideoId doest already exist under a friend.
+      x Use it in download to request a videoId rather than asking for to and from.
+    x Download
       x Ask for a videoId
       x Get the to and from info from the videoId
     x Notifications
       x Parse the videoId for the friend id.
+    - Polling
   - SERVER
     x Add video_id to the video
     x Add status to the video
     - Polling
       - Allow polling for status of a list of videoIds 
       - Same poll for received_videos awaiting download from a list of friends.
-    - Download using a request asking for a videoId preferentially over using the to and from.
-    - Notifications
-      - Send videoId with videoStatusUpdates as well as with video_received notifications.
+    x Download using a request asking for a videoId preferentially over using the to and from.
+    x Notifications
+      x Send videoId with videoStatusUpdates as well as with video_received notifications.
 
-- VideoStatus
-  - Send viewed video status to the server.
+x VideoStatus
+  x Send viewed video status to the server.
   
 - Video recording
   x Sound 
@@ -51,17 +59,28 @@ x Upload status indicator.
     - Not sent due to small filesize
     - Not sent due to aborts
   
-- Notifications
-  - Handler on the phone
-    - Read about handling notifications
-    - didReceiveRemoteNotification
-      - Put the 
-  - Server handle ios and android notifications.
-
+x Notifications
+  x See notification.txt
+   
 - Polling 
   - Sent video status
   - Videos waiting for upload.
 
 - Video Record todo
   - Put video recorder setup in the background.
+  
+x Test
+  x Send video to ios 
+    x active
+    x background
+    x terminated
+  x Video status change
+    x active
+    x background
+    o terminated Doesnt get status since doesnt poll.
+  x Download failure and retry
+  x Upload failure and retry
+  x Dont download twice if video is already in download queue.
+  
+  
   

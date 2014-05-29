@@ -24,6 +24,15 @@ QUESTION: What are all the scenarios when I may get a notification and what call
   - Poll and queue downloads and set status for any missed items do the Scenario: Termination followed by notification user launches the app from icon above. 
   - Make the payload for the notification the same as the payload for polling so they can easily be handled by the same handler. 
 
+PROBLEM WITH ABOVE CONCLUSION:
+  - In the case the app is launching from terminated due to a user clicking on a notification I get both didFinishLaunchingWithOptions followed by didReceiveRemoteNotification. 
+  - I found that if I try to handle the payload in didReceiveRemoteNotification the os occasionally terminates the app because it did not launch in time. I dont fully understand this as didFinishLaunchingWithOptions is called in advance of my doing anything in didReceiveRemoteNotification. Nevertheless it crashes due to not launching in time occasionally.
+  - TRY 
+    - still handle only in didReceiveRemoteNotification but do so as a background thread.
+    RESULT - DOES NOT WORK as managedObjectModel says it is unable to resolve a fault when we try to access the models after launch and crashes the app. I dont understand why this is the case because in the console the log message for didReceiveRemoteNotification comes after didFinishLaunchingWithOptions and so you would think the managedObjectModel would be good to go at that point. Maybe the background thread has an issue with reaching the models that I dont quite understand.
+  - TRY
+    - handle video_received_payloads in both didFinishLaunchingWithOptions as well as in didReceiveRemoteNotification. Since any pending download will be queued in didFinishLaunchingWithOptions the handler called in didReceiveRemoteNotification will just ignore its payload as a duplicate.
+    RESULT - THIS WORKS. I am not sure why but it seems to work consistently without fail.
 
 QUESTION: What happens if i get didReceiveRemoteNotification with an alert notification and I take some time to call the completion handler. Is the alert held off until I call the completion handler?
   - TEST 

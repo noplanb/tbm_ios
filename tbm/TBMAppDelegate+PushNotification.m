@@ -13,6 +13,10 @@
 
 @implementation TBMAppDelegate (PushNotification)
 
+- (void)setupPushNotificationCategory{
+    [TBMFriend addVideoStatusNotificationDelegate:self];
+}
+
 - (void)registerForPushNotification{
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert |
                                                                            UIRemoteNotificationTypeSound |
@@ -53,8 +57,31 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
     DebugLog(@"didReceiveRemoteNotification:fetchCompletionHandler");
-    [TBMAppSyncManager handleSyncPayload:userInfo];
+    // [self performSelectorInBackground:@selector(handleSyncPayload:) withObject:userInfo];
+    [self handleSyncPayload:userInfo];
+    // See doc/notification.txt for why we call the completion handler with sucess immediately here.
     completionHandler(UIBackgroundFetchResultNewData);
 }
+
+- (void)handleSyncPayload:(NSDictionary *)userInfo{
+    [TBMAppSyncManager handleSyncPayload:userInfo];
+}
+
+- (void)clearNotifcationCenter{
+    DebugLog(@"clearNotifcationCenter:");
+    // Cleanest way to clear them all is to transition badge number through 0.
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    [self setBadgeNumber];
+}
+
+- (void)videoStatusDidChange:(id)object{
+    [self setBadgeNumber];
+}
+
+- (void)setBadgeNumber{
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[TBMFriend unviewedCount]];
+}
+
 
 @end

@@ -9,7 +9,9 @@
 #import "TBMAppDelegate.h"
 
 @interface TBMAppDelegate (PushNotification)
-
+- (void)setupPushNotificationCategory;
 - (void)registerForPushNotification;
-
+- (void)handleSyncPayload:(NSDictionary *)userInfo;
+- (void)clearNotifcationCenter;
+- (void)videoStatusDidChange:(id)object;
 @end

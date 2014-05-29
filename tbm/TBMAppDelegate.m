@@ -18,13 +18,22 @@
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     // See doc/notification.txt for why we dont use this in our app.
-    NSDictionary *LaunchOptionsRemoteNotificationNotUsed = [launchOptions objectForKeyedSubscript:UIApplicationLaunchOptionsRemoteNotificationKey];
-    DebugLog(@"willFinishLaunchingWithOptions: %@", launchOptions);
+    DebugLog(@"willFinishLaunchingWithOptions:");
     return YES;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
-    DebugLog(@"didFinishLaunchingWithOptions: %@", launchOptions);
+    DebugLog(@"didFinishLaunchingWithOptions:");
+    
+    [self setupPushNotificationCategory];
+    
+    // See doc/notification.txt for why we handle the payload here as well as in didReceiveRemoteNotification:fetchCompletionHandler
+    // for the case where app is launching from a terminated state due to user clicking on notification. Even though both this method
+    // and the didReceiveRemoteNotification:fetchCompletionHandler are called in that case.
+    NSDictionary *remoteNotificationUserInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (remoteNotificationUserInfo)
+        [self handleSyncPayload:remoteNotificationUserInfo];
+    
     return YES;
 }
 
@@ -35,8 +44,7 @@
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
+- (void)applicationDidEnterBackground:(UIApplication *)application{
     DebugLog(@"applicationDidEnterBackground: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
@@ -44,14 +52,20 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application{
     DebugLog(@"applicationWillEnterForeground");
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application{
     DebugLog(@"applicationDidBecomeActive");
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    // This makes retry start immediately and from a count of 0 when the user comes back to the app presumabably after
+    // fixing whatever network problem was preventing the downloads or uploads.
     _uploadManager = [TBMUploadManager sharedManager];
     [_uploadManager restartTasksPendingRetry];
+    
+    _downloadManager = [TBMDownloadManager sharedManager];
+    [_downloadManager restartTasksPendingRetry];
+    
+    [self clearNotifcationCenter];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application{
@@ -150,8 +164,7 @@
 #pragma mark - Application's Documents directory
 
 // Returns the URL to the application's Documents directory.
-- (NSURL *)applicationDocumentsDirectory
-{
+- (NSURL *)applicationDocumentsDirectory{
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 

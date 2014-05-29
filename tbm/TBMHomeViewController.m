@@ -20,8 +20,6 @@
 @property TBMVideoRecorder *videoRecorder;
 @property TBMVideoPlayer *videoPlayer;
 @property BOOL isPlaying;
-
-- (IBAction)Download:(id)sender;
 @end
 
 static NSInteger TBM_HOME_FRIEND_VIEW_INDEX_OFFSET = 10;
@@ -227,10 +225,4 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     _centerLabel.hidden = YES;
 }
 
-- (IBAction)Download:(id)sender {
-    DebugLog(@"Download button clicked.");
-    NSArray *friends = [TBMFriend all];
-    TBMFriend *friend = [friends firstObject];
-    [[TBMDownloadManager sharedManager] fileTransferWithFriendId:friend.idTbm];
-}
 @end

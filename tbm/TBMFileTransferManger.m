@@ -294,6 +294,8 @@ static NSString * const TBMHttpFormBoundary = @"*****tbm*****";
 // ---------------------
 // Video status logging
 // ---------------------
+// GARF: I do not believe I need to saveAll on Friend after each of these methods. I need to verfy test and remove.
+
 - (void) setStatusForSuccessfulFileTransferWithTask:(NSURLSessionTask *)task{
     DebugLog(@"setStatusForSuccessfulFileTransferWithTask");
     TBMFriend *friend = [self friendWithTask:task];
@@ -332,6 +334,12 @@ static NSString * const TBMHttpFormBoundary = @"*****tbm*****";
 - (void) setStatusToUploadingNewWithFriend:(TBMFriend *)friend{
     [friend setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_NEW];
     [friend setUploadRetryCountWithInteger:0];
+    [TBMFriend saveAll];
+}
+
+- (void) setStatusToDownloadingRetry0WithFriend:(TBMFriend *)friend{
+    [friend setDownloadRetryCountWithInteger:0];
+    [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_DOWNLOADING];
     [TBMFriend saveAll];
 }
 
@@ -400,6 +408,7 @@ static NSString * const TBMHttpFormBoundary = @"*****tbm*****";
     
     if (_transferType == TBM_FILE_TRANSFER_TYPE_DOWNLOAD) {
         for (TBMFriend *friend in [TBMFriend whereDownloadPendingRetry]){
+            [self setStatusToDownloadingRetry0WithFriend:friend];
             [self fileTransferWithFriendId:friend.idTbm];
         }
     } else {

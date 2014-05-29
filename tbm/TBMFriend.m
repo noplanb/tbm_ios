@@ -95,16 +95,23 @@ static NSMutableArray * videoStatusNotificationDelegates;
 }
 
 + (instancetype)findWithAttributeKey:(NSString *)key value:(id)value{
+    return [[self findAllWithAttributeKey:key value:value] lastObject];
+}
+
++ (NSArray *)findAllWithAttributeKey:(NSString *)key value:(id)value{
     NSFetchRequest *request = [TBMFriend fetchRequest];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", key, value];
     [request setPredicate:predicate];
     NSError *error = nil;
-    NSArray *friends = [[TBMFriend managedObjectContext] executeFetchRequest:request error:&error];
-    return [friends lastObject];
+    return [[TBMFriend managedObjectContext] executeFetchRequest:request error:&error];
 }
 
 + (NSUInteger)count{
     return [[TBMFriend all] count];
+}
+
++ (int)unviewedCount{
+    return [[self findAllWithAttributeKey:@"incomingVideoStatus" value:[NSNumber numberWithInt:INCOMING_VIDEO_STATUS_DOWNLOADED]] count];
 }
 
 //-------------------
@@ -286,7 +293,11 @@ static NSMutableArray * videoStatusNotificationDelegates;
 
 - (NSString *)incomingVideoStatusString{
     if (self.incomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING){
-        return @"Downloading...";
+        if ([self.downloadRetryCount intValue] == 0){
+            return @"Downloading...";
+        } else {
+            return [NSString stringWithFormat:@"Downloading r%@", self.downloadRetryCount];
+        }
     } else {
         return self.firstName;
     }

@@ -120,7 +120,6 @@ static NSMutableDictionary *instances;
 // ------------------------------
 // Notifications of state changes
 // ------------------------------
-
 - (void)videoStatusDidChange:(id)object{
     if (object == _friend) {
         DebugLog(@"videoStatusDidChange for %@", _friend.firstName);
@@ -169,10 +168,10 @@ static NSMutableDictionary *instances;
 
 - (void)updateViewedIndicator{
     if (_friend.incomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED) {
-        DebugLog(@"****** setting unviewed for %@", _friend.firstName);
+        DebugLog(@"setting unviewed for %@", _friend.firstName);
         [self indicateUnviewed];
     } else {
-        DebugLog(@"****** setting viewed for %@", _friend.firstName);
+        DebugLog(@"setting viewed for %@", _friend.firstName);
         [self indicateViewed];
     }
 }
