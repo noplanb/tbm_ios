@@ -225,9 +225,7 @@
     }
     
     TBMFriend *friend = [TBMFriend findWithId:_friendId];
-    [friend setUploadRetryCountWithInteger:0];
-    [friend setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_NEW];
-    [TBMFriend saveAll];
+    [friend handleAfterOutgoingVideoCreated];
     
     DebugLog(@"calling delegate=%@", _delegate);
     [_delegate didFinishVideoRecordingWithFriendId:_friendId];

@@ -41,6 +41,7 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 @property (nonatomic, retain) NSString * firstName;
 @property (nonatomic, retain) NSString * lastName;
 @property (nonatomic, retain) NSString * outgoingVideoId;
+@property (nonatomic, retain) NSString * lastOutgoingVideoId;
 @property (nonatomic, retain) NSString * incomingVideoId;
 @property (nonatomic) TBMOutgoingVideoStatus outgoingVideoStatus;
 @property (nonatomic) TBMIncomingVideoStatus incomingVideoStatus;
@@ -53,6 +54,7 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 // Finders
 + (NSArray *)all;
 + (instancetype)findWithId:(NSString *)idTbm;
++ (instancetype)findWithIncomingVideoId:(NSString *)videoId;
 + (instancetype)findWithViewIndex:(NSNumber *)viewIndex;
 + (NSUInteger)count;
 + (NSMutableArray *)whereUploadPendingRetry;
@@ -93,5 +95,9 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 - (void)setAndNotifyIncomingVideoStatus:(TBMIncomingVideoStatus)newStatus;
 - (void)setAndNotifyUploadRetryCount:(NSNumber *)newRetryCount;
 - (void)setIncomingViewed;
+
+- (void)handleAfterOutgoingVideoCreated;
+- (void)addToDownloadQueueWithVideoId:(NSString *)videoId;
+
 @end
 

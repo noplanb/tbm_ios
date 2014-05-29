@@ -8,6 +8,7 @@
 
 #import "TBMAppDelegate.h"
 #import "TBMAppDelegate+PushNotification.h"
+#import "TBMStringUtils.h"
 
 @implementation TBMAppDelegate
 
@@ -15,15 +16,21 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    DebugLog(@"didFinishLaunchingWithOptions:");
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+    // See doc/notification.txt for why we dont use this in our app.
+    NSDictionary *LaunchOptionsRemoteNotificationNotUsed = [launchOptions objectForKeyedSubscript:UIApplicationLaunchOptionsRemoteNotificationKey];
+    DebugLog(@"willFinishLaunchingWithOptions: %@", launchOptions);
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+    DebugLog(@"didFinishLaunchingWithOptions: %@", launchOptions);
     return YES;
 }
 
 
-- (void)applicationWillResignActive:(UIApplication *)application
-{
+- (void)applicationWillResignActive:(UIApplication *)application{
+    DebugLog(@"applicationWillResignActive");
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
@@ -35,20 +42,19 @@
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
+- (void)applicationWillEnterForeground:(UIApplication *)application{
+    DebugLog(@"applicationWillEnterForeground");
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
+- (void)applicationDidBecomeActive:(UIApplication *)application{
+    DebugLog(@"applicationDidBecomeActive");
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     _uploadManager = [TBMUploadManager sharedManager];
     [_uploadManager restartTasksPendingRetry];
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application
-{
+- (void)applicationWillTerminate:(UIApplication *)application{
     DebugLog(@"applicationWillTerminate: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];

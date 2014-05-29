@@ -41,11 +41,13 @@ static NSString * const TBMHttpFormBoundary = @"*****tbm*****";
 
 - (NSURL *)tbmServerUrlWithFriendId:(NSString *)friendId{
     TBMUser *user = [TBMUser getUser];
+    TBMFriend *friend = [TBMFriend findWithId:friendId];
     NSString *path;
     if (_transferType == TBM_FILE_TRANSFER_TYPE_DOWNLOAD){
-        path = [NSString stringWithFormat:@"/videos/test_get?receiver_id=%@&user_id=%@", user.idTbm, friendId];
+        path = [NSString stringWithFormat:@"/videos/get?receiver_id=%@&user_id=%@&video_id=%@", user.idTbm, friendId, friend.incomingVideoId];
     } else {
-        path = [NSString stringWithFormat:@"/videos/create?receiver_id=%@&user_id=%@",friendId, user.idTbm];
+        TBMFriend *friend = [TBMFriend findWithId:friendId];
+        path = [NSString stringWithFormat:@"/videos/create?receiver_id=%@&user_id=%@&video_id=%@&last_video_id=%@",friendId, user.idTbm, friend.outgoingVideoId, friend.lastOutgoingVideoId];
     }
     path = [[TBMConfig tbmBasePath] stringByAppendingString:path];
     return [NSURL URLWithString:path];
@@ -507,7 +509,7 @@ static NSString * const TBMHttpFormBoundary = @"*****tbm*****";
         
         DebugLog(@"Flusing session %@.", [self session].configuration.identifier);
         [[self session] flushWithCompletionHandler:^{
-            DebugLog(@"Flushed session shoul be using new socket.");
+            DebugLog(@"Flushed session should be using new socket.");
         }];
     }
 }

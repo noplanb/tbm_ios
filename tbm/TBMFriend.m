@@ -12,6 +12,9 @@
 #import "TBMAppDelegate.h"
 #import "TBMConfig.h"
 #import "TBMUser.h"
+#import "TBMStringUtils.h"
+#import "TBMDownloadManager.h"
+#import "TBMVideoIdUtils.h"
 
 #import "TBMHomeViewController.h"
 @implementation TBMFriend
@@ -21,6 +24,7 @@
 @dynamic outgoingVideoStatus;
 @dynamic incomingVideoStatus;
 @dynamic outgoingVideoId;
+@dynamic lastOutgoingVideoId;
 @dynamic incomingVideoId;
 @dynamic lastVideoStatusEventType;
 @dynamic viewIndex;
@@ -76,6 +80,10 @@ static NSMutableArray * videoStatusNotificationDelegates;
             [result addObject:friend];
     }
     return result;
+}
+
++ (instancetype)findWithIncomingVideoId:(NSString *)videoId{
+    return [self findWithAttributeKey:@"incomingVideoId" value:videoId];
 }
 
 + (instancetype)findWithId:(NSString *)idTbm{
@@ -340,6 +348,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
     [TBMFriend saveAll];
 }
 
+
 // ------------
 // Retry Counts
 // ------------
@@ -396,17 +405,38 @@ static NSMutableArray * videoStatusNotificationDelegates;
     }
 }
 
+
+// --------------------------------
+// Adjust status for various events
+// --------------------------------
+- (void)handleAfterOutgoingVideoCreated{
+    [self setUploadRetryCountWithInteger:0];
+    [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_NEW];
+    [self generateAndSetOutgoingVideoId];
+    [TBMFriend saveAll];
+}
+
 // -------------
 // videoId stuff
 // -------------
-- (NSString *)createNewOutgoingVideoId{
-    // Pattern senderId-receiverId-senderFristname-receiverFirstname-32randomcharacters.
-    NSMutableString *r = [[NSMutableString alloc] init];
-    [r appendString:[TBMUser getUser].idTbm];
-    [r appendString:@"-"];
-    r app
-    r appendString:[TBMUser getUser].f
-    [r appendString:[TBMUser getUser].firstName];
-    return r;
+
+- (void)generateAndSetOutgoingVideoId{
+    self.lastOutgoingVideoId = self.outgoingVideoId;
+    self.outgoingVideoId = [TBMVideoIdUtils generateOutgoingVideoIdWithFriend:self];
 }
+
+
+// --------------
+// Download stuff
+// --------------
+
+- (void)addToDownloadQueueWithVideoId:(NSString *)videoId{
+    if ([videoId isEqual:self.incomingVideoId]) {
+        DebugLog(@"addToDownloadQueueWithVideoId: Ignoring duplicate request for id:%@", videoId);
+        return;
+    }
+    self.incomingVideoId = videoId;
+    [[TBMDownloadManager sharedManager] fileTransferWithFriendId:self.idTbm];
+}
+
 @end

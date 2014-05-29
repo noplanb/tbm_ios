@@ -9,6 +9,7 @@
 #import "TBMVideoPlayer.h"
 #import "TBMVideoRecorder.h"
 #import "MediaPlayer/MediaPlayer.h"
+#import "TBMAppSyncManager.h"
 
 @interface TBMVideoRecorder()
 @end
@@ -203,6 +204,9 @@ static NSMutableDictionary *instances;
 // ----------------
 - (void)play{
     DebugLog(@"play for %@", _friend.firstName);
+    if (_friend.incomingVideoStatus != INCOMING_VIDEO_STATUS_VIEWED)
+        [TBMAppSyncManager notifyServerOfViewedForFriend:_friend];
+    
     [_friend setIncomingViewed];
     if (![_friend hasValidIncomingVideoFile]) {
         DebugLog(@"Cant play no valid video file for %@", _friend.firstName);

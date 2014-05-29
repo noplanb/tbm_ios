@@ -1,17 +1,101 @@
- - Create PushNotificationHandler category on TBMAppDelegate.
-   - Register for notification and get the push token.
-   - Send the push token up to the server
-   
- - Server
-   - Device_platform ios / android.
-   
-Handling Notifications
-----------------------
-  - video_status_update 
-    - running or not update the status accordingly.
-  - video_received
+QUESTION: What are all the scenarios when I may get a notification and what calls are made in the app delegatel:
+= For Alert or Silent notification with content_available:
+  - App is in foreground when notification is received.
+    - didReceiveRemoteNotification:fetch
+  - App is in background when notification is received.
+    - didReceiveRemoteNotification:fetch
+  - Entering background followed by notification user clicks on notification
+    - didReceiveRemoteNotification:fetch on notification
+    - didReceiveRemoteNotification:fetch on entering the foreground due to click on notification.
+    - note in this case didReceiveRemoteNotification gets called 2 times. Once when the notification was received and once when the user clicks on the notification.
+  - Entering background followed by notification user launches app from icon
+    - didReceiveRemoteNotification:fetch on notification
+    - note that didFinishLaunchingWithOptions gets null for launch options.
+  - Termination followed by notification user clicks on notification 
+    - Nothing on notification.
+    - didFinishLaunchingWithOptions gets APNS payload under notification key:UIApplicationLaunchOptionsRemoteNotificationKey in the launch options dictionary. 
+    - didReceiveRemoteNotification:fetch is also called as well.
+  - Termination followed by notification user launches the app from icon
+    - Nothing on notification
+    - No launch options didFinishLaunchingWithOptions
+    - No call to didReceiveRemoteNotification:fetch
+= Architectural implications of these findings:
+  - Use didReceiveRemoteNotification:fetch to queue downloads and change any video status as appropriate.
+  - Poll and queue downloads and set status for any missed items do the Scenario: Termination followed by notification user launches the app from icon above. 
+  - Make the payload for the notification the same as the payload for polling so they can easily be handled by the same handler. 
 
 
+QUESTION: What happens if i get didReceiveRemoteNotification with an alert notification and I take some time to call the completion handler. Is the alert held off until I call the completion handler?
+  - TEST 
+    - Send a alert notification using rails console. 
+    - Create a 20 second delay in the handler
+  - RESULT
+    - NO it is NOT! The phone sends the notification alert to the user immediately when the notification is received. It does not wait until you call the completion handler.
+
+QUESTION: What happens if I get didReceiveRemoteNotification with an alert notification and I call the completion handler with UIBackgroundFetchResultFailed?
+  - RESULT
+    - See above the phone sends the notification alert immediately on receiving the notification. It doesnt not seem to wait for what you send in the completion handler or care what you send. 
+
+
+ARCHITECTURE How should we handle notifications for video_status_update:
+  - Send silent content available notification.
+  - Update status and ui as required.
+
+ARCHITECTURE How should we handle notifications for video_received messages:
+  ARCHITECTURE (A) 
+    - This architecture is ideal for user experience but too complicated.
+      - Architecture
+        - Send a silent notification.
+        - Do the download.
+        - Send a local notification with alert when the download is complete. 
+        - Error conditions:
+          - If the user has just rebooted his phone or killed the app in the task manager we wont get the silent notification.
+            - Our notification server would need to know to resend the notification as an alert if it hasnt been acted on on a while.
+          - Silent notification can be delayed by the APNS.
+      - Pros
+        - User only gets notified when new message is ready and waiting for him on the screen
+      - Cons
+        - Complex with problematic error conditions.
+  ARCHITECTURE (B)
+    - This architecture is much simpler and more bullet proof. 
+      - Architecture
+        - Send an alert notification with content_available.
+        - Add the appropriate message to the download queue.
+        - Call the completion handler immediately thereafter.
+          - The problem with calling at this point is the snapshot of our app that is taken at this point will not reflect the new message. But this is not a really big deal.
+        - Hope that most of the time the message will have finished downloading by the time the user clicks our app. 
+      - Pros
+        - Simple and 
+      - Cons
+        - It may result in a user  who quickly reacts to notifications sometimes entering the app before a new video has finished downloading.
+  CONCLUSION: 
+    - Start with ARCHITECTURE (B) and only go to (A) if we really hate the user experience.
+
+ARCHITECTURE DETAILS and IMPLEMENTATION DETAILS: 
+  - Notification and polling payload should be the same:
+    - videoStatusUpdates: [{videoId: video_id, status: status},... ]
+    - videosRequiringDownload: [video_id,... ]
+    - Keep legacy notification payload as well at least until android is updated to handle the new notification payload.
+  - Since ios will use video_id and android currently does not create one make the server creates one in case a video is uploaded by android. 
+  - Process payload on didReceiveRemoteNotification:fetch
+  - Poll and process on didFinishLaunching.
+  - Ignore the launch options. This is intended for the case we want to do something special when the user launches the app by clicking on a particular notification. In our case we always do the same thing no matter how we are launched.
+  
+TODO:
+  x TBMAppSyncManager
+    x handleVideosRequiringDownload
+      x for each video_id
+        x find the friend
+        x write and call method in friend to add to download queue.
+          x check if this friend already has this video_id as incomingVideoId. If so ignore as this is a duplicate request.
+          x Otherwise set the incomingVideoId. Start the download for friend.
+      x FileTransferManager add the videoId to the parameters we send.
+      
+    x handleVideoStatusUpdates
+      x For each video
+        x find the friend and  updateStatusAndNotify.
+    x Server
+      x Make sure we always create a vidoeId if there isnt one. 
 
 NOTES:
 

@@ -9,6 +9,7 @@
 #import "TBMAppDelegate+PushNotification.h"
 #import "TBMHttpClient.h"
 #import "TBMUser.h"
+#import "TBMAppSyncManager.h"
 
 @implementation TBMAppDelegate (PushNotification)
 
@@ -46,14 +47,13 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
+    // Not used as all of our notification are of type content-available = 1.
     DebugLog(@"didReceiveRemoteNotification");
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
-    DebugLog(@"didReceiveRemoteNotification fetch");
-//    UILocalNotification *notification = [[UILocalNotification alloc] init];
-//    notification.alertBody =  @"Looks like i got a notification - fetch thingy";
-//    [application presentLocalNotificationNow:notification];
+    DebugLog(@"didReceiveRemoteNotification:fetchCompletionHandler");
+    [TBMAppSyncManager handleSyncPayload:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
