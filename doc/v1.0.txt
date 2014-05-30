@@ -10,14 +10,14 @@ x Thumbnails
 x Plus signs in startup screen.
 x Uploads see upload.txt
 x Upload status indicator.
+- get rid of ding on outgoing viewed change.
 
 x Remove download button
 x Download indicate number of retries.
 
-- Notification alerts and badges
-  - Remove old notifications when app becomes active.
-  - Reset badge when app becomes active.
-  
+x Notification alerts and badges
+  x Remove old notifications when app becomes active.
+  x Set badge so it properly shows number of unviewed.  
 
 - Implement the creator generated video_id for videos
   - IOS & ANDROID

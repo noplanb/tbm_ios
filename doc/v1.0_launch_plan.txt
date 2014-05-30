@@ -1,0 +1,18 @@
+ x Android
+   x Change to point to server.
+   x Test against real server without upgrading the server using moto and htc.
+   x Label a release in Github.
+   x Create a release doc in docs.
+   x Sign and release in the store.
+   
+ - Ios
+   - Change to point to server
+   
+ - Server
+   x Add other phones for kon.
+   x Push changes to server.
+   x Destroy all videos.
+   - Rake drop migrate and seed the db. 
+ 
+   
+ - Test between Red, black and 
