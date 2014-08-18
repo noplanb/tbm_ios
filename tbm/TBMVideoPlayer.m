@@ -9,7 +9,7 @@
 #import "TBMVideoPlayer.h"
 #import "TBMVideoRecorder.h"
 #import "MediaPlayer/MediaPlayer.h"
-#import "TBMAppSyncManager.h"
+#import "OBLogger.h"
 
 @interface TBMVideoRecorder()
 @end
@@ -89,7 +89,6 @@ static NSMutableDictionary *instances;
 }
 
 - (void)addVideoPlayer{
-    _videoUrl = [_friend incomingVideoUrl];
     _moviePlayerController = [[MPMoviePlayerController alloc] init];
     _playerView = _moviePlayerController.view;
     _moviePlayerController.controlStyle = MPMovieControlStyleNone;
@@ -117,6 +116,14 @@ static NSMutableDictionary *instances;
     [_viewedIndicatorLayer setNeedsDisplay];
 }
 
+
+//------
+// State
+//------
+- (BOOL)isPlaying{
+    return _moviePlayerController.playbackState == MPMoviePlaybackStatePlaying;
+}
+
 // ------------------------------
 // Notifications of state changes
 // ------------------------------
@@ -131,21 +138,26 @@ static NSMutableDictionary *instances;
 
 - (void)playNewMessageToneIfNecessary{
     if (_friend.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
-        _friend.incomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED) {
+        _friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED) {
         [_messageTone play];
     }
 }
 
 - (void)addPlayerNotifications{
     DebugLog(@"Adding player notifications");
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackDidFinishNotification) name:MPMoviePlayerPlaybackDidFinishNotification object:_moviePlayerController];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackDidFinishNotification:) name:MPMoviePlayerPlaybackDidFinishNotification object:_moviePlayerController];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackStateDidChangeNotification) name:MPMoviePlayerPlaybackStateDidChangeNotification object:_moviePlayerController];
 }
 
-- (void) playbackDidFinishNotification{
-    //Unused.
-    //DebugLog(@"playbackDidFinishNotification");
+- (void) playbackDidFinishNotification:(NSNotification *)notification{
+    NSDictionary *userInfo = [notification userInfo];
+    OB_INFO(@"userInfo: %@", userInfo);
+    NSNumber *reason = [userInfo objectForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey];
+    
+    if ([reason integerValue] != MPMovieFinishReasonUserExited)
+        [self playDidComplete];
+    
 }
 
 - (void) playbackStateDidChangeNotification{
@@ -167,7 +179,7 @@ static NSMutableDictionary *instances;
 
 
 - (void)updateViewedIndicator{
-    if (_friend.incomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED) {
+    if ([_friend incomingVideoNotViewed]) {
         DebugLog(@"setting unviewed for %@", _friend.firstName);
         [self indicateUnviewed];
     } else {
@@ -201,31 +213,48 @@ static NSMutableDictionary *instances;
 // ----------------
 // Control playback
 // ----------------
-- (void)play{
-    DebugLog(@"play for %@", _friend.firstName);
-    if (_friend.incomingVideoStatus != INCOMING_VIDEO_STATUS_VIEWED)
-        [TBMAppSyncManager notifyServerOfViewedForFriend:_friend];
-    
-    [_friend setIncomingViewed];
-    if (![_friend hasValidIncomingVideoFile]) {
-        DebugLog(@"Cant play no valid video file for %@", _friend.firstName);
-        return;
-    }
-    _moviePlayerController.contentURL = _videoUrl;
-    [_moviePlayerController play];
-}
-
 - (void)togglePlay{
-    if (_moviePlayerController.playbackState == MPMoviePlaybackStatePlaying) {
+    if ([self isPlaying]) {
         [self stop];
     } else {
-        [self play];
+        [self start];
+    }
+}
+
+- (void)start{
+    OB_INFO(@"start:");
+    _video = [_friend firstPlayableVideo];
+    
+    if (_video == nil){
+        OB_WARN(@"no playable video.");
+        return;
+    }
+    [self play];
+}
+
+- (void)play{
+    DebugLog(@"play for %@", _friend.firstName);
+    
+    if ([_video hasValidVideoFile]){
+        _moviePlayerController.contentURL = [_video videoUrl];
+        [_moviePlayerController play];
+    } else {
+        [self  playDidComplete];
     }
 }
 
 - (void)stop{
     DebugLog(@"stop for %@", _friend.firstName);
     [_moviePlayerController stop];
+}
+
+- (void)playDidComplete{
+    OB_INFO(@"playDidComplete");
+    [_friend setViewedWithIncomingVideo:_video];
+    _video = [_friend nextPlayableVideoAfterVideo:_video];
+    
+    if (_video != nil)
+        [self play];
 }
 
 @end

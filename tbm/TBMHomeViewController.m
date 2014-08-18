@@ -10,8 +10,7 @@
 #import "TBMLongPressTouchHandler.h"
 #import "TBMVideoPlayer.h"
 #import <UIKit/UIKit.h>
-#import "TBMUploadManager.h"
-#import "TBMDownloadManager.h"
+#import "TBMAppDelegate+AppSync.h"
 
 @interface TBMHomeViewController ()
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *friendViews;
@@ -19,6 +18,7 @@
 @property TBMLongPressTouchHandler *longPressTouchHandler;
 @property TBMVideoRecorder *videoRecorder;
 @property TBMVideoPlayer *videoPlayer;
+@property (nonatomic) TBMAppDelegate *appDelegate;
 @property BOOL isPlaying;
 @end
 
@@ -34,6 +34,10 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
         // Custom initialization
     }
     return self;
+}
+
+- (TBMAppDelegate *)appDelegate{
+    return self.appDelegate = (TBMAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 - (void)viewDidLoad
@@ -97,9 +101,8 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 }
 
 - (void)updateFriendLabelWithFriend:(TBMFriend *)friend{
-//    DebugLog(@"Update friend label for %@ with %@", friend.firstName, friend.videoStatusString);
     UILabel *label = [self friendLabelWithViewIndex:friend.viewIndex];
-    label.text = friend.videoStatusString;
+    label.text = [friend videoStatusString];
     [self.view setNeedsDisplay];
 }
 
@@ -148,9 +151,11 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 //-----------------------------------
 // TBMVideoRecorderDelegate callbacks
 //-----------------------------------
-- (void)didFinishVideoRecordingWithFriendId:(NSString *)friendId{
+- (void)didFinishVideoRecordingWithMarker:(NSString *)friendId{
     DebugLog(@"didFinishVideoRecordingWithFriendId %@", friendId);
-    [[TBMUploadManager sharedManager] fileTransferWithFriendId:friendId];
+    TBMFriend *friend = [TBMFriend findWithId:friendId];
+    [friend handleAfterOutgoingVideoCreated];
+    [[self appDelegate] uploadWithFriendId:friendId];
 }
 
 
@@ -159,7 +164,6 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 //-----------------------------------
 -(void)videoStatusDidChange:(id)object{
     TBMFriend *friend = (TBMFriend *)object;
-    // DebugLog(@"videoStatusDidChange for %@ to %@", friend.firstName, friend.videoStatusString);
     [self updateFriendLabelWithFriendOnMainThread:friend];
 }
 
@@ -199,7 +203,7 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 - (void)LPTHStartLongPressWithTargetView:(UIView *)view{
     // DebugLog(@"TBMHomeViewController: LPTH: startLongPress %ld", (long)view.tag);
     TBMFriend *friend = [self friendWithViewTag:view.tag];
-    [_videoRecorder startRecordingWithFriendId:friend.idTbm];
+    [_videoRecorder startRecordingWithMarker:friend.idTbm];
     [self showRecordingIndicator];
 }
 

@@ -10,7 +10,6 @@
 #import "TBMDeviceHandler.h"
 #import "TBMSoundEffect.h"
 #import "TBMConfig.h"
-#import "TBMFriend.h"
 
 @interface TBMVideoRecorder () <AVCaptureFileOutputRecordingDelegate>
 @property AVCaptureSession *captureSession;
@@ -24,13 +23,13 @@
 @property NSURL *recordedVideoMpeg4Url;
 @property CALayer *recordingOverlay;
 @property TBMSoundEffect *dingSoundEffect;
-@property NSString *friendId;
+@property NSString *marker;
 @end
 
 @implementation TBMVideoRecorder
 
-+ (NSURL *)outgoingVideoUrlWithFriendId:(NSString *)friendId{
-    NSString *filename = [NSString stringWithFormat:@"outgoingVidToFriend%@", friendId];
++ (NSURL *)outgoingVideoUrlWithMarker:(NSString *)marker{
+    NSString *filename = [NSString stringWithFormat:@"outgoingVidToFriend%@", marker];
     return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"mov"]];
 }
 
@@ -155,10 +154,10 @@
     [_captureSession startRunning];
 }
 
-- (void)startRecordingWithFriendId:(NSString *)friendId{
+- (void)startRecordingWithMarker:(NSString *)marker{
     [_dingSoundEffect play];
-    _friendId = friendId;
-    DebugLog(@"Started recording with friendId %@", _friendId);
+    _marker = marker;
+    DebugLog(@"Started recording with marker %@", _marker);
     NSError *error = nil;
     [_fileManager removeItemAtURL:_recordingVideoUrl error:&error];
     
@@ -183,8 +182,7 @@
     _recordingOverlay.hidden = NO;
 }
 
-- (void)hideRecordingOverlay
-{
+- (void)hideRecordingOverlay{
     _recordingOverlay.hidden = YES;
 }
 
@@ -223,16 +221,13 @@
         DebugLog(@"ERROR2: moveRecordingToOutgoingFileWithError this should never happen. error=%@", error);
         return;
     }
-    
-    TBMFriend *friend = [TBMFriend findWithId:_friendId];
-    [friend handleAfterOutgoingVideoCreated];
-    
+        
     DebugLog(@"calling delegate=%@", _delegate);
-    [_delegate didFinishVideoRecordingWithFriendId:_friendId];
+    [_delegate didFinishVideoRecordingWithMarker:_marker];
 }
 
 - (void)moveRecordingToOutgoingFileWithError:(NSError **)error{
-    NSURL *outgoingVideoUrl = [TBMVideoRecorder outgoingVideoUrlWithFriendId:_friendId];
+    NSURL *outgoingVideoUrl = [TBMVideoRecorder outgoingVideoUrlWithMarker:_marker];
     
     NSError *dontCareError = nil;
     [_fileManager removeItemAtURL:outgoingVideoUrl error:&dontCareError];

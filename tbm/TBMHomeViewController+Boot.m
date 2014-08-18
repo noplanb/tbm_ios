@@ -9,11 +9,12 @@
 #import "TBMHomeViewController+Boot.h"
 #import "TBMFriend.h"
 #import "TBMUser.h"
-#import "TBMRegisterTableViewController.h"
+#import "TBMRegisterViewController.h"
 #import "TBMHttpClient.h"
 #import "UIAlertView+AFNetworking.h"
 #import "NSArray+NSArrayExtensions.h"
 #import "TBMAppDelegate+PushNotification.h"
+#import "OBLogger.h"
 
 @implementation TBMHomeViewController (Boot)
 
@@ -26,6 +27,7 @@ static UIAlertView *getFriendsErrorAlert = nil;
     if (!user || [friends count] == 0){
         [self showRegister];
     } else {
+        OB_INFO(@"FRIENDS %@", [TBMFriend all]);
         [self userAndFriendModelsAreSetup];
     }
 }
@@ -42,7 +44,7 @@ static UIAlertView *getFriendsErrorAlert = nil;
 
 - (void) showRegister{
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"TBM" bundle:nil];
-    TBMRegisterTableViewController *registerViewController = [storyBoard instantiateViewControllerWithIdentifier:@"TBMRegisterViewController"];
+    TBMRegisterViewController *registerViewController = [storyBoard instantiateViewControllerWithIdentifier:@"TBMRegisterViewController2"];
     registerViewController.delegate = self;
     [self presentViewController:registerViewController animated:YES completion:nil];
 }
@@ -52,12 +54,15 @@ static UIAlertView *getFriendsErrorAlert = nil;
     TBMUser *u = [TBMUser createWithIdTbm:[user objectForKey:@"id"]];
     u.firstName = [user objectForKey:@"first_name"];
     u.lastName = [user objectForKey:@"last_name"];
+    u.auth = [user objectForKey:@"auth"];
+    u.mkey = [user objectForKey:@"mkey"];
     [self getFriends];
 }
 
 - (void) getFriends{
-    NSString *path = [NSString stringWithFormat:@"reg/register/%@", [TBMUser getUser].idTbm];
-    NSURLSessionDataTask *task = [[TBMHttpClient sharedClient] GET:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    NSString *path = @"reg/get_friends";
+    NSURLSessionDataTask *task = [[TBMHttpClient sharedClient] GET:path parameters:@{@"mkey": [TBMUser getUser].mkey}
+    success:^(NSURLSessionDataTask *task, id responseObject) {
         DebugLog(@"getFriends: %@", responseObject);
         [self addFriends:responseObject];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -87,6 +92,7 @@ static UIAlertView *getFriendsErrorAlert = nil;
         friend.viewIndex = [NSNumber numberWithInt:i];
         friend.firstName = [f objectForKey:@"first_name"];
         friend.lastName = [f objectForKey:@"last_name"];
+        friend.mkey = [f objectForKey:@"mkey"];
         i++;
     }
     [TBMFriend saveAll];

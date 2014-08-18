@@ -36,4 +36,32 @@
     return r;
 }
 
+
++ (NSString *)jsonWithDictionary:(NSDictionary *)dict{
+    NSString *jsonString;
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:kNilOptions error:&error];
+    if (!jsonData){
+        DebugLog(@"ERROR: setRemoteKVWithKey: %@", error);
+        jsonString = @"";
+    } else {
+        jsonString =  [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
+    return jsonString;
+}
+
++ (NSDictionary *)dictionaryWithJson:(NSString *)jsonString{
+    NSDictionary *try = [[NSDictionary alloc] init];
+    NSDictionary *result = [[NSDictionary alloc] init];
+    NSError *error;
+    try = [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
+    if (error){
+        DebugLog(@"ERROR: jsonToDictionary: %@", [error localizedDescription]);
+        result = @{@"error": [error localizedDescription]};
+    } else {
+        result = try;
+    }
+    return result;
+}
+
 @end

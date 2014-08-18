@@ -8,10 +8,11 @@
 
 #import "TBMConfig.h"
 
-static NSString * const TBMBaseUrlString = @"http://www.threebyme.com";
-//static NSString * const TBMBaseUrlString = @"http://192.168.1.91:3000";
-
 @implementation TBMConfig
+
++ (NSString *)appName{
+    return @"ThreeByMe";
+}
 
 + (NSURL *)videosDirectoryUrl{
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
@@ -26,11 +27,11 @@ static NSString * const TBMBaseUrlString = @"http://www.threebyme.com";
 }
 
 + (NSURL *)tbmBaseUrl{
-    return [NSURL URLWithString:TBMBaseUrlString];
+    return [NSURL URLWithString:CONFIG_SERVER_BASE_URL_STRING];
 }
 
 + (NSString *)tbmBasePath{
-    return TBMBaseUrlString;
+    return CONFIG_SERVER_BASE_URL_STRING;
 }
 
 @end

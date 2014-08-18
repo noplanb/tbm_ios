@@ -1,0 +1,363 @@
+v1.1 8/18/2014
+
+NEW FEATURES
+============
+ - Works with infinitely scalable Messaging server v1.1.
+ - Send and recieve multiple vidoes without overwriting.
+   - Send multiple videos without overwriting unviewed videos. 
+   - Playback muliple vidoes sent by a friend.
+ - Made Farhads filetranfer manager a cocoaPod and incorporated.
+ - Send vidoes to yourself for testing purposes.
+ - Registration (alpha)
+   - Enter phone number rather than picking from list
+   - Handle no connection
+   - Handle wrong number
+ 
+
+
+FUTURE RELEASES
+===============
+Features
+ - Polling
+ - Version oudated notification
+ - Make the last frame the poster frame.
+ - Custom notification tone for our app
+ - Make it work with headphones and blue tooth.
+ - Autoplay on clicking notification.
+
+
+
+x Registration
+  x User enters phone number rather than pic from list
+    x Add iboutlet for text field
+	x Add action for done
+	x Strip whitespace
+	x Detect blank entry
+    x reg/get_user?mobile_number
+  x Spinner while checking
+  x Server checks if user is present in db
+	 x If yes then return user
+	 x If no then alert Error: check phone number or contact Sani
+	 x If no connectivity then alert Error: check connectivity and try again
+  x Ability to enter text as well as numbers.
+	x Test
+	 x Good number
+	 x Bad number
+	 x No connectivity
+
+ - Accomodate new notification scheme on server
+   x Create NotificationHandler
+   - Explicitly request a notification to be sent to a MailboxKey
+     - After upload
+	 - After download
+	 - After viewed
+   x Register token using notification controller.
+   
+ x RemoteStorageHandler
+   x setRemoteKV
+     x Takes a NSDictionary
+	 x Converts to json
+	 x Stores
+     x key1 and key2
+	 x Convenience
+ 		x addRemoteOutgoingVideoId
+ 		x deleteRemoteIncomingVideoId
+		x setRemoteIncomingVideoStatus
+		x deleteRemoteVideoFile
+   x getRemoteKV
+     x Returns a NSDictionary
+	 
+ x Accomodate multiple incoming videos
+    x Add an active model for Video
+    x Video
+	  x Add attrbutes
+	  x Add status
+	  x Add allWithFriendId
+	x Add general methods from video to friend for handling managed object.
+	x Add incomingvideo methods created in android.
+	
+ - VideoUtils
+   - Generate videoId from timestamp and do time comparisons.
+   	 
+ - Accomodate the v1.1 messaging scheme
+   x User
+     x Add fields  
+	   x auth
+	   x mkey
+   x Registration
+     x Set the new fields
+   x Friend
+     x Add fields
+	   x change id to mkey
+	   - DownloadingVideoId (id of the video that is currently downloading but has not finished downloading)
+   x GetFriends
+     x get_friends mkey=
+	 x add with mkey.
+   - Upload
+     - Generate static VideoFilename from sender mkey and receiver mkeys
+	 - Explicitly upload to VideoFilename
+	 - Generate VideoId using a timestamp
+     - Generate static LatestVideoIdKVKey from sender and receiver mkeys
+	 - After upload completes successfully eplicitly write LatestVideoIdKV with VideoId
+	 - Explicitly call notification server
+   - Download
+	 - See list step by step list in tbm-server/system_architecture.txt for the punchlist here.
+   - Viewed
+     - Generate static VideoStatusKVKey from sender and receiver mkeys
+	 - Explicitly write VideoStatusKV
+	 - Explicitly call notification server
+   x Notification received
+   
+
+
+INTEGRATING FARHADS FILETRANSFER
+================================
+x Get fileTransferPlay to work stand alone
+x Walk through and document through the code for:
+  x Upload and download
+    x retry
+    x callbacks
+    - reset retry timers
+x Write flow for how I would use the module in TBM.
+- Encorporating the code in my project
+  - Make it a cocoapod
+  - Create another project and try to incorprate it
+  - Incorporate into tbm
+  - Deprecate my fileTransfer stuff
+  - Work through the flow in Architecture after integrating below. 
+
+x Make it a cocoapod 
+  x Read about how to make a cocoapod
+  x Create a cocoaPod
+    x rvm 1.9.3; 
+	x gem install cocoapods
+	x pod lib create OBFileTransfer
+  x Copy the podspec Metadata files into FileTransferPlay
+  x Modify podspec
+  x pod lib lint
+  
+x Add obfiletransfer to podfile for tbm
+x Pod install
+- Create AppDelegate+AppSync
+- Instantiate filetransfermanager
+  - Set not S3
+x Call it for upload
+- Call it for download
+- Handle the callbacks
+  
+
+  
+
+
+Architecture after integrating
+------------------------------
+Flow taken mostly from server/doc/systemArchitecture
+x Create and upload video
+  x VideoRecorder.stopRecording
+    x VideoIdUtils - generate id
+  x HomeViewController didFinishRecording
+    x AppSync
+	  x FileTransfermanager - upload.
+    x AppSync - callback: fileTransferCompleted no error.
+	  x RemoteStorageHandler - add id to kv
+	  x Send videoReceived notification for outgoing videoId
+	  x Update status for video or friend
+	x AppSync - callback: fileTransferCompleted error.
+	  x Status failed permanently.
+	x AppSync - callback: fileTransferRetrying
+	  x Update retryCount
+
+- Receiver gets notification of videoReceived
+  - TBMAppDelegate+PushNotification
+    x AppSync
+	  x Compare with other incoming videos    
+	    x If it is older than the oldest videoId ignore the notification.
+	    x If it is the same as any videoId ignore the notifcation.
+		
+	  Otherwise...
+	  x Create video
+	  x Update status to downloading
+	  x Start download
+	x AppSync - callback: fileTransferCompleted
+	  x Update status downloaded
+	  x RemoteStorageHandler Delete remote video file
+	  x RemoteStorageHandler Delete incoming videoId
+	  x NotificationHandler send notification for VideoReceived
+	  - Create thumb
+	x AppSync - callback: download retry
+	x AppSync - callback: download failed permanently
+
+- UI processing of multiple messages on client
+  - See tbm(android)/doc/receive multiple.txt
+  - VideoPlayer
+    - Add methods to friend
+  	  - firstPlayableVideoId
+  	  - nextPlayableVideoId(videoId)
+	  
+    - start()
+      - if firstPlayableVideoId 
+  	  - setViewed
+  	  - if not too short
+  	    - play()
+  	  - else
+  	    - call onCompletion
+  
+    - play(videoId)
+      - Move the current code from start
+	
+    - onCompletion()
+      - if nextPlayableVideoId(videoId)
+  	  - play next
+  	- else
+  	  - stop
+  
+- Receiver views a video (same)
+  - Only on the transition from NotViewed to Viewed
+    - Update VideoStatusKV: [VideoId, Status(viewed)]
+    - Send notificication for VideoStatusUpdate
+ 
+- Receiver polls for new videos
+ - Receiver reads VideoIdsKV
+     - Process VideoIds from oldest to newest.
+       - If it is older than the earliest videoId in Incoming_Videos then skip.
+   	   - If it is the same as any videoId  in Incoming_Videos then skip
+       - Otherwise proceed as for notification above.
+
+- Sender gets notification of VideoStatus (same)
+ - Check VideoId in notification.
+   - If same as VideoId for last video sent:
+     - Update UI with new video status.
+   - Otherwise ignore 
+
+- Sender polls for latest video status. (same)
+ - Read VideoStatusKV
+ - Follow same steps as for notification of VideoStatus above. 
+	
+PROBLEMS
+========
+
+PROBLEM: OutgoingVideoId is used as the marker for the file upload. It may be overwritten before fileUpload returns it. So we can not figure out who the friend is from the marker when it is returned to us after file upload completes. 
+SOLUTION: (for upload only)
+  - In videoIdUtils 
+    - Add a method to put both the friend.idTbm and the ougtgoingVideoId in the same marker.
+	- Add a method to extract the videoId and the idTbm from that marker. 
+  - When calling the upload set with this marker.
+  - When called back extract the friend and videoId from is marker.
+  
+PROBLEM: The coreDataGeneratedAccessors are not recognized when i call them:
+		@interface TBMFriend (CoreDataGeneratedAccessors)
+		- (void)addChildrenObject:(TBMVideo *)value;
+		- (void)removeChildrenObject:(TBMVideo *)value;
+		- (void)addChildren:(NSSet *)values;
+		- (void)removeChildren:(NSSet *)values;
+		@end
+
+  TEST: Create a ParentChildren project and generate the class files for the xcdatamodel. RESULT: The coreGenearatedDataAccessors work.
+  TRY: Delete and recreate the models for friend and video in tbm.xcdatatmodeld from scratch. RESULT: still not recogized.
+  SPECULATION: I need to regenerate the class files for video and friend.
+  TRY: 
+    x Change the name of friend.m,h to friendOld.m,h. Same for video.m,h (Dont rename just move the files so they are not overwritten)
+	x Review and make sure xdatamodeld is correct the way we want it.
+	x Generate the class files again using the xdatamodeld.
+	- Copy the methods from friendOld and videoOld
+	  x TBMFriend.h
+	  x TBMFriend.m
+	  x TBMVideo.h
+	  x TBMVideo.h
+  RESULT - seems to work ok now. I think I just had the wrong names for the methods. They should have been addVideosObject not addChildrenObject.
+  
+
+PROBLEM: Ordering of videos seems to be incorrect. SOLUTION: I had commented out the sort. RESULT: Works fine.
+
+PROBLEM: After adding and deleting videos Friend.all was returning videos as well as friends. SOLUTION: in xcdatamodeld remove friend as parent declaration for video.
+	  
+	  
+	
+QUESTIONS AND TESTS
+-------------------
+- When we call fileTransferUpload does it copy file to a temp file immediately before returning?
+- Since we are request background time we are not called with appWillTerminate when you terminate by removing from the task manager. We do save state in app did enter background. But are there 
+cases where we change state in the background and dont resave?
+- Do background retries work.
+
+
+
+MISC TODO
+---------
+- Stop all players when start record.
+- Remove FriendOLD.h,m VideoOLD.hm from the repository when everything is working ok.
+
+
+
+Questions for farhad
+--------------------
+I wonder if you had thought of subclassing NSTask to add our tracking info rather than create a separate obtask. 
+  - Would this obviate the need to save state for the obTasks since the session saves them for you automatically?
+  - Would it simplify translating back and forth between the two entities as you are always passed the NSTask in callbacks and can query the tasks given the session?
+  - Or is that an architectural no-no. 
+  - Perhaps nstasks are destroyed when we might want ours to persist until we explicitly destroy them?
+
+- Line 359 ObFileTransferManager.m do you want the OB_INFO outside of the if statement so it prints for both uploads and downloads?
+
+- Have you seen us get URLSessionTaskDidCompleteWithError but state was not NSURLSessionTaskStateCompleted?
+  - We do nothing in this case. 
+  - Does it eventually call completed with the correct state?
+  - Are there cases where it never resolves?
+  
+- What if I need to know information like the attemptCount and whether it was upload or download easily in the callback.
+  - Does it make sense to always pass the obtask in the callback - or is that an architectural no-no?
+
+- Is there a way to distiguish cases that will never resolve with retry?
+  - You are trying to pull a file from S3 that doesnt exist.
+    - In the case of our server I try to emulate with a 403 not found. But I found that sometimes you will get a 403 due to connectivity issues so thats not right. What about S3?
+	- Does S3 throw a special error in this case that I can emulate?
+  - You are trying to write but for some reason are just not authorized to do so. 
+
+- In the case of download you copy the file in the didFinishDownloadingToURL callback. But you call us back in the URLSessionDidCompletWith... callback.
+  - Is there a possible race condition depending on which callback they call first?
+  - Is it better to do all the work including the final delegate callback in didFinishDownloadingToURL?
+
+- In FileTransferManager.m line 54 you have // GARF - deprecate - not using a singleton pattern
+  - But in AppDelegate.m line 50 as well as in ViewController you do: [[OBFileTransferManager instance] ...;
+  
+- The appdelegate is passed a completion handler to call when we are done handling all background events. We store the completion handler as an attribute of the appDelegate. The FileTranserManager finds it in the appDelegate later and calls it as appropriate. 
+  - Would it be better architecturally to save the completion handler in the FileTransferManager when we reinstantiate it and call it locally from there when appropriate? So the FileTransferManager doesnt need to know anything about the the attributes of the appDelegate? I think this was from my not so good code...
+  
+
+
+NOTES
+=====
+
+Document flow in FileTransferPlay
+---------------------------------
+- ViewController.uploadFile / downloadFile
+- Callbacks
+	
+
+Document current TBM flow to assist with refactoring
+----------------------------------------------------
+
+HomeViewController.LPTHEndLongPressWithTargetView
+VideoRecorder.StopRecording
+HomeViewController.DidFinishRecordingWithFriendId
+UploadManager.fileTransferWithFriendId
+  - UploadManager.setStatusForFileTransferStartWithFriendId
+  - UploadManager.fileTransferWithFreindId:Tasks
+  - UploadManager.cancelTasksWithFriendId
+  - UploadManager.createAndStartTransferTaskWithFreindId
+UploadManager.callbacks
+  - didSendBodyData - do nothing
+  - didCompleteWithError
+    - for download - do nothing
+	- for upload
+	  - success - setStatusForSuccessfulFileTransferWithTask
+	  - fail
+	    - setStatusForFailedFIleTransferWithTask
+		- retryTaskAfterHoldoffWithFriendId
+  - didWriteDate - do nothing
+  - didResumeAtOffset - do nothing
+  - didFinishDownloading
+    - Friend.loadIncomingVideoWithURL
+	- setStatusForSuccessfulFileTransferWithTask
+
+

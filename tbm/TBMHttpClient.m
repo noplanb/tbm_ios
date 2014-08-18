@@ -16,6 +16,7 @@
     
     dispatch_once(&onceToken, ^{
         _sharedClient = [[TBMHttpClient alloc] initWithBaseURL:[TBMConfig tbmBaseUrl]];
+        _sharedClient.responseSerializer.acceptableContentTypes = [_sharedClient.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
     });
     return _sharedClient;
 }

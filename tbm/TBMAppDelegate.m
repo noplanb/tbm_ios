@@ -9,6 +9,7 @@
 #import "TBMAppDelegate.h"
 #import "TBMAppDelegate+PushNotification.h"
 #import "TBMStringUtils.h"
+#import "OBFileTransferManager.h"
 
 @implementation TBMAppDelegate
 
@@ -31,8 +32,7 @@
     // for the case where app is launching from a terminated state due to user clicking on notification. Even though both this method
     // and the didReceiveRemoteNotification:fetchCompletionHandler are called in that case.
     NSDictionary *remoteNotificationUserInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (remoteNotificationUserInfo)
-        [self handleSyncPayload:remoteNotificationUserInfo];
+    if (remoteNotificationUserInfo) [self handleNotificationPayload:remoteNotificationUserInfo];
     
     return YES;
 }
@@ -46,6 +46,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application{
     DebugLog(@"applicationDidEnterBackground: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
+    [self saveContext];
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
@@ -57,13 +58,14 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application{
     DebugLog(@"applicationDidBecomeActive");
+    // GARF: Need to implement this in the new architecture.
     // This makes retry start immediately and from a count of 0 when the user comes back to the app presumabably after
     // fixing whatever network problem was preventing the downloads or uploads.
-    _uploadManager = [TBMUploadManager sharedManager];
-    [_uploadManager restartTasksPendingRetry];
-    
-    _downloadManager = [TBMDownloadManager sharedManager];
-    [_downloadManager restartTasksPendingRetry];
+//    _uploadManager = [TBMUploadManagerDeprecated sharedManager];
+//    [_uploadManager restartTasksPendingRetry];
+//    
+//    _downloadManager = [TBMDownloadManagerDeprecated sharedManager];
+//    [_downloadManager restartTasksPendingRetry];
     
     [self clearNotifcationCenter];
 }
@@ -74,8 +76,8 @@
     [self saveContext];
 }
 
-- (void)saveContext
-{
+- (void)saveContext{
+    OB_INFO(@"saveContext");
     NSError *error = nil;
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
     if (managedObjectContext != nil) {
@@ -169,17 +171,13 @@
 }
 
 - (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler{
-    DebugLog(@"handleEventsForBackgroundURLSession: for sessionId=%@",identifier);
-    if ([identifier isEqualToString:[_uploadManager sessionIdentifier]]){
-        DebugLog(@"handlingEventsFor TBMUploadManager");
-        _backgroundUploadSessionCompletionHandler = completionHandler;
-        _uploadManager = [TBMUploadManager sharedManager];
-    } else if ([identifier isEqualToString:[_downloadManager sessionIdentifier]]){
-        DebugLog(@"handlingEventsFor TBMDownloadManager");
-        _backgroundDownloadSessionCompletionHandler = completionHandler;
-        _downloadManager = [TBMDownloadManager sharedManager];
+    OB_INFO(@"handleEventsForBackgroundURLSession: for sessionId=%@",identifier);
+    OBFileTransferManager *tm = [OBFileTransferManager instance];
+    [tm initSession];
+    if ([[tm session].configuration.identifier isEqual:identifier]){
+        tm.backgroundSessionCompletionHandler = completionHandler;
     } else {
-        DebugLog(@"ERROR: handleEventsFor unknown session=%@ this should never happen.", identifier);
+        OB_ERROR(@"handleEventsForBakcgroundURLSession passed us a different identifier from the one we instantiated our background session with.");
     }
 }
 

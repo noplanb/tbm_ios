@@ -12,44 +12,50 @@
 
 @implementation TBMVideoIdUtils
 
-+ (NSString *)generateOutgoingVideoIdWithFriend:(TBMFriend *)friend{
-    // Pattern senderId-receiverId-senderFristname-receiverFirstname-32randomcharacters.
-    NSMutableString *r = [[NSMutableString alloc] init];
-    [r appendString:[TBMUser getUser].idTbm];
-    [r appendString:@"-"];
-    [r appendString:friend.idTbm];
-    [r appendString:@"-"];
-    [r appendString:[TBMUser getUser].firstName];
-    [r appendString:@"-"];
-    [r appendString:friend.firstName];
-    [r appendString:@"-"];
-    [r appendString:[TBMStringUtils randomStringofLength:50]];
-    return r;
++ (NSString *)generateId{
+    double seconds = [[NSDate date] timeIntervalSinceReferenceDate];
+    return [NSString stringWithFormat:@"%.0f", seconds * 1000.0];
 }
 
-+ (NSDictionary *)senderAndReceiverIdsWithVideoId:(NSString *)videoId{
-    DebugLog(@"senderAndReceiverIdsWithVideoId: %@", videoId);
-    NSError *error = NULL;
-    NSRange range = NSMakeRange(0, [videoId length]);
-    
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^(\\d+)-(\\d+)-" options:0 error:&error];
-    NSUInteger numberOfMatches = [regex numberOfMatchesInString:videoId options:0 range:range];
-    if (numberOfMatches != 1) {
-        DebugLog(@"ERROR: senderAndReceiverIdsWithIncomingVideoId: ERROR: got %lu matches rather than 1 match. This should never happen.", (unsigned long)numberOfMatches);
-        return @{};
-    }
-    
-    NSArray *matches = [regex matchesInString:videoId options:NSMatchingWithoutAnchoringBounds range:range];
-    return @{@"senderId": [videoId substringWithRange:[[matches firstObject] rangeAtIndex:1]],
-             @"receiverId": [videoId substringWithRange:[[matches firstObject] rangeAtIndex:2]]};
++ (double) timeStampWithVideoId:(NSString *)videoId{
+    return [videoId doubleValue];
 }
 
-+ (NSString *)senderIdWithVideoId:videoId{
-    return [TBMVideoIdUtils senderAndReceiverIdsWithVideoId:videoId][@"senderId"];
++ (NSString *) newerVideoId:(NSString *)vid1 otherVideoId:(NSString *)vid2{
+    if ([TBMVideoIdUtils timeStampWithVideoId:vid1] > [TBMVideoIdUtils timeStampWithVideoId:vid2])
+        return vid1;
+    else
+        return vid2;
 }
 
-+ (NSString *)receiverIdWithVideoId:videoId{
-    return [TBMVideoIdUtils senderAndReceiverIdsWithVideoId:videoId][@"receiverId"];
++ (BOOL) isvid1:(NSString *)vid1 olderThanVid2:(NSString *)vid2{
+    return [TBMVideoIdUtils timeStampWithVideoId:vid1] < [TBMVideoIdUtils timeStampWithVideoId:vid2];
+}
+
++ (BOOL) isvid1:(NSString *)vid1 newerThanVid2:(NSString *)vid2{
+    return [TBMVideoIdUtils timeStampWithVideoId:vid1] > [TBMVideoIdUtils timeStampWithVideoId:vid2];
+}
+
++ (NSString *)markerWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId{
+    return [TBMStringUtils jsonWithDictionary: @{VIDEO_ID_UTILS_FRIEND_ID_KEY: friend.idTbm, VIDEO_ID_UTILS_VIDEO_ID_KEY: videoId}];
+}
+
++ (NSDictionary *)friendIdAndVideoIdWithMarker:(NSString *)marker{
+    return [TBMStringUtils dictionaryWithJson:marker];
+}
+
++ (TBMFriend *)friendWithMarker:(NSString *)marker{
+    NSString *friendId = [[TBMVideoIdUtils friendIdAndVideoIdWithMarker:marker] objectForKey:VIDEO_ID_UTILS_FRIEND_ID_KEY];
+    return [TBMFriend findWithId:friendId];
+}
+
++ (TBMVideo *)videoWithMarker:(NSString *)marker{
+    NSString *videoId = [[TBMVideoIdUtils friendIdAndVideoIdWithMarker:marker] objectForKey:VIDEO_ID_UTILS_VIDEO_ID_KEY];
+    return [TBMVideo findWithVideoId:videoId];
+}
+
++ (NSString *)videoIdWithMarker:(NSString *)marker{
+    return [[TBMVideoIdUtils friendIdAndVideoIdWithMarker:marker] objectForKey:VIDEO_ID_UTILS_VIDEO_ID_KEY];
 }
 
 @end

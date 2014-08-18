@@ -9,6 +9,21 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-OBFileTransfer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-OBLogger.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Reachability.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>7258659F9FEB455F86772C82</key>
+		<key>18DCA63C0FDD4475A8588535</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8CDFC90450BB4D799B245E13</key>
+		<key>3B80B59898154A0A96C21D19</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B0D3BE2E2B1443A2AB67EE14</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CF369552CA1C441CBD96D2C9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F082CFA44F904C298DFAD73C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

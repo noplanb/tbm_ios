@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "MediaPlayer/MediaPlayer.h"
 #import "TBMSoundEffect.h"
+#import "TBMVideo.h"
 
 #import "TBMFriend.h"
 
@@ -16,8 +17,8 @@
 
 @property NSString *friendId;
 @property TBMFriend *friend;
+@property TBMVideo *video;
 @property MPMoviePlayerController *moviePlayerController;
-@property NSURL *videoUrl;
 @property UIView *friendView;
 @property UIView *playerView;
 @property UIImageView *thumbView;

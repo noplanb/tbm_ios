@@ -1,8 +1,8 @@
 //
-//  Friend.m
+//  TBMFriend.m
 //  tbm
 //
-//  Created by Sani Elfishawy on 4/26/14.
+//  Created by Sani Elfishawy on 8/18/14.
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
@@ -10,27 +10,28 @@
 
 #import "TBMFriend.h"
 #import "TBMAppDelegate.h"
+#import "TBMAppDelegate+PushNotification.h"
 #import "TBMConfig.h"
 #import "TBMUser.h"
 #import "TBMStringUtils.h"
-#import "TBMDownloadManager.h"
+#import "TBMDownloadManagerDeprecated.h"
 #import "TBMVideoIdUtils.h"
-
 #import "TBMHomeViewController.h"
+#import "OBLogger.h"
+
 @implementation TBMFriend
 
 @dynamic firstName;
 @dynamic lastName;
-@dynamic outgoingVideoStatus;
-@dynamic incomingVideoStatus;
 @dynamic outgoingVideoId;
-@dynamic lastOutgoingVideoId;
-@dynamic incomingVideoId;
+@dynamic outgoingVideoStatus;
 @dynamic lastVideoStatusEventType;
+@dynamic lastIncomingVideoStatus;
 @dynamic viewIndex;
 @dynamic uploadRetryCount;
-@dynamic downloadRetryCount;
 @dynamic idTbm;
+@dynamic mkey;
+@dynamic videos;
 
 static NSMutableArray * videoStatusNotificationDelegates;
 
@@ -64,26 +65,8 @@ static NSMutableArray * videoStatusNotificationDelegates;
     return [[TBMFriend managedObjectContext] executeFetchRequest:[TBMFriend fetchRequest] error:&error];
 }
 
-+ (NSMutableArray *)whereUploadPendingRetry{
-    NSMutableArray *result = [[NSMutableArray alloc] init];
-    for (TBMFriend *friend in [TBMFriend all]){
-        if ([friend hasUploadPendingRetry])
-            [result addObject:friend];
-    }
-    return result;
-}
-
-+ (NSMutableArray *)whereDownloadPendingRetry{
-    NSMutableArray *result = [[NSMutableArray alloc] init];
-    for (TBMFriend *friend in [TBMFriend all]){
-        if ([friend hasDownloadPendingRetry])
-            [result addObject:friend];
-    }
-    return result;
-}
-
-+ (instancetype)findWithIncomingVideoId:(NSString *)videoId{
-    return [self findWithAttributeKey:@"incomingVideoId" value:videoId];
++ (instancetype)findWithOutgoingVideoId:(NSString *)videoId{
+    return [self findWithAttributeKey:@"outgoingVideoId" value:videoId];
 }
 
 + (instancetype)findWithId:(NSString *)idTbm{
@@ -92,6 +75,10 @@ static NSMutableArray * videoStatusNotificationDelegates;
 
 + (instancetype)findWithViewIndex:(NSNumber *)viewIndex{
     return [self findWithAttributeKey:@"viewIndex" value:viewIndex];
+}
+
++ (instancetype)findWithMkey:(NSString *)mkey{
+    return [self findWithAttributeKey:@"mkey" value:mkey];
 }
 
 + (instancetype)findWithAttributeKey:(NSString *)key value:(id)value{
@@ -110,9 +97,6 @@ static NSMutableArray * videoStatusNotificationDelegates;
     return [[TBMFriend all] count];
 }
 
-+ (int)unviewedCount{
-    return [[self findAllWithAttributeKey:@"incomingVideoStatus" value:[NSNumber numberWithInt:INCOMING_VIDEO_STATUS_DOWNLOADED]] count];
-}
 
 //-------------------
 // Create and destroy
@@ -152,109 +136,132 @@ static NSMutableArray * videoStatusNotificationDelegates;
 //=================
 
 //----------------
-// Video URL stuff
+// Incoming Videos
 //----------------
-- (NSURL *)incomingVideoUrl{
-    NSString *filename = [NSString stringWithFormat:@"incomingVidFromFriend%@", self.idTbm];
-    return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"mp4"]];
+- (NSSet *) incomingVideos{
+    return self.videos;
 }
 
-- (NSString *)incomingVideoPath{
-    return [self incomingVideoUrl].path;
+- (NSArray *) sortedIncomingVideos{
+    NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"videoId" ascending:YES];
+    return [self.videos sortedArrayUsingDescriptors:@[d]];
 }
 
-- (BOOL)incomingVideoFileExists{
-    return [[NSFileManager defaultManager] fileExistsAtPath:[self incomingVideoPath]];
+- (TBMVideo *) oldestIncomingVideo{
+    return [[self sortedIncomingVideos] firstObject];
 }
 
-- (unsigned long long)incomingVideoFileSize{
-    if (![self incomingVideoFileExists])
-        return 0;
-    
-    NSError *error;
-    NSDictionary *fa = [[NSFileManager defaultManager] attributesOfItemAtPath:[self incomingVideoPath] error:&error];
-    if (error)
-        return 0;
-    
-    return fa.fileSize;
+- (TBMVideo *) newestIncomingVideo{
+    return [[self sortedIncomingVideos] lastObject];
 }
 
-- (BOOL) hasValidIncomingVideoFile{
-    return [self incomingVideoFileSize] > 0;
-}
-
-- (void)deleteIncomingVideo{
-    DebugLog(@"deleteIncomingVideo");
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NSError *error = nil;
-    [fm removeItemAtURL:[self incomingVideoUrl] error:&error];
-}
-
-
-- (void)loadIncomingVideoWithUrl:(NSURL *)location{
-    DebugLog(@"loadIncomingVideoWithUrl for %@", self.firstName);
-    [self deleteIncomingVideo];
-    
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NSError *error = nil;
-    DebugLog(@"moveIncomingVideo");
-    [fm moveItemAtURL:location toURL:[self incomingVideoUrl] error:&error];
-    if (error){
-        DebugLog(@"loadIncomingVideoWithUrl: ERROR. This should never occur");
-        return;
+- (BOOL) hasIncomingVideoId:(NSString *)videoId{
+    for (TBMVideo *v in [self incomingVideos]) {
+        if ([v.videoId isEqual: videoId])
+            return true;
     }
-    NSDictionary *fa = [fm attributesOfItemAtPath:[self incomingVideoPath] error:&error];
-    DebugLog(@"Incoming video %@ size = %lld", [self incomingVideoPath], fa.fileSize);
-    [self generateThumb];
+    return false;
 }
 
-
-//----------------
-// Thumb URL stuff
-//----------------
-- (NSURL *)thumbUrl{
-    NSString *filename = [NSString stringWithFormat:@"thumbFromFriend%@", self.idTbm];
-    return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"png"]];
+- (BOOL) isNewestIncomingVideo:(TBMVideo *)video{
+    return [video isEqual:[self newestIncomingVideo]];
 }
 
-- (NSString *)thumbPath{
-    return [self thumbUrl].path;
+- (TBMVideo *)createIncomingVideoWithVideoId:(NSString *)videoId{
+    TBMVideo *video = [TBMVideo newWithVideoId:videoId];
+    [self addVideosObject:video];
+    return video;
 }
 
-- (BOOL)hasThumb{
-    return [[NSFileManager defaultManager] fileExistsAtPath:[self thumbPath]];
+- (void) deleteAllVideos{
+    for (TBMVideo *v in [self incomingVideos]){
+        [self deleteVideo:v];
+    }
 }
 
-- (void)generateThumb{
-    DebugLog(@"generateThumb for %@", self.firstName);
-    if (![self hasValidIncomingVideoFile])
-        return;
-    
-    AVAsset *asset = [AVAsset assetWithURL:[self incomingVideoUrl]];
-    AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc]initWithAsset:asset];
-    imageGenerator.appliesPreferredTrackTransform = YES;
-    CMTime time = CMTimeMake(1, 1);
-    CGImageRef imageRef = [imageGenerator copyCGImageAtTime:time actualTime:NULL error:NULL];
-    UIImage *thumbnail = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationUp];
-    CGImageRelease(imageRef);  // CGImageRef won't be released by ARC
-    [UIImagePNGRepresentation(thumbnail) writeToURL:[self thumbUrl] atomically:YES];
+- (void) deleteAllViewedVideos{
+    OB_INFO(@"deleteAllViewedVideos");
+    NSArray *all = [self sortedIncomingVideos];
+    for (TBMVideo * v in all){
+        OB_INFO(@"deleteAllViewedVideos count before delete %ld", (unsigned long)[TBMVideo count]);
+        if (v.status == INCOMING_VIDEO_STATUS_VIEWED)
+            [self deleteVideo:v];
+        OB_INFO(@"deleteAllViewedVideos count after delete %ld", (unsigned long)[TBMVideo count]);
+    }
 }
 
+- (void) deleteVideo:(TBMVideo *)video{
+    [video deleteFiles];
+    [self removeVideosObject:video];
+    [TBMVideo destroy:video];
+}
+
+- (TBMVideo *) firstPlayableVideo{
+    TBMVideo *video = nil;
+    for (TBMVideo *v in [self sortedIncomingVideos]){
+        if ([v videoFileExists]){
+            video = v;
+            break;
+        }
+    }
+    return video;
+}
+
+- (TBMVideo *) nextPlayableVideoAfterVideo:(TBMVideo *)video{
+    BOOL found = NO;
+    for (TBMVideo *v in [self sortedIncomingVideos]){
+        if (found && [v videoFileExists])
+            return v;
+        
+        if ([video isEqual:v])
+            found = YES;
+    }
+    return nil;
+}
+
+- (BOOL)incomingVideoNotViewed{
+    //Return true if any of the videos are status DOWNLOADED
+    OB_INFO(@"incomingVideoNotViewed looking for status=%d", INCOMING_VIDEO_STATUS_DOWNLOADED);
+    [TBMVideo printAll];
+    BOOL r = NO;
+    for (TBMVideo *v in [self sortedIncomingVideos]){
+        OB_INFO(@"incomingVideoNotViewed %@ status=%d", self.firstName, v.status);
+        if (v.status == INCOMING_VIDEO_STATUS_DOWNLOADED){
+            OB_INFO(@"incomingVideoNotViewed  NOT_VIEWED %@ status=%d", self.firstName, v.status);
+            r = YES;
+            break;
+        }
+    }
+    return r;
+}
+
+- (void)setViewedWithIncomingVideo:(TBMVideo *)video{
+    [self setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_VIEWED video:video];
+    [[TBMFriend appDelegate] sendNotificationForVideoStatusUpdate:self videoId:video.videoId status:NOTIFICATION_STATUS_VIEWED];
+}
+
+//------
+// Thumb
+//------
 - (NSURL *)thumbUrlOrThumbMissingUrl{
-    if ([self hasThumb]) {
-        return [self thumbUrl];
-    } else {
-        return [TBMConfig thumbMissingUrl];
+    OB_INFO(@"thumbUrlOrThumbMissingUrl: for %@ videoCount=%lu", self.firstName, (unsigned long)[[self sortedIncomingVideos] count]);
+    NSURL *thumb = [TBMConfig thumbMissingUrl];
+    for (TBMVideo *v in [self sortedIncomingVideos]){
+        if ([v hasThumb]){
+            OB_INFO(@"videoId %@ has thumb", v.videoId);
+            thumb = [v thumbUrl];
+        }
     }
+    return thumb;
 }
 
 - (UIImage *)thumbImageOrThumbMissingImage{
     return [UIImage imageWithContentsOfFile:[self thumbUrlOrThumbMissingUrl].path];
 }
 
-//-------------
-// VideoStatus
-//-------------
+//-------------------------------------
+// VideoStatus Delegates and UI Strings
+//-------------------------------------
 // I just could not get KVO to work reliably on attributes of a managedModel.
 // So I rolled my own notification registry.
 // In hindsight I should have probably used the NSNotificationCenter for this rather than rolling my own.
@@ -292,12 +299,18 @@ static NSMutableArray * videoStatusNotificationDelegates;
 }
 
 - (NSString *)incomingVideoStatusString{
-    if (self.incomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING){
-        if ([self.downloadRetryCount intValue] == 0){
+    TBMVideo *v = [self newestIncomingVideo];
+    if (v == NULL)
+        return self.firstName;
+    
+    if (v.status == INCOMING_VIDEO_STATUS_DOWNLOADING){
+        if ([v.downloadRetryCount intValue] == 0){
             return @"Downloading...";
         } else {
-            return [NSString stringWithFormat:@"Downloading r%@", self.downloadRetryCount];
+            return [NSString stringWithFormat:@"Downloading r%@", v.downloadRetryCount];
         }
+    } else if (v.status == INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY){
+        return @"Downloading e!";
     } else {
         return self.firstName;
     }
@@ -307,13 +320,13 @@ static NSMutableArray * videoStatusNotificationDelegates;
     NSString *statusString;
     switch (self.outgoingVideoStatus) {
         case OUTGOING_VIDEO_STATUS_NEW:
-            statusString = nil;
+            statusString = @"q...";
             break;
         case OUTGOING_VIDEO_STATUS_UPLOADING:
-            if ([self getUploadRetryCount] == 0) {
+            if (self.uploadRetryCount == 0) {
                 statusString = @"p...";
             } else {
-                statusString = [NSString stringWithFormat:@"r%lu...", (long)[self getUploadRetryCount]];
+                statusString = [NSString stringWithFormat:@"r%ld...", (long)[self.uploadRetryCount integerValue]];
             }
             break;
         case OUTGOING_VIDEO_STATUS_UPLOADED:
@@ -325,11 +338,13 @@ static NSMutableArray * videoStatusNotificationDelegates;
         case OUTGOING_VIDEO_STATUS_VIEWED:
             statusString = @"v!";
             break;
+        case OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY:
+            statusString = @"e!";
         default:
             statusString = nil;
     }
     
-    NSString *fn = (!statusString || self.outgoingVideoStatus == OUTGOING_VIDEO_STATUS_VIEWED) ? self.firstName : [self shortFirstName];
+    NSString *fn = (statusString == nil || self.outgoingVideoStatus == OUTGOING_VIDEO_STATUS_VIEWED) ? self.firstName : [self shortFirstName];
     return [NSString stringWithFormat:@"%@ %@", fn, statusString];
 }
 
@@ -337,117 +352,74 @@ static NSMutableArray * videoStatusNotificationDelegates;
     return [self.firstName substringWithRange:NSMakeRange(0, MIN(6, [self.firstName length]))];
 }
 
-- (void)setAndNotifyOutgoingVideoStatus:(TBMOutgoingVideoStatus)newStatus{
-    if (newStatus != self.outgoingVideoStatus){
-        self.lastVideoStatusEventType = OUTGOING_VIDEO_STATUS_EVENT_TYPE;
-        self.outgoingVideoStatus = newStatus;
-        [self notifyVideoStatusChangeOnMainThread];
-    }
-}
-
-- (void)setAndNotifyIncomingVideoStatus:(TBMIncomingVideoStatus)newStatus{
-    DebugLog(@"setAndNotifyIncomingVideoStatus for %@", self.firstName);
-    if (newStatus != self.incomingVideoStatus){
-        self.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
-        self.incomingVideoStatus = newStatus;
-        [self notifyVideoStatusChangeOnMainThread];
-    }
-}
-
-- (void)setIncomingViewed{
-    [self setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_VIEWED];
-    [TBMFriend saveAll];
-}
-
-
-// ------------
-// Retry Counts
-// ------------
-
-// UPLOADING
-- (void)setUploadRetryCountWithInteger:(NSInteger)count{
-    [self setAndNotifyUploadRetryCount:[NSNumber numberWithInteger:count]];
-}
-
-- (NSInteger)getUploadRetryCount{
-    return [self.uploadRetryCount integerValue];
-}
-
-- (void)incrementUploadRetryCount{
-    NSInteger count = [self getUploadRetryCount] + 1;
-    [self setUploadRetryCountWithInteger:count];
-}
-
-- (BOOL)hasUploadPendingRetry{
-    return self.outgoingVideoStatus == OUTGOING_VIDEO_STATUS_UPLOADING && [self getUploadRetryCount] > 0;
-}
-
-
-- (void)setAndNotifyUploadRetryCount:(NSNumber *)newRetryCount{
-    if (newRetryCount != self.uploadRetryCount){
-        self.uploadRetryCount = newRetryCount;
-        [self notifyVideoStatusChangeOnMainThread];
-    }
-}
-
-// DOWNLOADING
-- (void)setDownloadRetryCountWithInteger:(NSInteger)count{
-    [self setAndNotifyDownloadRetryCount:[NSNumber numberWithInteger:count]];
-}
-
-- (NSInteger)getDownloadRetryCount{
-    return [self.downloadRetryCount integerValue];
-}
-
-- (void)incrementDownloadRetryCount{
-    NSInteger count = [self getDownloadRetryCount] + 1;
-    [self setDownloadRetryCountWithInteger:count];
-}
-
-- (BOOL)hasDownloadPendingRetry{
-    return self.incomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING && [self getDownloadRetryCount] > 0;
-}
-
-
-- (void)setAndNotifyDownloadRetryCount:(NSNumber *)newRetryCount{
-    if (newRetryCount != self.downloadRetryCount){
-        self.downloadRetryCount = newRetryCount;
-        [self notifyVideoStatusChangeOnMainThread];
-    }
-}
-
-
-// --------------------------------
-// Adjust status for various events
-// --------------------------------
-- (void)handleAfterOutgoingVideoCreated{
-    [self setUploadRetryCountWithInteger:0];
-    [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_NEW];
-    [self generateAndSetOutgoingVideoId];
-    [TBMFriend saveAll];
-}
-
-// -------------
-// videoId stuff
-// -------------
-
-- (void)generateAndSetOutgoingVideoId{
-    self.lastOutgoingVideoId = self.outgoingVideoId;
-    self.outgoingVideoId = [TBMVideoIdUtils generateOutgoingVideoIdWithFriend:self];
-}
-
-
-// --------------
-// Download stuff
-// --------------
-
-- (void)addToDownloadQueueWithVideoId:(NSString *)videoId{
-    if ([videoId isEqual:self.incomingVideoId]) {
-        DebugLog(@"addToDownloadQueueWithVideoId: Ignoring duplicate request for id:%@", videoId);
+//---------------
+// Setting status
+//---------------
+- (void)setAndNotifyOutgoingVideoStatus:(TBMOutgoingVideoStatus)status videoId:(NSString *)videoId{
+    OB_INFO(@"setAndNotifyOutgoingVideoStatus");
+    
+    if (![videoId isEqual: self.outgoingVideoId]){
+        OB_WARN(@"setAndNotifyOutgoingVideoStatus: Unrecognized vidoeId:%@. != ougtoingVid:%@. friendId:%@ Ignoring.", videoId, self.outgoingVideoId, self.idTbm);
         return;
     }
-    self.incomingVideoId = videoId;
-    [[TBMDownloadManager sharedManager] fileTransferWithFriendId:self.idTbm];
+    
+    if (status == self.outgoingVideoStatus){
+        OB_WARN(@"setAndNotifyOutgoingVideoStatusWithVideo: Identical status. Ignoring.");
+        return;
+    }
+    
+    self.lastVideoStatusEventType = OUTGOING_VIDEO_STATUS_EVENT_TYPE;
+    self.outgoingVideoStatus = status;
+    [self notifyVideoStatusChangeOnMainThread];
+}
+
+- (void)setAndNotifyIncomingVideoStatus:(TBMIncomingVideoStatus)status video:(TBMVideo *)video{
+    OB_INFO(@"setAndNotifyIncomingVideoStatus");
+    if (video.status == status){
+        OB_WARN(@"setAndNotifyIncomingVideoStatusWithVideo: Identical status. Ignoring.");
+        return;
+    }
+    
+    video.status = status;
+    self.lastIncomingVideoStatus = status;
+    self.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
+    [self notifyVideoStatusChangeOnMainThread];
+}
+
+// --------------------
+// Setting Retry Counts
+// --------------------
+- (void)setAndNotifyUploadRetryCount:(NSNumber *)retryCount videoId:(NSString *)videoId{
+    if (![videoId isEqual:self.outgoingVideoId]){
+        OB_WARN(@"setAndNotifyUploadRetryCount: Unrecognized vidoeId. Ignoring.");
+        return;
+    }
+    
+    if (retryCount != self.uploadRetryCount){
+        self.uploadRetryCount = retryCount;
+        [self notifyVideoStatusChangeOnMainThread];
+    }
+}
+
+- (void)setAndNotifyDownloadRetryCount:(NSNumber *)retryCount video:(TBMVideo *)video{
+    if (video.downloadRetryCount == retryCount)
+        return;
+    
+    video.downloadRetryCount = retryCount;
+    
+    if ([self isNewestIncomingVideo:video]) {
+        [self notifyVideoStatusChangeOnMainThread];
+    }
+}
+
+//--------------------
+// Init outgoing video
+//--------------------
+- (void)handleAfterOutgoingVideoCreated{
+    self.uploadRetryCount = 0;
+    self.outgoingVideoId = [TBMVideoIdUtils generateId];
+    OB_INFO(@"handleAfterOutgoingVideoCreated: set outgoingVideoId = %@", self.outgoingVideoId);
+    [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_NEW videoId:self.outgoingVideoId];
 }
 
 @end

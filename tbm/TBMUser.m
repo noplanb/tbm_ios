@@ -15,6 +15,8 @@
 @dynamic firstName;
 @dynamic lastName;
 @dynamic idTbm;
+@dynamic auth;
+@dynamic mkey;
 
 //==============
 // Class methods
@@ -60,7 +62,6 @@
     [TBMUser destroy];
     TBMUser *user = (TBMUser *)[[NSManagedObject alloc] initWithEntity:[TBMUser entityDescription] insertIntoManagedObjectContext:[TBMUser managedObjectContext]];
     user.idTbm = idTbm;
-//    [[TBMUser appDelegate] saveContext];
     return user;
 }
 

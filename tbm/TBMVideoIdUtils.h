@@ -8,12 +8,22 @@
 
 #import <Foundation/Foundation.h>
 #import "TBMFriend.h"
+#import "TBMVideo.h"
+
+static NSString *VIDEO_ID_UTILS_VIDEO_ID_KEY = @"videoId";
+static NSString *VIDEO_ID_UTILS_FRIEND_ID_KEY = @"friendId";
+
 
 @interface TBMVideoIdUtils : NSObject
 
-+ (NSString *)generateOutgoingVideoIdWithFriend:(TBMFriend *)friend;
-+ (NSDictionary *)senderAndReceiverIdsWithVideoId:(NSString *)videoId;
-+ (NSString *)senderIdWithVideoId:videoId;
-+ (NSString *)receiverIdWithVideoId:videoId;
-
++ (NSString *)generateId;
++ (double) timeStampWithVideoId:(NSString *)videoId;
++ (NSString *) newerVideoId:(NSString *)vid1 otherVideoId:(NSString *)vid2;
++ (BOOL) isvid1:(NSString *)vid1 olderThanVid2:(NSString *)vid2;
++ (BOOL) isvid1:(NSString *)vid1 newerThanVid2:(NSString *)vid2;
++ (NSString *)markerWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId;
++ (NSDictionary *)friendIdAndVideoIdWithMarker:(NSString *)marker;
++ (NSString *)videoIdWithMarker:(NSString *)marker;
++ (TBMFriend *)friendWithMarker:(NSString *)marker;
++ (TBMVideo *)videoWithMarker:(NSString *)marker;
 @end
