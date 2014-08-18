@@ -1,5 +1,5 @@
 x make sure config points to server
 x create vx.x.txt file with release notes and date
-- push to github
-- tag with description.
+x push to github
+x tag with description.
 

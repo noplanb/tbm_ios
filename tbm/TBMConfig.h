@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-static NSString * const TBMBaseUrlString = @"http://www.threebyme.com";
+static NSString * const CONFIG_SERVER_BASE_URL_STRING = @"http://www.threebyme.com";
 //static NSString * const CONFIG_SERVER_BASE_URL_STRING = @"http://192.168.1.82:3000";
 
 
