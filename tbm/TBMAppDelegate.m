@@ -8,6 +8,7 @@
 
 #import "TBMAppDelegate.h"
 #import "TBMAppDelegate+PushNotification.h"
+#import "TBMAppDelegate+AppSync.h"
 #import "TBMStringUtils.h"
 #import "OBFileTransferManager.h"
 
@@ -68,6 +69,7 @@
 //    [_downloadManager restartTasksPendingRetry];
     
     [self clearNotifcationCenter];
+    [self pollAllFriends];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application{

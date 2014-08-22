@@ -7,6 +7,8 @@
 //
 #import "TBMHomeViewController.h"
 #import "TBMHomeViewController+Boot.h"
+#import "TBMHomeViewController+VersionController.h"
+
 #import "TBMLongPressTouchHandler.h"
 #import "TBMVideoPlayer.h"
 #import <UIKit/UIKit.h>
@@ -48,6 +50,7 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 - (void) viewDidAppear:(BOOL)animated{
     DebugLog(@"viewDidAppear");
     [super viewDidAppear:animated];
+    [[[TBMVersionHandler alloc] initWithDelegate:self] checkVersionCompatibility];
     [self boot];
     [self setupFriendViews];
     [TBMFriend addVideoStatusNotificationDelegate:self];
@@ -56,8 +59,7 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     [self setupVideoPlayers];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

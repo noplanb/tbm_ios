@@ -11,7 +11,7 @@
 @implementation TBMConfig
 
 + (NSString *)appName{
-    return @"ThreeByMe";
+    return CONFIG_APP_NAME;
 }
 
 + (NSURL *)videosDirectoryUrl{

@@ -1,0 +1,77 @@
+RELEASE NOTES
+=============
+
+v1.20 - 4 Aug 22 2014
+
+FEATURES
+--------
+
+FEATURE: Version Compatibility Checking - lets user know if app is out of date same as implemented on Android. Doesnt take you to store yet as app isnt in the store.
+  TODO: Integrate with testflight.
+  
+FEATURE: Polling for new videos. On applicationDidBecomeActive we poll for any videos we have not downloaded.
+
+
+
+
+
+
+RELEASE DETAILS
+===============
+
+Version Compatibility Checking
+------------------------------
+x VersionHandler class
+  x Send version check request
+  x Pass platform and version to the server
+x Server responds 
+  x Current
+  x UpdateOptional
+  x UpdateRequired
+  x UpdateSchemaRequired - i.e. client db schema has changed. App and schema must be updated.
+x Client alerts the user as appropriate.
+
+x Add VersionHandler
+  x Copy methods from eclipse
+  x Add versionCheckCallback protocol
+x Add HomeViewController+VersionController
+  x implement versionCheckCallback protocol
+  x show appropriate dialogs
+
+- Figure out testflight
+
+x Server change
+  x Change server to send json
+  x Test android client
+  x Change android clients to handle json (v2.10)
+  
+  
+  - Release
+	- Release Android with email if necessary
+	- Release IOS
+    - Push server 
+  
+  
+Poll for videos
+---------------
+- For each friend
+	- Read VideoIdsKV
+	- Process VideoIds from oldest to newest
+	- If older than the earliest videoId in IncomingVideos then delete videoFile and videoId
+	- If same as any videoId in IncomingVideos then skip
+	- Start download same as for notification.
+x Test
+  x Test deletion of older than oldest
+	  x Send 3 using nexus black.
+	  x Change the videoIds for all 3 to 0 on the server
+	  x Start up iphone.
+	  x It should delete all 3.
+  x Test ignore existing
+      x Send 1 using nb. 
+	  x On the server make the videoId the same as one of the videos already on the iphone
+	  x Start up iphone.
+	  x It should ignore that videoId
+- Pre release
+  - Poll all
+  - Change version 
+	  

@@ -20,7 +20,11 @@
 // Keys for remote storage
 //------------------------
 + (NSString *) incomingVideoRemoteFilename:(TBMVideo *)video{
-    return [NSString stringWithFormat:@"%@-%@-%@", [TBMRemoteStorageHandler incomingConnectionKey:video.friend], video.videoId, @"filename"];
+    return [TBMRemoteStorageHandler incomingVideoRemoteFilenameWithFriend:video.friend videoId:video.videoId];
+}
+
++ (NSString *) incomingVideoRemoteFilenameWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId{
+    return [NSString stringWithFormat:@"%@-%@-%@", [TBMRemoteStorageHandler incomingConnectionKey:friend], videoId, @"filename"];
 }
 
 + (NSString *) outgoingVideoRemoteFilename:(TBMFriend *)friend{
@@ -122,21 +126,42 @@
     [TBMRemoteStorageHandler setRemoteKVWithKey1:key key2:NULL value:value];
 }
 
+
+// Convenience getters
+
++ (void) getRemoteIncomingVideoIdsWithFriend:(TBMFriend *)friend gotVideoIds:(void(^)(NSArray *videoIds))gotVideoIds{
+    NSString *key1 = [TBMRemoteStorageHandler incomingVideoIDRemoteKVKey:friend];
+    [TBMRemoteStorageHandler getRemoteKVsWithKey:key1 success:^(NSArray *response) {
+        NSArray *vIds = [TBMRemoteStorageHandler getVideoIdsWithResponseObjects:response];
+        gotVideoIds(vIds);
+    } failure:^(NSError *error) {
+        OB_ERROR(@"getRemoteIncomingVideoIdsWithFriend: failure: %@", error);
+    }];
+}
+
++ (NSArray *)getVideoIdsWithResponseObjects:(NSArray *)responseObjects{
+    NSMutableArray *vIds = [[NSMutableArray alloc] init];
+    for (NSDictionary *r in responseObjects){
+        NSString *valueJson = [r objectForKey:@"value"];
+        NSDictionary *valueObj = [TBMStringUtils dictionaryWithJson:valueJson];
+        [vIds addObject:[valueObj objectForKey:REMOTE_STORAGE_VIDEO_ID_KEY]];
+    }
+    return vIds;
+}
+
 //------------
 // GetRemoteKV
 //------------
-+ (void) getRemoteKVWithKey:(NSString *)key success:(void(^)(NSDictionary *))success failure:(void(^)(NSError *))failure{
++ (void) getRemoteKVsWithKey:(NSString *)key1 success:(void(^)(NSArray *response))success failure:(void(^)(NSError *error))failure{
     OB_INFO(@"getRemoteKVWithKey");
     NSURLSessionDataTask *task = [[TBMHttpClient sharedClient]
-    GET:@"kvstore/get"
-    parameters:@{@"key": key}
-    success:^(NSURLSessionDataTask *task, id responseObject) {
-        DebugLog(@"getRemoteKVWithKey: success: %@", responseObject);
-        NSDictionary *data = [TBMStringUtils dictionaryWithJson:responseObject];
-        success(data);
+    GET:@"kvstore/get_all"
+    parameters:@{@"key1": key1}
+    success:^(NSURLSessionDataTask *task, NSArray *responseObject) {
+        success(responseObject);
     }
     failure:^(NSURLSessionDataTask *task, NSError *error) {
-        DebugLog(@"ERROR: getRemoteKVWithKey: %@", [error localizedDescription]);
+        OB_ERROR(@"ERROR: getRemoteKVWithKey: %@", [error localizedDescription]);
         failure(error);
     }];
     [task resume];
@@ -147,15 +172,27 @@
 // DeleteRemoteFile
 //-----------------
 + (void) deleteRemoteFile:(NSString *)filename{
+    OB_INFO(@"deleteRemoteFile: deleting: %@", filename);
     NSDictionary *params = @{@"filename": filename};
     [TBMRemoteStorageHandler simpleGet:@"videos/delete" params:params];
 }
 
 // Convenience
-
 + (void) deleteRemoteVideoFile:(TBMVideo *)video{
     NSString *filename = [TBMRemoteStorageHandler incomingVideoRemoteFilename:video];
     [TBMRemoteStorageHandler deleteRemoteFile:filename];
+}
+
++ (void) deleteRemoteVideoFileWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId{
+    NSString *filename = [TBMRemoteStorageHandler incomingVideoRemoteFilenameWithFriend:friend videoId:videoId];
+    [TBMRemoteStorageHandler deleteRemoteFile:filename];
+}
+
++ (void) deleteRemoteFileAndVideoIdWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId{
+    // GARF: TODO: We should delete the remoteVideoId from remoteVideoIds only if file deletion is successful so we dont leave hanging
+    // files.
+    [TBMRemoteStorageHandler deleteRemoteVideoFileWithFriend:friend videoId:videoId];
+    [TBMRemoteStorageHandler deleteRemoteIncomingVideoId:videoId friend:friend];
 }
 
 @end

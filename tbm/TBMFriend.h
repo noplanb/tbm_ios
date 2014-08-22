@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "TBMVideo.h"
 
-@protocol TBMVideoStatusNotoficationProtocol <NSObject>
+@protocol TBMVideoStatusNotificationProtocol <NSObject>
 - (void)videoStatusDidChange:(id)object;
 @end
 
@@ -59,6 +59,7 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 // Incoming videos
 - (NSArray *) sortedIncomingVideos;
 - (TBMVideo *) oldestIncomingVideo;
+- (NSString *) oldestIncomingVideoId;
 - (TBMVideo *) newestIncomingVideo;
 - (BOOL) hasIncomingVideoId:(NSString *)videoId;
 - (BOOL) isNewestIncomingVideo:(TBMVideo *)video;

@@ -34,4 +34,9 @@ static NSString * REMOTE_STORAGE_STATUS_VIEWED = @"viewed";
 + (void) deleteRemoteIncomingVideoId:(NSString *)videoId friend:(TBMFriend *)friend;
 + (void) setRemoteIncomingVideoStatus:(NSString *)status videoId:(NSString *)videoId friend:(TBMFriend *)friend;
 + (void) deleteRemoteVideoFile:(TBMVideo *)video;
++ (void) deleteRemoteVideoFileWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId;
++ (void) deleteRemoteFileAndVideoIdWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId;
+
+// Convenience getters
++ (void) getRemoteIncomingVideoIdsWithFriend:(TBMFriend *)friend gotVideoIds:(void(^)(NSArray *videoIds))gotVideoIds;
 @end

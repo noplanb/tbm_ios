@@ -13,7 +13,7 @@
 
 #import "TBMFriend.h"
 
-@interface TBMVideoPlayer : NSObject <TBMVideoStatusNotoficationProtocol>
+@interface TBMVideoPlayer : NSObject <TBMVideoStatusNotificationProtocol>
 
 @property NSString *friendId;
 @property TBMFriend *friend;

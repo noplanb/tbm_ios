@@ -84,6 +84,30 @@
      withParams:@{@"filename": [TBMRemoteStorageHandler incomingVideoRemoteFilename:video]}];
 }
 
+//--------
+// Polling
+//--------
+- (void) pollAllFriends{
+    OB_INFO(@"pollAllFriends");
+    for (TBMFriend *f in [TBMFriend all]){
+        if ([f isEqual:[TBMFriend findWithId:@"10"]])
+            [self pollWithFriend:f];
+    }
+}
+
+- (void) pollWithFriend:(TBMFriend *)friend{
+    OB_INFO(@"pollWithFriend: %@", friend.firstName);
+    [TBMRemoteStorageHandler getRemoteIncomingVideoIdsWithFriend:friend gotVideoIds:^(NSArray *videoIds) {
+        OB_INFO(@"pollWithFriend: %@  vids = %@", friend.firstName, videoIds);
+        for (NSString *videoId in videoIds){
+            if ([TBMVideoIdUtils isvid1:videoId olderThanVid2:[friend oldestIncomingVideoId]]) {
+                OB_WARN(@"pollWithFriend: Deleting remote video and videoId kv older than local oldest.");
+                [TBMRemoteStorageHandler deleteRemoteFileAndVideoIdWithFriend:friend videoId:videoId];
+            }
+            [self queueDownloadWithFriend:friend videoId:videoId];
+        }
+    }];
+}
 
 //-------------------------------
 // FileTransferDelegate callbacks
@@ -166,10 +190,7 @@
         return;
     }
     
-    // GARF: TODO: We should delete the remoteVideoId from remoteVideoIds only if file deletion is successful so we dont leave hanging
-    // files.
-    [TBMRemoteStorageHandler deleteRemoteVideoFile:video];
-    [TBMRemoteStorageHandler deleteRemoteIncomingVideoId:videoId friend:friend];
+    [TBMRemoteStorageHandler deleteRemoteFileAndVideoIdWithFriend:friend videoId:videoId];
     
     if (error != nil){
         [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY video:video];

@@ -10,9 +10,11 @@
 #import "TBMLongPressTouchHandlerCallback.h"
 #import "TBMVideoRecorder.h"
 #import "TBMFriend.h"
+#import "TBMVersionHandler.h"
 
-@interface TBMHomeViewController : UIViewController <TBMLongPressTouchHandlerCallback, TBMVideoRecorderDelegate, TBMVideoStatusNotoficationProtocol>
+@interface TBMHomeViewController : UIViewController <TBMLongPressTouchHandlerCallback, TBMVideoRecorderDelegate, TBMVideoStatusNotificationProtocol>
 @property (weak, nonatomic) IBOutlet UIView *centerView;
 @property (weak, nonatomic) IBOutlet UILabel *centerLabel;
+@property (strong, nonatomic) UIAlertView *versionHandlerAlert;
 
 @end

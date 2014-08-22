@@ -151,6 +151,10 @@ static NSMutableArray * videoStatusNotificationDelegates;
     return [[self sortedIncomingVideos] firstObject];
 }
 
+- (NSString *) oldestIncomingVideoId{
+    return [self oldestIncomingVideo].videoId;
+}
+
 - (TBMVideo *) newestIncomingVideo{
     return [[self sortedIncomingVideos] lastObject];
 }
@@ -247,6 +251,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
     OB_INFO(@"thumbUrlOrThumbMissingUrl: for %@ videoCount=%lu", self.firstName, (unsigned long)[[self sortedIncomingVideos] count]);
     NSURL *thumb = [TBMConfig thumbMissingUrl];
     for (TBMVideo *v in [self sortedIncomingVideos]){
+        OB_DEBUG(@"video %@ has thumb = %hhd", v, [v hasThumb]);
         if ([v hasThumb]){
             OB_INFO(@"videoId %@ has thumb", v.videoId);
             thumb = [v thumbUrl];
@@ -285,7 +290,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
 
 - (void)notifyVideoStatusChange{
     DebugLog(@"notifyVideoStatusChange for %@ on %lu delegates", self.firstName, (unsigned long)[videoStatusNotificationDelegates count]);
-    for (id<TBMVideoStatusNotoficationProtocol> delegate in videoStatusNotificationDelegates){
+    for (id<TBMVideoStatusNotificationProtocol> delegate in videoStatusNotificationDelegates){
         [delegate videoStatusDidChange:self];
     }
 }
