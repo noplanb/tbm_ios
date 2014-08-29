@@ -36,8 +36,12 @@
     return [TBMVideoIdUtils timeStampWithVideoId:vid1] > [TBMVideoIdUtils timeStampWithVideoId:vid2];
 }
 
-+ (NSString *)markerWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId{
-    return [TBMStringUtils jsonWithDictionary: @{VIDEO_ID_UTILS_FRIEND_ID_KEY: friend.idTbm, VIDEO_ID_UTILS_VIDEO_ID_KEY: videoId}];
++ (NSString *)markerWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId isUpload:(BOOL)isUpload{
+    return [TBMStringUtils jsonWithDictionary: @{
+                                                 VIDEO_ID_UTILS_FRIEND_ID_KEY: friend.idTbm,
+                                                 VIDEO_ID_UTILS_VIDEO_ID_KEY: videoId,
+                                                 IS_UPLOAD_KEY: [NSNumber numberWithBool:isUpload]
+                                                 }];
 }
 
 + (NSDictionary *)friendIdAndVideoIdWithMarker:(NSString *)marker{
@@ -57,5 +61,10 @@
 + (NSString *)videoIdWithMarker:(NSString *)marker{
     return [[TBMVideoIdUtils friendIdAndVideoIdWithMarker:marker] objectForKey:VIDEO_ID_UTILS_VIDEO_ID_KEY];
 }
+
++ (BOOL)isUploadWithMarker:(NSString *)marker{
+    return [[TBMStringUtils dictionaryWithJson:marker][IS_UPLOAD_KEY] boolValue];
+}
+
 
 @end

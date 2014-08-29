@@ -152,7 +152,6 @@ static NSMutableDictionary *instances;
 
 - (void) playbackDidFinishNotification:(NSNotification *)notification{
     NSDictionary *userInfo = [notification userInfo];
-    OB_INFO(@"userInfo: %@", userInfo);
     NSNumber *reason = [userInfo objectForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey];
     
     if ([reason integerValue] != MPMovieFinishReasonUserExited)
@@ -222,7 +221,7 @@ static NSMutableDictionary *instances;
 }
 
 - (void)start{
-    OB_INFO(@"start:");
+    OB_INFO(@"VideoPlayer: start:");
     _video = [_friend firstPlayableVideo];
     
     if (_video == nil){
@@ -249,7 +248,7 @@ static NSMutableDictionary *instances;
 }
 
 - (void)playDidComplete{
-    OB_INFO(@"playDidComplete");
+    OB_INFO(@"VideoPlayer: playDidComplete");
     [_friend setViewedWithIncomingVideo:_video];
     _video = [_friend nextPlayableVideoAfterVideo:_video];
     

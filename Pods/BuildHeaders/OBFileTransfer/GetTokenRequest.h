@@ -1,1 +1,1 @@
-../../OBFileTransfer/AWS/TVMClient/GetTokenRequest.h
+../../OBFileTransfer/Pod/Classes/AWS/TVMClient/GetTokenRequest.h

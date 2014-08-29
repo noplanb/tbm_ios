@@ -13,6 +13,7 @@
 #import "TBMVideoPlayer.h"
 #import <UIKit/UIKit.h>
 #import "TBMAppDelegate+AppSync.h"
+#import "OBLogger.h"
 
 @interface TBMHomeViewController ()
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *friendViews;
@@ -42,8 +43,8 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     return self.appDelegate = (TBMAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
+    DebugLog(@"viewDidAppear");
     [super viewDidLoad];
 }
 
@@ -55,11 +56,13 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     [self setupFriendViews];
     [TBMFriend addVideoStatusNotificationDelegate:self];
     [self setupLongPressTouchHandler];
+    [self setupShowLogGesture];
     [self setupVideoRecorder];
     [self setupVideoPlayers];
 }
 
 - (void)didReceiveMemoryWarning{
+    OB_ERROR(@"didReceiveMemoryWarning");
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -229,6 +232,22 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 - (void)hideRecordingIndicator
 {
     _centerLabel.hidden = YES;
+}
+
+//---------
+// Show log
+//---------
+- (void)setupShowLogGesture{
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showLog:)];
+    lpgr.delegate = (id)self;
+    [self.centerView addGestureRecognizer:lpgr];
+}
+
+-(IBAction)showLog:(UILongPressGestureRecognizer *)sender{
+    if ( sender.state == UIGestureRecognizerStateEnded ) {
+        OBLogViewController *logViewer = [OBLogViewController instance];
+        [self presentViewController: logViewer animated:YES completion:nil];
+    }
 }
 
 @end

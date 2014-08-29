@@ -19,8 +19,10 @@
 @property (copy) void (^backgroundUploadSessionCompletionHandler)();
 @property (copy) void (^backgroundDownloadSessionCompletionHandler)();
 
+@property (nonatomic) UIBackgroundTaskIdentifier backgroundTaskId;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
+-(void) requestBackground;
 
 @end

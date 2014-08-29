@@ -10,6 +10,7 @@
 #import "TBMDeviceHandler.h"
 #import "TBMSoundEffect.h"
 #import "TBMConfig.h"
+#import "OBLogger.h"
 
 @interface TBMVideoRecorder () <AVCaptureFileOutputRecordingDelegate>
 @property AVCaptureSession *captureSession;
@@ -70,6 +71,7 @@
 
         [self setupPreview];
         [self setupRecordingOverlay];
+        [self addObservers];
         [self startPreview];
     }
     return self;
@@ -149,8 +151,7 @@
     CGContextFillPath(context);
 }
 
-- (void)startPreview
-{
+- (void)startPreview{
     [_captureSession startRunning];
 }
 
@@ -253,4 +254,35 @@
     return _captureSession;
 }
 
+//-------------------------------
+// AVCaptureSession Notifications
+//-------------------------------
+- (void)addObservers{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionRuntimeErrorNotification:) name:AVCaptureSessionRuntimeErrorNotification object:_captureSession];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionDidStartRunningNotification:) name:AVCaptureSessionDidStartRunningNotification object:_captureSession];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionDidStopRunningNotification:) name:AVCaptureSessionDidStopRunningNotification object:_captureSession];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionWasInterruptedNotification:) name:AVCaptureSessionWasInterruptedNotification object:_captureSession];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionInterruptionEndedNotification:) name:AVCaptureSessionInterruptionEndedNotification object:_captureSession];
+}
+
+- (void) AVCaptureSessionRuntimeErrorNotification:(NSNotification *)notification{
+    OB_ERROR(@"AVCaptureSessionRuntimeErrorNotification");
+    NSDictionary *userInfo = [notification userInfo];
+    NSError *error = [userInfo objectForKey:AVCaptureSessionErrorKey];
+    NSString *message = [NSString stringWithFormat:@"Error: %@", error];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"AVCaptureSessionRuntimeErrorNotification" message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+}
+- (void) AVCaptureSessionDidStartRunningNotification:(NSNotification *)notification{
+    OB_INFO(@"AVCaptureSessionDidStartRunningNotification");
+}
+- (void) AVCaptureSessionDidStopRunningNotification:(NSNotification *)notification{
+    OB_WARN(@"AVCaptureSessionDidStopRunningNotification");
+}
+- (void) AVCaptureSessionWasInterruptedNotification:(NSNotification *)notification{
+    OB_WARN(@"AVCaptureSessionWasInterruptedNotification");
+}
+- (void) AVCaptureSessionInterruptionEndedNotification:(NSNotification *)notification{
+    OB_INFO(@"AVCaptureSessionInterruptionEndedNotification");
+}
 @end

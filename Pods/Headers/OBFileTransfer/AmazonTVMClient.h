@@ -1,1 +1,1 @@
-../../OBFileTransfer/AWS/TVMClient/AmazonTVMClient.h
+../../OBFileTransfer/Pod/Classes/AWS/TVMClient/AmazonTVMClient.h

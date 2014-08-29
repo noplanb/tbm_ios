@@ -51,18 +51,12 @@
 // OBFileTransfer
 #define COCOAPODS_POD_AVAILABLE_OBFileTransfer
 #define COCOAPODS_VERSION_MAJOR_OBFileTransfer 0
-#define COCOAPODS_VERSION_MINOR_OBFileTransfer 0
-#define COCOAPODS_VERSION_PATCH_OBFileTransfer 5
+#define COCOAPODS_VERSION_MINOR_OBFileTransfer 1
+#define COCOAPODS_VERSION_PATCH_OBFileTransfer 0
 
 // OBLogger
 #define COCOAPODS_POD_AVAILABLE_OBLogger
 #define COCOAPODS_VERSION_MAJOR_OBLogger 0
-#define COCOAPODS_VERSION_MINOR_OBLogger 0
-#define COCOAPODS_VERSION_PATCH_OBLogger 1
-
-// Reachability
-#define COCOAPODS_POD_AVAILABLE_Reachability
-#define COCOAPODS_VERSION_MAJOR_Reachability 3
-#define COCOAPODS_VERSION_MINOR_Reachability 1
-#define COCOAPODS_VERSION_PATCH_Reachability 1
+#define COCOAPODS_VERSION_MINOR_OBLogger 11
+#define COCOAPODS_VERSION_PATCH_OBLogger 0
 

@@ -187,10 +187,8 @@ static NSMutableArray * videoStatusNotificationDelegates;
     OB_INFO(@"deleteAllViewedVideos");
     NSArray *all = [self sortedIncomingVideos];
     for (TBMVideo * v in all){
-        OB_INFO(@"deleteAllViewedVideos count before delete %ld", (unsigned long)[TBMVideo count]);
         if (v.status == INCOMING_VIDEO_STATUS_VIEWED)
             [self deleteVideo:v];
-        OB_INFO(@"deleteAllViewedVideos count after delete %ld", (unsigned long)[TBMVideo count]);
     }
 }
 
@@ -225,13 +223,9 @@ static NSMutableArray * videoStatusNotificationDelegates;
 
 - (BOOL)incomingVideoNotViewed{
     //Return true if any of the videos are status DOWNLOADED
-    OB_INFO(@"incomingVideoNotViewed looking for status=%d", INCOMING_VIDEO_STATUS_DOWNLOADED);
-    [TBMVideo printAll];
     BOOL r = NO;
     for (TBMVideo *v in [self sortedIncomingVideos]){
-        OB_INFO(@"incomingVideoNotViewed %@ status=%d", self.firstName, v.status);
         if (v.status == INCOMING_VIDEO_STATUS_DOWNLOADED){
-            OB_INFO(@"incomingVideoNotViewed  NOT_VIEWED %@ status=%d", self.firstName, v.status);
             r = YES;
             break;
         }
@@ -248,12 +242,9 @@ static NSMutableArray * videoStatusNotificationDelegates;
 // Thumb
 //------
 - (NSURL *)thumbUrlOrThumbMissingUrl{
-    OB_INFO(@"thumbUrlOrThumbMissingUrl: for %@ videoCount=%lu", self.firstName, (unsigned long)[[self sortedIncomingVideos] count]);
     NSURL *thumb = [TBMConfig thumbMissingUrl];
     for (TBMVideo *v in [self sortedIncomingVideos]){
-        OB_DEBUG(@"video %@ has thumb = %hhd", v, [v hasThumb]);
         if ([v hasThumb]){
-            OB_INFO(@"videoId %@ has thumb", v.videoId);
             thumb = [v thumbUrl];
         }
     }
@@ -345,6 +336,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
             break;
         case OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY:
             statusString = @"e!";
+            break;
         default:
             statusString = nil;
     }
@@ -361,8 +353,6 @@ static NSMutableArray * videoStatusNotificationDelegates;
 // Setting status
 //---------------
 - (void)setAndNotifyOutgoingVideoStatus:(TBMOutgoingVideoStatus)status videoId:(NSString *)videoId{
-    OB_INFO(@"setAndNotifyOutgoingVideoStatus");
-    
     if (![videoId isEqual: self.outgoingVideoId]){
         OB_WARN(@"setAndNotifyOutgoingVideoStatus: Unrecognized vidoeId:%@. != ougtoingVid:%@. friendId:%@ Ignoring.", videoId, self.outgoingVideoId, self.idTbm);
         return;
@@ -379,7 +369,6 @@ static NSMutableArray * videoStatusNotificationDelegates;
 }
 
 - (void)setAndNotifyIncomingVideoStatus:(TBMIncomingVideoStatus)status video:(TBMVideo *)video{
-    OB_INFO(@"setAndNotifyIncomingVideoStatus");
     if (video.status == status){
         OB_WARN(@"setAndNotifyIncomingVideoStatusWithVideo: Identical status. Ignoring.");
         return;
@@ -402,7 +391,10 @@ static NSMutableArray * videoStatusNotificationDelegates;
     
     if (retryCount != self.uploadRetryCount){
         self.uploadRetryCount = retryCount;
+        self.lastVideoStatusEventType = OUTGOING_VIDEO_STATUS_EVENT_TYPE;
         [self notifyVideoStatusChangeOnMainThread];
+    } else {
+        OB_WARN(@"retryCount:%@ equals self.retryCount:%@. Ignoring.", retryCount, self.uploadRetryCount);
     }
 }
 
@@ -411,8 +403,10 @@ static NSMutableArray * videoStatusNotificationDelegates;
         return;
     
     video.downloadRetryCount = retryCount;
+
     
     if ([self isNewestIncomingVideo:video]) {
+        self.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
         [self notifyVideoStatusChangeOnMainThread];
     }
 }
@@ -423,8 +417,12 @@ static NSMutableArray * videoStatusNotificationDelegates;
 - (void)handleAfterOutgoingVideoCreated{
     self.uploadRetryCount = 0;
     self.outgoingVideoId = [TBMVideoIdUtils generateId];
-    OB_INFO(@"handleAfterOutgoingVideoCreated: set outgoingVideoId = %@", self.outgoingVideoId);
     [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_NEW videoId:self.outgoingVideoId];
 }
+
+- (void)handleAfterOUtgoingVideoUploadStarted{
+    [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_UPLOADING videoId:self.outgoingVideoId];
+}
+
 
 @end

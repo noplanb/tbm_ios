@@ -18,21 +18,18 @@ PODS:
   - AFNetworking/UIKit (2.2.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - OBFileTransfer (0.0.5):
+  - OBFileTransfer (0.1.0):
     - OBLogger
-    - Reachability
-  - OBLogger (0.0.1)
-  - Reachability (3.1.1)
+  - OBLogger (0.11)
 
 DEPENDENCIES:
   - AFNetworking
-  - OBFileTransfer (= 0.0.5)
+  - OBFileTransfer
   - OBLogger
 
 SPEC CHECKSUMS:
   AFNetworking: 47947303319594706f48a55185ea95a95159ab94
-  OBFileTransfer: a4cb34e9d85b2a6e812ea8563ca7db6aff520188
-  OBLogger: a5c0413d72bcafda296c9e54e72afce89033a28e
-  Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
+  OBFileTransfer: 8442cd34ee60e27005b11e24300442e810165bf3
+  OBLogger: 9a996a888b3cba51a78f88329baab765e02bacef
 
 COCOAPODS: 0.33.1

@@ -64,10 +64,8 @@
         GET:path
         parameters:params
         success:^(NSURLSessionDataTask *task, id responseObject) {
-             DebugLog(@"SUCCESS: GET: %@:", path);
          }
         failure:^(NSURLSessionDataTask *task, NSError *error) {
-             DebugLog(@"ERROR: GET: %@: %@", path, error);
          }];
     [task resume];
 }
@@ -77,10 +75,8 @@
         POST:path
         parameters:params
         success:^(NSURLSessionDataTask *task, id responseObject) {
-             DebugLog(@"SUCCESS: POST: %@", path);
          }
         failure:^(NSURLSessionDataTask *task, NSError *error) {
-             DebugLog(@"ERROR: POST: %@: %@", path, error);
          }];
     [task resume];
 }
@@ -90,7 +86,6 @@
 // set and delete kv
 //------------------
 + (void) setRemoteKVWithKey1:(NSString *)key1 key2:(NSString *)key2 value:(NSDictionary *)value{
-    OB_INFO(@"setRemoteKVWithKey1:Key2:Value");
     NSString *jsonValue = [TBMStringUtils jsonWithDictionary:value];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:@{@"key1": key1, @"value": jsonValue}];
     if (key2 != nil)
@@ -153,7 +148,6 @@
 // GetRemoteKV
 //------------
 + (void) getRemoteKVsWithKey:(NSString *)key1 success:(void(^)(NSArray *response))success failure:(void(^)(NSError *error))failure{
-    OB_INFO(@"getRemoteKVWithKey");
     NSURLSessionDataTask *task = [[TBMHttpClient sharedClient]
     GET:@"kvstore/get_all"
     parameters:@{@"key1": key1}

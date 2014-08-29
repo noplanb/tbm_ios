@@ -17,6 +17,7 @@
 // Upload download events
 - (void) uploadWithFriendId:(NSString *)friendId;
 - (void) queueDownloadWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId;
+- (void) retryPendingFileTransfers;
 
 // Polling
 - (void) pollAllFriends;

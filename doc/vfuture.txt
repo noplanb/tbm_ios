@@ -1,3 +1,4 @@
+ - Background upload and download.
  - Make the last frame the poster frame.
  - Custom notification tone for our app
  - Make it work with headphones and blue tooth.

@@ -12,10 +12,6 @@ FEATURE: Version Compatibility Checking - lets user know if app is out of date s
 FEATURE: Polling for new videos. On applicationDidBecomeActive we poll for any videos we have not downloaded.
 
 
-
-
-
-
 RELEASE DETAILS
 ===============
 

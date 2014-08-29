@@ -22,16 +22,6 @@
 //----------------------------------------
 // FileTransfer setup, upload and download
 //----------------------------------------
-- (OBFileTransferManager *) getFileTransferManager{
-    if (self.fileTransferManager == nil) {
-        [self setFileTransferManager: [OBFileTransferManager instance]];
-        self.fileTransferManager.delegate = self;
-        self.fileTransferManager.downloadDirectory = [TBMConfig videosDirectoryUrl].path;
-        self.fileTransferManager.remoteUrlBase = CONFIG_SERVER_BASE_URL_STRING;
-    }
-    return self.fileTransferManager;
-}
-
 - (OBFileTransferManager *)fileTransferManager{
     OBFileTransferManager *ftm = objc_getAssociatedObject(self, @selector(fileTransferManager));
     if (ftm == nil){
@@ -39,6 +29,7 @@
         ftm.delegate = self;
         ftm.downloadDirectory = [TBMConfig videosDirectoryUrl].path;
         ftm.remoteUrlBase = CONFIG_SERVER_BASE_URL_STRING;
+        ftm.maxAttempts = 100;
         [self setFileTransferManager:ftm];
     }
     return ftm;
@@ -48,17 +39,28 @@
     objc_setAssociatedObject(self, @selector(fileTransferManager), ftm, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+-(NSTimeInterval) retryTimeoutValue: (NSUInteger)retryAttempt{
+    //  return (NSTimeInterval)3.0;
+    if (retryAttempt > 7)
+        return (NSTimeInterval)128;
+    else
+        return (NSTimeInterval)(1<<(retryAttempt-1));
+}
+
+
 - (void) uploadWithFriendId:(NSString *)friendId{
     TBMFriend *friend = [TBMFriend findWithId:friendId];
     NSString *localFilePath = [TBMVideoRecorder outgoingVideoUrlWithMarker:friendId].path;
-    NSString *marker = [TBMVideoIdUtils markerWithFriend:friend videoId:friend.outgoingVideoId];
+    NSString *marker = [TBMVideoIdUtils markerWithFriend:friend videoId:friend.outgoingVideoId isUpload: YES];
     OB_INFO(@"uploadWithFriendId marker = %@", marker);
     
-    [[self getFileTransferManager]
+    [[self fileTransferManager]
      uploadFile:localFilePath
      to:REMOTE_STORAGE_VIDEO_UPLOAD_PATH
      withMarker:marker
      withParams:@{@"filename": [TBMRemoteStorageHandler outgoingVideoRemoteFilename:friend]}];
+    
+    [friend handleAfterOUtgoingVideoUploadStarted];
 }
 
 - (void)queueDownloadWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId{
@@ -71,17 +73,22 @@
         OB_WARN(@"queueVideoDownloadWithFriend: Ignoring incoming videoId already processed.");
         return;
     }
-    
+    OB_INFO(@"queueVideoDownloadWithFriend:");
+
     TBMVideo *video = [friend createIncomingVideoWithVideoId:videoId];
     [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_DOWNLOADING video:video];
     
-    NSString *marker = [TBMVideoIdUtils markerWithFriend:friend videoId:videoId];
+    NSString *marker = [TBMVideoIdUtils markerWithFriend:friend videoId:videoId isUpload:NO];
 
-    [[self getFileTransferManager]
+    [[self fileTransferManager]
      downloadFile: REMOTE_STORAGE_VIDEO_DOWNLOAD_PATH
      to:[video videoPath]
      withMarker: marker
      withParams:@{@"filename": [TBMRemoteStorageHandler incomingVideoRemoteFilename:video]}];
+}
+
+- (void) retryPendingFileTransfers{
+    [[self fileTransferManager] retryPending];
 }
 
 //--------
@@ -96,7 +103,6 @@
 }
 
 - (void) pollWithFriend:(TBMFriend *)friend{
-    OB_INFO(@"pollWithFriend: %@", friend.firstName);
     [TBMRemoteStorageHandler getRemoteIncomingVideoIdsWithFriend:friend gotVideoIds:^(NSArray *videoIds) {
         OB_INFO(@"pollWithFriend: %@  vids = %@", friend.firstName, videoIds);
         for (NSString *videoId in videoIds){
@@ -113,16 +119,16 @@
 // FileTransferDelegate callbacks
 //-------------------------------
 
-- (void) fileTransferCompleted:(NSString *)marker isUpload:(BOOL)isUpload withError:(NSError *)error{
+- (void) fileTransferCompleted:(NSString *)marker withError:(NSError *)error{
     OB_INFO(@"fileTransferCompleted marker = %@", marker);
+    [self requestBackground];
     TBMFriend *friend = [TBMVideoIdUtils friendWithMarker:marker];
     NSString *videoId = [TBMVideoIdUtils videoIdWithMarker:marker];
-
     if (friend == nil){
         OB_ERROR(@"fileTransferCompleted - Could not find friend with marker = %@.", marker);
         return;
     }
-
+    BOOL isUpload = [TBMVideoIdUtils isUploadWithMarker:marker];
     if (isUpload){
         [self uploadCompletedWithFriend:friend videoId:videoId error:error];
     } else {
@@ -130,15 +136,17 @@
     }
 }
 
-- (void) fileTransferProgress:(NSString *)marker isUpload:(BOOL)isUpload percent:(NSUInteger)progress{
+- (void) fileTransferProgress:(NSString *)marker percent:(NSUInteger)progress{
     
 }
 
-- (void) fileTransferRetrying:(NSString *)marker isUpload:(BOOL)isUpload attemptCount:(NSInteger)attemptCount withError:(NSError *)error{
+- (void) fileTransferRetrying:(NSString *)marker attemptCount:(NSInteger)attemptCount withError:(NSError *)error{
     OB_INFO(@"fileTransferRetrying");
+    [self requestBackground];
     TBMFriend *friend = [TBMVideoIdUtils friendWithMarker:marker];
     NSString *videoId = [TBMVideoIdUtils videoIdWithMarker:marker];
 
+    BOOL isUpload = [TBMVideoIdUtils isUploadWithMarker:marker];
     if (isUpload){
         [self uploadRetryingWithFriend:friend videoId:videoId retryCount:attemptCount];
     } else {
@@ -150,13 +158,12 @@
 // Upload events
 //--------------
 - (void) uploadCompletedWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId error:(NSError *)error{
-    OB_INFO(@"uploadCompletedWithFriend");
     if (friend == nil){
         OB_ERROR(@"uploadCompletedWithFriend - Could not find friend with marker.");
         return;
     }
-    
     if (error == nil){
+        OB_INFO(@"uploadCompletedWithFriend");
         [friend  setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_UPLOADED videoId:videoId];
         [TBMRemoteStorageHandler addRemoteOutgoingVideoId:videoId friend:friend];
         [self sendNotificationForVideoReceived:friend videoId:videoId];
@@ -167,7 +174,7 @@
 }
 
 - (void) uploadRetryingWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId retryCount:(NSInteger)retryCount{
-    OB_INFO(@"uploadRetryingWithFriend");
+    OB_INFO(@"uploadRetryingWithFriend retryCount=%ld", (long)retryCount);
     if (friend == nil){
         OB_ERROR(@"uploadRetryingWithFriend - Could not find friend with marker");
         return;
@@ -177,14 +184,12 @@
     [friend setAndNotifyUploadRetryCount:ncount videoId:videoId];
 }
 
+
 //----------------
 // Download events
 //----------------
 - (void) downloadCompletedWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId error:(NSError *)error{
     TBMVideo *video = [TBMVideo findWithVideoId:videoId];
-    
-    OB_INFO(@"Video count = %ld", (unsigned long)[TBMVideo count]);
-    
     if (video == nil){
         OB_ERROR(@"downloadCompletedWithFriend: ERROR: unrecognized videoId");
         return;
@@ -204,9 +209,7 @@
         [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_DOWNLOADED videoId:videoId friend:friend];
         [self sendNotificationForVideoStatusUpdate:friend videoId:videoId status:NOTIFICATION_STATUS_DOWNLOADED];
     }
-    
-    OB_INFO(@"Video count = %ld", (unsigned long)[TBMVideo count]);
-
+    OB_INFO(@"downloadCompletedWithFriend: Video count = %ld", (unsigned long)[TBMVideo count]);
 }
 
 
@@ -218,8 +221,11 @@
         return;
     }
     NSNumber *ncount = [NSNumber numberWithInteger:retryCount];
+    OB_INFO(@"downloadRetryingWithFriend %@ retryCount= %@", friend.firstName, ncount);
     [friend setAndNotifyDownloadRetryCount:ncount video:video];
 }
+
+
 
 
 @end

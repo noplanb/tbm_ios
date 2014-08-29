@@ -1,1 +1,1 @@
-../../OBFileTransfer/FileTransferPlay/FileTransferManager/FileTransferAgent/OBFileTransferAgentProtocol.h
+../../OBFileTransfer/Pod/Classes/FileTransferAgent/OBFileTransferAgentProtocol.h

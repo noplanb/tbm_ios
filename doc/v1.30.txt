@@ -1,0 +1,86 @@
+RELEASE NOTES
+=============
+
+v1.30 - 5 Aug 28 2014
+
+FEATURES
+--------
+FEATURE: Added temporary app icons.
+FEATURE: Longpress the center square to bring up the log on the phone. Cleaned up the noise in the log files considerably.
+
+BUG FIXES
+---------
+FIXED: Name not in notification when sending from iphone to iphone. Fix: typo in sender_name key.
+
+FIXED: Upload in background does not send notification to recipient phone until you restart the app. Fixed by requesting background time in the client to send the http request to the notification server.
+
+FIXED: Download in the background does not send downloaded notification to recipient phone until you restart the app. Fixed by requesting background time in the client to send the http request to the notification server.
+
+FIXED: Upload status not showing retry counts rn....
+
+FIXED: Upload status not showing failed permanently e!
+
+FIXED: Download status not showing retries.
+
+FIXED: Retries not being reset when app comes up.
+
+FIXED: After background time is up app does not start a download when notification is received. Solution: make sure to ask for backgroundTime again in didReceiveRemoteNotification:fetch:
+
+INSTRUMENTATION
+---------------
+BUG: When app launches on occasion center window is sometimes grey. 
+INSTRUMENTATION: I added an alert in case of a runtime error launching the AVCaptureSession. If we see this error we should note whether it coincides with the greyed out center window.
+
+
+
+
+RELEASE DETAILS
+- Set timeout to exponent form 1sec with max of 240s
+- Multiple uploads to the same friend pending retry fail
+
+Background Upload and Download
+------------------------------
+Test
+  - Add farhad as a friend for iphone5c
+  x Put i4, nb, ic, htc on local server
+  x Send with server down check for retries
+  - Review exponential holdoff code
+  
+  x Retries
+    x Set maxRetries to 3
+	x Set retryTimeoutValue to 1sec
+    x Shutdown server
+	  x Upload
+	x Disable download
+	  x Download 
+	
+  x Background upload
+    x Set retries to infinite
+	x Server videoCreate set to not_found
+    x Send a long message 
+    x Put app in background 
+	x Should continue retrying
+	x Make server operational
+	x The messages and notifications should go out.
+  
+  x Background download
+    x Set retries to infinite
+	x Server video/get set to not_found
+	x Put the app in the background
+	x Send the phone a message
+	x Should retry download
+	x Make the server operational
+	x The message should come in.
+	
+	! Same as above but kill the app in the task manager or wait till background times out. You usually get a notification. But the app does not start downloading till you click on it.
+	
+  x Reset retries.
+    x Break upload
+	x Send 
+	x Let retries go up
+	x Put app in background then return to foreground
+	x Retries should start again from 0
+
+    x Same for download.
+
+

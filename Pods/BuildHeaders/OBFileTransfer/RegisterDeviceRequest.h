@@ -1,1 +1,1 @@
-../../OBFileTransfer/AWS/TVMClient/RegisterDeviceRequest.h
+../../OBFileTransfer/Pod/Classes/AWS/TVMClient/RegisterDeviceRequest.h

@@ -91,6 +91,7 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 - (BOOL)incomingVideoNotViewed;
 
 - (void)handleAfterOutgoingVideoCreated;
+- (void)handleAfterOUtgoingVideoUploadStarted;
 @end
 
 @interface TBMFriend (CoreDataGeneratedAccessors)

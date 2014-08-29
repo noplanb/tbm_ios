@@ -14,7 +14,7 @@
 
 static NSString *NOTIFICATION_TARGET_MKEY_KEY = @"target_mkey";
 static NSString *NOTIFICATION_FROM_MKEY_KEY = @"from_mkey";
-static NSString *NOTIFICATION_SENDER_NAME_KEY = @"send_name";
+static NSString *NOTIFICATION_SENDER_NAME_KEY = @"sender_name";
 static NSString *NOTIFICATION_VIDEO_ID_KEY = @"video_id";
 static NSString *NOTIFICATION_TO_MKEY_KEY = @"to_mkey";
 static NSString *NOTIFICATION_STATUS_KEY = @"status";
@@ -73,7 +73,7 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 
 //------------------------------
 // Handle Incoming Notifications
-//------------------------------l
+//------------------------------
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
     // Not used as all of our notification are of type content-available = 1.
     DebugLog(@"didReceiveRemoteNotification");
@@ -81,6 +81,7 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
     DebugLog(@"didReceiveRemoteNotification:fetchCompletionHandler");
+    [self requestBackground];
     [self handleNotificationPayload:userInfo];
     // See doc/notification.txt for why we call the completion handler with sucess immediately here.
     completionHandler(UIBackgroundFetchResultNewData);

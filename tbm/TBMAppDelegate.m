@@ -20,12 +20,14 @@
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     // See doc/notification.txt for why we dont use this in our app.
+    [OBLogger instance].writeToConsole = YES;
+    [[OBLogger instance] reset];
     DebugLog(@"willFinishLaunchingWithOptions:");
     return YES;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
-    DebugLog(@"didFinishLaunchingWithOptions:");
+    OB_INFO(@"didFinishLaunchingWithOptions:");
     
     [self setupPushNotificationCategory];
     
@@ -40,25 +42,26 @@
 
 
 - (void)applicationWillResignActive:(UIApplication *)application{
-    DebugLog(@"applicationWillResignActive");
+    OB_INFO(@"applicationWillResignActive");
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application{
-    DebugLog(@"applicationDidEnterBackground: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
+    OB_INFO(@"applicationDidEnterBackground: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
     [self saveContext];
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    [[OBLogger instance] logEvent:OBLogEventAppBackground];
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application{
-    DebugLog(@"applicationWillEnterForeground");
+    OB_INFO(@"applicationWillEnterForeground");
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application{
-    DebugLog(@"applicationDidBecomeActive");
+    OB_INFO(@"applicationDidBecomeActive");
     // GARF: Need to implement this in the new architecture.
     // This makes retry start immediately and from a count of 0 when the user comes back to the app presumabably after
     // fixing whatever network problem was preventing the downloads or uploads.
@@ -67,13 +70,14 @@
 //    
 //    _downloadManager = [TBMDownloadManagerDeprecated sharedManager];
 //    [_downloadManager restartTasksPendingRetry];
-    
+    [[OBLogger instance] logEvent:OBLogEventAppForeground];
     [self clearNotifcationCenter];
     [self pollAllFriends];
+    [self retryPendingFileTransfers];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application{
-    DebugLog(@"applicationWillTerminate: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
+    OB_INFO(@"applicationWillTerminate: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
 }
@@ -180,6 +184,20 @@
         tm.backgroundSessionCompletionHandler = completionHandler;
     } else {
         OB_ERROR(@"handleEventsForBakcgroundURLSession passed us a different identifier from the one we instantiated our background session with.");
+    }
+}
+
+//-------------------
+// Request Background
+//-------------------
+-(void) requestBackground{
+    OB_INFO(@"requestBackground");
+    if ( self.backgroundTaskId == UIBackgroundTaskInvalid ) {
+        self.backgroundTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+            OB_INFO(@"Ending background tasks");
+            self.backgroundTaskId = UIBackgroundTaskInvalid;
+            [[UIApplication sharedApplication] endBackgroundTask: self.backgroundTaskId];
+        }];
     }
 }
 

@@ -27,7 +27,6 @@ static UIAlertView *getFriendsErrorAlert = nil;
     if (!user || [friends count] == 0){
         [self showRegister];
     } else {
-        OB_INFO(@"FRIENDS %@", [TBMFriend all]);
         [self userAndFriendModelsAreSetup];
     }
 }
