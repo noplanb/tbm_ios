@@ -8,7 +8,7 @@
 
 #import "OBS3FileTransferAgent.h"
 #import <AWSS3/AWSS3.h>
-#import "OBLogger.h"
+#import <OBLogger/OBLogger.h>
 #import "AmazonClientManager.h"
 
 @implementation OBS3FileTransferAgent
@@ -85,7 +85,7 @@
     return @{@"bucketName":[path substringToIndex:firstSlash], @"filePath": [path substringFromIndex:firstSlash+1]};
 }
 
--(BOOL) hasEncodedBody
+-(BOOL) hasMultipartBody
 {
     return NO;
 }

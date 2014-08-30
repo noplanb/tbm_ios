@@ -13,7 +13,7 @@
 @implementation TBMVideoIdUtils
 
 + (NSString *)generateId{
-    double seconds = [[NSDate date] timeIntervalSinceReferenceDate];
+    double seconds = [[NSDate date] timeIntervalSince1970];
     return [NSString stringWithFormat:@"%.0f", seconds * 1000.0];
 }
 

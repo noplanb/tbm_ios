@@ -1,0 +1,31 @@
+RELEASE NOTES
+=============
+
+v1.32 - 7 Aug 30 2014
+
+
+FIXED: Make timecode for videoId same as for android.
+ARCH CHANGE: When polling or handling a notification download even if video is older than oldest.
+FIXED: FileTransfer cache the file. (Used FTMv0.2.0)
+
+
+
+TESTS
+Cache in FTM
+------------
+x Set iphone and nb to local
+x Load fresh
+x Kill server  
+x Send multiple from ios
+x Start server
+x All should arrive
+
+Same timecode
+-------------
+- check videoIds from both phones
+
+
+
+
+
+

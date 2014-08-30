@@ -7,7 +7,7 @@
 //
 
 #import "OBFileTransferTaskManager.h"
-#import "OBLogger.h"
+#import <OBLogger/OBLogger.h>
 
 @interface OBFileTransferTaskManager()
 @property (nonatomic,strong) NSString * statePlistFile;
@@ -89,6 +89,20 @@
     obTask.attemptCount++;
     obTask.nsTaskIdentifier = nsTask.taskIdentifier;
     OB_INFO(@"%@",obTask.description);
+    [self saveState];
+}
+
+// TODO - replace with KVO at some point
+-(void) update: (OBFileTransferTask *)obTask  withStatus: (OBFileTransferTaskStatus) status
+{
+    obTask.status = status;
+    [self saveState];
+}
+
+// TODO - replace with KVO at some point
+-(void) update: (OBFileTransferTask *)obTask  withLocalFilePath: (NSString *) localFilePath
+{
+    obTask.localFilePath = localFilePath;
     [self saveState];
 }
 

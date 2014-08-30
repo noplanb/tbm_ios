@@ -64,10 +64,11 @@
 }
 
 - (void)queueDownloadWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId{
-    if ([TBMVideoIdUtils isvid1:videoId olderThanVid2:[friend oldestIncomingVideo].videoId]) {
-        OB_WARN(@"queueVideoDownloadWithFriend: Ignoring incoming video older than oldest.");
-        return;
-    }
+//    Removed because IOS sends the vidoes out in parallel a later short one may arrive before an earlier long one.
+//    if ([TBMVideoIdUtils isvid1:videoId olderThanVid2:[friend oldestIncomingVideo].videoId]) {
+//        OB_WARN(@"queueVideoDownloadWithFriend: Ignoring incoming video older than oldest.");
+//        return;
+//    }
     
     if ([friend hasIncomingVideoId:videoId]){
         OB_WARN(@"queueVideoDownloadWithFriend: Ignoring incoming videoId already processed.");
@@ -105,10 +106,11 @@
     [TBMRemoteStorageHandler getRemoteIncomingVideoIdsWithFriend:friend gotVideoIds:^(NSArray *videoIds) {
         DebugLog(@"pollWithFriend: %@  vids = %@", friend.firstName, videoIds);
         for (NSString *videoId in videoIds){
-            if ([TBMVideoIdUtils isvid1:videoId olderThanVid2:[friend oldestIncomingVideoId]]) {
-                OB_WARN(@"pollWithFriend: Deleting remote video and videoId kv older than local oldest.");
-                [TBMRemoteStorageHandler deleteRemoteFileAndVideoIdWithFriend:friend videoId:videoId];
-            }
+//            Removed because IOS sends the vidoes out in parallel a later short one may arrive before an earlier long one.
+//            if ([TBMVideoIdUtils isvid1:videoId olderThanVid2:[friend oldestIncomingVideoId]]) {
+//                OB_WARN(@"pollWithFriend: Deleting remote video and videoId kv older than local oldest.");
+//                [TBMRemoteStorageHandler deleteRemoteFileAndVideoIdWithFriend:friend videoId:videoId];
+//            }
             [self queueDownloadWithFriend:friend videoId:videoId];
         }
     }];
