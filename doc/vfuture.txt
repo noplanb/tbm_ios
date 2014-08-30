@@ -1,5 +1,10 @@
- - Background upload and download.
- - Make the last frame the poster frame.
- - Custom notification tone for our app
- - Make it work with headphones and blue tooth.
- - Autoplay on clicking notification.
+- Make timecode for videoId same as for android.
+
+- When polling download even if video is older than oldest.
+- FileTransfer cache the file.
+- Some indication that the file will fail permanently Upload and download.
+- Add polling for status
+- Make the last frame the poster frame.
+- Custom notification tone for our app
+- Make it work with headphones and blue tooth.
+- Autoplay on clicking notification.

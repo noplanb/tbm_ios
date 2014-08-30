@@ -29,7 +29,7 @@
         ftm.delegate = self;
         ftm.downloadDirectory = [TBMConfig videosDirectoryUrl].path;
         ftm.remoteUrlBase = CONFIG_SERVER_BASE_URL_STRING;
-        ftm.maxAttempts = 100;
+        ftm.maxAttempts = 0;
         [self setFileTransferManager:ftm];
     }
     return ftm;
@@ -40,7 +40,7 @@
 }
 
 -(NSTimeInterval) retryTimeoutValue: (NSUInteger)retryAttempt{
-    //  return (NSTimeInterval)3.0;
+//    return (NSTimeInterval)3.0;
     if (retryAttempt > 7)
         return (NSTimeInterval)128;
     else
@@ -97,14 +97,13 @@
 - (void) pollAllFriends{
     OB_INFO(@"pollAllFriends");
     for (TBMFriend *f in [TBMFriend all]){
-        if ([f isEqual:[TBMFriend findWithId:@"10"]])
-            [self pollWithFriend:f];
+        [self pollWithFriend:f];
     }
 }
 
 - (void) pollWithFriend:(TBMFriend *)friend{
     [TBMRemoteStorageHandler getRemoteIncomingVideoIdsWithFriend:friend gotVideoIds:^(NSArray *videoIds) {
-        OB_INFO(@"pollWithFriend: %@  vids = %@", friend.firstName, videoIds);
+        DebugLog(@"pollWithFriend: %@  vids = %@", friend.firstName, videoIds);
         for (NSString *videoId in videoIds){
             if ([TBMVideoIdUtils isvid1:videoId olderThanVid2:[friend oldestIncomingVideoId]]) {
                 OB_WARN(@"pollWithFriend: Deleting remote video and videoId kv older than local oldest.");

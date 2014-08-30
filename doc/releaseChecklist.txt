@@ -1,10 +1,14 @@
-- make sure config points to server
-- create vx.x.txt file with release notes and date
-- make sure version in config is correct
-- make sure version on server for ios is correct
-- push to github
-- tag with description.
-- create an email
+x make sure config points to server
+x create vx.x.txt file with release notes and date
+x make sure version in config is correct
+x make sure version on server for ios is correct
+x push to github
+x tag with description.
+x deploy the server
+   x ./bin/deploy.sh
+   x rake assets/precompile
+   x touch tmp/restart.txt  
+x create an email
 
 
 

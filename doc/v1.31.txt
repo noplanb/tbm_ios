@@ -1,0 +1,172 @@
+RELEASE NOTES
+=============
+
+v1.31 - 6 Sept 29 2014
+
+BUG: Poll all friends was only polling 1 friend. 
+FIX: Removed a debug statement that was causing the problem.
+
+BUG: Center window sometimes comes up grey.
+CAUSE: Seems to coincide at least in some cases with VideoRecorder being asked for while in background. I got an alert with that message once coincident with the center screen being grey.
+SOLUTION: Re-architect the videoRecorder so that it can be initialized and disposed in the appropriate points in the app lifecycle. See ReleaseNotesDetails for this release.
+
+BUG: When app has finished background time and you get a notification. It says downloading but hangs there. This bug was fixed by requesting background time in didReceiveNotification. But it was reintroduced with due to another cause by the instrumentation I added to elucidate the grey center window bug. See how this happened in ReleaseNotesDetails.
+SOLUTION: Fix for grey center window should fix this as well.
+
+ 
+ 
+RELEASE NOTES DETAILS
+=====================
+
+TEST:
+  - While connected to xcode let the app go into background and let background expire.
+  - Send phone a message.
+  
+  FOUND: 
+  2014-08-29 14:37:51.964 tbm[156:60b] -[CALayer AVCaptureSessionWasInterruptedNotification:]: unrecognized selector sent to instance 0x17e88350
+  2014-08-29 14:37:51.972 tbm[156:60b] *** Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '-[CALayer AVCaptureSessionWasInterruptedNotification:]: unrecognized selector sent to instance 0x17e88350'
+  *** First throw call stack:
+  libc++abi.dylib: terminating with uncaught exception of type NSException
+  
+  POSSIBLE CAUSE:
+   - In the videoRecorder I register notification center observers such as AVCaptureSessionWasInterruptedNotification with the videoRecorder as the delegate.
+   - When the homeViewController disappears I release the videoRecorder object by setting property pointing to it in homeViewController to nil.
+   - When the notification center tries to make the callback to us the delegate is no longer there.
+  
+  SIDE NOTE:
+   - This also may explain why pulling up the logfile was crashing the app. 
+   - Pulling up the log file causes homeView to dissapear
+   - This causes us to release the video recorder 
+   - This also causes the notification center to send AVCaptureSessionWasInterruptedNotification. 
+   - But the delegate is no longer there
+
+QUESTION A: 
+  - If I want to keep the the notification callbacks for AVCaptureSession
+    - When should I add the observers.
+	- What should be the delegate to receive the messages.
+	- When should I remove the observers.
+  
+QUESTION B:
+  - When should I instantiate the AVCaptureSession?
+  - So that it doesnt attempt to run in the background which causes it to fail:
+	  - When should I call startRunning on it?
+	  - When should I call stop running on it?
+
+POSSIBLE ANSWER TO QA AND QB:
+x Set up the VideoRecorder 
+  x In the AppDelegate 
+  x Without a previewView or a Recorder delegate.
+  x Assign it to a AppDelegate.videoRecorder property in application:didFinishLaunchingWithOptions
+x Handle the previewView
+  x Attach the previewView in HomeViewController.viewDidAppear
+  x No need to detach the previewView as attaching it can be done multiple times as all sublayers removed first.
+x Handle attaching the TBMVideoRecorderDelegate
+  x set in homeViewController.viewDidAppear
+  x No need to remove delegate as adding it multiple times is ok.
+x Handle starting and stopping the the AVCaptureSession in the VideoRecorder
+  x Start in AppDelegate.didBecomeActive.
+  x Stop in AppDelegate.willResignActive. 
+x VideoRecorder.dispose
+  x Should remove any observers we have on AVCaptureSession
+  x Should be called in app willTerminate.
+
+EXPERIMENT: 
+  - What are all the scenarios where I get application:didFinishLaunchingWithOptions? 
+    - YES: App is terminated completely and starts fresh
+	- NO: user clicks launch icon when App is in background  
+	- NO: User clicks launch icon when App has moved from background to background time terminated
+	- NO: User clicks notification when app is in background
+	- NO: User clicks notification after background time has terminated.
+	- NO: Notification reaches app via didReceiveNotification while app is in background.
+	- NO: Notification reaches app via didReceive notification after background time has terminated
+  Conclusion: use didFinishLaunchingWithOptions to setup and save the videoRecorder in the appDelegate. It will only happen once per lifecycle.
+  
+QUESTION:
+  - What is causing our app to get background time every time it exits? I dont appear to be asking for it explicitly.
+  - It appears you get background time whether you ask for it or not.
+  
+NOTE FROM DOCUMENTATION:
+ - To determine whether your app is launching into the foreground or background, check the applicationState property of the shared UIApplication object in your application:willFinishLaunchingWithOptions: or application:didFinishLaunchingWithOptions: delegate method. When the app is launched into the foreground, this property contains the value UIApplicationStateInactive. When the app is launched into the background, the property contains the value UIApplicationStateBackground instead. You can use this difference to adjust the launch-time behavior of your delegate methods accordingly.
+ - I believe our app is never launched into the background if the app was terminated we are always launched into the foreground:
+   - User clicks on icon - launches into the foreground
+   - User clicks on notification - launches into the foreground
+   - Notification coming in - has no effect on app.
+  
+PROBLEM:
+  - Background retries seem to quit as soon as one background session completes.
+  - From my notes from previous experiments I had: 
+  self.backgroundTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+      OB_INFO(@"AppDelegate: Ending background");
+      // The apple docs say you must terminate the background task you requested when they call the expiration handler
+      // or before or they will terminate your app. I have found however that if I dont terminate and if
+      // the usage of the phone is low by other apps they will let us run in the background indefinitely
+      // even after the backgroundTimeRemaining has long gone to 0. This is good for our users as it allows us
+      // to continue retries in the background for a long time in the case of poor coverage.
+      
+      // See above for why this line is commented out.
+      // [[UIApplication sharedApplication] endBackgroundTask: self.backgroundTaskId];
+ - TEST: When I comment out the above line it does run retries indefinitely. However it calls the expirationHandler repeatedly once for each new background taskId we create. 
+ - QUESTION: Is there a better way?
+    
+TEST
+----
+  x Download
+    x App active
+	x App in background
+	  x Phone off (downloads in the background due to notification arrival)
+	  x Phone on (downloads in the background due to notification arrival)
+	x App background timed out
+	  x Phone off
+	  	x Wifi
+	    x Cellular
+	  x Phone on
+	  	x Wifi
+	    x Cellular
+	x App terminated 
+	  x Launch from icon (downloads via polling after app is launched)
+	  x Launch from Notification (downloads via notification and polling after app is launched)
+	
+	
+  - Retries
+    - Set maxRetries to 3
+	- Set retryTimeoutValue to 1sec
+    - Shutdown server
+	  - Upload
+	    - Foreground
+		- Background
+	- Disable download
+	  - Download 
+	    - Foreground
+		- Background
+	
+  - Background upload
+    - Set retries to infinite
+	- Server videoCreate set to not_found
+    - Send a long message 
+    - Put app in background 
+	- Should continue retrying
+	- Make server operational
+	- The messages and notifications should go out.
+  
+  - Background download
+    - Set retries to infinite
+	- Server video/get set to not_found
+	- Put the app in the background
+	- Send the phone a message
+	- Should retry download
+	- Let it retry for longer than the background allowed time
+	- Make the server operational
+	- The message should come in.
+	
+	! Same as above but kill the app in the task manager or wait till background times out. You usually get a notification. But the app does not start downloading till you click on it.
+	
+  - Reset retries.
+    - Break upload
+	- Send 
+	- Let retries go up
+	- Put app in background then return to foreground
+	- Retries should start again from 0
+
+    - Same for download.
+
+

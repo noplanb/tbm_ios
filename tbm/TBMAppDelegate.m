@@ -28,7 +28,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     OB_INFO(@"didFinishLaunchingWithOptions:");
-    
+    [self setupVideoRecorder];
     [self setupPushNotificationCategory];
     
     // See doc/notification.txt for why we handle the payload here as well as in didReceiveRemoteNotification:fetchCompletionHandler
@@ -40,15 +40,24 @@
     return YES;
 }
 
+- (void) setupVideoRecorder{
+    NSError * error;
+    self.videoRecorder = [[TBMVideoRecorder alloc] initWithError:&error];
+    if (!self.videoRecorder){
+        OB_ERROR(@"AppDelegate: setupVideoRecorder: %@", error);
+    }
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application{
     OB_INFO(@"applicationWillResignActive");
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    [self.videoRecorder stopPreview];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application{
     OB_INFO(@"applicationDidEnterBackground: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
+    [self.videoRecorder stopPreview];
     [self saveContext];
     [[OBLogger instance] logEvent:OBLogEventAppBackground];
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
@@ -62,14 +71,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application{
     OB_INFO(@"applicationDidBecomeActive");
-    // GARF: Need to implement this in the new architecture.
-    // This makes retry start immediately and from a count of 0 when the user comes back to the app presumabably after
-    // fixing whatever network problem was preventing the downloads or uploads.
-//    _uploadManager = [TBMUploadManagerDeprecated sharedManager];
-//    [_uploadManager restartTasksPendingRetry];
-//    
-//    _downloadManager = [TBMDownloadManagerDeprecated sharedManager];
-//    [_downloadManager restartTasksPendingRetry];
+    [self.videoRecorder startPreview];
     [[OBLogger instance] logEvent:OBLogEventAppForeground];
     [self clearNotifcationCenter];
     [self pollAllFriends];
@@ -79,6 +81,8 @@
 - (void)applicationWillTerminate:(UIApplication *)application{
     OB_INFO(@"applicationWillTerminate: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
     // Saves changes in the application's managed object context before the application terminates.
+    if (self.videoRecorder != nil)
+        [self.videoRecorder dispose];
     [self saveContext];
 }
 
@@ -194,9 +198,17 @@
     OB_INFO(@"requestBackground");
     if ( self.backgroundTaskId == UIBackgroundTaskInvalid ) {
         self.backgroundTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-            OB_INFO(@"Ending background tasks");
+            OB_INFO(@"AppDelegate: Ending background");
+            // The apple docs say you must terminate the background task you requested when they call the expiration handler
+            // or before or they will terminate your app. I have found however that if I dont terminate and if
+            // the usage of the phone is low by other apps they will let us run in the background indefinitely
+            // even after the backgroundTimeRemaining has long gone to 0. This is good for our users as it allows us
+            // to continue retries in the background for a long time in the case of poor coverage.
+            
+            // See above for why this line is commented out.
+            // [[UIApplication sharedApplication] endBackgroundTask: self.backgroundTaskId];
+            
             self.backgroundTaskId = UIBackgroundTaskInvalid;
-            [[UIApplication sharedApplication] endBackgroundTask: self.backgroundTaskId];
         }];
     }
 }

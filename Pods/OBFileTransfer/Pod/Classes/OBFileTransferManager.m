@@ -539,7 +539,14 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
     if ( self.backgroundTaskIdentifier == UIBackgroundTaskInvalid ) {
         self.backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
             OB_INFO(@"Ending background tasks");
-            [[UIApplication sharedApplication] endBackgroundTask: self.backgroundTaskIdentifier];
+            // The apple docs say you must terminate the background task you requested when they call the expiration handler
+            // or before or they will terminate your app. I have found however that if I dont terminate and if
+            // the usage of the phone is low by other apps they will let us run in the background indefinitely
+            // even after the backgroundTimeRemaining has long gone to 0. This is good for our users as it allows us
+            // to continue retries in the background for a long time in the case of poor coverage.
+            
+            // See above for why this line is commented out.
+            // [[UIApplication sharedApplication] endBackgroundTask: self.backgroundTaskId];
             self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
         }];
     }

@@ -14,13 +14,18 @@
 
 @interface TBMVideoRecorder : NSObject
 
-@property UIView *previewView;
 @property (nonatomic) id <TBMVideoRecorderDelegate> delegate;
 
 + (NSURL *)outgoingVideoUrlWithMarker:(NSString *)marker;
 
--(instancetype)initWithPreivewView:(UIView *)previewView TBMVideoRecorderDelegate:(id)delegate error:(NSError **)error;
+- (instancetype)initWithError:(NSError **)error;
+- (void)setupPreviewView:(UIView *)previewView;
+- (void)setVideoRecorderDelegate:(id)delegate;
+- (void)removeVideoRecorderDelegate;
+- (void)startPreview;
+- (void)stopPreview;
 - (void)startRecordingWithMarker:(NSString *)marker;
 - (void)stopRecording;
 - (void)cancelRecording;
+- (void)dispose;
 @end

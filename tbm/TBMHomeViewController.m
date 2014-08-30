@@ -19,7 +19,6 @@
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *friendViews;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *friendLabels;
 @property TBMLongPressTouchHandler *longPressTouchHandler;
-@property TBMVideoRecorder *videoRecorder;
 @property TBMVideoPlayer *videoPlayer;
 @property (nonatomic) TBMAppDelegate *appDelegate;
 @property BOOL isPlaying;
@@ -44,12 +43,12 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 }
 
 - (void)viewDidLoad{
-    DebugLog(@"viewDidAppear");
+    OB_INFO(@"TBMHomeViewController: viewDidLoad");
     [super viewDidLoad];
 }
 
 - (void) viewDidAppear:(BOOL)animated{
-    DebugLog(@"viewDidAppear");
+    OB_INFO(@"TBMHomeViewController: viewDidAppear");
     [super viewDidAppear:animated];
     [[[TBMVersionHandler alloc] initWithDelegate:self] checkVersionCompatibility];
     [self boot];
@@ -57,12 +56,16 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     [TBMFriend addVideoStatusNotificationDelegate:self];
     [self setupLongPressTouchHandler];
     [self setupShowLogGesture];
-    [self setupVideoRecorder];
+    [self setupVideoRecorderPreviewAndDelegate];
     [self setupVideoPlayers];
 }
 
-- (void)didReceiveMemoryWarning{
-    OB_ERROR(@"didReceiveMemoryWarning");
+- (void) viewWillDisappear:(BOOL)animated{
+    OB_INFO(@"TBMHomeViewController: view will appear");
+}
+
+- (void) didReceiveMemoryWarning{
+    OB_ERROR(@"TBMHomeViewController: didReceiveMemoryWarning");
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -78,14 +81,6 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 }
 */
 
-- (void) setupVideoRecorder{
-    NSError * error;
-    _videoRecorder = [[TBMVideoRecorder alloc] initWithPreivewView:_centerView TBMVideoRecorderDelegate:self error:&error];
-    [self hideRecordingIndicator];
-    if (!_videoRecorder){
-        DebugLog(@"%@", error);
-    }
-}
 
 - (void) setupVideoPlayers{
     [TBMVideoPlayer removeAll];
@@ -153,6 +148,22 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 }
 
 
+//--------------------
+// VideoRecorder Setup
+//--------------------
+- (TBMVideoRecorder *)videoRecorder{
+    return [self appDelegate].videoRecorder;
+}
+
+- (void) setupVideoRecorderPreviewAndDelegate{
+    DebugLog(@"setupVideoRecorderPreviewAndDelegate");
+    [[self videoRecorder] setupPreviewView:self.centerView];
+    [[self videoRecorder] setDelegate:self];
+    [[self videoRecorder] startPreview];
+    [self hideRecordingIndicator];
+}
+
+
 //-----------------------------------
 // TBMVideoRecorderDelegate callbacks
 //-----------------------------------
@@ -208,29 +219,27 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 - (void)LPTHStartLongPressWithTargetView:(UIView *)view{
     // DebugLog(@"TBMHomeViewController: LPTH: startLongPress %ld", (long)view.tag);
     TBMFriend *friend = [self friendWithViewTag:view.tag];
-    [_videoRecorder startRecordingWithMarker:friend.idTbm];
+    [[self videoRecorder] startRecordingWithMarker:friend.idTbm];
     [self showRecordingIndicator];
 }
 
 - (void)LPTHEndLongPressWithTargetView:(UIView *)view{
     // DebugLog(@"TBMHomeViewController: LPTH:  endLongPressed %ld", (long)view.tag);
-    [_videoRecorder stopRecording];
+    [[self videoRecorder] stopRecording];
     [self hideRecordingIndicator];
 }
 
 - (void)LPTHCancelLongPressWithTargetView:(UIView *)view{
     // DebugLog(@"TBMHomeViewController: LPTH:  cancelLongPress %ld", (long)view.tag);
-    [_videoRecorder cancelRecording];
+    [[self videoRecorder] cancelRecording];
     [self hideRecordingIndicator];
 }
 
-- (void)showRecordingIndicator
-{
+- (void)showRecordingIndicator{
     _centerLabel.hidden = NO;
 }
 
-- (void)hideRecordingIndicator
-{
+- (void)hideRecordingIndicator{
     _centerLabel.hidden = YES;
 }
 

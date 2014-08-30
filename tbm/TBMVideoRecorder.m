@@ -13,6 +13,7 @@
 #import "OBLogger.h"
 
 @interface TBMVideoRecorder () <AVCaptureFileOutputRecordingDelegate>
+@property UIView *previewView;
 @property AVCaptureSession *captureSession;
 @property AVAudioSession *audioSession;
 @property AVCaptureInput *videoInput;
@@ -34,48 +35,49 @@
     return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"mov"]];
 }
 
--(instancetype)initWithPreivewView:(UIView *)previewView TBMVideoRecorderDelegate:(id)delegate error:(NSError **)error{
+- (instancetype)initWithError:(NSError **)error{
     self = [super init];
     if (self){
-        _delegate = delegate;
         _fileManager = [NSFileManager defaultManager];
-        _previewView = previewView;
         _videosDirectoryUrl = [TBMConfig videosDirectoryUrl];
         _recordingVideoUrl = [_videosDirectoryUrl URLByAppendingPathComponent:[@"new" stringByAppendingPathExtension:@"mov"]];
         _recordedVideoMpeg4Url = [_videosDirectoryUrl URLByAppendingPathComponent:[@"newConverted" stringByAppendingPathExtension:@"mp4"]];
         _dingSoundEffect = [[TBMSoundEffect alloc] initWithSoundNamed:@"single_ding_chimes2.wav"];
         
-        DebugLog(@"Setting up preview on view: %@", _previewView);
-        
         [self setupAudioSession];
         
-        if (![self setupSessionWithError:&*error])
+        if (![self setupSessionWithError:&*error]){
+            OB_ERROR(@"VideoRecorder: Unable to setup AVCaptureSession");
             return nil;
+        }
         DebugLog(@"Set up session: %@", _captureSession);
 
-        if (![self getVideoCaptureInputWithError:&*error])
+        if (![self getVideoCaptureInputWithError:&*error]){
+            OB_ERROR(@"VideoRecorder: Unable to getVideoCaptureInput");
             return nil;
+        }
         [_captureSession addInput:_videoInput];
         DebugLog(@"Added videoInput: %@", _videoInput);
 
         [TBMDeviceHandler showAllAudioDevices];
-        if (![self getAudioCaptureInputWithError:&*error])
+        if (![self getAudioCaptureInputWithError:&*error]){
+            OB_ERROR(@"VideoRecorder: Unable to getAudioCaptureInput");
             return nil;
+        }
         [_captureSession addInput:_audioInput];
         DebugLog(@"Added audioInput: %@", _audioInput);
 
         _captureOutput = [[AVCaptureMovieFileOutput alloc] init];
-        if (![self addCaptureOutputWithError:&*error])
+        if (![self addCaptureOutputWithError:&*error]){
+            OB_ERROR(@"VideoRecorder: Unable to addCaptureOutput");
             return nil;
+        }
         DebugLog(@"Added captureOutput: %@", _captureOutput);
-
-        [self setupPreview];
-        [self setupRecordingOverlay];
         [self addObservers];
-        [self startPreview];
     }
     return self;
 }
+
 
 - (AVCaptureSession *)setupSessionWithError:(NSError **)error{
     _captureSession = [[AVCaptureSession alloc] init];
@@ -119,16 +121,48 @@
     return _audioInput;
 }
 
-- (void)setupPreview
-{
+- (AVCaptureSession *)addCaptureOutputWithError:(NSError **)error{
+    if (![_captureSession canAddOutput:_captureOutput]) {
+        NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys: @"Could not add captureOutput to capture session.", NSLocalizedFailureReasonErrorKey, nil];
+        *error = [NSError errorWithDomain:@"TBM" code:0 userInfo:userInfo];
+        return nil;
+    }
+    [_captureSession addOutput:_captureOutput];
+    return _captureSession;
+}
+
+//--------------------------
+// Set videoRecorderDelegate
+//--------------------------
+- (void)setVideoRecorderDelegate:(id)delegate{
+    self.delegate = delegate;
+}
+
+- (void)removeVideoRecorderDelegate{
+    self.delegate = nil;
+}
+
+//-------------------
+// Handle previewView
+//-------------------
+- (void)setupPreviewView:(UIView *)previewView{
+    self.previewView = previewView;
+    // Remove all sublayers that might have been added by calling this previously.
+    self.previewView.layer.sublayers = nil;
+    
+    [self connectVideoCaptureToPreview];
+    [self setupRecordingOverlay];
+}
+
+
+- (void)connectVideoCaptureToPreview{
     CALayer * videoViewLayer = _previewView.layer;
     AVCaptureVideoPreviewLayer *previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_captureSession];
     previewLayer.frame = _previewView.bounds;
     [videoViewLayer addSublayer:previewLayer];
 }
 
-- (void)setupRecordingOverlay
-{
+- (void)setupRecordingOverlay{
     _recordingOverlay = [CALayer layer];
     _recordingOverlay.hidden = YES;
     _recordingOverlay.frame = _previewView.bounds;
@@ -141,7 +175,7 @@
     [_recordingOverlay setNeedsDisplay];
 }
 
-// The callback by the recording overlay CALayer. Use it to add the dot to recordingOverlay
+// The callback by the recording overlay CALayer due to setNeedsDisplay. Use it to add the dot to recordingOverlay
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)context {
     CGRect borderRect = CGRectMake(8, 8, 7, 7);
     CGContextSetRGBFillColor(context, 248, 0, 0, 1.0);
@@ -151,8 +185,16 @@
     CGContextFillPath(context);
 }
 
+//------------------
+// Recording actions
+//------------------
+
 - (void)startPreview{
     [_captureSession startRunning];
+}
+
+- (void)stopPreview{
+    [_captureSession stopRunning];
 }
 
 - (void)startRecordingWithMarker:(NSString *)marker{
@@ -187,6 +229,10 @@
     _recordingOverlay.hidden = YES;
 }
 
+
+//------------------------------------------------
+// Recording Finished callback and post processing
+//------------------------------------------------
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error{
     DebugLog(@"didFinishRecording.");
     if (error){
@@ -224,7 +270,11 @@
     }
         
     DebugLog(@"calling delegate=%@", _delegate);
-    [_delegate didFinishVideoRecordingWithMarker:_marker];
+    if (self.delegate != nil){
+        [self.delegate didFinishVideoRecordingWithMarker:_marker];
+    } else {
+        OB_ERROR(@"VideoRecorder: no videoRecorderDelegate");
+    }
 }
 
 - (void)moveRecordingToOutgoingFileWithError:(NSError **)error{
@@ -244,25 +294,28 @@
     DebugLog(@"moveRecordingToOutgoingFile: Outgoing file size %llu", fileAttributes.fileSize);
 }
 
-- (AVCaptureSession *)addCaptureOutputWithError:(NSError **)error{
-    if (![_captureSession canAddOutput:_captureOutput]) {
-        NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys: @"Could not add captureOutput to capture session.", NSLocalizedFailureReasonErrorKey, nil];
-        *error = [NSError errorWithDomain:@"TBM" code:0 userInfo:userInfo];
-        return nil;
-    }
-    [_captureSession addOutput:_captureOutput];
-    return _captureSession;
-}
 
 //-------------------------------
 // AVCaptureSession Notifications
 //-------------------------------
+- (void)dispose{
+    [self removeObservers];
+}
+
 - (void)addObservers{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionRuntimeErrorNotification:) name:AVCaptureSessionRuntimeErrorNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionDidStartRunningNotification:) name:AVCaptureSessionDidStartRunningNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionDidStopRunningNotification:) name:AVCaptureSessionDidStopRunningNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionWasInterruptedNotification:) name:AVCaptureSessionWasInterruptedNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionInterruptionEndedNotification:) name:AVCaptureSessionInterruptionEndedNotification object:_captureSession];
+}
+
+- (void)removeObservers{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionRuntimeErrorNotification object:_captureSession];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionDidStartRunningNotification object:_captureSession];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionDidStopRunningNotification object:_captureSession];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionWasInterruptedNotification object:_captureSession];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionInterruptionEndedNotification object:_captureSession];
 }
 
 - (void) AVCaptureSessionRuntimeErrorNotification:(NSNotification *)notification{

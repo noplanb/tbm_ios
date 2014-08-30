@@ -41,10 +41,10 @@ RELEASE DETAILS
 Background Upload and Download
 ------------------------------
 Test
-  - Add farhad as a friend for iphone5c
+  x Add farhad as a friend for iphone5c
   x Put i4, nb, ic, htc on local server
   x Send with server down check for retries
-  - Review exponential holdoff code
+  x Review exponential holdoff code
   
   x Retries
     x Set maxRetries to 3
