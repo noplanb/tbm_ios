@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 static NSString *CONFIG_VERSION_NUMBER = @"7";
+
 static NSString *CONFIG_VERSION_STRING = @"1.32";
 static NSString *CONFIG_APP_NAME = @"Three By Me";
 

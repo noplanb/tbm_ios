@@ -605,7 +605,7 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
     if ( self.backgroundTaskIdentifier == UIBackgroundTaskInvalid ) {
         self.backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
             OB_INFO(@"Ending background tasks");
-            //[[UIApplication sharedApplication] endBackgroundTask: self.backgroundTaskIdentifier];
+//            [[UIApplication sharedApplication] endBackgroundTask: self.backgroundTaskIdentifier];
             self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
         }];
     }

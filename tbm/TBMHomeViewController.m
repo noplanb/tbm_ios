@@ -159,7 +159,6 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     DebugLog(@"setupVideoRecorderPreviewAndDelegate");
     [[self videoRecorder] setupPreviewView:self.centerView];
     [[self videoRecorder] setDelegate:self];
-    [[self videoRecorder] startPreview];
     [self hideRecordingIndicator];
 }
 

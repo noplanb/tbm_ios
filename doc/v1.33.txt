@@ -1,7 +1,7 @@
 RELEASE NOTES
 =============
 
-v1.32 - 7 Aug 30 2014
+v1.33 - 7 Aug 30 2014
 
 
 FIXED: Make timecode for videoId same as for android.

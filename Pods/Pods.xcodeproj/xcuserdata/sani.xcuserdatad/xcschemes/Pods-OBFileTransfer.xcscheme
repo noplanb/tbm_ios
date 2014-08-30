@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "705E99756FBF426285F25543"
+               BlueprintIdentifier = "9214F1AC2101485CA62E83F2"
                BuildableName = "libPods-OBFileTransfer.a"
                BlueprintName = "Pods-OBFileTransfer"
                ReferencedContainer = "container:Pods.xcodeproj">
