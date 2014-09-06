@@ -10,6 +10,7 @@
 #import "AVFoundation/AVFoundation.h"
 @protocol TBMVideoRecorderDelegate <NSObject>
 - (void)didFinishVideoRecordingWithMarker:(NSString *)marker;
+- (void)previewInterruptionDidEnd;
 @end
 
 @interface TBMVideoRecorder : NSObject

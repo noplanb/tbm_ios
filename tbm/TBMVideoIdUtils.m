@@ -44,6 +44,10 @@
                                                  }];
 }
 
++ (NSString *) markerWithVideo:(TBMVideo *)video isUpload:(BOOL)isUpload{
+    return [self markerWithFriend:[video friend] videoId:video.videoId isUpload:isUpload];
+}
+
 + (NSDictionary *)friendIdAndVideoIdWithMarker:(NSString *)marker{
     return [TBMStringUtils dictionaryWithJson:marker];
 }

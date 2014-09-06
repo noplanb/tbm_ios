@@ -157,11 +157,22 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 
 - (void) setupVideoRecorderPreviewAndDelegate{
     DebugLog(@"setupVideoRecorderPreviewAndDelegate");
+    [self setupVideoRecorderPreview];
+    [self setupVideoRecorderDelegate];
+}
+
+- (void) setupVideoRecorderPreview{
     [[self videoRecorder] setupPreviewView:self.centerView];
-    [[self videoRecorder] setDelegate:self];
     [self hideRecordingIndicator];
 }
 
+- (void) setupVideoRecorderDelegate{
+    [[self videoRecorder] setDelegate:self];
+}
+
+- (void) previewInterruptionDidEnd{
+    [self setupVideoRecorderPreview];
+}
 
 //-----------------------------------
 // TBMVideoRecorderDelegate callbacks

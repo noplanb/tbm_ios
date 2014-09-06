@@ -30,6 +30,10 @@ typedef NS_ENUM (NSInteger, TBMIncomingVideoStatus) {
 // Class methods
 + (instancetype)newWithVideoId:(NSString *)videoId;
 + (instancetype)findWithVideoId:(NSString *)videoId;
++ (NSArray *)downloadedUnviewed;
++ (NSUInteger)downloadedUnviewedCount;
++ (NSArray *)downloading;
++ (NSUInteger)downloadingCount;
 + (NSUInteger)unviewedCount;
 + (NSArray *)all;
 + (void)printAll;

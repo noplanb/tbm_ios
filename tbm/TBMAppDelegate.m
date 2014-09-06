@@ -21,7 +21,7 @@
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     // See doc/notification.txt for why we dont use this in our app.
     [OBLogger instance].writeToConsole = YES;
-    [[OBLogger instance] reset];
+//    [[OBLogger instance] reset];
     DebugLog(@"willFinishLaunchingWithOptions:");
     return YES;
 }
@@ -48,16 +48,22 @@
     }
 }
 
+- (void) stopVideoRecorder{
+    if (self.videoRecorder != nil)
+        [self.videoRecorder stopPreview];
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application{
     OB_INFO(@"applicationWillResignActive");
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-    [self.videoRecorder stopPreview];
+    [self setBadgeNumberDownloadedUnviewed];
+    [self stopVideoRecorder];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application{
     OB_INFO(@"applicationDidEnterBackground: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
-    [self.videoRecorder stopPreview];
+    [self stopVideoRecorder];
     [self saveContext];
     [[OBLogger instance] logEvent:OBLogEventAppBackground];
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
@@ -71,11 +77,13 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application{
     OB_INFO(@"applicationDidBecomeActive");
+    [TBMVideo printAll];
+    [self handleStuckDownloadsWithCompletionHandler:^{
+        [self retryPendingFileTransfers];
+        [self pollAllFriends];
+    }];
     [self.videoRecorder startPreview];
     [[OBLogger instance] logEvent:OBLogEventAppForeground];
-    [self clearNotifcationCenter];
-    [self pollAllFriends];
-    [self retryPendingFileTransfers];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application{
@@ -195,8 +203,9 @@
 // Request Background
 //-------------------
 -(void) requestBackground{
-    OB_INFO(@"requestBackground");
+    OB_INFO(@"AppDelegate: equestBackground: called:");
     if ( self.backgroundTaskId == UIBackgroundTaskInvalid ) {
+        OB_INFO(@"AppDelegate: requestBackground: requesting background.");
         self.backgroundTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
             OB_INFO(@"AppDelegate: Ending background");
             // The apple docs say you must terminate the background task you requested when they call the expiration handler
@@ -206,11 +215,12 @@
             // to continue retries in the background for a long time in the case of poor coverage.
             
             // See above for why this line is commented out.
-            // [[UIApplication sharedApplication] endBackgroundTask: self.backgroundTaskId];
+//            [[UIApplication sharedApplication] endBackgroundTask: self.backgroundTaskId];
             
             self.backgroundTaskId = UIBackgroundTaskInvalid;
         }];
     }
+    OB_INFO(@"AppDelegate: RequestBackground: exiting: refresh status = %ld, time Remaining = %f", [UIApplication sharedApplication].backgroundRefreshStatus, [UIApplication sharedApplication].backgroundTimeRemaining);
 }
 
 

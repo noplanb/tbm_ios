@@ -14,15 +14,20 @@ typedef NS_ENUM(NSUInteger, OBFileTransferTaskStatus) {
     FileTransferPendingRetry,
 };
 
-extern NSString * const CreatedOnKey;
-extern NSString * const TypeUploadKey;
-extern NSString * const MarkerKey;
-extern NSString * const NSTaskIdentifierKey;
-extern NSString * const RemoteUrlKey;
-extern NSString * const LocalFilePathKey;
-extern NSString * const ParamsKey;
-extern NSString * const AttemptsKey;
-extern NSString * const StatusKey;
+extern NSString * const OBFTMCreatedOnKey;
+extern NSString * const OBFTMTypeUploadKey;
+extern NSString * const OBFTMMarkerKey;
+extern NSString * const OBFTMNSTaskIdentifierKey;
+extern NSString * const OBFTMRemoteUrlKey;
+extern NSString * const OBFTMLocalFilePathKey;
+extern NSString * const OBFTMParamsKey;
+extern NSString * const OBFTMAttemptsKey;
+extern NSString * const OBFTMStatusKey;
+extern NSString * const OBFTMCountOfBytesExpectedToReceiveKey;
+extern NSString * const OBFTMCountOfBytesReceivedKey;
+extern NSString * const OBFTMCountOfBytesExpectedToSendKey;
+extern NSString * const OBFTMCountOfBytesSentKey;
+
 
 @interface OBFileTransferTask : NSObject <NSCoding>
 
@@ -42,7 +47,7 @@ extern NSString * const StatusKey;
 -(NSString *) description;
 -(NSString *) statusDescription;
 -(NSString *) transferDirection;
--(NSDictionary *) stateSummary;
+-(NSDictionary *) info;
 
 // these are for converting to a simple dictionary for serializing, etc.
 -(NSDictionary *) asDictionary;

@@ -1,0 +1,368 @@
+RELEASE NOTES
+=============
+
+v1.34 - 9/xx/2014
+
+
+
+BUGS
+
+- Test setup
+  - Setup iphones.
+  - 
+
+- Download doesnt start in the background when on cellular network.
+  - Close app but do not remove from Task manager
+  - Turn off wifi
+  - Send phone a message.
+
+QUESTION: IS it related to a exception when VideoRecorder is trying to launch in the background. 
+	TRY: remove init of videoRecorder from appDelegate and homeViewController. RESULT: Not related. Still happens.
+  
+  
+- Video sometimes appears or at least plays twice. Does not get rid of unviewed indicator after playing.
+
+QUESTION: Is it correct to be asking for a downloadTaskWithRequest?
+  RESEARCH: What did I do in my FileTransferManager? 
+    RESULT: NO!
+		- sani
+			- Download - NSURLSessionDownloadTask
+			- Upload - NSURLSessionTask
+		- Farhad
+		 	- Download - NSURLSessionTask
+			- Upload - NSURLSessionTask
+	TRY: For download make the task an NSURLSessionDownloadTask:
+		RESULT: still doesnt work.
+		CHECK: Is it actually a download task.
+	CONCLUSION: This cant be the problem as it is just an issue with the declaration. The actual object being returned is coming from downloadTaskWithRequest.
+	
+TRY:     
+	[request setAllowsCellularAccess:YES];
+    [request setNetworkServiceType:NSURLNetworkServiceTypeBackground];
+	RESULT - still no
+
+TRY: Do not call completionHandler(UIBackgroundFetchResultNewData);
+	RESULT YES!!!!
+	If there are no download tasks stuck in a that weird stopped running state then it seems that this solves the problem and the downloads proceed over wifi.
+	NO NOW THIS IS NOT WORKING AGAIN. Not sure what is going on. Perhaps a coincidence with an intermittent bug.
+
+INVESTIGATE: Check [UIApplication sharedApplication].backgroundRefreshStatus, [UIApplication sharedApplication].backgroundTimeRemaining before asking for background.
+	Usually shows: 160 or so seconds and UIBackgroundRefreshStatusAvailable
+
+TRY: I had not initialized the front camera for the result that worked above. No initialize it. And see if it still works.
+	RESULT: No it doesnt work anymore and when I launch the app after receiving a notification that stalls the download I get the grey middle square.
+	QUESTION: Is it really related to launching the camera?
+	TRY: Disable the camera in appDelegate and homeViewController again and test.
+	RESULT: No the camera doesnt seem to be the problem. Now downloads that were working properly are no longer working. 
+
+HYPOTHESIS: Now that I am not calling completionHandler(UIBackgroundFetchResultNewData)  It is breaking something.
+	TRY: add a timer and call the completion 10 seconds after we are called. 
+	RESULT: Probably not related. OMG Now the didReceiveRemoteNotification:fetchCompletionHandler is not being called either for wifi or for cellular in background. It does get called when connected to xcode.
+	
+=== COMPLETE STRANGENESS === at this point I am not even getting didReceiveRemoteNotification:fetchCompletionHandler called either for wifi or cellular background. It is now only being called when connected to xcode.
+
+TRY: Lets get back to something that works again. 
+  - Turn on wifi
+  - call the completion handler immediately. RESULT - doesnt do anything.
+
+TRY: Info.plist does not contain fetch. It should. Add it. RESULT - still no longer calling didReceiveRemoteNotification 
+
+READ: Review all the code changes from what is in the repo
+	RESULT: No changes that could be causing this. All changes are pretty much OB_INFO statements.
+
+HYPOTHESES:
+  - Due to a change in the Apple notification back end (no longer sending the phone a content available notification?). 
+    TRY: Check the notification payload to make sure it still is content available. RESULT: Yes it does.
+	
+  - Due to a change in our server no longer sending a content available notification?
+    READ: review all the changes on the server vs repo - RESULT: none that could causing this
+	
+=== COMPLETE STRANGENESS === This morning without making any changes the same code that was not receiving didReceiveRemoteNotification is now getting the callback in cellular and wifi.
+
+DO: Go back to remote server for both phones I can test cellular download.
+
+
+NOTICED: Again when in cellular donwnload task hangs.
+TRY: put the timer back in for the completionHandler. 
+RESULT: Download still hangs but noticed that phone came up with grey center window.
+DO: 
+  - Put app in background
+  - Turn wifi on
+  - Downloads complete
+
+NOTICED: Above when download hung when I turned app on center box was grey.
+DO:
+  - Remove videoRecorder appDelegate and homeViewController.
+  - Reload app from scratch.
+  - Turn wifi off
+RESULT: 
+  - Now not receiving callback for notification in cellular.
+STATE: 
+  - VideoRecorder disabled
+  - Completion handler called via 10 second timer
+  - Pointing to server
+DO: 
+  - Uninstall app
+  - Reinstall
+  - Stop in xcode
+  - Unplug at phone
+  - Terminate the app on the task manager
+  - Reboot the phone
+  - Turn wifi on
+  - Restart the app
+  - Clear the log
+  - Hide the app
+  - Send a message
+RESULT:
+  - No notification.
+DO: 
+  - Connect to xcode
+  - Run from xcode
+  - Hide the app
+  - Send message
+RESULT: 
+  - Notification and download complete while app is hidden.
+DO:
+  - Unplug from xcode without stopping
+  - Send message
+RESULT:
+  - No download in background
+DO:
+  - launch app to check log on phone
+RESULT:
+  - Did not receive notification while in background.
+DO:
+  - Wait till app background time remaining expires (3 minutes)
+  - Send a message
+  - Launch app to look at log
+RESULT:
+  - Did not receive notification while in background.
+CHANGE STATE A:
+  - Remove all calls to requestBackground
+    - AppSync
+	  - fileTransferCompleted
+	  - fileTransferRetrying
+	- PushNotification
+	  - didRecieveRemoteNotification
+	- FTM
+	  - Dont remove as not called except for retry.
+  - Change requestBackground to call [[UIApplication sharedApplication] endBackgroundTask: self.backgroundTaskId];
+    - In AppDelegate
+	- In FileTransferManager
+  - Change didReceiveRemoteNotification to call completion handler immediately.
+DO:
+  - Turn on wifi
+  - Remove app
+  - Reinstall
+  - Put in background on xcode
+  - Send message
+  - NOTICE: callback and download work fine
+  - End app in xcode
+  - Launch app
+  - Clear log
+  - Hide app
+  - Send message
+RESULT: NOW NOTIFICATION ALERT DOESNT EVEN APPEAR! and I dont get callback.
+DO:
+  - Try iphone5c
+  - Notification and upload work in the background on wifi.
+  - Not sure about code is on iphone5c 
+  - Send 15 messages while in background
+  - Notice alerts and badge increment.
+  - Launch app view messages
+  - Hide app
+  - Send 10 more
+  - NOTICE - Got alerts for all but only 8 downloaded in the background
+  - Launch the app 
+  - NOTICE 
+    - It downloaded 1 because of polling on launch
+	- It then had all 10.
+	- Since it was able to download 1 on polling it probably means we did not get notification callback for 1
+  - Hide the app
+  - Send 10 more
+  - NOTICE: got all 10 in background.
+  - Hide the app wait grab some coffee for 10 minutes
+  - Send 10 more
+  - NOTICE: got all 10 in background.
+DO: 
+  - Change 5c to STATE A (same as broken i4)
+  - Remove app
+  - Install
+  - Put in background
+  - Send 10 messages
+  - NOTICE!!! 
+    - The first few uploaded in background
+	- Then I would get alerts but they wouldnt uplaod
+  - Launch the app
+  - Hide the app
+  - NOTICE!!!
+    - Now not even getting alerts like on the i4
+DO: 
+  - Try to get back to the working state that was on the 5c
+STATE B: (Reverse changes made in STATE A)
+  - Add calls to requestBackground
+    - AppSync (2)
+	- Notification (1)
+  - Leave immediate call to completionHandler notification callback
+  - Change requestBackground remove: [[UIApplication sharedApplication] endBackgroundTask: self.backgroundTaskId];
+    - FTM
+	- AppDelegate
+DO: 
+  - Uninstall 5c and reinstall.
+  - Send 10 messages
+NOTICE:
+  - Got all 10 in background.
+DO: 
+  - Install STATE B: on i4
+  - Send 10 messages
+NOTICE:
+  - All received in background.
+CONCLUSION: 
+  - Calling requestBackground seems to have an important effect.
+TEST:
+  - in 5c
+  - Remove calls to requestBackground 
+	- Notification only
+	- Leave in appSync
+  - Reinstall
+  - Notice: First notification gets through and does upload
+  - Notice: After that notification but no uploads
+  - Launch the app
+  - Downloads a bunch probably because was not receiving notification callback previously
+  - Hide the app
+  - Send 10 more
+  - Notfication alerts but no uploads.
+CONCLUSION:
+  - Calling requestBackground in notification callback is important.
+DO:
+  - STATE B on i4
+  - Send 10 messages with wifi
+  - Notice: Got all 10 in background
+  - Turn wifi off
+  - Send 10 more
+  - Notice: got alerts but no download
+  - Turn wifi on
+  - Notice: The 10 that were stuck come in in the background.
+CHANGE STATE C:
+	- Same as B but comment out [[UIApplication sharedApplication] endBackgroundTask: self.backgroundTaskIdentifier]; in FTM.updateBackground.
+DO:
+  - Wifi on send 10
+  - Notice: all arrive in background
+  - Wifi off send 10
+  - Notice: alerts but none arrive in background
+  - Wifi on
+  - Notice: 10 that were hung come in.
+CHANGE STATE D:
+  - Same as C but comment out     completionHandler(UIBackgroundFetchResultNewData); in didReceiveRemoteNotification.
+DO:
+  - Reinstall
+  - Wifi on send 10
+  - Notice: 
+  	- Got notification alert for 10 but only a few downloaded in the background.
+	- Badge counter went got up to 3 but went back to 1.
+  - Launch app
+  - Notice
+    - Polling downloaded 5 which means that did not receive notification callbacks for 5 
+CONCLUSION:
+  - Calling the completionHandler for didReceiveNotification is important or it seems the callback will not be called consistently afterwards.
+CHANGE STATE E:
+  - Same as C but call the completionHandler for Notification callback after a delay of 4 seconds
+DO:
+  - Reinstall
+  - Wifi on 
+  - Send 5 but wait a 7 second between each.
+  - Notice: got all 5
+  - Wifi off
+  - Notice: all got stuck
+  - Wifi on 
+  - Notice: all come through
+CONCLUSION:
+  - Waiting 4 seconds before calling completion handler has no effect on stuck download tasks.
+
+DIFFERENT APPROACH: Try to get the stuck downloads unstuck or not stuck in the first place.
+CHANGE STATE (F):
+  - Same as C except
+  - Create a method on file transfer manager that calls session.flushWithCompletionHandler
+  - Call this method from appSync before sending each download request to ftm in queueForDownload
+DO:
+  - Reinstall
+  - Send messages with app on xcode in foreground - seems to work ok and flush seems to work.
+  - Send with app on xcode in background - seems to work ok
+  - Stop in xcode
+  - Send messages with wifi on - works
+  - Send with wifi off - SAME AS BEFORE - Downloads get stuck.
+CHANGE STATE (G):
+  - Same as F except
+  - in FTM set configuration.allowsCellularAccess = YES
+
+
+==================================================================
+========================== SOLUTION ==============================
+==================================================================
+The OS it appears has discretion on whether and when to execute your background downloads if they are started in the background. 
+
+Here is my SO answer for someone who has the exact same problem.
+
+http://stackoverflow.com/a/25653066/2450323
+
+This also explains why it was working intermittently. 
+
+It seems it is the policy of the OS in general to not start downloading content that that was initiated in the background by a notification if in cellular. This kind of makes sense if you think about it. A rogue app could start downloading gigs of content over cellular to your phone in the background without your request or knowledge.
+
+The unfortunate thing is that it doesnt restart these hung downloads when the app comes into the foreground. After stalling them it seems only to look at whether wifi has come back on to let them proceed.
+
+So this is what I am thinking:
+
+- On notification
+  - Start the download as we do now
+  - Make the badge count indicate videos that are pending download as well as unviewed so the user sees that there is something at least waiting to download.
+
+- On becoming active
+  - The FTM 
+     - Needs a way to detect which tasks are stuck. (Unfortunately they all seem to be in running vs suspended state.) 
+     - Needs a way to Cancel them and reissue them. 
+
+
+This seems to imply that if a download is started in the background the OS always has discretion as to whether and when to proceed with the download. It seems that the OS is always waiting for a wifi connection before completing these tasks.
+
+My experience supports this conjecture. I find that I can send several notifications for downloads while device is on cellular. They remain stuck. When I switch the device to wifi they all go through.
+  
+
+QUESTION: 
+ - How best to handle the stuck downloads when the app becomes active?
+TRY:
+ - resume them?
+ READ: about task.resume - resumes a task if suspended.
+
+
+SOLUTION: Farhad added methods to restart transfers in FTM.
+
+ARCHITECTURE
+------------
+ x When the app didBecomeActive
+   x AppSync.handleStuckDownloads
+	   x For each video in download state
+	     x If FT created more than 5 seconds ago and bytes transferred = 0 restart the download
+
+ 
+QUESTION: How to set the badge number?
+GOAL: In the case where downloads are stuck we want show that videos are waiting on the badge so user opens the app causing the downloads to restart.
+  x Each time we queue a video for download either in background or foreground set the badge to be total downloading plus total downloaded.
+  x When applications enters background set the badge to just the total downloaded.
+
+
+TODO: 
+  x Update pods.
+  x Add handleStuckDownloads method to app sync
+  x Add call 
+  x Add methods to update the badge number properly.
+  - Merge changes back into FTM
+  
+TEST NEW ARCHITECTURE
+---------------------
+
+
+
+
+   
+   

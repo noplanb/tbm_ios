@@ -85,8 +85,23 @@
     return [[TBMVideo managedObjectContext] executeFetchRequest:request error:&error];
 }
 
++ (NSArray *)downloadedUnviewed{
+    return [TBMVideo findAllWithAttributeKey:@"status" value:[NSNumber numberWithInt:INCOMING_VIDEO_STATUS_DOWNLOADED]];
+}
+
++ (NSUInteger)downloadedUnviewedCount{
+    return [[TBMVideo downloadedUnviewed] count];
+}
+
++ (NSArray *)downloading{
+    return [TBMVideo findAllWithAttributeKey:@"status" value:[NSNumber numberWithInt:INCOMING_VIDEO_STATUS_DOWNLOADING]];
+}
+
++ (NSUInteger)downloadingCount{
+    return [[TBMVideo downloading] count];
+}
 + (NSUInteger)unviewedCount{
-    return [[TBMVideo findAllWithAttributeKey:@"status" value:[NSNumber numberWithInt:INCOMING_VIDEO_STATUS_DOWNLOADED]] count];
+    return [TBMVideo downloadedUnviewedCount] + [TBMVideo downloadingCount];
 }
 
 + (NSArray *)all{

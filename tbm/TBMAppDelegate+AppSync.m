@@ -40,7 +40,6 @@
 }
 
 -(NSTimeInterval) retryTimeoutValue: (NSUInteger)retryAttempt{
-//    return (NSTimeInterval)3.0;
     if (retryAttempt > 7)
         return (NSTimeInterval)128;
     else
@@ -78,9 +77,10 @@
 
     TBMVideo *video = [friend createIncomingVideoWithVideoId:videoId];
     [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_DOWNLOADING video:video];
+    [self setBadgeNumberUnviewed];
     
     NSString *marker = [TBMVideoIdUtils markerWithFriend:friend videoId:videoId isUpload:NO];
-
+    
     [[self fileTransferManager]
      downloadFile: REMOTE_STORAGE_VIDEO_DOWNLOAD_PATH
      to:[video videoPath]
@@ -226,6 +226,56 @@
     [friend setAndNotifyDownloadRetryCount:ncount video:video];
 }
 
+
+//---------------------
+// HandleStuckDownloads
+//---------------------
+- (void) handleStuckDownloadsWithCompletionHandler:(void (^)())handler{
+    [[self fileTransferManager] currentTransferStateWithCompletionHandler:^(NSArray *allStates){
+        OB_DEBUG(@"handleStuckDownloads:");
+        for(TBMVideo *video in [TBMVideo downloading]){
+            if ([self isStuckWithVideo:video allStates:allStates]){
+                [self restartDownloadWithVideo:video];
+            }
+        }
+        handler();
+    }];
+}
+
+- (BOOL) isStuckWithVideo:(TBMVideo *)video allStates:(NSArray *)allStates{
+    NSDictionary *state = [self fileTransferStateWithVideo:video isUpload:NO allStates:allStates];
+    if (state == nil) {
+        OB_WARN(@"AppSync: isStuckWithVideo: got no FTM state for video: %@", video);
+        return NO;
+    }
+    NSDate *createdOn = [state objectForKey:OBFTMCreatedOnKey];
+    NSNumber *bytesReceived = state[OBFTMCountOfBytesReceivedKey];
+    NSTimeInterval age = -[createdOn timeIntervalSinceNow];
+    OB_DEBUG(@"isStuckWithVideo: age=%f, bytesReceived=%@", age, bytesReceived);
+    if (age > 0.25 && [bytesReceived isEqualToNumber: [NSNumber numberWithInt:0]]){
+        OB_DEBUG(@"isStuckWithVideo: %@ = YES", video.videoId);
+        return YES;
+    } else {
+        OB_DEBUG(@"isStuckWithVideo: %@ = NO", video.videoId);
+        return NO;
+    }
+}
+
+- (void) restartDownloadWithVideo:(TBMVideo *)video{
+    NSString *marker = [TBMVideoIdUtils markerWithVideo:video isUpload:NO];
+    [[self fileTransferManager] restartTransferWithMarker:marker onComplete:nil];
+}
+
+- (NSDictionary *)fileTransferStateWithVideo:(TBMVideo *)video isUpload:(BOOL)isUpload allStates:(NSArray *)allStates{
+    NSString *marker = [TBMVideoIdUtils markerWithVideo:video isUpload:isUpload];
+    OB_DEBUG(@"fileTransferStateWithVideo: Looking for: %@", marker);
+    for (NSDictionary *d in allStates){
+        NSString *dMarker = [d objectForKey:OBFTMMarkerKey ];
+        if ([dMarker isEqualToString:marker])
+            return d;
+    }
+    return nil;
+}
 
 
 

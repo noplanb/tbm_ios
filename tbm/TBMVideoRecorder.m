@@ -336,6 +336,11 @@
     OB_WARN(@"AVCaptureSessionWasInterruptedNotification");
 }
 - (void) AVCaptureSessionInterruptionEndedNotification:(NSNotification *)notification{
-    OB_INFO(@"AVCaptureSessionInterruptionEndedNotification");
+    OB_WARN(@"AVCaptureSessionInterruptionEndedNotification");
+    if (self.delegate != nil){
+        [self.delegate previewInterruptionDidEnd];
+    } else {
+        OB_ERROR(@"VideoRecorder: no videoRecorderDelegate");
+    }
 }
 @end

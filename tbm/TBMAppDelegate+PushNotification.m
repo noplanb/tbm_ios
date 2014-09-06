@@ -79,12 +79,29 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
     DebugLog(@"didReceiveRemoteNotification");
 }
 
+void (^_completionHandler)(UIBackgroundFetchResult);
+
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
-    DebugLog(@"didReceiveRemoteNotification:fetchCompletionHandler");
+    OB_INFO(@"didReceiveRemoteNotification:fetchCompletionHandler");
     [self requestBackground];
     [self handleNotificationPayload:userInfo];
     // See doc/notification.txt for why we call the completion handler with sucess immediately here.
+//    _completionHandler = [completionHandler copy];
+//    [NSTimer scheduledTimerWithTimeInterval:4.0
+//                                     target:self
+//                                   selector:@selector(callCompletionHandler)
+//                                   userInfo:nil
+//                                    repeats:NO];
     completionHandler(UIBackgroundFetchResultNewData);
+}
+
+- (void)callCompletionHandler{
+    if (_completionHandler != nil){
+        OB_INFO(@"Calling completion handler");
+        _completionHandler(UIBackgroundFetchResultNewData);
+    } else {
+        OB_ERROR(@"Not calling completion handler it was nil");
+    }
 }
 
 - (void)handleNotificationPayload:(NSDictionary *)userInfo{
@@ -110,6 +127,7 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 }
 
 - (void)handleVideoReceivedNotification:(NSDictionary *)userInfo{
+    OB_INFO(@"handleVideoReceivedNotification: userInfo: %@", userInfo);
     NSString *videoId = [self videoIdWithUserInfo:userInfo];
     NSString *mkey = [userInfo objectForKey:NOTIFICATION_FROM_MKEY_KEY];
     TBMFriend *friend = [TBMFriend findWithMkey:mkey];
@@ -136,21 +154,23 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 //--------------------------------------
 // Notification center and badge control
 //--------------------------------------
-- (void)clearNotifcationCenter{
-    DebugLog(@"clearNotifcationCenter:");
-    // Cleanest way to clear them all is to transition badge number through 0.
+- (void)videoStatusDidChange:(id)object{
+    // We dont use this notification anymore. We only set the badge number at certain points in time explicitly.
+}
+
+- (void)setBadgeNumberUnviewed{
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-    [self setBadgeNumber];
-}
-
-- (void)videoStatusDidChange:(id)object{
-    [self setBadgeNumber];
-}
-
-- (void)setBadgeNumber{
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[TBMVideo unviewedCount]];
 }
+
+- (void)setBadgeNumberDownloadedUnviewed{
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[TBMVideo downloadedUnviewedCount]];
+}
+
+
 
 //----------------------------
 // Send outgoing Notifications

@@ -21,4 +21,8 @@
 
 // Polling
 - (void) pollAllFriends;
+
+// Stuck downloads
+- (void) handleStuckDownloadsWithCompletionHandler:(void (^)())handler;
+
 @end

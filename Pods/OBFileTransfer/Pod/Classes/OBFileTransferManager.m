@@ -1,4 +1,4 @@
-//
+//  Test
 //  OBFileTransferManager.m
 //  How to use this framework
 //
@@ -21,6 +21,7 @@
 #import "OBFileTransferTaskManager.h"
 #import "OBNetwork.h"
 #import "OBFTMError.h"
+
 
 // *********************************
 // The File Transfer Manager
@@ -133,9 +134,17 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
             [NSURLSessionConfiguration backgroundSessionConfiguration:OBFileTransferSessionIdentifier];
         configuration.HTTPMaximumConnectionsPerHost = 10;
         backgroundSession = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+        
+        // These may be redundant as they may be default settings but they dont hurt.
+        configuration.allowsCellularAccess = YES;
+        configuration.networkServiceType = NSURLNetworkServiceTypeBackground;
+
+        /*
+        I dont believe we need to reset here. And it may create a race condition as this appears to be an ascynchronous task and we are relying on using session immediately after returning from this method. Farhad, please remove these comments and the commented code if you are ok with this.
         [backgroundSession resetWithCompletionHandler:^{
             OB_DEBUG(@"Reset the session cache");
         }];
+        */
         
     });
     return backgroundSession;
@@ -214,6 +223,13 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
     }];
 }
 
+-(void) restartAllTasks:(void(^)())completionBlockOrNil
+{
+    for ( OBFileTransferTask * obTask in self.transferTaskManager.allTasks ) {
+        [self restartTransferTask:obTask];
+    }
+}
+
 // Upload the file at the indicated filePath to the remoteFileUrl (do not include target filename here!).
 // Note that the params dictionary contains both parmetesr interpreted by the local transfer agent and those
 // that are sent along with the file for uploading.  Local params start with the underscore.  Specifically:
@@ -236,13 +252,27 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
 }
 
 // Cancel a transfer with the indicated marker
--(void) cancelTransfer: (NSString *) marker
+-(void) cancelTransfer: (NSString *) marker onComplete:(void(^)())completionBlockOrNil
 {
     OBFileTransferTask *obTask =[[self transferTaskManager] transferTaskWithMarker:marker];
     if (  obTask != nil ) {
         [self cancelSessionTask:obTask.nsTaskIdentifier completion: ^{
             [[self transferTaskManager] removeTaskWithMarker:marker];
+            if ( completionBlockOrNil )
+                completionBlockOrNil();
         }];
+    }
+}
+
+// Cancel the transfer and restart it.
+-(void) restartTransferWithMarker: (NSString *) marker onComplete:(void(^)())completionBlockOrNil
+{
+    OB_INFO(@"FTM: restartTransfer: %@", marker);
+    OBFileTransferTask *obTask =[[self transferTaskManager] transferTaskWithMarker:marker];
+    if (  obTask != nil ) {
+        [self restartTransferTask:obTask];
+        if ( completionBlockOrNil )
+            completionBlockOrNil();
     }
 }
 
@@ -250,6 +280,24 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
 -(NSArray *) currentState
 {
     return [self.transferTaskManager currentState];
+}
+
+-(void)currentTransferStateWithCompletionHandler:(void (^)(NSArray *ftState))handler{
+    NSMutableArray *state = [[NSMutableArray alloc] init];
+    [[self session] getTasksWithCompletionHandler: ^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
+        for ( NSURLSessionTask * task in [uploadTasks arrayByAddingObjectsFromArray:downloadTasks] ) {
+            OBFileTransferTask * obTask = [[self transferTaskManager] transferTaskForNSTask:task];
+            NSDictionary *info = [obTask info];
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+            [dict addEntriesFromDictionary:info];
+            dict[OBFTMCountOfBytesExpectedToReceiveKey] = [NSNumber numberWithLongLong: [task countOfBytesExpectedToReceive]];
+            dict[OBFTMCountOfBytesReceivedKey] = [NSNumber numberWithLongLong:[task countOfBytesReceived]];
+            dict[OBFTMCountOfBytesExpectedToSendKey] = [NSNumber numberWithLongLong: [task countOfBytesExpectedToSend]];
+            dict[OBFTMCountOfBytesSentKey] = [NSNumber numberWithLongLong: [task countOfBytesSent]];
+            [state addObject:dict];
+        }
+        handler(state);
+    }];
 }
 
 -(NSString *) pendingSummary
@@ -264,7 +312,7 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
 // Return the state for the indicated marker
 -(NSDictionary *) stateForMarker: (NSString *)marker
 {
-    return [[self.transferTaskManager transferTaskWithMarker:marker] stateSummary];
+    return [[self.transferTaskManager transferTaskWithMarker:marker] info];
 }
 
 // Retry all pending transfers - to be called externally
@@ -294,9 +342,7 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
         if ( pendingTasks.count > 0 ) {
             OB_INFO(@"Retrying %lu pending tasks",(unsigned long)pendingTasks.count);
             for ( OBFileTransferTask * obTask in [self.transferTaskManager pendingTasks] ) {
-                NSURLSessionTask * task = [self createNsTaskFromObTask: obTask];
-                [self.transferTaskManager processing:obTask withNsTask:task];
-                [task resume];
+                [self processObTask: obTask];
             }
         }
     } else {
@@ -304,6 +350,18 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
         [self setupRetryTimer];
     }
 }
+
+// Kill the transfer wherever it is and restart it from scratch, but
+// up the attemptCount
+-(void) restartTransferTask: (OBFileTransferTask *)obTask
+{
+    if (  obTask != nil ) {
+        [self cancelSessionTask:obTask.nsTaskIdentifier completion: ^{
+            [self processObTask: obTask];
+        }];
+    }
+}
+
 
 #pragma mark -- Internal
 -(void) processTransfer: (NSString *)marker remote: (NSString *)remoteFileUrl local:(NSString *)filePath params:(NSDictionary *)params upload:(BOOL) upload
@@ -319,7 +377,12 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
         localFilePath = [self normalizeLocalDownloadPath:filePath];
         obTask = [self.transferTaskManager trackDownloadFrom:fullRemoteUrl toFilePath:localFilePath withMarker:marker withParams:params];
     }
-    
+    [self processObTask: obTask];
+}
+
+// given an obTask, create a native file transfer task and process it
+-(void) processObTask: (OBFileTransferTask *)obTask
+{
     NSURLSessionTask *task = [self createNsTaskFromObTask:obTask];
     [self.transferTaskManager processing:obTask withNsTask:task];
     [task resume];
@@ -330,7 +393,9 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
 //   For example, a standard server upload will do so as a multipart request, but the S3 agent does not.
 //   Since the background file transfer manager expects a file, if there is a multipart body, we need to write the whole
 //   thing to a file.  Once the file is written, we can just reuse this and in case there is a retry, we don't need
-//   to go through the process of re-encoding this again.
+//   to go through the process of re-encoding the request with the file again.  Note that we still create the request
+//   but without the file body.
+// WARN: above optimization will not work if the creation of the request headers depends on the file.
 -(NSURLSessionTask *) createNsTaskFromObTask: (OBFileTransferTask *) obTask
 {
     NSURLSessionTask *task;
@@ -340,6 +405,7 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
         
         NSError *error;
         NSMutableURLRequest *request;
+//        We create the file that needs to be transmitted to a local directory
         if ( ![self isLocalFile: obTask.localFilePath] ) {
             request = [fileTransferAgent uploadFileRequest:obTask.localFilePath to:obTask.remoteUrl withParams:obTask.params];
             NSString * tmpFile = [self temporaryFile:obTask.marker];
@@ -355,7 +421,6 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
             }
             if ( fileTransferAgent.hasMultipartBody ) {
                 if ( ![[request HTTPBody] writeToFile:tmpFile atomically:NO] ) {
-//                    TODO: Replace with specific bundle for this module rather than mail bundle
                     error = [self createNSErrorForCode:OBFTMTmpFileCreateError];
                 }
             } else {
@@ -369,7 +434,8 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
             }
             
         } else {
-            request = [fileTransferAgent uploadFileRequest:nil to:obTask.remoteUrl withParams:nil];
+//            Create the request w/o the file - just an optimization.
+            request = [fileTransferAgent uploadFileRequest:nil to:obTask.remoteUrl withParams:obTask.params];
         }
         
         task = [[self session] uploadTaskWithRequest:request fromFile:[NSURL fileURLWithPath:obTask.localFilePath]];
@@ -432,7 +498,8 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
             OB_INFO(@"%@ for %@ done", obtask.typeUpload ? @"Upload" : @"Download", marker);
         } else {
 //            There was an error
-            if ( self.maxAttempts != 0 && obtask.attemptCount >= self.maxAttempts ) {
+            if ( [self isPermanentFailureWithStatusCode: response.statusCode] ||
+                 (self.maxAttempts != 0 && obtask.attemptCount >= self.maxAttempts) ) {
                 [self handleCompleted:task obtask:obtask error:error];
             } else {
 //                OK, we're going to retry now. If have not yet set up a timer, let's do so now
@@ -446,6 +513,17 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
     }
 }
 
+// GARF: Detectin a 404 is probably not right here as I have seen cases of false positives. But we need some way to determine that
+// a particular url will never resolve especially if the client is in the habit of resetting the retry count each time it launches.
+// Otherwise a task may retry forever.
+- (BOOL) isPermanentFailureWithStatusCode:(long)statusCode{
+    if (statusCode == (long)404)
+        return YES;
+    else
+        return NO;
+}
+
+
 
 // ------
 // Upload
@@ -454,11 +532,17 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
 - (void) URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didSendBodyData:(int64_t)bytesSent totalBytesSent:(int64_t)totalBytesSent totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend
 {
     NSString *marker = [[self transferTaskManager] markerForNSTask:task];
-    NSUInteger percentDone = (NSUInteger)(100*totalBytesSent/totalBytesExpectedToSend);
+    double percentDone = 100*totalBytesSent/totalBytesExpectedToSend;
     OB_DEBUG(@"Upload progress %@: %lu%% [sent:%llu, of:%llu]", marker, (unsigned long)percentDone, totalBytesSent, totalBytesExpectedToSend);
-    if ( [self.delegate respondsToSelector:@selector(fileTransferProgress:percent:)] ) {
+    if ( [self.delegate respondsToSelector:@selector(fileTransferProgress:progress:)] ) {
         NSString *marker = [[self transferTaskManager] markerForNSTask:task];
-        [self.delegate fileTransferProgress: marker percent:percentDone];
+        OBTransferProgress progress = {
+            .bytesWritten = totalBytesSent,
+            .totalBytes = totalBytesExpectedToSend,
+            .percentDone = percentDone
+        };
+        
+        [self.delegate fileTransferProgress: marker progress:progress];
     }
 }
 
@@ -470,11 +554,16 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)task didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
 {
     NSString *marker = [[self transferTaskManager] markerForNSTask:task];
-    NSUInteger percentDone = (NSUInteger)(100*totalBytesWritten/totalBytesExpectedToWrite);
+    double percentDone = 100*totalBytesWritten/totalBytesExpectedToWrite;
     OB_DEBUG(@"Download progress %@: %lu%% [received:%llu, of:%llu]", marker, (unsigned long)percentDone, totalBytesWritten, totalBytesExpectedToWrite);
-    if ( [self.delegate respondsToSelector:@selector(fileTransferProgress:percent:)] ) {
+    if ( [self.delegate respondsToSelector:@selector(fileTransferProgress:progress:)] ) {
         NSString *marker = [[self transferTaskManager] markerForNSTask:task];
-        [self.delegate fileTransferProgress: marker percent:percentDone];
+        OBTransferProgress progress = {
+            .bytesWritten = totalBytesWritten,
+            .totalBytes = totalBytesExpectedToWrite,
+            .percentDone = percentDone
+        };
+        [self.delegate fileTransferProgress: marker progress:progress];
     }
 }
 
@@ -605,7 +694,11 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
     if ( self.backgroundTaskIdentifier == UIBackgroundTaskInvalid ) {
         self.backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
             OB_INFO(@"Ending background tasks");
-//            [[UIApplication sharedApplication] endBackgroundTask: self.backgroundTaskIdentifier];
+            /*
+             The apple docs say you should terminate the background task you requested when they call the expiration handler or before or they will terminate your app. I have found through testing however that if you dont terminate and if the usage of the phone is low by other apps they will let your app run in the background indefinitely even after the backgroundTimeRemaining has long gone to 0. This allows retries to continue for longer than the single background period of a max of 10 minutes in the case of poor coverage. If the line below is not commented out we are only able to retry for the span of a single backgroundTask duration which is 180seconds to start with then 10minutes as your app gains reputation.
+             
+             [[UIApplication sharedApplication] endBackgroundTask: self.backgroundTaskIdentifier];
+             */
             self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
         }];
     }
@@ -615,9 +708,9 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
 {
     if (  self.backgroundTaskIdentifier != UIBackgroundTaskInvalid ) {
         if ( [self.transferTaskManager pendingTasks].count == 0 ) {
-            OB_INFO(@"No pending tasks left so ending background tasks");
             [[self transferTaskManager] resetRetryTimerCount];
             [[UIApplication sharedApplication] endBackgroundTask: self.backgroundTaskIdentifier];
+
             self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
         }
     }
@@ -683,7 +776,7 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
     NSError *error = nil;
     if ( responseCode/100 != 2 ) {
         NSString *description  = [NSHTTPURLResponse localizedStringForStatusCode:responseCode];
-        error = [NSError errorWithDomain:NSURLErrorDomain code:FileManageErrorBadHttpResponse userInfo:@{NSLocalizedDescriptionKey: description}];
+        error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: description}];
     }
     return error;
 }

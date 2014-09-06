@@ -23,6 +23,7 @@ static NSString *IS_UPLOAD_KEY = @"isUpload";
 + (BOOL) isvid1:(NSString *)vid1 olderThanVid2:(NSString *)vid2;
 + (BOOL) isvid1:(NSString *)vid1 newerThanVid2:(NSString *)vid2;
 + (NSString *)markerWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId isUpload:(BOOL)isUpload;
++ (NSString *) markerWithVideo:(TBMVideo *)video isUpload:(BOOL)isUpload;
 + (NSDictionary *)friendIdAndVideoIdWithMarker:(NSString *)marker;
 + (NSString *)videoIdWithMarker:(NSString *)marker;
 + (TBMFriend *)friendWithMarker:(NSString *)marker;
