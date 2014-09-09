@@ -47,14 +47,10 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     OB_INFO(@"TBMHomeViewController: viewDidLoad");
     [super viewDidLoad];
     
-    NSError *error = nil;
-    self.videoRecorder = [[TBMVideoRecorder alloc] initWithPreviewView:self.centerView delegate:self error:&error];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    if (self.videoRecorder != nil)
-        [self.videoRecorder startPreview];
 }
 
 - (void) viewDidAppear:(BOOL)animated{
@@ -67,6 +63,8 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     [self setupLongPressTouchHandler];
     [self setupShowLogGesture];
     [self setupVideoPlayers];
+    NSError *error = nil;
+    self.videoRecorder = [[TBMVideoRecorder alloc] initWithPreviewView:self.centerView delegate:self error:&error];
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
@@ -159,9 +157,6 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 }
 
 
-//--------------------
-// VideoRecorder Setup
-//--------------------
 
 //-----------------------------------
 // TBMVideoRecorderDelegate callbacks

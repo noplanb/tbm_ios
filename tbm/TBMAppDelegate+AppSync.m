@@ -272,6 +272,7 @@
         OB_ERROR(@"AppSync: isPendingRetryWithVideo: got no obInfo for video. Should never happen. %@", video.videoId);
         return NO;
     } else {
+        OB_INFO(@"isPendingRetryWithVideo: got Info = %@", info);
         if ([info[OBFTMStatusKey] integerValue] == FileTransferPendingRetry)
             return YES;
         else

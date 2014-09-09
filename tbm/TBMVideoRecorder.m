@@ -98,6 +98,11 @@
             OB_INFO(@"Added captureOutput: %@", _captureOutput);
             
             //
+            // StartRunning
+            //
+            [self.captureSession startRunning];
+
+            //
             // Observers
             //
             [self addObservers];

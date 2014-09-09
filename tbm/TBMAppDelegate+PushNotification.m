@@ -158,18 +158,27 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     // We dont use this notification anymore. We only set the badge number at certain points in time explicitly.
 }
 
-- (void)setBadgeNumberUnviewed{
+- (void)clearBadgeCount{
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[TBMVideo unviewedCount]];
+}
+
+- (void)setBadgeNumberUnviewed{
+    OB_INFO(@"setBadgeNumberUnviewed = %lu", (unsigned long)[TBMVideo unviewedCount]);
+    [self setBadgeCount:[TBMVideo unviewedCount]];
 }
 
 - (void)setBadgeNumberDownloadedUnviewed{
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[TBMVideo downloadedUnviewedCount]];
+    OB_INFO(@"setBadgeNumberDownloadedUnviewed = %lu", (unsigned long)[TBMVideo downloadedUnviewedCount]);
+    [self setBadgeCount:[TBMVideo downloadedUnviewedCount]];
 }
 
+- (void)setBadgeCount:(NSInteger)count{
+    if (count == 0)
+        [self clearBadgeCount];
+    else
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:count];
+}
 
 
 //----------------------------
