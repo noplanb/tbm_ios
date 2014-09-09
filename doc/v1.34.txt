@@ -4,9 +4,9 @@ RELEASE NOTES
 v1.34 - 9/xx/2014
 
 
-
-BUGS
-
+======================================================================
+========== PROBLEM DOWNLOADS GET STUCK WHEN IN CELLULAR ==============
+======================================================================
 - Test setup
   - Setup iphones.
   - 
@@ -296,9 +296,9 @@ CHANGE STATE (G):
   - in FTM set configuration.allowsCellularAccess = YES
 
 
-==================================================================
-========================== SOLUTION ==============================
-==================================================================
+===========================================================================================================
+========================== SOLUTION to Downloads get stuck while in Cellular ==============================
+===========================================================================================================
 The OS it appears has discretion on whether and when to execute your background downloads if they are started in the background. 
 
 Here is my SO answer for someone who has the exact same problem.
@@ -363,6 +363,66 @@ TEST NEW ARCHITECTURE
 
 
 
+ ==============================================================
+ = PROBLEM: GREY CENTER SCREEN WHERE CAMERA PREVIEW SHOULD BE =
+ ==============================================================
+ 
+READ: AVCam example from apple.
+QUESTION: what do they do differently.
+- All of their setup is done in the viewController not in the app delegate.
+- On ViewDidLoad
+ - On UI thread
+   - alloc init the AVCaptureSession
+   - [self previewView] setSession:session
+   - checkDeviceAuthorizationStatus
+ - On a different thread
+   - add videoDeviceInput to the session
+   - add audio input to the session
+   - add the file output to the session
+- On viewWillAppear
+ - On a different thread
+   - Add observers including an observer that tries start running again in case of AVCaptureSessionRuntimeErrorNotification
+   - Session startRunning
+- On viewDidDisappear
+  - On a different thread
+   - stopRunning
+   - removeObservers
+- 
+
+TODO:
+x AppDelegate
+  x Remove any calls to video recorder
+  
+  
+- VideoRecorder init:
+  x Add a property sessionQueue
+  x create a session queue and set the property
+  x On ui thread
+    x create the session
+    x add the preview
+    x create a method to check dev auth and check
+  x On the session queue do the remaining.
+
+x VideoRecorder protocol
+  x remove interrupt method
+  
+x VideoRecorder.dispose:
+  x On queue
+	  x remove the observers
+	  x remove the delegate
+	  x stopRunning
+
+x VideoRecorder.startPreview
+  x on other thread
+    x startRunning
+
+x HomeViewController
+  x viewDidLoad 
+    x Init the videoRecorder
+  x viewWillAppear
+    x Start the preview.
+  x viewDidDisappear
+    x Dispose
 
    
    

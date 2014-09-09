@@ -28,7 +28,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     OB_INFO(@"didFinishLaunchingWithOptions:");
-    [self setupVideoRecorder];
     [self setupPushNotificationCategory];
     
     // See doc/notification.txt for why we handle the payload here as well as in didReceiveRemoteNotification:fetchCompletionHandler
@@ -40,30 +39,15 @@
     return YES;
 }
 
-- (void) setupVideoRecorder{
-    NSError * error;
-    self.videoRecorder = [[TBMVideoRecorder alloc] initWithError:&error];
-    if (!self.videoRecorder){
-        OB_ERROR(@"AppDelegate: setupVideoRecorder: %@", error);
-    }
-}
-
-- (void) stopVideoRecorder{
-    if (self.videoRecorder != nil)
-        [self.videoRecorder stopPreview];
-}
-
 - (void)applicationWillResignActive:(UIApplication *)application{
     OB_INFO(@"applicationWillResignActive");
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     [self setBadgeNumberDownloadedUnviewed];
-    [self stopVideoRecorder];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application{
     OB_INFO(@"applicationDidEnterBackground: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
-    [self stopVideoRecorder];
     [self saveContext];
     [[OBLogger instance] logEvent:OBLogEventAppBackground];
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
@@ -82,15 +66,12 @@
         [self retryPendingFileTransfers];
         [self pollAllFriends];
     }];
-    [self.videoRecorder startPreview];
     [[OBLogger instance] logEvent:OBLogEventAppForeground];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application{
     OB_INFO(@"applicationWillTerminate: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
     // Saves changes in the application's managed object context before the application terminates.
-    if (self.videoRecorder != nil)
-        [self.videoRecorder dispose];
     [self saveContext];
 }
 

@@ -13,7 +13,7 @@
 // -----
 // Video
 // -----
-+ (AVCaptureDeviceInput *) getAvailableFrontVideoInputWithError:(NSError **)error{
++ (AVCaptureDeviceInput *) getAvailableFrontVideoInputWithError:(NSError * __autoreleasing *)error{
     AVCaptureDevice *device = [TBMDeviceHandler getAvailableFrontVideoCameraWithError:&*error];
     if (!device){
         return nil;
@@ -62,11 +62,12 @@
 // -----
 // Audio
 // -----
-+ (AVCaptureDeviceInput *)getAudioInputWithError:(NSError **)error{
++ (AVCaptureDeviceInput *)getAudioInputWithError:(NSError * __autoreleasing *)error{
     AVCaptureDevice *device = [TBMDeviceHandler getAudioCaptureDevice];
     if (!device){
         return nil;
     }
+    
     AVCaptureDeviceInput *input = [TBMDeviceHandler getInputWithDevice:device error:&*error];
     if (!input){
         DebugLog(@"ERROR: Could not get audio input");

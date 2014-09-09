@@ -231,10 +231,11 @@
 // HandleStuckDownloads
 //---------------------
 - (void) handleStuckDownloadsWithCompletionHandler:(void (^)())handler{
-    [[self fileTransferManager] currentTransferStateWithCompletionHandler:^(NSArray *allStates){
+    NSArray *allObInfo = [[self fileTransferManager] currentState];
+    [[self fileTransferManager] currentTransferStateWithCompletionHandler:^(NSArray *allTransferInfo){
         OB_DEBUG(@"handleStuckDownloads:");
         for(TBMVideo *video in [TBMVideo downloading]){
-            if ([self isStuckWithVideo:video allStates:allStates]){
+            if ([self isStuckWithVideo:video allTransferInfo:allTransferInfo allObInfo:allObInfo]){
                 [self restartDownloadWithVideo:video];
             }
         }
@@ -242,22 +243,39 @@
     }];
 }
 
-- (BOOL) isStuckWithVideo:(TBMVideo *)video allStates:(NSArray *)allStates{
-    NSDictionary *state = [self fileTransferStateWithVideo:video isUpload:NO allStates:allStates];
-    if (state == nil) {
-        OB_WARN(@"AppSync: isStuckWithVideo: got no FTM state for video: %@", video);
+- (BOOL) isStuckWithVideo:(TBMVideo *)video allTransferInfo:(NSArray *)allTransferInfo allObInfo:(NSArray *)allObInfo{
+    NSDictionary *transferInfo = [self infoWithVideo:video isUpload:NO allInfo:allTransferInfo];
+    if (transferInfo == nil) {
+        if ([self isPendingRetryWithVideo:video allObInfo:allObInfo]) {
+            OB_INFO(@"AppSync: isStuckWithVideo: no transferInfo because video pending retry: %@", video.videoId);
+        } else {
+            OB_ERROR(@"AppSync: isStuckWithVideo: no transferInfo and video not pending retry. Should never happen. %@", video.videoId);
+        }
         return NO;
     }
-    NSDate *createdOn = [state objectForKey:OBFTMCreatedOnKey];
-    NSNumber *bytesReceived = state[OBFTMCountOfBytesReceivedKey];
+    NSDate *createdOn = transferInfo[OBFTMCreatedOnKey];
+    NSNumber *bytesReceived = transferInfo[OBFTMCountOfBytesReceivedKey];
     NSTimeInterval age = -[createdOn timeIntervalSinceNow];
     OB_DEBUG(@"isStuckWithVideo: age=%f, bytesReceived=%@", age, bytesReceived);
     if (age > 0.25 && [bytesReceived isEqualToNumber: [NSNumber numberWithInt:0]]){
-        OB_DEBUG(@"isStuckWithVideo: %@ = YES", video.videoId);
+        OB_DEBUG(@"isStuckWithVideo: YES - %@", video.videoId);
         return YES;
     } else {
-        OB_DEBUG(@"isStuckWithVideo: %@ = NO", video.videoId);
+        OB_DEBUG(@"isStuckWithVideo: NO - %@", video.videoId);
         return NO;
+    }
+}
+
+- (BOOL) isPendingRetryWithVideo:(TBMVideo *)video allObInfo:(NSArray *)allObInfo{
+    NSDictionary *info = [self infoWithVideo:video isUpload:NO allInfo:allObInfo];
+    if (info == nil) {
+        OB_ERROR(@"AppSync: isPendingRetryWithVideo: got no obInfo for video. Should never happen. %@", video.videoId);
+        return NO;
+    } else {
+        if ([info[OBFTMStatusKey] integerValue] == FileTransferPendingRetry)
+            return YES;
+        else
+            return NO;
     }
 }
 
@@ -266,10 +284,9 @@
     [[self fileTransferManager] restartTransferWithMarker:marker onComplete:nil];
 }
 
-- (NSDictionary *)fileTransferStateWithVideo:(TBMVideo *)video isUpload:(BOOL)isUpload allStates:(NSArray *)allStates{
+- (NSDictionary *)infoWithVideo:(TBMVideo *)video isUpload:(BOOL)isUpload allInfo:(NSArray *)allInfo{
     NSString *marker = [TBMVideoIdUtils markerWithVideo:video isUpload:isUpload];
-    OB_DEBUG(@"fileTransferStateWithVideo: Looking for: %@", marker);
-    for (NSDictionary *d in allStates){
+    for (NSDictionary *d in allInfo){
         NSString *dMarker = [d objectForKey:OBFTMMarkerKey ];
         if ([dMarker isEqualToString:marker])
             return d;

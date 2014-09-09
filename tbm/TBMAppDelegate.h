@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TBMVideoRecorder.h"
 
 @interface TBMAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -16,7 +15,6 @@
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (strong, nonatomic) TBMVideoRecorder *videoRecorder;
 
 @property (copy) void (^backgroundUploadSessionCompletionHandler)();
 @property (copy) void (^backgroundDownloadSessionCompletionHandler)();

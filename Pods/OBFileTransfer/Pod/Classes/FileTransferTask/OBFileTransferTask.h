@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, OBFileTransferTaskStatus) {
+typedef NS_ENUM(NSUInteger, OBFTMTaskStatus) {
+    // These should probably be renamed with the OBFTM prefix since they are used externally. But hard to do as rename doesnt work on them.
     FileTransferInProgress,
     FileTransferDownloadFileReady,
     FileTransferPendingRetry,
@@ -39,7 +40,7 @@ extern NSString * const OBFTMCountOfBytesSentKey;
 @property (nonatomic,strong) NSString *localFilePath;
 @property (nonatomic) NSUInteger nsTaskIdentifier;
 @property (nonatomic,strong) NSDictionary *params;
-@property (nonatomic) OBFileTransferTaskStatus status;
+@property (nonatomic) OBFTMTaskStatus status;
 
 // Return a request that would map to this transfer agent (NOT USED FOR NOW)
 //-(NSMutableURLRequest *) request;

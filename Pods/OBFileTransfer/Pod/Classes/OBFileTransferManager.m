@@ -277,8 +277,7 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
 }
 
 // Return the current state for the various tasks
--(NSArray *) currentState
-{
+-(NSArray *) currentState{
     return [self.transferTaskManager currentState];
 }
 

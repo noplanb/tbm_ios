@@ -10,7 +10,6 @@
 #import "AVFoundation/AVFoundation.h"
 @protocol TBMVideoRecorderDelegate <NSObject>
 - (void)didFinishVideoRecordingWithMarker:(NSString *)marker;
-- (void)previewInterruptionDidEnd;
 @end
 
 @interface TBMVideoRecorder : NSObject
@@ -19,12 +18,10 @@
 
 + (NSURL *)outgoingVideoUrlWithMarker:(NSString *)marker;
 
-- (instancetype)initWithError:(NSError **)error;
-- (void)setupPreviewView:(UIView *)previewView;
+- (instancetype)initWithPreviewView:(UIView *)previewView delegate:(id)delegate error:(NSError * __autoreleasing *)error;
 - (void)setVideoRecorderDelegate:(id)delegate;
 - (void)removeVideoRecorderDelegate;
 - (void)startPreview;
-- (void)stopPreview;
 - (void)startRecordingWithMarker:(NSString *)marker;
 - (void)stopRecording;
 - (void)cancelRecording;

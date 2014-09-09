@@ -22,6 +22,7 @@
 @property TBMVideoPlayer *videoPlayer;
 @property (nonatomic) TBMAppDelegate *appDelegate;
 @property BOOL isPlaying;
+@property TBMVideoRecorder *videoRecorder;
 @end
 
 static NSInteger TBM_HOME_FRIEND_VIEW_INDEX_OFFSET = 10;
@@ -45,6 +46,15 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 - (void)viewDidLoad{
     OB_INFO(@"TBMHomeViewController: viewDidLoad");
     [super viewDidLoad];
+    
+    NSError *error = nil;
+    self.videoRecorder = [[TBMVideoRecorder alloc] initWithPreviewView:self.centerView delegate:self error:&error];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if (self.videoRecorder != nil)
+        [self.videoRecorder startPreview];
 }
 
 - (void) viewDidAppear:(BOOL)animated{
@@ -56,12 +66,13 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     [TBMFriend addVideoStatusNotificationDelegate:self];
     [self setupLongPressTouchHandler];
     [self setupShowLogGesture];
-    [self setupVideoRecorderPreviewAndDelegate];
     [self setupVideoPlayers];
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
     OB_INFO(@"TBMHomeViewController: view will appear");
+    if (self.videoRecorder != nil)
+        [self.videoRecorder dispose];
 }
 
 - (void) didReceiveMemoryWarning{
@@ -151,28 +162,6 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 //--------------------
 // VideoRecorder Setup
 //--------------------
-- (TBMVideoRecorder *)videoRecorder{
-    return [self appDelegate].videoRecorder;
-}
-
-- (void) setupVideoRecorderPreviewAndDelegate{
-    DebugLog(@"setupVideoRecorderPreviewAndDelegate");
-    [self setupVideoRecorderPreview];
-    [self setupVideoRecorderDelegate];
-}
-
-- (void) setupVideoRecorderPreview{
-    [[self videoRecorder] setupPreviewView:self.centerView];
-    [self hideRecordingIndicator];
-}
-
-- (void) setupVideoRecorderDelegate{
-    [[self videoRecorder] setDelegate:self];
-}
-
-- (void) previewInterruptionDidEnd{
-    [self setupVideoRecorderPreview];
-}
 
 //-----------------------------------
 // TBMVideoRecorderDelegate callbacks
