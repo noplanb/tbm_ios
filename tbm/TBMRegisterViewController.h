@@ -7,10 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TBMRegisterProtocol.h"
 
 @interface TBMRegisterViewController : UIViewController <UIAlertViewDelegate, UITextFieldDelegate>
-    @property (nonatomic) id <TBMRegisterProtocol> delegate;
     @property UIAlertView *getUsersErrorAlert;
     @property (weak, nonatomic) IBOutlet UITextField *mobileNumber;
     - (IBAction)didEnterMobileNumber:(UITextField *)sender;

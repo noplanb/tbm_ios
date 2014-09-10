@@ -6,9 +6,14 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
+#import "TBMAppDelegate.h"
 #import "TBMHttpClient.h"
 #import "TBMRegisterViewController.h"
 #import "TBMConfig.h"
+#import "TBMUser.h"
+#import "TBMFriend.h"
+
+static UIAlertView *getFriendsErrorAlert = nil;
 
 @interface TBMRegisterViewController ()
 - (void) sendMobileNumber:(NSString *)mobileNumber;
@@ -21,6 +26,9 @@
 
 @implementation TBMRegisterViewController
 
+//--------------------
+// ViewControllerState
+//--------------------
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -36,23 +44,14 @@
     _isWaiting = NO;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
+//---------------------
+// Registration actions
+//---------------------
 - (IBAction)didEnterMobileNumber:(UITextField *)sender {
     DebugLog(@"didEnterMobileNumber: %@", [sender text]);
     NSString *mobileNumber = [[sender text] stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -89,7 +88,7 @@
         [self userNotFound];
         return;
     }
-    [_delegate didSelectUser:userDict];
+    [self didSelectUser:userDict];
 }
 
 - (void) connectionError{
@@ -105,6 +104,64 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Try Again" message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
 }
+
+
+- (void) didSelectUser:(NSDictionary *)user{
+    DebugLog(@"didSelectUser: %@", user);
+    TBMUser *u = [TBMUser createWithIdTbm:[user objectForKey:@"id"]];
+    u.firstName = [user objectForKey:@"first_name"];
+    u.lastName = [user objectForKey:@"last_name"];
+    u.auth = [user objectForKey:@"auth"];
+    u.mkey = [user objectForKey:@"mkey"];
+    [self getFriends];
+}
+
+- (void) getFriends{
+    NSString *path = @"reg/get_friends";
+    NSURLSessionDataTask *task = [[TBMHttpClient sharedClient]
+        GET:path
+        parameters:@{@"mkey": [TBMUser getUser].mkey}
+        success:^(NSURLSessionDataTask *task, id responseObject) {
+           DebugLog(@"getFriends: %@", responseObject);
+           [self addFriends:responseObject];
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+           DebugLog(@"getFriends: ERROR: %@", error);
+           [self showGetFriendsErrorAlertWithError:error];
+        }];
+    [task resume];
+}
+
+- (void) showGetFriendsErrorAlertWithError:(NSError *)error{
+    NSString *errorMsg = [NSString stringWithFormat:@"%@ Check your internet connection and try again.", [error localizedDescription]];
+    getFriendsErrorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles:nil];
+    [getFriendsErrorAlert show];
+}
+
+- (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    if (alertView == getFriendsErrorAlert){
+        [self getFriends];
+    }
+}
+
+- (void) addFriends:(NSMutableArray *)friends{
+    [TBMFriend destroyAll];
+    int i  = 0;
+    for (NSDictionary *f in friends){
+        TBMFriend *friend = [TBMFriend newWithId:[f objectForKey:@"id"]];
+        friend.viewIndex = [NSNumber numberWithInt:i];
+        friend.firstName = [f objectForKey:@"first_name"];
+        friend.lastName = [f objectForKey:@"last_name"];
+        friend.mkey = [f objectForKey:@"mkey"];
+        i++;
+    }
+    [TBMFriend saveAll];
+    [self userAndFriendModelsAreSetup];
+}
+
+- (void) userAndFriendModelsAreSetup{
+    [(TBMAppDelegate *)[[UIApplication sharedApplication] delegate] didCompleteRegistration];
+}
+
 
 -(BOOL) textFieldShouldBeginEditing:(UITextField *)textField{
     DebugLog(@"textFieldShouldBeginEditing");

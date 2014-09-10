@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-static NSString *CONFIG_VERSION_NUMBER = @"7";
+static NSString *CONFIG_VERSION_NUMBER = @"8";
 
-static NSString *CONFIG_VERSION_STRING = @"1.32";
+static NSString *CONFIG_VERSION_STRING = @"1.34";
 static NSString *CONFIG_APP_NAME = @"Three By Me";
 
 static const NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://www.threebyme.com";

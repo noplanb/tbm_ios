@@ -1,9 +1,227 @@
 RELEASE NOTES
 =============
+v1.34 - 8 - 9/10/2014
 
-v1.34 - 9/xx/2014
+
+BUG:  Downloads get stuck when in Cellular.
+CAUSE: It turns out that ios reserves the option not to initiate your downloads in cellular if they were initiated in the background as by remote notification. The problem is that it also doesn't initiate them for you when the app moves to the foreground.
+FIX: Added methods to get transferInfo (from NSTask) as well as obTask info from FileTransferManger. In AppSync handleStuckDownloads handles all anomalies for videos expected to be downloading. Including 
+  - Stalled download due to initiation in background while on cellular network.
+  - Loss of NSTask under ObTask due to termination while download was in progress.
+  - Loss of OBTask which should never happen but which I believe I have seen once or twice.
+See release details for more info.
+  
+BUG: Grey center box where camera preview should be. Happens occasionally.
+CAUSE: Multifactorial. See release details.
+FIX: 
+ - Re architected the VideoRecorder and adjusted the states where we instantiate and destroy. See release details. 
+ - Added an indicator for our debugging purposes to show when we are waiting for the system to give us the camera. If we get a AVCaptureSessionRuntimeException as we sometimes do and the system asks us to try again later I indicate the number of attempts in this debug indicator.
+POSSIBLE KNOWN BUG: This fixe seems to have fixed almost all instances of the problem. I believe I have seen a grey screen though with no debugging indicator showing. But I cant readily reproduce.
 
 
+BUG: After downloading or uploading a video the app occasionally hangs on startup.
+CAUSE: With the move to the new FileTransferManager were violating the concurrency contract we have with NSManagedObjects. You may not delete, fetch, or pass managed objects from one thread to another. They must always be handled on the thread that the NSManagedObjectContext that was used to fetch them was created. 
+FIX:
+  - Switch to the new Apple NSManagedObject architecture where we specify a concurrency type (NSMainQueueConcurrencyType)
+  - Ensure that calls in specifically events from FTM that are not running on the main thread are dispatched to the main thread.
+  
+ARCHITECTURE:
+  - Boot should be a category on appDelegate not on homeViewController. Refactored.
+  - Not calling many of our initialization methods on the optimal lifecycle events. See release details for changes.
+
+
+
+RELEASE DETAILS
+===============
+
+==============================================================
+= PROBLEM: GREY CENTER SCREEN WHERE CAMERA PREVIEW SHOULD BE =
+==============================================================
+ 
+READ: AVCam example from apple.
+QUESTION: what do they do differently.
+- All of their setup is done in the viewController not in the app delegate.
+- On ViewDidLoad
+ - On UI thread
+   - alloc init the AVCaptureSession
+   - [self previewView] setSession:session
+   - checkDeviceAuthorizationStatus
+ - On a different thread
+   - add videoDeviceInput to the session
+   - add audio input to the session
+   - add the file output to the session
+- On viewWillAppear
+ - On a different thread
+   - Add observers including an observer that tries start running again in case of AVCaptureSessionRuntimeErrorNotification
+   - Session startRunning
+- On viewDidDisappear
+  - On a different thread
+   - stopRunning
+   - removeObservers
+- 
+
+TODO:
+x AppDelegate
+  x Remove any calls to video recorder
+  
+  
+- VideoRecorder init:
+  x Add a property sessionQueue
+  x create a session queue and set the property
+  x On ui thread
+    x create the session
+    x add the preview
+    x create a method to check dev auth and check
+  x On the session queue do the remaining.
+
+x VideoRecorder protocol
+  x remove interrupt method
+  
+x VideoRecorder.dispose:
+  x On queue
+	  x remove the observers
+	  x remove the delegate
+	  x stopRunning
+
+x VideoRecorder.startPreview
+  x on other thread
+    x startRunning
+
+x HomeViewController
+  x viewDidLoad 
+    x Init the videoRecorder
+  x viewWillAppear
+    x Start the preview.
+  x viewDidDisappear
+    x Dispose
+
+
+PROBLEM: Still get grey screen though much more rarely
+TRY: 
+  - Add an indicator that says we are retrieving the camera and the number of attempts.
+	  - It is set when we init videoRecorder 
+	  - It is reset by AVCaptureSessionDidStartRunningNotification
+	  - Make AVCaptureSessionRuntimeErrorNotification increment a static counter
+	  - Make AVCaptureSessionDidStartRunningNotification reset the static counter
+  - Push AVCaptureSessionRuntimeErrorNotification to homeViewController and reinit the videoController
+  
+TODO:
+  x Add a VideoRecorderRuntimeErrorNotification to protocol.
+  x Add method in homeviewController
+  x Add the static counter
+  x Change and display the indicator.
+ 
+=========================================================
+= PROBLEM - After app is terminated it hangs on startup =
+=========================================================
+
+CONJECTURE: It seems to have happened when I moved the setupVideo recorder off the UI thread. It seems to have to get stuck on     TBMUser *user = [TBMUser getUser]; in boot. Is it possible that putting boot in ViewDidAppear for the homeViewController actually makes it happen before the models are ready? 
+  CONCLUSION: This is probably not the case as the ApplicationDidLaunch happens way before ViewDidAppear and I can access the models on ApplicationDidLaunch.
+
+
+READING AND CONJECTURE: It turns out that you should only access the managed object from the same thread that the context was created on. I believe that when we are getting notifications and when we are getting events from FTM we are not on the same thread and therefore violating the persistent store contract.  ON MAIN THREAD!
+  TEST: Breakpoint on background notification. What thread is on.
+  TEST: Breakpoint on fileTransferCompleted. What thread is it on. NOT ON MAIN THREAD!
+  CONCLUSION: This is definitely a problem that needs to be addressed. 
+
+POSSIBLE SOLUTION (A) - 
+  - Change NSManagedObjectContext to init with concurrencyType: NSPrivateQueueConcurrencyType
+  - For all calls on the context for fetch or save
+    - Use performBlockAndWait on the context.
+	
+TODO:
+  x AppDelegate
+    x managedObjectContext to use NSPrivateQueueConcurrencyType
+    x saveContext to use performBlockAndWait
+  x TBMFriend
+  x TBMUser
+  x TBMVideo
+    x All fetches should be done in a performBlockAndWait
+ 
+RESULT: Still freezes on managed object fetch sometimes.
+
+READING AND CONJECTURE: It is illegal to pass objects fetched on the NSPrivateQueue to the mainqueu thread.
+
+POSSIBLE SOLUTION:
+  x init context with initWithConcurrencyType:NSMainQueueConcurrencyType
+  - Make sure that the callbacks from FTM are put onto the main thread.
+    -fileTransferCompleted
+	-fileTransferRetrying
+
+
+ ====================================================================
+ = PROBLEM - We are not doing things on the right events on startup =
+ ====================================================================
+
+- We are not doing the right things on the right events.
+  - Boot should be a category on appDelegate not homeViewController
+    - QUESTION: How early can we call the models.
+	  - TEST: Try accessing user at various events
+	    RESULT: AppWillFinishLaunching the models are ready.
+	  
+  - AppDelegate
+    - WillFinishLaunchingWithOptions
+	  0 Version (punting on this for now since it is a category of homeViewController)
+	  x setupObLogger
+	  
+	- DidFinishLaunchingWithOptions
+  	  x Boot
+	  x setupPushNotification
+	
+	- WillResignActive
+	  - 
+	
+  x HomeViewController
+	x ViewWillLoad
+      - (Actions that only need to be done once should be done on ViewDidLoad:)
+	  - NotificationDelegate
+
+	x ViewDidLoad
+	  - FriendViews
+	  - VideoPlayers
+	  - LongPress
+	  - ShowLog gesture
+	  
+	x ViewWillAppear (didAppear)
+  	  - VideoRecorder.init
+	
+	x ViewWillDisappear
+	  - VideoRecorder.dispose
+	  
+TODO:
+x Make boot a category on appDelegate
+
+======================================================================================================================
+= PROBLEM We are not saving state in the case we change state while in the background and then the app is terminated =
+======================================================================================================================
+QUESTION: We call saveContext in AppWillTerminate however is AppWillTerminate always called?
+  TEST 1: 
+    - Clear on board logging
+	- Hide the app
+	- Kill in the task manager
+	- Check ob log to see if we got the willTerminate event.
+	RESULT: YES
+	
+  TEST 2:
+    - Clear the on board logging
+	- Put the app in the background
+	- Let it quit background of its own accord.
+	- Check ob log to see if we got the willTerminate event. 
+	RESULT: NO But this is probably not a problem as app didnt terminate it is just dormant.
+	
+  TEST 3:
+    - Clear the on board logging.
+	- Hide the app.
+	- Send it a video and notice it downloads in the background by checking server or sending phone
+	- Power down the phone
+	- Power up the phone
+	- Check is the video there
+	RESULT: No problem 
+
+CONCLUSION: This is not a problem saveContext called in DidEnterBackground and WillTerminate in appDelegate is probably good enough.
+	
+	
+	
 ======================================================================
 ========== PROBLEM DOWNLOADS GET STUCK WHEN IN CELLULAR ==============
 ======================================================================
@@ -335,7 +553,7 @@ TRY:
  READ: about task.resume - resumes a task if suspended.
 
 
-SOLUTION: Farhad added methods to restart transfers in FTM.
+SOLUTION: Add methods in FTM to help with restarting transfers.
 
 ARCHITECTURE
 ------------
@@ -357,72 +575,33 @@ TODO:
   x Add call 
   x Add methods to update the badge number properly.
   - Merge changes back into FTM
-  
+
+
+PROBLEM: There are cases for example when user terminates the app with ongoing downloads where the nsTasks under the obTasks disappear but the obTask believes they are still processing.
+
+SOLUTION: In handleStuckDownloads detect these and restart the tasks.
+  Get info and transferInfo for video
+  CASES:
+    obInfo                      transferInfo
+	------                      ------------
+	nil		                    x                    queue download again
+	status_retry                x                    do nothing
+	!status_retry               nil                  restartDownload
+	!nil                        bytes==0             restartDownload
+	
+
 TEST NEW ARCHITECTURE
 ---------------------
-
-
-
- ==============================================================
- = PROBLEM: GREY CENTER SCREEN WHERE CAMERA PREVIEW SHOULD BE =
- ==============================================================
- 
-READ: AVCam example from apple.
-QUESTION: what do they do differently.
-- All of their setup is done in the viewController not in the app delegate.
-- On ViewDidLoad
- - On UI thread
-   - alloc init the AVCaptureSession
-   - [self previewView] setSession:session
-   - checkDeviceAuthorizationStatus
- - On a different thread
-   - add videoDeviceInput to the session
-   - add audio input to the session
-   - add the file output to the session
-- On viewWillAppear
- - On a different thread
-   - Add observers including an observer that tries start running again in case of AVCaptureSessionRuntimeErrorNotification
-   - Session startRunning
-- On viewDidDisappear
-  - On a different thread
-   - stopRunning
-   - removeObservers
-- 
-
-TODO:
-x AppDelegate
-  x Remove any calls to video recorder
+  x receive multiple videos in foreground.
+  x receive multiple videos with wifi on
+  x receive a long video with wifi on kill app while downloading
+  x receive multiple long videos with wifi off
+  x receive multiple long videos with wifi off kill app while downloading
+  x receive multiple videos with app terminated
+  x Point to local server
+	  x receive multiple videos with wifi on and server broken
+	  x receive multiple videos with  wifi on and server broken kill app while retrying
   
   
-- VideoRecorder init:
-  x Add a property sessionQueue
-  x create a session queue and set the property
-  x On ui thread
-    x create the session
-    x add the preview
-    x create a method to check dev auth and check
-  x On the session queue do the remaining.
 
-x VideoRecorder protocol
-  x remove interrupt method
-  
-x VideoRecorder.dispose:
-  x On queue
-	  x remove the observers
-	  x remove the delegate
-	  x stopRunning
 
-x VideoRecorder.startPreview
-  x on other thread
-    x startRunning
-
-x HomeViewController
-  x viewDidLoad 
-    x Init the videoRecorder
-  x viewWillAppear
-    x Start the preview.
-  x viewDidDisappear
-    x Dispose
-
-   
-   

@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 #import "TBMHomeViewController.h"
-#import "TBMHomeViewController+Boot.h"
 #import "TBMHomeViewController+VersionController.h"
 
 #import "TBMLongPressTouchHandler.h"
@@ -46,25 +45,23 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 - (void)viewDidLoad{
     OB_INFO(@"TBMHomeViewController: viewDidLoad");
     [super viewDidLoad];
-    
+    [TBMFriend addVideoStatusNotificationDelegate:self];
+    [self setupFriendViews];
+    [self setupVideoPlayers];
+    [self setupLongPressTouchHandler];
+    [self setupShowLogGesture];
+    [[[TBMVersionHandler alloc] initWithDelegate:self] checkVersionCompatibility];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    OB_INFO(@"TBMHomeViewController: viewWillAppear");
     [super viewWillAppear:animated];
+    [self setupVideoRecorder:0];
 }
 
 - (void) viewDidAppear:(BOOL)animated{
     OB_INFO(@"TBMHomeViewController: viewDidAppear");
     [super viewDidAppear:animated];
-    [[[TBMVersionHandler alloc] initWithDelegate:self] checkVersionCompatibility];
-    [self boot];
-    [self setupFriendViews];
-    [TBMFriend addVideoStatusNotificationDelegate:self];
-    [self setupLongPressTouchHandler];
-    [self setupShowLogGesture];
-    [self setupVideoPlayers];
-    NSError *error = nil;
-    self.videoRecorder = [[TBMVideoRecorder alloc] initWithPreviewView:self.centerView delegate:self error:&error];
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
@@ -159,13 +156,50 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 
 
 //-----------------------------------
-// TBMVideoRecorderDelegate callbacks
+// VideoRecorder setup and callbacks
 //-----------------------------------
 - (void)didFinishVideoRecordingWithMarker:(NSString *)friendId{
     DebugLog(@"didFinishVideoRecordingWithFriendId %@", friendId);
     TBMFriend *friend = [TBMFriend findWithId:friendId];
     [friend handleAfterOutgoingVideoCreated];
     [[self appDelegate] uploadWithFriendId:friendId];
+}
+
+- (void)videoRecorderDidStartRunning{
+    [self  setRecordingIndicatorTextForRecording];
+    [self hideRecordingIndicator];
+}
+
+- (void)videoRecorderRuntimeErrorWithRetryCount:(int)videoRecorderRetryCount{
+    [self setupVideoRecorder:videoRecorderRetryCount];
+}
+
+- (void)setupVideoRecorder:(int)retryCount{
+    NSError *error = nil;
+    [self setRecordingIndicatorTextForRecorderSetup:retryCount];
+    [self showRecordingIndicator];
+    self.videoRecorder = [[TBMVideoRecorder alloc] initWithPreviewView:self.centerView delegate:self error:&error];
+}
+
+- (void)setRecordingIndicatorTextForRecorderSetup:(int)retryCount{
+    NSString *msg;
+    if (retryCount == 0)
+         msg = @"c...";
+    else
+        msg = [NSString stringWithFormat: @"c r%d", retryCount];
+    self.centerLabel.text = msg;
+}
+
+- (void)setRecordingIndicatorTextForRecording{
+    self.centerLabel.text = @"Recording...";
+}
+
+- (void)showRecordingIndicator{
+    _centerLabel.hidden = NO;
+}
+
+- (void)hideRecordingIndicator{
+    _centerLabel.hidden = YES;
 }
 
 
@@ -229,13 +263,6 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     [self hideRecordingIndicator];
 }
 
-- (void)showRecordingIndicator{
-    _centerLabel.hidden = NO;
-}
-
-- (void)hideRecordingIndicator{
-    _centerLabel.hidden = YES;
-}
 
 //---------
 // Show log

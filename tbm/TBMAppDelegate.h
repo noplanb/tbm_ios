@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TBMRegisterViewController.h"
+#import "TBMHomeViewController.h"
 
 @interface TBMAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property (strong, nonatomic) TBMRegisterViewController *registerViewController;
+@property (strong, nonatomic) TBMHomeViewController *homeViewController;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
@@ -23,6 +28,7 @@
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
--(void) requestBackground;
+- (void) requestBackground;
+- (void)didCompleteRegistration;
 
 @end

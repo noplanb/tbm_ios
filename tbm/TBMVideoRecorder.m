@@ -12,6 +12,8 @@
 #import "TBMConfig.h"
 #import "OBLogger.h"
 
+static int videoRecorderRetryCount = 0;
+
 @interface TBMVideoRecorder () <AVCaptureFileOutputRecordingDelegate>
 @property (nonatomic) dispatch_queue_t sessionQueue;
 @property UIView *previewView;
@@ -98,14 +100,15 @@
             OB_INFO(@"Added captureOutput: %@", _captureOutput);
             
             //
+            // Observers
+            //
+            [self addObservers];
+
+            //
             // StartRunning
             //
             [self.captureSession startRunning];
 
-            //
-            // Observers
-            //
-            [self addObservers];
         });
     }
     return self;
@@ -358,10 +361,16 @@
 //    NSString *message = [NSString stringWithFormat:@"Error: %@", error];
 //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"AVCaptureSessionRuntimeErrorNotification" message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
 //    [alert show];
-    [self startPreview];
+    videoRecorderRetryCount += 1;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.delegate videoRecorderRuntimeErrorWithRetryCount:videoRecorderRetryCount];
+    });
 }
 - (void) AVCaptureSessionDidStartRunningNotification:(NSNotification *)notification{
     OB_INFO(@"AVCaptureSessionDidStartRunningNotification");
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.delegate videoRecorderDidStartRunning];
+    });
 }
 - (void) AVCaptureSessionDidStopRunningNotification:(NSNotification *)notification{
     OB_WARN(@"AVCaptureSessionDidStopRunningNotification");

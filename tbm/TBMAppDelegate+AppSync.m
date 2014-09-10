@@ -63,13 +63,17 @@
 }
 
 - (void)queueDownloadWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId{
+    [self queueDownloadWithFriend:friend videoId:videoId force:NO];
+}
+
+- (void)queueDownloadWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId force:(BOOL)force{
 //    Removed because IOS sends the vidoes out in parallel a later short one may arrive before an earlier long one.
 //    if ([TBMVideoIdUtils isvid1:videoId olderThanVid2:[friend oldestIncomingVideo].videoId]) {
 //        OB_WARN(@"queueVideoDownloadWithFriend: Ignoring incoming video older than oldest.");
 //        return;
 //    }
     
-    if ([friend hasIncomingVideoId:videoId]){
+    if ([friend hasIncomingVideoId:videoId] && !force){
         OB_WARN(@"queueVideoDownloadWithFriend: Ignoring incoming videoId already processed.");
         return;
     }
@@ -121,20 +125,24 @@
 //-------------------------------
 
 - (void) fileTransferCompleted:(NSString *)marker withError:(NSError *)error{
-    OB_INFO(@"fileTransferCompleted marker = %@", marker);
-    [self requestBackground];
-    TBMFriend *friend = [TBMVideoIdUtils friendWithMarker:marker];
-    NSString *videoId = [TBMVideoIdUtils videoIdWithMarker:marker];
-    if (friend == nil){
-        OB_ERROR(@"fileTransferCompleted - Could not find friend with marker = %@.", marker);
-        return;
-    }
-    BOOL isUpload = [TBMVideoIdUtils isUploadWithMarker:marker];
-    if (isUpload){
-        [self uploadCompletedWithFriend:friend videoId:videoId error:error];
-    } else {
-        [self downloadCompletedWithFriend:friend videoId:videoId error:error];
-    }
+    // Run on the main queue since managed object context is on the main queue and you cant pass the resutant objects between threads.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        OB_INFO(@"fileTransferCompleted marker = %@", marker);
+        
+        [self requestBackground];
+        TBMFriend *friend = [TBMVideoIdUtils friendWithMarker:marker];
+        NSString *videoId = [TBMVideoIdUtils videoIdWithMarker:marker];
+        if (friend == nil){
+            OB_ERROR(@"fileTransferCompleted - Could not find friend with marker = %@.", marker);
+            return;
+        }
+        BOOL isUpload = [TBMVideoIdUtils isUploadWithMarker:marker];
+        if (isUpload){
+            [self uploadCompletedWithFriend:friend videoId:videoId error:error];
+        } else {
+            [self downloadCompletedWithFriend:friend videoId:videoId error:error];
+        }
+    });
 }
 
 - (void) fileTransferProgress:(NSString *)marker percent:(NSUInteger)progress{
@@ -142,17 +150,20 @@
 }
 
 - (void) fileTransferRetrying:(NSString *)marker attemptCount:(NSInteger)attemptCount withError:(NSError *)error{
-    OB_INFO(@"fileTransferRetrying");
-    [self requestBackground];
-    TBMFriend *friend = [TBMVideoIdUtils friendWithMarker:marker];
-    NSString *videoId = [TBMVideoIdUtils videoIdWithMarker:marker];
-
-    BOOL isUpload = [TBMVideoIdUtils isUploadWithMarker:marker];
-    if (isUpload){
-        [self uploadRetryingWithFriend:friend videoId:videoId retryCount:attemptCount];
-    } else {
-        [self downloadRetryingWithFriend:friend videoId:videoId retryCount:attemptCount];
-    }
+    // Run on the main queue since managed object context is on the main queue and you cant pass the resutant objects between threads.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        OB_INFO(@"fileTransferRetrying");
+        [self requestBackground];
+        TBMFriend *friend = [TBMVideoIdUtils friendWithMarker:marker];
+        NSString *videoId = [TBMVideoIdUtils videoIdWithMarker:marker];
+        
+        BOOL isUpload = [TBMVideoIdUtils isUploadWithMarker:marker];
+        if (isUpload){
+            [self uploadRetryingWithFriend:friend videoId:videoId retryCount:attemptCount];
+        } else {
+            [self downloadRetryingWithFriend:friend videoId:videoId retryCount:attemptCount];
+        }
+    });
 }
 
 //--------------
@@ -230,27 +241,52 @@
 //---------------------
 // HandleStuckDownloads
 //---------------------
+//
+//  obInfo                      transferInfo
+//  ------                      ------------
+//  nil		                    x                    queue download again
+//  status_retry                x                    do nothing
+//  !status_retry               nil                  restartDownload
+//  !nil                        bytes==0             restartDownload
+//
+
 - (void) handleStuckDownloadsWithCompletionHandler:(void (^)())handler{
     NSArray *allObInfo = [[self fileTransferManager] currentState];
     [[self fileTransferManager] currentTransferStateWithCompletionHandler:^(NSArray *allTransferInfo){
-        OB_DEBUG(@"handleStuckDownloads:");
+        OB_INFO(@"handleStuckDownloads: (%lu)", (unsigned long)[TBMVideo downloadingCount]);
         for(TBMVideo *video in [TBMVideo downloading]){
-            if ([self isStuckWithVideo:video allTransferInfo:allTransferInfo allObInfo:allObInfo]){
+            NSDictionary *obInfo = [self infoWithVideo:video isUpload:NO allInfo:allObInfo];
+            NSDictionary *transferInfo = [self infoWithVideo:video isUpload:NO allInfo:allTransferInfo];
+            
+            if (obInfo == nil){
+                OB_WARN(@"AppSync.handleStuckDownloads: Got no obInfo for vid:%@ double checking to make sure hasnt completed.", video.videoId);
+                if ([video isStatusDownloading]){
+                    OB_ERROR(@"AppSync.handleStuckDownloads: Got no obInfo for vid:%@ this should not happen. Force requeue the video.", video.videoId);
+                    [self queueDownloadWithFriend:video.friend videoId:video.videoId force:YES];
+                }
+                
+            } else if ([self isPendingRetryWithObInfo:obInfo]){
+                OB_INFO(@"AppSync.handleStuckDownloads: Ignoring video pending retry: %@.", video.videoId);
+
+            } else if (![self isPendingRetryWithObInfo:obInfo] && transferInfo == nil){
+                OB_WARN(@"AppSync.handleStuckDownloads: Got no transferInfo for vid:%@ could be due to termination by user during download. Restarting the task.", video.videoId);
                 [self restartDownloadWithVideo:video];
+                
+            } else if ([self transferTaskStuckWithTransferInfo:transferInfo]){
+                OB_WARN(@"AppSync.handleStuckDownloads: Restarting stuck download: %@.", video.videoId);
+                [self restartDownloadWithVideo:video];
+                
+            } else {
+                OB_INFO(@"AppSync.handleStuckDownloads: Ignoring video already processing: %@.", video.videoId);
             }
         }
         handler();
     }];
 }
 
-- (BOOL) isStuckWithVideo:(TBMVideo *)video allTransferInfo:(NSArray *)allTransferInfo allObInfo:(NSArray *)allObInfo{
-    NSDictionary *transferInfo = [self infoWithVideo:video isUpload:NO allInfo:allTransferInfo];
+- (BOOL) transferTaskStuckWithTransferInfo:(NSDictionary *)transferInfo{
     if (transferInfo == nil) {
-        if ([self isPendingRetryWithVideo:video allObInfo:allObInfo]) {
-            OB_INFO(@"AppSync: isStuckWithVideo: no transferInfo because video pending retry: %@", video.videoId);
-        } else {
-            OB_ERROR(@"AppSync: isStuckWithVideo: no transferInfo and video not pending retry. Should never happen. %@", video.videoId);
-        }
+        OB_ERROR(@"AppSync.transferTaskStuckWithTransferInfo: nil transferInfo. This should never happen.");
         return NO;
     }
     NSDate *createdOn = transferInfo[OBFTMCreatedOnKey];
@@ -258,25 +294,21 @@
     NSTimeInterval age = -[createdOn timeIntervalSinceNow];
     OB_DEBUG(@"isStuckWithVideo: age=%f, bytesReceived=%@", age, bytesReceived);
     if (age > 0.25 && [bytesReceived isEqualToNumber: [NSNumber numberWithInt:0]]){
-        OB_DEBUG(@"isStuckWithVideo: YES - %@", video.videoId);
+        OB_INFO(@"isStuckWithVideo: YES");
         return YES;
     } else {
-        OB_DEBUG(@"isStuckWithVideo: NO - %@", video.videoId);
+        OB_INFO(@"isStuckWithVideo: NO");
         return NO;
     }
 }
 
-- (BOOL) isPendingRetryWithVideo:(TBMVideo *)video allObInfo:(NSArray *)allObInfo{
-    NSDictionary *info = [self infoWithVideo:video isUpload:NO allInfo:allObInfo];
-    if (info == nil) {
-        OB_ERROR(@"AppSync: isPendingRetryWithVideo: got no obInfo for video. Should never happen. %@", video.videoId);
+- (BOOL) isPendingRetryWithObInfo:(NSDictionary *)obInfo{
+    if (obInfo == nil) {
+        OB_ERROR(@"AppSync: isPendingRetryWithVideo: got nil obInfo. Should never happen.");
         return NO;
     } else {
-        OB_INFO(@"isPendingRetryWithVideo: got Info = %@", info);
-        if ([info[OBFTMStatusKey] integerValue] == FileTransferPendingRetry)
-            return YES;
-        else
-            return NO;
+        // OB_DEBUG(@"isPendingRetryWithVideo: got Info = %@", obInfo);
+        return [obInfo[OBFTMStatusKey] integerValue] == FileTransferPendingRetry;
     }
 }
 

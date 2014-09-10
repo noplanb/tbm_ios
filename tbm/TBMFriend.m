@@ -14,7 +14,6 @@
 #import "TBMConfig.h"
 #import "TBMUser.h"
 #import "TBMStringUtils.h"
-#import "TBMDownloadManagerDeprecated.h"
 #import "TBMVideoIdUtils.h"
 #import "TBMHomeViewController.h"
 #import "OBLogger.h"
@@ -61,8 +60,12 @@ static NSMutableArray * videoStatusNotificationDelegates;
 }
 
 + (NSArray *)all{
-    NSError *error;
-    return [[TBMFriend managedObjectContext] executeFetchRequest:[TBMFriend fetchRequest] error:&error];
+    __block NSError *error;
+    __block NSArray *result;
+    [[TBMFriend managedObjectContext] performBlockAndWait:^{
+        result = [[TBMFriend managedObjectContext] executeFetchRequest:[TBMFriend fetchRequest] error:&error];
+    }];
+    return result;
 }
 
 + (instancetype)findWithOutgoingVideoId:(NSString *)videoId{
@@ -86,11 +89,15 @@ static NSMutableArray * videoStatusNotificationDelegates;
 }
 
 + (NSArray *)findAllWithAttributeKey:(NSString *)key value:(id)value{
-    NSFetchRequest *request = [TBMFriend fetchRequest];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", key, value];
-    [request setPredicate:predicate];
-    NSError *error = nil;
-    return [[TBMFriend managedObjectContext] executeFetchRequest:request error:&error];
+    __block NSArray *result;
+    __block NSError *error;
+    [[TBMFriend managedObjectContext] performBlockAndWait:^{
+        NSFetchRequest *request = [TBMFriend fetchRequest];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", key, value];
+        [request setPredicate:predicate];
+        result = [[TBMFriend managedObjectContext] executeFetchRequest:request error:&error];
+    }];
+    return result;
 }
 
 + (NSUInteger)count{
@@ -101,30 +108,33 @@ static NSMutableArray * videoStatusNotificationDelegates;
 //-------------------
 // Create and destroy
 //-------------------
-+ (id)newWithId:(NSString *)idTbm
-{
-    TBMFriend *friend = (TBMFriend *)[[NSManagedObject alloc] initWithEntity:[TBMFriend entityDescription] insertIntoManagedObjectContext:[TBMFriend managedObjectContext]];
-    friend.idTbm = idTbm;
-    [TBMFriend saveAll];
++ (id)newWithId:(NSString *)idTbm{
+    __block TBMFriend *friend;
+    [[TBMFriend managedObjectContext] performBlockAndWait:^{
+        friend = (TBMFriend *)[[NSManagedObject alloc] initWithEntity:[TBMFriend entityDescription] insertIntoManagedObjectContext:[TBMFriend managedObjectContext]];
+        friend.idTbm = idTbm;
+        [TBMFriend saveAll];
+    }];
     return friend;
 }
 
-+ (NSUInteger)destroyAll
-{
-    NSArray *allFriends = [TBMFriend all];
-    NSUInteger count = [allFriends count];
-    for (TBMFriend *friend in allFriends) {
-        [[TBMFriend managedObjectContext] deleteObject:friend];
-    }
++ (NSUInteger)destroyAll{
+    NSUInteger count = [[TBMFriend all] count];
+    [[TBMFriend managedObjectContext] performBlockAndWait:^{
+        for (TBMFriend *friend in [TBMFriend all]) {
+            [[TBMFriend managedObjectContext] deleteObject:friend];
+        }
+    }];
     return count;
 }
 
-+ (void)destroyWithId:(NSString *)idTbm
-{
-    TBMFriend *friend = [TBMFriend findWithId:idTbm];
-    if ( friend != nil ){
-        [[TBMFriend managedObjectContext] deleteObject:friend];
-    }
++ (void)destroyWithId:(NSString *)idTbm{
+    [[TBMFriend managedObjectContext] performBlockAndWait:^{
+        TBMFriend *friend = [TBMFriend findWithId:idTbm];
+        if ( friend != nil ){
+            [[TBMFriend managedObjectContext] deleteObject:friend];
+        }
+    }];
 }
 
 + (void)saveAll{

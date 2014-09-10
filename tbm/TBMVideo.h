@@ -58,4 +58,5 @@ typedef NS_ENUM (NSInteger, TBMIncomingVideoStatus) {
 - (void)generateThumb;
 - (void)deleteThumbFile;
 
+- (BOOL)isStatusDownloading;
 @end

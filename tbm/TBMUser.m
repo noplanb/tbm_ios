@@ -43,8 +43,11 @@
 }
 
 + (instancetype)getUser{
-    NSError *error;
-    NSArray *users = [[TBMUser managedObjectContext] executeFetchRequest:[TBMUser fetchRequest] error:&error];
+    __block NSError *error;
+    __block NSArray *users;
+    [[TBMUser managedObjectContext] performBlockAndWait:^{
+        users = [[TBMUser managedObjectContext] executeFetchRequest:[TBMUser fetchRequest] error:&error];
+    }];
     return [users firstObject];
 }
 
@@ -53,15 +56,22 @@
 // Create and destroy
 //-------------------
 + (void)destroy{
-    TBMUser *u = [TBMUser getUser];
-    if (u)
-        [[TBMUser managedObjectContext] deleteObject:u];
+    __block TBMUser *u = [TBMUser getUser];
+    if (u){
+        [[TBMUser managedObjectContext] performBlockAndWait:^{
+            [[TBMUser managedObjectContext] deleteObject:u];
+        }];
+    }
 }
 
 + (instancetype)createWithIdTbm:(NSString *)idTbm{
     [TBMUser destroy];
-    TBMUser *user = (TBMUser *)[[NSManagedObject alloc] initWithEntity:[TBMUser entityDescription] insertIntoManagedObjectContext:[TBMUser managedObjectContext]];
-    user.idTbm = idTbm;
+    __block TBMUser *user;
+    [[TBMUser managedObjectContext] performBlockAndWait:^{
+        user = (TBMUser *)[[NSManagedObject alloc] initWithEntity:[TBMUser entityDescription] insertIntoManagedObjectContext:[TBMUser managedObjectContext]];
+        user.idTbm = idTbm;
+
+    }];
     return user;
 }
 

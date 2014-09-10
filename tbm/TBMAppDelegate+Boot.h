@@ -6,9 +6,8 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
-#import "TBMHomeViewController.h"
-#import "TBMRegisterProtocol.h"
+#import "TBMAppDelegate.h"
 
-@interface TBMHomeViewController (Boot) <TBMRegisterProtocol, UIAlertViewDelegate>
+@interface TBMAppDelegate (Boot) <UIAlertViewDelegate>
 - (void)boot;
 @end

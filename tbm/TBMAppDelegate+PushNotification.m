@@ -50,7 +50,7 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
-    DebugLog(@"ERROR: didFailToRegisterForRemoteNotificationsWithError: %@", error);
+    OB_ERROR(@"ERROR: didFailToRegisterForRemoteNotificationsWithError: %@", error);
 }
 
 - (void) sendPushTokenToServer:(NSString *)token{
@@ -127,7 +127,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 }
 
 - (void)handleVideoReceivedNotification:(NSDictionary *)userInfo{
-    OB_INFO(@"handleVideoReceivedNotification: userInfo: %@", userInfo);
+    OB_INFO(@"handleVideoReceivedNotification:");
     NSString *videoId = [self videoIdWithUserInfo:userInfo];
     NSString *mkey = [userInfo objectForKey:NOTIFICATION_FROM_MKEY_KEY];
     TBMFriend *friend = [TBMFriend findWithMkey:mkey];
@@ -135,6 +135,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 }
 
 - (void)handleVideoStatusUPdateNotification:(NSDictionary *)userInfo{
+    OB_INFO(@"handleVideoStatusUPdateNotification:");
     NSString *nstatus = [userInfo objectForKey:NOTIFICATION_STATUS_KEY];
     NSString *mkey = [userInfo objectForKey:NOTIFICATION_TO_MKEY_KEY];
     TBMFriend *friend = [TBMFriend findWithMkey:mkey];

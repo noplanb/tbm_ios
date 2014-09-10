@@ -43,9 +43,12 @@
 // Create and destroy
 //-------------------
 + (instancetype)new{
-    TBMVideo *video = (TBMVideo *)[[NSManagedObject alloc] initWithEntity:[TBMVideo entityDescription] insertIntoManagedObjectContext:[TBMVideo managedObjectContext]];
-    video.downloadRetryCount = [NSNumber numberWithInt:0];
-    video.status = INCOMING_VIDEO_STATUS_NEW;
+    __block TBMVideo *video;
+    [[TBMVideo managedObjectContext] performBlockAndWait:^{
+        video = (TBMVideo *)[[NSManagedObject alloc] initWithEntity:[TBMVideo entityDescription] insertIntoManagedObjectContext:[TBMVideo managedObjectContext]];
+        video.downloadRetryCount = [NSNumber numberWithInt:0];
+        video.status = INCOMING_VIDEO_STATUS_NEW;
+    }];
     return video;
 }
 
@@ -56,7 +59,9 @@
 }
 
 + (void) destroy:(TBMVideo *)video{
-    [[TBMVideo managedObjectContext] deleteObject:video];
+    [[TBMVideo managedObjectContext] performBlockAndWait:^{
+        [[TBMVideo managedObjectContext] deleteObject:video];
+    }];
 }
 
 //--------
@@ -78,11 +83,15 @@
 }
 
 + (NSArray *)findAllWithAttributeKey:(NSString *)key value:(id)value{
-    NSFetchRequest *request = [TBMVideo fetchRequest];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", key, value];
-    [request setPredicate:predicate];
-    NSError *error = nil;
-    return [[TBMVideo managedObjectContext] executeFetchRequest:request error:&error];
+    __block NSArray *result;
+    __block NSError *error = nil;
+    [[TBMVideo managedObjectContext] performBlockAndWait:^{
+        NSFetchRequest *request = [TBMVideo fetchRequest];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", key, value];
+        [request setPredicate:predicate];
+        result =  [[TBMVideo managedObjectContext] executeFetchRequest:request error:&error];
+    }];
+    return result;
 }
 
 + (NSArray *)downloadedUnviewed{
@@ -105,8 +114,12 @@
 }
 
 + (NSArray *)all{
-    NSError *error;
-    return [[TBMVideo managedObjectContext] executeFetchRequest:[TBMVideo fetchRequest] error:&error];
+    __block NSError *error;
+    __block NSArray *result;
+    [[TBMVideo managedObjectContext] performBlockAndWait:^{
+        [[TBMVideo managedObjectContext] executeFetchRequest:[TBMVideo fetchRequest] error:&error];
+    }];
+    return result;
 }
 
 + (NSUInteger)count{
@@ -205,6 +218,13 @@
     NSFileManager *fm = [NSFileManager defaultManager];
     NSError *error = nil;
     [fm removeItemAtURL:[self thumbUrl] error:&error];
+}
+
+//---------------------------
+// Status convenience methods
+//---------------------------
+- (BOOL)isStatusDownloading{
+    return self.status == INCOMING_VIDEO_STATUS_DOWNLOADING;
 }
 
 @end

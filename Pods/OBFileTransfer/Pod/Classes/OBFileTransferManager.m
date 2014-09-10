@@ -193,6 +193,7 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
     }];
 }
 
+// GARF: Sani: not sure why this needs a completion handler as it is not async.
 -(void) cancelSessionTask: (NSUInteger) taskIdentifier completion: (void(^)())completionBlockOrNil
 {
     OB_DEBUG(@"Canceling session task %lu",(unsigned long)taskIdentifier);
@@ -552,9 +553,9 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
 // Download progress
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)task didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
 {
-    NSString *marker = [[self transferTaskManager] markerForNSTask:task];
+//    NSString *marker = [[self transferTaskManager] markerForNSTask:task];
     double percentDone = 100*totalBytesWritten/totalBytesExpectedToWrite;
-    OB_DEBUG(@"Download progress %@: %lu%% [received:%llu, of:%llu]", marker, (unsigned long)percentDone, totalBytesWritten, totalBytesExpectedToWrite);
+//    OB_DEBUG(@"Download progress %@: %lu%% [received:%llu, of:%llu]", marker, (unsigned long)percentDone, totalBytesWritten, totalBytesExpectedToWrite);
     if ( [self.delegate respondsToSelector:@selector(fileTransferProgress:progress:)] ) {
         NSString *marker = [[self transferTaskManager] markerForNSTask:task];
         OBTransferProgress progress = {

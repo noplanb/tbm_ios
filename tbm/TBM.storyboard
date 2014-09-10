@@ -8,7 +8,7 @@
         <!--Home View Controller-->
         <scene sceneID="y0p-V0-IP8">
             <objects>
-                <viewController id="c9T-Av-qkN" customClass="TBMHomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="c9T-Av-qkN" customClass="TBMHomeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KNb-t8-g7W"/>
                         <viewControllerLayoutGuide type="bottom" id="ptF-iQ-mQv"/>
@@ -68,7 +68,7 @@
                                 <rect key="frame" x="215" y="20" width="99" height="132"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jlf-Pz-5aY">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jlf-Pz-5aY">
                                         <rect key="frame" x="16" y="38" width="66" height="57"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
@@ -370,47 +370,10 @@
             </objects>
             <point key="canvasLocation" x="73" y="73"/>
         </scene>
-        <!--Register Table View Controller Deprecated-->
-        <scene sceneID="S4C-hv-uzl">
-            <objects>
-                <tableViewController storyboardIdentifier="TBMRegisterViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ZG3-vr-Qu4" customClass="TBMRegisterTableViewControllerDeprecated" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="67" sectionHeaderHeight="22" sectionFooterHeight="22" id="AAm-UV-FLg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ListPrototypeCell" textLabel="VBj-xa-BZk" style="IBUITableViewCellStyleDefault" id="ZZj-1S-n32">
-                                <rect key="frame" x="0.0" y="22" width="320" height="67"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" tableViewCell="ZZj-1S-n32" id="Lwx-hf-swI">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VBj-xa-BZk">
-                                            <rect key="frame" x="15" y="0.0" width="290" height="66"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="ZG3-vr-Qu4" id="aYu-b5-eCx"/>
-                            <outlet property="delegate" destination="ZG3-vr-Qu4" id="PCr-mt-qff"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6xp-qT-giA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="493" y="73"/>
-        </scene>
         <!--Register View Controller-->
         <scene sceneID="nwF-mG-p0X">
             <objects>
-                <viewController storyboardIdentifier="TBMRegisterViewController2" id="Mbw-vG-7HZ" customClass="TBMRegisterViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RegisterViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Mbw-vG-7HZ" customClass="TBMRegisterViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1GH-uX-taQ"/>
                         <viewControllerLayoutGuide type="bottom" id="GWM-CN-vcx"/>
@@ -460,7 +423,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5mI-2u-HRF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="931" y="73"/>
+            <point key="canvasLocation" x="438" y="73"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

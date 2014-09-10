@@ -10,6 +10,8 @@
 #import "AVFoundation/AVFoundation.h"
 @protocol TBMVideoRecorderDelegate <NSObject>
 - (void)didFinishVideoRecordingWithMarker:(NSString *)marker;
+- (void)videoRecorderDidStartRunning;
+- (void)videoRecorderRuntimeErrorWithRetryCount:(int)videoRecorderRetryCount;
 @end
 
 @interface TBMVideoRecorder : NSObject

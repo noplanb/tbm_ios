@@ -7,10 +7,12 @@
 //
 
 #import "TBMAppDelegate.h"
+#import "TBMAppDelegate+Boot.h"
 #import "TBMAppDelegate+PushNotification.h"
 #import "TBMAppDelegate+AppSync.h"
 #import "TBMStringUtils.h"
 #import "OBFileTransferManager.h"
+#import "TBMUser.h"
 
 @implementation TBMAppDelegate
 
@@ -18,18 +20,17 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
+
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
-    // See doc/notification.txt for why we dont use this in our app.
-    [OBLogger instance].writeToConsole = YES;
-//    [[OBLogger instance] reset];
-    DebugLog(@"willFinishLaunchingWithOptions:");
+    OB_INFO(@"willFinishLaunchingWithOptions:");
+    // See doc/notification.txt for why we dont use this in our app for processing notifications.
     return YES;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     OB_INFO(@"didFinishLaunchingWithOptions:");
-    [self setupPushNotificationCategory];
-    
+    [self boot];
+
     // See doc/notification.txt for why we handle the payload here as well as in didReceiveRemoteNotification:fetchCompletionHandler
     // for the case where app is launching from a terminated state due to user clicking on notification. Even though both this method
     // and the didReceiveRemoteNotification:fetchCompletionHandler are called in that case.
@@ -77,17 +78,51 @@
 
 - (void)saveContext{
     OB_INFO(@"saveContext");
-    NSError *error = nil;
-    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
-    if (managedObjectContext != nil) {
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-             // Replace this implementation with code to handle the error appropriately.
-             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-            DebugLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        } 
+    __block NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    __block NSError *error = nil;
+    
+    if (managedObjectContext != nil){
+        [managedObjectContext performBlockAndWait:^{
+            if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+                // Replace this implementation with code to handle the error appropriately.
+                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                OB_ERROR(@"Unresolved error %@, %@", error, [error userInfo]);
+                abort();
+            }
+        }];
     }
 }
+
+
+//--------------------------
+// Access to viewControllers
+//--------------------------
+- (UIStoryboard *)storyBoard{
+    return [UIStoryboard storyboardWithName:@"TBM" bundle: nil];
+}
+
+- (TBMRegisterViewController *)registerViewController{
+    if (_registerViewController == nil){
+        _registerViewController = (TBMRegisterViewController *)[[self storyBoard] instantiateViewControllerWithIdentifier:@"RegisterViewController"];
+    }
+    return _registerViewController;
+}
+
+- (TBMHomeViewController *)homeViewController{
+    if (_homeViewController == nil){
+        _homeViewController = (TBMHomeViewController *)[[self storyBoard] instantiateViewControllerWithIdentifier:@"HomeViewController"];
+    }
+    return _homeViewController;
+}
+
+- (void)didCompleteRegistration{
+    [[self registerViewController] presentViewController:[self homeViewController] animated:YES completion:nil];
+}
+
+
+//---------
+// CoreData
+//---------
 
 #pragma mark - Core Data stack
 
@@ -101,7 +136,7 @@
     
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
-        _managedObjectContext = [[NSManagedObjectContext alloc] init];
+        _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
         [_managedObjectContext setPersistentStoreCoordinator:coordinator];
     }
     return _managedObjectContext;
@@ -169,6 +204,10 @@
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
+
+//----------------------------------
+// Background URL Session Completion
+//----------------------------------
 - (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler{
     OB_INFO(@"handleEventsForBackgroundURLSession: for sessionId=%@",identifier);
     OBFileTransferManager *tm = [OBFileTransferManager instance];
