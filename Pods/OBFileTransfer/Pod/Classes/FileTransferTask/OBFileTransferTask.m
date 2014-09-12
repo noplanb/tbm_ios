@@ -119,7 +119,7 @@ NSString * const OBFTMCountOfBytesSentKey  = @"CountOfBytesSentKey";
     if ( self.params !=  nil ) dict[OBFTMParamsKey] = self.params;
     dict[OBFTMAttemptsKey] = [NSNumber numberWithInteger:self.attemptCount];
     dict[OBFTMStatusKey] = [NSNumber numberWithInteger:self.status];
-
+    
     return dict;
 }
 

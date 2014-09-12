@@ -20,7 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.4.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - OBFileTransfer (0.3.1):
+  - OBFileTransfer (0.3.2):
     - OBLogger
   - OBLogger (0.2.0)
 
@@ -31,7 +31,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
-  OBFileTransfer: 220bd4ee19372e4a62b7a96a10840e43cbf8ff05
+  OBFileTransfer: a216fe76787c364b302610f644f41349ffb340cd
   OBLogger: 04f68b73a619f4444d5f7d7c7ff9bc3f05c619ae
 
 COCOAPODS: 0.33.1

@@ -236,7 +236,7 @@
             
             // See above for why this line is commented out.
 //            [[UIApplication sharedApplication] endBackgroundTask: self.backgroundTaskId];
-            
+            [self saveContext];
             self.backgroundTaskId = UIBackgroundTaskInvalid;
         }];
     }

@@ -1,0 +1,10 @@
+RELEASE NOTES
+=============
+v1.35 - 9 - 9/12/2014
+
+
+BUG: Occasionally when a new video comes in while the app is in the background you enter the app to see that there is no thumbnail and all videos are gone for sender.
+CAUSE: In the case where our app has been terminated after we ask for background time we dont get applicationWillTerminate. The expirationHandler that we asked for background time with is the only callback we get.
+SOLUTION: saveContext in the expirationHandler callback.
+
+
