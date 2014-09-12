@@ -52,9 +52,9 @@ static UIAlertView *getFriendsErrorAlert = nil;
 //---------------------
 // Registration actions
 //---------------------
-- (IBAction)didEnterMobileNumber:(UITextField *)sender {
-    DebugLog(@"didEnterMobileNumber: %@", [sender text]);
-    NSString *mobileNumber = [[sender text] stringByReplacingOccurrencesOfString:@" " withString:@""];
+- (IBAction)didEnterMobileNumber:(id)sender {
+    DebugLog(@"didEnterMobileNumber: %@", self.mobileNumber.text);
+    NSString *mobileNumber = [self.mobileNumber.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     if ([mobileNumber isEqualToString:@""]){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Try Again" message:@"Enter your phone number with area code." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alert show];
