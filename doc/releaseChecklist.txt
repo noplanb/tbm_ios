@@ -1,6 +1,7 @@
-x make sure config points to server
 x create vx.x.txt file with release notes and date
-- make sure version in config is correct
+x make sure config points to server
+x make sure version in config is correct
+- make sure device_build = prod in config
 - make sure version on server for ios is correct
 - push to github
 - tag with description.
