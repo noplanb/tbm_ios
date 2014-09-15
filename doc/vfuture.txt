@@ -1,9 +1,5 @@
 BUGS
-- Kill in the task manager then try to restart. Does not always start. Sometimes dies and goes away. Sometimes get stuck on screen with all + signs for friends.
-  - Boot should happen before a lot of the other stuff we do. It should be a category on appDelegate not a category on homeViewController.
-- Downloading sometimes continues to show in the case where FTM has obTasks in the processing state but no nsTasks associated with them.
-- No thumbnail sometimes
-
+- Swipe away while recording should show not sent indicator.
 
 ARCHITECTURE
 - VersionController should probably be a category on appDelegate not HomeViewController

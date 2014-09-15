@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-
-static NSString *CONFIG_VERSION_NUMBER = @"9";
-
-static NSString *CONFIG_VERSION_STRING = @"1.35";
 static NSString *CONFIG_APP_NAME = @"Three By Me";
 
+// Make sure these 4 are set correctly before a release.
+static NSString *CONFIG_VERSION_NUMBER = @"10";
+static NSString *CONFIG_VERSION_STRING = @"1.40";
+static NSString *CONFIG_DEVICE_BUILD = @"prod";
 static const NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://www.threebyme.com";
 //static NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://192.168.1.82:3000";
 

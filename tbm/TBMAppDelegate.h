@@ -29,6 +29,5 @@
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 - (void) requestBackground;
-- (void)didCompleteRegistration;
 
 @end

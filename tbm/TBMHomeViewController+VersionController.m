@@ -44,6 +44,7 @@
     if ([alertView isEqual:self.versionHandlerAlert]) {
         if (buttonIndex == 0) {
             OB_INFO(@"Update clicked");
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://testflightapp.com"]];
         } else {
             OB_INFO(@"Cancel clicked");
         }

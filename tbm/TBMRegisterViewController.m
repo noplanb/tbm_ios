@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
-#import "TBMAppDelegate.h"
+#import "TBMAppDelegate+Boot.h"
 #import "TBMHttpClient.h"
 #import "TBMRegisterViewController.h"
 #import "TBMConfig.h"

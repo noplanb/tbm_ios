@@ -115,9 +115,6 @@
     return _homeViewController;
 }
 
-- (void)didCompleteRegistration{
-    [[self registerViewController] presentViewController:[self homeViewController] animated:YES completion:nil];
-}
 
 
 //---------

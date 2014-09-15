@@ -10,4 +10,6 @@
 
 @interface TBMAppDelegate (Boot) <UIAlertViewDelegate>
 - (void)boot;
+- (void)didCompleteRegistration;
+
 @end

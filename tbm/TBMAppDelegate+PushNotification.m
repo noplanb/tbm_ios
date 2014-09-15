@@ -11,6 +11,7 @@
 #import "TBMHttpClient.h"
 #import "TBMUser.h"
 #import "OBLogger.h"
+#import "TBMConfig.h"
 
 static NSString *NOTIFICATION_TARGET_MKEY_KEY = @"target_mkey";
 static NSString *NOTIFICATION_FROM_MKEY_KEY = @"from_mkey";
@@ -55,6 +56,7 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 
 - (void) sendPushTokenToServer:(NSString *)token{
     NSDictionary *params = @{@"mkey": [TBMUser getUser].mkey,
+                             @"device_build": CONFIG_DEVICE_BUILD,
                              @"push_token": token,
                              @"device_platform": @"ios"};
     

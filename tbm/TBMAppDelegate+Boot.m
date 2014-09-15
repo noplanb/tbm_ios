@@ -28,9 +28,18 @@
         self.window.rootViewController = [self registerViewController];
     } else {
         self.window.rootViewController = [self homeViewController];
-        [self setupPushNotificationCategory];
-        [self registerForPushNotification];
+        [self didCompleteRegistration];
     }
+}
+
+- (void)didCompleteRegistration{
+    [self postRegistrationBoot];
+    [[self registerViewController] presentViewController:[self homeViewController] animated:YES completion:nil];
+}
+
+- (void)postRegistrationBoot{
+    [self setupPushNotificationCategory];
+    [self registerForPushNotification];
 }
 
 

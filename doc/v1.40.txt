@@ -1,0 +1,140 @@
+RELEASE NOTES
+=============
+AdHoc Distribution Release:
+
+v1.40 - 10 - 9/12/2014
+
+FEATURE: Integrate with Testflight so that we can distribute and update the ios version of the app to alpha users over the air. 
+
+BUG: When I load the ipa from TestFlight and run on the I4 I get a crash on startup after shutting the app down in the task manager.
+CAUSE: In VideoRecorder init -  I was passing a pointer to an error object as a parameter to a method. The method was filling it in several cases. In one case it was filling on an async thread that was dispatched by the method. In the case the async thread completed before the method did everything was fine which expalains the race and why it worked on one phone and not the other. Pretty obvious mistake in hindsight. 
+SOLUTION: Create a local block variable in the block to handle.
+
+BUG: Push_token not being sent on boot when we go through a new registration.
+FIX: Refactor the boot code.
+
+BUG: Phone is not receiving notification when built as a release target and loaded over the air from TestFlight. 
+CAUSE: Apple requires a production APNS certificate as well as hitting the production gateway to send notifications to phones with the app distributed as an ad_hoc release.
+SOLUTION: Refactor the APNS gem so that we can hit either production or dev gateway at apple with production or dev pem on a pre request basis.
+Update the server to accommodate the new architecture. Update the app to send a device_build = prod, dev depending on whether it is an xcode dev build or a production release distributed by TestFlight.
+
+
+
+RELEASE DETAILS
+===============
+
+FEATURE:
+--------
+Make update after version check point to testflightapp.com
+
+BUG - crash on start 
+--------------------
+CONSOLE: 
+  Sep 12 14:04:35 Sanis-iPhone tbm[284] <Warning>: INFO: Added audioInput: <AVCaptureDeviceInput: 0x17ed6b30 [iPhone Microphone]>
+  Sep 12 13:59:29 Sanis-iPhone tbm[277] <Critical>: [277] stack overflow
+
+TRY: 1.352 - remove videoCamera init and try again. RESULT: Works
+TRY: 1.3521 - remove only the sessionStart RESULT:  FAILS
+  - Sep 12 15:24:37 Sanis-iPhone tbm[399] <Warning>: INFO: VideoRecorder added observers.
+  - Sep 12 15:24:38 Sanis-iPhone tbm[399] <Critical>: [399] stack overflow
+TRY: 1.3522 - Eliminate the dispatch_async by returning self before it. RESULT: Works
+TRY: 1.3523 - Return before setup of output RESULT: FAILS
+  - Sep 12 15:44:16 Sanis-iPhone tbm[457] <Warning>: INFO: Added videoInput: <AVCaptureDeviceInput: 0x156c3100 [Front Camera]>
+  - Sep 12 15:44:17 Sanis-iPhone tbm[457] <Critical>: [457] stack overflow
+TRY: 1.3524 - Return before Add audioInput RESULT: FAILS
+  - Sep 12 15:51:39 Sanis-iPhone tbm[478] <Warning>: <TBMDeviceHandler.m:(76)> Got audio input: <AVCaptureDeviceInput: 0x15e9b200 [iPhone Microphone]>
+  - Sep 12 15:51:39 Sanis-iPhone tbm[478] <Critical>: [478] stack overflow
+TRY: 1.3525 - Return at the top of dispatch_async RESULT: Works
+TRY: 1.3526 - Return before add video input RESULT: Fails
+  - Sep 12 16:03:04 Sanis-iPhone tbm[510] <Warning>: <TBMDeviceHandler.m:(26)> TBMCameraHandler: Got available input: <AVCaptureDeviceInput: 0x14dd7580 [Front Camera]>
+  - Sep 12 16:03:04 Sanis-iPhone tbm[510] <Critical>: [510] stack overflow
+  
+CONJECTURE: Maybe it because I am passing error that was passed in as a parameter to the init method to a dispatch async and if the dispatch completes after we return the parameter is no longer there.
+
+TRY: 1.3527 - Make a local __block variable inside the dispach_block to handle the error.
+
+CONCLUSION: 1.3527 fixed the problem.
+
+
+BUG - Doesnt receive notifications
+----------------------------------
+QUESTION: is the push token being updated on first boot?
+READ: Read the boot code.
+RESULT: No it is not being sent on register. 
+FIX: Refactor the boot code.
+
+TRY: 1.3528
+  - Build pointing at local server.
+  - Build android pointing at local server.
+
+CONJECTURE: Our apns certificate is for dev and we are point at the sandbox server. We need to use a production cert and point at the production gateway.
+
+DO:
+  - READ - apns gem instructions
+  - Create a certificate apns  for production.
+  - Download
+  - Add to keychain
+  - Export as p12
+  - Convert to pem
+  - Change apns locally to use the production production pem and production gateway.
+  - Run i5 locally against nexus black
+  - push v1.3529
+  RESULT works.
+  
+QUESTION: Can we use production cert and gateway for a dev built device?
+TRY: 
+  - Load as dev build on ic
+  - Try via production gateway
+ANSWER: NO. The motherfuckers require a dev pem and gateway for notifications to dev built apps.
+
+GOAL: Allow both phones run as dev builds and phones run as production builds to receive notification from our server. 
+
+POSSIBLE ARCHITECTURE:
+ - Add a field to PushUser for :build 
+ - Modify APNS so that we can select the gateway and pem with each request. 
+ 
+TODO:
+  x Find APNS local repo
+  x Make changes to the gem files stored by rvm
+  - Update the gem. and push
+  
+UPDATE APNS GEM:
+ x make APNS a class instead of a module
+ x Add initialize to initialize the attributes.
+ x remove self from all methods
+ 
+TODO: 
+  x Add a field to PushUser for :device_build
+  x Migrate the local server
+  x Send the :device_build from the client when sending push_token
+
+TEST: 
+  x Prod build
+	  x Set Config.device_build to prod on ios client.
+	  x Build as archive 1.3530 and load
+	  x Should receive push notifications.
+  x Dev build legacy
+      x Do not send Config.device build
+	  x Build as xcode dev
+	  x Should receive push notifications
+  x Dev build new
+      x Send Config.device build as "dev"
+	  x Build as xcode dev
+	  x Should receive push notifications
+  
+TODO:
+  x Push the gem
+  x Update using bundle locally
+  x Test again locally
+  x Create a server release
+  x Push and tag the server
+  x Build the ic and nexus black to talk to server
+  x deploy update to the server
+  x test 
+  x make ic prod
+  x test
+  
+
+
+
+ 

@@ -171,6 +171,7 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 }
 
 - (void)videoRecorderRuntimeErrorWithRetryCount:(int)videoRecorderRetryCount{
+    OB_ERROR(@"videoRecorderRuntimeErrorWithRetryCount %d", videoRecorderRetryCount);
     [self setupVideoRecorder:videoRecorderRetryCount];
 }
 

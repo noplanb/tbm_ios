@@ -62,17 +62,16 @@ static int videoRecorderRetryCount = 0;
 
         [self setupPreviewView];
         
-        
         dispatch_async(_sessionQueue, ^{
-
+            __block NSError *blockError;
             //
             // Video
             //
-            if (![self getVideoCaptureInputWithError:&*error]){
+            if (![self getVideoCaptureInputWithError:&blockError]){
                 OB_ERROR(@"VideoRecorder: Unable to getVideoCaptureInput");
                 return;
             }
-            
+
             [_captureSession addInput:_videoInput];
             OB_INFO(@"Added videoInput: %@", _videoInput);
             
@@ -82,18 +81,19 @@ static int videoRecorderRetryCount = 0;
             [self setupAudioSession];
 
             // [TBMDeviceHandler showAllAudioDevices];
-            if (![self getAudioCaptureInputWithError:&*error]){
+            if (![self getAudioCaptureInputWithError:&blockError]){
                 OB_ERROR(@"VideoRecorder: Unable to getAudioCaptureInput");
                 return;
             }
+
             [_captureSession addInput:_audioInput];
             OB_INFO(@"Added audioInput: %@", _audioInput);
-
+            
             //
             // Output
             //
             _captureOutput = [[AVCaptureMovieFileOutput alloc] init];
-            if (![self addCaptureOutputWithError:&*error]){
+            if (![self addCaptureOutputWithError:&blockError]){
                 OB_ERROR(@"VideoRecorder: Unable to addCaptureOutput");
                 return;
             }
@@ -103,6 +103,7 @@ static int videoRecorderRetryCount = 0;
             // Observers
             //
             [self addObservers];
+            OB_INFO(@"VideoRecorder added observers.");
 
             //
             // StartRunning
@@ -177,11 +178,11 @@ static int videoRecorderRetryCount = 0;
 // Set videoRecorderDelegate
 //--------------------------
 - (void)setVideoRecorderDelegate:(id)delegate{
-    self.delegate = delegate;
+    _delegate = delegate;
 }
 
 - (void)removeVideoRecorderDelegate{
-    self.delegate = nil;
+    _delegate = nil;
 }
 
 //-------------------
@@ -339,6 +340,7 @@ static int videoRecorderRetryCount = 0;
 }
 
 - (void)addObservers{
+    OB_INFO(@"videoRecorder: addObservers");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionRuntimeErrorNotification:) name:AVCaptureSessionRuntimeErrorNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionDidStartRunningNotification:) name:AVCaptureSessionDidStartRunningNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionDidStopRunningNotification:) name:AVCaptureSessionDidStopRunningNotification object:_captureSession];
@@ -355,12 +357,7 @@ static int videoRecorderRetryCount = 0;
 }
 
 - (void) AVCaptureSessionRuntimeErrorNotification:(NSNotification *)notification{
-//    OB_ERROR(@"AVCaptureSessionRuntimeErrorNotification");
-//    NSDictionary *userInfo = [notification userInfo];
-//    NSError *error = [userInfo objectForKey:AVCaptureSessionErrorKey];
-//    NSString *message = [NSString stringWithFormat:@"Error: %@", error];
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"AVCaptureSessionRuntimeErrorNotification" message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-//    [alert show];
+    OB_INFO(@"AVCaptureSessionRuntimeErrorNotification");
     videoRecorderRetryCount += 1;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.delegate videoRecorderRuntimeErrorWithRetryCount:videoRecorderRetryCount];
