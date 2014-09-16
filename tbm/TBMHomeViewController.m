@@ -45,10 +45,11 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     return self.appDelegate = (TBMAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
+// Not used
 - (void)appDidBecomeActive{
-    [self setupVideoRecorder:0];
 }
 
+// Not used
 - (void)appWillEnterForeground{
 }
 

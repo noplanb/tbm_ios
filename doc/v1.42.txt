@@ -1,0 +1,17 @@
+RELEASE NOTES
+=============
+
+v1.42 - 12 - 9/16/2014
+
+BUG: Camera does not come up after registration.
+FIX: Rework logic for instantiating videoRecorder. Dont use appDidBecomeActive.
+
+
+
+
+RELEASE DETAILS
+===============
+
+Camera does not come up after registration.
+ - Setting up the camera on appDidBecomeActive wont work since a view other than homeViewController might have been setup.
+ - SOLUTION - remove the setup of videoRecorder in the case of appDidBecomeActive.

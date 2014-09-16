@@ -109,6 +109,7 @@ static int videoRecorderRetryCount = 0;
             // StartRunning
             //
             [self.captureSession startRunning];
+            
         });
     }
     return self;

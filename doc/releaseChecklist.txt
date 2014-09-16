@@ -9,7 +9,7 @@ x Post release to testflight
 x Test to make sure it works
 - push to github
 - tag with description.
-x deploy the server
+- deploy the server
    - ./bin/deploy.sh
    - rake assets:precompile
    - touch tmp/restart.txt  
