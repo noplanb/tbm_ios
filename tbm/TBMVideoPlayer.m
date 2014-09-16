@@ -232,8 +232,8 @@ static NSMutableDictionary *instances;
 }
 
 - (void)play{
-    DebugLog(@"play for %@", _friend.firstName);
-    
+    DebugLog(@"play for %@", _video.videoId);
+
     if ([_video hasValidVideoFile]){
         _moviePlayerController.contentURL = [_video videoUrl];
         [_moviePlayerController play];
@@ -243,12 +243,12 @@ static NSMutableDictionary *instances;
 }
 
 - (void)stop{
-    DebugLog(@"stop for %@", _friend.firstName);
+    DebugLog(@"stop for %@", _video.videoId);
     [_moviePlayerController stop];
 }
 
 - (void)playDidComplete{
-    OB_INFO(@"VideoPlayer: playDidComplete");
+    OB_INFO(@"VideoPlayer: playDidComplete: %@", _video.videoId);
     [_friend setViewedWithIncomingVideo:_video];
     _video = [_friend nextPlayableVideoAfterVideo:_video];
     

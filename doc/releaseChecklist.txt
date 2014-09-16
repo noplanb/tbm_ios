@@ -1,13 +1,17 @@
 x create vx.x.txt file with release notes and date
+x make sure version is correct in info.plist
 x make sure config points to server
 x make sure version in config is correct
-- make sure device_build = prod in config
-- make sure version on server for ios is correct
+x make sure device_build = prod in config
+x make sure version on server for ios is correct
+x Archive and save in released ipas
+x Post release to testflight
+x Test to make sure it works
 - push to github
 - tag with description.
-- deploy the server
+x deploy the server
    - ./bin/deploy.sh
-   - rake assets/precompile
+   - rake assets:precompile
    - touch tmp/restart.txt  
 - create an email
 

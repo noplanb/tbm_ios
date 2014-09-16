@@ -66,7 +66,7 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 - (TBMVideo *) createIncomingVideoWithVideoId:(NSString *)videoId;
 - (TBMVideo *) firstPlayableVideo;
 - (TBMVideo *) nextPlayableVideoAfterVideo:(TBMVideo *)video;
-- (void) deleteAllViewedVideos;
+- (void) deleteAllViewedOrFailedVideos;
 
 // Create and destroy
 + (instancetype)newWithId:(NSNumber *)idTbm;

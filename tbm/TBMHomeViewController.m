@@ -38,10 +38,24 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     return self;
 }
 
+//--------------------------------
+// Events called in by appDelegate
+//--------------------------------
 - (TBMAppDelegate *)appDelegate{
     return self.appDelegate = (TBMAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
+- (void)appDidBecomeActive{
+    [self setupVideoRecorder:0];
+}
+
+- (void)appWillEnterForeground{
+}
+
+
+//-----------------------------
+// Events on the viewController
+//-----------------------------
 - (void)viewDidLoad{
     OB_INFO(@"TBMHomeViewController: viewDidLoad");
     [super viewDidLoad];
@@ -56,18 +70,18 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 - (void)viewWillAppear:(BOOL)animated{
     OB_INFO(@"TBMHomeViewController: viewWillAppear");
     [super viewWillAppear:animated];
-    [self setupVideoRecorder:0];
 }
 
 - (void) viewDidAppear:(BOOL)animated{
     OB_INFO(@"TBMHomeViewController: viewDidAppear");
     [super viewDidAppear:animated];
+    [self setupVideoRecorder:0];
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
-    OB_INFO(@"TBMHomeViewController: view will appear");
-    if (self.videoRecorder != nil)
-        [self.videoRecorder dispose];
+    OB_INFO(@"TBMHomeViewController: viewWillDisappear");
+    // Eliminated videoRecorder.dispose here. The OS takes care of interrupting or stopping and restarting our VideoCaptureSession very well.
+    // We don't need to interfere with it.
 }
 
 - (void) didReceiveMemoryWarning{
@@ -175,7 +189,20 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     [self setupVideoRecorder:videoRecorderRetryCount];
 }
 
+// We call setupVideoRecorder on multiple events so the first qualifying event takes effect. All later events are ignored.
 - (void)setupVideoRecorder:(int)retryCount{
+    // Note that when we get retryCount != 0 we are being called because of a videoRecorderRuntimeError and we need reinstantiate
+    // even if videoRecorder != nil
+    if (self.videoRecorder != nil && retryCount == 0){
+        OB_WARN(@"TBMHomeViewController: setupVideoRecorder: already setup. Ignoring");
+        return;
+    }
+    
+    if (![self appDelegate].isForeground){
+        OB_WARN(@"HomeViewController: not initializing the VideoRecorder because ! isForeground");
+        return;
+    }
+
     NSError *error = nil;
     [self setRecordingIndicatorTextForRecorderSetup:retryCount];
     [self showRecordingIndicator];

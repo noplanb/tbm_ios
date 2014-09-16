@@ -2,7 +2,7 @@ RELEASE NOTES
 =============
 AdHoc Distribution Release:
 
-v1.40 - 10 - 9/12/2014
+v1.40 - 10 - 9/15/2014
 
 FEATURE: Integrate with Testflight so that we can distribute and update the ios version of the app to alpha users over the air. 
 

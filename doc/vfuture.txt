@@ -1,5 +1,8 @@
 BUGS
 - Swipe away while recording should show not sent indicator.
+- Dont try to bring up the camera for viewWillAppear if app is in the background.
+- Request background when we handle a notification via didFinishLaunching with options as well as DidReceiveRemoteNotification
+- Kons messages sometimes coming in as 404? Check server state?
 
 ARCHITECTURE
 - VersionController should probably be a category on appDelegate not HomeViewController

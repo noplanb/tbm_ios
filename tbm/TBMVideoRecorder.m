@@ -109,7 +109,6 @@ static int videoRecorderRetryCount = 0;
             // StartRunning
             //
             [self.captureSession startRunning];
-
         });
     }
     return self;
@@ -331,8 +330,11 @@ static int videoRecorderRetryCount = 0;
 //-------------------------------
 // AVCaptureSession Notifications
 //-------------------------------
+// Dispose is not used. User should just create a new instance.
+// Dont use dispose becuase OS takes care of interrupting or stopping and restarting our VideoCaptureSession very well.
+// We don't need to interfere with it. See release 1.41 for details.
 - (void)dispose{
-    dispatch_async(self.sessionQueue, ^{
+    dispatch_sync(self.sessionQueue, ^{
         [self removeObservers];
         [self removeVideoRecorderDelegate];
         [self.captureSession stopRunning];

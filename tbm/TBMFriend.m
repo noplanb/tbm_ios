@@ -193,11 +193,11 @@ static NSMutableArray * videoStatusNotificationDelegates;
     }
 }
 
-- (void) deleteAllViewedVideos{
+- (void) deleteAllViewedOrFailedVideos{
     OB_INFO(@"deleteAllViewedVideos");
     NSArray *all = [self sortedIncomingVideos];
     for (TBMVideo * v in all){
-        if (v.status == INCOMING_VIDEO_STATUS_VIEWED)
+        if (v.status == INCOMING_VIDEO_STATUS_VIEWED || v.status == INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY)
             [self deleteVideo:v];
     }
 }

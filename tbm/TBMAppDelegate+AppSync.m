@@ -77,9 +77,21 @@
         OB_WARN(@"queueVideoDownloadWithFriend: Ignoring incoming videoId already processed.");
         return;
     }
-    OB_INFO(@"queueVideoDownloadWithFriend:");
+    
+    TBMVideo *video;
+    if ([friend hasIncomingVideoId:videoId] && force){
+        OB_INFO(@"queueVideoDownloadWithFriend: Forcing new transfer of existing video: %@", videoId);
+        video = [TBMVideo findWithVideoId:videoId];
+    } else {
+        OB_INFO(@"queueVideoDownloadWithFriend: Creating new video for download: %@", videoId);
+        video = [friend createIncomingVideoWithVideoId:videoId];
+    }
+    
+    if (video == nil){
+        OB_ERROR(@"queueVideoDownloadWithFriend: Video is nil. This should never happen.");
+        return;
+    }
 
-    TBMVideo *video = [friend createIncomingVideoWithVideoId:videoId];
     [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_DOWNLOADING video:video];
     [self setBadgeNumberUnviewed];
     
@@ -213,7 +225,7 @@
         [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY video:video];
     } else {
         if (! [[TBMVideoPlayer findWithFriendId:friend.idTbm] isPlaying])
-            [friend deleteAllViewedVideos];
+            [friend deleteAllViewedOrFailedVideos];
         
         [video generateThumb];
         

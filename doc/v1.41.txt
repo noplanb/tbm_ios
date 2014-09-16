@@ -1,0 +1,68 @@
+RELEASE NOTES
+=============
+
+v1.41 - 11 - 9/16/2014
+
+BUG: Request background when we handle a notification via didFinishLaunching with options as well as DidReceiveRemoteNotification. This is probably not necessary but it should not hurt.
+
+BUG: HomeViewController is trying to initialize the camera when app is launched in the background due to notifications. 
+FIX: Change logic for instantiation of VideoRecorder in HomeViewController. See Release Details.
+ 
+BUG: When a video fails permanently we keep reinstating it. We should treat it as viewed and let it be killed in the next download cycle.
+FIX: Change friend.deleteAllViewed to deleteAllFailedOrViewed
+
+BUG: When we force requeue of a video we should not create a new video object but just requeue the existing one. 
+FIX: Change logic in appSync.queueForDownload
+
+
+RELEASE DETAILS
+===============
+
+Don't bring up the camera unless foreground
+-------------------------------------------
+- Property on appDelegate to indicate foreground
+  - Set on applicationDidBecomeActive
+  - Unset on applicationDidEnterBackground
+  - Only activate camera on viewDidAppear if in foreground.
+  
+Test
+  - Wait 5 minutes for app to exit background.
+  - Send a message to it
+  - Wait 1 minute
+  - Notice no attempt to bring up the camera when app was launched into the background by the notification.
+  
+PROBLEM: We sometimes dont get a viewDidAppear after applicationDidBecomeActive in the case view was already showing in the background and we moved to the foreground.
+
+TRY: use applicationDidBecomeActive to init VideoRecorder on HomeViewController
+  - setup if not already setup in case
+    - viewDidAppear && isForeground
+	- appdDidBecomeActive.
+
+PROBLEM: Getting a crash when when I would call: self.videoRecorder.dispose; self.videoRecorder=nil;
+CAUSE: Was never able to determine the cause. Even when dispose was using a dispatch_sync and setting to nil was happening after dispose returned I still got the crash.
+SOLUTION: Dont use dispose.     // Eliminated videoRecorder.dispose here. The OS takes care of interrupting or stopping and restarting our VideoCaptureSession very well. We don't need to interfere with it.
+
+FINAL SOLUTION: 
+  - Instantiate homeViewController.videoRecorder if not nil in the cases
+    - viewDidAppear && isForeground
+	- appdDidBecomeActive.
+  - Reinstantiate in the case of videoRecorderRuntimeErrorWithRetryCount whether nil or not.
+
+
+
+Force Requeue should not create a new Video Object
+--------------------------------------------------
+Test
+  - Change logic in handleStuckDownloads to exercise this path.
+  - Cellular
+  - Put in background
+  - Send a message
+  - Kill the app
+  - Restart 
+  - Look at logs. Expect "queueVideoDownloadWithFriend: Forcing new transfer of existing video:"
+
+
+  
+  
+
+  

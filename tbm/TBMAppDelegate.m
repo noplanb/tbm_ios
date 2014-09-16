@@ -35,7 +35,10 @@
     // for the case where app is launching from a terminated state due to user clicking on notification. Even though both this method
     // and the didReceiveRemoteNotification:fetchCompletionHandler are called in that case.
     NSDictionary *remoteNotificationUserInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (remoteNotificationUserInfo) [self handleNotificationPayload:remoteNotificationUserInfo];
+    if (remoteNotificationUserInfo){
+        [self requestBackground];
+        [self handleNotificationPayload:remoteNotificationUserInfo];
+    }
     
     return YES;
 }
@@ -49,6 +52,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application{
     OB_INFO(@"applicationDidEnterBackground: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
+    self.isForeground = NO;
     [self saveContext];
     [[OBLogger instance] logEvent:OBLogEventAppBackground];
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
@@ -57,11 +61,16 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application{
     OB_INFO(@"applicationWillEnterForeground");
-    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    self.isForeground = YES;
+    // Notify the homeViewController
+    [[self homeViewController] appWillEnterForeground];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application{
     OB_INFO(@"applicationDidBecomeActive");
+    self.isForeground = YES;
+    // Notify the homeViewController
+    [[self homeViewController] appDidBecomeActive];
     [TBMVideo printAll];
     [self handleStuckDownloadsWithCompletionHandler:^{
         [self retryPendingFileTransfers];

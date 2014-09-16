@@ -12,9 +12,16 @@
 #import "TBMFriend.h"
 #import "TBMVersionHandler.h"
 
-@interface TBMHomeViewController : UIViewController <TBMLongPressTouchHandlerCallback, TBMVideoRecorderDelegate, TBMVideoStatusNotificationProtocol>
+
+@protocol TBMAppDelegateEventNotificationProtocol <NSObject>
+- (void)appWillEnterForeground;
+- (void)appDidBecomeActive;
+@end
+
+@interface TBMHomeViewController : UIViewController <TBMLongPressTouchHandlerCallback, TBMVideoRecorderDelegate, TBMVideoStatusNotificationProtocol, TBMAppDelegateEventNotificationProtocol>
 @property (weak, nonatomic) IBOutlet UIView *centerView;
 @property (weak, nonatomic) IBOutlet UILabel *centerLabel;
 @property (strong, nonatomic) UIAlertView *versionHandlerAlert;
+
 
 @end
