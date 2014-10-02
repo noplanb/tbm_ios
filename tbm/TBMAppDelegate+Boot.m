@@ -8,6 +8,7 @@
 
 #import "TBMAppDelegate+Boot.h"
 #import "TBMAppDelegate+PushNotification.h"
+#import "TBMAppDelegate+AppSync.h"
 #import "TBMUser.h"
 #import "TBMFriend.h"
 #import "OBLogger.h"
@@ -33,13 +34,23 @@
 }
 
 - (void)didCompleteRegistration{
+    OB_INFO(@"didCompleteRegistration");
     [self postRegistrationBoot];
+    [self performDidBecomeActiveActions];
     [[self registerViewController] presentViewController:[self homeViewController] animated:YES completion:nil];
 }
 
 - (void)postRegistrationBoot{
     [self setupPushNotificationCategory];
     [self registerForPushNotification];
+}
+
+- (void)performDidBecomeActiveActions{
+    [TBMVideo printAll];
+    [self handleStuckDownloadsWithCompletionHandler:^{
+        [self retryPendingFileTransfers];
+        [self pollAllFriends];
+    }];
 }
 
 

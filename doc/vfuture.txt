@@ -1,14 +1,16 @@
 BUGS
 - Swipe away while recording should show not sent indicator.
-- Dont try to bring up the camera for viewWillAppear if app is in the background.
-- Request background when we handle a notification via didFinishLaunching with options as well as DidReceiveRemoteNotification
 - Kons messages sometimes coming in as 404? Check server state?
+- Still a case where I get a grey screen. It looks like appDelegate.applicationDidBecomeActive is being called but it is not calling HomeViewController.appDidBecomeActive. Is it possible that appDelegate.homeViewController is pointing to a stale instance and the HomeViewController was just reinstantiated by the system. I should probably find a way to point to the active homeViewController if any rather than instantiate one.
 
 ARCHITECTURE
 - VersionController should probably be a category on appDelegate not HomeViewController
 
 
 FEATURES
+- Invite which of your other friends would be interested in adding this person...
+- Add link on plus sign to send email about adding people.
+
 - Add polling for status
 - Make the last frame the poster frame.
 - Custom notification tone for our app

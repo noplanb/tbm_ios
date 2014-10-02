@@ -35,13 +35,28 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 }
 
 - (void)registerForPushNotification{
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert |
-                                                                           UIRemoteNotificationTypeSound |
-                                                                           UIRemoteNotificationTypeBadge)];
+    OB_INFO(@"registerForPushNotification");
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        // ios8
+        OB_INFO(@"registerForPushNotification: ios8");
+        UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    } else {
+        // < ios8
+        OB_INFO(@"registerForPushNotification: < ios8");
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge)];
+    }
 }
 
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings{
+    UIUserNotificationType allowedTypes = [notificationSettings types];
+    OB_INFO(@"didRegisterUserNotificationSettings: allowedTypes = %lu", allowedTypes);
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
+    OB_INFO(@"didRegisterForRemoteNotificationsWithDeviceToken");
     NSString * pushToken = [deviceToken description];
     pushToken = [pushToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     pushToken = [pushToken stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -55,6 +70,7 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 }
 
 - (void) sendPushTokenToServer:(NSString *)token{
+    OB_INFO(@"sendPushTokenToServer");
     NSDictionary *params = @{@"mkey": [TBMUser getUser].mkey,
                              @"device_build": CONFIG_DEVICE_BUILD,
                              @"push_token": token,

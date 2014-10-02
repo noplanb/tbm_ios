@@ -1,0 +1,418 @@
+lazi 
+  - idea: I am too lazy to do anything but press and release this button.
+  - verb: lazi me when you get home. 
+  - noun: send me a lazi
+  - Web and app names available.
+  - Problem with misspelling is that people search for the correct spelling. But early on it can be the first search result since there is little competition. Also misspelling can be trademarked.
+
+lazy
+  - same as Lazi
+  - Lazyapp.com available on web for $2000
+  - Problem with real spelling is it brings up tons of more popular hits in the store. But if it gets popular it might eventually become the first search result. Difficult to trademark.
+  
+favi
+  - idea: just my favorites
+  - verb: favi me. noun: send me a favi
+  - looks available on iphone and little competition on android. faviapp.com available.
+  
+favo
+  - Same idea as favi with similar availability and competition. favoapp.com taken.
+  
+Based on relaxed:
+laxly
+laxity
+laxer 
+  
+besties
+  - idea: highlights the exclusive nature of only 8.
+  - Problem may only make sense to the younger crowd.
+  - Already a besties social app on iphone.
+  
+vtext (video text)
+
+vsms (video sms)
+
+vchat
+
+vitter (video twitter)
+ - verb: veat me 
+ - noun: send me a veat
+
+vsquare
+
+squarechat
+
+vgrid
+
+vfavs
+
+quickie
+
+Mugz
+face2face
+YouFace
+MyFace  (When inviting, you'd ask someone to "get in MyFace")  
+FaceOff
+facebox
+facemash
+facie
+facer
+facy
+
+bezo (not on the list)
+bazo
+balo
+baza
+dala
+dosa
+dota
+fasa
+faso
+fazo
+gaba
+joto
+jaja
+lafa
+pora
+tago
+tapa
+tapo
+vayo
+wava
+yayo
+zazo
+
+baxoSani:~/dev/xcode_dev/tbm/doc: ruby namer.rb
+baba  babo  boba  bobo  
+bada  bado  boda  bodo  
+bafa  bafo  bofa  bofo  
+baga  bago  boga  bogo  
+baha  baho  boha  boho  
+baja  bajo  boja  bojo  
+bala  balo  bola  bolo  
+bama  bamo  boma  bomo  
+bana  bano  bona  bono  
+bapa  bapo  bopa  bopo  
+bara  baro  bora  boro  
+basa  baso  bosa  boso  
+bata  bato  bota  boto  
+bava  bavo  bova  bovo  
+bawa  bawo  bowa  bowo  
+baxa  baxo  boxa  boxo  
+baya  bayo  boya  boyo  
+baza  bazo  boza  bozo  
+daba  dabo  doba  dobo  
+dada  dado  doda  dodo  
+dafa  dafo  dofa  dofo  
+daga  dago  doga  dogo  
+daha  daho  doha  doho  
+daja  dajo  doja  dojo  
+dala  dalo  dola  dolo  
+dama  damo  doma  domo  
+dana  dano  dona  dono  
+dapa  dapo  dopa  dopo  
+dara  daro  dora  doro  
+dasa  daso  dosa  doso  
+data  dato  dota  doto  
+dava  davo  dova  dovo  
+dawa  dawo  dowa  dowo  
+daxa  daxo  doxa  doxo  
+daya  dayo  doya  doyo  
+daza  dazo  doza  dozo  
+faba  fabo  foba  fobo  
+fada  fado  foda  fodo  
+fafa  fafo  fofa  fofo  
+faga  fago  foga  fogo  
+faha  faho  foha  foho  
+faja  fajo  foja  fojo  
+fala  falo  fola  folo  
+fama  famo  foma  fomo  
+fana  fano  fona  fono  
+fapa  fapo  fopa  fopo  
+fara  faro  fora  foro  
+fasa  faso  fosa  foso  
+fata  fato  fota  foto  
+fava  favo  fova  fovo  
+fawa  fawo  fowa  fowo  
+faxa  faxo  foxa  foxo  
+faya  fayo  foya  foyo  
+faza  fazo  foza  fozo  
+gaba  gabo  goba  gobo  
+gada  gado  goda  godo  
+gafa  gafo  gofa  gofo  
+gaga  gago  goga  gogo  
+gaha  gaho  goha  goho  
+gaja  gajo  goja  gojo  
+gala  galo  gola  golo  
+gama  gamo  goma  gomo  
+gana  gano  gona  gono  
+gapa  gapo  gopa  gopo  
+gara  garo  gora  goro  
+gasa  gaso  gosa  goso  
+gata  gato  gota  goto  
+gava  gavo  gova  govo  
+gawa  gawo  gowa  gowo  
+gaxa  gaxo  goxa  goxo  
+gaya  gayo  goya  goyo  
+gaza  gazo  goza  gozo  
+haba  habo  hoba  hobo  
+hada  hado  hoda  hodo  
+hafa  hafo  hofa  hofo  
+haga  hago  hoga  hogo  
+haha  haho  hoha  hoho  
+haja  hajo  hoja  hojo  
+hala  halo  hola  holo  
+hama  hamo  homa  homo  
+hana  hano  hona  hono  
+hapa  hapo  hopa  hopo  
+hara  haro  hora  horo  
+hasa  haso  hosa  hoso  
+hata  hato  hota  hoto  
+hava  havo  hova  hovo  
+hawa  hawo  howa  howo  
+haxa  haxo  hoxa  hoxo  
+haya  hayo  hoya  hoyo  
+haza  hazo  hoza  hozo  
+jaba  jabo  joba  jobo  
+jada  jado  joda  jodo  
+jafa  jafo  jofa  jofo  
+jaga  jago  joga  jogo  
+jaha  jaho  joha  joho  
+jaja  jajo  joja  jojo  
+jala  jalo  jola  jolo  
+jama  jamo  joma  jomo  
+jana  jano  jona  jono  
+japa  japo  jopa  jopo  
+jara  jaro  jora  joro  
+jasa  jaso  josa  joso  
+jata  jato  jota  joto  
+java  javo  jova  jovo  
+jawa  jawo  jowa  jowo  
+jaxa  jaxo  joxa  joxo  
+jaya  jayo  joya  joyo  
+jaza  jazo  joza  jozo  
+laba  labo  loba  lobo  
+lada  lado  loda  lodo  
+lafa  lafo  lofa  lofo  
+laga  lago  loga  logo  
+laha  laho  loha  loho  
+laja  lajo  loja  lojo  
+lala  lalo  lola  lolo  
+lama  lamo  loma  lomo  
+lana  lano  lona  lono  
+lapa  lapo  lopa  lopo  
+lara  laro  lora  loro  
+lasa  laso  losa  loso  
+lata  lato  lota  loto  
+lava  lavo  lova  lovo  
+lawa  lawo  lowa  lowo  
+laxa  laxo  loxa  loxo  
+laya  layo  loya  loyo  
+laza  lazo  loza  lozo  
+maba  mabo  moba  mobo  
+mada  mado  moda  modo  
+mafa  mafo  mofa  mofo  
+maga  mago  moga  mogo  
+maha  maho  moha  moho  
+maja  majo  moja  mojo  
+mala  malo  mola  molo  
+mama  mamo  moma  momo  
+mana  mano  mona  mono  
+mapa  mapo  mopa  mopo  
+mara  maro  mora  moro  
+masa  maso  mosa  moso  
+mata  mato  mota  moto  
+mava  mavo  mova  movo  
+mawa  mawo  mowa  mowo  
+maxa  maxo  moxa  moxo  
+maya  mayo  moya  moyo  
+maza  mazo  moza  mozo  
+naba  nabo  noba  nobo  
+nada  nado  noda  nodo  
+nafa  nafo  nofa  nofo  
+naga  nago  noga  nogo  
+naha  naho  noha  noho  
+naja  najo  noja  nojo  
+nala  nalo  nola  nolo  
+nama  namo  noma  nomo  
+nana  nano  nona  nono  
+napa  napo  nopa  nopo  
+nara  naro  nora  noro  
+nasa  naso  nosa  noso  
+nata  nato  nota  noto  
+nava  navo  nova  novo  
+nawa  nawo  nowa  nowo  
+naxa  naxo  noxa  noxo  
+naya  nayo  noya  noyo  
+naza  nazo  noza  nozo  
+paba  pabo  poba  pobo  
+pada  pado  poda  podo  
+pafa  pafo  pofa  pofo  
+paga  pago  poga  pogo  
+paha  paho  poha  poho  
+paja  pajo  poja  pojo  
+pala  palo  pola  polo  
+pama  pamo  poma  pomo  
+pana  pano  pona  pono  
+papa  papo  popa  popo  
+para  paro  pora  poro  
+pasa  paso  posa  poso  
+pata  pato  pota  poto  
+pava  pavo  pova  povo  
+pawa  pawo  powa  powo  
+paxa  paxo  poxa  poxo  
+paya  payo  poya  poyo  
+paza  pazo  poza  pozo  
+raba  rabo  roba  robo  
+rada  rado  roda  rodo  
+rafa  rafo  rofa  rofo  
+raga  rago  roga  rogo  
+raha  raho  roha  roho  
+raja  rajo  roja  rojo  
+rala  ralo  rola  rolo  
+rama  ramo  roma  romo  
+rana  rano  rona  rono  
+rapa  rapo  ropa  ropo  
+rara  raro  rora  roro  
+rasa  raso  rosa  roso  
+rata  rato  rota  roto  
+rava  ravo  rova  rovo  
+rawa  rawo  rowa  rowo  
+raxa  raxo  roxa  roxo  
+raya  rayo  roya  royo  
+raza  razo  roza  rozo  
+saba  sabo  soba  sobo  
+sada  sado  soda  sodo  
+safa  safo  sofa  sofo  
+saga  sago  soga  sogo  
+saha  saho  soha  soho  
+saja  sajo  soja  sojo  
+sala  salo  sola  solo  
+sama  samo  soma  somo  
+sana  sano  sona  sono  
+sapa  sapo  sopa  sopo  
+sara  saro  sora  soro  
+sasa  saso  sosa  soso  
+sata  sato  sota  soto  
+sava  savo  sova  sovo  
+sawa  sawo  sowa  sowo  
+saxa  saxo  soxa  soxo  
+saya  sayo  soya  soyo  
+saza  sazo  soza  sozo  
+taba  tabo  toba  tobo  
+tada  tado  toda  todo  
+tafa  tafo  tofa  tofo  
+taga  tago  toga  togo  
+taha  taho  toha  toho  
+taja  tajo  toja  tojo  
+tala  talo  tola  tolo  
+tama  tamo  toma  tomo  
+tana  tano  tona  tono  
+tapa  tapo  topa  topo  
+tara  taro  tora  toro  
+tasa  taso  tosa  toso  
+tata  tato  tota  toto  
+tava  tavo  tova  tovo  
+tawa  tawo  towa  towo  
+taxa  taxo  toxa  toxo  
+taya  tayo  toya  toyo  
+taza  tazo  toza  tozo  
+vaba  vabo  voba  vobo  
+vada  vado  voda  vodo  
+vafa  vafo  vofa  vofo  
+vaga  vago  voga  vogo  
+vaha  vaho  voha  voho  
+vaja  vajo  voja  vojo  
+vala  valo  vola  volo  
+vama  vamo  voma  vomo  
+vana  vano  vona  vono  
+vapa  vapo  vopa  vopo  
+vara  varo  vora  voro  
+vasa  vaso  vosa  voso  
+vata  vato  vota  voto  
+vava  vavo  vova  vovo  
+vawa  vawo  vowa  vowo  
+vaxa  vaxo  voxa  voxo  
+vaya  vayo  voya  voyo  
+vaza  vazo  voza  vozo  
+waba  wabo  woba  wobo  
+wada  wado  woda  wodo  
+wafa  wafo  wofa  wofo  
+waga  wago  woga  wogo  
+waha  waho  woha  woho  
+waja  wajo  woja  wojo  
+wala  walo  wola  wolo  
+wama  wamo  woma  womo  
+wana  wano  wona  wono  
+wapa  wapo  wopa  wopo  
+wara  waro  wora  woro  
+wasa  waso  wosa  woso  
+wata  wato  wota  woto  
+wava  wavo  wova  wovo  
+wawa  wawo  wowa  wowo  
+waxa  waxo  woxa  woxo  
+waya  wayo  woya  woyo  
+waza  wazo  woza  wozo  
+xaba  xabo  xoba  xobo  
+xada  xado  xoda  xodo  
+xafa  xafo  xofa  xofo  
+xaga  xago  xoga  xogo  
+xaha  xaho  xoha  xoho  
+xaja  xajo  xoja  xojo  
+xala  xalo  xola  xolo  
+xama  xamo  xoma  xomo  
+xana  xano  xona  xono  
+xapa  xapo  xopa  xopo  
+xara  xaro  xora  xoro  
+xasa  xaso  xosa  xoso  
+xata  xato  xota  xoto  
+xava  xavo  xova  xovo  
+xawa  xawo  xowa  xowo  
+xaxa  xaxo  xoxa  xoxo  
+xaya  xayo  xoya  xoyo  
+xaza  xazo  xoza  xozo  
+yaba  yabo  yoba  yobo  
+yada  yado  yoda  yodo  
+yafa  yafo  yofa  yofo  
+yaga  yago  yoga  yogo  
+yaha  yaho  yoha  yoho  
+yaja  yajo  yoja  yojo  
+yala  yalo  yola  yolo  
+yama  yamo  yoma  yomo  
+yana  yano  yona  yono  
+yapa  yapo  yopa  yopo  
+yara  yaro  yora  yoro  
+yasa  yaso  yosa  yoso  
+yata  yato  yota  yoto  
+yava  yavo  yova  yovo  
+yawa  yawo  yowa  yowo  
+yaxa  yaxo  yoxa  yoxo  
+yaya  yayo  yoya  yoyo  
+yaza  yazo  yoza  yozo  
+zaba  zabo  zoba  zobo  
+zada  zado  zoda  zodo  
+zafa  zafo  zofa  zofo  
+zaga  zago  zoga  zogo  
+zaha  zaho  zoha  zoho  
+zaja  zajo  zoja  zojo  
+zala  zalo  zola  zolo  
+zama  zamo  zoma  zomo  
+zana  zano  zona  zono  
+zapa  zapo  zopa  zopo  
+zara  zaro  zora  zoro  
+zasa  zaso  zosa  zoso  
+zata  zato  zota  zoto  
+zava  zavo  zova  zovo  
+zawa  zawo  zowa  zowo  
+zaxa  zaxo  zoxa  zoxo  
+zaya  zayo  zoya  zoyo  
+zaza  zazo  zoza  zozo  
+Sani:~/dev/xcode_dev/tbm/doc: 
+
+
+
+
+
+
+
+  

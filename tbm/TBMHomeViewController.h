@@ -22,6 +22,10 @@
 @property (weak, nonatomic) IBOutlet UIView *centerView;
 @property (weak, nonatomic) IBOutlet UILabel *centerLabel;
 @property (strong, nonatomic) UIAlertView *versionHandlerAlert;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *plusLabels;
+
+- (NSMutableArray *)activeFriendViews;
+- (NSMutableArray *)inactiveFriendViews;
 
 
 @end

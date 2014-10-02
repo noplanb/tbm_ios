@@ -1,0 +1,138 @@
+d - in database
+c - connected
+e1 - intro email
+e2 - follow up email with link.
+
+
+c e2 Amit Pandey
+c e2 Pamela Dorrell Pamela_dorrell@yahoo.com 6504640862
+d e2 Suresh Vasudaven suresh@nimblestorage.com 6509964164
+d e1 Edward Sharp sharp@stanfordalumni.com 6503393315
+d e2 Kieran Pandey kieranpandey@gmail.com 6508683576
+d e2 Joni Koch jonikoch@web.de 650-868-3506
+c    Rekha Misra  9177148493
+     Cynthia Dorrell 3035870980
+
+
+	 Suresh
+c e2 Priya Vasudaven  6507149396  mpriya10@yahoo.com; 
+c e2 Aalia Vasudaven "diya" Allie.vasudevan@gmail.com
+c e2 Diya Vasudaven "aalia" Diyu.vasudevan@gmail.com 
+	 
+c e2 Kim Wernicke
+c e2 Mike Morrill
+c    Jill Wernicke
+c	 Peter Wernicke 3104984938 peterkarlwernicke@yahoo.com
+c	 Andy Wernicke 3109230331 vvvrrrooommm@aol.com
+c	 Bonnie Morrill 4084648516 bam32@me.com
+c	 Julie Sartwell 6503879217 jsartwell@sbcglobal.net
+
+
+d e2 Manish Kothari
+c e2 Ketan Kothari
+c	 Sheila 650 387 2739
+c	 Rahul 650 272-8726
+c	 Tara  650 272-1220
+c	 Mamen: 6503872740
+c	 Samir: 6505612064
+c	 Aisha: 6503538448
+
+c c  Eva Elfishawy
+c	 Mac Cornish
+c	 Katia Queener katiaqueener@yahoo.com
+	 Sergio 
+c	 Charis Chiu 6506905456
+	 
+c c  Konstantin Othmer
+d e1 DT
+c c  Mallory Sass 4089665950
+d    Alan Fong 7148608719
+c    Kathleen Inocentes <inocentes21@gmail.com> 9177513307 
+	 
+	 Kathleen
+c	 Phillips Carela 3476032616
+c	 Jonathan Kammerer 9155393618
+c	 Isaiah Archuleta 4152241793
+	 
+c e2 Cari Jaquet 4086057575
+c e2 Jim Jaquet  6506461371
+c e1 Nancy Bell 8172913156  nancydbell2004@yahoo.com
+d	 Kevin Weinberg 4087103475
+
+c e2 Mike Ruf
+c	 Ashley Ruf ashley@mikeruf.com 9545548975 
+c 	 Khanh Ruf khanh@mikeruf.com 9547295072
+
+c c	 Derek – campsukiyaki@gmail.com 2066963125
+d e2 Tracy – glynnfamily@comcast.net  2064090722
+d e2 Jack – cheesyglynn2000@gmail.com 2066124223
+c c	 Brent – brentnorton1971@gmail.com 2069157354
+c c	 Pat – patrickallentaylor@gmail.com 2064592057
+d 	 Chere – cfurman@mullen.com – 5088890257
+d	 Eric – ewbre@comcast.net – 7742492481
+d e1 Tom – dilworthtom@gmail.com – 2076531166
+c	 Steve Bader 2069541684
+c	 Jen Bader 2062768020
+c	 Luke Bader
+d 	 Merg Brennan 2063611406
+	 
+	 Patrick
+c	 Maggie Taylor 2063999898
+	 
+	 
+	 Tracy
+d	 Jackie Schneider <jackiep_13@hotmail.com>,
+     Carl Schneider 
+d	 Jody Dion <primejodytime@gmail.com> 6175015508
+	 
+d e1 Phil Caple, p.caple@f5.com, 2069534200 (iPhone)
+  e1 Dane Almassy, dane.almassy@pepsico.com, 9148261933 (Android)
+     Keil Larson 2069539633
+  
+   Keil
+   Kristen Larsen   kcl.larsen@gmail.com 2069539559
+   Haley Larsen  halinlfp@gmail.com  2068499699
+   Will Larsen  sharplfp@gmail.com  2064577583
+	 
+	 Dane
+c	 Joey Mele  2013173686
+c	 Lauren Germain 2039033521
+c	 Bret Almassy 4044031850
+c	 Jon Manekin 4109790404
+c	 Bobby Gormsen 4154255143
+c	 Ryan Damon 5037012522
+c	 Jesse Kohler 4435628745
+c	 Pete Anselmo 5164575358
+	 
+     Brent
+c	 Linda Sutherland 5033806896  Email-  Lindasebb@gmail.com android
+d e2 Gus Norton 2067950895  Email- an0986363@12.shorelineschools.org ios
+d	 Todd Carden 2068905478 toddc@elliottbaybrewing.com ios
+c	 KRISTEN CARDEN 2063843422 KRISTEN.D.CARDEN@NORDSTROM.COM
+c	 COLE CARDEN 2069491036 COLE.CARDEN@GMAIL.COM
+c	 TESS CARDEN 2067437476 CARDEN.TESS@GMAIL.COM
+	 
+	 
+	 
+c e2 Sam Keehn
+d	 Joel Ramirez Ramirez.joel.a@gmail.com, 7608893635
+d e1 Tanya Rentz Tanyadr@yahoo.com, 5305751529
+d e1 Jonathan Keehn Jbkeehn@sierramail.com, 5309132347
+d	 Caden Caldwell cadencaldwell@ymail.com, 5307989814
+c e2 Tor 2065957490 tor0305@gmail.com
+c e2 Sarah 2133992717 sarahpetersmiller@gmail.com
+c	 Andrew Gaylor 8587528579
+c e2 max norton maxbnorton@gmail.com 4156373445
+c	 Sol Henson 5302100509 Knows max, Sarah, Sam, Andrew 
+c	 Michael Campion 6193355550 Andrew
+	 
+   Tor
+   Rose Haughey 8313454157
+   
+   
+c	 Karim Farag 9736102958
+c	 Silvia Farag 2014245140
+c	 Josh Wildstein 4043756849
+
+Pat - Dilly - Keil
+

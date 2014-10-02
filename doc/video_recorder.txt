@@ -14,6 +14,10 @@ Experiment with various AVCaptureSessionPresets:
      
 Use AVCaptureSessionPresetLow.
 
+
+ANDROID IOS COMPATIBILITY
+=========================
+
 QUESTION - What is the best audiosample rate and bit rate and video frame rate and bit rate to use?
   - What does ios put out after conversion to mp4?
     - audio acc 24kbps 22Khz
@@ -47,7 +51,7 @@ PROBLEM: SEE ABOVE FOR SOLUTION TO THIS PROBLEM FROM THE RESEARCH BELOW.
        - Used the sample_mpeg4.mp4 file from http://support.apple.com/kb/ht1425  This played on ios.
      - TRY - using the app media_info to pull the data on a file that plays on ios vs one that does not see below:
 
-     VIDEO THAT DOES NOT PLAY ON IOS - used media info to pull this.
+     VIDEO THAT DOES NOT PLAY ON IOS - used mediainfo app for mac to pull this.
        General
        Complete name : /Users/sani/dev/tbm-server/public/system/videos/files/000/000/076/original/vid_orig.mp4
        Format : MPEG-4
@@ -416,6 +420,145 @@ RESEARCH
       
   I FOUND IT!!!! The problem is video files recorded with AMR audio wont play on ios! Need to record with ACC.
   
+  
+  
+ANDROID IOS WITH XCODE 6 COMPATIBILITY
+======================================
+PROBLEM: When I moved xcode 6 I found that videos created on the iphone dont play on android. 
+
+SOLUTION: I dont know perhaps intermittent problem on the android side. I had the volume up on the Nexus red. No sound. Restarted Nexus red. Found that volume was down. Turned it up after restarting and saw that it works. But there was definitely a case where 
+
+Recorded with ios7 built on xcode6: No sound on android
+-------------------------------------------------------
+General
+Complete name : /Users/sani/Desktop/nr/vid_from_8_1411769785223.mp4
+Format : MPEG-4
+Format profile : Base Media / Version 2
+Codec ID : mp42
+File size : 87.4 KiB
+Duration : 4s 483ms
+Overall bit rate : 160 Kbps
+Encoded date : UTC 2014-09-26 22:16:25
+Tagged date : UTC 2014-09-26 22:16:25
+
+Video
+ID : 2
+Format : AVC
+Format/Info : Advanced Video Codec
+Format profile : Baseline@L3.0
+Format settings, CABAC : No
+Format settings, ReFrames : 1 frame
+Codec ID : avc1
+Codec ID/Info : Advanced Video Coding
+Duration : 4s 483ms
+Bit rate : 131 Kbps
+Width : 192 pixels
+Height : 144 pixels
+Display aspect ratio : 4:3
+Rotation : 90°
+Frame rate mode : Variable
+Frame rate : 15.167 fps
+Minimum frame rate : 15.000 fps
+Maximum frame rate : 50.000 fps
+Color space : YUV
+Chroma subsampling : 4:2:0
+Bit depth : 8 bits
+Scan type : Progressive
+Bits/(Pixel*Frame) : 0.312
+Stream size : 71.7 KiB (82%)
+Title : Core Media Video
+Encoded date : UTC 2014-09-26 22:16:25
+Tagged date : UTC 2014-09-26 22:16:25
+Color primaries : BT.709
+Transfer characteristics : BT.709
+Matrix coefficients : BT.601
+
+Audio
+ID : 1
+Format : AAC
+Format/Info : Advanced Audio Codec
+Format profile : LC
+Codec ID : 40
+Duration : 4s 482ms
+Source duration : 4s 598ms
+Bit rate mode : Constant
+Bit rate : 24.0 Kbps
+Channel(s) : 2 channels
+Channel(s)_Original : 1 channel
+Channel positions : Front: C
+Sampling rate : 22.05 KHz
+Compression mode : Lossy
+Stream size : 13.4 KiB (15%)
+Source stream size : 13.6 KiB (16%)
+Title : Core Media Audio
+Encoded date : UTC 2014-09-26 22:16:25
+Tagged date : UTC 2014-09-26 22:16:25
+
+
+
+Recorded with ios7 built on xcode6: No sound on android
+-------------------------------------------------------
+Codec ID : mp42
+File size : 50.5 KiB
+Duration : 2s 873ms
+Overall bit rate : 144 Kbps
+Encoded date : UTC 2014-09-26 22:42:34
+Tagged date : UTC 2014-09-26 22:42:34
+
+Video
+ID : 2
+Format : AVC
+Format/Info : Advanced Video Codec
+Format profile : Baseline@L3.0
+Format settings, CABAC : No
+Format settings, ReFrames : 1 frame
+Codec ID : avc1
+Codec ID/Info : Advanced Video Coding
+Duration : 2s 873ms
+Bit rate : 116 Kbps
+Width : 192 pixels
+Height : 144 pixels
+Display aspect ratio : 4:3
+Rotation : 90°
+Frame rate mode : Variable
+Frame rate : 15.313 fps
+Minimum frame rate : 15.000 fps
+Maximum frame rate : 100.000 fps
+Color space : YUV
+Chroma subsampling : 4:2:0
+Bit depth : 8 bits
+Scan type : Progressive
+Bits/(Pixel*Frame) : 0.274
+Stream size : 40.6 KiB (80%)
+Title : Core Media Video
+Encoded date : UTC 2014-09-26 22:42:34
+Tagged date : UTC 2014-09-26 22:42:34
+Color primaries : BT.709
+Transfer characteristics : BT.709
+Matrix coefficients : BT.601
+
+Audio
+ID : 1
+Format : AAC
+Format/Info : Advanced Audio Codec
+Format profile : LC
+Codec ID : 40
+Duration : 2s 870ms
+Source duration : 2s 972ms
+Bit rate mode : Constant
+Bit rate : 22.4 Kbps
+Nominal bit rate : 24.0 Kbps
+Channel(s) : 2 channels
+Channel(s)_Original : 1 channel
+Channel positions : Front: C
+Sampling rate : 22.05 KHz
+Compression mode : Lossy
+Stream size : 7.85 KiB (16%)
+Source stream size : 8.14 KiB (16%)
+Title : Core Media Audio
+Encoded date : UTC 2014-09-26 22:42:34
+Tagged date : UTC 2014-09-26 22:42:34
+
 
 NOTES:
 Good article on choosing microphones and doing noise canceling: https://developer.apple.com/library/iOS/qa/qa1799/_index.html. 

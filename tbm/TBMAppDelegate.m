@@ -71,11 +71,7 @@
     self.isForeground = YES;
     // Notify the homeViewController
     [[self homeViewController] appDidBecomeActive];
-    [TBMVideo printAll];
-    [self handleStuckDownloadsWithCompletionHandler:^{
-        [self retryPendingFileTransfers];
-        [self pollAllFriends];
-    }];
+    [self performDidBecomeActiveActions];
     [[OBLogger instance] logEvent:OBLogEventAppForeground];
 }
 

@@ -10,29 +10,29 @@
 	<string>tbm</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>98310D35-7722-444F-964B-C8D68B0592C9</key>
+		<key>D2D6D892B57F566ED579A107C638881ED0F62DDD</key>
 		<string>https://github.com/noplanb/tbm_ios.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>tbm.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>98310D35-7722-444F-964B-C8D68B0592C9</key>
+		<key>D2D6D892B57F566ED579A107C638881ED0F62DDD</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/noplanb/tbm_ios.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>98310D35-7722-444F-964B-C8D68B0592C9</string>
+	<string>D2D6D892B57F566ED579A107C638881ED0F62DDD</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>98310D35-7722-444F-964B-C8D68B0592C9</string>
+			<string>D2D6D892B57F566ED579A107C638881ED0F62DDD</string>
 			<key>IDESourceControlWCCName</key>
 			<string>tbm</string>
 		</dict>

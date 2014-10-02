@@ -7,6 +7,7 @@
 //
 #import "TBMHomeViewController.h"
 #import "TBMHomeViewController+VersionController.h"
+#import "TBMHomeViewController+Invite.h"
 
 #import "TBMLongPressTouchHandler.h"
 #import "TBMVideoPlayer.h"
@@ -47,6 +48,13 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 
 // Not used
 - (void)appDidBecomeActive{
+    if ([self isViewLoaded] && self.view.window) {
+        // viewController is visible
+        OB_INFO(@"appDidBecomeActive: calling setupVideoRecorder:0");
+        [self setupVideoRecorder:0];
+    } else {
+        OB_WARN(@"appDidBecomeActive: not setting up VideoRecorder because !self.isViewLoaded && self.view.window");
+    }
 }
 
 // Not used
@@ -64,6 +72,7 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     [self setupFriendViews];
     [self setupVideoPlayers];
     [self setupLongPressTouchHandler];
+    [self setupInvite];
     [self setupShowLogGesture];
     [[[TBMVersionHandler alloc] initWithDelegate:self] checkVersionCompatibility];
 }
@@ -139,6 +148,14 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     return result;
 }
 
+- (NSMutableArray *)inactiveFriendViews{
+    NSMutableArray *result = [[NSMutableArray alloc] initWithArray:self.friendViews copyItems:NO];
+    for (UIView *view in [self activeFriendViews]){
+        [result removeObject:view];
+    }
+    return result;
+}
+
 - (UIView *)friendViewWithViewIndex:(NSNumber *)viewIndex{
     if (!viewIndex)
         return nil;
@@ -194,7 +211,9 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 - (void)setupVideoRecorder:(int)retryCount{
     // Note that when we get retryCount != 0 we are being called because of a videoRecorderRuntimeError and we need reinstantiate
     // even if videoRecorder != nil
-    if (self.videoRecorder != nil && retryCount == 0){
+    // Also if we still have a videoRecorder but the OS killed our view from under us trying to save memory while we were in the
+    // background we want to reinstantiate.
+    if (self.videoRecorder != nil && retryCount == 0  && [self isViewLoaded] && self.view.window){
         OB_WARN(@"TBMHomeViewController: setupVideoRecorder: already setup. Ignoring");
         return;
     }
@@ -203,7 +222,7 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
         OB_WARN(@"HomeViewController: not initializing the VideoRecorder because ! isForeground");
         return;
     }
-
+    OB_WARN(@"HomeviewController: setupVideoRecorder: setting up. vr=%@, rc=%d, isViewLoaded=%d, view.window=%d", self.videoRecorder, retryCount, [self isViewLoaded], [self isViewLoaded] && self.view.window);
     NSError *error = nil;
     [self setRecordingIndicatorTextForRecorderSetup:retryCount];
     [self showRecordingIndicator];

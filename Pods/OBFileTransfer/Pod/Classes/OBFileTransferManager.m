@@ -572,6 +572,10 @@ OBFileTransferTaskManager * _transferTaskManager = nil;
 {
     OBFileTransferTask * obtask = [[self transferTaskManager] transferTaskForNSTask:downloadTask];
     NSHTTPURLResponse *response =   (NSHTTPURLResponse *)downloadTask.response;
+    if (obtask == nil){
+        OB_ERROR(@"Unable to find obTask for downloadTask: #%lu = %@", (unsigned long)downloadTask.taskIdentifier, downloadTask.taskDescription);
+        return;
+    }
     if ( response.statusCode/100 == 2   ) {
         // Now we need to copy the file to our downloads location...
         NSError * error;

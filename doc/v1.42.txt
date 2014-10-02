@@ -2,16 +2,46 @@ RELEASE NOTES
 =============
 
 v1.42 - 12 - 9/16/2014
+----------------------
 
 BUG: Camera does not come up after registration.
 FIX: Rework logic for instantiating videoRecorder. Dont use appDidBecomeActive.
 
 
+v1.421 - 13 - 9/16/2014
+-----------------------
+
+BUG: More cases where camera doesnt come up. 
+FIX: Still need to use appDidBecomeActive because in some scenarios videoRecorder appears to be gone, yet when we come into the foreground we get appDidBecomeActive but no viewDidAppear. 
+TRY: AppDidBecomeActive && if (self.isViewLoaded && self.view.window) 
 
 
-RELEASE DETAILS
-===============
+BUG/FEATURE: After completing registration download any pending that were sent prior to registration.
 
-Camera does not come up after registration.
- - Setting up the camera on appDidBecomeActive wont work since a view other than homeViewController might have been setup.
- - SOLUTION - remove the setup of videoRecorder in the case of appDidBecomeActive.
+v1.422 - 14 9/16/2014
+---------------------
+
+BUG: Still more cases where camera doesnt come up. I believe the case is when the os kills the view from under the viewController but the videoRecorder instance is preserved. 
+TEST FIX: reinstantiate unless (self.videoRecorder != nil && retryCount == 0  && [self isViewLoaded] && self.view.window)
+
+
+v1.423 - 15 9/18/2014
+---------------------
+
+BUG: Crash on startup. 
+CAUSE: We lose obTasks but we dont lose the underlying nsTask. As a bandaid we set up a new obTask when we detect that. However when the dangling nsTask completes FTM cant find an obTask for it. Right now this causes a crash.
+BANDAID FIX: Detect and ignore when we get an nsTask completing and we cant find an oBTask for it. Both in upload and download.
+
+
+v1.424 - 16 9/26/2014
+---------------------
+
+FEATURE: Link on plus sign to send an email to add friend.
+
+UPDATE: Fix calls to new notification api for IOS8.
+
+
+v1.425 - 17 10/2/2014
+---------------------
+BUG FIX: IOS 8 phones not registering for push notification properly.
+

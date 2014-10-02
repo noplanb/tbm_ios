@@ -10,8 +10,8 @@
 static NSString *CONFIG_APP_NAME = @"Three By Me";
 
 // Make sure these 4 are set correctly before a release.
-static NSString *CONFIG_VERSION_NUMBER = @"12";
-static NSString *CONFIG_VERSION_STRING = @"1.42";
+static NSString *CONFIG_VERSION_NUMBER = @"17";
+static NSString *CONFIG_VERSION_STRING = @"1.425";
 static NSString *CONFIG_DEVICE_BUILD = @"prod";
 static const NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://www.threebyme.com";
 //static NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://192.168.1.82:3000";
