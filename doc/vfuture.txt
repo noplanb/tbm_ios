@@ -2,6 +2,11 @@ BUGS
 - Swipe away while recording should show not sent indicator.
 - Kons messages sometimes coming in as 404? Check server state?
 - Still a case where I get a grey screen. It looks like appDelegate.applicationDidBecomeActive is being called but it is not calling HomeViewController.appDidBecomeActive. Is it possible that appDelegate.homeViewController is pointing to a stale instance and the HomeViewController was just reinstantiated by the system. I should probably find a way to point to the active homeViewController if any rather than instantiate one.
+- occasionally getRemoteVideoIds with friend fails as the JSON returned from the server is not parseable.
+- Iphone sending with no sound.
+- Sometimes we get a which we cannot play and where we cannot get the thumbnail. In this case we should delete the video. It should download again due to polling most probably.
+
+- Dont outline blue until it has downloaded complete. People are coming in and immediately clicking to play a message. It plays the old one and doesnt delete it. 
 
 ARCHITECTURE
 - VersionController should probably be a category on appDelegate not HomeViewController

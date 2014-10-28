@@ -20,7 +20,7 @@
     OB_INFO(@"Boot");
     
     [OBLogger instance].writeToConsole = YES;
-//    [[OBLogger instance] reset];
+    [[OBLogger instance] reset];
 
     
     TBMUser *user = [TBMUser getUser];

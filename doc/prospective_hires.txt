@@ -1,1 +1,41 @@
 http://stackoverflow.com/users/91282/till
+
+dug.wright@gmail.com doug Wright sonoma wireworks
+
+==========
+Suresh:
+Two people that come to mind.  Both of them are algorithmically very strong – they used to work in security / encryption which tends to be mathematically more intense.
+
+Ananthan Subramanian who used to be at a company called Decru (part of NetApp) until 2008 when I left.  He may still be there.  I cannot seem to find him on linked in
+Another person called Hristo Bojinov (https://www.linkedin.com/in/hristobojinov)
+===========
+
+TODO:
+- Connect with Suresh'f friends
+- Contact Agris
+- Send email to Rob
+
+
+Dear Josh,
+
+Kon suggested I contact you.
+
+I asked who the best programmer he knows is and of course he said you. 
+
+I know you have a day job. But I am working on a project that might interest you enough to jump ship or spare some hours.
+
+This summer I coded up an app called Zazo. I wrote the IOS and Android clients as well as the Server. Last week I opened it up for closed beta testing and the response has been a bit breathtaking. 
+
+Zazo is different. Something about the simplicity, lightness, immediacy seems to have struck a nerve. 
+
+To give a sense for the experience here is what users have said:
+
+Ok, after having used this app a total of four times I can say without hesitation that it is utterly brilliant. The trick is the "one click does everything" feature. I don't think you can overstate the significance of this, but I'll try: this app makes it easier and funner to send a message then texting. 
+
+I think this app is amazing. Really. I think it effortlessly offers a whole new way to communicate that I actually want to use. Sarah and I now use it regularly. I just wanted to point out again the factors that make it really nice: it's the one-touch 'record and send' feature combined with the lightning fast transfer speeds that make it a truly attractive option, even in the alpha.  I have no idea what contract with the devil you guys had to sign to get such quick transfer speeds, but that is a major, major, major plus for the system. I suspect that it has something to do with the tiny size of the video, and for me, if I had to choose between a small video with fast transfer speed, and a larger video with slower transfer speed, I would choose the former without a seconds hesitation.
+
+The best way to get a sense for it is to try it out. Let me know and I can set you up.
+
+Best,
+
+Sani

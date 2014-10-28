@@ -43,5 +43,12 @@ UPDATE: Fix calls to new notification api for IOS8.
 
 v1.425 - 17 10/2/2014
 ---------------------
-BUG FIX: IOS 8 phones not registering for push notification properly.
+BUG FIX1: IOS 8 phones not registering for push notification properly.
+
+
+v1.426 - 18  
+-----------
+Reset log file on each launch.
+
+
 

@@ -1,0 +1,27 @@
+Andrew Prock,
+
+Dear Andrew,
+
+As I was reading your profile on SO your words struck a chord with me. I too view writing software as a craft and have a broad experience across the stack in a variety of disciplines. 
+
+I also have some entrepreneurial experience. Among other things, I founded Classifieds2000 which was acquired by @home in 1998 for $100M; I was a founding exec at CoreMobility which was acquired by Smith Micro; and I created TryMyUI a remote usability testing service which was recently acquired by Survey Analytics.
+
+I thought you might be interested in working with me on my current project: 
+
+This summer I coded up a face messaging app called Zazo. I wrote the server as well as the Android and iPhone clients. Last week I opened it up for closed beta testing and the response has been a bit ridiculous. 
+
+It is different. Something about the simplicity, lightness, immediacy seems to have struck a mainline nerve. 
+
+To give a sense for the experience here is what users have said:
+
+Ok, after having used this app a total of four times I can say without hesitation that it is utterly brilliant. The trick is the "one click does everything" feature. I don't think you can overstate the significance of this, but I'll try: this app makes it easier and funner to send a message then texting. 
+
+I think this app is amazing. Really. I think it effortlessly offers a whole new way to communicate that I actually want to use. Sarah and I now use it regularly. I just wanted to point out again the factors that make it really nice: it's the one-touch 'record and send' feature combined with the lightning fast transfer speeds that make it a truly attractive option, even in the alpha.  I have no idea what contract with the devil you guys had to sign to get such quick transfer speeds, but that is a major, major, major plus for the system. I suspect that it has something to do with the tiny size of the video, and for me, if I had to choose between a small video with fast transfer speed, and a larger video with slower transfer speed, I would choose the former without a seconds hesitation.
+
+The app has a lot of great tech to sink your teeth into: Including Android client, IOS client, and back end. The back end includes a high bandwidth messaging engine architected for Google datastore or Amazon DynamoDb as well as direct to S3 or Google Cloud, plus a lower bandwidth rails server for handling invites, users and connections. I have written all the code myself so far. I am happy to carve out any of the pieces to a talented engineer. You can work on something you know. Or I can help you learn something you don't have experience with assuming you are a quick study.
+
+If you are interested let me know and I would be happy to show you the product chat with you about the opportunity.
+
+Best,
+
+Sani

@@ -11,9 +11,15 @@ d e1 Edward Sharp sharp@stanfordalumni.com 6503393315
 d e2 Kieran Pandey kieranpandey@gmail.com 6508683576
 d e2 Joni Koch jonikoch@web.de 650-868-3506
 c    Rekha Misra  9177148493
-     Cynthia Dorrell 3035870980
+c    Cynthia Dorrell 3035870980
 
-
+    Rekha
+c   Romit Basu - romit
+c   Simran Chawla - simran
+c 
+    
+   
+   
 	 Suresh
 c e2 Priya Vasudaven  6507149396  mpriya10@yahoo.com; 
 c e2 Aalia Vasudaven "diya" Allie.vasudevan@gmail.com
@@ -27,6 +33,9 @@ c	 Andy Wernicke 3109230331 vvvrrrooommm@aol.com
 c	 Bonnie Morrill 4084648516 bam32@me.com
 c	 Julie Sartwell 6503879217 jsartwell@sbcglobal.net
 
+c Fadi Eltal 5308644326
+c Janine Eltal janine
+c Jules Eltal 4084890235
 
 d e2 Manish Kothari
 c e2 Ketan Kothari
@@ -48,6 +57,7 @@ d e1 DT
 c c  Mallory Sass 4089665950
 d    Alan Fong 7148608719
 c    Kathleen Inocentes <inocentes21@gmail.com> 9177513307 
+c    Shannon Holland 4084552654
 	 
 	 Kathleen
 c	 Phillips Carela 3476032616
@@ -85,6 +95,10 @@ d	 Jackie Schneider <jackiep_13@hotmail.com>,
      Carl Schneider 
 d	 Jody Dion <primejodytime@gmail.com> 6175015508
 	 
+   Jody
+d  Amit Anand 5088168004
+d  Rob Galeski 6179089988
+   
 d e1 Phil Caple, p.caple@f5.com, 2069534200 (iPhone)
   e1 Dane Almassy, dane.almassy@pepsico.com, 9148261933 (Android)
      Keil Larson 2069539633
@@ -125,8 +139,8 @@ c	 Andrew Gaylor 8587528579
 c e2 max norton maxbnorton@gmail.com 4156373445
 c	 Sol Henson 5302100509 Knows max, Sarah, Sam, Andrew 
 c	 Michael Campion 6193355550 Andrew
-	 
-   Tor
+   Erika Gaylor 6505805933 erikagl@gmail.com Knows: Andrew, Suzanne, Rose, Sarah, Sol, Max
+   Suzanne Gaylor 3039467469 suzannegaylor@gmail.com Knows: Andrew, Sarah, Erika
    Rose Haughey 8313454157
    
    
@@ -134,5 +148,6 @@ c	 Karim Farag 9736102958
 c	 Silvia Farag 2014245140
 c	 Josh Wildstein 4043756849
 
-Pat - Dilly - Keil
-
+    Rob Dandorph 2012644172
+    Jen Hau 9739791454
+    
