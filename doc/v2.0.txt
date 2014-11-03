@@ -1,0 +1,12 @@
+v2.0
+
+Bench and invites. 
+
+Setup
+-----
+- Add gitignore
+- Create a branch called bench
+
+
+GridElement
+-----------

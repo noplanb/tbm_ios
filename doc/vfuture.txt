@@ -6,7 +6,8 @@ BUGS
 - Iphone sending with no sound.
 - Sometimes we get a which we cannot play and where we cannot get the thumbnail. In this case we should delete the video. It should download again due to polling most probably.
 
-- Dont outline blue until it has downloaded complete. People are coming in and immediately clicking to play a message. It plays the old one and doesnt delete it. 
+- If donwloading when user clicks play dont play toast downloading
+
 
 ARCHITECTURE
 - VersionController should probably be a category on appDelegate not HomeViewController
