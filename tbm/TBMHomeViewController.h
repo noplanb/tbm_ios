@@ -24,8 +24,4 @@
 @property (strong, nonatomic) UIAlertView *versionHandlerAlert;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *plusLabels;
 
-- (NSMutableArray *)activeFriendViews;
-- (NSMutableArray *)inactiveFriendViews;
-
-
 @end

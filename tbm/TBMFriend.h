@@ -37,22 +37,22 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 @property (nonatomic, retain) NSString * firstName;
 @property (nonatomic, retain) NSString * idTbm;
 @property (nonatomic, retain) NSString * lastName;
+@property (nonatomic, retain) NSString * mobileNumber;
 @property (nonatomic, retain) NSString * outgoingVideoId;
 @property (nonatomic) TBMOutgoingVideoStatus outgoingVideoStatus;
 @property (nonatomic) TBMVideoStatusEventType lastVideoStatusEventType;
 @property (nonatomic) TBMIncomingVideoStatus lastIncomingVideoStatus;
-@property (nonatomic, retain) NSNumber * viewIndex;
 @property (nonatomic, retain) NSNumber * uploadRetryCount;
 @property (nonatomic, retain) NSString * mkey;
+@property (nonatomic) BOOL hasApp;
 @property (nonatomic, retain) NSSet *videos;
-
+@property (nonatomic, retain) NSDate *timeOfLastAction;
 
 
 // Finders
 + (NSArray *)all;
 + (instancetype)findWithId:(NSString *)idTbm;
 + (instancetype)findWithOutgoingVideoId:(NSString *)videoId;
-+ (instancetype)findWithViewIndex:(NSNumber *)viewIndex;
 + (instancetype)findWithMkey:(NSString *)mkey;
 + (NSUInteger)count;
 
@@ -69,10 +69,10 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 - (void) deleteAllViewedOrFailedVideos;
 
 // Create and destroy
-+ (instancetype)newWithId:(NSNumber *)idTbm;
++ (instancetype)createWithId:(NSNumber *)idTbm;
++ (instancetype)createWithServerParams:(NSDictionary *)params;
 + (NSUInteger)destroyAll;
 + (void)destroyWithId:(NSNumber *)idTbm;
-+ (void)saveAll;
 
 // VideoStatusNotification
 + (void)addVideoStatusNotificationDelegate:(id)delegate;

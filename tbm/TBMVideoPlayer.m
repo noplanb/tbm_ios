@@ -11,79 +11,39 @@
 #import "MediaPlayer/MediaPlayer.h"
 #import "OBLogger.h"
 
-@interface TBMVideoRecorder()
-@end
 
-static NSMutableDictionary *instances;
+
+@interface TBMVideoPlayer()
+@end
 
 @implementation TBMVideoPlayer
 
-//--------------
-// Class Methods
-//--------------
-+ (id)createWithView:(UIView *)playView friendId:(NSString *)friendId
-{
-    if (!instances){
-        instances = [[NSMutableDictionary alloc] init];
-    }
-
-    [TBMVideoPlayer removeWithFriendId:friendId];
-    TBMVideoPlayer *player = [[TBMVideoPlayer alloc] initWIthView:playView friendId:friendId];
-    [instances setObject:player forKey:friendId];
-    [TBMVideoPlayer addVideoStatusObserverWithPlayer:player];
+//-------
+// Create
+//-------
++ (instancetype)createWithGridElement:(TBMGridElement *)gridElement{
+    if (gridElement.videoPlayer != nil)
+        [TBMFriend removeVideoStatusNotificationDelegate:gridElement.videoPlayer];
+        
+    TBMVideoPlayer *player = [[TBMVideoPlayer alloc] initWithGridElement:gridElement];
+    [TBMFriend addVideoStatusNotificationDelegate:player];
     return player;
 }
 
-+ (id)findWithFriendId:(NSNumber *)friendId{
-    return [instances objectForKey:friendId];
-}
-
-+ (void)removeWithFriendId:(NSNumber *)friendId
-{
-    TBMVideoPlayer *player = [instances objectForKey:friendId];
-    if (player){
-        [self removeVideoStatusObserverWithPlayer:player];
-        [instances removeObjectForKey:friendId];
-    }
-}
-
-+ (void)addVideoStatusObserverWithPlayer:(TBMVideoPlayer *)player{
-    [TBMFriend addVideoStatusNotificationDelegate:player];
-}
-
-+ (void)removeVideoStatusObserverWithPlayer:(TBMVideoPlayer *)player{
-    [TBMFriend removeVideoStatusNotificationDelegate:player];
-}
-
-+ (void)removeAll
-{
-    [instances removeAllObjects];
-}
-
-//-----------------
-// Instance Methods
-//-----------------
-
-// -------------
-// Instantiation
-// -------------
-- (id)initWIthView:(UIView *)friendView friendId:(NSString *)friendId{
+- (instancetype)initWithGridElement:(TBMGridElement *)gridElement{
     self = [super init];
     if (self){
-        _friendView = friendView;
-        _friendId = friendId;
-        _friend = [TBMFriend findWithId:friendId];
+        _gridElement = gridElement;
+        _gridView = _gridElement.view;
         _messageTone = [[TBMSoundEffect alloc] initWithSoundNamed:@"single_ding_chimes2.wav"];
-
         
-        [_friendView setBackgroundColor:[UIColor clearColor]];
         [self addVideoPlayer];
         [self addThumbnail];
+        [self updateThumbNail];
         [self showThumb];
         [self setupViewedIndicator];
         [self updateViewedIndicator];
         [self addPlayerNotifications];
-        DebugLog(@"Set up player: %@ for %@",self, _friend.firstName);
     }
     return self;
 }
@@ -92,27 +52,32 @@ static NSMutableDictionary *instances;
     _moviePlayerController = [[MPMoviePlayerController alloc] init];
     _playerView = _moviePlayerController.view;
     _moviePlayerController.controlStyle = MPMovieControlStyleNone;
-    [_playerView setFrame: _friendView.bounds];
-    [_friendView addSubview:_playerView];
+    [_playerView setFrame: _gridView.bounds];
+    [_gridView addSubview:_playerView];
 }
 
 - (void)addThumbnail{
     _thumbView = [[UIImageView alloc] init];
     _thumbView.contentMode = UIViewContentModeScaleAspectFit;
-    [_thumbView setFrame: _friendView.bounds];
-    _thumbView.image = [_friend thumbImageOrThumbMissingImage];
-    [_friendView addSubview:_thumbView];
+    [_thumbView setFrame: _gridView.bounds];
+    [self setThumbnailImage];
+    [_gridView addSubview:_thumbView];
+}
+
+- (void)setThumbnailImage{
+    if (_gridElement.friend != nil)
+        _thumbView.image = [_gridElement.friend thumbImageOrThumbMissingImage];
 }
 
 - (void)setupViewedIndicator{
     _viewedIndicatorLayer = [CALayer layer];
     _viewedIndicatorLayer.hidden = YES;
-    _viewedIndicatorLayer.frame = _friendView.bounds;
+    _viewedIndicatorLayer.frame = _gridView.bounds;
     _viewedIndicatorLayer.cornerRadius = 2;
     _viewedIndicatorLayer.backgroundColor = [UIColor clearColor].CGColor;
     _viewedIndicatorLayer.borderWidth = 2;
     _viewedIndicatorLayer.borderColor = [UIColor blueColor].CGColor;
-    [_friendView.layer addSublayer:_viewedIndicatorLayer];
+    [_gridView.layer addSublayer:_viewedIndicatorLayer];
     [_viewedIndicatorLayer setNeedsDisplay];
 }
 
@@ -128,18 +93,11 @@ static NSMutableDictionary *instances;
 // Notifications of state changes
 // ------------------------------
 - (void)videoStatusDidChange:(id)object{
-    if (object == _friend) {
-        DebugLog(@"videoStatusDidChange for %@", _friend.firstName);
+    if (object == _gridElement.friend) {
+        DebugLog(@"videoStatusDidChange for %@", _gridElement.friend.firstName);
         [self updateViewedIndicator];
         [self playNewMessageToneIfNecessary];
         [self updateThumbNail];
-    }
-}
-
-- (void)playNewMessageToneIfNecessary{
-    if (_friend.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
-        _friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED) {
-        [_messageTone play];
     }
 }
 
@@ -168,35 +126,54 @@ static NSMutableDictionary *instances;
     }
 }
 
+//-------------
+// Message Tone
+//-------------
+- (void)playNewMessageToneIfNecessary{
+    if (_gridElement.friend == nil)
+        return;
+    
+    if (_gridElement.friend.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
+        _gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED) {
+        [_messageTone play];
+    }
+}
+
+
 // ------------
 // View control
 // ------------
 - (void)updateThumbNail{
-    _thumbView.image = [_friend thumbImageOrThumbMissingImage];
+    if (_gridElement.friend == nil)
+        return;
+    
+    [_gridView setBackgroundColor:[UIColor clearColor]];
+    _thumbView.image = [_gridElement.friend thumbImageOrThumbMissingImage];
     [_thumbView setNeedsDisplay];
 }
 
 
 - (void)updateViewedIndicator{
-    if ([_friend incomingVideoNotViewed]) {
-        DebugLog(@"setting unviewed for %@", _friend.firstName);
+    if (_gridElement.friend == nil)
+        return;
+    
+    if ([_gridElement.friend incomingVideoNotViewed]) {
+        DebugLog(@"setting unviewed for %@", _gridElement.friend.firstName);
         [self indicateUnviewed];
     } else {
-        DebugLog(@"setting viewed for %@", _friend.firstName);
+        DebugLog(@"setting viewed for %@", _gridElement.friend.firstName);
         [self indicateViewed];
     }
 }
 
 - (void)indicateUnviewed{
-    DebugLog(@"indicateUnviewed %@", _friend.firstName);
     _viewedIndicatorLayer.hidden = NO;
-    [_friendView setNeedsDisplay];
+    [_gridView setNeedsDisplay];
 }
 
 - (void)indicateViewed{
-    DebugLog(@"indicateViewed for %@", _friend.firstName);
     _viewedIndicatorLayer.hidden = YES;
-    [_friendView setNeedsDisplay];
+    [_gridView setNeedsDisplay];
 }
 
 - (void)showPlayer{
@@ -222,7 +199,10 @@ static NSMutableDictionary *instances;
 
 - (void)start{
     OB_INFO(@"VideoPlayer: start:");
-    _video = [_friend firstPlayableVideo];
+    if (_gridElement.friend == nil)
+        return;
+    
+    _video = [_gridElement.friend firstPlayableVideo];
     
     if (_video == nil){
         OB_WARN(@"no playable video.");
@@ -249,8 +229,8 @@ static NSMutableDictionary *instances;
 
 - (void)playDidComplete{
     OB_INFO(@"VideoPlayer: playDidComplete: %@", _video.videoId);
-    [_friend setViewedWithIncomingVideo:_video];
-    _video = [_friend nextPlayableVideoAfterVideo:_video];
+    [_gridElement.friend setViewedWithIncomingVideo:_video];
+    _video = [_gridElement.friend nextPlayableVideoAfterVideo:_video];
     
     if (_video != nil)
         [self play];

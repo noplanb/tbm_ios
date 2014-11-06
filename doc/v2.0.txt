@@ -10,3 +10,87 @@ Setup
 
 GridElement
 -----------
+- Role: 
+  - manages the 8 boxes  
+  - tracks which friend is currently associated with which one.
+  - tracks which views are associated with each one.
+  - tracks which videoPlayer is associate with each one.
+
+- Instantiation:
+  - Similar to friend
+
+- Persistence:
+  - State needs to be persisted ala friends.
+  
+- Data structure:
+  - Persisted attributes: friend
+  - Private instance variables videoPlayer, videoView, label
+      
+- Setup:
+  - HomeViewController instantiates videoplayers and adds their ids in the GridElement
+  - HomeViewController discovers all the views, frames, etc and adds their ids in the GridElement
+  - HomeViewController assigns initial positions for friends. 
+
+- Methods
+  - Add, set friend, has friend.
+
+- Implications for VideoPlayer
+  - VideoPlayer is instantiated with grid element from which it gets everything it needs.
+
+- Usage
+  - Play a video
+  - Record a video
+
+TODO:
+ x Create the GridElement as a persistent model
+ - Setup the GridElements in homeviewcontroller on init.
+ - Add the friends to the GridElements if they could no be retrieved.
+ - Add the view ids to the GridElements
+ - Add the videoPlayer Ids to the grid elements.
+ - Move the relevant methods from friend to GridElementFactory
+ 
+
+Registration with SMS loopback
+------------------------------
+x Reg screen
+  x First
+  x Last
+  x Country Code 
+  x Mobile Phone Number
+- Verification
+  - Strip of leading spaces and non word characters and make sure not blank.
+  - Verify phone
+- Send to server
+    x If wrong 
+      x send "status: error, title: Bad Number, msg: Enter a valid phone number"
+    x If right
+      x Send sms with code.
+- Enter verification dialog
+
+
+- Get friends
+  - Validate params
+    - If last name is blank
+
+TODO:
+- HomeViewController show proper reg screen
+x Add handle error response in phone
+x Add dialog for entering verification code
+
+TEST:
+x Bad firstname, lastname, phone
+x code
+  x expired
+  x incorrect
+  x null
+  x correct
+  
+Friends coming in with
+ - Last name null
+ - HasApp null
+ 
+ 
+CORNER CASES TO TEST:
+--------------------
+- Dont register pushToken for user until user has successfully registered this should be obvious as we need mkey to add a push user.
+ 

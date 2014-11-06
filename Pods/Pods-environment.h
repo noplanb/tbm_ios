@@ -60,3 +60,15 @@
 #define COCOAPODS_VERSION_MINOR_OBLogger 2
 #define COCOAPODS_VERSION_PATCH_OBLogger 0
 
+// UIAlertView+Blocks
+#define COCOAPODS_POD_AVAILABLE_UIAlertView_Blocks
+#define COCOAPODS_VERSION_MAJOR_UIAlertView_Blocks 0
+#define COCOAPODS_VERSION_MINOR_UIAlertView_Blocks 8
+#define COCOAPODS_VERSION_PATCH_UIAlertView_Blocks 1
+
+// libPhoneNumber-iOS
+#define COCOAPODS_POD_AVAILABLE_libPhoneNumber_iOS
+#define COCOAPODS_VERSION_MAJOR_libPhoneNumber_iOS 0
+#define COCOAPODS_VERSION_MINOR_libPhoneNumber_iOS 7
+#define COCOAPODS_VERSION_PATCH_libPhoneNumber_iOS 3
+

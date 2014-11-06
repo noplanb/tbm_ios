@@ -15,7 +15,6 @@
 
 @implementation TBMAppDelegate (Boot)
 
-
 - (void) boot{
     OB_INFO(@"Boot");
     
@@ -23,9 +22,7 @@
     [[OBLogger instance] reset];
 
     
-    TBMUser *user = [TBMUser getUser];
-    NSArray *friends = [TBMFriend all];
-    if (!user || [friends count] == 0){
+    if (![TBMUser getUser]){
         self.window.rootViewController = [self registerViewController];
     } else {
         self.window.rootViewController = [self homeViewController];

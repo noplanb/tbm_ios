@@ -8,6 +8,8 @@
 
 #import "TBMUser.h"
 #import "TBMAppDelegate.h"
+#import "TBMHttpClient.h"
+#import "OBLogger.h"
 
 
 @implementation TBMUser
@@ -17,6 +19,7 @@
 @dynamic idTbm;
 @dynamic auth;
 @dynamic mkey;
+@dynamic mobileNumber;
 
 //==============
 // Class methods
@@ -72,6 +75,23 @@
         user.idTbm = idTbm;
 
     }];
+    return user;
+}
+
++ (instancetype)createWithServerParams:(NSDictionary *)params{
+    [TBMUser destroy];
+    __block TBMUser *user;
+    [[TBMUser managedObjectContext] performBlockAndWait:^{
+        user = (TBMUser *)[[NSManagedObject alloc] initWithEntity:[TBMUser entityDescription]
+                                   insertIntoManagedObjectContext:[TBMUser managedObjectContext]];
+        user.firstName  = [params objectForKey:SERVER_PARAMS_USER_FIRST_NAME_KEY];
+        user.lastName   = [params objectForKey:SERVER_PARAMS_USER_LAST_NAME_KEY];
+        user.idTbm      = [params objectForKey: SERVER_PARAMS_USER_ID_KEY];
+        user.mkey       = [params objectForKey:SERVER_PARAMS_USER_MKEY_KEY];
+        user.auth       = [params objectForKey:SERVER_PARAMS_USER_AUTH_KEY];
+        user.mobileNumber = [params objectForKey:SERVER_PARAMS_USER_MOBILE_NUMBER_KEY];
+    }];
+    OB_INFO(@"Created user: %@", user);
     return user;
 }
 

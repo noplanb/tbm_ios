@@ -20,18 +20,24 @@ PODS:
   - AFNetworking/UIKit (2.4.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - libPhoneNumber-iOS (0.7.3)
   - OBFileTransfer (0.3.2):
     - OBLogger
   - OBLogger (0.2.0)
+  - UIAlertView+Blocks (0.8.1)
 
 DEPENDENCIES:
   - AFNetworking
+  - libPhoneNumber-iOS (~> 0.7)
   - OBFileTransfer
   - OBLogger (= 0.2.0)
+  - UIAlertView+Blocks
 
 SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
+  libPhoneNumber-iOS: 98fc07d70c8fdb5e6a8e3442c37e97353065c20e
   OBFileTransfer: a216fe76787c364b302610f644f41349ffb340cd
   OBLogger: 04f68b73a619f4444d5f7d7c7ff9bc3f05c619ae
+  UIAlertView+Blocks: 0b749f1f7bd5131ff2233b30a406c1585a7171b2
 
 COCOAPODS: 0.33.1

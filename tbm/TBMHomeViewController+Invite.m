@@ -16,11 +16,11 @@
 
 - (void)setupInvite{
     OB_INFO(@"setupInvite");
-    for (UIView *view in [self inactiveFriendViews]){
-        UITapGestureRecognizer *plusGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(plusTapped:)];
-        [view setUserInteractionEnabled:YES];
-        [view addGestureRecognizer:plusGesture];
-    }
+//    for (UIView *view in [self inactiveFriendViews]){
+//        UITapGestureRecognizer *plusGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(plusTapped:)];
+//        [view setUserInteractionEnabled:YES];
+//        [view addGestureRecognizer:plusGesture];
+//    }
 }
 
 - (void)plusTapped:(id)sender{

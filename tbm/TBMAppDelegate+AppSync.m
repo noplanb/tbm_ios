@@ -15,6 +15,7 @@
 #import "TBMVideo.h"
 #import "TBMVideoIdUtils.h"
 #import "TBMVideoPlayer.h"
+#import "TBMGridManager.h"
 
 @implementation TBMAppDelegate (AppSync)
 
@@ -224,7 +225,8 @@
     if (error != nil){
         [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY video:video];
     } else {
-        if (! [[TBMVideoPlayer findWithFriendId:friend.idTbm] isPlaying])
+        TBMVideoPlayer *vp = [TBMGridManager videoPlayerWithFriend:friend];
+        if ( vp == nil || ![vp isPlaying])
             [friend deleteAllViewedOrFailedVideos];
         
         [video generateThumb];

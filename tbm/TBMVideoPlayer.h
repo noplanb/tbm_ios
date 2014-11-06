@@ -10,28 +10,25 @@
 #import "MediaPlayer/MediaPlayer.h"
 #import "TBMSoundEffect.h"
 #import "TBMVideo.h"
-
 #import "TBMFriend.h"
+#import "TBMGridElement.h"
 
 @interface TBMVideoPlayer : NSObject <TBMVideoStatusNotificationProtocol>
 
-@property NSString *friendId;
-@property TBMFriend *friend;
-@property TBMVideo *video;
-@property MPMoviePlayerController *moviePlayerController;
-@property UIView *friendView;
-@property UIView *playerView;
-@property UIImageView *thumbView;
-@property CALayer *viewedIndicatorLayer;
-@property TBMSoundEffect *messageTone;
+@property (nonatomic, weak) TBMGridElement *gridElement;
+@property (nonatomic) TBMVideo *video;
+@property (nonatomic) MPMoviePlayerController *moviePlayerController;
+@property (nonatomic) UIView *gridView;
+@property (nonatomic) UIView *playerView;
+@property (nonatomic) UIImageView *thumbView;
+@property (nonatomic) CALayer *viewedIndicatorLayer;
+@property (nonatomic) TBMSoundEffect *messageTone;
 
-// Class methods
-+ (id)createWithView:(UIView *)playView friendId:(NSString *)friendId;
-+ (id)findWithFriendId:(NSString *)friendId;
-+ (void)removeWithFriendId:(NSString *)friendId;
-+ (void)removeAll;
-
+// Create
++ (instancetype)createWithGridElement:(TBMGridElement *)gridElement;
 
 // Instance methods
 - (void)togglePlay;
+- (BOOL)isPlaying;
+
 @end

@@ -29,7 +29,7 @@
 }
 
 - (void)videoTest{
-    TBMFriend *friend = [TBMFriend  newWithId:@(1)];
+    TBMFriend *friend = [TBMFriend  createWithId:@(1)];
     for (int i=0; i<5; i++) {
         TBMVideo *v = [TBMVideo newWithFriend:friend videoId:@"asdf"];
         NSLog(@"video = %@", v);

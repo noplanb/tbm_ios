@@ -8,16 +8,17 @@
 #import "TBMHomeViewController.h"
 #import "TBMHomeViewController+VersionController.h"
 #import "TBMHomeViewController+Invite.h"
-
+#import "TBMGridElement.h"
 #import "TBMLongPressTouchHandler.h"
 #import "TBMVideoPlayer.h"
 #import <UIKit/UIKit.h>
 #import "TBMAppDelegate+AppSync.h"
 #import "OBLogger.h"
+#import "TBMGridManager.h"
 
 @interface TBMHomeViewController ()
-@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *friendViews;
-@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *friendLabels;
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *gridViews;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *gridLabels;
 @property TBMLongPressTouchHandler *longPressTouchHandler;
 @property TBMVideoPlayer *videoPlayer;
 @property (nonatomic) TBMAppDelegate *appDelegate;
@@ -25,13 +26,12 @@
 @property TBMVideoRecorder *videoRecorder;
 @end
 
-static NSInteger TBM_HOME_FRIEND_VIEW_INDEX_OFFSET = 10;
-static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
+static NSInteger TBM_HOME_GRID_VIEW_INDEX_OFFSET = 10;
+static NSInteger TBM_HOME_GRID_LABEL_INDEX_OFFSET = 20;
 
 @implementation TBMHomeViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil obbundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil obbundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -69,10 +69,8 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     OB_INFO(@"TBMHomeViewController: viewDidLoad");
     [super viewDidLoad];
     [TBMFriend addVideoStatusNotificationDelegate:self];
-    [self setupFriendViews];
-    [self setupVideoPlayers];
+    [self setupGrid];
     [self setupLongPressTouchHandler];
-    [self setupInvite];
     [self setupShowLogGesture];
     [[[TBMVersionHandler alloc] initWithDelegate:self] checkVersionCompatibility];
 }
@@ -100,69 +98,32 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-
-- (void) setupVideoPlayers{
-    [TBMVideoPlayer removeAll];
-    for (TBMFriend *friend in [TBMFriend all]){
-        UIView *playerView = [self friendViewWithViewIndex:friend.viewIndex];
-        [TBMVideoPlayer createWithView:playerView friendId:friend.idTbm];
-    }
-}
-
-- (void)setupFriendViews{
-    for (TBMFriend *friend in [TBMFriend all]){
-        [self updateFriendLabelWithFriendOnMainThread:friend];
-    }
-}
-
-- (void)updateFriendLabelWithFriendOnMainThread:(TBMFriend *)friend{
-    [self performSelectorOnMainThread:@selector(updateFriendLabelWithFriend:) withObject:friend waitUntilDone:YES];
-}
-
-- (void)updateFriendLabelWithFriend:(TBMFriend *)friend{
-    UILabel *label = [self friendLabelWithViewIndex:friend.viewIndex];
-    label.text = [friend videoStatusString];
-    [self.view setNeedsDisplay];
-}
-
-- (void)setupLongPressTouchHandler{
-    _longPressTouchHandler = [[TBMLongPressTouchHandler alloc] initWithTargetViews:[self activeFriendViews] instantiator:self];
-}
-
-- (NSMutableArray *)activeFriendViews{
-    NSMutableArray *result = [[NSMutableArray alloc] init];
-    for (TBMFriend *friend in [TBMFriend all]){
-        [result addObject:[self friendViewWithViewIndex:friend.viewIndex]];
-    }
-    return result;
-}
-
-- (NSMutableArray *)inactiveFriendViews{
-    NSMutableArray *result = [[NSMutableArray alloc] initWithArray:self.friendViews copyItems:NO];
-    for (UIView *view in [self activeFriendViews]){
-        [result removeObject:view];
-    }
-    return result;
-}
-
-- (UIView *)friendViewWithViewIndex:(NSNumber *)viewIndex{
-    if (!viewIndex)
-        return nil;
+//------
+// Setup
+//------
+- (void) setupGrid{
+    if ([TBMGridElement all].count == 8)
+        return;
     
-    NSInteger tag = [viewIndex integerValue];
-    tag += TBM_HOME_FRIEND_VIEW_INDEX_OFFSET;
-    for (UIView *view in self.friendViews) {
+    [TBMGridElement destroyAll];
+    NSArray *friends = [TBMFriend all];
+    for (int i=0; i<8; i++){
+        TBMGridElement *ge = [TBMGridElement create];
+        if (i<friends.count)
+            ge.friend = [friends objectAtIndex:i];
+        
+        ge.view = [self gridViewWithIndex:i];
+        ge.label = [self gridLabelWithIndex:i];
+        ge.videoPlayer = [TBMVideoPlayer createWithGridElement:ge];
+    }
+    [TBMGridManager update];
+}
+
+
+- (UIView *)gridViewWithIndex:(int)i{
+    int tag = i + TBM_HOME_GRID_VIEW_INDEX_OFFSET;
+    for (UIView *view in self.gridViews) {
         if (view.tag == tag){
             return view;
         }
@@ -170,10 +131,9 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     return nil;
 }
 
-- (UILabel *)friendLabelWithViewIndex:(NSNumber *)viewIndex{
-    NSInteger tag = [viewIndex integerValue];
-    tag += TBM_HOME_FRIEND_LABEL_INDEX_OFFSET;
-    for (UILabel *label in self.friendLabels){
+- (UILabel *)gridLabelWithIndex:(int)i{
+    int tag = i + TBM_HOME_GRID_LABEL_INDEX_OFFSET;
+    for (UILabel *label in self.gridLabels){
         if (label.tag == tag){
             return label;
         }
@@ -181,8 +141,13 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
     return nil;
 }
 
-- (TBMFriend *)friendWithViewTag:(NSUInteger)tag{
-    return [TBMFriend findWithViewIndex:@(tag-TBM_HOME_FRIEND_VIEW_INDEX_OFFSET)];
+
+//---------------------------
+// setup LonpressTouchHandler
+//---------------------------
+
+- (void)setupLongPressTouchHandler{
+    _longPressTouchHandler = [[TBMLongPressTouchHandler alloc] initWithTargetViews:_gridViews instantiator:self];
 }
 
 
@@ -255,8 +220,7 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 // TBMVideoStatusNotoficationProtocol
 //-----------------------------------
 -(void)videoStatusDidChange:(id)object{
-    TBMFriend *friend = (TBMFriend *)object;
-    [self updateFriendLabelWithFriendOnMainThread:friend];
+    [TBMGridManager update];
 }
 
 //------------------------------------------
@@ -286,29 +250,41 @@ static NSInteger TBM_HOME_FRIEND_LABEL_INDEX_OFFSET = 20;
 
 // Callbacks per the TBMLongPressTouchHandlerCallback protocol.
 - (void)LPTHClickWithTargetView:(UIView *)view{
-    TBMFriend *friend = [self friendWithViewTag:view.tag];
-    TBMVideoPlayer * player = [TBMVideoPlayer findWithFriendId:friend.idTbm];
-    // DebugLog(@"TBMHomeViewController: LPTH: click on %@ calling toggle with player: %@", friend.firstName, player);
-    [player togglePlay];
+    TBMGridElement *ge = [TBMGridElement findWithView:view];
+    if (ge.friend != nil)
+        [ge.videoPlayer togglePlay];
+    else
+        OB_INFO(@"Click on plus");
 }
 
 - (void)LPTHStartLongPressWithTargetView:(UIView *)view{
-    // DebugLog(@"TBMHomeViewController: LPTH: startLongPress %ld", (long)view.tag);
-    TBMFriend *friend = [self friendWithViewTag:view.tag];
-    [[self videoRecorder] startRecordingWithMarker:friend.idTbm];
-    [self showRecordingIndicator];
+    TBMGridElement *ge = [TBMGridElement findWithView:view];
+    if (ge.friend != nil){
+        [[self videoRecorder] startRecordingWithMarker:ge.friend.idTbm];
+        [self showRecordingIndicator];
+    } else {
+        OB_INFO(@"StartLongPress on plus");
+    }
 }
 
 - (void)LPTHEndLongPressWithTargetView:(UIView *)view{
-    // DebugLog(@"TBMHomeViewController: LPTH:  endLongPressed %ld", (long)view.tag);
-    [[self videoRecorder] stopRecording];
-    [self hideRecordingIndicator];
+    TBMGridElement *ge = [TBMGridElement findWithView:view];
+    if (ge.friend != nil){
+        [[self videoRecorder] stopRecording];
+        [self hideRecordingIndicator];
+    } else {
+        OB_INFO(@"EndLongPress on plus");
+    }
 }
 
 - (void)LPTHCancelLongPressWithTargetView:(UIView *)view{
-    // DebugLog(@"TBMHomeViewController: LPTH:  cancelLongPress %ld", (long)view.tag);
-    [[self videoRecorder] cancelRecording];
-    [self hideRecordingIndicator];
+    TBMGridElement *ge = [TBMGridElement findWithView:view];
+    if (ge.friend != nil){
+        [[self videoRecorder] cancelRecording];
+        [self hideRecordingIndicator];
+    } else {
+        OB_INFO(@"CancelLongPress on plus");
+    }
 }
 
 

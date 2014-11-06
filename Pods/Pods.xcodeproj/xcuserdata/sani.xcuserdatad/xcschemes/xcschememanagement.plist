@@ -19,6 +19,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-UIAlertView+Blocks.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-libPhoneNumber-iOS.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,22 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>7A741D9C0A6E4DE7900170B7</key>
+		<key>2685350949EF41D29EA7C0B7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8334E31660974717B8C1D3D1</key>
+		<key>5422A166868F4788B2E75249</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9769F82E15E8449DBCC45C26</key>
+		<key>69EC4F6FCC9F4849A3FCDABC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F4973C15743246C7BA754431</key>
+		<key>877928032FAE4350B6CBAE4D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AD2EABDA57B747EF9A294886</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D2447F3D46114003A439D4EA</key>
 		<dict>
 			<key>primary</key>
 			<true/>

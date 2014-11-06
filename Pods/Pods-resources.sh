@@ -43,6 +43,7 @@ install_resource()
 }
 install_resource "OBFileTransfer/Pod/Assets/mimeTypes.txt"
 install_resource "OBLogger/Pod/Assets/OBLogViewController.xib"
+install_resource "libPhoneNumber-iOS/libPhoneNumber/Metadata Classes/NBPhoneNumberMetadata.plist"
 
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 if [[ "${ACTION}" == "install" ]]; then

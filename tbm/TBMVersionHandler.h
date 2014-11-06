@@ -13,7 +13,7 @@
 @end
 
 @interface TBMVersionHandler : NSObject
-- (instancetype) initWithDelegate:(id)delegate;
+- (instancetype) initWithDelegate:(id<TBMVersionHandlerDelegate>)delegate;
 - (void) checkVersionCompatibility;
 
 + (BOOL) updateSchemaRequired:(NSString *)result;

@@ -17,6 +17,7 @@
 #import "TBMVideoIdUtils.h"
 #import "TBMHomeViewController.h"
 #import "OBLogger.h"
+#import "TBMHttpClient.h"
 
 @implementation TBMFriend
 
@@ -26,11 +27,13 @@
 @dynamic outgoingVideoStatus;
 @dynamic lastVideoStatusEventType;
 @dynamic lastIncomingVideoStatus;
-@dynamic viewIndex;
 @dynamic uploadRetryCount;
 @dynamic idTbm;
 @dynamic mkey;
 @dynamic videos;
+@dynamic hasApp;
+@dynamic mobileNumber;
+@dynamic timeOfLastAction;
 
 static NSMutableArray * videoStatusNotificationDelegates;
 
@@ -76,10 +79,6 @@ static NSMutableArray * videoStatusNotificationDelegates;
     return [self findWithAttributeKey:@"idTbm" value:idTbm];
 }
 
-+ (instancetype)findWithViewIndex:(NSNumber *)viewIndex{
-    return [self findWithAttributeKey:@"viewIndex" value:viewIndex];
-}
-
 + (instancetype)findWithMkey:(NSString *)mkey{
     return [self findWithAttributeKey:@"mkey" value:mkey];
 }
@@ -108,15 +107,37 @@ static NSMutableArray * videoStatusNotificationDelegates;
 //-------------------
 // Create and destroy
 //-------------------
-+ (id)newWithId:(NSString *)idTbm{
++ (instancetype)createWithId:(NSString *)idTbm{
     __block TBMFriend *friend;
     [[TBMFriend managedObjectContext] performBlockAndWait:^{
         friend = (TBMFriend *)[[NSManagedObject alloc] initWithEntity:[TBMFriend entityDescription] insertIntoManagedObjectContext:[TBMFriend managedObjectContext]];
         friend.idTbm = idTbm;
-        [TBMFriend saveAll];
     }];
     return friend;
 }
+
++ (instancetype)createWithServerParams:(NSDictionary *)params{
+    __block TBMFriend *friend;
+    [[TBMFriend managedObjectContext] performBlockAndWait:^{
+        friend = (TBMFriend *)[[NSManagedObject alloc]
+                               initWithEntity:[TBMFriend entityDescription]
+                               insertIntoManagedObjectContext:[TBMFriend managedObjectContext]];
+        
+        friend.firstName = [params objectForKey:SERVER_PARAMS_FRIEND_FIRST_NAME_KEY];
+        friend.lastName = [params objectForKey:SERVER_PARAMS_FRIEND_LAST_NAME_KEY];
+        friend.mobileNumber = [params objectForKey:SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY];
+        friend.idTbm = [params objectForKey:SERVER_PARAMS_FRIEND_ID_KEY];
+        friend.mkey = [params objectForKey:SERVER_PARAMS_FRIEND_MKEY_KEY];
+        
+        if ([[params objectForKey:SERVER_PARAMS_FRIEND_HAS_APP] isEqualToString:@"true"])
+            friend.hasApp = YES;
+        else
+            friend.hasApp = NO;
+    }];
+    OB_INFO(@"Added friend: %@", friend);
+    return friend;
+}
+
 
 + (NSUInteger)destroyAll{
     NSUInteger count = [[TBMFriend all] count];
@@ -137,9 +158,6 @@ static NSMutableArray * videoStatusNotificationDelegates;
     }];
 }
 
-+ (void)saveAll{
-    [[self appDelegate] saveContext];
-}
 
 //=================
 // Instance methods
