@@ -48,6 +48,12 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 4
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 1
 
+// HexColors
+#define COCOAPODS_POD_AVAILABLE_HexColors
+#define COCOAPODS_VERSION_MAJOR_HexColors 2
+#define COCOAPODS_VERSION_MINOR_HexColors 2
+#define COCOAPODS_VERSION_PATCH_HexColors 1
+
 // OBFileTransfer
 #define COCOAPODS_POD_AVAILABLE_OBFileTransfer
 #define COCOAPODS_VERSION_MAJOR_OBFileTransfer 0

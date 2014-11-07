@@ -7,6 +7,7 @@
 //
 #import "TBMHomeViewController.h"
 #import "TBMHomeViewController+VersionController.h"
+#import "TBMHomeViewController+Bench.h"
 #import "TBMHomeViewController+Invite.h"
 #import "TBMGridElement.h"
 #import "TBMLongPressTouchHandler.h"
@@ -72,6 +73,7 @@ static NSInteger TBM_HOME_GRID_LABEL_INDEX_OFFSET = 20;
     [self setupGrid];
     [self setupLongPressTouchHandler];
     [self setupShowLogGesture];
+    [self setupBench];
     [[[TBMVersionHandler alloc] initWithDelegate:self] checkVersionCompatibility];
 }
 
