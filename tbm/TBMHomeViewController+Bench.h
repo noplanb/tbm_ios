@@ -8,6 +8,6 @@
 
 #import "TBMHomeViewController.h"
 
-@interface TBMHomeViewController (Bench)
-- (void)setupBench;
+@interface TBMHomeViewController (Bench) <UITableViewDataSource, UITableViewDelegate>
+- (void)setupBenchView;
 @end

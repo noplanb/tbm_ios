@@ -532,10 +532,20 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="debug" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Px-0Z-Wly">
+                                <rect key="frame" x="16" y="378" width="288" height="30"/>
+                                <state key="normal" title="Debug">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="submit:" destination="CrY-n2-7mR" eventType="touchUpInside" id="99N-GI-BO1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="gjA-M9-TxH" firstAttribute="leading" secondItem="cJZ-4g-zyO" secondAttribute="trailing" constant="5" id="094-G3-rxl"/>
+                            <constraint firstItem="0Px-0Z-Wly" firstAttribute="top" secondItem="zyQ-qQ-hQe" secondAttribute="bottom" constant="20" id="2s3-6G-9Mq"/>
                             <constraint firstItem="Upk-wD-pbF" firstAttribute="leading" secondItem="gjA-M9-TxH" secondAttribute="trailing" constant="10" id="6zS-EI-uKF"/>
                             <constraint firstAttribute="trailingMargin" secondItem="7R4-FZ-mQP" secondAttribute="trailing" id="9fS-mM-L97"/>
                             <constraint firstAttribute="trailingMargin" secondItem="3s3-cR-nvD" secondAttribute="trailing" id="Byg-j4-fw8"/>
@@ -543,9 +553,11 @@
                             <constraint firstItem="7R4-FZ-mQP" firstAttribute="top" secondItem="sSQ-J2-fsH" secondAttribute="bottom" constant="20" id="IaP-VM-lqK"/>
                             <constraint firstItem="3s3-cR-nvD" firstAttribute="leading" secondItem="Pll-c7-sLp" secondAttribute="leadingMargin" id="LpH-MC-pwF"/>
                             <constraint firstItem="sSQ-J2-fsH" firstAttribute="top" secondItem="Sqg-EP-sT9" secondAttribute="bottom" constant="69" id="NEU-nY-hyp"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0Px-0Z-Wly" secondAttribute="trailing" id="QV0-ZV-Aqb"/>
                             <constraint firstItem="aa4-ZW-F1J" firstAttribute="leading" secondItem="Pll-c7-sLp" secondAttribute="leadingMargin" id="SDi-cP-lRj"/>
                             <constraint firstItem="cJZ-4g-zyO" firstAttribute="leading" secondItem="Pll-c7-sLp" secondAttribute="leadingMargin" id="SFh-WS-5Aw"/>
                             <constraint firstItem="gjA-M9-TxH" firstAttribute="centerY" secondItem="cJZ-4g-zyO" secondAttribute="centerY" id="ThA-TK-CuM"/>
+                            <constraint firstItem="0Px-0Z-Wly" firstAttribute="leading" secondItem="Pll-c7-sLp" secondAttribute="leadingMargin" id="XHL-Jx-MCt"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Upk-wD-pbF" secondAttribute="trailing" id="XQr-rF-IoZ"/>
                             <constraint firstAttribute="centerX" secondItem="sSQ-J2-fsH" secondAttribute="centerX" id="Zpy-p0-aSB"/>
                             <constraint firstAttribute="centerX" secondItem="3s3-cR-nvD" secondAttribute="centerX" id="bD4-JF-CoD"/>

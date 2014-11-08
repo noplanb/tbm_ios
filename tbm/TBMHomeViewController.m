@@ -73,7 +73,7 @@ static NSInteger TBM_HOME_GRID_LABEL_INDEX_OFFSET = 20;
     [self setupGrid];
     [self setupLongPressTouchHandler];
     [self setupShowLogGesture];
-    [self setupBench];
+    [self setupBenchView];
     [[[TBMVersionHandler alloc] initWithDelegate:self] checkVersionCompatibility];
 }
 
