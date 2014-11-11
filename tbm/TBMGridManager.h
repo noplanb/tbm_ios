@@ -16,8 +16,8 @@
 
 @interface TBMGridManager : NSObject
 + (TBMVideoPlayer *)videoPlayerWithFriend:(TBMFriend *)friend;
-+ (void)update;
++ (void)updateAll;
 + (NSMutableArray *)friendsOnGrid;
 + (NSMutableArray *)friendsOnBench;
-
++ (void)moveFriendToGrid:(TBMFriend *)friend;
 @end

@@ -13,6 +13,7 @@
 @implementation TBMGridElement
 
 @dynamic friend;
+@dynamic index;
 
 @synthesize videoPlayer;
 @synthesize view;
@@ -80,6 +81,14 @@
     return nil;
 }
 
++ (instancetype)findWithIndex:(NSInteger)i{
+    for (TBMGridElement *ge in [TBMGridElement all]){
+        if (i == ge.index)
+            return ge;
+    }
+    return nil;
+}
+
 + (instancetype)findWithFriend:(TBMFriend *)friend{
     for (TBMGridElement *ge in [TBMGridElement all]){
         if ([friend isEqual:ge.friend])
@@ -100,4 +109,21 @@
     return nil;
 }
 
+//--------
+// Utility
+//--------
++ (void)printAll{
+    for (TBMGridElement *ge in [TBMGridElement all]){
+        DebugLog(@"");
+        DebugLog(@"=============");
+        DebugLog(@"GridElement: first: %@", ge.friend.firstName);
+        DebugLog(@"GridElement: videoPlayer: %@", ge.videoPlayer);
+        DebugLog(@"GridElement: label: %@", ge.label);
+        DebugLog(@"GridElement: view: %@", ge.view);
+        DebugLog(@"GridElement: index: %ld", (long)ge.index);
+        DebugLog(@"=============");
+        DebugLog(@"");
+
+    }
+}
 @end

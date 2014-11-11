@@ -21,7 +21,6 @@
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *gridViews;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *gridLabels;
 @property TBMLongPressTouchHandler *longPressTouchHandler;
-@property TBMVideoPlayer *videoPlayer;
 @property (nonatomic) TBMAppDelegate *appDelegate;
 @property BOOL isPlaying;
 @property TBMVideoRecorder *videoRecorder;
@@ -105,23 +104,33 @@ static NSInteger TBM_HOME_GRID_LABEL_INDEX_OFFSET = 20;
 // Setup
 //------
 - (void) setupGrid{
-    if ([TBMGridElement all].count == 8)
-        return;
+    if ([TBMGridElement all].count != 8){
+        [self createGridElements];
+    }
     
+    for (int i=0; i<8; i++){
+        TBMGridElement *ge = [TBMGridElement findWithIndex:i];
+        ge.view = [self gridViewWithIndex:i];
+        ge.label = [self gridLabelWithIndex:i];
+        ge.videoPlayer = [TBMVideoPlayer createWithGridElement:ge];
+    }
+    [TBMGridElement printAll];
+    [TBMGridManager updateAll];
+}
+
+- (void) createGridElements{
     [TBMGridElement destroyAll];
     NSArray *friends = [TBMFriend all];
     for (int i=0; i<8; i++){
         TBMGridElement *ge = [TBMGridElement create];
         if (i<friends.count)
             ge.friend = [friends objectAtIndex:i];
-        
+        ge.index = i;
         ge.view = [self gridViewWithIndex:i];
         ge.label = [self gridLabelWithIndex:i];
         ge.videoPlayer = [TBMVideoPlayer createWithGridElement:ge];
     }
-    [TBMGridManager update];
 }
-
 
 - (UIView *)gridViewWithIndex:(int)i{
     int tag = i + TBM_HOME_GRID_VIEW_INDEX_OFFSET;
@@ -222,7 +231,7 @@ static NSInteger TBM_HOME_GRID_LABEL_INDEX_OFFSET = 20;
 // TBMVideoStatusNotoficationProtocol
 //-----------------------------------
 -(void)videoStatusDidChange:(id)object{
-    [TBMGridManager update];
+    [TBMGridManager updateAll];
 }
 
 //------------------------------------------

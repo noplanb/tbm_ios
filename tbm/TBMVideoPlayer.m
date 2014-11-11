@@ -95,9 +95,7 @@
 - (void)videoStatusDidChange:(id)object{
     if (object == _gridElement.friend) {
         DebugLog(@"videoStatusDidChange for %@", _gridElement.friend.firstName);
-        [self updateViewedIndicator];
-        [self playNewMessageToneIfNecessary];
-        [self updateThumbNail];
+        [self updateView];
     }
 }
 
@@ -143,6 +141,12 @@
 // ------------
 // View control
 // ------------
+- (void)updateView{
+    [self updateViewedIndicator];
+    [self playNewMessageToneIfNecessary];
+    [self updateThumbNail];
+}
+
 - (void)updateThumbNail{
     if (_gridElement.friend == nil)
         return;

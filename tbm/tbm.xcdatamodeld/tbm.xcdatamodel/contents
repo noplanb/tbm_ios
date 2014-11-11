@@ -13,11 +13,11 @@
         <attribute name="outgoingVideoStatus" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="timeOfLastAction" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="uploadRetryCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="gridElement" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TBMGridElement" inverseName="friend" inverseEntity="TBMGridElement" syncable="YES"/>
         <relationship name="videos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TBMVideo" inverseName="friend" inverseEntity="TBMVideo" syncable="YES"/>
     </entity>
     <entity name="TBMGridElement" representedClassName="TBMGridElement" syncable="YES">
-        <relationship name="friend" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TBMFriend" inverseName="gridElement" inverseEntity="TBMFriend" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="friend" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TBMFriend" syncable="YES"/>
     </entity>
     <entity name="TBMUser" representedClassName="TBMUser" syncable="YES">
         <attribute name="auth" optional="YES" attributeType="String" syncable="YES"/>
@@ -34,8 +34,8 @@
         <relationship name="friend" maxCount="1" deletionRule="Nullify" destinationEntity="TBMFriend" inverseName="videos" inverseEntity="TBMFriend" syncable="YES"/>
     </entity>
     <elements>
-        <element name="TBMFriend" positionX="-18" positionY="2" width="128" height="255"/>
-        <element name="TBMGridElement" positionX="-218" positionY="153" width="128" height="58"/>
+        <element name="TBMFriend" positionX="-18" positionY="2" width="128" height="28"/>
+        <element name="TBMGridElement" positionX="-218" positionY="153" width="128" height="75"/>
         <element name="TBMUser" positionX="-218" positionY="-0" width="128" height="135"/>
         <element name="TBMVideo" positionX="171" positionY="-0" width="128" height="103"/>
     </elements>

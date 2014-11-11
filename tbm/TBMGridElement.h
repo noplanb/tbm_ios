@@ -15,9 +15,9 @@
 @interface TBMGridElement : NSManagedObject
 
 @property (nonatomic, retain) TBMFriend *friend;
-@property (nonatomic) TBMVideoPlayer *videoPlayer;
-@property (nonatomic) UIView *view;
-@property (nonatomic) UILabel *label;
+@property (nonatomic, retain) TBMVideoPlayer *videoPlayer;
+@property (nonatomic, retain) UIView *view;
+@property (nonatomic, retain) UILabel *label;
 @property (nonatomic) NSInteger index;
 
 // Create and destroy
@@ -27,8 +27,12 @@
 // Finders
 + (NSArray *)all;
 + (instancetype)findWithView:(UIView *)view;
++ (instancetype)findWithIndex:(NSInteger)i;
 + (instancetype)findWithFriend:(TBMFriend *)friend;
 + (BOOL)friendIsOnGrid:(TBMFriend *)friend;
 + (instancetype)firstEmptyGridElement;
+
+// Utility
++ (void)printAll;
 
 @end

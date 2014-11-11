@@ -30,5 +30,6 @@
 // Instance methods
 - (void)togglePlay;
 - (BOOL)isPlaying;
+- (void)updateView;
 
 @end

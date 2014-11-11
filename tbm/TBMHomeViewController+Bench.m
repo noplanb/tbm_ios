@@ -26,6 +26,7 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
 // @property benchView
 // @property benchTable
 // @property searchBar
+// @property tableArray
 - (void)setBenchView:(id)newAssociatedObject {
     objc_setAssociatedObject(self, @selector(benchView), newAssociatedObject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
@@ -47,6 +48,12 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
     return (UISearchBar *)objc_getAssociatedObject(self, @selector(searchBar));
 }
 
+- (void)setTableArray:(id)newAssociatedObject {
+    objc_setAssociatedObject(self, @selector(tableArray), newAssociatedObject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (NSArray *)tableArray {
+    return (NSArray *)objc_getAssociatedObject(self, @selector(tableArray));
+}
 
 
 //----------------
@@ -56,12 +63,14 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
     [self addGestureRecognizers];
     [self makeBenchView];
     [self makeSearchBar];
+    [self setTableArray:[self getTableArray]];
     [self makeBenchTable];
     
     [[self benchView] addSubview:[self searchBar]];
     [[self benchView] addSubview:[self benchTable]];
     [[self view] addSubview:[self benchView]];
     [[self view] setNeedsDisplay];
+    [self hide];
 }
 
 - (void)addGestureRecognizers{
@@ -148,9 +157,6 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
 //------------------------------------------------
 // Bench TableView Delegate and Datasource methods
 //------------------------------------------------
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-}
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
@@ -161,7 +167,7 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
     if (cell == nil)
         cell = [self benchCell];
     
-    id item = [[self benchTableArray] objectAtIndex:indexPath.row];
+    id item = [[self tableArray] objectAtIndex:indexPath.row];
     if ([item isKindOfClass:[TBMFriend class]]){
         TBMFriend *f = (TBMFriend *)item;
         cell.imageView.image = [f thumbImageOrThumbMissingImage];
@@ -182,13 +188,25 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [[self benchTableArray] count];
+    return [[self tableArray] count];
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+    DebugLog(@"didDeselectRowAtIndexPath");
+    id obj = [[self tableArray] objectAtIndex:indexPath.row];
+    if ([obj isKindOfClass:[TBMFriend class]]){
+        TBMFriend *f = (TBMFriend *) obj;
+        [self hide];
+        [TBMGridManager moveFriendToGrid:f];
+    }else{
+        DebugLog(@"selected a non friend");
+    }
 }
 
 //--------------------------
 // Bench Table backing array
 //--------------------------
-- (NSMutableArray *)benchTableArray{
+- (NSMutableArray *)getTableArray{
     NSMutableArray *bta = [[NSMutableArray alloc] initWithArray:[TBMGridManager friendsOnBench]];
     [bta addObjectsFromArray:[self items]];
     return bta;
@@ -204,7 +222,9 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
 // Show and hide
 //--------------
 - (void)handleSwipeRight{
+    [TBMGridElement printAll];
     [self show];
+    [TBMGridElement printAll];
 }
 
 - (void)handleSwipeLeft{

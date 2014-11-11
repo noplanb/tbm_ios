@@ -8,6 +8,7 @@
 
 #import "TBMGridManager.h"
 #import "TBMGridElement.h"
+#import "OBLogger.h"
 
 static id<GridEventCallback> delegate;
 
@@ -37,14 +38,22 @@ static id<GridEventCallback> delegate;
 }
 
 + (void)moveFriendToGrid:(TBMFriend *)friend{
+    OB_INFO(@"moveFriendToGrid: %@", friend.firstName);
     [TBMGridManager rankingActionOccurred:friend];
     if ([TBMGridElement friendIsOnGrid:friend])
         return;
     
-    [TBMGridManager nextAvailableGridElement].friend = friend;
+    TBMGridElement *ge = [TBMGridManager nextAvailableGridElement];
+    OB_INFO(@"moveFriendToGrid: %@", ge);
+
+    ge.friend = friend;
+    OB_INFO(@"moveFriendToGrid after chaned friend: %@", ge.friend.firstName);
+
     if (delegate != nil)
         [delegate gridDidChange];
     
+    [TBMGridElement printAll];
+    [TBMGridManager updateElementViewOnMainThread:ge];
     [TBMGridManager highlightElementWithFriend:friend];
 }
 
@@ -81,21 +90,30 @@ static id<GridEventCallback> delegate;
 //---
 // UI
 //---
-+ (void)update{
++ (void)updateAll{
     for (TBMGridElement *ge in [TBMGridElement all]){
-        [TBMGridManager updateLabelWithGridElementOnMainThread:ge];
+        [TBMGridManager updateElementViewOnMainThread:ge];
     }
 }
 
-+ (void)updateLabelWithGridElementOnMainThread:(TBMGridElement *)gridElement{
++ (void)updateElementViewOnMainThread:(TBMGridElement *)gridElement{
     [self performSelectorOnMainThread:@selector(updateLabelWithGridElement:) withObject:gridElement waitUntilDone:YES];
+    [self performSelectorOnMainThread:@selector(updateVideoView:) withObject:gridElement waitUntilDone:YES];
+}
+
++ (void) updateVideoView:(TBMGridElement *)gridElement{
+    [gridElement.videoPlayer updateView];
 }
 
 + (void)updateLabelWithGridElement:(TBMGridElement *)gridElement{
+    DebugLog(@"updating lable for gridElement: %@ ", gridElement);
+
+    DebugLog(@"updating lable for: %@ %@", gridElement.friend.firstName, [gridElement.friend videoStatusString]);
     TBMFriend *f = gridElement.friend;
     if (f==nil)
         return;
-    
+    DebugLog(@"label text was: %@", gridElement.label);
+
     gridElement.label.text = [f videoStatusString];
     [gridElement.label setNeedsDisplay];
 }
