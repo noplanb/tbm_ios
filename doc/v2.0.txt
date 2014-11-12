@@ -56,11 +56,13 @@ It is a complete bitch to associate instance variables with managed objects that
 I was planning on storing view, label, videoPlayer in the grid element
 
 SOLUTION:
-Create HomeViewController+Grid
- - Move GridManager methods there
- - Move grid methods from HomeViewController there
- - Remove GridManager
- - Save array of videoPlayers in homeViewController+Grid
+ x Create HomeViewController+Grid
+ x Move GridManager methods there
+ x Move grid methods from HomeViewController there
+ - Fix initialization methods to use new architecture
+   - Save array of videoPlayers in homeViewController+Grid
+ x Change gridElement to get rid of extraneous properties.
+ x Remove GridManager
 
 
 BenchController HomeViewController+Bench

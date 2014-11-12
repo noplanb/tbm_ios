@@ -15,21 +15,21 @@
 
 @interface TBMVideoPlayer : NSObject <TBMVideoStatusNotificationProtocol>
 
-@property (nonatomic, weak) TBMGridElement *gridElement;
-@property (nonatomic) TBMVideo *video;
-@property (nonatomic) MPMoviePlayerController *moviePlayerController;
-@property (nonatomic) UIView *gridView;
-@property (nonatomic) UIView *playerView;
-@property (nonatomic) UIImageView *thumbView;
-@property (nonatomic) CALayer *viewedIndicatorLayer;
-@property (nonatomic) TBMSoundEffect *messageTone;
+@property (nonatomic, strong) TBMGridElement *gridElement;
+@property (nonatomic, strong) TBMVideo *video;
+@property (nonatomic, strong) MPMoviePlayerController *moviePlayerController;
+@property (nonatomic, strong) UIView *gridView;
+@property (nonatomic, strong) UIView *playerView;
+@property (nonatomic, strong) UIImageView *thumbView;
+@property (nonatomic, strong) CALayer *viewedIndicatorLayer;
+@property (nonatomic, strong) TBMSoundEffect *messageTone;
 
 // Create
-+ (instancetype)createWithGridElement:(TBMGridElement *)gridElement;
+- (instancetype)initWithGridElement:(TBMGridElement *)gridElement view:(UIView *)view;
 
 // Instance methods
 - (void)togglePlay;
 - (BOOL)isPlaying;
 - (void)updateView;
-
+- (void)printSelf;
 @end

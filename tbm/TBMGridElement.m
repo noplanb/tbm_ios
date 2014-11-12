@@ -15,11 +15,6 @@
 @dynamic friend;
 @dynamic index;
 
-@synthesize videoPlayer;
-@synthesize view;
-@synthesize label;
-
-
 //--------------------------------------
 // Conveniene methods for managed object
 //--------------------------------------
@@ -73,13 +68,6 @@
     return result;
 }
 
-+ (instancetype)findWithView:(UIView *)view{
-    for (TBMGridElement *ge in [TBMGridElement all]){
-        if ([view isEqual:ge.view])
-            return ge;
-    }
-    return nil;
-}
 
 + (instancetype)findWithIndex:(NSInteger)i{
     for (TBMGridElement *ge in [TBMGridElement all]){
@@ -109,21 +97,4 @@
     return nil;
 }
 
-//--------
-// Utility
-//--------
-+ (void)printAll{
-    for (TBMGridElement *ge in [TBMGridElement all]){
-        DebugLog(@"");
-        DebugLog(@"=============");
-        DebugLog(@"GridElement: first: %@", ge.friend.firstName);
-        DebugLog(@"GridElement: videoPlayer: %@", ge.videoPlayer);
-        DebugLog(@"GridElement: label: %@", ge.label);
-        DebugLog(@"GridElement: view: %@", ge.view);
-        DebugLog(@"GridElement: index: %ld", (long)ge.index);
-        DebugLog(@"=============");
-        DebugLog(@"");
-
-    }
-}
 @end

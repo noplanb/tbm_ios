@@ -8,6 +8,7 @@
 #import "TBMHomeViewController.h"
 #import "TBMHomeViewController+VersionController.h"
 #import "TBMHomeViewController+Bench.h"
+#import "TBMHomeViewController+Grid.h"
 #import "TBMHomeViewController+Invite.h"
 #import "TBMGridElement.h"
 #import "TBMLongPressTouchHandler.h"
@@ -15,19 +16,14 @@
 #import <UIKit/UIKit.h>
 #import "TBMAppDelegate+AppSync.h"
 #import "OBLogger.h"
-#import "TBMGridManager.h"
 
 @interface TBMHomeViewController ()
-@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *gridViews;
-@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *gridLabels;
 @property TBMLongPressTouchHandler *longPressTouchHandler;
 @property (nonatomic) TBMAppDelegate *appDelegate;
 @property BOOL isPlaying;
 @property TBMVideoRecorder *videoRecorder;
 @end
 
-static NSInteger TBM_HOME_GRID_VIEW_INDEX_OFFSET = 10;
-static NSInteger TBM_HOME_GRID_LABEL_INDEX_OFFSET = 20;
 
 @implementation TBMHomeViewController
 
@@ -103,54 +99,6 @@ static NSInteger TBM_HOME_GRID_LABEL_INDEX_OFFSET = 20;
 //------
 // Setup
 //------
-- (void) setupGrid{
-    if ([TBMGridElement all].count != 8){
-        [self createGridElements];
-    }
-    
-    for (int i=0; i<8; i++){
-        TBMGridElement *ge = [TBMGridElement findWithIndex:i];
-        ge.view = [self gridViewWithIndex:i];
-        ge.label = [self gridLabelWithIndex:i];
-        ge.videoPlayer = [TBMVideoPlayer createWithGridElement:ge];
-    }
-    [TBMGridElement printAll];
-    [TBMGridManager updateAll];
-}
-
-- (void) createGridElements{
-    [TBMGridElement destroyAll];
-    NSArray *friends = [TBMFriend all];
-    for (int i=0; i<8; i++){
-        TBMGridElement *ge = [TBMGridElement create];
-        if (i<friends.count)
-            ge.friend = [friends objectAtIndex:i];
-        ge.index = i;
-        ge.view = [self gridViewWithIndex:i];
-        ge.label = [self gridLabelWithIndex:i];
-        ge.videoPlayer = [TBMVideoPlayer createWithGridElement:ge];
-    }
-}
-
-- (UIView *)gridViewWithIndex:(int)i{
-    int tag = i + TBM_HOME_GRID_VIEW_INDEX_OFFSET;
-    for (UIView *view in self.gridViews) {
-        if (view.tag == tag){
-            return view;
-        }
-    }
-    return nil;
-}
-
-- (UILabel *)gridLabelWithIndex:(int)i{
-    int tag = i + TBM_HOME_GRID_LABEL_INDEX_OFFSET;
-    for (UILabel *label in self.gridLabels){
-        if (label.tag == tag){
-            return label;
-        }
-    }
-    return nil;
-}
 
 
 //---------------------------
@@ -231,7 +179,7 @@ static NSInteger TBM_HOME_GRID_LABEL_INDEX_OFFSET = 20;
 // TBMVideoStatusNotoficationProtocol
 //-----------------------------------
 -(void)videoStatusDidChange:(id)object{
-    [TBMGridManager updateAll];
+    [self updateAllGridViews];
 }
 
 //------------------------------------------
@@ -261,15 +209,15 @@ static NSInteger TBM_HOME_GRID_LABEL_INDEX_OFFSET = 20;
 
 // Callbacks per the TBMLongPressTouchHandlerCallback protocol.
 - (void)LPTHClickWithTargetView:(UIView *)view{
-    TBMGridElement *ge = [TBMGridElement findWithView:view];
+    TBMGridElement *ge = [self gridElementWithView:view];
     if (ge.friend != nil)
-        [ge.videoPlayer togglePlay];
+        [[self videoPlayerWithView:view] togglePlay];
     else
         OB_INFO(@"Click on plus");
 }
 
 - (void)LPTHStartLongPressWithTargetView:(UIView *)view{
-    TBMGridElement *ge = [TBMGridElement findWithView:view];
+    TBMGridElement *ge = [self gridElementWithView:view];
     if (ge.friend != nil){
         [[self videoRecorder] startRecordingWithMarker:ge.friend.idTbm];
         [self showRecordingIndicator];
@@ -279,7 +227,7 @@ static NSInteger TBM_HOME_GRID_LABEL_INDEX_OFFSET = 20;
 }
 
 - (void)LPTHEndLongPressWithTargetView:(UIView *)view{
-    TBMGridElement *ge = [TBMGridElement findWithView:view];
+    TBMGridElement *ge = [self gridElementWithView:view];
     if (ge.friend != nil){
         [[self videoRecorder] stopRecording];
         [self hideRecordingIndicator];
@@ -289,7 +237,7 @@ static NSInteger TBM_HOME_GRID_LABEL_INDEX_OFFSET = 20;
 }
 
 - (void)LPTHCancelLongPressWithTargetView:(UIView *)view{
-    TBMGridElement *ge = [TBMGridElement findWithView:view];
+    TBMGridElement *ge = [self gridElementWithView:view];
     if (ge.friend != nil){
         [[self videoRecorder] cancelRecording];
         [self hideRecordingIndicator];

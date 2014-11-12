@@ -7,10 +7,10 @@
 //
 
 #import "TBMHomeViewController+Bench.h"
+#import "TBMHomeViewController+Grid.h"
 #import "HexColor.h"
 #import <objc/runtime.h>
 #import "TBMConfig.h"
-#import "TBMGridManager.h"
 #import "TBMFriend.h"
 
 static NSString *BENCH_BACKGROUND_COLOR = @"#555";
@@ -63,7 +63,7 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
     [self addGestureRecognizers];
     [self makeBenchView];
     [self makeSearchBar];
-    [self setTableArray:[self getTableArray]];
+    [self getAndSetTableArray];
     [self makeBenchTable];
     
     [[self benchView] addSubview:[self searchBar]];
@@ -191,25 +191,26 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
     return [[self tableArray] count];
 }
 
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
-    DebugLog(@"didDeselectRowAtIndexPath");
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     id obj = [[self tableArray] objectAtIndex:indexPath.row];
     if ([obj isKindOfClass:[TBMFriend class]]){
         TBMFriend *f = (TBMFriend *) obj;
         [self hide];
-        [TBMGridManager moveFriendToGrid:f];
+        [self moveFriendToGrid:f];
     }else{
-        DebugLog(@"selected a non friend");
     }
 }
+
 
 //--------------------------
 // Bench Table backing array
 //--------------------------
-- (NSMutableArray *)getTableArray{
-    NSMutableArray *bta = [[NSMutableArray alloc] initWithArray:[TBMGridManager friendsOnBench]];
+- (void) getAndSetTableArray{
+    NSMutableArray *bta = [[NSMutableArray alloc] initWithArray:[self friendsOnBench]];
     [bta addObjectsFromArray:[self items]];
-    return bta;
+    [self setTableArray:bta];
 }
 
 - (NSArray *)items{
@@ -222,9 +223,7 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
 // Show and hide
 //--------------
 - (void)handleSwipeRight{
-    [TBMGridElement printAll];
     [self show];
-    [TBMGridElement printAll];
 }
 
 - (void)handleSwipeLeft{
@@ -232,11 +231,17 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
 }
 
 - (void)show{
+    [self reloadData];
     CGRect f = [self benchView].frame;
     f.origin.x = [self shownX];
     [UIView animateWithDuration:0.2 animations:^{
         [self benchView].frame = f;
     }];
+}
+
+- (void)reloadData{
+    [self getAndSetTableArray];
+    [[self benchTable] reloadData];
 }
 
 - (void)hide{
