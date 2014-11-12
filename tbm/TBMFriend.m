@@ -128,7 +128,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
         friend.mobileNumber = [params objectForKey:SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY];
         friend.idTbm = [params objectForKey:SERVER_PARAMS_FRIEND_ID_KEY];
         friend.mkey = [params objectForKey:SERVER_PARAMS_FRIEND_MKEY_KEY];
-        
+        friend.timeOfLastAction = [NSDate date];
         if ([[params objectForKey:SERVER_PARAMS_FRIEND_HAS_APP] isEqualToString:@"true"])
             friend.hasApp = YES;
         else

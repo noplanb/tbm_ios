@@ -21,20 +21,12 @@
 //-------
 // Create
 //-------
-+ (instancetype)createWithGridElement:(TBMGridElement *)gridElement{
-    if (gridElement.videoPlayer != nil)
-        [TBMFriend removeVideoStatusNotificationDelegate:gridElement.videoPlayer];
-        
-    TBMVideoPlayer *player = [[TBMVideoPlayer alloc] initWithGridElement:gridElement];
-    [TBMFriend addVideoStatusNotificationDelegate:player];
-    return player;
-}
-
-- (instancetype)initWithGridElement:(TBMGridElement *)gridElement{
+- (instancetype)initWithGridElement:(TBMGridElement *)gridElement view:(UIView *)view{
+    OB_INFO(@"TBMVideoPlayer: initWithGridElement: %@ view:%@",gridElement, view );
     self = [super init];
     if (self){
         _gridElement = gridElement;
-        _gridView = _gridElement.view;
+        _gridView = view;
         _messageTone = [[TBMSoundEffect alloc] initWithSoundNamed:@"single_ding_chimes2.wav"];
         
         [self addVideoPlayer];
@@ -45,6 +37,7 @@
         [self updateViewedIndicator];
         [self addPlayerNotifications];
     }
+    [TBMFriend addVideoStatusNotificationDelegate:self];
     return self;
 }
 
@@ -95,9 +88,7 @@
 - (void)videoStatusDidChange:(id)object{
     if (object == _gridElement.friend) {
         DebugLog(@"videoStatusDidChange for %@", _gridElement.friend.firstName);
-        [self updateViewedIndicator];
-        [self playNewMessageToneIfNecessary];
-        [self updateThumbNail];
+        [self updateView];
     }
 }
 
@@ -143,7 +134,15 @@
 // ------------
 // View control
 // ------------
+- (void)updateView{
+    DebugLog(@"updateView: ge:%@ gv:%@", _gridElement, _gridView);
+    [self updateViewedIndicator];
+    [self playNewMessageToneIfNecessary];
+    [self updateThumbNail];
+}
+
 - (void)updateThumbNail{
+    DebugLog(@"updateThumbNail: ge:%@ gv:%@", _gridElement, _gridView);
     if (_gridElement.friend == nil)
         return;
     
@@ -234,6 +233,15 @@
     
     if (_video != nil)
         [self play];
+}
+
+- (void)printSelf{
+    DebugLog(@"");
+    DebugLog(@"============");
+    DebugLog(@"VideoPlayer: gridView: %@", _gridView);
+    DebugLog(@"VideoPlayer: gridElement: %@", _gridElement);
+    DebugLog(@"============");
+    DebugLog(@"");
 }
 
 @end

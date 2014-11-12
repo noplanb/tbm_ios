@@ -13,11 +13,7 @@
 @implementation TBMGridElement
 
 @dynamic friend;
-
-@synthesize videoPlayer;
-@synthesize view;
-@synthesize label;
-
+@dynamic index;
 
 //--------------------------------------
 // Conveniene methods for managed object
@@ -72,9 +68,10 @@
     return result;
 }
 
-+ (instancetype)findWithView:(UIView *)view{
+
++ (instancetype)findWithIndex:(NSInteger)i{
     for (TBMGridElement *ge in [TBMGridElement all]){
-        if ([view isEqual:ge.view])
+        if (i == ge.index)
             return ge;
     }
     return nil;

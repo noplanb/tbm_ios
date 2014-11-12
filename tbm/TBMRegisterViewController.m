@@ -94,6 +94,11 @@
 // Submit reg form
 //----------------
 - (IBAction)submit:(UIButton *)sender{
+    if ([[sender currentTitle] isEqualToString:@"Debug"]){
+        [self debugGetUser];
+        return;
+    }
+        
     [self hideKeyboard];
     [self getInput];
     [self putInput];
@@ -160,7 +165,6 @@
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\D+" options:NSRegularExpressionCaseInsensitive error:&error];
     return [regex stringByReplacingMatchesInString:phone options:0 range:NSMakeRange(0, [phone length]) withTemplate:@""];
 }
-
 
 
 //---------
@@ -249,6 +253,28 @@
     } else {
         [self showErrorDialogWithTitle:@"Bad Code" msg:@"The code you enterred is wrong. Please try again"];
     }
+}
+
+//---------------
+// Debug_get_user
+//---------------
+- (void)debugGetUser{
+[self startWaitingForServer];
+TBMHttpClient *hc = [TBMHttpClient sharedClient];
+NSURLSessionDataTask *task = [hc
+                              GET:@"reg/debug_get_user"
+                              parameters:@{@"mobile_number": @"6502453537"}
+                              success:^(NSURLSessionDataTask *task, id responseObject) {
+                                  DebugLog(@"register success: %@", responseObject);
+                                  [self stopWaitingForServer];
+                                  [self didReceiveCodeResponse:responseObject];
+                              }
+                              failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                  DebugLog(@"register fail: %@", error);
+                                  [self stopWaitingForServer];
+                                  [self connectionError];
+                              }];
+[task resume];
 }
 
 //---------

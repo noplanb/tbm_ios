@@ -24,4 +24,7 @@
 @property (strong, nonatomic) UIAlertView *versionHandlerAlert;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *plusLabels;
 
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *gridViews;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *gridLabels;
+
 @end

@@ -43,12 +43,33 @@ GridElement
 
 TODO:
  x Create the GridElement as a persistent model
- - Setup the GridElements in homeviewcontroller on init.
- - Add the friends to the GridElements if they could no be retrieved.
- - Add the view ids to the GridElements
- - Add the videoPlayer Ids to the grid elements.
- - Move the relevant methods from friend to GridElementFactory
- 
+ x Setup the GridElements in homeviewcontroller on init.
+ x Add the friends to the GridElements if they could no be retrieved.
+ x Add the view ids to the GridElements
+ x Add the videoPlayer Ids to the grid elements.
+ x Move the relevant methods from friend to GridElementFactory
+
+
+PROBLEM With Grid Element Architecture
+--------------------------------------
+It is a complete bitch to associate instance variables with managed objects that are not persisted.
+I was planning on storing view, label, videoPlayer in the grid element
+
+SOLUTION:
+ x Create HomeViewController+Grid
+ x Move GridManager methods there
+ x Move grid methods from HomeViewController there
+ - Fix initialization methods to use new architecture
+   - Save array of videoPlayers in homeViewController+Grid
+ x Change gridElement to get rid of extraneous properties.
+ x Remove GridManager
+
+
+BenchController HomeViewController+Bench
+----------------------------------------
+- Clicking a person on the bench moves him to grid.
+
+
 
 Registration with SMS loopback
 ------------------------------

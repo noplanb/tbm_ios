@@ -5,7 +5,6 @@
 //  Created by Sani Elfishawy on 8/11/14.
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
-
 #import "TBMAppDelegate+AppSync.h"
 #import <objc/runtime.h>
 #import "TBMAppDelegate+PushNotification.h"
@@ -15,7 +14,7 @@
 #import "TBMVideo.h"
 #import "TBMVideoIdUtils.h"
 #import "TBMVideoPlayer.h"
-#import "TBMGridManager.h"
+#import "TBMHomeViewController+Grid.h"
 
 @implementation TBMAppDelegate (AppSync)
 
@@ -225,9 +224,14 @@
     if (error != nil){
         [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY video:video];
     } else {
-        TBMVideoPlayer *vp = [TBMGridManager videoPlayerWithFriend:friend];
-        if ( vp == nil || ![vp isPlaying])
-            [friend deleteAllViewedOrFailedVideos];
+        UIViewController *hvc = self.window.rootViewController;
+        if ([hvc isKindOfClass:[TBMHomeViewController class]]){
+            TBMHomeViewController *hvc = (TBMHomeViewController *)self.window.rootViewController;
+            TBMVideoPlayer *vp = [hvc videoPlayerWithFriend:friend];
+            
+            if ( vp == nil || ![vp isPlaying])
+                [friend deleteAllViewedOrFailedVideos];
+        }
         
         [video generateThumb];
         
