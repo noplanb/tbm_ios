@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		220207CA198878650013CE3B /* TBMRemoteStorageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 220207C9198878650013CE3B /* TBMRemoteStorageHandler.m */; };
+		2208E8A51A14195500150C35 /* TBMContactsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2208E8A41A14195500150C35 /* TBMContactsManager.m */; };
+		2208E8A81A1419D400150C35 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208E8A61A1419D400150C35 /* AddressBook.framework */; };
+		2208E8A91A1419D400150C35 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208E8A71A1419D400150C35 /* AddressBookUI.framework */; };
 		22093F1B192590CE0021EB0C /* TBMSoundEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 22093F1A192590CE0021EB0C /* TBMSoundEffect.m */; };
 		220E90291909A18B003C4F82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E90281909A18B003C4F82 /* Foundation.framework */; };
 		220E902B1909A18B003C4F82 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902A1909A18B003C4F82 /* CoreGraphics.framework */; };
@@ -106,6 +109,10 @@
 		03E1AA78EA364800AF8FA523 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		220207C8198878650013CE3B /* TBMRemoteStorageHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMRemoteStorageHandler.h; sourceTree = "<group>"; };
 		220207C9198878650013CE3B /* TBMRemoteStorageHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMRemoteStorageHandler.m; sourceTree = "<group>"; };
+		2208E8A31A14195500150C35 /* TBMContactsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMContactsManager.h; sourceTree = "<group>"; };
+		2208E8A41A14195500150C35 /* TBMContactsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMContactsManager.m; sourceTree = "<group>"; };
+		2208E8A61A1419D400150C35 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		2208E8A71A1419D400150C35 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		22093F19192590CE0021EB0C /* TBMSoundEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSoundEffect.h; sourceTree = "<group>"; };
 		22093F1A192590CE0021EB0C /* TBMSoundEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSoundEffect.m; sourceTree = "<group>"; };
 		220E90251909A18B003C4F82 /* tbm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tbm.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -230,6 +237,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2208E8A81A1419D400150C35 /* AddressBook.framework in Frameworks */,
+				2208E8A91A1419D400150C35 /* AddressBookUI.framework in Frameworks */,
 				22403C2B19D5E63400FC36E3 /* MessageUI.framework in Frameworks */,
 				224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */,
 				22F32AFC19228F3300AB524E /* StoreKit.framework in Frameworks */,
@@ -278,6 +287,8 @@
 		220E90271909A18B003C4F82 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2208E8A61A1419D400150C35 /* AddressBook.framework */,
+				2208E8A71A1419D400150C35 /* AddressBookUI.framework */,
 				22403C2A19D5E63400FC36E3 /* MessageUI.framework */,
 				22F32AFB19228F3300AB524E /* StoreKit.framework */,
 				224101D3190D4180005128F9 /* AVFoundation.framework */,
@@ -355,6 +366,8 @@
 				228F0C421A0C7B29008A576F /* TBMHomeViewController+Bench.m */,
 				2291DCCF1A12D09A00CBB18C /* TBMHomeViewController+Grid.h */,
 				2291DCD01A12D09A00CBB18C /* TBMHomeViewController+Grid.m */,
+				2208E8A31A14195500150C35 /* TBMContactsManager.h */,
+				2208E8A41A14195500150C35 /* TBMContactsManager.m */,
 			);
 			path = tbm;
 			sourceTree = "<group>";
@@ -669,6 +682,7 @@
 				222724331917F2F500DA6865 /* NSArray+NSArrayExtensions.m in Sources */,
 				223A11491915AED900177481 /* TBMAppDelegate+Boot.m in Sources */,
 				220E903E1909A18B003C4F82 /* tbm.xcdatamodeld in Sources */,
+				2208E8A51A14195500150C35 /* TBMContactsManager.m in Sources */,
 				22093F1B192590CE0021EB0C /* TBMSoundEffect.m in Sources */,
 				22BF060519D4A5FC00F6E025 /* TBMHomeViewController+Invite.m in Sources */,
 				22F1A4C419354AC500E04229 /* TBMVideoIdUtils.m in Sources */,

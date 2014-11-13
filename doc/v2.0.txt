@@ -59,10 +59,30 @@ SOLUTION:
  x Create HomeViewController+Grid
  x Move GridManager methods there
  x Move grid methods from HomeViewController there
- - Fix initialization methods to use new architecture
-   - Save array of videoPlayers in homeViewController+Grid
+ x Fix initialization methods to use new architecture
+   x Save array of videoPlayers in homeViewController+Grid
  x Change gridElement to get rid of extraneous properties.
  x Remove GridManager
+ x Call rankingActionOccured
+   x MoveToBench
+   x playClick
+   x recordStart
+
+
+AddressBook
+-----------
+x create a new project to play with the address book.
+x Print phone and type for all phones.
+x contactsDirectory:
+  x keyed by "first last"
+  x points to array of phones {type: number:}
+x fullNamesHavingPhone
+  x arrayOfFullNames sorted by first that have any phone number
+
+x Copy this contacts class into TBM
+- Initialize it on a background thread so that contacts are retrieved in background.
+- Use it to get the array of fullnames
+
 
 
 BenchController HomeViewController+Bench

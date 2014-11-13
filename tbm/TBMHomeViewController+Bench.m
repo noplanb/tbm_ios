@@ -12,6 +12,7 @@
 #import <objc/runtime.h>
 #import "TBMConfig.h"
 #import "TBMFriend.h"
+#import "TBMContactsManager.h"
 
 static NSString *BENCH_BACKGROUND_COLOR = @"#555";
 static NSString *BENCH_TEXT_COLOR = @"#fff";
@@ -200,6 +201,7 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
         [self hide];
         [self moveFriendToGrid:f];
     }else{
+        DebugLog(@"%@ %@", obj, [[TBMContactsManager sharedInstance] directoryEntryWithFullname:obj]);
     }
 }
 
@@ -209,13 +211,8 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
 //--------------------------
 - (void) getAndSetTableArray{
     NSMutableArray *bta = [[NSMutableArray alloc] initWithArray:[self friendsOnBench]];
-    [bta addObjectsFromArray:[self items]];
+    [bta addObjectsFromArray:[TBMContactsManager sharedInstance].fullnamesHavingPhone];
     [self setTableArray:bta];
-}
-
-- (NSArray *)items{
-    NSArray *r = [[NSArray alloc] initWithObjects: @"Egg Benedict", @"Mushroom Risotto", @"Full Breakfast", @"Hamburger", @"Ham and Egg Sandwich", @"Creme Brelee", @"White Chocolate Donut", @"Starbucks Coffee", @"Vegetable Curry", @"Instant Noodle with Egg", @"Noodle with BBQ Pork", @"Japanese Noodle with Pork", @"Green Tea", @"Thai Shrimp Cake", @"Angry Birds Cake", @"Ham and Cheese Panini", nil];
-    return r;
 }
 
 

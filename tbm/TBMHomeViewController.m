@@ -16,6 +16,7 @@
 #import <UIKit/UIKit.h>
 #import "TBMAppDelegate+AppSync.h"
 #import "OBLogger.h"
+#import "TBMContactsManager.h"
 
 @interface TBMHomeViewController ()
 @property TBMLongPressTouchHandler *longPressTouchHandler;
@@ -81,6 +82,11 @@
     OB_INFO(@"TBMHomeViewController: viewDidAppear");
     [super viewDidAppear:animated];
     [self setupVideoRecorder:0];
+    [self performSelectorInBackground:@selector(initContactsManager) withObject:NULL];
+}
+
+- (void) initContactsManager{
+    [TBMContactsManager sharedInstance];
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
@@ -210,15 +216,18 @@
 // Callbacks per the TBMLongPressTouchHandlerCallback protocol.
 - (void)LPTHClickWithTargetView:(UIView *)view{
     TBMGridElement *ge = [self gridElementWithView:view];
-    if (ge.friend != nil)
+    if (ge.friend != nil){
+        [self rankingActionOccurred:ge.friend];
         [[self videoPlayerWithView:view] togglePlay];
-    else
+    } else {
         OB_INFO(@"Click on plus");
+    }
 }
 
 - (void)LPTHStartLongPressWithTargetView:(UIView *)view{
     TBMGridElement *ge = [self gridElementWithView:view];
     if (ge.friend != nil){
+        [self rankingActionOccurred:ge.friend];
         [[self videoRecorder] startRecordingWithMarker:ge.friend.idTbm];
         [self showRecordingIndicator];
     } else {
