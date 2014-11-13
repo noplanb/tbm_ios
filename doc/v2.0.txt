@@ -129,8 +129,22 @@ x code
 Friends coming in with
  - Last name null
  - HasApp null
- 
- 
+
+PROBLEM: Page doesnt scroll and keyboard hides the submit button on iphone4.
+SOLUTION: Add a scrollview
+- Interface builder is absolute shit built it all in code.
+
+TODO:
+x Branch the code
+x Add the code i created in FormUsingCode test project
+x Remove the registration page from the storyboard.
+x Hook up the RegistrationForm class
+x Add next for each of the fields.
+- merge code back.
+
+
+
+
 CORNER CASES TO TEST:
 --------------------
 - Dont register pushToken for user until user has successfully registered this should be obvious as we need mkey to add a push user.

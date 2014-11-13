@@ -19,7 +19,7 @@ static const NSString * kContactsManagerPhonesKey = @"phones";
 + (instancetype)sharedInstance;
 
 // Public properties
-@property (nonatomic) NSArray *fullnamesHavingPhone;
-
+- (void)prefetchOnlyIfHasAccess;
+- (NSArray *) getFullNamesHavingAnyPhone;
 - directoryEntryWithFullname:(NSString *)fullname;
 @end

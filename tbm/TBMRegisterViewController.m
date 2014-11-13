@@ -21,6 +21,8 @@
 
 @interface TBMRegisterViewController ()
 
+@property (nonatomic) TBMRegisterForm *registerForm;
+
 @property (nonatomic) NSString *firstName;
 @property (nonatomic) NSString *lastName;
 @property (nonatomic) NSString *countryCode;
@@ -36,16 +38,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self fixTextFields];
-    [self stopWaitingForServer];
-}
-
-- (void) fixTextFields{
-    NSArray *fields = @[_firstNameTxt, _lastNameTxt, _mobileNumberTxt, _countryCodeTxt];
-    for (UITextField *f in fields){
-        f.layer.borderWidth = 1.0;
-        f.layer.borderColor = [[UIColor colorWithRed:0.25f green:0.25f blue:0.25f alpha:1.0f] CGColor];
-    }
+    [_registerForm stopWaitingForServer];
+    self.registerForm = [[TBMRegisterForm alloc] initWithView:self.view delegate:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,53 +47,10 @@
 }
 
 
-//------------------
-// Textfield Control
-//------------------
-- (BOOL) textFieldShouldReturn:(UITextField *) textField {
-    BOOL didResign = [textField resignFirstResponder];
-    if (!didResign) return NO;
-    
-    UITextField *nextField = [(TBMTextField *)textField nextField];
-    if ([textField isKindOfClass:[TBMTextField class]] && nextField != nil){
-        [nextField becomeFirstResponder];
-    }
-    return YES;
-}
-
--(BOOL) textFieldShouldBeginEditing:(UITextField *)textField{
-    DebugLog(@"textFieldShouldBeginEditing");
-    return !_isWaiting;
-}
-
-- (void) hideKeyboard{
-    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
-}
-
-//----------------
-// Spinner Control
-//----------------
-- (void) startWaitingForServer{
-    _isWaiting = YES;
-    [_spinner startAnimating];
-}
-
-- (void) stopWaitingForServer{
-    _isWaiting = NO;
-    [_spinner stopAnimating];
-}
-
-
 //----------------
 // Submit reg form
 //----------------
-- (IBAction)submit:(UIButton *)sender{
-    if ([[sender currentTitle] isEqualToString:@"Debug"]){
-        [self debugGetUser];
-        return;
-    }
-        
-    [self hideKeyboard];
+- (void) didClickSubmit{
     [self getInput];
     [self putInput];
     if (![self isValidInput])
@@ -107,23 +58,28 @@
     [self register];
 }
 
+- (void) didClickDebug{
+    [self debugGetUser];
+    return;
+}
+
 
 //-----------------------
 // Get and Validate Input
 //-----------------------
 - (void)getInput{
-    _firstName = [self cleanName:_firstNameTxt.text];
-    _lastName  = [self cleanName: _lastNameTxt.text];
-    _countryCode  = [self cleanNumber: _countryCodeTxt.text];
-    _mobileNumber = [self cleanNumber: _mobileNumberTxt.text ];
+    _firstName = [self cleanName:_registerForm.firstName.text];
+    _lastName  = [self cleanName:_registerForm.lastName.text];
+    _countryCode  = [self cleanNumber:_registerForm.countryCode.text];
+    _mobileNumber = [self cleanNumber:_registerForm.mobileNumber.text ];
     _combinedNumber = [NSString stringWithFormat:@"+%@%@", _countryCode, _mobileNumber];
 }
 
 - (void) putInput{
-    _firstNameTxt.text = _firstName;
-    _lastNameTxt.text = _lastName;
-    _countryCodeTxt.text = _countryCode;
-    _mobileNumberTxt.text = _mobileNumber;
+    _registerForm.firstName.text = _firstName;
+    _registerForm.lastName.text = _lastName;
+    _registerForm.countryCode.text = _countryCode;
+    _registerForm.mobileNumber.text = _mobileNumber;
 }
 
 - (BOOL)isValidInput{
@@ -172,19 +128,19 @@
 //---------
 
 - (void)register{
-    [self startWaitingForServer];
+    [_registerForm startWaitingForServer];
     TBMHttpClient *hc = [TBMHttpClient sharedClient];
     NSURLSessionDataTask *task = [hc
                                   GET:@"reg/reg"
                                   parameters:[self userParams]
                                   success:^(NSURLSessionDataTask *task, id responseObject) {
                                       DebugLog(@"register success: %@", responseObject);
-                                      [self stopWaitingForServer];
+                                      [_registerForm stopWaitingForServer];
                                       [self didRegister:responseObject];
                                   }
                                   failure:^(NSURLSessionDataTask *task, NSError *error) {
                                       DebugLog(@"register fail: %@", error);
-                                      [self stopWaitingForServer];
+                                      [_registerForm stopWaitingForServer];
                                       [self connectionError];
                                   }];
     [task resume];
@@ -229,19 +185,19 @@
 // Verification code
 //------------------
 - (void)didEnterCode{
-    [self startWaitingForServer];
+    [_registerForm startWaitingForServer];
     TBMHttpClient *hc = [TBMHttpClient sharedClient];
     NSURLSessionDataTask *task = [hc
                                   GET:@"reg/verify_code"
                                   parameters:[self userParams]
                                   success:^(NSURLSessionDataTask *task, id responseObject) {
                                       DebugLog(@"register success: %@", responseObject);
-                                      [self stopWaitingForServer];
+                                      [_registerForm stopWaitingForServer];
                                       [self didReceiveCodeResponse:responseObject];
                                   }
                                   failure:^(NSURLSessionDataTask *task, NSError *error) {
                                       DebugLog(@"register fail: %@", error);
-                                      [self stopWaitingForServer];
+                                      [_registerForm stopWaitingForServer];
                                       [self connectionError];
                                   }];
     [task resume];
@@ -259,19 +215,19 @@
 // Debug_get_user
 //---------------
 - (void)debugGetUser{
-[self startWaitingForServer];
+[_registerForm startWaitingForServer];
 TBMHttpClient *hc = [TBMHttpClient sharedClient];
 NSURLSessionDataTask *task = [hc
                               GET:@"reg/debug_get_user"
                               parameters:@{@"mobile_number": @"6502453537"}
                               success:^(NSURLSessionDataTask *task, id responseObject) {
                                   DebugLog(@"register success: %@", responseObject);
-                                  [self stopWaitingForServer];
+                                  [_registerForm stopWaitingForServer];
                                   [self didReceiveCodeResponse:responseObject];
                               }
                               failure:^(NSURLSessionDataTask *task, NSError *error) {
                                   DebugLog(@"register fail: %@", error);
-                                  [self stopWaitingForServer];
+                                  [_registerForm stopWaitingForServer];
                                   [self connectionError];
                               }];
 [task resume];
@@ -289,17 +245,17 @@ NSURLSessionDataTask *task = [hc
 // Got friends
 //------------
 - (void) getFriends{
-    [self startWaitingForServer];
+    [_registerForm startWaitingForServer];
     [[[TBMFriendGetter alloc] initWithDelegate:self destroyAll:YES] getFriends];
 }
 
 - (void) gotFriends{
-    [self stopWaitingForServer];
+    [_registerForm stopWaitingForServer];
     [self userAndFriendModelsAreSetup];
 }
 
 - (void) friendGetterServerError{
-    [self stopWaitingForServer];
+    [_registerForm stopWaitingForServer];
     [self showGetFriendsServerErrorDialog];
 }
 
@@ -352,7 +308,7 @@ NSURLSessionDataTask *task = [hc
 }
 
 - (void) showGetFriendsServerErrorDialog{
-    NSString *msg = [NSString stringWithFormat:@"Unable to reach the %@ please check your Internet connection and try again.", TBMConfig.appName];
+    NSString *msg = [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", CONFIG_APP_NAME];
 
     UIAlertView *av = [[UIAlertView alloc]
                        initWithTitle:@"Bad Connection"
@@ -364,7 +320,7 @@ NSURLSessionDataTask *task = [hc
     av.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex) {
         [self getFriends];
     };
-
+    [av show];
 }
 
 

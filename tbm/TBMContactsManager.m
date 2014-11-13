@@ -8,16 +8,24 @@
 
 #import "TBMContactsManager.h"
 #import <AddressBook/AddressBook.h>
+#import "OBLogger.h"
+#import "TBMConfig.h"
 
 @interface TBMContactsManager()
+@property (nonatomic) ABAddressBookRef addressBookRef;
 @property (nonatomic) CFArrayRef allPeople;
 @property (nonatomic) CFMutableArrayRef sortedPeople;
 @property (nonatomic) NSMutableDictionary *contactsDirectory;
+@property (nonatomic) NSArray *fullnamesHavingPhone;
+@property (nonatomic) BOOL isSetup;
 @end
 
 
 @implementation TBMContactsManager
 
+//--------------------------
+// Instantiation (singleton)
+//--------------------------
 + (instancetype)sharedInstance{
     static dispatch_once_t once;
     static TBMContactsManager *sharedContactsManager;
@@ -27,21 +35,67 @@
 
 - (instancetype)init{
     self = [super init];
-    if (self) {
-        [self setPeople];
-        [self sortPeople];
-        
-        [self loadContactsDirectory];
-        [self setFullnamesHavingPhone];
-        NSLog(@"%@", _fullnamesHavingPhone);
-        
-        //[self printPhones];
-    }
+    if (self != nil)
+        _isSetup = NO;
     return self;
 }
 
+//------------------------
+// Public Instance Methods
+//------------------------
+- (void)prefetchOnlyIfHasAccess{
+    if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized && !self.isSetup)
+        [self setup];
+}
+
+- (NSArray *) getFullNamesHavingAnyPhone{
+    if ([self setup])
+        return self.fullnamesHavingPhone;
+    else
+        return nil;
+}
+
+- (NSDictionary *)directoryEntryWithFullname:(NSString *)fullname{
+    if ([self setup])
+        return [self.contactsDirectory objectForKey:fullname];
+    else
+        return nil;
+}
+
+
+//-------------------------------------------------
+// Setup contactsDirectory and fullnamesHavingPhone
+//-------------------------------------------------
+- (BOOL)setup{
+    if (self.isSetup)
+        return YES;
+    
+    if (![self requestAndCheckAccess]){
+        [self alertNeedPermission];
+        return NO;
+    }
+    
+    OB_INFO(@"ContactsManager: setting up");
+    [self setPeople];
+    //[self sortPeople];
+    [self loadContactsDirectory];
+    [self setFullnamesHavingPhone];
+    self.isSetup = YES;
+    OB_INFO(@"ContactsManager: setting up complete");
+    return YES;
+}
+
+- (void)alertNeedPermission{
+    NSString *msg = [NSString stringWithFormat:@"You must grant access to contacts for this. Please go to settings/privacy/contacts and grant access to contacts for %@", CONFIG_APP_NAME];
+    [[[UIAlertView alloc]
+        initWithTitle:@"Need Permission"
+        message:msg
+        delegate:self
+        cancelButtonTitle:@"OK"
+        otherButtonTitles:nil] show];
+}
+
 - (void)setFullnamesHavingPhone{
-    NSLog(@"#################  setFullnamesHavingMobile:    %@", kABPersonPhoneMobileLabel);
     NSMutableArray *fns = [[NSMutableArray alloc] init];
     for (NSString *fn in [self.contactsDirectory allKeys]){
         if ([self directoryEntryHasPhone:fn])
@@ -55,7 +109,7 @@
 - (BOOL)directoryEntryHasMobile:(NSString *)fullname{
     NSArray *pns = [[self.contactsDirectory objectForKey:fullname] objectForKey:kContactsManagerPhonesKey];
     for (NSDictionary *pn in pns){
-        NSLog(@"Checking %@", [pn objectForKey:kContactsManagerPhoneTypeKey]);
+        DebugLog(@"Checking %@", [pn objectForKey:kContactsManagerPhoneTypeKey]);
         if ([[pn objectForKey:kContactsManagerPhoneTypeKey] isEqual:(__bridge id)ABAddressBookCopyLocalizedLabel(kABPersonPhoneMobileLabel)])
             return YES;
     }
@@ -67,41 +121,28 @@
     return [pns count] > 0;
 }
 
-- (NSDictionary *)directoryEntryWithFullname:(NSString *)fullname{
-    return [self.contactsDirectory objectForKey:fullname];
-}
 
 - (void)setPeople{
-    CFErrorRef error = nil;
-    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions (NULL, &error);
-    if (error != nil)
-        NSLog(@"%s ***** ERROR: %@", __PRETTY_FUNCTION__, error);
-    
-    BOOL accessGranted = [self addressBookAccessStatus: addressBook];
-    if (accessGranted){
-        _allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
-        NSLog(@"%ld", CFArrayGetCount(_allPeople));
-    } else {
-        NSLog(@"ERROR: no access granted");
-    }
+    self.allPeople = ABAddressBookCopyArrayOfAllPeople(self.addressBookRef);
+    DebugLog(@"%ld", CFArrayGetCount(_allPeople));
 }
 
 - (void)loadContactsDirectory{
     if (self.contactsDirectory == nil)
         self.contactsDirectory = [[NSMutableDictionary alloc] init];
     
-    for (CFIndex i=0; i<CFArrayGetCount(self.sortedPeople); i++) {
-        ABRecordRef p = CFArrayGetValueAtIndex(self.sortedPeople, i);
+    for (CFIndex i=0; i<CFArrayGetCount(self.allPeople); i++) {
+        ABRecordRef p = CFArrayGetValueAtIndex(self.allPeople, i);
         CFStringRef firstName = ABRecordCopyValue(p, kABPersonFirstNameProperty);
         
         if (firstName == NULL){
-            NSLog(@"Skipping NULL first name");
+            // DebugLog(@"Skipping NULL first name");
             continue;
         }
         
         CFStringRef lastName = ABRecordCopyValue(p, kABPersonLastNameProperty);
         if (lastName == NULL){
-            NSLog(@"Normalizing null last name");
+            // DebugLog(@"Normalizing null last name");
             lastName = CFSTR("");
         }
         
@@ -109,20 +150,20 @@
         NSMutableDictionary *entry = [self.contactsDirectory objectForKey:fullName];
         
         if (entry == nil){
-            NSLog(@"");
-            NSLog(@"================");
-            NSLog(@"Creating entry for %@", fullName);
+            // DebugLog(@"");
+            // DebugLog(@"================");
+            // DebugLog(@"Creating entry for %@", fullName);
             entry = [[NSMutableDictionary alloc] init];
             [entry setObject:(__bridge id)(firstName) forKey:kContactsManagerFirstNameKey];
             [entry setObject:(__bridge id)(lastName) forKey:kContactsManagerLastNameKey];
             [entry  setObject:[self phoneNumbersWithRecord:p] forKey:kContactsManagerPhonesKey];
-            NSLog(@"Creating phone numbers %@", [self phoneNumbersWithRecord:p]);
+            // DebugLog(@"Creating phone numbers %@", [self phoneNumbersWithRecord:p]);
             [self.contactsDirectory setObject:entry forKey:fullName];
         } else {
-            NSLog(@"Found entry for %@", fullName);
-            NSLog(@"Added phone numbers %@", [self phoneNumbersWithRecord:p]);
+            // DebugLog(@"Found entry for %@", fullName);
+            // DebugLog(@"Added phone numbers %@", [self phoneNumbersWithRecord:p]);
             [(NSMutableSet *)[entry objectForKey:kContactsManagerPhonesKey] unionSet:[self phoneNumbersWithRecord:p]];
-            NSLog(@"Unique numbers: %@", [entry objectForKey:kContactsManagerPhonesKey]);
+            // DebugLog(@"Unique numbers: %@", [entry objectForKey:kContactsManagerPhonesKey]);
         }
     }
 }
@@ -155,7 +196,7 @@
             NSString* phoneNumber = (__bridge_transfer NSString*) ABMultiValueCopyValueAtIndex(phoneNumbers, i);
             CFStringRef label = ABMultiValueCopyLabelAtIndex(phoneNumbers, i);
             CFStringRef ll = ABAddressBookCopyLocalizedLabel(label);
-            NSLog(@"%@ %@", phoneNumber, ll);
+            DebugLog(@"%@ %@", phoneNumber, ll);
         }
     }
 }
@@ -165,7 +206,7 @@
         ABRecordRef p = CFArrayGetValueAtIndex(_sortedPeople, i);
         CFStringRef fn = ABRecordCopyValue(p, kABPersonFirstNameProperty);
         CFStringRef ln = ABRecordCopyValue(p, kABPersonLastNameProperty);
-        NSLog(@"%@ %@", fn, ln);
+        DebugLog(@"%@ %@", fn, ln);
     }
 }
 
@@ -173,10 +214,17 @@
 //-----------------------
 // Request and get access
 //-----------------------
--(BOOL) addressBookAccessStatus: (ABAddressBookRef) addressBook{
+-(BOOL) requestAndCheckAccess{
+    CFErrorRef error = nil;
+    self.addressBookRef = ABAddressBookCreateWithOptions (NULL, &error);
+    if (error != nil){
+        OB_ERROR(@"ContactsManager: requestAndCheckAccess: %@", error);
+        return NO;
+    }
+
     __block BOOL accessGranted = NO;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
+    ABAddressBookRequestAccessWithCompletion(self.addressBookRef, ^(bool granted, CFErrorRef error) {
         accessGranted = granted;
         dispatch_semaphore_signal(sema);
     });

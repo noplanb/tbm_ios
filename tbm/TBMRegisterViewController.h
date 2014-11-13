@@ -9,16 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "TBMFriendGetter.h"
+#import "TBMRegisterForm.h"
 
-@interface TBMRegisterViewController : UIViewController <TBMFriendGetterCallback>
+@interface TBMRegisterViewController : UIViewController <TBMFriendGetterCallback, TBMRegisterFormDelegate>
 @property BOOL isWaiting;
-
-@property (weak, nonatomic) IBOutlet UITextField *firstNameTxt;
-@property (weak, nonatomic) IBOutlet UITextField *lastNameTxt;
-@property (weak, nonatomic) IBOutlet UITextField *countryCodeTxt;
-@property (weak, nonatomic) IBOutlet UITextField *mobileNumberTxt;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
-
-- (IBAction)submit:(UIButton *)sender;
 
 @end

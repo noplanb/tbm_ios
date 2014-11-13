@@ -10,6 +10,6 @@
 
 @interface TBMTextField : UITextField
 
-@property (nonatomic, readwrite, assign) IBOutlet UITextField *nextField;
+@property (nonatomic)  TBMTextField *nextField;
 
 @end

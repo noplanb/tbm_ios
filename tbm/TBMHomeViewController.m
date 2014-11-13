@@ -82,11 +82,11 @@
     OB_INFO(@"TBMHomeViewController: viewDidAppear");
     [super viewDidAppear:animated];
     [self setupVideoRecorder:0];
-    [self performSelectorInBackground:@selector(initContactsManager) withObject:NULL];
+    [self performSelectorInBackground:@selector(prefetchContactsManager) withObject:NULL];
 }
 
-- (void) initContactsManager{
-    [TBMContactsManager sharedInstance];
+- (void) prefetchContactsManager{
+    [[TBMContactsManager sharedInstance] prefetchOnlyIfHasAccess];
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
