@@ -13,6 +13,7 @@
 #import "TBMConfig.h"
 #import "TBMFriend.h"
 #import "TBMContactsManager.h"
+#import "OBLogger.h"
 
 static NSString *BENCH_BACKGROUND_COLOR = @"#555";
 static NSString *BENCH_TEXT_COLOR = @"#fff";
@@ -28,40 +29,52 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
 // @property benchTable
 // @property searchBar
 // @property tableArray
-- (void)setBenchView:(id)newAssociatedObject {
-    objc_setAssociatedObject(self, @selector(benchView), newAssociatedObject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+// @property isSetup
+- (void)setBenchView:(UIView *)obj {
+    objc_setAssociatedObject(self, @selector(benchView), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 - (UIView *)benchView {
     return (UIView *)objc_getAssociatedObject(self, @selector(benchView));
 }
 
-- (void)setBenchTable:(id)newAssociatedObject {
-    objc_setAssociatedObject(self, @selector(benchTable), newAssociatedObject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setBenchTable:(UITableView *)obj {
+    objc_setAssociatedObject(self, @selector(benchTable), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 - (UITableView *)benchTable {
     return (UITableView *)objc_getAssociatedObject(self, @selector(benchTable));
 }
 
-- (void)setsearchBar:(id)newAssociatedObject {
-    objc_setAssociatedObject(self, @selector(searchBar), newAssociatedObject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setsearchBar:(UISearchBar *)obj {
+    objc_setAssociatedObject(self, @selector(searchBar), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 - (UISearchBar *)searchBar {
     return (UISearchBar *)objc_getAssociatedObject(self, @selector(searchBar));
 }
 
-- (void)setTableArray:(id)newAssociatedObject {
-    objc_setAssociatedObject(self, @selector(tableArray), newAssociatedObject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setTableArray:(NSArray *)obj {
+    objc_setAssociatedObject(self, @selector(tableArray), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 - (NSArray *)tableArray {
     return (NSArray *)objc_getAssociatedObject(self, @selector(tableArray));
 }
 
+- (void)setIsSetup:(BOOL)obj {
+    objc_setAssociatedObject(self, @selector(isSetup), [NSNumber numberWithBool:obj], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (BOOL)isSetup {
+    return [objc_getAssociatedObject(self, @selector(isSetup)) boolValue];
+}
 
 //----------------
 // Setup the views
 //----------------
 - (void)setupBenchView{
-    [self addGestureRecognizers];
+    if ([self isSetup]){
+        OB_INFO(@"Bench: already setup");
+        return;
+    }
+    
+    [self addBenchGestureRecognizers];
     [self makeBenchView];
     [self makeSearchBar];
     [self getAndSetTableArray];
@@ -72,9 +85,10 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
     [[self view] addSubview:[self benchView]];
     [[self view] setNeedsDisplay];
     [self hide];
+    [self setIsSetup:YES];
 }
 
-- (void)addGestureRecognizers{
+- (void)addBenchGestureRecognizers{
     UISwipeGestureRecognizer *sgr = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeRight)];
     sgr.direction = UISwipeGestureRecognizerDirectionRight;
     [[self view] addGestureRecognizer:sgr];
@@ -205,13 +219,17 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
     }
 }
 
+- (BOOL)canGetContacts{
+    return [[TBMContactsManager sharedInstance] getFullNamesHavingAnyPhone] != nil;
+}
+
 
 //--------------------------
 // Bench Table backing array
 //--------------------------
 - (void) getAndSetTableArray{
     NSMutableArray *bta = [[NSMutableArray alloc] initWithArray:[self friendsOnBench]];
-    [bta addObjectsFromArray:[TBMContactsManager sharedInstance].fullnamesHavingPhone];
+    [bta addObjectsFromArray:[[TBMContactsManager sharedInstance] getFullNamesHavingAnyPhone]];
     [self setTableArray:bta];
 }
 
@@ -228,6 +246,11 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
 }
 
 - (void)show{
+    if (![self canGetContacts]){
+        OB_ERROR(@"Bench: show: not showing bench becuase could not get contacts");
+        return;
+    }
+    [self setupBenchView];
     [self reloadData];
     CGRect f = [self benchView].frame;
     f.origin.x = [self shownX];

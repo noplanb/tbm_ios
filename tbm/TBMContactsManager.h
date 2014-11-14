@@ -21,5 +21,5 @@ static const NSString * kContactsManagerPhonesKey = @"phones";
 // Public properties
 - (void)prefetchOnlyIfHasAccess;
 - (NSArray *) getFullNamesHavingAnyPhone;
-- directoryEntryWithFullname:(NSString *)fullname;
+- contactWithFullname:(NSString *)fullname;
 @end

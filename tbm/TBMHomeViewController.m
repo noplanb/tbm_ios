@@ -68,8 +68,8 @@
     [TBMFriend addVideoStatusNotificationDelegate:self];
     [self setupGrid];
     [self setupLongPressTouchHandler];
+    [self addBenchGestureRecognizers];
     [self setupShowLogGesture];
-    [self setupBenchView];
     [[[TBMVersionHandler alloc] initWithDelegate:self] checkVersionCompatibility];
 }
 

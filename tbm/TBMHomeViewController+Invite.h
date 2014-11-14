@@ -10,6 +10,6 @@
 #import <MessageUI/MFMailComposeViewController.h>
 
 
-@interface TBMHomeViewController (Invite) <MFMailComposeViewControllerDelegate>
-- (void)setupInvite;
+@interface TBMHomeViewController (Invite)
+- (void)invite:(NSDictionary *)contact;
 @end

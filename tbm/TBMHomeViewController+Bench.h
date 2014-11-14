@@ -9,5 +9,5 @@
 #import "TBMHomeViewController.h"
 
 @interface TBMHomeViewController (Bench) <UITableViewDataSource, UITableViewDelegate>
-- (void)setupBenchView;
+- (void)addBenchGestureRecognizers;
 @end

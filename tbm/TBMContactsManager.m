@@ -46,6 +46,8 @@
 - (void)prefetchOnlyIfHasAccess{
     if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized && !self.isSetup)
         [self setup];
+    else
+        OB_WARN(@"ContactsManager: not prefetching because no access granted.");
 }
 
 - (NSArray *) getFullNamesHavingAnyPhone{
@@ -55,7 +57,7 @@
         return nil;
 }
 
-- (NSDictionary *)directoryEntryWithFullname:(NSString *)fullname{
+- (NSDictionary *)contactWithFullname:(NSString *)fullname{
     if ([self setup])
         return [self.contactsDirectory objectForKey:fullname];
     else
@@ -86,7 +88,7 @@
 }
 
 - (void)alertNeedPermission{
-    NSString *msg = [NSString stringWithFormat:@"You must grant access to contacts for this. Please go to settings/privacy/contacts and grant access to contacts for %@", CONFIG_APP_NAME];
+    NSString *msg = [NSString stringWithFormat:@"You must grant access to contacts for this. Please go to settings/privacy/contacts and grant access for %@", CONFIG_APP_NAME];
     [[[UIAlertView alloc]
         initWithTitle:@"Need Permission"
         message:msg

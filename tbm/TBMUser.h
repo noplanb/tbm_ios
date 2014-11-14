@@ -21,5 +21,6 @@
 + (instancetype)getUser;
 + (instancetype)createWithIdTbm:(NSNumber *)idTbm;
 + (instancetype)createWithServerParams:(NSDictionary *)params;
++ (NSString *)phoneRegion;
 
 @end

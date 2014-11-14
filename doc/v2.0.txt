@@ -80,15 +80,53 @@ x fullNamesHavingPhone
   x arrayOfFullNames sorted by first that have any phone number
 
 x Copy this contacts class into TBM
-- Initialize it on a background thread so that contacts are retrieved in background.
-- Use it to get the array of fullnames
+x Initialize it on a background thread so that contacts are retrieved in background.
+x Use it to get the array of fullnames
+
+Refinement and testing
+x HomeViewController calls prefetchOnlyIfHasAccess
+  x Check that it works in case of access and no access.
+x Bench calls getFullNamesHavingAnyPhone
+  x Does not open bench if it gets nil
 
 
 
 BenchController HomeViewController+Bench
 ----------------------------------------
-- Clicking a person on the bench moves him to grid.
+x Clicking a person on the bench moves him to grid.
+- Clicking on a plus opens the bench.
 
+InviteManager
+-------------
+- Role
+  - Manages invites for person not currently a friend
+  - Allows Tickle of friend where !hasApp
+  
+- Scenario:
+  - Invite a person who is not currently a friend.
+  - Sends the info to the server and gets back the friend.
+    - HasApp field for friend.
+  - Adds the friend.
+    - Add object
+    - Add to grid
+  - Send text message to the friend if !hasApp.
+  - Tickle friend when !hasApp
+  - Set hasApp when receive first message
+  
+- Instantiation: 
+  - multiple
+  
+IMPORTANT: Add a flag in connection to say whether Target is a new recruit for statistics purposes.
+
+TESTs:
+- Should ignore invalid phone numbers
+- Should present valid ones to choose from
+
+
+Handling phone numbers.
+----------------------
+- Before a phone number is sent off the phone we should make sure it has country code and is in a good format. 
+- Test pull all numbers from contact list and put them country code format. 
 
 
 Registration with SMS loopback

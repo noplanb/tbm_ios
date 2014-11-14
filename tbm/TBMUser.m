@@ -10,6 +10,7 @@
 #import "TBMAppDelegate.h"
 #import "TBMHttpClient.h"
 #import "OBLogger.h"
+#import "NBPhoneNumberUtil.h"
 
 
 @implementation TBMUser
@@ -93,6 +94,26 @@
     }];
     OB_INFO(@"Created user: %@", user);
     return user;
+}
+
+//------------------------
+// Phone number and region
+//------------------------
++ (NSString *)phoneRegion{
+    NBPhoneNumberUtil *pu = [NBPhoneNumberUtil sharedInstance];
+    
+    TBMUser *u = [TBMUser getUser];
+    
+    if (u == nil)
+        return @"US";
+    
+    NSError *err = nil;
+    NBPhoneNumber *pn = [pu parse:u.mobileNumber defaultRegion:@"US" error:&err];
+    
+    if (err != nil)
+        return @"US";
+    
+    return [pu getRegionCodeForNumber:pn];
 }
 
 @end

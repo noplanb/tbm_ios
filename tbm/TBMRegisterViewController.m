@@ -219,7 +219,7 @@
 TBMHttpClient *hc = [TBMHttpClient sharedClient];
 NSURLSessionDataTask *task = [hc
                               GET:@"reg/debug_get_user"
-                              parameters:@{@"mobile_number": @"6502453537"}
+                              parameters:@{@"mobile_number": self.registerForm.mobileNumber.text}
                               success:^(NSURLSessionDataTask *task, id responseObject) {
                                   DebugLog(@"register success: %@", responseObject);
                                   [_registerForm stopWaitingForServer];

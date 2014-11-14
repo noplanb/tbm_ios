@@ -5,7 +5,7 @@
 //  Created by Sani Elfishawy on 11/4/14.
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
-
+#import "TBMUser.h"
 #import "TBMPhoneUtils.h"
 #import "NBPhoneNumberUtil.h"
 #import "OBLogger.h"
@@ -39,7 +39,7 @@
 + (BOOL) isValidPhone:(NSString *)phone{
     NBPhoneNumberUtil *pu = [NBPhoneNumberUtil sharedInstance];
     NSError *error;
-    NBPhoneNumber *pn = [pu parse:phone defaultRegion:@"US" error:&error];
+    NBPhoneNumber *pn = [pu parse:phone defaultRegion:[TBMUser phoneRegion] error:&error];
     if (error == nil){
         if ([pu isValidNumber:pn])
             return true;
