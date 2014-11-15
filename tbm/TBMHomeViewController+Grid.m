@@ -59,7 +59,6 @@ static NSInteger TBM_HOME_GRID_LABEL_INDEX_OFFSET = 20;
         TBMGridElement *ge = [TBMGridElement findWithIndex:i];
         TBMVideoPlayer *vp = [[TBMVideoPlayer alloc] initWithGridElement:ge view:[self gridViewWithIndex:i]];
         [vps addObject:vp];
-        [vp printSelf];
     }
     [self setVideoPlayers:vps];
 }
@@ -185,7 +184,6 @@ static NSInteger TBM_HOME_GRID_LABEL_INDEX_OFFSET = 20;
 }
 
 - (void) updateVideoViewWithGridElement:(TBMGridElement *)ge{
-    [[[self videoPlayers] objectAtIndex:ge.index] printSelf];
     [[[self videoPlayers] objectAtIndex:ge.index] updateView];
 }
 

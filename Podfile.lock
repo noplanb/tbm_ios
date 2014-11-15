@@ -25,6 +25,11 @@ PODS:
   - OBFileTransfer (0.3.2):
     - OBLogger
   - OBLogger (0.2.0)
+  - RBBAnimation (0.3.0)
+  - SDCAlertView (2.0.1):
+    - RBBAnimation (~> 0.3)
+    - SDCAutoLayout (~> 2.0)
+  - SDCAutoLayout (2.0.2)
   - UIAlertView+Blocks (0.8.1)
 
 DEPENDENCIES:
@@ -33,6 +38,8 @@ DEPENDENCIES:
   - libPhoneNumber-iOS (~> 0.7)
   - OBFileTransfer
   - OBLogger (= 0.2.0)
+  - SDCAlertView
+  - SDCAutoLayout
   - UIAlertView+Blocks
 
 SPEC CHECKSUMS:
@@ -41,6 +48,9 @@ SPEC CHECKSUMS:
   libPhoneNumber-iOS: 98fc07d70c8fdb5e6a8e3442c37e97353065c20e
   OBFileTransfer: a216fe76787c364b302610f644f41349ffb340cd
   OBLogger: 04f68b73a619f4444d5f7d7c7ff9bc3f05c619ae
+  RBBAnimation: 243d73be1a526f1b51d266b182e4aa0cfe9cbf64
+  SDCAlertView: 07ff004fe7adc4216db6344afaa851ea203f6f54
+  SDCAutoLayout: 4a963629725ed2b7d665e789ca4d6cfcd7446822
   UIAlertView+Blocks: 0b749f1f7bd5131ff2233b30a406c1585a7171b2
 
 COCOAPODS: 0.33.1

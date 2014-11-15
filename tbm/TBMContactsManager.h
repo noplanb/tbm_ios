@@ -13,6 +13,8 @@ static const NSString * kContactsManagerLastNameKey = @"lastName";
 static const NSString * kContactsManagerPhoneTypeKey = @"phoneType";
 static const NSString * kContactsManagerPhoneNumberKey = @"phoneNumber";
 static const NSString * kContactsManagerPhonesKey = @"phones";
+static const NSString * kContactsManagerPhonesArrayKey = @"phonesArray";
+
 
 @interface TBMContactsManager : NSObject
 // Instantiation (singleton)

@@ -7,6 +7,7 @@
 //
 
 #import "TBMHomeViewController+Bench.h"
+#import "TBMHomeViewController+Invite.h"
 #import "TBMHomeViewController+Grid.h"
 #import "HexColor.h"
 #import <objc/runtime.h>
@@ -215,7 +216,7 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
         [self hide];
         [self moveFriendToGrid:f];
     }else{
-        DebugLog(@"%@ %@", obj, [[TBMContactsManager sharedInstance] directoryEntryWithFullname:obj]);
+        [self invite:obj];
     }
 }
 
@@ -231,6 +232,7 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
     NSMutableArray *bta = [[NSMutableArray alloc] initWithArray:[self friendsOnBench]];
     [bta addObjectsFromArray:[[TBMContactsManager sharedInstance] getFullNamesHavingAnyPhone]];
     [self setTableArray:bta];
+    DebugLog(@"getAndSetTableArray (%ld)", (unsigned long)[[self tableArray] count]);
 }
 
 

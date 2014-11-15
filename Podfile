@@ -6,4 +6,5 @@ pod 'OBFileTransfer'
 pod 'libPhoneNumber-iOS', '~> 0.7'
 pod 'UIAlertView+Blocks'
 pod 'HexColors'
-
+pod 'SDCAlertView'
+pod "SDCAutoLayout"

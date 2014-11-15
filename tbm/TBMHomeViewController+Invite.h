@@ -8,8 +8,9 @@
 
 #import "TBMHomeViewController.h"
 #import <MessageUI/MFMailComposeViewController.h>
+#import "TBMSelectPhoneTableDelegate.h"
 
 
-@interface TBMHomeViewController (Invite)
-- (void)invite:(NSDictionary *)contact;
+@interface TBMHomeViewController (Invite) <TBMSelectPhoneTableCallback>
+- (void)invite:(NSString *)fullname;
 @end

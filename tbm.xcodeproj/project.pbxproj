@@ -77,6 +77,7 @@
 		2287DB511923141A00B1C298 /* TBMFileTransferMangerDeprecated.m in Sources */ = {isa = PBXBuildFile; fileRef = 2287DB501923141A00B1C298 /* TBMFileTransferMangerDeprecated.m */; };
 		228F0C431A0C7B29008A576F /* TBMHomeViewController+Bench.m in Sources */ = {isa = PBXBuildFile; fileRef = 228F0C421A0C7B29008A576F /* TBMHomeViewController+Bench.m */; };
 		2291DCD11A12D09A00CBB18C /* TBMHomeViewController+Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = 2291DCD01A12D09A00CBB18C /* TBMHomeViewController+Grid.m */; };
+		22A094E71A16C6B4009AB958 /* TBMSelectPhoneTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A094E61A16C6B4009AB958 /* TBMSelectPhoneTableDelegate.m */; };
 		22A375C41930E09E00C355EB /* TBMStringUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A375C31930E09E00C355EB /* TBMStringUtils.m */; };
 		22A76A7A19A2600C00D8C4FF /* TBMFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A76A7919A2600C00D8C4FF /* TBMFriend.m */; };
 		22A76A7D19A2600C00D8C4FF /* TBMVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A76A7C19A2600C00D8C4FF /* TBMVideo.m */; };
@@ -202,6 +203,8 @@
 		228F0C421A0C7B29008A576F /* TBMHomeViewController+Bench.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMHomeViewController+Bench.m"; sourceTree = "<group>"; };
 		2291DCCF1A12D09A00CBB18C /* TBMHomeViewController+Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMHomeViewController+Grid.h"; sourceTree = "<group>"; };
 		2291DCD01A12D09A00CBB18C /* TBMHomeViewController+Grid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMHomeViewController+Grid.m"; sourceTree = "<group>"; };
+		22A094E51A16C6B4009AB958 /* TBMSelectPhoneTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSelectPhoneTableDelegate.h; sourceTree = "<group>"; };
+		22A094E61A16C6B4009AB958 /* TBMSelectPhoneTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSelectPhoneTableDelegate.m; sourceTree = "<group>"; };
 		22A375C21930E09E00C355EB /* TBMStringUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMStringUtils.h; sourceTree = "<group>"; };
 		22A375C31930E09E00C355EB /* TBMStringUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMStringUtils.m; sourceTree = "<group>"; };
 		22A76A7819A2600C00D8C4FF /* TBMFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFriend.h; sourceTree = "<group>"; };
@@ -368,6 +371,8 @@
 				2208E8A41A14195500150C35 /* TBMContactsManager.m */,
 				227F6CF41A15313700E19E5C /* TBMRegisterForm.h */,
 				227F6CF51A15313700E19E5C /* TBMRegisterForm.m */,
+				22A094E51A16C6B4009AB958 /* TBMSelectPhoneTableDelegate.h */,
+				22A094E61A16C6B4009AB958 /* TBMSelectPhoneTableDelegate.m */,
 			);
 			path = tbm;
 			sourceTree = "<group>";
@@ -682,6 +687,7 @@
 				22A76A7A19A2600C00D8C4FF /* TBMFriend.m in Sources */,
 				222724331917F2F500DA6865 /* NSArray+NSArrayExtensions.m in Sources */,
 				223A11491915AED900177481 /* TBMAppDelegate+Boot.m in Sources */,
+				22A094E71A16C6B4009AB958 /* TBMSelectPhoneTableDelegate.m in Sources */,
 				220E903E1909A18B003C4F82 /* tbm.xcdatamodeld in Sources */,
 				2208E8A51A14195500150C35 /* TBMContactsManager.m in Sources */,
 				22093F1B192590CE0021EB0C /* TBMSoundEffect.m in Sources */,

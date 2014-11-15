@@ -12,6 +12,9 @@
 #import "TBMConfig.h"
 #import <objc/runtime.h>
 #import "TBMPhoneUtils.h"
+#import "SDCAlertController.h"
+#import "UIView+SDCAutoLayout.h"
+
 
 @implementation TBMHomeViewController (Invite)
 
@@ -39,10 +42,17 @@
 - (NSMutableSet *)validPhones {
     return (NSMutableSet *)objc_getAssociatedObject(self, @selector(validPhones));
 }
-
+// @property selectPhoneTableDelegate
+- (void)setSptDelegate:(TBMSelectPhoneTableDelegate *)obj {
+    objc_setAssociatedObject(self, @selector(sptDelegate), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (TBMSelectPhoneTableDelegate *)sptDelegate {
+    return (TBMSelectPhoneTableDelegate *)objc_getAssociatedObject(self, @selector(sptDelegate));
+}
 
 
 - (void)invite:(NSString *)fullname{
+    OB_INFO(@"invite: %@", fullname);
     [self setFullname:fullname];
     [self setContact: [[TBMContactsManager sharedInstance] contactWithFullname:fullname]];
     
@@ -77,11 +87,35 @@
     [[[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show ];
 }
 
-- (void)selectPhoneNumberDialog{
-    // use https://github.com/sberrevoets/SDCAlertView
-}
-
 - (void)sendLinkDialog{
     
 }
+
+- (void)selectPhoneNumberDialog{
+    NSString *title = [NSString stringWithFormat:@"%@'s mobile?", [[self contact] objectForKey:kContactsManagerFirstNameKey]];
+    SDCAlertController *sa = [SDCAlertController alertControllerWithTitle:title message:nil preferredStyle:SDCAlertControllerStyleAlert];
+
+    CGRect f;
+    f.origin.x = 0;
+    f.origin.y = 0;
+    f.size.width = sa.view.frame.size.width;
+    f.size.height = 200;
+    UITableView *tv = [[UITableView alloc] initWithFrame:f];
+    
+    // I have to do this delegate class stupidity becuase bench is another category of HomeViewController which is already a TableViewDelegate
+    // and there wasnt a cleaner way to keep them from stomping on each other as they are visible across categories.
+    [self setSptDelegate: [[TBMSelectPhoneTableDelegate alloc] initWithContact:[self contact] delegate:self]];
+    [tv setDelegate:[self sptDelegate]];
+    [tv setDataSource:[self sptDelegate]];
+    [sa.contentView addSubview:tv];
+    [tv sdc_setMaximumWidthToSuperviewWidth];
+
+    [sa presentWithCompletion:nil];
+}
+
+- (void)didClickOnPhoneObject:(NSDictionary *)phoneObject{
+    DebugLog(@"%@", phoneObject);
+}
+
+
 @end

@@ -22,7 +22,7 @@
 // Create
 //-------
 - (instancetype)initWithGridElement:(TBMGridElement *)gridElement view:(UIView *)view{
-    OB_INFO(@"TBMVideoPlayer: initWithGridElement: %@ view:%@",gridElement, view );
+    //OB_INFO(@"TBMVideoPlayer: initWithGridElement:");
     self = [super init];
     if (self){
         _gridElement = gridElement;
@@ -135,17 +135,15 @@
 // View control
 // ------------
 - (void)updateView{
-    DebugLog(@"updateView: ge:%@ gv:%@", _gridElement, _gridView);
     [self updateViewedIndicator];
     [self playNewMessageToneIfNecessary];
     [self updateThumbNail];
 }
 
 - (void)updateThumbNail{
-    DebugLog(@"updateThumbNail: ge:%@ gv:%@", _gridElement, _gridView);
     if (_gridElement.friend == nil)
         return;
-    
+    DebugLog(@"updateThumbNail: %@", _gridElement.friend.firstName);
     [_gridView setBackgroundColor:[UIColor clearColor]];
     _thumbView.image = [_gridElement.friend thumbImageOrThumbMissingImage];
     [_thumbView setNeedsDisplay];

@@ -58,10 +58,15 @@
 }
 
 - (NSDictionary *)contactWithFullname:(NSString *)fullname{
-    if ([self setup])
-        return [self.contactsDirectory objectForKey:fullname];
-    else
+    if ([self setup]){
+        NSMutableDictionary *r = [self.contactsDirectory objectForKey:fullname];
+        NSSet *phonesSet = [r objectForKey:kContactsManagerPhonesKey];
+        NSArray *phonesArray = [phonesSet allObjects];
+        [r setObject:phonesArray forKey:kContactsManagerPhonesArrayKey];
+        return r;
+    } else {
         return nil;
+    }
 }
 
 
@@ -83,7 +88,7 @@
     [self loadContactsDirectory];
     [self setFullnamesHavingPhone];
     self.isSetup = YES;
-    OB_INFO(@"ContactsManager: setting up complete");
+    OB_INFO(@"ContactsManager: setting up complete: (%lu)", (unsigned long)[[self fullnamesHavingPhone] count]);
     return YES;
 }
 
