@@ -7,7 +7,6 @@
 //
 #import "TBMUser.h"
 #import "TBMPhoneUtils.h"
-#import "NBPhoneNumberUtil.h"
 #import "OBLogger.h"
 
 @implementation TBMPhoneUtils

@@ -39,11 +39,12 @@ static NSString *SelectPhoneCellReuseId = @"phoneCell";
     NSDictionary *pinfo = [[self.contact objectForKey:kContactsManagerPhonesArrayKey] objectAtIndex:indexPath.row];
     NSString *pn = [pinfo objectForKey:kContactsManagerPhoneNumberKey];
     NSString *pt = [pinfo objectForKey:kContactsManagerPhoneTypeKey];
-    DebugLog(@"%@", pinfo);
     
     UITableViewCell *pc = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:SelectPhoneCellReuseId];
     pc.textLabel.text = pn;
     pc.detailTextLabel.text = pt;
+    
+    DebugLog(@"cell height %f", pc.frame.size.height);
     return pc;
 }
 

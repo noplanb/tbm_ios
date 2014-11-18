@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NBPhoneNumberUtil.h"
 
 @interface TBMPhoneUtils : NSObject
 + (NSString *)phone:(NSString *)phone withFormat:(int)format;

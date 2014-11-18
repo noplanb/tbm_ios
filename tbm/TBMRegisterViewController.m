@@ -264,7 +264,7 @@ NSURLSessionDataTask *task = [hc
 //--------
 - (void) connectionError{
     DebugLog(@"connectionError:");
-    NSString *msg = [NSString stringWithFormat:@"Unable to reach the %@ please check your Internet connection and try again.", TBMConfig.appName];
+    NSString *msg = [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", TBMConfig.appName];
     [self showErrorDialogWithTitle:@"Try Again" msg:msg];
 }
 
