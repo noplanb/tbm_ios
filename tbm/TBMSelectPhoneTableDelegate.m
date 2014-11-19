@@ -50,14 +50,14 @@ static NSString *SelectPhoneCellReuseId = @"phoneCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     DebugLog(@"numberOfRowsInSection");
-    return [[self.contact objectForKey:kContactsManagerPhonesKey] count];
+    return [[self.contact objectForKey:kContactsManagerPhonesSetKey] count];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     DebugLog(@"didSelectRowAtIndexPath");
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSDictionary *pinfo = [[self.contact objectForKey:kContactsManagerPhonesKey] objectAtIndex:indexPath.row];
+    NSDictionary *pinfo = [[self.contact objectForKey:kContactsManagerPhonesSetKey] objectAtIndex:indexPath.row];
     [[self delegate] didClickOnPhoneObject:pinfo];
 }
 

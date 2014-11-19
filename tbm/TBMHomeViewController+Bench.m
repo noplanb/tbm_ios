@@ -209,11 +209,10 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    [self hide];
     id obj = [[self tableArray] objectAtIndex:indexPath.row];
     if ([obj isKindOfClass:[TBMFriend class]]){
         TBMFriend *f = (TBMFriend *) obj;
-        [self hide];
         [self moveFriendToGrid:f];
     }else{
         [self invite:obj];

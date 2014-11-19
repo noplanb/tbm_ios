@@ -85,6 +85,7 @@
 		22A8F50B1A099C7600F7AD0E /* TBMPhoneUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A8F50A1A099C7600F7AD0E /* TBMPhoneUtils.m */; };
 		22BF060519D4A5FC00F6E025 /* TBMHomeViewController+Invite.m in Sources */ = {isa = PBXBuildFile; fileRef = 22BF060419D4A5FC00F6E025 /* TBMHomeViewController+Invite.m */; };
 		22CC5E5F1A1AD9A900AAFB75 /* TBMTableModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CC5E5E1A1AD9A900AAFB75 /* TBMTableModal.m */; };
+		22DACC7B1A1D015700B2F750 /* TBMContentViewModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 22DACC7A1A1D015700B2F750 /* TBMContentViewModal.m */; };
 		22EA56B619103A3F00646D3E /* single_ding_chimes.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22EA56B519103A3F00646D3E /* single_ding_chimes.wav */; };
 		22EA56BB19103E4B00646D3E /* single_ding_chimes2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22EA56BA19103E4B00646D3E /* single_ding_chimes2.wav */; };
 		22EA56BE191068B700646D3E /* TBMVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 22EA56BD191068B700646D3E /* TBMVideoPlayer.m */; };
@@ -220,6 +221,8 @@
 		22BF060419D4A5FC00F6E025 /* TBMHomeViewController+Invite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMHomeViewController+Invite.m"; sourceTree = "<group>"; };
 		22CC5E5D1A1AD9A900AAFB75 /* TBMTableModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMTableModal.h; sourceTree = "<group>"; };
 		22CC5E5E1A1AD9A900AAFB75 /* TBMTableModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMTableModal.m; sourceTree = "<group>"; };
+		22DACC791A1D015700B2F750 /* TBMContentViewModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMContentViewModal.h; sourceTree = "<group>"; };
+		22DACC7A1A1D015700B2F750 /* TBMContentViewModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMContentViewModal.m; sourceTree = "<group>"; };
 		22EA56B519103A3F00646D3E /* single_ding_chimes.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = single_ding_chimes.wav; sourceTree = "<group>"; };
 		22EA56BA19103E4B00646D3E /* single_ding_chimes2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = single_ding_chimes2.wav; sourceTree = "<group>"; };
 		22EA56BC191068B700646D3E /* TBMVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoPlayer.h; sourceTree = "<group>"; };
@@ -378,6 +381,8 @@
 				22A094E61A16C6B4009AB958 /* TBMSelectPhoneTableDelegate.m */,
 				22CC5E5D1A1AD9A900AAFB75 /* TBMTableModal.h */,
 				22CC5E5E1A1AD9A900AAFB75 /* TBMTableModal.m */,
+				22DACC791A1D015700B2F750 /* TBMContentViewModal.h */,
+				22DACC7A1A1D015700B2F750 /* TBMContentViewModal.m */,
 			);
 			path = tbm;
 			sourceTree = "<group>";
@@ -705,6 +710,7 @@
 				22A8F5081A09608800F7AD0E /* TBMTextField.m in Sources */,
 				22EA56C119106AD100646D3E /* TBMConfig.m in Sources */,
 				224101D7190D5171005128F9 /* TBMVideoRecorder.m in Sources */,
+				22DACC7B1A1D015700B2F750 /* TBMContentViewModal.m in Sources */,
 				2261417A19A54D16006FB870 /* TBMHomeViewController+VersionController.m in Sources */,
 				22A8F50B1A099C7600F7AD0E /* TBMPhoneUtils.m in Sources */,
 				220E90371909A18B003C4F82 /* main.m in Sources */,

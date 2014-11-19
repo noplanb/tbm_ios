@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-static NSString *CONFIG_APP_NAME = @"Three By Me";
+static NSString *CONFIG_APP_NAME = @"Zazo";
 
 // Make sure these 4 are set correctly before a release.
 static NSString *CONFIG_VERSION_NUMBER = @"18";

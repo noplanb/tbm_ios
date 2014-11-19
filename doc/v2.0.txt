@@ -102,25 +102,29 @@ InviteManager
   - Manages invites for person not currently a friend
   - Allows Tickle of friend where !hasApp
   
-- Scenario:
-  - Invite a person who is not currently a friend.
-  - Sends the info to the server and gets back the friend.
-    - HasApp field for friend.
-  - Adds the friend.
-    - Add object
-    - Add to grid
-  - Send text message to the friend if !hasApp.
-  - Tickle friend when !hasApp
-  - Set hasApp when receive first message
+- Possible Scenarios 
+  - No valid phone for contact selected.
+  x Single valid phone for contact selected.
+  x Multiple valid phones for contact selected
+  - get has app from server
+    x Server not responding
+    x Server responds with failure due to phone not valid
+    - Server responds hasApp
+    - Server responds !hasApp
+    - Server stalled shows spinner
+  x PreSms dialog
+    x Cancel (terminate the invite)
+    x Send
+  x Sms dialog
+    x cancel (terminate the invite)
+    x send
+  - getFriend
+    x Server not responding
+    x Server responds with failure due to phone not valid
+    - Server responds hasApp
+    - Server responds !hasApp
+    - Server stalled shows spinner    
   
-- Instantiation: 
-  - multiple
-  
-IMPORTANT: Add a flag in connection to say whether Target is a new recruit for statistics purposes.
-
-TESTs:
-- Should ignore invalid phone numbers
-- Should present valid ones to choose from
 
 
 Handling phone numbers.

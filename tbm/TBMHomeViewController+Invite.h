@@ -7,10 +7,10 @@
 //
 
 #import "TBMHomeViewController.h"
-#import <MessageUI/MFMailComposeViewController.h>
+#import <MessageUI/MFMessageComposeViewController.h>
 #import "TBMTableModal.h"
 
 
-@interface TBMHomeViewController (Invite) <TBMTableModalDelegate>
+@interface TBMHomeViewController (Invite) <TBMTableModalDelegate, MFMessageComposeViewControllerDelegate>
 - (void)invite:(NSString *)fullname;
 @end

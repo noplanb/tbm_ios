@@ -304,7 +304,6 @@ NSURLSessionDataTask *task = [hc
     };
     
     [av show];
-
 }
 
 - (void) showGetFriendsServerErrorDialog{

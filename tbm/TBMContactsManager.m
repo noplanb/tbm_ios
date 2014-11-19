@@ -60,7 +60,7 @@
 - (NSDictionary *)contactWithFullname:(NSString *)fullname{
     if ([self setup]){
         NSMutableDictionary *r = [self.contactsDirectory objectForKey:fullname];
-        NSSet *phonesSet = [r objectForKey:kContactsManagerPhonesKey];
+        NSSet *phonesSet = [r objectForKey:kContactsManagerPhonesSetKey];
         NSArray *phonesArray = [phonesSet allObjects];
         [r setObject:phonesArray forKey:kContactsManagerPhonesArrayKey];
         return r;
@@ -114,7 +114,7 @@
 }
 
 - (BOOL)directoryEntryHasMobile:(NSString *)fullname{
-    NSArray *pns = [[self.contactsDirectory objectForKey:fullname] objectForKey:kContactsManagerPhonesKey];
+    NSArray *pns = [[self.contactsDirectory objectForKey:fullname] objectForKey:kContactsManagerPhonesSetKey];
     for (NSDictionary *pn in pns){
         DebugLog(@"Checking %@", [pn objectForKey:kContactsManagerPhoneTypeKey]);
         if ([[pn objectForKey:kContactsManagerPhoneTypeKey] isEqual:(__bridge id)ABAddressBookCopyLocalizedLabel(kABPersonPhoneMobileLabel)])
@@ -124,7 +124,7 @@
 }
 
 - (BOOL)directoryEntryHasPhone:(NSString *)fullname{
-    NSArray *pns = [[self.contactsDirectory objectForKey:fullname] objectForKey:kContactsManagerPhonesKey];
+    NSArray *pns = [[self.contactsDirectory objectForKey:fullname] objectForKey:kContactsManagerPhonesSetKey];
     return [pns count] > 0;
 }
 
@@ -163,13 +163,13 @@
             entry = [[NSMutableDictionary alloc] init];
             [entry setObject:(__bridge id)(firstName) forKey:kContactsManagerFirstNameKey];
             [entry setObject:(__bridge id)(lastName) forKey:kContactsManagerLastNameKey];
-            [entry  setObject:[self phoneNumbersWithRecord:p] forKey:kContactsManagerPhonesKey];
+            [entry  setObject:[self phoneNumbersWithRecord:p] forKey:kContactsManagerPhonesSetKey];
             // DebugLog(@"Creating phone numbers %@", [self phoneNumbersWithRecord:p]);
             [self.contactsDirectory setObject:entry forKey:fullName];
         } else {
             // DebugLog(@"Found entry for %@", fullName);
             // DebugLog(@"Added phone numbers %@", [self phoneNumbersWithRecord:p]);
-            [(NSMutableSet *)[entry objectForKey:kContactsManagerPhonesKey] unionSet:[self phoneNumbersWithRecord:p]];
+            [(NSMutableSet *)[entry objectForKey:kContactsManagerPhonesSetKey] unionSet:[self phoneNumbersWithRecord:p]];
             // DebugLog(@"Unique numbers: %@", [entry objectForKey:kContactsManagerPhonesKey]);
         }
     }

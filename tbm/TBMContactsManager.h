@@ -12,7 +12,7 @@ static const NSString * kContactsManagerFirstNameKey = @"firstName";
 static const NSString * kContactsManagerLastNameKey = @"lastName";
 static const NSString * kContactsManagerPhoneTypeKey = @"phoneType";
 static const NSString * kContactsManagerPhoneNumberKey = @"phoneNumber";
-static const NSString * kContactsManagerPhonesKey = @"phones";
+static const NSString * kContactsManagerPhonesSetKey = @"phonesSet";
 static const NSString * kContactsManagerPhonesArrayKey = @"phonesArray";
 
 

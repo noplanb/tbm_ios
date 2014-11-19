@@ -13,10 +13,11 @@
 @property (nonatomic) UIView *parentView;
 @property (nonatomic) NSArray *rowData;
 @property (nonatomic) id <TBMTableModalDelegate> delegate;
+
+@property (nonatomic) float titleHeight;
+@property (nonatomic) int modalTag;
 @end
 
-static float TBMTableModalTitleHeight = 50;
-static int TBMTableModalTag = 9111;
 static NSString *TBMTableReuseId = @"tableModalReuseId";
 
 @implementation TBMTableModal
@@ -31,6 +32,9 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
         _title = title;
         _rowData = rowData;
         _delegate = delegate;
+        
+        _titleHeight = 60;
+        _modalTag = 93470095;
     }
     return self;
 }
@@ -45,7 +49,7 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
 
 - (void) hide{
     for (UIView *v in [self.parentView subviews]){
-        if (v.tag == TBMTableModalTag)
+        if (v.tag == self.modalTag)
             [v removeFromSuperview];
     }
 }
@@ -56,7 +60,7 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
 - (UIView *) dimParent{
     UIView *dp = [[UIView alloc] initWithFrame:self.parentView.frame];
     [dp setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.3]];
-    dp.tag = TBMTableModalTag;
+    dp.tag = self.modalTag;
     return dp;
 }
 
@@ -67,9 +71,9 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
     f.size.width = [self modalWidth];
     f.size.height = [self modalHeight];
     UIView *modal = [[UIView alloc] initWithFrame:f];
+    modal.tag = self.modalTag;
     [modal addSubview:[self titleLabel]];
     [modal addSubview:[self table]];
-    [modal setTag:9111];
     modal.layer.masksToBounds = YES;
     modal.layer.cornerRadius = 5;
     modal.backgroundColor = [UIColor colorWithWhite:255 alpha:1];
@@ -81,7 +85,7 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
     f.origin.x = 0;
     f.origin.y = 0;
     f.size.width = [self modalWidth];
-    f.size.height = TBMTableModalTitleHeight;
+    f.size.height = self.titleHeight;
     UILabel *title = [[UILabel alloc] initWithFrame:f];
     [title setText: self.title];
     title.font = [UIFont boldSystemFontOfSize:22];
@@ -93,7 +97,7 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
 - (UITableView *)table{
     CGRect f;
     f.origin.x = 0;
-    f.origin.y = TBMTableModalTitleHeight;
+    f.origin.y = self.titleHeight;
     f.size.width = [self modalWidth];
     f.size.height = [self tableHeight];
     UITableView *tv = [[UITableView alloc] initWithFrame:f];
@@ -118,7 +122,7 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
 }
 
 - (float) modalHeight{
-    return TBMTableModalTitleHeight + [self tableHeight];
+    return self.titleHeight + [self tableHeight];
 }
 
 - (float)screenWidth{
@@ -134,11 +138,10 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
 }
 
 - (float)maxTableHeight{
-    return [self maxModalHeight] - TBMTableModalTitleHeight;
+    return [self maxModalHeight] - self.titleHeight;
 }
 
 - (float)tableHeight{
-    NSLog(@"TableHeight: %ld %f ", (unsigned long)[[self rowData] count], [self tableCellHeight]);
     float fullHeight = [[self rowData] count] * [self tableCellHeight];
     return fminf(fullHeight, [self maxTableHeight]);
 }
@@ -200,8 +203,8 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self.delegate didSelectRow:indexPath.row];
     [self hide];
+    [self.delegate didSelectRow:indexPath.row];
 }
 
 @end
