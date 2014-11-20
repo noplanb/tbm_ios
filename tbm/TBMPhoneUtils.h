@@ -12,4 +12,5 @@
 @interface TBMPhoneUtils : NSObject
 + (NSString *)phone:(NSString *)phone withFormat:(int)format;
 + (BOOL) isValidPhone:(NSString *)phone;
++ (BOOL) isNumberMatch:(NSString *)n1 secondNumber:(NSString *)n2;
 @end

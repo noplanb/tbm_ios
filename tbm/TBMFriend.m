@@ -18,6 +18,7 @@
 #import "TBMHomeViewController.h"
 #import "OBLogger.h"
 #import "TBMHttpClient.h"
+#import "TBMPhoneUtils.h"
 
 @implementation TBMFriend
 
@@ -99,6 +100,14 @@ static NSMutableArray * videoStatusNotificationDelegates;
     return result;
 }
 
++ (instancetype)findWithMatchingPhoneNumber:(NSString *)phone{
+    for (TBMFriend *f in [TBMFriend all]){
+        if ([TBMPhoneUtils isNumberMatch:phone secondNumber:f.mobileNumber])
+            return f;
+    }
+    return nil;
+}
+
 + (NSUInteger)count{
     return [[TBMFriend all] count];
 }
@@ -117,6 +126,12 @@ static NSMutableArray * videoStatusNotificationDelegates;
 }
 
 + (instancetype)createWithServerParams:(NSDictionary *)params{
+    TBMFriend *f = [TBMFriend findWithMkey:[params objectForKey:SERVER_PARAMS_FRIEND_MKEY_KEY]];
+    if (f != nil){
+        OB_WARN(@"createWithServerParams: friend already exists. Not creating.");
+        return f;
+    }
+    
     __block TBMFriend *friend;
     [[TBMFriend managedObjectContext] performBlockAndWait:^{
         friend = (TBMFriend *)[[NSManagedObject alloc]

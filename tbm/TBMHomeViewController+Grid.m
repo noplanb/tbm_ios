@@ -126,8 +126,10 @@ static NSInteger TBM_HOME_GRID_LABEL_INDEX_OFFSET = 20;
 - (void)moveFriendToGrid:(TBMFriend *)friend{
     OB_INFO(@"moveFriendToGrid: %@", friend.firstName);
     [self rankingActionOccurred:friend];
-    if ([TBMGridElement friendIsOnGrid:friend])
+    if ([TBMGridElement friendIsOnGrid:friend]){
+        [self highlightElement:[TBMGridElement findWithFriend:friend]];
         return;
+    }
     
     TBMGridElement *ge = [self nextAvailableGridElement];
     OB_INFO(@"moveFriendToGrid: %@", ge);

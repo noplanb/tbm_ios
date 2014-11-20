@@ -54,6 +54,7 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 + (instancetype)findWithId:(NSString *)idTbm;
 + (instancetype)findWithOutgoingVideoId:(NSString *)videoId;
 + (instancetype)findWithMkey:(NSString *)mkey;
++ (instancetype)findWithMatchingPhoneNumber:(NSString *)phone;
 + (NSUInteger)count;
 
 // Incoming videos

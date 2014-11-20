@@ -8,6 +8,6 @@
 
 #import "TBMHomeViewController.h"
 
-@interface TBMHomeViewController (Bench) <UITableViewDataSource, UITableViewDelegate>
+@interface TBMHomeViewController (Bench) <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 - (void)addBenchGestureRecognizers;
 @end

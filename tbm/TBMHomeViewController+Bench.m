@@ -110,7 +110,13 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
     sb.placeholder = @"Search";
     sb.searchBarStyle = UISearchBarStyleProminent;
     sb.barTintColor = [UIColor colorWithHexString:BENCH_BACKGROUND_COLOR];
+    sb.delegate = self;
+    sb.showsCancelButton = YES;
     [self setsearchBar:sb];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    DebugLog(@"%@", [[TBMContactsManager sharedInstance] fullnamesMatchingSubstr:searchText limit:10]);
 }
 
 - (void)makeBenchTable{

@@ -50,5 +50,27 @@
     }
 }
 
++ (BOOL) isNumberMatch:(NSString *)n1 secondNumber:(NSString *)n2{
+    NBPhoneNumberUtil *pu = [NBPhoneNumberUtil sharedInstance];
+    
+    NSError *error;
+    
+    NBPhoneNumber *pn1 = [pu parse:n1 defaultRegion:[TBMUser phoneRegion] error:&error];
+    if (error != nil)
+        return NO;
+    
+    NBPhoneNumber *pn2 = [pu parse:n2 defaultRegion:[TBMUser phoneRegion] error:&error];
+    if (error != nil)
+        return NO;
+    
+    NBEMatchType match = [pu isNumberMatch:pn1 second:pn2 error:&error];
+    if (error != nil)
+        return NO;
+    
+    if (match == NBEMatchTypeEXACT_MATCH)
+        return YES;
+    
+    return NO;
+}
 
 @end

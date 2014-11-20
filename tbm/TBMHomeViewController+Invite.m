@@ -100,6 +100,13 @@
 
     [self getValidPhones];
 
+    TBMFriend *f = [self matchingFriend];
+    if (f != nil){
+        [self setFriend:f];
+        [self connectedDialog];
+        return;
+    }
+    
     if ([self validPhones].count == 0) {
         [self noValidPhonesDialog];
         return;
@@ -128,10 +135,23 @@
     }
 }
 
+- (TBMFriend *)matchingFriend{
+    for (NSArray *pa in [self validPhones]){
+        NSString *p = [pa objectAtIndex:0];
+        TBMFriend *f = [TBMFriend findWithMatchingPhoneNumber:p];
+        if (f != nil)
+            return f;
+    }
+    return nil;
+}
+
+//--------
+// Dialogs
+//--------
 - (void)noValidPhonesDialog{
     NSString *title = @"No Mobile Number";
     NSString *msg = [NSString stringWithFormat:@"I could not find a valid mobile number for %@.\n\nPlease add a mobile number for %@ in your device contacts, kill %@, then try again.", [self fullname], [self firstName], CONFIG_APP_NAME];
-    [[[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show ];
+    [[[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show ];
 }
 
 - (void)selectPhoneNumberDialog{
@@ -223,9 +243,19 @@
         return;
     
     [self setFriend:[TBMFriend createWithServerParams:params]];
-    
+    [self connectedDialog];
 }
 
+- (void) connectedDialog{
+    NSString *msg = [NSString stringWithFormat:@"You and %@ are connected.\n\nRecord a welcome %@ to %@ now.", [self firstName], CONFIG_APP_NAME, [self firstName]];
+    UIAlertView  *av = [[UIAlertView alloc] initWithTitle:@"You Are Connected" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    
+    av.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex){
+        [self moveFriendToGrid:[self friend]];
+    };
+    
+    [av show];
+}
 
 //----------------------------------
 // SMS dialog and sending invite sms
@@ -234,7 +264,7 @@
     NSString *msg = [NSString stringWithFormat:@"%@ has not installed %@ yet.\n\nSend them a link!", [self firstName], CONFIG_APP_NAME];
     UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Invite"
                                                  message:msg
-                                                delegate:self
+                                                delegate:nil
                                        cancelButtonTitle:@"Cancel"
                                        otherButtonTitles:@"Send", nil];
     
@@ -373,7 +403,7 @@
     NSString *msg = [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", CONFIG_APP_NAME];
     return [[UIAlertView alloc] initWithTitle:@"Bad Connection"
                                       message:msg
-                                     delegate:self
+                                     delegate:nil
                             cancelButtonTitle:@"Cancel"
                             otherButtonTitles:@"Try Again", nil];
 }

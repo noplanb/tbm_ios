@@ -47,7 +47,7 @@
     if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized && !self.isSetup)
         [self setup];
     else
-        OB_WARN(@"ContactsManager: not prefetching because no access granted.");
+        OB_WARN(@"ContactsManager: not prefetching because no access granted or contacts were already setup.");
 }
 
 - (NSArray *) getFullNamesHavingAnyPhone{
@@ -69,6 +69,26 @@
     }
 }
 
+- (NSArray*) fullnamesMatchingSubstr:(NSString *)str limit:(int)limit{
+    __block int i = 0;
+    NSIndexSet *matchSet = [[self fullnamesHavingPhone] indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        if ([(NSString *)obj rangeOfString:str options:NSCaseInsensitiveSearch].location != NSNotFound){
+            i++;
+            if (i >= limit)
+                *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+    
+    NSMutableArray *matchingNames = [[NSMutableArray alloc] init];
+    [matchSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        NSString *fullname = [self.fullnamesHavingPhone objectAtIndex:idx];
+        [matchingNames addObject: fullname];
+    }];
+    
+    return [matchingNames sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+}
 
 //-------------------------------------------------
 // Setup contactsDirectory and fullnamesHavingPhone
@@ -89,6 +109,8 @@
     [self setFullnamesHavingPhone];
     self.isSetup = YES;
     OB_INFO(@"ContactsManager: setting up complete: (%lu)", (unsigned long)[[self fullnamesHavingPhone] count]);
+    
+    DebugLog(@"Matching sa: %@", [self fullnamesMatchingSubstr:@"sa" limit:10]);
     return YES;
 }
 
@@ -124,7 +146,7 @@
 }
 
 - (BOOL)directoryEntryHasPhone:(NSString *)fullname{
-    NSArray *pns = [[self.contactsDirectory objectForKey:fullname] objectForKey:kContactsManagerPhonesSetKey];
+    NSSet *pns = [[self.contactsDirectory objectForKey:fullname] objectForKey:kContactsManagerPhonesSetKey];
     return [pns count] > 0;
 }
 

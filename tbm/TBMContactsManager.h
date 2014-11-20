@@ -20,8 +20,9 @@ static const NSString * kContactsManagerPhonesArrayKey = @"phonesArray";
 // Instantiation (singleton)
 + (instancetype)sharedInstance;
 
-// Public properties
+// Public methods
 - (void)prefetchOnlyIfHasAccess;
 - (NSArray *) getFullNamesHavingAnyPhone;
 - contactWithFullname:(NSString *)fullname;
+- (NSArray*) fullnamesMatchingSubstr:(NSString *)str limit:(int)limit;
 @end
