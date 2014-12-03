@@ -128,7 +128,20 @@ x Possible Scenarios
 
 Contact Search
 --------------
+In homeViewController+Bench
+- Start editing
+  - Add cancel button
+  - Hide BenchTable
+  - Show Search results table
 
+- Keystroke
+  - Populate the search results backing array.
+  - Call reload data on the searchResults table.
+  
+- Done editing
+  - Hide cancel
+  - Replace benchTable
+  - Remove contact search table
 
 Handling phone numbers.
 ----------------------

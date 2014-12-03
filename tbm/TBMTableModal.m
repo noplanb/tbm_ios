@@ -100,7 +100,7 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
     f.origin.y = self.titleHeight;
     f.size.width = [self modalWidth];
     f.size.height = [self tableHeight];
-    UITableView *tv = [[UITableView alloc] initWithFrame:f];
+    UITableView *tv = [[UITableView alloc] initWithFrame:f style:UITableViewStylePlain];
     [tv setDelegate:self];
     [tv setDataSource:self];
     return tv;

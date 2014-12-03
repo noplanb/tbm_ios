@@ -1,3 +1,5 @@
+NOTICE: THIS HAS BEEN MOVED TO LOCAL FILE: Documents/Zazo/MasterTodo.txt. Use that file instead of this as this one is different depending on the branch you are on.
+
 BUGS
 - Swipe away while recording should show not sent indicator.
 - Kons messages sometimes coming in as 404? Check server state?
@@ -6,7 +8,7 @@ BUGS
 - Iphone sending with no sound.
 - Sometimes we get a which we cannot play and where we cannot get the thumbnail. In this case we should delete the video. It should download again due to polling most probably.
 
-- If donwloading when user clicks play dont play toast downloading
+- If donwnloading when user clicks play dont play toast downloading
 
 
 ARCHITECTURE
@@ -15,8 +17,6 @@ ARCHITECTURE
 
 FEATURES
 - Invite which of your other friends would be interested in adding this person...
-- Add link on plus sign to send email about adding people.
-
 - Add polling for status
 - Make the last frame the poster frame.
 - Custom notification tone for our app

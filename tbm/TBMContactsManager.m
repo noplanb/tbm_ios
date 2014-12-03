@@ -70,6 +70,9 @@
 }
 
 - (NSArray*) fullnamesMatchingSubstr:(NSString *)str limit:(int)limit{
+    if (str == nil || str.length == 0)
+        return [[NSArray alloc] init];
+    
     __block int i = 0;
     NSIndexSet *matchSet = [[self fullnamesHavingPhone] indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         if ([(NSString *)obj rangeOfString:str options:NSCaseInsensitiveSearch].location != NSNotFound){

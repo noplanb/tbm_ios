@@ -15,6 +15,7 @@
 #import "TBMFriend.h"
 #import "TBMContactsManager.h"
 #import "OBLogger.h"
+#import "TBMContactSearchTableDelegate.h"
 
 static NSString *BENCH_BACKGROUND_COLOR = @"#555";
 static NSString *BENCH_TEXT_COLOR = @"#fff";
@@ -27,43 +28,53 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
 // Instance variables as associated objects
 //-----------------------------------------
 // @property benchView
-// @property benchTable
-// @property searchBar
-// @property tableArray
-// @property isSetup
 - (void)setBenchView:(UIView *)obj {
     objc_setAssociatedObject(self, @selector(benchView), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 - (UIView *)benchView {
     return (UIView *)objc_getAssociatedObject(self, @selector(benchView));
 }
-
+// @property benchTable
 - (void)setBenchTable:(UITableView *)obj {
     objc_setAssociatedObject(self, @selector(benchTable), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 - (UITableView *)benchTable {
     return (UITableView *)objc_getAssociatedObject(self, @selector(benchTable));
 }
-
+// @property searchBar
 - (void)setsearchBar:(UISearchBar *)obj {
     objc_setAssociatedObject(self, @selector(searchBar), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 - (UISearchBar *)searchBar {
     return (UISearchBar *)objc_getAssociatedObject(self, @selector(searchBar));
 }
-
+// @property tableArray
 - (void)setTableArray:(NSArray *)obj {
     objc_setAssociatedObject(self, @selector(tableArray), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 - (NSArray *)tableArray {
     return (NSArray *)objc_getAssociatedObject(self, @selector(tableArray));
 }
-
+// @property isSetup
 - (void)setIsSetup:(BOOL)obj {
     objc_setAssociatedObject(self, @selector(isSetup), [NSNumber numberWithBool:obj], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 - (BOOL)isSetup {
     return [objc_getAssociatedObject(self, @selector(isSetup)) boolValue];
+}
+// @property searchTable
+- (void)setSearchTable:(UITableView *)obj{
+    objc_setAssociatedObject(self, @selector(searchTable), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (UITableView *)searchTable{
+    return objc_getAssociatedObject(self, @selector(searchTable));
+}
+// @property searchTableDelegate
+- (void)setSearchTableDelegate:(TBMContactSearchTableDelegate *)obj{
+    objc_setAssociatedObject(self, @selector(searchTableDelegate), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (TBMContactSearchTableDelegate *)searchTableDelegate{
+    return objc_getAssociatedObject(self, @selector(searchTableDelegate));
 }
 
 //----------------
@@ -80,12 +91,15 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
     [self makeSearchBar];
     [self getAndSetTableArray];
     [self makeBenchTable];
+    [self makeSearchTable];
     
     [[self benchView] addSubview:[self searchBar]];
     [[self benchView] addSubview:[self benchTable]];
+    [[self benchView] addSubview:[self searchTable]];
     [[self view] addSubview:[self benchView]];
     [[self view] setNeedsDisplay];
     [self hide];
+    [self hideSearch];
     [self setIsSetup:YES];
 }
 
@@ -111,20 +125,30 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
     sb.searchBarStyle = UISearchBarStyleProminent;
     sb.barTintColor = [UIColor colorWithHexString:BENCH_BACKGROUND_COLOR];
     sb.delegate = self;
-    sb.showsCancelButton = YES;
+    sb.showsCancelButton = NO;
     [self setsearchBar:sb];
 }
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-    DebugLog(@"%@", [[TBMContactsManager sharedInstance] fullnamesMatchingSubstr:searchText limit:10]);
-}
-
 - (void)makeBenchTable{
-    UITableView *bt = [[UITableView alloc] initWithFrame:[self benchTableRect]];
+    UITableView *bt = [[UITableView alloc] initWithFrame:[self benchTableRect] style:UITableViewStylePlain];
     [bt setBackgroundColor:[UIColor colorWithHexString:BENCH_BACKGROUND_COLOR alpha:1]];
     [bt setDataSource:self];
     [bt setDelegate:self];
     [self setBenchTable:bt];
+}
+
+- (void)makeSearchTable{
+    [self setSearchTableDelegate: [[TBMContactSearchTableDelegate alloc] initWithSelectCallback:^(NSString *fullname) {
+        [self searchContactSelected:fullname];
+    }]];
+    [self searchTableDelegate].cellBackgroundColor = BENCH_BACKGROUND_COLOR;
+    [self searchTableDelegate].cellTextColor = BENCH_TEXT_COLOR;
+    [self setSearchTable: [[UITableView alloc] initWithFrame:[self searchTableRect] style:UITableViewStylePlain]];
+    [self searchTable].backgroundColor = [UIColor colorWithHexString:BENCH_BACKGROUND_COLOR alpha:1];
+    [self searchTable].separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self searchTable].hidden = NO;
+    [self searchTable].delegate = [self searchTableDelegate];
+    [self searchTable].dataSource = [self searchTableDelegate];
 }
 
 
@@ -175,6 +199,12 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
     return btRect;
 }
 
+- (CGRect) searchTableRect{
+    CGRect r = [self benchTableRect];
+    r.size.height = [[UIScreen mainScreen] bounds].size.height / 2;
+    return r;
+}
+
 
 //------------------------------------------------
 // Bench TableView Delegate and Datasource methods
@@ -204,7 +234,7 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
 
 - (UITableViewCell *)benchCell{
     UITableViewCell *bc = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:BENCH_CELL_REUSE_ID];
-    [bc setBackgroundColor:[UIColor colorWithHexString:BENCH_BACKGROUND_COLOR]];
+    [bc setBackgroundColor:[UIColor colorWithHexString:BENCH_BACKGROUND_COLOR alpha:1]];
     bc.textLabel.textColor = [UIColor colorWithHexString:BENCH_TEXT_COLOR alpha:1];
     return bc;
 }
@@ -259,6 +289,8 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
     }
     [self setupBenchView];
     [self reloadData];
+    [[self benchTable] scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                             atScrollPosition:UITableViewScrollPositionTop animated:NO];
     CGRect f = [self benchView].frame;
     f.origin.x = [self shownX];
     [UIView animateWithDuration:0.2 animations:^{
@@ -272,6 +304,7 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
 }
 
 - (void)hide{
+    [self hideSearch];
     CGRect f = [self benchView].frame;
     f.origin.x = [self hiddenX];
     [UIView animateWithDuration:0.2 animations:^{
@@ -287,4 +320,47 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
     return [UIScreen mainScreen].bounds.size.width;
 }
 
+
+//-------------------
+// Search bar control
+//-------------------
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
+    [self searchTableDelegate].dataArray = [[NSArray alloc] init];
+    [[self searchTable] reloadData];
+    [self showSearch];
+    return YES;
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+    
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    [self searchTableDelegate].dataArray = [[TBMContactsManager sharedInstance] fullnamesMatchingSubstr:searchText limit:10];
+    [[self searchTable] reloadData];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+    [self hideSearch];
+}
+
+
+- (void)showSearch{
+    [self benchTable].hidden = YES;
+    [self searchTable].hidden = NO;
+    [[self searchBar] setShowsCancelButton:YES animated:YES];
+}
+
+- (void)hideSearch{
+    [self searchTable].hidden = YES;
+    [self benchTable].hidden = NO;
+    [self searchBar].text = nil;
+    [[self searchBar] setShowsCancelButton:NO animated:YES];
+    [[self searchBar] resignFirstResponder];
+}
+
+- (void)searchContactSelected:(NSString *)fullname{
+    [self hide];
+    [self invite:fullname];
+}
 @end

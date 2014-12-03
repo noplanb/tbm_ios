@@ -35,6 +35,7 @@
 		2227243519182A1000DA6865 /* head.png in Resources */ = {isa = PBXBuildFile; fileRef = 2227243419182A1000DA6865 /* head.png */; };
 		223A11461915926800177481 /* TBMHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 223A11451915926800177481 /* TBMHttpClient.m */; };
 		223A11491915AED900177481 /* TBMAppDelegate+Boot.m in Sources */ = {isa = PBXBuildFile; fileRef = 223A11481915AED900177481 /* TBMAppDelegate+Boot.m */; };
+		223D927B1A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 223D927A1A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.m */; };
 		22403C2B19D5E63400FC36E3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22403C2A19D5E63400FC36E3 /* MessageUI.framework */; };
 		224101D2190D40B1005128F9 /* TBMDeviceHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 224101D1190D40B1005128F9 /* TBMDeviceHandler.m */; };
 		224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
@@ -151,6 +152,8 @@
 		223A11451915926800177481 /* TBMHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHttpClient.m; sourceTree = "<group>"; };
 		223A11471915AED900177481 /* TBMAppDelegate+Boot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMAppDelegate+Boot.h"; sourceTree = "<group>"; };
 		223A11481915AED900177481 /* TBMAppDelegate+Boot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMAppDelegate+Boot.m"; sourceTree = "<group>"; };
+		223D92791A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMContactSearchTableDelegate.h; sourceTree = "<group>"; };
+		223D927A1A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMContactSearchTableDelegate.m; sourceTree = "<group>"; };
 		22403C2A19D5E63400FC36E3 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		224101D0190D40B1005128F9 /* TBMDeviceHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDeviceHandler.h; sourceTree = "<group>"; };
 		224101D1190D40B1005128F9 /* TBMDeviceHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TBMDeviceHandler.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -383,6 +386,8 @@
 				22CC5E5E1A1AD9A900AAFB75 /* TBMTableModal.m */,
 				22DACC791A1D015700B2F750 /* TBMContentViewModal.h */,
 				22DACC7A1A1D015700B2F750 /* TBMContentViewModal.m */,
+				223D92791A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.h */,
+				223D927A1A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.m */,
 			);
 			path = tbm;
 			sourceTree = "<group>";
@@ -715,6 +720,7 @@
 				22A8F50B1A099C7600F7AD0E /* TBMPhoneUtils.m in Sources */,
 				220E90371909A18B003C4F82 /* main.m in Sources */,
 				22EA56BE191068B700646D3E /* TBMVideoPlayer.m in Sources */,
+				223D927B1A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.m in Sources */,
 				226643A7190B13E2006C9072 /* TBMGeometryUtils.m in Sources */,
 				22FE2A011A09C0460051FC9C /* TBMFriendGetter.m in Sources */,
 				22500B8819993FDC008E9EA4 /* TBMAppDelegate+AppSync.m in Sources */,
