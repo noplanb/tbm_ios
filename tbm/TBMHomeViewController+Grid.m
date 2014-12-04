@@ -14,8 +14,8 @@
 #import "HexColor.h"
 
 
-static NSInteger TBM_HOME_GRID_VIEW_INDEX_OFFSET = 10;
-static NSInteger TBM_HOME_GRID_LABEL_INDEX_OFFSET = 20;
+static NSUInteger TBM_HOME_GRID_VIEW_INDEX_OFFSET = 10;
+static NSUInteger TBM_HOME_GRID_LABEL_INDEX_OFFSET = 20;
 
 @implementation TBMHomeViewController (Grid)
 //-----------------------------------------
@@ -67,8 +67,8 @@ static NSInteger TBM_HOME_GRID_LABEL_INDEX_OFFSET = 20;
 //------------------------------------------
 // Finders for labels views and videoPlayers
 //------------------------------------------
-- (UIView *)gridViewWithIndex:(int)i{
-    int tag = i + TBM_HOME_GRID_VIEW_INDEX_OFFSET;
+- (UIView *)gridViewWithIndex:(NSUInteger)i{
+    NSUInteger tag = i + TBM_HOME_GRID_VIEW_INDEX_OFFSET;
     for (UIView *view in self.gridViews) {
         if (view.tag == tag){
             return view;
@@ -77,8 +77,8 @@ static NSInteger TBM_HOME_GRID_LABEL_INDEX_OFFSET = 20;
     return nil;
 }
 
-- (UILabel *)gridLabelWithIndex:(int)i{
-    int tag = i + TBM_HOME_GRID_LABEL_INDEX_OFFSET;
+- (UILabel *)gridLabelWithIndex:(NSUInteger)i{
+    NSUInteger tag = i + TBM_HOME_GRID_LABEL_INDEX_OFFSET;
     for (UILabel *label in self.gridLabels){
         if (label.tag == tag){
             return label;
@@ -87,17 +87,17 @@ static NSInteger TBM_HOME_GRID_LABEL_INDEX_OFFSET = 20;
     return nil;
 }
 
-- (TBMVideoPlayer *)videoPlayerWithIndex:(int)i{
+- (TBMVideoPlayer *)videoPlayerWithIndex:(NSUInteger)i{
     return (TBMVideoPlayer *)[[self videoPlayers] objectAtIndex:i];
 }
 
 - (TBMVideoPlayer *)videoPlayerWithView:(UIView *)view{
-    int index = view.tag - TBM_HOME_GRID_VIEW_INDEX_OFFSET;
+    NSUInteger index = view.tag - TBM_HOME_GRID_VIEW_INDEX_OFFSET;
     return [self videoPlayerWithIndex:index];
 }
 
 - (TBMGridElement *)gridElementWithView:(UIView *)view{
-    int index = view.tag - TBM_HOME_GRID_VIEW_INDEX_OFFSET;
+    NSUInteger index = view.tag - TBM_HOME_GRID_VIEW_INDEX_OFFSET;
     return [TBMGridElement findWithIndex:index];
 }
 
