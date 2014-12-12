@@ -7,29 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MediaPlayer/MediaPlayer.h"
-#import "TBMSoundEffect.h"
-#import "TBMVideo.h"
-#import "TBMFriend.h"
-#import "TBMGridElement.h"
 
-@interface TBMVideoPlayer : NSObject <TBMVideoStatusNotificationProtocol>
+@protocol TBMVideoPlayerEventNotification <NSObject>
+- (void)videoPlayerStateDidChangeWithIndex:(NSInteger)index view:(UIView *)view isPlaying:(BOOL)isPlaying;
+@end
 
-@property (nonatomic, strong) TBMGridElement *gridElement;
-@property (nonatomic, strong) TBMVideo *video;
-@property (nonatomic, strong) MPMoviePlayerController *moviePlayerController;
-@property (nonatomic, strong) UIView *gridView;
-@property (nonatomic, strong) UIView *playerView;
-@property (nonatomic, strong) UIImageView *thumbView;
-@property (nonatomic, strong) CALayer *viewedIndicatorLayer;
-@property (nonatomic, strong) TBMSoundEffect *messageTone;
-
+@interface TBMVideoPlayer : NSObject
 // Create
-- (instancetype)initWithGridElement:(TBMGridElement *)gridElement view:(UIView *)view;
++ (instancetype)sharedInstance;
 
 // Instance methods
-- (void)togglePlay;
+- (void)addEventNotificationDelegate:(id)delegate;
+- (void)togglePlayWithIndex:(NSInteger)index view:(UIView *)view;
+- (void)stop;
 - (BOOL)isPlaying;
-- (void)updateView;
-- (void)printSelf;
+- (BOOL)isPlayingWithIndex:(NSInteger)index;
 @end

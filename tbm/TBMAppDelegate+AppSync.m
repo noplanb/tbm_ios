@@ -224,15 +224,17 @@
     if (error != nil){
         [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY video:video];
     } else {
-        UIViewController *hvc = self.window.rootViewController;
-        if ([hvc isKindOfClass:[TBMHomeViewController class]]){
-            TBMHomeViewController *hvc = (TBMHomeViewController *)self.window.rootViewController;
-            TBMVideoPlayer *vp = [hvc videoPlayerWithFriend:friend];
-            
-            if ( vp == nil || ![vp isPlaying])
-                [friend deleteAllViewedOrFailedVideos];
-        }
+        //Lets not check if player is playing before deleting for now and see how it feels.
+//        UIViewController *hvc = self.window.rootViewController;
+//        if ([hvc isKindOfClass:[TBMHomeViewController class]]){
+//            TBMHomeViewController *hvc = (TBMHomeViewController *)self.window.rootViewController;
+//            TBMVideoPlayer *vp = [hvc videoPlayerWithFriend:friend];
+//            
+//            if ( vp == nil || ![vp isPlaying])
+//                [friend deleteAllViewedOrFailedVideos];
         
+//        }
+        [friend deleteAllViewedOrFailedVideos];
         [video generateThumb];
         
         [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_DOWNLOADED video:video];

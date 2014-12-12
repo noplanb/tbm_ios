@@ -6,9 +6,13 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "TBMRegisterViewController.h"
-#import "TBMHomeViewController.h"
+@class TBMHomeViewController;
+
+@protocol TBMAppDelegateEventNotificationProtocol <NSObject>
+- (void)appWillEnterForeground;
+- (void)appDidBecomeActive;
+@end
 
 @interface TBMAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -31,5 +35,6 @@
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 - (void) requestBackground;
+- (void)setLifeCycleEventNotificationDelegate:(id)delegate;
 
 @end

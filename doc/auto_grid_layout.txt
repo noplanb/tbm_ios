@@ -1,0 +1,87 @@
+Layout the 9 grid programmatically
+----------------------------------
+
+States and animations
+ - Uploading 
+ - Uploaded (animation)
+ - Uploaded (state)
+ - Viewed outgoing state
+
+ - Downloading 
+   - Not while playing
+ - Downloaded (animation)
+   - Not while playing
+   - Not while recording
+ - Unviewed incoming state
+   - Not while playing
+   - Ok while recording
+ 
+ - No thumb has app
+ - No thumb no app
+ - No friend 
+ 
+TODO
+x Create GridElementViewController in tbm
+x Instantiate GridElementViewControllers in HomeViewController+grid
+  x Instantiate each with an index.
+x Add methods from viewController to homeViewController+grid
+x GridElementViewController events 
+    x registers with friend for video status change
+    x parent sends gridDidChange 
+    x registers with videoPlayer for change
+
+x VideoPlayer
+  x Only a single VideoPlayer
+  x It is lazy instantiated 
+  x Its player view is moved to the view requested
+  x Actions
+    x Toggle play with index and view
+    x Stop
+  x States
+    x IsPlaying
+  x Allows registration for notifications
+  x Allows query of status
+    x isPlaying at index
+
+x TBMGridViewController
+  x Make TBMHomeViewController+Grid into a TBMGridViewController 
+  x Make it a child controller of THMHomeViewController
+  x Create the HeaderView and ContentView in the HomeViewController
+  x Make it a public property of the HomeViewController
+  - Fix grid setup.
+  
+  
+x How does a GridElementViewController find a friend?
+  x It is created with an index.
+  x It finds the friend by GridElement.findWithIndex.friend
+
+x LongPressTouchHandler
+  x Instantiate in GridViewController rather than HomeViewController
+
+x VideoRecorder
+  x Instantiate in GridViewController rather than HomeViewController
+  - Move recording label stuff to videoRecorder
+  - Add methods to set its text and to show it for debug purposes.
+  
+x AppDelegate callbacks into GridViewController
+  x GridViewController should register for these.
+  x They are used to manage the video Recorder somehow.
+  
+  
+- TBMBenchViewController
+  - Make TBMHomeViewController+Bench into a TBMBenchViewController
+  - Move the creation of the bench view container to the HomeViewController
+  - Instantiate the controller and add its view.
+
+- Assets
+  - Import the assets from the gridtest project.
+
+Notes:
+------
+resizableImageWithCapInsets
+http://stackoverflow.com/questions/17192005/what-does-addchildviewcontroller-actually-do addChildViewController
+https://developer.apple.com/videos/wwdc/2011/
+UIApperance Proxy 
+
+
+

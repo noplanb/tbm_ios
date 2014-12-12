@@ -7,6 +7,7 @@
 //
 
 #import "TBMHomeViewController.h"
+#import "TBMVersionHandler.h"
 
 @interface TBMHomeViewController (VersionController) <TBMVersionHandlerDelegate, UIAlertViewDelegate>
 

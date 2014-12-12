@@ -35,6 +35,7 @@
 @dynamic hasApp;
 @dynamic mobileNumber;
 @dynamic timeOfLastAction;
+@dynamic gridElement;
 
 static NSMutableArray * videoStatusNotificationDelegates;
 
@@ -265,15 +266,16 @@ static NSMutableArray * videoStatusNotificationDelegates;
 }
 
 - (BOOL)incomingVideoNotViewed{
-    //Return true if any of the videos are status DOWNLOADED
-    BOOL r = NO;
+    return [self unviewedCount] > 0;
+}
+
+- (NSInteger)unviewedCount{
+    NSInteger i = 0;
     for (TBMVideo *v in [self sortedIncomingVideos]){
-        if (v.status == INCOMING_VIDEO_STATUS_DOWNLOADED){
-            r = YES;
-            break;
-        }
+        if (v.status == INCOMING_VIDEO_STATUS_DOWNLOADED)
+            i++;
     }
-    return r;
+    return i;
 }
 
 - (void)setViewedWithIncomingVideo:(TBMVideo *)video{
@@ -284,8 +286,8 @@ static NSMutableArray * videoStatusNotificationDelegates;
 //------
 // Thumb
 //------
-- (NSURL *)thumbUrlOrThumbMissingUrl{
-    NSURL *thumb = [TBMConfig thumbMissingUrl];
+- (NSURL *)thumbUrl{
+    NSURL *thumb = nil;
     for (TBMVideo *v in [self sortedIncomingVideos]){
         if ([v hasThumb]){
             thumb = [v thumbUrl];
@@ -294,8 +296,8 @@ static NSMutableArray * videoStatusNotificationDelegates;
     return thumb;
 }
 
-- (UIImage *)thumbImageOrThumbMissingImage{
-    return [UIImage imageWithContentsOfFile:[self thumbUrlOrThumbMissingUrl].path];
+- (BOOL)hasThumb{
+    return [self thumbUrl] != nil;
 }
 
 //-------------------------------------

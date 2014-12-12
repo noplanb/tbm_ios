@@ -7,13 +7,22 @@
 //
 
 #import "TBMVideoPlayer.h"
-#import "TBMVideoRecorder.h"
 #import "MediaPlayer/MediaPlayer.h"
+#import "TBMSoundEffect.h"
+#import "TBMGridElement.h"
+#import "TBMVideo.h"
+#import "TBMFriend.h"
 #import "OBLogger.h"
 
-
-
 @interface TBMVideoPlayer()
+@property TBMGridElement *gridElement;
+@property (nonatomic) NSInteger index;
+@property (nonatomic) UIView *containerView;
+@property (nonatomic) TBMVideo *video;
+@property (nonatomic) MPMoviePlayerController *moviePlayerController;
+@property (nonatomic) UIView *playerView;
+@property (nonatomic) TBMSoundEffect *messageTone;
+@property (nonatomic) NSMutableSet *eventNotificationDelegates;
 @end
 
 @implementation TBMVideoPlayer
@@ -21,59 +30,25 @@
 //-------
 // Create
 //-------
-- (instancetype)initWithGridElement:(TBMGridElement *)gridElement view:(UIView *)view{
-    //OB_INFO(@"TBMVideoPlayer: initWithGridElement:");
++ (instancetype)sharedInstance{
+    static TBMVideoPlayer *sharedVideoPlayer;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        sharedVideoPlayer = [[TBMVideoPlayer alloc] init];
+    });
+    return sharedVideoPlayer;
+}
+
+- (instancetype)init{
     self = [super init];
-    if (self){
-        _gridElement = gridElement;
-        _gridView = view;
+    if (self != nil){
         _messageTone = [[TBMSoundEffect alloc] initWithSoundNamed:@"single_ding_chimes2.wav"];
-        
-        [self addVideoPlayer];
-        [self addThumbnail];
-        [self updateThumbNail];
-        [self showThumb];
-        [self setupViewedIndicator];
-        [self updateViewedIndicator];
-        [self addPlayerNotifications];
+        _moviePlayerController = [[MPMoviePlayerController alloc] init];
+        _moviePlayerController.controlStyle = MPMovieControlStyleNone;
+        _playerView = _moviePlayerController.view;
     }
-    [TBMFriend addVideoStatusNotificationDelegate:self];
     return self;
 }
-
-- (void)addVideoPlayer{
-    _moviePlayerController = [[MPMoviePlayerController alloc] init];
-    _playerView = _moviePlayerController.view;
-    _moviePlayerController.controlStyle = MPMovieControlStyleNone;
-    [_playerView setFrame: _gridView.bounds];
-    [_gridView addSubview:_playerView];
-}
-
-- (void)addThumbnail{
-    _thumbView = [[UIImageView alloc] init];
-    _thumbView.contentMode = UIViewContentModeScaleAspectFit;
-    [_thumbView setFrame: _gridView.bounds];
-    [self setThumbnailImage];
-    [_gridView addSubview:_thumbView];
-}
-
-- (void)setThumbnailImage{
-    if (_gridElement.friend != nil)
-        _thumbView.image = [_gridElement.friend thumbImageOrThumbMissingImage];
-}
-
-- (void)setupViewedIndicator{
-    _viewedIndicatorLayer = [CALayer layer];
-    _viewedIndicatorLayer.hidden = YES;
-    _viewedIndicatorLayer.frame = _gridView.bounds;
-    _viewedIndicatorLayer.cornerRadius = 2;
-    _viewedIndicatorLayer.backgroundColor = [UIColor clearColor].CGColor;
-    _viewedIndicatorLayer.borderWidth = 2;
-    _viewedIndicatorLayer.borderColor = [UIColor blueColor].CGColor;
-    [_gridView.layer addSublayer:_viewedIndicatorLayer];
-    [_viewedIndicatorLayer setNeedsDisplay];
-}
-
 
 //------
 // State
@@ -82,16 +57,47 @@
     return _moviePlayerController.playbackState == MPMoviePlaybackStatePlaying;
 }
 
-// ------------------------------
-// Notifications of state changes
-// ------------------------------
-- (void)videoStatusDidChange:(id)object{
-    if (object == _gridElement.friend) {
-        DebugLog(@"videoStatusDidChange for %@", _gridElement.friend.firstName);
-        [self updateView];
+- (BOOL)isPlayingWithIndex:(NSInteger)index{
+    if (self.index != index)
+        return NO;
+    
+    return [self isPlaying];
+}
+
+- (BOOL)isPlayingWithFriend:(TBMFriend *)friend{
+    if (friend.gridElement == nil)
+        return NO;
+
+    if (friend.gridElement.index != self.index)
+        return NO;
+    
+    if (![self isPlaying])
+        return NO;
+    
+    return YES;
+}
+
+//------------------------------------------------------
+// Notifications of state changes by us to our delegates
+//------------------------------------------------------
+- (void) addEventNotificationDelegate:(id)delegate{
+    if (self.eventNotificationDelegates == nil)
+        self.eventNotificationDelegates = [[NSMutableSet alloc] init];
+    
+    [self.eventNotificationDelegates addObject:delegate];
+}
+
+- (void) notifyDelegatesOfEvent{
+    for (id <TBMVideoPlayerEventNotification> delegate in self.eventNotificationDelegates){
+        [delegate videoPlayerStateDidChangeWithIndex:self.index
+                                                view:self.containerView
+                                           isPlaying:[self isPlaying]];
     }
 }
 
+// ---------------------------------------------------------
+// Notifications of state changes from moviePlayerController
+// ---------------------------------------------------------
 - (void)addPlayerNotifications{
     DebugLog(@"Adding player notifications");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackDidFinishNotification:) name:MPMoviePlayerPlaybackDidFinishNotification object:_moviePlayerController];
@@ -110,10 +116,11 @@
 
 - (void) playbackStateDidChangeNotification{
     //DebugLog(@"playbackStateDidChangeNotification");
+    [self notifyDelegatesOfEvent];
     if (_moviePlayerController.playbackState == MPMoviePlaybackStatePlaying){
         [self showPlayer];
     } else {
-        [self showThumb];
+        [self hidePlayer];
     }
 }
 
@@ -134,59 +141,29 @@
 // ------------
 // View control
 // ------------
-- (void)updateView{
-    [self updateViewedIndicator];
-    [self playNewMessageToneIfNecessary];
-    [self updateThumbNail];
-}
-
-- (void)updateThumbNail{
-    if (_gridElement.friend == nil)
-        return;
-    DebugLog(@"updateThumbNail: %@", _gridElement.friend.firstName);
-    [_gridView setBackgroundColor:[UIColor clearColor]];
-    _thumbView.image = [_gridElement.friend thumbImageOrThumbMissingImage];
-    [_thumbView setNeedsDisplay];
-}
-
-
-- (void)updateViewedIndicator{
-    if (_gridElement.friend == nil)
-        return;
-    
-    if ([_gridElement.friend incomingVideoNotViewed]) {
-        DebugLog(@"setting unviewed for %@", _gridElement.friend.firstName);
-        [self indicateUnviewed];
-    } else {
-        DebugLog(@"setting viewed for %@", _gridElement.friend.firstName);
-        [self indicateViewed];
-    }
-}
-
-- (void)indicateUnviewed{
-    _viewedIndicatorLayer.hidden = NO;
-    [_gridView setNeedsDisplay];
-}
-
-- (void)indicateViewed{
-    _viewedIndicatorLayer.hidden = YES;
-    [_gridView setNeedsDisplay];
-}
-
 - (void)showPlayer{
-    _playerView.hidden = NO;
-    _thumbView.hidden = YES;
+    self.playerView.hidden = NO;
 }
 
-- (void)showThumb{
-    _playerView.hidden = YES;
-    _thumbView.hidden = NO;
+- (void)hidePlayer{
+    self.playerView.hidden = YES;
 }
+
 
 // ----------------
 // Control playback
 // ----------------
-- (void)togglePlay{
+- (void)togglePlayWithIndex:(NSInteger)index view:(UIView *)view{
+    self.containerView = view;
+    self.gridElement = [TBMGridElement findWithIndex:index];
+    
+    // Always start playing if user clicked a different index from the one that was last playing.
+    if (self.index != index){
+        self.index = index;
+        [self start];
+        return;
+    }
+    
     if ([self isPlaying]) {
         [self stop];
     } else {
@@ -196,50 +173,50 @@
 
 - (void)start{
     OB_INFO(@"VideoPlayer: start:");
-    if (_gridElement.friend == nil)
+    if (self.gridElement.friend == nil)
         return;
     
-    _video = [_gridElement.friend firstPlayableVideo];
+    [self addPlayerView];
+    self.video = [self.gridElement.friend firstPlayableVideo];
     
-    if (_video == nil){
+    if (self.video == nil){
         OB_WARN(@"no playable video.");
         return;
     }
     [self play];
 }
 
-- (void)play{
-    DebugLog(@"play for %@", _video.videoId);
+- (void)addPlayerView{
+    [self.playerView removeFromSuperview];
+    [self.playerView setFrame: self.containerView.bounds];
+    [self.containerView addSubview:self.playerView];
+}
 
-    if ([_video hasValidVideoFile]){
-        _moviePlayerController.contentURL = [_video videoUrl];
-        [_moviePlayerController play];
+
+- (void)play{
+    DebugLog(@"play for %@", self.video.videoId);
+
+    if ([self.video hasValidVideoFile]){
+        self.moviePlayerController.contentURL = [self.video videoUrl];
+        [self.moviePlayerController play];
     } else {
         [self  playDidComplete];
     }
 }
 
 - (void)stop{
-    DebugLog(@"stop for %@", _video.videoId);
-    [_moviePlayerController stop];
+    DebugLog(@"stop for %@", self.video.videoId);
+    [self.moviePlayerController stop];
 }
 
 - (void)playDidComplete{
-    OB_INFO(@"VideoPlayer: playDidComplete: %@", _video.videoId);
-    [_gridElement.friend setViewedWithIncomingVideo:_video];
-    _video = [_gridElement.friend nextPlayableVideoAfterVideo:_video];
+    OB_INFO(@"VideoPlayer: playDidComplete: %@", self.video.videoId);
+    [self.gridElement.friend setViewedWithIncomingVideo:self.video];
+    self.video = [self.gridElement.friend nextPlayableVideoAfterVideo:self.video];
     
-    if (_video != nil)
+    if (self.video != nil)
         [self play];
 }
 
-- (void)printSelf{
-    DebugLog(@"");
-    DebugLog(@"============");
-    DebugLog(@"VideoPlayer: gridView: %@", _gridView);
-    DebugLog(@"VideoPlayer: gridElement: %@", _gridElement);
-    DebugLog(@"============");
-    DebugLog(@"");
-}
 
 @end

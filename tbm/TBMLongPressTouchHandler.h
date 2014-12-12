@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TBMLongPressTouchHandlerCallback.h"
+@protocol TBMLongPressTouchHandlerCallback <NSObject>
+- (void)LPTHClickWithTargetView:(UIView *)view;
+- (void)LPTHStartLongPressWithTargetView:(UIView *)view;
+- (void)LPTHEndLongPressWithTargetView:(UIView *)view;
+- (void)LPTHCancelLongPressWithTargetView:(UIView *)view;
+@end
 
 @interface TBMLongPressTouchHandler : NSObject
 

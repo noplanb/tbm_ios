@@ -14,8 +14,12 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>${PRODUCT_NAME}</string>
+	<key>UIStatusBarHidden</key>
+	<true/>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 	<key>CFBundleShortVersionString</key>
 	<string>1.4272</string>
 	<key>CFBundleSignature</key>

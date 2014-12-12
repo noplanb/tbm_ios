@@ -5,7 +5,7 @@
 //  Created by Sani Elfishawy on 4/24/14.
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
-
+#import "TBMHomeViewController.h"
 #import "TBMAppDelegate.h"
 #import "TBMAppDelegate+Boot.h"
 #import "TBMAppDelegate+PushNotification.h"
@@ -13,6 +13,10 @@
 #import "TBMStringUtils.h"
 #import "OBFileTransferManager.h"
 #import "TBMUser.h"
+
+@interface TBMAppDelegate()
+@property id <TBMAppDelegateEventNotificationProtocol> eventNotificationDelegate;
+@end
 
 @implementation TBMAppDelegate
 
@@ -62,15 +66,18 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application{
     OB_INFO(@"applicationWillEnterForeground");
     self.isForeground = YES;
-    // Notify the homeViewController
-    [[self homeViewController] appWillEnterForeground];
+
+    if (self.eventNotificationDelegate != nil)
+        [self.eventNotificationDelegate appWillEnterForeground];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application{
     OB_INFO(@"applicationDidBecomeActive");
     self.isForeground = YES;
-    // Notify the homeViewController
-    [[self homeViewController] appDidBecomeActive];
+    
+    if (self.eventNotificationDelegate !=  nil)
+        [self.eventNotificationDelegate appDidBecomeActive];
+    
     [self performDidBecomeActiveActions];
     [[OBLogger instance] logEvent:OBLogEventAppForeground];
 }
@@ -98,6 +105,12 @@
     }
 }
 
+//------------------------------------------------------
+// Allow other object to register for event notification
+//------------------------------------------------------
+- (void)setLifeCycleEventNotificationDelegate:(id)delegate{
+    self.eventNotificationDelegate = delegate;
+}
 
 //--------------------------
 // Access to viewControllers

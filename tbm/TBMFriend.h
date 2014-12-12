@@ -10,8 +10,10 @@
 #import <CoreData/CoreData.h>
 #import "TBMVideo.h"
 
+@class TBMGridElement;
+
 @protocol TBMVideoStatusNotificationProtocol <NSObject>
-- (void)videoStatusDidChange:(id)object;
+- (void)videoStatusDidChange:(TBMFriend *)friend;
 @end
 
 @interface TBMFriend : NSManagedObject
@@ -46,6 +48,7 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 @property (nonatomic, retain) NSString * mkey;
 @property (nonatomic) BOOL hasApp;
 @property (nonatomic, retain) NSSet *videos;
+@property (nonatomic, retain) TBMGridElement *gridElement;
 @property (nonatomic, retain) NSDate *timeOfLastAction;
 
 
@@ -67,6 +70,7 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 - (TBMVideo *) createIncomingVideoWithVideoId:(NSString *)videoId;
 - (TBMVideo *) firstPlayableVideo;
 - (TBMVideo *) nextPlayableVideoAfterVideo:(TBMVideo *)video;
+- (NSInteger) unviewedCount;
 - (void) deleteAllViewedOrFailedVideos;
 
 // Create and destroy
@@ -79,7 +83,8 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 + (void)addVideoStatusNotificationDelegate:(id)delegate;
 + (void)removeVideoStatusNotificationDelegate:(id)delegate;
 
-- (UIImage *)thumbImageOrThumbMissingImage;
+- (NSURL *)thumbUrl;
+- (BOOL)hasThumb;
 
 - (NSString *)videoStatusString;
 // Probably should not expose this and rather have setters for various states.

@@ -5,10 +5,10 @@
 //  Created by Sani Elfishawy on 11/6/14.
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
-
+#import "TBMHomeViewController.h"
 #import "TBMHomeViewController+Bench.h"
+#import "TBMGridViewController.h"
 #import "TBMHomeViewController+Invite.h"
-#import "TBMHomeViewController+Grid.h"
 #import "HexColor.h"
 #import <objc/runtime.h>
 #import "TBMConfig.h"
@@ -222,7 +222,12 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
     id item = [[self tableArray] objectAtIndex:indexPath.row];
     if ([item isKindOfClass:[TBMFriend class]]){
         TBMFriend *f = (TBMFriend *)item;
-        cell.imageView.image = [f thumbImageOrThumbMissingImage];
+        NSURL *url = [f thumbUrl];
+        if (url !=nil){
+            cell.imageView.image = [UIImage imageWithContentsOfFile:url.path];
+        } else {
+            //TODO add the zazo image here
+        }
         cell.textLabel.text = f.firstName;
     } else {
         cell.imageView.image = nil;
@@ -249,7 +254,7 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
     id obj = [[self tableArray] objectAtIndex:indexPath.row];
     if ([obj isKindOfClass:[TBMFriend class]]){
         TBMFriend *f = (TBMFriend *) obj;
-        [self moveFriendToGrid:f];
+        [self.gridViewController moveFriendToGrid:f];
     }else{
         [self invite:obj];
     }
@@ -264,7 +269,7 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
 // Bench Table backing array
 //--------------------------
 - (void) getAndSetTableArray{
-    NSMutableArray *bta = [[NSMutableArray alloc] initWithArray:[self friendsOnBench]];
+    NSMutableArray *bta = [[NSMutableArray alloc] initWithArray:[self.gridViewController friendsOnBench]];
     [bta addObjectsFromArray:[[TBMContactsManager sharedInstance] getFullNamesHavingAnyPhone]];
     [self setTableArray:bta];
     DebugLog(@"getAndSetTableArray (%ld)", (unsigned long)[[self tableArray] count]);

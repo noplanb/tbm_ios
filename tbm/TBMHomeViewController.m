@@ -8,66 +8,36 @@
 #import "TBMHomeViewController.h"
 #import "TBMHomeViewController+VersionController.h"
 #import "TBMHomeViewController+Bench.h"
-#import "TBMHomeViewController+Grid.h"
 #import "TBMHomeViewController+Invite.h"
+#import "TBMFriend.h"
+#import "TBMVersionHandler.h"
 #import "TBMGridElement.h"
-#import "TBMLongPressTouchHandler.h"
 #import "TBMVideoPlayer.h"
-#import <UIKit/UIKit.h>
+
 #import "TBMAppDelegate+AppSync.h"
 #import "OBLogger.h"
 #import "TBMContactsManager.h"
 
-@interface TBMHomeViewController ()
-@property TBMLongPressTouchHandler *longPressTouchHandler;
-@property (nonatomic) TBMAppDelegate *appDelegate;
-@property BOOL isPlaying;
-@property TBMVideoRecorder *videoRecorder;
-@end
+#import <UIKit/UIKit.h>
+#import "HexColor.h"
 
+@interface TBMHomeViewController ()
+@property (nonatomic) TBMAppDelegate *appDelegate;
+
+@property UIView *headerView;
+@property UIView *contentView;
+@end
 
 @implementation TBMHomeViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil obbundle:(NSBundle *)nibBundleOrNil{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
-//--------------------------------
-// Events called in by appDelegate
-//--------------------------------
-- (TBMAppDelegate *)appDelegate{
-    return self.appDelegate = (TBMAppDelegate *)[[UIApplication sharedApplication] delegate];
-}
-
-// Not used
-- (void)appDidBecomeActive{
-    if ([self isViewLoaded] && self.view.window) {
-        // viewController is visible
-        OB_INFO(@"appDidBecomeActive: calling setupVideoRecorder:0");
-        [self setupVideoRecorder:0];
-    } else {
-        OB_WARN(@"appDidBecomeActive: not setting up VideoRecorder because !self.isViewLoaded && self.view.window");
-    }
-}
-
-// Not used
-- (void)appWillEnterForeground{
-}
-
-
-//-----------------------------
-// Events on the viewController
-//-----------------------------
+//----------
+// Lifecycle
+//----------
 - (void)viewDidLoad{
     OB_INFO(@"TBMHomeViewController: viewDidLoad");
     [super viewDidLoad];
-    [TBMFriend addVideoStatusNotificationDelegate:self];
-    [self setupGrid];
-    [self setupLongPressTouchHandler];
+    [self addHomeViews];
     [self addBenchGestureRecognizers];
     [self setupShowLogGesture];
     [[[TBMVersionHandler alloc] initWithDelegate:self] checkVersionCompatibility];
@@ -81,7 +51,6 @@
 - (void) viewDidAppear:(BOOL)animated{
     OB_INFO(@"TBMHomeViewController: viewDidAppear");
     [super viewDidAppear:animated];
-    [self setupVideoRecorder:0];
     [self performSelectorInBackground:@selector(prefetchContactsManager) withObject:NULL];
 }
 
@@ -89,11 +58,6 @@
     [[TBMContactsManager sharedInstance] prefetchOnlyIfHasAccess];
 }
 
-- (void) viewWillDisappear:(BOOL)animated{
-    OB_INFO(@"TBMHomeViewController: viewWillDisappear");
-    // Eliminated videoRecorder.dispose here. The OS takes care of interrupting or stopping and restarting our VideoCaptureSession very well.
-    // We don't need to interfere with it.
-}
 
 - (void) didReceiveMemoryWarning{
     OB_ERROR(@"TBMHomeViewController: didReceiveMemoryWarning");
@@ -102,157 +66,67 @@
 }
 
 
-//------
-// Setup
-//------
+//===========
+// SetupViews
+//===========
+static const float LayoutConstHEADER_HEIGHT = 55;
+static const float LayoutConstLOGO_HEIGHT = LayoutConstHEADER_HEIGHT * 0.4;
+static const float LayoutConstGUTTER = 10;
+static const float LayoutConstBENCH_ICON_HEIGHT = LayoutConstHEADER_HEIGHT *0.4;
 
-
-//---------------------------
-// setup LonpressTouchHandler
-//---------------------------
-
-- (void)setupLongPressTouchHandler{
-    _longPressTouchHandler = [[TBMLongPressTouchHandler alloc] initWithTargetViews:_gridViews instantiator:self];
+- (void) addHomeViews{
+    [self addHeaderView];
+    [self addContentView];
+    [self addGridViewController];
 }
 
-
-
-//-----------------------------------
-// VideoRecorder setup and callbacks
-//-----------------------------------
-- (void)didFinishVideoRecordingWithMarker:(NSString *)friendId{
-    DebugLog(@"didFinishVideoRecordingWithFriendId %@", friendId);
-    TBMFriend *friend = [TBMFriend findWithId:friendId];
-    [friend handleAfterOutgoingVideoCreated];
-    [[self appDelegate] uploadWithFriendId:friendId];
+//-----------
+// HeaderView
+//-----------
+- (void)addHeaderView{
+    UIView *hv =  [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, LayoutConstHEADER_HEIGHT)];
+    hv.backgroundColor = [UIColor colorWithHexString:@"1B1B19" alpha:1];
+    [hv addSubview:[self logoView]];
+    [hv addSubview:[self drawerIconView]];
+    [self.view addSubview:hv];
+    self.HeaderView = hv;
 }
 
-- (void)videoRecorderDidStartRunning{
-    [self  setRecordingIndicatorTextForRecording];
-    [self hideRecordingIndicator];
+- (UIImageView *)logoView{
+    UIImage *li = [UIImage imageNamed:@"logo"];
+    float logoAspect = li.size.width / li.size.height;
+    UIImageView *lv = [[UIImageView alloc] initWithImage:li];
+    float y = (LayoutConstHEADER_HEIGHT - LayoutConstLOGO_HEIGHT) / 2;
+    lv.frame = CGRectMake(LayoutConstGUTTER, y, logoAspect * LayoutConstLOGO_HEIGHT, LayoutConstLOGO_HEIGHT);
+    return lv;
 }
 
-- (void)videoRecorderRuntimeErrorWithRetryCount:(int)videoRecorderRetryCount{
-    OB_ERROR(@"videoRecorderRuntimeErrorWithRetryCount %d", videoRecorderRetryCount);
-    [self setupVideoRecorder:videoRecorderRetryCount];
+- (UIImageView *)drawerIconView{
+    UIImage *i = [UIImage imageNamed:@"drawerIcon"];
+    float aspect = i.size.width / i.size.height;
+    UIImageView *iv = [[UIImageView alloc] initWithImage:i];
+    float w = aspect * LayoutConstBENCH_ICON_HEIGHT;
+    float x = self.view.bounds.size.width - LayoutConstGUTTER - w;
+    float y = (LayoutConstHEADER_HEIGHT - LayoutConstBENCH_ICON_HEIGHT) / 2;
+    iv.frame = CGRectMake(x, y, w, LayoutConstBENCH_ICON_HEIGHT);
+    return iv;
 }
 
-// We call setupVideoRecorder on multiple events so the first qualifying event takes effect. All later events are ignored.
-- (void)setupVideoRecorder:(int)retryCount{
-    // Note that when we get retryCount != 0 we are being called because of a videoRecorderRuntimeError and we need reinstantiate
-    // even if videoRecorder != nil
-    // Also if we still have a videoRecorder but the OS killed our view from under us trying to save memory while we were in the
-    // background we want to reinstantiate.
-    if (self.videoRecorder != nil && retryCount == 0  && [self isViewLoaded] && self.view.window){
-        OB_WARN(@"TBMHomeViewController: setupVideoRecorder: already setup. Ignoring");
-        return;
-    }
-    
-    if (![self appDelegate].isForeground){
-        OB_WARN(@"HomeViewController: not initializing the VideoRecorder because ! isForeground");
-        return;
-    }
-    OB_WARN(@"HomeviewController: setupVideoRecorder: setting up. vr=%@, rc=%d, isViewLoaded=%d, view.window=%d", self.videoRecorder, retryCount, [self isViewLoaded], [self isViewLoaded] && self.view.window);
-    NSError *error = nil;
-    [self setRecordingIndicatorTextForRecorderSetup:retryCount];
-    [self showRecordingIndicator];
-    self.videoRecorder = [[TBMVideoRecorder alloc] initWithPreviewView:self.centerView delegate:self error:&error];
+//------------
+// ContentView
+//------------
+- (void)addContentView{
+    UIView *cv = [[UIView alloc] initWithFrame:CGRectMake(0, LayoutConstHEADER_HEIGHT, self.view.bounds.size.width, self.view.bounds.size.height - LayoutConstHEADER_HEIGHT)];
+    cv.backgroundColor = [UIColor colorWithHexString:@"2E2D28" alpha:1];
+    [self.view addSubview:cv];
+    self.contentView = cv;
 }
 
-- (void)setRecordingIndicatorTextForRecorderSetup:(int)retryCount{
-    NSString *msg;
-    if (retryCount == 0)
-         msg = @"c...";
-    else
-        msg = [NSString stringWithFormat: @"c r%d", retryCount];
-    self.centerLabel.text = msg;
-}
-
-- (void)setRecordingIndicatorTextForRecording{
-    self.centerLabel.text = @"Recording...";
-}
-
-- (void)showRecordingIndicator{
-    _centerLabel.hidden = NO;
-}
-
-- (void)hideRecordingIndicator{
-    _centerLabel.hidden = YES;
-}
-
-
-//-----------------------------------
-// TBMVideoStatusNotoficationProtocol
-//-----------------------------------
--(void)videoStatusDidChange:(id)object{
-    [self updateAllGridViews];
-}
-
-//------------------------------------------
-// Longpress touch handling for friend views
-//------------------------------------------
-// We detect the touches for the entire window using this view controller but pass them to the longPressTouchHandler.
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    if (self.longPressTouchHandler != nil) {
-        [self.longPressTouchHandler touchesBegan:touches withEvent:event];
-    }
-}
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
-    if (self.longPressTouchHandler != nil) {
-        [self.longPressTouchHandler touchesMoved:touches withEvent:event];
-    }
-}
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    if (self.longPressTouchHandler != nil){
-        [self.longPressTouchHandler touchesEnded:touches withEvent:event];
-    }
-}
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
-    if (self.longPressTouchHandler != nil){
-        [self.longPressTouchHandler touchesCancelled:touches withEvent:event];
-    }
-}
-
-// Callbacks per the TBMLongPressTouchHandlerCallback protocol.
-- (void)LPTHClickWithTargetView:(UIView *)view{
-    TBMGridElement *ge = [self gridElementWithView:view];
-    if (ge.friend != nil){
-        [self rankingActionOccurred:ge.friend];
-        [[self videoPlayerWithView:view] togglePlay];
-    } else {
-        OB_INFO(@"Click on plus");
-    }
-}
-
-- (void)LPTHStartLongPressWithTargetView:(UIView *)view{
-    TBMGridElement *ge = [self gridElementWithView:view];
-    if (ge.friend != nil){
-        [self rankingActionOccurred:ge.friend];
-        [[self videoRecorder] startRecordingWithMarker:ge.friend.idTbm];
-        [self showRecordingIndicator];
-    } else {
-        OB_INFO(@"StartLongPress on plus");
-    }
-}
-
-- (void)LPTHEndLongPressWithTargetView:(UIView *)view{
-    TBMGridElement *ge = [self gridElementWithView:view];
-    if (ge.friend != nil){
-        [[self videoRecorder] stopRecording];
-        [self hideRecordingIndicator];
-    } else {
-        OB_INFO(@"EndLongPress on plus");
-    }
-}
-
-- (void)LPTHCancelLongPressWithTargetView:(UIView *)view{
-    TBMGridElement *ge = [self gridElementWithView:view];
-    if (ge.friend != nil){
-        [[self videoRecorder] cancelRecording];
-        [self hideRecordingIndicator];
-    } else {
-        OB_INFO(@"CancelLongPress on plus");
-    }
+- (void)addGridViewController{
+    self.gridViewController = [[TBMGridViewController alloc] init];
+    [self addChildViewController:self.gridViewController];
+    self.gridViewController.view.frame = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height);
+    [self.contentView addSubview:self.gridViewController.view];
 }
 
 
@@ -262,7 +136,7 @@
 - (void)setupShowLogGesture{
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showLog:)];
     lpgr.delegate = (id)self;
-    [self.centerView addGestureRecognizer:lpgr];
+    [self.headerView addGestureRecognizer:lpgr];
 }
 
 -(IBAction)showLog:(UILongPressGestureRecognizer *)sender{

@@ -9,7 +9,6 @@
 #import "TBMHomeViewController.h"
 #import "TBMHomeViewController+VersionController.h"
 #import "OBLogger.h"
-#import "TBMVersionHandler.h"
 #import "TBMConfig.h"
 
 

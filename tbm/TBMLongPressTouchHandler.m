@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
-#import "TBMLongPressTouchHandlerCallback.h"
 #import "TBMLongPressTouchHandler.h"
 #import "TBMGeometryUtils.h"
 #import "TBMViewUtils.h"

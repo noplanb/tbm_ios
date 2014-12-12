@@ -7,7 +7,6 @@
 //
 
 #import "TBMHomeViewController+Invite.h"
-#import "TBMHomeViewController+Grid.h"
 #import "TBMContactsManager.h"
 #import "OBLogger.h"
 #import "TBMConfig.h"
@@ -251,7 +250,7 @@
     UIAlertView  *av = [[UIAlertView alloc] initWithTitle:@"You Are Connected" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     
     av.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex){
-        [self moveFriendToGrid:[self friend]];
+        [self.gridViewController moveFriendToGrid:[self friend]];
     };
     
     [av show];

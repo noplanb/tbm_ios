@@ -7,24 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TBMLongPressTouchHandlerCallback.h"
-#import "TBMVideoRecorder.h"
-#import "TBMFriend.h"
-#import "TBMVersionHandler.h"
+#import "TBMGridViewController.h"
 
 
-@protocol TBMAppDelegateEventNotificationProtocol <NSObject>
-- (void)appWillEnterForeground;
-- (void)appDidBecomeActive;
-@end
+@interface TBMHomeViewController : UIViewController
 
-@interface TBMHomeViewController : UIViewController <TBMLongPressTouchHandlerCallback, TBMVideoRecorderDelegate, TBMVideoStatusNotificationProtocol, TBMAppDelegateEventNotificationProtocol>
-@property (weak, nonatomic) IBOutlet UIView *centerView;
-@property (weak, nonatomic) IBOutlet UILabel *centerLabel;
 @property (strong, nonatomic) UIAlertView *versionHandlerAlert;
-@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *plusLabels;
-
-@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *gridViews;
-@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *gridLabels;
-
+@property (nonatomic) TBMGridViewController *gridViewController;
 @end
