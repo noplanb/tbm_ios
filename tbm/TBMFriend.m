@@ -253,16 +253,20 @@ static NSMutableArray * videoStatusNotificationDelegates;
     return video;
 }
 
-- (TBMVideo *) nextPlayableVideoAfterVideo:(TBMVideo *)video{
-    BOOL found = NO;
+- (TBMVideo *) nextPlayableVideoAfterVideoId:(NSString *)videoId{
+    DebugLog(@"nextPlayableVideoAfterVideo");
     for (TBMVideo *v in [self sortedIncomingVideos]){
-        if (found && [v videoFileExists])
+        if ([TBMVideoIdUtils isvid1:v.videoId newerThanVid2:videoId] && [v videoFileExists])
             return v;
-        
-        if ([video isEqual:v])
-            found = YES;
     }
     return nil;
+}
+
+- (void)printVideos{
+    for (TBMVideo *v in [self sortedIncomingVideos]) {
+        DebugLog(@"Video id:%@ status:%d file_exists:%hhd", v.videoId, v.status, [v videoFileExists]);
+    }
+
 }
 
 - (BOOL)incomingVideoNotViewed{

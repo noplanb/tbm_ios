@@ -14,7 +14,6 @@
 #import "TBMVideo.h"
 #import "TBMVideoIdUtils.h"
 #import "TBMVideoPlayer.h"
-#import "TBMHomeViewController+Grid.h"
 
 @implementation TBMAppDelegate (AppSync)
 

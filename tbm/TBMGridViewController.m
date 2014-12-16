@@ -41,6 +41,8 @@
     [super viewDidLoad];
     [self addViews];
     [self setupLongPressTouchHandler];
+    [[TBMVideoPlayer sharedInstance].playerView removeFromSuperview];
+    [self.view addSubview: [TBMVideoPlayer sharedInstance].playerView];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -212,7 +214,7 @@ static const float LayoutConstASPECT = 0.75;
     TBMGridElement *ge = [self gridElementWithView:view];
     if (ge.friend != nil){
         [self rankingActionOccurred:ge.friend];
-        [[TBMVideoPlayer sharedInstance] togglePlayWithIndex:[self indexWithView:view] view:view];
+        [[TBMVideoPlayer sharedInstance] togglePlayWithIndex:[self indexWithView:view] frame:view.frame];
     }
 }
 
@@ -263,7 +265,7 @@ static const float LayoutConstASPECT = 0.75;
 }
 
 - (NSInteger)indexWithView:(UIView *)view{
-    return [self.gridViews indexOfObject:view];
+    return [self.outsideViews indexOfObject:view];
 }
 
 - (TBMGridElement *)gridElementWithView:(UIView *)view{

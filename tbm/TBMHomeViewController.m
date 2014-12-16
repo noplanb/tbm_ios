@@ -93,7 +93,7 @@ static const float LayoutConstBENCH_ICON_HEIGHT = LayoutConstHEADER_HEIGHT *0.4;
 }
 
 - (UIImageView *)logoView{
-    UIImage *li = [UIImage imageNamed:@"logo"];
+    UIImage *li = [UIImage imageNamed:@"zazo-type"];
     float logoAspect = li.size.width / li.size.height;
     UIImageView *lv = [[UIImageView alloc] initWithImage:li];
     float y = (LayoutConstHEADER_HEIGHT - LayoutConstLOGO_HEIGHT) / 2;
@@ -102,7 +102,7 @@ static const float LayoutConstBENCH_ICON_HEIGHT = LayoutConstHEADER_HEIGHT *0.4;
 }
 
 - (UIImageView *)drawerIconView{
-    UIImage *i = [UIImage imageNamed:@"drawerIcon"];
+    UIImage *i = [UIImage imageNamed:@"icon-drawer"];
     float aspect = i.size.width / i.size.height;
     UIImageView *iv = [[UIImageView alloc] initWithImage:i];
     float w = aspect * LayoutConstBENCH_ICON_HEIGHT;

@@ -9,16 +9,19 @@
 #import <Foundation/Foundation.h>
 
 @protocol TBMVideoPlayerEventNotification <NSObject>
-- (void)videoPlayerStateDidChangeWithIndex:(NSInteger)index view:(UIView *)view isPlaying:(BOOL)isPlaying;
+- (void)videoPlayerStartedIndex:(NSInteger)index;
+- (void)videoPlayerStopped;
 @end
 
 @interface TBMVideoPlayer : NSObject
+@property (nonatomic) UIView *playerView;
+
 // Create
 + (instancetype)sharedInstance;
 
 // Instance methods
 - (void)addEventNotificationDelegate:(id)delegate;
-- (void)togglePlayWithIndex:(NSInteger)index view:(UIView *)view;
+- (void)togglePlayWithIndex:(NSInteger)index frame:(CGRect)frame;
 - (void)stop;
 - (BOOL)isPlaying;
 - (BOOL)isPlayingWithIndex:(NSInteger)index;

@@ -12,8 +12,7 @@
 
 @implementation TBMLongPressTouchHandler
 
-- (id)initWithTargetViews:(NSArray *)targetViews instantiator:(id)instantiator
-{
+- (id)initWithTargetViews:(NSArray *)targetViews instantiator:(id)instantiator{
     self = [super init];
     if (self){
         _targetViews = targetViews;
@@ -36,8 +35,6 @@
     _beginPoint = [touch locationInView:nil];
     _beginView = [touch view];
 }
-
-
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
     //    DebugLog(@"touchesMoved");

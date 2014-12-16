@@ -61,6 +61,7 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 + (NSUInteger)count;
 
 // Incoming videos
+- (void)printVideos;
 - (NSArray *) sortedIncomingVideos;
 - (TBMVideo *) oldestIncomingVideo;
 - (NSString *) oldestIncomingVideoId;
@@ -69,7 +70,7 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 - (BOOL) isNewestIncomingVideo:(TBMVideo *)video;
 - (TBMVideo *) createIncomingVideoWithVideoId:(NSString *)videoId;
 - (TBMVideo *) firstPlayableVideo;
-- (TBMVideo *) nextPlayableVideoAfterVideo:(TBMVideo *)video;
+- (TBMVideo *) nextPlayableVideoAfterVideoId:(NSString *)videoId;
 - (NSInteger) unviewedCount;
 - (void) deleteAllViewedOrFailedVideos;
 

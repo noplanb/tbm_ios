@@ -73,8 +73,12 @@ x AppDelegate callbacks into GridViewController
   - Move the creation of the bench view container to the HomeViewController
   - Instantiate the controller and add its view.
 
-- Assets
-  - Import the assets from the gridtest project.
+x Assets
+  x Import the assets from the gridtest project.
+
+
+BUGS:
+x Downloading bar not drawn right.
 
 Notes:
 ------

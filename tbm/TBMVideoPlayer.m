@@ -17,10 +17,10 @@
 @interface TBMVideoPlayer()
 @property TBMGridElement *gridElement;
 @property (nonatomic) NSInteger index;
-@property (nonatomic) UIView *containerView;
+@property (nonatomic) CGRect playerFrame;
 @property (nonatomic) TBMVideo *video;
+@property (nonatomic) NSString *videoId;
 @property (nonatomic) MPMoviePlayerController *moviePlayerController;
-@property (nonatomic) UIView *playerView;
 @property (nonatomic) TBMSoundEffect *messageTone;
 @property (nonatomic) NSMutableSet *eventNotificationDelegates;
 @end
@@ -46,6 +46,8 @@
         _moviePlayerController = [[MPMoviePlayerController alloc] init];
         _moviePlayerController.controlStyle = MPMovieControlStyleNone;
         _playerView = _moviePlayerController.view;
+        self.playerView.hidden = YES;
+        [self addPlayerNotifications];
     }
     return self;
 }
@@ -60,7 +62,6 @@
 - (BOOL)isPlayingWithIndex:(NSInteger)index{
     if (self.index != index)
         return NO;
-    
     return [self isPlaying];
 }
 
@@ -87,11 +88,13 @@
     [self.eventNotificationDelegates addObject:delegate];
 }
 
-- (void) notifyDelegatesOfEvent{
+- (void) notifyDelegates:(BOOL)isPlaying{
     for (id <TBMVideoPlayerEventNotification> delegate in self.eventNotificationDelegates){
-        [delegate videoPlayerStateDidChangeWithIndex:self.index
-                                                view:self.containerView
-                                           isPlaying:[self isPlaying]];
+        if (isPlaying){
+            [delegate videoPlayerStartedIndex:self.index];
+        } else {
+            [delegate videoPlayerStopped];
+        }
     }
 }
 
@@ -111,17 +114,10 @@
     
     if ([reason integerValue] != MPMovieFinishReasonUserExited)
         [self playDidComplete];
-    
 }
 
 - (void) playbackStateDidChangeNotification{
-    //DebugLog(@"playbackStateDidChangeNotification");
-    [self notifyDelegatesOfEvent];
-    if (_moviePlayerController.playbackState == MPMoviePlaybackStatePlaying){
-        [self showPlayer];
-    } else {
-        [self hidePlayer];
-    }
+//    DebugLog(@"playbackStateDidChangeNotification isplaying:%hhd",  [self isPlaying]);
 }
 
 //-------------
@@ -137,29 +133,31 @@
     }
 }
 
-
-// ------------
-// View control
-// ------------
-- (void)showPlayer{
+//-------------
+// Control view
+//-------------
+- (void)showPlayerView{
+    [self notifyDelegates:YES];
+    [self.playerView setFrame: self.playerFrame];
     self.playerView.hidden = NO;
 }
 
-- (void)hidePlayer{
+- (void)hidePlayerView{
+    [self notifyDelegates:NO];
     self.playerView.hidden = YES;
 }
-
 
 // ----------------
 // Control playback
 // ----------------
-- (void)togglePlayWithIndex:(NSInteger)index view:(UIView *)view{
-    self.containerView = view;
+- (void)togglePlayWithIndex:(NSInteger)index frame:(CGRect)frame{
+    self.playerFrame = frame;
     self.gridElement = [TBMGridElement findWithIndex:index];
     
     // Always start playing if user clicked a different index from the one that was last playing.
     if (self.index != index){
         self.index = index;
+        [self stop]; // So that the notification goes out to reset the view we were on in case it was still playing.
         [self start];
         return;
     }
@@ -176,8 +174,7 @@
     if (self.gridElement.friend == nil)
         return;
     
-    [self addPlayerView];
-    self.video = [self.gridElement.friend firstPlayableVideo];
+    [self setCurrentVideo:[self.gridElement.friend firstPlayableVideo]];
     
     if (self.video == nil){
         OB_WARN(@"no playable video.");
@@ -186,19 +183,14 @@
     [self play];
 }
 
-- (void)addPlayerView{
-    [self.playerView removeFromSuperview];
-    [self.playerView setFrame: self.containerView.bounds];
-    [self.containerView addSubview:self.playerView];
-}
-
-
 - (void)play{
     DebugLog(@"play for %@", self.video.videoId);
-
+    // Set viewed even if the video is not playable so that it gets deleted eventually.
+    [self.gridElement.friend setViewedWithIncomingVideo:self.video];
     if ([self.video hasValidVideoFile]){
         self.moviePlayerController.contentURL = [self.video videoUrl];
         [self.moviePlayerController play];
+        [self showPlayerView];
     } else {
         [self  playDidComplete];
     }
@@ -206,17 +198,27 @@
 
 - (void)stop{
     DebugLog(@"stop for %@", self.video.videoId);
+    [self hidePlayerView];
     [self.moviePlayerController stop];
 }
 
 - (void)playDidComplete{
     OB_INFO(@"VideoPlayer: playDidComplete: %@", self.video.videoId);
-    [self.gridElement.friend setViewedWithIncomingVideo:self.video];
-    self.video = [self.gridElement.friend nextPlayableVideoAfterVideo:self.video];
+    [self setCurrentVideo:[self.gridElement.friend nextPlayableVideoAfterVideoId:self.videoId]];
     
-    if (self.video != nil)
+    if (self.video != nil){
         [self play];
+    } else {
+        DebugLog(@"Got Nil next playable video");
+        [self hidePlayerView];
+    }
 }
 
+- (void)setCurrentVideo:(TBMVideo *)video{
+    // We save videoId here becuase video may be deleted out from under us while we are playing if a new video is downloaded
+    // since we have marked the current one as viewed.
+    self.video = video;
+    self.videoId = video.videoId;
+}
 
 @end
