@@ -7,8 +7,8 @@
 //
 #import "TBMHomeViewController.h"
 #import "TBMHomeViewController+VersionController.h"
-#import "TBMHomeViewController+Bench.h"
 #import "TBMHomeViewController+Invite.h"
+#import "TBMBenchViewController.h"
 #import "TBMFriend.h"
 #import "TBMVersionHandler.h"
 #import "TBMGridElement.h"
@@ -23,6 +23,7 @@
 
 @interface TBMHomeViewController ()
 @property (nonatomic) TBMAppDelegate *appDelegate;
+@property (nonatomic) TBMBenchViewController *benchViewController;
 
 @property UIView *headerView;
 @property UIView *contentView;
@@ -38,7 +39,6 @@
     OB_INFO(@"TBMHomeViewController: viewDidLoad");
     [super viewDidLoad];
     [self addHomeViews];
-    [self addBenchGestureRecognizers];
     [self setupShowLogGesture];
     [[[TBMVersionHandler alloc] initWithDelegate:self] checkVersionCompatibility];
 }
@@ -78,6 +78,7 @@ static const float LayoutConstBENCH_ICON_HEIGHT = LayoutConstHEADER_HEIGHT *0.4;
     [self addHeaderView];
     [self addContentView];
     [self addGridViewController];
+    [self addBenchViewController];
 }
 
 //-----------
@@ -88,8 +89,13 @@ static const float LayoutConstBENCH_ICON_HEIGHT = LayoutConstHEADER_HEIGHT *0.4;
     hv.backgroundColor = [UIColor colorWithHexString:@"1B1B19" alpha:1];
     [hv addSubview:[self logoView]];
     [hv addSubview:[self drawerIconView]];
+    [hv addGestureRecognizer: [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headerTapped)]];
     [self.view addSubview:hv];
     self.HeaderView = hv;
+}
+
+- (void)headerTapped{
+    [self.benchViewController toggle];
 }
 
 - (UIImageView *)logoView{
@@ -112,6 +118,7 @@ static const float LayoutConstBENCH_ICON_HEIGHT = LayoutConstHEADER_HEIGHT *0.4;
     return iv;
 }
 
+
 //------------
 // ContentView
 //------------
@@ -127,6 +134,13 @@ static const float LayoutConstBENCH_ICON_HEIGHT = LayoutConstHEADER_HEIGHT *0.4;
     [self addChildViewController:self.gridViewController];
     self.gridViewController.view.frame = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height);
     [self.contentView addSubview:self.gridViewController.view];
+}
+
+- (void)addBenchViewController{
+    self.benchViewController = [[TBMBenchViewController alloc] initWithContainerView:self.contentView
+                                                                  gridViewController:self.gridViewController];
+    [self addChildViewController:self.benchViewController];
+    [self.contentView addSubview:self.benchViewController.view];
 }
 
 

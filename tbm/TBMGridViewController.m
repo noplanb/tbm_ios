@@ -184,11 +184,13 @@ static const float LayoutConstASPECT = 0.75;
 // Longpress touch handling for outside views
 //------------------------------------------
 - (void)setupLongPressTouchHandler{
+    DebugLog(@"setupLongPressTouchHandler %@", [self outsideViews]);
     self.longPressTouchHandler = [[TBMLongPressTouchHandler alloc] initWithTargetViews:[self outsideViews] instantiator:self];
 }
 
 // We detect the touches for the entire window using this view controller but pass them to the longPressTouchHandler.
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    DebugLog(@"touchesBegan");
     if (self.longPressTouchHandler != nil) {
         [self.longPressTouchHandler touchesBegan:touches withEvent:event];
     }

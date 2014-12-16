@@ -68,10 +68,13 @@ x AppDelegate callbacks into GridViewController
   x They are used to manage the video Recorder somehow.
   
   
-- TBMBenchViewController
-  - Make TBMHomeViewController+Bench into a TBMBenchViewController
-  - Move the creation of the bench view container to the HomeViewController
-  - Instantiate the controller and add its view.
+x TBMBenchViewController
+  x Make TBMHomeViewController+Bench into a TBMBenchViewController
+  x Copy the code over
+  x Change the properties to properties from associatedObjects
+  x Single instance
+  x Home view controller instantiates with containerView and gridcontroller
+  x Instantiate the controller
 
 x Assets
   x Import the assets from the gridtest project.

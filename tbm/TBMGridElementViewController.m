@@ -7,6 +7,7 @@
 //
 
 #import "TBMGridElementViewController.h"
+#import "TBMBenchViewController.h"
 #import "HexColor.h"
 #import "TBMGridElement.h"
 #import "TBMVideo.h"
@@ -66,7 +67,7 @@
 
 - (void)gridDidChange:(NSInteger)index{
     if (index == self.index)
-        [self performSelectorOnMainThread:@selector(updateView) withObject:NO waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(updateView:) withObject:NO waitUntilDone:NO];
 }
 
 - (void)videoPlayerStartedIndex:(NSInteger)index{
@@ -181,8 +182,16 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     self.noFriendView = [[UIView alloc] initWithFrame:self.view.frame];
     self.noFriendView.backgroundColor = [UIColor colorWithHexString:LayoutConstOrangeColor];
     [self.noFriendView addSubview:iv];
+    
+//    UITapGestureRecognizer *plusTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(plusTap)];
+//    [self.noFriendView addGestureRecognizer:plusTap];
     [self.view addSubview:self.noFriendView];
 }
+
+//- (void)plusTap{
+//    DebugLog(@"plustap");
+//    [[TBMBenchViewController existingInstance] show];
+//}
 
 - (void)addNameLabel{
     float y = self.view.bounds.size.height - LayoutConstNameLabelHeight;
@@ -506,7 +515,6 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     [self hideAllIcons];
     
     if (self.gridElement.friend.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE){
-        DebugLog(@"Last is incoming: %d", self.gridElement.friend.lastIncomingVideoStatus);
         switch (self.gridElement.friend.lastIncomingVideoStatus) {
             case INCOMING_VIDEO_STATUS_DOWNLOADING:
                 [self showDownload];
@@ -556,14 +564,8 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 }
 
 - (BOOL)isDownloadingOrDownloaded{
-    if (
-        self.gridElement.friend.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
-            (
-                self.gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED  ||
-                self.gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING
-             )
-        )
-        return YES;
-    return NO;
+    return self.gridElement.friend.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
+            ( self.gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED  ||
+              self.gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING );
 }
 @end
