@@ -10,6 +10,8 @@
 #import "TBMGridViewController.h"
 
 @interface TBMBenchViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@property (nonatomic) BOOL isShowing;
+
 + (TBMBenchViewController *)existingInstance;
 - (instancetype)initWithContainerView:(UIView *)containerView gridViewController:(TBMGridViewController *)gridViewController;
 

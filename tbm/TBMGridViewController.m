@@ -8,6 +8,7 @@
 #import "TBMAppDelegate+AppSync.h"
 #import "TBMGridViewController.h"
 #import "TBMGridElementViewController.h"
+#import "TBMBenchViewController.h"
 #import "TBMGridElement.h"
 #import "OBLogger.h"
 #import "HexColor.h"
@@ -38,7 +39,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewDidLoad];
+    [super viewWillAppear:animated];
     [self addViews];
     [self setupLongPressTouchHandler];
     [[TBMVideoPlayer sharedInstance].playerView removeFromSuperview];
@@ -46,10 +47,12 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
     [self setupVideoRecorder:0];
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
     // Eliminated videoRecorder.dispose here. The OS takes care of interrupting or stopping and restarting our VideoCaptureSession very well.
     // We don't need to interfere with it.
 }
@@ -102,7 +105,7 @@
 //==================================
 // Adding the views for the nineGrid
 //==================================
-static const float LayoutConstGUTTER = 10;
+static const float LayoutConstGUTTER = 8;
 static const float LayoutConstMARGIN = 5;
 static const float LayoutConstASPECT = 0.75;
 
@@ -188,9 +191,8 @@ static const float LayoutConstASPECT = 0.75;
     self.longPressTouchHandler = [[TBMLongPressTouchHandler alloc] initWithTargetViews:[self outsideViews] instantiator:self];
 }
 
-// We detect the touches for the entire window using this view controller but pass them to the longPressTouchHandler.
+// We detect the touches for the entire view using this view controller but pass them to the longPressTouchHandler.
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    DebugLog(@"touchesBegan");
     if (self.longPressTouchHandler != nil) {
         [self.longPressTouchHandler touchesBegan:touches withEvent:event];
     }
@@ -213,6 +215,9 @@ static const float LayoutConstASPECT = 0.75;
 
 // Callbacks per the TBMLongPressTouchHandlerCallback protocol.
 - (void)LPTHClickWithTargetView:(UIView *)view{
+    if ([TBMBenchViewController existingInstance].isShowing)
+        return;
+
     TBMGridElement *ge = [self gridElementWithView:view];
     if (ge.friend != nil){
         [self rankingActionOccurred:ge.friend];
@@ -221,6 +226,9 @@ static const float LayoutConstASPECT = 0.75;
 }
 
 - (void)LPTHStartLongPressWithTargetView:(UIView *)view{
+    if ([TBMBenchViewController existingInstance].isShowing)
+        return;
+
     TBMGridElement *ge = [self gridElementWithView:view];
     if (ge.friend != nil){
         [self rankingActionOccurred:ge.friend];
@@ -436,7 +444,6 @@ static const float LayoutConstASPECT = 0.75;
 - (void)setRecordingIndicatorTextForRecording{
     self.recordingLabel.text = @"Recording";
 }
-
 
 
 @end

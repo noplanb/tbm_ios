@@ -47,6 +47,7 @@
 
 
 - (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self buildView];
     [self registerForEvents];
     [self updateView:NO];
@@ -110,7 +111,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 
 - (void)buildView{
     self.view.backgroundColor = [UIColor colorWithHexString:LayoutConstLabelGreyColor alpha:1];
-    [self addPlus];
+    [self addNoFriend];
     [self addNoThumbNoApp];
     [self addNoTHumbHasApp];
     [self addThumb];
@@ -124,19 +125,27 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     [self addViewedIndicator];
 }
 
+- (void) gevTap{
+    DebugLog(@"gevTap");
+}
+
 - (void) addNoThumbNoApp{
     float availH = (self.view.frame.size.height - LayoutConstNameLabelHeight);
     float h = (availH - 3*LayoutConstNoThumbButtonsMargin) / 2;
     float w = (self.view.frame.size.width - 2*LayoutConstNoThumbButtonsMargin);
     UILabel *nudge = [self noThumbLabel:CGRectMake(LayoutConstNoThumbButtonsMargin, LayoutConstNoThumbButtonsMargin, w, h)];
     nudge.textColor = [UIColor colorWithHexString:LayoutConstOrangeColor];
-    nudge.text = @"Nudge";
+    nudge.text = @"NUDGE";
+    [nudge addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nudgeTap)]];
+    nudge.userInteractionEnabled = YES;
     
     float y = 2 * LayoutConstNoThumbButtonsMargin + h;
     UILabel *record = [self noThumbLabel:CGRectMake(LayoutConstNoThumbButtonsMargin, y, w, h)];
     record.textColor = [UIColor colorWithHexString:LayoutConstRedColor];
-    record.text = @"Record";
-    
+    record.text = @"RECORD";
+    [record addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(recordTap)]];
+    record.userInteractionEnabled = YES;
+
     self.noThumbNoAppView = [self noThumbContainerView];
     [self.noThumbNoAppView addSubview:nudge];
     [self.noThumbNoAppView addSubview:record];
@@ -151,7 +160,9 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
                                                     self.view.bounds.size.width - 2*LayoutConstNoThumbButtonsMargin,
                                                     availH - 2*LayoutConstNoThumbButtonsMargin)];
     record.textColor = [UIColor colorWithHexString:LayoutConstRedColor alpha:1];
-    record.text = @"Record";
+    record.text = @"RECORD";
+    [record addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(recordTap)]];
+    record.userInteractionEnabled = YES;
     self.noThumbHasAppView = [self noThumbContainerView];
     [self.noThumbHasAppView addSubview:record];
     [self.view addSubview:self.noThumbHasAppView];
@@ -171,7 +182,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     return v;
 }
 
-- (void)addPlus{
+- (void)addNoFriend{
     UIImage *plusImg = [UIImage imageNamed:@"icon-plus"];
     UIImageView *iv = [[UIImageView alloc] initWithImage:plusImg];
     float w = self.view.frame.size.width / 2;
@@ -182,9 +193,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     self.noFriendView = [[UIView alloc] initWithFrame:self.view.frame];
     self.noFriendView.backgroundColor = [UIColor colorWithHexString:LayoutConstOrangeColor];
     [self.noFriendView addSubview:iv];
-    
-//    UITapGestureRecognizer *plusTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(plusTap)];
-//    [self.noFriendView addGestureRecognizer:plusTap];
+    [self.noFriendView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(noFriendTap)]];
     [self.view addSubview:self.noFriendView];
 }
 
@@ -567,5 +576,31 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     return self.gridElement.friend.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
             ( self.gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED  ||
               self.gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING );
+}
+
+
+//-----------
+// Tap events
+//-----------
+- (void)nudgeTap{
+    if ([TBMBenchViewController existingInstance].isShowing)
+        return;
+
+    DebugLog(@"nudgeTap");
+}
+
+- (void)recordTap{
+    if ([TBMBenchViewController existingInstance].isShowing)
+        return;
+    
+    [[[UIAlertView alloc] initWithTitle:@"Hold to Record"
+                                message:@"Press and hold the RECORD button to record"
+                               delegate:self
+                      cancelButtonTitle:@"Ok"
+                      otherButtonTitles:nil, nil] show];
+}
+
+- (void)noFriendTap{
+    [[TBMBenchViewController existingInstance] toggle];
 }
 @end

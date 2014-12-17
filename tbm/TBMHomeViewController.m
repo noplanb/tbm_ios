@@ -62,7 +62,6 @@
 - (void) didReceiveMemoryWarning{
     OB_ERROR(@"TBMHomeViewController: didReceiveMemoryWarning");
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 

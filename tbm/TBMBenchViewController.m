@@ -19,13 +19,11 @@
 @interface TBMBenchViewController ()
 @property (nonatomic) TBMGridViewController *gridViewController;
 @property (nonatomic) UIView *containerView;
-@property (nonatomic) UIView *benchView;
 @property (nonatomic) UITableView *benchTable;
 @property (nonatomic) UISearchBar *searchBar;
 @property (nonatomic) NSArray *tableArray;
 @property (nonatomic) UITableView *searchTable;
 @property (nonatomic) TBMContactSearchTableDelegate *searchTableDelegate;
-@property (nonatomic) BOOL isShowing;
 @end
 
 @implementation TBMBenchViewController
@@ -66,17 +64,17 @@ static NSString *BENCH_TEXT_COLOR = @"#fff";
 static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
 
 - (void)setupBenchView{
+    self.view.frame = [self benchRect];
+    self.view.backgroundColor = [UIColor colorWithHexString:BENCH_BACKGROUND_COLOR alpha:1];
     [self addBenchGestureRecognizers];
-    [self makeBenchView];
     [self makeSearchBar];
     [self getAndSetTableArray];
     [self makeBenchTable];
     [self makeSearchTable];
     
-    [self.benchView addSubview:self.searchBar];
-    [self.benchView addSubview:self.benchTable];
-    [self.benchView addSubview:self.searchTable];
-    [[self view] addSubview:self.benchView];
+    [self.view addSubview:self.searchBar];
+    [self.view addSubview:self.benchTable];
+    [self.view addSubview:self.searchTable];
     [[self view] setNeedsDisplay];
     [self hide];
     [self hideSearch];
@@ -92,11 +90,6 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
     [self.containerView addGestureRecognizer:sgl];
 }
 
-- (void)makeBenchView{
-    UIView *bv = [[UIView alloc] initWithFrame:[self benchRect]];
-    [bv setBackgroundColor:[UIColor colorWithHexString:BENCH_BACKGROUND_COLOR alpha:1]];
-    self.benchView = bv;
-}
 
 - (void)makeSearchBar{
     UISearchBar *sb = [[UISearchBar alloc] initWithFrame:[self searchBarRect]];
@@ -268,10 +261,10 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
     [self reloadData];
     [self.benchTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
                              atScrollPosition:UITableViewScrollPositionTop animated:NO];
-    CGRect f = self.benchView.frame;
+    CGRect f = self.view.frame;
     f.origin.x = [self shownX];
     [UIView animateWithDuration:0.2 animations:^{
-        self.benchView.frame = f;
+        self.view.frame = f;
     }];
     self.isShowing = YES;
 }
@@ -283,16 +276,16 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
 
 - (void)hide{
     [self hideSearch];
-    CGRect f = self.benchView.frame;
+    CGRect f = self.view.frame;
     f.origin.x = [self hiddenX];
     [UIView animateWithDuration:0.2 animations:^{
-        self.benchView.frame = f;
+        self.view.frame = f;
     }];
     self.isShowing = NO;
 }
 
 - (NSInteger)shownX{
-    return [UIScreen mainScreen].bounds.size.width - self.benchView.frame.size.width;
+    return [UIScreen mainScreen].bounds.size.width - self.view.frame.size.width;
 }
 
 - (NSInteger)hiddenX{

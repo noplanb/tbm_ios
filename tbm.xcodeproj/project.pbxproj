@@ -83,6 +83,7 @@
 		22A375C41930E09E00C355EB /* TBMStringUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A375C31930E09E00C355EB /* TBMStringUtils.m */; };
 		22A76A7A19A2600C00D8C4FF /* TBMFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A76A7919A2600C00D8C4FF /* TBMFriend.m */; };
 		22A76A7D19A2600C00D8C4FF /* TBMVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A76A7C19A2600C00D8C4FF /* TBMVideo.m */; };
+		22A8A05A1A410B1E00452F82 /* TBMInviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A8A0591A410B1E00452F82 /* TBMInviteViewController.m */; };
 		22A8F5081A09608800F7AD0E /* TBMTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A8F5071A09608800F7AD0E /* TBMTextField.m */; };
 		22A8F50B1A099C7600F7AD0E /* TBMPhoneUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A8F50A1A099C7600F7AD0E /* TBMPhoneUtils.m */; };
 		22BF060519D4A5FC00F6E025 /* TBMHomeViewController+Invite.m in Sources */ = {isa = PBXBuildFile; fileRef = 22BF060419D4A5FC00F6E025 /* TBMHomeViewController+Invite.m */; };
@@ -218,6 +219,8 @@
 		22A76A7919A2600C00D8C4FF /* TBMFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFriend.m; sourceTree = "<group>"; };
 		22A76A7B19A2600C00D8C4FF /* TBMVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideo.h; sourceTree = "<group>"; };
 		22A76A7C19A2600C00D8C4FF /* TBMVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideo.m; sourceTree = "<group>"; };
+		22A8A0581A410B1E00452F82 /* TBMInviteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMInviteViewController.h; sourceTree = "<group>"; };
+		22A8A0591A410B1E00452F82 /* TBMInviteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMInviteViewController.m; sourceTree = "<group>"; };
 		22A8F5061A09608800F7AD0E /* TBMTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMTextField.h; sourceTree = "<group>"; };
 		22A8F5071A09608800F7AD0E /* TBMTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMTextField.m; sourceTree = "<group>"; };
 		22A8F5091A099C7600F7AD0E /* TBMPhoneUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMPhoneUtils.h; sourceTree = "<group>"; };
@@ -493,6 +496,8 @@
 				22BF060419D4A5FC00F6E025 /* TBMHomeViewController+Invite.m */,
 				226A37BF1A37E08900A2D0F5 /* TBMGridElementViewController.h */,
 				226A37C01A37E08900A2D0F5 /* TBMGridElementViewController.m */,
+				22A8A0581A410B1E00452F82 /* TBMInviteViewController.h */,
+				22A8A0591A410B1E00452F82 /* TBMInviteViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -732,6 +737,7 @@
 				227155611A40902B00B437DA /* TBMBenchViewController.m in Sources */,
 				220E903B1909A18B003C4F82 /* TBMAppDelegate.m in Sources */,
 				2287DB4B1922BB5D00B1C298 /* TBMAppDelegate+PushNotification.m in Sources */,
+				22A8A05A1A410B1E00452F82 /* TBMInviteViewController.m in Sources */,
 				224101D2190D40B1005128F9 /* TBMDeviceHandler.m in Sources */,
 				220E90611909C3D4003C4F82 /* TBMHomeViewController.m in Sources */,
 				22A76A7A19A2600C00D8C4FF /* TBMFriend.m in Sources */,

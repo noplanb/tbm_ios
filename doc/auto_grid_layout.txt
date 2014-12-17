@@ -79,7 +79,16 @@ x TBMBenchViewController
 x Assets
   x Import the assets from the gridtest project.
 
+x Click handlers
+  x Pluses should open bench
+  x Bench icon should open bench
+  x Press and hold zazo icon should should open log
+  - Tap nudge should nudge
+  x Tap record should alert press and hold record to record a Zazo.
+  
 
+  
+  
 BUGS:
 x Downloading bar not drawn right.
 
