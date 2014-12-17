@@ -75,21 +75,21 @@ static const float LayoutConstGUTTER = 10;
 static const float LayoutConstBENCH_ICON_HEIGHT = LayoutConstHEADER_HEIGHT *0.4;
 
 - (void) addControllersAndViews{
-    [self addInviteViewController];
     [self addHeaderView];
     [self addContentView];
     [self addGridViewController];
     [self addBenchViewController];
+    [self addInviteViewController];
 }
 
 //-----------
 // InviteView
 //-----------
 - (void)addInviteViewController{
-    self.inviteViewController = [[TBMInviteViewController alloc] init];
+    self.inviteViewController = [TBMInviteViewController sharedInstance];
     [self addChildViewController:self.inviteViewController];
-    [self.view addSubview:self.inviteViewController.view];
     self.inviteViewController.view.frame = self.view.frame;
+    [self.view addSubview:self.inviteViewController.view];
 }
 
 //-----------

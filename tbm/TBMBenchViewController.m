@@ -214,7 +214,7 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
         TBMFriend *f = (TBMFriend *) obj;
         [self.gridViewController moveFriendToGrid:f];
     }else{
-        [[TBMInviteViewController existingInstance] invite:obj];
+        [[TBMInviteViewController sharedInstance] invite:obj];
     }
 }
 
@@ -333,6 +333,6 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
 
 - (void)searchContactSelected:(NSString *)fullname{
     [self hide];
-    [[TBMInviteViewController existingInstance] invite:fullname];
+    [[TBMInviteViewController sharedInstance] invite:fullname];
 }
 @end

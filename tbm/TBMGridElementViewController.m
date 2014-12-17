@@ -8,6 +8,7 @@
 
 #import "TBMGridElementViewController.h"
 #import "TBMBenchViewController.h"
+#import "TBMInviteViewController.h"
 #import "HexColor.h"
 #import "TBMGridElement.h"
 #import "TBMVideo.h"
@@ -586,7 +587,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     if ([TBMBenchViewController existingInstance].isShowing)
         return;
 
-    DebugLog(@"nudgeTap");
+    [[TBMInviteViewController sharedInstance] nudge:self.gridElement.friend];
 }
 
 - (void)recordTap{

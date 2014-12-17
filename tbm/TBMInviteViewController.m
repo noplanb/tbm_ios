@@ -16,6 +16,7 @@
 #import "UIAlertView+Blocks.h"
 #import "TBMHttpClient.h"
 #import "TBMUser.h"
+#import "HexColor.h"
 
 @interface TBMInviteViewController ()
 @property (nonatomic) NSString *fullname;
@@ -33,32 +34,31 @@
 //--------------
 // Instantiation
 //--------------
-static TBMInviteViewController *instance;
+static TBMInviteViewController *sharedInviteViewController = nil;
 
-- (instancetype)init{
-    self = [super init];
-    instance = self;
-    return self;
-}
-
-+ (TBMInviteViewController *)existingInstance{
-    return instance;
++ (TBMInviteViewController *)sharedInstance{
+    if (sharedInviteViewController == nil){
+        sharedInviteViewController = [[TBMInviteViewController alloc] init];
+    }
+    return sharedInviteViewController;
 }
 
 //----------
 // Lifecycle
 //----------
 - (void)viewDidLoad {
+    DebugLog(@"viewDidLoad");
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor colorWithHexString:@"fff" alpha:0];
+    [self addViews];
+    self.view.hidden = YES;
 }
 
 //----------------
 // Invite sequence
 //----------------
 - (void)invite:(NSString *)fullname{
-    OB_INFO(@"invite: %@", fullname);
-    [self addViews];
-    
+    OB_INFO(@"invite: %@", fullname);    
     self.fullname = fullname;
     self.contact =[[TBMContactsManager sharedInstance] contactWithFullname:fullname];
     
@@ -83,6 +83,15 @@ static TBMInviteViewController *instance;
     }
     
     [self selectPhoneNumberDialog];
+}
+
+- (void)nudge:(TBMFriend *)friend{
+    if (friend == nil)
+        return;
+    
+    self.friend = friend;
+    self.selectedPhone = self.friend.mobileNumber;
+    [self preNudgeDialog];
 }
 
 
@@ -224,6 +233,22 @@ static TBMInviteViewController *instance;
 //----------------------------------
 // SMS dialog and sending invite sms
 //----------------------------------
+- (void) preNudgeDialog{
+    NSString *msg = [NSString stringWithFormat:@"%@ still hasn't installed %@. Send them the link again.", self.friend.firstName,  CONFIG_APP_NAME];
+    NSString *title = [NSString stringWithFormat:@"Nudge %@", self.friend.firstName];
+    
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle:title
+                                                 message:msg
+                                                delegate:nil
+                                       cancelButtonTitle:@"Cancel"
+                                       otherButtonTitles:@"Send", nil];
+    av.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex){
+        if (buttonIndex == alertView.firstOtherButtonIndex)
+            [self smsDialog];
+    };
+    [av show];
+}
+
 - (void) preSmsDialog{
     NSString *msg = [NSString stringWithFormat:@"%@ has not installed %@ yet.\n\nSend them a link!", [self firstName], CONFIG_APP_NAME];
     UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Invite"
@@ -261,7 +286,8 @@ static TBMInviteViewController *instance;
     
     if (result == MessageComposeResultSent){
         DebugLog(@"sent");
-        [self getFriendFromServer];
+        if (self.friend == nil)
+            [self getFriendFromServer];
     }
     
     if (result == MessageComposeResultCancelled){
