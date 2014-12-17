@@ -13,7 +13,6 @@
 
 
 @interface TBMInviteViewController : UIViewController <TBMTableModalDelegate, MFMessageComposeViewControllerDelegate>
-+ (TBMInviteViewController *)sharedInstance;
++ (TBMInviteViewController *)existingInstance;
 - (void)invite:(NSString *)fullname;
-- (void)nudge:(TBMFriend *)friend;
 @end
