@@ -7,6 +7,7 @@
 //
 
 #import "TBMBenchViewController.h"
+#import "TBMHomeViewController+Invite.h"
 #import "HexColor.h"
 #import <objc/runtime.h>
 #import "TBMConfig.h"
@@ -14,7 +15,6 @@
 #import "TBMContactsManager.h"
 #import "OBLogger.h"
 #import "TBMContactSearchTableDelegate.h"
-#import "TBMInviteViewController.h"
 
 @interface TBMBenchViewController ()
 @property (nonatomic) TBMGridViewController *gridViewController;
@@ -214,7 +214,7 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
         TBMFriend *f = (TBMFriend *) obj;
         [self.gridViewController moveFriendToGrid:f];
     }else{
-        [[TBMInviteViewController existingInstance] invite:obj];
+        [(TBMHomeViewController *) self.parentViewController invite:obj];
     }
 }
 
@@ -333,6 +333,6 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
 
 - (void)searchContactSelected:(NSString *)fullname{
     [self hide];
-    [[TBMInviteViewController existingInstance] invite:fullname];
+    [(TBMHomeViewController *)self.parentViewController invite:fullname];
 }
 @end

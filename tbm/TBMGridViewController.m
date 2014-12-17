@@ -25,29 +25,18 @@
 
 @implementation TBMGridViewController
 
-//--------------
-// Instantiation
-//--------------
-static TBMGridViewController *instance = nil;
-
+//----------
+// Lifecycle
+//----------
 - (instancetype)init{
     self = [super init];
     if (self != nil){
         _appDelegate = (TBMAppDelegate *)[[UIApplication sharedApplication] delegate];
         [self registerAsAppEventsDelegate];
         [self setupGridElement];
-        instance = self;
     }
     return self;
 }
-
-+ (TBMGridViewController *)existingInstance{
-    return instance;
-}
-
-//----------
-// Lifecycle
-//----------
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

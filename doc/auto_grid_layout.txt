@@ -87,13 +87,6 @@ x Click handlers
   x Tap record should alert press and hold record to record a Zazo.
   
 
-- Invite
-  - Add inviteViewController
-  - Copy files over
-  - Delete +invite
-  - Change assocObj to properties
-  - Add existingInstance method.
-  - Test invite thoroughly and write the testcases
   
   
 BUGS:

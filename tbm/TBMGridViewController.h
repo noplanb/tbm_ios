@@ -13,7 +13,6 @@
 
 
 @interface TBMGridViewController : UIViewController <TBMLongPressTouchHandlerCallback, TBMVideoRecorderDelegate, TBMAppDelegateEventNotificationProtocol>
-+ (TBMGridViewController *)existingInstance;
 
 - (NSMutableArray *)friendsOnGrid;
 - (NSMutableArray *)friendsOnBench;

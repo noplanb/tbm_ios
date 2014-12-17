@@ -7,8 +7,8 @@
 //
 #import "TBMHomeViewController.h"
 #import "TBMHomeViewController+VersionController.h"
+#import "TBMHomeViewController+Invite.h"
 #import "TBMBenchViewController.h"
-#import "TBMInviteViewController.h"
 #import "TBMFriend.h"
 #import "TBMVersionHandler.h"
 #import "TBMGridElement.h"
@@ -24,7 +24,6 @@
 @interface TBMHomeViewController ()
 @property (nonatomic) TBMAppDelegate *appDelegate;
 @property (nonatomic) TBMBenchViewController *benchViewController;
-@property (nonatomic) TBMInviteViewController *inviteViewController;
 
 @property UIView *headerView;
 @property UIView *contentView;
@@ -39,7 +38,7 @@
 - (void)viewDidLoad{
     OB_INFO(@"TBMHomeViewController: viewDidLoad");
     [super viewDidLoad];
-    [self addControllersAndViews];
+    [self addHomeViews];
     [self setupShowLogGesture];
     [[[TBMVersionHandler alloc] initWithDelegate:self] checkVersionCompatibility];
 }
@@ -74,22 +73,11 @@ static const float LayoutConstLOGO_HEIGHT = LayoutConstHEADER_HEIGHT * 0.4;
 static const float LayoutConstGUTTER = 10;
 static const float LayoutConstBENCH_ICON_HEIGHT = LayoutConstHEADER_HEIGHT *0.4;
 
-- (void) addControllersAndViews{
-    [self addInviteViewController];
+- (void) addHomeViews{
     [self addHeaderView];
     [self addContentView];
     [self addGridViewController];
     [self addBenchViewController];
-}
-
-//-----------
-// InviteView
-//-----------
-- (void)addInviteViewController{
-    self.inviteViewController = [[TBMInviteViewController alloc] init];
-    [self addChildViewController:self.inviteViewController];
-    [self.view addSubview:self.inviteViewController.view];
-    self.inviteViewController.view.frame = self.view.frame;
 }
 
 //-----------

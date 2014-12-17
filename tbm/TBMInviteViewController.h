@@ -7,12 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TBMHomeViewController.h"
-#import <MessageUI/MFMessageComposeViewController.h>
-#import "TBMTableModal.h"
 
+@interface TBMInviteViewController : UIViewController
 
-@interface TBMInviteViewController : UIViewController <TBMTableModalDelegate, MFMessageComposeViewControllerDelegate>
-+ (TBMInviteViewController *)existingInstance;
-- (void)invite:(NSString *)fullname;
 @end
