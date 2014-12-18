@@ -13,4 +13,5 @@
 
 @interface TBMHomeViewController (Invite) <TBMTableModalDelegate, MFMessageComposeViewControllerDelegate>
 - (void)invite:(NSString *)fullname;
+- (void)nudge:(TBMFriend *)friend;
 @end

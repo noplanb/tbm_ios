@@ -120,6 +120,14 @@
     [self selectPhoneNumberDialog];
 }
 
+- (void)nudge:(TBMFriend *)friend{
+    if (friend == nil)
+        return;
+    
+    self.friend = friend;
+    self.selectedPhone = self.friend.mobileNumber;
+    [self preNudgeDialog];
+}
 
 - (void)getValidPhones{
     [self setValidPhones:[[NSMutableArray alloc] init]];
@@ -259,6 +267,22 @@
 //----------------------------------
 // SMS dialog and sending invite sms
 //----------------------------------
+- (void) preNudgeDialog{
+    NSString *msg = [NSString stringWithFormat:@"%@ still hasn't installed %@. Send them the link again.", self.friend.firstName,  CONFIG_APP_NAME];
+    NSString *title = [NSString stringWithFormat:@"Nudge %@", self.friend.firstName];
+    
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle:title
+                                                 message:msg
+                                                delegate:nil
+                                       cancelButtonTitle:@"Cancel"
+                                       otherButtonTitles:@"Send", nil];
+    av.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex){
+        if (buttonIndex == alertView.firstOtherButtonIndex)
+            [self smsDialog];
+    };
+    [av show];
+}
+
 - (void) preSmsDialog{
     NSString *msg = [NSString stringWithFormat:@"%@ has not installed %@ yet.\n\nSend them a link!", [self firstName], CONFIG_APP_NAME];
     UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Invite"
@@ -296,7 +320,8 @@
 
     if (result == MessageComposeResultSent){
         DebugLog(@"sent");
-        [self getFriendFromServer];
+        if (self.friend == nil)
+            [self getFriendFromServer];
     }
     
     if (result == MessageComposeResultCancelled){

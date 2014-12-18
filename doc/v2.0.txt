@@ -102,28 +102,45 @@ InviteManager
   - Manages invites for person not currently a friend
   - Allows Tickle of friend where !hasApp
   
-x Possible Scenarios 
-  x No valid phone for contact selected.
-  x Single valid phone for contact selected.
-  x Multiple valid phones for contact selected
-  x Phone matches existing friend.
-  x get has app from server
-    x Server not responding
-    x Server responds with failure due to phone not valid
-    x Server responds hasApp
-    x Server responds !hasApp
-    x Server stalled shows spinner
-  x PreSms dialog
-    x Cancel (terminate the invite)
-    x Send
-  x Sms dialog
-    x cancel (terminate the invite)
-    x send
-  x getFriend
-    x Server not responding
-    x Server responds with failure due to phone not valid
-    x Server responds with friend
-    x Server stalled shows spinner    
+Test cases
+- Chose contact
+    - From bench browse list
+    - From search
+
+- Contact status possibilities
+    - No valid phone for contact selected.
+    - Single valid phone for contact selected.
+    - Multiple valid phones for contact selected
+    - Phone matches existing friend.
+
+- get has app from server
+    - Server not responding
+    - Server responds with failure due to phone not valid
+    - Server responds hasApp
+    - Server responds !hasApp
+    - Server stalled shows spinner
+    
+- PreSms dialog
+    - Cancel (terminate the invite)
+    - Send
+    
+- Sms dialog
+    - cancel (terminate the invite)
+    - send
+    
+- getFriend
+    - Server not responding
+    - Server responds with failure due to phone not valid
+    - Server responds with friend
+    - Server stalled shows spinner
+    
+- Nudge
+    - PreNudge dialog
+        - Cancel
+        - Send
+    - Sms dialog
+        - cancel (did cancel dialog)
+        - send
   
 
 Contact Search

@@ -7,6 +7,7 @@
 //
 
 #import "TBMGridElementViewController.h"
+#import "TBMHomeViewController+Invite.h"
 #import "TBMBenchViewController.h"
 #import "HexColor.h"
 #import "TBMGridElement.h"
@@ -196,11 +197,6 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     [self.noFriendView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(noFriendTap)]];
     [self.view addSubview:self.noFriendView];
 }
-
-//- (void)plusTap{
-//    DebugLog(@"plustap");
-//    [[TBMBenchViewController existingInstance] show];
-//}
 
 - (void)addNameLabel{
     float y = self.view.bounds.size.height - LayoutConstNameLabelHeight;
@@ -546,7 +542,6 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     }
     
     if (self.gridElement.friend.lastVideoStatusEventType == OUTGOING_VIDEO_STATUS_EVENT_TYPE){
-        DebugLog(@"Last is outgoing: %d", self.gridElement.friend.outgoingVideoStatus);
         switch (self.gridElement.friend.outgoingVideoStatus) {
             case OUTGOING_VIDEO_STATUS_NEW:
                 [self animateUploading];
@@ -586,7 +581,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     if ([TBMBenchViewController existingInstance].isShowing)
         return;
 
-    DebugLog(@"nudgeTap");
+    [[TBMHomeViewController existingInstance] nudge:self.gridElement.friend];
 }
 
 - (void)recordTap{

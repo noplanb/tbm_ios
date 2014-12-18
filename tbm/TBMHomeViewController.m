@@ -31,6 +31,14 @@
 
 @implementation TBMHomeViewController
 
+//--------------
+// Instantiation
+//--------------
+static TBMHomeViewController *hvcInstance;
+
++ (TBMHomeViewController *)existingInstance{
+    return hvcInstance;
+}
 
 //----------
 // Lifecycle
@@ -38,6 +46,7 @@
 - (void)viewDidLoad{
     OB_INFO(@"TBMHomeViewController: viewDidLoad");
     [super viewDidLoad];
+    hvcInstance = self;
     [self addHomeViews];
     [self setupShowLogGesture];
     [[[TBMVersionHandler alloc] initWithDelegate:self] checkVersionCompatibility];
