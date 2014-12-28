@@ -37,9 +37,9 @@ NSString * const SERVER_PARAMS_FRIEND_HAS_APP = @"has_app";
 
 + (instancetype)sharedClient {
     static TBMHttpClient *_sharedClient = nil;
-    static dispatch_once_t onceToken;
+    static dispatch_once_t TBMHttpOnceToken;
     
-    dispatch_once(&onceToken, ^{
+    dispatch_once(&TBMHttpOnceToken, ^{
         _sharedClient = [[TBMHttpClient alloc] initWithBaseURL:[TBMConfig tbmBaseUrl]];
         _sharedClient.responseSerializer.acceptableContentTypes = [_sharedClient.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
     });

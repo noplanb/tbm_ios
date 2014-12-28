@@ -133,9 +133,10 @@
     [self setValidPhones:[[NSMutableArray alloc] init]];
     for (NSDictionary *pObj in [[self contact] objectForKey:kContactsManagerPhonesSetKey]){
         NSString *p = [pObj objectForKey: kContactsManagerPhoneNumberKey];
+        DebugLog(@"got phone: %@", p);
         if ([TBMPhoneUtils isValidPhone:p]){
             NSArray *entry = [[NSArray alloc] init];
-            NSString *pi = [TBMPhoneUtils phone:p withFormat:NBEPhoneNumberFormatNATIONAL];
+            NSString *pi = [TBMPhoneUtils phone:p withFormat:NBEPhoneNumberFormatINTERNATIONAL];
             entry = @[pi, [pObj objectForKey:kContactsManagerPhoneTypeKey]];
             [[self validPhones] addObject:entry];
         }

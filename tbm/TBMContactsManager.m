@@ -112,8 +112,6 @@
     [self setFullnamesHavingPhone];
     self.isSetup = YES;
     OB_INFO(@"ContactsManager: setting up complete: (%lu)", (unsigned long)[[self fullnamesHavingPhone] count]);
-    
-    DebugLog(@"Matching sa: %@", [self fullnamesMatchingSubstr:@"sa" limit:10]);
     return YES;
 }
 
