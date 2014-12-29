@@ -16,9 +16,9 @@ static NSString *CONFIG_VERSION_STRING = @"1.426";
 // provisioned with a dev cert or production/adhoc cert
 static NSString *CONFIG_DEVICE_BUILD = @"dev"; // prod / dev
 //static const NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://www.threebyme.com";
-//static const NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://staging-tbm.elasticbeanstalk.com";
+static const NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://staging-tbm.elasticbeanstalk.com";
 
-static NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://192.168.1.82:3000";
+//static NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://192.168.1.82:3000";
 
 @interface TBMConfig : NSObject
 + (NSURL *)videosDirectoryUrl;
