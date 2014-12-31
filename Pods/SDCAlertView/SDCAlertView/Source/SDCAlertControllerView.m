@@ -49,6 +49,7 @@ static NSString *const SDCAlertControllerCellReuseIdentifier = @"SDCAlertControl
 		_actionsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:_collectionViewLayout];
 		[_actionsCollectionView setTranslatesAutoresizingMaskIntoConstraints:NO];
 		[_actionsCollectionView registerClass:[SDCAlertCollectionViewCell class] forCellWithReuseIdentifier:SDCAlertControllerCellReuseIdentifier];
+		_actionsCollectionView.delaysContentTouches = NO;
 		
 		_actionsCollectionView.delegate = self;
 		_actionsCollectionView.dataSource = self;
@@ -138,17 +139,13 @@ static NSString *const SDCAlertControllerCellReuseIdentifier = @"SDCAlertControl
 	[self observeActions];
 	[self applyCurrentStyleToAlertElements];
 	
-	[self.visualEffectView sdc_pinWidth:self.visualStyle.width];
-	
 	[self.visualEffectView.contentView addSubview:self.scrollView];
-	[self.scrollView setNeedsLayout];
-	[self.scrollView layoutIfNeeded];
+	[self.scrollView finalizeElements];
 	
 	[self.scrollView sdc_alignEdgesWithSuperview:UIRectEdgeLeft|UIRectEdgeTop|UIRectEdgeRight];
 	self.maximumHeightConstraint = [self.scrollView sdc_setMaximumHeight:[self maximumHeightForScrollView]];
 	
 	UIView *aligningView = self.scrollView;
-	
 	if (self.contentView.subviews.count > 0) {
 		aligningView = self.contentView;
 		

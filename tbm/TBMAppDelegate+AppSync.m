@@ -11,24 +11,30 @@
 #import "TBMConfig.h"
 #import "TBMVideoRecorder.h"
 #import "TBMRemoteStorageHandler.h"
-#import "TBMVideo.h"
 #import "TBMVideoIdUtils.h"
 #import "TBMVideoPlayer.h"
+#import "TBMHttpClient.h"
 
 @implementation TBMAppDelegate (AppSync)
 
 
-//----------------------------------------
-// FileTransfer setup, upload and download
-//----------------------------------------
+//-------------------
+// FileTransfer setup
+//-------------------
 - (OBFileTransferManager *)fileTransferManager{
     OBFileTransferManager *ftm = objc_getAssociatedObject(self, @selector(fileTransferManager));
     if (ftm == nil){
         ftm = [OBFileTransferManager instance];
         ftm.delegate = self;
         ftm.downloadDirectory = [TBMConfig videosDirectoryUrl].path;
-        ftm.remoteUrlBase = CONFIG_SERVER_BASE_URL_STRING;
-        ftm.maxAttempts = 0;
+        ftm.remoteUrlBase = [TBMRemoteStorageHandler fileTransferRemoteUrlBase];
+        NSDictionary *cparams;
+        cparams = @{
+                    OBS3RegionParam: @"us_west_1",
+                    OBS3NoTvmAccessKeyParam: @"AKIAJ7KWMVKHXJRF7TSQ",
+                    OBS3NoTvmSecretKeyParam: @"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"
+                    };
+        [ftm configure:cparams];
         [self setFileTransferManager:ftm];
     }
     return ftm;
@@ -45,22 +51,27 @@
         return (NSTimeInterval)(1<<(retryAttempt-1));
 }
 
-
+//-------
+// Upload
+//-------
 - (void) uploadWithFriendId:(NSString *)friendId{
     TBMFriend *friend = [TBMFriend findWithId:friendId];
     NSString *localFilePath = [TBMVideoRecorder outgoingVideoUrlWithMarker:friendId].path;
     NSString *marker = [TBMVideoIdUtils markerWithFriend:friend videoId:friend.outgoingVideoId isUpload: YES];
     OB_INFO(@"uploadWithFriendId marker = %@", marker);
     
-    [[self fileTransferManager]
-     uploadFile:localFilePath
-     to:REMOTE_STORAGE_VIDEO_UPLOAD_PATH
-     withMarker:marker
-     withParams:@{@"filename": [TBMRemoteStorageHandler outgoingVideoRemoteFilename:friend]}];
-    
+    NSString *remoteFilename = [TBMRemoteStorageHandler outgoingVideoRemoteFilename:friend];
+    [[self fileTransferManager] uploadFile:localFilePath
+                                        to:[TBMRemoteStorageHandler fileTransferUploadPath]
+                                withMarker:marker
+                                withParams:[self fileTransferParams:remoteFilename]];
     [friend handleAfterOUtgoingVideoUploadStarted];
 }
 
+
+//---------
+// Download
+//---------
 - (void)queueDownloadWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId{
     [self queueDownloadWithFriend:friend videoId:videoId force:NO];
 }
@@ -95,16 +106,57 @@
     [self setBadgeNumberUnviewed];
     
     NSString *marker = [TBMVideoIdUtils markerWithFriend:friend videoId:videoId isUpload:NO];
-    
-    [[self fileTransferManager]
-     downloadFile: REMOTE_STORAGE_VIDEO_DOWNLOAD_PATH
-     to:[video videoPath]
-     withMarker: marker
-     withParams:@{@"filename": [TBMRemoteStorageHandler incomingVideoRemoteFilename:video]}];
+    NSString *remoteFilename = [TBMRemoteStorageHandler incomingVideoRemoteFilename:video];
+    [[self fileTransferManager] downloadFile: [TBMRemoteStorageHandler fileTransferDownloadPath]
+                                          to:[video videoPath]
+                                  withMarker: marker
+                                  withParams:[self fileTransferParams:remoteFilename]];
+}
+
+- (NSDictionary *)fileTransferParams:(NSString *)remoteFilename{
+    return @{@"filename": remoteFilename,
+             FilenameParamKey: remoteFilename,
+             ContentTypeParamKey: @"video/mp4"};
 }
 
 - (void) retryPendingFileTransfers{
     [[self fileTransferManager] retryPending];
+}
+
+//-------
+// Delete
+//-------
+- (void) deleteRemoteFile:(NSString *)filename{
+    OB_INFO(@"deleteRemoteFile: deleting: %@", filename);
+    if (REMOTE_STORAGE_USE_S3){
+        NSString *full = [NSString stringWithFormat:@"%@/%@", [TBMRemoteStorageHandler fileTransferDeletePath], filename];
+        [self performSelectorInBackground:@selector(ftmDelete:) withObject:full];
+    } else {
+        NSURLSessionDataTask *task = [[TBMHttpClient sharedClient] GET: @"videos/delete"
+                                                            parameters: @{@"filename": filename}
+                                                               success: ^(NSURLSessionDataTask *task, id responseObject) {}
+                                                               failure: ^(NSURLSessionDataTask *task, NSError *error) {}];
+        [task resume];
+    }
+}
+
+- (void)ftmDelete:(NSString *)path{
+    NSError *e = [[self fileTransferManager] deleteFile:path];
+    if (e != nil)
+        OB_ERROR(@"ftmDelete: Error trying to delete remote file. This should never happen. %@", e);
+}
+
+// Convenience
+- (void) deleteRemoteVideoFile:(TBMVideo *)video{
+    NSString *filename = [TBMRemoteStorageHandler incomingVideoRemoteFilename:video];
+    [self deleteRemoteFile:filename];
+}
+
+- (void) deleteRemoteFileAndVideoId:(TBMVideo *)video{
+    // GARF: TODO: We should delete the remoteVideoId from remoteVideoIds only if file deletion is successful so we dont leave hanging
+    // files. This is not a problem on s3 as old videos are automatically deleted by the server.
+    [self deleteRemoteVideoFile:(TBMVideo *)video];
+    [TBMRemoteStorageHandler deleteRemoteIncomingVideoId:video.videoId friend:video.friend];
 }
 
 //--------
@@ -218,7 +270,7 @@
         return;
     }
     
-    [TBMRemoteStorageHandler deleteRemoteFileAndVideoIdWithFriend:friend videoId:videoId];
+    [self deleteRemoteFileAndVideoId:video];
     
     if (error != nil){
         [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY video:video];
@@ -308,8 +360,8 @@
         OB_ERROR(@"AppSync.transferTaskStuckWithTransferInfo: nil transferInfo. This should never happen.");
         return NO;
     }
-    NSDate *createdOn = transferInfo[OBFTMCreatedOnKey];
-    NSNumber *bytesReceived = transferInfo[OBFTMCountOfBytesReceivedKey];
+    NSDate *createdOn = transferInfo[CreatedOnKey];
+    NSNumber *bytesReceived = transferInfo[CountOfBytesReceivedKey];
     NSTimeInterval age = -[createdOn timeIntervalSinceNow];
     OB_DEBUG(@"isStuckWithVideo: age=%f, bytesReceived=%@", age, bytesReceived);
     if (age > 0.25 && [bytesReceived isEqualToNumber: [NSNumber numberWithInt:0]]){
@@ -327,19 +379,19 @@
         return NO;
     } else {
         // OB_DEBUG(@"isPendingRetryWithVideo: got Info = %@", obInfo);
-        return [obInfo[OBFTMStatusKey] integerValue] == FileTransferPendingRetry;
+        return [obInfo[StatusKey] integerValue] == FileTransferPendingRetry;
     }
 }
 
 - (void) restartDownloadWithVideo:(TBMVideo *)video{
     NSString *marker = [TBMVideoIdUtils markerWithVideo:video isUpload:NO];
-    [[self fileTransferManager] restartTransferWithMarker:marker onComplete:nil];
+    [[self fileTransferManager] restartTransfer:marker onComplete:nil];
 }
 
 - (NSDictionary *)infoWithVideo:(TBMVideo *)video isUpload:(BOOL)isUpload allInfo:(NSArray *)allInfo{
     NSString *marker = [TBMVideoIdUtils markerWithVideo:video isUpload:isUpload];
     for (NSDictionary *d in allInfo){
-        NSString *dMarker = [d objectForKey:OBFTMMarkerKey ];
+        NSString *dMarker = [d objectForKey:MarkerKey ];
         if ([dMarker isEqualToString:marker])
             return d;
     }

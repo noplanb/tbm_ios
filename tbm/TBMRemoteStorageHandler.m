@@ -12,6 +12,7 @@
 #import "TBMStringUtils.h"
 #import "TBMHttpClient.h"
 #import "OBLogger.h"
+#import "TBMConfig.h"
 
 @implementation TBMRemoteStorageHandler
 
@@ -53,6 +54,25 @@
 
 + (NSString *) outgoingConnectionKey:(TBMFriend *)friend{
     return [NSString stringWithFormat:@"%@-%@", [TBMUser getUser].mkey, friend.mkey];
+}
+
+//-----------------------
+// URLs for file transfer
+//-----------------------
++ (NSString *) fileTransferRemoteUrlBase{
+    return REMOTE_STORAGE_USE_S3 ? REMOTE_STORAGE_S3_BASE_URL_STRING : CONFIG_SERVER_BASE_URL_STRING;
+}
+
++ (NSString *) fileTransferUploadPath{
+    return REMOTE_STORAGE_USE_S3 ? REMOTE_STORAGE_S3_BUCKET : REMOTE_STORAGE_SERVER_VIDEO_UPLOAD_PATH;
+}
+
++ (NSString *) fileTransferDownloadPath{
+    return REMOTE_STORAGE_USE_S3 ? REMOTE_STORAGE_S3_BUCKET : REMOTE_STORAGE_SERVER_VIDEO_DOWNLOAD_PATH;
+}
+
++ (NSString *) fileTransferDeletePath{
+    return REMOTE_STORAGE_S3_BUCKET;
 }
 
 //-------------------------
@@ -162,31 +182,5 @@
 }
 
 
-//-----------------
-// DeleteRemoteFile
-//-----------------
-+ (void) deleteRemoteFile:(NSString *)filename{
-    OB_INFO(@"deleteRemoteFile: deleting: %@", filename);
-    NSDictionary *params = @{@"filename": filename};
-    [TBMRemoteStorageHandler simpleGet:@"videos/delete" params:params];
-}
-
-// Convenience
-+ (void) deleteRemoteVideoFile:(TBMVideo *)video{
-    NSString *filename = [TBMRemoteStorageHandler incomingVideoRemoteFilename:video];
-    [TBMRemoteStorageHandler deleteRemoteFile:filename];
-}
-
-+ (void) deleteRemoteVideoFileWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId{
-    NSString *filename = [TBMRemoteStorageHandler incomingVideoRemoteFilenameWithFriend:friend videoId:videoId];
-    [TBMRemoteStorageHandler deleteRemoteFile:filename];
-}
-
-+ (void) deleteRemoteFileAndVideoIdWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId{
-    // GARF: TODO: We should delete the remoteVideoId from remoteVideoIds only if file deletion is successful so we dont leave hanging
-    // files.
-    [TBMRemoteStorageHandler deleteRemoteVideoFileWithFriend:friend videoId:videoId];
-    [TBMRemoteStorageHandler deleteRemoteIncomingVideoId:videoId friend:friend];
-}
 
 @end

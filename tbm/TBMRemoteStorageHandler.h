@@ -14,8 +14,12 @@
 //--------------------------------------
 // Remote data structure keys and values
 //--------------------------------------
-static NSString *REMOTE_STORAGE_VIDEO_UPLOAD_PATH = @"videos/create";
-static NSString *REMOTE_STORAGE_VIDEO_DOWNLOAD_PATH = @"videos/get";
+static BOOL REMOTE_STORAGE_USE_S3 = YES;
+static NSString *REMOTE_STORAGE_S3_BASE_URL_STRING = @"s3://";
+static NSString *REMOTE_STORAGE_S3_BUCKET = @"com.zazo.videos";
+
+static NSString *REMOTE_STORAGE_SERVER_VIDEO_UPLOAD_PATH = @"videos/create";
+static NSString *REMOTE_STORAGE_SERVER_VIDEO_DOWNLOAD_PATH = @"videos/get";
 
 static NSString *REMOTE_STORAGE_VIDEO_ID_KEY = @"videoId";
 static NSString *REMOTE_STORAGE_STATUS_KEY = @"status";
@@ -26,6 +30,11 @@ static NSString * REMOTE_STORAGE_STATUS_VIEWED = @"viewed";
 @interface TBMRemoteStorageHandler : NSObject
 
 
++ (NSString *) fileTransferRemoteUrlBase;
++ (NSString *) fileTransferUploadPath;
++ (NSString *) fileTransferDownloadPath;
++ (NSString *) fileTransferDeletePath;
+
 + (NSString *) outgoingVideoRemoteFilename:(TBMFriend *)friend;
 + (NSString *) incomingVideoRemoteFilename:(TBMVideo *)video;
 
@@ -33,9 +42,6 @@ static NSString * REMOTE_STORAGE_STATUS_VIEWED = @"viewed";
 + (void) addRemoteOutgoingVideoId:(NSString *)videoId friend:(TBMFriend *)friend;
 + (void) deleteRemoteIncomingVideoId:(NSString *)videoId friend:(TBMFriend *)friend;
 + (void) setRemoteIncomingVideoStatus:(NSString *)status videoId:(NSString *)videoId friend:(TBMFriend *)friend;
-+ (void) deleteRemoteVideoFile:(TBMVideo *)video;
-+ (void) deleteRemoteVideoFileWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId;
-+ (void) deleteRemoteFileAndVideoIdWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId;
 
 // Convenience getters
 + (void) getRemoteIncomingVideoIdsWithFriend:(TBMFriend *)friend gotVideoIds:(void(^)(NSArray *videoIds))gotVideoIds;

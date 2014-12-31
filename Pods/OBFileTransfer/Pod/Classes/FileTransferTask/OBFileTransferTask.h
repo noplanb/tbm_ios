@@ -8,26 +8,25 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, OBFTMTaskStatus) {
-    // These should probably be renamed with the OBFTM prefix since they are used externally. But hard to do as rename doesnt work on them.
+typedef NS_ENUM(NSUInteger, OBFileTransferTaskStatus) {
     FileTransferInProgress,
     FileTransferDownloadFileReady,
     FileTransferPendingRetry,
 };
 
-extern NSString * const OBFTMCreatedOnKey;
-extern NSString * const OBFTMTypeUploadKey;
-extern NSString * const OBFTMMarkerKey;
-extern NSString * const OBFTMNSTaskIdentifierKey;
-extern NSString * const OBFTMRemoteUrlKey;
-extern NSString * const OBFTMLocalFilePathKey;
-extern NSString * const OBFTMParamsKey;
-extern NSString * const OBFTMAttemptsKey;
-extern NSString * const OBFTMStatusKey;
-extern NSString * const OBFTMCountOfBytesExpectedToReceiveKey;
-extern NSString * const OBFTMCountOfBytesReceivedKey;
-extern NSString * const OBFTMCountOfBytesExpectedToSendKey;
-extern NSString * const OBFTMCountOfBytesSentKey;
+extern NSString * const CreatedOnKey;
+extern NSString * const TypeUploadKey;
+extern NSString * const MarkerKey;
+extern NSString * const NSTaskIdentifierKey;
+extern NSString * const RemoteUrlKey;
+extern NSString * const LocalFilePathKey;
+extern NSString * const ParamsKey;
+extern NSString * const AttemptsKey;
+extern NSString * const StatusKey;
+extern NSString * const CountOfBytesExpectedToReceiveKey;
+extern NSString * const CountOfBytesReceivedKey;
+extern NSString * const CountOfBytesExpectedToSendKey;
+extern NSString * const CountOfBytesSentKey;
 
 
 @interface OBFileTransferTask : NSObject <NSCoding>
@@ -40,7 +39,7 @@ extern NSString * const OBFTMCountOfBytesSentKey;
 @property (nonatomic,strong) NSString *localFilePath;
 @property (nonatomic) NSUInteger nsTaskIdentifier;
 @property (nonatomic,strong) NSDictionary *params;
-@property (nonatomic) OBFTMTaskStatus status;
+@property (nonatomic) OBFileTransferTaskStatus status;
 
 // Return a request that would map to this transfer agent (NOT USED FOR NOW)
 //-(NSMutableURLRequest *) request;

@@ -226,7 +226,6 @@
 - (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler{
     OB_INFO(@"handleEventsForBackgroundURLSession: for sessionId=%@",identifier);
     OBFileTransferManager *tm = [OBFileTransferManager instance];
-    [tm initSession];
     if ([[tm session].configuration.identifier isEqual:identifier]){
         tm.backgroundSessionCompletionHandler = completionHandler;
     } else {

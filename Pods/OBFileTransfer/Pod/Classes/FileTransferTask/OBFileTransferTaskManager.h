@@ -11,6 +11,8 @@
 
 @interface OBFileTransferTaskManager : NSObject
 
++(instancetype) instance;
+
 -(OBFileTransferTask *) trackUploadTo: (NSString *)remoteUrl fromFilePath:(NSString *)filePath withMarker:(NSString *)marker withParams: (NSDictionary *)params;
 -(OBFileTransferTask *) trackDownloadFrom: (NSString *)remoteUrl toFilePath:(NSString *)filePath withMarker: (NSString *)marker withParams: (NSDictionary *)params;
 
@@ -29,7 +31,7 @@
 
 // Change the task state
 -(void) processing: (OBFileTransferTask *) obTask withNsTask: (NSURLSessionTask *) nsTask;
--(void) update: (OBFileTransferTask *)obTask  withStatus: (OBFTMTaskStatus) status;
+-(void) update: (OBFileTransferTask *)obTask  withStatus: (OBFileTransferTaskStatus) status;
 -(void) update: (OBFileTransferTask *)obTask  withLocalFilePath: (NSString *) localFilePath;
 
 -(void) reset;
@@ -37,6 +39,7 @@
 
 -(NSArray *) currentState;
 -(NSArray *) pendingTasks;
+-(NSArray *)processingTasks;
 -(NSArray *) allTasks;
 
 //This is a bit of a hack, put here because it makes it easier to perist.  However, the task manager is not responsible

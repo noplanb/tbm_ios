@@ -100,7 +100,7 @@
 #pragma mark - Alert View
 
 - (SDCAlertView *)legacyAlertView {
-	if (!_legacyAlertView && [self usesLegacyAlert]) {
+	if (!_legacyAlertView && self.usesLegacyAlert) {
 		_legacyAlertView = [SDCAlertView alertViewWithAlertController:self];
 	}
 	return _legacyAlertView;
@@ -167,6 +167,7 @@
 	self.presentingAlert = YES;
 	
 	[self.view addSubview:self.alert];
+	[self.alert sdc_pinWidth:self.visualStyle.width];
 	[self.alert sdc_centerInSuperview];
 	
 	[self.alert prepareForDisplay];
@@ -260,7 +261,17 @@
 }
 
 - (void)dismissWithCompletion:(void (^)(void))completion {
-	[self.presentingViewController dismissViewControllerAnimated:YES completion:completion];
+	if ([self usesLegacyAlert]) {
+		self.legacyAlertView.didDismissHandler = ^(NSInteger buttonIndex) {
+			if (completion) {
+				completion();
+			}
+		};
+		
+		[self.legacyAlertView dismissWithClickedButtonIndex:NSIntegerMax animated:YES];
+	} else {
+		[self.presentingViewController dismissViewControllerAnimated:YES completion:completion];
+	}
 }
 
 @end

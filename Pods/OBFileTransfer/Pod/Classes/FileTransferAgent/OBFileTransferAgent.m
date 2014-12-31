@@ -12,16 +12,24 @@
 
 NSString * const FilenameParamKey = @"_filename";
 NSString * const ContentTypeParamKey = @"_contentType";
-NSString * const FormFileFieldNameParamKey = @"_fileFieldName";
 
--(NSMutableURLRequest *) downloadFileRequest:(NSString *)sourcefileUrl withParams:(NSDictionary *)params
+-(instancetype) initWithConfig:(NSDictionary *)configParams
 {
+    return [self init];
+}
+
+//-------------------------------------
+// Methods to be overridden by subclass
+//-------------------------------------
+-(NSMutableURLRequest *) downloadFileRequest:(NSString *)sourcefileUrl withParams:(NSDictionary *)params{
     [NSException raise:NSInternalInconsistencyException format:@"Please override method %@ in your subclass",NSStringFromSelector(_cmd)];
     return nil;
 }
-
--(NSMutableURLRequest *) uploadFileRequest:(NSString *)filePath to:(NSString *)targetFileUrl withParams:(NSDictionary *)params
-{
+-(NSMutableURLRequest *) uploadFileRequest:(NSString *)filePath to:(NSString *)targetFileUrl withParams:(NSDictionary *)params{
+    [NSException raise:NSInternalInconsistencyException format:@"Please override method %@ in your subclass",NSStringFromSelector(_cmd)];
+    return nil;
+}
+- (NSError *) deleteFile:(NSString *)targetFileUrl{
     [NSException raise:NSInternalInconsistencyException format:@"Please override method %@ in your subclass",NSStringFromSelector(_cmd)];
     return nil;
 }
@@ -37,9 +45,13 @@ NSString * const FormFileFieldNameParamKey = @"_fileFieldName";
 {
     NSMutableDictionary * p = [NSMutableDictionary dictionaryWithDictionary:params];
     [p removeObjectForKey:FilenameParamKey];
-    [p removeObjectForKey:FormFileFieldNameParamKey];
     [p removeObjectForKey:ContentTypeParamKey];
     return p;
+}
+
+-(NSString *)filenameFromFilepath: (NSString *)filePath
+{
+    return [[filePath componentsSeparatedByString:@"/"] lastObject];
 }
 
 -(NSString *)mimeTypeFromFilename: (NSString *)filename

@@ -15,16 +15,15 @@
 
 #import "AmazonClientManager.h"
 
-#import <AWSRuntime/AWSRuntime.h>
 
 #import "AmazonKeyChainWrapper.h"
 #import "AmazonTVMClient.h"
+#import "OBLogger.h"
 
 static AmazonS3Client       *s3  = nil;
 static AmazonTVMClient      * _tvm = nil;
-
-// HACK GARF - remove this!!
-#define TVM_SERVER_URL @"http://default-environment-kkh4pgjjij.elasticbeanstalk.com"
+static AmazonRegion _awsRegion;
+static AmazonCredentials * _noTvmCredentials = nil;
 
 NSString * const kAmazonTokenHeader = @"x-amz-security-token";
 
@@ -41,29 +40,38 @@ NSString * const kAmazonTokenHeader = @"x-amz-security-token";
 
 +(void)setTvmServerUrl: (NSString *) tvmServerUrl;
 {
-//    TODO - will want to use SSL later
-    if ( ![_tvm.endpoint isEqualToString:tvmServerUrl] ) {
+    if (tvmServerUrl == nil || [tvmServerUrl isEqualToString:@""]){
+        OB_INFO(@"Using S3 without TokenVendingMachine");
+        _tvm = nil;
+        return;
+    }
+    
+    // TODO - will want to use SSL later
+    if ( _tvm == nil || ![_tvm.endpoint isEqualToString:tvmServerUrl] ) {
+        OB_INFO(@"Using S3 with TokenVendingMachine");
         _tvm = [[AmazonTVMClient alloc] initWithEndpoint:tvmServerUrl useSSL:NO];
     }
 }
 
++(void)setNoTvmCredentials:(AmazonCredentials *)credentials{
+    _noTvmCredentials = credentials;
+}
+
 +(AmazonTVMClient *) tvm
 {
-    if ( _tvm == nil )
-        [self setTvmServerUrl:TVM_SERVER_URL];
     return _tvm;
 }
 
-+(bool)hasCredentials
++(void) setRegion: (AmazonRegion) region
 {
-    return YES;
+    _awsRegion = region;
 }
 
 +(Response *)validateCredentials
 {
     Response *ableToGetToken = [[Response alloc] initWithCode:200 andMessage:@"OK"];
     
-    if ([AmazonKeyChainWrapper areCredentialsExpired]) {
+    if (_tvm != nil && [AmazonKeyChainWrapper areCredentialsExpired]) {
         
         @synchronized(self)
         {
@@ -83,11 +91,12 @@ NSString * const kAmazonTokenHeader = @"x-amz-security-token";
             }
         }
     }
-    else if ( s3 == nil )
+    // Always init clients if _tvm is nil so that changes in credentials made by the app to noTvm credentials take effect.
+    else if ( s3 == nil || _tvm == nil)
     {
         @synchronized(self)
         {
-            if (s3 == nil )
+            if (s3 == nil || _tvm == nil)
             {
                 [AmazonClientManager initClients];
             }
@@ -99,15 +108,33 @@ NSString * const kAmazonTokenHeader = @"x-amz-security-token";
 
 +(void)initClients
 {
-    AmazonCredentials *credentials = [AmazonKeyChainWrapper getCredentialsFromKeyChain];
+    if (_tvm != nil) {
+        OB_INFO(@"Creating s3client with TvmCredentials");
+        s3  = [[AmazonS3Client alloc] initWithCredentials:[AmazonKeyChainWrapper getCredentialsFromKeyChain]];
+    } else {
+        if (_noTvmCredentials != nil){
+            OB_INFO(@"Creating s3client with noTvmCredentials");
+            s3  = [[AmazonS3Client alloc] initWithCredentials:_noTvmCredentials];
+        } else {
+            // For publicly accessable buckets.
+            OB_INFO(@"Creating s3client with NO credentials");
+            s3 = [[AmazonS3Client alloc] init];
+        }
+    }
     
-    s3  = [[AmazonS3Client alloc] initWithCredentials:credentials];
-    s3.endpoint = [AmazonEndpoints s3Endpoint:US_EAST_1];
+    // If _awsRegion is not set the AwsRegion enum defaults to US_EAST_1.
+    s3.endpoint = [AmazonEndpoints s3Endpoint:_awsRegion];
 }
 
 +(NSString *) securityToken
 {
-    return [AmazonKeyChainWrapper securityToken];
+    if (_tvm != nil)
+        return [AmazonKeyChainWrapper securityToken];
+    
+    if (_noTvmCredentials != nil)
+        return _noTvmCredentials.securityToken;
+    
+    return nil;
 }
 
 +(void)wipeAllCredentials
