@@ -14,7 +14,7 @@
 //--------------------------------------
 // Remote data structure keys and values
 //--------------------------------------
-static BOOL REMOTE_STORAGE_USE_S3 = YES;
+static BOOL REMOTE_STORAGE_USE_S3 = NO;
 static NSString *REMOTE_STORAGE_S3_BASE_URL_STRING = @"s3://";
 static NSString *REMOTE_STORAGE_S3_BUCKET = @"com.zazo.videos";
 

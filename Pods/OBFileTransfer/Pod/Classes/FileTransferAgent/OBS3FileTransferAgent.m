@@ -56,7 +56,7 @@ NSString * const OBS3NoTvmSecurityTokenParam = @"S3NoTvmSecurityTokenParam";
         filename = params[FilenameParamKey];
     else
         filename = urlComponents[@"filename"];
-
+    
     S3GetObjectRequest * getRequest = [[S3GetObjectRequest alloc] initWithKey:filename
                                                                    withBucket:urlComponents[@"bucketName"]];
     
@@ -82,7 +82,7 @@ NSString * const OBS3NoTvmSecurityTokenParam = @"S3NoTvmSecurityTokenParam";
     if ( s3Url == nil ) s3Url = @""; // Not sure what special case this is here for.
     
     NSDictionary *urlComponents = [self urlToComponents:s3Url];
-
+    
     NSString *filename;
     if ( params[FilenameParamKey] != nil)
         filename = params[FilenameParamKey];
@@ -90,7 +90,7 @@ NSString * const OBS3NoTvmSecurityTokenParam = @"S3NoTvmSecurityTokenParam";
         filename = urlComponents[@"filename"];
     else
         filename = [[filePath pathComponents] lastObject];
-
+    
     S3PutObjectRequest * putRequest = [[S3PutObjectRequest alloc] initWithKey:filename
                                                                      inBucket:urlComponents[@"bucketName"]];
     
@@ -110,7 +110,7 @@ NSString * const OBS3NoTvmSecurityTokenParam = @"S3NoTvmSecurityTokenParam";
     NSMutableURLRequest* request2 = [[NSMutableURLRequest alloc]initWithURL:request.URL];
     [request2 setHTTPMethod:request.HTTPMethod];
     [request2 setAllHTTPHeaderFields:[request allHTTPHeaderFields]];
-
+    
     return request2;
 }
 
@@ -146,7 +146,7 @@ NSString * const OBS3NoTvmSecurityTokenParam = @"S3NoTvmSecurityTokenParam";
     } else {
         path = url;
     }
-
+    
     NSInteger firstSlash = [path rangeOfString:@"/"].location;
     if (firstSlash == NSNotFound)
         return @{@"bucketName":path};

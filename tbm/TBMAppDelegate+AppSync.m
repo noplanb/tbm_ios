@@ -31,8 +31,8 @@
         NSDictionary *cparams;
         cparams = @{
                     OBS3RegionParam: @"us_west_1",
-                    OBS3NoTvmAccessKeyParam: @"AKIAJ7KWMVKHXJRF7TSQ",
-                    OBS3NoTvmSecretKeyParam: @"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"
+                    OBS3NoTvmAccessKeyParam: @"AKIAI2XZARL4UJKO3NWQ",
+                    OBS3NoTvmSecretKeyParam: @"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"
                     };
         [ftm configure:cparams];
         [self setFileTransferManager:ftm];
