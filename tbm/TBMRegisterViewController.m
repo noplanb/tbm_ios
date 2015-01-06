@@ -9,6 +9,7 @@
 #import "TBMAppDelegate+Boot.h"
 #import "TBMRegisterViewController.h"
 #import "TBMHttpClient.h"
+#import "TBMS3CredentialsManager.h"
 #import "TBMConfig.h"
 #import "TBMUser.h"
 #import "TBMFriend.h"
@@ -251,7 +252,7 @@ NSURLSessionDataTask *task = [hc
 
 - (void) gotFriends{
     [_registerForm stopWaitingForServer];
-    [self userAndFriendModelsAreSetup];
+    [self getS3Credentials];
 }
 
 - (void) friendGetterServerError{
@@ -259,13 +260,27 @@ NSURLSessionDataTask *task = [hc
     [self showGetFriendsServerErrorDialog];
 }
 
+//-------------------
+// Get S3 Credentials
+//-------------------
+- (void) getS3Credentials{
+    [_registerForm startWaitingForServer];
+    [TBMS3CredentialsManager refreshFromServer:^void (BOOL success){
+        [_registerForm stopWaitingForServer];
+        if (success){
+            [self registrationComplete];
+        } else {
+            [self showS3ErrorDialog];
+        }
+    }];
+}
+
 //--------
 // Dialogs
 //--------
 - (void) connectionError{
     DebugLog(@"connectionError:");
-    NSString *msg = [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", TBMConfig.appName];
-    [self showErrorDialogWithTitle:@"Try Again" msg:msg];
+    [self showErrorDialogWithTitle:@"Try Again" msg:[self badConnectionMessage]];
 }
 
 - (void) showErrorDialogWithTitle:(NSString *)title msg:(NSString *)msg{
@@ -307,11 +322,9 @@ NSURLSessionDataTask *task = [hc
 }
 
 - (void) showGetFriendsServerErrorDialog{
-    NSString *msg = [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", CONFIG_APP_NAME];
-
     UIAlertView *av = [[UIAlertView alloc]
-                       initWithTitle:@"Bad Connection"
-                       message:msg
+                       initWithTitle:[self badConnectionTitle]
+                       message:[self badConnectionMessage]
                        delegate:self
                        cancelButtonTitle:@"Try Again"
                        otherButtonTitles:nil];
@@ -322,13 +335,36 @@ NSURLSessionDataTask *task = [hc
     [av show];
 }
 
+- (void) showS3ErrorDialog{
+    UIAlertView *av = [[UIAlertView alloc]
+                       initWithTitle:[self badConnectionTitle]
+                       message:[self badConnectionMessage]
+                       delegate:self
+                       cancelButtonTitle:@"Try Again"
+                       otherButtonTitles:nil];
+    
+    av.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex) {
+        [self getS3Credentials];
+    };
+    [av show];
+}
+
+- (NSString *)badConnectionMessage{
+    return [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", CONFIG_APP_NAME];
+}
+
+- (NSString *)badConnectionTitle{
+    return @"Bad Connection";
+}
+
 
 //--------------
 // Done with reg
 //--------------
 
 
-- (void) userAndFriendModelsAreSetup{
+- (void) registrationComplete{
+    [TBMUser getUser].isRegistered = YES;
     [(TBMAppDelegate *)[[UIApplication sharedApplication] delegate] didCompleteRegistration];
 }
 

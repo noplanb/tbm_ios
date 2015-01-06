@@ -8,6 +8,7 @@
 
 #import "TBMHttpClient.h"
 #import "TBMConfig.h"
+#import "TBMUser.h"
 
 NSString * const SERVER_PARAMS_STATUS_KEY = @"status";
 NSString * const SERVER_PARAMS_ERROR_TITLE_KEY = @"title";
@@ -32,6 +33,10 @@ NSString * const SERVER_PARAMS_FRIEND_ID_KEY = @"id";
 NSString * const SERVER_PARAMS_FRIEND_MKEY_KEY = @"mkey";
 NSString * const SERVER_PARAMS_FRIEND_HAS_APP = @"has_app";
 
+NSString * const SERVER_PARAMS_S3_REGION_KEY = @"region";
+NSString * const SERVER_PARAMS_S3_BUCKET_KEY = @"bucket";
+NSString * const SERVER_PARAMS_S3_ACCESS_KEY = @"access_key";
+NSString * const SERVER_PARAMS_S3_SECRET_KEY = @"secret_key";
 
 @implementation TBMHttpClient
 
@@ -54,4 +59,10 @@ NSString * const SERVER_PARAMS_FRIEND_HAS_APP = @"has_app";
     return ![TBMHttpClient isSuccess:responseObject];
 }
 
++ (NSDictionary *)userCredentials{
+    return @{
+             SERVER_PARAMS_USER_MKEY_KEY: [TBMUser getUser].mkey,
+             SERVER_PARAMS_USER_AUTH_KEY: [TBMUser getUser].auth
+             };
+}
 @end

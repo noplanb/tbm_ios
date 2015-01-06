@@ -9,6 +9,7 @@
 #import <objc/runtime.h>
 #import "TBMAppDelegate+PushNotification.h"
 #import "TBMConfig.h"
+#import "TBMS3CredentialsManager.h"
 #import "TBMVideoRecorder.h"
 #import "TBMRemoteStorageHandler.h"
 #import "TBMVideoIdUtils.h"
@@ -29,10 +30,11 @@
         ftm.downloadDirectory = [TBMConfig videosDirectoryUrl].path;
         ftm.remoteUrlBase = [TBMRemoteStorageHandler fileTransferRemoteUrlBase];
         NSDictionary *cparams;
+        NSDictionary *cred = [TBMS3CredentialsManager credentials];
         cparams = @{
-                    OBS3RegionParam: @"us_west_1",
-                    OBS3NoTvmAccessKeyParam: @"AKIAI2XZARL4UJKO3NWQ",
-                    OBS3NoTvmSecretKeyParam: @"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"
+                    OBS3RegionParam: cred[S3_REGION_KEY],
+                    OBS3NoTvmAccessKeyParam: cred[S3_ACCESS_KEY],
+                    OBS3NoTvmSecretKeyParam: cred[S3_SECRET_KEY]
                     };
         [ftm configure:cparams];
         [self setFileTransferManager:ftm];
@@ -196,9 +198,12 @@
         TBMFriend *friend = [TBMVideoIdUtils friendWithMarker:marker];
         NSString *videoId = [TBMVideoIdUtils videoIdWithMarker:marker];
         if (friend == nil){
-            OB_ERROR(@"fileTransferCompleted - Could not find friend with marker = %@.", marker);
+            OB_ERROR(@"fileTransferCompleted - Could not find friend with marker = %@. This should never happen", marker);
             return;
         }
+        
+        [self handleError:error marker:marker];
+        
         BOOL isUpload = [TBMVideoIdUtils isUploadWithMarker:marker];
         if (isUpload){
             [self uploadCompletedWithFriend:friend videoId:videoId error:error];
@@ -206,6 +211,20 @@
             [self downloadCompletedWithFriend:friend videoId:videoId error:error];
         }
     });
+}
+
+- (void) handleError:(NSError *)error marker:(NSString *)marker{
+    if (error == nil)
+        return;
+    
+    if (error.code == 404)
+        return;
+    
+    NSString *type = [TBMVideoIdUtils isUploadWithMarker:marker] ? @"upload" : @"download";
+    OB_ERROR(@"AppSync: Permanent failure in %@ due to error: %@", type, error);
+    // Refresh the credentials from the server and set ftm to nil so that it uses new credentials if they have arrived by the next time we need it.
+    [TBMS3CredentialsManager refreshFromServer:nil];
+    [self setFileTransferManager:nil];
 }
 
 - (void) fileTransferProgress:(NSString *)marker percent:(NSUInteger)progress{

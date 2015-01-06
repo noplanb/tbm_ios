@@ -31,8 +31,15 @@ extern NSString * const SERVER_PARAMS_FRIEND_ID_KEY;
 extern NSString * const SERVER_PARAMS_FRIEND_MKEY_KEY;
 extern NSString * const SERVER_PARAMS_FRIEND_HAS_APP;
 
+extern NSString * const SERVER_PARAMS_S3_REGION_KEY;
+extern NSString * const SERVER_PARAMS_S3_BUCKET_KEY;
+extern NSString * const SERVER_PARAMS_S3_ACCESS_KEY;
+extern NSString * const SERVER_PARAMS_S3_SECRET_KEY;
+
 @interface TBMHttpClient : AFHTTPSessionManager
 + (instancetype)sharedClient;
 + (BOOL)isSuccess:(NSDictionary *)responseObject;
 + (BOOL)isFailure:(NSDictionary *)responseObject;
+
++ (NSDictionary *)userCredentials;
 @end

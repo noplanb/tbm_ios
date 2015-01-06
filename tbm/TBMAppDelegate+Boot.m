@@ -9,6 +9,7 @@
 #import "TBMAppDelegate+Boot.h"
 #import "TBMAppDelegate+PushNotification.h"
 #import "TBMAppDelegate+AppSync.h"
+#import "TBMS3CredentialsManager.h"
 #import "TBMUser.h"
 #import "TBMFriend.h"
 #import "OBLogger.h"
@@ -22,7 +23,7 @@
 //    [[OBLogger instance] reset];
 
     
-    if (![TBMUser getUser]){
+    if (![TBMUser getUser].isRegistered){
         self.window.rootViewController = [self registerViewController];
     } else {
         self.window.rootViewController = [self homeViewController];
@@ -40,9 +41,13 @@
 - (void)postRegistrationBoot{
     [self setupPushNotificationCategory];
     [self registerForPushNotification];
+    [TBMS3CredentialsManager refreshFromServer:nil];
 }
 
 - (void)performDidBecomeActiveActions{
+    if (![TBMUser getUser].isRegistered)
+        return;
+    
     [TBMVideo printAll];
     [self handleStuckDownloadsWithCompletionHandler:^{
         [self retryPendingFileTransfers];

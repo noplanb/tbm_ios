@@ -11,6 +11,7 @@
 
 
 @interface TBMUser : NSManagedObject
+@property (nonatomic) BOOL isRegistered;
 @property (nonatomic, retain) NSString * firstName;
 @property (nonatomic, retain) NSString * lastName;
 @property (nonatomic, retain) NSString * idTbm;

@@ -7,6 +7,7 @@
 //
 
 #import "TBMRemoteStorageHandler.h"
+#import "TBMS3CredentialsManager.h"
 #import "TBMFriend.h"
 #import "TBMUser.h"
 #import "TBMStringUtils.h"
@@ -64,15 +65,19 @@
 }
 
 + (NSString *) fileTransferUploadPath{
-    return REMOTE_STORAGE_USE_S3 ? REMOTE_STORAGE_S3_BUCKET : REMOTE_STORAGE_SERVER_VIDEO_UPLOAD_PATH;
+    return REMOTE_STORAGE_USE_S3 ? [self s3Bucket] : REMOTE_STORAGE_SERVER_VIDEO_UPLOAD_PATH;
 }
 
 + (NSString *) fileTransferDownloadPath{
-    return REMOTE_STORAGE_USE_S3 ? REMOTE_STORAGE_S3_BUCKET : REMOTE_STORAGE_SERVER_VIDEO_DOWNLOAD_PATH;
+    return REMOTE_STORAGE_USE_S3 ? [self s3Bucket] : REMOTE_STORAGE_SERVER_VIDEO_DOWNLOAD_PATH;
 }
 
 + (NSString *) fileTransferDeletePath{
-    return REMOTE_STORAGE_S3_BUCKET;
+    return [self s3Bucket];
+}
+
++ (NSString *) s3Bucket{
+    return [TBMS3CredentialsManager credentials][S3_BUCKET_KEY];
 }
 
 //-------------------------

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="13F34" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="13F34" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="TBMFriend" representedClassName="TBMFriend" syncable="YES">
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="hasApp" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -24,6 +24,7 @@
         <attribute name="auth" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="idTbm" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isRegistered" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mkey" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mobileNumber" optional="YES" attributeType="String" syncable="YES"/>
@@ -37,7 +38,7 @@
     <elements>
         <element name="TBMFriend" positionX="-18" positionY="2" width="128" height="253"/>
         <element name="TBMGridElement" positionX="-218" positionY="153" width="128" height="75"/>
-        <element name="TBMUser" positionX="-218" positionY="-0" width="128" height="135"/>
+        <element name="TBMUser" positionX="-218" positionY="-0" width="128" height="148"/>
         <element name="TBMVideo" positionX="171" positionY="-0" width="128" height="103"/>
     </elements>
 </model>

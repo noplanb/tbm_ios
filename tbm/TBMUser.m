@@ -15,6 +15,7 @@
 
 @implementation TBMUser
 
+@dynamic isRegistered;
 @dynamic firstName;
 @dynamic lastName;
 @dynamic idTbm;
@@ -74,7 +75,7 @@
     [[TBMUser managedObjectContext] performBlockAndWait:^{
         user = (TBMUser *)[[NSManagedObject alloc] initWithEntity:[TBMUser entityDescription] insertIntoManagedObjectContext:[TBMUser managedObjectContext]];
         user.idTbm = idTbm;
-
+        user.isRegistered = NO;
     }];
     return user;
 }

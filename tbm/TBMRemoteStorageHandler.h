@@ -16,7 +16,6 @@
 //--------------------------------------
 static BOOL REMOTE_STORAGE_USE_S3 = YES;
 static NSString *REMOTE_STORAGE_S3_BASE_URL_STRING = @"s3://";
-static NSString *REMOTE_STORAGE_S3_BUCKET = @"com.zazo.videos";
 
 static NSString *REMOTE_STORAGE_SERVER_VIDEO_UPLOAD_PATH = @"videos/create";
 static NSString *REMOTE_STORAGE_SERVER_VIDEO_DOWNLOAD_PATH = @"videos/get";
