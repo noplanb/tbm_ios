@@ -31,12 +31,15 @@ NSString * const SERVER_PARAMS_FRIEND_LAST_NAME_KEY = @"last_name";
 NSString * const SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY = @"mobile_number";
 NSString * const SERVER_PARAMS_FRIEND_ID_KEY = @"id";
 NSString * const SERVER_PARAMS_FRIEND_MKEY_KEY = @"mkey";
+NSString * const SERVER_PARAMS_FRIEND_CKEY_KEY = @"ckey";
 NSString * const SERVER_PARAMS_FRIEND_HAS_APP = @"has_app";
 
 NSString * const SERVER_PARAMS_S3_REGION_KEY = @"region";
 NSString * const SERVER_PARAMS_S3_BUCKET_KEY = @"bucket";
 NSString * const SERVER_PARAMS_S3_ACCESS_KEY = @"access_key";
 NSString * const SERVER_PARAMS_S3_SECRET_KEY = @"secret_key";
+
+NSString * const SERVER_PARAMS_DISPATCH_MSG_KEY = @"msg";
 
 @implementation TBMHttpClient
 

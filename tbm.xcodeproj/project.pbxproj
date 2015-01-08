@@ -30,6 +30,8 @@
 		220E90541909A18C003C4F82 /* KeyChainWrapperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E90531909A18C003C4F82 /* KeyChainWrapperTests.m */; };
 		220E905E1909A1A9003C4F82 /* TBM.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 220E905D1909A1A9003C4F82 /* TBM.storyboard */; };
 		220E90611909C3D4003C4F82 /* TBMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E90601909C3D4003C4F82 /* TBMHomeViewController.m */; };
+		22151E881A5CB07B008EF88E /* TBMDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 22151E871A5CB07B008EF88E /* TBMDispatch.m */; };
+		22151E8A1A5CF4B2008EF88E /* TBMDispatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22151E891A5CF4B2008EF88E /* TBMDispatchTests.m */; };
 		221EA2911912E86300649BC5 /* TBMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 221EA2901912E86300649BC5 /* TBMUser.m */; };
 		22249586190B52E4008EF394 /* TBMLongPressTouchHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 22249585190B52E4008EF394 /* TBMLongPressTouchHandler.m */; };
 		222724331917F2F500DA6865 /* NSArray+NSArrayExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 222724321917F2F500DA6865 /* NSArray+NSArrayExtensions.m */; };
@@ -146,6 +148,9 @@
 		220E905D1909A1A9003C4F82 /* TBM.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TBM.storyboard; sourceTree = "<group>"; };
 		220E905F1909C3D4003C4F82 /* TBMHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHomeViewController.h; sourceTree = "<group>"; };
 		220E90601909C3D4003C4F82 /* TBMHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TBMHomeViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		22151E861A5CB07B008EF88E /* TBMDispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDispatch.h; sourceTree = "<group>"; };
+		22151E871A5CB07B008EF88E /* TBMDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDispatch.m; sourceTree = "<group>"; };
+		22151E891A5CF4B2008EF88E /* TBMDispatchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDispatchTests.m; sourceTree = "<group>"; };
 		221EA28F1912E86300649BC5 /* TBMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMUser.h; sourceTree = "<group>"; };
 		221EA2901912E86300649BC5 /* TBMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMUser.m; sourceTree = "<group>"; };
 		22249584190B52E4008EF394 /* TBMLongPressTouchHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMLongPressTouchHandler.h; sourceTree = "<group>"; };
@@ -374,6 +379,8 @@
 				223D927A1A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.m */,
 				225D21BE1A5B5B4F0087A25B /* TBMS3CredentialsManager.h */,
 				225D21BF1A5B5B4F0087A25B /* TBMS3CredentialsManager.m */,
+				22151E861A5CB07B008EF88E /* TBMDispatch.h */,
+				22151E871A5CB07B008EF88E /* TBMDispatch.m */,
 			);
 			path = tbm;
 			sourceTree = "<group>";
@@ -395,6 +402,7 @@
 				220E90531909A18C003C4F82 /* KeyChainWrapperTests.m */,
 				220E904E1909A18C003C4F82 /* Supporting Files */,
 				225D21C31A5B7A060087A25B /* S3CredentialsManagerTests.m */,
+				22151E891A5CF4B2008EF88E /* TBMDispatchTests.m */,
 			);
 			path = tbmTests;
 			sourceTree = "<group>";
@@ -759,6 +767,7 @@
 				220E90611909C3D4003C4F82 /* TBMHomeViewController.m in Sources */,
 				22A76A7A19A2600C00D8C4FF /* TBMFriend.m in Sources */,
 				226A26031A584AD6006FDFDA /* TBMKeyChainWrapper.m in Sources */,
+				22151E881A5CB07B008EF88E /* TBMDispatch.m in Sources */,
 				222724331917F2F500DA6865 /* NSArray+NSArrayExtensions.m in Sources */,
 				223A11491915AED900177481 /* TBMAppDelegate+Boot.m in Sources */,
 				22A094E71A16C6B4009AB958 /* TBMSelectPhoneTableDelegate.m in Sources */,
@@ -795,6 +804,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				225D21C41A5B7A060087A25B /* S3CredentialsManagerTests.m in Sources */,
+				22151E8A1A5CF4B2008EF88E /* TBMDispatchTests.m in Sources */,
 				220E90541909A18C003C4F82 /* KeyChainWrapperTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

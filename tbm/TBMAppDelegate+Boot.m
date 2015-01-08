@@ -13,6 +13,7 @@
 #import "TBMUser.h"
 #import "TBMFriend.h"
 #import "OBLogger.h"
+#import "TBMDispatch.h"
 
 @implementation TBMAppDelegate (Boot)
 
@@ -21,7 +22,8 @@
     
     [OBLogger instance].writeToConsole = YES;
 //    [[OBLogger instance] reset];
-
+    
+    [TBMDispatch enable];
     
     if (![TBMUser getUser].isRegistered){
         self.window.rootViewController = [self registerViewController];

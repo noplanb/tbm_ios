@@ -50,11 +50,11 @@
 }
 
 + (NSString *) incomingConnectionKey:(TBMFriend *)friend{
-    return [NSString stringWithFormat:@"%@-%@", friend.mkey, [TBMUser getUser].mkey];
+    return [NSString stringWithFormat:@"%@-%@-%@", friend.mkey, [TBMUser getUser].mkey, friend.ckey];
 }
 
 + (NSString *) outgoingConnectionKey:(TBMFriend *)friend{
-    return [NSString stringWithFormat:@"%@-%@", [TBMUser getUser].mkey, friend.mkey];
+    return [NSString stringWithFormat:@"%@-%@-%@", [TBMUser getUser].mkey, friend.mkey, friend.ckey];
 }
 
 //-----------------------

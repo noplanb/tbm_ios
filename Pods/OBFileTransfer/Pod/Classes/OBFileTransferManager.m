@@ -527,59 +527,139 @@ static NSString * const OBFileTransferSessionIdentifier = @"com.onebeat.fileTran
 //------
 // NOTE::: This gets called for upload and download when the task is complete, possibly w/ framework or server error (server error has bad response code which we cast into an NSError).
 // NOTE: Server errors are not reported through the error parameter. The only errors your delegate receives through the error parameter are client-side errors, such as being unable to resolve the hostname or connect to the host. Server errors need to be discerned from the response.
-// NOTE: We retry all client errors even if they are 400 errors. In some cases when not able to resolve the host due to dns problems or otherwises we get a 400 client error but should retry as it should eventually resolve.
-- (void) URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
+- (void) URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)clientError
 {
     OBFileTransferTask * obtask = [[self transferTaskManager] transferTaskForNSTask:task];
     if ( obtask == nil ) {
-        if ( error.code == NSURLErrorCancelled )
+        if ( clientError.code == NSURLErrorCancelled )
             OB_INFO(@"Unable to find reference for task Identifier %lu because it had been cancelled",(unsigned long)task.taskIdentifier);
         else
             OB_ERROR(@"Unable to find reference for task Identifier %lu",(unsigned long)task.taskIdentifier);
         return;
     }
     
+    
     NSString *marker = obtask.marker;
     NSHTTPURLResponse *response =   (NSHTTPURLResponse *)task.response;
-    if ( task.state == NSURLSessionTaskStateCompleted ) {
-        
-        BOOL isClientError = NO;
-        if ( error == nil ) {
-            // Even though the URL connection may have been good, there may have been a server error or otherwise so let's create an internal error for this
-            error = [self createErrorFromHttpResponse:response.statusCode];
-            if ( error )
-                OB_WARN(@"%@ File Transfer for %@ received server error with status code %ld and error %@",obtask.typeUpload ? @"Upload" : @"Download", marker,(long)response.statusCode, error.localizedDescription);
-        }  else {
-            isClientError = YES;
-            OB_WARN(@"%@ File Transfer for %@ received client error %@",obtask.typeUpload ? @"Upload" : @"Download", marker, error.localizedDescription);
-        }
-        
-        
-        if ( error == nil ) {
-            if (obtask.typeUpload){
-                [self uploadCompleted: obtask];
-            } else if (obtask.status != FileTransferDownloadFileReady ) {
-                error = [self createNSErrorForCode: OBFTMTmpDownloadFileCopyError];
-            }
-            [self handleCompleted:task obtask:obtask error:error];
-            OB_INFO(@"%@ for %@ done", obtask.typeUpload ? @"Upload" : @"Download", marker);
-        } else {
-            // There was an error
-            BOOL shouldRetry =  ( isClientError || ![self isPermanentFailureWithStatusCode: response.statusCode] ) &&
-            ( self.maxAttempts == 0 ||  obtask.attemptCount < self.maxAttempts);
-            
-            if ( shouldRetry ) {
-                [[self transferTaskManager] queueForRetry:obtask];
-                [self setupRetryTimer];
-                [self.delegate fileTransferRetrying:marker attemptCount: obtask.attemptCount  withError:error];
-            } else {
-                [self handleCompleted:task obtask:obtask error:error];
-            }
-        }
-    } else {
+    NSError *serverError = [self createErrorFromHttpResponse:response.statusCode];
+    
+    if ( task.state != NSURLSessionTaskStateCompleted ) {
         OB_ERROR(@"Indicated that task completed but state = %d", (int) task.state );
+        return;
+    }
+    
+    NSError *error = nil;
+    NSString *transferType = obtask.typeUpload ? @"Upload" : @"Download";
+    
+    // No error.
+    if (serverError == nil && clientError == nil){
+        if (obtask.typeUpload){
+            [self uploadCompleted: obtask];
+        } else if (obtask.status != FileTransferDownloadFileReady ) {
+            error = [self createNSErrorForCode: OBFTMTmpDownloadFileCopyError];
+        }
+        [self handleCompleted:task obtask:obtask error:error];
+        OB_INFO(@"%@ for %@ done", transferType, marker);
+        return;
+    }
+    
+    // Error. (More readable than nested else statments.)
+    if (serverError != nil || clientError != nil) {
+        if (clientError != nil){
+            OB_WARN(@"%@ File Transfer for %@ received client error: %@", transferType, marker, clientError);
+            error = clientError;
+        }
+        
+        
+        if (serverError != nil){
+            OB_WARN(@"%@ File Transfer for %@ received server error %@",transferType, marker, serverError);
+            error = serverError;
+        }
+        
+        BOOL shouldRetry =  ( [self isRetryableClientError:clientError] && [self isRetryableServerError:serverError] ) &&
+        ( self.maxAttempts == 0 ||  obtask.attemptCount < self.maxAttempts);
+        
+        if ( shouldRetry ) {
+            [[self transferTaskManager] queueForRetry:obtask];
+            [self setupRetryTimer];
+            [self.delegate fileTransferRetrying:marker attemptCount: obtask.attemptCount  withError:error];
+        } else {
+            [self handleCompleted:task obtask:obtask error:error];
+            OB_WARN(@"%@ for %@ done with error %@", transferType, marker, error);
+        }
     }
 }
+
+// Note this is correct handling for S3 errors. If we find that various agents are different with respect to determining permanent failures
+// then we probably need to move this method in the agent.
+- (BOOL) isRetryableServerError:(NSError *)error{
+    if (error == nil)
+        return YES;
+    
+    if (error.code/100 == 4)
+        return NO;
+    
+    if (error.code == 501)
+        return NO;
+    
+    if (error.code == 301)
+        return NO;
+    
+    return YES;
+}
+
+- (BOOL) isRetryableClientError:(NSError *)error{
+    switch (error.code) {
+            // Retry these
+        case NSURLErrorCannotConnectToHost:
+        case NSURLErrorDataLengthExceedsMaximum:
+        case NSURLErrorNetworkConnectionLost:
+        case NSURLErrorDNSLookupFailed:
+        case NSURLErrorHTTPTooManyRedirects:
+        case NSURLErrorNotConnectedToInternet:
+        case NSURLErrorRedirectToNonExistentLocation:
+        case NSURLErrorBadServerResponse:
+        case NSURLErrorUserCancelledAuthentication:
+        case NSURLErrorUserAuthenticationRequired:
+        case NSURLErrorZeroByteResource:
+        case NSURLErrorCannotDecodeRawData:
+        case NSURLErrorCannotDecodeContentData:
+        case NSURLErrorCannotParseResponse:
+        case NSURLErrorInternationalRoamingOff:
+        case NSURLErrorCallIsActive:
+        case NSURLErrorDataNotAllowed:
+        case NSURLErrorRequestBodyStreamExhausted:
+        case NSURLErrorNoPermissionsToReadFile:
+        case NSURLErrorSecureConnectionFailed:
+        case NSURLErrorServerCertificateHasBadDate:
+        case NSURLErrorServerCertificateUntrusted:
+        case NSURLErrorServerCertificateHasUnknownRoot:
+        case NSURLErrorServerCertificateNotYetValid:
+        case NSURLErrorClientCertificateRejected:
+        case NSURLErrorClientCertificateRequired:
+        case NSURLErrorCannotLoadFromNetwork:
+        case NSURLErrorCannotCreateFile:
+        case NSURLErrorCannotOpenFile:
+        case NSURLErrorCannotCloseFile:
+        case NSURLErrorCannotWriteToFile:
+        case NSURLErrorCannotRemoveFile:
+        case NSURLErrorCannotMoveFile:
+        case NSURLErrorDownloadDecodingFailedMidStream:
+        case NSURLErrorDownloadDecodingFailedToComplete:
+            return YES;
+            
+            // Dont Retry these
+        case NSURLErrorResourceUnavailable:
+        case NSURLErrorFileDoesNotExist:
+        case NSURLErrorFileIsDirectory:
+            return NO;
+            
+        default:
+            return YES;
+    }
+    return YES;
+}
+
 
 
 // ------
@@ -644,10 +724,7 @@ static NSString * const OBFileTransferSessionIdentifier = @"com.onebeat.fileTran
             OB_ERROR(@"Unable to copy downloaded file to '%@' due to error: %@",localFilePath,error.localizedDescription);
         } else {
             [self.transferTaskManager update:obtask withStatus: FileTransferDownloadFileReady];
-            OB_DEBUG(@"Finished copying download file to %@",localFilePath);
         }
-    } else {
-        OB_ERROR(@"Download for %@ received status code %ld",obtask.marker,(long)response.statusCode);
     }
 }
 
@@ -739,23 +816,6 @@ static NSString * const OBFileTransferSessionIdentifier = @"com.onebeat.fileTran
             [self performSelector:@selector(retryPendingInternal) withObject:nil afterDelay:retryTimerValue];
         });
     }
-}
-
-// Note this is correct handling for S3 errors. If we find that various agents are different with respect to determining permanent failures
-// then we probably need to move this method in the agent.
-- (BOOL) isPermanentFailureWithStatusCode:(long)statusCode{
-    BOOL r = NO;
-    
-    if (statusCode/100 == 4)
-        r = YES;
-    
-    if (statusCode == 501)
-        r = YES;
-    
-    if (statusCode == 301)
-        r = YES;
-    
-    return r;
 }
 
 

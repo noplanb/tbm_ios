@@ -29,12 +29,15 @@ extern NSString * const SERVER_PARAMS_FRIEND_LAST_NAME_KEY;
 extern NSString * const SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY;
 extern NSString * const SERVER_PARAMS_FRIEND_ID_KEY;
 extern NSString * const SERVER_PARAMS_FRIEND_MKEY_KEY;
+extern NSString * const SERVER_PARAMS_FRIEND_CKEY_KEY;
 extern NSString * const SERVER_PARAMS_FRIEND_HAS_APP;
 
 extern NSString * const SERVER_PARAMS_S3_REGION_KEY;
 extern NSString * const SERVER_PARAMS_S3_BUCKET_KEY;
 extern NSString * const SERVER_PARAMS_S3_ACCESS_KEY;
 extern NSString * const SERVER_PARAMS_S3_SECRET_KEY;
+
+extern NSString * const SERVER_PARAMS_DISPATCH_MSG_KEY;
 
 @interface TBMHttpClient : AFHTTPSessionManager
 + (instancetype)sharedClient;

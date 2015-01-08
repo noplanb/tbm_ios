@@ -26,8 +26,9 @@ NSString * const OBS3NoTvmSecurityTokenParam = @"S3NoTvmSecurityTokenParam";
 @implementation OBS3FileTransferAgent
 
 -(instancetype) initWithConfig:(NSDictionary *)configParams
-{
-    if ( [self init] ) {
+{   self = [super init];
+    OB_DEBUG(@"configParams = %@", configParams);
+    if ( self != nil ) {
         self.tvmUrl = configParams[OBS3TvmServerUrlParam];
         self.awsRegion = [self amazonRegion:configParams[OBS3RegionParam]];
         [self validateSetup];
@@ -185,8 +186,10 @@ NSString * const OBS3NoTvmSecurityTokenParam = @"S3NoTvmSecurityTokenParam";
         awsRegion = AP_NORTHEAST_1;
     else if ( [lcRegion isEqualToString:@"sa_east_1"] )
         awsRegion = SA_EAST_1;
-    else
-        [NSException raise:NSInternalInconsistencyException format:@"Unknown AWS Region specified: %@",region];
+    else {
+        OB_ERROR(@"Unknown AWS Region specified: %@",region);
+        awsRegion = US_EAST_1;
+    }
     return awsRegion;
 }
 

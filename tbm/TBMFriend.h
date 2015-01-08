@@ -46,6 +46,7 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 @property (nonatomic) TBMIncomingVideoStatus lastIncomingVideoStatus;
 @property (nonatomic, retain) NSNumber * uploadRetryCount;
 @property (nonatomic, retain) NSString * mkey;
+@property (nonatomic, retain) NSString * ckey;
 @property (nonatomic) BOOL hasApp;
 @property (nonatomic, retain) NSSet *videos;
 @property (nonatomic, retain) TBMGridElement *gridElement;
