@@ -50,6 +50,12 @@ NSString * const SERVER_PARAMS_DISPATCH_MSG_KEY = @"msg";
     dispatch_once(&TBMHttpOnceToken, ^{
         _sharedClient = [[TBMHttpClient alloc] initWithBaseURL:[TBMConfig tbmBaseUrl]];
         _sharedClient.responseSerializer.acceptableContentTypes = [_sharedClient.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
+        
+        NSURLCredential *newCredential;
+        newCredential = [NSURLCredential credentialWithUser:@"username"
+                                                   password:@"password"
+                                                persistence:NSURLCredentialPersistenceForSession];
+        [_sharedClient setCredential:newCredential];
     });
     return _sharedClient;
 }
