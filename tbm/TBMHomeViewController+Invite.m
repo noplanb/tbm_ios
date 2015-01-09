@@ -16,6 +16,7 @@
 #import "UIAlertView+Blocks.h"
 #import "TBMHttpClient.h"
 #import "TBMUser.h"
+#import "TBMAlertController.h"
 
 
 @implementation TBMHomeViewController (Invite)
@@ -285,19 +286,14 @@
 }
 
 - (void) preSmsDialog{
-    NSString *msg = [NSString stringWithFormat:@"%@ has not installed %@ yet.\n\nSend them a link!", [self firstName], CONFIG_APP_NAME];
-    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Invite"
-                                                 message:msg
-                                                delegate:nil
-                                       cancelButtonTitle:@"Cancel"
-                                       otherButtonTitles:@"Send", nil];
-    
-    av.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex) {
-        if (buttonIndex == alertView.firstOtherButtonIndex){
-            [self smsDialog];
-        }
-    };
-    [av show];
+    NSString *msg = [NSString stringWithFormat:@"%@ has not installed %@ yet. Send them a link!", [self firstName], CONFIG_APP_NAME];
+
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Invite" message:msg];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleDefault handler:nil]];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Send" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
+        [self smsDialog];
+    }]];
+    [alert presentWithCompletion:nil];
 }
 
 - (void)smsDialog{
