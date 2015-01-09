@@ -97,6 +97,9 @@
 		22F1A4C419354AC500E04229 /* TBMVideoIdUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F1A4C319354AC500E04229 /* TBMVideoIdUtils.m */; };
 		22F32AFC19228F3300AB524E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F32AFB19228F3300AB524E /* StoreKit.framework */; };
 		22FE2A011A09C0460051FC9C /* TBMFriendGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FE2A001A09C0460051FC9C /* TBMFriendGetter.m */; };
+		489D399B1A5F0F6F006D28EF /* TBMAlertControllerVisualStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 489D399A1A5F0F6F006D28EF /* TBMAlertControllerVisualStyle.m */; };
+		489D399E1A5F2BCD006D28EF /* TBMAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 489D399D1A5F2BCD006D28EF /* TBMAlertController.m */; };
+		489D39A11A5F2E20006D28EF /* TBMAlertControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 489D39A01A5F2E20006D28EF /* TBMAlertControllerView.m */; };
 		E20D3F30A3404563A3BEC783 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98B109B594AF439180A6DFAF /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -243,6 +246,12 @@
 		22F32AFB19228F3300AB524E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		22FE29FF1A09C0460051FC9C /* TBMFriendGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFriendGetter.h; sourceTree = "<group>"; };
 		22FE2A001A09C0460051FC9C /* TBMFriendGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFriendGetter.m; sourceTree = "<group>"; };
+		489D39991A5F0F6F006D28EF /* TBMAlertControllerVisualStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAlertControllerVisualStyle.h; sourceTree = "<group>"; };
+		489D399A1A5F0F6F006D28EF /* TBMAlertControllerVisualStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAlertControllerVisualStyle.m; sourceTree = "<group>"; };
+		489D399C1A5F2BCD006D28EF /* TBMAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAlertController.h; sourceTree = "<group>"; };
+		489D399D1A5F2BCD006D28EF /* TBMAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAlertController.m; sourceTree = "<group>"; };
+		489D399F1A5F2E20006D28EF /* TBMAlertControllerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAlertControllerView.h; sourceTree = "<group>"; };
+		489D39A01A5F2E20006D28EF /* TBMAlertControllerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAlertControllerView.m; sourceTree = "<group>"; };
 		98B109B594AF439180A6DFAF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -363,6 +372,12 @@
 				22DACC7A1A1D015700B2F750 /* TBMContentViewModal.m */,
 				223D92791A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.h */,
 				223D927A1A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.m */,
+				489D39991A5F0F6F006D28EF /* TBMAlertControllerVisualStyle.h */,
+				489D399A1A5F0F6F006D28EF /* TBMAlertControllerVisualStyle.m */,
+				489D399C1A5F2BCD006D28EF /* TBMAlertController.h */,
+				489D399D1A5F2BCD006D28EF /* TBMAlertController.m */,
+				489D399F1A5F2E20006D28EF /* TBMAlertControllerView.h */,
+				489D39A01A5F2E20006D28EF /* TBMAlertControllerView.m */,
 			);
 			path = tbm;
 			sourceTree = "<group>";
@@ -733,6 +748,7 @@
 				220E903B1909A18B003C4F82 /* TBMAppDelegate.m in Sources */,
 				2287DB4B1922BB5D00B1C298 /* TBMAppDelegate+PushNotification.m in Sources */,
 				224101D2190D40B1005128F9 /* TBMDeviceHandler.m in Sources */,
+				489D399B1A5F0F6F006D28EF /* TBMAlertControllerVisualStyle.m in Sources */,
 				220E90611909C3D4003C4F82 /* TBMHomeViewController.m in Sources */,
 				22A76A7A19A2600C00D8C4FF /* TBMFriend.m in Sources */,
 				222724331917F2F500DA6865 /* NSArray+NSArrayExtensions.m in Sources */,
@@ -742,6 +758,7 @@
 				22CC5E5F1A1AD9A900AAFB75 /* TBMTableModal.m in Sources */,
 				2208E8A51A14195500150C35 /* TBMContactsManager.m in Sources */,
 				22093F1B192590CE0021EB0C /* TBMSoundEffect.m in Sources */,
+				489D399E1A5F2BCD006D28EF /* TBMAlertController.m in Sources */,
 				22BF060519D4A5FC00F6E025 /* TBMHomeViewController+Invite.m in Sources */,
 				22F1A4C419354AC500E04229 /* TBMVideoIdUtils.m in Sources */,
 				221EA2911912E86300649BC5 /* TBMUser.m in Sources */,
@@ -760,6 +777,7 @@
 				226643A7190B13E2006C9072 /* TBMGeometryUtils.m in Sources */,
 				22FE2A011A09C0460051FC9C /* TBMFriendGetter.m in Sources */,
 				22500B8819993FDC008E9EA4 /* TBMAppDelegate+AppSync.m in Sources */,
+				489D39A11A5F2E20006D28EF /* TBMAlertControllerView.m in Sources */,
 				223A11461915926800177481 /* TBMHttpClient.m in Sources */,
 				22A375C41930E09E00C355EB /* TBMStringUtils.m in Sources */,
 			);
