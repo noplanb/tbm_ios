@@ -17,6 +17,7 @@
 #import "TBMTextField.h"
 #import "TBMPhoneUtils.h"
 #import "UIAlertView+Blocks.h"
+#import "TBMAlertController.h"
 
 
 @interface TBMRegisterViewController ()
@@ -268,8 +269,10 @@ NSURLSessionDataTask *task = [hc
     [self showErrorDialogWithTitle:@"Try Again" msg:msg];
 }
 
-- (void) showErrorDialogWithTitle:(NSString *)title msg:(NSString *)msg{
-    [[[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+- (void) showErrorDialogWithTitle:(NSString *)title msg:(NSString *)msg {
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:title message:msg];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Okay" style:SDCAlertActionStyleCancel handler:nil]];
+    [alert presentWithCompletion:nil];
 }
 
 - (void) showVerificationDialog{
