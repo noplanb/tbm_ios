@@ -313,23 +313,23 @@
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller
                  didFinishWithResult:(MessageComposeResult)result{
     
-    [self dismissViewControllerAnimated:YES completion:nil];
-
-    if (result == MessageComposeResultSent){
-        DebugLog(@"sent");
-        if (self.friend == nil)
-            [self getFriendFromServer];
-    }
-    
-    if (result == MessageComposeResultCancelled){
-        OB_WARN(@"messageComposeViewController: canceled");
-        [self cantSendSmsError];
-    }
-    
-    if (result == MessageComposeResultFailed){
-        OB_WARN(@"messageComposeViewController: failed");
-        [self cantSendSmsError];
-    }
+    [self dismissViewControllerAnimated:YES completion:^{
+        if (result == MessageComposeResultSent){
+            DebugLog(@"sent");
+            if (self.friend == nil)
+                [self getFriendFromServer];
+        }
+        
+        if (result == MessageComposeResultCancelled){
+            OB_WARN(@"messageComposeViewController: canceled");
+            [self cantSendSmsError];
+        }
+        
+        if (result == MessageComposeResultFailed){
+            OB_WARN(@"messageComposeViewController: failed");
+            [self cantSendSmsError];
+        }
+    }];
 }
 
 
@@ -430,13 +430,12 @@
 }
 
 - (void)cantSendSmsError{
-    NSString *msg = [NSString stringWithFormat:@"It looks like you can't or didn't send a link by text. Perhaps you can just call or email %@ and tell them about %@", [self fullname], CONFIG_APP_NAME];
-    [[[UIAlertView alloc] initWithTitle:@"Didn't Send Link"
-                               message:msg delegate:nil
-                     cancelButtonTitle:@"OK"
-                     otherButtonTitles:nil] show];
+    NSString *msg = [NSString stringWithFormat:@"It looks like you can't or didn't send a link by text. Perhaps you can just call or email %@ and tell them about %@.", [self fullname], CONFIG_APP_NAME];
+    
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Didn't Send Link" message:msg];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Okay" style:SDCAlertActionStyleCancel handler:nil]];
+    [alert presentWithCompletion:nil];
 }
-
 
 
 //------------
