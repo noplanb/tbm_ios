@@ -36,7 +36,7 @@
 		22249586190B52E4008EF394 /* TBMLongPressTouchHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 22249585190B52E4008EF394 /* TBMLongPressTouchHandler.m */; };
 		222724331917F2F500DA6865 /* NSArray+NSArrayExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 222724321917F2F500DA6865 /* NSArray+NSArrayExtensions.m */; };
 		2227243519182A1000DA6865 /* head.png in Resources */ = {isa = PBXBuildFile; fileRef = 2227243419182A1000DA6865 /* head.png */; };
-		223A11461915926800177481 /* TBMHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 223A11451915926800177481 /* TBMHttpClient.m */; };
+		223A11461915926800177481 /* TBMHttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 223A11451915926800177481 /* TBMHttpManager.m */; };
 		223A11491915AED900177481 /* TBMAppDelegate+Boot.m in Sources */ = {isa = PBXBuildFile; fileRef = 223A11481915AED900177481 /* TBMAppDelegate+Boot.m */; };
 		223D927B1A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 223D927A1A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.m */; };
 		22403C2B19D5E63400FC36E3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22403C2A19D5E63400FC36E3 /* MessageUI.framework */; };
@@ -158,8 +158,8 @@
 		222724311917F2F500DA6865 /* NSArray+NSArrayExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+NSArrayExtensions.h"; sourceTree = "<group>"; };
 		222724321917F2F500DA6865 /* NSArray+NSArrayExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+NSArrayExtensions.m"; sourceTree = "<group>"; };
 		2227243419182A1000DA6865 /* head.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head.png; sourceTree = "<group>"; };
-		223A11441915926800177481 /* TBMHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHttpClient.h; sourceTree = "<group>"; };
-		223A11451915926800177481 /* TBMHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHttpClient.m; sourceTree = "<group>"; };
+		223A11441915926800177481 /* TBMHttpManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHttpManager.h; sourceTree = "<group>"; };
+		223A11451915926800177481 /* TBMHttpManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHttpManager.m; sourceTree = "<group>"; };
 		223A11471915AED900177481 /* TBMAppDelegate+Boot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMAppDelegate+Boot.h"; sourceTree = "<group>"; };
 		223A11481915AED900177481 /* TBMAppDelegate+Boot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMAppDelegate+Boot.m"; sourceTree = "<group>"; };
 		223D92791A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMContactSearchTableDelegate.h; sourceTree = "<group>"; };
@@ -355,8 +355,8 @@
 				22EA56BD191068B700646D3E /* TBMVideoPlayer.m */,
 				22EA56BF19106AD100646D3E /* TBMConfig.h */,
 				22EA56C019106AD100646D3E /* TBMConfig.m */,
-				223A11441915926800177481 /* TBMHttpClient.h */,
-				223A11451915926800177481 /* TBMHttpClient.m */,
+				223A11441915926800177481 /* TBMHttpManager.h */,
+				223A11451915926800177481 /* TBMHttpManager.m */,
 				2287DB4F1923141A00B1C298 /* TBMFileTransferMangerDeprecated.h */,
 				2287DB501923141A00B1C298 /* TBMFileTransferMangerDeprecated.m */,
 				220207C8198878650013CE3B /* TBMRemoteStorageHandler.h */,
@@ -793,7 +793,7 @@
 				226643A7190B13E2006C9072 /* TBMGeometryUtils.m in Sources */,
 				22FE2A011A09C0460051FC9C /* TBMFriendGetter.m in Sources */,
 				22500B8819993FDC008E9EA4 /* TBMAppDelegate+AppSync.m in Sources */,
-				223A11461915926800177481 /* TBMHttpClient.m in Sources */,
+				223A11461915926800177481 /* TBMHttpManager.m in Sources */,
 				225D21C01A5B5B4F0087A25B /* TBMS3CredentialsManager.m in Sources */,
 				22A375C41930E09E00C355EB /* TBMStringUtils.m in Sources */,
 			);
@@ -959,6 +959,7 @@
 		};
 		220E905B1909A18C003C4F82 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7716E91C15B9FF656396DC61 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/tbm.app/tbm";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -981,6 +982,7 @@
 		};
 		220E905C1909A18C003C4F82 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7716E91C15B9FF656396DC61 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/tbm.app/tbm";
 				FRAMEWORK_SEARCH_PATHS = (

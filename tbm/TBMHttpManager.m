@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
-#import "TBMHttpClient.h"
+#import "TBMHttpManager.h"
 #import "TBMConfig.h"
 #import "TBMUser.h"
 
@@ -41,17 +41,14 @@ NSString * const SERVER_PARAMS_S3_SECRET_KEY = @"secret_key";
 
 NSString * const SERVER_PARAMS_DISPATCH_MSG_KEY = @"msg";
 
-@implementation TBMHttpClient
+@implementation TBMHttpManager
 
-+ (instancetype)sharedClient {
-    static TBMHttpClient *_sharedClient = nil;
-    static dispatch_once_t TBMHttpOnceToken;
-    
-    dispatch_once(&TBMHttpOnceToken, ^{
-        _sharedClient = [[TBMHttpClient alloc] initWithBaseURL:[TBMConfig tbmBaseUrl]];
-        _sharedClient.responseSerializer.acceptableContentTypes = [_sharedClient.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
-    });
-    return _sharedClient;
++ (AFHTTPRequestOperationManager *)manager{
+    AFHTTPRequestOperationManager *m = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[TBMConfig tbmBaseUrl]];
+    m.credential = [[NSURLCredential alloc] initWithUser:@"username"
+                                                password:@"password"
+                                             persistence:NSURLCredentialPersistenceForSession];
+    return m;
 }
 
 + (BOOL) isSuccess:(NSDictionary *)responseObject{
@@ -59,7 +56,7 @@ NSString * const SERVER_PARAMS_DISPATCH_MSG_KEY = @"msg";
 }
 
 + (BOOL) isFailure:(NSDictionary *)responseObject{
-    return ![TBMHttpClient isSuccess:responseObject];
+    return ![TBMHttpManager isSuccess:responseObject];
 }
 
 + (NSDictionary *)userCredentials{

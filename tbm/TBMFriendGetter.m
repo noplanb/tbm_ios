@@ -9,7 +9,7 @@
 #import "TBMFriendGetter.h"
 #import "TBMUser.h"
 #import "TBMFriend.h"
-#import "TBMHttpClient.h"
+#import "TBMHttpManager.h"
 #import "OBLogger.h"
 
 @interface TBMFriendGetter()
@@ -34,17 +34,14 @@
     [params setObject:[TBMUser getUser].auth forKey:SERVER_PARAMS_USER_AUTH_KEY];
     [params setObject:[TBMUser getUser].mkey forKey:SERVER_PARAMS_USER_MKEY_KEY];
     
-    TBMHttpClient *hc = [TBMHttpClient sharedClient];
-    NSURLSessionDataTask *task = [hc
-                                  GET:@"reg/get_friends"
-                                  parameters:params
-                                  success:^(NSURLSessionDataTask *task, id responseObject) {
-                                      [self gotFriends:responseObject];
-                                  }
-                                  failure:^(NSURLSessionDataTask *task, NSError *error) {
-                                      [_delegate friendGetterServerError];
-                                  }];
-    [task resume];
+    [[[TBMHttpManager manager] GET:@"reg/get_friends"
+                        parameters:params
+                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                               [self gotFriends:responseObject];
+                           }
+                           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                               [_delegate friendGetterServerError];
+                           }] resume];
 }
 
 - (void)gotFriends:(NSArray *)friends{

@@ -10,7 +10,7 @@
 #import "TBMVideoRecorder.h"
 #import "TBMConfig.h"
 #import "TBMUser.h"
-#import "TBMHttpClient.h"
+#import "TBMHttpManager.h"
 #import "TBMFriend.h"
 #import "TBMAppDelegate.h"
 

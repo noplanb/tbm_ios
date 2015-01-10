@@ -8,7 +8,7 @@
 
 #import "TBMAppDelegate+Boot.h"
 #import "TBMRegisterViewController.h"
-#import "TBMHttpClient.h"
+#import "TBMHttpManager.h"
 #import "TBMS3CredentialsManager.h"
 #import "TBMConfig.h"
 #import "TBMUser.h"
@@ -130,21 +130,18 @@
 
 - (void)register{
     [_registerForm startWaitingForServer];
-    TBMHttpClient *hc = [TBMHttpClient sharedClient];
-    NSURLSessionDataTask *task = [hc
-                                  GET:@"reg/reg"
-                                  parameters:[self userParams]
-                                  success:^(NSURLSessionDataTask *task, id responseObject) {
-                                      DebugLog(@"register success: %@", responseObject);
-                                      [_registerForm stopWaitingForServer];
-                                      [self didRegister:responseObject];
-                                  }
-                                  failure:^(NSURLSessionDataTask *task, NSError *error) {
-                                      DebugLog(@"register fail: %@", error);
-                                      [_registerForm stopWaitingForServer];
-                                      [self connectionError];
-                                  }];
-    [task resume];
+    [[[TBMHttpManager manager] GET:@"reg/reg"
+                        parameters:[self userParams]
+                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                               DebugLog(@"register success: %@", responseObject);
+                               [_registerForm stopWaitingForServer];
+                               [self didRegister:responseObject];
+                           }
+                           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                               DebugLog(@"register fail: %@", error);
+                               [_registerForm stopWaitingForServer];
+                               [self connectionError];
+                           }] resume];
 }
 
 - (NSDictionary *)userParams{
@@ -170,7 +167,7 @@
 }
 
 - (void)didRegister:(NSDictionary *)params{
-    if ([TBMHttpClient isSuccess:params]){
+    if ([TBMHttpManager isSuccess:params]){
         _auth = [params objectForKey:SERVER_PARAMS_USER_AUTH_KEY];
         _mkey = [params objectForKey:SERVER_PARAMS_USER_MKEY_KEY];
         [self showVerificationDialog];
@@ -187,25 +184,22 @@
 //------------------
 - (void)didEnterCode{
     [_registerForm startWaitingForServer];
-    TBMHttpClient *hc = [TBMHttpClient sharedClient];
-    NSURLSessionDataTask *task = [hc
-                                  GET:@"reg/verify_code"
-                                  parameters:[self userParams]
-                                  success:^(NSURLSessionDataTask *task, id responseObject) {
-                                      DebugLog(@"register success: %@", responseObject);
-                                      [_registerForm stopWaitingForServer];
-                                      [self didReceiveCodeResponse:responseObject];
-                                  }
-                                  failure:^(NSURLSessionDataTask *task, NSError *error) {
-                                      DebugLog(@"register fail: %@", error);
-                                      [_registerForm stopWaitingForServer];
-                                      [self connectionError];
-                                  }];
-    [task resume];
+    [[[TBMHttpManager manager] GET:@"reg/verify_code"
+                        parameters:[self userParams]
+                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                               DebugLog(@"register success: %@", responseObject);
+                               [_registerForm stopWaitingForServer];
+                               [self didReceiveCodeResponse:responseObject];
+                           }
+                           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                               DebugLog(@"register fail: %@", error);
+                               [_registerForm stopWaitingForServer];
+                               [self connectionError];
+                           }] resume];
 }
 
 - (void)didReceiveCodeResponse:(NSDictionary *)params{
-    if ([TBMHttpClient isSuccess:params]){
+    if ([TBMHttpManager isSuccess:params]){
         [self gotUser:params];
     } else {
         [self showErrorDialogWithTitle:@"Bad Code" msg:@"The code you enterred is wrong. Please try again"];
@@ -216,22 +210,19 @@
 // Debug_get_user
 //---------------
 - (void)debugGetUser{
-[_registerForm startWaitingForServer];
-TBMHttpClient *hc = [TBMHttpClient sharedClient];
-NSURLSessionDataTask *task = [hc
-                              GET:@"reg/debug_get_user"
-                              parameters:@{@"mobile_number": self.registerForm.mobileNumber.text}
-                              success:^(NSURLSessionDataTask *task, id responseObject) {
-                                  DebugLog(@"register success: %@", responseObject);
-                                  [_registerForm stopWaitingForServer];
-                                  [self didReceiveCodeResponse:responseObject];
-                              }
-                              failure:^(NSURLSessionDataTask *task, NSError *error) {
-                                  DebugLog(@"register fail: %@", error);
-                                  [_registerForm stopWaitingForServer];
-                                  [self connectionError];
-                              }];
-[task resume];
+    [_registerForm startWaitingForServer];
+    [[[TBMHttpManager manager] GET:@"reg/debug_get_user"
+                        parameters:@{@"mobile_number": self.registerForm.mobileNumber.text}
+                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                               DebugLog(@"register success: %@", responseObject);
+                               [_registerForm stopWaitingForServer];
+                               [self didReceiveCodeResponse:responseObject];
+                           }
+                           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                               DebugLog(@"register fail: %@", error);
+                               [_registerForm stopWaitingForServer];
+                               [self connectionError];
+                           }] resume];
 }
 
 //---------

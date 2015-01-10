@@ -8,7 +8,7 @@
 
 #import "TBMAppDelegate+PushNotification.h"
 #import "TBMAppDelegate+AppSync.h"
-#import "TBMHttpClient.h"
+#import "TBMHttpManager.h"
 #import "TBMUser.h"
 #import "OBLogger.h"
 #import "TBMConfig.h"
@@ -76,17 +76,14 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
                              @"push_token": token,
                              @"device_platform": @"ios"};
     
-    NSURLSessionDataTask *task = [[TBMHttpClient sharedClient]
-    POST:@"notification/set_push_token"
-    parameters:params
-    success:^(NSURLSessionDataTask *task, id responseObject) {
-        OB_INFO(@"notification/push_token: SUCCESS %@", responseObject);
-    }
-    failure:^(NSURLSessionDataTask *task, NSError *error) {
-        OB_ERROR(@"notification/push_token: %@", error);
-    }];
-    [task resume];
-
+    [[[TBMHttpManager manager] POST:@"notification/set_push_token"
+                         parameters:params
+                            success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                OB_INFO(@"notification/push_token: SUCCESS %@", responseObject);
+                            }
+                            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                OB_ERROR(@"notification/push_token: %@", error);
+                            }] resume];
 }
 
 //------------------------------
@@ -224,16 +221,14 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 }
 
 - (void) sendNotification:(NSString *)path params:(NSDictionary *)params{
-    NSURLSessionDataTask *task = [[TBMHttpClient sharedClient]
-        POST:path
-        parameters:params
-        success:^(NSURLSessionDataTask *task, id responseObject) {
-          DebugLog(@"SUCCESS: POST: %@", path);
-        }
-        failure:^(NSURLSessionDataTask *task, NSError *error) {
-          DebugLog(@"ERROR: POST: %@: %@", path, [error localizedDescription]);
-        }];
-    [task resume];
+    [[[TBMHttpManager manager] POST:path
+                         parameters:params
+                            success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                DebugLog(@"SUCCESS: POST: %@", path);
+                            }
+                            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                DebugLog(@"ERROR: POST: %@: %@", path, [error localizedDescription]);
+                            }] resume];
 }
 
 

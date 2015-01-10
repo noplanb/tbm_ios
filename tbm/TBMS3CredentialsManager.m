@@ -7,7 +7,7 @@
 //
 
 #import "TBMS3CredentialsManager.h"
-#import "TBMHttpClient.h"
+#import "TBMHttpManager.h"
 #import "OBLogger.h"
 #import "TBMKeyChainWrapper.h"
 
@@ -20,26 +20,23 @@ NSString * const S3_SECRET_KEY = @"TBMS3SecretKey";
 
 + (void) refreshFromServer:(void (^)(BOOL))completionHandler{
     OB_INFO(@"getS3Credentials");
-    NSURLSessionDataTask *task = [[TBMHttpClient sharedClient] GET:@"s3_infos/info"
-                                                        parameters:[TBMHttpClient userCredentials]
-                                                           success:^(NSURLSessionDataTask *task, id responseObject) {
-                                                               
-                                                               if (![self validateServerResponse:responseObject]){
-                                                                   if (completionHandler != nil)
-                                                                       completionHandler(NO);
-                                                                   return;
-                                                               }
-                                                               
-                                                               [self storeS3CredentialsInKeychain:responseObject];
-                                                               if (completionHandler != nil)
-                                                                   completionHandler(YES);
-                                                           }
-                                                           failure:^(NSURLSessionDataTask *task, NSError *error) {
-                                                               OB_WARN(@"Attempt to get s3 credentials failed.");
-                                                               if (completionHandler != nil)
-                                                                   completionHandler(NO);
-                                                           }];
-    [task resume];
+    [[[TBMHttpManager manager] GET:@"s3_infos/info"
+                        parameters:[TBMHttpManager userCredentials]
+                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                               if (![self validateServerResponse:responseObject]){
+                                   if (completionHandler != nil)
+                                       completionHandler(NO);
+                                   return;
+                               }
+                               [self storeS3CredentialsInKeychain:responseObject];
+                               if (completionHandler != nil)
+                                   completionHandler(YES);
+                           }
+                           failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                               OB_WARN(@"Attempt to get s3 credentials failed.");
+                               if (completionHandler != nil)
+                                   completionHandler(NO);
+                           }] resume];
 }
 
 + (NSMutableDictionary *) credentials{
@@ -85,7 +82,7 @@ NSString * const S3_SECRET_KEY = @"TBMS3SecretKey";
 }
 
 + (BOOL) validateServerResponse:(NSDictionary *)resp{
-    if ([TBMHttpClient isFailure:resp]){
+    if ([TBMHttpManager isFailure:resp]){
         OB_ERROR(@"S3CredentialsManager: refreshFromServer: Server Error. This should never happen: %@", resp);
         return NO;
     }

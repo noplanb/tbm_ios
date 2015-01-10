@@ -13,6 +13,7 @@
 #import "TBMStringUtils.h"
 #import "OBFileTransferManager.h"
 #import "TBMUser.h"
+#import "TBMHttpManager.h"
 
 @interface TBMAppDelegate()
 @property id <TBMAppDelegateEventNotificationProtocol> eventNotificationDelegate;
@@ -33,6 +34,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     OB_INFO(@"didFinishLaunchingWithOptions:");
+    AFHTTPRequestOperationManager *m = [TBMHttpManager manager];
+    [[m GET:@"digest/secure"
+ parameters:nil
+    success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"yay %@", responseObject);
+    }
+    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"boo %@", error);
+    }] resume];
+
     [self boot];
 
     // See doc/notification.txt for why we handle the payload here as well as in didReceiveRemoteNotification:fetchCompletionHandler

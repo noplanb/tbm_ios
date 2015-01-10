@@ -8,7 +8,7 @@
 
 #import "TBMUser.h"
 #import "TBMAppDelegate.h"
-#import "TBMHttpClient.h"
+#import "TBMHttpManager.h"
 #import "OBLogger.h"
 #import "NBPhoneNumberUtil.h"
 

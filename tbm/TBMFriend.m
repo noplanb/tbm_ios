@@ -17,7 +17,7 @@
 #import "TBMVideoIdUtils.h"
 #import "TBMHomeViewController.h"
 #import "OBLogger.h"
-#import "TBMHttpClient.h"
+#import "TBMHttpManager.h"
 #import "TBMPhoneUtils.h"
 
 @implementation TBMFriend
