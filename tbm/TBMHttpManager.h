@@ -43,6 +43,4 @@ extern NSString * const SERVER_PARAMS_DISPATCH_MSG_KEY;
 + (AFHTTPRequestOperationManager *)manager;
 + (BOOL)isSuccess:(NSDictionary *)responseObject;
 + (BOOL)isFailure:(NSDictionary *)responseObject;
-
-+ (NSDictionary *)userCredentials;
 @end

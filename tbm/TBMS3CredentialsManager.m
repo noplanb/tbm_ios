@@ -21,7 +21,7 @@ NSString * const S3_SECRET_KEY = @"TBMS3SecretKey";
 + (void) refreshFromServer:(void (^)(BOOL))completionHandler{
     OB_INFO(@"getS3Credentials");
     [[[TBMHttpManager manager] GET:@"s3_infos/info"
-                        parameters:[TBMHttpManager userCredentials]
+                        parameters:nil
                            success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                if (![self validateServerResponse:responseObject]){
                                    if (completionHandler != nil)

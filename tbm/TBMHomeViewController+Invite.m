@@ -181,15 +181,9 @@
 // Server calls
 //-------------
 - (void)checkFriendHasApp{
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params addEntriesFromDictionary:@{
-                                       SERVER_PARAMS_USER_MKEY_KEY: [TBMUser getUser].mkey,
-                                       SERVER_PARAMS_USER_AUTH_KEY: [TBMUser getUser].auth,
-                                       SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY: [self selectedPhoneE164],
-                                       }];
     [self startWaitingForServer];
     [[[TBMHttpManager manager] GET:@"invitation/has_app"
-                        parameters:params
+                        parameters:@{SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY: [self selectedPhoneE164]}
                            success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                DebugLog(@"invitation/has_app success: %@", responseObject);
                                [self stopWaitingForServer];
@@ -217,8 +211,6 @@
 - (void)getFriendFromServer{
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params addEntriesFromDictionary:@{
-                                      SERVER_PARAMS_USER_MKEY_KEY: [TBMUser getUser].mkey,
-                                      SERVER_PARAMS_USER_AUTH_KEY: [TBMUser getUser].auth,
                                       SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY: [self selectedPhone],
                                       SERVER_PARAMS_FRIEND_FIRST_NAME_KEY: [[self contact] objectForKey:kContactsManagerFirstNameKey],
                                       SERVER_PARAMS_FRIEND_LAST_NAME_KEY: [[self contact] objectForKey:kContactsManagerLastNameKey],

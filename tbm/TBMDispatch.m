@@ -38,10 +38,8 @@ static BOOL TBMDispatchEnabled = NO;
 }
 
 + (void) dispatch: (NSString *)msg{
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[TBMHttpManager userCredentials]];
-    params[SERVER_PARAMS_DISPATCH_MSG_KEY] = msg;
     [[[TBMHttpManager manager] POST:@"dispatch/post_dispatch"
-                         parameters:params
+                         parameters:@{SERVER_PARAMS_DISPATCH_MSG_KEY: msg}
                             success:nil
                             failure:nil] resume];
 }

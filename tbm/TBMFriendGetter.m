@@ -30,12 +30,8 @@
 
 
 - (void)getFriends{
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:[TBMUser getUser].auth forKey:SERVER_PARAMS_USER_AUTH_KEY];
-    [params setObject:[TBMUser getUser].mkey forKey:SERVER_PARAMS_USER_MKEY_KEY];
-    
     [[[TBMHttpManager manager] GET:@"reg/get_friends"
-                        parameters:params
+                        parameters:nil
                            success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                [self gotFriends:responseObject];
                            }

@@ -45,9 +45,12 @@ NSString * const SERVER_PARAMS_DISPATCH_MSG_KEY = @"msg";
 
 + (AFHTTPRequestOperationManager *)manager{
     AFHTTPRequestOperationManager *m = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[TBMConfig tbmBaseUrl]];
-    m.credential = [[NSURLCredential alloc] initWithUser:@"username"
-                                                password:@"password"
+    TBMUser *u = [TBMUser getUser];
+    if (u != nil){
+    m.credential = [[NSURLCredential alloc] initWithUser:u.mkey
+                                                password:u.auth
                                              persistence:NSURLCredentialPersistenceForSession];
+    }
     return m;
 }
 
@@ -59,10 +62,4 @@ NSString * const SERVER_PARAMS_DISPATCH_MSG_KEY = @"msg";
     return ![TBMHttpManager isSuccess:responseObject];
 }
 
-+ (NSDictionary *)userCredentials{
-    return @{
-             SERVER_PARAMS_USER_MKEY_KEY: [TBMUser getUser].mkey,
-             SERVER_PARAMS_USER_AUTH_KEY: [TBMUser getUser].auth
-             };
-}
 @end
