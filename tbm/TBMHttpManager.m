@@ -43,15 +43,21 @@ NSString * const SERVER_PARAMS_DISPATCH_MSG_KEY = @"msg";
 
 @implementation TBMHttpManager
 
-+ (AFHTTPRequestOperationManager *)manager{
++ (AFHTTPRequestOperationManager *)managerWithCredential:(NSURLCredential *)credential{
     AFHTTPRequestOperationManager *m = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[TBMConfig tbmBaseUrl]];
+    m.credential = credential;
+    return m;
+}
+
++ (AFHTTPRequestOperationManager *)manager{
+    NSURLCredential *credential = nil;
     TBMUser *u = [TBMUser getUser];
     if (u != nil){
-    m.credential = [[NSURLCredential alloc] initWithUser:u.mkey
+        credential = [[NSURLCredential alloc] initWithUser:u.mkey
                                                 password:u.auth
                                              persistence:NSURLCredentialPersistenceForSession];
     }
-    return m;
+    return [TBMHttpManager managerWithCredential:credential];;
 }
 
 + (BOOL) isSuccess:(NSDictionary *)responseObject{

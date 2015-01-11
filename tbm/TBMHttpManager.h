@@ -41,6 +41,7 @@ extern NSString * const SERVER_PARAMS_DISPATCH_MSG_KEY;
 
 @interface TBMHttpManager : NSObject
 + (AFHTTPRequestOperationManager *)manager;
++ (AFHTTPRequestOperationManager *)managerWithCredential:(NSURLCredential *)credential;
 + (BOOL)isSuccess:(NSDictionary *)responseObject;
 + (BOOL)isFailure:(NSDictionary *)responseObject;
 @end

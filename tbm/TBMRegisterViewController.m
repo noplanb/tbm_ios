@@ -154,12 +154,6 @@
     if (pn != nil)
         [r setObject:pn forKey:SERVER_PARAMS_USER_MOBILE_NUMBER_KEY];
     
-    if (_auth != nil)
-        [r setObject:_auth forKey:SERVER_PARAMS_USER_AUTH_KEY];
-    
-    if (_mkey != nil)
-        [r setObject:_mkey forKey:SERVER_PARAMS_USER_MKEY_KEY];
-    
     if (_verificationCode != nil)
         [r setObject:_verificationCode forKey:SERVER_PARAMS_USER_VERIFICATION_CODE_KEY];
     
@@ -168,8 +162,8 @@
 
 - (void)didRegister:(NSDictionary *)params{
     if ([TBMHttpManager isSuccess:params]){
-        _auth = [params objectForKey:SERVER_PARAMS_USER_AUTH_KEY];
-        _mkey = [params objectForKey:SERVER_PARAMS_USER_MKEY_KEY];
+        self.auth = [params objectForKey:SERVER_PARAMS_USER_AUTH_KEY];
+        self.mkey = [params objectForKey:SERVER_PARAMS_USER_MKEY_KEY];
         [self showVerificationDialog];
     } else {
         NSString *title = [params objectForKey:SERVER_PARAMS_ERROR_TITLE_KEY];
@@ -183,8 +177,11 @@
 // Verification code
 //------------------
 - (void)didEnterCode{
+    NSURLCredential * c = [[NSURLCredential alloc] initWithUser:self.mkey
+                                                       password:self.auth
+                                                    persistence:NSURLCredentialPersistenceForSession];
     [_registerForm startWaitingForServer];
-    [[[TBMHttpManager manager] GET:@"reg/verify_code"
+    [[[TBMHttpManager managerWithCredential:c] GET:@"reg/verify_code"
                         parameters:[self userParams]
                            success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                DebugLog(@"register success: %@", responseObject);

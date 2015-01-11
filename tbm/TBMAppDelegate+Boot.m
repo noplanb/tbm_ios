@@ -41,7 +41,6 @@
 }
 
 - (void)postRegistrationBoot{
-    [TBMDispatch dispatch:@"post registration dispatch"];
     [self setupPushNotificationCategory];
     [self registerForPushNotification];
     [TBMS3CredentialsManager refreshFromServer:nil];
