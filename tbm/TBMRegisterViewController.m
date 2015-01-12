@@ -18,7 +18,7 @@
 #import "TBMPhoneUtils.h"
 #import "UIAlertView+Blocks.h"
 #import "TBMAlertController.h"
-#import "TBMAlertController.h"
+#import "TBMAlertControllerVisualStyle.h"
 
 @interface TBMRegisterViewController ()
 
@@ -32,6 +32,7 @@
 @property (nonatomic) NSString *verificationCode;
 @property (nonatomic) NSString *auth;
 @property (nonatomic) NSString *mkey;
+@property (nonatomic) SDCAlertAction *enterCodeConfirmAlertAction;
 
 @end
 
@@ -275,38 +276,47 @@ NSURLSessionDataTask *task = [hc
     [alert presentWithCompletion:nil];
 }
 
-- (void) showVerificationDialog{
-    NSString *msg = [NSString stringWithFormat:@"We sent a code via text message to\n\n%@", [TBMPhoneUtils phone:_combinedNumber withFormat:NBEPhoneNumberFormatINTERNATIONAL]];
-    UIAlertView *av = [[UIAlertView alloc]
-                          initWithTitle:@"Enter Code"
-                                message:msg
-                               delegate:self
-                      cancelButtonTitle:@"Cancel"
-                      otherButtonTitles:@"Enter", nil];
-    
+- (void) showVerificationDialog {
+    NSString *msg = [NSString stringWithFormat:@"We sent a code via text message to %@.", [TBMPhoneUtils phone:_combinedNumber withFormat:NBEPhoneNumberFormatINTERNATIONAL]];
 
-    av.alertViewStyle = UIAlertViewStylePlainTextInput;
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Enter Code" message:msg];
     
-    UITextField *tf = [av textFieldAtIndex:0];
+    UIView *content = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ((TBMAlertControllerVisualStyle *)alert.visualStyle).width, 90.0f)];
+    content.backgroundColor = [UIColor clearColor];
+    
+    UILabel *enterCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, content.frame.size.width, 20.0f)];
+    enterCodeLabel.text = @"Enter Code";
+    enterCodeLabel.font = [UIFont fontWithName:@"Helvetica" size:16.0f];
+    enterCodeLabel.textAlignment = NSTextAlignmentCenter;
+    [content addSubview:enterCodeLabel];
+    
+    UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(25, 30, content.frame.size.width - 50, 40)];
     tf.keyboardType = UIKeyboardTypeNumberPad;
-    tf.placeholder = @"Enter code";
+    tf.backgroundColor = [UIColor whiteColor];
+    tf.borderStyle = UITextBorderStyleRoundedRect;
     NSString *fname = tf.font.fontName;
     tf.font = [UIFont fontWithName:fname size:20.0f];
+    [content addSubview:tf];
+    [tf addTarget:self
+                  action:@selector(enterCodeTextFieldDidChange:)
+        forControlEvents:UIControlEventEditingChanged];
     
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleDefault handler:nil]];
     
-    av.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex) {
-        if (buttonIndex == alertView.firstOtherButtonIndex) {
-            _verificationCode = [self cleanNumber:[tf text]];
-            [self didEnterCode];
-        } else if (buttonIndex == alertView.cancelButtonIndex) {
-        }
-    };
+    self.enterCodeConfirmAlertAction = [SDCAlertAction actionWithTitle:@"Enter" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
+        _verificationCode = [self cleanNumber:[tf text]];
+        [self didEnterCode];
+    }];
+    self.enterCodeConfirmAlertAction.enabled = NO;
+    [alert addAction:self.enterCodeConfirmAlertAction];
     
-    av.shouldEnableFirstOtherButtonBlock = ^BOOL(UIAlertView *alertView) {
-        return ([[tf text] length] > 0);
-    };
+    [alert.contentView addSubview:content];
     
-    [av show];
+    [alert presentWithCompletion:nil];
+}
+
+-(void)enterCodeTextFieldDidChange:(UITextField *)tf {
+    self.enterCodeConfirmAlertAction.enabled = (tf.text.length > 0);
 }
 
 - (void) showGetFriendsServerErrorDialog{
