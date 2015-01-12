@@ -433,7 +433,7 @@
     NSString *msg = [NSString stringWithFormat:@"It looks like you can't or didn't send a link by text. Perhaps you can just call or email %@ and tell them about %@.", [self fullname], CONFIG_APP_NAME];
     
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Didn't Send Link" message:msg];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Okay" style:SDCAlertActionStyleCancel handler:nil]];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleCancel handler:nil]];
     [alert presentWithCompletion:nil];
 }
 

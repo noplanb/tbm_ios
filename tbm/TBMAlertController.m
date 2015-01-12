@@ -25,7 +25,7 @@
     // Alert body text
     NSMutableAttributedString *alertMsg = [[NSMutableAttributedString alloc] initWithString:message];
     [alertMsg addAttribute:NSForegroundColorAttributeName
-                     value:[UIColor colorWithRed:0.31f green:0.30f blue:0.26f alpha:1.0f]
+                     value:[UIColor colorWithRed:0.16f green:0.15f blue:0.13f alpha:1.0f]
                      range:NSMakeRange(0, alertMsg.length)];
     
     NSMutableParagraphStyle *style = NSMutableParagraphStyle.new;

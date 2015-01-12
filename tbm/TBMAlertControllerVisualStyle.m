@@ -24,7 +24,7 @@
 #pragma mark - Title & Message Labels
 
 - (UIFont *)titleLabelFont {
-    return [UIFont fontWithName:@"Helvetica-Light" size:21.0f];
+    return [UIFont fontWithName:@"Helvetica-Bold" size:21.0f];
 }
 
 - (UIFont *)messageLabelFont {

@@ -271,7 +271,7 @@ NSURLSessionDataTask *task = [hc
 
 - (void) showErrorDialogWithTitle:(NSString *)title msg:(NSString *)msg {
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:title message:msg];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Okay" style:SDCAlertActionStyleCancel handler:nil]];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleCancel handler:nil]];
     [alert presentWithCompletion:nil];
 }
 
