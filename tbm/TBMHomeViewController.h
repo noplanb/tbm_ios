@@ -12,7 +12,6 @@
 
 @interface TBMHomeViewController : UIViewController
 
-@property (strong, nonatomic) UIAlertView *versionHandlerAlert;
 @property (nonatomic) TBMGridViewController *gridViewController;
 
 + (TBMHomeViewController *)existingInstance;

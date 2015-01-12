@@ -160,7 +160,10 @@
 - (void)noValidPhonesDialog{
     NSString *title = @"No Mobile Number";
     NSString *msg = [NSString stringWithFormat:@"I could not find a valid mobile number for %@.\n\nPlease add a mobile number for %@ in your device contacts, kill %@, then try again.", [self fullname], [self firstName], CONFIG_APP_NAME];
-    [[[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show ];
+    
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:title message:msg];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleCancel handler:nil]];
+    [alert presentWithCompletion:nil];
 }
 
 - (void)selectPhoneNumberDialog{
@@ -257,13 +260,12 @@
 
 - (void) connectedDialog{
     NSString *msg = [NSString stringWithFormat:@"You and %@ are connected.\n\nRecord a welcome %@ to %@ now.", [self firstName], CONFIG_APP_NAME, [self firstName]];
-    UIAlertView  *av = [[UIAlertView alloc] initWithTitle:@"You Are Connected" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     
-    av.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex){
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"You Are Connected" message:msg];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
         [self.gridViewController moveFriendToGrid:[self friend]];
-    };
-    
-    [av show];
+    }]];
+    [alert presentWithCompletion:nil];
 }
 
 //----------------------------------
@@ -273,16 +275,12 @@
     NSString *msg = [NSString stringWithFormat:@"%@ still hasn't installed %@. Send them the link again.", self.friend.firstName,  CONFIG_APP_NAME];
     NSString *title = [NSString stringWithFormat:@"Nudge %@", self.friend.firstName];
     
-    UIAlertView *av = [[UIAlertView alloc] initWithTitle:title
-                                                 message:msg
-                                                delegate:nil
-                                       cancelButtonTitle:@"Cancel"
-                                       otherButtonTitles:@"Send", nil];
-    av.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex){
-        if (buttonIndex == alertView.firstOtherButtonIndex)
-            [self smsDialog];
-    };
-    [av show];
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:title message:msg];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleDefault handler:nil]];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Send" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
+        [self smsDialog];
+    }]];
+    [alert presentWithCompletion:nil];
 }
 
 - (void) preSmsDialog{
@@ -394,39 +392,40 @@
 }
 
 - (void) showFailureMessageFromServer:(NSDictionary *)failure{
-    UIAlertView *av = [[UIAlertView alloc] initWithTitle:[failure objectForKey:SERVER_PARAMS_ERROR_TITLE_KEY]
-                               message:[failure objectForKey:SERVER_PARAMS_ERROR_MSG_KEY]
-                              delegate:nil
-                     cancelButtonTitle:@"OK"
-                     otherButtonTitles: nil];
-    [av show];
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:[failure objectForKey:SERVER_PARAMS_ERROR_TITLE_KEY]
+                                                                     message:[failure objectForKey:SERVER_PARAMS_ERROR_MSG_KEY]];
+    
+    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleCancel handler:nil]];
+    [alert presentWithCompletion:nil];
 }
 
 - (void) hasAppServerErrorDialog{
-    UIAlertView *av = [self serverErrorAlert];
-    av.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex) {
-        if (buttonIndex == 1)
-            [self checkFriendHasApp];
-    };
-    [av show];
+    TBMAlertController *alert = [self serverErrorAlert];
+    
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
+        [self checkFriendHasApp];
+    }]];
+    
+    [alert presentWithCompletion:nil];
 }
 
 - (void) getFriendServerErrorDialog{
-    UIAlertView *av = [self serverErrorAlert];
-    av.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex) {
-        if (buttonIndex == 1)
-            [self getFriendFromServer];
-    };
-    [av show];
+    TBMAlertController *alert = [self serverErrorAlert];
+    
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
+        [self getFriendFromServer];
+    }]];
+    
+    [alert presentWithCompletion:nil];
 }
 
-- (UIAlertView *)serverErrorAlert{
+- (TBMAlertController *)serverErrorAlert{
     NSString *msg = [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", CONFIG_APP_NAME];
-    return [[UIAlertView alloc] initWithTitle:@"Bad Connection"
-                                      message:msg
-                                     delegate:nil
-                            cancelButtonTitle:@"Cancel"
-                            otherButtonTitles:@"Try Again", nil];
+
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Bad Connection" message:msg];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleDefault handler:nil]];
+    
+    return alert;
 }
 
 - (void)cantSendSmsError{

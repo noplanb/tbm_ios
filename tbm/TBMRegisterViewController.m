@@ -18,7 +18,7 @@
 #import "TBMPhoneUtils.h"
 #import "UIAlertView+Blocks.h"
 #import "TBMAlertController.h"
-
+#import "TBMAlertController.h"
 
 @interface TBMRegisterViewController ()
 
@@ -312,17 +312,11 @@ NSURLSessionDataTask *task = [hc
 - (void) showGetFriendsServerErrorDialog{
     NSString *msg = [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", CONFIG_APP_NAME];
 
-    UIAlertView *av = [[UIAlertView alloc]
-                       initWithTitle:@"Bad Connection"
-                       message:msg
-                       delegate:self
-                       cancelButtonTitle:@"Try Again"
-                       otherButtonTitles:nil];
-
-    av.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex) {
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Bad Connection" message:msg];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
         [self getFriends];
-    };
-    [av show];
+    }]];
+    [alert presentWithCompletion:nil];
 }
 
 

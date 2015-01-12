@@ -10,6 +10,7 @@
 #import <AddressBook/AddressBook.h>
 #import "OBLogger.h"
 #import "TBMConfig.h"
+#import "TBMAlertController.h"
 
 @interface TBMContactsManager()
 @property (nonatomic) ABAddressBookRef addressBookRef;
@@ -117,12 +118,10 @@
 
 - (void)alertNeedPermission{
     NSString *msg = [NSString stringWithFormat:@"You must grant access to contacts for this. Please go to settings/privacy/contacts and grant access for %@", CONFIG_APP_NAME];
-    [[[UIAlertView alloc]
-        initWithTitle:@"Need Permission"
-        message:msg
-        delegate:self
-        cancelButtonTitle:@"OK"
-        otherButtonTitles:nil] show];
+    
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Need Permission" message:msg];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleCancel handler:nil]];
+    [alert presentWithCompletion:nil];
 }
 
 - (void)setFullnamesHavingPhone{
