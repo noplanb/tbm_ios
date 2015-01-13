@@ -8,3 +8,4 @@ pod 'UIAlertView+Blocks'
 pod 'HexColors'
 pod 'SDCAlertView'
 pod "SDCAutoLayout"
+pod "iToast"

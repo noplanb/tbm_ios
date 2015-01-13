@@ -177,6 +177,12 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
+## iToast
+
+Created by Diallo Mamadou Bobo on 2/10/11.
+Copyright 2011 __MyCompanyName__. All rights reserved.
+
+
 ## libPhoneNumber-iOS
 
                                  Apache License

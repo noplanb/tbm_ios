@@ -26,7 +26,7 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     // Cancel any gesture that becomes multitouch.
     if ([[event allTouches] count] > 1){
-        [self cancelGesture];
+        [self cancelGesture:@"Two finger touch"];
         return;
     }
     _gestureCanceled = NO;
@@ -42,13 +42,13 @@
         return;
     }
     if ([[event allTouches] count] > 1){
-        [self cancelGesture];
+        [self cancelGesture:@"Two finger touch"];
         return;
     }
     
     UITouch *touch = [touches anyObject];
     if ([self moveTouchIsLongSwipe:touch]){
-        [self cancelGesture];
+        [self cancelGesture:@"Dragged finger away"];
     }
 }
 
@@ -75,17 +75,17 @@
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
     //    DebugLog(@"touchesCancelled");
-    [self cancelGesture];
+    [self cancelGesture:nil];
 }
 
 
-- (void)cancelGesture{
+- (void)cancelGesture:(NSString *)reason{
     //    DebugLog(@"cancelGesture");
     _gestureCanceled = YES;
     [self cancelLongPressTimer];
     if (_isLongPress) {
         _isLongPress = NO;
-        [self cancelLongPress];
+        [self cancelLongPress:reason];
     }
 }
 
@@ -135,11 +135,11 @@
     }
 }
 
-- (void)cancelLongPress{
+- (void)cancelLongPress:(NSString *)reason{
     UIView *targetView = [self targetView];
     if (targetView){
         //    DebugLog(@"cancelLongPress %ld", (long)[self targetView].tag);
-        [_instantiator LPTHCancelLongPressWithTargetView:[self targetView]];
+        [_instantiator LPTHCancelLongPressWithTargetView:[self targetView] reason:reason];
     }
 }
 

@@ -12,6 +12,7 @@
 #import "TBMGridElement.h"
 #import "OBLogger.h"
 #import "HexColor.h"
+#import "iToast.h"
 
 @interface TBMGridViewController ()
 @property (nonatomic) NSArray *gridViews;
@@ -243,11 +244,18 @@ static const float LayoutConstASPECT = 0.75;
     }
 }
 
-- (void)LPTHCancelLongPressWithTargetView:(UIView *)view{
+- (void)LPTHCancelLongPressWithTargetView:(UIView *)view reason:(NSString *)reason{
     TBMGridElement *ge = [self gridElementWithView:view];
     if (ge.friend != nil){
-        [[self videoRecorder] cancelRecording];
+        if ([[self videoRecorder] cancelRecording]){
+            [[iToast makeText:reason] show];
+            [self performSelector:@selector(toastNotSent) withObject:nil afterDelay:1.2];
+        }
     }
+}
+
+- (void)toastNotSent{
+    [[iToast makeText:@"Not sent"] show];
 }
 
 

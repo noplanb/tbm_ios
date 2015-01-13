@@ -76,7 +76,7 @@
 #define COCOAPODS_POD_AVAILABLE_SDCAlertView
 #define COCOAPODS_VERSION_MAJOR_SDCAlertView 2
 #define COCOAPODS_VERSION_MINOR_SDCAlertView 1
-#define COCOAPODS_VERSION_PATCH_SDCAlertView 0
+#define COCOAPODS_VERSION_PATCH_SDCAlertView 1
 
 // SDCAutoLayout
 #define COCOAPODS_POD_AVAILABLE_SDCAutoLayout
@@ -89,6 +89,12 @@
 #define COCOAPODS_VERSION_MAJOR_UIAlertView_Blocks 0
 #define COCOAPODS_VERSION_MINOR_UIAlertView_Blocks 8
 #define COCOAPODS_VERSION_PATCH_UIAlertView_Blocks 1
+
+// iToast
+#define COCOAPODS_POD_AVAILABLE_iToast
+#define COCOAPODS_VERSION_MAJOR_iToast 0
+#define COCOAPODS_VERSION_MINOR_iToast 0
+#define COCOAPODS_VERSION_PATCH_iToast 1
 
 // libPhoneNumber-iOS
 #define COCOAPODS_POD_AVAILABLE_libPhoneNumber_iOS

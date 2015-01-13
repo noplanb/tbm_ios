@@ -26,6 +26,6 @@
 - (void)startPreview;
 - (void)startRecordingWithMarker:(NSString *)marker;
 - (void)stopRecording;
-- (void)cancelRecording;
+- (BOOL)cancelRecording;
 - (void)dispose;
 @end

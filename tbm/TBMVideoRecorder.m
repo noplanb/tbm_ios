@@ -29,6 +29,7 @@ static int videoRecorderRetryCount = 0;
 @property CALayer *recordingOverlay;
 @property TBMSoundEffect *dingSoundEffect;
 @property NSString *marker;
+@property BOOL didCancelRecording;
 @end
 
 @implementation TBMVideoRecorder
@@ -232,6 +233,7 @@ static int videoRecorderRetryCount = 0;
 //------------------
 - (void)startRecordingWithMarker:(NSString *)marker{
     [_dingSoundEffect play];
+    self.didCancelRecording = NO;
     _marker = marker;
     OB_INFO(@"Started recording with marker %@", _marker);
     NSError *error = nil;
@@ -245,13 +247,16 @@ static int videoRecorderRetryCount = 0;
 
 - (void)stopRecording{
     [self hideRecordingOverlay];
-    [_captureOutput stopRecording];
+    if ([_captureOutput isRecording])
+        [_captureOutput stopRecording];
     [_dingSoundEffect play];
 }
 
-- (void)cancelRecording{
-    [self hideRecordingOverlay];
-    [_dingSoundEffect play];
+- (BOOL)cancelRecording{
+    self.didCancelRecording = YES;
+    BOOL wasRecording = [self.captureOutput isRecording];
+    [self stopRecording];
+    return wasRecording;
 }
 
 - (void)showRecordingOverlay{
@@ -268,6 +273,9 @@ static int videoRecorderRetryCount = 0;
 //------------------------------------------------
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error{
     OB_INFO(@"didFinishRecording.");
+    if (self.didCancelRecording)
+        return;
+    
     if (error){
 		OB_ERROR(@"%@", error);
         return;

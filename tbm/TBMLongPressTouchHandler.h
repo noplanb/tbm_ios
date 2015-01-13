@@ -11,7 +11,7 @@
 - (void)LPTHClickWithTargetView:(UIView *)view;
 - (void)LPTHStartLongPressWithTargetView:(UIView *)view;
 - (void)LPTHEndLongPressWithTargetView:(UIView *)view;
-- (void)LPTHCancelLongPressWithTargetView:(UIView *)view;
+- (void)LPTHCancelLongPressWithTargetView:(UIView *)view reason:(NSString *)reason;
 @end
 
 @interface TBMLongPressTouchHandler : NSObject
