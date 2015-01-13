@@ -13,6 +13,7 @@
 #import "TBMStringUtils.h"
 #import "OBFileTransferManager.h"
 #import "TBMUser.h"
+#import "TBMHttpManager.h"
 
 @interface TBMAppDelegate()
 @property id <TBMAppDelegateEventNotificationProtocol> eventNotificationDelegate;

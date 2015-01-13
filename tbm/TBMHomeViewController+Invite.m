@@ -14,7 +14,7 @@
 #import "TBMPhoneUtils.h"
 #import "SDCAlertController.h"
 #import "UIAlertView+Blocks.h"
-#import "TBMHttpClient.h"
+#import "TBMHttpManager.h"
 #import "TBMUser.h"
 
 
@@ -181,28 +181,19 @@
 // Server calls
 //-------------
 - (void)checkFriendHasApp{
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params addEntriesFromDictionary:@{
-                                       SERVER_PARAMS_USER_MKEY_KEY: [TBMUser getUser].mkey,
-                                       SERVER_PARAMS_USER_AUTH_KEY: [TBMUser getUser].auth,
-                                       SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY: [self selectedPhoneE164],
-                                       }];
-    TBMHttpClient *hc = [TBMHttpClient sharedClient];
     [self startWaitingForServer];
-    NSURLSessionDataTask *task = [hc
-                                  GET:@"invitation/has_app"
-                                  parameters:params
-                                  success:^(NSURLSessionDataTask *task, id responseObject) {
-                                      DebugLog(@"invitation/has_app success: %@", responseObject);
-                                      [self stopWaitingForServer];
-                                      [self gotHasApp:responseObject];
-                                  }
-                                  failure:^(NSURLSessionDataTask *task, NSError *error) {
-                                      DebugLog(@"invitation/has_app fail: %@", error);
-                                      [self stopWaitingForServer];
-                                      [self hasAppServerErrorDialog];
-                                  }];
-    [task resume];
+    [[[TBMHttpManager manager] GET:@"invitation/has_app"
+                        parameters:@{SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY: [self selectedPhoneE164]}
+                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                               DebugLog(@"invitation/has_app success: %@", responseObject);
+                               [self stopWaitingForServer];
+                               [self gotHasApp:responseObject];
+                           }
+                           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                               DebugLog(@"invitation/has_app fail: %@", error);
+                               [self stopWaitingForServer];
+                               [self hasAppServerErrorDialog];
+                           }] resume];
 }
 
 - (void)gotHasApp:(NSDictionary *)resp{
@@ -220,29 +211,24 @@
 - (void)getFriendFromServer{
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params addEntriesFromDictionary:@{
-                                      SERVER_PARAMS_USER_MKEY_KEY: [TBMUser getUser].mkey,
-                                      SERVER_PARAMS_USER_AUTH_KEY: [TBMUser getUser].auth,
                                       SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY: [self selectedPhone],
                                       SERVER_PARAMS_FRIEND_FIRST_NAME_KEY: [[self contact] objectForKey:kContactsManagerFirstNameKey],
                                       SERVER_PARAMS_FRIEND_LAST_NAME_KEY: [[self contact] objectForKey:kContactsManagerLastNameKey],
                                       }];
   
-    TBMHttpClient *hc = [TBMHttpClient sharedClient];
     [self startWaitingForServer];
-    NSURLSessionDataTask *task = [hc
-                                  GET:@"invitation/invite"
-                                  parameters:params
-                                  success:^(NSURLSessionDataTask *task, id responseObject) {
-                                      DebugLog(@"invitation/invite success: %@", responseObject);
-                                      [self stopWaitingForServer];
-                                      [self gotFriend:responseObject];
-                                  }
-                                  failure:^(NSURLSessionDataTask *task, NSError *error) {
-                                      DebugLog(@"invitation/invite fail: %@", error);
-                                      [self stopWaitingForServer];
-                                      [self getFriendServerErrorDialog];
-                                  }];
-    [task resume];
+    [[[TBMHttpManager manager] GET:@"invitation/invite"
+                             parameters:params
+                                success:^(AFHTTPRequestOperation *operation, id responseObject)  {
+                                    DebugLog(@"invitation/invite success: %@", responseObject);
+                                    [self stopWaitingForServer];
+                                    [self gotFriend:responseObject];
+                                }
+                                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                    DebugLog(@"invitation/invite fail: %@", error);
+                                    [self stopWaitingForServer];
+                                    [self getFriendServerErrorDialog];
+                                }] resume];
 }
 
 

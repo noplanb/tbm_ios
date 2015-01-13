@@ -10,7 +10,7 @@
 
 #import "TBMDispatch.h"
 #import "OBLogger.h"
-#import "TBMHttpClient.h"
+#import "TBMHttpManager.h"
 #import "TBMUser.h"
 
 static BOOL TBMDispatchEnabled = NO;
@@ -38,13 +38,10 @@ static BOOL TBMDispatchEnabled = NO;
 }
 
 + (void) dispatch: (NSString *)msg{
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[TBMHttpClient userCredentials]];
-    params[SERVER_PARAMS_DISPATCH_MSG_KEY] = msg;
-    NSURLSessionTask *task = [[TBMHttpClient sharedClient] POST:@"dispatch/post_dispatch"
-                                                     parameters:params
-                                                        success:nil
-                                                        failure:nil];
-    [task resume];
+    [[[TBMHttpManager manager] POST:@"dispatch/post_dispatch"
+                         parameters:@{SERVER_PARAMS_DISPATCH_MSG_KEY: msg}
+                            success:nil
+                            failure:nil] resume];
 }
 
 + (NSString *) message:(NSString *)error{

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 #import "TBMVersionHandler.h"
-#import "TBMHttpClient.h"
+#import "TBMHttpManager.h"
 #import "TBMConfig.h"
 #import "TBMStringUtils.h"
 #import "OBLogger.h"
@@ -49,18 +49,17 @@ static const NSString *VH_CURRENT = @"current";
 }
 
 - (void) checkVersionCompatibility{
-    NSURLSessionDataTask *task = [[TBMHttpClient sharedClient]
+    [[[TBMHttpManager manager]
       GET:@"version/check_compatibility"
       parameters:@{@"device_platform": @"ios", @"version": CONFIG_VERSION_NUMBER}
-      success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+      success:^(AFHTTPRequestOperation *operation, id responseObject){
           OB_INFO(@"checkVersionCompatibility: success: %@", [responseObject objectForKey:@"result"]);
           if (_delegate)
               [_delegate versionCheckCallback:[responseObject objectForKey:VH_RESULT_KEY]];
       }
-      failure:^(NSURLSessionDataTask *task, NSError *error) {
+      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
           OB_ERROR(@"checkVersionCompatibility: %@", error);
-      }];
-    [task resume];
+      }] resume];
 }
 
 @end

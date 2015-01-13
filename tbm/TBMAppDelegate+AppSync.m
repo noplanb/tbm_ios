@@ -14,7 +14,7 @@
 #import "TBMRemoteStorageHandler.h"
 #import "TBMVideoIdUtils.h"
 #import "TBMVideoPlayer.h"
-#import "TBMHttpClient.h"
+#import "TBMHttpManager.h"
 
 @implementation TBMAppDelegate (AppSync)
 
@@ -134,11 +134,10 @@
         NSString *full = [NSString stringWithFormat:@"%@/%@", [TBMRemoteStorageHandler fileTransferDeletePath], filename];
         [self performSelectorInBackground:@selector(ftmDelete:) withObject:full];
     } else {
-        NSURLSessionDataTask *task = [[TBMHttpClient sharedClient] GET: @"videos/delete"
-                                                            parameters: @{@"filename": filename}
-                                                               success: ^(NSURLSessionDataTask *task, id responseObject) {}
-                                                               failure: ^(NSURLSessionDataTask *task, NSError *error) {}];
-        [task resume];
+        [[[TBMHttpManager manager] GET: @"videos/delete"
+                                 parameters: @{@"filename": filename}
+                                    success: nil
+                                    failure: nil] resume];
     }
 }
 

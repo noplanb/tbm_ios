@@ -11,7 +11,7 @@
 #import "TBMFriend.h"
 #import "TBMUser.h"
 #import "TBMStringUtils.h"
-#import "TBMHttpClient.h"
+#import "TBMHttpManager.h"
 #import "OBLogger.h"
 #import "TBMConfig.h"
 
@@ -85,25 +85,19 @@
 //-------------------------
 
 + (void) simpleGet:(NSString *)path params:(NSDictionary *)params{
-    NSURLSessionDataTask *task = [[TBMHttpClient sharedClient]
+    [[[TBMHttpManager manager]
         GET:path
         parameters:params
-        success:^(NSURLSessionDataTask *task, id responseObject) {
-         }
-        failure:^(NSURLSessionDataTask *task, NSError *error) {
-         }];
-    [task resume];
+        success:nil
+        failure:nil] resume];
 }
 
 + (void) simplePost:(NSString *)path params:(NSDictionary *)params{
-    NSURLSessionDataTask *task = [[TBMHttpClient sharedClient]
-        POST:path
-        parameters:params
-        success:^(NSURLSessionDataTask *task, id responseObject) {
-         }
-        failure:^(NSURLSessionDataTask *task, NSError *error) {
-         }];
-    [task resume];
+    [[[TBMHttpManager manager]
+      POST:path
+      parameters:params
+      success:nil
+      failure:nil] resume];
 }
 
 
@@ -173,17 +167,15 @@
 // GetRemoteKV
 //------------
 + (void) getRemoteKVsWithKey:(NSString *)key1 success:(void(^)(NSArray *response))success failure:(void(^)(NSError *error))failure{
-    NSURLSessionDataTask *task = [[TBMHttpClient sharedClient]
-    GET:@"kvstore/get_all"
-    parameters:@{@"key1": key1}
-    success:^(NSURLSessionDataTask *task, NSArray *responseObject) {
-        success(responseObject);
-    }
-    failure:^(NSURLSessionDataTask *task, NSError *error) {
-        OB_ERROR(@"ERROR: getRemoteKVWithKey: %@", [error localizedDescription]);
-        failure(error);
-    }];
-    [task resume];
+    [[[TBMHttpManager manager] GET:@"kvstore/get_all"
+                        parameters:nil
+                          success:^(AFHTTPRequestOperation *operation, id responseObject){
+                              success(responseObject);
+                          }
+                          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                              OB_ERROR(@"ERROR: getRemoteKVWithKey: %@", [error localizedDescription]);
+                              failure(error);
+                          }] resume];
 }
 
 

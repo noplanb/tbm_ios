@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
-#import "AFHTTPSessionManager.h"
+#import "AFNetworking.h"
 
 extern NSString * const SERVER_PARAMS_STATUS_KEY;
 extern NSString * const SERVER_PARAMS_ERROR_TITLE_KEY;
@@ -39,10 +39,9 @@ extern NSString * const SERVER_PARAMS_S3_SECRET_KEY;
 
 extern NSString * const SERVER_PARAMS_DISPATCH_MSG_KEY;
 
-@interface TBMHttpClient : AFHTTPSessionManager
-+ (instancetype)sharedClient;
+@interface TBMHttpManager : NSObject
++ (AFHTTPRequestOperationManager *)manager;
++ (AFHTTPRequestOperationManager *)managerWithCredential:(NSURLCredential *)credential;
 + (BOOL)isSuccess:(NSDictionary *)responseObject;
 + (BOOL)isFailure:(NSDictionary *)responseObject;
-
-+ (NSDictionary *)userCredentials;
 @end
