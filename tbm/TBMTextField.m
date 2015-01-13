@@ -19,4 +19,9 @@
 }
 */
 
+- (void)drawPlaceholderInRect:(CGRect)rect {
+    [[self placeholder] drawInRect:CGRectInset(rect, 0, (rect.size.height - self.font.lineHeight) / 2.0)
+                    withAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : self.font}];
+}
+
 @end
