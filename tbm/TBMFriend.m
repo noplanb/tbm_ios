@@ -181,6 +181,37 @@ static NSMutableArray * videoStatusNotificationDelegates;
 // Instance methods
 //=================
 
+//-----------
+// UI helpers
+//-----------
+- (NSString *)displayName{
+    int maxLength = 100;
+    NSString *d;
+    
+    if ([self firstNameIsUnique])
+        d = self.firstName;
+    else
+        d = [NSString stringWithFormat:@"%@. %@", [self firstInitial], self.lastName];
+    
+    // Limit to 12 characgters
+    if (d.length > maxLength)
+        d = [d substringWithRange:NSMakeRange(0, maxLength-1)];
+    
+    return d;
+}
+
+- (BOOL)firstNameIsUnique{
+    for (TBMFriend *f in [TBMFriend all]){
+        if (![self isEqual:f] && [self.firstName isEqualToString:f.firstName])
+            return NO;
+    }
+    return YES;
+}
+
+- (NSString *)firstInitial{
+    return[self.firstName substringToIndex:1];
+}
+
 //----------------
 // Incoming Videos
 //----------------
@@ -348,7 +379,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
 - (NSString *)incomingVideoStatusString{
     TBMVideo *v = [self newestIncomingVideo];
     if (v == NULL)
-        return self.firstName;
+        return [self displayName];
     
     if (v.status == INCOMING_VIDEO_STATUS_DOWNLOADING){
         if ([v.downloadRetryCount intValue] == 0){
@@ -359,7 +390,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
     } else if (v.status == INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY){
         return @"Downloading e!";
     } else {
-        return self.firstName;
+        return [self displayName];
     }
 }
 
@@ -392,12 +423,12 @@ static NSMutableArray * videoStatusNotificationDelegates;
             statusString = nil;
     }
     
-    NSString *fn = (statusString == nil || self.outgoingVideoStatus == OUTGOING_VIDEO_STATUS_VIEWED) ? self.firstName : [self shortFirstName];
+    NSString *fn = (statusString == nil || self.outgoingVideoStatus == OUTGOING_VIDEO_STATUS_VIEWED) ? [self displayName] : [self shortFirstName];
     return [NSString stringWithFormat:@"%@ %@", fn, statusString];
 }
 
 - (NSString *)shortFirstName{
-    return [self.firstName substringWithRange:NSMakeRange(0, MIN(6, [self.firstName length]))];
+    return [[self displayName] substringWithRange:NSMakeRange(0, MIN(6, [[self displayName] length]))];
 }
 
 //---------------

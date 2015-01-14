@@ -83,7 +83,6 @@
 		227155611A40902B00B437DA /* TBMBenchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 227155601A40902B00B437DA /* TBMBenchViewController.m */; };
 		227F6CF61A15313700E19E5C /* TBMRegisterForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 227F6CF51A15313700E19E5C /* TBMRegisterForm.m */; };
 		2287DB4B1922BB5D00B1C298 /* TBMAppDelegate+PushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 2287DB4A1922BB5D00B1C298 /* TBMAppDelegate+PushNotification.m */; };
-		2287DB511923141A00B1C298 /* TBMFileTransferMangerDeprecated.m in Sources */ = {isa = PBXBuildFile; fileRef = 2287DB501923141A00B1C298 /* TBMFileTransferMangerDeprecated.m */; };
 		22A094E71A16C6B4009AB958 /* TBMSelectPhoneTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A094E61A16C6B4009AB958 /* TBMSelectPhoneTableDelegate.m */; };
 		22A375C41930E09E00C355EB /* TBMStringUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A375C31930E09E00C355EB /* TBMStringUtils.m */; };
 		22A76A7A19A2600C00D8C4FF /* TBMFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A76A7919A2600C00D8C4FF /* TBMFriend.m */; };
@@ -221,8 +220,6 @@
 		227F6CF51A15313700E19E5C /* TBMRegisterForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMRegisterForm.m; sourceTree = "<group>"; };
 		2287DB491922BB5D00B1C298 /* TBMAppDelegate+PushNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMAppDelegate+PushNotification.h"; sourceTree = "<group>"; };
 		2287DB4A1922BB5D00B1C298 /* TBMAppDelegate+PushNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMAppDelegate+PushNotification.m"; sourceTree = "<group>"; };
-		2287DB4F1923141A00B1C298 /* TBMFileTransferMangerDeprecated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFileTransferMangerDeprecated.h; sourceTree = "<group>"; };
-		2287DB501923141A00B1C298 /* TBMFileTransferMangerDeprecated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFileTransferMangerDeprecated.m; sourceTree = "<group>"; };
 		22A094E51A16C6B4009AB958 /* TBMSelectPhoneTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSelectPhoneTableDelegate.h; sourceTree = "<group>"; };
 		22A094E61A16C6B4009AB958 /* TBMSelectPhoneTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSelectPhoneTableDelegate.m; sourceTree = "<group>"; };
 		22A375C21930E09E00C355EB /* TBMStringUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMStringUtils.h; sourceTree = "<group>"; };
@@ -357,8 +354,6 @@
 				22EA56C019106AD100646D3E /* TBMConfig.m */,
 				223A11441915926800177481 /* TBMHttpManager.h */,
 				223A11451915926800177481 /* TBMHttpManager.m */,
-				2287DB4F1923141A00B1C298 /* TBMFileTransferMangerDeprecated.h */,
-				2287DB501923141A00B1C298 /* TBMFileTransferMangerDeprecated.m */,
 				220207C8198878650013CE3B /* TBMRemoteStorageHandler.h */,
 				220207C9198878650013CE3B /* TBMRemoteStorageHandler.m */,
 				2261417519A52CFB006FB870 /* TBMVersionHandler.h */,
@@ -779,7 +774,6 @@
 				22F1A4C419354AC500E04229 /* TBMVideoIdUtils.m in Sources */,
 				221EA2911912E86300649BC5 /* TBMUser.m in Sources */,
 				226A37C11A37E08900A2D0F5 /* TBMGridElementViewController.m in Sources */,
-				2287DB511923141A00B1C298 /* TBMFileTransferMangerDeprecated.m in Sources */,
 				22ED40081A0850F5003D6536 /* TBMGridElement.m in Sources */,
 				22A8F5081A09608800F7AD0E /* TBMTextField.m in Sources */,
 				22EA56C119106AD100646D3E /* TBMConfig.m in Sources */,

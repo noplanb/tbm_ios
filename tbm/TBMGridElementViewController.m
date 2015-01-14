@@ -89,6 +89,7 @@
 // Building the view
 //------------------
 static const float LayoutConstNameLabelHeight = 22;
+static const float LayoutConstNameLabelMargin = 5;
 static const float LayoutConstNameLabelFontSize = 0.55 * LayoutConstNameLabelHeight;
 static const float LayoutConstBorderWidth = 2.5;
 static const float LayoutConstCountWidth = 22;
@@ -200,7 +201,8 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 
 - (void)addNameLabel{
     float y = self.view.bounds.size.height - LayoutConstNameLabelHeight;
-    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, y, self.view.bounds.size.width, LayoutConstNameLabelHeight)];
+    float w = self.view.bounds.size.width - 2*LayoutConstNameLabelMargin;
+    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(LayoutConstNameLabelMargin, y, w, LayoutConstNameLabelHeight)];
     [self makeNameLabelGrey];
     self.nameLabel.textColor = [UIColor colorWithHexString:LayoutConstWhiteTextColor alpha:1];
     self.nameLabel.textAlignment = NSTextAlignmentCenter;

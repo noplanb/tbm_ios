@@ -200,8 +200,10 @@
 
 - (void)generateThumb{
     DebugLog(@"generateThumb for %@", self.friend.firstName);
-    if (![self hasValidVideoFile])
-        return;
+    if (![self hasValidVideoFile]){
+//        OB_ERROR(<#message, ...#>)
+        return ;
+    }
     
     AVAsset *asset = [AVAsset assetWithURL:[self videoUrl]];
     AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc]initWithAsset:asset];

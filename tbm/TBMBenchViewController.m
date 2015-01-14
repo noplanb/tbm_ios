@@ -186,7 +186,7 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
         } else {
             //TODO add the zazo image here
         }
-        cell.textLabel.text = f.firstName;
+        cell.textLabel.text = [f displayName];
     } else {
         cell.imageView.image = nil;
         cell.textLabel.text = item;
