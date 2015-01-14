@@ -141,8 +141,8 @@
 }
 
 
-// Convenience getters
 
+// Convenience getters
 + (void) getRemoteIncomingVideoIdsWithFriend:(TBMFriend *)friend gotVideoIds:(void(^)(NSArray *videoIds))gotVideoIds{
     NSString *key1 = [TBMRemoteStorageHandler incomingVideoIDRemoteKVKey:friend];
     [TBMRemoteStorageHandler getRemoteKVsWithKey:key1 success:^(NSArray *response) {
@@ -163,12 +163,35 @@
     return vIds;
 }
 
++ (void) getRemoteOutgoingVideoStatus:(TBMFriend *)friend
+                              success:(void(^)(NSDictionary *response))success
+                              failure:(void(^)(NSError *error))failure{
+    OB_INFO(@"getRemoteOutgoingVideoStatus");
+    NSString *key = [TBMRemoteStorageHandler outgoingVideoStatusRemoteKVKey:friend];
+    [[[TBMHttpManager manager] GET:@"kvstore/get"
+                        parameters:@{@"key1": key}
+                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                               success([self getStatusWithResponseObject:responseObject]);
+                           }
+                           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                               failure(error);
+                           }] resume];
+}
+
++ (NSDictionary *)getStatusWithResponseObject:(NSDictionary *)response{
+    NSString *valueJson = response[@"value"];
+    return [TBMStringUtils dictionaryWithJson:valueJson];
+}
+
+
 //------------
 // GetRemoteKV
 //------------
-+ (void) getRemoteKVsWithKey:(NSString *)key1 success:(void(^)(NSArray *response))success failure:(void(^)(NSError *error))failure{
++ (void) getRemoteKVsWithKey:(NSString *)key1
+                     success:(void(^)(NSArray *response))success
+                     failure:(void(^)(NSError *error))failure{
     [[[TBMHttpManager manager] GET:@"kvstore/get_all"
-                        parameters:nil
+                        parameters:@{@"key1":key1}
                           success:^(AFHTTPRequestOperation *operation, id responseObject){
                               success(responseObject);
                           }
@@ -179,5 +202,17 @@
 }
 
 
+//----------------------------
+// Conversion of status values
+//----------------------------
++ (int)outgoingVideoStatusWithRemoteStatus:(NSString *)remoteStatus{
+    if ([remoteStatus isEqualToString:REMOTE_STORAGE_STATUS_DOWNLOADED])
+        return OUTGOING_VIDEO_STATUS_DOWNLOADED;
+    
+    if ([remoteStatus isEqualToString:REMOTE_STORAGE_STATUS_VIEWED])
+        return OUTGOING_VIDEO_STATUS_VIEWED;
+    
+    return -1;
+}
 
 @end

@@ -44,4 +44,8 @@ static NSString * REMOTE_STORAGE_STATUS_VIEWED = @"viewed";
 
 // Convenience getters
 + (void) getRemoteIncomingVideoIdsWithFriend:(TBMFriend *)friend gotVideoIds:(void(^)(NSArray *videoIds))gotVideoIds;
++ (void) getRemoteOutgoingVideoStatus:(TBMFriend *)friend success:(void(^)(NSDictionary *response))success failure:(void(^)(NSError *error))failure;
+
+// Conversion of status
++ (int)outgoingVideoStatusWithRemoteStatus:(NSString *)remoteStatus;
 @end

@@ -166,11 +166,12 @@
 - (void) pollAllFriends{
     OB_INFO(@"pollAllFriends");
     for (TBMFriend *f in [TBMFriend all]){
-        [self pollWithFriend:f];
+        [self pollVideosWithFriend:f];
+        [self pollVideoStatusWithFriend:f];
     }
 }
 
-- (void) pollWithFriend:(TBMFriend *)friend{
+- (void) pollVideosWithFriend:(TBMFriend *)friend{
     [TBMRemoteStorageHandler getRemoteIncomingVideoIdsWithFriend:friend gotVideoIds:^(NSArray *videoIds) {
         DebugLog(@"pollWithFriend: %@  vids = %@", friend.firstName, videoIds);
         for (NSString *videoId in videoIds){
@@ -182,6 +183,30 @@
             [self queueDownloadWithFriend:friend videoId:videoId];
         }
     }];
+}
+
+- (void) pollVideoStatusWithFriend:(TBMFriend *)friend{
+    if (friend.outgoingVideoStatus == OUTGOING_VIDEO_STATUS_VIEWED){
+        OB_INFO(@"pollVideoStatusWithFriend: skipping %@ becuase outgoing status is viewed.", friend.firstName);
+        return;
+    }
+    
+    [TBMRemoteStorageHandler getRemoteOutgoingVideoStatus:friend
+                                                  success:^(NSDictionary *response) {
+                                                      NSString *status = response[REMOTE_STORAGE_STATUS_KEY];
+                                                      int ovsts = [TBMRemoteStorageHandler outgoingVideoStatusWithRemoteStatus:status];
+                                                      if (ovsts == -1){
+                                                          OB_ERROR(@"pollVideoStatusWithFriend: got unknown outgoing video status: %@", status);
+                                                          return;
+                                                      }
+                                                      // This call handles making sure that videoId == outgoingVideoId etc.
+                                                      [friend setAndNotifyOutgoingVideoStatus:ovsts
+                                                                                      videoId:response[REMOTE_STORAGE_VIDEO_ID_KEY]];
+                                                  }
+                                                  failure:^(NSError *error) {
+                                                      // This can happen on startup when there is nothing in the remoteVideoStatusKV
+                                                      OB_WARN(@"pollVideoStatusWithFriend: Error polling outgoingVideoStatus for %@ - %@", friend.firstName, error);
+                                                  }];
 }
 
 //-------------------------------

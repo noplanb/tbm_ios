@@ -266,7 +266,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
 
 - (void)printVideos{
     for (TBMVideo *v in [self sortedIncomingVideos]) {
-        DebugLog(@"Video id:%@ status:%d file_exists:%hhd", v.videoId, v.status, [v videoFileExists]);
+        DebugLog(@"Video id:%@ status:%ld file_exists:%d", v.videoId, v.status, [v videoFileExists]);
     }
 
 }

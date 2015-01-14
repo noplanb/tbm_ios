@@ -13,6 +13,7 @@
 #import "TBMVideo.h"
 #import "TBMFriend.h"
 #import "OBLogger.h"
+#import "TBMRemoteStorageHandler.h"
 
 @interface TBMVideoPlayer()
 @property TBMGridElement *gridElement;
@@ -187,6 +188,9 @@
     DebugLog(@"play for %@", self.video.videoId);
     // Set viewed even if the video is not playable so that it gets deleted eventually.
     [self.gridElement.friend setViewedWithIncomingVideo:self.video];
+    [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
+                                                  videoId:self.video.videoId
+                                                   friend:self.gridElement.friend];
     if ([self.video hasValidVideoFile]){
         self.moviePlayerController.contentURL = [self.video videoUrl];
         [self.moviePlayerController play];
