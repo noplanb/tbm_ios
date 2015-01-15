@@ -54,6 +54,11 @@ static TBMBenchViewController *existingInstance = nil;
 //----------
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // Register for keyboard did show notification
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidShow:)
+                                                 name:UIKeyboardDidShowNotification  object:nil];
 }
 
 
@@ -208,6 +213,20 @@ static float BENCH_CELL_HEIGHT = 56.0;
     CGRect r = [self benchTableRect];
     r.size.height = [[UIScreen mainScreen] bounds].size.height / 2;
     return r;
+}
+
+
+//-------------------------------
+// Keyboard did show notification
+//-------------------------------
+
+-(void)keyboardDidShow:(NSNotification*)notification {
+    CGFloat keyboardHeight = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+    
+    // Resize search table so it is not covered up by keboard
+    CGRect searchTableFrame = self.searchTable.frame;
+    searchTableFrame.size.height = [self benchTableRect].size.height - keyboardHeight;
+    self.searchTable.frame = searchTableFrame;
 }
 
 
