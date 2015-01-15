@@ -198,21 +198,31 @@
     return [[NSFileManager defaultManager] fileExistsAtPath:[self thumbPath]];
 }
 
-- (void)generateThumb{
+- (BOOL)generateThumb{
     DebugLog(@"generateThumb for %@", self.friend.firstName);
     if (![self hasValidVideoFile]){
-//        OB_ERROR(<#message, ...#>)
-        return ;
+        OB_ERROR(@"generateThumb: !hasValidVideoFile");
+        return NO;
     }
     
     AVAsset *asset = [AVAsset assetWithURL:[self videoUrl]];
     AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc]initWithAsset:asset];
     imageGenerator.appliesPreferredTrackTransform = YES;
-    CMTime time = CMTimeMake(1, 1);
-    CGImageRef imageRef = [imageGenerator copyCGImageAtTime:time actualTime:NULL error:NULL];
+    CMTime duration = asset.duration;
+    CMTime secondsFromEnd = CMTimeMake(2, 1);
+    CMTime thumbTime = CMTimeSubtract(duration, secondsFromEnd);
+    CMTime actual;
+    NSError *err = nil;
+    CGImageRef imageRef = [imageGenerator copyCGImageAtTime:thumbTime actualTime:&actual error:&err];
+    DebugLog(@"duration:%f secondsFromEnd:%f thumbTIme:%f actualTime:%f", CMTimeGetSeconds(duration), CMTimeGetSeconds(secondsFromEnd), CMTimeGetSeconds(thumbTime), CMTimeGetSeconds(actual));
+    if (err != nil){
+        OB_ERROR(@"generateThumb: %@", err);
+        return NO;
+    }
     UIImage *thumbnail = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationUp];
     CGImageRelease(imageRef);  // CGImageRef won't be released by ARC
     [UIImagePNGRepresentation(thumbnail) writeToURL:[self thumbUrl] atomically:YES];
+    return YES;
 }
 
 - (void)deleteThumbFile{

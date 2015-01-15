@@ -316,25 +316,20 @@
     [self deleteRemoteFileAndVideoId:video];
     
     if (error != nil){
+        OB_ERROR(@"downloadCompletedWithFriend %@", error);
         [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY video:video];
-    } else {
-        //Lets not check if player is playing before deleting for now and see how it feels.
-//        UIViewController *hvc = self.window.rootViewController;
-//        if ([hvc isKindOfClass:[TBMHomeViewController class]]){
-//            TBMHomeViewController *hvc = (TBMHomeViewController *)self.window.rootViewController;
-//            TBMVideoPlayer *vp = [hvc videoPlayerWithFriend:friend];
-//            
-//            if ( vp == nil || ![vp isPlaying])
-//                [friend deleteAllViewedOrFailedVideos];
-        
-//        }
-        [friend deleteAllViewedOrFailedVideos];
-        [video generateThumb];
-        
-        [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_DOWNLOADED video:video];
-        [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_DOWNLOADED videoId:videoId friend:friend];
-        [self sendNotificationForVideoStatusUpdate:friend videoId:videoId status:NOTIFICATION_STATUS_DOWNLOADED];
+        return;
     }
+    
+    if (![video generateThumb]){
+        OB_ERROR(@"downloadCompletedWithFriend: error generating thumb.");
+        [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY video:video];
+    }
+    
+    [friend deleteAllViewedOrFailedVideos];
+    [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_DOWNLOADED video:video];
+    [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_DOWNLOADED videoId:videoId friend:friend];
+    [self sendNotificationForVideoStatusUpdate:friend videoId:videoId status:NOTIFICATION_STATUS_DOWNLOADED];
     OB_INFO(@"downloadCompletedWithFriend: Video count = %ld", (unsigned long)[TBMVideo count]);
 }
 
