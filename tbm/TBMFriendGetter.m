@@ -41,7 +41,7 @@
 }
 
 - (void)gotFriends:(NSArray *)friends{
-    OB_INFO(@"TBMFriendGetter: gotFriends: %@", friends);
+    // OB_INFO(@"TBMFriendGetter: gotFriends: %@", friends);
     if (_destroyAll)
         [TBMFriend destroyAll];
     

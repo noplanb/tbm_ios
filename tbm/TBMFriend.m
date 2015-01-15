@@ -152,7 +152,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
         else
             friend.hasApp = NO;
     }];
-    OB_INFO(@"Added friend: %@", friend);
+    // OB_INFO(@"Added friend: %@", friend);
     return friend;
 }
 

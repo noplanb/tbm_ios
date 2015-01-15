@@ -89,6 +89,7 @@
 		22A76A7D19A2600C00D8C4FF /* TBMVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A76A7C19A2600C00D8C4FF /* TBMVideo.m */; };
 		22A8F5081A09608800F7AD0E /* TBMTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A8F5071A09608800F7AD0E /* TBMTextField.m */; };
 		22A8F50B1A099C7600F7AD0E /* TBMPhoneUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A8F50A1A099C7600F7AD0E /* TBMPhoneUtils.m */; };
+		22B1AE561A68576F0027C4B1 /* TBMMarginLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B1AE551A68576F0027C4B1 /* TBMMarginLabel.m */; };
 		22BF060519D4A5FC00F6E025 /* TBMHomeViewController+Invite.m in Sources */ = {isa = PBXBuildFile; fileRef = 22BF060419D4A5FC00F6E025 /* TBMHomeViewController+Invite.m */; };
 		22CC5E5F1A1AD9A900AAFB75 /* TBMTableModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CC5E5E1A1AD9A900AAFB75 /* TBMTableModal.m */; };
 		22DACC7B1A1D015700B2F750 /* TBMContentViewModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 22DACC7A1A1D015700B2F750 /* TBMContentViewModal.m */; };
@@ -232,6 +233,8 @@
 		22A8F5071A09608800F7AD0E /* TBMTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMTextField.m; sourceTree = "<group>"; };
 		22A8F5091A099C7600F7AD0E /* TBMPhoneUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMPhoneUtils.h; sourceTree = "<group>"; };
 		22A8F50A1A099C7600F7AD0E /* TBMPhoneUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMPhoneUtils.m; sourceTree = "<group>"; };
+		22B1AE541A68576F0027C4B1 /* TBMMarginLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMMarginLabel.h; sourceTree = "<group>"; };
+		22B1AE551A68576F0027C4B1 /* TBMMarginLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMMarginLabel.m; sourceTree = "<group>"; };
 		22BF060319D4A5FC00F6E025 /* TBMHomeViewController+Invite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMHomeViewController+Invite.h"; sourceTree = "<group>"; };
 		22BF060419D4A5FC00F6E025 /* TBMHomeViewController+Invite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMHomeViewController+Invite.m"; sourceTree = "<group>"; };
 		22CC5E5D1A1AD9A900AAFB75 /* TBMTableModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMTableModal.h; sourceTree = "<group>"; };
@@ -330,6 +333,7 @@
 		220E90301909A18B003C4F82 /* tbm */ = {
 			isa = PBXGroup;
 			children = (
+				22B1AE531A6857230027C4B1 /* UIWidgets */,
 				226914EF19AFCD92007497F1 /* Icons */,
 				2227243619182A2D00DA6865 /* Images */,
 				22EA56B419103A2B00646D3E /* Sounds */,
@@ -555,6 +559,15 @@
 			name = AppDelegate;
 			sourceTree = "<group>";
 		};
+		22B1AE531A6857230027C4B1 /* UIWidgets */ = {
+			isa = PBXGroup;
+			children = (
+				22B1AE541A68576F0027C4B1 /* TBMMarginLabel.h */,
+				22B1AE551A68576F0027C4B1 /* TBMMarginLabel.m */,
+			);
+			name = UIWidgets;
+			sourceTree = "<group>";
+		};
 		22EA56B419103A2B00646D3E /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -759,6 +772,7 @@
 				220E903B1909A18B003C4F82 /* TBMAppDelegate.m in Sources */,
 				2287DB4B1922BB5D00B1C298 /* TBMAppDelegate+PushNotification.m in Sources */,
 				224101D2190D40B1005128F9 /* TBMDeviceHandler.m in Sources */,
+				22B1AE561A68576F0027C4B1 /* TBMMarginLabel.m in Sources */,
 				220E90611909C3D4003C4F82 /* TBMHomeViewController.m in Sources */,
 				22A76A7A19A2600C00D8C4FF /* TBMFriend.m in Sources */,
 				226A26031A584AD6006FDFDA /* TBMKeyChainWrapper.m in Sources */,

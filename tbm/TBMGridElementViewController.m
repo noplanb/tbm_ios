@@ -12,6 +12,7 @@
 #import "HexColor.h"
 #import "TBMGridElement.h"
 #import "TBMVideo.h"
+#import "TBMMarginLabel.h"
 
 @interface TBMGridElementViewController()
 @property NSInteger index;
@@ -20,7 +21,7 @@
 @property UIView *noThumbNoAppView;
 @property UIView *noThumbHasAppView;
 @property UIView *noFriendView;
-@property UILabel *nameLabel;
+@property TBMMarginLabel *nameLabel;
 @property NSArray *greenBorder;
 @property UILabel *countLabel;
 @property UIImageView *thumbView;
@@ -201,8 +202,8 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 
 - (void)addNameLabel{
     float y = self.view.bounds.size.height - LayoutConstNameLabelHeight;
-    float w = self.view.bounds.size.width - 2*LayoutConstNameLabelMargin;
-    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(LayoutConstNameLabelMargin, y, w, LayoutConstNameLabelHeight)];
+    self.nameLabel = [[TBMMarginLabel alloc] initWithFrame:CGRectMake(0, y, self.view.bounds.size.width, LayoutConstNameLabelHeight)];
+    self.nameLabel.margin = LayoutConstNameLabelMargin;
     [self makeNameLabelGrey];
     self.nameLabel.textColor = [UIColor colorWithHexString:LayoutConstWhiteTextColor alpha:1];
     self.nameLabel.textAlignment = NSTextAlignmentCenter;
