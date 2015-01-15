@@ -97,6 +97,7 @@
 		22F1A4C419354AC500E04229 /* TBMVideoIdUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F1A4C319354AC500E04229 /* TBMVideoIdUtils.m */; };
 		22F32AFC19228F3300AB524E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F32AFB19228F3300AB524E /* StoreKit.framework */; };
 		22FE2A011A09C0460051FC9C /* TBMFriendGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FE2A001A09C0460051FC9C /* TBMFriendGetter.m */; };
+		481A88441A66F76000F895CD /* TBMBenchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 481A88431A66F76000F895CD /* TBMBenchTableViewCell.m */; };
 		489D399B1A5F0F6F006D28EF /* TBMAlertControllerVisualStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 489D399A1A5F0F6F006D28EF /* TBMAlertControllerVisualStyle.m */; };
 		489D399E1A5F2BCD006D28EF /* TBMAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 489D399D1A5F2BCD006D28EF /* TBMAlertController.m */; };
 		489D39A11A5F2E20006D28EF /* TBMAlertControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 489D39A01A5F2E20006D28EF /* TBMAlertControllerView.m */; };
@@ -246,6 +247,8 @@
 		22F32AFB19228F3300AB524E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		22FE29FF1A09C0460051FC9C /* TBMFriendGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFriendGetter.h; sourceTree = "<group>"; };
 		22FE2A001A09C0460051FC9C /* TBMFriendGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFriendGetter.m; sourceTree = "<group>"; };
+		481A88421A66F76000F895CD /* TBMBenchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMBenchTableViewCell.h; sourceTree = "<group>"; };
+		481A88431A66F76000F895CD /* TBMBenchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMBenchTableViewCell.m; sourceTree = "<group>"; };
 		489D39991A5F0F6F006D28EF /* TBMAlertControllerVisualStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAlertControllerVisualStyle.h; sourceTree = "<group>"; };
 		489D399A1A5F0F6F006D28EF /* TBMAlertControllerVisualStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAlertControllerVisualStyle.m; sourceTree = "<group>"; };
 		489D399C1A5F2BCD006D28EF /* TBMAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAlertController.h; sourceTree = "<group>"; };
@@ -328,6 +331,7 @@
 		220E90301909A18B003C4F82 /* tbm */ = {
 			isa = PBXGroup;
 			children = (
+				481A88411A66F73700F895CD /* Cells */,
 				226914EF19AFCD92007497F1 /* Icons */,
 				2227243619182A2D00DA6865 /* Images */,
 				22EA56B419103A2B00646D3E /* Sounds */,
@@ -562,6 +566,15 @@
 			name = Sounds;
 			sourceTree = "<group>";
 		};
+		481A88411A66F73700F895CD /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				481A88421A66F76000F895CD /* TBMBenchTableViewCell.h */,
+				481A88431A66F76000F895CD /* TBMBenchTableViewCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -777,6 +790,7 @@
 				226643A7190B13E2006C9072 /* TBMGeometryUtils.m in Sources */,
 				22FE2A011A09C0460051FC9C /* TBMFriendGetter.m in Sources */,
 				22500B8819993FDC008E9EA4 /* TBMAppDelegate+AppSync.m in Sources */,
+				481A88441A66F76000F895CD /* TBMBenchTableViewCell.m in Sources */,
 				489D39A11A5F2E20006D28EF /* TBMAlertControllerView.m in Sources */,
 				223A11461915926800177481 /* TBMHttpClient.m in Sources */,
 				22A375C41930E09E00C355EB /* TBMStringUtils.m in Sources */,

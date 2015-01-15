@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "TBMGridViewController.h"
+#import "TBMBenchViewController.h"
 
-
-@interface TBMHomeViewController : UIViewController
+@interface TBMHomeViewController : UIViewController <TBMBenchViewControllerDelegate>
 
 @property (nonatomic) TBMGridViewController *gridViewController;
 
