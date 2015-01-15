@@ -221,14 +221,10 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 }
 
 - (void) sendNotification:(NSString *)path params:(NSDictionary *)params{
-    [[[TBMHttpManager manager] POST:path
+    [[TBMHttpManager manager] POST:path
                          parameters:params
-                            success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                DebugLog(@"SUCCESS: POST: %@", path);
-                            }
-                            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                DebugLog(@"ERROR: POST: %@: %@", path, [error localizedDescription]);
-                            }] resume];
+                            success:nil
+                            failure:nil];
 }
 
 
