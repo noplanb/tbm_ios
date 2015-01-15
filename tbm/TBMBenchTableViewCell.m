@@ -15,6 +15,8 @@
     if (self) {
         // Initialization code
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(66.0f, 10.0, 100.0f, 36.0)];
+        _nameLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:18.0];
+        
         _thumbImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20.0f, 10.0f, 36.0f, 36.0f)];
         _thumbImageView.contentMode = UIViewContentModeScaleAspectFill;
 

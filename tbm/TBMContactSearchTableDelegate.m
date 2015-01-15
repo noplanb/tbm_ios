@@ -34,6 +34,7 @@
     if (cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.cellId];
     }
+    cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:18.0];
     cell.textLabel.text = [self.dataArray objectAtIndex:indexPath.row];
     cell.backgroundColor = [UIColor colorWithHexString:self.cellBackgroundColor alpha:1];
     cell.textLabel.textColor = [UIColor colorWithHexString:self.cellTextColor alpha:1];
