@@ -13,6 +13,7 @@
 #import "TBMGridElement.h"
 #import "TBMVideo.h"
 #import "TBMMarginLabel.h"
+#import "TBMAlertController.h"
 
 @interface TBMGridElementViewController()
 @property NSInteger index;
@@ -591,11 +592,11 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     if ([TBMBenchViewController existingInstance].isShowing)
         return;
     
-    [[[UIAlertView alloc] initWithTitle:@"Hold to Record"
-                                message:@"Press and hold the RECORD button to record"
-                               delegate:self
-                      cancelButtonTitle:@"Ok"
-                      otherButtonTitles:nil, nil] show];
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Hold to Record"
+                                                                     message:@"Press and hold the RECORD button to record"];
+    
+    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleCancel handler:nil]];
+    [alert presentWithCompletion:nil];
 }
 
 - (void)noFriendTap{

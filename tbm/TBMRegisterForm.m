@@ -7,6 +7,7 @@
 //
 #import <UIKit/UIKit.h>
 #import "TBMRegisterForm.h"
+#import "TPKeyboardAvoidingScrollView.h"
 
 @interface TBMRegisterForm()
 @property (nonatomic) float screenWidth;
@@ -15,20 +16,24 @@
 @property (nonatomic) UIView *topView;
 @property (nonatomic) id delegate;
 
-@property (nonatomic) UIScrollView *scrollView;
+@property (nonatomic) TPKeyboardAvoidingScrollView *scrollView;
 @property (nonatomic) UIView *contentView;
-@property (nonatomic) UILabel *title;
+@property (nonatomic) UIImageView *title;
 @property (nonatomic) UILabel *plus;
 @property (nonatomic) UILabel *countryCodeLbl;
 @property (nonatomic) UIButton *submit;
 @property (nonatomic) UIButton *debug;
 @end
 
-static const float TBMRegisterMargin = 25.0;
-static const float TBMRegisterVertSpacing = 20.0;
-static const float TBMRegisterHorizSpacing = 10.0;
-static const float TBMRegisterTextFieldHeight = 40.0;
+static const float TBMRegisterLogoTopMargin = 106.0;
+static const float TBMRegisterFieldsTopMargin = 60.0;
+static const float TBMRegisterSubmitTopMargin = 60.0;
+static const float TBMRegisterSpinnerTopMargin = 10.0;
+
+static const float TBMRegisterTextFieldHeight = 36.0;
 static const float TBMRegisterTextFieldFontSize = 18.0;
+static const float TBMRegisterTextFieldLargeWidth = 251.0;
+
 
 @implementation TBMRegisterForm
 
@@ -95,6 +100,7 @@ static const float TBMRegisterTextFieldFontSize = 18.0;
     [self addScrollView];
     [self addContentView];
     [self addTitle];
+    [self addFieldsBG];
     [self addFirstName];
     [self addLastName];
     [self addPlus];
@@ -104,13 +110,12 @@ static const float TBMRegisterTextFieldFontSize = 18.0;
     [self addSubmit];
     [self addSpinner];
     [self addDebug];
-    [self setScrollViewSize];
     [self addNextFields];
     [self.topView setNeedsDisplay];
 }
 
 - (void)addScrollView{
-    self.scrollView = [[UIScrollView alloc] initWithFrame:self.topView.frame];
+    self.scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:self.topView.frame];
     [self.topView addSubview:self.scrollView];
 }
 
@@ -121,23 +126,35 @@ static const float TBMRegisterTextFieldFontSize = 18.0;
 
 - (void)addTitle{
     CGRect f;
-    f.origin.x = self.topView.frame.origin.x;
-    f.origin.y = 40;
-    f.size.width = self.topView.frame.size.width;
-    f.size.height = 40;
-    self.title = [[UILabel alloc] initWithFrame:f];
-    self.title.textAlignment = NSTextAlignmentCenter;
-    self.title.font = [UIFont systemFontOfSize:30];
-    [self.title setText:@"Sign In"];
+    f.size.width = 136.0;
+    f.size.height = 35.0;
+    f.origin.x = (self.topView.frame.size.width - f.size.width) / 2.0;
+    f.origin.y = TBMRegisterLogoTopMargin;
+    
+    self.title = [[UIImageView alloc] initWithFrame:f];
+    self.title.image = [UIImage imageNamed:@"logotype"];
     [self.contentView addSubview:self.title];
+}
+
+- (void)addFieldsBG {
+    CGRect f;
+    f.origin.x = (self.topView.frame.size.width - TBMRegisterTextFieldLargeWidth) / 2.0;
+    f.origin.y = self.title.frame.origin.y + self.title.frame.size.height + TBMRegisterFieldsTopMargin;
+    f.size.width = TBMRegisterTextFieldLargeWidth;
+    f.size.height = 118.0;
+    
+    UIImageView *fieldsBG = [[UIImageView alloc] initWithFrame:f];
+    fieldsBG.image = [UIImage imageNamed:@"contact_input"];
+    [self.contentView addSubview:fieldsBG];
 }
 
 - (void)addFirstName{
     CGRect f;
-    f.origin.x = TBMRegisterMargin;
-    f.origin.y = self.title.frame.origin.y + self.title.frame.size.height + TBMRegisterVertSpacing;
-    f.size.width = self.screenWidth - 2 * TBMRegisterMargin;
+    f.origin.x = (self.topView.frame.size.width - TBMRegisterTextFieldLargeWidth) / 2.0;
+    f.origin.y = self.title.frame.origin.y + self.title.frame.size.height + TBMRegisterFieldsTopMargin;
+    f.size.width = TBMRegisterTextFieldLargeWidth;
     f.size.height = TBMRegisterTextFieldHeight;
+    
     self.firstName = [[TBMTextField alloc] initWithFrame:f];
     self.firstName.placeholder = @"First Name";
     [self.firstName setKeyboardType:UIKeyboardTypeAlphabet];
@@ -147,10 +164,11 @@ static const float TBMRegisterTextFieldFontSize = 18.0;
 
 - (void)addLastName{
     CGRect f;
-    f.origin.x = TBMRegisterMargin;
-    f.origin.y = self.firstName.frame.origin.y + self.firstName.frame.size.height + TBMRegisterVertSpacing;
+    f.origin.x = (self.topView.frame.size.width - TBMRegisterTextFieldLargeWidth) / 2.0;
+    f.origin.y = self.firstName.frame.origin.y + self.firstName.frame.size.height + 4.0;
     f.size.height = TBMRegisterTextFieldHeight;
-    f.size.width = self.screenWidth - 2 * TBMRegisterMargin;
+    f.size.width = TBMRegisterTextFieldLargeWidth;
+    
     self.lastName = [[TBMTextField alloc] initWithFrame:f];
     self.lastName.placeholder = @"Last Name";
     [self.lastName setKeyboardType:UIKeyboardTypeAlphabet];
@@ -160,11 +178,13 @@ static const float TBMRegisterTextFieldFontSize = 18.0;
 
 - (void)addPlus{
     CGRect f;
-    f.origin.x = TBMRegisterMargin;
-    f.origin.y = self.lastName.frame.origin.y + self.lastName.frame.size.height + TBMRegisterVertSpacing;
-    f.size.width = 15;
+    f.origin.x = self.firstName.frame.origin.x;
+    f.origin.y = self.lastName.frame.origin.y + self.lastName.frame.size.height + 4.0;
+    f.size.width = 19.0;
     f.size.height = TBMRegisterTextFieldHeight;
+    
     self.plus = [[UILabel alloc] initWithFrame:f];
+    self.plus.textColor = [UIColor whiteColor];
     [self.plus setText:@"+"];
     self.plus.font = [UIFont systemFontOfSize:TBMRegisterTextFieldFontSize];
     self.plus.textAlignment = NSTextAlignmentCenter;
@@ -173,10 +193,11 @@ static const float TBMRegisterTextFieldFontSize = 18.0;
 
 - (void)addCountryCode{
     CGRect f;
-    f.origin.x = self.plus.frame.origin.x + self.plus.frame.size.width + 5;
-    f.origin.y = self.plus.frame.origin.y;
-    f.size.width = 50;
+    f.origin.x = self.plus.frame.origin.x + self.plus.frame.size.width - 10.0;
+    f.origin.y = self.plus.frame.origin.y + 2.0;
+    f.size.width = 50.0;
     f.size.height = TBMRegisterTextFieldHeight;
+    
     self.countryCode = [[TBMTextField alloc] initWithFrame:f];
     [self.countryCode setKeyboardType:UIKeyboardTypeNumberPad];
     [self setCommonAttributesForTextField:self.countryCode];
@@ -185,25 +206,28 @@ static const float TBMRegisterTextFieldFontSize = 18.0;
 
 - (void)addCountryCodeLabel{
     CGRect f;
-    f.origin.x = TBMRegisterMargin;
-    f.origin.y = self.plus.frame.origin.y + self.plus.frame.size.height + 5;
-    f.size.width = self.plus.frame.size.width + self.countryCode.frame.size.width + 5;
-    f.size.height = 10;
+    f.origin.x = self.plus.frame.origin.x - 5.0;
+    f.origin.y = self.plus.frame.origin.y + self.plus.frame.size.height + 5.0;
+    f.size.width = self.plus.frame.size.width + self.countryCode.frame.size.width;
+    f.size.height = 10.0;
+    
     UILabel *cclbl = [[UILabel alloc] initWithFrame:f];
     cclbl.font = [UIFont systemFontOfSize:8];
     cclbl.textAlignment = NSTextAlignmentCenter;
-    [cclbl setText:@"Country Code"];
+    cclbl.textColor = [UIColor whiteColor];
+    [cclbl setText:@"(Country Code)"];
     [self.contentView addSubview:cclbl];
 }
 
 - (void)addMobileNumber{
     CGRect f;
-    f.origin.x = self.countryCode.frame.origin.x + self.countryCode.frame.size.width + TBMRegisterHorizSpacing;
-    f.origin.y = self.plus.frame.origin.y;
-    f.size.width = self.screenWidth - 2*(TBMRegisterMargin+TBMRegisterHorizSpacing) - self.plus.frame.size.width - self.countryCode.frame.size.width;
+    f.origin.x = self.countryCode.frame.origin.x + self.countryCode.frame.size.width + 8.0;
+    f.origin.y = self.countryCode.frame.origin.y;
+    f.size.width = TBMRegisterTextFieldLargeWidth - self.countryCode.frame.size.width - self.plus.frame.size.width - 2.0;
     f.size.height = TBMRegisterTextFieldHeight;
+    
     self.mobileNumber = [[TBMTextField alloc] initWithFrame:f];
-    self.mobileNumber.placeholder = @"Phone Number";
+    self.mobileNumber.placeholder = @"Phone";
     [self.mobileNumber setKeyboardType:UIKeyboardTypeNumberPad];
     [self setCommonAttributesForTextField:self.mobileNumber];
     [self.contentView addSubview:self.mobileNumber];
@@ -211,35 +235,41 @@ static const float TBMRegisterTextFieldFontSize = 18.0;
 
 - (void)setCommonAttributesForTextField:(TBMTextField *)tf{
     tf.delegate = self;
-    tf.font = [UIFont systemFontOfSize:TBMRegisterTextFieldFontSize];
-    tf.borderStyle = UITextBorderStyleRoundedRect;
+    tf.font =  [UIFont fontWithName:@"Helvetica-Light" size:TBMRegisterTextFieldFontSize];
     tf.autocorrectionType = UITextAutocorrectionTypeNo;
-    tf.layer.borderWidth = 1.0;
-    tf.layer.borderColor = [[UIColor colorWithRed:0.25f green:0.25f blue:0.25f alpha:1.0f] CGColor];
-    tf.layer.cornerRadius = 8.0;
-    tf.layer.masksToBounds = YES;
+    tf.textColor = [UIColor blackColor];
+    tf.backgroundColor = [UIColor clearColor];
+    tf.borderStyle = UITextBorderStyleNone;
+    
+    UIView *spacerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    [tf setLeftViewMode:UITextFieldViewModeAlways];
+    [tf setLeftView:spacerView];
 }
 
 - (void)addSubmit{
     CGRect f;
-    f.origin.x = TBMRegisterMargin;
-    f.origin.y = self.plus.frame.origin.y + self.plus.frame.size.height + TBMRegisterVertSpacing;
-    f.size.width = self.screenWidth - 2*TBMRegisterMargin;
-    f.size.height = TBMRegisterTextFieldHeight;
-    self.submit = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    f.size.width = 170.0;
+    f.size.height = 55.0;
+    f.origin.x = (self.topView.frame.size.width - f.size.width) / 2.0;
+    f.origin.y = self.plus.frame.origin.y + self.plus.frame.size.height + TBMRegisterSubmitTopMargin;
+    
+    self.submit = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.submit setBackgroundImage:[UIImage imageNamed:@"dark-button-bg"] forState:UIControlStateNormal];
     [self.submit addTarget:self action:@selector(submitClick) forControlEvents:UIControlEventTouchUpInside];
     self.submit.frame = f;
     [self setCommonAttributesForButton:self.submit];
-    [self.submit setTitle:@"Submit" forState:UIControlStateNormal];
+    [self.submit setTitle:@"Enter" forState:UIControlStateNormal];
+    self.submit.titleLabel.textColor = [UIColor whiteColor];
     [self.contentView addSubview:self.submit];
 }
 
 - (void)addSpinner{
     CGRect f;
     f.origin.x = (self.screenWidth/2) - 50;
-    f.origin.y = self.submit.frame.origin.y + self.submit.frame.size.height + TBMRegisterVertSpacing/2;
+    f.origin.y = self.submit.frame.origin.y + self.submit.frame.size.height + TBMRegisterSpinnerTopMargin;
     f.size.width = 100;
     f.size.height = TBMRegisterTextFieldHeight;
+    
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.spinner.frame = f;
     [self.contentView addSubview:self.spinner];
@@ -248,10 +278,11 @@ static const float TBMRegisterTextFieldFontSize = 18.0;
 
 - (void)addDebug{
     CGRect f;
-    f.origin.x = TBMRegisterMargin;
-    f.origin.y = self.spinner.frame.origin.y + self.spinner.frame.size.height + TBMRegisterVertSpacing/2;
-    f.size.width = self.screenWidth - 2*TBMRegisterMargin;
+    f.origin.x = self.submit.frame.origin.x;
+    f.origin.y = self.spinner.frame.origin.y + self.spinner.frame.size.height + TBMRegisterSpinnerTopMargin;
+    f.size.width = self.submit.frame.size.width;
     f.size.height = TBMRegisterTextFieldHeight;
+    
     self.debug = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [self.debug addTarget:self action:@selector(debugClick) forControlEvents:UIControlEventTouchUpInside];
     self.debug.frame = f;
@@ -263,13 +294,6 @@ static const float TBMRegisterTextFieldFontSize = 18.0;
 - (void)setCommonAttributesForButton:(UIButton *)b{
     [b.titleLabel setFont:[UIFont systemFontOfSize:22]];
     b.titleLabel.textAlignment = NSTextAlignmentCenter;
-}
-
-- (void)setScrollViewSize{
-    CGSize s;
-    s.width = self.screenWidth;
-    s.height = [[UIScreen mainScreen] bounds].size.height + self.plus.frame.origin.y;
-    self.scrollView.contentSize = s;
 }
 
 - (void)addNextFields{

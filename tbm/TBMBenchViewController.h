@@ -9,8 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "TBMGridViewController.h"
 
+@protocol TBMBenchViewControllerDelegate;
+
 @interface TBMBenchViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+
 @property (nonatomic) BOOL isShowing;
+@property (nonatomic, weak) id<TBMBenchViewControllerDelegate> delegate;
 
 + (TBMBenchViewController *)existingInstance;
 - (instancetype)initWithContainerView:(UIView *)containerView gridViewController:(TBMGridViewController *)gridViewController;
@@ -18,4 +22,11 @@
 - (void)show;
 - (void)hide;
 - (void)toggle;
+
+@end
+
+@protocol TBMBenchViewControllerDelegate <NSObject>
+
+- (void)TBMBenchViewController:(TBMBenchViewController *)vc toggledHidden:(BOOL)isHidden;
+
 @end

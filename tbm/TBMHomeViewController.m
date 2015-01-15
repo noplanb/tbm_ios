@@ -24,7 +24,7 @@
 @interface TBMHomeViewController ()
 @property (nonatomic) TBMAppDelegate *appDelegate;
 @property (nonatomic) TBMBenchViewController *benchViewController;
-
+@property (nonatomic) UIView *overlayBackgroundView;
 @property UIView *headerView;
 @property UIView *contentView;
 @end
@@ -86,6 +86,7 @@ static const float LayoutConstBENCH_ICON_HEIGHT = LayoutConstHEADER_HEIGHT *0.4;
     [self addHeaderView];
     [self addContentView];
     [self addGridViewController];
+    [self addOverlayBackgroundView];
     [self addBenchViewController];
 }
 
@@ -147,8 +148,17 @@ static const float LayoutConstBENCH_ICON_HEIGHT = LayoutConstHEADER_HEIGHT *0.4;
 - (void)addBenchViewController{
     self.benchViewController = [[TBMBenchViewController alloc] initWithContainerView:self.contentView
                                                                   gridViewController:self.gridViewController];
+    self.benchViewController.delegate = self;
     [self addChildViewController:self.benchViewController];
     [self.contentView addSubview:self.benchViewController.view];
+}
+
+- (void)addOverlayBackgroundView {
+    self.overlayBackgroundView = [[UIView alloc] initWithFrame:self.contentView.frame];
+    self.overlayBackgroundView.backgroundColor = [UIColor colorWithRed:0.16f green:0.16f blue:0.16f alpha:0.8f];
+    [self.contentView addSubview:self.overlayBackgroundView];
+    self.overlayBackgroundView.alpha = 0;
+    self.overlayBackgroundView.hidden = YES;
 }
 
 
@@ -165,6 +175,26 @@ static const float LayoutConstBENCH_ICON_HEIGHT = LayoutConstHEADER_HEIGHT *0.4;
     if ( sender.state == UIGestureRecognizerStateEnded ) {
         OBLogViewController *logViewer = [OBLogViewController instance];
         [self presentViewController: logViewer animated:YES completion:nil];
+    }
+}
+
+
+//------------------------------------
+// TBMBenchViewControllerDelegate
+//------------------------------------
+
+- (void)TBMBenchViewController:(TBMBenchViewController *)vc toggledHidden:(BOOL)isHidden {
+    if (isHidden) {
+        [UIView animateWithDuration:0.33f animations:^{
+            self.overlayBackgroundView.alpha = 0;
+        } completion:^(BOOL finished) {
+            self.overlayBackgroundView.hidden = YES;
+        }];
+    } else {
+        self.overlayBackgroundView.hidden = NO;
+        [UIView animateWithDuration:0.33f animations:^{
+            self.overlayBackgroundView.alpha = 0.8;
+        }];
     }
 }
 

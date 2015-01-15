@@ -11,6 +11,7 @@
 #import "TBMSoundEffect.h"
 #import "TBMConfig.h"
 #import "OBLogger.h"
+#import "TBMAlertController.h"
 
 static int videoRecorderRetryCount = 0;
 
@@ -397,11 +398,10 @@ static int videoRecorderRetryCount = 0;
 	[AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
 		if (!granted){
 			dispatch_async(dispatch_get_main_queue(), ^{
-				[[[UIAlertView alloc] initWithTitle:@"AVCam!"
-											message:@"AVCam doesn't have permission to use Camera, please change privacy settings"
-										   delegate:self
-								  cancelButtonTitle:@"OK"
-								  otherButtonTitles:nil] show];
+                TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"AVCam!"
+                                                                                 message:@"AVCam doesn't have permission to use Camera, please change privacy settings"];
+                [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleCancel handler:nil]];
+                [alert presentWithCompletion:nil];
 			});
 		}
 	}];
