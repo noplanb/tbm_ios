@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "empty_z.png"
+      "filename" : "searchbar.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "empty_z@2x.png"
+      "filename" : "searchbar@2x.png"
     },
     {
       "idiom" : "universal",

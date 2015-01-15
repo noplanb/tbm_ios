@@ -106,42 +106,18 @@ static float BENCH_CELL_HEIGHT = 56.0;
 
 - (void)makeSearchBar {
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil]
-     setDefaultTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:BENCH_TEXT_COLOR alpha:1]}];
+     setDefaultTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:BENCH_TEXT_COLOR alpha:1],
+                                NSFontAttributeName: [UIFont fontWithName:@"Helvetica-Light" size:16]}];
 
     UISearchBar *sb = [[UISearchBar alloc] initWithFrame:[self searchBarRect]];
-    sb.placeholder = @"Search";
+    sb.placeholder = @"";
     sb.searchBarStyle = UISearchBarStyleMinimal;
     sb.delegate = self;
     sb.showsCancelButton = NO;
-    [sb setSearchFieldBackgroundImage:[self searchBarImageWithColor:[UIColor colorWithHexString:BENCH_BACKGROUND_COLOR alpha:1]] forState:UIControlStateNormal];
     [sb setSearchTextPositionAdjustment:UIOffsetMake(4.0f, 0.0f)];
-    
-    for (id object in [[[sb subviews] objectAtIndex:0] subviews])
-    {
-        if ([object isKindOfClass:[UITextField class]])
-        {
-            UITextField *textFieldObject = (UITextField *)object;
-            textFieldObject.layer.borderColor = [[UIColor colorWithHexString:BENCH_TEXT_COLOR alpha:1] CGColor];
-            textFieldObject.layer.borderWidth = 1.0;
-            break;
-        }
-    }
+    [sb setSearchFieldBackgroundImage:[UIImage imageNamed:@"search-field-bg"] forState:UIControlStateNormal];
     
     self.searchBar = sb;
-}
-
-- (UIImage *)searchBarImageWithColor:(UIColor *)color {
-    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, [self searchBarRect].size.height);
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    CGContextSetFillColorWithColor(context, [color CGColor]);
-    CGContextFillRect(context, rect);
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return image;
 }
 
 - (void)makeBenchTable{
@@ -188,10 +164,10 @@ static float BENCH_CELL_HEIGHT = 56.0;
 
 - (CGRect) searchBarRect{
     CGRect sbRect;
-    sbRect.size.height = 35.0f;
+    sbRect.size.height = 30.0f;
     sbRect.size.width = [self benchRect].size.width - 20.0f;
     sbRect.origin.x = 10;
-    sbRect.origin.y = 10;
+    sbRect.origin.y = 20;
     return sbRect;
 }
 
