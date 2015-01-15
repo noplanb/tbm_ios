@@ -7,6 +7,7 @@
 //
 #import <UIKit/UIKit.h>
 #import "TBMRegisterForm.h"
+#import "TPKeyboardAvoidingScrollView.h"
 
 @interface TBMRegisterForm()
 @property (nonatomic) float screenWidth;
@@ -15,7 +16,7 @@
 @property (nonatomic) UIView *topView;
 @property (nonatomic) id delegate;
 
-@property (nonatomic) UIScrollView *scrollView;
+@property (nonatomic) TPKeyboardAvoidingScrollView *scrollView;
 @property (nonatomic) UIView *contentView;
 @property (nonatomic) UIImageView *title;
 @property (nonatomic) UILabel *plus;
@@ -109,13 +110,12 @@ static const float TBMRegisterTextFieldLargeWidth = 251.0;
     [self addSubmit];
     [self addSpinner];
     [self addDebug];
-    [self setScrollViewSize];
     [self addNextFields];
     [self.topView setNeedsDisplay];
 }
 
 - (void)addScrollView{
-    self.scrollView = [[UIScrollView alloc] initWithFrame:self.topView.frame];
+    self.scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:self.topView.frame];
     [self.topView addSubview:self.scrollView];
 }
 
@@ -294,13 +294,6 @@ static const float TBMRegisterTextFieldLargeWidth = 251.0;
 - (void)setCommonAttributesForButton:(UIButton *)b{
     [b.titleLabel setFont:[UIFont systemFontOfSize:22]];
     b.titleLabel.textAlignment = NSTextAlignmentCenter;
-}
-
-- (void)setScrollViewSize{
-    CGSize s;
-    s.width = self.screenWidth;
-    s.height = [[UIScreen mainScreen] bounds].size.height + self.plus.frame.origin.y;
-    self.scrollView.contentSize = s;
 }
 
 - (void)addNextFields{
