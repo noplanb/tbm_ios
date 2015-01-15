@@ -101,6 +101,10 @@
 		489D399B1A5F0F6F006D28EF /* TBMAlertControllerVisualStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 489D399A1A5F0F6F006D28EF /* TBMAlertControllerVisualStyle.m */; };
 		489D399E1A5F2BCD006D28EF /* TBMAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 489D399D1A5F2BCD006D28EF /* TBMAlertController.m */; };
 		489D39A11A5F2E20006D28EF /* TBMAlertControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 489D39A01A5F2E20006D28EF /* TBMAlertControllerView.m */; };
+		48DFDC0E1A684A6400626DC0 /* TPKeyboardAvoidingCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48DFDC071A684A6400626DC0 /* TPKeyboardAvoidingCollectionView.m */; };
+		48DFDC0F1A684A6400626DC0 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48DFDC091A684A6400626DC0 /* TPKeyboardAvoidingScrollView.m */; };
+		48DFDC101A684A6400626DC0 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48DFDC0B1A684A6400626DC0 /* TPKeyboardAvoidingTableView.m */; };
+		48DFDC111A684A6400626DC0 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 48DFDC0D1A684A6400626DC0 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		E20D3F30A3404563A3BEC783 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98B109B594AF439180A6DFAF /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -255,6 +259,14 @@
 		489D399D1A5F2BCD006D28EF /* TBMAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAlertController.m; sourceTree = "<group>"; };
 		489D399F1A5F2E20006D28EF /* TBMAlertControllerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAlertControllerView.h; sourceTree = "<group>"; };
 		489D39A01A5F2E20006D28EF /* TBMAlertControllerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAlertControllerView.m; sourceTree = "<group>"; };
+		48DFDC061A684A6400626DC0 /* TPKeyboardAvoidingCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingCollectionView.h; sourceTree = "<group>"; };
+		48DFDC071A684A6400626DC0 /* TPKeyboardAvoidingCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingCollectionView.m; sourceTree = "<group>"; };
+		48DFDC081A684A6400626DC0 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
+		48DFDC091A684A6400626DC0 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
+		48DFDC0A1A684A6400626DC0 /* TPKeyboardAvoidingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingTableView.h; sourceTree = "<group>"; };
+		48DFDC0B1A684A6400626DC0 /* TPKeyboardAvoidingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingTableView.m; sourceTree = "<group>"; };
+		48DFDC0C1A684A6400626DC0 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
+		48DFDC0D1A684A6400626DC0 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
 		98B109B594AF439180A6DFAF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -293,6 +305,7 @@
 		220E901C1909A18B003C4F82 = {
 			isa = PBXGroup;
 			children = (
+				48DFDC051A684A6400626DC0 /* TPKeyboardAvoiding */,
 				220E90301909A18B003C4F82 /* tbm */,
 				220E904D1909A18C003C4F82 /* tbmTests */,
 				220E90271909A18B003C4F82 /* Frameworks */,
@@ -575,6 +588,21 @@
 			name = Cells;
 			sourceTree = "<group>";
 		};
+		48DFDC051A684A6400626DC0 /* TPKeyboardAvoiding */ = {
+			isa = PBXGroup;
+			children = (
+				48DFDC061A684A6400626DC0 /* TPKeyboardAvoidingCollectionView.h */,
+				48DFDC071A684A6400626DC0 /* TPKeyboardAvoidingCollectionView.m */,
+				48DFDC081A684A6400626DC0 /* TPKeyboardAvoidingScrollView.h */,
+				48DFDC091A684A6400626DC0 /* TPKeyboardAvoidingScrollView.m */,
+				48DFDC0A1A684A6400626DC0 /* TPKeyboardAvoidingTableView.h */,
+				48DFDC0B1A684A6400626DC0 /* TPKeyboardAvoidingTableView.m */,
+				48DFDC0C1A684A6400626DC0 /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
+				48DFDC0D1A684A6400626DC0 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
+			);
+			path = TPKeyboardAvoiding;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -759,6 +787,7 @@
 				220DC03F1A3A61CC006A3F90 /* TBMGridViewController.m in Sources */,
 				227155611A40902B00B437DA /* TBMBenchViewController.m in Sources */,
 				220E903B1909A18B003C4F82 /* TBMAppDelegate.m in Sources */,
+				48DFDC0E1A684A6400626DC0 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				2287DB4B1922BB5D00B1C298 /* TBMAppDelegate+PushNotification.m in Sources */,
 				224101D2190D40B1005128F9 /* TBMDeviceHandler.m in Sources */,
 				489D399B1A5F0F6F006D28EF /* TBMAlertControllerVisualStyle.m in Sources */,
@@ -779,14 +808,17 @@
 				2287DB511923141A00B1C298 /* TBMFileTransferMangerDeprecated.m in Sources */,
 				22ED40081A0850F5003D6536 /* TBMGridElement.m in Sources */,
 				22A8F5081A09608800F7AD0E /* TBMTextField.m in Sources */,
+				48DFDC111A684A6400626DC0 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				22EA56C119106AD100646D3E /* TBMConfig.m in Sources */,
 				224101D7190D5171005128F9 /* TBMVideoRecorder.m in Sources */,
+				48DFDC101A684A6400626DC0 /* TPKeyboardAvoidingTableView.m in Sources */,
 				22DACC7B1A1D015700B2F750 /* TBMContentViewModal.m in Sources */,
 				2261417A19A54D16006FB870 /* TBMHomeViewController+VersionController.m in Sources */,
 				22A8F50B1A099C7600F7AD0E /* TBMPhoneUtils.m in Sources */,
 				220E90371909A18B003C4F82 /* main.m in Sources */,
 				22EA56BE191068B700646D3E /* TBMVideoPlayer.m in Sources */,
 				223D927B1A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.m in Sources */,
+				48DFDC0F1A684A6400626DC0 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				226643A7190B13E2006C9072 /* TBMGeometryUtils.m in Sources */,
 				22FE2A011A09C0460051FC9C /* TBMFriendGetter.m in Sources */,
 				22500B8819993FDC008E9EA4 /* TBMAppDelegate+AppSync.m in Sources */,
