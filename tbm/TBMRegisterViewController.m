@@ -130,18 +130,16 @@
 
 - (void)register{
     [_registerForm startWaitingForServer];
-    [[[TBMHttpManager manager] GET:@"reg/reg"
+    [[TBMHttpManager manager] GET:@"reg/reg"
                         parameters:[self userParams]
                            success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                               DebugLog(@"register success: %@", responseObject);
                                [_registerForm stopWaitingForServer];
                                [self didRegister:responseObject];
                            }
                            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                               DebugLog(@"register fail: %@", error);
                                [_registerForm stopWaitingForServer];
                                [self connectionError];
-                           }] resume];
+                           }];
 }
 
 - (NSDictionary *)userParams{
@@ -181,18 +179,16 @@
                                                        password:self.auth
                                                     persistence:NSURLCredentialPersistenceForSession];
     [_registerForm startWaitingForServer];
-    [[[TBMHttpManager managerWithCredential:c] GET:@"reg/verify_code"
+    [[TBMHttpManager managerWithCredential:c] GET:@"reg/verify_code"
                         parameters:[self userParams]
                            success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                               DebugLog(@"register success: %@", responseObject);
                                [_registerForm stopWaitingForServer];
                                [self didReceiveCodeResponse:responseObject];
                            }
                            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                               DebugLog(@"register fail: %@", error);
                                [_registerForm stopWaitingForServer];
                                [self connectionError];
-                           }] resume];
+                           }];
 }
 
 - (void)didReceiveCodeResponse:(NSDictionary *)params{
@@ -208,18 +204,16 @@
 //---------------
 - (void)debugGetUser{
     [_registerForm startWaitingForServer];
-    [[[TBMHttpManager manager] GET:@"reg/debug_get_user"
+    [[TBMHttpManager manager] GET:@"reg/debug_get_user"
                         parameters:@{@"mobile_number": self.registerForm.mobileNumber.text}
                            success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                               DebugLog(@"register success: %@", responseObject);
                                [_registerForm stopWaitingForServer];
                                [self didReceiveCodeResponse:responseObject];
                            }
                            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                               DebugLog(@"register fail: %@", error);
                                [_registerForm stopWaitingForServer];
                                [self connectionError];
-                           }] resume];
+                           }];
 }
 
 //---------

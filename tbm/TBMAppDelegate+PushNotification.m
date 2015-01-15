@@ -76,14 +76,14 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
                              @"push_token": token,
                              @"device_platform": @"ios"};
     
-    [[[TBMHttpManager manager] POST:@"notification/set_push_token"
+    [[TBMHttpManager manager] POST:@"notification/set_push_token"
                          parameters:params
                             success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                 OB_INFO(@"notification/push_token: SUCCESS %@", responseObject);
                             }
                             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                OB_ERROR(@"notification/push_token: %@", error);
-                            }] resume];
+                                OB_WARN(@"notification/push_token: %@", error);
+                            }];
 }
 
 //------------------------------

@@ -30,14 +30,14 @@
 
 
 - (void)getFriends{
-    [[[TBMHttpManager manager] GET:@"reg/get_friends"
+    [[TBMHttpManager manager] GET:@"reg/get_friends"
                         parameters:nil
                            success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                [self gotFriends:responseObject];
                            }
                            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                [_delegate friendGetterServerError];
-                           }] resume];
+                           }];
 }
 
 - (void)gotFriends:(NSArray *)friends{

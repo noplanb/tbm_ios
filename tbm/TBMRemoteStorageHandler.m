@@ -85,19 +85,19 @@
 //-------------------------
 
 + (void) simpleGet:(NSString *)path params:(NSDictionary *)params{
-    [[[TBMHttpManager manager]
+    [[TBMHttpManager manager]
         GET:path
         parameters:params
         success:nil
-        failure:nil] resume];
+        failure:nil];
 }
 
 + (void) simplePost:(NSString *)path params:(NSDictionary *)params{
-    [[[TBMHttpManager manager]
+    [[TBMHttpManager manager]
       POST:path
       parameters:params
       success:nil
-      failure:nil] resume];
+      failure:nil];
 }
 
 
@@ -149,7 +149,7 @@
         NSArray *vIds = [TBMRemoteStorageHandler getVideoIdsWithResponseObjects:response];
         gotVideoIds(vIds);
     } failure:^(NSError *error) {
-        OB_ERROR(@"getRemoteIncomingVideoIdsWithFriend: failure: %@", error);
+        OB_WARN(@"getRemoteIncomingVideoIdsWithFriend: failure: %@", error);
     }];
 }
 
@@ -168,14 +168,14 @@
                               failure:(void(^)(NSError *error))failure{
     OB_INFO(@"getRemoteOutgoingVideoStatus");
     NSString *key = [TBMRemoteStorageHandler outgoingVideoStatusRemoteKVKey:friend];
-    [[[TBMHttpManager manager] GET:@"kvstore/get"
+    [[TBMHttpManager manager] GET:@"kvstore/get"
                         parameters:@{@"key1": key}
                            success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                success([self getStatusWithResponseObject:responseObject]);
                            }
                            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                failure(error);
-                           }] resume];
+                           }];
 }
 
 + (NSDictionary *)getStatusWithResponseObject:(NSDictionary *)response{
@@ -190,15 +190,15 @@
 + (void) getRemoteKVsWithKey:(NSString *)key1
                      success:(void(^)(NSArray *response))success
                      failure:(void(^)(NSError *error))failure{
-    [[[TBMHttpManager manager] GET:@"kvstore/get_all"
+    [[TBMHttpManager manager] GET:@"kvstore/get_all"
                         parameters:@{@"key1":key1}
                           success:^(AFHTTPRequestOperation *operation, id responseObject){
                               success(responseObject);
                           }
                           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                              OB_ERROR(@"ERROR: getRemoteKVWithKey: %@", [error localizedDescription]);
+                              OB_WARN(@"ERROR: getRemoteKVWithKey: %@", [error localizedDescription]);
                               failure(error);
-                          }] resume];
+                          }];
 }
 
 

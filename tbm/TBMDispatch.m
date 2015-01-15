@@ -38,10 +38,10 @@ static BOOL TBMDispatchEnabled = NO;
 }
 
 + (void) dispatch: (NSString *)msg{
-    [[[TBMHttpManager manager] POST:@"dispatch/post_dispatch"
+    [[TBMHttpManager manager] POST:@"dispatch/post_dispatch"
                          parameters:@{SERVER_PARAMS_DISPATCH_MSG_KEY: msg}
                             success:nil
-                            failure:nil] resume];
+                            failure:nil];
 }
 
 + (NSString *) message:(NSString *)error{

@@ -134,10 +134,10 @@
         NSString *full = [NSString stringWithFormat:@"%@/%@", [TBMRemoteStorageHandler fileTransferDeletePath], filename];
         [self performSelectorInBackground:@selector(ftmDelete:) withObject:full];
     } else {
-        [[[TBMHttpManager manager] GET: @"videos/delete"
+        [[TBMHttpManager manager] GET: @"videos/delete"
                                  parameters: @{@"filename": filename}
                                     success: nil
-                                    failure: nil] resume];
+                                    failure: nil];
     }
 }
 
@@ -196,7 +196,7 @@
                                                       NSString *status = response[REMOTE_STORAGE_STATUS_KEY];
                                                       int ovsts = [TBMRemoteStorageHandler outgoingVideoStatusWithRemoteStatus:status];
                                                       if (ovsts == -1){
-                                                          OB_ERROR(@"pollVideoStatusWithFriend: got unknown outgoing video status: %@", status);
+                                                          OB_WARN(@"pollVideoStatusWithFriend: got unknown outgoing video status: %@", status);
                                                           return;
                                                       }
                                                       // This call handles making sure that videoId == outgoingVideoId etc.

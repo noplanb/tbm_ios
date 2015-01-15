@@ -182,7 +182,7 @@
 //-------------
 - (void)checkFriendHasApp{
     [self startWaitingForServer];
-    [[[TBMHttpManager manager] GET:@"invitation/has_app"
+    [[TBMHttpManager manager] GET:@"invitation/has_app"
                         parameters:@{SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY: [self selectedPhoneE164]}
                            success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                DebugLog(@"invitation/has_app success: %@", responseObject);
@@ -193,7 +193,7 @@
                                DebugLog(@"invitation/has_app fail: %@", error);
                                [self stopWaitingForServer];
                                [self hasAppServerErrorDialog];
-                           }] resume];
+                           }];
 }
 
 - (void)gotHasApp:(NSDictionary *)resp{
@@ -217,18 +217,16 @@
                                       }];
   
     [self startWaitingForServer];
-    [[[TBMHttpManager manager] GET:@"invitation/invite"
+    [[TBMHttpManager manager] GET:@"invitation/invite"
                              parameters:params
                                 success:^(AFHTTPRequestOperation *operation, id responseObject)  {
-                                    DebugLog(@"invitation/invite success: %@", responseObject);
                                     [self stopWaitingForServer];
                                     [self gotFriend:responseObject];
                                 }
                                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                    DebugLog(@"invitation/invite fail: %@", error);
                                     [self stopWaitingForServer];
                                     [self getFriendServerErrorDialog];
-                                }] resume];
+                                }];
 }
 
 

@@ -49,7 +49,7 @@ static const NSString *VH_CURRENT = @"current";
 }
 
 - (void) checkVersionCompatibility{
-    [[[TBMHttpManager manager]
+    [[TBMHttpManager manager]
       GET:@"version/check_compatibility"
       parameters:@{@"device_platform": @"ios", @"version": CONFIG_VERSION_NUMBER}
       success:^(AFHTTPRequestOperation *operation, id responseObject){
@@ -58,8 +58,8 @@ static const NSString *VH_CURRENT = @"current";
               [_delegate versionCheckCallback:[responseObject objectForKey:VH_RESULT_KEY]];
       }
       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-          OB_ERROR(@"checkVersionCompatibility: %@", error);
-      }] resume];
+          OB_WARN(@"checkVersionCompatibility: %@", error);
+      }];
 }
 
 @end
