@@ -324,6 +324,7 @@
     if (![video generateThumb]){
         OB_ERROR(@"downloadCompletedWithFriend: error generating thumb.");
         [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY video:video];
+        return;
     }
     
     [friend deleteAllViewedOrFailedVideos];

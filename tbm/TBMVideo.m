@@ -214,7 +214,6 @@
     CMTime actual;
     NSError *err = nil;
     CGImageRef imageRef = [imageGenerator copyCGImageAtTime:thumbTime actualTime:&actual error:&err];
-    DebugLog(@"duration:%f secondsFromEnd:%f thumbTIme:%f actualTime:%f", CMTimeGetSeconds(duration), CMTimeGetSeconds(secondsFromEnd), CMTimeGetSeconds(thumbTime), CMTimeGetSeconds(actual));
     if (err != nil){
         OB_ERROR(@"generateThumb: %@", err);
         return NO;
