@@ -218,7 +218,10 @@ x Add next for each of the fields.
 - merge code back.
 
 
-
+Poll for outgoing video status
+------------------------------
+see sani local doc poll_video_status.txt
+see test cases in testrail
 
 CORNER CASES TO TEST:
 --------------------
