@@ -110,6 +110,7 @@ static const float TBMRegisterTextFieldLargeWidth = 251.0;
     [self addSubmit];
     [self addSpinner];
     [self addDebug];
+    [self setScrollViewSize];
     [self addNextFields];
     [self.topView setNeedsDisplay];
 }
@@ -290,6 +291,12 @@ static const float TBMRegisterTextFieldLargeWidth = 251.0;
     [self setCommonAttributesForButton:self.debug];
     [self.contentView addSubview:self.debug];
 }
+
+- (void)setScrollViewSize {
+    float height = self.debug.frame.origin.y + self.debug.frame.size.height;
+    self.scrollView.contentSize = CGSizeMake(self.screenWidth, height + 10.0);
+}
+
 
 - (void)setCommonAttributesForButton:(UIButton *)b{
     [b.titleLabel setFont:[UIFont systemFontOfSize:22]];
