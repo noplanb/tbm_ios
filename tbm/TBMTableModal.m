@@ -59,7 +59,7 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
 //----------
 - (UIView *) dimParent{
     UIView *dp = [[UIView alloc] initWithFrame:self.parentView.frame];
-    [dp setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.3]];
+    [dp setBackgroundColor:[UIColor colorWithRed:0.16f green:0.16f blue:0.16f alpha:0.8f]];
     dp.tag = self.modalTag;
     return dp;
 }
@@ -76,7 +76,7 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
     [modal addSubview:[self table]];
     modal.layer.masksToBounds = YES;
     modal.layer.cornerRadius = 5;
-    modal.backgroundColor = [UIColor colorWithWhite:255 alpha:1];
+    modal.backgroundColor = [UIColor colorWithRed:0.95f green:0.94f blue:0.91f alpha:1.0f];
     return modal;
 }
 
@@ -88,9 +88,11 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
     f.size.height = self.titleHeight;
     UILabel *title = [[UILabel alloc] initWithFrame:f];
     [title setText: self.title];
-    title.font = [UIFont boldSystemFontOfSize:22];
+    title.font = [UIFont fontWithName:@"Helvetica-Bold" size:21.0f];
     title.textAlignment = NSTextAlignmentCenter;
     [title setClipsToBounds:YES];
+    title.backgroundColor = [UIColor colorWithRed:0.96f green:0.55f blue:0.19f alpha:1.0f];
+    title.textColor = [UIColor whiteColor];
     return title;
 }
 
@@ -179,6 +181,10 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:TBMTableReuseId];
     else
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TBMTableReuseId];
+    
+    cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:15.0f];
+    cell.detailTextLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:15.0f];
+    
     return cell;
 }
 

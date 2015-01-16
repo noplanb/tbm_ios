@@ -32,6 +32,14 @@
 		220E90611909C3D4003C4F82 /* TBMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E90601909C3D4003C4F82 /* TBMHomeViewController.m */; };
 		22151E881A5CB07B008EF88E /* TBMDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 22151E871A5CB07B008EF88E /* TBMDispatch.m */; };
 		22151E8A1A5CF4B2008EF88E /* TBMDispatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22151E891A5CF4B2008EF88E /* TBMDispatchTests.m */; };
+		221B77661A68888C009FA670 /* TPKeyboardAvoidingCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 221B775F1A68888C009FA670 /* TPKeyboardAvoidingCollectionView.m */; };
+		221B77671A68888C009FA670 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 221B77611A68888C009FA670 /* TPKeyboardAvoidingScrollView.m */; };
+		221B77681A68888C009FA670 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 221B77631A68888C009FA670 /* TPKeyboardAvoidingTableView.m */; };
+		221B77691A68888C009FA670 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 221B77651A68888C009FA670 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
+		221B77701A688984009FA670 /* TBMAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 221B776B1A688984009FA670 /* TBMAlertController.m */; };
+		221B77711A688984009FA670 /* TBMAlertControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 221B776D1A688984009FA670 /* TBMAlertControllerView.m */; };
+		221B77721A688984009FA670 /* TBMAlertControllerVisualStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 221B776F1A688984009FA670 /* TBMAlertControllerVisualStyle.m */; };
+		221B77761A6889B9009FA670 /* TBMBenchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 221B77751A6889B9009FA670 /* TBMBenchTableViewCell.m */; };
 		221EA2911912E86300649BC5 /* TBMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 221EA2901912E86300649BC5 /* TBMUser.m */; };
 		22249586190B52E4008EF394 /* TBMLongPressTouchHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 22249585190B52E4008EF394 /* TBMLongPressTouchHandler.m */; };
 		222724331917F2F500DA6865 /* NSArray+NSArrayExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 222724321917F2F500DA6865 /* NSArray+NSArrayExtensions.m */; };
@@ -151,6 +159,22 @@
 		22151E861A5CB07B008EF88E /* TBMDispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDispatch.h; sourceTree = "<group>"; };
 		22151E871A5CB07B008EF88E /* TBMDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDispatch.m; sourceTree = "<group>"; };
 		22151E891A5CF4B2008EF88E /* TBMDispatchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDispatchTests.m; sourceTree = "<group>"; };
+		221B775E1A68888C009FA670 /* TPKeyboardAvoidingCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingCollectionView.h; sourceTree = "<group>"; };
+		221B775F1A68888C009FA670 /* TPKeyboardAvoidingCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingCollectionView.m; sourceTree = "<group>"; };
+		221B77601A68888C009FA670 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
+		221B77611A68888C009FA670 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
+		221B77621A68888C009FA670 /* TPKeyboardAvoidingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingTableView.h; sourceTree = "<group>"; };
+		221B77631A68888C009FA670 /* TPKeyboardAvoidingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingTableView.m; sourceTree = "<group>"; };
+		221B77641A68888C009FA670 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
+		221B77651A68888C009FA670 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
+		221B776A1A688984009FA670 /* TBMAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAlertController.h; sourceTree = "<group>"; };
+		221B776B1A688984009FA670 /* TBMAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAlertController.m; sourceTree = "<group>"; };
+		221B776C1A688984009FA670 /* TBMAlertControllerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAlertControllerView.h; sourceTree = "<group>"; };
+		221B776D1A688984009FA670 /* TBMAlertControllerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAlertControllerView.m; sourceTree = "<group>"; };
+		221B776E1A688984009FA670 /* TBMAlertControllerVisualStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAlertControllerVisualStyle.h; sourceTree = "<group>"; };
+		221B776F1A688984009FA670 /* TBMAlertControllerVisualStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAlertControllerVisualStyle.m; sourceTree = "<group>"; };
+		221B77741A6889B9009FA670 /* TBMBenchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMBenchTableViewCell.h; sourceTree = "<group>"; };
+		221B77751A6889B9009FA670 /* TBMBenchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMBenchTableViewCell.m; sourceTree = "<group>"; };
 		221EA28F1912E86300649BC5 /* TBMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMUser.h; sourceTree = "<group>"; };
 		221EA2901912E86300649BC5 /* TBMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMUser.m; sourceTree = "<group>"; };
 		22249584190B52E4008EF394 /* TBMLongPressTouchHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMLongPressTouchHandler.h; sourceTree = "<group>"; };
@@ -295,6 +319,7 @@
 		220E901C1909A18B003C4F82 = {
 			isa = PBXGroup;
 			children = (
+				221B775D1A68888C009FA670 /* TPKeyboardAvoiding */,
 				220E90301909A18B003C4F82 /* tbm */,
 				220E904D1909A18C003C4F82 /* tbmTests */,
 				220E90271909A18B003C4F82 /* Frameworks */,
@@ -333,6 +358,9 @@
 		220E90301909A18B003C4F82 /* tbm */ = {
 			isa = PBXGroup;
 			children = (
+				221B77741A6889B9009FA670 /* TBMBenchTableViewCell.h */,
+				221B77751A6889B9009FA670 /* TBMBenchTableViewCell.m */,
+				221B77731A688992009FA670 /* AlertController */,
 				22B1AE531A6857230027C4B1 /* UIWidgets */,
 				226914EF19AFCD92007497F1 /* Icons */,
 				2227243619182A2D00DA6865 /* Images */,
@@ -413,6 +441,34 @@
 				220E90501909A18C003C4F82 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		221B775D1A68888C009FA670 /* TPKeyboardAvoiding */ = {
+			isa = PBXGroup;
+			children = (
+				221B775E1A68888C009FA670 /* TPKeyboardAvoidingCollectionView.h */,
+				221B775F1A68888C009FA670 /* TPKeyboardAvoidingCollectionView.m */,
+				221B77601A68888C009FA670 /* TPKeyboardAvoidingScrollView.h */,
+				221B77611A68888C009FA670 /* TPKeyboardAvoidingScrollView.m */,
+				221B77621A68888C009FA670 /* TPKeyboardAvoidingTableView.h */,
+				221B77631A68888C009FA670 /* TPKeyboardAvoidingTableView.m */,
+				221B77641A68888C009FA670 /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
+				221B77651A68888C009FA670 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
+			);
+			path = TPKeyboardAvoiding;
+			sourceTree = "<group>";
+		};
+		221B77731A688992009FA670 /* AlertController */ = {
+			isa = PBXGroup;
+			children = (
+				221B776A1A688984009FA670 /* TBMAlertController.h */,
+				221B776B1A688984009FA670 /* TBMAlertController.m */,
+				221B776C1A688984009FA670 /* TBMAlertControllerView.h */,
+				221B776D1A688984009FA670 /* TBMAlertControllerView.m */,
+				221B776E1A688984009FA670 /* TBMAlertControllerVisualStyle.h */,
+				221B776F1A688984009FA670 /* TBMAlertControllerVisualStyle.m */,
+			);
+			name = AlertController;
 			sourceTree = "<group>";
 		};
 		2227243619182A2D00DA6865 /* Images */ = {
@@ -767,11 +823,16 @@
 				22A76A7D19A2600C00D8C4FF /* TBMVideo.m in Sources */,
 				220207CA198878650013CE3B /* TBMRemoteStorageHandler.m in Sources */,
 				22ED400B1A08707E003D6536 /* TBMRegisterViewController.m in Sources */,
+				221B77711A688984009FA670 /* TBMAlertControllerView.m in Sources */,
 				220DC03F1A3A61CC006A3F90 /* TBMGridViewController.m in Sources */,
+				221B77681A68888C009FA670 /* TPKeyboardAvoidingTableView.m in Sources */,
 				227155611A40902B00B437DA /* TBMBenchViewController.m in Sources */,
 				220E903B1909A18B003C4F82 /* TBMAppDelegate.m in Sources */,
+				221B77661A68888C009FA670 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				2287DB4B1922BB5D00B1C298 /* TBMAppDelegate+PushNotification.m in Sources */,
+				221B77691A68888C009FA670 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				224101D2190D40B1005128F9 /* TBMDeviceHandler.m in Sources */,
+				221B77701A688984009FA670 /* TBMAlertController.m in Sources */,
 				22B1AE561A68576F0027C4B1 /* TBMMarginLabel.m in Sources */,
 				220E90611909C3D4003C4F82 /* TBMHomeViewController.m in Sources */,
 				22A76A7A19A2600C00D8C4FF /* TBMFriend.m in Sources */,
@@ -780,6 +841,7 @@
 				222724331917F2F500DA6865 /* NSArray+NSArrayExtensions.m in Sources */,
 				223A11491915AED900177481 /* TBMAppDelegate+Boot.m in Sources */,
 				22A094E71A16C6B4009AB958 /* TBMSelectPhoneTableDelegate.m in Sources */,
+				221B77671A68888C009FA670 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				220E903E1909A18B003C4F82 /* tbm.xcdatamodeld in Sources */,
 				22CC5E5F1A1AD9A900AAFB75 /* TBMTableModal.m in Sources */,
 				2208E8A51A14195500150C35 /* TBMContactsManager.m in Sources */,
@@ -787,6 +849,7 @@
 				22BF060519D4A5FC00F6E025 /* TBMHomeViewController+Invite.m in Sources */,
 				22F1A4C419354AC500E04229 /* TBMVideoIdUtils.m in Sources */,
 				221EA2911912E86300649BC5 /* TBMUser.m in Sources */,
+				221B77721A688984009FA670 /* TBMAlertControllerVisualStyle.m in Sources */,
 				226A37C11A37E08900A2D0F5 /* TBMGridElementViewController.m in Sources */,
 				22ED40081A0850F5003D6536 /* TBMGridElement.m in Sources */,
 				22A8F5081A09608800F7AD0E /* TBMTextField.m in Sources */,
@@ -801,6 +864,7 @@
 				226643A7190B13E2006C9072 /* TBMGeometryUtils.m in Sources */,
 				22FE2A011A09C0460051FC9C /* TBMFriendGetter.m in Sources */,
 				22500B8819993FDC008E9EA4 /* TBMAppDelegate+AppSync.m in Sources */,
+				221B77761A6889B9009FA670 /* TBMBenchTableViewCell.m in Sources */,
 				223A11461915926800177481 /* TBMHttpManager.m in Sources */,
 				225D21C01A5B5B4F0087A25B /* TBMS3CredentialsManager.m in Sources */,
 				22A375C41930E09E00C355EB /* TBMStringUtils.m in Sources */,

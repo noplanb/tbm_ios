@@ -15,6 +15,7 @@
 #import "TBMContactsManager.h"
 #import "OBLogger.h"
 #import "TBMContactSearchTableDelegate.h"
+#import "TBMBenchTableViewCell.h"
 
 @interface TBMBenchViewController ()
 @property (nonatomic) TBMGridViewController *gridViewController;
@@ -53,19 +54,31 @@ static TBMBenchViewController *existingInstance = nil;
 //----------
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // Register for keyboard did show notification
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidShow:)
+                                                 name:UIKeyboardDidShowNotification  object:nil];
 }
 
 
 //----------------
 // Setup the views
 //----------------
-static NSString *BENCH_BACKGROUND_COLOR = @"#555";
-static NSString *BENCH_TEXT_COLOR = @"#fff";
+static NSString *BENCH_BACKGROUND_COLOR = @"#2F2E28";
+static NSString *BENCH_TEXT_COLOR = @"#A8A295";
 static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
+static float BENCH_CELL_HEIGHT = 56.0;
 
 - (void)setupBenchView{
     self.view.frame = [self benchRect];
     self.view.backgroundColor = [UIColor colorWithHexString:BENCH_BACKGROUND_COLOR alpha:1];
+    
+    self.view.layer.shadowColor = [[UIColor blackColor] CGColor];
+    self.view.layer.shadowOffset = CGSizeMake(0.0f,0.0f);
+    self.view.layer.shadowOpacity = 0.7f;
+    self.view.layer.shadowRadius = 4.0f;
+    
     [self addBenchGestureRecognizers];
     [self makeSearchBar];
     [self getAndSetTableArray];
@@ -91,13 +104,19 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
 }
 
 
-- (void)makeSearchBar{
+- (void)makeSearchBar {
+    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil]
+     setDefaultTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:BENCH_TEXT_COLOR alpha:1],
+                                NSFontAttributeName: [UIFont fontWithName:@"Helvetica-Light" size:16]}];
+
     UISearchBar *sb = [[UISearchBar alloc] initWithFrame:[self searchBarRect]];
-    sb.placeholder = @"Search";
-    sb.searchBarStyle = UISearchBarStyleProminent;
-    sb.barTintColor = [UIColor colorWithHexString:BENCH_BACKGROUND_COLOR];
+    sb.placeholder = @"";
+    sb.searchBarStyle = UISearchBarStyleMinimal;
     sb.delegate = self;
     sb.showsCancelButton = NO;
+    [sb setSearchTextPositionAdjustment:UIOffsetMake(4.0f, 0.0f)];
+    [sb setSearchFieldBackgroundImage:[UIImage imageNamed:@"search-field-bg"] forState:UIControlStateNormal];
+    
     self.searchBar = sb;
 }
 
@@ -106,7 +125,16 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
     [bt setBackgroundColor:[UIColor colorWithHexString:BENCH_BACKGROUND_COLOR alpha:1]];
     [bt setDataSource:self];
     [bt setDelegate:self];
+    bt.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.benchTable = bt;
+    
+    UIView *botBorderTopView = [[UIView alloc] initWithFrame:CGRectMake(20.0f, bt.frame.origin.y - 2.0f, bt.frame.size.width, 1.0f)];
+    botBorderTopView.backgroundColor = [UIColor colorWithRed:0.01 green:0.01 blue:0.01 alpha:1.0f];
+    [self.view addSubview:botBorderTopView];
+    
+    UIView *botBorderBotView = [[UIView alloc] initWithFrame:CGRectMake(20.0f, bt.frame.origin.y - 1.0f, bt.frame.size.width, 1.0f)];
+    botBorderBotView.backgroundColor = [UIColor colorWithRed:0.34 green:0.34 blue:0.33 alpha:1.0f];
+    [self.view addSubview:botBorderBotView];
 }
 
 - (void)makeSearchTable{
@@ -136,10 +164,10 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
 
 - (CGRect) searchBarRect{
     CGRect sbRect;
-    sbRect.size.height = 35.0f;
-    sbRect.size.width = [self benchRect].size.width;
-    sbRect.origin.x = 0;
-    sbRect.origin.y = 0;
+    sbRect.size.height = 30.0f;
+    sbRect.size.width = [self benchRect].size.width - 20.0f;
+    sbRect.origin.x = 10;
+    sbRect.origin.y = 20;
     return sbRect;
 }
 
@@ -149,10 +177,10 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
     
     CGRect btRect;
     btRect.origin.x = 0;
-    btRect.origin.y = sbr.size.height;
+    btRect.origin.y = sbr.size.height + sbr.origin.y + 20.0;
     
     btRect.size.width = br.size.width;
-    btRect.size.height = br.size.height - sbr.size.height;
+    btRect.size.height = br.size.height - sbr.size.height - sbr.origin.y - 20.0;
     
     return btRect;
 }
@@ -164,6 +192,20 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
 }
 
 
+//-------------------------------
+// Keyboard did show notification
+//-------------------------------
+
+-(void)keyboardDidShow:(NSNotification*)notification {
+    CGFloat keyboardHeight = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+    
+    // Resize search table so it is not covered up by keboard
+    CGRect searchTableFrame = self.searchTable.frame;
+    searchTableFrame.size.height = [self benchTableRect].size.height - keyboardHeight;
+    self.searchTable.frame = searchTableFrame;
+}
+
+
 //------------------------------------------------
 // Bench TableView Delegate and Datasource methods
 //------------------------------------------------
@@ -171,34 +213,43 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
     return 1;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return BENCH_CELL_HEIGHT;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BENCH_CELL_REUSE_ID];
+    TBMBenchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BENCH_CELL_REUSE_ID];
     if (cell == nil)
         cell = [self benchCell];
+    
+    // NSLog(@"table view width: %f", tableView.frame.size.width);
+    
+    CGRect nameFrame = cell.nameLabel.frame;
+    nameFrame.size.width = tableView.frame.size.width - nameFrame.origin.x - 10.0f;
+    cell.nameLabel.frame = nameFrame;
     
     id item = [self.tableArray objectAtIndex:indexPath.row];
     if ([item isKindOfClass:[TBMFriend class]]){
         TBMFriend *f = (TBMFriend *)item;
         NSURL *url = [f thumbUrl];
         if (url !=nil){
-            cell.imageView.image = [UIImage imageWithContentsOfFile:url.path];
+            cell.thumbImageView.image = [UIImage imageWithContentsOfFile:url.path];
         } else {
-            //TODO add the zazo image here
+            cell.thumbImageView.image = [UIImage imageNamed:@"icon-no-pic"];
         }
         cell.textLabel.text = [f displayName];
     } else {
-        cell.imageView.image = nil;
-        cell.textLabel.text = item;
+        cell.thumbImageView.image = [UIImage imageNamed:@"icon-no-pic"];
+        cell.nameLabel.text = item;
     }
     
     return cell;
 }
 
-- (UITableViewCell *)benchCell{
-    UITableViewCell *bc = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:BENCH_CELL_REUSE_ID];
+- (TBMBenchTableViewCell *)benchCell{
+    TBMBenchTableViewCell *bc = [[TBMBenchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:BENCH_CELL_REUSE_ID];
     [bc setBackgroundColor:[UIColor colorWithHexString:BENCH_BACKGROUND_COLOR alpha:1]];
-    bc.textLabel.textColor = [UIColor colorWithHexString:BENCH_TEXT_COLOR alpha:1];
+    bc.nameLabel.textColor = [UIColor colorWithHexString:BENCH_TEXT_COLOR alpha:1];
     return bc;
 }
 
@@ -267,6 +318,10 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
         self.view.frame = f;
     }];
     self.isShowing = YES;
+    
+    if ([self.delegate respondsToSelector:@selector(TBMBenchViewController:toggledHidden:)]) {
+        [self.delegate TBMBenchViewController:self toggledHidden:NO];
+    }
 }
 
 - (void)reloadData{
@@ -282,6 +337,10 @@ static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
         self.view.frame = f;
     }];
     self.isShowing = NO;
+    
+    if ([self.delegate respondsToSelector:@selector(TBMBenchViewController:toggledHidden:)]) {
+        [self.delegate TBMBenchViewController:self toggledHidden:YES];
+    }
 }
 
 - (NSInteger)shownX{

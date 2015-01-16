@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "TBMGridViewController.h"
+#import "TBMBenchViewController.h"
 
+@interface TBMHomeViewController : UIViewController <TBMBenchViewControllerDelegate>
 
-@interface TBMHomeViewController : UIViewController
-
-@property (strong, nonatomic) UIAlertView *versionHandlerAlert;
 @property (nonatomic) TBMGridViewController *gridViewController;
 
 + (TBMHomeViewController *)existingInstance;

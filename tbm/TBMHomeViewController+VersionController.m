@@ -10,7 +10,7 @@
 #import "TBMHomeViewController+VersionController.h"
 #import "OBLogger.h"
 #import "TBMConfig.h"
-
+#import "TBMAlertController.h"
 
 @implementation TBMHomeViewController (VersionController)
 
@@ -32,26 +32,12 @@
 }
 
 - (void)showVersionHandlerDialogWithMessage:(NSString *)message negativeButton:(BOOL)negativeButton{
-    self.versionHandlerAlert = [[UIAlertView alloc] initWithTitle:@"Update Available" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
-    [self.versionHandlerAlert addButtonWithTitle:@"Update"];
-    if (negativeButton)
-        [self.versionHandlerAlert addButtonWithTitle:@"Later"];
-    [self.versionHandlerAlert show];
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Update Available" message:message];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Later" style:SDCAlertActionStyleDefault handler:nil]];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Update" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://testflightapp.com"]];
+    }]];
+    [alert presentWithCompletion:nil];
 }
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if ([alertView isEqual:self.versionHandlerAlert]) {
-        if (buttonIndex == 0) {
-            OB_INFO(@"Update clicked");
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://testflightapp.com"]];
-        } else {
-            OB_INFO(@"Cancel clicked");
-        }
-    } else {
-        OB_ERROR(@"Unknown alertView clicked");
-    }
-}
-
-
 
 @end
