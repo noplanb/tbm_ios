@@ -23,7 +23,7 @@ PODS:
   - HexColors (2.2.1)
   - iToast (0.0.1)
   - libPhoneNumber-iOS (0.7.5)
-  - OBFileTransfer (0.5.4):
+  - OBFileTransfer (0.5.5):
     - OBLogger
   - OBLogger (0.2.0)
   - RBBAnimation (0.3.0)
@@ -49,7 +49,7 @@ SPEC CHECKSUMS:
   HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
   iToast: 4de112d3dd42a3a8bf685572e6cda723c9cbc4f2
   libPhoneNumber-iOS: 16b9556d7fdf4819eabeb7b7356fea3373fa47f9
-  OBFileTransfer: 5a10c5b85144f5186ccc4d2f73caa7bf3c7310f1
+  OBFileTransfer: 146f539d7e92651b6ad27c1d5571669d7f2983b6
   OBLogger: 04f68b73a619f4444d5f7d7c7ff9bc3f05c619ae
   RBBAnimation: 243d73be1a526f1b51d266b182e4aa0cfe9cbf64
   SDCAlertView: 542179519acac38917e178013e663cdbf4591475

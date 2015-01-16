@@ -26,9 +26,8 @@ NSString * const OBS3NoTvmSecurityTokenParam = @"S3NoTvmSecurityTokenParam";
 @implementation OBS3FileTransferAgent
 
 -(instancetype) initWithConfig:(NSDictionary *)configParams
-{   self = [super init];
-    OB_DEBUG(@"configParams = %@", configParams);
-    if ( self != nil ) {
+{
+    if ( [self init] ) {
         self.tvmUrl = configParams[OBS3TvmServerUrlParam];
         self.awsRegion = [self amazonRegion:configParams[OBS3RegionParam]];
         [self validateSetup];
