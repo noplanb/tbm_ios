@@ -237,7 +237,7 @@ static float BENCH_CELL_HEIGHT = 56.0;
         } else {
             cell.thumbImageView.image = [UIImage imageNamed:@"icon-no-pic"];
         }
-        cell.textLabel.text = [f displayName];
+        cell.nameLabel.text = [f displayName];
     } else {
         cell.thumbImageView.image = [UIImage imageNamed:@"icon-no-pic"];
         cell.nameLabel.text = item;

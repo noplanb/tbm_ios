@@ -71,6 +71,7 @@ static const float TBMRegisterTextFieldLargeWidth = 251.0;
 }
 
 - (void)debugClick{
+    DebugLog(@"debugClick");
     [self.topView endEditing:YES];
     [self.delegate didClickDebug];
 }
@@ -216,7 +217,7 @@ static const float TBMRegisterTextFieldLargeWidth = 251.0;
     cclbl.font = [UIFont systemFontOfSize:8];
     cclbl.textAlignment = NSTextAlignmentCenter;
     cclbl.textColor = [UIColor whiteColor];
-    [cclbl setText:@"(Country Code)"];
+    [cclbl setText:@"Country Code"];
     [self.contentView addSubview:cclbl];
 }
 
@@ -293,8 +294,11 @@ static const float TBMRegisterTextFieldLargeWidth = 251.0;
 }
 
 - (void)setScrollViewSize {
-    float height = self.debug.frame.origin.y + self.debug.frame.size.height;
-    self.scrollView.contentSize = CGSizeMake(self.screenWidth, height + 10.0);
+    float height = self.debug.frame.origin.y + self.debug.frame.size.height + 10.0;
+    self.scrollView.contentSize = CGSizeMake(self.screenWidth, height);
+    CGRect f = self.contentView.frame;
+    f.size.height = height;
+    self.contentView.frame = f;
 }
 
 

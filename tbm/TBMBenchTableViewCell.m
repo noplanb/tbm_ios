@@ -19,6 +19,7 @@
         
         _thumbImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20.0f, 10.0f, 36.0f, 36.0f)];
         _thumbImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _thumbImageView.clipsToBounds = YES;
 
         [self.contentView addSubview:_nameLabel];
         [self.contentView addSubview:_thumbImageView];
