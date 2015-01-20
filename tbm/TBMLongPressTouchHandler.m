@@ -24,6 +24,7 @@
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    // DebugLog(@"touches began");
     // Cancel any gesture that becomes multitouch.
     if ([[event allTouches] count] > 1){
         [self cancelGesture:@"Two finger touch"];
@@ -60,7 +61,7 @@
 
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    //    DebugLog(@"touchesEnded");
+    // DebugLog(@"touchesEnded");
     if (_gestureCanceled) {
         //        DebugLog(@"touchesEnded: in canceled state");
         return;
@@ -102,7 +103,8 @@
 - (UIView *)targetView
 {
     for (UIView *targetCandidate in _targetViews) {
-        if (targetCandidate == _beginView || [TBMViewUtils isChildViewASubview:_beginView ofParentView:(UIView *)targetCandidate]) {
+        if (targetCandidate == _beginView ||
+            [TBMViewUtils isChildViewASubview:_beginView ofParentView:(UIView *)targetCandidate]) {
             return targetCandidate;
         }
     }
@@ -110,6 +112,7 @@
 }
 
 - (void)click{
+    // DebugLog(@"click");
     UIView *targetView = [self targetView];
     if (targetView){
         //    DebugLog(@"click %ld", (long)[self targetView].tag);

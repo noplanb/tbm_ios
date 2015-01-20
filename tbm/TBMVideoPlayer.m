@@ -14,6 +14,12 @@
 #import "TBMFriend.h"
 #import "OBLogger.h"
 #import "TBMRemoteStorageHandler.h"
+#import "UIAlertView+Blocks.h"
+#import "TBMAlertController.h"
+#import "TBMAlertControllerVisualStyle.h"
+#import "iToast.h"
+#import "TBMAppDelegate.h"
+#import "TBMAppDelegate+AppSync.h"
 
 @interface TBMVideoPlayer()
 @property TBMGridElement *gridElement;
@@ -24,6 +30,7 @@
 @property (nonatomic) MPMoviePlayerController *moviePlayerController;
 @property (nonatomic) TBMSoundEffect *messageTone;
 @property (nonatomic) NSMutableSet *eventNotificationDelegates;
+@property (nonatomic) BOOL videosAreDownloading;
 @end
 
 @implementation TBMVideoPlayer
@@ -47,6 +54,8 @@
         _moviePlayerController = [[MPMoviePlayerController alloc] init];
         _moviePlayerController.controlStyle = MPMovieControlStyleNone;
         _playerView = _moviePlayerController.view;
+        DebugLog(@"************* before gs:%@", [self.playerView gestureRecognizers]);
+        [self addTapRecognizer];
         self.playerView.hidden = YES;
         [self addPlayerNotifications];
     }
@@ -148,6 +157,31 @@
     self.playerView.hidden = YES;
 }
 
+         
+//----------
+// Tap event
+//----------
+- (void)addTapRecognizer{
+    DebugLog(@"************ should get touch");
+    [_playerView addGestureRecognizer: [[UIGestureRecognizer alloc] initWithTarget:self action:@selector(playerTapped:)]];
+    DebugLog(@"********* gs : %@", self.playerView.gestureRecognizers);
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    DebugLog(@"************ should get touch");
+    return YES;
+}
+
+// This is because the native player already has a tap gesture regognizer.
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    DebugLog(@"************ similtaneous");
+    return YES;
+}
+
+- (void)playerTapped: (UITapGestureRecognizer *)sender{
+    [self stop];
+}
+
 // ----------------
 // Control playback
 // ----------------
@@ -175,13 +209,38 @@
     if (self.gridElement.friend == nil)
         return;
     
-    [self setCurrentVideo:[self.gridElement.friend firstPlayableVideo]];
+    [self setIsDownloading];
     
+    if (self.videosAreDownloading)
+        [self setCurrentVideo:[self.gridElement.friend firstUnviewedVideo]];
+    else
+        [self setCurrentVideo:[self.gridElement.friend firstPlayableVideo]];
+
     if (self.video == nil){
-        OB_WARN(@"no playable video.");
+        if (!self.videosAreDownloading){
+            OB_WARN(@"no playable video.");
+            return;
+        }
+        
+        if ([self.gridElement.friend hasRetryingDownload]){
+            [(TBMAppDelegate *) [UIApplication sharedApplication] retryPendingFileTransfers];
+            [self alertBadConn];
+        } else {
+            [self toastWait];
+        }
+        
         return;
     }
     [self play];
+}
+
+- (void) setIsDownloading{
+    if ([self.gridElement.friend hasDownloadingVideo]){
+        self.videosAreDownloading = YES;
+    } else {
+        self.videosAreDownloading = NO;
+    }
+    OB_DEBUG(@"videosAreDownloading: %d", self.videosAreDownloading);
 }
 
 - (void)play{
@@ -208,7 +267,10 @@
 
 - (void)playDidComplete{
     OB_INFO(@"VideoPlayer: playDidComplete: %@", self.video.videoId);
-    [self setCurrentVideo:[self.gridElement.friend nextPlayableVideoAfterVideoId:self.videoId]];
+    if (self.videosAreDownloading)
+        [self setCurrentVideo:[self.gridElement.friend nextUnviewedVideoAfterVideoId:self.videoId]];
+    else
+        [self setCurrentVideo:[self.gridElement.friend nextPlayableVideoAfterVideoId:self.videoId]];
     
     if (self.video != nil){
         [self play];
@@ -224,5 +286,18 @@
     self.video = video;
     self.videoId = video.videoId;
 }
+
+- (void)toastWait{
+    [[iToast makeText:@"Downloading..."] show];
+}
+
+- (void)alertBadConn{
+    NSString *title = @"Bad Connection";
+    NSString *msg = @"Check your connection and try agian.";
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:title message:msg];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Try again" style:SDCAlertActionStyleCancel handler:nil]];
+    [alert presentWithCompletion:nil];
+}
+
 
 @end

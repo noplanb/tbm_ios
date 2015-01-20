@@ -244,6 +244,22 @@ static NSMutableArray * videoStatusNotificationDelegates;
     return false;
 }
 
+- (BOOL) hasDownloadingVideo{
+    for (TBMVideo *v in [self incomingVideos]){
+        if (v.status == INCOMING_VIDEO_STATUS_DOWNLOADING)
+            return YES;
+    }
+    return NO;
+}
+
+- (BOOL) hasRetryingDownload{
+    for (TBMVideo *v in [self incomingVideos]) {
+        if (v.downloadRetryCount > 0)
+            return YES;
+    }
+    return NO;
+}
+
 - (BOOL) isNewestIncomingVideo:(TBMVideo *)video{
     return [video isEqual:[self newestIncomingVideo]];
 }
@@ -290,6 +306,26 @@ static NSMutableArray * videoStatusNotificationDelegates;
     DebugLog(@"nextPlayableVideoAfterVideo");
     for (TBMVideo *v in [self sortedIncomingVideos]){
         if ([TBMVideoIdUtils isvid1:v.videoId newerThanVid2:videoId] && [v videoFileExists])
+            return v;
+    }
+    return nil;
+}
+
+- (TBMVideo *) firstUnviewedVideo{
+    TBMVideo *video = nil;
+    for (TBMVideo *v in [self sortedIncomingVideos]){
+        if (v.status == INCOMING_VIDEO_STATUS_DOWNLOADED && [v videoFileExists]){
+            video = v;
+            break;
+        }
+    }
+    return video;
+}
+
+- (TBMVideo *) nextUnviewedVideoAfterVideoId:(NSString *)videoId{
+    DebugLog(@"nextUnviewedVideoAfterVideoId");
+    for (TBMVideo *v in [self sortedIncomingVideos]){
+        if ([TBMVideoIdUtils isvid1:v.videoId newerThanVid2:videoId] && [v videoFileExists] && v.status == INCOMING_VIDEO_STATUS_DOWNLOADED)
             return v;
     }
     return nil;
