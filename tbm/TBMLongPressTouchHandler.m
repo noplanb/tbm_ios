@@ -24,7 +24,7 @@
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    // DebugLog(@"touches began");
+     // DebugLog(@"touches began");
     // Cancel any gesture that becomes multitouch.
     if ([[event allTouches] count] > 1){
         [self cancelGesture:@"Two finger touch"];
@@ -38,7 +38,7 @@
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
-    //    DebugLog(@"touchesMoved");
+    // DebugLog(@"touchesMoved");
     if (_gestureCanceled){
         return;
     }
@@ -75,13 +75,13 @@
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
-    //    DebugLog(@"touchesCancelled");
+    DebugLog(@"touchesCancelled");
     [self cancelGesture:nil];
 }
 
 
 - (void)cancelGesture:(NSString *)reason{
-    //    DebugLog(@"cancelGesture");
+    DebugLog(@"cancelGesture");
     _gestureCanceled = YES;
     [self cancelLongPressTimer];
     if (_isLongPress) {
@@ -107,12 +107,20 @@
             [TBMViewUtils isChildViewASubview:_beginView ofParentView:(UIView *)targetCandidate]) {
             return targetCandidate;
         }
+        // Check to see if any parent of the _begin view is superimposed with the same frame on the target candidate and consider this
+        // a match. This was included to catch the case where user clicks on movie player that is on top of the grid element.
+        UIView *parent = _beginView;
+        while (parent != nil) {
+            if (CGRectEqualToRect(targetCandidate.frame, parent.frame)){
+                return targetCandidate;
+            }
+            parent = parent.superview;
+        }
     }
     return nil;
 }
 
 - (void)click{
-    // DebugLog(@"click");
     UIView *targetView = [self targetView];
     if (targetView){
         //    DebugLog(@"click %ld", (long)[self targetView].tag);

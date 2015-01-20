@@ -241,6 +241,7 @@
     if (error == nil)
         return;
     
+    // 404s can happen in normal operation do not dispatch or refresh credentials.
     if (error.code == 404)
         return;
     

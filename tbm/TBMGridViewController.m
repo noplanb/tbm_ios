@@ -188,7 +188,7 @@ static const float LayoutConstASPECT = 0.75;
 // Longpress touch handling for outside views
 //------------------------------------------
 - (void)setupLongPressTouchHandler{
-    DebugLog(@"setupLongPressTouchHandler %@", [self outsideViews]);
+    // DebugLog(@"setupLongPressTouchHandler %@", [self outsideViews]);
     self.longPressTouchHandler = [[TBMLongPressTouchHandler alloc] initWithTargetViews:[self outsideViews] instantiator:self];
 }
 

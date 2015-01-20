@@ -18,8 +18,7 @@
 #import "TBMAlertController.h"
 #import "TBMAlertControllerVisualStyle.h"
 #import "iToast.h"
-#import "TBMAppDelegate.h"
-#import "TBMAppDelegate+AppSync.h"
+#import "OBFileTransferManager.h"
 
 @interface TBMVideoPlayer()
 @property TBMGridElement *gridElement;
@@ -31,6 +30,7 @@
 @property (nonatomic) TBMSoundEffect *messageTone;
 @property (nonatomic) NSMutableSet *eventNotificationDelegates;
 @property (nonatomic) BOOL videosAreDownloading;
+@property (nonatomic) BOOL userStopped;
 @end
 
 @implementation TBMVideoPlayer
@@ -54,8 +54,7 @@
         _moviePlayerController = [[MPMoviePlayerController alloc] init];
         _moviePlayerController.controlStyle = MPMovieControlStyleNone;
         _playerView = _moviePlayerController.view;
-        DebugLog(@"************* before gs:%@", [self.playerView gestureRecognizers]);
-        [self addTapRecognizer];
+        _playerView.tag = 1401;
         self.playerView.hidden = YES;
         [self addPlayerNotifications];
     }
@@ -119,10 +118,16 @@
 }
 
 - (void) playbackDidFinishNotification:(NSNotification *)notification{
-    NSDictionary *userInfo = [notification userInfo];
-    NSNumber *reason = [userInfo objectForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey];
+    // Note unresolved problem:
+    // For some reason when MPMoviePlayerController stop is called we dont get MPMovieFinishReasonUserExited.
+    // We get rather MPMovieFinishReasonPlaybackEnded.
+    // To work around this we track state userStopped rather than rely on the reson reported in userInfo.
+    // NSDictionary *userInfo = [notification userInfo];
+    // int reason = [[userInfo valueForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] intValue];
+    // if (reason != MPMovieFinishReasonUserExited)
+    //    [self playDidComplete];
     
-    if ([reason integerValue] != MPMovieFinishReasonUserExited)
+    if (!self.userStopped)
         [self playDidComplete];
 }
 
@@ -157,30 +162,6 @@
     self.playerView.hidden = YES;
 }
 
-         
-//----------
-// Tap event
-//----------
-- (void)addTapRecognizer{
-    DebugLog(@"************ should get touch");
-    [_playerView addGestureRecognizer: [[UIGestureRecognizer alloc] initWithTarget:self action:@selector(playerTapped:)]];
-    DebugLog(@"********* gs : %@", self.playerView.gestureRecognizers);
-}
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    DebugLog(@"************ should get touch");
-    return YES;
-}
-
-// This is because the native player already has a tap gesture regognizer.
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    DebugLog(@"************ similtaneous");
-    return YES;
-}
-
-- (void)playerTapped: (UITapGestureRecognizer *)sender{
-    [self stop];
-}
 
 // ----------------
 // Control playback
@@ -189,19 +170,19 @@
     self.playerFrame = frame;
     self.gridElement = [TBMGridElement findWithIndex:index];
     
+    // Always stop first so that the notification goes out to reset the view we were on in case it was still playing.
+    BOOL wasPlaying = [self isPlaying];
+    [self stop];
+
     // Always start playing if user clicked a different index from the one that was last playing.
     if (self.index != index){
         self.index = index;
-        [self stop]; // So that the notification goes out to reset the view we were on in case it was still playing.
         [self start];
         return;
     }
     
-    if ([self isPlaying]) {
-        [self stop];
-    } else {
+    if (!wasPlaying)
         [self start];
-    }
 }
 
 - (void)start{
@@ -209,7 +190,9 @@
     if (self.gridElement.friend == nil)
         return;
     
-    [self setIsDownloading];
+    self.userStopped = NO;
+    
+    [self determineIfDownloading];
     
     if (self.videosAreDownloading)
         [self setCurrentVideo:[self.gridElement.friend firstUnviewedVideo]];
@@ -223,7 +206,7 @@
         }
         
         if ([self.gridElement.friend hasRetryingDownload]){
-            [(TBMAppDelegate *) [UIApplication sharedApplication] retryPendingFileTransfers];
+            [[OBFileTransferManager instance] retryPending];
             [self alertBadConn];
         } else {
             [self toastWait];
@@ -234,7 +217,7 @@
     [self play];
 }
 
-- (void) setIsDownloading{
+- (void) determineIfDownloading{
     if ([self.gridElement.friend hasDownloadingVideo]){
         self.videosAreDownloading = YES;
     } else {
@@ -260,7 +243,8 @@
 }
 
 - (void)stop{
-    DebugLog(@"stop for %@", self.video.videoId);
+    // DebugLog(@"stop for %@", self.video.videoId);
+    self.userStopped = YES;
     [self hidePlayerView];
     [self.moviePlayerController stop];
 }
@@ -275,7 +259,6 @@
     if (self.video != nil){
         [self play];
     } else {
-        DebugLog(@"Got Nil next playable video");
         [self hidePlayerView];
     }
 }

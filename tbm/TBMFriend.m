@@ -254,7 +254,8 @@ static NSMutableArray * videoStatusNotificationDelegates;
 
 - (BOOL) hasRetryingDownload{
     for (TBMVideo *v in [self incomingVideos]) {
-        if (v.downloadRetryCount > 0)
+        DebugLog(@"********** retryCount=%@", v.downloadRetryCount);
+        if ([v.downloadRetryCount intValue] > 0)
             return YES;
     }
     return NO;
@@ -303,7 +304,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
 }
 
 - (TBMVideo *) nextPlayableVideoAfterVideoId:(NSString *)videoId{
-    DebugLog(@"nextPlayableVideoAfterVideo");
+    // DebugLog(@"nextPlayableVideoAfterVideo");
     for (TBMVideo *v in [self sortedIncomingVideos]){
         if ([TBMVideoIdUtils isvid1:v.videoId newerThanVid2:videoId] && [v videoFileExists])
             return v;
@@ -393,7 +394,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
 }
 
 - (void)notifyVideoStatusChangeOnMainThread{
-    DebugLog(@"notifyVideoStatusChangeOnMainThread");
+    // DebugLog(@"notifyVideoStatusChangeOnMainThread");
     [self performSelectorOnMainThread:@selector(notifyVideoStatusChange) withObject:nil waitUntilDone:YES];
 }
 
@@ -421,7 +422,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
         if ([v.downloadRetryCount intValue] == 0){
             return @"Downloading...";
         } else {
-            return [NSString stringWithFormat:@"Downloading r%@", v.downloadRetryCount];
+            return [NSString stringWithFormat:@"Dwnld r%@", v.downloadRetryCount];
         }
     } else if (v.status == INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY){
         return @"Downloading e!";
