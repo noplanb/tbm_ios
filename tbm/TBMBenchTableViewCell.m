@@ -29,10 +29,13 @@ float const BENCH_CELL_THUMB_IMAGE_RIGHT_MARGIN = 10.0;
         
         UIView *botBorderTopView = [[UIView alloc] initWithFrame:CGRectMake(20.0f, 54.0f, self.frame.size.width, 1.0f)];
         botBorderTopView.backgroundColor = [UIColor colorWithRed:0.01 green:0.01 blue:0.01 alpha:1.0f];
+        botBorderTopView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         
         UIView *botBorderBotView = [[UIView alloc] initWithFrame:CGRectMake(20.0f, 55.0f, self.frame.size.width, 1.0f)];
         botBorderBotView.backgroundColor = [UIColor colorWithRed:0.34 green:0.34 blue:0.33 alpha:1.0f];
+        botBorderBotView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         
+        self.contentView.autoresizesSubviews = YES;
         [self.contentView addSubview:botBorderTopView];
         [self.contentView addSubview:botBorderBotView];
     }
