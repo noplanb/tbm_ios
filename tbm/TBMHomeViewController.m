@@ -154,7 +154,7 @@ static const float LayoutConstBENCH_ICON_HEIGHT = LayoutConstHEADER_HEIGHT *0.4;
 }
 
 - (void)addOverlayBackgroundView {
-    self.overlayBackgroundView = [[UIView alloc] initWithFrame:self.contentView.frame];
+    self.overlayBackgroundView = [[UIView alloc] initWithFrame:self.view.frame];
     self.overlayBackgroundView.backgroundColor = [UIColor colorWithRed:0.16f green:0.16f blue:0.16f alpha:0.8f];
     [self.contentView addSubview:self.overlayBackgroundView];
     self.overlayBackgroundView.alpha = 0;
