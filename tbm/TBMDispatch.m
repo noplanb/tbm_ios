@@ -54,7 +54,8 @@ static BOOL TBMDispatchEnabled = NO;
     NSString *r = @"";
 
     for (line in logLines){
-        r = [NSString stringWithFormat:@"%@\n%@", logLines, line];
+        r = [r stringByAppendingString:line];
+        r = [r stringByAppendingString:@"\n"];
     }
     return r;
 }

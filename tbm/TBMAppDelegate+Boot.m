@@ -21,7 +21,8 @@
     OB_INFO(@"Boot");
     
     [OBLogger instance].writeToConsole = YES;
-//    [[OBLogger instance] reset];
+    if ([[OBLogger instance] logLines].count > 1000)
+        [[OBLogger instance] reset];
     
     [TBMDispatch enable];
     

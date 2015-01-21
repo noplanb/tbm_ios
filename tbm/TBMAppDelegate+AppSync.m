@@ -196,7 +196,7 @@
                                                       NSString *status = response[REMOTE_STORAGE_STATUS_KEY];
                                                       int ovsts = [TBMRemoteStorageHandler outgoingVideoStatusWithRemoteStatus:status];
                                                       if (ovsts == -1){
-                                                          OB_WARN(@"pollVideoStatusWithFriend: got unknown outgoing video status: %@", status);
+                                                          OB_ERROR(@"pollVideoStatusWithFriend: got unknown outgoing video status: %@", status);
                                                           return;
                                                       }
                                                       // This call handles making sure that videoId == outgoingVideoId etc.
