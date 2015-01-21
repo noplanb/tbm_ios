@@ -400,7 +400,7 @@ static int videoRecorderRetryCount = 0;
 			dispatch_async(dispatch_get_main_queue(), ^{
                 TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"AVCam!"
                                                                                  message:@"AVCam doesn't have permission to use Camera, please change privacy settings"];
-                [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleCancel handler:nil]];
+                [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:nil]];
                 [alert presentWithCompletion:nil];
 			});
 		}

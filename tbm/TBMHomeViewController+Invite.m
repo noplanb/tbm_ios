@@ -162,7 +162,7 @@
     NSString *msg = [NSString stringWithFormat:@"I could not find a valid mobile number for %@.\n\nPlease add a mobile number for %@ in your device contacts, kill %@, then try again.", [self fullname], [self firstName], CONFIG_APP_NAME];
     
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:title message:msg];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleCancel handler:nil]];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:nil]];
     [alert presentWithCompletion:nil];
 }
 
@@ -246,7 +246,7 @@
     NSString *msg = [NSString stringWithFormat:@"You and %@ are connected.\n\nRecord a welcome %@ to %@ now.", [self firstName], CONFIG_APP_NAME, [self firstName]];
     
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"You Are Connected" message:msg];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
+    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
         [self.gridViewController moveFriendToGrid:[self friend]];
     }]];
     [alert presentWithCompletion:nil];
@@ -260,8 +260,8 @@
     NSString *title = [NSString stringWithFormat:@"Nudge %@", self.friend.firstName];
     
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:title message:msg];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleDefault handler:nil]];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Send" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleCancel handler:nil]];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Send" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
         [self smsDialog];
     }]];
     [alert presentWithCompletion:nil];
@@ -271,8 +271,8 @@
     NSString *msg = [NSString stringWithFormat:@"%@ has not installed %@ yet. Send them a link!", [self firstName], CONFIG_APP_NAME];
 
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Invite" message:msg];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleDefault handler:nil]];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Send" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleCancel handler:nil]];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Send" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
         [self smsDialog];
     }]];
     [alert presentWithCompletion:nil];
@@ -379,14 +379,14 @@
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:[failure objectForKey:SERVER_PARAMS_ERROR_TITLE_KEY]
                                                                      message:[failure objectForKey:SERVER_PARAMS_ERROR_MSG_KEY]];
     
-    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleCancel handler:nil]];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:nil]];
     [alert presentWithCompletion:nil];
 }
 
 - (void) hasAppServerErrorDialog{
     TBMAlertController *alert = [self serverErrorAlert];
     
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
         [self checkFriendHasApp];
     }]];
     
@@ -396,7 +396,7 @@
 - (void) getFriendServerErrorDialog{
     TBMAlertController *alert = [self serverErrorAlert];
     
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
         [self getFriendFromServer];
     }]];
     
@@ -407,7 +407,7 @@
     NSString *msg = [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", CONFIG_APP_NAME];
 
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Bad Connection" message:msg];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleDefault handler:nil]];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleCancel handler:nil]];
     
     return alert;
 }
@@ -416,7 +416,7 @@
     NSString *msg = [NSString stringWithFormat:@"It looks like you can't or didn't send a link by text. Perhaps you can just call or email %@ and tell them about %@.", [self fullname], CONFIG_APP_NAME];
     
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Didn't Send Link" message:msg];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleCancel handler:nil]];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:nil]];
     [alert presentWithCompletion:nil];
 }
 

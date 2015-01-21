@@ -56,9 +56,9 @@
 
 - (UIFont *)fontForAction:(SDCAlertAction *)action {
     if (action.style == SDCAlertActionStyleCancel) {
-        return [UIFont fontWithName:@"Helvetica" size:20.0f];
-    } else {
         return [UIFont fontWithName:@"Helvetica-Light" size:20.0f];
+    } else {
+        return [UIFont fontWithName:@"Helvetica" size:20.0f];
     }
 }
 

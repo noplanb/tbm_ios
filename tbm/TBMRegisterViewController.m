@@ -271,7 +271,7 @@
 
 - (void) showErrorDialogWithTitle:(NSString *)title msg:(NSString *)msg {
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:title message:msg];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleCancel handler:nil]];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:nil]];
     [alert presentWithCompletion:nil];
 }
 
@@ -300,7 +300,7 @@
                   action:@selector(enterCodeTextFieldDidChange:)
         forControlEvents:UIControlEventEditingChanged];
     
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleDefault handler:nil]];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleCancel handler:nil]];
     
     self.enterCodeConfirmAlertAction = [SDCAlertAction actionWithTitle:@"Enter" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
         _verificationCode = [self cleanNumber:[tf text]];
@@ -321,7 +321,7 @@
 - (void) showGetFriendsServerErrorDialog{
     NSString *msg = [self badConnectionMessage];
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:[self badConnectionTitle] message:msg];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
         [self getFriends];
     }]];
     [alert presentWithCompletion:nil];

@@ -595,7 +595,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Hold to Record"
                                                                      message:@"Press and hold the RECORD button to record"];
     
-    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleCancel handler:nil]];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:nil]];
     [alert presentWithCompletion:nil];
 }
 

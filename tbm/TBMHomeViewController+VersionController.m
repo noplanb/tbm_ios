@@ -33,8 +33,8 @@
 
 - (void)showVersionHandlerDialogWithMessage:(NSString *)message negativeButton:(BOOL)negativeButton{
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Update Available" message:message];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Later" style:SDCAlertActionStyleDefault handler:nil]];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Update" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Later" style:SDCAlertActionStyleCancel handler:nil]];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Update" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://testflightapp.com"]];
     }]];
     [alert presentWithCompletion:nil];

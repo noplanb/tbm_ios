@@ -17,7 +17,7 @@
 
 #pragma mark - Initialization
 
-+ (instancetype)alertControllerWithTitle:(NSString *)title message:(NSString *)message {
++ (id)alertControllerWithTitle:(NSString *)title message:(NSString *)message {
     // Alert title text
     NSMutableAttributedString *alertTitle = [[NSMutableAttributedString alloc] initWithString:title];
     [alertTitle addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, alertTitle.length)];
@@ -42,6 +42,12 @@
     // Set our custom visual style for the alerts
     alert.visualStyle = [[TBMAlertControllerVisualStyle alloc] init];
     
+    if (alert.legacyAlertView) {
+        // iOS 7 style alerts
+        SDCAlertController *alert = [super alertControllerWithTitle:title message:message preferredStyle:SDCAlertControllerStyleAlert];
+        return alert;
+    }
+
     return alert;
 }
 

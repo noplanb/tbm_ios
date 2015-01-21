@@ -14,6 +14,6 @@
 
 @property (nonatomic, strong) SDCAlertControllerView *alert;
 
-+ (instancetype)alertControllerWithTitle:(NSString *)title message:(NSString *)message;
++ (id)alertControllerWithTitle:(NSString *)title message:(NSString *)message;
 
 @end

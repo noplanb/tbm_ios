@@ -278,7 +278,7 @@
     NSString *title = @"Bad Connection";
     NSString *msg = @"Check your connection and try agian.";
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:title message:msg];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Try again" style:SDCAlertActionStyleCancel handler:nil]];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Try again" style:SDCAlertActionStyleDefault handler:nil]];
     [alert presentWithCompletion:nil];
 }
 
