@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+extern float const BENCH_CELL_THUMB_IMAGE_RIGHT_MARGIN;
+
 @interface TBMBenchTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) UILabel *nameLabel;

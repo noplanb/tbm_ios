@@ -8,18 +8,21 @@
 
 #import "TBMBenchTableViewCell.h"
 
+float const BENCH_CELL_THUMB_IMAGE_RIGHT_MARGIN = 10.0;
+
 @implementation TBMBenchTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(66.0f, 10.0, 100.0f, 36.0)];
-        _nameLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:18.0];
-        
-        _thumbImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20.0f, 10.0f, 36.0f, 36.0f)];
+        _thumbImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20.0, 10.0, 36.0, 36.0f)];
         _thumbImageView.contentMode = UIViewContentModeScaleAspectFill;
         _thumbImageView.clipsToBounds = YES;
+        
+        float nameX = _thumbImageView.frame.origin.x + _thumbImageView.frame.size.width + BENCH_CELL_THUMB_IMAGE_RIGHT_MARGIN;
+        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(nameX, 10.0, 100.0f, 36.0)];
+        _nameLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:18.0];
 
         [self.contentView addSubview:_nameLabel];
         [self.contentView addSubview:_thumbImageView];

@@ -225,8 +225,6 @@ static float BENCH_CELL_HEIGHT = 56.0;
     // NSLog(@"table view width: %f", tableView.frame.size.width);
     
     CGRect nameFrame = cell.nameLabel.frame;
-    nameFrame.size.width = tableView.frame.size.width - nameFrame.origin.x - 10.0f;
-    cell.nameLabel.frame = nameFrame;
     
     id item = [self.tableArray objectAtIndex:indexPath.row];
     if ([item isKindOfClass:[TBMFriend class]]){
@@ -238,10 +236,15 @@ static float BENCH_CELL_HEIGHT = 56.0;
             cell.thumbImageView.image = [UIImage imageNamed:@"icon-no-pic"];
         }
         cell.nameLabel.text = [f displayName];
+        nameFrame.origin.x = cell.thumbImageView.frame.origin.x + cell.thumbImageView.frame.size.width + BENCH_CELL_THUMB_IMAGE_RIGHT_MARGIN;
     } else {
-        cell.thumbImageView.image = [UIImage imageNamed:@"icon-no-pic"];
+        cell.thumbImageView.image = nil;
         cell.nameLabel.text = item;
+        nameFrame.origin.x = cell.thumbImageView.frame.origin.x;
     }
+    
+    nameFrame.size.width = tableView.frame.size.width - nameFrame.origin.x - BENCH_CELL_THUMB_IMAGE_RIGHT_MARGIN;
+    cell.nameLabel.frame = nameFrame;
     
     return cell;
 }
