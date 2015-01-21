@@ -106,7 +106,7 @@ static float BENCH_CELL_HEIGHT = 56.0;
 
 - (void)makeSearchBar {
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil]
-     setDefaultTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:BENCH_TEXT_COLOR alpha:1],
+     setDefaultTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],
                                 NSFontAttributeName: [UIFont fontWithName:@"Helvetica-Light" size:16]}];
 
     UISearchBar *sb = [[UISearchBar alloc] initWithFrame:[self searchBarRect]];
