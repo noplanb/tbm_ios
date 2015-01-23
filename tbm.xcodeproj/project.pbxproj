@@ -981,7 +981,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
-				PROVISIONING_PROFILE = "d0558053-3ccb-4258-a13a-ffe4bca1c63a";
+				PROVISIONING_PROFILE = "cd37ca1b-787a-46fa-a365-7bc8b88b40ec";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -994,14 +994,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImageFinal;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Matt Terry (67AEY45D45)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tbm/tbm-Prefix.pch";
 				INFOPLIST_FILE = "tbm/tbm-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b79b3311-c79f-4e62-9834-eee968b5fde7";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
@@ -1015,7 +1015,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImageFinal;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tbm/tbm-Prefix.pch";
 				INFOPLIST_FILE = "tbm/tbm-Info.plist";
