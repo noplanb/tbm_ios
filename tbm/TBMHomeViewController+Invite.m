@@ -204,7 +204,7 @@
     if ([self statusIsFailure:resp])
         return;
     
-    NSString *hasAppStr = [resp objectForKey:SERVER_PARAMS_FRIEND_HAS_APP];
+    NSString *hasAppStr = [resp objectForKey:SERVER_PARAMS_FRIEND_HAS_APP_KEY];
     BOOL hasApp = hasAppStr != nil && [hasAppStr isEqualToString:@"true"];
     if (hasApp)
         [self getFriendFromServer];
@@ -238,8 +238,10 @@
     if ([self statusIsFailure:params])
         return;
     
-    [self setFriend:[TBMFriend createWithServerParams:params]];
-    [self connectedDialog];
+    [TBMFriend createOrUpdateWithServerParams:params complete:^(TBMFriend *friend) {
+        [self setFriend: friend];
+        [self connectedDialog];
+    }];
 }
 
 - (void) connectedDialog{

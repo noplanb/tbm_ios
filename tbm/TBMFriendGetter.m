@@ -19,11 +19,10 @@
 
 @implementation TBMFriendGetter
 
-- (instancetype)initWithDelegate:(id<TBMFriendGetterCallback>)delegate destroyAll:(BOOL)destroyAll{
+- (instancetype)initWithDelegate:(id<TBMFriendGetterCallback>)delegate{
     self = [super init];
     if (self != nil){
         _delegate = delegate;
-        _destroyAll = destroyAll;
     }
     return self;
 }
@@ -41,12 +40,8 @@
 }
 
 - (void)gotFriends:(NSArray *)friends{
-    // OB_INFO(@"TBMFriendGetter: gotFriends: %@", friends);
-    if (_destroyAll)
-        [TBMFriend destroyAll];
-    
     for (NSDictionary *fParams in friends){
-        [TBMFriend createWithServerParams:fParams];
+        [TBMFriend createOrUpdateWithServerParams:fParams complete:nil];
     }
     [_delegate gotFriends];
 }

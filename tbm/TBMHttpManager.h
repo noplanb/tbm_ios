@@ -14,6 +14,7 @@ extern NSString * const SERVER_PARAMS_ERROR_MSG_KEY;
 
 extern NSString * const SERVER_STATUS_VALUE_SUCCESS;
 extern NSString * const SERVER_STATUS_VALUE_FAILURE;
+extern NSString * const SERVER_STATUS_TRUE_VALUE;
 
 extern NSString * const SERVER_PARAMS_USER_FIRST_NAME_KEY;
 extern NSString * const SERVER_PARAMS_USER_LAST_NAME_KEY;
@@ -30,7 +31,7 @@ extern NSString * const SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY;
 extern NSString * const SERVER_PARAMS_FRIEND_ID_KEY;
 extern NSString * const SERVER_PARAMS_FRIEND_MKEY_KEY;
 extern NSString * const SERVER_PARAMS_FRIEND_CKEY_KEY;
-extern NSString * const SERVER_PARAMS_FRIEND_HAS_APP;
+extern NSString * const SERVER_PARAMS_FRIEND_HAS_APP_KEY;
 
 extern NSString * const SERVER_PARAMS_S3_REGION_KEY;
 extern NSString * const SERVER_PARAMS_S3_BUCKET_KEY;
@@ -44,4 +45,5 @@ extern NSString * const SERVER_PARAMS_DISPATCH_MSG_KEY;
 + (AFHTTPRequestOperationManager *)managerWithCredential:(NSURLCredential *)credential;
 + (BOOL)isSuccess:(NSDictionary *)responseObject;
 + (BOOL)isFailure:(NSDictionary *)responseObject;
++ (BOOL) hasAppWithServerValue:(NSString *)value;
 @end

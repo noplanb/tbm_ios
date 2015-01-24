@@ -9,8 +9,9 @@
 #import "TBMAppDelegate.h"
 #import "OBFileTransferManager.h"
 #import "TBMFriend.h"
+#import "TBMFriendGetter.h"
 
-@interface TBMAppDelegate (AppSync) <OBFileTransferDelegate>
+@interface TBMAppDelegate (AppSync) <OBFileTransferDelegate, TBMFriendGetterCallback>
 
 @property (strong, nonatomic) OBFileTransferManager *fileTransferManager;
 
@@ -20,6 +21,7 @@
 - (void) retryPendingFileTransfers;
 
 // Polling
+- (void) getAndPollAllFriends;
 - (void) pollAllFriends;
 
 // Stuck downloads

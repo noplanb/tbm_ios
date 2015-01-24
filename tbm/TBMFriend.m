@@ -118,42 +118,55 @@ static NSMutableArray * videoStatusNotificationDelegates;
 //-------------------
 // Create and destroy
 //-------------------
-+ (instancetype)createWithId:(NSString *)idTbm{
-    __block TBMFriend *friend;
-    [[TBMFriend managedObjectContext] performBlockAndWait:^{
-        friend = (TBMFriend *)[[NSManagedObject alloc] initWithEntity:[TBMFriend entityDescription] insertIntoManagedObjectContext:[TBMFriend managedObjectContext]];
-        friend.idTbm = idTbm;
-    }];
-    return friend;
++ (void)createWithId:(NSString *)idTbm complete:(void(^)(TBMFriend *friend))complete{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        __block TBMFriend *friend;
+        [[TBMFriend managedObjectContext] performBlockAndWait:^{
+            friend = (TBMFriend *)[[NSManagedObject alloc] initWithEntity:[TBMFriend entityDescription] insertIntoManagedObjectContext:[TBMFriend managedObjectContext]];
+            friend.idTbm = idTbm;
+        }];
+        complete(friend);
+    });
 }
 
-+ (instancetype)createWithServerParams:(NSDictionary *)params{
-    TBMFriend *f = [TBMFriend findWithMkey:[params objectForKey:SERVER_PARAMS_FRIEND_MKEY_KEY]];
-    if (f != nil){
-        OB_WARN(@"createWithServerParams: friend already exists. Not creating.");
-        return f;
-    }
-    
-    __block TBMFriend *friend;
-    [[TBMFriend managedObjectContext] performBlockAndWait:^{
-        friend = (TBMFriend *)[[NSManagedObject alloc]
-                               initWithEntity:[TBMFriend entityDescription]
-                               insertIntoManagedObjectContext:[TBMFriend managedObjectContext]];
++ (void)createOrUpdateWithServerParams:(NSDictionary *)params complete:(void (^)(TBMFriend *friend))complete{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        BOOL servHasApp = [TBMHttpManager hasAppWithServerValue: [params objectForKey:SERVER_PARAMS_FRIEND_HAS_APP_KEY]];
+        TBMFriend *f = [TBMFriend findWithMkey:[params objectForKey:SERVER_PARAMS_FRIEND_MKEY_KEY]];
+        if (f != nil){
+            // OB_INFO(@"createWithServerParams: friend already exists.");
+            if (f.hasApp ^ servHasApp){
+                OB_INFO(@"createWithServerParams: Friend exists updating hasApp only since it is different.");
+                f.hasApp = servHasApp;
+                [f notifyVideoStatusChange];
+            }
+            if (complete != nil)
+                complete(f);
+            return;
+        }
         
-        friend.firstName = [params objectForKey:SERVER_PARAMS_FRIEND_FIRST_NAME_KEY];
-        friend.lastName = [params objectForKey:SERVER_PARAMS_FRIEND_LAST_NAME_KEY];
-        friend.mobileNumber = [params objectForKey:SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY];
-        friend.idTbm = [params objectForKey:SERVER_PARAMS_FRIEND_ID_KEY];
-        friend.mkey = [params objectForKey:SERVER_PARAMS_FRIEND_MKEY_KEY];
-        friend.ckey = [params objectForKey:SERVER_PARAMS_FRIEND_CKEY_KEY];
-        friend.timeOfLastAction = [NSDate date];
-        if ([[params objectForKey:SERVER_PARAMS_FRIEND_HAS_APP] isEqualToString:@"true"])
-            friend.hasApp = YES;
-        else
-            friend.hasApp = NO;
-    }];
-    // OB_INFO(@"Added friend: %@", friend);
-    return friend;
+        __block TBMFriend *friend;
+        [[TBMFriend managedObjectContext] performBlockAndWait:^{
+            friend = (TBMFriend *)[[NSManagedObject alloc]
+                                   initWithEntity:[TBMFriend entityDescription]
+                                   insertIntoManagedObjectContext:[TBMFriend managedObjectContext]];
+            
+            friend.firstName = [params objectForKey:SERVER_PARAMS_FRIEND_FIRST_NAME_KEY];
+            friend.lastName = [params objectForKey:SERVER_PARAMS_FRIEND_LAST_NAME_KEY];
+            friend.mobileNumber = [params objectForKey:SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY];
+            friend.idTbm = [params objectForKey:SERVER_PARAMS_FRIEND_ID_KEY];
+            friend.mkey = [params objectForKey:SERVER_PARAMS_FRIEND_MKEY_KEY];
+            friend.ckey = [params objectForKey:SERVER_PARAMS_FRIEND_CKEY_KEY];
+            friend.timeOfLastAction = [NSDate date];
+            friend.hasApp = servHasApp;
+        }];
+        OB_INFO(@"Added friend: %@", friend.firstName);
+        [friend notifyVideoStatusChange];
+        if (complete != nil)
+            complete(friend);
+    });
+    // GARF! Is there a bug in the above code? Do I need to make sure the completion handler is run on the same thread as
+    // the thread that called us. Or is it ok to just call the completion handler on the ui thread.
 }
 
 

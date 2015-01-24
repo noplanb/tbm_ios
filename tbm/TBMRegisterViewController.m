@@ -232,8 +232,10 @@
 // Got friends
 //------------
 - (void) getFriends{
+    // This should destroy associated videos as well as they are set to cascade delete.
+    [TBMFriend destroyAll];
     [_registerForm startWaitingForServer];
-    [[[TBMFriendGetter alloc] initWithDelegate:self destroyAll:YES] getFriends];
+    [[[TBMFriendGetter alloc] initWithDelegate:self] getFriends];
 }
 
 - (void) gotFriends{

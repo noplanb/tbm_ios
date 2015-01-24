@@ -36,9 +36,9 @@
 
 - (void)didCompleteRegistration{
     OB_INFO(@"didCompleteRegistration");
+    [[self registerViewController] presentViewController:[self homeViewController] animated:YES completion:nil];
     [self postRegistrationBoot];
     [self performDidBecomeActiveActions];
-    [[self registerViewController] presentViewController:[self homeViewController] animated:YES completion:nil];
 }
 
 - (void)postRegistrationBoot{
@@ -54,7 +54,7 @@
     [TBMVideo printAll];
     [self handleStuckDownloadsWithCompletionHandler:^{
         [self retryPendingFileTransfers];
-        [self pollAllFriends];
+        [self getAndPollAllFriends];
     }];
 }
 

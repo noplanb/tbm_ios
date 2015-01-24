@@ -163,6 +163,18 @@
 //--------
 // Polling
 //--------
+- (void) getAndPollAllFriends{
+    [[[TBMFriendGetter alloc] initWithDelegate:self] getFriends];
+}
+
+- (void)gotFriends{
+    [self pollAllFriends];
+}
+
+- (void)friendGetterServerError{
+    [self pollAllFriends];
+}
+
 - (void) pollAllFriends{
     OB_INFO(@"pollAllFriends");
     for (TBMFriend *f in [TBMFriend all]){

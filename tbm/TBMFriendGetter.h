@@ -16,7 +16,7 @@
 
 @interface TBMFriendGetter : NSObject
 
-- (instancetype)initWithDelegate:(id<TBMFriendGetterCallback>)delegate destroyAll:(BOOL)destroyAll;
+- (instancetype)initWithDelegate:(id<TBMFriendGetterCallback>)delegate;
 - (void)getFriends;
 
 @end

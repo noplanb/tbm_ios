@@ -50,6 +50,7 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self setupVideoRecorder:0];
+    [TBMFriend addVideoStatusNotificationDelegate:self];
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
@@ -79,6 +80,14 @@
 - (void)appWillEnterForeground{
 }
 
+
+//---------------------------
+// Events called in by Friend
+//---------------------------
+- (void)videoStatusDidChange:(TBMFriend *)friend{
+    if (![TBMGridElement friendIsOnGrid:friend])
+        [self moveFriendToGrid:friend];
+}
 
 
 //-------------------

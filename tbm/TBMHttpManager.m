@@ -16,6 +16,7 @@ NSString * const SERVER_PARAMS_ERROR_MSG_KEY = @"msg";
 
 NSString * const SERVER_STATUS_VALUE_SUCCESS = @"success";
 NSString * const SERVER_STATUS_VALUE_FAILURE = @"failure";
+NSString * const SERVER_TRUE_VALUE = @"true";
 
 NSString * const SERVER_PARAMS_USER_FIRST_NAME_KEY = @"first_name";
 NSString * const SERVER_PARAMS_USER_LAST_NAME_KEY = @"last_name";
@@ -32,7 +33,7 @@ NSString * const SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY = @"mobile_number";
 NSString * const SERVER_PARAMS_FRIEND_ID_KEY = @"id";
 NSString * const SERVER_PARAMS_FRIEND_MKEY_KEY = @"mkey";
 NSString * const SERVER_PARAMS_FRIEND_CKEY_KEY = @"ckey";
-NSString * const SERVER_PARAMS_FRIEND_HAS_APP = @"has_app";
+NSString * const SERVER_PARAMS_FRIEND_HAS_APP_KEY = @"has_app";
 
 NSString * const SERVER_PARAMS_S3_REGION_KEY = @"region";
 NSString * const SERVER_PARAMS_S3_BUCKET_KEY = @"bucket";
@@ -66,6 +67,13 @@ NSString * const SERVER_PARAMS_DISPATCH_MSG_KEY = @"msg";
 
 + (BOOL) isFailure:(NSDictionary *)responseObject{
     return ![TBMHttpManager isSuccess:responseObject];
+}
+
++ (BOOL) hasAppWithServerValue:(NSString *)value{
+    if ([value isEqualToString:SERVER_TRUE_VALUE])
+        return YES;
+    else
+        return NO;
 }
 
 @end

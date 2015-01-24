@@ -146,6 +146,13 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     NSString *videoId = [self videoIdWithUserInfo:userInfo];
     NSString *mkey = [userInfo objectForKey:NOTIFICATION_FROM_MKEY_KEY];
     TBMFriend *friend = [TBMFriend findWithMkey:mkey];
+    
+    if (friend == nil){
+        OB_INFO(@"handleVideoReceivedNotification: got notification for non existant friend. calling getAndPollAllFriends");
+        [self getAndPollAllFriends];
+        return;
+    }
+    
     [self queueDownloadWithFriend:friend videoId:videoId];
 }
 
@@ -154,6 +161,13 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     NSString *nstatus = [userInfo objectForKey:NOTIFICATION_STATUS_KEY];
     NSString *mkey = [userInfo objectForKey:NOTIFICATION_TO_MKEY_KEY];
     TBMFriend *friend = [TBMFriend findWithMkey:mkey];
+    
+    if (friend == nil){
+        OB_INFO(@"handleVideoStatusUPdateNotification: got notification for non existant friend. calling getAndPollAllFriends");
+        [self getAndPollAllFriends];
+        return;
+    }
+
     NSString *videoId = [userInfo objectForKey:NOTIFICATION_VIDEO_ID_KEY];
     
     TBMOutgoingVideoStatus outgoingStatus;
