@@ -391,7 +391,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
         self.uploadingIndicator.frame = endFrame;
         self.uploadingBar.frame = barEndFrame;
     } completion:^(BOOL finished) {
-        [self performSelector:@selector(hideUploadBar) withObject:NO afterDelay:0.2];
+        [self performSelector:@selector(hideUploadBar) withObject:nil afterDelay:0.2];
     }];
 }
 
@@ -415,7 +415,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
         self.downloadingIndicator.frame = endFrame;
         self.downloadingBar.frame = barEndFrame;
     } completion:^(BOOL finished) {
-        [self performSelector:@selector(updateView:) withObject:NO afterDelay:0.2];
+        [self performSelector:@selector(updateView:) withObject:nil afterDelay:0.2];
     }];
 }
 
