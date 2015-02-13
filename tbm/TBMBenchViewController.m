@@ -81,7 +81,7 @@ static float BENCH_CELL_HEIGHT = 56.0;
     
     [self addBenchGestureRecognizers];
     [self makeSearchBar];
-    [self getAndSetTableArray];
+    [self getAndSetTableArrayAddContacts:NO];
     [self makeBenchTable];
     [self makeSearchTable];
     
@@ -280,9 +280,10 @@ static float BENCH_CELL_HEIGHT = 56.0;
 //--------------------------
 // Bench Table backing array
 //--------------------------
-- (void) getAndSetTableArray{
+- (void) getAndSetTableArrayAddContacts:(BOOL)addContacts{
     NSMutableArray *bta = [[NSMutableArray alloc] initWithArray:[self.gridViewController friendsOnBench]];
-    [bta addObjectsFromArray:[[TBMContactsManager sharedInstance] getFullNamesHavingAnyPhone]];
+    if (addContacts)
+        [bta addObjectsFromArray:[[TBMContactsManager sharedInstance] getFullNamesHavingAnyPhone]];
     self.tableArray = bta;
     DebugLog(@"getAndSetTableArray (%ld)", (unsigned long)[self.tableArray count]);
 }
@@ -328,7 +329,7 @@ static float BENCH_CELL_HEIGHT = 56.0;
 }
 
 - (void)reloadData{
-    [self getAndSetTableArray];
+    [self getAndSetTableArrayAddContacts:YES];
     [self.benchTable reloadData];
 }
 

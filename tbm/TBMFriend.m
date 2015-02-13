@@ -129,6 +129,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
     });
 }
 
+// TODO: GARF! This method will block forever if it is called from the uiThread. Make sure to fix this problem.
 + (void)createOrUpdateWithServerParams:(NSDictionary *)params complete:(void (^)(TBMFriend *friend))complete{
     dispatch_async(dispatch_get_main_queue(), ^{
         BOOL servHasApp = [TBMHttpManager hasAppWithServerValue: [params objectForKey:SERVER_PARAMS_FRIEND_HAS_APP_KEY]];
@@ -165,8 +166,6 @@ static NSMutableArray * videoStatusNotificationDelegates;
         if (complete != nil)
             complete(friend);
     });
-    // GARF! Is there a bug in the above code? Do I need to make sure the completion handler is run on the same thread as
-    // the thread that called us. Or is it ok to just call the completion handler on the ui thread.
 }
 
 

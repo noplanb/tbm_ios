@@ -64,7 +64,7 @@ static TBMHomeViewController *hvcInstance;
 }
 
 - (void) prefetchContactsManager{
-    [[TBMContactsManager sharedInstance] prefetchOnlyIfHasAccess];
+//    [[TBMContactsManager sharedInstance] prefetchOnlyIfHasAccess];
 }
 
 

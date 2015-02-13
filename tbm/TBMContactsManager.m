@@ -45,10 +45,14 @@
 // Public Instance Methods
 //------------------------
 - (void)prefetchOnlyIfHasAccess{
-    if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized && !self.isSetup)
+    if ([self hasAccess] && !self.isSetup)
         [self setup];
     else
         OB_WARN(@"ContactsManager: not prefetching because no access granted or contacts were already setup.");
+}
+
+- (BOOL)hasAccess{
+    return ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized;
 }
 
 - (NSArray *) getFullNamesHavingAnyPhone{
