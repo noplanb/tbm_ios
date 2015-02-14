@@ -235,7 +235,8 @@ static dispatch_queue_t myQueue;
     dispatch_async(myQueue, ^{
         //    OB_DEBUG(@"Starting to save OBTasks state");
         NSMutableArray *tasksToSave = [[NSMutableArray alloc] init];
-        for ( OBFileTransferTask *task in self.tasks ) {
+        NSArray *tasksCopy = [[NSArray alloc] initWithArray:self.tasks];
+        for ( OBFileTransferTask *task in tasksCopy ) {
             [tasksToSave addObject:[task asDictionary]];
         }
         NSDictionary *stateDictionary = @{@"tasks": tasksToSave, @"retryTimerCount": [NSNumber numberWithInteger:self.retryTimerCount]};

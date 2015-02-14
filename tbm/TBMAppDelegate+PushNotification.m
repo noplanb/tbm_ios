@@ -97,7 +97,7 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 void (^_completionHandler)(UIBackgroundFetchResult);
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
-    OB_INFO(@"didReceiveRemoteNotification:fetchCompletionHandler");
+    OB_INFO(@"didReceiveRemoteNotification:fetchCompletionHandler %@", userInfo);
     [self requestBackground];
     [self handleNotificationPayload:userInfo];
     // See doc/notification.txt for why we call the completion handler with sucess immediately here.
