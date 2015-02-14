@@ -107,7 +107,7 @@
         TBMGridElement *ge = [TBMGridElement create];
         if (i<friends.count)
             ge.friend = [friends objectAtIndex:i];
-        ge.index = [NSNumber numberWithInt:i];
+        ge.index = i;
     }
 }
 

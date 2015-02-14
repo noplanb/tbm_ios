@@ -50,7 +50,7 @@
 - (instancetype)init{
     self = [super init];
     if (self != nil){
-        _messageTone = [[TBMSoundEffect alloc] initWithSoundNamed:@"single_ding_chimes2.wav"];
+        _messageTone = [[TBMSoundEffect alloc] initWithSoundNamed:@"BeepSin.wav"];
         _moviePlayerController = [[MPMoviePlayerController alloc] init];
         _moviePlayerController.controlStyle = MPMovieControlStyleNone;
         _playerView = _moviePlayerController.view;

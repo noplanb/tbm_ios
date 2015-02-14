@@ -51,7 +51,7 @@ static int videoRecorderRetryCount = 0;
         _videosDirectoryUrl = [TBMConfig videosDirectoryUrl];
         _recordingVideoUrl = [_videosDirectoryUrl URLByAppendingPathComponent:[@"new" stringByAppendingPathExtension:@"mov"]];
         _recordedVideoMpeg4Url = [_videosDirectoryUrl URLByAppendingPathComponent:[@"newConverted" stringByAppendingPathExtension:@"mp4"]];
-        _dingSoundEffect = [[TBMSoundEffect alloc] initWithSoundNamed:@"single_ding_chimes2.wav"];
+        _dingSoundEffect = [[TBMSoundEffect alloc] initWithSoundNamed:@"BeepSin.wav"];
         _sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
 
         [self checkDeviceAuthorization];
