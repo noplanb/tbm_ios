@@ -13,7 +13,7 @@
 @interface TBMGridElement : NSManagedObject
 
 @property (nonatomic, retain) TBMFriend *friend;
-@property (nonatomic) NSInteger *index;
+@property (nonatomic) NSInteger index;
 
 // Create and destroy
 + (instancetype)create;
