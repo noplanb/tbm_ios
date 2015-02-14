@@ -43,7 +43,7 @@
     if (self != nil){
         _index = index;
         _videoPlayer = [TBMVideoPlayer sharedInstance];
-        _gridElement = [TBMGridElement findWithIndex:index];
+        _gridElement = [TBMGridElement findWithIntIndex:index];
     }
     return self;
 }

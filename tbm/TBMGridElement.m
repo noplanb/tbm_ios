@@ -69,9 +69,9 @@
 }
 
 
-+ (instancetype)findWithIndex:(NSInteger)i{
++ (instancetype)findWithIntIndex:(NSInteger)i{
     for (TBMGridElement *ge in [TBMGridElement all]){
-        if (i == ge.index)
+        if (i == [ge.index integerValue])
             return ge;
     }
     return nil;
@@ -95,6 +95,18 @@
             return ge;
     }
     return nil;
+}
+
+
+//--------------------
+// Setters and getters
+//--------------------
+- (void)setIntIndex:(NSInteger)index{
+    self.index = [NSNumber numberWithInteger:index];
+}
+
+- (NSInteger)getIntIndex{
+    return [self.index integerValue];
 }
 
 @end

@@ -103,11 +103,11 @@
     [TBMGridElement destroyAll];
     
     NSArray *friends = [TBMFriend all];
-    for (int i=0; i<8; i++){
+    for (NSInteger i=0; i<8; i++){
         TBMGridElement *ge = [TBMGridElement create];
         if (i<friends.count)
             ge.friend = [friends objectAtIndex:i];
-        ge.index = i;
+        [ge setIntIndex:i];
     }
 }
 
@@ -296,7 +296,7 @@ static const float LayoutConstASPECT = 0.75;
 }
 
 - (TBMGridElement *)gridElementWithView:(UIView *)view{
-    return [TBMGridElement findWithIndex:[self indexWithView:view]];
+    return [TBMGridElement findWithIntIndex:[self indexWithView:view]];
 }
 
 - (UIView *)gridViewWithIndex:(NSInteger)index{
@@ -336,7 +336,7 @@ static const float LayoutConstASPECT = 0.75;
     
     TBMGridElement *ge = [self nextAvailableGridElement];
     ge.friend = friend;
-    [self notifyChildrenOfGridChange:ge.index];
+    [self notifyChildrenOfGridChange:[ge getIntIndex]];
     [self highlightElement:ge];
 }
 
@@ -380,7 +380,7 @@ static const float LayoutConstASPECT = 0.75;
 // Highlighting a gridElement
 //---------------------------
 - (void)highlightElement:(TBMGridElement *)ge{
-    UIView *gv = [self gridViewWithIndex:ge.index];
+    UIView *gv = [self gridViewWithIndex:[ge getIntIndex]];
     CGRect r;
     r.size.width  = gv.frame.size.width;
     r.size.height = gv.frame.size.height;

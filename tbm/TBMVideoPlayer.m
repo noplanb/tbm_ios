@@ -168,7 +168,7 @@
 // ----------------
 - (void)togglePlayWithIndex:(NSInteger)index frame:(CGRect)frame{
     self.playerFrame = frame;
-    self.gridElement = [TBMGridElement findWithIndex:index];
+    self.gridElement = [TBMGridElement findWithIntIndex:index];
     
     // Always stop first so that the notification goes out to reset the view we were on in case it was still playing.
     BOOL wasPlaying = [self isPlaying];

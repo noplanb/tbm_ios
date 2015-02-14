@@ -13,7 +13,7 @@
 @interface TBMGridElement : NSManagedObject
 
 @property (nonatomic, retain) TBMFriend *friend;
-@property (nonatomic) NSInteger index;
+@property (nonatomic) NSNumber *index;
 
 // Create and destroy
 + (instancetype)create;
@@ -21,10 +21,12 @@
 
 // Finders
 + (NSArray *)all;
-+ (instancetype)findWithIndex:(NSInteger)i;
++ (instancetype)findWithIntIndex:(NSInteger)i;
 + (instancetype)findWithFriend:(TBMFriend *)friend;
 + (BOOL)friendIsOnGrid:(TBMFriend *)friend;
 + (instancetype)firstEmptyGridElement;
 
-
+// Getting and setting index with NSInteger instead of NSNumber
+- (void)setIntIndex:(NSInteger)index;
+- (NSInteger)getIntIndex;
 @end
