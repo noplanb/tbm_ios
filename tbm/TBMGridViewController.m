@@ -276,8 +276,8 @@ static const float LayoutConstASPECT = 0.75;
         return nil;
     return [[NSArray alloc] initWithObjects:
             [self gridViews][5],
-            [self gridViews][8],
             [self gridViews][7],
+            [self gridViews][8],
             [self gridViews][6],
             [self gridViews][2],
             [self gridViews][3],
