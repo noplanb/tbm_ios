@@ -117,6 +117,7 @@ static int videoRecorderRetryCount = 0;
     return self;
 }
 
+// Unused?
 - (void)startPreview{
     dispatch_async(self.sessionQueue, ^{
         [self.captureSession startRunning];
@@ -185,6 +186,13 @@ static int videoRecorderRetryCount = 0;
 
 - (void)removeVideoRecorderDelegate{
     _delegate = nil;
+}
+
+//-------------
+// Query status
+//-------------
+- (BOOL)isRecording{
+    return [self.captureOutput isRecording];
 }
 
 //-------------------

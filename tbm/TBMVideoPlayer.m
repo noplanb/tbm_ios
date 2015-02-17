@@ -27,7 +27,6 @@
 @property (nonatomic) TBMVideo *video;
 @property (nonatomic) NSString *videoId;
 @property (nonatomic) MPMoviePlayerController *moviePlayerController;
-@property (nonatomic) TBMSoundEffect *messageTone;
 @property (nonatomic) NSMutableSet *eventNotificationDelegates;
 @property (nonatomic) BOOL videosAreDownloading;
 @property (nonatomic) BOOL userStopped;
@@ -50,7 +49,6 @@
 - (instancetype)init{
     self = [super init];
     if (self != nil){
-        _messageTone = [[TBMSoundEffect alloc] initWithSoundNamed:@"BeepSin.wav"];
         _moviePlayerController = [[MPMoviePlayerController alloc] init];
         _moviePlayerController.controlStyle = MPMovieControlStyleNone;
         _playerView = _moviePlayerController.view;
@@ -78,7 +76,7 @@
     if (friend.gridElement == nil)
         return NO;
 
-    if (friend.gridElement.index != self.index)
+    if (friend.gridElement.getIntIndex != self.index)
         return NO;
     
     if (![self isPlaying])
@@ -135,18 +133,6 @@
 //    DebugLog(@"playbackStateDidChangeNotification isplaying:%hhd",  [self isPlaying]);
 }
 
-//-------------
-// Message Tone
-//-------------
-- (void)playNewMessageToneIfNecessary{
-    if (_gridElement.friend == nil)
-        return;
-    
-    if (_gridElement.friend.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
-        _gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED) {
-        [_messageTone play];
-    }
-}
 
 //-------------
 // Control view

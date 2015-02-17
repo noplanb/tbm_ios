@@ -462,5 +462,9 @@ static const float LayoutConstASPECT = 0.75;
     self.recordingLabel.text = @"Recording";
 }
 
+- (BOOL)isRecording{
+    return [self.videoRecorder isRecording];
+}
+
 
 @end

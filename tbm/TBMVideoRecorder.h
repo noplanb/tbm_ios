@@ -28,4 +28,6 @@
 - (void)stopRecording;
 - (BOOL)cancelRecording;
 - (void)dispose;
+
+- (BOOL)isRecording;
 @end

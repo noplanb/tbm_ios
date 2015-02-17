@@ -14,6 +14,7 @@
 #import "TBMVideo.h"
 #import "TBMMarginLabel.h"
 #import "TBMAlertController.h"
+#import "TBMSoundEffect.h"
 
 @interface TBMGridElementViewController()
 @property NSInteger index;
@@ -32,6 +33,8 @@
 @property UIView *uploadingBar;
 @property UIView *downloadingBar;
 
+@property (nonatomic) TBMSoundEffect *messageDing;
+
 @property TBMVideoPlayer *videoPlayer;
 @property BOOL isPlaying;
 @end
@@ -44,6 +47,7 @@
         _index = index;
         _videoPlayer = [TBMVideoPlayer sharedInstance];
         _gridElement = [TBMGridElement findWithIntIndex:index];
+        _messageDing = [[TBMSoundEffect alloc] initWithSoundNamed:@"BeepSin.wav"];
     }
     return self;
 }
@@ -416,9 +420,16 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
         self.downloadingBar.frame = barEndFrame;
     } completion:^(BOOL finished) {
         [self performSelector:@selector(updateView:) withObject:nil afterDelay:0.2];
+        [self performSelector:@selector(playDing) withObject:nil afterDelay:0.2];
     }];
 }
 
+
+// Sound actions
+- (void) playDing{
+    if (![[TBMVideoPlayer sharedInstance] isPlaying] && ![(TBMGridViewController *)[self parentViewController] isRecording])
+        [self.messageDing play];
+}
 
 // Name Label
 - (void)updateNameLabel{

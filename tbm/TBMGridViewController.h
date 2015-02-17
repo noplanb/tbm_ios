@@ -18,4 +18,5 @@
 - (NSMutableArray *)friendsOnBench;
 - (void)moveFriendToGrid:(TBMFriend *)friend;
 - (void)rankingActionOccurred:(TBMFriend *)friend;
+- (BOOL)isRecording;
 @end
