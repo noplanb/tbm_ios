@@ -209,7 +209,8 @@
 - (void)debugGetUser{
     [_registerForm startWaitingForServer];
     [[TBMHttpManager manager] GET:@"reg/debug_get_user"
-                        parameters:@{@"mobile_number": self.registerForm.mobileNumber.text}
+                        parameters:@{@"mobile_number": self.registerForm.mobileNumber.text,
+                                     @"country_code": self.registerForm.countryCode.text}
                            success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                [_registerForm stopWaitingForServer];
                                [self didReceiveCodeResponse:responseObject];
@@ -228,7 +229,7 @@
     [self getFriends];
 }
 
-//------------
+//------------user
 // Got friends
 //------------
 - (void) getFriends{
