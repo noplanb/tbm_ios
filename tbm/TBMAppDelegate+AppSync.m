@@ -374,9 +374,9 @@
 //
 
 - (void) handleStuckDownloadsWithCompletionHandler:(void (^)())handler{
-    NSArray *allObInfo = [[self fileTransferManager] currentState];
     [[self fileTransferManager] currentTransferStateWithCompletionHandler:^(NSArray *allTransferInfo){
         OB_INFO(@"handleStuckDownloads: (%lu)", (unsigned long)[TBMVideo downloadingCount]);
+        NSArray *allObInfo = [[self fileTransferManager] currentState];
         for(TBMVideo *video in [TBMVideo downloading]){
             NSDictionary *obInfo = [self infoWithVideo:video isUpload:NO allInfo:allObInfo];
             NSDictionary *transferInfo = [self infoWithVideo:video isUpload:NO allInfo:allTransferInfo];

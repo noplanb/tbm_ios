@@ -33,6 +33,10 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+    [OBLogger instance].writeToConsole = YES;
+    if ([[OBLogger instance] logLines].count > 1000)
+        [[OBLogger instance] reset];
+
     OB_INFO(@"didFinishLaunchingWithOptions:");
     [self boot];
 
