@@ -108,6 +108,12 @@ static float BENCH_CELL_HEIGHT = 56.0;
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil]
      setDefaultTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],
                                 NSFontAttributeName: [UIFont fontWithName:@"Helvetica-Light" size:16]}];
+    
+    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil]
+     setTintColor:[UIColor whiteColor]];
+    
+    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil]
+     setTextColor:[UIColor whiteColor]];
 
     UISearchBar *sb = [[UISearchBar alloc] initWithFrame:[self searchBarRect]];
     sb.placeholder = @"";
