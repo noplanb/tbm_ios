@@ -1,33 +1,33 @@
 PODS:
-  - AFNetworking (2.5.0):
-    - AFNetworking/NSURLConnection (= 2.5.0)
-    - AFNetworking/NSURLSession (= 2.5.0)
-    - AFNetworking/Reachability (= 2.5.0)
-    - AFNetworking/Security (= 2.5.0)
-    - AFNetworking/Serialization (= 2.5.0)
-    - AFNetworking/UIKit (= 2.5.0)
-  - AFNetworking/NSURLConnection (2.5.0):
+  - AFNetworking (2.5.1):
+    - AFNetworking/NSURLConnection (= 2.5.1)
+    - AFNetworking/NSURLSession (= 2.5.1)
+    - AFNetworking/Reachability (= 2.5.1)
+    - AFNetworking/Security (= 2.5.1)
+    - AFNetworking/Serialization (= 2.5.1)
+    - AFNetworking/UIKit (= 2.5.1)
+  - AFNetworking/NSURLConnection (2.5.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.5.0):
+  - AFNetworking/NSURLSession (2.5.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.5.0)
-  - AFNetworking/Security (2.5.0)
-  - AFNetworking/Serialization (2.5.0)
-  - AFNetworking/UIKit (2.5.0):
+  - AFNetworking/Reachability (2.5.1)
+  - AFNetworking/Security (2.5.1)
+  - AFNetworking/Serialization (2.5.1)
+  - AFNetworking/UIKit (2.5.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - HexColors (2.2.1)
   - iToast (0.0.1)
-  - libPhoneNumber-iOS (0.7.5)
-  - OBFileTransfer (0.5.5):
+  - libPhoneNumber-iOS (0.8.2)
+  - OBFileTransfer (0.5.7):
     - OBLogger
   - OBLogger (0.2.0)
   - RBBAnimation (0.3.0)
-  - SDCAlertView (2.1.1):
+  - SDCAlertView (2.2):
     - RBBAnimation (~> 0.3)
     - SDCAutoLayout (~> 2.0)
   - SDCAutoLayout (2.0.2)
@@ -45,14 +45,14 @@ DEPENDENCIES:
   - UIAlertView+Blocks
 
 SPEC CHECKSUMS:
-  AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
+  AFNetworking: 8bee59492a6ff15d69130efa4d0dc67e0094a52a
   HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
   iToast: 4de112d3dd42a3a8bf685572e6cda723c9cbc4f2
-  libPhoneNumber-iOS: 16b9556d7fdf4819eabeb7b7356fea3373fa47f9
-  OBFileTransfer: 146f539d7e92651b6ad27c1d5571669d7f2983b6
+  libPhoneNumber-iOS: 2b5a6aeb7fd720ae856f133aea9937336bd47819
+  OBFileTransfer: 67593dbd9bc079e329e1241a8c44881e5e0eb7d9
   OBLogger: 04f68b73a619f4444d5f7d7c7ff9bc3f05c619ae
   RBBAnimation: 243d73be1a526f1b51d266b182e4aa0cfe9cbf64
-  SDCAlertView: 542179519acac38917e178013e663cdbf4591475
+  SDCAlertView: 8a06ba35a11aeb07915ce186f29b3d42b4a10176
   SDCAutoLayout: 4a963629725ed2b7d665e789ca4d6cfcd7446822
   UIAlertView+Blocks: 0b749f1f7bd5131ff2233b30a406c1585a7171b2
 

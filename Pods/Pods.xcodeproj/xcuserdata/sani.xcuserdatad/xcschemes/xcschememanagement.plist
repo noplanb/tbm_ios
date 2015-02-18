@@ -8,8 +8,6 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 		<key>Pods-HexColors.xcscheme</key>
 		<dict>
@@ -20,15 +18,11 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 		<key>Pods-OBLogger.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
 		<key>Pods-RBBAnimation.xcscheme</key>
 		<dict>
@@ -64,67 +58,9 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>1E3E4225D99124787DF8F652</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>2FC9312EC8CE58521A699BF6</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>384AC8590B6904C76457BEE8</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3A61B11A7D0B04903297601F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6F1F4AB4D2CB53FEB6AA5798</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>92B2B9C1EBCD7D73A26852CB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B2BC4BF5DB80D6F72867D430</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B3F27E146EEDDC1B07C27B3A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B8423D4DDE1332A565AD72E4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CE971891F77F10324E472100</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DC16B95AE60AE66AA48B6650</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-	</dict>
+	<dict/>
 </dict>
 </plist>
