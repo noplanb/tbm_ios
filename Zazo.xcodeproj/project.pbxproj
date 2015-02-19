@@ -89,6 +89,7 @@
 		226A26031A584AD6006FDFDA /* TBMKeyChainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 226A26021A584AD6006FDFDA /* TBMKeyChainWrapper.m */; };
 		226A37C11A37E08900A2D0F5 /* TBMGridElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 226A37C01A37E08900A2D0F5 /* TBMGridElementViewController.m */; };
 		227155611A40902B00B437DA /* TBMBenchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 227155601A40902B00B437DA /* TBMBenchViewController.m */; };
+		227767A41A963FE90093EFB1 /* StringUtilsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 227767A31A963FE90093EFB1 /* StringUtilsTest.m */; };
 		227F6CF61A15313700E19E5C /* TBMRegisterForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 227F6CF51A15313700E19E5C /* TBMRegisterForm.m */; };
 		2287DB4B1922BB5D00B1C298 /* TBMAppDelegate+PushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 2287DB4A1922BB5D00B1C298 /* TBMAppDelegate+PushNotification.m */; };
 		22A094E71A16C6B4009AB958 /* TBMSelectPhoneTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A094E61A16C6B4009AB958 /* TBMSelectPhoneTableDelegate.m */; };
@@ -243,6 +244,7 @@
 		226A37C01A37E08900A2D0F5 /* TBMGridElementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMGridElementViewController.m; sourceTree = "<group>"; };
 		2271555F1A40902B00B437DA /* TBMBenchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMBenchViewController.h; sourceTree = "<group>"; };
 		227155601A40902B00B437DA /* TBMBenchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMBenchViewController.m; sourceTree = "<group>"; };
+		227767A31A963FE90093EFB1 /* StringUtilsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringUtilsTest.m; sourceTree = "<group>"; };
 		227F6CF41A15313700E19E5C /* TBMRegisterForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMRegisterForm.h; sourceTree = "<group>"; };
 		227F6CF51A15313700E19E5C /* TBMRegisterForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMRegisterForm.m; sourceTree = "<group>"; };
 		2287DB491922BB5D00B1C298 /* TBMAppDelegate+PushNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMAppDelegate+PushNotification.h"; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 				220E904E1909A18C003C4F82 /* Supporting Files */,
 				225D21C31A5B7A060087A25B /* S3CredentialsManagerTests.m */,
 				22151E891A5CF4B2008EF88E /* TBMDispatchTests.m */,
+				227767A31A963FE90093EFB1 /* StringUtilsTest.m */,
 			);
 			path = tbmTests;
 			sourceTree = "<group>";
@@ -888,6 +891,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				227767A41A963FE90093EFB1 /* StringUtilsTest.m in Sources */,
 				225D21C41A5B7A060087A25B /* S3CredentialsManagerTests.m in Sources */,
 				22151E8A1A5CF4B2008EF88E /* TBMDispatchTests.m in Sources */,
 				220E90541909A18C003C4F82 /* KeyChainWrapperTests.m in Sources */,
@@ -1048,7 +1052,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7716E91C15B9FF656396DC61 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/zazo.app/zazo";
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1062,7 +1066,7 @@
 				);
 				INFOPLIST_FILE = "tbmTests/ZazoTests-Info.plist";
 				PRODUCT_NAME = ZazoTests;
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -1071,7 +1075,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7716E91C15B9FF656396DC61 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/zazo.app/zazo";
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1081,7 +1085,7 @@
 				GCC_PREFIX_HEADER = "tbm/Zazo-Prefix.pch";
 				INFOPLIST_FILE = "tbmTests/ZazoTests-Info.plist";
 				PRODUCT_NAME = ZazoTests;
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;

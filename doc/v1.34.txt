@@ -601,6 +601,22 @@ TEST NEW ARCHITECTURE
   x Point to local server
 	  x receive multiple videos with wifi on and server broken
 	  x receive multiple videos with  wifi on and server broken kill app while retrying
+      
+
+PROBLEM:
+--------
+BUG found 2/20/2015
+Terminate app
+Send message
+
+LaunchWithOptions -> handleVideoReceived -> Queue -> processing for 3638 ->
+didReceiveRemoteNotificaton -> Queue -> Ingnoring same
+handleStuckDownloads(1) -> restart 3638 -> tries to kill task. 
+Task gets to 100% complete before being killed. 
+New task gets added. 
+When second task completes we get a crash in ftm
+
+Ignoring for now.
   
   
 

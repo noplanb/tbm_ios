@@ -242,7 +242,7 @@
 // Request Background
 //-------------------
 -(void) requestBackground{
-    OB_INFO(@"AppDelegate: equestBackground: called:");
+    OB_INFO(@"AppDelegate: requestBackground: called:");
     if ( self.backgroundTaskId == UIBackgroundTaskInvalid ) {
         OB_INFO(@"AppDelegate: requestBackground: requesting background.");
         self.backgroundTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
