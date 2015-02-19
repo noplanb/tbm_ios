@@ -253,13 +253,21 @@
             // even after the backgroundTimeRemaining has long gone to 0. This is good for our users as it allows us
             // to continue retries in the background for a long time in the case of poor coverage.
             
-            // See above for why this line is commented out.
-//            [[UIApplication sharedApplication] endBackgroundTask: self.backgroundTaskId];
+            // Actually on iphone4s 7.0 I encountered this:
+            // Feb 18 20:34:28 Sanis-iPhone backboardd[28] <Warning>: Zazo[272] has active assertions beyond permitted time:
+            //            {(
+            //              <BKProcessAssertion: 0x15ebf2a0> identifier: Called by Zazo, from -[TBMAppDelegate requestBackground] process: Zazo[272] permittedBackgroundDuration: 40.000000 reason: finishTaskAfterBackgroundContentFetching owner pid:272 preventSuspend  preventIdleSleep  preventSuspendOnSleep
+            //              )}
+            //            Feb 18 20:34:28 Sanis-iPhone backboardd[28] <Warning>: Forcing crash report of Zazo[272]...
+            
+        
+            // So as of 2/19/2005 I have uncommented the line below.
+            [[UIApplication sharedApplication] endBackgroundTask: self.backgroundTaskId];
             [self saveContext];
             self.backgroundTaskId = UIBackgroundTaskInvalid;
         }];
     }
-    OB_INFO(@"AppDelegate: RequestBackground: exiting: refresh status = %ld, time Remaining = %f", [UIApplication sharedApplication].backgroundRefreshStatus, [UIApplication sharedApplication].backgroundTimeRemaining);
+    OB_INFO(@"AppDelegate: RequestBackground: exiting: refresh status = %d, time Remaining = %f", [UIApplication sharedApplication].backgroundRefreshStatus, [UIApplication sharedApplication].backgroundTimeRemaining);
 }
 
 
