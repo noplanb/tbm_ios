@@ -185,7 +185,7 @@
 
 - (void) pollVideosWithFriend:(TBMFriend *)friend{
     [TBMRemoteStorageHandler getRemoteIncomingVideoIdsWithFriend:friend gotVideoIds:^(NSArray *videoIds) {
-        DebugLog(@"pollWithFriend: %@  vids = %@", friend.firstName, videoIds);
+        OB_INFO(@"pollWithFriend: %@  vids = %@", friend.firstName, videoIds);
         for (NSString *videoId in videoIds){
 //            Removed because IOS sends the vidoes out in parallel a later short one may arrive before an earlier long one.
 //            if ([TBMVideoIdUtils isvid1:videoId olderThanVid2:[friend oldestIncomingVideoId]]) {

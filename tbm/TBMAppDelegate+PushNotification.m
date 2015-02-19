@@ -51,7 +51,7 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings{
     UIUserNotificationType allowedTypes = [notificationSettings types];
-    OB_INFO(@"didRegisterUserNotificationSettings: allowedTypes = %lu", allowedTypes);
+    OB_INFO(@"didRegisterUserNotificationSettings: allowedTypes = %u", allowedTypes);
     [[UIApplication sharedApplication] registerForRemoteNotifications];
 }
 
