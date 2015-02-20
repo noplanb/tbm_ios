@@ -27,13 +27,15 @@
 
 static const float TBMRegisterLogoTopMargin = 106.0;
 static const float TBMRegisterFieldsTopMargin = 60.0;
+static const float TBMRegisterFieldsVerticalMargin = 7.0;
+static const float TBMRegisterCountryCodeRightMargin = 8.0;
 static const float TBMRegisterSubmitTopMargin = 60.0;
 static const float TBMRegisterSpinnerTopMargin = 10.0;
 
-static const float TBMRegisterTextFieldHeight = 36.0;
-static const float TBMRegisterTextFieldFontSize = 18.0;
-static const float TBMRegisterTextFieldLargeWidth = 251.0;
-
+static const float TBMRegisterTextFieldHeight = 38.0;
+static const float TBMRegisterTextFieldFontSize = 21.0;
+static const float TBMRegisterTextFieldMaxWidth = 360.0;
+static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
 
 @implementation TBMRegisterForm
 
@@ -137,11 +139,16 @@ static const float TBMRegisterTextFieldLargeWidth = 251.0;
     [self.contentView addSubview:self.title];
 }
 
+- (float)textFieldLargeWidth {
+    float width = self.contentView.frame.size.width - (2 * self.contentView.frame.size.width * TBMRegisterTextFieldWidthMultiplier);
+    return (width < TBMRegisterTextFieldMaxWidth ? width : TBMRegisterTextFieldMaxWidth);
+}
+
 - (void)addFirstName{
     CGRect f;
-    f.origin.x = (self.topView.frame.size.width - TBMRegisterTextFieldLargeWidth) / 2.0;
+    f.origin.x = (self.topView.frame.size.width - [self textFieldLargeWidth]) / 2.0;
     f.origin.y = self.title.frame.origin.y + self.title.frame.size.height + TBMRegisterFieldsTopMargin;
-    f.size.width = TBMRegisterTextFieldLargeWidth;
+    f.size.width = [self textFieldLargeWidth];
     f.size.height = TBMRegisterTextFieldHeight;
     
     self.firstName = [[TBMTextField alloc] initWithFrame:f];
@@ -153,10 +160,10 @@ static const float TBMRegisterTextFieldLargeWidth = 251.0;
 
 - (void)addLastName{
     CGRect f;
-    f.origin.x = (self.topView.frame.size.width - TBMRegisterTextFieldLargeWidth) / 2.0;
-    f.origin.y = self.firstName.frame.origin.y + self.firstName.frame.size.height + 4.0;
+    f.origin.x = (self.topView.frame.size.width - [self textFieldLargeWidth]) / 2.0;
+    f.origin.y = self.firstName.frame.origin.y + self.firstName.frame.size.height + TBMRegisterFieldsVerticalMargin;
     f.size.height = TBMRegisterTextFieldHeight;
-    f.size.width = TBMRegisterTextFieldLargeWidth;
+    f.size.width = [self textFieldLargeWidth];
     
     self.lastName = [[TBMTextField alloc] initWithFrame:f];
     self.lastName.placeholder = @"Last Name";
@@ -183,7 +190,7 @@ static const float TBMRegisterTextFieldLargeWidth = 251.0;
 - (void)addCountryCode{
     CGRect f;
     f.origin.x = self.firstName.frame.origin.x;
-    f.origin.y = self.lastName.frame.origin.y + self.lastName.frame.size.height + 4.0;
+    f.origin.y = self.lastName.frame.origin.y + self.lastName.frame.size.height + TBMRegisterFieldsVerticalMargin;
     f.size.width = 60.0;
     f.size.height = TBMRegisterTextFieldHeight;
     
@@ -199,7 +206,7 @@ static const float TBMRegisterTextFieldLargeWidth = 251.0;
 - (void)addCountryCodeLabel{
     CGRect f;
     f.origin.x = self.countryCode.frame.origin.x;
-    f.origin.y = self.plus.frame.origin.y + self.plus.frame.size.height + 5.0;
+    f.origin.y = self.plus.frame.origin.y + self.plus.frame.size.height + 7.0;
     f.size.width = self.countryCode.frame.size.width;
     f.size.height = 10.0;
     
@@ -213,9 +220,9 @@ static const float TBMRegisterTextFieldLargeWidth = 251.0;
 
 - (void)addMobileNumber{
     CGRect f;
-    f.origin.x = self.countryCode.frame.origin.x + self.countryCode.frame.size.width + 4.0;
+    f.origin.x = self.countryCode.frame.origin.x + self.countryCode.frame.size.width + TBMRegisterCountryCodeRightMargin;
     f.origin.y = self.countryCode.frame.origin.y;
-    f.size.width = TBMRegisterTextFieldLargeWidth - self.countryCode.frame.size.width - 4.0;
+    f.size.width = [self textFieldLargeWidth] - self.countryCode.frame.size.width - TBMRegisterCountryCodeRightMargin;
     f.size.height = TBMRegisterTextFieldHeight;
     
     self.mobileNumber = [[TBMTextField alloc] initWithFrame:f];
