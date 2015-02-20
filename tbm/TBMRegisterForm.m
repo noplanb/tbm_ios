@@ -101,7 +101,6 @@ static const float TBMRegisterTextFieldLargeWidth = 251.0;
     [self addScrollView];
     [self addContentView];
     [self addTitle];
-    [self addFieldsBG];
     [self addFirstName];
     [self addLastName];
     [self addPlus];
@@ -138,18 +137,6 @@ static const float TBMRegisterTextFieldLargeWidth = 251.0;
     [self.contentView addSubview:self.title];
 }
 
-- (void)addFieldsBG {
-    CGRect f;
-    f.origin.x = (self.topView.frame.size.width - TBMRegisterTextFieldLargeWidth) / 2.0;
-    f.origin.y = self.title.frame.origin.y + self.title.frame.size.height + TBMRegisterFieldsTopMargin;
-    f.size.width = TBMRegisterTextFieldLargeWidth;
-    f.size.height = 118.0;
-    
-    UIImageView *fieldsBG = [[UIImageView alloc] initWithFrame:f];
-    fieldsBG.image = [UIImage imageNamed:@"contact_input"];
-    [self.contentView addSubview:fieldsBG];
-}
-
 - (void)addFirstName{
     CGRect f;
     f.origin.x = (self.topView.frame.size.width - TBMRegisterTextFieldLargeWidth) / 2.0;
@@ -181,7 +168,7 @@ static const float TBMRegisterTextFieldLargeWidth = 251.0;
 - (void)addPlus{
     CGRect f;
     f.origin.x = self.firstName.frame.origin.x;
-    f.origin.y = self.lastName.frame.origin.y + self.lastName.frame.size.height + 4.0;
+    f.origin.y = self.lastName.frame.origin.y + self.lastName.frame.size.height + 2.0;
     f.size.width = 19.0;
     f.size.height = TBMRegisterTextFieldHeight;
     
@@ -195,22 +182,25 @@ static const float TBMRegisterTextFieldLargeWidth = 251.0;
 
 - (void)addCountryCode{
     CGRect f;
-    f.origin.x = self.plus.frame.origin.x + self.plus.frame.size.width - 10.0;
-    f.origin.y = self.plus.frame.origin.y + 2.0;
-    f.size.width = 50.0;
+    f.origin.x = self.firstName.frame.origin.x;
+    f.origin.y = self.lastName.frame.origin.y + self.lastName.frame.size.height + 4.0;
+    f.size.width = 60.0;
     f.size.height = TBMRegisterTextFieldHeight;
     
     self.countryCode = [[TBMTextField alloc] initWithFrame:f];
     [self.countryCode setKeyboardType:UIKeyboardTypeNumberPad];
     [self setCommonAttributesForTextField:self.countryCode];
     [self.contentView addSubview:self.countryCode];
+    
+    UIView *spacerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 18, 10)];
+    [self.countryCode setLeftView:spacerView];
 }
 
 - (void)addCountryCodeLabel{
     CGRect f;
-    f.origin.x = self.plus.frame.origin.x - 5.0;
+    f.origin.x = self.countryCode.frame.origin.x;
     f.origin.y = self.plus.frame.origin.y + self.plus.frame.size.height + 5.0;
-    f.size.width = self.plus.frame.size.width + self.countryCode.frame.size.width;
+    f.size.width = self.countryCode.frame.size.width;
     f.size.height = 10.0;
     
     UILabel *cclbl = [[UILabel alloc] initWithFrame:f];
@@ -223,9 +213,9 @@ static const float TBMRegisterTextFieldLargeWidth = 251.0;
 
 - (void)addMobileNumber{
     CGRect f;
-    f.origin.x = self.countryCode.frame.origin.x + self.countryCode.frame.size.width + 8.0;
+    f.origin.x = self.countryCode.frame.origin.x + self.countryCode.frame.size.width + 4.0;
     f.origin.y = self.countryCode.frame.origin.y;
-    f.size.width = TBMRegisterTextFieldLargeWidth - self.countryCode.frame.size.width - self.plus.frame.size.width - 2.0;
+    f.size.width = TBMRegisterTextFieldLargeWidth - self.countryCode.frame.size.width - 4.0;
     f.size.height = TBMRegisterTextFieldHeight;
     
     self.mobileNumber = [[TBMTextField alloc] initWithFrame:f];
