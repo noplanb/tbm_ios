@@ -144,6 +144,7 @@
 
 // Convenience getters
 + (void) getRemoteIncomingVideoIdsWithFriend:(TBMFriend *)friend gotVideoIds:(void(^)(NSArray *videoIds))gotVideoIds{
+    OB_INFO(@"getRemoteIncomingVideoIdsWithFriend:");
     NSString *key1 = [TBMRemoteStorageHandler incomingVideoIDRemoteKVKey:friend];
     [TBMRemoteStorageHandler getRemoteKVsWithKey:key1 success:^(NSArray *response) {
         NSArray *vIds = [TBMRemoteStorageHandler getVideoIdsWithResponseObjects:response];

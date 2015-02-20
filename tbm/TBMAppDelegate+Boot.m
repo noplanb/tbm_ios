@@ -19,18 +19,14 @@
 
 - (void) boot{
     OB_INFO(@"Boot");
-    
-    [OBLogger instance].writeToConsole = YES;
-    if ([[OBLogger instance] logLines].count > 1000)
-        [[OBLogger instance] reset];
-    
+
     [TBMDispatch enable];
     
     if (![TBMUser getUser].isRegistered){
         self.window.rootViewController = [self registerViewController];
     } else {
         self.window.rootViewController = [self homeViewController];
-        [self didCompleteRegistration];
+        [self postRegistrationBoot];
     }
 }
 
@@ -48,6 +44,8 @@
 }
 
 - (void)performDidBecomeActiveActions{
+    OB_INFO(@"performDidBecomeActiveActions: registered: %d", [TBMUser getUser].isRegistered);
+
     if (![TBMUser getUser].isRegistered)
         return;
     

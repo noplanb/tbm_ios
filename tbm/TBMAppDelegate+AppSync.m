@@ -185,7 +185,7 @@
 
 - (void) pollVideosWithFriend:(TBMFriend *)friend{
     [TBMRemoteStorageHandler getRemoteIncomingVideoIdsWithFriend:friend gotVideoIds:^(NSArray *videoIds) {
-        DebugLog(@"pollWithFriend: %@  vids = %@", friend.firstName, videoIds);
+        OB_INFO(@"pollWithFriend: %@  vids = %@", friend.firstName, videoIds);
         for (NSString *videoId in videoIds){
 //            Removed because IOS sends the vidoes out in parallel a later short one may arrive before an earlier long one.
 //            if ([TBMVideoIdUtils isvid1:videoId olderThanVid2:[friend oldestIncomingVideoId]]) {
@@ -374,9 +374,9 @@
 //
 
 - (void) handleStuckDownloadsWithCompletionHandler:(void (^)())handler{
-    NSArray *allObInfo = [[self fileTransferManager] currentState];
     [[self fileTransferManager] currentTransferStateWithCompletionHandler:^(NSArray *allTransferInfo){
         OB_INFO(@"handleStuckDownloads: (%lu)", (unsigned long)[TBMVideo downloadingCount]);
+        NSArray *allObInfo = [[self fileTransferManager] currentState];
         for(TBMVideo *video in [TBMVideo downloading]){
             NSDictionary *obInfo = [self infoWithVideo:video isUpload:NO allInfo:allObInfo];
             NSDictionary *transferInfo = [self infoWithVideo:video isUpload:NO allInfo:allTransferInfo];
