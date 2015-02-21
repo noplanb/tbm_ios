@@ -52,6 +52,15 @@
     return self;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self addProximitySensorControlObserver];
+}
+
+- (void)viewDidUnload {
+    [super viewDidUnload];
+    [self removeProximityControlObserver];
+}
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -59,6 +68,7 @@
     [self registerForEvents];
     [self updateView:NO];
 }
+
 
 //--------------------------------
 // Event Registration and handling
@@ -80,14 +90,52 @@
 
 - (void)videoPlayerStartedIndex:(NSInteger)index{
     if (index == self.index){
+        // Default back to no override, and enable proximity monitoring
+        UIDevice *device = [UIDevice currentDevice];
+        device.proximityMonitoringEnabled = YES;
+        if (device.proximityMonitoringEnabled) {
+            if (!device.proximityState) {
+                [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:nil];
+            }
+        }
+
         self.isPlaying = YES;
         [self updateView:NO];
+        
     }
 }
 
 - (void)videoPlayerStopped{
+    // Stop proximity monitoring
+    UIDevice *device = [UIDevice currentDevice];
+    device.proximityMonitoringEnabled = NO;
+
     self.isPlaying = NO;
     [self  updateView:NO];
+}
+
+
+//------------------
+// Proximity change handling
+//------------------
+-(void)addProximitySensorControlObserver {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(deviceProximityChanged:)
+                                                 name:UIDeviceProximityStateDidChangeNotification
+                                               object:nil];
+}
+
+- (void)removeProximityControlObserver {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceProximityStateDidChangeNotification object:nil];
+}
+
+- (void)deviceProximityChanged:(NSNotification *)notification {
+    UIDevice *device = [notification object];
+    if (device.proximityState) {
+        [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
+    } else {
+        [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:nil];
+    }
 }
 
 
