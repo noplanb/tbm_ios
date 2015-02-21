@@ -32,6 +32,7 @@ typedef NS_ENUM (NSInteger, TBMOutgoingVideoStatus) {
 
 
 typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
+    UNKNOWN_VIDEO_STATUS_EVENT_TYPE,
     INCOMING_VIDEO_STATUS_EVENT_TYPE,
     OUTGOING_VIDEO_STATUS_EVENT_TYPE
 };

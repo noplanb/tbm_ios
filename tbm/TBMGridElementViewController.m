@@ -15,6 +15,7 @@
 #import "TBMMarginLabel.h"
 #import "TBMAlertController.h"
 #import "TBMSoundEffect.h"
+#import "OBLogger.h"
 
 @interface TBMGridElementViewController()
 @property NSInteger index;
@@ -57,7 +58,7 @@
     [super viewWillAppear:animated];
     [self buildView];
     [self registerForEvents];
-    [self updateView:NO];
+    [self updateView];
 }
 
 //--------------------------------
@@ -70,24 +71,24 @@
 
 - (void)videoStatusDidChange:(TBMFriend *)friend{
     if ([[self gridElement].friend isEqual:friend])
-        [self updateView:YES];
+        [self animateTransitions];
 }
 
 - (void)gridDidChange:(NSInteger)index{
     if (index == self.index)
-        [self performSelectorOnMainThread:@selector(updateView:) withObject:NO waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(updateView) withObject:nil waitUntilDone:NO];
 }
 
 - (void)videoPlayerStartedIndex:(NSInteger)index{
     if (index == self.index){
         self.isPlaying = YES;
-        [self updateView:NO];
+        [self updateView];
     }
 }
 
 - (void)videoPlayerStopped{
     self.isPlaying = NO;
-    [self  updateView:NO];
+    [self  updateView];
 }
 
 
@@ -378,6 +379,8 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 
 // Animations
 - (void)animateUploading{
+    [self hideAllIcons];
+    [self hideUnviewed];
     CGRect startFrame = self.uploadingIndicator.frame;
     startFrame.origin.x = 0;
     self.uploadingIndicator.frame = startFrame;
@@ -396,10 +399,13 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
         self.uploadingBar.frame = barEndFrame;
     } completion:^(BOOL finished) {
         [self performSelector:@selector(hideUploadBar) withObject:nil afterDelay:0.2];
+        [self performSelector:@selector(updateView) withObject:nil afterDelay:0.4];
     }];
 }
 
 - (void)animateDownloading{
+    [self hideAllIcons];
+    [self hideUnviewed];
     CGRect startFrame = self.downloadingIndicator.frame;
     startFrame.origin.x = self.view.frame.size.width - self.downloadingIndicator.frame.size.width;
     self.downloadingIndicator.frame = startFrame;
@@ -419,8 +425,8 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
         self.downloadingIndicator.frame = endFrame;
         self.downloadingBar.frame = barEndFrame;
     } completion:^(BOOL finished) {
-        [self performSelector:@selector(updateView:) withObject:nil afterDelay:0.2];
-        [self performSelector:@selector(playDing) withObject:nil afterDelay:0.2];
+        [self performSelector:@selector(updateView) withObject:nil afterDelay:0.2];
+        [self performSelector:@selector(playDing) withObject:nil afterDelay:0.4];
     }];
 }
 
@@ -500,7 +506,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 //------------
 // Update View
 //------------
-- (void)updateView:(BOOL)isVideoStatusTransition{    
+- (void)updateView{
     if (self.isPlaying){
         [self hideAll];
         return;
@@ -527,40 +533,19 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
         [self showThumb];
     }
     
-    if ([self.gridElement.friend incomingVideoNotViewed] && ![self isDownloadingOrDownloaded]){
+    if ([self.gridElement.friend incomingVideoNotViewed]){
         [self showUnviewed];
         return;
     }
     
-    [self hideAllIcons];
-    
     if (self.gridElement.friend.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE){
-        switch (self.gridElement.friend.lastIncomingVideoStatus) {
-            case INCOMING_VIDEO_STATUS_DOWNLOADING:
-                [self showDownload];
-                return;
-                
-            case INCOMING_VIDEO_STATUS_DOWNLOADED:
-                if (isVideoStatusTransition){
-                    [self animateDownloading];
-                } else {
-                    [self showUnviewed];
-                }
-                return;
-                
-            case INCOMING_VIDEO_STATUS_NEW:
-            case INCOMING_VIDEO_STATUS_VIEWED:
-            case INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY:
-            default:
-                return;
+        if (self.gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING){
+            [self showDownload];
         }
     }
     
     if (self.gridElement.friend.lastVideoStatusEventType == OUTGOING_VIDEO_STATUS_EVENT_TYPE){
         switch (self.gridElement.friend.outgoingVideoStatus) {
-            case OUTGOING_VIDEO_STATUS_NEW:
-                [self animateUploading];
-                return;
                 
             case OUTGOING_VIDEO_STATUS_QUEUED:
             case OUTGOING_VIDEO_STATUS_UPLOADING:
@@ -573,19 +558,59 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
                 [self showViewed];
                 return;
                 
+            case OUTGOING_VIDEO_STATUS_NEW:
             case OUTGOING_VIDEO_STATUS_NONE:
             case OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY:
-
+                
             default:
                 return;
         }
     }
+
+}
+
+- (void)animateTransitions{
+    if (self.gridElement.friend.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE){
+        if (self.gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED){
+            [self animateDownloading];
+            return;
+        }
+    }
+    
+    if (self.gridElement.friend.lastVideoStatusEventType == OUTGOING_VIDEO_STATUS_EVENT_TYPE){
+        switch (self.gridElement.friend.outgoingVideoStatus) {
+            case OUTGOING_VIDEO_STATUS_NEW:
+                [self animateUploading];
+                return;
+            
+            // Dont update the view for these.
+            case OUTGOING_VIDEO_STATUS_QUEUED:
+            case OUTGOING_VIDEO_STATUS_UPLOADING:
+            case OUTGOING_VIDEO_STATUS_UPLOADED:
+            case OUTGOING_VIDEO_STATUS_DOWNLOADED:
+                return;
+            
+            // Update the view for these
+            case OUTGOING_VIDEO_STATUS_NONE:
+            case OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY:
+            case OUTGOING_VIDEO_STATUS_VIEWED:
+            default:;
+        }
+    }
+    [self updateView];
 }
 
 - (BOOL)isDownloadingOrDownloaded{
     return self.gridElement.friend.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
             ( self.gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED  ||
               self.gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING );
+}
+
+- (BOOL)isUploading{
+    return self.gridElement.friend.lastVideoStatusEventType == OUTGOING_VIDEO_STATUS_EVENT_TYPE &&
+            (self.gridElement.friend.outgoingVideoStatus == OUTGOING_VIDEO_STATUS_NEW ||
+             self.gridElement.friend.outgoingVideoStatus == OUTGOING_VIDEO_STATUS_QUEUED ||
+             self.gridElement.friend.outgoingVideoStatus == OUTGOING_VIDEO_STATUS_UPLOADING);
 }
 
 
