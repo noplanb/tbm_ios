@@ -266,7 +266,6 @@ static NSMutableArray * videoStatusNotificationDelegates;
 
 - (BOOL) hasRetryingDownload{
     for (TBMVideo *v in [self incomingVideos]) {
-        DebugLog(@"********** retryCount=%@", v.downloadRetryCount);
         if ([v.downloadRetryCount intValue] > 0)
             return YES;
     }
@@ -346,7 +345,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
 
 - (void)printVideos{
     for (TBMVideo *v in [self sortedIncomingVideos]) {
-        DebugLog(@"Video id:%@ status:%ld file_exists:%d", v.videoId, v.status, [v videoFileExists]);
+        DebugLog(@"Video id:%@ status:%d file_exists:%d", v.videoId, v.status, [v videoFileExists]);
     }
 
 }
@@ -507,7 +506,15 @@ static NSMutableArray * videoStatusNotificationDelegates;
     
     video.status = status;
     self.lastIncomingVideoStatus = status;
-    self.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
+    
+    // This is a bit subtle. We don't want an action by this user of viewing his incoming video to count
+    // as cause a change in lastVideoStatusEventType. That way if the last action by the user was sending a
+    // video (recording on a person with unviewed indicator showing) then later viewed the incoming videos
+    // he gets to see the status of the last outgoing video he sent after play is complete and the unviewed count
+    // indicator goes away.
+    if (status != INCOMING_VIDEO_STATUS_VIEWED)
+        self.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
+    
     [self notifyVideoStatusChangeOnMainThread];
 }
 

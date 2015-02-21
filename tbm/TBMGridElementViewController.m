@@ -82,13 +82,13 @@
 - (void)videoPlayerStartedIndex:(NSInteger)index{
     if (index == self.index){
         self.isPlaying = YES;
-        [self updateView];
+        [self performSelectorOnMainThread:@selector(updateView) withObject:nil waitUntilDone:NO];
     }
 }
 
 - (void)videoPlayerStopped{
     self.isPlaying = NO;
-    [self  updateView];
+    [self performSelectorOnMainThread:@selector(updateView) withObject:nil waitUntilDone:NO];
 }
 
 
@@ -538,10 +538,10 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
         return;
     }
     
-    if (self.gridElement.friend.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE){
-        if (self.gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING){
+    if (self.gridElement.friend.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
+        self.gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING){
             [self showDownload];
-        }
+            return;
     }
     
     if (self.gridElement.friend.lastVideoStatusEventType == OUTGOING_VIDEO_STATUS_EVENT_TYPE){
@@ -561,12 +561,9 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
             case OUTGOING_VIDEO_STATUS_NEW:
             case OUTGOING_VIDEO_STATUS_NONE:
             case OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY:
-                
-            default:
-                return;
+            default:;
         }
     }
-
 }
 
 - (void)animateTransitions{
@@ -600,18 +597,6 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     [self updateView];
 }
 
-- (BOOL)isDownloadingOrDownloaded{
-    return self.gridElement.friend.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
-            ( self.gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED  ||
-              self.gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING );
-}
-
-- (BOOL)isUploading{
-    return self.gridElement.friend.lastVideoStatusEventType == OUTGOING_VIDEO_STATUS_EVENT_TYPE &&
-            (self.gridElement.friend.outgoingVideoStatus == OUTGOING_VIDEO_STATUS_NEW ||
-             self.gridElement.friend.outgoingVideoStatus == OUTGOING_VIDEO_STATUS_QUEUED ||
-             self.gridElement.friend.outgoingVideoStatus == OUTGOING_VIDEO_STATUS_UPLOADING);
-}
 
 
 //-----------
