@@ -73,13 +73,6 @@
 -(UIView *)dimScreenView{
     return objc_getAssociatedObject(self, @selector(dimScreenView));
 }
-// @property messageController
-- (void)setMessageController:(MFMessageComposeViewController *)obj{
-    objc_setAssociatedObject(self, @selector(messageController), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-- (MFMessageComposeViewController *)messageController{
-    return objc_getAssociatedObject(self, @selector(messageController));
-}
 // @property friend
 - (void)setFriend:(TBMFriend *)obj{
     objc_setAssociatedObject(self, @selector(friend), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -94,12 +87,13 @@
 - (void)invite:(NSString *)fullname{
     OB_INFO(@"invite: %@", fullname);
     [self addViews];
+    [self setFriend:nil];
 
     [self setFullname:fullname];
     [self setContact: [[TBMContactsManager sharedInstance] contactWithFullname:fullname]];
 
     [self getValidPhones];
-
+    
     TBMFriend *f = [self matchingFriend];
     if (f != nil){
         [self setFriend:f];
@@ -247,7 +241,7 @@
 - (void) connectedDialog{
     NSString *msg = [NSString stringWithFormat:@"You and %@ are connected.\n\nRecord a welcome %@ to %@ now.", [self firstName], CONFIG_APP_NAME, [self firstName]];
     
-    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"You Are Connected" message:msg];
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Connected!" message:msg];
     [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
         [self.gridViewController moveFriendToGrid:[self friend]];
     }]];
@@ -285,22 +279,28 @@
         [self cantSendSmsError];
         return;
     }
-    self.messageController = [[MFMessageComposeViewController alloc] init];
-    self.messageController.recipients = @[[self selectedPhoneE164]];
-    self.messageController.body = [NSString stringWithFormat:@"I sent you a message on %@. Get the app - it is really great. http://www.zazoapp.com", CONFIG_APP_NAME];
-    self.messageController.messageComposeDelegate = self;
-    [self presentViewController:self.messageController animated:YES completion:^{
+    
+    MFMessageComposeViewController *mc = [[MFMessageComposeViewController alloc] init];
+    mc.messageComposeDelegate = self;
+    
+    mc.recipients = @[[self selectedPhoneE164]];
+    mc.body = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: http://www.zazoapp.com", CONFIG_APP_NAME];
+    [self startWaitingForServer];
+    [self presentViewController:mc animated:YES completion:^{
+        [self stopWaitingForServer];
         NSLog(@"presented sms controller");
     }];
 }
+
+
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller
                  didFinishWithResult:(MessageComposeResult)result{
     
     [self dismissViewControllerAnimated:YES completion:^{
         if (result == MessageComposeResultSent){
-            DebugLog(@"sent");
-            if (self.friend == nil)
+            OB_INFO(@"Invite Sms Sent");
+            if ([self friend] == nil)
                 [self getFriendFromServer];
         }
         

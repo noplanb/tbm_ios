@@ -164,10 +164,12 @@
 // Polling
 //--------
 - (void) getAndPollAllFriends{
+    OB_INFO(@"getAndPollAllFriends");
     [[[TBMFriendGetter alloc] initWithDelegate:self] getFriends];
 }
 
 - (void)gotFriends{
+    OB_INFO(@"gotFriends");
     [self pollAllFriends];
 }
 
