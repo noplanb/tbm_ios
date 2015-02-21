@@ -175,7 +175,7 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
 - (void)addPlus{
     CGRect f;
     f.origin.x = self.firstName.frame.origin.x;
-    f.origin.y = self.lastName.frame.origin.y + self.lastName.frame.size.height + 2.0;
+    f.origin.y = self.lastName.frame.origin.y + self.lastName.frame.size.height + 4.0;
     f.size.width = 19.0;
     f.size.height = TBMRegisterTextFieldHeight;
     
@@ -206,7 +206,7 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
 - (void)addCountryCodeLabel{
     CGRect f;
     f.origin.x = self.countryCode.frame.origin.x;
-    f.origin.y = self.plus.frame.origin.y + self.plus.frame.size.height + 7.0;
+    f.origin.y = self.plus.frame.origin.y + self.plus.frame.size.height + 5.0;
     f.size.width = self.countryCode.frame.size.width;
     f.size.height = 10.0;
     
