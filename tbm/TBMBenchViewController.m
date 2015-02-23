@@ -320,8 +320,12 @@ static float BENCH_CELL_HEIGHT = 56.0;
         return;
     }
     [self reloadData];
-    [self.benchTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
-                             atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    
+    if ([self.tableArray count] > 0) {
+        [self.benchTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                               atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    }
+    
     CGRect f = self.view.frame;
     f.origin.x = [self shownX];
     [UIView animateWithDuration:0.2 animations:^{
