@@ -249,7 +249,7 @@ static int videoRecorderRetryCount = 0;
     [_fileManager removeItemAtURL:_recordingVideoUrl error:&error];
     
     // Wait so we don't record our own ding.
-    [NSThread sleepForTimeInterval:0.2f];
+    [NSThread sleepForTimeInterval:0.4f];
     [_captureOutput startRecordingToOutputFileURL:_recordingVideoUrl recordingDelegate:self];
     [self showRecordingOverlay];
 }
@@ -258,6 +258,9 @@ static int videoRecorderRetryCount = 0;
     [self hideRecordingOverlay];
     if ([_captureOutput isRecording])
         [_captureOutput stopRecording];
+    
+    // Wait so final ding isn't part of recording
+    [NSThread sleepForTimeInterval:0.1f];
     [_dingSoundEffect play];
 }
 
