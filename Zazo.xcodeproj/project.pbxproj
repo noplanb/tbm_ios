@@ -90,6 +90,7 @@
 		226A37C11A37E08900A2D0F5 /* TBMGridElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 226A37C01A37E08900A2D0F5 /* TBMGridElementViewController.m */; };
 		227155611A40902B00B437DA /* TBMBenchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 227155601A40902B00B437DA /* TBMBenchViewController.m */; };
 		227767A41A963FE90093EFB1 /* StringUtilsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 227767A31A963FE90093EFB1 /* StringUtilsTest.m */; };
+		227767A71A9966AD0093EFB1 /* BeepSin30.wav in Resources */ = {isa = PBXBuildFile; fileRef = 227767A51A9966AD0093EFB1 /* BeepSin30.wav */; };
 		227F6CF61A15313700E19E5C /* TBMRegisterForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 227F6CF51A15313700E19E5C /* TBMRegisterForm.m */; };
 		2287DB4B1922BB5D00B1C298 /* TBMAppDelegate+PushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 2287DB4A1922BB5D00B1C298 /* TBMAppDelegate+PushNotification.m */; };
 		22A094E71A16C6B4009AB958 /* TBMSelectPhoneTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A094E61A16C6B4009AB958 /* TBMSelectPhoneTableDelegate.m */; };
@@ -100,7 +101,6 @@
 		22A8F50B1A099C7600F7AD0E /* TBMPhoneUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A8F50A1A099C7600F7AD0E /* TBMPhoneUtils.m */; };
 		22B1AE561A68576F0027C4B1 /* TBMMarginLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B1AE551A68576F0027C4B1 /* TBMMarginLabel.m */; };
 		22BF060519D4A5FC00F6E025 /* TBMHomeViewController+Invite.m in Sources */ = {isa = PBXBuildFile; fileRef = 22BF060419D4A5FC00F6E025 /* TBMHomeViewController+Invite.m */; };
-		22C466E91A8ECC4F0043BA7D /* BeepSin.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22C466E71A8ECC4F0043BA7D /* BeepSin.wav */; };
 		22C466EA1A8ECC4F0043BA7D /* NotificationTone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22C466E81A8ECC4F0043BA7D /* NotificationTone.wav */; };
 		22CC5E5F1A1AD9A900AAFB75 /* TBMTableModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CC5E5E1A1AD9A900AAFB75 /* TBMTableModal.m */; };
 		22DACC7B1A1D015700B2F750 /* TBMContentViewModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 22DACC7A1A1D015700B2F750 /* TBMContentViewModal.m */; };
@@ -245,6 +245,7 @@
 		2271555F1A40902B00B437DA /* TBMBenchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMBenchViewController.h; sourceTree = "<group>"; };
 		227155601A40902B00B437DA /* TBMBenchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMBenchViewController.m; sourceTree = "<group>"; };
 		227767A31A963FE90093EFB1 /* StringUtilsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringUtilsTest.m; sourceTree = "<group>"; };
+		227767A51A9966AD0093EFB1 /* BeepSin30.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = BeepSin30.wav; sourceTree = "<group>"; };
 		227F6CF41A15313700E19E5C /* TBMRegisterForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMRegisterForm.h; sourceTree = "<group>"; };
 		227F6CF51A15313700E19E5C /* TBMRegisterForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMRegisterForm.m; sourceTree = "<group>"; };
 		2287DB491922BB5D00B1C298 /* TBMAppDelegate+PushNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMAppDelegate+PushNotification.h"; sourceTree = "<group>"; };
@@ -265,7 +266,6 @@
 		22B1AE551A68576F0027C4B1 /* TBMMarginLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMMarginLabel.m; sourceTree = "<group>"; };
 		22BF060319D4A5FC00F6E025 /* TBMHomeViewController+Invite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMHomeViewController+Invite.h"; sourceTree = "<group>"; };
 		22BF060419D4A5FC00F6E025 /* TBMHomeViewController+Invite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMHomeViewController+Invite.m"; sourceTree = "<group>"; };
-		22C466E71A8ECC4F0043BA7D /* BeepSin.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = BeepSin.wav; sourceTree = "<group>"; };
 		22C466E81A8ECC4F0043BA7D /* NotificationTone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = NotificationTone.wav; sourceTree = "<group>"; };
 		22C466EB1A8EF4410043BA7D /* Zazo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Zazo.entitlements; sourceTree = "<group>"; };
 		22CC5E5D1A1AD9A900AAFB75 /* TBMTableModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMTableModal.h; sourceTree = "<group>"; };
@@ -636,7 +636,7 @@
 		22EA56B419103A2B00646D3E /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				22C466E71A8ECC4F0043BA7D /* BeepSin.wav */,
+				227767A51A9966AD0093EFB1 /* BeepSin30.wav */,
 				22C466E81A8ECC4F0043BA7D /* NotificationTone.wav */,
 				22EA56BA19103E4B00646D3E /* single_ding_chimes2.wav */,
 				22EA56B519103A3F00646D3E /* single_ding_chimes.wav */,
@@ -768,10 +768,10 @@
 				22EA56B619103A3F00646D3E /* single_ding_chimes.wav in Resources */,
 				226914D919AFCD42007497F1 /* Icon.png in Resources */,
 				226914EC19AFCD42007497F1 /* iTunesArtwork@2x.png in Resources */,
-				22C466E91A8ECC4F0043BA7D /* BeepSin.wav in Resources */,
 				226914E719AFCD42007497F1 /* Icon-Small.png in Resources */,
 				226914EA19AFCD42007497F1 /* Icon@2x.png in Resources */,
 				226914E519AFCD42007497F1 /* Icon-Small-50.png in Resources */,
+				227767A71A9966AD0093EFB1 /* BeepSin30.wav in Resources */,
 				220E90401909A18B003C4F82 /* Images.xcassets in Resources */,
 				226914DA19AFCD42007497F1 /* Icon@2x.png in Resources */,
 				2227243519182A1000DA6865 /* head.png in Resources */,

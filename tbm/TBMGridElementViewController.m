@@ -16,6 +16,7 @@
 #import "TBMAlertController.h"
 #import "TBMSoundEffect.h"
 #import "OBLogger.h"
+#import "TBMConfig.h"
 
 @interface TBMGridElementViewController()
 @property NSInteger index;
@@ -48,7 +49,7 @@
         _index = index;
         _videoPlayer = [TBMVideoPlayer sharedInstance];
         _gridElement = [TBMGridElement findWithIntIndex:index];
-        _messageDing = [[TBMSoundEffect alloc] initWithSoundNamed:@"BeepSin.wav"];
+        _messageDing = [[TBMSoundEffect alloc] initWithSoundNamed:CONFIG_DING_SOUND];
     }
     return self;
 }

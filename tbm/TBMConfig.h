@@ -22,6 +22,8 @@ static const NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://zazo-dev1-5.elas
 //static NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://192.168.1.82:3000";
 
 
+static NSString *CONFIG_DING_SOUND = @"BeepSin30.wav";
+
 @interface TBMConfig : NSObject
 + (NSURL *)videosDirectoryUrl;
 + (NSURL *)resourceUrl;
