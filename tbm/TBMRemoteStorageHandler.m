@@ -14,6 +14,7 @@
 #import "TBMHttpManager.h"
 #import "OBLogger.h"
 #import "TBMConfig.h"
+#import "NSString+NSStringExtensions.h"
 
 @implementation TBMRemoteStorageHandler
 
@@ -26,36 +27,62 @@
 }
 
 + (NSString *) incomingVideoRemoteFilenameWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId{
-    return [NSString stringWithFormat:@"%@-%@-%@", [TBMRemoteStorageHandler incomingConnectionKey:friend], videoId, @"filename"];
+    return [NSString stringWithFormat:@"%@-%@",
+            [TBMRemoteStorageHandler incomingPrefix:friend],
+            [[friend.ckey stringByAppendingString:videoId] md5]];
 }
 
 + (NSString *) outgoingVideoRemoteFilename:(TBMFriend *)friend{
-    return [NSString stringWithFormat:@"%@-%@-%@", [TBMRemoteStorageHandler outgoingConnectionKey:friend], friend.outgoingVideoId, @"filename"];
+    return [NSString stringWithFormat:@"%@-%@",
+            [TBMRemoteStorageHandler outgoingPrefix:friend],
+            [[friend.ckey stringByAppendingString:friend.outgoingVideoId] md5]];
 }
 
 + (NSString *) incomingVideoIDRemoteKVKey:(TBMFriend *)friend{
-    return [NSString stringWithFormat:@"%@-%@", [TBMRemoteStorageHandler incomingConnectionKey:friend], @"VideoIdKVKey"];
+    return [NSString stringWithFormat:@"%@-%@",
+            [TBMRemoteStorageHandler incomingPrefix:friend],
+            [TBMRemoteStorageHandler incomingSuffix:friend withTypeSuffix:REMOTE_STORAGE_VIDEO_ID_SUFFIX]];
 }
 
 + (NSString *) outgoingVideoIDRemoteKVKey:(TBMFriend *)friend{
-    return [NSString stringWithFormat:@"%@-%@", [TBMRemoteStorageHandler outgoingConnectionKey:friend], @"VideoIdKVKey"];
+    return [NSString stringWithFormat:@"%@-%@",
+            [TBMRemoteStorageHandler outgoingPrefix:friend],
+            [TBMRemoteStorageHandler outgoingSuffix:friend withTypeSuffix:REMOTE_STORAGE_VIDEO_ID_SUFFIX]];
 }
 
 + (NSString *) incomingVideoStatusRemoteKVKey:(TBMFriend *)friend{
-    return [NSString stringWithFormat:@"%@-%@", [TBMRemoteStorageHandler incomingConnectionKey:friend], @"VideoStatusKVKey"];
+    return [NSString stringWithFormat:@"%@-%@",
+            [TBMRemoteStorageHandler incomingPrefix:friend],
+            [TBMRemoteStorageHandler incomingSuffix:friend withTypeSuffix:REMOTE_STORAGE_STATUS_SUFFIX]];
 }
 
 + (NSString *) outgoingVideoStatusRemoteKVKey:(TBMFriend *)friend{
-    return [NSString stringWithFormat:@"%@-%@", [TBMRemoteStorageHandler outgoingConnectionKey:friend], @"VideoStatusKVKey"];
+    return [NSString stringWithFormat:@"%@-%@",
+            [TBMRemoteStorageHandler outgoingPrefix:friend],
+            [TBMRemoteStorageHandler outgoingSuffix:friend withTypeSuffix:REMOTE_STORAGE_STATUS_SUFFIX]];
 }
 
-+ (NSString *) incomingConnectionKey:(TBMFriend *)friend{
-    return [NSString stringWithFormat:@"%@-%@-%@", friend.mkey, [TBMUser getUser].mkey, friend.ckey];
+// Helpers
+
++ (NSString *) incomingPrefix:(TBMFriend *)friend{
+    return [NSString stringWithFormat:@"%@-%@", friend.mkey, [TBMUser getUser].mkey];
 }
 
-+ (NSString *) outgoingConnectionKey:(TBMFriend *)friend{
-    return [NSString stringWithFormat:@"%@-%@-%@", [TBMUser getUser].mkey, friend.mkey, friend.ckey];
++ (NSString *) outgoingPrefix:(TBMFriend *)friend{
+    return [NSString stringWithFormat:@"%@-%@", [TBMUser getUser].mkey, friend.mkey];
 }
+
++ (NSString *) incomingSuffix:(TBMFriend *)friend withTypeSuffix:(NSString *)typeSuffix{
+    NSString *md5 = [[[friend.mkey stringByAppendingString:[TBMUser getUser].mkey] stringByAppendingString:friend.ckey]md5];
+    return [md5 stringByAppendingString:typeSuffix];
+}
+
++ (NSString *) outgoingSuffix:(TBMFriend *)friend withTypeSuffix:(NSString *)typeSuffix{
+    NSString *md5 = [[[[TBMUser getUser].mkey stringByAppendingString:friend.mkey] stringByAppendingString:friend.ckey] md5];
+    return [md5 stringByAppendingString:typeSuffix];
+}
+
+
 
 //-----------------------
 // URLs for file transfer
