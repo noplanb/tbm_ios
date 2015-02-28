@@ -631,12 +631,12 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
             // Dont update the view for these.
             case OUTGOING_VIDEO_STATUS_QUEUED:
             case OUTGOING_VIDEO_STATUS_UPLOADING:
-            case OUTGOING_VIDEO_STATUS_UPLOADED:
-            case OUTGOING_VIDEO_STATUS_DOWNLOADED:
                 return;
             
             // Update the view for these
             case OUTGOING_VIDEO_STATUS_NONE:
+            case OUTGOING_VIDEO_STATUS_UPLOADED:
+            case OUTGOING_VIDEO_STATUS_DOWNLOADED:
             case OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY:
             case OUTGOING_VIDEO_STATUS_VIEWED:
             default:;
