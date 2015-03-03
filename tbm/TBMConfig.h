@@ -15,7 +15,7 @@ static NSString *CONFIG_VERSION_STRING = @"1.426";
 
 // This is necessary because fucking apple has a different apns gateway depending on whether the device is
 // provisioned with a dev cert or production/adhoc cert
-static NSString *CONFIG_DEVICE_BUILD = @"dev"; // prod / dev
+static NSString *CONFIG_DEVICE_BUILD = @"prod"; // prod / dev
 
 //static const NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://www.threebyme.com";
 //static const NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://zazo-dev1-5.elasticbeanstalk.com";
