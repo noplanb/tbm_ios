@@ -55,6 +55,7 @@
         _playerView.tag = 1401;
         self.playerView.hidden = YES;
         [self addPlayerNotifications];
+        [self addProximitySensorControlObserver];
     }
     return self;
 }
@@ -138,6 +139,7 @@
 // Control view
 //-------------
 - (void)showPlayerView{
+    [self playBasedOnProximity];
     [self notifyDelegates:YES];
     [self.playerView setFrame: self.playerFrame];
     self.playerView.hidden = NO;
@@ -266,6 +268,51 @@
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:title message:msg];
     [alert addAction:[SDCAlertAction actionWithTitle:@"Try again" style:SDCAlertActionStyleDefault handler:nil]];
     [alert presentWithCompletion:nil];
+}
+
+
+//------------------------------------------------------
+// Proximity sensor for switching speakers while playing
+//------------------------------------------------------
+-(void)addProximitySensorControlObserver {
+    OB_DEBUG(@"Adding proximity sensor observer");
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(deviceProximityChanged:)
+                                                 name:UIDeviceProximityStateDidChangeNotification
+                                               object:nil];
+    UIDevice *device = [UIDevice currentDevice];
+    device.proximityMonitoringEnabled = YES;
+}
+
+- (void)deviceProximityChanged:(NSNotification *)notification {
+    OB_DEBUG(@"deviceProximityChanged");
+    [self playBasedOnProximity];
+}
+
+- (void)playBasedOnProximity{
+    OB_DEBUG(@"playBasedOnProximity");
+    UIDevice *device = [UIDevice currentDevice];
+    device.proximityMonitoringEnabled = YES;
+    if (device.proximityMonitoringEnabled) {
+        OB_DEBUG(@"Proximity monitoring: enabled");
+        if (device.proximityState)
+            [self playFromEarpiece];
+        else
+            [self playFromSpeaker];
+    } else {
+        [self playFromSpeaker];
+    }
+}
+
+- (void)playFromSpeaker{
+    OB_DEBUG(@"proximity: playing from speaker");
+    [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:nil];
+
+}
+
+- (void)playFromEarpiece{
+    OB_DEBUG(@"proximity: playing from earpiece");
+    [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
 }
 
 
