@@ -55,7 +55,6 @@
         _playerView.tag = 1401;
         self.playerView.hidden = YES;
         [self addPlayerNotifications];
-        [self addProximitySensorControlObserver];
     }
     return self;
 }
@@ -139,7 +138,6 @@
 // Control view
 //-------------
 - (void)showPlayerView{
-    [self playBasedOnProximity];
     [self notifyDelegates:YES];
     [self.playerView setFrame: self.playerFrame];
     self.playerView.hidden = NO;
@@ -274,6 +272,7 @@
 //------------------------------------------------------
 // Proximity sensor for switching speakers while playing
 //------------------------------------------------------
+// TODO: This is not currently working and is not used in the code until we can get it working properly later.
 -(void)addProximitySensorControlObserver {
     OB_DEBUG(@"Adding proximity sensor observer");
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -291,6 +290,29 @@
 
 - (void)playBasedOnProximity{
     OB_DEBUG(@"playBasedOnProximity");
+    
+    NSError *err;
+    AVAudioSession *as = [AVAudioSession sharedInstance];
+    AVAudioSessionCategoryOptions co =  AVAudioSessionCategoryOptionDefaultToSpeaker;
+    
+    [as setCategory:AVAudioSessionCategoryPlayAndRecord
+        withOptions: co
+              error:&err];
+    OB_DEBUG(@"proximity: set category err=%@,", err);
+
+    
+    [as setMode:AVAudioSessionModeVoiceChat error:&err];
+    OB_DEBUG(@"proximity: set mode err=%@,", err);
+
+    NSInteger numchan = as.outputNumberOfChannels;
+    OB_DEBUG(@"proximity: num channels = %ld", (long)numchan);
+    
+    [as setActive:YES error:&err];
+    
+    OB_DEBUG(@"proximity: setActive err = %@", err);
+
+
+    
     UIDevice *device = [UIDevice currentDevice];
     device.proximityMonitoringEnabled = YES;
     if (device.proximityMonitoringEnabled) {
@@ -305,14 +327,16 @@
 }
 
 - (void)playFromSpeaker{
-    OB_DEBUG(@"proximity: playing from speaker");
-    [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:nil];
-
+    NSError *err;
+    [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:&err];
+    OB_DEBUG(@"proximity: playing from speaker err = %@", err);
 }
 
 - (void)playFromEarpiece{
-    OB_DEBUG(@"proximity: playing from earpiece");
-    [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
+    NSError *err;
+    [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:&err];
+
+    OB_DEBUG(@"proximity: playing from earpiece err = %@", err);
 }
 
 
