@@ -507,7 +507,9 @@ static NSMutableArray * videoStatusNotificationDelegates;
     video.status = status;
     self.lastIncomingVideoStatus = status;
     
-    // This is a bit subtle. We don't want an action by this user of viewing his incoming video to count
+    // Serhii says: We want to preserve previous status if last event type is incoming and status is VIEWED
+    // Sani complicates it by saying: This is a bit subtle. We don't want an action by this user of
+    // viewing his incoming video to count
     // as cause a change in lastVideoStatusEventType. That way if the last action by the user was sending a
     // video (recording on a person with unviewed indicator showing) then later viewed the incoming videos
     // he gets to see the status of the last outgoing video he sent after play is complete and the unviewed count
