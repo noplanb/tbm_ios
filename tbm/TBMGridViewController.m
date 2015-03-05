@@ -13,6 +13,8 @@
 #import "OBLogger.h"
 #import "HexColor.h"
 #import "iToast.h"
+#import "TBMAlertController.h"
+#import "TBMVideo.h"
 
 @interface TBMGridViewController ()
 @property (nonatomic) NSArray *gridViews;
@@ -45,6 +47,7 @@
     [self setupLongPressTouchHandler];
     [[TBMVideoPlayer sharedInstance].playerView removeFromSuperview];
     [self.view addSubview: [TBMVideoPlayer sharedInstance].playerView];
+    [self setupCenterGestures];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -265,6 +268,34 @@ static const float LayoutConstASPECT = 0.75;
 
 - (void)toastNotSent{
     [[iToast makeText:@"Not sent"] show];
+}
+
+
+//------------------------------------------
+// Longpress and tap handling for center view
+//-------------------------------------------
+- (void)setupCenterGestures{
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                          action:@selector(showCenterHint:)];
+    [[self centerView] addGestureRecognizer:tap];
+}
+
+
+-(void)showCenterHint:(UITapGestureRecognizer *)sender{
+    OB_DEBUG(@"foo!");
+//    if ([TBMFriend count] == 0)
+//        return;
+    
+    NSString *msg;
+    if ([TBMVideo downloadedUnviewedCount] > 0)
+        msg = @"Tap a friend to play.";
+    else
+        msg = @"Press and hold a friend to record.\nRelease to stop recording.";
+    
+    
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Hint" message:msg];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:nil]];
+    [alert presentWithCompletion:nil];
 }
 
 
