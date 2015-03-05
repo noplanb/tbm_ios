@@ -14,7 +14,6 @@
 #import "HexColor.h"
 #import "iToast.h"
 #import "TBMAlertController.h"
-#import "TBMVideo.h"
 
 @interface TBMGridViewController ()
 @property (nonatomic) NSArray *gridViews;
@@ -271,27 +270,24 @@ static const float LayoutConstASPECT = 0.75;
 }
 
 
-//------------------------------------------
-// Longpress and tap handling for center view
-//-------------------------------------------
+//---------------------------------
+// Gesture handling for center view
+//---------------------------------
 - (void)setupCenterGestures{
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                           action:@selector(showCenterHint:)];
     [[self centerView] addGestureRecognizer:tap];
 }
 
-
 -(void)showCenterHint:(UITapGestureRecognizer *)sender{
-    OB_DEBUG(@"foo!");
-//    if ([TBMFriend count] == 0)
-//        return;
-    
+    if ([TBMFriend count] == 0)
+        return;
+
     NSString *msg;
     if ([TBMVideo downloadedUnviewedCount] > 0)
         msg = @"Tap a friend to play.";
     else
-        msg = @"Press and hold a friend to record.\nRelease to stop recording.";
-    
+        msg = @"Press and hold a friend to record.";
     
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Hint" message:msg];
     [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:nil]];
