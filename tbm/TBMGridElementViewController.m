@@ -57,7 +57,6 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    OB_DEBUG(@"gridElementController %ld viewWillAppear", (long)self.index);
     [self buildView];
     [self registerForEvents];
     [self updateView];
@@ -377,7 +376,6 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 }
 
 - (void)showViewed{
-    OB_DEBUG(@"gridelementcontroller showViewed");
     [self hideGreenBorder];
     [self hideAllIcons];
     self.viewedIndicator.hidden = NO;
@@ -514,8 +512,6 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 // Update View
 //------------
 - (void)updateView{
-    OB_DEBUG(@"gridElementController update view");
-    
     if (self.isPlaying){
         [self hideAll];
         return;
@@ -547,16 +543,17 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
         return;
     }
     
-    if (self.gridElement.friend.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
-        self.gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING){
-            OB_DEBUG(@"gridElementController incoming");
+    if (self.gridElement.friend.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE) {
+        if (self.gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING){
             [self showDownload];
             return;
+        } else {
+            [self hideGreenBorder];
+            [self hideAllIcons];
+        }
     }
     
     if (self.gridElement.friend.lastVideoStatusEventType == OUTGOING_VIDEO_STATUS_EVENT_TYPE){
-        OB_DEBUG(@"gridElementController outgoing: %ld", self.gridElement.friend.outgoingVideoStatus);
-
         switch (self.gridElement.friend.outgoingVideoStatus) {
                 
             case OUTGOING_VIDEO_STATUS_QUEUED:
