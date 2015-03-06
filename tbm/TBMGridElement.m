@@ -68,6 +68,11 @@
     return result;
 }
 
++ (NSArray *)allSorted{
+    NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"index" ascending:YES];
+    return [[TBMGridElement all] sortedArrayUsingDescriptors:@[d]];
+}
+
 
 + (instancetype)findWithIntIndex:(NSInteger)i{
     for (TBMGridElement *ge in [TBMGridElement all]){
@@ -90,7 +95,7 @@
 }
 
 + (instancetype)firstEmptyGridElement{
-    for (TBMGridElement *ge in [TBMGridElement all]){
+    for (TBMGridElement *ge in [TBMGridElement allSorted]){
         if (ge.friend == nil)
             return ge;
     }
