@@ -444,7 +444,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 
 // Name Label
 - (void)updateNameLabel{
-    self.nameLabel.text = [self.gridElement.friend videoStatusString];
+    self.nameLabel.text = CONFIG_DEBUG_MODE ? [self.gridElement.friend videoStatusString] : [self.gridElement.friend displayName];
 }
 - (void)showNameLabel{
     self.nameLabel.hidden = NO;

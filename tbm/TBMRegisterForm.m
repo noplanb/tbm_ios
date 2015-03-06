@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "TBMRegisterForm.h"
 #import "TPKeyboardAvoidingScrollView.h"
+#import "TBMConfig.h"
 
 @interface TBMRegisterForm()
 @property (nonatomic) float screenWidth;
@@ -287,6 +288,7 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
     self.debug.frame = f;
     [self.debug setTitle:@"Debug" forState:UIControlStateNormal];
     [self setCommonAttributesForButton:self.debug];
+    [self.debug setHidden:!CONFIG_DEBUG_MODE];
     [self.contentView addSubview:self.debug];
 }
 
