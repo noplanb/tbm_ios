@@ -570,7 +570,9 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
             case OUTGOING_VIDEO_STATUS_NEW:
             case OUTGOING_VIDEO_STATUS_NONE:
             case OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY:
-            default:;
+            default:
+                [self hideGreenBorder];
+                [self hideAllIcons];
         }
     }
 }
