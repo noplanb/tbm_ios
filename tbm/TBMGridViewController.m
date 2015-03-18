@@ -350,6 +350,9 @@ static const float LayoutConstASPECT = 0.75;
     for (TBMFriend *gf in gridFriends){
         [allFriends removeObject:gf];
     }
+    [allFriends sortUsingComparator:^NSComparisonResult(TBMFriend *obj1, TBMFriend *obj2) {
+        return [obj1.firstName caseInsensitiveCompare:obj2.firstName];
+    }];
     return allFriends;
 }
 
