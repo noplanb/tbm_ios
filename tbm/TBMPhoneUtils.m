@@ -15,10 +15,10 @@
     if (phone == nil)
         return nil;
     
-    NBPhoneNumberUtil *pu = [NBPhoneNumberUtil sharedInstance];
+    NBPhoneNumberUtil *pu = [[NBPhoneNumberUtil alloc] init];
     NSError *err = nil;
     NSString *r;
-    NBPhoneNumber *pn = [pu parse:phone defaultRegion:@"US" error:&err];
+    NBPhoneNumber *pn = [pu parse:phone defaultRegion:[TBMUser phoneRegion] error:&err];
     
     if (err != nil){
         OB_ERROR(@"TBMPhoneUtils: phoneWithFormat: %@", [err localizedDescription]);
@@ -36,14 +36,18 @@
 
 
 + (BOOL) isValidPhone:(NSString *)phone{
-    NBPhoneNumberUtil *pu = [NBPhoneNumberUtil sharedInstance];
+    NBPhoneNumberUtil *pu = [[NBPhoneNumberUtil alloc] init];
+    OB_DEBUG(@"User region: %@", [TBMUser phoneRegion]);
     NSError *error;
     NBPhoneNumber *pn = [pu parse:phone defaultRegion:[TBMUser phoneRegion] error:&error];
     if (error == nil){
-        if ([pu isValidNumber:pn])
+        if ([pu isValidNumber:pn]){
+            OB_DEBUG(@"valid number");
             return true;
-        else
+        } else {
+            OB_DEBUG(@"error was nil but invalid phone");
             return false;
+        }
     } else {
         OB_ERROR(@"TBMPhoneUtils: isValidPhone: %@", [error localizedDescription]);
         return false;
@@ -51,7 +55,7 @@
 }
 
 + (BOOL) isNumberMatch:(NSString *)n1 secondNumber:(NSString *)n2{
-    NBPhoneNumberUtil *pu = [NBPhoneNumberUtil sharedInstance];
+    NBPhoneNumberUtil *pu = [[NBPhoneNumberUtil alloc] init];
     
     NSError *error;
     
