@@ -18,6 +18,10 @@
 #pragma mark - Initialization
 
 + (id)alertControllerWithTitle:(NSString *)title message:(NSString *)message {
+    return [self alertControllerWithTitle:title message:message forcePlain:NO];
+}
+
++ (id)alertControllerWithTitle:(NSString *)title message:(NSString *)message forcePlain:(BOOL)forcePlain {
     // Alert title text
     NSMutableAttributedString *alertTitle = [[NSMutableAttributedString alloc] initWithString:title];
     [alertTitle addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, alertTitle.length)];
@@ -42,12 +46,12 @@
     // Set our custom visual style for the alerts
     alert.visualStyle = [[TBMAlertControllerVisualStyle alloc] init];
     
-    if (alert.legacyAlertView) {
+    if (alert.legacyAlertView || forcePlain) {
         // iOS 7 style alerts
         SDCAlertController *alert = [super alertControllerWithTitle:title message:message preferredStyle:SDCAlertControllerStyleAlert];
         return alert;
     }
-
+    
     return alert;
 }
 
@@ -60,7 +64,8 @@
     self.alert.backgroundColor = [UIColor colorWithRed:0.95f green:0.94f blue:0.91f alpha:1.0f];
     
     // Title bar background
-    UIView *topBG = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 70)];
+    float barHeight = (self.attributedTitle ? 70 : 60);
+    UIView *topBG = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, barHeight)];
     topBG.backgroundColor = [UIColor colorWithRed:0.96f green:0.55f blue:0.19f alpha:1.0f];
     [self.alert addSubview:topBG];
     [self.alert sendSubviewToBack:topBG];

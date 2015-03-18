@@ -279,20 +279,34 @@
 }
 
 - (void) showVerificationDialog {
-    NSString *msg = [NSString stringWithFormat:@"We sent a code via text message to %@.", [TBMPhoneUtils phone:_combinedNumber withFormat:NBEPhoneNumberFormatINTERNATIONAL]];
+    // On 3.5" screens (e.g. iPhone 4S), need to force alert into "plain" mode, otherwise
+    // the code input text field does not work, the keyboard will never appear
+    
+    BOOL forcePlain = ([[UIScreen mainScreen] bounds].size.height < 568.0f);
+    
+    NSString *sentCodeText = [NSString stringWithFormat:@"We sent a code via text message to %@.", [TBMPhoneUtils phone:_combinedNumber withFormat:NBEPhoneNumberFormatINTERNATIONAL]];
+    NSString *msg = (forcePlain ? @"" : sentCodeText);
+    NSString *enterCodeText = (forcePlain ? sentCodeText : @"Enter Code");
 
-    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Enter Code" message:msg];
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Enter Code" message:msg forcePlain:forcePlain];
     
     UIView *content = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ((TBMAlertControllerVisualStyle *)alert.visualStyle).width, 90.0f)];
+    if (forcePlain) {
+        content.frame = CGRectMake(0, 0, ((TBMAlertControllerVisualStyle *)alert.visualStyle).width, 130.0f);
+    }
     content.backgroundColor = [UIColor clearColor];
     
     UILabel *enterCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, content.frame.size.width, 20.0f)];
-    enterCodeLabel.text = @"Enter Code";
+    if (forcePlain) {
+        enterCodeLabel.numberOfLines = 2;
+        enterCodeLabel.frame = CGRectMake(10.0f, 10.0f, content.frame.size.width - 20.0f, 40.0f);
+    }
+    enterCodeLabel.text = enterCodeText;
     enterCodeLabel.font = [UIFont fontWithName:@"Helvetica" size:16.0f];
     enterCodeLabel.textAlignment = NSTextAlignmentCenter;
     [content addSubview:enterCodeLabel];
     
-    UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(25, 30, content.frame.size.width - 50, 40)];
+    UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(25, enterCodeLabel.frame.origin.y + enterCodeLabel.frame.size.height + 10.0f, content.frame.size.width - 50, 40)];
     tf.keyboardType = UIKeyboardTypeNumberPad;
     tf.backgroundColor = [UIColor whiteColor];
     tf.borderStyle = UITextBorderStyleRoundedRect;
