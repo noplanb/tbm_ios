@@ -197,6 +197,7 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
     
     self.countryCode = [[TBMTextField alloc] initWithFrame:f];
     [self.countryCode setKeyboardType:UIKeyboardTypeNumberPad];
+    self.countryCode.text = @"1";
     [self setCommonAttributesForTextField:self.countryCode];
     [self.contentView addSubview:self.countryCode];
     
