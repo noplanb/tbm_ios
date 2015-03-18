@@ -259,7 +259,7 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
     [self.submit addTarget:self action:@selector(submitClick) forControlEvents:UIControlEventTouchUpInside];
     self.submit.frame = f;
     [self setCommonAttributesForButton:self.submit];
-    [self.submit setTitle:@"Enter" forState:UIControlStateNormal];
+    [self.submit setTitle:@"Sign In" forState:UIControlStateNormal];
     self.submit.titleLabel.textColor = [UIColor whiteColor];
     [self.contentView addSubview:self.submit];
 }
