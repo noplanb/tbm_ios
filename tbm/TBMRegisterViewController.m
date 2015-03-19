@@ -105,7 +105,7 @@
         return NO;
     }
     if (![TBMPhoneUtils isValidPhone: _combinedNumber]){
-        [self showErrorDialogWithTitle:@"Bad Number" msg:@"Enter a valid country code and mobile number."];
+        [self showErrorDialogWithTitle:@"Bad Mobile Number" msg:@"Enter a valid country code and mobile number."];
         return NO;
     }
     return YES;
