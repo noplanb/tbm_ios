@@ -19,8 +19,8 @@ static NSString *CONFIG_VERSION_STRING = @"2.0.10";
 static NSString *CONFIG_DEVICE_BUILD = @"prod"; // prod / dev
 
 //static NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://192.168.1.82:3000";
-static NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://prod.zazoapp.com";
-//static NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://staging.zazoapp.com";
+//static NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://prod.zazoapp.com";
+static NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://staging.zazoapp.com";
 
 
 static NSString *CONFIG_INVITE_BASE_URL_STRING = @"http://zazoapp.com/l/";

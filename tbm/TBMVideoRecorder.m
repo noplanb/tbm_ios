@@ -12,6 +12,7 @@
 #import "TBMConfig.h"
 #import "OBLogger.h"
 #import "TBMAlertController.h"
+#import "HexColor.h"
 
 static int videoRecorderRetryCount = 0;
 
@@ -31,6 +32,7 @@ static int videoRecorderRetryCount = 0;
 @property TBMSoundEffect *dingSoundEffect;
 @property NSString *marker;
 @property BOOL didCancelRecording;
+@property UILabel *recordingLabel;
 @end
 
 @implementation TBMVideoRecorder
@@ -215,12 +217,37 @@ static int videoRecorderRetryCount = 0;
 }
 
 - (void)setupRecordingOverlay{
+    [self addRedBorderAndDot];
+    [self addRecordingLabel];
+}
+
+static const float LayoutConstRecordingLabelHeight = 22;
+static const float LayoutConstRecordingLabelFontSize = 0.55 * LayoutConstRecordingLabelHeight;
+static NSString *LayoutConstRecordingLabelBackgroundColor = @"000";
+static NSString *LayoutConstWhiteTextColor  = @"fff";
+static const float LayoutConstRecordingBorderWidth = 2;
+
+- (void)addRecordingLabel{
+    float y = self.previewView.bounds.size.height - LayoutConstRecordingLabelHeight;
+    float width = self.previewView.frame.size.width - 2*LayoutConstRecordingBorderWidth;
+    float height = LayoutConstRecordingLabelHeight - LayoutConstRecordingBorderWidth;
+    self.recordingLabel = [[UILabel alloc] initWithFrame:CGRectMake(LayoutConstRecordingBorderWidth, y, width, height)];
+    self.recordingLabel.hidden = YES;
+    self.recordingLabel.text = @"Recording";
+    self.recordingLabel.backgroundColor = [UIColor colorWithHexString:LayoutConstRecordingLabelBackgroundColor alpha:0.5];
+    self.recordingLabel.textColor = [UIColor colorWithHexString:LayoutConstWhiteTextColor alpha:1];
+    self.recordingLabel.textAlignment = NSTextAlignmentCenter;
+    self.recordingLabel.font = [UIFont systemFontOfSize:LayoutConstRecordingLabelFontSize];
+    [self.previewView addSubview:self.recordingLabel];
+}
+
+- (void)addRedBorderAndDot{
     _recordingOverlay = [CALayer layer];
     _recordingOverlay.hidden = YES;
     _recordingOverlay.frame = _previewView.bounds;
     _recordingOverlay.cornerRadius = 2;
     _recordingOverlay.backgroundColor = [UIColor clearColor].CGColor;
-    _recordingOverlay.borderWidth = 2;
+    _recordingOverlay.borderWidth = LayoutConstRecordingBorderWidth;
     _recordingOverlay.borderColor = [UIColor redColor].CGColor;
     _recordingOverlay.delegate = self;
     [_previewView.layer addSublayer:_recordingOverlay];
@@ -229,6 +256,11 @@ static int videoRecorderRetryCount = 0;
 
 // The callback by the recording overlay CALayer due to setNeedsDisplay. Use it to add the dot to recordingOverlay
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)context {
+    // Simplify the view and dont draw the red dot.
+    // [self addDotInContext:context];
+}
+
+- (void)addDotInContext:(CGContextRef)context{
     CGRect borderRect = CGRectMake(8, 8, 7, 7);
     CGContextSetRGBFillColor(context, 248, 0, 0, 1.0);
     CGContextSetLineWidth(context, 0);
@@ -273,10 +305,12 @@ static int videoRecorderRetryCount = 0;
 
 - (void)showRecordingOverlay{
     _recordingOverlay.hidden = NO;
+    self.recordingLabel.hidden = NO;
 }
 
 - (void)hideRecordingOverlay{
     _recordingOverlay.hidden = YES;
+    self.recordingLabel.hidden = YES;
 }
 
 
