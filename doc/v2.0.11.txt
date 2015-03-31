@@ -1,0 +1,10 @@
+FIX: Remove red dot and add label that says recording when recording.
+Testrail C2443.
+
+
+FIX: Add person as a friend even if invite sms is not sent.
+
+
+FIX #344:
+Pick from contacts with multiple numbers should present pick dialog regardless of whether any of the numbers is currently a friend.
+
