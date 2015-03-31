@@ -94,13 +94,6 @@
 
     [self getValidPhones];
     
-    TBMFriend *f = [self matchingFriend];
-    if (f != nil){
-        [self setFriend:f];
-        [self connectedDialog];
-        return;
-    }
-    
     if ([self validPhones].count == 0) {
         [self noValidPhonesDialog];
         return;
@@ -108,11 +101,23 @@
     
     if ([self validPhones].count == 1){
         [self setSelectedPhone:[[[self validPhones] objectAtIndex:0] objectAtIndex:0]];
-        [self checkFriendHasApp];
+        [self handleSelectedPhone];
         return;
     }
     
     [self selectPhoneNumberDialog];
+}
+
+- (void)handleSelectedPhone{
+    TBMFriend *f = [TBMFriend findWithMatchingPhoneNumber:[self selectedPhone]];
+    // If already a friend.
+    if (f != nil){
+        [self setFriend:f];
+        [self connectedDialog];
+        return;
+    }
+    
+    [self checkFriendHasApp];
 }
 
 - (void)nudge:(TBMFriend *)friend{
@@ -138,15 +143,6 @@
     }
 }
 
-- (TBMFriend *)matchingFriend{
-    for (NSArray *pa in [self validPhones]){
-        NSString *p = [pa objectAtIndex:0];
-        TBMFriend *f = [TBMFriend findWithMatchingPhoneNumber:p];
-        if (f != nil)
-            return f;
-    }
-    return nil;
-}
 
 //--------
 // Dialogs
@@ -170,7 +166,7 @@
 - (void)didSelectRow:(NSInteger)index{
     NSString *p = [[[self validPhones] objectAtIndex:index] objectAtIndex:0];
     [self setSelectedPhone:p];
-    [self checkFriendHasApp];
+    [self handleSelectedPhone];
 }
 
 
