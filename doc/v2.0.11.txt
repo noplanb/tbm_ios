@@ -1,10 +1,31 @@
-FIX: Remove red dot and add label that says recording when recording.
+FIX:
+---
+Remove red dot and add label that says recording when recording.
 Testrail C2443.
 
 
-FIX: Add person as a friend even if invite sms is not sent.
+FIX: #341
+---------
+Add person as a friend even if invite sms is not sent.
+
+PROBLEM:
+Currently if the user cancels just at the point of sending the invite sms we do not add the friend. This is a problem because user may wish to still add the friend but let him know about the app another way.
+
+SOLUTION:
+After user cancels at the last moment before sending an sms present dialog regarding sms not sent. But still add the friend show the friend added dialog and allow him to send a welcome message as usual.
+
+Cases: (Testrail)
+c38 - Cancel sending sms
+c2446 - No sim card IOS
+
 
 
 FIX #344:
+---------
 Pick from contacts with multiple numbers should present pick dialog regardless of whether any of the numbers is currently a friend.
+
+Bug in 2.0.10 - If you add a friend using 1 of multiple phone numbers and you have chosen the wrong one, the app does not show you the dialog to pick phone numbers again when you pick the contact from your list a second time.
+
+Testrail c28, c2444, c30
+
 
