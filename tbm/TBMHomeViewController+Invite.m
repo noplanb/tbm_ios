@@ -109,10 +109,9 @@
 }
 
 - (void)handleSelectedPhone{
-    TBMFriend *f = [TBMFriend findWithMatchingPhoneNumber:[self selectedPhone]];
+    [self setFriend:[TBMFriend findWithMatchingPhoneNumber:[self selectedPhone]]];
     // If already a friend.
-    if (f != nil){
-        [self setFriend:f];
+    if ([self friend] != nil){
         [self connectedDialog];
         return;
     }
@@ -124,7 +123,7 @@
     if (friend == nil)
         return;
     
-    self.friend = friend;
+    [self setFriend: friend];
     self.selectedPhone = self.friend.mobileNumber;
     [self preNudgeDialog];
 }
@@ -296,8 +295,7 @@
     [self dismissViewControllerAnimated:YES completion:^{
         if (result == MessageComposeResultSent){
             OB_INFO(@"Invite Sms Sent");
-            if ([self friend] == nil)
-                [self getFriendFromServer];
+            [self handlePostSms];
         }
         
         if (result == MessageComposeResultCancelled){
@@ -415,9 +413,16 @@
     
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Didn't Send Link" message:msg];
     [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action){
-        [self getFriendFromServer];
+        [self handlePostSms];
     }]];
     [alert presentWithCompletion:nil];
+}
+
+- (void)handlePostSms{
+    if ([self friend] == nil)
+        [self getFriendFromServer];
+    else
+        [self.gridViewController moveFriendToGrid:[self friend]];
 }
 
 

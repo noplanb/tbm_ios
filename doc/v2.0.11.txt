@@ -15,8 +15,40 @@ SOLUTION:
 After user cancels at the last moment before sending an sms present dialog regarding sms not sent. But still add the friend show the friend added dialog and allow him to send a welcome message as usual.
 
 Cases: (Testrail)
-c38 - Cancel sending sms
+c38 - Invite sms cancel
 c2446 - No sim card IOS
+c47 - Nudge - sms send
+c46 - Nudge - sms cancel
+
+FLOW FOR INVITE
+Invite
+ - GetValidPhones
+   CASE 0 phones -> No Valid Phone Dialog
+ - Multiple phones -> Pick phone -> handleSelectedPhone
+ - Single phone -> handleSelectedPhone
+
+handleSelectedPhone
+ - Belongs to friend?
+   - YES -> connectedDialog
+   - NO -> hasApp?
+
+hasApp?
+  - YES -> getFriendFromServer
+  - NO -> presmsDialog
+
+getFriendFromServer
+  - connectedDialog
+
+preSmsDialog -> SmsDialog -> postSms
+
+postSMS
+  - friendSet?
+    - YES -> moveFriendToGrid
+    - NO -> getFriendFromServer
+
+FLOW FOR NUDGE:
+ - setFriend
+ - preNudgeDialog -> SmsDialog -> postSMS
 
 
 
