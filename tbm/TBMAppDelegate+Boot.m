@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
+#import "TBMAlertController.h"
+#import "TBMConfig.h"
 #import "TBMAppDelegate+Boot.h"
 #import "TBMAppDelegate+PushNotification.h"
 #import "TBMAppDelegate+AppSync.h"
@@ -14,6 +16,7 @@
 #import "TBMFriend.h"
 #import "OBLogger.h"
 #import "TBMDispatch.h"
+#import "AVFoundation/AVFoundation.h"
 
 @implementation TBMAppDelegate (Boot)
 
@@ -25,10 +28,16 @@
     if (![TBMUser getUser].isRegistered){
         self.window.rootViewController = [self registerViewController];
     } else {
-        self.window.rootViewController = [self homeViewController];
-        [self postRegistrationBoot];
+        [self ensureAllMediaAccess];  // Calls onAllMediaAccessGranted when complete.
     }
 }
+
+- (void)onAllMediaAccessGranted{
+    OB_INFO(@"Boot: onAllMediaAccessGranted");
+    self.window.rootViewController = [self homeViewController];
+    [self postRegistrationBoot];
+}
+
 
 - (void)didCompleteRegistration{
     OB_INFO(@"didCompleteRegistration");
@@ -53,6 +62,66 @@
     [self handleStuckDownloadsWithCompletionHandler:^{
         [self retryPendingFileTransfers];
         [self getAndPollAllFriends];
+    }];
+}
+
+
+//---------------------------------------
+// Ensure access for video camera and mic
+//---------------------------------------
+- (void)ensureAllMediaAccess{
+    [self requestVideoAccess];
+}
+
+- (void)onVideoAccessGranted{
+    OB_INFO(@"Boot: onVideoAccessGranted");
+    [self requestAudioAccess];
+}
+
+- (void)onVideoAccessNotGranted{
+    OB_INFO(@"Boot: onVideoAccessNotGranted");
+    NSString *msg = [NSString stringWithFormat:@"You must grant access to CAMERA for %@. Please close %@. Go your device home screen. Click Settings/%@ and grant access for CAMERA.", CONFIG_APP_NAME, CONFIG_APP_NAME, CONFIG_APP_NAME];
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Need Permission"
+                                                                     message:msg];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+        [self requestVideoAccess];
+    }]];
+    [alert presentWithCompletion:nil];
+}
+
+- (void)onAudioAccessGranted{
+    OB_INFO(@"Boot: onAudioAccessGranted");
+    [self onAllMediaAccessGranted];
+}
+
+- (void)onAudioAccessNotGranted{
+    OB_INFO(@"Boot: onAudioAccessNotGranted");
+    NSString *msg = [NSString stringWithFormat:@"You must grant access to MICROPHONE for %@. Please close %@. Go your device home screen. Click Settings/%@ and grant access for MICROPHONE.", CONFIG_APP_NAME, CONFIG_APP_NAME, CONFIG_APP_NAME];
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Need Permission"
+                                                                     message:msg];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+        [self requestAudioAccess];
+    }]];
+    [alert presentWithCompletion:nil];
+}
+
+- (void)requestVideoAccess{
+    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+        if (granted){
+            [self performSelectorOnMainThread:@selector(onVideoAccessGranted) withObject:nil waitUntilDone:NO];
+        } else {
+            [self performSelectorOnMainThread:@selector(onVideoAccessNotGranted) withObject:nil waitUntilDone:NO];
+        }
+    }];
+}
+
+- (void)requestAudioAccess{
+    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
+        if (granted){
+            [self performSelectorOnMainThread:@selector(onAudioAccessGranted) withObject:nil waitUntilDone:NO];
+        } else {
+            [self performSelectorOnMainThread:@selector(onAudioAccessNotGranted) withObject:nil waitUntilDone:NO];
+        }
     }];
 }
 

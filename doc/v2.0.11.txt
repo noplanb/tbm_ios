@@ -71,3 +71,10 @@ FIX #335
 --------
 Adjust message for contacts access not granted.
 Testrail: c2448.
+
+
+FIX #359
+--------
+Do not allow user to enter app without accepting camera and mic
+Testrail c2449, c2450, c2451.
+

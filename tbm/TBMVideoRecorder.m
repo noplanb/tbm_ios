@@ -55,8 +55,6 @@ static int videoRecorderRetryCount = 0;
         _recordedVideoMpeg4Url = [_videosDirectoryUrl URLByAppendingPathComponent:[@"newConverted" stringByAppendingPathExtension:@"mp4"]];
         _dingSoundEffect = [[TBMSoundEffect alloc] initWithSoundNamed:CONFIG_DING_SOUND];
         _sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
-
-        [self checkDeviceAuthorization];
         
         if (![self setupSessionWithError:&*error]){
             OB_ERROR(@"VideoRecorder: Unable to setup AVCaptureSession");
@@ -434,22 +432,6 @@ static const float LayoutConstRecordingBorderWidth = 2;
 }
 - (void) AVCaptureSessionInterruptionEndedNotification:(NSNotification *)notification{
     OB_WARN(@"AVCaptureSessionInterruptionEndedNotification");
-}
-
-//-------------------------
-// checkDeviceAuthorization
-//-------------------------
-- (void)checkDeviceAuthorization{
-	[AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-		if (!granted){
-			dispatch_async(dispatch_get_main_queue(), ^{
-                TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"AVCam!"
-                                                                                 message:@"AVCam doesn't have permission to use Camera, please change privacy settings"];
-                [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:nil]];
-                [alert presentWithCompletion:nil];
-			});
-		}
-	}];
 }
 
 
