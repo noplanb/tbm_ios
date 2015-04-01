@@ -121,7 +121,7 @@
 }
 
 - (void)alertNeedPermission{
-    NSString *msg = [NSString stringWithFormat:@"You must grant access to contacts for this. Please go to settings/privacy/contacts and grant access for %@", CONFIG_APP_NAME];
+    NSString *msg = [NSString stringWithFormat:@"You must grant access to Contacts for this. Please close %@. Go device home screen. Click Settings/%@ and grant access to Contacts.", CONFIG_APP_NAME, CONFIG_APP_NAME];
     
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Need Permission" message:msg];
     [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:nil]];

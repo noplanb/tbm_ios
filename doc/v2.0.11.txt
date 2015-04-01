@@ -65,3 +65,9 @@ Kon bug:
 - Add user with single bad line like land line.
 - Add a good mobile number to the contact.
 - Try to add the person again. It assumes you are connected and doesnt give you the choice to pick the new line.
+
+
+FIX #335
+--------
+Adjust message for contacts access not granted.
+Testrail: c2448.
