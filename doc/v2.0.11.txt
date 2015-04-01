@@ -17,27 +17,29 @@ After user cancels at the last moment before sending an sms present dialog regar
 Cases: (Testrail)
 c38 - Invite sms cancel
 c2446 - No sim card IOS
+c2447 - No sim card Android
 c47 - Nudge - sms send
 c46 - Nudge - sms cancel
 
 FLOW FOR INVITE
 Invite
  - GetValidPhones
-   CASE 0 phones -> No Valid Phone Dialog
+ - No phones -> No Valid Phone Dialog
  - Multiple phones -> Pick phone -> handleSelectedPhone
  - Single phone -> handleSelectedPhone
 
 handleSelectedPhone
  - Belongs to friend?
-   - YES -> connectedDialog
+   - YES (setFriend) -> connectedDialog
    - NO -> hasApp?
 
 hasApp?
   - YES -> getFriendFromServer
   - NO -> presmsDialog
 
-getFriendFromServer
-  - connectedDialog
+getFriendFromServer -> connectedDialog
+
+getFriendFromServer -> connectedDialog
 
 preSmsDialog -> SmsDialog -> postSms
 
@@ -51,13 +53,15 @@ FLOW FOR NUDGE:
  - preNudgeDialog -> SmsDialog -> postSMS
 
 
-
 FIX #344:
 ---------
-Pick from contacts with multiple numbers should present pick dialog regardless of whether any of the numbers is currently a friend.
+In the case where we user picks a contact with multiple numbers always show select phone number dialog even if any or all phone numbers are currently freinds.
 
-Bug in 2.0.10 - If you add a friend using 1 of multiple phone numbers and you have chosen the wrong one, the app does not show you the dialog to pick phone numbers again when you pick the contact from your list a second time.
+In 2.0.10 we dont do this and it makes it impossible to add a friend with the correct number if you have added a friend with an incorrect number beforehand.
 
 Testrail c28, c2444, c30
 
-
+Kon bug:
+- Add user with single bad line like land line.
+- Add a good mobile number to the contact.
+- Try to add the person again. It assumes you are connected and doesnt give you the choice to pick the new line.
