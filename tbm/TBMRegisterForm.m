@@ -28,7 +28,7 @@
 
 static const float TBMRegisterLogoTopMargin = 106.0;
 static const float TBMRegisterFieldsTopMargin = 60.0;
-static const float TBMRegisterFieldsVerticalMargin = 7.0;
+static const float TBMRegisterFieldsVerticalMargin = 10.0;
 static const float TBMRegisterCountryCodeRightMargin = 8.0;
 static const float TBMRegisterSubmitTopMargin = 60.0;
 static const float TBMRegisterSpinnerTopMargin = 10.0;
@@ -100,6 +100,7 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
 //----------------
 // Set up the form
 //----------------
+
 - (void)setupRegisterForm{
     [self addScrollView];
     [self addContentView];
@@ -176,7 +177,7 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
 - (void)addPlus{
     CGRect f;
     f.origin.x = self.firstName.frame.origin.x;
-    f.origin.y = self.lastName.frame.origin.y + self.lastName.frame.size.height + 4.0;
+    f.origin.y = self.lastName.frame.origin.y + self.lastName.frame.size.height + TBMRegisterFieldsVerticalMargin - 2;
     f.size.width = 19.0;
     f.size.height = TBMRegisterTextFieldHeight;
     
@@ -192,12 +193,12 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
     CGRect f;
     f.origin.x = self.firstName.frame.origin.x;
     f.origin.y = self.lastName.frame.origin.y + self.lastName.frame.size.height + TBMRegisterFieldsVerticalMargin;
-    f.size.width = 60.0;
+    f.size.width = 90.0;
     f.size.height = TBMRegisterTextFieldHeight;
     
     self.countryCode = [[TBMTextField alloc] initWithFrame:f];
     [self.countryCode setKeyboardType:UIKeyboardTypeNumberPad];
-    self.countryCode.text = @"1";
+    self.countryCode.placeholder = @"1 usa";
     [self setCommonAttributesForTextField:self.countryCode];
     [self.contentView addSubview:self.countryCode];
     
@@ -213,7 +214,7 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
     f.size.height = 10.0;
     
     UILabel *cclbl = [[UILabel alloc] initWithFrame:f];
-    cclbl.font = [UIFont systemFontOfSize:8];
+    cclbl.font = [UIFont systemFontOfSize:11];
     cclbl.textAlignment = NSTextAlignmentCenter;
     cclbl.textColor = [UIColor whiteColor];
     [cclbl setText:@"Country Code"];

@@ -78,3 +78,8 @@ FIX #359
 Do not allow user to enter app without accepting camera and mic
 Testrail c2449, c2450, c2451.
 
+
+FIX #286
+--------
+Hint for country code.
+Testrail c2435
