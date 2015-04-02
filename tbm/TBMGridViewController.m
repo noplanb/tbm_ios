@@ -244,6 +244,7 @@ static const float LayoutConstASPECT = 0.75;
     TBMGridElement *ge = [self gridElementWithView:view];
     if (ge.friend != nil){
         [self rankingActionOccurred:ge.friend];
+        [[TBMVideoPlayer sharedInstance] stop];
         [[self videoRecorder] startRecordingWithMarker:ge.friend.idTbm];
     }
 }
