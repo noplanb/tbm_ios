@@ -19,6 +19,7 @@
 #import "TBMAlertControllerVisualStyle.h"
 #import "iToast.h"
 #import "OBFileTransferManager.h"
+#import "TBMAudioSessionRouter.h"
 
 @interface TBMVideoPlayer()
 @property TBMGridElement *gridElement;
@@ -51,6 +52,7 @@
     if (self != nil){
         _moviePlayerController = [[MPMoviePlayerController alloc] init];
         _moviePlayerController.controlStyle = MPMovieControlStyleNone;
+
         _playerView = _moviePlayerController.view;
         _playerView.tag = 1401;
         self.playerView.hidden = YES;
@@ -111,8 +113,14 @@
 - (void)addPlayerNotifications{
     DebugLog(@"Adding player notifications");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackDidFinishNotification:) name:MPMoviePlayerPlaybackDidFinishNotification object:_moviePlayerController];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackStateDidChangeNotification) name:MPMoviePlayerPlaybackStateDidChangeNotification object:_moviePlayerController];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(TBMAudioSessionRouterInterruptionNotification:) name:TBMAudioSessionRouterInterruptionNotification object:[TBMAudioSessionRouter sharedInstance]];
+}
+
+- (void) TBMAudioSessionRouterInterruptionNotification:(NSNotification *)notification {
+    if (self.isPlaying) {
+        [self stop];
+    }
 }
 
 - (void) playbackDidFinishNotification:(NSNotification *)notification{
@@ -214,6 +222,9 @@
 
 - (void)play{
     DebugLog(@"play for %@", self.video.videoId);
+    
+    [[TBMAudioSessionRouter sharedInstance] setState:Playing];
+    
     // Set viewed even if the video is not playable so that it gets deleted eventually.
     [self.gridElement.friend setViewedWithIncomingVideo:self.video];
     [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
@@ -237,6 +248,7 @@
 
 - (void)playDidComplete{
     OB_INFO(@"VideoPlayer: playDidComplete: %@", self.video.videoId);
+    
     if (self.videosAreDownloading)
         [self setCurrentVideo:[self.gridElement.friend nextUnviewedVideoAfterVideoId:self.videoId]];
     else
@@ -247,6 +259,8 @@
     } else {
         [self hidePlayerView];
     }
+    
+    [[TBMAudioSessionRouter sharedInstance] setState:Idle];
 }
 
 - (void)setCurrentVideo:(TBMVideo *)video{

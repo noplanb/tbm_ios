@@ -13,6 +13,7 @@
 #import "OBLogger.h"
 #import "TBMAlertController.h"
 #import "HexColor.h"
+#import "TBMAudioSessionRouter.h"
 
 static int videoRecorderRetryCount = 0;
 
@@ -20,7 +21,6 @@ static int videoRecorderRetryCount = 0;
 @property (nonatomic) dispatch_queue_t sessionQueue;
 @property UIView *previewView;
 @property AVCaptureSession *captureSession;
-@property AVAudioSession *audioSession;
 @property AVCaptureInput *videoInput;
 @property AVCaptureInput *audioInput;
 @property NSFileManager *fileManager;
@@ -64,11 +64,15 @@ static int videoRecorderRetryCount = 0;
 
         [self setupPreviewView];
         
+
+        
         dispatch_async(_sessionQueue, ^{
+            
             __block NSError *blockError;
             //
             // Video
             //
+            
             if (![self getVideoCaptureInputWithError:&blockError]){
                 OB_ERROR(@"VideoRecorder: Unable to getVideoCaptureInput");
                 return;
@@ -80,15 +84,14 @@ static int videoRecorderRetryCount = 0;
             //
             // Audio
             //
-            [self setupAudioSession];
-
             // [TBMDeviceHandler showAllAudioDevices];
             if (![self getAudioCaptureInputWithError:&blockError]){
                 OB_ERROR(@"VideoRecorder: Unable to getAudioCaptureInput");
                 return;
             }
 
-            [_captureSession addInput:_audioInput];
+            // We'll add audio input before start recording, because we don't want background music stop.
+//            [_captureSession addInput:_audioInput];
             OB_INFO(@"Added audioInput: %@", _audioInput);
             
             //
@@ -134,26 +137,6 @@ static int videoRecorderRetryCount = 0;
     }
     _captureSession.sessionPreset = AVCaptureSessionPresetLow;
     return _captureSession;
-}
-
-- (AVAudioSession *)setupAudioSession{
-    _audioSession = [AVAudioSession sharedInstance];
-    
-    NSError *error = nil;
-    [_audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionMixWithOthers error:&error];
-    if (error)
-        OB_ERROR(@"ERROR: unable to set audiosession to AVAudioSessionCategoryPlayAndRecord ERROR: %@", error);
-    
-    error = nil;
-    [_audioSession setMode:AVAudioSessionModeVideoChat error:&error];
-    if (error)
-        OB_ERROR(@"ERROR: unable to set audiosession to AVAudioSessionModeVideoChat ERROR: %@", error);
-    
-    error = nil;
-    if (![_audioSession setActive:YES error:&error])
-        OB_ERROR(@"ERROR: unable to activate audiosession ERROR: %@", error);
-
-    return _audioSession;
 }
 
 - (AVCaptureInput *)getVideoCaptureInputWithError:(NSError **)error{
@@ -271,6 +254,10 @@ static const float LayoutConstRecordingBorderWidth = 2;
 // Recording actions
 //------------------
 - (void)startRecordingWithMarker:(NSString *)marker{
+    
+    [[TBMAudioSessionRouter sharedInstance] setState:Recording];
+    
+    [_captureSession addInput:_audioInput];
     [_dingSoundEffect play];
     self.didCancelRecording = NO;
     _marker = marker;
@@ -317,6 +304,11 @@ static const float LayoutConstRecordingBorderWidth = 2;
 //------------------------------------------------
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error{
     OB_INFO(@"didFinishRecording.");
+    
+    //We remove audio input
+    [_captureSession removeInput:_audioInput];
+    [[TBMAudioSessionRouter sharedInstance] setState:Idle];
+    
     if (self.didCancelRecording)
         return;
     
@@ -401,6 +393,7 @@ static const float LayoutConstRecordingBorderWidth = 2;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionDidStopRunningNotification:) name:AVCaptureSessionDidStopRunningNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionWasInterruptedNotification:) name:AVCaptureSessionWasInterruptedNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionInterruptionEndedNotification:) name:AVCaptureSessionInterruptionEndedNotification object:_captureSession];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(TBMAudioSessionRouterInterruptionNotification:) name:TBMAudioSessionRouterInterruptionNotification object:nil];
 }
 
 - (void)removeObservers{
@@ -409,6 +402,14 @@ static const float LayoutConstRecordingBorderWidth = 2;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionDidStopRunningNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionWasInterruptedNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionInterruptionEndedNotification object:_captureSession];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TBMAudioSessionRouterInterruptionNotification object:[TBMAudioSessionRouter sharedInstance]];
+}
+
+- (void) TBMAudioSessionRouterInterruptionNotification:(NSNotification *)notification{
+    OB_WARN(@"TBMAudioSessionRouterInterruptionNotification");
+    if ([self.captureOutput isRecording]) {
+        [self cancelRecording];
+    }
 }
 
 - (void) AVCaptureSessionRuntimeErrorNotification:(NSNotification *)notification{

@@ -17,6 +17,7 @@
 #import "OBLogger.h"
 #import "TBMDispatch.h"
 #import "AVFoundation/AVFoundation.h"
+#import "TBMAudioSessionRouter.h"
 
 @implementation TBMAppDelegate (Boot)
 
@@ -30,6 +31,8 @@
     } else {
         [self ensureAllMediaAccess];  // Calls onAllMediaAccessGranted when complete.
     }
+    
+    [TBMAudioSessionRouter sharedInstance];
 }
 
 - (void)onAllMediaAccessGranted{
