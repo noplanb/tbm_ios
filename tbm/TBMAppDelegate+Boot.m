@@ -17,6 +17,7 @@
 #import "OBLogger.h"
 #import "TBMDispatch.h"
 #import "AVFoundation/AVFoundation.h"
+#import "TBMFileUtils.h"
 
 @implementation TBMAppDelegate (Boot)
 
@@ -28,14 +29,9 @@
     if (![TBMUser getUser].isRegistered){
         self.window.rootViewController = [self registerViewController];
     } else {
-        [self ensureAllMediaAccess];  // Calls onAllMediaAccessGranted when complete.
+        self.window.rootViewController = [self homeViewController];
+        [self postRegistrationBoot];
     }
-}
-
-- (void)onAllMediaAccessGranted{
-    OB_INFO(@"Boot: onAllMediaAccessGranted");
-    self.window.rootViewController = [self homeViewController];
-    [self postRegistrationBoot];
 }
 
 
@@ -54,10 +50,23 @@
 
 - (void)performDidBecomeActiveActions{
     OB_INFO(@"performDidBecomeActiveActions: registered: %d", [TBMUser getUser].isRegistered);
-
     if (![TBMUser getUser].isRegistered)
         return;
     
+    [self ensureResources];
+}
+
+- (void)ensureResources{
+    // Note these are all daisy chained together so that each resource check blocks until
+    // the user has satisfied it then it calls the next resource check in the list.
+    // It is a bit spagetti like. There is probably a more elegant way to do this.
+    // Daisy chain is:
+    // ensureFreeStorageSpace -> ensureAllMediaAccess (videoAccess -> audioAccess) -> onResourcesAvailable
+    
+    [self ensureFreeStorage];
+}
+
+- (void)onResourcesAvailable{
     [TBMVideo printAll];
     [self handleStuckDownloadsWithCompletionHandler:^{
         [self retryPendingFileTransfers];
@@ -65,13 +74,18 @@
     }];
 }
 
-
 //---------------------------------------
 // Ensure access for video camera and mic
 //---------------------------------------
 - (void)ensureAllMediaAccess{
     [self requestVideoAccess];
 }
+
+- (void)onAllMediaAccessGranted{
+    OB_INFO(@"Boot: onAllMediaAccessGranted");
+    [self onResourcesAvailable];
+}
+
 
 - (void)onVideoAccessGranted{
     OB_INFO(@"Boot: onVideoAccessGranted");
@@ -81,9 +95,10 @@
 - (void)onVideoAccessNotGranted{
     OB_INFO(@"Boot: onVideoAccessNotGranted");
     NSString *msg = [NSString stringWithFormat:@"You must grant access to CAMERA for %@. Please close %@. Go your device home screen. Click Settings/%@ and grant access for CAMERA.", CONFIG_APP_NAME, CONFIG_APP_NAME, CONFIG_APP_NAME];
+    NSString *closeBtn = [NSString stringWithFormat:@"Close %@", CONFIG_APP_NAME];
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Need Permission"
                                                                      message:msg];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+    [alert addAction:[SDCAlertAction actionWithTitle:closeBtn style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
         [self requestVideoAccess];
     }]];
     [alert presentWithCompletion:nil];
@@ -97,10 +112,11 @@
 - (void)onAudioAccessNotGranted{
     OB_INFO(@"Boot: onAudioAccessNotGranted");
     NSString *msg = [NSString stringWithFormat:@"You must grant access to MICROPHONE for %@. Please close %@. Go your device home screen. Click Settings/%@ and grant access for MICROPHONE.", CONFIG_APP_NAME, CONFIG_APP_NAME, CONFIG_APP_NAME];
+    NSString *closeBtn = [NSString stringWithFormat:@"Close %@", CONFIG_APP_NAME];
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Need Permission"
                                                                      message:msg];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
-        [self requestAudioAccess];
+    [alert addAction:[SDCAlertAction actionWithTitle:closeBtn style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+        exit(0);
     }]];
     [alert presentWithCompletion:nil];
 }
@@ -126,4 +142,33 @@
 }
 
 
+//--------------------------
+// Ensure free storage space
+//--------------------------
+
+- (void)ensureFreeStorage{
+    OB_INFO(@"Boot: ensureFreeStorage:");
+    if ([TBMFileUtils getFreeDiskspace] < 3048LL * 1024 * 1024)
+        [self requestStorage];
+    else
+        [self ensureAllMediaAccess];
+}
+
+
+- (void) requestStorage{
+    OB_INFO(@"Boot: requestStorage");
+    NSString *msg = [NSString stringWithFormat:@"No available storage on device. Close %@. Delete some videos and photos. Be sure to delete permanently from recently deleted folder. And try again.", CONFIG_APP_NAME];
+    NSString *closeBtn = [NSString stringWithFormat:@"Close %@", CONFIG_APP_NAME];
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"No Available Storage"
+                                                                     message:msg];
+    
+    [alert addAction:[SDCAlertAction actionWithTitle:closeBtn style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+        // In case the user backgrounds the app we will create stacked alerts here.
+        // I exit so that when the user dismisses the alert we start fresh.
+        // A better solution would be to automatically dismiss all alerts when app goes to background.
+        // But this is a pain when supporting both ios7 and ios8 type alerts.
+        exit(0);
+    }]];
+    [alert presentWithCompletion:nil];
+}
 @end

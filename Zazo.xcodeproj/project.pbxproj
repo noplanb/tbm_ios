@@ -109,6 +109,7 @@
 		22EA56BB19103E4B00646D3E /* single_ding_chimes2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22EA56BA19103E4B00646D3E /* single_ding_chimes2.wav */; };
 		22EA56BE191068B700646D3E /* TBMVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 22EA56BD191068B700646D3E /* TBMVideoPlayer.m */; };
 		22EA56C119106AD100646D3E /* TBMConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 22EA56C019106AD100646D3E /* TBMConfig.m */; };
+		22EC119F1ACE074A0066414B /* TBMFileUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 22EC119E1ACE074A0066414B /* TBMFileUtils.m */; };
 		22ED40081A0850F5003D6536 /* TBMGridElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 22ED40071A0850F5003D6536 /* TBMGridElement.m */; };
 		22ED400B1A08707E003D6536 /* TBMRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22ED400A1A08707E003D6536 /* TBMRegisterViewController.m */; };
 		22F1A4C419354AC500E04229 /* TBMVideoIdUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F1A4C319354AC500E04229 /* TBMVideoIdUtils.m */; };
@@ -281,6 +282,8 @@
 		22EA56BD191068B700646D3E /* TBMVideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoPlayer.m; sourceTree = "<group>"; };
 		22EA56BF19106AD100646D3E /* TBMConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMConfig.h; sourceTree = "<group>"; };
 		22EA56C019106AD100646D3E /* TBMConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMConfig.m; sourceTree = "<group>"; };
+		22EC119D1ACE074A0066414B /* TBMFileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFileUtils.h; sourceTree = "<group>"; };
+		22EC119E1ACE074A0066414B /* TBMFileUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFileUtils.m; sourceTree = "<group>"; };
 		22ED40061A0850F5003D6536 /* TBMGridElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMGridElement.h; sourceTree = "<group>"; };
 		22ED40071A0850F5003D6536 /* TBMGridElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMGridElement.m; sourceTree = "<group>"; };
 		22ED40091A08707E003D6536 /* TBMRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMRegisterViewController.h; sourceTree = "<group>"; };
@@ -511,6 +514,8 @@
 				226A26021A584AD6006FDFDA /* TBMKeyChainWrapper.m */,
 				2292CBB91A9FF7EF00A0477B /* NSString+NSStringExtensions.h */,
 				2292CBBA1A9FF7EF00A0477B /* NSString+NSStringExtensions.m */,
+				22EC119D1ACE074A0066414B /* TBMFileUtils.h */,
+				22EC119E1ACE074A0066414B /* TBMFileUtils.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -886,6 +891,7 @@
 				22FE2A011A09C0460051FC9C /* TBMFriendGetter.m in Sources */,
 				22500B8819993FDC008E9EA4 /* TBMAppDelegate+AppSync.m in Sources */,
 				221B77761A6889B9009FA670 /* TBMBenchTableViewCell.m in Sources */,
+				22EC119F1ACE074A0066414B /* TBMFileUtils.m in Sources */,
 				223A11461915926800177481 /* TBMHttpManager.m in Sources */,
 				225D21C01A5B5B4F0087A25B /* TBMS3CredentialsManager.m in Sources */,
 				22A375C41930E09E00C355EB /* TBMStringUtils.m in Sources */,

@@ -24,7 +24,7 @@
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-     // DebugLog(@"touches began");
+    // DebugLog(@"touches began");
     // Cancel any gesture that becomes multitouch.
     if ([[event allTouches] count] > 1){
         [self cancelGesture:@"Two finger touch"];
