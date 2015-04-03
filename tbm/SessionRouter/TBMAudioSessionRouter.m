@@ -69,15 +69,10 @@ NSString * const TBMAudioSessionRouterInterruptionNotification = @"AudioSessionR
     AVAudioSessionRouteChangeReason reason = [[notification.userInfo objectForKey:AVAudioSessionRouteChangeReasonKey] intValue];
     switch (reason) {
         case AVAudioSessionRouteChangeReasonNewDeviceAvailable:
-            //We should do nothing
             break;
         case AVAudioSessionRouteChangeReasonOldDeviceUnavailable:
-            //Update audio session params
-            //TODO: stop playing video
-            [self updateAudioSessionParams];
             break;
         case AVAudioSessionRouteChangeReasonWakeFromSleep:
-            //Awake from sleep?
             break;
         case AVAudioSessionRouteChangeReasonCategoryChange:
         default:
