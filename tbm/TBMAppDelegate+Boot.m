@@ -18,6 +18,7 @@
 #import "TBMDispatch.h"
 #import "AVFoundation/AVFoundation.h"
 #import "TBMFileUtils.h"
+#import "TBMAudioSessionRouter.h"
 
 @implementation TBMAppDelegate (Boot)
 
@@ -32,6 +33,8 @@
         self.window.rootViewController = [self homeViewController];
         [self postRegistrationBoot];
     }
+    
+    [TBMAudioSessionRouter sharedInstance];
 }
 
 

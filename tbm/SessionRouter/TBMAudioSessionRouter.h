@@ -1,0 +1,24 @@
+//
+//  TBMAudioSessionRouter.h
+//  Zazo
+//
+//  Created by Kirill Kirikov on 02.04.15.
+//  Copyright (c) 2015 No Plan B. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
+
+extern NSString * const TBMAudioSessionRouterInterruptionNotification;
+
+typedef enum : NSUInteger {
+    Idle,
+    Playing,
+    Recording
+} AudioSessionState;
+
+@interface TBMAudioSessionRouter : NSObject
+@property (nonatomic) AVAudioSession *session;
+@property (nonatomic) AudioSessionState state;
++ (TBMAudioSessionRouter * ) sharedInstance;
+@end
