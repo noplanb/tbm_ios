@@ -83,3 +83,9 @@ FIX #286
 --------
 Hint for country code.
 Testrail c2435
+
+FIX
+Check ensure sufficient storage
+Also made how to message correct for ios8 and ios7 for camera, microphone
+- how to for contacts ios7 and 8.
+- test cases for camera mic and storage.

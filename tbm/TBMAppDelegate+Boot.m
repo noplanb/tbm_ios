@@ -94,12 +94,20 @@
 
 - (void)onVideoAccessNotGranted{
     OB_INFO(@"Boot: onVideoAccessNotGranted");
-    NSString *msg = [NSString stringWithFormat:@"You must grant access to CAMERA for %@. Please close %@. Go your device home screen. Click Settings/%@ and grant access for CAMERA.", CONFIG_APP_NAME, CONFIG_APP_NAME, CONFIG_APP_NAME];
+    
+    NSString *msg;
+    
+    if (SYSTEM_VERSION_LESS_THAN(@"8.0")) {
+        msg = [NSString stringWithFormat:@"You must grant access to CAMERA for %@. Please close %@. Go your device home screen. Click Settings/Privacy/Camera and grant access for %@.", CONFIG_APP_NAME, CONFIG_APP_NAME, CONFIG_APP_NAME];
+    } else {
+        msg = [NSString stringWithFormat:@"You must grant access to CAMERA for %@. Please close %@. Go your device home screen. Click Settings/%@ and grant access for CAMERA.", CONFIG_APP_NAME, CONFIG_APP_NAME, CONFIG_APP_NAME];
+    }
+    
     NSString *closeBtn = [NSString stringWithFormat:@"Close %@", CONFIG_APP_NAME];
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Need Permission"
                                                                      message:msg];
     [alert addAction:[SDCAlertAction actionWithTitle:closeBtn style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
-        [self requestVideoAccess];
+        exit(0);
     }]];
     [alert presentWithCompletion:nil];
 }
@@ -111,7 +119,15 @@
 
 - (void)onAudioAccessNotGranted{
     OB_INFO(@"Boot: onAudioAccessNotGranted");
-    NSString *msg = [NSString stringWithFormat:@"You must grant access to MICROPHONE for %@. Please close %@. Go your device home screen. Click Settings/%@ and grant access for MICROPHONE.", CONFIG_APP_NAME, CONFIG_APP_NAME, CONFIG_APP_NAME];
+    
+    NSString *msg;
+    
+    if (SYSTEM_VERSION_LESS_THAN(@"8.0")) {
+        msg = [NSString stringWithFormat:@"You must grant access to MICROPHONE for %@. Please close %@. Go your device home screen. Click Settings/privacy/microphone and grant access for %@.", CONFIG_APP_NAME, CONFIG_APP_NAME, CONFIG_APP_NAME];
+    } else {
+        msg = [NSString stringWithFormat:@"You must grant access to MICROPHONE for %@. Please close %@. Go your device home screen. Click Settings/%@ and grant access for MICROPHONE.", CONFIG_APP_NAME, CONFIG_APP_NAME, CONFIG_APP_NAME];
+    }
+
     NSString *closeBtn = [NSString stringWithFormat:@"Close %@", CONFIG_APP_NAME];
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Need Permission"
                                                                      message:msg];
@@ -148,7 +164,7 @@
 
 - (void)ensureFreeStorage{
     OB_INFO(@"Boot: ensureFreeStorage:");
-    if ([TBMFileUtils getFreeDiskspace] < 3048LL * 1024 * 1024)
+    if ([TBMFileUtils getFreeDiskspace] < 3080LL * 1024 * 1024)
         [self requestStorage];
     else
         [self ensureAllMediaAccess];
@@ -157,7 +173,7 @@
 
 - (void) requestStorage{
     OB_INFO(@"Boot: requestStorage");
-    NSString *msg = [NSString stringWithFormat:@"No available storage on device. Close %@. Delete some videos and photos. Be sure to delete permanently from recently deleted folder. And try again.", CONFIG_APP_NAME];
+    NSString *msg = [NSString stringWithFormat:@"No available storage on device. Close %@. Delete some videos and photos. Be sure to delete permanently from recently deleted folder. Then try again.", CONFIG_APP_NAME];
     NSString *closeBtn = [NSString stringWithFormat:@"Close %@", CONFIG_APP_NAME];
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"No Available Storage"
                                                                      message:msg];
