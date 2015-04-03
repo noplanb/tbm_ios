@@ -164,7 +164,7 @@
 
 - (void)ensureFreeStorage{
     OB_INFO(@"Boot: ensureFreeStorage:");
-    if ([TBMFileUtils getFreeDiskspace] < 3080LL * 1024 * 1024)
+    if ([TBMFileUtils getFreeDiskspace] < 250LL * 1024 * 1024)
         [self requestStorage];
     else
         [self ensureAllMediaAccess];
