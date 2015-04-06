@@ -305,7 +305,7 @@ static const float LayoutConstRecordingBorderWidth = 2;
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error{
     OB_INFO(@"didFinishRecording.");
     
-    //We remove audio input
+    //We should remove audio input, because we need allow background music.
     [_captureSession removeInput:_audioInput];
     [[TBMAudioSessionRouter sharedInstance] setState:Idle];
     
@@ -393,7 +393,6 @@ static const float LayoutConstRecordingBorderWidth = 2;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionDidStopRunningNotification:) name:AVCaptureSessionDidStopRunningNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionWasInterruptedNotification:) name:AVCaptureSessionWasInterruptedNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionInterruptionEndedNotification:) name:AVCaptureSessionInterruptionEndedNotification object:_captureSession];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(TBMAudioSessionRouterInterruptionNotification:) name:TBMAudioSessionRouterInterruptionNotification object:nil];
 }
 
 - (void)removeObservers{
@@ -402,14 +401,6 @@ static const float LayoutConstRecordingBorderWidth = 2;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionDidStopRunningNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionWasInterruptedNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionInterruptionEndedNotification object:_captureSession];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:TBMAudioSessionRouterInterruptionNotification object:[TBMAudioSessionRouter sharedInstance]];
-}
-
-- (void) TBMAudioSessionRouterInterruptionNotification:(NSNotification *)notification{
-    OB_WARN(@"TBMAudioSessionRouterInterruptionNotification");
-    if ([self.captureOutput isRecording]) {
-        [self cancelRecording];
-    }
 }
 
 - (void) AVCaptureSessionRuntimeErrorNotification:(NSNotification *)notification{

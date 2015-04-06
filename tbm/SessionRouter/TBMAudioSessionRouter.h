@@ -8,8 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
-
-extern NSString * const TBMAudioSessionRouterInterruptionNotification;
+#import "TBMVideoPlayer.h"
 
 typedef enum : NSUInteger {
     Idle,
@@ -17,7 +16,7 @@ typedef enum : NSUInteger {
     Recording
 } AudioSessionState;
 
-@interface TBMAudioSessionRouter : NSObject
+@interface TBMAudioSessionRouter : NSObject <TBMVideoPlayerEventNotification>
 @property (nonatomic) AVAudioSession *session;
 @property (nonatomic) AudioSessionState state;
 + (TBMAudioSessionRouter * ) sharedInstance;
