@@ -9,8 +9,6 @@
 #import "TBMAudioSessionRouter.h"
 #import <UIKit/UIKit.h>
 
-NSString * const TBMAudioSessionRouterInterruptionNotification = @"AudioSessionRouterInterruption";
-
 @implementation TBMAudioSessionRouter
 
 #pragma mark - Singleton
@@ -88,7 +86,6 @@ NSString * const TBMAudioSessionRouterInterruptionNotification = @"AudioSessionR
 
 - (void) interrupt {
     if (self.state != Idle) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:TBMAudioSessionRouterInterruptionNotification object:self];
         [self setState:Idle];
     }
 }
@@ -135,6 +132,16 @@ NSString * const TBMAudioSessionRouterInterruptionNotification = @"AudioSessionR
             
             break;
     }
+}
+
+#pragma mark - TBMVideoPlayerEventNotification
+
+- (void)videoPlayerStartedIndex:(NSInteger)index {
+    [self setState:Playing];
+}
+
+- (void)videoPlayerStopped {
+    [self setState:Idle];
 }
 
 @end
