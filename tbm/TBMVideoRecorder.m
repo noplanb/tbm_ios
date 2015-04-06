@@ -82,20 +82,7 @@ static int videoRecorderRetryCount = 0;
 
             [_captureSession addInput:_videoInput];
             OB_INFO(@"Added videoInput: %@", _videoInput);
-            
-            //
-            // Audio
-            //
-            // [TBMDeviceHandler showAllAudioDevices];
-            if (![self getAudioCaptureInputWithError:&blockError]){
-                OB_ERROR(@"VideoRecorder: Unable to getAudioCaptureInput");
-                return;
-            }
 
-            // We'll add audio input before start recording, because we don't want background music stop.
-//            [_captureSession addInput:_audioInput];
-            OB_INFO(@"Added audioInput: %@", _audioInput);
-            
             //
             // Output
             //
@@ -259,7 +246,8 @@ static const float LayoutConstRecordingBorderWidth = 2;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
     
-    [_captureSession addInput:_audioInput];
+    [self addAudioInput];
+    
     [_dingSoundEffect play];
     self.didCancelRecording = NO;
     _marker = marker;
@@ -281,6 +269,15 @@ static const float LayoutConstRecordingBorderWidth = 2;
     // Wait so final ding isn't part of recording
     [NSThread sleepForTimeInterval:0.1f];
     [_dingSoundEffect play];
+}
+
+- (void) addAudioInput {
+    NSError *error;
+    if (![self getAudioCaptureInputWithError:&error]){
+        OB_ERROR(@"VideoRecorder: Unable to getAudioCaptureInput (Error: %@)", error);
+        return;
+    }
+    [_captureSession addInput:_audioInput];
 }
 
 - (BOOL)cancelRecording{
