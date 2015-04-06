@@ -13,7 +13,9 @@
 #import "OBLogger.h"
 #import "TBMAlertController.h"
 #import "HexColor.h"
-#import "TBMAudioSessionRouter.h"
+
+NSString* const TBMVideoRecorderDidFinishRecording = @"TBMVideoRecorderDidFinishRecording";
+NSString* const TBMVideoRecorderShouldStartRecording = @"TBMVideoRecorderShouldStartRecording";
 
 static int videoRecorderRetryCount = 0;
 
@@ -255,7 +257,7 @@ static const float LayoutConstRecordingBorderWidth = 2;
 //------------------
 - (void)startRecordingWithMarker:(NSString *)marker{
     
-    [[TBMAudioSessionRouter sharedInstance] setState:Recording];
+    [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
     
     [_captureSession addInput:_audioInput];
     [_dingSoundEffect play];
@@ -307,7 +309,9 @@ static const float LayoutConstRecordingBorderWidth = 2;
     
     //We should remove audio input, because we need allow background music.
     [_captureSession removeInput:_audioInput];
-    [[TBMAudioSessionRouter sharedInstance] setState:Idle];
+    
+    //Notify audio session router
+    [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFinishRecording object:self];
     
     if (self.didCancelRecording)
         return;
