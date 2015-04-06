@@ -37,7 +37,6 @@
     [TBMAudioSessionRouter sharedInstance];
 }
 
-
 - (void)didCompleteRegistration{
     OB_INFO(@"didCompleteRegistration");
     [[self registerViewController] presentViewController:[self homeViewController] animated:YES completion:nil];
