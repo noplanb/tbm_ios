@@ -7,6 +7,7 @@
 //
 
 #import "TBMAudioSessionRouter.h"
+#import "TBMVideoRecorder.h"
 #import <UIKit/UIKit.h>
 
 @implementation TBMAudioSessionRouter
@@ -49,10 +50,20 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveAudioSessionRoutChangeNotification:) name:AVAudioSessionRouteChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveAudioSessionInterruptionNotification:) name:AVAudioSessionInterruptionNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveAVAudioSessionSilenceSecondaryAudioHintNotification:) name:AVAudioSessionSilenceSecondaryAudioHintNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveTBMVideoRecorderDidFinishRecordingNotification:) name:TBMVideoRecorderDidFinishRecording object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveTBMVideoRecorderShouldStartRecordingNotification:) name:TBMVideoRecorderShouldStartRecording object:nil];
     
 }
 
 #pragma mark - Notifications handling
+
+- (void) didReceiveTBMVideoRecorderDidFinishRecordingNotification:(NSNotification *)notification {
+    [self setState:Idle];
+}
+
+- (void) didReceiveTBMVideoRecorderShouldStartRecordingNotification:(NSNotification *)notification {
+    [self setState:Recording];
+}
 
 - (void) didReceiveAVAudioSessionSilenceSecondaryAudioHintNotification:(NSNotification *)notification {
     [self interrupt];

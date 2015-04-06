@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "AVFoundation/AVFoundation.h"
+
+extern NSString* const TBMVideoRecorderDidFinishRecording;
+extern NSString* const TBMVideoRecorderShouldStartRecording;
+
 @protocol TBMVideoRecorderDelegate <NSObject>
 - (void)didFinishVideoRecordingWithMarker:(NSString *)marker;
 - (void)videoRecorderDidStartRunning;
