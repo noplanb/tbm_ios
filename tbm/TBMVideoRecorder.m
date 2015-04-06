@@ -133,11 +133,6 @@ static int videoRecorderRetryCount = 0;
     return _videoInput;
 }
 
-- (AVCaptureInput *)getAudioCaptureInputWithError:(NSError * __autoreleasing *)error{
-    _audioInput = [TBMDeviceHandler getAudioInputWithError:&*error];
-    return _audioInput;
-}
-
 - (AVCaptureSession *)addCaptureOutputWithError:(NSError **)error{
     if (![_captureSession canAddOutput:_captureOutput]) {
         OB_ERROR(@"VideoRecorder: addCaptureOutputWithError: Could not add captureOutput");
@@ -273,11 +268,20 @@ static const float LayoutConstRecordingBorderWidth = 2;
 
 - (void) addAudioInput {
     NSError *error;
-    if (![self getAudioCaptureInputWithError:&error]){
+    _audioInput = [TBMDeviceHandler getAudioInputWithError:&error];
+    
+    if (error) {
         OB_ERROR(@"VideoRecorder: Unable to getAudioCaptureInput (Error: %@)", error);
         return;
     }
+    
     [_captureSession addInput:_audioInput];
+}
+
+- (void) removeAudioInput {
+    if (_audioInput) {
+        [_captureSession removeInput:_audioInput];
+    }
 }
 
 - (BOOL)cancelRecording{
@@ -304,8 +308,7 @@ static const float LayoutConstRecordingBorderWidth = 2;
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error{
     OB_INFO(@"didFinishRecording.");
     
-    //We should remove audio input, because we need allow background music.
-    [_captureSession removeInput:_audioInput];
+    [self removeAudioInput];
     
     //Notify audio session router
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFinishRecording object:self];
