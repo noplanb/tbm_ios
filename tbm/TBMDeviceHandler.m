@@ -62,7 +62,8 @@
 // -----
 // Audio
 // -----
-+ (AVCaptureDeviceInput *)getAudioInputWithError:(NSError * __autoreleasing *)error{
++ (AVCaptureDeviceInput *)getAudioInputWithError:(NSError * __autoreleasing *)error {
+    
     AVCaptureDevice *device = [TBMDeviceHandler getAudioCaptureDevice];
     if (!device){
         return nil;
