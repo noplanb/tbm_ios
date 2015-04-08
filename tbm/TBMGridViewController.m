@@ -476,8 +476,7 @@ static const float LayoutConstASPECT = 0.75;
     OB_WARN(@"HomeviewController: setupVideoRecorder: setting up. vr=%@, rc=%d, isViewLoaded=%d, view.window=%d", self.videoRecorder, retryCount, [self isViewLoaded], [self isViewLoaded] && self.view.window);
     NSError *error = nil;
     [self setRecordingIndicatorTextForRecorderSetup:retryCount];
-//    [self showRecordingIndicator];
-    self.videoRecorder = [[TBMVideoRecorder alloc] initWithPreviewView:[self centerView] delegate:self error:&error];
+    self.videoRecorder = [[TBMVideoRecorder alloc] initWithPreviewView:[self centerView] delegate:self];
 }
 
 - (void)setRecordingIndicatorTextForRecorderSetup:(int)retryCount{

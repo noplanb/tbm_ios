@@ -24,14 +24,10 @@ extern NSString* const TBMVideoRecorderShouldStartRecording;
 
 + (NSURL *)outgoingVideoUrlWithMarker:(NSString *)marker;
 
-- (instancetype)initWithPreviewView:(UIView *)previewView delegate:(id)delegate error:(NSError * __autoreleasing *)error;
-- (void)setVideoRecorderDelegate:(id)delegate;
-- (void)removeVideoRecorderDelegate;
-- (void)startPreview;
+- (instancetype)initWithPreviewView:(UIView *)previewView delegate:(id)delegate;
 - (void)startRecordingWithMarker:(NSString *)marker;
 - (void)stopRecording;
 - (BOOL)cancelRecording;
 - (void)dispose;
-
 - (BOOL)isRecording;
 @end

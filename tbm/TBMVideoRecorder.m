@@ -20,6 +20,7 @@ NSString* const TBMVideoRecorderShouldStartRecording = @"TBMVideoRecorderShouldS
 static int videoRecorderRetryCount = 0;
 
 @interface TBMVideoRecorder () <AVCaptureFileOutputRecordingDelegate>
+
 @property (nonatomic) dispatch_queue_t sessionQueue;
 @property UIView *previewView;
 @property AVCaptureSession *captureSession;
@@ -27,7 +28,6 @@ static int videoRecorderRetryCount = 0;
 @property AVCaptureInput *audioInput;
 @property NSFileManager *fileManager;
 @property AVCaptureMovieFileOutput *captureOutput;
-@property NSURL *videosDirectoryUrl;
 @property NSURL *recordingVideoUrl;
 @property NSURL *recordedVideoMpeg4Url;
 @property CALayer *recordingOverlay;
@@ -39,120 +39,73 @@ static int videoRecorderRetryCount = 0;
 
 @implementation TBMVideoRecorder
 
-+ (NSURL *)outgoingVideoUrlWithMarker:(NSString *)marker{
++ (NSURL *)outgoingVideoUrlWithMarker:(NSString *)marker {
     NSString *filename = [NSString stringWithFormat:@"outgoingVidToFriend%@", marker];
     return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"mov"]];
 }
 
-// GARF: since videoRecorder does most of its init on another async thread it really doesnt make sense to pass error to it
-// but leave it this way for now as the caller really doesnt do anything with the error.
-- (instancetype)initWithPreviewView:(UIView *)previewView delegate:(id)delegate error:(NSError * __autoreleasing *)error{
-    self = [super init];
-    if (self){
-        _delegate = delegate;
-        _previewView = previewView;
-        _fileManager = [NSFileManager defaultManager];
-        _videosDirectoryUrl = [TBMConfig videosDirectoryUrl];
-        _recordingVideoUrl = [_videosDirectoryUrl URLByAppendingPathComponent:[@"new" stringByAppendingPathExtension:@"mov"]];
-        _recordedVideoMpeg4Url = [_videosDirectoryUrl URLByAppendingPathComponent:[@"newConverted" stringByAppendingPathExtension:@"mp4"]];
-        _dingSoundEffect = [[TBMSoundEffect alloc] initWithSoundNamed:CONFIG_DING_SOUND];
-        _sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
-        
-        if (![self setupSessionWithError:&*error]){
-            OB_ERROR(@"VideoRecorder: Unable to setup AVCaptureSession");
-            return nil;
-        }
-        OB_INFO(@"Set up session: %@", _captureSession);
+- (instancetype)initWithPreviewView:(UIView *)previewView delegate:(id)delegate {
 
+    self = [super init];
+    
+    if (self) {
+        
+        self.delegate = delegate;
+        self.previewView = previewView;
+        
+        self.fileManager = [NSFileManager defaultManager];
+        
+        self.recordingVideoUrl = [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[@"new" stringByAppendingPathExtension:@"mov"]];
+        self.recordedVideoMpeg4Url = [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[@"newConverted" stringByAppendingPathExtension:@"mp4"]];
+        
+        self.dingSoundEffect = [[TBMSoundEffect alloc] initWithSoundNamed:CONFIG_DING_SOUND];
+        self.sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
+        
+        [self initCaptureSession];
         [self setupPreviewView];
         
-
-        
-        dispatch_async(_sessionQueue, ^{
-            
-            __block NSError *blockError;
-            //
-            // Video
-            //
-            
-            if (![self getVideoCaptureInputWithError:&blockError]){
-                OB_ERROR(@"VideoRecorder: Unable to getVideoCaptureInput");
-                return;
-            }
-
-            [_captureSession addInput:_videoInput];
-            OB_INFO(@"Added videoInput: %@", _videoInput);
-
-            //
-            // Output
-            //
-            _captureOutput = [[AVCaptureMovieFileOutput alloc] init];
-            if (![self addCaptureOutputWithError:&blockError]){
-                OB_ERROR(@"VideoRecorder: Unable to addCaptureOutput");
-                return;
-            }
-            OB_INFO(@"Added captureOutput: %@", _captureOutput);
-            
-            //
-            // Observers
-            //
+        //Doing this in background, because init of capture is video are blocking operations
+        dispatch_async(self.sessionQueue, ^{
+            [self initVideoInput];
+            [self initCaptureOutput];
             [self addObservers];
-            OB_INFO(@"VideoRecorder added observers.");
-
-            //
-            // StartRunning
-            //
             [self.captureSession startRunning];
-            
         });
     }
     return self;
 }
 
-// Unused?
-- (void)startPreview{
-    dispatch_async(self.sessionQueue, ^{
-        [self.captureSession startRunning];
-    });
-}
-
-- (AVCaptureSession *)setupSessionWithError:(NSError * __autoreleasing *)error{
-    _captureSession = [[AVCaptureSession alloc] init];
-    
-    if (![_captureSession canSetSessionPreset:AVCaptureSessionPresetLow]){
-        NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:@"Cannot set AVCaptureSessionPresetLow", NSLocalizedFailureReasonErrorKey, nil];
-        *error = [NSError errorWithDomain:@"TBM" code:0 userInfo:userInfo];
-        return nil;
+- (void) initVideoInput {
+    NSError *error;
+    self.videoInput = [TBMDeviceHandler getAvailableFrontVideoInputWithError:&error];
+    if (error) {
+        OB_ERROR(@"VideoRecorder: Unable to getVideoCaptureInput (%@)", error);
+    } else {
+        [self.captureSession addInput:self.videoInput];
     }
-    _captureSession.sessionPreset = AVCaptureSessionPresetLow;
-    return _captureSession;
 }
 
-- (AVCaptureInput *)getVideoCaptureInputWithError:(NSError **)error{
-    _videoInput = [TBMDeviceHandler getAvailableFrontVideoInputWithError:&*error];
-    return _videoInput;
-}
+- (void) initCaptureOutput {
 
-- (AVCaptureSession *)addCaptureOutputWithError:(NSError **)error{
-    if (![_captureSession canAddOutput:_captureOutput]) {
+    self.captureOutput = [[AVCaptureMovieFileOutput alloc] init];
+   
+    //We don't care about ability of adding output, because we do initialization of capture session for one time.
+    //Even I didn't find this message in rollbar error messages, but I leave this error handling.
+    //http://stackoverflow.com/questions/24501561/avcapturesession-canaddoutputoutput-returns-no-intermittently-can-i-find-o
+    if ([self.captureSession canAddOutput:self.captureOutput]) {
+        [self.captureSession addOutput:self.captureOutput];
+    } else {
         OB_ERROR(@"VideoRecorder: addCaptureOutputWithError: Could not add captureOutput");
-        NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys: @"Could not add captureOutput to capture session.", NSLocalizedFailureReasonErrorKey, nil];
-        *error = [NSError errorWithDomain:@"TBM" code:0 userInfo:userInfo];
-        return nil;
     }
-    [_captureSession addOutput:_captureOutput];
-    return _captureSession;
 }
 
-//--------------------------
-// Set videoRecorderDelegate
-//--------------------------
-- (void)setVideoRecorderDelegate:(id)delegate{
-    _delegate = delegate;
-}
-
-- (void)removeVideoRecorderDelegate{
-    _delegate = nil;
+- (void)initCaptureSession {
+    self.captureSession = [[AVCaptureSession alloc] init];
+    if ([self.captureSession canSetSessionPreset:AVCaptureSessionPresetLow]) {
+        self.captureSession.sessionPreset = AVCaptureSessionPresetLow;
+    } else {
+        OB_ERROR(@"Cannot set AVCaptureSessionPresetLow");
+    }
 }
 
 //-------------
@@ -317,7 +270,7 @@ static const float LayoutConstRecordingBorderWidth = 2;
         return;
     
     if (error){
-		OB_ERROR(@"%@", error);
+        OB_ERROR(@"%@", error);
         return;
     }
     NSDictionary *fileAttributes = [_fileManager attributesOfItemAtPath:[_recordingVideoUrl path] error:&error];
@@ -349,7 +302,7 @@ static const float LayoutConstRecordingBorderWidth = 2;
         OB_ERROR(@"ERROR2: moveRecordingToOutgoingFileWithError this should never happen. error=%@", error);
         return;
     }
-        
+    
     DebugLog(@"calling delegate=%@", _delegate);
     if (self.delegate != nil){
         [self.delegate didFinishVideoRecordingWithMarker:_marker];
@@ -385,7 +338,7 @@ static const float LayoutConstRecordingBorderWidth = 2;
 - (void)dispose{
     dispatch_sync(self.sessionQueue, ^{
         [self removeObservers];
-        [self removeVideoRecorderDelegate];
+        [self setDelegate:nil];
         [self.captureSession stopRunning];
     });
 }

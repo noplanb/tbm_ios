@@ -10,86 +10,51 @@
 
 @implementation TBMDeviceHandler
 
-// -----
-// Video
-// -----
-+ (AVCaptureDeviceInput *) getAvailableFrontVideoInputWithError:(NSError * __autoreleasing *)error{
-    AVCaptureDevice *device = [TBMDeviceHandler getAvailableFrontVideoCameraWithError:&*error];
-    if (!device){
-        return nil;
-    }
-    AVCaptureDeviceInput *input = [TBMDeviceHandler getInputWithDevice:device error:&*error];
-    if (!input){
-        DebugLog(@"ERROR: Could not get video input");
-        return nil;
-    }
-    DebugLog(@"TBMCameraHandler: Got available input: %@", input);
-    return input;
-}
+#pragma mark - Convenience
 
-+ (AVCaptureDevice *)getAvailableFrontVideoCameraWithError:(NSError **)error{
-    AVCaptureDevice *camera = nil;
++ (AVCaptureDevice *)deviceWithMediaType:(NSString *)mediaType preferringPosition:(AVCaptureDevicePosition)position
+{
+    NSArray *devices = [AVCaptureDevice devicesWithMediaType:mediaType];
+    AVCaptureDevice *captureDevice = [devices firstObject];
     
-    for (camera in [TBMDeviceHandler allVideoCameras]){
-        if (camera.position == AVCaptureDevicePositionFront) {
+    for (AVCaptureDevice *device in devices)
+    {
+        if ([device position] == position)
+        {
+            captureDevice = device;
             break;
         }
     }
     
-    if (!camera){
-        NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                  @"Device has no front camera", NSLocalizedFailureReasonErrorKey, nil];
-        *error = [NSError errorWithDomain:@"TBM" code:0 userInfo:userInfo];
-        return nil;
-    }
-    DebugLog(@"TBMCameraHandler: Got available camera: %@", camera.localizedName);
-    return camera;
+    return captureDevice;
 }
 
-+ (AVCaptureDeviceInput *)getInputWithDevice:(AVCaptureDevice *)device error:(NSError **)error{
-    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&*error];
-    if (!input){
+#pragma mark - Video
+
++ (AVCaptureDeviceInput *) getAvailableFrontVideoInputWithError:(NSError * __autoreleasing *)error {
+    
+    AVCaptureDevice *device = [TBMDeviceHandler deviceWithMediaType:AVMediaTypeVideo preferringPosition:AVCaptureDevicePositionFront];
+    if (!device) {
+        *error = [[NSError alloc] initWithDomain:@"TBM" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Device hasn't any video capture devices"}];
         return nil;
     }
+    
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&*error];
     return input;
 }
 
-+ (NSArray *)allVideoCameras{
-    return [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
-}
+#pragma mark - Audio
 
-
-// -----
-// Audio
-// -----
 + (AVCaptureDeviceInput *)getAudioInputWithError:(NSError * __autoreleasing *)error {
     
-    AVCaptureDevice *device = [TBMDeviceHandler getAudioCaptureDevice];
-    if (!device){
+    AVCaptureDevice *device = [[AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio] firstObject];
+    if (!device) {
+        *error = [[NSError alloc] initWithDomain:@"TBM" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Device hasn't any audio capture devices"}];
         return nil;
     }
     
-    AVCaptureDeviceInput *input = [TBMDeviceHandler getInputWithDevice:device error:&*error];
-    if (!input){
-        DebugLog(@"ERROR: Could not get audio input");
-        return nil;
-    }
-    DebugLog(@"Got audio input: %@", input);
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&*error];
     return input;
-}
-
-+ (AVCaptureDevice *)getAudioCaptureDevice{
-    return (AVCaptureDevice *)[[TBMDeviceHandler allAudioDevices] firstObject];
-}
-
-+ (void)showAllAudioDevices{
-    for (AVCaptureDevice *device in [TBMDeviceHandler allAudioDevices]){
-        DebugLog(@"AudioDevice - %@", device.description);
-    }
-}
-
-+ (NSArray *)allAudioDevices{
-    return [AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio];
 }
 
 @end
