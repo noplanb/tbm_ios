@@ -95,7 +95,8 @@ static const float LayoutConstRecordingBorderWidth = 2;
     self.recordingOverlay.backgroundColor = [UIColor clearColor].CGColor;
     self.recordingOverlay.borderWidth = LayoutConstRecordingBorderWidth;
     self.recordingOverlay.borderColor = [UIColor redColor].CGColor;
-    self.recordingOverlay.delegate = self;
+//    why do we need this?
+//    self.recordingOverlay.delegate = self;
     [self.layer addSublayer:self.recordingOverlay];
     [self.recordingOverlay setNeedsDisplay];
 }

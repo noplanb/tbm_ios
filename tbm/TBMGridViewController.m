@@ -318,7 +318,7 @@ static const float LayoutConstASPECT = 0.75;
             [self gridViews][0], nil];
 }
 
-- (UIView *)centerView{
+- (TBMPreviewView *)centerView{
     if ([self gridViews] == nil)
         return nil;
     return [self gridViews][4];
