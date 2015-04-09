@@ -22,7 +22,7 @@ static int videoRecorderRetryCount = 0;
 @interface TBMVideoRecorder () <AVCaptureFileOutputRecordingDelegate>
 
 @property (nonatomic) dispatch_queue_t sessionQueue;
-@property UIView *previewView;
+@property TBMPreviewView *previewView;
 @property AVCaptureSession *captureSession;
 @property AVCaptureInput *videoInput;
 @property AVCaptureInput *audioInput;
@@ -31,11 +31,10 @@ static int videoRecorderRetryCount = 0;
 @property NSURL *recordingVideoUrl;
 @property NSURL *recordedVideoMpeg4Url;
 
-@property CALayer *recordingOverlay;
-@property TBMSoundEffect *dingSoundEffect;
+
 @property NSString *marker;
 @property BOOL didCancelRecording;
-@property UILabel *recordingLabel;
+
 @end
 
 @implementation TBMVideoRecorder
@@ -45,7 +44,7 @@ static int videoRecorderRetryCount = 0;
     return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"mov"]];
 }
 
-- (instancetype)initWithPreviewView:(UIView *)previewView delegate:(id)delegate {
+- (instancetype)initWithPreviewView:(TBMPreviewView *)previewView delegate:(id)delegate {
 
     self = [super init];
     
@@ -58,14 +57,11 @@ static int videoRecorderRetryCount = 0;
         
         self.recordingVideoUrl = [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[@"new" stringByAppendingPathExtension:@"mov"]];
         self.recordedVideoMpeg4Url = [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[@"newConverted" stringByAppendingPathExtension:@"mp4"]];
-        
-        self.dingSoundEffect = [[TBMSoundEffect alloc] initWithSoundNamed:CONFIG_DING_SOUND];
         self.sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
         
         [self initCaptureSession];
         [self setupPreviewView];
         
-        //Doing this in background, because init of capture is video are blocking operations
         dispatch_async(self.sessionQueue, ^{
             [self initVideoInput];
             [self initCaptureOutput];
@@ -93,8 +89,8 @@ static int videoRecorderRetryCount = 0;
     self.captureOutput = [[AVCaptureMovieFileOutput alloc] init];
    
     //We don't care about ability of adding output, because we do initialization of capture session for one time.
-    //Even I didn't find this message in rollbar error messages, but I leave this error handling.
     //http://stackoverflow.com/questions/24501561/avcapturesession-canaddoutputoutput-returns-no-intermittently-can-i-find-o
+    
     if ([self.captureSession canAddOutput:self.captureOutput]) {
         [self.captureSession addOutput:self.captureOutput];
     } else {
@@ -142,73 +138,9 @@ static int videoRecorderRetryCount = 0;
 //-------------------
 // Handle previewView
 //-------------------
-- (void)setupPreviewView{
-    // Remove all sublayers that might have been added by calling this previously.
-    self.previewView.layer.sublayers = nil;
-    
-    [self connectVideoCaptureToPreview];
-    [self setupRecordingOverlay];
-}
 
-
-- (void)connectVideoCaptureToPreview{
-    CALayer * videoViewLayer = _previewView.layer;
-    AVCaptureVideoPreviewLayer *previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_captureSession];
-    previewLayer.frame = _previewView.bounds;
-    [videoViewLayer addSublayer:previewLayer];
-}
-
-- (void)setupRecordingOverlay{
-    [self addRedBorderAndDot];
-    [self addRecordingLabel];
-}
-
-static const float LayoutConstRecordingLabelHeight = 22;
-static const float LayoutConstRecordingLabelFontSize = 0.55 * LayoutConstRecordingLabelHeight;
-static NSString *LayoutConstRecordingLabelBackgroundColor = @"000";
-static NSString *LayoutConstWhiteTextColor  = @"fff";
-static const float LayoutConstRecordingBorderWidth = 2;
-
-- (void)addRecordingLabel{
-    float y = self.previewView.bounds.size.height - LayoutConstRecordingLabelHeight;
-    float width = self.previewView.frame.size.width - 2*LayoutConstRecordingBorderWidth;
-    float height = LayoutConstRecordingLabelHeight - LayoutConstRecordingBorderWidth;
-    self.recordingLabel = [[UILabel alloc] initWithFrame:CGRectMake(LayoutConstRecordingBorderWidth, y, width, height)];
-    self.recordingLabel.hidden = YES;
-    self.recordingLabel.text = @"Recording";
-    self.recordingLabel.backgroundColor = [UIColor colorWithHexString:LayoutConstRecordingLabelBackgroundColor alpha:0.5];
-    self.recordingLabel.textColor = [UIColor colorWithHexString:LayoutConstWhiteTextColor alpha:1];
-    self.recordingLabel.textAlignment = NSTextAlignmentCenter;
-    self.recordingLabel.font = [UIFont systemFontOfSize:LayoutConstRecordingLabelFontSize];
-    [self.previewView addSubview:self.recordingLabel];
-}
-
-- (void)addRedBorderAndDot{
-    self.recordingOverlay = [CALayer layer];
-    self.recordingOverlay.hidden = YES;
-    self.recordingOverlay.frame = self.previewView.bounds;
-    self.recordingOverlay.cornerRadius = 2;
-    self.recordingOverlay.backgroundColor = [UIColor clearColor].CGColor;
-    self.recordingOverlay.borderWidth = LayoutConstRecordingBorderWidth;
-    self.recordingOverlay.borderColor = [UIColor redColor].CGColor;
-    self.recordingOverlay.delegate = self;
-    [self.previewView.layer addSublayer:self.recordingOverlay];
-    [self.recordingOverlay setNeedsDisplay];
-}
-
-// The callback by the recording overlay CALayer due to setNeedsDisplay. Use it to add the dot to recordingOverlay
-- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)context {
-    // Simplify the view and dont draw the red dot.
-    // [self addDotInContext:context];
-}
-
-- (void)addDotInContext:(CGContextRef)context{
-    CGRect borderRect = CGRectMake(8, 8, 7, 7);
-    CGContextSetRGBFillColor(context, 248, 0, 0, 1.0);
-    CGContextSetLineWidth(context, 0);
-    CGContextFillEllipseInRect (context, borderRect);
-    CGContextStrokeEllipseInRect(context, borderRect);
-    CGContextFillPath(context);
+- (void) setupPreviewView {
+    [self.previewView setupWithCaptureSession:self.captureSession];
 }
 
 //------------------
@@ -219,7 +151,6 @@ static const float LayoutConstRecordingBorderWidth = 2;
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
     
     [self addAudioInput];
-    [self.dingSoundEffect play];
     self.didCancelRecording = NO;
     
     self.marker = marker;
@@ -227,21 +158,16 @@ static const float LayoutConstRecordingBorderWidth = 2;
     
     NSError *error = nil;
     [self.fileManager removeItemAtURL:self.recordingVideoUrl error:&error];
-    
-    // Wait so we don't record our own ding.
-    [NSThread sleepForTimeInterval:0.4f];
+        
+    [self.previewView showRecordingOverlay];
     [self.captureOutput startRecordingToOutputFileURL:self.recordingVideoUrl recordingDelegate:self];
-    [self showRecordingOverlay];
 }
 
-- (void)stopRecording{
-    [self hideRecordingOverlay];
+- (void)stopRecording {
     if ([self.captureOutput isRecording])
         [self.captureOutput stopRecording];
-    
-    // Wait so final ding isn't part of recording
-    [NSThread sleepForTimeInterval:0.1f];
-    [self.dingSoundEffect play];
+
+    [self.previewView hideRecordingOverlay];
 }
 
 - (BOOL)cancelRecording{
@@ -251,26 +177,14 @@ static const float LayoutConstRecordingBorderWidth = 2;
     return wasRecording;
 }
 
-- (void)showRecordingOverlay{
-    _recordingOverlay.hidden = NO;
-    self.recordingLabel.hidden = NO;
-}
-
-- (void)hideRecordingOverlay{
-    _recordingOverlay.hidden = YES;
-    self.recordingLabel.hidden = YES;
-}
-
-
 //------------------------------------------------
 // Recording Finished callback and post processing
 //------------------------------------------------
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error{
-    OB_INFO(@"didFinishRecording.");
+    
+    OB_INFO(@"didFinishRecordingToOutputFileAtURL:%@ error:%@", outputFileURL, error);
     
     [self removeAudioInput];
-    
-    //Notify audio session router
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFinishRecording object:self];
     
     if (self.didCancelRecording)
@@ -280,9 +194,9 @@ static const float LayoutConstRecordingBorderWidth = 2;
         OB_ERROR(@"%@", error);
         return;
     }
+    
     NSDictionary *fileAttributes = [self.fileManager attributesOfItemAtPath:[self.recordingVideoUrl path] error:&error];
     OB_INFO(@"Recorded file size = %llu", fileAttributes.fileSize);
-    
     [self convertOutgoingFileToMpeg4];
 }
 
@@ -291,48 +205,40 @@ static const float LayoutConstRecordingBorderWidth = 2;
     [self.fileManager removeItemAtURL:self.recordedVideoMpeg4Url error:&dontCareError];
     
     AVAsset *asset = [AVAsset assetWithURL:self.recordingVideoUrl];
-    NSArray *allPresets = [AVAssetExportSession exportPresetsCompatibleWithAsset:asset];
-    DebugLog(@"%@", allPresets);
-    
     AVAssetExportSession *session = [AVAssetExportSession exportSessionWithAsset:asset presetName:AVAssetExportPresetLowQuality];
-    DebugLog(@"Filetypes: %@", session.supportedFileTypes);
-    
     session.outputFileType = AVFileTypeMPEG4;
     session.outputURL = self.recordedVideoMpeg4Url;
     [session exportAsynchronouslyWithCompletionHandler:^{[self didFinishConvertingToMpeg4];}];
 }
 
 - (void)didFinishConvertingToMpeg4 {
-    
-    NSError *error = nil;
-    [self moveRecordingToOutgoingFileWithError:&error];
-    if (error){
-        OB_ERROR(@"ERROR2: moveRecordingToOutgoingFileWithError this should never happen. error=%@", error);
-        return;
-    }
-    
-    if (self.delegate != nil){
+    if ([self moveRecordingToOutgoingFile]) {
         [self.delegate didFinishVideoRecordingWithMarker:self.marker];
-    } else {
-        OB_ERROR(@"VideoRecorder: no videoRecorderDelegate");
     }
 }
 
-- (void)moveRecordingToOutgoingFileWithError:(NSError **)error{
-    NSURL *outgoingVideoUrl = [TBMVideoRecorder outgoingVideoUrlWithMarker:_marker];
-    
+- (BOOL) moveRecordingToOutgoingFile {
+    NSURL *outgoingVideoUrl = [TBMVideoRecorder outgoingVideoUrlWithMarker:self.marker];
     NSError *dontCareError = nil;
-    [self.fileManager removeItemAtURL:outgoingVideoUrl error:&dontCareError];
     
-    *error = nil;
-    [self.fileManager moveItemAtURL:self.recordedVideoMpeg4Url toURL:outgoingVideoUrl error:&*error];
-    if (*error) {
-        OB_ERROR(@"ERROR: moveRecordingToOutgoingFile: ERROR: unable to move file. This should never happen. %@", *error);
-        return;
+    [self.fileManager removeItemAtURL:outgoingVideoUrl error:&dontCareError];
+    if (dontCareError)
+        OB_WARN(@"Can't remove video (%@) for url (%@), error: %@", self.marker, outgoingVideoUrl, dontCareError);
+    
+    NSError *error = nil;
+    [self.fileManager moveItemAtURL:self.recordedVideoMpeg4Url toURL:outgoingVideoUrl error:&error];
+    
+    if (error) {
+        OB_ERROR(@"ERROR: moveRecordingToOutgoingFile: ERROR: unable to move file. This should never happen. %@", error);
+        return NO;
     }
     
     NSDictionary *fileAttributes = [_fileManager attributesOfItemAtPath:outgoingVideoUrl.path error:&dontCareError];
-    DebugLog(@"moveRecordingToOutgoingFile: Outgoing file size %llu", fileAttributes.fileSize);
+    if (dontCareError)
+        OB_WARN(@"Can't set attributes for file: %@. Error: %@", outgoingVideoUrl.path, dontCareError);
+        
+    OB_INFO(@"moveRecordingToOutgoingFile: Outgoing file size %llu", fileAttributes.fileSize);
+    return YES;
 }
 
 
@@ -350,7 +256,7 @@ static const float LayoutConstRecordingBorderWidth = 2;
     });
 }
 
-- (void)addObservers{
+- (void)addObservers {
     OB_INFO(@"videoRecorder: addObservers");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionRuntimeErrorNotification:) name:AVCaptureSessionRuntimeErrorNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionDidStartRunningNotification:) name:AVCaptureSessionDidStartRunningNotification object:_captureSession];

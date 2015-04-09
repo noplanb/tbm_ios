@@ -14,6 +14,7 @@
 #import "HexColor.h"
 #import "iToast.h"
 #import "TBMAlertController.h"
+#import "TBMPreviewView.h"
 
 @interface TBMGridViewController ()
 @property (nonatomic) NSArray *gridViews;
@@ -137,7 +138,11 @@ static const float LayoutConstASPECT = 0.75;
         for (int col=0; col < 3; col++){
             x = [self LayoutConstGUTTERLeft] + col * (LayoutConstMARGIN + elSize.width);
             y = [self LayoutConstGUTTERTop] + row * (LayoutConstMARGIN + elSize.height);
-            v = [[UIView alloc] initWithFrame:CGRectMake(x, y, elSize.width, elSize.height)];
+            if (row == col == 1) {
+                v = [[TBMPreviewView alloc] initWithFrame:CGRectMake(x, y, elSize.width, elSize.height)];
+            } else {
+                v = [[UIView alloc] initWithFrame:CGRectMake(x, y, elSize.width, elSize.height)];
+            }
             [self.view addSubview:v];
             [gvs addObject:v];
         }
@@ -474,7 +479,7 @@ static const float LayoutConstASPECT = 0.75;
         return;
     }
     OB_WARN(@"HomeviewController: setupVideoRecorder: setting up. vr=%@, rc=%d, isViewLoaded=%d, view.window=%d", self.videoRecorder, retryCount, [self isViewLoaded], [self isViewLoaded] && self.view.window);
-    NSError *error = nil;
+
     [self setRecordingIndicatorTextForRecorderSetup:retryCount];
     self.videoRecorder = [[TBMVideoRecorder alloc] initWithPreviewView:[self centerView] delegate:self];
 }

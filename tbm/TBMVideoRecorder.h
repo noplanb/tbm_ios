@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AVFoundation/AVFoundation.h"
+#import "TBMPreviewView.h"
 
 extern NSString* const TBMVideoRecorderDidFinishRecording;
 extern NSString* const TBMVideoRecorderShouldStartRecording;
@@ -24,7 +25,7 @@ extern NSString* const TBMVideoRecorderShouldStartRecording;
 
 + (NSURL *)outgoingVideoUrlWithMarker:(NSString *)marker;
 
-- (instancetype)initWithPreviewView:(UIView *)previewView delegate:(id)delegate;
+- (instancetype)initWithPreviewView:(TBMPreviewView *)previewView delegate:(id)delegate;
 - (void)startRecordingWithMarker:(NSString *)marker;
 - (void)stopRecording;
 - (BOOL)cancelRecording;

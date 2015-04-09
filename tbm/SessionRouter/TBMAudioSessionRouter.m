@@ -51,10 +51,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveAudioSessionInterruptionNotification:) name:AVAudioSessionInterruptionNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveTBMVideoRecorderDidFinishRecordingNotification:) name:TBMVideoRecorderDidFinishRecording object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveTBMVideoRecorderShouldStartRecordingNotification:) name:TBMVideoRecorderShouldStartRecording object:nil];
-  
-//  ONLY iOS8
-//  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveAVAudioSessionSilenceSecondaryAudioHintNotification:) name:AVAudioSessionSilenceSecondaryAudioHintNotification object:nil];
-    
 }
 
 #pragma mark - Notifications handling
@@ -92,15 +88,17 @@
 }
 
 - (void) didReceiveProximityChangedNotification:(NSNotification *)notification {
-    [self updateAudioSessionParams];
+    if (self.state == Idle) {
+        [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
+    } else {
+        [self updateAudioSessionParams];
+    }
 }
 
 #pragma mark - Audio managing
 
 - (void) interrupt {
-    if (self.state != Idle) {
-        [self setState:Idle];
-    }
+    [self setState:Idle];
 }
 
 - (void) setState:(AudioSessionState)state {
@@ -110,41 +108,53 @@
     }
 }
 
+#pragma mark - Update Audio Session params
+
 - (void) updateAudioSessionParams {
     
-
     switch (self.state) {
         case Playing:
-            
-            [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
-            
-            [self.session setActive:NO error:nil];
-            if ([UIDevice currentDevice].proximityState) {
-                [self.session setMode:AVAudioSessionModeVoiceChat error:nil];
-                [self.session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-            } else {
-                [self.session setMode:AVAudioSessionModeVideoChat error:nil];
-                [self.session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionAllowBluetooth error:nil];
-            }
-            [self.session setActive:YES error:nil];
+            [self switchToPlayingState];
             break;
         case Recording:
-            [self.session setActive:NO error:nil];
-            [self.session setMode:AVAudioSessionModeVideoChat error:nil];
-            [self.session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth error:nil];
-            [self.session setActive:YES error:nil];
+            [self switchToRecordingState];
             break;
         default:
         case Idle:
-            
-            [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
-            
-            [self.session setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
-            [self.session setMode:AVAudioSessionModeDefault error:nil];
-            [self.session setCategory:AVAudioSessionCategoryAmbient error:nil];
-            
+            [self switchToIdleState];
             break;
     }
+}
+
+/**
+ * We enable proximity monitoring here
+ * We use proximity to understand what
+ * category should we use: Voice chat for earpiece 
+ * and Video chat for loud speaker
+ */
+- (void) switchToPlayingState {
+    [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
+    if ([UIDevice currentDevice].proximityState) {
+        [self.session setMode:AVAudioSessionModeVoiceChat error:nil];
+        [self.session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    } else {
+        [self.session setMode:AVAudioSessionModeVideoChat error:nil];
+        [self.session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionAllowBluetooth error:nil];
+    }
+    [self.session setActive:YES error:nil];
+}
+
+- (void) switchToRecordingState {
+    [self.session setActive:NO error:nil];
+    [self.session setMode:AVAudioSessionModeVideoChat error:nil];
+    [self.session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth error:nil];
+    [self.session setActive:YES error:nil];
+}
+
+- (void) switchToIdleState {
+    [self.session setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
+    [self.session setMode:AVAudioSessionModeDefault error:nil];
+    [self.session setCategory:AVAudioSessionCategoryAmbient error:nil];
 }
 
 #pragma mark - TBMVideoPlayerEventNotification
