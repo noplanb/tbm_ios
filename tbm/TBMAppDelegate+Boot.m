@@ -46,7 +46,6 @@
     [self setupPushNotificationCategory];
     [self registerForPushNotification];
     [TBMS3CredentialsManager refreshFromServer:nil];
-    [[TBMAudioSessionRouter sharedInstance] setup];
 }
 
 - (void)performDidBecomeActiveActions{

@@ -32,6 +32,14 @@
 
 #pragma mark - Initialization methods
 
+- (instancetype) init {
+    self = [super init];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
 - (void) setup {
     [self subscribeToNotifications];
     [self initAudioSessionRouting];
