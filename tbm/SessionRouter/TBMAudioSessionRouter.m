@@ -131,6 +131,8 @@
     }
 }
 
+
+#warning - we should find a better way
 - (void) findAvailbleBluetoothDevices {
     
     [self.session setMode:AVAudioSessionModeVoiceChat error:nil];
@@ -146,9 +148,7 @@
         }
     }
     
-    if (self.state == Idle) {
-        [self switchToIdleState];
-    }
+    [self.session setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
 }
 
 /**
