@@ -27,10 +27,8 @@
 
 - (void)presentationTransitionWillBegin {
 	[super presentationTransitionWillBegin];
-	//problem here?
-    if (self.presentingViewController) {
-        self.presentingViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
-    }
+    
+    self.presentingViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
 	
 	self.dimmingView.alpha = 0;
 	[[self containerView] addSubview:self.dimmingView];
