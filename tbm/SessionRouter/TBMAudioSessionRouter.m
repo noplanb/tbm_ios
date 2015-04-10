@@ -32,15 +32,10 @@
 
 #pragma mark - Initialization methods
 
-- (instancetype) init {
-    self = [super init];
-    if (self) {
-        [self subscribeToNotifications];
-        [self initAudioSessionRouting];
-        [self findAvailbleBluetoothDevices];
-    }
-    
-    return self;
+- (void) setup {
+    [self subscribeToNotifications];
+    [self initAudioSessionRouting];
+    [self findAvailbleBluetoothDevices];
 }
 
 - (void)initAudioSessionRouting
