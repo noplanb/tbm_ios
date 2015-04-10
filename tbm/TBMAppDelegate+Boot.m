@@ -33,8 +33,6 @@
         self.window.rootViewController = [self homeViewController];
         [self postRegistrationBoot];
     }
-    
-    [TBMAudioSessionRouter sharedInstance];
 }
 
 - (void)didCompleteRegistration{
@@ -48,6 +46,7 @@
     [self setupPushNotificationCategory];
     [self registerForPushNotification];
     [TBMS3CredentialsManager refreshFromServer:nil];
+    [TBMAudioSessionRouter sharedInstance];
 }
 
 - (void)performDidBecomeActiveActions{
