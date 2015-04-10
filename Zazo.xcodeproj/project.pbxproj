@@ -115,6 +115,8 @@
 		22F1A4C419354AC500E04229 /* TBMVideoIdUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F1A4C319354AC500E04229 /* TBMVideoIdUtils.m */; };
 		22F32AFC19228F3300AB524E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F32AFB19228F3300AB524E /* StoreKit.framework */; };
 		22FE2A011A09C0460051FC9C /* TBMFriendGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FE2A001A09C0460051FC9C /* TBMFriendGetter.m */; };
+		4106AE661AD550AB007910EC /* TBMPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4106AE651AD550AB007910EC /* TBMPreviewView.m */; };
+		416B0BA51ACD4E000082D562 /* TBMAudioSessionRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 416B0BA41ACD4E000082D562 /* TBMAudioSessionRouter.m */; };
 		E20D3F30A3404563A3BEC783 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98B109B594AF439180A6DFAF /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -293,6 +295,12 @@
 		22F32AFB19228F3300AB524E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		22FE29FF1A09C0460051FC9C /* TBMFriendGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFriendGetter.h; sourceTree = "<group>"; };
 		22FE2A001A09C0460051FC9C /* TBMFriendGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFriendGetter.m; sourceTree = "<group>"; };
+		4106AE641AD550AB007910EC /* TBMPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMPreviewView.h; sourceTree = "<group>"; };
+		4106AE651AD550AB007910EC /* TBMPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMPreviewView.m; sourceTree = "<group>"; };
+		416B0BA31ACD4E000082D562 /* TBMAudioSessionRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAudioSessionRouter.h; sourceTree = "<group>"; };
+		416B0BA41ACD4E000082D562 /* TBMAudioSessionRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAudioSessionRouter.m; sourceTree = "<group>"; };
+		41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		7716E91C15B9FF656396DC61 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		98B109B594AF439180A6DFAF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -354,6 +362,8 @@
 		220E90271909A18B003C4F82 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */,
+				41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */,
 				2208E8A61A1419D400150C35 /* AddressBook.framework */,
 				2208E8A71A1419D400150C35 /* AddressBookUI.framework */,
 				22403C2A19D5E63400FC36E3 /* MessageUI.framework */,
@@ -372,6 +382,7 @@
 		220E90301909A18B003C4F82 /* tbm */ = {
 			isa = PBXGroup;
 			children = (
+				416B0BA21ACD4DD20082D562 /* SessionRouter */,
 				221B77741A6889B9009FA670 /* TBMBenchTableViewCell.h */,
 				221B77751A6889B9009FA670 /* TBMBenchTableViewCell.m */,
 				221B77731A688992009FA670 /* AlertController */,
@@ -422,6 +433,8 @@
 				225D21BF1A5B5B4F0087A25B /* TBMS3CredentialsManager.m */,
 				22151E861A5CB07B008EF88E /* TBMDispatch.h */,
 				22151E871A5CB07B008EF88E /* TBMDispatch.m */,
+				4106AE641AD550AB007910EC /* TBMPreviewView.h */,
+				4106AE651AD550AB007910EC /* TBMPreviewView.m */,
 			);
 			path = tbm;
 			sourceTree = "<group>";
@@ -654,6 +667,15 @@
 			name = Sounds;
 			sourceTree = "<group>";
 		};
+		416B0BA21ACD4DD20082D562 /* SessionRouter */ = {
+			isa = PBXGroup;
+			children = (
+				416B0BA31ACD4E000082D562 /* TBMAudioSessionRouter.h */,
+				416B0BA41ACD4E000082D562 /* TBMAudioSessionRouter.m */,
+			);
+			path = SessionRouter;
+			sourceTree = "<group>";
+		};
 		984D6697D8F62FFA194F39A2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -728,6 +750,7 @@
 						};
 					};
 					220E90441909A18B003C4F82 = {
+						DevelopmentTeam = DYQN26F8U9;
 						TestTargetID = 220E90241909A18B003C4F82;
 					};
 				};
@@ -862,6 +885,7 @@
 				22B1AE561A68576F0027C4B1 /* TBMMarginLabel.m in Sources */,
 				220E90611909C3D4003C4F82 /* TBMHomeViewController.m in Sources */,
 				22A76A7A19A2600C00D8C4FF /* TBMFriend.m in Sources */,
+				416B0BA51ACD4E000082D562 /* TBMAudioSessionRouter.m in Sources */,
 				226A26031A584AD6006FDFDA /* TBMKeyChainWrapper.m in Sources */,
 				22151E881A5CB07B008EF88E /* TBMDispatch.m in Sources */,
 				222724331917F2F500DA6865 /* NSArray+NSArrayExtensions.m in Sources */,
@@ -876,6 +900,7 @@
 				22F1A4C419354AC500E04229 /* TBMVideoIdUtils.m in Sources */,
 				221EA2911912E86300649BC5 /* TBMUser.m in Sources */,
 				221B77721A688984009FA670 /* TBMAlertControllerVisualStyle.m in Sources */,
+				4106AE661AD550AB007910EC /* TBMPreviewView.m in Sources */,
 				226A37C11A37E08900A2D0F5 /* TBMGridElementViewController.m in Sources */,
 				22ED40081A0850F5003D6536 /* TBMGridElement.m in Sources */,
 				22A8F5081A09608800F7AD0E /* TBMTextField.m in Sources */,
@@ -956,8 +981,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Kyrylo Kirykov (9S8JQ9428Y)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kyrylo Kirykov (9S8JQ9428Y)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -976,7 +1001,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e6441a5c-d40b-446f-aa6b-4160fc5daaea";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -998,7 +1023,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1010,7 +1035,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
-				PROVISIONING_PROFILE = "5973219f-b9b4-42c3-9f7f-0094ed9c9ae1";
+				PROVISIONING_PROFILE = "e6441a5c-d40b-446f-aa6b-4160fc5daaea";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1023,15 +1048,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImageFinal;
 				CODE_SIGN_ENTITLEMENTS = Zazo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Kyrylo Kirykov (9S8JQ9428Y)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kyrylo Kirykov (9S8JQ9428Y)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tbm/Zazo-Prefix.pch";
 				INFOPLIST_FILE = "tbm/Zazo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "359ff064-4f31-4653-9037-b85c583ed824";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
@@ -1045,15 +1070,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImageFinal;
 				CODE_SIGN_ENTITLEMENTS = Zazo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tbm/Zazo-Prefix.pch";
 				INFOPLIST_FILE = "tbm/Zazo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "359ff064-4f31-4653-9037-b85c583ed824";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
@@ -1065,6 +1090,8 @@
 			baseConfigurationReference = 7716E91C15B9FF656396DC61 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1078,6 +1105,7 @@
 				);
 				INFOPLIST_FILE = "tbmTests/ZazoTests-Info.plist";
 				PRODUCT_NAME = ZazoTests;
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1088,6 +1116,8 @@
 			baseConfigurationReference = 7716E91C15B9FF656396DC61 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1097,6 +1127,7 @@
 				GCC_PREFIX_HEADER = "tbm/Zazo-Prefix.pch";
 				INFOPLIST_FILE = "tbmTests/ZazoTests-Info.plist";
 				PRODUCT_NAME = ZazoTests;
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};

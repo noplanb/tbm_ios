@@ -18,6 +18,7 @@
 #import "TBMDispatch.h"
 #import "AVFoundation/AVFoundation.h"
 #import "TBMFileUtils.h"
+#import "TBMAudioSessionRouter.h"
 
 @implementation TBMAppDelegate (Boot)
 
@@ -33,7 +34,6 @@
         [self postRegistrationBoot];
     }
 }
-
 
 - (void)didCompleteRegistration{
     OB_INFO(@"didCompleteRegistration");
@@ -54,6 +54,7 @@
         return;
     
     [self ensureResources];
+    [[TBMAudioSessionRouter sharedInstance] findAvailbleBluetoothDevices];
 }
 
 - (void)ensureResources{

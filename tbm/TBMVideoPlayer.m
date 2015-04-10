@@ -19,6 +19,7 @@
 #import "TBMAlertControllerVisualStyle.h"
 #import "iToast.h"
 #import "OBFileTransferManager.h"
+#import "TBMAudioSessionRouter.h"
 
 @interface TBMVideoPlayer()
 @property TBMGridElement *gridElement;
@@ -51,10 +52,12 @@
     if (self != nil){
         _moviePlayerController = [[MPMoviePlayerController alloc] init];
         _moviePlayerController.controlStyle = MPMovieControlStyleNone;
+
         _playerView = _moviePlayerController.view;
         _playerView.tag = 1401;
         self.playerView.hidden = YES;
         [self addPlayerNotifications];
+        [self addEventNotificationDelegate:[TBMAudioSessionRouter sharedInstance]];
     }
     return self;
 }
@@ -88,7 +91,7 @@
 //------------------------------------------------------
 // Notifications of state changes by us to our delegates
 //------------------------------------------------------
-- (void) addEventNotificationDelegate:(id)delegate{
+- (void) addEventNotificationDelegate:(id<TBMVideoPlayerEventNotification>)delegate{
     if (self.eventNotificationDelegates == nil)
         self.eventNotificationDelegates = [[NSMutableSet alloc] init];
     
@@ -111,7 +114,6 @@
 - (void)addPlayerNotifications{
     DebugLog(@"Adding player notifications");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackDidFinishNotification:) name:MPMoviePlayerPlaybackDidFinishNotification object:_moviePlayerController];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackStateDidChangeNotification) name:MPMoviePlayerPlaybackStateDidChangeNotification object:_moviePlayerController];
 }
 
@@ -214,6 +216,7 @@
 
 - (void)play{
     DebugLog(@"play for %@", self.video.videoId);
+    
     // Set viewed even if the video is not playable so that it gets deleted eventually.
     [self.gridElement.friend setViewedWithIncomingVideo:self.video];
     [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
@@ -221,8 +224,8 @@
                                                    friend:self.gridElement.friend];
     if ([self.video hasValidVideoFile]){
         self.moviePlayerController.contentURL = [self.video videoUrl];
-        [self.moviePlayerController play];
         [self showPlayerView];
+        [self.moviePlayerController play];
     } else {
         [self  playDidComplete];
     }
@@ -237,6 +240,7 @@
 
 - (void)playDidComplete{
     OB_INFO(@"VideoPlayer: playDidComplete: %@", self.video.videoId);
+    
     if (self.videosAreDownloading)
         [self setCurrentVideo:[self.gridElement.friend nextUnviewedVideoAfterVideoId:self.videoId]];
     else

@@ -11,8 +11,6 @@
 
 
 @interface TBMDeviceHandler : NSObject
-+ (AVCaptureDeviceInput *)getAudioInputWithError:(NSError * __autoreleasing *)error;
++ (AVCaptureDeviceInput *) getAudioInputWithError:(NSError * __autoreleasing *)error;
 + (AVCaptureDeviceInput *) getAvailableFrontVideoInputWithError:(NSError * __autoreleasing *)error;
-+ (void)showAllAudioDevices;
-
 @end

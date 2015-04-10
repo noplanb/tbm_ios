@@ -12,11 +12,11 @@ static NSString *CONFIG_APP_NAME = @"Zazo";
 // Make sure these 4 are set correctly before a release.
 static BOOL CONFIG_DEBUG_MODE = NO;
 static NSString *CONFIG_VERSION_NUMBER = @"24";
-static NSString *CONFIG_VERSION_STRING = @"2.0.11";
+static NSString *CONFIG_VERSION_STRING = @"2.0.14";
 
 // This is necessary because fucking apple has a different apns gateway depending on whether the device is
 // provisioned with a dev cert or production/adhoc cert
-static NSString *CONFIG_DEVICE_BUILD = @"prod"; // prod / dev
+static NSString *CONFIG_DEVICE_BUILD = @"dev"; // prod / dev
 
 //static NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://192.168.1.82:3000";
 //static NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://prod.zazoapp.com";
