@@ -14,7 +14,6 @@
 #import "OBFileTransferManager.h"
 #import "TBMUser.h"
 #import "TBMHttpManager.h"
-#import "TBMAudioSessionRouter.h"
 
 @interface TBMAppDelegate()
 @property id <TBMAppDelegateEventNotificationProtocol> eventNotificationDelegate;
@@ -86,7 +85,6 @@
     
     [self performDidBecomeActiveActions];
     [[OBLogger instance] logEvent:OBLogEventAppForeground];
-    [[TBMAudioSessionRouter sharedInstance] findAvailbleBluetoothDevices];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application{

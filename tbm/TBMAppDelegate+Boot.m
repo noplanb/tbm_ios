@@ -55,6 +55,7 @@
         return;
     
     [self ensureResources];
+    [[TBMAudioSessionRouter sharedInstance] findAvailbleBluetoothDevices];
 }
 
 - (void)ensureResources{
