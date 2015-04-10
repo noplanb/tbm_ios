@@ -10,6 +10,10 @@
 #import "TBMVideoRecorder.h"
 #import <UIKit/UIKit.h>
 
+@interface TBMAudioSessionRouter()
+@property (nonatomic, assign) BOOL hfpFound;
+@end
+
 @implementation TBMAudioSessionRouter
 
 #pragma mark - Singleton
@@ -33,6 +37,7 @@
     if (self) {
         [self subscribeToNotifications];
         [self initAudioSessionRouting];
+        [self findAvailbleBluetoothDevices];
     }
     
     return self;
@@ -126,6 +131,26 @@
     }
 }
 
+- (void) findAvailbleBluetoothDevices {
+    
+    [self.session setMode:AVAudioSessionModeVoiceChat error:nil];
+    [self.session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth error:nil];
+    [self.session setActive:YES error:nil];
+
+    self.hfpFound = NO;
+    NSArray *inputs = [self.session.currentRoute inputs];
+    for (AVAudioSessionPortDescription *input in inputs) {
+        if ([input.portType isEqualToString:AVAudioSessionPortBluetoothHFP]) {
+            //we have HFP connected, we should use VoiceChat.
+            self.hfpFound = YES;
+        }
+    }
+    
+    if (self.state == Idle) {
+        [self switchToIdleState];
+    }
+}
+
 /**
  * We enable proximity monitoring here
  * We use proximity to understand what
@@ -133,15 +158,17 @@
  * and Video chat for loud speaker
  */
 - (void) switchToPlayingState {
-    [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
-    if ([UIDevice currentDevice].proximityState) {
+    if (self.hfpFound) {
+        [self.session setMode:AVAudioSessionModeVoiceChat error:nil];
+        [self.session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth error:nil];
+    } else if ([UIDevice currentDevice].proximityState) {
         [self.session setMode:AVAudioSessionModeVoiceChat error:nil];
         [self.session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
     } else {
         [self.session setMode:AVAudioSessionModeVideoChat error:nil];
         [self.session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionAllowBluetooth error:nil];
     }
-    [self.session setActive:YES error:nil];
+    [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
 }
 
 - (void) switchToRecordingState {

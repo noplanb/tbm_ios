@@ -20,4 +20,5 @@ typedef enum : NSUInteger {
 @property (nonatomic) AVAudioSession *session;
 @property (nonatomic) AudioSessionState state;
 + (TBMAudioSessionRouter * ) sharedInstance;
+- (void) findAvailbleBluetoothDevices;
 @end

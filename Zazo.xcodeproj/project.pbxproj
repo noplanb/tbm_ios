@@ -299,6 +299,8 @@
 		4106AE651AD550AB007910EC /* TBMPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMPreviewView.m; sourceTree = "<group>"; };
 		416B0BA31ACD4E000082D562 /* TBMAudioSessionRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAudioSessionRouter.h; sourceTree = "<group>"; };
 		416B0BA41ACD4E000082D562 /* TBMAudioSessionRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAudioSessionRouter.m; sourceTree = "<group>"; };
+		41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		7716E91C15B9FF656396DC61 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		98B109B594AF439180A6DFAF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -360,6 +362,8 @@
 		220E90271909A18B003C4F82 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */,
+				41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */,
 				2208E8A61A1419D400150C35 /* AddressBook.framework */,
 				2208E8A71A1419D400150C35 /* AddressBookUI.framework */,
 				22403C2A19D5E63400FC36E3 /* MessageUI.framework */,
@@ -1052,7 +1056,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "e6441a5c-d40b-446f-aa6b-4160fc5daaea";
+				PROVISIONING_PROFILE = "359ff064-4f31-4653-9037-b85c583ed824";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
@@ -1074,7 +1078,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "e6441a5c-d40b-446f-aa6b-4160fc5daaea";
+				PROVISIONING_PROFILE = "359ff064-4f31-4653-9037-b85c583ed824";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
