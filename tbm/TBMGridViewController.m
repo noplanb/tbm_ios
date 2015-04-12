@@ -21,9 +21,6 @@
 @property (nonatomic) TBMLongPressTouchHandler *longPressTouchHandler;
 @property (nonatomic) TBMAppDelegate *appDelegate;
 @property (nonatomic) TBMVideoRecorder *videoRecorder;
-
-@property (nonatomic) NSArray *redBorders;
-@property (nonatomic) UILabel *recordingLabel;
 @end
 
 @implementation TBMGridViewController
@@ -454,8 +451,6 @@ static const float LayoutConstASPECT = 0.75;
 }
 
 - (void)videoRecorderDidStartRunning{
-    [self  setRecordingIndicatorTextForRecording];
-//    [self hideRecordingIndicator];
 }
 
 - (void)videoRecorderRuntimeErrorWithRetryCount:(int)videoRecorderRetryCount{
@@ -480,21 +475,7 @@ static const float LayoutConstASPECT = 0.75;
     }
     OB_WARN(@"HomeviewController: setupVideoRecorder: setting up. vr=%@, rc=%d, isViewLoaded=%d, view.window=%d", self.videoRecorder, retryCount, [self isViewLoaded], [self isViewLoaded] && self.view.window);
 
-    [self setRecordingIndicatorTextForRecorderSetup:retryCount];
     self.videoRecorder = [[TBMVideoRecorder alloc] initWithPreviewView:[self centerView] delegate:self];
-}
-
-- (void)setRecordingIndicatorTextForRecorderSetup:(int)retryCount{
-    NSString *msg;
-    if (retryCount == 0)
-        msg = @"c...";
-    else
-        msg = [NSString stringWithFormat: @"c r%d", retryCount];
-    self.recordingLabel.text = msg;
-}
-
-- (void)setRecordingIndicatorTextForRecording{
-    self.recordingLabel.text = @"Recording";
 }
 
 - (BOOL)isRecording{
