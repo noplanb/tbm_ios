@@ -10,7 +10,7 @@
 static NSString *CONFIG_APP_NAME = @"Zazo";
 
 // Make sure these 4 are set correctly before a release.
-static BOOL CONFIG_DEBUG_MODE = NO;
+static BOOL CONFIG_DEBUG_MODE = YES;
 static NSString *CONFIG_VERSION_NUMBER = @"24";
 static NSString *CONFIG_VERSION_STRING = @"2.0.14";
 

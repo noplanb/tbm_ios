@@ -97,16 +97,19 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 
 - (NSString *)videoStatusString;
 // Probably should not expose this and rather have setters for various states.
-- (void)setAndNotifyOutgoingVideoStatus:(TBMOutgoingVideoStatus)status videoId:(NSString *)videoId;
-- (void)setAndNotifyUploadRetryCount:(NSNumber *)retryCount videoId:(NSString *)videoId;
 - (void)setAndNotifyIncomingVideoStatus:(TBMIncomingVideoStatus)status video:(TBMVideo *)video;
 - (void)setAndNotifyDownloadRetryCount:(NSNumber *)retryCount video:(TBMVideo *)video;
 
 - (void)setViewedWithIncomingVideo:(TBMVideo *)video;
 - (BOOL)incomingVideoNotViewed;
 
-- (void)handleAfterOutgoingVideoCreated;
-- (void)handleAfterOUtgoingVideoUploadStarted;
+- (void)setAndNotifyOutgoingVideoStatus:(TBMOutgoingVideoStatus)status videoId:(NSString *)videoId;
+- (void)handleOutgoingVideoCreatedWithVideoId:(NSString *)videoId;
+- (void)handleOutgoingVideoUploadingWithVideoId:(NSString *)videoId;
+- (void)handleOutgoingVideoUploadedWithVideoId:(NSString *)videoId;
+- (void)handleOutgoingVideoViewedWithVideoId:(NSString *)videoId;
+- (void)handleOutgoingVideoFailedPermanentlyWithVideoId:(NSString *)videoId;
+- (void)handleUploadRetryCount:(NSNumber *)retryCount videoId:(NSString *)videoId;
 @end
 
 @interface TBMFriend (CoreDataGeneratedAccessors)

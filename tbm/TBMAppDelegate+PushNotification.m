@@ -178,7 +178,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     else
         OB_ERROR(@"unknown status received in notification");
     
-    [friend setAndNotifyOutgoingVideoStatus:outgoingStatus videoId:videoId];
+    [friend handleOutgoingVideoViewedWithVideoId:videoId];
 }
 
 //--------------------------------------

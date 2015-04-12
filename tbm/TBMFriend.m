@@ -554,15 +554,31 @@ static NSMutableArray * videoStatusNotificationDelegates;
 //--------------------
 // Init outgoing video
 //--------------------
-- (void)handleAfterOutgoingVideoCreated{
+#pragma mark - Ougtoing Video Status Handling
+- (void)handleOutgoingVideoCreatedWithVideoId:(NSString *)videoId{
     self.uploadRetryCount = 0;
-    self.outgoingVideoId = [TBMVideoIdUtils generateId];
+    self.outgoingVideoId = videoId;
     [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_NEW videoId:self.outgoingVideoId];
 }
 
-- (void)handleAfterOUtgoingVideoUploadStarted{
-    [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_UPLOADING videoId:self.outgoingVideoId];
+- (void)handleOutgoingVideoUploadingWithVideoId:(NSString *)videoId{
+    [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_UPLOADING videoId:videoId];
 }
 
+- (void)handleOutgoingVideoUploadedWithVideoId:(NSString *)videoId{
+    [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_UPLOADED videoId:videoId];
+}
+
+- (void)handleOutgoingVideoViewedWithVideoId:(NSString *)videoId{
+    [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_VIEWED videoId:videoId];
+}
+
+- (void)handleOutgoingVideoFailedPermanentlyWithVideoId:(NSString *)videoId{
+    [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY videoId:videoId];
+}
+
+- (void)handleUploadRetryCount:(NSNumber *)retryCount videoId:(NSString *)videoId{
+    [self setAndNotifyUploadRetryCount:(NSNumber *)retryCount videoId:(NSString *)videoId];
+}
 
 @end

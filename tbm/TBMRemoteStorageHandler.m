@@ -32,10 +32,10 @@
             [[friend.ckey stringByAppendingString:videoId] md5]];
 }
 
-+ (NSString *) outgoingVideoRemoteFilename:(TBMFriend *)friend{
++ (NSString *) outgoingVideoRemoteFilename:(TBMFriend *)friend videoId:(NSString *)videoId{
     return [NSString stringWithFormat:@"%@-%@",
             [TBMRemoteStorageHandler outgoingPrefix:friend],
-            [[friend.ckey stringByAppendingString:friend.outgoingVideoId] md5]];
+            [[friend.ckey stringByAppendingString:videoId] md5]];
 }
 
 + (NSString *) incomingVideoIDRemoteKVKey:(TBMFriend *)friend{

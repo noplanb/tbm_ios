@@ -9,8 +9,11 @@
 #import "TBMVideoIdUtils.h"
 #import "TBMUser.h"
 #import "TBMStringUtils.h"
+#import "TBMConfig.h"
 
 @implementation TBMVideoIdUtils
+
+#pragma mark - VideoIds
 
 + (NSString *)generateId{
     double seconds = [[NSDate date] timeIntervalSince1970];
@@ -36,6 +39,8 @@
     return [TBMVideoIdUtils timeStampWithVideoId:vid1] > [TBMVideoIdUtils timeStampWithVideoId:vid2];
 }
 
+#pragma mark - VideoFile Markers
+
 + (NSString *)markerWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId isUpload:(BOOL)isUpload{
     return [TBMStringUtils jsonWithDictionary: @{
                                                  VIDEO_ID_UTILS_FRIEND_ID_KEY: friend.idTbm,
@@ -58,8 +63,7 @@
 }
 
 + (TBMVideo *)videoWithMarker:(NSString *)marker{
-    NSString *videoId = [[TBMVideoIdUtils friendIdAndVideoIdWithMarker:marker] objectForKey:VIDEO_ID_UTILS_VIDEO_ID_KEY];
-    return [TBMVideo findWithVideoId:videoId];
+    return [TBMVideo findWithVideoId:[TBMVideoIdUtils videoIdWithMarker:marker]];
 }
 
 + (NSString *)videoIdWithMarker:(NSString *)marker{
@@ -70,5 +74,28 @@
     return [[TBMStringUtils dictionaryWithJson:marker][IS_UPLOAD_KEY] boolValue];
 }
 
+#pragma mark - VideoFile URLS
+
++ (NSURL *)generateOutgoingVideoUrlWithFriend:(TBMFriend *)friend{
+    NSString *videoId = [TBMVideoIdUtils generateId];
+    NSString *marker = [TBMVideoIdUtils markerWithFriend:friend videoId:videoId isUpload:YES];
+    return [TBMVideoIdUtils outgoingVideoUrlWithMarker:marker];
+}
+
++ (NSURL *)outgoingVideoUrlWithMarker:(NSString *)marker{
+    return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:marker];
+}
+
++ (NSString *)markerWithOutgoingVideoUrl:(NSURL *)url{
+    return url.lastPathComponent;
+}
+
++ (TBMFriend *)friendWithOutgoingVideoUrl:(NSURL *)url{
+    return [TBMVideoIdUtils friendWithMarker:[TBMVideoIdUtils markerWithOutgoingVideoUrl:url]];
+}
+
++ (NSString *)videoIdWithOutgoingVideoUrl:(NSURL *)url{
+    return [TBMVideoIdUtils videoIdWithMarker:[TBMVideoIdUtils markerWithOutgoingVideoUrl:url]];
+}
 
 @end

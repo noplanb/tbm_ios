@@ -8,14 +8,15 @@
 
 #import "TBMVideoRecorder.h"
 #import "TBMDeviceHandler.h"
-#import "TBMSoundEffect.h"
 #import "TBMConfig.h"
 #import "OBLogger.h"
 #import "TBMAlertController.h"
+#import "TBMVideoProcessor.h"
 #import "HexColor.h"
 
 NSString* const TBMVideoRecorderDidFinishRecording = @"TBMVideoRecorderDidFinishRecording";
 NSString* const TBMVideoRecorderShouldStartRecording = @"TBMVideoRecorderShouldStartRecording";
+NSString* const TBMVideoRecorderDidCancelRecording = @"TBMVideoRecorderDidCancelRecording";
 
 static int videoRecorderRetryCount = 0;
 
@@ -27,22 +28,13 @@ static int videoRecorderRetryCount = 0;
 @property AVCaptureInput *videoInput;
 @property AVCaptureInput *audioInput;
 @property AVCaptureMovieFileOutput *captureOutput;
-@property NSFileManager *fileManager;
-@property NSURL *recordingVideoUrl;
-@property NSURL *recordedVideoMpeg4Url;
 
-
-@property NSString *marker;
 @property BOOL didCancelRecording;
 
 @end
 
 @implementation TBMVideoRecorder
 
-+ (NSURL *)outgoingVideoUrlWithMarker:(NSString *)marker {
-    NSString *filename = [NSString stringWithFormat:@"outgoingVidToFriend%@", marker];
-    return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"mov"]];
-}
 
 - (instancetype)initWithPreviewView:(TBMPreviewView *)previewView delegate:(id)delegate {
 
@@ -53,18 +45,14 @@ static int videoRecorderRetryCount = 0;
         self.delegate = delegate;
         self.previewView = previewView;
         
-        self.fileManager = [NSFileManager defaultManager];
-        
-        self.recordingVideoUrl = [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[@"new" stringByAppendingPathExtension:@"mov"]];
-        self.recordedVideoMpeg4Url = [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[@"newConverted" stringByAppendingPathExtension:@"mp4"]];
         self.sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
         
-        [self initCaptureSession];
-        [self setupPreviewView];
-        
         dispatch_async(self.sessionQueue, ^{
+            [self initCaptureSession];
+            [self setupPreviewView];
             [self initVideoInput];
             [self initCaptureOutput];
+            [self addAudioInput];
             [self addObservers];
             [self.captureSession startRunning];
         });
@@ -72,7 +60,7 @@ static int videoRecorderRetryCount = 0;
     return self;
 }
 
-#pragma mark - intiialization of Video, Audio and Capture
+#pragma mark - intialization of Video, Audio and Capture
 
 - (void) initVideoInput {
     NSError *error;
@@ -125,42 +113,36 @@ static int videoRecorderRetryCount = 0;
     }
 }
 
-#pragma mark -
-
-//-------------
-// Query status
-//-------------
+#pragma mark - Query Status
 
 - (BOOL)isRecording{
     return [self.captureOutput isRecording];
 }
 
-//-------------------
-// Handle previewView
-//-------------------
+
+#pragma mark - Preview
 
 - (void) setupPreviewView {
     [self.previewView setupWithCaptureSession:self.captureSession];
 }
 
-//------------------
-// Recording actions
-//------------------
-- (void)startRecordingWithMarker:(NSString *)marker{
+
+#pragma mark - Recording Actions
+
+- (void)startRecordingWithVideoUrl:(NSURL *)videoUrl{
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
     
-    [self addAudioInput];
+#warning Kirill I set this once in setup as it was causing record to flash and spurious errors. We should always use built in mic. Can we make sure that we always return built in mic from TBMDevicehandler.
+//    [self addAsudioInput];
     self.didCancelRecording = NO;
     
-    self.marker = marker;
-    OB_INFO(@"Started recording with marker %@", _marker);
+    OB_INFO(@"Started recording to file %@", videoUrl);
     
-    NSError *error = nil;
-    [self.fileManager removeItemAtURL:self.recordingVideoUrl error:&error];
+    [[NSFileManager defaultManager] removeItemAtURL:videoUrl error:nil];
         
     [self.previewView showRecordingOverlay];
-    [self.captureOutput startRecordingToOutputFileURL:self.recordingVideoUrl recordingDelegate:self];
+    [self.captureOutput startRecordingToOutputFileURL:videoUrl recordingDelegate:self];
 }
 
 - (void)stopRecording {
@@ -177,74 +159,37 @@ static int videoRecorderRetryCount = 0;
     return wasRecording;
 }
 
-//------------------------------------------------
-// Recording Finished callback and post processing
-//------------------------------------------------
-- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error{
+
+#pragma mark - Recording callback
+
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
+      fromConnections:(NSArray *)connections error:(NSError *)error{
+    
+#warning Kirill I set this once in setup as it was causing record to flash and spurious errors. We should always use built in mic. Can we make sure that we always return built in mic from TBMDevicehandler.
+    //[self removeAudioInput];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFinishRecording
+                                                        object:self
+                                                      userInfo:@{@"videoUrl": outputFileURL}];
+    
+    if (self.didCancelRecording){
+        OB_INFO(@"didCancelRecordingToOutputFileAtURL:%@ error:%@", outputFileURL, error);
+        [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidCancelRecording
+                                                            object:self
+                                                          userInfo:@{@"videoUrl": outputFileURL}];
+        [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
+        return;
+    }
     
     OB_INFO(@"didFinishRecordingToOutputFileAtURL:%@ error:%@", outputFileURL, error);
-    
-    [self removeAudioInput];
-    [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFinishRecording object:self];
-    
-    if (self.didCancelRecording)
-        return;
-    
-    if (error){
-        OB_ERROR(@"%@", error);
-        return;
-    }
-    
-    NSDictionary *fileAttributes = [self.fileManager attributesOfItemAtPath:[self.recordingVideoUrl path] error:&error];
-    OB_INFO(@"Recorded file size = %llu", fileAttributes.fileSize);
-    [self convertOutgoingFileToMpeg4];
-}
 
-- (void)convertOutgoingFileToMpeg4 {
-    NSError *dontCareError = nil;
-    [self.fileManager removeItemAtURL:self.recordedVideoMpeg4Url error:&dontCareError];
-    
-    AVAsset *asset = [AVAsset assetWithURL:self.recordingVideoUrl];
-    AVAssetExportSession *session = [AVAssetExportSession exportSessionWithAsset:asset presetName:AVAssetExportPresetLowQuality];
-    session.outputFileType = AVFileTypeMPEG4;
-    session.outputURL = self.recordedVideoMpeg4Url;
-    [session exportAsynchronouslyWithCompletionHandler:^{[self didFinishConvertingToMpeg4];}];
-}
-
-- (void)didFinishConvertingToMpeg4 {
-    if ([self moveRecordingToOutgoingFile]) {
-        [self.delegate didFinishVideoRecordingWithMarker:self.marker];
-    }
-}
-
-- (BOOL) moveRecordingToOutgoingFile {
-    NSURL *outgoingVideoUrl = [TBMVideoRecorder outgoingVideoUrlWithMarker:self.marker];
-    NSError *dontCareError = nil;
-    
-    [self.fileManager removeItemAtURL:outgoingVideoUrl error:&dontCareError];
-    if (dontCareError)
-        OB_WARN(@"Can't remove video (%@) for url (%@), error: %@", self.marker, outgoingVideoUrl, dontCareError);
-    
-    NSError *error = nil;
-    [self.fileManager moveItemAtURL:self.recordedVideoMpeg4Url toURL:outgoingVideoUrl error:&error];
-    
-    if (error) {
-        OB_ERROR(@"ERROR: moveRecordingToOutgoingFile: ERROR: unable to move file. This should never happen. %@", error);
-        return NO;
-    }
-    
-    NSDictionary *fileAttributes = [_fileManager attributesOfItemAtPath:outgoingVideoUrl.path error:&dontCareError];
-    if (dontCareError)
-        OB_WARN(@"Can't set attributes for file: %@. Error: %@", outgoingVideoUrl.path, dontCareError);
-        
-    OB_INFO(@"moveRecordingToOutgoingFile: Outgoing file size %llu", fileAttributes.fileSize);
-    return YES;
+    [[[TBMVideoProcessor alloc] init] processVideoWithUrl:outputFileURL];
 }
 
 
-//-------------------------------
-// AVCaptureSession Notifications
-//-------------------------------
+
+#pragma mark - Recording Session Notifications
+
 // Dispose is not used. User should just create a new instance.
 // Dont use dispose becuase OS takes care of interrupting or stopping and restarting our VideoCaptureSession very well.
 // We don't need to interfere with it. See release 1.41 for details.

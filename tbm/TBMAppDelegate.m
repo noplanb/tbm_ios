@@ -25,6 +25,7 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
+#pragma mark - Lifecycle callbacks
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     OB_INFO(@"willFinishLaunchingWithOptions:");
@@ -33,10 +34,9 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
-    [OBLogger instance].writeToConsole = YES;
-    if ([[OBLogger instance] logLines].count > 1000)
-        [[OBLogger instance] reset];
-
+    [self setupLogger];
+    [self addObservers];
+    
     OB_INFO(@"didFinishLaunchingWithOptions:");
     [self boot];
 
@@ -91,6 +91,7 @@
     OB_INFO(@"applicationWillTerminate: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
+    [self removeObservers];
 }
 
 - (void)saveContext{
@@ -108,6 +109,24 @@
             }
         }];
     }
+}
+
+#pragma mark - Notification Observers
+
+- (void)addObservers{
+    [self addVideoProcessorObservers];
+}
+
+- (void)removeObservers{
+    [self removeVideoProcessorObservers];
+}
+
+
+#pragma mark - Logger
+- (void)setupLogger{
+    [OBLogger instance].writeToConsole = YES;
+    if ([[OBLogger instance] logLines].count > 1000)
+        [[OBLogger instance] reset];
 }
 
 //------------------------------------------------------
@@ -267,7 +286,7 @@
             self.backgroundTaskId = UIBackgroundTaskInvalid;
         }];
     }
-    OB_INFO(@"AppDelegate: RequestBackground: exiting: refresh status = %d, time Remaining = %f", [UIApplication sharedApplication].backgroundRefreshStatus, [UIApplication sharedApplication].backgroundTimeRemaining);
+    OB_INFO(@"AppDelegate: RequestBackground: exiting: refresh status = %ld, time Remaining = %f", [UIApplication sharedApplication].backgroundRefreshStatus, [UIApplication sharedApplication].backgroundTimeRemaining);
 }
 
 

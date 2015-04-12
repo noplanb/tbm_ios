@@ -15,6 +15,7 @@
 #import "TBMVideoIdUtils.h"
 #import "TBMVideoPlayer.h"
 #import "TBMHttpManager.h"
+#import "TBMVideoProcessor.h"
 
 @implementation TBMAppDelegate (AppSync)
 
@@ -56,18 +57,26 @@
 //-------
 // Upload
 //-------
-- (void) uploadWithFriendId:(NSString *)friendId{
-    TBMFriend *friend = [TBMFriend findWithId:friendId];
-    NSString *localFilePath = [TBMVideoRecorder outgoingVideoUrlWithMarker:friendId].path;
-    NSString *marker = [TBMVideoIdUtils markerWithFriend:friend videoId:friend.outgoingVideoId isUpload: YES];
-    OB_INFO(@"uploadWithFriendId marker = %@", marker);
+#pragma mark - Upload
+
+- (void) uploadWithVideoUrl:(NSURL *)videoUrl{
+    OB_INFO(@"uploadWithVideoUrl %@", videoUrl);
+
+    NSString *marker = [TBMVideoIdUtils markerWithOutgoingVideoUrl:videoUrl];
+    NSString *videoId = [TBMVideoIdUtils videoIdWithOutgoingVideoUrl:videoUrl];
+    TBMFriend *friend = [TBMVideoIdUtils friendWithOutgoingVideoUrl:videoUrl];
     
-    NSString *remoteFilename = [TBMRemoteStorageHandler outgoingVideoRemoteFilename:friend];
-    [[self fileTransferManager] uploadFile:localFilePath
+    NSString *remoteFilename = [TBMRemoteStorageHandler outgoingVideoRemoteFilename:friend videoId:videoId];
+    [[self fileTransferManager] uploadFile:videoUrl.path
                                         to:[TBMRemoteStorageHandler fileTransferUploadPath]
                                 withMarker:marker
                                 withParams:[self fileTransferParams:remoteFilename]];
-    [friend handleAfterOUtgoingVideoUploadStarted];
+    
+    // fileTransferManager should create a copy of ougtoing file synchronously
+    // prior to returning from the above call so should be safe to delete video file here.
+    [[NSFileManager defaultManager] removeItemAtURL:videoUrl error:nil];
+    
+    [friend handleOutgoingVideoUploadingWithVideoId:videoId];
 }
 
 
@@ -297,12 +306,12 @@
     }
     if (error == nil){
         OB_INFO(@"uploadCompletedWithFriend");
-        [friend  setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_UPLOADED videoId:videoId];
+        [friend  handleOutgoingVideoUploadedWithVideoId:videoId];
         [TBMRemoteStorageHandler addRemoteOutgoingVideoId:videoId friend:friend];
         [self sendNotificationForVideoReceived:friend videoId:videoId];
     } else {
-        OB_ERROR(@"uploadCompletedWithVideoId: upload error. Setting status to FailedPermanently");
-        [friend setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY videoId:videoId];
+        OB_ERROR(@"uploadCompletedWithVideoId: upload error. FailedPermanently");
+        [friend handleOutgoingVideoFailedPermanentlyWithVideoId:videoId];
     }
 }
 
@@ -314,7 +323,7 @@
     }
     
     NSNumber *ncount = [NSNumber numberWithInteger:retryCount];
-    [friend setAndNotifyUploadRetryCount:ncount videoId:videoId];
+    [friend handleUploadRetryCount:ncount videoId:videoId];
 }
 
 
@@ -452,6 +461,26 @@
     return nil;
 }
 
+
+#pragma mark - VideoProcessorObservers
+
+- (void)addVideoProcessorObservers{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(videoProcessorDidFinishProcessingNotification:)
+                                                 name:TBMVideoProcessorDidFinishProcessing
+                                               object:nil];
+}
+
+- (void)removeVideoProcessorObservers{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TBMVideoProcessorDidFinishProcessing object:nil];
+}
+
+- (void)videoProcessorDidFinishProcessingNotification:(NSNotification *)notification{
+    NSURL *videoUrl = [notification.userInfo objectForKey:@"videoUrl"];
+    TBMFriend *friend = [TBMVideoIdUtils friendWithOutgoingVideoUrl:videoUrl];
+    NSString *videoId = [TBMVideoIdUtils videoIdWithOutgoingVideoUrl:videoUrl];
+    [friend handleOutgoingVideoCreatedWithVideoId:videoId];
+}
 
 
 @end

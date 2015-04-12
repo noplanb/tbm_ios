@@ -29,4 +29,11 @@ static NSString *IS_UPLOAD_KEY = @"isUpload";
 + (TBMFriend *)friendWithMarker:(NSString *)marker;
 + (BOOL)isUploadWithMarker:(NSString *)marker;
 + (TBMVideo *)videoWithMarker:(NSString *)marker;
+
++ (NSURL *)generateOutgoingVideoUrlWithFriend:(TBMFriend *)friend;
++ (NSURL *)outgoingVideoUrlWithMarker:(NSString *)marker;
++ (NSString *)markerWithOutgoingVideoUrl:(NSURL *)url;
++ (TBMFriend *)friendWithOutgoingVideoUrl:(NSURL *)url;
++ (NSString *)videoIdWithOutgoingVideoUrl:(NSURL *)url;
+
 @end

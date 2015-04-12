@@ -52,6 +52,8 @@
 		224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
 		224101D7190D5171005128F9 /* TBMVideoRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 224101D6190D5171005128F9 /* TBMVideoRecorder.m */; };
 		22500B8819993FDC008E9EA4 /* TBMAppDelegate+AppSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 22500B8719993FDC008E9EA4 /* TBMAppDelegate+AppSync.m */; };
+		2259A98B1ADA17A200E7DCDE /* TBMVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2259A98A1ADA17A200E7DCDE /* TBMVideoProcessor.m */; };
+		2259A98D1ADAD19900E7DCDE /* TBMVideoIdUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2259A98C1ADAD19900E7DCDE /* TBMVideoIdUtilsTests.m */; };
 		225D21C01A5B5B4F0087A25B /* TBMS3CredentialsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 225D21BF1A5B5B4F0087A25B /* TBMS3CredentialsManager.m */; };
 		225D21C41A5B7A060087A25B /* S3CredentialsManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 225D21C31A5B7A060087A25B /* S3CredentialsManagerTests.m */; };
 		2261417719A52CFB006FB870 /* TBMVersionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2261417619A52CFB006FB870 /* TBMVersionHandler.m */; };
@@ -203,6 +205,9 @@
 		224101D6190D5171005128F9 /* TBMVideoRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoRecorder.m; sourceTree = "<group>"; };
 		22500B8619993FDC008E9EA4 /* TBMAppDelegate+AppSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMAppDelegate+AppSync.h"; sourceTree = "<group>"; };
 		22500B8719993FDC008E9EA4 /* TBMAppDelegate+AppSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMAppDelegate+AppSync.m"; sourceTree = "<group>"; };
+		2259A9891ADA17A200E7DCDE /* TBMVideoProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoProcessor.h; sourceTree = "<group>"; };
+		2259A98A1ADA17A200E7DCDE /* TBMVideoProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoProcessor.m; sourceTree = "<group>"; };
+		2259A98C1ADAD19900E7DCDE /* TBMVideoIdUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoIdUtilsTests.m; sourceTree = "<group>"; };
 		225D21BE1A5B5B4F0087A25B /* TBMS3CredentialsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMS3CredentialsManager.h; sourceTree = "<group>"; };
 		225D21BF1A5B5B4F0087A25B /* TBMS3CredentialsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMS3CredentialsManager.m; sourceTree = "<group>"; };
 		225D21C31A5B7A060087A25B /* S3CredentialsManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = S3CredentialsManagerTests.m; sourceTree = "<group>"; };
@@ -401,12 +406,7 @@
 				220E90311909A18B003C4F82 /* Supporting Files */,
 				22249584190B52E4008EF394 /* TBMLongPressTouchHandler.h */,
 				22249585190B52E4008EF394 /* TBMLongPressTouchHandler.m */,
-				224101D0190D40B1005128F9 /* TBMDeviceHandler.h */,
-				224101D1190D40B1005128F9 /* TBMDeviceHandler.m */,
-				224101D5190D5171005128F9 /* TBMVideoRecorder.h */,
-				224101D6190D5171005128F9 /* TBMVideoRecorder.m */,
-				22EA56BC191068B700646D3E /* TBMVideoPlayer.h */,
-				22EA56BD191068B700646D3E /* TBMVideoPlayer.m */,
+				2259A9881ADA176F00E7DCDE /* Video */,
 				22EA56BF19106AD100646D3E /* TBMConfig.h */,
 				22EA56C019106AD100646D3E /* TBMConfig.m */,
 				223A11441915926800177481 /* TBMHttpManager.h */,
@@ -433,8 +433,6 @@
 				225D21BF1A5B5B4F0087A25B /* TBMS3CredentialsManager.m */,
 				22151E861A5CB07B008EF88E /* TBMDispatch.h */,
 				22151E871A5CB07B008EF88E /* TBMDispatch.m */,
-				4106AE641AD550AB007910EC /* TBMPreviewView.h */,
-				4106AE651AD550AB007910EC /* TBMPreviewView.m */,
 			);
 			path = tbm;
 			sourceTree = "<group>";
@@ -458,6 +456,7 @@
 				225D21C31A5B7A060087A25B /* S3CredentialsManagerTests.m */,
 				22151E891A5CF4B2008EF88E /* TBMDispatchTests.m */,
 				227767A31A963FE90093EFB1 /* StringUtilsTest.m */,
+				2259A98C1ADAD19900E7DCDE /* TBMVideoIdUtilsTests.m */,
 			);
 			path = tbmTests;
 			sourceTree = "<group>";
@@ -506,6 +505,25 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		2259A9881ADA176F00E7DCDE /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				22F1A4C219354AC500E04229 /* TBMVideoIdUtils.h */,
+				22F1A4C319354AC500E04229 /* TBMVideoIdUtils.m */,
+				224101D0190D40B1005128F9 /* TBMDeviceHandler.h */,
+				224101D1190D40B1005128F9 /* TBMDeviceHandler.m */,
+				224101D5190D5171005128F9 /* TBMVideoRecorder.h */,
+				224101D6190D5171005128F9 /* TBMVideoRecorder.m */,
+				22EA56BC191068B700646D3E /* TBMVideoPlayer.h */,
+				22EA56BD191068B700646D3E /* TBMVideoPlayer.m */,
+				4106AE641AD550AB007910EC /* TBMPreviewView.h */,
+				4106AE651AD550AB007910EC /* TBMPreviewView.m */,
+				2259A9891ADA17A200E7DCDE /* TBMVideoProcessor.h */,
+				2259A98A1ADA17A200E7DCDE /* TBMVideoProcessor.m */,
+			);
+			name = Video;
+			sourceTree = "<group>";
+		};
 		22664395190AD8C8006C9072 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -519,8 +537,6 @@
 				22093F1A192590CE0021EB0C /* TBMSoundEffect.m */,
 				22A375C21930E09E00C355EB /* TBMStringUtils.h */,
 				22A375C31930E09E00C355EB /* TBMStringUtils.m */,
-				22F1A4C219354AC500E04229 /* TBMVideoIdUtils.h */,
-				22F1A4C319354AC500E04229 /* TBMVideoIdUtils.m */,
 				22A8F5091A099C7600F7AD0E /* TBMPhoneUtils.h */,
 				22A8F50A1A099C7600F7AD0E /* TBMPhoneUtils.m */,
 				226A26011A584AD6006FDFDA /* TBMKeyChainWrapper.h */,
@@ -878,6 +894,7 @@
 				227155611A40902B00B437DA /* TBMBenchViewController.m in Sources */,
 				220E903B1909A18B003C4F82 /* TBMAppDelegate.m in Sources */,
 				221B77661A68888C009FA670 /* TPKeyboardAvoidingCollectionView.m in Sources */,
+				2259A98B1ADA17A200E7DCDE /* TBMVideoProcessor.m in Sources */,
 				2287DB4B1922BB5D00B1C298 /* TBMAppDelegate+PushNotification.m in Sources */,
 				221B77691A68888C009FA670 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				224101D2190D40B1005128F9 /* TBMDeviceHandler.m in Sources */,
@@ -928,6 +945,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2259A98D1ADAD19900E7DCDE /* TBMVideoIdUtilsTests.m in Sources */,
 				227767A41A963FE90093EFB1 /* StringUtilsTest.m in Sources */,
 				225D21C41A5B7A060087A25B /* S3CredentialsManagerTests.m in Sources */,
 				22151E8A1A5CF4B2008EF88E /* TBMDispatchTests.m in Sources */,

@@ -16,7 +16,6 @@
 @property (strong, nonatomic) OBFileTransferManager *fileTransferManager;
 
 // Upload download events
-- (void) uploadWithFriendId:(NSString *)friendId;
 - (void) queueDownloadWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId;
 - (void) retryPendingFileTransfers;
 
@@ -26,5 +25,9 @@
 
 // Stuck downloads
 - (void) handleStuckDownloadsWithCompletionHandler:(void (^)())handler;
+
+// Observers
+- (void)addVideoProcessorObservers;
+- (void)removeVideoProcessorObservers;
 
 @end

@@ -12,9 +12,9 @@
 
 extern NSString* const TBMVideoRecorderDidFinishRecording;
 extern NSString* const TBMVideoRecorderShouldStartRecording;
+extern NSString* const TBMVideoRecorderDidCancelRecording;
 
 @protocol TBMVideoRecorderDelegate <NSObject>
-- (void)didFinishVideoRecordingWithMarker:(NSString *)marker;
 - (void)videoRecorderDidStartRunning;
 - (void)videoRecorderRuntimeErrorWithRetryCount:(int)videoRecorderRetryCount;
 @end
@@ -23,10 +23,8 @@ extern NSString* const TBMVideoRecorderShouldStartRecording;
 
 @property (nonatomic) id <TBMVideoRecorderDelegate> delegate;
 
-+ (NSURL *)outgoingVideoUrlWithMarker:(NSString *)marker;
-
 - (instancetype)initWithPreviewView:(TBMPreviewView *)previewView delegate:(id)delegate;
-- (void)startRecordingWithMarker:(NSString *)marker;
+- (void)startRecordingWithVideoUrl:(NSURL *)videoUrl;
 - (void)stopRecording;
 - (BOOL)cancelRecording;
 - (void)dispose;

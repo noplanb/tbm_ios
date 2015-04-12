@@ -15,6 +15,8 @@
 #import "iToast.h"
 #import "TBMAlertController.h"
 #import "TBMPreviewView.h"
+#import "TBMVideoIdUtils.h"
+#import "TBMVideoProcessor.h"
 
 @interface TBMGridViewController ()
 @property (nonatomic) NSArray *gridViews;
@@ -51,10 +53,12 @@
     [super viewDidAppear:animated];
     [self setupVideoRecorder:0];
     [TBMFriend addVideoStatusNotificationDelegate:self];
+    [self addObservers];
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [self removeObservers];
     // Eliminated videoRecorder.dispose here. The OS takes care of interrupting or stopping and restarting our VideoCaptureSession very well.
     // We don't need to interfere with it.
 }
@@ -90,9 +94,26 @@
 }
 
 
-//-------------------
-// GridElement Setup
-//-------------------
+#pragma mark - Notification Center Observers
+- (void)addObservers{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(videoProcessorDidFailotification:)
+                                                 name:TBMVideoProcessorDidFail
+                                               object:nil];
+}
+
+- (void)removeObservers{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:TBMVideoProcessorDidFail
+                                                  object:nil];
+}
+
+- (void)videoProcessorDidFailotification:(NSNotification *)notification{
+    [self toastNotSent];
+}
+
+
+#pragma mark - GridElement Setup
 - (void)setupGridElement{
     if ([TBMGridElement all].count != 8){
         [self createGridElements];
@@ -247,7 +268,8 @@ static const float LayoutConstASPECT = 0.75;
     if (ge.friend != nil){
         [self rankingActionOccurred:ge.friend];
         [[TBMVideoPlayer sharedInstance] stop];
-        [[self videoRecorder] startRecordingWithMarker:ge.friend.idTbm];
+        NSURL *videoUrl = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriend:ge.friend];
+        [[self videoRecorder] startRecordingWithVideoUrl:videoUrl];
     }
 }
 
@@ -443,13 +465,6 @@ static const float LayoutConstASPECT = 0.75;
 //-----------------------------------
 // VideoRecorder setup and callbacks
 //-----------------------------------
-- (void)didFinishVideoRecordingWithMarker:(NSString *)friendId{
-    DebugLog(@"didFinishVideoRecordingWithFriendId %@", friendId);
-    TBMFriend *friend = [TBMFriend findWithId:friendId];
-    [friend handleAfterOutgoingVideoCreated];
-    [self.appDelegate uploadWithFriendId:friendId];
-}
-
 - (void)videoRecorderDidStartRunning{
 }
 
