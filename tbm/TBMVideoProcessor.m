@@ -56,7 +56,7 @@ NSString* const TBMVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing"
         return;
     }
     
-    [self logFileSize];
+    [self logFileSize:self.videoUrl];
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoProcessorDidFinishProcessing
                                                         object:self
                                                       userInfo:[self notificationUserInfo]];
@@ -80,19 +80,20 @@ NSString* const TBMVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing"
     return YES;
 }
 
-- (void) logFileSize {
+- (void) logFileSize:(NSURL *)url {
     NSError *dontCareError = nil;
-    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:self.videoUrl.path error:&dontCareError];
+    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:url.path error:&dontCareError];
     if (dontCareError)
         OB_WARN(@"Can't set attributes for file: %@. Error: %@", self.videoUrl.path, dontCareError);
     
-    OB_INFO(@"TBMVideoProcessor: Converted file size %llu", fileAttributes.fileSize);
+    OB_INFO(@"TBMVideoProcessor: filesize %llu", fileAttributes.fileSize);
 }
 
 - (NSURL *)generateTempVideoUrl{
     double seconds = [[NSDate date] timeIntervalSince1970];
     NSString *filename =  [NSString stringWithFormat:@"temp_%.0f", seconds * 1000.0];
-    return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:filename];
+    NSURL *url = [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:filename];
+    return [url URLByAppendingPathExtension:@"mov"];
 }
 
 - (void)handleError{

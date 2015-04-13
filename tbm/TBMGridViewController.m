@@ -17,6 +17,7 @@
 #import "TBMPreviewView.h"
 #import "TBMVideoIdUtils.h"
 #import "TBMVideoProcessor.h"
+#import "TBMConfig.h"
 
 @interface TBMGridViewController ()
 @property (nonatomic) NSArray *gridViews;
@@ -269,6 +270,8 @@ static const float LayoutConstASPECT = 0.75;
         [self rankingActionOccurred:ge.friend];
         [[TBMVideoPlayer sharedInstance] stop];
         NSURL *videoUrl = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriend:ge.friend];
+//        videoUrl = [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:@"new.mov"];
+
         [[self videoRecorder] startRecordingWithVideoUrl:videoUrl];
     }
 }

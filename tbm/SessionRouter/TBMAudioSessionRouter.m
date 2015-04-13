@@ -35,7 +35,8 @@
 - (instancetype) init {
     self = [super init];
     if (self) {
-        [self setup];
+#warning Kirill I disconnected the audiosession router here because I found it quite buggy when testing the video recorder.
+//        [self setup];
     }
     return self;
 }

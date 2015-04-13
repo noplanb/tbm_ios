@@ -54,7 +54,8 @@
         return;
     
     [self ensureResources];
-    [[TBMAudioSessionRouter sharedInstance] findAvailbleBluetoothDevices];
+#warning Kirill I disconnected the audiosession router here because I found it quite buggy when testing the video recorder.
+//    [[TBMAudioSessionRouter sharedInstance] findAvailbleBluetoothDevices];
 }
 
 - (void)ensureResources{

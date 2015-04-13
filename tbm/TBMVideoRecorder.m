@@ -13,6 +13,7 @@
 #import "TBMAlertController.h"
 #import "TBMVideoProcessor.h"
 #import "HexColor.h"
+#import "TBMVideoIdUtils.h"
 
 NSString* const TBMVideoRecorderDidFinishRecording = @"TBMVideoRecorderDidFinishRecording";
 NSString* const TBMVideoRecorderShouldStartRecording = @"TBMVideoRecorderShouldStartRecording";
@@ -47,15 +48,17 @@ static int videoRecorderRetryCount = 0;
         
         self.sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
         
-        dispatch_async(self.sessionQueue, ^{
-            [self initCaptureSession];
-            [self setupPreviewView];
-            [self initVideoInput];
-            [self initCaptureOutput];
-            [self addAudioInput];
-            [self addObservers];
-            [self.captureSession startRunning];
-        });
+#warning Kirill Temporarily removed from background thread while testing.
+        [self initCaptureSession];
+        [self setupPreviewView];
+        [self initVideoInput];
+        [self initCaptureOutput];
+        [self addAudioInput];
+        [self addObservers];
+        [self.captureSession startRunning];
+
+//        dispatch_async(self.sessionQueue, ^{
+//        });
     }
     return self;
 }
@@ -137,7 +140,9 @@ static int videoRecorderRetryCount = 0;
 //    [self addAsudioInput];
     self.didCancelRecording = NO;
     
-    OB_INFO(@"Started recording to file %@", videoUrl);
+    OB_INFO(@"Start recording to %@ videoId:%@",
+            [TBMVideoIdUtils friendWithOutgoingVideoUrl:videoUrl].firstName,
+            [TBMVideoIdUtils videoIdWithOutgoingVideoUrl:videoUrl]);
     
     [[NSFileManager defaultManager] removeItemAtURL:videoUrl error:nil];
         
@@ -146,7 +151,8 @@ static int videoRecorderRetryCount = 0;
 }
 
 - (void)stopRecording {
-    if ([self.captureOutput isRecording])
+    OB_INFO(@"stopRecording: isRecording:%d", self.captureOutput.isRecording);
+    if (self.captureOutput.isRecording)
         [self.captureOutput stopRecording];
 
     [self.previewView hideRecordingOverlay];

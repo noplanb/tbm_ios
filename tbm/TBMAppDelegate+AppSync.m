@@ -480,6 +480,7 @@
     TBMFriend *friend = [TBMVideoIdUtils friendWithOutgoingVideoUrl:videoUrl];
     NSString *videoId = [TBMVideoIdUtils videoIdWithOutgoingVideoUrl:videoUrl];
     [friend handleOutgoingVideoCreatedWithVideoId:videoId];
+    [self uploadWithVideoUrl:videoUrl];
 }
 
 

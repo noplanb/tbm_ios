@@ -57,7 +57,9 @@
         _playerView.tag = 1401;
         self.playerView.hidden = YES;
         [self addPlayerNotifications];
-        [self addEventNotificationDelegate:[TBMAudioSessionRouter sharedInstance]];
+#warning Kirill I dont understand why this is here. The audio session router should register for notifications with videoPlayer in its own class. VideoPlayer should not know about audioSessionRouter!
+#warning Kirill I disconnected the audiosession router here because I found it quite buggy when testing the video recorder.
+//        [self addEventNotificationDelegate:[TBMAudioSessionRouter sharedInstance]];
     }
     return self;
 }
