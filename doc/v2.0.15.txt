@@ -1,0 +1,26 @@
+Fix #383
+========
+
+PROBLEMS
+--------
+1) If a user generates two (or more) videos in succession. If the second one starts recording before the first one has finished processing the first one may be destroyed.
+
+2) Multiple videos are sent to the same friend in a row the final outgoing file may be overwritten before it has had a chance to be picked up by the FileTransfer manager. (This case is very unlikely and I have not seen it since the first thing the file transfer manager does is copy the file to a temporary outgoing file.)
+
+
+CAUSE
+-----
+In the current architecture we use the same file for:
+  - Recording: new.mov
+  - Converted: newConverted.mp4
+  - Outgoing per friend: outgoingVidToFriend<friendId>
+These files may be overwritten when a new video is created before FileTransferManager has a chance to copy to temporary file.
+
+WORKABLE ARCHITECTURE
+---------------------
+New OutgoingVideoUrl for each new recording
+FriendId and VideoId are encoded in OutgoingVideoUrl
+VideoProcessor is instantiated each time a recording completes to handle processing
+All notifications are handled using NotificationCenter
+
+Test cases:

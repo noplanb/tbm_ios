@@ -14,6 +14,7 @@ extern NSString* const TBMVideoRecorderDidFinishRecording;
 extern NSString* const TBMVideoRecorderShouldStartRecording;
 extern NSString* const TBMVideoRecorderDidCancelRecording;
 
+#warning Kirill eventually this should be migrated to use notification center.
 @protocol TBMVideoRecorderDelegate <NSObject>
 - (void)videoRecorderDidStartRunning;
 - (void)videoRecorderRuntimeErrorWithRetryCount:(int)videoRecorderRetryCount;

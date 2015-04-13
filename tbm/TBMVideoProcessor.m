@@ -34,7 +34,6 @@ NSString* const TBMVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing"
         [self handleError];
         return;
     }
-    
     [self convertToMpeg4];
 }
 
@@ -42,6 +41,9 @@ NSString* const TBMVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing"
 #pragma mark - Conversion
 
 - (void)convertToMpeg4 {
+    OB_INFO(@"TBMVideoProcessor: start conversion");
+    [self logFileSize:self.tempVideoUrl];
+    
     AVAsset *asset = [AVAsset assetWithURL:self.tempVideoUrl];
     self.exportSession = [AVAssetExportSession exportSessionWithAsset:asset presetName:AVAssetExportPresetLowQuality];
     self.exportSession.outputFileType = AVFileTypeMPEG4;
@@ -55,7 +57,7 @@ NSString* const TBMVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing"
         [self handleError];
         return;
     }
-    
+    OB_INFO(@"TBMVideoProcessor: Successful conversion");
     [self logFileSize:self.videoUrl];
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoProcessorDidFinishProcessing
                                                         object:self
