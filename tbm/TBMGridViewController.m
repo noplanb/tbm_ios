@@ -98,8 +98,13 @@
 #pragma mark - Notification Center Observers
 - (void)addObservers{
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(videoProcessorDidFailotification:)
+                                             selector:@selector(videoRecordDidFailotification:)
                                                  name:TBMVideoProcessorDidFail
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(videoRecordDidFailotification:)
+                                                 name:TBMVideoRecorderDidFail
                                                object:nil];
 }
 
@@ -107,9 +112,14 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:TBMVideoProcessorDidFail
                                                   object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:TBMVideoRecorderDidFail
+                                                  object:nil];
+
 }
 
-- (void)videoProcessorDidFailotification:(NSNotification *)notification{
+- (void)videoRecordDidFailotification:(NSNotification *)notification{
     [self toastNotSent];
 }
 

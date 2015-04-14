@@ -13,6 +13,7 @@
 extern NSString* const TBMVideoRecorderDidFinishRecording;
 extern NSString* const TBMVideoRecorderShouldStartRecording;
 extern NSString* const TBMVideoRecorderDidCancelRecording;
+extern NSString* const TBMVideoRecorderDidFail;
 
 #warning Kirill eventually this should be migrated to use notification center.
 @protocol TBMVideoRecorderDelegate <NSObject>

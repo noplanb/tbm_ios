@@ -18,6 +18,7 @@
 NSString* const TBMVideoRecorderDidFinishRecording = @"TBMVideoRecorderDidFinishRecording";
 NSString* const TBMVideoRecorderShouldStartRecording = @"TBMVideoRecorderShouldStartRecording";
 NSString* const TBMVideoRecorderDidCancelRecording = @"TBMVideoRecorderDidCancelRecording";
+NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 
 static int videoRecorderRetryCount = 0;
 
@@ -152,10 +153,17 @@ static int videoRecorderRetryCount = 0;
 
 - (void)stopRecording {
     OB_INFO(@"stopRecording: isRecording:%d", self.captureOutput.isRecording);
-    if (self.captureOutput.isRecording)
-        [self.captureOutput stopRecording];
-
     [self.previewView hideRecordingOverlay];
+
+    if (!self.captureOutput.isRecording){
+#warning Kirill note that in some error cases when audiosession was connected stop recording would be called and isRecording == NO.  We will not get a didFinsishRecording in this case. AudioSession needs to observe videoRecorderDidFail for these condtitions although we should ensure they never occur.
+        NSString *errorDescription = @"VideoRecorder: Stop called but not recording. This should never happen";
+        OB_ERROR(errorDescription);
+        NSError *error = [NSError errorWithDomain:@"TBMVideoRecorder" code:1 userInfo:@{@"errorDescription": errorDescription}];
+        [self handleError:error];
+    }
+    [self.captureOutput stopRecording];
+
 }
 
 - (BOOL)cancelRecording{
@@ -168,15 +176,18 @@ static int videoRecorderRetryCount = 0;
 
 #pragma mark - Recording callback
 
-- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
-      fromConnections:(NSArray *)connections error:(NSError *)error{
-    
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections{
+    OB_INFO(@"VideoRecoder: captureOutput:didStartRecording");
+}
+
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error{
 #warning Kirill I set this once in setup as it was causing record to flash and spurious errors. We should always use built in mic. Can we make sure that we always return built in mic from TBMDevicehandler.
     //[self removeAudioInput];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFinishRecording
                                                         object:self
                                                       userInfo:@{@"videoUrl": outputFileURL}];
+    
     
     if (self.didCancelRecording){
         OB_INFO(@"didCancelRecordingToOutputFileAtURL:%@ error:%@", outputFileURL, error);
@@ -187,12 +198,28 @@ static int videoRecorderRetryCount = 0;
         return;
     }
     
-    OB_INFO(@"didFinishRecordingToOutputFileAtURL:%@ error:%@", outputFileURL, error);
+    if (error != nil){
+        OB_ERROR(@"VideoRecorder: %@", error);
+        [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
+        [self handleError:error];
+        return;
+    }
+    
+    OB_INFO(@"didFinishRecording success friend:%@ videoId:%@",
+            [TBMVideoIdUtils friendWithOutgoingVideoUrl:outputFileURL].firstName,
+            [TBMVideoIdUtils videoIdWithOutgoingVideoUrl:outputFileURL]);
 
     [[[TBMVideoProcessor alloc] init] processVideoWithUrl:outputFileURL];
 }
 
 
+#pragma mark - Recording Error Handling.
+
+- (void)handleError:(NSError *)error{
+    [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFail
+                                                        object:self
+                                                      userInfo:@{@"error":error}];
+}
 
 #pragma mark - Recording Session Notifications
 

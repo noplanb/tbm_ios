@@ -16,6 +16,7 @@ In the current architecture we use the same file for:
   - Outgoing per friend: outgoingVidToFriend<friendId>
 These files may be overwritten when a new video is created before FileTransferManager has a chance to copy to temporary file.
 
+
 WORKABLE ARCHITECTURE
 ---------------------
 New OutgoingVideoUrl for each new recording
@@ -23,4 +24,6 @@ FriendId and VideoId are encoded in OutgoingVideoUrl
 VideoProcessor is instantiated each time a recording completes to handle processing
 All notifications are handled using NotificationCenter
 
-Test cases:
+Test cases: C2454
+
+
