@@ -280,8 +280,6 @@ static const float LayoutConstASPECT = 0.75;
         [self rankingActionOccurred:ge.friend];
         [[TBMVideoPlayer sharedInstance] stop];
         NSURL *videoUrl = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriend:ge.friend];
-//        videoUrl = [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:@"new.mov"];
-
         [[self videoRecorder] startRecordingWithVideoUrl:videoUrl];
     }
 }
