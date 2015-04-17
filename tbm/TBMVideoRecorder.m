@@ -49,17 +49,16 @@ static int videoRecorderRetryCount = 0;
         
         self.sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
         
-#warning Kirill Temporarily removed from background thread while testing.
         [self initCaptureSession];
         [self setupPreviewView];
-        [self initVideoInput];
-        [self initCaptureOutput];
-        [self addAudioInput];
-        [self addObservers];
-        [self.captureSession startRunning];
-
-//        dispatch_async(self.sessionQueue, ^{
-//        });
+        
+        dispatch_async(self.sessionQueue, ^{
+            [self initVideoInput];
+            [self addAudioInput];
+            [self initCaptureOutput];
+            [self addObservers];
+            [self.captureSession startRunning];
+        });
     }
     return self;
 }
@@ -79,9 +78,6 @@ static int videoRecorderRetryCount = 0;
 - (void) initCaptureOutput {
 
     self.captureOutput = [[AVCaptureMovieFileOutput alloc] init];
-   
-    //We don't care about ability of adding output, because we do initialization of capture session for one time.
-    //http://stackoverflow.com/questions/24501561/avcapturesession-canaddoutputoutput-returns-no-intermittently-can-i-find-o
     
     if ([self.captureSession canAddOutput:self.captureOutput]) {
         [self.captureSession addOutput:self.captureOutput];
@@ -92,6 +88,14 @@ static int videoRecorderRetryCount = 0;
 
 - (void)initCaptureSession {
     self.captureSession = [[AVCaptureSession alloc] init];
+    
+    /** I've done several tests, so there is no difference in the audio quality
+     * between two cases: 
+     * 1) automaticallyConfiguresApplicationAudioSession = NO
+     * 2) automaticallyConfiguresApplicationAudioSession = YES
+     */
+    self.captureSession.automaticallyConfiguresApplicationAudioSession = NO;
+    
     if ([self.captureSession canSetSessionPreset:AVCaptureSessionPresetLow]) {
         self.captureSession.sessionPreset = AVCaptureSessionPresetLow;
     } else {
@@ -100,15 +104,18 @@ static int videoRecorderRetryCount = 0;
 }
 
 - (void) addAudioInput {
-    NSError *error;
-    self.audioInput = [TBMDeviceHandler getAudioInputWithError:&error];
     
-    if (error) {
-        OB_ERROR(@"VideoRecorder: Unable to getAudioCaptureInput (Error: %@)", error);
-        return;
+    if (!self.audioInput) {
+        NSError *error;
+        self.audioInput = [TBMDeviceHandler getAudioInputWithError:&error];
+        
+        if (error) {
+            OB_ERROR(@"VideoRecorder: Unable to getAudioCaptureInput (Error: %@)", error);
+            return;
+        }
+        
+        [self.captureSession addInput:self.audioInput];
     }
-    
-    [self.captureSession addInput:self.audioInput];
 }
 
 - (void) removeAudioInput {
@@ -137,8 +144,6 @@ static int videoRecorderRetryCount = 0;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
     
-#warning Kirill I set this once in setup as it was causing record to flash and spurious errors. We should always use built in mic. Can we make sure that we always return built in mic from TBMDevicehandler.
-//    [self addAsudioInput];
     self.didCancelRecording = NO;
     
     OB_INFO(@"Start recording to %@ videoId:%@",
@@ -181,13 +186,10 @@ static int videoRecorderRetryCount = 0;
 }
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error{
-#warning Kirill I set this once in setup as it was causing record to flash and spurious errors. We should always use built in mic. Can we make sure that we always return built in mic from TBMDevicehandler.
-    //[self removeAudioInput];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFinishRecording
                                                         object:self
                                                       userInfo:@{@"videoUrl": outputFileURL}];
-    
     
     if (self.didCancelRecording){
         OB_INFO(@"didCancelRecordingToOutputFileAtURL:%@ error:%@", outputFileURL, error);

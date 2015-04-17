@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString* const TBMVideoPlayerDidStartPlaying;
+extern NSString* const TBMVideoPlayerDidFinishPlaying;
+
 @protocol TBMVideoPlayerEventNotification <NSObject>
 - (void)videoPlayerStartedIndex:(NSInteger)index;
 - (void)videoPlayerStopped;

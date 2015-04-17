@@ -10,15 +10,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import "TBMVideoPlayer.h"
 
-typedef enum : NSUInteger {
-    Idle,
-    Playing,
-    Recording
-} AudioSessionState;
 
-@interface TBMAudioSessionRouter : NSObject <TBMVideoPlayerEventNotification>
+@interface TBMAudioSessionRouter : NSObject
 @property (nonatomic) AVAudioSession *session;
-@property (nonatomic) AudioSessionState state;
-+ (TBMAudioSessionRouter * ) sharedInstance;
-- (void) findAvailbleBluetoothDevices;
++ (void) setup;
 @end
