@@ -13,6 +13,7 @@
 
 @interface TBMAudioSessionRouter()
 @property (nonatomic, assign) BOOL shouldDisableProximitySensor;
+@property (nonatomic, assign) BOOL isPlaying;
 @end
 
 @implementation TBMAudioSessionRouter
@@ -50,11 +51,7 @@
     [self.session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth error:nil];
     [self.session setActive:YES error:nil];
     
-    if ([self isHFPDeviceAvailableInRoute:self.session.currentRoute]) {
-        [self overridePortNone];
-    } else {
-        [self overridePortToSpeaker];
-    }
+    [self overridePortToSpeaker];
 }
 
 - (void) subscribeToNotifications {
@@ -72,9 +69,21 @@
 
 - (void) didReceiveTBMVideoPlayerDidStartPlayingNotification:(NSNotification *)notification {
     [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
+    self.isPlaying = YES;
+    
+    [self overridePortNone];
+    
+    if (![self isHFPDeviceAvailableInRoute:self.session.currentRoute]) {
+        [self overridePortToSpeaker];
+    }
 }
 
 - (void) didReceiveTBMVideoPlayerDidFinishPlayingNotification:(NSNotification *)notification {
+
+    if (!self.isPlaying) {
+        return;
+    }
+    
     /**
      * We should disable proximity sensor only when user will remove phone from his ear
      * because only in this case we will receive notification about proximity changing next time
@@ -85,9 +94,8 @@
         [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
     }
     
-    if (![self isHFPDeviceAvailableInRoute:self.session.currentRoute]) {
-        [self overridePortToSpeaker];
-    }
+    [self overridePortToSpeaker];
+    self.isPlaying = NO;
 }
 
 - (void) didReceiveTBMVideoRecorderDidFinishRecordingNotification:(NSNotification *)notification {
@@ -181,6 +189,7 @@
     }
     return NO;
 }
+
 
 #pragma mark -
 
