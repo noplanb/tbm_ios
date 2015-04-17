@@ -54,7 +54,6 @@ static int videoRecorderRetryCount = 0;
         
         dispatch_async(self.sessionQueue, ^{
             [self initVideoInput];
-            [self addAudioInput];
             [self initCaptureOutput];
             [self addObservers];
             [self.captureSession startRunning];
@@ -94,6 +93,7 @@ static int videoRecorderRetryCount = 0;
      * 1) automaticallyConfiguresApplicationAudioSession = NO
      * 2) automaticallyConfiguresApplicationAudioSession = YES
      */
+    self.captureSession.usesApplicationAudioSession = YES;
     self.captureSession.automaticallyConfiguresApplicationAudioSession = NO;
     
     if ([self.captureSession canSetSessionPreset:AVCaptureSessionPresetLow]) {
@@ -144,6 +144,7 @@ static int videoRecorderRetryCount = 0;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
     
+    [self addAudioInput];
     self.didCancelRecording = NO;
     
     OB_INFO(@"Start recording to %@ videoId:%@",
@@ -186,7 +187,8 @@ static int videoRecorderRetryCount = 0;
 }
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error{
-    
+
+    [self removeAudioInput];
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFinishRecording
                                                         object:self
                                                       userInfo:@{@"videoUrl": outputFileURL}];

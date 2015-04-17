@@ -12,7 +12,6 @@
 #import <UIKit/UIKit.h>
 
 @interface TBMAudioSessionRouter()
-@property (nonatomic, assign) BOOL shouldDisableProximitySensor;
 @property (nonatomic, assign) BOOL isPlaying;
 @end
 
@@ -49,8 +48,6 @@
     self.session = [AVAudioSession sharedInstance];
     [self.session setMode:AVAudioSessionModeVoiceChat error:nil];
     [self.session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth error:nil];
-    [self.session setActive:YES error:nil];
-    
     [self overridePortToSpeaker];
 }
 
@@ -68,11 +65,18 @@
 #pragma mark - Notifications handling
 
 - (void) didReceiveTBMVideoPlayerDidStartPlayingNotification:(NSNotification *)notification {
+    
+    if (self.isPlaying) {
+        return;
+    }
+    
     [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
+    
+    [self.session setActive:YES error:nil];
     self.isPlaying = YES;
     
+    //We don't know about HFP device connected before we set override port to None
     [self overridePortNone];
-    
     if (![self isHFPDeviceAvailableInRoute:self.session.currentRoute]) {
         [self overridePortToSpeaker];
     }
@@ -88,20 +92,22 @@
      * We should disable proximity sensor only when user will remove phone from his ear
      * because only in this case we will receive notification about proximity changing next time
      */
-    if ([UIDevice currentDevice].proximityState) {
-        self.shouldDisableProximitySensor = YES;
-    } else {
+    if (![UIDevice currentDevice].proximityState) {
         [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
     }
     
     [self overridePortToSpeaker];
+    [self.session setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
+    
     self.isPlaying = NO;
 }
 
 - (void) didReceiveTBMVideoRecorderDidFinishRecordingNotification:(NSNotification *)notification {
+    [self.session setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
 }
 
 - (void) didReceiveTBMVideoRecorderShouldStartRecordingNotification:(NSNotification *)notification {
+    [self.session setActive:YES error:nil];
 }
 
 - (void) didReceiveAVAudioSessionSilenceSecondaryAudioHintNotification:(NSNotification *)notification {
@@ -156,9 +162,8 @@
         [self overridePortToSpeaker];
     }
     
-    if (self.shouldDisableProximitySensor) {
+    if (!self.isPlaying) {
         [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
-        self.shouldDisableProximitySensor = NO;
     }
 }
 
