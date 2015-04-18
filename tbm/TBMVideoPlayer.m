@@ -150,7 +150,6 @@ NSString* const TBMVideoPlayerDidFinishPlaying = @"TBMVideoPlayerDidFinishPlayin
 - (void)hidePlayerView{
     [self notifyDelegates:NO];
     self.playerView.hidden = YES;
-    [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoPlayerDidFinishPlaying object:self];
 }
 
 
@@ -235,10 +234,12 @@ NSString* const TBMVideoPlayerDidFinishPlaying = @"TBMVideoPlayerDidFinishPlayin
 }
 
 - (void)stop{
-    // DebugLog(@"stop for %@", self.video.videoId);
     self.userStopped = YES;
     [self hidePlayerView];
     [self.moviePlayerController stop];
+    
+#warning - Sani, I put it here because this is the only place where we sure that moviePlayerController did stop. I think it should be refactored.
+    [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoPlayerDidFinishPlaying object:self];
 }
 
 - (void)playDidComplete{
@@ -253,6 +254,9 @@ NSString* const TBMVideoPlayerDidFinishPlaying = @"TBMVideoPlayerDidFinishPlayin
         [self play];
     } else {
         [self hidePlayerView];
+
+#warning - Sani, I put it here because this is the only place where we sure that moviePlayerController did stop. I think it should be refactored.
+        [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoPlayerDidFinishPlaying object:self];
     }
 }
 

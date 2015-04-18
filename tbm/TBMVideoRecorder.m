@@ -54,6 +54,10 @@ static int videoRecorderRetryCount = 0;
         
         dispatch_async(self.sessionQueue, ^{
             [self initVideoInput];
+            
+#ifdef ALWAYS_KEEP_ACTIVE_AUDIO_SESSION
+            [self addAudioInput];
+#endif
             [self initCaptureOutput];
             [self addObservers];
             [self.captureSession startRunning];
@@ -113,7 +117,10 @@ static int videoRecorderRetryCount = 0;
             OB_ERROR(@"VideoRecorder: Unable to getAudioCaptureInput (Error: %@)", error);
             return;
         }
-        
+
+    }
+    
+    if ([self.captureSession.inputs indexOfObject:self.audioInput] == NSNotFound) {
         [self.captureSession addInput:self.audioInput];
     }
 }
@@ -143,10 +150,12 @@ static int videoRecorderRetryCount = 0;
 - (void)startRecordingWithVideoUrl:(NSURL *)videoUrl{
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
-    
+
+#ifndef ALWAYS_KEEP_ACTIVE_AUDIO_SESSION
     [self addAudioInput];
-    self.didCancelRecording = NO;
+#endif
     
+    self.didCancelRecording = NO;
     OB_INFO(@"Start recording to %@ videoId:%@",
             [TBMVideoIdUtils friendWithOutgoingVideoUrl:videoUrl].firstName,
             [TBMVideoIdUtils videoIdWithOutgoingVideoUrl:videoUrl]);
@@ -188,7 +197,10 @@ static int videoRecorderRetryCount = 0;
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error{
 
+#ifndef ALWAYS_KEEP_ACTIVE_AUDIO_SESSION
     [self removeAudioInput];
+#endif
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFinishRecording
                                                         object:self
                                                       userInfo:@{@"videoUrl": outputFileURL}];
@@ -245,6 +257,9 @@ static int videoRecorderRetryCount = 0;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionDidStopRunningNotification:) name:AVCaptureSessionDidStopRunningNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionWasInterruptedNotification:) name:AVCaptureSessionWasInterruptedNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionInterruptionEndedNotification:) name:AVCaptureSessionInterruptionEndedNotification object:_captureSession];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveUIApplicationDidBecomeActiveNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveUIApplicationDidEnterBackgroundNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 }
 
 - (void)removeObservers{
@@ -253,7 +268,23 @@ static int videoRecorderRetryCount = 0;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionDidStopRunningNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionWasInterruptedNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionInterruptionEndedNotification object:_captureSession];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
 }
+
+- (void) didReceiveUIApplicationDidBecomeActiveNotification:(NSNotification *)notification {
+#ifdef ALWAYS_KEEP_ACTIVE_AUDIO_SESSION
+    [self addAudioInput];
+#endif
+}
+
+- (void) didReceiveUIApplicationDidEnterBackgroundNotification:(NSNotification *)notification {
+#ifdef ALWAYS_KEEP_ACTIVE_AUDIO_SESSION
+    [self removeAudioInput];
+#endif
+}
+
 
 - (void) AVCaptureSessionRuntimeErrorNotification:(NSNotification *)notification{
     OB_INFO(@"AVCaptureSessionRuntimeErrorNotification");
