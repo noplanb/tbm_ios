@@ -277,12 +277,16 @@ static int videoRecorderRetryCount = 0;
 #ifdef ALWAYS_KEEP_ACTIVE_AUDIO_SESSION
     [self addAudioInput];
 #endif
+    
+    [self.captureSession startRunning];
 }
 
 - (void) didReceiveUIApplicationDidEnterBackgroundNotification:(NSNotification *)notification {
 #ifdef ALWAYS_KEEP_ACTIVE_AUDIO_SESSION
     [self removeAudioInput];
 #endif
+    
+    [self.captureSession stopRunning];
 }
 
 
