@@ -27,3 +27,45 @@ All notifications are handled using NotificationCenter
 Test cases: C2454
 
 
+Fix #398
+========
+
+PROBLEM
+-------
+If the device is unable to generate a thumbnail it marks the video as failed permanently.
+
+
+SOLUTION
+--------
+Always save friend.lastThumb for each friend. Use that one in case a new one fails.
+- if friend.hasIncomingVideo of any kind
+  - Always show a thumb
+    - Try to get thumb from videos
+    - Otherwise friend.lastThumb
+    - Otherwise defaultThumb
+- Only if not incoming video of any kind show record button.
+
+
+FIX
+---
+Algorithm:
+- Friend.generateThumbWithVideo
+  - if video.generateThumb
+    - copy to Friend.lastThumb
+
+- Friend.thumbUrl
+  - friend.lastThumbUrl || defaultThumbUrl
+
+- Do not mark the video failed permanently if thumb fails
+
+
+TEST CASES
+----------
+
+
+
+Other bugs to fix:
+- We should update kv store only after video has been uploaded.
+-
+
+- Notify user there was an error downloading video or error uploading video.

@@ -199,9 +199,9 @@
 }
 
 - (BOOL)generateThumb{
-    DebugLog(@"generateThumb for %@", self.friend.firstName);
+    DebugLog(@"generateThumb vid: %@ for %@",self.videoId, self.friend.firstName);
     if (![self hasValidVideoFile]){
-        OB_ERROR(@"generateThumb: !hasValidVideoFile");
+        OB_ERROR(@"generateThumb: vid: %@ !hasValidVideoFile", self.videoId);
         return NO;
     }
     

@@ -227,8 +227,14 @@ static NSMutableArray * videoStatusNotificationDelegates;
 //----------------
 // Incoming Videos
 //----------------
+#pragma mark Incoming Videos
+
 - (NSSet *) incomingVideos{
     return self.videos;
+}
+
+- (BOOL) hasIncomingVideo{
+    return [self.videos count] > 0;
 }
 
 - (NSArray *) sortedIncomingVideos{
@@ -371,18 +377,41 @@ static NSMutableArray * videoStatusNotificationDelegates;
 //------
 // Thumb
 //------
+#pragma mark Thumb
+
 - (NSURL *)thumbUrl{
-    NSURL *thumb = nil;
-    for (TBMVideo *v in [self sortedIncomingVideos]){
-        if ([v hasThumb]){
-            thumb = [v thumbUrl];
-        }
-    }
-    return thumb;
+    
 }
 
-- (BOOL)hasThumb{
-    return [self thumbUrl] != nil;
+- (void)generateThumbWithVideo:(TBMVideo *)video{
+    OB_INFO(@"generateThumbWithVideo: %@ vid:%@", self.firstName, video.videoId);
+    if ([video generateThumb])
+        [self copyToLastThumbWithVideo:video];
+}
+
+
+- (void)copyToLastThumbWithVideo:(TBMVideo *)video{
+    if ([video hasThumb]){
+        [self deleteLastThumb];
+        NSError *error = nil;
+        [[NSFileManager defaultManager] copyItemAtURL:[video thumbUrl] toURL:[self lastThumbUrl] error:&error];
+        if (error != nil)
+            OB_ERROR(@"copyToLastThumbWithVideo: %@ vid:%@ %@", self.firstName, video.videoId, error);
+    }
+}
+
+- (NSURL *)lastThumbUrl{
+    NSString *filename = [NSString stringWithFormat:@"lastThumbFromFriend_%@", self.idTbm];
+    return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"png"]];
+}
+
+- (BOOL)hasLastThumb{
+    return [[NSFileManager defaultManager] fileExistsAtPath:[self lastThumbUrl].path];
+}
+
+- (void)deleteLastThumb{
+    if ([self hasLastThumb])
+        [[NSFileManager defaultManager] removeItemAtURL:[self lastThumbUrl] error:nil];
 }
 
 //-------------------------------------
