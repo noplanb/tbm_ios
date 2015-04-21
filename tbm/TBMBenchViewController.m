@@ -235,12 +235,7 @@ static float BENCH_CELL_HEIGHT = 56.0;
     id item = [self.tableArray objectAtIndex:indexPath.row];
     if ([item isKindOfClass:[TBMFriend class]]){
         TBMFriend *f = (TBMFriend *)item;
-        NSURL *url = [f thumbUrl];
-        if (url !=nil){
-            cell.thumbImageView.image = [UIImage imageWithContentsOfFile:url.path];
-        } else {
-            cell.thumbImageView.image = [UIImage imageNamed:@"icon-no-pic"];
-        }
+        cell.thumbImageView.image = [f thumbImage];
         cell.nameLabel.text = [f displayName];
         nameFrame.origin.x = cell.thumbImageView.frame.origin.x + cell.thumbImageView.frame.size.width + BENCH_CELL_THUMB_IMAGE_RIGHT_MARGIN;
     } else {

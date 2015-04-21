@@ -66,6 +66,7 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 
 // Incoming videos
 - (void)printVideos;
+- (BOOL) hasIncomingVideo;
 - (NSArray *) sortedIncomingVideos;
 - (TBMVideo *) oldestIncomingVideo;
 - (NSString *) oldestIncomingVideoId;
@@ -92,8 +93,9 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 + (void)addVideoStatusNotificationDelegate:(id)delegate;
 + (void)removeVideoStatusNotificationDelegate:(id)delegate;
 
-- (NSURL *)thumbUrl;
-- (BOOL)hasThumb;
+- (UIImage *)thumbImage;
+- (BOOL)isThumbNoPic;
+- (void)generateThumbWithVideo:(TBMVideo *)video;
 
 - (NSString *)videoStatusString;
 // Probably should not expose this and rather have setters for various states.

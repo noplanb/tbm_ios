@@ -351,7 +351,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
 
 - (void)printVideos{
     for (TBMVideo *v in [self sortedIncomingVideos]) {
-        DebugLog(@"Video id:%@ status:%d file_exists:%d", v.videoId, v.status, [v videoFileExists]);
+        DebugLog(@"Video id:%@ status:%ld file_exists:%d", v.videoId, v.status, [v videoFileExists]);
     }
 
 }
@@ -378,9 +378,12 @@ static NSMutableArray * videoStatusNotificationDelegates;
 // Thumb
 //------
 #pragma mark Thumb
+- (UIImage *)thumbImage{
+    return [self hasLastThumb] ? [self lastThumbImage] : [UIImage imageNamed:@"icon-no-pic"];
+}
 
-- (NSURL *)thumbUrl{
-    
+- (BOOL)isThumbNoPic{
+    return ![self hasLastThumb];
 }
 
 - (void)generateThumbWithVideo:(TBMVideo *)video{
@@ -405,6 +408,10 @@ static NSMutableArray * videoStatusNotificationDelegates;
     return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"png"]];
 }
 
+- (UIImage *)lastThumbImage{
+    return [UIImage imageWithContentsOfFile:[self lastThumbUrl].path];
+}
+
 - (BOOL)hasLastThumb{
     return [[NSFileManager defaultManager] fileExistsAtPath:[self lastThumbUrl].path];
 }
@@ -412,6 +419,10 @@ static NSMutableArray * videoStatusNotificationDelegates;
 - (void)deleteLastThumb{
     if ([self hasLastThumb])
         [[NSFileManager defaultManager] removeItemAtURL:[self lastThumbUrl] error:nil];
+}
+
+- (void)legacyThumbImage{
+    
 }
 
 //-------------------------------------

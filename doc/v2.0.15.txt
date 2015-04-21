@@ -27,7 +27,6 @@ All notifications are handled using NotificationCenter
 Test cases: C2454
 
 
-<<<<<<< Local Changes
 Fix #398
 ========
 
@@ -58,6 +57,11 @@ Algorithm:
 
 
 TEST CASES:
+Bench image for thumb or no thumb
+New friend first incoming video is corrupt show z
+New friend good incoming video followed by corrupt video show old thumb
+New multiple incoming videos thumb updates each time.
+
 
 
 

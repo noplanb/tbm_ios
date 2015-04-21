@@ -346,12 +346,8 @@
         return;
     }
     
-    if (![video generateThumb]){
-        OB_ERROR(@"downloadCompletedWithFriend: error generating thumb.");
-        [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY video:video];
-        return;
-    }
-    
+    [friend generateThumbWithVideo:video];
+     
     [friend deleteAllViewedOrFailedVideos];
     [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_DOWNLOADED video:video];
     [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_DOWNLOADED videoId:videoId friend:friend];

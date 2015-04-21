@@ -117,6 +117,7 @@ static NSString *LayoutConstOrangeColor = @"F48A31";
 static NSString *LayoutConstGreenColor = @"9BC046";
 static NSString *LayoutConstWhiteTextColor  = @"fff";
 static NSString *LayoutConstLabelGreyColor = @"4E4D42";
+static NSString *LayoutConstDarkGreyColor = @"333333";
 static NSString *LayoutConstRedColor = @"D90D19";
 static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 
@@ -249,8 +250,14 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 // Thumb
 - (void)addThumb{
     self.thumbView = [[UIImageView alloc] init];
+    [self setThumbContentMode];
+    self.thumbView.backgroundColor = [UIColor colorWithHexString:LayoutConstDarkGreyColor];
     self.thumbView.frame = self.view.frame;
     [self.view addSubview:self.thumbView];
+}
+
+- (void)setThumbContentMode{
+    self.thumbView.contentMode = [self.gridElement.friend isThumbNoPic] ?  UIViewContentModeCenter : UIViewContentModeScaleToFill;
 }
 
 // Uploading, downloading and viewed indicators
@@ -471,12 +478,10 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 }
 
 - (void)updateThumbImage{
-    NSURL *url = self.gridElement.friend.thumbUrl;
-    if (url == nil)
-        return;
-    
-    [self.thumbView setImage:[UIImage imageWithContentsOfFile:url.path]];
+    [self.thumbView setImage:[self.gridElement.friend thumbImage]];
+    [self setThumbContentMode];
 }
+
 - (void)showThumb{
     [self hideAllContent];
     [self showNameLabel];
@@ -526,15 +531,15 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
         return;
     }
     
-    if (!self.gridElement.friend.hasThumb && !self.gridElement.friend.hasApp){
+    if (![self.gridElement.friend hasIncomingVideo] && !self.gridElement.friend.hasApp){
         [self showNoThumbNoApp];
     }
     
-    if (!self.gridElement.friend.hasThumb && self.gridElement.friend.hasApp){
+    if (![self.gridElement.friend hasIncomingVideo] && self.gridElement.friend.hasApp){
         [self showNoThumbHasApp];
     }
     
-    if (self.gridElement.friend.hasThumb){
+    if ([self.gridElement.friend hasIncomingVideo]){
         [self showThumb];
     }
     
