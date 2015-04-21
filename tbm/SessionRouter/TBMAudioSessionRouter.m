@@ -14,6 +14,7 @@
 
 @interface TBMAudioSessionRouter()
 @property (nonatomic, assign) BOOL isPlaying;
+@property (nonatomic, strong) dispatch_queue_t sessionQueue;
 @end
 
 @implementation TBMAudioSessionRouter
@@ -51,10 +52,45 @@
  */
 - (void)initAudioSessionRouting
 {
+    self.sessionQueue = dispatch_queue_create("audiosessionrouterqueue", DISPATCH_QUEUE_SERIAL);
     self.session = [AVAudioSession sharedInstance];
+    [self setDefaultMode];
+}
+
+/**
+ Use when we playing or idle
+ */
+- (void) setDefaultMode {
+    [self.session setActive:YES error:nil];
+    [self.session setMode:AVAudioSessionModeMoviePlayback error:nil];
+    [self.session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionAllowBluetooth error:nil];
+}
+
+/**
+ Use when phone is near the ear
+ */
+- (void) setEarMode {
     [self.session setMode:AVAudioSessionModeVoiceChat error:nil];
-    [self.session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth error:nil];
-    [self sendAudioToSpeakerPort];
+    [self.session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    [self.session overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:nil];
+}
+
+/**
+ Use when we doing recording
+ */
+- (void) setRecordingMode {
+    dispatch_async(self.sessionQueue, ^{
+        [self.session setMode:AVAudioSessionModeVoiceChat error:nil];
+        [self.session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+        [self.session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
+    });
+}
+
+/**
+ Use when we have the application in background
+ */
+- (void) setDisableMode {
+    [self.session setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
 }
 
 - (void) subscribeToNotifications {
@@ -75,15 +111,11 @@
 #pragma mark - Notifications handling
 
 - (void) didReceiveUIApplicationDidBecomeActiveNotification:(NSNotification *)notification {
-#ifdef ALWAYS_KEEP_ACTIVE_AUDIO_SESSION
     [self.session setActive:YES error:nil];
-#endif
 }
 
 - (void) didReceiveUIApplicationDidEnterBackgroundNotification:(NSNotification *)notification {
-#ifdef ALWAYS_KEEP_ACTIVE_AUDIO_SESSION
     [self.session setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
-#endif
 }
 
 /**
@@ -96,14 +128,8 @@
     }
     
     [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
-    [self activateAudioSession];
+    [self setDefaultMode];
     [self setIsPlaying:YES];
-    
-    //We don't know about HFP device connected before we set override port to None
-    [self sendAudioToDefaultPort];
-    if (![self isHeadsetAvailableInRoute:self.session.currentRoute]) {
-        [self sendAudioToSpeakerPort];
-    }
 }
 
 /**
@@ -115,15 +141,9 @@
         return;
     }
     
-//  We should disable proximity sensor only when user will remove phone from his ear
-//  because only in this case we will receive notification about proximity changing next time
-    
     if (![UIDevice currentDevice].proximityState) {
         [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
     }
-    
-    [self sendAudioToSpeakerPort];
-    [self deactivateAudioSession];
     [self setIsPlaying:NO];
 }
 
@@ -131,14 +151,14 @@
  * Video recorder finished recording video
  */
 - (void) didReceiveTBMVideoRecorderDidFinishRecordingNotification:(NSNotification *)notification {
-    [self deactivateAudioSession];
+    [self setDefaultMode];
 }
 
 /**
  * Video recorder starts recording video
  */
 - (void) didReceiveTBMVideoRecorderShouldStartRecordingNotification:(NSNotification *)notification {
-    [self activateAudioSession];
+    [self setRecordingMode];
 }
 
 /**
@@ -185,9 +205,6 @@
  */
 - (void) handleRouteChangeReasonOldDeviceUnavailable:(AVAudioSessionRouteDescription *)prevRoute
 {
-    if ([self isHeadsetAvailableInRoute:prevRoute] && ![self isHeadsetAvailableInRoute:self.session.currentRoute] && ![UIDevice currentDevice].proximityState) {
-        [self sendAudioToSpeakerPort];
-    }
 }
 
 /**
@@ -195,9 +212,7 @@
  */
 - (void) handleRouteChangeReasonNewDeviceAvailable:(AVAudioSessionRouteDescription *)prevRoute
 {
-    if (![self isHeadsetAvailableInRoute:prevRoute] && [self isHeadsetAvailableInRoute:self.session.currentRoute]) {
-        [self sendAudioToDefaultPort];
-    }
+
 }
 
 /**
@@ -208,39 +223,13 @@
 - (void) didReceiveProximityChangedNotification:(NSNotification *)notification {
     
     if ([UIDevice currentDevice].proximityState) {
-        [self sendAudioToDefaultPort];
-    } else if (![self isHeadsetAvailableInRoute:self.session.currentRoute]){
-        [self sendAudioToSpeakerPort];
+        [self setEarMode];
+    } else {
+        [self setDefaultMode];
     }
     
     if (!self.isPlaying) {
         [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
-    }
-}
-
-/**
- * Override audio session output to speaker,
- * so if we have connected bluetooth speaker it will be used for playing audio
- * else audio will be playing through built in speaker.
- */
-- (void) sendAudioToSpeakerPort {
-    NSError *error = nil;
-    [self.session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:&error];
-    if (error) {
-        OB_WARN(@"Cannot override port to Speaker: %@", error);
-    }
-}
-
-/**
- * Override audio session output port to default value,
- * so if we have connected wired or bluetooth headset it will be used for playing audio
- * else audio will be playing through built in earpiece.
- */
-- (void) sendAudioToDefaultPort {
-    NSError *error = nil;
-    [self.session overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:&error];
-    if (error) {
-        OB_WARN(@"Cannot override port to None: %@", error);
     }
 }
 
@@ -251,46 +240,15 @@
  * we have connected wired headset or bluetooth headset
  * in given audio session route
  */
-- (BOOL) isHeadsetAvailableInRoute:(AVAudioSessionRouteDescription *)route {
+- (BOOL) isBTAvailableInRoute:(AVAudioSessionRouteDescription *)route {
     NSArray *outputs = [route outputs];
     for (AVAudioSessionPortDescription *output in outputs) {
-        if ([output.portType isEqualToString:AVAudioSessionPortBluetoothHFP] ||
-            [output.portType isEqualToString:AVAudioSessionPortHeadphones]
-            )
+        if ([output.portType isEqualToString:AVAudioSessionPortBluetoothA2DP])
         {
             return YES;
         }
     }
     return NO;
-}
-
-/**
- * Enable audio session
- * Just helper method that handle error
- */
-- (void) activateAudioSession {
-    
-#ifndef ALWAYS_KEEP_ACTIVE_AUDIO_SESSION
-    NSError *error = nil;
-    [self.session setActive:YES error:&error];
-    if (error) {
-        OB_WARN(@"Cannot activate audio session, error: %@", error);
-    }
-#endif
-}
-
-/**
- * Disable audio session
- * Just helper method that handle error
- */
-- (void) deactivateAudioSession {
-#ifndef ALWAYS_KEEP_ACTIVE_AUDIO_SESSION
-    NSError *error = nil;
-    [self.session setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:&error];
-    if (error) {
-        OB_WARN(@"Cannot deactivate audio session, error: %@", error);
-    }
-#endif
 }
 
 #pragma mark -

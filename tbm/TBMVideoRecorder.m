@@ -54,11 +54,7 @@ static int videoRecorderRetryCount = 0;
         
         dispatch_async(self.sessionQueue, ^{
             [self initVideoInput];
-            
-#ifdef ALWAYS_KEEP_ACTIVE_AUDIO_SESSION
-            [self addAudioInput];
-#endif
-            [self initCaptureOutput];
+            [self initAudioInput];
             [self addObservers];
             [self.captureSession startRunning];
         });
@@ -79,14 +75,20 @@ static int videoRecorderRetryCount = 0;
 }
 
 - (void) initCaptureOutput {
-
-    self.captureOutput = [[AVCaptureMovieFileOutput alloc] init];
     
-    if ([self.captureSession canAddOutput:self.captureOutput]) {
-        [self.captureSession addOutput:self.captureOutput];
-    } else {
-        OB_ERROR(@"VideoRecorder: addCaptureOutputWithError: Could not add captureOutput");
+    if (!self.captureOutput) {
+        self.captureOutput = [[AVCaptureMovieFileOutput alloc] init];
     }
+    
+    dispatch_sync(self.sessionQueue, ^{
+        [self.captureSession beginConfiguration];
+        if ([self.captureSession canAddOutput:self.captureOutput]) {
+            [self.captureSession addOutput:self.captureOutput];
+        } else {
+            OB_ERROR(@"VideoRecorder: addCaptureOutputWithError: Could not add captureOutput");
+        }
+        [self.captureSession commitConfiguration];
+    });
 }
 
 - (void)initCaptureSession {
@@ -107,7 +109,7 @@ static int videoRecorderRetryCount = 0;
     }
 }
 
-- (void) addAudioInput {
+- (void) initAudioInput {
     
     if (!self.audioInput) {
         NSError *error;
@@ -122,12 +124,6 @@ static int videoRecorderRetryCount = 0;
     
     if ([self.captureSession.inputs indexOfObject:self.audioInput] == NSNotFound) {
         [self.captureSession addInput:self.audioInput];
-    }
-}
-
-- (void) removeAudioInput {
-    if (self.audioInput) {
-        [self.captureSession removeInput:self.audioInput];
     }
 }
 
@@ -150,10 +146,7 @@ static int videoRecorderRetryCount = 0;
 - (void)startRecordingWithVideoUrl:(NSURL *)videoUrl{
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
-
-#ifndef ALWAYS_KEEP_ACTIVE_AUDIO_SESSION
-    [self addAudioInput];
-#endif
+    [self initCaptureOutput];
     
     self.didCancelRecording = NO;
     OB_INFO(@"Start recording to %@ videoId:%@",
@@ -196,10 +189,9 @@ static int videoRecorderRetryCount = 0;
 }
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error{
-
-#ifndef ALWAYS_KEEP_ACTIVE_AUDIO_SESSION
-    [self removeAudioInput];
-#endif
+    
+//    [self removeAudioInput];
+    [self.captureSession removeOutput:self.captureOutput];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFinishRecording
                                                         object:self
@@ -274,18 +266,10 @@ static int videoRecorderRetryCount = 0;
 }
 
 - (void) didReceiveUIApplicationDidBecomeActiveNotification:(NSNotification *)notification {
-#ifdef ALWAYS_KEEP_ACTIVE_AUDIO_SESSION
-    [self addAudioInput];
-#endif
-    
     [self.captureSession startRunning];
 }
 
 - (void) didReceiveUIApplicationDidEnterBackgroundNotification:(NSNotification *)notification {
-#ifdef ALWAYS_KEEP_ACTIVE_AUDIO_SESSION
-    [self removeAudioInput];
-#endif
-    
     [self.captureSession stopRunning];
 }
 
