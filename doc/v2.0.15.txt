@@ -27,16 +27,15 @@ All notifications are handled using NotificationCenter
 Test cases: C2454
 
 
+<<<<<<< Local Changes
 Fix #398
 ========
 
-PROBLEM
--------
+PROBLEM:
 If the device is unable to generate a thumbnail it marks the video as failed permanently.
 
 
-SOLUTION
---------
+SOLUTION:
 Always save friend.lastThumb for each friend. Use that one in case a new one fails.
 - if friend.hasIncomingVideo of any kind
   - Always show a thumb
@@ -46,8 +45,7 @@ Always save friend.lastThumb for each friend. Use that one in case a new one fai
 - Only if not incoming video of any kind show record button.
 
 
-FIX
----
+TODO:
 Algorithm:
 - Friend.generateThumbWithVideo
   - if video.generateThumb
@@ -59,8 +57,7 @@ Algorithm:
 - Do not mark the video failed permanently if thumb fails
 
 
-TEST CASES
-----------
+TEST CASES:
 
 
 
