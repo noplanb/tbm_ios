@@ -17,16 +17,17 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.0.14.stage</string>
+	<string>2.0.15.stage</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>2.0.14.stage</string>
+	<string>2.0.15.stage</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
+		<string>audio</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UIMainStoryboardFile</key>

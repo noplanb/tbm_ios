@@ -19,7 +19,9 @@
 #import "TBMAlertControllerVisualStyle.h"
 #import "iToast.h"
 #import "OBFileTransferManager.h"
-#import "TBMAudioSessionRouter.h"
+
+NSString* const TBMVideoPlayerDidStartPlaying = @"TBMVideoPlayerDidStartPlaying";
+NSString* const TBMVideoPlayerDidFinishPlaying = @"TBMVideoPlayerDidFinishPlaying";
 
 @interface TBMVideoPlayer()
 @property TBMGridElement *gridElement;
@@ -57,9 +59,6 @@
         _playerView.tag = 1401;
         self.playerView.hidden = YES;
         [self addPlayerNotifications];
-#warning Kirill I dont understand why this is here. The audio session router should register for notifications with videoPlayer in its own class. VideoPlayer should not know about audioSessionRouter!
-#warning Kirill I disconnected the audiosession router here because I found it quite buggy when testing the video recorder.
-//        [self addEventNotificationDelegate:[TBMAudioSessionRouter sharedInstance]];
     }
     return self;
 }
@@ -145,6 +144,7 @@
     [self notifyDelegates:YES];
     [self.playerView setFrame: self.playerFrame];
     self.playerView.hidden = NO;
+    [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoPlayerDidStartPlaying object:self];
 }
 
 - (void)hidePlayerView{
@@ -234,10 +234,12 @@
 }
 
 - (void)stop{
-    // DebugLog(@"stop for %@", self.video.videoId);
     self.userStopped = YES;
     [self hidePlayerView];
     [self.moviePlayerController stop];
+    
+#warning - Sani, I put it here because this is the only place where we sure that moviePlayerController did stop. I think it should be refactored.
+    [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoPlayerDidFinishPlaying object:self];
 }
 
 - (void)playDidComplete{
@@ -252,6 +254,9 @@
         [self play];
     } else {
         [self hidePlayerView];
+
+#warning - Sani, I put it here because this is the only place where we sure that moviePlayerController did stop. I think it should be refactored.
+        [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoPlayerDidFinishPlaying object:self];
     }
 }
 

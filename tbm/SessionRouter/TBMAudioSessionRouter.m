@@ -8,26 +8,26 @@
 
 #import "TBMAudioSessionRouter.h"
 #import "TBMVideoRecorder.h"
+#import <OBLogger/OBLogger.h>
 #import <UIKit/UIKit.h>
 
+
 @interface TBMAudioSessionRouter()
-@property (nonatomic, assign) BOOL hfpFound;
+@property (nonatomic, assign) BOOL isPlaying;
+@property (nonatomic, strong) dispatch_queue_t sessionQueue;
 @end
 
 @implementation TBMAudioSessionRouter
 
 #pragma mark - Singleton
 
-+ (TBMAudioSessionRouter * ) sharedInstance {
-    
++ (void) setup {
     static dispatch_once_t pred;
     static TBMAudioSessionRouter *shared = nil;
     
     dispatch_once(&pred, ^{
         shared = [[TBMAudioSessionRouter alloc] init];
     });
-    
-    return shared;
 }
 
 #pragma mark - Initialization methods
@@ -35,8 +35,7 @@
 - (instancetype) init {
     self = [super init];
     if (self) {
-#warning Kirill I disconnected the audiosession router here because I found it quite buggy when testing the video recorder.
-//        [self setup];
+        [self setup];
     }
     return self;
 }
@@ -44,13 +43,54 @@
 - (void) setup {
     [self subscribeToNotifications];
     [self initAudioSessionRouting];
-    [self findAvailbleBluetoothDevices];
 }
 
+
+/**
+ * Setup the default mode and category for audio session,
+ * this params will be used when audio session will be activated
+ */
 - (void)initAudioSessionRouting
 {
+    self.sessionQueue = dispatch_queue_create("audiosessionrouterqueue", DISPATCH_QUEUE_SERIAL);
     self.session = [AVAudioSession sharedInstance];
-    [self updateAudioSessionParams];
+    [self setDefaultMode];
+}
+
+/**
+ Use when we playing or idle
+ */
+- (void) setDefaultMode {
+    [self.session setActive:YES error:nil];
+    [self.session setMode:AVAudioSessionModeMoviePlayback error:nil];
+    [self.session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionAllowBluetooth error:nil];
+}
+
+/**
+ Use when phone is near the ear
+ */
+- (void) setEarMode {
+    [self.session setMode:AVAudioSessionModeVoiceChat error:nil];
+    [self.session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    [self.session overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:nil];
+}
+
+/**
+ Use when we doing recording
+ */
+- (void) setRecordingMode {
+    dispatch_async(self.sessionQueue, ^{
+        [self.session setMode:AVAudioSessionModeVoiceChat error:nil];
+        [self.session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+        [self.session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
+    });
+}
+
+/**
+ Use when we have the application in background
+ */
+- (void) setDisableMode {
+    [self.session setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
 }
 
 - (void) subscribeToNotifications {
@@ -60,33 +100,95 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveAudioSessionInterruptionNotification:) name:AVAudioSessionInterruptionNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveTBMVideoRecorderDidFinishRecordingNotification:) name:TBMVideoRecorderDidFinishRecording object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveTBMVideoRecorderShouldStartRecordingNotification:) name:TBMVideoRecorderShouldStartRecording object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveTBMVideoPlayerDidStartPlayingNotification:) name:TBMVideoPlayerDidStartPlaying object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveTBMVideoPlayerDidFinishPlayingNotification:) name:TBMVideoPlayerDidFinishPlaying object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveUIApplicationDidBecomeActiveNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveUIApplicationDidEnterBackgroundNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+
 }
 
 #pragma mark - Notifications handling
 
+- (void) didReceiveUIApplicationDidBecomeActiveNotification:(NSNotification *)notification {
+    [self.session setActive:YES error:nil];
+}
+
+- (void) didReceiveUIApplicationDidEnterBackgroundNotification:(NSNotification *)notification {
+    [self.session setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
+}
+
+/**
+ * Video player starts playing video
+ */
+- (void) didReceiveTBMVideoPlayerDidStartPlayingNotification:(NSNotification *)notification {
+    
+    if (self.isPlaying) {
+        return;
+    }
+    
+    [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
+    [self setDefaultMode];
+    [self setIsPlaying:YES];
+}
+
+/**
+ * Video player finished playing video
+ */
+- (void) didReceiveTBMVideoPlayerDidFinishPlayingNotification:(NSNotification *)notification {
+
+    if (!self.isPlaying) {
+        return;
+    }
+    
+    if (![UIDevice currentDevice].proximityState) {
+        [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
+    }
+    [self setIsPlaying:NO];
+}
+
+/**
+ * Video recorder finished recording video
+ */
 - (void) didReceiveTBMVideoRecorderDidFinishRecordingNotification:(NSNotification *)notification {
-    [self setState:Idle];
+    [self setDefaultMode];
 }
 
+/**
+ * Video recorder starts recording video
+ */
 - (void) didReceiveTBMVideoRecorderShouldStartRecordingNotification:(NSNotification *)notification {
-    [self setState:Recording];
+    [self setRecordingMode];
 }
 
+/**
+ * Here we can handle a situation when our app is in background and 
+ * another app starts playing music
+ */
 - (void) didReceiveAVAudioSessionSilenceSecondaryAudioHintNotification:(NSNotification *)notification {
-    [self interrupt];
 }
 
+/**
+ * Here we can react on interruptions
+ * e.g. we can handle situation when user receives a phone call
+ */
 - (void) didReceiveAudioSessionInterruptionNotification:(NSNotification *)notification {
-    [self interrupt];
 }
 
+/**
+ * We watch for the audio session route updates and change output port if needed
+ * e.g: when user connects wired headset
+ */
 - (void) didReceiveAudioSessionRoutChangeNotification:(NSNotification *)notification {
 
     AVAudioSessionRouteChangeReason reason = [[notification.userInfo objectForKey:AVAudioSessionRouteChangeReasonKey] intValue];
     switch (reason) {
         case AVAudioSessionRouteChangeReasonNewDeviceAvailable:
+            [self handleRouteChangeReasonNewDeviceAvailable:[notification.userInfo objectForKey:AVAudioSessionRouteChangePreviousRouteKey]];
             break;
+        case AVAudioSessionRouteChangeReasonOverride:
         case AVAudioSessionRouteChangeReasonOldDeviceUnavailable:
+            [self handleRouteChangeReasonOldDeviceUnavailable:[notification.userInfo objectForKey:AVAudioSessionRouteChangePreviousRouteKey]];
             break;
         case AVAudioSessionRouteChangeReasonWakeFromSleep:
             break;
@@ -96,106 +198,59 @@
     }
 }
 
-- (void) didReceiveProximityChangedNotification:(NSNotification *)notification {
-    if (self.state == Idle) {
-        [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
-    } else {
-        [self updateAudioSessionParams];
-    }
-}
-
-#pragma mark - Audio managing
-
-- (void) interrupt {
-    [self setState:Idle];
-}
-
-- (void) setState:(AudioSessionState)state {
-    if (_state != state) {
-        _state = state;
-        [self updateAudioSessionParams];
-    }
-}
-
-#pragma mark - Update Audio Session params
-
-- (void) updateAudioSessionParams {
-    
-    switch (self.state) {
-        case Playing:
-            [self switchToPlayingState];
-            break;
-        case Recording:
-            [self switchToRecordingState];
-            break;
-        default:
-        case Idle:
-            [self switchToIdleState];
-            break;
-    }
-}
-
-
-#warning - we should find a better way
-- (void) findAvailbleBluetoothDevices {
-    
-    [self.session setMode:AVAudioSessionModeVoiceChat error:nil];
-    [self.session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth error:nil];
-    [self.session setActive:YES error:nil];
-
-    self.hfpFound = NO;
-    NSArray *inputs = [self.session.currentRoute inputs];
-    for (AVAudioSessionPortDescription *input in inputs) {
-        if ([input.portType isEqualToString:AVAudioSessionPortBluetoothHFP]) {
-            //we have HFP connected, we should use VoiceChat.
-            self.hfpFound = YES;
-        }
-    }
-    
-    [self.session setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
+/** 
+ * if old route has connected headset and new route hasn't then
+ * -> if has proximity, do nothing
+ * -> else we should send audio to speaker
+ */
+- (void) handleRouteChangeReasonOldDeviceUnavailable:(AVAudioSessionRouteDescription *)prevRoute
+{
 }
 
 /**
- * We enable proximity monitoring here
- * We use proximity to understand what
- * category should we use: Voice chat for earpiece 
- * and Video chat for loud speaker
+ * Here we do a check: if we connect a headset then we should use it
  */
-- (void) switchToPlayingState {
-    if (self.hfpFound) {
-        [self.session setMode:AVAudioSessionModeVoiceChat error:nil];
-        [self.session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth error:nil];
-    } else if ([UIDevice currentDevice].proximityState) {
-        [self.session setMode:AVAudioSessionModeVoiceChat error:nil];
-        [self.session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+- (void) handleRouteChangeReasonNewDeviceAvailable:(AVAudioSessionRouteDescription *)prevRoute
+{
+
+}
+
+/**
+ * We check if user has his phone near the ear we send audio to default port (earpiece)
+ * else we use speaker.
+ * if sound isn't playing we should disable proximity sensor
+ */
+- (void) didReceiveProximityChangedNotification:(NSNotification *)notification {
+    
+    if ([UIDevice currentDevice].proximityState) {
+        [self setEarMode];
     } else {
-        [self.session setMode:AVAudioSessionModeVideoChat error:nil];
-        [self.session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionAllowBluetooth error:nil];
+        [self setDefaultMode];
     }
-    [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
+    
+    if (!self.isPlaying) {
+        [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
+    }
 }
 
-- (void) switchToRecordingState {
-    [self.session setActive:NO error:nil];
-    [self.session setMode:AVAudioSessionModeVideoChat error:nil];
-    [self.session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth error:nil];
-    [self.session setActive:YES error:nil];
+#pragma mark - Utils
+
+/**
+ * Use this method to determine that
+ * we have connected wired headset or bluetooth headset
+ * in given audio session route
+ */
+- (BOOL) isBTAvailableInRoute:(AVAudioSessionRouteDescription *)route {
+    NSArray *outputs = [route outputs];
+    for (AVAudioSessionPortDescription *output in outputs) {
+        if ([output.portType isEqualToString:AVAudioSessionPortBluetoothA2DP])
+        {
+            return YES;
+        }
+    }
+    return NO;
 }
 
-- (void) switchToIdleState {
-    [self.session setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
-    [self.session setMode:AVAudioSessionModeDefault error:nil];
-    [self.session setCategory:AVAudioSessionCategoryAmbient error:nil];
-}
-
-#pragma mark - TBMVideoPlayerEventNotification
-
-- (void)videoPlayerStartedIndex:(NSInteger)index {
-    [self setState:Playing];
-}
-
-- (void)videoPlayerStopped {
-    [self setState:Idle];
-}
+#pragma mark -
 
 @end

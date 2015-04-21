@@ -46,6 +46,7 @@
     [self setupPushNotificationCategory];
     [self registerForPushNotification];
     [TBMS3CredentialsManager refreshFromServer:nil];
+    [TBMAudioSessionRouter setup];
 }
 
 - (void)performDidBecomeActiveActions{
@@ -54,8 +55,6 @@
         return;
     
     [self ensureResources];
-#warning Kirill I disconnected the audiosession router here because I found it quite buggy when testing the video recorder.
-//    [[TBMAudioSessionRouter sharedInstance] findAvailbleBluetoothDevices];
 }
 
 - (void)ensureResources{

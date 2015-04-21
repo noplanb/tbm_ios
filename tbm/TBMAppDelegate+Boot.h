@@ -12,5 +12,4 @@
 - (void)boot;
 - (void)didCompleteRegistration;
 - (void)performDidBecomeActiveActions;
-
 @end

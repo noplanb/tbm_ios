@@ -49,17 +49,15 @@ static int videoRecorderRetryCount = 0;
         
         self.sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
         
-#warning Kirill Temporarily removed from background thread while testing.
         [self initCaptureSession];
         [self setupPreviewView];
-        [self initVideoInput];
-        [self initCaptureOutput];
-        [self addAudioInput];
-        [self addObservers];
-        [self.captureSession startRunning];
-
-//        dispatch_async(self.sessionQueue, ^{
-//        });
+        
+        dispatch_async(self.sessionQueue, ^{
+            [self initVideoInput];
+            [self initAudioInput];
+            [self addObservers];
+            [self.captureSession startRunning];
+        });
     }
     return self;
 }
@@ -77,21 +75,33 @@ static int videoRecorderRetryCount = 0;
 }
 
 - (void) initCaptureOutput {
-
-    self.captureOutput = [[AVCaptureMovieFileOutput alloc] init];
-   
-    //We don't care about ability of adding output, because we do initialization of capture session for one time.
-    //http://stackoverflow.com/questions/24501561/avcapturesession-canaddoutputoutput-returns-no-intermittently-can-i-find-o
     
-    if ([self.captureSession canAddOutput:self.captureOutput]) {
-        [self.captureSession addOutput:self.captureOutput];
-    } else {
-        OB_ERROR(@"VideoRecorder: addCaptureOutputWithError: Could not add captureOutput");
+    if (!self.captureOutput) {
+        self.captureOutput = [[AVCaptureMovieFileOutput alloc] init];
     }
+    
+    dispatch_sync(self.sessionQueue, ^{
+        [self.captureSession beginConfiguration];
+        if ([self.captureSession canAddOutput:self.captureOutput]) {
+            [self.captureSession addOutput:self.captureOutput];
+        } else {
+            OB_ERROR(@"VideoRecorder: addCaptureOutputWithError: Could not add captureOutput");
+        }
+        [self.captureSession commitConfiguration];
+    });
 }
 
 - (void)initCaptureSession {
     self.captureSession = [[AVCaptureSession alloc] init];
+    
+    /** I've done several tests, so there is no difference in the audio quality
+     * between two cases: 
+     * 1) automaticallyConfiguresApplicationAudioSession = NO
+     * 2) automaticallyConfiguresApplicationAudioSession = YES
+     */
+    self.captureSession.usesApplicationAudioSession = YES;
+    self.captureSession.automaticallyConfiguresApplicationAudioSession = NO;
+    
     if ([self.captureSession canSetSessionPreset:AVCaptureSessionPresetLow]) {
         self.captureSession.sessionPreset = AVCaptureSessionPresetLow;
     } else {
@@ -99,21 +109,21 @@ static int videoRecorderRetryCount = 0;
     }
 }
 
-- (void) addAudioInput {
-    NSError *error;
-    self.audioInput = [TBMDeviceHandler getAudioInputWithError:&error];
+- (void) initAudioInput {
     
-    if (error) {
-        OB_ERROR(@"VideoRecorder: Unable to getAudioCaptureInput (Error: %@)", error);
-        return;
+    if (!self.audioInput) {
+        NSError *error;
+        self.audioInput = [TBMDeviceHandler getAudioInputWithError:&error];
+        
+        if (error) {
+            OB_ERROR(@"VideoRecorder: Unable to getAudioCaptureInput (Error: %@)", error);
+            return;
+        }
+
     }
     
-    [self.captureSession addInput:self.audioInput];
-}
-
-- (void) removeAudioInput {
-    if (self.audioInput) {
-        [self.captureSession removeInput:self.audioInput];
+    if ([self.captureSession.inputs indexOfObject:self.audioInput] == NSNotFound) {
+        [self.captureSession addInput:self.audioInput];
     }
 }
 
@@ -136,11 +146,9 @@ static int videoRecorderRetryCount = 0;
 - (void)startRecordingWithVideoUrl:(NSURL *)videoUrl{
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
+    [self initCaptureOutput];
     
-#warning Kirill I set this once in setup as it was causing record to flash and spurious errors. We should always use built in mic. Can we make sure that we always return built in mic from TBMDevicehandler.
-//    [self addAsudioInput];
     self.didCancelRecording = NO;
-    
     OB_INFO(@"Start recording to %@ videoId:%@",
             [TBMVideoIdUtils friendWithOutgoingVideoUrl:videoUrl].firstName,
             [TBMVideoIdUtils videoIdWithOutgoingVideoUrl:videoUrl]);
@@ -181,13 +189,13 @@ static int videoRecorderRetryCount = 0;
 }
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error{
-#warning Kirill I set this once in setup as it was causing record to flash and spurious errors. We should always use built in mic. Can we make sure that we always return built in mic from TBMDevicehandler.
-    //[self removeAudioInput];
+    
+//    [self removeAudioInput];
+    [self.captureSession removeOutput:self.captureOutput];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFinishRecording
                                                         object:self
                                                       userInfo:@{@"videoUrl": outputFileURL}];
-    
     
     if (self.didCancelRecording){
         OB_INFO(@"didCancelRecordingToOutputFileAtURL:%@ error:%@", outputFileURL, error);
@@ -241,6 +249,9 @@ static int videoRecorderRetryCount = 0;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionDidStopRunningNotification:) name:AVCaptureSessionDidStopRunningNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionWasInterruptedNotification:) name:AVCaptureSessionWasInterruptedNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVCaptureSessionInterruptionEndedNotification:) name:AVCaptureSessionInterruptionEndedNotification object:_captureSession];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveUIApplicationDidBecomeActiveNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveUIApplicationDidEnterBackgroundNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 }
 
 - (void)removeObservers{
@@ -249,7 +260,19 @@ static int videoRecorderRetryCount = 0;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionDidStopRunningNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionWasInterruptedNotification object:_captureSession];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionInterruptionEndedNotification object:_captureSession];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
 }
+
+- (void) didReceiveUIApplicationDidBecomeActiveNotification:(NSNotification *)notification {
+    [self.captureSession startRunning];
+}
+
+- (void) didReceiveUIApplicationDidEnterBackgroundNotification:(NSNotification *)notification {
+    [self.captureSession stopRunning];
+}
+
 
 - (void) AVCaptureSessionRuntimeErrorNotification:(NSNotification *)notification{
     OB_INFO(@"AVCaptureSessionRuntimeErrorNotification");
