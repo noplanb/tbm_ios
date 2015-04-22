@@ -266,11 +266,15 @@ static int videoRecorderRetryCount = 0;
 }
 
 - (void) didReceiveUIApplicationDidBecomeActiveNotification:(NSNotification *)notification {
-    [self.captureSession startRunning];
+    if (!self.captureSession.isRunning) {
+        [self.captureSession startRunning];
+    }
 }
 
 - (void) didReceiveUIApplicationDidEnterBackgroundNotification:(NSNotification *)notification {
-    [self.captureSession stopRunning];
+    if (self.captureSession.isRunning) {
+        [self.captureSession stopRunning];
+    }
 }
 
 
