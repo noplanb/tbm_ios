@@ -57,16 +57,11 @@ Algorithm:
 
 
 TEST CASES:
-Bench image for thumb or no thumb
-New friend first incoming video is corrupt show z
-New friend good incoming video followed by corrupt video show old thumb
-New multiple incoming videos thumb updates each time.
-
+C2437, C2439, C2440, C2456
 
 
 
 Other bugs to fix:
 - We should update kv store only after video has been uploaded.
--
-
+- Unplayable video toasts.
 - Notify user there was an error downloading video or error uploading video.

@@ -379,11 +379,16 @@ static NSMutableArray * videoStatusNotificationDelegates;
 //------
 #pragma mark Thumb
 - (UIImage *)thumbImage{
-    return [self hasLastThumb] ? [self lastThumbImage] : [UIImage imageNamed:@"icon-no-pic"];
+    if ([self hasLastThumb])
+        return [self lastThumbImage];
+    else if ([self legacyThumbImage] != nil)
+        return [self legacyThumbImage];
+    else
+        return [UIImage imageNamed:@"icon-no-pic"];
 }
 
 - (BOOL)isThumbNoPic{
-    return ![self hasLastThumb];
+    return ![self hasLastThumb] && ![self hasLegacyThumb];
 }
 
 - (void)generateThumbWithVideo:(TBMVideo *)video{
@@ -421,9 +426,25 @@ static NSMutableArray * videoStatusNotificationDelegates;
         [[NSFileManager defaultManager] removeItemAtURL:[self lastThumbUrl] error:nil];
 }
 
-- (void)legacyThumbImage{
+- (UIImage *)legacyThumbImage{
+    UIImage *thumbImage = nil;
+    NSURL *thumbUrl = nil;
     
+    for (TBMVideo *v in [self sortedIncomingVideos]){
+        if ([v hasThumb]){
+            thumbUrl = [v thumbUrl];
+        }
+    }
+    if (thumbUrl != nil)
+        thumbImage = [UIImage imageWithContentsOfFile:thumbUrl.path];
+    
+    return thumbImage;
 }
+
+- (BOOL)hasLegacyThumb{
+    return [self legacyThumbImage] != nil;
+}
+
 
 //-------------------------------------
 // VideoStatus Delegates and UI Strings
