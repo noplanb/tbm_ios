@@ -22,6 +22,7 @@
 @property (nonatomic) UIImageView *title;
 @property (nonatomic) UILabel *plus;
 @property (nonatomic) UILabel *countryCodeLbl;
+@property (nonatomic) UILabel *countryCodeHint;
 @property (nonatomic) UIButton *submit;
 @property (nonatomic) UIButton *debug;
 @end
@@ -110,6 +111,7 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
     [self addPlus];
     [self addCountryCode];
     [self addCountryCodeLabel];
+    [self addCountryCodeHint];
     [self addMobileNumber];
     [self addSubmit];
     [self addSpinner];
@@ -193,12 +195,11 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
     CGRect f;
     f.origin.x = self.firstName.frame.origin.x;
     f.origin.y = self.lastName.frame.origin.y + self.lastName.frame.size.height + TBMRegisterFieldsVerticalMargin;
-    f.size.width = 90.0;
+    f.size.width = 70.0;
     f.size.height = TBMRegisterTextFieldHeight;
     
     self.countryCode = [[TBMTextField alloc] initWithFrame:f];
     [self.countryCode setKeyboardType:UIKeyboardTypeNumberPad];
-    self.countryCode.placeholder = @"1 usa";
     [self setCommonAttributesForTextField:self.countryCode];
     [self.contentView addSubview:self.countryCode];
     
@@ -213,12 +214,27 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
     f.size.width = self.countryCode.frame.size.width;
     f.size.height = 10.0;
     
-    UILabel *cclbl = [[UILabel alloc] initWithFrame:f];
-    cclbl.font = [UIFont systemFontOfSize:11];
-    cclbl.textAlignment = NSTextAlignmentCenter;
-    cclbl.textColor = [UIColor whiteColor];
-    [cclbl setText:@"Country Code"];
-    [self.contentView addSubview:cclbl];
+    self.countryCodeLbl = [[UILabel alloc] initWithFrame:f];
+    self.countryCodeLbl.font = [UIFont systemFontOfSize:9];
+    self.countryCodeLbl.textAlignment = NSTextAlignmentCenter;
+    self.countryCodeLbl.textColor = [UIColor whiteColor];
+    [self.countryCodeLbl setText:@"Country Code"];
+    [self.contentView addSubview:self.countryCodeLbl];
+}
+
+- (void)addCountryCodeHint{
+    CGRect f;
+    f.origin.x = self.countryCode.frame.origin.x;
+    f.origin.y = self.countryCodeLbl.frame.origin.y + self.countryCodeLbl.frame.size.height + 5.0;
+    f.size.width = self.countryCode.frame.size.width;
+    f.size.height = 10.0;
+    
+    self.countryCodeHint = [[UILabel alloc] initWithFrame:f];
+    self.countryCodeHint.font = [UIFont systemFontOfSize:9];
+    self.countryCodeHint.textAlignment = NSTextAlignmentCenter;
+    self.countryCodeHint.textColor = [UIColor whiteColor];
+    [self.countryCodeHint setText:@"USA +1"];
+    [self.contentView addSubview:self.countryCodeHint];
 }
 
 - (void)addMobileNumber{
