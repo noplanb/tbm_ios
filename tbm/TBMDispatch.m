@@ -12,6 +12,7 @@
 #import "OBLogger.h"
 #import "TBMHttpManager.h"
 #import "TBMUser.h"
+#import "TBMConfig.h"
 
 static BOOL TBMDispatchEnabled = NO;
 
@@ -39,7 +40,11 @@ static BOOL TBMDispatchEnabled = NO;
 
 + (void) dispatch: (NSString *)msg{
     [[TBMHttpManager manager] POST:@"dispatch/post_dispatch"
-                         parameters:@{SERVER_PARAMS_DISPATCH_MSG_KEY: msg}
+                         parameters:@{SERVER_PARAMS_DISPATCH_MSG_KEY: msg,
+                                      SERVER_PARAMS_DISPATCH_DEVICE_MODEL_KEY: [[UIDevice currentDevice] model],
+                                      SERVER_PARAMS_DISPATCH_OS_VERSION_KEY: [[UIDevice currentDevice] systemVersion],
+                                      SERVER_PARAMS_DISPATCH_ZAZO_VERSION_KEY: CONFIG_VERSION_STRING,
+                                      SERVER_PARAMS_DISPATCH_ZAZO_VERSION_NUMBER_KEY: CONFIG_VERSION_NUMBER}
                             success:nil
                             failure:nil];
 }

@@ -41,20 +41,8 @@ Always save friend.lastThumb for each friend. Use that one in case a new one fai
     - Try to get thumb from videos
     - Otherwise friend.lastThumb
     - Otherwise defaultThumb
+    - Handle legacy thumbs for version update.
 - Only if not incoming video of any kind show record button.
-
-
-TODO:
-Algorithm:
-- Friend.generateThumbWithVideo
-  - if video.generateThumb
-    - copy to Friend.lastThumb
-
-- Friend.thumbUrl
-  - friend.lastThumbUrl || defaultThumbUrl
-
-- Do not mark the video failed permanently if thumb fails
-
 
 TEST CASES:
 C2437, C2439, C2440, C2456
@@ -62,6 +50,9 @@ C2437, C2439, C2440, C2456
 
 
 Other bugs to fix:
-- We should update kv store only after video has been uploaded.
+x We should update kv store only after video has been uploaded. (already done)
 - Unplayable video toasts.
 - Notify user there was an error downloading video or error uploading video.
+- Country code hint in reg screen
+- Add version to dispatch
+-

@@ -39,6 +39,10 @@ extern NSString * const SERVER_PARAMS_S3_ACCESS_KEY;
 extern NSString * const SERVER_PARAMS_S3_SECRET_KEY;
 
 extern NSString * const SERVER_PARAMS_DISPATCH_MSG_KEY;
+extern NSString * const SERVER_PARAMS_DISPATCH_DEVICE_MODEL_KEY;
+extern NSString * const SERVER_PARAMS_DISPATCH_OS_VERSION_KEY;
+extern NSString * const SERVER_PARAMS_DISPATCH_ZAZO_VERSION_KEY;
+extern NSString * const SERVER_PARAMS_DISPATCH_ZAZO_VERSION_NUMBER_KEY;
 
 @interface TBMHttpManager : NSObject
 + (AFHTTPRequestOperationManager *)manager;

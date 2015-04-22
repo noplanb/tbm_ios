@@ -41,6 +41,10 @@ NSString * const SERVER_PARAMS_S3_ACCESS_KEY = @"access_key";
 NSString * const SERVER_PARAMS_S3_SECRET_KEY = @"secret_key";
 
 NSString * const SERVER_PARAMS_DISPATCH_MSG_KEY = @"msg";
+NSString * const SERVER_PARAMS_DISPATCH_DEVICE_MODEL_KEY = @"device_model";
+NSString * const SERVER_PARAMS_DISPATCH_OS_VERSION_KEY = @"os_version";
+NSString * const SERVER_PARAMS_DISPATCH_ZAZO_VERSION_KEY = @"zazo_version";
+NSString * const SERVER_PARAMS_DISPATCH_ZAZO_VERSION_NUMBER_KEY = @"zazo_version_number";
 
 @implementation TBMHttpManager
 

@@ -66,7 +66,6 @@
     NSString *videoId = [TBMVideoIdUtils videoIdWithOutgoingVideoUrl:videoUrl];
     TBMFriend *friend = [TBMVideoIdUtils friendWithOutgoingVideoUrl:videoUrl];
     
-#warning Sani updating kvstore should probably be done after video is uploaded so that a poll by the receiver will not encounter file not found error.
     NSString *remoteFilename = [TBMRemoteStorageHandler outgoingVideoRemoteFilename:friend videoId:videoId];
     [[self fileTransferManager] uploadFile:videoUrl.path
                                         to:[TBMRemoteStorageHandler fileTransferUploadPath]
