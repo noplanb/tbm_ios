@@ -70,11 +70,6 @@
 }
 
 - (void)onResourcesAvailable{
-    OB_ERROR(@"TBMDeviceHandler.isCameraConnected: %d", [TBMDeviceHandler isCameraConnected]);
-    OB_ERROR(@"TBMDeviceHandler.isMicrophoneConnected: %d", [TBMDeviceHandler isMiccrophoneConnected]);
-    OB_ERROR(@"AudioSessionInputAvailable: %d", [AVAudioSession sharedInstance].inputAvailable);
-    OB_ERROR(@"TBMDeviceHandler#getAudioInputWithError: %@", [TBMDeviceHandler getAudioInputWithError:nil]);
-
     [TBMVideo printAll];
     [self handleStuckDownloadsWithCompletionHandler:^{
         [self retryPendingFileTransfers];
