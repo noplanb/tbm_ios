@@ -1,0 +1,21 @@
+Ensure camera and mic are both available before launching.
+
+QUESTION
+Does app go inactive then active when going in and out of phone call?
+ - Answer yes
+
+QUESTION
+Can we determine that mic or camera is not available when we are in phone call?
+ - DeviceHandler
+   - Add method to check if camera and mic are available.
+   - Call method in boot
+     - Does it show unavailable when accessing zazo while in a call?
+     - Does it show available when accessing after call?
+
+ - Put sim in phone.
+ - Launch zazo
+ - Call phone
+ - Goto zazo while in call
+   - Notice: Video recorder gets a runntime error.
+ - End call
+   - Lifecycle events?

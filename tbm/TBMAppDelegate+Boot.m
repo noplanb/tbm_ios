@@ -19,6 +19,7 @@
 #import "AVFoundation/AVFoundation.h"
 #import "TBMFileUtils.h"
 #import "TBMAudioSessionRouter.h"
+#import "TBMDeviceHandler.h"
 
 @implementation TBMAppDelegate (Boot)
 
@@ -69,6 +70,11 @@
 }
 
 - (void)onResourcesAvailable{
+    OB_ERROR(@"TBMDeviceHandler.isCameraConnected: %d", [TBMDeviceHandler isCameraConnected]);
+    OB_ERROR(@"TBMDeviceHandler.isMicrophoneConnected: %d", [TBMDeviceHandler isMiccrophoneConnected]);
+    OB_ERROR(@"AudioSessionInputAvailable: %d", [AVAudioSession sharedInstance].inputAvailable);
+    OB_ERROR(@"TBMDeviceHandler#getAudioInputWithError: %@", [TBMDeviceHandler getAudioInputWithError:nil]);
+
     [TBMVideo printAll];
     [self handleStuckDownloadsWithCompletionHandler:^{
         [self retryPendingFileTransfers];

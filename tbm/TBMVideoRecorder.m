@@ -70,7 +70,7 @@ static int videoRecorderRetryCount = 0;
     NSError *error;
     self.videoInput = [TBMDeviceHandler getAvailableFrontVideoInputWithError:&error];
     if (error) {
-        OB_ERROR(@"VideoRecorder: Unable to getVideoCaptureInput (%@)", error);
+        OB_ERROR(@"VideoRecorder#initVideoInput: Unable to get camera (%@)", error);
     } else {
         [self.captureSession addInput:self.videoInput];
     }
@@ -86,7 +86,7 @@ static int videoRecorderRetryCount = 0;
     if ([self.captureSession canAddOutput:self.captureOutput]) {
         [self.captureSession addOutput:self.captureOutput];
     } else {
-        OB_ERROR(@"VideoRecorder: addCaptureOutputWithError: Could not add captureOutput");
+        OB_ERROR(@"VideoRecorder#addCaptureOutputWithError: Could not add captureOutput");
     }
 }
 
@@ -95,7 +95,7 @@ static int videoRecorderRetryCount = 0;
     if ([self.captureSession canSetSessionPreset:AVCaptureSessionPresetLow]) {
         self.captureSession.sessionPreset = AVCaptureSessionPresetLow;
     } else {
-        OB_ERROR(@"Cannot set AVCaptureSessionPresetLow");
+        OB_ERROR(@"VideoRecorder#initCaptureSession: Cannot set AVCaptureSessionPresetLow");
     }
 }
 
@@ -104,7 +104,7 @@ static int videoRecorderRetryCount = 0;
     self.audioInput = [TBMDeviceHandler getAudioInputWithError:&error];
     
     if (error) {
-        OB_ERROR(@"VideoRecorder: Unable to getAudioCaptureInput (Error: %@)", error);
+        OB_ERROR(@"VideoRecorder#addAudioInput Unable to get microphone: %@", error);
         return;
     }
     
@@ -252,7 +252,7 @@ static int videoRecorderRetryCount = 0;
 }
 
 - (void) AVCaptureSessionRuntimeErrorNotification:(NSNotification *)notification{
-    OB_INFO(@"AVCaptureSessionRuntimeErrorNotification");
+    OB_INFO(@"AVCaptureSessionRuntimeErrorNotification: %@", notification.userInfo[AVCaptureSessionErrorKey]);
     videoRecorderRetryCount += 1;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.delegate videoRecorderRuntimeErrorWithRetryCount:videoRecorderRetryCount];

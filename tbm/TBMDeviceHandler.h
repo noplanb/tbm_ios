@@ -13,4 +13,6 @@
 @interface TBMDeviceHandler : NSObject
 + (AVCaptureDeviceInput *) getAudioInputWithError:(NSError * __autoreleasing *)error;
 + (AVCaptureDeviceInput *) getAvailableFrontVideoInputWithError:(NSError * __autoreleasing *)error;
++ (BOOL) isCameraConnected;
++ (BOOL) isMiccrophoneConnected;
 @end

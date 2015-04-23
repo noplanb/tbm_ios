@@ -48,11 +48,38 @@ TEST CASES:
 C2437, C2439, C2440, C2456
 
 
+Fix #399
+========
+Additional params in dispatch for os_version, device_model, zazo_version, zazo_version_number
+
+
+Fix - Dispatch messages for problems in video recorder setup.
+=============================================================
+- initCaptureSession
+  - OB_ERROR(@"Cannot set AVCaptureSessionPresetLow");
+- initVideoInput
+  - DeviceHandler.getAvailableFrontVideoInputWithError
+    OB_ERROR(@"VideoRecorder#initVideoInput Unable to get camera (%@)", Device has no camera);
+    OB_ERROR(@"VideoRecorder#initVideoInput Unable to get camera (%@)", Error from AVCaptureDeviceInput deviceInputWithDevice:device);
+- initCaptureOutput
+  - OB_ERROR(@"VideoRecorder#initCaptureOutput: addCaptureOutputWithError: Could not add captureOutput");
+- addAudioInput
+  - OB_ERROR(@"VideoRecorder#addAudioInput Unable to get microphone: %@", Device has no microphone);
+  - OB_ERROR(@"VideoRecorder#addAudioInput Unable to get microphone: %@", AVCaptureDeviceInput deviceInputWithDevice);
+
+
+
+Fix
+===
+
+Toasts for Unable to record
+ - Trace and list each possible error with video recorder
+ - Test to make sure we toast appropriately and dispatch appropriately.
+
+
+Video too short error
 
 Other bugs to fix:
-x We should update kv store only after video has been uploaded. (already done)
 - Unplayable video toasts.
 - Notify user there was an error downloading video or error uploading video.
-- Country code hint in reg screen
-- Add version to dispatch
--
+- Test corrupt video playing in the midle
