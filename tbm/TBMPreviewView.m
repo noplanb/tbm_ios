@@ -41,8 +41,8 @@ static const float LayoutConstRecordingBorderWidth = 2;
     self.recordingOverlay.hidden = YES;
     self.recordingLabel.hidden = YES;
     
-    [self playSoundEffect];
     [NSThread sleepForTimeInterval:0.1f];
+    [self playSoundEffect];
 }
 
 - (void)setupWithCaptureSession:(AVCaptureSession *)captureSession {

@@ -57,9 +57,9 @@ static int videoRecorderRetryCount = 0;
 
         dispatch_async(self.sessionQueue, ^{
             [self initVideoInput];
-            [self initCaptureOutput];
-            [self addAudioInput];
             [self setupAudioSession];
+            [self addAudioInput];
+            [self initCaptureOutput];
             [self addObservers];
             [self.captureSession startRunning];
 
@@ -86,9 +86,6 @@ static int videoRecorderRetryCount = 0;
     OB_INFO(@"maxRecordedDuration: %lld", self.captureOutput.maxRecordedDuration.value);
     OB_INFO(@"maxRecordedFileSize: %lld", self.captureOutput.maxRecordedFileSize);
     OB_INFO(@"minFreeDiskSpaceLimit: %lld", self.captureOutput.minFreeDiskSpaceLimit);
-
-    //We don't care about ability of adding output, because we do initialization of capture session for one time.
-    //http://stackoverflow.com/questions/24501561/avcapturesession-canaddoutputoutput-returns-no-intermittently-can-i-find-o
     
     if ([self.captureSession canAddOutput:self.captureOutput]) {
         [self.captureSession addOutput:self.captureOutput];
@@ -109,7 +106,6 @@ static int videoRecorderRetryCount = 0;
 - (void) addAudioInput {
     NSError *error;
     self.audioInput = [TBMDeviceHandler getAudioInputWithError:&error];
-    
     if (error) {
         OB_ERROR(@"VideoRecorder#addAudioInput Unable to get microphone: %@", error);
         return;
@@ -177,7 +173,6 @@ static int videoRecorderRetryCount = 0;
 
 - (void)stopRecording {
     OB_INFO(@"VideoRecorder#stopRecording: isRecording:%d", self.captureOutput.isRecording);
-    [self.previewView hideRecordingOverlay];
 
     if (!self.captureOutput.isRecording){
     // note that in some error cases when audiosession was connected stop recording would be called and isRecording == NO.  We will not get a didFinsishRecording in this case. AudioSession needs to observe videoRecorderDidFail for these condtitions although we should ensure they never occur.
@@ -186,6 +181,7 @@ static int videoRecorderRetryCount = 0;
         [self handleError:error];
     }
     [self.captureOutput stopRecording];
+    [self.previewView hideRecordingOverlay];
 }
 
 - (BOOL)cancelRecording{
