@@ -123,7 +123,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     if ([self isVideoReceivedType:userInfo]){
         [self handleVideoReceivedNotification:userInfo];
     } else if ([self isVideoStatusUpdateType:userInfo]){
-        [self handleVideoStatusUPdateNotification:userInfo];
+        [self handleVideoStatusUpdateNotification:userInfo];
     } else {
         OB_ERROR(@"handleNotificationPayload: ERROR unknown notification type received");
     }
@@ -156,7 +156,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     [self queueDownloadWithFriend:friend videoId:videoId];
 }
 
-- (void)handleVideoStatusUPdateNotification:(NSDictionary *)userInfo{
+- (void)handleVideoStatusUpdateNotification:(NSDictionary *)userInfo{
     OB_INFO(@"handleVideoStatusUPdateNotification:");
     NSString *nstatus = [userInfo objectForKey:NOTIFICATION_STATUS_KEY];
     NSString *mkey = [userInfo objectForKey:NOTIFICATION_TO_MKEY_KEY];
@@ -171,14 +171,16 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     NSString *videoId = [userInfo objectForKey:NOTIFICATION_VIDEO_ID_KEY];
     
     TBMOutgoingVideoStatus outgoingStatus;
-    if ([nstatus isEqual:NOTIFICATION_STATUS_DOWNLOADED])
+    if ([nstatus isEqual:NOTIFICATION_STATUS_DOWNLOADED]){
         outgoingStatus = OUTGOING_VIDEO_STATUS_DOWNLOADED;
-    else if ([nstatus isEqual:NOTIFICATION_STATUS_VIEWED])
+    } else if ([nstatus isEqual:NOTIFICATION_STATUS_VIEWED]) {
         outgoingStatus = OUTGOING_VIDEO_STATUS_VIEWED;
-    else
+    } else {
         OB_ERROR(@"unknown status received in notification");
+        return;
+    }
     
-    [friend handleOutgoingVideoViewedWithVideoId:videoId];
+    [friend setAndNotifyOutgoingVideoStatus:outgoingStatus videoId:videoId];
 }
 
 //--------------------------------------

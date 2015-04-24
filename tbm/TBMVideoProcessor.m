@@ -119,7 +119,10 @@ NSString* const TBMVideoProcessorErrorReason = @"Problem processing video";
 }
 
 - (NSDictionary *)notificationUserInfoWithError:(NSError *)error{
-    return @{@"videoUrl":self.videoUrl, @"error": error};
+    if (error == nil)
+        return @{@"videoUrl":self.videoUrl};
+    else
+        return @{@"videoUrl":self.videoUrl, @"error": error};
 }
 
 - (NSError *)videoProcessorErrorWithMethod:(NSString *)method description:(NSString *)description{

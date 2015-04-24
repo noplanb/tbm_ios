@@ -2,15 +2,16 @@ General Notes
 =============
 
 The main goals of this release are:
-- Make the videoRecorder and postProcessor more robust and eliminate some of the know failure modes there.
-- Dispatch all know error conditions in recorder, post processor, player to help with debugging for the next release.
+- Make the videoRecorder and postProcessor more robust and eliminate some of the known failure modes.
+- Dispatch all known errors in recorder, post processor and player to help with debugging for the next release.
 - Notify user of errors in recording or playing.
 
 Known remain problems not addressed in this release:
-- AudioSession still not robust and can lead to potential recording problems including no sound.
+- AudioSession still not robust and can lead to potential recording problems including no sound and poor interaction with phone calls.
 
 Next release:
 - Analyze all dispatches from this release and address the errors as appropriate.
+- Address audio session problems.
 
 
 Fix #383
@@ -83,6 +84,7 @@ Fix - Dispatch messages for problems in video recorder setup.
   - OB_ERROR(@"VideoRecorder#addAudioInput Unable to get microphone: %@", AVCaptureDeviceInput deviceInputWithDevice);
 
 TEST CASES:
+All error paths were tested by Sani as they are hard to exercise by a tester without access to the source.
 
 
 Fix - Toasts for all causes of video recording and processing failures
@@ -102,6 +104,7 @@ Fix - Toasts for all causes of video recording and processing failures
 
 TEST CASES:
 C2457
+All error paths were tested by Sani as they are hard to exercise by a tester without access to the source.
 
 
 Fix - Toasts "Not Playable" and dispatch if player encounters error
