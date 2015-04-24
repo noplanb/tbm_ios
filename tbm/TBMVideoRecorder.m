@@ -52,17 +52,18 @@ static int videoRecorderRetryCount = 0;
         
         self.sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
         
-#warning Kirill Temporarily removed from background thread while testing.
         [self initCaptureSession];
         [self setupPreviewView];
-        [self initVideoInput];
-        [self initCaptureOutput];
-        [self addAudioInput];
-        [self addObservers];
-        [self.captureSession startRunning];
 
-//        dispatch_async(self.sessionQueue, ^{
-//        });
+        dispatch_async(self.sessionQueue, ^{
+            [self initVideoInput];
+            [self initCaptureOutput];
+            [self addAudioInput];
+            [self setupAudioSession];
+            [self addObservers];
+            [self.captureSession startRunning];
+
+        });
     }
     return self;
 }
@@ -82,7 +83,10 @@ static int videoRecorderRetryCount = 0;
 - (void) initCaptureOutput {
 
     self.captureOutput = [[AVCaptureMovieFileOutput alloc] init];
-   
+    OB_INFO(@"maxRecordedDuration: %lld", self.captureOutput.maxRecordedDuration.value);
+    OB_INFO(@"maxRecordedFileSize: %lld", self.captureOutput.maxRecordedFileSize);
+    OB_INFO(@"minFreeDiskSpaceLimit: %lld", self.captureOutput.minFreeDiskSpaceLimit);
+
     //We don't care about ability of adding output, because we do initialization of capture session for one time.
     //http://stackoverflow.com/questions/24501561/avcapturesession-canaddoutputoutput-returns-no-intermittently-can-i-find-o
     
@@ -119,6 +123,27 @@ static int videoRecorderRetryCount = 0;
         [self.captureSession removeInput:self.audioInput];
     }
 }
+
+
+- (void) setupAudioSession{
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    
+    NSError *error = nil;
+    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionMixWithOthers error:&error];
+    if (error)
+        OB_ERROR(@"ERROR: unable to set audiosession to AVAudioSessionCategoryPlayAndRecord ERROR: %@", error);
+    
+    error = nil;
+    [audioSession setMode:AVAudioSessionModeVideoChat error:&error];
+    if (error)
+        OB_ERROR(@"ERROR: unable to set audiosession to AVAudioSessionModeVideoChat ERROR: %@", error);
+    
+    error = nil;
+    if (![audioSession setActive:YES error:&error])
+        OB_ERROR(@"ERROR: unable to activate audiosession ERROR: %@", error);
+    
+}
+
 
 #pragma mark - Query Status
 
@@ -193,16 +218,13 @@ static int videoRecorderRetryCount = 0;
                                                             object:self
                                                           userInfo:@{@"videoUrl": outputFileURL}];
         abort = YES;
-    }
-    
-    if (error != nil){
-        [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
+        
+    } else if (error != nil){
         NSError *newError = [NSError errorWithError:error reason:@"Problem recording video"];
         [self handleError:newError];
         abort = YES;
-    }
-    
-    if ([self videoTooShort:outputFileURL]){
+        
+    } else if ([self videoTooShort:outputFileURL]){
         OB_INFO(@"VideoRecorder#videoTooShort aborting");
         NSError *error = [self videoRecorderError:@"Video too short" reason:@"Too short"];
         [self handleError:error dispatch:NO];
