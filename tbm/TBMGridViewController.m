@@ -89,6 +89,7 @@
 //---------------------------
 // Events called in by Friend
 //---------------------------
+#pragma mark Events from friend
 - (void)videoStatusDidChange:(TBMFriend *)friend{
     if (![TBMGridElement friendIsOnGrid:friend])
         [self moveFriendToGrid:friend];
@@ -98,12 +99,12 @@
 #pragma mark - Notification Center Observers
 - (void)addObservers{
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(videoRecordDidFailotification:)
+                                             selector:@selector(videoRecordDidFailNotification:)
                                                  name:TBMVideoProcessorDidFail
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(videoRecordDidFailotification:)
+                                             selector:@selector(videoRecordDidFailNotification:)
                                                  name:TBMVideoRecorderDidFail
                                                object:nil];
 }
@@ -119,8 +120,16 @@
 
 }
 
-- (void)videoRecordDidFailotification:(NSNotification *)notification{
-    [self toastNotSent];
+- (void)videoRecordDidFailNotification:(NSNotification *)notification{
+    NSError *error = (NSError *) notification.userInfo[@"error"];
+    NSString *reason = error.userInfo[NSLocalizedFailureReasonErrorKey];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (reason != nil)
+            [[iToast makeText:reason] show];
+        
+        [self performSelector:@selector(toastNotSent) withObject:nil afterDelay:1.2];
+    });
 }
 
 

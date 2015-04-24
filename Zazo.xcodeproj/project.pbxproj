@@ -90,6 +90,7 @@
 		226914EE19AFCD42007497F1 /* logo.pxm in Resources */ = {isa = PBXBuildFile; fileRef = 226914D219AFCD42007497F1 /* logo.pxm */; };
 		226A26031A584AD6006FDFDA /* TBMKeyChainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 226A26021A584AD6006FDFDA /* TBMKeyChainWrapper.m */; };
 		226A37C11A37E08900A2D0F5 /* TBMGridElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 226A37C01A37E08900A2D0F5 /* TBMGridElementViewController.m */; };
+		226B49A71AE990FD00E4D2BE /* NSError+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 226B49A61AE990FD00E4D2BE /* NSError+Extensions.m */; };
 		227155611A40902B00B437DA /* TBMBenchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 227155601A40902B00B437DA /* TBMBenchViewController.m */; };
 		227767A41A963FE90093EFB1 /* StringUtilsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 227767A31A963FE90093EFB1 /* StringUtilsTest.m */; };
 		227767A71A9966AD0093EFB1 /* BeepSin30.wav in Resources */ = {isa = PBXBuildFile; fileRef = 227767A51A9966AD0093EFB1 /* BeepSin30.wav */; };
@@ -251,6 +252,8 @@
 		226A26021A584AD6006FDFDA /* TBMKeyChainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMKeyChainWrapper.m; sourceTree = "<group>"; };
 		226A37BF1A37E08900A2D0F5 /* TBMGridElementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMGridElementViewController.h; sourceTree = "<group>"; };
 		226A37C01A37E08900A2D0F5 /* TBMGridElementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMGridElementViewController.m; sourceTree = "<group>"; };
+		226B49A51AE990FD00E4D2BE /* NSError+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+Extensions.h"; sourceTree = "<group>"; };
+		226B49A61AE990FD00E4D2BE /* NSError+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+Extensions.m"; sourceTree = "<group>"; };
 		2271555F1A40902B00B437DA /* TBMBenchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMBenchViewController.h; sourceTree = "<group>"; };
 		227155601A40902B00B437DA /* TBMBenchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMBenchViewController.m; sourceTree = "<group>"; };
 		227767A31A963FE90093EFB1 /* StringUtilsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringUtilsTest.m; sourceTree = "<group>"; };
@@ -400,13 +403,14 @@
 				226A37C21A37E0D100A2D0F5 /* Controllers */,
 				226A37C41A37E18A00A2D0F5 /* Registration */,
 				22664395190AD8C8006C9072 /* Utils */,
+				226B49A81AE9917F00E4D2BE /* Categories */,
+				2259A9881ADA176F00E7DCDE /* Video */,
 				220E905D1909A1A9003C4F82 /* TBM.storyboard */,
 				220E903F1909A18B003C4F82 /* Images.xcassets */,
 				220E903C1909A18B003C4F82 /* tbm.xcdatamodeld */,
 				220E90311909A18B003C4F82 /* Supporting Files */,
 				22249584190B52E4008EF394 /* TBMLongPressTouchHandler.h */,
 				22249585190B52E4008EF394 /* TBMLongPressTouchHandler.m */,
-				2259A9881ADA176F00E7DCDE /* Video */,
 				22EA56BF19106AD100646D3E /* TBMConfig.h */,
 				22EA56C019106AD100646D3E /* TBMConfig.m */,
 				223A11441915926800177481 /* TBMHttpManager.h */,
@@ -646,6 +650,15 @@
 				227F6CF51A15313700E19E5C /* TBMRegisterForm.m */,
 			);
 			name = Registration;
+			sourceTree = "<group>";
+		};
+		226B49A81AE9917F00E4D2BE /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				226B49A51AE990FD00E4D2BE /* NSError+Extensions.h */,
+				226B49A61AE990FD00E4D2BE /* NSError+Extensions.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 		227155621A40919900B437DA /* AppDelegate */ = {
@@ -906,6 +919,7 @@
 				226A26031A584AD6006FDFDA /* TBMKeyChainWrapper.m in Sources */,
 				22151E881A5CB07B008EF88E /* TBMDispatch.m in Sources */,
 				222724331917F2F500DA6865 /* NSArray+NSArrayExtensions.m in Sources */,
+				226B49A71AE990FD00E4D2BE /* NSError+Extensions.m in Sources */,
 				223A11491915AED900177481 /* TBMAppDelegate+Boot.m in Sources */,
 				22A094E71A16C6B4009AB958 /* TBMSelectPhoneTableDelegate.m in Sources */,
 				221B77671A68888C009FA670 /* TPKeyboardAvoidingScrollView.m in Sources */,

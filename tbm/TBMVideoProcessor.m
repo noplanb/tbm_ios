@@ -10,10 +10,11 @@
 #import "AVFoundation/AVFoundation.h"
 #import "OBLogger.h"
 #import "TBMConfig.h"
+#import "NSError+Extensions.h"
 
 NSString* const TBMVideoProcessorDidFinishProcessing = @"TBMVideoProcessorDidFinishProcessing";
 NSString* const TBMVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing";
-
+NSString* const TBMVideoProcessorErrorReason = @"Problem processing video";
 
 @interface TBMVideoProcessor ()
 @property (nonatomic) NSURL *videoUrl;
@@ -30,10 +31,9 @@ NSString* const TBMVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing"
     self.videoUrl = url;
     self.tempVideoUrl = [self generateTempVideoUrl];
     
-    if (! [self moveVideoToTemp]){
-        [self handleError];
+    if (! [self moveVideoToTemp])
         return;
-    }
+        
     [self convertToMpeg4];
 }
 
@@ -53,32 +53,35 @@ NSString* const TBMVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing"
 
 - (void)didFinishConvertingToMpeg4 {
     if (self.exportSession.status != AVAssetExportSessionStatusCompleted) {
-        OB_ERROR(@"TBMVideoProcessor: didFinishConvertingToMpeg4 export session completed with non complete status: %ld  error: %@", self.exportSession.status, self.exportSession.error);
-        [self handleError];
+        NSString *description = [NSString stringWithFormat:@"export session completed with non complete status: %d  error: %@", self.exportSession.status, self.exportSession.error];
+        NSError *error = [self videoProcessorErrorWithMethod:@"didFinishConvertingToMpeg4" description:description];
+        [self handleError:error];
         return;
     }
     OB_INFO(@"TBMVideoProcessor: Successful conversion");
     [self logFileSize:self.videoUrl];
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoProcessorDidFinishProcessing
                                                         object:self
-                                                      userInfo:[self notificationUserInfo]];
+                                                      userInfo:[self notificationUserInfoWithError:nil]];
 }
 
 
 #pragma mark - Util
 
 - (BOOL) moveVideoToTemp{
+    NSError *error = nil;
     NSError *dontCareError = nil;
     [[NSFileManager defaultManager] removeItemAtURL:self.tempVideoUrl error:&dontCareError];
-    
-    NSError *error = nil;
     [[NSFileManager defaultManager] moveItemAtURL:self.videoUrl toURL:self.tempVideoUrl error:&error];
-    if (error) {
-        OB_ERROR(@"TBMVideoProcessor: moveVideoToTemp: ERROR: Unable to move video to tempVideoUrl. This should never happen. %@", error);
+
+    if (error != nil) {
+        NSError *newError = [NSError errorWithError:error reason:TBMVideoProcessorErrorReason];
+        [self handleError:newError];
         return NO;
     }
     
     [[NSFileManager defaultManager] removeItemAtURL:self.videoUrl error:&dontCareError];
+    
     return YES;
 }
 
@@ -98,16 +101,34 @@ NSString* const TBMVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing"
     return [url URLByAppendingPathExtension:@"mov"];
 }
 
-- (void)handleError{
+
+#pragma mark Util
+- (void)handleError:(NSError *)error{
+    [self handleError:error dispatch:YES];
+}
+
+- (void)handleError:(NSError *)error dispatch:(BOOL)dispatch{
+    if (dispatch)
+        OB_ERROR(@"VideoProcessor: %@", error);
+    
     [[NSFileManager defaultManager] removeItemAtURL:self.tempVideoUrl error:nil];
     [[NSFileManager defaultManager] removeItemAtURL:self.videoUrl error:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoProcessorDidFail
                                                         object:self
-                                                      userInfo:[self notificationUserInfo]];
+                                                      userInfo:[self notificationUserInfoWithError:error]];
 }
 
-- (NSDictionary *)notificationUserInfo{
-    return @{@"videoUrl":self.videoUrl};
+- (NSDictionary *)notificationUserInfoWithError:(NSError *)error{
+    return @{@"videoUrl":self.videoUrl, @"error": error};
+}
+
+- (NSError *)videoProcessorErrorWithMethod:(NSString *)method description:(NSString *)description{
+    NSString *domain = [NSString stringWithFormat:@"VideoProcessor#%@", method];
+    return [NSError errorWithDomain:domain
+                               code:1
+                           userInfo:@{
+                                      NSLocalizedDescriptionKey: description,
+                                      NSLocalizedFailureReasonErrorKey: TBMVideoProcessorErrorReason}];
 }
 
 @end

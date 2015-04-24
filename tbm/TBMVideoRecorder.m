@@ -14,6 +14,7 @@
 #import "TBMVideoProcessor.h"
 #import "HexColor.h"
 #import "TBMVideoIdUtils.h"
+#import "NSError+Extensions.h"
 
 NSString* const TBMVideoRecorderDidFinishRecording = @"TBMVideoRecorderDidFinishRecording";
 NSString* const TBMVideoRecorderShouldStartRecording = @"TBMVideoRecorderShouldStartRecording";
@@ -134,11 +135,7 @@ static int videoRecorderRetryCount = 0;
 #pragma mark - Recording Actions
 
 - (void)startRecordingWithVideoUrl:(NSURL *)videoUrl{
-    
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
-    
-#warning Kirill I set this once in setup as it was causing record to flash and spurious errors. We should always use built in mic. Can we make sure that we always return built in mic from TBMDevicehandler.
-//    [self addAsudioInput];
     self.didCancelRecording = NO;
     
     OB_INFO(@"Start recording to %@ videoId:%@",
@@ -152,18 +149,16 @@ static int videoRecorderRetryCount = 0;
 }
 
 - (void)stopRecording {
-    OB_INFO(@"stopRecording: isRecording:%d", self.captureOutput.isRecording);
+    OB_INFO(@"VideoRecorder#stopRecording: isRecording:%d", self.captureOutput.isRecording);
     [self.previewView hideRecordingOverlay];
 
     if (!self.captureOutput.isRecording){
-#warning Kirill note that in some error cases when audiosession was connected stop recording would be called and isRecording == NO.  We will not get a didFinsishRecording in this case. AudioSession needs to observe videoRecorderDidFail for these condtitions although we should ensure they never occur.
-        NSString *errorDescription = @"VideoRecorder: Stop called but not recording. This should never happen";
-        OB_ERROR(errorDescription);
-        NSError *error = [NSError errorWithDomain:@"TBMVideoRecorder" code:1 userInfo:@{@"errorDescription": errorDescription}];
+    // note that in some error cases when audiosession was connected stop recording would be called and isRecording == NO.  We will not get a didFinsishRecording in this case. AudioSession needs to observe videoRecorderDidFail for these condtitions although we should ensure they never occur.
+        NSString *description = @"VideoRecorder@stopRecording called but not recording. This should never happen";
+        NSError *error = [self videoRecorderError:description reason:@"Problem recording video"];
         [self handleError:error];
     }
     [self.captureOutput stopRecording];
-
 }
 
 - (BOOL)cancelRecording{
@@ -180,28 +175,40 @@ static int videoRecorderRetryCount = 0;
     OB_INFO(@"VideoRecoder: captureOutput:didStartRecording");
 }
 
-- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error{
-#warning Kirill I set this once in setup as it was causing record to flash and spurious errors. We should always use built in mic. Can we make sure that we always return built in mic from TBMDevicehandler.
-    //[self removeAudioInput];
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
+      fromConnections:(NSArray *)connections
+                error:(NSError *)error{
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFinishRecording
                                                         object:self
                                                       userInfo:@{@"videoUrl": outputFileURL}];
     
+    BOOL abort = NO;
     
     if (self.didCancelRecording){
         OB_INFO(@"didCancelRecordingToOutputFileAtURL:%@ error:%@", outputFileURL, error);
         [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidCancelRecording
                                                             object:self
                                                           userInfo:@{@"videoUrl": outputFileURL}];
-        [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
-        return;
+        abort = YES;
     }
     
     if (error != nil){
-        OB_ERROR(@"VideoRecorder: %@", error);
         [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
-        [self handleError:error];
+        NSError *newError = [NSError errorWithError:error reason:@"Problem recording video"];
+        [self handleError:newError];
+        abort = YES;
+    }
+    
+    if ([self videoTooShort:outputFileURL]){
+        OB_INFO(@"VideoRecorder#videoTooShort aborting");
+        NSError *error = [self videoRecorderError:@"Video too short" reason:@"Too short"];
+        [self handleError:error dispatch:NO];
+        abort = YES;
+    }
+    
+    if (abort){
+        [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
         return;
     }
     
@@ -214,8 +221,14 @@ static int videoRecorderRetryCount = 0;
 
 
 #pragma mark - Recording Error Handling.
-
 - (void)handleError:(NSError *)error{
+    [self handleError:error dispatch:YES];
+}
+
+- (void)handleError:(NSError *)error dispatch:(BOOL)dispatch{
+    if (dispatch)
+        OB_ERROR(@"VideoRecorder: %@", error);
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFail
                                                         object:self
                                                       userInfo:@{@"error":error}];
@@ -274,5 +287,33 @@ static int videoRecorderRetryCount = 0;
     OB_WARN(@"AVCaptureSessionInterruptionEndedNotification");
 }
 
+
+#pragma mark Util
+
+- (BOOL)videoTooShort:(NSURL *)videoUrl{
+    NSError *error = nil;
+    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:videoUrl.path error:&error];
+    if (error != nil){
+        OB_ERROR(@"VideoRecorder#videoTooShort: Can't set attributes for file: %@. Error: %@", videoUrl.path, error);
+        return NO;
+    }
+    
+    OB_INFO(@"VideoRecorder: filesize %llu", fileAttributes.fileSize);
+    if (fileAttributes.fileSize < 28000){
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (NSError *)videoRecorderError:(NSString *)description reason:(NSString *)reason{
+    return [NSError errorWithDomain:@"TBMVideoRecorder"
+                               code:1
+                           userInfo:@{
+                                      NSLocalizedDescriptionKey: description,
+                                      NSLocalizedFailureReasonErrorKey: reason
+                                      }];
+
+}
 
 @end

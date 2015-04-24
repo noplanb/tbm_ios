@@ -13,7 +13,7 @@ CAUSE
 In the current architecture we use the same file for:
   - Recording: new.mov
   - Converted: newConverted.mp4
-  - Outgoing per friend: outgoingVidToFriend<friendId>
+  - Outgoing per friend: outgoingVidToFriend`<friendId>
 These files may be overwritten when a new video is created before FileTransferManager has a chance to copy to temporary file.
 
 
@@ -55,6 +55,7 @@ Additional params in dispatch for os_version, device_model, zazo_version, zazo_v
 
 Fix - Dispatch messages for problems in video recorder setup.
 =============================================================
+LIST OF ERROR POINTS:
 - initCaptureSession
   - OB_ERROR(@"Cannot set AVCaptureSessionPresetLow");
 - initVideoInput
@@ -68,16 +69,34 @@ Fix - Dispatch messages for problems in video recorder setup.
   - OB_ERROR(@"VideoRecorder#addAudioInput Unable to get microphone: %@", AVCaptureDeviceInput deviceInputWithDevice);
 
 
+TEST CASES:
 
-Fix
-===
+
+Fix - Toasts for all causes of video recording failures
+=======================================================
+- Cancel
+  - Toast: Two Finger Touch | Not Sent
+  - Toast: Dragged Finger Away -> Not Sent
+- Too short
+  - Toast: Too Short | Not Sent
+- Recording error
+  - Toast: Problem Recording Video | Not Sent
+- VideoProcessor moveFileError
+  - Toast: Problem Processing Video | Not Sent
+- VideoProcessor notCompleteError
+  - Toast: Problem Processing Video | Not Sent
+
+
+TEST CASES:
+C2457,
+
 
 Toasts for Unable to record
  - Trace and list each possible error with video recorder
  - Test to make sure we toast appropriately and dispatch appropriately.
 
 
-Video too short error
+Test - Good video | corrupt video | good video playback.
 
 Other bugs to fix:
 - Unplayable video toasts.
