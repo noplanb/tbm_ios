@@ -1,3 +1,18 @@
+General Notes
+=============
+
+The main goals of this release are:
+- Make the videoRecorder and postProcessor more robust and eliminate some of the know failure modes there.
+- Dispatch all know error conditions in recorder, post processor, player to help with debugging for the next release.
+- Notify user of errors in recording or playing.
+
+Known remain problems not addressed in this release:
+- AudioSession still not robust and can lead to potential recording problems including no sound.
+
+Next release:
+- Analyze all dispatches from this release and address the errors as appropriate.
+
+
 Fix #383
 ========
 
@@ -13,7 +28,7 @@ CAUSE
 In the current architecture we use the same file for:
   - Recording: new.mov
   - Converted: newConverted.mp4
-  - Outgoing per friend: outgoingVidToFriend`<friendId>
+  - Outgoing per friend: outgoingVidToFriend<friendId>
 These files may be overwritten when a new video is created before FileTransferManager has a chance to copy to temporary file.
 
 
@@ -55,7 +70,6 @@ Additional params in dispatch for os_version, device_model, zazo_version, zazo_v
 
 Fix - Dispatch messages for problems in video recorder setup.
 =============================================================
-LIST OF ERROR POINTS:
 - initCaptureSession
   - OB_ERROR(@"Cannot set AVCaptureSessionPresetLow");
 - initVideoInput
@@ -68,12 +82,11 @@ LIST OF ERROR POINTS:
   - OB_ERROR(@"VideoRecorder#addAudioInput Unable to get microphone: %@", Device has no microphone);
   - OB_ERROR(@"VideoRecorder#addAudioInput Unable to get microphone: %@", AVCaptureDeviceInput deviceInputWithDevice);
 
-
 TEST CASES:
 
 
-Fix - Toasts for all causes of video recording failures
-=======================================================
+Fix - Toasts for all causes of video recording and processing failures
+======================================================================
 - Cancel
   - Toast: Two Finger Touch | Not Sent
   - Toast: Dragged Finger Away -> Not Sent
@@ -88,17 +101,11 @@ Fix - Toasts for all causes of video recording failures
 
 
 TEST CASES:
-C2457,
+C2457
 
 
-Toasts for Unable to record
- - Trace and list each possible error with video recorder
- - Test to make sure we toast appropriately and dispatch appropriately.
+Fix - Toasts "Not Playable" and dispatch if player encounters error
+===================================================================
 
-
-Test - Good video | corrupt video | good video playback.
-
-Other bugs to fix:
-- Unplayable video toasts.
-- Notify user there was an error downloading video or error uploading video.
-- Test corrupt video playing in the midle
+TEST CASES:
+C2458

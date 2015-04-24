@@ -57,9 +57,6 @@
         _playerView.tag = 1401;
         self.playerView.hidden = YES;
         [self addPlayerNotifications];
-#warning Kirill I dont understand why this is here. The audio session router should register for notifications with videoPlayer in its own class. VideoPlayer should not know about audioSessionRouter!
-#warning Kirill I disconnected the audiosession router here because I found it quite buggy when testing the video recorder.
-//        [self addEventNotificationDelegate:[TBMAudioSessionRouter sharedInstance]];
     }
     return self;
 }
@@ -129,8 +126,18 @@
     // if (reason != MPMovieFinishReasonUserExited)
     //    [self playDidComplete];
     
+    OB_DEBUG(@"VideoPlayer#playbackDidFinishNotification: %@", notification.userInfo);
+    
     if (!self.userStopped)
         [self playDidComplete];
+    
+    NSError *error = (NSError *) notification.userInfo[@"error"];
+    if ( error != nil){
+        OB_ERROR(@"VideoPlayer#playbackDidFinishNotification: %@", error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[iToast makeText:@"Not playable"] show];
+        });
+    }
 }
 
 - (void) playbackStateDidChangeNotification{

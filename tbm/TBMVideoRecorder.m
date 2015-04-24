@@ -15,6 +15,8 @@
 #import "HexColor.h"
 #import "TBMVideoIdUtils.h"
 #import "NSError+Extensions.h"
+#import "iToast.h"
+
 
 NSString* const TBMVideoRecorderDidFinishRecording = @"TBMVideoRecorderDidFinishRecording";
 NSString* const TBMVideoRecorderShouldStartRecording = @"TBMVideoRecorderShouldStartRecording";
