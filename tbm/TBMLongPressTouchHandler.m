@@ -124,7 +124,9 @@
     UIView *targetView = [self targetView];
     if (targetView){
         //    DebugLog(@"click %ld", (long)[self targetView].tag);
-        [_instantiator LPTHClickWithTargetView:[self targetView]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_instantiator LPTHClickWithTargetView:[self targetView]];
+        });
     }
 }
 
@@ -133,7 +135,9 @@
     if (targetView){
         //    DebugLog(@"startLongPress %ld", (long)[self targetView].tag);
         _isLongPress = YES;
-        [_instantiator LPTHStartLongPressWithTargetView:[self targetView]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_instantiator LPTHStartLongPressWithTargetView:[self targetView]];
+        });
     }
 }
 
@@ -142,7 +146,9 @@
     if (targetView){
         //    DebugLog(@"endLongPress %ld", (long)[self targetView].tag);
         _isLongPress = NO;
-        [_instantiator LPTHEndLongPressWithTargetView:[self targetView]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_instantiator LPTHEndLongPressWithTargetView:[self targetView]];
+        });
     }
 }
 
@@ -150,7 +156,9 @@
     UIView *targetView = [self targetView];
     if (targetView){
         //    DebugLog(@"cancelLongPress %ld", (long)[self targetView].tag);
-        [_instantiator LPTHCancelLongPressWithTargetView:[self targetView] reason:reason];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_instantiator LPTHCancelLongPressWithTargetView:[self targetView] reason:reason];
+        });
     }
 }
 

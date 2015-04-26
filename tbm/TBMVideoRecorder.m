@@ -51,14 +51,13 @@ static int videoRecorderRetryCount = 0;
         self.previewView = previewView;
         
         self.sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
-        
 
         [self initCaptureSession];
         [self setupPreviewView];
-        
+
         dispatch_async(self.sessionQueue, ^{
-            [self initVideoInput];
             [self setupAudioSession];
+            [self initVideoInput];
             [self addAudioInput];
             [self initCaptureOutput];
             [self addObservers];
@@ -81,11 +80,10 @@ static int videoRecorderRetryCount = 0;
 }
 
 - (void) initCaptureOutput {
-
     self.captureOutput = [[AVCaptureMovieFileOutput alloc] init];
-    OB_INFO(@"maxRecordedDuration: %lld", self.captureOutput.maxRecordedDuration.value);
-    OB_INFO(@"maxRecordedFileSize: %lld", self.captureOutput.maxRecordedFileSize);
-    OB_INFO(@"minFreeDiskSpaceLimit: %lld", self.captureOutput.minFreeDiskSpaceLimit);
+    OB_INFO(@"VideoRecorder:maxRecordedDuration: %lld", self.captureOutput.maxRecordedDuration.value);
+    OB_INFO(@"VideoRecorder:maxRecordedFileSize: %lld", self.captureOutput.maxRecordedFileSize);
+    OB_INFO(@"VideoRecorder:minFreeDiskSpaceLimit: %lld", self.captureOutput.minFreeDiskSpaceLimit);
     
     if ([self.captureSession canAddOutput:self.captureOutput]) {
         [self.captureSession addOutput:self.captureOutput];
@@ -151,6 +149,7 @@ static int videoRecorderRetryCount = 0;
 #pragma mark - Preview
 
 - (void) setupPreviewView {
+    OB_DEBUG(@"VideoRecorder:setupPreviewView:");
     [self.previewView setupWithCaptureSession:self.captureSession];
 }
 

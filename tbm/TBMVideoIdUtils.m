@@ -83,11 +83,11 @@
 }
 
 + (NSURL *)outgoingVideoUrlWithMarker:(NSString *)marker{
-    return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:marker];
+    return [[[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:marker] URLByAppendingPathExtension:@"mov"];
 }
 
 + (NSString *)markerWithOutgoingVideoUrl:(NSURL *)url{
-    return url.lastPathComponent;
+    return [url URLByDeletingPathExtension].lastPathComponent;
 }
 
 + (TBMFriend *)friendWithOutgoingVideoUrl:(NSURL *)url{
