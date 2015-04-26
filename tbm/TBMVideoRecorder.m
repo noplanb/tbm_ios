@@ -52,9 +52,10 @@ static int videoRecorderRetryCount = 0;
         
         self.sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
         
+
         [self initCaptureSession];
         [self setupPreviewView];
-
+        
         dispatch_async(self.sessionQueue, ^{
             [self initVideoInput];
             [self setupAudioSession];
@@ -62,7 +63,6 @@ static int videoRecorderRetryCount = 0;
             [self initCaptureOutput];
             [self addObservers];
             [self.captureSession startRunning];
-
         });
     }
     return self;
@@ -196,12 +196,22 @@ static int videoRecorderRetryCount = 0;
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections{
     OB_INFO(@"VideoRecoder: captureOutput:didStartRecording");
+    OB_INFO(@"captureOutput:didStartRecording %@", connections);
+}
+
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput willFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
+      fromConnections:(NSArray *)connections
+                error:(NSError *)error{
+    OB_INFO(@"willFinishRecordingToOutputFileAtURL %@", error);
+    OB_INFO(@"willFinishRecordingToOutputFileAtURL %@", connections);
 }
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
       fromConnections:(NSArray *)connections
                 error:(NSError *)error{
-    
+    OB_INFO(@"didFinishRecordingToOutputFileAtURL %@", error);
+    OB_INFO(@"didFinishRecordingToOutputFileAtURL %@", connections);
+
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFinishRecording
                                                         object:self
                                                       userInfo:@{@"videoUrl": outputFileURL}];
