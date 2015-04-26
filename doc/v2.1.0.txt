@@ -122,3 +122,7 @@ This was due to not appending .mov to recording file url.
 
 Test
 - Iphone 6 on prod against iphone 4 on prod.
+
+
+Feature: Show badge with unviewed count for downloading videos as well
+----------------------------------------------------------------------

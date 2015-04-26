@@ -186,6 +186,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 //--------------------------------------
 // Notification center and badge control
 //--------------------------------------
+#pragma mark Notification center and badge control
 - (void)videoStatusDidChange:(id)object{
     // We dont use this notification anymore. We only set the badge number at certain points in time explicitly.
 }
