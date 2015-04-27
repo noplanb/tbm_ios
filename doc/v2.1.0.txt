@@ -115,7 +115,7 @@ C2458
 
 
 Fix long record problem iphone with ios 7 (Fixed 2.0.17)
-=========================================
+========================================================
 Fixed in 2.0.17
 
 This was due to not appending .mov to recording file url.
@@ -124,5 +124,12 @@ This was due to not appending .mov to recording file url.
 Fix #407 (Fixed in 2.0.17)
 ==========================
 Infinite cycle of playback in case when Corrupt video sandwiched between two good videos.
+
+fix: Dispatch on main queue out of play complete notification.
+
+
+Fix #404 (Fixed in 2.0.17)
+==========================
+"too short" toast appears if user DRAGS his finger away immediately after the start of recording
 
 
