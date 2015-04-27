@@ -128,9 +128,6 @@
     
     OB_DEBUG(@"VideoPlayer#playbackDidFinishNotification: %@", notification.userInfo);
     
-    if (!self.userStopped)
-        [self playDidComplete];
-    
     NSError *error = (NSError *) notification.userInfo[@"error"];
     if ( error != nil){
         OB_ERROR(@"VideoPlayer#playbackDidFinishNotification: %@", error);
@@ -138,6 +135,13 @@
             [[iToast makeText:@"Not playable"] show];
         });
     }
+
+    if (!self.userStopped){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self playDidComplete];
+        });
+    }
+    
 }
 
 - (void) playbackStateDidChangeNotification{
@@ -256,6 +260,7 @@
         [self setCurrentVideo:[self.gridElement.friend nextPlayableVideoAfterVideoId:self.videoId]];
     
     if (self.video != nil){
+        OB_INFO(@"VideoPlayer: playDidComplete: play %@", self.video.videoId);
         [self play];
     } else {
         [self hidePlayerView];
