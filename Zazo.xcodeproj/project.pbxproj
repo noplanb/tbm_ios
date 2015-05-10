@@ -41,6 +41,7 @@
 		221B77721A688984009FA670 /* TBMAlertControllerVisualStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 221B776F1A688984009FA670 /* TBMAlertControllerVisualStyle.m */; };
 		221B77761A6889B9009FA670 /* TBMBenchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 221B77751A6889B9009FA670 /* TBMBenchTableViewCell.m */; };
 		221EA2911912E86300649BC5 /* TBMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 221EA2901912E86300649BC5 /* TBMUser.m */; };
+		221F4EB61AFFBB4800D0771B /* AVAudioSession+TBMAudioSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 221F4EB51AFFBB4800D0771B /* AVAudioSession+TBMAudioSession.m */; };
 		22249586190B52E4008EF394 /* TBMLongPressTouchHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 22249585190B52E4008EF394 /* TBMLongPressTouchHandler.m */; };
 		222724331917F2F500DA6865 /* NSArray+NSArrayExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 222724321917F2F500DA6865 /* NSArray+NSArrayExtensions.m */; };
 		2227243519182A1000DA6865 /* head.png in Resources */ = {isa = PBXBuildFile; fileRef = 2227243419182A1000DA6865 /* head.png */; };
@@ -119,7 +120,6 @@
 		22F32AFC19228F3300AB524E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F32AFB19228F3300AB524E /* StoreKit.framework */; };
 		22FE2A011A09C0460051FC9C /* TBMFriendGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FE2A001A09C0460051FC9C /* TBMFriendGetter.m */; };
 		4106AE661AD550AB007910EC /* TBMPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4106AE651AD550AB007910EC /* TBMPreviewView.m */; };
-		416B0BA51ACD4E000082D562 /* TBMAudioSessionRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 416B0BA41ACD4E000082D562 /* TBMAudioSessionRouter.m */; };
 		E20D3F30A3404563A3BEC783 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98B109B594AF439180A6DFAF /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -187,6 +187,8 @@
 		221B77751A6889B9009FA670 /* TBMBenchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMBenchTableViewCell.m; sourceTree = "<group>"; };
 		221EA28F1912E86300649BC5 /* TBMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMUser.h; sourceTree = "<group>"; };
 		221EA2901912E86300649BC5 /* TBMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMUser.m; sourceTree = "<group>"; };
+		221F4EB41AFFBB4800D0771B /* AVAudioSession+TBMAudioSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVAudioSession+TBMAudioSession.h"; sourceTree = "<group>"; };
+		221F4EB51AFFBB4800D0771B /* AVAudioSession+TBMAudioSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVAudioSession+TBMAudioSession.m"; sourceTree = "<group>"; };
 		22249584190B52E4008EF394 /* TBMLongPressTouchHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMLongPressTouchHandler.h; sourceTree = "<group>"; };
 		22249585190B52E4008EF394 /* TBMLongPressTouchHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMLongPressTouchHandler.m; sourceTree = "<group>"; };
 		222724311917F2F500DA6865 /* NSArray+NSArrayExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+NSArrayExtensions.h"; sourceTree = "<group>"; };
@@ -305,8 +307,6 @@
 		22FE2A001A09C0460051FC9C /* TBMFriendGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFriendGetter.m; sourceTree = "<group>"; };
 		4106AE641AD550AB007910EC /* TBMPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMPreviewView.h; sourceTree = "<group>"; };
 		4106AE651AD550AB007910EC /* TBMPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMPreviewView.m; sourceTree = "<group>"; };
-		416B0BA31ACD4E000082D562 /* TBMAudioSessionRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAudioSessionRouter.h; sourceTree = "<group>"; };
-		416B0BA41ACD4E000082D562 /* TBMAudioSessionRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAudioSessionRouter.m; sourceTree = "<group>"; };
 		41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		7716E91C15B9FF656396DC61 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -390,7 +390,6 @@
 		220E90301909A18B003C4F82 /* tbm */ = {
 			isa = PBXGroup;
 			children = (
-				416B0BA21ACD4DD20082D562 /* SessionRouter */,
 				221B77741A6889B9009FA670 /* TBMBenchTableViewCell.h */,
 				221B77751A6889B9009FA670 /* TBMBenchTableViewCell.m */,
 				221B77731A688992009FA670 /* AlertController */,
@@ -657,6 +656,8 @@
 			children = (
 				226B49A51AE990FD00E4D2BE /* NSError+Extensions.h */,
 				226B49A61AE990FD00E4D2BE /* NSError+Extensions.m */,
+				221F4EB41AFFBB4800D0771B /* AVAudioSession+TBMAudioSession.h */,
+				221F4EB51AFFBB4800D0771B /* AVAudioSession+TBMAudioSession.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -694,15 +695,6 @@
 				22EA56B519103A3F00646D3E /* single_ding_chimes.wav */,
 			);
 			name = Sounds;
-			sourceTree = "<group>";
-		};
-		416B0BA21ACD4DD20082D562 /* SessionRouter */ = {
-			isa = PBXGroup;
-			children = (
-				416B0BA31ACD4E000082D562 /* TBMAudioSessionRouter.h */,
-				416B0BA41ACD4E000082D562 /* TBMAudioSessionRouter.m */,
-			);
-			path = SessionRouter;
 			sourceTree = "<group>";
 		};
 		984D6697D8F62FFA194F39A2 /* Pods */ = {
@@ -910,12 +902,12 @@
 				2259A98B1ADA17A200E7DCDE /* TBMVideoProcessor.m in Sources */,
 				2287DB4B1922BB5D00B1C298 /* TBMAppDelegate+PushNotification.m in Sources */,
 				221B77691A68888C009FA670 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
+				221F4EB61AFFBB4800D0771B /* AVAudioSession+TBMAudioSession.m in Sources */,
 				224101D2190D40B1005128F9 /* TBMDeviceHandler.m in Sources */,
 				221B77701A688984009FA670 /* TBMAlertController.m in Sources */,
 				22B1AE561A68576F0027C4B1 /* TBMMarginLabel.m in Sources */,
 				220E90611909C3D4003C4F82 /* TBMHomeViewController.m in Sources */,
 				22A76A7A19A2600C00D8C4FF /* TBMFriend.m in Sources */,
-				416B0BA51ACD4E000082D562 /* TBMAudioSessionRouter.m in Sources */,
 				226A26031A584AD6006FDFDA /* TBMKeyChainWrapper.m in Sources */,
 				22151E881A5CB07B008EF88E /* TBMDispatch.m in Sources */,
 				222724331917F2F500DA6865 /* NSArray+NSArrayExtensions.m in Sources */,

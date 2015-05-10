@@ -18,7 +18,6 @@
 #import "TBMDispatch.h"
 #import "AVFoundation/AVFoundation.h"
 #import "TBMFileUtils.h"
-#import "TBMAudioSessionRouter.h"
 #import "TBMDeviceHandler.h"
 
 @implementation TBMAppDelegate (Boot)
@@ -55,8 +54,6 @@
         return;
     
     [self ensureResources];
-#warning Kirill I disconnected the audiosession router here because I found it quite buggy when testing the video recorder.
-//    [[TBMAudioSessionRouter sharedInstance] findAvailbleBluetoothDevices];
 }
 
 - (void)ensureResources{

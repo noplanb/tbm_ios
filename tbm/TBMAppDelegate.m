@@ -14,6 +14,7 @@
 #import "OBFileTransferManager.h"
 #import "TBMUser.h"
 #import "TBMHttpManager.h"
+#import "AVAudioSession+TBMAudioSession.h"
 
 @interface TBMAppDelegate()
 @property id <TBMAppDelegateEventNotificationProtocol> eventNotificationDelegate;
@@ -36,6 +37,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     [self setupLogger];
     [self addObservers];
+    [[AVAudioSession sharedInstance] setupApplicationAudioSession];
     
     OB_INFO(@"didFinishLaunchingWithOptions:");
     [self boot];

@@ -61,6 +61,8 @@ static int videoRecorderRetryCount = 0;
             [self addAudioInput];
             [self initCaptureOutput];
             [self addObservers];
+            [self.captureSession setUsesApplicationAudioSession:YES];
+            [self.captureSession setAutomaticallyConfiguresApplicationAudioSession:NO];
             [self.captureSession startRunning];
         });
     }
