@@ -33,43 +33,49 @@
 }
 
 - (void)setApplicationCategory{
+    OB_DEBUG(@"TBMAudioSession: setApplicationCategory");
     NSError *error = nil;
     [self setCategory:AVAudioSessionCategoryPlayAndRecord
           withOptions:AVAudioSessionCategoryOptionAllowBluetooth
                 error:&error];
-    OB_INFO(@"TBMAudioSession: setApplicationCategory %@", error);
+    if (error != nil) OB_ERROR(@"TBMAudioSession#setApplicationCategory: Error setting category: %@", error);
 }
 
 -(void)activate{
+    OB_INFO(@"TBMAudioSession#activate:");
     NSError *error = nil;
     [self setApplicationCategory];
     [self setPortOverride];
     [self setActive:YES error:&error];
-    OB_INFO(@"TBMAudioSession: Activate Audio Session %@", error);
+    if (error !=nil) OB_ERROR(@"TBMAudioSession#activate: %@", error);
     [self addRouteChangeObserver];
 }
 
 -(void)deactivate {
-    OB_INFO(@"TBMAudioSession: deactivate Audio Session");
+    OB_INFO(@"TBMAudioSession#deactivate:");
     [self removeRouteChangeObserver];
+    NSError *error = nil;
     [self setActive:NO
         withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation
-              error:nil];
+              error:&error];
+    if (error != nil) OB_ERROR(@"TBMAudioSession#deactivate: %@", error);
 }
 
 
 - (void)setPortOverride {
     if ([self hasNoExternalOutputs]) {
         OB_INFO(@"TBMAudioSession: setPortOverride: no external outputs");
+        NSError *error = nil;
         if ([self nearTheEar]){
             OB_INFO(@"TBMAudioSession: near the ear");
             [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideNone
-                                                               error: nil];
+                                                               error: &error];
         } else {
             OB_INFO(@"TBMAudioSession: far from the ear");
             [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker
-                                                               error: nil];
+                                                               error: &error];
         }
+        if (error!=nil) OB_ERROR(@"TBMAudioSession#setPortOverride: %@", error);
     } else {
         OB_INFO(@"TBMAudioSession: setPortOverride: Yes external outputs");
     }
