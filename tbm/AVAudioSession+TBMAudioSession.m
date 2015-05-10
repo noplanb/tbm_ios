@@ -12,8 +12,6 @@
 
 @implementation AVAudioSession (TBMAudioSession)
 
-
-
 #pragma mark Interface methods
 
 -(void)setupApplicationAudioSession {
@@ -69,7 +67,7 @@
                                                                error: nil];
         } else {
             OB_INFO(@"TBMAudioSession: far from the ear");
-            [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideNone
+            [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker
                                                                error: nil];
         }
     } else {

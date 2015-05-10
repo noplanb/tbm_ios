@@ -56,7 +56,6 @@ static int videoRecorderRetryCount = 0;
         [self setupPreviewView];
 
         dispatch_async(self.sessionQueue, ^{
-            [self setupAudioSession];
             [self initVideoInput];
             [self addAudioInput];
             [self initCaptureOutput];
@@ -118,26 +117,6 @@ static int videoRecorderRetryCount = 0;
     if (self.audioInput) {
         [self.captureSession removeInput:self.audioInput];
     }
-}
-
-
-- (void) setupAudioSession{
-    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    
-    NSError *error = nil;
-    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionMixWithOthers error:&error];
-    if (error)
-        OB_ERROR(@"ERROR: unable to set audiosession to AVAudioSessionCategoryPlayAndRecord ERROR: %@", error);
-    
-    error = nil;
-    [audioSession setMode:AVAudioSessionModeVideoChat error:&error];
-    if (error)
-        OB_ERROR(@"ERROR: unable to set audiosession to AVAudioSessionModeVideoChat ERROR: %@", error);
-    
-    error = nil;
-    if (![audioSession setActive:YES error:&error])
-        OB_ERROR(@"ERROR: unable to activate audiosession ERROR: %@", error);
-    
 }
 
 

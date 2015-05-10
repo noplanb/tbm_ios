@@ -58,6 +58,7 @@
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
+    OB_INFO(@"TBMGridViewController: viewWillDisappear");
     [super viewWillDisappear:animated];
     [self removeObservers];
     // Eliminated videoRecorder.dispose here. The OS takes care of interrupting or stopping and restarting our VideoCaptureSession very well.
