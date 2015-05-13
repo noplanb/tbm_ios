@@ -10,13 +10,21 @@
 #import "OBLogger.h"
 @import UIKit;
 
+static NSMutableSet *TBMDelegates;
+
 @implementation AVAudioSession (TBMAudioSession)
 
 #pragma mark Interface methods
 
 -(void)setupApplicationAudioSession {
     OB_INFO(@"TBMAudioSession: setupApplicationAudioSession");
+    [self setApplicationCategory];
     [self addObservers];
+}
+
+-(void)addTBMAudioSessionDelegate:(id <TBMAudioSessionDelegate>)delegate{
+    if (TBMDelegates == nil) TBMDelegates = [[NSMutableSet alloc] init];
+    [TBMDelegates addObject: delegate];
 }
 
 
@@ -36,7 +44,9 @@
     OB_DEBUG(@"TBMAudioSession: setApplicationCategory");
     NSError *error = nil;
     [self setCategory:AVAudioSessionCategoryPlayAndRecord
-          withOptions:AVAudioSessionCategoryOptionAllowBluetooth
+//   Eliminate play from bluetooth see v2.2.1 release notes
+//          withOptions:AVAudioSessionCategoryOptionAllowBluetooth
+            withOptions:0
                 error:&error];
     if (error != nil) OB_ERROR(@"TBMAudioSession#setApplicationCategory: Error setting category: %@", error);
 }
@@ -53,6 +63,7 @@
 
 -(void)deactivate {
     OB_INFO(@"TBMAudioSession#deactivate:");
+    [self notifyDelegatesOfDeactivation];
     [self removeRouteChangeObserver];
     NSError *error = nil;
     [self setActive:NO
@@ -61,6 +72,11 @@
     if (error != nil) OB_ERROR(@"TBMAudioSession#deactivate: %@", error);
 }
 
+-(void)notifyDelegatesOfDeactivation{
+    for (id <TBMAudioSessionDelegate> delegate in TBMDelegates){
+        if ([delegate respondsToSelector:@selector(willDeactivateAudioSession)]) [delegate willDeactivateAudioSession];
+    }
+}
 
 - (void)setPortOverride {
     if ([self hasNoExternalOutputs]) {

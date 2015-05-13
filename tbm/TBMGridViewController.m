@@ -502,16 +502,16 @@ static const float LayoutConstASPECT = 0.75;
     // background we want to reinstantiate.
     if (self.videoRecorder != nil && retryCount == 0  && [self isViewLoaded] && self.view.window){
         OB_WARN(@"TBMHomeViewController: setupVideoRecorder: already setup. Ignoring");
-        return;
     }
-    
-    if (![self appDelegate].isForeground){
+    else if (![self appDelegate].isForeground){
         OB_WARN(@"HomeViewController: not initializing the VideoRecorder because ! isForeground");
-        return;
     }
-    OB_WARN(@"HomeviewController: setupVideoRecorder: setting up. vr=%@, rc=%d, isViewLoaded=%d, view.window=%d", self.videoRecorder, retryCount, [self isViewLoaded], [self isViewLoaded] && self.view.window);
+    else {
+        OB_WARN(@"HomeviewController: setupVideoRecorder: setting up. vr=%@, rc=%d, isViewLoaded=%d, view.window=%d", self.videoRecorder, retryCount, [self isViewLoaded], [self isViewLoaded] && self.view.window);
 
-    self.videoRecorder = [[TBMVideoRecorder alloc] initWithPreviewView:[self centerView] delegate:self];
+        self.videoRecorder = [[TBMVideoRecorder alloc] initWithPreviewView:[self centerView] delegate:self];
+    }
+    [self.videoRecorder startRunning];
 }
 
 - (BOOL)isRecording{

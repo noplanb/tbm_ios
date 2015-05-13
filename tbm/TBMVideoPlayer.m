@@ -49,6 +49,7 @@
 - (instancetype)init{
     self = [super init];
     if (self != nil){
+        [[AVAudioSession sharedInstance] addTBMAudioSessionDelegate:self];
         _moviePlayerController = [[MPMoviePlayerController alloc] init];
         _moviePlayerController.controlStyle = MPMovieControlStyleNone;
 
@@ -60,9 +61,7 @@
     return self;
 }
 
-//------
-// State
-//------
+#pragma mark - State
 - (BOOL)isPlaying{
     return _moviePlayerController.playbackState == MPMoviePlaybackStatePlaying;
 }
@@ -106,9 +105,7 @@
     }
 }
 
-// ---------------------------------------------------------
-// Notifications of state changes from moviePlayerController
-// ---------------------------------------------------------
+#pragma mark - Notifications of state changes from moviePlayerController
 - (void)addPlayerNotifications{
     DebugLog(@"Adding player notifications");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackDidFinishNotification:) name:MPMoviePlayerPlaybackDidFinishNotification object:_moviePlayerController];
@@ -147,10 +144,13 @@
 //    DebugLog(@"playbackStateDidChangeNotification isplaying:%hhd",  [self isPlaying]);
 }
 
+#pragma mark - TBMAudioSessionDelegate
+- (void)willDeactivateAudioSession{
+    OB_INFO(@"VideoPlayer: willDeactivateAudioSession");
+//    [self stop];
+}
 
-//-------------
-// Control view
-//-------------
+#pragma mark - Control view
 - (void)showPlayerView{
     [self notifyDelegates:YES];
     [self.playerView setFrame: self.playerFrame];
@@ -163,9 +163,7 @@
 }
 
 
-// ----------------
-// Control playback
-// ----------------
+#pragma mark - Control Playback
 - (void)togglePlayWithIndex:(NSInteger)index frame:(CGRect)frame{
     self.playerFrame = frame;
     self.gridElement = [TBMGridElement findWithIntIndex:index];

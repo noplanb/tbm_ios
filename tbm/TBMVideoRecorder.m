@@ -40,13 +40,14 @@ static int videoRecorderRetryCount = 0;
 
 @implementation TBMVideoRecorder
 
+#pragma mark - public interface
 
 - (instancetype)initWithPreviewView:(TBMPreviewView *)previewView delegate:(id)delegate {
 
     self = [super init];
     
     if (self) {
-        
+        [[AVAudioSession sharedInstance] addTBMAudioSessionDelegate:self];
         self.delegate = delegate;
         self.previewView = previewView;
         
@@ -66,6 +67,12 @@ static int videoRecorderRetryCount = 0;
         });
     }
     return self;
+}
+
+- (void)startRunning{
+    dispatch_async(self.sessionQueue, ^{
+        if (self.captureSession != nil) [self.captureSession startRunning];
+    });
 }
 
 #pragma mark - intialization of Video, Audio and Capture
@@ -295,6 +302,13 @@ static int videoRecorderRetryCount = 0;
 }
 - (void) AVCaptureSessionInterruptionEndedNotification:(NSNotification *)notification{
     OB_WARN(@"AVCaptureSessionInterruptionEndedNotification");
+}
+
+
+#pragma mark AudioSessionDelegate
+-(void)willDeactivateAudioSession{
+    OB_INFO(@"VideoRecorder: willDeactivateAudioSession");
+    [self.captureSession stopRunning];
 }
 
 

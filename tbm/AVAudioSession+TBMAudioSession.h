@@ -8,8 +8,14 @@
 
 #import <AVFoundation/AVFoundation.h>
 
+@protocol TBMAudioSessionDelegate <NSObject>
+- (void)willDeactivateAudioSession;
+@end
+
 @interface AVAudioSession (TBMAudioSession)
 
 -(void)setupApplicationAudioSession;
+-(void)addTBMAudioSessionDelegate:(id <TBMAudioSessionDelegate>)delegate;
 
 @end
+
