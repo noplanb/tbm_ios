@@ -47,6 +47,7 @@
 		2227243519182A1000DA6865 /* head.png in Resources */ = {isa = PBXBuildFile; fileRef = 2227243419182A1000DA6865 /* head.png */; };
 		223A11461915926800177481 /* TBMHttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 223A11451915926800177481 /* TBMHttpManager.m */; };
 		223A11491915AED900177481 /* TBMAppDelegate+Boot.m in Sources */ = {isa = PBXBuildFile; fileRef = 223A11481915AED900177481 /* TBMAppDelegate+Boot.m */; };
+		223C55DF1B06AD0A00FB8B7C /* TBMVerfiicationAlertHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 223C55DE1B06AD0A00FB8B7C /* TBMVerfiicationAlertHandler.m */; };
 		223D927B1A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 223D927A1A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.m */; };
 		22403C2B19D5E63400FC36E3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22403C2A19D5E63400FC36E3 /* MessageUI.framework */; };
 		224101D2190D40B1005128F9 /* TBMDeviceHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 224101D1190D40B1005128F9 /* TBMDeviceHandler.m */; };
@@ -198,6 +199,8 @@
 		223A11451915926800177481 /* TBMHttpManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHttpManager.m; sourceTree = "<group>"; };
 		223A11471915AED900177481 /* TBMAppDelegate+Boot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMAppDelegate+Boot.h"; sourceTree = "<group>"; };
 		223A11481915AED900177481 /* TBMAppDelegate+Boot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMAppDelegate+Boot.m"; sourceTree = "<group>"; };
+		223C55DD1B06AD0A00FB8B7C /* TBMVerificationAlertHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVerificationAlertHandler.h; sourceTree = "<group>"; };
+		223C55DE1B06AD0A00FB8B7C /* TBMVerfiicationAlertHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVerfiicationAlertHandler.m; sourceTree = "<group>"; };
 		223D92791A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMContactSearchTableDelegate.h; sourceTree = "<group>"; };
 		223D927A1A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMContactSearchTableDelegate.m; sourceTree = "<group>"; };
 		22403C2A19D5E63400FC36E3 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -647,6 +650,8 @@
 				22ED400A1A08707E003D6536 /* TBMRegisterViewController.m */,
 				227F6CF41A15313700E19E5C /* TBMRegisterForm.h */,
 				227F6CF51A15313700E19E5C /* TBMRegisterForm.m */,
+				223C55DD1B06AD0A00FB8B7C /* TBMVerificationAlertHandler.h */,
+				223C55DE1B06AD0A00FB8B7C /* TBMVerfiicationAlertHandler.m */,
 			);
 			name = Registration;
 			sourceTree = "<group>";
@@ -925,6 +930,7 @@
 				221B77721A688984009FA670 /* TBMAlertControllerVisualStyle.m in Sources */,
 				4106AE661AD550AB007910EC /* TBMPreviewView.m in Sources */,
 				226A37C11A37E08900A2D0F5 /* TBMGridElementViewController.m in Sources */,
+				223C55DF1B06AD0A00FB8B7C /* TBMVerfiicationAlertHandler.m in Sources */,
 				22ED40081A0850F5003D6536 /* TBMGridElement.m in Sources */,
 				22A8F5081A09608800F7AD0E /* TBMTextField.m in Sources */,
 				22EA56C119106AD100646D3E /* TBMConfig.m in Sources */,

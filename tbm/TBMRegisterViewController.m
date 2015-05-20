@@ -20,6 +20,7 @@
 #import "UIAlertView+Blocks.h"
 #import "TBMAlertController.h"
 #import "TBMAlertControllerVisualStyle.h"
+#import "TBMVerificationAlertHandler.h"
 
 @interface TBMRegisterViewController ()
 
@@ -44,7 +45,15 @@
     [_registerForm stopWaitingForServer];
     self.registerForm = [[TBMRegisterForm alloc] initWithView:self.view delegate:self];
     
+    //TODO: This green color should not be hardcoded here it should be put in a common #define file or config file.
     self.view.backgroundColor = [UIColor colorWithRed:0.61f green:0.75f blue:0.27f alpha:1.0f];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    TBMVerificationAlertHandler *verificationAlert = [[TBMVerificationAlertHandler alloc] initWithPhoneNumber:@"+16502453537"];
+//    [self.view addSubview:verificationAlert.callMeButton];
+    [verificationAlert presentAlert];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -229,7 +238,7 @@
     [self getFriends];
 }
 
-//------------user
+//------------
 // Got friends
 //------------
 - (void) getFriends{
