@@ -7,14 +7,20 @@
 //
 
 #import "TBMAlertController.h"
+@protocol TBMVerificationAlertDelegate <NSObject>
+
+- (void)didEnterVerificationCode:(NSString *)code;
+- (void)didTapCallMe;
+
+@end
 
 
 @interface TBMVerificationAlertHandler: NSObject
 
 @property (nonatomic) NSString *phoneNumber;
-@property (nonatomic) UIButton *callMeButton;
 
-- (instancetype) initWithPhoneNumber:(NSString *)phoneNumber;
+- (instancetype) initWithPhoneNumber:(NSString *)phoneNumber delegate:(id <TBMVerificationAlertDelegate>)delegate;
 - (void)presentAlert;
 
 @end
+

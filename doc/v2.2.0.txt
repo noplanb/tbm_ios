@@ -34,19 +34,23 @@ c76-79, c2455, c2479 - bluetooth, wiredheadphones, carsystem etc.
 v2.2.1
 ------
 
-PROBLEM:
+BUG:
 In car with HFP it acts like the app  is in a phone call the entire time. Also it attempts to use the car's mic and if there is a problem it fails to record.
 
 SOLUTION:
 Eliminate play from bluetooth. Just play from phone but try to resume music.
 
 
-PROBLEM:
+BUG:
 Closing the app with player running or even just because recorder is previewing causes a audioSession:deactivate to produce an error. All io must be stopped before deactivating the audio session.
 
 SOLUTION:
 Stop AVRecordingSession and VideoPlayer prior to calling AudioSession:Deactivate
 
 
-FEATURE
+v2.2.2
+------
+
+FEATURE: Call me option for verification code
 -------
+TESTCASE: C2480

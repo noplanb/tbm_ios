@@ -10,8 +10,10 @@
 #import <QuartzCore/QuartzCore.h>
 #import "TBMFriendGetter.h"
 #import "TBMRegisterForm.h"
+#import "TBMVerificationAlertHandler.h"
 
-@interface TBMRegisterViewController : UIViewController <TBMFriendGetterCallback, TBMRegisterFormDelegate>
+
+@interface TBMRegisterViewController : UIViewController <TBMFriendGetterCallback, TBMRegisterFormDelegate, TBMVerificationAlertDelegate>
 @property BOOL isWaiting;
 
 @end
