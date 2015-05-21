@@ -23,7 +23,7 @@ static NSString *CONFIG_DEVICE_BUILD = @"dev"; // prod / dev
 static NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://staging.zazoapp.com";
 
 
-static NSString *CONFIG_INVITE_BASE_URL_STRING = @"http://zazoapp.com/l/";
+static NSString *CONFIG_INVITE_BASE_URL_STRING = @"zazoapp.com/l/";
 static NSString *CONFIG_APP_STORE_URL = @"https://itunes.apple.com/us/app/zazo/id922294638";
 
 static NSString *CONFIG_DING_SOUND = @"BeepSin30.wav";

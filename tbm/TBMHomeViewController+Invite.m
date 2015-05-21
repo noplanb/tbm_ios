@@ -279,7 +279,7 @@
     mc.messageComposeDelegate = self;
     
     mc.recipients = @[[self selectedPhoneE164]];
-    mc.body = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", CONFIG_APP_NAME, CONFIG_INVITE_BASE_URL_STRING, [TBMUser getUser].mkey];
+    mc.body = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", CONFIG_APP_NAME, CONFIG_INVITE_BASE_URL_STRING, [self friend].idTbm];
     [self startWaitingForServer];
     [self presentViewController:mc animated:YES completion:^{
         [self stopWaitingForServer];
