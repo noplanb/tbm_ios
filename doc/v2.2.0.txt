@@ -56,10 +56,13 @@ FEATURE: Call me option for verification code
 TESTCASE: C2480
 
 
-FIX: Link in sms invite should be zazoapp.com/l/invitee_id
+FEATURE:
+-------
+Link in sms invite should be zazoapp.com/l/invitee_id
+TESTCASE: C2485
 
 
 BUG:
 ---
 Version update link was pointing to Testflight. Version update for obsolete was still showing a cancel option.
-
+C2481, C2482
