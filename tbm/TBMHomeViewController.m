@@ -13,6 +13,7 @@
 
 #import "HexColor.h"
 #import "TBMSecretScreenPresenter.h"
+#import "TBMSecretGestureRecognizer.h"
 
 @interface TBMHomeViewController ()
 @property(nonatomic) TBMAppDelegate *appDelegate;
@@ -21,6 +22,10 @@
 @property UIView *headerView;
 @property UIView *contentView;
 @property(nonatomic, strong) TBMSecretScreenPresenter *secretScreen;
+
+@property(nonatomic, strong) UIView *logoView;
+@property(nonatomic, strong) UIView *menuIconView;
+
 @end
 
 @implementation TBMHomeViewController
@@ -41,16 +46,48 @@ static TBMHomeViewController *hvcInstance;
     return _secretScreen;
 }
 
-//----------
+- (UIView *)logoView {
+    if (!_logoView) {
+        UIImage *logoImage = [UIImage imageNamed:@"zazo-type"];
+        CGFloat logoAspect = logoImage.size.width / logoImage.size.height;
+        CGFloat top = (LayoutConstHEADER_HEIGHT - LayoutConstLOGO_HEIGHT) / 2;
+        CGRect frame = CGRectMake(LayoutConstGUTTER, top, logoAspect * LayoutConstLOGO_HEIGHT, LayoutConstLOGO_HEIGHT);
+        _logoView = [[UIView alloc] initWithFrame:frame];
+
+        UIImageView *logoImageView = [[UIImageView alloc] initWithImage:logoImage];
+        logoImageView.frame = _logoView.bounds;
+        [_logoView addSubview:logoImageView];
+        _logoView.userInteractionEnabled = YES;
+    }
+    return _logoView;
+}
+
+- (UIView *)menuIconView {
+    if (!_menuIconView) {
+        _menuIconView = [[UIView alloc] init];
+        UIImage *i = [UIImage imageNamed:@"icon-drawer"];
+        float aspect = i.size.width / i.size.height;
+        UIImageView *iv = [[UIImageView alloc] initWithImage:i];
+        float w = aspect * LayoutConstBENCH_ICON_HEIGHT;
+        float x = self.view.bounds.size.width - LayoutConstGUTTER - w;
+        float y = (LayoutConstHEADER_HEIGHT - LayoutConstBENCH_ICON_HEIGHT) / 2;
+        CGRect frame= CGRectMake(x, y, w, LayoutConstBENCH_ICON_HEIGHT);
+        _menuIconView.frame = frame;
+        iv.frame = _menuIconView.bounds;
+        _menuIconView.userInteractionEnabled = YES;
+        [_menuIconView addSubview:iv];
+    }
+    return _menuIconView;
+}
+
 #pragma mark - Lifecycle
 
-//----------
 - (void)viewDidLoad {
     OB_INFO(@"TBMHomeViewController: viewDidLoad");
     [super viewDidLoad];
     hvcInstance = self;
     [self addHomeViews];
-    [self setupShowSecretScreenGesture];
+    [self setupSecretGestureRecognizer];
     [[[TBMVersionHandler alloc] initWithDelegate:self] checkVersionCompatibility];
 }
 
@@ -65,6 +102,28 @@ static TBMHomeViewController *hvcInstance;
     [self performSelectorInBackground:@selector(prefetchContactsManager) withObject:NULL];
 }
 
+
+#pragma mark - Secret screen
+
+- (void)setupSecretGestureRecognizer {
+    TBMSecretGestureRecognizer *secretGestureRecognizer;
+    secretGestureRecognizer = [[TBMSecretGestureRecognizer alloc] initWithTarget:self
+                                                                          action:@selector(secretGestureAction:)];
+    secretGestureRecognizer.container = self.headerView;
+    secretGestureRecognizer.logoView = self.logoView;
+    secretGestureRecognizer.menuView = self.menuIconView;
+    [self.view addGestureRecognizer:secretGestureRecognizer];
+}
+
+- (void)secretGestureAction:(id)sender {
+    TBMSecretGestureRecognizer *recognizer = sender;
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        OB_INFO(@"TBMHomeViewController#showSecretScreen");
+        [self.secretScreen presentSecretScreenFromController:self];
+    }
+}
+
+
 - (void)prefetchContactsManager {
 //    [[TBMContactsManager sharedInstance] prefetchOnlyIfHasAccess];
 }
@@ -74,11 +133,8 @@ static TBMHomeViewController *hvcInstance;
     OB_ERROR(@"TBMHomeViewController: didReceiveMemoryWarning");
     [super didReceiveMemoryWarning];
 }
-
-
-//===========
 #pragma mark - SetupViews
-//===========
+
 static const float LayoutConstHEADER_HEIGHT = 55;
 static const float LayoutConstLOGO_HEIGHT = LayoutConstHEADER_HEIGHT * 0.4;
 static const float LayoutConstGUTTER = 10;
@@ -92,49 +148,29 @@ static const float LayoutConstBENCH_ICON_HEIGHT = LayoutConstHEADER_HEIGHT * 0.4
     [self addBenchViewController];
 }
 
-//-----------
 #pragma mark - HeaderView
 
-//-----------
 - (void)addHeaderView {
     UIView *hv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, LayoutConstHEADER_HEIGHT)];
     hv.backgroundColor = [UIColor colorWithHexString:@"1B1B19" alpha:1];
-    [hv addSubview:[self logoView]];
-    [hv addSubview:[self drawerIconView]];
+    [hv addSubview:self.logoView];
+    [hv bringSubviewToFront:self.logoView];
+
+    [hv addSubview:self.menuIconView];
+    [hv bringSubviewToFront:self.menuIconView];
+
     [hv addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headerTapped)]];
     [self.view addSubview:hv];
-    self.HeaderView = hv;
+    self.headerView = hv;
+
 }
 
 - (void)headerTapped {
     [self.benchViewController toggle];
 }
 
-- (UIImageView *)logoView {
-    UIImage *li = [UIImage imageNamed:@"zazo-type"];
-    float logoAspect = li.size.width / li.size.height;
-    UIImageView *lv = [[UIImageView alloc] initWithImage:li];
-    float y = (LayoutConstHEADER_HEIGHT - LayoutConstLOGO_HEIGHT) / 2;
-    lv.frame = CGRectMake(LayoutConstGUTTER, y, logoAspect * LayoutConstLOGO_HEIGHT, LayoutConstLOGO_HEIGHT);
-    return lv;
-}
-
-- (UIImageView *)drawerIconView {
-    UIImage *i = [UIImage imageNamed:@"icon-drawer"];
-    float aspect = i.size.width / i.size.height;
-    UIImageView *iv = [[UIImageView alloc] initWithImage:i];
-    float w = aspect * LayoutConstBENCH_ICON_HEIGHT;
-    float x = self.view.bounds.size.width - LayoutConstGUTTER - w;
-    float y = (LayoutConstHEADER_HEIGHT - LayoutConstBENCH_ICON_HEIGHT) / 2;
-    iv.frame = CGRectMake(x, y, w, LayoutConstBENCH_ICON_HEIGHT);
-    return iv;
-}
-
-
-//------------
 #pragma mark - ContentView
 
-//------------
 - (void)addContentView {
     UIView *cv = [[UIView alloc] initWithFrame:CGRectMake(0, LayoutConstHEADER_HEIGHT, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - LayoutConstHEADER_HEIGHT)];
     cv.backgroundColor = [UIColor colorWithHexString:@"2E2D28" alpha:1];
@@ -165,28 +201,7 @@ static const float LayoutConstBENCH_ICON_HEIGHT = LayoutConstHEADER_HEIGHT * 0.4
     self.overlayBackgroundView.hidden = YES;
 }
 
-
-//---------
-#pragma mark - Show secret screen
-
-//---------
-- (void)setupShowSecretScreenGesture {
-    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showSecretScreen:)];
-    lpgr.delegate = (id) self;
-    [self.headerView addGestureRecognizer:lpgr];
-}
-
-- (IBAction)showSecretScreen:(UILongPressGestureRecognizer *)sender {
-    if (sender.state == UIGestureRecognizerStateEnded) {
-        OB_INFO(@"TBMHomeViewController#showSecretScreen");
-        [self.secretScreen presentSecretScreenFromController:self];
-    }
-}
-
-
-//------------------------------------
 #pragma mark - TBMBenchViewControllerDelegate
-//------------------------------------
 
 - (void)TBMBenchViewController:(TBMBenchViewController *)vc toggledHidden:(BOOL)isHidden {
     if (isHidden) {

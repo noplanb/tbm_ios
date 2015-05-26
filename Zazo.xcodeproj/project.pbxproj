@@ -120,6 +120,7 @@
 		4106AE661AD550AB007910EC /* TBMPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4106AE651AD550AB007910EC /* TBMPreviewView.m */; };
 		682D60FAB9D240DE4F4E3D92 /* TBMStateScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D692EB3EAB4A0CF9E854A /* TBMStateScreenView.m */; };
 		682D62136F85BE33BD04EA08 /* UIButton+TBMRoundedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D61977AA88F649B770C19 /* UIButton+TBMRoundedButton.m */; };
+		682D624A69ED9E44BCCE66A0 /* TBMSecretGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6E4823793C3A8B5DE7D9 /* TBMSecretGestureRecognizer.m */; };
 		682D63AEA1A6A755E0A4ACEB /* TBMHomeViewController+Invite.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6066C4BBB00F3CA6A092 /* TBMHomeViewController+Invite.m */; };
 		682D63B290F5DEB1C4FBA10C /* TBMDebugData.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6C597BD987714621084C /* TBMDebugData.m */; };
 		682D63D91D9A3ECB906AD4CC /* TBMSecretScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6C10E49A6BFFF6F0B573 /* TBMSecretScreenViewController.m */; };
@@ -323,12 +324,14 @@
 		682D65DD73C84904DFE81F22 /* TBMHomeViewController+VersionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMHomeViewController+VersionController.m"; sourceTree = "<group>"; };
 		682D67A25785E06A364413A3 /* TBMStateScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMStateScreenViewController.m; sourceTree = "<group>"; };
 		682D692EB3EAB4A0CF9E854A /* TBMStateScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMStateScreenView.m; sourceTree = "<group>"; };
+		682D69E4281B04C63779AC10 /* TBMSecretGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSecretGestureRecognizer.h; sourceTree = "<group>"; };
 		682D6A734F98D40E543CE53A /* TBMStateScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMStateScreenViewController.h; sourceTree = "<group>"; };
 		682D6AE35999C53D204D9F4C /* TBMStateScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMStateScreenView.h; sourceTree = "<group>"; };
 		682D6C10E49A6BFFF6F0B573 /* TBMSecretScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSecretScreenViewController.m; sourceTree = "<group>"; };
 		682D6C597BD987714621084C /* TBMDebugData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDebugData.m; sourceTree = "<group>"; };
 		682D6C6ECE27E94865F9E785 /* UIButton+TBMRoundedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+TBMRoundedButton.h"; sourceTree = "<group>"; };
 		682D6DECA2320CD20B07277A /* TBMHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHomeViewController.h; sourceTree = "<group>"; };
+		682D6E4823793C3A8B5DE7D9 /* TBMSecretGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSecretGestureRecognizer.m; sourceTree = "<group>"; };
 		682D6F13C829CB6FE2E92091 /* TBMSecretScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSecretScreenView.h; sourceTree = "<group>"; };
 		682D6F2E6181D4111349CA53 /* TBMHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHomeViewController.m; sourceTree = "<group>"; };
 		682D6F37715F43E4C0D91C5A /* TBMHomeViewController+VersionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMHomeViewController+VersionController.h"; sourceTree = "<group>"; };
@@ -729,6 +732,8 @@
 				682D6627EE1C01ECFED1F8BB /* Category */,
 				682D6C597BD987714621084C /* TBMDebugData.m */,
 				682D61497C752CA4DE9B187C /* TBMDebugData.h */,
+				682D6E4823793C3A8B5DE7D9 /* TBMSecretGestureRecognizer.m */,
+				682D69E4281B04C63779AC10 /* TBMSecretGestureRecognizer.h */,
 			);
 			name = "Secret Screen";
 			sourceTree = "<group>";
@@ -1032,6 +1037,7 @@
 				682D6B2677B928C0D1136A0F /* TBMStateScreenViewController.m in Sources */,
 				682D62136F85BE33BD04EA08 /* UIButton+TBMRoundedButton.m in Sources */,
 				682D63B290F5DEB1C4FBA10C /* TBMDebugData.m in Sources */,
+				682D624A69ED9E44BCCE66A0 /* TBMSecretGestureRecognizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
