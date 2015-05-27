@@ -6,6 +6,7 @@
 #import <Foundation/Foundation.h>
 
 @class TBMSecretScreenPresenter;
+@class TBMDebugData;
 
 @interface TBMSecretScreenView : UIView
 
@@ -14,4 +15,5 @@
 */
 @property(nonatomic, weak) TBMSecretScreenPresenter *eventHandler;
 
+- (void)updateUserInterfaceWithData:(TBMDebugData *)data;
 @end

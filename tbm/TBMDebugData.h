@@ -5,12 +5,7 @@
 
 
 #import <Foundation/Foundation.h>
-
-typedef NS_ENUM(NSInteger, TBMServerState) {
-    TBMServerStateProduction,
-    TBMServerStateDeveloper,
-    TBMServerStateCustom,
-};
+#import "TBMConfig.h"
 
 @interface TBMDebugData : NSObject
 
@@ -18,7 +13,9 @@ typedef NS_ENUM(NSInteger, TBMServerState) {
 @property(nonatomic, strong) NSString *lastName;
 @property(nonatomic, strong) NSString *mobileNumber;
 
-@property(nonatomic, assign) BOOL debugMode;
-@property(nonatomic, assign) TBMServerState serverState;
+@property(nonatomic, strong) NSString *version;
+
+@property(nonatomic, assign) TBMConfigDeviceDebugMode debugMode;
+@property(nonatomic, assign) TBMConfigServerState serverState;
 
 @end

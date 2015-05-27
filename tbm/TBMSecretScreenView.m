@@ -64,6 +64,12 @@
 */
 @property(nonatomic, strong) UIButton *stateButton;
 
+/*
+* Dispatch - Button
+*
+*/
+@property(nonatomic, strong) UIButton *dispatchButton;
+
 
 @end
 
@@ -160,7 +166,7 @@
     self.logButton.frame = CGRectMake(horzMargin * 2 + halfWidth, lineTop, halfWidth - horzMargin, buttonHeight);
     [self addSubview:self.logButton];
 
-    [self updateUserInterfaceWithData];
+
     lineTop += buttonHeight;
     lineTop += vertMargin;
 
@@ -169,15 +175,24 @@
     self.stateButton.frame = CGRectMake(horzMargin, lineTop, fullWidth - (horzMargin * 2), buttonHeight);
     [self addSubview:self.stateButton];
 
+    lineTop += buttonHeight;
+    lineTop += vertMargin;
+
+    //Dispatch button
+    lineTop += 10.f;
+    self.dispatchButton.frame = CGRectMake(horzMargin, lineTop, fullWidth - (horzMargin * 2), buttonHeight);
+    [self addSubview:self.dispatchButton];
+
 }
 
 
-- (void)updateUserInterfaceWithData {
-    self.versionLabel.text = @"Version 2.0";
-    self.firstNameLabel.text = @"firstNameLabel 2.0";
-    self.lastNameLabel.text = @"lastNameLabel 2.0";
-    self.mobileNumberLabel.text = @"mobileNumberLabel 2.0";
-    self.serverSegmentedControl.selectedSegmentIndex = 1;
+- (void)updateUserInterfaceWithData:(TBMDebugData *)data {
+    self.versionLabel.text = [@"Version: " stringByAppendingString:data.version];
+    self.firstNameLabel.text = [@"First Name: " stringByAppendingString:data.firstName];
+    self.lastNameLabel.text = [@"Last Name: " stringByAppendingString:data.lastName];
+    self.mobileNumberLabel.text = [@"Phone: " stringByAppendingString:data.mobileNumber];
+    self.serverSegmentedControl.selectedSegmentIndex = data.serverState;
+    self.debugModeSwitch.on = data.debugMode == TBMConfigDeviceDebugModeDev;
 }
 
 #pragma mark - Actions
@@ -197,6 +212,11 @@
 - (void)stateButtonAction:(id)sender {
     [self.eventHandler stateButtonDidPress];
 }
+
+- (void)dispatchButtonAction:(id)sender {
+    [self.eventHandler dispatchButtonDidPress];
+}
+
 
 - (void)serverSegmentedControlAction:(id)sender {
     [self.eventHandler serverSegmentedControlDidChangeTo:self.serverSegmentedControl.selectedSegmentIndex];
@@ -288,5 +308,14 @@
     return _stateButton;
 }
 
+- (UIButton *)dispatchButton {
+    if (!_dispatchButton) {
+        _dispatchButton = [[UIButton alloc] init];
+        [_dispatchButton setupRoundedButtonWithColor:[UIColor blueColor]];
+        [_dispatchButton setTitle:@"Dispatch" forState:UIControlStateNormal];
+        [_dispatchButton addTarget:self action:@selector(dispatchButtonAction:) forControlEvents:UIControlEventTouchDown];
+    }
+    return _dispatchButton;
+}
 
 @end

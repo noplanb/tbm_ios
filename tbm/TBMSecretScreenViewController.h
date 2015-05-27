@@ -6,9 +6,11 @@
 #import <Foundation/Foundation.h>
 
 @class TBMSecretScreenPresenter;
+@class TBMDebugData;
 
-@interface TBMSecretScreenViewController : UIViewController;
+@interface TBMSecretScreenViewController : UIViewController
 
 - (id)initWithPresenter:(TBMSecretScreenPresenter *)presenter;
 
+- (void)reloadData;
 @end

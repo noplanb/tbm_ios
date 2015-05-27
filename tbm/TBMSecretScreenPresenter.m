@@ -7,6 +7,7 @@
 #import "TBMSecretScreenPresenter.h"
 #import "TBMSecretScreenViewController.h"
 #import "TBMStateScreenViewController.h"
+#import "TBMConfig.h"
 
 @interface TBMSecretScreenPresenter ()
 
@@ -34,7 +35,6 @@
 - (UINavigationController *)navigationController {
     if (!_navigationController) {
         _navigationController = [[UINavigationController alloc] initWithRootViewController:self.secretScreen];
-
     }
     return _navigationController;
 }
@@ -89,6 +89,16 @@
 }
 
 - (void)debugSwitchDidChangeTo:(BOOL)on {
+    if (on) {
+        [TBMConfig changeDeviceDebugModeTo:TBMConfigDeviceDebugModeDev];
+    } else {
+        [TBMConfig changeDeviceDebugModeTo:TBMConfigDeviceDebugModeProd];
+    }
+    [self reload];
+}
+
+- (void)reload {
+    [self.secretScreen reloadData];
 
 }
 
@@ -105,6 +115,7 @@
 }
 
 - (void)serverSegmentedControlDidChangeTo:(NSInteger)index {
-
+    [TBMConfig changeServerTo:index];
+    [self reload];
 }
 @end

@@ -3,9 +3,12 @@
 // Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
+#import <AFNetworking/AFURLResponseSerialization.h>
 #import "TBMSecretScreenViewController.h"
 #import "TBMSecretScreenView.h"
 #import "TBMSecretScreenPresenter.h"
+#import "TBMDebugData.h"
+#import "TBMDebugData.h"
 
 @interface TBMSecretScreenViewController ()
 @property(nonatomic, strong) TBMSecretScreenPresenter *presenter;
@@ -19,7 +22,10 @@
     self = [super init];
     if (self) {
         CGRect frame = self.view.frame;
-        self.view = [[TBMSecretScreenView alloc] initWithFrame:frame ];
+
+        TBMSecretScreenView *view = [[TBMSecretScreenView alloc] initWithFrame:frame];
+        [view updateUserInterfaceWithData:[[TBMDebugData alloc] init]];
+        self.view = view;
         [self setupNavigationBar];
     }
     return self;
@@ -31,17 +37,13 @@
     //Done button - returns to the Registration screen or the HomeView screen as appropriate.
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(backButtonAction:)];
     self.navigationItem.leftBarButtonItem = doneButton;
-
-    // Dispatch - Button - on tap: dispatches log to rollbar in the same way that calling OB_ERROR would.
-    UIBarButtonItem *dispatchButton = [[UIBarButtonItem alloc] initWithTitle:@"Dispatch" style:UIBarButtonItemStylePlain target:self action:@selector(dispatchButtonAction:)];
-    self.navigationItem.rightBarButtonItem = dispatchButton;
 }
 
 - (instancetype)initWithPresenter:(TBMSecretScreenPresenter *)presenter {
     self = [self init];
     if (self) {
         self.presenter = presenter;
-        TBMSecretScreenView *view = (TBMSecretScreenView*)self.view;
+        TBMSecretScreenView *view = (TBMSecretScreenView *) self.view;
         view.eventHandler = presenter;
     }
     return self;
@@ -55,4 +57,8 @@
     [self.presenter dispatchButtonDidPress];
 }
 
+
+- (void)reloadData {
+    [(TBMSecretScreenView *) self.view updateUserInterfaceWithData:[[TBMDebugData alloc] init]];
+}
 @end
