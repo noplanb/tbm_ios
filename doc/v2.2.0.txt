@@ -50,16 +50,32 @@ Stop AVRecordingSession and VideoPlayer prior to calling AudioSession:Deactivate
 
 v2.2.2
 ------
-
-FEATURE: Call me option for verification code
--------
+FEATURE: #427 Call me option for verification code
+--------------------------------------------------
 TESTCASE: C2480
 
 
-FIX: Link in sms invite should be zazoapp.com/l/invitee_id
+FEATURE:
+-------
+Link in sms invite should be zazoapp.com/l/invitee_id
+TESTCASE: C2485
 
 
-BUG:
----
+BUG #460
+--------
 Version update link was pointing to Testflight. Version update for obsolete was still showing a cancel option.
+C2481, C2482
+
+
+BUG: #459 Open Zazo while on phone call
+---------
+Open Zazo while on the phone causes repeated retries and errors to activate AVCaptureSession
+
+Solution:
+
+Add ensureAudioSessionActive to the set of preflight requirements for the app in Boot
+- Make AudioSession.activate return a boolean
+- Call AudioSession.activate explicitly in the preflight sequence
+- Force retry if not able to activate
+
 

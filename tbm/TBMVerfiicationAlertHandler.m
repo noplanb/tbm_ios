@@ -188,7 +188,7 @@ static NSString *MESSAGE = @"We sent a code";
     // iPhone 4S with running 8.0 not showing keyboard for code text field.
     // On 3.5" screens (e.g. iPhone 4S), need to force alert into "plain" mode, otherwise
     // the code input text field does not work, the keyboard will never appear
-    return [self isIphoneFour];
+    return YES || [self isIphoneFour];
 }
 
 - (NSString *)formattedPhoneNumber{

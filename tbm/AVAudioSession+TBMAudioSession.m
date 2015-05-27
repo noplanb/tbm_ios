@@ -27,6 +27,19 @@ static NSMutableSet *TBMDelegates;
     [TBMDelegates addObject: delegate];
 }
 
+-(NSError *)activate{
+    OB_INFO(@"TBMAudioSession#activate:");
+    NSError *error = nil;
+    [self removeRouteChangeObserver];
+    [self setApplicationCategory];
+    [self setPortOverride];
+    [self setActive:YES error:&error];
+    
+    if (error !=nil) OB_WARN(@"TBMAudioSession#activate: %@", error);
+    else [self addRouteChangeObserver];
+    
+    return error;
+}
 
 #pragma mark Audio Session Control
 
@@ -49,16 +62,6 @@ static NSMutableSet *TBMDelegates;
             withOptions:0
                 error:&error];
     if (error != nil) OB_ERROR(@"TBMAudioSession#setApplicationCategory: Error setting category: %@", error);
-}
-
--(void)activate{
-    OB_INFO(@"TBMAudioSession#activate:");
-    NSError *error = nil;
-    [self setApplicationCategory];
-    [self setPortOverride];
-    [self setActive:YES error:&error];
-    if (error !=nil) OB_ERROR(@"TBMAudioSession#activate: %@", error);
-    [self addRouteChangeObserver];
 }
 
 -(void)deactivate {
@@ -162,7 +165,8 @@ static NSMutableSet *TBMDelegates;
 }
 
 -(void)appDidBecomeActive{
-    [self activate];
+    // This is handled explicitly in boot preflight so user is forced to ensure an audio session before using the app.
+    //    [self activate];
 }
 
 -(void)appWillResignActive{
