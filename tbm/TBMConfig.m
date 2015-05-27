@@ -91,4 +91,8 @@
     }
     return @"dev";
 }
+
++ (UIColor *)registrationBackGroundColor {
+    return [UIColor colorWithRed:0.61f green:0.75f blue:0.27f alpha:1.0f];
+}
 @end

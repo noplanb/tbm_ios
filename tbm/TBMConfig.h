@@ -85,4 +85,6 @@ static NSString *CONFIG_DING_SOUND = @"BeepSin30.wav";
 + (NSString *)tbmBasePath;
 
 + (NSString *)deviceDebugModeString;
+
++ (UIColor *)registrationBackGroundColor;
 @end
