@@ -20,7 +20,8 @@
 }
 
 - (void)fillData {
-     self.version =  CONFIG_VERSION_NUMBER;
+    NSArray *versionParts = @[CONFIG_VERSION_STRING,@"(",CONFIG_VERSION_NUMBER,@")"];
+    self.version = [versionParts componentsJoinedByString:@" "];
     TBMUser *user = [TBMUser getUser];
 
     self.firstName = user.firstName;
