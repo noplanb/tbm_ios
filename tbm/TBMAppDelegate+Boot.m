@@ -19,6 +19,7 @@
 #import "AVFoundation/AVFoundation.h"
 #import "TBMFileUtils.h"
 #import "TBMDeviceHandler.h"
+#import "AVAudioSession+TBMAudioSession.h"
 
 @implementation TBMAppDelegate (Boot)
 
@@ -61,7 +62,7 @@
     // the user has satisfied it then it calls the next resource check in the list.
     // It is a bit spagetti like. There is probably a more elegant way to do this.
     // Daisy chain is:
-    // ensureFreeStorageSpace -> ensureAllMediaAccess (videoAccess -> audioAccess) -> onResourcesAvailable
+    // ensureFreeStorageSpace -> ensureAllMediaAccess (videoAccess -> audioAccess) -> ensureAudioSession -> onResourcesAvailable
     
     [self ensureFreeStorage];
 }
@@ -74,16 +75,16 @@
     }];
 }
 
-//---------------------------------------
-// Ensure access for video camera and mic
-//---------------------------------------
+
+#pragma mark Ensure access for video camera and mic
+
 - (void)ensureAllMediaAccess{
     [self requestVideoAccess];
 }
 
 - (void)onAllMediaAccessGranted{
     OB_INFO(@"Boot: onAllMediaAccessGranted");
-    [self onResourcesAvailable];
+    [self ensureAudioSession];
 }
 
 
@@ -158,9 +159,7 @@
 }
 
 
-//--------------------------
-// Ensure free storage space
-//--------------------------
+#pragma mark Ensure free storage space
 
 - (void)ensureFreeStorage{
     OB_INFO(@"Boot: ensureFreeStorage:");
@@ -185,6 +184,32 @@
         // But this is a pain when supporting both ios7 and ios8 type alerts.
         exit(0);
     }]];
+    [alert presentWithCompletion:nil];
+}
+
+#pragma mark Ensure Audio Session
+
+- (void)ensureAudioSession{
+    OB_INFO(@"ensureAudioSession");
+    if ([[AVAudioSession sharedInstance] activate] != nil)
+        [self alertEndProbablePhoneCall];
+    else
+        [self onResourcesAvailable];
+}
+
+- (void)alertEndProbablePhoneCall{
+    OB_INFO(@"alertProbablePhoneCall");
+    NSString *msg = @"Unable to acquire audio. Perhaps you are on a phone call?";
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"On a Call?" message:msg];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again"
+                                              style:SDCAlertActionStyleDefault
+                                            handler:^(SDCAlertAction *action) {
+        // In case the user backgrounds the app we will create stacked alerts here.
+        // I exit so that when the user dismisses the alert we start fresh.
+        // A better solution would be to automatically dismiss all alerts when app goes to background.
+        // But this is a pain when supporting both ios7 and ios8 type alerts.
+                                                exit(0);
+                                            }]];
     [alert presentWithCompletion:nil];
 }
 @end

@@ -15,6 +15,7 @@
 @interface AVAudioSession (TBMAudioSession)
 
 -(void)setupApplicationAudioSession;
+-(NSError *)activate;
 -(void)addTBMAudioSessionDelegate:(id <TBMAudioSessionDelegate>)delegate;
 
 @end

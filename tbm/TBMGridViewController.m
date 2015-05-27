@@ -490,7 +490,7 @@ static const float LayoutConstASPECT = 0.75;
 }
 
 - (void)videoRecorderRuntimeErrorWithRetryCount:(int)videoRecorderRetryCount{
-    OB_ERROR(@"videoRecorderRuntimeErrorWithRetryCount %d", videoRecorderRetryCount);
+    OB_WARN(@"videoRecorderRuntimeErrorWithRetryCount %d", videoRecorderRetryCount);
     [self setupVideoRecorder:videoRecorderRetryCount];
 }
 
