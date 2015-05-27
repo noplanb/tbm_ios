@@ -42,6 +42,7 @@
     [super viewDidLoad];
     [_registerForm stopWaitingForServer];
     self.registerForm = [[TBMRegisterForm alloc] initWithView:self.view delegate:self];
+    self.registerForm.controller = self;
 
     self.view.backgroundColor = [TBMConfig registrationBackGroundColor];
 }

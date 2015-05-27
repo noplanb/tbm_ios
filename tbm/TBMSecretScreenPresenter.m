@@ -27,6 +27,7 @@
     OB_INFO(@"TBMSecretScreenPresenter: presentSecretScreenFromController");
     self.presentedController = presentedController;
     [presentedController  presentViewController:self.navigationController animated:YES completion:nil];
+    
 }
 
 

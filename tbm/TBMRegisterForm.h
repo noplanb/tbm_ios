@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "TBMTextfield.h"
 
+@class TBMRegisterViewController;
+
 @protocol TBMRegisterFormDelegate <NSObject>
 - (void) didClickSubmit;
 - (void) didClickDebug;
@@ -20,6 +22,8 @@
 @property (nonatomic) TBMTextField *mobileNumber;
 @property (nonatomic) TBMTextField *countryCode;
 @property (nonatomic) UIActivityIndicatorView *spinner;
+
+@property(nonatomic, weak) TBMRegisterViewController *controller;
 
 - (instancetype)initWithView:(UIView *)view delegate:(id)delegate;
 

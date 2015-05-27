@@ -1,3 +1,4 @@
+
 //
 // Created by Maksim Bazarov on 22.05.15.
 // Copyright (c) 2015 No Plan B. All rights reserved.
@@ -187,10 +188,20 @@
 
 
 - (void)updateUserInterfaceWithData:(TBMDebugData *)data {
-    self.versionLabel.text = [@"Version: " stringByAppendingString:data.version];
-    self.firstNameLabel.text = [@"First Name: " stringByAppendingString:data.firstName];
-    self.lastNameLabel.text = [@"Last Name: " stringByAppendingString:data.lastName];
-    self.mobileNumberLabel.text = [@"Phone: " stringByAppendingString:data.mobileNumber];
+    if (data.version) {
+        self.versionLabel.text = [@"Version: " stringByAppendingString:data.version];
+    }
+    if (data.firstName) {
+        self.firstNameLabel.text = [@"First Name: " stringByAppendingString:data.firstName];
+    }
+    if (data.lastName) {
+     self.lastNameLabel.text = [@"Last Name: " stringByAppendingString:data.lastName];
+    }
+
+    if (data.mobileNumber) {
+        self.mobileNumberLabel.text = [@"Phone: " stringByAppendingString:data.mobileNumber];
+    }
+    
     self.serverSegmentedControl.selectedSegmentIndex = data.serverState;
     self.debugModeSwitch.on = data.debugMode == TBMConfigDeviceDebugModeDev;
 }
