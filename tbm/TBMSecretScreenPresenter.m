@@ -8,6 +8,7 @@
 #import "TBMSecretScreenViewController.h"
 #import "TBMStateScreenViewController.h"
 #import "TBMConfig.h"
+#import "TBMDebugData.h"
 
 @interface TBMSecretScreenPresenter ()
 
@@ -86,14 +87,16 @@
 
 
 - (void)dispatchButtonDidPress {
+    TBMDebugData *data  = [[TBMDebugData alloc] init];
+    OB_DEBUG(@"****** DEBUG SCREEN DATA *******\n %@",[data debugDescription]);
 
 }
 
 - (void)debugSwitchDidChangeTo:(BOOL)on {
     if (on) {
-        [TBMConfig changeDeviceDebugModeTo:TBMConfigDeviceDebugModeDev];
+        [TBMConfig changeConfigDebugModeTo:TBMConfigDebugModeOn];
     } else {
-        [TBMConfig changeDeviceDebugModeTo:TBMConfigDeviceDebugModeProd];
+        [TBMConfig changeConfigDebugModeTo:TBMConfigDebugModeOff];
     }
     [self reload];
 }

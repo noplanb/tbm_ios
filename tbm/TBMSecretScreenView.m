@@ -203,7 +203,7 @@
     }
     
     self.serverSegmentedControl.selectedSegmentIndex = data.serverState;
-    self.debugModeSwitch.on = data.debugMode == TBMConfigDeviceDebugModeDev;
+    self.debugModeSwitch.on = data.debugMode == TBMConfigDebugModeOn;
 }
 
 #pragma mark - Actions

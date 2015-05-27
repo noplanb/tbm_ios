@@ -322,7 +322,7 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
     self.debug.frame = f;
     [self.debug setTitle:@"Debug" forState:UIControlStateNormal];
     [self setCommonAttributesForButton:self.debug];
-    [self.debug setHidden:!CONFIG_DEBUG_MODE];
+    [self.debug setHidden:[TBMConfig configDebugMode] == TBMConfigDebugModeOff];
     [self.contentView addSubview:self.debug];
 }
 

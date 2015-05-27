@@ -48,15 +48,15 @@
         return (TBMConfigDeviceDebugMode) debugMode;
     }
     else {
-        OB_INFO(@"CONFIG # returned deviceDebugMode: %u",TBMConfigDeviceDebugModeDev);
-        return TBMConfigDeviceDebugModeDev;
+        OB_INFO(@"CONFIG # returned deviceDebugMode: %u", TBMConfigDeviceDebugModeOff);
+        return TBMConfigDeviceDebugModeOff;
     }
 }
 
 + (void)changeDeviceDebugModeTo:(TBMConfigDeviceDebugMode)mode {
     [UD setInteger:mode forKey:kTBMConfigDeviceDebugModeKey];
     [UD synchronize];
-    OB_INFO(@"CONFIG # changed deviceDebugMode to : %u",TBMConfigDeviceDebugModeDev);
+    OB_INFO(@"CONFIG # changed deviceDebugMode to : %u", TBMConfigDeviceDebugModeOff);
 }
 
 
@@ -95,4 +95,25 @@
 + (UIColor *)registrationBackGroundColor {
     return [UIColor colorWithRed:0.61f green:0.75f blue:0.27f alpha:1.0f];
 }
+
+
++ (TBMConfigDebugMode)configDebugMode {
+    NSInteger debugMode = [UD integerForKey:kTBMConfigDebugModeKey];
+
+    if (debugMode > 0) {
+        OB_INFO(@"CONFIG # returned configebugMode: ON");
+        return TBMConfigDebugModeOn;
+    }
+    else {
+        OB_INFO(@"CONFIG # returned configebugMode: OFF");
+        return TBMConfigDebugModeOff;
+    }
+}
+
++ (void)changeConfigDebugModeTo:(TBMConfigDebugMode)mode {
+    [UD setInteger:mode forKey:kTBMConfigDebugModeKey];
+    [UD synchronize];
+    OB_INFO(@"CONFIG # changed configebugMode to : %u", mode);
+}
+
 @end

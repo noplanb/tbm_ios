@@ -11,7 +11,14 @@
 static NSString *CONFIG_APP_NAME = @"Zazo";
 
 // Make sure these 4 are set correctly before a release.
-static BOOL CONFIG_DEBUG_MODE = YES;
+
+//static BOOL CONFIG_DEBUG_MODE = YES;
+typedef NS_ENUM(NSUInteger, TBMConfigDebugMode) {
+    TBMConfigDebugModeOff   = 0,
+    TBMConfigDebugModeOn    = 1,
+};
+static NSString *kTBMConfigDebugModeKey = @"kTBMConfigDebugModeKey"; //User defaults key for debug mode
+
 static NSString *CONFIG_VERSION_NUMBER = @"27";
 static NSString *CONFIG_VERSION_STRING = @"2.2.1";
 
@@ -19,7 +26,7 @@ static NSString *CONFIG_VERSION_STRING = @"2.2.1";
 * Device debug mode states
 */
 typedef NS_ENUM(NSUInteger, TBMConfigDeviceDebugMode) {
-    TBMConfigDeviceDebugModeDev     = 0,
+    TBMConfigDeviceDebugModeOff = 0,
     TBMConfigDeviceDebugModeProd    = 1,
 };
 static NSString *kTBMConfigDeviceDebugModeKey = @"kTBMConfigDeviceDebugModeKey"; //User defaults key for debug mode
@@ -87,4 +94,9 @@ static NSString *CONFIG_DING_SOUND = @"BeepSin30.wav";
 + (NSString *)deviceDebugModeString;
 
 + (UIColor *)registrationBackGroundColor;
+
+
++ (TBMConfigDebugMode)configDebugMode;
+
++ (void)changeConfigDebugModeTo:(TBMConfigDebugMode)mode;
 @end

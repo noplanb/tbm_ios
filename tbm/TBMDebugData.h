@@ -15,7 +15,7 @@
 
 @property(nonatomic, strong) NSString *version;
 
-@property(nonatomic, assign) TBMConfigDeviceDebugMode debugMode;
+@property(nonatomic, assign) TBMConfigDebugMode debugMode;
 @property(nonatomic, assign) TBMConfigServerState serverState;
 
 @end
