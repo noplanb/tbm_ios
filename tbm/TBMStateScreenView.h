@@ -5,6 +5,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TBMStateScreenView : UITableView <UITableViewDataSource, UITableViewDelegate>
+@interface TBMStateScreenView : UITextView
 
 @end

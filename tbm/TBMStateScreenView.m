@@ -38,21 +38,7 @@
 }
 
 - (void)setup {
-    self.delegate = self;
-    self.dataSource = self;
 }
-
-#pragma mark -  UITableViewDataSource
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return nil;
-}
-
-#pragma mark -  UITableViewDelegate
 
 
 @end

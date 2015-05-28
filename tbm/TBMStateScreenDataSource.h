@@ -6,4 +6,16 @@
 #import <Foundation/Foundation.h>
 
 @interface TBMStateScreenDataSource : NSObject
+
+
+@property(nonatomic, strong) NSArray *friendsFiles;
+@property(nonatomic, strong) NSArray *incomingFiles;
+@property(nonatomic, strong) NSArray *outgoingFiles;
+
+- (void)loadFriendsVideos;
+
+- (void)loadVideos;
+
+- (void)excludeNonDanglingFiles;
+
 @end

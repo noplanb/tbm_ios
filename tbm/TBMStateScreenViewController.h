@@ -6,7 +6,9 @@
 #import <Foundation/Foundation.h>
 
 @class TBMSecretScreenPresenter;
+@class TBMStateScreenDataSource;
 
 @interface TBMStateScreenViewController : UIViewController
 
+- (void)updateUserInterfaceWithData:(TBMStateScreenDataSource *)data;
 @end

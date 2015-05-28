@@ -9,6 +9,8 @@
 #import "TBMStateScreenViewController.h"
 #import "TBMConfig.h"
 #import "TBMDebugData.h"
+#import "TBMStateScreenDataSource.h"
+#import "TBMDispatch.h"
 
 @interface TBMSecretScreenPresenter ()
 
@@ -24,13 +26,12 @@
 
 #pragma mark - Interface
 
--(void)presentSecretScreenFromController:(UIViewController *)presentedController {
+- (void)presentSecretScreenFromController:(UIViewController *)presentedController {
     OB_INFO(@"TBMSecretScreenPresenter: presentSecretScreenFromController");
     self.presentedController = presentedController;
-    [presentedController  presentViewController:self.navigationController animated:YES completion:nil];
-    
-}
+    [presentedController presentViewController:self.navigationController animated:YES completion:nil];
 
+}
 
 #pragma mark - Initialization
 
@@ -69,6 +70,11 @@
 }
 
 - (void)presentStateScreen {
+    TBMStateScreenDataSource *data = [[TBMStateScreenDataSource alloc] init];
+    [data loadFriendsVideos];
+    [data loadVideos];
+    [data excludeNonDanglingFiles];
+    [self.stateScreen updateUserInterfaceWithData:data];
     [self.navigationController pushViewController:self.stateScreen animated:YES];
 }
 
@@ -92,9 +98,8 @@
 
 
 - (void)dispatchButtonDidPress {
-    TBMDebugData *data  = [[TBMDebugData alloc] init];
-    OB_INFO(@"%@",[data debugDescription]);
-
+    TBMDebugData *data = [[TBMDebugData alloc] init];
+    [TBMDispatch dispatch:[data debugDescription]];
 }
 
 - (void)debugSwitchDidChangeTo:(BOOL)on {
@@ -107,7 +112,10 @@
 }
 
 - (void)crashButtonDidPress {
-
+    TBMDebugData *data = [[TBMDebugData alloc] init];
+    NSMutableString *crashReason = [@"!!!CRASH BUTTON EXCEPTION:" mutableCopy];
+    [crashReason appendString:[data debugDescription]];
+    NSAssert(false,crashReason);
 }
 
 - (void)logButtonDidPress {
@@ -115,6 +123,7 @@
 }
 
 - (void)stateButtonDidPress {
+
     [self presentStateScreen];
 }
 
