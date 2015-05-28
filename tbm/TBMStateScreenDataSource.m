@@ -94,29 +94,29 @@ BOOL containID(NSString *fileName, NSString *fileId) {
     NSMutableArray *incomingVideos = [self.incomingFiles mutableCopy];
     NSMutableArray *outgoingVideos = [self.outgoingFiles mutableCopy];
 
-    NSInteger indexForDelete = -1;
+    NSInteger indexForDelete;
 
     for (NSString *file in self.notDanglingFiles) {
+        indexForDelete = -1;
         for (NSInteger i = 0; i < incomingVideos.count; i++) {
             if (containID(incomingVideos[i], file)) {
                 indexForDelete = i;
             }
         }
+        if (indexForDelete > -1) [incomingVideos removeObjectAtIndex:indexForDelete];
     }
-    if (indexForDelete > -1) [incomingVideos removeObjectAtIndex:indexForDelete];
 
-    indexForDelete = -1;
 
     for (NSString *file in self.notDanglingFiles) {
+        indexForDelete = -1;
         for (NSInteger i = 0; i < outgoingVideos.count; i++) {
-
             if (containID(outgoingVideos[i], file)) {
                 indexForDelete = i;
                 NSLog(@"File %@ must be deleted", outgoingVideos[i]);
             }
         }
+        if (indexForDelete > -1) [outgoingVideos removeObjectAtIndex:indexForDelete];
     }
-    if (indexForDelete > -1) [outgoingVideos removeObjectAtIndex:indexForDelete];
 
     self.incomingFiles = incomingVideos;
     self.outgoingFiles = outgoingVideos;
