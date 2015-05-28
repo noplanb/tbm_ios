@@ -78,4 +78,6 @@ Add ensureAudioSessionActive to the set of preflight requirements for the app in
 - Call AudioSession.activate explicitly in the preflight sequence
 - Force retry if not able to activate
 
+C2488
+
 
