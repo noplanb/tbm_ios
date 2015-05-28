@@ -42,9 +42,9 @@
     [super viewDidLoad];
     [_registerForm stopWaitingForServer];
     self.registerForm = [[TBMRegisterForm alloc] initWithView:self.view delegate:self];
-    
-    //TODO: This green color should not be hardcoded here it should be put in a common #define file or config file.
-    self.view.backgroundColor = [UIColor colorWithRed:0.61f green:0.75f blue:0.27f alpha:1.0f];
+    self.registerForm.controller = self;
+
+    self.view.backgroundColor = [TBMConfig registrationBackGroundColor];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
