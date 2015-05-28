@@ -1,4 +1,3 @@
-
 //
 // Created by Maksim Bazarov on 22.05.15.
 // Copyright (c) 2015 No Plan B. All rights reserved.
@@ -50,6 +49,7 @@
 *   - Default  Prod
 *   - Persisted so it is recalled after app shutdown.
 */
+@property(nonatomic, strong) UITextField *serverAddressTextField;
 @property(nonatomic, strong) UISegmentedControl *serverSegmentedControl;
 
 /*
@@ -106,15 +106,17 @@
 
 - (void)setup {
 
-    CGFloat topOffset = 60.0f; // navigation bar
+    CGFloat topOffset = 25.f;
+    NSLog(@"topOffset %.2f", topOffset);
     CGFloat vertMargin = 8.0f;
     CGFloat horzMargin = 8.0f;
 
     CGFloat fullWidth = CGRectGetWidth(self.bounds);
     CGFloat halfWidth = (fullWidth / 2) - (horzMargin);
 
-    CGFloat labelHeight = 24.f;
+    CGFloat labelHeight = 20.f;
     CGFloat buttonHeight = 38.f;
+    CGFloat textFieldHeight = 38.f;
 
     self.backgroundColor = [UIColor whiteColor];
 
@@ -141,12 +143,21 @@
     lineTop += labelHeight;
     lineTop += vertMargin;
 
+    //Server text field
+    lineTop += 10.f;
+    self.serverAddressTextField.frame = CGRectMake(horzMargin, lineTop, fullWidth - horzMargin - horzMargin, textFieldHeight);
+    [self addSubview:self.serverAddressTextField];
+    lineTop += buttonHeight;
+    lineTop += vertMargin;
+
     //Server state control
     lineTop += 10.f;
     self.serverSegmentedControl.frame = CGRectMake(horzMargin, lineTop, fullWidth - horzMargin - horzMargin, buttonHeight);
     [self addSubview:self.serverSegmentedControl];
     lineTop += buttonHeight;
     lineTop += vertMargin;
+
+
 
     //debugModeSwitch
     self.debugModeLabel.frame = CGRectMake(horzMargin, lineTop + 5, halfWidth - horzMargin, labelHeight);
@@ -166,7 +177,6 @@
 
     self.logButton.frame = CGRectMake(horzMargin * 2 + halfWidth, lineTop, halfWidth - horzMargin, buttonHeight);
     [self addSubview:self.logButton];
-
 
     lineTop += buttonHeight;
     lineTop += vertMargin;
@@ -195,14 +205,16 @@
         self.firstNameLabel.text = [@"First Name: " stringByAppendingString:data.firstName];
     }
     if (data.lastName) {
-     self.lastNameLabel.text = [@"Last Name: " stringByAppendingString:data.lastName];
+        self.lastNameLabel.text = [@"Last Name: " stringByAppendingString:data.lastName];
     }
 
     if (data.mobileNumber) {
         self.mobileNumberLabel.text = [@"Phone: " stringByAppendingString:data.mobileNumber];
     }
-    
+
     self.serverSegmentedControl.selectedSegmentIndex = data.serverState;
+    self.serverAddressTextField.enabled = data.serverState == TBMServerStateCustom;
+    self.serverAddressTextField.text = data.serverAddress;
     self.debugModeSwitch.on = data.debugMode == TBMConfigDebugModeOn;
 }
 
@@ -289,12 +301,27 @@
     return _crashButton;
 }
 
+- (UITextField *)serverAddressTextField {
+    if (!_serverAddressTextField) {
+        _serverAddressTextField = [[UITextField alloc] init];
+        _serverAddressTextField.borderStyle = UITextBorderStyleRoundedRect;
+        _serverAddressTextField.returnKeyType = UIReturnKeyDone;
+        _serverAddressTextField.keyboardType = UIKeyboardTypeURL;
+        _serverAddressTextField.enabled = NO;
+//        _serverAddressTextField.layer.cornerRadius = 3.f;
+//        _serverAddressTextField.layer.borderWidth = 0.5f;
+//        _serverAddressTextField.layer.borderColor = [[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3f] CGColor];
+        _serverAddressTextField.delegate = self;
+    }
+    return _serverAddressTextField;
+}
+
 - (UISegmentedControl *)serverSegmentedControl {
     if (!_serverSegmentedControl) {
-        _serverSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"PROD",@"DEV",@"CUSTOM"]];
+        _serverSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"PROD", @"DEV", @"CUSTOM"]];
         [_serverSegmentedControl addTarget:self
-                             action:@selector(serverSegmentedControlAction:)
-                   forControlEvents:UIControlEventValueChanged];
+                                    action:@selector(serverSegmentedControlAction:)
+                          forControlEvents:UIControlEventValueChanged];
     }
     return _serverSegmentedControl;
 }
@@ -328,5 +355,17 @@
     }
     return _dispatchButton;
 }
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    NSString *customServerURL = textField.text;
+    if (customServerURL) {
+        [self.eventHandler setCustomServerURL:customServerURL];
+        [textField resignFirstResponder];
+    }
+    return YES;
+}
+
 
 @end

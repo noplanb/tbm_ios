@@ -13,38 +13,61 @@
 
 @implementation TBMConfig
 
+#pragma mark - Server configuration
+
 + (TBMConfigServerState)serverState {
     NSInteger serverState = [UD integerForKey:kTBMConfigServerStateKey];
     if (serverState >= 0 && serverState <= 3) {
-        OB_INFO(@"CONFIG # returned serverState: %u",serverState);
+        OB_INFO(@"CONFIG # returned serverState: %u", serverState);
         return (TBMConfigServerState) serverState;
     }
     else {
-        OB_INFO(@"CONFIG # returned serverState: %u",TBMServerStateProduction);
+        OB_INFO(@"CONFIG # returned serverState: %u", TBMServerStateProduction);
         return TBMServerStateProduction;
     }
 }
 
 + (NSString *)serverURL {
-    NSString *serverURL = kTBMServers[[self serverState]];
-    if (!serverURL) {
-        return kTBMServers[TBMServerStateProduction];
+
+    TBMConfigServerState serverState = [self serverState];
+    NSString *serverURL;
+
+    if (serverState == TBMServerStateCustom) {
+        serverURL = [UD stringForKey:kTBMConfigCustomServerURLKey];
     }
-    OB_INFO(@"CONFIG # returned serverURL: %@",serverURL);
+
+    if (serverState == TBMServerStateDeveloper) {
+        serverURL = kTBMServers[TBMServerStateDeveloper];
+    }
+
+    if (!serverURL) {
+        serverURL = kTBMServers[TBMServerStateProduction];
+    }
+
+    OB_INFO(@"CONFIG # returned serverURL: %@", serverURL);
     return serverURL;
+}
+
++ (void)changeCustomServerURL:(NSString *)url {
+    if (url) {
+        [UD setObject:url forKey:kTBMConfigCustomServerURLKey];
+        [UD synchronize];
+    }
 }
 
 + (void)changeServerTo:(TBMConfigServerState)state {
     [UD setInteger:state forKey:kTBMConfigServerStateKey];
     [UD synchronize];
-    OB_INFO(@"CONFIG # changeServerTo: %u",state);
+    OB_INFO(@"CONFIG # changeServerTo: %u", state);
 }
+
+#pragma mark - Device debug mode
 
 + (TBMConfigDeviceDebugMode)deviceDebugMode {
     NSInteger debugMode = [UD integerForKey:kTBMConfigDeviceDebugModeKey];
 
     if (debugMode >= 0 && debugMode <= 1) {
-        OB_INFO(@"CONFIG # returned deviceDebugMode: %u",debugMode);
+        OB_INFO(@"CONFIG # returned deviceDebugMode: %u", debugMode);
         return (TBMConfigDeviceDebugMode) debugMode;
     }
     else {
@@ -53,49 +76,20 @@
     }
 }
 
++ (NSString *)deviceDebugModeString {
+    if ([self deviceDebugMode] == TBMConfigDeviceDebugModeProd) {
+        return @"prod";
+    }
+    return @"dev";
+}
+
 + (void)changeDeviceDebugModeTo:(TBMConfigDeviceDebugMode)mode {
     [UD setInteger:mode forKey:kTBMConfigDeviceDebugModeKey];
     [UD synchronize];
     OB_INFO(@"CONFIG # changed deviceDebugMode to : %u", TBMConfigDeviceDebugModeOff);
 }
 
-
-+ (NSString *)appName {
-    return CONFIG_APP_NAME;
-}
-
-
-+ (NSURL *)videosDirectoryUrl {
-    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
-}
-
-+ (NSURL *)thumbMissingUrl {
-    return [[[TBMConfig resourceUrl] URLByAppendingPathComponent:@"head"] URLByAppendingPathExtension:@"png"];
-}
-
-+ (NSURL *)resourceUrl {
-    return [[NSBundle mainBundle] resourceURL];
-}
-
-+ (NSURL *)tbmBaseUrl {
-    return [NSURL URLWithString:[self serverURL]];
-}
-
-+ (NSString *)tbmBasePath {
-    return [self serverURL];
-}
-
-+ (NSString *)deviceDebugModeString {
-    if( [self deviceDebugMode] == TBMConfigDeviceDebugModeProd) {
-        return @"prod";
-    }
-    return @"dev";
-}
-
-+ (UIColor *)registrationBackGroundColor {
-    return [UIColor colorWithRed:0.61f green:0.75f blue:0.27f alpha:1.0f];
-}
-
+#pragma mark - Config debug mode
 
 + (TBMConfigDebugMode)configDebugMode {
     NSInteger debugMode = [UD integerForKey:kTBMConfigDebugModeKey];
@@ -115,5 +109,38 @@
     [UD synchronize];
     OB_INFO(@"CONFIG # changed configebugMode to : %u", mode);
 }
+
+#pragma mark - Appearance configuration
+
++ (UIColor *)registrationBackGroundColor {
+    return [UIColor colorWithRed:0.61f green:0.75f blue:0.27f alpha:1.0f];
+}
+
+#pragma mark - Legacy
+
++ (NSString *)appName {
+    return CONFIG_APP_NAME;
+}
+
++ (NSURL *)videosDirectoryUrl {
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
+}
+
++ (NSURL *)resourceUrl {
+    return [[NSBundle mainBundle] resourceURL];
+}
+
++ (NSURL *)tbmBaseUrl {
+    return [NSURL URLWithString:[self serverURL]];
+}
+
++ (NSURL *)thumbMissingUrl {
+    return [[[TBMConfig resourceUrl] URLByAppendingPathComponent:@"head"] URLByAppendingPathExtension:@"png"];
+}
+
++ (NSString *)tbmBasePath {
+    return [self serverURL];
+}
+
 
 @end

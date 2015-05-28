@@ -4,7 +4,6 @@
 //
 
 #import "TBMDebugData.h"
-#import "TBMConfig.h"
 #import "TBMUser.h"
 
 @implementation TBMDebugData {
@@ -20,7 +19,7 @@
 }
 
 - (void)fillData {
-    NSArray *versionParts = @[CONFIG_VERSION_STRING,@"(",CONFIG_VERSION_NUMBER,@")"];
+    NSArray *versionParts = @[CONFIG_VERSION_STRING, @"(", CONFIG_VERSION_NUMBER, @")"];
     self.version = [versionParts componentsJoinedByString:@" "];
     TBMUser *user = [TBMUser getUser];
 
@@ -29,53 +28,46 @@
     self.mobileNumber = user.mobileNumber;
 
     self.serverState = [TBMConfig serverState];
+    self.serverAddress = [TBMConfig serverURL];
     self.debugMode = [TBMConfig configDebugMode];
 }
 
-- (NSString *)debugDescription {
-    NSMutableString *description = [@"* " mutableCopy];
 
-    if (self.version) {
-        [description appendString:@"Version: "];
-        [description appendString:self.version];
-        [description appendString:@"\n * "];
+void append(NSMutableString *description, NSString *title, NSString *value) {
+    [description appendString:title];
+    if (value) {
+        [description appendString:value];
     }
-
-    if (self.firstName) {
-        [description appendString:@"First Name: "];
-        [description appendString:self.firstName];
-        [description appendString:@"\n * "];
-    }
-
-    if (self.lastName) {
-        [description appendString:@"Last Name: "];
-        [description appendString:self.lastName];
-        [description appendString:@"\n * "];
-    }
-
-    if (self.mobileNumber) {
-        [description appendString:@"Phone: "];
-        [description appendString:self.mobileNumber];
-        [description appendString:@"\n * "];
-    }
-
-    if (self.serverState == TBMServerStateCustom) {
-        [description appendString:@"Server State: Custom"];
-    } else if (self.serverState == TBMServerStateDeveloper){
-        [description appendString:@"Server State: Development"];
-    } else {
-        [description appendString:@"Server State: Production"];
-    }
-
     [description appendString:@"\n * "];
+}
+
+- (NSString *)debugDescription {
+    NSMutableString *description = [@"\n * DEBUG SCREEN DATA * * * * * * \n * " mutableCopy];
+
+    append(description, @"Version: ", self.version);
+    append(description, @"First Name: ", self.firstName);
+    append(description, @"Last Name: ", self.lastName);
+    append(description, @"Phone: ", self.mobileNumber);
 
     if (self.debugMode == TBMConfigDebugModeOn) {
-        [description appendString:@"Debug mode: ON"];
+        append(description, @"Debug mode: ", @"ON");
     } else {
         [description appendString:@"Debug mode: OFF"];
     }
-    [description appendString:@"\n"];
+
+    if (self.serverState == TBMServerStateCustom) {
+        append(description, @"Server State: ", @"Custom");
+    } else if (self.serverState == TBMServerStateDeveloper) {
+        append(description, @"Server State: ", @"Development");
+    } else {
+        append(description, @"Server State: ", @"Production");
+    }
+
+    append(description, @"Server address: ", self.serverAddress);
+
+    [description appendString:@"\n * * * * * * * * * * * * * * * * * * * * * * * * \n"];
     return (NSString *) description;
 }
+
 
 @end

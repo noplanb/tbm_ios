@@ -9,13 +9,27 @@
 
 @interface TBMDebugData : NSObject
 
+/**
+* Version
+*/
+@property(nonatomic, strong) NSString *version;
+
+/**
+* User data
+*/
 @property(nonatomic, strong) NSString *firstName;
 @property(nonatomic, strong) NSString *lastName;
 @property(nonatomic, strong) NSString *mobileNumber;
 
-@property(nonatomic, strong) NSString *version;
-
+/**
+* Config Debug mode
+*/
 @property(nonatomic, assign) TBMConfigDebugMode debugMode;
+
+/**
+* Server
+*/
 @property(nonatomic, assign) TBMConfigServerState serverState;
+@property(nonatomic, copy) NSString *serverAddress;
 
 @end

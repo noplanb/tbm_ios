@@ -72,7 +72,12 @@
     [self.navigationController pushViewController:self.stateScreen animated:YES];
 }
 
-#pragma mark - Dismiss
+#pragma mark - Actions
+
+- (void)reload {
+    [self.secretScreen reloadData];
+
+}
 
 - (void)dismiss {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
@@ -88,7 +93,7 @@
 
 - (void)dispatchButtonDidPress {
     TBMDebugData *data  = [[TBMDebugData alloc] init];
-    OB_DEBUG(@"****** DEBUG SCREEN DATA *******\n %@",[data debugDescription]);
+    OB_INFO(@"%@",[data debugDescription]);
 
 }
 
@@ -99,11 +104,6 @@
         [TBMConfig changeConfigDebugModeTo:TBMConfigDebugModeOff];
     }
     [self reload];
-}
-
-- (void)reload {
-    [self.secretScreen reloadData];
-
 }
 
 - (void)crashButtonDidPress {
@@ -120,6 +120,11 @@
 
 - (void)serverSegmentedControlDidChangeTo:(NSInteger)index {
     [TBMConfig changeServerTo:index];
+    [self reload];
+}
+
+- (void)setCustomServerURL:(NSString *)url {
+    [TBMConfig changeCustomServerURL:url];
     [self reload];
 }
 @end

@@ -8,12 +8,15 @@
 @class TBMSecretScreenPresenter;
 @class TBMDebugData;
 
-@interface TBMSecretScreenView : UIView
+@interface TBMSecretScreenView : UIView <UITextFieldDelegate>
 
 /**
 * Event handler
 */
 @property(nonatomic, weak) TBMSecretScreenPresenter *eventHandler;
 
+/**
+* Updates data on user interface
+*/
 - (void)updateUserInterfaceWithData:(TBMDebugData *)data;
 @end

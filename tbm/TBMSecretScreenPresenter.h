@@ -28,4 +28,6 @@
 - (void)stateButtonDidPress;
 
 - (void)serverSegmentedControlDidChangeTo:(NSInteger)index;
+
+- (void)setCustomServerURL:(NSString *)url;
 @end
