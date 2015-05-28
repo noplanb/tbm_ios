@@ -88,7 +88,7 @@
 // URLs for file transfer
 //-----------------------
 + (NSString *) fileTransferRemoteUrlBase{
-    return REMOTE_STORAGE_USE_S3 ? REMOTE_STORAGE_S3_BASE_URL_STRING : CONFIG_SERVER_BASE_URL_STRING;
+    return REMOTE_STORAGE_USE_S3 ? REMOTE_STORAGE_S3_BASE_URL_STRING : [TBMConfig serverURL];
 }
 
 + (NSString *) fileTransferUploadPath{

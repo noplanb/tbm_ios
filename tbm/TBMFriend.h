@@ -98,6 +98,9 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 - (void)generateThumbWithVideo:(TBMVideo *)video;
 
 - (NSString *)videoStatusString;
+
+- (NSString *)outgoingVideoStatusString;
+
 // Probably should not expose this and rather have setters for various states.
 - (void)setAndNotifyIncomingVideoStatus:(TBMIncomingVideoStatus)status video:(TBMVideo *)video;
 - (void)setAndNotifyDownloadRetryCount:(NSNumber *)retryCount video:(TBMVideo *)video;
