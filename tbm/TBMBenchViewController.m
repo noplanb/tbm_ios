@@ -236,7 +236,7 @@ static float BENCH_CELL_HEIGHT = 56.0;
     if ([item isKindOfClass:[TBMFriend class]]){
         TBMFriend *f = (TBMFriend *)item;
         cell.thumbImageView.image = [f thumbImage];
-        cell.nameLabel.text = [f displayName];
+        cell.nameLabel.text = [f fullName];
         nameFrame.origin.x = cell.thumbImageView.frame.origin.x + cell.thumbImageView.frame.size.width + BENCH_CELL_THUMB_IMAGE_RIGHT_MARGIN;
     } else {
         cell.thumbImageView.image = nil;
