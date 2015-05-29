@@ -25,14 +25,9 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 
 
 @implementation TBMAppDelegate (PushNotification)
-
 //-----------------------
 // Setup and registration
 //-----------------------
-- (void)setupPushNotificationCategory {
-    [TBMFriend addVideoStatusNotificationDelegate:self];
-}
-
 - (void)registerForPushNotification {
     OB_INFO(@"registerForPushNotification");
     if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
@@ -194,10 +189,6 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 // Notification center and badge control
 //--------------------------------------
 #pragma mark Notification center and badge control
-
-- (void)videoStatusDidChange:(id)object {
-    // We dont use this notification anymore. We only set the badge number at certain points in time explicitly.
-}
 
 - (void)clearBadgeCount {
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
