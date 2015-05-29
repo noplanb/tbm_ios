@@ -644,7 +644,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
 
 - (NSString *)fullName {
     NSString *firstName = self.firstName ? self.firstName : @"";
-    NSString *lastName = self.lastName ? self.firstName : @"";
+    NSString *lastName = self.lastName ? self.lastName : @"";
     NSMutableString *fullName = [[firstName stringByAppendingString:@" "] mutableCopy];
     [fullName appendString:lastName];
     return fullName;
