@@ -451,7 +451,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 
 // Name Label
 - (void)updateNameLabel{
-    self.nameLabel.text = [TBMConfig configDebugMode] == TBMConfigDebugModeOn ? [self.gridElement.friend videoStatusString] : [self.gridElement.friend fullName];
+    self.nameLabel.text = [TBMConfig configDebugMode] == TBMConfigDebugModeOn ? [self.gridElement.friend videoStatusString] : [self.gridElement.friend displayName];
 }
 - (void)showNameLabel{
     self.nameLabel.hidden = NO;
