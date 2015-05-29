@@ -67,7 +67,32 @@
     [self ensureFreeStorage];
 }
 
+
+- (void)onGrantedPushAccess {
+    [self onResourcesAvailable];
+}
+
+- (void)onFailPushAccess {
+    if (self.pushAlreadyFailed) {
+        return;
+    }
+    OB_INFO(@"onFailPushAccess");
+    UIAlertView *allert = [[UIAlertView alloc] initWithTitle:@"Need Permission"
+                                                     message:@"You must grant permission for notifications. Please close Zazo. Go your device home screen. Click Settings/Zazo and allow notifications for Zazo. Zazo is a messaging app and requires notifications to operate."
+                                                    delegate:self
+                                           cancelButtonTitle:@"Close"
+                                           otherButtonTitles:nil];
+    self.pushAlreadyFailed = YES;
+    [allert show];
+}
+
+- (void)alertView:(UIAlertView *)theAlert clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSAssert(false, @"[ASSERT] !!! Quit because not push notification persmition granted !!! ");
+}
+
 - (void)onResourcesAvailable{
+    OB_INFO(@"onResourcesAvailable");
     [TBMVideo printAll];
     [self handleStuckDownloadsWithCompletionHandler:^{
         [self retryPendingFileTransfers];
@@ -194,7 +219,11 @@
     if ([[AVAudioSession sharedInstance] activate] != nil)
         [self alertEndProbablePhoneCall];
     else
-        [self onResourcesAvailable];
+        [self ensurePushNotification];
+}
+
+- (void)ensurePushNotification {
+    [self registerForPushNotification];
 }
 
 - (void)alertEndProbablePhoneCall{
