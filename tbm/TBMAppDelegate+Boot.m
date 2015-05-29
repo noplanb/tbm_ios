@@ -60,7 +60,7 @@
 * It is a bit spagetti like. There is probably a more elegant way to do this.
 * Daisy chain is:
 * ensureFreeStorageSpace -> ensureAllMediaAccess (videoAccess -> audioAccess)
-* -> ensureAudioSession -> onResourcesAvailable
+* -> ensureAudioSession -> ensurePushNotification -> onResourcesAvailable
 */
 - (void)ensureResources {
     [self ensureFreeStorage];
