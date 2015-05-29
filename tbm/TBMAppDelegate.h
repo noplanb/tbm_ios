@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "TBMRegisterViewController.h"
 @class TBMHomeViewController;
 
@@ -31,6 +32,13 @@
 @property (copy) void (^backgroundDownloadSessionCompletionHandler)();
 
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTaskId;
+
+@property(nonatomic) UIUserNotificationType notificationAllowedTypes;
+
+@property(nonatomic) BOOL pushAlreadyFailed;
+
+-(void)onGrantedPushAccess;
+-(void)onFailPushAccess;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
