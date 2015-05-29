@@ -318,7 +318,7 @@
 
 - (UISegmentedControl *)serverSegmentedControl {
     if (!_serverSegmentedControl) {
-        _serverSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"PROD", @"DEV", @"CUSTOM"]];
+        _serverSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"PROD", @"STAGE", @"CUSTOM"]];
         [_serverSegmentedControl addTarget:self
                                     action:@selector(serverSegmentedControlAction:)
                           forControlEvents:UIControlEventValueChanged];

@@ -115,6 +115,8 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 - (void)handleOutgoingVideoViewedWithVideoId:(NSString *)videoId;
 - (void)handleOutgoingVideoFailedPermanentlyWithVideoId:(NSString *)videoId;
 - (void)handleUploadRetryCount:(NSNumber *)retryCount videoId:(NSString *)videoId;
+
+- (NSString *)fullName;
 @end
 
 @interface TBMFriend (CoreDataGeneratedAccessors)

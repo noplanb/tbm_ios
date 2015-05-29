@@ -31,12 +31,9 @@ BOOL containID(NSString *fileName, NSString *fileId) {
 
     for (TBMFriend *friend in [TBMFriend all]) {
         TBMFriendVideos *friendVideos = [[TBMFriendVideos alloc] init];
-        NSString *firstName = friend.firstName ? friend.firstName : @"";
-        NSString *lastName = friend.lastName ? friend.firstName : @"";
-        NSMutableString *name = [[firstName stringByAppendingString:@" "] mutableCopy];
-        [name appendString:lastName];
 
-        friendVideos.name = name;
+
+        friendVideos.name = friend.fullName;
         NSMutableArray *incomingVideos = [@[] mutableCopy];
 
         for (TBMVideo *video in friend.videos) {
