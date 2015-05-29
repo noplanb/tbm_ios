@@ -41,7 +41,6 @@
 }
 
 - (void)postRegistrationBoot {
-    [self setupPushNotificationCategory];
     [TBMS3CredentialsManager refreshFromServer:nil];
 }
 
