@@ -13,11 +13,9 @@ static NSString *NOTIFICATION_STATUS_DOWNLOADED = @"downloaded";
 static NSString *NOTIFICATION_STATUS_VIEWED = @"viewed";
 
 @interface TBMAppDelegate (PushNotification)
-- (void)setupPushNotificationCategory;
 - (void)registerForPushNotification;
 - (void)setBadgeNumberUnviewed;
 - (void)setBadgeNumberDownloadedUnviewed;
-- (void)videoStatusDidChange:(id)object;
 
 - (void)handleNotificationPayload:(NSDictionary *)userInfo;
 
