@@ -6,8 +6,9 @@
 #import "TBMStateScreenDataSource.h"
 #import "TBMVideo.h"
 #import "TBMFriend.h"
-#import "TBMFriendVideos.h"
+#import "TBMFriendVideosInformation.h"
 #import "TBMConfig.h"
+#import "TBMVideoObject.h"
 
 NSString *status(TBMOutgoingVideoStatus status);
 
@@ -18,6 +19,33 @@ NSString *status(TBMOutgoingVideoStatus status);
 @implementation TBMStateScreenDataSource {
 
 }
+#pragma mark - Helpers
+
+NSString *outgoing_status(TBMOutgoingVideoStatus status) {
+    NSArray *statuses = @[
+            @"OUTGOING_VIDEO_STATUS_NONE",
+            @"OUTGOING_VIDEO_STATUS_NEW",
+            @"OUTGOING_VIDEO_STATUS_QUEUED",
+            @"OUTGOING_VIDEO_STATUS_UPLOADING",
+            @"OUTGOING_VIDEO_STATUS_UPLOADED",
+            @"OUTGOING_VIDEO_STATUS_DOWNLOADED",
+            @"OUTGOING_VIDEO_STATUS_VIEWED",
+            @"OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY]"
+    ];
+
+    return statuses[status];
+}
+
+NSString *incoming_status(TBMIncomingVideoStatus status) {
+    NSArray *statuses = @[
+            @"INCOMING_VIDEO_STATUS_NEW",
+            @"INCOMING_VIDEO_STATUS_DOWNLOADING",
+            @"INCOMING_VIDEO_STATUS_DOWNLOADED",
+            @"INCOMING_VIDEO_STATUS_VIEWED",
+            @"INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY"
+    ];
+    return statuses[status];
+}
 
 BOOL containID(NSString *fileName, NSString *fileId) {
     NSUInteger location = [fileName rangeOfString:fileId].location;
@@ -25,34 +53,40 @@ BOOL containID(NSString *fileName, NSString *fileId) {
     return result;
 }
 
-- (void)loadFriendsVideos {
+- (void)loadFriendsVideoObjects {
     self.notDanglingFiles = [@[] mutableCopy];
     NSMutableArray *friendsFiles = [@[] mutableCopy];
 
     for (TBMFriend *friend in [TBMFriend all]) {
-        TBMFriendVideos *friendVideos = [[TBMFriendVideos alloc] init];
+        TBMFriendVideosInformation *information = [[TBMFriendVideosInformation alloc] init];
 
-
-        friendVideos.name = friend.fullName;
-        NSMutableArray *incomingVideos = [@[] mutableCopy];
-
+        information.name = friend.fullName;
+        TBMVideoObject *videoObject;
+        // Make incoming array
+        NSMutableArray *incomingObjects = [@[] mutableCopy];
         for (TBMVideo *video in friend.videos) {
-            [incomingVideos addObject:video];
-            [self.notDanglingFiles addObject:video.videoId];
-
+            videoObject = [TBMVideoObject makeVideoObjectWithVideoID:video.videoId
+                                                              status:incoming_status(video.status)];
+            if (videoObject) {
+                [incomingObjects addObject:videoObject];
+                [self.notDanglingFiles addObject:video.videoId];
+            }
         }
-        friendVideos.incomingVideos = incomingVideos;
+        information.incomingObjects = incomingObjects;
 
-        friendVideos.outgoingVideoId = friend.outgoingVideoId;
-        if (friendVideos.outgoingVideoId) {
+        // Make outgoing object
+
+        videoObject = [TBMVideoObject makeVideoObjectWithVideoID:friend.outgoingVideoId
+                                                          status:outgoing_status(friend.outgoingVideoStatus)];
+        if (videoObject) {
+            information.outgoingObjects = @[videoObject];
             [self.notDanglingFiles addObject:friend.outgoingVideoId];
         }
-        friendVideos.outgoingVideoStatus = friend.outgoingVideoStatus;
 
-        [friendsFiles addObject:friendVideos];
+        [friendsFiles addObject:information];
     }
 
-    self.friendsFiles = friendsFiles;
+    self.friendsVideoObjects = friendsFiles;
 
 }
 
@@ -102,7 +136,6 @@ BOOL containID(NSString *fileName, NSString *fileId) {
         }
         if (indexForDelete > -1) [incomingVideos removeObjectAtIndex:indexForDelete];
     }
-
 
     for (NSString *file in self.notDanglingFiles) {
         indexForDelete = -1;

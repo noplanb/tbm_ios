@@ -6,13 +6,15 @@
 #import "TBMStateScreenViewController.h"
 #import "TBMSecretScreenPresenter.h"
 #import "TBMStateScreenDataSource.h"
-#import "TBMFriendVideos.h"
-#import "TBMVideo.h"
-#import "TBMFriend.h"
+#import "TBMStateScreenView.h"
+#import "TBMFriendVideosInformation.h"
+#import "TBMVideoObject.h"
 
 @interface TBMStateScreenViewController ()
+
 @property(nonatomic) TBMSecretScreenPresenter *presenter;
-@property(nonatomic, strong) UITextView *textView;
+
+@property(nonatomic, strong) TBMStateScreenView *stateScreenview;
 @end
 
 @implementation TBMStateScreenViewController {
@@ -22,8 +24,8 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.textView = [[UITextView alloc] initWithFrame:self.view.bounds];
-        [self.view addSubview:self.textView];
+        self.stateScreenview = [[TBMStateScreenView alloc] initWithFrame:self.view.bounds];
+        [self.view addSubview:self.stateScreenview];
         [self setupNavigationBar];
     }
     return self;
@@ -41,75 +43,64 @@
     return self;
 }
 
-#pragma mark - Helpers
-
-void appendLog(NSMutableString *description, NSString *title, NSString *value) {
-    [description appendString:title];
-    if (value) {
-        [description appendString:value];
-    }
-    [description appendString:@"\n"];
-}
-
-NSString *outgoing_status(TBMOutgoingVideoStatus status) {
-    NSArray *statuses = @[
-            @"OUTGOING_VIDEO_STATUS_NONE",
-            @"OUTGOING_VIDEO_STATUS_NEW",
-            @"OUTGOING_VIDEO_STATUS_QUEUED",
-            @"OUTGOING_VIDEO_STATUS_UPLOADING",
-            @"OUTGOING_VIDEO_STATUS_UPLOADED",
-            @"OUTGOING_VIDEO_STATUS_DOWNLOADED",
-            @"OUTGOING_VIDEO_STATUS_VIEWED",
-            @"OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY]"
-    ];
-
-    return statuses[status];
-}
-
-
-NSString *incoming_status(TBMIncomingVideoStatus status) {
-    NSArray *statuses = @[
-            @"INCOMING_VIDEO_STATUS_NEW",
-            @"INCOMING_VIDEO_STATUS_DOWNLOADING",
-            @"INCOMING_VIDEO_STATUS_DOWNLOADED",
-            @"INCOMING_VIDEO_STATUS_VIEWED",
-            @"INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY"
-    ];
-    return statuses[status];
-}
 
 - (void)updateUserInterfaceWithData:(TBMStateScreenDataSource *)data {
-    NSMutableString *stateLog = [@"" mutableCopy];
+    if (!data) {
+        return;
+    }
 
-    appendLog(stateLog, @"******* FRIENDS FILES ******* ", @"");
-    for (TBMFriendVideos *friendVideos in data.friendsFiles) {
-        appendLog(stateLog, @"--------------", @"----------------");
-        appendLog(stateLog, @"| FRIEND:", friendVideos.name);
-        appendLog(stateLog, @"--------------", @"----------------");
-        appendLog(stateLog, @"| INCOMING FILES", @"\n");
-        for (TBMVideo *file in friendVideos.incomingVideos) {
-            appendLog(stateLog, @"ID: ", file.videoId);
-            appendLog(stateLog, @"STATUS: ", incoming_status(file.status));
-            appendLog(stateLog, @"-", @"-");
+    NSMutableDictionary *tableData = [NSMutableDictionary dictionary];
+    NSMutableArray *orderKeys = [NSMutableArray array];
+    if (data.incomingFiles && data.incomingFiles.count) {
+        NSString *danglingIncomingKey = @"DANGLING INCOMING FILES";
+        NSMutableArray *incomingFiles = [@[] mutableCopy];
+        for (NSString *videoFile in data.incomingFiles) {
+            TBMVideoObject *videoObject = [TBMVideoObject makeVideoObjectWithVideoID:videoFile status:@"."];
+            [incomingFiles addObject:videoObject];
         }
-        appendLog(stateLog, @"| OUTGOING FILE", @"\n");
-        appendLog(stateLog, @"| ID: ", friendVideos.outgoingVideoId);
-        appendLog(stateLog, @"| STATUS: = ", outgoing_status(friendVideos.outgoingVideoStatus));
-        appendLog(stateLog, @"----------------------------", @"----------------");
-    }
-    appendLog(stateLog, @"******* DANGLING INCOMING FILES ******* ", @"");
-
-    for (NSString *file in data.incomingFiles) {
-        appendLog(stateLog, @"- ", file);
-        appendLog(stateLog, @"", @"\n");
+        tableData[danglingIncomingKey] = incomingFiles;
+        [orderKeys addObject:danglingIncomingKey];
     }
 
-    appendLog(stateLog, @"******* DANGLING OUTGOING FILES ******* ", @"");
-    for (NSString *file in data.outgoingFiles) {
-        appendLog(stateLog, @"- ", file);
-        appendLog(stateLog, @"", @"\n");
+    if (data.outgoingFiles && data.outgoingFiles.count) {
+        NSString *danglingOutgoingKey = @"DANGLING OUTGOING FILES";
+        NSMutableArray *outgoingFiles = [@[] mutableCopy];
+        for (NSString *videoFile in data.outgoingFiles) {
+            TBMVideoObject *videoObject = [TBMVideoObject makeVideoObjectWithVideoID:videoFile status:@"."];
+            [outgoingFiles addObject:videoObject];
+        }
+        tableData[danglingOutgoingKey] = outgoingFiles;
+        [orderKeys addObject:danglingOutgoingKey];
     }
 
-    self.textView.text = stateLog;
+    if (data.friendsVideoObjects && data.friendsVideoObjects.count) {
+        for (NSUInteger index = 0; index < data.friendsVideoObjects.count; ++index) {
+            TBMFriendVideosInformation *videoObject = data.friendsVideoObjects[index];
+
+            if (videoObject) {
+                NSString *friendName = videoObject.name;
+                if (friendName) {
+                    if (videoObject.outgoingObjects && videoObject.outgoingObjects.count) {
+                        NSString *outgoingKey = [friendName stringByAppendingFormat:@" - Outgoing object"];
+                        tableData[outgoingKey] = videoObject.outgoingObjects;
+                        [orderKeys addObject:outgoingKey];
+                    }
+
+                    if (videoObject.incomingObjects && videoObject.incomingObjects.count) {
+                        NSString *incomingKey = [friendName stringByAppendingFormat:@" - Incoming objects"];
+                        tableData[incomingKey] = videoObject.incomingObjects;
+                        [orderKeys addObject:incomingKey];
+                    }
+
+                }
+            }
+
+        }
+    }
+
+    [self.stateScreenview updateTableWithData:tableData orederKeys:orderKeys];
 }
+
+#pragma mark - Lazy initialization
+
 @end

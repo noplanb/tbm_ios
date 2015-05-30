@@ -71,7 +71,7 @@
 
 - (void)presentStateScreen {
     TBMStateScreenDataSource *data = [[TBMStateScreenDataSource alloc] init];
-    [data loadFriendsVideos];
+    [data loadFriendsVideoObjects];
     [data loadVideos];
     [data excludeNonDanglingFiles];
     [self.stateScreen updateUserInterfaceWithData:data];
