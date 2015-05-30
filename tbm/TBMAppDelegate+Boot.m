@@ -188,6 +188,7 @@
 
 - (void)ensureAudioSession {
     OB_INFO(@"ensureAudioSession");
+    [[AVAudioSession sharedInstance] setupApplicationAudioSession];
     if ([[AVAudioSession sharedInstance] activate] != nil)
         [self alertEndProbablePhoneCall];
     else

@@ -81,3 +81,19 @@ Add ensureAudioSessionActive to the set of preflight requirements for the app in
 C2488
 
 
+FEATURE: #370 Secret debug screen
+---------------------------------
+C106
+C107
+C2489
+C2490
+
+FEATURE: #458 Notification permission in preflight resource check
+-----------------------------------------------------------------
+C2491
+
+
+BUG #461 Should not request microphone before registration complete
+-------------------------------------------------------------------
+This is happening because we are setting audio session category on didFinishLaunching. We should only when we call ensure resources.
+C2492

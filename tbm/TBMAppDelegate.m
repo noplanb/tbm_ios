@@ -39,7 +39,6 @@
     self.pushAlreadyFailed = NO;
     [self setupLogger];
     [self addObservers];
-    [[AVAudioSession sharedInstance] setupApplicationAudioSession];
     
     OB_INFO(@"didFinishLaunchingWithOptions:");
     [self boot];
