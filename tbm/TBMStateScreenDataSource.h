@@ -8,11 +8,11 @@
 @interface TBMStateScreenDataSource : NSObject
 
 
-@property(nonatomic, strong) NSArray *friendsFiles;
+@property(nonatomic, strong) NSArray *friendsVideoObjects;
 @property(nonatomic, strong) NSArray *incomingFiles;
 @property(nonatomic, strong) NSArray *outgoingFiles;
 
-- (void)loadFriendsVideos;
+- (void)loadFriendsVideoObjects;
 
 - (void)loadVideos;
 

@@ -5,6 +5,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TBMStateScreenView : UITextView
+@class TBMStateScreenDataSource;
+
+
+@interface TBMStateScreenView : UIView <UITableViewDelegate, UITableViewDataSource>
+
+/**
+* Update table with data
+*/
+- (void)updateTableWithData:(NSMutableDictionary *)data orederKeys:(NSMutableArray *)orderKeys;
 
 @end
