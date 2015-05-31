@@ -97,3 +97,8 @@ BUG #461 Should not request microphone before registration complete
 -------------------------------------------------------------------
 This is happening because we are setting audio session category on didFinishLaunching. We should only when we call ensure resources.
 C2492
+
+
+FEATURE #456 - Show first and last name for friends in drawer
+-------------------------------------------------------------
+C2493
