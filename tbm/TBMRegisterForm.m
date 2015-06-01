@@ -10,6 +10,9 @@
 #import "TBMConfig.h"
 #import "TBMSecretScreenPresenter.h"
 #import "TBMRegisterViewController.h"
+#import "TBMUser.h"
+#import "NBPhoneNumberUtil.h"
+#import "NBPhoneNumber.h"
 
 @interface TBMRegisterForm ()
 @property(nonatomic) float screenWidth;
@@ -123,6 +126,27 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
     [self setScrollViewSize];
     [self addNextFields];
     [self.topView setNeedsDisplay];
+    [self prefillUserData];
+}
+
+- (void)prefillUserData {
+    TBMUser *user = [TBMUser getUser];
+    if (!user) {
+        return;
+    }
+
+    self.firstName.text = user.firstName;
+    self.lastName.text = user.lastName;
+
+    NSError *error = nil;
+    if (user.mobileNumber && user.mobileNumber.length > 0) {
+        NBPhoneNumber *phoneNumber = [[NBPhoneNumberUtil new] parse:user.mobileNumber defaultRegion:@"US" error:&error];
+        if (!error) {
+            self.countryCode.text = [phoneNumber.countryCode stringValue];
+            self.mobileNumber.text = [phoneNumber.nationalNumber stringValue];
+        }
+    }
+
 }
 
 - (void)addScrollView {
