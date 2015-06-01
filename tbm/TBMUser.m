@@ -73,6 +73,7 @@
             [[TBMUser managedObjectContext] deleteObject:u];
         }];
     }
+    [self saveCurrentContext];
 }
 
 + (TBMUser *)createNewUser {
@@ -84,6 +85,9 @@
 
     user = (TBMUser *) [[NSManagedObject alloc] initWithEntity:description
                                 insertIntoManagedObjectContext:context];
+    if (!user) {
+        OB_ERROR(@"TBMUser # createNewUser - Failed create user");
+    }
     return user;
 }
 
@@ -105,6 +109,9 @@
 - (void)setupRegistredFlagTo:(BOOL)registred {
     NSManagedObjectContext *context = [TBMUser managedObjectContext];
     TBMUser *user = [TBMUser getUser];
+    if (!user) {
+        return;
+    }
     user.isRegistered = YES;
     [TBMUser saveCurrentContext];
 }
@@ -112,6 +119,9 @@
 + (void)saveRegistrationData:(NSDictionary *)params {
     NSManagedObjectContext *context = [TBMUser managedObjectContext];
     TBMUser *user = [TBMUser createNewUser];
+    if (!user) {
+        return;
+    }
     user.firstName = [params objectForKey:SERVER_PARAMS_USER_FIRST_NAME_KEY];
     user.lastName = [params objectForKey:SERVER_PARAMS_USER_LAST_NAME_KEY];
     user.mobileNumber = [params objectForKey:SERVER_PARAMS_USER_MOBILE_NUMBER_KEY];
