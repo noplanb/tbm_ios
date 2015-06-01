@@ -132,6 +132,7 @@
 #pragma mark Register
 
 - (void)register{
+    [TBMUser saveRegistrationData:[self userParams]];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[self userParams]];
     params[SERVER_PARAMS_USER_VERIFICATION_CODE_VIA_KEY] = SERVER_PARAMS_USER_VERIFICATION_CODE_VIA_SMS;
     
@@ -335,7 +336,7 @@
 
 
 - (void) registrationComplete{
-    [TBMUser getUser].isRegistered = YES;
+    [[TBMUser getUser] setupRegistredFlagTo:YES];
     [(TBMAppDelegate *)[[UIApplication sharedApplication] delegate] didCompleteRegistration];
 }
 

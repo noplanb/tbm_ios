@@ -22,10 +22,9 @@
 
 - (void)boot {
     OB_INFO(@"Boot");
-
     [TBMDispatch enable];
-
-    if (![TBMUser getUser].isRegistered) {
+    TBMUser *user = [TBMUser getUser];
+    if (!user.isRegistered) {
         self.window.rootViewController = [self registerViewController];
     } else {
         self.window.rootViewController = [self homeViewController];
@@ -228,17 +227,17 @@
     OB_INFO(@"onFailPushAccess");
     NSString *closeBtn = [NSString stringWithFormat:@"Close %@", CONFIG_APP_NAME];
     NSString *msg = @"You must grant permission for notifications."
-    " Please close Zazo. Go your device home screen. "
-    "Click Settings/Zazo and allow notifications for Zazo. "
-    "Zazo is a messaging app and requires notifications to operate.";
-    
+            " Please close Zazo. Go your device home screen. "
+            "Click Settings/Zazo and allow notifications for Zazo. "
+            "Zazo is a messaging app and requires notifications to operate.";
+
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Need Permission" message:msg];
-    
+
     [alert addAction:[SDCAlertAction actionWithTitle:closeBtn style:SDCAlertActionStyleDefault
                                              handler:^(SDCAlertAction *action) {
                                                  exit(0);
                                              }]];
-    
+
     [alert presentWithCompletion:nil];
 }
 @end
