@@ -75,7 +75,6 @@
     }
 }
 
-<<<<<<< HEAD
 + (TBMUser *)createNewUser {
     [TBMUser destroy];
     //Insert user in context
@@ -85,34 +84,13 @@
 
     user = (TBMUser *) [[NSManagedObject alloc] initWithEntity:description
                                 insertIntoManagedObjectContext:context];
-=======
-+ (instancetype)createWithIdTbm:(NSString *)idTbm {
-    [TBMUser destroy];
-    __block TBMUser *user;
-    [[TBMUser managedObjectContext] performBlockAndWait:^{
-        user = (TBMUser *) [[NSManagedObject alloc] initWithEntity:[TBMUser entityDescription] insertIntoManagedObjectContext:[TBMUser managedObjectContext]];
-        user.idTbm = idTbm;
-        user.isRegistered = NO;
-    }];
->>>>>>> 9100442b3f28deab76be9c97d5544fe30e6a26cc
     return user;
 }
 
 + (instancetype)createWithServerParams:(NSDictionary *)params {
-<<<<<<< HEAD
 
     NSManagedObjectContext *context = [TBMUser managedObjectContext];
     TBMUser *user = [TBMUser createNewUser];
-=======
-    [TBMUser destroy];
-    //Insert user in context
-    TBMUser *user;
-    NSManagedObjectContext *context = [TBMUser managedObjectContext];
-    NSEntityDescription *description = [TBMUser entityDescription];
-
-    user = (TBMUser *) [[NSManagedObject alloc] initWithEntity:description
-                                insertIntoManagedObjectContext:context];
->>>>>>> 9100442b3f28deab76be9c97d5544fe30e6a26cc
 
     user.firstName = [params objectForKey:SERVER_PARAMS_USER_FIRST_NAME_KEY];
     user.lastName = [params objectForKey:SERVER_PARAMS_USER_LAST_NAME_KEY];
@@ -120,24 +98,8 @@
     user.mkey = [params objectForKey:SERVER_PARAMS_USER_MKEY_KEY];
     user.auth = [params objectForKey:SERVER_PARAMS_USER_AUTH_KEY];
     user.mobileNumber = [params objectForKey:SERVER_PARAMS_USER_MOBILE_NUMBER_KEY];
-<<<<<<< HEAD
     [self saveCurrentContext];
     return user;
-=======
-    if (user.auth && user.mkey) {
-        user.isRegistered = YES;
-    }
-    // Save data to store
-    NSError *error;
-    [context save:&error];
-    if (error) {
-        OB_ERROR(@"TBMUser # createWithServerParams - Failed to save - error: %@", error);
-        return nil;
-    } else {
-        OB_INFO(@"Created user: %@", user);
-        return user;
-    }
->>>>>>> 9100442b3f28deab76be9c97d5544fe30e6a26cc
 }
 
 - (void)setupRegistredFlagTo:(BOOL)registred {
