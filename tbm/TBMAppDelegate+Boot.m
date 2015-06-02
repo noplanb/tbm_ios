@@ -224,6 +224,7 @@
     if (self.pushAlreadyFailed) {
         return;
     }
+    self.pushAlreadyFailed = YES;
     OB_INFO(@"onFailPushAccess");
     NSString *closeBtn = [NSString stringWithFormat:@"Close %@", CONFIG_APP_NAME];
     NSString *msg = @"You must grant permission for notifications."
