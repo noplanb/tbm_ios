@@ -1,9 +1,15 @@
-v2.2.0
+v2.2.3 30
 
-Build:
+Testfairy Build:
+https://my.testfairy.com/download/64R34DSG68R2TD1P70RKJDHDA0GDFY5E8KYSEN54H984P540PP18MCT9/getapp
 
-stage: https://my.testfairy.com/download/70VK4C1P6CPK8DHR64WKCBCNKGP71B23M1XSJ9RAY1PJX9JAZR4FTVG/getapp
-prod: https://my.testfairy.com/download/70VK4C1H70PK8DHR64WKCBFAGBEG2MNKAX9309V7DVDCGK1ST47SVT0/getapp
+NOTE: This build contains a secret screen accessible the same way as Android to change to staging server before registering. Please conduct your tests on Staging!
+
+FogBugz cases:
+https://zazo.fogbugz.com/f/filters/8/ios
+
+NOTICE: UNTIL MAKSIM FIXES #466 IOS 7 WILL NOT BE TESTABLE.
+
 
 General Notes:
 =============
