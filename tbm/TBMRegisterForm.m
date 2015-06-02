@@ -180,6 +180,7 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
     if (gesture.state == UIGestureRecognizerStateEnded) {
         NSString *countryCode = self.countryCode.text;
         if (countryCode && [countryCode rangeOfString:@"000"].location != NSNotFound) {
+            self.countryCode.text = @"";
             [self.secretScreen presentSecretScreenFromController:self.controller];
         }
     }
