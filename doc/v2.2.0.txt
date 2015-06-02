@@ -87,6 +87,7 @@ C106
 C107
 C2489
 C2490
+C2495
 
 FEATURE: #458 Notification permission in preflight resource check
 -----------------------------------------------------------------
@@ -102,3 +103,8 @@ C2492
 FEATURE #456 - Show first and last name for friends in drawer
 -------------------------------------------------------------
 C2493
+
+
+BUG #467 fix/dangling-outgoing-temp-files
+-----------------------------------------
+C2495
