@@ -83,7 +83,7 @@ static TBMHomeViewController *hvcInstance;
 
         //Prepare menu button
         CGFloat buttonSize = CGRectGetHeight(self.headerView.bounds);
-        CGFloat x = CGRectGetMaxX(self.headerView.bounds) - buttonSize;
+        CGFloat x = CGRectGetMaxX(self.headerView.bounds) - (buttonSize * 2);
         CGFloat y = CGRectGetMinY(self.headerView.bounds);
 
         CGRect frame = CGRectMake(x, y, buttonSize * 2, buttonSize);
