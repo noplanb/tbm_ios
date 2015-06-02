@@ -1,4 +1,4 @@
-v2.2.4 31
+v2.2.5 32
 
 These release notes:
 https://docs.google.com/document/d/1Jbgocw02yyh7Q4bBOiiEFu6pbOVA9k91byArpuLaLoM/edit?usp=sharing
@@ -120,3 +120,15 @@ C2493
 BUG #467 fix/dangling-outgoing-temp-files
 -----------------------------------------
 C2495
+
+
+BUGS Fixed in 2.2.5
+--------------------
+92c5be3 464: Ensure Notifications Permission Flashes Dialog twice
+b0ff5f6 176: T26 No phone number exists
+a2188e9 258: Keyboards restricted only for English and non-standard keyboard
+fc528d0 472: Button "return" instead of "next" on registration screen
+0bb15eb 471: Clear "000" from country code field after exiting "secret screen"
+35620d9 376: Video stuck after minimize/expand
+e231714 465: Clicking Signin twice in registration causes multiple verfifcation codes to be sent.
+4945079 285: Add cancel button to Mobile phone list dialog in invitation
