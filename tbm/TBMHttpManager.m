@@ -26,6 +26,9 @@ NSString * const SERVER_PARAMS_USER_MKEY_KEY = @"mkey";
 NSString * const SERVER_PARAMS_USER_AUTH_KEY = @"auth";
 NSString * const SERVER_PARAMS_USER_DEVICE_PLATFORM_KEY = @"device_platform";
 NSString * const SERVER_PARAMS_USER_VERIFICATION_CODE_KEY = @"verification_code";
+NSString * const SERVER_PARAMS_USER_VERIFICATION_CODE_VIA_KEY = @"via";
+NSString * const SERVER_PARAMS_USER_VERIFICATION_CODE_VIA_SMS = @"sms";
+NSString * const SERVER_PARAMS_USER_VERIFICATION_CODE_VIA_CALL = @"call";
 
 NSString * const SERVER_PARAMS_FRIEND_FIRST_NAME_KEY = @"first_name";
 NSString * const SERVER_PARAMS_FRIEND_LAST_NAME_KEY = @"last_name";

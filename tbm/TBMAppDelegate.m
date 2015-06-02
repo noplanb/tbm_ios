@@ -14,9 +14,11 @@
 #import "OBFileTransferManager.h"
 #import "TBMUser.h"
 #import "TBMHttpManager.h"
+#import "AVAudioSession+TBMAudioSession.h"
 
 @interface TBMAppDelegate()
 @property id <TBMAppDelegateEventNotificationProtocol> eventNotificationDelegate;
+@property (nonatomic, copy) void (^registredToNotifications)(void);
 @end
 
 @implementation TBMAppDelegate
@@ -34,6 +36,7 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+    self.pushAlreadyFailed = NO;
     [self setupLogger];
     [self addObservers];
     
@@ -93,6 +96,8 @@
     [self saveContext];
     [self removeObservers];
 }
+
+
 
 - (void)saveContext{
     OB_INFO(@"saveContext");

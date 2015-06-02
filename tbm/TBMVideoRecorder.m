@@ -40,13 +40,14 @@ static int videoRecorderRetryCount = 0;
 
 @implementation TBMVideoRecorder
 
+#pragma mark - public interface
 
 - (instancetype)initWithPreviewView:(TBMPreviewView *)previewView delegate:(id)delegate {
 
     self = [super init];
     
     if (self) {
-        
+        [[AVAudioSession sharedInstance] addTBMAudioSessionDelegate:self];
         self.delegate = delegate;
         self.previewView = previewView;
         
@@ -56,15 +57,22 @@ static int videoRecorderRetryCount = 0;
         [self setupPreviewView];
 
         dispatch_async(self.sessionQueue, ^{
-            [self setupAudioSession];
             [self initVideoInput];
             [self addAudioInput];
             [self initCaptureOutput];
             [self addObservers];
+            [self.captureSession setUsesApplicationAudioSession:YES];
+            [self.captureSession setAutomaticallyConfiguresApplicationAudioSession:NO];
             [self.captureSession startRunning];
         });
     }
     return self;
+}
+
+- (void)startRunning{
+    dispatch_async(self.sessionQueue, ^{
+        if (self.captureSession != nil) [self.captureSession startRunning];
+    });
 }
 
 #pragma mark - intialization of Video, Audio and Capture
@@ -116,26 +124,6 @@ static int videoRecorderRetryCount = 0;
     if (self.audioInput) {
         [self.captureSession removeInput:self.audioInput];
     }
-}
-
-
-- (void) setupAudioSession{
-    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    
-    NSError *error = nil;
-    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionMixWithOthers error:&error];
-    if (error)
-        OB_ERROR(@"ERROR: unable to set audiosession to AVAudioSessionCategoryPlayAndRecord ERROR: %@", error);
-    
-    error = nil;
-    [audioSession setMode:AVAudioSessionModeVideoChat error:&error];
-    if (error)
-        OB_ERROR(@"ERROR: unable to set audiosession to AVAudioSessionModeVideoChat ERROR: %@", error);
-    
-    error = nil;
-    if (![audioSession setActive:YES error:&error])
-        OB_ERROR(@"ERROR: unable to activate audiosession ERROR: %@", error);
-    
 }
 
 
@@ -314,6 +302,13 @@ static int videoRecorderRetryCount = 0;
 }
 - (void) AVCaptureSessionInterruptionEndedNotification:(NSNotification *)notification{
     OB_WARN(@"AVCaptureSessionInterruptionEndedNotification");
+}
+
+
+#pragma mark AudioSessionDelegate
+-(void)willDeactivateAudioSession{
+    OB_INFO(@"VideoRecorder: willDeactivateAudioSession");
+    [self.captureSession stopRunning];
 }
 
 

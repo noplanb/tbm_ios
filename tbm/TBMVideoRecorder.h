@@ -9,23 +9,22 @@
 #import <Foundation/Foundation.h>
 #import "AVFoundation/AVFoundation.h"
 #import "TBMPreviewView.h"
+#import "AVAudioSession+TBMAudioSession.h"
 
 extern NSString* const TBMVideoRecorderDidFinishRecording;
 extern NSString* const TBMVideoRecorderShouldStartRecording;
 extern NSString* const TBMVideoRecorderDidCancelRecording;
 extern NSString* const TBMVideoRecorderDidFail;
 
-#warning Kirill eventually this should be migrated to use notification center.
 @protocol TBMVideoRecorderDelegate <NSObject>
 - (void)videoRecorderDidStartRunning;
 - (void)videoRecorderRuntimeErrorWithRetryCount:(int)videoRecorderRetryCount;
 @end
 
-@interface TBMVideoRecorder : NSObject
-
+@interface TBMVideoRecorder : NSObject <TBMAudioSessionDelegate>
 @property (nonatomic) id <TBMVideoRecorderDelegate> delegate;
-
 - (instancetype)initWithPreviewView:(TBMPreviewView *)previewView delegate:(id)delegate;
+- (void)startRunning;
 - (void)startRecordingWithVideoUrl:(NSURL *)videoUrl;
 - (void)stopRecording;
 - (BOOL)cancelRecording;

@@ -7,13 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AVAudioSession+TBMAudioSession.h"
 
 @protocol TBMVideoPlayerEventNotification <NSObject>
 - (void)videoPlayerStartedIndex:(NSInteger)index;
 - (void)videoPlayerStopped;
 @end
 
-@interface TBMVideoPlayer : NSObject
+@interface TBMVideoPlayer : NSObject <TBMAudioSessionDelegate>
 @property (nonatomic) UIView *playerView;
 
 // Create

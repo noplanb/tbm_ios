@@ -20,8 +20,10 @@
 @property (nonatomic, retain) NSString * mobileNumber;
 
 + (instancetype)getUser;
-+ (instancetype)createWithIdTbm:(NSNumber *)idTbm;
 + (instancetype)createWithServerParams:(NSDictionary *)params;
 + (NSString *)phoneRegion;
 
++ (void)saveRegistrationData:(NSDictionary *)params;
+
+- (void)setupRegistredFlagTo:(BOOL)registred;
 @end

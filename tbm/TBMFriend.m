@@ -642,4 +642,11 @@ static NSMutableArray * videoStatusNotificationDelegates;
     [self setAndNotifyUploadRetryCount:(NSNumber *)retryCount videoId:(NSString *)videoId];
 }
 
+- (NSString *)fullName {
+    NSString *firstName = self.firstName ? self.firstName : @"";
+    NSString *lastName = self.lastName ? self.lastName : @"";
+    NSMutableString *fullName = [[firstName stringByAppendingString:@" "] mutableCopy];
+    [fullName appendString:lastName];
+    return fullName;
+}
 @end

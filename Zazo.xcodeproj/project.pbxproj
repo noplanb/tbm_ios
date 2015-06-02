@@ -29,7 +29,6 @@
 		220E90521909A18C003C4F82 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 220E90501909A18C003C4F82 /* InfoPlist.strings */; };
 		220E90541909A18C003C4F82 /* KeyChainWrapperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E90531909A18C003C4F82 /* KeyChainWrapperTests.m */; };
 		220E905E1909A1A9003C4F82 /* TBM.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 220E905D1909A1A9003C4F82 /* TBM.storyboard */; };
-		220E90611909C3D4003C4F82 /* TBMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E90601909C3D4003C4F82 /* TBMHomeViewController.m */; };
 		22151E881A5CB07B008EF88E /* TBMDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 22151E871A5CB07B008EF88E /* TBMDispatch.m */; };
 		22151E8A1A5CF4B2008EF88E /* TBMDispatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22151E891A5CF4B2008EF88E /* TBMDispatchTests.m */; };
 		221B77661A68888C009FA670 /* TPKeyboardAvoidingCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 221B775F1A68888C009FA670 /* TPKeyboardAvoidingCollectionView.m */; };
@@ -41,11 +40,13 @@
 		221B77721A688984009FA670 /* TBMAlertControllerVisualStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 221B776F1A688984009FA670 /* TBMAlertControllerVisualStyle.m */; };
 		221B77761A6889B9009FA670 /* TBMBenchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 221B77751A6889B9009FA670 /* TBMBenchTableViewCell.m */; };
 		221EA2911912E86300649BC5 /* TBMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 221EA2901912E86300649BC5 /* TBMUser.m */; };
+		221F4EB61AFFBB4800D0771B /* AVAudioSession+TBMAudioSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 221F4EB51AFFBB4800D0771B /* AVAudioSession+TBMAudioSession.m */; };
 		22249586190B52E4008EF394 /* TBMLongPressTouchHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 22249585190B52E4008EF394 /* TBMLongPressTouchHandler.m */; };
 		222724331917F2F500DA6865 /* NSArray+NSArrayExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 222724321917F2F500DA6865 /* NSArray+NSArrayExtensions.m */; };
 		2227243519182A1000DA6865 /* head.png in Resources */ = {isa = PBXBuildFile; fileRef = 2227243419182A1000DA6865 /* head.png */; };
 		223A11461915926800177481 /* TBMHttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 223A11451915926800177481 /* TBMHttpManager.m */; };
 		223A11491915AED900177481 /* TBMAppDelegate+Boot.m in Sources */ = {isa = PBXBuildFile; fileRef = 223A11481915AED900177481 /* TBMAppDelegate+Boot.m */; };
+		223C55DF1B06AD0A00FB8B7C /* TBMVerfiicationAlertHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 223C55DE1B06AD0A00FB8B7C /* TBMVerfiicationAlertHandler.m */; };
 		223D927B1A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 223D927A1A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.m */; };
 		22403C2B19D5E63400FC36E3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22403C2A19D5E63400FC36E3 /* MessageUI.framework */; };
 		224101D2190D40B1005128F9 /* TBMDeviceHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 224101D1190D40B1005128F9 /* TBMDeviceHandler.m */; };
@@ -57,7 +58,6 @@
 		225D21C01A5B5B4F0087A25B /* TBMS3CredentialsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 225D21BF1A5B5B4F0087A25B /* TBMS3CredentialsManager.m */; };
 		225D21C41A5B7A060087A25B /* S3CredentialsManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 225D21C31A5B7A060087A25B /* S3CredentialsManagerTests.m */; };
 		2261417719A52CFB006FB870 /* TBMVersionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2261417619A52CFB006FB870 /* TBMVersionHandler.m */; };
-		2261417A19A54D16006FB870 /* TBMHomeViewController+VersionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2261417919A54D16006FB870 /* TBMHomeViewController+VersionController.m */; };
 		2266439B190AD932006C9072 /* TBMViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2266439A190AD932006C9072 /* TBMViewUtils.m */; };
 		226643A7190B13E2006C9072 /* TBMGeometryUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 226643A6190B13E2006C9072 /* TBMGeometryUtils.m */; };
 		226914D319AFCD42007497F1 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 226914B619AFCD42007497F1 /* Icon-72.png */; };
@@ -104,7 +104,6 @@
 		22A8F5081A09608800F7AD0E /* TBMTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A8F5071A09608800F7AD0E /* TBMTextField.m */; };
 		22A8F50B1A099C7600F7AD0E /* TBMPhoneUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A8F50A1A099C7600F7AD0E /* TBMPhoneUtils.m */; };
 		22B1AE561A68576F0027C4B1 /* TBMMarginLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B1AE551A68576F0027C4B1 /* TBMMarginLabel.m */; };
-		22BF060519D4A5FC00F6E025 /* TBMHomeViewController+Invite.m in Sources */ = {isa = PBXBuildFile; fileRef = 22BF060419D4A5FC00F6E025 /* TBMHomeViewController+Invite.m */; };
 		22C466EA1A8ECC4F0043BA7D /* NotificationTone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22C466E81A8ECC4F0043BA7D /* NotificationTone.wav */; };
 		22CC5E5F1A1AD9A900AAFB75 /* TBMTableModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CC5E5E1A1AD9A900AAFB75 /* TBMTableModal.m */; };
 		22DACC7B1A1D015700B2F750 /* TBMContentViewModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 22DACC7A1A1D015700B2F750 /* TBMContentViewModal.m */; };
@@ -119,7 +118,21 @@
 		22F32AFC19228F3300AB524E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F32AFB19228F3300AB524E /* StoreKit.framework */; };
 		22FE2A011A09C0460051FC9C /* TBMFriendGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FE2A001A09C0460051FC9C /* TBMFriendGetter.m */; };
 		4106AE661AD550AB007910EC /* TBMPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4106AE651AD550AB007910EC /* TBMPreviewView.m */; };
-		416B0BA51ACD4E000082D562 /* TBMAudioSessionRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 416B0BA41ACD4E000082D562 /* TBMAudioSessionRouter.m */; };
+		682D60FAB9D240DE4F4E3D92 /* TBMStateScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D692EB3EAB4A0CF9E854A /* TBMStateScreenView.m */; };
+		682D62136F85BE33BD04EA08 /* UIButton+TBMRoundedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D61977AA88F649B770C19 /* UIButton+TBMRoundedButton.m */; };
+		682D624A69ED9E44BCCE66A0 /* TBMSecretGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6E4823793C3A8B5DE7D9 /* TBMSecretGestureRecognizer.m */; };
+		682D62DD0738377E650C5945 /* TBMStateScreenTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D697A85E470F66246FDF3 /* TBMStateScreenTableCell.m */; };
+		682D63AEA1A6A755E0A4ACEB /* TBMHomeViewController+Invite.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6066C4BBB00F3CA6A092 /* TBMHomeViewController+Invite.m */; };
+		682D63B290F5DEB1C4FBA10C /* TBMDebugData.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6C597BD987714621084C /* TBMDebugData.m */; };
+		682D63D91D9A3ECB906AD4CC /* TBMSecretScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6C10E49A6BFFF6F0B573 /* TBMSecretScreenViewController.m */; };
+		682D66B1615DE575D3DE16D8 /* TBMFriendVideosInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D67EB7CB154D705981F06 /* TBMFriendVideosInformation.m */; };
+		682D674F34DA0CE5E20DA154 /* TBMStateScreenDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6FF4F4153C1F25988DC2 /* TBMStateScreenDataSource.m */; };
+		682D67D927AE5F6ADCDCACD0 /* TBMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6F2E6181D4111349CA53 /* TBMHomeViewController.m */; };
+		682D6803E1C4044FB656583E /* TBMHomeViewController+VersionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D65DD73C84904DFE81F22 /* TBMHomeViewController+VersionController.m */; };
+		682D6B2677B928C0D1136A0F /* TBMStateScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D67A25785E06A364413A3 /* TBMStateScreenViewController.m */; };
+		682D6CC5BFB1F412D4790679 /* TBMSecretScreenPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6589B2760FC2E61CC0FF /* TBMSecretScreenPresenter.m */; };
+		682D6E7FC50B50BB222E05CE /* TBMSecretScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6FBFEAF9036A9D7D2F71 /* TBMSecretScreenView.m */; };
+		682D6F3A6F4BA7778FCCEC23 /* TBMVideoObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D665A451D0E9DB5673E14 /* TBMVideoObject.m */; };
 		E20D3F30A3404563A3BEC783 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98B109B594AF439180A6DFAF /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -164,8 +177,6 @@
 		220E90511909A18C003C4F82 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		220E90531909A18C003C4F82 /* KeyChainWrapperTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyChainWrapperTests.m; sourceTree = "<group>"; };
 		220E905D1909A1A9003C4F82 /* TBM.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TBM.storyboard; sourceTree = "<group>"; };
-		220E905F1909C3D4003C4F82 /* TBMHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHomeViewController.h; sourceTree = "<group>"; };
-		220E90601909C3D4003C4F82 /* TBMHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TBMHomeViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		22151E861A5CB07B008EF88E /* TBMDispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDispatch.h; sourceTree = "<group>"; };
 		22151E871A5CB07B008EF88E /* TBMDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDispatch.m; sourceTree = "<group>"; };
 		22151E891A5CF4B2008EF88E /* TBMDispatchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDispatchTests.m; sourceTree = "<group>"; };
@@ -187,6 +198,8 @@
 		221B77751A6889B9009FA670 /* TBMBenchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMBenchTableViewCell.m; sourceTree = "<group>"; };
 		221EA28F1912E86300649BC5 /* TBMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMUser.h; sourceTree = "<group>"; };
 		221EA2901912E86300649BC5 /* TBMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMUser.m; sourceTree = "<group>"; };
+		221F4EB41AFFBB4800D0771B /* AVAudioSession+TBMAudioSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVAudioSession+TBMAudioSession.h"; sourceTree = "<group>"; };
+		221F4EB51AFFBB4800D0771B /* AVAudioSession+TBMAudioSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVAudioSession+TBMAudioSession.m"; sourceTree = "<group>"; };
 		22249584190B52E4008EF394 /* TBMLongPressTouchHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMLongPressTouchHandler.h; sourceTree = "<group>"; };
 		22249585190B52E4008EF394 /* TBMLongPressTouchHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMLongPressTouchHandler.m; sourceTree = "<group>"; };
 		222724311917F2F500DA6865 /* NSArray+NSArrayExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+NSArrayExtensions.h"; sourceTree = "<group>"; };
@@ -196,6 +209,8 @@
 		223A11451915926800177481 /* TBMHttpManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHttpManager.m; sourceTree = "<group>"; };
 		223A11471915AED900177481 /* TBMAppDelegate+Boot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMAppDelegate+Boot.h"; sourceTree = "<group>"; };
 		223A11481915AED900177481 /* TBMAppDelegate+Boot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMAppDelegate+Boot.m"; sourceTree = "<group>"; };
+		223C55DD1B06AD0A00FB8B7C /* TBMVerificationAlertHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVerificationAlertHandler.h; sourceTree = "<group>"; };
+		223C55DE1B06AD0A00FB8B7C /* TBMVerfiicationAlertHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVerfiicationAlertHandler.m; sourceTree = "<group>"; };
 		223D92791A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMContactSearchTableDelegate.h; sourceTree = "<group>"; };
 		223D927A1A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMContactSearchTableDelegate.m; sourceTree = "<group>"; };
 		22403C2A19D5E63400FC36E3 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -214,8 +229,6 @@
 		225D21C31A5B7A060087A25B /* S3CredentialsManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = S3CredentialsManagerTests.m; sourceTree = "<group>"; };
 		2261417519A52CFB006FB870 /* TBMVersionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVersionHandler.h; sourceTree = "<group>"; };
 		2261417619A52CFB006FB870 /* TBMVersionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVersionHandler.m; sourceTree = "<group>"; };
-		2261417819A54D16006FB870 /* TBMHomeViewController+VersionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMHomeViewController+VersionController.h"; sourceTree = "<group>"; };
-		2261417919A54D16006FB870 /* TBMHomeViewController+VersionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMHomeViewController+VersionController.m"; sourceTree = "<group>"; };
 		22664399190AD932006C9072 /* TBMViewUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMViewUtils.h; sourceTree = "<group>"; };
 		2266439A190AD932006C9072 /* TBMViewUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMViewUtils.m; sourceTree = "<group>"; };
 		226643A5190B13E2006C9072 /* TBMGeometryUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMGeometryUtils.h; sourceTree = "<group>"; };
@@ -278,8 +291,6 @@
 		22A8F50A1A099C7600F7AD0E /* TBMPhoneUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMPhoneUtils.m; sourceTree = "<group>"; };
 		22B1AE541A68576F0027C4B1 /* TBMMarginLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMMarginLabel.h; sourceTree = "<group>"; };
 		22B1AE551A68576F0027C4B1 /* TBMMarginLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMMarginLabel.m; sourceTree = "<group>"; };
-		22BF060319D4A5FC00F6E025 /* TBMHomeViewController+Invite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMHomeViewController+Invite.h"; sourceTree = "<group>"; };
-		22BF060419D4A5FC00F6E025 /* TBMHomeViewController+Invite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMHomeViewController+Invite.m"; sourceTree = "<group>"; };
 		22C466E81A8ECC4F0043BA7D /* NotificationTone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = NotificationTone.wav; sourceTree = "<group>"; };
 		22C466EB1A8EF4410043BA7D /* Zazo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Zazo.entitlements; sourceTree = "<group>"; };
 		22CC5E5D1A1AD9A900AAFB75 /* TBMTableModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMTableModal.h; sourceTree = "<group>"; };
@@ -305,10 +316,38 @@
 		22FE2A001A09C0460051FC9C /* TBMFriendGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFriendGetter.m; sourceTree = "<group>"; };
 		4106AE641AD550AB007910EC /* TBMPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMPreviewView.h; sourceTree = "<group>"; };
 		4106AE651AD550AB007910EC /* TBMPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMPreviewView.m; sourceTree = "<group>"; };
-		416B0BA31ACD4E000082D562 /* TBMAudioSessionRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAudioSessionRouter.h; sourceTree = "<group>"; };
-		416B0BA41ACD4E000082D562 /* TBMAudioSessionRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAudioSessionRouter.m; sourceTree = "<group>"; };
 		41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		682D6066C4BBB00F3CA6A092 /* TBMHomeViewController+Invite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMHomeViewController+Invite.m"; sourceTree = "<group>"; };
+		682D61497C752CA4DE9B187C /* TBMDebugData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDebugData.h; sourceTree = "<group>"; };
+		682D61977AA88F649B770C19 /* UIButton+TBMRoundedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+TBMRoundedButton.m"; sourceTree = "<group>"; };
+		682D62BEB56D05ED64DA7452 /* TBMSecretScreenPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSecretScreenPresenter.h; sourceTree = "<group>"; };
+		682D647B1B8B2F16EF4FCBC2 /* TBMSecretScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSecretScreenViewController.h; sourceTree = "<group>"; };
+		682D653DDB24EAA3FA5B96D2 /* TBMVideoObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoObject.h; sourceTree = "<group>"; };
+		682D6544C95E30D4FD984377 /* TBMHomeViewController+Invite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMHomeViewController+Invite.h"; sourceTree = "<group>"; };
+		682D6589B2760FC2E61CC0FF /* TBMSecretScreenPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSecretScreenPresenter.m; sourceTree = "<group>"; };
+		682D65DD73C84904DFE81F22 /* TBMHomeViewController+VersionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMHomeViewController+VersionController.m"; sourceTree = "<group>"; };
+		682D665A451D0E9DB5673E14 /* TBMVideoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoObject.m; sourceTree = "<group>"; };
+		682D66626FF1E12471AE98AE /* TBMStateScreenDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMStateScreenDataSource.h; sourceTree = "<group>"; };
+		682D67A25785E06A364413A3 /* TBMStateScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMStateScreenViewController.m; sourceTree = "<group>"; };
+		682D67EB7CB154D705981F06 /* TBMFriendVideosInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFriendVideosInformation.m; sourceTree = "<group>"; };
+		682D692EB3EAB4A0CF9E854A /* TBMStateScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMStateScreenView.m; sourceTree = "<group>"; };
+		682D697A85E470F66246FDF3 /* TBMStateScreenTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMStateScreenTableCell.m; sourceTree = "<group>"; };
+		682D69E4281B04C63779AC10 /* TBMSecretGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSecretGestureRecognizer.h; sourceTree = "<group>"; };
+		682D6A3CE7633C28D17356B2 /* TBMFriendVideosInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFriendVideosInformation.h; sourceTree = "<group>"; };
+		682D6A734F98D40E543CE53A /* TBMStateScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMStateScreenViewController.h; sourceTree = "<group>"; };
+		682D6AE35999C53D204D9F4C /* TBMStateScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMStateScreenView.h; sourceTree = "<group>"; };
+		682D6C10E49A6BFFF6F0B573 /* TBMSecretScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSecretScreenViewController.m; sourceTree = "<group>"; };
+		682D6C597BD987714621084C /* TBMDebugData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDebugData.m; sourceTree = "<group>"; };
+		682D6C6ECE27E94865F9E785 /* UIButton+TBMRoundedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+TBMRoundedButton.h"; sourceTree = "<group>"; };
+		682D6CD85729FBB16CF08B9D /* TBMStateScreenTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMStateScreenTableCell.h; sourceTree = "<group>"; };
+		682D6DECA2320CD20B07277A /* TBMHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHomeViewController.h; sourceTree = "<group>"; };
+		682D6E4823793C3A8B5DE7D9 /* TBMSecretGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSecretGestureRecognizer.m; sourceTree = "<group>"; };
+		682D6F13C829CB6FE2E92091 /* TBMSecretScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSecretScreenView.h; sourceTree = "<group>"; };
+		682D6F2E6181D4111349CA53 /* TBMHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHomeViewController.m; sourceTree = "<group>"; };
+		682D6F37715F43E4C0D91C5A /* TBMHomeViewController+VersionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMHomeViewController+VersionController.h"; sourceTree = "<group>"; };
+		682D6FBFEAF9036A9D7D2F71 /* TBMSecretScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSecretScreenView.m; sourceTree = "<group>"; };
+		682D6FF4F4153C1F25988DC2 /* TBMStateScreenDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMStateScreenDataSource.m; sourceTree = "<group>"; };
 		7716E91C15B9FF656396DC61 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		98B109B594AF439180A6DFAF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -390,10 +429,8 @@
 		220E90301909A18B003C4F82 /* tbm */ = {
 			isa = PBXGroup;
 			children = (
-				416B0BA21ACD4DD20082D562 /* SessionRouter */,
 				221B77741A6889B9009FA670 /* TBMBenchTableViewCell.h */,
 				221B77751A6889B9009FA670 /* TBMBenchTableViewCell.m */,
-				221B77731A688992009FA670 /* AlertController */,
 				22B1AE531A6857230027C4B1 /* UIWidgets */,
 				226914EF19AFCD92007497F1 /* Icons */,
 				2227243619182A2D00DA6865 /* Images */,
@@ -610,18 +647,15 @@
 		226A37C21A37E0D100A2D0F5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				221B77731A688992009FA670 /* AlertController */,
 				2271555F1A40902B00B437DA /* TBMBenchViewController.h */,
 				227155601A40902B00B437DA /* TBMBenchViewController.m */,
 				220DC03D1A3A61CC006A3F90 /* TBMGridViewController.h */,
 				220DC03E1A3A61CC006A3F90 /* TBMGridViewController.m */,
-				220E905F1909C3D4003C4F82 /* TBMHomeViewController.h */,
-				220E90601909C3D4003C4F82 /* TBMHomeViewController.m */,
-				2261417819A54D16006FB870 /* TBMHomeViewController+VersionController.h */,
-				2261417919A54D16006FB870 /* TBMHomeViewController+VersionController.m */,
-				22BF060319D4A5FC00F6E025 /* TBMHomeViewController+Invite.h */,
-				22BF060419D4A5FC00F6E025 /* TBMHomeViewController+Invite.m */,
 				226A37BF1A37E08900A2D0F5 /* TBMGridElementViewController.h */,
 				226A37C01A37E08900A2D0F5 /* TBMGridElementViewController.m */,
+				682D6517A7FC67528500036B /* Secret Screen */,
+				682D6940B8A3E0E7C5705D57 /* Home */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -648,6 +682,8 @@
 				22ED400A1A08707E003D6536 /* TBMRegisterViewController.m */,
 				227F6CF41A15313700E19E5C /* TBMRegisterForm.h */,
 				227F6CF51A15313700E19E5C /* TBMRegisterForm.m */,
+				223C55DD1B06AD0A00FB8B7C /* TBMVerificationAlertHandler.h */,
+				223C55DE1B06AD0A00FB8B7C /* TBMVerfiicationAlertHandler.m */,
 			);
 			name = Registration;
 			sourceTree = "<group>";
@@ -657,6 +693,8 @@
 			children = (
 				226B49A51AE990FD00E4D2BE /* NSError+Extensions.h */,
 				226B49A61AE990FD00E4D2BE /* NSError+Extensions.m */,
+				221F4EB41AFFBB4800D0771B /* AVAudioSession+TBMAudioSession.h */,
+				221F4EB51AFFBB4800D0771B /* AVAudioSession+TBMAudioSession.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -696,13 +734,88 @@
 			name = Sounds;
 			sourceTree = "<group>";
 		};
-		416B0BA21ACD4DD20082D562 /* SessionRouter */ = {
+		682D6517A7FC67528500036B /* Secret Screen */ = {
 			isa = PBXGroup;
 			children = (
-				416B0BA31ACD4E000082D562 /* TBMAudioSessionRouter.h */,
-				416B0BA41ACD4E000082D562 /* TBMAudioSessionRouter.m */,
+				682D6627EE1C01ECFED1F8BB /* Category */,
+				682D6AC88F462D8C0EC2627E /* State Screen */,
+				682D68B1EFED7AE819B03718 /* Secret screen */,
+				682D62BEB56D05ED64DA7452 /* TBMSecretScreenPresenter.h */,
+				682D6589B2760FC2E61CC0FF /* TBMSecretScreenPresenter.m */,
+				682D61497C752CA4DE9B187C /* TBMDebugData.h */,
+				682D6C597BD987714621084C /* TBMDebugData.m */,
+				682D69E4281B04C63779AC10 /* TBMSecretGestureRecognizer.h */,
+				682D6E4823793C3A8B5DE7D9 /* TBMSecretGestureRecognizer.m */,
 			);
-			path = SessionRouter;
+			name = "Secret Screen";
+			sourceTree = "<group>";
+		};
+		682D6627EE1C01ECFED1F8BB /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				682D6C6ECE27E94865F9E785 /* UIButton+TBMRoundedButton.h */,
+				682D61977AA88F649B770C19 /* UIButton+TBMRoundedButton.m */,
+			);
+			name = Category;
+			sourceTree = "<group>";
+		};
+		682D68B1EFED7AE819B03718 /* Secret screen */ = {
+			isa = PBXGroup;
+			children = (
+				682D647B1B8B2F16EF4FCBC2 /* TBMSecretScreenViewController.h */,
+				682D6C10E49A6BFFF6F0B573 /* TBMSecretScreenViewController.m */,
+				682D6FBFEAF9036A9D7D2F71 /* TBMSecretScreenView.m */,
+				682D6F13C829CB6FE2E92091 /* TBMSecretScreenView.h */,
+			);
+			name = "Secret screen";
+			sourceTree = "<group>";
+		};
+		682D68BF50F93FDCAC7CA42C /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				682D6CD85729FBB16CF08B9D /* TBMStateScreenTableCell.h */,
+				682D697A85E470F66246FDF3 /* TBMStateScreenTableCell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		682D6940B8A3E0E7C5705D57 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				682D6544C95E30D4FD984377 /* TBMHomeViewController+Invite.h */,
+				682D6066C4BBB00F3CA6A092 /* TBMHomeViewController+Invite.m */,
+				682D6F37715F43E4C0D91C5A /* TBMHomeViewController+VersionController.h */,
+				682D65DD73C84904DFE81F22 /* TBMHomeViewController+VersionController.m */,
+				682D6DECA2320CD20B07277A /* TBMHomeViewController.h */,
+				682D6F2E6181D4111349CA53 /* TBMHomeViewController.m */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		682D6AC88F462D8C0EC2627E /* State Screen */ = {
+			isa = PBXGroup;
+			children = (
+				682D68BF50F93FDCAC7CA42C /* Cell */,
+				682D6CA6EDCB7006C2D1CB94 /* DataSource */,
+				682D6AE35999C53D204D9F4C /* TBMStateScreenView.h */,
+				682D692EB3EAB4A0CF9E854A /* TBMStateScreenView.m */,
+				682D6A734F98D40E543CE53A /* TBMStateScreenViewController.h */,
+				682D67A25785E06A364413A3 /* TBMStateScreenViewController.m */,
+			);
+			name = "State Screen";
+			sourceTree = "<group>";
+		};
+		682D6CA6EDCB7006C2D1CB94 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				682D66626FF1E12471AE98AE /* TBMStateScreenDataSource.h */,
+				682D6FF4F4153C1F25988DC2 /* TBMStateScreenDataSource.m */,
+				682D6A3CE7633C28D17356B2 /* TBMFriendVideosInformation.h */,
+				682D67EB7CB154D705981F06 /* TBMFriendVideosInformation.m */,
+				682D653DDB24EAA3FA5B96D2 /* TBMVideoObject.h */,
+				682D665A451D0E9DB5673E14 /* TBMVideoObject.m */,
+			);
+			name = DataSource;
 			sourceTree = "<group>";
 		};
 		984D6697D8F62FFA194F39A2 /* Pods */ = {
@@ -910,12 +1023,11 @@
 				2259A98B1ADA17A200E7DCDE /* TBMVideoProcessor.m in Sources */,
 				2287DB4B1922BB5D00B1C298 /* TBMAppDelegate+PushNotification.m in Sources */,
 				221B77691A68888C009FA670 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
+				221F4EB61AFFBB4800D0771B /* AVAudioSession+TBMAudioSession.m in Sources */,
 				224101D2190D40B1005128F9 /* TBMDeviceHandler.m in Sources */,
 				221B77701A688984009FA670 /* TBMAlertController.m in Sources */,
 				22B1AE561A68576F0027C4B1 /* TBMMarginLabel.m in Sources */,
-				220E90611909C3D4003C4F82 /* TBMHomeViewController.m in Sources */,
 				22A76A7A19A2600C00D8C4FF /* TBMFriend.m in Sources */,
-				416B0BA51ACD4E000082D562 /* TBMAudioSessionRouter.m in Sources */,
 				226A26031A584AD6006FDFDA /* TBMKeyChainWrapper.m in Sources */,
 				22151E881A5CB07B008EF88E /* TBMDispatch.m in Sources */,
 				222724331917F2F500DA6865 /* NSArray+NSArrayExtensions.m in Sources */,
@@ -927,18 +1039,17 @@
 				22CC5E5F1A1AD9A900AAFB75 /* TBMTableModal.m in Sources */,
 				2208E8A51A14195500150C35 /* TBMContactsManager.m in Sources */,
 				22093F1B192590CE0021EB0C /* TBMSoundEffect.m in Sources */,
-				22BF060519D4A5FC00F6E025 /* TBMHomeViewController+Invite.m in Sources */,
 				22F1A4C419354AC500E04229 /* TBMVideoIdUtils.m in Sources */,
 				221EA2911912E86300649BC5 /* TBMUser.m in Sources */,
 				221B77721A688984009FA670 /* TBMAlertControllerVisualStyle.m in Sources */,
 				4106AE661AD550AB007910EC /* TBMPreviewView.m in Sources */,
 				226A37C11A37E08900A2D0F5 /* TBMGridElementViewController.m in Sources */,
+				223C55DF1B06AD0A00FB8B7C /* TBMVerfiicationAlertHandler.m in Sources */,
 				22ED40081A0850F5003D6536 /* TBMGridElement.m in Sources */,
 				22A8F5081A09608800F7AD0E /* TBMTextField.m in Sources */,
 				22EA56C119106AD100646D3E /* TBMConfig.m in Sources */,
 				224101D7190D5171005128F9 /* TBMVideoRecorder.m in Sources */,
 				22DACC7B1A1D015700B2F750 /* TBMContentViewModal.m in Sources */,
-				2261417A19A54D16006FB870 /* TBMHomeViewController+VersionController.m in Sources */,
 				22A8F50B1A099C7600F7AD0E /* TBMPhoneUtils.m in Sources */,
 				220E90371909A18B003C4F82 /* main.m in Sources */,
 				22EA56BE191068B700646D3E /* TBMVideoPlayer.m in Sources */,
@@ -952,6 +1063,21 @@
 				225D21C01A5B5B4F0087A25B /* TBMS3CredentialsManager.m in Sources */,
 				22A375C41930E09E00C355EB /* TBMStringUtils.m in Sources */,
 				2292CBBB1A9FF7EF00A0477B /* NSString+NSStringExtensions.m in Sources */,
+				682D6CC5BFB1F412D4790679 /* TBMSecretScreenPresenter.m in Sources */,
+				682D63AEA1A6A755E0A4ACEB /* TBMHomeViewController+Invite.m in Sources */,
+				682D6803E1C4044FB656583E /* TBMHomeViewController+VersionController.m in Sources */,
+				682D67D927AE5F6ADCDCACD0 /* TBMHomeViewController.m in Sources */,
+				682D63D91D9A3ECB906AD4CC /* TBMSecretScreenViewController.m in Sources */,
+				682D6E7FC50B50BB222E05CE /* TBMSecretScreenView.m in Sources */,
+				682D60FAB9D240DE4F4E3D92 /* TBMStateScreenView.m in Sources */,
+				682D6B2677B928C0D1136A0F /* TBMStateScreenViewController.m in Sources */,
+				682D62136F85BE33BD04EA08 /* UIButton+TBMRoundedButton.m in Sources */,
+				682D63B290F5DEB1C4FBA10C /* TBMDebugData.m in Sources */,
+				682D624A69ED9E44BCCE66A0 /* TBMSecretGestureRecognizer.m in Sources */,
+				682D674F34DA0CE5E20DA154 /* TBMStateScreenDataSource.m in Sources */,
+				682D66B1615DE575D3DE16D8 /* TBMFriendVideosInformation.m in Sources */,
+				682D6F3A6F4BA7778FCCEC23 /* TBMVideoObject.m in Sources */,
+				682D62DD0738377E650C5945 /* TBMStateScreenTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1033,7 +1159,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "4a6c242e-4af6-4537-9f1f-995c54bf6e29";
+				PROVISIONING_PROFILE = "9084bdc5-091b-443b-87a2-1a553d622dd2";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1067,7 +1193,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
-				PROVISIONING_PROFILE = "4a6c242e-4af6-4537-9f1f-995c54bf6e29";
+				PROVISIONING_PROFILE = "9084bdc5-091b-443b-87a2-1a553d622dd2";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1090,6 +1216,7 @@
 				PRODUCT_NAME = Zazo;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1102,8 +1229,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImageFinal;
 				CODE_SIGN_ENTITLEMENTS = Zazo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tbm/Zazo-Prefix.pch";
 				INFOPLIST_FILE = "tbm/Zazo-Info.plist";
@@ -1112,6 +1239,7 @@
 				PRODUCT_NAME = Zazo;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
 			};

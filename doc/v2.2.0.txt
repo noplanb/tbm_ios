@@ -1,0 +1,110 @@
+v2.2.0
+
+Build:
+
+stage: https://my.testfairy.com/download/70VK4C1P6CPK8DHR64WKCBCNKGP71B23M1XSJ9RAY1PJX9JAZR4FTVG/getapp
+prod: https://my.testfairy.com/download/70VK4C1H70PK8DHR64WKCBFAGBEG2MNKAX9309V7DVDCGK1ST47SVT0/getapp
+
+General Notes:
+=============
+
+The main issue addressed in this release AudioSession handling. Zazo should now play nicely with bluetooth and with other audio apps.
+
+If music is playing from a music app when Zazo is brought to the foreground it will pause. When Zazo is returned to the background music will resume.
+
+In a car system if the radio is playing and you bring Zazo to the foreground it should stop. When you return to the background radio should resume.
+
+If you are playing a Zazo and you hold the phone to your ear the message should play from the earpiece. When you remove from ear it should continue playing through the speaker.
+
+General corner cases
+--------------------
+You should be able to try all combinations of:
+- Receiving phone calls while recording or playing zazos on or off of bluetooth
+- Receiving zazo while listening to radio in car but with bluetooth connected
+- Playing and recording zazos while music streaming through bluetooth in car
+- Moving phone to and away from ear repeatedly while playing a zazo.
+- etc etc.
+
+TEST CASES
+==========
+c81 - switch speakers with proximity sensor
+c76-79, c2455, c2479 - bluetooth, wiredheadphones, carsystem etc.
+
+
+v2.2.1
+------
+
+BUG:
+In car with HFP it acts like the app  is in a phone call the entire time. Also it attempts to use the car's mic and if there is a problem it fails to record.
+
+SOLUTION:
+Eliminate play from bluetooth. Just play from phone but try to resume music.
+
+
+BUG:
+Closing the app with player running or even just because recorder is previewing causes a audioSession:deactivate to produce an error. All io must be stopped before deactivating the audio session.
+
+SOLUTION:
+Stop AVRecordingSession and VideoPlayer prior to calling AudioSession:Deactivate
+
+
+v2.2.2
+------
+FEATURE: #427 Call me option for verification code
+--------------------------------------------------
+TESTCASE: c2480
+
+
+FEATURE:
+-------
+Link in sms invite should be zazoapp.com/l/invitee_id
+TESTCASE: C2485
+
+
+BUG #460
+--------
+Version update link was pointing to Testflight. Version update for obsolete was still showing a cancel option.
+C2481, C2482
+
+
+BUG: #459 Open Zazo while on phone call
+---------
+Open Zazo while on the phone causes repeated retries and errors to activate AVCaptureSession
+
+Solution:
+
+Add ensureAudioSessionActive to the set of preflight requirements for the app in Boot
+- Make AudioSession.activate return a boolean
+- Call AudioSession.activate explicitly in the preflight sequence
+- Force retry if not able to activate
+
+C2488
+
+
+FEATURE: #370 Secret debug screen
+---------------------------------
+C106
+C107
+C2489
+C2490
+C2495
+
+FEATURE: #458 Notification permission in preflight resource check
+-----------------------------------------------------------------
+C2491
+
+
+BUG #461 Should not request microphone before registration complete
+-------------------------------------------------------------------
+This is happening because we are setting audio session category on didFinishLaunching. We should only when we call ensure resources.
+C2492
+
+
+FEATURE #456 - Show first and last name for friends in drawer
+-------------------------------------------------------------
+C2493
+
+
+BUG #467 fix/dangling-outgoing-temp-files
+-----------------------------------------
+C2495

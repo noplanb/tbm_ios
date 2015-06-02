@@ -11,9 +11,9 @@ QUESTION: What are all the scenarios when I may get a notification and what call
   - Entering background followed by notification user launches app from icon
     - didReceiveRemoteNotification:fetch on notification
     - note that didFinishLaunchingWithOptions gets null for launch options.
-  - Termination followed by notification user clicks on notification 
+  - Termination followed by notification user clicks on notification
     - Nothing on notification.
-    - didFinishLaunchingWithOptions gets APNS payload under notification key:UIApplicationLaunchOptionsRemoteNotificationKey in the launch options dictionary. 
+    - didFinishLaunchingWithOptions gets APNS payload under notification key:UIApplicationLaunchOptionsRemoteNotificationKey in the launch options dictionary.
     - didReceiveRemoteNotification:fetch is also called as well.
   - Termination followed by notification user launches the app from icon
     - Nothing on notification
@@ -21,13 +21,13 @@ QUESTION: What are all the scenarios when I may get a notification and what call
     - No call to didReceiveRemoteNotification:fetch
 = Architectural implications of these findings:
   - Use didReceiveRemoteNotification:fetch to queue downloads and change any video status as appropriate.
-  - Poll and queue downloads and set status for any missed items do the Scenario: Termination followed by notification user launches the app from icon above. 
-  - Make the payload for the notification the same as the payload for polling so they can easily be handled by the same handler. 
+  - Poll and queue downloads and set status for any missed items do the Scenario: Termination followed by notification user launches the app from icon above.
+  - Make the payload for the notification the same as the payload for polling so they can easily be handled by the same handler.
 
 PROBLEM WITH ABOVE CONCLUSION:
-  - In the case the app is launching from terminated due to a user clicking on a notification I get both didFinishLaunchingWithOptions followed by didReceiveRemoteNotification. 
+  - In the case the app is launching from terminated due to a user clicking on a notification I get both didFinishLaunchingWithOptions followed by didReceiveRemoteNotification.
   - I found that if I try to handle the payload in didReceiveRemoteNotification the os occasionally terminates the app because it did not launch in time. I dont fully understand this as didFinishLaunchingWithOptions is called in advance of my doing anything in didReceiveRemoteNotification. Nevertheless it crashes due to not launching in time occasionally.
-  - TRY 
+  - TRY
     - still handle only in didReceiveRemoteNotification but do so as a background thread.
     RESULT - DOES NOT WORK as managedObjectModel says it is unable to resolve a fault when we try to access the models after launch and crashes the app. I dont understand why this is the case because in the console the log message for didReceiveRemoteNotification comes after didFinishLaunchingWithOptions and so you would think the managedObjectModel would be good to go at that point. Maybe the background thread has an issue with reaching the models that I dont quite understand.
   - TRY
@@ -35,15 +35,15 @@ PROBLEM WITH ABOVE CONCLUSION:
     RESULT - THIS WORKS. I am not sure why but it seems to work consistently without fail.
 
 QUESTION: What happens if i get didReceiveRemoteNotification with an alert notification and I take some time to call the completion handler. Is the alert held off until I call the completion handler?
-  - TEST 
-    - Send a alert notification using rails console. 
+  - TEST
+    - Send a alert notification using rails console.
     - Create a 20 second delay in the handler
   - RESULT
     - NO it is NOT! The phone sends the notification alert to the user immediately when the notification is received. It does not wait until you call the completion handler.
 
 QUESTION: What happens if I get didReceiveRemoteNotification with an alert notification and I call the completion handler with UIBackgroundFetchResultFailed?
   - RESULT
-    - See above the phone sends the notification alert immediately on receiving the notification. It doesnt not seem to wait for what you send in the completion handler or care what you send. 
+    - See above the phone sends the notification alert immediately on receiving the notification. It doesnt not seem to wait for what you send in the completion handler or care what you send.
 
 
 ARCHITECTURE How should we handle notifications for video_status_update:
@@ -51,12 +51,12 @@ ARCHITECTURE How should we handle notifications for video_status_update:
   - Update status and ui as required.
 
 ARCHITECTURE How should we handle notifications for video_received messages:
-  ARCHITECTURE (A) 
+  ARCHITECTURE (A)
     - This architecture is ideal for user experience but too complicated.
       - Architecture
         - Send a silent notification.
         - Do the download.
-        - Send a local notification with alert when the download is complete. 
+        - Send a local notification with alert when the download is complete.
         - Error conditions:
           - If the user has just rebooted his phone or killed the app in the task manager we wont get the silent notification.
             - Our notification server would need to know to resend the notification as an alert if it hasnt been acted on on a while.
@@ -66,30 +66,30 @@ ARCHITECTURE How should we handle notifications for video_received messages:
       - Cons
         - Complex with problematic error conditions.
   ARCHITECTURE (B)
-    - This architecture is much simpler and more bullet proof. 
+    - This architecture is much simpler and more bullet proof.
       - Architecture
         - Send an alert notification with content_available.
         - Add the appropriate message to the download queue.
         - Call the completion handler immediately thereafter.
           - The problem with calling at this point is the snapshot of our app that is taken at this point will not reflect the new message. But this is not a really big deal.
-        - Hope that most of the time the message will have finished downloading by the time the user clicks our app. 
+        - Hope that most of the time the message will have finished downloading by the time the user clicks our app.
       - Pros
-        - Simple and 
+        - Simple and
       - Cons
         - It may result in a user  who quickly reacts to notifications sometimes entering the app before a new video has finished downloading.
-  CONCLUSION: 
+  CONCLUSION:
     - Start with ARCHITECTURE (B) and only go to (A) if we really hate the user experience.
 
-ARCHITECTURE DETAILS and IMPLEMENTATION DETAILS: 
+ARCHITECTURE DETAILS and IMPLEMENTATION DETAILS:
   - Notification and polling payload should be the same:
     - videoStatusUpdates: [{videoId: video_id, status: status},... ]
     - videosRequiringDownload: [video_id,... ]
     - Keep legacy notification payload as well at least until android is updated to handle the new notification payload.
-  - Since ios will use video_id and android currently does not create one make the server creates one in case a video is uploaded by android. 
+  - Since ios will use video_id and android currently does not create one make the server creates one in case a video is uploaded by android.
   - Process payload on didReceiveRemoteNotification:fetch
   - Poll and process on didFinishLaunching.
   - Ignore the launch options. This is intended for the case we want to do something special when the user launches the app by clicking on a particular notification. In our case we always do the same thing no matter how we are launched.
-  
+
 TODO:
   x TBMAppSyncManager
     x handleVideosRequiringDownload
@@ -99,13 +99,105 @@ TODO:
           x check if this friend already has this video_id as incomingVideoId. If so ignore as this is a duplicate request.
           x Otherwise set the incomingVideoId. Start the download for friend.
       x FileTransferManager add the videoId to the parameters we send.
-      
+
     x handleVideoStatusUpdates
       x For each video
         x find the friend and  updateStatusAndNotify.
     x Server
-      x Make sure we always create a vidoeId if there isnt one. 
+      x Make sure we always create a vidoeId if there isnt one.
 
 NOTES:
 
 http://blog.layer.com/how-we-leverage-ios-push-notifications/
+
+
+
+4/29/2015 Problems with solution B
+-----------------------------------
+
+PROBLEM: If app is killed in task manager or never launched after power up it will not get the notification and badge number is never set.
+
+SOLUTION:
+  Always send a badge number of 1 from server with each VideoReceived notification.
+
+TRY: Do nothing else. Hopefully the badge will be set by the notification first and if we are launched in the background we will adjust appropriately and our adjust will override. If we are not launched in background then at least the badge has a 1 which is better than nothing.
+
+This works well.
+
+TEST CASES:
+
+- App killed in task manager when new messages come in
+  - View all unviewed messages on p1
+  - Kill zazo on p1 in task manager
+  - EXPECT
+    - Icon on home screen shows no unviewed badge count
+  - Send 3 messages from p2 to p1
+  - EXPECT
+    - 3X Zazo user notification to appear on the phone with zazo tone
+    - Zazo icon on home screen shows red badge with 1
+
+- App in background when new messages come in WIFI
+  - Device connected to wifi
+  - View all unviewed messages on p1
+  - Put zazo in background by pressing home button
+  - EXPECT
+    - Icon on home screen shows no unviewed badge count
+  - Send 3 messages from p2 to p1
+  - EXPECT
+    - 3X Zazo user notification to appear on the phone with zazo tone
+    - Zazo icon on home screen shows red badge with 3
+  - Wait 30 seconds
+  - Launch Zazo
+  - EXPECT
+    - 3 zazos from p2 are already on p1 when the app is opened.
+
+- App in background when new messages come in Cellular
+  - Device connected to wifi
+  - View all unviewed messages on p1
+  - Put zazo in background by pressing home button
+  - EXPECT
+    - Icon on home screen shows no unviewed badge count
+  - Send 3 messages from p2 to p1
+  - EXPECT
+    - 3X Zazo user notification to appear on the phone with zazo tone
+    - Zazo icon on home screen shows red badge with 3
+  - Wait 30 seconds
+  - Launch Zazo
+  - EXPECT
+    - Messages from p2 are in downloading state when app is opened but eventually download successfully.
+
+- Device locked app in background when new messages come in (wifi or cellular ok)
+  - View all unviewed messages on p1
+  - Turn off the phone (not power down)
+  - Send 3 messages from p2 to p1
+  - EXPECT
+    - 3X Zazo user notification to appear on the lock screen with zazo tone
+  - Open phone
+  - EXPECT
+    - Zazo icon on home screen shows red badge with 3
+
+- Device powered down when messages sent
+  - View all unviewed messages on p1
+  - Power off p1
+  - Send 3 messages from p2 to p1
+  - Power on p1
+  - EXPECT
+    - A single notification with zazo tone to home screen
+  - Open phone do not tap zazo notification
+  - EXPECT
+    - Zazo icon on home screen shows red badge with 1
+
+- Icon cleared to show only unviewed when exiting app
+  - View all unviewed messages on p1
+  - Put zazo in background on p1 by clicking home button
+  - Send 3 messages from p2 to p1
+  - EXPECT
+    - 3X notification messages.
+    - Zazo app icon on home screen shows red badge with 3
+  - Launch zazo
+  - Watch only 1 message
+  - Put Zazo in background
+  - EXPECT
+    - Zazo icon shows red badge with 2
+
+

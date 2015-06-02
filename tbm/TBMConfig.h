@@ -1,39 +1,118 @@
-//
-//  TBMConfig.h
-//  tbm
-//
-//  Created by Sani Elfishawy on 4/29/14.
-//  Copyright (c) 2014 No Plan B. All rights reserved.
-//
+/**
+*
+* Application global configuration class
+*
+* Created by Sani Elfishawy on 4/29/14.
+* Edited by Maksim Bazarov on 5/28/14
+* Copyright (c) 2014 No Plan B. All rights reserved.
+*/
 
 #import <Foundation/Foundation.h>
+
+/**
+* Application name
+*/
+
 static NSString *CONFIG_APP_NAME = @"Zazo";
 
-// Make sure these 4 are set correctly before a release.
-static BOOL CONFIG_DEBUG_MODE = NO;
-static NSString *CONFIG_VERSION_NUMBER = @"28";
-static NSString *CONFIG_VERSION_STRING = @"2.1.0";
+/** * * *
+* Server configuration
+*/
 
-// This is necessary because fucking apple has a different apns gateway depending on whether the device is
-// provisioned with a dev cert or production/adhoc cert
-static NSString *CONFIG_DEVICE_BUILD = @"prod"; // prod / dev
+typedef NS_ENUM(NSUInteger, TBMConfigServerState) {
+    TBMServerStateProduction = 0,
+    TBMServerStateDeveloper = 1,
+    TBMServerStateCustom = 2,
+};
 
-//static NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://192.168.1.82:3000";
-static NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://prod.zazoapp.com";
-//static NSString *CONFIG_SERVER_BASE_URL_STRING = @"http://staging.zazoapp.com";
+static NSString *kTBMConfigServerStateKey = @"kTBMConfigServerStateKey"; //User defaults key for server (default is 0)
+static NSString *kTBMConfigCustomServerURLKey = @"kTBMConfigCustomServerURLKey"; //User defaults key for custom server url
+static NSString *kTBMServers[3] = {@"http://prod.zazoapp.com", @"http://staging.zazoapp.com"};
+
+/**
+* Config Debug Mode
+*/
+typedef NS_ENUM(NSUInteger, TBMConfigDebugMode) {
+    TBMConfigDebugModeOff   = 0,
+    TBMConfigDebugModeOn    = 1,
+};
+static NSString *kTBMConfigDebugModeKey = @"kTBMConfigDebugModeKey"; //User defaults key for debug mode
+static NSString *CONFIG_VERSION_NUMBER = @"27";
+static NSString *CONFIG_VERSION_STRING = @"2.2.1";
+
+/** * * *
+* Device debug mode
+*/
+typedef NS_ENUM(NSUInteger, TBMConfigDeviceDebugMode) {
+    TBMConfigDeviceDebugModeOff = 0,
+    TBMConfigDeviceDebugModeProd    = 1,
+};
+static NSString *kTBMConfigDeviceDebugModeKey = @"kTBMConfigDeviceDebugModeKey"; //User defaults key for debug mode
 
 
-static NSString *CONFIG_INVITE_BASE_URL_STRING = @"http://zazoapp.com/l/";
-
-
+/**
+* Other values
+*/
+static NSString *CONFIG_INVITE_BASE_URL_STRING = @"zazoapp.com/l/";
+static NSString *CONFIG_APP_STORE_URL = @"https://itunes.apple.com/us/app/zazo/id922294638";
 static NSString *CONFIG_DING_SOUND = @"BeepSin30.wav";
 
-
 @interface TBMConfig : NSObject
+
+/**
+* Returns server state
+*/
++ (TBMConfigServerState)serverState;
+
++ (NSString *)serverURL;
+
+/**
+* Change custom server url
+*/
++ (void)changeCustomServerURL:(NSString *)url;
+
+/**
+* Change current server state
+*/
++ (void)changeServerTo:(TBMConfigServerState)state;
+
+/**
+* Returns current device debug mode
+*/
++ (TBMConfigDeviceDebugMode)deviceDebugMode;
+
+/**
+* Change current device debug mode
+*/
++ (void)changeDeviceDebugModeTo:(TBMConfigDeviceDebugMode)mode;
+
+/**
+* Returns config debug mode
+*/
++ (TBMConfigDebugMode)configDebugMode;
+/**
+* Change config debug mode
+*/
++ (void)changeConfigDebugModeTo:(TBMConfigDebugMode)mode;
+
+/**
+* Legacy
+*/
 + (NSURL *)videosDirectoryUrl;
+
 + (NSURL *)resourceUrl;
+
 + (NSURL *)thumbMissingUrl;
+
 + (NSURL *)tbmBaseUrl;
+
 + (NSString *)appName;
+
 + (NSString *)tbmBasePath;
+
++ (NSString *)deviceDebugModeString;
+
++ (UIColor *)registrationBackGroundColor;
+
+
 @end

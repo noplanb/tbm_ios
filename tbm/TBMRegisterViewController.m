@@ -34,7 +34,6 @@
 @property (nonatomic) NSString *auth;
 @property (nonatomic) NSString *mkey;
 @property (nonatomic) SDCAlertAction *enterCodeConfirmAlertAction;
-
 @end
 
 @implementation TBMRegisterViewController
@@ -43,8 +42,13 @@
     [super viewDidLoad];
     [_registerForm stopWaitingForServer];
     self.registerForm = [[TBMRegisterForm alloc] initWithView:self.view delegate:self];
-    
-    self.view.backgroundColor = [UIColor colorWithRed:0.61f green:0.75f blue:0.27f alpha:1.0f];
+    self.registerForm.controller = self;
+
+    self.view.backgroundColor = [TBMConfig registrationBackGroundColor];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,9 +56,7 @@
 }
 
 
-//----------------
-// Submit reg form
-//----------------
+#pragma mark Submit reg form
 - (void) didClickSubmit{
     [self getInput];
     [self putInput];
@@ -69,9 +71,8 @@
 }
 
 
-//-----------------------
-// Get and Validate Input
-//-----------------------
+#pragma mark Get and Validate Input
+
 - (void)getInput{
     _firstName = [self cleanName:_registerForm.firstName.text];
     _lastName  = [self cleanName:_registerForm.lastName.text];
@@ -128,14 +129,16 @@
 }
 
 
-//---------
-// Register
-//---------
+#pragma mark Register
 
 - (void)register{
+    [TBMUser saveRegistrationData:[self userParams]];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[self userParams]];
+    params[SERVER_PARAMS_USER_VERIFICATION_CODE_VIA_KEY] = SERVER_PARAMS_USER_VERIFICATION_CODE_VIA_SMS;
+    
     [_registerForm startWaitingForServer];
     [[TBMHttpManager manager] GET:@"reg/reg"
-                        parameters:[self userParams]
+                        parameters:params
                            success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                [_registerForm stopWaitingForServer];
                                [self didRegister:responseObject];
@@ -175,10 +178,23 @@
 }
 
 
-//------------------
-// Verification code
-//------------------
-- (void)didEnterCode{
+#pragma mark Verification code
+
+- (void)didTapCallMe{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[self userParams]];
+    params[SERVER_PARAMS_USER_VERIFICATION_CODE_VIA_KEY] = SERVER_PARAMS_USER_VERIFICATION_CODE_VIA_CALL;
+    
+    [[TBMHttpManager manager] GET:@"reg/reg"
+                       parameters:params
+                          success:nil
+                          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                              [self connectionError];
+                          }];
+
+}
+
+- (void)didEnterVerificationCode:(NSString *)code{
+    self.verificationCode = [self cleanNumber:code];
     NSURLCredential * c = [[NSURLCredential alloc] initWithUser:self.mkey
                                                        password:self.auth
                                                     persistence:NSURLCredentialPersistenceForSession];
@@ -203,9 +219,8 @@
     }
 }
 
-//---------------
-// Debug_get_user
-//---------------
+#pragma mark Debug_get_user
+
 - (void)debugGetUser{
     [_registerForm startWaitingForServer];
     [[TBMHttpManager manager] GET:@"reg/debug_get_user"
@@ -221,17 +236,16 @@
                            }];
 }
 
-//---------
-// Got user
-//---------
+#pragma mark Got user
+
 - (void)gotUser:(NSDictionary *)params{
     [TBMUser createWithServerParams:params];
     [self getFriends];
 }
 
-//------------user
-// Got friends
-//------------
+
+#pragma mark Got friends
+
 - (void) getFriends{
     // This should destroy associated videos as well as they are set to cascade delete.
     [TBMFriend destroyAll];
@@ -249,9 +263,9 @@
     [self showGetFriendsServerErrorDialog];
 }
 
-//-------------------
-// Get S3 Credentials
-//-------------------
+
+#pragma mark Get S3 Credentials
+
 - (void) getS3Credentials{
     [_registerForm startWaitingForServer];
     [TBMS3CredentialsManager refreshFromServer:^void (BOOL success){
@@ -264,9 +278,9 @@
     }];
 }
 
-//--------
-// Dialogs
-//--------
+
+#pragma mark Dialogs
+
 - (void) connectionError{
     DebugLog(@"connectionError:");
     [self showErrorDialogWithTitle:@"Try Again" msg:[self badConnectionMessage]];
@@ -279,61 +293,10 @@
 }
 
 - (void) showVerificationDialog {
-    // On 3.5" screens (e.g. iPhone 4S), need to force alert into "plain" mode, otherwise
-    // the code input text field does not work, the keyboard will never appear
-    
-    BOOL forcePlain = ([[UIScreen mainScreen] bounds].size.height < 568.0f);
-    
-    NSString *sentCodeText = [NSString stringWithFormat:@"We sent a code via text message to %@.", [TBMPhoneUtils phone:_combinedNumber withFormat:NBEPhoneNumberFormatINTERNATIONAL]];
-    NSString *msg = (forcePlain ? @"" : sentCodeText);
-    NSString *enterCodeText = (forcePlain ? sentCodeText : @"Enter Code");
-
-    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Enter Code" message:msg forcePlain:forcePlain];
-    
-    UIView *content = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ((TBMAlertControllerVisualStyle *)alert.visualStyle).width, 90.0f)];
-    if (forcePlain) {
-        content.frame = CGRectMake(0, 0, ((TBMAlertControllerVisualStyle *)alert.visualStyle).width, 130.0f);
-    }
-    content.backgroundColor = [UIColor clearColor];
-    
-    UILabel *enterCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, content.frame.size.width, 20.0f)];
-    if (forcePlain) {
-        enterCodeLabel.numberOfLines = 2;
-        enterCodeLabel.frame = CGRectMake(10.0f, 10.0f, content.frame.size.width - 20.0f, 40.0f);
-    }
-    enterCodeLabel.text = enterCodeText;
-    enterCodeLabel.font = [UIFont fontWithName:@"Helvetica" size:16.0f];
-    enterCodeLabel.textAlignment = NSTextAlignmentCenter;
-    [content addSubview:enterCodeLabel];
-    
-    UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(25, enterCodeLabel.frame.origin.y + enterCodeLabel.frame.size.height + 10.0f, content.frame.size.width - 50, 40)];
-    tf.keyboardType = UIKeyboardTypeNumberPad;
-    tf.backgroundColor = [UIColor whiteColor];
-    tf.borderStyle = UITextBorderStyleRoundedRect;
-    NSString *fname = tf.font.fontName;
-    tf.font = [UIFont fontWithName:fname size:20.0f];
-    [content addSubview:tf];
-    [tf addTarget:self
-                  action:@selector(enterCodeTextFieldDidChange:)
-        forControlEvents:UIControlEventEditingChanged];
-    
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleCancel handler:nil]];
-    
-    self.enterCodeConfirmAlertAction = [SDCAlertAction actionWithTitle:@"Enter" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
-        _verificationCode = [self cleanNumber:[tf text]];
-        [self didEnterCode];
-    }];
-    self.enterCodeConfirmAlertAction.enabled = NO;
-    [alert addAction:self.enterCodeConfirmAlertAction];
-    
-    [alert.contentView addSubview:content];
-    
-    [alert presentWithCompletion:nil];
+    [[[TBMVerificationAlertHandler alloc] initWithPhoneNumber:self.combinedNumber
+                                                     delegate:self] presentAlert];
 }
 
--(void)enterCodeTextFieldDidChange:(UITextField *)tf {
-    self.enterCodeConfirmAlertAction.enabled = (tf.text.length > 0);
-}
 
 - (void) showGetFriendsServerErrorDialog{
     NSString *msg = [self badConnectionMessage];
@@ -373,7 +336,7 @@
 
 
 - (void) registrationComplete{
-    [TBMUser getUser].isRegistered = YES;
+    [[TBMUser getUser] setupRegistredFlagTo:YES];
     [(TBMAppDelegate *)[[UIApplication sharedApplication] delegate] didCompleteRegistration];
 }
 

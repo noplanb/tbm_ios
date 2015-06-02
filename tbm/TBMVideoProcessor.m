@@ -60,6 +60,7 @@ NSString* const TBMVideoProcessorErrorReason = @"Problem processing video";
     }
     OB_INFO(@"TBMVideoProcessor: Successful conversion");
     [self logFileSize:self.videoUrl];
+    [self removeTempFile];
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoProcessorDidFinishProcessing
                                                         object:self
                                                       userInfo:[self notificationUserInfoWithError:nil]];
@@ -111,11 +112,15 @@ NSString* const TBMVideoProcessorErrorReason = @"Problem processing video";
     if (dispatch)
         OB_ERROR(@"VideoProcessor: %@", error);
     
-    [[NSFileManager defaultManager] removeItemAtURL:self.tempVideoUrl error:nil];
+    [self removeTempFile];
     [[NSFileManager defaultManager] removeItemAtURL:self.videoUrl error:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoProcessorDidFail
                                                         object:self
                                                       userInfo:[self notificationUserInfoWithError:error]];
+}
+
+- (void)removeTempFile{
+    [[NSFileManager defaultManager] removeItemAtURL:self.tempVideoUrl error:nil];
 }
 
 - (NSDictionary *)notificationUserInfoWithError:(NSError *)error{

@@ -229,14 +229,18 @@
     
     [TBMFriend createOrUpdateWithServerParams:params complete:^(TBMFriend *friend) {
         [self setFriend: friend];
-        [self connectedDialog];
+        
+        if ([friend hasApp])
+            [self connectedDialog];
+        else
+            [self smsDialog];
     }];
 }
 
 - (void) connectedDialog{
     NSString *msg = [NSString stringWithFormat:@"You and %@ are connected.\n\nRecord a welcome %@ to %@ now.", [self firstName], CONFIG_APP_NAME, [self firstName]];
     
-    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Connected!" message:msg];
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Send a Zazo" message:msg];
     [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
         [self.gridViewController moveFriendToGrid:[self friend]];
     }]];
@@ -264,7 +268,7 @@
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Invite" message:msg];
     [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleCancel handler:nil]];
     [alert addAction:[SDCAlertAction actionWithTitle:@"Send" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
-        [self smsDialog];
+        [self getFriendFromServer];
     }]];
     [alert presentWithCompletion:nil];
 }
@@ -279,7 +283,7 @@
     mc.messageComposeDelegate = self;
     
     mc.recipients = @[[self selectedPhoneE164]];
-    mc.body = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", CONFIG_APP_NAME, CONFIG_INVITE_BASE_URL_STRING, [TBMUser getUser].mkey];
+    mc.body = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", CONFIG_APP_NAME, CONFIG_INVITE_BASE_URL_STRING, [self friend].idTbm];
     [self startWaitingForServer];
     [self presentViewController:mc animated:YES completion:^{
         [self stopWaitingForServer];
@@ -295,7 +299,7 @@
     [self dismissViewControllerAnimated:YES completion:^{
         if (result == MessageComposeResultSent){
             OB_INFO(@"Invite Sms Sent");
-            [self handlePostSms];
+            [self connectedDialog];
         }
         
         if (result == MessageComposeResultCancelled){
@@ -413,17 +417,17 @@
     
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Didn't Send Link" message:msg];
     [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action){
-        [self handlePostSms];
+        [self connectedDialog];
     }]];
     [alert presentWithCompletion:nil];
 }
 
-- (void)handlePostSms{
-    if ([self friend] == nil)
-        [self getFriendFromServer];
-    else
-        [self.gridViewController moveFriendToGrid:[self friend]];
-}
+//- (void)handlePostSms{
+//    if ([self friend] == nil)
+//        [self getFriendFromServer];
+//    else
+//        [self.gridViewController moveFriendToGrid:[self friend]];
+//}
 
 
 //------------
