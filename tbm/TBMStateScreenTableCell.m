@@ -4,6 +4,10 @@
 //
 
 #import "TBMStateScreenTableCell.h"
+CGFloat const topLabelHeight = 30.f;
+CGFloat const bottomLabelHeight = 15.f;
+CGFloat const verticalMargin = 2.f;
+CGFloat const leftInset = 15.f;
 
 @interface TBMStateScreenTableCell ()
 @property(nonatomic, strong) UILabel *topLabel;

@@ -25,9 +25,8 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 
 
 @implementation TBMAppDelegate (PushNotification)
-//-----------------------
-// Setup and registration
-//-----------------------
+
+#pragma mark -  Setup and registration
 - (void)registerForPushNotification {
     OB_INFO(@"registerForPushNotification");
     if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
@@ -88,9 +87,8 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
                            }];
 }
 
-//------------------------------
-// Handle Incoming Notifications
-//------------------------------
+#pragma mark -  Handle Incoming Notifications
+
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     // Not used as all of our notification are of type content-available = 1.
     DebugLog(@"didReceiveRemoteNotification");
@@ -185,10 +183,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     [friend setAndNotifyOutgoingVideoStatus:outgoingStatus videoId:videoId];
 }
 
-//--------------------------------------
-// Notification center and badge control
-//--------------------------------------
-#pragma mark Notification center and badge control
+#pragma mark -  Notification center and badge control
 
 - (void)clearBadgeCount {
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
@@ -213,9 +208,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 }
 
 
-//----------------------------
-// Send outgoing Notifications
-//----------------------------
+#pragma mark -  Send outgoing Notifications
 - (void)sendNotificationForVideoReceived:(TBMFriend *)friend videoId:(NSString *)videoId {
     NSDictionary *params = @{
             NOTIFICATION_TARGET_MKEY_KEY : friend.mkey,
