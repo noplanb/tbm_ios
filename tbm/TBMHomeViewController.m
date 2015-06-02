@@ -86,18 +86,18 @@ static TBMHomeViewController *hvcInstance;
         CGFloat x = CGRectGetMaxX(self.headerView.bounds) - buttonSize;
         CGFloat y = CGRectGetMinY(self.headerView.bounds);
 
-        CGRect frame = CGRectMake(x, y, buttonSize,buttonSize);
+        CGRect frame = CGRectMake(x, y, buttonSize * 2, buttonSize);
         _menuButton = [[UIView alloc] initWithFrame:frame];
 
         //Prepare image
         UIImage *image = [UIImage imageNamed:@"icon-drawer"];
         UIImageView *icon = [[UIImageView alloc] initWithImage:image];
-        
+
         CGFloat imageAspectRatio = image.size.width / image.size.height;
         CGFloat iconSize = imageAspectRatio * kLayoutBenchIconHeight;
-        CGFloat iconX = CGRectGetMaxX(_menuButton.bounds) - (iconSize)-kLayoutGutter;
-        CGFloat iconY = (CGRectGetHeight(_menuButton.bounds) / 2 ) - (kLayoutBenchIconHeight / 2);
-        CGRect iconFrame = CGRectMake(iconX,iconY, iconSize,kLayoutBenchIconHeight);
+        CGFloat iconX = CGRectGetMaxX(_menuButton.bounds) - (iconSize) - kLayoutGutter;
+        CGFloat iconY = (CGRectGetHeight(_menuButton.bounds) / 2) - (kLayoutBenchIconHeight / 2);
+        CGRect iconFrame = CGRectMake(iconX, iconY, iconSize, kLayoutBenchIconHeight);
         icon.frame = iconFrame;
         [_menuButton addSubview:icon];
 
@@ -129,7 +129,6 @@ static TBMHomeViewController *hvcInstance;
     [self performSelectorInBackground:@selector(prefetchContactsManager) withObject:NULL];
 }
 
-
 #pragma mark - Secret screen
 
 - (void)setupSecretGestureRecognizer {
@@ -160,6 +159,7 @@ static TBMHomeViewController *hvcInstance;
     OB_ERROR(@"TBMHomeViewController: didReceiveMemoryWarning");
     [super didReceiveMemoryWarning];
 }
+
 #pragma mark - SetupViews
 
 static const float kLayoutHeaderheight = 55;
