@@ -71,10 +71,9 @@
     }
 }
 
-+ (NSString *)deviceDebugModeString {
-    if ([self deviceDebugMode] == TBMConfigDeviceDebugModeProd) {
-        return @"prod";
-    }
++ (NSString *)deviceBuildString {
+    // TODO: Maksim this should return prod if built with archive for release on testfairy and dev if run on device with xcode.
+//    return @"prod";
     return @"dev";
 }
 
