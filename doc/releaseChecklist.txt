@@ -1,15 +1,19 @@
-- create vx.x.txt file with release notes and date
-- make sure version is correct in info.plist
-- make sure config points to server
-- make sure version in config is correct
-- make sure device_build = prod in config
-- make sure version on server for ios is correct
+x create vx.x.txt file with release notes and date
+x make sure version is correct in info.plist
+x make sure version in config is correct
+x make sure device_build = prod in config
 - Archive and save in released ipas
+
 - Post release to testflight
 - Test to make sure it works
 - push to github
 - tag with description.
-- create an email
+
+- Post to google docs
+- Post to internal users on slack
+
+- make sure version on server for ios is correct
+
 
 
 
