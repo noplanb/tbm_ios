@@ -157,7 +157,7 @@
 
 - (BOOL)directoryEntryHasPhone:(NSString *)fullname{
     NSSet *pns = [[self.contactsDirectory objectForKey:fullname] objectForKey:kContactsManagerPhonesSetKey];
-    return [pns count] > 0;
+    return (pns && [pns count] > 0);
 }
 
 
