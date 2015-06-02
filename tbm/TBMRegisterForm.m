@@ -201,6 +201,7 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
     self.firstName = [[TBMTextField alloc] initWithFrame:f];
     self.firstName.placeholder = @"First Name";
     [self.firstName setKeyboardType:UIKeyboardTypeAlphabet];
+    [self.firstName setReturnKeyType:UIReturnKeyNext];
     [self setCommonAttributesForTextField:self.firstName];
     [self.contentView addSubview:self.firstName];
 }
@@ -215,6 +216,7 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
     self.lastName = [[TBMTextField alloc] initWithFrame:f];
     self.lastName.placeholder = @"Last Name";
     [self.lastName setKeyboardType:UIKeyboardTypeAlphabet];
+    [self.lastName setReturnKeyType:UIReturnKeyNext];
     [self setCommonAttributesForTextField:self.lastName];
     [self.contentView addSubview:self.lastName];
 }
