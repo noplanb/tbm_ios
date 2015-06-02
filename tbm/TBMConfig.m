@@ -18,11 +18,9 @@
 + (TBMConfigServerState)serverState {
     NSInteger serverState = [UD integerForKey:kTBMConfigServerStateKey];
     if (serverState >= 0 && serverState <= 3) {
-        OB_INFO(@"CONFIG # returned serverState: %u", serverState);
         return (TBMConfigServerState) serverState;
     }
     else {
-        OB_INFO(@"CONFIG # returned serverState: %u", TBMServerStateProduction);
         return TBMServerStateProduction;
     }
 }
@@ -44,7 +42,6 @@
         serverURL = kTBMServers[TBMServerStateProduction];
     }
 
-    OB_INFO(@"CONFIG # returned serverURL: %@", serverURL);
     return serverURL;
 }
 
@@ -58,20 +55,18 @@
 + (void)changeServerTo:(TBMConfigServerState)state {
     [UD setInteger:state forKey:kTBMConfigServerStateKey];
     [UD synchronize];
-    OB_INFO(@"CONFIG # changeServerTo: %u", state);
 }
 
 #pragma mark - Device debug mode
 
+//TODO: Maksim. Please make debug mode a boolean it is either YES for debug mode or NO for not debug mode. This is overkill!
 + (TBMConfigDeviceDebugMode)deviceDebugMode {
     NSInteger debugMode = [UD integerForKey:kTBMConfigDeviceDebugModeKey];
 
     if (debugMode >= 0 && debugMode <= 1) {
-        OB_INFO(@"CONFIG # returned deviceDebugMode: %u", debugMode);
         return (TBMConfigDeviceDebugMode) debugMode;
     }
     else {
-        OB_INFO(@"CONFIG # returned deviceDebugMode: %u", TBMConfigDeviceDebugModeOff);
         return TBMConfigDeviceDebugModeOff;
     }
 }
@@ -86,7 +81,6 @@
 + (void)changeDeviceDebugModeTo:(TBMConfigDeviceDebugMode)mode {
     [UD setInteger:mode forKey:kTBMConfigDeviceDebugModeKey];
     [UD synchronize];
-    OB_INFO(@"CONFIG # changed deviceDebugMode to : %u", TBMConfigDeviceDebugModeOff);
 }
 
 #pragma mark - Config debug mode
@@ -95,11 +89,9 @@
     NSInteger debugMode = [UD integerForKey:kTBMConfigDebugModeKey];
 
     if (debugMode > 0) {
-        OB_INFO(@"CONFIG # returned configebugMode: ON");
         return TBMConfigDebugModeOn;
     }
     else {
-        OB_INFO(@"CONFIG # returned configebugMode: OFF");
         return TBMConfigDebugModeOff;
     }
 }
@@ -107,7 +99,6 @@
 + (void)changeConfigDebugModeTo:(TBMConfigDebugMode)mode {
     [UD setInteger:mode forKey:kTBMConfigDebugModeKey];
     [UD synchronize];
-    OB_INFO(@"CONFIG # changed configebugMode to : %u", mode);
 }
 
 #pragma mark - Appearance configuration
