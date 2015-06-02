@@ -52,7 +52,7 @@ v2.2.2
 ------
 FEATURE: #427 Call me option for verification code
 --------------------------------------------------
-TESTCASE: C2480
+TESTCASE: c2480
 
 
 FEATURE:
