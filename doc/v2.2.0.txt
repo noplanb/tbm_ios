@@ -8,6 +8,10 @@ NOTE: This build contains a secret screen accessible the same way as Android to 
 FogBugz cases:
 https://zazo.fogbugz.com/f/filters/8/ios
 
+
+Testrail Testplan:
+https://zazo.testrail.com/index.php?/plans/view/76
+
 NOTICE: UNTIL MAKSIM FIXES #466 IOS 7 WILL NOT BE TESTABLE.
 
 
