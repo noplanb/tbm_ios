@@ -16,9 +16,17 @@
 
 @property (nonatomic) float titleHeight;
 @property (nonatomic) int modalTag;
+
+// UI elements
+@property(nonatomic, strong) UITableView *tableView;
+@property(nonatomic, strong) UIView *modalView;
+@property(nonatomic, strong) UILabel *titleView;
+@property(nonatomic, strong) UIButton *cancelButton;
 @end
 
 static NSString *TBMTableReuseId = @"tableModalReuseId";
+
+static const CGFloat cancelButtonHeight = 45.f;
 
 @implementation TBMTableModal
 
@@ -44,7 +52,7 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
 //--------------
 - (void) show{
     [self.parentView addSubview:[self dimParent]];
-    [self.parentView addSubview:[self modal]];
+    [self.parentView addSubview:self.modalView];
 }
 
 - (void) hide{
@@ -53,6 +61,12 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
             [v removeFromSuperview];
     }
 }
+
+#pragma mark - Handle events
+- (void)cancelButtonTap:(id)sender {
+    [self hide];
+}
+
 
 //----------
 // The Views
@@ -64,53 +78,8 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
     return dp;
 }
 
-- (UIView *) modal{
-    CGRect f;
-    f.origin.x = [self modalOriginX];
-    f.origin.y = [self modalOriginY];
-    f.size.width = [self modalWidth];
-    f.size.height = [self modalHeight];
-    UIView *modal = [[UIView alloc] initWithFrame:f];
-    modal.tag = self.modalTag;
-    [modal addSubview:[self titleLabel]];
-    [modal addSubview:[self table]];
-    modal.layer.masksToBounds = YES;
-    modal.layer.cornerRadius = 5;
-    modal.backgroundColor = [UIColor colorWithRed:0.95f green:0.94f blue:0.91f alpha:1.0f];
-    return modal;
-}
+#pragma mark -  Dimension calculations
 
-- (UILabel *)titleLabel{
-    CGRect f;
-    f.origin.x = 0;
-    f.origin.y = 0;
-    f.size.width = [self modalWidth];
-    f.size.height = self.titleHeight;
-    UILabel *title = [[UILabel alloc] initWithFrame:f];
-    [title setText: self.title];
-    title.font = [UIFont fontWithName:@"Helvetica-Bold" size:21.0f];
-    title.textAlignment = NSTextAlignmentCenter;
-    [title setClipsToBounds:YES];
-    title.backgroundColor = [UIColor colorWithRed:0.96f green:0.55f blue:0.19f alpha:1.0f];
-    title.textColor = [UIColor whiteColor];
-    return title;
-}
-
-- (UITableView *)table{
-    CGRect f;
-    f.origin.x = 0;
-    f.origin.y = self.titleHeight;
-    f.size.width = [self modalWidth];
-    f.size.height = [self tableHeight];
-    UITableView *tv = [[UITableView alloc] initWithFrame:f style:UITableViewStylePlain];
-    [tv setDelegate:self];
-    [tv setDataSource:self];
-    return tv;
-}
-
-//-----------------------
-// Dimension calculations
-//-----------------------
 - (float) modalWidth{
     return 0.85 * [self screenWidth];
 }
@@ -212,5 +181,77 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
     [self hide];
     [self.delegate didSelectRow:indexPath.row];
 }
+
+- (UITableView *)tableView {
+    if (!_tableView) {
+        CGRect frame;
+        frame.origin.x = 0;
+        frame.origin.y = self.titleHeight;
+        frame.size.width = [self modalWidth];
+        frame.size.height = [self tableHeight]-cancelButtonHeight;
+        _tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
+        [_tableView setDelegate:self];
+        [_tableView setDataSource:self];
+
+    }
+    return _tableView;
+}
+
+- (UIView *)modalView {
+    if (!_modalView) {
+        CGRect frame;
+        frame.origin.x = [self modalOriginX];
+        frame.origin.y = [self modalOriginY];
+        frame.size.width = [self modalWidth];
+        frame.size.height = [self modalHeight];
+        _modalView = [[UIView alloc] initWithFrame:frame];
+        _modalView.tag = self.modalTag;
+        [_modalView addSubview:self.titleView];
+        [_modalView addSubview:self.tableView];
+        [_modalView addSubview:self.cancelButton];
+        _modalView.layer.masksToBounds = YES;
+        _modalView.layer.cornerRadius = 5;
+        _modalView.backgroundColor = [UIColor colorWithRed:0.95f green:0.94f blue:0.91f alpha:1.0f];
+    }
+    return _modalView;
+}
+
+
+- (UILabel *)titleView {
+    if (!_titleView) {
+        CGRect frame;
+        frame.origin.x = 0;
+        frame.origin.y = 0;
+        frame.size.width = [self modalWidth];
+        frame.size.height = self.titleHeight;
+        _titleView = [[UILabel alloc] initWithFrame:frame];
+        [_titleView setText: self.title];
+        _titleView.font = [UIFont fontWithName:@"Helvetica-Bold" size:21.0f];
+        _titleView.textAlignment = NSTextAlignmentCenter;
+        [_titleView setClipsToBounds:YES];
+        _titleView.backgroundColor = [UIColor colorWithRed:0.96f green:0.55f blue:0.19f alpha:1.0f];
+        _titleView.textColor = [UIColor whiteColor];
+    }
+    return _titleView;
+}
+
+- (UIButton *)cancelButton {
+    if (!_cancelButton) {
+        CGRect frame;
+        frame.origin.x = 0;
+        frame.origin.y = CGRectGetMaxY(self.tableView.frame);
+        frame.size.width = [self modalWidth];
+        frame.size.height = cancelButtonHeight;
+        _cancelButton = [[UIButton alloc] initWithFrame:frame];
+        [_cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+        [_cancelButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_cancelButton addTarget:self action:@selector(cancelButtonTap:) forControlEvents:UIControlEventTouchDown];
+    }
+    return _cancelButton;
+}
+
+
+#pragma mark - Lazy initialization
+
 
 @end
