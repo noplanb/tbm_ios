@@ -143,7 +143,7 @@ static NSString *MESSAGE = @"We sent a code";
 #pragma mark call button
 
 - (CGRect)callButtonFrame{
-    float y = [self textFieldFrame].origin.y + LayoutConstTextFieldHeight + LayoutConstVerticalSpacing;
+    float y = [self textFieldFrame].origin.y + (LayoutConstTextFieldHeight / 2) + LayoutConstVerticalSpacing;
     return CGRectMake(LayoutConstContentMargin, y, [self contentInnerWidth], LayoutConstCallButtonHeight);
 }
 
