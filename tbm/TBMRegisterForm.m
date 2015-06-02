@@ -65,12 +65,14 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
 - (void)startWaitingForServer {
     self.isWaiting = YES;
     [self.spinner startAnimating];
+    [self.submit setEnabled:NO];
 
 }
 
 - (void)stopWaitingForServer {
     self.isWaiting = NO;
     [self.spinner stopAnimating];
+    [self.submit setEnabled:YES];
 }
 
 //------------
