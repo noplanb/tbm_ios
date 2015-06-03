@@ -93,7 +93,7 @@ static const CGFloat cancelButtonHeight = 45.f;
 }
 
 - (float) modalHeight{
-    return self.titleHeight + [self tableHeight];
+    return self.titleHeight + [self tableHeight] + cancelButtonHeight;
 }
 
 - (float)screenWidth{
@@ -188,7 +188,7 @@ static const CGFloat cancelButtonHeight = 45.f;
         frame.origin.x = 0;
         frame.origin.y = self.titleHeight;
         frame.size.width = [self modalWidth];
-        frame.size.height = [self tableHeight]-cancelButtonHeight;
+        frame.size.height = [self tableHeight];
         _tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
         [_tableView setDelegate:self];
         [_tableView setDataSource:self];
