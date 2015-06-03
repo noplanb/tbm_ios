@@ -126,7 +126,7 @@
 
 
 - (void)removeObservers{
-    [self removeObservers];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
