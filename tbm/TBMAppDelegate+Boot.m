@@ -59,7 +59,10 @@
 * It is a bit spagetti like. There is probably a more elegant way to do this.
 * Daisy chain is:
 * ensureFreeStorageSpace -> ensureAllMediaAccess (videoAccess -> audioAccess)
-* -> ensureAudioSession -> ensurePushNotification -> onResourcesAvailable
+* -> ensureAudioSession -> onResourcesAvailable -> ensurePushNotification
+*
+* Note that we call onResources available BEFORE we ensurePushNotification because on IOS7 
+* we do not get any callback if user declines notifications.
 */
 - (void)ensureResources {
     [self ensureFreeStorage];
@@ -188,10 +191,18 @@
 - (void)ensureAudioSession {
     OB_INFO(@"ensureAudioSession");
     [[AVAudioSession sharedInstance] setupApplicationAudioSession];
-    if ([[AVAudioSession sharedInstance] activate] != nil)
+    if ([[AVAudioSession sharedInstance] activate] != nil){
+        OB_INFO(@"Boot: No Audio Session");
         [self alertEndProbablePhoneCall];
-    else
+    } else {
+        OB_INFO(@"Boot: Audio Session Granted");
+        /**
+         * Note that we call onResources available BEFORE we ensurePushNotification because on IOS7
+         * we do not get any callback if user declines notifications.
+         */
+        [self onResourcesAvailable];
         [self ensurePushNotification];
+    }
 }
 
 - (void)ensurePushNotification {
@@ -217,18 +228,21 @@
 #pragma mark Ensure push notifications
 
 - (void)onGrantedPushAccess {
-    [self onResourcesAvailable];
+    OB_INFO(@"BOOT: Push access granted");
+    // Note we do not call onResourcesAvailable here since it is called prior to ensuring push notification. This is because
+    // on io7 we do not get a callback from the os if the user declines notifications.
 }
 
 - (void)onFailPushAccess {
+    OB_INFO(@"BOOT: Push access not granted");
     if (self.pushAlreadyFailed) {
         return;
     }
     self.pushAlreadyFailed = YES;
     OB_INFO(@"onFailPushAccess");
     NSString *closeBtn = [NSString stringWithFormat:@"Close %@", CONFIG_APP_NAME];
-    NSString *msg = @"You must grant permission for notifications."
-            " Please close Zazo. Go your device home screen. "
+    NSString *msg = @"You must grant permission for NOTIFICATIONS."
+            " Go your device home screen. "
             "Click Settings/Zazo and allow notifications for Zazo. "
             "Zazo is a messaging app and requires notifications to operate.";
 
