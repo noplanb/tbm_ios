@@ -24,7 +24,7 @@
 @property(nonatomic, strong) TBMSecretScreenPresenter *secretScreen;
 
 @property(nonatomic, strong) UIView *logoView;
-@property(nonatomic, strong) UIView *menuIconView;
+@property(nonatomic, strong) UIView *menuButton;
 
 @end
 
@@ -39,6 +39,22 @@ static TBMHomeViewController *hvcInstance;
     return hvcInstance;
 }
 
+- (UIView *)headerView {
+    if (!_headerView) {
+        _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), kLayoutHeaderheight)];
+        _headerView.backgroundColor = [UIColor colorWithHexString:@"1B1B19" alpha:1];
+
+        [_headerView addSubview:self.logoView];
+        [_headerView bringSubviewToFront:self.logoView];
+
+        [_headerView addSubview:self.menuButton];
+        [_headerView bringSubviewToFront:self.menuButton];
+
+        [self.view addSubview:_headerView];
+    }
+    return _headerView;
+}
+
 - (TBMSecretScreenPresenter *)secretScreen {
     if (!_secretScreen) {
         _secretScreen = [[TBMSecretScreenPresenter alloc] init];
@@ -50,8 +66,8 @@ static TBMHomeViewController *hvcInstance;
     if (!_logoView) {
         UIImage *logoImage = [UIImage imageNamed:@"zazo-type"];
         CGFloat logoAspect = logoImage.size.width / logoImage.size.height;
-        CGFloat top = (LayoutConstHEADER_HEIGHT - LayoutConstLOGO_HEIGHT) / 2;
-        CGRect frame = CGRectMake(LayoutConstGUTTER, top, logoAspect * LayoutConstLOGO_HEIGHT, LayoutConstLOGO_HEIGHT);
+        CGFloat top = (kLayoutHeaderheight - kLayoutLogoHeight) / 2;
+        CGRect frame = CGRectMake(kLayoutGutter, top, logoAspect * kLayoutLogoHeight, kLayoutLogoHeight);
         _logoView = [[UIView alloc] initWithFrame:frame];
 
         UIImageView *logoImageView = [[UIImageView alloc] initWithImage:logoImage];
@@ -62,22 +78,33 @@ static TBMHomeViewController *hvcInstance;
     return _logoView;
 }
 
-- (UIView *)menuIconView {
-    if (!_menuIconView) {
-        _menuIconView = [[UIView alloc] init];
-        UIImage *i = [UIImage imageNamed:@"icon-drawer"];
-        float aspect = i.size.width / i.size.height;
-        UIImageView *iv = [[UIImageView alloc] initWithImage:i];
-        float w = aspect * LayoutConstBENCH_ICON_HEIGHT;
-        float x = self.view.bounds.size.width - LayoutConstGUTTER - w;
-        float y = (LayoutConstHEADER_HEIGHT - LayoutConstBENCH_ICON_HEIGHT) / 2;
-        CGRect frame= CGRectMake(x, y, w, LayoutConstBENCH_ICON_HEIGHT);
-        _menuIconView.frame = frame;
-        iv.frame = _menuIconView.bounds;
-        _menuIconView.userInteractionEnabled = YES;
-        [_menuIconView addSubview:iv];
+- (UIView *)menuButton {
+    if (!_menuButton) {
+
+        //Prepare menu button
+        CGFloat buttonSize = CGRectGetHeight(self.headerView.bounds);
+        CGFloat x = CGRectGetMaxX(self.headerView.bounds) - (buttonSize * 2);
+        CGFloat y = CGRectGetMinY(self.headerView.bounds);
+
+        CGRect frame = CGRectMake(x, y, buttonSize * 2, buttonSize);
+        _menuButton = [[UIView alloc] initWithFrame:frame];
+
+        //Prepare image
+        UIImage *image = [UIImage imageNamed:@"icon-drawer"];
+        UIImageView *icon = [[UIImageView alloc] initWithImage:image];
+
+        CGFloat imageAspectRatio = image.size.width / image.size.height;
+        CGFloat iconSize = imageAspectRatio * kLayoutBenchIconHeight;
+        CGFloat iconX = CGRectGetMaxX(_menuButton.bounds) - (iconSize) - kLayoutGutter;
+        CGFloat iconY = (CGRectGetHeight(_menuButton.bounds) / 2) - (kLayoutBenchIconHeight / 2);
+        CGRect iconFrame = CGRectMake(iconX, iconY, iconSize, kLayoutBenchIconHeight);
+        icon.frame = iconFrame;
+        [_menuButton addSubview:icon];
+
+        _menuButton.userInteractionEnabled = YES;
+        [_menuButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(menuButtonTaped:)]];
     }
-    return _menuIconView;
+    return _menuButton;
 }
 
 #pragma mark - Lifecycle
@@ -102,7 +129,6 @@ static TBMHomeViewController *hvcInstance;
     [self performSelectorInBackground:@selector(prefetchContactsManager) withObject:NULL];
 }
 
-
 #pragma mark - Secret screen
 
 - (void)setupSecretGestureRecognizer {
@@ -111,7 +137,7 @@ static TBMHomeViewController *hvcInstance;
                                                                           action:@selector(secretGestureAction:)];
     secretGestureRecognizer.container = self.headerView;
     secretGestureRecognizer.logoView = self.logoView;
-    secretGestureRecognizer.menuView = self.menuIconView;
+    secretGestureRecognizer.menuView = self.menuButton;
     [self.view addGestureRecognizer:secretGestureRecognizer];
 }
 
@@ -133,46 +159,30 @@ static TBMHomeViewController *hvcInstance;
     OB_ERROR(@"TBMHomeViewController: didReceiveMemoryWarning");
     [super didReceiveMemoryWarning];
 }
+
 #pragma mark - SetupViews
 
-static const float LayoutConstHEADER_HEIGHT = 55;
-static const float LayoutConstLOGO_HEIGHT = LayoutConstHEADER_HEIGHT * 0.4;
-static const float LayoutConstGUTTER = 10;
-static const float LayoutConstBENCH_ICON_HEIGHT = LayoutConstHEADER_HEIGHT * 0.4;
+static const float kLayoutHeaderheight = 55;
+static const float kLayoutLogoHeight = kLayoutHeaderheight * 0.4;
+static const float kLayoutGutter = 10;
+static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
 
 - (void)addHomeViews {
-    [self addHeaderView];
+    [self headerView];
     [self addContentView];
     [self addGridViewController];
     [self addOverlayBackgroundView];
     [self addBenchViewController];
 }
 
-#pragma mark - HeaderView
-
-- (void)addHeaderView {
-    UIView *hv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, LayoutConstHEADER_HEIGHT)];
-    hv.backgroundColor = [UIColor colorWithHexString:@"1B1B19" alpha:1];
-    [hv addSubview:self.logoView];
-    [hv bringSubviewToFront:self.logoView];
-
-    [hv addSubview:self.menuIconView];
-    [hv bringSubviewToFront:self.menuIconView];
-
-    [hv addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headerTapped)]];
-    [self.view addSubview:hv];
-    self.headerView = hv;
-
-}
-
-- (void)headerTapped {
+- (void)menuButtonTaped:(id)sender {
     [self.benchViewController toggle];
 }
 
 #pragma mark - ContentView
 
 - (void)addContentView {
-    UIView *cv = [[UIView alloc] initWithFrame:CGRectMake(0, LayoutConstHEADER_HEIGHT, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - LayoutConstHEADER_HEIGHT)];
+    UIView *cv = [[UIView alloc] initWithFrame:CGRectMake(0, kLayoutHeaderheight, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - kLayoutHeaderheight)];
     cv.backgroundColor = [UIColor colorWithHexString:@"2E2D28" alpha:1];
     [self.view addSubview:cv];
     self.contentView = cv;

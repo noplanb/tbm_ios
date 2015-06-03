@@ -57,6 +57,8 @@
         _playerView.tag = 1401;
         self.playerView.hidden = YES;
         [self addPlayerNotifications];
+        [self addApplicationNotifications];
+
     }
     return self;
 }
@@ -105,12 +107,25 @@
     }
 }
 
-#pragma mark - Notifications of state changes from moviePlayerController
+#pragma mark - Setup Notifications handlers
 - (void)addPlayerNotifications{
     DebugLog(@"Adding player notifications");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackDidFinishNotification:) name:MPMoviePlayerPlaybackDidFinishNotification object:_moviePlayerController];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackStateDidChangeNotification) name:MPMoviePlayerPlaybackStateDidChangeNotification object:_moviePlayerController];
 }
+
+- (void)addApplicationNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationWillResignActive)
+                                                 name:UIApplicationWillResignActiveNotification
+                                               object:nil];
+
+}
+
+- (void)applicationWillResignActive {
+    [self stop];
+}
+
 
 - (void) playbackDidFinishNotification:(NSNotification *)notification{
     // Note unresolved problem:
@@ -283,6 +298,8 @@
     [alert presentWithCompletion:nil];
 }
 
-
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 @end

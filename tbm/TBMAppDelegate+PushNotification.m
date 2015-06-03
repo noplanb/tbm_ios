@@ -25,12 +25,15 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 
 
 @implementation TBMAppDelegate (PushNotification)
-//-----------------------
-// Setup and registration
-//-----------------------
+
+#pragma mark -  Setup and registration
+- (BOOL)usesIos8PushRegistration{
+    return [[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)];
+}
+
 - (void)registerForPushNotification {
     OB_INFO(@"registerForPushNotification");
-    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+    if ([self usesIos8PushRegistration]) {
         // ios8
         OB_INFO(@"registerForPushNotification: ios8");
         UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
@@ -45,7 +48,7 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
     UIUserNotificationType allowedTypes = [notificationSettings types];
-    OB_INFO(@"didRegisterUserNotificationSettings: allowedTypes = %u", allowedTypes);
+    OB_INFO(@"didRegisterUserNotificationSettings: allowedTypes = %lu", (unsigned long)allowedTypes);
     self.notificationAllowedTypes = allowedTypes;
     [[UIApplication sharedApplication] registerForRemoteNotifications];
 
@@ -58,12 +61,46 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
     pushToken = [pushToken stringByReplacingOccurrencesOfString:@" " withString:@""];
     pushToken = [pushToken stringByReplacingOccurrencesOfString:@"\"" withString:@""];
     DebugLog(@"Push token: %@", pushToken);
+    
     [self sendPushTokenToServer:pushToken];
-    if (self.notificationAllowedTypes != 0) {
+    
+    if ([self userHasGrantedPushAccess]) {
         [self onGrantedPushAccess];
     } else {
         [self onFailPushAccess];
     };
+}
+
+
+/**
+ * Pre IOS8 Idosynracies (IOS7 and lower):
+ * User clicks NO when asked the first time:
+ *   - AppDelegate never calls didRegisterForRemoteNotificationsWithDeviceToken or didFailToRegisterForRemoteNotificationsWithError
+ *   - So we never know that user has denied push notifications
+ *
+ * User clicks NO then activates them in notification center
+ *   - AppDlelegate calls didRegisterForRemoteNotificationsWithDeviceToken
+ *   - enabledNotificationTypes returns non zero
+ *
+ * User clicks YES when asked the first time:
+ *   - AppDlelegate calls didRegisterForRemoteNotificationsWithDeviceToken
+ *   - enabledNotificationTypes returns non zero
+ *
+ * User clicks YES then deactivates them in notification center
+ *   - AppDelegate never calls didRegisterForRemoteNotificationsWithDeviceToken or didFailToRegisterForRemoteNotificationsWithError
+ *   - So we never know that user has denied push notifications.
+ *
+ * In IOS7 and earlier we never know if user has not granted push access or has revoked it.
+ */
+- (BOOL)userHasGrantedPushAccess{
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(isRegisteredForRemoteNotifications)]){
+        // ios8
+        return self.notificationAllowedTypes != UIRemoteNotificationTypeNone;
+    } else {
+        // ios < 8
+        // Note this never gets called in the case user has not granted access in io7 see above. So it is kind of useless.
+        return [[UIApplication sharedApplication] enabledRemoteNotificationTypes] != UIRemoteNotificationTypeNone;
+    }
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
@@ -88,9 +125,8 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
                            }];
 }
 
-//------------------------------
-// Handle Incoming Notifications
-//------------------------------
+#pragma mark -  Handle Incoming Notifications
+
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     // Not used as all of our notification are of type content-available = 1.
     DebugLog(@"didReceiveRemoteNotification");
@@ -185,10 +221,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     [friend setAndNotifyOutgoingVideoStatus:outgoingStatus videoId:videoId];
 }
 
-//--------------------------------------
-// Notification center and badge control
-//--------------------------------------
-#pragma mark Notification center and badge control
+#pragma mark -  Notification center and badge control
 
 - (void)clearBadgeCount {
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
@@ -213,9 +246,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 }
 
 
-//----------------------------
-// Send outgoing Notifications
-//----------------------------
+#pragma mark -  Send outgoing Notifications
 - (void)sendNotificationForVideoReceived:(TBMFriend *)friend videoId:(NSString *)videoId {
     NSDictionary *params = @{
             NOTIFICATION_TARGET_MKEY_KEY : friend.mkey,
