@@ -86,7 +86,7 @@
     for (NSString *fullname in [self.contactsDirectory allKeys]) {
         
         if (fullname && fullname.length>0) {
-            match = [fullname rangeOfString:str].location != NSNotFound;
+            match = [fullname rangeOfString:str options:NSCaseInsensitiveSearch].location != NSNotFound;
         }
         
         if (match) {
