@@ -95,7 +95,7 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 - (BOOL)userHasGrantedPushAccess{
     if ([[UIApplication sharedApplication] respondsToSelector:@selector(isRegisteredForRemoteNotifications)]){
         // ios8
-        return [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
+        return self.notificationAllowedTypes != UIRemoteNotificationTypeNone;
     } else {
         // ios < 8
         // Note this never gets called in the case user has not granted access in io7 see above. So it is kind of useless.
