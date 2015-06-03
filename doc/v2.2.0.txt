@@ -1,4 +1,4 @@
-v2.2.6 33
+v2.2.7 34
 
 These release notes:
 https://docs.google.com/document/d/1Jbgocw02yyh7Q4bBOiiEFu6pbOVA9k91byArpuLaLoM/edit?usp=sharing
@@ -136,3 +136,8 @@ e231714 465: Clicking Signin twice in registration causes multiple verfifcation 
 BUGS Fixed in 2.2.6
 -------------------
 #466 - IOS7 Allow notifications still flashes Zazo dialog regarding notifications
+
+BUGS Fixed in 2.2.7
+-------------------
+#450 Phone screen goes black and app goes to background while recording a very long message
+#285 Add cancel button to Mobile phone list dialog in invitation

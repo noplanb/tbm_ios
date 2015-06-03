@@ -120,10 +120,13 @@
 
 - (void)addObservers{
     [self addVideoProcessorObservers];
+    [self addVideoRecordingObservers];
+    
 }
 
+
 - (void)removeObservers{
-    [self removeVideoProcessorObservers];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
