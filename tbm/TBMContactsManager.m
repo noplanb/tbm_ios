@@ -75,31 +75,27 @@
 }
 
 - (NSArray*) fullnamesMatchingSubstr:(NSString *)str limit:(int)limit{
-    
-    if (str == nil || str.length == 0) {
+    if (str == nil || str.length == 0)
         return [[NSArray alloc] init];
-    }
-
-    NSMutableArray *matchingNames = [NSMutableArray array];
-    NSUInteger found = 0;
-    BOOL match = NO;
-    for (NSString *fullname in [self.contactsDirectory allKeys]) {
-        
-        if (fullname && fullname.length>0) {
-            match = [fullname rangeOfString:str options:NSCaseInsensitiveSearch].location != NSNotFound;
-        }
-        
-        if (match) {
-            [matchingNames addObject:fullname];
-            ++found;
-        }
-    }
     
-    if (found > 0 ) {
-       return [matchingNames sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
-    } else {
-        return [[NSArray alloc] init];
-    }
+    __block int i = 0;
+    NSIndexSet *matchSet = [[self fullnamesHavingPhone] indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        if ([(NSString *)obj rangeOfString:str options:NSCaseInsensitiveSearch].location != NSNotFound){
+            i++;
+            if (i >= limit)
+                *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+    
+    NSMutableArray *matchingNames = [[NSMutableArray alloc] init];
+    [matchSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        NSString *fullname = [self.fullnamesHavingPhone objectAtIndex:idx];
+        [matchingNames addObject: fullname];
+    }];
+    
+    return [matchingNames sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 
 //-------------------------------------------------
