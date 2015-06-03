@@ -1,7 +1,7 @@
 x create vx.x.txt file with release notes and date
-- make sure version is correct in info.plist
-- make sure version in config is correct
-- make sure device_build = prod in config
+x make sure version is correct in info.plist
+x make sure version in config is correct
+x make sure device_build = prod in config
 - Archive and save in released ipas
 
 - Post release to testflight

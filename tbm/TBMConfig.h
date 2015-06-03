@@ -38,8 +38,8 @@ typedef NS_ENUM(NSUInteger, TBMConfigDebugMode) {
 };
 static NSString *kTBMConfigDebugModeKey = @"kTBMConfigDebugModeKey"; //User defaults key for debug mode
 
-static NSString *CONFIG_VERSION_NUMBER = @"33";
-static NSString *CONFIG_VERSION_STRING = @"2.2.6";
+static NSString *CONFIG_VERSION_NUMBER = @"34";
+static NSString *CONFIG_VERSION_STRING = @"2.2.7";
 
 /** * * *
 * Device debug mode

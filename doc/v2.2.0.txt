@@ -1,11 +1,11 @@
-v2.2.6 33
+v2.2.7 34
 
 These release notes:
 https://docs.google.com/document/d/1Jbgocw02yyh7Q4bBOiiEFu6pbOVA9k91byArpuLaLoM/edit?usp=sharing
 
 Testfairy Build:
+https://my.testfairy.com/download/64R38CHK74S2TD1P70S30D9DV8RFFQDTVT475MTGPF5N0G3NMV5Z2KJ8/getapp
 
-NOTE: This build contains a secret screen accessible the same way as Android to change to staging server before registering. Please conduct your tests on Staging!
 
 FogBugz cases:
 https://zazo.fogbugz.com/f/filters/8/ios
@@ -14,11 +14,12 @@ https://zazo.fogbugz.com/f/filters/8/ios
 Testrail Testplan:
 https://zazo.testrail.com/index.php?/plans/view/76
 
-NOTICE: UNTIL #466 IS FIXED IOS 7 WILL NOT BE TESTABLE.
 
 
 General Notes:
 =============
+NOTE: This build contains a secret screen accessible the same way as Android to change to staging server before registering. Please conduct your tests on Staging!
+
 
 The main issue addressed in this release AudioSession handling. Zazo should now play nicely with bluetooth and with other audio apps.
 
@@ -136,3 +137,8 @@ e231714 465: Clicking Signin twice in registration causes multiple verfifcation 
 BUGS Fixed in 2.2.6
 -------------------
 #466 - IOS7 Allow notifications still flashes Zazo dialog regarding notifications
+
+BUGS Fixed in 2.2.7
+-------------------
+#450 Phone screen goes black and app goes to background while recording a very long message
+#285 Add cancel button to Mobile phone list dialog in invitation

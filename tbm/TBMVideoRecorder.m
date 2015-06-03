@@ -145,6 +145,7 @@ static int videoRecorderRetryCount = 0;
 #pragma mark - Recording Actions
 
 - (void)startRecordingWithVideoUrl:(NSURL *)videoUrl{
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
     self.didCancelRecording = NO;
     
