@@ -28,6 +28,8 @@
 
 // Observers
 - (void)addVideoProcessorObservers;
-- (void)removeVideoProcessorObservers;
+- (void)addVideoRecordingObservers;
+
+- (void)removeObservers;
 
 @end
