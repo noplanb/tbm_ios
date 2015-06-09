@@ -1,19 +1,32 @@
-x create vx.x.txt file with release notes and date
-x make sure version is correct in info.plist
-x make sure version in config is correct
-x make sure device_build = prod in config
-- Archive and save in released ipas
+Adhoc release
+-------------
+- In dev or release branch
+- create vx.x.txt file with release notes and date
+- make sure version is correct in info.plist
+- make sure version in config is correct
+- make sure device_build = prod in config
+- Tag code in dev with version
+- Commit and push to dev and push tags as well.
+- Merge to Master
+- Tag in master
+- Push with tags
+
+- Check that all users we want are in provisioning profile
+- Build with adhock credentails
 
 - Post release to testflight
 - Test to make sure it works
-- push to github
-- tag with description.
 
 - Post to google docs
 - Post to internal users on slack
 
-- make sure version on server for ios is correct
+- make sure version on server for ios is correct on staging
 
 
-
-
+Production release
+------------------
+- Set provisioning profile for production
+- Archive from tagged and tested Master
+- Push to store
+- Create a release on github.
+- Add the release notes to the release.
