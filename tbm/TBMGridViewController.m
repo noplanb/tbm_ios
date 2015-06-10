@@ -5,6 +5,10 @@
 //  Created by Sani Elfishawy on 12/10/14.
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
+#import "TBMTutorialPresenter.h"
+#import "TBMHomeViewController+Invite.h"
+#import "TBMHomeViewController+VersionController.h"
+#import "TBMHomeViewController.h"
 #import "TBMAppDelegate+AppSync.h"
 #import "TBMGridViewController.h"
 #import "TBMGridElementViewController.h"
@@ -12,6 +16,7 @@
 #import "TBMGridElement.h"
 #import "HexColor.h"
 #import "iToast.h"
+#import "TBMGridDeleate.h"
 #import "TBMVideoIdUtils.h"
 #import "TBMVideoProcessor.h"
 
@@ -20,6 +25,9 @@
 @property(nonatomic) TBMLongPressTouchHandler *longPressTouchHandler;
 @property(nonatomic) TBMAppDelegate *appDelegate;
 @property(nonatomic) TBMVideoRecorder *videoRecorder;
+@end
+
+@interface TBMGridViewController ()
 @end
 
 @implementation TBMGridViewController
@@ -51,6 +59,9 @@
     [self setupVideoRecorder:0];
     [TBMFriend addVideoStatusNotificationDelegate:self];
     [self addObservers];
+    [self.delegate gridDidAppear:self];
+
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -519,4 +530,31 @@ static const float LayoutConstASPECT = 0.75;
 }
 
 
+- (NSUInteger)unviewedCount {
+    NSUInteger result = 0;
+    for (TBMFriend *friend in self.friendsOnGrid) {
+        result += friend.unviewedCount;
+    }
+    return result;
+}
+
+- (CGRect)frameForFirstFriendBadgeInView:(UIView *)view  {
+    CGRect result = CGRectZero;
+    UIView *friendView = [self gridViewWithIndex:0];
+    TBMGridElement *element = [self gridElementWithView:friendView];
+    if (element.friend.unviewedCount) {
+        CGFloat x = CGRectGetMaxX(friendView.frame) - LayoutConstCountWidth + 3;
+        CGFloat y = CGRectGetMinY(friendView.frame)-3;
+        result = CGRectMake(x, y, LayoutConstCountWidth, LayoutConstCountWidth);
+        result = [self.view convertRect:result toView:view];
+
+    }
+    return result;
+}
+
+- (CGRect)frameForFirstFriendInView:(UIView *)view {
+    CGRect result = [[self gridViewWithIndex:0] frame];
+    result = [self.view convertRect:result toView:view];
+    return result;
+}
 @end

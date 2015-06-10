@@ -14,6 +14,8 @@
 #import "HexColor.h"
 #import "TBMSecretScreenPresenter.h"
 #import "TBMSecretGestureRecognizer.h"
+#import "TBMTutorialPresenter.h"
+#import "TBMGridDeleate.h"
 
 @interface TBMHomeViewController ()
 @property(nonatomic) TBMAppDelegate *appDelegate;
@@ -26,6 +28,10 @@
 @property(nonatomic, strong) UIView *logoView;
 @property(nonatomic, strong) UIView *menuButton;
 
+@end
+
+@interface TBMHomeViewController ()
+@property(nonatomic, strong) TBMTutorialPresenter *tutorialScreen;
 @end
 
 @implementation TBMHomeViewController
@@ -107,6 +113,17 @@ static TBMHomeViewController *hvcInstance;
     return _menuButton;
 }
 
+- (TBMTutorialPresenter *)tutorialScreen {
+    if (!_tutorialScreen) {
+
+        _tutorialScreen = [[TBMTutorialPresenter alloc] initWithSuperview:self.view
+                                                           highlightFrame:[self.gridViewController frameForFirstFriendInView:self.view]
+                                                           highlightBadge:[self.gridViewController frameForFirstFriendBadgeInView:self.view]
+                                                        hasViewedMessages:NO];
+    }
+    return _tutorialScreen;
+}
+
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad {
@@ -121,6 +138,7 @@ static TBMHomeViewController *hvcInstance;
 - (void)viewWillAppear:(BOOL)animated {
     OB_INFO(@"TBMHomeViewController: viewWillAppear");
     [super viewWillAppear:animated];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -190,6 +208,7 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
 
 - (void)addGridViewController {
     self.gridViewController = [[TBMGridViewController alloc] init];
+    self.gridViewController.delegate = self;
     [self addChildViewController:self.gridViewController];
     self.gridViewController.view.frame = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height);
     [self.contentView addSubview:self.gridViewController.view];
@@ -228,5 +247,11 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
     }
 }
 
+#pragma mark - TBMGridDeleate
+
+- (void)gridDidAppear:(TBMGridViewController *)gridViewController {
+    NSUInteger friendsCount = gridViewController.friendsOnGrid ? gridViewController.friendsOnGrid.count: 0;
+    [self.tutorialScreen onAppLaunchedWithNumberofFriends:friendsCount unviewedCount:gridViewController.unviewedCount];
+}
 
 @end

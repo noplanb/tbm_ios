@@ -97,17 +97,6 @@
 //------------------
 // Building the view
 //------------------
-static const float LayoutConstNameLabelHeight = 22;
-static const float LayoutConstNameLabelMargin = 5;
-static const float LayoutConstNameLabelFontSize = 0.55 * LayoutConstNameLabelHeight;
-static const float LayoutConstBorderWidth = 2.5;
-static const float LayoutConstCountWidth = 22;
-static const float LayoutConstUnviewedCountFontSize = 0.5 * LayoutConstCountWidth;
-static const float LayoutConstIndicatorMaxWidth = 40;
-static const float LayoutConstIndicatorFractionalWidth = 0.15;
-static const float LayoutConstNoThumbButtonsMargin = 2;
-static const float LayoutConstNoThumbFontSize = 15;
-static const float LayoutConstUploadingBarHeight = LayoutConstNoThumbButtonsMargin;
 
 - (float) indicatorCalculatedWidth{
     return fminf(LayoutConstIndicatorMaxWidth, LayoutConstIndicatorFractionalWidth * self.view.frame.size.width);
