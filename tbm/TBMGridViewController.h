@@ -11,12 +11,12 @@
 #import "TBMLongPressTouchHandler.h"
 #import "TBMVideoRecorder.h"
 
-@protocol TBMGridDeleate;
+@protocol TBMGridDelegate;
 
 
 @interface TBMGridViewController : UIViewController <TBMLongPressTouchHandlerCallback, TBMVideoRecorderDelegate, TBMAppDelegateEventNotificationProtocol, TBMVideoStatusNotificationProtocol>
 
-@property(nonatomic, weak) id <TBMGridDeleate> delegate;
+@property(nonatomic, weak) id <TBMGridDelegate> delegate;
 
 - (NSMutableArray *)friendsOnGrid;
 - (NSMutableArray *)friendsOnBench;

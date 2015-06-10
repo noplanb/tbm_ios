@@ -16,7 +16,7 @@
 #import "TBMGridElement.h"
 #import "HexColor.h"
 #import "iToast.h"
-#import "TBMGridDeleate.h"
+#import "TBMGridDelegate.h"
 #import "TBMVideoIdUtils.h"
 #import "TBMVideoProcessor.h"
 

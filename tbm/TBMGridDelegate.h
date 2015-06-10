@@ -5,6 +5,6 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol TBMGridDeleate <NSObject>
+@protocol TBMGridDelegate <NSObject>
 - (void)gridDidAppear:(TBMGridViewController *)gridViewController;
 @end

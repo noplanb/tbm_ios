@@ -15,7 +15,7 @@
 #import "TBMSecretScreenPresenter.h"
 #import "TBMSecretGestureRecognizer.h"
 #import "TBMTutorialPresenter.h"
-#import "TBMGridDeleate.h"
+#import "TBMGridDelegate.h"
 
 @interface TBMHomeViewController ()
 @property(nonatomic) TBMAppDelegate *appDelegate;
