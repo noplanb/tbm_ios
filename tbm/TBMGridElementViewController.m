@@ -17,6 +17,8 @@
 #import "TBMSoundEffect.h"
 #import "OBLogger.h"
 #import "TBMConfig.h"
+#import "TBMGridElementDelegate.h"
+#import "TBMTutorialPresenter.h"
 
 @interface TBMGridElementViewController()
 @property NSInteger index;
@@ -82,6 +84,7 @@
 }
 
 - (void)videoPlayerStartedIndex:(NSInteger)index{
+
     if (index == self.index){
         self.isPlaying = YES;
         [self performSelectorOnMainThread:@selector(updateView) withObject:nil waitUntilDone:NO];
@@ -336,6 +339,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 }
 
 - (void)showUnviewed{
+    [self.gridDelegate messageDidReceive];
     [self hideAllIcons];
     [self showGreenBorder];
     self.countLabel.hidden = NO;
@@ -360,6 +364,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 }
 
 - (void)showUpload{
+    [self.gridDelegate messageDidUpload];
     [self hideGreenBorder];
     [self hideAllIcons];
     self.uploadingIndicator.hidden = NO;
@@ -372,6 +377,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 }
 
 - (void)showViewed{
+    [self.gridDelegate messageDidViewed];
     [self hideGreenBorder];
     [self hideAllIcons];
     self.viewedIndicator.hidden = NO;

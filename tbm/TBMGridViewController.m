@@ -5,14 +5,9 @@
 //  Created by Sani Elfishawy on 12/10/14.
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
-#import "TBMTutorialPresenter.h"
 #import "TBMHomeViewController+Invite.h"
-#import "TBMHomeViewController+VersionController.h"
-#import "TBMHomeViewController.h"
 #import "TBMAppDelegate+AppSync.h"
-#import "TBMGridViewController.h"
 #import "TBMGridElementViewController.h"
-#import "TBMBenchViewController.h"
 #import "TBMGridElement.h"
 #import "HexColor.h"
 #import "iToast.h"
@@ -60,8 +55,6 @@
     [TBMFriend addVideoStatusNotificationDelegate:self];
     [self addObservers];
     [self.delegate gridDidAppear:self];
-
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -203,7 +196,8 @@ static const float LayoutConstASPECT = 0.75;
     CGSize elSize = [self elementSize];
     NSInteger i = 0;
     for (UIView *v in [self outsideViews]) {
-        UIViewController *c = [[TBMGridElementViewController alloc] initWithIndex:i];
+        TBMGridElementViewController *c = [[TBMGridElementViewController alloc] initWithIndex:i];
+        c.gridDelegate = self;
         [self addChildViewController:c];
         c.view.frame = CGRectMake(0, 0, elSize.width, elSize.height);
         [v addSubview:c.view];
@@ -422,6 +416,7 @@ static const float LayoutConstASPECT = 0.75;
         return;
     }
 
+    [self.delegate friendDidAdd];
     TBMGridElement *ge = [self nextAvailableGridElement];
     ge.friend = friend;
     [self notifyChildrenOfGridChange:[ge getIntIndex]];
@@ -529,32 +524,52 @@ static const float LayoutConstASPECT = 0.75;
     return [self.videoRecorder isRecording];
 }
 
+#pragma mark - TBMGridModuleInterface
 
-- (NSUInteger)unviewedCount {
-    NSUInteger result = 0;
-    for (TBMFriend *friend in self.friendsOnGrid) {
-        result += friend.unviewedCount;
-    }
-    return result;
-}
-
-- (CGRect)frameForFirstFriendBadgeInView:(UIView *)view  {
+- (CGRect)gridGetFrameForUnviewedBadgeForFriend:(NSUInteger)friendCellIndex inView:(UIView *)view {
     CGRect result = CGRectZero;
-    UIView *friendView = [self gridViewWithIndex:0];
+    UIView *friendView = [self gridViewWithIndex:friendCellIndex];
     TBMGridElement *element = [self gridElementWithView:friendView];
     if (element.friend.unviewedCount) {
         CGFloat x = CGRectGetMaxX(friendView.frame) - LayoutConstCountWidth + 3;
-        CGFloat y = CGRectGetMinY(friendView.frame)-3;
+        CGFloat y = CGRectGetMinY(friendView.frame) - 3;
         result = CGRectMake(x, y, LayoutConstCountWidth, LayoutConstCountWidth);
         result = [self.view convertRect:result toView:view];
-
     }
     return result;
 }
 
-- (CGRect)frameForFirstFriendInView:(UIView *)view {
-    CGRect result = [[self gridViewWithIndex:0] frame];
-    result = [self.view convertRect:result toView:view];
+- (CGRect)gridGetFrameForFriend:(NSUInteger)friendCellIndex inView:(UIView *)view {
+    CGRect result = CGRectZero;
+    if (friendCellIndex <= 7) {
+        result = [[self gridViewWithIndex:friendCellIndex] frame];
+        result = [self.view convertRect:result toView:view];
+    }
+
     return result;
 }
+
+#pragma mark - TBMGridElementDelegate
+
+- (void)videoPlayerDidStartPlaying:(TBMVideoPlayer *)player {
+    [self.delegate videoPlayerDidStartPlaying:player];
+
+}
+
+- (void)videoPlayerDidStopPlaying:(TBMVideoPlayer *)player {
+    [self.delegate videoPlayerDidStopPlaying:player];
+}
+
+- (void)messageDidUpload {
+    [self.delegate messageDidUpload];
+}
+
+- (void)messageDidViewed {
+    [self.delegate messageDidViewed];
+}
+
+- (void)messageDidReceive {
+    [self.delegate messageDidReceive];
+}
+
 @end

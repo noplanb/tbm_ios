@@ -4,6 +4,7 @@
 //
 
 #import "TBMTutorialDataSource.h"
+#import "TBMFriend.h"
 
 #define NSUD [NSUserDefaults standardUserDefaults]
 
@@ -13,13 +14,17 @@ NSString
         *const kPlayHintNSUDkey = @"kPlayHintNSUDkey",
         *const kRecordHintNSUDkey = @"kRecordHintNSUDkey",
         *const kSentHintNSUDkey = @"kSentHintNSUDkey",
-        *const kViewedHintNSUDkey = @"kViewedHintNSUDkey";
+        *const kViewedHintNSUDkey = @"kViewedHintNSUDkey",
+        *const kMesageWelcomeHintNSUDkey = @"*const kMesageWelcomeHintNSUDkey",
+// Events state
+        *const kMesagePlayedNSUDkey = @"kMesagePlayedNSUDkey",
+        *const kMesageRecordedNSUDkey = @"kMesageRecordedNSUDkey";
 
 
 @implementation TBMTutorialDataSource {
 }
 
-void saveNSUDState(BOOL state, const NSString *key) {
+void saveNSUDState(BOOL state, NSString *const key) {
     [NSUD setBool:state forKey:key];
     [NSUD synchronize];
 }
@@ -86,6 +91,15 @@ void saveNSUDState(BOOL state, const NSString *key) {
 + (void)setMessagePlayedState:(BOOL)state {
     saveNSUDState(state, kMesagePlayedNSUDkey);
 }
+// Welcome
++ (BOOL)welcomeHintState {
+    return [NSUD boolForKey:kMesageWelcomeHintNSUDkey];;
+}
+
++ (void)setWelcomeHintState:(BOOL)state {
+    [NSUD boolForKey:kMesageWelcomeHintNSUDkey];
+}
+
 // Recorded at least one mesaage
 + (BOOL)messageRecordedState {
     return [NSUD boolForKey:kMesageRecordedNSUDkey];
@@ -93,6 +107,22 @@ void saveNSUDState(BOOL state, const NSString *key) {
 
 + (void)setMessageRecordedState:(BOOL)state {
     saveNSUDState(state, kMesageRecordedNSUDkey);
+}
+
++ (NSUInteger)friendsCount {
+    NSUInteger result = 0;
+    if ([[TBMFriend all] count]) {
+        result = [[TBMFriend all] count];
+    }
+    return result;
+}
+
++ (BOOL)unviewedCount {
+    NSUInteger result = 0;
+    for (TBMFriend *friend in [TBMFriend all]) {
+        result += [friend unviewedCount];
+    }
+    return result;
 }
 
 @end

@@ -28,6 +28,7 @@
 @property(nonatomic, strong) UIView *logoView;
 @property(nonatomic, strong) UIView *menuButton;
 
+@property(nonatomic) BOOL startPlayedMessage;
 @end
 
 @interface TBMHomeViewController ()
@@ -115,11 +116,8 @@ static TBMHomeViewController *hvcInstance;
 
 - (TBMTutorialPresenter *)tutorialScreen {
     if (!_tutorialScreen) {
-
-        _tutorialScreen = [[TBMTutorialPresenter alloc] initWithSuperview:self.view
-                                                           highlightFrame:[self.gridViewController frameForFirstFriendInView:self.view]
-                                                           highlightBadge:[self.gridViewController frameForFirstFriendBadgeInView:self.view]
-                                                        hasViewedMessages:NO];
+        _tutorialScreen = [[TBMTutorialPresenter alloc] initWithSuperview:self.view];
+        _tutorialScreen.gridDelegate = self.gridViewController;
     }
     return _tutorialScreen;
 }
@@ -133,6 +131,11 @@ static TBMHomeViewController *hvcInstance;
     [self addHomeViews];
     [self setupSecretGestureRecognizer];
     [[[TBMVersionHandler alloc] initWithDelegate:self] checkVersionCompatibility];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recorderStartRecording) name:TBMVideoRecorderShouldStartRecording object:nil];
+}
+
+- (void)recorderStartRecording {
+    [self.tutorialScreen messageDidRecorded];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -250,8 +253,34 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
 #pragma mark - TBMGridDeleate
 
 - (void)gridDidAppear:(TBMGridViewController *)gridViewController {
-    NSUInteger friendsCount = gridViewController.friendsOnGrid ? gridViewController.friendsOnGrid.count: 0;
-    [self.tutorialScreen onAppLaunchedWithNumberofFriends:friendsCount unviewedCount:gridViewController.unviewedCount];
+    [self.tutorialScreen applicationDidLaunch];
 }
+
+- (void)videoPlayerDidStartPlaying:(TBMVideoPlayer *)player {
+    self.startPlayedMessage = YES;
+}
+
+- (void)videoPlayerDidStopPlaying:(TBMVideoPlayer *)player {
+    if (self.startPlayedMessage) {
+        [self.tutorialScreen messageDidPlay];
+    }
+}
+
+- (void)messageDidUpload {
+    [self.tutorialScreen messageDidSend];
+}
+
+- (void)messageDidViewed {
+    [self.tutorialScreen messageDidViewed];
+}
+
+- (void)friendDidAdd {
+    [self.tutorialScreen friendDidAdd];
+}
+
+- (void)messageDidReceive {
+    [self.tutorialScreen messageDidReceive];
+}
+
 
 @end

@@ -74,6 +74,15 @@ static NSMutableArray * videoStatusNotificationDelegates;
     return result;
 }
 
++ (NSUInteger)allUnviewedCount {
+    NSUInteger result = 0;
+    for (TBMFriend *friend in [self all]) {
+        result += friend.unviewedCount;
+    }
+    return result;
+}
+
+
 + (instancetype)findWithOutgoingVideoId:(NSString *)videoId{
     return [self findWithAttributeKey:@"outgoingVideoId" value:videoId];
 }

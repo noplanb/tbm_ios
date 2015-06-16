@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "TBMFriend.h"
 #import "TBMVideoPlayer.h"
+
+@protocol TBMGridElementDelegate;
 static const float LayoutConstNameLabelHeight = 22;
 static const float LayoutConstNameLabelMargin = 5;
 static const float LayoutConstNameLabelFontSize = 0.55 * LayoutConstNameLabelHeight;
@@ -23,6 +25,10 @@ static const float LayoutConstUploadingBarHeight = LayoutConstNoThumbButtonsMarg
 
 
 @interface TBMGridElementViewController : UIViewController <TBMVideoStatusNotificationProtocol, TBMVideoPlayerEventNotification>
+
+@property(nonatomic, weak) id <TBMGridElementDelegate> gridDelegate;
+
 - (instancetype)initWithIndex:(NSInteger)index;
 - (void)gridDidChange:(NSInteger)index;
+
 @end

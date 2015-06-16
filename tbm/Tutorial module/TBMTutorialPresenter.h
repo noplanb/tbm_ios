@@ -5,65 +5,39 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, TBMTutorialKind) {
-    TBMTutorialKindDefault = 0,     // No hint
-    TBMTutorialKindInviteHint1 = 1, // Invite Hint 1 | every time
-    TBMTutorialKindInviteHint2 = 2, // Invite Hint 2
-    TBMTutorialKindPlayHint = 3,    // PlayHint
-    TBMTutorialKindRecordHint = 4,  // RecordHint
-    TBMTutorialKindSentHint = 5,    // SentHint
-    TBMTutorialKindViewedHint = 6,  // ViewedHint
-};
+@class TBMHint;
+
+@protocol TBMGridModuleInterface;
 
 @interface TBMTutorialPresenter : NSObject
 
-@property(nonatomic, strong) UIView *superView;
+@property(nonatomic, strong) UIView *parentView;
 
-@property(nonatomic) CGRect highlightFrame;
-
-@property(nonatomic) CGRect highlightBadge;
-
-@property(nonatomic) BOOL hasViewedMessages;
+@property(nonatomic, weak) id <TBMGridModuleInterface> gridDelegate;
 
 /**
  * Initialize tutorial module, not present it
  */
-- (instancetype)initWithSuperview:(UIView *)superview
-                   highlightFrame:(CGRect)highlightFrame
-                   highlightBadge:(CGRect)highlightBadge
-                hasViewedMessages:(BOOL)hasViewedMessages;
+- (instancetype)initWithSuperview:(UIView *)parentView;
+
 /**
  * Events
  *
- * Parent need to call this events when it happened
+ * Parent modules send signals about application state and flow
  */
+- (void)applicationDidLaunch;
 
-/**
- *  App launched with state
- */
-- (void)onAppLaunchedWithNumberofFriends:(NSUInteger)friendsCount
-                           unviewedCount:(NSUInteger)unviewedCount;
+- (void)friendDidAdd;
 
-/**
- * Message did play
- */
-- (void)onMesageDidPlay;
+- (void)friendDidInvite;
 
-/**
- *
- */
-- (void)onFriendDidAdd;
+- (void)messageDidReceive;
 
-/**
- *
- */
-- (void)onMessageSentWithFriendsCount:(NSUInteger)friendsCount
-                        unviewedCount:(NSUInteger)unviewedCount;
+- (void)messageDidSend;
 
-/**
- *
- */
-- (void)onMessageViewedWithFriendsCount:(NSUInteger)friendsCount;
+- (void)messageDidPlay;
 
+- (void)messageDidRecorded;
 
+- (void)messageDidViewed;
 @end

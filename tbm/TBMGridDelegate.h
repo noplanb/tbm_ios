@@ -7,4 +7,10 @@
 
 @protocol TBMGridDelegate <NSObject>
 - (void)gridDidAppear:(TBMGridViewController *)gridViewController;
+-(void)videoPlayerDidStartPlaying:(TBMVideoPlayer *)player;
+-(void)videoPlayerDidStopPlaying:(TBMVideoPlayer *)player;
+-(void)messageDidUpload;
+-(void)messageDidViewed;
+-(void)messageDidReceive;
+-(void)friendDidAdd;
 @end

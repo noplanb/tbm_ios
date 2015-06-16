@@ -14,6 +14,7 @@ NSString
         *const kRecordHintNSUDkey,
         *const kSentHintNSUDkey,
         *const kViewedHintNSUDkey,
+        *const kMesageWelcomeHintNSUDkey,
 // Events state
         *const kMesagePlayedNSUDkey,
         *const kMesageRecordedNSUDkey;
@@ -48,7 +49,16 @@ NSString
 
 + (void)setMessagePlayedState:(BOOL)state;
 
++ (BOOL)welcomeHintState;
+
++ (void)setWelcomeHintState:(BOOL)state;
+
 + (BOOL)messageRecordedState;
 
 + (void)setMessageRecordedState:(BOOL)state;
+
++ (int)friendsCount;
+
++ (BOOL)unviewedCount;
+
 @end
