@@ -50,7 +50,7 @@
 }
 
 - (void)setup {
-    self.fillColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.86f];
+    self.fillColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65f];
     self.backgroundColor = [UIColor clearColor];
     self.hidden = YES;
     self.alpha = 0;

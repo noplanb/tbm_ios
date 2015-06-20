@@ -13,7 +13,7 @@
 
 @property(nonatomic, strong) UIView *parentView;
 
-@property(nonatomic, weak) id <TBMGridModuleInterface> gridDelegate;
+@property(nonatomic, weak) id <TBMGridModuleInterface> gridModule;
 
 /**
  * Initialize tutorial module, not present it

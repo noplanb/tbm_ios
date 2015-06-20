@@ -211,7 +211,7 @@
 
 - (void)showHintForEvent:(SEL)event {
     CGRect frame = self.parentView.bounds;
-    self.hint.gridDelegate = self.gridDelegate;
+    self.hint.gridModule = self.gridModule;
     [self.hint showHintInView:self.parentView frame:frame delegate:self event:event];
 }
 

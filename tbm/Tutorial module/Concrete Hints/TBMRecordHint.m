@@ -9,7 +9,7 @@
 
 }
 - (void)configureHint {
-    CGRect highlightFrame = [self.gridDelegate gridGetFrameForFriend:0 inView:self.superview];
+    CGRect highlightFrame = [self.gridModule gridGetFrameForFriend:0 inView:self.superview];
     self.dismissAfterAction = YES;
     self.framesToCutOut = @[
             [UIBezierPath bezierPathWithRect:highlightFrame],
@@ -29,7 +29,7 @@
 }
 
 - (void)addPlayTip {
-    CGRect highlightFrame = [self.gridDelegate gridGetFrameForFriend:0 inView:self.superview];
+    CGRect highlightFrame = [self.gridModule gridGetFrameForFriend:0 inView:self.superview];
     NSMutableArray *arrows = [self.arrows mutableCopy];
     [arrows addObject:[TBMHintArrow arrowWithText:@"Tap to play"
                                         curveKind:TBMTutorialArrowCurveKindRight

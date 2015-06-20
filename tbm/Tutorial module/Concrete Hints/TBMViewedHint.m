@@ -9,7 +9,7 @@
 
 }
 - (void)configureHint {
-    CGRect highlightFrame = [self.gridDelegate gridGetFrameForFriend:0 inView:self.superview];
+    CGRect highlightFrame = [self.gridModule gridGetFrameForFriend:0 inView:self.superview];
     self.dismissAfterAction = YES;
     self.framesToCutOut = @[
             [UIBezierPath bezierPathWithRect:highlightFrame],

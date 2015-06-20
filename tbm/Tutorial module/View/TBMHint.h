@@ -29,7 +29,7 @@ NSString *const kTBMTutorialFontName;
 
 @property(nonatomic) BOOL showGotItButton;
 
-@property(nonatomic, weak) id <TBMGridModuleInterface> gridDelegate;
+@property(nonatomic, weak) id <TBMGridModuleInterface> gridModule;
 
 @property(nonatomic) BOOL dismissAfterAction;
 

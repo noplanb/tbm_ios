@@ -117,7 +117,7 @@ static TBMHomeViewController *hvcInstance;
 - (TBMTutorialPresenter *)tutorialScreen {
     if (!_tutorialScreen) {
         _tutorialScreen = [[TBMTutorialPresenter alloc] initWithSuperview:self.view];
-        _tutorialScreen.gridDelegate = self.gridViewController;
+        _tutorialScreen.gridModule = self.gridViewController;
     }
     return _tutorialScreen;
 }
