@@ -132,9 +132,14 @@ static TBMHomeViewController *hvcInstance;
     [self setupSecretGestureRecognizer];
     [[[TBMVersionHandler alloc] initWithDelegate:self] checkVersionCompatibility];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recorderStartRecording) name:TBMVideoRecorderShouldStartRecording object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recorderFinishRecording) name:TBMVideoRecorderDidFinishRecording object:nil];
 }
 
 - (void)recorderStartRecording {
+    [self.tutorialScreen messageDidStartRecording];
+}
+
+- (void)recorderFinishRecording {
     [self.tutorialScreen messageDidRecorded];
 }
 
@@ -262,6 +267,7 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
 
 - (void)videoPlayerDidStopPlaying:(TBMVideoPlayer *)player {
     if (self.startPlayedMessage) {
+        self.startPlayedMessage = NO;
         [self.tutorialScreen messageDidPlay];
     }
 }

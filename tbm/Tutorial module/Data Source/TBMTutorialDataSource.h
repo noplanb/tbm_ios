@@ -14,51 +14,63 @@ NSString
         *const kRecordHintNSUDkey,
         *const kSentHintNSUDkey,
         *const kViewedHintNSUDkey,
-        *const kMesageWelcomeHintNSUDkey,
+        *const kMessageWelcomeHintNSUDkey,
 // Events state
         *const kMesagePlayedNSUDkey,
         *const kMesageRecordedNSUDkey;
 
 @interface TBMTutorialDataSource : NSObject
 
-+ (BOOL)inviteHint1State;
+//Session properties
+@property(nonatomic) BOOL invite1HintShowedThisSession;
+@property(nonatomic) BOOL invite2HintShowedThisSession;
+@property(nonatomic) BOOL playHintShowedThisSession;
+@property(nonatomic) BOOL recordHintShowedThisSession;
+@property(nonatomic) BOOL sentHintShowedThisSession;
+@property(nonatomic) BOOL viewedHintShowedThisSession;
+@property(nonatomic) BOOL welcomeHintShowedThisSession;
 
-+ (void)setInviteHint1State:(BOOL)state;
+- (BOOL)inviteHint1State;
 
-+ (BOOL)inviteHint2State;
+- (void)setInviteHint1State:(BOOL)state;
 
-+ (void)setInviteHint2State:(BOOL)state;
+- (BOOL)inviteHint2State;
 
-+ (BOOL)playHintState;
+- (void)setInviteHint2State:(BOOL)state;
 
-+ (void)setPlayHintState:(BOOL)state;
+- (BOOL)playHintState;
 
-+ (BOOL)recordHintState;
+- (void)setPlayHintState:(BOOL)state;
 
-+ (void)setRecordHintState:(BOOL)state;
+- (BOOL)recordHintState;
 
-+ (BOOL)sentHintState;
+- (void)setRecordHintState:(BOOL)state;
 
-+ (void)setSentHintState:(BOOL)state;
+- (BOOL)sentHintState;
 
-+ (BOOL)viewedHintState;
+- (void)setSentHintState:(BOOL)state;
 
-+ (void)setViewedHintState:(BOOL)state;
+- (BOOL)viewedHintState;
 
-+ (BOOL)messagePlayedState;
+- (void)setViewedHintState:(BOOL)state;
 
-+ (void)setMessagePlayedState:(BOOL)state;
+- (BOOL)messagePlayedState;
 
-+ (BOOL)welcomeHintState;
+- (void)setMessagePlayedState:(BOOL)state;
 
-+ (void)setWelcomeHintState:(BOOL)state;
+- (BOOL)welcomeHintState;
 
-+ (BOOL)messageRecordedState;
+- (void)setWelcomeHintState:(BOOL)state;
 
-+ (void)setMessageRecordedState:(BOOL)state;
+- (BOOL)messageRecordedState;
 
-+ (int)friendsCount;
+- (void)setMessageRecordedState:(BOOL)state;
 
-+ (BOOL)unviewedCount;
+- (int)friendsCount;
 
+- (NSUInteger)unviewedCount;
+
+- (void)startSession;
+
+- (int)sentCountForLastFriend;
 @end

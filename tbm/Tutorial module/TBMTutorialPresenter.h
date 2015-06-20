@@ -4,12 +4,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TBMHintDelegate.h"
 
 @class TBMHint;
 
 @protocol TBMGridModuleInterface;
 
-@interface TBMTutorialPresenter : NSObject
+@interface TBMTutorialPresenter : NSObject <TBMHintDelegate>
 
 @property(nonatomic, strong) UIView *parentView;
 
@@ -29,13 +30,13 @@
 
 - (void)friendDidAdd;
 
-- (void)friendDidInvite;
-
 - (void)messageDidReceive;
 
 - (void)messageDidSend;
 
 - (void)messageDidPlay;
+
+- (void)messageDidStartRecording;
 
 - (void)messageDidRecorded;
 

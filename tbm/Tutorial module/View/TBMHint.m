@@ -6,6 +6,7 @@
 
 #import "TBMHint.h"
 #import "TBMHintArrow.h"
+#import "TBMHintDelegate.h"
 
 @interface TBMHint ()
 
@@ -14,7 +15,7 @@
 @property(nonatomic, strong) UILabel *gotItLabel;
 
 
-@property(nonatomic, weak) id callbackDelegate;
+@property(nonatomic, weak) id <TBMHintDelegate> callbackDelegate;
 @property(nonatomic) SEL callbackEvent;
 @end
 
@@ -165,6 +166,7 @@
     for (UIView *view in _arrows) {
         [self addSubview:view];
     }
+    
 }
 
 - (void)showHintInView:(UIView *)view frame:(CGRect)frame delegate:(id)callbackDelegate event:(SEL)event {
@@ -179,6 +181,7 @@
     }
 
     [self configureHint];
+
     [view addSubview:self];
     [view bringSubviewToFront:self];
     [self show];
@@ -190,6 +193,7 @@
 
 - (void)dismiss {
     [self hide];
+    [self.callbackDelegate hintDidDismiss:self];
     if (self.callbackDelegate && [self.callbackDelegate respondsToSelector:self.callbackEvent]) {
         [self.callbackDelegate performSelector:self.callbackEvent];
     }

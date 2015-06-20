@@ -10,22 +10,27 @@
 }
 - (void)configureHint {
     CGRect highlightFrame = [self.gridModule gridGetFrameForFriend:0 inView:self.superview];
+    CGRect highlightBadgeFrame = [self.gridModule gridGetFrameForUnviewedBadgeForFriend:0 inView:self.superview];
     self.dismissAfterAction = YES;
     self.framesToCutOut = @[
             [UIBezierPath bezierPathWithRect:highlightFrame],
+            [UIBezierPath bezierPathWithOvalInRect:highlightBadgeFrame],
     ];
     self.showGotItButton = YES;
-    NSMutableArray *arrows = [NSMutableArray array];
-    [arrows addObject:[TBMHintArrow arrowWithText:@"Tap to play"
-                                        curveKind:TBMTutorialArrowCurveKindRight
-                                       arrowPoint:CGPointMake(
-                                               CGRectGetMinX(highlightFrame),
-                                               CGRectGetMidY(highlightFrame))
-                                            angle:-40.f
-                                           hidden:NO
-                                            frame:self.frame]];
+    if (!self.arrows) {
 
-    self.arrows = arrows;
+        NSMutableArray *arrows = [NSMutableArray array];
+        [arrows addObject:[TBMHintArrow arrowWithText:@"Tap to play"
+                                            curveKind:TBMTutorialArrowCurveKindRight
+                                           arrowPoint:CGPointMake(
+                                                   CGRectGetMinX(highlightFrame),
+                                                   CGRectGetMidY(highlightFrame))
+                                                angle:-40.f
+                                               hidden:NO
+                                                frame:self.frame]];
+
+        self.arrows = arrows;
+    }
 }
 
 - (void)addRecordTip {

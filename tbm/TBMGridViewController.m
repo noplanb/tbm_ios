@@ -20,6 +20,8 @@
 @property(nonatomic) TBMLongPressTouchHandler *longPressTouchHandler;
 @property(nonatomic) TBMAppDelegate *appDelegate;
 @property(nonatomic) TBMVideoRecorder *videoRecorder;
+@property(nonatomic, strong) TBMGridElement *lastAddedGridElement;
+@property(nonatomic, strong) TBMFriend *lastAddedFriend;
 @end
 
 @interface TBMGridViewController ()
@@ -411,16 +413,18 @@ static const float LayoutConstASPECT = 0.75;
 - (void)moveFriendToGrid:(TBMFriend *)friend {
     OB_INFO(@"moveFriendToGrid: %@", friend.firstName);
     [self rankingActionOccurred:friend];
+    self.lastAddedFriend = friend;
     if ([TBMGridElement friendIsOnGrid:friend]) {
         [self highlightElement:[TBMGridElement findWithFriend:friend]];
         return;
     }
 
-    [self.delegate friendDidAdd];
     TBMGridElement *ge = [self nextAvailableGridElement];
+    self.lastAddedGridElement = ge;
     ge.friend = friend;
     [self notifyChildrenOfGridChange:[ge getIntIndex]];
     [self highlightElement:ge];
+    [self.delegate friendDidAdd];
 }
 
 - (void)notifyChildrenOfGridChange:(NSInteger)index {
@@ -474,6 +478,7 @@ static const float LayoutConstASPECT = 0.75;
     [gv addSubview:blaze];
     [gv setNeedsDisplay];
     [self performSelector:@selector(animateBlaze:) withObject:blaze afterDelay:0.3];
+
 }
 
 - (void)animateBlaze:(UIView *)blaze {
@@ -528,14 +533,15 @@ static const float LayoutConstASPECT = 0.75;
 
 - (CGRect)gridGetFrameForUnviewedBadgeForFriend:(NSUInteger)friendCellIndex inView:(UIView *)view {
     CGRect result = CGRectZero;
-    UIView *friendView = [self gridViewWithIndex:friendCellIndex];
-    TBMGridElement *element = [self gridElementWithView:friendView];
-    if (element.friend.unviewedCount) {
-        CGFloat x = CGRectGetMaxX(friendView.frame) - LayoutConstCountWidth + 3;
-        CGFloat y = CGRectGetMinY(friendView.frame) - 3;
+
+    if (friendCellIndex <= 7) {
+        result = [[self gridViewWithIndex:friendCellIndex] frame];
+        CGFloat x = CGRectGetMaxX(result) - LayoutConstCountWidth + 3;
+        CGFloat y = CGRectGetMinY(result) - 3;
         result = CGRectMake(x, y, LayoutConstCountWidth, LayoutConstCountWidth);
-        result = [self.view convertRect:result toView:view];
     }
+
+    result = [self.view convertRect:result toView:view];
     return result;
 }
 
@@ -546,6 +552,28 @@ static const float LayoutConstASPECT = 0.75;
         result = [self.view convertRect:result toView:view];
     }
 
+    return result;
+}
+
+- (NSUInteger)lastAddedFriendOnGridIndex {
+    NSUInteger result = 0;
+    TBMGridElement *gridElement = self.lastAddedFriend.gridElement;
+    if (gridElement) {
+        result = [gridElement.index unsignedIntegerValue];
+    }
+    return result;
+}
+
+- (BOOL)hasSentVideos:(NSUInteger)gridElementIndex {
+    BOOL result = NO;
+    TBMFriend *friend = self.lastAddedFriend;
+    if (friend) {
+        NSLog(@"friend.name == %@", friend.fullName);
+        NSLog(@"friend.outgoingVideoId == %@", friend.outgoingVideoId);
+        if (friend.outgoingVideoId && [friend.outgoingVideoId length] > 0) {
+            result = YES;
+        }
+    }
     return result;
 }
 

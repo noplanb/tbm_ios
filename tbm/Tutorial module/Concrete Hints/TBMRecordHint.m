@@ -15,17 +15,20 @@
             [UIBezierPath bezierPathWithRect:highlightFrame],
     ];
     self.showGotItButton = YES;
-    NSMutableArray *arrows = [NSMutableArray array];
-    [arrows addObject:[TBMHintArrow arrowWithText:@"Press and hold to record"
-                                        curveKind:TBMTutorialArrowCurveKindRight
-                                       arrowPoint:CGPointMake(
-                                               CGRectGetMinX(highlightFrame),
-                                               CGRectGetMidY(highlightFrame))
-                                            angle:-40.f
-                                           hidden:NO
-                                            frame:self.frame]];
+    if (!self.arrows) {
+        NSMutableArray *arrows = [NSMutableArray array];
+        [arrows addObject:[TBMHintArrow arrowWithText:@"Press and hold to record"
+                                            curveKind:TBMTutorialArrowCurveKindRight
+                                           arrowPoint:CGPointMake(
+                                                   CGRectGetMinX(highlightFrame),
+                                                   CGRectGetMidY(highlightFrame))
+                                                angle:-40.f
+                                               hidden:NO
+                                                frame:self.frame]];
 
-    self.arrows = arrows;
+        self.arrows = arrows;
+
+    }
 }
 
 - (void)addPlayTip {

@@ -379,6 +379,7 @@
 		682D6DADC6092962A728B628 /* TBMInvite1Hint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMInvite1Hint.m; sourceTree = "<group>"; };
 		682D6DECA2320CD20B07277A /* TBMHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHomeViewController.h; sourceTree = "<group>"; };
 		682D6E0FE92C6C73889A1DCB /* TBMInvite2Hint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMInvite2Hint.m; sourceTree = "<group>"; };
+		682D6E1074A9D93BEDEF5318 /* TBMHintDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHintDelegate.h; sourceTree = "<group>"; };
 		682D6E4823793C3A8B5DE7D9 /* TBMSecretGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSecretGestureRecognizer.m; sourceTree = "<group>"; };
 		682D6F13C829CB6FE2E92091 /* TBMSecretScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSecretScreenView.h; sourceTree = "<group>"; };
 		682D6F2E6181D4111349CA53 /* TBMHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHomeViewController.m; sourceTree = "<group>"; };
@@ -782,6 +783,7 @@
 				682D6751CC748BDD1248D01E /* TBMHintArrow.h */,
 				682D605F2D1357B405B8C42B /* TBMHint.h */,
 				682D69360C4A7A188A87ED91 /* TBMHint.m */,
+				682D6E1074A9D93BEDEF5318 /* TBMHintDelegate.h */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -860,11 +862,11 @@
 			isa = PBXGroup;
 			children = (
 				682D6D5AD5AF2C51DD8462B0 /* Module interface */,
+				682D6F34CA784508D2C6C44E /* Concrete Hints */,
 				682D6B9F37A2CBCB8CBC56E3 /* Data Source */,
 				682D61911F413241C77F1885 /* View */,
 				682D6F9FB44EF2D4E24996C4 /* TBMTutorialPresenter.h */,
 				682D68791D5CB72B9112AE77 /* TBMTutorialPresenter.m */,
-				682D6F34CA784508D2C6C44E /* Concrete Hints */,
 			);
 			path = "Tutorial module";
 			sourceTree = "<group>";

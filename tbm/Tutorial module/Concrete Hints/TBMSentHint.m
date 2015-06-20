@@ -29,7 +29,8 @@
     self.arrows = arrows;
     [self dismissAfter:3.5f];
 }
--(void)dismissAfter:(NSTimeInterval)delay {
+
+- (void)dismissAfter:(NSTimeInterval)delay {
     [self performSelector:@selector(dismiss) withObject:nil afterDelay:delay];
 }
 @end
