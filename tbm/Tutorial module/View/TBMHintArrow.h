@@ -5,7 +5,6 @@
 
 #import <Foundation/Foundation.h>
 
-//DKCrayonCrumble
 NSString *const kTBMTutorialFontName;
 typedef NS_ENUM(NSInteger, TBMHintArrowCurveKind) {
     TBMTutorialArrowCurveKindLeft = 0,

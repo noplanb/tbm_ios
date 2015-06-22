@@ -779,11 +779,11 @@
 		682D61911F413241C77F1885 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				682D6FACE5E031D8469B0A94 /* TBMHintArrow.m */,
+				682D6E1074A9D93BEDEF5318 /* TBMHintDelegate.h */,
 				682D6751CC748BDD1248D01E /* TBMHintArrow.h */,
+				682D6FACE5E031D8469B0A94 /* TBMHintArrow.m */,
 				682D605F2D1357B405B8C42B /* TBMHint.h */,
 				682D69360C4A7A188A87ED91 /* TBMHint.m */,
-				682D6E1074A9D93BEDEF5318 /* TBMHintDelegate.h */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -887,8 +887,8 @@
 		682D6B9F37A2CBCB8CBC56E3 /* Data Source */ = {
 			isa = PBXGroup;
 			children = (
-				682D65F4A0A5272DE8F937FA /* TBMTutorialDataSource.m */,
 				682D69DD4D090176EBAC953A /* TBMTutorialDataSource.h */,
+				682D65F4A0A5272DE8F937FA /* TBMTutorialDataSource.m */,
 			);
 			path = "Data Source";
 			sourceTree = "<group>";
@@ -918,16 +918,16 @@
 		682D6F34CA784508D2C6C44E /* Concrete Hints */ = {
 			isa = PBXGroup;
 			children = (
-				682D6DADC6092962A728B628 /* TBMInvite1Hint.m */,
 				682D674D966FAC6E8CB60CB7 /* TBMInvite1Hint.h */,
-				682D67FD204A5005DB0F894F /* TBMPlayHint.m */,
+				682D6DADC6092962A728B628 /* TBMInvite1Hint.m */,
 				682D6935385D480C183F468E /* TBMPlayHint.h */,
+				682D67FD204A5005DB0F894F /* TBMPlayHint.m */,
 				682D693CF10B718898E59D82 /* TBMRecordHint.h */,
 				682D60DD9C7E357722019EE2 /* TBMRecordHint.m */,
-				682D6573F38E7D9599A1291D /* TBMSentHint.m */,
 				682D645EF90A69C981E27DFC /* TBMSentHint.h */,
-				682D6E0FE92C6C73889A1DCB /* TBMInvite2Hint.m */,
+				682D6573F38E7D9599A1291D /* TBMSentHint.m */,
 				682D69D57C9C1BE2EBAA804A /* TBMInvite2Hint.h */,
+				682D6E0FE92C6C73889A1DCB /* TBMInvite2Hint.m */,
 				682D66D398F908D9FA780A28 /* TBMViewedHint.h */,
 				682D617AE9D95612A87F6966 /* TBMViewedHint.m */,
 				682D69C1A766CC6388A62A2B /* TBMWelcomeHint.h */,

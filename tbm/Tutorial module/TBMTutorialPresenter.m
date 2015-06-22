@@ -57,7 +57,7 @@
         return;
     }
 
-    if ([self checkSendWelcomeHintWithEvent:@selector(friendDidInvite)]) {
+    if ([self checkSendWelcomeHintWithEvent:nil]) {
         return;
     }
 }
@@ -92,11 +92,6 @@
     if ([self checkRecordHintWithEvent:@selector(messageDidPlay)]) {
         return;
     }
-
-    if ([self checkViewedHintWithEvent:nil]) {
-        return;
-    }
-
 }
 
 - (void)messageDidStartRecording {
@@ -171,7 +166,6 @@
 }
 
 - (BOOL)checkRecordHintWithEvent:(SEL)event {
-    //Already showed record hint
     if ([self.hint isKindOfClass:[TBMRecordHint class]]) {
         return NO;
     }

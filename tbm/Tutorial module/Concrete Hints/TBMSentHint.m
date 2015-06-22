@@ -18,9 +18,9 @@
     self.showGotItButton = YES;
     NSMutableArray *arrows = [NSMutableArray array];
     [arrows addObject:[TBMHintArrow arrowWithText:@"Zazo sent! Well done!"
-                                        curveKind:TBMTutorialArrowCurveKindLeft
+                                        curveKind:TBMTutorialArrowCurveKindRight
                                        arrowPoint:CGPointMake(
-                                               CGRectGetMaxX(highlightFrame),
+                                               CGRectGetMaxX(highlightFrame)-20.f,
                                                CGRectGetMinY(highlightFrame))
                                             angle:-45.f
                                            hidden:NO

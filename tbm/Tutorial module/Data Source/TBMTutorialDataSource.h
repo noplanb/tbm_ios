@@ -72,5 +72,4 @@ NSString
 
 - (void)startSession;
 
-- (int)sentCountForLastFriend;
 @end
