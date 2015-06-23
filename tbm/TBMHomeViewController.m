@@ -255,7 +255,7 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
     }
 }
 
-#pragma mark - TBMGridDeleate
+#pragma mark - TBMGridDelegate
 
 - (void)gridDidAppear:(TBMGridViewController *)gridViewController {
     [self.tutorialScreen applicationDidLaunch];
