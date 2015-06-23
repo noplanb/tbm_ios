@@ -14,6 +14,8 @@
 #import "HexColor.h"
 #import "TBMSecretScreenPresenter.h"
 #import "TBMSecretGestureRecognizer.h"
+#import "TBMTutorialPresenter.h"
+#import "TBMGridDelegate.h"
 
 @interface TBMHomeViewController ()
 @property(nonatomic) TBMAppDelegate *appDelegate;
@@ -26,6 +28,11 @@
 @property(nonatomic, strong) UIView *logoView;
 @property(nonatomic, strong) UIView *menuButton;
 
+@property(nonatomic) BOOL isPlaying;
+@end
+
+@interface TBMHomeViewController ()
+@property(nonatomic, strong) TBMTutorialPresenter *tutorialScreen;
 @end
 
 @implementation TBMHomeViewController
@@ -107,6 +114,14 @@ static TBMHomeViewController *hvcInstance;
     return _menuButton;
 }
 
+- (TBMTutorialPresenter *)tutorialScreen {
+    if (!_tutorialScreen) {
+        _tutorialScreen = [[TBMTutorialPresenter alloc] initWithSuperview:self.view];
+        _tutorialScreen.gridModule = self.gridViewController;
+    }
+    return _tutorialScreen;
+}
+
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad {
@@ -116,11 +131,22 @@ static TBMHomeViewController *hvcInstance;
     [self addHomeViews];
     [self setupSecretGestureRecognizer];
     [[[TBMVersionHandler alloc] initWithDelegate:self] checkVersionCompatibility];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recorderStartRecording) name:TBMVideoRecorderShouldStartRecording object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recorderFinishRecording) name:TBMVideoRecorderDidFinishRecording object:nil];
+}
+
+- (void)recorderStartRecording {
+    [self.tutorialScreen messageDidStartRecording];
+}
+
+- (void)recorderFinishRecording {
+    [self.tutorialScreen messageDidRecorded];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     OB_INFO(@"TBMHomeViewController: viewWillAppear");
     [super viewWillAppear:animated];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -190,6 +216,7 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
 
 - (void)addGridViewController {
     self.gridViewController = [[TBMGridViewController alloc] init];
+    self.gridViewController.delegate = self;
     [self addChildViewController:self.gridViewController];
     self.gridViewController.view.frame = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height);
     [self.contentView addSubview:self.gridViewController.view];
@@ -226,6 +253,39 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
             self.overlayBackgroundView.alpha = 0.8;
         }];
     }
+}
+
+#pragma mark - TBMGridDelegate
+
+- (void)gridDidAppear:(TBMGridViewController *)gridViewController {
+    [self.tutorialScreen applicationDidLaunch];
+}
+
+- (void)videoPlayerDidStartPlaying:(TBMVideoPlayer *)player {
+    self.isPlaying = YES;
+}
+
+- (void)videoPlayerDidStopPlaying:(TBMVideoPlayer *)player {
+    if (self.isPlaying) {
+        self.isPlaying = NO;
+        [self.tutorialScreen messageDidPlay];
+    }
+}
+
+- (void)messageDidUpload {
+    [self.tutorialScreen messageDidSend];
+}
+
+- (void)messageDidViewed {
+    [self.tutorialScreen messageDidViewed];
+}
+
+- (void)friendDidAdd {
+    [self.tutorialScreen friendDidAdd];
+}
+
+- (void)messageDidReceive {
+    [self.tutorialScreen messageDidReceive];
 }
 
 

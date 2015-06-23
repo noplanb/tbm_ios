@@ -10,13 +10,21 @@
 #import "TBMFriend.h"
 #import "TBMLongPressTouchHandler.h"
 #import "TBMVideoRecorder.h"
+#import "TBMGridModuleInterface.h"
+#import "TBMGridElementDelegate.h"
+
+@protocol TBMGridDelegate;
 
 
-@interface TBMGridViewController : UIViewController <TBMLongPressTouchHandlerCallback, TBMVideoRecorderDelegate, TBMAppDelegateEventNotificationProtocol, TBMVideoStatusNotificationProtocol>
+@interface TBMGridViewController : UIViewController <TBMGridElementDelegate, TBMGridModuleInterface, TBMLongPressTouchHandlerCallback, TBMVideoRecorderDelegate, TBMAppDelegateEventNotificationProtocol, TBMVideoStatusNotificationProtocol>
+
+@property(nonatomic, weak) id <TBMGridDelegate> delegate;
 
 - (NSMutableArray *)friendsOnGrid;
 - (NSMutableArray *)friendsOnBench;
 - (void)moveFriendToGrid:(TBMFriend *)friend;
 - (void)rankingActionOccurred:(TBMFriend *)friend;
 - (BOOL)isRecording;
+
+
 @end

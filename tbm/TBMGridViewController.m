@@ -5,13 +5,13 @@
 //  Created by Sani Elfishawy on 12/10/14.
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
+#import "TBMHomeViewController+Invite.h"
 #import "TBMAppDelegate+AppSync.h"
-#import "TBMGridViewController.h"
 #import "TBMGridElementViewController.h"
-#import "TBMBenchViewController.h"
 #import "TBMGridElement.h"
 #import "HexColor.h"
 #import "iToast.h"
+#import "TBMGridDelegate.h"
 #import "TBMVideoIdUtils.h"
 #import "TBMVideoProcessor.h"
 
@@ -20,6 +20,11 @@
 @property(nonatomic) TBMLongPressTouchHandler *longPressTouchHandler;
 @property(nonatomic) TBMAppDelegate *appDelegate;
 @property(nonatomic) TBMVideoRecorder *videoRecorder;
+@property(nonatomic, strong) TBMGridElement *lastAddedGridElement;
+@property(nonatomic, strong) TBMFriend *lastAddedFriend;
+@end
+
+@interface TBMGridViewController ()
 @end
 
 @implementation TBMGridViewController
@@ -51,6 +56,7 @@
     [self setupVideoRecorder:0];
     [TBMFriend addVideoStatusNotificationDelegate:self];
     [self addObservers];
+    [self.delegate gridDidAppear:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -192,7 +198,8 @@ static const float LayoutConstASPECT = 0.75;
     CGSize elSize = [self elementSize];
     NSInteger i = 0;
     for (UIView *v in [self outsideViews]) {
-        UIViewController *c = [[TBMGridElementViewController alloc] initWithIndex:i];
+        TBMGridElementViewController *c = [[TBMGridElementViewController alloc] initWithIndex:i];
+        c.gridElementDelegate = self;
         [self addChildViewController:c];
         c.view.frame = CGRectMake(0, 0, elSize.width, elSize.height);
         [v addSubview:c.view];
@@ -406,15 +413,18 @@ static const float LayoutConstASPECT = 0.75;
 - (void)moveFriendToGrid:(TBMFriend *)friend {
     OB_INFO(@"moveFriendToGrid: %@", friend.firstName);
     [self rankingActionOccurred:friend];
+    self.lastAddedFriend = friend;
     if ([TBMGridElement friendIsOnGrid:friend]) {
         [self highlightElement:[TBMGridElement findWithFriend:friend]];
         return;
     }
 
     TBMGridElement *ge = [self nextAvailableGridElement];
+    self.lastAddedGridElement = ge;
     ge.friend = friend;
     [self notifyChildrenOfGridChange:[ge getIntIndex]];
     [self highlightElement:ge];
+    [self.delegate friendDidAdd];
 }
 
 - (void)notifyChildrenOfGridChange:(NSInteger)index {
@@ -468,6 +478,7 @@ static const float LayoutConstASPECT = 0.75;
     [gv addSubview:blaze];
     [gv setNeedsDisplay];
     [self performSelector:@selector(animateBlaze:) withObject:blaze afterDelay:0.3];
+
 }
 
 - (void)animateBlaze:(UIView *)blaze {
@@ -518,5 +529,73 @@ static const float LayoutConstASPECT = 0.75;
     return [self.videoRecorder isRecording];
 }
 
+#pragma mark - TBMGridModuleInterface
+
+- (CGRect)gridGetFrameForUnviewedBadgeForFriend:(NSUInteger)friendCellIndex inView:(UIView *)view {
+    CGRect result = CGRectZero;
+
+    if (friendCellIndex <= 7) {
+        result = [[self gridViewWithIndex:friendCellIndex] frame];
+        CGFloat x = CGRectGetMaxX(result) - LayoutConstCountWidth + 3;
+        CGFloat y = CGRectGetMinY(result) - 3;
+        result = CGRectMake(x, y, LayoutConstCountWidth, LayoutConstCountWidth);
+    }
+
+    result = [self.view convertRect:result toView:view];
+    return result;
+}
+
+- (CGRect)gridGetFrameForFriend:(NSUInteger)friendCellIndex inView:(UIView *)view {
+    CGRect result = CGRectZero;
+    if (friendCellIndex <= 7) {
+        result = [[self gridViewWithIndex:friendCellIndex] frame];
+        result = [self.view convertRect:result toView:view];
+    }
+
+    return result;
+}
+
+- (NSUInteger)lastAddedFriendOnGridIndex {
+    NSUInteger result = 0;
+    TBMGridElement *gridElement = self.lastAddedFriend.gridElement;
+    if (gridElement) {
+        result = [gridElement.index unsignedIntegerValue];
+    }
+    return result;
+}
+
+- (BOOL)hasSentVideos:(NSUInteger)gridElementIndex {
+    BOOL result = NO;
+    TBMFriend *friend = self.lastAddedFriend;
+    if (friend) {
+        if (friend.outgoingVideoId && [friend.outgoingVideoId length] > 0) {
+            result = YES;
+        }
+    }
+    return result;
+}
+
+#pragma mark - TBMGridElementDelegate
+
+- (void)videoPlayerDidStartPlaying:(TBMVideoPlayer *)player {
+    [self.delegate videoPlayerDidStartPlaying:player];
+
+}
+
+- (void)videoPlayerDidStopPlaying:(TBMVideoPlayer *)player {
+    [self.delegate videoPlayerDidStopPlaying:player];
+}
+
+- (void)messageDidUpload {
+    [self.delegate messageDidUpload];
+}
+
+- (void)messageDidViewed {
+    [self.delegate messageDidViewed];
+}
+
+- (void)messageDidReceive {
+    [self.delegate messageDidReceive];
+}
 
 @end

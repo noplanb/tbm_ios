@@ -10,7 +10,7 @@
 #import "TBMGridViewController.h"
 #import "TBMBenchViewController.h"
 
-@interface TBMHomeViewController : UIViewController <TBMBenchViewControllerDelegate>
+@interface TBMHomeViewController : UIViewController <TBMBenchViewControllerDelegate, TBMGridDelegate>
 
 @property (nonatomic) TBMGridViewController *gridViewController;
 
