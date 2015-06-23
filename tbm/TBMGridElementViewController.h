@@ -26,7 +26,7 @@ static const float LayoutConstUploadingBarHeight = LayoutConstNoThumbButtonsMarg
 
 @interface TBMGridElementViewController : UIViewController <TBMVideoStatusNotificationProtocol, TBMVideoPlayerEventNotification>
 
-@property(nonatomic, weak) id <TBMGridElementDelegate> gridDelegate;
+@property(nonatomic, weak) id <TBMGridElementDelegate> gridElementDelegate;
 
 - (instancetype)initWithIndex:(NSInteger)index;
 - (void)gridDidChange:(NSInteger)index;

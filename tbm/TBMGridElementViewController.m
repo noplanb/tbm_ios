@@ -63,7 +63,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     self.isAppeared = YES;
     if (!self.countLabel.hidden) {
-        [self.gridDelegate messageDidReceive];
+        [self.gridElementDelegate messageDidReceive];
     }
 }
 
@@ -91,14 +91,14 @@
     if (index == self.index) {
         self.isPlaying = YES;
         [self performSelectorOnMainThread:@selector(updateView) withObject:nil waitUntilDone:NO];
-        [self.gridDelegate videoPlayerDidStartPlaying:self.videoPlayer];
+        [self.gridElementDelegate videoPlayerDidStartPlaying:self.videoPlayer];
     }
 }
 
 - (void)videoPlayerStopped {
     self.isPlaying = NO;
     [self performSelectorOnMainThread:@selector(updateView) withObject:nil waitUntilDone:NO];
-    [self.gridDelegate videoPlayerDidStopPlaying:self.videoPlayer];
+    [self.gridElementDelegate videoPlayerDidStopPlaying:self.videoPlayer];
 }
 
 
@@ -341,7 +341,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     } else {
         self.countLabel.text = [NSString stringWithFormat:@"%ld", (long) self.gridElement.friend.unviewedCount];
         if (self.isAppeared) {
-            [self.gridDelegate messageDidReceive];
+            [self.gridElementDelegate messageDidReceive];
         }
     }
 }
@@ -387,7 +387,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 }
 
 - (void)showViewed {
-    [self.gridDelegate messageDidViewed];
+    [self.gridElementDelegate messageDidViewed];
     [self hideGreenBorder];
     [self hideAllIcons];
     self.viewedIndicator.hidden = NO;
@@ -420,7 +420,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     }                completion:^(BOOL finished) {
         [self performSelector:@selector(hideUploadBar) withObject:nil afterDelay:0.2];
         [self performSelector:@selector(updateView) withObject:nil afterDelay:0.4];
-        [self.gridDelegate messageDidUpload];
+        [self.gridElementDelegate messageDidUpload];
     }];
 }
 

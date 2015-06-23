@@ -28,7 +28,7 @@
 @property(nonatomic, strong) UIView *logoView;
 @property(nonatomic, strong) UIView *menuButton;
 
-@property(nonatomic) BOOL startPlayedMessage;
+@property(nonatomic) BOOL isPlaying;
 @end
 
 @interface TBMHomeViewController ()
@@ -262,12 +262,12 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
 }
 
 - (void)videoPlayerDidStartPlaying:(TBMVideoPlayer *)player {
-    self.startPlayedMessage = YES;
+    self.isPlaying = YES;
 }
 
 - (void)videoPlayerDidStopPlaying:(TBMVideoPlayer *)player {
-    if (self.startPlayedMessage) {
-        self.startPlayedMessage = NO;
+    if (self.isPlaying) {
+        self.isPlaying = NO;
         [self.tutorialScreen messageDidPlay];
     }
 }

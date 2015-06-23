@@ -199,7 +199,7 @@ static const float LayoutConstASPECT = 0.75;
     NSInteger i = 0;
     for (UIView *v in [self outsideViews]) {
         TBMGridElementViewController *c = [[TBMGridElementViewController alloc] initWithIndex:i];
-        c.gridDelegate = self;
+        c.gridElementDelegate = self;
         [self addChildViewController:c];
         c.view.frame = CGRectMake(0, 0, elSize.width, elSize.height);
         [v addSubview:c.view];
@@ -568,8 +568,6 @@ static const float LayoutConstASPECT = 0.75;
     BOOL result = NO;
     TBMFriend *friend = self.lastAddedFriend;
     if (friend) {
-        NSLog(@"friend.name == %@", friend.fullName);
-        NSLog(@"friend.outgoingVideoId == %@", friend.outgoingVideoId);
         if (friend.outgoingVideoId && [friend.outgoingVideoId length] > 0) {
             result = YES;
         }
