@@ -7,10 +7,12 @@
 #import "TBMSecretScreenPresenter.h"
 #import "TBMSecretScreenViewController.h"
 #import "TBMStateScreenViewController.h"
+#import "TBMTutorialModuleInterface.h"
 #import "TBMConfig.h"
 #import "TBMDebugData.h"
 #import "TBMStateScreenDataSource.h"
 #import "TBMDispatch.h"
+#import "TBMTutorialModuleInterface.h"
 
 @interface TBMSecretScreenPresenter ()
 
@@ -20,6 +22,7 @@
 @property(nonatomic, strong) TBMSecretScreenViewController *secretScreen;
 @property(nonatomic, strong) TBMStateScreenViewController *stateScreen;
 
+@property(nonatomic, weak) id <TBMTutorialModuleInterface> turorialModule;
 @end
 
 @implementation TBMSecretScreenPresenter
@@ -31,6 +34,10 @@
     self.presentedController = presentedController;
     [presentedController presentViewController:self.navigationController animated:YES completion:nil];
 
+}
+
+- (void)setupTutorialModule:(id <TBMTutorialModuleInterface>)turorialModule {
+    self.turorialModule = turorialModule;
 }
 
 #pragma mark - Initialization
@@ -135,5 +142,9 @@
 - (void)setCustomServerURL:(NSString *)url {
     [TBMConfig changeCustomServerURL:url];
     [self reload];
+}
+
+- (void)resetHintsButtonDidPress {
+    [self.turorialModule resetHintsState];
 }
 @end

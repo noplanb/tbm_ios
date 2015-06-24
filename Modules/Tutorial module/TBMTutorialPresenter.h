@@ -5,12 +5,13 @@
 
 #import <Foundation/Foundation.h>
 #import "TBMHintDelegate.h"
+#import "TBMTutorialModuleInterface.h"
 
 @class TBMHint;
 
 @protocol TBMGridModuleInterface;
 
-@interface TBMTutorialPresenter : NSObject <TBMHintDelegate>
+@interface TBMTutorialPresenter : NSObject <TBMHintDelegate,TBMTutorialModuleInterface>
 
 @property(nonatomic, strong) UIView *parentView;
 
@@ -32,6 +33,8 @@
  * Parent modules send signals about application state and flow
  */
 - (void)applicationDidLaunch;
+
+- (void)applicationDidEnterBackground;
 
 - (void)friendDidAdd;
 

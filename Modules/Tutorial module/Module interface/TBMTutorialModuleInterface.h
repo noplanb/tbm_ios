@@ -6,4 +6,6 @@
 #import <Foundation/Foundation.h>
 
 @protocol TBMTutorialModuleInterface <NSObject>
+- (void)resetHintsState;
+
 @end

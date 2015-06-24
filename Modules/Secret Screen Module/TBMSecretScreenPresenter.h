@@ -5,7 +5,13 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol TBMTutorialModuleInterface;
+
 @interface TBMSecretScreenPresenter : NSObject
+/**
+ * Setup
+ */
+- (void)setupTutorialModule:(id <TBMTutorialModuleInterface>)turorialModule;;
 
 /**
 * Presentation
@@ -27,7 +33,11 @@
 
 - (void)stateButtonDidPress;
 
+- (void)resetHintsButtonDidPress;
+
 - (void)serverSegmentedControlDidChangeTo:(NSInteger)index;
 
 - (void)setCustomServerURL:(NSString *)url;
+
+
 @end

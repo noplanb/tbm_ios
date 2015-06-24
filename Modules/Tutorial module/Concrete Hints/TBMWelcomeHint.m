@@ -4,6 +4,8 @@
 //
 
 #import "TBMWelcomeHint.h"
+#import "TBMFriend.h"
+#import "TBMGridElement.h"
 
 @implementation TBMWelcomeHint {
 
@@ -15,8 +17,12 @@
     return @[@(YES), @(NO), @(NO), @(NO), @(YES), @(YES), @(YES), @(YES)];
 }
 
-- (NSArray *)anglesMatrix {
-    return @[@(-36.f), @(0.f), @(-36.f), @(45.f), @(-150.f), @(36.f), @(-170.f), @(120.f)];
+- (NSArray *)angles1Matrix {
+    return @[@(-36.f), @(0.f), @(-36.f), @(45.f), @(-120.f), @(36.f), @(-125.f), @(120.f)];
+}
+
+- (NSArray *)angles2Matrix {
+    return @[@(-56.f), @(-60.f), @(-66.f), @(70.f), @(-180.f), @(63.f), @(-200.f), @(140.f)];
 }
 
 - (NSArray *)arrowKindMatrix {
@@ -32,10 +38,12 @@
 
 - (void)configureHint {
     NSUInteger friendIndexInGrid = [self.gridModule lastAddedFriendOnGridIndex];
+    NSString *friendName = [TBMGridElement findWithIntIndex:friendIndexInGrid].friend.firstName;
     CGRect highlightFrame = [self.gridModule gridGetFrameForFriend:friendIndexInGrid inView:self.superview];
     CGPoint arrowPoint = CGPointZero;
     TBMHintArrowCurveKind curveKind = [self.arrowKindMatrix[friendIndexInGrid] integerValue];
-    CGFloat angle = [self.anglesMatrix[friendIndexInGrid] floatValue];
+    CGFloat angle1 = [self.angles1Matrix[friendIndexInGrid] floatValue];
+    CGFloat angle2 = [self.angles2Matrix[friendIndexInGrid] floatValue];
     BOOL button = [self.buttonMatrix[friendIndexInGrid] boolValue];
     self.dismissAfterAction = YES;
     self.framesToCutOut = @[
@@ -51,11 +59,20 @@
     self.showGotItButton = button;
     NSMutableArray *arrows = [NSMutableArray array];
 
-    [arrows addObject:[TBMHintArrow arrowWithText:@"Send a welcome Zazo"
+
+    NSString *sendString = friendName ? [NSString stringWithFormat:@"Send %@",friendName] : @"Send";
+    [arrows addObject:[TBMHintArrow arrowWithText:sendString
                                         curveKind:curveKind
                                        arrowPoint:arrowPoint
-                                            angle:angle
+                                            angle:angle1
                                            hidden:NO
+                                            frame:self.frame]];
+
+    [arrows addObject:[TBMHintArrow arrowWithText:@"a welcome Zazo"
+                                        curveKind:curveKind
+                                       arrowPoint:arrowPoint
+                                            angle:angle2
+                                           hidden:YES
                                             frame:self.frame]];
 
     self.arrows = arrows;
