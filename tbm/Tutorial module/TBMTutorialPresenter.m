@@ -151,10 +151,6 @@
         return NO;
     }
 
-    if (![self.dataSource sentHintState]) {
-
-    }
-
     if (!([self.dataSource viewedHintState])) {
         return NO;
     }
@@ -269,7 +265,7 @@
 }
 
 - (BOOL)checkSendWelcomeHintWithEvent:(SEL)event {
-    if ([self.dataSource friendsCount] > 1 && ![self.gridModule hasSentVideos:[self.gridModule lastAddedFriendOnGridIndex]]) {
+    if ([self.dataSource friendsCount] > 1 && ![self.dataSource hasSentVideos:[self.gridModule lastAddedFriendOnGridIndex]]) {
         self.dataSource.welcomeHintShowedThisSession = YES;
         [self.dataSource setWelcomeHintState:YES];
         self.hint = [TBMWelcomeHint new];

@@ -5,6 +5,7 @@
 
 #import "TBMTutorialDataSource.h"
 #import "TBMFriend.h"
+#import "TBMGridElement.h"
 
 #define NSUD [NSUserDefaults standardUserDefaults]
 
@@ -119,19 +120,11 @@ void saveNSUDState(BOOL state, NSString *const key) {
 }
 
 - (NSUInteger)friendsCount {
-    NSUInteger result = 0;
-    if ([[TBMFriend all] count]) {
-        result = [[TBMFriend all] count];
-    }
-    return result;
+    return [TBMFriend count];
 }
 
 - (NSUInteger)unviewedCount {
-    NSUInteger result = 0;
-    for (TBMFriend *friend in [TBMFriend all]) {
-        result -= [friend unviewedCount];
-    }
-    return result;
+    return [TBMFriend allUnviewedCount];
 }
 
 - (void)startSession {
@@ -144,4 +137,7 @@ void saveNSUDState(BOOL state, NSString *const key) {
     self.welcomeHintShowedThisSession = NO;
 }
 
+- (BOOL)hasSentVideos:(NSUInteger)gridIndex {
+    return [TBMGridElement hasSentVideos:gridIndex];
+}
 @end

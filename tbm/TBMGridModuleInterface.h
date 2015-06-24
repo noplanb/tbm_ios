@@ -15,5 +15,4 @@
 
 -(NSUInteger)lastAddedFriendOnGridIndex;
 
-- (NSInteger)hasSentVideos:(NSUInteger)gridElementIndex;
 @end

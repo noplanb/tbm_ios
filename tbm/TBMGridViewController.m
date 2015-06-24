@@ -564,16 +564,6 @@ static const float LayoutConstASPECT = 0.75;
     return result;
 }
 
-- (BOOL)hasSentVideos:(NSUInteger)gridElementIndex {
-    BOOL result = NO;
-    TBMFriend *friend = self.lastAddedFriend;
-    if (friend) {
-        if (friend.outgoingVideoId && [friend.outgoingVideoId length] > 0) {
-            result = YES;
-        }
-    }
-    return result;
-}
 
 #pragma mark - TBMGridElementDelegate
 

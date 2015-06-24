@@ -23,4 +23,17 @@
             result[12], result[13], result[14], result[15]
             ];  
 }
+
+- (BOOL)isEmpty {
+
+    if ([self isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+
+    if ([self length] <= 0) {
+        return YES;
+    }
+
+    return NO;
+}
 @end

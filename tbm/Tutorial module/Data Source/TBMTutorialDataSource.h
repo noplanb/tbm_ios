@@ -72,4 +72,5 @@ NSString
 
 - (void)startSession;
 
+- (BOOL)hasSentVideos:(NSUInteger)gridIndex;
 @end
