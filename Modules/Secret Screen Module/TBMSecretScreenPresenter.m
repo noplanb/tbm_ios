@@ -22,7 +22,7 @@
 @property(nonatomic, strong) TBMSecretScreenViewController *secretScreen;
 @property(nonatomic, strong) TBMStateScreenViewController *stateScreen;
 
-@property(nonatomic, weak) id <TBMTutorialModuleInterface> turorialModule;
+@property(nonatomic, weak) id <TBMTutorialModuleInterface> tutorialModule;
 @end
 
 @implementation TBMSecretScreenPresenter
@@ -36,8 +36,8 @@
 
 }
 
-- (void)setupTutorialModule:(id <TBMTutorialModuleInterface>)turorialModule {
-    self.turorialModule = turorialModule;
+- (void)setupTutorialModule:(id <TBMTutorialModuleInterface>)tutorialModule {
+    self.tutorialModule = tutorialModule;
 }
 
 #pragma mark - Initialization
@@ -145,6 +145,6 @@
 }
 
 - (void)resetHintsButtonDidPress {
-    [self.turorialModule resetHintsState];
+    [self.tutorialModule resetHintsState];
 }
 @end
