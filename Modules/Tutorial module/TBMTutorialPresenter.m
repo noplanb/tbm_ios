@@ -9,7 +9,7 @@
 #import "TBMPlayHint.h"
 #import "TBMRecordHint.h"
 #import "TBMSentHint.h"
-#import "TBMInvite2Hint.h"
+#import "TBMInviteSomeoneElseHint.h"
 #import "TBMViewedHint.h"
 #import "TBMWelcomeHint.h"
 #import "OBLoggerCore.h"
@@ -31,6 +31,10 @@
         self.parentView = parentView;
     }
     return self;
+}
+
+- (void)resetSession {
+    [self.dataSource startSession];
 }
 
 #pragma mark - Event handlers
@@ -79,7 +83,7 @@
         return;
     }
 
-    if ([self checkInvite2HintWithEvent:@selector(messageDidSend)]) {
+    if ([self checkInviteSomeoneElseHintWithEvent:@selector(messageDidSend)]) {
         return;
     }
 
@@ -115,6 +119,12 @@
     }
 }
 
+- (void)sentHintDidDismissed {
+    if ([self checkInviteSomeoneElseHintWithEvent:nil]) {
+        return;
+    }
+}
+
 #pragma mark - Business logic
 
 /**
@@ -133,9 +143,9 @@
     return NO;
 }
 
-- (BOOL)checkInvite2HintWithEvent:(SEL)event {
+- (BOOL)checkInviteSomeoneElseHintWithEvent:(SEL)event {
 
-    if ([self.dataSource inviteHint2State]) {
+    if ([self.dataSource inviteSomeoneElseHintState]) {
         return NO;
     }
 
@@ -154,9 +164,9 @@
     if (!([self.dataSource viewedHintState])) {
         return NO;
     }
-    [self.dataSource setInviteHint2State:YES];
-    self.dataSource.invite2HintShowedThisSession = YES;
-    self.hint = [TBMInvite2Hint new];
+    [self.dataSource setInviteSomeoneElseHintState:YES];
+    self.dataSource.inviteSomeoneElseHintShowedThisSession = YES;
+    self.hint = [TBMInviteSomeoneElseHint new];
     [self showHintForEvent:event];
     return YES;
 }
@@ -237,11 +247,16 @@
         return NO;
     }
 
-    if ([self.dataSource sentHintState] || [self.dataSource friendsCount] > 1) {
+    if ([self.dataSource sentHintState]) {
+        return NO;
+    }
+
+    if ([self.dataSource friendsCount] > 1) {
         return NO;
     }
 
     [self.dataSource setSentHintState:YES];
+    self.dataSource.sentHintShowedThisSession = YES;
     self.hint = [TBMSentHint new];
     [self showHintForEvent:event];
     return YES;
@@ -265,14 +280,19 @@
 }
 
 - (BOOL)checkSendWelcomeHintWithEvent:(SEL)event {
-    if ([self.dataSource friendsCount] > 1 && ![self.dataSource hasSentVideos:[self.gridModule lastAddedFriendOnGridIndex]]) {
-        self.dataSource.welcomeHintShowedThisSession = YES;
-        [self.dataSource setWelcomeHintState:YES];
-        self.hint = [TBMWelcomeHint new];
-        [self showHintForEvent:event];
-        return YES;
+    if ([self.dataSource friendsCount] <= 1) {
+        return NO;
     }
-    return NO;
+
+    if ([self.dataSource hasSentVideos:[self.gridModule lastAddedFriendOnGridIndex]]) {
+        return NO;
+    }
+
+    self.dataSource.welcomeHintShowedThisSession = YES;
+    [self.dataSource setWelcomeHintState:YES];
+    self.hint = [TBMWelcomeHint new];
+    [self showHintForEvent:event];
+    return YES;
 }
 
 - (void)showHintForEvent:(SEL)event {
@@ -284,6 +304,10 @@
 #pragma mark - TBMHintDelegate
 
 - (void)hintDidDismiss:(TBMHint *)hint {
+    if ([self.hint isKindOfClass:[TBMSentHint class]]) {
+        [self sentHintDidDismissed];
+    }
+
     if ([self.hint isEqual:hint]) {
         self.hint = nil;
     }

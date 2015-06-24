@@ -127,12 +127,29 @@ static TBMHomeViewController *hvcInstance;
 - (void)viewDidLoad {
     OB_INFO(@"TBMHomeViewController: viewDidLoad");
     [super viewDidLoad];
+
+    [self registerToNotifications];
     hvcInstance = self;
     [self addHomeViews];
     [self setupSecretGestureRecognizer];
     [[[TBMVersionHandler alloc] initWithDelegate:self] checkVersionCompatibility];
+}
+
+- (void)registerToNotifications {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recorderStartRecording) name:TBMVideoRecorderShouldStartRecording object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recorderFinishRecording) name:TBMVideoRecorderDidFinishRecording object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:UIApplicationWillResignActiveNotification object:nil];
+
+}
+
+- (void)applicationDidEnterBackground {
+    [self.tutorialScreen resetSession];
+}
+
+- (void)applicationDidEnterForeground {
+    [self.tutorialScreen applicationDidLaunch];
 }
 
 - (void)recorderStartRecording {

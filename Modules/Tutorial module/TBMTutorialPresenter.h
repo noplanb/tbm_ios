@@ -22,6 +22,11 @@
 - (instancetype)initWithSuperview:(UIView *)parentView;
 
 /**
+ * Reseting session
+ */
+- (void)resetSession;
+
+/**
  * Events
  *
  * Parent modules send signals about application state and flow
@@ -41,4 +46,5 @@
 - (void)messageDidRecorded;
 
 - (void)messageDidViewed;
+
 @end

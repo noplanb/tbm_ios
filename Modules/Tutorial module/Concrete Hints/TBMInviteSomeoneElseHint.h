@@ -6,5 +6,5 @@
 #import <Foundation/Foundation.h>
 #import "TBMHint.h"
 
-@interface TBMInvite2Hint : TBMHint
+@interface TBMInviteSomeoneElseHint : TBMHint
 @end

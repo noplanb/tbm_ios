@@ -48,11 +48,11 @@ void saveNSUDState(BOOL state, NSString *const key) {
 }
 
 // Invite Hint 2
-- (BOOL)inviteHint2State {
+- (BOOL)inviteSomeoneElseHintState {
     return [NSUD boolForKey:kInviteHint2NSUDkey];
 }
 
-- (void)setInviteHint2State:(BOOL)state {
+- (void)setInviteSomeoneElseHintState:(BOOL)state {
     saveNSUDState(state, kInviteHint2NSUDkey);
 }
 
@@ -129,7 +129,7 @@ void saveNSUDState(BOOL state, NSString *const key) {
 
 - (void)startSession {
     self.invite1HintShowedThisSession = NO;
-    self.invite2HintShowedThisSession = NO;
+    self.inviteSomeoneElseHintShowedThisSession = NO;
     self.playHintShowedThisSession = NO;
     self.recordHintShowedThisSession = NO;
     self.sentHintShowedThisSession = NO;
@@ -137,7 +137,22 @@ void saveNSUDState(BOOL state, NSString *const key) {
     self.welcomeHintShowedThisSession = NO;
 }
 
+- (void)resetHintsState {
+    [self setInviteHint1State:NO];
+    [self setInviteSomeoneElseHintState:NO];
+    [self setPlayHintState:NO];
+    [self setRecordHintState:NO];
+    [self setSentHintState:NO];
+    [self setViewedHintState:NO];
+    [self setMessagePlayedState:NO];
+    [self setWelcomeHintState:NO];
+    [self setMessageRecordedState:NO];
+    [self startSession];
+}
+
 - (BOOL)hasSentVideos:(NSUInteger)gridIndex {
     return [TBMGridElement hasSentVideos:gridIndex];
 }
+
+
 @end
