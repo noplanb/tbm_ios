@@ -857,11 +857,11 @@
 		682D63E05A81A2040431B067 /* Grid */ = {
 			isa = PBXGroup;
 			children = (
+				682D65E9889D3AA9EBC6C52A /* TBMGridModuleInterface.h */,
 				682D62E5ACC5D1A626F13700 /* TBMGridElementViewController.h */,
 				682D6055CE3550BEADD02CE5 /* TBMGridElementViewController.m */,
 				682D6CF8A570C3E6A59499D1 /* TBMGridViewController.h */,
 				682D6BB66F5D79CBC5D0AD42 /* TBMGridViewController.m */,
-				682D65E9889D3AA9EBC6C52A /* TBMGridModuleInterface.h */,
 			);
 			name = Grid;
 			sourceTree = "<group>";

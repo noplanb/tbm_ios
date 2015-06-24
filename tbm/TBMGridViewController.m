@@ -37,36 +37,33 @@
     if (self != nil) {
         _appDelegate = (TBMAppDelegate *) [[UIApplication sharedApplication] delegate];
         [self registerAsAppEventsDelegate];
-        [self setupGridElement];
     }
     return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+
+- (void)viewDidLoad {
+    //fix
+    self.view.frame = self.frame;
+    //---
     [self addViews];
+    [self setupGridElement];
     [self setupLongPressTouchHandler];
     [[TBMVideoPlayer sharedInstance].playerView removeFromSuperview];
     [self.view addSubview:[TBMVideoPlayer sharedInstance].playerView];
     [self setupCenterGestures];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self setupVideoRecorder:0];
     [TBMFriend addVideoStatusNotificationDelegate:self];
     [self addObservers];
     [self.delegate gridDidAppear:self];
+    [self setupVideoRecorder:0];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    OB_INFO(@"TBMGridViewController: viewWillDisappear");
-    [super viewWillDisappear:animated];
+- (void)dealloc {
     [self removeObservers];
     // Eliminated videoRecorder.dispose here. The OS takes care of interrupting or stopping and restarting our VideoCaptureSession very well.
     // We don't need to interfere with it.
-}
 
+};
 
 //--------------------------------
 // Events called in by appDelegate
@@ -181,7 +178,7 @@ static const float LayoutConstASPECT = 0.75;
     for (int row = 0; row < 3; row++) {
         for (int col = 0; col < 3; col++) {
             x = [self LayoutConstGUTTERLeft] + col * (LayoutConstMARGIN + elSize.width);
-            y = [self LayoutConstGUTTERTop] + row * (LayoutConstMARGIN + elSize.height);
+            y = [self gridTop] + row * (LayoutConstMARGIN + elSize.height);
             if (row == col == 1) {
                 v = [[TBMPreviewView alloc] initWithFrame:CGRectMake(x, y, elSize.width, elSize.height)];
             } else {
@@ -208,8 +205,8 @@ static const float LayoutConstASPECT = 0.75;
 }
 
 - (CGSize)elementSize {
-    CGFloat mainViewWidth = CGRectGetWidth(self.view.frame);
-    CGFloat mainViewHeight = CGRectGetHeight(self.view.frame);
+    CGFloat mainViewWidth = CGRectGetWidth(self.view.bounds);
+    CGFloat mainViewHeight = CGRectGetHeight(self.view.bounds);
     CGFloat width;
     CGFloat height;
     if ([self isHeightConstrained]) {
@@ -222,23 +219,27 @@ static const float LayoutConstASPECT = 0.75;
     return CGSizeMake(width, height);
 }
 
-- (float)LayoutConstGUTTERTop {
-    if ([self isHeightConstrained])
+- (float)gridTop {
+    if ([self isHeightConstrained]) {
         return LayoutConstGUTTER;
-    else
-        return (self.view.frame.size.height - 3 * [self elementSize].height - 2 * LayoutConstMARGIN) / 2;
-
+    } else {
+        self.view.backgroundColor = [UIColor redColor];
+        CGFloat elementHeight = [self elementSize].height;
+        return  (CGRectGetHeight(self.view.bounds) - 3 * elementHeight - 2 * LayoutConstMARGIN) / 2;;
+    }
 }
 
 - (float)LayoutConstGUTTERLeft {
     if ([self isWidthConstrained])
         return LayoutConstGUTTER;
-    else
-        return (self.view.frame.size.width - 3 * [self elementSize].width - 2 * LayoutConstMARGIN) / 2;
+    else {
+        CGFloat elementWidth = [self elementSize].width;
+        return (CGRectGetWidth(self.view.bounds) - 3 * elementWidth - 2 * LayoutConstMARGIN) / 2;
+    }
 }
 
 - (BOOL)isWidthConstrained {
-    return (self.view.frame.size.width / self.view.frame.size.height) < LayoutConstASPECT;
+    return (self.view.bounds.size.width / self.view.bounds.size.height) < LayoutConstASPECT;
 }
 
 - (BOOL)isHeightConstrained {
@@ -563,7 +564,6 @@ static const float LayoutConstASPECT = 0.75;
     }
     return result;
 }
-
 
 #pragma mark - TBMGridElementDelegate
 

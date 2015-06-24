@@ -235,9 +235,9 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
 
 - (void)addGridViewController {
     self.gridViewController = [[TBMGridViewController alloc] init];
+    self.gridViewController.frame = self.contentView.bounds;
     self.gridViewController.delegate = self;
     [self addChildViewController:self.gridViewController];
-    self.gridViewController.view.frame = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height);
     [self.contentView addSubview:self.gridViewController.view];
 }
 
