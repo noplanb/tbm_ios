@@ -52,7 +52,6 @@
     if ([self checkPlayHintWithEvent:nil]) {
         return;
     }
-
 }
 
 - (void)applicationDidEnterBackground {
@@ -60,7 +59,6 @@
 }
 
 - (void)friendDidAdd {
-    OB_INFO(@"[!! TUTORIAL !!] friendDidAdd");
     if ([self checkRecordHintWithEvent:@selector(friendDidAdd)]) {
         return;
     }
@@ -87,7 +85,6 @@
 }
 
 - (void)messageDidSend {
-    OB_INFO(@"[!! TUTORIAL !!] messageDidSend");
     if ([self checkSentHintWithEvent:@selector(messageDidSend)]) {
         return;
     }
@@ -99,7 +96,6 @@
 }
 
 - (void)messageDidPlay {
-    OB_INFO(@"[!! TUTORIAL !!] messageDidPlay");
     [self.dataSource setMessagePlayedState:YES];
 
     if ([self checkRecordHintWithEvent:@selector(messageDidPlay)]) {
@@ -113,7 +109,6 @@
 }
 
 - (void)messageDidRecorded {
-    OB_INFO(@"[!! TUTORIAL !!] messageDidRecorded");
     [self.dataSource setMessageRecordedState:YES];
     if (self.isRecording) {
         self.isRecording = NO;
@@ -123,7 +118,6 @@
 
 
 - (void)messageDidViewed {
-    OB_INFO(@"[!! TUTORIAL !!] messageDidViewed");
     if ([self checkViewedHintWithEvent:nil]) {
         return;
     }
@@ -307,7 +301,6 @@
 }
 
 - (void)showHintForEvent:(SEL)event {
-    OB_INFO(@"!!!!!!!  HINT SHOW : %@", [self.hint class]);
     CGRect frame = self.parentView.bounds;
     self.hint.gridModule = self.gridModule;
     [self.hint showHintInView:self.parentView frame:frame delegate:self event:event];
@@ -316,7 +309,6 @@
 #pragma mark - TBMHintDelegate
 
 - (void)hintDidDismiss:(TBMHint *)hint {
-    OB_INFO(@"!!!!!!!  HINT DISMISS : %@", [self.hint class]);
     if ([self.hint isKindOfClass:[TBMSentHint class]]) {
         self.hint = nil;
         [self sentHintDidDismissed];
