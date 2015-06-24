@@ -111,14 +111,8 @@
 }
 
 + (BOOL)hasSentVideos:(NSUInteger)index {
-    BOOL result = NO;
     TBMFriend *friend = [TBMGridElement findWithIntIndex:index].friend;
-    if (friend) {
-        if (friend.outgoingVideoId && ![friend.outgoingVideoId isEmpty]) {
-            result = YES;
-        }
-    }
-    return result;
+    return [friend hasOutgoingVideo];
 }
 
 - (NSInteger)getIntIndex {
