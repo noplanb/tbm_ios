@@ -65,7 +65,7 @@ static TBMHomeViewController *hvcInstance;
 - (TBMSecretScreenPresenter *)secretScreen {
     if (!_secretScreen) {
         _secretScreen = [[TBMSecretScreenPresenter alloc] init];
-        [_secretScreen setupTutorialModule:self.tutorialScreen];
+        [_secretScreen assignTutorialModule:self.tutorialScreen];
     }
     return _secretScreen;
 }

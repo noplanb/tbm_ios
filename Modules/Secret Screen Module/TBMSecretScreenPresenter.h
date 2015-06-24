@@ -11,7 +11,7 @@
 /**
  * Setup
  */
-- (void)setupTutorialModule:(id <TBMTutorialModuleInterface>)tutorialModule;;
+- (void)assignTutorialModule:(id <TBMTutorialModuleInterface>)tutorialModule;;
 
 /**
 * Presentation
