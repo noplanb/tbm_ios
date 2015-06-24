@@ -195,10 +195,11 @@ static const float LayoutConstASPECT = 0.75;
     CGSize elSize = [self elementSize];
     NSInteger i = 0;
     for (UIView *v in [self outsideViews]) {
-        TBMGridElementViewController *c = [[TBMGridElementViewController alloc] initWithIndex:i];
+        CGRect frame = CGRectMake(0, 0, elSize.width, elSize.height);
+        TBMGridElementViewController *c = [[TBMGridElementViewController alloc] initWithIndex:i frame:frame];
         c.gridElementDelegate = self;
         [self addChildViewController:c];
-        c.view.frame = CGRectMake(0, 0, elSize.width, elSize.height);
+        
         [v addSubview:c.view];
         i++;
     }
