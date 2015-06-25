@@ -23,7 +23,7 @@ NSString
 
 //Session properties
 @property(nonatomic) BOOL invite1HintShowedThisSession;
-@property(nonatomic) BOOL invite2HintShowedThisSession;
+@property(nonatomic) BOOL inviteSomeoneElseHintShowedThisSession;
 @property(nonatomic) BOOL playHintShowedThisSession;
 @property(nonatomic) BOOL recordHintShowedThisSession;
 @property(nonatomic) BOOL sentHintShowedThisSession;
@@ -34,9 +34,9 @@ NSString
 
 - (void)setInviteHint1State:(BOOL)state;
 
-- (BOOL)inviteHint2State;
+- (BOOL)inviteSomeoneElseHintState;
 
-- (void)setInviteHint2State:(BOOL)state;
+- (void)setInviteSomeoneElseHintState:(BOOL)state;
 
 - (BOOL)playHintState;
 
@@ -72,4 +72,7 @@ NSString
 
 - (void)startSession;
 
+- (void)resetHintsState;
+
+- (BOOL)hasSentVideos:(NSUInteger)gridIndex;
 @end

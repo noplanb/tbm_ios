@@ -8,7 +8,7 @@
 
 #import "TBMGridElement.h"
 #import "TBMAppDelegate.h"
-
+#import "NSString+NSStringExtensions.h"
 
 @implementation TBMGridElement
 
@@ -18,15 +18,15 @@
 //--------------------------------------
 // Conveniene methods for managed object
 //--------------------------------------
-+ (TBMAppDelegate *)appDelegate{
++ (TBMAppDelegate *)appDelegate {
     return [[UIApplication sharedApplication] delegate];
 }
 
-+ (NSManagedObjectContext *)managedObjectContext{
++ (NSManagedObjectContext *)managedObjectContext {
     return [[TBMGridElement appDelegate] managedObjectContext];
 }
 
-+ (NSEntityDescription *)entityDescription{
++ (NSEntityDescription *)entityDescription {
     return [NSEntityDescription entityForName:@"TBMGridElement" inManagedObjectContext:[TBMGridElement managedObjectContext]];
 }
 
@@ -34,15 +34,15 @@
 //-------------------
 // Create and destroy
 //-------------------
-+ (instancetype)create{
++ (instancetype)create {
     __block TBMGridElement *ge;
     [[TBMGridElement managedObjectContext] performBlockAndWait:^{
-        ge = (TBMGridElement *)[[NSManagedObject alloc] initWithEntity:[TBMGridElement entityDescription] insertIntoManagedObjectContext:[TBMGridElement managedObjectContext]];
+        ge = (TBMGridElement *) [[NSManagedObject alloc] initWithEntity:[TBMGridElement entityDescription] insertIntoManagedObjectContext:[TBMGridElement managedObjectContext]];
     }];
     return ge;
 }
 
-+ (void)destroyAll{
++ (void)destroyAll {
     [[TBMGridElement managedObjectContext] performBlockAndWait:^{
         for (TBMGridElement *ge in [TBMGridElement all]) {
             [[TBMGridElement managedObjectContext] deleteObject:ge];
@@ -53,13 +53,13 @@
 //--------
 // Finders
 //--------
-+ (NSFetchRequest *)fetchRequest{
++ (NSFetchRequest *)fetchRequest {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:[TBMGridElement entityDescription]];
     return request;
 }
 
-+ (NSArray *)all{
++ (NSArray *)all {
     __block NSError *error;
     __block NSArray *result;
     [[TBMGridElement managedObjectContext] performBlockAndWait:^{
@@ -68,34 +68,34 @@
     return result;
 }
 
-+ (NSArray *)allSorted{
++ (NSArray *)allSorted {
     NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"index" ascending:YES];
     return [[TBMGridElement all] sortedArrayUsingDescriptors:@[d]];
 }
 
 
-+ (instancetype)findWithIntIndex:(NSInteger)i{
-    for (TBMGridElement *ge in [TBMGridElement all]){
++ (instancetype)findWithIntIndex:(NSInteger)i {
+    for (TBMGridElement *ge in [TBMGridElement all]) {
         if (i == [ge.index integerValue])
             return ge;
     }
     return nil;
 }
 
-+ (instancetype)findWithFriend:(TBMFriend *)friend{
-    for (TBMGridElement *ge in [TBMGridElement all]){
++ (instancetype)findWithFriend:(TBMFriend *)friend {
+    for (TBMGridElement *ge in [TBMGridElement all]) {
         if ([friend isEqual:ge.friend])
             return ge;
     }
     return nil;
 }
 
-+ (BOOL)friendIsOnGrid:(TBMFriend *)friend{
++ (BOOL)friendIsOnGrid:(TBMFriend *)friend {
     return [TBMGridElement findWithFriend:friend] != nil;
 }
 
-+ (instancetype)firstEmptyGridElement{
-    for (TBMGridElement *ge in [TBMGridElement allSorted]){
++ (instancetype)firstEmptyGridElement {
+    for (TBMGridElement *ge in [TBMGridElement allSorted]) {
         if (ge.friend == nil)
             return ge;
     }
@@ -106,11 +106,16 @@
 //--------------------
 // Setters and getters
 //--------------------
-- (void)setIntIndex:(NSInteger)index{
+- (void)setIntIndex:(NSInteger)index {
     self.index = [NSNumber numberWithInteger:index];
 }
 
-- (NSInteger)getIntIndex{
++ (BOOL)hasSentVideos:(NSUInteger)index {
+    TBMFriend *friend = [TBMGridElement findWithIntIndex:index].friend;
+    return [friend hasOutgoingVideo];
+}
+
+- (NSInteger)getIntIndex {
     return [self.index integerValue];
 }
 

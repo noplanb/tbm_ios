@@ -3,9 +3,9 @@
 // Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "TBMInvite2Hint.h"
+#import "TBMInviteSomeoneElseHint.h"
 
-@implementation TBMInvite2Hint {
+@implementation TBMInviteSomeoneElseHint {
 
 }
 

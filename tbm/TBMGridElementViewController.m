@@ -65,8 +65,14 @@
     if (!self.countLabel.hidden) {
         [self.gridElementDelegate messageDidReceive];
     }
-}
 
+    if (!self.viewedIndicator.hidden) {
+        [self.gridElementDelegate messageDidViewed];
+    }
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    self.isAppeared = NO;
+}
 
 //--------------------------------
 // Event Registration and handling
@@ -387,10 +393,12 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 }
 
 - (void)showViewed {
-    [self.gridElementDelegate messageDidViewed];
     [self hideGreenBorder];
     [self hideAllIcons];
     self.viewedIndicator.hidden = NO;
+    if (self.isAppeared) {
+        [self.gridElementDelegate messageDidViewed];
+    }
 }
 
 - (void)hideViewed {

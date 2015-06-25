@@ -9,7 +9,7 @@
 #import "TBMPlayHint.h"
 #import "TBMRecordHint.h"
 #import "TBMSentHint.h"
-#import "TBMInvite2Hint.h"
+#import "TBMInviteSomeoneElseHint.h"
 #import "TBMViewedHint.h"
 #import "TBMWelcomeHint.h"
 #import "OBLoggerCore.h"
@@ -33,6 +33,10 @@
     return self;
 }
 
+- (void)resetSession {
+    [self.dataSource startSession];
+}
+
 #pragma mark - Event handlers
 
 - (void)applicationDidLaunch {
@@ -48,11 +52,13 @@
     if ([self checkPlayHintWithEvent:nil]) {
         return;
     }
+}
 
+- (void)applicationDidEnterBackground {
+    [self.hint dismiss];
 }
 
 - (void)friendDidAdd {
-    OB_INFO(@"[!! TUTORIAL !!] friendDidAdd");
     if ([self checkRecordHintWithEvent:@selector(friendDidAdd)]) {
         return;
     }
@@ -63,35 +69,39 @@
 }
 
 - (void)messageDidReceive {
-    OB_INFO(@"[!! TUTORIAL !!] messageDidReceive");
+
+
     if ([self checkPlayHintWithEvent:@selector(messageDidReceive)]) {
         return;
     }
 
-    if ([self checkRecordHintWithEvent:nil]) {
+    if ([self checkRecordHintWithEvent:@selector(messageDidReceive)]) {
         return;
+    }
+
+    if ([self.hint isKindOfClass:[TBMViewedHint class]]) {
+        [self.hint dismiss];
     }
 }
 
 - (void)messageDidSend {
-    OB_INFO(@"[!! TUTORIAL !!] messageDidSend");
     if ([self checkSentHintWithEvent:@selector(messageDidSend)]) {
         return;
     }
 
-    if ([self checkInvite2HintWithEvent:@selector(messageDidSend)]) {
+    if ([self checkInviteSomeoneElseHintWithEvent:@selector(messageDidSend)]) {
         return;
     }
 
 }
 
 - (void)messageDidPlay {
-    OB_INFO(@"[!! TUTORIAL !!] messageDidPlay");
     [self.dataSource setMessagePlayedState:YES];
 
     if ([self checkRecordHintWithEvent:@selector(messageDidPlay)]) {
         return;
     }
+
 }
 
 - (void)messageDidStartRecording {
@@ -99,7 +109,6 @@
 }
 
 - (void)messageDidRecorded {
-    OB_INFO(@"[!! TUTORIAL !!] messageDidRecorded");
     [self.dataSource setMessageRecordedState:YES];
     if (self.isRecording) {
         self.isRecording = NO;
@@ -109,8 +118,13 @@
 
 
 - (void)messageDidViewed {
-    OB_INFO(@"[!! TUTORIAL !!] messageDidViewed");
     if ([self checkViewedHintWithEvent:nil]) {
+        return;
+    }
+}
+
+- (void)sentHintDidDismissed {
+    if ([self checkInviteSomeoneElseHintWithEvent:nil]) {
         return;
     }
 }
@@ -133,9 +147,12 @@
     return NO;
 }
 
-- (BOOL)checkInvite2HintWithEvent:(SEL)event {
+- (BOOL)checkInviteSomeoneElseHintWithEvent:(SEL)event {
 
-    if ([self.dataSource inviteHint2State]) {
+    if (self.hint) {
+        return NO;
+    }
+    if ([self.dataSource inviteSomeoneElseHintShowedThisSession]) {
         return NO;
     }
 
@@ -143,30 +160,19 @@
         return NO;
     }
 
-    if (![self.dataSource messagePlayedState]) {
-        return NO;
-    }
-
     if (![self.dataSource messageRecordedState]) {
         return NO;
     }
 
-    if (![self.dataSource sentHintState]) {
-
-    }
-
-    if (!([self.dataSource viewedHintState])) {
-        return NO;
-    }
-    [self.dataSource setInviteHint2State:YES];
-    self.dataSource.invite2HintShowedThisSession = YES;
-    self.hint = [TBMInvite2Hint new];
+    [self.dataSource setInviteSomeoneElseHintState:YES];
+    self.dataSource.inviteSomeoneElseHintShowedThisSession = YES;
+    self.hint = [TBMInviteSomeoneElseHint new];
     [self showHintForEvent:event];
     return YES;
 }
 
 - (BOOL)checkRecordHintWithEvent:(SEL)event {
-    if ([self.hint isKindOfClass:[TBMRecordHint class]]) {
+    if (self.hint && ![self.hint isKindOfClass:[TBMPlayHint class]]) {
         return NO;
     }
 
@@ -182,22 +188,21 @@
         return NO;
     }
 
-    [self.dataSource setRecordHintState:YES];
-    self.dataSource.recordHintShowedThisSession = YES;
-
     if ([self.hint isKindOfClass:[TBMPlayHint class]]) {
         [(TBMPlayHint *) self.hint addRecordTip];
     } else {
         self.hint = [TBMRecordHint new];
         [self showHintForEvent:event];
     }
+    [self.dataSource setRecordHintState:YES];
+    self.dataSource.recordHintShowedThisSession = YES;
     return YES;
 
 }
 
 - (BOOL)checkPlayHintWithEvent:(SEL)event {
 
-    if ([self.hint isKindOfClass:[TBMPlayHint class]]) {
+    if (self.hint && ![self.hint isKindOfClass:[TBMRecordHint class]]) {
         return NO;
     }
 
@@ -221,7 +226,7 @@
         return NO;
     }
 
-    if ([self.hint isKindOfClass:[TBMRecordHint class]] && ![self.dataSource messageRecordedState] && !self.dataSource.recordHintShowedThisSession) {
+    if ([self.hint isKindOfClass:[TBMRecordHint class]]) {
         [(TBMRecordHint *) self.hint addPlayTip];
     } else {
         self.hint = [TBMPlayHint new];
@@ -229,8 +234,6 @@
     }
     self.dataSource.playHintShowedThisSession = YES;
     [self.dataSource setPlayHintState:YES];
-    [self showHintForEvent:event];
-
     return YES;
 
 }
@@ -241,11 +244,19 @@
         return NO;
     }
 
-    if ([self.dataSource sentHintState] || [self.dataSource friendsCount] > 1) {
+    if (![self.dataSource hasSentVideos:0]) {
+        return NO;
+    }
+    if ([self.dataSource sentHintState]) {
+        return NO;
+    }
+
+    if ([self.dataSource friendsCount] > 1) {
         return NO;
     }
 
     [self.dataSource setSentHintState:YES];
+    self.dataSource.sentHintShowedThisSession = YES;
     self.hint = [TBMSentHint new];
     [self showHintForEvent:event];
     return YES;
@@ -253,11 +264,15 @@
 }
 
 - (BOOL)checkViewedHintWithEvent:(SEL)event {
-    if ([self.hint isKindOfClass:[TBMViewedHint class]]) {
+    if (self.hint) {
         return NO;
     }
 
-    if ([self.dataSource viewedHintState] || [self.dataSource friendsCount] > 1) {
+    if ([self.dataSource friendsCount] != 1) {
+        return NO;
+    }
+
+    if ([self.dataSource viewedHintState]) {
         return NO;
     }
 
@@ -269,14 +284,20 @@
 }
 
 - (BOOL)checkSendWelcomeHintWithEvent:(SEL)event {
-    if ([self.dataSource friendsCount] > 1 && ![self.gridModule hasSentVideos:[self.gridModule lastAddedFriendOnGridIndex]]) {
-        self.dataSource.welcomeHintShowedThisSession = YES;
-        [self.dataSource setWelcomeHintState:YES];
-        self.hint = [TBMWelcomeHint new];
-        [self showHintForEvent:event];
-        return YES;
+    if ([self.dataSource friendsCount] <= 1) {
+        return NO;
     }
-    return NO;
+
+    if ([self.dataSource hasSentVideos:[self.gridModule lastAddedFriendOnGridIndex]]) {
+        return NO;
+    }
+
+    self.dataSource.welcomeHintShowedThisSession = YES;
+    [self.dataSource setWelcomeHintState:YES];
+    self.hint = [TBMWelcomeHint new];
+
+    [self showHintForEvent:event];
+    return YES;
 }
 
 - (void)showHintForEvent:(SEL)event {
@@ -288,9 +309,21 @@
 #pragma mark - TBMHintDelegate
 
 - (void)hintDidDismiss:(TBMHint *)hint {
+    if ([self.hint isKindOfClass:[TBMSentHint class]]) {
+        self.hint = nil;
+        [self sentHintDidDismissed];
+    }
+
     if ([self.hint isEqual:hint]) {
         self.hint = nil;
     }
+
+}
+
+#pragma mark - TBMTutorialModuleInterface
+
+- (void)resetHintsState {
+    [self.dataSource resetHintsState];
 }
 
 #pragma mark - Lazy initialization
