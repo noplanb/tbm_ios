@@ -57,6 +57,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self.delegate gridDidAppear:self];
     [self setupVideoRecorder:0];
 }
