@@ -54,6 +54,9 @@
     [self setupCenterGestures];
     [TBMFriend addVideoStatusNotificationDelegate:self];
     [self addObservers];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
     [self.delegate gridDidAppear:self];
     [self setupVideoRecorder:0];
 }
