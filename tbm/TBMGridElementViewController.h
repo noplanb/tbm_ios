@@ -28,7 +28,7 @@ static const float LayoutConstUploadingBarHeight = LayoutConstNoThumbButtonsMarg
 
 @property(nonatomic, weak) id <TBMGridElementDelegate> gridElementDelegate;
 
-- (instancetype)initWithIndex:(NSInteger)index;
+- (instancetype)initWithIndex:(NSInteger)index  frame:(CGRect)frame;
 - (void)gridDidChange:(NSInteger)index;
 
 @end

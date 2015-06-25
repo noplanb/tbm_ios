@@ -36,11 +36,16 @@
 @property TBMVideoPlayer *videoPlayer;
 @property BOOL isPlaying;
 @property(nonatomic) BOOL isAppeared;
+/**
+ * Its fix for grid, will replaced when it will refactored
+ */
+@property(nonatomic, assign) CGRect frame;
+
 @end
 
 @implementation TBMGridElementViewController
 
-- (instancetype)initWithIndex:(NSInteger)index {
+- (instancetype)initWithIndex:(NSInteger)index frame:(CGRect)frame{
     self = [super init];
     if (self != nil) {
         _index = index;
@@ -48,15 +53,20 @@
         _videoPlayer = [TBMVideoPlayer sharedInstance];
         _gridElement = [TBMGridElement findWithIntIndex:index];
         _messageDing = [[TBMSoundEffect alloc] initWithSoundNamed:CONFIG_DING_SOUND];
+        _frame = frame;
     }
     return self;
 }
 
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+-(void)viewDidLoad {
+    [super viewDidLoad];
+    self.view.frame = self.frame;
     [self buildView];
     [self registerForEvents];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self updateView];
 }
 

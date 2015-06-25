@@ -19,6 +19,10 @@
 @interface TBMGridViewController : UIViewController <TBMGridElementDelegate, TBMGridModuleInterface, TBMLongPressTouchHandlerCallback, TBMVideoRecorderDelegate, TBMAppDelegateEventNotificationProtocol, TBMVideoStatusNotificationProtocol>
 
 @property(nonatomic, weak) id <TBMGridDelegate> delegate;
+/**
+ * Its fix for grid, will replaced when it will refactored
+ */
+@property(nonatomic, assign) CGRect frame;
 
 - (NSMutableArray *)friendsOnGrid;
 - (NSMutableArray *)friendsOnBench;
