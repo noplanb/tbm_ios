@@ -37,6 +37,8 @@
     if (self != nil) {
         _appDelegate = (TBMAppDelegate *) [[UIApplication sharedApplication] delegate];
         [self registerAsAppEventsDelegate];
+        [self setupGridElement];
+
     }
     return self;
 }
@@ -47,7 +49,6 @@
     self.view.frame = self.frame;
     //---
     [self addViews];
-    [self setupGridElement];
     [self setupLongPressTouchHandler];
     [[TBMVideoPlayer sharedInstance].playerView removeFromSuperview];
     [self.view addSubview:[TBMVideoPlayer sharedInstance].playerView];
