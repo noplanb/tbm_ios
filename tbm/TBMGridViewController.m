@@ -229,7 +229,6 @@ static const float LayoutConstASPECT = 0.75;
     if ([self isHeightConstrained]) {
         return LayoutConstGUTTER;
     } else {
-        self.view.backgroundColor = [UIColor redColor];
         CGFloat elementHeight = [self elementSize].height;
         return  (CGRectGetHeight(self.view.bounds) - 3 * elementHeight - 2 * LayoutConstMARGIN) / 2;;
     }
