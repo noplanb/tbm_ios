@@ -10,7 +10,7 @@
 -(void)videoPlayerDidStartPlaying:(TBMVideoPlayer *)player;
 -(void)videoPlayerDidStopPlaying:(TBMVideoPlayer *)player;
 -(void)messageDidUpload;
--(void)messageDidViewed;
+-(void)messageDidViewed:(NSUInteger)gridIndex;
 -(void)messageDidReceive;
 -(void)friendDidAdd;
 @end

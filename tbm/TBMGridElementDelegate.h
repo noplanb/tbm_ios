@@ -12,6 +12,6 @@
 -(void)videoPlayerDidStopPlaying:(TBMVideoPlayer *)player;
 - (void)messageDidUpload;
 
-- (void)messageDidViewed;
+- (void)messageDidViewed:(NSUInteger)gridIndex;
 - (void)messageDidReceive;
 @end

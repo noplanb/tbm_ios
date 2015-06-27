@@ -42,12 +42,14 @@
 
 - (void)messageDidSend;
 
-- (void)messageDidPlay;
+- (void)messageDidStartPlaying;
+
+- (void)messageDidStopPlaying;
 
 - (void)messageDidStartRecording;
 
 - (void)messageDidRecorded;
 
-- (void)messageDidViewed;
+- (void)messageDidViewed:(NSUInteger)gridIndex;
 
 @end
