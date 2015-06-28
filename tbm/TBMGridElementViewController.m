@@ -257,6 +257,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     self.countLabel.layer.cornerRadius = LayoutConstNameLabelHeight / 2;
     self.countLabel.layer.masksToBounds = YES;
     self.countLabel.textAlignment = NSTextAlignmentCenter;
+    self.countLabel.hidden = YES;
     [self.view addSubview:self.countLabel];
 }
 
@@ -356,7 +357,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
         self.countLabel.text = @"";
     } else {
         self.countLabel.text = [NSString stringWithFormat:@"%ld", (long) self.gridElement.friend.unviewedCount];
-        if (self.isAppeared) {
+        if (self.isAppeared && !self.countLabel.hidden) {
             [self.gridElementDelegate messageDidReceive];
         }
     }
