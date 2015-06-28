@@ -66,11 +66,17 @@
 @property(nonatomic, strong) UIButton *stateButton;
 
 /*
+* Reset hints - Button
+*    Tap - resets all hints state in user defaults and current hint session
+*/
+
+@property(nonatomic, strong) UIButton *resetHintsButton;
+
+/*
 * Dispatch - Button
 *
 */
 @property(nonatomic, strong) UIButton *dispatchButton;
-
 
 @end
 
@@ -181,9 +187,13 @@
     lineTop += buttonHeight;
     lineTop += vertMargin;
 
-    //State button
+    //Reset hints &State button
     lineTop += 10.f;
-    self.stateButton.frame = CGRectMake(horzMargin, lineTop, fullWidth - (horzMargin * 2), buttonHeight);
+    self.resetHintsButton.frame = CGRectMake(horzMargin, lineTop, halfWidth - horzMargin, buttonHeight);
+    [self addSubview:self.resetHintsButton];
+
+    
+    self.stateButton.frame = CGRectMake(horzMargin * 2 + halfWidth, lineTop, halfWidth - horzMargin, buttonHeight);
     [self addSubview:self.stateButton];
 
     lineTop += buttonHeight;
@@ -240,6 +250,9 @@
     [self.eventHandler dispatchButtonDidPress];
 }
 
+- (void)resetHintsButtonAction:(id)sender {
+    [self.eventHandler resetHintsButtonDidPress];
+}
 
 - (void)serverSegmentedControlAction:(id)sender {
     [self.eventHandler serverSegmentedControlDidChangeTo:self.serverSegmentedControl.selectedSegmentIndex];
@@ -344,6 +357,16 @@
         [_stateButton addTarget:self action:@selector(stateButtonAction:) forControlEvents:UIControlEventTouchDown];
     }
     return _stateButton;
+}
+
+- (UIButton *)resetHintsButton {
+    if (!_resetHintsButton) {
+        _resetHintsButton = [[UIButton alloc] init];
+        [_resetHintsButton setupRoundedButtonWithColor:[UIColor blueColor]];
+        [_resetHintsButton setTitle:@"Reset hints" forState:UIControlStateNormal];
+        [_resetHintsButton addTarget:self action:@selector(resetHintsButtonAction:) forControlEvents:UIControlEventTouchDown];
+    }
+    return _resetHintsButton;
 }
 
 - (UIButton *)dispatchButton {

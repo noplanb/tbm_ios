@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "TBMGridViewController.h"
 #import "TBMBenchViewController.h"
+#import "TBMGridDelegate.h"
 
-@interface TBMHomeViewController : UIViewController <TBMBenchViewControllerDelegate>
+@interface TBMHomeViewController : UIViewController <TBMBenchViewControllerDelegate, TBMGridDelegate>
 
 @property (nonatomic) TBMGridViewController *gridViewController;
 
 + (TBMHomeViewController *)existingInstance;
+
+- (void)applicationWillSwitchToSMS;
 @end

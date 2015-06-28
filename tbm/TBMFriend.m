@@ -12,13 +12,11 @@
 #import "TBMAppDelegate.h"
 #import "TBMAppDelegate+PushNotification.h"
 #import "TBMConfig.h"
-#import "TBMUser.h"
-#import "TBMStringUtils.h"
 #import "TBMVideoIdUtils.h"
-#import "TBMHomeViewController.h"
 #import "OBLogger.h"
 #import "TBMHttpManager.h"
 #import "TBMPhoneUtils.h"
+#import "NSString+NSStringExtensions.h"
 
 @implementation TBMFriend
 
@@ -73,6 +71,15 @@ static NSMutableArray * videoStatusNotificationDelegates;
     }];
     return result;
 }
+
++ (NSUInteger)allUnviewedCount {
+    NSUInteger result = 0;
+    for (TBMFriend *friend in [self all]) {
+        result += friend.unviewedCount;
+    }
+    return result;
+}
+
 
 + (instancetype)findWithOutgoingVideoId:(NSString *)videoId{
     return [self findWithAttributeKey:@"outgoingVideoId" value:videoId];
@@ -648,5 +655,13 @@ static NSMutableArray * videoStatusNotificationDelegates;
     NSMutableString *fullName = [[firstName stringByAppendingString:@" "] mutableCopy];
     [fullName appendString:lastName];
     return fullName;
+}
+
+- (BOOL)hasOutgoingVideo {
+    if (self.outgoingVideoId && ![self.outgoingVideoId isEmpty]) {
+        return YES;
+    }
+
+    return NO;
 }
 @end

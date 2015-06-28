@@ -5,13 +5,13 @@
 //  Created by Sani Elfishawy on 12/10/14.
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
+#import "TBMHomeViewController+Invite.h"
 #import "TBMAppDelegate+AppSync.h"
-#import "TBMGridViewController.h"
 #import "TBMGridElementViewController.h"
-#import "TBMBenchViewController.h"
 #import "TBMGridElement.h"
 #import "HexColor.h"
 #import "iToast.h"
+#import "TBMGridDelegate.h"
 #import "TBMVideoIdUtils.h"
 #import "TBMVideoProcessor.h"
 
@@ -20,6 +20,11 @@
 @property(nonatomic) TBMLongPressTouchHandler *longPressTouchHandler;
 @property(nonatomic) TBMAppDelegate *appDelegate;
 @property(nonatomic) TBMVideoRecorder *videoRecorder;
+@property(nonatomic, strong) TBMGridElement *lastAddedGridElement;
+@property(nonatomic, strong) TBMFriend *lastAddedFriend;
+@end
+
+@interface TBMGridViewController ()
 @end
 
 @implementation TBMGridViewController
@@ -33,34 +38,37 @@
         _appDelegate = (TBMAppDelegate *) [[UIApplication sharedApplication] delegate];
         [self registerAsAppEventsDelegate];
         [self setupGridElement];
+
     }
     return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+
+- (void)viewDidLoad {
+    //fix
+    self.view.frame = self.frame;
+    //---
     [self addViews];
     [self setupLongPressTouchHandler];
     [[TBMVideoPlayer sharedInstance].playerView removeFromSuperview];
     [self.view addSubview:[TBMVideoPlayer sharedInstance].playerView];
     [self setupCenterGestures];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self setupVideoRecorder:0];
     [TBMFriend addVideoStatusNotificationDelegate:self];
     [self addObservers];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    OB_INFO(@"TBMGridViewController: viewWillDisappear");
-    [super viewWillDisappear:animated];
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.delegate gridDidAppear:self];
+    [self setupVideoRecorder:0];
+}
+
+- (void)dealloc {
     [self removeObservers];
     // Eliminated videoRecorder.dispose here. The OS takes care of interrupting or stopping and restarting our VideoCaptureSession very well.
     // We don't need to interfere with it.
-}
 
+};
 
 //--------------------------------
 // Events called in by appDelegate
@@ -175,7 +183,7 @@ static const float LayoutConstASPECT = 0.75;
     for (int row = 0; row < 3; row++) {
         for (int col = 0; col < 3; col++) {
             x = [self LayoutConstGUTTERLeft] + col * (LayoutConstMARGIN + elSize.width);
-            y = [self LayoutConstGUTTERTop] + row * (LayoutConstMARGIN + elSize.height);
+            y = [self gridTop] + row * (LayoutConstMARGIN + elSize.height);
             if (row == col == 1) {
                 v = [[TBMPreviewView alloc] initWithFrame:CGRectMake(x, y, elSize.width, elSize.height)];
             } else {
@@ -192,17 +200,19 @@ static const float LayoutConstASPECT = 0.75;
     CGSize elSize = [self elementSize];
     NSInteger i = 0;
     for (UIView *v in [self outsideViews]) {
-        UIViewController *c = [[TBMGridElementViewController alloc] initWithIndex:i];
+        CGRect frame = CGRectMake(0, 0, elSize.width, elSize.height);
+        TBMGridElementViewController *c = [[TBMGridElementViewController alloc] initWithIndex:i frame:frame];
+        c.gridElementDelegate = self;
         [self addChildViewController:c];
-        c.view.frame = CGRectMake(0, 0, elSize.width, elSize.height);
+        
         [v addSubview:c.view];
         i++;
     }
 }
 
 - (CGSize)elementSize {
-    CGFloat mainViewWidth = CGRectGetWidth(self.view.frame);
-    CGFloat mainViewHeight = CGRectGetHeight(self.view.frame);
+    CGFloat mainViewWidth = CGRectGetWidth(self.view.bounds);
+    CGFloat mainViewHeight = CGRectGetHeight(self.view.bounds);
     CGFloat width;
     CGFloat height;
     if ([self isHeightConstrained]) {
@@ -215,23 +225,26 @@ static const float LayoutConstASPECT = 0.75;
     return CGSizeMake(width, height);
 }
 
-- (float)LayoutConstGUTTERTop {
-    if ([self isHeightConstrained])
+- (float)gridTop {
+    if ([self isHeightConstrained]) {
         return LayoutConstGUTTER;
-    else
-        return (self.view.frame.size.height - 3 * [self elementSize].height - 2 * LayoutConstMARGIN) / 2;
-
+    } else {
+        CGFloat elementHeight = [self elementSize].height;
+        return  (CGRectGetHeight(self.view.bounds) - 3 * elementHeight - 2 * LayoutConstMARGIN) / 2;;
+    }
 }
 
 - (float)LayoutConstGUTTERLeft {
     if ([self isWidthConstrained])
         return LayoutConstGUTTER;
-    else
-        return (self.view.frame.size.width - 3 * [self elementSize].width - 2 * LayoutConstMARGIN) / 2;
+    else {
+        CGFloat elementWidth = [self elementSize].width;
+        return (CGRectGetWidth(self.view.bounds) - 3 * elementWidth - 2 * LayoutConstMARGIN) / 2;
+    }
 }
 
 - (BOOL)isWidthConstrained {
-    return (self.view.frame.size.width / self.view.frame.size.height) < LayoutConstASPECT;
+    return (self.view.bounds.size.width / self.view.bounds.size.height) < LayoutConstASPECT;
 }
 
 - (BOOL)isHeightConstrained {
@@ -406,15 +419,18 @@ static const float LayoutConstASPECT = 0.75;
 - (void)moveFriendToGrid:(TBMFriend *)friend {
     OB_INFO(@"moveFriendToGrid: %@", friend.firstName);
     [self rankingActionOccurred:friend];
+    self.lastAddedFriend = friend;
     if ([TBMGridElement friendIsOnGrid:friend]) {
         [self highlightElement:[TBMGridElement findWithFriend:friend]];
         return;
     }
 
     TBMGridElement *ge = [self nextAvailableGridElement];
+    self.lastAddedGridElement = ge;
     ge.friend = friend;
     [self notifyChildrenOfGridChange:[ge getIntIndex]];
     [self highlightElement:ge];
+    [self.delegate friendDidAdd];
 }
 
 - (void)notifyChildrenOfGridChange:(NSInteger)index {
@@ -468,6 +484,7 @@ static const float LayoutConstASPECT = 0.75;
     [gv addSubview:blaze];
     [gv setNeedsDisplay];
     [self performSelector:@selector(animateBlaze:) withObject:blaze afterDelay:0.3];
+
 }
 
 - (void)animateBlaze:(UIView *)blaze {
@@ -518,5 +535,62 @@ static const float LayoutConstASPECT = 0.75;
     return [self.videoRecorder isRecording];
 }
 
+#pragma mark - TBMGridModuleInterface
+
+- (CGRect)gridGetFrameForUnviewedBadgeForFriend:(NSUInteger)friendCellIndex inView:(UIView *)view {
+    CGRect result = CGRectZero;
+
+    if (friendCellIndex <= 7) {
+        result = [[self gridViewWithIndex:friendCellIndex] frame];
+        CGFloat x = CGRectGetMaxX(result) - LayoutConstCountWidth + 3;
+        CGFloat y = CGRectGetMinY(result) - 3;
+        result = CGRectMake(x, y, LayoutConstCountWidth, LayoutConstCountWidth);
+    }
+
+    result = [self.view convertRect:result toView:view];
+    return result;
+}
+
+- (CGRect)gridGetFrameForFriend:(NSUInteger)friendCellIndex inView:(UIView *)view {
+    CGRect result = CGRectZero;
+    if (friendCellIndex <= 7) {
+        result = [[self gridViewWithIndex:friendCellIndex] frame];
+        result = [self.view convertRect:result toView:view];
+    }
+
+    return result;
+}
+
+- (NSUInteger)lastAddedFriendOnGridIndex {
+    NSUInteger result = 0;
+    TBMGridElement *gridElement = self.lastAddedFriend.gridElement;
+    if (gridElement) {
+        result = [gridElement.index unsignedIntegerValue];
+    }
+    return result;
+}
+
+#pragma mark - TBMGridElementDelegate
+
+- (void)videoPlayerDidStartPlaying:(TBMVideoPlayer *)player {
+    [self.delegate videoPlayerDidStartPlaying:player];
+
+}
+
+- (void)videoPlayerDidStopPlaying:(TBMVideoPlayer *)player {
+    [self.delegate videoPlayerDidStopPlaying:player];
+}
+
+- (void)messageDidUpload {
+    [self.delegate messageDidUpload];
+}
+
+- (void)messageDidViewed:(NSUInteger)gridIndex {
+    [self.delegate messageDidViewed:gridIndex];
+}
+
+- (void)messageDidReceive {
+    [self.delegate messageDidReceive];
+}
 
 @end

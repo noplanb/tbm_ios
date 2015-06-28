@@ -14,6 +14,7 @@
 #import "HexColor.h"
 #import "TBMSecretScreenPresenter.h"
 #import "TBMSecretGestureRecognizer.h"
+#import "TBMTutorialPresenter.h"
 
 @interface TBMHomeViewController ()
 @property(nonatomic) TBMAppDelegate *appDelegate;
@@ -26,6 +27,12 @@
 @property(nonatomic, strong) UIView *logoView;
 @property(nonatomic, strong) UIView *menuButton;
 
+@property(nonatomic) BOOL isPlaying;
+@property(nonatomic) BOOL isSMSProcessActive;
+@end
+
+@interface TBMHomeViewController ()
+@property(nonatomic, strong) TBMTutorialPresenter *tutorialScreen;
 @end
 
 @implementation TBMHomeViewController
@@ -58,6 +65,7 @@ static TBMHomeViewController *hvcInstance;
 - (TBMSecretScreenPresenter *)secretScreen {
     if (!_secretScreen) {
         _secretScreen = [[TBMSecretScreenPresenter alloc] init];
+        [_secretScreen assignTutorialModule:self.tutorialScreen];
     }
     return _secretScreen;
 }
@@ -107,20 +115,64 @@ static TBMHomeViewController *hvcInstance;
     return _menuButton;
 }
 
+- (TBMTutorialPresenter *)tutorialScreen {
+    if (!_tutorialScreen) {
+        _tutorialScreen = [[TBMTutorialPresenter alloc] initWithSuperview:self.view];
+        _tutorialScreen.gridModule = self.gridViewController;
+    }
+    return _tutorialScreen;
+}
+
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad {
     OB_INFO(@"TBMHomeViewController: viewDidLoad");
     [super viewDidLoad];
+    self.isSMSProcessActive = NO;
+
+    [self registerToNotifications];
     hvcInstance = self;
     [self addHomeViews];
     [self setupSecretGestureRecognizer];
     [[[TBMVersionHandler alloc] initWithDelegate:self] checkVersionCompatibility];
 }
 
+- (void)registerToNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recorderStartRecording) name:TBMVideoRecorderShouldStartRecording object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recorderFinishRecording) name:TBMVideoRecorderDidFinishRecording object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:UIApplicationWillResignActiveNotification object:nil];
+
+}
+
+- (void)applicationDidEnterBackground {
+    if (!self.isSMSProcessActive) {
+        [self.tutorialScreen applicationDidEnterBackground];
+        [self.tutorialScreen resetSession];
+    }
+}
+
+- (void)applicationDidEnterForeground {
+    if (!self.isSMSProcessActive) {
+        [self.tutorialScreen applicationDidLaunch];
+    }
+    self.isSMSProcessActive = NO;
+
+}
+
+- (void)recorderStartRecording {
+    [self.tutorialScreen messageDidStartRecording];
+}
+
+- (void)recorderFinishRecording {
+    [self.tutorialScreen messageDidRecorded];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     OB_INFO(@"TBMHomeViewController: viewWillAppear");
     [super viewWillAppear:animated];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -190,8 +242,9 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
 
 - (void)addGridViewController {
     self.gridViewController = [[TBMGridViewController alloc] init];
+    self.gridViewController.frame = self.contentView.bounds;
+    self.gridViewController.delegate = self;
     [self addChildViewController:self.gridViewController];
-    self.gridViewController.view.frame = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height);
     [self.contentView addSubview:self.gridViewController.view];
 }
 
@@ -228,5 +281,45 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
     }
 }
 
+#pragma mark - TBMGridDelegate
+
+- (void)gridDidAppear:(TBMGridViewController *)gridViewController {
+    if (!self.isSMSProcessActive) {
+        [self.tutorialScreen applicationDidLaunch];
+    }    
+}
+
+- (void)videoPlayerDidStartPlaying:(TBMVideoPlayer *)player {
+    self.isPlaying = YES;
+    [self.tutorialScreen messageDidStartPlaying];
+}
+
+- (void)videoPlayerDidStopPlaying:(TBMVideoPlayer *)player {
+    if (self.isPlaying) {
+        self.isPlaying = NO;
+        [self.tutorialScreen messageDidStopPlaying];
+    }
+}
+
+- (void)messageDidUpload {
+    [self.tutorialScreen messageDidSend];
+}
+
+-(void)messageDidViewed:(NSUInteger)gridIndex {
+    [self.tutorialScreen messageDidViewed:gridIndex];
+}
+
+- (void)friendDidAdd {
+    [self.tutorialScreen friendDidAdd];
+}
+
+- (void)messageDidReceive {
+    [self.tutorialScreen messageDidReceive];
+}
+
+
+- (void)applicationWillSwitchToSMS {
+    self.isSMSProcessActive = YES;
+}
 
 @end

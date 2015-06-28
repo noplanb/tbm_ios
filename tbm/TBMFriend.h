@@ -55,6 +55,7 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 
 // Finders
 + (NSArray *)all;
++ (NSUInteger)allUnviewedCount;
 + (instancetype)findWithId:(NSString *)idTbm;
 + (instancetype)findWithOutgoingVideoId:(NSString *)videoId;
 + (instancetype)findWithMkey:(NSString *)mkey;
@@ -94,6 +95,7 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 + (void)removeVideoStatusNotificationDelegate:(id)delegate;
 
 - (UIImage *)thumbImage;
+
 - (BOOL)isThumbNoPic;
 - (void)generateThumbWithVideo:(TBMVideo *)video;
 
@@ -117,6 +119,8 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 - (void)handleUploadRetryCount:(NSNumber *)retryCount videoId:(NSString *)videoId;
 
 - (NSString *)fullName;
+
+- (BOOL)hasOutgoingVideo;
 @end
 
 @interface TBMFriend (CoreDataGeneratedAccessors)

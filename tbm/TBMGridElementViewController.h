@@ -10,7 +10,25 @@
 #import "TBMFriend.h"
 #import "TBMVideoPlayer.h"
 
+@protocol TBMGridElementDelegate;
+static const float LayoutConstNameLabelHeight = 22;
+static const float LayoutConstNameLabelMargin = 5;
+static const float LayoutConstNameLabelFontSize = 0.55 * LayoutConstNameLabelHeight;
+static const float LayoutConstBorderWidth = 2.5;
+static const float LayoutConstCountWidth = 22;
+static const float LayoutConstUnviewedCountFontSize = 0.5 * LayoutConstCountWidth;
+static const float LayoutConstIndicatorMaxWidth = 40;
+static const float LayoutConstIndicatorFractionalWidth = 0.15;
+static const float LayoutConstNoThumbButtonsMargin = 2;
+static const float LayoutConstNoThumbFontSize = 15;
+static const float LayoutConstUploadingBarHeight = LayoutConstNoThumbButtonsMargin;
+
+
 @interface TBMGridElementViewController : UIViewController <TBMVideoStatusNotificationProtocol, TBMVideoPlayerEventNotification>
-- (instancetype)initWithIndex:(NSInteger)index;
+
+@property(nonatomic, weak) id <TBMGridElementDelegate> gridElementDelegate;
+
+- (instancetype)initWithIndex:(NSInteger)index  frame:(CGRect)frame;
 - (void)gridDidChange:(NSInteger)index;
+
 @end

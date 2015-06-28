@@ -11,4 +11,5 @@
 @interface NSString (NSStringExtensions)
 - (NSString *)md5;
 
+- (BOOL)isEmpty;
 @end

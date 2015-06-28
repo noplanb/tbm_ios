@@ -8,17 +8,13 @@
 
 #import "TBMGridElementViewController.h"
 #import "TBMHomeViewController+Invite.h"
-#import "TBMBenchViewController.h"
 #import "HexColor.h"
 #import "TBMGridElement.h"
-#import "TBMVideo.h"
 #import "TBMMarginLabel.h"
-#import "TBMAlertController.h"
 #import "TBMSoundEffect.h"
-#import "OBLogger.h"
 #import "TBMConfig.h"
 
-@interface TBMGridElementViewController()
+@interface TBMGridElementViewController ()
 @property NSInteger index;
 @property TBMGridElement *gridElement;
 
@@ -35,93 +31,110 @@
 @property UIView *uploadingBar;
 @property UIView *downloadingBar;
 
-@property (nonatomic) TBMSoundEffect *messageDing;
+@property(nonatomic) TBMSoundEffect *messageDing;
 
 @property TBMVideoPlayer *videoPlayer;
 @property BOOL isPlaying;
+@property(nonatomic) BOOL isAppeared;
+/**
+ * Its fix for grid, will replaced when it will refactored
+ */
+@property(nonatomic, assign) CGRect frame;
+
 @end
 
 @implementation TBMGridElementViewController
 
-- (instancetype)initWithIndex:(NSInteger)index{
+- (instancetype)initWithIndex:(NSInteger)index frame:(CGRect)frame{
     self = [super init];
-    if (self != nil){
+    if (self != nil) {
         _index = index;
+        _isAppeared = NO;
         _videoPlayer = [TBMVideoPlayer sharedInstance];
         _gridElement = [TBMGridElement findWithIntIndex:index];
         _messageDing = [[TBMSoundEffect alloc] initWithSoundNamed:CONFIG_DING_SOUND];
+        _frame = frame;
     }
     return self;
 }
 
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+-(void)viewDidLoad {
+    [super viewDidLoad];
+    self.view.frame = self.frame;
     [self buildView];
     [self registerForEvents];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self updateView];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    self.isAppeared = YES;
+    if (!self.countLabel.hidden) {
+        [self.gridElementDelegate messageDidReceive];
+    }
+
+    if (!self.viewedIndicator.hidden) {
+        [self.gridElementDelegate messageDidViewed:[self.gridElement.index unsignedIntegerValue]];
+    }
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    self.isAppeared = NO;
+}
 
 //--------------------------------
 // Event Registration and handling
 //--------------------------------
-- (void)registerForEvents{
+- (void)registerForEvents {
     [TBMFriend addVideoStatusNotificationDelegate:self];
     [self.videoPlayer addEventNotificationDelegate:self];
 }
 
-- (void)videoStatusDidChange:(TBMFriend *)friend{
+- (void)videoStatusDidChange:(TBMFriend *)friend {
     if ([[self gridElement].friend isEqual:friend])
         [self animateTransitions];
 }
 
-- (void)gridDidChange:(NSInteger)index{
+- (void)gridDidChange:(NSInteger)index {
     if (index == self.index)
         [self performSelectorOnMainThread:@selector(updateView) withObject:nil waitUntilDone:NO];
 }
 
-- (void)videoPlayerStartedIndex:(NSInteger)index{
-    if (index == self.index){
+- (void)videoPlayerStartedIndex:(NSInteger)index {
+
+    if (index == self.index) {
         self.isPlaying = YES;
         [self performSelectorOnMainThread:@selector(updateView) withObject:nil waitUntilDone:NO];
+        [self.gridElementDelegate videoPlayerDidStartPlaying:self.videoPlayer];
     }
 }
 
-- (void)videoPlayerStopped{
+- (void)videoPlayerStopped {
     self.isPlaying = NO;
     [self performSelectorOnMainThread:@selector(updateView) withObject:nil waitUntilDone:NO];
+    [self.gridElementDelegate videoPlayerDidStopPlaying:self.videoPlayer];
 }
 
 
 //------------------
 // Building the view
 //------------------
-static const float LayoutConstNameLabelHeight = 22;
-static const float LayoutConstNameLabelMargin = 5;
-static const float LayoutConstNameLabelFontSize = 0.55 * LayoutConstNameLabelHeight;
-static const float LayoutConstBorderWidth = 2.5;
-static const float LayoutConstCountWidth = 22;
-static const float LayoutConstUnviewedCountFontSize = 0.5 * LayoutConstCountWidth;
-static const float LayoutConstIndicatorMaxWidth = 40;
-static const float LayoutConstIndicatorFractionalWidth = 0.15;
-static const float LayoutConstNoThumbButtonsMargin = 2;
-static const float LayoutConstNoThumbFontSize = 15;
-static const float LayoutConstUploadingBarHeight = LayoutConstNoThumbButtonsMargin;
 
-- (float) indicatorCalculatedWidth{
+- (float)indicatorCalculatedWidth {
     return fminf(LayoutConstIndicatorMaxWidth, LayoutConstIndicatorFractionalWidth * self.view.frame.size.width);
 }
 
 static NSString *LayoutConstOrangeColor = @"F48A31";
 static NSString *LayoutConstGreenColor = @"9BC046";
-static NSString *LayoutConstWhiteTextColor  = @"fff";
+static NSString *LayoutConstWhiteTextColor = @"fff";
 static NSString *LayoutConstLabelGreyColor = @"4E4D42";
 static NSString *LayoutConstDarkGreyColor = @"333333";
 static NSString *LayoutConstRedColor = @"D90D19";
 static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 
-- (void)buildView{
+- (void)buildView {
     self.view.backgroundColor = [UIColor colorWithHexString:LayoutConstLabelGreyColor alpha:1];
     [self addNoFriend];
     [self addNoThumbNoApp];
@@ -137,20 +150,20 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     [self addViewedIndicator];
 }
 
-- (void) gevTap{
+- (void)gevTap {
     DebugLog(@"gevTap");
 }
 
-- (void) addNoThumbNoApp{
+- (void)addNoThumbNoApp {
     float availH = (self.view.frame.size.height - LayoutConstNameLabelHeight);
-    float h = (availH - 3*LayoutConstNoThumbButtonsMargin) / 2;
-    float w = (self.view.frame.size.width - 2*LayoutConstNoThumbButtonsMargin);
+    float h = (availH - 3 * LayoutConstNoThumbButtonsMargin) / 2;
+    float w = (self.view.frame.size.width - 2 * LayoutConstNoThumbButtonsMargin);
     UILabel *nudge = [self noThumbLabel:CGRectMake(LayoutConstNoThumbButtonsMargin, LayoutConstNoThumbButtonsMargin, w, h)];
     nudge.textColor = [UIColor colorWithHexString:LayoutConstOrangeColor];
     nudge.text = @"NUDGE";
     [nudge addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nudgeTap)]];
     nudge.userInteractionEnabled = YES;
-    
+
     float y = 2 * LayoutConstNoThumbButtonsMargin + h;
     UILabel *record = [self noThumbLabel:CGRectMake(LayoutConstNoThumbButtonsMargin, y, w, h)];
     record.textColor = [UIColor colorWithHexString:LayoutConstRedColor];
@@ -164,13 +177,13 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     [self.view addSubview:self.noThumbNoAppView];
 }
 
-- (void) addNoTHumbHasApp{
+- (void)addNoTHumbHasApp {
     float availH = self.view.frame.size.height - LayoutConstNameLabelHeight;
     UILabel *record = [self noThumbLabel:CGRectMake(
-                                                    LayoutConstNoThumbButtonsMargin,
-                                                    LayoutConstNoThumbButtonsMargin,
-                                                    self.view.bounds.size.width - 2*LayoutConstNoThumbButtonsMargin,
-                                                    availH - 2*LayoutConstNoThumbButtonsMargin)];
+            LayoutConstNoThumbButtonsMargin,
+            LayoutConstNoThumbButtonsMargin,
+            self.view.bounds.size.width - 2 * LayoutConstNoThumbButtonsMargin,
+            availH - 2 * LayoutConstNoThumbButtonsMargin)];
     record.textColor = [UIColor colorWithHexString:LayoutConstRedColor alpha:1];
     record.text = @"RECORD";
     [record addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(recordTap)]];
@@ -180,7 +193,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     [self.view addSubview:self.noThumbHasAppView];
 }
 
-- (UILabel *) noThumbLabel:(CGRect)frame{
+- (UILabel *)noThumbLabel:(CGRect)frame {
     UILabel *l = [[UILabel alloc] initWithFrame:frame];
     l.backgroundColor = [UIColor colorWithHexString:LayoutConstBlackButtonColor];
     l.font = [UIFont boldSystemFontOfSize:LayoutConstNoThumbFontSize];
@@ -188,19 +201,19 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     return l;
 }
 
-- (UIView *)noThumbContainerView{
+- (UIView *)noThumbContainerView {
     UIView *v = [[UIView alloc] initWithFrame:self.view.frame];
     v.backgroundColor = [UIColor colorWithHexString:LayoutConstLabelGreyColor];
     return v;
 }
 
-- (void)addNoFriend{
+- (void)addNoFriend {
     UIImage *plusImg = [UIImage imageNamed:@"icon-plus"];
     UIImageView *iv = [[UIImageView alloc] initWithImage:plusImg];
     float w = self.view.frame.size.width / 2;
     w = fminf(w, plusImg.size.width);
     float x = (self.view.frame.size.width - w) / 2;
-    float y = (self.view.frame.size.height -w) / 2;
+    float y = (self.view.frame.size.height - w) / 2;
     iv.frame = CGRectMake(x, y, w, w);
     self.noFriendView = [[UIView alloc] initWithFrame:self.view.frame];
     self.noFriendView.backgroundColor = [UIColor colorWithHexString:LayoutConstOrangeColor];
@@ -209,7 +222,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     [self.view addSubview:self.noFriendView];
 }
 
-- (void)addNameLabel{
+- (void)addNameLabel {
     float y = self.view.bounds.size.height - LayoutConstNameLabelHeight;
     self.nameLabel = [[TBMMarginLabel alloc] initWithFrame:CGRectMake(0, y, self.view.bounds.size.width, LayoutConstNameLabelHeight)];
     self.nameLabel.margin = LayoutConstNameLabelMargin;
@@ -222,19 +235,19 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 
 
 // Green Border
-- (void)addGreenBorder{
+- (void)addGreenBorder {
     UIView *l = [[UIView alloc] initWithFrame:CGRectMake(0, 0, LayoutConstBorderWidth, self.view.bounds.size.height)];
     UIView *t = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, LayoutConstBorderWidth)];
     UIView *r = [[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - LayoutConstBorderWidth, 0, LayoutConstBorderWidth, self.view.bounds.size.height)];
-    self.greenBorder = [[NSArray alloc] initWithObjects:l,t,r, nil];
-    for (UIView *b in self.greenBorder){
+    self.greenBorder = [[NSArray alloc] initWithObjects:l, t, r, nil];
+    for (UIView *b in self.greenBorder) {
         b.backgroundColor = [UIColor colorWithHexString:LayoutConstGreenColor alpha:1];
         [self.view addSubview:b];
     }
 }
 
 // Unviewed count
-- (void)addCountLabel{
+- (void)addCountLabel {
     float x = self.view.bounds.size.width - LayoutConstCountWidth + 3;
     float y = -3;
     self.countLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, y, LayoutConstCountWidth, LayoutConstCountWidth)];
@@ -244,11 +257,12 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     self.countLabel.layer.cornerRadius = LayoutConstNameLabelHeight / 2;
     self.countLabel.layer.masksToBounds = YES;
     self.countLabel.textAlignment = NSTextAlignmentCenter;
+    self.countLabel.hidden = YES;
     [self.view addSubview:self.countLabel];
 }
 
 // Thumb
-- (void)addThumb{
+- (void)addThumb {
     self.thumbView = [[UIImageView alloc] init];
     [self setThumbContentMode];
     self.thumbView.backgroundColor = [UIColor colorWithHexString:LayoutConstDarkGreyColor];
@@ -256,30 +270,30 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     [self.view addSubview:self.thumbView];
 }
 
-- (void)setThumbContentMode{
-    self.thumbView.contentMode = [self.gridElement.friend isThumbNoPic] ?  UIViewContentModeCenter : UIViewContentModeScaleToFill;
+- (void)setThumbContentMode {
+    self.thumbView.contentMode = [self.gridElement.friend isThumbNoPic] ? UIViewContentModeCenter : UIViewContentModeScaleToFill;
 }
 
 // Uploading, downloading and viewed indicators
-- (void)addUploadingIndicator{
+- (void)addUploadingIndicator {
     UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-uploading"]];
     self.uploadingIndicator = [self createIndicatorWithImage:iv];
     [self.view addSubview:self.uploadingIndicator];
 }
 
-- (void)addDownloadingIndicator{
+- (void)addDownloadingIndicator {
     UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-downloading"]];
     self.downloadingIndicator = [self createIndicatorWithImage:iv];
     [self.view addSubview:self.downloadingIndicator];
 }
 
-- (void)addViewedIndicator{
+- (void)addViewedIndicator {
     UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-viewed"]];
     self.viewedIndicator = [self createIndicatorWithImage:iv];
     [self.view addSubview:self.viewedIndicator];
 }
 
-- (UIView *)createIndicatorWithImage:(UIImageView *)iv{
+- (UIView *)createIndicatorWithImage:(UIImageView *)iv {
     float aspect = iv.frame.size.width / iv.frame.size.height;
     CGSize ivSize = CGSizeMake([self indicatorCalculatedWidth], [self indicatorCalculatedWidth] / aspect);
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width - ivSize.width, 0, ivSize.width, ivSize.width)];  //Always square.
@@ -291,14 +305,14 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     return v;
 }
 
-- (void)addUploadingBar{
+- (void)addUploadingBar {
     self.uploadingBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, LayoutConstUploadingBarHeight)];
     self.uploadingBar.backgroundColor = [UIColor colorWithHexString:LayoutConstGreenColor];
     self.uploadingBar.hidden = YES;
     [self.view addSubview:self.uploadingBar];
 }
 
-- (void)addDownloadingBar{
+- (void)addDownloadingBar {
     self.downloadingBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, LayoutConstUploadingBarHeight)];
     self.downloadingBar.backgroundColor = [UIColor colorWithHexString:LayoutConstGreenColor];
     self.downloadingBar.hidden = YES;
@@ -309,55 +323,58 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 // View actions
 //-------------
 // All
-- (void)hideAll{
+- (void)hideAll {
     [self hideAllIcons];
     [self hideAllContent];
     [self hideNameLabel];
 }
 
 // Icons and borders
-- (void)hideAllIcons{
+- (void)hideAllIcons {
     [self hideUnviewed];
     [self hideDownload];
     [self hideUpload];
     [self hideViewed];
 }
 
-- (void)showGreenBorder{
-    for (UIView *b in self.greenBorder){
+- (void)showGreenBorder {
+    for (UIView *b in self.greenBorder) {
         b.hidden = NO;
     }
     [self makeNameLabelGreen];
     [self showNameLabel];
 }
 
-- (void)hideGreenBorder{
-    for (UIView *b in self.greenBorder){
+- (void)hideGreenBorder {
+    for (UIView *b in self.greenBorder) {
         b.hidden = YES;
     }
     [self makeNameLabelGrey];
 }
 
-- (void)updateUnviewedCount{
+- (void)updateUnviewedCount {
     if (self.gridElement.friend == nil) {
         self.countLabel.text = @"";
     } else {
-        self.countLabel.text = [NSString stringWithFormat:@"%ld", (long)self.gridElement.friend.unviewedCount];
+        self.countLabel.text = [NSString stringWithFormat:@"%ld", (long) self.gridElement.friend.unviewedCount];
+        if (self.isAppeared && !self.countLabel.hidden) {
+            [self.gridElementDelegate messageDidReceive];
+        }
     }
 }
 
-- (void)showUnviewed{
+- (void)showUnviewed {
     [self hideAllIcons];
     [self showGreenBorder];
     self.countLabel.hidden = NO;
 }
 
-- (void)hideUnviewed{
+- (void)hideUnviewed {
     [self hideGreenBorder];
     self.countLabel.hidden = YES;
 }
 
-- (void)showDownload{
+- (void)showDownload {
     [self hideAllIcons];
     [self hideGreenBorder];
     CGRect f = self.downloadingIndicator.frame;
@@ -365,32 +382,42 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     self.downloadingIndicator.frame = f;
     self.downloadingIndicator.hidden = NO;
 }
-- (void)hideDownload{
+
+- (void)hideDownload {
     self.downloadingIndicator.hidden = YES;
     self.downloadingBar.hidden = YES;
 }
 
-- (void)showUpload{
+- (void)showUpload {
+
     [self hideGreenBorder];
     [self hideAllIcons];
     self.uploadingIndicator.hidden = NO;
 }
+
 - (void)hideUpload {
     self.uploadingIndicator.hidden = YES;
 }
-- (void)hideUploadBar{
+
+- (void)hideUploadBar {
     self.uploadingBar.hidden = YES;
 }
 
-- (void)showViewed{
+- (void)showViewed {
     [self hideGreenBorder];
     [self hideAllIcons];
     self.viewedIndicator.hidden = NO;
+    if (self.isAppeared) {
+        [self.gridElementDelegate messageDidViewed:[self.gridElement.index unsignedIntegerValue]];
+    }
 }
-- (void)hideViewed{ self.viewedIndicator.hidden = YES; }
+
+- (void)hideViewed {
+    self.viewedIndicator.hidden = YES;
+}
 
 // Animations
-- (void)animateUploading{
+- (void)animateUploading {
     [self hideAllIcons];
     [self hideUnviewed];
     CGRect startFrame = self.uploadingIndicator.frame;
@@ -399,7 +426,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     CGRect endFrame = self.uploadingIndicator.frame;
     endFrame.origin.x = self.view.frame.size.width - self.uploadingIndicator.frame.size.width;
     [self showUpload];
-    
+
     CGRect barStartFrame = self.uploadingBar.frame;
     barStartFrame.size.width = 0;
     CGRect barEndFrame = self.uploadingBar.frame;
@@ -409,13 +436,14 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     [UIView animateWithDuration:0.4 animations:^{
         self.uploadingIndicator.frame = endFrame;
         self.uploadingBar.frame = barEndFrame;
-    } completion:^(BOOL finished) {
+    }                completion:^(BOOL finished) {
         [self performSelector:@selector(hideUploadBar) withObject:nil afterDelay:0.2];
         [self performSelector:@selector(updateView) withObject:nil afterDelay:0.4];
+        [self.gridElementDelegate messageDidUpload];
     }];
 }
 
-- (void)animateDownloading{
+- (void)animateDownloading {
     [self hideAllIcons];
     [self hideUnviewed];
     CGRect startFrame = self.downloadingIndicator.frame;
@@ -424,7 +452,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     CGRect endFrame = self.downloadingIndicator.frame;
     endFrame.origin.x = 0;
     [self showDownload];
-    
+
     CGRect barStartFrame = self.downloadingBar.frame;
     barStartFrame.size.width = 0;
     barStartFrame.origin.x = self.view.frame.size.width;
@@ -436,7 +464,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     [UIView animateWithDuration:0.4 animations:^{
         self.downloadingIndicator.frame = endFrame;
         self.downloadingBar.frame = barEndFrame;
-    } completion:^(BOOL finished) {
+    }                completion:^(BOOL finished) {
         [self performSelector:@selector(updateView) withObject:nil afterDelay:0.2];
         [self performSelector:@selector(playDing) withObject:nil afterDelay:0.4];
     }];
@@ -444,80 +472,97 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 
 
 // Sound actions
-- (void) playDing{
-    if (![[TBMVideoPlayer sharedInstance] isPlaying] && ![(TBMGridViewController *)[self parentViewController] isRecording])
+- (void)playDing {
+    if (![[TBMVideoPlayer sharedInstance] isPlaying] && ![(TBMGridViewController *) [self parentViewController] isRecording])
         [self.messageDing play];
 }
 
 // Name Label
-- (void)updateNameLabel{
+- (void)updateNameLabel {
     self.nameLabel.text = [TBMConfig configDebugMode] == TBMConfigDebugModeOn ? [self.gridElement.friend videoStatusString] : [self.gridElement.friend displayName];
 }
-- (void)showNameLabel{
+
+- (void)showNameLabel {
     self.nameLabel.hidden = NO;
 }
-- (void)makeNameLabelGreen{
+
+- (void)makeNameLabelGreen {
     self.nameLabel.backgroundColor = [UIColor colorWithHexString:LayoutConstGreenColor alpha:1];
     self.nameLabel.textColor = [UIColor whiteColor];
 }
-- (void)makeNameLabelGrey{
+
+- (void)makeNameLabelGrey {
     self.nameLabel.backgroundColor = [UIColor colorWithHexString:LayoutConstLabelGreyColor alpha:0.9];
     self.nameLabel.textColor = [UIColor colorWithHexString:LayoutConstWhiteTextColor];
 }
-- (void)hideNameLabel{
+
+- (void)hideNameLabel {
     self.nameLabel.hidden = YES;
 }
 
 
 // Content
-- (void)hideAllContent{
+- (void)hideAllContent {
     [self hideThumb];
     [self hideNoThumbHasApp];
     [self hideNoThumbNoApp];
     [self hideNoFriend];
 }
 
-- (void)updateThumbImage{
+- (void)updateThumbImage {
     [self.thumbView setImage:[self.gridElement.friend thumbImage]];
     [self setThumbContentMode];
 }
 
-- (void)showThumb{
+- (void)showThumb {
     [self hideAllContent];
     [self showNameLabel];
     [self makeNameLabelGrey];
     self.thumbView.hidden = NO;
 }
-- (void)hideThumb{ self.thumbView.hidden = YES; }
 
-- (void)showNoThumbHasApp{
+- (void)hideThumb {
+    self.thumbView.hidden = YES;
+}
+
+- (void)showNoThumbHasApp {
     [self hideAll];
     [self showNameLabel];
     [self makeNameLabelGrey];
     self.noThumbHasAppView.hidden = NO;
 }
-- (void)hideNoThumbHasApp{ self.noThumbHasAppView.hidden = YES; }
 
-- (void)showNoThumbNoApp{
+- (void)hideNoThumbHasApp {
+    self.noThumbHasAppView.hidden = YES;
+}
+
+- (void)showNoThumbNoApp {
     [self hideAll];
     [self showNameLabel];
     [self makeNameLabelGrey];
-    self.noThumbNoAppView.hidden = NO;}
-- (void)hideNoThumbNoApp{ self.noThumbNoAppView.hidden = YES;}
+    self.noThumbNoAppView.hidden = NO;
+}
 
-- (void)showNoFriend{
+- (void)hideNoThumbNoApp {
+    self.noThumbNoAppView.hidden = YES;
+}
+
+- (void)showNoFriend {
     [self hideAll];
     [self hideNameLabel];
     self.noFriendView.hidden = NO;
 }
-- (void)hideNoFriend{ self.noFriendView.hidden = YES; }
+
+- (void)hideNoFriend {
+    self.noFriendView.hidden = YES;
+}
 
 
 //------------
 // Update View
 //------------
-- (void)updateView{
-    if (self.isPlaying){
+- (void)updateView {
+    if (self.isPlaying) {
         [self hideAll];
         return;
     }
@@ -525,31 +570,31 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     [self updateThumbImage];
     [self updateUnviewedCount];
     [self updateNameLabel];
-    
-    if (self.gridElement.friend == nil){
+
+    if (self.gridElement.friend == nil) {
         [self showNoFriend];
         return;
     }
-    
-    if (![self.gridElement.friend hasIncomingVideo] && !self.gridElement.friend.hasApp){
+
+    if (![self.gridElement.friend hasIncomingVideo] && !self.gridElement.friend.hasApp) {
         [self showNoThumbNoApp];
     }
-    
-    if (![self.gridElement.friend hasIncomingVideo] && self.gridElement.friend.hasApp){
+
+    if (![self.gridElement.friend hasIncomingVideo] && self.gridElement.friend.hasApp) {
         [self showNoThumbHasApp];
     }
-    
-    if ([self.gridElement.friend hasIncomingVideo]){
+
+    if ([self.gridElement.friend hasIncomingVideo]) {
         [self showThumb];
     }
-    
-    if ([self.gridElement.friend incomingVideoNotViewed]){
+
+    if ([self.gridElement.friend incomingVideoNotViewed]) {
         [self showUnviewed];
         return;
     }
-    
+
     if (self.gridElement.friend.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE) {
-        if (self.gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING){
+        if (self.gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING) {
             [self showDownload];
             return;
         } else {
@@ -557,21 +602,21 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
             [self hideAllIcons];
         }
     }
-    
-    if (self.gridElement.friend.lastVideoStatusEventType == OUTGOING_VIDEO_STATUS_EVENT_TYPE){
+
+    if (self.gridElement.friend.lastVideoStatusEventType == OUTGOING_VIDEO_STATUS_EVENT_TYPE) {
         switch (self.gridElement.friend.outgoingVideoStatus) {
-                
+
             case OUTGOING_VIDEO_STATUS_QUEUED:
             case OUTGOING_VIDEO_STATUS_UPLOADING:
             case OUTGOING_VIDEO_STATUS_UPLOADED:
             case OUTGOING_VIDEO_STATUS_DOWNLOADED:
                 [self showUpload];
                 return;
-                
+
             case OUTGOING_VIDEO_STATUS_VIEWED:
                 [self showViewed];
                 return;
-                
+
             case OUTGOING_VIDEO_STATUS_NEW:
             case OUTGOING_VIDEO_STATUS_NONE:
             case OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY:
@@ -582,26 +627,26 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     }
 }
 
-- (void)animateTransitions{
-    if (self.gridElement.friend.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE){
-        if (self.gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED){
+- (void)animateTransitions {
+    if (self.gridElement.friend.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE) {
+        if (self.gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED) {
             [self animateDownloading];
             return;
         }
     }
-    
-    if (self.gridElement.friend.lastVideoStatusEventType == OUTGOING_VIDEO_STATUS_EVENT_TYPE){
+
+    if (self.gridElement.friend.lastVideoStatusEventType == OUTGOING_VIDEO_STATUS_EVENT_TYPE) {
         switch (self.gridElement.friend.outgoingVideoStatus) {
             case OUTGOING_VIDEO_STATUS_NEW:
                 [self animateUploading];
                 return;
-            
-            // Dont update the view for these.
+
+                // Dont update the view for these.
             case OUTGOING_VIDEO_STATUS_QUEUED:
             case OUTGOING_VIDEO_STATUS_UPLOADING:
                 return;
-            
-            // Update the view for these
+
+                // Update the view for these
             case OUTGOING_VIDEO_STATUS_NONE:
             case OUTGOING_VIDEO_STATUS_UPLOADED:
             case OUTGOING_VIDEO_STATUS_DOWNLOADED:
@@ -614,29 +659,28 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 }
 
 
-
 //-----------
 // Tap events
 //-----------
-- (void)nudgeTap{
+- (void)nudgeTap {
     if ([TBMBenchViewController existingInstance].isShowing)
         return;
 
     [[TBMHomeViewController existingInstance] nudge:self.gridElement.friend];
 }
 
-- (void)recordTap{
+- (void)recordTap {
     if ([TBMBenchViewController existingInstance].isShowing)
         return;
-    
+
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Hold to Record"
                                                                      message:@"Press and hold the RECORD button to record"];
-    
+
     [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:nil]];
     [alert presentWithCompletion:nil];
 }
 
-- (void)noFriendTap{
+- (void)noFriendTap {
     [[TBMBenchViewController existingInstance] toggle];
 }
 @end

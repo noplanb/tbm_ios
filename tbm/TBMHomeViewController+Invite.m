@@ -18,7 +18,6 @@
 #import "TBMUser.h"
 #import "TBMAlertController.h"
 
-
 @implementation TBMHomeViewController (Invite)
 
 //-----------------------------------------
@@ -287,6 +286,7 @@
     mc.recipients = @[[self selectedPhoneE164]];
     mc.body = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", CONFIG_APP_NAME, CONFIG_INVITE_BASE_URL_STRING, [self friend].idTbm];
     [self startWaitingForServer];
+    [self applicationWillSwitchToSMS];
     [self presentViewController:mc animated:YES completion:^{
         [self stopWaitingForServer];
         NSLog(@"presented sms controller");
@@ -294,10 +294,8 @@
 }
 
 
-
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller
                  didFinishWithResult:(MessageComposeResult)result{
-    
     [self dismissViewControllerAnimated:YES completion:^{
         if (result == MessageComposeResultSent){
             OB_INFO(@"Invite Sms Sent");

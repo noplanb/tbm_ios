@@ -1,0 +1,8 @@
+v2.3.0 35
+
+
+New User Hint Screens
+=====================
+Spec: https://docs.google.com/document/d/1dUtUfwKTaFYRLLthv7ObtCoGS84Bi8KoZrHTahhtgfE/edit?usp=sharing
+
+Test cases: https://zazo.testrail.com/index.php?/suites/view/1&group_by=cases:section_id&group_order=asc&group_id=500

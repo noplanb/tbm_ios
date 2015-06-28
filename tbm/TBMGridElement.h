@@ -28,5 +28,8 @@
 
 // Getting and setting index with NSInteger instead of NSNumber
 - (void)setIntIndex:(NSInteger)index;
+
++ (BOOL)hasSentVideos:(NSUInteger)index;
+
 - (NSInteger)getIntIndex;
 @end
