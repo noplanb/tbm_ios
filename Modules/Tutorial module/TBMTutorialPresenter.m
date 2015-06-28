@@ -295,6 +295,10 @@
         return NO;
     }
 
+    if ([self.dataSource friendsCount] > 8) {
+        return NO;
+    }
+
     if ([self.dataSource hasSentVideos:[self.gridModule lastAddedFriendOnGridIndex]]) {
         return NO;
     }
