@@ -14,7 +14,7 @@
     self.framesToCutOut = @[
             [UIBezierPath bezierPathWithRect:highlightFrame],
     ];
-    self.showGotItButton = YES;
+    self.showGotItButton = NO;
     if (!self.arrows) {
         NSMutableArray *arrows = [NSMutableArray array];
         [arrows addObject:[TBMHintArrow arrowWithText:@"Press and hold to record"

@@ -14,7 +14,7 @@
  * Matrix need for get button,angle and curve kind values for 0..7th grid element
  */
 - (NSArray *)buttonMatrix {
-    return @[@(YES), @(NO), @(NO), @(NO), @(YES), @(YES), @(YES), @(YES)];
+    return @[@(NO), @(NO), @(NO), @(NO), @(NO), @(NO), @(NO), @(NO)];
 }
 
 - (NSArray *)angles1Matrix {
