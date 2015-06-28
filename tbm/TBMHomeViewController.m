@@ -15,7 +15,6 @@
 #import "TBMSecretScreenPresenter.h"
 #import "TBMSecretGestureRecognizer.h"
 #import "TBMTutorialPresenter.h"
-#import "TBMGridDelegate.h"
 
 @interface TBMHomeViewController ()
 @property(nonatomic) TBMAppDelegate *appDelegate;
@@ -29,6 +28,7 @@
 @property(nonatomic, strong) UIView *menuButton;
 
 @property(nonatomic) BOOL isPlaying;
+@property(nonatomic) BOOL isSMSProcessActive;
 @end
 
 @interface TBMHomeViewController ()
@@ -128,6 +128,7 @@ static TBMHomeViewController *hvcInstance;
 - (void)viewDidLoad {
     OB_INFO(@"TBMHomeViewController: viewDidLoad");
     [super viewDidLoad];
+    self.isSMSProcessActive = NO;
 
     [self registerToNotifications];
     hvcInstance = self;
@@ -146,12 +147,18 @@ static TBMHomeViewController *hvcInstance;
 }
 
 - (void)applicationDidEnterBackground {
-    [self.tutorialScreen applicationDidEnterBackground];
-    [self.tutorialScreen resetSession];
+    if (!self.isSMSProcessActive) {
+        [self.tutorialScreen applicationDidEnterBackground];
+        [self.tutorialScreen resetSession];
+    }
 }
 
 - (void)applicationDidEnterForeground {
-    [self.tutorialScreen applicationDidLaunch];
+    if (!self.isSMSProcessActive) {
+        [self.tutorialScreen applicationDidLaunch];
+    }
+    self.isSMSProcessActive = NO;
+
 }
 
 - (void)recorderStartRecording {
@@ -277,7 +284,9 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
 #pragma mark - TBMGridDelegate
 
 - (void)gridDidAppear:(TBMGridViewController *)gridViewController {
-    [self.tutorialScreen applicationDidLaunch];
+    if (!self.isSMSProcessActive) {
+        [self.tutorialScreen applicationDidLaunch];
+    }    
 }
 
 - (void)videoPlayerDidStartPlaying:(TBMVideoPlayer *)player {
@@ -308,5 +317,9 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
     [self.tutorialScreen messageDidReceive];
 }
 
+
+- (void)applicationWillSwitchToSMS {
+    self.isSMSProcessActive = YES;
+}
 
 @end

@@ -15,7 +15,7 @@
     self.framesToCutOut = @[
             [UIBezierPath bezierPathWithRect:highlightFrame],
     ];
-    self.showGotItButton = YES;
+    self.showGotItButton = NO;
     NSMutableArray *arrows = [NSMutableArray array];
     [arrows addObject:[TBMHintArrow arrowWithText:@"Send a Zazo"
                                         curveKind:TBMTutorialArrowCurveKindRight
