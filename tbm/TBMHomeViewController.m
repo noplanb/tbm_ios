@@ -282,12 +282,13 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
 
 - (void)videoPlayerDidStartPlaying:(TBMVideoPlayer *)player {
     self.isPlaying = YES;
+    [self.tutorialScreen messageDidStartPlaying];
 }
 
 - (void)videoPlayerDidStopPlaying:(TBMVideoPlayer *)player {
     if (self.isPlaying) {
         self.isPlaying = NO;
-        [self.tutorialScreen messageDidPlay];
+        [self.tutorialScreen messageDidStopPlaying];
     }
 }
 
@@ -295,8 +296,8 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
     [self.tutorialScreen messageDidSend];
 }
 
-- (void)messageDidViewed {
-    [self.tutorialScreen messageDidViewed];
+-(void)messageDidViewed:(NSUInteger)gridIndex {
+    [self.tutorialScreen messageDidViewed:gridIndex];
 }
 
 - (void)friendDidAdd {

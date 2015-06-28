@@ -77,7 +77,7 @@
     }
 
     if (!self.viewedIndicator.hidden) {
-        [self.gridElementDelegate messageDidViewed];
+        [self.gridElementDelegate messageDidViewed:[self.gridElement.index unsignedIntegerValue]];
     }
 }
 - (void)viewDidDisappear:(BOOL)animated {
@@ -407,7 +407,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     [self hideAllIcons];
     self.viewedIndicator.hidden = NO;
     if (self.isAppeared) {
-        [self.gridElementDelegate messageDidViewed];
+        [self.gridElementDelegate messageDidViewed:[self.gridElement.index unsignedIntegerValue]];
     }
 }
 

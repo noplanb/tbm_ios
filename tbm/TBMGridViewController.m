@@ -585,8 +585,8 @@ static const float LayoutConstASPECT = 0.75;
     [self.delegate messageDidUpload];
 }
 
-- (void)messageDidViewed {
-    [self.delegate messageDidViewed];
+- (void)messageDidViewed:(NSUInteger)gridIndex {
+    [self.delegate messageDidViewed:gridIndex];
 }
 
 - (void)messageDidReceive {

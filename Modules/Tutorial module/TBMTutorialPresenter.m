@@ -70,12 +70,11 @@
 
 - (void)messageDidReceive {
 
-
     if ([self checkPlayHintWithEvent:@selector(messageDidReceive)]) {
         return;
     }
 
-    if ([self checkRecordHintWithEvent:@selector(messageDidReceive)]) {
+    if ([self checkRecordHintWithEvent:nil]) {
         return;
     }
 
@@ -89,20 +88,29 @@
         return;
     }
 
-    if ([self checkInviteSomeoneElseHintWithEvent:@selector(messageDidSend)]) {
+    if ([self checkInviteSomeoneElseHintWithEvent:nil]) {
         return;
     }
 
 }
 
-- (void)messageDidPlay {
+- (void)messageDidStartPlaying {
+    [self.dataSource setMessagePlayedState:YES];
+}
+
+
+- (void)messageDidStopPlaying {
     [self.dataSource setMessagePlayedState:YES];
 
-    if ([self checkRecordHintWithEvent:@selector(messageDidPlay)]) {
-        return;
+    if (![self.dataSource messageRecordedState]) {
+        self.dataSource.recordHintShowedThisSession = NO;
     }
 
+    if ([self checkRecordHintWithEvent:nil]) {
+        return;
+    }
 }
+
 
 - (void)messageDidStartRecording {
     self.isRecording = YES;
@@ -116,9 +124,8 @@
     }
 }
 
-
-- (void)messageDidViewed {
-    if ([self checkViewedHintWithEvent:nil]) {
+- (void)messageDidViewed:(NSUInteger)gridIndex {
+    if ([self checkViewedHintWithEvent:nil index:gridIndex]) {
         return;
     }
 }
@@ -176,11 +183,11 @@
         return NO;
     }
 
-    if (self.dataSource.recordHintShowedThisSession) {
+    if ([self.dataSource messageRecordedState]) {
         return NO;
     }
 
-    if ([self.dataSource messageRecordedState]) {
+    if (self.dataSource.recordHintShowedThisSession) {
         return NO;
     }
 
@@ -263,12 +270,12 @@
 
 }
 
-- (BOOL)checkViewedHintWithEvent:(SEL)event {
+- (BOOL)checkViewedHintWithEvent:(SEL)event index:(NSUInteger)index{
     if (self.hint) {
         return NO;
     }
 
-    if ([self.dataSource friendsCount] != 1) {
+    if (index != 0) {
         return NO;
     }
 
