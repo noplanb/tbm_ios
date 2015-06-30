@@ -357,9 +357,6 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
         self.countLabel.text = @"";
     } else {
         self.countLabel.text = [NSString stringWithFormat:@"%ld", (long) self.gridElement.friend.unviewedCount];
-        if (self.isAppeared && !self.countLabel.hidden) {
-            [self.gridElementDelegate messageDidReceive];
-        }
     }
 }
 
@@ -367,6 +364,9 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     [self hideAllIcons];
     [self showGreenBorder];
     self.countLabel.hidden = NO;
+    if (self.isAppeared && !self.countLabel.hidden) {
+        [self.gridElementDelegate messageDidReceive];
+    }
 }
 
 - (void)hideUnviewed {
