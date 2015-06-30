@@ -147,6 +147,7 @@ static TBMHomeViewController *hvcInstance;
 }
 
 - (void)applicationDidEnterBackground {
+    [self.benchViewController hide];
     if (!self.isSMSProcessActive) {
         [self.tutorialScreen applicationDidEnterBackground];
         [self.tutorialScreen resetSession];
