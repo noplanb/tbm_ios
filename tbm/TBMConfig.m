@@ -73,8 +73,8 @@
 
 + (NSString *)deviceBuildString {
     // TODO: Maksim this should return prod if built with archive for release on testfairy and dev if run on device with xcode.
-//    return @"prod";
-    return @"dev";
+    return @"prod";
+//    return @"dev";
 }
 
 + (void)changeDeviceDebugModeTo:(TBMConfigDeviceDebugMode)mode {
