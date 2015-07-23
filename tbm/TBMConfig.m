@@ -72,9 +72,7 @@
 }
 
 + (NSString *)deviceBuildString {
-    // TODO: Maksim this should return prod if built with archive for release on testfairy and dev if run on device with xcode.
-    return @"prod";
-//    return @"dev";
+    return self.isDebug?@"dev":@"prod";
 }
 
 + (void)changeDeviceDebugModeTo:(TBMConfigDeviceDebugMode)mode {
@@ -98,6 +96,14 @@
 + (void)changeConfigDebugModeTo:(TBMConfigDebugMode)mode {
     [UD setInteger:mode forKey:kTBMConfigDebugModeKey];
     [UD synchronize];
+}
+
++ (BOOL)isDebug {
+    BOOL result = NO;
+#ifdef DEBUG
+    result = YES;
+#endif
+    return result;
 }
 
 #pragma mark - Appearance configuration
