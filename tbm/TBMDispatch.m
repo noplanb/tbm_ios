@@ -44,6 +44,7 @@ static BOOL TBMDispatchEnabled = NO;
                                                  name: OBLoggerErrorNotification object:nil];
 }
 
+// Change dispatching type
 + (void)setDispatchType:(TBMDispatchType)type {
     TBMDispatchSelectedType = type;
 }
@@ -61,16 +62,20 @@ static BOOL TBMDispatchEnabled = NO;
         [TBMDispatch dispatch: [TBMDispatch message:notification.object] logLevel:TBMDispatchLevelError];
 }
 
-+ (void)dispatch:(NSString *)msg logLevel:(TBMDispatchLevel)logLevel {
++ (void) dispatch: (NSString *)msg {
+    [self dispatch:msg logLevel:TBMDispatchLevelDebug];
+}
+
++ (void) dispatch:(NSString *)msg logLevel:(TBMDispatchLevel)logLevel {
     if (TBMDispatchSelectedType == TBMDispatchTypeServer) {
-        [self dispatch:msg];
+        [self dispatchViaServer:msg];
     } else {
         NSString *level = dispatchLevelStringFromDispatchLevel(logLevel);
         [Rollbar logWithLevel:level message:msg];
     }
 }
 
-+ (void) dispatch: (NSString *)msg {
++ (void) dispatchViaServer:(NSString *)msg {
     [[TBMHttpManager manager] POST:@"dispatch/post_dispatch"
                         parameters:@{SERVER_PARAMS_DISPATCH_MSG_KEY: msg,
                                      SERVER_PARAMS_DISPATCH_DEVICE_MODEL_KEY: [[UIDevice currentDevice] model],
@@ -110,7 +115,7 @@ NSString* dispatchLevelStringFromDispatchLevel(TBMDispatchLevel logLevel) {
             logLevelString = @"warning";
             break;
         case TBMDispatchLevelError:
-            logLevelString = @"warning";
+            logLevelString = @"error";
             break;
         case TBMDispatchLevelCritical:
             logLevelString = @"critical";

@@ -15,6 +15,7 @@
 #import "TBMUser.h"
 #import "TBMHttpManager.h"
 #import "AVAudioSession+TBMAudioSession.h"
+#import "TBMConfig.h"
 #import <Rollbar/Rollbar.h>
 
 @interface TBMAppDelegate()
@@ -133,9 +134,7 @@
 
 
 #pragma mark - Logger
-- (void)setupLogger{
-    [Rollbar infoWithMessage:@"Test message"];
-    
+- (void)setupLogger{    
     [OBLogger instance].writeToConsole = YES;
     if ([[OBLogger instance] logLines].count > 1000)
         [[OBLogger instance] reset];
@@ -174,7 +173,19 @@
 - (void)setupRollBar {
     RollbarConfiguration *config = [RollbarConfiguration configuration];
     config.crashLevel = @"critical";
-    config.environment = @"staging";
+    TBMConfigServerState serverState = [TBMConfig serverState];
+    NSString *env = @"development";
+    switch (serverState) {
+        case TBMServerStateProduction:
+            env = @"production";
+            break;
+        case TBMServerStateDeveloper:
+            env = @"staging";
+            break;
+        default:
+            break;
+    }
+    config.environment = env;
     [Rollbar initWithAccessToken:@"0ac2aee23dc449309b0c0bf6a46b4d59" configuration:config];
 }
 
