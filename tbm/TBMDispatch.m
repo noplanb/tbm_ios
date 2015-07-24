@@ -13,6 +13,24 @@
 #import "TBMHttpManager.h"
 #import "TBMUser.h"
 #import "TBMConfig.h"
+#import <Rollbar.h>
+
+// Dispatch type (via server or direct to rollbar)
+typedef enum {
+    TBMDispatchTypeServer = 0,
+    TBMDispatchTypeApp = 1
+} TBMDispatchType;
+
+// Dispatch logging level
+typedef enum {
+    TBMDispatchLevelDebug = 0,
+    TBMDispatchLevelInfo = 1,
+    TBMDispatchLevelWarning = 2,
+    TBMDispatchLevelError = 3,
+    TBMDispatchLevelCritical = 4
+} TBMDispatchLevel;
+
+static TBMDispatchType TBMDispatchSelectedType = TBMDispatchTypeApp;
 
 static BOOL TBMDispatchEnabled = NO;
 
@@ -20,9 +38,14 @@ static BOOL TBMDispatchEnabled = NO;
 
 + (void)initialize{
     DebugLog(@"Dispatch initialize");
+    
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(receivedError:)
                                                  name: OBLoggerErrorNotification object:nil];
+}
+
++ (void)setDispatchType:(TBMDispatchType)type {
+    TBMDispatchSelectedType = type;
 }
 
 + (void)enable{
@@ -35,18 +58,27 @@ static BOOL TBMDispatchEnabled = NO;
 
 + (void) receivedError:(NSNotification *)notification{
     if (TBMDispatchEnabled && [TBMUser getUser].isRegistered)
-        [TBMDispatch dispatch: [TBMDispatch message:notification.object]];
+        [TBMDispatch dispatch: [TBMDispatch message:notification.object] logLevel:TBMDispatchLevelError];
 }
 
-+ (void) dispatch: (NSString *)msg{
++ (void)dispatch:(NSString *)msg logLevel:(TBMDispatchLevel)logLevel {
+    if (TBMDispatchSelectedType == TBMDispatchTypeServer) {
+        [self dispatch:msg];
+    } else {
+        NSString *level = dispatchLevelStringFromDispatchLevel(logLevel);
+        [Rollbar logWithLevel:level message:msg];
+    }
+}
+
++ (void) dispatch: (NSString *)msg {
     [[TBMHttpManager manager] POST:@"dispatch/post_dispatch"
-                         parameters:@{SERVER_PARAMS_DISPATCH_MSG_KEY: msg,
-                                      SERVER_PARAMS_DISPATCH_DEVICE_MODEL_KEY: [[UIDevice currentDevice] model],
-                                      SERVER_PARAMS_DISPATCH_OS_VERSION_KEY: [[UIDevice currentDevice] systemVersion],
-                                      SERVER_PARAMS_DISPATCH_ZAZO_VERSION_KEY: CONFIG_VERSION_STRING,
-                                      SERVER_PARAMS_DISPATCH_ZAZO_VERSION_NUMBER_KEY: CONFIG_VERSION_NUMBER}
-                            success:nil
-                            failure:nil];
+                        parameters:@{SERVER_PARAMS_DISPATCH_MSG_KEY: msg,
+                                     SERVER_PARAMS_DISPATCH_DEVICE_MODEL_KEY: [[UIDevice currentDevice] model],
+                                     SERVER_PARAMS_DISPATCH_OS_VERSION_KEY: [[UIDevice currentDevice] systemVersion],
+                                     SERVER_PARAMS_DISPATCH_ZAZO_VERSION_KEY: CONFIG_VERSION_STRING,
+                                     SERVER_PARAMS_DISPATCH_ZAZO_VERSION_NUMBER_KEY: CONFIG_VERSION_NUMBER}
+                           success:nil
+                           failure:nil];
 }
 
 + (NSString *) message:(NSString *)error{
@@ -63,6 +95,30 @@ static BOOL TBMDispatchEnabled = NO;
         r = [r stringByAppendingString:@"\n"];
     }
     return r;
+}
+
+NSString* dispatchLevelStringFromDispatchLevel(TBMDispatchLevel logLevel) {
+    NSString *logLevelString = nil;
+    switch (logLevel) {
+        case TBMDispatchLevelDebug:
+            logLevelString = @"debug";
+            break;
+        case TBMDispatchLevelInfo:
+            logLevelString = @"info";
+            break;
+        case TBMDispatchLevelWarning:
+            logLevelString = @"warning";
+            break;
+        case TBMDispatchLevelError:
+            logLevelString = @"warning";
+            break;
+        case TBMDispatchLevelCritical:
+            logLevelString = @"critical";
+            break;
+        default:
+            break;
+    }
+    return logLevelString;
 }
 
 @end

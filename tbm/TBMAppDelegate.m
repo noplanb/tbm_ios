@@ -15,6 +15,7 @@
 #import "TBMUser.h"
 #import "TBMHttpManager.h"
 #import "AVAudioSession+TBMAudioSession.h"
+#import <Rollbar/Rollbar.h>
 
 @interface TBMAppDelegate()
 @property id <TBMAppDelegateEventNotificationProtocol> eventNotificationDelegate;
@@ -36,6 +37,7 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+    [self setupRollBar];
     self.pushAlreadyFailed = NO;
     [self setupLogger];
     [self addObservers];
@@ -132,6 +134,8 @@
 
 #pragma mark - Logger
 - (void)setupLogger{
+    [Rollbar infoWithMessage:@"Test message"];
+    
     [OBLogger instance].writeToConsole = YES;
     if ([[OBLogger instance] logLines].count > 1000)
         [[OBLogger instance] reset];
@@ -165,7 +169,14 @@
     return _homeViewController;
 }
 
+#pragma mark - RollBar
 
+- (void)setupRollBar {
+    RollbarConfiguration *config = [RollbarConfiguration configuration];
+    config.crashLevel = @"critical";
+    config.environment = @"staging";
+    [Rollbar initWithAccessToken:@"0ac2aee23dc449309b0c0bf6a46b4d59" configuration:config];
+}
 
 //---------
 // CoreData
