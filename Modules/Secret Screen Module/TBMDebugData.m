@@ -66,7 +66,7 @@ void append(NSMutableString *description, NSString *title, NSString *value) {
 
     append(description, @"Server address: ", self.serverAddress);
     
-    append(description, @"Dispatch Type: : ", (self.dispatchType == TBMDispatchTypeSDK)?@"RollBar SDK":@"Server");
+    append(description, @"Dispatch Type: ", (self.dispatchType == TBMDispatchTypeSDK)?@"RollBar SDK":@"Server");
 
     [description appendString:@"\n * * * * * * * * * * * * * * * * * * * * * * * * \n"];
     return (NSString *) description;
