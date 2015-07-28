@@ -15,12 +15,6 @@
 #import "TBMConfig.h"
 #import <Rollbar.h>
 
-// Dispatch type (via server or direct to rollbar)
-typedef enum {
-    TBMDispatchTypeServer = 0,
-    TBMDispatchTypeApp = 1
-} TBMDispatchType;
-
 // Dispatch logging level
 typedef enum {
     TBMDispatchLevelDebug = 0,
@@ -30,7 +24,7 @@ typedef enum {
     TBMDispatchLevelCritical = 4
 } TBMDispatchLevel;
 
-static TBMDispatchType TBMDispatchSelectedType = TBMDispatchTypeApp;
+static TBMDispatchType TBMDispatchSelectedType = TBMDispatchTypeSDK;
 
 static BOOL TBMDispatchEnabled = NO;
 
@@ -44,9 +38,12 @@ static BOOL TBMDispatchEnabled = NO;
                                                  name: OBLoggerErrorNotification object:nil];
 }
 
-// Change dispatching type
 + (void)setDispatchType:(TBMDispatchType)type {
     TBMDispatchSelectedType = type;
+}
+
++ (TBMDispatchType)dispatchType {
+    return TBMDispatchSelectedType;
 }
 
 + (void)enable{

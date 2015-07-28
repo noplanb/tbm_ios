@@ -10,12 +10,23 @@
 
 @class TBMUser;
 
+// Dispatch type (via server or direct to rollbar)
+typedef enum {
+    TBMDispatchTypeSDK = 0,
+    TBMDispatchTypeServer = 1
+} TBMDispatchType;
+
 @interface TBMDispatch : NSObject
 
 + (void)enable;
 + (void)disable;
 + (void) dispatch: (NSString *)msg;
+
+// Change dispatching type between SDK and Server
++ (void)setDispatchType:(TBMDispatchType)type;
+
 + (void)startRollBar;
 + (void)setRollBarUser:(TBMUser *)user;
-
++ (TBMDispatchType)dispatchType;
+    
 @end
