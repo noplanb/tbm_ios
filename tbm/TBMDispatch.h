@@ -12,7 +12,7 @@
 
 // Dispatch type (via server or direct to rollbar)
 typedef enum {
-    TBMDispatchTypeSDK = 0,
+    TBMDispatchTypeSDK    = 0,
     TBMDispatchTypeServer = 1
 } TBMDispatchType;
 

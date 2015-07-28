@@ -17,10 +17,10 @@
 
 // Dispatch logging level
 typedef enum {
-    TBMDispatchLevelDebug = 0,
-    TBMDispatchLevelInfo = 1,
-    TBMDispatchLevelWarning = 2,
-    TBMDispatchLevelError = 3,
+    TBMDispatchLevelDebug    = 0,
+    TBMDispatchLevelInfo     = 1,
+    TBMDispatchLevelWarning  = 2,
+    TBMDispatchLevelError    = 3,
     TBMDispatchLevelCritical = 4
 } TBMDispatchLevel;
 
