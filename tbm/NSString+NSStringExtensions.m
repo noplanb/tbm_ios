@@ -45,3 +45,26 @@ NSString* boolToStr(BOOL value) {
 NSString* intToStr(NSInteger value) {
     return [NSString stringWithFormat:@"%ld", value];
 }
+
+NSString* ullToShortStr(unsigned long long ull) {
+    NSString *type = @"";
+    long double value = 0;
+    long double factor = 1024*1024*1024.0;
+    if (ull > factor) { //GB
+        value = ull / factor;
+        type = @"GB";
+    } else {
+        factor = 1024*1024.0;
+        if (ull > factor) { //MB
+            value = ull / factor;
+            type = @"MB";
+        } else {
+            factor = 1024.0;
+            if (ull > factor) { //KB
+                value = ull / factor;
+                type = @"KB";
+            }
+        }
+    }
+    return [NSString stringWithFormat:@"%.2Lf%@", value, type];
+}

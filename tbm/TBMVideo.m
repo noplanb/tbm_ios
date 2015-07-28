@@ -238,4 +238,42 @@
     return self.status == INCOMING_VIDEO_STATUS_DOWNLOADING;
 }
 
+#pragma mark - TBMDispatchProtocol
+
++ (NSArray *)tbm_dispatchHeaderItems {
+    NSMutableArray *items = [NSMutableArray new];
+    [items addObject:@"ID"];
+    [items addObject:@"From"];
+    [items addObject:@"IV status"];
+    [items addObject:@"Exists"];
+    [items addObject:@"Size"];
+    return items;
+}
+
++ (int)tbm_dispatchColumnsCount {
+    return (int)[self tbm_dispatchHeaderItems].count;
+}
+
++ (NSString *)tbm_dispatchTitlerStr {
+    return tbm_dispatchTitleForTableName(@"Videos", (int)[self tbm_dispatchColumnsCount]);
+}
+
++ (NSString *)tbm_dispatchHeaderStr {
+    
+    return tbm_dispatchRowForItems([self tbm_dispatchHeaderItems]);
+}
+
+- (NSString *)tbm_dispatchRowStr {
+    
+    NSMutableArray *items = [NSMutableArray new];
+    // format according to COLUMN_WIDTH
+    [items addObject:tbm_dispatchRowItemForString(self.videoId)];
+    [items addObject:tbm_dispatchRowItemForString(self.friend.idTbm)];
+    [items addObject:intToStr(self.status)];
+    [items addObject:boolToStr([self videoFileExists])];
+    [items addObject:ullToShortStr(self.videoFileSize)];
+    
+    return tbm_dispatchRowForItems(items);
+}
+
 @end

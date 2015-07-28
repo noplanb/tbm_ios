@@ -19,95 +19,6 @@
 #import "TBMUser.h"
 #import "TBMFriend.h"
 
-// Width for column in dispatch log
-#define COLUMN_WIDTH 8
-
-#pragma mark - Dispatch string formatters
-
-NSString* rowForItems(NSArray* items) {
-    NSMutableString *row = [NSMutableString new];
-    NSString *format = [NSString stringWithFormat:@"%%%ds", COLUMN_WIDTH];
-    for (NSString *item in items) {
-        NSString *shortItem = item;
-        if (shortItem.length > COLUMN_WIDTH) {
-            shortItem = [shortItem substringToIndex:COLUMN_WIDTH];
-        }
-        [row appendFormat:@"| %@ ", [NSString stringWithFormat:format, shortItem.UTF8String]];
-    }
-    [row appendString:@"|"];
-    return row;
-}
-
-NSString* rowItemForString(NSString* string) {
-    return string?string:@"";
-}
-
-NSString* titleForTable(NSString* string, int columnsCount) {
-    int titleWidth = (COLUMN_WIDTH+2)*columnsCount+(columnsCount-3);
-    NSString *format = [NSString stringWithFormat:@"| %%-%d.%ds |", titleWidth, titleWidth];
-    return [NSString stringWithFormat:format, string.UTF8String];
-}
-
-#pragma mark - Dispatch categories
-
-#pragma mark -- TBMFriend
-
-@interface TBMFriend (Dispatch)
-
-- (NSString *)dispatchRowStr;
-
-@end
-
-@implementation TBMFriend (Dispatch)
-
-+ (NSArray *)dispatchHeaderItems {
-    NSMutableArray *items = [NSMutableArray new];
-    [items addObject:@"Name"];
-    [items addObject:@"ID"];
-    [items addObject:@"Has app"];
-    [items addObject:@"OV ID"];
-    [items addObject:@"OV status"];
-    [items addObject:@"Last event"];
-    [items addObject:@"Has thumb"];
-    [items addObject:@"Download"];
-    return items;
-}
-
-+ (int)dispatchColumnsCount {
-    return (int)[self dispatchHeaderItems].count;
-}
-
-+ (NSString *)dispatchTitlerStr {
-    return titleForTable(@"Friends", (int)[self dispatchColumnsCount]);
-}
-
-+ (NSString *)dispatchHeaderStr {
-    
-    return rowForItems([self dispatchHeaderItems]);
-}
-
-- (NSString *)dispatchRowStr {
-    
-    NSMutableArray *items = [NSMutableArray new];
-    // format according to COLUMN_WIDTH
-    [items addObject:[self fullName]];
-    [items addObject:rowItemForString(self.idTbm)];
-    [items addObject:boolToStr(self.hasApp)];
-    [items addObject:rowItemForString(self.outgoingVideoId)];
-    [items addObject:intToStr(self.outgoingVideoStatus)];
-    item = @"IN";
-    if (self.lastVideoStatusEventType == OUTGOING_VIDEO_STATUS_EVENT_TYPE) {
-        item = @"OUT";
-    }
-    [items addObject:item];
-    [items addObject:boolToStr(![self isThumbNoPic])];
-    [items addObject:boolToStr(![self hasDownloadingVideo])];
-    
-    return rowForItems(items);
-}
-
-@end
-
 // Dispatch logging level
 typedef enum {
     TBMDispatchLevelDebug    = 0,
@@ -194,16 +105,23 @@ static BOOL TBMDispatchEnabled = NO;
 }
 
 + (NSString *)stateString {
-    NSArray *objects = [TBMFriend all];
-    
     NSMutableString *stateString = [NSMutableString new];
-    [stateString appendFormat:@"%@\n", [TBMFriend dispatchTitlerStr]];
-    [stateString appendFormat:@"%@\n", [TBMFriend dispatchHeaderStr]];
-    for (TBMFriend *object in objects) {
-        [stateString appendFormat:@"%@\n", [object dispatchRowStr]];
+    [stateString appendFormat:@"%@\n", [TBMFriend tbm_dispatchTitlerStr]];
+    [stateString appendFormat:@"%@\n", [TBMFriend tbm_dispatchHeaderStr]];
+    
+    NSMutableString *videosString = [NSMutableString new];
+    [videosString appendFormat:@"%@\n", [TBMVideo tbm_dispatchTitlerStr]];
+    [videosString appendFormat:@"%@\n", [TBMVideo tbm_dispatchHeaderStr]];
+    
+    NSArray *friends = [TBMFriend all];
+    for (TBMFriend *friend in friends) {
+        [stateString appendFormat:@"%@\n", [friend tbm_dispatchRowStr]];
+        NSSet *videos = friend.videos;
+        for (TBMVideo *video in videos) {
+            [videosString appendFormat:@"%@\n", [video tbm_dispatchRowStr]];
+        }
     }
-
-    NSLog(@"%@", stateString);
+    [stateString appendFormat:@"\n%@", videosString];
     
     return stateString;
 }
