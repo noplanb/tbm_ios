@@ -16,7 +16,7 @@
 #import "TBMHttpManager.h"
 #import "AVAudioSession+TBMAudioSession.h"
 #import "TBMConfig.h"
-#import <Rollbar/Rollbar.h>
+#import "TBMDispatch.h"
 
 @interface TBMAppDelegate()
 @property id <TBMAppDelegateEventNotificationProtocol> eventNotificationDelegate;
@@ -38,7 +38,7 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
-    [self setupRollBar];
+    [TBMDispatch startRollBar];
     self.pushAlreadyFailed = NO;
     [self setupLogger];
     [self addObservers];
@@ -166,27 +166,6 @@
         _homeViewController = (TBMHomeViewController *)[[self storyBoard] instantiateViewControllerWithIdentifier:@"HomeViewController"];
     }
     return _homeViewController;
-}
-
-#pragma mark - RollBar
-
-- (void)setupRollBar {
-    RollbarConfiguration *config = [RollbarConfiguration configuration];
-    config.crashLevel = @"critical";
-    TBMConfigServerState serverState = [TBMConfig serverState];
-    NSString *env = @"development";
-    switch (serverState) {
-        case TBMServerStateProduction:
-            env = @"production";
-            break;
-        case TBMServerStateDeveloper:
-            env = @"staging";
-            break;
-        default:
-            break;
-    }
-    config.environment = env;
-    [Rollbar initWithAccessToken:@"0ac2aee23dc449309b0c0bf6a46b4d59" configuration:config];
 }
 
 //---------

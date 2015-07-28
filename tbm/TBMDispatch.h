@@ -8,9 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+@class TBMUser;
+
 @interface TBMDispatch : NSObject
 
 + (void)enable;
 + (void)disable;
 + (void) dispatch: (NSString *)msg;
++ (void)startRollBar;
++ (void)setRollBarUser:(TBMUser *)user;
+
 @end

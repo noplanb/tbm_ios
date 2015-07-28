@@ -126,4 +126,39 @@ NSString* dispatchLevelStringFromDispatchLevel(TBMDispatchLevel logLevel) {
     return logLevelString;
 }
 
+#pragma mark - RollBar
+
++ (void)startRollBar {
+    RollbarConfiguration *config = [RollbarConfiguration configuration];
+    config.crashLevel = @"critical";
+    TBMConfigServerState serverState = [TBMConfig serverState];
+    NSString *env = @"development";
+    switch (serverState) {
+        case TBMServerStateProduction:
+            env = @"production";
+            break;
+        case TBMServerStateDeveloper:
+            env = @"staging";
+            break;
+        default:
+            break;
+    }
+    config.environment = env;
+    TBMUser *user = [TBMUser getUser];
+    [self setRollBarUser:user forConfig:config];
+    [Rollbar initWithAccessToken:@"0ac2aee23dc449309b0c0bf6a46b4d59" configuration:config];
+}
+
++ (void)setRollBarUser:(TBMUser *)user forConfig:(RollbarConfiguration *)config {
+    NSString *personId = user.idTbm;
+    NSString *username = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
+    NSString *email = user.mobileNumber;
+    [config setPersonId:personId username:username email:email];
+}
+
++ (void)setRollBarUser:(TBMUser *)user {
+    RollbarConfiguration *config = [Rollbar currentConfiguration];
+    [self setRollBarUser:user forConfig:config];
+}
+
 @end
