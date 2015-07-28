@@ -37,3 +37,11 @@
     return NO;
 }
 @end
+
+NSString* boolToStr(BOOL value) {
+    return value?@"true":@"false";
+}
+
+NSString* intToStr(NSInteger value) {
+    return [NSString stringWithFormat:@"%ld", value];
+}
