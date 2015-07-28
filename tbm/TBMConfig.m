@@ -72,7 +72,7 @@
 }
 
 + (NSString *)deviceBuildString {
-    return self.isDebug?@"dev":@"prod";
+    return [self isBuiltForDebug]?@"dev":@"prod";
 }
 
 + (void)changeDeviceDebugModeTo:(TBMConfigDeviceDebugMode)mode {
@@ -98,7 +98,7 @@
     [UD synchronize];
 }
 
-+ (BOOL)isDebug {
++ (BOOL)isBuiltForDebug {
     BOOL result = NO;
 #ifdef DEBUG
     result = YES;
