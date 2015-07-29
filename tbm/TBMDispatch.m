@@ -18,6 +18,9 @@
 
 #import "TBMUser.h"
 #import "TBMFriend.h"
+#import "TBMStateScreenDataSource.h"
+#import "TBMFriendVideosInformation.h"
+#import "TBMVideoObject.h"
 
 // Dispatch logging level
 typedef enum {
@@ -104,8 +107,11 @@ static BOOL TBMDispatchEnabled = NO;
     return r;
 }
 
+// State info
+
 + (NSString *)stateString {
     NSMutableString *stateString = [NSMutableString new];
+    // Friends
     [stateString appendFormat:@"%@\n", [TBMFriend tbm_dispatchTitlerStr]];
     [stateString appendFormat:@"%@\n", [TBMFriend tbm_dispatchHeaderStr]];
     
@@ -120,6 +126,40 @@ static BOOL TBMDispatchEnabled = NO;
         for (TBMVideo *video in videos) {
             [videosString appendFormat:@"%@\n", [video tbm_dispatchRowStr]];
         }
+    }
+    [stateString appendFormat:@"\n%@", videosString];
+    
+    // Videos
+    TBMStateScreenDataSource *data = [[TBMStateScreenDataSource alloc] init];
+    [data loadFriendsVideoObjects];
+    [data loadVideos];
+    [data excludeNonDanglingFiles];
+    
+    videosString = [NSMutableString new];
+    [videosString appendFormat:@"%@\n", [TBMVideoObject tbm_dispatchTitlerStr]];
+    [videosString appendFormat:@"%@\n", [TBMVideoObject tbm_dispatchHeaderStr]];
+    
+    for (TBMFriendVideosInformation *object in data.friendsVideoObjects) {
+        // TBMVideoObject
+        // Outgoing
+        [videosString appendFormat:@"%@\n", [object tbm_dispatchRowStr]];
+        for (TBMVideoObject *ovo in object.outgoingObjects) {
+            [videosString appendFormat:@"%@\n", [ovo tbm_dispatchRowStr]];
+        }
+        // Incoming
+        for (TBMVideoObject *ivo in object.incomingObjects) {
+            [videosString appendFormat:@"%@\n", [ivo tbm_dispatchRowStr]];
+        }
+    }
+    [stateString appendFormat:@"\n%@", videosString];
+    
+    // Files
+    videosString = [NSMutableString new];
+    for (NSString *ivf in data.incomingFiles) {
+        [videosString appendFormat:@"%@\n", ivf];
+    }
+    for (NSString *ovf in data.outgoingFiles) {
+        [videosString appendFormat:@"%@\n", ovf];
     }
     [stateString appendFormat:@"\n%@", videosString];
     
@@ -183,20 +223,6 @@ NSString* dispatchLevelStringFromDispatchLevel(TBMDispatchLevel logLevel) {
 + (void)setRollBarUser:(TBMUser *)user {
     RollbarConfiguration *config = [Rollbar currentConfiguration];
     [self setRollBarUser:user forConfig:config];
-}
-
-#pragma mark - Helpers
-
-+ (NSInteger)columnWidthForItems:(NSArray *)items {
-    NSInteger maxWidth = 0;
-    
-    for (NSString *item in items) {
-        if (maxWidth < item.length) {
-            maxWidth = item.length;
-        }
-    }
-    
-    return maxWidth;
 }
 
 @end
