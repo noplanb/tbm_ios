@@ -123,24 +123,25 @@ static BOOL TBMDispatchEnabled = NO;
     for (TBMFriend *friend in friends) {
         [stateString appendFormat:@"%@\n", [friend tbm_dispatchRowStr]];
         NSSet *videos = friend.videos;
+        // For every friend log videos
         for (TBMVideo *video in videos) {
             [videosString appendFormat:@"%@\n", [video tbm_dispatchRowStr]];
         }
     }
+    // Add friends' videos to our log
     [stateString appendFormat:@"\n%@", videosString];
     
     // Videos
     TBMStateScreenDataSource *data = [[TBMStateScreenDataSource alloc] init];
     [data loadFriendsVideoObjects];
     [data loadVideos];
-    [data excludeNonDanglingFiles];
     
     videosString = [NSMutableString new];
     [videosString appendFormat:@"%@\n", [TBMVideoObject tbm_dispatchTitlerStr]];
     [videosString appendFormat:@"%@\n", [TBMVideoObject tbm_dispatchHeaderStr]];
     
+    // TBMVideoObject
     for (TBMFriendVideosInformation *object in data.friendsVideoObjects) {
-        // TBMVideoObject
         // Outgoing
         [videosString appendFormat:@"%@\n", [object tbm_dispatchRowStr]];
         for (TBMVideoObject *ovo in object.outgoingObjects) {
@@ -153,11 +154,15 @@ static BOOL TBMDispatchEnabled = NO;
     }
     [stateString appendFormat:@"\n%@", videosString];
     
-    // Files
+    // Dangling Files
+    [data excludeNonDanglingFiles];
     videosString = [NSMutableString new];
+    [videosString appendString:@"Dangling files\n"];
+    [videosString appendFormat:@"Incoming (%d)\n", (int)data.incomingFiles.count];
     for (NSString *ivf in data.incomingFiles) {
         [videosString appendFormat:@"%@\n", ivf];
     }
+    [videosString appendFormat:@"Outgoing (%d)\n", (int)data.outgoingFiles.count];
     for (NSString *ovf in data.outgoingFiles) {
         [videosString appendFormat:@"%@\n", ovf];
     }

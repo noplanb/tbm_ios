@@ -10,7 +10,7 @@
 #import "TBMDispatchProtocol.h"
 
 // Width for column in dispatch log
-#define COLUMN_WIDTH 8
+#define COLUMN_WIDTH 14
 
 #pragma mark - Dispatch string formatters
 

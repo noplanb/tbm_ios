@@ -238,6 +238,32 @@
     return self.status == INCOMING_VIDEO_STATUS_DOWNLOADING;
 }
 
++ (NSString *)nameForStatus:(TBMIncomingVideoStatus)status {
+    NSString *name = @"UNKNOWN";
+    switch (status) {
+        case INCOMING_VIDEO_STATUS_NEW:
+            name = @"NEW";
+            break;
+        case INCOMING_VIDEO_STATUS_DOWNLOADING:
+            name = @"DOWNLOADING";
+            break;
+        case INCOMING_VIDEO_STATUS_DOWNLOADED:
+            name = @"DOWNLOADED";
+            break;
+        case INCOMING_VIDEO_STATUS_VIEWED:
+            name = @"VIEWED";
+            break;
+        case INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY:
+            name = @"PERMANENTLY";
+            break;
+    }
+    return name;
+}
+
+- (NSString *)statusName {
+    return [TBMVideo nameForStatus:self.status];
+}
+
 #pragma mark - TBMDispatchProtocol
 
 + (NSArray *)tbm_dispatchHeaderItems {
@@ -268,8 +294,8 @@
     NSMutableArray *items = [NSMutableArray new];
     // format according to COLUMN_WIDTH
     [items addObject:tbm_dispatchRowItemForString(self.videoId)];
-    [items addObject:tbm_dispatchRowItemForString(self.friend.idTbm)];
-    [items addObject:intToStr(self.status)];
+    [items addObject:tbm_dispatchRowItemForString(self.friend.idTbm)];    
+    [items addObject:[self statusName]];
     [items addObject:boolToStr([self videoFileExists])];
     [items addObject:ullToShortStr(self.videoFileSize)];
     

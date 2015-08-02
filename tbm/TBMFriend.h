@@ -123,6 +123,9 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 - (NSString *)fullName;
 
 - (BOOL)hasOutgoingVideo;
+
+- (NSString *)OVStatusName;
+
 @end
 
 @interface TBMFriend (CoreDataGeneratedAccessors)
