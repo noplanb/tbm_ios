@@ -116,6 +116,7 @@
 		22F32AFC19228F3300AB524E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F32AFB19228F3300AB524E /* StoreKit.framework */; };
 		22FE2A011A09C0460051FC9C /* TBMFriendGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FE2A001A09C0460051FC9C /* TBMFriendGetter.m */; };
 		4106AE661AD550AB007910EC /* TBMPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4106AE651AD550AB007910EC /* TBMPreviewView.m */; };
+		535015EA1B68340D00C97934 /* TBMDispatchProtocolHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 535015E91B68340D00C97934 /* TBMDispatchProtocolHelper.m */; };
 		682D6038621F9BF504756350 /* TBMGridElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6055CE3550BEADD02CE5 /* TBMGridElementViewController.m */; };
 		682D60F9B7F1622956C443B1 /* TBMSecretGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6EDE4AD1CE7679FA9DD3 /* TBMSecretGestureRecognizer.m */; };
 		682D61627A0B0CBEA24B4547 /* TBMStateScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D63A1BFEA21BC7B331EE8 /* TBMStateScreenView.m */; };
@@ -326,6 +327,8 @@
 		4106AE651AD550AB007910EC /* TBMPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMPreviewView.m; sourceTree = "<group>"; };
 		41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		535015E81B68339900C97934 /* TBMDispatchProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBMDispatchProtocol.h; sourceTree = "<group>"; };
+		535015E91B68340D00C97934 /* TBMDispatchProtocolHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDispatchProtocolHelper.m; sourceTree = "<group>"; };
 		682D60293875DB788D638435 /* TBMTutorialModuleInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMTutorialModuleInterface.h; sourceTree = "<group>"; };
 		682D6055CE3550BEADD02CE5 /* TBMGridElementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMGridElementViewController.m; sourceTree = "<group>"; };
 		682D6066C4BBB00F3CA6A092 /* TBMHomeViewController+Invite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMHomeViewController+Invite.m"; sourceTree = "<group>"; };
@@ -515,8 +518,7 @@
 				223D927A1A1EE0F2002F1E14 /* TBMContactSearchTableDelegate.m */,
 				225D21BE1A5B5B4F0087A25B /* TBMS3CredentialsManager.h */,
 				225D21BF1A5B5B4F0087A25B /* TBMS3CredentialsManager.m */,
-				22151E861A5CB07B008EF88E /* TBMDispatch.h */,
-				22151E871A5CB07B008EF88E /* TBMDispatch.m */,
+				53C041351B629DB300FDA066 /* Dispatch */,
 				682D6D91B825D07499A2AFA1 /* TBMGridDelegate.h */,
 				682D69D3198C3FAD73003CDD /* TBMGridElementDelegate.h */,
 			);
@@ -773,6 +775,17 @@
 				22EA56B519103A3F00646D3E /* single_ding_chimes.wav */,
 			);
 			name = Sounds;
+			sourceTree = "<group>";
+		};
+		53C041351B629DB300FDA066 /* Dispatch */ = {
+			isa = PBXGroup;
+			children = (
+				22151E861A5CB07B008EF88E /* TBMDispatch.h */,
+				22151E871A5CB07B008EF88E /* TBMDispatch.m */,
+				535015E81B68339900C97934 /* TBMDispatchProtocol.h */,
+				535015E91B68340D00C97934 /* TBMDispatchProtocolHelper.m */,
+			);
+			name = Dispatch;
 			sourceTree = "<group>";
 		};
 		682D6023FF64D31570E2D94D /* Cell */ = {
@@ -1198,6 +1211,7 @@
 				682D676EE6AC54DA21F5BE5B /* TBMGridViewController.m in Sources */,
 				682D62D57A0E4B92D8573610 /* TBMInvite1Hint.m in Sources */,
 				682D6DCE98A1654D48AC3C44 /* TBMPlayHint.m in Sources */,
+				535015EA1B68340D00C97934 /* TBMDispatchProtocolHelper.m in Sources */,
 				682D61E8C7270909E66E883B /* TBMRecordHint.m in Sources */,
 				682D630978D0DBF211D532D8 /* TBMSentHint.m in Sources */,
 				682D6C7461FA8918E34DDD75 /* TBMInviteSomeoneElseHint.m in Sources */,

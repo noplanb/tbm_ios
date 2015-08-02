@@ -7,10 +7,11 @@
 //
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "TBMDispatchProtocol.h"
 
 @class TBMFriend;
 
-@interface TBMVideo : NSManagedObject
+@interface TBMVideo : NSManagedObject <TBMDispatchProtocol>
 
 // Note order matters. The first enum is chosen intentionally since that is what the
 // property initializes to.
@@ -59,4 +60,8 @@ typedef NS_ENUM (NSInteger, TBMIncomingVideoStatus) {
 - (void)deleteThumbFile;
 
 - (BOOL)isStatusDownloading;
+
+- (NSString *)statusName;
++ (NSString *)nameForStatus:(TBMIncomingVideoStatus)status;
+
 @end

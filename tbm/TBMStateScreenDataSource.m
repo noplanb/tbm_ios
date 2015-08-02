@@ -21,32 +21,6 @@ NSString *status(TBMOutgoingVideoStatus status);
 }
 #pragma mark - Helpers
 
-NSString *outgoing_status(TBMOutgoingVideoStatus status) {
-    NSArray *statuses = @[
-            @"OUTGOING_VIDEO_STATUS_NONE",
-            @"OUTGOING_VIDEO_STATUS_NEW",
-            @"OUTGOING_VIDEO_STATUS_QUEUED",
-            @"OUTGOING_VIDEO_STATUS_UPLOADING",
-            @"OUTGOING_VIDEO_STATUS_UPLOADED",
-            @"OUTGOING_VIDEO_STATUS_DOWNLOADED",
-            @"OUTGOING_VIDEO_STATUS_VIEWED",
-            @"OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY]"
-    ];
-
-    return statuses[status];
-}
-
-NSString *incoming_status(TBMIncomingVideoStatus status) {
-    NSArray *statuses = @[
-            @"INCOMING_VIDEO_STATUS_NEW",
-            @"INCOMING_VIDEO_STATUS_DOWNLOADING",
-            @"INCOMING_VIDEO_STATUS_DOWNLOADED",
-            @"INCOMING_VIDEO_STATUS_VIEWED",
-            @"INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY"
-    ];
-    return statuses[status];
-}
-
 BOOL containID(NSString *fileName, NSString *fileId) {
     NSUInteger location = [fileName rangeOfString:fileId].location;
     BOOL result = location != NSNotFound;
@@ -64,9 +38,12 @@ BOOL containID(NSString *fileName, NSString *fileId) {
         TBMVideoObject *videoObject;
         // Make incoming array
         NSMutableArray *incomingObjects = [@[] mutableCopy];
+        NSString *statusName;
+        
         for (TBMVideo *video in friend.videos) {
+            statusName = [NSString stringWithFormat:@"INCOMING_VIDEO_STATUS_%@", [video statusName]];
             videoObject = [TBMVideoObject makeVideoObjectWithVideoID:video.videoId
-                                                              status:incoming_status(video.status)];
+                                                              status:statusName];
             if (videoObject) {
                 [incomingObjects addObject:videoObject];
                 [self.notDanglingFiles addObject:video.videoId];
@@ -75,9 +52,10 @@ BOOL containID(NSString *fileName, NSString *fileId) {
         information.incomingObjects = incomingObjects;
 
         // Make outgoing object
-
+        
+        statusName = [NSString stringWithFormat:@"OUTGOING_VIDEO_STATUS_%@", [friend OVStatusName]];
         videoObject = [TBMVideoObject makeVideoObjectWithVideoID:friend.outgoingVideoId
-                                                          status:outgoing_status(friend.outgoingVideoStatus)];
+                                                          status:statusName];
         if (videoObject) {
             information.outgoingObjects = @[videoObject];
             [self.notDanglingFiles addObject:friend.outgoingVideoId];

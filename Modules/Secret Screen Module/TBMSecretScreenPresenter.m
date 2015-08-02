@@ -147,4 +147,10 @@
 - (void)resetHintsButtonDidPress {
     [self.tutorialModule resetHintsState];
 }
+
+- (void)dispatchTypeSegmentedControlDidChangeTo:(NSInteger)index {
+    [TBMDispatch setDispatchType:(TBMDispatchType)index];
+    [self reload];
+}
+
 @end

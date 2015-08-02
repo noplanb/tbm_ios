@@ -16,7 +16,6 @@
 #import "OBLogger.h"
 #import "TBMHttpManager.h"
 #import "TBMPhoneUtils.h"
-#import "NSString+NSStringExtensions.h"
 
 @implementation TBMFriend
 
@@ -664,4 +663,90 @@ static NSMutableArray * videoStatusNotificationDelegates;
 
     return NO;
 }
+
+- (NSString *)OVStatusName {
+    return [TBMFriend nameForOVStatus:self.outgoingVideoStatus];
+}
+
++ (NSString *)nameForOVStatus:(TBMOutgoingVideoStatus)status {
+    NSString *s = @"UNKNOWN";
+    switch (status) {
+        case OUTGOING_VIDEO_STATUS_NONE:
+            s = @"NONE";
+            break;
+        case OUTGOING_VIDEO_STATUS_NEW:
+            s = @"NEW";
+            break;
+        case OUTGOING_VIDEO_STATUS_QUEUED:
+            s = @"QUEUED";
+            break;
+        case OUTGOING_VIDEO_STATUS_UPLOADING:
+            s = @"UPLOADING";
+            break;
+        case OUTGOING_VIDEO_STATUS_UPLOADED:
+            s = @"UPLOADED";
+            break;
+        case OUTGOING_VIDEO_STATUS_DOWNLOADED:
+            s = @"DOWNLOADED";
+            break;
+        case OUTGOING_VIDEO_STATUS_VIEWED:
+            s = @"VIEWED";
+            break;
+        case OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY:
+            s = @"FAILED";
+            break;
+    }
+    return s;
+}
+
+#pragma mark - TBMDispatchProtocol
+
++ (NSArray *)tbm_dispatchHeaderItems {
+    NSMutableArray *items = [NSMutableArray new];
+    [items addObject:@"Name"];
+    [items addObject:@"ID"];
+    [items addObject:@"Has app"];
+    [items addObject:@"IV status"];
+    [items addObject:@"OV ID"];
+    [items addObject:@"OV status"];
+    [items addObject:@"Last event"];
+    [items addObject:@"Has thumb"];
+    [items addObject:@"Download"];
+    return items;
+}
+
++ (int)tbm_dispatchColumnsCount {
+    return (int)[self tbm_dispatchHeaderItems].count;
+}
+
++ (NSString *)tbm_dispatchTitlerStr {
+    return tbm_dispatchTitleForTableName(@"Friends", (int)[self tbm_dispatchColumnsCount]);
+}
+
++ (NSString *)tbm_dispatchHeaderStr {
+    
+    return tbm_dispatchRowForItems([self tbm_dispatchHeaderItems]);
+}
+
+- (NSString *)tbm_dispatchRowStr {
+    
+    NSMutableArray *items = [NSMutableArray new];
+    // format according to COLUMN_WIDTH
+    [items addObject:[self fullName]];
+    [items addObject:tbm_dispatchRowItemForString(self.idTbm)];
+    [items addObject:boolToStr(self.hasApp)];
+    [items addObject:[TBMVideo nameForStatus:self.lastIncomingVideoStatus]];
+    [items addObject:tbm_dispatchRowItemForString(self.outgoingVideoId)];
+    [items addObject:[TBMFriend nameForOVStatus:self.outgoingVideoStatus]];
+    NSString *item = @"IN";
+    if (self.lastVideoStatusEventType == OUTGOING_VIDEO_STATUS_EVENT_TYPE) {
+        item = @"OUT";
+    }
+    [items addObject:item];
+    [items addObject:boolToStr(![self isThumbNoPic])];
+    [items addObject:boolToStr(![self hasDownloadingVideo])];
+    
+    return tbm_dispatchRowForItems(items);
+}
+
 @end
