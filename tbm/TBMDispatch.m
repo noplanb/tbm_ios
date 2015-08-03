@@ -115,28 +115,17 @@ static BOOL TBMDispatchEnabled = NO;
     [stateString appendFormat:@"%@\n", [TBMFriend tbm_dispatchTitlerStr]];
     [stateString appendFormat:@"%@\n", [TBMFriend tbm_dispatchHeaderStr]];
     
-    NSMutableString *videosString = [NSMutableString new];
-    [videosString appendFormat:@"%@\n", [TBMVideo tbm_dispatchTitlerStr]];
-    [videosString appendFormat:@"%@\n", [TBMVideo tbm_dispatchHeaderStr]];
-    
     NSArray *friends = [TBMFriend all];
     for (TBMFriend *friend in friends) {
         [stateString appendFormat:@"%@\n", [friend tbm_dispatchRowStr]];
-        NSSet *videos = friend.videos;
-        // For every friend log videos
-        for (TBMVideo *video in videos) {
-            [videosString appendFormat:@"%@\n", [video tbm_dispatchRowStr]];
-        }
     }
-    // Add friends' videos to our log
-    [stateString appendFormat:@"\n%@", videosString];
     
     // Videos
     TBMStateScreenDataSource *data = [[TBMStateScreenDataSource alloc] init];
     [data loadFriendsVideoObjects];
     [data loadVideos];
     
-    videosString = [NSMutableString new];
+    NSMutableString *videosString = [NSMutableString new];
     [videosString appendFormat:@"%@\n", [TBMVideoObject tbm_dispatchTitlerStr]];
     [videosString appendFormat:@"%@\n", [TBMVideoObject tbm_dispatchHeaderStr]];
     
