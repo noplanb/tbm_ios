@@ -11,13 +11,16 @@
 
 
 @interface TBMUser : NSManagedObject
-@property (nonatomic) BOOL isRegistered;
-@property (nonatomic, retain) NSString * firstName;
-@property (nonatomic, retain) NSString * lastName;
-@property (nonatomic, retain) NSString * idTbm;
 @property (nonatomic, retain) NSString * auth;
+@property (nonatomic, retain) NSString * firstName;
+@property (nonatomic, retain) NSString * idTbm;
+@property (nonatomic, assign) BOOL isRegistered;
+@property (nonatomic, retain) NSString * lastName;
 @property (nonatomic, retain) NSString * mkey;
 @property (nonatomic, retain) NSString * mobileNumber;
+
+//Added in v2
+@property (nonatomic, retain) NSNumber * isInvitee;
 
 + (instancetype)getUser;
 + (instancetype)createWithServerParams:(NSDictionary *)params;

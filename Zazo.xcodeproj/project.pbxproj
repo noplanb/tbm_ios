@@ -122,6 +122,7 @@
 		682D61C015B1762B6B49EE84 /* TBMVideoObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D66D8321536CA4FB9C08F /* TBMVideoObject.m */; };
 		682D61C88A5352C778DEAF25 /* TBMDebugData.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6A6BA73E6B0485C33D18 /* TBMDebugData.m */; };
 		682D61E8C7270909E66E883B /* TBMRecordHint.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6CFEC9FF751F510BB9AA /* TBMRecordHint.m */; };
+		682D620F8CCD60441A308FBB /* TBMFrontCameraFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D682807489BC2CD32B791 /* TBMFrontCameraFeature.m */; };
 		682D62D57A0E4B92D8573610 /* TBMInvite1Hint.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D65D8E0939D064A9BFB53 /* TBMInvite1Hint.m */; };
 		682D630978D0DBF211D532D8 /* TBMSentHint.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6D387947BBCAAF2F07A4 /* TBMSentHint.m */; };
 		682D63AEA1A6A755E0A4ACEB /* TBMHomeViewController+Invite.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6066C4BBB00F3CA6A092 /* TBMHomeViewController+Invite.m */; };
@@ -365,6 +366,7 @@
 		682D6B7FD8A5FFA80AB91270 /* TBMHint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHint.m; sourceTree = "<group>"; };
 		682D6BB66F5D79CBC5D0AD42 /* TBMGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMGridViewController.m; sourceTree = "<group>"; };
 		682D6BEB7DF2D8F6C006490D /* TBMFriendVideosInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFriendVideosInformation.h; sourceTree = "<group>"; };
+		682D6C4A10F7827E511AC872 /* TBMNewFeatureDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMNewFeatureDialog.h; sourceTree = "<group>"; };
 		682D6CC89EBD7BF7C5F97575 /* TBMInviteSomeoneElseHint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMInviteSomeoneElseHint.h; sourceTree = "<group>"; };
 		682D6CEEDC2C19A9C110863B /* TBMRecordHint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMRecordHint.h; sourceTree = "<group>"; };
 		682D6CF8A570C3E6A59499D1 /* TBMGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMGridViewController.h; sourceTree = "<group>"; };
@@ -388,8 +390,10 @@
 		682D6F2E6181D4111349CA53 /* TBMHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHomeViewController.m; sourceTree = "<group>"; };
 		682D6F37715F43E4C0D91C5A /* TBMHomeViewController+VersionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMHomeViewController+VersionController.h"; sourceTree = "<group>"; };
 		682D6FD6C1B02EA9F89009CE /* TBMStateScreenTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMStateScreenTableCell.m; sourceTree = "<group>"; };
+		682D6FF82066AA0EDD9C11C8 /* TBMNewFeatureDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMNewFeatureDialog.m; sourceTree = "<group>"; };
 		7716E91C15B9FF656396DC61 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		98B109B594AF439180A6DFAF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE1870C41B73A14A006A0829 /* tbm-v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "tbm-v2.xcdatamodel"; sourceTree = "<group>"; };
 		FE465EBD1B28B76000694DE3 /* DK Crayon Crumble.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DK Crayon Crumble.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -798,6 +802,13 @@
 				682D61E785DCC6E4B1737E29 /* TBMSecretScreenPresenter.m */,
 			);
 			path = "Secret Screen Module";
+			sourceTree = "<group>";
+		};
+		682D61B1EEA64071927D7A8C /* Data Source */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Data Source";
 			sourceTree = "<group>";
 		};
 		682D61F356C38CBF6CEA6783 /* State Screen */ = {
@@ -1470,9 +1481,10 @@
 		220E903C1909A18B003C4F82 /* tbm.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				FE1870C41B73A14A006A0829 /* tbm-v2.xcdatamodel */,
 				220E903D1909A18B003C4F82 /* tbm.xcdatamodel */,
 			);
-			currentVersion = 220E903D1909A18B003C4F82 /* tbm.xcdatamodel */;
+			currentVersion = FE1870C41B73A14A006A0829 /* tbm-v2.xcdatamodel */;
 			path = tbm.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

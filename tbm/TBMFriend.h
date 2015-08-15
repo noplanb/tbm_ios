@@ -36,22 +36,26 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
     OUTGOING_VIDEO_STATUS_EVENT_TYPE
 };
 
+@property (nonatomic, retain) NSString * ckey;
 @property (nonatomic, retain) NSString * firstName;
+@property (nonatomic, assign) BOOL hasApp;
 @property (nonatomic, retain) NSString * idTbm;
 @property (nonatomic, retain) NSString * lastName;
+@property (nonatomic, retain) NSString * mkey;
 @property (nonatomic, retain) NSString * mobileNumber;
 @property (nonatomic, retain) NSString * outgoingVideoId;
+@property (nonatomic, retain) NSDate * timeOfLastAction;
+@property (nonatomic, retain) NSNumber * uploadRetryCount;
+@property (nonatomic, retain) TBMGridElement *gridElement;
+@property (nonatomic, retain) NSSet *videos;
+
 @property (nonatomic) TBMOutgoingVideoStatus outgoingVideoStatus;
 @property (nonatomic) TBMVideoStatusEventType lastVideoStatusEventType;
 @property (nonatomic) TBMIncomingVideoStatus lastIncomingVideoStatus;
-@property (nonatomic, retain) NSNumber * uploadRetryCount;
-@property (nonatomic, retain) NSString * mkey;
-@property (nonatomic, retain) NSString * ckey;
-@property (nonatomic) BOOL hasApp;
-@property (nonatomic, retain) NSSet *videos;
-@property (nonatomic, retain) TBMGridElement *gridElement;
-@property (nonatomic, retain) NSDate *timeOfLastAction;
 
+// Added in v2
+@property (nonatomic, retain) NSNumber * everSent;
+@property (nonatomic, retain) NSNumber * isConnectionCreator;
 
 // Finders
 + (NSArray *)all;
@@ -95,6 +99,8 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 + (void)removeVideoStatusNotificationDelegate:(id)delegate;
 
 - (UIImage *)thumbImage;
+
++ (void)fillAfterMigration;
 
 - (BOOL)isThumbNoPic;
 - (void)generateThumbWithVideo:(TBMVideo *)video;
