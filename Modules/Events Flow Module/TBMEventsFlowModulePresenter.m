@@ -4,18 +4,9 @@
 //
 
 #import "TBMHomeViewController+Invite.h"
-#import "TBMHomeViewController+VersionController.h"
-#import "TBMHomeViewController.h"
 #import "TBMEventsFlowModulePresenter.h"
 #import "TBMHintView.h"
-#import "TBMInviteHintView.h"
-#import "TBMPlayHintView.h"
-#import "TBMRecordHintView.h"
-#import "TBMSentHintView.h"
-#import "TBMInviteSomeoneElseHintView.h"
-#import "TBMViewedHintView.h"
-#import "TBMWelcomeHintView.h"
-#import "OBLoggerCore.h"
+#import "TBMSwitchCameraFeatureView.h"
 
 @interface TBMEventsFlowModulePresenter ()
 
@@ -55,16 +46,22 @@
 - (void)throwEvent:(TBMEventFlowEvent)anEvent {
     id <TBMEventsFlowModuleEventHandler> currentEvenHandler = nil;
     for (id <TBMEventsFlowModuleEventHandler> evenHandler in self.eventHandlers) {
+        NSLog(@"enumerate %@ -", [evenHandler class]);
         if ([evenHandler conditionForEvent:anEvent dataSource:self.dataSource]) {
+            NSLog(@"++ Condition for  %@ ++", [evenHandler class]);
+            NSLog(@"priority %d | %@ priority = %d  -", [evenHandler priority], [currentEvenHandler class], [currentEvenHandler priority]);
             if ([currentEvenHandler priority] < [evenHandler priority]) {
+                NSLog(@">> Select:  %@ ++", [evenHandler class]);
                 currentEvenHandler = evenHandler;
             }
         }
     }
 
     if (currentEvenHandler) {
-        self.curentEventHandler = currentEvenHandler;
         [currentEvenHandler presentWithDataSource:self.dataSource gridModule:self.gridModule];
+        if ([currentEvenHandler isPresented]) {
+            self.curentEventHandler = currentEvenHandler;
+        }
     }
 }
 

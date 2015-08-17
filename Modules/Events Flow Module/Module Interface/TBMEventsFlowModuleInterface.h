@@ -32,7 +32,7 @@ typedef NS_ENUM(NSInteger, TBMEventFlowEvent) {
     TBMEventFlowEventMessageDidViewed,
 
     // Hints events
-            TBMEventFlowEventSentHintDidDissmiss,
+            TBMEventFlowEventSentHintDidDismiss,
 
     // Feature unlocks events
 

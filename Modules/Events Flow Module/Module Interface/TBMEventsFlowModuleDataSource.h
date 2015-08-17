@@ -3,7 +3,7 @@
 // Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <Foundation/Foundation.h>@class TBMFeatureKind;
 
 @protocol TBMEventsFlowModuleDataSource <NSObject>
 
@@ -70,6 +70,11 @@
 
 - (void)setWelcomeHintState:(BOOL)state;
 
+/**
+ * Features state
+ */
+
+//-(BOOL)isFeatureUnlock:(TBMFeatureKind)feature;
 
 /**
  * Other data
