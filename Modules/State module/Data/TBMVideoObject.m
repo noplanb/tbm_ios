@@ -5,9 +5,8 @@
 
 #import "TBMVideoObject.h"
 
-@implementation TBMVideoObject {
+@implementation TBMVideoObject
 
-}
 + (TBMVideoObject *)makeVideoObjectWithVideoID:(NSString *)videoID status:(NSString *)status {
 
     if (!videoID) {
@@ -22,7 +21,7 @@
     return resultObject;
 }
 
-#pragma mark - TBMDispatchProtocol
+#pragma mark - TBMStateProtocol
 
 + (NSArray *)tbm_stateHeaderItems {
     NSMutableArray *items = [NSMutableArray new];

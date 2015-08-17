@@ -1,5 +1,5 @@
 //
-//  TBMDispatchProtocolHelpers.m
+//  TBMStateProtocolHelpers.m
 //  Zazo
 //
 //  Created by Sema Belokovsky on 29/07/15.

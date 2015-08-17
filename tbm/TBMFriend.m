@@ -16,6 +16,7 @@
 #import "OBLogger.h"
 #import "TBMHttpManager.h"
 #import "TBMPhoneUtils.h"
+#import "NSString+NSStringExtensions.h"
 
 @implementation TBMFriend
 
@@ -697,56 +698,6 @@ static NSMutableArray * videoStatusNotificationDelegates;
             break;
     }
     return s;
-}
-
-#pragma mark - TBMDispatchProtocol
-
-+ (NSArray *)tbm_stateHeaderItems {
-    NSMutableArray *items = [NSMutableArray new];
-    [items addObject:@"Name"];
-    [items addObject:@"ID"];
-    [items addObject:@"Has app"];
-    [items addObject:@"IV status"];
-    [items addObject:@"OV ID"];
-    [items addObject:@"OV status"];
-    [items addObject:@"Last event"];
-    [items addObject:@"Has thumb"];
-    [items addObject:@"Download"];
-    return items;
-}
-
-+ (int)tbm_stateColumnsCount {
-    return (int)[self tbm_stateHeaderItems].count;
-}
-
-+ (NSString *)tbm_stateTitlerStr {
-    return tbm_stateTitleForTableName(@"Friends", (int)[self tbm_stateColumnsCount]);
-}
-
-+ (NSString *)tbm_stateHeaderStr {
-    
-    return tbm_stateRowForItems([self tbm_stateHeaderItems]);
-}
-
-- (NSString *)tbm_stateRowStr {
-    
-    NSMutableArray *items = [NSMutableArray new];
-    // format according to COLUMN_WIDTH
-    [items addObject:[self fullName]];
-    [items addObject:tbm_stateRowItemForString(self.idTbm)];
-    [items addObject:boolToStr(self.hasApp)];
-    [items addObject:[TBMVideo nameForStatus:self.lastIncomingVideoStatus]];
-    [items addObject:tbm_stateRowItemForString(self.outgoingVideoId)];
-    [items addObject:[TBMFriend nameForOVStatus:self.outgoingVideoStatus]];
-    NSString *item = @"IN";
-    if (self.lastVideoStatusEventType == OUTGOING_VIDEO_STATUS_EVENT_TYPE) {
-        item = @"OUT";
-    }
-    [items addObject:item];
-    [items addObject:boolToStr(![self isThumbNoPic])];
-    [items addObject:boolToStr(![self hasDownloadingVideo])];
-    
-    return tbm_stateRowForItems(items);
 }
 
 @end

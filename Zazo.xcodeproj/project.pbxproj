@@ -122,6 +122,8 @@
 		530DC39E1B73B6D00087EA71 /* TBMStateScreenTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 530DC3961B73B6D00087EA71 /* TBMStateScreenTableCell.m */; };
 		530DC39F1B73B6D00087EA71 /* TBMStateScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530DC3981B73B6D00087EA71 /* TBMStateScreenView.m */; };
 		530DC3A01B73B6D00087EA71 /* TBMStateScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 530DC39A1B73B6D00087EA71 /* TBMStateScreenViewController.m */; };
+		532E40801B8225FA00BE424D /* TBMFriend+StateProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 532E407F1B8225FA00BE424D /* TBMFriend+StateProtocol.m */; };
+		532E40831B8227F000BE424D /* TBMVideo+StateProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 532E40821B8227F000BE424D /* TBMVideo+StateProtocol.m */; };
 		534946841B81B434000E2AFC /* TBMDebugData.m in Sources */ = {isa = PBXBuildFile; fileRef = 534946831B81B434000E2AFC /* TBMDebugData.m */; };
 		534946871B81B44D000E2AFC /* TBMStateStringGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 534946861B81B44D000E2AFC /* TBMStateStringGenerator.m */; };
 		5349468A1B81B855000E2AFC /* TBMStateProtocolHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 534946891B81B855000E2AFC /* TBMStateProtocolHelper.m */; };
@@ -340,6 +342,10 @@
 		530DC3981B73B6D00087EA71 /* TBMStateScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMStateScreenView.m; sourceTree = "<group>"; };
 		530DC3991B73B6D00087EA71 /* TBMStateScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMStateScreenViewController.h; sourceTree = "<group>"; };
 		530DC39A1B73B6D00087EA71 /* TBMStateScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMStateScreenViewController.m; sourceTree = "<group>"; };
+		532E407E1B8225FA00BE424D /* TBMFriend+StateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMFriend+StateProtocol.h"; sourceTree = "<group>"; };
+		532E407F1B8225FA00BE424D /* TBMFriend+StateProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMFriend+StateProtocol.m"; sourceTree = "<group>"; };
+		532E40811B8227F000BE424D /* TBMVideo+StateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMVideo+StateProtocol.h"; sourceTree = "<group>"; };
+		532E40821B8227F000BE424D /* TBMVideo+StateProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMVideo+StateProtocol.m"; sourceTree = "<group>"; };
 		534946821B81B434000E2AFC /* TBMDebugData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDebugData.h; sourceTree = "<group>"; };
 		534946831B81B434000E2AFC /* TBMDebugData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDebugData.m; sourceTree = "<group>"; };
 		534946851B81B44D000E2AFC /* TBMStateStringGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMStateStringGenerator.h; sourceTree = "<group>"; };
@@ -802,6 +808,10 @@
 				530DC3931B73B6D00087EA71 /* TBMVideoObject.m */,
 				534946851B81B44D000E2AFC /* TBMStateStringGenerator.h */,
 				534946861B81B44D000E2AFC /* TBMStateStringGenerator.m */,
+				532E407E1B8225FA00BE424D /* TBMFriend+StateProtocol.h */,
+				532E407F1B8225FA00BE424D /* TBMFriend+StateProtocol.m */,
+				532E40811B8227F000BE424D /* TBMVideo+StateProtocol.h */,
+				532E40821B8227F000BE424D /* TBMVideo+StateProtocol.m */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1191,9 +1201,11 @@
 				22CC5E5F1A1AD9A900AAFB75 /* TBMTableModal.m in Sources */,
 				2208E8A51A14195500150C35 /* TBMContactsManager.m in Sources */,
 				22093F1B192590CE0021EB0C /* TBMSoundEffect.m in Sources */,
+				532E40831B8227F000BE424D /* TBMVideo+StateProtocol.m in Sources */,
 				22F1A4C419354AC500E04229 /* TBMVideoIdUtils.m in Sources */,
 				221EA2911912E86300649BC5 /* TBMUser.m in Sources */,
 				221B77721A688984009FA670 /* TBMAlertControllerVisualStyle.m in Sources */,
+				532E40801B8225FA00BE424D /* TBMFriend+StateProtocol.m in Sources */,
 				4106AE661AD550AB007910EC /* TBMPreviewView.m in Sources */,
 				223C55DF1B06AD0A00FB8B7C /* TBMVerfiicationAlertHandler.m in Sources */,
 				22ED40081A0850F5003D6536 /* TBMGridElement.m in Sources */,

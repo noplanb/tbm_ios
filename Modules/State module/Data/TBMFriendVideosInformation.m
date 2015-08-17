@@ -6,11 +6,9 @@
 #import "TBMFriendVideosInformation.h"
 #import "TBMVideoObject.h"
 
-@implementation TBMFriendVideosInformation {
+@implementation TBMFriendVideosInformation
 
-}
-
-#pragma mark - TBMDispatchProtocol
+#pragma mark - TBMStateProtocol
 
 + (NSArray *)tbm_stateHeaderItems {
     NSMutableArray *items = [NSMutableArray new];
@@ -39,6 +37,5 @@
     
     return tbm_stateRowForItems(items);
 }
-
 
 @end

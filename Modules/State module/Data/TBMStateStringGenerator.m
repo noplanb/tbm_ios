@@ -7,7 +7,7 @@
 //
 
 #import "TBMStateStringGenerator.h"
-#import "TBMFriend.h"
+#import "TBMFriend+StateProtocol.h"
 #import "TBMStateDataSource.h"
 #import "TBMVideoObject.h"
 #import "TBMFriendVideosInformation.h"

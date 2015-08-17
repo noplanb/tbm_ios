@@ -10,15 +10,13 @@
 #import <CoreData/CoreData.h>
 #import "TBMVideo.h"
 
-#import "TBMStateProtocol.h"
-
 @class TBMGridElement;
 
 @protocol TBMVideoStatusNotificationProtocol <NSObject>
 - (void)videoStatusDidChange:(TBMFriend *)friend;
 @end
 
-@interface TBMFriend : NSManagedObject <TBMStateProtocol>
+@interface TBMFriend : NSManagedObject
 // Note order matters. The first enum is chosen intentionally since that is what the
 // property initializes to.
 typedef NS_ENUM (NSInteger, TBMOutgoingVideoStatus) {

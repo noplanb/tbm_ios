@@ -1,13 +1,10 @@
 //
-//  TBMDispatchProtocol.h
+//  TBMStateProtocol.h
 //  Zazo
 //
 //  Created by Sema Belokovsky on 29/07/15.
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
-
-#ifndef Zazo_TBMDispatchProtocol_h
-#define Zazo_TBMDispatchProtocol_h
 
 #import <Foundation/Foundation.h>
 #import "NSString+NSStringExtensions.h"
@@ -27,5 +24,3 @@
 NSString* tbm_stateRowForItems(NSArray* items);
 NSString* tbm_stateRowItemForString(NSString* string);
 NSString* tbm_stateTitleForTableName(NSString* string, int columnsCount);
-
-#endif
