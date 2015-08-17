@@ -5,7 +5,7 @@
 
 #import "TBMStateScreenViewController.h"
 #import "TBMSecretScreenPresenter.h"
-#import "TBMStateScreenDataSource.h"
+#import "TBMStateDataSource.h"
 #import "TBMStateScreenView.h"
 #import "TBMFriendVideosInformation.h"
 #import "TBMVideoObject.h"
@@ -44,7 +44,7 @@
 }
 
 
-- (void)updateUserInterfaceWithData:(TBMStateScreenDataSource *)data {
+- (void)updateUserInterfaceWithData:(TBMStateDataSource *)data {
     if (!data) {
         return;
     }

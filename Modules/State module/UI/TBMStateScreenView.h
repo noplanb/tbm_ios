@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class TBMStateScreenDataSource;
+@class TBMStateDataSource;
 
 
 @interface TBMStateScreenView : UIView <UITableViewDelegate, UITableViewDataSource>

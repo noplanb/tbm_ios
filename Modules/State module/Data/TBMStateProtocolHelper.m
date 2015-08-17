@@ -7,14 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TBMDispatchProtocol.h"
+#import "TBMStateProtocol.h"
 
-// Width for column in dispatch log
+// Width for column in state string
 #define COLUMN_WIDTH 14
 
-#pragma mark - Dispatch string formatters
+#pragma mark - State string formatters
 
-NSString* tbm_dispatchRowForItems(NSArray* items) {
+NSString* tbm_stateRowForItems(NSArray* items) {
     NSMutableString *row = [NSMutableString new];
     NSString *format = [NSString stringWithFormat:@"%%-%d.%ds", COLUMN_WIDTH, COLUMN_WIDTH];
     
@@ -29,11 +29,11 @@ NSString* tbm_dispatchRowForItems(NSArray* items) {
     return row;
 }
 
-NSString* tbm_dispatchRowItemForString(NSString* string) {
+NSString* tbm_stateRowItemForString(NSString* string) {
     return string?string:@"";
 }
 
-NSString* tbm_dispatchTitleForTableName(NSString* string, int columnsCount) {
+NSString* tbm_stateTitleForTableName(NSString* string, int columnsCount) {
     int titleWidth = (COLUMN_WIDTH+2)*columnsCount+(columnsCount-3);
     NSString *format = [NSString stringWithFormat:@"| %%-%d.%ds |", titleWidth, titleWidth];
     return [NSString stringWithFormat:format, string.UTF8String];

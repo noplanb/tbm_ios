@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TBMStateScreenDataSource : NSObject
+@interface TBMStateDataSource : NSObject
 
 
 @property(nonatomic, strong) NSArray *friendsVideoObjects;

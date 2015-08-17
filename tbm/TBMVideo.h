@@ -7,11 +7,11 @@
 //
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "TBMDispatchProtocol.h"
+#import "TBMStateProtocol.h"
 
 @class TBMFriend;
 
-@interface TBMVideo : NSManagedObject <TBMDispatchProtocol>
+@interface TBMVideo : NSManagedObject <TBMStateProtocol>
 
 // Note order matters. The first enum is chosen intentionally since that is what the
 // property initializes to.

@@ -5,9 +5,9 @@
 
 #import <Foundation/Foundation.h>
 
-@class TBMStateScreenDataSource;
+@class TBMStateDataSource;
 
 @interface TBMStateScreenViewController : UIViewController
 
-- (void)updateUserInterfaceWithData:(TBMStateScreenDataSource *)data;
+- (void)updateUserInterfaceWithData:(TBMStateDataSource *)data;
 @end

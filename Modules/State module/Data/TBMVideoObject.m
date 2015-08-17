@@ -24,7 +24,7 @@
 
 #pragma mark - TBMDispatchProtocol
 
-+ (NSArray *)tbm_dispatchHeaderItems {
++ (NSArray *)tbm_stateHeaderItems {
     NSMutableArray *items = [NSMutableArray new];
     [items addObject:@"Name"];
     [items addObject:@"ID"];
@@ -32,20 +32,20 @@
     return items;
 }
 
-+ (int)tbm_dispatchColumnsCount {
-    return (int)[self tbm_dispatchHeaderItems].count;
++ (int)tbm_stateColumnsCount {
+    return (int)[self tbm_stateHeaderItems].count;
 }
 
-+ (NSString *)tbm_dispatchTitlerStr {
-    return tbm_dispatchTitleForTableName(@"VideoObjects", (int)[self tbm_dispatchColumnsCount]);
++ (NSString *)tbm_stateTitlerStr {
+    return tbm_stateTitleForTableName(@"VideoObjects", (int)[self tbm_stateColumnsCount]);
 }
 
-+ (NSString *)tbm_dispatchHeaderStr {
++ (NSString *)tbm_stateHeaderStr {
     
-    return tbm_dispatchRowForItems([self tbm_dispatchHeaderItems]);
+    return tbm_stateRowForItems([self tbm_stateHeaderItems]);
 }
 
-- (NSString *)tbm_dispatchRowStr {
+- (NSString *)tbm_stateRowStr {
     
     NSMutableArray *items = [NSMutableArray new];
     // format according to COLUMN_WIDTH
@@ -53,6 +53,6 @@
     [items addObject:self.videoID];
     [items addObject:self.videoStatus];
     
-    return tbm_dispatchRowForItems(items);
+    return tbm_stateRowForItems(items);
 }
 @end

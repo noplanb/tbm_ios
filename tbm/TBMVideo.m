@@ -266,7 +266,7 @@
 
 #pragma mark - TBMDispatchProtocol
 
-+ (NSArray *)tbm_dispatchHeaderItems {
++ (NSArray *)tbm_stateHeaderItems {
     NSMutableArray *items = [NSMutableArray new];
     [items addObject:@"ID"];
     [items addObject:@"From"];
@@ -276,30 +276,30 @@
     return items;
 }
 
-+ (int)tbm_dispatchColumnsCount {
-    return (int)[self tbm_dispatchHeaderItems].count;
++ (int)tbm_stateColumnsCount {
+    return (int)[self tbm_stateHeaderItems].count;
 }
 
-+ (NSString *)tbm_dispatchTitlerStr {
-    return tbm_dispatchTitleForTableName(@"Videos", (int)[self tbm_dispatchColumnsCount]);
++ (NSString *)tbm_stateTitlerStr {
+    return tbm_stateTitleForTableName(@"Videos", (int)[self tbm_stateColumnsCount]);
 }
 
-+ (NSString *)tbm_dispatchHeaderStr {
++ (NSString *)tbm_stateHeaderStr {
     
-    return tbm_dispatchRowForItems([self tbm_dispatchHeaderItems]);
+    return tbm_stateRowForItems([self tbm_stateHeaderItems]);
 }
 
-- (NSString *)tbm_dispatchRowStr {
+- (NSString *)tbm_stateRowStr {
     
     NSMutableArray *items = [NSMutableArray new];
     // format according to COLUMN_WIDTH
-    [items addObject:tbm_dispatchRowItemForString(self.videoId)];
-    [items addObject:tbm_dispatchRowItemForString(self.friend.idTbm)];    
+    [items addObject:tbm_stateRowItemForString(self.videoId)];
+    [items addObject:tbm_stateRowItemForString(self.friend.idTbm)];    
     [items addObject:[self statusName]];
     [items addObject:boolToStr([self videoFileExists])];
     [items addObject:ullToShortStr(self.videoFileSize)];
     
-    return tbm_dispatchRowForItems(items);
+    return tbm_stateRowForItems(items);
 }
 
 @end

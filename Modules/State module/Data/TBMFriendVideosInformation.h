@@ -5,11 +5,11 @@
 
 #import <Foundation/Foundation.h>
 #import "TBMFriend.h"
-#import "TBMDispatchProtocol.h"
+#import "TBMStateProtocol.h"
 
 @class TBMVideoObject;
 
-@interface TBMFriendVideosInformation : NSObject <TBMDispatchProtocol>
+@interface TBMFriendVideosInformation : NSObject <TBMStateProtocol>
 
 @property(nonatomic, strong) NSString *name;
 

@@ -701,7 +701,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
 
 #pragma mark - TBMDispatchProtocol
 
-+ (NSArray *)tbm_dispatchHeaderItems {
++ (NSArray *)tbm_stateHeaderItems {
     NSMutableArray *items = [NSMutableArray new];
     [items addObject:@"Name"];
     [items addObject:@"ID"];
@@ -715,28 +715,28 @@ static NSMutableArray * videoStatusNotificationDelegates;
     return items;
 }
 
-+ (int)tbm_dispatchColumnsCount {
-    return (int)[self tbm_dispatchHeaderItems].count;
++ (int)tbm_stateColumnsCount {
+    return (int)[self tbm_stateHeaderItems].count;
 }
 
-+ (NSString *)tbm_dispatchTitlerStr {
-    return tbm_dispatchTitleForTableName(@"Friends", (int)[self tbm_dispatchColumnsCount]);
++ (NSString *)tbm_stateTitlerStr {
+    return tbm_stateTitleForTableName(@"Friends", (int)[self tbm_stateColumnsCount]);
 }
 
-+ (NSString *)tbm_dispatchHeaderStr {
++ (NSString *)tbm_stateHeaderStr {
     
-    return tbm_dispatchRowForItems([self tbm_dispatchHeaderItems]);
+    return tbm_stateRowForItems([self tbm_stateHeaderItems]);
 }
 
-- (NSString *)tbm_dispatchRowStr {
+- (NSString *)tbm_stateRowStr {
     
     NSMutableArray *items = [NSMutableArray new];
     // format according to COLUMN_WIDTH
     [items addObject:[self fullName]];
-    [items addObject:tbm_dispatchRowItemForString(self.idTbm)];
+    [items addObject:tbm_stateRowItemForString(self.idTbm)];
     [items addObject:boolToStr(self.hasApp)];
     [items addObject:[TBMVideo nameForStatus:self.lastIncomingVideoStatus]];
-    [items addObject:tbm_dispatchRowItemForString(self.outgoingVideoId)];
+    [items addObject:tbm_stateRowItemForString(self.outgoingVideoId)];
     [items addObject:[TBMFriend nameForOVStatus:self.outgoingVideoStatus]];
     NSString *item = @"IN";
     if (self.lastVideoStatusEventType == OUTGOING_VIDEO_STATUS_EVENT_TYPE) {
@@ -746,7 +746,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
     [items addObject:boolToStr(![self isThumbNoPic])];
     [items addObject:boolToStr(![self hasDownloadingVideo])];
     
-    return tbm_dispatchRowForItems(items);
+    return tbm_stateRowForItems(items);
 }
 
 @end

@@ -4,9 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TBMDispatchProtocol.h"
+#import "TBMStateProtocol.h"
 
-@interface TBMVideoObject : NSObject <TBMDispatchProtocol>
+@interface TBMVideoObject : NSObject <TBMStateProtocol>
 @property(nonatomic, strong) NSString *videoID;
 @property(nonatomic, strong) NSString *videoStatus;
 

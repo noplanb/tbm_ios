@@ -3,7 +3,7 @@
 // Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "TBMStateScreenDataSource.h"
+#import "TBMStateDataSource.h"
 #import "TBMVideo.h"
 #import "TBMFriend.h"
 #import "TBMFriendVideosInformation.h"
@@ -12,11 +12,11 @@
 
 NSString *status(TBMOutgoingVideoStatus status);
 
-@interface TBMStateScreenDataSource ()
+@interface TBMStateDataSource ()
 @property(nonatomic, strong) NSMutableArray *notDanglingFiles;
 @end
 
-@implementation TBMStateScreenDataSource {
+@implementation TBMStateDataSource {
 
 }
 #pragma mark - Helpers
@@ -133,4 +133,3 @@ BOOL containID(NSString *fileName, NSString *fileId) {
 
 
 @end
-

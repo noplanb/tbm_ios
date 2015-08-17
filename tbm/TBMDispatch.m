@@ -18,9 +18,11 @@
 
 #import "TBMUser.h"
 #import "TBMFriend.h"
-#import "TBMStateScreenDataSource.h"
+#import "TBMStateDataSource.h"
 #import "TBMFriendVideosInformation.h"
 #import "TBMVideoObject.h"
+
+#import "TBMStateStringGenerator.h"
 
 // Dispatch logging level
 typedef enum {
@@ -71,7 +73,7 @@ static BOOL TBMDispatchEnabled = NO;
 }
 
 + (void) dispatch:(NSString *)msg logLevel:(TBMDispatchLevel)logLevel {
-    NSString *log = [msg stringByAppendingFormat:@"\n%@", [self stateString]];
+    NSString *log = [msg stringByAppendingFormat:@"\n%@", [TBMStateStringGenerator stateString]];
     if (TBMDispatchSelectedType == TBMDispatchTypeServer) {
         [self dispatchViaServer:log];
     } else {
@@ -105,59 +107,6 @@ static BOOL TBMDispatchEnabled = NO;
         r = [r stringByAppendingString:@"\n"];
     }
     return r;
-}
-
-// State info
-
-+ (NSString *)stateString {
-    NSMutableString *stateString = [NSMutableString new];
-    // Friends
-    [stateString appendFormat:@"%@\n", [TBMFriend tbm_dispatchTitlerStr]];
-    [stateString appendFormat:@"%@\n", [TBMFriend tbm_dispatchHeaderStr]];
-    
-    NSArray *friends = [TBMFriend all];
-    for (TBMFriend *friend in friends) {
-        [stateString appendFormat:@"%@\n", [friend tbm_dispatchRowStr]];
-    }
-    
-    // Videos
-    TBMStateScreenDataSource *data = [[TBMStateScreenDataSource alloc] init];
-    [data loadFriendsVideoObjects];
-    [data loadVideos];
-    
-    NSMutableString *videosString = [NSMutableString new];
-    [videosString appendFormat:@"%@\n", [TBMVideoObject tbm_dispatchTitlerStr]];
-    [videosString appendFormat:@"%@\n", [TBMVideoObject tbm_dispatchHeaderStr]];
-    
-    // TBMVideoObject
-    for (TBMFriendVideosInformation *object in data.friendsVideoObjects) {
-        // Outgoing
-        [videosString appendFormat:@"%@\n", [object tbm_dispatchRowStr]];
-        for (TBMVideoObject *ovo in object.outgoingObjects) {
-            [videosString appendFormat:@"%@\n", [ovo tbm_dispatchRowStr]];
-        }
-        // Incoming
-        for (TBMVideoObject *ivo in object.incomingObjects) {
-            [videosString appendFormat:@"%@\n", [ivo tbm_dispatchRowStr]];
-        }
-    }
-    [stateString appendFormat:@"\n%@", videosString];
-    
-    // Dangling Files
-    [data excludeNonDanglingFiles];
-    videosString = [NSMutableString new];
-    [videosString appendString:@"Dangling files\n"];
-    [videosString appendFormat:@"Incoming (%d)\n", (int)data.incomingFiles.count];
-    for (NSString *ivf in data.incomingFiles) {
-        [videosString appendFormat:@"%@\n", ivf];
-    }
-    [videosString appendFormat:@"Outgoing (%d)\n", (int)data.outgoingFiles.count];
-    for (NSString *ovf in data.outgoingFiles) {
-        [videosString appendFormat:@"%@\n", ovf];
-    }
-    [stateString appendFormat:@"\n%@", videosString];
-    
-    return stateString;
 }
 
 NSString* dispatchLevelStringFromDispatchLevel(TBMDispatchLevel logLevel) {
