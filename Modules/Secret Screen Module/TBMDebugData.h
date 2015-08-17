@@ -6,6 +6,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TBMConfig.h"
+#import "TBMDispatch.h"
 
 @interface TBMDebugData : NSObject
 
@@ -31,5 +32,10 @@
 */
 @property(nonatomic, assign) TBMConfigServerState serverState;
 @property(nonatomic, copy) NSString *serverAddress;
+
+/**
+* DispatchType
+*/
+@property TBMDispatchType dispatchType;
 
 @end

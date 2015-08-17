@@ -73,6 +73,14 @@
 @property(nonatomic, strong) UIButton *resetHintsButton;
 
 /*
+ * Dispatch Type
+ * 2 way selector: RollBar SDK | Server Request
+ * - Default RollBar SDK
+ */
+
+@property(nonatomic, strong) UISegmentedControl *dispatchTypeSegmentedControl;
+
+/*
 * Dispatch - Button
 *
 */
@@ -199,6 +207,14 @@
     lineTop += buttonHeight;
     lineTop += vertMargin;
 
+    //Dispatch type control
+    lineTop += 10.f;
+    self.dispatchTypeSegmentedControl.frame = CGRectMake(horzMargin, lineTop, fullWidth - (horzMargin * 2), buttonHeight);
+    [self addSubview:self.dispatchTypeSegmentedControl];
+    
+    lineTop += buttonHeight;
+    lineTop += vertMargin;
+    
     //Dispatch button
     lineTop += 10.f;
     self.dispatchButton.frame = CGRectMake(horzMargin, lineTop, fullWidth - (horzMargin * 2), buttonHeight);
@@ -226,6 +242,7 @@
     self.serverAddressTextField.enabled = data.serverState == TBMServerStateCustom;
     self.serverAddressTextField.text = data.serverAddress;
     self.debugModeSwitch.on = data.debugMode == TBMConfigDebugModeOn;
+    self.dispatchTypeSegmentedControl.selectedSegmentIndex = data.dispatchType;
 }
 
 #pragma mark - Actions
@@ -256,6 +273,10 @@
 
 - (void)serverSegmentedControlAction:(id)sender {
     [self.eventHandler serverSegmentedControlDidChangeTo:self.serverSegmentedControl.selectedSegmentIndex];
+}
+
+- (void)dispatchTypeSegmentedControlAction:(id)sender {
+    [self.eventHandler dispatchTypeSegmentedControlDidChangeTo:self.dispatchTypeSegmentedControl.selectedSegmentIndex];
 }
 
 #pragma mark - Autoinitializers
@@ -367,6 +388,16 @@
         [_resetHintsButton addTarget:self action:@selector(resetHintsButtonAction:) forControlEvents:UIControlEventTouchDown];
     }
     return _resetHintsButton;
+}
+
+- (UISegmentedControl *)dispatchTypeSegmentedControl {
+    if (!_dispatchTypeSegmentedControl) {
+        _dispatchTypeSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"RollBar SDK", @"SERVER"]];
+        [_dispatchTypeSegmentedControl addTarget:self
+                                    action:@selector(dispatchTypeSegmentedControlAction:)
+                          forControlEvents:UIControlEventValueChanged];
+    }
+    return _dispatchTypeSegmentedControl;
 }
 
 - (UIButton *)dispatchButton {

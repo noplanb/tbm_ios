@@ -30,6 +30,7 @@
     self.serverState = [TBMConfig serverState];
     self.serverAddress = [TBMConfig serverURL];
     self.debugMode = [TBMConfig configDebugMode];
+    self.dispatchType = [TBMDispatch dispatchType];
 }
 
 
@@ -64,6 +65,8 @@ void append(NSMutableString *description, NSString *title, NSString *value) {
     }
 
     append(description, @"Server address: ", self.serverAddress);
+    
+    append(description, @"Dispatch Type: ", (self.dispatchType == TBMDispatchTypeSDK)?@"RollBar SDK":@"Server");
 
     [description appendString:@"\n * * * * * * * * * * * * * * * * * * * * * * * * \n"];
     return (NSString *) description;

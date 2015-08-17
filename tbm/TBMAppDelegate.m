@@ -15,6 +15,8 @@
 #import "TBMUser.h"
 #import "TBMHttpManager.h"
 #import "AVAudioSession+TBMAudioSession.h"
+#import "TBMConfig.h"
+#import "TBMDispatch.h"
 
 @interface TBMAppDelegate()
 @property id <TBMAppDelegateEventNotificationProtocol> eventNotificationDelegate;
@@ -36,6 +38,7 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+    [TBMDispatch startRollBar];
     self.pushAlreadyFailed = NO;
     [self setupLogger];
     [self addObservers];
@@ -131,7 +134,7 @@
 
 
 #pragma mark - Logger
-- (void)setupLogger{
+- (void)setupLogger{    
     [OBLogger instance].writeToConsole = YES;
     if ([[OBLogger instance] logLines].count > 1000)
         [[OBLogger instance] reset];
@@ -164,8 +167,6 @@
     }
     return _homeViewController;
 }
-
-
 
 //---------
 // CoreData

@@ -59,6 +59,7 @@
 
 
 - (void)reloadData {
+    //FIXME: This is not a good idea to allocate a new instance of TBMDebugData
     [(TBMSecretScreenView *) self.view updateUserInterfaceWithData:[[TBMDebugData alloc] init]];
 }
 @end
