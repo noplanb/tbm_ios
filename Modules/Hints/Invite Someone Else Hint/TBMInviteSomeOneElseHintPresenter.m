@@ -24,7 +24,7 @@
 }
 
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSource>)dataSource {
-    if (event != TBMEventFlowEventMessageDidSend && event != TBMEventFlowEventSentHintDidDissmiss) {
+    if (event != TBMEventFlowEventMessageDidSend && event != TBMEventFlowEventSentHintDidDismiss) {
         return NO;
     }
 
