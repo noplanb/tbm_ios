@@ -11,11 +11,18 @@
 #import "TBMBenchViewController.h"
 #import "TBMGridDelegate.h"
 
+@protocol TBMEventsFlowModuleInterface;
+
 @interface TBMHomeViewController : UIViewController <TBMBenchViewControllerDelegate, TBMGridDelegate>
 
-@property (nonatomic) TBMGridViewController *gridViewController;
+@property(nonatomic) TBMGridViewController *gridViewController;
 
 + (TBMHomeViewController *)existingInstance;
 
 - (void)applicationWillSwitchToSMS;
+
+//TODO:Move to module interface after refactoring
+- (void)setupEvensFlowModule:(id <TBMEventsFlowModuleInterface>)eventsFlowModule;
+
+
 @end

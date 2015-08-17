@@ -22,6 +22,7 @@
 @property(nonatomic) TBMVideoRecorder *videoRecorder;
 @property(nonatomic, strong) TBMGridElement *lastAddedGridElement;
 @property(nonatomic, strong) TBMFriend *lastAddedFriend;
+@property(nonatomic) NSUInteger lastViewedMessageGridIndex;
 @end
 
 @interface TBMGridViewController ()
@@ -537,6 +538,11 @@ static const float LayoutConstASPECT = 0.75;
 
 #pragma mark - TBMGridModuleInterface
 
+- (UIView *)viewForDialog {
+    return self.homeView;
+}
+
+
 - (CGRect)gridGetFrameForUnviewedBadgeForFriend:(NSUInteger)friendCellIndex inView:(UIView *)view {
     CGRect result = CGRectZero;
 
@@ -586,7 +592,8 @@ static const float LayoutConstASPECT = 0.75;
 }
 
 - (void)messageDidViewed:(NSUInteger)gridIndex {
-    [self.delegate messageDidViewed:gridIndex];
+    self.lastViewedMessageGridIndex = gridIndex;
+    [self.delegate messageDidViewed];
 }
 
 - (void)messageDidReceive {

@@ -15,10 +15,12 @@
 #import "TBMUser.h"
 #import "TBMHttpManager.h"
 #import "AVAudioSession+TBMAudioSession.h"
+#import "TBMDependencies.h"
 
 @interface TBMAppDelegate()
 @property id <TBMAppDelegateEventNotificationProtocol> eventNotificationDelegate;
 @property (nonatomic, copy) void (^registredToNotifications)(void);
+@property(nonatomic, strong) TBMDependencies *dependecies;
 @end
 
 @implementation TBMAppDelegate
@@ -161,6 +163,8 @@
 - (TBMHomeViewController *)homeViewController{
     if (_homeViewController == nil){
         _homeViewController = (TBMHomeViewController *)[[self storyBoard] instantiateViewControllerWithIdentifier:@"HomeViewController"];
+        // TODO: need to move from here after AppDelegate will refactored
+        [self.dependecies setupDependenciesWithHomeViewController:_homeViewController];
     }
     return _homeViewController;
 }
@@ -290,6 +294,13 @@
         }];
     }
     OB_INFO(@"AppDelegate: RequestBackground: exiting: refresh status = %ld, time Remaining = %f", [UIApplication sharedApplication].backgroundRefreshStatus, [UIApplication sharedApplication].backgroundTimeRemaining);
+}
+
+- (TBMDependencies *)dependecies {
+    if (!_dependecies) {
+        _dependecies = [[TBMDependencies alloc] init];
+    }
+    return _dependecies;
 }
 
 
