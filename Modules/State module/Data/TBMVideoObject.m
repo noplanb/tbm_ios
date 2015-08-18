@@ -16,7 +16,7 @@
     TBMVideoObject *resultObject = [[TBMVideoObject alloc] init];
 
     resultObject.videoID = videoID;
-    resultObject.videoStatus = status ? status : @"-";
+    resultObject.videoStatus = status?:@"-";
 
     return resultObject;
 }
@@ -31,12 +31,12 @@
     return items;
 }
 
-+ (int)tbm_stateColumnsCount {
-    return (int)[self tbm_stateHeaderItems].count;
++ (NSInteger)tbm_stateColumnsCount {
+    return [self tbm_stateHeaderItems].count;
 }
 
 + (NSString *)tbm_stateTitlerStr {
-    return tbm_stateTitleForTableName(@"VideoObjects", (int)[self tbm_stateColumnsCount]);
+    return tbm_stateTitleForTableName(@"VideoObjects", [self tbm_stateColumnsCount]);
 }
 
 + (NSString *)tbm_stateHeaderStr {

@@ -149,7 +149,7 @@
 }
 
 - (void)dispatchTypeSegmentedControlDidChangeTo:(NSInteger)index {
-    [TBMDispatch setDispatchType:(TBMDispatchType)index];
+    [TBMDispatch setupDispatchType:(TBMDispatchType)index];
     [self reload];
 }
 

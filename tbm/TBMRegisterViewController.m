@@ -241,7 +241,7 @@
 
 - (void)gotUser:(NSDictionary *)params{
     TBMUser *user = [TBMUser createWithServerParams:params];
-    [TBMDispatch setRollBarUser:user];
+    [TBMDispatch setupRollBarUser:user];
     [self getFriends];
 }
 

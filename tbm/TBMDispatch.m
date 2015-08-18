@@ -33,7 +33,11 @@ typedef enum {
     TBMDispatchLevelCritical = 4
 } TBMDispatchLevel;
 
-static TBMDispatchType TBMDispatchSelectedType = TBMDispatchTypeSDK;
+static NSString *TBMDispatchRollBarEnvDevelopment = @"development";
+static NSString *TBMDispatchRollBarEnvProduction = @"production";
+static NSString *TBMDispatchRollBarEnvStaging = @"staging";
+
+static TBMDispatchType tbmDispatchSelectedType = TBMDispatchTypeSDK;
 
 static BOOL TBMDispatchEnabled = NO;
 
@@ -47,12 +51,12 @@ static BOOL TBMDispatchEnabled = NO;
                                                  name: OBLoggerErrorNotification object:nil];
 }
 
-+ (void)setDispatchType:(TBMDispatchType)type {
-    TBMDispatchSelectedType = type;
++ (void)setupDispatchType:(TBMDispatchType)type {
+    tbmDispatchSelectedType = type;
 }
 
 + (TBMDispatchType)dispatchType {
-    return TBMDispatchSelectedType;
+    return tbmDispatchSelectedType;
 }
 
 + (void)enable{
@@ -74,7 +78,7 @@ static BOOL TBMDispatchEnabled = NO;
 
 + (void) dispatch:(NSString *)msg logLevel:(TBMDispatchLevel)logLevel {
     NSString *log = [msg stringByAppendingFormat:@"\n%@", [TBMStateStringGenerator stateString]];
-    if (TBMDispatchSelectedType == TBMDispatchTypeServer) {
+    if (tbmDispatchSelectedType == TBMDispatchTypeServer) {
         [self dispatchViaServer:log];
     } else {
         NSString *level = dispatchLevelStringFromDispatchLevel(logLevel);
@@ -139,13 +143,13 @@ NSString* dispatchLevelStringFromDispatchLevel(TBMDispatchLevel logLevel) {
     RollbarConfiguration *config = [RollbarConfiguration configuration];
     config.crashLevel = @"critical";
     TBMConfigServerState serverState = [TBMConfig serverState];
-    NSString *env = @"development";
+    NSString *env = TBMDispatchRollBarEnvDevelopment;
     switch (serverState) {
         case TBMServerStateProduction:
-            env = @"production";
+            env = TBMDispatchRollBarEnvStaging;
             break;
         case TBMServerStateDeveloper:
-            env = @"staging";
+            env = TBMDispatchRollBarEnvStaging;
             break;
         default:
             break;
@@ -153,7 +157,7 @@ NSString* dispatchLevelStringFromDispatchLevel(TBMDispatchLevel logLevel) {
     config.environment = env;
     TBMUser *user = [TBMUser getUser];
     [self setRollBarUser:user forConfig:config];
-    [Rollbar initWithAccessToken:@"0ac2aee23dc449309b0c0bf6a46b4d59" configuration:config];
+    [Rollbar initWithAccessToken:CONFIG_ROLLBAR_TOKEN configuration:config];
 }
 
 + (void)setRollBarUser:(TBMUser *)user forConfig:(RollbarConfiguration *)config {
@@ -163,7 +167,7 @@ NSString* dispatchLevelStringFromDispatchLevel(TBMDispatchLevel logLevel) {
     [config setPersonId:personId username:username email:email];
 }
 
-+ (void)setRollBarUser:(TBMUser *)user {
++ (void)setupRollBarUser:(TBMUser *)user {
     RollbarConfiguration *config = [Rollbar currentConfiguration];
     [self setRollBarUser:user forConfig:config];
 }

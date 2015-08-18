@@ -23,10 +23,10 @@ typedef enum {
 + (void) dispatch: (NSString *)msg;
 
 // Change dispatching type between SDK and Server
-+ (void)setDispatchType:(TBMDispatchType)type;
++ (void)setupDispatchType:(TBMDispatchType)type;
 
 + (void)startRollBar;
-+ (void)setRollBarUser:(TBMUser *)user;
++ (void)setupRollBarUser:(TBMUser *)user;
 + (TBMDispatchType)dispatchType;
     
 @end

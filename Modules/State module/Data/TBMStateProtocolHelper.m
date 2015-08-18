@@ -9,19 +9,19 @@
 #import <Foundation/Foundation.h>
 #import "TBMStateProtocol.h"
 
-// Width for column in state string
-#define COLUMN_WIDTH 14
+// Width for column in state string (in characters)
+static NSInteger TBSStateStringColumnWidth = 14;
 
 #pragma mark - State string formatters
 
 NSString* tbm_stateRowForItems(NSArray* items) {
     NSMutableString *row = [NSMutableString new];
-    NSString *format = [NSString stringWithFormat:@"%%-%d.%ds", COLUMN_WIDTH, COLUMN_WIDTH];
+    NSString *format = [NSString stringWithFormat:@"%%-%ld.%lds", (long)TBSStateStringColumnWidth, (long)TBSStateStringColumnWidth];
     
     for (NSString *item in items) {
         NSString *shortItem = item;
-        if (shortItem.length > COLUMN_WIDTH) {
-            shortItem = [shortItem substringToIndex:COLUMN_WIDTH];
+        if (shortItem.length > TBSStateStringColumnWidth) {
+            shortItem = [shortItem substringToIndex:TBSStateStringColumnWidth];
         }
         [row appendFormat:@"| %@ ", [NSString stringWithFormat:format, shortItem.UTF8String]];
     }
@@ -30,11 +30,11 @@ NSString* tbm_stateRowForItems(NSArray* items) {
 }
 
 NSString* tbm_stateRowItemForString(NSString* string) {
-    return string?string:@"";
+    return string?:@"";
 }
 
-NSString* tbm_stateTitleForTableName(NSString* string, int columnsCount) {
-    int titleWidth = (COLUMN_WIDTH+2)*columnsCount+(columnsCount-3);
-    NSString *format = [NSString stringWithFormat:@"| %%-%d.%ds |", titleWidth, titleWidth];
+NSString* tbm_stateTitleForTableName(NSString* string, NSInteger columnsCount) {
+    NSInteger titleWidth = (TBSStateStringColumnWidth+2)*columnsCount+(columnsCount-3);
+    NSString *format = [NSString stringWithFormat:@"| %%-%ld.%lds |", (long)titleWidth, (long)titleWidth];
     return [NSString stringWithFormat:format, string.UTF8String];
 }

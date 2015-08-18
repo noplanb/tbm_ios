@@ -27,20 +27,20 @@
     // VideoObjects
     [dataSource loadFriendsVideoObjects];
     [dataSource loadVideos];
-    [stateString appendFormat:@"\n%@", [self videoObjectsStringWithStateDataSource:dataSource]];
+    [stateString appendFormat:@"\n%@", [self videoObjectsStringWithStateDataSource:dataSource]?:@""];
     
     // Dangling Files
     [dataSource excludeNonDanglingFiles];
     
-    [stateString appendFormat:@"\n%@", [self danglingFilesStringWithStateDataSource:dataSource]];
+    [stateString appendFormat:@"\n%@", [self danglingFilesStringWithStateDataSource:dataSource]?:@""];
     
     return stateString;
 }
 
 + (NSString *)friendsString {
     NSMutableString *result = [NSMutableString new];
-    [result appendFormat:@"%@\n", [TBMFriend tbm_stateTitlerStr]];
-    [result appendFormat:@"%@\n", [TBMFriend tbm_stateHeaderStr]];
+    [result appendFormat:@"%@\n", [TBMFriend tbm_stateTitlerStr]?:@""];
+    [result appendFormat:@"%@\n", [TBMFriend tbm_stateHeaderStr]?:@""];
     
     NSArray *friends = [TBMFriend all];
     for (TBMFriend *friend in friends) {
@@ -51,18 +51,18 @@
 
 + (NSString *)videoObjectsStringWithStateDataSource:(TBMStateDataSource *)dataSource {
     NSMutableString *result = [NSMutableString new];
-    [result appendFormat:@"%@\n", [TBMVideoObject tbm_stateTitlerStr]];
-    [result appendFormat:@"%@\n", [TBMVideoObject tbm_stateHeaderStr]];
+    [result appendFormat:@"%@\n", [TBMVideoObject tbm_stateTitlerStr]?:@""];
+    [result appendFormat:@"%@\n", [TBMVideoObject tbm_stateHeaderStr]?:@""];
     
     for (TBMFriendVideosInformation *object in dataSource.friendsVideoObjects) {
         // Outgoing
-        [result appendFormat:@"%@\n", [object tbm_stateRowStr]];
+        [result appendFormat:@"%@\n", [object tbm_stateRowStr]?:@""];
         for (TBMVideoObject *ovo in object.outgoingObjects) {
-            [result appendFormat:@"%@\n", [ovo tbm_stateRowStr]];
+            [result appendFormat:@"%@\n", [ovo tbm_stateRowStr]?:@""];
         }
         // Incoming
         for (TBMVideoObject *ivo in object.incomingObjects) {
-            [result appendFormat:@"%@\n", [ivo tbm_stateRowStr]];
+            [result appendFormat:@"%@\n", [ivo tbm_stateRowStr]?:@""];
         }
     }
     return result;
@@ -71,11 +71,11 @@
 + (NSString *)danglingFilesStringWithStateDataSource:(TBMStateDataSource *)dataSource {
     NSMutableString *result = [NSMutableString new];
     [result appendString:@"Dangling files\n"];
-    [result appendFormat:@"Incoming (%d)\n", (int)dataSource.incomingFiles.count];
+    [result appendFormat:@"Incoming (%ld)\n", (long)dataSource.incomingFiles.count];
     for (NSString *ivf in dataSource.incomingFiles) {
         [result appendFormat:@"%@\n", ivf];
     }
-    [result appendFormat:@"Outgoing (%d)\n", (int)dataSource.outgoingFiles.count];
+    [result appendFormat:@"Outgoing (%ld)\n", (long)dataSource.outgoingFiles.count];
     for (NSString *ovf in dataSource.outgoingFiles) {
         [result appendFormat:@"%@\n", ovf];
     }

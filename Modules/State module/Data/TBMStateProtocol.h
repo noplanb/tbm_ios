@@ -13,7 +13,7 @@
 @protocol TBMStateProtocol <NSObject>
 
 + (NSArray *)tbm_stateHeaderItems;
-+ (int)tbm_stateColumnsCount;
++ (NSInteger)tbm_stateColumnsCount;
 + (NSString *)tbm_stateTitlerStr;
 + (NSString *)tbm_stateHeaderStr;
 - (NSString *)tbm_stateRowStr;
@@ -23,4 +23,4 @@
 // Helpers for preparing data
 NSString* tbm_stateRowForItems(NSArray* items);
 NSString* tbm_stateRowItemForString(NSString* string);
-NSString* tbm_stateTitleForTableName(NSString* string, int columnsCount);
+NSString* tbm_stateTitleForTableName(NSString* string, NSInteger columnsCount);

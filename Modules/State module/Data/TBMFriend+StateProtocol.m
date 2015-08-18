@@ -8,6 +8,9 @@
 
 #import "TBMFriend+StateProtocol.h"
 
+static NSString *TBMFriendLastVideStatusTypeNameIn = @"IN";
+static NSString *TBMFriendLastVideStatusTypeNameOut = @"OUT";
+
 @implementation TBMFriend (StateProtocol)
 
 + (NSArray *)tbm_stateHeaderItems {
@@ -24,8 +27,8 @@
     return items;
 }
 
-+ (int)tbm_stateColumnsCount {
-    return (int)[self tbm_stateHeaderItems].count;
++ (NSInteger)tbm_stateColumnsCount {
+    return [self tbm_stateHeaderItems].count;
 }
 
 + (NSString *)tbm_stateTitlerStr {
@@ -47,9 +50,9 @@
     [items addObject:[TBMVideo nameForStatus:self.lastIncomingVideoStatus]];
     [items addObject:tbm_stateRowItemForString(self.outgoingVideoId)];
     [items addObject:[self OVStatusName]];
-    NSString *item = @"IN";
+    NSString *item = TBMFriendLastVideStatusTypeNameIn;
     if (self.lastVideoStatusEventType == OUTGOING_VIDEO_STATUS_EVENT_TYPE) {
-        item = @"OUT";
+        item = TBMFriendLastVideStatusTypeNameOut;
     }
     [items addObject:item];
     [items addObject:boolToStr(![self isThumbNoPic])];
