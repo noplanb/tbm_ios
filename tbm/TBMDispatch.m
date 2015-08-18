@@ -24,6 +24,8 @@
 
 #import "TBMStateStringGenerator.h"
 
+static NSString *ROLLBAR_TOKEN = @"0ac2aee23dc449309b0c0bf6a46b4d59";
+
 // Dispatch logging level
 typedef enum {
     TBMDispatchLevelDebug    = 0,
@@ -157,7 +159,7 @@ NSString* dispatchLevelStringFromDispatchLevel(TBMDispatchLevel logLevel) {
     config.environment = env;
     TBMUser *user = [TBMUser getUser];
     [self setRollBarUser:user forConfig:config];
-    [Rollbar initWithAccessToken:CONFIG_ROLLBAR_TOKEN configuration:config];
+    [Rollbar initWithAccessToken:ROLLBAR_TOKEN configuration:config];
 }
 
 + (void)setRollBarUser:(TBMUser *)user forConfig:(RollbarConfiguration *)config {

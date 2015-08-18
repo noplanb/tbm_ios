@@ -58,12 +58,6 @@ static NSString *CONFIG_INVITE_BASE_URL_STRING = @"zazoapp.com/l/";
 static NSString *CONFIG_APP_STORE_URL = @"https://itunes.apple.com/us/app/zazo/id922294638";
 static NSString *CONFIG_DING_SOUND = @"BeepSin30.wav";
 
-/**
-* RollBar
-*/
-
-static NSString *CONFIG_ROLLBAR_TOKEN = @"0ac2aee23dc449309b0c0bf6a46b4d59";
-
 @interface TBMConfig : NSObject
 
 /**
