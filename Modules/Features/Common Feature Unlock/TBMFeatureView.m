@@ -312,12 +312,14 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
 - (void)showAnimated {
     self.hidden = NO;
     [self layoutSubviews];
-    CGFloat height = CGRectGetMinY(self.bounds);
+    CGFloat height = CGRectGetMinY(self.dialogView.frame);
+    __block CGFloat correctDialogTop = CGRectGetMinY(self.dialogView.frame);
     __block CGFloat dialogTop = CGRectGetMinY(self.bounds) - height;
-    self.dialogView.frame = [self makeDialogViewRectForTopMargin:dialogTop];
+
+    self.dialogView.frame = [self makeDialogViewRectWithTop:dialogTop];
     [UIView animateWithDuration:.25f delay:0 options:UIViewAnimationCurveEaseOut animations:^{
-        dialogTop = CGRectGetMinY(self.bounds) - CGRectGetHeight(self.dialogView.frame);
-        self.dialogView.frame = [self makeDialogViewRectForTopMargin:dialogTop];
+
+        self.dialogView.frame = [self makeDialogViewRectWithTop:correctDialogTop];
         self.alpha = 1;
     }                completion:^(BOOL finished) {
 
@@ -325,8 +327,8 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
 
 }
 
-- (CGRect)makeDialogViewRectForTopMargin:(CGFloat)margin {
-    return CGRectMake(self.dialogView.frame.origin.x, self.dialogView.frame.origin.y - margin,
+- (CGRect)makeDialogViewRectWithTop:(CGFloat)top {
+    return CGRectMake(self.dialogView.frame.origin.x, top,
             CGRectGetWidth(self.dialogView.frame),
             CGRectGetHeight(self.dialogView.frame)
     );
