@@ -50,6 +50,7 @@
 		682D621D10CAA2D1B0B5BA0A /* TBMViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D65504054176454B14059 /* TBMViewUtils.m */; };
 		682D6231BE232BB20F480EE3 /* TBMRecordHintPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6F68850CE52341F2AB27 /* TBMRecordHintPresenter.m */; };
 		682D623B4809795454A62260 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 682D65C5DF07F2B03021C47B /* iTunesArtwork@2x.png */; };
+		682D6242BD6DDE96E92E0938 /* TBMFeaturePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D69079D7EA2C340500963 /* TBMFeaturePresenter.m */; };
 		682D624A456367F2E044A203 /* NotificationTone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 682D6969A3F9A036113ECD07 /* NotificationTone.wav */; };
 		682D624E47AEC4722AF97CA1 /* TBMVideoRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6975187B35316B509484 /* TBMVideoRecorder.m */; };
 		682D6250DD11FAE1DF47CDDF /* TBMGridElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D68C9ABB01F0606AB3072 /* TBMGridElementViewController.m */; };
@@ -58,6 +59,7 @@
 		682D628C2B1EFFDB931D86E4 /* TBMAppDelegate+Boot.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6CC2C3A33EB11E7BABE6 /* TBMAppDelegate+Boot.m */; };
 		682D62A8850F190976052D6A /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 682D60F02534019593E8EA4D /* Icon-Small@2x.png */; };
 		682D62B2B005E8F2BD9DA328 /* TBMPlayHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D64B68BACF61982C02467 /* TBMPlayHintView.m */; };
+		682D62B423BAD4C781851567 /* TBMSwitchCameraFeaturePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D68C88F1451AFA7C00741 /* TBMSwitchCameraFeaturePresenter.m */; };
 		682D62B52F0FF6B48A196C91 /* TBMSentHintPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D656C0528E2F722301F55 /* TBMSentHintPresenter.m */; };
 		682D62CF212484395215A6AC /* TBMDeviceHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6DB59C7937398F1A9503 /* TBMDeviceHandler.m */; };
 		682D62FF5EC8AB80AC918099 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 682D64C9CDB53268469777DD /* logo.png */; };
@@ -71,6 +73,7 @@
 		682D647D0A0E4671FDAC53D1 /* TBMVersionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D654D71B6E345F74F42F9 /* TBMVersionHandler.m */; };
 		682D6499C048088AF2C9EC6E /* logo.pxm in Resources */ = {isa = PBXBuildFile; fileRef = 682D6F3EB58AABC0CAA8656E /* logo.pxm */; };
 		682D649A6BDE527CBEF25BE6 /* TBMSecretScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D663EC1573C116540DF06 /* TBMSecretScreenViewController.m */; };
+		682D649DF96F07E19622AC84 /* TBMSwitchCameraFeatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D64111F2B31BAD67CEDD4 /* TBMSwitchCameraFeatureView.m */; };
 		682D649F024E4A57E6A70DDE /* TBMAppDelegate+AppSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D624068F28EB50D305CEF /* TBMAppDelegate+AppSync.m */; };
 		682D64BED60E522A0AE5C4B6 /* TBMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6B723EEFD888ADD1998F /* TBMAppDelegate.m */; };
 		682D64CDA3E511EE4C07A7AE /* TBMSentHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D66524166B1AF5AA56B6A /* TBMSentHintView.m */; };
@@ -91,6 +94,7 @@
 		682D66A874EB4CD2FEE59423 /* TBMWelcomeHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D62C2EBD7098C0208C536 /* TBMWelcomeHintView.m */; };
 		682D675A07EDDB1FDC2349D3 /* TBMVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6A08C068051A7F7A8EDE /* TBMVideoPlayer.m */; };
 		682D675D36C593647A33DB24 /* TBMInviteHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D64B9C2CF6F5AF89E9C0A /* TBMInviteHintView.m */; };
+		682D67C0C87C88FD732AC6A7 /* TBMFeatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D64FD13AED4B0D30020F1 /* TBMFeatureView.m */; };
 		682D67D96E73635BBDFF1DFE /* TBMStringUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D68ACABA20BF8BA8285C8 /* TBMStringUtils.m */; };
 		682D6823244BB9B31864D2DC /* NSString+NSStringExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D60D434BFF6AD073B9514 /* NSString+NSStringExtensions.m */; };
 		682D682D8307F976F0C78061 /* TBM.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 682D6C6521A9CF314E6001D4 /* TBM.storyboard */; };
@@ -250,6 +254,7 @@
 		682D63B5B72126F74CD7389B /* TBMSelectPhoneTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSelectPhoneTableDelegate.h; sourceTree = "<group>"; };
 		682D63CD733259EF2A5806C9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		682D63D0359EAC2B3DE6160D /* TBMLongPressTouchHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMLongPressTouchHandler.m; sourceTree = "<group>"; };
+		682D64111F2B31BAD67CEDD4 /* TBMSwitchCameraFeatureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSwitchCameraFeatureView.m; sourceTree = "<group>"; };
 		682D642AF94F95A9312DF9EE /* TBMVerificationAlertHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVerificationAlertHandler.h; sourceTree = "<group>"; };
 		682D643506920DA2A14D8589 /* TBMHintArrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHintArrow.h; sourceTree = "<group>"; };
 		682D643B830D40EF268A72A8 /* TBMAppDelegate+AppSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMAppDelegate+AppSync.h"; sourceTree = "<group>"; };
@@ -266,6 +271,7 @@
 		682D64C9CDB53268469777DD /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = icons/logo.png; sourceTree = "<group>"; };
 		682D64CE7CB05C4B913B5FE7 /* TBMAlertControllerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAlertControllerView.h; sourceTree = "<group>"; };
 		682D64DCEF1065E458EC4808 /* TBMEventsFlowModuleEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEventsFlowModuleEventHandler.h; sourceTree = "<group>"; };
+		682D64FD13AED4B0D30020F1 /* TBMFeatureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFeatureView.m; sourceTree = "<group>"; };
 		682D6500844A9C7F6AE426EF /* DK Crayon Crumble.ttf */ = {isa = PBXFileReference; lastKnownFileType = file.ttf; path = "DK Crayon Crumble.ttf"; sourceTree = "<group>"; };
 		682D652A128098228EA5D4C4 /* TBMPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMPreviewView.h; sourceTree = "<group>"; };
 		682D653239814829E7475623 /* TBMTableModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMTableModal.h; sourceTree = "<group>"; };
@@ -285,6 +291,7 @@
 		682D661D0B5CF918CC2BB162 /* TBMFileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFileUtils.h; sourceTree = "<group>"; };
 		682D6620B7CB2C3A66F7C8E6 /* TBMGeometryUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMGeometryUtils.h; sourceTree = "<group>"; };
 		682D6624D11391FFFB868309 /* TBMGridElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMGridElement.h; sourceTree = "<group>"; };
+		682D662583D9CF4EA3E80FD1 /* TBMFeaturePresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFeaturePresenter.h; sourceTree = "<group>"; };
 		682D662767EE05569D91B6B8 /* TBMAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAlertController.m; sourceTree = "<group>"; };
 		682D663EC1573C116540DF06 /* TBMSecretScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSecretScreenViewController.m; sourceTree = "<group>"; };
 		682D664DDC8ABDE7CFAF601B /* TBMRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMRegisterViewController.m; sourceTree = "<group>"; };
@@ -321,9 +328,11 @@
 		682D688C9150449139479220 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		682D68A86C7BE070CDDF9CCA /* TBMInviteSomeoneElseHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMInviteSomeoneElseHintView.h; sourceTree = "<group>"; };
 		682D68ACABA20BF8BA8285C8 /* TBMStringUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMStringUtils.m; sourceTree = "<group>"; };
+		682D68C88F1451AFA7C00741 /* TBMSwitchCameraFeaturePresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSwitchCameraFeaturePresenter.m; sourceTree = "<group>"; };
 		682D68C9ABB01F0606AB3072 /* TBMGridElementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMGridElementViewController.m; sourceTree = "<group>"; };
 		682D68CB6FEF90CC4414F43C /* TBMContactSearchTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMContactSearchTableDelegate.h; sourceTree = "<group>"; };
 		682D68ECB09C6EFC703B9502 /* TBMFriendGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFriendGetter.m; sourceTree = "<group>"; };
+		682D69079D7EA2C340500963 /* TBMFeaturePresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFeaturePresenter.m; sourceTree = "<group>"; };
 		682D692C95A194CAB41653CC /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
 		682D6969A3F9A036113ECD07 /* NotificationTone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = NotificationTone.wav; sourceTree = "<group>"; };
 		682D6975187B35316B509484 /* TBMVideoRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoRecorder.m; sourceTree = "<group>"; };
@@ -371,6 +380,7 @@
 		682D6D337ECFA6AF44361282 /* TBMHintArrow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHintArrow.m; sourceTree = "<group>"; };
 		682D6D33A12BA8D8CF67A232 /* TBMRemoteStorageHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMRemoteStorageHandler.h; sourceTree = "<group>"; };
 		682D6D3B235BE55A7B676A83 /* TBMVideoObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoObject.h; sourceTree = "<group>"; };
+		682D6D3D1D23917786B615AB /* TBMSwitchCameraFeatureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSwitchCameraFeatureView.h; sourceTree = "<group>"; };
 		682D6D448709A20856127806 /* TBMVideoRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoRecorder.h; sourceTree = "<group>"; };
 		682D6D46C093C2E7A89BCE63 /* TBMHomeViewController+VersionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMHomeViewController+VersionController.h"; sourceTree = "<group>"; };
 		682D6D61A10414F037454B49 /* TBMStateScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMStateScreenView.h; sourceTree = "<group>"; };
@@ -398,7 +408,9 @@
 		682D6E7F05E86ADC7ED7D1BE /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		682D6E88EF56C4DB85C7EF49 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
 		682D6E94279CA18ECC054A09 /* Zazo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = "Zazo-Info.plist"; sourceTree = "<group>"; };
+		682D6E9F9A6A09D22E86D58E /* TBMSwitchCameraFeaturePresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSwitchCameraFeaturePresenter.h; sourceTree = "<group>"; };
 		682D6EA3A775AAA15CD74614 /* TBMAppDelegate+Boot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMAppDelegate+Boot.h"; sourceTree = "<group>"; };
+		682D6EC3C5BEC5689AB6C8A1 /* TBMFeatureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFeatureView.h; sourceTree = "<group>"; };
 		682D6ED20E1C51E1986182CB /* UIButton+TBMRoundedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+TBMRoundedButton.m"; sourceTree = "<group>"; };
 		682D6ED55D485163D526A2B2 /* TBMStateScreenDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMStateScreenDataSource.h; sourceTree = "<group>"; };
 		682D6ED5A392394CC36225F4 /* TBMLongPressTouchHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMLongPressTouchHandler.h; sourceTree = "<group>"; };
@@ -585,13 +597,6 @@
 			path = tbm;
 			sourceTree = SOURCE_ROOT;
 		};
-		682D621FD7A7E2116DD7A14D /* Features */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Features;
-			sourceTree = "<group>";
-		};
 		682D6239188B6FF2AD71730C /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -647,9 +652,9 @@
 			isa = PBXGroup;
 			children = (
 				682D6D51286C644711AEDC8A /* Hints */,
-				682D621FD7A7E2116DD7A14D /* Features */,
 				682D6FCC57B6E95D767E0B6A /* Events Flow Module */,
 				682D61586625841A8EDC5247 /* Secret Screen Module */,
+				682D6A5A0D0E050DE75A7A12 /* Features */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -804,6 +809,17 @@
 			path = "Viewed Hint";
 			sourceTree = "<group>";
 		};
+		682D660BF9E2FC37E38D023B /* Switch Camera Feature */ = {
+			isa = PBXGroup;
+			children = (
+				682D6D3D1D23917786B615AB /* TBMSwitchCameraFeatureView.h */,
+				682D6E9F9A6A09D22E86D58E /* TBMSwitchCameraFeaturePresenter.h */,
+				682D68C88F1451AFA7C00741 /* TBMSwitchCameraFeaturePresenter.m */,
+				682D64111F2B31BAD67CEDD4 /* TBMSwitchCameraFeatureView.m */,
+			);
+			path = "Switch Camera Feature";
+			sourceTree = "<group>";
+		};
 		682D6623D3E736A0CB358620 /* ios7 */ = {
 			isa = PBXGroup;
 			children = (
@@ -828,6 +844,17 @@
 			path = icons/ios7;
 			sourceTree = "<group>";
 		};
+		682D67D82C93090A846E4CA2 /* Common Feature Unlock */ = {
+			isa = PBXGroup;
+			children = (
+				682D6EC3C5BEC5689AB6C8A1 /* TBMFeatureView.h */,
+				682D64FD13AED4B0D30020F1 /* TBMFeatureView.m */,
+				682D662583D9CF4EA3E80FD1 /* TBMFeaturePresenter.h */,
+				682D69079D7EA2C340500963 /* TBMFeaturePresenter.m */,
+			);
+			path = "Common Feature Unlock";
+			sourceTree = "<group>";
+		};
 		682D6956284903A443A86673 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
@@ -849,6 +876,15 @@
 				682D69E95A7633B49B8D1727 /* TBMInviteHintPresenter.h */,
 			);
 			path = "Invite Hint";
+			sourceTree = "<group>";
+		};
+		682D6A5A0D0E050DE75A7A12 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				682D660BF9E2FC37E38D023B /* Switch Camera Feature */,
+				682D67D82C93090A846E4CA2 /* Common Feature Unlock */,
+			);
+			path = Features;
 			sourceTree = "<group>";
 		};
 		682D6A9015FBE29E9B00466F /* Images */ = {
@@ -1338,6 +1374,10 @@
 				682D6DF0EDD5173194378957 /* TBMWelcomeHintPresenter.m in Sources */,
 				682D699557ADBEF32EF96588 /* TBMPlayHintPresenter.m in Sources */,
 				682D6231BE232BB20F480EE3 /* TBMRecordHintPresenter.m in Sources */,
+				682D62B423BAD4C781851567 /* TBMSwitchCameraFeaturePresenter.m in Sources */,
+				682D649DF96F07E19622AC84 /* TBMSwitchCameraFeatureView.m in Sources */,
+				682D67C0C87C88FD732AC6A7 /* TBMFeatureView.m in Sources */,
+				682D6242BD6DDE96E92E0938 /* TBMFeaturePresenter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
