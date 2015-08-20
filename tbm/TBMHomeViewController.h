@@ -10,10 +10,11 @@
 #import "TBMGridViewController.h"
 #import "TBMBenchViewController.h"
 #import "TBMGridDelegate.h"
+#import "TBMHomeModuleInterface.h"
 
 @protocol TBMEventsFlowModuleInterface;
 
-@interface TBMHomeViewController : UIViewController <TBMBenchViewControllerDelegate, TBMGridDelegate>
+@interface TBMHomeViewController : UIViewController <TBMBenchViewControllerDelegate, TBMGridDelegate, TBMHomeModuleInterface>
 
 @property(nonatomic) TBMGridViewController *gridViewController;
 

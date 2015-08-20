@@ -22,6 +22,6 @@
 - (NSUInteger)priority;
 
 // Presents handler
-- (BOOL)presentWithDataSource:(id <TBMEventsFlowModuleDataSource>)dataSource gridModule:(id <TBMGridModuleInterface>)gridModule;
+- (void)presentWithDataSource:(id <TBMEventsFlowModuleDataSource>)dataSource gridModule:(id <TBMGridModuleInterface>)gridModule;
 
 @end

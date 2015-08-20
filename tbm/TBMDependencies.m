@@ -7,8 +7,8 @@
 #import "TBMGridModuleInterface.h"
 #import "TBMEventsFlowModuleInterface.h"
 #import "TBMEventsFlowModulePresenter.h"
-#import "TBMInviteHintView.h"
-#import "TBMInviteHintPresenter.h"
+#import "TBMSwitchCameraFeatureView.h"
+#import "TBMSwitchCameraFeaturePresenter.h"
 #import "TBMHomeViewController.h"
 #import "TBMInviteSomeOneElseHintPresenter.h"
 #import "TBMPlayHintPresenter.h"
@@ -16,6 +16,8 @@
 #import "TBMWelcomeHintPresenter.h"
 #import "TBMSentHintPresenter.h"
 #import "TBMRecordHintPresenter.h"
+#import "TBMInviteHintPresenter.h"
+#import "TBMNextFeatureDialogPresenter.h"
 
 
 @interface TBMDependencies ()
@@ -28,6 +30,12 @@
 @property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> sentHintModule;
 @property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> viewedHintModule;
 @property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> welcomeHintModule;
+
+@property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> switchCameraFeatureModule;
+
+@property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> nextFeatureModule;
+
+@property(nonatomic, strong) id <TBMHomeModuleInterface> homeModule;
 @end
 
 @implementation TBMDependencies
@@ -39,7 +47,10 @@
     //TODO: Remove HomeViewController from here after it will transform to module
 //    [self.eventsFlowModule setupGridModule:gridModule]; TODO: Bring here from TBMHomeViewController
     [homeController setupEvensFlowModule:self.eventsFlowModule];
-
+    self.homeModule = homeController;
+    /**
+     * Hints
+     */
     [self.eventsFlowModule addEventHandler:self.inviteHintModule];
     [self.eventsFlowModule addEventHandler:self.inviteSomeOneElseHintModule];
     [self.eventsFlowModule addEventHandler:self.playHintModule];
@@ -48,6 +59,12 @@
     [self.eventsFlowModule addEventHandler:self.viewedHintModule];
     [self.eventsFlowModule addEventHandler:self.welcomeHintModule];
 
+    /**
+     * Features
+     */
+    [self.eventsFlowModule addEventHandler:self.switchCameraFeatureModule];
+
+    [self.eventsFlowModule addEventHandler:self.nextFeatureModule];
 }
 
 #pragma mark - Modules initialization
@@ -124,6 +141,23 @@
     return _welcomeHintModule;
 }
 
+- (id <TBMEventsFlowModuleEventHandler>)switchCameraFeatureModule {
+    if (!_switchCameraFeatureModule) {
+        TBMSwitchCameraFeaturePresenter *switchCameraFeaturePresenter = [[TBMSwitchCameraFeaturePresenter alloc] init];
+        [switchCameraFeaturePresenter setupEventFlowModule:self.eventsFlowModule];
+        _switchCameraFeatureModule = switchCameraFeaturePresenter;
+    }
+    return _switchCameraFeatureModule;
+}
+
+- (id <TBMEventsFlowModuleEventHandler>)nextFeatureModule {
+    if (!_nextFeatureModule) {
+        TBMNextFeatureDialogPresenter *nextFeatureDialogPresenter = [[TBMNextFeatureDialogPresenter alloc] init];
+        [nextFeatureDialogPresenter setupHomeModule:self.homeModule];
+        _nextFeatureModule = nextFeatureDialogPresenter;
+    }
+    return _nextFeatureModule;
+}
 
 #pragma mark Hints modules
 

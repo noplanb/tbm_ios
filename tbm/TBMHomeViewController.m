@@ -15,7 +15,6 @@
 #import "TBMSecretScreenPresenter.h"
 #import "TBMSecretGestureRecognizer.h"
 #import "TBMEventsFlowModulePresenter.h"
-#import "TBMEventsFlowModuleInterface.h"
 
 @interface TBMHomeViewController ()
 @property(nonatomic) TBMAppDelegate *appDelegate;
@@ -36,6 +35,14 @@
 @end
 
 @implementation TBMHomeViewController
+
+#pragma mark Interface
+
+- (void)showBench {
+    if (!self.benchViewController.isShowing) {
+        [self.benchViewController toggle];
+    }
+}
 
 #pragma mark - Instantiation
 static TBMHomeViewController *hvcInstance;
@@ -313,5 +320,6 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
     }
     return _secretScreen;
 }
+
 
 @end
