@@ -34,6 +34,7 @@
 		682D60214C9B6EAB48FD16BD /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 682D67A044D3158CD0382307 /* Icon-Small@2x.png */; };
 		682D603AD610AABE5DA13F7C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D636DAAD06F89F4403722 /* main.m */; };
 		682D603C9E6BBC036499E22A /* NSError+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D65A7AB10F9597361D940 /* NSError+Extensions.m */; };
+		682D605D8326B37CFD620D69 /* TBMCarouselFeaturePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D65B5F6013059EEB710D3 /* TBMCarouselFeaturePresenter.m */; };
 		682D606A46484E5EFEAC3E09 /* TBMAlertControllerVisualStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D681F2883BD625AE73A16 /* TBMAlertControllerVisualStyle.m */; };
 		682D60F9B7F1622956C443B1 /* TBMSecretGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6EDE4AD1CE7679FA9DD3 /* TBMSecretGestureRecognizer.m */; };
 		682D611258BE3622003A7F98 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 682D683D5108295CADCFFB2E /* iTunesArtwork.png */; };
@@ -47,6 +48,8 @@
 		682D61C88A5352C778DEAF25 /* TBMDebugData.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6A6BA73E6B0485C33D18 /* TBMDebugData.m */; };
 		682D61DBE73003D658140DF4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 682D63CD733259EF2A5806C9 /* Images.xcassets */; };
 		682D61DC51C1E593ED888E98 /* TBMHomeViewController+Invite.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6B2DBFAAD60185CCAA94 /* TBMHomeViewController+Invite.m */; };
+		682D62005983B3CB3845BEC3 /* TBMAbortRecordFeatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6F76596E558B1BE3372B /* TBMAbortRecordFeatureView.m */; };
+		682D620D23EB185E6BF5769C /* TBMCarouselFeatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6741E3D189B078BE77EC /* TBMCarouselFeatureView.m */; };
 		682D621D10CAA2D1B0B5BA0A /* TBMViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D65504054176454B14059 /* TBMViewUtils.m */; };
 		682D6231BE232BB20F480EE3 /* TBMRecordHintPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6F68850CE52341F2AB27 /* TBMRecordHintPresenter.m */; };
 		682D623B4809795454A62260 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 682D65C5DF07F2B03021C47B /* iTunesArtwork@2x.png */; };
@@ -70,6 +73,7 @@
 		682D6381D8383800CA777DE5 /* AVAudioSession+TBMAudioSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6BDF7C03F105F9A6B1B1 /* AVAudioSession+TBMAudioSession.m */; };
 		682D6417DF8791E7B43DDB0C /* TBMVerfiicationAlertHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D60B6748DD03224099509 /* TBMVerfiicationAlertHandler.m */; };
 		682D644CA5E130A928CA48B2 /* TBMEventsFlowModulePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D666FCCF1E78C345F2AC6 /* TBMEventsFlowModulePresenter.m */; };
+		682D647C107CF0D51D1F8098 /* TBMEarpieceFeatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6DFD5BE96AF33B5B6AFD /* TBMEarpieceFeatureView.m */; };
 		682D647D0A0E4671FDAC53D1 /* TBMVersionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D654D71B6E345F74F42F9 /* TBMVersionHandler.m */; };
 		682D6499C048088AF2C9EC6E /* logo.pxm in Resources */ = {isa = PBXBuildFile; fileRef = 682D6F3EB58AABC0CAA8656E /* logo.pxm */; };
 		682D649A6BDE527CBEF25BE6 /* TBMSecretScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D663EC1573C116540DF06 /* TBMSecretScreenViewController.m */; };
@@ -130,10 +134,11 @@
 		682D6ACBE55739C92617144B /* TBMContactsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6F7ED78DC09AA5527B82 /* TBMContactsManager.m */; };
 		682D6ACBF9E88236D54CB324 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 682D62031B2C11A8CBBEDAC3 /* iTunesArtwork@2x.png */; };
 		682D6AFD2E7231745D4E6EB9 /* TBMStateScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D62C5214399B5767D6015 /* TBMStateScreenViewController.m */; };
-		682D6B186EE907064E917289 /* TBMNextFeatureDialogPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6CB3983F162CF4CB4A59 /* TBMNextFeatureDialogPresenter.m */; };
+		682D6B0461E20561F8B391A3 /* TBMDeleteFriendFeaturePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6FB261412BF43DDF40CE /* TBMDeleteFriendFeaturePresenter.m */; };
 		682D6B8365BA741CA0DF8217 /* TBMLongPressTouchHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D63D0359EAC2B3DE6160D /* TBMLongPressTouchHandler.m */; };
 		682D6B925D841CED18D9A33E /* TBMGridElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6347340FCB501A1635D2 /* TBMGridElement.m */; };
 		682D6BE834E4ECA3EF475996 /* TBMHintPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D629A14B0E25815C0AA31 /* TBMHintPresenter.m */; };
+		682D6BFD733D20CF7A8D25A6 /* TBMEarpieceFeaturePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6E2F04692908FF6443A7 /* TBMEarpieceFeaturePresenter.m */; };
 		682D6C39435E51D3B6EDD636 /* TBMInviteSomeoneElseHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6307691604FD04AAB07A /* TBMInviteSomeoneElseHintView.m */; };
 		682D6C3C8C5988AACA92201F /* TBMFriendGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D68ECB09C6EFC703B9502 /* TBMFriendGetter.m */; };
 		682D6C5A8AAEF5F140E604A3 /* TBMEventsFlowDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6DC5511856B6CDA6C6BA /* TBMEventsFlowDataSource.m */; };
@@ -148,12 +153,15 @@
 		682D6D439E0E02D3963CFE23 /* TBMRemoteStorageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6D92AD7D7DECE5F3A47F /* TBMRemoteStorageHandler.m */; };
 		682D6D6E112CF33170EBE082 /* TBMInviteHintPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6837E72EAD760FB456B0 /* TBMInviteHintPresenter.m */; };
 		682D6D796AC0E10644AE6346 /* TBMTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6588CDFD3316597C3A63 /* TBMTextField.m */; };
+		682D6D7C6EE3DAFEA009432F /* TBMAbortRecordFeaturePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6B258929D0146BE0FD1C /* TBMAbortRecordFeaturePresenter.m */; };
 		682D6DAFC6F18E614D0D4239 /* NSArray+NSArrayExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D62DF92682968768B4C36 /* NSArray+NSArrayExtensions.m */; };
 		682D6DD7E95D2234C0193130 /* Icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 682D64796F5B9C2F4E862B72 /* Icon-40@2x.png */; };
 		682D6DF0EDD5173194378957 /* TBMWelcomeHintPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6112A47DB94C5FB5A9F1 /* TBMWelcomeHintPresenter.m */; };
 		682D6DFDEAADFF6E658AA791 /* TBMHomeViewController+VersionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D61AE54A2634524A33C1F /* TBMHomeViewController+VersionController.m */; };
 		682D6E1E27A9612200B3F66C /* TBMSoundEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6E00C71FD6F24A28DFFC /* TBMSoundEffect.m */; };
 		682D6E39410FDD1546D99A17 /* DK Crayon Crumble.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 682D6500844A9C7F6AE426EF /* DK Crayon Crumble.ttf */; };
+		682D6E80A729A73A9C36CBEC /* TBMDeleteFriendFeatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6E2A9CF7EA72E9E8A268 /* TBMDeleteFriendFeatureView.m */; };
+		682D6E9633EB6094B7B9C15A /* TBMNextFeatureDialogPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6A9A328323600312E584 /* TBMNextFeatureDialogPresenter.m */; };
 		682D6EAA0190894C5E2727CE /* head.png in Resources */ = {isa = PBXBuildFile; fileRef = 682D6EFAD212116BE5E97637 /* head.png */; };
 		682D6F1883A5088F3E95F88A /* TBMInviteSomeOneElseHintPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6CF63D47DA0F427F43DF /* TBMInviteSomeOneElseHintPresenter.m */; };
 		682D6F3EAF5C25875C34505D /* TBMAlertControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D61123651DDC66EA264C7 /* TBMAlertControllerView.m */; };
@@ -212,10 +220,12 @@
 		682D60B6748DD03224099509 /* TBMVerfiicationAlertHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVerfiicationAlertHandler.m; sourceTree = "<group>"; };
 		682D60D434BFF6AD073B9514 /* NSString+NSStringExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NSStringExtensions.m"; sourceTree = "<group>"; };
 		682D60F02534019593E8EA4D /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		682D61115CFFFF3F897ECD46 /* TBMCarouselFeatureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMCarouselFeatureView.h; sourceTree = "<group>"; };
 		682D61123651DDC66EA264C7 /* TBMAlertControllerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAlertControllerView.m; sourceTree = "<group>"; };
 		682D6112A47DB94C5FB5A9F1 /* TBMWelcomeHintPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMWelcomeHintPresenter.m; sourceTree = "<group>"; };
 		682D611EA80A235D0D84015D /* TBMSecretScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSecretScreenView.m; sourceTree = "<group>"; };
 		682D6125623081D2C75309B6 /* TBMViewedHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMViewedHintView.h; sourceTree = "<group>"; };
+		682D6125B32C5B26B7455A6B /* TBMEarpieceFeatureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEarpieceFeatureView.h; sourceTree = "<group>"; };
 		682D61751313427CD15CB985 /* TBMS3CredentialsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMS3CredentialsManager.h; sourceTree = "<group>"; };
 		682D617709EB8B37310C19BD /* Zazo-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Zazo-Prefix.pch"; sourceTree = "<group>"; };
 		682D61788DCF42204CD45A00 /* TBMHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHomeViewController.m; sourceTree = "<group>"; };
@@ -256,8 +266,10 @@
 		682D6395211D26257BAC6CAD /* Icon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-76@2x.png"; sourceTree = "<group>"; };
 		682D63A1BFEA21BC7B331EE8 /* TBMStateScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMStateScreenView.m; sourceTree = "<group>"; };
 		682D63B5B72126F74CD7389B /* TBMSelectPhoneTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSelectPhoneTableDelegate.h; sourceTree = "<group>"; };
+		682D63B847138D7D5A200C4D /* TBMDeleteFriendFeaturePresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDeleteFriendFeaturePresenter.h; sourceTree = "<group>"; };
 		682D63CD733259EF2A5806C9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		682D63D0359EAC2B3DE6160D /* TBMLongPressTouchHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMLongPressTouchHandler.m; sourceTree = "<group>"; };
+		682D63D500EF1F4045D81C53 /* TBMDeleteFriendFeatureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDeleteFriendFeatureView.h; sourceTree = "<group>"; };
 		682D64111F2B31BAD67CEDD4 /* TBMSwitchCameraFeatureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSwitchCameraFeatureView.m; sourceTree = "<group>"; };
 		682D642AF94F95A9312DF9EE /* TBMVerificationAlertHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVerificationAlertHandler.h; sourceTree = "<group>"; };
 		682D643506920DA2A14D8589 /* TBMHintArrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHintArrow.h; sourceTree = "<group>"; };
@@ -290,7 +302,9 @@
 		682D6593B405D40A8695CB63 /* TBMVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoPlayer.h; sourceTree = "<group>"; };
 		682D659ED5AF88A8D386D6F9 /* TBMSecretScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSecretScreenView.h; sourceTree = "<group>"; };
 		682D65A7AB10F9597361D940 /* NSError+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+Extensions.m"; sourceTree = "<group>"; };
+		682D65B5F6013059EEB710D3 /* TBMCarouselFeaturePresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMCarouselFeaturePresenter.m; sourceTree = "<group>"; };
 		682D65C5DF07F2B03021C47B /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
+		682D65CD6C7BF2A9ABD047F4 /* TBMCarouselFeaturePresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMCarouselFeaturePresenter.h; sourceTree = "<group>"; };
 		682D65EE7CC9D27ADFAF2650 /* TBMBenchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMBenchViewController.m; sourceTree = "<group>"; };
 		682D660028C236F9B7875FB8 /* TBMContentViewModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMContentViewModal.h; sourceTree = "<group>"; };
 		682D661D0B5CF918CC2BB162 /* TBMFileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFileUtils.h; sourceTree = "<group>"; };
@@ -306,6 +320,7 @@
 		682D667CD4D12F7800FFA32E /* TBMRegisterForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMRegisterForm.h; sourceTree = "<group>"; };
 		682D668EB30D794208D48C63 /* TBMSentHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSentHintView.h; sourceTree = "<group>"; };
 		682D66A973757491216FAF09 /* TBMSoundEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSoundEffect.h; sourceTree = "<group>"; };
+		682D66BDA4CCF34E077C9C1F /* TBMAbortRecordFeatureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAbortRecordFeatureView.h; sourceTree = "<group>"; };
 		682D66D8321536CA4FB9C08F /* TBMVideoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoObject.m; sourceTree = "<group>"; };
 		682D66E76AD318C84849308B /* TBMVideoProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoProcessor.h; sourceTree = "<group>"; };
 		682D6707AF7A1F0DF3CBC9A0 /* TBMHomeViewController+Invite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMHomeViewController+Invite.h"; sourceTree = "<group>"; };
@@ -314,11 +329,11 @@
 		682D672DCF4A82924A47E3B8 /* BeepSin30.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = BeepSin30.wav; sourceTree = "<group>"; };
 		682D6734B3C1209EAA5BC99C /* TBMFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFriend.h; sourceTree = "<group>"; };
 		682D673DFCDF4EFAD5A5A821 /* NSString+NSStringExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NSStringExtensions.h"; sourceTree = "<group>"; };
+		682D6741E3D189B078BE77EC /* TBMCarouselFeatureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMCarouselFeatureView.m; sourceTree = "<group>"; };
 		682D674B253329AAC46C6AB3 /* TBMVideoIdUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoIdUtils.m; sourceTree = "<group>"; };
 		682D678864EB48AF5652ABC9 /* TBMStateScreenDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMStateScreenDataSource.m; sourceTree = "<group>"; };
 		682D6794FD1E1C0671EEBAFC /* TBMSelectPhoneTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSelectPhoneTableDelegate.m; sourceTree = "<group>"; };
 		682D67A044D3158CD0382307 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
-		682D67AC6CFB9D83B46E6DDF /* TBMNextFeatureDialogPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMNextFeatureDialogPresenter.h; sourceTree = "<group>"; };
 		682D67D8EE0F0862C47A7A71 /* TBMSecretGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSecretGestureRecognizer.h; sourceTree = "<group>"; };
 		682D68159DA265AF0F8972DD /* TBMSentHintPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSentHintPresenter.h; sourceTree = "<group>"; };
 		682D681F2883BD625AE73A16 /* TBMAlertControllerVisualStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAlertControllerVisualStyle.m; sourceTree = "<group>"; };
@@ -340,6 +355,7 @@
 		682D68ECB09C6EFC703B9502 /* TBMFriendGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFriendGetter.m; sourceTree = "<group>"; };
 		682D69079D7EA2C340500963 /* TBMFeaturePresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFeaturePresenter.m; sourceTree = "<group>"; };
 		682D692C95A194CAB41653CC /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		682D695FCA254462AA7B6C29 /* TBMAbortRecordFeaturePresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAbortRecordFeaturePresenter.h; sourceTree = "<group>"; };
 		682D6969A3F9A036113ECD07 /* NotificationTone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = NotificationTone.wav; sourceTree = "<group>"; };
 		682D6975187B35316B509484 /* TBMVideoRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoRecorder.m; sourceTree = "<group>"; };
 		682D69980F75D584FA6B3435 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
@@ -355,9 +371,11 @@
 		682D6A7678FDEFC7773F844E /* TBMWelcomeHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMWelcomeHintView.h; sourceTree = "<group>"; };
 		682D6A85A125D094098BB98B /* AVAudioSession+TBMAudioSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVAudioSession+TBMAudioSession.h"; sourceTree = "<group>"; };
 		682D6A95433D72C2AFB9CC43 /* TBMGridElementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMGridElementViewController.h; sourceTree = "<group>"; };
+		682D6A9A328323600312E584 /* TBMNextFeatureDialogPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBMNextFeatureDialogPresenter.m; path = "Modules/Features/Next Feature Dialog/TBMNextFeatureDialogPresenter.m"; sourceTree = "<group>"; };
 		682D6AC2B94FF9776D70BA2A /* single_ding_chimes2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = single_ding_chimes2.wav; sourceTree = "<group>"; };
 		682D6AC61977FE06739288A5 /* TBMConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMConfig.m; sourceTree = "<group>"; };
 		682D6ACDF7DE5DA1B5A026A3 /* TBMGridElementDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMGridElementDelegate.h; sourceTree = "<group>"; };
+		682D6B258929D0146BE0FD1C /* TBMAbortRecordFeaturePresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAbortRecordFeaturePresenter.m; sourceTree = "<group>"; };
 		682D6B2A7481C03992C4D963 /* TBMPhoneUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMPhoneUtils.m; sourceTree = "<group>"; };
 		682D6B2DBFAAD60185CCAA94 /* TBMHomeViewController+Invite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMHomeViewController+Invite.m"; sourceTree = "<group>"; };
 		682D6B6628FB4DF0C409BDA8 /* TBMBenchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMBenchTableViewCell.h; sourceTree = "<group>"; };
@@ -376,7 +394,6 @@
 		682D6C7A66CB40EBE023166A /* TBMPhoneUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMPhoneUtils.h; sourceTree = "<group>"; };
 		682D6CA422EA3FB3C3AA37AB /* TBMFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFriend.m; sourceTree = "<group>"; };
 		682D6CA5D4777806D3F7A508 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
-		682D6CB3983F162CF4CB4A59 /* TBMNextFeatureDialogPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMNextFeatureDialogPresenter.m; sourceTree = "<group>"; };
 		682D6CC2C3A33EB11E7BABE6 /* TBMAppDelegate+Boot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMAppDelegate+Boot.m"; sourceTree = "<group>"; };
 		682D6CC806522B021A745F07 /* TBMPlayHintPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMPlayHintPresenter.h; sourceTree = "<group>"; };
 		682D6CCBAD8D85FF3976A4CF /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -390,23 +407,28 @@
 		682D6D3D1D23917786B615AB /* TBMSwitchCameraFeatureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSwitchCameraFeatureView.h; sourceTree = "<group>"; };
 		682D6D448709A20856127806 /* TBMVideoRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoRecorder.h; sourceTree = "<group>"; };
 		682D6D46C093C2E7A89BCE63 /* TBMHomeViewController+VersionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMHomeViewController+VersionController.h"; sourceTree = "<group>"; };
+		682D6D4D72E0A13E66A59773 /* TBMEarpieceFeaturePresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEarpieceFeaturePresenter.h; sourceTree = "<group>"; };
 		682D6D61A10414F037454B49 /* TBMStateScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMStateScreenView.h; sourceTree = "<group>"; };
 		682D6D670B850978DA68CDFD /* TBMGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMGridViewController.m; sourceTree = "<group>"; };
 		682D6D6C4D99889200184939 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
 		682D6D86AAE73F9FCA5C1992 /* TBMHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHomeViewController.h; sourceTree = "<group>"; };
 		682D6D904E7B43877CC76CEE /* Icon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-76.png"; sourceTree = "<group>"; };
 		682D6D92AD7D7DECE5F3A47F /* TBMRemoteStorageHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMRemoteStorageHandler.m; sourceTree = "<group>"; };
+		682D6D94811A13CD4CBEDB65 /* TBMNextFeatureDialogPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBMNextFeatureDialogPresenter.h; path = "Modules/Features/Next Feature Dialog/TBMNextFeatureDialogPresenter.h"; sourceTree = "<group>"; };
 		682D6DB59C7937398F1A9503 /* TBMDeviceHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDeviceHandler.m; sourceTree = "<group>"; };
 		682D6DC5511856B6CDA6C6BA /* TBMEventsFlowDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMEventsFlowDataSource.m; sourceTree = "<group>"; };
 		682D6DC566D9403E2D40869C /* TBMBenchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMBenchTableViewCell.m; sourceTree = "<group>"; };
 		682D6DCA1AEB69C20A1DB01A /* TBMWelcomeHintPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMWelcomeHintPresenter.h; sourceTree = "<group>"; };
 		682D6DD8E0A8289A29F84B39 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		682D6DF9C1CC75808DC13BB4 /* Icon-Small-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50@2x.png"; sourceTree = "<group>"; };
+		682D6DFD5BE96AF33B5B6AFD /* TBMEarpieceFeatureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMEarpieceFeatureView.m; sourceTree = "<group>"; };
 		682D6E00C71FD6F24A28DFFC /* TBMSoundEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSoundEffect.m; sourceTree = "<group>"; };
 		682D6E120D8645ECDAE2A405 /* TBMDeviceHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDeviceHandler.h; sourceTree = "<group>"; };
 		682D6E17204F8E7E5797F0E7 /* TBMAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAppDelegate.h; sourceTree = "<group>"; };
 		682D6E213422B5CA651D64D5 /* TBMGridDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMGridDelegate.h; sourceTree = "<group>"; };
+		682D6E2A9CF7EA72E9E8A268 /* TBMDeleteFriendFeatureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDeleteFriendFeatureView.m; sourceTree = "<group>"; };
 		682D6E2C8C8395262FE5B8F7 /* TBMSecretScreenPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSecretScreenPresenter.h; sourceTree = "<group>"; };
+		682D6E2F04692908FF6443A7 /* TBMEarpieceFeaturePresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMEarpieceFeaturePresenter.m; sourceTree = "<group>"; };
 		682D6E42D1F24E71E4F96741 /* TBMEventsFlowModuleDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEventsFlowModuleDataSource.h; sourceTree = "<group>"; };
 		682D6E4E0A1BCED5F7A2CA35 /* TBMVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideo.h; sourceTree = "<group>"; };
 		682D6E66E5ECB3DCD5753667 /* TBMDispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDispatch.h; sourceTree = "<group>"; };
@@ -428,12 +450,14 @@
 		682D6F3EB58AABC0CAA8656E /* logo.pxm */ = {isa = PBXFileReference; lastKnownFileType = file.pxm; name = logo.pxm; path = icons/logo.pxm; sourceTree = "<group>"; };
 		682D6F3EC2C50CAF4F0D9384 /* TBMVideoIdUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoIdUtils.h; sourceTree = "<group>"; };
 		682D6F68850CE52341F2AB27 /* TBMRecordHintPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMRecordHintPresenter.m; sourceTree = "<group>"; };
+		682D6F76596E558B1BE3372B /* TBMAbortRecordFeatureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAbortRecordFeatureView.m; sourceTree = "<group>"; };
 		682D6F7ED78DC09AA5527B82 /* TBMContactsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMContactsManager.m; sourceTree = "<group>"; };
 		682D6F8BF4472D2FC871839F /* TBMFriendGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFriendGetter.h; sourceTree = "<group>"; };
 		682D6F9EA035B8B469CE0C4C /* TBMDependencies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDependencies.h; sourceTree = "<group>"; };
 		682D6FA4D1E20A1D0E22F590 /* TBMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMUser.h; sourceTree = "<group>"; };
 		682D6FA75F12432D68247F32 /* TBMAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAlertController.h; sourceTree = "<group>"; };
 		682D6FAF5D877671D9A076F0 /* TBMEventsFlowModuleInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEventsFlowModuleInterface.h; sourceTree = "<group>"; };
+		682D6FB261412BF43DDF40CE /* TBMDeleteFriendFeaturePresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDeleteFriendFeaturePresenter.m; sourceTree = "<group>"; };
 		682D6FD6C1B02EA9F89009CE /* TBMStateScreenTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMStateScreenTableCell.m; sourceTree = "<group>"; };
 		682D6FFC90523CA4829C98FF /* TBMPlayHintPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMPlayHintPresenter.m; sourceTree = "<group>"; };
 		7716E91C15B9FF656396DC61 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -559,6 +583,17 @@
 				682D6FD6C1B02EA9F89009CE /* TBMStateScreenTableCell.m */,
 			);
 			name = Cell;
+			sourceTree = "<group>";
+		};
+		682D61141557081714679655 /* Earpiece Feature */ = {
+			isa = PBXGroup;
+			children = (
+				682D6125B32C5B26B7455A6B /* TBMEarpieceFeatureView.h */,
+				682D6DFD5BE96AF33B5B6AFD /* TBMEarpieceFeatureView.m */,
+				682D6D4D72E0A13E66A59773 /* TBMEarpieceFeaturePresenter.h */,
+				682D6E2F04692908FF6443A7 /* TBMEarpieceFeaturePresenter.m */,
+			);
+			path = "Earpiece Feature";
 			sourceTree = "<group>";
 		};
 		682D61586625841A8EDC5247 /* Secret Screen Module */ = {
@@ -852,6 +887,17 @@
 			path = icons/ios7;
 			sourceTree = "<group>";
 		};
+		682D6715D271E09EAB540371 /* Carousel Feature */ = {
+			isa = PBXGroup;
+			children = (
+				682D61115CFFFF3F897ECD46 /* TBMCarouselFeatureView.h */,
+				682D6741E3D189B078BE77EC /* TBMCarouselFeatureView.m */,
+				682D65CD6C7BF2A9ABD047F4 /* TBMCarouselFeaturePresenter.h */,
+				682D65B5F6013059EEB710D3 /* TBMCarouselFeaturePresenter.m */,
+			);
+			path = "Carousel Feature";
+			sourceTree = "<group>";
+		};
 		682D67D82C93090A846E4CA2 /* Common Feature Unlock */ = {
 			isa = PBXGroup;
 			children = (
@@ -875,6 +921,17 @@
 			name = Icons;
 			sourceTree = "<group>";
 		};
+		682D695D2227D7EEEA9ADFCA /* Delete Friend Feature */ = {
+			isa = PBXGroup;
+			children = (
+				682D63D500EF1F4045D81C53 /* TBMDeleteFriendFeatureView.h */,
+				682D6E2A9CF7EA72E9E8A268 /* TBMDeleteFriendFeatureView.m */,
+				682D63B847138D7D5A200C4D /* TBMDeleteFriendFeaturePresenter.h */,
+				682D6FB261412BF43DDF40CE /* TBMDeleteFriendFeaturePresenter.m */,
+			);
+			path = "Delete Friend Feature";
+			sourceTree = "<group>";
+		};
 		682D69880AA06461B7A80EF0 /* Invite Hint */ = {
 			isa = PBXGroup;
 			children = (
@@ -892,6 +949,10 @@
 				682D660BF9E2FC37E38D023B /* Switch Camera Feature */,
 				682D67D82C93090A846E4CA2 /* Common Feature Unlock */,
 				682D6DB4F23FD5B46326F987 /* Next Feature Dialog */,
+				682D6C4450FC67A219C6906B /* Abort Record Feature */,
+				682D61141557081714679655 /* Earpiece Feature */,
+				682D695D2227D7EEEA9ADFCA /* Delete Friend Feature */,
+				682D6715D271E09EAB540371 /* Carousel Feature */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -960,6 +1021,17 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
+		682D6C4450FC67A219C6906B /* Abort Record Feature */ = {
+			isa = PBXGroup;
+			children = (
+				682D66BDA4CCF34E077C9C1F /* TBMAbortRecordFeatureView.h */,
+				682D6F76596E558B1BE3372B /* TBMAbortRecordFeatureView.m */,
+				682D695FCA254462AA7B6C29 /* TBMAbortRecordFeaturePresenter.h */,
+				682D6B258929D0146BE0FD1C /* TBMAbortRecordFeaturePresenter.m */,
+			);
+			path = "Abort Record Feature";
+			sourceTree = "<group>";
+		};
 		682D6CF49331B07346506AF0 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -1018,8 +1090,6 @@
 		682D6DB4F23FD5B46326F987 /* Next Feature Dialog */ = {
 			isa = PBXGroup;
 			children = (
-				682D6CB3983F162CF4CB4A59 /* TBMNextFeatureDialogPresenter.m */,
-				682D67AC6CFB9D83B46E6DDF /* TBMNextFeatureDialogPresenter.h */,
 				682D6446B826497705A97C7F /* TBMNextFeatureDialogView.m */,
 				682D623C70FD37F87E7418E0 /* TBMNextFeatureDialogView.h */,
 			);
@@ -1118,6 +1188,8 @@
 			children = (
 				7716E91C15B9FF656396DC61 /* Pods.debug.xcconfig */,
 				074DBFEFF2D176488120A3DB /* Pods.release.xcconfig */,
+				682D6A9A328323600312E584 /* TBMNextFeatureDialogPresenter.m */,
+				682D6D94811A13CD4CBEDB65 /* TBMNextFeatureDialogPresenter.h */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1398,8 +1470,16 @@
 				682D649DF96F07E19622AC84 /* TBMSwitchCameraFeatureView.m in Sources */,
 				682D67C0C87C88FD732AC6A7 /* TBMFeatureView.m in Sources */,
 				682D6242BD6DDE96E92E0938 /* TBMFeaturePresenter.m in Sources */,
-				682D6B186EE907064E917289 /* TBMNextFeatureDialogPresenter.m in Sources */,
 				682D69D71464DAAC42FDBFFE /* TBMNextFeatureDialogView.m in Sources */,
+				682D6E9633EB6094B7B9C15A /* TBMNextFeatureDialogPresenter.m in Sources */,
+				682D62005983B3CB3845BEC3 /* TBMAbortRecordFeatureView.m in Sources */,
+				682D6D7C6EE3DAFEA009432F /* TBMAbortRecordFeaturePresenter.m in Sources */,
+				682D647C107CF0D51D1F8098 /* TBMEarpieceFeatureView.m in Sources */,
+				682D6BFD733D20CF7A8D25A6 /* TBMEarpieceFeaturePresenter.m in Sources */,
+				682D6E80A729A73A9C36CBEC /* TBMDeleteFriendFeatureView.m in Sources */,
+				682D6B0461E20561F8B391A3 /* TBMDeleteFriendFeaturePresenter.m in Sources */,
+				682D620D23EB185E6BF5769C /* TBMCarouselFeatureView.m in Sources */,
+				682D605D8326B37CFD620D69 /* TBMCarouselFeaturePresenter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
