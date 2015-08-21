@@ -38,6 +38,26 @@
 
 - (void)setWelcomeHintSessionState:(BOOL)state;
 
+- (BOOL)frontCameraUsageHintSessionState;
+
+- (void)setFrontCameraUsageHintSessionState:(BOOL)state;
+
+- (BOOL)abortRecordUsageHintSessionState;
+
+- (void)setAbortRecordUsageHintSessionState:(BOOL)state;
+
+- (BOOL)deleteFriendUsageHintSessionState;
+
+- (void)setDeleteFriendUsageHintSessionState:(BOOL)state;
+
+- (BOOL)earpieceUsageHintSessionState;
+
+- (void)setEarpieceUsageHintSessionState:(BOOL)state;
+
+- (BOOL)spinUsageHintSessionState;
+
+- (void)setSpinUsageHintSessionState:(BOOL)state;
+
 /**
  * Persistent states
  */
@@ -69,6 +89,26 @@
 - (BOOL)welcomeHintState;
 
 - (void)setWelcomeHintState:(BOOL)state;
+
+- (BOOL)frontCameraUsageHintState;
+
+- (void)setFrontCameraUsageHintState:(BOOL)state;
+
+- (BOOL)abortRecordUsageHintState;
+
+- (void)setAbortRecordUsageHintState:(BOOL)state;
+
+- (BOOL)deleteFriendUsageHintState;
+
+- (void)setDeleteFriendUsageHintState:(BOOL)state;
+
+- (BOOL)earpieceUsageHintState;
+
+- (void)setEarpieceUsageHintState:(BOOL)state;
+
+- (BOOL)spinUsageHintState;
+
+- (void)setSpinUsageHintState:(BOOL)state;
 
 /**
  * Features state
