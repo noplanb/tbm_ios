@@ -4,26 +4,26 @@
 //
 
 #import "TBMViewedHintPresenter.h"
-#import "TBMEventsFlowModuleDataSource.h"
+#import "TBMEventsFlowModuleDataSourceInterface.h"
 #import "TBMHintView.h"
 #import "TBMViewedHintView.h"
+#import "TBMEventHandlerDataSource.h"
 
 
-@implementation TBMViewedHintPresenter {
-    BOOL _isPresented;
-}
+@implementation TBMViewedHintPresenter
 
 - (instancetype)init {
     self = [super init];
-    [self setHintView:[TBMViewedHintView new]];
+    self.dialogView = [TBMViewedHintView new];
+    self.dataSource.persistentStateKey = @"kViewedHintNSUDkey";
     return self;
 }
 
-- (BOOL)isPresented {
-    return _isPresented;
+- (NSUInteger)priority {
+    return 1;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSource>)dataSource {
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource {
     if (event != TBMEventFlowEventMessageDidViewed) {
         return NO;
     }
@@ -32,27 +32,18 @@
         return NO;
     }
 
-    if ([dataSource viewedHintState]) {
+    if ([self.dataSource persistentState]) {
         return NO;
     }
 
     return YES;
 }
 
-- (void)presentWithDataSource:(id <TBMEventsFlowModuleDataSource>)dataSource gridModule:(id <TBMGridModuleInterface>)gridModule {
+
+- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule {
     if (![self.eventFlowModule isAnyHandlerActive]) {
-        [dataSource setViewedHintState:YES];
-        [dataSource setViewedHintSessionState:YES];
-
-        _isPresented = YES;
-        [self.hintView showHintInGrid:gridModule];
-    } else {
-        _isPresented = NO;
+        [super presentWithGridModule:gridModule];
     }
-}
-
-- (NSUInteger)priority {
-    return 1;
 }
 
 @end

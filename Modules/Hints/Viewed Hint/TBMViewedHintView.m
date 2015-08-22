@@ -19,7 +19,7 @@
     [arrows addObject:[TBMHintArrow arrowWithText:@"Your Zazo was Viewed!"
                                         curveKind:TBMTutorialArrowCurveKindRight
                                        arrowPoint:CGPointMake(
-                                               CGRectGetMaxX(highlightFrame)-20.f,
+                                               CGRectGetMaxX(highlightFrame) - 20.f,
                                                CGRectGetMinY(highlightFrame))
                                             angle:-45.f
                                            hidden:NO

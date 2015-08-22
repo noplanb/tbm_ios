@@ -5,8 +5,8 @@
 
 #import "TBMHomeViewController+Invite.h"
 #import "TBMEventsFlowModulePresenter.h"
-#import "TBMHintView.h"
-#import "TBMSwitchCameraFeatureView.h"
+#import "TBMEventsFlowDataSource.h"
+#import "TBMEventsFlowModuleEventHandler.h"
 
 @interface TBMEventsFlowModulePresenter ()
 
@@ -26,15 +26,13 @@
 }
 
 - (void)resetSession {
-    [self.dataSource startSession];
+    for (id <TBMEventsFlowModuleEventHandler> evenHandler in self.eventHandlers) {
+        [evenHandler resetSessionState];
+    }
 }
 
 - (void)resetHintsState {
     [self.dataSource resetHintsState];
-}
-
-- (void)resetFeaturesState {
-
 }
 
 - (void)addEventHandler:(id <TBMEventsFlowModuleEventHandler>)eventHandler {
@@ -58,7 +56,7 @@
     }
 
     if (currentEvenHandler) {
-        [currentEvenHandler presentWithDataSource:self.dataSource gridModule:self.gridModule];
+        [currentEvenHandler presentWithGridModule:self.gridModule];
         if ([currentEvenHandler isPresented]) {
             self.curentEventHandler = currentEvenHandler;
         }
@@ -108,7 +106,6 @@
 - (TBMEventsFlowDataSource *)dataSource {
     if (!_dataSource) {
         _dataSource = [[TBMEventsFlowDataSource alloc] init];
-        [_dataSource startSession];
     }
     return _dataSource;
 }

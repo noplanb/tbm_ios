@@ -4,9 +4,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TBMHintPresenter.h"
+#import "TBMEventHandlerPresenter.h"
 
 
-@interface TBMPlayHintPresenter : TBMHintPresenter <TBMEventsFlowModuleEventHandler>
+@interface TBMPlayHintPresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandler>
+/**
+ * Custom presentation logic for play and record hint
+ */
 - (void)addRecordHint;
 @end

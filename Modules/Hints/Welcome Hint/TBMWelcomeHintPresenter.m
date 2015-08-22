@@ -4,26 +4,26 @@
 //
 
 #import "TBMWelcomeHintPresenter.h"
-#import "TBMEventsFlowModuleDataSource.h"
+#import "TBMEventsFlowModuleDataSourceInterface.h"
 #import "TBMHintView.h"
 #import "TBMWelcomeHintView.h"
+#import "TBMEventHandlerDataSource.h"
 
 
-@implementation TBMWelcomeHintPresenter {
-    BOOL _isPresented;
-}
+@implementation TBMWelcomeHintPresenter
 
 - (instancetype)init {
     self = [super init];
-    [self setHintView:[TBMWelcomeHintView new]];
+    self.dialogView = [TBMWelcomeHintView new];
+    self.dataSource.persistentStateKey = @"*const kWelcomeHintNSUDkey";
     return self;
 }
 
-- (BOOL)isPresented {
-    return _isPresented;
+- (NSUInteger)priority {
+    return 1;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSource>)dataSource {
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource {
     if (event != TBMEventFlowEventFriendDidAdd) {
         return NO;
     }
@@ -35,27 +35,18 @@
         return NO;
     }
 
-    if ([dataSource welcomeHintState]) {
+    if ([self.dataSource persistentState]) {
         return NO;
     }
 
     return YES;
 }
 
-- (void)presentWithDataSource:(id <TBMEventsFlowModuleDataSource>)dataSource gridModule:(id <TBMGridModuleInterface>)gridModule {
+
+- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule {
     if (![self.eventFlowModule isAnyHandlerActive]) {
-        [dataSource setWelcomeHintState:YES];
-        [dataSource setWelcomeHintSessionState:YES];
-
-        _isPresented = YES;
-        [self.hintView showHintInGrid:gridModule];
-    } else {
-        _isPresented = NO;
+        [super presentWithGridModule:gridModule];
     }
-}
-
-- (NSUInteger)priority {
-    return 1;
 }
 
 @end

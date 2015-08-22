@@ -60,7 +60,7 @@
     NSMutableArray *arrows = [NSMutableArray array];
 
 
-    NSString *sendString = friendName ? [NSString stringWithFormat:@"Send %@",friendName] : @"Send";
+    NSString *sendString = friendName ? [NSString stringWithFormat:@"Send %@", friendName] : @"Send";
     [arrows addObject:[TBMHintArrow arrowWithText:sendString
                                         curveKind:curveKind
                                        arrowPoint:arrowPoint

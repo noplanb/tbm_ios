@@ -6,20 +6,8 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "TBMEventsFlowModuleDataSource.h"
+#import "TBMEventsFlowModuleDataSourceInterface.h"
 
-NSString
-        *const kInviteHintNSUDkey,
-        *const kInviteSomeoneElseNSUDkey,
-        *const kPlayHintNSUDkey,
-        *const kRecordHintNSUDkey,
-        *const kSentHintNSUDkey,
-        *const kViewedHintNSUDkey,
-        *const kMessageWelcomeHintNSUDkey,
-// Events state
-        *const kMesagePlayedNSUDkey,
-        *const kMesageRecordedNSUDkey;
-
-@interface TBMEventsFlowDataSource : NSObject <TBMEventsFlowModuleDataSource>
+@interface TBMEventsFlowDataSource : NSObject <TBMEventsFlowModuleDataSourceInterface>
 
 @end

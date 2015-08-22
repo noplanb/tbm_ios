@@ -4,9 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TBMHintPresenter.h"
+#import "TBMEventHandlerPresenter.h"
 
 
-@interface TBMRecordHintPresenter : TBMHintPresenter <TBMEventsFlowModuleEventHandler>
+@interface TBMRecordHintPresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandler>
 - (void)addPlayHint;
 @end

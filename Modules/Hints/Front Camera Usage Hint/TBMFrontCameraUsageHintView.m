@@ -10,19 +10,19 @@
 }
 
 - (void)configureHint {
-    CGRect highlightFrame = [self.gridModule gridGetFrameForFriend:0 inView:self.superview];
+    CGRect highlightFrame = [self.gridModule gridGetCenterCellFrameInView:self.superview];
     self.dismissAfterAction = YES;
     self.framesToCutOut = @[
             [UIBezierPath bezierPathWithRect:highlightFrame],
     ];
-    self.showGotItButton = YES;
+    self.showGotItButton = NO;
     NSMutableArray *arrows = [NSMutableArray array];
-    [arrows addObject:[TBMHintArrow arrowWithText:@"Zazo sent! Well done!"
+    [arrows addObject:[TBMHintArrow arrowWithText:@"Tap to switch camera."
                                         curveKind:TBMTutorialArrowCurveKindRight
                                        arrowPoint:CGPointMake(
-                                               CGRectGetMaxX(highlightFrame)-20.f,
+                                               CGRectGetMinX(highlightFrame),
                                                CGRectGetMinY(highlightFrame))
-                                            angle:-45.f
+                                            angle:0.f
                                            hidden:NO
                                             frame:self.frame]];
 

@@ -10,20 +10,23 @@
 
 
 /**
- * Enum of possible events fo throwEvent:
+ * Enum of possible events for throwEvent:
  */
 typedef NS_ENUM(NSInteger, TBMEventFlowEvent) {
     TBMEventFlowEventNone,
 
-    // Application events
-            TBMEventFlowEventApplicationDidLaunch,
+    // Application
+
+    TBMEventFlowEventApplicationDidLaunch,
     TBMEventFlowEventApplicationDidEnterBackground,
 
-    // Friend events
-            TBMEventFlowEventFriendDidAdd,
+    // Friends
 
-    // Messages events
-            TBMEventFlowEventMessageDidReceive,
+    TBMEventFlowEventFriendDidAdd,
+
+    // Messages
+
+    TBMEventFlowEventMessageDidReceive,
     TBMEventFlowEventMessageDidSend,
     TBMEventFlowEventMessageDidStartPlaying,
     TBMEventFlowEventMessageDidStopPlaying,
@@ -31,12 +34,17 @@ typedef NS_ENUM(NSInteger, TBMEventFlowEvent) {
     TBMEventFlowEventMessageDidRecorded,
     TBMEventFlowEventMessageDidViewed,
 
-    // Hints events
-            TBMEventFlowEventSentHintDidDismiss,
+    // Hints
 
-    // Feature unlocks events
+    TBMEventFlowEventSentHintDidDismiss,
 
-    // Next Feature dialogs events
+    // Unlocks dialogs
+
+    TBMEventFlowEventFrontCameraUnlockDialogDidDismiss,
+    TBMEventFlowEventAbortRecordingUnlockDialogDidDismiss,
+    TBMEventFlowEventDeleteFriendUnlockDialogDidDismiss,
+    TBMEventFlowEventEarpieceUnlockDialogDidDismiss,
+    TBMEventFlowEventSpinUnlockDialogDidDismiss,
 };
 
 
@@ -53,8 +61,6 @@ typedef NS_ENUM(NSInteger, TBMEventFlowEvent) {
 - (void)resetSession;
 
 - (void)resetHintsState;
-
-- (void)resetFeaturesState;
 
 /**
  * Add an event handler e.g. hint, dialog etc.

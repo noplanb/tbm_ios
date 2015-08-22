@@ -4,8 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TBMHintPresenter.h"
+#import "TBMEventHandlerPresenter.h"
 
 
-@interface TBMInviteSomeOneElseHintPresenter : TBMHintPresenter <TBMEventsFlowModuleEventHandler>
+@interface TBMInviteSomeOneElseHintPresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandler>
 @end

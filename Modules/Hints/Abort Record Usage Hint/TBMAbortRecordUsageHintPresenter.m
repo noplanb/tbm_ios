@@ -4,58 +4,36 @@
 //
 
 #import "TBMAbortRecordUsageHintPresenter.h"
-#import "TBMEventsFlowModuleDataSource.h"
+#import "TBMEventsFlowModuleDataSourceInterface.h"
 #import "TBMHintView.h"
 #import "TBMAbortRecordUsageHintView.h"
+#import "TBMEventHandlerDataSource.h"
 
 
-@implementation TBMAbortRecordUsageHintPresenter {
-    BOOL _isPresented;
-}
+@implementation TBMAbortRecordUsageHintPresenter
 
 - (instancetype)init {
     self = [super init];
-    [self setHintView:[TBMAbortRecordUsageHintView new]];
+    self.dialogView = [TBMAbortRecordUsageHintView new];
+    self.dataSource.persistentStateKey = @"kAbortRecordUsageHintNSUDkey";
     return self;
 }
 
-- (BOOL)isPresented {
-    return _isPresented;
+- (NSUInteger)priority {
+    return 9;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSource>)dataSource {
-    if (event != TBMEventFlowEventMessageDidSend) {
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource {
+    if (event != TBMEventFlowEventAbortRecordingUnlockDialogDidDismiss) {
         return NO;
     }
-
-    if (![dataSource hasSentVideos:0]) {
-        return NO;
-    }
-    if ([dataSource sentHintState]) {
-        return NO;
-    }
-
-    if ([dataSource friendsCount] > 1) {
-        return NO;
-    }
-
     return YES;
 }
 
-- (void)presentWithDataSource:(id <TBMEventsFlowModuleDataSource>)dataSource gridModule:(id <TBMGridModuleInterface>)gridModule {
+- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule {
     if (![self.eventFlowModule isAnyHandlerActive]) {
-        [dataSource setAbortRecordUsageHintState:YES];
-        [dataSource setAbortRecordUsageHintSessionState:YES];
-
-        _isPresented = YES;
-        [self.hintView showHintInGrid:gridModule];
-    } else {
-        _isPresented = NO;
+        [super presentWithGridModule:gridModule];
     }
-}
-
-- (NSUInteger)priority {
-    return 1;
 }
 
 @end

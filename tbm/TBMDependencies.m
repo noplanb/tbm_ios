@@ -7,17 +7,20 @@
 #import "TBMGridModuleInterface.h"
 #import "TBMEventsFlowModuleInterface.h"
 #import "TBMEventsFlowModulePresenter.h"
-#import "TBMSwitchCameraFeatureView.h"
-#import "TBMSwitchCameraFeaturePresenter.h"
 #import "TBMHomeViewController.h"
 #import "TBMInviteSomeOneElseHintPresenter.h"
 #import "TBMPlayHintPresenter.h"
 #import "TBMViewedHintPresenter.h"
 #import "TBMWelcomeHintPresenter.h"
 #import "TBMSentHintPresenter.h"
+#import "TBMEventsFlowModuleEventHandler.h"
 #import "TBMRecordHintPresenter.h"
 #import "TBMInviteHintPresenter.h"
+#import "TBMFeatureUnlockModulePresenter.h"
 #import "TBMNextFeatureDialogPresenter.h"
+#import "TBMAbortRecordUsageHintPresenter.h"
+#import "TBMFrontCameraUsageHintPresenter.h"
+#import "TBMEarpieceUsageHintPresenter.h"
 
 
 @interface TBMDependencies ()
@@ -31,10 +34,12 @@
 @property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> viewedHintModule;
 @property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> welcomeHintModule;
 
-@property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> switchCameraFeatureModule;
+@property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> abortRecordUsageHintModule;
+@property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> frontCameraUsageHintModule;
+@property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> earpieceUsageHintModule;
 
+@property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> featureUnlockModule;
 @property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> nextFeatureModule;
-
 @property(nonatomic, strong) id <TBMHomeModuleInterface> homeModule;
 @end
 
@@ -58,12 +63,15 @@
     [self.eventsFlowModule addEventHandler:self.sentHintModule];
     [self.eventsFlowModule addEventHandler:self.viewedHintModule];
     [self.eventsFlowModule addEventHandler:self.welcomeHintModule];
+    
+    [self.eventsFlowModule addEventHandler:self.frontCameraUsageHintModule];
+    [self.eventsFlowModule addEventHandler:self.abortRecordUsageHintModule];
+    [self.eventsFlowModule addEventHandler:self.earpieceUsageHintModule];
 
     /**
      * Features
      */
-    [self.eventsFlowModule addEventHandler:self.switchCameraFeatureModule];
-
+    [self.eventsFlowModule addEventHandler:self.featureUnlockModule];
     [self.eventsFlowModule addEventHandler:self.nextFeatureModule];
 }
 
@@ -141,13 +149,41 @@
     return _welcomeHintModule;
 }
 
-- (id <TBMEventsFlowModuleEventHandler>)switchCameraFeatureModule {
-    if (!_switchCameraFeatureModule) {
-        TBMSwitchCameraFeaturePresenter *switchCameraFeaturePresenter = [[TBMSwitchCameraFeaturePresenter alloc] init];
-        [switchCameraFeaturePresenter setupEventFlowModule:self.eventsFlowModule];
-        _switchCameraFeatureModule = switchCameraFeaturePresenter;
+- (id <TBMEventsFlowModuleEventHandler>)abortRecordUsageHintModule {
+    if (!_abortRecordUsageHintModule) {
+        TBMAbortRecordUsageHintPresenter *recordUsageHintPresenter = [[TBMAbortRecordUsageHintPresenter alloc] init];
+        [recordUsageHintPresenter setupEventFlowModule:self.eventsFlowModule];
+        _abortRecordUsageHintModule = recordUsageHintPresenter;
     }
-    return _switchCameraFeatureModule;
+    return _abortRecordUsageHintModule;
+}
+
+- (id <TBMEventsFlowModuleEventHandler>)frontCameraUsageHintModule {
+    if (!_featureUnlockModule) {
+        TBMFrontCameraUsageHintPresenter *frontCameraUsageHintModule = [[TBMFrontCameraUsageHintPresenter alloc] init];
+        [frontCameraUsageHintModule setupEventFlowModule:self.eventsFlowModule];
+        _frontCameraUsageHintModule = frontCameraUsageHintModule;
+    }
+    return _frontCameraUsageHintModule;
+}
+
+
+- (id <TBMEventsFlowModuleEventHandler>)earpieceUsageHintModule {
+    if (!_earpieceUsageHintModule) {
+        TBMEarpieceUsageHintPresenter *earpieceUsageHintModule = [[TBMEarpieceUsageHintPresenter alloc] init];
+        [earpieceUsageHintModule setupEventFlowModule:self.eventsFlowModule];
+        _earpieceUsageHintModule = earpieceUsageHintModule;
+    }
+    return _earpieceUsageHintModule;
+}
+
+- (id <TBMEventsFlowModuleEventHandler>)featureUnlockModule {
+    if (!_featureUnlockModule) {
+        TBMFeatureUnlockModulePresenter *featureUnlockModule = [[TBMFeatureUnlockModulePresenter alloc] init];
+        [featureUnlockModule setupEventFlowModule:self.eventsFlowModule];
+        _featureUnlockModule = featureUnlockModule;
+    }
+    return _featureUnlockModule;
 }
 
 - (id <TBMEventsFlowModuleEventHandler>)nextFeatureModule {

@@ -557,6 +557,12 @@ static const float LayoutConstASPECT = 0.75;
     return result;
 }
 
+- (CGRect)gridGetCenterCellFrameInView:(UIView *)view {
+    CGRect result = [[self centerView] frame];
+    result = [self.view convertRect:result toView:view];
+    return result;
+}
+
 - (CGRect)gridGetFrameForFriend:(NSUInteger)friendCellIndex inView:(UIView *)view {
     CGRect result = CGRectZero;
     if (friendCellIndex <= 7) {

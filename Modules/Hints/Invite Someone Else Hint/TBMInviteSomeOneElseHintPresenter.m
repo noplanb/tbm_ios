@@ -4,31 +4,31 @@
 //
 
 #import "TBMInviteSomeOneElseHintPresenter.h"
-#import "TBMEventsFlowModuleDataSource.h"
+#import "TBMEventsFlowModuleDataSourceInterface.h"
 #import "TBMHintView.h"
 #import "TBMInviteSomeoneElseHintView.h"
+#import "TBMEventHandlerDataSource.h"
 
 
-@implementation TBMInviteSomeOneElseHintPresenter {
-    BOOL _isPresented;
-}
+@implementation TBMInviteSomeOneElseHintPresenter
 
 - (instancetype)init {
     self = [super init];
-    [self setHintView:[TBMInviteSomeoneElseHintView new]];
+    self.dialogView = [TBMInviteSomeoneElseHintView new];
+    self.dataSource.persistentStateKey = @"kInviteSomeoneElseNSUDkey";
     return self;
 }
 
-- (BOOL)isPresented {
-    return _isPresented;
+- (NSUInteger)priority {
+    return 1;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSource>)dataSource {
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource {
     if (event != TBMEventFlowEventMessageDidSend && event != TBMEventFlowEventSentHintDidDismiss) {
         return NO;
     }
 
-    if ([dataSource inviteSomeoneElseHintSessionState]) {
+    if ([self.dataSource sessionState]) {
         return NO;
     }
 
@@ -43,20 +43,10 @@
     return YES;
 }
 
-- (void)presentWithDataSource:(id <TBMEventsFlowModuleDataSource>)dataSource gridModule:(id <TBMGridModuleInterface>)gridModule {
+- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule {
     if (![self.eventFlowModule isAnyHandlerActive]) {
-        [dataSource setInviteSomeoneElseHintState:YES];
-        [dataSource setInviteSomeoneElseHintSessionState:YES];
-
-        _isPresented = YES;
-        [self.hintView showHintInGrid:gridModule];
-    } else {
-        _isPresented = NO;
+        [super presentWithGridModule:gridModule];
     }
-}
-
-- (NSUInteger)priority {
-    return 1;
 }
 
 @end

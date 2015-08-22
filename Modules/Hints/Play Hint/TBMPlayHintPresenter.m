@@ -4,27 +4,27 @@
 //
 
 #import "TBMPlayHintPresenter.h"
-#import "TBMEventsFlowModuleDataSource.h"
+#import "TBMEventsFlowModuleDataSourceInterface.h"
 #import "TBMHintView.h"
 #import "TBMPlayHintView.h"
 #import "TBMRecordHintPresenter.h"
+#import "TBMEventHandlerDataSource.h"
 
 
-@implementation TBMPlayHintPresenter {
-    BOOL _isPresented;
-}
+@implementation TBMPlayHintPresenter
 
 - (instancetype)init {
     self = [super init];
-    [self setHintView:[TBMPlayHintView new]];
+    self.dialogView = [TBMPlayHintView new];
+    self.dataSource.persistentStateKey = @"kPlayHintNSUDkey";
     return self;
 }
 
-- (BOOL)isPresented {
-    return _isPresented;
+- (NSUInteger)priority {
+    return 1;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSource>)dataSource {
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource {
 
     if (event != TBMEventFlowEventMessageDidReceive
             && event != TBMEventFlowEventMessageDidRecorded
@@ -36,7 +36,7 @@
         return NO;
     }
 
-    if ([dataSource playHintSessionState]) {
+    if ([self.dataSource sessionState]) {
         return NO;
     }
 
@@ -56,33 +56,20 @@
     return YES;
 }
 
-- (void)presentWithDataSource:(id <TBMEventsFlowModuleDataSource>)dataSource gridModule:(id <TBMGridModuleInterface>)gridModule {
+- (void)presentWithDataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource gridModule:(id <TBMGridModuleInterface>)gridModule {
     if (![self.eventFlowModule isAnyHandlerActive]) {
-        [self setPlayHintStates:dataSource];
-        _isPresented = YES;
-        [self.hintView showHintInGrid:gridModule];
+        [super presentWithGridModule:gridModule];
     } else if ([[self.eventFlowModule currentHandler] respondsToSelector:@selector(addPlayHint)]) {
         [[self.eventFlowModule currentHandler] performSelector:@selector(addPlayHint)];
-        [self setPlayHintStates:dataSource];
-        _isPresented = YES;
-    } else {
-        _isPresented = NO;
+        [self didPresented];
     }
 }
 
-- (void)setPlayHintStates:(id <TBMEventsFlowModuleDataSource>)dataSource {
-    [dataSource setPlayHintState:YES];
-    [dataSource setPlayHintSessionState:YES];
-}
-
-- (NSUInteger)priority {
-    return 1;
-}
 
 #pragma mark Add record hint implementation
 
 - (void)addRecordHint {
-    TBMPlayHintView *view = self.hintView;
+    TBMPlayHintView *view = self.dialogView;
     [view addRecordTip];
 }
 

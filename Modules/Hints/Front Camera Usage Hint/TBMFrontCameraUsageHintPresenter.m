@@ -4,58 +4,36 @@
 //
 
 #import "TBMFrontCameraUsageHintPresenter.h"
-#import "TBMEventsFlowModuleDataSource.h"
+#import "TBMEventsFlowModuleDataSourceInterface.h"
 #import "TBMHintView.h"
 #import "TBMFrontCameraUsageHintView.h"
+#import "TBMEventHandlerDataSource.h"
 
 
-@implementation TBMFrontCameraUsageHintPresenter {
-    BOOL _isPresented;
-}
-
+@implementation TBMFrontCameraUsageHintPresenter
 - (instancetype)init {
     self = [super init];
-    [self setHintView:[TBMFrontCameraUsageHintView new]];
+    self.dialogView = [TBMFrontCameraUsageHintView new];
+    self.dataSource.persistentStateKey = @"kFrontCameraUsageUsageHintNSUDkey";
     return self;
-}
-
-- (BOOL)isPresented {
-    return _isPresented;
-}
-
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSource>)dataSource {
-    if (event != TBMEventFlowEventMessageDidSend) {
-        return NO;
-    }
-
-    if (![dataSource hasSentVideos:0]) {
-        return NO;
-    }
-    if ([dataSource sentHintState]) {
-        return NO;
-    }
-
-    if ([dataSource friendsCount] > 1) {
-        return NO;
-    }
-
-    return YES;
-}
-
-- (void)presentWithDataSource:(id <TBMEventsFlowModuleDataSource>)dataSource gridModule:(id <TBMGridModuleInterface>)gridModule {
-    if (![self.eventFlowModule isAnyHandlerActive]) {
-        [dataSource setFrontCameraUsageHintState:YES];
-        [dataSource setFrontCameraUsageHintSessionState:YES];
-
-        _isPresented = YES;
-        [self.hintView showHintInGrid:gridModule];
-    } else {
-        _isPresented = NO;
-    }
 }
 
 - (NSUInteger)priority {
     return 1;
 }
+
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource {
+    if (event != TBMEventFlowEventFrontCameraUnlockDialogDidDismiss) {
+        return NO;
+    }
+    return YES;
+}
+
+- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule {
+    if (![self.eventFlowModule isAnyHandlerActive]) {
+        [super presentWithGridModule:gridModule];
+    }
+}
+
 
 @end

@@ -17,12 +17,29 @@
     ];
     self.showGotItButton = YES;
     NSMutableArray *arrows = [NSMutableArray array];
-    [arrows addObject:[TBMHintArrow arrowWithText:@"Zazo sent! Well done!"
+    [arrows addObject:[TBMHintArrow arrowWithText:@"Abort a recording."
                                         curveKind:TBMTutorialArrowCurveKindRight
                                        arrowPoint:CGPointMake(
-                                               CGRectGetMaxX(highlightFrame)-20.f,
-                                               CGRectGetMinY(highlightFrame))
-                                            angle:-45.f
+                                               CGRectGetMinX(highlightFrame),
+                                               CGRectGetMidY(highlightFrame) - 60.f)
+                                            angle:-65.f
+                                           hidden:YES
+                                            frame:self.frame]];
+
+    [arrows addObject:[TBMHintArrow arrowWithText:@"Drag finger away"
+                                        curveKind:TBMTutorialArrowCurveKindRight
+                                       arrowPoint:CGPointMake(
+                                               CGRectGetMinX(highlightFrame),
+                                               CGRectGetMidY(highlightFrame) - 30.f)
+                                            angle:-65.f
+                                           hidden:YES
+                                            frame:self.frame]];
+    [arrows addObject:[TBMHintArrow arrowWithText:@"while recording."
+                                        curveKind:TBMTutorialArrowCurveKindRight
+                                       arrowPoint:CGPointMake(
+                                               CGRectGetMinX(highlightFrame),
+                                               CGRectGetMidY(highlightFrame))
+                                            angle:-65.f
                                            hidden:NO
                                             frame:self.frame]];
 

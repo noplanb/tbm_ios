@@ -8,20 +8,23 @@
 #import <Foundation/Foundation.h>
 #import "TBMEventsFlowModuleInterface.h"
 
-@protocol TBMEventsFlowModuleDataSource;
+@protocol TBMEventsFlowModuleDataSourceInterface;
 
 @protocol TBMEventsFlowModuleEventHandler <NSObject>
 
 // Returns if handler presented
 - (BOOL)isPresented;
 
+// Resets session state
+- (void)resetSessionState;
+
 // Returns if condition is fulfilled
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSource>)dataSource;
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource;
 
 // Priority for determine which handler should get the control if we have conflict
 - (NSUInteger)priority;
 
 // Presents handler
-- (void)presentWithDataSource:(id <TBMEventsFlowModuleDataSource>)dataSource gridModule:(id <TBMGridModuleInterface>)gridModule;
+- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule;
 
 @end

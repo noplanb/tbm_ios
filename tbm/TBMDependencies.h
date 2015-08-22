@@ -8,6 +8,8 @@
 @protocol TBMGridModuleInterface;
 @protocol TBMEventsFlowModuleInterface;
 @class TBMHomeViewController;
+@protocol TBMEventsFlowModuleEventHandler;
+@protocol TBMEventsFlowModuleEventHandler;
 
 
 @interface TBMDependencies : NSObject
@@ -18,7 +20,6 @@
  * Setup dependencies of application
  */
 - (void)setupDependenciesWithHomeViewController:(TBMHomeViewController *)homeController;
-
 
 
 @end

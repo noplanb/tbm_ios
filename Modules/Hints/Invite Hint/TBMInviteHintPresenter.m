@@ -5,48 +5,41 @@
 
 #import "TBMInviteHintPresenter.h"
 #import "TBMInviteHintView.h"
+#import "TBMEventHandlerDataSource.h"
 
 
-@implementation TBMInviteHintPresenter {
-    BOOL _isPresented;
-}
+@implementation TBMInviteHintPresenter
 
 - (instancetype)init {
     self = [super init];
-    [self setHintView:[TBMInviteHintView new]];
+    self.dialogView = [TBMInviteHintView new];
+    self.dataSource.persistentStateKey = @"kInviteHintNSUDkey";
     return self;
-}
-
-- (BOOL)isPresented {
-    return _isPresented;
-}
-
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSource>)dataSource {
-    if (event != TBMEventFlowEventApplicationDidLaunch) {
-        return NO;
-    }
-
-    if (!dataSource.inviteHintSessionState && [dataSource friendsCount] == 0) {
-        return YES;
-    }
-    return NO;
-}
-
-- (void)presentWithDataSource:(id <TBMEventsFlowModuleDataSource>)dataSource gridModule:(id <TBMGridModuleInterface>)gridModule {
-    if (![self.eventFlowModule isAnyHandlerActive]) {
-        [dataSource setInviteHintState:YES];
-        [dataSource setInviteHintSessionState:YES];
-
-        _isPresented = YES;
-        [self.hintView showHintInGrid:gridModule];
-    } else {
-        _isPresented = NO;
-    }
 }
 
 - (NSUInteger)priority {
     return 1;
 }
 
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource {
+    if (event != TBMEventFlowEventApplicationDidLaunch) {
+        return NO;
+    }
+
+    if ([self.dataSource sessionState]) {
+        return NO;
+    }
+    if ([dataSource friendsCount] != 0) {
+        return NO;
+    }
+
+    return YES;
+}
+
+- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule {
+    if (![self.eventFlowModule isAnyHandlerActive]) {
+        [super presentWithGridModule:gridModule];
+    }
+}
 
 @end
