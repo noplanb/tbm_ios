@@ -5,13 +5,13 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol TBMTutorialModuleInterface;
+@protocol TBMEventsFlowModuleInterface;
 
 @interface TBMSecretScreenPresenter : NSObject
 /**
  * Setup
  */
-- (void)assignTutorialModule:(id <TBMTutorialModuleInterface>)tutorialModule;;
+- (void)assignTutorialModule:(id <TBMEventsFlowModuleInterface>)tutorialModule;;
 
 /**
 * Presentation

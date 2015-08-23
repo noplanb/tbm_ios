@@ -23,7 +23,8 @@
  * Its fix for grid, will replaced when it will refactored
  */
 @property(nonatomic, assign) CGRect frame;
-
+//TODO:Remove it when home module and grid module will refactored
+@property(nonatomic, weak) UIView *homeView;
 - (NSMutableArray *)friendsOnGrid;
 - (NSMutableArray *)friendsOnBench;
 - (void)moveFriendToGrid:(TBMFriend *)friend;
