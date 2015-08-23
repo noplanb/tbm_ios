@@ -14,11 +14,12 @@
 
 @implementation TBMUser
 
-@dynamic isRegistered;
-@dynamic firstName;
-@dynamic lastName;
-@dynamic idTbm;
 @dynamic auth;
+@dynamic firstName;
+@dynamic idTbm;
+@dynamic isInvitee;
+@dynamic isRegistered;
+@dynamic lastName;
 @dynamic mkey;
 @dynamic mobileNumber;
 
@@ -51,7 +52,7 @@
     NSArray *users;
     NSManagedObjectContext *context = [TBMUser managedObjectContext];
     NSFetchRequest *request = [TBMUser fetchRequest];
-
+    
     users = [context executeFetchRequest:request error:&error];
     if (error != nil) {
         NSLog(@"TBMUser # getUser error: %@", error);
@@ -82,7 +83,7 @@
     TBMUser *user = nil;
     NSManagedObjectContext *context = [TBMUser managedObjectContext];
     NSEntityDescription *description = [TBMUser entityDescription];
-
+    
     user = (TBMUser *) [[NSManagedObject alloc] initWithEntity:description
                                 insertIntoManagedObjectContext:context];
     if (!user) {
@@ -92,10 +93,10 @@
 }
 
 + (instancetype)createWithServerParams:(NSDictionary *)params {
-
+    
     NSManagedObjectContext *context = [TBMUser managedObjectContext];
     TBMUser *user = [TBMUser createNewUser];
-
+    
     user.firstName = [params objectForKey:SERVER_PARAMS_USER_FIRST_NAME_KEY];
     user.lastName = [params objectForKey:SERVER_PARAMS_USER_LAST_NAME_KEY];
     user.idTbm = [params objectForKey:SERVER_PARAMS_USER_ID_KEY];
@@ -147,18 +148,18 @@
 //------------------------
 + (NSString *)phoneRegion {
     NBPhoneNumberUtil *pu = [NBPhoneNumberUtil sharedInstance];
-
+    
     TBMUser *u = [TBMUser getUser];
-
+    
     if (u == nil)
         return @"US";
-
+    
     NSError *err = nil;
     NBPhoneNumber *pn = [pu parse:u.mobileNumber defaultRegion:@"US" error:&err];
-
+    
     if (err != nil)
         return @"US";
-
+    
     return [pu getRegionCodeForNumber:pn];
 }
 
