@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TBMTextfield.h"
+#import "TBMTextField.h"
 
 @class TBMRegisterViewController;
 

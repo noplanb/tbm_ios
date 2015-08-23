@@ -14,7 +14,7 @@
 #import "HexColor.h"
 #import "TBMSecretScreenPresenter.h"
 #import "TBMSecretGestureRecognizer.h"
-#import "TBMTutorialPresenter.h"
+#import "TBMEventsFlowModulePresenter.h"
 
 @interface TBMHomeViewController ()
 @property(nonatomic) TBMAppDelegate *appDelegate;
@@ -22,28 +22,38 @@
 @property(nonatomic) UIView *overlayBackgroundView;
 @property UIView *headerView;
 @property UIView *contentView;
-@property(nonatomic, strong) TBMSecretScreenPresenter *secretScreen;
-
 @property(nonatomic, strong) UIView *logoView;
+
 @property(nonatomic, strong) UIView *menuButton;
-
 @property(nonatomic) BOOL isPlaying;
-@property(nonatomic) BOOL isSMSProcessActive;
-@end
 
-@interface TBMHomeViewController ()
-@property(nonatomic, strong) TBMTutorialPresenter *tutorialScreen;
+@property(nonatomic) BOOL isSMSProcessActive;
+// Modules
+@property(nonatomic, strong) TBMSecretScreenPresenter *secretScreen;
+@property(nonatomic, strong) id <TBMEventsFlowModuleInterface> eventsFlowModule;
+
 @end
 
 @implementation TBMHomeViewController
 
-//--------------
+#pragma mark Interface
+
+- (void)showBench {
+    if (!self.benchViewController.isShowing) {
+        [self.benchViewController toggle];
+    }
+}
+
 #pragma mark - Instantiation
-//--------------
 static TBMHomeViewController *hvcInstance;
 
 + (TBMHomeViewController *)existingInstance {
     return hvcInstance;
+}
+
+//TODO:Move to module presenter after refactoring
+- (void)setupEvensFlowModule:(id <TBMEventsFlowModuleInterface>)eventsFlowModule {
+    self.eventsFlowModule = eventsFlowModule;
 }
 
 - (UIView *)headerView {
@@ -60,14 +70,6 @@ static TBMHomeViewController *hvcInstance;
         [self.view addSubview:_headerView];
     }
     return _headerView;
-}
-
-- (TBMSecretScreenPresenter *)secretScreen {
-    if (!_secretScreen) {
-        _secretScreen = [[TBMSecretScreenPresenter alloc] init];
-        [_secretScreen assignTutorialModule:self.tutorialScreen];
-    }
-    return _secretScreen;
 }
 
 - (UIView *)logoView {
@@ -115,14 +117,6 @@ static TBMHomeViewController *hvcInstance;
     return _menuButton;
 }
 
-- (TBMTutorialPresenter *)tutorialScreen {
-    if (!_tutorialScreen) {
-        _tutorialScreen = [[TBMTutorialPresenter alloc] initWithSuperview:self.view];
-        _tutorialScreen.gridModule = self.gridViewController;
-    }
-    return _tutorialScreen;
-}
-
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad {
@@ -138,36 +132,25 @@ static TBMHomeViewController *hvcInstance;
 }
 
 - (void)registerToNotifications {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recorderStartRecording) name:TBMVideoRecorderShouldStartRecording object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recorderFinishRecording) name:TBMVideoRecorderDidFinishRecording object:nil];
-
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:UIApplicationWillResignActiveNotification object:nil];
-
 }
 
 - (void)applicationDidEnterBackground {
     [self.benchViewController hide];
     if (!self.isSMSProcessActive) {
-        [self.tutorialScreen applicationDidEnterBackground];
-        [self.tutorialScreen resetSession];
+        [self.eventsFlowModule throwEvent:TBMEventFlowEventApplicationDidEnterBackground];
+        [self.eventsFlowModule resetSession];
     }
 }
 
 - (void)applicationDidEnterForeground {
     if (!self.isSMSProcessActive) {
-        [self.tutorialScreen applicationDidLaunch];
+        [self.eventsFlowModule throwEvent:TBMEventFlowEventApplicationDidLaunch];
     }
+
     self.isSMSProcessActive = NO;
 
-}
-
-- (void)recorderStartRecording {
-    [self.tutorialScreen messageDidStartRecording];
-}
-
-- (void)recorderFinishRecording {
-    [self.tutorialScreen messageDidRecorded];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -244,9 +227,11 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
 - (void)addGridViewController {
     self.gridViewController = [[TBMGridViewController alloc] init];
     self.gridViewController.frame = self.contentView.bounds;
+    self.gridViewController.homeView = self.view;
     self.gridViewController.delegate = self;
     [self addChildViewController:self.gridViewController];
     [self.contentView addSubview:self.gridViewController.view];
+    [self.eventsFlowModule setupGridModule:self.gridViewController];
 }
 
 - (void)addBenchViewController {
@@ -286,41 +271,55 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
 
 - (void)gridDidAppear:(TBMGridViewController *)gridViewController {
     if (!self.isSMSProcessActive) {
-        [self.tutorialScreen applicationDidLaunch];
-    }    
+        [self.eventsFlowModule throwEvent:TBMEventFlowEventApplicationDidLaunch];
+
+    }
 }
 
 - (void)videoPlayerDidStartPlaying:(TBMVideoPlayer *)player {
     self.isPlaying = YES;
-    [self.tutorialScreen messageDidStartPlaying];
+    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidStartPlaying];
 }
 
 - (void)videoPlayerDidStopPlaying:(TBMVideoPlayer *)player {
     if (self.isPlaying) {
         self.isPlaying = NO;
-        [self.tutorialScreen messageDidStopPlaying];
+        [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidStopPlaying];
     }
 }
 
 - (void)messageDidUpload {
-    [self.tutorialScreen messageDidSend];
+    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidSend];
 }
 
--(void)messageDidViewed:(NSUInteger)gridIndex {
-    [self.tutorialScreen messageDidViewed:gridIndex];
+- (void)messageDidViewed {
+    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidViewed];
 }
 
 - (void)friendDidAdd {
-    [self.tutorialScreen friendDidAdd];
+    [self.eventsFlowModule throwEvent:TBMEventFlowEventFriendDidAdd];
 }
 
 - (void)messageDidReceive {
-    [self.tutorialScreen messageDidReceive];
+    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidReceive];
 }
 
 
 - (void)applicationWillSwitchToSMS {
     self.isSMSProcessActive = YES;
 }
+
+#pragma mark - DEPENDENCIES PART
+//TODO: move to dependencies class
+
+
+- (TBMSecretScreenPresenter *)secretScreen {
+    if (!_secretScreen) {
+        _secretScreen = [[TBMSecretScreenPresenter alloc] init];
+        [_secretScreen assignTutorialModule:self.eventsFlowModule];
+    }
+    return _secretScreen;
+}
+
 
 @end

@@ -7,12 +7,12 @@
 #import "TBMSecretScreenPresenter.h"
 #import "TBMSecretScreenViewController.h"
 #import "TBMStateScreenViewController.h"
-#import "TBMTutorialModuleInterface.h"
+#import "TBMEventsFlowModuleInterface.h"
 #import "TBMConfig.h"
 #import "TBMDebugData.h"
 #import "TBMStateScreenDataSource.h"
 #import "TBMDispatch.h"
-#import "TBMTutorialModuleInterface.h"
+#import "TBMEventsFlowModuleInterface.h"
 
 @interface TBMSecretScreenPresenter ()
 
@@ -22,7 +22,7 @@
 @property(nonatomic, strong) TBMSecretScreenViewController *secretScreen;
 @property(nonatomic, strong) TBMStateScreenViewController *stateScreen;
 
-@property(nonatomic, weak) id <TBMTutorialModuleInterface> tutorialModule;
+@property(nonatomic, weak) id <TBMEventsFlowModuleInterface> tutorialModule;
 @end
 
 @implementation TBMSecretScreenPresenter
@@ -36,7 +36,7 @@
 
 }
 
-- (void)assignTutorialModule:(id <TBMTutorialModuleInterface>)tutorialModule {
+- (void)assignTutorialModule:(id <TBMEventsFlowModuleInterface>)tutorialModule {
     self.tutorialModule = tutorialModule;
 }
 

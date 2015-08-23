@@ -20,21 +20,23 @@
 
 @implementation TBMFriend
 
+@dynamic ckey;
+@dynamic everSent;
 @dynamic firstName;
+@dynamic hasApp;
+@dynamic idTbm;
+@dynamic isConnectionCreator;
+@dynamic lastIncomingVideoStatus;
 @dynamic lastName;
+@dynamic lastVideoStatusEventType;
+@dynamic mkey;
+@dynamic mobileNumber;
 @dynamic outgoingVideoId;
 @dynamic outgoingVideoStatus;
-@dynamic lastVideoStatusEventType;
-@dynamic lastIncomingVideoStatus;
-@dynamic uploadRetryCount;
-@dynamic idTbm;
-@dynamic mkey;
-@dynamic ckey;
-@dynamic videos;
-@dynamic hasApp;
-@dynamic mobileNumber;
 @dynamic timeOfLastAction;
+@dynamic uploadRetryCount;
 @dynamic gridElement;
+@dynamic videos;
 
 static NSMutableArray * videoStatusNotificationDelegates;
 
@@ -360,7 +362,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
     for (TBMVideo *v in [self sortedIncomingVideos]) {
         DebugLog(@"Video id:%@ status:%ld file_exists:%d", v.videoId, v.status, [v videoFileExists]);
     }
-
+    
 }
 
 - (BOOL)incomingVideoNotViewed{
@@ -475,6 +477,14 @@ static NSMutableArray * videoStatusNotificationDelegates;
 - (void)notifyVideoStatusChangeOnMainThread{
     // DebugLog(@"notifyVideoStatusChangeOnMainThread");
     [self performSelectorOnMainThread:@selector(notifyVideoStatusChange) withObject:nil waitUntilDone:YES];
+}
+
++ (void)fillAfterMigration {
+    for (TBMFriend *friend in [self all]) {
+        friend.everSent = @(friend.outgoingVideoStatus > OUTGOING_VIDEO_STATUS_NONE);
+        [[friend managedObjectContext] save:nil];
+        friend.isConnectionCreator = @(YES);
+    }
 }
 
 - (void)notifyVideoStatusChange{
@@ -611,7 +621,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
         return;
     
     video.downloadRetryCount = retryCount;
-
+    
     
     if ([self isNewestIncomingVideo:video]) {
         self.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
@@ -661,7 +671,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
     if (self.outgoingVideoId && ![self.outgoingVideoId isEmpty]) {
         return YES;
     }
-
+    
     return NO;
 }
 @end
