@@ -8,7 +8,7 @@
 
 #import "TBMPreviewView.h"
 #import "TBMSoundEffect.h"
-#import "HexColor.h"
+#import "HexColors.h"
 #import "TBMConfig.h"
 
 static const float LayoutConstRecordingLabelHeight = 22;

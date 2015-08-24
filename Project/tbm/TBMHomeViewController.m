@@ -11,7 +11,7 @@
 
 #import "TBMAppDelegate+AppSync.h"
 
-#import "HexColor.h"
+#import "HexColors.h"
 #import "TBMSecretScreenPresenter.h"
 #import "TBMSecretGestureRecognizer.h"
 #import "TBMEventsFlowModulePresenter.h"

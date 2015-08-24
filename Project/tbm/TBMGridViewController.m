@@ -9,7 +9,7 @@
 #import "TBMAppDelegate+AppSync.h"
 #import "TBMGridElementViewController.h"
 #import "TBMGridElement.h"
-#import "HexColor.h"
+#import "HexColors.h"
 #import "iToast.h"
 #import "TBMGridDelegate.h"
 #import "TBMVideoIdUtils.h"

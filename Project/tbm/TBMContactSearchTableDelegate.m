@@ -8,7 +8,7 @@
 
 
 #import "TBMContactSearchTableDelegate.h"
-#import "HexColor.h"
+#import "HexColors.h"
 
 @interface TBMContactSearchTableDelegate()
 @property (nonatomic) NSString *cellId;

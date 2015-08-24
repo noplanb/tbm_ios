@@ -8,7 +8,7 @@
 
 #import "TBMBenchViewController.h"
 #import "TBMHomeViewController+Invite.h"
-#import "HexColor.h"
+#import "HexColors.h"
 #import <objc/runtime.h>
 #import "TBMConfig.h"
 #import "TBMFriend.h"

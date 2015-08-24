@@ -8,7 +8,7 @@
 
 #import "TBMGridElementViewController.h"
 #import "TBMHomeViewController+Invite.h"
-#import "HexColor.h"
+#import "HexColors.h"
 #import "TBMGridElement.h"
 #import "TBMMarginLabel.h"
 #import "TBMSoundEffect.h"

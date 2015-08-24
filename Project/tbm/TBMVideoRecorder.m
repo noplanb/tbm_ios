@@ -12,7 +12,7 @@
 #import "OBLogger.h"
 #import "TBMAlertController.h"
 #import "TBMVideoProcessor.h"
-#import "HexColor.h"
+#import "HexColors.h"
 #import "TBMVideoIdUtils.h"
 #import "NSError+Extensions.h"
 #import "iToast.h"
