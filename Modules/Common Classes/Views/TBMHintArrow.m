@@ -8,6 +8,7 @@
 NSString *const kTBMTutorialFontName = @"DKCrayonCrumble";
 
 @interface TBMHintArrow ()
+
 @property(nonatomic, strong) UIView *rotationWrapper;
 @property(nonatomic, strong) UIImageView *arrowImageView;
 @property(nonatomic, strong) UIImage *arrowImage;
@@ -17,45 +18,35 @@ NSString *const kTBMTutorialFontName = @"DKCrayonCrumble";
 
 @implementation TBMHintArrow
 
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
-    if (self) {
+    if (self)
+    {
         [self setup];
     }
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self setup];
-    }
-    return self;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        [self setup];
-    }
-    return self;
-}
-
-- (void)setup {
+- (void)setup
+{
     self.userInteractionEnabled = NO;
     self.backgroundColor = [UIColor clearColor];
 }
 
-CGFloat degreesToRadians(CGFloat x) {
+CGFloat degreesToRadians(CGFloat x)
+{
     return (CGFloat) (M_PI * (x) / 180.0);
 }
 
-- (void)setHideArrow:(BOOL)hideArrow {
+- (void)setHideArrow:(BOOL)hideArrow
+{
     self.arrowImageView.hidden = hideArrow;
     _hideArrow = hideArrow;
 }
 
-+ (TBMHintArrow *)arrowWithText:(NSString *)text curveKind:(TBMHintArrowCurveKind)curveKind arrowPoint:(CGPoint)point angle:(CGFloat)angle hidden:(BOOL)hidden frame:(CGRect)frame {
++ (TBMHintArrow *)arrowWithText:(NSString *)text curveKind:(TBMHintArrowCurveKind)curveKind arrowPoint:(CGPoint)point angle:(CGFloat)angle hidden:(BOOL)hidden frame:(CGRect)frame
+{
     TBMHintArrow *result = [[TBMHintArrow alloc] initWithFrame:frame];
     result.text = text;
     result.arrowCurveKind = curveKind;
@@ -67,30 +58,29 @@ CGFloat degreesToRadians(CGFloat x) {
 
 #pragma mark - Layout
 
-- (void)layoutSubviews {
+- (void)layoutSubviews
+{
     [super layoutSubviews];
     [self layoutArrow];
     [self layoutLabels];
 }
 
-- (void)layoutLabels {
+- (void)layoutLabels
+{
     CGFloat height = 40;
     CGFloat width = CGRectGetWidth(self.bounds);
     CGFloat x = CGRectGetMinX(self.bounds);
     CGFloat y;
     CGRect arrow = [self.rotationWrapper convertRect:self.arrowImageView.frame toView:self];
 
-    if (self.arrowAngle >= -90 && self.arrowAngle <= 90) {
-        y = CGRectGetMinY(arrow) - CGRectGetHeight(self.firstLabel.bounds);
-    } else {
-        y = CGRectGetMaxY(arrow);
-    }
+    y = self.arrowAngle >= -90 && self.arrowAngle <= 90 ? CGRectGetMinY(arrow) - CGRectGetHeight(self.firstLabel.bounds) : CGRectGetMaxY(arrow);
 
     CGRect firstLabelFrame = CGRectMake(x, y, width, height);
     self.firstLabel.frame = firstLabelFrame;
 }
 
-- (void)layoutArrow {
+- (void)layoutArrow
+{
     CGFloat imageWidth = self.arrowImage.size.width;
     CGFloat imageHeight = self.arrowImage.size.height;
     CGFloat width = self.arrowImage.size.width;
@@ -102,11 +92,8 @@ CGFloat degreesToRadians(CGFloat x) {
     self.rotationWrapper.layer.anchorPoint = CGPointMake(0.5f, 0.5f);
 
     //Positioning of arrow end point
-    if (self.arrowCurveKind == TBMTutorialArrowCurveKindRight) {
-        self.arrowEndPointView.frame = CGRectMake(CGRectGetMinX(self.arrowImageView.bounds) + (imageWidth * .44f), CGRectGetMaxY(self.arrowImageView.bounds), 5, 5);
-    } else {
-        self.arrowEndPointView.frame = CGRectMake(CGRectGetMinX(self.arrowImageView.bounds) + (imageWidth * .54f), CGRectGetMaxY(self.arrowImageView.bounds), 5, 5);
-    }
+    CGRect bounds = self.arrowImageView.bounds;
+    self.arrowEndPointView.frame = CGRectMake(CGRectGetMinX(bounds) + (imageWidth * (self.arrowCurveKind == TBMTutorialArrowCurveKindRight ? .44f : .54f)), CGRectGetMaxY(bounds), 5, 5);
     // Rotation
     [self.rotationWrapper setTransform:CGAffineTransformMakeRotation(degreesToRadians(self.arrowAngle))];
     // Correction of arrow end point to anchor point
@@ -114,7 +101,8 @@ CGFloat degreesToRadians(CGFloat x) {
     self.arrowImageView.hidden = self.hideArrow;
 }
 
-- (void)makeCorrectionForArrow {
+- (void)makeCorrectionForArrow
+{
     CGFloat x = self.arrowImageView.frame.origin.x;
     CGFloat y = self.arrowImageView.frame.origin.y;
     CGFloat width = CGRectGetWidth(self.arrowImageView.frame);
@@ -127,8 +115,10 @@ CGFloat degreesToRadians(CGFloat x) {
 
 #pragma mark - Lazy initialization
 
-- (UILabel *)firstLabel {
-    if (!_firstLabel) {
+- (UILabel *)firstLabel
+{
+    if (!_firstLabel)
+    {
         _firstLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _firstLabel.font = [UIFont fontWithName:kTBMTutorialFontName size:32];
         _firstLabel.textColor = [UIColor whiteColor];
@@ -140,56 +130,54 @@ CGFloat degreesToRadians(CGFloat x) {
     return _firstLabel;
 }
 
-- (void)setupArrowImage {
-    if (self.arrowCurveKind == TBMTutorialArrowCurveKindLeft) {
-        _arrowImage = [UIImage imageNamed:@"arrow-yellow-kind-left"];
-    } else {
-        _arrowImage = [UIImage imageNamed:@"arrow-yellow-kind-right"];
-    }
+- (void)setupArrowImage
+{
+    _arrowImage = [UIImage imageNamed:self.arrowCurveKind == TBMTutorialArrowCurveKindLeft ? @"arrow-yellow-kind-left" : @"arrow-yellow-kind-right"];
 }
 
-- (UIView *)rotationWrapper {
-    if (!_rotationWrapper) {
-        _rotationWrapper = [[UIView alloc] initWithFrame:CGRectZero];
+- (UIView *)rotationWrapper
+{
+    if (!_rotationWrapper)
+    {
         _rotationWrapper = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self addSubview:_rotationWrapper];
     }
     return _rotationWrapper;
 }
 
-- (UIImageView *)arrowImageView {
-    if (!_arrowImageView) {
+- (UIImageView *)arrowImageView
+{
+    if (!_arrowImageView)
+    {
         _arrowImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.rotationWrapper addSubview:_arrowImageView];
     }
     return _arrowImageView;
 }
 
-- (UIView *)arrowEndPointView {
-    if (!_arrowEndPointView) {
+- (UIView *)arrowEndPointView
+{
+    if (!_arrowEndPointView)
+    {
         _arrowEndPointView = [[UIView alloc] initWithFrame:CGRectZero];
         [self.arrowImageView addSubview:_arrowEndPointView];
     }
     return _arrowEndPointView;
 }
 
-- (UIImage *)arrowImage {
-    if (!_arrowImage) {
+- (UIImage *)arrowImage
+{
+    if (!_arrowImage)
+    {
         [self setupArrowImage];
     }
     return _arrowImage;
 }
 
-- (void)setText:(NSString *)text {
+- (void)setText:(NSString *)text
+{
     _text = text;
     self.firstLabel.text = _text;
 }
 
-- (void)setArrowCurveKind:(TBMHintArrowCurveKind)arrowCurveKind {
-    _arrowCurveKind = arrowCurveKind;
-}
-
-- (void)setArrowPoint:(CGPoint)arrowPoint {
-    _arrowPoint = arrowPoint;
-}
 @end

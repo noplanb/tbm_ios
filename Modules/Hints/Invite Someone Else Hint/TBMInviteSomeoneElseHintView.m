@@ -5,11 +5,13 @@
 
 #import "TBMInviteSomeoneElseHintView.h"
 
-@implementation TBMInviteSomeoneElseHintView {
+@implementation TBMInviteSomeoneElseHintView
+{
 
 }
 
-- (void)configureHint {
+- (void)configureHint
+{
     CGRect highlightFrame = [self.gridModule gridGetFrameForFriend:4 inView:self.superview];
     self.dismissAfterAction = YES;
     self.framesToCutOut = @[

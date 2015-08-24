@@ -23,12 +23,14 @@ CGFloat const kElementsHorizontalMargin = 15.f;
 @property(nonatomic, strong) UIImageView *presentIconImage;
 @end
 
-@implementation TBMNextFeatureDialogView {
+@implementation TBMNextFeatureDialogView
+{
 
 }
 #pragma mark - Interface
 
-- (void)showHintInGrid:(id <TBMGridModuleInterface>)gridModule {
+- (void)showHintInGrid:(id <TBMGridModuleInterface>)gridModule
+{
     UIView *view = gridModule.viewForDialog;
 
     [view addSubview:self];
@@ -39,83 +41,101 @@ CGFloat const kElementsHorizontalMargin = 15.f;
 
 #pragma mark - Initialization
 
-- (instancetype)init {
+- (instancetype)init
+{
     self = [self initWithFrame:CGRectZero];
 
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
     self = [super initWithCoder:aDecoder];
-    if (self) {
+    if (self)
+    {
         [self setup];
     }
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame
+{
     self = [super initWithFrame:frame];
-    if (self) {
+    if (self)
+    {
         [self setup];
     }
     return self;
 }
 
-- (void)setup {
+- (void)setup
+{
     self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65f];
     [self hide];
     self.userInteractionEnabled = YES;
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
     CGPoint locationPoint = [[touches anyObject] locationInView:self];
     UIView *touchedView = [self hitTest:locationPoint withEvent:event];
-    if ([touchedView isEqual:self]) {
+    if ([touchedView isEqual:self])
+    {
         [self dialogDidTap:self];
     }
 }
 
-- (void)dialogDidTap:(id)sender {
+- (void)dialogDidTap:(id)sender
+{
     [self hide];
     [self.presenter dialogDidTap];
 }
 
-- (void)hide {
+- (void)hide
+{
     self.hidden = YES;
     self.alpha = 0;
 }
 
 #pragma mark - Layout
 
-- (void)showAnimated {
+- (void)showAnimated
+{
     self.hidden = NO;
-    [self layoutSubviews];
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
     CGFloat height = CGRectGetHeight(self.frame);
-    __block CGFloat correctDialogTop = CGRectGetMaxY(self.frame) - height;
-    __block CGFloat dialogTop = CGRectGetMaxY(self.frame);
+    CGFloat correctDialogTop = CGRectGetMaxY(self.frame) - height;
+    CGFloat dialogTop = CGRectGetMaxY(self.frame);
 
     self.frame = [self makeRectWithTop:dialogTop];
-    [UIView animateWithDuration:.35f delay:0 options:UIViewAnimationCurveEaseOut animations:^{
+    [UIView animateWithDuration:.35f delay:0 options:UIViewAnimationCurveEaseOut animations:^
+    {
         self.frame = [self makeRectWithTop:correctDialogTop];
         self.alpha = 1;
-    }                completion:^(BOOL finished) {
+    }                completion:^(BOOL finished)
+    {
 
     }];
 }
 
-- (void)hideAnimated {
+- (void)hideAnimated
+{
     CGFloat height = CGRectGetHeight(self.frame);
     __block CGFloat correctDialogTop = CGRectGetMaxY(self.frame);
 
-    [UIView animateWithDuration:.35f delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
+    [UIView animateWithDuration:.35f delay:0 options:UIViewAnimationCurveEaseInOut animations:^
+    {
         self.frame = [self makeRectWithTop:correctDialogTop];
         self.alpha = 0;
-    }                completion:^(BOOL finished) {
+    }                completion:^(BOOL finished)
+    {
         self.hidden = YES;
     }];
 }
 
-- (CGRect)makeRectWithTop:(CGFloat)top {
+- (CGRect)makeRectWithTop:(CGFloat)top
+{
     return CGRectMake(
             self.frame.origin.x,
             top,
@@ -125,7 +145,8 @@ CGFloat const kElementsHorizontalMargin = 15.f;
 }
 
 
-- (void)layoutSubviews {
+- (void)layoutSubviews
+{
     [super layoutSubviews];
     [self layoutBaseView];
     [self layoutHeaderLabel];
@@ -133,7 +154,8 @@ CGFloat const kElementsHorizontalMargin = 15.f;
     [self layoutIconImage];
 }
 
-- (void)layoutIconImage {
+- (void)layoutIconImage
+{
     self.presentIconImage.frame = CGRectMake(
             CGRectGetMinX(self.bounds) + kElementsHorizontalMargin,
             (CGRectGetHeight(self.bounds) / 2) - (kIconSize / 2),
@@ -142,7 +164,8 @@ CGFloat const kElementsHorizontalMargin = 15.f;
     );
 }
 
-- (void)layoutSubHeaderLabel {
+- (void)layoutSubHeaderLabel
+{
     self.subHeaderLabel.frame = CGRectMake(
             CGRectGetMinX(self.superview.bounds) + kIconSize + (kElementsHorizontalMargin * 2),
             CGRectGetMaxY(self.presentIconImage.frame) - kSubHeaderHeight,
@@ -151,7 +174,8 @@ CGFloat const kElementsHorizontalMargin = 15.f;
     );
 }
 
-- (void)layoutBaseView {
+- (void)layoutBaseView
+{
     self.frame = CGRectMake(
             CGRectGetMinX(self.superview.bounds),
             CGRectGetMaxY(self.superview.bounds) - kDialogHeight,
@@ -160,7 +184,8 @@ CGFloat const kElementsHorizontalMargin = 15.f;
     );
 }
 
-- (void)layoutHeaderLabel {
+- (void)layoutHeaderLabel
+{
 
     self.headerLabel.frame = CGRectMake(
             CGRectGetMinX(self.superview.bounds) + kIconSize + (kElementsHorizontalMargin * 2),
@@ -172,8 +197,10 @@ CGFloat const kElementsHorizontalMargin = 15.f;
 
 #pragma mark - Lazy initialization
 
-- (UILabel *)headerLabel {
-    if (!_headerLabel) {
+- (UILabel *)headerLabel
+{
+    if (!_headerLabel)
+    {
         _headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _headerLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:16];
@@ -187,8 +214,10 @@ CGFloat const kElementsHorizontalMargin = 15.f;
     return _headerLabel;
 }
 
-- (UILabel *)subHeaderLabel {
-    if (!_subHeaderLabel) {
+- (UILabel *)subHeaderLabel
+{
+    if (!_subHeaderLabel)
+    {
         _subHeaderLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _subHeaderLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _subHeaderLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16];
@@ -202,8 +231,10 @@ CGFloat const kElementsHorizontalMargin = 15.f;
     return _subHeaderLabel;
 }
 
-- (UIImageView *)presentIconImage {
-    if (!_presentIconImage) {
+- (UIImageView *)presentIconImage
+{
+    if (!_presentIconImage)
+    {
         _presentIconImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"present-icon"]];
         _presentIconImage.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:_presentIconImage];
@@ -211,7 +242,8 @@ CGFloat const kElementsHorizontalMargin = 15.f;
     return _presentIconImage;
 }
 
-- (void)dismiss {
+- (void)dismiss
+{
     [self hideAnimated];
 }
 

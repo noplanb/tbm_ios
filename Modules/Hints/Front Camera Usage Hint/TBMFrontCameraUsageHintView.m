@@ -5,11 +5,13 @@
 
 #import "TBMFrontCameraUsageHintView.h"
 
-@implementation TBMFrontCameraUsageHintView {
+@implementation TBMFrontCameraUsageHintView
+{
 
 }
 
-- (void)configureHint {
+- (void)configureHint
+{
     CGRect highlightFrame = [self.gridModule gridGetCenterCellFrameInView:self.superview];
     self.dismissAfterAction = YES;
     self.framesToCutOut = @[

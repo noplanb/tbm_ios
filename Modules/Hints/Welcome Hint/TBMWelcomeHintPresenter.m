@@ -12,41 +12,40 @@
 
 @implementation TBMWelcomeHintPresenter
 
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
-    self.dialogView = [TBMWelcomeHintView new];
-    self.dataSource.persistentStateKey = @"*const kWelcomeHintNSUDkey";
+
+    if (self)
+    {
+        self.dialogView = [TBMWelcomeHintView new];
+        self.dataSource.persistentStateKey = @"*const kWelcomeHintNSUDkey";
+    }
     return self;
 }
 
-- (NSUInteger)priority {
+- (NSUInteger)priority
+{
     return 1;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource {
-    if (event != TBMEventFlowEventFriendDidAdd) {
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+{
+    if (event != TBMEventFlowEventFriendDidAdd)
+    {
         return NO;
     }
-    if ([dataSource friendsCount] <= 1) {
-        return NO;
-    }
-
-    if ([dataSource friendsCount] > 8) {
-        return NO;
-    }
-
-    if ([self.dataSource persistentState]) {
+    if ([dataSource friendsCount] <= 1)
+    {
         return NO;
     }
 
-    return YES;
-}
-
-
-- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule {
-    if (![self.eventFlowModule isAnyHandlerActive]) {
-        [super presentWithGridModule:gridModule];
+    if ([dataSource friendsCount] > 8)
+    {
+        return NO;
     }
+
+    return ![self.dataSource persistentState];
 }
 
 @end

@@ -7,15 +7,18 @@
 #import "TBMHintView.h"
 
 
-@implementation TBMHintPresenter {
+@implementation TBMHintPresenter
+{
 
 }
 
-- (void)setupEventFlowModule:(id <TBMEventsFlowModuleInterface>)eventFlowModule {
+- (void)setupEventFlowModule:(id <TBMEventsFlowModuleInterface>)eventFlowModule
+{
     self.eventFlowModule = eventFlowModule;
 }
 
-- (void)hintDidDismiss {
+- (void)hintDidDismiss
+{
     //virtual
 }
 

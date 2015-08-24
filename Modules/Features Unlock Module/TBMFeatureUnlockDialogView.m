@@ -32,7 +32,8 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
 
 #pragma mark - Interface
 
-- (void)showInGrid:(id <TBMGridModuleInterface>)gridModule {
+- (void)showInGrid:(id <TBMGridModuleInterface>)gridModule
+{
     UIView *view = gridModule.viewForDialog;
     self.gridModule = gridModule;
     self.frame = view.bounds;
@@ -43,29 +44,19 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
 
 #pragma mark - Initialization
 
-- (instancetype)init {
-    self = [self initWithFrame:CGRectZero];
+- (instancetype)init
+{
+    self = [super init];
 
-    return self;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
+    if (self)
+    {
         [self setup];
     }
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self setup];
-    }
-    return self;
-}
-
-- (void)setup {
+- (void)setup
+{
     self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65f];
     self.hidden = YES;
     self.alpha = 0;
@@ -74,7 +65,8 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
 
 #pragma mark - Layout
 
-- (void)layoutSubviews {
+- (void)layoutSubviews
+{
     [super layoutSubviews];
     [self layoutDialogView];
     [self layoutStarsImage];
@@ -84,7 +76,8 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
     [self layoutButton];
 }
 
-- (void)layoutDialogView {
+- (void)layoutDialogView
+{
     CGFloat horizMargin = 25.f;
     CGFloat height = CGRectGetHeight(self.bounds) / 2.f;
     CGFloat vertMargin = (CGRectGetHeight(self.bounds) - height) / 2;
@@ -96,7 +89,8 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
     );
 }
 
-- (void)layoutStarsImage {
+- (void)layoutStarsImage
+{
     CGFloat imageRatio = self.starsImage.image.size.height / self.starsImage.image.size.width;
     CGFloat imageWidth = CGRectGetWidth(self.dialogView.bounds) / 2;
     CGFloat imageHeight = imageWidth * imageRatio;
@@ -112,7 +106,8 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
 
 }
 
-- (void)layoutHeader {
+- (void)layoutHeader
+{
     CGFloat vertMargin = 75.f;
 
     self.headerLabel.frame = CGRectMake(
@@ -123,7 +118,8 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
     );
 }
 
-- (void)layoutSubHeader {
+- (void)layoutSubHeader
+{
     CGFloat vertMargin = 25.f;
     self.subHeaderLabel.frame = CGRectMake(
             CGRectGetMinX(self.dialogView.bounds),
@@ -133,7 +129,8 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
     );
 }
 
-- (void)layoutFeatureName {
+- (void)layoutFeatureName
+{
     CGFloat vertMargin = 25.f;
     self.featureNameLabel.frame = CGRectMake(
             CGRectGetMinX(self.dialogView.bounds),
@@ -143,7 +140,8 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
     );
 }
 
-- (void)layoutButton {
+- (void)layoutButton
+{
     CGFloat labelHeight = 30.f;
     CGFloat buttonHeight = 70.f;
     self.showMeButtonRoundedRectangle.frame = CGRectMake(
@@ -171,8 +169,10 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
 
 #pragma mark - Lazy initialization (subviews setup)
 
-- (UIView *)dialogView {
-    if (!_dialogView) {
+- (UIView *)dialogView
+{
+    if (!_dialogView)
+    {
         _dialogView = [[UIView alloc] initWithFrame:CGRectZero];
         _dialogView.clipsToBounds = NO;
         _dialogView.layer.cornerRadius = 19.f;
@@ -182,16 +182,20 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
     return _dialogView;
 }
 
-- (UIImageView *)starsImage {
-    if (!_starsImage) {
+- (UIImageView *)starsImage
+{
+    if (!_starsImage)
+    {
         _starsImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"three-stars"]];
         [self.dialogView addSubview:_starsImage];
     }
     return _starsImage;
 }
 
-- (UILabel *)headerLabel {
-    if (!_headerLabel) {
+- (UILabel *)headerLabel
+{
+    if (!_headerLabel)
+    {
         _headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _headerLabel.font = [UIFont fontWithName:kTBMFeatureUnlockDialogHeaderFontName size:38];
         _headerLabel.textColor = [UIColor whiteColor];
@@ -205,8 +209,10 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
     return _headerLabel;
 }
 
-- (UILabel *)subHeaderLabel {
-    if (!_subHeaderLabel) {
+- (UILabel *)subHeaderLabel
+{
+    if (!_subHeaderLabel)
+    {
         _subHeaderLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _subHeaderLabel.font = [UIFont fontWithName:kTBMFeatureUnlockDialogSubHeaderFontName size:18];
         _subHeaderLabel.textColor = [UIColor colorWithHexString:@"#A8A294"];
@@ -219,8 +225,10 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
     return _subHeaderLabel;
 }
 
-- (UILabel *)featureNameLabel {
-    if (!_featureNameLabel) {
+- (UILabel *)featureNameLabel
+{
+    if (!_featureNameLabel)
+    {
         _featureNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _featureNameLabel.font = [UIFont fontWithName:kTBMFeatureUnlockDialogFeatureFontName size:16];
         _featureNameLabel.textColor = [UIColor colorWithHexString:@"#F68B1F"];
@@ -233,8 +241,10 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
     return _featureNameLabel;
 }
 
-- (UIView *)showMeButtonRoundedRectangle {
-    if (!_showMeButtonRoundedRectangle) {
+- (UIView *)showMeButtonRoundedRectangle
+{
+    if (!_showMeButtonRoundedRectangle)
+    {
         _showMeButtonRoundedRectangle = [[UIView alloc] initWithFrame:CGRectZero];
         _showMeButtonRoundedRectangle.layer.cornerRadius = 18.f;
         _showMeButtonRoundedRectangle.backgroundColor = [UIColor blackColor];
@@ -243,8 +253,10 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
     return _showMeButtonRoundedRectangle;
 }
 
-- (UIView *)showMeButtonSquare {
-    if (!_showMeButtonSquare) {
+- (UIView *)showMeButtonSquare
+{
+    if (!_showMeButtonSquare)
+    {
         _showMeButtonSquare = [[UIView alloc] initWithFrame:CGRectZero];
         _showMeButtonSquare.backgroundColor = [UIColor blackColor];
 
@@ -253,16 +265,20 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
     return _showMeButtonSquare;
 }
 
-- (UIView *)showMeButton {
-    if (!_showMeButton) {
+- (UIView *)showMeButton
+{
+    if (!_showMeButton)
+    {
         _showMeButton = [[UIView alloc] initWithFrame:CGRectZero];
         [self addSubview:_showMeButton];
     }
     return _showMeButton;
 }
 
-- (UILabel *)showMeButtonLabel {
-    if (!_showMeButtonLabel) {
+- (UILabel *)showMeButtonLabel
+{
+    if (!_showMeButtonLabel)
+    {
         _showMeButtonLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _showMeButtonLabel.font = [UIFont fontWithName:kTBMFeatureUnlockDialogButtonFontName size:18];
         _showMeButtonLabel.textColor = [UIColor colorWithHexString:@"#A8A294"];
@@ -279,31 +295,38 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
 
 #pragma mark - Handle events
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
     CGPoint locationPoint = [[touches anyObject] locationInView:self];
     UIView *touchedView = [self hitTest:locationPoint withEvent:event];
     if ([touchedView isEqual:self.dialogView]
             || [touchedView isEqual:self.showMeButtonLabel]
             || [touchedView isEqual:self.showMeButtonRoundedRectangle]
             || [touchedView isEqual:self.showMeButtonSquare]
-            ) {
+            )
+    {
         [self buttonDidTap:self];
-    } else {
+    } else
+    {
         [self dimViewDidTap:self];
     }
 }
 
-- (void)buttonDidTap:(id)sender {
+- (void)buttonDidTap:(id)sender
+{
     [self hide];
     [self.presenter showMeButtonDidPress];
 }
 
-- (void)dimViewDidTap:(id)sender {
+- (void)dimViewDidTap:(id)sender
+{
     [self dismiss];
 }
 
-- (void)setFeatureDescription:(NSString *)featureDescription {
-    if (_featureDescription != featureDescription) {
+- (void)setFeatureDescription:(NSString *)featureDescription
+{
+    if (_featureDescription != featureDescription)
+    {
         _featureDescription = featureDescription;
         self.featureNameLabel.text = featureDescription;
     }
@@ -311,38 +334,46 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
 
 #pragma mark - Private
 
-- (void)showAnimated {
+- (void)showAnimated
+{
     self.hidden = NO;
-    [self layoutSubviews];
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
     CGFloat height = CGRectGetMinY(self.dialogView.frame);
-    __block CGFloat correctDialogTop = CGRectGetMinY(self.dialogView.frame);
-    __block CGFloat dialogTop = CGRectGetMinY(self.bounds) - height;
+    CGFloat correctDialogTop = CGRectGetMinY(self.dialogView.frame);
+    CGFloat dialogTop = CGRectGetMinY(self.bounds) - height;
 
     self.dialogView.frame = [self makeDialogViewRectWithTop:dialogTop];
-    [UIView animateWithDuration:.25f delay:0 options:UIViewAnimationCurveEaseOut animations:^{
+    [UIView animateWithDuration:.25f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^
+    {
 
         self.dialogView.frame = [self makeDialogViewRectWithTop:correctDialogTop];
         self.alpha = 1;
-    }                completion:^(BOOL finished) {
+    }                completion:^(BOOL finished)
+    {
 
     }];
 
 }
 
-- (CGRect)makeDialogViewRectWithTop:(CGFloat)top {
+- (CGRect)makeDialogViewRectWithTop:(CGFloat)top
+{
     return CGRectMake(self.dialogView.frame.origin.x, top,
             CGRectGetWidth(self.dialogView.frame),
             CGRectGetHeight(self.dialogView.frame)
     );
 }
 
-- (void)dismiss {
+- (void)dismiss
+{
     [self hide];
     [self.presenter dialogDidDismiss];
 }
 
-- (void)hide {
-    [UIView animateWithDuration:.25f animations:^{
+- (void)hide
+{
+    [UIView animateWithDuration:.25f animations:^
+    {
         self.alpha = 0;
     }];
     self.hidden = YES;

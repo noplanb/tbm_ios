@@ -6,7 +6,8 @@
 #import <Foundation/Foundation.h>
 
 NSString *const kTBMTutorialFontName;
-typedef NS_ENUM(NSInteger, TBMHintArrowCurveKind) {
+typedef NS_ENUM(NSInteger, TBMHintArrowCurveKind)
+{
     TBMTutorialArrowCurveKindLeft = 0,
     TBMTutorialArrowCurveKindRight = 1,
 };

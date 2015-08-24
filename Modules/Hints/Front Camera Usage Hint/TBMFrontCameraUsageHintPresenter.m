@@ -11,29 +11,26 @@
 
 
 @implementation TBMFrontCameraUsageHintPresenter
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
-    self.dialogView = [TBMFrontCameraUsageHintView new];
-    self.dataSource.persistentStateKey = @"kFrontCameraUsageUsageHintNSUDkey";
+
+    if (self)
+    {
+        self.dialogView = [TBMFrontCameraUsageHintView new];
+        self.dataSource.persistentStateKey = @"kFrontCameraUsageUsageHintNSUDkey";
+    }
     return self;
 }
 
-- (NSUInteger)priority {
+- (NSUInteger)priority
+{
     return 1;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource {
-    if (event != TBMEventFlowEventFrontCameraUnlockDialogDidDismiss) {
-        return NO;
-    }
-    return YES;
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+{
+    return event == TBMEventFlowEventFrontCameraUnlockDialogDidDismiss;
 }
-
-- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule {
-    if (![self.eventFlowModule isAnyHandlerActive]) {
-        [super presentWithGridModule:gridModule];
-    }
-}
-
 
 @end

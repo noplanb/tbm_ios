@@ -24,29 +24,35 @@
 
 #pragma mark - Initialization
 
-- (instancetype)init {
+- (instancetype)init
+{
     self = [self initWithFrame:CGRectZero];
 
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
     self = [super initWithCoder:aDecoder];
-    if (self) {
+    if (self)
+    {
         [self setup];
     }
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame
+{
     self = [super initWithFrame:frame];
-    if (self) {
+    if (self)
+    {
         [self setup];
     }
     return self;
 }
 
-- (void)setup {
+- (void)setup
+{
     self.fillColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65f];
     self.backgroundColor = [UIColor clearColor];
     self.hidden = YES;
@@ -56,33 +62,41 @@
     [self addGestureRecognizer:recognizer];
 }
 
-- (void)tutorialViewDidTap:(id)sender {
+- (void)tutorialViewDidTap:(id)sender
+{
     [self dismiss];
 }
 
 #pragma mark - Drawing
 
-- (void)drawRect:(CGRect)rect {
+- (void)drawRect:(CGRect)rect
+{
     [self.fillColor setFill];
     UIRectFill(rect);
-    if (!self.framesToCutOut || self.framesToCutOut.count <= 0) {
+    if (!self.framesToCutOut || self.framesToCutOut.count <= 0)
+    {
         return;
     }
 
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetBlendMode(context, kCGBlendModeDestinationOut);
-    for (UIBezierPath *path in self.framesToCutOut) {
+    for (UIBezierPath *path in self.framesToCutOut)
+    {
         [path fill];
     }
     CGContextSetBlendMode(context, kCGBlendModeNormal);
 }
 
-- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
-    for (UIBezierPath *path in self.framesToCutOut) {
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
+{
+    for (UIBezierPath *path in self.framesToCutOut)
+    {
         CGFloat pathWidth = CGRectGetWidth([path bounds]);
         CGFloat pathHeight = CGRectGetHeight([path bounds]);
-        if ([path containsPoint:point] && pathHeight > 0 && pathWidth > 0) {
-            if (self.dismissAfterAction) {
+        if ([path containsPoint:point] && pathHeight > 0 && pathWidth > 0)
+        {
+            if (self.dismissAfterAction)
+            {
                 [self dismiss];
             }
             return NO;
@@ -93,17 +107,21 @@
 
 #pragma mark - Layout
 
-- (void)layoutSubviews {
+- (void)layoutSubviews
+{
     [super layoutSubviews];
-    for (TBMHintArrow *arrow in self.arrows) {
+    for (TBMHintArrow *arrow in self.arrows)
+    {
         [arrow layoutSubviews];
     }
     [self layoutButton];
 
 }
 
-- (void)layoutButton {
-    if (!self.showGotItButton) {
+- (void)layoutButton
+{
+    if (!self.showGotItButton)
+    {
         self.gotItButton.hidden = YES;
         return;
     }
@@ -121,24 +139,30 @@
 }
 
 
-- (UIView *)gotItButton {
-    if (!_gotItButton) {
+- (UIView *)gotItButton
+{
+    if (!_gotItButton)
+    {
         _gotItButton = [[UIView alloc] initWithFrame:CGRectZero];
         [self addSubview:_gotItButton];
     }
     return _gotItButton;
 }
 
-- (UIImageView *)gotItImage {
-    if (!_gotItImage) {
+- (UIImageView *)gotItImage
+{
+    if (!_gotItImage)
+    {
         _gotItImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"circle-white"]];
         [self.gotItButton addSubview:_gotItImage];
     }
     return _gotItImage;
 }
 
-- (UILabel *)gotItLabel {
-    if (!_gotItLabel) {
+- (UILabel *)gotItLabel
+{
+    if (!_gotItLabel)
+    {
         _gotItLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _gotItLabel.font = [UIFont fontWithName:kTBMTutorialFontName size:25];
         _gotItLabel.textColor = [UIColor whiteColor];
@@ -154,18 +178,22 @@
 
 #pragma mark - Setters
 
-- (void)setArrows:(NSArray *)arrows {
-    for (UIView *view in _arrows) {
+- (void)setArrows:(NSArray *)arrows
+{
+    for (UIView *view in _arrows)
+    {
         [view removeFromSuperview];
     }
     _arrows = arrows;
-    for (UIView *view in _arrows) {
+    for (UIView *view in _arrows)
+    {
         [self addSubview:view];
     }
-    
+
 }
 
-- (void)showHintInGrid:(id <TBMGridModuleInterface>)gridModule {
+- (void)showHintInGrid:(id <TBMGridModuleInterface>)gridModule
+{
     UIView *view = gridModule.viewForDialog;
     self.gridModule = gridModule;
     self.frame = view.bounds;
@@ -177,25 +205,32 @@
     [self show];
 }
 
-- (void)configureHint {
+- (void)configureHint
+{
     //virtual
 }
 
-- (void)dismiss {
+- (void)dismiss
+{
     [self hide];
     [self.presenter hintDidDismiss];
 }
 
-- (void)show{
+- (void)show
+{
     self.hidden = NO;
-    [self layoutSubviews];
-    [UIView animateWithDuration:.25f animations:^{
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
+    [UIView animateWithDuration:.25f animations:^
+    {
         self.alpha = 1;
     }];
 }
 
-- (void)hide {
-    [UIView animateWithDuration:.25f animations:^{
+- (void)hide
+{
+    [UIView animateWithDuration:.25f animations:^
+    {
         self.alpha = 0;
     }];
     self.hidden = YES;

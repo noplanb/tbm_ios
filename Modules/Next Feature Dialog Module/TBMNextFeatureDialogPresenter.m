@@ -8,51 +8,53 @@
 #import "TBMHomeModuleInterface.h"
 #import "TBMEventHandlerDataSource.h"
 
-
 @interface TBMNextFeatureDialogPresenter ()
-@property(nonatomic, strong) id <TBMHomeModuleInterface> homeModule;
-@end
 
+@property(nonatomic, strong) id <TBMHomeModuleInterface> homeModule;
+
+@end
 
 @implementation TBMNextFeatureDialogPresenter
 
-- (instancetype)init {
-    self = [super init];
-    TBMNextFeatureDialogView *view = [[TBMNextFeatureDialogView alloc] initWithFrame:CGRectZero];
+- (instancetype)init
+{
+    self = [super init]; //todo:
+    TBMNextFeatureDialogView *view = [TBMNextFeatureDialogView new];
     view.presenter = self;
     self.dialogView = view;
     self.dataSource.persistentStateKey = @""; // it means don't store
     return self;
 }
 
-- (void)setupHomeModule:(id <TBMHomeModuleInterface>)homeModule {
+- (void)setupHomeModule:(id <TBMHomeModuleInterface>)homeModule
+{
     self.homeModule = homeModule;
 }
 
-- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule {
-    [super presentWithGridModule:gridModule];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self dismiss];
-    });
-}
-
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource {
-    if (event != TBMEventFlowEventApplicationDidLaunch) {
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+{
+    if (event != TBMEventFlowEventApplicationDidLaunch)
+    {
         return NO;
     }
 
     return YES;
 }
 
-- (NSUInteger)priority {
-    return 1;
+- (NSUInteger)priority
+{
+    return 109;
 }
 
-- (void)dismiss {
+#pragma mark - View Callbacks
+
+- (void)dismiss
+{
     [self.dialogView dismiss];
 }
 
-- (void)dialogDidTap {
+- (void)dialogDidTap
+{
     [self.homeModule showBench];
 }
 @end

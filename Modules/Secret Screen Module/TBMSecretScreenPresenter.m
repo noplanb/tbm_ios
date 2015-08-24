@@ -118,11 +118,13 @@
     [self reload];
 }
 
-- (void)crashButtonDidPress {
+- (void)crashButtonDidPress
+{
     TBMDebugData *data = [[TBMDebugData alloc] init];
     NSMutableString *crashReason = [@"!!!CRASH BUTTON EXCEPTION:" mutableCopy];
     [crashReason appendString:[data debugDescription]];
-    NSAssert(false,crashReason);
+    NSArray* array = [NSArray array];
+    [array objectAtIndex:2]; // forse crash!
 }
 
 - (void)logButtonDidPress {

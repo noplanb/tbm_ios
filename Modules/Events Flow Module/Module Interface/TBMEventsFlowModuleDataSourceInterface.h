@@ -3,22 +3,17 @@
 // Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>@class TBMFeatureKind;
+@class TBMFeatureKind;
 
 @protocol TBMEventsFlowModuleDataSourceInterface <NSObject>
 
-/**
- * Other data
- */
 - (BOOL)messageRecordedState;
-
 - (BOOL)messagePlayedState;
 
-- (int)friendsCount;
-
+- (NSUInteger)friendsCount;
 - (NSUInteger)unviewedCount;
 
 - (void)resetHintsState;
-
 - (BOOL)hasSentVideos:(NSUInteger)gridIndex;
+
 @end

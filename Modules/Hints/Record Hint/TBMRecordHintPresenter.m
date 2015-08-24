@@ -11,49 +11,61 @@
 #import "TBMEventHandlerDataSource.h"
 
 
-@implementation TBMRecordHintPresenter {
-    BOOL _isPresented;
-}
+@implementation TBMRecordHintPresenter
 
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
-    self.dialogView = [TBMRecordHintView new];
-    self.dataSource.persistentStateKey = @"kRecordHintNSUDkey";
+
+    if (self)
+    {
+        self.dialogView = [TBMRecordHintView new];
+        self.dataSource.persistentStateKey = @"kRecordHintNSUDkey";
+    }
     return self;
 }
 
-- (NSUInteger)priority {
-    return 1;
+- (NSUInteger)priority
+{
+    return 9;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource {
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+{
 
     if (event != TBMEventFlowEventMessageDidStopPlaying
             && event != TBMEventFlowEventFriendDidAdd
             && event != TBMEventFlowEventMessageDidReceive
-            && event != TBMEventFlowEventApplicationDidLaunch) {
+            && event != TBMEventFlowEventApplicationDidLaunch)
+    {
         return NO;
     }
 
-    if ([dataSource messageRecordedState]) {
+    if ([dataSource messageRecordedState])
+    {
         return NO;
     }
 
-    if ([self.dataSource sessionState]) {
+    if ([self.dataSource sessionState])
+    {
         return NO;
     }
 
-    if ([dataSource friendsCount] != 1) {
+    if ([dataSource friendsCount] != 1)
+    {
         return NO;
     }
 
     return YES;
 }
 
-- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule {
-    if (![self.eventFlowModule isAnyHandlerActive]) {
+- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule
+{
+    if (![self.eventFlowModule isAnyHandlerActive])
+    {
         [super presentWithGridModule:gridModule];
-    } else if ([[self.eventFlowModule currentHandler] respondsToSelector:@selector(addRecordHint)]) {
+    } else if ([[self.eventFlowModule currentHandler] respondsToSelector:@selector(addRecordHint)])
+    {
         [[self.eventFlowModule currentHandler] performSelector:@selector(addRecordHint)];
         [self didPresented];
     }
@@ -61,8 +73,8 @@
 
 #pragma mark Add play hint implementation
 
-- (void)addPlayHint {
-    TBMRecordHintView *view = self.dialogView;
-    [view addPlayTip];
+- (void)addPlayHint
+{
+    [(TBMRecordHintView *) self.dialogView addPlayTip];
 }
 @end

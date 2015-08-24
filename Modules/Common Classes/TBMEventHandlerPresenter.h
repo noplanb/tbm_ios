@@ -6,7 +6,6 @@
  * Copyright (c) 2015 No Plan B. All rights reserved.
  */
 
-#import <Foundation/Foundation.h>
 #import "TBMEventsFlowModuleEventHandler.h"
 
 @class TBMHintView;
@@ -16,8 +15,14 @@
 @interface TBMEventHandlerPresenter : NSObject <TBMEventsFlowModuleEventHandler>
 
 /**
+ *  is event handler view presented
+ */
+@property(nonatomic) BOOL isPresented;
+
+/**
  * Hint view should be initiated by concrete subclass
  */
+
 @property(nonatomic, strong) id <TBMDialogViewInterface> dialogView;
 
 /**
@@ -29,7 +34,6 @@
  * Used by subclasses for decisions
  */
 @property(nonatomic, weak) id <TBMEventsFlowModuleInterface> eventFlowModule;
-
 /**
  * Event flow module also needs for callback events
  */
@@ -38,7 +42,7 @@
 /**
  * Handler did presented subclasses calback
  */
--(void)didPresented;
+- (void)didPresented;
 
 /**
  * View callback

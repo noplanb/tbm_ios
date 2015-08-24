@@ -5,11 +5,13 @@
 
 #import "TBMAbortRecordUsageHintView.h"
 
-@implementation TBMAbortRecordUsageHintView {
+@implementation TBMAbortRecordUsageHintView
+{
 
 }
 
-- (void)configureHint {
+- (void)configureHint
+{
     CGRect highlightFrame = [self.gridModule gridGetFrameForFriend:0 inView:self.superview];
     self.dismissAfterAction = YES;
     self.framesToCutOut = @[

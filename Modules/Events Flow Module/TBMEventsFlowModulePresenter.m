@@ -21,43 +21,54 @@
 
 #pragma mark - TBMEventsFlowModuleInterface
 
-- (void)setupGridModule:(id <TBMGridModuleInterface>)gridModule {
+- (void)setupGridModule:(id <TBMGridModuleInterface>)gridModule
+{
     self.gridModule = gridModule;
 }
 
-- (void)resetSession {
-    for (id <TBMEventsFlowModuleEventHandler> evenHandler in self.eventHandlers) {
+- (void)resetSession
+{
+    for (id <TBMEventsFlowModuleEventHandler> evenHandler in self.eventHandlers)
+    {
         [evenHandler resetSessionState];
     }
 }
 
-- (void)resetHintsState {
+- (void)resetHintsState
+{
     [self.dataSource resetHintsState];
 }
 
-- (void)addEventHandler:(id <TBMEventsFlowModuleEventHandler>)eventHandler {
+- (void)addEventHandler:(id <TBMEventsFlowModuleEventHandler>)eventHandler
+{
     NSMutableSet *eventHandlers = [self.eventHandlers mutableCopy];
     [eventHandlers addObject:eventHandler];
     self.eventHandlers = eventHandlers;
 }
 
-- (void)throwEvent:(TBMEventFlowEvent)anEvent {
+- (void)throwEvent:(TBMEventFlowEvent)anEvent
+{
     id <TBMEventsFlowModuleEventHandler> currentEvenHandler = nil;
-    for (id <TBMEventsFlowModuleEventHandler> evenHandler in self.eventHandlers) {
+    for (id <TBMEventsFlowModuleEventHandler> evenHandler in self.eventHandlers)
+    {
         NSLog(@"enumerate %@ -", [evenHandler class]);
-        if ([evenHandler conditionForEvent:anEvent dataSource:self.dataSource]) {
+        if ([evenHandler conditionForEvent:anEvent dataSource:self.dataSource])
+        {
             NSLog(@"++ Condition for  %@ ++", [evenHandler class]);
-            NSLog(@"priority %d | %@ priority = %d  -", [evenHandler priority], [currentEvenHandler class], [currentEvenHandler priority]);
-            if ([currentEvenHandler priority] < [evenHandler priority]) {
+            NSLog(@"priority %lu | %@ priority = %lu  -", (unsigned long) [evenHandler priority], [currentEvenHandler class], (unsigned long) [currentEvenHandler priority]);
+            if ([currentEvenHandler priority] < [evenHandler priority])
+            {
                 NSLog(@">> Select:  %@ ++", [evenHandler class]);
                 currentEvenHandler = evenHandler;
             }
         }
     }
 
-    if (currentEvenHandler) {
+    if (currentEvenHandler)
+    {
         [currentEvenHandler presentWithGridModule:self.gridModule];
-        if ([currentEvenHandler isPresented]) {
+        if ([currentEvenHandler isPresented])
+        {
             self.curentEventHandler = currentEvenHandler;
         }
     }
@@ -65,53 +76,70 @@
 
 #pragma mark - Initialization
 
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
-    if (self) {
+    if (self)
+    {
         self.isRecordingFlag = NO;
         [self registerToNotifications];
     }
     return self;
 }
 
-- (BOOL)isRecording {
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (BOOL)isRecording
+{
     return self.isRecordingFlag;
 }
 
-- (BOOL)isAnyHandlerActive {
+- (BOOL)isAnyHandlerActive
+{
     return [self.curentEventHandler isPresented];
 }
 
 #pragma mark - Handle NSNotifications
 
-- (void)registerToNotifications {
+- (void)registerToNotifications
+{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageDidStartRecording) name:TBMVideoRecorderShouldStartRecording object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageDidRecorded) name:TBMVideoRecorderDidFinishRecording object:nil];
 }
 
-- (void)messageDidRecorded {
+- (void)messageDidRecorded
+{
     self.isRecordingFlag = NO;
 }
 
-- (void)messageDidStartRecording {
+- (void)messageDidStartRecording
+{
     self.isRecordingFlag = YES;
 }
 
-- (id <TBMEventsFlowModuleEventHandler>)currentHandler {
+- (id <TBMEventsFlowModuleEventHandler>)currentHandler
+{
     return self.curentEventHandler;
 }
 
 #pragma mark - Lazy initialization
 
-- (TBMEventsFlowDataSource *)dataSource {
-    if (!_dataSource) {
+- (TBMEventsFlowDataSource *)dataSource
+{
+    if (!_dataSource)
+    {
         _dataSource = [[TBMEventsFlowDataSource alloc] init];
     }
     return _dataSource;
 }
 
-- (NSSet *)eventHandlers {
-    if (!_eventHandlers) {
+- (NSSet *)eventHandlers
+{
+    if (!_eventHandlers)
+    {
         _eventHandlers = [NSSet set];
     }
     return _eventHandlers;

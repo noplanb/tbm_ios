@@ -11,29 +11,26 @@
 
 
 @implementation TBMSpinUsageHintPresenter
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
-    self.dialogView = [TBMSpinUsageHintView new];
-    self.dataSource.persistentStateKey = @"kSpinUsageUsageUsageHintNSUDkey";
+
+    if (self)
+    {
+        self.dialogView = [TBMSpinUsageHintView new];
+        self.dataSource.persistentStateKey = @"kSpinUsageUsageUsageHintNSUDkey";
+    }
     return self;
 }
 
-- (NSUInteger)priority {
+- (NSUInteger)priority
+{
     return 1;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource {
-        if (event != TBMEventFlowEventSpinUnlockDialogDidDismiss) {
-        return NO;
-    }
-    return YES;
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+{
+    return event == TBMEventFlowEventSpinUnlockDialogDidDismiss;
 }
-
-- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule {
-    if (![self.eventFlowModule isAnyHandlerActive]) {
-        [super presentWithGridModule:gridModule];
-    }
-}
-
 
 @end

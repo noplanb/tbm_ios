@@ -6,57 +6,58 @@
 #import "TBMEventsFlowDataSource.h"
 #import "TBMFriend.h"
 #import "TBMGridElement.h"
+#import "NSNumber+TBMUserDefaults.h"
 
-#define NSUD [NSUserDefaults standardUserDefaults]
 
 NSString
 // Events state
-        *const kMesagePlayedNSUDkey = @"kMesagePlayedNSUDkey",
-        *const kMesageRecordedNSUDkey = @"kMesageRecordedNSUDkey";
+        *const kMessagePlayedNSUDkey = @"kMessagePlayedNSUDkey",
+        *const kMessageRecordedNSUDkey = @"kMessageRecordedNSUDkey";
 
 
-@implementation TBMEventsFlowDataSource {
-
-}
-
-void saveNSUDState(BOOL state, NSString *const key) {
-    [NSUD setBool:state forKey:key];
-    [NSUD synchronize];
-}
+@implementation TBMEventsFlowDataSource
 
 // Viewed at least one mesaage
-- (BOOL)messagePlayedState {
-    return [NSUD boolForKey:kMesagePlayedNSUDkey];
+- (BOOL)messagePlayedState
+{
+    return [[NSNumber loadUserDefaultsObjectForKey:kMessagePlayedNSUDkey] boolValue];
 }
 
-- (void)setMessagePlayedState:(BOOL)state {
-    saveNSUDState(state, kMesagePlayedNSUDkey);
+- (void)setMessagePlayedState:(BOOL)state
+{
+    [@(state) saveUserDefaultsObjectForKey:kMessagePlayedNSUDkey];
 }
-
 
 // Recorded at least one mesaage
-- (BOOL)messageRecordedState {
-    return [NSUD boolForKey:kMesageRecordedNSUDkey];
+- (BOOL)messageRecordedState
+{
+    return [[NSNumber loadUserDefaultsObjectForKey:kMessageRecordedNSUDkey] boolValue];
 }
 
-- (void)setMessageRecordedState:(BOOL)state {
-    saveNSUDState(state, kMesageRecordedNSUDkey);
+- (void)setMessageRecordedState:(BOOL)state
+{
+    [@(state) saveUserDefaultsObjectForKey:kMessageRecordedNSUDkey];
 }
 
-- (NSUInteger)friendsCount {
+// Other useful data
+- (NSUInteger)friendsCount
+{
     return [TBMFriend count];
 }
 
-- (NSUInteger)unviewedCount {
+- (NSUInteger)unviewedCount
+{
     return [TBMFriend allUnviewedCount];
 }
 
-- (void)resetHintsState {
+- (void)resetHintsState
+{
     [self setMessagePlayedState:NO];
     [self setMessageRecordedState:NO];
 }
 
-- (BOOL)hasSentVideos:(NSUInteger)gridIndex {
+- (BOOL)hasSentVideos:(NSUInteger)gridIndex
+{
     return [TBMGridElement hasSentVideos:gridIndex];
 }
 

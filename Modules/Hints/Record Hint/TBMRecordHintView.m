@@ -5,17 +5,20 @@
 
 #import "TBMRecordHintView.h"
 
-@implementation TBMRecordHintView {
+@implementation TBMRecordHintView
+{
 
 }
-- (void)configureHint {
+- (void)configureHint
+{
     CGRect highlightFrame = [self.gridModule gridGetFrameForFriend:0 inView:self.superview];
     self.dismissAfterAction = YES;
     self.framesToCutOut = @[
             [UIBezierPath bezierPathWithRect:highlightFrame],
     ];
     self.showGotItButton = NO;
-    if (!self.arrows) {
+    if (!self.arrows)
+    {
         NSMutableArray *arrows = [NSMutableArray array];
         [arrows addObject:[TBMHintArrow arrowWithText:@"Press and hold to record"
                                             curveKind:TBMTutorialArrowCurveKindRight
@@ -31,7 +34,8 @@
     }
 }
 
-- (void)addPlayTip {
+- (void)addPlayTip
+{
     CGRect highlightFrame = [self.gridModule gridGetFrameForFriend:0 inView:self.superview];
     NSMutableArray *arrows = [self.arrows mutableCopy];
     [arrows addObject:[TBMHintArrow arrowWithText:@"Tap to play"

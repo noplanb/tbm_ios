@@ -12,7 +12,8 @@
 /**
  * Enum of possible events for throwEvent:
  */
-typedef NS_ENUM(NSInteger, TBMEventFlowEvent) {
+typedef NS_ENUM(NSInteger, TBMEventFlowEvent)
+{
     TBMEventFlowEventNone,
 
     // Application

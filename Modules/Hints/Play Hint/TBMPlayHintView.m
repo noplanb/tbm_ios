@@ -5,10 +5,12 @@
 
 #import "TBMPlayHintView.h"
 
-@implementation TBMPlayHintView {
+@implementation TBMPlayHintView
+{
 
 }
-- (void)configureHint {
+- (void)configureHint
+{
     CGRect highlightFrame = [self.gridModule gridGetFrameForFriend:0 inView:self.superview];
     CGRect highlightBadgeFrame = [self.gridModule gridGetFrameForUnviewedBadgeForFriend:0 inView:self.superview];
     self.dismissAfterAction = YES;
@@ -17,7 +19,8 @@
             [UIBezierPath bezierPathWithOvalInRect:highlightBadgeFrame],
     ];
     self.showGotItButton = YES;
-    if (!self.arrows) {
+    if (!self.arrows)
+    {
 
         NSMutableArray *arrows = [NSMutableArray array];
         [arrows addObject:[TBMHintArrow arrowWithText:@"Tap to play"
@@ -33,7 +36,8 @@
     }
 }
 
-- (void)addRecordTip {
+- (void)addRecordTip
+{
     CGRect highlightFrame = [self.gridModule gridGetFrameForFriend:0 inView:self.superview];
     NSMutableArray *arrows = [self.arrows mutableCopy];
     [arrows addObject:[TBMHintArrow arrowWithText:@"Press and hold to record"

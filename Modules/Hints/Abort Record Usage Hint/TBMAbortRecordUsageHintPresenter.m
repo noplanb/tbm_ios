@@ -12,28 +12,25 @@
 
 @implementation TBMAbortRecordUsageHintPresenter
 
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
-    self.dialogView = [TBMAbortRecordUsageHintView new];
-    self.dataSource.persistentStateKey = @"kAbortRecordUsageHintNSUDkey";
+
+    if (self) {
+        self.dialogView = [TBMAbortRecordUsageHintView new];
+        self.dataSource.persistentStateKey = @"kAbortRecordUsageHintNSUDkey";
+    }
     return self;
 }
 
-- (NSUInteger)priority {
+- (NSUInteger)priority
+{
     return 9;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource {
-    if (event != TBMEventFlowEventAbortRecordingUnlockDialogDidDismiss) {
-        return NO;
-    }
-    return YES;
-}
-
-- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule {
-    if (![self.eventFlowModule isAnyHandlerActive]) {
-        [super presentWithGridModule:gridModule];
-    }
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+{
+    return event == TBMEventFlowEventAbortRecordingUnlockDialogDidDismiss;
 }
 
 @end

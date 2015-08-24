@@ -5,11 +5,13 @@
 
 #import "TBMSentHintView.h"
 
-@implementation TBMSentHintView {
+@implementation TBMSentHintView
+{
 
 }
 
-- (void)configureHint {
+- (void)configureHint
+{
     CGRect highlightFrame = [self.gridModule gridGetFrameForFriend:0 inView:self.superview];
     self.dismissAfterAction = YES;
     self.framesToCutOut = @[

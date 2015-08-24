@@ -7,49 +7,64 @@
 #import "TBMHintView.h"
 #import "TBMEventHandlerDataSource.h"
 #import "OBLoggerCore.h"
-#import "TBMDialogViewInterface.h"
 
-@implementation TBMEventHandlerPresenter {
-    BOOL _isPresented;
-}
+@implementation TBMEventHandlerPresenter
 
-- (instancetype)init {
+
+- (instancetype)init
+{
     self = [super init];
-    if (self) {
-        _isPresented = NO;
+
+    if (self)
+    {
         self.dataSource = [TBMEventHandlerDataSource new];
     }
     return self;
 }
 
-- (void)setupEventFlowModule:(id <TBMEventsFlowModuleInterface>)eventFlowModule {
+- (void)setupEventFlowModule:(id <TBMEventsFlowModuleInterface>)eventFlowModule
+{
     self.eventFlowModule = eventFlowModule;
 }
 
-- (void)resetSessionState {
+- (void)resetSessionState
+{
     [self.dataSource setSessionState:NO];
 }
 
-- (BOOL)isPresented {
-    return _isPresented;
+- (void)didPresented
+{
+    self.isPresented = YES;
 }
 
-- (void)didPresented {
-    _isPresented = YES;
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+{
+    return NO;
 }
 
-- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule {
-    _isPresented = YES;
-    [self saveHandlerState];
-    [self.dialogView showInGrid:gridModule];
+- (NSUInteger)priority
+{
+    return 0;
 }
 
-- (void)saveHandlerState {
+- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule
+{
+    if (![self.eventFlowModule isAnyHandlerActive])
+    {
+        self.isPresented = YES;
+        [self saveHandlerState];
+        [self.dialogView showInGrid:gridModule];
+    }
+}
+
+- (void)saveHandlerState
+{
     [self.dataSource setPersistentState:YES];
     [self.dataSource setSessionState:YES];
 }
 
-- (void)dialogDidDismiss {
-    OB_INFO(@"@% did dismiss", [self.dialogView class]);
+- (void)dialogDidDismiss
+{
+    OB_INFO(@"%@ did dismiss", [self.dialogView class]);
 }
 @end

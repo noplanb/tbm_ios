@@ -10,36 +10,36 @@
 
 @implementation TBMInviteHintPresenter
 
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
-    self.dialogView = [TBMInviteHintView new];
-    self.dataSource.persistentStateKey = @"kInviteHintNSUDkey";
+
+    if (self)
+    {
+        self.dialogView = [TBMInviteHintView new];
+        self.dataSource.persistentStateKey = @"kInviteHintNSUDkey";
+    }
     return self;
 }
 
-- (NSUInteger)priority {
+- (NSUInteger)priority
+{
     return 1;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource {
-    if (event != TBMEventFlowEventApplicationDidLaunch) {
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+{
+    if (event != TBMEventFlowEventApplicationDidLaunch)
+    {
         return NO;
     }
 
-    if ([self.dataSource sessionState]) {
-        return NO;
-    }
-    if ([dataSource friendsCount] != 0) {
+    if ([self.dataSource sessionState])
+    {
         return NO;
     }
 
-    return YES;
-}
-
-- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule {
-    if (![self.eventFlowModule isAnyHandlerActive]) {
-        [super presentWithGridModule:gridModule];
-    }
+    return [dataSource friendsCount] == 0;
 }
 
 @end

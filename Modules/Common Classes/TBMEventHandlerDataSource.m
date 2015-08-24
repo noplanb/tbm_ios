@@ -4,44 +4,19 @@
 //
 
 #import "TBMEventHandlerDataSource.h"
+#import "NSNumber+TBMUserDefaults.h"
 
-#define NSUD [NSUserDefaults standardUserDefaults]
+@implementation TBMEventHandlerDataSource
 
-@implementation TBMEventHandlerDataSource {
-    BOOL _sessionState;
+
+- (void)setPersistentState:(BOOL)state
+{
+    [@(state) saveUserDefaultsObjectForKey:self.persistentStateKey];
 }
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        _sessionState = NO;
-    }
-    return self;
-}
-
-- (void)setSessionState:(BOOL)state {
-    _sessionState = state;
-}
-
-- (BOOL)sessionState {
-    return _sessionState;
-}
-
-- (void)setPersistentState:(BOOL)state {
-    NSString *key = self.persistentStateKey;
-    if (key && key.length > 0) {
-        [NSUD setBool:state forKey:key];
-        [NSUD synchronize];
-    }
-
-}
-
-- (BOOL)persistentState {
-    NSString *key = self.persistentStateKey;
-    if (key && key.length > 0) {
-        [NSUD boolForKey:key];
-    }
-    return NO;
+- (BOOL)persistentState
+{
+    return [[NSNumber loadUserDefaultsObjectForKey:self.persistentStateKey] boolValue];
 }
 
 @end

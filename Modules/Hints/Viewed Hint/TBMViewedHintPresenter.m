@@ -12,38 +12,40 @@
 
 @implementation TBMViewedHintPresenter
 
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
-    self.dialogView = [TBMViewedHintView new];
-    self.dataSource.persistentStateKey = @"kViewedHintNSUDkey";
+
+    if (self)
+    {
+        self.dialogView = [TBMViewedHintView new];
+        self.dataSource.persistentStateKey = @"kViewedHintNSUDkey";
+    }
     return self;
 }
 
-- (NSUInteger)priority {
+- (NSUInteger)priority
+{
     return 1;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource {
-    if (event != TBMEventFlowEventMessageDidViewed) {
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+{
+    if (event != TBMEventFlowEventMessageDidViewed)
+    {
         return NO;
     }
 
-    if (dataSource.friendsCount != 1) {
+    if (dataSource.friendsCount != 1)
+    {
         return NO;
     }
 
-    if ([self.dataSource persistentState]) {
+    if ([self.dataSource persistentState])
+    {
         return NO;
     }
 
     return YES;
 }
-
-
-- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule {
-    if (![self.eventFlowModule isAnyHandlerActive]) {
-        [super presentWithGridModule:gridModule];
-    }
-}
-
 @end

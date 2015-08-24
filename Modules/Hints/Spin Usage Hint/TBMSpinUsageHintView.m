@@ -5,11 +5,13 @@
 
 #import "TBMSpinUsageHintView.h"
 
-@implementation TBMSpinUsageHintView {
+@implementation TBMSpinUsageHintView
+{
 
 }
 
-- (void)configureHint {
+- (void)configureHint
+{
     CGRect highlightFrame = [self.gridModule gridGetFrameForFriend:0 inView:self.superview];
     self.dismissAfterAction = YES;
     self.framesToCutOut = @[

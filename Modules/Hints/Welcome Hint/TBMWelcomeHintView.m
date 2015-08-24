@@ -7,25 +7,30 @@
 #import "TBMFriend.h"
 #import "TBMGridElement.h"
 
-@implementation TBMWelcomeHintView {
+@implementation TBMWelcomeHintView
+{
 
 }
 /**
  * Matrix need for get button,angle and curve kind values for 0..7th grid element
  */
-- (NSArray *)buttonMatrix {
+- (NSArray *)buttonMatrix
+{
     return @[@(NO), @(NO), @(NO), @(NO), @(NO), @(NO), @(NO), @(NO)];
 }
 
-- (NSArray *)angles1Matrix {
+- (NSArray *)angles1Matrix
+{
     return @[@(-36.f), @(0.f), @(-36.f), @(45.f), @(-120.f), @(36.f), @(-125.f), @(120.f)];
 }
 
-- (NSArray *)angles2Matrix {
+- (NSArray *)angles2Matrix
+{
     return @[@(-56.f), @(-60.f), @(-66.f), @(70.f), @(-180.f), @(63.f), @(-200.f), @(140.f)];
 }
 
-- (NSArray *)arrowKindMatrix {
+- (NSArray *)arrowKindMatrix
+{
     return @[@(TBMTutorialArrowCurveKindRight),
             @(TBMTutorialArrowCurveKindRight),
             @(TBMTutorialArrowCurveKindRight),
@@ -36,7 +41,8 @@
             @(TBMTutorialArrowCurveKindRight)];
 }
 
-- (void)configureHint {
+- (void)configureHint
+{
     NSUInteger friendIndexInGrid = [self.gridModule lastAddedFriendOnGridIndex];
     NSString *friendName = [TBMGridElement findWithIntIndex:friendIndexInGrid].friend.firstName;
     CGRect highlightFrame = [self.gridModule gridGetFrameForFriend:friendIndexInGrid inView:self.superview];
@@ -50,9 +56,11 @@
             [UIBezierPath bezierPathWithRect:highlightFrame],
     ];
 
-    if (friendIndexInGrid == 3 || friendIndexInGrid == 5 || friendIndexInGrid == 7) {
+    if (friendIndexInGrid == 3 || friendIndexInGrid == 5 || friendIndexInGrid == 7)
+    {
         arrowPoint = CGPointMake(CGRectGetMaxX(highlightFrame), CGRectGetMidY(highlightFrame));
-    } else {
+    } else
+    {
         arrowPoint = CGPointMake(CGRectGetMinX(highlightFrame), CGRectGetMidY(highlightFrame));
     };
 

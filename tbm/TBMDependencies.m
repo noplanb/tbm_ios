@@ -87,7 +87,7 @@
 
 - (id <TBMEventsFlowModuleEventHandler>)inviteHintModule {
     if (!_inviteHintModule) {
-        TBMInviteHintPresenter *inviteHintModule = [[TBMInviteHintPresenter alloc] init];
+        TBMInviteHintPresenter *inviteHintModule = [TBMInviteHintPresenter new];
         [inviteHintModule setupEventFlowModule:self.eventsFlowModule];
         _inviteHintModule = inviteHintModule;
     }
@@ -96,7 +96,7 @@
 
 - (id <TBMEventsFlowModuleEventHandler>)inviteSomeOneElseHintModule {
     if (!_inviteSomeOneElseHintModule) {
-        TBMInviteSomeOneElseHintPresenter *inviteSomeOneElseHintModule = [[TBMInviteHintPresenter alloc] init];
+        TBMInviteSomeOneElseHintPresenter *inviteSomeOneElseHintModule = [[TBMInviteSomeOneElseHintPresenter alloc] init];
         [inviteSomeOneElseHintModule setupEventFlowModule:self.eventsFlowModule];
         _inviteSomeOneElseHintModule = inviteSomeOneElseHintModule;
     }
