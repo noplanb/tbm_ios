@@ -51,6 +51,14 @@
 		0732F4BE1B8B8249004FD3AF /* ZZKeychainDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F4AF1B8B8249004FD3AF /* ZZKeychainDataProvider.m */; };
 		0732F4BF1B8B8249004FD3AF /* ANScrollHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F4B21B8B8249004FD3AF /* ANScrollHandler.m */; };
 		0732F4C01B8B8249004FD3AF /* ANStoredSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F4B51B8B8249004FD3AF /* ANStoredSettingsManager.m */; };
+		0732F4DD1B8B8B9D004FD3AF /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F4C91B8B8B9D004FD3AF /* NSData+Base64.m */; };
+		0732F4DE1B8B8B9D004FD3AF /* NSManagedObject+ANAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F4CC1B8B8B9D004FD3AF /* NSManagedObject+ANAdditions.m */; };
+		0732F4DF1B8B8B9D004FD3AF /* NSObject+ANRACAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F4CF1B8B8B9D004FD3AF /* NSObject+ANRACAdditions.m */; };
+		0732F4E01B8B8B9D004FD3AF /* NSObject+ANSafeValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F4D11B8B8B9D004FD3AF /* NSObject+ANSafeValues.m */; };
+		0732F4E11B8B8B9D004FD3AF /* NSObject+ANUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F4D31B8B8B9D004FD3AF /* NSObject+ANUserDefaults.m */; };
+		0732F4E21B8B8B9D004FD3AF /* NSString+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F4D61B8B8B9D004FD3AF /* NSString+ZZAdditions.m */; };
+		0732F4E31B8B8B9D004FD3AF /* UIImage+ANDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F4D91B8B8B9D004FD3AF /* UIImage+ANDefault.m */; };
+		0732F4E41B8B8B9D004FD3AF /* UIImageView+ANLoadingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F4DC1B8B8B9D004FD3AF /* UIImageView+ANLoadingAdditions.m */; };
 		2208E8A81A1419D400150C35 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208E8A61A1419D400150C35 /* AddressBook.framework */; };
 		2208E8A91A1419D400150C35 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208E8A71A1419D400150C35 /* AddressBookUI.framework */; };
 		220E90291909A18B003C4F82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E90281909A18B003C4F82 /* Foundation.framework */; };
@@ -320,6 +328,22 @@
 		0732F4C41B8B8472004FD3AF /* Zazo-prefix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zazo-prefix.h"; sourceTree = "<group>"; };
 		0732F4C51B8B8929004FD3AF /* ZZAPIRoutes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAPIRoutes.h; sourceTree = "<group>"; };
 		0732F4C61B8B8929004FD3AF /* ZZGlobalHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGlobalHeader.h; sourceTree = "<group>"; };
+		0732F4C81B8B8B9D004FD3AF /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		0732F4C91B8B8B9D004FD3AF /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		0732F4CB1B8B8B9D004FD3AF /* NSManagedObject+ANAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+ANAdditions.h"; sourceTree = "<group>"; };
+		0732F4CC1B8B8B9D004FD3AF /* NSManagedObject+ANAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+ANAdditions.m"; sourceTree = "<group>"; };
+		0732F4CE1B8B8B9D004FD3AF /* NSObject+ANRACAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ANRACAdditions.h"; sourceTree = "<group>"; };
+		0732F4CF1B8B8B9D004FD3AF /* NSObject+ANRACAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ANRACAdditions.m"; sourceTree = "<group>"; };
+		0732F4D01B8B8B9D004FD3AF /* NSObject+ANSafeValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ANSafeValues.h"; sourceTree = "<group>"; };
+		0732F4D11B8B8B9D004FD3AF /* NSObject+ANSafeValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ANSafeValues.m"; sourceTree = "<group>"; };
+		0732F4D21B8B8B9D004FD3AF /* NSObject+ANUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ANUserDefaults.h"; sourceTree = "<group>"; };
+		0732F4D31B8B8B9D004FD3AF /* NSObject+ANUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ANUserDefaults.m"; sourceTree = "<group>"; };
+		0732F4D51B8B8B9D004FD3AF /* NSString+ZZAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ZZAdditions.h"; sourceTree = "<group>"; };
+		0732F4D61B8B8B9D004FD3AF /* NSString+ZZAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZZAdditions.m"; sourceTree = "<group>"; };
+		0732F4D81B8B8B9D004FD3AF /* UIImage+ANDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ANDefault.h"; sourceTree = "<group>"; };
+		0732F4D91B8B8B9D004FD3AF /* UIImage+ANDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ANDefault.m"; sourceTree = "<group>"; };
+		0732F4DB1B8B8B9D004FD3AF /* UIImageView+ANLoadingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+ANLoadingAdditions.h"; sourceTree = "<group>"; };
+		0732F4DC1B8B8B9D004FD3AF /* UIImageView+ANLoadingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+ANLoadingAdditions.m"; sourceTree = "<group>"; };
 		2208E8A61A1419D400150C35 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		2208E8A71A1419D400150C35 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		220E90251909A18B003C4F82 /* Zazo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zazo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -723,6 +747,12 @@
 		0732F40D1B8B7B80004FD3AF /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				0732F4C71B8B8B9D004FD3AF /* NSData */,
+				0732F4CA1B8B8B9D004FD3AF /* NSManagedObject */,
+				0732F4CD1B8B8B9D004FD3AF /* NSObject */,
+				0732F4D41B8B8B9D004FD3AF /* NSString */,
+				0732F4D71B8B8B9D004FD3AF /* UIImage */,
+				0732F4DA1B8B8B9D004FD3AF /* UIImageView */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1177,6 +1207,64 @@
 				0732F4B51B8B8249004FD3AF /* ANStoredSettingsManager.m */,
 			);
 			path = StoredSettings;
+			sourceTree = "<group>";
+		};
+		0732F4C71B8B8B9D004FD3AF /* NSData */ = {
+			isa = PBXGroup;
+			children = (
+				0732F4C81B8B8B9D004FD3AF /* NSData+Base64.h */,
+				0732F4C91B8B8B9D004FD3AF /* NSData+Base64.m */,
+			);
+			path = NSData;
+			sourceTree = "<group>";
+		};
+		0732F4CA1B8B8B9D004FD3AF /* NSManagedObject */ = {
+			isa = PBXGroup;
+			children = (
+				0732F4CB1B8B8B9D004FD3AF /* NSManagedObject+ANAdditions.h */,
+				0732F4CC1B8B8B9D004FD3AF /* NSManagedObject+ANAdditions.m */,
+			);
+			path = NSManagedObject;
+			sourceTree = "<group>";
+		};
+		0732F4CD1B8B8B9D004FD3AF /* NSObject */ = {
+			isa = PBXGroup;
+			children = (
+				0732F4CE1B8B8B9D004FD3AF /* NSObject+ANRACAdditions.h */,
+				0732F4CF1B8B8B9D004FD3AF /* NSObject+ANRACAdditions.m */,
+				0732F4D01B8B8B9D004FD3AF /* NSObject+ANSafeValues.h */,
+				0732F4D11B8B8B9D004FD3AF /* NSObject+ANSafeValues.m */,
+				0732F4D21B8B8B9D004FD3AF /* NSObject+ANUserDefaults.h */,
+				0732F4D31B8B8B9D004FD3AF /* NSObject+ANUserDefaults.m */,
+			);
+			path = NSObject;
+			sourceTree = "<group>";
+		};
+		0732F4D41B8B8B9D004FD3AF /* NSString */ = {
+			isa = PBXGroup;
+			children = (
+				0732F4D51B8B8B9D004FD3AF /* NSString+ZZAdditions.h */,
+				0732F4D61B8B8B9D004FD3AF /* NSString+ZZAdditions.m */,
+			);
+			path = NSString;
+			sourceTree = "<group>";
+		};
+		0732F4D71B8B8B9D004FD3AF /* UIImage */ = {
+			isa = PBXGroup;
+			children = (
+				0732F4D81B8B8B9D004FD3AF /* UIImage+ANDefault.h */,
+				0732F4D91B8B8B9D004FD3AF /* UIImage+ANDefault.m */,
+			);
+			path = UIImage;
+			sourceTree = "<group>";
+		};
+		0732F4DA1B8B8B9D004FD3AF /* UIImageView */ = {
+			isa = PBXGroup;
+			children = (
+				0732F4DB1B8B8B9D004FD3AF /* UIImageView+ANLoadingAdditions.h */,
+				0732F4DC1B8B8B9D004FD3AF /* UIImageView+ANLoadingAdditions.m */,
+			);
+			path = UIImageView;
 			sourceTree = "<group>";
 		};
 		220E901C1909A18B003C4F82 = {
@@ -2077,6 +2165,7 @@
 				FE9536931B88F63400AC652A /* TBMFriendVideosInformation.m in Sources */,
 				221B77671A68888C009FA670 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				0732F4551B8B7B80004FD3AF /* TOActivitySafari.m in Sources */,
+				0732F4E41B8B8B9D004FD3AF /* UIImageView+ANLoadingAdditions.m in Sources */,
 				0732F4B61B8B8249004FD3AF /* ZZAddressBookDataProvider.m in Sources */,
 				FE9536581B88EA3000AC652A /* TBMEventHandlerPresenter.m in Sources */,
 				FE95366C1B88EA3000AC652A /* TBMPlayHintView.m in Sources */,
@@ -2092,8 +2181,10 @@
 				682D649F024E4A57E6A70DDE /* TBMAppDelegate+AppSync.m in Sources */,
 				682D68421D497BDB87C77003 /* TBMDependencies.m in Sources */,
 				682D6A1535985CF2816EB1D7 /* TBMUser.m in Sources */,
+				0732F4DD1B8B8B9D004FD3AF /* NSData+Base64.m in Sources */,
 				FE95365C1B88EA3000AC652A /* TBMEventsFlowModulePresenter.m in Sources */,
 				FE9536961B88F65300AC652A /* TBMVideoObject.m in Sources */,
+				0732F4DE1B8B8B9D004FD3AF /* NSManagedObject+ANAdditions.m in Sources */,
 				682D63088F49162A71E49CEB /* TBMVideo.m in Sources */,
 				0732F4BD1B8B8249004FD3AF /* ANImageCache.m in Sources */,
 				0732F44A1B8B7B80004FD3AF /* ZZRootWireframe.m in Sources */,
@@ -2112,6 +2203,7 @@
 				0732F4561B8B7B80004FD3AF /* TOWebViewController.m in Sources */,
 				682D6F3EAF5C25875C34505D /* TBMAlertControllerView.m in Sources */,
 				FE9536731B88EA3000AC652A /* TBMViewedHintPresenter.m in Sources */,
+				0732F4DF1B8B8B9D004FD3AF /* NSObject+ANRACAdditions.m in Sources */,
 				FE9536681B88EA3000AC652A /* TBMInviteHintView.m in Sources */,
 				0732F4901B8B8023004FD3AF /* ANBaseListTableCell.m in Sources */,
 				FE9536901B88F5C500AC652A /* UIButton+TBMRoundedButton.m in Sources */,
@@ -2124,8 +2216,10 @@
 				682D6DFDEAADFF6E658AA791 /* TBMHomeViewController+VersionController.m in Sources */,
 				682D68BF3443B0AD7FB6ADB0 /* TBMHomeViewController.m in Sources */,
 				682D6250DD11FAE1DF47CDDF /* TBMGridElementViewController.m in Sources */,
+				0732F4E11B8B8B9D004FD3AF /* NSObject+ANUserDefaults.m in Sources */,
 				682D633BA3262FFFA2828D22 /* TBMGridViewController.m in Sources */,
 				0732F4891B8B8023004FD3AF /* ANNetworkLoadingVC.m in Sources */,
+				0732F4E21B8B8B9D004FD3AF /* NSString+ZZAdditions.m in Sources */,
 				682D6691A16CE17EC4BD1E33 /* TBMRegisterViewController.m in Sources */,
 				FE9536791B88EA3000AC652A /* TBMDebugData.m in Sources */,
 				FE9536881B88F53000AC652A /* TBMStateScreenTableCell.m in Sources */,
@@ -2137,6 +2231,7 @@
 				FE9536721B88EA3000AC652A /* TBMSpinUsageHintView.m in Sources */,
 				682D621D10CAA2D1B0B5BA0A /* TBMViewUtils.m in Sources */,
 				682D68701B51BB8F290571DE /* TBMGeometryUtils.m in Sources */,
+				0732F4E31B8B8B9D004FD3AF /* UIImage+ANDefault.m in Sources */,
 				682D6E1E27A9612200B3F66C /* TBMSoundEffect.m in Sources */,
 				682D67D96E73635BBDFF1DFE /* TBMStringUtils.m in Sources */,
 				0732F4851B8B8023004FD3AF /* ANBaseVC.m in Sources */,
@@ -2161,6 +2256,7 @@
 				0732F44C1B8B7B80004FD3AF /* ANDebugVC.m in Sources */,
 				0732F4BA1B8B8249004FD3AF /* ANCrashlyticsAdapter.m in Sources */,
 				FE9536601B88EA3000AC652A /* TBMAbortRecordUsageHintView.m in Sources */,
+				0732F4E01B8B8B9D004FD3AF /* NSObject+ANSafeValues.m in Sources */,
 				FE9536771B88EA3000AC652A /* TBMNextFeatureDialogPresenter.m in Sources */,
 				0732F48D1B8B8023004FD3AF /* ANNetworkRetryView.m in Sources */,
 				682D624E47AEC4722AF97CA1 /* TBMVideoRecorder.m in Sources */,

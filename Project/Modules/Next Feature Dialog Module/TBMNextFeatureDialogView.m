@@ -3,7 +3,7 @@
 // Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import <HexColors/HexColor.h>
+#import <HexColors/HexColors.h>
 #import "TBMNextFeatureDialogView.h"
 #import "TBMNextFeatureDialogPresenter.h"
 #import "TBMGridModuleInterface.h"
