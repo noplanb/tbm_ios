@@ -12,7 +12,6 @@
 #import "NSObject+ANRACAdditions.h"
 #import "APPhoneWithLabel.h"
 #import "NSString+ANAdditions.h"
-#import "ZZFriendDomainModel.h"
 #import "ZZContactDomainModel.h"
 
 static APAddressBook* addressBook = nil;
