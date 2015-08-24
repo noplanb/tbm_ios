@@ -317,6 +317,9 @@
 		0732F4B21B8B8249004FD3AF /* ANScrollHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANScrollHandler.m; sourceTree = "<group>"; };
 		0732F4B41B8B8249004FD3AF /* ANStoredSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANStoredSettingsManager.h; sourceTree = "<group>"; };
 		0732F4B51B8B8249004FD3AF /* ANStoredSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANStoredSettingsManager.m; sourceTree = "<group>"; };
+		0732F4C41B8B8472004FD3AF /* Zazo-prefix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zazo-prefix.h"; sourceTree = "<group>"; };
+		0732F4C51B8B8929004FD3AF /* ZZAPIRoutes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAPIRoutes.h; sourceTree = "<group>"; };
+		0732F4C61B8B8929004FD3AF /* ZZGlobalHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGlobalHeader.h; sourceTree = "<group>"; };
 		2208E8A61A1419D400150C35 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		2208E8A71A1419D400150C35 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		220E90251909A18B003C4F82 /* Zazo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zazo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -356,7 +359,6 @@
 		682D60F02534019593E8EA4D /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		682D61123651DDC66EA264C7 /* TBMAlertControllerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAlertControllerView.m; sourceTree = "<group>"; };
 		682D61751313427CD15CB985 /* TBMS3CredentialsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMS3CredentialsManager.h; sourceTree = "<group>"; };
-		682D617709EB8B37310C19BD /* Zazo-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Zazo-Prefix.pch"; sourceTree = "<group>"; };
 		682D61788DCF42204CD45A00 /* TBMHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHomeViewController.m; sourceTree = "<group>"; };
 		682D617C0115EB2D46F08698 /* TBMTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMTextField.h; sourceTree = "<group>"; };
 		682D6187EEB2D3F42ADC9C74 /* TBMDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDispatch.m; sourceTree = "<group>"; };
@@ -684,6 +686,7 @@
 		0732F4071B8B7B80004FD3AF /* BundleFiles */ = {
 			isa = PBXGroup;
 			children = (
+				0732F4C41B8B8472004FD3AF /* Zazo-prefix.h */,
 			);
 			path = BundleFiles;
 			sourceTree = "<group>";
@@ -734,6 +737,8 @@
 		0732F40F1B8B7B80004FD3AF /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				0732F4C51B8B8929004FD3AF /* ZZAPIRoutes.h */,
+				0732F4C61B8B8929004FD3AF /* ZZGlobalHeader.h */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -1481,7 +1486,6 @@
 				682D6E94279CA18ECC054A09 /* Zazo-Info.plist */,
 				682D6C2F1DA11D0831ACADC8 /* InfoPlist.strings */,
 				682D636DAAD06F89F4403722 /* main.m */,
-				682D617709EB8B37310C19BD /* Zazo-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2279,6 +2283,8 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -2303,7 +2309,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "tbm/Zazo-Prefix.pch";
+				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				INFOPLIST_FILE = "tbm/Zazo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
@@ -2329,7 +2335,7 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "tbm/Zazo-Prefix.pch";
+				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				INFOPLIST_FILE = "tbmTests/ZazoTests-Info.plist";
 				PRODUCT_NAME = ZazoTests;
 				PROVISIONING_PROFILE = "";
@@ -2360,6 +2366,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -2400,6 +2408,8 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -2424,7 +2434,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "tbm/Zazo-Prefix.pch";
+				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				INFOPLIST_FILE = "tbm/Zazo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
@@ -2447,7 +2457,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "tbm/Zazo-Prefix.pch";
+				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				INFOPLIST_FILE = "tbm/Zazo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
@@ -2473,7 +2483,7 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "tbm/Zazo-Prefix.pch";
+				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -2499,7 +2509,7 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "tbm/Zazo-Prefix.pch";
+				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				INFOPLIST_FILE = "tbmTests/ZazoTests-Info.plist";
 				PRODUCT_NAME = ZazoTests;
 				PROVISIONING_PROFILE = "";
