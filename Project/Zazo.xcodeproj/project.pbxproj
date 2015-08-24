@@ -41,7 +41,6 @@
 		0732F4901B8B8023004FD3AF /* ANBaseListTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F4811B8B8023004FD3AF /* ANBaseListTableCell.m */; };
 		0732F4911B8B8023004FD3AF /* ANTableContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F4841B8B8023004FD3AF /* ANTableContainerView.m */; };
 		0732F4B61B8B8249004FD3AF /* ZZAddressBookDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F4941B8B8249004FD3AF /* ZZAddressBookDataProvider.m */; };
-		0732F4B71B8B8249004FD3AF /* ANCameraWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F4971B8B8249004FD3AF /* ANCameraWireframe.m */; };
 		0732F4B81B8B8249004FD3AF /* ANAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F49A1B8B8249004FD3AF /* ANAnimator.m */; };
 		0732F4B91B8B8249004FD3AF /* ANAppColorTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F49D1B8B8249004FD3AF /* ANAppColorTheme.m */; };
 		0732F4BA1B8B8249004FD3AF /* ANCrashlyticsAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F4A01B8B8249004FD3AF /* ANCrashlyticsAdapter.m */; };
@@ -309,8 +308,6 @@
 		0732F4841B8B8023004FD3AF /* ANTableContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTableContainerView.m; sourceTree = "<group>"; };
 		0732F4931B8B8249004FD3AF /* ZZAddressBookDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAddressBookDataProvider.h; sourceTree = "<group>"; };
 		0732F4941B8B8249004FD3AF /* ZZAddressBookDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAddressBookDataProvider.m; sourceTree = "<group>"; };
-		0732F4961B8B8249004FD3AF /* ANCameraWireframe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANCameraWireframe.h; sourceTree = "<group>"; };
-		0732F4971B8B8249004FD3AF /* ANCameraWireframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANCameraWireframe.m; sourceTree = "<group>"; };
 		0732F4991B8B8249004FD3AF /* ANAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAnimator.h; sourceTree = "<group>"; };
 		0732F49A1B8B8249004FD3AF /* ANAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAnimator.m; sourceTree = "<group>"; };
 		0732F49C1B8B8249004FD3AF /* ANAppColorTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAppColorTheme.h; sourceTree = "<group>"; };
@@ -1138,8 +1135,6 @@
 		0732F4951B8B8249004FD3AF /* Camera */ = {
 			isa = PBXGroup;
 			children = (
-				0732F4961B8B8249004FD3AF /* ANCameraWireframe.h */,
-				0732F4971B8B8249004FD3AF /* ANCameraWireframe.m */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -2276,7 +2271,6 @@
 				682D6B925D841CED18D9A33E /* TBMGridElement.m in Sources */,
 				0732F5001B8B8DD9004FD3AF /* ZZUserDomainModel.m in Sources */,
 				FE9536611B88EA3000AC652A /* TBMDeleteFriendUsageHintPresenter.m in Sources */,
-				0732F4B71B8B8249004FD3AF /* ANCameraWireframe.m in Sources */,
 				FE95366E1B88EA3000AC652A /* TBMRecordHintView.m in Sources */,
 				682D652346E790A7D1606032 /* TBMAlertController.m in Sources */,
 				FE9536671B88EA3000AC652A /* TBMInviteHintPresenter.m in Sources */,
