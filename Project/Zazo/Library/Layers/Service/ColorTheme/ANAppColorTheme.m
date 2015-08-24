@@ -47,6 +47,16 @@ static CGFloat const kNavigationBarIconHeight = 20;
     if (self)
     {
         self.authBackgroundColor = [UIColor colorWithRed:0.61f green:0.75f blue:0.27f alpha:1.0f];
+        self.gridBackgourndColor = [UIColor colorWithRed:0.18 green:0.18 blue:0.16 alpha:1];
+        self.gridHeaderBackgroundColor = [UIColor colorWithRed:0.11 green:0.11 blue:0.1 alpha:1];
+        self.gridMenuColor = [UIColor colorWithRed:0.18 green:0.18 blue:0.16 alpha:1];
+        self.gridMenuTextColor = [UIColor colorWithRed:0.64 green:0.62 blue:0.57 alpha:1];
+        
+        self.secretScreenHeaderColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1];
+        self.secretScreenAddressBGGrayColor = [UIColor colorWithRed:0.98 green:0.98 blue:0.98 alpha:1];
+        self.secretScreenAddressBorderGrayColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
+        self.secretScreenBlueColor = [UIColor colorWithRed:0.02 green:0.47 blue:0.98 alpha:1];
+        
         self.baseColor = [UIColor an_colorWithHexString:@"ac1e44"];
         
         self.navBarFontColor = [UIColor whiteColor];

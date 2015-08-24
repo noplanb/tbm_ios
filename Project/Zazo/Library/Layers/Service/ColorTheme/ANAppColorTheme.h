@@ -16,6 +16,16 @@
 @property (nonatomic, strong) UIColor* menuBackgroundColor;
 @property (nonatomic, strong) UIColor* menuTextColor;
 
+@property (nonatomic, strong) UIColor* gridBackgourndColor;
+@property (nonatomic, strong) UIColor* gridHeaderBackgroundColor;
+@property (nonatomic, strong) UIColor* gridMenuColor;
+@property (nonatomic, strong) UIColor* gridMenuTextColor;
+
+@property (nonatomic, strong) UIColor* secretScreenHeaderColor;
+@property (nonatomic, strong) UIColor* secretScreenAddressBGGrayColor;
+@property (nonatomic, strong) UIColor* secretScreenAddressBorderGrayColor;
+@property (nonatomic, strong) UIColor* secretScreenBlueColor;
+
 + (instancetype)shared;
 
 @end
