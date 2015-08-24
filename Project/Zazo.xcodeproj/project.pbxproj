@@ -66,28 +66,28 @@
 		0732F4FF1B8B8DD9004FD3AF /* ZZS3CredentialsDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F4F31B8B8DD9004FD3AF /* ZZS3CredentialsDomainModel.m */; };
 		0732F5001B8B8DD9004FD3AF /* ZZUserDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F4F61B8B8DD9004FD3AF /* ZZUserDomainModel.m */; };
 		0732F5011B8B8DD9004FD3AF /* ZZVideoDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F4F91B8B8DD9004FD3AF /* ZZVideoDomainModel.m */; };
+		0732F50C1B8B93D3004FD3AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0732F5041B8B93D3004FD3AF /* InfoPlist.strings */; };
+		0732F5121B8B93D3004FD3AF /* ZazoTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */; };
+		0732F5181B8B9562004FD3AF /* KeyChainWrapperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F5131B8B9562004FD3AF /* KeyChainWrapperTests.m */; };
+		0732F5191B8B9562004FD3AF /* S3CredentialsManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F5141B8B9562004FD3AF /* S3CredentialsManagerTests.m */; };
+		0732F51A1B8B9562004FD3AF /* StringUtilsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F5151B8B9562004FD3AF /* StringUtilsTest.m */; };
+		0732F51B1B8B9562004FD3AF /* TBMDispatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F5161B8B9562004FD3AF /* TBMDispatchTests.m */; };
+		0732F51C1B8B9562004FD3AF /* TBMVideoIdUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0732F5171B8B9562004FD3AF /* TBMVideoIdUtilsTests.m */; };
 		2208E8A81A1419D400150C35 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208E8A61A1419D400150C35 /* AddressBook.framework */; };
 		2208E8A91A1419D400150C35 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208E8A71A1419D400150C35 /* AddressBookUI.framework */; };
 		220E90291909A18B003C4F82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E90281909A18B003C4F82 /* Foundation.framework */; };
 		220E902B1909A18B003C4F82 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902A1909A18B003C4F82 /* CoreGraphics.framework */; };
 		220E902D1909A18B003C4F82 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902C1909A18B003C4F82 /* UIKit.framework */; };
 		220E902F1909A18B003C4F82 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902E1909A18B003C4F82 /* CoreData.framework */; };
-		220E90471909A18B003C4F82 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E90461909A18B003C4F82 /* XCTest.framework */; };
 		220E90481909A18C003C4F82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E90281909A18B003C4F82 /* Foundation.framework */; };
 		220E90491909A18C003C4F82 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902C1909A18B003C4F82 /* UIKit.framework */; };
 		220E904A1909A18C003C4F82 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902E1909A18B003C4F82 /* CoreData.framework */; };
-		220E90521909A18C003C4F82 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 220E90501909A18C003C4F82 /* InfoPlist.strings */; };
-		220E90541909A18C003C4F82 /* KeyChainWrapperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E90531909A18C003C4F82 /* KeyChainWrapperTests.m */; };
-		22151E8A1A5CF4B2008EF88E /* TBMDispatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22151E891A5CF4B2008EF88E /* TBMDispatchTests.m */; };
 		221B77661A68888C009FA670 /* TPKeyboardAvoidingCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 221B775F1A68888C009FA670 /* TPKeyboardAvoidingCollectionView.m */; };
 		221B77671A68888C009FA670 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 221B77611A68888C009FA670 /* TPKeyboardAvoidingScrollView.m */; };
 		221B77681A68888C009FA670 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 221B77631A68888C009FA670 /* TPKeyboardAvoidingTableView.m */; };
 		221B77691A68888C009FA670 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 221B77651A68888C009FA670 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		22403C2B19D5E63400FC36E3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22403C2A19D5E63400FC36E3 /* MessageUI.framework */; };
 		224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
-		2259A98D1ADAD19900E7DCDE /* TBMVideoIdUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2259A98C1ADAD19900E7DCDE /* TBMVideoIdUtilsTests.m */; };
-		225D21C41A5B7A060087A25B /* S3CredentialsManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 225D21C31A5B7A060087A25B /* S3CredentialsManagerTests.m */; };
-		227767A41A963FE90093EFB1 /* StringUtilsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 227767A31A963FE90093EFB1 /* StringUtilsTest.m */; };
 		22F32AFC19228F3300AB524E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F32AFB19228F3300AB524E /* StoreKit.framework */; };
 		682D6010F75F114021C77A9C /* TBMVideoIdUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D674B253329AAC46C6AB3 /* TBMVideoIdUtils.m */; };
 		682D60214C9B6EAB48FD16BD /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 682D67A044D3158CD0382307 /* Icon-Small@2x.png */; };
@@ -184,7 +184,6 @@
 		682D6F3EAF5C25875C34505D /* TBMAlertControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D61123651DDC66EA264C7 /* TBMAlertControllerView.m */; };
 		682D6FB919B7252F5054D087 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 682D6C2BF5B47D0A04986B0D /* Icon-Small-50.png */; };
 		DE5C223E15BD5A128DAFDAD1 /* libPods-ZazoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0368F3F1AC201E7765B1898F /* libPods-ZazoTests.a */; };
-		E20D3F30A3404563A3BEC783 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98B109B594AF439180A6DFAF /* libPods.a */; };
 		F20151DDD1EA1D5CD6D8CB21 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */; };
 		FE9536571B88EA3000AC652A /* TBMEventHandlerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9535F71B88EA3000AC652A /* TBMEventHandlerDataSource.m */; };
 		FE9536581B88EA3000AC652A /* TBMEventHandlerPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9535F91B88EA3000AC652A /* TBMEventHandlerPresenter.m */; };
@@ -367,6 +366,13 @@
 		0732F4F91B8B8DD9004FD3AF /* ZZVideoDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoDomainModel.m; sourceTree = "<group>"; };
 		0732F4FA1B8B8DD9004FD3AF /* ZZUserInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZUserInterface.h; sourceTree = "<group>"; };
 		0732F5021B8B8E11004FD3AF /* ZZVideoStatuses.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZVideoStatuses.h; sourceTree = "<group>"; };
+		0732F5051B8B93D3004FD3AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ZazoTests-Info.plist"; sourceTree = "<group>"; };
+		0732F5131B8B9562004FD3AF /* KeyChainWrapperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainWrapperTests.m; sourceTree = "<group>"; };
+		0732F5141B8B9562004FD3AF /* S3CredentialsManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = S3CredentialsManagerTests.m; sourceTree = "<group>"; };
+		0732F5151B8B9562004FD3AF /* StringUtilsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringUtilsTest.m; sourceTree = "<group>"; };
+		0732F5161B8B9562004FD3AF /* TBMDispatchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDispatchTests.m; sourceTree = "<group>"; };
+		0732F5171B8B9562004FD3AF /* TBMVideoIdUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoIdUtilsTests.m; sourceTree = "<group>"; };
 		2208E8A61A1419D400150C35 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		2208E8A71A1419D400150C35 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		220E90251909A18B003C4F82 /* Zazo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zazo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -375,11 +381,6 @@
 		220E902C1909A18B003C4F82 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		220E902E1909A18B003C4F82 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		220E90451909A18B003C4F82 /* ZazoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZazoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		220E90461909A18B003C4F82 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		220E904F1909A18C003C4F82 /* ZazoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ZazoTests-Info.plist"; sourceTree = "<group>"; };
-		220E90511909A18C003C4F82 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		220E90531909A18C003C4F82 /* KeyChainWrapperTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyChainWrapperTests.m; sourceTree = "<group>"; };
-		22151E891A5CF4B2008EF88E /* TBMDispatchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDispatchTests.m; sourceTree = "<group>"; };
 		221B775E1A68888C009FA670 /* TPKeyboardAvoidingCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingCollectionView.h; sourceTree = "<group>"; };
 		221B775F1A68888C009FA670 /* TPKeyboardAvoidingCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingCollectionView.m; sourceTree = "<group>"; };
 		221B77601A68888C009FA670 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
@@ -390,9 +391,6 @@
 		221B77651A68888C009FA670 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
 		22403C2A19D5E63400FC36E3 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		224101D3190D4180005128F9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		2259A98C1ADAD19900E7DCDE /* TBMVideoIdUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoIdUtilsTests.m; sourceTree = "<group>"; };
-		225D21C31A5B7A060087A25B /* S3CredentialsManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = S3CredentialsManagerTests.m; sourceTree = "<group>"; };
-		227767A31A963FE90093EFB1 /* StringUtilsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringUtilsTest.m; sourceTree = "<group>"; };
 		22C466EB1A8EF4410043BA7D /* Zazo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Zazo.entitlements; sourceTree = "<group>"; };
 		22F32AFB19228F3300AB524E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		2EE3EC5660312AC490BD17BA /* Pods-ZazoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -555,7 +553,6 @@
 		682D6F9EA035B8B469CE0C4C /* TBMDependencies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDependencies.h; sourceTree = "<group>"; };
 		682D6FA4D1E20A1D0E22F590 /* TBMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMUser.h; sourceTree = "<group>"; };
 		682D6FA75F12432D68247F32 /* TBMAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAlertController.h; sourceTree = "<group>"; };
-		98B109B594AF439180A6DFAF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0ECBE9A7392F431C5ADE072 /* Pods-ZazoTests.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.ad-hoc.xcconfig"; sourceTree = "<group>"; };
 		B1860DB43B6E70D5AEF73EF4 /* Pods-Zazo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.release.xcconfig"; sourceTree = "<group>"; };
 		C4392BF41AD48118C492A226 /* Pods-Zazo.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.ad-hoc.xcconfig"; sourceTree = "<group>"; };
@@ -671,7 +668,6 @@
 				220E902F1909A18B003C4F82 /* CoreData.framework in Frameworks */,
 				220E902D1909A18B003C4F82 /* UIKit.framework in Frameworks */,
 				220E90291909A18B003C4F82 /* Foundation.framework in Frameworks */,
-				E20D3F30A3404563A3BEC783 /* libPods.a in Frameworks */,
 				F20151DDD1EA1D5CD6D8CB21 /* libPods-Zazo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -680,7 +676,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				220E90471909A18B003C4F82 /* XCTest.framework in Frameworks */,
 				220E904A1909A18C003C4F82 /* CoreData.framework in Frameworks */,
 				220E90491909A18C003C4F82 /* UIKit.framework in Frameworks */,
 				220E90481909A18C003C4F82 /* Foundation.framework in Frameworks */,
@@ -1362,6 +1357,20 @@
 			path = Video;
 			sourceTree = "<group>";
 		};
+		0732F5031B8B93D3004FD3AF /* ZazoTests */ = {
+			isa = PBXGroup;
+			children = (
+				0732F5131B8B9562004FD3AF /* KeyChainWrapperTests.m */,
+				0732F5141B8B9562004FD3AF /* S3CredentialsManagerTests.m */,
+				0732F5151B8B9562004FD3AF /* StringUtilsTest.m */,
+				0732F5161B8B9562004FD3AF /* TBMDispatchTests.m */,
+				0732F5171B8B9562004FD3AF /* TBMVideoIdUtilsTests.m */,
+				0732F5041B8B93D3004FD3AF /* InfoPlist.strings */,
+				0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */,
+			);
+			path = ZazoTests;
+			sourceTree = "<group>";
+		};
 		220E901C1909A18B003C4F82 = {
 			isa = PBXGroup;
 			children = (
@@ -1370,10 +1379,10 @@
 				682D642A05AF3E23C203E3FA /* tbm */,
 				FE9535F41B88EA3000AC652A /* Modules */,
 				221B775D1A68888C009FA670 /* TPKeyboardAvoiding */,
-				220E904D1909A18C003C4F82 /* tbmTests */,
 				220E90271909A18B003C4F82 /* Frameworks */,
 				220E90261909A18B003C4F82 /* Products */,
 				984D6697D8F62FFA194F39A2 /* Pods */,
+				0732F5031B8B93D3004FD3AF /* ZazoTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1400,34 +1409,10 @@
 				220E902A1909A18B003C4F82 /* CoreGraphics.framework */,
 				220E902C1909A18B003C4F82 /* UIKit.framework */,
 				220E902E1909A18B003C4F82 /* CoreData.framework */,
-				220E90461909A18B003C4F82 /* XCTest.framework */,
-				98B109B594AF439180A6DFAF /* libPods.a */,
 				06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */,
 				0368F3F1AC201E7765B1898F /* libPods-ZazoTests.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		220E904D1909A18C003C4F82 /* tbmTests */ = {
-			isa = PBXGroup;
-			children = (
-				220E90531909A18C003C4F82 /* KeyChainWrapperTests.m */,
-				220E904E1909A18C003C4F82 /* Supporting Files */,
-				225D21C31A5B7A060087A25B /* S3CredentialsManagerTests.m */,
-				22151E891A5CF4B2008EF88E /* TBMDispatchTests.m */,
-				227767A31A963FE90093EFB1 /* StringUtilsTest.m */,
-				2259A98C1ADAD19900E7DCDE /* TBMVideoIdUtilsTests.m */,
-			);
-			path = tbmTests;
-			sourceTree = "<group>";
-		};
-		220E904E1909A18C003C4F82 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				220E904F1909A18C003C4F82 /* ZazoTests-Info.plist */,
-				220E90501909A18C003C4F82 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		221B775D1A68888C009FA670 /* TPKeyboardAvoiding */ = {
@@ -2125,6 +2110,7 @@
 			files = (
 				0732F44E1B8B7B80004FD3AF /* human.m.motemplate in Resources */,
 				682D6191D16A5973A1439617 /* Icon-40.png in Resources */,
+				0732F5121B8B93D3004FD3AF /* ZazoTests-Info.plist in Resources */,
 				682D6DD7E95D2234C0193130 /* Icon-40@2x.png in Resources */,
 				682D6A0693CBEBDE48D2BACF /* Icon-60.png in Resources */,
 				682D656F40FB372ED8097332 /* Icon-60@2x.png in Resources */,
@@ -2157,6 +2143,7 @@
 				682D689D0579FA02CAF27770 /* iTunesArtwork.png in Resources */,
 				682D6ACBF9E88236D54CB324 /* iTunesArtwork@2x.png in Resources */,
 				682D6EAA0190894C5E2727CE /* head.png in Resources */,
+				0732F50C1B8B93D3004FD3AF /* InfoPlist.strings in Resources */,
 				682D62FF5EC8AB80AC918099 /* logo.png in Resources */,
 				682D6499C048088AF2C9EC6E /* logo.pxm in Resources */,
 				682D65FA492C4EFFC45C8078 /* BeepSin30.wav in Resources */,
@@ -2174,7 +2161,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				220E90521909A18C003C4F82 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2414,11 +2400,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2259A98D1ADAD19900E7DCDE /* TBMVideoIdUtilsTests.m in Sources */,
-				227767A41A963FE90093EFB1 /* StringUtilsTest.m in Sources */,
-				225D21C41A5B7A060087A25B /* S3CredentialsManagerTests.m in Sources */,
-				22151E8A1A5CF4B2008EF88E /* TBMDispatchTests.m in Sources */,
-				220E90541909A18C003C4F82 /* KeyChainWrapperTests.m in Sources */,
+				0732F51C1B8B9562004FD3AF /* TBMVideoIdUtilsTests.m in Sources */,
+				0732F51A1B8B9562004FD3AF /* StringUtilsTest.m in Sources */,
+				0732F5191B8B9562004FD3AF /* S3CredentialsManagerTests.m in Sources */,
+				0732F5181B8B9562004FD3AF /* KeyChainWrapperTests.m in Sources */,
+				0732F51B1B8B9562004FD3AF /* TBMDispatchTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2441,10 +2427,10 @@
 			name = TOWebViewControllerLocalizable.strings;
 			sourceTree = "<group>";
 		};
-		220E90501909A18C003C4F82 /* InfoPlist.strings */ = {
+		0732F5041B8B93D3004FD3AF /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				220E90511909A18C003C4F82 /* en */,
+				0732F5051B8B93D3004FD3AF /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -2539,7 +2525,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
-				INFOPLIST_FILE = "tbmTests/ZazoTests-Info.plist";
+				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
 				PRODUCT_NAME = ZazoTests;
 				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
@@ -2661,6 +2647,11 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"RELEASE=1",
+				);
 				INFOPLIST_FILE = "tbm/Zazo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
@@ -2691,7 +2682,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "tbmTests/ZazoTests-Info.plist";
+				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
 				PRODUCT_NAME = ZazoTests;
 				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
@@ -2713,7 +2704,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
-				INFOPLIST_FILE = "tbmTests/ZazoTests-Info.plist";
+				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
 				PRODUCT_NAME = ZazoTests;
 				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
