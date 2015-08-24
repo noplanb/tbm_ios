@@ -8,7 +8,7 @@
 
 #import "ZZRootWireframe.h"
 #import "ANDebugVC.h"
-#import "ZZAuthWireframe.h"
+//#import "ZZAuthWireframe.h"
 
 @implementation ZZRootWireframe
 
@@ -17,13 +17,13 @@
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     window.backgroundColor = [UIColor whiteColor];
     
-#ifdef DEBUG_CONTROLLER
-    UIViewController* vc = [ANDebugVC new];
-    [self showRootController:vc inWindow:window];
-#else
-    ZZAuthWireframe* wireframe = [ZZAuthWireframe new];
-    [wireframe presentAuthControllerFromWindow:window];
-#endif
+//#ifdef DEBUG_CONTROLLER
+//    UIViewController* vc = [ANDebugVC new];
+//    [self showRootController:vc inWindow:window];
+//#else
+//    ZZAuthWireframe* wireframe = [ZZAuthWireframe new];
+//    [wireframe presentAuthControllerFromWindow:window];
+//#endif
     
 }
 
