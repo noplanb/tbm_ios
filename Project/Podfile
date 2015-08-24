@@ -43,6 +43,8 @@ target 'Zazo' do
     
     pod 'KVOController'
     
+    pod 'Typhoon', '~> 3.1.8'
+    
     #Core Data
     pod 'FastEasyMapping'
     pod 'MagicalRecord'
