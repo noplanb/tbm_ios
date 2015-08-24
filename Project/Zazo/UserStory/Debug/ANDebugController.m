@@ -8,7 +8,7 @@
 
 #import "ANDebugController.h"
 #import "ANBaseListTableCell.h"
-#import "ZZAuthWireframe.h"
+//#import "ZZAuthWireframe.h"
 
 typedef NS_ENUM(NSInteger, ANSections)
 {
@@ -41,8 +41,8 @@ typedef NS_ENUM(NSInteger, ANSections)
     {
         case ANAuthController:
         {
-            ZZAuthWireframe* wireframe = [ZZAuthWireframe new];
-            [wireframe presentAuthControllerFromNavigationController:self.rootController.navigationController];
+//            ZZAuthWireframe* wireframe = [ZZAuthWireframe new];
+//            [wireframe presentAuthControllerFromNavigationController:self.rootController.navigationController];
             
         } break;
             
