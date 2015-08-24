@@ -12,4 +12,9 @@
 - (NSString *)md5;
 
 - (BOOL)isEmpty;
+
 @end
+
+NSString* boolToStr(BOOL value);
+NSString* intToStr(NSInteger value);
+NSString* ullToShortStr(unsigned long long ull);

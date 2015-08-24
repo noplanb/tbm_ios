@@ -39,5 +39,6 @@
 
 - (void)setCustomServerURL:(NSString *)url;
 
+- (void)dispatchTypeSegmentedControlDidChangeTo:(NSInteger)index;
 
 @end

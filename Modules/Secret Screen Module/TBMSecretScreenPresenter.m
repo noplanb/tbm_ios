@@ -10,7 +10,7 @@
 #import "TBMTutorialModuleInterface.h"
 #import "TBMConfig.h"
 #import "TBMDebugData.h"
-#import "TBMStateScreenDataSource.h"
+#import "TBMStateDataSource.h"
 #import "TBMDispatch.h"
 #import "TBMTutorialModuleInterface.h"
 
@@ -77,7 +77,7 @@
 }
 
 - (void)presentStateScreen {
-    TBMStateScreenDataSource *data = [[TBMStateScreenDataSource alloc] init];
+    TBMStateDataSource *data = [[TBMStateDataSource alloc] init];
     [data loadFriendsVideoObjects];
     [data loadVideos];
     [data excludeNonDanglingFiles];
@@ -147,4 +147,10 @@
 - (void)resetHintsButtonDidPress {
     [self.tutorialModule resetHintsState];
 }
+
+- (void)dispatchTypeSegmentedControlDidChangeTo:(NSInteger)index {
+    [TBMDispatch setupDispatchType:(TBMDispatchType)index];
+    [self reload];
+}
+
 @end
