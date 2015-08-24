@@ -19,8 +19,12 @@
 }
 - (instancetype)init {
     self = [super init];
-    self.dialogView = [[TBMNextFeatureDialogView alloc] initWithFrame:CGRectZero];
-    self.dialogView.presenter = self;
+
+    if (self)
+    {
+        self.dialogView = [TBMNextFeatureDialogView new];
+        self.dialogView.presenter = self;
+    }
     return self;
 }
 

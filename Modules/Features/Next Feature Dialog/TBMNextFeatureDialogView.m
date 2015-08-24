@@ -43,24 +43,7 @@ CGFloat const kElementsHorizontalMargin = 15.f;
 
 - (instancetype)init
 {
-    self = [self initWithFrame:CGRectZero];
-
-    return self;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super initWithCoder:aDecoder];
-    if (self)
-    {
-        [self setup];
-    }
-    return self;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
+    self = [super init];
     if (self)
     {
         [self setup];
@@ -70,7 +53,7 @@ CGFloat const kElementsHorizontalMargin = 15.f;
 
 - (void)setup
 {
-    self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65f];
+    self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.65f];
     [self hide];
     self.userInteractionEnabled = YES;
 }

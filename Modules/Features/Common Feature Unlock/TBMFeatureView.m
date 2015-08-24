@@ -32,24 +32,8 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
 
 - (instancetype)init
 {
-    self = [self initWithFrame:CGRectZero];
+    self = [super init];
 
-    return self;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super initWithCoder:aDecoder];
-    if (self)
-    {
-        [self setup];
-    }
-    return self;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
     if (self)
     {
         [self setup];

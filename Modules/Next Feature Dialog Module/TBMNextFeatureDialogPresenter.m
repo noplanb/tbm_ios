@@ -19,10 +19,14 @@
 - (instancetype)init
 {
     self = [super init]; //todo:
-    TBMNextFeatureDialogView *view = [TBMNextFeatureDialogView new];
-    view.presenter = self;
-    self.dialogView = view;
-    self.dataSource.persistentStateKey = @""; // it means don't store
+
+    if (self)
+    {
+        TBMNextFeatureDialogView *view = [TBMNextFeatureDialogView new];
+        view.presenter = self;
+        self.dialogView = view;
+        self.dataSource.persistentStateKey = @""; // it means don't store
+    }
     return self;
 }
 
