@@ -2508,6 +2508,11 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"AD-HOC=1",
+				);
 				INFOPLIST_FILE = "tbm/Zazo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
