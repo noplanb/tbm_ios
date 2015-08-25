@@ -303,5 +303,14 @@
     return _dependecies;
 }
 
+- (void)onGrantedPushAccess
+{
+    [self _onGrantedPushAccess];
+}
+
+- (void)onFailPushAccess
+{
+    [self _onFailPushAccess];
+}
 
 @end

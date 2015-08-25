@@ -6,13 +6,14 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "TBMRegisterViewController.h"
 @class TBMHomeViewController;
 
 @protocol TBMAppDelegateEventNotificationProtocol <NSObject>
+
 - (void)appWillEnterForeground;
 - (void)appDidBecomeActive;
+
 @end
 
 @interface TBMAppDelegate : UIResponder <UIApplicationDelegate>

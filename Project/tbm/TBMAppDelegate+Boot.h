@@ -9,8 +9,12 @@
 #import "TBMAppDelegate.h"
 
 @interface TBMAppDelegate (Boot) <UIAlertViewDelegate>
+
 - (void)boot;
 - (void)didCompleteRegistration;
 - (void)performDidBecomeActiveActions;
+
+- (void)_onGrantedPushAccess;
+- (void)_onFailPushAccess;
 
 @end
