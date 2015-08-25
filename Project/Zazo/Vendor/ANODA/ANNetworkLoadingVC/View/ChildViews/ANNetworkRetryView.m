@@ -51,7 +51,7 @@
     {
         _label = [UILabel new];
         _label.font = [UIFont an_regularFontWithSize:15];
-        _label.textColor = [ANAppColorTheme shared].baseColor;
+        _label.textColor = [ZZColorTheme shared].baseColor;
         _label.text = NSLocalizedString(@"loading-view.retry.label", nil);
         _label.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_label];

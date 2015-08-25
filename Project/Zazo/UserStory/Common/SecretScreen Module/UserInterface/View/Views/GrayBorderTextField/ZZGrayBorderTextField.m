@@ -20,10 +20,10 @@ static CGFloat const kLayerCornerRadius = 6.0;
     self = [super init];
     if (self)
     {
-        self.backgroundColor = [ANAppColorTheme shared].secretScreenAddressBGGrayColor;
+        self.backgroundColor = [ZZColorTheme shared].secretScreenAddressBGGrayColor;
         self.layer.borderWidth = kLayerBorderWidth;
         self.layer.cornerRadius = kLayerCornerRadius;
-        self.layer.borderColor = [ANAppColorTheme shared].secretScreenAddressBorderGrayColor.CGColor;
+        self.layer.borderColor = [ZZColorTheme shared].secretScreenAddressBorderGrayColor.CGColor;
     }
     return self;
 }

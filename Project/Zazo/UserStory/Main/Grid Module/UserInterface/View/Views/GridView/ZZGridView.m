@@ -26,7 +26,7 @@ static CGFloat const kMenuButtonRightPadding = 5;
 {
     if (self = [super init])
     {
-        self.backgroundColor = [ANAppColorTheme shared].gridBackgourndColor;
+        self.backgroundColor = [ZZColorTheme shared].gridBackgourndColor;
         [self headerView];
         [self titleImageView];
         [self menuButton];
@@ -40,7 +40,7 @@ static CGFloat const kMenuButtonRightPadding = 5;
     if (!_headerView)
     {
         _headerView = [UIView new];
-        _headerView.backgroundColor = [ANAppColorTheme shared].gridHeaderBackgroundColor;
+        _headerView.backgroundColor = [ZZColorTheme shared].gridHeaderBackgroundColor;
         [self addSubview:_headerView];
         
         [_headerView mas_makeConstraints:^(MASConstraintMaker *make) {

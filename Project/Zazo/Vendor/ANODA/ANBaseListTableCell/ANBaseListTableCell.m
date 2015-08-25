@@ -24,7 +24,7 @@
          SETTING background color for cell will overlaps table cell separator,
          if you need to set color - do it for cell self.backgroundColor = [UIColor redColor];
          */
-        self.selectionColor = [ANAppColorTheme shared].baseColor;
+        self.selectionColor = [ZZColorTheme shared].baseColor;
     }
     return self;
 }
@@ -56,7 +56,7 @@
         _titleLabel = [UILabel new];
         _titleLabel.font = [UIFont an_regularFontWithSize:17];
         _titleLabel.highlightedTextColor = [UIColor whiteColor];
-        _titleLabel.textColor = [ANAppColorTheme shared].baseCellTextColor;
+        _titleLabel.textColor = [ZZColorTheme shared].baseCellTextColor;
         [self addSubview:_titleLabel];
         
         [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {

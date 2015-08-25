@@ -14,7 +14,7 @@
 {
     if (self = [super init])
     {
-        self.backgroundColor = [ANAppColorTheme shared].authBackgroundColor;
+        self.backgroundColor = [ZZColorTheme shared].authBackgroundColor;
         [self scrollView];
         [self registrationView];
     }

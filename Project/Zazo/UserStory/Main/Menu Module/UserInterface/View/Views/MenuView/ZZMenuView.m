@@ -17,7 +17,7 @@ static CGFloat const kSearchBarHeight = 80;
 {
     if (self = [super init])
     {
-        self.backgroundColor = [ANAppColorTheme shared].gridMenuColor;
+        self.backgroundColor = [ZZColorTheme shared].gridMenuColor;
         [self searchBar];
         [self tableView];
     }

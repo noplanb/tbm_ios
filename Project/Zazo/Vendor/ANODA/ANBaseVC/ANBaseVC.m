@@ -25,7 +25,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    self.view.backgroundColor = [ANAppColorTheme shared].baseBackgroundColor;
+//    self.view.backgroundColor = [ZZColorTheme shared].baseBackgroundColor;
 }
 
 - (void)addRightNavigationButtonWithType:(ANBarButtonType)type block:(ANCodeBlock)block

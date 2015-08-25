@@ -15,10 +15,10 @@
     self = [super init];
     if (self)
     {
-        [self setTitleColor:[ANAppColorTheme shared].secretScreenBlueColor forState:UIControlStateNormal];
+        [self setTitleColor:[ZZColorTheme shared].secretScreenBlueColor forState:UIControlStateNormal];
         self.layer.borderWidth = 2/[UIScreen mainScreen].scale;
         self.layer.cornerRadius = 6;
-        self.layer.borderColor = [ANAppColorTheme shared].secretScreenBlueColor.CGColor;
+        self.layer.borderColor = [ZZColorTheme shared].secretScreenBlueColor.CGColor;
     }
     return self;
 }

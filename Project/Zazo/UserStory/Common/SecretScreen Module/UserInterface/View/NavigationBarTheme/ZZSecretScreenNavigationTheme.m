@@ -16,9 +16,9 @@
     self = [super init];
     if (self)
     {
-        self.backgroundColor = [ANAppColorTheme shared].secretScreenHeaderColor;
-        self.tintColor = [ANAppColorTheme shared].secretScreenBlueColor;
-        self.titleFontColor = [ANAppColorTheme shared].secretScreenBlueColor;
+        self.backgroundColor = [ZZColorTheme shared].secretScreenHeaderColor;
+        self.tintColor = [ZZColorTheme shared].secretScreenBlueColor;
+        self.titleFontColor = [ZZColorTheme shared].secretScreenBlueColor;
         self.titleFont = [UIFont an_boldFontWithSize:16];
         self.backgroundImage = [UIImage new];
         self.containerClasses = @[[ZZSecretScreenVC class]];

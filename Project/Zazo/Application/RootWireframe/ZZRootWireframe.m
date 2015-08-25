@@ -16,8 +16,9 @@
 #import "TBMDependencies.h"
 #import "TBMUser.h"
 #import "TBMS3CredentialsManager.h"
+#import "TBMAppDelegate+Boot.h" // temp
 
-@interface ZZRootWireframe ()
+@interface ZZRootWireframe () <TBMRegisterViewControllerDelegate> // TODO: temp
 
 @property (nonatomic, strong) TBMDependencies* dependencies;
 
@@ -42,7 +43,9 @@
     TBMUser *user = [TBMUser getUser];
     if (!user.isRegistered)
     {
-        window.rootViewController = [TBMRegisterViewController new];
+        TBMRegisterViewController* vc = [TBMRegisterViewController new];
+        vc.delegate = self; // TODO: temp
+        window.rootViewController = vc;
     }
     else
     {
@@ -65,6 +68,15 @@
 
 
 #pragma mark - Old
+
+- (void)registrationControllerDidCompleteRegistration:(TBMRegisterViewController *)controller
+{
+    TBMHomeViewController* vc = [TBMHomeViewController new];
+    [self.dependencies setupDependenciesWithHomeViewController:vc];
+    
+    [controller presentViewController:vc animated:YES completion:nil];
+    [(TBMAppDelegate*)[UIApplication sharedApplication].delegate performDidBecomeActiveActions];
+}
 
 - (void)postRegistrationBoot
 {

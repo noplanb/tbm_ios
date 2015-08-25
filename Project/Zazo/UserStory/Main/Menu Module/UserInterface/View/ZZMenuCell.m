@@ -85,7 +85,7 @@ static CGFloat const kSeparatorHeight = 1;
     {
         _username = [UILabel new];
         _username.font = [UIFont an_lightFontWithSize:18];
-        _username.textColor = [ANAppColorTheme shared].menuTextColor;
+        _username.textColor = [ZZColorTheme shared].menuTextColor;
         [self.contentView addSubview:_username];
         
         [_username mas_makeConstraints:^(MASConstraintMaker *make) {

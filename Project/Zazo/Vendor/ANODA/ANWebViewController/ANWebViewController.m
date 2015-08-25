@@ -32,7 +32,7 @@
     self.showActionButton = NO;
     self.showUrlWhileLoading = NO;
     
-    self.loadingBarTintColor = [ANAppColorTheme shared].baseColor;
+    self.loadingBarTintColor = [ZZColorTheme shared].baseColor;
 }
 
 @end
