@@ -13,6 +13,7 @@
 #import "TBMMarginLabel.h"
 #import "TBMSoundEffect.h"
 #import "TBMConfig.h"
+#import "TBMAlertController.h"
 
 @interface TBMGridElementViewController ()
 @property NSInteger index;

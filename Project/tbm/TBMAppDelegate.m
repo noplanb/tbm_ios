@@ -16,11 +16,13 @@
 #import "TBMHttpManager.h"
 #import "AVAudioSession+TBMAudioSession.h"
 #import "TBMDependencies.h"
+#import "ZZAppDependencies.h"
 
 @interface TBMAppDelegate()
+
 @property id <TBMAppDelegateEventNotificationProtocol> eventNotificationDelegate;
 @property (nonatomic, copy) void (^registredToNotifications)(void);
-@property(nonatomic, strong) TBMDependencies *dependecies;
+
 @end
 
 @implementation TBMAppDelegate
@@ -43,6 +45,11 @@
     [self addObservers];
     
     OB_INFO(@"didFinishLaunchingWithOptions:");
+    
+    [self.appDependencies initialApplicationSetup:application launchOptions:launchOptions];
+    [self.window makeKeyAndVisible];
+    [self.appDependencies installRootViewControllerIntoWindow:self.window];
+    
     [self boot];
 
     // See doc/notification.txt for why we handle the payload here as well as in didReceiveRemoteNotification:fetchCompletionHandler
@@ -83,6 +90,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application{
     OB_INFO(@"applicationDidBecomeActive");
+    [self.appDependencies handleApplicationDidBecomeActive];
     self.isForeground = YES;
     
     if (self.eventNotificationDelegate !=  nil)
@@ -95,28 +103,14 @@
 - (void)applicationWillTerminate:(UIApplication *)application{
     OB_INFO(@"applicationWillTerminate: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
     // Saves changes in the application's managed object context before the application terminates.
+    [self.appDependencies handleApplicationWillTerminate];
     [self saveContext];
     [self removeObservers];
 }
 
 
 
-- (void)saveContext{
-    OB_INFO(@"saveContext");
-    __block NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-    __block NSError *error = nil;
-    
-    if (managedObjectContext != nil){
-        [managedObjectContext performBlockAndWait:^{
-            if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-                // Replace this implementation with code to handle the error appropriately.
-                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                OB_ERROR(@"Unresolved error %@, %@", error, [error userInfo]);
-                abort();
-            }
-        }];
-    }
-}
+
 
 #pragma mark - Notification Observers
 
@@ -146,29 +140,6 @@
     self.eventNotificationDelegate = delegate;
 }
 
-//--------------------------
-// Access to viewControllers
-//--------------------------
-
-- (TBMRegisterViewController *)registerViewController{
-    if (_registerViewController == nil)
-    {
-        _registerViewController = [TBMRegisterViewController new];
-    }
-    return _registerViewController;
-}
-
-- (TBMHomeViewController *)homeViewController
-{
-    if (_homeViewController == nil)
-    {
-        _homeViewController = [TBMHomeViewController new];
-        // TODO: need to move from here after AppDelegate will refactored
-        [self.dependecies setupDependenciesWithHomeViewController:_homeViewController];
-    }
-    return _homeViewController;
-}
-
 
 
 //---------
@@ -176,6 +147,23 @@
 //---------
 
 #pragma mark - Core Data stack
+
+- (void)saveContext{
+    OB_INFO(@"saveContext");
+    __block NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    __block NSError *error = nil;
+    
+    if (managedObjectContext != nil){
+        [managedObjectContext performBlockAndWait:^{
+            if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+                // Replace this implementation with code to handle the error appropriately.
+                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                OB_ERROR(@"Unresolved error %@, %@", error, [error userInfo]);
+                abort();
+            }
+        }];
+    }
+}
 
 // Returns the managed object context for the application.
 // If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
@@ -296,13 +284,6 @@
     OB_INFO(@"AppDelegate: RequestBackground: exiting: refresh status = %ld, time Remaining = %f", [UIApplication sharedApplication].backgroundRefreshStatus, [UIApplication sharedApplication].backgroundTimeRemaining);
 }
 
-- (TBMDependencies *)dependecies {
-    if (!_dependecies) {
-        _dependecies = [[TBMDependencies alloc] init];
-    }
-    return _dependecies;
-}
-
 - (void)onGrantedPushAccess
 {
     [self _onGrantedPushAccess];
@@ -311,6 +292,27 @@
 - (void)onFailPushAccess
 {
     [self _onFailPushAccess];
+}
+
+
+#pragma mark - Lazy Load
+
+- (UIWindow *)window
+{
+    if (!_window)
+    {
+        _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    }
+    return _window;
+}
+
+- (ZZAppDependencies *)appDependencies
+{
+    if (!_appDependencies)
+    {
+        _appDependencies = [ZZAppDependencies new];
+    }
+    return _appDependencies;
 }
 
 @end

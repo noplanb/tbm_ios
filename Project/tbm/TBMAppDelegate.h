@@ -6,7 +6,8 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
-#import "TBMRegisterViewController.h"
+#import "ZZAppDependencies.h"
+
 @class TBMHomeViewController;
 
 @protocol TBMAppDelegateEventNotificationProtocol <NSObject>
@@ -18,10 +19,10 @@
 
 @interface TBMAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, strong) UIWindow *window;
 
-@property (strong, nonatomic) TBMRegisterViewController *registerViewController;
-@property (strong, nonatomic) TBMHomeViewController *homeViewController;
+//@property (strong, nonatomic) TBMRegisterViewController *registerViewController;
+//@property (strong, nonatomic) TBMHomeViewController *homeViewController;
 
 @property (nonatomic) BOOL isForeground;
 
@@ -37,6 +38,9 @@
 @property(nonatomic) UIUserNotificationType notificationAllowedTypes;
 
 @property(nonatomic) BOOL pushAlreadyFailed;
+
+//temp in public
+@property (nonatomic, strong) ZZAppDependencies* appDependencies;
 
 -(void)onGrantedPushAccess;
 -(void)onFailPushAccess;

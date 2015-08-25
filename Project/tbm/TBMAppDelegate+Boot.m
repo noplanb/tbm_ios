@@ -20,30 +20,10 @@
 
 @implementation TBMAppDelegate (Boot)
 
-- (void)boot {
+- (void)boot
+{
     OB_INFO(@"Boot");
     [TBMDispatch enable];
-    TBMUser *user = [TBMUser getUser];
-    if (!user.isRegistered)
-    {
-        self.window.rootViewController = [self registerViewController];
-    }
-    else
-    {
-        self.window.rootViewController = (UIViewController*)[self homeViewController];
-        [self postRegistrationBoot];
-    }
-}
-
-- (void)didCompleteRegistration {
-    OB_INFO(@"didCompleteRegistration");
-    [[self registerViewController] presentViewController:(UIViewController*)[self homeViewController] animated:YES completion:nil];
-    [self postRegistrationBoot];
-    [self performDidBecomeActiveActions];
-}
-
-- (void)postRegistrationBoot {
-    [TBMS3CredentialsManager refreshFromServer:nil];
 }
 
 - (void)performDidBecomeActiveActions {

@@ -12,8 +12,22 @@
 #import "TBMRegisterForm.h"
 #import "TBMVerificationAlertHandler.h"
 
+@class TBMRegisterViewController;
 
-@interface TBMRegisterViewController : UIViewController <TBMFriendGetterCallback, TBMRegisterFormDelegate, TBMVerificationAlertDelegate>
-@property BOOL isWaiting;
+@protocol TBMRegisterViewControllerDelegate <NSObject>
+
+- (void)registrationControllerDidCompleteRegistration:(TBMRegisterViewController*)controller;
+
+@end
+
+@interface TBMRegisterViewController : UIViewController
+<
+    TBMFriendGetterCallback,
+    TBMRegisterFormDelegate,
+    TBMVerificationAlertDelegate
+>
+
+@property (nonatomic, assign) BOOL isWaiting;
+@property (nonatomic, weak) id<TBMRegisterViewControllerDelegate> delegate;
 
 @end

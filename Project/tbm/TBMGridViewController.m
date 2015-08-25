@@ -14,6 +14,7 @@
 #import "TBMGridDelegate.h"
 #import "TBMVideoIdUtils.h"
 #import "TBMVideoProcessor.h"
+#import "TBMAlertController.h"
 
 @interface TBMGridViewController ()
 @property(nonatomic) NSArray *gridViews;
