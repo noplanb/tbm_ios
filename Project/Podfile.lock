@@ -25,6 +25,9 @@ PODS:
   - ANCategories (1.0.6):
     - ANHelperFunctions (~> 1.0)
     - ReactiveCocoa (~> 2.4.2)
+  - ANCollectonController (1.0):
+    - ANLogger (~> 1.0)
+    - ANStorage (~> 1.0)
   - ANColorTheme (1.0.4):
     - ANCategories (~> 1.0)
     - ANHelperFunctions (~> 1.0)
@@ -41,8 +44,6 @@ PODS:
   - ANLogger (1.0.2):
     - ANCategories (~> 1.0.6)
     - CocoaLumberjack (~> 2.0.0)
-  - ANNetworkManager (1.0.9):
-    - ReactiveCocoa (~> 2.4.2)
   - ANProgressButton (1.0.2):
     - ANCategories (~> 1.0)
     - ANColorTheme (~> 1.0)
@@ -71,6 +72,7 @@ PODS:
   - CocoaLumberjack/Extensions (2.0.1):
     - CocoaLumberjack/Default
   - Crashlytics (3.1.0)
+  - Expecta (1.0.2)
   - Fabric (1.2.8):
     - Fabric/Base (= 1.2.8)
   - Fabric/Base (1.2.8)
@@ -78,6 +80,9 @@ PODS:
   - FrameAccessor (1.3.2)
   - HexColors (2.3.0)
   - iToast (0.0.1)
+  - KIF (3.2.3):
+    - KIF/XCTest (= 3.2.3)
+  - KIF/XCTest (3.2.3)
   - KVOController (1.0.3)
   - libPhoneNumber-iOS (0.8.7)
   - MagicalRecord (2.3.0)
@@ -127,22 +132,23 @@ PODS:
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
+  - Specta (1.0.3)
   - Typhoon (3.1.9):
     - Typhoon/no-arc (= 3.1.9)
   - Typhoon/no-arc (3.1.9)
   - UIAlertView+Blocks (0.9)
-  - Valet (2.0.1)
+  - Valet (2.0.2)
 
 DEPENDENCIES:
   - AFNetworking
   - ANBaseDomainModel
   - ANCategories
+  - ANCollectonController
   - ANColorTheme
   - ANDrawer
   - ANHelperFunctions
   - ANKeyboardHandler
   - ANLogger
-  - ANNetworkManager
   - ANProgressButton
   - ANStorage
   - ANTableController
@@ -150,11 +156,13 @@ DEPENDENCIES:
   - APAddressBook
   - CocoaLumberjack
   - Crashlytics
+  - Expecta (~> 1.0.2)
   - Fabric
   - FastEasyMapping
   - FrameAccessor
   - HexColors
   - iToast
+  - KIF (~> 3.2.3)
   - KVOController
   - libPhoneNumber-iOS (~> 0.7)
   - MagicalRecord
@@ -165,6 +173,7 @@ DEPENDENCIES:
   - SDCAlertView
   - SDCAutoLayout
   - SDWebImage
+  - Specta (~> 1.0.3)
   - Typhoon (~> 3.1.8)
   - UIAlertView+Blocks
   - Valet
@@ -173,12 +182,12 @@ SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   ANBaseDomainModel: ed24258ecfad8c4829e13c032c07caee7baaf575
   ANCategories: e27e6963e30875ff0e46352179b06aecaefe4037
+  ANCollectonController: c4b028707a2a922b03903a835b94b8126f6a5503
   ANColorTheme: 5fcbfba22ba047c68a9f4b92c5012fc9d02c1dc8
   ANDrawer: 9d8a9ff18a3b6ae3cc86a2dafad354be21d31584
   ANHelperFunctions: 39cbb913f8af9b52fc8921ba4051583a7bfc13ab
   ANKeyboardHandler: 800b1f318d59cd7746be449286ebbd78ee81465a
   ANLogger: 5ed038a64e650b0576f13d6816fa4b53367553e2
-  ANNetworkManager: baf7b20cd9bc56e6dbd4114ea0d52b0b173f45ad
   ANProgressButton: a4e7c57c47b9d5dc38a3e56529efae09a6bc185c
   ANStorage: 38217e8177b94d665b3bcc0fbd262e043beeb609
   ANTableController: 2b7b533abb48eea47adf739a5b3627ea9a049efe
@@ -186,11 +195,13 @@ SPEC CHECKSUMS:
   APAddressBook: 2c949367b190a993d2cce769a3b20bce8bcf000c
   CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
   Crashlytics: 93e2f86363d53c002c6366a9d87e41f2eaee87c3
+  Expecta: 54e8a3530add08f4f0208c111355eda7cde74a53
   Fabric: a9eabe53915e9f1db55a84dd2838737928675878
   FastEasyMapping: 03a3fbe3af1005e67974358a4ec2b4764f8aa3b4
   FrameAccessor: 0f7ba6ce37be9a5d0302a27c731dca70af8d438b
   HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
   iToast: df147188215cc3293bd4366822833f2862fec451
+  KIF: a94bffe9c97e449e44f8fa481c53243d21309e1e
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
   libPhoneNumber-iOS: 1bccd3288375d954b0b904e26061cecaa0fb83d6
   MagicalRecord: 89eb7d7ead39fb37f01c3d010665ee94d17f8dba
@@ -206,8 +217,9 @@ SPEC CHECKSUMS:
   SDCAlertView: f9706c18f456ea87909f8f199704cd28e582ff27
   SDCAutoLayout: e6885bb39ab8e2ec2ff84d158f38035f025f7420
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
+  Specta: cf3e4188cf35375c3ee2cd03f8db8f1f4ef98234
   Typhoon: b48a0ba0023f7ebc92d8693f79d4985dc0f94d13
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
-  Valet: 412b74c0bb9118f5a36f4be94dd72a34d2936180
+  Valet: 05e94ab2495077d147879c6dd822782450a96785
 
 COCOAPODS: 0.38.2

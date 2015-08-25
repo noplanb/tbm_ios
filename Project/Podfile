@@ -5,7 +5,6 @@ source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/anodamobi/ANODA-CocoaPods.git'
 source 'https://github.com/noplanb/Private-Cocoapods.git'
 
-
 #ignore all warnings from all pods
 inhibit_all_warnings!
 
@@ -24,11 +23,11 @@ target 'Zazo' do
     pod 'ANProgressButton'
     pod 'ANKeyboardHandler'
     pod 'ANDrawer'
-    pod 'ANNetworkManager'
-    
+    pod 'ANCollectonController'
+        
     #UI Categories
     pod 'FrameAccessor'
-    
+    pod 'HexColors'
     pod 'APAddressBook'
     pod 'libPhoneNumber-iOS', '~> 0.7'
     
@@ -44,7 +43,6 @@ target 'Zazo' do
     pod 'KVOController'
     
     pod 'Typhoon', '~> 3.1.8'
-    
     #Core Data
     pod 'FastEasyMapping'
     pod 'MagicalRecord'
@@ -70,5 +68,9 @@ end
 target 'ZazoTests' do
     
     pod 'ANHelperFunctions'
+    pod 'Specta', '~> 1.0.3'
+    pod 'Expecta', '~> 1.0.2'
+    pod 'KIF', '~> 3.2.3'
     
 end
+
