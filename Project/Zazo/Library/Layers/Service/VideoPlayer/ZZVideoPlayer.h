@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @protocol ZZVideoPlayerDelegate  <NSObject>
 
 - (void)videoPlayerStarted;
@@ -19,6 +17,7 @@
 @interface ZZVideoPlayer : NSObject
 
 - (instancetype)initWithVideoPalyerView:(UIView <ZZVideoPlayerDelegate> *)presentedView;
+
 - (void)playVideoWithContentUrl:(NSURL *)contentUrl;
 
 @end

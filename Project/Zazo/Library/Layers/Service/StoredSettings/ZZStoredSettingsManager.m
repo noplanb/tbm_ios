@@ -12,17 +12,17 @@ static NSString *kTBMConfigServerStateKey = @"kTBMConfigServerStateKey";
 static NSString *kTBMConfigCustomServerURLKey = @"kTBMConfigCustomServerURLKey";
 static NSString *kTBMConfigDeviceDebugModeKey = @"kTBMConfigDeviceDebugModeKey";
 
-#import "ANStoredSettingsManager.h"
+#import "ZZStoredSettingsManager.h"
 #import "NSDate+ANServerAdditions.h"
 #import "NSObject+ANUserDefaults.h"
 
-@interface ANStoredSettingsManager ()
+@interface ZZStoredSettingsManager ()
 
 @property (nonatomic, strong) NSArray* serverUrls;
 
 @end
 
-@implementation ANStoredSettingsManager
+@implementation ZZStoredSettingsManager
 
 + (instancetype)shared
 {
@@ -40,37 +40,25 @@ static NSString *kTBMConfigDeviceDebugModeKey = @"kTBMConfigDeviceDebugModeKey";
     self = [super init];
     if (self)
     {
-        [self configureSreverUrls];
+        [self configureServerUrls];
     }
     return self;
 }
 
 - (void)cleanSettings
 {
-    self.isSkipedIntro = NO;
+    //TODO:
 }
 
 
 #pragma mark - Configure Server Urls
 
-- (void)configureSreverUrls
+- (void)configureServerUrls
 {
     self.serverUrls = @[@"http://prod",@"http://dev"];
 }
 
 
-#pragma mark - Intro
-
-- (BOOL)isSkipedIntro
-{
-    return [[self an_dataSource] boolForKey:kIntroSkipped];
-}
-
-- (void)setIsSkipedIntro:(BOOL)isSkipedIntro
-{
-    [[self an_dataSource] setBool:isSkipedIntro forKey:kIntroSkipped];
-    [[self an_dataSource] synchronize];
-}
 
 - (void)saveSereverUrlString:(NSString* )serverUrl
 {

@@ -8,8 +8,9 @@
 
 #import "ANColorTheme.h"
 
-@interface ANAppColorTheme : ANColorTheme
+@interface ZZColorTheme : ANColorTheme
 
+//TODO: move to category
 @property (nonatomic, strong) UIColor* baseCellTextColor;
 @property (nonatomic, strong) UIColor* authBackgroundColor;
 

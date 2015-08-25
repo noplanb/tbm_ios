@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 static NSString* const kVideoUtilsVideoIdKey = @"videoId";
 static NSString* const kVideoUtilsFriendIdKey = @"friendId";
 static NSString* const kIsUploadKey = @"isUpload";

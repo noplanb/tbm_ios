@@ -8,13 +8,11 @@
 
 @import AVFoundation;
 
-#import <Foundation/Foundation.h>
-
 @interface ZZDeviceHandler : NSObject
 
-+ (AVCaptureDeviceInput *) getAudioInputWithError:(NSError * __autoreleasing *)error;
-+ (AVCaptureDeviceInput *) getAvailableFrontVideoInputWithError:(NSError * __autoreleasing *)error;
-+ (BOOL) isCameraConnected;
-+ (BOOL) isMiccrophoneConnected;
++ (AVCaptureDeviceInput *)getAudioInputWithError:(NSError * __autoreleasing *)error;
++ (AVCaptureDeviceInput *)getAvailableFrontVideoInputWithError:(NSError * __autoreleasing *)error;
++ (BOOL)isCameraConnected;
++ (BOOL)isMiccrophoneConnected;
 
 @end

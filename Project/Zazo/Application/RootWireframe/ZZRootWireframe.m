@@ -71,7 +71,7 @@
 
 - (UIStoryboard *)storyBoard
 {
-    return [UIStoryboard storyboardWithName:@"TBM" bundle: nil];
+    return [UIStoryboard storyboardWithName:@"TBM" bundle:nil];
 }
 
 - (TBMRegisterViewController *)registerViewController

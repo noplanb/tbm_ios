@@ -8,7 +8,7 @@
 
 #import "ZZSettingsAssembly.h"
 #import "NSObject+ANUserDefaults.h"
-#import "ANStoredSettingsManager.h"
+#import "ZZStoredSettingsManager.h"
 
 
 
@@ -25,9 +25,9 @@
 - (ZZSettingsModel*)currentSettings
 {
     return [TyphoonDefinition withClass:[ZZSettingsModel class] configuration:^(TyphoonDefinition *definition) {
-        [definition injectProperty:@selector(serverUrl) with:[[ANStoredSettingsManager shared] serverUrl]];
-        [definition injectProperty:@selector(serverIndex) with:@([[ANStoredSettingsManager shared] serverIndex])];
-        [definition injectProperty:@selector(isDebugEnabled) with:[[ANStoredSettingsManager shared] isDebugEnabled]];
+        [definition injectProperty:@selector(serverUrl) with:[[ZZStoredSettingsManager shared] serverUrl]];
+        [definition injectProperty:@selector(serverIndex) with:@([[ZZStoredSettingsManager shared] serverIndex])];
+        [definition injectProperty:@selector(isDebugEnabled) with:[[ZZStoredSettingsManager shared] isDebugEnabled]];
     }];
 }
 

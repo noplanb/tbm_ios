@@ -6,9 +6,7 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
-@class ANMemoryStorage, ZZGridDomainModel ;
+@class ANMemoryStorage, ZZGridDomainModel;
 
 @interface ZZGridDataSource : NSObject
 

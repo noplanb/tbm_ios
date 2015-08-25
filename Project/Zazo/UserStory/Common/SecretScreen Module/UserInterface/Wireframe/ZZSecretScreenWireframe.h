@@ -9,8 +9,9 @@
 #import "ZZSecretScreenObserveTypes.h"
 #import "ZZPushedSecretScreenTypes.h"
 
-
 @interface ZZSecretScreenWireframe : NSObject
+
+- (void)presentSecretScreenControllerFromNavigationController:(UINavigationController *)viewController;
 
 - (void)dismissSecretScreenController;
 - (void)startSecretScreenObservingWithFirstTouchDelay:(CGFloat)delay

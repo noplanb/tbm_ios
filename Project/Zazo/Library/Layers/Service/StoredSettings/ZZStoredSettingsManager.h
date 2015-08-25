@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 ANODA. All rights reserved.
 //
 
-@interface ANStoredSettingsManager : NSObject
+@interface ZZStoredSettingsManager : NSObject
 
 typedef NS_ENUM(NSUInteger, TBMConfigServerState) {
     TBMServerStateProduction = 0,
@@ -14,10 +14,8 @@ typedef NS_ENUM(NSUInteger, TBMConfigServerState) {
     TBMServerStateCustom = 2,
 };
 
-//global settings
-@property (nonatomic, assign) BOOL isSkipedIntro;
-
 + (instancetype)shared;
+
 - (void)cleanSettings;
 
 - (void)saveSereverUrlString:(NSString* )serverUrl;

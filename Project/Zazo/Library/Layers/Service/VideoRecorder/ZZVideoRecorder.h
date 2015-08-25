@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @class ZZGridBaseCell, ZZGridCollectionCell;
 
 @interface ZZVideoRecorder : NSObject
@@ -20,6 +18,5 @@
 - (void)dispose;
 - (BOOL)isRecording;
 - (void)startRecordingWithGridCell:(ZZGridCollectionCell*)gridCell;
-
 
 @end

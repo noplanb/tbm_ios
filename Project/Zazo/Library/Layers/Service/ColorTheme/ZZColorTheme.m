@@ -6,18 +6,18 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import "ANAppColorTheme.h"
+#import "ZZColorTheme.h"
 
 static CGFloat const kNavigationBarIconHeight = 20;
 
-@interface ANAppColorTheme ()
+@interface ZZColorTheme ()
 
 @property (nonatomic, strong) UIColor* navBarbackgroundColor;
 @property (nonatomic, strong) UIColor* navBarFontColor;
 
 @end
 
-@implementation ANAppColorTheme
+@implementation ZZColorTheme
 
 + (instancetype)shared
 {
@@ -46,6 +46,7 @@ static CGFloat const kNavigationBarIconHeight = 20;
     self = [super init];
     if (self)
     {
+        //TODO: convert in HEX
         self.authBackgroundColor = [UIColor colorWithRed:0.61f green:0.75f blue:0.27f alpha:1.0f];
         self.gridBackgourndColor = [UIColor colorWithRed:0.18 green:0.18 blue:0.16 alpha:1];
         self.gridHeaderBackgroundColor = [UIColor colorWithRed:0.11 green:0.11 blue:0.1 alpha:1];
@@ -105,7 +106,6 @@ static CGFloat const kNavigationBarIconHeight = 20;
     [self _addNavItemWithName:@"navbar_btn_add" type:ANBarButtonTypeAdd];
     [self _addNavItemWithName:@"navbar_btn_edit" type:ANBarButtonTypeEdit];
     [self _addNavItemWithName:@"navbar_btn_more" type:ANBarButtonTypeMore];
-    //navbar_btn_single_task
 }
 
 - (void)_addNavItemWithName:(NSString*)name type:(ANBarButtonType)type

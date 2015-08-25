@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "ZZSecretBaseStrategy.h"
 
 @interface ZZStrategyNavigationLeftRight : ZZSecretBaseStrategy

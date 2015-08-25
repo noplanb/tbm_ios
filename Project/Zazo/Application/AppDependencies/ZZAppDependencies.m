@@ -8,7 +8,7 @@
 
 #import "ZZAppDependencies.h"
 #import "ZZRootWireframe.h"
-#import "ANAppColorTheme.h"
+#import "ZZColorTheme.h"
 #import "ZZAppDependecesInjection.h"
 
 @interface ZZAppDependencies ()
@@ -26,7 +26,7 @@
 
 - (void)initialApplicationSetup:(UIApplication *)application launchOptions:(NSDictionary *)options
 {
-    [ANAppColorTheme shared];
+    [ZZColorTheme shared];
 }
 
 - (BOOL)handleOpenURL:(NSURL*)url inApplication:(NSString*)application

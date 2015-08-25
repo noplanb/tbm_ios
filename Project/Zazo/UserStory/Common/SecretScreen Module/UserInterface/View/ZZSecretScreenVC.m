@@ -10,7 +10,7 @@
 #import "ZZSecretScreenView.h"
 #import "ZZPushedSecretScreenTypes.h"
 #import "NSObject+ANUserDefaults.h"
-#import "ANStoredSettingsManager.h"
+#import "ZZStoredSettingsManager.h"
 
 static NSString *kTBMConfigServerStateKey = @"kTBMConfigServerStateKey";
 
@@ -63,7 +63,7 @@ static NSString *kTBMConfigServerStateKey = @"kTBMConfigServerStateKey";
 {
     [[self.secretView.serverTypeControl rac_signalForControlEvents:UIControlEventValueChanged] subscribeNext:^(UISegmentedControl* segmentControl) {
         
-        [[ANStoredSettingsManager shared] saveCurrentServerIndex:segmentControl.selectedSegmentIndex];
+        [[ZZStoredSettingsManager shared] saveCurrentServerIndex:segmentControl.selectedSegmentIndex];
         self.secretView.labelsInfoView.addressTextField.enabled = (segmentControl.selectedSegmentIndex == 2);
     }];
     

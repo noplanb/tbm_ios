@@ -61,12 +61,12 @@
 		07F0ECA41B8CD8BF00036AB2 /* ZZAddressBookDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB131B8CD8BE00036AB2 /* ZZAddressBookDataProvider.m */; };
 		07F0ECA51B8CD8BF00036AB2 /* ZZSettingsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB181B8CD8BE00036AB2 /* ZZSettingsModel.m */; };
 		07F0ECA61B8CD8BF00036AB2 /* ZZSettingsAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB1A1B8CD8BE00036AB2 /* ZZSettingsAssembly.m */; };
-		07F0ECA71B8CD8BF00036AB2 /* ANAppColorTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB1D1B8CD8BE00036AB2 /* ANAppColorTheme.m */; };
+		07F0ECA71B8CD8BF00036AB2 /* ZZColorTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB1D1B8CD8BE00036AB2 /* ZZColorTheme.m */; };
 		07F0ECA81B8CD8BF00036AB2 /* ZZConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB201B8CD8BE00036AB2 /* ZZConfig.m */; };
 		07F0ECA91B8CD8BF00036AB2 /* ZZDeviceHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB231B8CD8BE00036AB2 /* ZZDeviceHandler.m */; };
 		07F0ECAA1B8CD8BF00036AB2 /* ANExternURLBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB261B8CD8BE00036AB2 /* ANExternURLBuilder.m */; };
 		07F0ECAB1B8CD8BF00036AB2 /* ZZKeychainDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB291B8CD8BE00036AB2 /* ZZKeychainDataProvider.m */; };
-		07F0ECAC1B8CD8BF00036AB2 /* ANStoredSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB2C1B8CD8BE00036AB2 /* ANStoredSettingsManager.m */; };
+		07F0ECAC1B8CD8BF00036AB2 /* ZZStoredSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB2C1B8CD8BE00036AB2 /* ZZStoredSettingsManager.m */; };
 		07F0ECAD1B8CD8BF00036AB2 /* ZZStringUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB2F1B8CD8BE00036AB2 /* ZZStringUtils.m */; };
 		07F0ECAE1B8CD8BF00036AB2 /* ZZVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB321B8CD8BE00036AB2 /* ZZVideoPlayer.m */; };
 		07F0ECAF1B8CD8BF00036AB2 /* ZZVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB351B8CD8BE00036AB2 /* ZZVideoProcessor.m */; };
@@ -434,8 +434,8 @@
 		07F0EB181B8CD8BE00036AB2 /* ZZSettingsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSettingsModel.m; sourceTree = "<group>"; };
 		07F0EB191B8CD8BE00036AB2 /* ZZSettingsAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSettingsAssembly.h; sourceTree = "<group>"; };
 		07F0EB1A1B8CD8BE00036AB2 /* ZZSettingsAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSettingsAssembly.m; sourceTree = "<group>"; };
-		07F0EB1C1B8CD8BE00036AB2 /* ANAppColorTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAppColorTheme.h; sourceTree = "<group>"; };
-		07F0EB1D1B8CD8BE00036AB2 /* ANAppColorTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAppColorTheme.m; sourceTree = "<group>"; };
+		07F0EB1C1B8CD8BE00036AB2 /* ZZColorTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZColorTheme.h; sourceTree = "<group>"; };
+		07F0EB1D1B8CD8BE00036AB2 /* ZZColorTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZColorTheme.m; sourceTree = "<group>"; };
 		07F0EB1F1B8CD8BE00036AB2 /* ZZConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZConfig.h; sourceTree = "<group>"; };
 		07F0EB201B8CD8BE00036AB2 /* ZZConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZConfig.m; sourceTree = "<group>"; };
 		07F0EB221B8CD8BE00036AB2 /* ZZDeviceHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDeviceHandler.h; sourceTree = "<group>"; };
@@ -444,8 +444,8 @@
 		07F0EB261B8CD8BE00036AB2 /* ANExternURLBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANExternURLBuilder.m; sourceTree = "<group>"; };
 		07F0EB281B8CD8BE00036AB2 /* ZZKeychainDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZKeychainDataProvider.h; sourceTree = "<group>"; };
 		07F0EB291B8CD8BE00036AB2 /* ZZKeychainDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZKeychainDataProvider.m; sourceTree = "<group>"; };
-		07F0EB2B1B8CD8BE00036AB2 /* ANStoredSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANStoredSettingsManager.h; sourceTree = "<group>"; };
-		07F0EB2C1B8CD8BE00036AB2 /* ANStoredSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANStoredSettingsManager.m; sourceTree = "<group>"; };
+		07F0EB2B1B8CD8BE00036AB2 /* ZZStoredSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZStoredSettingsManager.h; sourceTree = "<group>"; };
+		07F0EB2C1B8CD8BE00036AB2 /* ZZStoredSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZStoredSettingsManager.m; sourceTree = "<group>"; };
 		07F0EB2E1B8CD8BE00036AB2 /* ZZStringUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZStringUtils.h; sourceTree = "<group>"; };
 		07F0EB2F1B8CD8BE00036AB2 /* ZZStringUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZStringUtils.m; sourceTree = "<group>"; };
 		07F0EB311B8CD8BE00036AB2 /* ZZVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoPlayer.h; sourceTree = "<group>"; };
@@ -947,6 +947,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07243C591B8D108C008E4203 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				682D631A314BBC7511A80119 /* TBMConfig.h */,
+				682D6AC61977FE06739288A5 /* TBMConfig.m */,
+			);
+			name = Config;
+			sourceTree = "<group>";
+		};
 		0732F5031B8B93D3004FD3AF /* ZazoTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1505,8 +1514,8 @@
 		07F0EB1B1B8CD8BE00036AB2 /* ColorTheme */ = {
 			isa = PBXGroup;
 			children = (
-				07F0EB1C1B8CD8BE00036AB2 /* ANAppColorTheme.h */,
-				07F0EB1D1B8CD8BE00036AB2 /* ANAppColorTheme.m */,
+				07F0EB1C1B8CD8BE00036AB2 /* ZZColorTheme.h */,
+				07F0EB1D1B8CD8BE00036AB2 /* ZZColorTheme.m */,
 			);
 			path = ColorTheme;
 			sourceTree = "<group>";
@@ -1550,8 +1559,8 @@
 		07F0EB2A1B8CD8BE00036AB2 /* StoredSettings */ = {
 			isa = PBXGroup;
 			children = (
-				07F0EB2B1B8CD8BE00036AB2 /* ANStoredSettingsManager.h */,
-				07F0EB2C1B8CD8BE00036AB2 /* ANStoredSettingsManager.m */,
+				07F0EB2B1B8CD8BE00036AB2 /* ZZStoredSettingsManager.h */,
+				07F0EB2C1B8CD8BE00036AB2 /* ZZStoredSettingsManager.m */,
 			);
 			path = StoredSettings;
 			sourceTree = "<group>";
@@ -2799,6 +2808,7 @@
 		682D642A05AF3E23C203E3FA /* tbm */ = {
 			isa = PBXGroup;
 			children = (
+				07243C591B8D108C008E4203 /* Config */,
 				07F0ED241B8CE73F00036AB2 /* Resources */,
 				FE95367F1B88F53000AC652A /* TBMStateScreenDataSource.h */,
 				FE9536801B88F53000AC652A /* TBMStateScreenDataSource.m */,
@@ -2822,8 +2832,6 @@
 				FE9536911B88F63400AC652A /* TBMFriendVideosInformation.h */,
 				FE9536921B88F63400AC652A /* TBMFriendVideosInformation.m */,
 				682D63D0359EAC2B3DE6160D /* TBMLongPressTouchHandler.m */,
-				682D631A314BBC7511A80119 /* TBMConfig.h */,
-				682D6AC61977FE06739288A5 /* TBMConfig.m */,
 				682D6A6C25655D6765DACEC5 /* TBMHttpManager.h */,
 				682D6C43CC80E2A08CE48791 /* TBMHttpManager.m */,
 				682D6D33A12BA8D8CF67A232 /* TBMRemoteStorageHandler.h */,
@@ -3582,7 +3590,7 @@
 				07F0ED001B8CD8BF00036AB2 /* ANErrorHandler.m in Sources */,
 				07F0EC831B8CD8BF00036AB2 /* ZZGridModelsMapper.m in Sources */,
 				07F0ECE51B8CD8BF00036AB2 /* ANAnimator.m in Sources */,
-				07F0ECAC1B8CD8BF00036AB2 /* ANStoredSettingsManager.m in Sources */,
+				07F0ECAC1B8CD8BF00036AB2 /* ZZStoredSettingsManager.m in Sources */,
 				07F0ECF61B8CD8BF00036AB2 /* ANImageCache.m in Sources */,
 				07F0ED061B8CD8BF00036AB2 /* ANWebViewController.m in Sources */,
 				07F0ECD21B8CD8BF00036AB2 /* ZZGridBaseCell.m in Sources */,
@@ -3676,7 +3684,7 @@
 				682D61823A6E9788ADF22C27 /* TBMDispatch.m in Sources */,
 				682D63F0788F4B777709B8CC /* NSNumber+TBMUserDefaults.m in Sources */,
 				07F0ECB01B8CD8BF00036AB2 /* ZZVideoRecorder.m in Sources */,
-				07F0ECA71B8CD8BF00036AB2 /* ANAppColorTheme.m in Sources */,
+				07F0ECA71B8CD8BF00036AB2 /* ZZColorTheme.m in Sources */,
 				07F0ED0A1B8CD8BF00036AB2 /* TOWebViewController.m in Sources */,
 				07F0EC841B8CD8BF00036AB2 /* ZZUserDataProvider.m in Sources */,
 			);

@@ -85,10 +85,11 @@
     [self startObserveWithWindow:window];
 }
 
-- (id <ZZSecretScreenStrategy>)strategyWithType:(ZZSecretScreenObserveType)type
+- (id<ZZSecretScreenStrategy>)strategyWithType:(ZZSecretScreenObserveType)type
 {
     id <ZZSecretScreenStrategy> strategy;
-    switch (type) {
+    switch (type)
+    {
         case ZZNavigationBarLeftRightObserveType:
         {
             strategy = [ZZStrategyNavigationLeftRight new];

@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface ZZStringUtils : NSObject
 
 + (NSString *)randomStringofLength:(NSInteger)length;
