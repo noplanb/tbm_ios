@@ -12,9 +12,6 @@
 
 @implementation TBMGridElement
 
-@dynamic friend;
-@dynamic index;
-
 //--------------------------------------
 // Conveniene methods for managed object
 //--------------------------------------

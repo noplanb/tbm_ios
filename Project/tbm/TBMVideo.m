@@ -129,7 +129,7 @@
 + (void)printAll{
     OB_INFO(@"All Videos (%lu)", (unsigned long)[TBMVideo count]);
     for (TBMVideo * v in [TBMVideo all]){
-        OB_INFO(@"%@ %@ status=%ld", v.friend.firstName, v.videoId, v.status);
+        OB_INFO(@"%@ %@ status=%@", v.friend.firstName, v.videoId, v.status);
     }
 }
 
@@ -235,7 +235,7 @@
 // Status convenience methods
 //---------------------------
 - (BOOL)isStatusDownloading{
-    return self.status == INCOMING_VIDEO_STATUS_DOWNLOADING;
+    return self.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADING;
 }
 
 @end

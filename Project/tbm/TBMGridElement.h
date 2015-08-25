@@ -6,14 +6,10 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 #import "TBMFriend.h"
+#import "_TBMGridElement.h"
 
-@interface TBMGridElement : NSManagedObject
-
-@property (nonatomic, retain) TBMFriend *friend;
-@property (nonatomic) NSNumber *index;
+@interface TBMGridElement : _TBMGridElement
 
 // Create and destroy
 + (instancetype)create;

@@ -6,27 +6,18 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+#import "_TBMUser.h"
 
-
-@interface TBMUser : NSManagedObject
-@property (nonatomic, retain) NSString * auth;
-@property (nonatomic, retain) NSString * firstName;
-@property (nonatomic, retain) NSString * idTbm;
-@property (nonatomic, assign) BOOL isRegistered;
-@property (nonatomic, retain) NSString * lastName;
-@property (nonatomic, retain) NSString * mkey;
-@property (nonatomic, retain) NSString * mobileNumber;
+@interface TBMUser : _TBMUser
 
 //Added in v2
-@property (nonatomic, retain) NSNumber * isInvitee;
+@property (nonatomic, retain) NSNumber* isInvitee; // TODO:
 
 + (instancetype)getUser;
 + (instancetype)createWithServerParams:(NSDictionary *)params;
 + (NSString *)phoneRegion;
-
 + (void)saveRegistrationData:(NSDictionary *)params;
 
 - (void)setupRegistredFlagTo:(BOOL)registred;
+
 @end

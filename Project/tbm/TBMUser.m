@@ -14,15 +14,6 @@
 
 @implementation TBMUser
 
-@dynamic auth;
-@dynamic firstName;
-@dynamic idTbm;
-@dynamic isInvitee;
-@dynamic isRegistered;
-@dynamic lastName;
-@dynamic mkey;
-@dynamic mobileNumber;
-
 //==============
 // Class methods
 //==============
@@ -92,9 +83,8 @@
     return user;
 }
 
-+ (instancetype)createWithServerParams:(NSDictionary *)params {
-    
-    NSManagedObjectContext *context = [TBMUser managedObjectContext];
++ (instancetype)createWithServerParams:(NSDictionary *)params
+{
     TBMUser *user = [TBMUser createNewUser];
     
     user.firstName = [params objectForKey:SERVER_PARAMS_USER_FIRST_NAME_KEY];
@@ -108,17 +98,16 @@
 }
 
 - (void)setupRegistredFlagTo:(BOOL)registred {
-    NSManagedObjectContext *context = [TBMUser managedObjectContext];
     TBMUser *user = [TBMUser getUser];
     if (!user) {
         return;
     }
-    user.isRegistered = YES;
+    user.isRegistered = @YES;
     [TBMUser saveCurrentContext];
 }
 
-+ (void)saveRegistrationData:(NSDictionary *)params {
-    NSManagedObjectContext *context = [TBMUser managedObjectContext];
++ (void)saveRegistrationData:(NSDictionary *)params
+{
     TBMUser *user = [TBMUser createNewUser];
     if (!user) {
         return;

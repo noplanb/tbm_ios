@@ -6,12 +6,22 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import "ZZAppDelegate.h"
+//#import "ZZAppDelegate.h"
+
+//int main(int argc, char * argv[])
+//{
+//    @autoreleasepool
+//    {
+//        return UIApplicationMain(argc, argv, nil, NSStringFromClass([ZZAppDelegate class]));
+//    }
+//}
+
+#import "TBMAppDelegate.h"
 
 int main(int argc, char * argv[])
 {
-    @autoreleasepool
-    {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([ZZAppDelegate class]));
+    @autoreleasepool {
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([TBMAppDelegate class]));
     }
 }
+

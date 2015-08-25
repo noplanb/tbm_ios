@@ -593,8 +593,8 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
         return;
     }
 
-    if (self.gridElement.friend.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE) {
-        if (self.gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING) {
+    if (self.gridElement.friend.lastVideoStatusEventTypeValue == INCOMING_VIDEO_STATUS_EVENT_TYPE) {
+        if (self.gridElement.friend.lastIncomingVideoStatusValue == INCOMING_VIDEO_STATUS_DOWNLOADING) {
             [self showDownload];
             return;
         } else {
@@ -603,8 +603,8 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
         }
     }
 
-    if (self.gridElement.friend.lastVideoStatusEventType == OUTGOING_VIDEO_STATUS_EVENT_TYPE) {
-        switch (self.gridElement.friend.outgoingVideoStatus) {
+    if (self.gridElement.friend.lastVideoStatusEventTypeValue == OUTGOING_VIDEO_STATUS_EVENT_TYPE) {
+        switch (self.gridElement.friend.outgoingVideoStatusValue) {
 
             case OUTGOING_VIDEO_STATUS_QUEUED:
             case OUTGOING_VIDEO_STATUS_UPLOADING:
@@ -629,14 +629,14 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 
 - (void)animateTransitions {
     if (self.gridElement.friend.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE) {
-        if (self.gridElement.friend.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED) {
+        if (self.gridElement.friend.lastIncomingVideoStatusValue == INCOMING_VIDEO_STATUS_DOWNLOADED) {
             [self animateDownloading];
             return;
         }
     }
 
-    if (self.gridElement.friend.lastVideoStatusEventType == OUTGOING_VIDEO_STATUS_EVENT_TYPE) {
-        switch (self.gridElement.friend.outgoingVideoStatus) {
+    if (self.gridElement.friend.lastVideoStatusEventTypeValue == OUTGOING_VIDEO_STATUS_EVENT_TYPE) {
+        switch (self.gridElement.friend.outgoingVideoStatusValue) {
             case OUTGOING_VIDEO_STATUS_NEW:
                 [self animateUploading];
                 return;

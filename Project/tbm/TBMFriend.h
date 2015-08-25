@@ -6,9 +6,8 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 #import "TBMVideo.h"
+#import "_TBMFriend.h"
 
 @class TBMGridElement;
 
@@ -16,7 +15,7 @@
 - (void)videoStatusDidChange:(TBMFriend *)friend;
 @end
 
-@interface TBMFriend : NSManagedObject
+@interface TBMFriend : _TBMFriend
 // Note order matters. The first enum is chosen intentionally since that is what the
 // property initializes to.
 typedef NS_ENUM (NSInteger, TBMOutgoingVideoStatus) {
@@ -35,23 +34,6 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
     INCOMING_VIDEO_STATUS_EVENT_TYPE,
     OUTGOING_VIDEO_STATUS_EVENT_TYPE
 };
-
-@property (nonatomic, retain) NSString * ckey;
-@property (nonatomic, retain) NSString * firstName;
-@property (nonatomic, assign) BOOL hasApp;
-@property (nonatomic, retain) NSString * idTbm;
-@property (nonatomic, retain) NSString * lastName;
-@property (nonatomic, retain) NSString * mkey;
-@property (nonatomic, retain) NSString * mobileNumber;
-@property (nonatomic, retain) NSString * outgoingVideoId;
-@property (nonatomic, retain) NSDate * timeOfLastAction;
-@property (nonatomic, retain) NSNumber * uploadRetryCount;
-@property (nonatomic, retain) TBMGridElement *gridElement;
-@property (nonatomic, retain) NSSet *videos;
-
-@property (nonatomic) TBMOutgoingVideoStatus outgoingVideoStatus;
-@property (nonatomic) TBMVideoStatusEventType lastVideoStatusEventType;
-@property (nonatomic) TBMIncomingVideoStatus lastIncomingVideoStatus;
 
 // Added in v2
 @property (nonatomic, retain) NSNumber * everSent;
