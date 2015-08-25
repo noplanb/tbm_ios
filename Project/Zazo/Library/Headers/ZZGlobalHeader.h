@@ -42,7 +42,7 @@
 #import "UIImage+ANAdditions.h"
 
 
-//TODO:
+//TODO: cleanup this
 
 #define DEBUG_MODE
 #ifdef DEBUG_MODE
