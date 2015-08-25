@@ -12,6 +12,7 @@ extern const struct TBMUserAttributes {
 	__unsafe_unretained NSString *auth;
 	__unsafe_unretained NSString *firstName;
 	__unsafe_unretained NSString *idTbm;
+	__unsafe_unretained NSString *isInvitee;
 	__unsafe_unretained NSString *isRegistered;
 	__unsafe_unretained NSString *lastName;
 	__unsafe_unretained NSString *mkey;
@@ -38,6 +39,14 @@ extern const struct TBMUserAttributes {
 @property (nonatomic, strong) NSString* idTbm;
 
 //- (BOOL)validateIdTbm:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSNumber* isInvitee;
+
+@property (atomic) BOOL isInviteeValue;
+- (BOOL)isInviteeValue;
+- (void)setIsInviteeValue:(BOOL)value_;
+
+//- (BOOL)validateIsInvitee:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSNumber* isRegistered;
 
@@ -71,6 +80,12 @@ extern const struct TBMUserAttributes {
 
 - (NSString*)primitiveIdTbm;
 - (void)setPrimitiveIdTbm:(NSString*)value;
+
+- (NSNumber*)primitiveIsInvitee;
+- (void)setPrimitiveIsInvitee:(NSNumber*)value;
+
+- (BOOL)primitiveIsInviteeValue;
+- (void)setPrimitiveIsInviteeValue:(BOOL)value_;
 
 - (NSNumber*)primitiveIsRegistered;
 - (void)setPrimitiveIsRegistered:(NSNumber*)value;

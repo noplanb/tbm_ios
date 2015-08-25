@@ -14,6 +14,7 @@ const struct TBMUserAttributes TBMUserAttributes = {
 	.auth = @"auth",
 	.firstName = @"firstName",
 	.idTbm = @"idTbm",
+	.isInvitee = @"isInvitee",
 	.isRegistered = @"isRegistered",
 	.lastName = @"lastName",
 	.mkey = @"mkey",
@@ -46,6 +47,11 @@ const struct TBMUserAttributes TBMUserAttributes = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
+	if ([key isEqualToString:@"isInviteeValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"isInvitee"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"isRegisteredValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"isRegistered"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -60,6 +66,26 @@ const struct TBMUserAttributes TBMUserAttributes = {
 @dynamic firstName;
 
 @dynamic idTbm;
+
+@dynamic isInvitee;
+
+- (BOOL)isInviteeValue {
+	NSNumber *result = [self isInvitee];
+	return [result boolValue];
+}
+
+- (void)setIsInviteeValue:(BOOL)value_ {
+	[self setIsInvitee:@(value_)];
+}
+
+- (BOOL)primitiveIsInviteeValue {
+	NSNumber *result = [self primitiveIsInvitee];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveIsInviteeValue:(BOOL)value_ {
+	[self setPrimitiveIsInvitee:@(value_)];
+}
 
 @dynamic isRegistered;
 

@@ -10,9 +10,11 @@
 
 extern const struct TBMFriendAttributes {
 	__unsafe_unretained NSString *ckey;
+	__unsafe_unretained NSString *everSent;
 	__unsafe_unretained NSString *firstName;
 	__unsafe_unretained NSString *hasApp;
 	__unsafe_unretained NSString *idTbm;
+	__unsafe_unretained NSString *isConnectionCreator;
 	__unsafe_unretained NSString *lastIncomingVideoStatus;
 	__unsafe_unretained NSString *lastName;
 	__unsafe_unretained NSString *lastVideoStatusEventType;
@@ -45,6 +47,14 @@ extern const struct TBMFriendRelationships {
 
 //- (BOOL)validateCkey:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSNumber* everSent;
+
+@property (atomic) BOOL everSentValue;
+- (BOOL)everSentValue;
+- (void)setEverSentValue:(BOOL)value_;
+
+//- (BOOL)validateEverSent:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSString* firstName;
 
 //- (BOOL)validateFirstName:(id*)value_ error:(NSError**)error_;
@@ -60,6 +70,14 @@ extern const struct TBMFriendRelationships {
 @property (nonatomic, strong) NSString* idTbm;
 
 //- (BOOL)validateIdTbm:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSNumber* isConnectionCreator;
+
+@property (atomic) BOOL isConnectionCreatorValue;
+- (BOOL)isConnectionCreatorValue;
+- (void)setIsConnectionCreatorValue:(BOOL)value_;
+
+//- (BOOL)validateIsConnectionCreator:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSNumber* lastIncomingVideoStatus;
 
@@ -135,6 +153,12 @@ extern const struct TBMFriendRelationships {
 - (NSString*)primitiveCkey;
 - (void)setPrimitiveCkey:(NSString*)value;
 
+- (NSNumber*)primitiveEverSent;
+- (void)setPrimitiveEverSent:(NSNumber*)value;
+
+- (BOOL)primitiveEverSentValue;
+- (void)setPrimitiveEverSentValue:(BOOL)value_;
+
 - (NSString*)primitiveFirstName;
 - (void)setPrimitiveFirstName:(NSString*)value;
 
@@ -146,6 +170,12 @@ extern const struct TBMFriendRelationships {
 
 - (NSString*)primitiveIdTbm;
 - (void)setPrimitiveIdTbm:(NSString*)value;
+
+- (NSNumber*)primitiveIsConnectionCreator;
+- (void)setPrimitiveIsConnectionCreator:(NSNumber*)value;
+
+- (BOOL)primitiveIsConnectionCreatorValue;
+- (void)setPrimitiveIsConnectionCreatorValue:(BOOL)value_;
 
 - (NSNumber*)primitiveLastIncomingVideoStatus;
 - (void)setPrimitiveLastIncomingVideoStatus:(NSNumber*)value;

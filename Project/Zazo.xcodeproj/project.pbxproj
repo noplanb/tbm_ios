@@ -341,7 +341,7 @@
 			outputFiles = (
 				"$(DERIVED_FILE_DIR)/$(INPUT_FILE_BASE).mom",
 			);
-			script = "echo \"Running mogen\"\n\"${PROJECT_DIR}/Zazo/Vendor/HandyMogenerator/mogend.sh\"";
+			script = "echo \"Running mogen\"\n\"${PROJECT_DIR}/Zazo/Vendor/ANODA/ANHandyMogenerator/mogend.sh\"";
 		};
 		07F0ED831B8CE79300036AB2 /* PBXBuildRule */ = {
 			isa = PBXBuildRule;
@@ -351,7 +351,7 @@
 			outputFiles = (
 				"$(DERIVED_FILE_DIR)/$(INPUT_FILE_BASE).mom",
 			);
-			script = "echo \"Running mogen\"\n\"${PROJECT_DIR}/Zazo/Vendor/HandyMogenerator/mogen.sh\"";
+			script = "echo \"Running mogen\"\n\"${PROJECT_DIR}/Zazo/Vendor/ANODA/ANHandyMogenerator/mogen.sh\"";
 		};
 /* End PBXBuildRule section */
 

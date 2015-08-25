@@ -12,9 +12,11 @@
 
 const struct TBMFriendAttributes TBMFriendAttributes = {
 	.ckey = @"ckey",
+	.everSent = @"everSent",
 	.firstName = @"firstName",
 	.hasApp = @"hasApp",
 	.idTbm = @"idTbm",
+	.isConnectionCreator = @"isConnectionCreator",
 	.lastIncomingVideoStatus = @"lastIncomingVideoStatus",
 	.lastName = @"lastName",
 	.lastVideoStatusEventType = @"lastVideoStatusEventType",
@@ -57,8 +59,18 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
+	if ([key isEqualToString:@"everSentValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"everSent"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"hasAppValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"hasApp"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"isConnectionCreatorValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"isConnectionCreator"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -88,6 +100,26 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
 
 @dynamic ckey;
 
+@dynamic everSent;
+
+- (BOOL)everSentValue {
+	NSNumber *result = [self everSent];
+	return [result boolValue];
+}
+
+- (void)setEverSentValue:(BOOL)value_ {
+	[self setEverSent:@(value_)];
+}
+
+- (BOOL)primitiveEverSentValue {
+	NSNumber *result = [self primitiveEverSent];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveEverSentValue:(BOOL)value_ {
+	[self setPrimitiveEverSent:@(value_)];
+}
+
 @dynamic firstName;
 
 @dynamic hasApp;
@@ -111,6 +143,26 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
 }
 
 @dynamic idTbm;
+
+@dynamic isConnectionCreator;
+
+- (BOOL)isConnectionCreatorValue {
+	NSNumber *result = [self isConnectionCreator];
+	return [result boolValue];
+}
+
+- (void)setIsConnectionCreatorValue:(BOOL)value_ {
+	[self setIsConnectionCreator:@(value_)];
+}
+
+- (BOOL)primitiveIsConnectionCreatorValue {
+	NSNumber *result = [self primitiveIsConnectionCreator];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveIsConnectionCreatorValue:(BOOL)value_ {
+	[self setPrimitiveIsConnectionCreator:@(value_)];
+}
 
 @dynamic lastIncomingVideoStatus;
 
