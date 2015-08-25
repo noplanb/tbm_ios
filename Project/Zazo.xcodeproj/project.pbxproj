@@ -1383,8 +1383,8 @@
 		07F0EAF41B8CD8BE00036AB2 /* Persistenсe */ = {
 			isa = PBXGroup;
 			children = (
-				07F0ED171B8CE71000036AB2 /* Entities */,
 				07F0ED131B8CE65400036AB2 /* tbm.xcdatamodeld */,
+				07F0ED171B8CE71000036AB2 /* Entities */,
 				07F0EAFE1B8CD8BE00036AB2 /* EntitiesMachine */,
 			);
 			path = "Persistenсe";

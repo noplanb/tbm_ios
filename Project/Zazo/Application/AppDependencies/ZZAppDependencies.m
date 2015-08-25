@@ -13,7 +13,7 @@
 
 @interface ZZAppDependencies ()
 
-@property (nonatomic, strong) ZZRootWireframe * rootWireframe;
+@property (nonatomic, strong) ZZRootWireframe* rootWireframe;
 
 @end
 
@@ -46,7 +46,6 @@
 
 - (void)installAppDependences
 {
-    
     
 }
 
