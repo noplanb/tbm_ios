@@ -2,7 +2,7 @@
 //  ANSystemSettingsManager.m
 //  Zazo
 //
-//  Created by Oksana Kovalchuk on 3/18/14.
+//  Created by ANODA on 3/18/14.
 //  Copyright (c) 2014 ANODA. All rights reserved.
 //
 

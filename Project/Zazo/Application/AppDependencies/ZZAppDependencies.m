@@ -2,13 +2,14 @@
 //  ZZAppDependencies.m
 //  Zazo
 //
-//  Created by Oksana Kovalchuk on 7/29/15.
+//  Created by ANODA on 7/29/15.
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
 #import "ZZAppDependencies.h"
 #import "ZZRootWireframe.h"
 #import "ANAppColorTheme.h"
+#import "ZZAppDependecesInjection.h"
 
 @interface ZZAppDependencies ()
 
@@ -43,12 +44,19 @@
 
 }
 
+- (void)installAppDependences
+{
+    
+    
+}
 
 #pragma mark - Push
 
 - (void)handleApplicationDidRegisterForPushWithToken:(NSData *)token
 {
-
+    ZZAppDependecesInjection* injection = [ZZAppDependecesInjection new];
+    [injection configureTyphoon];
+    
 }
 
 - (void)handleApplication:(UIApplication *)application didRecievePushNotification:(NSDictionary *)userInfo

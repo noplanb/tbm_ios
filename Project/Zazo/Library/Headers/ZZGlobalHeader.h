@@ -1,13 +1,14 @@
 //
 //  ANGlobalHeader
 //
-//  Created by Oksana Kovalchuk on 2/2/14.
+//  Created by ANODA on 2/2/14.
 //  Copyright (c) 2014 ANODA. All rights reserved.
 //
 
 //#define DEBUG_CONTROLLER
 
 #define HTTPLog
+//#define DEBUG_LOGIN_USER
 
 //helpers
 
@@ -41,6 +42,8 @@
 #import "UIImage+ANAdditions.h"
 
 
+//TODO:
+
 #define DEBUG_MODE
 #ifdef DEBUG_MODE
 #define DebugLog( s, ... ) NSLog( @"<%@:(%d)> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
@@ -54,3 +57,4 @@
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
+

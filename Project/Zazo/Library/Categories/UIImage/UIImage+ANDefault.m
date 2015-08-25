@@ -2,7 +2,7 @@
 //  UIImage+ANDefault.m
 //  Zazo
 //
-//  Created by Oksana Kovalchuk on 3/7/15.
+//  Created by ANODA on 3/7/15.
 //  Copyright (c) 2015 Oksana Kovalchuk. All rights reserved.
 //
 

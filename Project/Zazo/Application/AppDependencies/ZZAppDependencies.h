@@ -2,7 +2,7 @@
 //  ZZAppDependencies.h
 //  Zazo
 //
-//  Created by Oksana Kovalchuk on 7/29/15.
+//  Created by ANODA on 7/29/15.
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
@@ -21,5 +21,6 @@
 didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings;
 
 - (void)installRootViewControllerIntoWindow:(UIWindow *)window;
+- (void)installAppDependences;
 
 @end
