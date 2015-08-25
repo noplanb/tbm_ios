@@ -55,7 +55,6 @@
 {
     ZZAppDependecesInjection* injection = [ZZAppDependecesInjection new];
     [injection configureTyphoon];
-    
 }
 
 - (void)handleApplication:(UIApplication *)application didRecievePushNotification:(NSDictionary *)userInfo

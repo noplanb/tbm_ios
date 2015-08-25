@@ -10,6 +10,18 @@
 #import "ANDebugVC.h"
 #import "ZZAuthWireframe.h"
 #import "ZZSecretScreenWireframe.h"
+//TODO: to remove
+#import "TBMRegisterViewController.h"
+#import "TBMHomeViewController.h"
+#import "TBMDependencies.h"
+#import "TBMUser.h"
+#import "TBMS3CredentialsManager.h"
+
+@interface ZZRootWireframe ()
+
+@property (nonatomic, strong) TBMDependencies* dependencies;
+
+@end
 
 @implementation ZZRootWireframe
 
@@ -17,15 +29,27 @@
 {
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     window.backgroundColor = [UIColor whiteColor];
-   ZZSecretScreenWireframe* secretScreenWireframe = [ZZSecretScreenWireframe new];
+    ZZSecretScreenWireframe* secretScreenWireframe = [ZZSecretScreenWireframe new];
     [secretScreenWireframe startSecretScreenObserveWithType:ZZNavigationBarLeftRightObserveType withWindow:window];
     
 #ifdef DEBUG_CONTROLLER
     UIViewController* vc = [ANDebugVC new];
     [self showRootController:vc inWindow:window];
 #else
-    ZZAuthWireframe* wireframe = [ZZAuthWireframe new];
-    [wireframe presentAuthControllerFromWindow:window];
+//    ZZAuthWireframe* wireframe = [ZZAuthWireframe new];
+//    [wireframe presentAuthControllerFromWindow:window];
+    
+    TBMUser *user = [TBMUser getUser];
+    if (!user.isRegistered)
+    {
+        window.rootViewController = [self registerViewController];
+    }
+    else
+    {
+        window.rootViewController = (UIViewController*)[self homeViewController];
+        [self postRegistrationBoot];
+    }
+    
 #endif
     
 }
@@ -35,6 +59,40 @@
     UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:vc];
     window.rootViewController = nc;
 //    [wireframe startSecretScreenObservingWithFirstTouchDelay:2 WithType:ZZNavigationBarLeftRightObserveType withWindow:window];
+}
+
+
+#pragma mark - Old
+
+- (void)postRegistrationBoot
+{
+    [TBMS3CredentialsManager refreshFromServer:nil];
+}
+
+- (UIStoryboard *)storyBoard
+{
+    return [UIStoryboard storyboardWithName:@"TBM" bundle: nil];
+}
+
+- (TBMRegisterViewController *)registerViewController
+{
+    return [[self storyBoard] instantiateViewControllerWithIdentifier:@"RegisterViewController"];;
+}
+
+- (TBMHomeViewController *)homeViewController
+{
+    TBMHomeViewController* vc = [[self storyBoard] instantiateViewControllerWithIdentifier:@"HomeViewController"];
+    [self.dependencies setupDependenciesWithHomeViewController:vc];
+    return vc;
+}
+
+- (TBMDependencies *)dependecies
+{
+    if (!_dependencies)
+    {
+        _dependencies = [[TBMDependencies alloc] init];
+    }
+    return _dependencies;
 }
 
 @end

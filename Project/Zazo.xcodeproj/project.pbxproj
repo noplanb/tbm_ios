@@ -2811,7 +2811,6 @@
 				682D6B6628FB4DF0C409BDA8 /* TBMBenchTableViewCell.h */,
 				682D6DC566D9403E2D40869C /* TBMBenchTableViewCell.m */,
 				682D6F5803102635CD982C93 /* UIWidgets */,
-				682D6A9015FBE29E9B00466F /* Images */,
 				682D6CF49331B07346506AF0 /* AppDelegate */,
 				682D646762033C5CFB7C22A2 /* Controllers */,
 				682D6DD718A6227361D7B663 /* Registration */,
@@ -2904,13 +2903,6 @@
 				682D6888CADA855406BEAFE8 /* TBMFileUtils.m */,
 			);
 			name = Utils;
-			sourceTree = "<group>";
-		};
-		682D6A9015FBE29E9B00466F /* Images */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Images;
 			sourceTree = "<group>";
 		};
 		682D6B195F63F838F771AED5 /* Supporting Files */ = {
