@@ -179,7 +179,6 @@
 		07F0ED7E1B8CE73F00036AB2 /* NotificationTone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07F0ED541B8CE73F00036AB2 /* NotificationTone.wav */; };
 		07F0ED7F1B8CE73F00036AB2 /* single_ding_chimes.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07F0ED551B8CE73F00036AB2 /* single_ding_chimes.wav */; };
 		07F0ED801B8CE73F00036AB2 /* single_ding_chimes2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07F0ED561B8CE73F00036AB2 /* single_ding_chimes2.wav */; };
-		07F0ED811B8CE73F00036AB2 /* TBM.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07F0ED571B8CE73F00036AB2 /* TBM.storyboard */; };
 		2208E8A81A1419D400150C35 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208E8A61A1419D400150C35 /* AddressBook.framework */; };
 		2208E8A91A1419D400150C35 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208E8A71A1419D400150C35 /* AddressBookUI.framework */; };
 		220E90291909A18B003C4F82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E90281909A18B003C4F82 /* Foundation.framework */; };
@@ -681,7 +680,6 @@
 		07F0ED541B8CE73F00036AB2 /* NotificationTone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = NotificationTone.wav; sourceTree = "<group>"; };
 		07F0ED551B8CE73F00036AB2 /* single_ding_chimes.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = single_ding_chimes.wav; sourceTree = "<group>"; };
 		07F0ED561B8CE73F00036AB2 /* single_ding_chimes2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = single_ding_chimes2.wav; sourceTree = "<group>"; };
-		07F0ED571B8CE73F00036AB2 /* TBM.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TBM.storyboard; sourceTree = "<group>"; };
 		2208E8A61A1419D400150C35 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		2208E8A71A1419D400150C35 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		220E90251909A18B003C4F82 /* Zazo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zazo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2695,7 +2693,6 @@
 				07F0ED541B8CE73F00036AB2 /* NotificationTone.wav */,
 				07F0ED551B8CE73F00036AB2 /* single_ding_chimes.wav */,
 				07F0ED561B8CE73F00036AB2 /* single_ding_chimes2.wav */,
-				07F0ED571B8CE73F00036AB2 /* TBM.storyboard */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -3347,7 +3344,6 @@
 				07F0ED591B8CE73F00036AB2 /* DK Crayon Crumble.ttf in Resources */,
 				07F0ECF41B8CD8BF00036AB2 /* mogen.sh in Resources */,
 				07F0ECF01B8CD8BF00036AB2 /* human.h.motemplate in Resources */,
-				07F0ED811B8CE73F00036AB2 /* TBM.storyboard in Resources */,
 				07F0ECF21B8CD8BF00036AB2 /* machine.h.motemplate in Resources */,
 				07F0ECF51B8CD8BF00036AB2 /* mogend.sh in Resources */,
 				07F0ECF31B8CD8BF00036AB2 /* machine.m.motemplate in Resources */,

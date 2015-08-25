@@ -50,12 +50,9 @@
 
 + (NSString *)markerWithFriend:(ZZFriendDomainModel *)friend videoId:(NSString *)videoId isUpload:(BOOL)isUpload
 {
-    
-      return [ZZStringUtils jsonWithDictionary: @{
-                                                 kVideoUtilsFriendIdKey : friend.idTbm,
-                                                 kVideoUtilsVideoIdKey : videoId,
-                                                 kIsUploadKey : [NSNumber numberWithBool:isUpload]
-                                                 }];
+    return [ZZStringUtils jsonWithDictionary: @{kVideoUtilsFriendIdKey : friend.idTbm,
+                                                kVideoUtilsVideoIdKey : videoId,
+                                                kIsUploadKey : [NSNumber numberWithBool:isUpload]}];
 }
 
 + (NSString *) markerWithVideo:(ZZVideoDomainModel *)video isUpload:(BOOL)isUpload

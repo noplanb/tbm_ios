@@ -10,12 +10,9 @@
 
 @implementation ZZConfig
 
-
 + (NSURL *)videosDirectoryUrl
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
 }
-
-
 
 @end

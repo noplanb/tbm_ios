@@ -13,18 +13,18 @@
 * Application name
 */
 
-static NSString *CONFIG_APP_NAME = @"Zazo";
+static NSString *CONFIG_APP_NAME = @"Zazo"; // from info.plist
 
 /** * * *
 * Server configuration
 */
-
+//moved
 typedef NS_ENUM(NSUInteger, TBMConfigServerState) {
     TBMServerStateProduction = 0,
     TBMServerStateDeveloper = 1,
     TBMServerStateCustom = 2,
 };
-
+//moved
 static NSString *kTBMConfigServerStateKey = @"kTBMConfigServerStateKey"; //User defaults key for server (default is 0)
 static NSString *kTBMConfigCustomServerURLKey = @"kTBMConfigCustomServerURLKey"; //User defaults key for custom server url
 static NSString *kTBMServers[3] = {@"http://prod.zazoapp.com", @"http://staging.zazoapp.com"};
@@ -38,6 +38,7 @@ typedef NS_ENUM(NSUInteger, TBMConfigDebugMode) {
 };
 static NSString *kTBMConfigDebugModeKey = @"kTBMConfigDebugModeKey"; //User defaults key for debug mode
 
+// from info.plist
 static NSString *CONFIG_VERSION_NUMBER = @"36";
 static NSString *CONFIG_VERSION_STRING = @"2.3.1";
 

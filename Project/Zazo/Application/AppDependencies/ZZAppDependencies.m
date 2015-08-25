@@ -27,6 +27,9 @@
 - (void)initialApplicationSetup:(UIApplication *)application launchOptions:(NSDictionary *)options
 {
     [ZZColorTheme shared];
+    
+    ZZAppDependecesInjection* injection = [ZZAppDependecesInjection new];
+    [injection configureTyphoon];
 }
 
 - (BOOL)handleOpenURL:(NSURL*)url inApplication:(NSString*)application
@@ -53,8 +56,7 @@
 
 - (void)handleApplicationDidRegisterForPushWithToken:(NSData *)token
 {
-    ZZAppDependecesInjection* injection = [ZZAppDependecesInjection new];
-    [injection configureTyphoon];
+
 }
 
 - (void)handleApplication:(UIApplication *)application didRecievePushNotification:(NSDictionary *)userInfo

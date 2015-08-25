@@ -149,20 +149,20 @@
 //--------------------------
 // Access to viewControllers
 //--------------------------
-- (UIStoryboard *)storyBoard{
-    return [UIStoryboard storyboardWithName:@"TBM" bundle: nil];
-}
 
 - (TBMRegisterViewController *)registerViewController{
-    if (_registerViewController == nil){
-        _registerViewController = (TBMRegisterViewController *)[[self storyBoard] instantiateViewControllerWithIdentifier:@"RegisterViewController"];
+    if (_registerViewController == nil)
+    {
+        _registerViewController = [TBMRegisterViewController new];
     }
     return _registerViewController;
 }
 
-- (TBMHomeViewController *)homeViewController{
-    if (_homeViewController == nil){
-        _homeViewController = (TBMHomeViewController *)[[self storyBoard] instantiateViewControllerWithIdentifier:@"HomeViewController"];
+- (TBMHomeViewController *)homeViewController
+{
+    if (_homeViewController == nil)
+    {
+        _homeViewController = [TBMHomeViewController new];
         // TODO: need to move from here after AppDelegate will refactored
         [self.dependecies setupDependenciesWithHomeViewController:_homeViewController];
     }

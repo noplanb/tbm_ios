@@ -42,11 +42,13 @@
     TBMUser *user = [TBMUser getUser];
     if (!user.isRegistered)
     {
-        window.rootViewController = [self registerViewController];
+        window.rootViewController = [TBMRegisterViewController new];
     }
     else
     {
-        window.rootViewController = (UIViewController*)[self homeViewController];
+        TBMHomeViewController* vc = [TBMHomeViewController new];
+        [self.dependencies setupDependenciesWithHomeViewController:vc];
+        window.rootViewController = vc;
         [self postRegistrationBoot];
     }
     
@@ -67,23 +69,6 @@
 - (void)postRegistrationBoot
 {
     [TBMS3CredentialsManager refreshFromServer:nil];
-}
-
-- (UIStoryboard *)storyBoard
-{
-    return [UIStoryboard storyboardWithName:@"TBM" bundle:nil];
-}
-
-- (TBMRegisterViewController *)registerViewController
-{
-    return [[self storyBoard] instantiateViewControllerWithIdentifier:@"RegisterViewController"];;
-}
-
-- (TBMHomeViewController *)homeViewController
-{
-    TBMHomeViewController* vc = [[self storyBoard] instantiateViewControllerWithIdentifier:@"HomeViewController"];
-    [self.dependencies setupDependenciesWithHomeViewController:vc];
-    return vc;
 }
 
 - (TBMDependencies *)dependecies
