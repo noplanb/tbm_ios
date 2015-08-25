@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07243C691B8D218B008E4203 /* ANGeneralErrorLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07243C5C1B8D218B008E4203 /* ANGeneralErrorLocalizable.strings */; };
+		07243C6A1B8D218B008E4203 /* ANServerErrorLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07243C5D1B8D218B008E4203 /* ANServerErrorLocalizable.strings */; };
+		07243C6B1B8D218B008E4203 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07243C5E1B8D218B008E4203 /* Localizable.strings */; };
+		07243C6C1B8D218B008E4203 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07243C601B8D218B008E4203 /* Assets.xcassets */; };
+		07243C6D1B8D218B008E4203 /* navbar_btn_add.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07243C621B8D218B008E4203 /* navbar_btn_add.pdf */; };
+		07243C6E1B8D218B008E4203 /* navbar_btn_back.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07243C631B8D218B008E4203 /* navbar_btn_back.pdf */; };
+		07243C6F1B8D218B008E4203 /* navbar_btn_close.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07243C641B8D218B008E4203 /* navbar_btn_close.pdf */; };
+		07243C701B8D218B008E4203 /* navbar_btn_done.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07243C651B8D218B008E4203 /* navbar_btn_done.pdf */; };
+		07243C711B8D218B008E4203 /* navbar_btn_edit.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07243C661B8D218B008E4203 /* navbar_btn_edit.pdf */; };
+		07243C721B8D218B008E4203 /* navbar_btn_more.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07243C671B8D218B008E4203 /* navbar_btn_more.pdf */; };
 		0732F50C1B8B93D3004FD3AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0732F5041B8B93D3004FD3AF /* InfoPlist.strings */; };
 		0732F5121B8B93D3004FD3AF /* ZazoTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */; };
 		07F0E7EF1B8CD7A900036AB2 /* KeyChainWrapperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E21B8CD7A900036AB2 /* KeyChainWrapperTests.m */; };
@@ -333,6 +343,16 @@
 /* Begin PBXFileReference section */
 		0368F3F1AC201E7765B1898F /* libPods-ZazoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZazoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Zazo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		07243C5C1B8D218B008E4203 /* ANGeneralErrorLocalizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = ANGeneralErrorLocalizable.strings; sourceTree = "<group>"; };
+		07243C5D1B8D218B008E4203 /* ANServerErrorLocalizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = ANServerErrorLocalizable.strings; sourceTree = "<group>"; };
+		07243C5E1B8D218B008E4203 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		07243C601B8D218B008E4203 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		07243C621B8D218B008E4203 /* navbar_btn_add.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = navbar_btn_add.pdf; sourceTree = "<group>"; };
+		07243C631B8D218B008E4203 /* navbar_btn_back.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = navbar_btn_back.pdf; sourceTree = "<group>"; };
+		07243C641B8D218B008E4203 /* navbar_btn_close.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = navbar_btn_close.pdf; sourceTree = "<group>"; };
+		07243C651B8D218B008E4203 /* navbar_btn_done.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = navbar_btn_done.pdf; sourceTree = "<group>"; };
+		07243C661B8D218B008E4203 /* navbar_btn_edit.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = navbar_btn_edit.pdf; sourceTree = "<group>"; };
+		07243C671B8D218B008E4203 /* navbar_btn_more.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = navbar_btn_more.pdf; sourceTree = "<group>"; };
 		0732F5051B8B93D3004FD3AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ZazoTests-Info.plist"; sourceTree = "<group>"; };
 		07F0E7E21B8CD7A900036AB2 /* KeyChainWrapperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainWrapperTests.m; sourceTree = "<group>"; };
@@ -952,6 +972,52 @@
 				682D6AC61977FE06739288A5 /* TBMConfig.m */,
 			);
 			name = Config;
+			sourceTree = "<group>";
+		};
+		07243C5A1B8D218B008E4203 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		07243C5B1B8D218B008E4203 /* Localizations */ = {
+			isa = PBXGroup;
+			children = (
+				07243C5C1B8D218B008E4203 /* ANGeneralErrorLocalizable.strings */,
+				07243C5D1B8D218B008E4203 /* ANServerErrorLocalizable.strings */,
+				07243C5E1B8D218B008E4203 /* Localizable.strings */,
+			);
+			path = Localizations;
+			sourceTree = "<group>";
+		};
+		07243C5F1B8D218B008E4203 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				07243C601B8D218B008E4203 /* Assets.xcassets */,
+				07243C611B8D218B008E4203 /* navbar */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		07243C611B8D218B008E4203 /* navbar */ = {
+			isa = PBXGroup;
+			children = (
+				07243C621B8D218B008E4203 /* navbar_btn_add.pdf */,
+				07243C631B8D218B008E4203 /* navbar_btn_back.pdf */,
+				07243C641B8D218B008E4203 /* navbar_btn_close.pdf */,
+				07243C651B8D218B008E4203 /* navbar_btn_done.pdf */,
+				07243C661B8D218B008E4203 /* navbar_btn_edit.pdf */,
+				07243C671B8D218B008E4203 /* navbar_btn_more.pdf */,
+			);
+			path = navbar;
+			sourceTree = "<group>";
+		};
+		07243C681B8D218B008E4203 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 		0732F5031B8B93D3004FD3AF /* ZazoTests */ = {
@@ -1611,40 +1677,12 @@
 		07F0EB3C1B8CD8BE00036AB2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				07F0EB3D1B8CD8BE00036AB2 /* Data */,
-				07F0EB3E1B8CD8BE00036AB2 /* Font */,
-				07F0EB3F1B8CD8BE00036AB2 /* Images */,
-				07F0EB401B8CD8BE00036AB2 /* Localizations */,
+				07243C5A1B8D218B008E4203 /* Data */,
+				07243C5B1B8D218B008E4203 /* Localizations */,
+				07243C5F1B8D218B008E4203 /* Images */,
+				07243C681B8D218B008E4203 /* Font */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		07F0EB3D1B8CD8BE00036AB2 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
-		07F0EB3E1B8CD8BE00036AB2 /* Font */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Font;
-			sourceTree = "<group>";
-		};
-		07F0EB3F1B8CD8BE00036AB2 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Images;
-			sourceTree = "<group>";
-		};
-		07F0EB401B8CD8BE00036AB2 /* Localizations */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Localizations;
 			sourceTree = "<group>";
 		};
 		07F0EB411B8CD8BE00036AB2 /* UserStory */ = {
@@ -3340,22 +3378,32 @@
 			buildActionMask = 2147483647;
 			files = (
 				07F0ECF11B8CD8BF00036AB2 /* human.m.motemplate in Resources */,
+				07243C6D1B8D218B008E4203 /* navbar_btn_add.pdf in Resources */,
 				0732F5121B8B93D3004FD3AF /* ZazoTests-Info.plist in Resources */,
 				07F0ED591B8CE73F00036AB2 /* DK Crayon Crumble.ttf in Resources */,
 				07F0ECF41B8CD8BF00036AB2 /* mogen.sh in Resources */,
+				07243C6C1B8D218B008E4203 /* Assets.xcassets in Resources */,
+				07243C6A1B8D218B008E4203 /* ANServerErrorLocalizable.strings in Resources */,
+				07243C6B1B8D218B008E4203 /* Localizable.strings in Resources */,
 				07F0ECF01B8CD8BF00036AB2 /* human.h.motemplate in Resources */,
 				07F0ECF21B8CD8BF00036AB2 /* machine.h.motemplate in Resources */,
 				07F0ECF51B8CD8BF00036AB2 /* mogend.sh in Resources */,
 				07F0ECF31B8CD8BF00036AB2 /* machine.m.motemplate in Resources */,
+				07243C721B8D218B008E4203 /* navbar_btn_more.pdf in Resources */,
 				07F0ED5A1B8CE73F00036AB2 /* head.png in Resources */,
 				07F0ED7D1B8CE73F00036AB2 /* Images.xcassets in Resources */,
+				07243C691B8D218B008E4203 /* ANGeneralErrorLocalizable.strings in Resources */,
 				07F0ED071B8CD8BF00036AB2 /* TOWebViewControllerLocalizable.strings in Resources */,
 				07F0ED7E1B8CE73F00036AB2 /* NotificationTone.wav in Resources */,
 				07F0ED7F1B8CE73F00036AB2 /* single_ding_chimes.wav in Resources */,
 				07F0ED581B8CE73F00036AB2 /* BeepSin30.wav in Resources */,
+				07243C701B8D218B008E4203 /* navbar_btn_done.pdf in Resources */,
 				07F0ED801B8CE73F00036AB2 /* single_ding_chimes2.wav in Resources */,
 				0732F50C1B8B93D3004FD3AF /* InfoPlist.strings in Resources */,
 				682D653D7210EB240C8913AE /* InfoPlist.strings in Resources */,
+				07243C711B8D218B008E4203 /* navbar_btn_edit.pdf in Resources */,
+				07243C6F1B8D218B008E4203 /* navbar_btn_close.pdf in Resources */,
+				07243C6E1B8D218B008E4203 /* navbar_btn_back.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

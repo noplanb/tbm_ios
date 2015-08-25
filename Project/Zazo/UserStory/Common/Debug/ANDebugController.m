@@ -39,9 +39,13 @@ typedef NS_ENUM(NSInteger, ANSections)
 
 - (void)_setupStorage
 {
-    [self.memoryStorage addItems:@[@"Auth Module",
+    [self.memoryStorage addItems:@[
+                                   @"Auth Module",
                                    @"Grid Module",
-                                   @""]];
+                                   @"Secret Module",
+                                   @"State Module",
+                                   @"Menu Module"
+                                   ]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
