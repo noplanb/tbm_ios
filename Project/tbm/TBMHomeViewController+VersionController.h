@@ -12,5 +12,5 @@
 @interface TBMHomeViewController (VersionController) <TBMVersionHandlerDelegate, UIAlertViewDelegate>
 
 - (void)versionCheckCallback:(NSString *)response;
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
+
 @end

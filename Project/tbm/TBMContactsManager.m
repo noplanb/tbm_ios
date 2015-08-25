@@ -62,7 +62,8 @@
         return nil;
 }
 
-- (NSDictionary *)contactWithFullname:(NSString *)fullname{
+- (NSDictionary *)contactWithFullname:(NSString *)fullname
+{
     if ([self setup]){
         NSMutableDictionary *r = [self.contactsDirectory objectForKey:fullname];
         NSSet *phonesSet = [r objectForKey:kContactsManagerPhonesSetKey];
@@ -112,7 +113,7 @@
     
     OB_INFO(@"ContactsManager: setting up");
     [self setPeople];
-    //[self sortPeople];
+
     [self loadContactsDirectory];
     [self setFullnamesHavingPhone];
     self.isSetup = YES;
@@ -220,11 +221,6 @@
         [result addObject:entry];
     }
     return result;
-}
-
-- (void)sortPeople{
-    _sortedPeople = CFArrayCreateMutableCopy(kCFAllocatorDefault, CFArrayGetCount(_allPeople), _allPeople);
-    CFArraySortValues(_sortedPeople, CFRangeMake(0,CFArrayGetCount(_allPeople)), (CFComparatorFunction)ABPersonComparePeopleByName,(void *)ABPersonGetSortOrdering());
 }
 
 - (void)printPhones{

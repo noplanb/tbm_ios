@@ -17,7 +17,7 @@ SpecBegin(ZZAccountTransportService)
 describe(@"ZZAccountTransportService", ^{
     
     __block ZZUserDomainModel* user;
-    __block NSDictionary* resultDict;
+//    __block NSDictionary* resultDict;
     
     beforeAll(^{
         user = [ZZUserDomainModel new];

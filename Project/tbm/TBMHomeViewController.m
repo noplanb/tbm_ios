@@ -17,12 +17,12 @@
 #import "TBMEventsFlowModulePresenter.h"
 
 @interface TBMHomeViewController ()
-@property(nonatomic) TBMAppDelegate *appDelegate;
-@property(nonatomic) TBMBenchViewController *benchViewController;
-@property(nonatomic) UIView *overlayBackgroundView;
-@property UIView *headerView;
-@property UIView *contentView;
-@property(nonatomic, strong) UIView *logoView;
+@property (nonatomic) TBMAppDelegate *appDelegate;
+@property (nonatomic) TBMBenchViewController *benchViewController;
+@property (nonatomic) UIView *overlayBackgroundView;
+@property (nonatomic, strong) UIView *headerView;
+@property (nonatomic, strong) UIView *contentView;
+@property (nonatomic, strong) UIView *logoView;
 
 @property(nonatomic, strong) UIView *menuButton;
 @property(nonatomic) BOOL isPlaying;

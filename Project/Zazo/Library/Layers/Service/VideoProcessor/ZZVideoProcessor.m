@@ -56,7 +56,7 @@ NSString* const kVideoProcessorErrorReason = @"Problem processing video";
 - (void)didFinishConvertingToMpeg4 {
     if (self.exportSession.status != AVAssetExportSessionStatusCompleted)
     {
-        NSString *description = [NSString stringWithFormat:@"export session completed with non complete status: %d  error: %@", self.exportSession.status, self.exportSession.error];
+        NSString *description = [NSString stringWithFormat:@"export session completed with non complete status: %ld  error: %@", (long)self.exportSession.status, self.exportSession.error];
         NSError *error = [self videoProcessorErrorWithMethod:@"didFinishConvertingToMpeg4" description:description];
         [self handleError:error];
         return;
@@ -97,7 +97,7 @@ NSString* const kVideoProcessorErrorReason = @"Problem processing video";
 - (void) logFileSize:(NSURL *)url
 {
     NSError *dontCareError = nil;
-    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:url.path error:&dontCareError];
+    [[NSFileManager defaultManager] attributesOfItemAtPath:url.path error:&dontCareError];
     // TODO: remove this method if we don't need log file size
 }
 

@@ -66,7 +66,7 @@ BOOL containID(NSString *fileName, NSString *fileId) {
         NSMutableArray *incomingObjects = [@[] mutableCopy];
         for (TBMVideo *video in friend.videos) {
             videoObject = [TBMVideoObject makeVideoObjectWithVideoID:video.videoId
-                                                              status:incoming_status(video.status)];
+                                                              status:incoming_status(video.statusValue)];
             if (videoObject) {
                 [incomingObjects addObject:videoObject];
                 [self.notDanglingFiles addObject:video.videoId];
@@ -77,7 +77,7 @@ BOOL containID(NSString *fileName, NSString *fileId) {
         // Make outgoing object
 
         videoObject = [TBMVideoObject makeVideoObjectWithVideoID:friend.outgoingVideoId
-                                                          status:outgoing_status(friend.outgoingVideoStatus)];
+                                                          status:outgoing_status(friend.outgoingVideoStatusValue)];
         if (videoObject) {
             information.outgoingObjects = @[videoObject];
             [self.notDanglingFiles addObject:friend.outgoingVideoId];

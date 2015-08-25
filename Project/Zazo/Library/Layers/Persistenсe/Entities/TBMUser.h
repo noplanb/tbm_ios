@@ -10,9 +10,6 @@
 
 @interface TBMUser : _TBMUser
 
-//Added in v2
-@property (nonatomic, retain) NSNumber* isInvitee; // TODO:
-
 + (instancetype)getUser;
 + (instancetype)createWithServerParams:(NSDictionary *)params;
 + (NSString *)phoneRegion;

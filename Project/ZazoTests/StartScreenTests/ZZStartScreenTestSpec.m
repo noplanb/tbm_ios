@@ -17,7 +17,7 @@ SpecBegin(ZZStartScreenTest)
 
 describe(@"ZZStartScreenTest", ^{
     __block ZZAuthWireframe* wireframe;
-    __block ZZAuthVC* vc;
+//    __block ZZAuthVC* vc;
     beforeAll(^{
         UIWindow* window = [UIApplication sharedApplication].keyWindow;
         wireframe  = [ZZAuthWireframe new];

@@ -24,17 +24,20 @@
     OB_INFO(@"Boot");
     [TBMDispatch enable];
     TBMUser *user = [TBMUser getUser];
-    if (!user.isRegistered) {
+    if (!user.isRegistered)
+    {
         self.window.rootViewController = [self registerViewController];
-    } else {
-        self.window.rootViewController = [self homeViewController];
+    }
+    else
+    {
+        self.window.rootViewController = (UIViewController*)[self homeViewController];
         [self postRegistrationBoot];
     }
 }
 
 - (void)didCompleteRegistration {
     OB_INFO(@"didCompleteRegistration");
-    [[self registerViewController] presentViewController:[self homeViewController] animated:YES completion:nil];
+    [[self registerViewController] presentViewController:(UIViewController*)[self homeViewController] animated:YES completion:nil];
     [self postRegistrationBoot];
     [self performDidBecomeActiveActions];
 }
@@ -44,7 +47,7 @@
 }
 
 - (void)performDidBecomeActiveActions {
-    OB_INFO(@"performDidBecomeActiveActions: registered: %d", [TBMUser getUser].isRegistered);
+    OB_INFO(@"performDidBecomeActiveActions: registered: %d", [[TBMUser getUser].isRegistered boolValue]);
     if (![TBMUser getUser].isRegistered)
         return;
 

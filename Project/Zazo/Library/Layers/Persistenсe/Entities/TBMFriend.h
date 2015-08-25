@@ -35,10 +35,6 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
     OUTGOING_VIDEO_STATUS_EVENT_TYPE
 };
 
-// Added in v2
-@property (nonatomic, retain) NSNumber * everSent;
-@property (nonatomic, retain) NSNumber * isConnectionCreator;
-
 // Finders
 + (NSArray *)all;
 + (NSUInteger)allUnviewedCount;

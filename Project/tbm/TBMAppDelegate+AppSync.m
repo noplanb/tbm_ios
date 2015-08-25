@@ -207,7 +207,7 @@
 }
 
 - (void)pollVideoStatusWithFriend:(TBMFriend *)friend {
-    if (friend.outgoingVideoStatus == OUTGOING_VIDEO_STATUS_VIEWED) {
+    if (friend.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED) {
         OB_INFO(@"pollVideoStatusWithFriend: skipping %@ becuase outgoing status is viewed.", friend.firstName);
         return;
     }
