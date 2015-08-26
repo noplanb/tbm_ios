@@ -6,11 +6,20 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import "ZZPushedSecretScreenTypes.h"
-
 @protocol ZZSecretScreenModuleInterface <NSObject>
 
-- (void)dismissSecretController;
-- (void)presentPushedViewControllerWithType:(ZZPushedScreenType)type;
+- (void)dismissController;
+
+#pragma mark - Events
+
+- (void)forceCrash;
+- (void)resetHints;
+- (void)dispatchData;
+- (void)presentLogsController;
+- (void)presentStateController;
+
+- (void)updateDebugModeStateTo:(BOOL)isEnabled;
+- (void)updateServerStateTo:(NSInteger)state; // TODO: enum
+- (void)updateCustomServerEnpointValueTo:(NSString*)value;
 
 @end

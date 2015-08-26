@@ -35,7 +35,6 @@ static NSInteger const kDebugSwitchHeight = 40;
         [self buttonView];
         self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endEditing)];
         [self addGestureRecognizer:self.tapRecognizer];
-        
     }
     return self;
 }
@@ -53,7 +52,6 @@ static NSInteger const kDebugSwitchHeight = 40;
             make.height.equalTo(@(secretLabelInfoHeight()));
         }];
     }
-    
     return _labelsInfoView;
 }
 
@@ -74,9 +72,7 @@ static NSInteger const kDebugSwitchHeight = 40;
             make.right.equalTo(self).with.offset(-labelLeftPadding());
             make.height.equalTo(@(segmentControllHeight()));
         }];
-        
     }
-    
     return _serverTypeControl;
 }
 
@@ -93,9 +89,7 @@ static NSInteger const kDebugSwitchHeight = 40;
             make.left.equalTo(self).with.offset(labelLeftPadding());
             make.top.equalTo(self.serverTypeControl.mas_bottom).with.offset(debugModeLabelTopPadding());
         }];
-        
     }
-    
     return _debugLabel;
 }
 
@@ -113,7 +107,6 @@ static NSInteger const kDebugSwitchHeight = 40;
             make.height.equalTo(@(kDebugSwitchHeight));
         }];
     }
-    
     return _debugModeSwitch;
 }
 
@@ -131,7 +124,6 @@ static NSInteger const kDebugSwitchHeight = 40;
             make.right.equalTo(self.serverTypeControl.mas_right);
         }];
     }
-    
     return _buttonView;
 }
 

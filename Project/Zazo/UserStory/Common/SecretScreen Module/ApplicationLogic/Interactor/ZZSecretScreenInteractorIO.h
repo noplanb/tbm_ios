@@ -8,13 +8,19 @@
 
 @protocol ZZSecretScreenInteractorInput <NSObject>
 
-
+- (void)loadData;
+- (void)forceCrash;
+- (void)dispatchData;
+- (void)resetHints;
+- (void)updateServerStateTo:(NSInteger)state;
+- (void)updateDebugStateTo:(BOOL)isEnabled;
+- (void)updateCustomServerEnpointValueTo:(NSString *)value;
 
 @end
 
 
 @protocol ZZSecretScreenInteractorOutput <NSObject>
 
-
+- (void)dataLoaded:(id)data; // TODO: model type
 
 @end

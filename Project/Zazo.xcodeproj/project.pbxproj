@@ -518,7 +518,6 @@
 		07F0EB871B8CD8BE00036AB2 /* ZZTouchControllerWithoutDelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZTouchControllerWithoutDelay.m; sourceTree = "<group>"; };
 		07F0EB8A1B8CD8BE00036AB2 /* ZZSecretScreenNavigationTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenNavigationTheme.h; sourceTree = "<group>"; };
 		07F0EB8B1B8CD8BE00036AB2 /* ZZSecretScreenNavigationTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretScreenNavigationTheme.m; sourceTree = "<group>"; };
-		07F0EB8D1B8CD8BE00036AB2 /* ZZPushedSecretScreenTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPushedSecretScreenTypes.h; sourceTree = "<group>"; };
 		07F0EB8E1B8CD8BE00036AB2 /* ZZPushedSecretScreenVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPushedSecretScreenVC.h; sourceTree = "<group>"; };
 		07F0EB8F1B8CD8BE00036AB2 /* ZZPushedSecretScreenVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZPushedSecretScreenVC.m; sourceTree = "<group>"; };
 		07F0EB911B8CD8BE00036AB2 /* ZZSecretScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenView.h; sourceTree = "<group>"; };
@@ -1075,9 +1074,9 @@
 			isa = PBXGroup;
 			children = (
 				07F0EA861B8CD8BE00036AB2 /* Application */,
+				07F0EB411B8CD8BE00036AB2 /* UserStory */,
 				07F0EA971B8CD8BE00036AB2 /* Library */,
 				07F0EB3C1B8CD8BE00036AB2 /* Resources */,
-				07F0EB411B8CD8BE00036AB2 /* UserStory */,
 				07F0EC001B8CD8BF00036AB2 /* Vendor */,
 			);
 			path = Zazo;
@@ -1994,7 +1993,6 @@
 		07F0EB8C1B8CD8BE00036AB2 /* PushedSecretScreenVC */ = {
 			isa = PBXGroup;
 			children = (
-				07F0EB8D1B8CD8BE00036AB2 /* ZZPushedSecretScreenTypes.h */,
 				07F0EB8E1B8CD8BE00036AB2 /* ZZPushedSecretScreenVC.h */,
 				07F0EB8F1B8CD8BE00036AB2 /* ZZPushedSecretScreenVC.m */,
 			);

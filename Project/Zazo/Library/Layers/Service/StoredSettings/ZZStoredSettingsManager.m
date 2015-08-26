@@ -6,23 +6,24 @@
 //  Copyright (c) 2014 ANODA. All rights reserved.
 //
 
-static NSString* const kIntroSkipped = @"introSkipped";
+static NSString* const kZZServerEndpointStateKey = @"kTBMConfigServerStateKey";
+static NSString* const kZZServerURLStringKey = @"kTBMConfigCustomServerURLKey";
+static NSString* const kZZDebugModeEnabledKey = @"kTBMConfigDeviceDebugModeKey";
 
-static NSString *kTBMConfigServerStateKey = @"kTBMConfigServerStateKey";
-static NSString *kTBMConfigCustomServerURLKey = @"kTBMConfigCustomServerURLKey";
-static NSString *kTBMConfigDeviceDebugModeKey = @"kTBMConfigDeviceDebugModeKey";
+static NSString* const kZZHintsDidStartPlayKey = @"kMessagePlayedNSUDkey";
+static NSString* const kZZHintsDidStartRecordKey = @"kMessageRecordedNSUDkey";
 
 #import "ZZStoredSettingsManager.h"
-#import "NSDate+ANServerAdditions.h"
 #import "NSObject+ANUserDefaults.h"
 
-@interface ZZStoredSettingsManager ()
-
-@property (nonatomic, strong) NSArray* serverUrls;
-
-@end
-
 @implementation ZZStoredSettingsManager
+
+@dynamic serverURLString;
+@dynamic serverEndpointState;
+@dynamic debugModeEnabled;
+
+@dynamic hintsDidStartRecord;
+@dynamic hintsDidStartPlay;
 
 + (instancetype)shared
 {
@@ -34,64 +35,89 @@ static NSString *kTBMConfigDeviceDebugModeKey = @"kTBMConfigDeviceDebugModeKey";
     return _sharedClient;
 }
 
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self)
-    {
-        [self configureServerUrls];
-    }
-    return self;
-}
-
 - (void)cleanSettings
 {
-    //TODO:
+    self.debugModeEnabled = NO;
+    self.serverEndpointState = ZZConfigServerStateProduction;
+    self.serverURLString = nil;
+    
+    self.hintsDidStartPlay = NO;
+    self.hintsDidStartRecord = NO;
 }
 
 
-#pragma mark - Configure Server Urls
+#pragma mark - Configuration
 
-- (void)configureServerUrls
+//serverURL
+- (void)setServerURLString:(NSString *)serverURLString
 {
-    self.serverUrls = @[@"http://prod",@"http://dev"];
+    [self an_updateObject:serverURLString forKey:kZZServerURLStringKey];
 }
 
-
-
-- (void)saveSereverUrlString:(NSString* )serverUrl
+- (NSString*)serverURLString
 {
-    [self an_updateObject:serverUrl forKey:kTBMConfigCustomServerURLKey];
+    return [self an_stringForKey:kZZServerURLStringKey];
 }
 
-- (void)saveDebugMode:(BOOL)debug
+//debug mode
+- (void)setDebugModeEnabled:(BOOL)debugModeEnabled
 {
-    [self an_updateObject:[NSNumber numberWithBool:debug] forKey:kTBMConfigDeviceDebugModeKey];
+    [self an_updateBool:debugModeEnabled forKey:kZZDebugModeEnabledKey];
 }
 
-- (void)saveCurrentServerIndex:(NSInteger)index
+- (BOOL)isDebugModeEnabled
 {
-    [[self an_dataSource] setInteger:index forKey:kTBMConfigServerStateKey];
+    return [self an_boolForKey:kZZDebugModeEnabledKey];
 }
 
-- (NSString *)serverUrl
+//server endpoint
+- (void)setServerEndpointState:(ZZConfigServerState)serverEndpointState
+{
+    [self an_updateInteger:serverEndpointState forKey:kZZServerEndpointStateKey];
+}
+
+- (ZZConfigServerState)serverEndpointState
+{
+    return [self an_integerForKey:kZZServerEndpointStateKey];
+}
+
+
+#pragma mark - Hints
+
+//hints did start view
+- (void)setHintsDidStartPlay:(BOOL)hintsDidStartPlay
+{   //convension, legacy support
+    [self an_updateObject:@(hintsDidStartPlay) forKey:kZZHintsDidStartPlayKey];
+}
+
+- (BOOL)hintsDidStartPlay
+{
+    return [[self an_objectForKey:kZZHintsDidStartPlayKey] boolValue];
+}
+
+//hints did start record
+- (void)setHintsDidStartRecord:(BOOL)hintsDidStartRecord
+{   //convension, legacy support
+    [self an_updateObject:@(hintsDidStartRecord) forKey:kZZHintsDidStartRecordKey];
+}
+
+- (BOOL)hintsDidStartRecord
+{
+    return [[self an_objectForKey:kZZHintsDidStartRecordKey] boolValue];
+}
+
+
+#pragma mark - Loading
+
+- (NSString*)serverURLStringTest
 {
     NSString* serverSrting;
-    NSInteger serverState = [[self an_dataSource] integerForKey:kTBMConfigServerStateKey];
-    NSString* customServerUrl = [[self an_dataSource] objectForKey:kTBMConfigCustomServerURLKey];
-    serverSrting = serverState < TBMServerStateCustom ? self.serverUrls[serverState] : customServerUrl;
+    NSArray* serverURLs = @[@"http://prod.zazoapp.com", @"http://staging.zazoapp.com"]; // move to enum
+    serverSrting = self.serverEndpointState < ZZConfigServerStateCustom ?
+                   serverURLs[self.serverEndpointState] : self.serverURLString;
     
     return serverSrting;
 }
 
-- (NSInteger)serverIndex
-{
-    return [[self an_dataSource] integerForKey:kTBMConfigServerStateKey];
-}
-- (NSNumber*)isDebugEnabled
-{
-    return [[self an_dataSource] objectForKey:kTBMConfigDeviceDebugModeKey];
-}
 
 @end

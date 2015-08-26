@@ -33,6 +33,4 @@ static CGFloat const kLayerCornerRadius = 6.0;
     [super drawTextInRect:UIEdgeInsetsInsetRect(rect, insets)];
 }
 
-
-
 @end

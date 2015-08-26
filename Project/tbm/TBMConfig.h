@@ -19,11 +19,11 @@ static NSString *CONFIG_APP_NAME = @"Zazo"; // from info.plist
 * Server configuration
 */
 //moved
-typedef NS_ENUM(NSUInteger, TBMConfigServerState) {
-    TBMServerStateProduction = 0,
-    TBMServerStateDeveloper = 1,
-    TBMServerStateCustom = 2,
-};
+//typedef NS_ENUM(NSUInteger, TBMConfigServerState) {
+//    TBMServerStateProduction = 0,
+//    TBMServerStateDeveloper = 1,
+//    TBMServerStateCustom = 2,
+//};
 //moved
 static NSString *kTBMConfigServerStateKey = @"kTBMConfigServerStateKey"; //User defaults key for server (default is 0)
 static NSString *kTBMConfigCustomServerURLKey = @"kTBMConfigCustomServerURLKey"; //User defaults key for custom server url
@@ -64,7 +64,7 @@ static NSString *CONFIG_DING_SOUND = @"BeepSin30.wav";
 /**
 * Returns server state
 */
-+ (TBMConfigServerState)serverState;
+//+ (TBMConfigServerState)serverState;
 
 + (NSString *)serverURL;
 
@@ -76,7 +76,7 @@ static NSString *CONFIG_DING_SOUND = @"BeepSin30.wav";
 /**
 * Change current server state
 */
-+ (void)changeServerTo:(TBMConfigServerState)state;
+//+ (void)changeServerTo:(TBMConfigServerState)state;
 
 /**
 * Returns current device debug mode

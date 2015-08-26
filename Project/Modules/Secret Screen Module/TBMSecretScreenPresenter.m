@@ -136,15 +136,15 @@
     [self presentStateScreen];
 }
 
-- (void)serverSegmentedControlDidChangeTo:(NSInteger)index {
-    [TBMConfig changeServerTo:index];
-    [self reload];
-}
-
-- (void)setCustomServerURL:(NSString *)url {
-    [TBMConfig changeCustomServerURL:url];
-    [self reload];
-}
+//- (void)serverSegmentedControlDidChangeTo:(NSInteger)index {
+//    [TBMConfig changeServerTo:index];
+//    [self reload];
+//}
+//
+//- (void)setCustomServerURL:(NSString *)url {
+//    [TBMConfig changeCustomServerURL:url];
+//    [self reload];
+//}
 
 - (void)resetHintsButtonDidPress {
     [self.tutorialModule resetHintsState];

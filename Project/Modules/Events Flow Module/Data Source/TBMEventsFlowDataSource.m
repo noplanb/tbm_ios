@@ -39,7 +39,7 @@ NSString
     [@(state) saveUserDefaultsObjectForKey:kMessageRecordedNSUDkey];
 }
 
-// Other useful data
+//Other useful data
 - (NSUInteger)friendsCount
 {
     return [TBMFriend count];

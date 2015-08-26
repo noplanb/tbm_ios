@@ -8,22 +8,25 @@
 
 @interface ZZStoredSettingsManager : NSObject
 
-typedef NS_ENUM(NSUInteger, TBMConfigServerState) {
-    TBMServerStateProduction = 0,
-    TBMServerStateDeveloper = 1,
-    TBMServerStateCustom = 2,
+typedef NS_ENUM(NSUInteger, ZZConfigServerState) {
+    ZZConfigServerStateProduction = 0,
+    ZZConfigServerStateDeveloper = 1,
+    ZZConfigServerStateCustom = 2,
 };
 
+
+#pragma mark - Configutation
+
+@property (nonatomic, strong) NSString* serverURLString;
+@property (nonatomic, assign, getter=isDebugModeEnabled) BOOL debugModeEnabled;
+@property (nonatomic, assign) ZZConfigServerState serverEndpointState;
+
+
+#pragma mark - Hints
+
+@property (nonatomic, assign) BOOL hintsDidStartPlay;
+@property (nonatomic, assign) BOOL hintsDidStartRecord;
+
 + (instancetype)shared;
-
-- (void)cleanSettings;
-
-- (void)saveSereverUrlString:(NSString* )serverUrl;
-- (void)saveDebugMode:(BOOL)debug;
-- (void)saveCurrentServerIndex:(NSInteger)index;
-
-- (NSString *)serverUrl;
-- (NSInteger)serverIndex;
-- (NSNumber*)isDebugEnabled;
 
 @end
