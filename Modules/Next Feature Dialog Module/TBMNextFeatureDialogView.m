@@ -7,6 +7,7 @@
 #import "TBMNextFeatureDialogView.h"
 #import "TBMNextFeatureDialogPresenter.h"
 #import "TBMGridModuleInterface.h"
+#import "NSArray+TBMArrayHelpers.h"
 
 CGFloat const kDialogHeight = 50.f;
 CGFloat const kHeaderHeight = 30.f;
@@ -24,6 +25,7 @@ CGFloat const kElementsHorizontalMargin = 15.f;
 
 @property(nonatomic, weak) id <TBMDialogViewDelegate> dialogViewDelegate;
 
+@property(nonatomic, strong) NSDictionary *posibbleHeaders;
 @end
 
 @implementation TBMNextFeatureDialogView
@@ -85,6 +87,7 @@ CGFloat const kElementsHorizontalMargin = 15.f;
 
 - (void)showAnimated
 {
+    [self setupRandomHeaders];
     self.hidden = NO;
     [self setNeedsLayout];
     [self layoutIfNeeded];
@@ -101,6 +104,13 @@ CGFloat const kElementsHorizontalMargin = 15.f;
     {
         [self hideAnimated];
     }];
+}
+
+- (void)setupRandomHeaders
+{
+    NSString *header = [self.posibbleHeaders.allKeys randomObject];
+    self.headerLabel.text= header;
+    self.subHeaderLabel.text= self.posibbleHeaders[header];
 }
 
 - (void)hideAnimated
@@ -221,6 +231,24 @@ CGFloat const kElementsHorizontalMargin = 15.f;
         [self addSubview:_presentIconImage];
     }
     return _presentIconImage;
+}
+
+- (NSDictionary *)posibbleHeaders
+{
+    if (!_posibbleHeaders)
+    {
+        _posibbleHeaders = @{
+                @"What is in the box?" : @"Find out. Just Zazo someone new.",
+                @"A gift is waiting!" : @"Find out. Just Zazo someone new.",
+                @"Unlock a another feature!" : @"Just Zazo someone new.",
+                @"Surprise feature waiting" : @"Zazo someone new to unlock.",
+                @"Unlock a secret feature!" : @"Just Zazo someone new.",
+                @"Unlock a surprise!" : @"Just Zazo someone new.",
+                @"What did you win?" : @"Find out. Zazo someone new."
+
+        };
+    }
+    return _posibbleHeaders;
 }
 
 - (void)dismiss

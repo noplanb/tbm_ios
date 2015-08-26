@@ -31,9 +31,6 @@
 
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
 {
-#warning TEST PURPOSES
-    return YES;
-
     if (event != TBMEventFlowEventMessageDidSend && event != TBMEventFlowEventSentHintDidDismiss)
     {
         return NO;

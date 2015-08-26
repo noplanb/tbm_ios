@@ -17,11 +17,11 @@
 @dynamic auth;
 @dynamic firstName;
 @dynamic idTbm;
-@dynamic isInvitee;
 @dynamic isRegistered;
 @dynamic lastName;
 @dynamic mkey;
 @dynamic mobileNumber;
+@dynamic isInvitee;
 
 //==============
 // Class methods

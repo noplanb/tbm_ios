@@ -1757,7 +1757,7 @@
 				682D630089265213E0D4758A /* tbm-v2.xcdatamodel */,
 				682D682EF21A8441538ECA8A /* tbm.xcdatamodel */,
 			);
-			currentVersion = 682D682EF21A8441538ECA8A /* tbm.xcdatamodel */;
+			currentVersion = 682D630089265213E0D4758A /* tbm-v2.xcdatamodel */;
 			path = tbm.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

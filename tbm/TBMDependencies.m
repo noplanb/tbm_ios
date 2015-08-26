@@ -56,24 +56,23 @@
     /**
      * Hints
      */
-    #warning TEST PURPOSES
-//    [self.eventsFlowModule addEventHandler:self.inviteHintModule];
+    [self.eventsFlowModule addEventHandler:self.inviteHintModule];
     [self.eventsFlowModule addEventHandler:self.inviteSomeOneElseHintModule];
-//    [self.eventsFlowModule addEventHandler:self.playHintModule];
-//    [self.eventsFlowModule addEventHandler:self.recordHintModule];
-//    [self.eventsFlowModule addEventHandler:self.sentHintModule];
-//    [self.eventsFlowModule addEventHandler:self.viewedHintModule];
-//    [self.eventsFlowModule addEventHandler:self.welcomeHintModule];
-//
-//    [self.eventsFlowModule addEventHandler:self.frontCameraUsageHintModule];
-//    [self.eventsFlowModule addEventHandler:self.abortRecordUsageHintModule];
-//    [self.eventsFlowModule addEventHandler:self.earpieceUsageHintModule];
-//
-//    /**
-//     * Features
-//     */
-//    [self.eventsFlowModule addEventHandler:self.featureUnlockModule];
-//    [self.eventsFlowModule addEventHandler:self.nextFeatureModule];
+    [self.eventsFlowModule addEventHandler:self.playHintModule];
+    [self.eventsFlowModule addEventHandler:self.recordHintModule];
+    [self.eventsFlowModule addEventHandler:self.sentHintModule];
+    [self.eventsFlowModule addEventHandler:self.viewedHintModule];
+    [self.eventsFlowModule addEventHandler:self.welcomeHintModule];
+
+    [self.eventsFlowModule addEventHandler:self.frontCameraUsageHintModule];
+    [self.eventsFlowModule addEventHandler:self.abortRecordUsageHintModule];
+    [self.eventsFlowModule addEventHandler:self.earpieceUsageHintModule];
+
+    /**
+     * Features
+     */
+    [self.eventsFlowModule addEventHandler:self.featureUnlockModule];
+    [self.eventsFlowModule addEventHandler:self.nextFeatureModule];
 
 
 }
