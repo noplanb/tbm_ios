@@ -26,7 +26,7 @@
 
 - (void)dataLoaded:(ZZSettingsModel*)data
 {
-    //TODO:
+    [self.userInterface updateWithModel:data];
 }
 
 

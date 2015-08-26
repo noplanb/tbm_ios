@@ -42,7 +42,7 @@
     return _versionLabel;
 }
 
-- (UILabel *)firstNameLabel
+- (UILabel*)firstNameLabel
 {
     if (!_firstNameLabel)
     {
@@ -60,7 +60,7 @@
     return _firstNameLabel;
 }
 
-- (UILabel *)lastNameLabel
+- (UILabel*)lastNameLabel
 {
     if (!_lastNameLabel)
     {

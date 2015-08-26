@@ -73,7 +73,9 @@
     model.isDebugEnabled = manager.debugModeEnabled;
     model.serverURLString = manager.serverURLString;
     model.serverIndex = manager.serverEndpointState;
-    model.version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]; // TODO: check is it full formatted
+    NSString* version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSString* buildNumber = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    model.version = [NSString stringWithFormat:@"%@(%@)", [NSObject an_safeString:version], [NSObject an_safeString:buildNumber]];
     
     TBMUser *user = [TBMUser getUser];
     model.firstName = user.firstName;

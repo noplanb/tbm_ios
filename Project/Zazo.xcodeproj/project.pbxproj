@@ -99,7 +99,6 @@
 		07F0ECC01B8CD8BF00036AB2 /* ZZBaseTouchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB811B8CD8BE00036AB2 /* ZZBaseTouchController.m */; };
 		07F0ECC11B8CD8BF00036AB2 /* ZZTouchControllerWithTouchDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB841B8CD8BE00036AB2 /* ZZTouchControllerWithTouchDelay.m */; };
 		07F0ECC21B8CD8BF00036AB2 /* ZZTouchControllerWithoutDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB871B8CD8BE00036AB2 /* ZZTouchControllerWithoutDelay.m */; };
-		07F0ECC31B8CD8BF00036AB2 /* ZZSecretScreenNavigationTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB8B1B8CD8BE00036AB2 /* ZZSecretScreenNavigationTheme.m */; };
 		07F0ECC41B8CD8BF00036AB2 /* ZZPushedSecretScreenVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB8F1B8CD8BE00036AB2 /* ZZPushedSecretScreenVC.m */; };
 		07F0ECC51B8CD8BF00036AB2 /* ZZSecretScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB921B8CD8BE00036AB2 /* ZZSecretScreenView.m */; };
 		07F0ECC61B8CD8BF00036AB2 /* ZZSecretScreenButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB971B8CD8BE00036AB2 /* ZZSecretScreenButtonView.m */; };
@@ -516,8 +515,6 @@
 		07F0EB841B8CD8BE00036AB2 /* ZZTouchControllerWithTouchDelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZTouchControllerWithTouchDelay.m; sourceTree = "<group>"; };
 		07F0EB861B8CD8BE00036AB2 /* ZZTouchControllerWithoutDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZTouchControllerWithoutDelay.h; sourceTree = "<group>"; };
 		07F0EB871B8CD8BE00036AB2 /* ZZTouchControllerWithoutDelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZTouchControllerWithoutDelay.m; sourceTree = "<group>"; };
-		07F0EB8A1B8CD8BE00036AB2 /* ZZSecretScreenNavigationTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenNavigationTheme.h; sourceTree = "<group>"; };
-		07F0EB8B1B8CD8BE00036AB2 /* ZZSecretScreenNavigationTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretScreenNavigationTheme.m; sourceTree = "<group>"; };
 		07F0EB8E1B8CD8BE00036AB2 /* ZZPushedSecretScreenVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPushedSecretScreenVC.h; sourceTree = "<group>"; };
 		07F0EB8F1B8CD8BE00036AB2 /* ZZPushedSecretScreenVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZPushedSecretScreenVC.m; sourceTree = "<group>"; };
 		07F0EB911B8CD8BE00036AB2 /* ZZSecretScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenView.h; sourceTree = "<group>"; };
@@ -1970,7 +1967,6 @@
 		07F0EB881B8CD8BE00036AB2 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				07F0EB891B8CD8BE00036AB2 /* NavigationBarTheme */,
 				07F0EB8C1B8CD8BE00036AB2 /* PushedSecretScreenVC */,
 				07F0EB901B8CD8BE00036AB2 /* SecretScreenView */,
 				07F0EB941B8CD8BE00036AB2 /* Views */,
@@ -1979,15 +1975,6 @@
 				07F0EBA61B8CD8BE00036AB2 /* ZZSecretScreenViewInterface.h */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		07F0EB891B8CD8BE00036AB2 /* NavigationBarTheme */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EB8A1B8CD8BE00036AB2 /* ZZSecretScreenNavigationTheme.h */,
-				07F0EB8B1B8CD8BE00036AB2 /* ZZSecretScreenNavigationTheme.m */,
-			);
-			path = NavigationBarTheme;
 			sourceTree = "<group>";
 		};
 		07F0EB8C1B8CD8BE00036AB2 /* PushedSecretScreenVC */ = {
@@ -3603,7 +3590,6 @@
 				07F0ECA51B8CD8BF00036AB2 /* ZZSettingsModel.m in Sources */,
 				682D691935C754BC6EF7C915 /* TBMRegisterForm.m in Sources */,
 				07F0ECCD1B8CD8BF00036AB2 /* ZZGridInteractor.m in Sources */,
-				07F0ECC31B8CD8BF00036AB2 /* ZZSecretScreenNavigationTheme.m in Sources */,
 				682D6417DF8791E7B43DDB0C /* TBMVerfiicationAlertHandler.m in Sources */,
 				07F0ECE81B8CD8BF00036AB2 /* NSManagedObject+ANAdditions.m in Sources */,
 				682D6DAFC6F18E614D0D4239 /* NSArray+NSArrayExtensions.m in Sources */,

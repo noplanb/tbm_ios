@@ -14,7 +14,6 @@
 #import "ZZEnvelopStrategy.h"
 #import "ZZTouchControllerWithTouchDelay.h"
 #import "ZZTouchControllerWithoutDelay.h"
-#import "ZZSecretScreenNavigationTheme.h"
 #import "UINavigationBar+ANThemes.h"
 #import "ZZPushedSecretScreenVC.h"
 
@@ -27,8 +26,6 @@
 @property (nonatomic, strong) UINavigationController* presentingController;
 @property (nonatomic, strong) UIWindow* observedWindow;
 @property (nonatomic, strong) ZZBaseTouchController* touchController;
-@property (nonatomic, strong) ZZSecretScreenNavigationTheme* secretTheme;
-@property (nonatomic, strong) ZZPushedSecretScreenVC* pushedVC;
 
 @end
 
