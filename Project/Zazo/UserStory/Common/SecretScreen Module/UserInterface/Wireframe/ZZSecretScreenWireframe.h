@@ -7,7 +7,6 @@
 //
 
 #import "ZZSecretScreenObserveTypes.h"
-#import "ZZPushedSecretScreenTypes.h"
 
 @interface ZZSecretScreenWireframe : NSObject
 
@@ -17,8 +16,10 @@
 - (void)startSecretScreenObservingWithFirstTouchDelay:(CGFloat)delay
                                              withType:(ZZSecretScreenObserveType)type
                                            withWindow:(UIWindow*)window;
+
 - (void)startSecretScreenObserveWithType:(ZZSecretScreenObserveType)type withWindow:(UIWindow*)window;
 
-- (void)presentPushedSecretScreenControllerwithType:(ZZPushedScreenType)type;
+- (void)presentLogsController;
+- (void)presentStateController;
 
 @end

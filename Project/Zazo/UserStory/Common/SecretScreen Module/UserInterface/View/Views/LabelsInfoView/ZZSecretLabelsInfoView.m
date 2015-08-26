@@ -39,7 +39,6 @@
             make.height.equalTo(@(labelHeight()));
         }];
     }
-    
     return _versionLabel;
 }
 
@@ -58,9 +57,7 @@
             make.height.equalTo(self.versionLabel.mas_height);
         }];
     }
-    
     return _firstNameLabel;
-    
 }
 
 - (UILabel *)lastNameLabel
@@ -78,7 +75,6 @@
             make.height.equalTo(self.versionLabel.mas_height);
         }];
     }
-    
     return _lastNameLabel;
 }
 
@@ -96,7 +92,6 @@
             make.right.equalTo(self);
             make.height.equalTo(self.versionLabel.mas_height);
         }];
-        
     }
     return  _phoneNumberLabel;
 }
@@ -106,7 +101,7 @@
     if (!_addressTextField)
     {
         _addressTextField = [ZZGrayBorderTextField new];
-        _addressTextField.text = @"http://...";
+        _addressTextField.text = @"http://";
         _addressTextField.enabled = NO;
         
         [self addSubview:_addressTextField];
@@ -118,9 +113,7 @@
             make.height.equalTo(@(serverAddressTextFieldHeigh()));
         }];
     }
-    
     return _addressTextField;
-
 }
 
 @end

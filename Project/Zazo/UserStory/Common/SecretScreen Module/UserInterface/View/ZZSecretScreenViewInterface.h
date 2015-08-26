@@ -8,6 +8,6 @@
 
 @protocol ZZSecretScreenViewInterface <NSObject>
 
-
+- (void)updateCustomServerFieldToEnabled:(BOOL)isEnabled;
 
 @end

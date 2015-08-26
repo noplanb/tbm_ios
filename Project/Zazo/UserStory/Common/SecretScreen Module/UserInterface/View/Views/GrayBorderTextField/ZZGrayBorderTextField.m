@@ -12,7 +12,6 @@ static NSInteger const kGBLeftContentPadding = 10;
 static CGFloat const kLayerBorderWidth = 1.0;
 static CGFloat const kLayerCornerRadius = 6.0;
 
-
 @implementation ZZGrayBorderTextField
 
 - (instancetype)init
@@ -30,15 +29,14 @@ static CGFloat const kLayerCornerRadius = 6.0;
 
 - (CGRect)textRectForBounds:(CGRect)bounds
 {
-    bounds.origin.x+=kGBLeftContentPadding;
+    bounds.origin.x += kGBLeftContentPadding;
     return bounds;
 }
 
 - (CGRect)editingRectForBounds:(CGRect)bounds
 {
-    bounds.origin.x+=kGBLeftContentPadding;
+    bounds.origin.x += kGBLeftContentPadding;
     return bounds;
 }
-
 
 @end

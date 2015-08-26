@@ -93,18 +93,14 @@
         case ZZNavigationBarLeftRightObserveType:
         {
             strategy = [ZZStrategyNavigationLeftRight new];
-            break;
-        }
+        } break;
             
         case ZZEnvelopObserveType:
         {
             strategy = [ZZEnvelopStrategy new];
-            break;
-        }
-        default:
-        {
-            break;
-        }
+        } break;
+            
+        default: break;
     }
     return strategy;
 }
@@ -119,15 +115,20 @@
             [self.touchController observeTouch:touch withEvent:event];
         };
     }];
-
 }
 
-#pragma mark - Pushed Secret Screen Controller
 
-- (void)presentPushedSecretScreenControllerwithType:(ZZPushedScreenType)type;
+#pragma mark - Detail Controllers
+
+- (void)presentLogsController
 {
-    self.pushedVC = [ZZPushedSecretScreenVC new];
-    [self.presentingController pushViewController:self.pushedVC animated:YES];
+    //TODO:
 }
+
+- (void)presentStateController
+{
+    // TODO:
+}
+
 
 @end

@@ -113,7 +113,6 @@
             make.height.equalTo(self.crashButton.mas_height);
         }];
     }
-    
     return _dispatchButton;
 }
 

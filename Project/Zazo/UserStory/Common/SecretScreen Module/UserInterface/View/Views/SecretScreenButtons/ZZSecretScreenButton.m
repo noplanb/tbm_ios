@@ -16,7 +16,7 @@
     if (self)
     {
         [self setTitleColor:[ZZColorTheme shared].secretScreenBlueColor forState:UIControlStateNormal];
-        self.layer.borderWidth = 2/[UIScreen mainScreen].scale;
+        self.layer.borderWidth = 2 / [UIScreen mainScreen].scale;
         self.layer.cornerRadius = 6;
         self.layer.borderColor = [ZZColorTheme shared].secretScreenBlueColor.CGColor;
     }

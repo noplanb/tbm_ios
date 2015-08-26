@@ -8,11 +8,6 @@
 
 #import "ZZSecretScreenVC.h"
 #import "ZZSecretScreenView.h"
-#import "ZZPushedSecretScreenTypes.h"
-#import "NSObject+ANUserDefaults.h"
-#import "ZZStoredSettingsManager.h"
-
-static NSString *kTBMConfigServerStateKey = @"kTBMConfigServerStateKey";
 
 @interface ZZSecretScreenVC ()
 
@@ -28,9 +23,6 @@ static NSString *kTBMConfigServerStateKey = @"kTBMConfigServerStateKey";
     if (self)
     {
         self.secretView = [ZZSecretScreenView new];
-        [self configureControlActions];
-        [self configureNavigationBar];
-        
     }
     return self;
 }
@@ -40,8 +32,17 @@ static NSString *kTBMConfigServerStateKey = @"kTBMConfigServerStateKey";
     self.view = self.secretView;
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self configureControlActions];
+    [self configureNavigationBar];
+}
+
 - (void)configureNavigationBar
 {
+    //TODO: to ANBarButton item
     self.title = NSLocalizedString(@"secret-controller.header.title", nil);
     UIBarButtonItem* doneButton =
     [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"secret-controller.header.done.button.title", nil)
@@ -54,41 +55,52 @@ static NSString *kTBMConfigServerStateKey = @"kTBMConfigServerStateKey";
 
 - (void)dismissController
 {
-    [self.eventHandler dismissSecretController];
+    [self.eventHandler dismissController];
 }
+
+
+#pragma mark - View Interface
+
+- (void)updateCustomServerFieldToEnabled:(BOOL)isEnabled
+{
+    ANDispatchBlockToMainQueue(^{
+        self.secretView.labelsInfoView.addressTextField.enabled = isEnabled;
+    });
+}
+
 
 #pragma mark - Control Actoins
 
 - (void)configureControlActions
 {
-    [[self.secretView.serverTypeControl rac_signalForControlEvents:UIControlEventValueChanged] subscribeNext:^(UISegmentedControl* segmentControl) {
-        
-        [[ZZStoredSettingsManager shared] saveCurrentServerIndex:segmentControl.selectedSegmentIndex];
-        self.secretView.labelsInfoView.addressTextField.enabled = (segmentControl.selectedSegmentIndex == 2);
+    RACSignal* segmentSignal = [self.secretView.serverTypeControl rac_signalForControlEvents:UIControlEventValueChanged];
+    [segmentSignal subscribeNext:^(UISegmentedControl* segmentControl) {
+        [self.eventHandler updateServerStateTo:segmentControl.selectedSegmentIndex];
     }];
     
-    [[self.secretView.debugModeSwitch rac_signalForControlEvents:UIControlEventValueChanged] subscribeNext:^(UISwitch *debugSwitch) {
-        
+    RACSignal* debugSwitchSignal = [self.secretView.debugModeSwitch rac_signalForControlEvents:UIControlEventValueChanged];
+    [debugSwitchSignal subscribeNext:^(UISwitch *debugSwitch) {
+        [self.eventHandler updateDebugModeStateTo:debugSwitch.isOn];
     }];
     
-    [[self.secretView.buttonView.crashButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        [self.eventHandler presentPushedViewControllerWithType:ZZCrashType];
+    self.secretView.buttonView.crashButton.rac_command = [RACCommand commandWithBlock:^{
+        [self.eventHandler forceCrash];
     }];
     
-    [[self.secretView.buttonView.logsButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        [self.eventHandler presentPushedViewControllerWithType:ZZLogsType];
+    self.secretView.buttonView.logsButton.rac_command = [RACCommand commandWithBlock:^{
+        [self.eventHandler presentLogsController];
     }];
     
-    [[self.secretView.buttonView.resetHintsButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        [self.eventHandler presentPushedViewControllerWithType:ZZResetHintsType];
+    self.secretView.buttonView.resetHintsButton.rac_command = [RACCommand commandWithBlock:^{
+        [self.eventHandler resetHints];
     }];
     
-    [[self.secretView.buttonView.stateButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        [self.eventHandler presentPushedViewControllerWithType:ZZStateType];
+    self.secretView.buttonView.stateButton.rac_command = [RACCommand commandWithBlock:^{
+        [self.eventHandler presentStateController];
     }];
     
-    [[self.secretView.buttonView.dispatchButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        [self.eventHandler presentPushedViewControllerWithType:ZZDispatchType];
+    self.secretView.buttonView.dispatchButton.rac_command = [RACCommand commandWithBlock:^{
+        [self.eventHandler dispatchData];
     }];
 }
 
