@@ -61,10 +61,10 @@ static CGFloat const kCodeLableLeftPadding = 1;
         [self addRecognizer];
         
 #ifdef DEBUG_LOGIN_USER
-        self.firstNameTextField.text = @"Abra";
-        self.lastNameTextField.text = @"Kadabra";
-        self.phoneCodeTextField.text = @"38";
-        self.phoneNumberTextField.text = @"0930880008";
+        self.firstNameTextField.text = @"Oks";
+        self.lastNameTextField.text = @"Oks";
+        self.phoneCodeTextField.text = @"380";
+        self.phoneNumberTextField.text = @"931389130";
 #endif
     }
     return self;

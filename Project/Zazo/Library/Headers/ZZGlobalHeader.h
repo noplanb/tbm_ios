@@ -8,9 +8,14 @@
 #define DEBUG_CONTROLLER
 
 #define HTTPLog
-//#define DEBUG_LOGIN_USER
 
 //helpers
+
+#define DEBUG_LOGIN_USER
+
+#define STAGESERVER
+
+
 
 #import "ANHelperFunctions.h"
 #import "ANLogger.h"

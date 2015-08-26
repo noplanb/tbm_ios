@@ -71,6 +71,11 @@
                                           otherButtonTitles:@"Verify", nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     [alert show];
+    
+#ifdef DEBUG_LOGIN_USER
+    UITextField *textField = [alert textFieldAtIndex:0];
+    textField.text = @"0000";
+#endif
 }
 
 #pragma mark - Keyboard observer

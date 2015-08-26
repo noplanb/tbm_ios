@@ -17,6 +17,9 @@
     if (self)
     {
         [self setBaseURL:apiBaseURL() andAPIVersion:@""];
+#ifdef STAGESERVER
+        [self setBaseURL:ZZApiBaseURLsList.staging andAPIVersion:@""];
+#endif
     }
     return self;
 }
