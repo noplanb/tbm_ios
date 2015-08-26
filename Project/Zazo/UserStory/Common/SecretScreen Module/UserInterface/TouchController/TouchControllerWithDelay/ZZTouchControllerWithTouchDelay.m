@@ -12,7 +12,7 @@
 
 - (instancetype)initWithDelay:(CGFloat)delay
                  withStrategy:(id<ZZSecretScreenStrategy>)strategy
-          withComplitionBlock:(void (^)())completionBlock
+          withCompletionBlock:(void (^)())completionBlock
 {
     self = [super init];
     if (self)

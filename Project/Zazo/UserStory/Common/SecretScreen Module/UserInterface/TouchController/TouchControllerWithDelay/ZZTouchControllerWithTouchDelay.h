@@ -10,6 +10,6 @@
 
 @interface ZZTouchControllerWithTouchDelay : ZZBaseTouchController
 
-- (instancetype)initWithDelay:(CGFloat)delay withStrategy:(id <ZZSecretScreenStrategy>)strategy withComplitionBlock:(void(^)())completionBlock;
+- (instancetype)initWithDelay:(CGFloat)delay withStrategy:(id <ZZSecretScreenStrategy>)strategy withCompletionBlock:(void(^)())completionBlock;
 
 @end

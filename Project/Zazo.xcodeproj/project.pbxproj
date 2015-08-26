@@ -17,6 +17,12 @@
 		07243C701B8D218B008E4203 /* navbar_btn_done.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07243C651B8D218B008E4203 /* navbar_btn_done.pdf */; };
 		07243C711B8D218B008E4203 /* navbar_btn_edit.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07243C661B8D218B008E4203 /* navbar_btn_edit.pdf */; };
 		07243C721B8D218B008E4203 /* navbar_btn_more.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07243C671B8D218B008E4203 /* navbar_btn_more.pdf */; };
+		07243C871B8DDFDB008E4203 /* ZZDebugStateInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07243C771B8DDFDB008E4203 /* ZZDebugStateInteractor.m */; };
+		07243C881B8DDFDB008E4203 /* ZZDebugStatePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07243C7F1B8DDFDB008E4203 /* ZZDebugStatePresenter.m */; };
+		07243C891B8DDFDB008E4203 /* ZZDebugStateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07243C821B8DDFDB008E4203 /* ZZDebugStateVC.m */; };
+		07243C8A1B8DDFDB008E4203 /* ZZDebugStateWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07243C861B8DDFDB008E4203 /* ZZDebugStateWireframe.m */; };
+		07243C8D1B8DE68B008E4203 /* ZZDebugStateDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07243C8C1B8DE68B008E4203 /* ZZDebugStateDomainModel.m */; };
+		07243C931B8DF174008E4203 /* ZZDebugStateEnumHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07243C921B8DF174008E4203 /* ZZDebugStateEnumHelper.m */; };
 		0732F50C1B8B93D3004FD3AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0732F5041B8B93D3004FD3AF /* InfoPlist.strings */; };
 		0732F5121B8B93D3004FD3AF /* ZazoTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */; };
 		07F0E7EF1B8CD7A900036AB2 /* KeyChainWrapperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E21B8CD7A900036AB2 /* KeyChainWrapperTests.m */; };
@@ -99,10 +105,8 @@
 		07F0ECC01B8CD8BF00036AB2 /* ZZBaseTouchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB811B8CD8BE00036AB2 /* ZZBaseTouchController.m */; };
 		07F0ECC11B8CD8BF00036AB2 /* ZZTouchControllerWithTouchDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB841B8CD8BE00036AB2 /* ZZTouchControllerWithTouchDelay.m */; };
 		07F0ECC21B8CD8BF00036AB2 /* ZZTouchControllerWithoutDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB871B8CD8BE00036AB2 /* ZZTouchControllerWithoutDelay.m */; };
-		07F0ECC41B8CD8BF00036AB2 /* ZZPushedSecretScreenVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB8F1B8CD8BE00036AB2 /* ZZPushedSecretScreenVC.m */; };
 		07F0ECC51B8CD8BF00036AB2 /* ZZSecretScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB921B8CD8BE00036AB2 /* ZZSecretScreenView.m */; };
 		07F0ECC61B8CD8BF00036AB2 /* ZZSecretScreenButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB971B8CD8BE00036AB2 /* ZZSecretScreenButtonView.m */; };
-		07F0ECC71B8CD8BF00036AB2 /* ZZGrayBorderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB9A1B8CD8BE00036AB2 /* ZZGrayBorderLabel.m */; };
 		07F0ECC81B8CD8BF00036AB2 /* ZZGrayBorderTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB9D1B8CD8BE00036AB2 /* ZZGrayBorderTextField.m */; };
 		07F0ECC91B8CD8BF00036AB2 /* ZZSecretScreenLabelsInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EBA01B8CD8BE00036AB2 /* ZZSecretScreenLabelsInfoView.m */; };
 		07F0ECCA1B8CD8BF00036AB2 /* ZZSecretScreenButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EBA31B8CD8BE00036AB2 /* ZZSecretScreenButton.m */; };
@@ -352,6 +356,22 @@
 		07243C651B8D218B008E4203 /* navbar_btn_done.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = navbar_btn_done.pdf; sourceTree = "<group>"; };
 		07243C661B8D218B008E4203 /* navbar_btn_edit.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = navbar_btn_edit.pdf; sourceTree = "<group>"; };
 		07243C671B8D218B008E4203 /* navbar_btn_more.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = navbar_btn_more.pdf; sourceTree = "<group>"; };
+		07243C761B8DDFDB008E4203 /* ZZDebugStateInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDebugStateInteractor.h; sourceTree = "<group>"; };
+		07243C771B8DDFDB008E4203 /* ZZDebugStateInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDebugStateInteractor.m; sourceTree = "<group>"; };
+		07243C781B8DDFDB008E4203 /* ZZDebugStateInteractorIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDebugStateInteractorIO.h; sourceTree = "<group>"; };
+		07243C7A1B8DDFDB008E4203 /* ZZDebugStateModuleDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDebugStateModuleDelegate.h; sourceTree = "<group>"; };
+		07243C7B1B8DDFDB008E4203 /* ZZDebugStateModuleInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDebugStateModuleInterface.h; sourceTree = "<group>"; };
+		07243C7E1B8DDFDB008E4203 /* ZZDebugStatePresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDebugStatePresenter.h; sourceTree = "<group>"; };
+		07243C7F1B8DDFDB008E4203 /* ZZDebugStatePresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDebugStatePresenter.m; sourceTree = "<group>"; };
+		07243C811B8DDFDB008E4203 /* ZZDebugStateVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDebugStateVC.h; sourceTree = "<group>"; };
+		07243C821B8DDFDB008E4203 /* ZZDebugStateVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDebugStateVC.m; sourceTree = "<group>"; };
+		07243C831B8DDFDB008E4203 /* ZZDebugStateViewInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDebugStateViewInterface.h; sourceTree = "<group>"; };
+		07243C851B8DDFDB008E4203 /* ZZDebugStateWireframe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDebugStateWireframe.h; sourceTree = "<group>"; };
+		07243C861B8DDFDB008E4203 /* ZZDebugStateWireframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDebugStateWireframe.m; sourceTree = "<group>"; };
+		07243C8B1B8DE68B008E4203 /* ZZDebugStateDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZDebugStateDomainModel.h; path = Models/ZZDebugStateDomainModel.h; sourceTree = "<group>"; };
+		07243C8C1B8DE68B008E4203 /* ZZDebugStateDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZDebugStateDomainModel.m; path = Models/ZZDebugStateDomainModel.m; sourceTree = "<group>"; };
+		07243C911B8DF174008E4203 /* ZZDebugStateEnumHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZDebugStateEnumHelper.h; path = EnumHelper/ZZDebugStateEnumHelper.h; sourceTree = "<group>"; };
+		07243C921B8DF174008E4203 /* ZZDebugStateEnumHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZDebugStateEnumHelper.m; path = EnumHelper/ZZDebugStateEnumHelper.m; sourceTree = "<group>"; };
 		0732F5051B8B93D3004FD3AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ZazoTests-Info.plist"; sourceTree = "<group>"; };
 		07F0E7E21B8CD7A900036AB2 /* KeyChainWrapperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainWrapperTests.m; sourceTree = "<group>"; };
@@ -515,15 +535,11 @@
 		07F0EB841B8CD8BE00036AB2 /* ZZTouchControllerWithTouchDelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZTouchControllerWithTouchDelay.m; sourceTree = "<group>"; };
 		07F0EB861B8CD8BE00036AB2 /* ZZTouchControllerWithoutDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZTouchControllerWithoutDelay.h; sourceTree = "<group>"; };
 		07F0EB871B8CD8BE00036AB2 /* ZZTouchControllerWithoutDelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZTouchControllerWithoutDelay.m; sourceTree = "<group>"; };
-		07F0EB8E1B8CD8BE00036AB2 /* ZZPushedSecretScreenVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPushedSecretScreenVC.h; sourceTree = "<group>"; };
-		07F0EB8F1B8CD8BE00036AB2 /* ZZPushedSecretScreenVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZPushedSecretScreenVC.m; sourceTree = "<group>"; };
 		07F0EB911B8CD8BE00036AB2 /* ZZSecretScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenView.h; sourceTree = "<group>"; };
 		07F0EB921B8CD8BE00036AB2 /* ZZSecretScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretScreenView.m; sourceTree = "<group>"; };
 		07F0EB931B8CD8BE00036AB2 /* ZZSecretScreenViewSizes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenViewSizes.h; sourceTree = "<group>"; };
 		07F0EB961B8CD8BE00036AB2 /* ZZSecretScreenButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenButtonView.h; sourceTree = "<group>"; };
 		07F0EB971B8CD8BE00036AB2 /* ZZSecretScreenButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretScreenButtonView.m; sourceTree = "<group>"; };
-		07F0EB991B8CD8BE00036AB2 /* ZZGrayBorderLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGrayBorderLabel.h; sourceTree = "<group>"; };
-		07F0EB9A1B8CD8BE00036AB2 /* ZZGrayBorderLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGrayBorderLabel.m; sourceTree = "<group>"; };
 		07F0EB9C1B8CD8BE00036AB2 /* ZZGrayBorderTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGrayBorderTextField.h; sourceTree = "<group>"; };
 		07F0EB9D1B8CD8BE00036AB2 /* ZZGrayBorderTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGrayBorderTextField.m; sourceTree = "<group>"; };
 		07F0EB9F1B8CD8BE00036AB2 /* ZZSecretScreenLabelsInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenLabelsInfoView.h; sourceTree = "<group>"; };
@@ -1014,6 +1030,101 @@
 			children = (
 			);
 			path = Font;
+			sourceTree = "<group>";
+		};
+		07243C731B8DDFDB008E4203 /* DebugState Module */ = {
+			isa = PBXGroup;
+			children = (
+				07243C741B8DDFDB008E4203 /* ApplicationLogic */,
+				07243C791B8DDFDB008E4203 /* ModuleInterface */,
+				07243C7C1B8DDFDB008E4203 /* UserInterface */,
+			);
+			path = "DebugState Module";
+			sourceTree = "<group>";
+		};
+		07243C741B8DDFDB008E4203 /* ApplicationLogic */ = {
+			isa = PBXGroup;
+			children = (
+				07243C751B8DDFDB008E4203 /* Interactor */,
+				07243C8E1B8DE68F008E4203 /* Models */,
+			);
+			path = ApplicationLogic;
+			sourceTree = "<group>";
+		};
+		07243C751B8DDFDB008E4203 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				07243C761B8DDFDB008E4203 /* ZZDebugStateInteractor.h */,
+				07243C771B8DDFDB008E4203 /* ZZDebugStateInteractor.m */,
+				07243C781B8DDFDB008E4203 /* ZZDebugStateInteractorIO.h */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		07243C791B8DDFDB008E4203 /* ModuleInterface */ = {
+			isa = PBXGroup;
+			children = (
+				07243C7A1B8DDFDB008E4203 /* ZZDebugStateModuleDelegate.h */,
+				07243C7B1B8DDFDB008E4203 /* ZZDebugStateModuleInterface.h */,
+			);
+			path = ModuleInterface;
+			sourceTree = "<group>";
+		};
+		07243C7C1B8DDFDB008E4203 /* UserInterface */ = {
+			isa = PBXGroup;
+			children = (
+				07243C7D1B8DDFDB008E4203 /* Presenter */,
+				07243C801B8DDFDB008E4203 /* View */,
+				07243C841B8DDFDB008E4203 /* Wireframe */,
+			);
+			path = UserInterface;
+			sourceTree = "<group>";
+		};
+		07243C7D1B8DDFDB008E4203 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				07243C7E1B8DDFDB008E4203 /* ZZDebugStatePresenter.h */,
+				07243C7F1B8DDFDB008E4203 /* ZZDebugStatePresenter.m */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		07243C801B8DDFDB008E4203 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				07243C811B8DDFDB008E4203 /* ZZDebugStateVC.h */,
+				07243C821B8DDFDB008E4203 /* ZZDebugStateVC.m */,
+				07243C831B8DDFDB008E4203 /* ZZDebugStateViewInterface.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		07243C841B8DDFDB008E4203 /* Wireframe */ = {
+			isa = PBXGroup;
+			children = (
+				07243C851B8DDFDB008E4203 /* ZZDebugStateWireframe.h */,
+				07243C861B8DDFDB008E4203 /* ZZDebugStateWireframe.m */,
+			);
+			path = Wireframe;
+			sourceTree = "<group>";
+		};
+		07243C8E1B8DE68F008E4203 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				07243C8B1B8DE68B008E4203 /* ZZDebugStateDomainModel.h */,
+				07243C8C1B8DE68B008E4203 /* ZZDebugStateDomainModel.m */,
+				07243C941B8DF177008E4203 /* EnumHelper */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		07243C941B8DF177008E4203 /* EnumHelper */ = {
+			isa = PBXGroup;
+			children = (
+				07243C911B8DF174008E4203 /* ZZDebugStateEnumHelper.h */,
+				07243C921B8DF174008E4203 /* ZZDebugStateEnumHelper.m */,
+			);
+			name = EnumHelper;
 			sourceTree = "<group>";
 		};
 		0732F5031B8B93D3004FD3AF /* ZazoTests */ = {
@@ -1815,6 +1926,7 @@
 		07F0EB611B8CD8BE00036AB2 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				07243C731B8DDFDB008E4203 /* DebugState Module */,
 				07F0EB621B8CD8BE00036AB2 /* Debug */,
 				07F0EB671B8CD8BE00036AB2 /* SecretScreen Module */,
 			);
@@ -1967,23 +2079,13 @@
 		07F0EB881B8CD8BE00036AB2 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				07F0EB8C1B8CD8BE00036AB2 /* PushedSecretScreenVC */,
+				07F0EBA61B8CD8BE00036AB2 /* ZZSecretScreenViewInterface.h */,
 				07F0EB901B8CD8BE00036AB2 /* SecretScreenView */,
 				07F0EB941B8CD8BE00036AB2 /* Views */,
 				07F0EBA41B8CD8BE00036AB2 /* ZZSecretScreenVC.h */,
 				07F0EBA51B8CD8BE00036AB2 /* ZZSecretScreenVC.m */,
-				07F0EBA61B8CD8BE00036AB2 /* ZZSecretScreenViewInterface.h */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		07F0EB8C1B8CD8BE00036AB2 /* PushedSecretScreenVC */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EB8E1B8CD8BE00036AB2 /* ZZPushedSecretScreenVC.h */,
-				07F0EB8F1B8CD8BE00036AB2 /* ZZPushedSecretScreenVC.m */,
-			);
-			path = PushedSecretScreenVC;
 			sourceTree = "<group>";
 		};
 		07F0EB901B8CD8BE00036AB2 /* SecretScreenView */ = {
@@ -2000,7 +2102,6 @@
 			isa = PBXGroup;
 			children = (
 				07F0EB951B8CD8BE00036AB2 /* ButtonView */,
-				07F0EB981B8CD8BE00036AB2 /* GrayBorderLabel */,
 				07F0EB9B1B8CD8BE00036AB2 /* GrayBorderTextField */,
 				07F0EB9E1B8CD8BE00036AB2 /* LabelsInfoView */,
 				07F0EBA11B8CD8BE00036AB2 /* SecretScreenButtons */,
@@ -2015,15 +2116,6 @@
 				07F0EB971B8CD8BE00036AB2 /* ZZSecretScreenButtonView.m */,
 			);
 			path = ButtonView;
-			sourceTree = "<group>";
-		};
-		07F0EB981B8CD8BE00036AB2 /* GrayBorderLabel */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EB991B8CD8BE00036AB2 /* ZZGrayBorderLabel.h */,
-				07F0EB9A1B8CD8BE00036AB2 /* ZZGrayBorderLabel.m */,
-			);
-			path = GrayBorderLabel;
 			sourceTree = "<group>";
 		};
 		07F0EB9B1B8CD8BE00036AB2 /* GrayBorderTextField */ = {
@@ -3476,6 +3568,7 @@
 				221B77681A68888C009FA670 /* TPKeyboardAvoidingTableView.m in Sources */,
 				FE9536741B88EA3000AC652A /* TBMViewedHintView.m in Sources */,
 				07F0ED101B8CD8BF00036AB2 /* UIView+Image.m in Sources */,
+				07243C891B8DDFDB008E4203 /* ZZDebugStateVC.m in Sources */,
 				FE9536701B88EA3000AC652A /* TBMSentHintView.m in Sources */,
 				07F0EC8C1B8CD8BF00036AB2 /* ZZFriendDomainModel.m in Sources */,
 				07F0ECEC1B8CD8BF00036AB2 /* NSString+ZZAdditions.m in Sources */,
@@ -3549,6 +3642,7 @@
 				682D6F3EAF5C25875C34505D /* TBMAlertControllerView.m in Sources */,
 				07F0ECB21B8CD8BF00036AB2 /* ZZAuthInteractor.m in Sources */,
 				FE9536731B88EA3000AC652A /* TBMViewedHintPresenter.m in Sources */,
+				07243C871B8DDFDB008E4203 /* ZZDebugStateInteractor.m in Sources */,
 				07F0ECD71B8CD8BF00036AB2 /* ZZUserRecorderGridView+AnimationExtension.m in Sources */,
 				07F0ECDD1B8CD8BF00036AB2 /* ZZMenuPresenter.m in Sources */,
 				07F0ECE61B8CD8BF00036AB2 /* ANBaseListTableCell.m in Sources */,
@@ -3565,9 +3659,9 @@
 				07F0EC8B1B8CD8BF00036AB2 /* ZZS3CredentialsDomainModel.m in Sources */,
 				07F0ED161B8CE65400036AB2 /* tbm.xcdatamodeld in Sources */,
 				07F0ECE91B8CD8BF00036AB2 /* NSObject+ANRACAdditions.m in Sources */,
-				07F0ECC71B8CD8BF00036AB2 /* ZZGrayBorderLabel.m in Sources */,
 				07F0EC871B8CD8BF00036AB2 /* ZZVideoModelsMapper.m in Sources */,
 				682D6DFDEAADFF6E658AA791 /* TBMHomeViewController+VersionController.m in Sources */,
+				07243C931B8DF174008E4203 /* ZZDebugStateEnumHelper.m in Sources */,
 				07F0ECB51B8CD8BF00036AB2 /* ZZAuthRegistrationView.m in Sources */,
 				07F0ECA01B8CD8BF00036AB2 /* _TBMUser.m in Sources */,
 				07F0ECFB1B8CD8BF00036AB2 /* ANNetworkNoContentView.m in Sources */,
@@ -3580,6 +3674,7 @@
 				682D633BA3262FFFA2828D22 /* TBMGridViewController.m in Sources */,
 				682D6691A16CE17EC4BD1E33 /* TBMRegisterViewController.m in Sources */,
 				FE9536791B88EA3000AC652A /* TBMDebugData.m in Sources */,
+				07243C8A1B8DDFDB008E4203 /* ZZDebugStateWireframe.m in Sources */,
 				07F0ECC21B8CD8BF00036AB2 /* ZZTouchControllerWithoutDelay.m in Sources */,
 				07F0ED011B8CD8BF00036AB2 /* ANEnumAdditions.m in Sources */,
 				07F0ECEE1B8CD8BF00036AB2 /* ANCrashlyticsAdapter.m in Sources */,
@@ -3597,7 +3692,6 @@
 				682D621D10CAA2D1B0B5BA0A /* TBMViewUtils.m in Sources */,
 				07F0ECB31B8CD8BF00036AB2 /* ZZAuthPresenter.m in Sources */,
 				07F0ED231B8CE71000036AB2 /* TBMVideo.m in Sources */,
-				07F0ECC41B8CD8BF00036AB2 /* ZZPushedSecretScreenVC.m in Sources */,
 				682D68701B51BB8F290571DE /* TBMGeometryUtils.m in Sources */,
 				07F0ED031B8CD8BF00036AB2 /* ANNetworkSessionManager.m in Sources */,
 				682D6E1E27A9612200B3F66C /* TBMSoundEffect.m in Sources */,
@@ -3713,7 +3807,9 @@
 				682D63F0788F4B777709B8CC /* NSNumber+TBMUserDefaults.m in Sources */,
 				07F0ECB01B8CD8BF00036AB2 /* ZZVideoRecorder.m in Sources */,
 				07F0ECA71B8CD8BF00036AB2 /* ZZColorTheme.m in Sources */,
+				07243C8D1B8DE68B008E4203 /* ZZDebugStateDomainModel.m in Sources */,
 				07F0ED0A1B8CD8BF00036AB2 /* TOWebViewController.m in Sources */,
+				07243C881B8DDFDB008E4203 /* ZZDebugStatePresenter.m in Sources */,
 				07F0EC841B8CD8BF00036AB2 /* ZZUserDataProvider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3819,6 +3915,10 @@
 				CODE_SIGN_ENTITLEMENTS = Zazo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Zazo/Vendor",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -3949,6 +4049,10 @@
 				CODE_SIGN_ENTITLEMENTS = Zazo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Zazo/Vendor",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				INFOPLIST_FILE = "$(SRCROOT)/Zazo/Application/BundleFiles/Zazo-Info.plist";
@@ -3972,6 +4076,10 @@
 				CODE_SIGN_ENTITLEMENTS = Zazo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Zazo/Vendor",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				GCC_PREPROCESSOR_DEFINITIONS = (

@@ -14,9 +14,8 @@
 #import "ZZEnvelopStrategy.h"
 #import "ZZTouchControllerWithTouchDelay.h"
 #import "ZZTouchControllerWithoutDelay.h"
-#import "UINavigationBar+ANThemes.h"
-#import "ZZPushedSecretScreenVC.h"
-
+#import "OBLogViewController.h"
+#import "ZZDebugStateWireframe.h"
 
 @interface ZZSecretScreenWireframe ()
 
@@ -31,7 +30,7 @@
 
 @implementation ZZSecretScreenWireframe
 
-- (void)presentSecretScreenControllerFromNavigationController:(UINavigationController *)viewController
+- (void)presentSecretScreenControllerFromNavigationController:(UINavigationController *)nc
 {
     ZZSecretScreenVC* secretScreenController = [ZZSecretScreenVC new];
     ZZSecretScreenInteractor* interactor = [ZZSecretScreenInteractor new];
@@ -46,7 +45,7 @@
     presenter.wireframe = self;
     [presenter configurePresenterWithUserInterface:secretScreenController];
     
-    self.presentedController = viewController;
+    self.presentedController = nc;
     
     ANDispatchBlockToMainQueue(^{
         [self.presentedController presentViewController:self.presentingController animated:YES completion:nil];
@@ -66,7 +65,7 @@
                                            withWindow:(UIWindow*)window
 {
     
-    self.touchController = [[ZZTouchControllerWithTouchDelay alloc] initWithDelay:1 withStrategy:[self strategyWithType:type] withComplitionBlock:^{
+    self.touchController = [[ZZTouchControllerWithTouchDelay alloc] initWithDelay:1 withStrategy:[self strategyWithType:type] withCompletionBlock:^{
             [self presentSecretScreenControllerFromNavigationController:(UINavigationController*)window.rootViewController];
     }];
     
@@ -76,7 +75,7 @@
 
 - (void)startSecretScreenObserveWithType:(ZZSecretScreenObserveType)type withWindow:(UIWindow*)window
 {
-    self.touchController = [[ZZTouchControllerWithoutDelay alloc] initWithStrategy:[self strategyWithType:type] withComplitionBlock:^{
+    self.touchController = [[ZZTouchControllerWithoutDelay alloc] initWithStrategy:[self strategyWithType:type] withCompletionBlock:^{
         [self presentSecretScreenControllerFromNavigationController:(UINavigationController*)window.rootViewController];
     }];
     [self startObserveWithWindow:window];
@@ -119,13 +118,14 @@
 
 - (void)presentLogsController
 {
-    //TODO:
+    OBLogViewController* vc = [OBLogViewController instance];
+    [self.secretScreenController.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)presentStateController
 {
-    // TODO:
+    ZZDebugStateWireframe* wireframe = [ZZDebugStateWireframe new];
+    [wireframe presentDebugStateControllerFromNavigationController:self.secretScreenController.navigationController];
 }
-
 
 @end

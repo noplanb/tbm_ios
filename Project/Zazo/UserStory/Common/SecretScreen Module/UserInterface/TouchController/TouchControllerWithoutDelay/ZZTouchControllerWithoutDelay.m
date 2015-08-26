@@ -10,7 +10,7 @@
 
 @implementation ZZTouchControllerWithoutDelay
 
-- (instancetype)initWithStrategy:(id <ZZSecretScreenStrategy>) strategy withComplitionBlock:(void(^)())completionBlock
+- (instancetype)initWithStrategy:(id <ZZSecretScreenStrategy>) strategy withCompletionBlock:(void(^)())completionBlock
 {
     self = [super init];
     if (self)
