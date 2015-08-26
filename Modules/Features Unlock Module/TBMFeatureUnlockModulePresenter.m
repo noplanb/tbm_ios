@@ -32,7 +32,7 @@
 
 - (NSUInteger)priority
 {
-    return 8009;
+    return 1600;
 }
 
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
@@ -60,7 +60,7 @@
     NSInteger everSentCount = [self.featuresUnlockDatasource everSentCount];
     BOOL isInvitedUser = [self.featuresUnlockDatasource isInvitedUser];
     TBMUnlockedFeature nextFeatureForUnlock;
-    nextFeatureForUnlock = isInvitedUser ? (TBMUnlockedFeature) everSentCount : (TBMUnlockedFeature) everSentCount - 1;
+    nextFeatureForUnlock = isInvitedUser ? (TBMUnlockedFeature) everSentCount -1 : (TBMUnlockedFeature) everSentCount ;
 
     if (nextFeatureForUnlock > TBMUnlockedFeatureNone && self.featuresUnlockDatasource.lastUnlockedFeature < nextFeatureForUnlock)
     {
@@ -118,6 +118,14 @@
         case TBMUnlockedFeatureEarpiece:
         {
             [eventFlowModule throwEvent:TBMEventFlowEventEarpieceUnlockDialogDidDismiss];
+        }
+
+        case TBMUnlockedFeatureDeleteAFriend:        {
+            [eventFlowModule throwEvent:TBMEventFlowEventDeleteFriendUnlockDialogDidDismiss];
+        }
+
+        case TBMUnlockedFeatureSpin:        {
+            [eventFlowModule throwEvent:TBMEventFlowEventSpinUnlockDialogDidDismiss];
         }
 
         default:

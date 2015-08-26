@@ -81,7 +81,7 @@ CGFloat degreesToRadians(CGFloat x)
     self.arrowLabel.preferredMaxLayoutWidth = width;
     self.arrowLabel.frame = CGRectMake(x, y, width, height);
     CGSize newSize = self.arrowLabel.sizeOfMultiLineLabel;
-    self.arrowLabel.frame = CGRectMake(x, y, newSize.width, newSize.height);
+    self.arrowLabel.frame = CGRectMake(x, y, width, newSize.height);
 }
 
 - (void)layoutArrow

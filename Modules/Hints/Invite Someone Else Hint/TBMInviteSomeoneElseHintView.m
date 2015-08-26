@@ -32,8 +32,7 @@
     arrow.arrowLabel.text = self._possiblePhrases.randomObject;
     [arrows addObject:arrow];
     self.arrows = arrows;
-
-    self.presentImage;
+    [self presentImage];
 }
 
 - (void)layoutSubviews

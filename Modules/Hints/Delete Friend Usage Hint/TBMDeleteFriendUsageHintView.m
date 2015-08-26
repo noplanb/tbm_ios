@@ -19,7 +19,7 @@
     ];
     self.showGotItButton = YES;
     NSMutableArray *arrows = [NSMutableArray array];
-    [arrows addObject:[TBMHintArrow arrowWithText:@""
+    [arrows addObject:[TBMHintArrow arrowWithText:@"Delete a friend. Tap menu. And chose Edit."
                                         curveKind:TBMTutorialArrowCurveKindRight
                                        arrowPoint:CGPointMake(
                                                CGRectGetMaxX(highlightFrame) - 20.f,

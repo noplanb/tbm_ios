@@ -20,6 +20,7 @@
 #import "TBMAbortRecordUsageHintPresenter.h"
 #import "TBMFrontCameraUsageHintPresenter.h"
 #import "TBMEarpieceUsageHintPresenter.h"
+#import "TBMRecordWelcomeHintPresenter.h"
 
 
 @interface TBMDependencies ()
@@ -29,6 +30,7 @@
 @property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> inviteSomeOneElseHintModule;
 @property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> playHintModule;
 @property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> recordHintModule;
+@property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> recordWelcomeHintModule;
 @property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> sentHintModule;
 @property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> viewedHintModule;
 @property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> welcomeHintModule;
@@ -59,6 +61,7 @@
     [self.eventsFlowModule addEventHandler:self.inviteHintModule];
     [self.eventsFlowModule addEventHandler:self.inviteSomeOneElseHintModule];
     [self.eventsFlowModule addEventHandler:self.playHintModule];
+    [self.eventsFlowModule addEventHandler:self.recordWelcomeHintModule];
     [self.eventsFlowModule addEventHandler:self.recordHintModule];
     [self.eventsFlowModule addEventHandler:self.sentHintModule];
     [self.eventsFlowModule addEventHandler:self.viewedHintModule];
@@ -131,6 +134,17 @@
         _recordHintModule = recordHintPresenter;
     }
     return _recordHintModule;
+}
+
+- (id <TBMEventsFlowModuleEventHandler>)recordWelcomeHintModule
+{
+    if (!_recordWelcomeHintModule)
+    {
+        TBMRecordWelcomeHintPresenter *recordWelcomeHintModule = [[TBMRecordWelcomeHintPresenter alloc] init];
+        [recordWelcomeHintModule setupEventFlowModule:self.eventsFlowModule];
+        _recordWelcomeHintModule = recordWelcomeHintModule;
+    }
+    return _recordWelcomeHintModule;
 }
 
 

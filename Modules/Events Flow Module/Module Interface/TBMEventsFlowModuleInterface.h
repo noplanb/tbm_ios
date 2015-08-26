@@ -24,6 +24,7 @@ typedef NS_ENUM(NSInteger, TBMEventFlowEvent)
     // Friends
 
     TBMEventFlowEventFriendDidAdd,
+    TBMEventFlowEventFriendDidAddWithoutApp,
 
     // Messages
 

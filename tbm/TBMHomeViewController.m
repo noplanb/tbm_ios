@@ -300,6 +300,11 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
     [self.eventsFlowModule throwEvent:TBMEventFlowEventFriendDidAdd];
 }
 
+- (void)friendDidAddWithoutApp
+{
+    [self.eventsFlowModule throwEvent:TBMEventFlowEventFriendDidAddWithoutApp];
+}
+
 - (void)messageDidReceive {
     [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidReceive];
 }

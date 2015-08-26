@@ -49,12 +49,15 @@
 
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
 {
-#warning TEST PURPOSES
-    return YES;
 
-    if (event != TBMEventFlowEventMessageDidStopPlaying
+    if (event != TBMEventFlowEventFrontCameraUnlockDialogDidDismiss
+            && event != TBMEventFlowEventDeleteFriendUnlockDialogDidDismiss
+            && event != TBMEventFlowEventAbortRecordingUnlockDialogDidDismiss
+            && event != TBMEventFlowEventEarpieceUnlockDialogDidDismiss
+            && event != TBMEventFlowEventSpinUnlockDialogDidDismiss
+
             && event != TBMEventFlowEventMessageDidSend
-            && event != TBMEventFlowEventFeatureUsageHintDidDismiss
+            && event != TBMEventFlowEventMessageDidViewed
             )
     {
         return NO;

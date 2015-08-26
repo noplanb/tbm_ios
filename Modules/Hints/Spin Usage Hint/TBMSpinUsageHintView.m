@@ -19,7 +19,7 @@
     ];
     self.showGotItButton = YES;
     NSMutableArray *arrows = [NSMutableArray array];
-    [arrows addObject:[TBMHintArrow arrowWithText:@"Zazo sent! Well done!"
+    [arrows addObject:[TBMHintArrow arrowWithText:@"Move a friend. /n Drag a friend to any position."
                                         curveKind:TBMTutorialArrowCurveKindRight
                                        arrowPoint:CGPointMake(
                                                CGRectGetMaxX(highlightFrame) - 20.f,

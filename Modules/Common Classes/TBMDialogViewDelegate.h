@@ -5,6 +5,7 @@
 
 @protocol TBMDialogViewDelegate <NSObject>
 
+
 - (void)dialogDidDismiss;
 
 @end

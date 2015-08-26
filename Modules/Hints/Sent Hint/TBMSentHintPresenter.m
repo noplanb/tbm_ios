@@ -19,6 +19,7 @@
     if (self)
     {
         self.dialogView = [TBMSentHintView new];
+        [self.dialogView setupDialogViewDelegate:self];
         self.eventHandlerDataSource.persistentStateKey = @"kSentHintNSUDkey";
     }
     return self;
@@ -51,6 +52,11 @@
     }
 
     return YES;
+}
+
+- (void)dialogDidDismiss
+{
+    [self.eventFlowModule throwEvent:TBMEventFlowEventSentHintDidDismiss];
 }
 
 @end

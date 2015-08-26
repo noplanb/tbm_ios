@@ -11,7 +11,6 @@
 #import "TBMGridElement.h"
 #import "HexColor.h"
 #import "iToast.h"
-#import "TBMGridDelegate.h"
 #import "TBMVideoIdUtils.h"
 #import "TBMVideoProcessor.h"
 
@@ -205,7 +204,7 @@ static const float LayoutConstASPECT = 0.75;
         TBMGridElementViewController *c = [[TBMGridElementViewController alloc] initWithIndex:i frame:frame];
         c.gridElementDelegate = self;
         [self addChildViewController:c];
-        
+
         [v addSubview:c.view];
         i++;
     }
@@ -431,7 +430,15 @@ static const float LayoutConstASPECT = 0.75;
     ge.friend = friend;
     [self notifyChildrenOfGridChange:[ge getIntIndex]];
     [self highlightElement:ge];
-    [self.delegate friendDidAdd];
+
+    if (ge.friend.hasApp)
+    {
+        [self.delegate friendDidAdd];
+    } else
+    {
+        [self.delegate friendDidAddWithoutApp];
+    }
+
 }
 
 - (void)notifyChildrenOfGridChange:(NSInteger)index {
@@ -578,6 +585,17 @@ static const float LayoutConstASPECT = 0.75;
     TBMGridElement *gridElement = self.lastAddedFriend.gridElement;
     if (gridElement) {
         result = [gridElement.index unsignedIntegerValue];
+    }
+    return result;
+}
+
+- (NSString *)lastAddedFriendOnGridName
+{
+    NSString *result = @"";
+    TBMGridElement *gridElement = self.lastAddedFriend.gridElement;
+    if (gridElement)
+    {
+        result = gridElement.friend.firstName;
     }
     return result;
 }

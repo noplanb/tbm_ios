@@ -174,6 +174,8 @@
 		FEB4EAA51B8E403A00E8EB91 /* TBMWelcomeHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB4EA6E1B8E403A00E8EB91 /* TBMWelcomeHintView.m */; };
 		FEB4EAA61B8E403A00E8EB91 /* TBMNextFeatureDialogPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB4EA711B8E403A00E8EB91 /* TBMNextFeatureDialogPresenter.m */; };
 		FEB4EAA71B8E403A00E8EB91 /* TBMNextFeatureDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB4EA731B8E403A00E8EB91 /* TBMNextFeatureDialogView.m */; };
+		FEB4EAAD1B8E4D4400E8EB91 /* TBMRecordWelcomeHintPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB4EAAA1B8E4D4400E8EB91 /* TBMRecordWelcomeHintPresenter.m */; };
+		FEB4EAAE1B8E4D4400E8EB91 /* TBMRecordWelcomeHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB4EAAC1B8E4D4400E8EB91 /* TBMRecordWelcomeHintView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -483,6 +485,10 @@
 		FEB4EA711B8E403A00E8EB91 /* TBMNextFeatureDialogPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMNextFeatureDialogPresenter.m; sourceTree = "<group>"; };
 		FEB4EA721B8E403A00E8EB91 /* TBMNextFeatureDialogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMNextFeatureDialogView.h; sourceTree = "<group>"; };
 		FEB4EA731B8E403A00E8EB91 /* TBMNextFeatureDialogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMNextFeatureDialogView.m; sourceTree = "<group>"; };
+		FEB4EAA91B8E4D4400E8EB91 /* TBMRecordWelcomeHintPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMRecordWelcomeHintPresenter.h; sourceTree = "<group>"; };
+		FEB4EAAA1B8E4D4400E8EB91 /* TBMRecordWelcomeHintPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMRecordWelcomeHintPresenter.m; sourceTree = "<group>"; };
+		FEB4EAAB1B8E4D4400E8EB91 /* TBMRecordWelcomeHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMRecordWelcomeHintView.h; sourceTree = "<group>"; };
+		FEB4EAAC1B8E4D4400E8EB91 /* TBMRecordWelcomeHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMRecordWelcomeHintView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1061,6 +1067,7 @@
 				FEB4EA4C1B8E403900E8EB91 /* Invite Someone Else Hint */,
 				FEB4EA511B8E403900E8EB91 /* Play Hint */,
 				FEB4EA561B8E403900E8EB91 /* Record Hint */,
+				FEB4EAA81B8E4D4400E8EB91 /* Record Welcome Hint */,
 				FEB4EA5B1B8E403900E8EB91 /* Sent Hint */,
 				FEB4EA601B8E403900E8EB91 /* Spin Usage Hint */,
 				FEB4EA651B8E403900E8EB91 /* Viewed Hint */,
@@ -1210,6 +1217,17 @@
 				FEB4EA731B8E403A00E8EB91 /* TBMNextFeatureDialogView.m */,
 			);
 			path = "Next Feature Dialog Module";
+			sourceTree = "<group>";
+		};
+		FEB4EAA81B8E4D4400E8EB91 /* Record Welcome Hint */ = {
+			isa = PBXGroup;
+			children = (
+				FEB4EAA91B8E4D4400E8EB91 /* TBMRecordWelcomeHintPresenter.h */,
+				FEB4EAAA1B8E4D4400E8EB91 /* TBMRecordWelcomeHintPresenter.m */,
+				FEB4EAAB1B8E4D4400E8EB91 /* TBMRecordWelcomeHintView.h */,
+				FEB4EAAC1B8E4D4400E8EB91 /* TBMRecordWelcomeHintView.m */,
+			);
+			path = "Record Welcome Hint";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1471,7 +1489,9 @@
 				FEB4EA8C1B8E403A00E8EB91 /* TBMAbortRecordUsageHintView.m in Sources */,
 				682D690D804ADE1CD34D09BC /* TBMPreviewView.m in Sources */,
 				682D698852051D01B65B5297 /* TBMVideoProcessor.m in Sources */,
+				FEB4EAAE1B8E4D4400E8EB91 /* TBMRecordWelcomeHintView.m in Sources */,
 				FEB4EA8B1B8E403A00E8EB91 /* TBMAbortRecordUsageHintPresenter.m in Sources */,
+				FEB4EAAD1B8E4D4400E8EB91 /* TBMRecordWelcomeHintPresenter.m in Sources */,
 				682D6A7ABB9814C6941BB4FC /* tbm.xcdatamodeld in Sources */,
 				682D603AD610AABE5DA13F7C /* main.m in Sources */,
 				682D6B8365BA741CA0DF8217 /* TBMLongPressTouchHandler.m in Sources */,

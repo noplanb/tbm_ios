@@ -44,7 +44,7 @@
 - (void)configureHint
 {
     NSUInteger friendIndexInGrid = [self.gridModule lastAddedFriendOnGridIndex];
-    NSString *friendName = [TBMGridElement findWithIntIndex:friendIndexInGrid].friend.firstName;
+    NSString *friendName = [self.gridModule lastAddedFriendOnGridName];
     CGRect highlightFrame = [self.gridModule gridGetFrameForFriend:friendIndexInGrid inView:self.superview];
     CGPoint arrowPoint = CGPointZero;
     TBMHintArrowCurveKind curveKind = [self.arrowKindMatrix[friendIndexInGrid] integerValue];

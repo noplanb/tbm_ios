@@ -15,6 +15,7 @@
 #import "TBMHttpManager.h"
 #import "TBMPhoneUtils.h"
 #import "NSString+NSStringExtensions.h"
+#import "TBMUser.h"
 
 @implementation TBMFriend
 
@@ -162,6 +163,7 @@ static NSMutableArray *videoStatusNotificationDelegates;
         {
             friend = (TBMFriend *) [[NSManagedObject alloc] initWithEntity:[TBMFriend entityDescription] insertIntoManagedObjectContext:[TBMFriend managedObjectContext]];
             friend.idTbm = idTbm;
+            friend.isConnectionCreator = @(YES);
         }];
         complete(friend);
     });
@@ -203,6 +205,9 @@ static NSMutableArray *videoStatusNotificationDelegates;
             friend.ckey = [params objectForKey:SERVER_PARAMS_FRIEND_CKEY_KEY];
             friend.timeOfLastAction = [NSDate date];
             friend.hasApp = servHasApp;
+            NSString *creatorMkey = params[@"connection_creator_mkey"];
+            TBMUser *me = [TBMUser getUser];
+            friend.isConnectionCreator = @([me.mkey isEqualToString:creatorMkey]);
         }];
         OB_INFO(@"Added friend: %@", friend.firstName);
         [friend notifyVideoStatusChange];

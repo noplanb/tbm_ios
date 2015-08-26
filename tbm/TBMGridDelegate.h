@@ -14,4 +14,5 @@
 - (void)messageDidViewed;
 -(void)messageDidReceive;
 -(void)friendDidAdd;
+- (void)friendDidAddWithoutApp;
 @end

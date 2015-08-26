@@ -19,5 +19,6 @@
                                          inView:(UIView *)view;
 
 - (NSUInteger)lastAddedFriendOnGridIndex;
+- (NSString *)lastAddedFriendOnGridName;
 
 @end

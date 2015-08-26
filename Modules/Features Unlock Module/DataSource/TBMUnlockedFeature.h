@@ -14,8 +14,6 @@ typedef NS_ENUM(NSInteger, TBMUnlockedFeature)
     TBMUnlockedFeatureFrontCamera,
     TBMUnlockedFeatureAbortRecord,
     TBMUnlockedFeatureEarpiece,
-    // Will be enabled in next release
-//    TBMUnlockedFeatureDeleteAFriend,
-//    TBMUnlockedFeatureSpin,
-
+    TBMUnlockedFeatureDeleteAFriend,
+    TBMUnlockedFeatureSpin,
 };
