@@ -9,7 +9,7 @@
 #import "ZZSecretScreenViewSizes.h"
 #import "ZZGrayBorderTextField.h"
 
-@interface ZZSecretLabelsInfoView : UIView
+@interface ZZSecretScreenLabelsInfoView : UIView
 
 @property (nonatomic, strong) UILabel* versionLabel;
 @property (nonatomic, strong) UILabel* firstNameLabel;

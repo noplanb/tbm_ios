@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import "ZZSecretLabelsInfoView.h"
+#import "ZZSecretScreenLabelsInfoView.h"
 #import "ZZSecretScreenButtonView.h"
 
 
@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, ZZServerType)
 @interface ZZSecretScreenView : UIView
 
 @property (nonatomic, strong) UISegmentedControl* serverTypeControl;
-@property (nonatomic, strong) ZZSecretLabelsInfoView* labelsInfoView;
+@property (nonatomic, strong) ZZSecretScreenLabelsInfoView* labelsInfoView;
 @property (nonatomic, strong) UISwitch* debugModeSwitch;
 @property (nonatomic, strong) ZZSecretScreenButtonView* buttonView;
 

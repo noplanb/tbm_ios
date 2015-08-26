@@ -12,7 +12,7 @@
 
 @interface ZZSecretScreenVC ()
 
-@property (nonatomic, strong) ZZSecretScreenView* secretView;
+@property (nonatomic, strong) ZZSecretScreenView* containerView;
 
 @end
 
@@ -23,14 +23,14 @@
     self = [super init];
     if (self)
     {
-        self.secretView = [ZZSecretScreenView new];
+        self.containerView = [ZZSecretScreenView new];
     }
     return self;
 }
 
 - (void)loadView
 {
-    self.view = self.secretView;
+    self.view = self.containerView;
 }
 
 - (void)viewDidLoad
@@ -65,10 +65,10 @@
 - (void)updateWithModel:(ZZSettingsModel*)model
 {
     //TODO: better naming
-    self.secretView.serverTypeControl.selectedSegmentIndex = model.serverIndex;
-    self.secretView.debugModeSwitch.on = model.isDebugEnabled;
+    self.containerView.serverTypeControl.selectedSegmentIndex = model.serverIndex;
+    self.containerView.debugModeSwitch.on = model.isDebugEnabled;
     
-    ZZSecretLabelsInfoView* view = self.secretView.labelsInfoView;
+    ZZSecretScreenLabelsInfoView* view = self.containerView.labelsInfoView;
     view.versionLabel.text = model.version;
     view.firstNameLabel.text = model.firstName;
     view.lastNameLabel.text = model.lastName;
@@ -83,7 +83,7 @@
 - (void)updateCustomServerFieldToEnabled:(BOOL)isEnabled
 {
     ANDispatchBlockToMainQueue(^{
-        self.secretView.labelsInfoView.addressTextField.enabled = isEnabled;
+        self.containerView.labelsInfoView.addressTextField.enabled = isEnabled;
     });
 }
 
@@ -92,33 +92,33 @@
 
 - (void)configureControlActions
 {
-    RACSignal* segmentSignal = [self.secretView.serverTypeControl rac_signalForControlEvents:UIControlEventValueChanged];
+    RACSignal* segmentSignal = [self.containerView.serverTypeControl rac_signalForControlEvents:UIControlEventValueChanged];
     [segmentSignal subscribeNext:^(UISegmentedControl* segmentControl) {
         [self.eventHandler updateServerStateTo:segmentControl.selectedSegmentIndex];
     }];
     
-    RACSignal* debugSwitchSignal = [self.secretView.debugModeSwitch rac_signalForControlEvents:UIControlEventValueChanged];
+    RACSignal* debugSwitchSignal = [self.containerView.debugModeSwitch rac_signalForControlEvents:UIControlEventValueChanged];
     [debugSwitchSignal subscribeNext:^(UISwitch *debugSwitch) {
         [self.eventHandler updateDebugModeStateTo:debugSwitch.isOn];
     }];
     
-    self.secretView.buttonView.crashButton.rac_command = [RACCommand commandWithBlock:^{
+    self.containerView.buttonView.crashButton.rac_command = [RACCommand commandWithBlock:^{
         [self.eventHandler forceCrash];
     }];
     
-    self.secretView.buttonView.logsButton.rac_command = [RACCommand commandWithBlock:^{
+    self.containerView.buttonView.logsButton.rac_command = [RACCommand commandWithBlock:^{
         [self.eventHandler presentLogsController];
     }];
     
-    self.secretView.buttonView.resetHintsButton.rac_command = [RACCommand commandWithBlock:^{
+    self.containerView.buttonView.resetHintsButton.rac_command = [RACCommand commandWithBlock:^{
         [self.eventHandler resetHints];
     }];
     
-    self.secretView.buttonView.stateButton.rac_command = [RACCommand commandWithBlock:^{
+    self.containerView.buttonView.stateButton.rac_command = [RACCommand commandWithBlock:^{
         [self.eventHandler presentStateController];
     }];
     
-    self.secretView.buttonView.dispatchButton.rac_command = [RACCommand commandWithBlock:^{
+    self.containerView.buttonView.dispatchButton.rac_command = [RACCommand commandWithBlock:^{
         [self.eventHandler dispatchData];
     }];
 }

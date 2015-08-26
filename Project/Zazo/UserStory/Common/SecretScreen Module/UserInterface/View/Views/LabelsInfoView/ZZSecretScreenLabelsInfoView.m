@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import "ZZSecretLabelsInfoView.h"
+#import "ZZSecretScreenLabelsInfoView.h"
 
-@implementation ZZSecretLabelsInfoView
+@implementation ZZSecretScreenLabelsInfoView
 
 - (instancetype)init
 {

@@ -39,11 +39,11 @@ static NSInteger const kDebugSwitchHeight = 40;
     return self;
 }
 
-- (ZZSecretLabelsInfoView *)labelsInfoView
+- (ZZSecretScreenLabelsInfoView *)labelsInfoView
 {
     if (!_labelsInfoView)
     {
-        _labelsInfoView = [ZZSecretLabelsInfoView new];
+        _labelsInfoView = [ZZSecretScreenLabelsInfoView new];
         [self addSubview:_labelsInfoView];
         
         [_labelsInfoView mas_makeConstraints:^(MASConstraintMaker *make) {

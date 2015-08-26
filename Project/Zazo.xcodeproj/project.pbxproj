@@ -105,7 +105,7 @@
 		07F0ECC61B8CD8BF00036AB2 /* ZZSecretScreenButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB971B8CD8BE00036AB2 /* ZZSecretScreenButtonView.m */; };
 		07F0ECC71B8CD8BF00036AB2 /* ZZGrayBorderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB9A1B8CD8BE00036AB2 /* ZZGrayBorderLabel.m */; };
 		07F0ECC81B8CD8BF00036AB2 /* ZZGrayBorderTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB9D1B8CD8BE00036AB2 /* ZZGrayBorderTextField.m */; };
-		07F0ECC91B8CD8BF00036AB2 /* ZZSecretLabelsInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EBA01B8CD8BE00036AB2 /* ZZSecretLabelsInfoView.m */; };
+		07F0ECC91B8CD8BF00036AB2 /* ZZSecretScreenLabelsInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EBA01B8CD8BE00036AB2 /* ZZSecretScreenLabelsInfoView.m */; };
 		07F0ECCA1B8CD8BF00036AB2 /* ZZSecretScreenButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EBA31B8CD8BE00036AB2 /* ZZSecretScreenButton.m */; };
 		07F0ECCB1B8CD8BF00036AB2 /* ZZSecretScreenVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EBA51B8CD8BE00036AB2 /* ZZSecretScreenVC.m */; };
 		07F0ECCC1B8CD8BF00036AB2 /* ZZSecretScreenWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EBAB1B8CD8BE00036AB2 /* ZZSecretScreenWireframe.m */; };
@@ -529,8 +529,8 @@
 		07F0EB9A1B8CD8BE00036AB2 /* ZZGrayBorderLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGrayBorderLabel.m; sourceTree = "<group>"; };
 		07F0EB9C1B8CD8BE00036AB2 /* ZZGrayBorderTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGrayBorderTextField.h; sourceTree = "<group>"; };
 		07F0EB9D1B8CD8BE00036AB2 /* ZZGrayBorderTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGrayBorderTextField.m; sourceTree = "<group>"; };
-		07F0EB9F1B8CD8BE00036AB2 /* ZZSecretLabelsInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretLabelsInfoView.h; sourceTree = "<group>"; };
-		07F0EBA01B8CD8BE00036AB2 /* ZZSecretLabelsInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretLabelsInfoView.m; sourceTree = "<group>"; };
+		07F0EB9F1B8CD8BE00036AB2 /* ZZSecretScreenLabelsInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenLabelsInfoView.h; sourceTree = "<group>"; };
+		07F0EBA01B8CD8BE00036AB2 /* ZZSecretScreenLabelsInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretScreenLabelsInfoView.m; sourceTree = "<group>"; };
 		07F0EBA21B8CD8BE00036AB2 /* ZZSecretScreenButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenButton.h; sourceTree = "<group>"; };
 		07F0EBA31B8CD8BE00036AB2 /* ZZSecretScreenButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretScreenButton.m; sourceTree = "<group>"; };
 		07F0EBA41B8CD8BE00036AB2 /* ZZSecretScreenVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenVC.h; sourceTree = "<group>"; };
@@ -2051,8 +2051,8 @@
 		07F0EB9E1B8CD8BE00036AB2 /* LabelsInfoView */ = {
 			isa = PBXGroup;
 			children = (
-				07F0EB9F1B8CD8BE00036AB2 /* ZZSecretLabelsInfoView.h */,
-				07F0EBA01B8CD8BE00036AB2 /* ZZSecretLabelsInfoView.m */,
+				07F0EB9F1B8CD8BE00036AB2 /* ZZSecretScreenLabelsInfoView.h */,
+				07F0EBA01B8CD8BE00036AB2 /* ZZSecretScreenLabelsInfoView.m */,
 			);
 			path = LabelsInfoView;
 			sourceTree = "<group>";
@@ -3655,7 +3655,7 @@
 				07F0ECC01B8CD8BF00036AB2 /* ZZBaseTouchController.m in Sources */,
 				07F0ECE41B8CD8BF00036AB2 /* ANActivityIndicator.m in Sources */,
 				07F0ECB71B8CD8BF00036AB2 /* ZZAuthVC.m in Sources */,
-				07F0ECC91B8CD8BF00036AB2 /* ZZSecretLabelsInfoView.m in Sources */,
+				07F0ECC91B8CD8BF00036AB2 /* ZZSecretScreenLabelsInfoView.m in Sources */,
 				07F0ECA31B8CD8BF00036AB2 /* ZZBaseVC.m in Sources */,
 				FE95367B1B88EA3000AC652A /* TBMSecretScreenPresenter.m in Sources */,
 				FE95365F1B88EA3000AC652A /* TBMAbortRecordUsageHintPresenter.m in Sources */,
