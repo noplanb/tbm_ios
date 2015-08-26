@@ -10,6 +10,7 @@
 #import "ZZRootWireframe.h"
 #import "ZZColorTheme.h"
 #import "ZZAppDependecesInjection.h"
+#import "ANCrashlyticsAdapter.h"
 
 @interface ZZAppDependencies ()
 
@@ -27,6 +28,8 @@
 - (void)initialApplicationSetup:(UIApplication *)application launchOptions:(NSDictionary *)options
 {
     [ZZColorTheme shared];
+    
+    [ANCrashlyticsAdapter start];
     
     ZZAppDependecesInjection* injection = [ZZAppDependecesInjection new];
     [injection configureTyphoon];

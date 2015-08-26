@@ -1142,6 +1142,17 @@
 			name = "State Screen";
 			sourceTree = "<group>";
 		};
+		07243CC41B8E5525008E4203 /* Bench */ = {
+			isa = PBXGroup;
+			children = (
+				682D6E6787D45BE572A55B5B /* TBMBenchViewController.h */,
+				682D65EE7CC9D27ADFAF2650 /* TBMBenchViewController.m */,
+				682D6B6628FB4DF0C409BDA8 /* TBMBenchTableViewCell.h */,
+				682D6DC566D9403E2D40869C /* TBMBenchTableViewCell.m */,
+			);
+			name = Bench;
+			sourceTree = "<group>";
+		};
 		0732F5031B8B93D3004FD3AF /* ZazoTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -2938,8 +2949,6 @@
 				07243C591B8D108C008E4203 /* Config */,
 				07F0ED241B8CE73F00036AB2 /* Resources */,
 				07243CC21B8E4022008E4203 /* State Screen */,
-				682D6B6628FB4DF0C409BDA8 /* TBMBenchTableViewCell.h */,
-				682D6DC566D9403E2D40869C /* TBMBenchTableViewCell.m */,
 				682D6F5803102635CD982C93 /* UIWidgets */,
 				682D6CF49331B07346506AF0 /* AppDelegate */,
 				682D646762033C5CFB7C22A2 /* Controllers */,
@@ -2986,8 +2995,7 @@
 			isa = PBXGroup;
 			children = (
 				682D6476191477D8E395D369 /* AlertController */,
-				682D6E6787D45BE572A55B5B /* TBMBenchViewController.h */,
-				682D65EE7CC9D27ADFAF2650 /* TBMBenchViewController.m */,
+				07243CC41B8E5525008E4203 /* Bench */,
 				682D6E6114939AFE1887A243 /* Home */,
 				682D63C88941546F765DE1A3 /* Grid */,
 				682D6F2ADEB397BE1387383A /* TBMHomeModuleInterface.h */,
@@ -3377,6 +3385,7 @@
 				220E90221909A18B003C4F82 /* Frameworks */,
 				220E90231909A18B003C4F82 /* Resources */,
 				F150BE2BD20343D6AD66EF07 /* Copy Pods Resources */,
+				07243CC31B8E4517008E4203 /* Fabric */,
 			);
 			buildRules = (
 				07F0ED831B8CE79300036AB2 /* PBXBuildRule */,
@@ -3502,6 +3511,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		07243CC31B8E4517008E4203 /* Fabric */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Fabric;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" 614db54f91c11edf6117193953fc20467d62cd05 06786661ab10c149ccf35734a13a2efd732d9dd1cb481ab620fc97be50a9ef38";
+		};
 		90DCA26FC9A448EB9C5E5879 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
