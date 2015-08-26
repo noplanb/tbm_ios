@@ -7,10 +7,13 @@
 #import "TBMNextFeatureDialogView.h"
 #import "TBMHomeModuleInterface.h"
 #import "TBMEventHandlerDataSource.h"
+#import "TBMFeatureUnlockModuleInterface.h"
 
 @interface TBMNextFeatureDialogPresenter ()
 
 @property(nonatomic, strong) id <TBMHomeModuleInterface> homeModule;
+@property(nonatomic, strong) id <TBMFeatureUnlockModuleInterface> featureUnlockModule;
+@property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> inviteSomeOneElseHintModule;
 
 @end
 
@@ -22,10 +25,9 @@
 
     if (self)
     {
-        TBMNextFeatureDialogView *view = [TBMNextFeatureDialogView new];
-        view.presenter = self;
-        self.dialogView = view;
-        self.dataSource.persistentStateKey = @""; // it means don't store
+        self.dialogView = [TBMNextFeatureDialogView new];
+        [self.dialogView setupDialogViewDelegate:self];
+        self.eventHandlerDataSource.persistentStateKey = @""; // it means don't store
     }
     return self;
 }
@@ -35,9 +37,33 @@
     self.homeModule = homeModule;
 }
 
+- (void)setupInviteSomeOneElseHintModule:(id <TBMEventsFlowModuleEventHandler>)inviteSomeOneElseHintModule
+{
+    self.inviteSomeOneElseHintModule = inviteSomeOneElseHintModule;
+}
+
+- (void)setupFeatureUnlockModule:(id <TBMFeatureUnlockModuleInterface>)featureUnlockModule
+{
+    self.featureUnlockModule = featureUnlockModule;
+}
+
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
 {
-    if (event != TBMEventFlowEventApplicationDidLaunch)
+    if (event != TBMEventFlowEventMessageDidStopPlaying
+            && event != TBMEventFlowEventMessageDidSend
+            && event != TBMEventFlowEventFeatureUsageHintDidDismiss
+            )
+    {
+        return NO;
+    }
+
+    if (event == TBMEventFlowEventMessageDidSend
+            && [self.inviteSomeOneElseHintModule conditionForEvent:TBMEventFlowEventMessageDidSend dataSource:dataSource])
+    {
+        return NO;
+    }
+
+    if (![self.featureUnlockModule hasFeaturesForUnlock])
     {
         return NO;
     }
@@ -47,18 +73,15 @@
 
 - (NSUInteger)priority
 {
-    return 109;
+    return 200;
 }
 
 #pragma mark - View Callbacks
-
-- (void)dismiss
-{
-    [self.dialogView dismiss];
-}
 
 - (void)dialogDidTap
 {
     [self.homeModule showBench];
 }
+
+
 @end

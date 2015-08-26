@@ -28,5 +28,6 @@
 
 + (void)saveRegistrationData:(NSDictionary *)params;
 
-- (void)setupRegistredFlagTo:(BOOL)registred;
+- (void)setupRegisteredFlagTo:(BOOL)registred;
+- (void)setupIsInviteeFlagTo:(BOOL)flag;
 @end

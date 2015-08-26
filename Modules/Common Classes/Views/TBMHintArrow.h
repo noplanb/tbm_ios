@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, TBMHintArrowCurveKind)
 @property(nonatomic, strong) NSString *text;
 @property(nonatomic, assign) CGFloat arrowAngle;
 @property(nonatomic, assign) CGPoint arrowPoint;
-@property(nonatomic, strong) UILabel *firstLabel;
+@property(nonatomic, strong) UILabel *arrowLabel;
 @property(nonatomic, assign) BOOL hideArrow;
 
 + (TBMHintArrow *)arrowWithText:(NSString *)text

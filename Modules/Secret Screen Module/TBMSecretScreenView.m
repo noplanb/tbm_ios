@@ -80,37 +80,45 @@
 
 @end
 
-@implementation TBMSecretScreenView {
+@implementation TBMSecretScreenView
+{
 
 }
 
 #pragma mark - Initialization
 
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
-    if (self) {
+    if (self)
+    {
         [self setup];
     }
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
     self = [super initWithCoder:aDecoder];
-    if (self) {
+    if (self)
+    {
         [self setup];
     }
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame
+{
     self = [super initWithFrame:frame];
-    if (self) {
+    if (self)
+    {
         [self setup];
     }
     return self;
 }
 
-- (void)setup {
+- (void)setup
+{
 
     CGFloat topOffset = 25.f;
     NSLog(@"topOffset %.2f", topOffset);
@@ -192,7 +200,7 @@
     self.resetHintsButton.frame = CGRectMake(horzMargin, lineTop, halfWidth - horzMargin, buttonHeight);
     [self addSubview:self.resetHintsButton];
 
-    
+
     self.stateButton.frame = CGRectMake(horzMargin * 2 + halfWidth, lineTop, halfWidth - horzMargin, buttonHeight);
     [self addSubview:self.stateButton];
 
@@ -207,18 +215,23 @@
 }
 
 
-- (void)updateUserInterfaceWithData:(TBMDebugData *)data {
-    if (data.version) {
+- (void)updateUserInterfaceWithData:(TBMDebugData *)data
+{
+    if (data.version)
+    {
         self.versionLabel.text = [@"Version: " stringByAppendingString:data.version];
     }
-    if (data.firstName) {
+    if (data.firstName)
+    {
         self.firstNameLabel.text = [@"First Name: " stringByAppendingString:data.firstName];
     }
-    if (data.lastName) {
+    if (data.lastName)
+    {
         self.lastNameLabel.text = [@"Last Name: " stringByAppendingString:data.lastName];
     }
 
-    if (data.mobileNumber) {
+    if (data.mobileNumber)
+    {
         self.mobileNumberLabel.text = [@"Phone: " stringByAppendingString:data.mobileNumber];
     }
 
@@ -230,82 +243,103 @@
 
 #pragma mark - Actions
 
-- (void)debugModeSwitchAction:(id)sender {
+- (void)debugModeSwitchAction:(id)sender
+{
     [self.eventHandler debugSwitchDidChangeTo:self.debugModeSwitch.on];
 }
 
-- (void)crashButtonAction:(id)sender {
+- (void)crashButtonAction:(id)sender
+{
     [self.eventHandler crashButtonDidPress];
 }
 
-- (void)logButtonAction:(id)sender {
+- (void)logButtonAction:(id)sender
+{
     [self.eventHandler logButtonDidPress];
 }
 
-- (void)stateButtonAction:(id)sender {
+- (void)stateButtonAction:(id)sender
+{
     [self.eventHandler stateButtonDidPress];
 }
 
-- (void)dispatchButtonAction:(id)sender {
+- (void)dispatchButtonAction:(id)sender
+{
     [self.eventHandler dispatchButtonDidPress];
 }
 
-- (void)resetHintsButtonAction:(id)sender {
+- (void)resetHintsButtonAction:(id)sender
+{
     [self.eventHandler resetHintsButtonDidPress];
 }
 
-- (void)serverSegmentedControlAction:(id)sender {
+- (void)serverSegmentedControlAction:(id)sender
+{
     [self.eventHandler serverSegmentedControlDidChangeTo:self.serverSegmentedControl.selectedSegmentIndex];
 }
 
 #pragma mark - Autoinitializers
 
-- (UILabel *)versionLabel {
-    if (!_versionLabel) {
+- (UILabel *)versionLabel
+{
+    if (!_versionLabel)
+    {
         _versionLabel = [[UILabel alloc] init];
     }
     return _versionLabel;
 }
 
-- (UILabel *)firstNameLabel {
-    if (!_firstNameLabel) {
+- (UILabel *)firstNameLabel
+{
+    if (!_firstNameLabel)
+    {
         _firstNameLabel = [[UILabel alloc] init];
     }
     return _firstNameLabel;
 }
 
-- (UILabel *)lastNameLabel {
-    if (!_lastNameLabel) {
+- (UILabel *)lastNameLabel
+{
+    if (!_lastNameLabel)
+    {
         _lastNameLabel = [[UILabel alloc] init];
     }
     return _lastNameLabel;
 }
 
-- (UILabel *)mobileNumberLabel {
-    if (!_mobileNumberLabel) {
+- (UILabel *)mobileNumberLabel
+{
+    if (!_mobileNumberLabel)
+    {
         _mobileNumberLabel = [[UILabel alloc] init];
     }
     return _mobileNumberLabel;
 }
 
-- (UILabel *)debugModeLabel {
-    if (!_debugModeLabel) {
+- (UILabel *)debugModeLabel
+{
+    if (!_debugModeLabel)
+    {
         _debugModeLabel = [[UILabel alloc] init];
         _debugModeLabel.text = @"Debug mode";
     }
     return _debugModeLabel;
 }
 
-- (UISwitch *)debugModeSwitch {
-    if (!_debugModeSwitch) {
+- (UISwitch *)debugModeSwitch
+{
+    if (!_debugModeSwitch)
+    {
         _debugModeSwitch = [[UISwitch alloc] init];
         [_debugModeSwitch addTarget:self action:@selector(debugModeSwitchAction:) forControlEvents:UIControlEventValueChanged];
     }
     return _debugModeSwitch;
 }
 
-- (UIButton *)crashButton {
-    if (!_crashButton) {
+- (UIButton *)crashButton
+{
+    if (!_crashButton)
+    {
         _crashButton = [[UIButton alloc] init];
         [_crashButton setupRoundedButtonWithColor:[UIColor blueColor]];
         [_crashButton setTitle:@"Crash" forState:UIControlStateNormal];
@@ -314,8 +348,10 @@
     return _crashButton;
 }
 
-- (UITextField *)serverAddressTextField {
-    if (!_serverAddressTextField) {
+- (UITextField *)serverAddressTextField
+{
+    if (!_serverAddressTextField)
+    {
         _serverAddressTextField = [[UITextField alloc] init];
         _serverAddressTextField.borderStyle = UITextBorderStyleRoundedRect;
         _serverAddressTextField.returnKeyType = UIReturnKeyDone;
@@ -329,8 +365,10 @@
     return _serverAddressTextField;
 }
 
-- (UISegmentedControl *)serverSegmentedControl {
-    if (!_serverSegmentedControl) {
+- (UISegmentedControl *)serverSegmentedControl
+{
+    if (!_serverSegmentedControl)
+    {
         _serverSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"PROD", @"STAGE", @"CUSTOM"]];
         [_serverSegmentedControl addTarget:self
                                     action:@selector(serverSegmentedControlAction:)
@@ -339,8 +377,10 @@
     return _serverSegmentedControl;
 }
 
-- (UIButton *)logButton {
-    if (!_logButton) {
+- (UIButton *)logButton
+{
+    if (!_logButton)
+    {
         _logButton = [[UIButton alloc] init];
         [_logButton setupRoundedButtonWithColor:[UIColor blueColor]];
         [_logButton setTitle:@"Logs" forState:UIControlStateNormal];
@@ -349,8 +389,10 @@
     return _logButton;
 }
 
-- (UIButton *)stateButton {
-    if (!_stateButton) {
+- (UIButton *)stateButton
+{
+    if (!_stateButton)
+    {
         _stateButton = [[UIButton alloc] init];
         [_stateButton setupRoundedButtonWithColor:[UIColor blueColor]];
         [_stateButton setTitle:@"State" forState:UIControlStateNormal];
@@ -359,8 +401,10 @@
     return _stateButton;
 }
 
-- (UIButton *)resetHintsButton {
-    if (!_resetHintsButton) {
+- (UIButton *)resetHintsButton
+{
+    if (!_resetHintsButton)
+    {
         _resetHintsButton = [[UIButton alloc] init];
         [_resetHintsButton setupRoundedButtonWithColor:[UIColor blueColor]];
         [_resetHintsButton setTitle:@"Reset hints" forState:UIControlStateNormal];
@@ -369,8 +413,10 @@
     return _resetHintsButton;
 }
 
-- (UIButton *)dispatchButton {
-    if (!_dispatchButton) {
+- (UIButton *)dispatchButton
+{
+    if (!_dispatchButton)
+    {
         _dispatchButton = [[UIButton alloc] init];
         [_dispatchButton setupRoundedButtonWithColor:[UIColor blueColor]];
         [_dispatchButton setTitle:@"Dispatch" forState:UIControlStateNormal];
@@ -381,9 +427,11 @@
 
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     NSString *customServerURL = textField.text;
-    if (customServerURL) {
+    if (customServerURL)
+    {
         [self.eventHandler setCustomServerURL:customServerURL];
         [textField resignFirstResponder];
     }

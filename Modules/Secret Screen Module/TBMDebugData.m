@@ -6,19 +6,23 @@
 #import "TBMDebugData.h"
 #import "TBMUser.h"
 
-@implementation TBMDebugData {
+@implementation TBMDebugData
+{
 
 }
 
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
-    if (self) {
+    if (self)
+    {
         [self fillData];
     }
     return self;
 }
 
-- (void)fillData {
+- (void)fillData
+{
     NSArray *versionParts = @[CONFIG_VERSION_STRING, @"(", CONFIG_VERSION_NUMBER, @")"];
     self.version = [versionParts componentsJoinedByString:@" "];
     TBMUser *user = [TBMUser getUser];
@@ -33,15 +37,18 @@
 }
 
 
-void append(NSMutableString *description, NSString *title, NSString *value) {
+void append(NSMutableString *description, NSString *title, NSString *value)
+{
     [description appendString:title];
-    if (value) {
+    if (value)
+    {
         [description appendString:value];
     }
     [description appendString:@"\n * "];
 }
 
-- (NSString *)debugDescription {
+- (NSString *)debugDescription
+{
     NSMutableString *description = [@"\n * DEBUG SCREEN DATA * * * * * * \n * " mutableCopy];
 
     append(description, @"Version: ", self.version);
@@ -49,17 +56,22 @@ void append(NSMutableString *description, NSString *title, NSString *value) {
     append(description, @"Last Name: ", self.lastName);
     append(description, @"Phone: ", self.mobileNumber);
 
-    if (self.debugMode == TBMConfigDebugModeOn) {
+    if (self.debugMode == TBMConfigDebugModeOn)
+    {
         append(description, @"Debug mode: ", @"ON");
-    } else {
+    } else
+    {
         [description appendString:@"Debug mode: OFF"];
     }
 
-    if (self.serverState == TBMServerStateCustom) {
+    if (self.serverState == TBMServerStateCustom)
+    {
         append(description, @"Server State: ", @"Custom");
-    } else if (self.serverState == TBMServerStateDeveloper) {
+    } else if (self.serverState == TBMServerStateDeveloper)
+    {
         append(description, @"Server State: ", @"Development");
-    } else {
+    } else
+    {
         append(description, @"Server State: ", @"Production");
     }
 

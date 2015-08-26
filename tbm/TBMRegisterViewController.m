@@ -336,7 +336,7 @@
 
 
 - (void) registrationComplete{
-    [[TBMUser getUser] setupRegistredFlagTo:YES];
+    [[TBMUser getUser] setupRegisteredFlagTo:YES];
     [(TBMAppDelegate *)[[UIApplication sharedApplication] delegate] didCompleteRegistration];
 }
 

@@ -17,14 +17,14 @@
     if (self)
     {
         self.dialogView = [TBMInviteHintView new];
-        self.dataSource.persistentStateKey = @"kInviteHintNSUDkey";
+        self.eventHandlerDataSource.persistentStateKey = @"kInviteHintNSUDkey";
     }
     return self;
 }
 
 - (NSUInteger)priority
 {
-    return 1;
+    return 1700;
 }
 
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
@@ -34,7 +34,7 @@
         return NO;
     }
 
-    if ([self.dataSource sessionState])
+    if ([self.eventHandlerDataSource sessionState])
     {
         return NO;
     }

@@ -17,9 +17,15 @@
 
     if (self)
     {
-        self.dataSource = [TBMEventHandlerDataSource new];
+        self.eventHandlerDataSource = [TBMEventHandlerDataSource new];
     }
     return self;
+}
+
+- (void)setDialogView:(id <TBMDialogViewInterface>)dialogView
+{
+    _dialogView = dialogView;
+    [_dialogView setupDialogViewDelegate:self];
 }
 
 - (void)setupEventFlowModule:(id <TBMEventsFlowModuleInterface>)eventFlowModule
@@ -29,7 +35,7 @@
 
 - (void)resetSessionState
 {
-    [self.dataSource setSessionState:NO];
+    [self.eventHandlerDataSource setSessionState:NO];
 }
 
 - (void)didPresented
@@ -59,12 +65,14 @@
 
 - (void)saveHandlerState
 {
-    [self.dataSource setPersistentState:YES];
-    [self.dataSource setSessionState:YES];
+    [self.eventHandlerDataSource setPersistentState:YES];
+    [self.eventHandlerDataSource setSessionState:YES];
 }
 
 - (void)dialogDidDismiss
 {
+    self.isPresented = NO;
     OB_INFO(@"%@ did dismiss", [self.dialogView class]);
+
 }
 @end

@@ -3,24 +3,25 @@
 // Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import <AFNetworking/AFURLResponseSerialization.h>
 #import "TBMSecretScreenViewController.h"
 #import "TBMSecretScreenView.h"
 #import "TBMSecretScreenPresenter.h"
-#import "TBMDebugData.h"
 #import "TBMDebugData.h"
 
 @interface TBMSecretScreenViewController ()
 @property(nonatomic, strong) TBMSecretScreenPresenter *presenter;
 @end
 
-@implementation TBMSecretScreenViewController {
+@implementation TBMSecretScreenViewController
+{
 
 }
 
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
-    if (self) {
+    if (self)
+    {
         CGRect frame = self.view.frame;
 
         TBMSecretScreenView *view = [[TBMSecretScreenView alloc] initWithFrame:frame];
@@ -31,7 +32,8 @@
     return self;
 }
 
-- (void)setupNavigationBar {
+- (void)setupNavigationBar
+{
     self.title = @"Secret screen";
 
     //Done button - returns to the Registration screen or the HomeView screen as appropriate.
@@ -39,9 +41,11 @@
     self.navigationItem.leftBarButtonItem = doneButton;
 }
 
-- (instancetype)initWithPresenter:(TBMSecretScreenPresenter *)presenter {
+- (instancetype)initWithPresenter:(TBMSecretScreenPresenter *)presenter
+{
     self = [self init];
-    if (self) {
+    if (self)
+    {
         self.presenter = presenter;
         TBMSecretScreenView *view = (TBMSecretScreenView *) self.view;
         view.eventHandler = presenter;
@@ -49,16 +53,19 @@
     return self;
 }
 
-- (void)backButtonAction:(id)sender {
+- (void)backButtonAction:(id)sender
+{
     [self.presenter backButtonDidPress];
 }
 
-- (void)dispatchButtonAction:(id)sender {
+- (void)dispatchButtonAction:(id)sender
+{
     [self.presenter dispatchButtonDidPress];
 }
 
 
-- (void)reloadData {
+- (void)reloadData
+{
     [(TBMSecretScreenView *) self.view updateUserInterfaceWithData:[[TBMDebugData alloc] init]];
 }
 @end

@@ -12,6 +12,4 @@
 
 @interface TBMNextFeatureDialogView : UIView <TBMDialogViewInterface>
 
-@property(nonatomic, weak) TBMNextFeatureDialogPresenter *presenter;
-
 @end

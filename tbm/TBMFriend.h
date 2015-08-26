@@ -65,6 +65,7 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 + (instancetype)findWithMkey:(NSString *)mkey;
 + (instancetype)findWithMatchingPhoneNumber:(NSString *)phone;
 + (NSUInteger)count;
++ (NSUInteger)everSentNonInviteeFriendsCount;
 
 // UI
 - (NSString *)displayName;

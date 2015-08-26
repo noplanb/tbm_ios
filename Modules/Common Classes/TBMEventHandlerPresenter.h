@@ -7,12 +7,13 @@
  */
 
 #import "TBMEventsFlowModuleEventHandler.h"
+#import "TBMDialogViewDelegate.h"
 
 @class TBMHintView;
 @class TBMEventHandlerDataSource;
 @protocol TBMDialogViewInterface;
 
-@interface TBMEventHandlerPresenter : NSObject <TBMEventsFlowModuleEventHandler>
+@interface TBMEventHandlerPresenter : NSObject <TBMEventsFlowModuleEventHandler, TBMDialogViewDelegate>
 
 /**
  *  is event handler view presented
@@ -28,7 +29,7 @@
 /**
  * Data source only persistentStateKey should be set in subclasses
  */
-@property(nonatomic, strong) TBMEventHandlerDataSource *dataSource;
+@property(nonatomic, strong) TBMEventHandlerDataSource *eventHandlerDataSource;
 
 /**
  * Used by subclasses for decisions
@@ -44,8 +45,4 @@
  */
 - (void)didPresented;
 
-/**
- * View callback
- */
-- (void)dialogDidDismiss;
 @end

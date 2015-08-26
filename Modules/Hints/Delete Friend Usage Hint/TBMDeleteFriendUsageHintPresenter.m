@@ -19,19 +19,24 @@
     if (self)
     {
         self.dialogView = [TBMDeleteFriendUsageHintView new];
-        self.dataSource.persistentStateKey = @"kDeleteFriendUsageUsageHintNSUDkey";
+        self.eventHandlerDataSource.persistentStateKey = @"kDeleteFriendUsageUsageHintNSUDkey";
     }
     return self;
 }
 
 - (NSUInteger)priority
 {
-    return 1;
+    return 1400;
 }
 
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
 {
     return event == TBMEventFlowEventDeleteFriendUnlockDialogDidDismiss;
+}
+
+- (void)dialogDidDismiss
+{
+    [self.eventFlowModule throwEvent:TBMEventFlowEventFeatureUsageHintDidDismiss];
 }
 
 @end

@@ -107,7 +107,7 @@
     return user;
 }
 
-- (void)setupRegistredFlagTo:(BOOL)registred {
+- (void)setupRegisteredFlagTo:(BOOL)registred {
     NSManagedObjectContext *context = [TBMUser managedObjectContext];
     TBMUser *user = [TBMUser getUser];
     if (!user) {
@@ -127,6 +127,13 @@
     user.lastName = [params objectForKey:SERVER_PARAMS_USER_LAST_NAME_KEY];
     user.mobileNumber = [params objectForKey:SERVER_PARAMS_USER_MOBILE_NUMBER_KEY];
     [self saveCurrentContext];
+}
+
+
+
+- (void)setupIsInviteeFlagTo:(BOOL)flag {
+    self.isInvitee = @(flag);
+    [TBMUser saveCurrentContext];
 }
 
 + (void)saveCurrentContext {

@@ -18,19 +18,24 @@
     if (self)
     {
         self.dialogView = [TBMEarpieceUsageHintView new];
-        self.dataSource.persistentStateKey = @"kEarpieceUsageUsageHintNSUDkey";
+        self.eventHandlerDataSource.persistentStateKey = @"kEarpieceUsageUsageHintNSUDkey";
     }
     return self;
 }
 
 - (NSUInteger)priority
 {
-    return 1;
+    return 1300;
 }
 
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
 {
     return event == TBMEventFlowEventEarpieceUnlockDialogDidDismiss;
+}
+
+- (void)dialogDidDismiss
+{
+    [self.eventFlowModule throwEvent:TBMEventFlowEventFeatureUsageHintDidDismiss];
 }
 
 @end

@@ -19,24 +19,27 @@
     if (self)
     {
         self.dialogView = [TBMInviteSomeoneElseHintView new];
-        self.dataSource.persistentStateKey = @"kInviteSomeoneElseNSUDkey";
+        self.eventHandlerDataSource.persistentStateKey = @"kInviteSomeoneElseNSUDkey";
     }
     return self;
 }
 
 - (NSUInteger)priority
 {
-    return 1;
+    return 300;
 }
 
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
 {
+#warning TEST PURPOSES
+    return YES;
+
     if (event != TBMEventFlowEventMessageDidSend && event != TBMEventFlowEventSentHintDidDismiss)
     {
         return NO;
     }
 
-    if ([self.dataSource sessionState])
+    if ([self.eventHandlerDataSource sessionState])
     {
         return NO;
     }

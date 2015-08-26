@@ -21,11 +21,20 @@ CGFloat const kElementsHorizontalMargin = 15.f;
 @property(nonatomic, strong) UILabel *subHeaderLabel;
 
 @property(nonatomic, strong) UIImageView *presentIconImage;
+
+@property(nonatomic, weak) id <TBMDialogViewDelegate> dialogViewDelegate;
+
 @end
 
 @implementation TBMNextFeatureDialogView
 
 #pragma mark - Interface
+
+
+- (void)setupDialogViewDelegate:(id <TBMDialogViewDelegate>)viewDelegate
+{
+    self.dialogViewDelegate = viewDelegate;
+}
 
 - (void)showInGrid:(id <TBMGridModuleInterface>)gridModule
 {
@@ -56,20 +65,20 @@ CGFloat const kElementsHorizontalMargin = 15.f;
     UIView *touchedView = [self hitTest:locationPoint withEvent:event];
     if ([touchedView isEqual:self])
     {
-        [self dialogDidTap:self];
+        [self dialogDidSelect:self];
     }
 }
 
-- (void)dialogDidTap:(id)sender
+- (void)dialogDidSelect:(id)sender
 {
     [self hide];
-    [self.presenter dialogDidTap];
 }
 
 - (void)hide
 {
     self.hidden = YES;
     self.alpha = 0;
+    [self.dialogViewDelegate dialogDidDismiss];
 }
 
 #pragma mark - Layout
@@ -86,13 +95,12 @@ CGFloat const kElementsHorizontalMargin = 15.f;
     self.alpha = 1;
 
     [UIView animateWithDuration:.35f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^
-            {
-                self.frame = [self makeRectWithTop:correctDialogTop];
-            }
-                     completion:^(BOOL finished)
-                     {
-                         [self hideAnimated];
-                     }];
+    {
+        self.frame = [self makeRectWithTop:correctDialogTop];
+    }                completion:^(BOOL finished)
+    {
+        [self hideAnimated];
+    }];
 }
 
 - (void)hideAnimated
@@ -106,7 +114,7 @@ CGFloat const kElementsHorizontalMargin = 15.f;
             }
                      completion:^(BOOL finished)
                      {
-                         self.hidden = YES;
+                         [self hide];
                      }];
 }
 
@@ -161,7 +169,7 @@ CGFloat const kElementsHorizontalMargin = 15.f;
     CGRect bounds = self.bounds;
     CGRect iconFrame = self.presentIconImage.frame;
     self.headerLabel.frame = CGRectMake(
-            CGRectGetMaxX(iconFrame) +kElementsHorizontalMargin,
+            CGRectGetMaxX(iconFrame) + kElementsHorizontalMargin,
             CGRectGetMinY(iconFrame),
             CGRectGetWidth(bounds) - (kElementsHorizontalMargin * 3) - kIconSize,
             kHeaderHeight

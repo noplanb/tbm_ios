@@ -12,7 +12,6 @@
 #import "TBMDebugData.h"
 #import "TBMStateScreenDataSource.h"
 #import "TBMDispatch.h"
-#import "TBMEventsFlowModuleInterface.h"
 
 @interface TBMSecretScreenPresenter ()
 
@@ -29,42 +28,52 @@
 
 #pragma mark - Interface
 
-- (void)presentSecretScreenFromController:(UIViewController *)presentedController {
+- (void)presentSecretScreenFromController:(UIViewController *)presentedController
+{
     OB_INFO(@"TBMSecretScreenPresenter: presentSecretScreenFromController");
     self.presentedController = presentedController;
     [presentedController presentViewController:self.navigationController animated:YES completion:nil];
 
 }
 
-- (void)assignTutorialModule:(id <TBMEventsFlowModuleInterface>)tutorialModule {
+- (void)assignTutorialModule:(id <TBMEventsFlowModuleInterface>)tutorialModule
+{
     self.tutorialModule = tutorialModule;
 }
 
 #pragma mark - Initialization
 
-- (UINavigationController *)navigationController {
-    if (!_navigationController) {
+- (UINavigationController *)navigationController
+{
+    if (!_navigationController)
+    {
         _navigationController = [[UINavigationController alloc] initWithRootViewController:self.secretScreen];
     }
     return _navigationController;
 }
 
-- (OBLogViewController *)logScreen {
-    if (!_logScreen) {
+- (OBLogViewController *)logScreen
+{
+    if (!_logScreen)
+    {
         _logScreen = [OBLogViewController instance];
     }
     return _logScreen;
 }
 
-- (TBMSecretScreenViewController *)secretScreen {
-    if (!_secretScreen) {
+- (TBMSecretScreenViewController *)secretScreen
+{
+    if (!_secretScreen)
+    {
         _secretScreen = [[TBMSecretScreenViewController alloc] initWithPresenter:self];
     }
     return _secretScreen;
 }
 
-- (TBMStateScreenViewController *)stateScreen {
-    if (!_stateScreen) {
+- (TBMStateScreenViewController *)stateScreen
+{
+    if (!_stateScreen)
+    {
         _stateScreen = [[TBMStateScreenViewController alloc] init];
     }
     return _stateScreen;
@@ -72,11 +81,13 @@
 
 #pragma mark - Present child screens
 
-- (void)presentLogScreen {
+- (void)presentLogScreen
+{
     [self.navigationController pushViewController:self.logScreen animated:YES];
 }
 
-- (void)presentStateScreen {
+- (void)presentStateScreen
+{
     TBMStateScreenDataSource *data = [[TBMStateScreenDataSource alloc] init];
     [data loadFriendsVideoObjects];
     [data loadVideos];
@@ -87,32 +98,39 @@
 
 #pragma mark - Actions
 
-- (void)reload {
+- (void)reload
+{
     [self.secretScreen reloadData];
 
 }
 
-- (void)dismiss {
+- (void)dismiss
+{
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 
 }
 
 #pragma mark - Event handling
 
-- (void)backButtonDidPress {
+- (void)backButtonDidPress
+{
     [self dismiss];
 }
 
 
-- (void)dispatchButtonDidPress {
+- (void)dispatchButtonDidPress
+{
     TBMDebugData *data = [[TBMDebugData alloc] init];
     [TBMDispatch dispatch:[data debugDescription]];
 }
 
-- (void)debugSwitchDidChangeTo:(BOOL)on {
-    if (on) {
+- (void)debugSwitchDidChangeTo:(BOOL)on
+{
+    if (on)
+    {
         [TBMConfig changeConfigDebugModeTo:TBMConfigDebugModeOn];
-    } else {
+    } else
+    {
         [TBMConfig changeConfigDebugModeTo:TBMConfigDebugModeOff];
     }
     [self reload];
@@ -123,30 +141,35 @@
     TBMDebugData *data = [[TBMDebugData alloc] init];
     NSMutableString *crashReason = [@"!!!CRASH BUTTON EXCEPTION:" mutableCopy];
     [crashReason appendString:[data debugDescription]];
-    NSArray* array = [NSArray array];
+    NSArray *array = [NSArray array];
     [array objectAtIndex:2]; // forse crash!
 }
 
-- (void)logButtonDidPress {
+- (void)logButtonDidPress
+{
     [self presentLogScreen];
 }
 
-- (void)stateButtonDidPress {
+- (void)stateButtonDidPress
+{
 
     [self presentStateScreen];
 }
 
-- (void)serverSegmentedControlDidChangeTo:(NSInteger)index {
+- (void)serverSegmentedControlDidChangeTo:(NSInteger)index
+{
     [TBMConfig changeServerTo:index];
     [self reload];
 }
 
-- (void)setCustomServerURL:(NSString *)url {
+- (void)setCustomServerURL:(NSString *)url
+{
     [TBMConfig changeCustomServerURL:url];
     [self reload];
 }
 
-- (void)resetHintsButtonDidPress {
+- (void)resetHintsButtonDidPress
+{
     [self.tutorialModule resetHintsState];
 }
 @end

@@ -7,6 +7,7 @@
 #import "TBMEventsFlowModulePresenter.h"
 #import "TBMEventsFlowDataSource.h"
 #import "TBMEventsFlowModuleEventHandler.h"
+#import "OBLoggerCore.h"
 
 @interface TBMEventsFlowModulePresenter ()
 
@@ -48,19 +49,22 @@
 
 - (void)throwEvent:(TBMEventFlowEvent)anEvent
 {
+    OB_INFO(@"[ EVENT throwEvent ] %ld ", (long) anEvent);
     id <TBMEventsFlowModuleEventHandler> currentEvenHandler = nil;
     for (id <TBMEventsFlowModuleEventHandler> evenHandler in self.eventHandlers)
     {
-        NSLog(@"enumerate %@ -", [evenHandler class]);
         if ([evenHandler conditionForEvent:anEvent dataSource:self.dataSource])
         {
-            NSLog(@"++ Condition for  %@ ++", [evenHandler class]);
-            NSLog(@"priority %lu | %@ priority = %lu  -", (unsigned long) [evenHandler priority], [currentEvenHandler class], (unsigned long) [currentEvenHandler priority]);
+            OB_INFO(@"[ EVENT HANDLER ] %@ — condition complain and priority is %lu", evenHandler.class, (unsigned long) evenHandler.priority);
             if ([currentEvenHandler priority] < [evenHandler priority])
             {
-                NSLog(@">> Select:  %@ ++", [evenHandler class]);
                 currentEvenHandler = evenHandler;
+                OB_INFO(@"[+ CURENT EVENT HANDLER ] %@ — priority is %lud", currentEvenHandler.class, (unsigned long) currentEvenHandler.priority);
             }
+        }
+        else
+        {
+            OB_INFO(@"[ EVENT HANDLER ] %@ — fails", evenHandler.class);
         }
     }
 

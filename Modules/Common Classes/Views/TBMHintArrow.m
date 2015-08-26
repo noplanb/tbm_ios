@@ -4,6 +4,7 @@
 //
 
 #import "TBMHintArrow.h"
+#import "UILabel+TBMUILabelDynamicHeight.h"
 
 NSString *const kTBMTutorialFontName = @"DKCrayonCrumble";
 
@@ -14,6 +15,7 @@ NSString *const kTBMTutorialFontName = @"DKCrayonCrumble";
 @property(nonatomic, strong) UIImage *arrowImage;
 @property(nonatomic, strong) UIView *arrowEndPointView;
 
+@property(nonatomic, strong) UIFont *mainLabelFont;
 @end
 
 @implementation TBMHintArrow
@@ -67,16 +69,19 @@ CGFloat degreesToRadians(CGFloat x)
 
 - (void)layoutLabels
 {
+
+    CGFloat margin = 15.f;
     CGFloat height = 40;
-    CGFloat width = CGRectGetWidth(self.bounds);
-    CGFloat x = CGRectGetMinX(self.bounds);
+    CGFloat width = CGRectGetWidth(self.bounds) - (margin * 2);
+    CGFloat x = CGRectGetMinX(self.bounds) + margin;
     CGFloat y;
+
     CGRect arrow = [self.rotationWrapper convertRect:self.arrowImageView.frame toView:self];
-
-    y = self.arrowAngle >= -90 && self.arrowAngle <= 90 ? CGRectGetMinY(arrow) - CGRectGetHeight(self.firstLabel.bounds) : CGRectGetMaxY(arrow);
-
-    CGRect firstLabelFrame = CGRectMake(x, y, width, height);
-    self.firstLabel.frame = firstLabelFrame;
+    y = self.arrowAngle >= -90 && self.arrowAngle <= 90 ? CGRectGetMinY(arrow) - CGRectGetHeight(self.arrowLabel.bounds) : CGRectGetMaxY(arrow);
+    self.arrowLabel.preferredMaxLayoutWidth = width;
+    self.arrowLabel.frame = CGRectMake(x, y, width, height);
+    CGSize newSize = self.arrowLabel.sizeOfMultiLineLabel;
+    self.arrowLabel.frame = CGRectMake(x, y, newSize.width, newSize.height);
 }
 
 - (void)layoutArrow
@@ -115,19 +120,19 @@ CGFloat degreesToRadians(CGFloat x)
 
 #pragma mark - Lazy initialization
 
-- (UILabel *)firstLabel
+- (UILabel *)arrowLabel
 {
-    if (!_firstLabel)
+    if (!_arrowLabel)
     {
-        _firstLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _firstLabel.font = [UIFont fontWithName:kTBMTutorialFontName size:32];
-        _firstLabel.textColor = [UIColor whiteColor];
-        _firstLabel.textAlignment = NSTextAlignmentCenter;
-        _firstLabel.minimumScaleFactor = .7f;
-        _firstLabel.numberOfLines = 1;
-        [self addSubview:_firstLabel];
+        _arrowLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _arrowLabel.textColor = [UIColor whiteColor];
+        _arrowLabel.font = [UIFont fontWithName:kTBMTutorialFontName size:32];
+        _arrowLabel.textAlignment = NSTextAlignmentCenter;
+        _arrowLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        _arrowLabel.numberOfLines = 0;
+        [self addSubview:_arrowLabel];
     }
-    return _firstLabel;
+    return _arrowLabel;
 }
 
 - (void)setupArrowImage
@@ -177,7 +182,7 @@ CGFloat degreesToRadians(CGFloat x)
 - (void)setText:(NSString *)text
 {
     _text = text;
-    self.firstLabel.text = _text;
+    self.arrowLabel.text = _text;
 }
 
 @end

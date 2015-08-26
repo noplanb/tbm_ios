@@ -19,14 +19,14 @@
     if (self)
     {
         self.dialogView = [TBMWelcomeHintView new];
-        self.dataSource.persistentStateKey = @"*const kWelcomeHintNSUDkey";
+        self.eventHandlerDataSource.persistentStateKey = @"*const kWelcomeHintNSUDkey";
     }
     return self;
 }
 
 - (NSUInteger)priority
 {
-    return 1;
+    return 800;
 }
 
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
@@ -45,7 +45,7 @@
         return NO;
     }
 
-    return ![self.dataSource persistentState];
+    return ![self.eventHandlerDataSource persistentState];
 }
 
 @end

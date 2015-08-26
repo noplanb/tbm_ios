@@ -8,9 +8,12 @@
 
 #import "TBMEventsFlowModuleEventHandler.h"
 #import "TBMEventHandlerPresenter.h"
+#import "TBMFeatureUnlockModuleInterface.h"
 
-@interface TBMFeatureUnlockModulePresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandler>
+@class TBMFeatureUnlockDataSource;
 
-- (void)showMeButtonDidPress;
+@interface TBMFeatureUnlockModulePresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandler, TBMFeatureUnlockModuleInterface>
+
+- (void)showMeButtonDidSelect;
 
 @end

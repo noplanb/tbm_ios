@@ -5,11 +5,11 @@
 
 
 #import "TBMHintView.h"
-#import "TBMEventHandlerPresenter.h"
+#import "TBMDialogViewDelegate.h"
 
 @interface TBMHintView ()
 
-@property(nonatomic, weak) TBMEventHandlerPresenter *presenter;
+@property(nonatomic, weak) id <TBMDialogViewDelegate> dialogViewDelegate;
 
 @property(nonatomic, strong) UIView *gotItButton;
 @property(nonatomic, strong) UIImageView *gotItImage;
@@ -20,6 +20,11 @@
 @implementation TBMHintView
 
 #pragma mark - Interface
+
+- (void)setupDialogViewDelegate:(id <TBMDialogViewDelegate>)viewDelegate
+{
+    self.dialogViewDelegate = viewDelegate;
+}
 
 - (void)showInGrid:(id <TBMGridModuleInterface>)gridModule
 {
@@ -37,7 +42,7 @@
 - (void)dismiss
 {
     [self hide];
-    [self.presenter dialogDidDismiss];
+    [self.dialogViewDelegate dialogDidDismiss];
 }
 
 #pragma mark - Initialization

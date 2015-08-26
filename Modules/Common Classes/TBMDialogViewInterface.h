@@ -4,8 +4,14 @@
 //
 
 @protocol TBMGridModuleInterface;
+@protocol TBMDialogViewDelegate;
 
 @protocol TBMDialogViewInterface <NSObject>
+/**
+ * Sets up a view delegate
+ */
+- (void)setupDialogViewDelegate:(id <TBMDialogViewDelegate>)viewDelegate;
+
 /**
  * Shows event handler dialog in view
  */

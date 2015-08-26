@@ -13,10 +13,10 @@
 
 @class TBMFeatureUnlockModulePresenter;
 
-NSString *const kTBMFeatureUnlockDialogHeaderFontName;
-NSString *const kTBMFeatureUnlockDialogSubHeaderFontName;
-NSString *const kTBMFeatureUnlockDialogFeatureFontName;
-NSString *const kTBMFeatureUnlockDialogButtonFontName;
+//NSString *const kTBMFeatureUnlockDialogHeaderFontName;
+//NSString *const kTBMFeatureUnlockDialogSubHeaderFontName;
+//NSString *const kTBMFeatureUnlockDialogFeatureFontName;
+//NSString *const kTBMFeatureUnlockDialogButtonFontName;
 
 @interface TBMFeatureUnlockDialogView : UIView <TBMDialogViewInterface>
 

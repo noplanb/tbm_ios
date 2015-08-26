@@ -14,9 +14,11 @@
 
 @implementation TBMSecretGestureRecognizer
 
-- (instancetype)initWithTarget:(id)target action:(SEL)action {
+- (instancetype)initWithTarget:(id)target action:(SEL)action
+{
     self = [super initWithTarget:target action:action];
-    if (self) {
+    if (self)
+    {
         self.currentStep = 0;
     }
     return self;
@@ -25,52 +27,64 @@
 
 #pragma mark - Handle touches
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
     NSLog(@"+ touchesBegan");
 
-    if (self.currentStep > 0) {
+    if (self.currentStep > 0)
+    {
         self.currentStep = 0;
         [self stateCanceled];
     }
 
     NSSet *logoTouches = [event touchesForView:self.logoView];
-    if ([logoTouches count]) {
+    if ([logoTouches count])
+    {
         [self statePossible];
         self.touchesTimer = [NSTimer scheduledTimerWithTimeInterval:TBMSecretGestureLongPressTime
                                                              target:self
                                                            selector:@selector(checkLongPress)
                                                            userInfo:nil repeats:NO];
-    } else {
+    } else
+    {
         [self stateCanceled];
     }
 
 }
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (![self viewsInstalled]) {
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if (![self viewsInstalled])
+    {
         return;
     }
 
-    if (self.currentStep <= TBMSecretGestureRecognizerStepDefault) {
+    if (self.currentStep <= TBMSecretGestureRecognizerStepDefault)
+    {
         return;
     }
 
     CGPoint locationPoint = [[touches anyObject] locationInView:self.view];
     UIView *touchedView = [self.view hitTest:locationPoint withEvent:event];
 
-    if ([touchedView isEqual:self.logoView]) {
-        if (self.currentStep == TBMSecretGestureRecognizerStepPanedToMenu) {
+    if ([touchedView isEqual:self.logoView])
+    {
+        if (self.currentStep == TBMSecretGestureRecognizerStepPanedToMenu)
+        {
             self.currentStep = TBMSecretGestureRecognizerStepPanedToLogo;
             [self stateChanged];
         }
     }
 
-    if ([touchedView isEqual:self.menuView]) {
+    if ([touchedView isEqual:self.menuView])
+    {
         if (self.currentStep == TBMSecretGestureRecognizerStepLogoLongpressed
-                || self.currentStep == TBMSecretGestureRecognizerStepPanedToMenu) {
+                || self.currentStep == TBMSecretGestureRecognizerStepPanedToMenu)
+        {
             self.currentStep = TBMSecretGestureRecognizerStepPanedToMenu;
             [self stateChanged];
-        } else {
+        } else
+        {
             [self stateCanceled];
         }
     }
@@ -78,22 +92,28 @@
     // Not in any view? then fail gesture
     if (![touchedView isEqual:self.container]
             && ![touchedView isEqual:self.menuView]
-            && ![touchedView isEqual:self.logoView]) {
+            && ![touchedView isEqual:self.logoView])
+    {
         [self stateCanceled];
     }
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (self.currentStep == TBMSecretGestureRecognizerStepPanedToLogo) {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if (self.currentStep == TBMSecretGestureRecognizerStepPanedToLogo)
+    {
         [self stateEnded];
-    } else {
+    } else
+    {
         [self stateCanceled];
     }
 
 }
 
-- (void)checkLongPress {
-    if (self.currentStep == TBMSecretGestureRecognizerStepDefault) {
+- (void)checkLongPress
+{
+    if (self.currentStep == TBMSecretGestureRecognizerStepDefault)
+    {
         [self stateBegan];
     }
 
@@ -101,22 +121,26 @@
 
 #pragma mark - States
 
-- (void)statePossible {
+- (void)statePossible
+{
     self.delaysTouchesBegan = YES;
     self.currentStep = TBMSecretGestureRecognizerStepDefault;
     self.state = UIGestureRecognizerStatePossible;
 }
 
-- (void)stateBegan {
+- (void)stateBegan
+{
     self.currentStep = TBMSecretGestureRecognizerStepLogoLongpressed;
     self.state = UIGestureRecognizerStateBegan;
 }
 
-- (void)stateChanged {
+- (void)stateChanged
+{
     self.state = UIGestureRecognizerStateChanged;
 }
 
-- (void)stateCanceled {
+- (void)stateCanceled
+{
     self.delaysTouchesEnded = YES;
     self.currentStep = 0;
     self.touchesTimer = nil;
@@ -125,7 +149,8 @@
 
 }
 
-- (void)stateEnded {
+- (void)stateEnded
+{
     self.delaysTouchesEnded = YES;
     self.currentStep = 0;
     self.touchesTimer = nil;
@@ -135,7 +160,8 @@
 
 #pragma mark - Helpers
 
-- (BOOL)viewsInstalled {
+- (BOOL)viewsInstalled
+{
     return (self.container && self.menuView && self.logoView);
 }
 

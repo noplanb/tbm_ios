@@ -20,14 +20,14 @@
     if (self)
     {
         self.dialogView = [TBMRecordHintView new];
-        self.dataSource.persistentStateKey = @"kRecordHintNSUDkey";
+        self.eventHandlerDataSource.persistentStateKey = @"kRecordHintNSUDkey";
     }
     return self;
 }
 
 - (NSUInteger)priority
 {
-    return 9;
+    return 1000;
 }
 
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
@@ -46,7 +46,7 @@
         return NO;
     }
 
-    if ([self.dataSource sessionState])
+    if ([self.eventHandlerDataSource sessionState])
     {
         return NO;
     }
@@ -64,7 +64,8 @@
     if (![self.eventFlowModule isAnyHandlerActive])
     {
         [super presentWithGridModule:gridModule];
-    } else if ([[self.eventFlowModule currentHandler] respondsToSelector:@selector(addRecordHint)])
+    }
+    else if ([[self.eventFlowModule currentHandler] respondsToSelector:@selector(addRecordHint)])
     {
         [[self.eventFlowModule currentHandler] performSelector:@selector(addRecordHint)];
         [self didPresented];

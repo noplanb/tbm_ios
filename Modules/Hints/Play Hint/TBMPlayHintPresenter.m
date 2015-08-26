@@ -20,14 +20,14 @@
     if (self)
     {
         self.dialogView = [TBMPlayHintView new];
-        self.dataSource.persistentStateKey = @"kPlayHintNSUDkey";
+        self.eventHandlerDataSource.persistentStateKey = @"kPlayHintNSUDkey";
     }
     return self;
 }
 
 - (NSUInteger)priority
 {
-    return 209;
+    return 1100;
 }
 
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
@@ -44,7 +44,7 @@
         return NO;
     }
 
-    if ([self.dataSource sessionState])
+    if ([self.eventHandlerDataSource sessionState])
     {
         return NO;
     }

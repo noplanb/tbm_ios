@@ -18,19 +18,24 @@
     if (self)
     {
         self.dialogView = [TBMSpinUsageHintView new];
-        self.dataSource.persistentStateKey = @"kSpinUsageUsageUsageHintNSUDkey";
+        self.eventHandlerDataSource.persistentStateKey = @"kSpinUsageUsageUsageHintNSUDkey";
     }
     return self;
 }
 
 - (NSUInteger)priority
 {
-    return 1;
+    return 1200;
 }
 
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
 {
     return event == TBMEventFlowEventSpinUnlockDialogDidDismiss;
+}
+
+- (void)dialogDidDismiss
+{
+    [self.eventFlowModule throwEvent:TBMEventFlowEventFeatureUsageHintDidDismiss];
 }
 
 @end

@@ -18,19 +18,24 @@
     if (self)
     {
         self.dialogView = [TBMFrontCameraUsageHintView new];
-        self.dataSource.persistentStateKey = @"kFrontCameraUsageUsageHintNSUDkey";
+        self.eventHandlerDataSource.persistentStateKey = @"kFrontCameraUsageUsageHintNSUDkey";
     }
     return self;
 }
 
 - (NSUInteger)priority
 {
-    return 1;
+    return 1600;
 }
 
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
 {
     return event == TBMEventFlowEventFrontCameraUnlockDialogDidDismiss;
+}
+
+- (void)dialogDidDismiss
+{
+    [self.eventFlowModule throwEvent:TBMEventFlowEventFeatureUsageHintDidDismiss];
 }
 
 @end

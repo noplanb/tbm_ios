@@ -16,21 +16,27 @@
 {
     self = [super init];
 
-    if (self) {
+    if (self)
+    {
         self.dialogView = [TBMAbortRecordUsageHintView new];
-        self.dataSource.persistentStateKey = @"kAbortRecordUsageHintNSUDkey";
+        self.eventHandlerDataSource.persistentStateKey = @"kAbortRecordUsageHintNSUDkey";
     }
     return self;
 }
 
 - (NSUInteger)priority
 {
-    return 9;
+    return 1500;
 }
 
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
 {
     return event == TBMEventFlowEventAbortRecordingUnlockDialogDidDismiss;
+}
+
+- (void)dialogDidDismiss
+{
+    [self.eventFlowModule throwEvent:TBMEventFlowEventFeatureUsageHintDidDismiss];
 }
 
 @end

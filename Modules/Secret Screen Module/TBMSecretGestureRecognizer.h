@@ -10,11 +10,12 @@
 *
 */
 
-typedef NS_ENUM(NSInteger, TBMSecretGestureRecognizerStep) {
-    TBMSecretGestureRecognizerStepDefault           = 0,
-    TBMSecretGestureRecognizerStepLogoLongpressed   = 1,
-    TBMSecretGestureRecognizerStepPanedToMenu       = 2,
-    TBMSecretGestureRecognizerStepPanedToLogo       = 3,
+typedef NS_ENUM(NSInteger, TBMSecretGestureRecognizerStep)
+{
+    TBMSecretGestureRecognizerStepDefault = 0,
+    TBMSecretGestureRecognizerStepLogoLongpressed = 1,
+    TBMSecretGestureRecognizerStepPanedToMenu = 2,
+    TBMSecretGestureRecognizerStepPanedToLogo = 3,
 };
 
 #import <Foundation/Foundation.h>
