@@ -13,7 +13,6 @@
 
 @interface ZZGridWireframe : NSObject
 
-
 @property (nonatomic, strong) ZZGridPresenter* presenter;
 @property (nonatomic, strong) ZZMenuWireframe* menuWireFrame;
 
@@ -21,5 +20,7 @@
 - (void)dismissGridController;
 - (void)toggleMenu;
 - (void)closeMenu;
+
+- (void)presentEditFriendsWireframe;
 
 @end

@@ -111,6 +111,11 @@
 
 #pragma mark - Module Delegate Method
 
+- (void)presentEditFriends
+{
+    [self.wireframe presentEditFriendsWireframe];
+}
+
 - (void)selectedUser:(id)user
 {
     [self.interactor selectedUserWithModel:user];

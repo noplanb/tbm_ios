@@ -28,12 +28,6 @@
         self.gridView = [ZZGridView new];
         self.controller = [[ZZGridCollectionController alloc] initWithCollectionView:self.gridView.collectionView];
         self.controller.delegate = self;
-        
-        @weakify(self);
-        [[self.gridView.menuButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-          @strongify(self);
-            [self.eventHandler presentMenu];
-        }];
     }
     return self;
 }
@@ -47,6 +41,18 @@
 {
     [super viewDidLoad];
     [UIApplication sharedApplication].statusBarHidden = YES;
+    
+    @weakify(self);
+    [[self.gridView.menuButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        @strongify(self);
+        [self.eventHandler presentMenu];
+    }];
+    
+    [[self.gridView.editFriendsButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        @strongify(self);
+        [self.eventHandler presentEditFriends];
+    }];
+
 }
 
 - (void)udpateWithDataSource:(ZZGridDataSource *)dataSource
