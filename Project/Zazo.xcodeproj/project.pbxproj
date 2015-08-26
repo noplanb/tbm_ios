@@ -1127,6 +1127,21 @@
 			name = EnumHelper;
 			sourceTree = "<group>";
 		};
+		07243CC21B8E4022008E4203 /* State Screen */ = {
+			isa = PBXGroup;
+			children = (
+				FE95367F1B88F53000AC652A /* TBMStateScreenDataSource.h */,
+				FE9536801B88F53000AC652A /* TBMStateScreenDataSource.m */,
+				FE9536811B88F53000AC652A /* TBMStateScreenTableCell.h */,
+				FE9536821B88F53000AC652A /* TBMStateScreenTableCell.m */,
+				FE9536831B88F53000AC652A /* TBMStateScreenView.h */,
+				FE9536841B88F53000AC652A /* TBMStateScreenView.m */,
+				FE9536851B88F53000AC652A /* TBMStateScreenViewController.h */,
+				FE9536861B88F53000AC652A /* TBMStateScreenViewController.m */,
+			);
+			name = "State Screen";
+			sourceTree = "<group>";
+		};
 		0732F5031B8B93D3004FD3AF /* ZazoTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -2922,14 +2937,7 @@
 			children = (
 				07243C591B8D108C008E4203 /* Config */,
 				07F0ED241B8CE73F00036AB2 /* Resources */,
-				FE95367F1B88F53000AC652A /* TBMStateScreenDataSource.h */,
-				FE9536801B88F53000AC652A /* TBMStateScreenDataSource.m */,
-				FE9536811B88F53000AC652A /* TBMStateScreenTableCell.h */,
-				FE9536821B88F53000AC652A /* TBMStateScreenTableCell.m */,
-				FE9536831B88F53000AC652A /* TBMStateScreenView.h */,
-				FE9536841B88F53000AC652A /* TBMStateScreenView.m */,
-				FE9536851B88F53000AC652A /* TBMStateScreenViewController.h */,
-				FE9536861B88F53000AC652A /* TBMStateScreenViewController.m */,
+				07243CC21B8E4022008E4203 /* State Screen */,
 				682D6B6628FB4DF0C409BDA8 /* TBMBenchTableViewCell.h */,
 				682D6DC566D9403E2D40869C /* TBMBenchTableViewCell.m */,
 				682D6F5803102635CD982C93 /* UIWidgets */,

@@ -127,13 +127,18 @@ BOOL containID(NSString *fileName, NSString *fileId) {
 
     NSInteger indexForDelete;
 
-    for (NSString *file in self.notDanglingFiles) {
+    for (NSString *file in self.notDanglingFiles)
+    {
         indexForDelete = -1;
-        for (NSInteger i = 0; i < incomingVideos.count; i++) {
-            if (containID(incomingVideos[i], file)) {
+        
+        for (NSInteger i = 0; i < incomingVideos.count; i++)
+        {
+            if (containID(incomingVideos[i], file))
+            {
                 indexForDelete = i;
             }
         }
+        
         if (indexForDelete > -1) [incomingVideos removeObjectAtIndex:indexForDelete];
     }
 
