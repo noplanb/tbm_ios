@@ -8,6 +8,7 @@
 
 #import "ZZBaseDomainModel.h"
 #import "ZZUserInterface.h"
+#import "ZZEditFriendEnumsAdditions.h"
 
 @class FEMObjectMapping;
 
@@ -24,6 +25,8 @@ extern const struct ZZFriendDomainModelAttributes {
     __unsafe_unretained NSString *outgoingVideoItemID;
     __unsafe_unretained NSString *outgoingVideoStatus;
     __unsafe_unretained NSString *hasApp;
+    __unsafe_unretained NSString *connectionStatus;
+    __unsafe_unretained NSString *connectionCreatorMkey;
 } ZZFriendDomainModelAttributes;
 
 @interface ZZFriendDomainModel : ZZBaseDomainModel <ZZUserInterface>
@@ -46,6 +49,12 @@ extern const struct ZZFriendDomainModelAttributes {
 
 @property (nonatomic, assign, getter=isHasApp) BOOL hasApp;
 
+@property (nonatomic, copy) NSString* connectionStatus;
+@property (nonatomic, copy) NSString* connectionCreatorMkey;
+@property (nonatomic, assign) ZZContactStatusType contactStatusValue;
+
 + (FEMObjectMapping*)mapping;
+
+- (BOOL)isCreator;
 
 @end

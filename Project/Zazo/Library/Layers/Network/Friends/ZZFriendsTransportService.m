@@ -9,6 +9,7 @@
 #import "ZZFriendsTransportService.h"
 #import "ZZFriendsTransport.h"
 #import "NSObject+ANSafeValues.h"
+#import "ZZEditFriendEnumsAdditions.h"
 
 static const struct
 {
@@ -19,6 +20,8 @@ static const struct
     __unsafe_unretained NSString *cKey;
     __unsafe_unretained NSString *itemID;
     __unsafe_unretained NSString *isUserHasApp;
+    __unsafe_unretained NSString *friendMkey;
+    __unsafe_unretained NSString *visibility;
 } ZZFriendsServerParameters =
 {
     .phoneNumber = @"mobile_number",
@@ -28,6 +31,8 @@ static const struct
     .cKey = @"ckey",
     .itemID = @"id",
     .isUserHasApp = @"has_app",
+    .friendMkey = @"friend_mkey",
+    .visibility = @"visibility",
 };
 
 @implementation ZZFriendsTransportService
@@ -55,6 +60,18 @@ static const struct
     NSParameterAssert(phoneNumber);
     NSDictionary* parameters = @{ZZFriendsServerParameters.phoneNumber : [NSObject an_safeString:phoneNumber]};
     return [ZZFriendsTransport checkIsUserHasProfileWithParameters:parameters];
+}
+
++ (RACSignal *)changeModelContactStatusForUser:(NSString *)userKey toVisible:(BOOL)visible
+{
+    NSParameterAssert(userKey);
+    
+    NSString* isVisible = visible ? @"visible" : @"hidden";
+    
+    NSDictionary* parameters = @{ZZFriendsServerParameters.friendMkey : [NSObject an_safeString:userKey],
+                                 ZZFriendsServerParameters.visibility : isVisible};
+    
+    return [ZZFriendsTransport changeContactVisibilityStatusWithParameters:parameters];
 }
 
 @end

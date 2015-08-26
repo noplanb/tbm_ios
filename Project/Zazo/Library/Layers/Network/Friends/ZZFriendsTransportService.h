@@ -12,5 +12,6 @@
 + (RACSignal*)loadFriendProfileWithPhone:(NSString*)phone firstName:(NSString*)firstName lastName:(NSString*)lastName;
 
 + (RACSignal*)checkIsUserHasProfileWithPhoneNumber:(NSString*)phoneNumber;
++ (RACSignal*)changeModelContactStatusForUser:(NSString *)userKey toVisible:(BOOL)visible;
 
 @end
