@@ -18,7 +18,7 @@ typedef NS_ENUM(NSUInteger, ZZConfigServerState) {
 #pragma mark - Configutation
 
 @property (nonatomic, strong) NSString* serverURLString;
-@property (nonatomic, assign, getter=isDebugModeEnabled) BOOL debugModeEnabled;
+@property (nonatomic, assign) BOOL debugModeEnabled;
 @property (nonatomic, assign) ZZConfigServerState serverEndpointState;
 
 

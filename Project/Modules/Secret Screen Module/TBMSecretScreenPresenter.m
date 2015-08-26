@@ -13,6 +13,7 @@
 #import "TBMStateScreenDataSource.h"
 #import "TBMDispatch.h"
 #import "TBMEventsFlowModuleInterface.h"
+#import "ZZStoredSettingsManager.h"
 
 @interface TBMSecretScreenPresenter ()
 
@@ -109,12 +110,10 @@
     [TBMDispatch dispatch:[data debugDescription]];
 }
 
-- (void)debugSwitchDidChangeTo:(BOOL)on {
-    if (on) {
-        [TBMConfig changeConfigDebugModeTo:TBMConfigDebugModeOn];
-    } else {
-        [TBMConfig changeConfigDebugModeTo:TBMConfigDebugModeOff];
-    }
+- (void)debugSwitchDidChangeTo:(BOOL)on
+{
+    [ZZStoredSettingsManager shared].debugModeEnabled = on;
+    
     [self reload];
 }
 
@@ -136,15 +135,16 @@
     [self presentStateScreen];
 }
 
-//- (void)serverSegmentedControlDidChangeTo:(NSInteger)index {
-//    [TBMConfig changeServerTo:index];
-//    [self reload];
-//}
-//
-//- (void)setCustomServerURL:(NSString *)url {
-//    [TBMConfig changeCustomServerURL:url];
-//    [self reload];
-//}
+- (void)serverSegmentedControlDidChangeTo:(NSInteger)index {
+    [ZZStoredSettingsManager shared].serverEndpointState = index;
+    [self reload];
+}
+
+- (void)setCustomServerURL:(NSString *)url {
+    
+    [ZZStoredSettingsManager shared].serverURLString = url;
+    [self reload];
+}
 
 - (void)resetHintsButtonDidPress {
     [self.tutorialModule resetHintsState];

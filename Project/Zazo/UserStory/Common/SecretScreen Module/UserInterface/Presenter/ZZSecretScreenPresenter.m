@@ -7,7 +7,6 @@
 //
 
 #import "ZZSecretScreenPresenter.h"
-#import "ZZPushedSecretScreenTypes.h"
 
 @interface ZZSecretScreenPresenter ()
 
@@ -32,7 +31,6 @@
 
 #pragma mark - Module Interface
 
-//(segmentControl.selectedSegmentIndex == 2)
 
 - (void)forceCrash
 {
@@ -57,6 +55,7 @@
 - (void)updateServerStateTo:(NSInteger)state
 {
     [self.interactor updateServerStateTo:state];
+    [self.userInterface updateCustomServerFieldToEnabled:(state == 2)]; // TODO: states
 }
 
 - (void)updateCustomServerEnpointValueTo:(NSString *)value

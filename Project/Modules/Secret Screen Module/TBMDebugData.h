@@ -4,8 +4,9 @@
 //
 
 
-#import <Foundation/Foundation.h>
+
 #import "TBMConfig.h"
+#import "ZZStoredSettingsManager.h"
 
 @interface TBMDebugData : NSObject
 
@@ -24,12 +25,12 @@
 /**
 * Config Debug mode
 */
-@property(nonatomic, assign) TBMConfigDebugMode debugMode;
+@property(nonatomic, assign) BOOL debugMode;
 
 /**
 * Server
 */
-@property(nonatomic, assign) TBMConfigServerState serverState;
+@property(nonatomic, assign) ZZConfigServerState serverState;
 @property(nonatomic, copy) NSString *serverAddress;
 
 @end

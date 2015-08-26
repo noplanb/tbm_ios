@@ -40,7 +40,7 @@
 - (void)resetHints
 {
     [ZZStoredSettingsManager shared].hintsDidStartRecord = NO;
-    [ZZStoredSettingsManager shared].hitsDidStartPlay = NO;
+    [ZZStoredSettingsManager shared].hintsDidStartPlay = NO;
 }
 
 

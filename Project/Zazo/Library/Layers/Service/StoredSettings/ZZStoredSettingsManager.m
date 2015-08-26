@@ -65,7 +65,7 @@ static NSString* const kZZHintsDidStartRecordKey = @"kMessageRecordedNSUDkey";
     [self an_updateBool:debugModeEnabled forKey:kZZDebugModeEnabledKey];
 }
 
-- (BOOL)isDebugModeEnabled
+- (BOOL)debugModeEnabled
 {
     return [self an_boolForKey:kZZDebugModeEnabledKey];
 }

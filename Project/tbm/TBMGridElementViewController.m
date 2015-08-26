@@ -14,6 +14,7 @@
 #import "TBMSoundEffect.h"
 #import "TBMConfig.h"
 #import "TBMAlertController.h"
+#import "ZZStoredSettingsManager.h"
 
 @interface TBMGridElementViewController ()
 @property NSInteger index;
@@ -480,7 +481,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 
 // Name Label
 - (void)updateNameLabel {
-    self.nameLabel.text = [TBMConfig configDebugMode] == TBMConfigDebugModeOn ? [self.gridElement.friend videoStatusString] : [self.gridElement.friend displayName];
+    self.nameLabel.text = [ZZStoredSettingsManager shared].debugModeEnabled ? [self.gridElement.friend videoStatusString] : [self.gridElement.friend displayName];
 }
 
 - (void)showNameLabel {

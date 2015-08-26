@@ -10,93 +10,94 @@
 
 #import <OBLogger/OBLoggerCore.h>
 #import "TBMConfig.h"
+#import "ZZAPIRoutes.h"
 
 @implementation TBMConfig
 
 #pragma mark - Server configuration
+//
+//+ (TBMConfigServerState)serverState {
+//    NSInteger serverState = [UD integerForKey:kTBMConfigServerStateKey];
+//    if (serverState >= 0 && serverState <= 3) {
+//        return (TBMConfigServerState) serverState;
+//    }
+//    else {
+//        return TBMServerStateProduction;
+//    }
+//}
+//
+//+ (NSString *)serverURL {
+//
+//    TBMConfigServerState serverState = [self serverState];
+//    NSString *serverURL;
+//
+//    if (serverState == TBMServerStateCustom) {
+//        serverURL = [UD stringForKey:kTBMConfigCustomServerURLKey];
+//    }
+//
+//    if (serverState == TBMServerStateDeveloper) {
+//        serverURL = kTBMServers[TBMServerStateDeveloper];
+//    }
+//
+//    if (!serverURL) {
+//        serverURL = kTBMServers[TBMServerStateProduction];
+//    }
+//
+//    return serverURL;
+//}
 
-+ (TBMConfigServerState)serverState {
-    NSInteger serverState = [UD integerForKey:kTBMConfigServerStateKey];
-    if (serverState >= 0 && serverState <= 3) {
-        return (TBMConfigServerState) serverState;
-    }
-    else {
-        return TBMServerStateProduction;
-    }
-}
-
-+ (NSString *)serverURL {
-
-    TBMConfigServerState serverState = [self serverState];
-    NSString *serverURL;
-
-    if (serverState == TBMServerStateCustom) {
-        serverURL = [UD stringForKey:kTBMConfigCustomServerURLKey];
-    }
-
-    if (serverState == TBMServerStateDeveloper) {
-        serverURL = kTBMServers[TBMServerStateDeveloper];
-    }
-
-    if (!serverURL) {
-        serverURL = kTBMServers[TBMServerStateProduction];
-    }
-
-    return serverURL;
-}
-
-+ (void)changeCustomServerURL:(NSString *)url {
-    if (url) {
-        [UD setObject:url forKey:kTBMConfigCustomServerURLKey];
-        [UD synchronize];
-    }
-}
-
-+ (void)changeServerTo:(TBMConfigServerState)state {
-    [UD setInteger:state forKey:kTBMConfigServerStateKey];
-    [UD synchronize];
-}
+//+ (void)changeCustomServerURL:(NSString *)url {
+//    if (url) {
+//        [UD setObject:url forKey:kTBMConfigCustomServerURLKey];
+//        [UD synchronize];
+//    }
+//}
+//
+//+ (void)changeServerTo:(TBMConfigServerState)state {
+//    [UD setInteger:state forKey:kTBMConfigServerStateKey];
+//    [UD synchronize];
+//}
 
 #pragma mark - Device debug mode
 
-//TODO: Maksim. Please make debug mode a boolean it is either YES for debug mode or NO for not debug mode. This is overkill!
-+ (TBMConfigDeviceDebugMode)deviceDebugMode {
-    NSInteger debugMode = [UD integerForKey:kTBMConfigDeviceDebugModeKey];
-
-    if (debugMode >= 0 && debugMode <= 1) {
-        return (TBMConfigDeviceDebugMode) debugMode;
-    }
-    else {
-        return TBMConfigDeviceDebugModeOff;
-    }
-}
+////TODO: Maksim. Please make debug mode a boolean it is either YES for debug mode or NO for not debug mode. This is overkill!
+//+ (TBMConfigDeviceDebugMode)deviceDebugMode {
+//    NSInteger debugMode = [UD integerForKey:kTBMConfigDeviceDebugModeKey];
+//
+//    if (debugMode >= 0 && debugMode <= 1) {
+//        return (TBMConfigDeviceDebugMode) debugMode;
+//    }
+//    else {
+//        return TBMConfigDeviceDebugModeOff;
+//    }
+//}
 
 + (NSString *)deviceBuildString {
     return [self isBuiltForDebug]?@"dev":@"prod";
 }
 
-+ (void)changeDeviceDebugModeTo:(TBMConfigDeviceDebugMode)mode {
-    [UD setInteger:mode forKey:kTBMConfigDeviceDebugModeKey];
-    [UD synchronize];
-}
+//+ (void)changeDeviceDebugModeTo:(TBMConfigDeviceDebugMode)mode {
+//    [UD setInteger:mode forKey:kTBMConfigDeviceDebugModeKey];
+//    [UD synchronize];
+//}
 
 #pragma mark - Config debug mode
 
-+ (TBMConfigDebugMode)configDebugMode {
-    NSInteger debugMode = [UD integerForKey:kTBMConfigDebugModeKey];
-
-    if (debugMode > 0) {
-        return TBMConfigDebugModeOn;
-    }
-    else {
-        return TBMConfigDebugModeOff;
-    }
-}
-
-+ (void)changeConfigDebugModeTo:(TBMConfigDebugMode)mode {
-    [UD setInteger:mode forKey:kTBMConfigDebugModeKey];
-    [UD synchronize];
-}
+//+ (TBMConfigDebugMode)configDebugMode {
+//    NSInteger debugMode = [UD integerForKey:kTBMConfigDebugModeKey];
+//
+//    if (debugMode > 0) {
+//        return TBMConfigDebugModeOn;
+//    }
+//    else {
+//        return TBMConfigDebugModeOff;
+//    }
+//}
+//
+//+ (void)changeConfigDebugModeTo:(TBMConfigDebugMode)mode {
+//    [UD setInteger:mode forKey:kTBMConfigDebugModeKey];
+//    [UD synchronize];
+//}
 
 + (BOOL)isBuiltForDebug {
     BOOL result = NO;
@@ -127,7 +128,7 @@
 }
 
 + (NSURL *)tbmBaseUrl {
-    return [NSURL URLWithString:[self serverURL]];
+    return [NSURL URLWithString:apiBaseURL()];
 }
 
 + (NSURL *)thumbMissingUrl {
@@ -135,7 +136,7 @@
 }
 
 + (NSString *)tbmBasePath {
-    return [self serverURL];
+    return apiBaseURL();
 }
 
 

@@ -22,8 +22,8 @@
 {
     return [TyphoonDefinition withClass:[ZZSettingsModel class] configuration:^(TyphoonDefinition *definition) {
         [definition injectProperty:@selector(serverUrl) with:[[ZZStoredSettingsManager shared] serverURLString]];
-        [definition injectProperty:@selector(serverIndex) with:@([[ZZStoredSettingsManager shared] serverIndex])];
-        [definition injectProperty:@selector(isDebugEnabled) with:[[ZZStoredSettingsManager shared] isDebugEnabled]];
+        [definition injectProperty:@selector(serverIndex) with:@([[ZZStoredSettingsManager shared] serverEndpointState])];
+//        [definition injectProperty:@selector(isDebugEnabled) with:[[ZZStoredSettingsManager shared] isDebugModeEnabled]];/TODO:
     }];
 }
 

@@ -15,6 +15,7 @@
 #import "OBLogger.h"
 #import "TBMConfig.h"
 #import "NSString+NSStringExtensions.h"
+#import "ZZAPIRoutes.h"
 
 @implementation TBMRemoteStorageHandler
 
@@ -88,7 +89,7 @@
 // URLs for file transfer
 //-----------------------
 + (NSString *) fileTransferRemoteUrlBase{
-    return REMOTE_STORAGE_USE_S3 ? REMOTE_STORAGE_S3_BASE_URL_STRING : [TBMConfig serverURL];
+    return REMOTE_STORAGE_USE_S3 ? REMOTE_STORAGE_S3_BASE_URL_STRING : apiBaseURL();
 }
 
 + (NSString *) fileTransferUploadPath{

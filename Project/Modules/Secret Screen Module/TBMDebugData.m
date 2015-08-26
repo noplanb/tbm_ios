@@ -6,13 +6,13 @@
 #import "TBMDebugData.h"
 #import "TBMUser.h"
 
-@implementation TBMDebugData {
+@implementation TBMDebugData
 
-}
-
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
-    if (self) {
+    if (self)
+    {
         [self fillData];
     }
     return self;
@@ -27,9 +27,9 @@
     self.lastName = user.lastName;
     self.mobileNumber = user.mobileNumber;
 
-    self.serverState = [TBMConfig serverState];
-    self.serverAddress = [TBMConfig serverURL];
-    self.debugMode = [TBMConfig configDebugMode];
+    self.serverState = [[ZZStoredSettingsManager shared] serverEndpointState];
+    self.serverAddress = [ZZStoredSettingsManager shared].serverURLString;
+    self.debugMode = [ZZStoredSettingsManager shared].debugModeEnabled;
 }
 
 
@@ -49,17 +49,24 @@ void append(NSMutableString *description, NSString *title, NSString *value) {
     append(description, @"Last Name: ", self.lastName);
     append(description, @"Phone: ", self.mobileNumber);
 
-    if (self.debugMode == TBMConfigDebugModeOn) {
+    if (self.debugMode)
+    {
         append(description, @"Debug mode: ", @"ON");
-    } else {
+    }
+    else
+    {
         [description appendString:@"Debug mode: OFF"];
     }
 
-    if (self.serverState == TBMServerStateCustom) {
+    if (self.serverState == ZZConfigServerStateCustom)
+    {
         append(description, @"Server State: ", @"Custom");
-    } else if (self.serverState == TBMServerStateDeveloper) {
+    }
+    else if (self.serverState == ZZConfigServerStateDeveloper)
+    {
         append(description, @"Server State: ", @"Development");
-    } else {
+    }
+    else {
         append(description, @"Server State: ", @"Production");
     }
 

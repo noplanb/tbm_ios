@@ -6,10 +6,45 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
+#import "ZZStoredSettingsManager.h"
 
 #pragma mark - API Routes settings
 
-static NSString* const kApiBaseURL = @"http://prod.zazoapp.com/";
+static const struct {
+    __unsafe_unretained NSString *production;
+    __unsafe_unretained NSString *staging;
+} ZZApiBaseURLsList = {
+    .production = @"http://prod.zazoapp.com",
+    .staging = @"http://staging.zazoapp.com",
+};
+
+
+//TODO: not a good place for it
+static inline NSString* const apiBaseURL()
+{
+    ZZConfigServerState state = [ZZStoredSettingsManager shared].serverEndpointState;
+    NSString* apiURLString;
+    switch (state)
+    {
+        case ZZConfigServerStateDeveloper:
+        {
+            apiURLString = ZZApiBaseURLsList.staging;
+        } break;
+        case ZZConfigServerStateCustom:
+        {
+            apiURLString = [ZZStoredSettingsManager shared].serverURLString;
+        } break;
+        default:
+        {
+            apiURLString = ZZApiBaseURLsList.production;
+        } break;
+    }
+    if (ANIsEmpty(apiURLString)) // TODO: check is URL valid
+    {
+        apiURLString = ZZApiBaseURLsList.production;
+    }
+    return apiURLString;
+}
 
 
 #pragma mark - Authorization

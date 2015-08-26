@@ -13,6 +13,7 @@
 #import "TBMUser.h"
 #import "NBPhoneNumberUtil.h"
 #import "NBPhoneNumber.h"
+#import "ZZStoredSettingsManager.h"
 
 @interface TBMRegisterForm ()
 @property(nonatomic) float screenWidth;
@@ -351,7 +352,7 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
     self.debug.frame = f;
     [self.debug setTitle:@"Debug" forState:UIControlStateNormal];
     [self setCommonAttributesForButton:self.debug];
-    [self.debug setHidden:[TBMConfig configDebugMode] == TBMConfigDebugModeOff];
+    [self.debug setHidden:[ZZStoredSettingsManager shared].debugModeEnabled == NO];
     [self.contentView addSubview:self.debug];
 }
 

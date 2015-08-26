@@ -16,7 +16,7 @@
     self = [super init];
     if (self)
     {
-        [self setBaseURL:kApiBaseURL andAPIVersion:@""];
+        [self setBaseURL:apiBaseURL() andAPIVersion:@""];
     }
     return self;
 }

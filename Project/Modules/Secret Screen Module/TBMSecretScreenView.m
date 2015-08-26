@@ -81,127 +81,127 @@
 @end
 
 @implementation TBMSecretScreenView
-//#pragma mark - Initialization
-//
-//- (instancetype)init {
-//    self = [super init];
-//    if (self) {
-//        [self setup];
-//    }
-//    return self;
-//}
-//
-//- (id)initWithCoder:(NSCoder *)aDecoder {
-//    self = [super initWithCoder:aDecoder];
-//    if (self) {
-//        [self setup];
-//    }
-//    return self;
-//}
-//
-//- (instancetype)initWithFrame:(CGRect)frame {
-//    self = [super initWithFrame:frame];
-//    if (self) {
-//        [self setup];
-//    }
-//    return self;
-//}
-//
-//- (void)setup {
-//
-//    CGFloat topOffset = 25.f;
-//    NSLog(@"topOffset %.2f", topOffset);
-//    CGFloat vertMargin = 8.0f;
-//    CGFloat horzMargin = 8.0f;
-//
-//    CGFloat fullWidth = CGRectGetWidth(self.bounds);
-//    CGFloat halfWidth = (fullWidth / 2) - (horzMargin);
-//
-//    CGFloat labelHeight = 20.f;
-//    CGFloat buttonHeight = 38.f;
-//    CGFloat textFieldHeight = 38.f;
-//
-//    self.backgroundColor = [UIColor whiteColor];
-//
-//    //Version label
-//    self.versionLabel.frame = CGRectMake(horzMargin, topOffset + ((vertMargin + labelHeight) * 1), fullWidth - horzMargin, labelHeight);
-//    [self addSubview:self.versionLabel];
-//
-//    CGFloat lineTop = topOffset + ((vertMargin + labelHeight) * 2);
-//    //Version label
-//    self.firstNameLabel.frame = CGRectMake(horzMargin, lineTop, fullWidth - horzMargin, labelHeight);
-//    [self addSubview:self.firstNameLabel];
-//    lineTop += labelHeight;
-//    lineTop += vertMargin;
-//
-//    //Last Name label
-//    self.lastNameLabel.frame = CGRectMake(horzMargin, lineTop, fullWidth - horzMargin, labelHeight);
-//    [self addSubview:self.lastNameLabel];
-//    lineTop += labelHeight;
-//    lineTop += vertMargin;
-//
-//    //mobileNumber label
-//    self.mobileNumberLabel.frame = CGRectMake(horzMargin, lineTop, fullWidth - horzMargin, labelHeight);
-//    [self addSubview:self.mobileNumberLabel];
-//    lineTop += labelHeight;
-//    lineTop += vertMargin;
-//
-//    //Server text field
-//    lineTop += 10.f;
-//    self.serverAddressTextField.frame = CGRectMake(horzMargin, lineTop, fullWidth - horzMargin - horzMargin, textFieldHeight);
-//    [self addSubview:self.serverAddressTextField];
-//    lineTop += buttonHeight;
-//    lineTop += vertMargin;
-//
-//    //Server state control
-//    lineTop += 10.f;
-//    self.serverSegmentedControl.frame = CGRectMake(horzMargin, lineTop, fullWidth - horzMargin - horzMargin, buttonHeight);
-//    [self addSubview:self.serverSegmentedControl];
-//    lineTop += buttonHeight;
-//    lineTop += vertMargin;
-//
-//
-//
-//    //debugModeSwitch
-//    self.debugModeLabel.frame = CGRectMake(horzMargin, lineTop + 5, halfWidth - horzMargin, labelHeight);
-//    [self addSubview:self.debugModeLabel];
-//
-//    self.debugModeSwitch.frame = CGRectMake(horzMargin + halfWidth, lineTop, halfWidth - horzMargin, labelHeight);
-//    [self.debugModeSwitch setOn:YES animated:NO];
-//    [self addSubview:self.debugModeSwitch];
-//
-//    lineTop += labelHeight;
-//    lineTop += vertMargin;
-//
-//    //crash & log  buttons
-//    lineTop += 10.f;
-//    self.crashButton.frame = CGRectMake(horzMargin, lineTop, halfWidth - horzMargin, buttonHeight);
-//    [self addSubview:self.crashButton];
-//
-//    self.logButton.frame = CGRectMake(horzMargin * 2 + halfWidth, lineTop, halfWidth - horzMargin, buttonHeight);
-//    [self addSubview:self.logButton];
-//
-//    lineTop += buttonHeight;
-//    lineTop += vertMargin;
-//
-//    //Reset hints &State button
-//    lineTop += 10.f;
-//    self.resetHintsButton.frame = CGRectMake(horzMargin, lineTop, halfWidth - horzMargin, buttonHeight);
-//    [self addSubview:self.resetHintsButton];
-//
-//    
-//    self.stateButton.frame = CGRectMake(horzMargin * 2 + halfWidth, lineTop, halfWidth - horzMargin, buttonHeight);
-//    [self addSubview:self.stateButton];
-//
-//    lineTop += buttonHeight;
-//    lineTop += vertMargin;
-//
-//    //Dispatch button
-//    lineTop += 10.f;
-//    self.dispatchButton.frame = CGRectMake(horzMargin, lineTop, fullWidth - (horzMargin * 2), buttonHeight);
-//    [self addSubview:self.dispatchButton];
-//
-//}
+#pragma mark - Initialization
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
+- (void)setup {
+
+    CGFloat topOffset = 25.f;
+    NSLog(@"topOffset %.2f", topOffset);
+    CGFloat vertMargin = 8.0f;
+    CGFloat horzMargin = 8.0f;
+
+    CGFloat fullWidth = CGRectGetWidth(self.bounds);
+    CGFloat halfWidth = (fullWidth / 2) - (horzMargin);
+
+    CGFloat labelHeight = 20.f;
+    CGFloat buttonHeight = 38.f;
+    CGFloat textFieldHeight = 38.f;
+
+    self.backgroundColor = [UIColor whiteColor];
+
+    //Version label
+    self.versionLabel.frame = CGRectMake(horzMargin, topOffset + ((vertMargin + labelHeight) * 1), fullWidth - horzMargin, labelHeight);
+    [self addSubview:self.versionLabel];
+
+    CGFloat lineTop = topOffset + ((vertMargin + labelHeight) * 2);
+    //Version label
+    self.firstNameLabel.frame = CGRectMake(horzMargin, lineTop, fullWidth - horzMargin, labelHeight);
+    [self addSubview:self.firstNameLabel];
+    lineTop += labelHeight;
+    lineTop += vertMargin;
+
+    //Last Name label
+    self.lastNameLabel.frame = CGRectMake(horzMargin, lineTop, fullWidth - horzMargin, labelHeight);
+    [self addSubview:self.lastNameLabel];
+    lineTop += labelHeight;
+    lineTop += vertMargin;
+
+    //mobileNumber label
+    self.mobileNumberLabel.frame = CGRectMake(horzMargin, lineTop, fullWidth - horzMargin, labelHeight);
+    [self addSubview:self.mobileNumberLabel];
+    lineTop += labelHeight;
+    lineTop += vertMargin;
+
+    //Server text field
+    lineTop += 10.f;
+    self.serverAddressTextField.frame = CGRectMake(horzMargin, lineTop, fullWidth - horzMargin - horzMargin, textFieldHeight);
+    [self addSubview:self.serverAddressTextField];
+    lineTop += buttonHeight;
+    lineTop += vertMargin;
+
+    //Server state control
+    lineTop += 10.f;
+    self.serverSegmentedControl.frame = CGRectMake(horzMargin, lineTop, fullWidth - horzMargin - horzMargin, buttonHeight);
+    [self addSubview:self.serverSegmentedControl];
+    lineTop += buttonHeight;
+    lineTop += vertMargin;
+
+
+
+    //debugModeSwitch
+    self.debugModeLabel.frame = CGRectMake(horzMargin, lineTop + 5, halfWidth - horzMargin, labelHeight);
+    [self addSubview:self.debugModeLabel];
+
+    self.debugModeSwitch.frame = CGRectMake(horzMargin + halfWidth, lineTop, halfWidth - horzMargin, labelHeight);
+    [self.debugModeSwitch setOn:YES animated:NO];
+    [self addSubview:self.debugModeSwitch];
+
+    lineTop += labelHeight;
+    lineTop += vertMargin;
+
+    //crash & log  buttons
+    lineTop += 10.f;
+    self.crashButton.frame = CGRectMake(horzMargin, lineTop, halfWidth - horzMargin, buttonHeight);
+    [self addSubview:self.crashButton];
+
+    self.logButton.frame = CGRectMake(horzMargin * 2 + halfWidth, lineTop, halfWidth - horzMargin, buttonHeight);
+    [self addSubview:self.logButton];
+
+    lineTop += buttonHeight;
+    lineTop += vertMargin;
+
+    //Reset hints &State button
+    lineTop += 10.f;
+    self.resetHintsButton.frame = CGRectMake(horzMargin, lineTop, halfWidth - horzMargin, buttonHeight);
+    [self addSubview:self.resetHintsButton];
+
+    
+    self.stateButton.frame = CGRectMake(horzMargin * 2 + halfWidth, lineTop, halfWidth - horzMargin, buttonHeight);
+    [self addSubview:self.stateButton];
+
+    lineTop += buttonHeight;
+    lineTop += vertMargin;
+
+    //Dispatch button
+    lineTop += 10.f;
+    self.dispatchButton.frame = CGRectMake(horzMargin, lineTop, fullWidth - (horzMargin * 2), buttonHeight);
+    [self addSubview:self.dispatchButton];
+
+}
 
 
 - (void)updateUserInterfaceWithData:(TBMDebugData *)data {
@@ -220,9 +220,9 @@
     }
 
     self.serverSegmentedControl.selectedSegmentIndex = data.serverState;
-    self.serverAddressTextField.enabled = data.serverState == TBMServerStateCustom;
+    self.serverAddressTextField.enabled = data.serverState == ZZConfigServerStateCustom;
     self.serverAddressTextField.text = data.serverAddress;
-    self.debugModeSwitch.on = data.debugMode == TBMConfigDebugModeOn;
+    self.debugModeSwitch.on = data.debugMode;
 }
 
 #pragma mark - Actions
