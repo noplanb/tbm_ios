@@ -8,6 +8,7 @@
 
 #import "ZZSecretScreenVC.h"
 #import "ZZSecretScreenView.h"
+#import "ZZSettingsModel.h"
 
 @interface ZZSecretScreenVC ()
 
@@ -60,6 +61,24 @@
 
 
 #pragma mark - View Interface
+
+- (void)updateWithModel:(ZZSettingsModel*)model
+{
+    //TODO: better naming
+    self.secretView.serverTypeControl.selectedSegmentIndex = model.serverIndex;
+    self.secretView.debugModeSwitch.on = model.isDebugEnabled;
+    
+    ZZSecretLabelsInfoView* view = self.secretView.labelsInfoView;
+    view.versionLabel.text = model.version;
+    view.firstNameLabel.text = model.firstName;
+    view.lastNameLabel.text = model.lastName;
+    view.phoneNumberLabel.text = model.phoneNumber;
+    
+    if (!ANIsEmpty(model.serverURLString))
+    {
+        view.addressTextField.text = model.serverURLString;
+    }
+}
 
 - (void)updateCustomServerFieldToEnabled:(BOOL)isEnabled
 {

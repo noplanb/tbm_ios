@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "ZZSecretLabelsInfoView.h"
 #import "ZZSecretScreenButtonView.h"
 

@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
+@class ZZSettingsModel;
+
 @protocol ZZSecretScreenInteractorInput <NSObject>
 
 - (void)loadData;
@@ -21,6 +23,6 @@
 
 @protocol ZZSecretScreenInteractorOutput <NSObject>
 
-- (void)dataLoaded:(id)data; // TODO: model type
+- (void)dataLoaded:(ZZSettingsModel*)data;
 
 @end

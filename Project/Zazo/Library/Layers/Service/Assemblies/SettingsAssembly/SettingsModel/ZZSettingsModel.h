@@ -8,8 +8,8 @@
 
 @interface ZZSettingsModel : NSObject
 
-@property (nonatomic, strong) NSString* serverUrl;
-@property (nonatomic, strong) NSNumber* serverIndex;
+@property (nonatomic, strong) NSString* serverURLString;
+@property (nonatomic, assign) NSInteger serverIndex;
 @property (nonatomic, assign) BOOL isDebugEnabled;
 @property (nonatomic, strong) NSString* version;
 @property (nonatomic, strong) NSString* firstName;

@@ -7,10 +7,9 @@
 //
 
 #import "ZZSettingsAssembly.h"
-#import "NSObject+ANUserDefaults.h"
 #import "ZZStoredSettingsManager.h"
 
-@interface ZZSettingsAssembly ()
+@interface ZZSettingsAssembly () //TODO: think on settings model injection for unit test purposes
 
 @property (nonatomic, strong) ZZSettingsModel* settingsModel;
 
@@ -21,8 +20,8 @@
 - (ZZSettingsModel*)currentSettings
 {
     return [TyphoonDefinition withClass:[ZZSettingsModel class] configuration:^(TyphoonDefinition *definition) {
-        [definition injectProperty:@selector(serverUrl) with:[[ZZStoredSettingsManager shared] serverURLString]];
-        [definition injectProperty:@selector(serverIndex) with:@([[ZZStoredSettingsManager shared] serverEndpointState])];
+//        [definition injectProperty:@selector(serverUrl) with:[[ZZStoredSettingsManager shared] serverURLString]];
+//        [definition injectProperty:@selector(serverIndex) with:@([[ZZStoredSettingsManager shared] serverEndpointState])];
 //        [definition injectProperty:@selector(isDebugEnabled) with:[[ZZStoredSettingsManager shared] isDebugModeEnabled]];/TODO:
     }];
 }

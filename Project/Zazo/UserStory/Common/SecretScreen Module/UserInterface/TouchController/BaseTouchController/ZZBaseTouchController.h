@@ -21,8 +21,6 @@
 @property (nonatomic, assign) BOOL isAbbleToMoving;
 @property (nonatomic, assign) BOOL isStrartObserving;
 
-
-
 - (void)observeTouch:(UITouch*)touch withEvent:(id)event;
 
 - (void)startObservingIfNeededWithTouch:(UITouch*)touch withEvent:(UIEvent*)event;

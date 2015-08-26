@@ -7,6 +7,7 @@
 //
 
 #import "ZZSecretScreenPresenter.h"
+#import "ZZSettingsModel.h"
 
 @interface ZZSecretScreenPresenter ()
 
@@ -23,7 +24,7 @@
 
 #pragma mark - Output
 
-- (void)dataLoaded:(id)data
+- (void)dataLoaded:(ZZSettingsModel*)data
 {
     //TODO:
 }
