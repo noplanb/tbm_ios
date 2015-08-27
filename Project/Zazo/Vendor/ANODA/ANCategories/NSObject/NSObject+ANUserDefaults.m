@@ -71,7 +71,7 @@
     BOOL value;
     if (!ANIsEmpty(key))
     {
-        [[self an_dataSource] boolForKey:key];
+       value = [[self an_dataSource] boolForKey:key];
     }
     return value;
 }
@@ -81,7 +81,7 @@
     NSInteger value;
     if (!ANIsEmpty(key))
     {
-        [[self an_dataSource] integerForKey:key];
+        value = [[self an_dataSource] integerForKey:key];
     }
     return value;
 }
