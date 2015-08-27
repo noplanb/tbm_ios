@@ -19,7 +19,7 @@
     if (self)
     {
         self.dialogView = [TBMWelcomeHintView new];
-        self.eventHandlerDataSource.persistentStateKey = @"*const kWelcomeHintNSUDkey";
+        self.eventHandlerDataSource.persistentStateKey = @"kWelcomeHintNSUDkey";
     }
     return self;
 }

@@ -16,4 +16,7 @@ typedef NS_ENUM(NSInteger, TBMUnlockedFeature)
     TBMUnlockedFeatureEarpiece,
     TBMUnlockedFeatureDeleteAFriend,
     TBMUnlockedFeatureSpin,
+
+    //add new hints above
+    TBMUnlockedFeatureTotalCount,
 };

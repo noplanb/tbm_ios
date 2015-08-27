@@ -60,7 +60,6 @@ static NSString *const kLastUnlockedFeatureNSUDKey = @"kLastUnlockedFeatureNSUDK
 
 - (NSInteger)lockedFeaturesCount
 {
-    // Returns last element
-    return TBMUnlockedFeatureEarpiece;
+    return TBMUnlockedFeatureTotalCount;
 }
 @end
