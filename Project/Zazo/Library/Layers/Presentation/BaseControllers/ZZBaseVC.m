@@ -14,4 +14,11 @@
 
 @implementation ZZBaseVC
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.view.backgroundColor = [ZZColorTheme shared].baseBackgroundColor;
+}
+
 @end

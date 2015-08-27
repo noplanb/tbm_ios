@@ -11,6 +11,6 @@
 @interface ZZDebugStateItemDomainModel : ANBaseDomainModel
 
 @property (nonatomic, copy) NSString* itemID;
-@property (nonatomic, copy) NSString* userID;
+@property (nonatomic, copy) NSString* status;
 
 @end

@@ -107,17 +107,4 @@ static NSString* const kZZHintsDidStartRecordKey = @"kMessageRecordedNSUDkey";
 }
 
 
-#pragma mark - Loading
-
-- (NSString*)serverURLStringTest
-{
-    NSString* serverSrting;
-    NSArray* serverURLs = @[@"http://prod.zazoapp.com", @"http://staging.zazoapp.com"]; // move to enum
-    serverSrting = self.serverEndpointState < ZZConfigServerStateCustom ?
-                   serverURLs[self.serverEndpointState] : self.serverURLString;
-    
-    return serverSrting;
-}
-
-
 @end

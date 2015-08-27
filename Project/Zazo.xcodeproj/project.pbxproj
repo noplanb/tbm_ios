@@ -24,6 +24,10 @@
 		07243C8D1B8DE68B008E4203 /* ZZDebugStateDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07243C8C1B8DE68B008E4203 /* ZZDebugStateDomainModel.m */; };
 		07243C931B8DF174008E4203 /* ZZDebugStateEnumHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07243C921B8DF174008E4203 /* ZZDebugStateEnumHelper.m */; };
 		07243CC71B8E6493008E4203 /* ZZDebugStateItemDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07243CC61B8E6493008E4203 /* ZZDebugStateItemDomainModel.m */; };
+		07243CCA1B8F601D008E4203 /* ZZDebugStateDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07243CC91B8F601D008E4203 /* ZZDebugStateDataSource.m */; };
+		07243CCE1B8F6433008E4203 /* ZZDebugStateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07243CCD1B8F6433008E4203 /* ZZDebugStateCell.m */; };
+		07243CD21B8F644A008E4203 /* ZZDebugStateCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07243CD11B8F644A008E4203 /* ZZDebugStateCellViewModel.m */; };
+		07243CD51B8F646B008E4203 /* ZZDebugStateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07243CD41B8F646B008E4203 /* ZZDebugStateController.m */; };
 		0732F50C1B8B93D3004FD3AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0732F5041B8B93D3004FD3AF /* InfoPlist.strings */; };
 		0732F5121B8B93D3004FD3AF /* ZazoTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */; };
 		07F0E7EF1B8CD7A900036AB2 /* KeyChainWrapperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E21B8CD7A900036AB2 /* KeyChainWrapperTests.m */; };
@@ -375,6 +379,14 @@
 		07243C921B8DF174008E4203 /* ZZDebugStateEnumHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZDebugStateEnumHelper.m; path = EnumHelper/ZZDebugStateEnumHelper.m; sourceTree = "<group>"; };
 		07243CC51B8E6493008E4203 /* ZZDebugStateItemDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZDebugStateItemDomainModel.h; path = Models/ZZDebugStateItemDomainModel.h; sourceTree = "<group>"; };
 		07243CC61B8E6493008E4203 /* ZZDebugStateItemDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZDebugStateItemDomainModel.m; path = Models/ZZDebugStateItemDomainModel.m; sourceTree = "<group>"; };
+		07243CC81B8F601D008E4203 /* ZZDebugStateDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZDebugStateDataSource.h; path = DataSource/ZZDebugStateDataSource.h; sourceTree = "<group>"; };
+		07243CC91B8F601D008E4203 /* ZZDebugStateDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZDebugStateDataSource.m; path = DataSource/ZZDebugStateDataSource.m; sourceTree = "<group>"; };
+		07243CCC1B8F6433008E4203 /* ZZDebugStateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDebugStateCell.h; sourceTree = "<group>"; };
+		07243CCD1B8F6433008E4203 /* ZZDebugStateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDebugStateCell.m; sourceTree = "<group>"; };
+		07243CD01B8F644A008E4203 /* ZZDebugStateCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDebugStateCellViewModel.h; sourceTree = "<group>"; };
+		07243CD11B8F644A008E4203 /* ZZDebugStateCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDebugStateCellViewModel.m; sourceTree = "<group>"; };
+		07243CD31B8F646B008E4203 /* ZZDebugStateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDebugStateController.h; sourceTree = "<group>"; };
+		07243CD41B8F646B008E4203 /* ZZDebugStateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDebugStateController.m; sourceTree = "<group>"; };
 		0732F5051B8B93D3004FD3AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ZazoTests-Info.plist"; sourceTree = "<group>"; };
 		07F0E7E21B8CD7A900036AB2 /* KeyChainWrapperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainWrapperTests.m; sourceTree = "<group>"; };
@@ -1079,6 +1091,7 @@
 				07243C7D1B8DDFDB008E4203 /* Presenter */,
 				07243C801B8DDFDB008E4203 /* View */,
 				07243C841B8DDFDB008E4203 /* Wireframe */,
+				07243CCB1B8F6021008E4203 /* DataSource */,
 			);
 			path = UserInterface;
 			sourceTree = "<group>";
@@ -1095,9 +1108,11 @@
 		07243C801B8DDFDB008E4203 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				07243C831B8DDFDB008E4203 /* ZZDebugStateViewInterface.h */,
 				07243C811B8DDFDB008E4203 /* ZZDebugStateVC.h */,
 				07243C821B8DDFDB008E4203 /* ZZDebugStateVC.m */,
-				07243C831B8DDFDB008E4203 /* ZZDebugStateViewInterface.h */,
+				07243CCF1B8F643A008E4203 /* Cell */,
+				07243CD61B8F647B008E4203 /* Controller */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1156,6 +1171,35 @@
 				682D6DC566D9403E2D40869C /* TBMBenchTableViewCell.m */,
 			);
 			name = Bench;
+			sourceTree = "<group>";
+		};
+		07243CCB1B8F6021008E4203 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				07243CC81B8F601D008E4203 /* ZZDebugStateDataSource.h */,
+				07243CC91B8F601D008E4203 /* ZZDebugStateDataSource.m */,
+			);
+			name = DataSource;
+			sourceTree = "<group>";
+		};
+		07243CCF1B8F643A008E4203 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				07243CCC1B8F6433008E4203 /* ZZDebugStateCell.h */,
+				07243CCD1B8F6433008E4203 /* ZZDebugStateCell.m */,
+				07243CD01B8F644A008E4203 /* ZZDebugStateCellViewModel.h */,
+				07243CD11B8F644A008E4203 /* ZZDebugStateCellViewModel.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		07243CD61B8F647B008E4203 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				07243CD31B8F646B008E4203 /* ZZDebugStateController.h */,
+				07243CD41B8F646B008E4203 /* ZZDebugStateController.m */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		0732F5031B8B93D3004FD3AF /* ZazoTests */ = {
@@ -3599,6 +3643,7 @@
 			files = (
 				07F0ECC81B8CD8BF00036AB2 /* ZZGrayBorderTextField.m in Sources */,
 				07F0EC7D1B8CD8BF00036AB2 /* UIImage+ANDefault.m in Sources */,
+				07243CCA1B8F601D008E4203 /* ZZDebugStateDataSource.m in Sources */,
 				07F0ED0D1B8CD8BF00036AB2 /* NSString+MD5.m in Sources */,
 				07F0EC791B8CD8BF00036AB2 /* ZZAppDependencies.m in Sources */,
 				221B77681A68888C009FA670 /* TPKeyboardAvoidingTableView.m in Sources */,
@@ -3647,6 +3692,7 @@
 				682D68421D497BDB87C77003 /* TBMDependencies.m in Sources */,
 				07F0ECE31B8CD8BF00036AB2 /* ZZMenuWireframe.m in Sources */,
 				07F0ECE11B8CD8BF00036AB2 /* ZZMenuController.m in Sources */,
+				07243CD51B8F646B008E4203 /* ZZDebugStateController.m in Sources */,
 				07F0ECED1B8CD8BF00036AB2 /* UIImageView+ANLoadingAdditions.m in Sources */,
 				07F0EC931B8CD8BF00036AB2 /* ZZFriendsTransport.m in Sources */,
 				07F0EC941B8CD8BF00036AB2 /* ZZFriendsTransportService.m in Sources */,
@@ -3740,6 +3786,7 @@
 				FE95368D1B88F57700AC652A /* TBMSecretScreenView.m in Sources */,
 				FE95365B1B88EA3000AC652A /* TBMEventsFlowDataSource.m in Sources */,
 				682D6A9385454485FF9C0D54 /* TBMKeyChainWrapper.m in Sources */,
+				07243CD21B8F644A008E4203 /* ZZDebugStateCellViewModel.m in Sources */,
 				07F0ECB41B8CD8BF00036AB2 /* ZZAuthContentView.m in Sources */,
 				07F0ECE21B8CD8BF00036AB2 /* ZZMenuVC.m in Sources */,
 				682D6823244BB9B31864D2DC /* NSString+NSStringExtensions.m in Sources */,
@@ -3792,6 +3839,7 @@
 				FE9536621B88EA3000AC652A /* TBMDeleteFriendUsageHintView.m in Sources */,
 				07F0ECA81B8CD8BF00036AB2 /* ZZConfig.m in Sources */,
 				682D698852051D01B65B5297 /* TBMVideoProcessor.m in Sources */,
+				07243CCE1B8F6433008E4203 /* ZZDebugStateCell.m in Sources */,
 				07F0EC881B8CD8BF00036AB2 /* ZZBaseDomainModel.m in Sources */,
 				07F0ECEA1B8CD8BF00036AB2 /* NSObject+ANSafeValues.m in Sources */,
 				07F0ECDC1B8CD8BF00036AB2 /* ZZMenuDataSource.m in Sources */,

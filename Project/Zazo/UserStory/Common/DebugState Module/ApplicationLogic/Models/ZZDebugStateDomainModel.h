@@ -10,10 +10,13 @@
 
 @interface ZZDebugStateDomainModel : NSObject
 
-@property (nonatomic, strong) NSArray* incomingVideosItemIDs;
-@property (nonatomic, strong) NSArray* outgoingVideosItemIDs;
+@property (nonatomic, copy) NSString* username;
+@property (nonatomic, copy) NSString* userID;
 
-@property (nonatomic, strong) NSArray* incomingDanglingVideosItemIDs;
-@property (nonatomic, strong) NSArray* outgoingDanglingVideosItemIDs;
+@property (nonatomic, strong) NSArray* incomingVideoItems;
+@property (nonatomic, strong) NSArray* outgoingVideoItems;
+
+//@property (nonatomic, strong) NSArray* incomingDanglingVideoItems;
+//@property (nonatomic, strong) NSArray* outgoingDanglingVideoItems;
 
 @end

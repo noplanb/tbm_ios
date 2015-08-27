@@ -1,17 +1,10 @@
 /* 
   Localizable.strings
-  ANTableControllerExample
+  Zazo
 
   Created by Oksana Kovalchuk on 7/29/15.
   Copyright (c) 2015 ANODA. All rights reserved.
 */
-
-
-/**
- *  Debug
- */
-
-"debug.screen.title" = "Debug Controller";
 
 
 /**
@@ -66,7 +59,10 @@
 
 "error.mail.no-avariable-email-client" = "Sorry, your device can't send emails.";
 
-// Auth Controller
+
+/**
+ *  Auth Controller
+ */
 "auth-controller.firstname.placeholder.title" = "First Name";
 "auth-controller.lastname.placeholder.title" = "Last Name";
 "auth-controller.phone.placeholder.title" = "Phone";
@@ -75,7 +71,9 @@
 "auth-controller.country.code.title" = "Country code";
 
 
-// GRID Controller
+/**
+ *  Grid Controller
+ */
 
 
 "grid-controller.nudge.title" = "NUDGE";
@@ -83,7 +81,23 @@
 "grid-controller.cell.record.title" = "Recording";
 
 
-// SecretScreen
+/**
+ *  Debug State
+ */
+
+"debug-state.screen.title" = "State";
+"debug-state.incoming-videos.title" = "Incoming Videos";
+"debug-state.outgoing-videos.title" = "Outgoing Videos";
+"debug-state.incoming-dandling-videos.title" = "Incoming Dandling Videos";
+"debug-state.incoming-dandling-videos.title" = "Outgoing Dandling Videos";
+
+
+/**
+ *  Debug
+ */
+
+"debug.screen.title" = "Debug Controller";
+
 "secret-controller.header.done.button.title" = "Done";
 "secret-controller.header.title" = "Secret screen";
 "secret-controller.prodserver.title" = "PROD";

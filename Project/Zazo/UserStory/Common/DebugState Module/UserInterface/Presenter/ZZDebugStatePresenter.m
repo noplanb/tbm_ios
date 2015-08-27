@@ -7,8 +7,11 @@
 //
 
 #import "ZZDebugStatePresenter.h"
+#import "ZZDebugStateDataSource.h"
 
 @interface ZZDebugStatePresenter ()
+
+@property (nonatomic, strong) ZZDebugStateDataSource* dataSource;
 
 @end
 
@@ -16,13 +19,18 @@
 
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZDebugStateViewInterface>*)userInterface
 {
+    self.dataSource = [ZZDebugStateDataSource new];
     self.userInterface = userInterface;
+    [self.userInterface updateDataSource:self.dataSource];
 }
 
 
 #pragma mark - Output
 
-
+- (void)dataLoaded:(ZZDebugStateDomainModel*)data
+{
+    [self.dataSource setupWithModel:data];
+}
 
 
 #pragma mark - Module Interface

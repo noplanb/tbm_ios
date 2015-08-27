@@ -11,8 +11,53 @@
 #import "TBMFriendVideosInformation.h"
 #import "TBMVideoObject.h"
 #import "ZZDebugStateEnumHelper.h"
+#import "ZZDebugStateDomainModel.h"
+#import "ZZDebugStateItemDomainModel.h"
+#import "NSObject+ANSafeValues.h"
 
 @implementation ZZDebugStateInteractor
+
+- (void)loadData
+{
+    ZZDebugStateDomainModel* model = [ZZDebugStateDomainModel new];
+    [self.output dataLoaded:model];
+}
+
+
+#pragma mark - Private
+
+- (void)_loadVideoData
+{
+    NSArray* friends = [TBMFriend all];
+    
+    friends = [[friends.rac_sequence map:^id(TBMFriend* value) {
+        
+        ZZDebugStateDomainModel* model = [ZZDebugStateDomainModel new];
+        
+        model.username = value.fullName;
+        model.incomingVideoItems = [[value.videos.rac_sequence map:^id(TBMVideo* videoEntity) {
+            
+            ZZDebugStateItemDomainModel* itemModel = [ZZDebugStateItemDomainModel new];
+            itemModel.itemID = videoEntity.videoId;
+            itemModel.status = ZZVideoIncomingStatusStringFromEnumValue(videoEntity.statusValue);
+            return itemModel;
+            
+        }] array];
+        
+        ZZDebugStateItemDomainModel* outgoing = [ZZDebugStateItemDomainModel new];
+        outgoing.itemID = value.outgoingVideoId;
+        outgoing.status = ZZVideoOutgoingStatusStringFromEnumValue(value.outgoingVideoStatusValue);
+        
+        model.outgoingVideoItems = @[outgoing];
+        
+        
+        
+        
+        return model;
+        
+    }] array];
+}
+
 
 //- (void)presentStateScreen {
 //
@@ -37,6 +82,9 @@
     {
         TBMFriendVideosInformation *information = [[TBMFriendVideosInformation alloc] init];
         information.name = friend.fullName;
+        
+        
+        
         TBMVideoObject *videoObject;
        
         // Make incoming array

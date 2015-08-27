@@ -25,7 +25,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    self.view.backgroundColor = [ZZColorTheme shared].baseBackgroundColor;
 }
 
 - (void)addRightNavigationButtonWithType:(ANBarButtonType)type block:(ANCodeBlock)block
@@ -41,7 +40,5 @@
     UIBarButtonItem* button = [UIBarButtonItem an_itemWithType:type command:command];
     [self.navigationItem an_addLeftBarButtonItem:button];
 }
-
-
 
 @end

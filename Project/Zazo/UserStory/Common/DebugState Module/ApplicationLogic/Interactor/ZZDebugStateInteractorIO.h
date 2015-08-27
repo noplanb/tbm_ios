@@ -6,15 +6,17 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
+@class ZZDebugStateDomainModel;
+
 @protocol ZZDebugStateInteractorInput <NSObject>
 
-
+- (void)loadData;
 
 @end
 
 
 @protocol ZZDebugStateInteractorOutput <NSObject>
 
-
+- (void)dataLoaded:(ZZDebugStateDomainModel*)data;
 
 @end
