@@ -66,12 +66,13 @@ static NSString* const kApiNotificationVideoReceived = @"notification/send_video
 static NSString* const kApiNotificationVideoStatusUpdate = @"notification/send_video_status_update";
 
 
+#pragma mark - Friends
 
 static NSString* const kApiCheckIsFriendHasApp = @"invitation/has_app";
 
 static NSString* const kApiLoadFriends = @"reg/get_friends";
 static NSString* const kApiLoadFriendProfile = @"invitation/invite";
-
+static NSString* const kApiChangeFriendVisibilityStatus = @"connection/set_visibility";
 
 #pragma mark - Remote Logging
 

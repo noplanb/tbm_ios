@@ -49,6 +49,9 @@ target 'Zazo' do
     pod 'FastEasyMapping'
     pod 'MagicalRecord'
     
+    #Helpers
+    pod 'DeviceUtil', '~> 1.2'
+    
     #! ----- debugging tools, remove on prod --------- !
     pod 'CocoaLumberjack'
     

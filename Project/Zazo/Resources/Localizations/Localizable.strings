@@ -15,47 +15,38 @@
 "common.ok" = "OK";
 
 
-/**
- *  Loading View Controller
- */
+//Loading View Controller
 
 "loading-view.empty.label" = "No content";
 "loading-view.loading.label" = "Loading...";
 "loading-view.retry.label" = "Retry!";
 
 
-
-/**
- *  Categories List
- */
+//Categories List
 
 "categories-list.screen.title" = "All Categories";
 
 
-/**
- *  Add Category
- */
+//Add Category
 
 "add-category.screen.title" = "Add Category";
 "add-category.textfield.placeholder" = "Category Name";
 "add-category.add-photo.placeholder" = "Add Photo";
 
 
+//Edit Friend Module
 
-/**
- *  Item Detail
- */
-
-
-
-/**
- *  Add Item
- */
+"edit-friend.nav.title.text" = "Edit friends";
+"edit-friend.delete.button.title" = "Delete";
+"edit-friend.restore.button.title" = "Restore";
 
 
-/**
- *  Email Wireframe
- */
+//Item Detail
+
+//Add Item
+
+//Email Wireframe
+
 
 "error.mail.no-avariable-email-client" = "Sorry, your device can't send emails.";
 
@@ -75,10 +66,11 @@
  *  Grid Controller
  */
 
-
 "grid-controller.nudge.title" = "NUDGE";
 "grid-controller.record.title" = "RECORD";
 "grid-controller.cell.record.title" = "Recording";
+"grid-controller.menu.edit-friends.button.title" = "Edit friends";
+"grid-controller.menu.send-feedback.button.title" = "Send feedback";
 
 
 /**
@@ -97,6 +89,8 @@
  */
 
 "debug.screen.title" = "Debug Controller";
+
+// SecretScreen
 
 "secret-controller.header.done.button.title" = "Done";
 "secret-controller.header.title" = "Secret screen";

@@ -5,20 +5,19 @@
 //  Copyright (c) 2014 ANODA. All rights reserved.
 //
 
-
-#define DEBUG_CONTROLLER
-
+//#define DEBUG_CONTROLLER
 #define HTTPLog
-//#define DEBUG_LOGIN_USER
+#define DEBUG_LOGIN_USER
+//#define STAGESERVER
+
 
 //helpers
-
+#import "NSObject+ANSafeValues.h"
 #import "ANHelperFunctions.h"
 #import "ANLogger.h"
 #import "ANDefines.h"
 
 #import "FrameAccessor.h"
-
 #import "Masonry.h"
 
 //reactive cocoa
@@ -27,8 +26,6 @@
 #import "RACCommand+ANAdditions.h"
 
 #import "ZZColorTheme.h"
-
-
 
 #pragma mark - UI Categories
 
@@ -44,6 +41,14 @@
 
 
 //TODO: cleanup this
+
+//email constants
+
+static NSString* emailSubject = @"Feedback";
+static NSString* emailAddress = @"feedback@zazoapp.com";
+//ios, app version, user mkey, iphone 5s.
+
+
 
 #define DEBUG_MODE
 #ifdef DEBUG_MODE

@@ -68,6 +68,7 @@ static CGFloat const kSeparatorHeight = 1;
         _photoImageView = [UIImageView new];
         _photoImageView.clipsToBounds = YES;
         _photoImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _photoImageView.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_photoImageView];
         
         [_photoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -85,13 +86,13 @@ static CGFloat const kSeparatorHeight = 1;
     {
         _username = [UILabel new];
         _username.font = [UIFont an_lightFontWithSize:18];
-        _username.textColor = [ZZColorTheme shared].menuTextColor;
+        _username.textColor = [UIColor whiteColor];
         [self.contentView addSubview:_username];
         
         [_username mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.photoImageView.mas_right).offset(10);
-            make.top.bottom.equalTo(self.contentView);
-            make.right.equalTo(self.contentView.mas_right).offset(-10);
+            make.left.equalTo(self.photoImageView.mas_right).offset(5);
+            make.right.equalTo(self.contentView).offset(-20);
+            make.top.bottom.equalTo(self);
         }];
     }
     return _username;

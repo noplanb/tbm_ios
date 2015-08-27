@@ -26,4 +26,9 @@
     return [[ZZNetworkTransport shared] requestWithPath:kApiCheckIsFriendHasApp parameters:parameters httpMethod:ANHttpMethodTypeGET];
 }
 
++ (RACSignal*)changeContactVisibilityStatusWithParameters:(NSDictionary*)parameters
+{
+    return [[ZZNetworkTransport shared] requestWithPath:kApiChangeFriendVisibilityStatus parameters:parameters httpMethod:ANHttpMethodTypePOST];
+}
+
 @end

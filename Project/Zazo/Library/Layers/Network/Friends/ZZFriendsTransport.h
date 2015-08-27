@@ -12,5 +12,6 @@
 + (RACSignal*)loadFriendProfileWithParameters:(NSDictionary*)parameters;
 
 + (RACSignal*)checkIsUserHasProfileWithParameters:(NSDictionary*)parameters;
++ (RACSignal*)changeContactVisibilityStatusWithParameters:(NSDictionary*)parameters;
 
 @end

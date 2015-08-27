@@ -14,29 +14,10 @@
 
 - (void)loadData
 {
-    
-    NSMutableArray* dataArray = [NSMutableArray array];
-    
+    //TODO:
     [[ZZAddressBookDataProvider loadContacts] subscribeNext:^(id x) {
-       
-//        [self.output addressBookDataLoaded:x];
-      
         
-        //TODO: add here data from server only for test!!!
-        [dataArray addObjectsFromArray:x];
-        for (int i = 0;i<3;i++)
-        {
-            ZZFriendDomainModel* model = [ZZFriendDomainModel new];
-            model.firstName = [NSString stringWithFormat:@"name %i",i];
-            model.lastName = [NSString stringWithFormat:@"lastname %i",i];
-            model.idTbm = [NSString stringWithFormat:@"id%i",i];
-            model.hasApp = YES;
-            
-            [dataArray addObject:model];
-        }
-        
-        [self.output addressBookDataLoaded:dataArray];
-        
+        [self.output addressBookDataLoaded:x];
     }];
     
     //TODO: network request to server

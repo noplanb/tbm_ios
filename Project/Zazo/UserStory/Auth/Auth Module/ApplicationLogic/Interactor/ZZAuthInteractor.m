@@ -64,7 +64,8 @@ typedef NS_ENUM(NSInteger, ZZTextFieldType)
         user.isRegistered = YES;
         //[ZZUserDataProvider upsertUserWithModel:user];
         
-        [self loadFriendsFromServer];
+//        [self loadFriendsFromServer];
+        [self.output presentGridModule];
     }];
 }
 
@@ -74,7 +75,7 @@ typedef NS_ENUM(NSInteger, ZZTextFieldType)
 {
     [[ZZAccountTransportService registerUserWithModel:user] subscribeNext:^(NSDictionary *authKeys) {
         
-        NSString *auth = [authKeys objectForKey:@"auth"];
+        NSString *auth = [authKeys objectForKey:@"auth"]; // TODO: move to stored manager
         NSString *mkey = [authKeys objectForKey:@"mkey"];
         [[NSUserDefaults standardUserDefaults] setObject:auth forKey:@"auth"];
         [[NSUserDefaults standardUserDefaults] setObject:mkey forKey:@"mkey"];
@@ -86,11 +87,12 @@ typedef NS_ENUM(NSInteger, ZZTextFieldType)
 
 - (void)loadFriendsFromServer
 {
-    [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray *friendArray) {
-        
-    } error:^(NSError *error) {
-        
-    }];
+    //TODO:
+//    [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray *friendArray) {
+//        
+//    } error:^(NSError *error) {
+//        
+//    }];
 }
 
 #pragma mark - Validation Part

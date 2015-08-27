@@ -10,22 +10,35 @@
 #import "TBMHomeViewController+Invite.h"
 
 #import "TBMAppDelegate+AppSync.h"
-
+#import "ANEmailWireframe.h"
 #import "HexColors.h"
 #import "TBMSecretScreenPresenter.h"
 #import "TBMSecretGestureRecognizer.h"
 #import "TBMEventsFlowModulePresenter.h"
+#import "ZZEditFriendListWireframe.h"
+#import "ANMessageDomainModel.h"
+#import "DeviceUtil.h"
+#import "TBMUser.h"
 
-@interface TBMHomeViewController ()
+typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
+{
+    ZZEditMenuButtonTypeEditFriends = 0,
+    ZZEditMenuButtonTypeSendFeedback = 1,
+    ZZEditMenuButtonTypeCancel = 2,
+};
+
+@interface TBMHomeViewController () <UIActionSheetDelegate>
 @property (nonatomic) TBMAppDelegate *appDelegate;
 @property (nonatomic) TBMBenchViewController *benchViewController;
 @property (nonatomic) UIView *overlayBackgroundView;
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UIView *logoView;
-
+@property (nonatomic, strong) UIButton *editFriendsButton;
 @property(nonatomic, strong) UIView *menuButton;
 @property(nonatomic) BOOL isPlaying;
+@property (nonatomic, strong) ANEmailWireframe* emailWireframe;
+@property (nonatomic, strong) ZZEditFriendListWireframe* editFriendsWireframe;
 
 @property(nonatomic) BOOL isSMSProcessActive;
 // Modules
@@ -66,6 +79,9 @@ static TBMHomeViewController *hvcInstance;
 
         [_headerView addSubview:self.menuButton];
         [_headerView bringSubviewToFront:self.menuButton];
+        
+        [_headerView addSubview:self.editFriendsButton];
+        [_headerView bringSubviewToFront:self.editFriendsButton];
 
         [self.view addSubview:_headerView];
     }
@@ -93,7 +109,7 @@ static TBMHomeViewController *hvcInstance;
 
         //Prepare menu button
         CGFloat buttonSize = CGRectGetHeight(self.headerView.bounds);
-        CGFloat x = CGRectGetMaxX(self.headerView.bounds) - (buttonSize * 2);
+        CGFloat x = CGRectGetMaxX(self.headerView.bounds) - (buttonSize * 3);
         CGFloat y = CGRectGetMinY(self.headerView.bounds);
 
         CGRect frame = CGRectMake(x, y, buttonSize * 2, buttonSize);
@@ -115,6 +131,24 @@ static TBMHomeViewController *hvcInstance;
         [_menuButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(menuButtonTaped:)]];
     }
     return _menuButton;
+}
+
+- (UIButton *)editFriendsButton
+{
+    if (!_editFriendsButton)
+    {
+        _editFriendsButton = [UIButton new];
+        [_editFriendsButton setImage:[UIImage imageNamed:@"icon_menu_dots"] forState:UIControlStateNormal];
+        [_editFriendsButton addTarget:self action:@selector(editFriendButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [self.headerView addSubview:_editFriendsButton];
+        
+        [_editFriendsButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.right.equalTo(self.headerView);
+            make.width.equalTo(@55);
+        }];
+    }
+    
+    return _editFriendsButton;
 }
 
 #pragma mark - Lifecycle
@@ -213,6 +247,13 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
 
 - (void)menuButtonTaped:(id)sender {
     [self.benchViewController toggle];
+}
+
+- (void)editFriendButtonTapped:(UIButton *)sender
+{
+    NSString *editFriendsButtonTitle = NSLocalizedString(@"grid-controller.menu.edit-friends.button.title", nil);
+    NSString *sendFeedbackButtonTitle = NSLocalizedString(@"grid-controller.menu.send-feedback.button.title", nil);
+    [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:editFriendsButtonTitle, sendFeedbackButtonTitle, nil] showInView:self.view];
 }
 
 #pragma mark - ContentView
@@ -320,6 +361,46 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
     }
     return _secretScreen;
 }
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+            
+        case ZZEditMenuButtonTypeEditFriends:
+        {
+            self.editFriendsWireframe = [ZZEditFriendListWireframe new];
+            self.benchViewController.view.hidden = YES;
+            [self.editFriendsWireframe presentEditFriendListControllerFromViewController:self withCompletion:^{
+                self.benchViewController.view.hidden = NO;
+            }];
+            
+        } break;
+            
+        case ZZEditMenuButtonTypeSendFeedback:
+        {
+            ANMessageDomainModel *model = [ANMessageDomainModel new];
+            model.title = emailSubject;
+            model.recipients = @[emailAddress];
+            model.isHTMLMessage = YES;
+            model.message = [NSString stringWithFormat:@"<font color = \"000000\"></br></br></br>---------------------------------</br>iOS: %@</br>Model: %@</br>User mKey: %@</br>App Version: %@</br>Build Version: %@ </font>", [[UIDevice currentDevice] systemVersion], [DeviceUtil hardwareDescription], [TBMUser getUser].mkey, [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"], [NSBundle mainBundle].infoDictionary[(NSString*)kCFBundleVersionKey]];
+            
+            self.emailWireframe = [ANEmailWireframe new];
+            [self.emailWireframe presentEmailControllerFromViewController:self withModel:model completion:nil];
+            
+        } break;
+            
+        case ZZEditMenuButtonTypeCancel:
+        {
+            
+        } break;
+            
+        default:
+            break;
+    }
+}
+
 
 
 @end

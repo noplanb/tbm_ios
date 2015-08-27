@@ -12,6 +12,7 @@
 #import "ZZGridWireframe.h"
 #import "ZZMenuWireframe.h"
 #import "ZZSecretScreenWireframe.h"
+#import "ZZEditFriendListWireframe.h"
 
 typedef NS_ENUM(NSInteger, ANSections)
 {
@@ -19,7 +20,8 @@ typedef NS_ENUM(NSInteger, ANSections)
     ZZGridController,
     ZZSecretController,
     ZZStateController,
-    ZZMenuController
+    ZZMenuController,
+    ZZEditFriendsController
 };
 
 @implementation ANDebugController
@@ -38,13 +40,12 @@ typedef NS_ENUM(NSInteger, ANSections)
 
 - (void)_setupStorage
 {
-    [self.memoryStorage addItems:@[
-                                   @"Auth Module",
+    [self.memoryStorage addItems:@[@"Auth Module",
                                    @"Grid Module",
                                    @"Secret Module",
                                    @"State Module",
-                                   @"Menu Module"
-                                   ]];
+                                   @"Menu Module",
+                                   @"Edit Friends Module"]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -70,6 +71,23 @@ typedef NS_ENUM(NSInteger, ANSections)
         {
             ZZSecretScreenWireframe* wireframe = [ZZSecretScreenWireframe new];
             [wireframe presentSecretScreenControllerFromNavigationController:self.rootController.navigationController];
+        } break;
+            
+        case ZZStateController:
+        {
+
+        } break;
+            
+        case ZZMenuController:
+        {
+            
+        } break;
+            
+        case ZZEditFriendsController:
+            
+        {
+            ZZEditFriendListWireframe* wireframe = [ZZEditFriendListWireframe new];
+            [wireframe presentEditFriendListControllerFromViewController:self.rootController withCompletion:nil];
         } break;
             
         default: break;

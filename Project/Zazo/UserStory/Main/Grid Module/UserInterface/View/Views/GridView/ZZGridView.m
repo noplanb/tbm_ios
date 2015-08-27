@@ -88,6 +88,23 @@ static CGFloat const kMenuButtonRightPadding = 5;
     return _menuButton;
 }
 
+- (UIButton *)editFriendsButton
+{
+    if (!_editFriendsButton)
+    {
+        _editFriendsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_editFriendsButton setImage:[UIImage imageNamed:@"icon-drawer-1x"] forState:UIControlStateNormal];
+        [self.headerView addSubview:_editFriendsButton];
+        
+        [_editFriendsButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.menuButton.mas_left).with.offset(-kMenuButtonRightPadding);
+            make.centerY.equalTo(self.headerView.mas_centerY);
+        }];
+    }
+    
+    return _editFriendsButton;
+}
+
 - (UICollectionView *)collectionView
 {
     if (!_collectionView)

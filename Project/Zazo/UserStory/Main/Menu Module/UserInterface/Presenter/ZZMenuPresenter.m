@@ -24,7 +24,6 @@
 {
     self.userInterface = userInterface;
     self.dataSource = [ZZMenuDataSource new];
-    [self.userInterface updateDataSource:self.dataSource];
     
 #ifdef DEBUG
     ABAddressBookRef addressBookRef = ABAddressBookCreateWithOptions(nil, nil);
@@ -46,7 +45,10 @@
 
 - (void)addressBookDataLoaded:(NSArray*)data
 {
-    [self.dataSource setupAddressbookItems:data];
+    ANDispatchBlockToMainQueue(^{
+        [self.dataSource setupAddressbookItems:data];
+        [self.userInterface updateDataSource:self.dataSource]; // TODO: set data source on start
+    });
 }
 
 - (void)friendsDataLoaded:(NSArray *)friendsData

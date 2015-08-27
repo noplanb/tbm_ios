@@ -14,5 +14,7 @@
 @property (nonatomic, copy) NSString* firstName;
 @property (nonatomic, copy) NSString* lastName;
 @property (nonatomic, strong) NSSet* phones;
+@property (nonatomic, strong) UIImage* photoImage; // TODO: hanle photo URL string
+
 
 @end

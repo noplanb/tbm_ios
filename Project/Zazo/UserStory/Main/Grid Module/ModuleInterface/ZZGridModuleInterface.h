@@ -10,5 +10,6 @@
 
 - (void)presentMenu;
 - (void)selectedCollectionViewWithIndexPath:(NSIndexPath *)indexPath;
+- (void)presentEditFriends;
 
 @end

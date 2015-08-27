@@ -87,7 +87,7 @@ static CGFloat const kNavigationBarIconHeight = 20;
 
 - (void)_setupNavigationBar
 {
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage an_imageWithColor:self.baseColor]
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage an_imageWithColor:[UIColor an_colorWithHexString:@"1B1B19"]]
                                        forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setShadowImage:[UIImage new]];
     NSDictionary* titleAttributes = @{NSForegroundColorAttributeName : self.navBarFontColor,

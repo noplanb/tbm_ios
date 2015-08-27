@@ -34,7 +34,7 @@
 
 - (void)updateImageView:(UIImageView *)imageView
 {
-    // TODO:
+     imageView.image = [self.item photoImage]; // TODO: load from cache
 }
 
 @end
