@@ -19,24 +19,8 @@
     ];
     self.showGotItButton = YES;
     NSMutableArray *arrows = [NSMutableArray array];
-    [arrows addObject:[TBMHintArrow arrowWithText:@"Abort a recording."
-                                        curveKind:TBMTutorialArrowCurveKindRight
-                                       arrowPoint:CGPointMake(
-                                               CGRectGetMinX(highlightFrame),
-                                               CGRectGetMidY(highlightFrame) - 60.f)
-                                            angle:-65.f
-                                           hidden:YES
-                                            frame:self.frame]];
 
-    [arrows addObject:[TBMHintArrow arrowWithText:@"Drag finger away"
-                                        curveKind:TBMTutorialArrowCurveKindRight
-                                       arrowPoint:CGPointMake(
-                                               CGRectGetMinX(highlightFrame),
-                                               CGRectGetMidY(highlightFrame) - 30.f)
-                                            angle:-65.f
-                                           hidden:YES
-                                            frame:self.frame]];
-    [arrows addObject:[TBMHintArrow arrowWithText:@"while recording."
+    [arrows addObject:[TBMHintArrow arrowWithText:@"Abort a recording. \n Drag finger away while recording."
                                         curveKind:TBMTutorialArrowCurveKindRight
                                        arrowPoint:CGPointMake(
                                                CGRectGetMinX(highlightFrame),

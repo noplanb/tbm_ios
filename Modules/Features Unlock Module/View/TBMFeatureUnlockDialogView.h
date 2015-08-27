@@ -15,7 +15,6 @@
 
 @interface TBMFeatureUnlockDialogView : UIView <TBMDialogViewInterface>
 
-@property(nonatomic, weak) TBMFeatureUnlockModulePresenter *presenter;
 
 /**
  * Configuration

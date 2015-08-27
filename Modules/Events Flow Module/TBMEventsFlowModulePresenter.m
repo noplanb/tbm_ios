@@ -50,6 +50,11 @@
 - (void)throwEvent:(TBMEventFlowEvent)anEvent
 {
     OB_INFO(@"[ EVENT throwEvent ] %ld ", (long) anEvent);
+
+    if (anEvent == TBMEventFlowEventMessageDidStopPlaying) {
+        [self.dataSource setMessagePlayedState:YES];
+    }
+
     id <TBMEventsFlowModuleEventHandler> currentEvenHandler = nil;
     for (id <TBMEventsFlowModuleEventHandler> evenHandler in self.eventHandlers)
     {
@@ -117,6 +122,7 @@
 - (void)messageDidRecorded
 {
     self.isRecordingFlag = NO;
+    [self.dataSource setMessageRecordedState:YES];
 }
 
 - (void)messageDidStartRecording

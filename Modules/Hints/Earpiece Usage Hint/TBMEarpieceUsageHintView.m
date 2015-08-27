@@ -20,7 +20,7 @@
     self.showGotItButton = YES;
     NSMutableArray *arrows = [NSMutableArray array];
 
-    [arrows addObject:[TBMHintArrow arrowWithText:@"Play quietly. /n Tap to play. Then hold phone to ear."
+    [arrows addObject:[TBMHintArrow arrowWithText:@"Play quietly. \n Tap to play. Then hold phone to ear."
                                         curveKind:TBMTutorialArrowCurveKindRight
                                        arrowPoint:CGPointMake(
                                                CGRectGetMinX(highlightFrame),

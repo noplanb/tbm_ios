@@ -323,8 +323,7 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
 
 - (void)showmeButtonDidSelect:(id)sender
 {
-    [self hide];
-    [self.presenter showMeButtonDidSelect];
+    [self dismiss];
 }
 
 - (void)dimViewDidTap:(id)sender
@@ -375,7 +374,7 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
 - (void)dismiss
 {
     [self hide];
-    [self.presenter dialogDidDismiss];
+    [self.dialogViewDelegate dialogDidDismiss];
 }
 
 - (void)hide

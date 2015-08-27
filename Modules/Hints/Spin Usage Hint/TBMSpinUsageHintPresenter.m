@@ -18,6 +18,7 @@
     if (self)
     {
         self.dialogView = [TBMSpinUsageHintView new];
+        [self.dialogView setupDialogViewDelegate:self];
         self.eventHandlerDataSource.persistentStateKey = @"kSpinUsageUsageUsageHintNSUDkey";
     }
     return self;
@@ -35,6 +36,8 @@
 
 - (void)dialogDidDismiss
 {
+    [super dialogDidDismiss];
+
     [self.eventFlowModule throwEvent:TBMEventFlowEventFeatureUsageHintDidDismiss];
 }
 

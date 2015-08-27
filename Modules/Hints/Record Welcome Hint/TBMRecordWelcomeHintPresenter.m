@@ -51,17 +51,4 @@
     return YES;
 }
 
-- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule
-{
-    if (![self.eventFlowModule isAnyHandlerActive])
-    {
-        [super presentWithGridModule:gridModule];
-    }
-    else if ([[self.eventFlowModule currentHandler] respondsToSelector:@selector(addRecordWelcomeHint)])
-    {
-        [[self.eventFlowModule currentHandler] performSelector:@selector(addRecordWelcomeHint)];
-        [self didPresented];
-    }
-}
-
 @end

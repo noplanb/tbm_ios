@@ -8,7 +8,10 @@
 @protocol TBMEventsFlowModuleDataSourceInterface <NSObject>
 
 - (BOOL)messageRecordedState;
+- (void)setMessageRecordedState:(BOOL)state;
+
 - (BOOL)messagePlayedState;
+- (void)setMessagePlayedState:(BOOL)state;
 
 - (NSUInteger)friendsCount;
 - (NSUInteger)unviewedCount;

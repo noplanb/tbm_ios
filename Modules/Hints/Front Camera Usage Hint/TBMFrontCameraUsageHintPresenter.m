@@ -18,6 +18,7 @@
     if (self)
     {
         self.dialogView = [TBMFrontCameraUsageHintView new];
+        [self.dialogView setupDialogViewDelegate:self];
         self.eventHandlerDataSource.persistentStateKey = @"kFrontCameraUsageUsageHintNSUDkey";
     }
     return self;
@@ -35,6 +36,8 @@
 
 - (void)dialogDidDismiss
 {
+    [super dialogDidDismiss];
+
     [self.eventFlowModule throwEvent:TBMEventFlowEventFeatureUsageHintDidDismiss];
 }
 

@@ -89,7 +89,7 @@
 
 - (void)showMeButtonDidSelect
 {
-    [self throwLastHintDidDismiss];
+    [self dialogDidDismiss];
 }
 
 - (void)dialogDidDismiss
@@ -131,8 +131,5 @@
         default:
             break;
     }
-
-
 }
-
 @end

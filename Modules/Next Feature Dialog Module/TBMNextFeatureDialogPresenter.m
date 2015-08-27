@@ -50,14 +50,15 @@
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
 {
 
-    if (event != TBMEventFlowEventFrontCameraUnlockDialogDidDismiss
-            && event != TBMEventFlowEventDeleteFriendUnlockDialogDidDismiss
-            && event != TBMEventFlowEventAbortRecordingUnlockDialogDidDismiss
-            && event != TBMEventFlowEventEarpieceUnlockDialogDidDismiss
-            && event != TBMEventFlowEventSpinUnlockDialogDidDismiss
+    if (
+            event != TBMEventFlowEventFeatureUsageHintDidDismiss
+//            && event != TBMEventFlowEventDeleteFriendUnlockDialogDidDismiss
+//            && event != TBMEventFlowEventAbortRecordingUnlockDialogDidDismiss
+//            && event != TBMEventFlowEventEarpieceUnlockDialogDidDismiss
+//            && event != TBMEventFlowEventSpinUnlockDialogDidDismiss
 
             && event != TBMEventFlowEventMessageDidSend
-            && event != TBMEventFlowEventMessageDidViewed
+            && event != TBMEventFlowEventMessageDidStopPlaying
             )
     {
         return NO;

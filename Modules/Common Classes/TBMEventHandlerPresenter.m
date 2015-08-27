@@ -73,6 +73,5 @@
 {
     self.isPresented = NO;
     OB_INFO(@"%@ did dismiss", [self.dialogView class]);
-
 }
 @end

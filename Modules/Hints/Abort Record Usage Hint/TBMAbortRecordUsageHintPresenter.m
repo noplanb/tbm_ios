@@ -19,7 +19,9 @@
     if (self)
     {
         self.dialogView = [TBMAbortRecordUsageHintView new];
+        [self.dialogView setupDialogViewDelegate:self];
         self.eventHandlerDataSource.persistentStateKey = @"kAbortRecordUsageHintNSUDkey";
+
     }
     return self;
 }
@@ -36,6 +38,8 @@
 
 - (void)dialogDidDismiss
 {
+    [super dialogDidDismiss];
+
     [self.eventFlowModule throwEvent:TBMEventFlowEventFeatureUsageHintDidDismiss];
 }
 

@@ -19,6 +19,7 @@
     if (self)
     {
         self.dialogView = [TBMDeleteFriendUsageHintView new];
+        [self.dialogView setupDialogViewDelegate:self];
         self.eventHandlerDataSource.persistentStateKey = @"kDeleteFriendUsageUsageHintNSUDkey";
     }
     return self;
