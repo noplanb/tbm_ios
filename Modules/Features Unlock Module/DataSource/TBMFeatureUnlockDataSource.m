@@ -45,6 +45,7 @@ static NSString *const kLastUnlockedFeatureNSUDKey = @"kLastUnlockedFeatureNSUDK
                     @(TBMUnlockedFeatureFrontCamera) : @"Use both cameras!",
                     @(TBMUnlockedFeatureAbortRecord) : @"Abort a recording!",
                     @(TBMUnlockedFeatureEarpiece) : @"Listen from earpiece!",
+                    @(TBMUnlockedFeatureSpin) : @"Spin your friends!",
             };;
 }
 
