@@ -40,7 +40,7 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
     else
     {
         if (self.item.contactStatusValue == ZZContactStatusTypeEstablished ||
-            ZZContactStatusTypeEstablished == ZZContactStatusTypeHiddenByTarget)
+            self.item.contactStatusValue == ZZContactStatusTypeHiddenByTarget)
         {
             [self _updateButton:button toState:ZZContactActionButtonStateDelete];
         }
@@ -102,7 +102,7 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
     else
     {
         if (self.item.contactStatusValue == ZZContactStatusTypeEstablished ||
-            ZZContactStatusTypeEstablished == ZZContactStatusTypeHiddenByTarget)
+            self.item.contactStatusValue == ZZContactStatusTypeHiddenByTarget)
         {
             cellColor = [UIColor an_colorWithHexString:@"EFEFE7"];
         }

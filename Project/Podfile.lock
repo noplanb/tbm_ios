@@ -72,6 +72,7 @@ PODS:
   - CocoaLumberjack/Extensions (2.0.1):
     - CocoaLumberjack/Default
   - Crashlytics (3.1.1)
+  - DeviceUtil (1.2.0)
   - Expecta (1.0.2)
   - Fabric (1.4.0):
     - Fabric/Base (= 1.4.0)
@@ -156,6 +157,7 @@ DEPENDENCIES:
   - APAddressBook
   - CocoaLumberjack
   - Crashlytics
+  - DeviceUtil (~> 1.2)
   - Expecta (~> 1.0.2)
   - Fabric
   - FastEasyMapping
@@ -195,6 +197,7 @@ SPEC CHECKSUMS:
   APAddressBook: 2c949367b190a993d2cce769a3b20bce8bcf000c
   CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
   Crashlytics: 39ab395565bc03c29cdecd2b9d103ebf30930c10
+  DeviceUtil: 818812d4d2413e145a05d502cd1378e484d0c293
   Expecta: 54e8a3530add08f4f0208c111355eda7cde74a53
   Fabric: 6d1d1c1eaf7ebc76fc3307e2c0259456411baf26
   FastEasyMapping: 03a3fbe3af1005e67974358a4ec2b4764f8aa3b4

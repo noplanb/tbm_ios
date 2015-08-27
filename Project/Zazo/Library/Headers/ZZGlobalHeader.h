@@ -42,6 +42,14 @@
 
 //TODO: cleanup this
 
+//email constants
+
+static NSString* emailSubject = @"Feedback";
+static NSString* emailAddress = @"feedback@zazoapp.com";
+//ios, app version, user mkey, iphone 5s.
+
+
+
 #define DEBUG_MODE
 #ifdef DEBUG_MODE
 #define DebugLog( s, ... ) NSLog( @"<%@:(%d)> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )

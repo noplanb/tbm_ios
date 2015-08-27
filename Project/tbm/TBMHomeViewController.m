@@ -17,6 +17,8 @@
 #import "TBMEventsFlowModulePresenter.h"
 #import "ZZEditFriendListWireframe.h"
 #import "ANMessageDomainModel.h"
+#import "DeviceUtil.h"
+#import "TBMUser.h"
 
 typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
 {
@@ -379,6 +381,11 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
         case ZZEditMenuButtonTypeSendFeedback:
         {
             ANMessageDomainModel *model = [ANMessageDomainModel new];
+            model.title = emailSubject;
+            model.recipients = @[emailAddress];
+            model.isHTMLMessage = YES;
+            model.message = [NSString stringWithFormat:@"<font color = \"000000\"></br></br></br>---------------------------------</br>iOS: %@</br>Model: %@</br>User mKey: %@</br>App Version: %@</br>Build Version: %@ </font>", [[UIDevice currentDevice] systemVersion], [DeviceUtil hardwareDescription], [TBMUser getUser].mkey, [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"], [NSBundle mainBundle].infoDictionary[(NSString*)kCFBundleVersionKey]];
+            
             self.emailWireframe = [ANEmailWireframe new];
             [self.emailWireframe presentEmailControllerFromViewController:self withModel:model completion:nil];
             
