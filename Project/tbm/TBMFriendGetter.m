@@ -39,6 +39,18 @@
                            }];
 }
 
+- (void)getFriendsArray
+{
+    [[TBMHttpManager manager] GET:@"reg/get_friends"
+                       parameters:nil
+                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                              [_delegate gotFriendsArray:responseObject];
+                          }
+                          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                              [_delegate friendGetterServerError];
+                          }];
+}
+
 - (void)gotFriends:(NSArray *)friends{
     for (NSDictionary *fParams in friends){
         [TBMFriend createOrUpdateWithServerParams:fParams complete:nil];

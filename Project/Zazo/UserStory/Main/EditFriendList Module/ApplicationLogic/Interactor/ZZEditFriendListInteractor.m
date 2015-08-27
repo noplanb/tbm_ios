@@ -25,7 +25,6 @@
     [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray *array) {
         
         NSArray *friendsArray = [FEMObjectDeserializer deserializeCollectionExternalRepresentation:array usingMapping:[ZZFriendDomainModel mapping]];
-        
         [self.output dataLoaded:[self sortArrayByFirstName:friendsArray]];
 
     } error:^(NSError *error) {

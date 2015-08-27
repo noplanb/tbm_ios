@@ -17,11 +17,14 @@
 @property (nonatomic, strong) ZZEditFriendListVC* editFriendListController;
 @property (nonatomic, strong) UIViewController* presentedController;
 
+@property (nonatomic, copy) ANCodeBlock completion;
+
+
 @end
 
 @implementation ZZEditFriendListWireframe
 
-- (void)presentEditFriendListControllerFromViewController:(UIViewController*)vc
+- (void)presentEditFriendListControllerFromViewController:(UIViewController*)vc withCompletion:(ANCodeBlock)completion
 {
     ZZEditFriendListVC* editFriendListController = [ZZEditFriendListVC new];
     ZZEditFriendListInteractor* interactor = [ZZEditFriendListInteractor new];
@@ -35,20 +38,39 @@
     presenter.wireframe = self;
     [presenter configurePresenterWithUserInterface:editFriendListController];
     
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.3;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionPush;
+    transition.subtype = kCATransitionFromRight;
+    [vc.view.window.layer addAnimation:transition forKey:nil];
     
     ANDispatchBlockToMainQueue(^{
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:editFriendListController];
-        [vc presentViewController:nav animated:YES completion:nil];
+        [vc presentViewController:nav animated:NO completion:nil];
     });
     
     self.presenter = presenter;
     self.presentedController = vc;
     self.editFriendListController = editFriendListController;
+    self.completion = [completion copy];
 }
 
 - (void)dismissEditFriendListController
 {
-    [self.presentedController dismissViewControllerAnimated:YES completion:nil];
+    if (self.completion)
+    {
+        self.completion();
+    }
+    
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.3;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionPush;
+    transition.subtype = kCATransitionFromLeft;
+    [self.editFriendListController.view.window.layer addAnimation:transition forKey:nil];
+    
+    [self.presentedController dismissViewControllerAnimated:NO completion:nil];
 }
 
 @end

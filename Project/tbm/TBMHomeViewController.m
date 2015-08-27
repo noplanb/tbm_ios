@@ -369,7 +369,10 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
         case ZZEditMenuButtonTypeEditFriends:
         {
             self.editFriendsWireframe = [ZZEditFriendListWireframe new];
-            [self.editFriendsWireframe presentEditFriendListControllerFromViewController:self];
+            self.benchViewController.view.hidden = YES;
+            [self.editFriendsWireframe presentEditFriendListControllerFromViewController:self withCompletion:^{
+                self.benchViewController.view.hidden = NO;
+            }];
             
         } break;
             

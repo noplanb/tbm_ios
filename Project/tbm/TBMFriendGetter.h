@@ -11,6 +11,10 @@
 @protocol TBMFriendGetterCallback <NSObject>
 - (void)gotFriends;
 - (void)friendGetterServerError;
+
+@optional
+- (void)gotFriendsArray:(NSArray *)friendsArray;
+
 @end
 
 
@@ -18,5 +22,6 @@
 
 - (instancetype)initWithDelegate:(id<TBMFriendGetterCallback>)delegate;
 - (void)getFriends;
+- (void)getFriendsArray;
 
 @end

@@ -87,7 +87,7 @@ typedef NS_ENUM(NSInteger, ANSections)
             
         {
             ZZEditFriendListWireframe* wireframe = [ZZEditFriendListWireframe new];
-            [wireframe presentEditFriendListControllerFromViewController:self.rootController];
+            [wireframe presentEditFriendListControllerFromViewController:self.rootController withCompletion:nil];
         } break;
             
         default: break;

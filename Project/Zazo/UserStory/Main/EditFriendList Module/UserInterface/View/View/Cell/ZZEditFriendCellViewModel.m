@@ -69,7 +69,7 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
 {
     if (self.item.isHasApp)
     {
-        imageView.image = [UIImage imageNamed:@"zazo-type-1x"];
+        imageView.image = [UIImage imageNamed:@"zazo_color"];
     }
 }
 

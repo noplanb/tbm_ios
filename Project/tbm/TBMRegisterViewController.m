@@ -20,6 +20,7 @@
 #import "UIAlertView+Blocks.h"
 #import "TBMAlertController.h"
 #import "TBMAlertControllerVisualStyle.h"
+#import "ZZNetworkTransport.h"
 
 @interface TBMRegisterViewController ()
 
@@ -169,6 +170,19 @@
     if ([TBMHttpManager isSuccess:params]){
         self.auth = [params objectForKey:SERVER_PARAMS_USER_AUTH_KEY];
         self.mkey = [params objectForKey:SERVER_PARAMS_USER_MKEY_KEY];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:self.auth forKey:@"auth"];
+        [[NSUserDefaults standardUserDefaults] setObject:self.mkey forKey:@"mkey"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        NSURLCredential *cred = [[NSURLCredential alloc] initWithUser:self.mkey
+                                                             password:self.auth
+                                                          persistence:NSURLCredentialPersistenceForSession];
+        if (!ANIsEmpty(self.mkey))
+        {
+            [ZZNetworkTransport shared].session.credential = cred;
+        }
+
         [self showVerificationDialog];
     } else {
         NSString *title = [params objectForKey:SERVER_PARAMS_ERROR_TITLE_KEY];

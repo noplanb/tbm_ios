@@ -8,7 +8,7 @@
 
 @interface ZZEditFriendListWireframe : NSObject
 
-- (void)presentEditFriendListControllerFromViewController:(UIViewController*)vc;
+- (void)presentEditFriendListControllerFromViewController:(UIViewController*)vc withCompletion:(ANCodeBlock)completion;
 - (void)dismissEditFriendListController;
 
 @end
