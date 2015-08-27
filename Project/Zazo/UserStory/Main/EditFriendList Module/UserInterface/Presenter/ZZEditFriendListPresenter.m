@@ -33,6 +33,7 @@
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZEditFriendListViewInterface>*)userInterface
 {
     self.userInterface = userInterface;
+    [self.userInterface updateDataSource:self.tableDataSource];
     [self.interactor loadData];
 }
 

@@ -55,6 +55,7 @@ extern const struct ZZFriendDomainModelAttributes {
 
 + (FEMObjectMapping*)mapping;
 
+- (NSString *)fullName;
 - (BOOL)isCreator;
 
 @end

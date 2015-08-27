@@ -5,24 +5,19 @@
 //  Copyright (c) 2014 ANODA. All rights reserved.
 //
 
-#define DEBUG_CONTROLLER
-
+//#define DEBUG_CONTROLLER
 #define HTTPLog
-
-//helpers
-
 #define DEBUG_LOGIN_USER
-
 #define STAGESERVER
 
 
-
+//helpers
+#import "NSObject+ANSafeValues.h"
 #import "ANHelperFunctions.h"
 #import "ANLogger.h"
 #import "ANDefines.h"
 
 #import "FrameAccessor.h"
-
 #import "Masonry.h"
 
 //reactive cocoa
@@ -31,8 +26,6 @@
 #import "RACCommand+ANAdditions.h"
 
 #import "ZZColorTheme.h"
-
-
 
 #pragma mark - UI Categories
 

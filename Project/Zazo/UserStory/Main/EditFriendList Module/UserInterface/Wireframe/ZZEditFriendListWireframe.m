@@ -15,13 +15,13 @@
 
 @property (nonatomic, strong) ZZEditFriendListPresenter* presenter;
 @property (nonatomic, strong) ZZEditFriendListVC* editFriendListController;
-@property (nonatomic, strong) UINavigationController* presentedController;
+@property (nonatomic, strong) UIViewController* presentedController;
 
 @end
 
 @implementation ZZEditFriendListWireframe
 
-- (void)presentEditFriendListControllerFromNavigationController:(UINavigationController*)nc
+- (void)presentEditFriendListControllerFromViewController:(UIViewController*)vc
 {
     ZZEditFriendListVC* editFriendListController = [ZZEditFriendListVC new];
     ZZEditFriendListInteractor* interactor = [ZZEditFriendListInteractor new];
@@ -35,18 +35,20 @@
     presenter.wireframe = self;
     [presenter configurePresenterWithUserInterface:editFriendListController];
     
+    
     ANDispatchBlockToMainQueue(^{
-        [nc pushViewController:editFriendListController animated:YES];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:editFriendListController];
+        [vc presentViewController:nav animated:YES completion:nil];
     });
     
     self.presenter = presenter;
-    self.presentedController = nc;
+    self.presentedController = vc;
     self.editFriendListController = editFriendListController;
 }
 
 - (void)dismissEditFriendListController
 {
-    [self.presentedController popViewControllerAnimated:YES];
+    [self.presentedController dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

@@ -75,7 +75,7 @@
         _nameLabel = [UILabel new];
         _nameLabel.font = [UIFont an_meduimFontWithSize:18];
         _nameLabel.highlightedTextColor = [UIColor whiteColor];
-        _nameLabel.textColor = [ANAppColorTheme shared].baseCellTextColor;
+        _nameLabel.textColor = [UIColor an_colorWithHexString:@"202020"];
         [self addSubview:_nameLabel];
         
         [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -112,7 +112,7 @@
     if (!_deleteAndRestoreButton)
     {
         _deleteAndRestoreButton = [UIButton new];
-        [_deleteAndRestoreButton setTitleColor:[ANAppColorTheme shared].baseCellTextColor forState:UIControlStateNormal];
+        [_deleteAndRestoreButton setTitleColor:[UIColor an_colorWithHexString:@"202020"] forState:UIControlStateNormal];
         _deleteAndRestoreButton.titleLabel.font = [UIFont an_regularFontWithSize:15];
         [self.contentView addSubview:_deleteAndRestoreButton];
         

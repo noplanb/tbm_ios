@@ -105,7 +105,10 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     OB_ERROR(@"ERROR: didFailToRegisterForRemoteNotificationsWithError: %@", error);
-    [self onFailPushAccess];
+#ifdef DEBUG_CONTROLLER
+#else
+    //[self onFailPushAccess];
+#endif
 }
 
 - (void)sendPushTokenToServer:(NSString *)token {
