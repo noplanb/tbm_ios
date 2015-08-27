@@ -6,9 +6,14 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
+#import "ANBaseDomainModel.h"
+
 @interface ZZDebugStateDomainModel : NSObject
 
-@property (nonatomic, copy) NSString* itemID;
-@property (nonatomic, copy) NSString* statusString;
+@property (nonatomic, strong) NSArray* incomingVideosItemIDs;
+@property (nonatomic, strong) NSArray* outgoingVideosItemIDs;
+
+@property (nonatomic, strong) NSArray* incomingDanglingVideosItemIDs;
+@property (nonatomic, strong) NSArray* outgoingDanglingVideosItemIDs;
 
 @end

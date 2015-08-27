@@ -71,14 +71,15 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.0.1):
     - CocoaLumberjack/Default
-  - Crashlytics (3.1.0)
+  - Crashlytics (3.1.1)
   - Expecta (1.0.2)
-  - Fabric (1.2.8):
-    - Fabric/Base (= 1.2.8)
-  - Fabric/Base (1.2.8)
+  - Fabric (1.4.0):
+    - Fabric/Base (= 1.4.0)
+  - Fabric/Base (1.4.0)
   - FastEasyMapping (0.5.1)
   - FrameAccessor (1.3.2)
   - HexColors (2.3.0)
+  - Instabug (4.1.4)
   - iToast (0.0.1)
   - KIF (3.2.3):
     - KIF/XCTest (= 3.2.3)
@@ -161,6 +162,7 @@ DEPENDENCIES:
   - FastEasyMapping
   - FrameAccessor
   - HexColors
+  - Instabug
   - iToast
   - KIF (~> 3.2.3)
   - KVOController
@@ -194,12 +196,13 @@ SPEC CHECKSUMS:
   ANTableViews: dbfd364d5f541c71be904a9096cb893cecb4662e
   APAddressBook: 2c949367b190a993d2cce769a3b20bce8bcf000c
   CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
-  Crashlytics: 93e2f86363d53c002c6366a9d87e41f2eaee87c3
+  Crashlytics: 39ab395565bc03c29cdecd2b9d103ebf30930c10
   Expecta: 54e8a3530add08f4f0208c111355eda7cde74a53
-  Fabric: a9eabe53915e9f1db55a84dd2838737928675878
+  Fabric: 6d1d1c1eaf7ebc76fc3307e2c0259456411baf26
   FastEasyMapping: 03a3fbe3af1005e67974358a4ec2b4764f8aa3b4
   FrameAccessor: 0f7ba6ce37be9a5d0302a27c731dca70af8d438b
   HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
+  Instabug: de19c1b0f89c4e5deda6dd7f1dc3515e54238b08
   iToast: df147188215cc3293bd4366822833f2862fec451
   KIF: a94bffe9c97e449e44f8fa481c53243d21309e1e
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf

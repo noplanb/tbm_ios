@@ -23,6 +23,7 @@
 		07243C8A1B8DDFDB008E4203 /* ZZDebugStateWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07243C861B8DDFDB008E4203 /* ZZDebugStateWireframe.m */; };
 		07243C8D1B8DE68B008E4203 /* ZZDebugStateDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07243C8C1B8DE68B008E4203 /* ZZDebugStateDomainModel.m */; };
 		07243C931B8DF174008E4203 /* ZZDebugStateEnumHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07243C921B8DF174008E4203 /* ZZDebugStateEnumHelper.m */; };
+		07243CC71B8E6493008E4203 /* ZZDebugStateItemDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07243CC61B8E6493008E4203 /* ZZDebugStateItemDomainModel.m */; };
 		0732F50C1B8B93D3004FD3AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0732F5041B8B93D3004FD3AF /* InfoPlist.strings */; };
 		0732F5121B8B93D3004FD3AF /* ZazoTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */; };
 		07F0E7EF1B8CD7A900036AB2 /* KeyChainWrapperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E21B8CD7A900036AB2 /* KeyChainWrapperTests.m */; };
@@ -372,6 +373,8 @@
 		07243C8C1B8DE68B008E4203 /* ZZDebugStateDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZDebugStateDomainModel.m; path = Models/ZZDebugStateDomainModel.m; sourceTree = "<group>"; };
 		07243C911B8DF174008E4203 /* ZZDebugStateEnumHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZDebugStateEnumHelper.h; path = EnumHelper/ZZDebugStateEnumHelper.h; sourceTree = "<group>"; };
 		07243C921B8DF174008E4203 /* ZZDebugStateEnumHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZDebugStateEnumHelper.m; path = EnumHelper/ZZDebugStateEnumHelper.m; sourceTree = "<group>"; };
+		07243CC51B8E6493008E4203 /* ZZDebugStateItemDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZDebugStateItemDomainModel.h; path = Models/ZZDebugStateItemDomainModel.h; sourceTree = "<group>"; };
+		07243CC61B8E6493008E4203 /* ZZDebugStateItemDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZDebugStateItemDomainModel.m; path = Models/ZZDebugStateItemDomainModel.m; sourceTree = "<group>"; };
 		0732F5051B8B93D3004FD3AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ZazoTests-Info.plist"; sourceTree = "<group>"; };
 		07F0E7E21B8CD7A900036AB2 /* KeyChainWrapperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainWrapperTests.m; sourceTree = "<group>"; };
@@ -1113,6 +1116,8 @@
 			children = (
 				07243C8B1B8DE68B008E4203 /* ZZDebugStateDomainModel.h */,
 				07243C8C1B8DE68B008E4203 /* ZZDebugStateDomainModel.m */,
+				07243CC51B8E6493008E4203 /* ZZDebugStateItemDomainModel.h */,
+				07243CC61B8E6493008E4203 /* ZZDebugStateItemDomainModel.m */,
 				07243C941B8DF177008E4203 /* EnumHelper */,
 			);
 			name = Models;
@@ -3830,6 +3835,7 @@
 				682D6882754E51F83E3622B4 /* TBMTableModal.m in Sources */,
 				FE95366F1B88EA3000AC652A /* TBMSentHintPresenter.m in Sources */,
 				682D65444870ABB2FDE77070 /* TBMContentViewModal.m in Sources */,
+				07243CC71B8E6493008E4203 /* ZZDebugStateItemDomainModel.m in Sources */,
 				FE95367E1B88F50D00AC652A /* TBMSecretScreenViewController.m in Sources */,
 				07F0EC781B8CD8BF00036AB2 /* ZZAppDependecesInjection.m in Sources */,
 				682D663796A6FFA55DBF6F25 /* TBMContactSearchTableDelegate.m in Sources */,

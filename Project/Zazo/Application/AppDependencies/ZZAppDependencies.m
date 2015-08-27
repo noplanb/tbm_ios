@@ -11,6 +11,7 @@
 #import "ZZColorTheme.h"
 #import "ZZAppDependecesInjection.h"
 #import "ANCrashlyticsAdapter.h"
+#import <Instabug/Instabug.h>
 
 @interface ZZAppDependencies ()
 
@@ -31,6 +32,11 @@
     
     [ANCrashlyticsAdapter start];
     
+#ifndef RELEASE
+    [Instabug startWithToken:@"d546deb8f34137b73aa5b0405cee1690"
+               captureSource:IBGCaptureSourceUIKit
+             invocationEvent:IBGInvocationEventScreenshot];
+#endif
     ZZAppDependecesInjection* injection = [ZZAppDependecesInjection new];
     [injection configureTyphoon];
 }
