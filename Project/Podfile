@@ -1,0 +1,81 @@
+
+platform :ios, '7.0'
+
+source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/anodamobi/ANODA-CocoaPods.git'
+source 'https://github.com/noplanb/Private-Cocoapods.git'
+
+#ignore all warnings from all pods
+inhibit_all_warnings!
+
+
+target 'Zazo' do
+    
+    #ANODA
+    pod 'ANBaseDomainModel'
+    pod 'ANHelperFunctions'
+    pod 'ANCategories'
+    pod 'ANStorage'
+    pod 'ANTableController'
+    pod 'ANTableViews'
+    pod 'ANLogger'
+    pod 'ANColorTheme'
+    pod 'ANProgressButton'
+    pod 'ANKeyboardHandler'
+    pod 'ANDrawer'
+    pod 'ANCollectonController'
+        
+    #UI Categories
+    pod 'FrameAccessor'
+    pod 'HexColors'
+    pod 'APAddressBook'
+    pod 'libPhoneNumber-iOS', '~> 0.7'
+    
+    #UI
+    pod 'Masonry'
+    pod 'SDWebImage'
+    
+    
+    #Testing
+    pod 'Instabug'
+    pod 'Reveal-iOS-SDK', :configurations => ['Debug']
+    pod 'Fabric'
+    pod 'Crashlytics'
+    
+    pod 'KVOController'
+    
+    pod 'Typhoon', '~> 3.1.8'
+    #Core Data
+    pod 'FastEasyMapping'
+    pod 'MagicalRecord'
+    
+    #Helpers
+    pod 'DeviceUtil', '~> 1.2'
+    
+    #! ----- debugging tools, remove on prod --------- !
+    pod 'CocoaLumberjack'
+    
+    pod 'Valet'
+    
+    pod 'AFNetworking' #2.5.1
+    pod 'OBLogger', '0.2.0'
+    pod 'OBFileTransfer' #0.5.7
+    pod 'libPhoneNumber-iOS', '~> 0.7'
+    pod 'UIAlertView+Blocks' #0.8.1
+    pod 'HexColors' #2.2.1
+    pod 'SDCAlertView' #2.2
+    pod 'SDCAutoLayout' #2.0.2
+    pod 'iToast' #0.0.1
+    
+end
+
+
+target 'ZazoTests' do
+    
+    pod 'ANHelperFunctions'
+    pod 'Specta', '~> 1.0.3'
+    pod 'Expecta', '~> 1.0.2'
+    pod 'KIF', '~> 3.2.3'
+    
+end
+

@@ -1,0 +1,108 @@
+/* 
+  Localizable.strings
+  Zazo
+
+  Created by Oksana Kovalchuk on 7/29/15.
+  Copyright (c) 2015 ANODA. All rights reserved.
+*/
+
+
+/**
+ *  Common
+ */
+
+"common.error" = "Error";
+"common.ok" = "OK";
+
+
+//Loading View Controller
+
+"loading-view.empty.label" = "No content";
+"loading-view.loading.label" = "Loading...";
+"loading-view.retry.label" = "Retry!";
+
+
+//Categories List
+
+"categories-list.screen.title" = "All Categories";
+
+
+//Add Category
+
+"add-category.screen.title" = "Add Category";
+"add-category.textfield.placeholder" = "Category Name";
+"add-category.add-photo.placeholder" = "Add Photo";
+
+
+//Edit Friend Module
+
+"edit-friend.nav.title.text" = "Edit friends";
+"edit-friend.delete.button.title" = "Delete";
+"edit-friend.restore.button.title" = "Restore";
+
+
+//Item Detail
+
+//Add Item
+
+//Email Wireframe
+
+
+"error.mail.no-avariable-email-client" = "Sorry, your device can't send emails.";
+
+
+/**
+ *  Auth Controller
+ */
+"auth-controller.firstname.placeholder.title" = "First Name";
+"auth-controller.lastname.placeholder.title" = "Last Name";
+"auth-controller.phone.placeholder.title" = "Phone";
+"auth-controller.signIn.button.title" = "Sign In";
+"auth-controller.country.code.example.title" = "Country code USA +1";
+"auth-controller.country.code.title" = "Country code";
+
+
+/**
+ *  Grid Controller
+ */
+
+"grid-controller.nudge.title" = "NUDGE";
+"grid-controller.record.title" = "RECORD";
+"grid-controller.cell.record.title" = "Recording";
+"grid-controller.menu.edit-friends.button.title" = "Edit friends";
+"grid-controller.menu.send-feedback.button.title" = "Send feedback";
+
+
+/**
+ *  Debug State
+ */
+
+"debug-state.screen.title" = "State";
+"debug-state.incoming-videos.title" = "Incoming Videos";
+"debug-state.outgoing-videos.title" = "Outgoing Videos";
+"debug-state.incoming-dandling-videos.title" = "Incoming Dandling Videos";
+"debug-state.incoming-dandling-videos.title" = "Outgoing Dandling Videos";
+
+
+/**
+ *  Debug
+ */
+
+"debug.screen.title" = "Debug Controller";
+
+// SecretScreen
+
+"secret-controller.header.done.button.title" = "Done";
+"secret-controller.header.title" = "Secret screen";
+"secret-controller.prodserver.title" = "PROD";
+"secret-controller.stageserver.title" = "STAGE";
+"secret-controller.customserver.title" = "CUSTOM";
+"secret-controller.debugmode.title" = "Debug mode";
+"secret-controller.crash.button.title" = "Crash";
+"secret-controller.logs.button.title" = "Logs";
+"secret-controller.reset.hints.button.title" = "Reset hints";
+"secret-controller.state.button.title" = "State";
+"secret-controller.dispatch.button.title" = "Dispatch";
+
+
+
