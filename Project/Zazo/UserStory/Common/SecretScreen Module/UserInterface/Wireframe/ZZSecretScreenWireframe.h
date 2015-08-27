@@ -10,9 +10,9 @@
 
 @interface ZZSecretScreenWireframe : NSObject
 
-- (void)presentSecretScreenControllerFromNavigationController:(UINavigationController *)viewController;
-
+- (void)presentSecretScreenControllerFromNavigationController:(UINavigationController*)viewController;
 - (void)dismissSecretScreenController;
+
 - (void)startSecretScreenObservingWithFirstTouchDelay:(CGFloat)delay
                                              withType:(ZZSecretScreenObserveType)type
                                            withWindow:(UIWindow*)window;

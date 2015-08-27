@@ -20,7 +20,6 @@ typedef NS_ENUM(NSInteger, ANSections)
     ZZSecretController,
     ZZStateController,
     ZZMenuController
-    
 };
 
 @implementation ANDebugController

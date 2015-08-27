@@ -17,6 +17,6 @@
 
 @protocol ZZDebugStateInteractorOutput <NSObject>
 
-- (void)dataLoaded:(ZZDebugStateDomainModel*)data;
+- (void)dataLoadedWithAllVideos:(NSArray*)allVideos incomeDandling:(NSArray*)incomeDandling outcomeDandling:(NSArray*)outcome;
 
 @end

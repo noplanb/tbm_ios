@@ -37,7 +37,6 @@ target 'Zazo' do
     
     
     #Testing
-    
     pod 'Instabug'
     pod 'Reveal-iOS-SDK', :configurations => ['Debug']
     pod 'Fabric'

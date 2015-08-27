@@ -22,12 +22,14 @@
     self.dataSource = [ZZDebugStateDataSource new];
     self.userInterface = userInterface;
     [self.userInterface updateDataSource:self.dataSource];
+    
+    [self.interactor loadData];
 }
 
 
 #pragma mark - Output
 
-- (void)dataLoaded:(ZZDebugStateDomainModel*)data
+- (void)dataLoadedWithAllVideos:(NSArray *)allVideos incomeDandling:(NSArray *)incomeDandling outcomeDandling:(NSArray *)outcome
 {
     [self.dataSource setupWithModel:data];
 }
