@@ -120,7 +120,8 @@
 
 
 
-- (void)setupIsInviteeFlagTo:(BOOL)flag {
+- (void)setupIsInviteeFlagTo:(BOOL)flag
+{
     self.isInvitee = @(flag);
     [TBMUser saveCurrentContext];
 }

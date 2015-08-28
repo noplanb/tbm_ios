@@ -222,10 +222,11 @@
         self.mobileNumberLabel.text = [@"Phone: " stringByAppendingString:data.mobileNumber];
     }
 
-    self.serverSegmentedControl.selectedSegmentIndex = data.serverState;
-    self.serverAddressTextField.enabled = data.serverState == TBMServerStateCustom;
-    self.serverAddressTextField.text = data.serverAddress;
-    self.debugModeSwitch.on = data.debugMode == TBMConfigDebugModeOn;
+    //TODO:oks merge issue
+//    self.serverSegmentedControl.selectedSegmentIndex = data.serverState;
+//    self.serverAddressTextField.enabled = data.serverState == TBMServerStateCustom;
+//    self.serverAddressTextField.text = data.serverAddress;
+//    self.debugModeSwitch.on = data.debugMode == TBMConfigDebugModeOn;
 }
 
 #pragma mark - Actions

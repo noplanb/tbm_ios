@@ -14,7 +14,7 @@
 #import "TBMConfig.h"
 #import "TBMUser.h"
 #import "TBMStringUtils.h"
-#import "TBMDownloadManagerDeprecated.h"
+//#import "TBMDownloadManagerDeprecated.h"
 #import "TBMVideoIdUtils.h"
 #import "TBMHomeViewController.h"
 #import "OBLogger.h"
@@ -221,13 +221,13 @@ static NSMutableArray * videoStatusNotificationDelegates;
 
 - (BOOL)incomingVideoNotViewed{
     //Return true if any of the videos are status DOWNLOADED
-    OB_INFO(@"incomingVideoNotViewed looking for status=%d", INCOMING_VIDEO_STATUS_DOWNLOADED);
+    OB_INFO(@"incomingVideoNotViewed looking for status=%ld", (long)INCOMING_VIDEO_STATUS_DOWNLOADED);
     [TBMVideo printAll];
     BOOL r = NO;
     for (TBMVideo *v in [self sortedIncomingVideos]){
-        OB_INFO(@"incomingVideoNotViewed %@ status=%d", self.firstName, v.status);
+        OB_INFO(@"incomingVideoNotViewed %@ status=%d", self.firstName, v.statusValue);
         if (v.status == INCOMING_VIDEO_STATUS_DOWNLOADED){
-            OB_INFO(@"incomingVideoNotViewed  NOT_VIEWED %@ status=%d", self.firstName, v.status);
+            OB_INFO(@"incomingVideoNotViewed  NOT_VIEWED %@ status=%d", self.firstName, v.statusValue);
             r = YES;
             break;
         }

@@ -39,26 +39,26 @@
             [self.storage setSectionHeaderModel:sectionTitle
                                 forSectionIndex:[self.storage.sections count]];
             
-            [self.storage addobje]
+//            [self.storage addobje]
             
         }];
         
         
         
         
-        //incoming
-        [self.storage addItems:[self _convertedToViewModels:model.incomingVideoItems]
-                     toSection:ZZDebugStateSectionsIncomingVideos];
-        
-        [self.storage setSectionHeaderModel:NSLocalizedString(@"debug-state.incoming-videos.title", nil)
-                            forSectionIndex:ZZDebugStateSectionsIncomingVideos];
-        
-        //outgoing
-        [self.storage addItems:[self _convertedToViewModels:model.outgoingVideoItems]
-                     toSection:ZZDebugStateSectionsIncomingVideos];
-        
-        [self.storage setSectionHeaderModel:NSLocalizedString(@"debug-state.outgoing-videos.title", nil)
-                            forSectionIndex:ZZDebugStateSectionsIncomingVideos];
+//        //incoming
+//        [self.storage addItems:[self _convertedToViewModels:model.incomingVideoItems]
+//                     toSection:ZZDebugStateSectionsIncomingVideos];
+//        
+//        [self.storage setSectionHeaderModel:NSLocalizedString(@"debug-state.incoming-videos.title", nil)
+//                            forSectionIndex:ZZDebugStateSectionsIncomingVideos];
+//        
+//        //outgoing
+//        [self.storage addItems:[self _convertedToViewModels:model.outgoingVideoItems]
+//                     toSection:ZZDebugStateSectionsIncomingVideos];
+//        
+//        [self.storage setSectionHeaderModel:NSLocalizedString(@"debug-state.outgoing-videos.title", nil)
+//                            forSectionIndex:ZZDebugStateSectionsIncomingVideos];
         
 //        //incoming-dandling
 //        [self.storage addItems:[self _convertedToViewModels:model.incomingDanglingVideoItems]

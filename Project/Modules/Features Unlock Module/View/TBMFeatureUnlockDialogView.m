@@ -5,7 +5,7 @@
 
 
 #import "TBMFeatureUnlockDialogView.h"
-#import "HexColor.h"
+#import "HexColors.h"
 #import "TBMFeatureUnlockModulePresenter.h"
 
 NSString *const kTBMFeatureUnlockDialogHeaderFontName = @"AppleSDGothicNeo-Regular";
