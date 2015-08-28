@@ -131,8 +131,6 @@
 		075EB7461B8FDB7800864F65 /* TBMRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075EB6BC1B8FDB7800864F65 /* TBMRegisterViewController.m */; };
 		075EB7471B8FDB7800864F65 /* TBMRemoteStorageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 075EB6BE1B8FDB7800864F65 /* TBMRemoteStorageHandler.m */; };
 		075EB7481B8FDB7800864F65 /* TBMS3CredentialsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 075EB6C01B8FDB7800864F65 /* TBMS3CredentialsManager.m */; };
-		075EB7491B8FDB7800864F65 /* TBMSecretScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 075EB6C21B8FDB7800864F65 /* TBMSecretScreenView.m */; };
-		075EB74A1B8FDB7800864F65 /* TBMSecretScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075EB6C41B8FDB7800864F65 /* TBMSecretScreenViewController.m */; };
 		075EB74B1B8FDB7800864F65 /* TBMSelectPhoneTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 075EB6C61B8FDB7800864F65 /* TBMSelectPhoneTableDelegate.m */; };
 		075EB74C1B8FDB7800864F65 /* TBMSoundEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 075EB6C81B8FDB7800864F65 /* TBMSoundEffect.m */; };
 		075EB74D1B8FDB7800864F65 /* TBMStateScreenDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 075EB6CA1B8FDB7800864F65 /* TBMStateScreenDataSource.m */; };
@@ -146,7 +144,6 @@
 		075EB7551B8FDB7800864F65 /* TBMVersionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 075EB6DA1B8FDB7800864F65 /* TBMVersionHandler.m */; };
 		075EB7561B8FDB7800864F65 /* TBMVideoIdUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 075EB6DC1B8FDB7800864F65 /* TBMVideoIdUtils.m */; };
 		075EB7571B8FDB7800864F65 /* TBMVideoObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 075EB6DE1B8FDB7800864F65 /* TBMVideoObject.m */; };
-		075EB7581B8FDB7800864F65 /* TBMVideoOLD.m in Sources */ = {isa = PBXBuildFile; fileRef = 075EB6E01B8FDB7800864F65 /* TBMVideoOLD.m */; };
 		075EB7591B8FDB7800864F65 /* TBMVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 075EB6E21B8FDB7800864F65 /* TBMVideoPlayer.m */; };
 		075EB75A1B8FDB7800864F65 /* TBMVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 075EB6E41B8FDB7800864F65 /* TBMVideoProcessor.m */; };
 		075EB75B1B8FDB7800864F65 /* TBMVideoRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 075EB6E61B8FDB7800864F65 /* TBMVideoRecorder.m */; };
@@ -620,10 +617,6 @@
 		075EB6BE1B8FDB7800864F65 /* TBMRemoteStorageHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMRemoteStorageHandler.m; sourceTree = "<group>"; };
 		075EB6BF1B8FDB7800864F65 /* TBMS3CredentialsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMS3CredentialsManager.h; sourceTree = "<group>"; };
 		075EB6C01B8FDB7800864F65 /* TBMS3CredentialsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMS3CredentialsManager.m; sourceTree = "<group>"; };
-		075EB6C11B8FDB7800864F65 /* TBMSecretScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSecretScreenView.h; sourceTree = "<group>"; };
-		075EB6C21B8FDB7800864F65 /* TBMSecretScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSecretScreenView.m; sourceTree = "<group>"; };
-		075EB6C31B8FDB7800864F65 /* TBMSecretScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSecretScreenViewController.h; sourceTree = "<group>"; };
-		075EB6C41B8FDB7800864F65 /* TBMSecretScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSecretScreenViewController.m; sourceTree = "<group>"; };
 		075EB6C51B8FDB7800864F65 /* TBMSelectPhoneTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSelectPhoneTableDelegate.h; sourceTree = "<group>"; };
 		075EB6C61B8FDB7800864F65 /* TBMSelectPhoneTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSelectPhoneTableDelegate.m; sourceTree = "<group>"; };
 		075EB6C71B8FDB7800864F65 /* TBMSoundEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSoundEffect.h; sourceTree = "<group>"; };
@@ -1751,10 +1744,6 @@
 				075EB6BE1B8FDB7800864F65 /* TBMRemoteStorageHandler.m */,
 				075EB6BF1B8FDB7800864F65 /* TBMS3CredentialsManager.h */,
 				075EB6C01B8FDB7800864F65 /* TBMS3CredentialsManager.m */,
-				075EB6C11B8FDB7800864F65 /* TBMSecretScreenView.h */,
-				075EB6C21B8FDB7800864F65 /* TBMSecretScreenView.m */,
-				075EB6C31B8FDB7800864F65 /* TBMSecretScreenViewController.h */,
-				075EB6C41B8FDB7800864F65 /* TBMSecretScreenViewController.m */,
 				075EB6C51B8FDB7800864F65 /* TBMSelectPhoneTableDelegate.h */,
 				075EB6C61B8FDB7800864F65 /* TBMSelectPhoneTableDelegate.m */,
 				075EB6C71B8FDB7800864F65 /* TBMSoundEffect.h */,
@@ -3766,7 +3755,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				075EB74E1B8FDB7800864F65 /* TBMStateScreenTableCell.m in Sources */,
-				075EB7491B8FDB7800864F65 /* TBMSecretScreenView.m in Sources */,
 				07F0ECC81B8CD8BF00036AB2 /* ZZGrayBorderTextField.m in Sources */,
 				075EB7061B8FDB7800864F65 /* TBMRecordWelcomeHintPresenter.m in Sources */,
 				07F0EC7D1B8CD8BF00036AB2 /* UIImage+ANDefault.m in Sources */,
@@ -3892,7 +3880,6 @@
 				075EB75B1B8FDB7800864F65 /* TBMVideoRecorder.m in Sources */,
 				075EB7431B8FDB7800864F65 /* TBMPhoneUtils.m in Sources */,
 				07F0ECFB1B8CD8BF00036AB2 /* ANNetworkNoContentView.m in Sources */,
-				075EB7581B8FDB7800864F65 /* TBMVideoOLD.m in Sources */,
 				075EB7351B8FDB7800864F65 /* TBMFileUtils.m in Sources */,
 				07F0ECFE1B8CD8BF00036AB2 /* ANNetworkActivityManager.m in Sources */,
 				075EB70B1B8FDB7800864F65 /* TBMSpinUsageHintView.m in Sources */,
@@ -3912,7 +3899,6 @@
 				075EB7261B8FDB7800864F65 /* TBMAlertControllerView.m in Sources */,
 				07243CBC1B8E1333008E4203 /* ZZEditFriendCell.m in Sources */,
 				07F0ECA51B8CD8BF00036AB2 /* ZZSettingsModel.m in Sources */,
-				075EB74A1B8FDB7800864F65 /* TBMSecretScreenViewController.m in Sources */,
 				07F0ECCD1B8CD8BF00036AB2 /* ZZGridInteractor.m in Sources */,
 				07F0ECE81B8CD8BF00036AB2 /* NSManagedObject+ANAdditions.m in Sources */,
 				07F0ECB31B8CD8BF00036AB2 /* ZZAuthPresenter.m in Sources */,
