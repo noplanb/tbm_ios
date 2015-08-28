@@ -238,4 +238,31 @@
     return self.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADING;
 }
 
+
++ (NSString *)nameForStatus:(TBMIncomingVideoStatus)status {
+    NSString *name = @"UNKNOWN";
+    switch (status) {
+        case INCOMING_VIDEO_STATUS_NEW:
+            name = @"NEW";
+            break;
+        case INCOMING_VIDEO_STATUS_DOWNLOADING:
+            name = @"DOWNLOADING";
+            break;
+        case INCOMING_VIDEO_STATUS_DOWNLOADED:
+            name = @"DOWNLOADED";
+            break;
+        case INCOMING_VIDEO_STATUS_VIEWED:
+            name = @"VIEWED";
+            break;
+        case INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY:
+            name = @"PERMANENTLY";
+            break;
+    }
+    return name;
+}
+
+- (NSString *)statusName {
+    return [TBMVideo nameForStatus:self.statusValue];
+}
+
 @end
