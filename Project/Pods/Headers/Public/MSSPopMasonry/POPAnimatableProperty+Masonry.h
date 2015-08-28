@@ -1,0 +1,1 @@
+../../../MSSPopMasonry/Classes/POPAnimatableProperty+Masonry.h
