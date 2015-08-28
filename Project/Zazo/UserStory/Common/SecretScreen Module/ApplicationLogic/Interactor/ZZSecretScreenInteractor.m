@@ -101,6 +101,8 @@
     [message appendFormat:@"Debug mode:     %@\n", model.isDebugEnabled ? @"ON" : @"OFF"];
     [message appendFormat:@"Server State:   %@\n", [self _serverFormattedStringFromState:model.serverIndex]];
     [message appendFormat:@"Server address: %@\n", [NSObject an_safeString:model.serverURLString]];
+    [message appendFormat:@"Dispatch Type: %@\n", ([TBMDispatch dispatchType] == TBMDispatchTypeSDK) ? @"RollBar SDK" : @"Server"];
+    
     [message appendString:@"\n * * * * * * * * * * * * * * * * * * * * * * * * \n"];
     
     return message;
