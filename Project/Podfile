@@ -54,7 +54,7 @@ target 'Zazo' do
     
     #! ----- debugging tools, remove on prod --------- !
     pod 'CocoaLumberjack'
-    
+    pod 'Rollbar', '~> 0.1.5'
     pod 'Valet'
     
 pod 'AFNetworking' #2.5.1
