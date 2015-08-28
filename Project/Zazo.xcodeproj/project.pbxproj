@@ -341,7 +341,7 @@
 			outputFiles = (
 				"$(DERIVED_FILE_DIR)/$(INPUT_FILE_BASE).mom",
 			);
-			script = "echo \"Running mogen\"\n\"${PROJECT_DIR}/Zazo/Vendor/ANODA/ANHandyMogenerator/mogend.sh\"";
+			script = "echo \"Running mogend\"\n\"${PROJECT_DIR}/Zazo/Vendor/ANODA/ANHandyMogenerator/mogend.sh\"";
 		};
 		07F0ED831B8CE79300036AB2 /* PBXBuildRule */ = {
 			isa = PBXBuildRule;
@@ -4189,8 +4189,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -4211,7 +4211,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "6ecd8191-828a-4191-a8b9-9d8b90983b2d";
+				PROVISIONING_PROFILE = "3478a53a-f401-4769-abff-286beb7552a8";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -4260,8 +4260,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImageFinal;
 				CODE_SIGN_ENTITLEMENTS = Zazo/Zazo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Zazo/Vendor",
@@ -4272,7 +4272,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "6ecd8191-828a-4191-a8b9-9d8b90983b2d";
+				PROVISIONING_PROFILE = "3478a53a-f401-4769-abff-286beb7552a8";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -4317,8 +4317,8 @@
 			baseConfigurationReference = 2EE3EC5660312AC490BD17BA /* Pods-ZazoTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -4332,7 +4332,7 @@
 				);
 				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
 				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "6ecd8191-828a-4191-a8b9-9d8b90983b2d";
+				PROVISIONING_PROFILE = "c6575df9-b006-4565-b680-fc69fe555717";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};
