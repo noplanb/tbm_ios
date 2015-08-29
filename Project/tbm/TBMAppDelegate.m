@@ -15,6 +15,7 @@
 #import "TBMUser.h"
 #import "TBMHttpManager.h"
 #import "AVAudioSession+TBMAudioSession.h"
+#import "TBMDispatch.h"
 #import "TBMDependencies.h"
 #import "ZZAppDependencies.h"
 
@@ -40,6 +41,7 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+    [TBMDispatch startRollBar];
     self.pushAlreadyFailed = NO;
     [self setupLogger];
     [self addObservers];
@@ -129,7 +131,7 @@
 #pragma mark - Logger
 - (void)setupLogger{
     [OBLogger instance].writeToConsole = YES;
-    if ([[OBLogger instance] logLines].count > 1000)
+    if ([[OBLogger instance] logLines].count > 3000)
         [[OBLogger instance] reset];
 }
 
