@@ -13,5 +13,6 @@
 + (instancetype)viewModelWithItem:(ZZDebugStateItemDomainModel*)item;
 
 - (NSString*)title;
+- (NSString*)status;
 
 @end

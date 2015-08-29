@@ -28,60 +28,49 @@
 {
     [self.storage updateStorageWithBlock:^{
        
-        
-        
         [allVideos enumerateObjectsUsingBlock:^(ZZDebugStateDomainModel* obj, NSUInteger idx, BOOL *stop) {
             
+            NSInteger section = [self.storage.sections count];
             
+            NSString* sectionIncomeTitle = [self _sectionTitleWithStatusString:@"Incoming" model:obj];
+            [self.storage setSectionHeaderModel:sectionIncomeTitle forSectionIndex:section];
+            [self.storage addItems:obj.incomingVideoItems toSection:section];
             
-            NSString* sectionTitle = [NSString stringWithFormat:@"Income: %@ - %@", [NSObject an_safeString:obj.userID], [NSObject an_safeString:obj.username]];
-            
-            [self.storage setSectionHeaderModel:sectionTitle
-                                forSectionIndex:[self.storage.sections count]];
-            
-//            [self.storage addobje]
-            
+            NSString* sectionOutgoingTitle = [self _sectionTitleWithStatusString:@"Outgoing" model:obj];
+            [self.storage setSectionHeaderModel:sectionOutgoingTitle forSectionIndex:section + 1];
+            [self.storage addItems:obj.outgoingVideoItems toSection:section + 1];
         }];
         
+        //incoming-dandling
+        NSInteger incomingSection = [self.storage.sections count];
+        [self.storage addItems:income toSection:incomingSection];
         
+        [self.storage setSectionHeaderModel:NSLocalizedString(@"debug-state.incoming-dandling-videos.title", nil)
+                            forSectionIndex:incomingSection];
         
+        //outgoing-dandling
+        NSInteger outcomingSection = [self.storage.sections count];
+        [self.storage addItems:outcome toSection:outcomingSection];
         
-//        //incoming
-//        [self.storage addItems:[self _convertedToViewModels:model.incomingVideoItems]
-//                     toSection:ZZDebugStateSectionsIncomingVideos];
-//        
-//        [self.storage setSectionHeaderModel:NSLocalizedString(@"debug-state.incoming-videos.title", nil)
-//                            forSectionIndex:ZZDebugStateSectionsIncomingVideos];
-//        
-//        //outgoing
-//        [self.storage addItems:[self _convertedToViewModels:model.outgoingVideoItems]
-//                     toSection:ZZDebugStateSectionsIncomingVideos];
-//        
-//        [self.storage setSectionHeaderModel:NSLocalizedString(@"debug-state.outgoing-videos.title", nil)
-//                            forSectionIndex:ZZDebugStateSectionsIncomingVideos];
-        
-//        //incoming-dandling
-//        [self.storage addItems:[self _convertedToViewModels:model.incomingDanglingVideoItems]
-//                     toSection:ZZDebugStateSectionsIncomingVideos];
-//        
-//        [self.storage setSectionHeaderModel:NSLocalizedString(@"debug-state.incoming-dandling-videos.title", nil)
-//                            forSectionIndex:ZZDebugStateSectionsIncomingVideos];
-//        
-//        //outgoing-dandling
-//        [self.storage addItems:[self _convertedToViewModels:model.outgoingDanglingVideoItems]
-//                     toSection:ZZDebugStateSectionsIncomingVideos];
-//        
-//        [self.storage setSectionHeaderModel:NSLocalizedString(@"debug-state.incoming-dandling-videos.title", nil)
-//                            forSectionIndex:ZZDebugStateSectionsIncomingVideos];
+        [self.storage setSectionHeaderModel:NSLocalizedString(@"debug-state.incoming-dandling-videos.title", nil)
+                            forSectionIndex:outcomingSection];
     }];
 }
 
 
 #pragma mark - Private
 
+- (NSString*)_sectionTitleWithStatusString:(NSString*)status model:(ZZDebugStateDomainModel*)model
+{
+    return [NSString stringWithFormat:@"%@: %@ - %@",
+                                    status,
+                                    [NSObject an_safeString:model.userID],
+                                    [NSObject an_safeString:model.username]];
+}
+
 - (NSArray*)_convertedToViewModels:(NSArray*)models
 {
-    return [[models.rac_sequence map:^id(id value) { // TODO: group by user ID
+    return [[models.rac_sequence map:^id(id value) {
         return [ZZDebugStateCellViewModel viewModelWithItem:value];
     }] array];
 }

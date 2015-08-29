@@ -1346,6 +1346,7 @@
 		073040131B921CEA00980373 /* tbm */ = {
 			isa = PBXGroup;
 			children = (
+				07576C9A1B922BA300CB2ECB /* _OLD */,
 				073040161B921CEB00980373 /* Logic */,
 				0730405C1B921CEB00980373 /* Modules */,
 				073040E81B921CEB00980373 /* Network */,
@@ -1573,8 +1574,6 @@
 				073040721B921CEB00980373 /* Features Unlock Module */,
 				0730407D1B921CEB00980373 /* Hints */,
 				073040C11B921CEB00980373 /* Next Feature Dialog Module */,
-				073040C61B921CEB00980373 /* Secret Screen Module */,
-				073040D11B921CEB00980373 /* State module */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -2135,6 +2134,16 @@
 				0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */,
 			);
 			path = ZazoTests;
+			sourceTree = "<group>";
+		};
+		07576C9A1B922BA300CB2ECB /* _OLD */ = {
+			isa = PBXGroup;
+			children = (
+				073040C61B921CEB00980373 /* Secret Screen Module */,
+				073040D11B921CEB00980373 /* State module */,
+			);
+			name = _OLD;
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		07F0E7E11B8CD7A900036AB2 /* tbm */ = {

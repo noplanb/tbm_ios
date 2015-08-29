@@ -31,8 +31,6 @@ CGFloat const leftInset = 15.f;
     [self.contentView addSubview:self.topLabel];
     [self.contentView addSubview:self.bottomLabel];
 
-    NSLog(@"LABEL %@", NSStringFromCGRect(self.topLabel.frame));
-
     return self;
 }
 

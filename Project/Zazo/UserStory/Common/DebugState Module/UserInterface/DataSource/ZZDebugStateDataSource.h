@@ -10,14 +10,6 @@
 
 @class ANMemoryStorage;
 
-typedef NS_ENUM(NSInteger, ZZDebugStateSections)
-{
-    ZZDebugStateSectionsIncomingVideos,
-    ZZDebugStateSectionsOutgoingVideos,
-    ZZDebugStateSectionsDandlingIncomingVideos,
-    ZZDebugStateSectionsDandlingOutgoingVideos
-};
-
 @interface ZZDebugStateDataSource : NSObject
 
 @property (nonatomic, strong) ANMemoryStorage* storage;

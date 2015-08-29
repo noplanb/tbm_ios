@@ -10,4 +10,10 @@
 
 @implementation ZZDebugStateCell
 
+- (void)updateWithModel:(ZZDebugStateCellViewModel*)model
+{
+    self.textLabel.text = [model title];
+    self.detailTextLabel.text = [model status];
+}
+
 @end

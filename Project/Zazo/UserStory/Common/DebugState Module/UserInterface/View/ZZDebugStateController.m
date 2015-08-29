@@ -17,6 +17,7 @@
     if (self)
     {
         [self registerCellClass:[ZZDebugStateCell class] forModelClass:[ZZDebugStateCellViewModel class]];
+        [self registerCellClass:[ANTableViewCell class] forModelClass:[NSString class]];
     }
     return self;
 }

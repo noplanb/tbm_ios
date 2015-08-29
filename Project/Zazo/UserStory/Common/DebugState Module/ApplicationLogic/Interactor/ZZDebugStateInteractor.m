@@ -19,10 +19,37 @@
 
 - (void)loadData
 {
-    NSArray* stateModels = [self _loadVideoData];
- 
-    NSArray* incomeDandling = [self _loadIncomeDandlingItemsFromDataBaseData:stateModels];
-    NSArray* outcomeDandling = [self _loadOutgoingDandlingItemsFromDataBaseData:stateModels];
+    //Dummy Data:
+    
+    ZZDebugStateDomainModel* model = [ZZDebugStateDomainModel new];
+    model.userID = @"123456789";
+    model.username = @"test";
+    
+    model.incomingVideoItems =
+    @[[ZZDebugStateItemDomainModel itemWithItemID:@"1111111"
+                                           status:ZZVideoOutgoingStatusStringFromEnumValue(ZZVideoOutgoingStatusNew)],
+      [ZZDebugStateItemDomainModel itemWithItemID:@"1111112"
+                                           status:ZZVideoOutgoingStatusStringFromEnumValue(ZZVideoOutgoingStatusNone)],
+      [ZZDebugStateItemDomainModel itemWithItemID:@"1111113"
+                                           status:ZZVideoOutgoingStatusStringFromEnumValue(ZZVideoOutgoingStatusQueued)],
+      [ZZDebugStateItemDomainModel itemWithItemID:@"1111114"
+                                           status:ZZVideoOutgoingStatusStringFromEnumValue(ZZVideoOutgoingStatusViewed)],
+      [ZZDebugStateItemDomainModel itemWithItemID:@"1111115"
+                                           status:ZZVideoOutgoingStatusStringFromEnumValue(ZZVideoOutgoingStatusUploaded)],
+      [ZZDebugStateItemDomainModel itemWithItemID:@"1111116"
+                                           status:ZZVideoOutgoingStatusStringFromEnumValue(ZZVideoOutgoingStatusUploading)],
+      [ZZDebugStateItemDomainModel itemWithItemID:@"1111117"
+                                           status:ZZVideoOutgoingStatusStringFromEnumValue(ZZVideoOutgoingStatusDownloaded)]];
+    
+    NSArray* stateModels = @[model];
+    
+    NSArray* incomeDandling = @[@"123", @"234", @"345"];
+    NSArray* outcomeDandling = @[@"444", @"555", @"666"];
+    
+//    NSArray* stateModels = [self _loadVideoData];
+//
+//    NSArray* incomeDandling = [self _loadIncomeDandlingItemsFromDataBaseData:stateModels];
+//    NSArray* outcomeDandling = [self _loadOutgoingDandlingItemsFromDataBaseData:stateModels];
     
     [self.output dataLoadedWithAllVideos:stateModels incomeDandling:incomeDandling outcomeDandling:outcomeDandling];
 }
@@ -78,16 +105,16 @@
     model.username = value.fullName;
     model.incomingVideoItems = [[value.videos.rac_sequence map:^id(TBMVideo* videoEntity) {
         
-        ZZDebugStateItemDomainModel* itemModel = [ZZDebugStateItemDomainModel new];
-        itemModel.itemID = videoEntity.videoId;
-        itemModel.status = ZZVideoIncomingStatusStringFromEnumValue(videoEntity.statusValue);
+        NSString* status = ZZVideoIncomingStatusStringFromEnumValue(videoEntity.statusValue);
+        ZZDebugStateItemDomainModel* itemModel = [ZZDebugStateItemDomainModel itemWithItemID:videoEntity.videoId
+                                                                                      status:status];
         return itemModel;
         
     }] array];
     
-    ZZDebugStateItemDomainModel* outgoing = [ZZDebugStateItemDomainModel new];
-    outgoing.itemID = value.outgoingVideoId;
-    outgoing.status = ZZVideoOutgoingStatusStringFromEnumValue(value.outgoingVideoStatusValue);
+    NSString* status = ZZVideoOutgoingStatusStringFromEnumValue(value.outgoingVideoStatusValue);
+    ZZDebugStateItemDomainModel* outgoing = [ZZDebugStateItemDomainModel itemWithItemID:value.outgoingVideoId
+                                                                                 status:status];
     
     model.outgoingVideoItems = @[outgoing];
     

@@ -30,4 +30,9 @@
     return [NSObject an_safeString:self.item.itemID];
 }
 
+- (NSString*)status
+{
+    return [NSObject an_safeString:self.item.status];
+}
+
 @end

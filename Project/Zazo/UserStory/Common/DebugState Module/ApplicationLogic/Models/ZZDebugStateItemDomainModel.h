@@ -13,4 +13,6 @@
 @property (nonatomic, copy) NSString* itemID;
 @property (nonatomic, copy) NSString* status;
 
++ (instancetype)itemWithItemID:(NSString*)itemID status:(NSString*)status;
+
 @end

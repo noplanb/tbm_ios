@@ -10,4 +10,13 @@
 
 @implementation ZZDebugStateItemDomainModel
 
++ (instancetype)itemWithItemID:(NSString *)itemID status:(NSString *)status
+{
+    ZZDebugStateItemDomainModel* model = [ZZDebugStateItemDomainModel new];
+    model.itemID = itemID;
+    model.status = status;
+    
+    return model;
+}
+
 @end
