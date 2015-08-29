@@ -59,6 +59,11 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     return nil; // TODO:
 }
 
+- (UIImage *)photoImage
+{
+    return nil; // TODO:
+}
+
 - (NSString *)fullName
 {
     NSString* username = self.firstName ? self.firstName : @"";

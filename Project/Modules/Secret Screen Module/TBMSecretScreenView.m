@@ -77,6 +77,7 @@
 *
 */
 @property(nonatomic, strong) UIButton *dispatchButton;
+@property (nonatomic, strong) UISegmentedControl* dispatchTypeSegmentedControl;
 
 @end
 
@@ -234,6 +235,7 @@
     self.serverSegmentedControl.selectedSegmentIndex = data.serverState;
     self.serverAddressTextField.enabled = data.serverState == ZZConfigServerStateCustom;
     self.serverAddressTextField.text = data.serverAddress;
+//    self.dispatchTypeSegmentedControl.selectedSegmentIndex = data.dispatchType; //TODO:oks move to new secret screen
     self.debugModeSwitch.on = data.debugMode;
 }
 
@@ -409,16 +411,29 @@
     return _resetHintsButton;
 }
 
-- (UIButton *)dispatchButton
-{
-    if (!_dispatchButton)
-    {
+- (UISegmentedControl *)dispatchTypeSegmentedControl {
+    if (!_dispatchTypeSegmentedControl) {
+        _dispatchTypeSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"RollBar SDK", @"SERVER"]];
+        [_dispatchTypeSegmentedControl addTarget:self
+                                    action:@selector(dispatchTypeSegmentedControlAction:)
+                          forControlEvents:UIControlEventValueChanged];
+    }
+    return _dispatchTypeSegmentedControl;
+}
+
+- (UIButton *)dispatchButton {
+    if (!_dispatchButton) {
         _dispatchButton = [[UIButton alloc] init];
         [_dispatchButton setupRoundedButtonWithColor:[UIColor blueColor]];
         [_dispatchButton setTitle:@"Dispatch" forState:UIControlStateNormal];
         [_dispatchButton addTarget:self action:@selector(dispatchButtonAction:) forControlEvents:UIControlEventTouchDown];
     }
     return _dispatchButton;
+}
+
+- (void)dispatchTypeSegmentedControlAction:(id)sender
+{
+    //TODO: temporary
 }
 
 #pragma mark - UITextFieldDelegate

@@ -43,7 +43,7 @@ NSString* boolToStr(BOOL value) {
 }
 
 NSString* intToStr(NSInteger value) {
-    return [NSString stringWithFormat:@"%ld", value];
+    return [NSString stringWithFormat:@"%ld", (long)value];
 }
 
 NSString* ullToShortStr(unsigned long long ull) {

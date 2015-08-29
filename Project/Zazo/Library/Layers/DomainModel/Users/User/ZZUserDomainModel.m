@@ -37,4 +37,9 @@ const struct ZZUserDomainModelAttributes ZZUserDomainModelAttributes = {
     return nil; // TODO:
 }
 
+- (UIImage*)photoImage
+{
+    return nil;
+}
+
 @end

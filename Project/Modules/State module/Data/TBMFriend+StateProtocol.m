@@ -46,12 +46,12 @@ static NSString *TBMFriendLastVideStatusTypeNameOut = @"OUT";
     // format according to COLUMN_WIDTH
     [items addObject:[self fullName]];
     [items addObject:tbm_stateRowItemForString(self.idTbm)];
-    [items addObject:boolToStr(self.hasApp)];
-    [items addObject:[TBMVideo nameForStatus:self.lastIncomingVideoStatus]];
+    [items addObject:boolToStr(self.hasAppValue)];
+    [items addObject:[TBMVideo nameForStatus:self.lastIncomingVideoStatusValue]];
     [items addObject:tbm_stateRowItemForString(self.outgoingVideoId)];
     [items addObject:[self OVStatusName]];
     NSString *item = TBMFriendLastVideStatusTypeNameIn;
-    if (self.lastVideoStatusEventType == OUTGOING_VIDEO_STATUS_EVENT_TYPE) {
+    if (self.lastVideoStatusEventTypeValue == OUTGOING_VIDEO_STATUS_EVENT_TYPE) {
         item = TBMFriendLastVideStatusTypeNameOut;
     }
     [items addObject:item];

@@ -239,7 +239,8 @@
 }
 
 
-+ (NSString *)nameForStatus:(TBMIncomingVideoStatus)status {
++ (NSString *)nameForStatus:(TBMIncomingVideoStatus)status
+{
     NSString *name = @"UNKNOWN";
     switch (status) {
         case INCOMING_VIDEO_STATUS_NEW:
@@ -261,7 +262,8 @@
     return name;
 }
 
-- (NSString *)statusName {
+- (NSString *)statusName
+{
     return [TBMVideo nameForStatus:self.statusValue];
 }
 

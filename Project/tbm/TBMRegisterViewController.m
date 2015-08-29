@@ -20,6 +20,7 @@
 #import "UIAlertView+Blocks.h"
 #import "TBMAlertController.h"
 #import "TBMAlertControllerVisualStyle.h"
+#import "TBMDispatch.h"
 #import "ZZNetworkTransport.h"
 
 @interface TBMRegisterViewController ()
@@ -253,7 +254,8 @@
 #pragma mark Got user
 
 - (void)gotUser:(NSDictionary *)params{
-    [TBMUser createWithServerParams:params];
+    TBMUser *user = [TBMUser createWithServerParams:params];
+    [TBMDispatch setupRollBarUser:user];
     [self getFriends];
 }
 

@@ -24,7 +24,7 @@
     NSArray* incomeDandling = [self _loadIncomeDandlingItemsFromDataBaseData:stateModels];
     NSArray* outcomeDandling = [self _loadOutgoingDandlingItemsFromDataBaseData:stateModels];
     
-//    [self.output dataLoaded:model];
+    [self.output dataLoadedWithAllVideos:stateModels incomeDandling:incomeDandling outcomeDandling:outcomeDandling];
 }
 
 
@@ -41,6 +41,7 @@
     return videoStateModels;
 }
 
+//TODO: copy-paste check it later
 - (NSArray*)_loadIncomeDandlingItemsFromDataBaseData:(NSArray*)stateModels
 {
     NSPredicate* incomingPredicate = [NSPredicate predicateWithFormat:@"pathExtension == 'mp4'"]; // TODO: constant

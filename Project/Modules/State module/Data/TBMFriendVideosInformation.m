@@ -16,8 +16,8 @@
     return items;
 }
 
-+ (int)tbm_stateColumnsCount {
-    return (int)[self tbm_stateHeaderItems].count;
++ (NSInteger)tbm_stateColumnsCount {
+    return [self tbm_stateHeaderItems].count;
 }
 
 + (NSString *)tbm_stateTitlerStr {

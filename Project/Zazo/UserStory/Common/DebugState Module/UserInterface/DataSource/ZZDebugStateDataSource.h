@@ -9,7 +9,6 @@
 #import "ZZDebugStateCell.h"
 
 @class ANMemoryStorage;
-@class ZZDebugStateDomainModel;
 
 typedef NS_ENUM(NSInteger, ZZDebugStateSections)
 {
@@ -23,6 +22,6 @@ typedef NS_ENUM(NSInteger, ZZDebugStateSections)
 
 @property (nonatomic, strong) ANMemoryStorage* storage;
 
-- (void)setupWithModel:(ZZDebugStateDomainModel*)model;
+- (void)setupWithAllVideos:(NSArray*)allVideos incomeDandling:(NSArray*)income outcomeDandling:(NSArray*)outcome;
 
 @end

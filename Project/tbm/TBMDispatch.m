@@ -23,6 +23,7 @@
 #import "TBMVideoObject.h"
 
 #import "TBMStateStringGenerator.h"
+#import "ZZStoredSettingsManager.h"
 
 static NSString *ROLLBAR_TOKEN = @"0ac2aee23dc449309b0c0bf6a46b4d59";
 
@@ -144,13 +145,13 @@ NSString* dispatchLevelStringFromDispatchLevel(TBMDispatchLevel logLevel) {
 + (void)startRollBar {
     RollbarConfiguration *config = [RollbarConfiguration configuration];
     config.crashLevel = @"critical";
-    TBMConfigServerState serverState = [TBMConfig serverState];
+    ZZConfigServerState serverState = [ZZStoredSettingsManager shared].serverEndpointState;
     NSString *env = TBMDispatchRollBarEnvDevelopment;
     switch (serverState) {
-        case TBMServerStateProduction:
+        case ZZConfigServerStateProduction:
             env = TBMDispatchRollBarEnvStaging;
             break;
-        case TBMServerStateDeveloper:
+        case ZZConfigServerStateDeveloper:
             env = TBMDispatchRollBarEnvStaging;
             break;
         default:
