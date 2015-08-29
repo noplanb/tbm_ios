@@ -34,11 +34,11 @@
             
             NSString* sectionIncomeTitle = [self _sectionTitleWithStatusString:@"Incoming" model:obj];
             [self.storage setSectionHeaderModel:sectionIncomeTitle forSectionIndex:section];
-            [self.storage addItems:obj.incomingVideoItems toSection:section];
+            [self.storage addItems:[self _convertedToViewModels:obj.incomingVideoItems] toSection:section];
             
             NSString* sectionOutgoingTitle = [self _sectionTitleWithStatusString:@"Outgoing" model:obj];
             [self.storage setSectionHeaderModel:sectionOutgoingTitle forSectionIndex:section + 1];
-            [self.storage addItems:obj.outgoingVideoItems toSection:section + 1];
+            [self.storage addItems:[self _convertedToViewModels:obj.outgoingVideoItems] toSection:section + 1];
         }];
         
         //incoming-dandling

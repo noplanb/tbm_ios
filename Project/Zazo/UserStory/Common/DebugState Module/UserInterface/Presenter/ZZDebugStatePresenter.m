@@ -31,7 +31,7 @@
 
 - (void)dataLoadedWithAllVideos:(NSArray *)allVideos incomeDandling:(NSArray *)incomeDandling outcomeDandling:(NSArray *)outcome
 {
-//    [self.dataSource setupWithModel:data];
+    [self.dataSource setupWithAllVideos:allVideos incomeDandling:incomeDandling outcomeDandling:outcome];
 }
 
 
