@@ -2194,6 +2194,16 @@
 			path = ZazoTests;
 			sourceTree = "<group>";
 		};
+		07436D8A1B9374E900081AC0 /* EnumHelper */ = {
+			isa = PBXGroup;
+			children = (
+				79B386FF1B92403900C25F69 /* ZZSecretEnums.h */,
+				79B387001B92403900C25F69 /* ZZSecretEnums.m */,
+			);
+			name = EnumHelper;
+			path = ../ApplicationLogic;
+			sourceTree = "<group>";
+		};
 		07576C9A1B922BA300CB2ECB /* _OLD */ = {
 			isa = PBXGroup;
 			children = (
@@ -3920,8 +3930,6 @@
 		79B386BE1B906A8700C25F69 /* ApplicationLogic */ = {
 			isa = PBXGroup;
 			children = (
-				79B386FF1B92403900C25F69 /* ZZSecretEnums.h */,
-				79B387001B92403900C25F69 /* ZZSecretEnums.m */,
 				79B386BF1B906A8700C25F69 /* Interactor */,
 			);
 			path = ApplicationLogic;
@@ -3949,6 +3957,7 @@
 		79B386C61B906A8700C25F69 /* UserInterface */ = {
 			isa = PBXGroup;
 			children = (
+				07436D8A1B9374E900081AC0 /* EnumHelper */,
 				79B386C71B906A8700C25F69 /* DataSource */,
 				79B386CA1B906A8700C25F69 /* Presenter */,
 				79B386CD1B906A8700C25F69 /* View */,
