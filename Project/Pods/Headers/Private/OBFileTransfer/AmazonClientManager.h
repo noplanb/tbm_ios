@@ -1,0 +1,1 @@
+../../../OBFileTransfer/Pod/Classes/AWS/AmazonClientManager.h

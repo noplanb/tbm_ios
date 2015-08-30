@@ -1,0 +1,5 @@
+#include "OBLogger.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/OBLogger" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/HexColors" "${PODS_ROOT}/Headers/Public/OBFileTransfer" "${PODS_ROOT}/Headers/Public/OBFileTransfer/AWSRuntime" "${PODS_ROOT}/Headers/Public/OBFileTransfer/AWSS3" "${PODS_ROOT}/Headers/Public/OBLogger" "${PODS_ROOT}/Headers/Public/RBBAnimation" "${PODS_ROOT}/Headers/Public/Rollbar" "${PODS_ROOT}/Headers/Public/Rollbar/CrashReporter" "${PODS_ROOT}/Headers/Public/SDCAlertView" "${PODS_ROOT}/Headers/Public/SDCAutoLayout" "${PODS_ROOT}/Headers/Public/UIAlertView+Blocks" "${PODS_ROOT}/Headers/Public/iToast" "${PODS_ROOT}/Headers/Public/libPhoneNumber-iOS"
+PODS_ROOT = ${SRCROOT}
+SKIP_INSTALL = YES
