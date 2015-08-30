@@ -330,6 +330,24 @@
 		224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
 		7966F9941B8F1C170037A520 /* icon_menu_dots@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7966F9921B8F1C170037A520 /* icon_menu_dots@2x.png */; };
 		7966F9951B8F1C170037A520 /* icon_menu_dots.png in Resources */ = {isa = PBXBuildFile; fileRef = 7966F9931B8F1C170037A520 /* icon_menu_dots.png */; };
+		79B386D61B906A8700C25F69 /* ZZSecretInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B386C11B906A8700C25F69 /* ZZSecretInteractor.m */; };
+		79B386D71B906A8700C25F69 /* ZZSecretDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B386C91B906A8700C25F69 /* ZZSecretDataSource.m */; };
+		79B386D81B906A8700C25F69 /* ZZSecretPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B386CC1B906A8700C25F69 /* ZZSecretPresenter.m */; };
+		79B386D91B906A8700C25F69 /* ZZSecretController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B386CF1B906A8700C25F69 /* ZZSecretController.m */; };
+		79B386DA1B906A8700C25F69 /* ZZSecretVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B386D11B906A8700C25F69 /* ZZSecretVC.m */; };
+		79B386DB1B906A8700C25F69 /* ZZSecretWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B386D51B906A8700C25F69 /* ZZSecretWireframe.m */; };
+		79B386DE1B90704D00C25F69 /* ZZSettingsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B386DD1B90704D00C25F69 /* ZZSettingsViewModel.m */; };
+		79B386E31B90739100C25F69 /* ZZBaseSecretCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B386E21B90739100C25F69 /* ZZBaseSecretCell.m */; };
+		79B386E61B9073D500C25F69 /* ZZSecretButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B386E51B9073D500C25F69 /* ZZSecretButtonCell.m */; };
+		79B386E91B9073EB00C25F69 /* ZZSecretSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B386E81B9073EB00C25F69 /* ZZSecretSwitchCell.m */; };
+		79B386EC1B90742000C25F69 /* ZZSecretButtonCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B386EB1B90742000C25F69 /* ZZSecretButtonCellViewModel.m */; };
+		79B386EF1B90743000C25F69 /* ZZSecretSwitchCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B386EE1B90743000C25F69 /* ZZSecretSwitchCellViewModel.m */; };
+		79B386F21B90767B00C25F69 /* ZZSecretButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B386F11B90767B00C25F69 /* ZZSecretButton.m */; };
+		79B386F51B922F0D00C25F69 /* ZZSecretSwitchServerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B386F41B922F0D00C25F69 /* ZZSecretSwitchServerCell.m */; };
+		79B386F81B922F5900C25F69 /* ZZSecretSwitchServerCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B386F71B922F5900C25F69 /* ZZSecretSwitchServerCellViewModel.m */; };
+		79B386FB1B923A4C00C25F69 /* ZZSecretSegmentControlCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B386FA1B923A4C00C25F69 /* ZZSecretSegmentControlCellViewModel.m */; };
+		79B386FE1B923A6100C25F69 /* ZZSecretSegmentControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B386FD1B923A6100C25F69 /* ZZSecretSegmentControlCell.m */; };
+		79B387011B92403900C25F69 /* ZZSecretEnums.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B387001B92403900C25F69 /* ZZSecretEnums.m */; };
 		DE5C223E15BD5A128DAFDAD1 /* libPods-ZazoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0368F3F1AC201E7765B1898F /* libPods-ZazoTests.a */; };
 		F20151DDD1EA1D5CD6D8CB21 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */; };
 /* End PBXBuildFile section */
@@ -1018,6 +1036,46 @@
 		7938C0621B8F5CC100401F47 /* Zazo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Zazo.entitlements; sourceTree = "<group>"; };
 		7966F9921B8F1C170037A520 /* icon_menu_dots@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_menu_dots@2x.png"; sourceTree = "<group>"; };
 		7966F9931B8F1C170037A520 /* icon_menu_dots.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_menu_dots.png; sourceTree = "<group>"; };
+		79B386C01B906A8700C25F69 /* ZZSecretInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretInteractor.h; sourceTree = "<group>"; };
+		79B386C11B906A8700C25F69 /* ZZSecretInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretInteractor.m; sourceTree = "<group>"; };
+		79B386C21B906A8700C25F69 /* ZZSecretInteractorIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretInteractorIO.h; sourceTree = "<group>"; };
+		79B386C41B906A8700C25F69 /* ZZSecretModuleDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretModuleDelegate.h; sourceTree = "<group>"; };
+		79B386C51B906A8700C25F69 /* ZZSecretModuleInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretModuleInterface.h; sourceTree = "<group>"; };
+		79B386C81B906A8700C25F69 /* ZZSecretDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretDataSource.h; sourceTree = "<group>"; };
+		79B386C91B906A8700C25F69 /* ZZSecretDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretDataSource.m; sourceTree = "<group>"; };
+		79B386CB1B906A8700C25F69 /* ZZSecretPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretPresenter.h; sourceTree = "<group>"; };
+		79B386CC1B906A8700C25F69 /* ZZSecretPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretPresenter.m; sourceTree = "<group>"; };
+		79B386CE1B906A8700C25F69 /* ZZSecretController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretController.h; sourceTree = "<group>"; };
+		79B386CF1B906A8700C25F69 /* ZZSecretController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretController.m; sourceTree = "<group>"; };
+		79B386D01B906A8700C25F69 /* ZZSecretVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretVC.h; sourceTree = "<group>"; };
+		79B386D11B906A8700C25F69 /* ZZSecretVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretVC.m; sourceTree = "<group>"; };
+		79B386D21B906A8700C25F69 /* ZZSecretViewInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretViewInterface.h; sourceTree = "<group>"; };
+		79B386D41B906A8700C25F69 /* ZZSecretWireframe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretWireframe.h; sourceTree = "<group>"; };
+		79B386D51B906A8700C25F69 /* ZZSecretWireframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretWireframe.m; sourceTree = "<group>"; };
+		79B386DC1B90704D00C25F69 /* ZZSettingsViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSettingsViewModel.h; sourceTree = "<group>"; };
+		79B386DD1B90704D00C25F69 /* ZZSettingsViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSettingsViewModel.m; sourceTree = "<group>"; };
+		79B386E11B90739100C25F69 /* ZZBaseSecretCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZBaseSecretCell.h; sourceTree = "<group>"; };
+		79B386E21B90739100C25F69 /* ZZBaseSecretCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZBaseSecretCell.m; sourceTree = "<group>"; };
+		79B386E41B9073D500C25F69 /* ZZSecretButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretButtonCell.h; sourceTree = "<group>"; };
+		79B386E51B9073D500C25F69 /* ZZSecretButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretButtonCell.m; sourceTree = "<group>"; };
+		79B386E71B9073EB00C25F69 /* ZZSecretSwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretSwitchCell.h; sourceTree = "<group>"; };
+		79B386E81B9073EB00C25F69 /* ZZSecretSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretSwitchCell.m; sourceTree = "<group>"; };
+		79B386EA1B90742000C25F69 /* ZZSecretButtonCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretButtonCellViewModel.h; sourceTree = "<group>"; };
+		79B386EB1B90742000C25F69 /* ZZSecretButtonCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretButtonCellViewModel.m; sourceTree = "<group>"; };
+		79B386ED1B90743000C25F69 /* ZZSecretSwitchCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretSwitchCellViewModel.h; sourceTree = "<group>"; };
+		79B386EE1B90743000C25F69 /* ZZSecretSwitchCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretSwitchCellViewModel.m; sourceTree = "<group>"; };
+		79B386F01B90767B00C25F69 /* ZZSecretButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretButton.h; sourceTree = "<group>"; };
+		79B386F11B90767B00C25F69 /* ZZSecretButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretButton.m; sourceTree = "<group>"; };
+		79B386F31B922F0D00C25F69 /* ZZSecretSwitchServerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretSwitchServerCell.h; sourceTree = "<group>"; };
+		79B386F41B922F0D00C25F69 /* ZZSecretSwitchServerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretSwitchServerCell.m; sourceTree = "<group>"; };
+		79B386F61B922F5900C25F69 /* ZZSecretSwitchServerCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretSwitchServerCellViewModel.h; sourceTree = "<group>"; };
+		79B386F71B922F5900C25F69 /* ZZSecretSwitchServerCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretSwitchServerCellViewModel.m; sourceTree = "<group>"; };
+		79B386F91B923A4C00C25F69 /* ZZSecretSegmentControlCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretSegmentControlCellViewModel.h; sourceTree = "<group>"; };
+		79B386FA1B923A4C00C25F69 /* ZZSecretSegmentControlCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretSegmentControlCellViewModel.m; sourceTree = "<group>"; };
+		79B386FC1B923A6100C25F69 /* ZZSecretSegmentControlCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretSegmentControlCell.h; sourceTree = "<group>"; };
+		79B386FD1B923A6100C25F69 /* ZZSecretSegmentControlCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretSegmentControlCell.m; sourceTree = "<group>"; };
+		79B386FF1B92403900C25F69 /* ZZSecretEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretEnums.h; sourceTree = "<group>"; };
+		79B387001B92403900C25F69 /* ZZSecretEnums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretEnums.m; sourceTree = "<group>"; };
 		A0ECBE9A7392F431C5ADE072 /* Pods-ZazoTests.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.ad-hoc.xcconfig"; sourceTree = "<group>"; };
 		B1860DB43B6E70D5AEF73EF4 /* Pods-Zazo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.release.xcconfig"; sourceTree = "<group>"; };
 		C4392BF41AD48118C492A226 /* Pods-Zazo.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.ad-hoc.xcconfig"; sourceTree = "<group>"; };
@@ -2685,6 +2743,8 @@
 			children = (
 				07F0EB171B8CD8BE00036AB2 /* ZZSettingsModel.h */,
 				07F0EB181B8CD8BE00036AB2 /* ZZSettingsModel.m */,
+				79B386DC1B90704D00C25F69 /* ZZSettingsViewModel.h */,
+				79B386DD1B90704D00C25F69 /* ZZSettingsViewModel.m */,
 			);
 			path = SettingsModel;
 			sourceTree = "<group>";
@@ -2936,6 +2996,7 @@
 				07243C731B8DDFDB008E4203 /* DebugState Module */,
 				07F0EB621B8CD8BE00036AB2 /* Debug */,
 				07F0EB671B8CD8BE00036AB2 /* SecretScreen Module */,
+				79B386BD1B906A8700C25F69 /* Secret Module */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -3846,6 +3907,146 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		221B775D1A68888C009FA670 /* TPKeyboardAvoiding */ = {
+			isa = PBXGroup;
+			children = (
+				221B775E1A68888C009FA670 /* TPKeyboardAvoidingCollectionView.h */,
+				221B775F1A68888C009FA670 /* TPKeyboardAvoidingCollectionView.m */,
+				221B77601A68888C009FA670 /* TPKeyboardAvoidingScrollView.h */,
+				221B77611A68888C009FA670 /* TPKeyboardAvoidingScrollView.m */,
+				221B77621A68888C009FA670 /* TPKeyboardAvoidingTableView.h */,
+				221B77631A68888C009FA670 /* TPKeyboardAvoidingTableView.m */,
+				221B77641A68888C009FA670 /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
+				221B77651A68888C009FA670 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
+			);
+			path = TPKeyboardAvoiding;
+			sourceTree = "<group>";
+		};
+		79B386BD1B906A8700C25F69 /* Secret Module */ = {
+			isa = PBXGroup;
+			children = (
+				79B386BE1B906A8700C25F69 /* ApplicationLogic */,
+				79B386C31B906A8700C25F69 /* ModuleInterface */,
+				79B386C61B906A8700C25F69 /* UserInterface */,
+			);
+			path = "Secret Module";
+			sourceTree = "<group>";
+		};
+		79B386BE1B906A8700C25F69 /* ApplicationLogic */ = {
+			isa = PBXGroup;
+			children = (
+				79B386FF1B92403900C25F69 /* ZZSecretEnums.h */,
+				79B387001B92403900C25F69 /* ZZSecretEnums.m */,
+				79B386BF1B906A8700C25F69 /* Interactor */,
+			);
+			path = ApplicationLogic;
+			sourceTree = "<group>";
+		};
+		79B386BF1B906A8700C25F69 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				79B386C01B906A8700C25F69 /* ZZSecretInteractor.h */,
+				79B386C11B906A8700C25F69 /* ZZSecretInteractor.m */,
+				79B386C21B906A8700C25F69 /* ZZSecretInteractorIO.h */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		79B386C31B906A8700C25F69 /* ModuleInterface */ = {
+			isa = PBXGroup;
+			children = (
+				79B386C41B906A8700C25F69 /* ZZSecretModuleDelegate.h */,
+				79B386C51B906A8700C25F69 /* ZZSecretModuleInterface.h */,
+			);
+			path = ModuleInterface;
+			sourceTree = "<group>";
+		};
+		79B386C61B906A8700C25F69 /* UserInterface */ = {
+			isa = PBXGroup;
+			children = (
+				79B386C71B906A8700C25F69 /* DataSource */,
+				79B386CA1B906A8700C25F69 /* Presenter */,
+				79B386CD1B906A8700C25F69 /* View */,
+				79B386D31B906A8700C25F69 /* Wireframe */,
+			);
+			path = UserInterface;
+			sourceTree = "<group>";
+		};
+		79B386C71B906A8700C25F69 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				79B386C81B906A8700C25F69 /* ZZSecretDataSource.h */,
+				79B386C91B906A8700C25F69 /* ZZSecretDataSource.m */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
+		79B386CA1B906A8700C25F69 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				79B386CB1B906A8700C25F69 /* ZZSecretPresenter.h */,
+				79B386CC1B906A8700C25F69 /* ZZSecretPresenter.m */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		79B386CD1B906A8700C25F69 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				79B386D01B906A8700C25F69 /* ZZSecretVC.h */,
+				79B386D11B906A8700C25F69 /* ZZSecretVC.m */,
+				79B386CE1B906A8700C25F69 /* ZZSecretController.h */,
+				79B386CF1B906A8700C25F69 /* ZZSecretController.m */,
+				79B386D21B906A8700C25F69 /* ZZSecretViewInterface.h */,
+				79B386DF1B90722300C25F69 /* View */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		79B386D31B906A8700C25F69 /* Wireframe */ = {
+			isa = PBXGroup;
+			children = (
+				79B386D41B906A8700C25F69 /* ZZSecretWireframe.h */,
+				79B386D51B906A8700C25F69 /* ZZSecretWireframe.m */,
+			);
+			path = Wireframe;
+			sourceTree = "<group>";
+		};
+		79B386DF1B90722300C25F69 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				79B386F01B90767B00C25F69 /* ZZSecretButton.h */,
+				79B386F11B90767B00C25F69 /* ZZSecretButton.m */,
+				79B386E01B90722300C25F69 /* Cells */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		79B386E01B90722300C25F69 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				79B386E11B90739100C25F69 /* ZZBaseSecretCell.h */,
+				79B386E21B90739100C25F69 /* ZZBaseSecretCell.m */,
+				79B386E41B9073D500C25F69 /* ZZSecretButtonCell.h */,
+				79B386E51B9073D500C25F69 /* ZZSecretButtonCell.m */,
+				79B386EA1B90742000C25F69 /* ZZSecretButtonCellViewModel.h */,
+				79B386EB1B90742000C25F69 /* ZZSecretButtonCellViewModel.m */,
+				79B386E71B9073EB00C25F69 /* ZZSecretSwitchCell.h */,
+				79B386E81B9073EB00C25F69 /* ZZSecretSwitchCell.m */,
+				79B386ED1B90743000C25F69 /* ZZSecretSwitchCellViewModel.h */,
+				79B386EE1B90743000C25F69 /* ZZSecretSwitchCellViewModel.m */,
+				79B386F31B922F0D00C25F69 /* ZZSecretSwitchServerCell.h */,
+				79B386F41B922F0D00C25F69 /* ZZSecretSwitchServerCell.m */,
+				79B386F61B922F5900C25F69 /* ZZSecretSwitchServerCellViewModel.h */,
+				79B386F71B922F5900C25F69 /* ZZSecretSwitchServerCellViewModel.m */,
+				79B386FC1B923A6100C25F69 /* ZZSecretSegmentControlCell.h */,
+				79B386FD1B923A6100C25F69 /* ZZSecretSegmentControlCell.m */,
+				79B386F91B923A4C00C25F69 /* ZZSecretSegmentControlCellViewModel.h */,
+				79B386FA1B923A4C00C25F69 /* ZZSecretSegmentControlCellViewModel.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		984D6697D8F62FFA194F39A2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -4095,11 +4296,23 @@
 				07F0ECFC1B8CD8BF00036AB2 /* ANNetworkProgressView.m in Sources */,
 				073041931B921CEB00980373 /* TBMStateScreenView.m in Sources */,
 				0730414B1B921CEB00980373 /* TBMAppDelegate.m in Sources */,
+				79B386F21B90767B00C25F69 /* ZZSecretButton.m in Sources */,
+				075EB72E1B8FDB7800864F65 /* TBMConfig.m in Sources */,
+				075EB7051B8FDB7800864F65 /* TBMRecordHintView.m in Sources */,
+				075EB7571B8FDB7800864F65 /* TBMVideoObject.m in Sources */,
+				075EB7411B8FDB7800864F65 /* TBMLongPressTouchHandler.m in Sources */,
+				075EB6F21B8FDB7800864F65 /* TBMEventsFlowModulePresenter.m in Sources */,
+				221B77691A68888C009FA670 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
+				79B386F51B922F0D00C25F69 /* ZZSecretSwitchServerCell.m in Sources */,
+				075EB7481B8FDB7800864F65 /* TBMS3CredentialsManager.m in Sources */,
 				07F0EC991B8CD8BF00036AB2 /* ZZVideoNetworkTransportService.m in Sources */,
 				07F0ED021B8CD8BF00036AB2 /* ANNetworkRequest.m in Sources */,
 				07F0ECAF1B8CD8BF00036AB2 /* ZZVideoProcessor.m in Sources */,
 				073041961B921CEB00980373 /* TBMFriendGetter.m in Sources */,
 				07F0ECAE1B8CD8BF00036AB2 /* ZZVideoPlayer.m in Sources */,
+				79B386DA1B906A8700C25F69 /* ZZSecretVC.m in Sources */,
+				075EB7141B8FDB7800864F65 /* TBMSecretScreenPresenter.m in Sources */,
+				221B77671A68888C009FA670 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				073041AA1B921CEB00980373 /* TBMTextField.m in Sources */,
 				073041AC1B921CEB00980373 /* TBMAlertController.m in Sources */,
 				073041BC1B921CEB00980373 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
@@ -4145,6 +4358,7 @@
 				0730418A1B921CEB00980373 /* TBMSecretScreenViewController.m in Sources */,
 				07F0ECB81B8CD8BF00036AB2 /* ZZAuthWireframe.m in Sources */,
 				07F0EC7F1B8CD8BF00036AB2 /* ZZTextFieldsDelegate.m in Sources */,
+				79B386F81B922F5900C25F69 /* ZZSecretSwitchServerCellViewModel.m in Sources */,
 				07F0ED0B1B8CD8BF00036AB2 /* UIImage+TOWebViewControllerIcons.m in Sources */,
 				0730416F1B921CEB00980373 /* TBMEarpieceUsageHintView.m in Sources */,
 				07F0ECBF1B8CD8BF00036AB2 /* ZZStrategyNavigationLeftRight.m in Sources */,
@@ -4173,10 +4387,15 @@
 				07F0ECB21B8CD8BF00036AB2 /* ZZAuthInteractor.m in Sources */,
 				073041951B921CEB00980373 /* TBMDispatch.m in Sources */,
 				07243C871B8DDFDB008E4203 /* ZZDebugStateInteractor.m in Sources */,
+				79B386E91B9073EB00C25F69 /* ZZSecretSwitchCell.m in Sources */,
 				07F0ECD71B8CD8BF00036AB2 /* ZZUserRecorderGridView+AnimationExtension.m in Sources */,
 				07243CBD1B8E1333008E4203 /* ZZEditFriendCellViewModel.m in Sources */,
 				07F0ECDD1B8CD8BF00036AB2 /* ZZMenuPresenter.m in Sources */,
 				073041491B921CEB00980373 /* TBMAppDelegate+Boot.m in Sources */,
+				79B386D91B906A8700C25F69 /* ZZSecretController.m in Sources */,
+				075EB7461B8FDB7800864F65 /* TBMRegisterViewController.m in Sources */,
+				075EB6F51B8FDB7800864F65 /* TBMFeatureUnlockDialogView.m in Sources */,
+				075EB75C1B8FDB7800864F65 /* TBMViewUtils.m in Sources */,
 				07F0ECE61B8CD8BF00036AB2 /* ANBaseListTableCell.m in Sources */,
 				07F0ECCF1B8CD8BF00036AB2 /* ZZGridPresenter.m in Sources */,
 				0730415C1B921CEB00980373 /* TBMStringUtils.m in Sources */,
@@ -4204,8 +4423,12 @@
 				07F0EC911B8CD8BF00036AB2 /* ZZCommonNetworkTransport.m in Sources */,
 				073041641B921CEB00980373 /* TBMHintView.m in Sources */,
 				07F0EC811B8CD8BF00036AB2 /* ZZFriendModelsMapper.m in Sources */,
+				79B386D71B906A8700C25F69 /* ZZSecretDataSource.m in Sources */,
 				07243C8A1B8DDFDB008E4203 /* ZZDebugStateWireframe.m in Sources */,
 				0730414E1B921CEB00980373 /* NSArray+TBMArrayHelpers.m in Sources */,
+				075EB6F01B8FDB7800864F65 /* TBMHintView.m in Sources */,
+				79B386D81B906A8700C25F69 /* ZZSecretPresenter.m in Sources */,
+				075EB7301B8FDB7800864F65 /* TBMContactsManager.m in Sources */,
 				07F0ECC21B8CD8BF00036AB2 /* ZZTouchControllerWithoutDelay.m in Sources */,
 				07F0ED011B8CD8BF00036AB2 /* ANEnumAdditions.m in Sources */,
 				073041601B921CEB00980373 /* TBMVideoRecorder.m in Sources */,
@@ -4231,6 +4454,7 @@
 				0730414A1B921CEB00980373 /* TBMAppDelegate+PushNotification.m in Sources */,
 				07F0ECF71B8CD8BF00036AB2 /* ANEmailWireframe.m in Sources */,
 				0730414D1B921CEB00980373 /* NSArray+NSArrayExtensions.m in Sources */,
+				79B386E61B9073D500C25F69 /* ZZSecretButtonCell.m in Sources */,
 				07F0EC971B8CD8BF00036AB2 /* ZZNetworkTransport.m in Sources */,
 				07F0EC801B8CD8BF00036AB2 /* ZZFriendDataProvider.m in Sources */,
 				07243CD21B8F644A008E4203 /* ZZDebugStateCellViewModel.m in Sources */,
@@ -4242,7 +4466,10 @@
 				07F0ED211B8CE71000036AB2 /* TBMGridElement.m in Sources */,
 				07F0ED001B8CD8BF00036AB2 /* ANErrorHandler.m in Sources */,
 				07F0EC831B8CD8BF00036AB2 /* ZZGridModelsMapper.m in Sources */,
+				79B387011B92403900C25F69 /* ZZSecretEnums.m in Sources */,
 				07F0ECE51B8CD8BF00036AB2 /* ANAnimator.m in Sources */,
+				79B386DE1B90704D00C25F69 /* ZZSettingsViewModel.m in Sources */,
+				075EB74F1B8FDB7800864F65 /* TBMStateScreenView.m in Sources */,
 				07F0ECAC1B8CD8BF00036AB2 /* ZZStoredSettingsManager.m in Sources */,
 				07F0ECF61B8CD8BF00036AB2 /* ANImageCache.m in Sources */,
 				07243CBB1B8E1333008E4203 /* ZZEditFriendListPresenter.m in Sources */,
@@ -4259,6 +4486,9 @@
 				07243CB81B8E1333008E4203 /* ZZEditFriendListInteractor.m in Sources */,
 				0730415A1B921CEB00980373 /* TBMPhoneUtils.m in Sources */,
 				073041A91B921CEB00980373 /* TBMTableModal.m in Sources */,
+				075EB7111B8FDB7800864F65 /* TBMNextFeatureDialogView.m in Sources */,
+				075EB6FD1B8FDB7800864F65 /* TBMFrontCameraUsageHintView.m in Sources */,
+				79B386FE1B923A6100C25F69 /* ZZSecretSegmentControlCell.m in Sources */,
 				07F0EC9F1B8CD8BF00036AB2 /* _TBMGridElement.m in Sources */,
 				07F0ECBB1B8CD8BF00036AB2 /* ZZSecretScreenInteractor.m in Sources */,
 				07F0ECFD1B8CD8BF00036AB2 /* ANNetworkRetryView.m in Sources */,
@@ -4271,6 +4501,8 @@
 				073041561B921CEB00980373 /* TBMDependencies.m in Sources */,
 				07F0EC7C1B8CD8BF00036AB2 /* ZZRootWireframe.m in Sources */,
 				073041481B921CEB00980373 /* TBMAppDelegate+AppSync.m in Sources */,
+				075EB6EE1B8FDB7800864F65 /* TBMEventHandlerPresenter.m in Sources */,
+				79B386D61B906A8700C25F69 /* ZZSecretInteractor.m in Sources */,
 				07F0ECC01B8CD8BF00036AB2 /* ZZBaseTouchController.m in Sources */,
 				0730418C1B921CEB00980373 /* TBMFriendVideosInformation.m in Sources */,
 				07F0ECE41B8CD8BF00036AB2 /* ANActivityIndicator.m in Sources */,
@@ -4296,6 +4528,10 @@
 				07F0EC881B8CD8BF00036AB2 /* ZZBaseDomainModel.m in Sources */,
 				07F0ECEA1B8CD8BF00036AB2 /* NSObject+ANSafeValues.m in Sources */,
 				073041B41B921CEB00980373 /* TBMHomeViewController+Invite.m in Sources */,
+				075EB7501B8FDB7800864F65 /* TBMStateScreenViewController.m in Sources */,
+				79B386DB1B906A8700C25F69 /* ZZSecretWireframe.m in Sources */,
+				075EB7521B8FDB7800864F65 /* TBMTableModal.m in Sources */,
+				075EB70D1B8FDB7800864F65 /* TBMViewedHintView.m in Sources */,
 				07F0ECDC1B8CD8BF00036AB2 /* ZZMenuDataSource.m in Sources */,
 				073041751B921CEB00980373 /* TBMInviteSomeoneElseHintView.m in Sources */,
 				073041BA1B921CEB00980373 /* TPKeyboardAvoidingScrollView.m in Sources */,
@@ -4325,6 +4561,9 @@
 				073041B61B921CEB00980373 /* TBMHomeViewController.m in Sources */,
 				0730418B1B921CEB00980373 /* TBMFriend+StateProtocol.m in Sources */,
 				0730416E1B921CEB00980373 /* TBMEarpieceUsageHintPresenter.m in Sources */,
+				79B386EC1B90742000C25F69 /* ZZSecretButtonCellViewModel.m in Sources */,
+				075EB6F41B8FDB7800864F65 /* TBMFeatureUnlockModulePresenter.m in Sources */,
+				075EB7091B8FDB7800864F65 /* TBMSentHintView.m in Sources */,
 				07F0ECD51B8CD8BF00036AB2 /* ZZGridCollectionController.m in Sources */,
 				07F0ECA11B8CD8BF00036AB2 /* _TBMVideo.m in Sources */,
 				07F0ED0C1B8CD8BF00036AB2 /* NSData+MD5.m in Sources */,
@@ -4332,6 +4571,8 @@
 				07F0EC7E1B8CD8BF00036AB2 /* ZZKeyboardObserver.m in Sources */,
 				073041781B921CEB00980373 /* TBMRecordHintPresenter.m in Sources */,
 				073041551B921CEB00980373 /* TBMContactsManager.m in Sources */,
+				79B386E31B90739100C25F69 /* ZZBaseSecretCell.m in Sources */,
+				075EB72D1B8FDB7800864F65 /* TBMBenchViewController.m in Sources */,
 				07243CB91B8E1333008E4203 /* ZZEditFriendEnumsAdditions.m in Sources */,
 				07F0ECFF1B8CD8BF00036AB2 /* ANError.m in Sources */,
 				073041791B921CEB00980373 /* TBMRecordHintView.m in Sources */,
@@ -4339,6 +4580,9 @@
 				073041971B921CEB00980373 /* TBMHttpManager.m in Sources */,
 				07F0EC781B8CD8BF00036AB2 /* ZZAppDependecesInjection.m in Sources */,
 				073041711B921CEB00980373 /* TBMFrontCameraUsageHintView.m in Sources */,
+				79B386EF1B90743000C25F69 /* ZZSecretSwitchCellViewModel.m in Sources */,
+				075EB7471B8FDB7800864F65 /* TBMRemoteStorageHandler.m in Sources */,
+				075EB6F11B8FDB7800864F65 /* TBMEventsFlowDataSource.m in Sources */,
 				07F0ECB01B8CD8BF00036AB2 /* ZZVideoRecorder.m in Sources */,
 				073041701B921CEB00980373 /* TBMFrontCameraUsageHintPresenter.m in Sources */,
 				0730415E1B921CEB00980373 /* TBMVideoPlayer.m in Sources */,
@@ -4352,6 +4596,7 @@
 				0730419A1B921CEB00980373 /* TBMVersionHandler.m in Sources */,
 				073041731B921CEB00980373 /* TBMInviteHintView.m in Sources */,
 				073041AE1B921CEB00980373 /* TBMAlertControllerVisualStyle.m in Sources */,
+				79B386FB1B923A4C00C25F69 /* ZZSecretSegmentControlCellViewModel.m in Sources */,
 				07F0EC841B8CD8BF00036AB2 /* ZZUserDataProvider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4464,7 +4709,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "afa37b31-9228-43e9-b962-81bd6249551e";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -4477,8 +4722,8 @@
 			baseConfigurationReference = A0ECBE9A7392F431C5ADE072 /* Pods-ZazoTests.ad-hoc.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -4488,7 +4733,7 @@
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
 				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "afa37b31-9228-43e9-b962-81bd6249551e";
+				PROVISIONING_PROFILE = "3981abc0-c882-4ea8-937d-5cccafe65d5c";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -4593,7 +4838,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "3478a53a-f401-4769-abff-286beb7552a8";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -4625,7 +4870,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "afa37b31-9228-43e9-b962-81bd6249551e";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -4653,7 +4898,7 @@
 				);
 				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
 				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "c6575df9-b006-4565-b680-fc69fe555717";
+				PROVISIONING_PROFILE = "a0166b58-b818-40f2-a741-47b53b5b2eef";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -4675,7 +4920,7 @@
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
 				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "afa37b31-9228-43e9-b962-81bd6249551e";
+				PROVISIONING_PROFILE = "3981abc0-c882-4ea8-937d-5cccafe65d5c";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};

@@ -102,7 +102,20 @@
 "secret-controller.logs.button.title" = "Logs";
 "secret-controller.reset.hints.button.title" = "Reset hints";
 "secret-controller.state.button.title" = "State";
+
 "secret-controller.dispatch.button.title" = "Dispatch";
+"secret-controller.clear.button.title" = "Clear";
+"secret-controller.reset.button.title" = "Reset";
+"secret-controller.open.button.title" = "Open";
+
+"secret-controller.debug-header.title.text" = "Debug options";
+"secret-controller.general-header.title.text" = "General";
+"secret-controller.customization-header.title.text" = "Customization";
+"secret-controller.registration-header.title.text" = "Registration options";
+"secret-controller.tutorial-header.title.text" = "Tutorial";
+
+"secret-controller.rollbar.segment-control.title" = "RollbarSDK";
+"secret-controller.server.segment-control.title" = "Server";
 
 
 
