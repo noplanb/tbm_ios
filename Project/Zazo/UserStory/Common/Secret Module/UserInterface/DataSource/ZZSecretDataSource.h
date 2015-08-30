@@ -6,15 +6,24 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-@class ANMemoryStorage;
+#import "ZZSecretEnums.h"
 
-typedef NS_ENUM(NSInteger, ZZSection)
+@class ANMemoryStorage;
+@class ZZSettingsViewModel;
+
+typedef NS_ENUM(NSInteger, ZZSecretSection)
 {
-    ZZSectionOne,
-    ZZSectionTwo
+    ZZSecretSectionGeneral,
+    ZZSecretSectionDebugOptions,
+    ZZSecretSectionCustomization,
+    ZZSecretSectionRegistrationOptions,
+    ZZSecretSectionTutorial
 };
 
 @protocol ZZSecretDataSourceDelegate <NSObject>
+
+- (void)buttonSelectedWithType:(ZZSecretButtonCellType)type;
+- (void)switchValueChangedForType:(ZZSecretSwitchCellType)type;
 
 @end
 
@@ -23,6 +32,6 @@ typedef NS_ENUM(NSInteger, ZZSection)
 @property (nonatomic, strong) ANMemoryStorage* storage;
 @property (nonatomic, weak) id<ZZSecretDataSourceDelegate> delegate;
 
-- (void)setupStorageWithModels:(NSArray*)list;
+- (void)setupStorageWithViewModel:(ZZSettingsViewModel *)model;
 
 @end

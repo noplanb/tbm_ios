@@ -15,5 +15,10 @@
 @property (nonatomic, strong) NSString* firstName;
 @property (nonatomic, strong) NSString* lastName;
 @property (nonatomic, strong) NSString* phoneNumber;
+@property (nonatomic, assign) BOOL useRearCamera;
+@property (nonatomic, assign) BOOL sendBrokenVideo;
+@property (nonatomic, assign) BOOL forceRegSMS;
+@property (nonatomic, assign) BOOL forceRegCall;
+@property (nonatomic, assign) BOOL enableAllFeatures;
 
 @end

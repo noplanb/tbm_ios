@@ -2,7 +2,7 @@
 //  ZZSecretController.h
 //  Zazo
 //
-//  Created by Oleg Panforov on 6/2/15.
+//  Created by ANODA on 6/2/15.
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
@@ -12,7 +12,7 @@
 
 @protocol ZZSecretControllerDelegate <NSObject>
 
-- (void)itemSelectedWithModel:(ZZCellViewModel *)model;
+- (void)itemSelectedWithModel:(id)model;
 
 @end
 

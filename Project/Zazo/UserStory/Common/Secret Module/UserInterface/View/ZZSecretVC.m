@@ -7,13 +7,13 @@
 //
 
 #import "ZZSecretVC.h"
-#import "ZZTableContainerView.h"
+#import "ANTableContainerView.h"
 #import "ZZSecretController.h"
 #import "ZZSecretDataSource.h"
 
 @interface ZZSecretVC () <ZZSecretControllerDelegate>
 
-@property (nonatomic, strong) ZZTableContainerView* contentView;
+@property (nonatomic, strong) ANTableContainerView* contentView;
 @property (nonatomic, strong) ZZSecretController* controller;
 
 @end
@@ -25,7 +25,7 @@
     self = [super init];
     if (self)
     {
-        self.contentView = [ZZTableContainerView containerWithTableViewStyle:UITableViewStyleGrouped];
+        self.contentView = [ANTableContainerView containerWithTableViewStyle:UITableViewStyleGrouped];
         self.controller = [[ZZSecretController alloc] initWithTableView:self.contentView.tableView];
         self.controller.delegate = self;
     }
@@ -41,7 +41,7 @@
 {
     [super viewDidLoad];
     
-    self.title = NSLocalizedString(@"navTitle", nil);
+    self.title = NSLocalizedString(@"secret-controller.header.title", nil);
     
     @weakify(self);
     [self addLeftNavigationButtonWithType:ANBarButtonTypeBack block:^{
@@ -59,7 +59,7 @@
 
 #pragma mark - CDTableController Delegate
 
-- (void)itemSelectedWithModel:(ZZCellViewModel *)model
+- (void)itemSelectedWithModel:(id)model
 {
     
 }

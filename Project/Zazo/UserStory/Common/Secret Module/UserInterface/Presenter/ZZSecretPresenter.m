@@ -8,6 +8,7 @@
 
 #import "ZZSecretPresenter.h"
 #import "ZZSecretDataSource.h"
+#import "ZZSettingsViewModel.h"
 
 @interface ZZSecretPresenter () <ZZSecretDataSourceDelegate>
 
@@ -31,25 +32,19 @@
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZSecretViewInterface>*)userInterface
 {
     self.userInterface = userInterface;
+    [self.userInterface updateDataSource:self.tableDataSource];
+    
     [self.interactor loadData];
 }
 
 #pragma mark - Output
 
-- (void)dataLoaded:(ZZDomainModel *)model
+- (void)dataLoaded:(ZZSettingsModel *)model;
 {
-    [self.tableDataSource setupStorageWithModels:[self _convertToViewModels:model.list]]
-}
-
-- (NSArray *)_convertToViewModels:(NSArray *)models
-{
-    return [[models.rac_sequence map:^id(id value) {
-        
-        ZZCellViewModel* viewModel = [ZZCellViewModel new];
-        viewModel.item = value;
-        return viewModel;
-        
-    }] array];
+    ZZSettingsViewModel *settingsViewModel = [ZZSettingsViewModel new];
+    settingsViewModel.item = model;
+    
+    [self.tableDataSource setupStorageWithViewModel:settingsViewModel];
 }
 
 #pragma mark - Module Interface
@@ -57,6 +52,18 @@
 - (void)backSelected
 {
     [self.wireframe dismissSecretController];
+}
+
+#pragma mark - ZZSecretDataSourceDelegate
+
+- (void)buttonSelectedWithType:(ZZSecretButtonCellType)type
+{
+    [self.interactor buttonSelectedWithType:type];
+}
+
+- (void)switchValueChangedForType:(ZZSecretSwitchCellType)type
+{
+    [self.interactor changeValueForType:type];
 }
 
 
