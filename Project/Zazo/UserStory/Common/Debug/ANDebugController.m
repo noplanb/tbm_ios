@@ -13,15 +13,18 @@
 #import "ZZMenuWireframe.h"
 #import "ZZSecretScreenWireframe.h"
 #import "ZZEditFriendListWireframe.h"
+#import "ZZSecretWireframe.h"
+
 
 typedef NS_ENUM(NSInteger, ANSections)
 {
     ZZAuthController,
     ZZGridController,
-    ZZSecretController,
+    ZZSecretScreenController,
     ZZStateController,
     ZZMenuController,
-    ZZEditFriendsController
+    ZZEditFriendsController,
+    ZZSecretController
 };
 
 @implementation ANDebugController
@@ -42,10 +45,11 @@ typedef NS_ENUM(NSInteger, ANSections)
 {
     [self.memoryStorage addItems:@[@"Auth Module",
                                    @"Grid Module",
-                                   @"Secret Module",
+                                   @"Secret Screen Module",
                                    @"State Module",
                                    @"Menu Module",
-                                   @"Edit Friends Module"]];
+                                   @"Edit Friends Module",
+                                   @"Secret Module"]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -67,7 +71,7 @@ typedef NS_ENUM(NSInteger, ANSections)
             
         } break;
            
-        case ZZSecretController:
+        case ZZSecretScreenController:
         {
             ZZSecretScreenWireframe* wireframe = [ZZSecretScreenWireframe new];
             [wireframe presentSecretScreenControllerFromNavigationController:self.rootController.navigationController];
@@ -88,6 +92,12 @@ typedef NS_ENUM(NSInteger, ANSections)
         {
             ZZEditFriendListWireframe* wireframe = [ZZEditFriendListWireframe new];
             [wireframe presentEditFriendListControllerFromViewController:self.rootController withCompletion:nil];
+        } break;
+            
+        case ZZSecretController:
+        {
+            ZZSecretWireframe* wireframe = [ZZSecretWireframe new];
+            [wireframe presentSecretControllerFromNavigationController:self.rootController.navigationController];
         } break;
             
         default: break;
