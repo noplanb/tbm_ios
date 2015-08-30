@@ -3907,21 +3907,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		221B775D1A68888C009FA670 /* TPKeyboardAvoiding */ = {
-			isa = PBXGroup;
-			children = (
-				221B775E1A68888C009FA670 /* TPKeyboardAvoidingCollectionView.h */,
-				221B775F1A68888C009FA670 /* TPKeyboardAvoidingCollectionView.m */,
-				221B77601A68888C009FA670 /* TPKeyboardAvoidingScrollView.h */,
-				221B77611A68888C009FA670 /* TPKeyboardAvoidingScrollView.m */,
-				221B77621A68888C009FA670 /* TPKeyboardAvoidingTableView.h */,
-				221B77631A68888C009FA670 /* TPKeyboardAvoidingTableView.m */,
-				221B77641A68888C009FA670 /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
-				221B77651A68888C009FA670 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
-			);
-			path = TPKeyboardAvoiding;
-			sourceTree = "<group>";
-		};
 		79B386BD1B906A8700C25F69 /* Secret Module */ = {
 			isa = PBXGroup;
 			children = (
@@ -4297,22 +4282,13 @@
 				073041931B921CEB00980373 /* TBMStateScreenView.m in Sources */,
 				0730414B1B921CEB00980373 /* TBMAppDelegate.m in Sources */,
 				79B386F21B90767B00C25F69 /* ZZSecretButton.m in Sources */,
-				075EB72E1B8FDB7800864F65 /* TBMConfig.m in Sources */,
-				075EB7051B8FDB7800864F65 /* TBMRecordHintView.m in Sources */,
-				075EB7571B8FDB7800864F65 /* TBMVideoObject.m in Sources */,
-				075EB7411B8FDB7800864F65 /* TBMLongPressTouchHandler.m in Sources */,
-				075EB6F21B8FDB7800864F65 /* TBMEventsFlowModulePresenter.m in Sources */,
-				221B77691A68888C009FA670 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				79B386F51B922F0D00C25F69 /* ZZSecretSwitchServerCell.m in Sources */,
-				075EB7481B8FDB7800864F65 /* TBMS3CredentialsManager.m in Sources */,
 				07F0EC991B8CD8BF00036AB2 /* ZZVideoNetworkTransportService.m in Sources */,
 				07F0ED021B8CD8BF00036AB2 /* ANNetworkRequest.m in Sources */,
 				07F0ECAF1B8CD8BF00036AB2 /* ZZVideoProcessor.m in Sources */,
 				073041961B921CEB00980373 /* TBMFriendGetter.m in Sources */,
 				07F0ECAE1B8CD8BF00036AB2 /* ZZVideoPlayer.m in Sources */,
 				79B386DA1B906A8700C25F69 /* ZZSecretVC.m in Sources */,
-				075EB7141B8FDB7800864F65 /* TBMSecretScreenPresenter.m in Sources */,
-				221B77671A68888C009FA670 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				073041AA1B921CEB00980373 /* TBMTextField.m in Sources */,
 				073041AC1B921CEB00980373 /* TBMAlertController.m in Sources */,
 				073041BC1B921CEB00980373 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
@@ -4393,9 +4369,6 @@
 				07F0ECDD1B8CD8BF00036AB2 /* ZZMenuPresenter.m in Sources */,
 				073041491B921CEB00980373 /* TBMAppDelegate+Boot.m in Sources */,
 				79B386D91B906A8700C25F69 /* ZZSecretController.m in Sources */,
-				075EB7461B8FDB7800864F65 /* TBMRegisterViewController.m in Sources */,
-				075EB6F51B8FDB7800864F65 /* TBMFeatureUnlockDialogView.m in Sources */,
-				075EB75C1B8FDB7800864F65 /* TBMViewUtils.m in Sources */,
 				07F0ECE61B8CD8BF00036AB2 /* ANBaseListTableCell.m in Sources */,
 				07F0ECCF1B8CD8BF00036AB2 /* ZZGridPresenter.m in Sources */,
 				0730415C1B921CEB00980373 /* TBMStringUtils.m in Sources */,
@@ -4426,9 +4399,7 @@
 				79B386D71B906A8700C25F69 /* ZZSecretDataSource.m in Sources */,
 				07243C8A1B8DDFDB008E4203 /* ZZDebugStateWireframe.m in Sources */,
 				0730414E1B921CEB00980373 /* NSArray+TBMArrayHelpers.m in Sources */,
-				075EB6F01B8FDB7800864F65 /* TBMHintView.m in Sources */,
 				79B386D81B906A8700C25F69 /* ZZSecretPresenter.m in Sources */,
-				075EB7301B8FDB7800864F65 /* TBMContactsManager.m in Sources */,
 				07F0ECC21B8CD8BF00036AB2 /* ZZTouchControllerWithoutDelay.m in Sources */,
 				07F0ED011B8CD8BF00036AB2 /* ANEnumAdditions.m in Sources */,
 				073041601B921CEB00980373 /* TBMVideoRecorder.m in Sources */,
@@ -4469,7 +4440,6 @@
 				79B387011B92403900C25F69 /* ZZSecretEnums.m in Sources */,
 				07F0ECE51B8CD8BF00036AB2 /* ANAnimator.m in Sources */,
 				79B386DE1B90704D00C25F69 /* ZZSettingsViewModel.m in Sources */,
-				075EB74F1B8FDB7800864F65 /* TBMStateScreenView.m in Sources */,
 				07F0ECAC1B8CD8BF00036AB2 /* ZZStoredSettingsManager.m in Sources */,
 				07F0ECF61B8CD8BF00036AB2 /* ANImageCache.m in Sources */,
 				07243CBB1B8E1333008E4203 /* ZZEditFriendListPresenter.m in Sources */,
@@ -4486,8 +4456,6 @@
 				07243CB81B8E1333008E4203 /* ZZEditFriendListInteractor.m in Sources */,
 				0730415A1B921CEB00980373 /* TBMPhoneUtils.m in Sources */,
 				073041A91B921CEB00980373 /* TBMTableModal.m in Sources */,
-				075EB7111B8FDB7800864F65 /* TBMNextFeatureDialogView.m in Sources */,
-				075EB6FD1B8FDB7800864F65 /* TBMFrontCameraUsageHintView.m in Sources */,
 				79B386FE1B923A6100C25F69 /* ZZSecretSegmentControlCell.m in Sources */,
 				07F0EC9F1B8CD8BF00036AB2 /* _TBMGridElement.m in Sources */,
 				07F0ECBB1B8CD8BF00036AB2 /* ZZSecretScreenInteractor.m in Sources */,
@@ -4501,7 +4469,6 @@
 				073041561B921CEB00980373 /* TBMDependencies.m in Sources */,
 				07F0EC7C1B8CD8BF00036AB2 /* ZZRootWireframe.m in Sources */,
 				073041481B921CEB00980373 /* TBMAppDelegate+AppSync.m in Sources */,
-				075EB6EE1B8FDB7800864F65 /* TBMEventHandlerPresenter.m in Sources */,
 				79B386D61B906A8700C25F69 /* ZZSecretInteractor.m in Sources */,
 				07F0ECC01B8CD8BF00036AB2 /* ZZBaseTouchController.m in Sources */,
 				0730418C1B921CEB00980373 /* TBMFriendVideosInformation.m in Sources */,
@@ -4528,10 +4495,7 @@
 				07F0EC881B8CD8BF00036AB2 /* ZZBaseDomainModel.m in Sources */,
 				07F0ECEA1B8CD8BF00036AB2 /* NSObject+ANSafeValues.m in Sources */,
 				073041B41B921CEB00980373 /* TBMHomeViewController+Invite.m in Sources */,
-				075EB7501B8FDB7800864F65 /* TBMStateScreenViewController.m in Sources */,
 				79B386DB1B906A8700C25F69 /* ZZSecretWireframe.m in Sources */,
-				075EB7521B8FDB7800864F65 /* TBMTableModal.m in Sources */,
-				075EB70D1B8FDB7800864F65 /* TBMViewedHintView.m in Sources */,
 				07F0ECDC1B8CD8BF00036AB2 /* ZZMenuDataSource.m in Sources */,
 				073041751B921CEB00980373 /* TBMInviteSomeoneElseHintView.m in Sources */,
 				073041BA1B921CEB00980373 /* TPKeyboardAvoidingScrollView.m in Sources */,
@@ -4562,8 +4526,6 @@
 				0730418B1B921CEB00980373 /* TBMFriend+StateProtocol.m in Sources */,
 				0730416E1B921CEB00980373 /* TBMEarpieceUsageHintPresenter.m in Sources */,
 				79B386EC1B90742000C25F69 /* ZZSecretButtonCellViewModel.m in Sources */,
-				075EB6F41B8FDB7800864F65 /* TBMFeatureUnlockModulePresenter.m in Sources */,
-				075EB7091B8FDB7800864F65 /* TBMSentHintView.m in Sources */,
 				07F0ECD51B8CD8BF00036AB2 /* ZZGridCollectionController.m in Sources */,
 				07F0ECA11B8CD8BF00036AB2 /* _TBMVideo.m in Sources */,
 				07F0ED0C1B8CD8BF00036AB2 /* NSData+MD5.m in Sources */,
@@ -4572,7 +4534,6 @@
 				073041781B921CEB00980373 /* TBMRecordHintPresenter.m in Sources */,
 				073041551B921CEB00980373 /* TBMContactsManager.m in Sources */,
 				79B386E31B90739100C25F69 /* ZZBaseSecretCell.m in Sources */,
-				075EB72D1B8FDB7800864F65 /* TBMBenchViewController.m in Sources */,
 				07243CB91B8E1333008E4203 /* ZZEditFriendEnumsAdditions.m in Sources */,
 				07F0ECFF1B8CD8BF00036AB2 /* ANError.m in Sources */,
 				073041791B921CEB00980373 /* TBMRecordHintView.m in Sources */,
@@ -4581,8 +4542,6 @@
 				07F0EC781B8CD8BF00036AB2 /* ZZAppDependecesInjection.m in Sources */,
 				073041711B921CEB00980373 /* TBMFrontCameraUsageHintView.m in Sources */,
 				79B386EF1B90743000C25F69 /* ZZSecretSwitchCellViewModel.m in Sources */,
-				075EB7471B8FDB7800864F65 /* TBMRemoteStorageHandler.m in Sources */,
-				075EB6F11B8FDB7800864F65 /* TBMEventsFlowDataSource.m in Sources */,
 				07F0ECB01B8CD8BF00036AB2 /* ZZVideoRecorder.m in Sources */,
 				073041701B921CEB00980373 /* TBMFrontCameraUsageHintPresenter.m in Sources */,
 				0730415E1B921CEB00980373 /* TBMVideoPlayer.m in Sources */,
@@ -4733,7 +4692,7 @@
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
 				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "3981abc0-c882-4ea8-937d-5cccafe65d5c";
+				PROVISIONING_PROFILE = "afa37b31-9228-43e9-b962-81bd6249551e";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -4898,7 +4857,7 @@
 				);
 				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
 				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "a0166b58-b818-40f2-a741-47b53b5b2eef";
+				PROVISIONING_PROFILE = "c6575df9-b006-4565-b680-fc69fe555717";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -4920,7 +4879,7 @@
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
 				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "3981abc0-c882-4ea8-937d-5cccafe65d5c";
+				PROVISIONING_PROFILE = "afa37b31-9228-43e9-b962-81bd6249551e";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};
