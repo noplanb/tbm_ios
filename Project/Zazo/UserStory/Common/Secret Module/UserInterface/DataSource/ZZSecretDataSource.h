@@ -16,6 +16,7 @@
 typedef NS_ENUM(NSInteger, ZZSecretSection)
 {
     ZZSecretSectionUserInfo,
+    ZZSecretSectionDetailScreens,
     ZZSecretSectionDebugOptions,
     ZZSecretSectionCustomAppModes,
     ZZSecretSectionTutorial,
@@ -26,6 +27,10 @@ typedef NS_ENUM(NSInteger, ZZSecretSection)
 
 typedef NS_ENUM(NSInteger, ZZSecrectScreenActionsType)
 {
+    ZZSecrectScreenActionsTypeLogsScreen,
+    ZZSecrectScreenActionsTypeStateScreen,
+    ZZSecrectScreenActionsTypeDebugUIScreen,
+    
     ZZSecrectScreenActionsTypeResetTutorialHints,
     ZZSecrectScreenActionsTypeFeatureOptions,
     

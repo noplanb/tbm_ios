@@ -86,6 +86,19 @@
         {
             [self.interactor forceCrash];
         } break;
+        case ZZSecrectScreenActionsTypeLogsScreen:
+        {
+            [self.wireframe presentLogsController];
+        } break;
+        case ZZSecrectScreenActionsTypeStateScreen:
+        {
+            [self.wireframe presentStateController];
+        } break;
+        case ZZSecrectScreenActionsTypeDebugUIScreen:
+        {
+            [self.wireframe presentDebugController];
+        } break;
+            
         default: break;
     }
 }

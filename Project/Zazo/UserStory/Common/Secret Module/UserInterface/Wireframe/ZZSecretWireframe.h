@@ -13,5 +13,6 @@
 
 - (void)presentLogsController;
 - (void)presentStateController;
+- (void)presentDebugController;
 
 @end

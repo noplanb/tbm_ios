@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, ANSections)
     self = [super initWithTableView:tableView];
     if (self)
     {
-        tableView.rowHeight = 55;
+        tableView.rowHeight = 44;
         [self registerCellClass:[ANBaseListTableCell class] forModelClass:[NSString class]];
         [self _setupStorage];
     }

@@ -12,6 +12,7 @@
 #import "ZZSecretPresenter.h"
 #import "OBLogViewController.h"
 #import "ZZDebugStateWireframe.h"
+#import "ANDebugVC.h"
 
 @interface ZZSecretWireframe ()
 
@@ -64,6 +65,14 @@
 {
     ZZDebugStateWireframe* wireframe = [ZZDebugStateWireframe new];
     [wireframe presentDebugStateControllerFromNavigationController:self.presentedController];
+}
+
+- (void)presentDebugController
+{
+    ANDebugVC* vc = [ANDebugVC new];
+    ANDispatchBlockToMainQueue(^{
+       [self.presentedController pushViewController:vc animated:YES];
+    });
 }
 
 @end

@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Oksana Kovalchuk. All rights reserved.
 //
 
-#import "ANBaseVC.h"
+#import "ZZBaseVC.h"
 
-@interface ANDebugVC : ANBaseVC
+@interface ANDebugVC : ZZBaseVC
 
 @end

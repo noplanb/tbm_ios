@@ -37,6 +37,7 @@
 - (void)setupStorageWithViewModel:(ZZSettingsModel*)model;
 {
     [self _addUserInfoSectionWithData:model];
+    [self _addDetailScreensSection];
     [self _addCustomModesSectionWithData:model];
     [self _addTutorialSectionWithData:model];
     [self _addLoggingSectionsWithData:model];
@@ -52,7 +53,7 @@
     [self.storage reloadItem:model];
 }
 
-- (void)itemSelectedAtIndexPath:(NSIndexPath *)indexPath
+- (void)itemSelectedAtIndexPath:(NSIndexPath*)indexPath
 {
     switch (indexPath.section)
     {
@@ -65,6 +66,22 @@
             else if (indexPath.row == 1) // feature options
             {
                 [self.delegate actionWithType:ZZSecrectScreenActionsTypeFeatureOptions];
+            }
+        } break;
+            
+        case ZZSecretSectionDetailScreens:
+        {
+            if (indexPath.row == 0)
+            {
+                [self.delegate actionWithType:ZZSecrectScreenActionsTypeLogsScreen];
+            }
+            else if (indexPath.row == 1)
+            {
+                [self.delegate actionWithType:ZZSecrectScreenActionsTypeStateScreen];
+            }
+            else if (indexPath.row == 2)
+            {
+                [self.delegate actionWithType:ZZSecrectScreenActionsTypeDebugUIScreen];
             }
         } break;
             
@@ -154,6 +171,18 @@
                                                                details:[NSObject an_safeString:model.phoneNumber]]];
     [self.storage addItems:items toSection:ZZSecretSectionUserInfo];
     [self.storage setSectionHeaderModel:@"User Info" forSectionIndex:ZZSecretSectionUserInfo];
+}
+
+- (void)_addDetailScreensSection
+{
+    NSArray* items = @[[ZZSecretValueCellViewModel viewModelWithTitle:@"Logs Screen"
+                                                              details:nil],
+                       [ZZSecretValueCellViewModel viewModelWithTitle:@"State Screen"
+                                                              details:nil],
+                       [ZZSecretValueCellViewModel viewModelWithTitle:@"Debug UI Screen"
+                                                              details:nil]];
+    [self.storage addItems:items toSection:ZZSecretSectionDetailScreens];
+    [self.storage setSectionHeaderModel:@"Debug Screens" forSectionIndex:ZZSecretSectionDetailScreens];
 }
 
 - (void)_addCustomModesSectionWithData:(ZZSettingsModel*)model
