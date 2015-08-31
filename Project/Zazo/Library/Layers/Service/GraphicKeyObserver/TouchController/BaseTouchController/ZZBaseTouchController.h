@@ -25,7 +25,7 @@
 
 - (void)startObservingIfNeededWithTouch:(UITouch*)touch withEvent:(UIEvent*)event;
 - (void)observeEndTouchBeforeBeginObservingWithTouch:(UITouch*)touch withEvent:(UIEvent*)event;
-- (void)objserveMovingWithTouch:(UITouch *)touch;
+- (void)observeMovingWithTouch:(UITouch *)touch;
 - (void)resetObserving;
 
 @end

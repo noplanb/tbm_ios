@@ -43,7 +43,7 @@
         }
         else
         {
-            [self objserveMovingWithTouch:touch];
+            [self observeMovingWithTouch:touch];
         }
     }
 }

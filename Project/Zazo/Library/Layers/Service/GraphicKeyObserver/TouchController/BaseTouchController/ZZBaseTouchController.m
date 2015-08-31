@@ -69,7 +69,7 @@
     }
 }
 
-- (void)objserveMovingWithTouch:(UITouch *)touch
+- (void)observeMovingWithTouch:(UITouch *)touch
 {
     UIWindow* window = [UIApplication sharedApplication].keyWindow;
     UIView* touchView = window.rootViewController.view;

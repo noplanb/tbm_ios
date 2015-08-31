@@ -46,19 +46,25 @@
 //    [wireframe presentAuthControllerFromWindow:window];
     
     TBMUser *user = [TBMUser getUser];
+    UIViewController* vc;
     if (!user.isRegistered)
     {
-        TBMRegisterViewController* vc = [TBMRegisterViewController new];
-        vc.delegate = self; // TODO: temp
-        window.rootViewController = vc;
+        TBMRegisterViewController* registrationVC = [TBMRegisterViewController new];
+        registrationVC.delegate = self; // TODO: temp
+        vc = registrationVC;
     }
     else
     {
-        TBMHomeViewController* vc = [TBMHomeViewController new];
-        [self.dependencies setupDependenciesWithHomeViewController:vc];
-        window.rootViewController = vc;
+        TBMHomeViewController* homeVC = [TBMHomeViewController new];
+        [self.dependencies setupDependenciesWithHomeViewController:homeVC];
+        vc = homeVC;
         [self postRegistrationBoot];
     }
+    
+    UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:vc];
+    nc.navigationBarHidden = YES;
+    window.rootViewController = nc;
+    
 #endif
     
     [self _startSecretScreenObserveWithType:ZZEnvelopObserveType withWindow:window];
