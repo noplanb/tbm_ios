@@ -10,6 +10,7 @@
 #import "ZZGridInteractor.h"
 #import "ZZGridVC.h"
 #import "ZZGridPresenter.h"
+#import "ZZEditFriendListWireframe.h"
 
 @interface ZZGridWireframe ()
 
@@ -56,6 +57,15 @@
 - (void)closeMenu
 {
     [self.menuWireFrame closeMenu];
+}
+
+
+#pragma mark - Details
+
+- (void)presentEditFriendsController
+{
+    ZZEditFriendListWireframe* wirefame = [ZZEditFriendListWireframe new];
+    [wirefame presentEditFriendListControllerFromViewController:self.gridController withCompletion:nil];
 }
 
 @end

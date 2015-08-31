@@ -22,4 +22,6 @@
 - (void)toggleMenu;
 - (void)closeMenu;
 
+- (void)presentEditFriendsController;
+
 @end

@@ -11,6 +11,7 @@
 @protocol ZZGridModuleInterface <NSObject>
 
 - (void)presentMenu;
+- (void)presentEditFriends;
 - (void)selectedCollectionViewWithModel:(ZZGridDomainModel*)model;
 
 @end

@@ -53,6 +53,17 @@
 {
     [super viewDidLoad];
     [UIApplication sharedApplication].statusBarHidden = YES;
+    
+    @weakify(self);
+    [[self.gridView.menuButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        @strongify(self);
+        [self.eventHandler presentMenu];
+    }];
+    
+    [[self.gridView.editFriendsButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        @strongify(self);
+        [self.eventHandler presentEditFriends];
+    }];
 }
 
 - (void)udpateWithDataSource:(ZZGridDataSource *)dataSource
