@@ -63,4 +63,15 @@ static NSString *const kLastUnlockedFeatureNSUDKey = @"kLastUnlockedFeatureNSUDK
 {
     return TBMUnlockedFeatureTotalCount;
 }
+
+- (BOOL)isFeaturesUnlockedCountSet
+{
+    id currentUnlockedCountValue = [NSNumber loadUserDefaultsObjectForKey:kLastUnlockedFeatureNSUDKey];
+    return currentUnlockedCountValue != nil;
+}
+
+- (void)silentUpdateUnlockedFeaturesCount:(TBMUnlockedFeature)feature
+{
+    [self setLastUnlockedFeature:feature];
+}
 @end
