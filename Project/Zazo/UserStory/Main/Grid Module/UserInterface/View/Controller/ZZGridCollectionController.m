@@ -85,9 +85,7 @@ static NSInteger const kCenterCellIndex = 4;
         ANSectionModel* ss = [((ANMemoryStorage*)self.storage).sections firstObject];
         [baseCell updateWithModel:[(ANMemoryStorage*)self.storage itemAtIndexPath:indexPath]];
     }
-    
     return cell;
 }
-
 
 @end
