@@ -160,6 +160,12 @@
 		07436D8D1B944FC900081AC0 /* ZZSecretValueCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07436D8C1B944FC800081AC0 /* ZZSecretValueCellViewModel.m */; };
 		0797DC201B9474AA00420FD3 /* ZZSecretScreenTextEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0797DC1F1B9474AA00420FD3 /* ZZSecretScreenTextEditCell.m */; };
 		0797DC231B9474BA00420FD3 /* ZZSecretScreenTextEditCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0797DC221B9474BA00420FD3 /* ZZSecretScreenTextEditCellViewModel.m */; };
+		0797DC921B94D05E00420FD3 /* ZZSecretBaseStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0797DC811B94D05E00420FD3 /* ZZSecretBaseStrategy.m */; };
+		0797DC931B94D05E00420FD3 /* ZZEnvelopStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0797DC841B94D05E00420FD3 /* ZZEnvelopStrategy.m */; };
+		0797DC941B94D05E00420FD3 /* ZZStrategyNavigationLeftRight.m in Sources */ = {isa = PBXBuildFile; fileRef = 0797DC871B94D05E00420FD3 /* ZZStrategyNavigationLeftRight.m */; };
+		0797DC951B94D05E00420FD3 /* ZZBaseTouchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0797DC8B1B94D05E00420FD3 /* ZZBaseTouchController.m */; };
+		0797DC961B94D05E00420FD3 /* ZZTouchControllerWithTouchDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = 0797DC8E1B94D05E00420FD3 /* ZZTouchControllerWithTouchDelay.m */; };
+		0797DC971B94D05E00420FD3 /* ZZTouchControllerWithoutDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = 0797DC911B94D05E00420FD3 /* ZZTouchControllerWithoutDelay.m */; };
 		07F0E7EF1B8CD7A900036AB2 /* KeyChainWrapperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E21B8CD7A900036AB2 /* KeyChainWrapperTests.m */; };
 		07F0E7F01B8CD7A900036AB2 /* S3CredentialsManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E31B8CD7A900036AB2 /* S3CredentialsManagerTests.m */; };
 		07F0E7F11B8CD7A900036AB2 /* StringUtilsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E41B8CD7A900036AB2 /* StringUtilsTest.m */; };
@@ -234,12 +240,6 @@
 		07F0ECBA1B8CD8BF00036AB2 /* ANDebugVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB661B8CD8BE00036AB2 /* ANDebugVC.m */; };
 		07F0ECBB1B8CD8BF00036AB2 /* ZZSecretScreenInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB6B1B8CD8BE00036AB2 /* ZZSecretScreenInteractor.m */; };
 		07F0ECBC1B8CD8BF00036AB2 /* ZZSecretScreenPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB731B8CD8BE00036AB2 /* ZZSecretScreenPresenter.m */; };
-		07F0ECBD1B8CD8BF00036AB2 /* ZZSecretBaseStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB771B8CD8BE00036AB2 /* ZZSecretBaseStrategy.m */; };
-		07F0ECBE1B8CD8BF00036AB2 /* ZZEnvelopStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB7A1B8CD8BE00036AB2 /* ZZEnvelopStrategy.m */; };
-		07F0ECBF1B8CD8BF00036AB2 /* ZZStrategyNavigationLeftRight.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB7D1B8CD8BE00036AB2 /* ZZStrategyNavigationLeftRight.m */; };
-		07F0ECC01B8CD8BF00036AB2 /* ZZBaseTouchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB811B8CD8BE00036AB2 /* ZZBaseTouchController.m */; };
-		07F0ECC11B8CD8BF00036AB2 /* ZZTouchControllerWithTouchDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB841B8CD8BE00036AB2 /* ZZTouchControllerWithTouchDelay.m */; };
-		07F0ECC21B8CD8BF00036AB2 /* ZZTouchControllerWithoutDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB871B8CD8BE00036AB2 /* ZZTouchControllerWithoutDelay.m */; };
 		07F0ECC51B8CD8BF00036AB2 /* ZZSecretScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB921B8CD8BE00036AB2 /* ZZSecretScreenView.m */; };
 		07F0ECC61B8CD8BF00036AB2 /* ZZSecretScreenButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB971B8CD8BE00036AB2 /* ZZSecretScreenButtonView.m */; };
 		07F0ECC81B8CD8BF00036AB2 /* ZZGrayBorderTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB9D1B8CD8BE00036AB2 /* ZZGrayBorderTextField.m */; };
@@ -690,6 +690,20 @@
 		0797DC1F1B9474AA00420FD3 /* ZZSecretScreenTextEditCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretScreenTextEditCell.m; sourceTree = "<group>"; };
 		0797DC211B9474BA00420FD3 /* ZZSecretScreenTextEditCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenTextEditCellViewModel.h; sourceTree = "<group>"; };
 		0797DC221B9474BA00420FD3 /* ZZSecretScreenTextEditCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretScreenTextEditCellViewModel.m; sourceTree = "<group>"; };
+		0797DC801B94D05E00420FD3 /* ZZSecretBaseStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretBaseStrategy.h; sourceTree = "<group>"; };
+		0797DC811B94D05E00420FD3 /* ZZSecretBaseStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretBaseStrategy.m; sourceTree = "<group>"; };
+		0797DC831B94D05E00420FD3 /* ZZEnvelopStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZEnvelopStrategy.h; sourceTree = "<group>"; };
+		0797DC841B94D05E00420FD3 /* ZZEnvelopStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZEnvelopStrategy.m; sourceTree = "<group>"; };
+		0797DC861B94D05E00420FD3 /* ZZStrategyNavigationLeftRight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZStrategyNavigationLeftRight.h; sourceTree = "<group>"; };
+		0797DC871B94D05E00420FD3 /* ZZStrategyNavigationLeftRight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZStrategyNavigationLeftRight.m; sourceTree = "<group>"; };
+		0797DC8A1B94D05E00420FD3 /* ZZBaseTouchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZBaseTouchController.h; sourceTree = "<group>"; };
+		0797DC8B1B94D05E00420FD3 /* ZZBaseTouchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZBaseTouchController.m; sourceTree = "<group>"; };
+		0797DC8D1B94D05E00420FD3 /* ZZTouchControllerWithTouchDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZTouchControllerWithTouchDelay.h; sourceTree = "<group>"; };
+		0797DC8E1B94D05E00420FD3 /* ZZTouchControllerWithTouchDelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZTouchControllerWithTouchDelay.m; sourceTree = "<group>"; };
+		0797DC901B94D05E00420FD3 /* ZZTouchControllerWithoutDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZTouchControllerWithoutDelay.h; sourceTree = "<group>"; };
+		0797DC911B94D05E00420FD3 /* ZZTouchControllerWithoutDelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZTouchControllerWithoutDelay.m; sourceTree = "<group>"; };
+		0797DC981B94D0BE00420FD3 /* ZZSecretScreenObserveTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenObserveTypes.h; sourceTree = "<group>"; };
+		0797DC991B94D0BE00420FD3 /* ZZSecretScreenStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenStrategy.h; sourceTree = "<group>"; };
 		07F0E7E21B8CD7A900036AB2 /* KeyChainWrapperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainWrapperTests.m; sourceTree = "<group>"; };
 		07F0E7E31B8CD7A900036AB2 /* S3CredentialsManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = S3CredentialsManagerTests.m; sourceTree = "<group>"; };
 		07F0E7E41B8CD7A900036AB2 /* StringUtilsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringUtilsTest.m; sourceTree = "<group>"; };
@@ -839,18 +853,6 @@
 		07F0EB6F1B8CD8BE00036AB2 /* ZZSecretScreenModuleInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenModuleInterface.h; sourceTree = "<group>"; };
 		07F0EB721B8CD8BE00036AB2 /* ZZSecretScreenPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenPresenter.h; sourceTree = "<group>"; };
 		07F0EB731B8CD8BE00036AB2 /* ZZSecretScreenPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretScreenPresenter.m; sourceTree = "<group>"; };
-		07F0EB761B8CD8BE00036AB2 /* ZZSecretBaseStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretBaseStrategy.h; sourceTree = "<group>"; };
-		07F0EB771B8CD8BE00036AB2 /* ZZSecretBaseStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretBaseStrategy.m; sourceTree = "<group>"; };
-		07F0EB791B8CD8BE00036AB2 /* ZZEnvelopStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZEnvelopStrategy.h; sourceTree = "<group>"; };
-		07F0EB7A1B8CD8BE00036AB2 /* ZZEnvelopStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZEnvelopStrategy.m; sourceTree = "<group>"; };
-		07F0EB7C1B8CD8BE00036AB2 /* ZZStrategyNavigationLeftRight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZStrategyNavigationLeftRight.h; sourceTree = "<group>"; };
-		07F0EB7D1B8CD8BE00036AB2 /* ZZStrategyNavigationLeftRight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZStrategyNavigationLeftRight.m; sourceTree = "<group>"; };
-		07F0EB801B8CD8BE00036AB2 /* ZZBaseTouchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZBaseTouchController.h; sourceTree = "<group>"; };
-		07F0EB811B8CD8BE00036AB2 /* ZZBaseTouchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZBaseTouchController.m; sourceTree = "<group>"; };
-		07F0EB831B8CD8BE00036AB2 /* ZZTouchControllerWithTouchDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZTouchControllerWithTouchDelay.h; sourceTree = "<group>"; };
-		07F0EB841B8CD8BE00036AB2 /* ZZTouchControllerWithTouchDelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZTouchControllerWithTouchDelay.m; sourceTree = "<group>"; };
-		07F0EB861B8CD8BE00036AB2 /* ZZTouchControllerWithoutDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZTouchControllerWithoutDelay.h; sourceTree = "<group>"; };
-		07F0EB871B8CD8BE00036AB2 /* ZZTouchControllerWithoutDelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZTouchControllerWithoutDelay.m; sourceTree = "<group>"; };
 		07F0EB911B8CD8BE00036AB2 /* ZZSecretScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenView.h; sourceTree = "<group>"; };
 		07F0EB921B8CD8BE00036AB2 /* ZZSecretScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretScreenView.m; sourceTree = "<group>"; };
 		07F0EB931B8CD8BE00036AB2 /* ZZSecretScreenViewSizes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenViewSizes.h; sourceTree = "<group>"; };
@@ -865,8 +867,6 @@
 		07F0EBA41B8CD8BE00036AB2 /* ZZSecretScreenVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenVC.h; sourceTree = "<group>"; };
 		07F0EBA51B8CD8BE00036AB2 /* ZZSecretScreenVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretScreenVC.m; sourceTree = "<group>"; };
 		07F0EBA61B8CD8BE00036AB2 /* ZZSecretScreenViewInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenViewInterface.h; sourceTree = "<group>"; };
-		07F0EBA81B8CD8BE00036AB2 /* ZZSecretScreenObserveTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenObserveTypes.h; sourceTree = "<group>"; };
-		07F0EBA91B8CD8BE00036AB2 /* ZZSecretScreenStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenStrategy.h; sourceTree = "<group>"; };
 		07F0EBAA1B8CD8BE00036AB2 /* ZZSecretScreenWireframe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenWireframe.h; sourceTree = "<group>"; };
 		07F0EBAB1B8CD8BE00036AB2 /* ZZSecretScreenWireframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretScreenWireframe.m; sourceTree = "<group>"; };
 		07F0EBB01B8CD8BE00036AB2 /* ZZGridInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridInteractor.h; sourceTree = "<group>"; };
@@ -2236,6 +2236,91 @@
 			name = TextEdit;
 			sourceTree = "<group>";
 		};
+		0797DC7D1B94D05E00420FD3 /* GraphicKeyObserver */ = {
+			isa = PBXGroup;
+			children = (
+				0797DC981B94D0BE00420FD3 /* ZZSecretScreenObserveTypes.h */,
+				0797DC991B94D0BE00420FD3 /* ZZSecretScreenStrategy.h */,
+				0797DC7E1B94D05E00420FD3 /* SecretScreenStrategies */,
+				0797DC881B94D05E00420FD3 /* TouchController */,
+			);
+			path = GraphicKeyObserver;
+			sourceTree = "<group>";
+		};
+		0797DC7E1B94D05E00420FD3 /* SecretScreenStrategies */ = {
+			isa = PBXGroup;
+			children = (
+				0797DC7F1B94D05E00420FD3 /* BaseStrategy */,
+				0797DC821B94D05E00420FD3 /* EnvelopStrategy */,
+				0797DC851B94D05E00420FD3 /* NavigationLeftRightStrategy */,
+			);
+			path = SecretScreenStrategies;
+			sourceTree = "<group>";
+		};
+		0797DC7F1B94D05E00420FD3 /* BaseStrategy */ = {
+			isa = PBXGroup;
+			children = (
+				0797DC801B94D05E00420FD3 /* ZZSecretBaseStrategy.h */,
+				0797DC811B94D05E00420FD3 /* ZZSecretBaseStrategy.m */,
+			);
+			path = BaseStrategy;
+			sourceTree = "<group>";
+		};
+		0797DC821B94D05E00420FD3 /* EnvelopStrategy */ = {
+			isa = PBXGroup;
+			children = (
+				0797DC831B94D05E00420FD3 /* ZZEnvelopStrategy.h */,
+				0797DC841B94D05E00420FD3 /* ZZEnvelopStrategy.m */,
+			);
+			path = EnvelopStrategy;
+			sourceTree = "<group>";
+		};
+		0797DC851B94D05E00420FD3 /* NavigationLeftRightStrategy */ = {
+			isa = PBXGroup;
+			children = (
+				0797DC861B94D05E00420FD3 /* ZZStrategyNavigationLeftRight.h */,
+				0797DC871B94D05E00420FD3 /* ZZStrategyNavigationLeftRight.m */,
+			);
+			path = NavigationLeftRightStrategy;
+			sourceTree = "<group>";
+		};
+		0797DC881B94D05E00420FD3 /* TouchController */ = {
+			isa = PBXGroup;
+			children = (
+				0797DC891B94D05E00420FD3 /* BaseTouchController */,
+				0797DC8C1B94D05E00420FD3 /* TouchControllerWithDelay */,
+				0797DC8F1B94D05E00420FD3 /* TouchControllerWithoutDelay */,
+			);
+			path = TouchController;
+			sourceTree = "<group>";
+		};
+		0797DC891B94D05E00420FD3 /* BaseTouchController */ = {
+			isa = PBXGroup;
+			children = (
+				0797DC8A1B94D05E00420FD3 /* ZZBaseTouchController.h */,
+				0797DC8B1B94D05E00420FD3 /* ZZBaseTouchController.m */,
+			);
+			path = BaseTouchController;
+			sourceTree = "<group>";
+		};
+		0797DC8C1B94D05E00420FD3 /* TouchControllerWithDelay */ = {
+			isa = PBXGroup;
+			children = (
+				0797DC8D1B94D05E00420FD3 /* ZZTouchControllerWithTouchDelay.h */,
+				0797DC8E1B94D05E00420FD3 /* ZZTouchControllerWithTouchDelay.m */,
+			);
+			path = TouchControllerWithDelay;
+			sourceTree = "<group>";
+		};
+		0797DC8F1B94D05E00420FD3 /* TouchControllerWithoutDelay */ = {
+			isa = PBXGroup;
+			children = (
+				0797DC901B94D05E00420FD3 /* ZZTouchControllerWithoutDelay.h */,
+				0797DC911B94D05E00420FD3 /* ZZTouchControllerWithoutDelay.m */,
+			);
+			path = TouchControllerWithoutDelay;
+			sourceTree = "<group>";
+		};
 		07F0E7E11B8CD7A900036AB2 /* tbm */ = {
 			isa = PBXGroup;
 			children = (
@@ -2726,6 +2811,7 @@
 		07F0EB101B8CD8BE00036AB2 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				0797DC7D1B94D05E00420FD3 /* GraphicKeyObserver */,
 				07F0EB111B8CD8BE00036AB2 /* AdressBookProvider */,
 				07F0EB141B8CD8BE00036AB2 /* Assemblies */,
 				07F0EB1B1B8CD8BE00036AB2 /* ColorTheme */,
@@ -3083,8 +3169,6 @@
 			isa = PBXGroup;
 			children = (
 				07F0EB711B8CD8BE00036AB2 /* Presenter */,
-				07F0EB741B8CD8BE00036AB2 /* SecretScreenStrategies */,
-				07F0EB7E1B8CD8BE00036AB2 /* TouchController */,
 				07F0EB881B8CD8BE00036AB2 /* View */,
 				07F0EBA71B8CD8BE00036AB2 /* Wireframe */,
 			);
@@ -3098,80 +3182,6 @@
 				07F0EB731B8CD8BE00036AB2 /* ZZSecretScreenPresenter.m */,
 			);
 			path = Presenter;
-			sourceTree = "<group>";
-		};
-		07F0EB741B8CD8BE00036AB2 /* SecretScreenStrategies */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EB751B8CD8BE00036AB2 /* BaseStrategy */,
-				07F0EB781B8CD8BE00036AB2 /* EnvelopStrategy */,
-				07F0EB7B1B8CD8BE00036AB2 /* NavigationLeftRightStrategy */,
-			);
-			path = SecretScreenStrategies;
-			sourceTree = "<group>";
-		};
-		07F0EB751B8CD8BE00036AB2 /* BaseStrategy */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EB761B8CD8BE00036AB2 /* ZZSecretBaseStrategy.h */,
-				07F0EB771B8CD8BE00036AB2 /* ZZSecretBaseStrategy.m */,
-			);
-			path = BaseStrategy;
-			sourceTree = "<group>";
-		};
-		07F0EB781B8CD8BE00036AB2 /* EnvelopStrategy */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EB791B8CD8BE00036AB2 /* ZZEnvelopStrategy.h */,
-				07F0EB7A1B8CD8BE00036AB2 /* ZZEnvelopStrategy.m */,
-			);
-			path = EnvelopStrategy;
-			sourceTree = "<group>";
-		};
-		07F0EB7B1B8CD8BE00036AB2 /* NavigationLeftRightStrategy */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EB7C1B8CD8BE00036AB2 /* ZZStrategyNavigationLeftRight.h */,
-				07F0EB7D1B8CD8BE00036AB2 /* ZZStrategyNavigationLeftRight.m */,
-			);
-			path = NavigationLeftRightStrategy;
-			sourceTree = "<group>";
-		};
-		07F0EB7E1B8CD8BE00036AB2 /* TouchController */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EB7F1B8CD8BE00036AB2 /* BaseTouchController */,
-				07F0EB821B8CD8BE00036AB2 /* TouchControllerWithDelay */,
-				07F0EB851B8CD8BE00036AB2 /* TouchControllerWithoutDelay */,
-			);
-			path = TouchController;
-			sourceTree = "<group>";
-		};
-		07F0EB7F1B8CD8BE00036AB2 /* BaseTouchController */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EB801B8CD8BE00036AB2 /* ZZBaseTouchController.h */,
-				07F0EB811B8CD8BE00036AB2 /* ZZBaseTouchController.m */,
-			);
-			path = BaseTouchController;
-			sourceTree = "<group>";
-		};
-		07F0EB821B8CD8BE00036AB2 /* TouchControllerWithDelay */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EB831B8CD8BE00036AB2 /* ZZTouchControllerWithTouchDelay.h */,
-				07F0EB841B8CD8BE00036AB2 /* ZZTouchControllerWithTouchDelay.m */,
-			);
-			path = TouchControllerWithDelay;
-			sourceTree = "<group>";
-		};
-		07F0EB851B8CD8BE00036AB2 /* TouchControllerWithoutDelay */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EB861B8CD8BE00036AB2 /* ZZTouchControllerWithoutDelay.h */,
-				07F0EB871B8CD8BE00036AB2 /* ZZTouchControllerWithoutDelay.m */,
-			);
-			path = TouchControllerWithoutDelay;
 			sourceTree = "<group>";
 		};
 		07F0EB881B8CD8BE00036AB2 /* View */ = {
@@ -3246,8 +3256,6 @@
 		07F0EBA71B8CD8BE00036AB2 /* Wireframe */ = {
 			isa = PBXGroup;
 			children = (
-				07F0EBA81B8CD8BE00036AB2 /* ZZSecretScreenObserveTypes.h */,
-				07F0EBA91B8CD8BE00036AB2 /* ZZSecretScreenStrategy.h */,
 				07F0EBAA1B8CD8BE00036AB2 /* ZZSecretScreenWireframe.h */,
 				07F0EBAB1B8CD8BE00036AB2 /* ZZSecretScreenWireframe.m */,
 			);
@@ -4349,7 +4357,6 @@
 				79B386F81B922F5900C25F69 /* ZZSecretSegmentCellViewModel.m in Sources */,
 				07F0ED0B1B8CD8BF00036AB2 /* UIImage+TOWebViewControllerIcons.m in Sources */,
 				0730416F1B921CEB00980373 /* TBMEarpieceUsageHintView.m in Sources */,
-				07F0ECBF1B8CD8BF00036AB2 /* ZZStrategyNavigationLeftRight.m in Sources */,
 				0730414C1B921CEB00980373 /* AVAudioSession+TBMAudioSession.m in Sources */,
 				07F0EC8D1B8CD8BF00036AB2 /* ZZUserDomainModel.m in Sources */,
 				073041591B921CEB00980373 /* TBMKeyChainWrapper.m in Sources */,
@@ -4371,6 +4378,7 @@
 				073041681B921CEB00980373 /* TBMFeatureUnlockModulePresenter.m in Sources */,
 				07F0ECDB1B8CD8BF00036AB2 /* ZZMenuInteractor.m in Sources */,
 				073041A71B921CEB00980373 /* TBMRegisterViewController.m in Sources */,
+				0797DC921B94D05E00420FD3 /* ZZSecretBaseStrategy.m in Sources */,
 				07F0EC8A1B8CD8BF00036AB2 /* ZZGridDomainModel.m in Sources */,
 				07F0ECB21B8CD8BF00036AB2 /* ZZAuthInteractor.m in Sources */,
 				073041951B921CEB00980373 /* TBMDispatch.m in Sources */,
@@ -4386,6 +4394,7 @@
 				07F0ECCF1B8CD8BF00036AB2 /* ZZGridPresenter.m in Sources */,
 				0730415C1B921CEB00980373 /* TBMStringUtils.m in Sources */,
 				073041941B921CEB00980373 /* TBMStateScreenViewController.m in Sources */,
+				0797DC931B94D05E00420FD3 /* ZZEnvelopStrategy.m in Sources */,
 				07F0ECBA1B8CD8BF00036AB2 /* ANDebugVC.m in Sources */,
 				07F0ECA41B8CD8BF00036AB2 /* ZZAddressBookDataProvider.m in Sources */,
 				07F0ED091B8CD8BF00036AB2 /* TOActivitySafari.m in Sources */,
@@ -4406,14 +4415,15 @@
 				07F0ECFE1B8CD8BF00036AB2 /* ANNetworkActivityManager.m in Sources */,
 				07F0EC8F1B8CD8BF00036AB2 /* ZZAccountTransport.m in Sources */,
 				073041921B921CEB00980373 /* TBMStateScreenTableCell.m in Sources */,
+				0797DC941B94D05E00420FD3 /* ZZStrategyNavigationLeftRight.m in Sources */,
 				07F0EC911B8CD8BF00036AB2 /* ZZCommonNetworkTransport.m in Sources */,
 				073041641B921CEB00980373 /* TBMHintView.m in Sources */,
 				07F0EC811B8CD8BF00036AB2 /* ZZFriendModelsMapper.m in Sources */,
+				0797DC961B94D05E00420FD3 /* ZZTouchControllerWithTouchDelay.m in Sources */,
 				79B386D71B906A8700C25F69 /* ZZSecretDataSource.m in Sources */,
 				07243C8A1B8DDFDB008E4203 /* ZZDebugStateWireframe.m in Sources */,
 				0730414E1B921CEB00980373 /* NSArray+TBMArrayHelpers.m in Sources */,
 				79B386D81B906A8700C25F69 /* ZZSecretPresenter.m in Sources */,
-				07F0ECC21B8CD8BF00036AB2 /* ZZTouchControllerWithoutDelay.m in Sources */,
 				07F0ED011B8CD8BF00036AB2 /* ANEnumAdditions.m in Sources */,
 				073041601B921CEB00980373 /* TBMVideoRecorder.m in Sources */,
 				07F0ECEE1B8CD8BF00036AB2 /* ANCrashlyticsAdapter.m in Sources */,
@@ -4479,7 +4489,6 @@
 				07F0EC7C1B8CD8BF00036AB2 /* ZZRootWireframe.m in Sources */,
 				073041481B921CEB00980373 /* TBMAppDelegate+AppSync.m in Sources */,
 				79B386D61B906A8700C25F69 /* ZZSecretInteractor.m in Sources */,
-				07F0ECC01B8CD8BF00036AB2 /* ZZBaseTouchController.m in Sources */,
 				0730418C1B921CEB00980373 /* TBMFriendVideosInformation.m in Sources */,
 				07F0ECE41B8CD8BF00036AB2 /* ANActivityIndicator.m in Sources */,
 				07F0ECB71B8CD8BF00036AB2 /* ZZAuthVC.m in Sources */,
@@ -4489,7 +4498,6 @@
 				07F0ECD61B8CD8BF00036AB2 /* ZZGridView.m in Sources */,
 				073041651B921CEB00980373 /* TBMEventsFlowDataSource.m in Sources */,
 				073041671B921CEB00980373 /* TBMFeatureUnlockDataSource.m in Sources */,
-				07F0ECBE1B8CD8BF00036AB2 /* ZZEnvelopStrategy.m in Sources */,
 				07F0ED0F1B8CD8BF00036AB2 /* UIImage+PDF.m in Sources */,
 				07F0EC771B8CD8BF00036AB2 /* ZZAppDelegate.m in Sources */,
 				07F0ECE71B8CD8BF00036AB2 /* ANBaseVC.m in Sources */,
@@ -4498,6 +4506,7 @@
 				073041A81B921CEB00980373 /* TBMSelectPhoneTableDelegate.m in Sources */,
 				07F0ECD31B8CD8BF00036AB2 /* ZZGridCollectionCell.m in Sources */,
 				07F0ECA81B8CD8BF00036AB2 /* ZZConfig.m in Sources */,
+				0797DC951B94D05E00420FD3 /* ZZBaseTouchController.m in Sources */,
 				0730418D1B921CEB00980373 /* TBMStateDataSource.m in Sources */,
 				073041521B921CEB00980373 /* UIButton+TBMRoundedButton.m in Sources */,
 				07243CCE1B8F6433008E4203 /* ZZDebugStateCell.m in Sources */,
@@ -4511,14 +4520,12 @@
 				07F0EC9E1B8CD8BF00036AB2 /* _TBMFriend.m in Sources */,
 				0730417A1B921CEB00980373 /* TBMRecordWelcomeHintPresenter.m in Sources */,
 				0730416B1B921CEB00980373 /* TBMAbortRecordUsageHintView.m in Sources */,
-				07F0ECC11B8CD8BF00036AB2 /* ZZTouchControllerWithTouchDelay.m in Sources */,
 				073041991B921CEB00980373 /* TBMS3CredentialsManager.m in Sources */,
 				07F0ED201B8CE71000036AB2 /* TBMFriend.m in Sources */,
 				07F0ECDA1B8CD8BF00036AB2 /* ZZGridWireframe.m in Sources */,
 				07F0EC821B8CD8BF00036AB2 /* ZZGridDataProvider.m in Sources */,
 				073041621B921CEB00980373 /* TBMEventHandlerPresenter.m in Sources */,
 				07243CC01B8E1333008E4203 /* ZZEditFriendListVC.m in Sources */,
-				07F0ECBD1B8CD8BF00036AB2 /* ZZSecretBaseStrategy.m in Sources */,
 				07F0EC921B8CD8BF00036AB2 /* ZZCommonNetworkTransportService.m in Sources */,
 				073041A51B921CEB00980373 /* TBMPreviewView.m in Sources */,
 				07F0ECBC1B8CD8BF00036AB2 /* ZZSecretScreenPresenter.m in Sources */,
@@ -4552,6 +4559,7 @@
 				073041711B921CEB00980373 /* TBMFrontCameraUsageHintView.m in Sources */,
 				79B386EF1B90743000C25F69 /* ZZSecretSwitchCellViewModel.m in Sources */,
 				07F0ECB01B8CD8BF00036AB2 /* ZZVideoRecorder.m in Sources */,
+				0797DC971B94D05E00420FD3 /* ZZTouchControllerWithoutDelay.m in Sources */,
 				073041701B921CEB00980373 /* TBMFrontCameraUsageHintPresenter.m in Sources */,
 				0730415E1B921CEB00980373 /* TBMVideoPlayer.m in Sources */,
 				07F0ECA71B8CD8BF00036AB2 /* ZZColorTheme.m in Sources */,
