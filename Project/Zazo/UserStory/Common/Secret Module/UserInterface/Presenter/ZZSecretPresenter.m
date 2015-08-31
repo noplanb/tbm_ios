@@ -8,9 +8,8 @@
 
 #import "ZZSecretPresenter.h"
 #import "ZZSecretDataSource.h"
-#import "ZZSettingsViewModel.h"
 
-@interface ZZSecretPresenter () <ZZSecretDataSourceDelegate>
+@interface ZZSecretPresenter ()<ZZSecretDataSourceDelegate>
 
 @property (nonatomic, strong) ZZSecretDataSource* tableDataSource;
 
@@ -41,11 +40,14 @@
 
 - (void)dataLoaded:(ZZSettingsModel *)model;
 {
-    ZZSettingsViewModel *settingsViewModel = [ZZSettingsViewModel new];
-    settingsViewModel.item = model;
-    
-    [self.tableDataSource setupStorageWithViewModel:settingsViewModel];
+    [self.tableDataSource setupStorageWithViewModel:model];
 }
+
+- (void)serverEndpointValueUpdatedTo:(NSString *)value
+{
+    [self.tableDataSource updateServerCustomURLValue:value];
+}
+
 
 #pragma mark - Module Interface
 
@@ -56,15 +58,82 @@
 
 #pragma mark - ZZSecretDataSourceDelegate
 
-- (void)buttonSelectedWithType:(ZZSecretButtonCellType)type
+- (void)actionWithType:(ZZSecrectScreenActionsType)type
 {
-    [self.interactor buttonSelectedWithType:type];
+    //TODO: show message that action done
+    switch (type)
+    {
+        case ZZSecrectScreenActionsTypeResetTutorialHints:
+        {
+            [self.interactor resetHints];
+        } break;
+        case ZZSecrectScreenActionsTypeFeatureOptions:
+        {
+//            [self.interactor featu]
+        } break;
+        case ZZSecrectScreenActionsTypeDispatchMessage:
+        {
+            [self.interactor dispatchData];
+        } break;
+        case ZZSecrectScreenActionsTypeClearUserData:
+        {
+            [self.interactor removeAllUserData];
+        } break;
+        case ZZSecrectScreenActionsTypeDeleteAllDanglingFiles:
+        {
+            [self.interactor removeAllDanglingFiles];
+        } break;
+        case ZZSecrectScreenActionsTypeCrashApplication:
+        {
+            [self.interactor forceCrash];
+        } break;
+        default: break;
+    }
 }
 
-- (void)switchValueChangedForType:(ZZSecretSwitchCellType)type
+- (void)updateUseRearCameraValueTo:(BOOL)isEnabled
 {
-    [self.interactor changeValueForType:type];
+//	[self.interactor upda]
 }
 
+- (void)updateShouldSendBrokenVideoValueTo:(BOOL)isEnabled
+{
+	//TODO:
+}
+
+- (void)updateDebugModeValueTo:(BOOL)isEnabled
+{
+    [self.interactor updateDebugStateTo:isEnabled];
+}
+
+- (void)updateShouldForceSMSValueTo:(BOOL)isEnabled
+{
+	//TODO:
+}
+
+- (void)updateShouldForceCallValueTo:(BOOL)isEnabled
+{
+	//TODO:
+}
+
+- (void)updateEnabledAllFeaturesValueTo:(BOOL)isEnabled
+{
+	//TODO:
+}
+
+- (void)updateShouldUseSDKToLoggingTypeValueTo:(BOOL)value
+{
+    [self.interactor updateShouldUserSDKForLogging:value];
+}
+
+- (void)updateServerEndpointTypeValueTo:(NSInteger)value
+{
+    [self.interactor updateServerStateTo:value];
+}
+
+- (void)updateCustomServerURLValueTo:(NSString*)value
+{
+    [self.interactor updateCustomServerEnpointValueTo:value];
+}
 
 @end

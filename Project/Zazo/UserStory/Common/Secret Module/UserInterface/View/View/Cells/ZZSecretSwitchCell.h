@@ -6,11 +6,9 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZBaseSecretCell.h"
+#import "ZZSecretValueCell.h"
 #import "ZZSecretSwitchCellViewModel.h"
 
-@interface ZZSecretSwitchCell : ZZBaseSecretCell <ANModelTransfer>
-
-@property (nonatomic, strong) UISwitch* switchControl;
+@interface ZZSecretSwitchCell : ANTableViewCell
 
 @end

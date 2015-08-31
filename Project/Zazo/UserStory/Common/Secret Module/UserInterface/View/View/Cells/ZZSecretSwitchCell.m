@@ -14,6 +14,7 @@ static NSInteger const kDefaultSwitchHeight = 31;
 @interface ZZSecretSwitchCell ()
 
 @property (nonatomic, strong) ZZSecretSwitchCellViewModel* currentModel;
+@property (nonatomic, strong) UISwitch* switchControl;
 
 @end
 
@@ -24,26 +25,26 @@ static NSInteger const kDefaultSwitchHeight = 31;
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self)
     {
-        [self switchControl];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
 
-- (void)updateWithModel:(ZZSecretSwitchCellViewModel *)model
+- (void)updateWithModel:(ZZSecretSwitchCellViewModel*)model
 {
-    self.currentModel = model;
+    self.textLabel.text = model.title;
     self.switchControl.on = model.switchState;
-    self.titleLabel.text = model.title;
+    self.currentModel = model;
 }
+
 
 #pragma mark - Actions
 
 - (void)switchChanged
 {
-    self.currentModel.switchState = !self.currentModel.switchState;
     [self.currentModel switchValueChanged];
 }
+
 
 #pragma mark - Lazy Load
 

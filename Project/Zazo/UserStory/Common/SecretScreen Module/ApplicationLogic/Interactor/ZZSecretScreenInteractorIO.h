@@ -14,6 +14,7 @@
 - (void)forceCrash;
 - (void)dispatchData;
 - (void)resetHints;
+
 - (void)updateServerStateTo:(NSInteger)state;
 - (void)updateDebugStateTo:(BOOL)isEnabled;
 - (void)updateCustomServerEnpointValueTo:(NSString *)value;

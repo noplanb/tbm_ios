@@ -9,9 +9,8 @@
 #import "ZZSecretVC.h"
 #import "ANTableContainerView.h"
 #import "ZZSecretController.h"
-#import "ZZSecretDataSource.h"
 
-@interface ZZSecretVC () <ZZSecretControllerDelegate>
+@interface ZZSecretVC ()
 
 @property (nonatomic, strong) ANTableContainerView* contentView;
 @property (nonatomic, strong) ZZSecretController* controller;
@@ -27,7 +26,6 @@
     {
         self.contentView = [ANTableContainerView containerWithTableViewStyle:UITableViewStyleGrouped];
         self.controller = [[ZZSecretController alloc] initWithTableView:self.contentView.tableView];
-        self.controller.delegate = self;
     }
     return self;
 }
@@ -55,13 +53,6 @@
 - (void)updateDataSource:(ZZSecretDataSource *)dataSource
 {
     [self.controller updateDataSource:dataSource];
-}
-
-#pragma mark - CDTableController Delegate
-
-- (void)itemSelectedWithModel:(id)model
-{
-    
 }
 
 @end

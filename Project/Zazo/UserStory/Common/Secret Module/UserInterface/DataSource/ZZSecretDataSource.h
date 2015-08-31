@@ -6,24 +6,54 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import "ZZSecretEnums.h"
+#import "ZZSecretSwitchCell.h"
+#import "ZZSecretSegmentCell.h"
+#import "ZZSecretScreenTextEditCell.h"
 
 @class ANMemoryStorage;
-@class ZZSettingsViewModel;
+@class ZZSettingsModel;
 
 typedef NS_ENUM(NSInteger, ZZSecretSection)
 {
-    ZZSecretSectionGeneral,
+    ZZSecretSectionUserInfo,
     ZZSecretSectionDebugOptions,
-    ZZSecretSectionCustomization,
-    ZZSecretSectionRegistrationOptions,
-    ZZSecretSectionTutorial
+    ZZSecretSectionCustomAppModes,
+    ZZSecretSectionTutorial,
+    ZZSecretSectionServerOptions,
+    ZZSecretSectionLoggingOptions,
+    ZZSecretSectionResetData
+};
+
+typedef NS_ENUM(NSInteger, ZZSecrectScreenActionsType)
+{
+    
+    ZZSecrectScreenActionsTypeResetTutorialHints,
+    ZZSecrectScreenActionsTypeFeatureOptions,
+    
+    ZZSecrectScreenActionsTypeDispatchMessage,
+    
+    ZZSecrectScreenActionsTypeClearUserData,
+    ZZSecrectScreenActionsTypeDeleteAllDanglingFiles,
+    ZZSecrectScreenActionsTypeCrashApplication
 };
 
 @protocol ZZSecretDataSourceDelegate <NSObject>
 
-- (void)buttonSelectedWithType:(ZZSecretButtonCellType)type;
-- (void)switchValueChangedForType:(ZZSecretSwitchCellType)type;
+- (void)actionWithType:(ZZSecrectScreenActionsType)type;
+
+- (void)updateUseRearCameraValueTo:(BOOL)isEnabled;
+- (void)updateShouldSendBrokenVideoValueTo:(BOOL)isEnabled;
+- (void)updateDebugModeValueTo:(BOOL)isEnabled;
+- (void)updateShouldForceSMSValueTo:(BOOL)isEnabled;
+- (void)updateShouldForceCallValueTo:(BOOL)isEnabled;
+
+- (void)updateEnabledAllFeaturesValueTo:(BOOL)isEnabled;
+
+- (void)updateShouldUseSDKToLoggingTypeValueTo:(BOOL)value;
+
+- (void)updateServerEndpointTypeValueTo:(NSInteger)value;
+- (void)updateCustomServerURLValueTo:(NSString*)value;
+
 
 @end
 
@@ -32,6 +62,9 @@ typedef NS_ENUM(NSInteger, ZZSecretSection)
 @property (nonatomic, strong) ANMemoryStorage* storage;
 @property (nonatomic, weak) id<ZZSecretDataSourceDelegate> delegate;
 
-- (void)setupStorageWithViewModel:(ZZSettingsViewModel *)model;
+- (void)setupStorageWithViewModel:(ZZSettingsModel*)model;
+- (void)updateServerCustomURLValue:(NSString*)value;
+
+- (void)itemSelectedAtIndexPath:(NSIndexPath*)indexPath;
 
 @end

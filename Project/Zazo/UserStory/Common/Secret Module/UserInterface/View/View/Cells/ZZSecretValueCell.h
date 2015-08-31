@@ -7,9 +7,8 @@
 //
 
 #import "ANTableViewCell.h"
+#import "ZZSecretValueCellViewModel.h"
 
-@interface ZZBaseSecretCell : ANTableViewCell
-
-@property (nonatomic, strong) UILabel* titleLabel;
+@interface ZZSecretValueCell : ANTableViewCell
 
 @end
