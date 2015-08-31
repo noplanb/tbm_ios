@@ -49,7 +49,7 @@
 
 - (void)dismissSecretController
 {
-    [self.presentedController popViewControllerAnimated:self.secretController];
+    [self.presentedController popViewControllerAnimated:YES];
 }
 
 
