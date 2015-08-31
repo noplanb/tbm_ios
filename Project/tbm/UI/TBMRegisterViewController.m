@@ -40,8 +40,10 @@
 
 @implementation TBMRegisterViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
+
     [_registerForm stopWaitingForServer];
     self.registerForm = [[TBMRegisterForm alloc] initWithView:self.view delegate:self];
     self.registerForm.controller = self;
@@ -49,18 +51,10 @@
     self.view.backgroundColor = [TBMConfig registrationBackGroundColor];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+#pragma mark - Submit reg form
+
+- (void)didClickSubmit
 {
-    [super viewWillAppear:animated];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-
-#pragma mark Submit reg form
-- (void) didClickSubmit{
     [self getInput];
     [self putInput];
     if (![self isValidInput])

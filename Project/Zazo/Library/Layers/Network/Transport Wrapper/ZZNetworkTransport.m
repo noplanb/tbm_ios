@@ -8,6 +8,8 @@
 
 #import "ZZNetworkTransport.h"
 #import "ANErrorBuilder.h"
+#import "TBMUser.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @implementation ZZNetworkTransport
 
@@ -20,6 +22,16 @@
 #ifdef STAGESERVER
         [self setBaseURL:ZZApiBaseURLsList.staging andAPIVersion:@""];
 #endif
+        //TODO:
+        TBMUser *u = [TBMUser getUser];
+        NSURLCredential* credentials;
+        if (u != nil)
+        {
+            credentials = [[NSURLCredential alloc] initWithUser:u.mkey
+                                                      password:u.auth
+                                                   persistence:NSURLCredentialPersistenceForSession];
+        }
+        self.session.credential = credentials;
     }
     return self;
 }
