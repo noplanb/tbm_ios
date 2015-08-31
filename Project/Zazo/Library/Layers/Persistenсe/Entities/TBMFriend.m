@@ -19,7 +19,7 @@
 
 @implementation TBMFriend
 
-static NSMutableArray * videoStatusNotificationDelegates;
+static NSMutableArray *videoStatusNotificationDelegates;
 
 //==============
 // Class methods
@@ -123,13 +123,8 @@ static NSMutableArray * videoStatusNotificationDelegates;
 
 + (NSUInteger)everSentNonInviteeFriendsCount
 {
-    NSPredicate *everSent = [NSPredicate predicateWithFormat:@"everSent = %@", @(YES)];
-    NSPredicate *creator = [NSPredicate predicateWithFormat:@"isConnectionCreator = %@", @(YES)];
-    NSCompoundPredicate *filter = [NSCompoundPredicate andPredicateWithSubpredicates:@[everSent, creator]];
-    NSFetchRequest *request = [TBMFriend fetchRequest];
-    [request setPredicate:filter];
-    NSError *error;
-    NSArray *result = [[TBMFriend managedObjectContext] executeFetchRequest:request error:&error];
+
+    NSArray *result = [self _allEverSentFriends];
     return [result count];
 }
 
@@ -161,7 +156,8 @@ static NSMutableArray * videoStatusNotificationDelegates;
         if (f != nil)
         {
             // OB_INFO(@"createWithServerParams: friend already exists.");
-            if ([f.hasApp boolValue] ^ servHasApp){
+            if ([f.hasApp boolValue] ^ servHasApp)
+            {
                 OB_INFO(@"createWithServerParams: Friend exists updating hasApp only since it is different.");
                 f.hasApp = @(servHasApp);
                 [f notifyVideoStatusChange];
@@ -309,8 +305,10 @@ static NSMutableArray * videoStatusNotificationDelegates;
     return false;
 }
 
-- (BOOL) hasDownloadingVideo{
-    for (TBMVideo *v in [self incomingVideos]){
+- (BOOL)hasDownloadingVideo
+{
+    for (TBMVideo *v in [self incomingVideos])
+    {
         if (v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADING)
             return YES;
     }
@@ -351,7 +349,8 @@ static NSMutableArray * videoStatusNotificationDelegates;
 {
     OB_INFO(@"deleteAllViewedVideos");
     NSArray *all = [self sortedIncomingVideos];
-    for (TBMVideo * v in all){
+    for (TBMVideo *v in all)
+    {
         if (v.statusValue == INCOMING_VIDEO_STATUS_VIEWED || v.statusValue == INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY)
             [self deleteVideo:v];
     }
@@ -392,8 +391,10 @@ static NSMutableArray * videoStatusNotificationDelegates;
 - (TBMVideo *)firstUnviewedVideo
 {
     TBMVideo *video = nil;
-    for (TBMVideo *v in [self sortedIncomingVideos]){
-        if (v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADED && [v videoFileExists]){
+    for (TBMVideo *v in [self sortedIncomingVideos])
+    {
+        if (v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADED && [v videoFileExists])
+        {
             video = v;
             break;
         }
@@ -404,15 +405,18 @@ static NSMutableArray * videoStatusNotificationDelegates;
 - (TBMVideo *)nextUnviewedVideoAfterVideoId:(NSString *)videoId
 {
     DebugLog(@"nextUnviewedVideoAfterVideoId");
-    for (TBMVideo *v in [self sortedIncomingVideos]){
+    for (TBMVideo *v in [self sortedIncomingVideos])
+    {
         if ([TBMVideoIdUtils isvid1:v.videoId newerThanVid2:videoId] && [v videoFileExists] && v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADED)
             return v;
     }
     return nil;
 }
 
-- (void)printVideos{
-    for (TBMVideo *v in [self sortedIncomingVideos]) {
+- (void)printVideos
+{
+    for (TBMVideo *v in [self sortedIncomingVideos])
+    {
         DebugLog(@"Video id:%@ status:%d file_exists:%d", v.videoId, v.statusValue, [v videoFileExists]);
     }
 
@@ -426,7 +430,8 @@ static NSMutableArray * videoStatusNotificationDelegates;
 - (NSInteger)unviewedCount
 {
     NSInteger i = 0;
-    for (TBMVideo *v in [self sortedIncomingVideos]){
+    for (TBMVideo *v in [self sortedIncomingVideos])
+    {
         if (v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADED)
             i++;
     }
@@ -575,9 +580,9 @@ static NSMutableArray * videoStatusNotificationDelegates;
 {
     for (TBMFriend *friend in [self all])
     {
-        friend.everSent = @(friend.outgoingVideoStatus > OUTGOING_VIDEO_STATUS_NONE);
-        [[friend managedObjectContext] save:nil];
+        friend.everSent = @([friend.outgoingVideoStatus integerValue] > OUTGOING_VIDEO_STATUS_NONE);
         friend.isConnectionCreator = @(YES);
+        [[friend managedObjectContext] save:nil];
     }
 }
 
@@ -590,8 +595,10 @@ static NSMutableArray * videoStatusNotificationDelegates;
     }
 }
 
-- (NSString *)videoStatusString{
-    if (self.lastVideoStatusEventTypeValue == OUTGOING_VIDEO_STATUS_EVENT_TYPE) {
+- (NSString *)videoStatusString
+{
+    if (self.lastVideoStatusEventTypeValue == OUTGOING_VIDEO_STATUS_EVENT_TYPE)
+    {
         return [self outgoingVideoStatusString];
     } else
     {
@@ -604,15 +611,18 @@ static NSMutableArray * videoStatusNotificationDelegates;
     TBMVideo *v = [self newestIncomingVideo];
     if (v == NULL)
         return [self displayName];
-    
-    if (v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADING){
-        if ([v.downloadRetryCount intValue] == 0){
+
+    if (v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADING)
+    {
+        if ([v.downloadRetryCount intValue] == 0)
+        {
             return @"Downloading...";
         } else
         {
             return [NSString stringWithFormat:@"Dwnld r%@", v.downloadRetryCount];
         }
-    } else if (v.statusValue == INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY){
+    } else if (v.statusValue == INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY)
+    {
         return @"Downloading e!";
     } else
     {
@@ -623,7 +633,8 @@ static NSMutableArray * videoStatusNotificationDelegates;
 - (NSString *)outgoingVideoStatusString
 {
     NSString *statusString;
-    switch (self.outgoingVideoStatusValue) {
+    switch (self.outgoingVideoStatusValue)
+    {
         case OUTGOING_VIDEO_STATUS_NEW:
             statusString = @"q...";
             break;
@@ -651,7 +662,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
         default:
             statusString = nil;
     }
-    
+
     NSString *fn = (statusString == nil || self.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED) ? [self displayName] : [self shortFirstName];
     return [NSString stringWithFormat:@"%@ %@", fn, statusString];
 }
@@ -671,26 +682,29 @@ static NSMutableArray * videoStatusNotificationDelegates;
         OB_WARN(@"setAndNotifyOutgoingVideoStatus: Unrecognized vidoeId:%@. != ougtoingVid:%@. friendId:%@ Ignoring.", videoId, self.outgoingVideoId, self.idTbm);
         return;
     }
-    
-    if (status == self.outgoingVideoStatusValue){
+
+    if (status == self.outgoingVideoStatusValue)
+    {
         OB_WARN(@"setAndNotifyOutgoingVideoStatusWithVideo: Identical status. Ignoring.");
         return;
     }
-    
+
     self.lastVideoStatusEventTypeValue = OUTGOING_VIDEO_STATUS_EVENT_TYPE;
     self.outgoingVideoStatusValue = status;
     [self notifyVideoStatusChangeOnMainThread];
 }
 
-- (void)setAndNotifyIncomingVideoStatus:(TBMIncomingVideoStatus)status video:(TBMVideo *)video{
-    if (video.statusValue == status){
+- (void)setAndNotifyIncomingVideoStatus:(TBMIncomingVideoStatus)status video:(TBMVideo *)video
+{
+    if (video.statusValue == status)
+    {
         OB_WARN(@"setAndNotifyIncomingVideoStatusWithVideo: Identical status. Ignoring.");
         return;
     }
-    
+
     video.statusValue = status;
     self.lastIncomingVideoStatusValue = status;
-    
+
     // Serhii says: We want to preserve previous status if last event type is incoming and status is VIEWED
     // Sani complicates it by saying: This is a bit subtle. We don't want an action by this user of
     // viewing his incoming video to count
@@ -797,13 +811,16 @@ static NSMutableArray * videoStatusNotificationDelegates;
     return NO;
 }
 
-- (NSString *)OVStatusName {
+- (NSString *)OVStatusName
+{
     return [TBMFriend nameForOVStatus:self.outgoingVideoStatusValue];
 }
 
-+ (NSString *)nameForOVStatus:(TBMOutgoingVideoStatus)status {
++ (NSString *)nameForOVStatus:(TBMOutgoingVideoStatus)status
+{
     NSString *s = @"UNKNOWN";
-    switch (status) {
+    switch (status)
+    {
         case OUTGOING_VIDEO_STATUS_NONE:
             s = @"NONE";
             break;
@@ -830,6 +847,40 @@ static NSMutableArray * videoStatusNotificationDelegates;
             break;
     }
     return s;
+}
+
++ (NSArray *)everSentMkeys
+{
+    NSMutableArray *result = [NSMutableArray array];
+    for (TBMFriend *friend in [self _allEverSentFriends])
+    {
+        [result addObject:friend.mkey];
+    }
+    return result;
+}
+
++ (void)setEverSentForMkeys:(NSArray *)mkeys
+{
+    [mkeys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
+    {
+        TBMFriend *aFriend = [self findWithMkey:obj];
+        aFriend.everSent = @(YES);
+        aFriend.isConnectionCreator = @(YES);
+        [[aFriend managedObjectContext] save:nil];
+    }];
+}
+
+#pragma mark Private
+
++ (NSArray *)_allEverSentFriends
+{
+    NSPredicate *everSent = [NSPredicate predicateWithFormat:@"everSent = %@", @(YES)];
+    NSPredicate *creator = [NSPredicate predicateWithFormat:@"isConnectionCreator = %@", @(YES)];
+    NSCompoundPredicate *filter = [NSCompoundPredicate andPredicateWithSubpredicates:@[everSent, creator]];
+    NSFetchRequest *request = [TBMFriend fetchRequest];
+    [request setPredicate:filter];
+    NSError *error;
+    return [[TBMFriend managedObjectContext] executeFetchRequest:request error:&error];
 }
 
 @end
