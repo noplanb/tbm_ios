@@ -6,18 +6,19 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZSecretEnums.h"
+#import "ZZSecretValueCellViewModel.h"
+
+@class ZZSecretSwitchCellViewModel;
 
 @protocol ZZSecretSwitchCellViewModelDelegate <NSObject>
 
-- (void)switchValueChangedForType:(ZZSecretSwitchCellType)type;
+- (void)viewModel:(ZZSecretSwitchCellViewModel*)viewModel updatedSwitchValueTo:(BOOL)isEnabled;
 
 @end
 
 @interface ZZSecretSwitchCellViewModel : NSObject
 
 @property (nonatomic, weak) id<ZZSecretSwitchCellViewModelDelegate> delegate;
-@property (nonatomic, assign) ZZSecretSwitchCellType type;
 @property (nonatomic, strong) NSString* title;
 @property (nonatomic, assign) BOOL switchState;
 

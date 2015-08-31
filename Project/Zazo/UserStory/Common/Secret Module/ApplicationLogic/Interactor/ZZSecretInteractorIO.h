@@ -6,21 +6,32 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import "ZZSecretEnums.h"
 @class ZZSettingsModel;
-
 
 @protocol ZZSecretInteractorInput <NSObject>
 
 - (void)loadData;
-- (void)changeValueForType:(ZZSecretSwitchCellType)type;
-- (void)buttonSelectedWithType:(ZZSecretButtonCellType)type;
+
+- (void)forceCrash;
+- (void)dispatchData;
+- (void)resetHints;
+- (void)removeAllUserData;
+- (void)removeAllDanglingFiles;
+
+- (void)updateDebugStateTo:(BOOL)isEnabled;
+- (void)updateShouldForceSMSStateTo:(BOOL)isEnabled;
+- (void)updateShouldForceCallStateTo:(BOOL)isEnabled;
+- (void)updateShouldUserSDKForLogging:(BOOL)isEnabled;
+
+- (void)updateServerStateTo:(NSInteger)state;
+- (void)updateCustomServerEnpointValueTo:(NSString *)value;
 
 @end
 
 
 @protocol ZZSecretInteractorOutput <NSObject>
 
-- (void)dataLoaded:(ZZSettingsModel *)model;
+- (void)dataLoaded:(ZZSettingsModel*)model;
+- (void)serverEndpointValueUpdatedTo:(NSString*)value;
 
 @end

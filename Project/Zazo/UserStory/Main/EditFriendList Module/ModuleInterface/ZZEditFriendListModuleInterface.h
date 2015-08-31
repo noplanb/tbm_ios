@@ -8,6 +8,6 @@
 
 @protocol ZZEditFriendListModuleInterface <NSObject>
 
-- (void)backSelected;
+- (void)dismissController;
 
 @end

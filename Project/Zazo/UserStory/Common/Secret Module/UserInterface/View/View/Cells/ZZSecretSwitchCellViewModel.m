@@ -12,7 +12,8 @@
 
 - (void)switchValueChanged
 {
-    [self.delegate switchValueChangedForType:self.type];
+    self.switchState = !self.switchState;
+    [self.delegate viewModel:self updatedSwitchValueTo:self.switchState];
 }
 
 @end

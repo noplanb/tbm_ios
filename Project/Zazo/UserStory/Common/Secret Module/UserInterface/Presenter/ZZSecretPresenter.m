@@ -8,9 +8,8 @@
 
 #import "ZZSecretPresenter.h"
 #import "ZZSecretDataSource.h"
-#import "ZZSettingsViewModel.h"
 
-@interface ZZSecretPresenter () <ZZSecretDataSourceDelegate>
+@interface ZZSecretPresenter ()<ZZSecretDataSourceDelegate>
 
 @property (nonatomic, strong) ZZSecretDataSource* tableDataSource;
 
@@ -41,30 +40,102 @@
 
 - (void)dataLoaded:(ZZSettingsModel *)model;
 {
-    ZZSettingsViewModel *settingsViewModel = [ZZSettingsViewModel new];
-    settingsViewModel.item = model;
-    
-    [self.tableDataSource setupStorageWithViewModel:settingsViewModel];
+    [self.tableDataSource setupStorageWithViewModel:model];
+}
+
+- (void)serverEndpointValueUpdatedTo:(NSString *)value
+{
+    [self.tableDataSource updateServerCustomURLValue:value];
 }
 
 #pragma mark - Module Interface
 
-- (void)backSelected
+- (void)dismissController
 {
     [self.wireframe dismissSecretController];
 }
 
 #pragma mark - ZZSecretDataSourceDelegate
 
-- (void)buttonSelectedWithType:(ZZSecretButtonCellType)type
+- (void)actionWithType:(ZZSecrectScreenActionsType)type
 {
-    [self.interactor buttonSelectedWithType:type];
+    //TODO: show message that action done
+    switch (type)
+    {
+        case ZZSecrectScreenActionsTypeResetTutorialHints:
+        {
+            [self.interactor resetHints];
+        } break;
+        case ZZSecrectScreenActionsTypeFeatureOptions:
+        {
+//            [self.interactor featu] // TODO: check Maxim code
+        } break;
+        case ZZSecrectScreenActionsTypeDispatchMessage:
+        {
+            [self.interactor dispatchData];
+        } break;
+        case ZZSecrectScreenActionsTypeClearUserData:
+        {
+            [self.interactor removeAllUserData];
+        } break;
+        case ZZSecrectScreenActionsTypeDeleteAllDanglingFiles:
+        {
+            [self.interactor removeAllDanglingFiles];
+        } break;
+        case ZZSecrectScreenActionsTypeCrashApplication:
+        {
+            [self.interactor forceCrash];
+        } break;
+        case ZZSecrectScreenActionsTypeLogsScreen:
+        {
+            [self.wireframe presentLogsController];
+        } break;
+        case ZZSecrectScreenActionsTypeStateScreen:
+        {
+            [self.wireframe presentStateController];
+        } break;
+        case ZZSecrectScreenActionsTypeDebugUIScreen:
+        {
+            [self.wireframe presentDebugController];
+        } break;
+            
+        default: break;
+    }
 }
 
-- (void)switchValueChangedForType:(ZZSecretSwitchCellType)type
+- (void)updateDebugModeValueTo:(BOOL)isEnabled
 {
-    [self.interactor changeValueForType:type];
+    [self.interactor updateDebugStateTo:isEnabled];
 }
 
+- (void)updateShouldForceSMSValueTo:(BOOL)isEnabled
+{
+    [self.interactor updateShouldForceSMSStateTo:isEnabled];
+}
+
+- (void)updateShouldForceCallValueTo:(BOOL)isEnabled
+{
+    [self.interactor updateShouldForceCallStateTo:isEnabled];
+}
+
+- (void)updateEnabledAllFeaturesValueTo:(BOOL)isEnabled
+{
+    //TODO: check Maxim code
+}
+
+- (void)updateShouldUseSDKToLoggingTypeValueTo:(BOOL)value
+{
+    [self.interactor updateShouldUserSDKForLogging:value];
+}
+
+- (void)updateServerEndpointTypeValueTo:(NSInteger)value
+{
+    [self.interactor updateServerStateTo:value];
+}
+
+- (void)updateCustomServerURLValueTo:(NSString*)value
+{
+    [self.interactor updateCustomServerEnpointValueTo:value];
+}
 
 @end

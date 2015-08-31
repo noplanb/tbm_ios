@@ -10,15 +10,7 @@
 
 @class ZZSecretDataSource;
 
-@protocol ZZSecretControllerDelegate <NSObject>
-
-- (void)itemSelectedWithModel:(id)model;
-
-@end
-
 @interface ZZSecretController : ANTableController
-
-@property (nonatomic, weak) id<ZZSecretControllerDelegate> delegate;
 
 - (void)updateDataSource:(ZZSecretDataSource*)dataSource;
 

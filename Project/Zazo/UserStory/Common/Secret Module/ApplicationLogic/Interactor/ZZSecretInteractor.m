@@ -10,25 +10,80 @@
 #import "ZZSettingsModel.h"
 #import "ZZStoredSettingsManager.h"
 #import "TBMUser.h"
-#import "ZZSecretEnums.h"
+#import "TBMDispatch.h"
+#import "ZZAPIRoutes.h"
 
 @implementation ZZSecretInteractor
 
 - (void)loadData
 {
-    ZZSettingsModel* model = [self _generateSettingsModel];
+    ZZSettingsModel* model = [self _generateDebugSettingsModel];
     [self.output dataLoaded:model];
 }
 
-- (void)changeValueForType:(ZZSecretSwitchCellType)type
+- (void)dispatchData
 {
-    
+    [TBMDispatch dispatch:[self _generateCurrentStateMessage]];
 }
 
-- (void)buttonSelectedWithType:(ZZSecretButtonCellType)type
+- (void)forceCrash
 {
-    
+    NSString* message = [NSString stringWithFormat:@"CRASH BUTTON EXCEPTION: %@", [self _generateCurrentStateMessage]];
+    [TBMDispatch dispatch:message]; // TODO: check it in previous versions
+    //BADABOOOOOOM!
+    [[NSArray array] objectAtIndex:2];
 }
+
+- (void)resetHints
+{
+    [ZZStoredSettingsManager shared].hintsDidStartRecord = NO;
+    [ZZStoredSettingsManager shared].hintsDidStartPlay = NO;
+}
+
+- (void)removeAllDanglingFiles
+{
+    //TODO:
+}
+
+- (void)removeAllUserData
+{
+    //TODO: magical record
+}
+
+
+#pragma mark - Updating Settings
+
+- (void)updateCustomServerEnpointValueTo:(NSString*)value
+{
+    [ZZStoredSettingsManager shared].serverURLString = value;
+}
+
+- (void)updateDebugStateTo:(BOOL)isEnabled
+{
+    [ZZStoredSettingsManager shared].debugModeEnabled = isEnabled;
+}
+
+- (void)updateServerStateTo:(NSInteger)state
+{
+    [ZZStoredSettingsManager shared].serverEndpointState = state;
+    [self.output serverEndpointValueUpdatedTo:apiBaseURL()];
+}
+
+- (void)updateShouldUserSDKForLogging:(BOOL)isEnabled
+{
+    [ZZStoredSettingsManager shared].shouldUseRollBarSDK = isEnabled;
+}
+
+- (void)updateShouldForceSMSStateTo:(BOOL)isEnabled
+{
+    [ZZStoredSettingsManager shared].forceSMS = isEnabled;
+}
+
+- (void)updateShouldForceCallStateTo:(BOOL)isEnabled
+{
+    [ZZStoredSettingsManager shared].forceCall = isEnabled;
+}
+
 
 #pragma mark - Private
 
@@ -37,11 +92,13 @@
     ZZStoredSettingsManager* manager = [ZZStoredSettingsManager shared];
     ZZSettingsModel* model = [ZZSettingsModel new];
     model.isDebugEnabled = manager.debugModeEnabled;
-    model.serverURLString = manager.serverURLString;
+    model.serverURLString = apiBaseURL();
     model.serverIndex = manager.serverEndpointState;
     NSString* version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     NSString* buildNumber = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-    model.version = [NSString stringWithFormat:@"%@(%@)", [NSObject an_safeString:version], [NSObject an_safeString:buildNumber]];
+    model.version = [NSString stringWithFormat:@"%@(%@)",
+                     [NSObject an_safeString:version],
+                     [NSObject an_safeString:buildNumber]];
     
     TBMUser *user = [TBMUser getUser];
     model.firstName = user.firstName;
@@ -50,6 +107,54 @@
     
     return model;
 }
+
+
+#pragma mark - Dispatch Message Generation
+
+- (NSString*)_generateCurrentStateMessage
+{
+    ZZSettingsModel* model = [self _generateSettingsModel];
+    
+    NSMutableString *message = [NSMutableString stringWithString:@"\n * DEBUG SCREEN DATA * * * * * * \n * "];
+    
+    [message appendFormat:@"Version:        %@\n", [NSObject an_safeString:model.version]];
+    [message appendFormat:@"First Name:     %@\n", [NSObject an_safeString:model.firstName]];
+    [message appendFormat:@"Last Name:      %@\n", [NSObject an_safeString:model.lastName]];
+    [message appendFormat:@"Phone:          %@\n", [NSObject an_safeString:model.phoneNumber]];
+    [message appendFormat:@"Debug mode:     %@\n", model.isDebugEnabled ? @"ON" : @"OFF"];
+    [message appendFormat:@"Server State:   %@\n", [self _serverFormattedStringFromState:model.serverIndex]];
+    [message appendFormat:@"Server address: %@\n", [NSObject an_safeString:model.serverURLString]];
+    [message appendFormat:@"Dispatch Type: %@\n", ([TBMDispatch dispatchType] == TBMDispatchTypeSDK) ? @"RollBar SDK" : @"Server"];
+    
+    [message appendString:@"\n * * * * * * * * * * * * * * * * * * * * * * * * \n"];
+    
+    return message;
+}
+
+- (NSString*)_serverFormattedStringFromState:(ZZConfigServerState)state
+{
+    NSString* string = @"Undefined";
+    switch (state)
+    {
+        case ZZConfigServerStateProduction:
+        {
+            string = @"Production";
+        } break;
+        case ZZConfigServerStateDeveloper:
+        {
+            string = @"Development";
+        } break;
+        case ZZConfigServerStateCustom:
+        {
+            string = @"Custom";
+        } break;
+    }
+    return string;
+}
+
+
+
+#pragma mark - Private
 
 - (ZZSettingsModel*)_generateDebugSettingsModel
 {

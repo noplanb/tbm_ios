@@ -11,7 +11,6 @@
 #import "ZZAuthWireframe.h"
 #import "ZZGridWireframe.h"
 #import "ZZMenuWireframe.h"
-#import "ZZSecretScreenWireframe.h"
 #import "ZZEditFriendListWireframe.h"
 #import "ZZSecretWireframe.h"
 
@@ -20,7 +19,6 @@ typedef NS_ENUM(NSInteger, ANSections)
 {
     ZZAuthController,
     ZZGridController,
-    ZZSecretScreenController,
     ZZStateController,
     ZZMenuController,
     ZZEditFriendsController,
@@ -34,7 +32,7 @@ typedef NS_ENUM(NSInteger, ANSections)
     self = [super initWithTableView:tableView];
     if (self)
     {
-        tableView.rowHeight = 55;
+        tableView.rowHeight = 44;
         [self registerCellClass:[ANBaseListTableCell class] forModelClass:[NSString class]];
         [self _setupStorage];
     }
@@ -45,7 +43,6 @@ typedef NS_ENUM(NSInteger, ANSections)
 {
     [self.memoryStorage addItems:@[@"Auth Module",
                                    @"Grid Module",
-                                   @"Secret Screen Module",
                                    @"State Module",
                                    @"Menu Module",
                                    @"Edit Friends Module",
@@ -69,12 +66,6 @@ typedef NS_ENUM(NSInteger, ANSections)
             ZZMenuWireframe* menuwireframe = [ZZMenuWireframe new];
             [menuwireframe presentMenuControllerFromWindow:self.rootController.view.window];
             
-        } break;
-           
-        case ZZSecretScreenController:
-        {
-            ZZSecretScreenWireframe* wireframe = [ZZSecretScreenWireframe new];
-            [wireframe presentSecretScreenControllerFromNavigationController:self.rootController.navigationController];
         } break;
             
         case ZZStateController:
