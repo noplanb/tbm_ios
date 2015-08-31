@@ -70,7 +70,7 @@
 
 #pragma mark - Module Interface
 
-- (void)backSelected
+- (void)dismissController
 {
     [self.wireframe dismissEditFriendListController];
 }
