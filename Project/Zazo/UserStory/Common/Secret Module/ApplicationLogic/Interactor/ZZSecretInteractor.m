@@ -50,6 +50,7 @@
     //TODO: magical record
 }
 
+
 #pragma mark - Updating Settings
 
 - (void)updateCustomServerEnpointValueTo:(NSString*)value
@@ -70,8 +71,19 @@
 
 - (void)updateShouldUserSDKForLogging:(BOOL)isEnabled
 {
-    
+    [ZZStoredSettingsManager shared].shouldUseRollBarSDK = isEnabled;
 }
+
+- (void)updateShouldForceSMSStateTo:(BOOL)isEnabled
+{
+    [ZZStoredSettingsManager shared].forceSMS = isEnabled;
+}
+
+- (void)updateShouldForceCallStateTo:(BOOL)isEnabled
+{
+    [ZZStoredSettingsManager shared].forceCall = isEnabled;
+}
+
 
 #pragma mark - Private
 

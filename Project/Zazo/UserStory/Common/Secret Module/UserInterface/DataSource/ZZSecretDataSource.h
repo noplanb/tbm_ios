@@ -26,7 +26,6 @@ typedef NS_ENUM(NSInteger, ZZSecretSection)
 
 typedef NS_ENUM(NSInteger, ZZSecrectScreenActionsType)
 {
-    
     ZZSecrectScreenActionsTypeResetTutorialHints,
     ZZSecrectScreenActionsTypeFeatureOptions,
     
@@ -41,8 +40,6 @@ typedef NS_ENUM(NSInteger, ZZSecrectScreenActionsType)
 
 - (void)actionWithType:(ZZSecrectScreenActionsType)type;
 
-- (void)updateUseRearCameraValueTo:(BOOL)isEnabled;
-- (void)updateShouldSendBrokenVideoValueTo:(BOOL)isEnabled;
 - (void)updateDebugModeValueTo:(BOOL)isEnabled;
 - (void)updateShouldForceSMSValueTo:(BOOL)isEnabled;
 - (void)updateShouldForceCallValueTo:(BOOL)isEnabled;

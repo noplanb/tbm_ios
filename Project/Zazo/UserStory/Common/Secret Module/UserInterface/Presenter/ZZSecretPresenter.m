@@ -48,10 +48,9 @@
     [self.tableDataSource updateServerCustomURLValue:value];
 }
 
-
 #pragma mark - Module Interface
 
-- (void)backSelected
+- (void)dismissController
 {
     [self.wireframe dismissSecretController];
 }
@@ -69,7 +68,7 @@
         } break;
         case ZZSecrectScreenActionsTypeFeatureOptions:
         {
-//            [self.interactor featu]
+//            [self.interactor featu] // TODO: check Maxim code
         } break;
         case ZZSecrectScreenActionsTypeDispatchMessage:
         {
@@ -91,16 +90,6 @@
     }
 }
 
-- (void)updateUseRearCameraValueTo:(BOOL)isEnabled
-{
-//	[self.interactor upda]
-}
-
-- (void)updateShouldSendBrokenVideoValueTo:(BOOL)isEnabled
-{
-	//TODO:
-}
-
 - (void)updateDebugModeValueTo:(BOOL)isEnabled
 {
     [self.interactor updateDebugStateTo:isEnabled];
@@ -108,17 +97,17 @@
 
 - (void)updateShouldForceSMSValueTo:(BOOL)isEnabled
 {
-	//TODO:
+    [self.interactor updateShouldForceSMSStateTo:isEnabled];
 }
 
 - (void)updateShouldForceCallValueTo:(BOOL)isEnabled
 {
-	//TODO:
+    [self.interactor updateShouldForceCallStateTo:isEnabled];
 }
 
 - (void)updateEnabledAllFeaturesValueTo:(BOOL)isEnabled
 {
-	//TODO:
+    //TODO: check Maxim code
 }
 
 - (void)updateShouldUseSDKToLoggingTypeValueTo:(BOOL)value

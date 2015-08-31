@@ -9,6 +9,9 @@
 static NSString* const kZZServerEndpointStateKey = @"kTBMConfigServerStateKey";
 static NSString* const kZZServerURLStringKey = @"kTBMConfigCustomServerURLKey";
 static NSString* const kZZDebugModeEnabledKey = @"kTBMConfigDeviceDebugModeKey";
+static NSString* const kZZForceSMSEnabledKey = @"kZZForceSMSEnabledKey";
+static NSString* const kZZForceCallEnabledKey = @"kZZForceCallEnabledKey";
+static NSString* const kZZShouldUseRollBarSDKEnabledKey = @"kZZShouldUseRollBarSDKEnabledKey";
 
 static NSString* const kZZHintsDidStartPlayKey = @"kMessagePlayedNSUDkey";
 static NSString* const kZZHintsDidStartRecordKey = @"kMessageRecordedNSUDkey";
@@ -48,15 +51,26 @@ static NSString* const kZZHintsDidStartRecordKey = @"kMessageRecordedNSUDkey";
 
 #pragma mark - Configuration
 
-//serverURL
-- (void)setServerURLString:(NSString *)serverURLString
+//force SMS
+- (void)setForceSMS:(BOOL)forceSMS
 {
-    [self an_updateObject:serverURLString forKey:kZZServerURLStringKey];
+    [self an_updateBool:forceSMS forKey:kZZForceSMSEnabledKey];
 }
 
-- (NSString*)serverURLString
+- (BOOL)forceSMS
 {
-    return [self an_stringForKey:kZZServerURLStringKey];
+    return [self an_boolForKey:kZZForceSMSEnabledKey];
+}
+
+//force Call
+- (void)setForceCall:(BOOL)forceCall
+{
+    [self an_updateBool:forceCall forKey:kZZForceCallEnabledKey];
+}
+
+- (BOOL)forceCall
+{
+    return [self an_boolForKey:kZZForceCallEnabledKey];
 }
 
 //debug mode
@@ -68,6 +82,27 @@ static NSString* const kZZHintsDidStartRecordKey = @"kMessageRecordedNSUDkey";
 - (BOOL)debugModeEnabled
 {
     return [self an_boolForKey:kZZDebugModeEnabledKey];
+}
+
+- (void)setShouldUseRollBarSDK:(BOOL)shouldUseRollBarSDK
+{
+    [self an_updateBool:shouldUseRollBarSDK forKey:kZZShouldUseRollBarSDKEnabledKey];
+}
+
+- (BOOL)shouldUseRollBarSDK
+{
+    return [self an_boolForKey:kZZShouldUseRollBarSDKEnabledKey];
+}
+
+//serverURL
+- (void)setServerURLString:(NSString *)serverURLString
+{
+    [self an_updateObject:serverURLString forKey:kZZServerURLStringKey];
+}
+
+- (NSString*)serverURLString
+{
+    return [self an_stringForKey:kZZServerURLStringKey];
 }
 
 //server endpoint

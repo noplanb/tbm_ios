@@ -8,6 +8,6 @@
 
 @protocol ZZSecretModuleInterface <NSObject>
 
-- (void)backSelected;
+- (void)dismissController;
 
 @end

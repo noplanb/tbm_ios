@@ -10,6 +10,8 @@
 #import "ZZSecretInteractor.h"
 #import "ZZSecretVC.h"
 #import "ZZSecretPresenter.h"
+#import "OBLogViewController.h"
+#import "ZZDebugStateWireframe.h"
 
 @interface ZZSecretWireframe ()
 
@@ -47,6 +49,21 @@
 - (void)dismissSecretController
 {
     [self.presentedController popViewControllerAnimated:self.secretController];
+}
+
+
+#pragma mark - Detail Controllers
+
+- (void)presentLogsController
+{
+    OBLogViewController* vc = [OBLogViewController instance];
+    [self.presentedController pushViewController:vc animated:YES];
+}
+
+- (void)presentStateController
+{
+    ZZDebugStateWireframe* wireframe = [ZZDebugStateWireframe new];
+    [wireframe presentDebugStateControllerFromNavigationController:self.presentedController];
 }
 
 @end

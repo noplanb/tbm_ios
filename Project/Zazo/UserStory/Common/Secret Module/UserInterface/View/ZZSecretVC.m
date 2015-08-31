@@ -44,7 +44,7 @@
     @weakify(self);
     [self addLeftNavigationButtonWithType:ANBarButtonTypeBack block:^{
         @strongify(self);
-        [self.eventHandler backSelected];
+        [self.eventHandler dismissController];
     }];
 }
 

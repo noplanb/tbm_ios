@@ -11,7 +11,7 @@
 @interface ZZSecretSegmentCell ()
 
 @property (nonatomic, strong) UISegmentedControl* segmentControl;
-@property (nonatomic, strong) ZZSecretSegmentCellViewModel* currentModel;
+@property (nonatomic, strong) ZZSecretSegmentCellViewModel* model;
 
 @end
 
@@ -30,7 +30,7 @@
 
 - (void)updateWithModel:(ZZSecretSegmentCellViewModel *)model
 {
-    self.currentModel = model;
+    self.model = model;
     if (!self.segmentControl.numberOfSegments)
     {
         [model.titles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -38,6 +38,11 @@
         }];
     }
     self.segmentControl.selectedSegmentIndex = model.selectedIndex;
+}
+
+- (void)_selectedValueUpdated:(UISegmentedControl*)sender
+{
+    [self.model updateSelectedValueTo:sender.selectedSegmentIndex];
 }
 
 
@@ -48,6 +53,7 @@
     if (!_segmentControl)
     {
         _segmentControl = [UISegmentedControl new];
+        [_segmentControl addTarget:self action:@selector(_selectedValueUpdated:) forControlEvents:UIControlEventValueChanged];
         [self.contentView addSubview:_segmentControl];
         
         [_segmentControl mas_makeConstraints:^(MASConstraintMaker *make) {

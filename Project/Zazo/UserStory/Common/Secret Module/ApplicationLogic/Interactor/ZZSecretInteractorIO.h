@@ -19,6 +19,8 @@
 - (void)removeAllDanglingFiles;
 
 - (void)updateDebugStateTo:(BOOL)isEnabled;
+- (void)updateShouldForceSMSStateTo:(BOOL)isEnabled;
+- (void)updateShouldForceCallStateTo:(BOOL)isEnabled;
 - (void)updateShouldUserSDKForLogging:(BOOL)isEnabled;
 
 - (void)updateServerStateTo:(NSInteger)state;
