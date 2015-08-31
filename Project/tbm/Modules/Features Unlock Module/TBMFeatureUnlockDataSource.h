@@ -21,4 +21,6 @@
 - (NSInteger)everSentCount;
 - (BOOL)isInvitedUser;
 - (NSInteger)lockedFeaturesCount;
+- (BOOL)isFeaturesUnlockedCountSet;
+- (void)silentUpdateUnlockedFeaturesCount:(TBMUnlockedFeature)feature;
 @end

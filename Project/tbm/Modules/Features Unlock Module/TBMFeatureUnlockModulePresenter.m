@@ -57,10 +57,8 @@
 
 - (BOOL)shouldNewFeatureBeUnlocked
 {
-    NSInteger everSentCount = [self.featuresUnlockDatasource everSentCount];
-    BOOL isInvitedUser = [self.featuresUnlockDatasource isInvitedUser];
-    TBMUnlockedFeature nextFeatureForUnlock;
-    nextFeatureForUnlock = isInvitedUser ? (TBMUnlockedFeature) everSentCount -1 : (TBMUnlockedFeature) everSentCount ;
+    [self silentUpdateUnlockedFeaturesCount];
+    TBMUnlockedFeature nextFeatureForUnlock = [self nextFeatureForUnlock];
 
     if (nextFeatureForUnlock > TBMUnlockedFeatureNone && self.featuresUnlockDatasource.lastUnlockedFeature < nextFeatureForUnlock)
     {
@@ -69,6 +67,19 @@
     }
 
     return NO;
+}
+
+- (TBMUnlockedFeature)nextFeatureForUnlock
+{
+    NSInteger everSentCount = [self.featuresUnlockDatasource everSentCount];
+    BOOL isInvitedUser = [self.featuresUnlockDatasource isInvitedUser];
+    NSInteger feature = isInvitedUser ? everSentCount - 2 : everSentCount - 1;
+    if (feature > TBMUnlockedFeatureNone)
+    {
+        return (TBMUnlockedFeature) feature;
+    }
+
+    return TBMUnlockedFeatureNone;
 }
 
 /**
@@ -120,11 +131,13 @@
             [eventFlowModule throwEvent:TBMEventFlowEventEarpieceUnlockDialogDidDismiss];
         }
 
-        case TBMUnlockedFeatureDeleteAFriend:        {
+        case TBMUnlockedFeatureDeleteAFriend:
+        {
             [eventFlowModule throwEvent:TBMEventFlowEventDeleteFriendUnlockDialogDidDismiss];
         }
 
-        case TBMUnlockedFeatureSpin:        {
+        case TBMUnlockedFeatureSpin:
+        {
             [eventFlowModule throwEvent:TBMEventFlowEventSpinUnlockDialogDidDismiss];
         }
 
@@ -132,4 +145,15 @@
             break;
     }
 }
+
+- (void)silentUpdateUnlockedFeaturesCount
+{
+    TBMFeatureUnlockDataSource *dataSource = self.featuresUnlockDatasource;
+    if (![dataSource isFeaturesUnlockedCountSet])
+    {
+
+        [dataSource silentUpdateUnlockedFeaturesCount:[self nextFeatureForUnlock]];
+    }
+}
+
 @end

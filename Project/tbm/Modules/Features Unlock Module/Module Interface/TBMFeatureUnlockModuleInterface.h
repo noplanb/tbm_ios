@@ -9,4 +9,6 @@
  * Returns YES if there are any locked features
  */
 - (BOOL)hasFeaturesForUnlock;
+- (void)silentUpdateUnlockedFeaturesCount;
+
 @end
