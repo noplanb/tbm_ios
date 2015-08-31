@@ -15,7 +15,6 @@
 #import "ZZEditFriendListWireframe.h"
 #import "ZZSecretWireframe.h"
 
-
 typedef NS_ENUM(NSInteger, ANSections)
 {
     ZZAuthController,

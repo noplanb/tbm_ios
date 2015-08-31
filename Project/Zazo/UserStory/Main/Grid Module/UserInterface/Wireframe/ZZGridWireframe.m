@@ -2,7 +2,7 @@
 //  ZZGridWireframe.m
 //  Zazo
 //
-//  Created by ANODA on 1/11/15.
+//  Created by Oksana Kovalchuk on 1/11/15.
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
@@ -10,7 +10,6 @@
 #import "ZZGridInteractor.h"
 #import "ZZGridVC.h"
 #import "ZZGridPresenter.h"
-#import "ZZEditFriendListWireframe.h"
 
 @interface ZZGridWireframe ()
 
@@ -57,12 +56,6 @@
 - (void)closeMenu
 {
     [self.menuWireFrame closeMenu];
-}
-
-- (void)presentEditFriendsWireframe
-{
-    ZZEditFriendListWireframe* wirefame = [ZZEditFriendListWireframe new];
-    [wirefame presentEditFriendListControllerFromViewController:self.gridController withCompletion:nil];
 }
 
 @end

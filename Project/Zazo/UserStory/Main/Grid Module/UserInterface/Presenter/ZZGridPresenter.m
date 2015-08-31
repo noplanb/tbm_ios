@@ -2,7 +2,7 @@
 //  ZZGridPresenter.m
 //  Zazo
 //
-//  Created by ANODA on 1/11/15.
+//  Created by Oksana Kovalchuk on 1/11/15.
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
@@ -73,11 +73,11 @@
     [self.wireframe toggleMenu];
 }
 
-- (void)selectedCollectionViewWithIndexPath:(NSIndexPath *)indexPath
+- (void)selectedCollectionViewWithModel:(ZZGridDomainModel *)model
 {
-    if (indexPath.row != [self.interactor centerCellIndex])
+    if (model)
     {
-        [self.interactor selectedPlusCellWithIndexPath:indexPath];
+        [self.interactor selectedPlusCellWithModel:model];
         [self presentMenu];
     }
 }
@@ -110,11 +110,6 @@
 }
 
 #pragma mark - Module Delegate Method
-
-- (void)presentEditFriends
-{
-    [self.wireframe presentEditFriendsWireframe];
-}
 
 - (void)selectedUser:(id)user
 {

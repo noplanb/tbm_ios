@@ -2,15 +2,31 @@
 //  ZZGridCollectionLayout.m
 //  Zazo
 //
-//  Created by ANODA.
+//  Created by ANODA on 12/08/15.
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
 #import "ZZGridCollectionLayout.h"
 
+#define IS_IPHONE_4             ([[UIScreen mainScreen] bounds].size.height == 480.0f)
+
+enum WheelAlignmentType : NSInteger {
+    WHEELALIGNMENTLEFT,
+    WHEELALIGNMENTCENTER
+};
+
 const NSInteger kMaxCellSpacing = 9;
 
 @interface UICollectionViewLayout ()
+
+@property (nonatomic, assign) NSInteger cellCount;
+//@property (nonatomic, assign) CGFloat offset;
+@property (nonatomic, assign) CGFloat itemHeight;
+
+@property (nonatomic, assign) CGFloat xOffset;
+@property (nonatomic, assign) CGFloat dialRadius;
+@property (nonatomic, assign) CGFloat angularSpacing;
+@property (nonatomic, assign) NSInteger wheelType;
 
 @end
 
@@ -27,53 +43,45 @@ const NSInteger kMaxCellSpacing = 9;
 
 - (void)_setup
 {
-    CGFloat headerViewHeight = 64;
-    CGFloat interItemSpacing = 5;
-    CGFloat sideInsets = 5;
-    CGFloat lineSpacing = 5;
-    CGFloat topSideInsets = (CGRectGetHeight([UIScreen mainScreen].bounds) - headerViewHeight)/12;
-    CGFloat cellWidth = CGRectGetWidth([UIScreen mainScreen].bounds)/3 - interItemSpacing - sideInsets/2;
-    CGFloat cellHeight = (CGRectGetHeight([UIScreen mainScreen].bounds) - headerViewHeight)/3 - topSideInsets;
-    self.itemSize = CGSizeMake(cellWidth, cellHeight);
-    self.sectionInset = UIEdgeInsetsMake(topSideInsets,sideInsets,topSideInsets,sideInsets);
-    self.minimumInteritemSpacing = interItemSpacing;
-    self.minimumLineSpacing = lineSpacing;
+     self.sectionInset = UIEdgeInsetsMake(12,12,12,12);
+    
+    if (IS_IPHONE_4)
+    {
+        self.itemSize = CGSizeMake(96, 128);
+        self.minimumInteritemSpacing = 4;
+        self.minimumLineSpacing = 4;
+    }
+    else if (IS_IPHONE_5)
+    {
+        self.itemSize = CGSizeMake(96, 137.5);
+        self.minimumInteritemSpacing = 4;
+        self.minimumLineSpacing = 4;
+    }
+    else if (IS_IPHONE_6 )
+    {
+        self.itemSize = CGSizeMake(114, 163);
+        self.minimumInteritemSpacing = 4.5;
+        self.minimumLineSpacing = 4.5;
+    }
+    else if (IS_IPHONE_6_PLUS)
+    {
+        self.itemSize = CGSizeMake(127,182);
+        self.minimumInteritemSpacing = 4.5;
+        self.minimumLineSpacing = 4.5;
+    }
 }
 
-//- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
-//{
-//    NSArray* attributesToReturn = [super layoutAttributesForElementsInRect:rect];
-//    for (UICollectionViewLayoutAttributes* attributes in attributesToReturn) {
-//        if (!attributes.representedElementKind)
-//        {
-//            NSIndexPath* indexPath = attributes.indexPath;
-//            attributes.frame = [self layoutAttributesForItemAtIndexPath:indexPath].frame;
-//        }
-//    }
-//    return attributesToReturn;
-//}
-//
-//- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    UICollectionViewLayoutAttributes* currentInteAttributes = [super layoutAttributesForItemAtIndexPath:indexPath];
-//    UIEdgeInsets sectionInset = [(UICollectionViewFlowLayout*)self.collectionView.collectionViewLayout sectionInset];
-//    if (indexPath.item == 4)
-//    {
-////        CGRect frame = currentInteAttributes.frame;
-////        frame.origin.x = 100;
-////        
-////        currentInteAttributes.frame = frame;
-//        currentInteAttributes.alpha = 0;
-//        return currentInteAttributes;
-//    }
-//    
-//    
-////    NSIndexPath* previousIndexPath = [NSIndexPath indexPathForItem:indexPath.item-1 inSection:indexPath.section];
-////    CGRect previousFrame = [self layoutAttributesForItemAtIndexPath:previousIndexPath].frame;
-////    CGFloat previousFrameRightPoint = previousFrame.origin.x
-//    
-//    return currentInteAttributes;
-//
-//}
+
+- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
+{
+    NSArray* attributes = [super layoutAttributesForElementsInRect:rect];
+    return attributes;
+}
+
+- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewLayoutAttributes *theAttributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
+    return theAttributes;
+}
 
 @end

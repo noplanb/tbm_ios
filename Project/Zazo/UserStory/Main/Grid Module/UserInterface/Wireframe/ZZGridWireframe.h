@@ -2,7 +2,7 @@
 //  ZZGridWireframe.h
 //  Versoos
 //
-//  Created by ANODA on 1/11/15.
+//  Created by Oksana Kovalchuk on 1/11/15.
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
@@ -13,6 +13,7 @@
 
 @interface ZZGridWireframe : NSObject
 
+
 @property (nonatomic, strong) ZZGridPresenter* presenter;
 @property (nonatomic, strong) ZZMenuWireframe* menuWireFrame;
 
@@ -20,7 +21,5 @@
 - (void)dismissGridController;
 - (void)toggleMenu;
 - (void)closeMenu;
-
-- (void)presentEditFriendsWireframe;
 
 @end

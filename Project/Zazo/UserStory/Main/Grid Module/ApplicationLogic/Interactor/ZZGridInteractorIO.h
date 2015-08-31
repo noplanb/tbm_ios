@@ -2,7 +2,7 @@
 //  ZZGridInteractorIO.h
 //  Zazo
 //
-//  Created by ANODA on 1/12/15.
+//  Created by Oksana Kovalchuk on 1/12/15.
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
@@ -11,7 +11,7 @@
 @protocol ZZGridInteractorInput <NSObject>
 
 - (void)loadData;
-- (void)selectedPlusCellWithIndexPath:(NSIndexPath *)indexPath;
+- (void)selectedPlusCellWithModel:(ZZGridDomainModel*)model;
 - (void)selectedUserWithModel:(id)model;
 - (NSInteger)centerCellIndex;
 
