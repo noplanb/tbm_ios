@@ -238,15 +238,6 @@
 		07F0ECB81B8CD8BF00036AB2 /* ZZAuthWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB601B8CD8BE00036AB2 /* ZZAuthWireframe.m */; };
 		07F0ECB91B8CD8BF00036AB2 /* ANDebugController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB641B8CD8BE00036AB2 /* ANDebugController.m */; };
 		07F0ECBA1B8CD8BF00036AB2 /* ANDebugVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB661B8CD8BE00036AB2 /* ANDebugVC.m */; };
-		07F0ECBB1B8CD8BF00036AB2 /* ZZSecretScreenInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB6B1B8CD8BE00036AB2 /* ZZSecretScreenInteractor.m */; };
-		07F0ECBC1B8CD8BF00036AB2 /* ZZSecretScreenPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB731B8CD8BE00036AB2 /* ZZSecretScreenPresenter.m */; };
-		07F0ECC51B8CD8BF00036AB2 /* ZZSecretScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB921B8CD8BE00036AB2 /* ZZSecretScreenView.m */; };
-		07F0ECC61B8CD8BF00036AB2 /* ZZSecretScreenButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB971B8CD8BE00036AB2 /* ZZSecretScreenButtonView.m */; };
-		07F0ECC81B8CD8BF00036AB2 /* ZZGrayBorderTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EB9D1B8CD8BE00036AB2 /* ZZGrayBorderTextField.m */; };
-		07F0ECC91B8CD8BF00036AB2 /* ZZSecretScreenLabelsInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EBA01B8CD8BE00036AB2 /* ZZSecretScreenLabelsInfoView.m */; };
-		07F0ECCA1B8CD8BF00036AB2 /* ZZSecretScreenButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EBA31B8CD8BE00036AB2 /* ZZSecretScreenButton.m */; };
-		07F0ECCB1B8CD8BF00036AB2 /* ZZSecretScreenVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EBA51B8CD8BE00036AB2 /* ZZSecretScreenVC.m */; };
-		07F0ECCC1B8CD8BF00036AB2 /* ZZSecretScreenWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EBAB1B8CD8BE00036AB2 /* ZZSecretScreenWireframe.m */; };
 		07F0ECCD1B8CD8BF00036AB2 /* ZZGridInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EBB11B8CD8BE00036AB2 /* ZZGridInteractor.m */; };
 		07F0ECCE1B8CD8BF00036AB2 /* ZZGridDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EBB91B8CD8BE00036AB2 /* ZZGridDataSource.m */; };
 		07F0ECCF1B8CD8BF00036AB2 /* ZZGridPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0EBBC1B8CD8BE00036AB2 /* ZZGridPresenter.m */; };
@@ -846,29 +837,6 @@
 		07F0EB641B8CD8BE00036AB2 /* ANDebugController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDebugController.m; sourceTree = "<group>"; };
 		07F0EB651B8CD8BE00036AB2 /* ANDebugVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDebugVC.h; sourceTree = "<group>"; };
 		07F0EB661B8CD8BE00036AB2 /* ANDebugVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDebugVC.m; sourceTree = "<group>"; };
-		07F0EB6A1B8CD8BE00036AB2 /* ZZSecretScreenInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenInteractor.h; sourceTree = "<group>"; };
-		07F0EB6B1B8CD8BE00036AB2 /* ZZSecretScreenInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretScreenInteractor.m; sourceTree = "<group>"; };
-		07F0EB6C1B8CD8BE00036AB2 /* ZZSecretScreenInteractorIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenInteractorIO.h; sourceTree = "<group>"; };
-		07F0EB6E1B8CD8BE00036AB2 /* ZZSecretScreenModuleDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenModuleDelegate.h; sourceTree = "<group>"; };
-		07F0EB6F1B8CD8BE00036AB2 /* ZZSecretScreenModuleInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenModuleInterface.h; sourceTree = "<group>"; };
-		07F0EB721B8CD8BE00036AB2 /* ZZSecretScreenPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenPresenter.h; sourceTree = "<group>"; };
-		07F0EB731B8CD8BE00036AB2 /* ZZSecretScreenPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretScreenPresenter.m; sourceTree = "<group>"; };
-		07F0EB911B8CD8BE00036AB2 /* ZZSecretScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenView.h; sourceTree = "<group>"; };
-		07F0EB921B8CD8BE00036AB2 /* ZZSecretScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretScreenView.m; sourceTree = "<group>"; };
-		07F0EB931B8CD8BE00036AB2 /* ZZSecretScreenViewSizes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenViewSizes.h; sourceTree = "<group>"; };
-		07F0EB961B8CD8BE00036AB2 /* ZZSecretScreenButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenButtonView.h; sourceTree = "<group>"; };
-		07F0EB971B8CD8BE00036AB2 /* ZZSecretScreenButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretScreenButtonView.m; sourceTree = "<group>"; };
-		07F0EB9C1B8CD8BE00036AB2 /* ZZGrayBorderTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGrayBorderTextField.h; sourceTree = "<group>"; };
-		07F0EB9D1B8CD8BE00036AB2 /* ZZGrayBorderTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGrayBorderTextField.m; sourceTree = "<group>"; };
-		07F0EB9F1B8CD8BE00036AB2 /* ZZSecretScreenLabelsInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenLabelsInfoView.h; sourceTree = "<group>"; };
-		07F0EBA01B8CD8BE00036AB2 /* ZZSecretScreenLabelsInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretScreenLabelsInfoView.m; sourceTree = "<group>"; };
-		07F0EBA21B8CD8BE00036AB2 /* ZZSecretScreenButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenButton.h; sourceTree = "<group>"; };
-		07F0EBA31B8CD8BE00036AB2 /* ZZSecretScreenButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretScreenButton.m; sourceTree = "<group>"; };
-		07F0EBA41B8CD8BE00036AB2 /* ZZSecretScreenVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenVC.h; sourceTree = "<group>"; };
-		07F0EBA51B8CD8BE00036AB2 /* ZZSecretScreenVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretScreenVC.m; sourceTree = "<group>"; };
-		07F0EBA61B8CD8BE00036AB2 /* ZZSecretScreenViewInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenViewInterface.h; sourceTree = "<group>"; };
-		07F0EBAA1B8CD8BE00036AB2 /* ZZSecretScreenWireframe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenWireframe.h; sourceTree = "<group>"; };
-		07F0EBAB1B8CD8BE00036AB2 /* ZZSecretScreenWireframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretScreenWireframe.m; sourceTree = "<group>"; };
 		07F0EBB01B8CD8BE00036AB2 /* ZZGridInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridInteractor.h; sourceTree = "<group>"; };
 		07F0EBB11B8CD8BE00036AB2 /* ZZGridInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridInteractor.m; sourceTree = "<group>"; };
 		07F0EBB21B8CD8BE00036AB2 /* ZZGridInteractorIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridInteractorIO.h; sourceTree = "<group>"; };
@@ -3111,7 +3079,6 @@
 			children = (
 				07243C731B8DDFDB008E4203 /* DebugState Module */,
 				07F0EB621B8CD8BE00036AB2 /* Debug */,
-				07F0EB671B8CD8BE00036AB2 /* SecretScreen Module */,
 				79B386BD1B906A8700C25F69 /* Secret Module */,
 			);
 			path = Common;
@@ -3126,140 +3093,6 @@
 				07F0EB661B8CD8BE00036AB2 /* ANDebugVC.m */,
 			);
 			path = Debug;
-			sourceTree = "<group>";
-		};
-		07F0EB671B8CD8BE00036AB2 /* SecretScreen Module */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EB681B8CD8BE00036AB2 /* ApplicationLogic */,
-				07F0EB6D1B8CD8BE00036AB2 /* ModuleInterface */,
-				07F0EB701B8CD8BE00036AB2 /* UserInterface */,
-			);
-			path = "SecretScreen Module";
-			sourceTree = "<group>";
-		};
-		07F0EB681B8CD8BE00036AB2 /* ApplicationLogic */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EB691B8CD8BE00036AB2 /* Interactor */,
-			);
-			path = ApplicationLogic;
-			sourceTree = "<group>";
-		};
-		07F0EB691B8CD8BE00036AB2 /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EB6A1B8CD8BE00036AB2 /* ZZSecretScreenInteractor.h */,
-				07F0EB6B1B8CD8BE00036AB2 /* ZZSecretScreenInteractor.m */,
-				07F0EB6C1B8CD8BE00036AB2 /* ZZSecretScreenInteractorIO.h */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		07F0EB6D1B8CD8BE00036AB2 /* ModuleInterface */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EB6E1B8CD8BE00036AB2 /* ZZSecretScreenModuleDelegate.h */,
-				07F0EB6F1B8CD8BE00036AB2 /* ZZSecretScreenModuleInterface.h */,
-			);
-			path = ModuleInterface;
-			sourceTree = "<group>";
-		};
-		07F0EB701B8CD8BE00036AB2 /* UserInterface */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EB711B8CD8BE00036AB2 /* Presenter */,
-				07F0EB881B8CD8BE00036AB2 /* View */,
-				07F0EBA71B8CD8BE00036AB2 /* Wireframe */,
-			);
-			path = UserInterface;
-			sourceTree = "<group>";
-		};
-		07F0EB711B8CD8BE00036AB2 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EB721B8CD8BE00036AB2 /* ZZSecretScreenPresenter.h */,
-				07F0EB731B8CD8BE00036AB2 /* ZZSecretScreenPresenter.m */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		07F0EB881B8CD8BE00036AB2 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EBA61B8CD8BE00036AB2 /* ZZSecretScreenViewInterface.h */,
-				07F0EB901B8CD8BE00036AB2 /* SecretScreenView */,
-				07F0EB941B8CD8BE00036AB2 /* Views */,
-				07F0EBA41B8CD8BE00036AB2 /* ZZSecretScreenVC.h */,
-				07F0EBA51B8CD8BE00036AB2 /* ZZSecretScreenVC.m */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		07F0EB901B8CD8BE00036AB2 /* SecretScreenView */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EB911B8CD8BE00036AB2 /* ZZSecretScreenView.h */,
-				07F0EB921B8CD8BE00036AB2 /* ZZSecretScreenView.m */,
-				07F0EB931B8CD8BE00036AB2 /* ZZSecretScreenViewSizes.h */,
-			);
-			path = SecretScreenView;
-			sourceTree = "<group>";
-		};
-		07F0EB941B8CD8BE00036AB2 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EB951B8CD8BE00036AB2 /* ButtonView */,
-				07F0EB9B1B8CD8BE00036AB2 /* GrayBorderTextField */,
-				07F0EB9E1B8CD8BE00036AB2 /* LabelsInfoView */,
-				07F0EBA11B8CD8BE00036AB2 /* SecretScreenButtons */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		07F0EB951B8CD8BE00036AB2 /* ButtonView */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EB961B8CD8BE00036AB2 /* ZZSecretScreenButtonView.h */,
-				07F0EB971B8CD8BE00036AB2 /* ZZSecretScreenButtonView.m */,
-			);
-			path = ButtonView;
-			sourceTree = "<group>";
-		};
-		07F0EB9B1B8CD8BE00036AB2 /* GrayBorderTextField */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EB9C1B8CD8BE00036AB2 /* ZZGrayBorderTextField.h */,
-				07F0EB9D1B8CD8BE00036AB2 /* ZZGrayBorderTextField.m */,
-			);
-			path = GrayBorderTextField;
-			sourceTree = "<group>";
-		};
-		07F0EB9E1B8CD8BE00036AB2 /* LabelsInfoView */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EB9F1B8CD8BE00036AB2 /* ZZSecretScreenLabelsInfoView.h */,
-				07F0EBA01B8CD8BE00036AB2 /* ZZSecretScreenLabelsInfoView.m */,
-			);
-			path = LabelsInfoView;
-			sourceTree = "<group>";
-		};
-		07F0EBA11B8CD8BE00036AB2 /* SecretScreenButtons */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EBA21B8CD8BE00036AB2 /* ZZSecretScreenButton.h */,
-				07F0EBA31B8CD8BE00036AB2 /* ZZSecretScreenButton.m */,
-			);
-			path = SecretScreenButtons;
-			sourceTree = "<group>";
-		};
-		07F0EBA71B8CD8BE00036AB2 /* Wireframe */ = {
-			isa = PBXGroup;
-			children = (
-				07F0EBAA1B8CD8BE00036AB2 /* ZZSecretScreenWireframe.h */,
-				07F0EBAB1B8CD8BE00036AB2 /* ZZSecretScreenWireframe.m */,
-			);
-			path = Wireframe;
 			sourceTree = "<group>";
 		};
 		07F0EBAC1B8CD8BE00036AB2 /* Main */ = {
@@ -4285,7 +4118,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07F0ECC81B8CD8BF00036AB2 /* ZZGrayBorderTextField.m in Sources */,
 				0730414F1B921CEB00980373 /* NSError+Extensions.m in Sources */,
 				07F0EC7D1B8CD8BF00036AB2 /* UIImage+ANDefault.m in Sources */,
 				07243CCA1B8F601D008E4203 /* ZZDebugStateDataSource.m in Sources */,
@@ -4311,7 +4143,6 @@
 				073041AA1B921CEB00980373 /* TBMTextField.m in Sources */,
 				073041AC1B921CEB00980373 /* TBMAlertController.m in Sources */,
 				073041BC1B921CEB00980373 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
-				07F0ECCC1B8CD8BF00036AB2 /* ZZSecretScreenWireframe.m in Sources */,
 				07F0ECEB1B8CD8BF00036AB2 /* NSObject+ANUserDefaults.m in Sources */,
 				07F0ECD11B8CD8BF00036AB2 /* ZZGridCenterCellViewModel.m in Sources */,
 				07F0EC851B8CD8BF00036AB2 /* ZZUserModelsMapper.m in Sources */,
@@ -4333,7 +4164,6 @@
 				07F0ECFA1B8CD8BF00036AB2 /* ANNetworkLoadingView.m in Sources */,
 				073041571B921CEB00980373 /* TBMDeviceHandler.m in Sources */,
 				07F0EC961B8CD8BF00036AB2 /* ZZNotificationTransportService.m in Sources */,
-				07F0ECCA1B8CD8BF00036AB2 /* ZZSecretScreenButton.m in Sources */,
 				073041A31B921CEB00980373 /* TBMLongPressTouchHandler.m in Sources */,
 				0730416D1B921CEB00980373 /* TBMDeleteFriendUsageHintView.m in Sources */,
 				073041881B921CEB00980373 /* TBMSecretScreenPresenter.m in Sources */,
@@ -4368,7 +4198,6 @@
 				07F0ECAA1B8CD8BF00036AB2 /* ANExternURLBuilder.m in Sources */,
 				073041861B921CEB00980373 /* TBMDebugData.m in Sources */,
 				07F0ECD41B8CD8BF00036AB2 /* ZZGridCollectionLayout.m in Sources */,
-				07F0ECC51B8CD8BF00036AB2 /* ZZSecretScreenView.m in Sources */,
 				07243CBA1B8E1333008E4203 /* ZZEditFriendListDataSource.m in Sources */,
 				07F0ED221B8CE71000036AB2 /* TBMUser.m in Sources */,
 				073041A41B921CEB00980373 /* TBMMarginLabel.m in Sources */,
@@ -4477,7 +4306,6 @@
 				0730415A1B921CEB00980373 /* TBMPhoneUtils.m in Sources */,
 				073041A91B921CEB00980373 /* TBMTableModal.m in Sources */,
 				07F0EC9F1B8CD8BF00036AB2 /* _TBMGridElement.m in Sources */,
-				07F0ECBB1B8CD8BF00036AB2 /* ZZSecretScreenInteractor.m in Sources */,
 				07F0ECFD1B8CD8BF00036AB2 /* ANNetworkRetryView.m in Sources */,
 				07F0ECEF1B8CD8BF00036AB2 /* ANErrorBuilder.m in Sources */,
 				07F0ECF81B8CD8BF00036AB2 /* ANMessageDomainModel.m in Sources */,
@@ -4493,7 +4321,6 @@
 				07F0ECE41B8CD8BF00036AB2 /* ANActivityIndicator.m in Sources */,
 				07F0ECB71B8CD8BF00036AB2 /* ZZAuthVC.m in Sources */,
 				073041511B921CEB00980373 /* NSString+NSStringExtensions.m in Sources */,
-				07F0ECC91B8CD8BF00036AB2 /* ZZSecretScreenLabelsInfoView.m in Sources */,
 				07F0ECA31B8CD8BF00036AB2 /* ZZBaseVC.m in Sources */,
 				07F0ECD61B8CD8BF00036AB2 /* ZZGridView.m in Sources */,
 				073041651B921CEB00980373 /* TBMEventsFlowDataSource.m in Sources */,
@@ -4501,7 +4328,6 @@
 				07F0ED0F1B8CD8BF00036AB2 /* UIImage+PDF.m in Sources */,
 				07F0EC771B8CD8BF00036AB2 /* ZZAppDelegate.m in Sources */,
 				07F0ECE71B8CD8BF00036AB2 /* ANBaseVC.m in Sources */,
-				07F0ECCB1B8CD8BF00036AB2 /* ZZSecretScreenVC.m in Sources */,
 				073041B91B921CEB00980373 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				073041A81B921CEB00980373 /* TBMSelectPhoneTableDelegate.m in Sources */,
 				07F0ECD31B8CD8BF00036AB2 /* ZZGridCollectionCell.m in Sources */,
@@ -4528,7 +4354,6 @@
 				07243CC01B8E1333008E4203 /* ZZEditFriendListVC.m in Sources */,
 				07F0EC921B8CD8BF00036AB2 /* ZZCommonNetworkTransportService.m in Sources */,
 				073041A51B921CEB00980373 /* TBMPreviewView.m in Sources */,
-				07F0ECBC1B8CD8BF00036AB2 /* ZZSecretScreenPresenter.m in Sources */,
 				07F0EC7B1B8CD8BF00036AB2 /* main.m in Sources */,
 				07F0ECD81B8CD8BF00036AB2 /* ZZUserRecorderGridView.m in Sources */,
 				073041691B921CEB00980373 /* TBMFeatureUnlockDialogView.m in Sources */,
@@ -4545,7 +4370,6 @@
 				07F0ECD51B8CD8BF00036AB2 /* ZZGridCollectionController.m in Sources */,
 				07F0ECA11B8CD8BF00036AB2 /* _TBMVideo.m in Sources */,
 				07F0ED0C1B8CD8BF00036AB2 /* NSData+MD5.m in Sources */,
-				07F0ECC61B8CD8BF00036AB2 /* ZZSecretScreenButtonView.m in Sources */,
 				07F0EC7E1B8CD8BF00036AB2 /* ZZKeyboardObserver.m in Sources */,
 				073041781B921CEB00980373 /* TBMRecordHintPresenter.m in Sources */,
 				073041551B921CEB00980373 /* TBMContactsManager.m in Sources */,
