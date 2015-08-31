@@ -16,6 +16,8 @@
 #import "NSString+NSStringExtensions.h"
 #import "ZZAPIRoutes.h"
 
+static NSString *const kArraySeparator = @",";
+
 @implementation TBMRemoteStorageHandler
 
 
@@ -241,22 +243,49 @@
     return [TBMStringUtils dictionaryWithJson:valueJson];
 }
 
-+ (void)getRemoteEverSentVideoStatusWithSuccess:(void (^)(NSDictionary *response))success
-                                        failure:(void (^)(NSError *error))failure
++ (void)getRemoteEverSentFriendsWithSuccess:(void (^)(NSArray *response))success
+                                    failure:(void (^)(NSError *error))failure
 {
     OB_INFO(@"getRemoteEverSentVideoStatus");
-    NSString *key = [TBMUser getUser].mkey;
-    key = [NSString stringWithFormat:@"%@-WelcomedFriends", key];
+
+    NSString *key = [self _welcomedFriendsKey];
     [[TBMHttpManager manager] GET:@"kvstore/get"
                        parameters:@{@"key1" : key}
                           success:^(AFHTTPRequestOperation *operation, id responseObject)
                           {
-                              success([self getStatusWithResponseObject:responseObject]);
+                              NSArray *parsedArray = [self _parseEverSentFriendsResponse:responseObject];
+                              if (success && parsedArray)
+                              {
+                                  success(parsedArray);
+                              }
                           }
                           failure:^(AFHTTPRequestOperation *operation, NSError *error)
                           {
                               failure(error);
                           }];
+}
+
+#pragma mark - KV Store set values
+
++ (void)setRemoteEverSentKVForFriendMkeys:(NSArray *)mkeys
+{
+    NSString *mkeyArrayString = [mkeys componentsJoinedByString:kArraySeparator];
+    NSDictionary *parameters = @{
+            @"key1" : [self _welcomedFriendsKey],
+            @"value" : mkeyArrayString
+    };
+    [[TBMHttpManager manager] POST:@"kvstore/set"
+                        parameters:parameters
+                           success:^(AFHTTPRequestOperation *operation, id responseObject)
+                           {
+
+                               OB_INFO(@"setRemoteEverSentKVForFriendMkey - success for friends %@", mkeys);
+                           }
+                           failure:^(AFHTTPRequestOperation *operation, NSError *error)
+                           {
+                               OB_ERROR(@"setRemoteEverSentKVForFriendMkey - error for friends %@ : %@", mkeys, error);
+                           }];
+
 }
 
 //------------
@@ -293,5 +322,41 @@
 
     return -1;
 }
+
+#pragma mark Private
+
++ (NSArray *)_parseEverSentFriendsResponse:(id)object
+{
+    if (![object isKindOfClass:[NSDictionary class]])
+    {
+        return nil;
+    }
+
+    NSDictionary *response = (NSDictionary *) object;
+    id value = response[@"value"];
+
+    if (!value)
+    {
+        return nil;
+    }
+
+    if ([value isKindOfClass:[NSString class]])
+    {
+        return [value componentsSeparatedByString:kArraySeparator];
+    }
+
+    if ([value isKindOfClass:[NSArray class]])
+    {
+        return (NSArray *)value;
+    }
+
+    return nil;
+}
+
++ (NSString *)_welcomedFriendsKey
+{
+    return [NSString stringWithFormat:@"%@-WelcomedFriends", [TBMUser getUser].mkey];
+}
+
 
 @end

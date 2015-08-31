@@ -219,16 +219,10 @@
 
 - (void)pollEverSentStatusForAllFriends
 {
-    [TBMRemoteStorageHandler getRemoteEverSentVideoStatusWithSuccess:^(NSDictionary *response)
+    [TBMRemoteStorageHandler getRemoteEverSentFriendsWithSuccess:^(NSArray *response)
     {
-        [response enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop)
-        {
-            OB_INFO(@"Key = %@ | Object = %@");
-        }];
-    }                                                        failure:^(NSError *error)
-    {
-        OB_WARN(@"pollEverSentStatusForAllFriends: Error polling ever sent status with error: %@", error);
-    }];
+        [TBMFriend setEverSentForMkeys:response];
+    }                                                    failure:nil];
 }
 
 - (void)pollVideosWithFriend:(TBMFriend *)friend
@@ -367,6 +361,8 @@
         OB_INFO(@"uploadCompletedWithFriend");
         [friend handleOutgoingVideoUploadedWithVideoId:videoId];
         [TBMRemoteStorageHandler addRemoteOutgoingVideoId:videoId friend:friend];
+        [TBMRemoteStorageHandler setRemoteEverSentKVForFriendMkeys:[TBMFriend everSentMkeys]];
+
         [self sendNotificationForVideoReceived:friend videoId:videoId];
     } else
     {

@@ -82,7 +82,9 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 + (void)fillAfterMigration;
 
 - (BOOL)isThumbNoPic;
++ (NSArray *)everSentMkeys;
 - (void)generateThumbWithVideo:(TBMVideo *)video;
++ (void)setEverSentForMkeys:(NSArray *)mkeys;
 
 - (NSString *)videoStatusString;
 
