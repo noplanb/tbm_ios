@@ -9,7 +9,7 @@
 #import "ZZRootWireframe.h"
 #import "ANDebugVC.h"
 #import "ZZAuthWireframe.h"
-#import "ZZSecretScreenWireframe.h"
+#import "ZZSecretWireframe.h"
 //TODO: to remove
 #import "TBMRegisterViewController.h"
 #import "TBMHomeViewController.h"
@@ -30,7 +30,7 @@
 {
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     window.backgroundColor = [UIColor whiteColor];
-    ZZSecretScreenWireframe* secretScreenWireframe = [ZZSecretScreenWireframe new];
+    ZZSecretWireframe* secretScreenWireframe = [ZZSecretWireframe new];
     [secretScreenWireframe startSecretScreenObserveWithType:ZZNavigationBarLeftRightObserveType withWindow:window];
     
 #ifdef DEBUG_CONTROLLER
