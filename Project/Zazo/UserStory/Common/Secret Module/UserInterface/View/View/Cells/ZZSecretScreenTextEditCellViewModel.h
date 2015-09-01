@@ -19,5 +19,6 @@
 @property (nonatomic, copy) NSString* text;
 @property (nonatomic, assign) BOOL isEnabled;
 @property (nonatomic, weak) id<ZZSecretScreenTextEditCellViewModelDelegate> delegate;
+@property (nonatomic, weak) UITextField* textField;
 
 @end

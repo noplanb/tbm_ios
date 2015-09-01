@@ -69,4 +69,6 @@ typedef NS_ENUM(NSInteger, ZZSecrectScreenActionsType)
 
 - (void)itemSelectedAtIndexPath:(NSIndexPath*)indexPath;
 
+- (void)updateEnabledCustomTextFieldStateTo:(BOOL)isEnabled;
+
 @end

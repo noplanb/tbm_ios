@@ -21,6 +21,7 @@
     self.textField.text = [model text];
     self.textField.enabled = [model isEnabled];
     self.textField.delegate = model;
+    model.textField = self.textField;
 }
 
 

@@ -113,6 +113,15 @@
     }
 }
 
+- (void)updateEnabledCustomTextFieldStateTo:(BOOL)isEnabled
+{
+    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:1 inSection:ZZSecretSectionServerOptions];
+    ZZSecretScreenTextEditCellViewModel* model = [self.storage objectAtIndexPath:indexPath];
+    
+    model.isEnabled = isEnabled;
+    
+}
+
 #pragma mark - Cell Delegates
 
 - (void)viewModel:(ZZSecretSwitchCellViewModel*)viewModel updatedSwitchValueTo:(BOOL)isEnabled

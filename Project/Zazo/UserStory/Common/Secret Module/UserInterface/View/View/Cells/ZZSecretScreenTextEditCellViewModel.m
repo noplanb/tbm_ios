@@ -23,4 +23,20 @@
     [self.delegate viewModel:self updatedTextValue:self.text];
 }
 
+- (void)setIsEnabled:(BOOL)isEnabled
+{
+    if (_isEnabled != isEnabled)
+    {
+        if (isEnabled)
+        {
+            [self.textField becomeFirstResponder];
+        }
+        else
+        {
+            [self.textField resignFirstResponder];
+        }
+    }
+    _isEnabled = isEnabled;
+}
+
 @end

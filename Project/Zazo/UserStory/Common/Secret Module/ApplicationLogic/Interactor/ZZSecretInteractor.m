@@ -12,6 +12,7 @@
 #import "TBMUser.h"
 #import "TBMDispatch.h"
 #import "ZZAPIRoutes.h"
+#import "ZZNetworkTransport.h"
 
 @implementation ZZSecretInteractor
 
@@ -56,6 +57,7 @@
 - (void)updateCustomServerEnpointValueTo:(NSString*)value
 {
     [ZZStoredSettingsManager shared].serverURLString = value;
+    [[ZZNetworkTransport shared] setBaseURL:apiBaseURL() andAPIVersion:@""];
 }
 
 - (void)updateDebugStateTo:(BOOL)isEnabled
@@ -66,6 +68,7 @@
 - (void)updateServerStateTo:(NSInteger)state
 {
     [ZZStoredSettingsManager shared].serverEndpointState = state;
+    [[ZZNetworkTransport shared] setBaseURL:apiBaseURL() andAPIVersion:@""];
     [self.output serverEndpointValueUpdatedTo:apiBaseURL()];
 }
 

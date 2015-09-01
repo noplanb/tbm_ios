@@ -16,6 +16,24 @@ static NSString* const kZZShouldUseRollBarSDKEnabledKey = @"kZZShouldUseRollBarS
 static NSString* const kZZHintsDidStartPlayKey = @"kMessagePlayedNSUDkey";
 static NSString* const kZZHintsDidStartRecordKey = @"kMessageRecordedNSUDkey";
 
+//TODO:
+//@"kAbortRecordUsageHintNSUDkey"
+//@"kDeleteFriendUsageUsageHintNSUDkey"
+//@"kEarpieceUsageUsageHintNSUDkey"
+//@"kFrontCameraUsageUsageHintNSUDkey"
+//@"kInviteHintNSUDkey"
+//@"kInviteSomeoneElseNSUDkey"
+//@"kPlayHintNSUDkey"
+//@"kRecordHintNSUDkey"
+//@"kRecordWelcomeHintNSUDkey"
+//@"kSentHintNSUDkey"
+//@"kSpinUsageUsageUsageHintNSUDkey"
+//@"kViewedHintNSUDkey"
+//@"kWelcomeHintNSUDkey"
+//
+//maksimbazarov [12:50 AM]
+//@"kLastUnlockedFeatureNSUDKey"
+
 #import "ZZStoredSettingsManager.h"
 #import "NSObject+ANUserDefaults.h"
 

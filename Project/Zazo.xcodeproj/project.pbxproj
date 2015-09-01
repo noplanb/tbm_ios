@@ -1340,10 +1340,7 @@
 		07243CCF1B8F643A008E4203 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				07243CCC1B8F6433008E4203 /* ZZDebugStateCell.h */,
-				07243CCD1B8F6433008E4203 /* ZZDebugStateCell.m */,
-				07243CD01B8F644A008E4203 /* ZZDebugStateCellViewModel.h */,
-				07243CD11B8F644A008E4203 /* ZZDebugStateCellViewModel.m */,
+				0797DC9E1B962A6200420FD3 /* DebugState */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -2287,6 +2284,17 @@
 				0797DC911B94D05E00420FD3 /* ZZTouchControllerWithoutDelay.m */,
 			);
 			path = TouchControllerWithoutDelay;
+			sourceTree = "<group>";
+		};
+		0797DC9E1B962A6200420FD3 /* DebugState */ = {
+			isa = PBXGroup;
+			children = (
+				07243CCC1B8F6433008E4203 /* ZZDebugStateCell.h */,
+				07243CCD1B8F6433008E4203 /* ZZDebugStateCell.m */,
+				07243CD01B8F644A008E4203 /* ZZDebugStateCellViewModel.h */,
+				07243CD11B8F644A008E4203 /* ZZDebugStateCellViewModel.m */,
+			);
+			name = DebugState;
 			sourceTree = "<group>";
 		};
 		07F0E7E11B8CD7A900036AB2 /* tbm */ = {

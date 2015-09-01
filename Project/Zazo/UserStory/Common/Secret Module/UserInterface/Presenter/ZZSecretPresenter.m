@@ -130,6 +130,7 @@
 
 - (void)updateServerEndpointTypeValueTo:(NSInteger)value
 {
+    [self.tableDataSource updateEnabledCustomTextFieldStateTo:(value == 2)];
     [self.interactor updateServerStateTo:value];
 }
 
