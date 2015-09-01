@@ -83,7 +83,7 @@
 - (void)_showVideoCountLabelWithCount:(NSInteger)count
 {
     self.videoCountLabel.hidden = NO;
-    self.videoCountLabel.text = [NSString stringWithFormat:@"%i",count];
+    self.videoCountLabel.text = [NSString stringWithFormat:@"%li",(long)count];
     self.backgroundColor = [UIColor an_colorWithHexString:kLayoutConstGreenColor];
 
 }

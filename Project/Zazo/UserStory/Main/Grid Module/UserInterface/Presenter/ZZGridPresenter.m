@@ -102,10 +102,6 @@
     }
 }
 
-- (void)presentEditFriends
-{
-    [self.wireframe presentEditFriendsController];
-}
 
 #pragma mark - Collection Cell View Module Delegate
 
