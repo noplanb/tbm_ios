@@ -9,107 +9,89 @@
 #import "TBMGridElement.h"
 #import "TBMAppDelegate.h"
 #import "NSString+NSStringExtensions.h"
+#import "MagicalRecord.h"
 
 @implementation TBMGridElement
-
-//--------------------------------------
-// Conveniene methods for managed object
-//--------------------------------------
-+ (TBMAppDelegate *)appDelegate {
-    return [[UIApplication sharedApplication] delegate];
-}
-
-+ (NSManagedObjectContext *)managedObjectContext {
-    return [[TBMGridElement appDelegate] managedObjectContext];
-}
-
-+ (NSEntityDescription *)entityDescription {
-    return [NSEntityDescription entityForName:@"TBMGridElement" inManagedObjectContext:[TBMGridElement managedObjectContext]];
-}
-
 
 //-------------------
 // Create and destroy
 //-------------------
-+ (instancetype)create {
-    __block TBMGridElement *ge;
-    [[TBMGridElement managedObjectContext] performBlockAndWait:^{
-        ge = (TBMGridElement *) [[NSManagedObject alloc] initWithEntity:[TBMGridElement entityDescription] insertIntoManagedObjectContext:[TBMGridElement managedObjectContext]];
-    }];
-    return ge;
+
++ (NSManagedObjectContext*)_context
+{
+    return [NSManagedObjectContext MR_context];
 }
 
-+ (void)destroyAll {
-    [[TBMGridElement managedObjectContext] performBlockAndWait:^{
-        for (TBMGridElement *ge in [TBMGridElement all]) {
-            [[TBMGridElement managedObjectContext] deleteObject:ge];
-        }
-    }];
++ (instancetype)create
+{
+    return [self MR_createEntityInContext:[self _context]];
+}
+
++ (void)destroyAll
+{
+    [self MR_truncateAllInContext:[self _context]];
+    [[self _context] MR_saveToPersistentStoreAndWait];
 }
 
 //--------
 // Finders
 //--------
-+ (NSFetchRequest *)fetchRequest {
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:[TBMGridElement entityDescription]];
-    return request;
+
++ (NSArray *)all
+{
+    return [self MR_findAllInContext:[self _context]];
 }
 
-+ (NSArray *)all {
-    __block NSError *error;
-    __block NSArray *result;
-    [[TBMGridElement managedObjectContext] performBlockAndWait:^{
-        result = [[TBMGridElement managedObjectContext] executeFetchRequest:[TBMGridElement fetchRequest] error:&error];
-    }];
-    return result;
-}
-
-+ (NSArray *)allSorted {
-    NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"index" ascending:YES];
-    return [[TBMGridElement all] sortedArrayUsingDescriptors:@[d]];
++ (NSArray *)allSorted
+{
+    NSString* sortKey = TBMGridElementAttributes.index;
+    return [TBMGridElement MR_findAllSortedBy:sortKey ascending:YES inContext:[self _context]];
 }
 
 
-+ (instancetype)findWithIntIndex:(NSInteger)i {
-    for (TBMGridElement *ge in [TBMGridElement all]) {
-        if (i == [ge.index integerValue])
-            return ge;
-    }
-    return nil;
++ (instancetype)findWithIntIndex:(NSInteger)index
+{
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementAttributes.index, @(index)];
+    return [[TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]] firstObject];
 }
 
-+ (instancetype)findWithFriend:(TBMFriend *)friend {
-    for (TBMGridElement *ge in [TBMGridElement all]) {
-        if ([friend isEqual:ge.friend])
-            return ge;
-    }
-    return nil;
++ (instancetype)findWithFriend:(TBMFriend *)friend
+{
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, friend];
+    return [[TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]] firstObject];
 }
 
-+ (BOOL)friendIsOnGrid:(TBMFriend *)friend {
++ (BOOL)friendIsOnGrid:(TBMFriend *)friend
+{
     return [TBMGridElement findWithFriend:friend] != nil;
 }
 
-+ (instancetype)firstEmptyGridElement {
-    for (TBMGridElement *ge in [TBMGridElement allSorted]) {
-        if (ge.friend == nil)
-            return ge;
-    }
-    return nil;
++ (instancetype)firstEmptyGridElement
+{
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, nil];
+    NSArray* result = [TBMGridElement MR_findAllSortedBy:TBMGridElementAttributes.index
+                                               ascending:YES
+                                           withPredicate:predicate
+                                               inContext:[self _context]];
+    
+    TBMGridElement* entity = [result firstObject];
+    return entity;
 }
 
 
 //--------------------
 // Setters and getters
 //--------------------
-- (void)setIntIndex:(NSInteger)index {
-    self.index = [NSNumber numberWithInteger:index];
-}
 
-+ (BOOL)hasSentVideos:(NSUInteger)index {
++ (BOOL)hasSentVideos:(NSUInteger)index
+{
     TBMFriend *friend = [TBMGridElement findWithIntIndex:index].friend;
     return [friend hasOutgoingVideo];
+}
+
+- (void)setIntIndex:(NSInteger)index
+{
+    self.index = @(index);
 }
 
 - (NSInteger)getIntIndex {

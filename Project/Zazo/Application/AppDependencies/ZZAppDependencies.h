@@ -13,6 +13,7 @@
 - (BOOL)handleOpenURL:(NSURL*)url inApplication:(NSString*)application;
 - (void)handleApplicationDidBecomeActive;
 - (void)handleApplicationWillTerminate;
+- (void)handleApplicationDidEnterInBackground;
 
 - (void)handleApplicationDidRegisterForPushWithToken:(NSData*)token;
 - (void)handleApplication:(UIApplication*)application didRecievePushNotification:(NSDictionary*)userInfo;

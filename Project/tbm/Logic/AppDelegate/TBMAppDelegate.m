@@ -18,6 +18,7 @@
 #import "TBMDispatch.h"
 #import "TBMDependencies.h"
 #import "ZZAppDependencies.h"
+#import "ZZContentDataAcessor.h"
 
 @interface TBMAppDelegate()
 
@@ -27,10 +28,6 @@
 @end
 
 @implementation TBMAppDelegate
-
-@synthesize managedObjectContext = _managedObjectContext;
-@synthesize managedObjectModel = _managedObjectModel;
-@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 #pragma mark - Lifecycle callbacks
 
@@ -76,7 +73,7 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application{
     OB_INFO(@"applicationDidEnterBackground: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
     self.isForeground = NO;
-    [self saveContext];
+    [self.appDependencies handleApplicationDidEnterInBackground];
     [[OBLogger instance] logEvent:OBLogEventAppBackground];
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
@@ -106,7 +103,6 @@
     OB_INFO(@"applicationWillTerminate: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
     // Saves changes in the application's managed object context before the application terminates.
     [self.appDependencies handleApplicationWillTerminate];
-    [self saveContext];
     [self removeObservers];
 }
 
@@ -148,84 +144,6 @@
 // CoreData
 //---------
 
-#pragma mark - Core Data stack
-
-- (void)saveContext{
-    OB_INFO(@"saveContext");
-    __block NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-    __block NSError *error = nil;
-    
-    if (managedObjectContext != nil){
-        [managedObjectContext performBlockAndWait:^{
-            if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-                // Replace this implementation with code to handle the error appropriately.
-                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                OB_ERROR(@"Unresolved error %@, %@", error, [error userInfo]);
-                abort();
-            }
-        }];
-    }
-}
-
-// Returns the managed object context for the application.
-// If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
-- (NSManagedObjectContext *)managedObjectContext
-{
-    if (_managedObjectContext != nil) {
-        return _managedObjectContext;
-    }
-    
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (coordinator != nil) {
-        _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-        [_managedObjectContext setPersistentStoreCoordinator:coordinator];
-    }
-    return _managedObjectContext;
-}
-
-// Returns the managed object model for the application.
-// If the model doesn't already exist, it is created from the application's model.
-- (NSManagedObjectModel *)managedObjectModel
-{
-    if (_managedObjectModel != nil) {
-        return _managedObjectModel;
-    }
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"tbm" withExtension:@"momd"];
-    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    return _managedObjectModel;
-}
-
-// Returns the persistent store coordinator for the application.
-// If the coordinator doesn't already exist, it is created and the application's store added to it.
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
-{
-    if (_persistentStoreCoordinator != nil) {
-        return _persistentStoreCoordinator;
-    }
-    
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"tbm.sqlite"];
-    NSError *error = nil;
-    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-
-    NSDictionary *migrationOptions = @{
-            NSMigratePersistentStoresAutomaticallyOption : @YES,
-            NSInferMappingModelAutomaticallyOption : @YES
-    };
-    
-    // Determine if a migration is needed
-    NSDictionary *sourceMetadata = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:NSSQLiteStoreType URL:storeURL error:&error];
-    NSManagedObjectModel *destinationModel = [_persistentStoreCoordinator managedObjectModel];
-    BOOL pscCompatibile = [destinationModel isConfiguration:nil compatibleWithStoreMetadata:sourceMetadata];
-
-    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:migrationOptions error:&error]) {
-        DebugLog(@"CoreData # Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    } else if (!pscCompatibile) {
-        [self fillDataBaseAfterMigration];
-    }
-    
-    return _persistentStoreCoordinator;
-}
 
 - (void)fillDataBaseAfterMigration {
     OB_INFO(@"Successfull Core Data migration. Trying to fill new fields");
@@ -279,7 +197,7 @@
         
             // So as of 2/19/2005 I have uncommented the line below.
             [[UIApplication sharedApplication] endBackgroundTask: self.backgroundTaskId];
-            [self saveContext];
+            [ZZContentDataAcessor saveDataBase];
             self.backgroundTaskId = UIBackgroundTaskInvalid;
         }];
     }

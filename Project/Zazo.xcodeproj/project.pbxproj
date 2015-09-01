@@ -178,6 +178,7 @@
 		0797DC7A1B94B07600420FD3 /* ZZUserRecorderGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0797DC611B94B07500420FD3 /* ZZUserRecorderGridView.m */; };
 		0797DC7B1B94B07600420FD3 /* ZZGridVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0797DC631B94B07500420FD3 /* ZZGridVC.m */; };
 		0797DC7C1B94B07600420FD3 /* ZZGridWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 0797DC671B94B07500420FD3 /* ZZGridWireframe.m */; };
+		0797DC9C1B95C5D600420FD3 /* ZZContentDataAcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0797DC9B1B95C5D600420FD3 /* ZZContentDataAcessor.m */; };
 		07F0E7EF1B8CD7A900036AB2 /* KeyChainWrapperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E21B8CD7A900036AB2 /* KeyChainWrapperTests.m */; };
 		07F0E7F01B8CD7A900036AB2 /* S3CredentialsManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E31B8CD7A900036AB2 /* S3CredentialsManagerTests.m */; };
 		07F0E7F11B8CD7A900036AB2 /* StringUtilsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E41B8CD7A900036AB2 /* StringUtilsTest.m */; };
@@ -741,6 +742,8 @@
 		0797DC641B94B07500420FD3 /* ZZGridViewInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridViewInterface.h; sourceTree = "<group>"; };
 		0797DC661B94B07500420FD3 /* ZZGridWireframe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridWireframe.h; sourceTree = "<group>"; };
 		0797DC671B94B07500420FD3 /* ZZGridWireframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridWireframe.m; sourceTree = "<group>"; };
+		0797DC9A1B95C5D600420FD3 /* ZZContentDataAcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZContentDataAcessor.h; path = Content/ZZContentDataAcessor.h; sourceTree = "<group>"; };
+		0797DC9B1B95C5D600420FD3 /* ZZContentDataAcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZContentDataAcessor.m; path = Content/ZZContentDataAcessor.m; sourceTree = "<group>"; };
 		07F0E7E21B8CD7A900036AB2 /* KeyChainWrapperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainWrapperTests.m; sourceTree = "<group>"; };
 		07F0E7E31B8CD7A900036AB2 /* S3CredentialsManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = S3CredentialsManagerTests.m; sourceTree = "<group>"; };
 		07F0E7E41B8CD7A900036AB2 /* StringUtilsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringUtilsTest.m; sourceTree = "<group>"; };
@@ -2448,6 +2451,15 @@
 			path = Wireframe;
 			sourceTree = "<group>";
 		};
+		0797DC9D1B95C5D900420FD3 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				0797DC9A1B95C5D600420FD3 /* ZZContentDataAcessor.h */,
+				0797DC9B1B95C5D600420FD3 /* ZZContentDataAcessor.m */,
+			);
+			name = Content;
+			sourceTree = "<group>";
+		};
 		07F0E7E11B8CD7A900036AB2 /* tbm */ = {
 			isa = PBXGroup;
 			children = (
@@ -2653,6 +2665,7 @@
 		07F0EAA91B8CD8BE00036AB2 /* DataAccess */ = {
 			isa = PBXGroup;
 			children = (
+				0797DC9D1B95C5D900420FD3 /* Content */,
 				07F0EAAA1B8CD8BE00036AB2 /* Friend */,
 				07F0EAAF1B8CD8BE00036AB2 /* Grid */,
 				07F0EAB41B8CD8BE00036AB2 /* User */,
@@ -4575,6 +4588,7 @@
 				0730417A1B921CEB00980373 /* TBMRecordWelcomeHintPresenter.m in Sources */,
 				0730416B1B921CEB00980373 /* TBMAbortRecordUsageHintView.m in Sources */,
 				07F0ECC11B8CD8BF00036AB2 /* ZZTouchControllerWithTouchDelay.m in Sources */,
+				0797DC9C1B95C5D600420FD3 /* ZZContentDataAcessor.m in Sources */,
 				073041991B921CEB00980373 /* TBMS3CredentialsManager.m in Sources */,
 				07F0ED201B8CE71000036AB2 /* TBMFriend.m in Sources */,
 				07F0EC821B8CD8BF00036AB2 /* ZZGridDataProvider.m in Sources */,

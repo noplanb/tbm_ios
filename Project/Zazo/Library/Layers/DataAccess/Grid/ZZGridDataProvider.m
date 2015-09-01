@@ -54,10 +54,10 @@
 + (ZZGridDomainModel*)loadFirstEmptyGridElement
 {
     NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, nil];
-     NSArray* result = [TBMGridElement MR_findAllSortedBy:TBMGridElementAttributes.index
-                                                ascending:YES
-                                            withPredicate:predicate
-                                                inContext:[self _context]];
+    NSArray* result = [TBMGridElement MR_findAllSortedBy:TBMGridElementAttributes.index
+                                               ascending:YES
+                                           withPredicate:predicate
+                                               inContext:[self _context]];
     
     TBMGridElement* entity = [result firstObject];
     return [self modelFromEntity:entity];

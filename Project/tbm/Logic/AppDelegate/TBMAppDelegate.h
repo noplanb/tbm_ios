@@ -21,14 +21,7 @@
 
 @property (nonatomic, strong) UIWindow *window;
 
-//@property (strong, nonatomic) TBMRegisterViewController *registerViewController;
-//@property (strong, nonatomic) TBMHomeViewController *homeViewController;
-
 @property (nonatomic) BOOL isForeground;
-
-@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
-@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 @property (copy) void (^backgroundUploadSessionCompletionHandler)();
 @property (copy) void (^backgroundDownloadSessionCompletionHandler)();
@@ -45,8 +38,7 @@
 -(void)onGrantedPushAccess;
 -(void)onFailPushAccess;
 
-- (void)saveContext;
-- (NSURL *)applicationDocumentsDirectory;
+- (NSURL*)applicationDocumentsDirectory;
 - (void) requestBackground;
 - (void)setLifeCycleEventNotificationDelegate:(id)delegate;
 

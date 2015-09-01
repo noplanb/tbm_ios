@@ -38,6 +38,7 @@
 #import "ANProgressButton.h"
 #import "NSDate+ANUIAdditions.h"
 #import "UIImage+ANAdditions.h"
+#import "OBLogger.h"
 
 
 //TODO: cleanup this
@@ -48,7 +49,7 @@ static NSString* emailSubject = @"Feedback";
 static NSString* emailAddress = @"feedback@zazoapp.com";
 //ios, app version, user mkey, iphone 5s.
 
-
+static NSString* const kContentDBName = @"tbm";
 
 #define DEBUG_MODE
 #ifdef DEBUG_MODE

@@ -12,6 +12,7 @@
 #import "ZZAppDependecesInjection.h"
 #import "ANCrashlyticsAdapter.h"
 #import <Instabug/Instabug.h>
+#import "ZZContentDataAcessor.h"
 
 @interface ZZAppDependencies ()
 
@@ -28,12 +29,12 @@
 
 - (void)initialApplicationSetup:(UIApplication *)application launchOptions:(NSDictionary *)options
 {
+    [ANCrashlyticsAdapter start];
+    [ZZContentDataAcessor start];
     [ZZColorTheme shared];
     
-    [ANCrashlyticsAdapter start];
-    
 #ifndef RELEASE
-    [Instabug startWithToken:@"d546deb8f34137b73aa5b0405cee1690"
+    [Instabug startWithToken:@"d546deb8f34137b73aa5b0405cee1690" // TODO:
                captureSource:IBGCaptureSourceUIKit
              invocationEvent:IBGInvocationEventScreenshot];
 #endif
@@ -53,12 +54,17 @@
 
 - (void)handleApplicationWillTerminate
 {
-
+    [ZZContentDataAcessor saveDataBase];
 }
 
 - (void)installAppDependences
 {
     
+}
+
+- (void)handleApplicationDidEnterInBackground
+{
+    [ZZContentDataAcessor saveDataBase];
 }
 
 #pragma mark - Push
