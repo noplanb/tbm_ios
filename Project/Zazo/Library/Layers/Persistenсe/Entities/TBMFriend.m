@@ -16,49 +16,20 @@
 #import "TBMPhoneUtils.h"
 #import "NSString+NSStringExtensions.h"
 #import "TBMUser.h"
+#import "MagicalRecord.h"
 
 @implementation TBMFriend
 
 static NSMutableArray * videoStatusNotificationDelegates;
 
-//==============
-// Class methods
-//==============
-+ (TBMAppDelegate *)appDelegate
++ (NSManagedObjectContext*)_context
 {
-    return [[UIApplication sharedApplication] delegate];
-}
-
-+ (NSManagedObjectContext *)managedObjectContext
-{
-    return [[TBMFriend appDelegate] managedObjectContext];
-}
-
-+ (NSEntityDescription *)entityDescription
-{
-    return [NSEntityDescription entityForName:@"TBMFriend" inManagedObjectContext:[TBMFriend managedObjectContext]];
-}
-
-
-//--------
-// Finders
-//--------
-+ (NSFetchRequest *)fetchRequest
-{
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:[TBMFriend entityDescription]];
-    return request;
+    return [NSManagedObjectContext MR_context];
 }
 
 + (NSArray *)all
 {
-    __block NSError *error;
-    __block NSArray *result;
-    [[TBMFriend managedObjectContext] performBlockAndWait:^
-    {
-        result = [[TBMFriend managedObjectContext] executeFetchRequest:[TBMFriend fetchRequest] error:&error];
-    }];
-    return result;
+    return [self MR_findAllInContext:[self _context]];
 }
 
 + (NSUInteger)allUnviewedCount
@@ -70,7 +41,6 @@ static NSMutableArray * videoStatusNotificationDelegates;
     }
     return result;
 }
-
 
 + (instancetype)findWithOutgoingVideoId:(NSString *)videoId
 {
@@ -94,16 +64,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
 
 + (NSArray *)findAllWithAttributeKey:(NSString *)key value:(id)value
 {
-    __block NSArray *result;
-    __block NSError *error;
-    [[TBMFriend managedObjectContext] performBlockAndWait:^
-    {
-        NSFetchRequest *request = [TBMFriend fetchRequest];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", key, value];
-        [request setPredicate:predicate];
-        result = [[TBMFriend managedObjectContext] executeFetchRequest:request error:&error];
-    }];
-    return result;
+    return [self MR_findByAttribute:key withValue:value inContext:[self _context]];
 }
 
 + (instancetype)findWithMatchingPhoneNumber:(NSString *)phone
@@ -118,7 +79,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
 
 + (NSUInteger)count
 {
-    return [[TBMFriend all] count];
+    return [self MR_countOfEntitiesWithContext:[self _context]];
 }
 
 + (NSUInteger)everSentNonInviteeFriendsCount
@@ -126,107 +87,66 @@ static NSMutableArray * videoStatusNotificationDelegates;
     NSPredicate *everSent = [NSPredicate predicateWithFormat:@"everSent = %@", @(YES)];
     NSPredicate *creator = [NSPredicate predicateWithFormat:@"isConnectionCreator = %@", @(YES)];
     NSCompoundPredicate *filter = [NSCompoundPredicate andPredicateWithSubpredicates:@[everSent, creator]];
-    NSFetchRequest *request = [TBMFriend fetchRequest];
-    [request setPredicate:filter];
-    NSError *error;
-    NSArray *result = [[TBMFriend managedObjectContext] executeFetchRequest:request error:&error];
-    return [result count];
+    return [self MR_countOfEntitiesWithPredicate:filter inContext:[self _context]];
 }
 
-//-------------------
-// Create and destroy
-//-------------------
-+ (void)createWithId:(NSString *)idTbm complete:(void (^)(TBMFriend *friend))complete
-{
-    dispatch_async(dispatch_get_main_queue(), ^
-    {
-        __block TBMFriend *friend;
-        [[TBMFriend managedObjectContext] performBlockAndWait:^
-        {
-            friend = (TBMFriend *) [[NSManagedObject alloc] initWithEntity:[TBMFriend entityDescription] insertIntoManagedObjectContext:[TBMFriend managedObjectContext]];
-            friend.idTbm = idTbm;
-            friend.isConnectionCreator = @(YES);
-        }];
-        complete(friend);
-    });
-}
 
-// TODO: GARF! This method will block forever if it is called from the uiThread. Make sure to fix this problem.
 + (void)createOrUpdateWithServerParams:(NSDictionary *)params complete:(void (^)(TBMFriend *friend))complete
 {
-    dispatch_async(dispatch_get_main_queue(), ^
+    BOOL servHasApp = [TBMHttpManager hasAppWithServerValue:[params objectForKey:SERVER_PARAMS_FRIEND_HAS_APP_KEY]];
+    TBMFriend *f = [TBMFriend findWithMkey:[params objectForKey:SERVER_PARAMS_FRIEND_MKEY_KEY]];
+    if (f != nil)
     {
-        BOOL servHasApp = [TBMHttpManager hasAppWithServerValue:[params objectForKey:SERVER_PARAMS_FRIEND_HAS_APP_KEY]];
-        TBMFriend *f = [TBMFriend findWithMkey:[params objectForKey:SERVER_PARAMS_FRIEND_MKEY_KEY]];
-        if (f != nil)
-        {
-            // OB_INFO(@"createWithServerParams: friend already exists.");
-            if ([f.hasApp boolValue] ^ servHasApp){
-                OB_INFO(@"createWithServerParams: Friend exists updating hasApp only since it is different.");
-                f.hasApp = @(servHasApp);
-                [f notifyVideoStatusChange];
-            }
-            if (complete != nil)
-                complete(f);
-            return;
+        // OB_INFO(@"createWithServerParams: friend already exists.");
+        if ([f.hasApp boolValue] ^ servHasApp){
+            OB_INFO(@"createWithServerParams: Friend exists updating hasApp only since it is different.");
+            f.hasApp = @(servHasApp);
+            [f notifyVideoStatusChange];
         }
-
-        __block TBMFriend *friend;
-        [[TBMFriend managedObjectContext] performBlockAndWait:^
-        {
-            friend = (TBMFriend *) [[NSManagedObject alloc]
-                    initWithEntity:[TBMFriend entityDescription]
-    insertIntoManagedObjectContext:[TBMFriend managedObjectContext]];
-
-            friend.firstName = [params objectForKey:SERVER_PARAMS_FRIEND_FIRST_NAME_KEY];
-            friend.lastName = [params objectForKey:SERVER_PARAMS_FRIEND_LAST_NAME_KEY];
-            friend.mobileNumber = [params objectForKey:SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY];
-            friend.idTbm = [params objectForKey:SERVER_PARAMS_FRIEND_ID_KEY];
-            friend.mkey = [params objectForKey:SERVER_PARAMS_FRIEND_MKEY_KEY];
-            friend.ckey = [params objectForKey:SERVER_PARAMS_FRIEND_CKEY_KEY];
-            friend.timeOfLastAction = [NSDate date];
-            NSString *creatorMkey = params[@"connection_creator_mkey"];
-            TBMUser *me = [TBMUser getUser];
-            friend.isConnectionCreator = @([me.mkey isEqualToString:creatorMkey]);
-            friend.hasApp = @(servHasApp);
-        }];
-        OB_INFO(@"Added friend: %@", friend.firstName);
-        [friend notifyVideoStatusChange];
         if (complete != nil)
-            complete(friend);
-    });
+            complete(f);
+        return;
+    }
+    
+    
+    TBMFriend *friend = [TBMFriend MR_createEntityInContext:[self _context]];
+    
+    
+    friend.firstName = [params objectForKey:SERVER_PARAMS_FRIEND_FIRST_NAME_KEY];
+    friend.lastName = [params objectForKey:SERVER_PARAMS_FRIEND_LAST_NAME_KEY];
+    friend.mobileNumber = [params objectForKey:SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY];
+    friend.idTbm = [params objectForKey:SERVER_PARAMS_FRIEND_ID_KEY];
+    friend.mkey = [params objectForKey:SERVER_PARAMS_FRIEND_MKEY_KEY];
+    friend.ckey = [params objectForKey:SERVER_PARAMS_FRIEND_CKEY_KEY];
+    friend.timeOfLastAction = [NSDate date];
+    NSString *creatorMkey = params[@"connection_creator_mkey"];
+    TBMUser *me = [TBMUser getUser];
+    friend.isConnectionCreator = @([me.mkey isEqualToString:creatorMkey]);
+    friend.hasApp = @(servHasApp);
+    
+    [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
+    
+    OB_INFO(@"Added friend: %@", friend.firstName);
+    [friend notifyVideoStatusChange];
+    if (complete)
+    {
+        complete(friend);
+    }
 }
 
 
-+ (NSUInteger)destroyAll
++ (void)destroyAll
 {
-    NSUInteger count = [[TBMFriend all] count];
-    [[TBMFriend managedObjectContext] performBlockAndWait:^
-    {
-        for (TBMFriend *friend in [TBMFriend all])
-        {
-            [[TBMFriend managedObjectContext] deleteObject:friend];
-        }
-    }];
-    return count;
+    [self MR_truncateAllInContext:[self _context]];
+    [[self _context] MR_saveToPersistentStoreAndWait];
 }
 
 + (void)destroyWithId:(NSString *)idTbm
 {
-    [[TBMFriend managedObjectContext] performBlockAndWait:^
-    {
-        TBMFriend *friend = [TBMFriend findWithId:idTbm];
-        if (friend != nil)
-        {
-            [[TBMFriend managedObjectContext] deleteObject:friend];
-        }
-    }];
+    TBMFriend* user = [TBMFriend findWithId:idTbm];
+    [user MR_deleteEntity];
+    [[self _context] MR_saveToPersistentStoreAndWait];
 }
-
-
-//=================
-// Instance methods
-//=================
 
 //-----------
 // UI helpers
@@ -436,7 +356,8 @@ static NSMutableArray * videoStatusNotificationDelegates;
 - (void)setViewedWithIncomingVideo:(TBMVideo *)video
 {
     [self setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_VIEWED video:video];
-    [[TBMFriend appDelegate] sendNotificationForVideoStatusUpdate:self videoId:video.videoId status:NOTIFICATION_STATUS_VIEWED];
+    TBMAppDelegate* delegate = (TBMAppDelegate*)[UIApplication sharedApplication].delegate;
+    [delegate sendNotificationForVideoStatusUpdate:self videoId:video.videoId status:NOTIFICATION_STATUS_VIEWED];
 }
 
 //------
@@ -551,24 +472,7 @@ static NSMutableArray * videoStatusNotificationDelegates;
 {
     [self performSelectorOnMainThread:@selector(notifyVideoStatusChange) withObject:nil waitUntilDone:YES];
     self.everSent = @(YES);
-    [self save];
-}
-
-- (void)save
-{
-    NSManagedObjectContext *context = [self managedObjectContext];
-    // Save data to store
-    NSError *error;
-    [context save:&error];
-    if (error)
-    {
-        OB_ERROR(@"TBMFriend # saveCurrentContext - Failed to save - error: %@", error);
-        return;
-    } else
-    {
-        OB_INFO(@"TBMFriend # saveCurrentContext - OK.");
-        return;
-    }
+    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
 }
 
 + (void)fillAfterMigration

@@ -7,20 +7,9 @@
 //
 
 #import "TBMGridElement.h"
-#import "TBMAppDelegate.h"
-#import "NSString+NSStringExtensions.h"
 #import "MagicalRecord.h"
 
 @implementation TBMGridElement
-
-//-------------------
-// Create and destroy
-//-------------------
-
-+ (NSManagedObjectContext*)_context
-{
-    return [NSManagedObjectContext MR_context];
-}
 
 + (instancetype)create
 {
@@ -32,10 +21,6 @@
     [self MR_truncateAllInContext:[self _context]];
     [[self _context] MR_saveToPersistentStoreAndWait];
 }
-
-//--------
-// Finders
-//--------
 
 + (NSArray *)all
 {
@@ -78,11 +63,6 @@
     return entity;
 }
 
-
-//--------------------
-// Setters and getters
-//--------------------
-
 + (BOOL)hasSentVideos:(NSUInteger)index
 {
     TBMFriend *friend = [TBMGridElement findWithIntIndex:index].friend;
@@ -94,8 +74,18 @@
     self.index = @(index);
 }
 
-- (NSInteger)getIntIndex {
+- (NSInteger)getIntIndex
+{
     return [self.index integerValue];
 }
+
+
+#pragma mark - Private
+
++ (NSManagedObjectContext*)_context
+{
+    return [NSManagedObjectContext MR_context];
+}
+
 
 @end
