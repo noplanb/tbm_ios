@@ -47,12 +47,11 @@ static BOOL TBMDispatchEnabled = NO;
 
 @implementation TBMDispatch
 
-+ (void)initialize{
-    DebugLog(@"Dispatch initialize");
-    
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(receivedError:)
-                                                 name: OBLoggerErrorNotification object:nil];
++ (void)initialize
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receivedError:)
+                                                 name:OBLoggerErrorNotification object:nil];
 }
 
 + (void)setupDispatchType:(TBMDispatchType)type {

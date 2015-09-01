@@ -47,7 +47,7 @@
     self.registerForm = [[TBMRegisterForm alloc] initWithView:self.view delegate:self];
     self.registerForm.controller = self;
 
-    self.view.backgroundColor = [TBMConfig registrationBackGroundColor];
+    self.view.backgroundColor = [ZZColorTheme shared].authBackgroundColor;
 }
 
 - (void)viewDidAppear:(BOOL)animated{

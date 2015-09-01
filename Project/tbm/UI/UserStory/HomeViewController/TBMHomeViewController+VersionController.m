@@ -39,7 +39,7 @@
         [alert addAction:[SDCAlertAction actionWithTitle:@"Later" style:SDCAlertActionStyleCancel handler:nil]];
     
     [alert addAction:[SDCAlertAction actionWithTitle:@"Update" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:CONFIG_APP_STORE_URL]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kAppstoreURLString]];
     }]];
     [alert presentWithCompletion:nil];
 }

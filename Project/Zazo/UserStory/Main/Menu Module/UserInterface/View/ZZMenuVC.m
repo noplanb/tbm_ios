@@ -37,11 +37,20 @@
     self.view = self.menuView;
 }
 
+
 #pragma mark - View Interface 
 
 - (void)updateDataSource:(ZZMenuDataSource*)dataSource
 {
     [self.controller updateDataSource:dataSource];
+}
+
+- (void)reset
+{
+    self.menuView.searchBar.text = @"";
+    ANDispatchBlockToMainQueue(^{
+       [self.menuView.tableView setContentOffset:CGPointZero];
+    });
 }
 
 

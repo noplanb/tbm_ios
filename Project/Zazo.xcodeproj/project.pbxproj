@@ -2102,8 +2102,6 @@
 			isa = PBXGroup;
 			children = (
 				073041191B921CEB00980373 /* AlertViewController */,
-				073041201B921CEB00980373 /* BenchViewController */,
-				073041251B921CEB00980373 /* Contacts */,
 				073041281B921CEB00980373 /* GridController */,
 				073041301B921CEB00980373 /* HomeViewController */,
 			);
@@ -2131,7 +2129,8 @@
 				073041231B921CEB00980373 /* TBMBenchViewController.h */,
 				073041241B921CEB00980373 /* TBMBenchViewController.m */,
 			);
-			path = BenchViewController;
+			name = BenchViewController;
+			path = ../UI/UserStory/BenchViewController;
 			sourceTree = "<group>";
 		};
 		073041251B921CEB00980373 /* Contacts */ = {
@@ -2140,7 +2139,8 @@
 				073041261B921CEB00980373 /* TBMContactSearchTableDelegate.h */,
 				073041271B921CEB00980373 /* TBMContactSearchTableDelegate.m */,
 			);
-			path = Contacts;
+			name = Contacts;
+			path = ../UI/UserStory/Contacts;
 			sourceTree = "<group>";
 		};
 		073041281B921CEB00980373 /* GridController */ = {
@@ -2231,6 +2231,8 @@
 		07576C9A1B922BA300CB2ECB /* _OLD */ = {
 			isa = PBXGroup;
 			children = (
+				073041201B921CEB00980373 /* BenchViewController */,
+				073041251B921CEB00980373 /* Contacts */,
 				073040C61B921CEB00980373 /* Secret Screen Module */,
 				073040D11B921CEB00980373 /* State module */,
 			);

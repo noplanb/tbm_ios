@@ -17,6 +17,7 @@
 #import "TBMHttpManager.h"
 #import "TBMUser.h"
 #import "TBMAlertController.h"
+#import "ZZAPIRoutes.h"
 
 @implementation TBMHomeViewController (Invite)
 
@@ -292,7 +293,7 @@
     
     mc.recipients = @[[self selectedPhoneE164]];
     NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
-    mc.body = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", appName, CONFIG_INVITE_BASE_URL_STRING, [self friend].idTbm];
+    mc.body = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", appName, kInviteFriendBaseURL, [self friend].idTbm];
     [self startWaitingForServer];
     [self applicationWillSwitchToSMS];
     [self presentViewController:mc animated:YES completion:^{

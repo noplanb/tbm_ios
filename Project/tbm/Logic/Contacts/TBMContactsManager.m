@@ -224,29 +224,6 @@
     return result;
 }
 
-- (void)printPhones{
-    for (CFIndex i=0; i<CFArrayGetCount(_allPeople); i++){
-        ABRecordRef p = CFArrayGetValueAtIndex(_allPeople, i);
-        ABMultiValueRef phoneNumbers = ABRecordCopyValue(p, kABPersonPhoneProperty);
-        for (CFIndex i = 0; i < ABMultiValueGetCount(phoneNumbers); i++) {
-            NSString* phoneNumber = (__bridge_transfer NSString*) ABMultiValueCopyValueAtIndex(phoneNumbers, i);
-            CFStringRef label = ABMultiValueCopyLabelAtIndex(phoneNumbers, i);
-            CFStringRef ll = ABAddressBookCopyLocalizedLabel(label);
-            DebugLog(@"%@ %@", phoneNumber, ll);
-        }
-    }
-}
-
-- (void)printNames{
-    for (CFIndex i=0; i<CFArrayGetCount(_sortedPeople); i++){
-        ABRecordRef p = CFArrayGetValueAtIndex(_sortedPeople, i);
-        CFStringRef fn = ABRecordCopyValue(p, kABPersonFirstNameProperty);
-        CFStringRef ln = ABRecordCopyValue(p, kABPersonLastNameProperty);
-        DebugLog(@"%@ %@", fn, ln);
-    }
-}
-
-
 //-----------------------
 // Request and get access
 //-----------------------

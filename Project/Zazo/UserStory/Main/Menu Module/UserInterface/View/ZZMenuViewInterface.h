@@ -11,5 +11,6 @@
 @protocol ZZMenuViewInterface <NSObject>
 
 - (void)updateDataSource:(ZZMenuDataSource*)dataSource;
+- (void)reset;
 
 @end

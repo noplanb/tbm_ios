@@ -6,10 +6,8 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
 @interface TBMContentViewModal : NSObject
+
 - (instancetype) initWithParentView:(UIView *)parentView
                               title:(NSString *)title
                           cancelTxt:(NSString *)cancel

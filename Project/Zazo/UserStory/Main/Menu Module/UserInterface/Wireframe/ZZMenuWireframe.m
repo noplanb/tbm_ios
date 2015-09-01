@@ -29,7 +29,6 @@
 
 - (void)presentMenuControllerFromWindow:(UIWindow *)window
 {
-    
     ANDispatchBlockToMainQueue(^{
         ZZMenuVC* menuController = [ZZMenuVC new];
         ANDrawerNC* drawerController = [self drawerControllerWithView:menuController.view];
@@ -78,6 +77,7 @@
 
 - (void)toggleMenu
 {
+    [self.menuController reset];
     [self.drawerController toggle];
 }
 

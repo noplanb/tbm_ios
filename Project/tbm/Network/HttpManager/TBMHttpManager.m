@@ -9,6 +9,7 @@
 #import "TBMHttpManager.h"
 #import "TBMConfig.h"
 #import "TBMUser.h"
+#import "ZZAPIRoutes.h"
 
 NSString * const SERVER_PARAMS_STATUS_KEY = @"status";
 NSString * const SERVER_PARAMS_ERROR_TITLE_KEY = @"title";
@@ -52,7 +53,8 @@ NSString * const SERVER_PARAMS_DISPATCH_ZAZO_VERSION_NUMBER_KEY = @"zazo_version
 @implementation TBMHttpManager
 
 + (AFHTTPRequestOperationManager *)managerWithCredential:(NSURLCredential *)credential{
-    AFHTTPRequestOperationManager *m = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[TBMConfig tbmBaseUrl]];
+    AFHTTPRequestOperationManager *m = [[AFHTTPRequestOperationManager alloc]
+                                        initWithBaseURL:[NSURL URLWithString:apiBaseURL()]];
     m.credential = credential;
     return m;
 }

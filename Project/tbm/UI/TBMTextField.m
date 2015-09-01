@@ -7,22 +7,25 @@
 //
 
 #import "TBMTextField.h"
-#import <QuartzCore/QuartzCore.h>
 
 @implementation TBMTextField
-@synthesize nextField;
 
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    self.layer.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.2].CGColor;
-    self.layer.cornerRadius = 4.0;
-    self.layer.masksToBounds = YES;
-    self.layer.borderColor = [UIColor colorWithWhite:1.0 alpha:0.4].CGColor;
-    self.layer.borderWidth = 1.0;
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self)
+    {
+        self.layer.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.2].CGColor;
+        self.layer.cornerRadius = 4.0;
+        self.layer.masksToBounds = YES;
+        self.layer.borderColor = [UIColor colorWithWhite:1.0 alpha:0.4].CGColor;
+        self.layer.borderWidth = 1.0;
+    }
+    return self;
 }
 
-- (void)drawPlaceholderInRect:(CGRect)rect {
+- (void)drawPlaceholderInRect:(CGRect)rect
+{
     [[self placeholder] drawInRect:CGRectInset(rect, 0, (rect.size.height - self.font.lineHeight) / 2.0)
                     withAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : self.font}];
 }

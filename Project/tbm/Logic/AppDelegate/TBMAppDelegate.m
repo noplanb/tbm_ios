@@ -37,7 +37,9 @@
     return YES;
 }
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [self.appDependencies initialApplicationSetup:application launchOptions:launchOptions];
     [TBMDispatch startRollBar];
     self.pushAlreadyFailed = NO;
     [self setupLogger];
@@ -45,7 +47,7 @@
     
     OB_INFO(@"didFinishLaunchingWithOptions:");
     
-    [self.appDependencies initialApplicationSetup:application launchOptions:launchOptions];
+    
     [self.window makeKeyAndVisible];
     [self.appDependencies installRootViewControllerIntoWindow:self.window];
     
