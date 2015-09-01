@@ -54,7 +54,7 @@
         _isAppeared = NO;
         _videoPlayer = [TBMVideoPlayer sharedInstance];
         _gridElement = [TBMGridElement findWithIntIndex:index];
-        _messageDing = [[TBMSoundEffect alloc] initWithSoundNamed:CONFIG_DING_SOUND];
+        _messageDing = [[TBMSoundEffect alloc] initWithSoundNamed:kMessageSoundEffectFileName];
         _frame = frame;
     }
     return self;

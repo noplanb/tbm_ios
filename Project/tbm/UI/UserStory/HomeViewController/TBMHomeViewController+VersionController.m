@@ -27,8 +27,10 @@
     }
 }
 
-- (NSString *)makeMessageWithQualifier:(NSString *)q{
-    return [NSString stringWithFormat:@"Your %@ app is %@. Please update", CONFIG_APP_NAME, q];
+- (NSString *)makeMessageWithQualifier:(NSString *)q
+{
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    return [NSString stringWithFormat:@"Your %@ app is %@. Please update", appName, q];
 }
 
 - (void)showVersionHandlerDialogWithMessage:(NSString *)message negativeButton:(BOOL)negativeButton{
@@ -37,7 +39,7 @@
         [alert addAction:[SDCAlertAction actionWithTitle:@"Later" style:SDCAlertActionStyleCancel handler:nil]];
     
     [alert addAction:[SDCAlertAction actionWithTitle:@"Update" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:CONFIG_APP_STORE_URL]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kAppstoreURLString]];
     }]];
     [alert presentWithCompletion:nil];
 }

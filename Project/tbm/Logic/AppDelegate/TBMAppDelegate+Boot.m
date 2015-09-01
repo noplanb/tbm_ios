@@ -85,18 +85,20 @@
     [self requestAudioAccess];
 }
 
-- (void)onVideoAccessNotGranted {
+- (void)onVideoAccessNotGranted
+{
     OB_INFO(@"Boot: onVideoAccessNotGranted");
 
     NSString *msg;
-
-    if (SYSTEM_VERSION_LESS_THAN(@"8.0")) {
-        msg = [NSString stringWithFormat:@"You must grant access to CAMERA for %@. Please close %@. Go your device home screen. Click Settings/Privacy/Camera and grant access for %@.", CONFIG_APP_NAME, CONFIG_APP_NAME, CONFIG_APP_NAME];
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    if (SYSTEM_VERSION_LESS_THAN(@"8.0"))
+    {
+        msg = [NSString stringWithFormat:@"You must grant access to CAMERA for %@. Please close %@. Go your device home screen. Click Settings/Privacy/Camera and grant access for %@.", appName, appName, appName];
     } else {
-        msg = [NSString stringWithFormat:@"You must grant access to CAMERA for %@. Please close %@. Go your device home screen. Click Settings/%@ and grant access for CAMERA.", CONFIG_APP_NAME, CONFIG_APP_NAME, CONFIG_APP_NAME];
+        msg = [NSString stringWithFormat:@"You must grant access to CAMERA for %@. Please close %@. Go your device home screen. Click Settings/%@ and grant access for CAMERA.", appName, appName, appName];
     }
 
-    NSString *closeBtn = [NSString stringWithFormat:@"Close %@", CONFIG_APP_NAME];
+    NSString *closeBtn = [NSString stringWithFormat:@"Close %@", appName];
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Need Permission"
                                                                      message:msg];
     [alert addAction:[SDCAlertAction actionWithTitle:closeBtn style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
@@ -110,18 +112,20 @@
     [self onAllMediaAccessGranted];
 }
 
-- (void)onAudioAccessNotGranted {
+- (void)onAudioAccessNotGranted
+{
     OB_INFO(@"Boot: onAudioAccessNotGranted");
-
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
     NSString *msg;
 
-    if (SYSTEM_VERSION_LESS_THAN(@"8.0")) {
-        msg = [NSString stringWithFormat:@"You must grant access to MICROPHONE for %@. Please close %@. Go your device home screen. Click Settings/privacy/microphone and grant access for %@.", CONFIG_APP_NAME, CONFIG_APP_NAME, CONFIG_APP_NAME];
+    if (SYSTEM_VERSION_LESS_THAN(@"8.0"))
+    {
+        msg = [NSString stringWithFormat:@"You must grant access to MICROPHONE for %@. Please close %@. Go your device home screen. Click Settings/privacy/microphone and grant access for %@.", appName, appName, appName];
     } else {
-        msg = [NSString stringWithFormat:@"You must grant access to MICROPHONE for %@. Please close %@. Go your device home screen. Click Settings/%@ and grant access for MICROPHONE.", CONFIG_APP_NAME, CONFIG_APP_NAME, CONFIG_APP_NAME];
+        msg = [NSString stringWithFormat:@"You must grant access to MICROPHONE for %@. Please close %@. Go your device home screen. Click Settings/%@ and grant access for MICROPHONE.", appName, appName, appName];
     }
 
-    NSString *closeBtn = [NSString stringWithFormat:@"Close %@", CONFIG_APP_NAME];
+    NSString *closeBtn = [NSString stringWithFormat:@"Close %@", appName];
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Need Permission"
                                                                      message:msg];
     [alert addAction:[SDCAlertAction actionWithTitle:closeBtn style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
@@ -152,10 +156,12 @@
 
 #pragma mark Ensure free storage space
 
-- (void)requestStorage {
+- (void)requestStorage
+{
     OB_INFO(@"Boot: requestStorage");
-    NSString *msg = [NSString stringWithFormat:@"No available storage on device. Close %@. Delete some videos and photos. Be sure to delete permanently from recently deleted folder. Then try again.", CONFIG_APP_NAME];
-    NSString *closeBtn = [NSString stringWithFormat:@"Close %@", CONFIG_APP_NAME];
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    NSString *msg = [NSString stringWithFormat:@"No available storage on device. Close %@. Delete some videos and photos. Be sure to delete permanently from recently deleted folder. Then try again.", appName];
+    NSString *closeBtn = [NSString stringWithFormat:@"Close %@", appName];
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"No Available Storage"
                                                                      message:msg];
 
@@ -225,7 +231,8 @@
     }
     self.pushAlreadyFailed = YES;
     OB_INFO(@"onFailPushAccess");
-    NSString *closeBtn = [NSString stringWithFormat:@"Close %@", CONFIG_APP_NAME];
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    NSString *closeBtn = [NSString stringWithFormat:@"Close %@", appName];
     NSString *msg = @"You must grant permission for NOTIFICATIONS."
             " Go your device home screen. "
             "Click Settings/Zazo and allow notifications for Zazo. "

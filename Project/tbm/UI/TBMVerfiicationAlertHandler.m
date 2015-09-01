@@ -74,6 +74,7 @@ static NSString *MESSAGE = @"We sent a code";
     [self.alertController addAction:self.confirmationAction];
 }
 
+
 #pragma mark content view
 
 - (UIView *)contentView{

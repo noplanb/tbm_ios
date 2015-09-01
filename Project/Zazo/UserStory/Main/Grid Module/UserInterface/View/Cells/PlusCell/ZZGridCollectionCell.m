@@ -2,12 +2,12 @@
 //  ZZGridCollectionCell.m
 //  Zazo
 //
-//  Created by ANODA.
+//  Created by ANODA on 12/08/15.
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
 #import "ZZGridCollectionCell.h"
-#import "ZZUserRecorderGridView.h"
+
 #import "ZZGridDomainModel.h"
 #import "ZZFriendDomainModel.h"
 
@@ -16,7 +16,9 @@
 
 @property (nonatomic, strong) ZZGridDomainModel* gridModel;
 @property (nonatomic, strong) UIImageView* plusImageView;
-@property (nonatomic, strong) ZZUserRecorderGridView* recorderView;
+
+@property (nonatomic, strong) UIGestureRecognizer* plusRecognizer;
+@property (nonatomic, strong) UIImage* screenShot;
 
 @end
 
@@ -32,9 +34,16 @@
     return self;
 }
 
+- (void)prepareForReuse
+{
+    [self.recorderView removeFromSuperview];
+}
+
 - (void)updateWithModel:(id)model
 {
+    self.gridModel = nil;
     self.gridModel = model;
+    
     [self _updateIfNeededStateWithUserModel:self.gridModel.relatedUser];
 }
 
@@ -66,6 +75,10 @@
     {
         self.recorderView = [[ZZUserRecorderGridView alloc] initWithPresentedView:self withFriendModel:model];
     }
+    else
+    {
+        [self.recorderView removeFromSuperview];
+    }
 }
 
 #pragma mark - Not Logged View Delegate
@@ -83,6 +96,20 @@
 - (void)stopRecording
 {
     [self.gridModel stopRecording];
+}
+
+- (void)makeActualScreenShoot
+{
+    CGFloat scale = [UIScreen mainScreen].scale;
+    UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, scale);
+    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+    self.screenShot = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+}
+
+- (UIImage *)actualSateImage
+{
+    return self.screenShot;
 }
 
 @end

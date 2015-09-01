@@ -69,8 +69,9 @@ static const float LayoutConstRecordingBorderWidth = 2;
     [self addRecordingLabel];
 }
 
-- (void) setupSoundEffects {
-    self.dingSoundEffect = [[TBMSoundEffect alloc] initWithSoundNamed:CONFIG_DING_SOUND];
+- (void) setupSoundEffects
+{
+    self.dingSoundEffect = [[TBMSoundEffect alloc] initWithSoundNamed:kMessageSoundEffectFileName];
 }
 
 - (void)addRecordingLabel{

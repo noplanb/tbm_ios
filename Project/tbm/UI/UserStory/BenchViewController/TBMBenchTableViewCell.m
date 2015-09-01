@@ -14,7 +14,8 @@ float const BENCH_CELL_THUMB_IMAGE_RIGHT_MARGIN = 10.0;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
+    if (self)
+    {
         // Initialization code
         _thumbImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20.0, 10.0, 36.0, 36.0f)];
         _thumbImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -39,18 +40,7 @@ float const BENCH_CELL_THUMB_IMAGE_RIGHT_MARGIN = 10.0;
         [self.contentView addSubview:botBorderTopView];
         [self.contentView addSubview:botBorderBotView];
     }
-    
     return self;
-}
-
-- (void)awakeFromNib {
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end

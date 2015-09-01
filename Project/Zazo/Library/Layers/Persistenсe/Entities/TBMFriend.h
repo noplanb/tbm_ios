@@ -68,9 +68,8 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 - (void) deleteAllViewedOrFailedVideos;
 
 // Create and destroy
-+ (void)createWithId:(NSString *)idTbm complete:(void(^)(TBMFriend *friend))complete;
 + (void)createOrUpdateWithServerParams:(NSDictionary *)params complete:(void (^)(TBMFriend *friend))complete;
-+ (NSUInteger)destroyAll;
++ (void)destroyAll;
 + (void)destroyWithId:(NSNumber *)idTbm;
 
 // VideoStatusNotification
@@ -109,14 +108,5 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 
 - (BOOL)hasOutgoingVideo;
 - (NSString *)OVStatusName;
-
-@end
-
-@interface TBMFriend (CoreDataGeneratedAccessors)
-
-- (void)addVideosObject:(TBMVideo *)value;
-- (void)removeVideosObject:(TBMVideo *)value;
-- (void)addVideos:(NSSet *)values;
-- (void)removeVideos:(NSSet *)values;
 
 @end

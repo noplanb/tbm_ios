@@ -5,7 +5,7 @@
 //  Copyright (c) 2014 ANODA. All rights reserved.
 //
 
-#define DEBUG_CONTROLLER
+//#define DEBUG_CONTROLLER
 #define HTTPLog
 #define DEBUG_LOGIN_USER
 //#define STAGESERVER
@@ -38,6 +38,7 @@
 #import "ANProgressButton.h"
 #import "NSDate+ANUIAdditions.h"
 #import "UIImage+ANAdditions.h"
+#import "OBLogger.h"
 
 
 //TODO: cleanup this
@@ -48,6 +49,10 @@ static NSString* emailSubject = @"Feedback";
 static NSString* emailAddress = @"feedback@zazoapp.com";
 //ios, app version, user mkey, iphone 5s.
 
+static NSString* const kContentDBName = @"tbm";
+
+static NSString* const kAppstoreURLString = @"https://itunes.apple.com/us/app/zazo/id922294638";
+static NSString* const kMessageSoundEffectFileName = @"BeepSin30.wav";
 
 
 #define DEBUG_MODE

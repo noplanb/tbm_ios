@@ -53,7 +53,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
 {
     ANDispatchBlockToMainQueue(^{
         self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:captureSession];
-//        self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+        self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
         self.previewLayer.frame = self.layer.bounds;
         [self.layer addSublayer:self.previewLayer];
         [self _setupRecordingOverlay];

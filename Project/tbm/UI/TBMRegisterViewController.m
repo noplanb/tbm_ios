@@ -22,6 +22,7 @@
 #import "TBMAlertControllerVisualStyle.h"
 #import "TBMDispatch.h"
 #import "ZZNetworkTransport.h"
+#import "NSObject+ANSafeValues.h"
 
 @interface TBMRegisterViewController ()
 
@@ -48,7 +49,7 @@
     self.registerForm = [[TBMRegisterForm alloc] initWithView:self.view delegate:self];
     self.registerForm.controller = self;
 
-    self.view.backgroundColor = [TBMConfig registrationBackGroundColor];
+    self.view.backgroundColor = [ZZColorTheme shared].authBackgroundColor;
 }
 
 #pragma mark - Submit reg form
@@ -332,11 +333,14 @@
     [av show];
 }
 
-- (NSString *)badConnectionMessage{
-    return [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", CONFIG_APP_NAME];
+- (NSString *)badConnectionMessage
+{
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    return [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", [NSObject an_safeString:appName]];
 }
 
-- (NSString *)badConnectionTitle{
+- (NSString *)badConnectionTitle
+{
     return @"Bad Connection";
 }
 

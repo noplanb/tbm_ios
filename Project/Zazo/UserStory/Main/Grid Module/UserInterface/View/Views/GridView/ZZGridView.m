@@ -8,6 +8,9 @@
 
 #import "ZZGridView.h"
 #import "ZZGridCollectionLayout.h"
+#import "ZZGridCollectionCell.h"
+
+#define IS_IPHONE_4             ([[UIScreen mainScreen] bounds].size.height == 480.0f)
 
 #pragma mark - Header height
 static CGFloat const kHeaderViewHeight = 64;
@@ -19,6 +22,11 @@ static CGFloat const kTileImageLeftPadding = 5;
 static CGFloat const kMenuButtonRightPadding = 5;
 
 
+@interface ZZGridView () <UIGestureRecognizerDelegate>
+
+@property (nonatomic, weak) id <ZZGridViewDelegate> delegate;
+
+@end
 
 @implementation ZZGridView
 
@@ -31,6 +39,7 @@ static CGFloat const kMenuButtonRightPadding = 5;
         [self titleImageView];
         [self menuButton];
         [self collectionView];
+        [self configureRecognizers];
     }
     return self;
 }
@@ -101,7 +110,6 @@ static CGFloat const kMenuButtonRightPadding = 5;
             make.centerY.equalTo(self.headerView.mas_centerY);
         }];
     }
-    
     return _editFriendsButton;
 }
 
@@ -112,14 +120,52 @@ static CGFloat const kMenuButtonRightPadding = 5;
         ZZGridCollectionLayout* collectionLayout = [ZZGridCollectionLayout new];
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:collectionLayout];
         _collectionView.backgroundColor = [UIColor clearColor];
-        [self addSubview:_collectionView];
+        _collectionView.scrollEnabled = NO;
         
+         __block CGFloat height;
+        
+        if (IS_IPHONE_4)
+        {
+            height = 416;
+        }
+        else if (IS_IPHONE_5)
+        {
+            height = 447.5;
+        }
+        else if (IS_IPHONE_6)
+        {
+            height = 522;
+        }
+        else if (IS_IPHONE_6_PLUS)
+        {
+            height = 579;
+        }
+        
+        [self addSubview:_collectionView];
         [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.headerView.mas_bottom);
-            make.left.right.bottom.equalTo(self);
+            make.left.right.equalTo(self);
+            make.height.equalTo(@(height));
         }];
     }
     return _collectionView;
+}
+
+- (void)updateWithDelegate:(id<ZZGridViewDelegate>)delegate
+{
+    if (delegate)
+    {
+        self.delegate = delegate;
+        [self configureRecognizers];
+    }
+}
+
+- (void)configureRecognizers {
+    self.rotationRecognizer = [[RotationGestureRecognizer alloc] initWithTarget:self.delegate
+                                                                         action:@selector(handleRotationGesture:)];
+  
+    self.rotationRecognizer.delegate = self.delegate;
+    [self addGestureRecognizer:self.rotationRecognizer];
 }
 
 @end

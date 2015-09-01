@@ -20,7 +20,10 @@
 
 - (void)fillData
 {
-    NSArray *versionParts = @[CONFIG_VERSION_STRING, @"(", CONFIG_VERSION_NUMBER, @")"];
+    NSString* version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSString* buildNumber = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    
+    NSArray *versionParts = @[version, @"(", buildNumber, @")"];
     self.version = [versionParts componentsJoinedByString:@" "];
     TBMUser *user = [TBMUser getUser];
 

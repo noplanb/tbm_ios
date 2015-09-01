@@ -112,9 +112,14 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 - (void)sendPushTokenToServer:(NSString *)token {
     OB_INFO(@"sendPushTokenToServer");
     NSDictionary *params = @{@"mkey" : [TBMUser getUser].mkey,
-            @"device_build" : [TBMConfig deviceBuildString],
-            @"push_token" : token,
-            @"device_platform" : @"ios"};
+#ifdef DEBUG
+                             @"device_build" : @"dev",
+                             
+#else
+                             @"device_build" : @"prod",
+#endif
+                             @"push_token" : token,
+                             @"device_platform" : @"ios"};
 
     [[TBMHttpManager manager] POST:@"notification/set_push_token"
                         parameters:params

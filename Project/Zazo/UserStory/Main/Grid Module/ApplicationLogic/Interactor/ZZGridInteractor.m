@@ -2,7 +2,7 @@
 //  ZZGridInteractor.m
 //  Zazo
 //
-//  Created by ANODA on 1/11/15.
+//  Created by Oksana Kovalchuk on 1/11/15.
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
@@ -19,8 +19,9 @@ static NSInteger const kGridCenterCellIndex = 4;
 @interface ZZGridInteractor ()
 
 @property (nonatomic, strong) NSMutableArray* dataArray;
-@property (nonatomic, strong) NSIndexPath* selectedIndexPath;
 @property (nonatomic, strong) id selectedUserModel;
+@property (nonatomic, strong) ZZGridDomainModel* selectedCellModel;
+
 
 @end
 
@@ -52,9 +53,9 @@ static NSInteger const kGridCenterCellIndex = 4;
     return self.dataArray.count/2;
 }
 
-- (void)selectedPlusCellWithIndexPath:(NSIndexPath *)indexPath
+- (void)selectedPlusCellWithModel:(ZZGridDomainModel *)model
 {
-    self.selectedIndexPath = indexPath;
+    self.selectedCellModel = model;
 }
 
 - (void)selectedUserWithModel:(id)model
@@ -65,11 +66,8 @@ static NSInteger const kGridCenterCellIndex = 4;
 
 - (void)_updateSelectedModelWithUser
 {
-    id dataModel = self.dataArray[self.selectedIndexPath.row];
-    ZZGridDomainModel* model = (ZZGridDomainModel*)dataModel;
-    model.relatedUser = [self friendModelFromMenuModel:self.selectedUserModel];
-   
-    [self.output modelUpdatedWithUserWithModel:model];
+    self.selectedCellModel.relatedUser = [self friendModelFromMenuModel:self.selectedUserModel];
+    [self.output modelUpdatedWithUserWithModel:self.selectedCellModel];
 }
 
 - (ZZFriendDomainModel*)friendModelFromMenuModel:(ZZMenuCellViewModel*)model

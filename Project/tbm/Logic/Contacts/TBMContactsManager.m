@@ -124,10 +124,11 @@
 - (void)alertNeedPermission{
     NSString *msg;
     
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
     if (SYSTEM_VERSION_LESS_THAN(@"8.0")) {
-        msg = [NSString stringWithFormat:@"You must grant access to CONTACTS for %@. Please close %@. Go your device home screen. Click Settings/Privacy/Contacts and grant access for %@.", CONFIG_APP_NAME, CONFIG_APP_NAME, CONFIG_APP_NAME];
+        msg = [NSString stringWithFormat:@"You must grant access to CONTACTS for %@. Please close %@. Go your device home screen. Click Settings/Privacy/Contacts and grant access for %@.", appName, appName, appName];
     } else {
-        msg = [NSString stringWithFormat:@"You must grant access to CONTACTS for this. Please close %@. Go your device home screen. Click Settings/%@ and grant access for CONTACTS.", CONFIG_APP_NAME, CONFIG_APP_NAME];
+        msg = [NSString stringWithFormat:@"You must grant access to CONTACTS for this. Please close %@. Go your device home screen. Click Settings/%@ and grant access for CONTACTS.", appName, appName];
     }
 
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Need Permission" message:msg];
@@ -222,29 +223,6 @@
     }
     return result;
 }
-
-- (void)printPhones{
-    for (CFIndex i=0; i<CFArrayGetCount(_allPeople); i++){
-        ABRecordRef p = CFArrayGetValueAtIndex(_allPeople, i);
-        ABMultiValueRef phoneNumbers = ABRecordCopyValue(p, kABPersonPhoneProperty);
-        for (CFIndex i = 0; i < ABMultiValueGetCount(phoneNumbers); i++) {
-            NSString* phoneNumber = (__bridge_transfer NSString*) ABMultiValueCopyValueAtIndex(phoneNumbers, i);
-            CFStringRef label = ABMultiValueCopyLabelAtIndex(phoneNumbers, i);
-            CFStringRef ll = ABAddressBookCopyLocalizedLabel(label);
-            DebugLog(@"%@ %@", phoneNumber, ll);
-        }
-    }
-}
-
-- (void)printNames{
-    for (CFIndex i=0; i<CFArrayGetCount(_sortedPeople); i++){
-        ABRecordRef p = CFArrayGetValueAtIndex(_sortedPeople, i);
-        CFStringRef fn = ABRecordCopyValue(p, kABPersonFirstNameProperty);
-        CFStringRef ln = ABRecordCopyValue(p, kABPersonLastNameProperty);
-        DebugLog(@"%@ %@", fn, ln);
-    }
-}
-
 
 //-----------------------
 // Request and get access

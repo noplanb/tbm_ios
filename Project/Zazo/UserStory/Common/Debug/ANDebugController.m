@@ -15,7 +15,6 @@
 #import "ZZSecretWireframe.h"
 #import "ZZDebugStateWireframe.h"
 
-
 typedef NS_ENUM(NSInteger, ANSections)
 {
     ZZAuthController,

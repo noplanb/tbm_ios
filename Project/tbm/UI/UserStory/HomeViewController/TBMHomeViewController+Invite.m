@@ -17,6 +17,7 @@
 #import "TBMHttpManager.h"
 #import "TBMUser.h"
 #import "TBMAlertController.h"
+#import "ZZAPIRoutes.h"
 
 @implementation TBMHomeViewController (Invite)
 
@@ -147,7 +148,8 @@
 //--------
 - (void)noValidPhonesDialog{
     NSString *title = @"No Mobile Number";
-    NSString *msg = [NSString stringWithFormat:@"I could not find a valid mobile number for %@.\n\nPlease add a mobile number for %@ in your device contacts, kill %@, then try again.", [self fullname], [self firstName], CONFIG_APP_NAME];
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    NSString *msg = [NSString stringWithFormat:@"I could not find a valid mobile number for %@.\n\nPlease add a mobile number for %@ in your device contacts, kill %@, then try again.", [self fullname], [self firstName], appName];
     
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:title message:msg];
     [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:nil]];
@@ -238,8 +240,10 @@
     }];
 }
 
-- (void) connectedDialog{
-    NSString *msg = [NSString stringWithFormat:@"You and %@ are connected.\n\nRecord a welcome %@ to %@ now.", [self firstName], CONFIG_APP_NAME, [self firstName]];
+- (void) connectedDialog
+{
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    NSString *msg = [NSString stringWithFormat:@"You and %@ are connected.\n\nRecord a welcome %@ to %@ now.", [self firstName], appName, [self firstName]];
     
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Send a Zazo" message:msg];
     [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
@@ -251,8 +255,10 @@
 //----------------------------------
 // SMS dialog and sending invite sms
 //----------------------------------
-- (void) preNudgeDialog{
-    NSString *msg = [NSString stringWithFormat:@"%@ still hasn't installed %@. Send them the link again.", self.friend.firstName,  CONFIG_APP_NAME];
+- (void) preNudgeDialog
+{
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    NSString *msg = [NSString stringWithFormat:@"%@ still hasn't installed %@. Send them the link again.", self.friend.firstName,  appName];
     NSString *title = [NSString stringWithFormat:@"Nudge %@", self.friend.firstName];
     
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:title message:msg];
@@ -263,8 +269,10 @@
     [alert presentWithCompletion:nil];
 }
 
-- (void) preSmsDialog{
-    NSString *msg = [NSString stringWithFormat:@"%@ has not installed %@ yet. Send them a link!", [self firstName], CONFIG_APP_NAME];
+- (void) preSmsDialog
+{
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    NSString *msg = [NSString stringWithFormat:@"%@ has not installed %@ yet. Send them a link!", [self firstName], appName];
 
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Invite" message:msg];
     [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleCancel handler:nil]];
@@ -284,7 +292,8 @@
     mc.messageComposeDelegate = self;
     
     mc.recipients = @[[self selectedPhoneE164]];
-    mc.body = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", CONFIG_APP_NAME, CONFIG_INVITE_BASE_URL_STRING, [self friend].idTbm];
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    mc.body = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", appName, kInviteFriendBaseURL, [self friend].idTbm];
     [self startWaitingForServer];
     [self applicationWillSwitchToSMS];
     [self presentViewController:mc animated:YES completion:^{
@@ -403,8 +412,10 @@
     [alert presentWithCompletion:nil];
 }
 
-- (TBMAlertController *)serverErrorAlert{
-    NSString *msg = [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", CONFIG_APP_NAME];
+- (TBMAlertController *)serverErrorAlert
+{
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    NSString *msg = [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", appName];
 
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Bad Connection" message:msg];
     [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleCancel handler:nil]];
@@ -412,8 +423,10 @@
     return alert;
 }
 
-- (void)cantSendSmsError{
-    NSString *msg = [NSString stringWithFormat:@"It looks like you can't or didn't send a link by text. Perhaps you can just call or email %@ and tell them about %@.", [self fullname], CONFIG_APP_NAME];
+- (void)cantSendSmsError
+{
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    NSString *msg = [NSString stringWithFormat:@"It looks like you can't or didn't send a link by text. Perhaps you can just call or email %@ and tell them about %@.", [self fullname], appName];
     
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Didn't Send Link" message:msg];
     [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action){
