@@ -18,7 +18,7 @@
 
 - (void)loadData
 {
-    ZZSettingsModel* model = [self _generateDebugSettingsModel];
+    ZZSettingsModel* model = [self _generateSettingsModel];
     [self.output dataLoaded:model];
 }
 
