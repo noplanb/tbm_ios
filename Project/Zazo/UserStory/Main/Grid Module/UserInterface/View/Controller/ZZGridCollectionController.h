@@ -8,7 +8,7 @@
 
 #import "ANCollectionController.h"
 
-@class ZZGridCellViewModel;
+@class ZZGridCellViewModel, ZZFriendDomainModel;
 
 @protocol ZZGridCollectionControllerDelegate <NSObject>
 
@@ -19,5 +19,7 @@
 @interface ZZGridCollectionController : ANCollectionController
 
 @property (nonatomic, weak) id <ZZGridCollectionControllerDelegate> delegate;
+
+- (void)showContainFriendAnimaionWithFriend:(ZZFriendDomainModel*)friendModel;
 
 @end

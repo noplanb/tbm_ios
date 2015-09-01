@@ -91,4 +91,55 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     self.connectionStatus = ZZContactStatusTypeStringFromValue(contactStatusValue);
 }
 
+- (NSUInteger)hash
+{
+    return [self.firstName hash] ^ [self.lastName hash] ^ [self.mobileNumber hash];
+}
+
+- (BOOL)isEqual:(id)object
+{
+    BOOL isFirstNameEqual = NO;
+    BOOL isLastNameEqual = NO;
+    BOOL isPhoneEqual = NO;
+    
+    if ([object isKindOfClass:[self class]])
+    {
+         isFirstNameEqual = YES;
+         isLastNameEqual = YES;
+         isPhoneEqual = YES;
+        
+        ZZFriendDomainModel* friendModel = object;
+        
+        if (friendModel.firstName)
+        {
+            isFirstNameEqual = [friendModel.firstName isEqualToString:self.firstName];
+        }
+        else
+        {
+            isFirstNameEqual = (friendModel.firstName == self.firstName);
+        }
+            
+        if (friendModel.lastName)
+        {
+            isLastNameEqual = [friendModel.lastName isEqualToString:self.lastName];
+        }
+        else
+        {
+            isLastNameEqual = (friendModel.lastName == self.lastName);
+        }
+        
+        if (friendModel.mobileNumber)
+        {
+            isPhoneEqual = [friendModel.mobileNumber isEqualToString:self.mobileNumber];
+        }
+        else
+        {
+            isPhoneEqual = (friendModel.mobileNumber == self.mobileNumber);
+        }
+    }
+    
+    return (isFirstNameEqual && isLastNameEqual && isPhoneEqual);
+}
+
+
 @end

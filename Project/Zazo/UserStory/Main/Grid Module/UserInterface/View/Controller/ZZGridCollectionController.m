@@ -14,6 +14,7 @@
 #import "ANRuntimeHelper.h"
 #import "ANMemoryStorage.h"
 #import "ZZGridCellViewModel.h"
+#import "ZZFriendDomainModel.h"
 
 static NSInteger const kCenterCellIndex = 4;
 
@@ -82,5 +83,21 @@ static NSInteger const kCenterCellIndex = 4;
     return cell;
 }
 
+- (void)showContainFriendAnimaionWithFriend:(ZZFriendDomainModel*)friendModel
+{
+    [[self.collectionView visibleCells] enumerateObjectsUsingBlock:^(UICollectionViewCell* cell, NSUInteger idx, BOOL *stop) {
+       
+        if ([cell isKindOfClass:[ZZGridCollectionCell class]])
+        {
+            ZZGridCollectionCell* gridCell = (ZZGridCollectionCell *)cell;
+            ZZGridCellViewModel* cellModel = [gridCell model];
+            if ([cellModel.domainModel.relatedUser isEqual:friendModel])
+            {
+                [gridCell showContainFriendAnimation];
+            }
+        }
+    }];
+
+}
 
 @end

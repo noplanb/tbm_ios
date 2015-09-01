@@ -37,5 +37,6 @@ static NSString* kLayoutConstGreenColor = @"9BC046";
 - (void)updateBadgeWithNumber:(NSNumber *)badgeNumber;
 - (void)showUploadAnimation;
 - (void)showDownloadAnimationWithNewVideoCount:(NSInteger)count;
+- (void)showContainFriendAnimation;
 
 @end

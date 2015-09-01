@@ -39,10 +39,6 @@
 - (void)dataLoadedWithArray:(NSArray *)data
 {
     [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-//        if ([obj isMemberOfClass:[ZZGridCenterCellViewModel class]])
-//        {
-//            ZZGridCenterCellViewModel* center = (ZZGridCenterCellViewModel*)obj;
-//        }
         if ([obj isMemberOfClass:[ZZGridCellViewModel class]])
         {
             ZZGridCellViewModel* gridViewModel = (ZZGridCellViewModel*)obj;
@@ -62,6 +58,13 @@
 - (void)modelUpdatedWithUserWithModel:(ZZGridDomainModel *)model
 {
     [self.dataSource updateModel:model];
+}
+
+- (void)gridContainedFriend:(ZZFriendDomainModel *)friendModel
+{
+    [self.wireframe closeMenu];
+    [self.userInterface showFriendAnimationWithModel:friendModel];
+    
 }
 
 #pragma mark - Module Interface

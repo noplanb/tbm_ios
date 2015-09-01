@@ -67,6 +67,11 @@
     [self.touchObserver hideMovedGridIfNeeded];
 }
 
+- (void)showFriendAnimationWithModel:(ZZFriendDomainModel *)friendModel
+{
+    [self.controller showContainFriendAnimaionWithFriend:friendModel];
+}
+
 #pragma mark - Controller Delegate Method
 
 - (void)selectedViewWithModel:(ZZGridCellViewModel *)model

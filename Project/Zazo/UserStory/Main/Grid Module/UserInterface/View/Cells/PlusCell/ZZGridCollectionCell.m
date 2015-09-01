@@ -10,7 +10,6 @@
 #import "ZZFriendDomainModel.h"
 #import "ZZGridCellViewModel.h"
 
-
 @interface ZZGridCollectionCell () <ZZUserRecorderGridViewDelegate>
 
 @property (nonatomic, strong) ZZGridCellViewModel* gridModel;
@@ -18,6 +17,7 @@
 
 @property (nonatomic, strong) UIGestureRecognizer* plusRecognizer;
 @property (nonatomic, strong) UIImage* screenShot;
+@property (nonatomic, strong) UIView* containFriendView;
 
 @end
 
@@ -29,6 +29,7 @@
     {
         self.backgroundColor = [UIColor orangeColor];
         [self plusImageView];
+        [self containFriendView];
     }
     return self;
 }
@@ -110,5 +111,11 @@
 {
     return self.screenShot;
 }
+
+- (void)showContainFriendAnimation
+{
+    [self.recorderView showContainFriendAnimation];
+}
+
 
 @end

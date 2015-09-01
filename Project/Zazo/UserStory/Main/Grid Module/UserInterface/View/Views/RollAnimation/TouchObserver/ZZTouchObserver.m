@@ -13,8 +13,6 @@
 #import "ANSectionModel.h"
 #import "ZZGridDomainModel.h"
 
-static CGFloat const kVideoCountLabelWidth = 23;
-
 @interface ZZTouchObserver () <GridDelegate>
 
 @property (nonatomic, strong) UICollectionView* collectionView;
@@ -135,36 +133,11 @@ static CGFloat const kVideoCountLabelWidth = 23;
                 {
                     fakeCell.stateImageView.image = [gridCell actualSateImage];
                     ZZGridCellViewModel* cellModel = [gridCell model];
-                    [self addBageIfNeededToFakeCell:fakeCell withCellViewModel:cellModel];
+                    [fakeCell updateBadgeWithNumber:cellModel.badgeNumber];
                 }
             }];
         }
     }];
-}
-
-- (void)addBageIfNeededToFakeCell:(Cell*)fakecell withCellViewModel:(ZZGridCellViewModel*)cellModel
-{
-    if (cellModel.badgeNumber > 0)
-    {
-         UILabel* videoCountLabel = [UILabel new];
-        videoCountLabel.backgroundColor = [UIColor greenColor];
-        videoCountLabel.layer.cornerRadius = kVideoCountLabelWidth/2;
-        videoCountLabel.layer.masksToBounds = YES;
-        videoCountLabel.hidden = YES;
-        videoCountLabel.textColor = [UIColor whiteColor];
-        
-        videoCountLabel.textAlignment = NSTextAlignmentCenter;
-        [fakecell.stateImageView addSubview:videoCountLabel];
-        [videoCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(fakecell.stateImageView).with.offset(3);
-            make.top.equalTo(fakecell.stateImageView).with.offset(-3);
-            make.height.equalTo(@(kVideoCountLabelWidth));
-            make.width.equalTo(@(kVideoCountLabelWidth));
-        }];
-        
-        videoCountLabel.text = [NSString stringWithFormat:@"%@",cellModel.badgeNumber];
-    }
-
 }
 
 - (void)createMovingView

@@ -21,10 +21,21 @@ static NSInteger const kGridCenterCellIndex = 4;
 @property (nonatomic, strong) NSMutableArray* dataArray;
 @property (nonatomic, strong) id selectedUserModel;
 @property (nonatomic, strong) ZZGridCellViewModel* selectedCellModel;
+@property (nonatomic, strong) NSMutableArray* friendArray;
 
 @end
 
 @implementation ZZGridInteractor
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        self.friendArray = [NSMutableArray array];
+    }
+    return self;
+}
 
 - (void)loadData
 {
@@ -65,8 +76,19 @@ static NSInteger const kGridCenterCellIndex = 4;
 
 - (void)_updateSelectedModelWithUser
 {
-    self.selectedCellModel.domainModel.relatedUser = [self friendModelFromMenuModel:self.selectedUserModel];
-    [self.output modelUpdatedWithUserWithModel:self.selectedCellModel];
+    
+    ZZFriendDomainModel* friendModel = [self friendModelFromMenuModel:self.selectedUserModel];
+    ZZFriendDomainModel* containdedUser;
+    if (![self isFriendsOnGridContainFriendModel:friendModel withContainedFriend:&containdedUser])
+    {
+        [self.friendArray addObject:friendModel];
+        self.selectedCellModel.domainModel.relatedUser = friendModel;
+        [self.output modelUpdatedWithUserWithModel:self.selectedCellModel];
+    }
+    else
+    {
+        [self.output gridContainedFriend:containdedUser];
+    }
 }
 
 - (ZZFriendDomainModel*)friendModelFromMenuModel:(ZZMenuCellViewModel*)model
@@ -87,6 +109,22 @@ static NSInteger const kGridCenterCellIndex = 4;
     }
     
     return friendModel;
+}
+
+- (BOOL)isFriendsOnGridContainFriendModel:(ZZFriendDomainModel *)friendModel withContainedFriend:(ZZFriendDomainModel**)containtedUser
+{
+    __block BOOL isContainModel = NO;
+    
+    [self.friendArray enumerateObjectsUsingBlock:^(ZZFriendDomainModel* obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isEqual:friendModel])
+        {
+            *containtedUser = obj;
+            isContainModel = YES;
+            *stop = YES;
+        }
+    }];
+    
+    return isContainModel;
 }
 
 @end
