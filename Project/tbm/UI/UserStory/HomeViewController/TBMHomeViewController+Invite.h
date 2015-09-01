@@ -10,8 +10,9 @@
 #import <MessageUI/MFMessageComposeViewController.h>
 #import "TBMTableModal.h"
 
-
 @interface TBMHomeViewController (Invite) <TBMTableModalDelegate, MFMessageComposeViewControllerDelegate>
+
 - (void)invite:(NSString *)fullname;
 - (void)nudge:(TBMFriend *)friend;
+
 @end

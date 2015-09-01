@@ -114,10 +114,10 @@
 }
 
 #pragma mark - Legacy
-
-+ (NSString *)appName {
-    return CONFIG_APP_NAME;
-}
+//
+//+ (NSString *)appName {
+//    return CONFIG_APP_NAME;
+//}
 
 + (NSURL *)videosDirectoryUrl {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];

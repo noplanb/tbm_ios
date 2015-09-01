@@ -24,6 +24,7 @@
 
 #import "TBMStateStringGenerator.h"
 #import "ZZStoredSettingsManager.h"
+#import "NSObject+ANSafeValues.h"
 
 static NSString *ROLLBAR_TOKEN = @"0ac2aee23dc449309b0c0bf6a46b4d59";
 
@@ -89,13 +90,17 @@ static BOOL TBMDispatchEnabled = NO;
     }
 }
 
-+ (void) dispatchViaServer:(NSString *)msg {
++ (void) dispatchViaServer:(NSString *)msg
+{
+    NSString* version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSString* buildNumber = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    
     [[TBMHttpManager manager] POST:@"dispatch/post_dispatch"
                         parameters:@{SERVER_PARAMS_DISPATCH_MSG_KEY: msg,
                                      SERVER_PARAMS_DISPATCH_DEVICE_MODEL_KEY: [[UIDevice currentDevice] model],
                                      SERVER_PARAMS_DISPATCH_OS_VERSION_KEY: [[UIDevice currentDevice] systemVersion],
-                                     SERVER_PARAMS_DISPATCH_ZAZO_VERSION_KEY: CONFIG_VERSION_STRING,
-                                     SERVER_PARAMS_DISPATCH_ZAZO_VERSION_NUMBER_KEY: CONFIG_VERSION_NUMBER}
+                                     SERVER_PARAMS_DISPATCH_ZAZO_VERSION_KEY: [NSObject an_safeString:version],
+                                     SERVER_PARAMS_DISPATCH_ZAZO_VERSION_NUMBER_KEY: [NSObject an_safeString:buildNumber]}
                            success:nil
                            failure:nil];
 }

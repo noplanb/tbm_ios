@@ -697,7 +697,6 @@ static NSMutableArray * videoStatusNotificationDelegates;
     {
         return YES;
     }
-
     return NO;
 }
 

@@ -124,10 +124,11 @@
 - (void)alertNeedPermission{
     NSString *msg;
     
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
     if (SYSTEM_VERSION_LESS_THAN(@"8.0")) {
-        msg = [NSString stringWithFormat:@"You must grant access to CONTACTS for %@. Please close %@. Go your device home screen. Click Settings/Privacy/Contacts and grant access for %@.", CONFIG_APP_NAME, CONFIG_APP_NAME, CONFIG_APP_NAME];
+        msg = [NSString stringWithFormat:@"You must grant access to CONTACTS for %@. Please close %@. Go your device home screen. Click Settings/Privacy/Contacts and grant access for %@.", appName, appName, appName];
     } else {
-        msg = [NSString stringWithFormat:@"You must grant access to CONTACTS for this. Please close %@. Go your device home screen. Click Settings/%@ and grant access for CONTACTS.", CONFIG_APP_NAME, CONFIG_APP_NAME];
+        msg = [NSString stringWithFormat:@"You must grant access to CONTACTS for this. Please close %@. Go your device home screen. Click Settings/%@ and grant access for CONTACTS.", appName, appName];
     }
 
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Need Permission" message:msg];

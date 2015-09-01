@@ -27,8 +27,10 @@
     }
 }
 
-- (NSString *)makeMessageWithQualifier:(NSString *)q{
-    return [NSString stringWithFormat:@"Your %@ app is %@. Please update", CONFIG_APP_NAME, q];
+- (NSString *)makeMessageWithQualifier:(NSString *)q
+{
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    return [NSString stringWithFormat:@"Your %@ app is %@. Please update", appName, q];
 }
 
 - (void)showVersionHandlerDialogWithMessage:(NSString *)message negativeButton:(BOOL)negativeButton{

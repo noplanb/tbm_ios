@@ -11,7 +11,7 @@
 * Application name
 */
 
-static NSString *CONFIG_APP_NAME = @"Zazo"; // from info.plist
+//static NSString *CONFIG_APP_NAME = @"Zazo"; // from info.plist
 
 /** * * *
 * Server configuration
@@ -36,9 +36,9 @@ static NSString *CONFIG_APP_NAME = @"Zazo"; // from info.plist
 //};
 //static NSString *kTBMConfigDebugModeKey = @"kTBMConfigDebugModeKey"; //User defaults key for debug mode
 
-// from info.plist
-static NSString *CONFIG_VERSION_NUMBER = @"36";
-static NSString *CONFIG_VERSION_STRING = @"2.3.1";
+//// from info.plist
+//static NSString *CONFIG_VERSION_NUMBER = @"36";
+//static NSString *CONFIG_VERSION_STRING = @"2.3.1";
 
 /** * * *
 * Device debug mode
@@ -106,7 +106,7 @@ static NSString *CONFIG_DING_SOUND = @"BeepSin30.wav";
 
 + (NSURL *)tbmBaseUrl;
 
-+ (NSString *)appName;
+//+ (NSString *)appName;
 
 + (NSString *)tbmBasePath;
 
