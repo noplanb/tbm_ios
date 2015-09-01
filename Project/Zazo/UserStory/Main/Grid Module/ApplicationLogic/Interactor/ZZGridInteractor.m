@@ -8,10 +8,14 @@
 
 #import "ZZGridInteractor.h"
 #import "ZZGridCenterCellViewModel.h"
-#import "ZZGridDomainModel.h"
 #import "ZZMenuCellViewModel.h"
 #import "ZZContactDomainModel.h"
 #import "ZZFriendDomainModel.h"
+#import "ZZGridCellViewModel.h"
+#import "ANMessageDomainModel.h"
+#import "DeviceUtil.h"
+#import "TBMUser.h"
+
 
 static NSInteger const kGridCellCount = 9;
 static NSInteger const kGridCenterCellIndex = 4;
@@ -20,12 +24,22 @@ static NSInteger const kGridCenterCellIndex = 4;
 
 @property (nonatomic, strong) NSMutableArray* dataArray;
 @property (nonatomic, strong) id selectedUserModel;
-@property (nonatomic, strong) ZZGridDomainModel* selectedCellModel;
-
+@property (nonatomic, strong) ZZGridCellViewModel* selectedCellModel;
+@property (nonatomic, strong) NSMutableArray* friendArray;
 
 @end
 
 @implementation ZZGridInteractor
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        self.friendArray = [NSMutableArray array];
+    }
+    return self;
+}
 
 - (void)loadData
 {
@@ -40,7 +54,7 @@ static NSInteger const kGridCenterCellIndex = 4;
         }
         else
         {
-            model = [ZZGridDomainModel new];
+            model = [ZZGridCellViewModel new];
         }
         [self.dataArray addObject:model];
     }
@@ -53,7 +67,7 @@ static NSInteger const kGridCenterCellIndex = 4;
     return self.dataArray.count/2;
 }
 
-- (void)selectedPlusCellWithModel:(ZZGridDomainModel *)model
+- (void)selectedPlusCellWithModel:(ZZGridCellViewModel *)model
 {
     self.selectedCellModel = model;
 }
@@ -64,10 +78,31 @@ static NSInteger const kGridCenterCellIndex = 4;
     [self _updateSelectedModelWithUser];
 }
 
+- (void)loadFeedbackModel
+{
+    ANMessageDomainModel *model = [ANMessageDomainModel new];
+    model.title = emailSubject;
+    model.recipients = @[emailAddress];
+    model.isHTMLMessage = YES;
+    model.message = [NSString stringWithFormat:@"<font color = \"000000\"></br></br></br>---------------------------------</br>iOS: %@</br>Model: %@</br>User mKey: %@</br>App Version: %@</br>Build Version: %@ </font>", [[UIDevice currentDevice] systemVersion], [DeviceUtil hardwareDescription], [TBMUser getUser].mkey, [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"], [NSBundle mainBundle].infoDictionary[(NSString*)kCFBundleVersionKey]];
+    [self.output loadedFeedbackDomainModel:model];
+}
+
 - (void)_updateSelectedModelWithUser
 {
-    self.selectedCellModel.relatedUser = [self friendModelFromMenuModel:self.selectedUserModel];
-    [self.output modelUpdatedWithUserWithModel:self.selectedCellModel];
+    
+    ZZFriendDomainModel* friendModel = [self friendModelFromMenuModel:self.selectedUserModel];
+    ZZFriendDomainModel* containdedUser;
+    if (![self _isFriendsOnGridContainFriendModel:friendModel withContainedFriend:&containdedUser])
+    {
+        [self.friendArray addObject:friendModel];
+        self.selectedCellModel.domainModel.relatedUser = friendModel;
+        [self.output modelUpdatedWithUserWithModel:self.selectedCellModel];
+    }
+    else
+    {
+        [self.output gridContainedFriend:containdedUser];
+    }
 }
 
 - (ZZFriendDomainModel*)friendModelFromMenuModel:(ZZMenuCellViewModel*)model
@@ -88,6 +123,22 @@ static NSInteger const kGridCenterCellIndex = 4;
     }
     
     return friendModel;
+}
+
+- (BOOL)_isFriendsOnGridContainFriendModel:(ZZFriendDomainModel *)friendModel withContainedFriend:(ZZFriendDomainModel**)containtedUser
+{
+    __block BOOL isContainModel = NO;
+    
+    [self.friendArray enumerateObjectsUsingBlock:^(ZZFriendDomainModel* obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isEqual:friendModel])
+        {
+            *containtedUser = obj;
+            isContainModel = YES;
+            *stop = YES;
+        }
+    }];
+    
+    return isContainModel;
 }
 
 @end

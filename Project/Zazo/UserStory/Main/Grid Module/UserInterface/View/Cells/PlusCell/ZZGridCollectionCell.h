@@ -16,5 +16,6 @@
 
 - (UIImage*)actualSateImage;
 - (void)makeActualScreenShoot;
+- (void)showContainFriendAnimation;
 
 @end

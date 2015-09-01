@@ -10,6 +10,8 @@
 #import "ZZUserDataProvider.h"
 #import "ZZFriendDataProvider.h"
 #import "TBMGridElement.h"
+#import "ZZGridDomainModel.h"
+
 
 @implementation ZZGridModelsMapper
 

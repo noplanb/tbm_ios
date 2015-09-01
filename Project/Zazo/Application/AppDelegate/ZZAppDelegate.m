@@ -25,6 +25,7 @@
     [self.appDependencies installAppDependences];
     
     [self.window makeKeyAndVisible];
+
     return YES;
 }
 

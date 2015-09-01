@@ -13,6 +13,7 @@
 #import "ANCrashlyticsAdapter.h"
 #import <Instabug/Instabug.h>
 #import "ZZContentDataAcessor.h"
+#import "ZZVideoRecorder.h"
 
 @interface ZZAppDependencies ()
 
@@ -31,8 +32,8 @@
 {
     [ANCrashlyticsAdapter start];
     [ZZContentDataAcessor start];
+    [ZZVideoRecorder sharedInstance];
     [ZZColorTheme shared];
-    
 #ifndef RELEASE
     [Instabug startWithToken:@"d546deb8f34137b73aa5b0405cee1690" // TODO:
                captureSource:IBGCaptureSourceUIKit

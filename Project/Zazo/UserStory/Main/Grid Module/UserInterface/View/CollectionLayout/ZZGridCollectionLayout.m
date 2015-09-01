@@ -69,6 +69,12 @@ const NSInteger kMaxCellSpacing = 9;
         self.minimumInteritemSpacing = 4.5;
         self.minimumLineSpacing = 4.5;
     }
+    else if (IS_IPAD)
+    {
+        self.itemSize = CGSizeMake(245, 308);
+        self.minimumInteritemSpacing = 4.5;
+        self.minimumLineSpacing = 4.5;
+    }
 }
 
 

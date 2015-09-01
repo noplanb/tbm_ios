@@ -37,6 +37,11 @@
     self.view = self.menuView;
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.view.backgroundColor = [ZZColorTheme shared].gridBackgourndColor;
+}
 
 #pragma mark - View Interface 
 

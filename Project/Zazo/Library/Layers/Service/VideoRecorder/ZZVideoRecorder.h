@@ -10,6 +10,8 @@
 
 @interface ZZVideoRecorder : NSObject
 
+
++ (instancetype)sharedInstance;
 - (void)updateViewGridCell:(ZZGridBaseCell *)cell;
 - (void)startRunning;
 - (void)startRecordingWithVideoUrl:(NSURL *)videoUrl;

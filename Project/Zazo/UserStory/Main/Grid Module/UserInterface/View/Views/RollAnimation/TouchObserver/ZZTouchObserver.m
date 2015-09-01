@@ -51,6 +51,11 @@
     return self;
 }
 
+- (void)hideMovedGridIfNeeded
+{
+    [self rotationStoped];
+}
+
 - (void)_createGridView
 {
     if (!self.grid)
@@ -127,6 +132,8 @@
                 if (CGRectContainsPoint(gridCell.frame, fakeCell.center))
                 {
                     fakeCell.stateImageView.image = [gridCell actualSateImage];
+                    ZZGridCellViewModel* cellModel = [gridCell model];
+                    [fakeCell updateBadgeWithNumber:cellModel.badgeNumber];
                 }
             }];
         }
@@ -170,7 +177,9 @@
 #pragma mark - Grid delegate
 
 - (void)rotationStoped
-{
+{   
+    if (!self.grid.isHidden)
+    {
         [self.initialStorageValue removeAllObjects];
         
         NSMutableDictionary* positionDict = [NSMutableDictionary dictionary];
@@ -209,6 +218,7 @@
         }];
         
         [self showMovingCell];
+    }
     
 }
 

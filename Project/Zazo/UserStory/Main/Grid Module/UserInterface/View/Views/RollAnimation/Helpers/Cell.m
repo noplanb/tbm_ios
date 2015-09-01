@@ -5,8 +5,11 @@
 
 #import "Cell.h"
 
+static CGFloat const kVideoCountLabelWidth = 23;
+
 @interface Cell ()
-@property(nonatomic, strong) UILabel *numberLabel;
+@property (nonatomic, strong) UILabel *numberLabel;
+@property (nonatomic, strong) UILabel* badgeLabel;
 @end
 
 @implementation Cell {
@@ -19,6 +22,7 @@
     if (self)
     {
         [self stateImageView];
+        [self badgeLabel];
     }
     return self;
 }
@@ -70,5 +74,40 @@
     
     return _stateImageView;
 }
+
+- (UILabel *)badgeLabel
+{
+    if (!_badgeLabel)
+    {
+        _badgeLabel = [UILabel new];
+        _badgeLabel.backgroundColor = [UIColor redColor];
+        _badgeLabel.layer.cornerRadius = kVideoCountLabelWidth/2;
+        _badgeLabel.layer.masksToBounds = YES;
+        _badgeLabel.hidden = YES;
+        _badgeLabel.textColor = [UIColor whiteColor];
+        
+        _badgeLabel.textAlignment = NSTextAlignmentCenter;
+        [self.stateImageView addSubview:_badgeLabel];
+        [_badgeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.stateImageView).with.offset(3);
+            make.top.equalTo(self.stateImageView).with.offset(-3);
+            make.height.equalTo(@(kVideoCountLabelWidth));
+            make.width.equalTo(@(kVideoCountLabelWidth));
+        }];
+    }
+    
+    return _badgeLabel;
+}
+
+- (void)updateBadgeWithNumber:(NSNumber*)number
+{
+    if (number)
+    {
+        self.badgeLabel.hidden = NO;
+        self.badgeLabel.text = [NSString stringWithFormat:@"%@",number];
+    }
+
+}
+
 
 @end

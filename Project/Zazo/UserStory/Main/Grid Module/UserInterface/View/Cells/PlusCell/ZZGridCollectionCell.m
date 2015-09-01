@@ -7,18 +7,18 @@
 //
 
 #import "ZZGridCollectionCell.h"
-
-#import "ZZGridDomainModel.h"
 #import "ZZFriendDomainModel.h"
-
+#import "ZZGridCellViewModel.h"
+#import "UIImage+PDF.h"
 
 @interface ZZGridCollectionCell () <ZZUserRecorderGridViewDelegate>
 
-@property (nonatomic, strong) ZZGridDomainModel* gridModel;
+@property (nonatomic, strong) ZZGridCellViewModel* gridModel;
 @property (nonatomic, strong) UIImageView* plusImageView;
 
 @property (nonatomic, strong) UIGestureRecognizer* plusRecognizer;
 @property (nonatomic, strong) UIImage* screenShot;
+@property (nonatomic, strong) UIView* containFriendView;
 
 @end
 
@@ -30,6 +30,7 @@
     {
         self.backgroundColor = [UIColor orangeColor];
         [self plusImageView];
+        [self containFriendView];
     }
     return self;
 }
@@ -44,7 +45,7 @@
     self.gridModel = nil;
     self.gridModel = model;
     
-    [self _updateIfNeededStateWithUserModel:self.gridModel.relatedUser];
+    [self _updateIfNeededStateWithUserModel:self.gridModel];
 }
 
 - (id)model
@@ -57,7 +58,10 @@
     if (!_plusImageView)
     {
         _plusImageView = [UIImageView new];
-        _plusImageView.image = [UIImage imageNamed:@"icons-plus-1x"];
+        
+        CGSize size = CGSizeMake(50, 50);
+        _plusImageView.image = [[UIImage imageWithPDFNamed:@"icon_plus" atSize:size]
+                                an_imageByTintingWithColor:[UIColor whiteColor]];
         _plusImageView.contentMode = UIViewContentModeCenter;
         [self addSubview:_plusImageView];
         
@@ -69,11 +73,11 @@
     return _plusImageView;
 }
 
-- (void)_updateIfNeededStateWithUserModel:(ZZFriendDomainModel *)model
+- (void)_updateIfNeededStateWithUserModel:(ZZGridCellViewModel *)model
 {
-    if (model)
+    if (model.domainModel.relatedUser)
     {
-        self.recorderView = [[ZZUserRecorderGridView alloc] initWithPresentedView:self withFriendModel:model];
+        self.recorderView = [[ZZUserRecorderGridView alloc] initWithPresentedView:self withModel:model];
     }
     else
     {
@@ -111,5 +115,11 @@
 {
     return self.screenShot;
 }
+
+- (void)showContainFriendAnimation
+{
+    [self.recorderView showContainFriendAnimation];
+}
+
 
 @end
