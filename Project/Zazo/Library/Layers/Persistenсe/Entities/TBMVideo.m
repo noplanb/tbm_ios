@@ -13,120 +13,98 @@
 #import "TBMAppDelegate.h"
 #import "TBMConfig.h"
 #import "OBLogger.h"
-
+#import "MagicalRecord.h"
 
 @implementation TBMVideo
 
-@dynamic status;
-@dynamic videoId;
-@dynamic friend;
-@dynamic downloadRetryCount;
-
-
-//==============
-// Class methods
-//==============
-+ (TBMAppDelegate *)appDelegate{
-    return [[UIApplication sharedApplication] delegate];
++ (NSManagedObjectContext*)_context
+{
+    return [NSManagedObjectContext MR_context];
 }
-
-+ (NSManagedObjectContext *)managedObjectContext{
-    return [[TBMVideo appDelegate] managedObjectContext];
-}
-
-+ (NSEntityDescription *)entityDescription{
-    return [NSEntityDescription entityForName:@"TBMVideo" inManagedObjectContext:[TBMVideo managedObjectContext]];
-}
-
 
 //-------------------
 // Create and destroy
 //-------------------
-+ (instancetype)new{
-    __block TBMVideo *video;
-    [[TBMVideo managedObjectContext] performBlockAndWait:^{
-        video = (TBMVideo *)[[NSManagedObject alloc] initWithEntity:[TBMVideo entityDescription] insertIntoManagedObjectContext:[TBMVideo managedObjectContext]];
-        video.downloadRetryCount = [NSNumber numberWithInt:0];
-        video.status = INCOMING_VIDEO_STATUS_NEW;
-    }];
++ (instancetype)new // TODO: dangerous
+{
+    TBMVideo* video = [self MR_createEntityInContext:[self _context]];
+    video.downloadRetryCount = @(0);
+    video.status = INCOMING_VIDEO_STATUS_NEW;
+    [video.managedObjectContext MR_saveToPersistentStoreAndWait];
+    
     return video;
 }
 
-+ (instancetype) newWithVideoId:(NSString *)videoId{
++ (instancetype)newWithVideoId:(NSString *)videoId
+{
     TBMVideo *video = [TBMVideo new];
     video.videoId = videoId;
     return video;
 }
 
-+ (void) destroy:(TBMVideo *)video{
-    [[TBMVideo managedObjectContext] performBlockAndWait:^{
-        [[TBMVideo managedObjectContext] deleteObject:video];
-    }];
++ (void)destroy:(TBMVideo *)video
+{
+    NSManagedObjectContext* context = video.managedObjectContext;
+    [video MR_deleteEntity];
+    [context MR_saveToPersistentStoreAndWait];
 }
 
 //--------
 // Finders
 //--------
-+ (NSFetchRequest *)fetchRequest{
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:[TBMVideo entityDescription]];
-    return request;
-}
 
-+ (instancetype)findWithVideoId:(NSString *)videoId{
++ (instancetype)findWithVideoId:(NSString *)videoId
+{
     return [self findWithAttributeKey:@"videoId" value:videoId];
 }
 
 
-+ (instancetype)findWithAttributeKey:(NSString *)key value:(id)value{
++ (instancetype)findWithAttributeKey:(NSString *)key value:(id)value
+{
     return [[self findAllWithAttributeKey:key value:value] lastObject];
 }
 
-+ (NSArray *)findAllWithAttributeKey:(NSString *)key value:(id)value{
-    __block NSArray *result;
-    __block NSError *error = nil;
-    [[TBMVideo managedObjectContext] performBlockAndWait:^{
-        NSFetchRequest *request = [TBMVideo fetchRequest];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", key, value];
-        [request setPredicate:predicate];
-        result =  [[TBMVideo managedObjectContext] executeFetchRequest:request error:&error];
-    }];
-    return result;
++ (NSArray *)findAllWithAttributeKey:(NSString *)key value:(id)value
+{
+    return [self MR_findByAttribute:key withValue:value];
 }
 
-+ (NSArray *)downloadedUnviewed{
++ (NSArray *)downloadedUnviewed
+{
     return [TBMVideo findAllWithAttributeKey:@"status" value:[NSNumber numberWithInt:INCOMING_VIDEO_STATUS_DOWNLOADED]];
 }
 
-+ (NSUInteger)downloadedUnviewedCount{
++ (NSUInteger)downloadedUnviewedCount
+{
     return [[TBMVideo downloadedUnviewed] count];
 }
 
-+ (NSArray *)downloading{
++ (NSArray *)downloading
+{
     return [TBMVideo findAllWithAttributeKey:@"status" value:[NSNumber numberWithInt:INCOMING_VIDEO_STATUS_DOWNLOADING]];
 }
 
-+ (NSUInteger)downloadingCount{
++ (NSUInteger)downloadingCount
+{
     return [[TBMVideo downloading] count];
 }
-+ (NSUInteger)unviewedCount{
++ (NSUInteger)unviewedCount
+{
     return [TBMVideo downloadedUnviewedCount] + [TBMVideo downloadingCount];
 }
 
-+ (NSArray *)all{
-    __block NSError *error;
-    __block NSArray *result;
-    [[TBMVideo managedObjectContext] performBlockAndWait:^{
-        [[TBMVideo managedObjectContext] executeFetchRequest:[TBMVideo fetchRequest] error:&error];
-    }];
-    return result;
++ (NSArray *)all
+{
+    return [self MR_findAllInContext:[self _context]];
 }
 
-+ (NSUInteger)count{
-    return [[TBMVideo all] count];
++ (NSUInteger)count
+{
+    return [self MR_countOfEntitiesWithContext:[self _context]];
 }
 
-+ (void)printAll{
++ (void)printAll
+{
     OB_INFO(@"All Videos (%lu)", (unsigned long)[TBMVideo count]);
     for (TBMVideo * v in [TBMVideo all]){
         OB_INFO(@"%@ %@ status=%@", v.friend.firstName, v.videoId, v.status);
@@ -137,7 +115,8 @@
 // Instance methods
 //=================
 
-- (void) deleteFiles{
+- (void)deleteFiles
+{
     [self deleteVideoFile];
     [self deleteThumbFile];
 }
