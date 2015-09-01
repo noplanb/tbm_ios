@@ -18,8 +18,8 @@
 
 @property (nonatomic, strong) ANMemoryStorage* storage;
 
-
 - (void)observeTouch:(UITouch *)touch withEvent:(id)event;
 - (instancetype)initWithGridView:(ZZGridView*)gridView;
+- (void)hideMovedGridIfNeeded;
 
 @end

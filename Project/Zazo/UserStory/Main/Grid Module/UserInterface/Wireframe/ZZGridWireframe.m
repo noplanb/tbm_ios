@@ -12,10 +12,15 @@
 #import "ZZGridPresenter.h"
 #import "ZZEditFriendListWireframe.h"
 
+#import "DeviceUtil.h"
+#import "TBMUser.h"
+#import "ANEmailWireframe.h"
+
 @interface ZZGridWireframe ()
 
 @property (nonatomic, strong) ZZGridVC* gridController;
 @property (nonatomic, strong) UINavigationController* presentedController;
+@property (nonatomic, strong) ANEmailWireframe* emailWireframe;
 
 @end
 
@@ -42,6 +47,7 @@
     self.presenter = presenter;
     self.presentedController = nc;
     self.gridController = gridController;
+    
 }
 
 - (void)dismissGridController
@@ -59,13 +65,16 @@
     [self.menuWireFrame closeMenu];
 }
 
-
-#pragma mark - Details
-
-- (void)presentEditFriendsController
+- (void)presentEditFriends
 {
-    ZZEditFriendListWireframe* wirefame = [ZZEditFriendListWireframe new];
-    [wirefame presentEditFriendListControllerFromViewController:self.gridController withCompletion:nil];
+    ZZEditFriendListWireframe* wireFrame = [ZZEditFriendListWireframe new];
+    [wireFrame presentEditFriendListControllerFromViewController:self.gridController withCompletion:nil];
+}
+
+- (void)presentSendFeedbackWithFeedbackModel:(ANMessageDomainModel*)model;
+{
+    self.emailWireframe = [ANEmailWireframe new];
+    [self.emailWireframe presentEmailControllerFromViewController:self.gridController withModel:model completion:nil];
 }
 
 @end

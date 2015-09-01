@@ -20,6 +20,14 @@ static CGFloat const kLayoutConstIndicatorFractionalWidth = 0.15;
 static CGFloat const kDownloadBarHeight = 2;
 static CGFloat const kVideoCountLabelWidth = 23;
 
+
+static CGFloat const kContainFriendAnimationDuration = 0.20;
+static CGFloat const kContainFreindDelayDuration = 0.16;
+static CGFloat const kShowedingAlphaValue = 1.0;
+static CGFloat const kHiddenAlphaValue = 0.0;
+
+
+
 @interface ZZUserRecorderGridView () <ZZVideoPlayerDelegate>
 
 @property (nonatomic, weak) UIView <ZZUserRecorderGridViewDelegate>* presentedView;
@@ -31,18 +39,19 @@ static CGFloat const kVideoCountLabelWidth = 23;
 @property (nonatomic, assign) CGFloat nudgeButtonHeight;
 @property (nonatomic, assign) CGFloat recordViewHeight;
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
+@property (nonatomic, strong) UIView* containFriendView;
 
 @end
 
 @implementation ZZUserRecorderGridView
 
 - (instancetype)initWithPresentedView:(UIView <ZZUserRecorderGridViewDelegate> *)presentedView
-                      withFriendModel:(ZZFriendDomainModel *)friendModel
+                            withModel:(ZZGridCellViewModel *)cellViewModel;
 {
     if (self = [super init])
     {
         self.backgroundColor = [UIColor grayColor];
-        self.friendModel = friendModel;
+        self.friendModel = cellViewModel.domainModel.relatedUser;
         self.presentedView = presentedView;
         
         self.recordRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(recordPressed:)];
@@ -60,6 +69,8 @@ static CGFloat const kVideoCountLabelWidth = 23;
         [self videoCountLabel];
         self.videoPlayer = [[ZZVideoPlayer alloc] initWithVideoPalyerView:self];
         [self bringSubviewToFront:self.userNameLabel];
+        [self updateBadgeWithNumber:cellViewModel.badgeNumber];
+        [self containFriendView];
     }
     
     return self;
@@ -276,6 +287,44 @@ static CGFloat const kVideoCountLabelWidth = 23;
     return _videoCountLabel;
 }
 
+- (UIView *)containFriendView
+{
+    if (!_containFriendView)
+    {
+        _containFriendView = [UIView new];
+        _containFriendView.alpha = 0.0;
+        _containFriendView.backgroundColor = [UIColor yellowColor];
+        [self addSubview:_containFriendView];
+        
+        [_containFriendView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self);
+        }];
+    }
+    
+    return _containFriendView;
+    
+}
+
+- (void)showContainFriendAnimation
+{
+    [UIView animateWithDuration:kContainFriendAnimationDuration
+                          delay:kContainFreindDelayDuration
+                        options:UIViewAnimationOptionLayoutSubviews animations:^{
+        self.containFriendView.alpha = kShowedingAlphaValue;
+    } completion:^(BOOL finished) {
+        [self _hideContainFriendAnimation];
+    }];
+}
+
+- (void)_hideContainFriendAnimation
+{
+    [UIView animateWithDuration:kContainFriendAnimationDuration animations:^{
+        self.containFriendView.alpha = kHiddenAlphaValue;
+    }];
+}
+
+
+
 #pragma mark - VidePlayer Delegate
 
 - (void)videoPlayerStarted
@@ -318,6 +367,18 @@ static CGFloat const kVideoCountLabelWidth = 23;
 - (void)showDownloadAnimationWithNewVideoCount:(NSInteger)count
 {
     [self _showDownloadAnimationWithNewVideoCount:count];
+}
+
+- (void)updateBadgeWithNumber:(NSNumber *)badgeNumber
+{
+    if (badgeNumber > 0)
+    {
+        [self _showVideoCountLabelWithCount:[badgeNumber integerValue]];
+    }
+    else
+    {
+        [self _hideVieoCountLabel];
+    }
 }
 
 @end

@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZZGridCellViewModel.h"
 
 static NSString* kLayoutConstGreenColor = @"9BC046";
-
-@class ZZFriendDomainModel;
 
 @protocol ZZUserRecorderGridViewDelegate  <NSObject>
 
@@ -30,12 +29,14 @@ static NSString* kLayoutConstGreenColor = @"9BC046";
 @property (nonatomic, strong) UIImageView* downloadIndicator;
 @property (nonatomic, strong) MASConstraint* rightDownloadIndicatorConstraint;
 @property (nonatomic, strong) UIView* downloadBarView;
-
 @property (nonatomic, strong) UILabel* videoCountLabel;
 
+
 - (instancetype)initWithPresentedView:(UIView <ZZUserRecorderGridViewDelegate> *)presentedView
-                      withFriendModel:(ZZFriendDomainModel *)friendModel;
+                      withModel:(ZZGridCellViewModel *)cellViewModel;
+- (void)updateBadgeWithNumber:(NSNumber *)badgeNumber;
 - (void)showUploadAnimation;
 - (void)showDownloadAnimationWithNewVideoCount:(NSInteger)count;
+- (void)showContainFriendAnimation;
 
 @end

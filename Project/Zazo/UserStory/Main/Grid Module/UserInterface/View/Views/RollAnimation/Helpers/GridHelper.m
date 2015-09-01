@@ -38,7 +38,10 @@
     {
         _spaceBetweenCells = 4.5f;
     }
-    
+    else if (IS_IPAD)
+    {
+        _spaceBetweenCells = 4.5f;
+    }
     [self setCellSize];
     [self setVerticalInset];
     [self setHorizontalInset];
@@ -96,6 +99,10 @@
     else if (IS_IPHONE_6_PLUS)
     {
         size = CGSizeMake(127,182);
+    }
+    else if (IS_IPAD)
+    {
+        size = CGSizeMake(245, 308);
     }
     
     _cellSize = size;

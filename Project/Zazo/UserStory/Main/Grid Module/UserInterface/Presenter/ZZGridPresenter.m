@@ -11,16 +11,16 @@
 #import "ANMemoryStorage.h"
 #import "ZZVideoRecorder.h"
 #import "ZZGridCenterCellViewModel.h"
-#import "ZZGridDomainModel.h"
 #import "ZZGridCenterCell.h"
 #import "ZZGridCollectionCell.h"
 #import "ZZVideoUtils.h"
+#import "ZZGridCellViewModel.h"
 
 
-@interface ZZGridPresenter () <ZZGridDomainModelDelegate>
+
+@interface ZZGridPresenter () <ZZGridCellViewModellDelegate>
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
-@property (nonatomic, strong) ZZVideoRecorder* videoRecorder;
 
 @end
 
@@ -28,27 +28,39 @@
 
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZGridViewInterface>*)userInterface
 {
-    self.videoRecorder = [ZZVideoRecorder new];
     self.userInterface = userInterface;
     self.dataSource = [ZZGridDataSource new];
     [self.userInterface udpateWithDataSource:self.dataSource];
     [self.interactor loadData];
 }
 
+
+- (void)presentEditFriends
+{
+    [self.wireframe closeMenu];
+    [self.wireframe presentEditFriends];
+}
+
+- (void)presentSendEmail
+{
+    [self.interactor loadFeedbackModel];
+   
+}
+
 #pragma mark - Output
+
+- (void)loadedFeedbackDomainModel:(ANMessageDomainModel *)model
+{
+    [self.wireframe presentSendFeedbackWithFeedbackModel:model];
+}
 
 - (void)dataLoadedWithArray:(NSArray *)data
 {
     [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([obj isMemberOfClass:[ZZGridCenterCellViewModel class]])
+        if ([obj isMemberOfClass:[ZZGridCellViewModel class]])
         {
-            ZZGridCenterCellViewModel* center = (ZZGridCenterCellViewModel*)obj;
-            center.videoRecorder = self.videoRecorder;
-        }
-        if ([obj isMemberOfClass:[ZZGridDomainModel class]])
-        {
-            ZZGridDomainModel* gridModel = (ZZGridDomainModel*)obj;
-            gridModel.delegate = self;
+            ZZGridCellViewModel* gridViewModel = (ZZGridCellViewModel*)obj;
+            gridViewModel.delegate = self;
         }
     }];
     
@@ -66,14 +78,22 @@
     [self.dataSource updateModel:model];
 }
 
+- (void)gridContainedFriend:(ZZFriendDomainModel *)friendModel
+{
+    [self.wireframe closeMenu];
+    [self.userInterface showFriendAnimationWithModel:friendModel];
+    
+}
+
 #pragma mark - Module Interface
 
 - (void)presentMenu
 {
     [self.wireframe toggleMenu];
+    [self.userInterface menuIsOpened];
 }
 
-- (void)selectedCollectionViewWithModel:(ZZGridDomainModel *)model
+- (void)selectedCollectionViewWithModel:(ZZGridCellViewModel *)model
 {
     if (model)
     {
@@ -92,13 +112,13 @@
 - (void)startRecordingWithView:(id)view
 {
     [[self centerCell] showRecordingOverlay];
-    [self.videoRecorder startRecordingWithGridCell:view];
+    [[ZZVideoRecorder sharedInstance] startRecordingWithGridCell:view];
 }
 
 - (void)stopRecording
 {
     [[self centerCell] hideRecordingOverlay];
-    [self.videoRecorder stopRecording];
+    [[ZZVideoRecorder sharedInstance] stopRecording];
 }
 
 - (void)nudgeSelectedWithUserModel:(id)userModel

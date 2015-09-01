@@ -88,4 +88,9 @@
 
 }
 
+- (void)_hideVieoCountLabel
+{
+    self.videoCountLabel.hidden = YES;
+}
+
 @end

@@ -14,5 +14,6 @@
 -(void) tapped;
 -(void) longTapStarted;
 -(void) longTapEnded;
+- (void)updateBadgeWithNumber:(NSNumber*)number;
 
 @end
