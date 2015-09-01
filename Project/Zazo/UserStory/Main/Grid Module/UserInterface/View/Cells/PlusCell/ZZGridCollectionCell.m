@@ -9,6 +9,7 @@
 #import "ZZGridCollectionCell.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZGridCellViewModel.h"
+#import "UIImage+PDF.h"
 
 @interface ZZGridCollectionCell () <ZZUserRecorderGridViewDelegate>
 
@@ -57,7 +58,10 @@
     if (!_plusImageView)
     {
         _plusImageView = [UIImageView new];
-        _plusImageView.image = [UIImage imageNamed:@"icons-plus-1x"];
+        
+        CGSize size = CGSizeMake(50, 50);
+        _plusImageView.image = [[UIImage imageWithPDFNamed:@"icon_plus" atSize:size]
+                                an_imageByTintingWithColor:[UIColor whiteColor]];
         _plusImageView.contentMode = UIViewContentModeCenter;
         [self addSubview:_plusImageView];
         
