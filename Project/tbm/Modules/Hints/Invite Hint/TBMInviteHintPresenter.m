@@ -33,12 +33,7 @@
     {
         return NO;
     }
-
-    if ([self.eventHandlerDataSource sessionState])
-    {
-        return NO;
-    }
-
+    
     return [dataSource friendsCount] == 0;
 }
 
