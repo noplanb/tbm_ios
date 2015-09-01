@@ -15,16 +15,10 @@
 #pragma mark - Header height
 static CGFloat const kHeaderViewHeight = 64;
 
-#pragma mark  - Title Image
-static CGFloat const kTileImageLeftPadding = 5;
-
-#pragma mark  - Menu Button
-static CGFloat const kMenuButtonRightPadding = 5;
-
-
 @interface ZZGridView () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak) id <ZZGridViewDelegate> delegate;
+
 
 @end
 
@@ -35,20 +29,29 @@ static CGFloat const kMenuButtonRightPadding = 5;
     if (self = [super init])
     {
         [self headerView];
-        [self titleImageView];
-        [self menuButton];
         [self collectionView];
         [self configureRecognizers];
+        
+        self.headerView.menuButton.rac_command = [RACCommand commandWithBlock:^{
+            [self.eventDelegate menuSelected];
+        }];
+        
+        self.headerView.editFriendsButton.rac_command = [RACCommand commandWithBlock:^{
+            [self.eventDelegate editFriendsSelected];
+        }];
     }
     
     return self;
 }
 
-- (UIView *)headerView
+
+#pragma mark - Header  View
+
+- (ZZGridViewHeader *)headerView
 {
     if (!_headerView)
     {
-        _headerView = [UIView new];
+        _headerView = [ZZGridViewHeader new];
         _headerView.backgroundColor = [ZZColorTheme shared].gridHeaderBackgroundColor;
         [self addSubview:_headerView];
         
@@ -58,43 +61,6 @@ static CGFloat const kMenuButtonRightPadding = 5;
         }];
     }
     return _headerView;
-}
-
-- (UIImageView *)titleImageView
-{
-    if (!_titleImageView)
-    {
-        _titleImageView = [UIImageView new];
-        _titleImageView.image = [UIImage imageNamed:@"zazo-type-1x"];
-        _titleImageView.contentMode = UIViewContentModeCenter;
-        [_titleImageView sizeToFit];
-        [self.headerView addSubview:_titleImageView];
-        
-        [_titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.headerView);
-            make.centerY.equalTo(self.headerView.mas_centerY);
-            make.left.equalTo(@(kTileImageLeftPadding));
-        }];
-    }
-    
-    return _titleImageView;
-}
-
-- (UIButton *)menuButton
-{
-    if (!_menuButton)
-    {
-        _menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_menuButton setImage:[UIImage imageNamed:@"icon-drawer-1x"] forState:UIControlStateNormal];
-        [self.headerView addSubview:_menuButton];
-        
-        [_menuButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.headerView).with.offset(-kMenuButtonRightPadding);
-            make.centerY.equalTo(self.headerView.mas_centerY);
-        }];
-    }
-    
-    return _menuButton;
 }
 
 - (UICollectionView *)collectionView

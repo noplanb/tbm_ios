@@ -12,5 +12,7 @@
 
 - (void)presentMenu;
 - (void)selectedCollectionViewWithModel:(ZZGridCellViewModel*)model;
+- (void)presentEditFriends;
+- (void)presentSendEmail;
 
 @end

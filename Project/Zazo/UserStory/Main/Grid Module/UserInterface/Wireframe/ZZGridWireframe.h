@@ -8,6 +8,7 @@
 
 
 #import "ZZMenuWireframe.h"
+#import "ANMessageDomainModel.h"
 
 @class ZZGridPresenter;
 
@@ -21,5 +22,8 @@
 - (void)dismissGridController;
 - (void)toggleMenu;
 - (void)closeMenu;
+
+- (void)presentEditFriends;
+- (void)presentSendFeedbackWithFeedbackModel:(ANMessageDomainModel*)model;
 
 @end

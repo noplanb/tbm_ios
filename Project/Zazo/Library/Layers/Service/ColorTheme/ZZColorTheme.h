@@ -16,6 +16,7 @@
 
 @property (nonatomic, strong) UIColor* menuBackgroundColor;
 @property (nonatomic, strong) UIColor* menuTextColor;
+@property (nonatomic, strong) UIColor* menuTintColor;
 
 @property (nonatomic, strong) UIColor* gridBackgourndColor;
 @property (nonatomic, strong) UIColor* gridHeaderBackgroundColor;

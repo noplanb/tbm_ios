@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "RotationGestureRecognizer.h"
+#import "ZZGridViewHeader.h"
 
 
 @protocol ZZGridViewDelegate <NSObject, UIGestureRecognizerDelegate>
@@ -16,16 +17,21 @@
 
 @end
 
+@protocol ZZGridViewEventDelegate <NSObject>
+
+- (void)menuSelected;
+- (void)editFriendsSelected;
+
+@end
 
 @interface ZZGridView : UIView
 
 @property (nonatomic, strong) UICollectionView* collectionView;
-@property (nonatomic, strong) UIView* headerView;
-@property (nonatomic, strong) UIImageView* titleImageView;
-@property (nonatomic, strong) UIButton* menuButton;
-
-@property (strong, nonatomic) RotationGestureRecognizer *rotationRecognizer;
+@property (nonatomic, strong) ZZGridViewHeader* headerView;
+@property (nonatomic, strong) RotationGestureRecognizer *rotationRecognizer;
+@property (nonatomic, weak) id <ZZGridViewEventDelegate> eventDelegate;
 
 - (void)updateWithDelegate:(id <ZZGridViewDelegate>)delegate;
+
 
 @end

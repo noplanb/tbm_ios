@@ -36,9 +36,16 @@ static CGFloat const kNavigationBarIconHeight = 20;
 
 + (void)setupFonts
 {
-    [UIFont an_addFontName:@"HelveticaNeue-Light" forType:ANFontTypeLight];
-    [UIFont an_addFontName:@"HelveticaNeue" forType:ANFontTypeRegular];
-    [UIFont an_addFontName:@"HelveticaNeue-Medium" forType:ANFontTypeMedium];
+//    [UIFont an_addFontName:@"HelveticaNeue-Light" forType:ANFontTypeLight];
+//    [UIFont an_addFontName:@"HelveticaNeue" forType:ANFontTypeRegular];
+//    [UIFont an_addFontName:@"HelveticaNeue-Medium" forType:ANFontTypeMedium];
+    
+    [UIFont an_addFontName:@"Roboto-Light" forType:ANFontTypeLight];
+    [UIFont an_addFontName:@"Roboto-Regular" forType:ANFontTypeRegular];
+    [UIFont an_addFontName:@"Roboto-Medium" forType:ANFontTypeMedium];
+    [UIFont an_addFontName:@"Roboto-Bold" forType:ANFontTypeBold];
+    
+    
 }
 
 - (instancetype)init
@@ -71,6 +78,7 @@ static CGFloat const kNavigationBarIconHeight = 20;
         
         self.menuTextColor = [UIColor an_colorWithHexString:@"A8A295"];
         self.menuBackgroundColor = [UIColor an_colorWithHexString:@"2F2E28"];
+        self.menuTintColor = [UIColor colorWithRed:0.38 green:0.37 blue:0.34 alpha:1];
         
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         

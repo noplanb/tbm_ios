@@ -12,6 +12,10 @@
 #import "ZZContactDomainModel.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZGridCellViewModel.h"
+#import "ANMessageDomainModel.h"
+#import "DeviceUtil.h"
+#import "TBMUser.h"
+
 
 static NSInteger const kGridCellCount = 9;
 static NSInteger const kGridCenterCellIndex = 4;
@@ -74,12 +78,22 @@ static NSInteger const kGridCenterCellIndex = 4;
     [self _updateSelectedModelWithUser];
 }
 
+- (void)loadFeedbackModel
+{
+    ANMessageDomainModel *model = [ANMessageDomainModel new];
+    model.title = emailSubject;
+    model.recipients = @[emailAddress];
+    model.isHTMLMessage = YES;
+    model.message = [NSString stringWithFormat:@"<font color = \"000000\"></br></br></br>---------------------------------</br>iOS: %@</br>Model: %@</br>User mKey: %@</br>App Version: %@</br>Build Version: %@ </font>", [[UIDevice currentDevice] systemVersion], [DeviceUtil hardwareDescription], [TBMUser getUser].mkey, [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"], [NSBundle mainBundle].infoDictionary[(NSString*)kCFBundleVersionKey]];
+    [self.output loadedFeedbackDomainModel:model];
+}
+
 - (void)_updateSelectedModelWithUser
 {
     
     ZZFriendDomainModel* friendModel = [self friendModelFromMenuModel:self.selectedUserModel];
     ZZFriendDomainModel* containdedUser;
-    if (![self isFriendsOnGridContainFriendModel:friendModel withContainedFriend:&containdedUser])
+    if (![self _isFriendsOnGridContainFriendModel:friendModel withContainedFriend:&containdedUser])
     {
         [self.friendArray addObject:friendModel];
         self.selectedCellModel.domainModel.relatedUser = friendModel;
@@ -111,7 +125,7 @@ static NSInteger const kGridCenterCellIndex = 4;
     return friendModel;
 }
 
-- (BOOL)isFriendsOnGridContainFriendModel:(ZZFriendDomainModel *)friendModel withContainedFriend:(ZZFriendDomainModel**)containtedUser
+- (BOOL)_isFriendsOnGridContainFriendModel:(ZZFriendDomainModel *)friendModel withContainedFriend:(ZZFriendDomainModel**)containtedUser
 {
     __block BOOL isContainModel = NO;
     

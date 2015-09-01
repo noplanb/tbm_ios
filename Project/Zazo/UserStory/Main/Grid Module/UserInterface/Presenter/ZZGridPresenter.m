@@ -34,7 +34,25 @@
     [self.interactor loadData];
 }
 
+
+- (void)presentEditFriends
+{
+    [self.wireframe closeMenu];
+    [self.wireframe presentEditFriends];
+}
+
+- (void)presentSendEmail
+{
+    [self.interactor loadFeedbackModel];
+   
+}
+
 #pragma mark - Output
+
+- (void)loadedFeedbackDomainModel:(ANMessageDomainModel *)model
+{
+    [self.wireframe presentSendFeedbackWithFeedbackModel:model];
+}
 
 - (void)dataLoadedWithArray:(NSArray *)data
 {
