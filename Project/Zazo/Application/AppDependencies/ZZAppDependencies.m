@@ -12,6 +12,7 @@
 #import "ZZAppDependecesInjection.h"
 #import "ANCrashlyticsAdapter.h"
 #import <Instabug/Instabug.h>
+#import "ZZVideoRecorder.h"
 
 @interface ZZAppDependencies ()
 
@@ -28,8 +29,8 @@
 
 - (void)initialApplicationSetup:(UIApplication *)application launchOptions:(NSDictionary *)options
 {
+    [ZZVideoRecorder sharedInstance];
     [ZZColorTheme shared];
-    
     [ANCrashlyticsAdapter start];
     
 #ifndef RELEASE

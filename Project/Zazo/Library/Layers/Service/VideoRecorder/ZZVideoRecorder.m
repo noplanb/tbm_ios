@@ -14,6 +14,7 @@
 #import "ZZVideoUtils.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZVideoProcessor.h"
+#import "ZZGridCellViewModel.h"
 
 @interface ZZVideoRecorder () <AVCaptureFileOutputRecordingDelegate>
 
@@ -28,6 +29,16 @@
 @end
 
 @implementation ZZVideoRecorder
+
++ (instancetype)sharedInstance
+{
+    static ZZVideoRecorder* sharedManager = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedManager = [[self alloc] init];
+    });
+    return sharedManager;
+}
 
 - (instancetype)init
 {
@@ -123,10 +134,10 @@
 
 - (void)startRecordingWithGridCell:(ZZGridCollectionCell*)gridCell
 {
-    ZZGridDomainModel* model = [gridCell model];
-    if (model.relatedUser && model.relatedUser.idTbm)
+    ZZGridCellViewModel* model = [gridCell model];
+    if (model.domainModel.relatedUser && model.domainModel.relatedUser.idTbm)
     {
-        NSURL* videoUrl = [ZZVideoUtils generateOutgoingVideoUrlWithFriend:model.relatedUser];
+        NSURL* videoUrl = [ZZVideoUtils generateOutgoingVideoUrlWithFriend:model.domainModel.relatedUser];
         [self startRecordingWithVideoUrl:videoUrl];
     }
 }

@@ -7,14 +7,13 @@
 //
 
 #import "ZZGridCollectionCell.h"
-
-#import "ZZGridDomainModel.h"
 #import "ZZFriendDomainModel.h"
+#import "ZZGridCellViewModel.h"
 
 
 @interface ZZGridCollectionCell () <ZZUserRecorderGridViewDelegate>
 
-@property (nonatomic, strong) ZZGridDomainModel* gridModel;
+@property (nonatomic, strong) ZZGridCellViewModel* gridModel;
 @property (nonatomic, strong) UIImageView* plusImageView;
 
 @property (nonatomic, strong) UIGestureRecognizer* plusRecognizer;
@@ -44,7 +43,7 @@
     self.gridModel = nil;
     self.gridModel = model;
     
-    [self _updateIfNeededStateWithUserModel:self.gridModel.relatedUser];
+    [self _updateIfNeededStateWithUserModel:self.gridModel];
 }
 
 - (id)model
@@ -69,11 +68,11 @@
     return _plusImageView;
 }
 
-- (void)_updateIfNeededStateWithUserModel:(ZZFriendDomainModel *)model
+- (void)_updateIfNeededStateWithUserModel:(ZZGridCellViewModel *)model
 {
-    if (model)
+    if (model.domainModel.relatedUser)
     {
-        self.recorderView = [[ZZUserRecorderGridView alloc] initWithPresentedView:self withFriendModel:model];
+        self.recorderView = [[ZZUserRecorderGridView alloc] initWithPresentedView:self withModel:model];
     }
     else
     {

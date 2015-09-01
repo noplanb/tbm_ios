@@ -12,5 +12,6 @@
 
 - (void)udpateWithDataSource:(ZZGridDataSource *)dataSource;
 - (id)cellAtIndexPath:(NSIndexPath*)indexPath;
+- (void)menuIsOpened;
 
 @end

@@ -53,6 +53,7 @@
 {
     [super viewDidLoad];
     [UIApplication sharedApplication].statusBarHidden = YES;
+    self.view.backgroundColor = [ZZColorTheme shared].gridBackgourndColor;
 }
 
 - (void)udpateWithDataSource:(ZZGridDataSource *)dataSource
@@ -61,9 +62,14 @@
     self.touchObserver.storage = self.controller.storage;
 }
 
+- (void)menuIsOpened
+{
+    [self.touchObserver hideMovedGridIfNeeded];
+}
+
 #pragma mark - Controller Delegate Method
 
-- (void)selectedViewWithModel:(ZZGridDomainModel *)model
+- (void)selectedViewWithModel:(ZZGridCellViewModel *)model
 {
     [self.eventHandler selectedCollectionViewWithModel:model];
 }

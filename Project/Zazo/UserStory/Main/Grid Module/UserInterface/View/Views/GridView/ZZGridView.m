@@ -34,13 +34,13 @@ static CGFloat const kMenuButtonRightPadding = 5;
 {
     if (self = [super init])
     {
-        self.backgroundColor = [ZZColorTheme shared].gridBackgourndColor;
         [self headerView];
         [self titleImageView];
         [self menuButton];
         [self collectionView];
         [self configureRecognizers];
     }
+    
     return self;
 }
 
@@ -123,6 +123,10 @@ static CGFloat const kMenuButtonRightPadding = 5;
         else if (IS_IPHONE_6_PLUS)
         {
             height = 579;
+        }
+        else if (IS_IPAD)
+        {
+            height = 1021;
         }
         
         [self addSubview:_collectionView];

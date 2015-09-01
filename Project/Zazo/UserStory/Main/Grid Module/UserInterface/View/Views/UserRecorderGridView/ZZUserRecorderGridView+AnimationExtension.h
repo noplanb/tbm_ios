@@ -12,5 +12,7 @@
 
 - (void)_showUploadAnimation;
 - (void)_showDownloadAnimationWithNewVideoCount:(NSInteger)count;
+- (void)_showVideoCountLabelWithCount:(NSInteger)count;
+- (void)_hideVieoCountLabel;
 
 @end

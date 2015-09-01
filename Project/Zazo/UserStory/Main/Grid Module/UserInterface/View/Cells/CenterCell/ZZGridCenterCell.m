@@ -21,9 +21,7 @@
 - (void)updateWithModel:(id)model
 {
     self.model = model;
-    ANDispatchBlockToBackgroundQueue(^{
-      [self.model.videoRecorder updateViewGridCell:self];
-    });
+    [[ZZVideoRecorder sharedInstance] updateViewGridCell:self];
 }
 
 @end

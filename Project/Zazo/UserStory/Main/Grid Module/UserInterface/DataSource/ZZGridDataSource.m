@@ -8,7 +8,8 @@
 
 #import "ZZGridDataSource.h"
 #import "ANMemoryStorage.h"
-#import "ZZGridDomainModel.h"
+#import "ZZGridCellViewModel.h"
+
 
 @implementation ZZGridDataSource
 
@@ -21,7 +22,7 @@
     return self;
 }
 
-- (void)updateModel:(ZZGridDomainModel *)model
+- (void)updateModel:(ZZGridCellViewModel *)model
 {
     [self.storage reloadItem:model];
 }

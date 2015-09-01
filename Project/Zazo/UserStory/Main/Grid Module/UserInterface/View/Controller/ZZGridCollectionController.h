@@ -8,11 +8,11 @@
 
 #import "ANCollectionController.h"
 
-@class ZZGridDomainModel;
+@class ZZGridCellViewModel;
 
 @protocol ZZGridCollectionControllerDelegate <NSObject>
 
-- (void)selectedViewWithModel:(ZZGridDomainModel*)model;
+- (void)selectedViewWithModel:(ZZGridCellViewModel*)model;
 
 @end
 

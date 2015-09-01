@@ -8,10 +8,10 @@
 
 #import "ZZGridInteractor.h"
 #import "ZZGridCenterCellViewModel.h"
-#import "ZZGridDomainModel.h"
 #import "ZZMenuCellViewModel.h"
 #import "ZZContactDomainModel.h"
 #import "ZZFriendDomainModel.h"
+#import "ZZGridCellViewModel.h"
 
 static NSInteger const kGridCellCount = 9;
 static NSInteger const kGridCenterCellIndex = 4;
@@ -20,8 +20,7 @@ static NSInteger const kGridCenterCellIndex = 4;
 
 @property (nonatomic, strong) NSMutableArray* dataArray;
 @property (nonatomic, strong) id selectedUserModel;
-@property (nonatomic, strong) ZZGridDomainModel* selectedCellModel;
-
+@property (nonatomic, strong) ZZGridCellViewModel* selectedCellModel;
 
 @end
 
@@ -40,7 +39,7 @@ static NSInteger const kGridCenterCellIndex = 4;
         }
         else
         {
-            model = [ZZGridDomainModel new];
+            model = [ZZGridCellViewModel new];
         }
         [self.dataArray addObject:model];
     }
@@ -53,7 +52,7 @@ static NSInteger const kGridCenterCellIndex = 4;
     return self.dataArray.count/2;
 }
 
-- (void)selectedPlusCellWithModel:(ZZGridDomainModel *)model
+- (void)selectedPlusCellWithModel:(ZZGridCellViewModel *)model
 {
     self.selectedCellModel = model;
 }
@@ -66,7 +65,7 @@ static NSInteger const kGridCenterCellIndex = 4;
 
 - (void)_updateSelectedModelWithUser
 {
-    self.selectedCellModel.relatedUser = [self friendModelFromMenuModel:self.selectedUserModel];
+    self.selectedCellModel.domainModel.relatedUser = [self friendModelFromMenuModel:self.selectedUserModel];
     [self.output modelUpdatedWithUserWithModel:self.selectedCellModel];
 }
 

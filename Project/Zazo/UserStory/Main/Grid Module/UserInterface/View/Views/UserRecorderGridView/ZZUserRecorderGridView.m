@@ -37,12 +37,12 @@ static CGFloat const kVideoCountLabelWidth = 23;
 @implementation ZZUserRecorderGridView
 
 - (instancetype)initWithPresentedView:(UIView <ZZUserRecorderGridViewDelegate> *)presentedView
-                      withFriendModel:(ZZFriendDomainModel *)friendModel
+                            withModel:(ZZGridCellViewModel *)cellViewModel;
 {
     if (self = [super init])
     {
         self.backgroundColor = [UIColor grayColor];
-        self.friendModel = friendModel;
+        self.friendModel = cellViewModel.domainModel.relatedUser;
         self.presentedView = presentedView;
         
         self.recordRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(recordPressed:)];
@@ -60,6 +60,7 @@ static CGFloat const kVideoCountLabelWidth = 23;
         [self videoCountLabel];
         self.videoPlayer = [[ZZVideoPlayer alloc] initWithVideoPalyerView:self];
         [self bringSubviewToFront:self.userNameLabel];
+        [self updateBadgeWithNumber:cellViewModel.badgeNumber];
     }
     
     return self;
@@ -318,6 +319,18 @@ static CGFloat const kVideoCountLabelWidth = 23;
 - (void)showDownloadAnimationWithNewVideoCount:(NSInteger)count
 {
     [self _showDownloadAnimationWithNewVideoCount:count];
+}
+
+- (void)updateBadgeWithNumber:(NSNumber *)badgeNumber
+{
+    if (badgeNumber > 0)
+    {
+        [self _showVideoCountLabelWithCount:[badgeNumber integerValue]];
+    }
+    else
+    {
+        [self _hideVieoCountLabel];
+    }
 }
 
 @end

@@ -13,6 +13,7 @@
 #import "ZZGridCenterCellViewModel.h"
 #import "ANRuntimeHelper.h"
 #import "ANMemoryStorage.h"
+#import "ZZGridCellViewModel.h"
 
 static NSInteger const kCenterCellIndex = 4;
 
@@ -28,7 +29,7 @@ static NSInteger const kCenterCellIndex = 4;
 {
     if (self = [super initWithCollectionView:collectionView])
     {
-        [self registerCellClass:[ZZGridCollectionCell class] forModelClass:[ZZGridDomainModel class]];
+        [self registerCellClass:[ZZGridCollectionCell class] forModelClass:[ZZGridCellViewModel class]];
         [self registerCellClass:[ZZGridCenterCell class] forModelClass:[ZZGridCenterCellViewModel class]];
     }
     
@@ -37,10 +38,10 @@ static NSInteger const kCenterCellIndex = 4;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (![self isCellContainUserModel:collectionView withIndexPath:indexPath])
+    if (![self isCellContainUserModel:collectionView withIndexPath:indexPath] && indexPath.item != kCenterCellIndex)
     {
         ZZGridCollectionCell* cell = (ZZGridCollectionCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
-        ZZGridDomainModel* model = [cell model];
+        ZZGridCellViewModel* model = [cell model];
         [self.delegate selectedViewWithModel:model];
     }
 }
@@ -54,8 +55,8 @@ static NSInteger const kCenterCellIndex = 4;
     if ([cell isKindOfClass:[ZZGridCollectionCell class]])
     {
         ZZGridCollectionCell* gridCell = (ZZGridCollectionCell*)cell;
-        ZZGridDomainModel* model = [gridCell model];
-        isHasUser = (model.relatedUser != nil);
+        ZZGridCellViewModel* model = [gridCell model];
+        isHasUser = (model.domainModel.relatedUser != nil);
     }
     
     return isHasUser;
@@ -64,26 +65,18 @@ static NSInteger const kCenterCellIndex = 4;
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell* cell;
- 
+    
     if (indexPath.item == kCenterCellIndex)
     {
         if (!self.centerCell)
         {
-            NSString * classString = [ANRuntimeHelper classStringForClass:[ZZGridCenterCell class]];
-            self.centerCell = [self.collectionView dequeueReusableCellWithReuseIdentifier:classString forIndexPath:indexPath];
-            [self.centerCell updateWithModel:[(ANMemoryStorage*)self.storage itemAtIndexPath:indexPath]];
+            self.centerCell = (ZZGridCenterCell*)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
         }
         cell = self.centerCell;
     }
     else
     {
-        NSString * classString = [ANRuntimeHelper classStringForClass:[ZZGridCollectionCell class]];
-        cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:classString forIndexPath:indexPath];
-        ZZGridBaseCell* baseCell = (ZZGridBaseCell*)cell;
-        
-        ZZGridDomainModel* dmodel = [(ANMemoryStorage*)self.storage itemAtIndexPath:indexPath];
-        ANSectionModel* ss = [((ANMemoryStorage*)self.storage).sections firstObject];
-        [baseCell updateWithModel:[(ANMemoryStorage*)self.storage itemAtIndexPath:indexPath]];
+        cell = [super collectionView:collectionView cellForItemAtIndexPath:indexPath];
     }
     
     return cell;

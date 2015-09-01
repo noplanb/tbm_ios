@@ -10,23 +10,9 @@
 
 @class ZZFriendDomainModel;
 
-@protocol ZZGridDomainModelDelegate <NSObject>
-
-- (void)startRecordingWithView:(id)view;
-- (void)stopRecording;
-- (void)nudgeSelectedWithUserModel:(id)userModel;
-
-@end
-
-
 @interface ZZGridDomainModel : ZZBaseDomainModel
 
-@property (nonatomic, weak) id <ZZGridDomainModelDelegate> delegate;
-@property (nonatomic, strong) NSNumber* index;
 @property (nonatomic, strong) ZZFriendDomainModel* relatedUser;
-
-- (void)startRecordingWithView:(UIView *)view;
-- (void)stopRecording;
-- (void)nudgeSelected;
+@property (nonatomic, strong) NSNumber* index;
 
 @end
