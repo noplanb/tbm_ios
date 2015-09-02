@@ -386,6 +386,7 @@
 		F20151DDD1EA1D5CD6D8CB21 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */; };
 		FE17E9521B977B6D00FD49FE /* TBMNextFeatureDialogPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FE17E94F1B977B6D00FD49FE /* TBMNextFeatureDialogPresenter.m */; };
 		FE17E9531B977B6D00FD49FE /* TBMNextFeatureDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE17E9511B977B6D00FD49FE /* TBMNextFeatureDialogView.m */; };
+		FE17E9551B979C7200FD49FE /* FeatureUnlock.wav in Resources */ = {isa = PBXBuildFile; fileRef = FE17E9541B979C7200FD49FE /* FeatureUnlock.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -1147,6 +1148,7 @@
 		FE17E94F1B977B6D00FD49FE /* TBMNextFeatureDialogPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMNextFeatureDialogPresenter.m; sourceTree = "<group>"; };
 		FE17E9501B977B6D00FD49FE /* TBMNextFeatureDialogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMNextFeatureDialogView.h; sourceTree = "<group>"; };
 		FE17E9511B977B6D00FD49FE /* TBMNextFeatureDialogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMNextFeatureDialogView.m; sourceTree = "<group>"; };
+		FE17E9541B979C7200FD49FE /* FeatureUnlock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = FeatureUnlock.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1819,6 +1821,7 @@
 		07E2544E1B977864008D3371 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FE17E9541B979C7200FD49FE /* FeatureUnlock.wav */,
 				07E2544F1B977864008D3371 /* BeepSin30.wav */,
 				07E254501B977864008D3371 /* DK Crayon Crumble.ttf */,
 				07E254511B977864008D3371 /* head.png */,
@@ -4177,6 +4180,7 @@
 				07E258041B977865008D3371 /* navbar_btn_back.pdf in Resources */,
 				07E258661B977865008D3371 /* human.m.motemplate in Resources */,
 				07E2577A1B977865008D3371 /* head.png in Resources */,
+				FE17E9551B979C7200FD49FE /* FeatureUnlock.wav in Resources */,
 				07E257FE1B977865008D3371 /* contacts-icon.pdf in Resources */,
 				07E258071B977865008D3371 /* navbar_btn_edit.pdf in Resources */,
 				07E258051B977865008D3371 /* navbar_btn_close.pdf in Resources */,
