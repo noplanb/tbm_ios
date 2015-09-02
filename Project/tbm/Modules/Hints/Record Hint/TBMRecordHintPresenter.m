@@ -50,6 +50,7 @@
     if (![self.eventFlowModule isAnyHandlerActive])
     {
         [super presentWithGridModule:gridModule];
+        [self setupRecordTip];
         [self didPresented];
     }
     else if ([[self.eventFlowModule currentHandler] respondsToSelector:@selector(addRecordHint)])
@@ -64,5 +65,10 @@
 - (void)addPlayHint
 {
     [(TBMRecordHintView *) self.dialogView addPlayTip];
+}
+
+- (void)setupRecordTip
+{
+    [(TBMRecordHintView *) self.dialogView setupRecordTip];
 }
 @end

@@ -63,6 +63,7 @@
     if (![self.eventFlowModule isAnyHandlerActive])
     {
         [super presentWithGridModule:gridModule];
+        [self setupPlayTip];
         [self didPresented];
     } else if ([[self.eventFlowModule currentHandler] respondsToSelector:@selector(addPlayHint)])
     {
@@ -76,6 +77,10 @@
 - (void)addRecordHint
 {
     [(TBMPlayHintView *) self.dialogView addRecordTip];
+}
+- (void)setupPlayTip
+{
+    [(TBMPlayHintView *) self.dialogView setupPlayTip];
 }
 
 @end
