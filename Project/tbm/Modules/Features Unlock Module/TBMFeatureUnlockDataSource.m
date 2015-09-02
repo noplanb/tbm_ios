@@ -6,6 +6,7 @@
 #import "TBMFeatureUnlockDataSource.h"
 #import "TBMFriend.h"
 #import "NSNumber+TBMUserDefaults.h"
+#import "TBMUser.h"
 
 static NSString *const kLastUnlockedFeatureNSUDKey = @"kLastUnlockedFeatureNSUDKey";
 
@@ -56,7 +57,7 @@ static NSString *const kLastUnlockedFeatureNSUDKey = @"kLastUnlockedFeatureNSUDK
 
 - (BOOL)isInvitedUser
 {
-    return NO;
+    return [[TBMUser getUser].isInvitee boolValue];
 }
 
 - (NSInteger)lockedFeaturesCount

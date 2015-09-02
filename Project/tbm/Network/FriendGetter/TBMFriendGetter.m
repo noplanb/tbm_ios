@@ -36,6 +36,7 @@
                           success:^(AFHTTPRequestOperation *operation, id responseObject)
                           {
                               [self gotFriends:responseObject];
+                              [self detectInvitee:responseObject];
                           }
                           failure:^(AFHTTPRequestOperation *operation, NSError *error)
                           {
@@ -60,6 +61,7 @@
     for (NSDictionary *fParams in friends){
         [TBMFriend createOrUpdateWithServerParams:fParams complete:nil];
     }
+
     [_delegate gotFriends];
 }
 
@@ -72,7 +74,7 @@
         NSString *firstFriendCreatorMkey = firstFriend[@"connection_creator_mkey"];
         TBMUser *me = [TBMUser getUser];
         NSString *myMkey = me.mkey;
-        [me setupIsInviteeFlagTo:[firstFriendCreatorMkey isEqualToString:myMkey]];
+        [me setupIsInviteeFlagTo:![firstFriendCreatorMkey isEqualToString:myMkey]];
     }
 }
 
