@@ -135,6 +135,11 @@
     return self.curentEventHandler;
 }
 
+- (void)setupCurrentHandler:(id <TBMEventsFlowModuleEventHandler>)eventHandler
+{
+    self.curentEventHandler = eventHandler;
+}
+
 #pragma mark - Lazy initialization
 
 - (TBMEventsFlowDataSource *)dataSource

@@ -75,13 +75,11 @@ typedef NS_ENUM(NSInteger, TBMEventFlowEvent)
  *
  * Parent modules send signals about application state and flow
  */
-
-
 - (void)throwEvent:(TBMEventFlowEvent)anEvent;
-
 - (BOOL)isAnyHandlerActive;
-
 - (BOOL)isRecording;
 
+// Event handler
 - (id <TBMEventsFlowModuleEventHandler>)currentHandler;
+- (void)setupCurrentHandler:(id <TBMEventsFlowModuleEventHandler>)eventHandler;
 @end

@@ -41,6 +41,7 @@
 - (void)didPresented
 {
     self.isPresented = YES;
+    [self saveHandlerState];
 }
 
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
@@ -57,8 +58,7 @@
 {
     if (![self.eventFlowModule isAnyHandlerActive])
     {
-        self.isPresented = YES;
-        [self saveHandlerState];
+        [self didPresented];
         [self.dialogView showInGrid:gridModule];
     }
 }
@@ -71,6 +71,9 @@
 
 - (void)dialogDidDismiss
 {
+
+    [self.eventFlowModule setupCurrentHandler:self]; // Need for hints which can be added to another hint
+
     self.isPresented = NO;
     OB_INFO(@"%@ did dismiss", [self.dialogView class]);
 }
