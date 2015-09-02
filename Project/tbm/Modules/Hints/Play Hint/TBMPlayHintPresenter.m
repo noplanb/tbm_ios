@@ -54,20 +54,11 @@
         return NO;
     }
 
-    if ([dataSource messagePlayedState])
-    {
-        return NO;
-    }
+    return ![dataSource messagePlayedState] && [dataSource friendsCount] == 1;
 
-    if ([dataSource friendsCount] != 1)
-    {
-        return NO;
-    }
-
-    return YES;
 }
 
-- (void)presentWithDataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource gridModule:(id <TBMGridModuleInterface>)gridModule
+- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule
 {
     if (![self.eventFlowModule isAnyHandlerActive])
     {
