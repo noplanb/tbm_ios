@@ -526,7 +526,6 @@
 		073040801B921CEB00980373 /* TBMAbortRecordUsageHintPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAbortRecordUsageHintPresenter.m; sourceTree = "<group>"; };
 		073040811B921CEB00980373 /* TBMAbortRecordUsageHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAbortRecordUsageHintView.h; sourceTree = "<group>"; };
 		073040821B921CEB00980373 /* TBMAbortRecordUsageHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAbortRecordUsageHintView.m; sourceTree = "<group>"; };
-		073040841B921CEB00980373 /* TBMHintArrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHintArrow.h; sourceTree = "<group>"; };
 		073040861B921CEB00980373 /* TBMDeleteFriendUsageHintPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDeleteFriendUsageHintPresenter.h; sourceTree = "<group>"; };
 		073040871B921CEB00980373 /* TBMDeleteFriendUsageHintPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDeleteFriendUsageHintPresenter.m; sourceTree = "<group>"; };
 		073040881B921CEB00980373 /* TBMDeleteFriendUsageHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDeleteFriendUsageHintView.h; sourceTree = "<group>"; };
@@ -1033,6 +1032,7 @@
 		41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		5988C69CC62CF4472CA2040A /* Pods-Zazo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.debug.xcconfig"; sourceTree = "<group>"; };
+		682D690B504F7A2574109BA6 /* TBMHintArrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHintArrow.h; sourceTree = "<group>"; };
 		7938C0621B8F5CC100401F47 /* Zazo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Zazo.entitlements; sourceTree = "<group>"; };
 		7966F9921B8F1C170037A520 /* icon_menu_dots@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_menu_dots@2x.png"; sourceTree = "<group>"; };
 		7966F9931B8F1C170037A520 /* icon_menu_dots.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_menu_dots.png; sourceTree = "<group>"; };
@@ -1656,6 +1656,7 @@
 				073040651B921CEB00980373 /* TBMHintArrow.m */,
 				073040661B921CEB00980373 /* TBMHintView.h */,
 				073040671B921CEB00980373 /* TBMHintView.m */,
+				682D690B504F7A2574109BA6 /* TBMHintArrow.h */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1725,7 +1726,6 @@
 			isa = PBXGroup;
 			children = (
 				0730407E1B921CEB00980373 /* Abort Record Usage Hint */,
-				073040831B921CEB00980373 /* Common */,
 				073040851B921CEB00980373 /* Delete Friend Usage Hint */,
 				0730408A1B921CEB00980373 /* Earpiece Usage Hint */,
 				0730408F1B921CEB00980373 /* Front Camera Usage Hint */,
@@ -1751,14 +1751,6 @@
 				073040821B921CEB00980373 /* TBMAbortRecordUsageHintView.m */,
 			);
 			path = "Abort Record Usage Hint";
-			sourceTree = "<group>";
-		};
-		073040831B921CEB00980373 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				073040841B921CEB00980373 /* TBMHintArrow.h */,
-			);
-			path = Common;
 			sourceTree = "<group>";
 		};
 		073040851B921CEB00980373 /* Delete Friend Usage Hint */ = {
