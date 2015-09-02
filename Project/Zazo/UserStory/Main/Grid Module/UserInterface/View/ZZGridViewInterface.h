@@ -14,5 +14,8 @@
 - (id)cellAtIndexPath:(NSIndexPath*)indexPath;
 - (void)menuIsOpened;
 - (void)showFriendAnimationWithModel:(ZZFriendDomainModel*)friendModel;
+- (void)disableRolling;
+- (void)enableRolling;
+- (void)playSound;
 
 @end

@@ -29,7 +29,9 @@
 - (void)performDidBecomeActiveActions {
     OB_INFO(@"performDidBecomeActiveActions: registered: %d", [[TBMUser getUser].isRegistered boolValue]);
     if (![TBMUser getUser].isRegistered)
+    {
         return;
+    }
 
     [self ensureResources];
 }

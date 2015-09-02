@@ -36,16 +36,10 @@ static CGFloat const kNavigationBarIconHeight = 20;
 
 + (void)setupFonts
 {
-//    [UIFont an_addFontName:@"HelveticaNeue-Light" forType:ANFontTypeLight];
-//    [UIFont an_addFontName:@"HelveticaNeue" forType:ANFontTypeRegular];
-//    [UIFont an_addFontName:@"HelveticaNeue-Medium" forType:ANFontTypeMedium];
-    
     [UIFont an_addFontName:@"Roboto-Light" forType:ANFontTypeLight];
     [UIFont an_addFontName:@"Roboto-Regular" forType:ANFontTypeRegular];
     [UIFont an_addFontName:@"Roboto-Medium" forType:ANFontTypeMedium];
     [UIFont an_addFontName:@"Roboto-Bold" forType:ANFontTypeBold];
-    
-    
 }
 
 - (instancetype)init
@@ -75,6 +69,7 @@ static CGFloat const kNavigationBarIconHeight = 20;
         self.baseFontColor = [UIColor an_colorWithHexString:@"5B5B5B"];
         
         self.baseCellTextColor = [UIColor an_colorWithHexString:@"202020"];
+        self.cellLayoutGreenColor = [UIColor an_colorWithHexString:@"9BC046"];
         
         self.menuTextColor = [UIColor an_colorWithHexString:@"A8A295"];
         self.menuBackgroundColor = [UIColor an_colorWithHexString:@"2F2E28"];

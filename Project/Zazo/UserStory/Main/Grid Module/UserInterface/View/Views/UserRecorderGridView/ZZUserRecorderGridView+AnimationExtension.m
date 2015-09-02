@@ -23,7 +23,7 @@
         [self layoutIfNeeded];
     } completion:^(BOOL finished) {
         self.uploadBarView.hidden = YES;
-        [self showDownloadAnimationWithNewVideoCount:1];
+//        [self showDownloadAnimationWithNewVideoCount:1];// TODO: only for animation test
     }];
 }
 
@@ -84,8 +84,7 @@
 {
     self.videoCountLabel.hidden = NO;
     self.videoCountLabel.text = [NSString stringWithFormat:@"%li",(long)count];
-    self.backgroundColor = [UIColor an_colorWithHexString:kLayoutConstGreenColor];
-
+    self.backgroundColor = [ZZColorTheme shared].cellLayoutGreenColor;
 }
 
 - (void)_hideVieoCountLabel

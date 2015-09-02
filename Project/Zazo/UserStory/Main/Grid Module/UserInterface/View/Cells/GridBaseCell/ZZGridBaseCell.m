@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
+@import AVFoundation;
+
 #import "ZZGridBaseCell.h"
 #import "HexColors.h"
 
@@ -20,18 +22,17 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
 @property (nonatomic, strong) CALayer *recordingOverlay;
 @property (nonatomic, strong) UILabel *recordingLabel;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
-;
+
 @end
 
 @implementation ZZGridBaseCell
+
 
 
 - (void)showRecordingOverlay
 {
     self.recordingOverlay.hidden = NO;
     self.recordingLabel.hidden = NO;
-    
-//    [self playSoundEffect];
     [NSThread sleepForTimeInterval:0.4f];
 }
 
@@ -39,9 +40,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
 {
     self.recordingOverlay.hidden = YES;
     self.recordingLabel.hidden = YES;
-    
     [NSThread sleepForTimeInterval:0.1f];
-//    [self playSoundEffect];
 }
 
 - (void)setupWithCaptureSession:(AVCaptureSession *)captureSession

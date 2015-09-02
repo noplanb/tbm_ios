@@ -22,6 +22,7 @@
 @property (nonatomic, assign) BOOL isMoving;
 @property (nonatomic, strong) ZZGridView* gridView;
 @property (nonatomic, strong) Grid* grid;
+@property (nonatomic, assign) CGPoint touchPoint;
 
 @end
 
@@ -77,7 +78,12 @@
 - (void)observeTouch:(UITouch *)touch withEvent:(id)event
 {
     
-    if (self.grid.hidden && touch.phase == UITouchPhaseMoved)
+    if (touch.phase == UITouchPhaseBegan)
+    {
+        self.initialLocation = [touch locationInView:self.gridView.collectionView];
+    }
+    
+    if (self.grid.hidden && touch.phase == UITouchPhaseMoved && self.gridView.isRotationEnabled)
         {
             self.collectionView = self.gridView.collectionView;
             CGPoint location = [touch locationInView:self.gridView.collectionView];
@@ -132,7 +138,7 @@
                 if (CGRectContainsPoint(gridCell.frame, fakeCell.center))
                 {
                     fakeCell.stateImageView.image = [gridCell actualSateImage];
-                    ZZGridCellViewModel* cellModel = [gridCell model];
+                    ZZGridCollectionCellViewModel* cellModel = [gridCell model];
                     [fakeCell updateBadgeWithNumber:cellModel.badgeNumber];
                 }
             }];

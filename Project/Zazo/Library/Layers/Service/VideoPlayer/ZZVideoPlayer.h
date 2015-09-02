@@ -17,7 +17,8 @@
 @interface ZZVideoPlayer : NSObject
 
 - (instancetype)initWithVideoPalyerView:(UIView <ZZVideoPlayerDelegate> *)presentedView;
-
-- (void)playVideoWithContentUrl:(NSURL *)contentUrl;
+- (void)setupMoviePlayerWithContentUrl:(NSURL *)contentUrl;
+- (void)playVideo;
+- (void)stopVideo;
 
 @end

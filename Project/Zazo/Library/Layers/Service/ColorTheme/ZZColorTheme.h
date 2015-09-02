@@ -13,6 +13,7 @@
 //TODO: move to category
 @property (nonatomic, strong) UIColor* baseCellTextColor;
 @property (nonatomic, strong) UIColor* authBackgroundColor;
+@property (nonatomic, strong) UIColor* cellLayoutGreenColor;
 
 @property (nonatomic, strong) UIColor* menuBackgroundColor;
 @property (nonatomic, strong) UIColor* menuTextColor;

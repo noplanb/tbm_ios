@@ -17,5 +17,8 @@
 - (UIImage*)actualSateImage;
 - (void)makeActualScreenShoot;
 - (void)showContainFriendAnimation;
+- (void)showUploadVideoAnimationWithCount:(NSInteger)count;
+
+- (void)videoDownloadedWithUrl:(NSURL *)videoUrl;
 
 @end

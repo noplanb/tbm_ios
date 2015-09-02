@@ -13,6 +13,7 @@
 #import "ZZTouchObserver.h"
 #import "Grid.h"
 #import "TBMBenchViewController.h"
+#import "ZZSoundPlayer.h"
 
 typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
 {
@@ -31,6 +32,7 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
 @property (nonatomic, strong) ZZGridView* gridView;
 @property (nonatomic, strong) ZZGridCollectionController* controller;
 @property (nonatomic, strong) ZZTouchObserver* touchObserver;
+@property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
 
 @end
 
@@ -62,6 +64,12 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
     [super viewDidLoad];
     [UIApplication sharedApplication].statusBarHidden = YES;
     self.view.backgroundColor = [ZZColorTheme shared].gridBackgourndColor;
+    self.soundPlayer = [[ZZSoundPlayer alloc] initWithSoundNamed:kMessageSoundEffectFileName];
+}
+
+- (void)playSound
+{
+    [self.soundPlayer play];
 }
 
 - (void)udpateWithDataSource:(ZZGridDataSource *)dataSource
@@ -83,7 +91,7 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
 
 #pragma mark - Controller Delegate Method
 
-- (void)selectedViewWithModel:(ZZGridCellViewModel *)model
+- (void)selectedViewWithModel:(ZZGridCollectionCellViewModel *)model
 {
     [self.eventHandler selectedCollectionViewWithModel:model];
 }
@@ -117,15 +125,7 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
             
         case ZZEditMenuButtonTypeEditFriends:
         {
-            
             [self.eventHandler presentEditFriends];
-            
-//            self.editFriendsWireframe = [ZZEditFriendListWireframe new];
-//            self.benchViewController.view.hidden = YES;
-//            [self.editFriendsWireframe presentEditFriendListControllerFromViewController:self withCompletion:^{
-//                self.benchViewController.view.hidden = NO;
-//            }];
-            
         } break;
             
         case ZZEditMenuButtonTypeSendFeedback:
@@ -142,4 +142,15 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
             break;
     }
 }
+
+- (void)disableRolling
+{
+    [self.gridView disableViewRotation];
+}
+
+- (void)enableRolling
+{
+    [self.gridView enableViewRotation];
+}
+
 @end
