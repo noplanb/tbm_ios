@@ -41,12 +41,7 @@
         return NO;
     }
 
-    if ([dataSource friendsCount] != 1)
-    {
-        return NO;
-    }
-
-    return [dataSource messageRecordedState];
+    return [dataSource friendsCount] == 1 && [dataSource unviewedCount] == 0;
 
 }
 
