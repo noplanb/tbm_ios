@@ -60,7 +60,7 @@
     NSInteger everSentCount = [self.featuresUnlockDatasource everSentCount];
     BOOL isInvitedUser = [self.featuresUnlockDatasource isInvitedUser];
     TBMUnlockedFeature nextFeatureForUnlock;
-    nextFeatureForUnlock = isInvitedUser ? (TBMUnlockedFeature) everSentCount - 2 : (TBMUnlockedFeature) everSentCount - 1;
+    nextFeatureForUnlock = isInvitedUser ? (TBMUnlockedFeature) everSentCount : (TBMUnlockedFeature) everSentCount - 1;
 
     if (nextFeatureForUnlock > TBMUnlockedFeatureNone && self.featuresUnlockDatasource.lastUnlockedFeature < nextFeatureForUnlock)
     {
