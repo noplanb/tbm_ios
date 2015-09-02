@@ -62,9 +62,6 @@
 {
     ZZMenuWireframe* menuwireframe = [ZZMenuWireframe new];
     [menuwireframe presentMenuControllerFromWindow:self.authController.view.window];
-    
-//    ZZGridWireframe* wireframe = [ZZGridWireframe new];
-//    [wireframe presentGridControllerFromNavigationController:self.presentedController];
 }
 
 @end
