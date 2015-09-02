@@ -55,14 +55,19 @@
 
 #pragma mark - Business logic
 
-- (BOOL)shouldNewFeatureBeUnlocked
+- (TBMUnlockedFeature)nextFeatureForUnlock
 {
-    [self silentUpdateUnlockedFeaturesCount];
     NSInteger everSentCount = [self.featuresUnlockDatasource everSentCount];
     BOOL isInvitedUser = [self.featuresUnlockDatasource isInvitedUser];
     TBMUnlockedFeature nextFeatureForUnlock;
     nextFeatureForUnlock = isInvitedUser ? (TBMUnlockedFeature) everSentCount : (TBMUnlockedFeature) everSentCount - 1;
+    return nextFeatureForUnlock;
+}
 
+- (BOOL)shouldNewFeatureBeUnlocked
+{
+    [self silentUpdateUnlockedFeaturesCount];
+    TBMUnlockedFeature nextFeatureForUnlock = [self nextFeatureForUnlock];
     if (nextFeatureForUnlock > TBMUnlockedFeatureNone && self.featuresUnlockDatasource.lastUnlockedFeature < nextFeatureForUnlock)
     {
         [self featureDidUnlock:nextFeatureForUnlock];
