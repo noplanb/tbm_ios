@@ -38,6 +38,7 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 // Finders
 + (NSArray *)all;
 + (NSUInteger)allUnviewedCount;
++ (NSUInteger)unviewedCountForGridCellAtIndex:(NSUInteger)index;
 + (instancetype)findWithId:(NSString *)idTbm;
 + (instancetype)findWithOutgoingVideoId:(NSString *)videoId;
 + (instancetype)findWithMkey:(NSString *)mkey;

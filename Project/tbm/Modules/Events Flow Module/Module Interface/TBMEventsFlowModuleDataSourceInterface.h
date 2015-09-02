@@ -15,6 +15,7 @@
 
 - (NSUInteger)friendsCount;
 - (NSUInteger)unviewedCount;
+- (NSUInteger)unviewedCountForCenterRightBox;
 
 - (void)resetHintsState;
 - (BOOL)hasSentVideos:(NSUInteger)gridIndex;
