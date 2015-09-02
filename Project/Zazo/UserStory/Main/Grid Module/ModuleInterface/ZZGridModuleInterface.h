@@ -6,13 +6,14 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-@class ZZGridCellViewModel;
+@class ZZGridCollectionCellViewModel;
 
 @protocol ZZGridModuleInterface <NSObject>
 
 - (void)presentMenu;
-- (void)selectedCollectionViewWithModel:(ZZGridCellViewModel*)model;
+- (void)selectedCollectionViewWithModel:(ZZGridCollectionCellViewModel*)model;
 - (void)presentEditFriends;
 - (void)presentSendEmail;
+
 
 @end

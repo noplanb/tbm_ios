@@ -46,7 +46,7 @@ static CGFloat const kHiddenAlphaValue = 0.0;
 @implementation ZZUserRecorderGridView
 
 - (instancetype)initWithPresentedView:(UIView <ZZUserRecorderGridViewDelegate> *)presentedView
-                            withModel:(ZZGridCellViewModel *)cellViewModel;
+                            withModel:(ZZGridCollectionCellViewModel *)cellViewModel;
 {
     if (self = [super init])
     {
@@ -179,7 +179,7 @@ static CGFloat const kHiddenAlphaValue = 0.0;
         _uploadingIndicator = [UIImageView new];
         _uploadingIndicator.image = [UIImage imageNamed:@"icon-uploading-1x"];
         [_uploadingIndicator sizeToFit];
-        _uploadingIndicator.backgroundColor = [UIColor an_colorWithHexString:kLayoutConstGreenColor];
+        _uploadingIndicator.backgroundColor = [ZZColorTheme shared].cellLayoutGreenColor;
         _uploadingIndicator.hidden = YES;
         [self addSubview:_uploadingIndicator];
         
@@ -205,7 +205,7 @@ static CGFloat const kHiddenAlphaValue = 0.0;
     if (!_uploadBarView)
     {
         _uploadBarView = [UIView new];
-        _uploadBarView.backgroundColor = [UIColor an_colorWithHexString:kLayoutConstGreenColor];
+        _uploadBarView.backgroundColor = [ZZColorTheme shared].cellLayoutGreenColor;
         _uploadBarView.hidden = YES;
         [self addSubview:_uploadBarView];
         
@@ -226,7 +226,7 @@ static CGFloat const kHiddenAlphaValue = 0.0;
         _downloadIndicator = [UIImageView new];
         _downloadIndicator.image = [UIImage imageNamed:@"icon-downloading-1x"];
         [_downloadIndicator sizeToFit];
-        _downloadIndicator.backgroundColor = [UIColor an_colorWithHexString:kLayoutConstGreenColor];
+        _downloadIndicator.backgroundColor = [ZZColorTheme shared].cellLayoutGreenColor;
         _downloadIndicator.hidden = YES;
         [self addSubview:_downloadIndicator];
         
@@ -248,7 +248,7 @@ static CGFloat const kHiddenAlphaValue = 0.0;
     if (!_downloadBarView)
     {
         _downloadBarView = [UIView new];
-        _downloadBarView.backgroundColor = [UIColor an_colorWithHexString:kLayoutConstGreenColor];
+        _downloadBarView.backgroundColor = [ZZColorTheme shared].cellLayoutGreenColor;
         _downloadBarView.hidden = YES;
         [self addSubview:_downloadBarView];
         
@@ -355,7 +355,7 @@ static CGFloat const kHiddenAlphaValue = 0.0;
         [self.presentedView stopRecording];
         
         //TODO: add animation after success file download, now only for test:
-        [self _showUploadAnimation];
+//        [self _showUploadAnimation];
     }
 }
 
@@ -379,6 +379,14 @@ static CGFloat const kHiddenAlphaValue = 0.0;
     {
         [self _hideVieoCountLabel];
     }
+}
+
+
+#pragma mark - Video Player Actions
+
+- (void)setupPlayerWithUrl:(NSURL *)url
+{
+    [self.videoPlayer setupMoviePlayerWithContentUrl:url];
 }
 
 @end

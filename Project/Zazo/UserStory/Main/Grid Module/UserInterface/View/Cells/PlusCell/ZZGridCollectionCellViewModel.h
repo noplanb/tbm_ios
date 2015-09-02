@@ -18,12 +18,11 @@
 
 @end
 
-@interface ZZGridCellViewModel : NSObject
+@interface ZZGridCollectionCellViewModel : NSObject
 
 @property (nonatomic, weak) id <ZZGridCellViewModellDelegate> delegate;
 @property (nonatomic, strong) ZZGridDomainModel* domainModel;
 @property (nonatomic, strong) NSNumber* badgeNumber;
-//@property (nonatomic, strong) 
 
 - (void)startRecordingWithView:(UIView *)view;
 - (void)stopRecording;

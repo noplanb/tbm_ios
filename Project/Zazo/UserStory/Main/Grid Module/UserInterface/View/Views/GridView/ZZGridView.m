@@ -19,7 +19,6 @@ static CGFloat const kHeaderViewHeight = 64;
 
 @property (nonatomic, weak) id <ZZGridViewDelegate> delegate;
 
-
 @end
 
 @implementation ZZGridView
@@ -39,6 +38,7 @@ static CGFloat const kHeaderViewHeight = 64;
         self.headerView.editFriendsButton.rac_command = [RACCommand commandWithBlock:^{
             [self.eventDelegate editFriendsSelected];
         }];
+        [self enableViewRotation];
     }
     
     return self;
@@ -120,6 +120,16 @@ static CGFloat const kHeaderViewHeight = 64;
   
     self.rotationRecognizer.delegate = self.delegate;
     [self addGestureRecognizer:self.rotationRecognizer];
+}
+
+- (void)disableViewRotation
+{
+    self.isRotationEnabled = NO;
+}
+
+- (void)enableViewRotation
+{
+    self.isRotationEnabled = YES;
 }
 
 @end

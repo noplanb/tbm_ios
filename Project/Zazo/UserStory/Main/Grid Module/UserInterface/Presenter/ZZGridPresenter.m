@@ -14,7 +14,7 @@
 #import "ZZGridCenterCell.h"
 #import "ZZGridCollectionCell.h"
 #import "ZZVideoUtils.h"
-#import "ZZGridCellViewModel.h"
+#import "ZZGridCollectionCellViewModel.h"
 
 
 
@@ -57,9 +57,9 @@
 - (void)dataLoadedWithArray:(NSArray *)data
 {
     [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([obj isMemberOfClass:[ZZGridCellViewModel class]])
+        if ([obj isMemberOfClass:[ZZGridCollectionCellViewModel class]])
         {
-            ZZGridCellViewModel* gridViewModel = (ZZGridCellViewModel*)obj;
+            ZZGridCollectionCellViewModel* gridViewModel = (ZZGridCollectionCellViewModel*)obj;
             gridViewModel.delegate = self;
         }
     }];
@@ -93,7 +93,7 @@
     [self.userInterface menuIsOpened];
 }
 
-- (void)selectedCollectionViewWithModel:(ZZGridCellViewModel *)model
+- (void)selectedCollectionViewWithModel:(ZZGridCollectionCellViewModel *)model
 {
     if (model)
     {
@@ -107,12 +107,16 @@
 
 - (void)startRecordingWithView:(id)view
 {
+    [self.userInterface disableRolling];
+    [self.userInterface playSound];
     [[self centerCell] showRecordingOverlay];
     [[ZZVideoRecorder sharedInstance] startRecordingWithGridCell:view];
 }
 
 - (void)stopRecording
 {
+    [self.userInterface playSound];
+    [self.userInterface enableRolling];
     [[self centerCell] hideRecordingOverlay];
     [[ZZVideoRecorder sharedInstance] stopRecording];
 }

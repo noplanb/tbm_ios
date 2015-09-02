@@ -287,7 +287,7 @@
 		07FA4A881B96425A005E60E8 /* ZZGridCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48B21B96425A005E60E8 /* ZZGridCenterCell.m */; };
 		07FA4A891B96425A005E60E8 /* ZZGridCenterCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48B41B96425A005E60E8 /* ZZGridCenterCellViewModel.m */; };
 		07FA4A8A1B96425A005E60E8 /* ZZGridBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48B71B96425A005E60E8 /* ZZGridBaseCell.m */; };
-		07FA4A8B1B96425A005E60E8 /* ZZGridCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48BA1B96425A005E60E8 /* ZZGridCellViewModel.m */; };
+		07FA4A8B1B96425A005E60E8 /* ZZGridCollectionCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48BA1B96425A005E60E8 /* ZZGridCollectionCellViewModel.m */; };
 		07FA4A8C1B96425A005E60E8 /* ZZGridCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48BC1B96425A005E60E8 /* ZZGridCollectionCell.m */; };
 		07FA4A8D1B96425A005E60E8 /* ZZGridCollectionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48BF1B96425A005E60E8 /* ZZGridCollectionLayout.m */; };
 		07FA4A8E1B96425A005E60E8 /* ZZGridCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48C21B96425A005E60E8 /* ZZGridCollectionController.m */; };
@@ -370,6 +370,8 @@
 		220E904A1909A18C003C4F82 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902E1909A18B003C4F82 /* CoreData.framework */; };
 		22403C2B19D5E63400FC36E3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22403C2A19D5E63400FC36E3 /* MessageUI.framework */; };
 		224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
+		9EB8F6F21B97134D00F54DE8 /* sample_iTunes.mov in Resources */ = {isa = PBXBuildFile; fileRef = 9EB8F6F11B97134D00F54DE8 /* sample_iTunes.mov */; };
+		9EB8F6F61B9727D300F54DE8 /* ZZSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8F6F51B9727D300F54DE8 /* ZZSoundPlayer.m */; };
 		DE5C223E15BD5A128DAFDAD1 /* libPods-ZazoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0368F3F1AC201E7765B1898F /* libPods-ZazoTests.a */; };
 		F20151DDD1EA1D5CD6D8CB21 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */; };
 /* End PBXBuildFile section */
@@ -953,8 +955,8 @@
 		07FA48B41B96425A005E60E8 /* ZZGridCenterCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCenterCellViewModel.m; sourceTree = "<group>"; };
 		07FA48B61B96425A005E60E8 /* ZZGridBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridBaseCell.h; sourceTree = "<group>"; };
 		07FA48B71B96425A005E60E8 /* ZZGridBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridBaseCell.m; sourceTree = "<group>"; };
-		07FA48B91B96425A005E60E8 /* ZZGridCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCellViewModel.h; sourceTree = "<group>"; };
-		07FA48BA1B96425A005E60E8 /* ZZGridCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCellViewModel.m; sourceTree = "<group>"; };
+		07FA48B91B96425A005E60E8 /* ZZGridCollectionCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCollectionCellViewModel.h; sourceTree = "<group>"; };
+		07FA48BA1B96425A005E60E8 /* ZZGridCollectionCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCollectionCellViewModel.m; sourceTree = "<group>"; };
 		07FA48BB1B96425A005E60E8 /* ZZGridCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCollectionCell.h; sourceTree = "<group>"; };
 		07FA48BC1B96425A005E60E8 /* ZZGridCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCollectionCell.m; sourceTree = "<group>"; };
 		07FA48BE1B96425A005E60E8 /* ZZGridCollectionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCollectionLayout.h; sourceTree = "<group>"; };
@@ -1112,6 +1114,9 @@
 		41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		5988C69CC62CF4472CA2040A /* Pods-Zazo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.debug.xcconfig"; sourceTree = "<group>"; };
+		9EB8F6F11B97134D00F54DE8 /* sample_iTunes.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = sample_iTunes.mov; sourceTree = "<group>"; };
+		9EB8F6F41B9727D300F54DE8 /* ZZSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSoundPlayer.h; sourceTree = "<group>"; };
+		9EB8F6F51B9727D300F54DE8 /* ZZSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSoundPlayer.m; sourceTree = "<group>"; };
 		A0ECBE9A7392F431C5ADE072 /* Pods-ZazoTests.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.ad-hoc.xcconfig"; sourceTree = "<group>"; };
 		B1860DB43B6E70D5AEF73EF4 /* Pods-Zazo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.release.xcconfig"; sourceTree = "<group>"; };
 		C4392BF41AD48118C492A226 /* Pods-Zazo.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.ad-hoc.xcconfig"; sourceTree = "<group>"; };
@@ -2470,6 +2475,7 @@
 				07FA47AC1B96425A005E60E8 /* GraphicKeyObserver */,
 				07FA47C31B96425A005E60E8 /* KeychainProvider */,
 				07FA47C61B96425A005E60E8 /* StoredSettings */,
+				9EB8F6F31B9727BB00F54DE8 /* SoundPlayer */,
 				07FA47C91B96425A005E60E8 /* StringUtils */,
 				07FA47CC1B96425A005E60E8 /* VideoPlayer */,
 				07FA47CF1B96425A005E60E8 /* VideoProcessor */,
@@ -3430,8 +3436,9 @@
 		07FA48B81B96425A005E60E8 /* PlusCell */ = {
 			isa = PBXGroup;
 			children = (
-				07FA48B91B96425A005E60E8 /* ZZGridCellViewModel.h */,
-				07FA48BA1B96425A005E60E8 /* ZZGridCellViewModel.m */,
+				9EB8F6F11B97134D00F54DE8 /* sample_iTunes.mov */,
+				07FA48B91B96425A005E60E8 /* ZZGridCollectionCellViewModel.h */,
+				07FA48BA1B96425A005E60E8 /* ZZGridCollectionCellViewModel.m */,
 				07FA48BB1B96425A005E60E8 /* ZZGridCollectionCell.h */,
 				07FA48BC1B96425A005E60E8 /* ZZGridCollectionCell.m */,
 			);
@@ -4038,6 +4045,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		9EB8F6F31B9727BB00F54DE8 /* SoundPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				9EB8F6F41B9727D300F54DE8 /* ZZSoundPlayer.h */,
+				9EB8F6F51B9727D300F54DE8 /* ZZSoundPlayer.m */,
+			);
+			path = SoundPlayer;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -4183,6 +4199,7 @@
 				07FA4AB21B96425A005E60E8 /* human.m.motemplate in Resources */,
 				07FA4A191B96425A005E60E8 /* TBMFriend.m.orig in Resources */,
 				07FA4A581B96425A005E60E8 /* Localizable.strings in Resources */,
+				9EB8F6F21B97134D00F54DE8 /* sample_iTunes.mov in Resources */,
 				07FA4A421B96425A005E60E8 /* Roboto-ThinItalic.ttf in Resources */,
 				07FA4A451B96425A005E60E8 /* icon_arrow.pdf in Resources */,
 				07FA4AD21B96425A005E60E8 /* Zazo.entitlements in Resources */,
@@ -4348,7 +4365,7 @@
 				07FA4ACC1B96425A005E60E8 /* UIImage+TOWebViewControllerIcons.m in Sources */,
 				07FA49E41B96425A005E60E8 /* TBMAlertControllerView.m in Sources */,
 				07FA4A291B96425A005E60E8 /* ANExternURLBuilder.m in Sources */,
-				07FA4A8B1B96425A005E60E8 /* ZZGridCellViewModel.m in Sources */,
+				07FA4A8B1B96425A005E60E8 /* ZZGridCollectionCellViewModel.m in Sources */,
 				07FA4A641B96425A005E60E8 /* ZZDebugStateDomainModel.m in Sources */,
 				07FA49B01B96425A005E60E8 /* TBMRecordHintView.m in Sources */,
 				07FA4A9C1B96425A005E60E8 /* ZZMenuInteractor.m in Sources */,
@@ -4479,6 +4496,7 @@
 				07FA4A9A1B96425A005E60E8 /* ZZGridVC.m in Sources */,
 				07FA4A601B96425A005E60E8 /* ANDebugController.m in Sources */,
 				07FA4A301B96425A005E60E8 /* ZZKeychainDataProvider.m in Sources */,
+				9EB8F6F61B9727D300F54DE8 /* ZZSoundPlayer.m in Sources */,
 				07FA4A361B96425A005E60E8 /* ZZVideoUtils.m in Sources */,
 				07FA4A771B96425A005E60E8 /* ZZSecretValueCellViewModel.m in Sources */,
 				07FA4A131B96425A005E60E8 /* ZZNotificationsTransport.m in Sources */,

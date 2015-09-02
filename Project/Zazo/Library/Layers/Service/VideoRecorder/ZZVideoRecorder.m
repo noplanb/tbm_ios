@@ -14,7 +14,7 @@
 #import "ZZVideoUtils.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZVideoProcessor.h"
-#import "ZZGridCellViewModel.h"
+#import "ZZGridCollectionCellViewModel.h"
 
 @interface ZZVideoRecorder () <AVCaptureFileOutputRecordingDelegate>
 
@@ -134,7 +134,8 @@
 
 - (void)startRecordingWithGridCell:(ZZGridCollectionCell*)gridCell
 {
-    ZZGridCellViewModel* model = [gridCell model];
+    ZZGridCollectionCellViewModel* model = [gridCell model];
+    
     if (model.domainModel.relatedUser && model.domainModel.relatedUser.idTbm)
     {
         NSURL* videoUrl = [ZZVideoUtils generateOutgoingVideoUrlWithFriend:model.domainModel.relatedUser];
@@ -226,12 +227,24 @@
                                                                                          error:(NSError *)error
 {
     
+    
+    
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[outputFileURL path]])
+    {
+        NSLog(@"asdf");
+    }
+    else
+    {
+        NSLog(@"asdf");
+    }
+    
     // TODO: add error handler
     
 //    [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFinishRecording
 //                                                        object:self
 //                                                      userInfo:@{@"videoUrl": outputFileURL}];
-    
+//    
 //    BOOL abort = NO;
 //    
 //    if (self.didCancelRecording){

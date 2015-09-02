@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZGridCellViewModel.h"
+#import "ZZGridCollectionCellViewModel.h"
 
-@implementation ZZGridCellViewModel
+@implementation ZZGridCollectionCellViewModel
 
 - (instancetype)init
 {
