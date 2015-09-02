@@ -52,20 +52,21 @@
 
     if (
             event != TBMEventFlowEventFeatureUsageHintDidDismiss
-//            && event != TBMEventFlowEventDeleteFriendUnlockDialogDidDismiss
-//            && event != TBMEventFlowEventAbortRecordingUnlockDialogDidDismiss
-//            && event != TBMEventFlowEventEarpieceUnlockDialogDidDismiss
-//            && event != TBMEventFlowEventSpinUnlockDialogDidDismiss
-
-            && event != TBMEventFlowEventMessageDidSend
-            && event != TBMEventFlowEventMessageDidStopPlaying
+                    && event != TBMEventFlowEventMessageDidSend
+                    && event != TBMEventFlowEventMessageDidStopPlaying
             )
     {
         return NO;
     }
 
-    if (event == TBMEventFlowEventMessageDidSend
-            && [self.inviteSomeOneElseHintModule conditionForEvent:TBMEventFlowEventMessageDidSend dataSource:dataSource])
+    id <TBMEventsFlowModuleEventHandler> someOneElseHintModule = self.inviteSomeOneElseHintModule;
+
+    if (event == TBMEventFlowEventMessageDidSend && [someOneElseHintModule conditionForEvent:TBMEventFlowEventMessageDidSend dataSource:dataSource])
+    {
+        return NO;
+    }
+
+    if (event == TBMEventFlowEventMessageDidStopPlaying && [someOneElseHintModule conditionForEvent:TBMEventFlowEventMessageDidStopPlaying dataSource:dataSource])
     {
         return NO;
     }
