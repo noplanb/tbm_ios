@@ -15,4 +15,9 @@
     return nil;
 }
 
+- (BOOL)hasApp
+{
+    return NO;
+}
+
 @end

@@ -34,7 +34,39 @@
 
 - (void)updateImageView:(UIImageView *)imageView
 {
-     imageView.image = [self.item photoImage]; // TODO: load from cache
+    if (self.item.hasApp)
+    {
+        imageView.image = [self _zazoImage];
+    }
+    else
+    {
+        UIImage* photo = [self.item photoImage];
+        
+        if (photo)
+        {
+            imageView.image = photo; // TODO: load from cache
+        }
+        else
+        {
+            imageView.image = [self _placeHolderImage];
+        }
+    }
+}
+
+#pragma mark - Private
+
+- (UIImage *)_placeHolderImage
+{
+    UIImage* placeholder = [UIImage imageWithPDFNamed:@"Contacts-plaiceholder-men" atHeight:36.f];
+    
+    return [placeholder an_imageByTintingWithColor:[UIColor an_colorWithHexString:@"625f57"]];
+}
+
+-(UIImage *)_zazoImage
+{
+    UIImage* zazoImage = [UIImage imageWithPDFNamed:@"icon_zazo" atHeight:36.f];
+    
+    return [zazoImage an_imageByTintingWithColor:[UIColor an_colorWithHexString:@"625f57"]];
 }
 
 @end

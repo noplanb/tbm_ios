@@ -92,11 +92,11 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
         if (self.item.contactStatusValue == ZZContactStatusTypeEstablished ||
             self.item.contactStatusValue == ZZContactStatusTypeHiddenByCreator)
         {
-            cellColor = [UIColor an_colorWithHexString:@"EFEFE7"];
+            cellColor = [UIColor an_colorWithHexString:@"f1efe9"];
         }
         else
         {
-            cellColor = [UIColor an_colorWithHexString:@"DAD7CE"];
+            cellColor = [UIColor an_colorWithHexString:@"ddd9ce"];
         }
     }
     else
@@ -104,11 +104,11 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
         if (self.item.contactStatusValue == ZZContactStatusTypeEstablished ||
             self.item.contactStatusValue == ZZContactStatusTypeHiddenByTarget)
         {
-            cellColor = [UIColor an_colorWithHexString:@"EFEFE7"];
+            cellColor = [UIColor an_colorWithHexString:@"f1efe9"];
         }
         else
         {
-            cellColor = [UIColor an_colorWithHexString:@"DAD7CE"];
+            cellColor = [UIColor an_colorWithHexString:@"ddd9ce"];
         }
     }
     

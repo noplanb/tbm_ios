@@ -86,11 +86,11 @@ static CGFloat const kSeparatorHeight = 1;
     {
         _username = [UILabel new];
         _username.font = [UIFont an_lightFontWithSize:18];
-        _username.textColor = [UIColor whiteColor];
+        _username.textColor = [UIColor an_colorWithHexString:@"a8a294"];
         [self.contentView addSubview:_username];
         
         [_username mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.photoImageView.mas_right).offset(5);
+            make.left.equalTo(self.photoImageView.mas_right).offset(10);
             make.right.equalTo(self.contentView).offset(-20);
             make.top.bottom.equalTo(self);
         }];

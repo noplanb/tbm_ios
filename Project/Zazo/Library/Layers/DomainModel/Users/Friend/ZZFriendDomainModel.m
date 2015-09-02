@@ -74,6 +74,11 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     return [username stringByAppendingString:self.lastName ? self.lastName : @""];
 }
 
+- (BOOL)hasApp
+{
+    return self.isHasApp;
+}
+
 - (BOOL)isCreator
 {
     return [self.mKey isEqualToString:self.connectionCreatorMkey];

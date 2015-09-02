@@ -60,6 +60,13 @@
 {
     [super viewDidLoad];
     [UIApplication sharedApplication].statusBarHidden = YES;
+    
+    self.view.backgroundColor = [ZZColorTheme shared].authBackgroundColor;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [[self navigationController] setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)showVerificationCodeInputViewWithPhoneNumber:(NSString *)phoneNumber

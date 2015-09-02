@@ -9,7 +9,7 @@
 #import "ZZMenuController.h"
 #import "ZZMenuDataSource.h"
 
-static CGFloat const kTableViewRowHeight = 68;
+static CGFloat const kTableViewRowHeight = 55.5;
 
 @implementation ZZMenuController
 

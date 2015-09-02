@@ -15,10 +15,11 @@
 
 @protocol ZZMenuInteractorOutput <NSObject>
 
-- (void)addressBookDataLoaded:(NSArray*)data;
-- (void)addressBookDataLoadingDidFailWithError:(NSError*)error;
+- (void)addressBookDataLoaded:(NSArray *)data;
+- (void)addressBookDataLoadingDidFailWithError:(NSError *)error;
 
-- (void)friendsDataLoaded:(NSArray*)friendsData;
-- (void)friendsDataLoadingDidFailWithError:(NSError*)error;
+- (void)friendsThatHasAppLoaded:(NSArray *)friendsData;
+- (void)friendsDataLoaded:(NSArray *)friendsData;
+- (void)friendsDataLoadingDidFailWithError:(NSError *)error;
 
 @end

@@ -370,6 +370,16 @@
 		220E904A1909A18C003C4F82 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902E1909A18B003C4F82 /* CoreData.framework */; };
 		22403C2B19D5E63400FC36E3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22403C2A19D5E63400FC36E3 /* MessageUI.framework */; };
 		224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
+		795E12D91B972D60007575FF /* logo.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 795E12CB1B972D60007575FF /* logo.pdf */; };
+		795E12DA1B972D60007575FF /* contacts-placeholder.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 795E12CD1B972D60007575FF /* contacts-placeholder.pdf */; };
+		795E12DB1B972D60007575FF /* Contacts-plaiceholder-men.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 795E12CE1B972D60007575FF /* Contacts-plaiceholder-men.pdf */; };
+		795E12DC1B972D60007575FF /* edit-friends-user-has-app.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 795E12D01B972D60007575FF /* edit-friends-user-has-app.pdf */; };
+		795E12DD1B972D60007575FF /* home-page-add-icon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 795E12D21B972D60007575FF /* home-page-add-icon.pdf */; };
+		795E12DE1B972D60007575FF /* home-page-arrow.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 795E12D31B972D60007575FF /* home-page-arrow.pdf */; };
+		795E12DF1B972D60007575FF /* home-page-view.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 795E12D41B972D60007575FF /* home-page-view.pdf */; };
+		795E12E01B972D60007575FF /* contacts-icon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 795E12D61B972D60007575FF /* contacts-icon.pdf */; };
+		795E12E11B972D60007575FF /* edit-friends-icon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 795E12D71B972D60007575FF /* edit-friends-icon.pdf */; };
+		795E12E21B972D60007575FF /* Search-icon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 795E12D81B972D60007575FF /* Search-icon.pdf */; };
 		DE5C223E15BD5A128DAFDAD1 /* libPods-ZazoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0368F3F1AC201E7765B1898F /* libPods-ZazoTests.a */; };
 		F20151DDD1EA1D5CD6D8CB21 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */; };
 /* End PBXBuildFile section */
@@ -1112,6 +1122,16 @@
 		41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		5988C69CC62CF4472CA2040A /* Pods-Zazo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.debug.xcconfig"; sourceTree = "<group>"; };
+		795E12CB1B972D60007575FF /* logo.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = logo.pdf; sourceTree = "<group>"; };
+		795E12CD1B972D60007575FF /* contacts-placeholder.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "contacts-placeholder.pdf"; sourceTree = "<group>"; };
+		795E12CE1B972D60007575FF /* Contacts-plaiceholder-men.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Contacts-plaiceholder-men.pdf"; sourceTree = "<group>"; };
+		795E12D01B972D60007575FF /* edit-friends-user-has-app.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "edit-friends-user-has-app.pdf"; sourceTree = "<group>"; };
+		795E12D21B972D60007575FF /* home-page-add-icon.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "home-page-add-icon.pdf"; sourceTree = "<group>"; };
+		795E12D31B972D60007575FF /* home-page-arrow.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "home-page-arrow.pdf"; sourceTree = "<group>"; };
+		795E12D41B972D60007575FF /* home-page-view.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "home-page-view.pdf"; sourceTree = "<group>"; };
+		795E12D61B972D60007575FF /* contacts-icon.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "contacts-icon.pdf"; sourceTree = "<group>"; };
+		795E12D71B972D60007575FF /* edit-friends-icon.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "edit-friends-icon.pdf"; sourceTree = "<group>"; };
+		795E12D81B972D60007575FF /* Search-icon.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Search-icon.pdf"; sourceTree = "<group>"; };
 		A0ECBE9A7392F431C5ADE072 /* Pods-ZazoTests.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.ad-hoc.xcconfig"; sourceTree = "<group>"; };
 		B1860DB43B6E70D5AEF73EF4 /* Pods-Zazo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.release.xcconfig"; sourceTree = "<group>"; };
 		C4392BF41AD48118C492A226 /* Pods-Zazo.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.ad-hoc.xcconfig"; sourceTree = "<group>"; };
@@ -2739,9 +2759,9 @@
 		07FA47E71B96425A005E60E8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				07FA47E81B96425A005E60E8 /* Assets.xcassets */,
 				07FA47E91B96425A005E60E8 /* Icons */,
 				07FA47F41B96425A005E60E8 /* navbar */,
+				07FA47E81B96425A005E60E8 /* Assets.xcassets */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -2749,6 +2769,11 @@
 		07FA47E91B96425A005E60E8 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				795E12CA1B972D60007575FF /* Common */,
+				795E12CC1B972D60007575FF /* contacts */,
+				795E12CF1B972D60007575FF /* edit friends */,
+				795E12D11B972D60007575FF /* Home */,
+				795E12D51B972D60007575FF /* menu */,
 				07FA47EA1B96425A005E60E8 /* app_logo.pdf */,
 				07FA47EB1B96425A005E60E8 /* icon_arrow.pdf */,
 				07FA47EC1B96425A005E60E8 /* icon_dots.pdf */,
@@ -4025,6 +4050,56 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		795E12CA1B972D60007575FF /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				795E12CB1B972D60007575FF /* logo.pdf */,
+			);
+			name = Common;
+			path = ../Common;
+			sourceTree = "<group>";
+		};
+		795E12CC1B972D60007575FF /* contacts */ = {
+			isa = PBXGroup;
+			children = (
+				795E12CD1B972D60007575FF /* contacts-placeholder.pdf */,
+				795E12CE1B972D60007575FF /* Contacts-plaiceholder-men.pdf */,
+			);
+			name = contacts;
+			path = ../contacts;
+			sourceTree = "<group>";
+		};
+		795E12CF1B972D60007575FF /* edit friends */ = {
+			isa = PBXGroup;
+			children = (
+				795E12D01B972D60007575FF /* edit-friends-user-has-app.pdf */,
+			);
+			name = "edit friends";
+			path = "../edit friends";
+			sourceTree = "<group>";
+		};
+		795E12D11B972D60007575FF /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				795E12D21B972D60007575FF /* home-page-add-icon.pdf */,
+				795E12D31B972D60007575FF /* home-page-arrow.pdf */,
+				795E12D41B972D60007575FF /* home-page-view.pdf */,
+			);
+			name = Home;
+			path = ../Home;
+			sourceTree = "<group>";
+		};
+		795E12D51B972D60007575FF /* menu */ = {
+			isa = PBXGroup;
+			children = (
+				795E12D61B972D60007575FF /* contacts-icon.pdf */,
+				795E12D71B972D60007575FF /* edit-friends-icon.pdf */,
+				795E12D81B972D60007575FF /* Search-icon.pdf */,
+			);
+			name = menu;
+			path = ../menu;
+			sourceTree = "<group>";
+		};
 		984D6697D8F62FFA194F39A2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -4137,6 +4212,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07FA4A391B96425A005E60E8 /* Roboto-Bold.ttf in Resources */,
+				795E12DA1B972D60007575FF /* contacts-placeholder.pdf in Resources */,
 				07FA4A521B96425A005E60E8 /* navbar_btn_close.pdf in Resources */,
 				0732F5121B8B93D3004FD3AF /* ZazoTests-Info.plist in Resources */,
 				07FA49D61B96425A005E60E8 /* NotificationTone.wav in Resources */,
@@ -4156,23 +4232,29 @@
 				07FA4A511B96425A005E60E8 /* navbar_btn_back.pdf in Resources */,
 				07FA49D51B96425A005E60E8 /* Images.xcassets in Resources */,
 				07FA4A4F1B96425A005E60E8 /* icon_menu_dots@2x.png in Resources */,
+				795E12DD1B972D60007575FF /* home-page-add-icon.pdf in Resources */,
 				07FA49D71B96425A005E60E8 /* single_ding_chimes.wav in Resources */,
 				07FA4A441B96425A005E60E8 /* app_logo.pdf in Resources */,
 				07FA4AB31B96425A005E60E8 /* machine.h.motemplate in Resources */,
+				795E12E01B972D60007575FF /* contacts-icon.pdf in Resources */,
 				07FA4A461B96425A005E60E8 /* icon_dots.pdf in Resources */,
 				07FA4A3E1B96425A005E60E8 /* Roboto-Medium.ttf in Resources */,
+				795E12DB1B972D60007575FF /* Contacts-plaiceholder-men.pdf in Resources */,
 				07FA4A4B1B96425A005E60E8 /* icon_rounded_man.pdf in Resources */,
 				07FA4A4E1B96425A005E60E8 /* icon_menu_dots.png in Resources */,
 				07FA4A381B96425A005E60E8 /* Roboto-BlackItalic.ttf in Resources */,
 				07FA4AC81B96425A005E60E8 /* TOWebViewControllerLocalizable.strings in Resources */,
+				795E12DC1B972D60007575FF /* edit-friends-user-has-app.pdf in Resources */,
 				07FA4A541B96425A005E60E8 /* navbar_btn_edit.pdf in Resources */,
 				07FA49D31B96425A005E60E8 /* DK Crayon Crumble.ttf in Resources */,
 				07FA49D21B96425A005E60E8 /* BeepSin30.wav in Resources */,
 				07FA4A3C1B96425A005E60E8 /* Roboto-Light.ttf in Resources */,
+				795E12E21B972D60007575FF /* Search-icon.pdf in Resources */,
 				07FA49F81B96425A005E60E8 /* Zazo-Info.plist in Resources */,
 				07FA4AB41B96425A005E60E8 /* machine.m.motemplate in Resources */,
 				07FA4A491B96425A005E60E8 /* icon_people.pdf in Resources */,
 				07FA4A401B96425A005E60E8 /* Roboto-Regular.ttf in Resources */,
+				795E12DE1B972D60007575FF /* home-page-arrow.pdf in Resources */,
 				07FA4A531B96425A005E60E8 /* navbar_btn_done.pdf in Resources */,
 				07FA4A3D1B96425A005E60E8 /* Roboto-LightItalic.ttf in Resources */,
 				07FA4A4D1B96425A005E60E8 /* icon_zazo.pdf in Resources */,
@@ -4184,11 +4266,14 @@
 				07FA4A191B96425A005E60E8 /* TBMFriend.m.orig in Resources */,
 				07FA4A581B96425A005E60E8 /* Localizable.strings in Resources */,
 				07FA4A421B96425A005E60E8 /* Roboto-ThinItalic.ttf in Resources */,
+				795E12DF1B972D60007575FF /* home-page-view.pdf in Resources */,
 				07FA4A451B96425A005E60E8 /* icon_arrow.pdf in Resources */,
 				07FA4AD21B96425A005E60E8 /* Zazo.entitlements in Resources */,
 				07FA4A431B96425A005E60E8 /* Assets.xcassets in Resources */,
 				07FA4A371B96425A005E60E8 /* Roboto-Black.ttf in Resources */,
+				795E12E11B972D60007575FF /* edit-friends-icon.pdf in Resources */,
 				07FA4AB51B96425A005E60E8 /* mogen.sh in Resources */,
+				795E12D91B972D60007575FF /* logo.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

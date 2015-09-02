@@ -21,9 +21,9 @@
     return self;
 }
 
-- (void)setupAddressbookItems:(NSArray*)items
+- (void)setupFriendsThatHasAppItems:(NSArray*)items
 {
-    [self _addItems:items toSection:ZZMenuSectionsAddressbook];
+    [self _addItems:items toSection:ZZMenuSectionsFriendsHasApp];
 }
 
 - (void)setupFriendsItems:(NSArray*)items
@@ -31,6 +31,10 @@
     [self _addItems:items toSection:ZZMenuSectionsFriends];
 }
 
+- (void)setupAddressbookItems:(NSArray*)items
+{
+    [self _addItems:items toSection:ZZMenuSectionsAddressbook];
+}
 
 #pragma mark - Private
 

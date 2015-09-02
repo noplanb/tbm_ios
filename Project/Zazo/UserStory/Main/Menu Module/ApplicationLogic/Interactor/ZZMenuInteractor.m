@@ -9,21 +9,66 @@
 #import "ZZMenuInteractor.h"
 #import "ZZAddressBookDataProvider.h"
 #import "ZZFriendDomainModel.h"
+#import "ZZFriendsTransportService.h"
+#import "FEMObjectDeserializer.h"
 
 @implementation ZZMenuInteractor
 
 - (void)loadData
 {
-    //TODO:
-    [[ZZAddressBookDataProvider loadContacts] subscribeNext:^(id x) {
+    
+    [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray *array) {
         
-        [self.output addressBookDataLoaded:x];
+        NSArray *friendsArray = [FEMObjectDeserializer deserializeCollectionExternalRepresentation:array usingMapping:[ZZFriendDomainModel mapping]];
+        [self sortFriendsFromArray:friendsArray];
+//        [self.output friendsDataLoaded:[self _sortArrayByFirstName:friendsArray]];
+        
+        [[ZZAddressBookDataProvider loadContacts] subscribeNext:^(NSArray *addressBookContactsArray) {
+            
+            [self.output addressBookDataLoaded:addressBookContactsArray];
+        }];
+        
+    } error:^(NSError *error) {
+        
+    }];
+}
+
+- (void)sortFriendsFromArray:(NSArray *)array
+{
+    NSMutableArray* friendsThaHasAppArray = [NSMutableArray new];
+    NSMutableArray* otherFriendsArray = [NSMutableArray new];
+    
+    [array enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friend, NSUInteger idx, BOOL *stop) {
+        if (friend.hasApp)
+        {
+            [friendsThaHasAppArray addObject:friend];
+        }
+        else
+        {
+            [otherFriendsArray addObject:friend];
+        }
     }];
     
-    //TODO: network request to server
+    if (friendsThaHasAppArray.count > 0)
+    {
+        [self.output friendsThatHasAppLoaded:[self _sortByFirstName:friendsThaHasAppArray]];
+    }
     
+    if (otherFriendsArray.count > 0)
+    {
+        [self.output friendsDataLoaded:[self _sortByFirstName:otherFriendsArray]];
+    }
+}
 
+
+#pragma mark - Private
+
+- (NSArray *)_sortByFirstName:(NSArray *)array
+{
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES];
+    NSArray* sortedArray = [array sortedArrayUsingDescriptors:@[sort]];
     
+    return sortedArray;
 }
 
 @end

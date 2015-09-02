@@ -23,20 +23,26 @@
 {
     self.userInterface = userInterface;
     self.dataSource = [ZZMenuDataSource new];
+    [self.userInterface updateDataSource:self.dataSource];
     
 #ifdef DEBUG
     ABAddressBookRef addressBookRef = ABAddressBookCreateWithOptions(nil, nil);
     
-    if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined) {
+    if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined)
+    {
         ABAddressBookRequestAccessWithCompletion(addressBookRef, ^(bool granted, CFErrorRef error) {
             if (granted) {
                 [self.interactor loadData];
             }
         });
     }
+    else if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized)
+    {
+        [self.interactor loadData];
+    }
 #endif
     
-    [self.interactor loadData];
+    //[self.interactor loadData];
 }
 
 
@@ -46,13 +52,22 @@
 {
     ANDispatchBlockToMainQueue(^{
         [self.dataSource setupAddressbookItems:data];
-        [self.userInterface updateDataSource:self.dataSource]; // TODO: set data source on start
+         // TODO: set data source on start
+    });
+}
+
+- (void)friendsThatHasAppLoaded:(NSArray *)friendsData
+{
+    ANDispatchBlockToMainQueue(^{
+        [self.dataSource setupFriendsThatHasAppItems:friendsData];
     });
 }
 
 - (void)friendsDataLoaded:(NSArray *)friendsData
 {
-    [self.dataSource setupFriendsItems:friendsData];
+    ANDispatchBlockToMainQueue(^{
+        [self.dataSource setupFriendsItems:friendsData];
+    });
 }
 
 - (void)friendsDataLoadingDidFailWithError:(NSError *)error
