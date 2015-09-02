@@ -46,8 +46,15 @@
 
 }
 
+- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule
+{
+    [super presentWithGridModule:gridModule];
+
+    [self dismissAfter:3.f];
+}
 - (void)dialogDidDismiss
 {
+    [super dialogDidDismiss];
     [self.eventFlowModule throwEvent:TBMEventFlowEventSentHintDidDismiss];
 }
 

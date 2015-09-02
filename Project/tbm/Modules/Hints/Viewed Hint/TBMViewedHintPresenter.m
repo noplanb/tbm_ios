@@ -48,4 +48,11 @@
 
     return YES;
 }
+
+- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule
+{
+    [super presentWithGridModule:gridModule];
+
+    [self dismissAfter:3.f];
+}
 @end
