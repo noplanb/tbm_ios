@@ -45,7 +45,7 @@
         return NO;
     }
 
-    return ![self.eventHandlerDataSource persistentState];
+    return YES;
 }
 
 @end

@@ -17,6 +17,7 @@
 #import "NSString+NSStringExtensions.h"
 #import "TBMUser.h"
 #import "MagicalRecord.h"
+#import "TBMGridElement.h"
 
 @implementation TBMFriend
 
@@ -41,6 +42,18 @@ static NSMutableArray *videoStatusNotificationDelegates;
     }
     return result;
 }
+
++ (NSUInteger)unviewedCountForGridCellAtIndex:(NSUInteger)index
+{
+    NSUInteger result = 0;
+    for (TBMFriend *friend in [self all])
+    {
+        if ([friend.gridElement.index integerValue] == index)
+            result = (NSUInteger) friend.unviewedCount;
+    }
+    return result;
+}
+
 
 + (instancetype)findWithOutgoingVideoId:(NSString *)videoId
 {

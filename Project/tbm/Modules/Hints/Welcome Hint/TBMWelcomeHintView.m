@@ -4,8 +4,6 @@
 //
 
 #import "TBMWelcomeHintView.h"
-#import "TBMFriend.h"
-#import "TBMGridElement.h"
 
 @implementation TBMWelcomeHintView
 {
@@ -56,34 +54,28 @@
             [UIBezierPath bezierPathWithRect:highlightFrame],
     ];
 
-    if (friendIndexInGrid == 3 || friendIndexInGrid == 5 || friendIndexInGrid == 7)
-    {
-        arrowPoint = CGPointMake(CGRectGetMaxX(highlightFrame), CGRectGetMidY(highlightFrame));
-    } else
-    {
-        arrowPoint = CGPointMake(CGRectGetMinX(highlightFrame), CGRectGetMidY(highlightFrame));
-    };
+    CGFloat x = (friendIndexInGrid == 3 || friendIndexInGrid == 5 || friendIndexInGrid == 7 ? CGRectGetMaxX : CGRectGetMinX)(highlightFrame);
+    arrowPoint = CGPointMake(x, CGRectGetMidY(highlightFrame));
 
     self.showGotItButton = button;
     NSMutableArray *arrows = [NSMutableArray array];
 
 
-    NSString *sendString = friendName ? [NSString stringWithFormat:@"Send %@", friendName] : @"Send";
+    NSString *message =  [self hintMessage];
+    NSString *sendString = friendName ? [NSString stringWithFormat:message, friendName] : @"Send";
     [arrows addObject:[TBMHintArrow arrowWithText:sendString
                                         curveKind:curveKind
                                        arrowPoint:arrowPoint
                                             angle:angle1
                                            hidden:NO
                                             frame:self.frame]];
-
-    [arrows addObject:[TBMHintArrow arrowWithText:@"a welcome Zazo"
-                                        curveKind:curveKind
-                                       arrowPoint:arrowPoint
-                                            angle:angle2
-                                           hidden:YES
-                                            frame:self.frame]];
-
     self.arrows = arrows;
 }
+
+- (NSString *)hintMessage
+{
+    return @"Send %@ a welcome Zazo";
+}
+
 
 @end

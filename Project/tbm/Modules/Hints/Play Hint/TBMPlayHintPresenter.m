@@ -54,24 +54,17 @@
         return NO;
     }
 
-    if ([dataSource messagePlayedState])
-    {
-        return NO;
-    }
+    return ![dataSource messagePlayedState] && [dataSource friendsCount] == 1;
 
-    if ([dataSource friendsCount] != 1)
-    {
-        return NO;
-    }
-
-    return YES;
 }
 
-- (void)presentWithDataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource gridModule:(id <TBMGridModuleInterface>)gridModule
+- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule
 {
     if (![self.eventFlowModule isAnyHandlerActive])
     {
         [super presentWithGridModule:gridModule];
+        [self setupPlayTip];
+        [self didPresented];
     } else if ([[self.eventFlowModule currentHandler] respondsToSelector:@selector(addPlayHint)])
     {
         [[self.eventFlowModule currentHandler] performSelector:@selector(addPlayHint)];
@@ -84,6 +77,10 @@
 - (void)addRecordHint
 {
     [(TBMPlayHintView *) self.dialogView addRecordTip];
+}
+- (void)setupPlayTip
+{
+    [(TBMPlayHintView *) self.dialogView setupPlayTip];
 }
 
 @end

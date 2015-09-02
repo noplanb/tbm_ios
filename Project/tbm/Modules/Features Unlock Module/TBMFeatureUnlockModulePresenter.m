@@ -58,7 +58,10 @@
 - (BOOL)shouldNewFeatureBeUnlocked
 {
     [self silentUpdateUnlockedFeaturesCount];
-    TBMUnlockedFeature nextFeatureForUnlock = [self nextFeatureForUnlock];
+    NSInteger everSentCount = [self.featuresUnlockDatasource everSentCount];
+    BOOL isInvitedUser = [self.featuresUnlockDatasource isInvitedUser];
+    TBMUnlockedFeature nextFeatureForUnlock;
+    nextFeatureForUnlock = isInvitedUser ? (TBMUnlockedFeature) everSentCount : (TBMUnlockedFeature) everSentCount - 1;
 
     if (nextFeatureForUnlock > TBMUnlockedFeatureNone && self.featuresUnlockDatasource.lastUnlockedFeature < nextFeatureForUnlock)
     {
@@ -67,19 +70,6 @@
     }
 
     return NO;
-}
-
-- (TBMUnlockedFeature)nextFeatureForUnlock
-{
-    NSInteger everSentCount = [self.featuresUnlockDatasource everSentCount];
-    BOOL isInvitedUser = [self.featuresUnlockDatasource isInvitedUser];
-    NSInteger feature = isInvitedUser ? everSentCount - 2 : everSentCount - 1;
-    if (feature > TBMUnlockedFeatureNone)
-    {
-        return (TBMUnlockedFeature) feature;
-    }
-
-    return TBMUnlockedFeatureNone;
 }
 
 /**

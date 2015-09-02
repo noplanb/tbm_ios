@@ -27,28 +27,19 @@
 
 - (NSUInteger)priority
 {
-    return 900;
+    return 1000;
 }
 
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
 {
 
-    if (event != TBMEventFlowEventFriendDidAddWithoutApp)
+    if (event != TBMEventFlowEventFriendDidAdd)
     {
         return NO;
     }
 
-    if ([dataSource messageRecordedState])
-    {
-        return NO;
-    }
+    return ![dataSource messageRecordedState];
 
-    if ([self.eventHandlerDataSource sessionState])
-    {
-        return NO;
-    }
-
-    return YES;
 }
 
 @end

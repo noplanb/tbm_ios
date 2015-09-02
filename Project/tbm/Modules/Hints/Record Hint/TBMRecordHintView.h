@@ -8,4 +8,5 @@
 
 @interface TBMRecordHintView : TBMHintView
 - (void)addPlayTip;
+- (void)setupRecordTip;
 @end

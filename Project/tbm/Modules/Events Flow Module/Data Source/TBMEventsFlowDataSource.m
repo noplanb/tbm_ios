@@ -49,6 +49,10 @@ NSString
 {
     return [TBMFriend allUnviewedCount];
 }
+- (NSUInteger)unviewedCountForCenterRightBox
+{
+    return [TBMFriend unviewedCountForGridCellAtIndex:0];
+}
 
 - (void)resetHintsState
 {

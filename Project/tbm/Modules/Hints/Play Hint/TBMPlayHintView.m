@@ -5,50 +5,73 @@
 
 #import "TBMPlayHintView.h"
 
+@interface TBMPlayHintView ()
+@property(nonatomic, strong) TBMHintArrow *playArrow;
+@property(nonatomic, strong) TBMHintArrow *recordArrow;
+@property(nonatomic) CGRect highlightFrame;
+@end
+
 @implementation TBMPlayHintView
 {
 
 }
 - (void)configureHint
 {
-    CGRect highlightFrame = [self.gridModule gridGetFrameForFriend:0 inView:self.superview];
+    self.highlightFrame = [self.gridModule gridGetFrameForFriend:0 inView:self.superview];
     CGRect highlightBadgeFrame = [self.gridModule gridGetFrameForUnviewedBadgeForFriend:0 inView:self.superview];
     self.dismissAfterAction = YES;
     self.framesToCutOut = @[
-            [UIBezierPath bezierPathWithRect:highlightFrame],
+            [UIBezierPath bezierPathWithRect:self.highlightFrame],
             [UIBezierPath bezierPathWithOvalInRect:highlightBadgeFrame],
     ];
-    self.showGotItButton = YES;
-    if (!self.arrows)
-    {
-
-        NSMutableArray *arrows = [NSMutableArray array];
-        [arrows addObject:[TBMHintArrow arrowWithText:@"Tap to play"
-                                            curveKind:TBMTutorialArrowCurveKindRight
-                                           arrowPoint:CGPointMake(
-                                                   CGRectGetMinX(highlightFrame),
-                                                   CGRectGetMidY(highlightFrame))
-                                                angle:-40.f
-                                               hidden:NO
-                                                frame:self.frame]];
-
-        self.arrows = arrows;
-    }
+    self.showGotItButton = NO;
+    [self setupPlayTip];
 }
 
 - (void)addRecordTip
 {
-    CGRect highlightFrame = [self.gridModule gridGetFrameForFriend:0 inView:self.superview];
-    NSMutableArray *arrows = [self.arrows mutableCopy];
-    [arrows addObject:[TBMHintArrow arrowWithText:@"Press and hold to record"
-                                        curveKind:TBMTutorialArrowCurveKindRight
-                                       arrowPoint:CGPointMake(
-                                               CGRectGetMinX(highlightFrame),
-                                               CGRectGetMinY(highlightFrame))
-                                            angle:-60.f
-                                           hidden:YES
-                                            frame:self.frame]];
-
-    self.arrows = arrows;
+    self.arrows = @[self.playArrow, self.recordArrow];
 }
+
+- (void)setupPlayTip
+{
+    self.arrows = @[self.playArrow];
+}
+
+#pragma mark Lazy initialization
+
+- (TBMHintArrow *)playArrow
+{
+    if (!_playArrow)
+    {
+        _playArrow = [TBMHintArrow new];
+        _playArrow.text = @"Tap to play";
+        _playArrow.arrowCurveKind = TBMTutorialArrowCurveKindRight;
+        _playArrow.arrowPoint = CGPointMake(
+                CGRectGetMinX(self.highlightFrame),
+                CGRectGetMidY(self.highlightFrame));
+        _playArrow.arrowAngle = -40.f;
+        _playArrow.hideArrow = NO;
+        _playArrow.frame = self.frame;
+    }
+    return _playArrow;
+}
+
+- (TBMHintArrow *)recordArrow
+{
+    if (!_recordArrow)
+    {
+        _recordArrow = [TBMHintArrow new];
+        _recordArrow.text = @"Press and hold to record";
+        _recordArrow.arrowCurveKind = TBMTutorialArrowCurveKindRight;
+        _recordArrow.arrowPoint = CGPointMake(
+                CGRectGetMinX(self.highlightFrame),
+                CGRectGetMidY(self.highlightFrame));
+        _recordArrow.arrowAngle = -60.f;
+        _recordArrow.hideArrow = YES;
+        _recordArrow.frame = self.frame;
+    }
+    return _recordArrow;
+}
+
 @end

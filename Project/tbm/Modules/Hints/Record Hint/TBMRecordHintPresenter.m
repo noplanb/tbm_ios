@@ -27,7 +27,7 @@
 
 - (NSUInteger)priority
 {
-    return 1000;
+    return 900;
 }
 
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
@@ -41,22 +41,8 @@
         return NO;
     }
 
-    if ([dataSource messageRecordedState])
-    {
-        return NO;
-    }
+    return ![dataSource messageRecordedState] && [dataSource friendsCount] == 1;
 
-    if ([self.eventHandlerDataSource sessionState])
-    {
-        return NO;
-    }
-
-    if ([dataSource friendsCount] != 1)
-    {
-        return NO;
-    }
-
-    return YES;
 }
 
 - (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule
@@ -64,6 +50,8 @@
     if (![self.eventFlowModule isAnyHandlerActive])
     {
         [super presentWithGridModule:gridModule];
+        [self setupRecordTip];
+        [self didPresented];
     }
     else if ([[self.eventFlowModule currentHandler] respondsToSelector:@selector(addRecordHint)])
     {
@@ -77,5 +65,10 @@
 - (void)addPlayHint
 {
     [(TBMRecordHintView *) self.dialogView addPlayTip];
+}
+
+- (void)setupRecordTip
+{
+    [(TBMRecordHintView *) self.dialogView setupRecordTip];
 }
 @end

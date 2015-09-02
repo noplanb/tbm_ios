@@ -45,4 +45,5 @@
  */
 - (void)didPresented;
 
+- (void)dismissAfter:(CGFloat)delay;
 @end

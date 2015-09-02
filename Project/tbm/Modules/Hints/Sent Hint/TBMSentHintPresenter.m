@@ -41,21 +41,20 @@
     {
         return NO;
     }
-    if ([self.eventHandlerDataSource persistentState])
-    {
-        return NO;
-    }
 
-    if ([dataSource friendsCount] > 1)
-    {
-        return NO;
-    }
+    return [dataSource friendsCount] == 1 && ![self.eventHandlerDataSource persistentState];
 
-    return YES;
 }
 
+- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule
+{
+    [super presentWithGridModule:gridModule];
+
+    [self dismissAfter:3.f];
+}
 - (void)dialogDidDismiss
 {
+    [super dialogDidDismiss];
     [self.eventFlowModule throwEvent:TBMEventFlowEventSentHintDidDismiss];
 }
 
