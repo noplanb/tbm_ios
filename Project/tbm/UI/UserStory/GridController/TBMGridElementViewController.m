@@ -15,6 +15,7 @@
 #import "TBMConfig.h"
 #import "TBMAlertController.h"
 #import "ZZStoredSettingsManager.h"
+#import "MagicalRecord.h"
 
 @interface TBMGridElementViewController ()
 @property NSInteger index;
@@ -32,6 +33,7 @@
 @property UIView *viewedIndicator;
 @property UIView *uploadingBar;
 @property UIView *downloadingBar;
+@property (nonatomic, assign) NSInteger indexOnGrid;
 
 @property(nonatomic) TBMSoundEffect *messageDing;
 
@@ -47,27 +49,32 @@
 
 @implementation TBMGridElementViewController
 
-- (instancetype)initWithIndex:(NSInteger)index frame:(CGRect)frame{
+- (instancetype)initWithIndex:(NSInteger)index frame:(CGRect)frame
+{
     self = [super init];
-    if (self != nil) {
+    if (self != nil)
+    {
         _index = index;
         _isAppeared = NO;
+        self.indexOnGrid = index;
         _videoPlayer = [TBMVideoPlayer sharedInstance];
-        _gridElement = [TBMGridElement findWithIntIndex:index];
+        self.gridElement = [TBMGridElement findWithIntIndex:index];
         _messageDing = [[TBMSoundEffect alloc] initWithSoundNamed:kMessageSoundEffectFileName];
         _frame = frame;
     }
     return self;
 }
 
--(void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.view.frame = self.frame;
     [self buildView];
     [self registerForEvents];
 }
 
--(void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     [self updateView];
 }
@@ -563,7 +570,10 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 //------------
 // Update View
 //------------
-- (void)updateView {
+- (void)updateView
+{
+    self.gridElement = [TBMGridElement findWithIntIndex:self.indexOnGrid]; // TODO: okd temp solution. burn in hell pls.
+    
     if (self.isPlaying) {
         [self hideAll];
         return;
@@ -572,7 +582,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     [self updateThumbImage];
     [self updateUnviewedCount];
     [self updateNameLabel];
-
+    
     if (self.gridElement.friend == nil) {
         [self showNoFriend];
         return;

@@ -37,11 +37,11 @@
 //----------
 - (instancetype)init {
     self = [super init];
-    if (self != nil) {
+    if (self != nil)
+    {
         _appDelegate = (TBMAppDelegate *) [[UIApplication sharedApplication] delegate];
         [self registerAsAppEventsDelegate];
         [self setupGridElement];
-
     }
     return self;
 }

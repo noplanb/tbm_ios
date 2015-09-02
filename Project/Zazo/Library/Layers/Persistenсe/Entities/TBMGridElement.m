@@ -42,7 +42,6 @@
 
 + (instancetype)findWithIntIndex:(NSInteger)index
 {
-    NSArray *a = [self MR_findAll];
     NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementAttributes.index, @(index)];
     return [[TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]] firstObject];
 }
