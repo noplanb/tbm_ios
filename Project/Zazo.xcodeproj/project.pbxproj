@@ -69,8 +69,6 @@
 		07E2575E1B977865008D3371 /* TBMViewedHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E2540E1B977864008D3371 /* TBMViewedHintView.m */; };
 		07E2575F1B977865008D3371 /* TBMWelcomeHintPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E254111B977864008D3371 /* TBMWelcomeHintPresenter.m */; };
 		07E257601B977865008D3371 /* TBMWelcomeHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E254131B977864008D3371 /* TBMWelcomeHintView.m */; };
-		07E257611B977865008D3371 /* TBMNextFeatureDialogPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E254161B977864008D3371 /* TBMNextFeatureDialogPresenter.m */; };
-		07E257621B977865008D3371 /* TBMNextFeatureDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E254181B977864008D3371 /* TBMNextFeatureDialogView.m */; };
 		07E257631B977865008D3371 /* TBMDebugData.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E2541B1B977864008D3371 /* TBMDebugData.m */; };
 		07E257641B977865008D3371 /* TBMSecretGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E2541D1B977864008D3371 /* TBMSecretGestureRecognizer.m */; };
 		07E257651B977865008D3371 /* TBMSecretScreenPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E2541F1B977864008D3371 /* TBMSecretScreenPresenter.m */; };
@@ -386,6 +384,8 @@
 		224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
 		DE5C223E15BD5A128DAFDAD1 /* libPods-ZazoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0368F3F1AC201E7765B1898F /* libPods-ZazoTests.a */; };
 		F20151DDD1EA1D5CD6D8CB21 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */; };
+		FE17E9521B977B6D00FD49FE /* TBMNextFeatureDialogPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FE17E94F1B977B6D00FD49FE /* TBMNextFeatureDialogPresenter.m */; };
+		FE17E9531B977B6D00FD49FE /* TBMNextFeatureDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE17E9511B977B6D00FD49FE /* TBMNextFeatureDialogView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -553,10 +553,6 @@
 		07E254111B977864008D3371 /* TBMWelcomeHintPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMWelcomeHintPresenter.m; sourceTree = "<group>"; };
 		07E254121B977864008D3371 /* TBMWelcomeHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMWelcomeHintView.h; sourceTree = "<group>"; };
 		07E254131B977864008D3371 /* TBMWelcomeHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMWelcomeHintView.m; sourceTree = "<group>"; };
-		07E254151B977864008D3371 /* TBMNextFeatureDialogPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMNextFeatureDialogPresenter.h; sourceTree = "<group>"; };
-		07E254161B977864008D3371 /* TBMNextFeatureDialogPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMNextFeatureDialogPresenter.m; sourceTree = "<group>"; };
-		07E254171B977864008D3371 /* TBMNextFeatureDialogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMNextFeatureDialogView.h; sourceTree = "<group>"; };
-		07E254181B977864008D3371 /* TBMNextFeatureDialogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMNextFeatureDialogView.m; sourceTree = "<group>"; };
 		07E2541A1B977864008D3371 /* TBMDebugData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDebugData.h; sourceTree = "<group>"; };
 		07E2541B1B977864008D3371 /* TBMDebugData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDebugData.m; sourceTree = "<group>"; };
 		07E2541C1B977864008D3371 /* TBMSecretGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSecretGestureRecognizer.h; sourceTree = "<group>"; };
@@ -1147,6 +1143,10 @@
 		B1860DB43B6E70D5AEF73EF4 /* Pods-Zazo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.release.xcconfig"; sourceTree = "<group>"; };
 		C4392BF41AD48118C492A226 /* Pods-Zazo.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.ad-hoc.xcconfig"; sourceTree = "<group>"; };
 		EBC6C0A37344F4BEEFA60089 /* Pods-ZazoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.release.xcconfig"; sourceTree = "<group>"; };
+		FE17E94E1B977B6D00FD49FE /* TBMNextFeatureDialogPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMNextFeatureDialogPresenter.h; sourceTree = "<group>"; };
+		FE17E94F1B977B6D00FD49FE /* TBMNextFeatureDialogPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMNextFeatureDialogPresenter.m; sourceTree = "<group>"; };
+		FE17E9501B977B6D00FD49FE /* TBMNextFeatureDialogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMNextFeatureDialogView.h; sourceTree = "<group>"; };
+		FE17E9511B977B6D00FD49FE /* TBMNextFeatureDialogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMNextFeatureDialogView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1681,10 +1681,10 @@
 		07E254141B977864008D3371 /* Next Feature Dialog Module */ = {
 			isa = PBXGroup;
 			children = (
-				07E254151B977864008D3371 /* TBMNextFeatureDialogPresenter.h */,
-				07E254161B977864008D3371 /* TBMNextFeatureDialogPresenter.m */,
-				07E254171B977864008D3371 /* TBMNextFeatureDialogView.h */,
-				07E254181B977864008D3371 /* TBMNextFeatureDialogView.m */,
+				FE17E94E1B977B6D00FD49FE /* TBMNextFeatureDialogPresenter.h */,
+				FE17E94F1B977B6D00FD49FE /* TBMNextFeatureDialogPresenter.m */,
+				FE17E9501B977B6D00FD49FE /* TBMNextFeatureDialogView.h */,
+				FE17E9511B977B6D00FD49FE /* TBMNextFeatureDialogView.m */,
 			);
 			path = "Next Feature Dialog Module";
 			sourceTree = "<group>";
@@ -4364,6 +4364,7 @@
 				07E2582C1B977865008D3371 /* ZZSecretVC.m in Sources */,
 				07E2577F1B977865008D3371 /* TBMContentViewModal.m in Sources */,
 				07E257CB1B977865008D3371 /* ZZAddressBookDataProvider.m in Sources */,
+				FE17E9521B977B6D00FD49FE /* TBMNextFeatureDialogPresenter.m in Sources */,
 				07E257C31B977865008D3371 /* TBMUser.m in Sources */,
 				07E258601B977865008D3371 /* NSObject+ANUserDefaults.m in Sources */,
 				07E258201B977865008D3371 /* ZZSecretInteractor.m in Sources */,
@@ -4403,6 +4404,7 @@
 				07E258421B977865008D3371 /* ZZGridCollectionController.m in Sources */,
 				07E257D61B977865008D3371 /* ZZTouchControllerWithTouchDelay.m in Sources */,
 				07E2575B1B977865008D3371 /* TBMSpinUsageHintPresenter.m in Sources */,
+				FE17E9531B977B6D00FD49FE /* TBMNextFeatureDialogView.m in Sources */,
 				07E257DF1B977865008D3371 /* ZZVideoUtils.m in Sources */,
 				07E258431B977865008D3371 /* ZZGridView.m in Sources */,
 				07E258751B977865008D3371 /* ANErrorHandler.m in Sources */,
@@ -4489,14 +4491,12 @@
 				07E258141B977865008D3371 /* ANDebugVC.m in Sources */,
 				07E257AE1B977865008D3371 /* ZZGridDomainModel.m in Sources */,
 				07E258791B977865008D3371 /* ANScrollHandler.m in Sources */,
-				07E257611B977865008D3371 /* TBMNextFeatureDialogPresenter.m in Sources */,
 				07E2573C1B977865008D3371 /* TBMVideoProcessor.m in Sources */,
 				07E257341B977865008D3371 /* TBMDeviceHandler.m in Sources */,
 				07E257351B977865008D3371 /* TBMFileUtils.m in Sources */,
 				07E2576A1B977865008D3371 /* TBMStateDataSource.m in Sources */,
 				07E2581D1B977865008D3371 /* ZZDebugStateController.m in Sources */,
 				07E257461B977865008D3371 /* TBMFeatureUnlockDialogView.m in Sources */,
-				07E257621B977865008D3371 /* TBMNextFeatureDialogView.m in Sources */,
 				07E257AD1B977865008D3371 /* ZZContactDomainModel.m in Sources */,
 				07E257771B977865008D3371 /* TBMVersionHandler.m in Sources */,
 				07E258731B977865008D3371 /* ANNetworkActivityManager.m in Sources */,
