@@ -22,10 +22,10 @@
 }
 
 
-+ (void)destroyAll
++ (void)destroyAllOncontext:(NSManagedObjectContext*)context
 {
-    [self MR_truncateAllInContext:[self _context]];
-    [[self _context] MR_saveToPersistentStoreAndWait];
+    [self MR_truncateAllInContext:context];
+    [context MR_saveToPersistentStoreAndWait];
 }
 
 + (NSArray *)all
