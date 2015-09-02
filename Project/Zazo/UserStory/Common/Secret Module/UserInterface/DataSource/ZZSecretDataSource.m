@@ -47,9 +47,13 @@
 
 - (void)updateServerCustomURLValue:(NSString *)value
 {
+    NSIndexPath* segmentCellIndexPath = [NSIndexPath indexPathForRow:0 inSection:ZZSecretSectionServerOptions];
+    ZZSecretSegmentCellViewModel* segmentModel = [self.storage objectAtIndexPath:segmentCellIndexPath];
+    
     NSIndexPath* indexPath = [NSIndexPath indexPathForRow:1 inSection:ZZSecretSectionServerOptions];
     ZZSecretScreenTextEditCellViewModel* model = [self.storage objectAtIndexPath:indexPath];
     model.text = value;
+    model.isEnabled = (segmentModel.selectedIndex == 2) ? YES : NO;
     [self.storage reloadItem:model];
 }
 
@@ -237,6 +241,7 @@
                              NSLocalizedString(@"secret-controller.stageserver.title", nil),
                              NSLocalizedString(@"secret-controller.customserver.title", nil)];
     ZZSecretSegmentCellViewModel* server = [ZZSecretSegmentCellViewModel viewModelWithTitles:serverItems];
+    server.selectedIndex = model.serverIndex;
     server.delegate = self;
     
     ZZSecretScreenTextEditCellViewModel* textEdit = [ZZSecretScreenTextEditCellViewModel new];
