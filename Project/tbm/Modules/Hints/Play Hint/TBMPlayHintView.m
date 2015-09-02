@@ -18,7 +18,7 @@
             [UIBezierPath bezierPathWithRect:highlightFrame],
             [UIBezierPath bezierPathWithOvalInRect:highlightBadgeFrame],
     ];
-    self.showGotItButton = YES;
+    self.showGotItButton = NO;
     if (!self.arrows)
     {
 
