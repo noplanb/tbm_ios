@@ -42,7 +42,7 @@
         return NO;
     }
 
-    return [dataSource friendsCount] == 1 && ![self.eventHandlerDataSource persistentState];
+    return (([dataSource friendsCount] == 1) && (![self.eventHandlerDataSource persistentState]));
 
 }
 
@@ -52,6 +52,7 @@
 
     [self dismissAfter:3.f];
 }
+
 - (void)dialogDidDismiss
 {
     [super dialogDidDismiss];

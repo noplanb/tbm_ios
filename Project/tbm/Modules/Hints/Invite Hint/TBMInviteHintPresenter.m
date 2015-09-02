@@ -34,7 +34,7 @@
         return NO;
     }
     
-    return [dataSource friendsCount] == 0;
+    return ([dataSource friendsCount] == 0);
 }
 
 @end

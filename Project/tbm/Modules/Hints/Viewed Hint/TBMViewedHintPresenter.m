@@ -46,7 +46,7 @@
         return NO;
     }
 
-    return [dataSource unviewedCountForCenterRightBox] > 0;
+    return ([dataSource unviewedCountForCenterRightBox] > 0);
 }
 
 - (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule

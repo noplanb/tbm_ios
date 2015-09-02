@@ -31,7 +31,7 @@
 
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
 {
-    return event == TBMEventFlowEventSpinUnlockDialogDidDismiss;
+    return (event == TBMEventFlowEventSpinUnlockDialogDidDismiss);
 }
 
 - (void)dialogDidDismiss

@@ -42,7 +42,7 @@
         return NO;
     }
 
-    return [dataSource friendsCount] == 1 && [dataSource unviewedCount] == 0;
+    return (([dataSource friendsCount] == 1) && ([dataSource unviewedCount] == 0));
 
 }
 

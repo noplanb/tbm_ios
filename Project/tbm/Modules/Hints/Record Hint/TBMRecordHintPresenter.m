@@ -41,7 +41,7 @@
         return NO;
     }
 
-    return ![dataSource messageRecordedState] && [dataSource friendsCount] == 1;
+    return ((![dataSource messageRecordedState]) && ([dataSource friendsCount] == 1));
 
 }
 

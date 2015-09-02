@@ -38,7 +38,7 @@
         return NO;
     }
 
-    return ![dataSource messageRecordedState];
+    return (![dataSource messageRecordedState]);
 
 }
 
