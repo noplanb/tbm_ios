@@ -12,7 +12,6 @@
 #import "TBMGridElement.h"
 #import "TBMMarginLabel.h"
 #import "TBMSoundEffect.h"
-#import "TBMConfig.h"
 #import "TBMAlertController.h"
 #import "ZZStoredSettingsManager.h"
 #import "MagicalRecord.h"
@@ -101,9 +100,16 @@
     [self.videoPlayer addEventNotificationDelegate:self];
 }
 
-- (void)videoStatusDidChange:(TBMFriend *)friend {
-    if ([[self gridElement].friend isEqual:friend])
+- (void)videoStatusDidChange:(TBMFriend *)friend
+{
+    self.gridElement = [TBMGridElement findWithIntIndex:self.indexOnGrid];
+
+    NSString *selfGridElementAbsoluteString = [self gridElement].friend.objectID.URIRepresentation.absoluteString;
+    NSString *absoluteString1 = friend.objectID.URIRepresentation.absoluteString;
+    if ([selfGridElementAbsoluteString isEqualToString:absoluteString1]) {
+
         [self animateTransitions];
+    }
 }
 
 - (void)gridDidChange:(NSInteger)index {
