@@ -14,6 +14,7 @@
 #import "TBMVideoIdUtils.h"
 #import "TBMVideoProcessor.h"
 #import "TBMAlertController.h"
+#import "NSManagedObjectContext+MagicalSaves.h"
 
 @interface TBMGridViewController ()
 @property(nonatomic) NSArray *gridViews;
@@ -152,12 +153,15 @@
 
     NSArray *friends = [TBMFriend all];
     for (NSInteger i = 0; i < 8; i++) {
-        TBMGridElement *ge = [TBMGridElement create];
         if (i < friends.count) {
-            ge.friend = friends[i];
+            TBMFriend *aFriend = friends[i];
+            TBMGridElement *ge = [TBMGridElement createInContext:[aFriend managedObjectContext]];
+            ge.friend = aFriend;
+            [ge setIntIndex:i];
+            [[ge managedObjectContext] MR_saveToPersistentStoreAndWait];
         }
 
-        [ge setIntIndex:i];
+        
     }
 }
 

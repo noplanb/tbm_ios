@@ -16,6 +16,12 @@
     return [self MR_createEntityInContext:[self _context]];
 }
 
++ (instancetype)createInContext:(NSManagedObjectContext *)context
+{
+    return [self MR_createEntityInContext:context];
+}
+
+
 + (void)destroyAll
 {
     [self MR_truncateAllInContext:[self _context]];

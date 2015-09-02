@@ -13,6 +13,7 @@
 
 // Create and destroy
 + (instancetype)create;
++ (instancetype)createInContext:(NSManagedObjectContext *)context;
 + (void)destroyAll;
 
 // Finders

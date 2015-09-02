@@ -7,6 +7,7 @@
 #import "TBMFeatureUnlockDialogView.h"
 #import "HexColors.h"
 #import "TBMFeatureUnlockModulePresenter.h"
+#import "TBMSoundEffect.h"
 
 NSString *const kTBMFeatureUnlockDialogHeaderFontName = @"AppleSDGothicNeo-Regular";
 NSString *const kTBMFeatureUnlockDialogSubHeaderFontName = @"HelveticaNeue-LightItalic";
@@ -27,6 +28,7 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
 @property(nonatomic, strong) UILabel *showMeButtonLabel;
 @property(nonatomic, weak) id <TBMGridModuleInterface> gridModule;
 @property(nonatomic, weak) id <TBMDialogViewDelegate> dialogViewDelegate;
+@property(nonatomic, strong) TBMSoundEffect *featureUnlockSound;
 @end
 
 @implementation TBMFeatureUnlockDialogView
@@ -301,6 +303,14 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
     return _showMeButtonLabel;
 }
 
+- (TBMSoundEffect *)featureUnlockSound
+{
+    if (!_featureUnlockSound)
+    {
+        _featureUnlockSound = [[TBMSoundEffect alloc] initWithSoundNamed:@"FeatureUnlock.wav"];
+    }
+    return _featureUnlockSound;
+}
 
 #pragma mark - Handle events
 
@@ -353,7 +363,7 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
     self.dialogView.frame = [self makeDialogViewRectWithTop:dialogTop];
     [UIView animateWithDuration:.25f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^
     {
-
+        [self.featureUnlockSound play];
         self.dialogView.frame = [self makeDialogViewRectWithTop:correctDialogTop];
         self.alpha = 1;
     }                completion:^(BOOL finished)
