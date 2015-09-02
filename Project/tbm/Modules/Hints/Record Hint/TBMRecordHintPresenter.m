@@ -50,6 +50,7 @@
     if (![self.eventFlowModule isAnyHandlerActive])
     {
         [super presentWithGridModule:gridModule];
+        [self didPresented];
     }
     else if ([[self.eventFlowModule currentHandler] respondsToSelector:@selector(addRecordHint)])
     {
