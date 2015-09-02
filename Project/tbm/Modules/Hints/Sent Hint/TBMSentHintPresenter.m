@@ -42,7 +42,7 @@
         return NO;
     }
 
-    return [dataSource friendsCount] == 1;
+    return [dataSource friendsCount] == 1 && ![self.eventHandlerDataSource persistentState];
 
 }
 
