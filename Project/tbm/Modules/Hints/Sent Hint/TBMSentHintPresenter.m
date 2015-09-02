@@ -41,17 +41,9 @@
     {
         return NO;
     }
-    if ([self.eventHandlerDataSource persistentState])
-    {
-        return NO;
-    }
 
-    if ([dataSource friendsCount] > 1)
-    {
-        return NO;
-    }
+    return [dataSource friendsCount] == 1;
 
-    return YES;
 }
 
 - (void)dialogDidDismiss
