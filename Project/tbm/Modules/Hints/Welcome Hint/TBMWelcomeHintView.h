@@ -7,4 +7,5 @@
 #import "TBMHintView.h"
 
 @interface TBMWelcomeHintView : TBMHintView
+- (NSString *)hintMessage;
 @end

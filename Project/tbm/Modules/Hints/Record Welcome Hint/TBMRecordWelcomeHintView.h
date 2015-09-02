@@ -5,6 +5,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TBMHintView.h"
+#import "TBMWelcomeHintView.h"
 
-@interface TBMRecordWelcomeHintView : TBMHintView
+@interface TBMRecordWelcomeHintView : TBMWelcomeHintView
 @end
