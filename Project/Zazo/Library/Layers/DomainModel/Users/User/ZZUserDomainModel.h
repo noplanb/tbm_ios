@@ -34,4 +34,6 @@ extern const struct ZZUserDomainModelAttributes {
 
 + (FEMObjectMapping*)mapping;
 
+- (NSString*)fullName;
+
 @end

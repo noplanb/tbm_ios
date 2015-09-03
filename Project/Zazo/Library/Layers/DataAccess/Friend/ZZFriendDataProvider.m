@@ -79,6 +79,12 @@
     [[self _context] MR_saveToPersistentStoreAndWait];
 }
 
++ (void)deleteAllFriendsModels
+{
+    [TBMFriend MR_truncateAllInContext:[self _context]];
+    [[self _context] MR_saveToPersistentStoreAndWait];
+}
+
 
 #pragma mark - Private
 

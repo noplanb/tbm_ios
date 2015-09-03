@@ -46,98 +46,98 @@
 
 #pragma mark Register
 
-- (void)register{
-    [TBMUser saveRegistrationData:[self userParams]];
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[self userParams]];
-    params[SERVER_PARAMS_USER_VERIFICATION_CODE_VIA_KEY] = SERVER_PARAMS_USER_VERIFICATION_CODE_VIA_SMS;
-    
-    [_registerForm startWaitingForServer];
-    [[TBMHttpManager manager] GET:@"reg/reg"
-                        parameters:params
-                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                               [_registerForm stopWaitingForServer];
-                               [self didRegister:responseObject];
-                           }
-                           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                               [_registerForm stopWaitingForServer];
-                               [self connectionError];
-                           }];
-}
+//- (void)register{
+//    [TBMUser saveRegistrationData:[self userParams]];
+//    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[self userParams]];
+//    params[SERVER_PARAMS_USER_VERIFICATION_CODE_VIA_KEY] = SERVER_PARAMS_USER_VERIFICATION_CODE_VIA_SMS;
+//    
+//    [_registerForm startWaitingForServer];
+//    [[TBMHttpManager manager] GET:@"reg/reg"
+//                        parameters:params
+//                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//                               [_registerForm stopWaitingForServer];
+//                               [self didRegister:responseObject];
+//                           }
+//                           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//                               [_registerForm stopWaitingForServer];
+//                               [self connectionError];
+//                           }];
+//}
 
-- (NSDictionary *)userParams{
-    NSMutableDictionary *r = [[NSMutableDictionary alloc] init];
-    [r setObject:@"ios" forKey:SERVER_PARAMS_USER_DEVICE_PLATFORM_KEY];
-    [r setObject:_firstName forKey:SERVER_PARAMS_USER_FIRST_NAME_KEY];
-    [r setObject:_lastName forKey:SERVER_PARAMS_USER_LAST_NAME_KEY];
-    
-    NSString *pn = [TBMPhoneUtils phone:_combinedNumber withFormat:NBEPhoneNumberFormatE164];
-    if (pn != nil)
-        [r setObject:pn forKey:SERVER_PARAMS_USER_MOBILE_NUMBER_KEY];
-    
-    if (_verificationCode != nil)
-        [r setObject:_verificationCode forKey:SERVER_PARAMS_USER_VERIFICATION_CODE_KEY];
-    
-    return r;
-}
+//- (NSDictionary *)userParams{
+//    NSMutableDictionary *r = [[NSMutableDictionary alloc] init];
+//    [r setObject:@"ios" forKey:SERVER_PARAMS_USER_DEVICE_PLATFORM_KEY];
+//    [r setObject:_firstName forKey:SERVER_PARAMS_USER_FIRST_NAME_KEY];
+//    [r setObject:_lastName forKey:SERVER_PARAMS_USER_LAST_NAME_KEY];
+//    
+//    NSString *pn = [TBMPhoneUtils phone:_combinedNumber withFormat:NBEPhoneNumberFormatE164];
+//    if (pn != nil)
+//        [r setObject:pn forKey:SERVER_PARAMS_USER_MOBILE_NUMBER_KEY];
+//    
+//    if (_verificationCode != nil)
+//        [r setObject:_verificationCode forKey:SERVER_PARAMS_USER_VERIFICATION_CODE_KEY];
+//    
+//    return r;
+//}
 
-- (void)didRegister:(NSDictionary *)params{
-    if ([TBMHttpManager isSuccess:params]){
-        self.auth = [params objectForKey:SERVER_PARAMS_USER_AUTH_KEY];
-        self.mkey = [params objectForKey:SERVER_PARAMS_USER_MKEY_KEY];
-        
-        [[NSUserDefaults standardUserDefaults] setObject:self.auth forKey:@"auth"];
-        [[NSUserDefaults standardUserDefaults] setObject:self.mkey forKey:@"mkey"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        NSURLCredential *cred = [[NSURLCredential alloc] initWithUser:self.mkey
-                                                             password:self.auth
-                                                          persistence:NSURLCredentialPersistenceForSession];
-        if (!ANIsEmpty(self.mkey))
-        {
-            [ZZNetworkTransport shared].session.credential = cred;
-        }
-
-        [self showVerificationDialog];
-    } else {
-        NSString *title = [params objectForKey:SERVER_PARAMS_ERROR_TITLE_KEY];
-        NSString *msg = [params objectForKey:SERVER_PARAMS_ERROR_MSG_KEY];
-        [self showErrorDialogWithTitle:title msg:msg];
-    }
-}
+//- (void)didRegister:(NSDictionary *)params{
+//    if ([TBMHttpManager isSuccess:params]){
+//        self.auth = [params objectForKey:SERVER_PARAMS_USER_AUTH_KEY];
+//        self.mkey = [params objectForKey:SERVER_PARAMS_USER_MKEY_KEY];
+//        
+//        [[NSUserDefaults standardUserDefaults] setObject:self.auth forKey:@"auth"];
+//        [[NSUserDefaults standardUserDefaults] setObject:self.mkey forKey:@"mkey"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//        
+//        NSURLCredential *cred = [[NSURLCredential alloc] initWithUser:self.mkey
+//                                                             password:self.auth
+//                                                          persistence:NSURLCredentialPersistenceForSession];
+//        if (!ANIsEmpty(self.mkey))
+//        {
+//            [ZZNetworkTransport shared].session.credential = cred;
+//        }
+//
+//        [self showVerificationDialog];
+//    } else {
+//        NSString *title = [params objectForKey:SERVER_PARAMS_ERROR_TITLE_KEY]; //////////////TODO:
+//        NSString *msg = [params objectForKey:SERVER_PARAMS_ERROR_MSG_KEY];
+//        [self showErrorDialogWithTitle:title msg:msg];
+//    }
+//}
 
 
 #pragma mark Verification code
 
-- (void)didTapCallMe{
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[self userParams]];
-    params[SERVER_PARAMS_USER_VERIFICATION_CODE_VIA_KEY] = SERVER_PARAMS_USER_VERIFICATION_CODE_VIA_CALL;
-    
-    [[TBMHttpManager manager] GET:@"reg/reg"
-                       parameters:params
-                          success:nil
-                          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                              [self connectionError];
-                          }];
+//- (void)didTapCallMe{
+//    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[self userParams]];
+//    params[SERVER_PARAMS_USER_VERIFICATION_CODE_VIA_KEY] = SERVER_PARAMS_USER_VERIFICATION_CODE_VIA_CALL;
+//    
+//    [[TBMHttpManager manager] GET:@"reg/reg"
+//                       parameters:params
+//                          success:nil
+//                          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//                              [self connectionError];
+//                          }];
+//
+//}
 
-}
-
-- (void)didEnterVerificationCode:(NSString *)code{
-    self.verificationCode = [self cleanNumber:code];
-    NSURLCredential * c = [[NSURLCredential alloc] initWithUser:self.mkey
-                                                       password:self.auth
-                                                    persistence:NSURLCredentialPersistenceForSession];
-    [_registerForm startWaitingForServer];
-    [[TBMHttpManager managerWithCredential:c] GET:@"reg/verify_code"
-                        parameters:[self userParams]
-                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                               [_registerForm stopWaitingForServer];
-                               [self didReceiveCodeResponse:responseObject];
-                           }
-                           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                               [_registerForm stopWaitingForServer];
-                               [self connectionError];
-                           }];
-}
+//- (void)didEnterVerificationCode:(NSString *)code{
+//    self.verificationCode = [self cleanNumber:code];
+//    NSURLCredential * c = [[NSURLCredential alloc] initWithUser:self.mkey
+//                                                       password:self.auth
+//                                                    persistence:NSURLCredentialPersistenceForSession];
+//    [_registerForm startWaitingForServer];
+//    [[TBMHttpManager managerWithCredential:c] GET:@"reg/verify_code"
+//                        parameters:[self userParams]
+//                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//                               [_registerForm stopWaitingForServer];
+//                               [self didReceiveCodeResponse:responseObject];
+//                           }
+//                           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//                               [_registerForm stopWaitingForServer];
+//                               [self connectionError];
+//                           }];
+//}
 
 //- (void)didReceiveCodeResponse:(NSDictionary *)params{
 //    if ([TBMHttpManager isSuccess:params]){
@@ -149,11 +149,11 @@
 
 #pragma mark Got user
 
-- (void)gotUser:(NSDictionary *)params{
-    TBMUser *user = [TBMUser createWithServerParams:params];
-    [TBMDispatch setupRollBarUser:user];
-    [self getFriends];
-}
+//- (void)gotUser:(NSDictionary *)params{
+//    TBMUser *user = [TBMUser createWithServerParams:params];
+//    [TBMDispatch setupRollBarUser:user];
+//    [self getFriends];
+//}
 
 
 #pragma mark Got friends

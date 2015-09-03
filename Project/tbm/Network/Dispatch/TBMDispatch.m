@@ -146,20 +146,22 @@ NSString* dispatchLevelStringFromDispatchLevel(TBMDispatchLevel logLevel) {
 
 #pragma mark - RollBar
 
-+ (void)startRollBar {
++ (void)startRollBar
+{
     RollbarConfiguration *config = [RollbarConfiguration configuration];
     config.crashLevel = @"critical";
     ZZConfigServerState serverState = [ZZStoredSettingsManager shared].serverEndpointState;
     NSString *env = TBMDispatchRollBarEnvDevelopment;
-    switch (serverState) {
+    
+    switch (serverState)
+    {
         case ZZConfigServerStateProduction:
             env = TBMDispatchRollBarEnvStaging;
             break;
         case ZZConfigServerStateDeveloper:
             env = TBMDispatchRollBarEnvStaging;
             break;
-        default:
-            break;
+        default: break;
     }
     config.environment = env;
     TBMUser *user = [TBMUser getUser];
@@ -167,16 +169,20 @@ NSString* dispatchLevelStringFromDispatchLevel(TBMDispatchLevel logLevel) {
     [Rollbar initWithAccessToken:ROLLBAR_TOKEN configuration:config];
 }
 
-+ (void)setRollBarUser:(TBMUser *)user forConfig:(RollbarConfiguration *)config {
++ (void)setRollBarUser:(TBMUser *)user forConfig:(RollbarConfiguration *)config
+{
     NSString *personId = user.idTbm;
     NSString *username = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
     NSString *email = user.mobileNumber;
     [config setPersonId:personId username:username email:email];
 }
 
-+ (void)setupRollBarUser:(TBMUser *)user {
++ (void)updateRollBarUserWithItemID:(NSString*)itemID
+                          username:(NSString*)username
+                        phoneNumber:(NSString*)phoneNumber
+{
     RollbarConfiguration *config = [Rollbar currentConfiguration];
-    [self setRollBarUser:user forConfig:config];
+    [config setPersonId:itemID username:username email:phoneNumber];
 }
 
 @end

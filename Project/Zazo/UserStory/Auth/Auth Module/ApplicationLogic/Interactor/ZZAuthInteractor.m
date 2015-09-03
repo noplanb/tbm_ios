@@ -19,6 +19,11 @@
 #import "NSObject+ANSafeValues.h"
 #import "ZZStoredSettingsManager.h"
 #import "NBPhoneNumber.h"
+#import "TBMDispatch.h"
+#import "ZZFriendDataProvider.h"
+#import "TBMUser.h"
+#import "TBMFriend.h"
+#import "TBMS3CredentialsManager.h"
 
 @interface ZZAuthInteractor ()
 
@@ -78,19 +83,58 @@
 
 - (void)validateSMSCode:(NSString*)code
 {
-    [[ZZAccountTransportService verifySMSCodeWithUserModel:self.currentUser code:code] subscribeNext:^(NSDictionary *dict) {
+    [[[[[[ZZAccountTransportService verifySMSCodeWithUserModel:self.currentUser code:code] catch:^RACSignal *(NSError *error) {
+        
+        //TODO: separate errors
+        [self.output smsCodeValidationCompletedWithError:error];
+        return [RACSignal error:error];
+        
+    }] flattenMap:^RACStream *(NSDictionary* dict) {
+        
+        [self.output smsCodeValidationCompletedSuccessfully];
         
         ZZUserDomainModel *user = [FEMObjectDeserializer deserializeObjectExternalRepresentation:dict
                                                                                     usingMapping:[ZZUserDomainModel mapping]];
         user.isRegistered = YES; // TODO: check server fields
         [ZZUserDataProvider upsertUserWithModel:user];
         
-        //        [self loadFriendsFromServer];
+        [TBMDispatch updateRollBarUserWithItemID:user.idTbm username:[user fullName] phoneNumber:user.mobileNumber];
         
-        [self.output smsCodeValidationCompletedSuccessfully];
+        [ZZFriendDataProvider deleteAllFriendsModels];
         
+        return [ZZFriendsTransportService loadFriendList];
+        
+        
+    }] catch:^RACSignal *(NSError *error) {
+        
+        [self.output loadFriendsDidFailWithError:error];
+        return [RACSignal error:error];
+        
+    }] flattenMap:^RACStream *(id value) {
+        
+        [self gotFriends:value];
+        [self detectInvitee:value];
+        
+        [self.output loadedFriendsSuccessfully];
+        
+        
+        return [RACSignal return:nil];
+        
+    }] subscribeNext:^(id x) {
+       
+        [TBMS3CredentialsManager refreshFromServer:^void (BOOL success){
+            if (success)
+            {
+                [self.output registrationFlowCompletedSuccessfully];
+            }
+            else
+            {
+                [self.output loadS3CredentialsDidFailWithError:nil]; // TODO: create an error here
+            }
+        }];
+    
     } error:^(NSError *error) {
-        [self.output smsCodeValidationCompletedWithError:error];
+        //TODO: remove it?
     }];
 }
 
@@ -126,16 +170,6 @@
     } error:^(NSError *error) {
         [self.output registrationDidFailWithError:error];
     }];
-}
-
-- (void)loadFriendsFromServer
-{
-    //TODO:
-//    [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray *friendArray) {
-//        
-//    } error:^(NSError *error) {
-//        
-//    }];
 }
 
 
@@ -236,6 +270,64 @@
                                                                            options:NSRegularExpressionCaseInsensitive
                                                                              error:&error];
     return [regex stringByReplacingMatchesInString:phone options:0 range:NSMakeRange(0, [phone length]) withTemplate:@""];
+}
+
+
+/**
+ *  CLEANUP!!!!
+ */
+
+- (void)gotFriends:(NSArray *)friends
+{
+    for (NSDictionary *fParams in friends)
+    {
+        [TBMFriend createOrUpdateWithServerParams:fParams complete:nil];
+    }
+}
+
+- (void)detectInvitee:(NSArray *)friends
+{
+    NSArray *sorted = [self sortedFriendsByCreatedOn:friends];
+    if (sorted)
+    {
+        NSDictionary *firstFriend = sorted.firstObject;
+        NSString *firstFriendCreatorMkey = firstFriend[@"connection_creator_mkey"];
+        TBMUser *me = [TBMUser getUser];
+        NSString *myMkey = me.mkey;
+        [me setupIsInviteeFlagTo:![firstFriendCreatorMkey isEqualToString:myMkey]];
+    }
+}
+
+- (NSArray *)sortedFriendsByCreatedOn:(NSArray *)friends
+{
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+    [dateFormatter setLocale:enUSPOSIXLocale];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
+    
+    return [friends sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2)
+            {
+                
+                NSComparisonResult result = NSOrderedSame;
+                NSDictionary *dict1 = (NSDictionary *) obj1;
+                NSDictionary *dict2 = (NSDictionary *) obj2;
+                NSDate *date1;
+                NSDate *date2;
+                
+                if ([dict1 isKindOfClass:[NSDictionary class]] && [dict2 isKindOfClass:[NSDictionary class]])
+                {
+                    
+                    date1 = [dateFormatter dateFromString:dict1[@"connection_created_on"]];
+                    date2 = [dateFormatter dateFromString:dict2[@"connection_created_on"]];
+                }
+                
+                if (date1 && date2)
+                {
+                    result = [date1 timeIntervalSinceDate:date2] > 0 ? NSOrderedDescending : NSOrderedAscending;
+                }
+                return result;
+            }];
 }
 
 @end

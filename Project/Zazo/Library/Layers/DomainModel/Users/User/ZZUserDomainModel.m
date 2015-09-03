@@ -42,4 +42,15 @@ const struct ZZUserDomainModelAttributes ZZUserDomainModelAttributes = {
     return nil;
 }
 
+//TODO: copy-paste from friend class
+- (NSString*)fullName
+{
+    NSString* username = self.firstName ? self.firstName : @"";
+    if (username.length)
+    {
+        username = [username stringByAppendingString:@" "];
+    }
+    return [username stringByAppendingString:self.lastName ? self.lastName : @""];
+}
+
 @end

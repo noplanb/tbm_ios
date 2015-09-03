@@ -34,4 +34,12 @@
 - (void)callRequestCompletedSuccessfully;
 - (void)callRequestDidFailWithError:(NSError*)error;
 
+- (void)loadedFriendsSuccessfully;
+- (void)loadFriendsDidFailWithError:(NSError*)error;
+
+- (void)loadedS3CredentialsSuccessfully;
+- (void)loadS3CredentialsDidFailWithError:(NSError*)error;
+
+- (void)registrationFlowCompletedSuccessfully;
+
 @end

@@ -30,6 +30,7 @@
 + (void)upsertFriendWithModel:(ZZFriendDomainModel*)model;
 + (void)deleteFriendWithID:(NSString*)itemID;
 
++ (void)deleteAllFriendsModels;
 
 #pragma mark - Mapping
 
