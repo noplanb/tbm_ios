@@ -6,9 +6,7 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "ZZGridCollectionCellViewModel.h"
-
 
 @protocol ZZUserRecorderGridViewDelegate  <NSObject>
 
@@ -30,7 +28,7 @@
 @property (nonatomic, strong) UILabel* videoCountLabel;
 
 - (instancetype)initWithPresentedView:(UIView <ZZUserRecorderGridViewDelegate> *)presentedView
-                      withModel:(ZZGridCollectionCellViewModel *)cellViewModel;
+                            withModel:(ZZGridCollectionCellViewModel *)cellViewModel;
 
 - (void)updateBadgeWithNumber:(NSNumber *)badgeNumber;
 - (void)showUploadAnimation;

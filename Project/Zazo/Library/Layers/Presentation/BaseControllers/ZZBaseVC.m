@@ -7,6 +7,7 @@
 //
 
 #import "ZZBaseVC.h"
+#import "SVProgressHUD.h"
 
 @interface ZZBaseVC ()
 
@@ -19,6 +20,22 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [ZZColorTheme shared].baseBackgroundColor;
+}
+
+- (void)updateStateToLoading:(BOOL)isLoading message:(NSString*)message
+{
+    if (ANIsEmpty(message))
+    {
+        message = @"Loading..."; // TODO: localizable
+    }
+    if (isLoading)
+    {
+        [SVProgressHUD showWithStatus:message];
+    }
+    else
+    {
+        [SVProgressHUD dismiss];
+    }
 }
 
 @end

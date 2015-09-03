@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface ZZGridViewHeader : UIView
 
 @property (nonatomic, strong) UIImageView* titleImageView;

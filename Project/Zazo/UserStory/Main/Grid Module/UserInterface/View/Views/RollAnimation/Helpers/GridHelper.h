@@ -3,9 +3,6 @@
 // Copyright (c) 2015 Maksim Bazarov. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
 /**
 - 1. Грид - сетка из 9 фреймов, 0 - центральный фрейм, и 8 тех что двигаются, ответсвенность:
 - рассчитать сетку (массив фреймов корректных позиций)

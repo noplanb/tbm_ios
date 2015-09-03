@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-
 @import CoreTelephony;
 
 #import "ZZAuthInteractor.h"
@@ -34,9 +33,16 @@
                             phone:(NSString*)phoneNumber
 {
     ZZUserDomainModel* model = [ZZUserDomainModel new];
-    model.firstName = firstName;
-    model.lastName = lastName;
-    model.mobileNumber = [NSString stringWithFormat:@"%@%@",[NSObject an_safeString:countryCode], [NSObject an_safeString:phoneNumber]];
+    model.firstName = [self _cleanText:firstName];
+    model.lastName = [self _cleanText:lastName];
+    
+    countryCode = [NSObject an_safeString:countryCode];
+    countryCode = [self _cleanNumber:countryCode];
+    
+    phoneNumber = [NSObject an_safeString:phoneNumber];
+    phoneNumber = [self _cleanNumber:phoneNumber];
+    
+    model.mobileNumber = [countryCode stringByAppendingString:phoneNumber];
     NSError* validationError = [self _validateUserModel:model countryCode:countryCode phoneNumber:phoneNumber];
     
     if (!validationError)
@@ -79,8 +85,6 @@
 }
 
 
-
-
 #pragma mark - ZZAccountTransportService
 
 - (void)registerUserWithModel:(ZZUserDomainModel *)user
@@ -116,47 +120,34 @@
 
     if (ANIsEmpty(model.firstName))
     {
-        return [ANErrorBuilder errorWithType:ANErrorTypeGeneral
-                                        code:kFormEmptyRequiredFieldFirstName
-                         descriptionArgument:NSLocalizedString(@"auth-controller.firstname.placeholder.title",nil)];
+        return [ANErrorBuilder errorWithType:ANErrorTypeGeneral code:kFormEmptyRequiredFieldFirstName];
     }
 
     if (ANIsEmpty(model.lastName))
     {
-        return [ANErrorBuilder errorWithType:ANErrorTypeGeneral
-                                        code:kFormEmptyRequiredFieldLastName
-                         descriptionArgument:NSLocalizedString(@"auth-controller.lastname.placeholder.title",nil)];
+        return [ANErrorBuilder errorWithType:ANErrorTypeGeneral code:kFormEmptyRequiredFieldLastName];
     }
 
     if (ANIsEmpty(countryCode))
     {
-        return [ANErrorBuilder errorWithType:ANErrorTypeGeneral
-                                        code:kFormEmptyRequiredFieldCountryCode
-                         descriptionArgument:NSLocalizedString(@"auth-controller.country.code.title", nil)];
+        return [ANErrorBuilder errorWithType:ANErrorTypeGeneral code:kFormEmptyRequiredFieldCountryCode];
     }
     
     if (ANIsEmpty(phoneNumber))
     {
-        return [ANErrorBuilder errorWithType:ANErrorTypeGeneral
-                                        code:kFormEmptyRequiredFieldMobilePhoneNumber
-                         descriptionArgument:NSLocalizedString(@"auth-controller.phone.placeholder.title", nil)];
+        return [ANErrorBuilder errorWithType:ANErrorTypeGeneral code:kFormEmptyRequiredFieldMobilePhoneNumber];
     }
     
     if (![self _isValidPhone:model.mobileNumber code:countryCode])
     {
-        return [ANErrorBuilder errorWithType:ANErrorTypeGeneral
-                                                code:kFormInvalidModilePhone
-                         descriptionArgument:NSLocalizedString(@"auth-controller.phone.placeholder.title", nil)]; //TODO: correct title
+        return [ANErrorBuilder errorWithType:ANErrorTypeGeneral code:kFormInvalidModilePhone];
     }
     return error;
 }
 
 - (BOOL)_isValidPhone:(NSString*)phone code:(NSString*)code
 {
-     NBPhoneNumberUtil *numberUtils = [NBPhoneNumberUtil new];
-    
-    //get default code by region
-    
+    NBPhoneNumberUtil *numberUtils = [NBPhoneNumberUtil new];
     NSString* region;
     if (!ANIsEmpty(code))
     {
@@ -194,6 +185,30 @@
 {
     NSLocale *loc = [NSLocale currentLocale];
     return [[loc objectForKey:NSLocaleCountryCode] lowercaseString];
+}
+
+
+- (NSString*)_cleanText:(NSString*)text
+{
+    NSError *error = nil;
+    NSArray *rxs = @[@"\\s+", @"\\W+", @"\\d+"];
+    for (NSString *rx in rxs)
+    {
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:rx
+                                                                               options:NSRegularExpressionCaseInsensitive
+                                                                                 error:&error];
+        text = [regex stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:@""];
+    }
+    return text;
+}
+
+- (NSString*)_cleanNumber:(NSString*)phone
+{
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\D+"
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:&error];
+    return [regex stringByReplacingMatchesInString:phone options:0 range:NSMakeRange(0, [phone length]) withTemplate:@""];
 }
 
 @end

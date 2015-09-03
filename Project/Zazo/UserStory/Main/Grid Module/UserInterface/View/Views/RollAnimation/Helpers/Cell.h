@@ -3,9 +3,6 @@
 // Copyright (c) 2015 Maksim Bazarov. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
 @interface Cell : UIView
 @property(nonatomic, strong) NSString *label;
 @property (nonatomic, strong) NSNumber* index;

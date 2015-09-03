@@ -114,7 +114,7 @@
     if (CGRectIntersectsRect(self.contentView.registrationView.phoneNumberTextField.frame, keyboarFrame))
     {
         CGRect intersectionFrame =  CGRectIntersection(self.contentView.registrationView.signInButton.frame, keyboarFrame);
-        [self chagneRegistartionViewPositionWithKeyboardHeight:(CGRectGetHeight(intersectionFrame) + CGRectGetHeight(self.contentView.registrationView.phoneNumberTextField.frame))];
+        [self changeRegistartionViewPositionWithKeyboardHeight:(CGRectGetHeight(intersectionFrame) + CGRectGetHeight(self.contentView.registrationView.phoneNumberTextField.frame))];
     }
     
     if (CGRectIntersectsRect(self.contentView.registrationView.signInButton.frame, keyboarFrame))
@@ -127,15 +127,14 @@
         self.contentView.registrationScrollBottomConstraint.offset = 0;
         self.contentView.scrollView.scrollEnabled = NO;
     }
-    
 }
 
 - (void)keyboardWillHide
 {
-    [self downRegistrationView];
+    [self scrollDownRegistrationView];
 }
 
-- (void)chagneRegistartionViewPositionWithKeyboardHeight:(CGFloat)keyboardHeight
+- (void)changeRegistartionViewPositionWithKeyboardHeight:(CGFloat)keyboardHeight
 {
     [UIView animateWithDuration:[self.animationDuration doubleValue] animations:^{
        
@@ -148,7 +147,7 @@
     }];
 }
 
-- (void)downRegistrationView
+- (void)scrollDownRegistrationView
 {
     [UIView animateWithDuration:[self.animationDuration doubleValue] animations:^{
         

@@ -3,8 +3,6 @@
 // Copyright (c) 2015 Maksim Bazarov. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 #import "POPAnimation.h"
 #import "POPAnimatableProperty.h"
 #import "POPDecayAnimation.h"

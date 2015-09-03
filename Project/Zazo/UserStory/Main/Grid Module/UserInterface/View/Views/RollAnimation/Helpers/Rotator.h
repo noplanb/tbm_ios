@@ -3,9 +3,6 @@
 // Copyright (c) 2015 Maksim Bazarov. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
 @class POPDecayAnimation;
 @class Grid;
 @class GridHelper;

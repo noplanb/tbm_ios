@@ -136,6 +136,7 @@ PODS:
     - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
   - Specta (1.0.3)
+  - SVProgressHUD (1.1.3)
   - Typhoon (3.1.9):
     - Typhoon/no-arc (= 3.1.9)
   - Typhoon/no-arc (3.1.9)
@@ -181,6 +182,7 @@ DEPENDENCIES:
   - SDCAutoLayout (~> 2.0.3)
   - SDWebImage (~> 3.7.3)
   - Specta (~> 1.0.3)
+  - SVProgressHUD (~> 1.1.3)
   - Typhoon (~> 3.1.8)
   - UIAlertView+Blocks (~> 0.9)
   - Valet (~> 2.0.2)
@@ -228,6 +230,7 @@ SPEC CHECKSUMS:
   SDCAutoLayout: e6885bb39ab8e2ec2ff84d158f38035f025f7420
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   Specta: cf3e4188cf35375c3ee2cd03f8db8f1f4ef98234
+  SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   Typhoon: b48a0ba0023f7ebc92d8693f79d4985dc0f94d13
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
   Valet: 05e94ab2495077d147879c6dd822782450a96785
