@@ -9,7 +9,7 @@
 #import "TBMVerificationAlertHandler.h"
 #import "TBMPhoneUtils.h"
 #import "TBMAlertControllerVisualStyle.h"
-#import "OBLogger.h"
+//#import "OBLogger.h"
 
 @interface TBMVerificationAlertHandler()
 @property (nonatomic) TBMAlertController *alertController;
@@ -35,9 +35,11 @@ static NSString *MESSAGE = @"We sent a code";
 
 #pragma mark instantiation
 
-- (instancetype) initWithPhoneNumber:(NSString *)phoneNumber delegate:(id<TBMVerificationAlertDelegate>)delegate{
+- (instancetype) initWithPhoneNumber:(NSString *)phoneNumber delegate:(id<TBMVerificationAlertDelegate>)delegate
+{
     self = [super init];
-    if (self != nil){
+    if (self != nil)
+    {
         self.delegate = delegate;
         self.phoneNumber = phoneNumber;
         self.alertController = [self makeAlertController];
@@ -52,20 +54,23 @@ static NSString *MESSAGE = @"We sent a code";
 
 #pragma mark interface
 
-- (void)presentAlert{
+- (void)presentAlert
+{
     [self.alertController presentWithCompletion:nil];
 }
 
 
 #pragma mark alert construction
 
-- (TBMAlertController *)makeAlertController{
+- (TBMAlertController *)makeAlertController
+{
     return [TBMAlertController alertControllerWithTitle:@"Enter Code"
                                                 message:@""
                                              forcePlain:[self forcePlain]];
 }
 
-- (void)addContentAndActionsToAlertController{
+- (void)addContentAndActionsToAlertController
+{
     [self.alertController.contentView addSubview:[self contentView]];
     [self.alertController addAction:[SDCAlertAction actionWithTitle:@"Cancel"
                                                style:SDCAlertActionStyleCancel
@@ -74,10 +79,10 @@ static NSString *MESSAGE = @"We sent a code";
     [self.alertController addAction:self.confirmationAction];
 }
 
-
 #pragma mark content view
 
-- (UIView *)contentView{
+- (UIView *)contentView
+{
     UIView *view = [[UIView alloc] initWithFrame: [self contentFrame]];
     view.backgroundColor = [UIColor clearColor];
     [view addSubview:[self enterCodeLabel]];
@@ -87,11 +92,13 @@ static NSString *MESSAGE = @"We sent a code";
     return view;
 }
 
-- (CGRect)contentFrame{
+- (CGRect)contentFrame
+{
     return CGRectMake(0, 0, [self contentOuterWidth] , [self contentHeight]);
 }
 
-- (float)contentInnerWidth{
+- (float)contentInnerWidth
+{
     return [self contentOuterWidth] - (2 * LayoutConstContentMargin);
 }
 
@@ -99,7 +106,8 @@ static NSString *MESSAGE = @"We sent a code";
     return self.alertController.visualStyle.width;
 }
 
-- (float)contentHeight{
+- (float)contentHeight
+{
     float height =  LayoutConstEnterCodeLabelHeight +
                         LayoutConstTextFieldHeight +
                         LayoutConstCallButtonHeight +
@@ -109,13 +117,15 @@ static NSString *MESSAGE = @"We sent a code";
 
 #pragma mark top label
 
-- (CGRect)enterCodeLabelFrame{
+- (CGRect)enterCodeLabelFrame
+{
     float height = LayoutConstEnterCodeLabelHeight;
     return CGRectMake(0, 0, [self contentOuterWidth], height);
 }
 
 
-- (UILabel *)enterCodeLabel{
+- (UILabel *)enterCodeLabel
+{
     NSString *text = [NSString stringWithFormat:@"We sent a code via text\nto %@.", [TBMPhoneUtils phone:self.phoneNumber withFormat:NBEPhoneNumberFormatINTERNATIONAL]];
     return [self labelWithText:text frame:[self enterCodeLabelFrame]];
 }
@@ -123,12 +133,14 @@ static NSString *MESSAGE = @"We sent a code";
 
 #pragma mark text field
 
-- (CGRect)textFieldFrame{
+- (CGRect)textFieldFrame
+{
     float y = [self enterCodeLabelFrame].origin.y + [self enterCodeLabelFrame].size.height + LayoutConstVerticalSpacing;
     return CGRectMake(LayoutConstContentMargin, y, [self contentInnerWidth], LayoutConstTextFieldHeight);
 }
 
-- (UITextField *)makeCodeTextField{
+- (UITextField *)makeCodeTextField
+{
     UITextField *tf = [[UITextField alloc] initWithFrame:[self textFieldFrame]];
     tf.keyboardType = UIKeyboardTypeNumberPad;
     tf.backgroundColor = [UIColor whiteColor];
@@ -143,12 +155,14 @@ static NSString *MESSAGE = @"We sent a code";
 
 #pragma mark call button
 
-- (CGRect)callButtonFrame{
+- (CGRect)callButtonFrame
+{
     float y = [self textFieldFrame].origin.y + (LayoutConstTextFieldHeight / 2) + LayoutConstVerticalSpacing;
     return CGRectMake(LayoutConstContentMargin, y, [self contentInnerWidth], LayoutConstCallButtonHeight);
 }
 
-- (UIButton *)makeCallButton{
+- (UIButton *)makeCallButton
+{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [button setTitle:@"Call Me Instead" forState:UIControlStateNormal];
     button.frame = [self callButtonFrame];
@@ -159,7 +173,8 @@ static NSString *MESSAGE = @"We sent a code";
 
 #pragma mark calling label
 
-- (UILabel *)makeCallingLabel{
+- (UILabel *)makeCallingLabel
+{
     UILabel *label = [self labelWithText:@"Calling you now..." frame:[self callButtonFrame]];
     label.hidden = YES;
     return label;
@@ -167,7 +182,8 @@ static NSString *MESSAGE = @"We sent a code";
 
 #pragma mark confirmation action
 
-- (SDCAlertAction *)makeCodeConfirmationAction{
+- (SDCAlertAction *)makeCodeConfirmationAction
+{
     SDCAlertAction *action = [SDCAlertAction actionWithTitle:@"Enter"
                                                        style:SDCAlertActionStyleCancel
                                                      handler:^(SDCAlertAction *action) {
@@ -180,11 +196,13 @@ static NSString *MESSAGE = @"We sent a code";
 
 #pragma mark helpers
 
-- (BOOL)isIphoneFour{
+- (BOOL)isIphoneFour
+{
     return [[UIScreen mainScreen] bounds].size.height < 568.0f;
 }
 
-- (BOOL)forcePlain{
+- (BOOL)forcePlain
+{
     // GARF: This is a hack to get around a bug we were not able to figure out relating to
     // iPhone 4S with running 8.0 not showing keyboard for code text field.
     // On 3.5" screens (e.g. iPhone 4S), need to force alert into "plain" mode, otherwise
@@ -192,11 +210,13 @@ static NSString *MESSAGE = @"We sent a code";
     return YES || [self isIphoneFour];
 }
 
-- (NSString *)formattedPhoneNumber{
+- (NSString *)formattedPhoneNumber
+{
     return [TBMPhoneUtils phone:self.phoneNumber withFormat:NBEPhoneNumberFormatINTERNATIONAL];
 }
 
-- (UILabel *)labelWithText:(NSString *)text frame:(CGRect)frame{
+- (UILabel *)labelWithText:(NSString *)text frame:(CGRect)frame
+{
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
     label.numberOfLines = 2;
     label.text = text;
@@ -207,17 +227,20 @@ static NSString *MESSAGE = @"We sent a code";
 
 #pragma mark delegate methods
 
--(void)enterCodeTextFieldDidChange:(UITextField *)tf {
+-(void)enterCodeTextFieldDidChange:(UITextField *)tf
+{
     self.confirmationAction.enabled = (tf.text.length > 0);
 }
 
--(void)didEnterCode{
+-(void)didEnterCode
+{
     if (self.delegate != nil  && [self.delegate respondsToSelector:@selector(didEnterVerificationCode:)])
         [self.delegate didEnterVerificationCode:[self.codeTextField text]];
 }
 
 
--(void)didTapCallMe{
+-(void)didTapCallMe
+{
     self.callMeButton.hidden = YES;
     self.callingLabel.hidden = NO;
     if (self.delegate != nil && [self.delegate respondsToSelector:@selector(didTapCallMe)])

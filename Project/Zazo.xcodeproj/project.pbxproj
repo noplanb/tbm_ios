@@ -103,13 +103,8 @@
 		07E257821B977865008D3371 /* TBMPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E2545E1B977864008D3371 /* TBMPreviewView.m */; };
 		07E257831B977865008D3371 /* TBMRegisterForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E254601B977864008D3371 /* TBMRegisterForm.m */; };
 		07E257841B977865008D3371 /* TBMRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E254621B977864008D3371 /* TBMRegisterViewController.m */; };
-		07E257851B977865008D3371 /* TBMSelectPhoneTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E254641B977864008D3371 /* TBMSelectPhoneTableDelegate.m */; };
 		07E257861B977865008D3371 /* TBMTableModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E254661B977864008D3371 /* TBMTableModal.m */; };
 		07E257871B977865008D3371 /* TBMTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E254681B977864008D3371 /* TBMTextField.m */; };
-		07E257881B977865008D3371 /* TBMVerfiicationAlertHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E254691B977864008D3371 /* TBMVerfiicationAlertHandler.m */; };
-		07E257891B977865008D3371 /* TBMAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E2546E1B977864008D3371 /* TBMAlertController.m */; };
-		07E2578A1B977865008D3371 /* TBMAlertControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E254701B977864008D3371 /* TBMAlertControllerView.m */; };
-		07E2578B1B977865008D3371 /* TBMAlertControllerVisualStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E254721B977864008D3371 /* TBMAlertControllerVisualStyle.m */; };
 		07E2578C1B977865008D3371 /* TBMBenchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E254751B977864008D3371 /* TBMBenchTableViewCell.m */; };
 		07E2578D1B977865008D3371 /* TBMBenchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E254771B977864008D3371 /* TBMBenchViewController.m */; };
 		07E2578E1B977865008D3371 /* TBMContactSearchTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E2547A1B977864008D3371 /* TBMContactSearchTableDelegate.m */; };
@@ -361,6 +356,11 @@
 		07E258841B977865008D3371 /* UIImage+PDF.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E257211B977865008D3371 /* UIImage+PDF.m */; };
 		07E258851B977865008D3371 /* UIView+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E257231B977865008D3371 /* UIView+Image.m */; };
 		07E258861B977865008D3371 /* Zazo.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 07E257241B977865008D3371 /* Zazo.entitlements */; };
+		07E2588E1B987E2F008D3371 /* ZZErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E2588D1B987E2F008D3371 /* ZZErrorHandler.m */; };
+		07E2589A1B987F2F008D3371 /* TBMAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E258911B987F2F008D3371 /* TBMAlertController.m */; };
+		07E2589B1B987F2F008D3371 /* TBMAlertControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E258931B987F2F008D3371 /* TBMAlertControllerView.m */; };
+		07E2589C1B987F2F008D3371 /* TBMAlertControllerVisualStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E258951B987F2F008D3371 /* TBMAlertControllerVisualStyle.m */; };
+		07E2589E1B987F2F008D3371 /* TBMVerfiicationAlertHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E258981B987F2F008D3371 /* TBMVerfiicationAlertHandler.m */; };
 		07F0E7EF1B8CD7A900036AB2 /* KeyChainWrapperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E21B8CD7A900036AB2 /* KeyChainWrapperTests.m */; };
 		07F0E7F01B8CD7A900036AB2 /* S3CredentialsManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E31B8CD7A900036AB2 /* S3CredentialsManagerTests.m */; };
 		07F0E7F11B8CD7A900036AB2 /* StringUtilsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E41B8CD7A900036AB2 /* StringUtilsTest.m */; };
@@ -615,20 +615,10 @@
 		07E254601B977864008D3371 /* TBMRegisterForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMRegisterForm.m; sourceTree = "<group>"; };
 		07E254611B977864008D3371 /* TBMRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMRegisterViewController.h; sourceTree = "<group>"; };
 		07E254621B977864008D3371 /* TBMRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMRegisterViewController.m; sourceTree = "<group>"; };
-		07E254631B977864008D3371 /* TBMSelectPhoneTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSelectPhoneTableDelegate.h; sourceTree = "<group>"; };
-		07E254641B977864008D3371 /* TBMSelectPhoneTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSelectPhoneTableDelegate.m; sourceTree = "<group>"; };
 		07E254651B977864008D3371 /* TBMTableModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMTableModal.h; sourceTree = "<group>"; };
 		07E254661B977864008D3371 /* TBMTableModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMTableModal.m; sourceTree = "<group>"; };
 		07E254671B977864008D3371 /* TBMTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMTextField.h; sourceTree = "<group>"; };
 		07E254681B977864008D3371 /* TBMTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMTextField.m; sourceTree = "<group>"; };
-		07E254691B977864008D3371 /* TBMVerfiicationAlertHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVerfiicationAlertHandler.m; sourceTree = "<group>"; };
-		07E2546A1B977864008D3371 /* TBMVerificationAlertHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVerificationAlertHandler.h; sourceTree = "<group>"; };
-		07E2546D1B977864008D3371 /* TBMAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAlertController.h; sourceTree = "<group>"; };
-		07E2546E1B977864008D3371 /* TBMAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAlertController.m; sourceTree = "<group>"; };
-		07E2546F1B977864008D3371 /* TBMAlertControllerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAlertControllerView.h; sourceTree = "<group>"; };
-		07E254701B977864008D3371 /* TBMAlertControllerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAlertControllerView.m; sourceTree = "<group>"; };
-		07E254711B977864008D3371 /* TBMAlertControllerVisualStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAlertControllerVisualStyle.h; sourceTree = "<group>"; };
-		07E254721B977864008D3371 /* TBMAlertControllerVisualStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAlertControllerVisualStyle.m; sourceTree = "<group>"; };
 		07E254741B977864008D3371 /* TBMBenchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMBenchTableViewCell.h; sourceTree = "<group>"; };
 		07E254751B977864008D3371 /* TBMBenchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMBenchTableViewCell.m; sourceTree = "<group>"; };
 		07E254761B977864008D3371 /* TBMBenchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMBenchViewController.h; sourceTree = "<group>"; };
@@ -1116,6 +1106,16 @@
 		07E257221B977865008D3371 /* UIView+Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Image.h"; sourceTree = "<group>"; };
 		07E257231B977865008D3371 /* UIView+Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Image.m"; sourceTree = "<group>"; };
 		07E257241B977865008D3371 /* Zazo.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Zazo.entitlements; sourceTree = "<group>"; };
+		07E2588C1B987E2F008D3371 /* ZZErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZErrorHandler.h; sourceTree = "<group>"; };
+		07E2588D1B987E2F008D3371 /* ZZErrorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZErrorHandler.m; sourceTree = "<group>"; };
+		07E258901B987F2F008D3371 /* TBMAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAlertController.h; sourceTree = "<group>"; };
+		07E258911B987F2F008D3371 /* TBMAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAlertController.m; sourceTree = "<group>"; };
+		07E258921B987F2F008D3371 /* TBMAlertControllerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAlertControllerView.h; sourceTree = "<group>"; };
+		07E258931B987F2F008D3371 /* TBMAlertControllerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAlertControllerView.m; sourceTree = "<group>"; };
+		07E258941B987F2F008D3371 /* TBMAlertControllerVisualStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAlertControllerVisualStyle.h; sourceTree = "<group>"; };
+		07E258951B987F2F008D3371 /* TBMAlertControllerVisualStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAlertControllerVisualStyle.m; sourceTree = "<group>"; };
+		07E258981B987F2F008D3371 /* TBMVerfiicationAlertHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVerfiicationAlertHandler.m; sourceTree = "<group>"; };
+		07E258991B987F2F008D3371 /* TBMVerificationAlertHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVerificationAlertHandler.h; sourceTree = "<group>"; };
 		07F0E7E21B8CD7A900036AB2 /* KeyChainWrapperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainWrapperTests.m; sourceTree = "<group>"; };
 		07F0E7E31B8CD7A900036AB2 /* S3CredentialsManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = S3CredentialsManagerTests.m; sourceTree = "<group>"; };
 		07F0E7E41B8CD7A900036AB2 /* StringUtilsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringUtilsTest.m; sourceTree = "<group>"; };
@@ -1845,14 +1845,10 @@
 				07E2545D1B977864008D3371 /* TBMPreviewView.h */,
 				07E2545E1B977864008D3371 /* TBMPreviewView.m */,
 				07E258871B984B2A008D3371 /* Registration */,
-				07E254631B977864008D3371 /* TBMSelectPhoneTableDelegate.h */,
-				07E254641B977864008D3371 /* TBMSelectPhoneTableDelegate.m */,
 				07E254651B977864008D3371 /* TBMTableModal.h */,
 				07E254661B977864008D3371 /* TBMTableModal.m */,
 				07E254671B977864008D3371 /* TBMTextField.h */,
 				07E254681B977864008D3371 /* TBMTextField.m */,
-				07E254691B977864008D3371 /* TBMVerfiicationAlertHandler.m */,
-				07E2546A1B977864008D3371 /* TBMVerificationAlertHandler.h */,
 				07E2546B1B977864008D3371 /* UserStory */,
 				07E2548B1B977864008D3371 /* Utils */,
 			);
@@ -1862,26 +1858,12 @@
 		07E2546B1B977864008D3371 /* UserStory */ = {
 			isa = PBXGroup;
 			children = (
-				07E2546C1B977864008D3371 /* AlertViewController */,
 				07E254731B977864008D3371 /* BenchViewController */,
 				07E254781B977864008D3371 /* Contacts */,
 				07E2547B1B977864008D3371 /* GridController */,
 				07E254831B977864008D3371 /* HomeViewController */,
 			);
 			path = UserStory;
-			sourceTree = "<group>";
-		};
-		07E2546C1B977864008D3371 /* AlertViewController */ = {
-			isa = PBXGroup;
-			children = (
-				07E2546D1B977864008D3371 /* TBMAlertController.h */,
-				07E2546E1B977864008D3371 /* TBMAlertController.m */,
-				07E2546F1B977864008D3371 /* TBMAlertControllerView.h */,
-				07E254701B977864008D3371 /* TBMAlertControllerView.m */,
-				07E254711B977864008D3371 /* TBMAlertControllerVisualStyle.h */,
-				07E254721B977864008D3371 /* TBMAlertControllerVisualStyle.m */,
-			);
-			path = AlertViewController;
 			sourceTree = "<group>";
 		};
 		07E254731B977864008D3371 /* BenchViewController */ = {
@@ -2418,6 +2400,7 @@
 		07E2552C1B977864008D3371 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				07E2588B1B987E2F008D3371 /* ErrorHandler */,
 				07E2552D1B977864008D3371 /* AdressBookProvider */,
 				07E255301B977864008D3371 /* Assemblies */,
 				07E255371B977864008D3371 /* ColorTheme */,
@@ -3640,6 +3623,7 @@
 		07E256AD1B977865008D3371 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				07E2588F1B987F2F008D3371 /* TBMAlertController */,
 				07E256AE1B977865008D3371 /* ANODA */,
 				07E2570E1B977865008D3371 /* TOWebViewController */,
 				07E257191B977865008D3371 /* UIImage+PDF */,
@@ -3980,6 +3964,30 @@
 				07E254621B977864008D3371 /* TBMRegisterViewController.m */,
 			);
 			name = Registration;
+			sourceTree = "<group>";
+		};
+		07E2588B1B987E2F008D3371 /* ErrorHandler */ = {
+			isa = PBXGroup;
+			children = (
+				07E2588C1B987E2F008D3371 /* ZZErrorHandler.h */,
+				07E2588D1B987E2F008D3371 /* ZZErrorHandler.m */,
+			);
+			path = ErrorHandler;
+			sourceTree = "<group>";
+		};
+		07E2588F1B987F2F008D3371 /* TBMAlertController */ = {
+			isa = PBXGroup;
+			children = (
+				07E258901B987F2F008D3371 /* TBMAlertController.h */,
+				07E258911B987F2F008D3371 /* TBMAlertController.m */,
+				07E258921B987F2F008D3371 /* TBMAlertControllerView.h */,
+				07E258931B987F2F008D3371 /* TBMAlertControllerView.m */,
+				07E258941B987F2F008D3371 /* TBMAlertControllerVisualStyle.h */,
+				07E258951B987F2F008D3371 /* TBMAlertControllerVisualStyle.m */,
+				07E258991B987F2F008D3371 /* TBMVerificationAlertHandler.h */,
+				07E258981B987F2F008D3371 /* TBMVerfiicationAlertHandler.m */,
+			);
+			path = TBMAlertController;
 			sourceTree = "<group>";
 		};
 		07F0E7E11B8CD7A900036AB2 /* tbm */ = {
@@ -4355,6 +4363,7 @@
 				07E257471B977865008D3371 /* TBMAbortRecordUsageHintPresenter.m in Sources */,
 				07E257C81B977865008D3371 /* _TBMVideo.m in Sources */,
 				07E257B41B977865008D3371 /* ZZAccountTransportService.m in Sources */,
+				07E2589A1B987F2F008D3371 /* TBMAlertController.m in Sources */,
 				07E257741B977865008D3371 /* TBMHttpManager.m in Sources */,
 				07E257D71B977865008D3371 /* ZZTouchControllerWithoutDelay.m in Sources */,
 				07E257C41B977865008D3371 /* TBMVideo.m in Sources */,
@@ -4396,7 +4405,6 @@
 				07E258801B977865008D3371 /* UIImage+TOWebViewControllerIcons.m in Sources */,
 				07E2572F1B977865008D3371 /* UIButton+TBMRoundedButton.m in Sources */,
 				07E258461B977865008D3371 /* Geometry.m in Sources */,
-				07E2578A1B977865008D3371 /* TBMAlertControllerView.m in Sources */,
 				07E257561B977865008D3371 /* TBMRecordHintView.m in Sources */,
 				07E257431B977865008D3371 /* TBMEventsFlowModulePresenter.m in Sources */,
 				07E258571B977865008D3371 /* ZZMenuVC.m in Sources */,
@@ -4422,7 +4430,6 @@
 				07E258751B977865008D3371 /* ANErrorHandler.m in Sources */,
 				07E257291B977865008D3371 /* AVAudioSession+TBMAudioSession.m in Sources */,
 				07E2581F1B977865008D3371 /* ZZDebugStateWireframe.m in Sources */,
-				07E2578B1B977865008D3371 /* TBMAlertControllerVisualStyle.m in Sources */,
 				07E2583F1B977865008D3371 /* ZZGridCollectionCell.m in Sources */,
 				07E258161B977865008D3371 /* ZZDebugStateInteractor.m in Sources */,
 				07E258551B977865008D3371 /* ZZMenuCellViewModel.m in Sources */,
@@ -4481,7 +4488,6 @@
 				07E257731B977865008D3371 /* TBMFriendGetter.m in Sources */,
 				07E2580F1B977865008D3371 /* ZZAuthRegistrationView.m in Sources */,
 				07E257991B977865008D3371 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
-				07E257881B977865008D3371 /* TBMVerfiicationAlertHandler.m in Sources */,
 				07E257691B977865008D3371 /* TBMFriendVideosInformation.m in Sources */,
 				07E257321B977865008D3371 /* TBMContactsManager.m in Sources */,
 				07E257331B977865008D3371 /* TBMDependencies.m in Sources */,
@@ -4510,6 +4516,7 @@
 				07E2581D1B977865008D3371 /* ZZDebugStateController.m in Sources */,
 				07E257461B977865008D3371 /* TBMFeatureUnlockDialogView.m in Sources */,
 				07E257AD1B977865008D3371 /* ZZContactDomainModel.m in Sources */,
+				07E2589B1B987F2F008D3371 /* TBMAlertControllerView.m in Sources */,
 				07E257771B977865008D3371 /* TBMVersionHandler.m in Sources */,
 				07E258731B977865008D3371 /* ANNetworkActivityManager.m in Sources */,
 				07E258191B977865008D3371 /* ZZDebugStateDataSource.m in Sources */,
@@ -4526,7 +4533,6 @@
 				07E257D81B977865008D3371 /* ZZKeychainDataProvider.m in Sources */,
 				07E257821B977865008D3371 /* TBMPreviewView.m in Sources */,
 				07E257DC1B977865008D3371 /* ZZVideoPlayer.m in Sources */,
-				07E257891B977865008D3371 /* TBMAlertController.m in Sources */,
 				07E2576C1B977865008D3371 /* TBMStateStringGenerator.m in Sources */,
 				07E258281B977865008D3371 /* ZZSecretSwitchCellViewModel.m in Sources */,
 				07E257DB1B977865008D3371 /* ZZStringUtils.m in Sources */,
@@ -4545,6 +4551,7 @@
 				07E2587F1B977865008D3371 /* TOWebViewController.m in Sources */,
 				07E258101B977865008D3371 /* ZZAuthTextField.m in Sources */,
 				07E258401B977865008D3371 /* ZZGridCollectionCellViewModel.m in Sources */,
+				07E2589E1B987F2F008D3371 /* TBMVerfiicationAlertHandler.m in Sources */,
 				07E257521B977865008D3371 /* TBMInviteSomeoneElseHintView.m in Sources */,
 				07E2584C1B977865008D3371 /* ZZUserRecorderGridView+AnimationExtension.m in Sources */,
 				07E257BE1B977865008D3371 /* ZZVideoNetworkTransport.m in Sources */,
@@ -4553,7 +4560,6 @@
 				07E2573A1B977865008D3371 /* TBMVideoIdUtils.m in Sources */,
 				07E258131B977865008D3371 /* ANDebugController.m in Sources */,
 				07E2587D1B977865008D3371 /* TOActivityChrome.m in Sources */,
-				07E257851B977865008D3371 /* TBMSelectPhoneTableDelegate.m in Sources */,
 				07E257251B977865008D3371 /* TBMAppDelegate+AppSync.m in Sources */,
 				07E258591B977865008D3371 /* ANActivityIndicator.m in Sources */,
 				07E258761B977865008D3371 /* ANEnumAdditions.m in Sources */,
@@ -4578,6 +4584,7 @@
 				07E257A11B977865008D3371 /* ZZKeyboardObserver.m in Sources */,
 				07E258341B977865008D3371 /* ZZEditFriendView.m in Sources */,
 				07E258111B977865008D3371 /* ZZAuthVC.m in Sources */,
+				07E2588E1B987E2F008D3371 /* ZZErrorHandler.m in Sources */,
 				07E2578F1B977865008D3371 /* TBMGridElementViewController.m in Sources */,
 				07E257371B977865008D3371 /* TBMPhoneUtils.m in Sources */,
 				07E2573B1B977865008D3371 /* TBMVideoPlayer.m in Sources */,
@@ -4601,6 +4608,7 @@
 				07E257A51B977865008D3371 /* ZZFriendModelsMapper.m in Sources */,
 				07E258521B977865008D3371 /* ZZMenuPresenter.m in Sources */,
 				07E257A71B977865008D3371 /* ZZGridModelsMapper.m in Sources */,
+				07E2589C1B987F2F008D3371 /* TBMAlertControllerVisualStyle.m in Sources */,
 				07E257951B977865008D3371 /* TBMViewUtils.m in Sources */,
 				07E2587B1B977865008D3371 /* ANWebViewController.m in Sources */,
 				07E2582F1B977865008D3371 /* ZZEditFriendEnumsAdditions.m in Sources */,

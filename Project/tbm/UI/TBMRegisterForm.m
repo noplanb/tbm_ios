@@ -30,7 +30,7 @@
 @property(nonatomic) UILabel *countryCodeHint;
 @property(nonatomic) UIButton *submit;
 
-@property(nonatomic, strong) TBMSecretScreenPresenter *secretScreen;
+//@property(nonatomic, strong) TBMSecretScreenPresenter *secretScreen;
 @end
 
 static const float TBMRegisterLogoTopMargin = 106.0;
@@ -106,8 +106,8 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
 //----------------
 
 - (void)setupRegisterForm {
-    [self addScrollView];
-    [self addContentView];
+//    [self addScrollView];
+//    [self addContentView];
     [self addTitle];
     [self addFirstName];
     [self addLastName];
@@ -119,7 +119,7 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
     [self addSubmit];
     [self addSpinner];
     [self setScrollViewSize];
-    [self addNextFields];
+//    [self addNextFields];
     [self.topView setNeedsDisplay];
     [self prefillUserData];
 }
@@ -142,16 +142,16 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
         }
     }
 }
-
-- (void)addScrollView {
-    self.scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:self.topView.frame];
-    [self.topView addSubview:self.scrollView];
-}
-
-- (void)addContentView {
-    self.contentView = [[UIView alloc] initWithFrame:self.topView.frame];
-    [self.scrollView addSubview:self.contentView];
-}
+//
+//- (void)addScrollView {
+//    self.scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:self.topView.frame];
+//    [self.topView addSubview:self.scrollView];
+//}
+//
+//- (void)addContentView {
+//    self.contentView = [[UIView alloc] initWithFrame:self.topView.frame];
+//    [self.scrollView addSubview:self.contentView];
+//}
 
 - (void)addTitle {
 //    CGRect f;
@@ -245,77 +245,77 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
 }
 
 - (void)addCountryCodeLabel {
-    CGRect f;
-    f.origin.x = self.countryCode.frame.origin.x;
-    f.origin.y = self.plus.frame.origin.y + self.plus.frame.size.height + 5.0;
-    f.size.width = self.countryCode.frame.size.width;
-    f.size.height = 10.0;
-
-    self.countryCodeLbl = [[UILabel alloc] initWithFrame:f];
-    self.countryCodeLbl.font = [UIFont systemFontOfSize:9];
-    self.countryCodeLbl.textAlignment = NSTextAlignmentCenter;
-    self.countryCodeLbl.textColor = [UIColor whiteColor];
-    [self.countryCodeLbl setText:@"Country Code"];
-    [self.contentView addSubview:self.countryCodeLbl];
+//    CGRect f;
+//    f.origin.x = self.countryCode.frame.origin.x;
+//    f.origin.y = self.plus.frame.origin.y + self.plus.frame.size.height + 5.0;
+//    f.size.width = self.countryCode.frame.size.width;
+//    f.size.height = 10.0;
+//
+//    self.countryCodeLbl = [[UILabel alloc] initWithFrame:f];
+//    self.countryCodeLbl.font = [UIFont systemFontOfSize:9];
+//    self.countryCodeLbl.textAlignment = NSTextAlignmentCenter;
+//    self.countryCodeLbl.textColor = [UIColor whiteColor];
+//    [self.countryCodeLbl setText:@"Country Code"];
+//    [self.contentView addSubview:self.countryCodeLbl];
 }
 
 - (void)addCountryCodeHint {
-    CGRect f;
-    f.origin.x = self.countryCode.frame.origin.x;
-    f.origin.y = self.countryCodeLbl.frame.origin.y + self.countryCodeLbl.frame.size.height + 5.0;
-    f.size.width = self.countryCode.frame.size.width;
-    f.size.height = 10.0;
-
-    self.countryCodeHint = [[UILabel alloc] initWithFrame:f];
-    self.countryCodeHint.font = [UIFont systemFontOfSize:9];
-    self.countryCodeHint.textAlignment = NSTextAlignmentCenter;
-    self.countryCodeHint.textColor = [UIColor whiteColor];
-    [self.countryCodeHint setText:@"USA +1"];
-    [self.contentView addSubview:self.countryCodeHint];
+//    CGRect f;
+//    f.origin.x = self.countryCode.frame.origin.x;
+//    f.origin.y = self.countryCodeLbl.frame.origin.y + self.countryCodeLbl.frame.size.height + 5.0;
+//    f.size.width = self.countryCode.frame.size.width;
+//    f.size.height = 10.0;
+//
+//    self.countryCodeHint = [[UILabel alloc] initWithFrame:f];
+//    self.countryCodeHint.font = [UIFont systemFontOfSize:9];
+//    self.countryCodeHint.textAlignment = NSTextAlignmentCenter;
+//    self.countryCodeHint.textColor = [UIColor whiteColor];
+//    [self.countryCodeHint setText:@"USA +1"];
+//    [self.contentView addSubview:self.countryCodeHint];
 }
 
 - (void)addMobileNumber {
-    CGRect f;
-    f.origin.x = self.countryCode.frame.origin.x + self.countryCode.frame.size.width + TBMRegisterCountryCodeRightMargin;
-    f.origin.y = self.countryCode.frame.origin.y;
-    f.size.width = [self textFieldLargeWidth] - self.countryCode.frame.size.width - TBMRegisterCountryCodeRightMargin;
-    f.size.height = TBMRegisterTextFieldHeight;
-
-    self.mobileNumber = [[TBMTextField alloc] initWithFrame:f];
-    self.mobileNumber.placeholder = @"Phone";
-    [self.mobileNumber setKeyboardType:UIKeyboardTypeNumberPad];
-    [self setCommonAttributesForTextField:self.mobileNumber];
-    [self.contentView addSubview:self.mobileNumber];
+//    CGRect f;
+//    f.origin.x = self.countryCode.frame.origin.x + self.countryCode.frame.size.width + TBMRegisterCountryCodeRightMargin;
+//    f.origin.y = self.countryCode.frame.origin.y;
+//    f.size.width = [self textFieldLargeWidth] - self.countryCode.frame.size.width - TBMRegisterCountryCodeRightMargin;
+//    f.size.height = TBMRegisterTextFieldHeight;
+//
+//    self.mobileNumber = [[TBMTextField alloc] initWithFrame:f];
+//    self.mobileNumber.placeholder = @"Phone";
+//    [self.mobileNumber setKeyboardType:UIKeyboardTypeNumberPad];
+//    [self setCommonAttributesForTextField:self.mobileNumber];
+//    [self.contentView addSubview:self.mobileNumber];
 }
 
 - (void)setCommonAttributesForTextField:(TBMTextField *)tf {
-    tf.delegate = self;
-    tf.font = [UIFont fontWithName:@"Helvetica-Light" size:TBMRegisterTextFieldFontSize];
-    tf.autocorrectionType = UITextAutocorrectionTypeNo;
-    tf.textColor = [UIColor blackColor];
-    tf.backgroundColor = [UIColor clearColor];
-    tf.borderStyle = UITextBorderStyleNone;
-
-    UIView *spacerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-    [tf setLeftViewMode:UITextFieldViewModeAlways];
-    [tf setLeftView:spacerView];
+//    tf.delegate = self;
+//    tf.font = [UIFont fontWithName:@"Helvetica-Light" size:TBMRegisterTextFieldFontSize];
+//    tf.autocorrectionType = UITextAutocorrectionTypeNo;
+//    tf.textColor = [UIColor blackColor];
+//    tf.backgroundColor = [UIColor clearColor];
+//    tf.borderStyle = UITextBorderStyleNone;
+//
+//    UIView *spacerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+//    [tf setLeftViewMode:UITextFieldViewModeAlways];
+//    [tf setLeftView:spacerView];
 }
 
 - (void)addSubmit {
-    CGRect f;
-    f.size.width = 170.0;
-    f.size.height = 55.0;
-    f.origin.x = (self.topView.frame.size.width - f.size.width) / 2.0;
-    f.origin.y = self.plus.frame.origin.y + self.plus.frame.size.height + TBMRegisterSubmitTopMargin;
-
-    self.submit = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.submit setBackgroundImage:[UIImage imageNamed:@"dark-button-bg"] forState:UIControlStateNormal];
-    [self.submit addTarget:self action:@selector(submitClick) forControlEvents:UIControlEventTouchUpInside];
-    self.submit.frame = f;
-    [self setCommonAttributesForButton:self.submit];
-    [self.submit setTitle:@"Sign In" forState:UIControlStateNormal];
-    self.submit.titleLabel.textColor = [UIColor whiteColor];
-    [self.contentView addSubview:self.submit];
+//    CGRect f;
+//    f.size.width = 170.0;
+//    f.size.height = 55.0;
+//    f.origin.x = (self.topView.frame.size.width - f.size.width) / 2.0;
+//    f.origin.y = self.plus.frame.origin.y + self.plus.frame.size.height + TBMRegisterSubmitTopMargin;
+//
+//    self.submit = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [self.submit setBackgroundImage:[UIImage imageNamed:@"dark-button-bg"] forState:UIControlStateNormal];
+//    [self.submit addTarget:self action:@selector(submitClick) forControlEvents:UIControlEventTouchUpInside];
+//    self.submit.frame = f;
+//    [self setCommonAttributesForButton:self.submit];
+//    [self.submit setTitle:@"Sign In" forState:UIControlStateNormal];
+//    self.submit.titleLabel.textColor = [UIColor whiteColor];
+//    [self.contentView addSubview:self.submit];
 }
 
 - (void)addSpinner {
@@ -342,24 +342,24 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
 }
 
 
-- (void)setCommonAttributesForButton:(UIButton *)b {
-    [b.titleLabel setFont:[UIFont systemFontOfSize:22]];
-    b.titleLabel.textAlignment = NSTextAlignmentCenter;
-}
+//- (void)setCommonAttributesForButton:(UIButton *)b {
+//    [b.titleLabel setFont:[UIFont systemFontOfSize:22]];
+//    b.titleLabel.textAlignment = NSTextAlignmentCenter;
+//}
 
-- (void)addNextFields {
-    self.firstName.nextField = self.lastName;
-    self.lastName.nextField = self.countryCode;
-    self.countryCode.nextField = self.mobileNumber;
-    self.mobileNumber.nextField = nil;
-}
-
-- (TBMSecretScreenPresenter *)secretScreen {
-    if (!_secretScreen) {
-        _secretScreen = [[TBMSecretScreenPresenter alloc] init];
-    }
-    return _secretScreen;
-}
+//- (void)addNextFields {
+//    self.firstName.nextField = self.lastName;
+//    self.lastName.nextField = self.countryCode;
+//    self.countryCode.nextField = self.mobileNumber;
+//    self.mobileNumber.nextField = nil;
+//}
+//
+//- (TBMSecretScreenPresenter *)secretScreen {
+//    if (!_secretScreen) {
+//        _secretScreen = [[TBMSecretScreenPresenter alloc] init];
+//    }
+//    return _secretScreen;
+//}
 
 
 @end

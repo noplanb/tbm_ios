@@ -61,6 +61,8 @@
 "auth-controller.country.code.example.title" = "Country code\n(USA +1)";
 "auth-controller.country.code.title" = "Country code";
 
+"auth-controller.bad-code.alert.title" = "Bad Code";
+"auth-controller.bad-code.alert.text" = "The code you enterred is wrong. Please try again";
 
 /**
  *  Grid Controller

@@ -17,11 +17,13 @@
 
 #pragma mark - Initialization
 
-+ (id)alertControllerWithTitle:(NSString *)title message:(NSString *)message {
++ (id)alertControllerWithTitle:(NSString *)title message:(NSString *)message
+{
     return [self alertControllerWithTitle:title message:message forcePlain:NO];
 }
 
-+ (id)alertControllerWithTitle:(NSString *)title message:(NSString *)message forcePlain:(BOOL)forcePlain {
++ (id)alertControllerWithTitle:(NSString *)title message:(NSString *)message forcePlain:(BOOL)forcePlain
+{
     // Alert title text
     NSMutableAttributedString *alertTitle = [[NSMutableAttributedString alloc] initWithString:title];
     [alertTitle addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, alertTitle.length)];
@@ -57,7 +59,8 @@
 
 #pragma mark - Lifecycle
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     
     // Main background color of alert
@@ -76,7 +79,8 @@
 
 #pragma mark - Alert View
 
-- (void)createAlert {
+- (void)createAlert
+{
     // Instantiate custom alert controller view
     NSAttributedString *title = self.attributedTitle ? : [self attributedStringForString:self.title];
     NSAttributedString *message = self.attributedMessage ? : [self attributedStringForString:self.message];
@@ -87,13 +91,15 @@
     [self.alert.contentView setTranslatesAutoresizingMaskIntoConstraints:NO];
 }
 
-- (NSAttributedString *)attributedStringForString:(NSString *)string {
+- (NSAttributedString *)attributedStringForString:(NSString *)string
+{
     return string ? [[NSAttributedString alloc] initWithString:string] : nil;
 }
 
 #pragma mark - Alert Actions
 
-- (void)alertControllerView:(SDCAlertControllerView *)sender didPerformAction:(SDCAlertAction *)action {
+- (void)alertControllerView:(SDCAlertControllerView *)sender didPerformAction:(SDCAlertAction *)action
+{
     if (!action.isEnabled || (self.shouldDismissBlock && !self.shouldDismissBlock(action))) {
         return;
     }

@@ -20,8 +20,10 @@
 
 @protocol ZZAuthInteractorOutput <NSObject>
 
-- (void)validationDidFailWithError:(NSError *)error;
-- (void)authDataRecievedForNumber:(NSString *)phonenumber;
+- (void)validationDidFailWithError:(NSError*)error;
+- (void)smsCodeValidationCompletedWithError:(NSError*)error;
+
+- (void)authDataRecievedForNumber:(NSString*)phonenumber;
 - (void)presentGridModule;
 
 @end

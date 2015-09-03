@@ -58,14 +58,15 @@ typedef NS_ENUM(NSInteger, ZZTextFieldType)
 
 - (void)continueRegistrationWithSMSCode:(NSString *)code
 {
-    [[ZZAccountTransportService registerUserFromModel:self.currentUser withVerificationCode:code] subscribeNext:^(NSDictionary *dict)
-    {
+    [[ZZAccountTransportService registerUserFromModel:self.currentUser withVerificationCode:code] subscribeNext:^(NSDictionary *dict) {
         ZZUserDomainModel *user = [FEMObjectDeserializer deserializeObjectExternalRepresentation:dict usingMapping:[ZZUserDomainModel mapping]];
         user.isRegistered = YES;
         //[ZZUserDataProvider upsertUserWithModel:user];
         
 //        [self loadFriendsFromServer];
         [self.output presentGridModule];
+    } error:^(NSError *error) {
+        [self.output smsCodeValidationCompletedWithError:error];
     }];
 }
 

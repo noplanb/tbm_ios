@@ -82,7 +82,8 @@
     _registerForm.mobileNumber.text = _mobileNumber;
 }
 
-- (BOOL)isValidInput{
+- (BOOL)isValidInput
+{
     if ([_firstName isEqualToString:@""]){
         [self showErrorDialogWithTitle:@"First Name" msg:@"Enter your first name."];
         return NO;

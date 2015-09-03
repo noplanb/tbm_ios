@@ -7,6 +7,7 @@
 //
 
 #import "ZZAuthPresenter.h"
+#import "ZZErrorHandler.h"
 
 @interface ZZAuthPresenter ()
 
@@ -44,6 +45,12 @@
     ANDispatchBlockToMainQueue(^{
         [self.userInterface showVerificationCodeInputViewWithPhoneNumber:phonenumber];
     });
+}
+
+- (void)smsCodeValidationCompletedWithError:(NSError *)error
+{
+    [[ZZErrorHandler shared] showErrorAlertWithLocalizedTitle:@"auth-controller.bad-code.alert.title"
+                                                      message:@"auth-controller.bad-code.alert.text"];
 }
 
 - (void)showAlertMessage:(NSString *)messge

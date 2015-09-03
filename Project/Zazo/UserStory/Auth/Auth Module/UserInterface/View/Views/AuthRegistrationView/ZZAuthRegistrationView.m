@@ -81,7 +81,7 @@ static CGFloat const kCodeLableLeftPadding = 3;
     {
         _titleImageView = [UIImageView new];
         CGFloat scale = [UIScreen mainScreen].scale;
-        UIImage* logo = [UIImage imageWithPDFNamed:@"app_logo" atHeight:20 * scale];
+        UIImage* logo = [UIImage imageWithPDFNamed:@"app_logo" atHeight:IS_IPAD ? 60 : 20 * scale];
         _titleImageView.image = [logo an_imageByTintingWithColor:[UIColor whiteColor]];
         [_titleImageView sizeToFit];
         [self addSubview:_titleImageView];
@@ -200,7 +200,7 @@ static CGFloat const kCodeLableLeftPadding = 3;
     {
         _signInButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_signInButton setTitle:NSLocalizedString(@"auth-controller.signIn.button.title", nil) forState:UIControlStateNormal];
-        _signInButton.titleLabel.font = [UIFont an_lightFontWithSize:21];
+        _signInButton.titleLabel.font = [UIFont an_regularFontWithSize:21];
         _signInButton.backgroundColor = [UIColor blackColor];
         _signInButton.layer.cornerRadius = kSignInButtonCornerRadius;
         _signInButton.accessibilityLabel = @"SignIn";

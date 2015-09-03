@@ -19,7 +19,7 @@
 
 @property (nonatomic) NSString *phoneNumber;
 
-- (instancetype) initWithPhoneNumber:(NSString *)phoneNumber delegate:(id <TBMVerificationAlertDelegate>)delegate;
+- (instancetype)initWithPhoneNumber:(NSString *)phoneNumber delegate:(id <TBMVerificationAlertDelegate>)delegate;
 - (void)presentAlert;
 
 @end
