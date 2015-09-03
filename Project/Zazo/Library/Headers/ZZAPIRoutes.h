@@ -51,7 +51,6 @@ static inline NSString* const apiBaseURL()
 
 static NSString* const kApiAuthRegistration = @"reg/reg";
 static NSString* const kApiAuthVerifyCode = @"reg/verify_code";
-static NSString* const kApiAuthDebugUser = @"reg/debug_get_user"; //TODO: debugUser?
 
 
 #pragma mark - Push Notifications

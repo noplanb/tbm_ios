@@ -37,6 +37,7 @@
 @property (nonatomic) NSString *auth;
 @property (nonatomic) NSString *mkey;
 @property (nonatomic) SDCAlertAction *enterCodeConfirmAlertAction;
+
 @end
 
 @implementation TBMRegisterViewController
@@ -61,11 +62,6 @@
     if (![self isValidInput])
         return;
     [self register];
-}
-
-- (void) didClickDebug{
-    [self debugGetUser];
-    return;
 }
 
 
@@ -228,23 +224,6 @@
     } else {
         [self showErrorDialogWithTitle:@"Bad Code" msg:@"The code you enterred is wrong. Please try again"];
     }
-}
-
-#pragma mark Debug_get_user
-
-- (void)debugGetUser{
-    [_registerForm startWaitingForServer];
-    [[TBMHttpManager manager] GET:@"reg/debug_get_user"
-                        parameters:@{@"mobile_number": self.registerForm.mobileNumber.text,
-                                     @"country_code": self.registerForm.countryCode.text}
-                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                               [_registerForm stopWaitingForServer];
-                               [self didReceiveCodeResponse:responseObject];
-                           }
-                           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                               [_registerForm stopWaitingForServer];
-                               [self connectionError];
-                           }];
 }
 
 #pragma mark Got user

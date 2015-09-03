@@ -1844,10 +1844,7 @@
 				07E2545C1B977864008D3371 /* TBMMarginLabel.m */,
 				07E2545D1B977864008D3371 /* TBMPreviewView.h */,
 				07E2545E1B977864008D3371 /* TBMPreviewView.m */,
-				07E2545F1B977864008D3371 /* TBMRegisterForm.h */,
-				07E254601B977864008D3371 /* TBMRegisterForm.m */,
-				07E254611B977864008D3371 /* TBMRegisterViewController.h */,
-				07E254621B977864008D3371 /* TBMRegisterViewController.m */,
+				07E258871B984B2A008D3371 /* Registration */,
 				07E254631B977864008D3371 /* TBMSelectPhoneTableDelegate.h */,
 				07E254641B977864008D3371 /* TBMSelectPhoneTableDelegate.m */,
 				07E254651B977864008D3371 /* TBMTableModal.h */,
@@ -3972,6 +3969,17 @@
 				07E257231B977865008D3371 /* UIView+Image.m */,
 			);
 			path = "UIImage+PDF";
+			sourceTree = "<group>";
+		};
+		07E258871B984B2A008D3371 /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				07E2545F1B977864008D3371 /* TBMRegisterForm.h */,
+				07E254601B977864008D3371 /* TBMRegisterForm.m */,
+				07E254611B977864008D3371 /* TBMRegisterViewController.h */,
+				07E254621B977864008D3371 /* TBMRegisterViewController.m */,
+			);
+			name = Registration;
 			sourceTree = "<group>";
 		};
 		07F0E7E11B8CD7A900036AB2 /* tbm */ = {

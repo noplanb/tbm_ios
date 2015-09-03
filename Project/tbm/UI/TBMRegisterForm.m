@@ -84,12 +84,6 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
     [self.delegate didClickSubmit];
 }
 
-- (void)debugClick {
-    DebugLog(@"debugClick");
-    [self.topView endEditing:YES];
-    [self.delegate didClickDebug];
-}
-
 - (BOOL)textFieldShouldReturn:(TBMTextField *)textField {
     BOOL didResign = [textField resignFirstResponder];
     if (!didResign) return NO;
@@ -125,7 +119,6 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
     [self addMobileNumber];
     [self addSubmit];
     [self addSpinner];
-    [self addDebug];
     [self setScrollViewSize];
     [self addNextFields];
     [self.topView setNeedsDisplay];
@@ -340,21 +333,6 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
     [self.spinner stopAnimating];
 }
 
-- (void)addDebug {
-    CGRect f;
-    f.origin.x = self.submit.frame.origin.x;
-    f.origin.y = self.spinner.frame.origin.y + self.spinner.frame.size.height + TBMRegisterSpinnerTopMargin;
-    f.size.width = self.submit.frame.size.width;
-    f.size.height = TBMRegisterTextFieldHeight;
-
-    self.debug = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [self.debug addTarget:self action:@selector(debugClick) forControlEvents:UIControlEventTouchUpInside];
-    self.debug.frame = f;
-    [self.debug setTitle:@"Debug" forState:UIControlStateNormal];
-    [self setCommonAttributesForButton:self.debug];
-    [self.debug setHidden:[ZZStoredSettingsManager shared].debugModeEnabled == NO];
-    [self.contentView addSubview:self.debug];
-}
 
 - (void)setScrollViewSize {
     float height = self.debug.frame.origin.y + self.debug.frame.size.height + 10.0;
