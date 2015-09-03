@@ -13,6 +13,6 @@
                       countryCode:(NSString*)countryCode
                             phone:(NSString*)phoneNumber;
 
-- (void)verifySMSCode:(NSString *)code;
+- (void)verifySMSCode:(NSString*)code;
 
 @end

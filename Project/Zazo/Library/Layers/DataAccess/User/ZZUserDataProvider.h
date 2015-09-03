@@ -11,6 +11,8 @@
 
 @interface ZZUserDataProvider : NSObject
 
++ (ZZUserDomainModel*)authenticatedUser;
+
 + (TBMUser*)entityFromModel:(ZZUserDomainModel*)model;
 + (ZZUserDomainModel*)modelFromEntity:(TBMUser*)entity;
 + (void)upsertUserWithModel:(ZZUserDomainModel*)model;

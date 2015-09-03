@@ -18,6 +18,7 @@
 #import "ZZFriendsTransportService.h"
 #import "NSObject+ANSafeValues.h"
 #import "ZZStoredSettingsManager.h"
+#import "NBPhoneNumber.h"
 
 @interface ZZAuthInteractor ()
 
@@ -27,26 +28,40 @@
 
 @implementation ZZAuthInteractor
 
-- (void)registrationWithFirstName:(NSString*)firstName
-                         lastName:(NSString*)lastName
-                      countryCode:(NSString*)countryCode
-                            phone:(NSString*)phoneNumber
+- (void)loadUserData
 {
-    ZZUserDomainModel* model = [ZZUserDomainModel new];
-    model.firstName = [self _cleanText:firstName];
-    model.lastName = [self _cleanText:lastName];
+    ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
     
-    countryCode = [NSObject an_safeString:countryCode];
-    countryCode = [self _cleanNumber:countryCode];
+    if (!ANIsEmpty(user.mobileNumber))
+    {
+        NSError* error;
+        NBPhoneNumber *phoneNumber = [[NBPhoneNumberUtil new] parse:user.mobileNumber defaultRegion:@"US" error:&error];
+        if (!error)
+        {
+            user.countryCode = [phoneNumber.countryCode stringValue];
+            user.plainPhoneNumber = [phoneNumber.nationalNumber stringValue];
+        }
+    }
+    [self.output userDataLoadedSuccessfully:user];
+}
+
+- (void)registerUser:(ZZUserDomainModel*)model
+{
+    model.firstName = [self _cleanText:model.firstName];
+    model.lastName = [self _cleanText:model.lastName];
     
-    phoneNumber = [NSObject an_safeString:phoneNumber];
-    phoneNumber = [self _cleanNumber:phoneNumber];
+    model.countryCode = [NSObject an_safeString:model.countryCode];
+    model.countryCode = [self _cleanNumber:model.countryCode];
     
-    model.mobileNumber = [countryCode stringByAppendingString:phoneNumber];
-    NSError* validationError = [self _validateUserModel:model countryCode:countryCode phoneNumber:phoneNumber];
+    model.plainPhoneNumber = [NSObject an_safeString:model.plainPhoneNumber];
+    model.plainPhoneNumber = [self _cleanNumber:model.plainPhoneNumber];
+    
+    model.mobileNumber = [model.countryCode stringByAppendingString:model.plainPhoneNumber];
+    NSError* validationError = [self _validateUserModel:model];
     
     if (!validationError)
     {
+        [self.output validationCompletedSuccessfully];
         self.currentUser = model;
         [self registerUserWithModel:model];
     }
@@ -64,7 +79,9 @@
         //[ZZUserDataProvider upsertUserWithModel:user];
         
         //        [self loadFriendsFromServer];
-        [self.output presentGridModule];
+        
+        [self.output smsCodeValidationCompletedSuccessfully];
+        
     } error:^(NSError *error) {
         [self.output smsCodeValidationCompletedWithError:error];
     }];
@@ -97,7 +114,10 @@
         [ZZStoredSettingsManager shared].userID = mkey;
         [ZZStoredSettingsManager shared].authToken = auth;
 
-        [self.output authDataRecievedForNumber:user.mobileNumber];
+        [self.output registrationCompletedSuccessfullyWithPhoneNumber:user.mobileNumber];
+        
+    } error:^(NSError *error) {
+        [self.output registrationDidFailWithError:error];
     }];
 }
 
@@ -114,7 +134,7 @@
 
 #pragma mark - Validation Part
 
-- (NSError*)_validateUserModel:(ZZUserDomainModel*)model countryCode:(NSString*)countryCode phoneNumber:(NSString*)phoneNumber
+- (NSError*)_validateUserModel:(ZZUserDomainModel*)model
 {
     NSError* error;
 
@@ -128,17 +148,17 @@
         return [ANErrorBuilder errorWithType:ANErrorTypeGeneral code:kFormEmptyRequiredFieldLastName];
     }
 
-    if (ANIsEmpty(countryCode))
+    if (ANIsEmpty(model.countryCode))
     {
         return [ANErrorBuilder errorWithType:ANErrorTypeGeneral code:kFormEmptyRequiredFieldCountryCode];
     }
     
-    if (ANIsEmpty(phoneNumber))
+    if (ANIsEmpty(model.plainPhoneNumber))
     {
         return [ANErrorBuilder errorWithType:ANErrorTypeGeneral code:kFormEmptyRequiredFieldMobilePhoneNumber];
     }
     
-    if (![self _isValidPhone:model.mobileNumber code:countryCode])
+    if (![self _isValidPhone:model.mobileNumber code:model.countryCode])
     {
         return [ANErrorBuilder errorWithType:ANErrorTypeGeneral code:kFormInvalidModilePhone];
     }

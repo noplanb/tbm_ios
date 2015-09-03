@@ -8,6 +8,7 @@
 
 #import "ZZAuthPresenter.h"
 #import "ZZErrorHandler.h"
+#import "ZZUserDomainModel.h"
 
 @interface ZZAuthPresenter ()
 
@@ -18,6 +19,7 @@
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZAuthViewInterface>*)userInterface
 {
     self.userInterface = userInterface;
+    [self.interactor loadUserData];
 }
 
 - (void)registrationWithFirstName:(NSString*)firstName
@@ -25,39 +27,70 @@
                       countryCode:(NSString*)countryCode
                             phone:(NSString*)phoneNumber
 {
-    [self.interactor registrationWithFirstName:firstName lastName:lastName countryCode:countryCode phone:phoneNumber];
+    ZZUserDomainModel* model = [ZZUserDomainModel new];
+    model.firstName = firstName;
+    model.lastName = lastName;
+    model.countryCode = countryCode;
+    model.plainPhoneNumber = phoneNumber;
+    
+    [self.interactor registerUser:model];
 }
 
 
 #pragma mark - Output
 
-- (void)validationDidFailWithError:(NSError*)error
+- (void)userDataLoadedSuccessfully:(ZZUserDomainModel*)user
+{
+    [self.userInterface updateFirstName:user.firstName lastName:user.lastName];
+    [self.userInterface updateCountryCode:user.countryCode phoneNumber:user.plainPhoneNumber];
+}
+
+- (void)validationDidFailWithError:(NSError *)error
 {
     [ZZErrorHandler showAlertWithError:error];
 }
 
-- (void)authDataRecievedForNumber:(NSString*)phonenumber
+- (void)validationCompletedSuccessfully
 {
+    [self.userInterface updateStateToLoading:YES message:@"Sending SMS Code..."];
+}
+
+- (void)registrationCompletedSuccessfullyWithPhoneNumber:(NSString *)phoneNumber
+{
+    [self.userInterface updateStateToLoading:NO message:nil];
     ANDispatchBlockToMainQueue(^{
-        [self.userInterface showVerificationCodeInputViewWithPhoneNumber:phonenumber];
+        [self.userInterface showVerificationCodeInputViewWithPhoneNumber:phoneNumber];
     });
+}
+
+- (void)registrationDidFailWithError:(NSError *)error
+{
+    [self.userInterface updateStateToLoading:NO message:nil];
+    [ZZErrorHandler showErrorAlertWithLocalizedTitle:@"Try Again" // TODO: local
+                                             message:@"Bad Connection"];
 }
 
 - (void)smsCodeValidationCompletedWithError:(NSError*)error
 {
+    [self.userInterface updateStateToLoading:NO message:nil];
+    
+    //TODO: separate errors with server invalid code error + bad connection and other
+    
     [ZZErrorHandler showErrorAlertWithLocalizedTitle:@"auth-controller.bad-code.alert.title"
                                              message:@"auth-controller.bad-code.alert.text"];
 }
 
-- (void)presentGridModule
+- (void)smsCodeValidationCompletedSuccessfully
 {
-    [self.wireframe presentGridModule];
+    [self.userInterface updateStateToLoading:NO message:nil];
+    [self.wireframe presentGridController];
 }
 
 #pragma mark - Module Interface
 
 - (void)verifySMSCode:(NSString*)code
 {
+    [self.userInterface updateStateToLoading:YES message:@"Checking SMS code..."];
     [self.interactor validateSMSCode:code];
 }
 

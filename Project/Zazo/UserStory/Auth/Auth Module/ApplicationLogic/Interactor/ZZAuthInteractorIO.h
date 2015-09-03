@@ -6,13 +6,12 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
+@class ZZUserDomainModel;
+
 @protocol ZZAuthInteractorInput <NSObject>
 
-- (void)registrationWithFirstName:(NSString*)firstName
-                         lastName:(NSString*)lastName
-                      countryCode:(NSString*)countryCode
-                            phone:(NSString*)phoneNumber;
-
+- (void)loadUserData;
+- (void)registerUser:(ZZUserDomainModel*)model;
 - (void)validateSMSCode:(NSString*)code;
 
 @end
@@ -20,10 +19,15 @@
 
 @protocol ZZAuthInteractorOutput <NSObject>
 
-- (void)validationDidFailWithError:(NSError*)error;
-- (void)smsCodeValidationCompletedWithError:(NSError*)error;
+- (void)userDataLoadedSuccessfully:(ZZUserDomainModel*)user;
 
-- (void)authDataRecievedForNumber:(NSString*)phonenumber;
-- (void)presentGridModule;
+- (void)validationCompletedSuccessfully;
+- (void)validationDidFailWithError:(NSError*)error;
+
+- (void)registrationCompletedSuccessfullyWithPhoneNumber:(NSString*)phoneNumber;
+- (void)registrationDidFailWithError:(NSError*)error;
+
+- (void)smsCodeValidationCompletedWithError:(NSError*)error;
+- (void)smsCodeValidationCompletedSuccessfully;
 
 @end

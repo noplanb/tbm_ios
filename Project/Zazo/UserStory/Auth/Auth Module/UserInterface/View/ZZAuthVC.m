@@ -10,6 +10,7 @@
 #import "ZZAuthContentView.h"
 #import "ZZKeyboardObserver.h"
 #import "ZZTextFieldsDelegate.h"
+#import "NSObject+ANSafeValues.h"
 
 @interface ZZAuthVC ()<ZZKeyboardObserverProtocol>
 
@@ -74,7 +75,27 @@
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
 }
 
-- (void)showVerificationCodeInputViewWithPhoneNumber:(NSString *)phoneNumber // TODO: tbmalertcontroller
+- (void)updateFirstName:(NSString*)firstName lastName:(NSString*)lastName
+{
+    ZZAuthRegistrationView* view = self.contentView.registrationView;
+    ANDispatchBlockToMainQueue(^{
+       
+        view.firstNameTextField.text = [NSObject an_safeString:firstName];
+        view.lastNameTextField.text = [NSObject an_safeString:lastName];
+    });
+}
+
+- (void)updateCountryCode:(NSString*)countryCode phoneNumber:(NSString*)phoneNumber
+{
+    ZZAuthRegistrationView* view = self.contentView.registrationView;
+    ANDispatchBlockToMainQueue(^{
+        
+        view.phoneCodeTextField.text = [NSObject an_safeString:countryCode];
+        view.phoneNumberTextField.text = [NSObject an_safeString:phoneNumber];
+    });
+}
+
+- (void)showVerificationCodeInputViewWithPhoneNumber:(NSString*)phoneNumber // TODO: tbmalertcontroller
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:phoneNumber
                                                     message:@"Enter verification code:"
@@ -106,7 +127,7 @@
 
 #pragma mark - Keyboard observer
 
-- (void)keyboardChangeFrameWithAnimationDuration:(NSNumber *)animationDuration
+- (void)keyboardChangeFrameWithAnimationDuration:(NSNumber*)animationDuration
                               withKeyboardHeight:(CGFloat)keyboardHeight
                                withKeyboardFrame:(CGRect)keyboarFrame
 {

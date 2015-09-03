@@ -11,6 +11,7 @@
 #import "TBMStringUtils.h"
 #import "OBLogger.h"
 #import "NSObject+ANSafeValues.h"
+#import "NSString+ANAdditions.h"
 
 static const NSString *VH_RESULT_KEY = @"result";
 static const NSString *VH_UPDATE_SCHEMA_REQUIRED = @"update_schema_required";
@@ -53,9 +54,11 @@ static const NSString *VH_CURRENT = @"current";
 {
     NSString* version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     
+    version = [version an_stripAllNonNumericCharacters];
+    
     [[TBMHttpManager manager]
       GET:@"version/check_compatibility"
-      parameters:@{@"device_platform": @"ios", @"version": [NSObject an_safeString:version]}
+      parameters:@{@"device_platform": @"ios", @"version": [version integerValue]}
       success:^(AFHTTPRequestOperation *operation, id responseObject){
           OB_INFO(@"checkVersionCompatibility: success: %@", [responseObject objectForKey:@"result"]);
           if (_delegate)

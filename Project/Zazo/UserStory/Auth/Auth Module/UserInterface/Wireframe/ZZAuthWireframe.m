@@ -58,7 +58,7 @@
     [self.presentedController popViewControllerAnimated:YES];
 }
 
-- (void)presentGridModule
+- (void)presentGridController
 {
     ZZMenuWireframe* menuwireframe = [ZZMenuWireframe new];
     [menuwireframe presentMenuControllerFromWindow:self.authController.view.window];

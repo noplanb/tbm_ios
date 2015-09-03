@@ -13,6 +13,17 @@
 
 @implementation ZZUserDataProvider
 
++ (ZZUserDomainModel *)authenticatedUser
+{
+    NSArray* users = [TBMUser MR_findAllInContext:[self _context]];
+    if (users.count > 1)
+    {
+        // TODO: dispatch message with dupples
+    }
+    TBMUser* user = [users firstObject];
+    return [self modelFromEntity:user];
+}
+
 + (TBMUser*)entityFromModel:(ZZUserDomainModel*)model
 {
     TBMUser* entity = [TBMUser an_objectWithItemID:model.idTbm context:[self _context]];

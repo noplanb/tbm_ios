@@ -29,6 +29,9 @@ extern const struct ZZUserDomainModelAttributes {
 @property (nonatomic, copy) NSString* mobileNumber;
 @property (nonatomic, assign) BOOL isRegistered;
 
+@property (nonatomic, copy) NSString* countryCode;
+@property (nonatomic, copy) NSString* plainPhoneNumber;
+
 + (FEMObjectMapping*)mapping;
 
 @end

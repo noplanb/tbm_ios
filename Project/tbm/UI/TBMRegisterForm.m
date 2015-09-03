@@ -319,26 +319,26 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
 }
 
 - (void)addSpinner {
-    CGRect f;
-    f.origin.x = (self.screenWidth / 2) - 50;
-    f.origin.y = self.submit.frame.origin.y + self.submit.frame.size.height + TBMRegisterSpinnerTopMargin;
-    f.size.width = 100;
-    f.size.height = TBMRegisterTextFieldHeight;
-
-    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.spinner.frame = f;
-    [self.contentView addSubview:self.spinner];
-    [self.spinner stopAnimating];
+//    CGRect f;
+//    f.origin.x = (self.screenWidth / 2) - 50;
+//    f.origin.y = self.submit.frame.origin.y + self.submit.frame.size.height + TBMRegisterSpinnerTopMargin;
+//    f.size.width = 100;
+//    f.size.height = TBMRegisterTextFieldHeight;
+//
+//    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//    self.spinner.frame = f;
+//    [self.contentView addSubview:self.spinner];
+//    [self.spinner stopAnimating];
 }
 
 
 - (void)setScrollViewSize
 {
-    float height = 10.0;
-    self.scrollView.contentSize = CGSizeMake(self.screenWidth, height);
-    CGRect f = self.contentView.frame;
-    f.size.height = height;
-    self.contentView.frame = f;
+//    float height = 10.0;
+//    self.scrollView.contentSize = CGSizeMake(self.screenWidth, height);
+//    CGRect f = self.contentView.frame;
+//    f.size.height = height;
+//    self.contentView.frame = f;
 }
 
 

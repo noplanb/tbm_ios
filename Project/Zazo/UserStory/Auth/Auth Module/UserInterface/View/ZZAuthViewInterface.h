@@ -9,5 +9,9 @@
 @protocol ZZAuthViewInterface <NSObject>
 
 - (void)showVerificationCodeInputViewWithPhoneNumber:(NSString *)phoneNumber;
+- (void)updateStateToLoading:(BOOL)isLoading message:(NSString*)message;
+
+- (void)updateFirstName:(NSString*)firstName lastName:(NSString*)lastName;
+- (void)updateCountryCode:(NSString*)countryCode phoneNumber:(NSString*)phoneNumber;
 
 @end

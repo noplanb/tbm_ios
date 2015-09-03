@@ -11,6 +11,6 @@
 - (void)presentAuthControllerFromWindow:(UIWindow*)window;
 - (void)presentAuthControllerFromNavigationController:(UINavigationController*)nc;
 - (void)dismissAuthController;
-- (void)presentGridModule;
+- (void)presentGridController;
 
 @end
