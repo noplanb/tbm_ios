@@ -16,10 +16,16 @@
     return [self MR_createEntityInContext:[self _context]];
 }
 
-+ (void)destroyAll
++ (instancetype)createInContext:(NSManagedObjectContext *)context
 {
-    [self MR_truncateAllInContext:[self _context]];
-    [[self _context] MR_saveToPersistentStoreAndWait];
+    return [self MR_createEntityInContext:context];
+}
+
+
++ (void)destroyAllOncontext:(NSManagedObjectContext*)context
+{
+    [self MR_truncateAllInContext:context];
+    [context MR_saveToPersistentStoreAndWait];
 }
 
 + (NSArray *)all

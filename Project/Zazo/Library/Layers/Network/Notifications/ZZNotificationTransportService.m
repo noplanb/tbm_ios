@@ -86,10 +86,10 @@ static const struct
                                            status:(NSString*)status
                                              from:(ZZUserDomainModel*)user
 {
-    NSDictionary* parameters = @{ZZNotificationsServerParameters.targetMKey : model.mKey,
-                                 ZZNotificationsServerParameters.toUserMKey : user.mkey,
-                                 ZZNotificationsServerParameters.status : status,
-                                 ZZNotificationsServerParameters.videoItemID : videoItemID};
+    NSDictionary* parameters = @{ZZNotificationsServerParameters.targetMKey     : model.mKey,
+                                 ZZNotificationsServerParameters.toUserMKey     : user.mkey,
+                                 ZZNotificationsServerParameters.status         : status,
+                                 ZZNotificationsServerParameters.videoItemID    : videoItemID};
     
     return [ZZNotificationsTransport sendVideoStatusUpdateNotificationWithParameters:parameters];
 }

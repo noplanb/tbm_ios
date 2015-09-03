@@ -111,7 +111,9 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 
 - (void)sendPushTokenToServer:(NSString *)token {
     OB_INFO(@"sendPushTokenToServer");
-    NSDictionary *params = @{@"mkey" : [TBMUser getUser].mkey,
+    TBMUser *me = [TBMUser getUser];
+    NSString *myMkey = me.mkey;
+    NSDictionary *params = @{@"mkey" : myMkey,
 #ifdef DEBUG
                              @"device_build" : @"dev",
                              

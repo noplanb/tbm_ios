@@ -22,6 +22,7 @@
 
 + (instancetype)getUser
 {
+    NSArray* users = [self MR_findAll];
     return [self MR_findFirstInContext:[self _context]]; //TODO: ??????/ // //!!! /  11111 ARGHH!
 }
 
@@ -39,7 +40,11 @@
 
 + (instancetype)createWithServerParams:(NSDictionary *)params
 {
-    TBMUser *user = [TBMUser createNewUser];
+    NSManagedObjectContext* context = [self _context];
+    [self MR_truncateAllInContext:context];
+    [context MR_saveToPersistentStoreAndWait];
+    
+    TBMUser *user = [self MR_createEntityInContext:context];
     
     user.firstName = [params objectForKey:SERVER_PARAMS_USER_FIRST_NAME_KEY];
     user.lastName = [params objectForKey:SERVER_PARAMS_USER_LAST_NAME_KEY];
@@ -62,7 +67,12 @@
 
 + (void)saveRegistrationData:(NSDictionary *)params
 {
-    TBMUser *user = [TBMUser createNewUser];
+    NSManagedObjectContext* context = [self _context];
+    [self MR_truncateAllInContext:context];
+    [context MR_saveToPersistentStoreAndWait];
+    
+    TBMUser *user = [self MR_createEntityInContext:context];
+    
     if (!user) {
         return;
     }

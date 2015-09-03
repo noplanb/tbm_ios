@@ -54,7 +54,7 @@
         return NO;
     }
 
-    return ![dataSource messagePlayedState] && [dataSource friendsCount] == 1;
+    return ((![dataSource messagePlayedState]) && ([dataSource friendsCount] == 1));
 
 }
 
@@ -78,6 +78,7 @@
 {
     [(TBMPlayHintView *) self.dialogView addRecordTip];
 }
+
 - (void)setupPlayTip
 {
     [(TBMPlayHintView *) self.dialogView setupPlayTip];

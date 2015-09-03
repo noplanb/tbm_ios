@@ -12,6 +12,7 @@
 #import "TBMDialogViewInterface.h"
 
 @class TBMFeatureUnlockModulePresenter;
+@class TBMSoundEffect;
 
 @interface TBMFeatureUnlockDialogView : UIView <TBMDialogViewInterface>
 

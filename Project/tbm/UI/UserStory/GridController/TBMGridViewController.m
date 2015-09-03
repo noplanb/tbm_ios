@@ -14,6 +14,8 @@
 #import "TBMVideoIdUtils.h"
 #import "TBMVideoProcessor.h"
 #import "TBMAlertController.h"
+#import "NSManagedObjectContext+MagicalSaves.h"
+#import "MagicalRecord.h"
 
 @interface TBMGridViewController ()
 @property(nonatomic) NSArray *gridViews;
@@ -35,11 +37,11 @@
 //----------
 - (instancetype)init {
     self = [super init];
-    if (self != nil) {
+    if (self != nil)
+    {
         _appDelegate = (TBMAppDelegate *) [[UIApplication sharedApplication] delegate];
         [self registerAsAppEventsDelegate];
         [self setupGridElement];
-
     }
     return self;
 }
@@ -147,18 +149,24 @@
     }
 }
 
-- (void)createGridElements {
-    [TBMGridElement destroyAll];
-
-    NSArray *friends = [TBMFriend all];
-    for (NSInteger i = 0; i < 8; i++) {
-        TBMGridElement *ge = [TBMGridElement create];
-        if (i < friends.count) {
-            ge.friend = friends[i];
+- (void)createGridElements
+{
+    NSManagedObjectContext* context = [NSManagedObjectContext MR_context];
+    [TBMGridElement destroyAllOncontext:context];
+    
+    NSArray *friends = [TBMFriend MR_findAllInContext:context];
+    
+    for (NSInteger i = 0; i < 8; i++)
+    {
+        TBMGridElement *ge = [TBMGridElement createInContext:context];
+        ge.index = @(i);
+        if (i < friends.count)
+        {
+            TBMFriend *aFriend = friends[i];
+            ge.friend = aFriend;
         }
-
-        [ge setIntIndex:i];
     }
+    [context MR_saveToPersistentStoreAndWait];
 }
 
 
