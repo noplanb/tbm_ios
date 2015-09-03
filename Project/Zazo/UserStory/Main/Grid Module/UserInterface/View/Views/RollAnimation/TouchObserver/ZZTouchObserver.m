@@ -12,6 +12,7 @@
 
 #import "ANSectionModel.h"
 #import "ZZGridDomainModel.h"
+#import "ZZGridCollectionCellViewModel.h"
 
 @interface ZZTouchObserver () <GridDelegate>
 
@@ -81,6 +82,14 @@
     if (touch.phase == UITouchPhaseBegan)
     {
         self.initialLocation = [touch locationInView:self.gridView.collectionView];
+        NSIndexPath* indexPath = [self.gridView.collectionView indexPathForItemAtPoint:self.initialLocation];
+        UICollectionViewCell* cell = [self.gridView.collectionView cellForItemAtIndexPath:indexPath];
+        if (cell.isHidden && !self.grid.isHidden)
+        {
+            [self showMovingCell];
+            self.grid.hidden = YES;
+        }
+      
     }
     
     if (self.grid.hidden && touch.phase == UITouchPhaseMoved && self.gridView.isRotationEnabled)
@@ -134,6 +143,7 @@
         {
             ZZGridCollectionCell* gridCell = (ZZGridCollectionCell*)obj;
             [gridCell makeActualScreenShoot];
+            
             [self.movingViewArray enumerateObjectsUsingBlock:^(Cell* fakeCell, NSUInteger idx, BOOL *stop) {
                 if (CGRectContainsPoint(gridCell.frame, fakeCell.center))
                 {
@@ -164,6 +174,8 @@
         if ([cell isKindOfClass:[ZZGridCollectionCell class]])
         {
             cell.hidden = YES;
+            ZZGridCollectionCell* gridCell = (ZZGridCollectionCell *)cell;
+            [gridCell stopVideoPlaying];
         }
     }];
 }

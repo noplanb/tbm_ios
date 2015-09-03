@@ -13,87 +13,66 @@
 #import "ZZVideoRecorder.h"
 
 
-@interface ZZVideoPlayer ()
+@interface ZZVideoPlayer () <UIGestureRecognizerDelegate>
 
-@property (nonatomic, weak) UIView <ZZVideoPlayerDelegate>* presentedView;
+@property (nonatomic, weak) UIView * presentedView;
 @property (nonatomic, strong) MPMoviePlayerController* moviePlayerController;
 
 @property (nonatomic, strong) AVPlayer* avplayer;
 @property (nonatomic, strong) AVPlayerLayer* avPlayerLayer;
+@property (nonatomic, strong) UITapGestureRecognizer *recognizer;
+@property (nonatomic, assign) BOOL isPlayVideo;
+@property (nonatomic, strong) UIButton* tapButton;
 
 @end
 
 @implementation ZZVideoPlayer
 
-- (instancetype)initWithVideoPalyerView:(UIView <ZZVideoPlayerDelegate> *)presentedView
+- (instancetype)initWithVideoPlayerView:(UIView *)presentedView
 {
     if (self == [super init])
     {
         self.presentedView = presentedView;
-        [self configureMoviePlayer];
+        self.tapButton = [UIButton new];
     }
     
     return self;
 }
 
-- (void)configureMoviePlayer
-{
-//    self.moviePlayerController = [[MPMoviePlayerController alloc] init];
-//    self.moviePlayerController.controlStyle = MPMovieControlStyleNone;
-//    [self.presentedView addSubview:self.moviePlayerController.view];
-//    [self.moviePlayerController.view mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo(self.presentedView);
-//    }];
-//    
-//    
-//    [self.presentedView bringSubviewToFront:self.moviePlayerController.view];
-//    self.moviePlayerController.view.hidden = YES;
-}
-
-
 - (void)setupMoviePlayerWithContentUrl:(NSURL *)contentUrl
 {
-    
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"sample_iTunes" ofType:@"mov"];
-    NSURL *url = [NSURL fileURLWithPath:path];
-
-    BOOL exist =  [[NSFileManager defaultManager] fileExistsAtPath:path];
-    
-    
-//    self.avplayer = [[AVPlayer alloc] ini];
-//    self.avPlayerLayer =[AVPlayerLayer playerLayerWithPlayer:self.avplayer];
-//    [self.avPlayerLayer setFrame:self.presentedView.frame];
-//  
-//    [self.presentedView.layer addSublayer:self.avPlayerLayer];
-//
-//    
-//    [self.avplayer seekToTime:kCMTimeZero];
-//    self.avPlayerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-//    [self.avplayer play];
-//    
-    
     self.moviePlayerController = [[MPMoviePlayerController alloc] initWithContentURL:contentUrl];
     self.moviePlayerController.controlStyle = MPMovieControlStyleNone;
     [[self.moviePlayerController view] setFrame:self.presentedView.bounds];
+    self.moviePlayerController.view.backgroundColor = [UIColor clearColor];
     
-    [self.presentedView addSubview:self.moviePlayerController.view];
-    [self.presentedView bringSubviewToFront:self.moviePlayerController.view];
-    [self.moviePlayerController prepareToPlay];
+    [self.moviePlayerController.view addSubview:self.tapButton];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.moviePlayerController play];
-    });
-    
+    [self.tapButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.moviePlayerController.view);
+    }];
+    [self.tapButton addTarget:self action:@selector(stopVideo) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)playVideo
 {
+    self.isPlayVideo = YES;
+    [self.presentedView addSubview:self.moviePlayerController.view];
+    [self.presentedView bringSubviewToFront:self.moviePlayerController.view];
     [self.moviePlayerController play];
 }
 
 - (void)stopVideo
 {
+    self.isPlayVideo = NO;
+    [self.moviePlayerController.view removeFromSuperview];
     [self.moviePlayerController stop];
+    
+}
+
+- (BOOL)isPlaying
+{
+    return self.isPlayVideo;
 }
 
 @end

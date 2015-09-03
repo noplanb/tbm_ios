@@ -29,12 +29,13 @@
 - (void)stopRecording
 {
     [self.delegate stopRecording];
-    self.badgeNumber = @(1); // TODO: only for test!!!
+    self.hasUploadedVideo = YES;
 }
 
 - (void)nudgeSelected
 {
     [self.delegate nudgeSelectedWithUserModel:self.domainModel.relatedUser];
 }
+
 
 @end

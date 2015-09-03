@@ -1,14 +1,14 @@
 //
-//  ZZUserRecorderGridView+AnimationExtension.m
+//  ZZGridCollectionCellBaseStateView+Animation.m
 //  Zazo
 //
-//  Created by ANODA on 18/08/15.
-//  Copyright (c) 2015 ANODA. All rights reserved.
+//  Created by Dmitriy Frolow on 02/09/15.
+//  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZUserRecorderGridView+AnimationExtension.h"
+#import "ZZGridCollectionCellBaseStateView+Animation.h"
 
-@implementation ZZUserRecorderGridView (AnimationExtension)
+@implementation ZZGridCollectionCellBaseStateView (Animation)
 
 #pragma mark - Upload Animation
 
@@ -17,13 +17,12 @@
     [self _hideDownloadViews];
     [self _showUploadViews];
     
-    CGFloat animValue = CGRectGetWidth(self.frame) - CGRectGetWidth(self.uploadingIndicator.frame);
+    CGFloat animValue = CGRectGetWidth(self.frame) - [self _indicatorCalculatedWidth];
     [UIView animateWithDuration:0.4 animations:^{
         self.leftUploadIndicatorConstraint.offset = animValue;
         [self layoutIfNeeded];
     } completion:^(BOOL finished) {
         self.uploadBarView.hidden = YES;
-//        [self showDownloadAnimationWithNewVideoCount:1];// TODO: only for animation test
     }];
 }
 
@@ -44,6 +43,19 @@
     self.leftUploadIndicatorConstraint.offset = 0;
 }
 
+
+- (void)_showUploadIconWithoutAnimation
+{
+    self.uploadingIndicator.hidden = NO;
+    CGFloat animValue = CGRectGetWidth(self.presentedView.frame) - [self _indicatorCalculatedWidth];
+    self.leftUploadIndicatorConstraint.offset = animValue;
+
+}
+
+- (float)_indicatorCalculatedWidth
+{
+    return fminf(kLayoutConstIndicatorMaxWidth, kLayoutConstIndicatorFractionalWidth * CGRectGetWidth(self.presentedView.frame));
+}
 
 #pragma mark - Download Animation part
 
@@ -84,7 +96,7 @@
 {
     self.videoCountLabel.hidden = NO;
     self.videoCountLabel.text = [NSString stringWithFormat:@"%li",(long)count];
-    self.backgroundColor = [ZZColorTheme shared].cellLayoutGreenColor;
+    self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
 }
 
 - (void)_hideVieoCountLabel

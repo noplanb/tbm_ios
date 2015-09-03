@@ -23,6 +23,8 @@
 @property (nonatomic, weak) id <ZZGridCellViewModellDelegate> delegate;
 @property (nonatomic, strong) ZZGridDomainModel* domainModel;
 @property (nonatomic, strong) NSNumber* badgeNumber;
+@property (nonatomic, strong) UIImage* screenShot;
+@property (nonatomic, assign) BOOL hasUploadedVideo;
 
 - (void)startRecordingWithView:(UIView *)view;
 - (void)stopRecording;
