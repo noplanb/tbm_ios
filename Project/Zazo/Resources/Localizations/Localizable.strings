@@ -54,11 +54,11 @@
 /**
  *  Auth Controller
  */
-"auth-controller.firstname.placeholder.title" = "First Name";
+"auth-controller.firstname.placeholder.title" = "Your First Name";
 "auth-controller.lastname.placeholder.title" = "Last Name";
-"auth-controller.phone.placeholder.title" = "Phone";
+"auth-controller.phone.placeholder.title" = "Mobile Number";
 "auth-controller.signIn.button.title" = "Sign In";
-"auth-controller.country.code.example.title" = "Country code USA +1";
+"auth-controller.country.code.example.title" = "Country code\n(USA +1)";
 "auth-controller.country.code.title" = "Country code";
 
 

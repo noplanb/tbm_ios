@@ -8,7 +8,6 @@
 
 #import "ZZAuthRegistrationView.h"
 
-
 @interface ZZAuthContentView : UIView
 
 @property (nonatomic, strong) UIScrollView* scrollView;

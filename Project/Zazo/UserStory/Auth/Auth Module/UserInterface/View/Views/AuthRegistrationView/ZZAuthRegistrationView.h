@@ -17,6 +17,5 @@
 @property (nonatomic, strong) ZZAuthTextField* phoneCodeTextField;
 @property (nonatomic, strong) ZZAuthTextField* phoneNumberTextField;
 @property (nonatomic, strong) UIButton* signInButton;
-@property (nonatomic, strong) UILabel* countryCodeLabel;
 
 @end

@@ -7,40 +7,36 @@
 //
 
 #import "ZZAuthRegistrationView.h"
-
-#pragma mark - Content height
-static CGFloat const kContentHeight = 350;
-
-#pragma mark - ImageView Constants
-static CGFloat const kTitleImageViewWidth = 136;
-static CGFloat const kTitleImageViewHeight = 38;
+#import "UIImage+PDF.h"
 
 #pragma mark - TextField Constants
+
 static CGFloat const kFirstNameTopPadding = 40;
 static CGFloat const kTextFieldSideScaleValue = 9;
-static CGFloat const kTextFieldHeight = 40;
+static CGFloat const kTextFieldHeight = 45;
 static CGFloat const kBetweenElementPadding = 10.0;
 
-#pragma mark - Phone Code TextField
-static CGFloat const kPhoneCodeTextFieldWidthScaleValue =5.5;
 
-#pragma mark - Plus Label
-static CGFloat const kPlusLabelWidthScaleValue = 4;
+#pragma mark - Phone Code TextField
+
+static CGFloat const kPhoneCodeTextFieldWidthScaleValue = 5.5;
+
 
 #pragma mark - SignIn Button
+
 static CGFloat const kSignInButtonTopPadding = 40;
 static CGFloat const kSignInButtonCornerRadius = 4;
-static CGFloat const kSignInButtonHeight = 50;
-static CGFloat const kSignInButtonWidthScaleValue = 3;
+static CGFloat const kSignInButtonHeight = 55;
 
 #pragma mark - Phone Code
-static CGFloat const kCodeLableLeftPadding = 1;
+static CGFloat const kCodeLableLeftPadding = 3;
 
 
 @interface ZZAuthRegistrationView ()
 
 @property (nonatomic, strong) UITapGestureRecognizer* tapRecognizer;
-@property (nonatomic, assign) CGFloat textFieldSidePadding;
+@property (nonatomic, strong) UILabel* plusLabel;
+@property (nonatomic, strong) UILabel* countryCodeLabel;
 
 @end
 
@@ -50,12 +46,9 @@ static CGFloat const kCodeLableLeftPadding = 1;
 {
     if (self = [super init])
     {
-        self.textFieldSidePadding = CGRectGetWidth([UIScreen mainScreen].bounds)/kTextFieldSideScaleValue;
         [self titleImageView];
-        [self firstNameTextField];
-        [self lastNameTextField];
-        [self phoneCodeTextField];
-        [self phoneNumberTextField];
+        [self plusLabel];
+        
         [self signInButton];
         [self countryCodeLabel];
         [self addRecognizer];
@@ -70,29 +63,40 @@ static CGFloat const kCodeLableLeftPadding = 1;
     return self;
 }
 
-- (UIImageView *)titleImageView
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    self.countryCodeLabel.preferredMaxLayoutWidth = self.phoneCodeTextField.bounds.size.width;
+}
+
+- (CGFloat)_textFieldSidePadding
+{
+    return CGRectGetWidth([UIScreen mainScreen].bounds) / kTextFieldSideScaleValue;
+}
+
+- (UIImageView*)titleImageView
 {
     if (!_titleImageView)
     {
         _titleImageView = [UIImageView new];
-        _titleImageView.image = [UIImage imageNamed:@"logotype"];
+        CGFloat scale = [UIScreen mainScreen].scale;
+        UIImage* logo = [UIImage imageWithPDFNamed:@"app_logo" atHeight:20 * scale];
+        _titleImageView.image = [logo an_imageByTintingWithColor:[UIColor whiteColor]];
+        [_titleImageView sizeToFit];
         [self addSubview:_titleImageView];
         [_titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.mas_centerX);
-            make.width.equalTo(@(kTitleImageViewWidth));
-            make.height.equalTo(@(kTitleImageViewHeight));
-            make.top.equalTo(self).with.offset((CGRectGetHeight([UIScreen mainScreen].bounds) - kContentHeight)/2);
+            make.top.equalTo(self).offset(106);
         }];
     }
-    
     return _titleImageView;
 }
 
 
 #pragma mark - Auth Text Fields
 
-
-- (ZZAuthTextField *)firstNameTextField
+- (ZZAuthTextField*)firstNameTextField
 {
     if (!_firstNameTextField)
     {
@@ -105,15 +109,15 @@ static CGFloat const kCodeLableLeftPadding = 1;
         [_firstNameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.titleImageView.mas_bottom).with.offset(kFirstNameTopPadding);
             make.centerX.equalTo(self.mas_centerX);
-            make.left.equalTo(self).with.offset(self.textFieldSidePadding);
-            make.right.equalTo(self).with.offset(-self.textFieldSidePadding);
+            make.left.equalTo(self).with.offset([self _textFieldSidePadding]);
+            make.right.equalTo(self).with.offset(-[self _textFieldSidePadding]);
             make.height.equalTo(@(kTextFieldHeight));
         }];
     }
     return _firstNameTextField;
 }
 
-- (ZZAuthTextField *)lastNameTextField
+- (ZZAuthTextField*)lastNameTextField
 {
     if (!_lastNameTextField)
     {
@@ -125,16 +129,15 @@ static CGFloat const kCodeLableLeftPadding = 1;
         [_lastNameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.firstNameTextField.mas_bottom).with.offset(kBetweenElementPadding);
             make.centerX.equalTo(self.mas_centerX);
-            make.left.equalTo(self).with.offset(self.textFieldSidePadding);
-            make.right.equalTo(self).with.offset(-self.textFieldSidePadding);
+            make.left.equalTo(self).with.offset([self _textFieldSidePadding]);
+            make.right.equalTo(self).with.offset(-[self _textFieldSidePadding]);
             make.height.equalTo(@(kTextFieldHeight));
         }];
     }
-    
     return _lastNameTextField;
 }
 
-- (ZZAuthTextField *)phoneCodeTextField
+- (ZZAuthTextField*)phoneCodeTextField
 {
     if (!_phoneCodeTextField)
     {
@@ -145,30 +148,34 @@ static CGFloat const kCodeLableLeftPadding = 1;
         
         [_phoneCodeTextField mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.lastNameTextField.mas_left);
-            make.width.equalTo(@(CGRectGetWidth([UIScreen mainScreen].bounds)/kPhoneCodeTextFieldWidthScaleValue));
             make.height.equalTo(@(kTextFieldHeight));
             make.top.equalTo(self.lastNameTextField.mas_bottom).with.offset(kBetweenElementPadding);
             make.right.equalTo(self.phoneNumberTextField.mas_left).with.offset(-kBetweenElementPadding);
-        }];
-        
-        
-        
-        UILabel* plusLabel = [UILabel new];
-        plusLabel.textColor = [UIColor whiteColor];
-        plusLabel.text = @"+";
-        [_phoneCodeTextField addSubview:plusLabel];
-        
-        [plusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.bottom.equalTo(_phoneCodeTextField);
-            make.width.equalTo(@((CGRectGetWidth([UIScreen mainScreen].bounds)/kPhoneCodeTextFieldWidthScaleValue)/kPlusLabelWidthScaleValue));
-            make.left.equalTo(@(kCodeLableLeftPadding));
+            make.width.equalTo(@(CGRectGetWidth([UIScreen mainScreen].bounds) / kPhoneCodeTextFieldWidthScaleValue));
         }];
     }
-    
     return _phoneCodeTextField;
 }
 
-- (ZZAuthTextField *)phoneNumberTextField
+- (UILabel*)plusLabel
+{
+    if (!_plusLabel)
+    {
+        _plusLabel = [UILabel new];
+        _plusLabel.textColor = [UIColor whiteColor];
+        _plusLabel.text = @"+";
+        _plusLabel.font = [UIFont an_lightFontWithSize:18];
+        [self.phoneCodeTextField addSubview:_plusLabel];
+        
+        [_plusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(@(kCodeLableLeftPadding));
+            make.centerY.equalTo(self.phoneCodeTextField);
+        }];
+    }
+    return _plusLabel;
+}
+
+- (ZZAuthTextField*)phoneNumberTextField
 {
     if (!_phoneNumberTextField)
     {
@@ -184,33 +191,32 @@ static CGFloat const kCodeLableLeftPadding = 1;
             make.top.equalTo(self.phoneCodeTextField);
         }];
     }
-    
     return _phoneNumberTextField;
 }
 
-- (UIButton *)signInButton
+- (UIButton*)signInButton
 {
     if (!_signInButton)
     {
         _signInButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_signInButton setTitle:NSLocalizedString(@"auth-controller.signIn.button.title", nil) forState:UIControlStateNormal];
+        _signInButton.titleLabel.font = [UIFont an_lightFontWithSize:21];
         _signInButton.backgroundColor = [UIColor blackColor];
         _signInButton.layer.cornerRadius = kSignInButtonCornerRadius;
         _signInButton.accessibilityLabel = @"SignIn";
         [self addSubview:_signInButton];
 
         [_signInButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.phoneNumberTextField.mas_bottom).with.offset(kSignInButtonTopPadding);
+            make.top.equalTo(self.countryCodeLabel.mas_bottom).with.offset(kSignInButtonTopPadding);
             make.centerX.equalTo(self.mas_centerX);
-            make.width.equalTo(@(CGRectGetWidth([UIScreen mainScreen].bounds)/kSignInButtonWidthScaleValue));
+            make.width.equalTo(@(CGRectGetWidth([UIScreen mainScreen].bounds) / 2));
             make.height.equalTo(@(kSignInButtonHeight));
         }];
-
     }
     return _signInButton;
 }
 
-- (UILabel *)countryCodeLabel
+- (UILabel*)countryCodeLabel
 {
     if (!_countryCodeLabel)
     {
@@ -223,13 +229,10 @@ static CGFloat const kCodeLableLeftPadding = 1;
         [self addSubview:_countryCodeLabel];
         
         [_countryCodeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.firstNameTextField.mas_left);
+            make.centerX.equalTo(self.phoneCodeTextField);
             make.top.equalTo(self.phoneCodeTextField.mas_bottom);
-            make.width.equalTo(self.phoneCodeTextField.mas_width);
-            make.height.equalTo(self.phoneCodeTextField.mas_height);
         }];
     }
-    
     return _countryCodeLabel;
 }
 

@@ -29,7 +29,6 @@
 @property(nonatomic) UILabel *countryCodeLbl;
 @property(nonatomic) UILabel *countryCodeHint;
 @property(nonatomic) UIButton *submit;
-@property(nonatomic) UIButton *debug;
 
 @property(nonatomic, strong) TBMSecretScreenPresenter *secretScreen;
 @end
@@ -142,7 +141,6 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
             self.mobileNumber.text = [phoneNumber.nationalNumber stringValue];
         }
     }
-
 }
 
 - (void)addScrollView {
@@ -156,28 +154,28 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
 }
 
 - (void)addTitle {
-    CGRect f;
-    f.size.width = 136.0;
-    f.size.height = 35.0;
-    f.origin.x = (self.topView.frame.size.width - f.size.width) / 2.0;
-    f.origin.y = TBMRegisterLogoTopMargin;
-
-    self.title = [[UIImageView alloc] initWithFrame:f];
-    self.title.image = [UIImage imageNamed:@"logotype"];
-    [self.title addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(titleTapAction:)]];
-    self.title.userInteractionEnabled = YES;
-    [self.contentView addSubview:self.title];
+//    CGRect f;
+//    f.size.width = 136.0;
+//    f.size.height = 35.0;
+//    f.origin.x = (self.topView.frame.size.width - f.size.width) / 2.0;
+//    f.origin.y = TBMRegisterLogoTopMargin;
+//
+//    self.title = [[UIImageView alloc] initWithFrame:f];
+//    self.title.image = [UIImage imageNamed:@"logotype"];
+//    [self.title addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(titleTapAction:)]];
+//    self.title.userInteractionEnabled = YES;
+//    [self.contentView addSubview:self.title];
 }
 
 - (void)titleTapAction:(id)sender {
-    UILongPressGestureRecognizer *gesture = sender;
-    if (gesture.state == UIGestureRecognizerStateEnded) {
-        NSString *countryCode = self.countryCode.text;
-        if (countryCode && [countryCode rangeOfString:@"000"].location != NSNotFound) {
-            self.countryCode.text = @"";
-            [self.secretScreen presentSecretScreenFromController:self.controller];
-        }
-    }
+//    UILongPressGestureRecognizer *gesture = sender;
+//    if (gesture.state == UIGestureRecognizerStateEnded) {
+//        NSString *countryCode = self.countryCode.text;
+//        if (countryCode && [countryCode rangeOfString:@"000"].location != NSNotFound) {
+//            self.countryCode.text = @"";
+//            [self.secretScreen presentSecretScreenFromController:self.controller];
+//        }
+//    }
 }
 
 - (float)textFieldLargeWidth {
@@ -186,64 +184,64 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
 }
 
 - (void)addFirstName {
-    CGRect f;
-    f.origin.x = (self.topView.frame.size.width - [self textFieldLargeWidth]) / 2.0;
-    f.origin.y = self.title.frame.origin.y + self.title.frame.size.height + TBMRegisterFieldsTopMargin;
-    f.size.width = [self textFieldLargeWidth];
-    f.size.height = TBMRegisterTextFieldHeight;
-
-    self.firstName = [[TBMTextField alloc] initWithFrame:f];
-    self.firstName.placeholder = @"First Name";
-    [self.firstName setKeyboardType:UIKeyboardTypeDefault];
-    [self.firstName setReturnKeyType:UIReturnKeyNext];
-    [self setCommonAttributesForTextField:self.firstName];
-    [self.contentView addSubview:self.firstName];
+//    CGRect f;
+//    f.origin.x = (self.topView.frame.size.width - [self textFieldLargeWidth]) / 2.0;
+//    f.origin.y = self.title.frame.origin.y + self.title.frame.size.height + TBMRegisterFieldsTopMargin;
+//    f.size.width = [self textFieldLargeWidth];
+//    f.size.height = TBMRegisterTextFieldHeight;
+//
+//    self.firstName = [[TBMTextField alloc] initWithFrame:f];
+//    self.firstName.placeholder = @"First Name";
+//    [self.firstName setKeyboardType:UIKeyboardTypeDefault];
+//    [self.firstName setReturnKeyType:UIReturnKeyNext];
+//    [self setCommonAttributesForTextField:self.firstName];
+//    [self.contentView addSubview:self.firstName];
 }
 
 - (void)addLastName {
-    CGRect f;
-    f.origin.x = (self.topView.frame.size.width - [self textFieldLargeWidth]) / 2.0;
-    f.origin.y = self.firstName.frame.origin.y + self.firstName.frame.size.height + TBMRegisterFieldsVerticalMargin;
-    f.size.height = TBMRegisterTextFieldHeight;
-    f.size.width = [self textFieldLargeWidth];
-
-    self.lastName = [[TBMTextField alloc] initWithFrame:f];
-    self.lastName.placeholder = @"Last Name";
-    [self.lastName setKeyboardType:UIKeyboardTypeDefault];
-    [self.lastName setReturnKeyType:UIReturnKeyNext];
-    [self setCommonAttributesForTextField:self.lastName];
-    [self.contentView addSubview:self.lastName];
+//    CGRect f;
+//    f.origin.x = (self.topView.frame.size.width - [self textFieldLargeWidth]) / 2.0;
+//    f.origin.y = self.firstName.frame.origin.y + self.firstName.frame.size.height + TBMRegisterFieldsVerticalMargin;
+//    f.size.height = TBMRegisterTextFieldHeight;
+//    f.size.width = [self textFieldLargeWidth];
+//
+//    self.lastName = [[TBMTextField alloc] initWithFrame:f];
+//    self.lastName.placeholder = @"Last Name";
+//    [self.lastName setKeyboardType:UIKeyboardTypeDefault];
+//    [self.lastName setReturnKeyType:UIReturnKeyNext];
+//    [self setCommonAttributesForTextField:self.lastName];
+//    [self.contentView addSubview:self.lastName];
 }
 
 - (void)addPlus {
-    CGRect f;
-    f.origin.x = self.firstName.frame.origin.x;
-    f.origin.y = self.lastName.frame.origin.y + self.lastName.frame.size.height + TBMRegisterFieldsVerticalMargin - 2;
-    f.size.width = 19.0;
-    f.size.height = TBMRegisterTextFieldHeight;
-
-    self.plus = [[UILabel alloc] initWithFrame:f];
-    self.plus.textColor = [UIColor whiteColor];
-    [self.plus setText:@"+"];
-    self.plus.font = [UIFont systemFontOfSize:TBMRegisterTextFieldFontSize];
-    self.plus.textAlignment = NSTextAlignmentCenter;
-    [self.contentView addSubview:self.plus];
+//    CGRect f;
+//    f.origin.x = self.firstName.frame.origin.x;
+//    f.origin.y = self.lastName.frame.origin.y + self.lastName.frame.size.height + TBMRegisterFieldsVerticalMargin - 2;
+//    f.size.width = 19.0;
+//    f.size.height = TBMRegisterTextFieldHeight;
+//
+//    self.plus = [[UILabel alloc] initWithFrame:f];
+//    self.plus.textColor = [UIColor whiteColor];
+//    [self.plus setText:@"+"];
+//    self.plus.font = [UIFont systemFontOfSize:TBMRegisterTextFieldFontSize];
+//    self.plus.textAlignment = NSTextAlignmentCenter;
+//    [self.contentView addSubview:self.plus];
 }
 
 - (void)addCountryCode {
-    CGRect f;
-    f.origin.x = self.firstName.frame.origin.x;
-    f.origin.y = self.lastName.frame.origin.y + self.lastName.frame.size.height + TBMRegisterFieldsVerticalMargin;
-    f.size.width = 70.0;
-    f.size.height = TBMRegisterTextFieldHeight;
-
-    self.countryCode = [[TBMTextField alloc] initWithFrame:f];
-    [self.countryCode setKeyboardType:UIKeyboardTypeNumberPad];
-    [self setCommonAttributesForTextField:self.countryCode];
-    [self.contentView addSubview:self.countryCode];
-
-    UIView *spacerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 18, 10)];
-    [self.countryCode setLeftView:spacerView];
+//    CGRect f;
+//    f.origin.x = self.firstName.frame.origin.x;
+//    f.origin.y = self.lastName.frame.origin.y + self.lastName.frame.size.height + TBMRegisterFieldsVerticalMargin;
+//    f.size.width = 70.0;
+//    f.size.height = TBMRegisterTextFieldHeight;
+//
+//    self.countryCode = [[TBMTextField alloc] initWithFrame:f];
+//    [self.countryCode setKeyboardType:UIKeyboardTypeNumberPad];
+//    [self setCommonAttributesForTextField:self.countryCode];
+//    [self.contentView addSubview:self.countryCode];
+//
+//    UIView *spacerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 18, 10)];
+//    [self.countryCode setLeftView:spacerView];
 }
 
 - (void)addCountryCodeLabel {
@@ -334,8 +332,9 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
 }
 
 
-- (void)setScrollViewSize {
-    float height = self.debug.frame.origin.y + self.debug.frame.size.height + 10.0;
+- (void)setScrollViewSize
+{
+    float height = 10.0;
     self.scrollView.contentSize = CGSizeMake(self.screenWidth, height);
     CGRect f = self.contentView.frame;
     f.size.height = height;

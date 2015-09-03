@@ -11,6 +11,7 @@
 static CGFloat const kTextFieldCornerRadius = 5;
 static CGFloat const KTextFieldBorderWidth = 1;
 static CGFloat const kLeftPadding = 15;
+static CGFloat const kFontSize = 21;
 
 @implementation ZZAuthTextField
 
@@ -19,22 +20,23 @@ static CGFloat const kLeftPadding = 15;
     if (self = [super init])
     {
         self.layer.cornerRadius = kTextFieldCornerRadius;
-        self.layer.borderWidth = KTextFieldBorderWidth/([UIScreen mainScreen].scale);
+        self.layer.borderWidth = KTextFieldBorderWidth / ([UIScreen mainScreen].scale);
         self.layer.borderColor = [UIColor colorWithWhite:1.0 alpha:0.8].CGColor;
         self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.2];
+        self.font = [UIFont an_lightFontWithSize:kFontSize];
     }
     return self;
 }
 
 - (CGRect)textRectForBounds:(CGRect)bounds
 {
-    bounds.origin.x+=kLeftPadding;
+    bounds.origin.x += kLeftPadding;
     return bounds;
 }
 
 - (CGRect)editingRectForBounds:(CGRect)bounds
 {
-    bounds.origin.x+=kLeftPadding;
+    bounds.origin.x += kLeftPadding;
     return bounds;
 }
 
@@ -43,11 +45,10 @@ static CGFloat const kLeftPadding = 15;
 {
     if (!ANIsEmpty(placeholder))
     {
-        self.attributedPlaceholder =
-        [[NSAttributedString alloc] initWithString:placeholder
-                                        attributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],
-                                                     NSFontAttributeName : [UIFont an_lightFontWithSize:18]
-                                                     }];
+        NSDictionary* attributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
+                                     NSFontAttributeName : [UIFont an_lightFontWithSize:kFontSize]};
+       
+        self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:attributes];
     }
 }
 

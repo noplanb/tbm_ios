@@ -42,6 +42,7 @@
     {
         _scrollView = [UIScrollView new];
         _scrollView.scrollEnabled = NO;
+        _scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
         [self addSubview:_scrollView];
         
         [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -11,7 +11,7 @@
 #import "ZZKeyboardObserver.h"
 #import "ZZTextFieldsDelegate.h"
 
-@interface ZZAuthVC () <ZZKeyboardObserverProtocol>
+@interface ZZAuthVC ()<ZZKeyboardObserverProtocol>
 
 @property (nonatomic, strong) ZZAuthContentView* contentView;
 @property (nonatomic, strong) ZZKeyboardObserver* keyboardObserver;
@@ -29,13 +29,14 @@
         self.contentView = [ZZAuthContentView new];
         self.keyboardObserver = [[ZZKeyboardObserver alloc] initWithDelegate:self];
         self.textFieldDelegate = [ZZTextFieldsDelegate new];
+        
         [self.textFieldDelegate addTextFieldsWithArray:@[self.contentView.registrationView.firstNameTextField,
                                                          self.contentView.registrationView.lastNameTextField,
                                                          self.contentView.registrationView.phoneCodeTextField,
                                                          self.contentView.registrationView.phoneNumberTextField]];
-        @weakify(self);
-        [[self.contentView.registrationView.signInButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-            @strongify(self);
+        
+        
+        self.contentView.registrationView.signInButton.rac_command = [RACCommand commandWithBlock:^{
             [self.eventHandler registrationFilledWithFirstName:self.contentView.registrationView.firstNameTextField.text
                                                   withLastName:self.contentView.registrationView.lastNameTextField.text
                                                withCountryCode:self.contentView.registrationView.phoneCodeTextField.text
@@ -43,7 +44,6 @@
         }];
     }
     return self;
-    
 }
 
 - (void)loadView
