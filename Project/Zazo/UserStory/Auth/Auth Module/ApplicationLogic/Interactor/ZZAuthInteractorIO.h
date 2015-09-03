@@ -14,6 +14,7 @@
 - (void)registerUser:(ZZUserDomainModel*)model;
 - (void)validateSMSCode:(NSString*)code;
 - (void)userRequestCallExtendSmsCode;
+- (void)loadS3Credentials;
 
 @end
 

@@ -104,7 +104,6 @@
         
         return [ZZFriendsTransportService loadFriendList];
         
-        
     }] catch:^RACSignal *(NSError *error) {
         
         [self.output loadFriendsDidFailWithError:error];
@@ -121,20 +120,25 @@
         return [RACSignal return:nil];
         
     }] subscribeNext:^(id x) {
-       
-        [TBMS3CredentialsManager refreshFromServer:^void (BOOL success){
-            if (success)
-            {
-                [self.output registrationFlowCompletedSuccessfully];
-            }
-            else
-            {
-                [self.output loadS3CredentialsDidFailWithError:nil]; // TODO: create an error here
-            }
-        }];
-    
+        
+        [self loadS3Credentials];
     } error:^(NSError *error) {
         //TODO: remove it?
+    }];
+}
+
+- (void)loadS3Credentials
+{
+    [TBMS3CredentialsManager refreshFromServer:^void (BOOL success){
+        if (success)
+        {
+            [[TBMUser getUser] setupRegistredFlagTo:YES];
+            [self.output registrationFlowCompletedSuccessfully];
+        }
+        else
+        {
+            [self.output loadS3CredentialsDidFailWithError:nil]; // TODO: create an error here
+        }
     }];
 }
 

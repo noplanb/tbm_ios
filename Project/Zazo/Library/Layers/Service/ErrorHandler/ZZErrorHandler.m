@@ -15,12 +15,14 @@
 {
     NSString *okButton = NSLocalizedString(@"common.ok", nil);
     
-    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:NSLocalizedString(title, nil)
-                                                                     message:NSLocalizedString(message, nil)];
-    [alert addAction:[SDCAlertAction actionWithTitle:okButton style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
-        [alert dismissWithCompletion:nil];
-    }]];
-    [alert presentWithCompletion:nil];
+    ANDispatchBlockToMainQueue(^{
+        TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:NSLocalizedString(title, nil)
+                                                                         message:NSLocalizedString(message, nil)];
+        [alert addAction:[SDCAlertAction actionWithTitle:okButton style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+            [alert dismissWithCompletion:nil];
+        }]];
+        [alert presentWithCompletion:nil];
+    });
 }
 
 + (void)showAlertWithError:(NSError*)error

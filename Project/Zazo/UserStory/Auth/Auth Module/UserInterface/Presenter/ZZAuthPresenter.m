@@ -83,7 +83,6 @@
 - (void)smsCodeValidationCompletedSuccessfully
 {
     [self.userInterface updateStateToLoading:NO message:nil];
-    [self.wireframe presentGridController];
 }
 
 - (void)userRequestCallExtendSmsCode
@@ -99,6 +98,31 @@
 - (void)callRequestDidFailWithError:(NSError *)error
 {
     // TODO: check if we need some UI update here, connect supprt with fails not by internet connection
+}
+
+- (void)loadS3CredentialsDidFailWithError:(NSError *)error
+{
+    ANDispatchBlockToMainQueue(^{
+        NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+        NSString* badConnectiontitle = [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", [NSObject an_safeString:appName]];
+        
+        UIAlertView *av = [[UIAlertView alloc]
+                           initWithTitle:@"Bad Connection"
+                           message:badConnectiontitle
+                           delegate:nil
+                           cancelButtonTitle:@"Try Again"
+                           otherButtonTitles:nil];
+        
+        [av.rac_buttonClickedSignal subscribeNext:^(id x) {
+            [self.interactor loadS3Credentials];
+        }];
+        [av show];
+    });
+}
+
+- (void)registrationFlowCompletedSuccessfully
+{
+    [self.wireframe presentGridController];
 }
 
 #pragma mark - Module Interface

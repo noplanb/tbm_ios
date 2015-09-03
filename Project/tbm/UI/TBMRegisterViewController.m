@@ -178,17 +178,17 @@
 
 #pragma mark Get S3 Credentials
 
-- (void) getS3Credentials{
-    [_registerForm startWaitingForServer];
-    [TBMS3CredentialsManager refreshFromServer:^void (BOOL success){
-        [_registerForm stopWaitingForServer];
-        if (success){
-            [self registrationComplete];
-        } else {
-            [self showS3ErrorDialog];
-        }
-    }];
-}
+//- (void) getS3Credentials{
+//    [_registerForm startWaitingForServer];
+//    [TBMS3CredentialsManager refreshFromServer:^void (BOOL success){
+//        [_registerForm stopWaitingForServer];
+//        if (success){
+//            [self registrationComplete];
+//        } else {
+//            [self showS3ErrorDialog];
+//        }
+//    }];
+//}
 
 
 #pragma mark Dialogs
@@ -210,39 +210,39 @@
 }
 
 
-- (void) showGetFriendsServerErrorDialog{
-    NSString *msg = [self badConnectionMessage];
-    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:[self badConnectionTitle] message:msg];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
-        [self getFriends];
-    }]];
-    [alert presentWithCompletion:nil];
-}
+//- (void) showGetFriendsServerErrorDialog{
+//    NSString *msg = [self badConnectionMessage];
+//    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:[self badConnectionTitle] message:msg];
+//    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+//        [self getFriends];
+//    }]];
+//    [alert presentWithCompletion:nil];
+//}
 
-- (void) showS3ErrorDialog{
-    UIAlertView *av = [[UIAlertView alloc]
-                       initWithTitle:[self badConnectionTitle]
-                       message:[self badConnectionMessage]
-                       delegate:self
-                       cancelButtonTitle:@"Try Again"
-                       otherButtonTitles:nil];
-    
-    av.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex) {
-        [self getS3Credentials];
-    };
-    [av show];
-}
-
-- (NSString *)badConnectionMessage
-{
-    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
-    return [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", [NSObject an_safeString:appName]];
-}
-
-- (NSString *)badConnectionTitle
-{
-    return @"Bad Connection";
-}
+//- (void) showS3ErrorDialog{
+//    UIAlertView *av = [[UIAlertView alloc]
+//                       initWithTitle:[self badConnectionTitle]
+//                       message:[self badConnectionMessage]
+//                       delegate:self
+//                       cancelButtonTitle:@"Try Again"
+//                       otherButtonTitles:nil];
+//    
+//    av.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex) {
+//        [self getS3Credentials];
+//    };
+//    [av show];
+//}
+//
+//- (NSString *)badConnectionMessage
+//{
+//    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+//    return [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", [NSObject an_safeString:appName]];
+//}
+//
+//- (NSString *)badConnectionTitle
+//{
+//    return @"Bad Connection";
+//}
 
 
 //--------------
