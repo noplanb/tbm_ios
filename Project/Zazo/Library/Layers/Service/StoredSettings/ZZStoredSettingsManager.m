@@ -16,6 +16,9 @@ static NSString* const kZZShouldUseRollBarSDKEnabledKey = @"kZZShouldUseRollBarS
 static NSString* const kZZHintsDidStartPlayKey = @"kMessagePlayedNSUDkey";
 static NSString* const kZZHintsDidStartRecordKey = @"kMessageRecordedNSUDkey";
 
+static NSString* const kZZUserItemID = @"kZZUserItemID";
+static NSString* const kZZUserAuthToken = @"kZZUserAuthToken";
+
 //TODO:
 //@"kAbortRecordUsageHintNSUDkey"
 //@"kDeleteFriendUsageUsageHintNSUDkey"
@@ -46,6 +49,9 @@ static NSString* const kZZHintsDidStartRecordKey = @"kMessageRecordedNSUDkey";
 @dynamic hintsDidStartRecord;
 @dynamic hintsDidStartPlay;
 
+@dynamic userID;
+@dynamic authToken;
+
 + (instancetype)shared
 {
     static id _sharedClient = nil;
@@ -64,6 +70,9 @@ static NSString* const kZZHintsDidStartRecordKey = @"kMessageRecordedNSUDkey";
     
     self.hintsDidStartPlay = NO;
     self.hintsDidStartRecord = NO;
+    
+    self.userID = nil;
+    self.authToken = nil;
 }
 
 
@@ -159,5 +168,27 @@ static NSString* const kZZHintsDidStartRecordKey = @"kMessageRecordedNSUDkey";
     return [[self an_objectForKey:kZZHintsDidStartRecordKey] boolValue];
 }
 
+
+#pragma mark - User
+
+- (void)setUserID:(NSString *)userID
+{
+    [self an_updateObject:userID forKey:kZZUserItemID];
+}
+
+- (NSString *)userID
+{
+    return [self an_objectForKey:kZZUserItemID];
+}
+
+- (void)setAuthToken:(NSString*)authToken
+{
+    [self an_updateObject:authToken forKey:kZZUserAuthToken];
+}
+
+- (NSString*)authToken
+{
+    return [self an_objectForKey:kZZUserAuthToken];
+}
 
 @end

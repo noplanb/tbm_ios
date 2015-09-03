@@ -20,46 +20,33 @@
     self.userInterface = userInterface;
 }
 
-
-- (void)registrationFilledWithFirstName:(NSString *)firstName
-                           withLastName:(NSString *)lastName
-                        withCountryCode:(NSString *)countryCode
-                        withPhoneNumber:(NSString *)phoneNumber
+- (void)registrationWithFirstName:(NSString*)firstName
+                         lastName:(NSString*)lastName
+                      countryCode:(NSString*)countryCode
+                            phone:(NSString*)phoneNumber
 {
-    [self.interactor registrationWithFirstName:firstName
-                                  withLastName:lastName
-                               withCountryCode:countryCode
-                               withPhoneNumber:phoneNumber];
+    [self.interactor registrationWithFirstName:firstName lastName:lastName countryCode:countryCode phone:phoneNumber];
 }
 
 
 #pragma mark - Output
 
-- (void)validationDidFailWithError:(NSError *)error
+- (void)validationDidFailWithError:(NSError*)error
 {
-    [self showAlertMessage:error.localizedDescription];
+    [ZZErrorHandler showAlertWithError:error];
 }
 
-- (void)authDataRecievedForNumber:(NSString *)phonenumber
+- (void)authDataRecievedForNumber:(NSString*)phonenumber
 {
     ANDispatchBlockToMainQueue(^{
         [self.userInterface showVerificationCodeInputViewWithPhoneNumber:phonenumber];
     });
 }
 
-- (void)smsCodeValidationCompletedWithError:(NSError *)error
+- (void)smsCodeValidationCompletedWithError:(NSError*)error
 {
-    [[ZZErrorHandler shared] showErrorAlertWithLocalizedTitle:@"auth-controller.bad-code.alert.title"
-                                                      message:@"auth-controller.bad-code.alert.text"];
-}
-
-- (void)showAlertMessage:(NSString *)messge
-{
-    [[[UIAlertView alloc] initWithTitle:nil
-                                message:messge
-                               delegate:nil
-                      cancelButtonTitle:@"Ok"
-                      otherButtonTitles:nil, nil] show];
+    [ZZErrorHandler showErrorAlertWithLocalizedTitle:@"auth-controller.bad-code.alert.title"
+                                             message:@"auth-controller.bad-code.alert.text"];
 }
 
 - (void)presentGridModule
@@ -69,11 +56,9 @@
 
 #pragma mark - Module Interface
 
-- (void)verifySMSCode:(NSString *)code
+- (void)verifySMSCode:(NSString*)code
 {
-    [self.interactor continueRegistrationWithSMSCode:code];
+    [self.interactor validateSMSCode:code];
 }
-
-
 
 @end

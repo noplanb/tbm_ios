@@ -8,8 +8,7 @@
 
 @interface ZZErrorHandler : NSObject
 
-+ (id)shared;
-
-- (void)showErrorAlertWithLocalizedTitle:(NSString *)title message:(NSString *)message;
++ (void)showErrorAlertWithLocalizedTitle:(NSString*)title message:(NSString*)message;
++ (void)showAlertWithError:(NSError*)error;
 
 @end

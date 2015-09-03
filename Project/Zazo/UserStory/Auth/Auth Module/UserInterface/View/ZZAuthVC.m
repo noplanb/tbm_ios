@@ -30,17 +30,20 @@
         self.keyboardObserver = [[ZZKeyboardObserver alloc] initWithDelegate:self];
         self.textFieldDelegate = [ZZTextFieldsDelegate new];
         
-        [self.textFieldDelegate addTextFieldsWithArray:@[self.contentView.registrationView.firstNameTextField,
-                                                         self.contentView.registrationView.lastNameTextField,
-                                                         self.contentView.registrationView.phoneCodeTextField,
-                                                         self.contentView.registrationView.phoneNumberTextField]];
+        ZZAuthRegistrationView* view = self.contentView.registrationView;
+        
+        [self.textFieldDelegate addTextFieldsWithArray:@[view.firstNameTextField,
+                                                         view.lastNameTextField,
+                                                         view.phoneCodeTextField,
+                                                         view.phoneNumberTextField]];
         
         
         self.contentView.registrationView.signInButton.rac_command = [RACCommand commandWithBlock:^{
-            [self.eventHandler registrationFilledWithFirstName:self.contentView.registrationView.firstNameTextField.text
-                                                  withLastName:self.contentView.registrationView.lastNameTextField.text
-                                               withCountryCode:self.contentView.registrationView.phoneCodeTextField.text
-                                               withPhoneNumber:self.contentView.registrationView.phoneNumberTextField.text];
+            
+            [self.eventHandler registrationWithFirstName:view.firstNameTextField.text
+                                                lastName:view.lastNameTextField.text
+                                             countryCode:view.phoneCodeTextField.text
+                                                   phone:view.phoneNumberTextField.text];
         }];
     }
     return self;
@@ -71,7 +74,7 @@
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
 }
 
-- (void)showVerificationCodeInputViewWithPhoneNumber:(NSString *)phoneNumber
+- (void)showVerificationCodeInputViewWithPhoneNumber:(NSString *)phoneNumber // TODO: tbmalertcontroller
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:phoneNumber
                                                     message:@"Enter verification code:"
@@ -80,6 +83,20 @@
                                           otherButtonTitles:@"Verify", nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     [alert show];
+    
+    @weakify(alert);
+    [alert.rac_buttonClickedSignal subscribeNext:^(NSNumber* x) {
+        
+        @strongify(alert);
+        if ([x integerValue] == 1)
+        {
+            NSString *code = [alert textFieldAtIndex:0].text;
+            if (!ANIsEmptyStringByTrimmingWhitespaces(code))
+            {
+                [self.eventHandler verifySMSCode:code];
+            }
+        }
+    }];
     
 #ifdef DEBUG_LOGIN_USER
     UITextField *textField = [alert textFieldAtIndex:0];
@@ -121,9 +138,11 @@
 - (void)chagneRegistartionViewPositionWithKeyboardHeight:(CGFloat)keyboardHeight
 {
     [UIView animateWithDuration:[self.animationDuration doubleValue] animations:^{
+       
         self.contentView.registrationScrollBottomConstraint.offset = -keyboardHeight;
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
+        
         self.contentView.scrollView.scrollEnabled = YES;
         [self.contentView scrollToBottom];
     }];
@@ -132,22 +151,13 @@
 - (void)downRegistrationView
 {
     [UIView animateWithDuration:[self.animationDuration doubleValue] animations:^{
+        
         self.contentView.registrationScrollBottomConstraint.offset = 0;
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
+        
         self.contentView.scrollView.scrollEnabled = NO;
     }];
-}
-
-#pragma mark - UIAlertViewDelegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 1) {
-        NSString *code = [alertView textFieldAtIndex:0].text;
-        if (!ANIsEmptyStringByTrimmingWhitespaces(code)) {
-            [self.eventHandler verifySMSCode:code];
-        }
-    }
 }
 
 @end

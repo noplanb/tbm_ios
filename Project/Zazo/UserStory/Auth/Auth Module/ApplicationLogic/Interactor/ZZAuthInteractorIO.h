@@ -8,12 +8,12 @@
 
 @protocol ZZAuthInteractorInput <NSObject>
 
-- (void)registrationWithFirstName:(NSString *)firstfName
-                     withLastName:(NSString *)lastName
-                  withCountryCode:(NSString *)countryCode
-                  withPhoneNumber:(NSString *)phoneNumber;
+- (void)registrationWithFirstName:(NSString*)firstName
+                         lastName:(NSString*)lastName
+                      countryCode:(NSString*)countryCode
+                            phone:(NSString*)phoneNumber;
 
-- (void)continueRegistrationWithSMSCode:(NSString *)code;
+- (void)validateSMSCode:(NSString*)code;
 
 @end
 

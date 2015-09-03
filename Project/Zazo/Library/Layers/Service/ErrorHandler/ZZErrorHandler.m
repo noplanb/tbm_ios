@@ -11,17 +11,7 @@
 
 @implementation ZZErrorHandler
 
-+ (instancetype)shared
-{
-    static id _sharedClient = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _sharedClient = [self new];
-    });
-    return _sharedClient;
-}
-
-- (void)showErrorAlertWithLocalizedTitle:(NSString *)title message:(NSString *)message
++ (void)showErrorAlertWithLocalizedTitle:(NSString*)title message:(NSString *)message
 {
     NSString *okButton = NSLocalizedString(@"common.ok", nil);
     
@@ -31,6 +21,11 @@
         [alert dismissWithCompletion:nil];
     }]];
     [alert presentWithCompletion:nil];
+}
+
++ (void)showAlertWithError:(NSError*)error
+{
+    [self showErrorAlertWithLocalizedTitle:error.localizedFailureReason message:error.localizedDescription];
 }
 
 @end

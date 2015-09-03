@@ -31,6 +31,11 @@ typedef NS_ENUM(NSUInteger, ZZConfigServerState) {
 @property (nonatomic, assign) BOOL hintsDidStartPlay;
 @property (nonatomic, assign) BOOL hintsDidStartRecord;
 
+#pragma mark - User
+
+@property (nonatomic, copy) NSString* userID;
+@property (nonatomic, copy) NSString* authToken;
+
 + (instancetype)shared;
 
 @end

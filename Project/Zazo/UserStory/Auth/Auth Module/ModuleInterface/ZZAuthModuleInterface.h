@@ -8,10 +8,10 @@
 
 @protocol ZZAuthModuleInterface <NSObject>
 
-- (void)registrationFilledWithFirstName:(NSString*)firstName
-                           withLastName:(NSString*)lastName
-                        withCountryCode:(NSString*)countryCode
-                        withPhoneNumber:(NSString*)phoneNumber;
+- (void)registrationWithFirstName:(NSString*)firstName
+                         lastName:(NSString*)lastName
+                      countryCode:(NSString*)countryCode
+                            phone:(NSString*)phoneNumber;
 
 - (void)verifySMSCode:(NSString *)code;
 
