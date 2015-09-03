@@ -35,35 +35,51 @@ static const struct {
 
 @implementation ZZAccountTransportService
 
-+ (RACSignal*)registerUserWithModel:(ZZUserDomainModel *)user
++ (RACSignal*)registerUserWithModel:(ZZUserDomainModel*)user shouldForceCall:(BOOL)shouldForceCall
 {
-    NSDictionary *params = [self _generateRegistrationParametersFromUserModel:user];
+    NSDictionary *params = [self _registrationParametersWithUser:user shouldForceCall:shouldForceCall];
     NSParameterAssert(params);
     
     return [ZZAccountTransport registerUserWithParameters:params];
 }
 
-+ (RACSignal*)registerUserFromModel:(ZZUserDomainModel *)user withVerificationCode:(NSString *)code
++ (RACSignal*)verifySMSCodeWithUserModel:(ZZUserDomainModel*)user code:(NSString*)code
 {
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithDictionary:[self _generateRegistrationParametersFromUserModel:user]];
     [params setObject:code forKey:ZZAccountParameters.verificationCode];
-    [params removeObjectForKey:ZZAccountParameters.verificationCodeTypeKey];
     NSParameterAssert(params);
     
     return [ZZAccountTransport verifyCodeWithParameters:params];
 }
 
+
 #pragma mark - Private
 
-+ (NSDictionary*)_generateRegistrationParametersFromUserModel:(ZZUserDomainModel *)user
++ (NSDictionary*)_registrationParametersWithUser:(ZZUserDomainModel*)user shouldForceCall:(BOOL)shouldForceCall
+{
+    NSMutableDictionary* params = [[self _generateRegistrationParametersFromUserModel:user] mutableCopy];
+    NSString* verificationType;
+    if (shouldForceCall)
+    {
+        verificationType = ZZAccountParameters.verificationCodeTypeCall;
+    }
+    else
+    {
+        verificationType = ZZAccountParameters.verificationCodeTypeSMS;
+    }
+    params[ZZAccountParameters.verificationCodeTypeKey] = verificationType;
+    return params;
+}
+
++ (NSDictionary*)_generateRegistrationParametersFromUserModel:(ZZUserDomainModel*)user
 {
     NSString *formattedMobileNumber = [NSString stringWithFormat:@"%%2B%@", [NSObject an_safeString:user.mobileNumber]];
-    
-    return @{ZZAccountParameters.firstName                  : [NSObject an_safeString:user.firstName],
-             ZZAccountParameters.lastName                   : [NSObject an_safeString:user.lastName],
-             ZZAccountParameters.verificationCodeTypeKey    : ZZAccountParameters.verificationCodeTypeSMS,
-             ZZAccountParameters.devicePlatform             : @"ios",
-             ZZAccountParameters.mobileNumber               : formattedMobileNumber};
+
+    NSDictionary* params = @{ZZAccountParameters.firstName                  : [NSObject an_safeString:user.firstName],
+                             ZZAccountParameters.lastName                   : [NSObject an_safeString:user.lastName],
+                             ZZAccountParameters.devicePlatform             : @"ios",
+                             ZZAccountParameters.mobileNumber               : formattedMobileNumber};
+    return params;
 }
 
 @end

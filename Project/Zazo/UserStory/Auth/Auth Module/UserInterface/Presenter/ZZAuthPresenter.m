@@ -86,6 +86,21 @@
     [self.wireframe presentGridController];
 }
 
+- (void)userRequestCallExtendSmsCode
+{
+    [self.interactor userRequestCallExtendSmsCode];
+}
+
+- (void)callRequestCompletedSuccessfully
+{
+    // TODO: check if we need some UI update here
+}
+
+- (void)callRequestDidFailWithError:(NSError *)error
+{
+    // TODO: check if we need some UI update here
+}
+
 #pragma mark - Module Interface
 
 - (void)verifySMSCode:(NSString*)code

@@ -63,7 +63,7 @@
     {
         [self.output validationCompletedSuccessfully];
         self.currentUser = model;
-        [self registerUserWithModel:model];
+        [self registerUserWithModel:self.currentUser forceCall:NO];
     }
     else
     {
@@ -71,12 +71,19 @@
     }
 }
 
+- (void)userRequestCallExtendSmsCode
+{
+    [self registerUserWithModel:self.currentUser forceCall:YES];
+}
+
 - (void)validateSMSCode:(NSString*)code
 {
-    [[ZZAccountTransportService registerUserFromModel:self.currentUser withVerificationCode:code] subscribeNext:^(NSDictionary *dict) {
-        ZZUserDomainModel *user = [FEMObjectDeserializer deserializeObjectExternalRepresentation:dict usingMapping:[ZZUserDomainModel mapping]];
-        user.isRegistered = YES;
-        //[ZZUserDataProvider upsertUserWithModel:user];
+    [[ZZAccountTransportService verifySMSCodeWithUserModel:self.currentUser code:code] subscribeNext:^(NSDictionary *dict) {
+        
+        ZZUserDomainModel *user = [FEMObjectDeserializer deserializeObjectExternalRepresentation:dict
+                                                                                    usingMapping:[ZZUserDomainModel mapping]];
+        user.isRegistered = YES; // TODO: check server fields
+        [ZZUserDataProvider upsertUserWithModel:user];
         
         //        [self loadFriendsFromServer];
         
@@ -104,9 +111,9 @@
 
 #pragma mark - ZZAccountTransportService
 
-- (void)registerUserWithModel:(ZZUserDomainModel *)user
+- (void)registerUserWithModel:(ZZUserDomainModel*)user forceCall:(BOOL)forceCall
 {
-    [[ZZAccountTransportService registerUserWithModel:user] subscribeNext:^(NSDictionary *authKeys) {
+    [[ZZAccountTransportService registerUserWithModel:user shouldForceCall:forceCall] subscribeNext:^(NSDictionary *authKeys) {
         
         NSString *auth = [authKeys objectForKey:@"auth"];
         NSString *mkey = [authKeys objectForKey:@"mkey"];

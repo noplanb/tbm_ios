@@ -13,6 +13,7 @@
 - (void)loadUserData;
 - (void)registerUser:(ZZUserDomainModel*)model;
 - (void)validateSMSCode:(NSString*)code;
+- (void)userRequestCallExtendSmsCode;
 
 @end
 
@@ -29,5 +30,8 @@
 
 - (void)smsCodeValidationCompletedWithError:(NSError*)error;
 - (void)smsCodeValidationCompletedSuccessfully;
+
+- (void)callRequestCompletedSuccessfully;
+- (void)callRequestDidFailWithError:(NSError*)error;
 
 @end

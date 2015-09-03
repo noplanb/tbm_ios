@@ -10,7 +10,8 @@
 
 @interface ZZAccountTransportService : NSObject
 
-+ (RACSignal*)registerUserWithModel:(ZZUserDomainModel *)user;
-+ (RACSignal*)registerUserFromModel:(ZZUserDomainModel *)user withVerificationCode:(NSString *)code;
++ (RACSignal*)registerUserWithModel:(ZZUserDomainModel*)user shouldForceCall:(BOOL)shouldForceCall;
+
++ (RACSignal*)verifySMSCodeWithUserModel:(ZZUserDomainModel*)user code:(NSString*)code;
 
 @end

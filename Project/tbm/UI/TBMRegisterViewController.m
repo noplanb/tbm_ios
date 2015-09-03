@@ -42,86 +42,6 @@
 
 @implementation TBMRegisterViewController
 
-//- (void)viewDidLoad
-//{
-//    [super viewDidLoad];
-//
-//    [_registerForm stopWaitingForServer];
-//    self.registerForm = [[TBMRegisterForm alloc] initWithView:self.view delegate:self];
-//    self.registerForm.controller = self;
-//
-//    self.view.backgroundColor = [ZZColorTheme shared].authBackgroundColor;
-//}
-
-#pragma mark - Submit reg form
-
-//- (void)didClickSubmit
-//{
-//    [self getInput];
-//    [self putInput];
-//    if (![self isValidInput])
-//        return;
-//    [self register];
-//}
-
-
-#pragma mark Get and Validate Input
-
-//- (void)getInput{
-//    _firstName = [self cleanName:_registerForm.firstName.text];
-//    _lastName  = [self cleanName:_registerForm.lastName.text];
-//    _countryCode  = [self cleanNumber:_registerForm.countryCode.text];
-//    _mobileNumber = [self cleanNumber:_registerForm.mobileNumber.text ];
-//    _combinedNumber = [NSString stringWithFormat:@"+%@%@", _countryCode, _mobileNumber];
-//}
-//
-//- (void) putInput{
-//    _registerForm.firstName.text = _firstName;
-//    _registerForm.lastName.text = _lastName;
-//    _registerForm.countryCode.text = _countryCode;
-//    _registerForm.mobileNumber.text = _mobileNumber;
-//}
-
-//- (BOOL)isValidInput
-//{
-//    if ([_firstName isEqualToString:@""]){
-//        [self showErrorDialogWithTitle:@"First Name" msg:@"Enter your first name."];
-//        return NO;
-//    }
-//    if ([_lastName isEqualToString:@""]){
-//        [self showErrorDialogWithTitle:@"Last Name" msg:@"Enter your last name."];
-//        return NO;
-//    }
-//    if ([_countryCode isEqualToString:@""]){
-//        [self showErrorDialogWithTitle:@"Country Code" msg:@"Enter your country code. It is 1 for USA"];
-//        return NO;
-//    }
-//    if ([_mobileNumber isEqualToString:@""]){
-//        [self showErrorDialogWithTitle:@"Mobile Number" msg:@"Enter your mobile number."];
-//        return NO;
-//    }
-//    if (![TBMPhoneUtils isValidPhone: _combinedNumber]){
-//        [self showErrorDialogWithTitle:@"Bad Mobile Number" msg:@"Enter a valid country code and mobile number."];
-//        return NO;
-//    }
-//    return YES;
-//}
-
-//- (NSString *)cleanName:(NSString *)name{
-//    NSError *error = nil;
-//    NSArray *rxs = @[@"\\s+", @"\\W+", @"\\d+"];
-//    for (NSString *rx in rxs){
-//        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:rx options:NSRegularExpressionCaseInsensitive error:&error];
-//        name = [regex stringByReplacingMatchesInString:name options:0 range:NSMakeRange(0, [name length]) withTemplate:@""];
-//    }
-//    return name;
-//}
-//
-//- (NSString *)cleanNumber:(NSString *)phone{
-//    NSError *error = nil;
-//    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\D+" options:NSRegularExpressionCaseInsensitive error:&error];
-//    return [regex stringByReplacingMatchesInString:phone options:0 range:NSMakeRange(0, [phone length]) withTemplate:@""];
-//}
 
 
 #pragma mark Register
@@ -335,5 +255,90 @@
     [[TBMUser getUser] setupRegistredFlagTo:YES];
     [self.delegate registrationControllerDidCompleteRegistration:self];
 }
+
+
+
+
+//- (void)viewDidLoad
+//{
+//    [super viewDidLoad];
+//
+//    [_registerForm stopWaitingForServer];
+//    self.registerForm = [[TBMRegisterForm alloc] initWithView:self.view delegate:self];
+//    self.registerForm.controller = self;
+//
+//    self.view.backgroundColor = [ZZColorTheme shared].authBackgroundColor;
+//}
+
+#pragma mark - Submit reg form
+
+//- (void)didClickSubmit
+//{
+//    [self getInput];
+//    [self putInput];
+//    if (![self isValidInput])
+//        return;
+//    [self register];
+//}
+
+
+#pragma mark Get and Validate Input
+
+//- (void)getInput{
+//    _firstName = [self cleanName:_registerForm.firstName.text];
+//    _lastName  = [self cleanName:_registerForm.lastName.text];
+//    _countryCode  = [self cleanNumber:_registerForm.countryCode.text];
+//    _mobileNumber = [self cleanNumber:_registerForm.mobileNumber.text ];
+//    _combinedNumber = [NSString stringWithFormat:@"+%@%@", _countryCode, _mobileNumber];
+//}
+//
+//- (void) putInput{
+//    _registerForm.firstName.text = _firstName;
+//    _registerForm.lastName.text = _lastName;
+//    _registerForm.countryCode.text = _countryCode;
+//    _registerForm.mobileNumber.text = _mobileNumber;
+//}
+
+//- (BOOL)isValidInput
+//{
+//    if ([_firstName isEqualToString:@""]){
+//        [self showErrorDialogWithTitle:@"First Name" msg:@"Enter your first name."];
+//        return NO;
+//    }
+//    if ([_lastName isEqualToString:@""]){
+//        [self showErrorDialogWithTitle:@"Last Name" msg:@"Enter your last name."];
+//        return NO;
+//    }
+//    if ([_countryCode isEqualToString:@""]){
+//        [self showErrorDialogWithTitle:@"Country Code" msg:@"Enter your country code. It is 1 for USA"];
+//        return NO;
+//    }
+//    if ([_mobileNumber isEqualToString:@""]){
+//        [self showErrorDialogWithTitle:@"Mobile Number" msg:@"Enter your mobile number."];
+//        return NO;
+//    }
+//    if (![TBMPhoneUtils isValidPhone: _combinedNumber]){
+//        [self showErrorDialogWithTitle:@"Bad Mobile Number" msg:@"Enter a valid country code and mobile number."];
+//        return NO;
+//    }
+//    return YES;
+//}
+
+//- (NSString *)cleanName:(NSString *)name{
+//    NSError *error = nil;
+//    NSArray *rxs = @[@"\\s+", @"\\W+", @"\\d+"];
+//    for (NSString *rx in rxs){
+//        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:rx options:NSRegularExpressionCaseInsensitive error:&error];
+//        name = [regex stringByReplacingMatchesInString:name options:0 range:NSMakeRange(0, [name length]) withTemplate:@""];
+//    }
+//    return name;
+//}
+//
+//- (NSString *)cleanNumber:(NSString *)phone{
+//    NSError *error = nil;
+//    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\D+" options:NSRegularExpressionCaseInsensitive error:&error];
+//    return [regex stringByReplacingMatchesInString:phone options:0 range:NSMakeRange(0, [phone length]) withTemplate:@""];
+//}
+
 
 @end
