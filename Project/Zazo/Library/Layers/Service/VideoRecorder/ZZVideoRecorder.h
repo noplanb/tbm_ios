@@ -20,5 +20,8 @@
 - (void)dispose;
 - (BOOL)isRecording;
 - (void)startRecordingWithGridCell:(ZZGridCollectionCell*)gridCell;
+- (BOOL)isBothCamerasAvailable;
+- (void)switchToFrontCamera;
+- (void)switchToBackCamera;
 
 @end

@@ -12,7 +12,9 @@
 
 + (AVCaptureDeviceInput *)getAudioInputWithError:(NSError * __autoreleasing *)error;
 + (AVCaptureDeviceInput *)getAvailableFrontVideoInputWithError:(NSError * __autoreleasing *)error;
++ (AVCaptureDeviceInput *)getAvailableBackVideoInputWithError:(NSError * __autoreleasing *)error;
 + (BOOL)isCameraConnected;
 + (BOOL)isMiccrophoneConnected;
++ (BOOL)isBothCamerasAvailable;
 
 @end

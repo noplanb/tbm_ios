@@ -6,9 +6,7 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "ZZGridCollectionCellViewModel.h"
-
 
 static CGFloat const kSidePadding = 2;
 static CGFloat const kUserNameScaleValue = 5;
@@ -17,12 +15,10 @@ static CGFloat const kLayoutConstIndicatorFractionalWidth = 0.15;
 static CGFloat const kDownloadBarHeight = 2;
 static CGFloat const kVideoCountLabelWidth = 23;
 
-
 static CGFloat const kContainFriendAnimationDuration = 0.20;
 static CGFloat const kContainFreindDelayDuration = 0.16;
 static CGFloat const kShowedingAlphaValue = 1.0;
 static CGFloat const kHiddenAlphaValue = 0.0;
-
 
 @protocol ZZGridCollectionCellBaseStateViewDelegate  <NSObject>
 

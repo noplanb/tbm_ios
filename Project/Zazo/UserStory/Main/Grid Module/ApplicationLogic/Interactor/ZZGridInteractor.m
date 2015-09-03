@@ -56,6 +56,7 @@ static NSInteger const kGridCenterCellIndex = 4;
         {
             model = [ZZGridCollectionCellViewModel new];
         }
+        
         [self.dataArray addObject:model];
     }
     

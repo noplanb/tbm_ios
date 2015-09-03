@@ -49,7 +49,6 @@
         self.sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
         dispatch_async(self.sessionQueue, ^{
             [self _initVideoInput];
-            [self _initAudioInput];
             [self _initCaptureOutput];
             [self.captureSession setUsesApplicationAudioSession:YES];
             [self.captureSession setAutomaticallyConfiguresApplicationAudioSession:NO];
@@ -64,6 +63,23 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+- (BOOL)isBothCamerasAvailable
+{
+    return [ZZDeviceHandler isBothCamerasAvailable];
+}
+
+- (void)switсhToFrontCamera
+{
+
+}
+
+- (void)switсhToBackCamera
+{
+
+
+}
+
 
 #pragma mark - Initialization
 
@@ -80,12 +96,51 @@
 {
     NSError *error;
     self.videoInput = [ZZDeviceHandler getAvailableFrontVideoInputWithError:&error];
+    
+    if (error)
+    {
+        [self switchToBackCamera];
+        return;
+    }
+    
+    [self.captureSession beginConfiguration];
+     for (AVCaptureInput* input in self.captureSession.inputs)
+     {
+         [self.captureSession removeInput:input];
+     }
+   
+     [self.captureSession addInput:self.videoInput];
+    
+     [self.captureSession commitConfiguration];
+    
+     [self _initAudioInput];
+}
+
+- (void)switchToFrontCamera
+{
+    [self _initVideoInput];
+}
+
+- (void)switchToBackCamera
+{
+    NSError *error;
+    self.videoInput = [ZZDeviceHandler getAvailableBackVideoInputWithError:&error];
     if (error)
     {
         // TODO:
     }
+    [self.captureSession beginConfiguration];
+    for (AVCaptureInput* input in self.captureSession.inputs)
+    {
+        [self.captureSession removeInput:input];
+    }
+    
     [self.captureSession addInput:self.videoInput];
+  
+    [self.captureSession commitConfiguration];
+      [self _initAudioInput];
 }
+
 
 - (void)_initAudioInput
 {
@@ -95,7 +150,6 @@
     {
         //TODO:
     }
-    
     [self.captureSession addInput:self.audioInput];
 }
 

@@ -27,6 +27,20 @@
     return input;
 }
 
++ (AVCaptureDeviceInput *)getAvailableBackVideoInputWithError:(NSError * __autoreleasing *)error
+{
+    AVCaptureDevice *device = [ZZDeviceHandler deviceWithMediaType:AVMediaTypeVideo preferringPosition:AVCaptureDevicePositionBack];
+    if (!device)
+    {
+        *error = [[NSError alloc] initWithDomain:@"ZZ" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Device has no camera"}];
+        return nil;
+    }
+    
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&*error];
+    return input;
+}
+
+
 + (BOOL) isCameraConnected
 {
     AVCaptureDevice *device = [self deviceWithMediaType:AVMediaTypeVideo preferringPosition:AVCaptureDevicePositionFront];
@@ -41,6 +55,15 @@
     }
     
     return YES;
+}
+
++ (BOOL)isBothCamerasAvailable
+{
+    
+    AVCaptureDevice* frondCamera = [ZZDeviceHandler deviceWithMediaType:AVMediaTypeVideo preferringPosition:AVCaptureDevicePositionFront];
+    AVCaptureDevice* backCamera = [ZZDeviceHandler deviceWithMediaType:AVMediaTypeVideo preferringPosition:AVCaptureDevicePositionBack];
+
+    return (frondCamera && backCamera);
 }
 
 #pragma mark - Audio
