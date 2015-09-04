@@ -53,12 +53,12 @@ static const NSString *VH_CURRENT = @"current";
 - (void) checkVersionCompatibility
 {
     NSString* version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-    
     version = [version an_stripAllNonNumericCharacters];
     
     [[TBMHttpManager manager]
       GET:@"version/check_compatibility"
-      parameters:@{@"device_platform": @"ios", @"version": [version integerValue]}
+      parameters:@{@"device_platform": @"ios",
+                   @"version": @([version integerValue])}
       success:^(AFHTTPRequestOperation *operation, id responseObject){
           OB_INFO(@"checkVersionCompatibility: success: %@", [responseObject objectForKey:@"result"]);
           if (_delegate)

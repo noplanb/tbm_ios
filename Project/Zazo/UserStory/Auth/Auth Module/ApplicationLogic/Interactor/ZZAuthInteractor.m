@@ -253,6 +253,11 @@
 }
 
 
+
+/**
+ *  CLEANUP!!!!
+ */
+
 - (NSString*)_cleanText:(NSString*)text
 {
     NSError *error = nil;
@@ -275,11 +280,6 @@
                                                                              error:&error];
     return [regex stringByReplacingMatchesInString:phone options:0 range:NSMakeRange(0, [phone length]) withTemplate:@""];
 }
-
-
-/**
- *  CLEANUP!!!!
- */
 
 - (void)gotFriends:(NSArray *)friends
 {
@@ -304,34 +304,32 @@
 
 - (NSArray *)sortedFriendsByCreatedOn:(NSArray *)friends
 {
-    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
     [dateFormatter setLocale:enUSPOSIXLocale];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
     
-    return [friends sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2)
-            {
-                
-                NSComparisonResult result = NSOrderedSame;
-                NSDictionary *dict1 = (NSDictionary *) obj1;
-                NSDictionary *dict2 = (NSDictionary *) obj2;
-                NSDate *date1;
-                NSDate *date2;
-                
-                if ([dict1 isKindOfClass:[NSDictionary class]] && [dict2 isKindOfClass:[NSDictionary class]])
-                {
-                    
-                    date1 = [dateFormatter dateFromString:dict1[@"connection_created_on"]];
-                    date2 = [dateFormatter dateFromString:dict2[@"connection_created_on"]];
-                }
-                
-                if (date1 && date2)
-                {
-                    result = [date1 timeIntervalSinceDate:date2] > 0 ? NSOrderedDescending : NSOrderedAscending;
-                }
-                return result;
-            }];
+    return [friends sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        NSComparisonResult result = NSOrderedSame;
+        NSDictionary *dict1 = (NSDictionary *) obj1;
+        NSDictionary *dict2 = (NSDictionary *) obj2;
+        NSDate *date1;
+        NSDate *date2;
+        
+        if ([dict1 isKindOfClass:[NSDictionary class]] && [dict2 isKindOfClass:[NSDictionary class]])
+        {
+            
+            date1 = [dateFormatter dateFromString:dict1[@"connection_created_on"]];
+            date2 = [dateFormatter dateFromString:dict2[@"connection_created_on"]];
+        }
+        
+        if (date1 && date2)
+        {
+            result = [date1 timeIntervalSinceDate:date2] > 0 ? NSOrderedDescending : NSOrderedAscending;
+        }
+        return result;
+    }];
 }
 
 @end
