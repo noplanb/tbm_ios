@@ -9,6 +9,4 @@
 
 @interface ZZGridCenterCellViewModel : NSObject
 
-
-
 @end

@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "ZZGridDomainModel.h"
 
 
@@ -21,8 +20,10 @@
 @interface ZZGridCollectionCellViewModel : NSObject
 
 @property (nonatomic, weak) id <ZZGridCellViewModellDelegate> delegate;
-@property (nonatomic, strong) ZZGridDomainModel* domainModel;
+@property (nonatomic, strong) ZZGridDomainModel* item;
 @property (nonatomic, strong) NSNumber* badgeNumber;
+@property (nonatomic, strong) UIImage* screenShot;
+@property (nonatomic, assign) BOOL hasUploadedVideo;
 
 - (void)startRecordingWithView:(UIView *)view;
 - (void)stopRecording;

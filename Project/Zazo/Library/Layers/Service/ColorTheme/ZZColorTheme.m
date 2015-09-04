@@ -69,7 +69,9 @@ static CGFloat const kNavigationBarIconHeight = 20;
         self.baseFontColor = [UIColor an_colorWithHexString:@"5B5B5B"];
         
         self.baseCellTextColor = [UIColor an_colorWithHexString:@"202020"];
-        self.cellLayoutGreenColor = [UIColor an_colorWithHexString:@"9BC046"];
+        
+        self.gridCellLayoutGreenColor = [UIColor an_colorWithHexString:@"9BC046"];
+        self.gridCellGrayColor = [UIColor grayColor];
         
         self.menuTextColor = [UIColor an_colorWithHexString:@"A8A295"];
         self.menuBackgroundColor = [UIColor an_colorWithHexString:@"2F2E28"];

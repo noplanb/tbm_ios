@@ -15,6 +15,7 @@
 #import "ANMessageDomainModel.h"
 #import "DeviceUtil.h"
 #import "TBMUser.h"
+#import "ZZGridDomainModel.h"
 
 
 static NSInteger const kGridCellCount = 9;
@@ -24,7 +25,8 @@ static NSInteger const kGridCenterCellIndex = 4;
 
 @property (nonatomic, strong) NSMutableArray* dataArray;
 @property (nonatomic, strong) id selectedUserModel;
-@property (nonatomic, strong) ZZGridCollectionCellViewModel* selectedCellModel;
+//@property (nonatomic, strong) ZZGridCollectionCellViewModel* selectedCellModel;
+@property (nonatomic, strong) ZZGridDomainModel* selectedModel;
 @property (nonatomic, strong) NSMutableArray* friendArray;
 
 @end
@@ -50,12 +52,13 @@ static NSInteger const kGridCenterCellIndex = 4;
         id model;
         if (count == kGridCenterCellIndex)
         {
-            model = [ZZGridCenterCellViewModel new];
+            model = [ZZGridDomainModel new];
         }
         else
         {
-            model = [ZZGridCollectionCellViewModel new];
+            model = [ZZGridDomainModel new];
         }
+        
         [self.dataArray addObject:model];
     }
     
@@ -67,9 +70,9 @@ static NSInteger const kGridCenterCellIndex = 4;
     return self.dataArray.count/2;
 }
 
-- (void)selectedPlusCellWithModel:(ZZGridCollectionCellViewModel *)model
+- (void)selectedPlusCellWithModel:(id)model
 {
-    self.selectedCellModel = model;
+    self.selectedModel = model;
 }
 
 - (void)selectedUserWithModel:(id)model
@@ -92,26 +95,26 @@ static NSInteger const kGridCenterCellIndex = 4;
 {
     
     ZZFriendDomainModel* friendModel = [self friendModelFromMenuModel:self.selectedUserModel];
-    ZZFriendDomainModel* containdedUser;
-    if (![self _isFriendsOnGridContainFriendModel:friendModel withContainedFriend:&containdedUser])
+    ZZFriendDomainModel* containedUser;
+    if (![self _isFriendsOnGridContainFriendModel:friendModel withContainedFriend:&containedUser])
     {
         [self.friendArray addObject:friendModel];
-        self.selectedCellModel.domainModel.relatedUser = friendModel;
-        [self.output modelUpdatedWithUserWithModel:self.selectedCellModel];
+        self.selectedModel.relatedUser = friendModel;
+        [self.output modelUpdatedWithUserWithModel:self.selectedModel];
     }
     else
     {
-        [self.output gridContainedFriend:containdedUser];
+        [self.output gridContainedFriend:containedUser];
     }
 }
 
-- (ZZFriendDomainModel*)friendModelFromMenuModel:(ZZMenuCellViewModel*)model
+- (ZZFriendDomainModel*)friendModelFromMenuModel:(id)model
 {
     ZZFriendDomainModel* friendModel;
     
-    if ([model.item isMemberOfClass:[ZZContactDomainModel class]])
+    if ([model isMemberOfClass:[ZZContactDomainModel class]])
     {
-        ZZContactDomainModel* contactModel = (ZZContactDomainModel*)model.item;
+        ZZContactDomainModel* contactModel = (ZZContactDomainModel*)model;
         friendModel = [ZZFriendDomainModel new];
         friendModel.firstName = contactModel.firstName;
         friendModel.lastName = contactModel.lastName;
@@ -119,7 +122,7 @@ static NSInteger const kGridCenterCellIndex = 4;
     }
     else
     {
-        friendModel = (ZZFriendDomainModel*)model.item;
+        friendModel = (ZZFriendDomainModel*)model;
     }
     
     return friendModel;

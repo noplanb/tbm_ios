@@ -55,6 +55,6 @@ typedef NS_ENUM (NSInteger, TBMIncomingVideoStatus) {
 
 - (BOOL)isStatusDownloading;
 - (NSString *)statusName;
-+ (NSString *)nameForStatus:(TBMIncomingVideoStatus)statusж;
++ (NSString *)nameForStatus:(TBMIncomingVideoStatus)status;
 
 @end

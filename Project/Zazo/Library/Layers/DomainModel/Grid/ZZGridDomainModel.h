@@ -7,8 +7,8 @@
 //
 
 #import "ZZBaseDomainModel.h"
+#import "ZZFriendDomainModel.h"
 
-@class ZZFriendDomainModel;
 
 @interface ZZGridDomainModel : ZZBaseDomainModel
 

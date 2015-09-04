@@ -8,10 +8,11 @@
 
 #import "ZZTouchObserver.h"
 #import "ZZGridCollectionCell.h"
-#import "Cell.h"
+#import "ZZFakeRotationCell.h"
 
 #import "ANSectionModel.h"
 #import "ZZGridDomainModel.h"
+#import "ZZGridCollectionCellViewModel.h"
 
 @interface ZZTouchObserver () <GridDelegate>
 
@@ -21,7 +22,7 @@
 @property (nonatomic, assign) CGPoint initialLocation;
 @property (nonatomic, assign) BOOL isMoving;
 @property (nonatomic, strong) ZZGridView* gridView;
-@property (nonatomic, strong) Grid* grid;
+@property (nonatomic, strong) ZZMovingGridView* grid;
 @property (nonatomic, assign) CGPoint touchPoint;
 
 @end
@@ -61,7 +62,7 @@
 {
     if (!self.grid)
     {
-        self.grid = [[Grid alloc] initWithFrame:self.collectionView.frame];
+        self.grid = [[ZZMovingGridView alloc] initWithFrame:self.collectionView.frame];
         
         self.grid.delegate = self;
         self.grid.hidden = YES;
@@ -80,6 +81,14 @@
     if (touch.phase == UITouchPhaseBegan)
     {
         self.initialLocation = [touch locationInView:self.gridView.collectionView];
+        NSIndexPath* indexPath = [self.gridView.collectionView indexPathForItemAtPoint:self.initialLocation];
+        UICollectionViewCell* cell = [self.gridView.collectionView cellForItemAtIndexPath:indexPath];
+        if (cell.isHidden && !self.grid.isHidden)
+        {
+            [self showMovingCell];
+            self.grid.hidden = YES;
+        }
+      
     }
     
     if (self.grid.hidden && touch.phase == UITouchPhaseMoved && self.gridView.isRotationEnabled)
@@ -133,7 +142,8 @@
         {
             ZZGridCollectionCell* gridCell = (ZZGridCollectionCell*)obj;
             [gridCell makeActualScreenShoot];
-            [self.movingViewArray enumerateObjectsUsingBlock:^(Cell* fakeCell, NSUInteger idx, BOOL *stop) {
+            
+            [self.movingViewArray enumerateObjectsUsingBlock:^(ZZFakeRotationCell* fakeCell, NSUInteger idx, BOOL *stop) {
                 if (CGRectContainsPoint(gridCell.frame, fakeCell.center))
                 {
                     fakeCell.stateImageView.image = [gridCell actualSateImage];
@@ -150,7 +160,7 @@
     [self.movingViewArray removeAllObjects];
     
     [[self fakeCellIndexes] enumerateObjectsUsingBlock:^(NSNumber* obj, NSUInteger idx, BOOL *stop) {
-        Cell* moveView = [Cell new];
+        ZZFakeRotationCell* moveView = [ZZFakeRotationCell new];
         NSIndexPath* indexPath = [NSIndexPath indexPathForItem:[obj integerValue] inSection:0];
         moveView.indexPath = indexPath;
         [self.movingViewArray addObject:moveView];
@@ -163,6 +173,8 @@
         if ([cell isKindOfClass:[ZZGridCollectionCell class]])
         {
             cell.hidden = YES;
+            ZZGridCollectionCell* gridCell = (ZZGridCollectionCell *)cell;
+            [gridCell stopVideoPlaying];
         }
     }];
 }
@@ -193,7 +205,7 @@
             
             if ([cell isKindOfClass:[ZZGridCollectionCell class]])
             {
-                [self.movingViewArray enumerateObjectsUsingBlock:^(Cell* fakeCell, NSUInteger idx, BOOL *stop) {
+                [self.movingViewArray enumerateObjectsUsingBlock:^(ZZFakeRotationCell* fakeCell, NSUInteger idx, BOOL *stop) {
                     if (CGRectIntersectsRect(cell.frame, fakeCell.frame))
                     {
                         NSIndexPath* indexPath = [self.collectionView indexPathForCell:cell];

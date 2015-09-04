@@ -128,6 +128,7 @@ PODS:
     - ReactiveCocoa/Core
   - Reveal-iOS-SDK (1.5.1)
   - Rollbar (0.1.5)
+  - SCRecorder (2.5.0)
   - SDCAlertView (2.5.2):
     - RBBAnimation (~> 0.3)
     - SDCAutoLayout (~> 2.0)
@@ -178,6 +179,7 @@ DEPENDENCIES:
   - OBLogger (~> 0.2.1)
   - Reveal-iOS-SDK (~> 1.5.1)
   - Rollbar (~> 0.1.5)
+  - SCRecorder
   - SDCAlertView (~> 2.5.2)
   - SDCAutoLayout (~> 2.0.3)
   - SDWebImage (~> 3.7.3)
@@ -226,6 +228,7 @@ SPEC CHECKSUMS:
   ReactiveCocoa: eb38dee0a0e698f73a9b25e5c1faea2bb4c79240
   Reveal-iOS-SDK: c9c55cad2729c85f6ced415f1b21857c9a2d8ef9
   Rollbar: 6b4be007d57f434cd48f7cce52862013c6bd64cb
+  SCRecorder: 90075f2d9deb03cd8280faff8cd3cca11c036025
   SDCAlertView: f9706c18f456ea87909f8f199704cd28e582ff27
   SDCAutoLayout: e6885bb39ab8e2ec2ff84d158f38035f025f7420
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
@@ -235,4 +238,4 @@ SPEC CHECKSUMS:
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
   Valet: 05e94ab2495077d147879c6dd822782450a96785
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.37.2

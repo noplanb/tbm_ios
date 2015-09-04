@@ -8,11 +8,8 @@
 
 #import "ANCollectionViewCell.h"
 #import "ZZGridBaseCell.h"
-#import "ZZUserRecorderGridView.h"
 
 @interface ZZGridCollectionCell : ZZGridBaseCell
-
-@property (nonatomic, strong) ZZUserRecorderGridView* recorderView;
 
 - (UIImage*)actualSateImage;
 - (void)makeActualScreenShoot;
@@ -20,5 +17,7 @@
 - (void)showUploadVideoAnimationWithCount:(NSInteger)count;
 
 - (void)videoDownloadedWithUrl:(NSURL *)videoUrl;
+- (void)stopVideoPlaying;
+- (void)startVidePlay;
 
 @end

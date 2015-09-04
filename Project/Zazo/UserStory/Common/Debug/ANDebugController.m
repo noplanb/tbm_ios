@@ -14,6 +14,7 @@
 #import "ZZEditFriendListWireframe.h"
 #import "ZZSecretWireframe.h"
 #import "ZZDebugStateWireframe.h"
+#import "AVAudioSession+TBMAudioSession.h"
 
 typedef NS_ENUM(NSInteger, ANSections)
 {
@@ -35,9 +36,29 @@ typedef NS_ENUM(NSInteger, ANSections)
         tableView.rowHeight = 44;
         [self registerCellClass:[ANBaseListTableCell class] forModelClass:[NSString class]];
         [self _setupStorage];
+        [self ensureAudioSession];
     }
     return self;
 }
+
+
+- (void)ensureAudioSession {
+    OB_INFO(@"ensureAudioSession");
+    [[AVAudioSession sharedInstance] setupApplicationAudioSession];
+    if ([[AVAudioSession sharedInstance] activate] != nil){
+        OB_INFO(@"Boot: No Audio Session");
+//        [self alertEndProbablePhoneCall];
+    } else {
+        OB_INFO(@"Boot: Audio Session Granted");
+        /**
+         * Note that we call onResources available BEFORE we ensurePushNotification because on IOS7
+         * we do not get any callback if user declines notifications.
+         */
+//        [self onResourcesAvailable];
+//        [self ensurePushNotification];
+    }
+}
+
 
 - (void)_setupStorage
 {

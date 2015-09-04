@@ -27,7 +27,15 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
 
 @implementation ZZGridBaseCell
 
-
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self)
+    {
+        [self _setupRecordingOverlay];
+    }
+    return self;
+}
 
 - (void)showRecordingOverlay
 {
@@ -41,22 +49,6 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
     self.recordingOverlay.hidden = YES;
     self.recordingLabel.hidden = YES;
     [NSThread sleepForTimeInterval:0.1f];
-}
-
-- (void)setupWithCaptureSession:(AVCaptureSession *)captureSession
-{
-    [self _connectVideoCaptureSession:captureSession];
-}
-
-- (void)_connectVideoCaptureSession:(AVCaptureSession *)captureSession
-{
-    ANDispatchBlockToMainQueue(^{
-        self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:captureSession];
-        self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-        self.previewLayer.frame = self.layer.bounds;
-        [self.layer addSublayer:self.previewLayer];
-        [self _setupRecordingOverlay];
-    });
 }
 
 - (void)_setupRecordingOverlay
@@ -96,10 +88,14 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
     self.recordingOverlay.backgroundColor = [UIColor clearColor].CGColor;
     self.recordingOverlay.borderWidth = kLayoutConstRecordingBorderWidth;
     self.recordingOverlay.borderColor = [UIColor redColor].CGColor;
-    
-    [self.previewLayer addSublayer:self.recordingOverlay];
+    self.recordingOverlay.zPosition = 100;
+    [self.contentView.layer addSublayer:self.recordingOverlay];
     [self.recordingOverlay setNeedsDisplay];
 }
 
+- (UIView *)topView
+{
+    return nil;
+}
 
 @end

@@ -12,13 +12,15 @@
 
 
 + (instancetype)sharedInstance;
-- (void)updateViewGridCell:(ZZGridBaseCell *)cell;
-- (void)startRunning;
+
 - (void)startRecordingWithVideoUrl:(NSURL *)videoUrl;
 - (void)stopRecording;
-- (BOOL)cancelRecording;
-- (void)dispose;
-- (BOOL)isRecording;
+
+
+- (void)updateViewGridCell:(ZZGridBaseCell *)cell;
 - (void)startRecordingWithGridCell:(ZZGridCollectionCell*)gridCell;
+- (BOOL)isBothCamerasAvailable;
+- (void)switchToFrontCamera;
+- (void)switchToBackCamera;
 
 @end

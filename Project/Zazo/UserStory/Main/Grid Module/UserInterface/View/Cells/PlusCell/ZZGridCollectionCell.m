@@ -12,14 +12,17 @@
 #import "UIImage+PDF.h"
 #import "TBMVideoRecorder.h"
 #import "ZZVideoRecorder.h"
+#import "ZZGridCollectionCellBaseStateView.h"
+#import "ZZGridCollectionCellStateViewFactory.h"
 
-@interface ZZGridCollectionCell () <ZZUserRecorderGridViewDelegate>
+
+@interface ZZGridCollectionCell () <ZZGridCollectionCellBaseStateViewDelegate>
 
 @property (nonatomic, strong) ZZGridCollectionCellViewModel* gridModel;
 @property (nonatomic, strong) UIImageView* plusImageView;
 @property (nonatomic, strong) UIGestureRecognizer* plusRecognizer;
-@property (nonatomic, strong) UIImage* screenShot;
-@property (nonatomic, strong) UIView* containFriendView;
+@property (nonatomic, strong) ZZGridCollectionCellBaseStateView* stateView;
+@property (nonatomic, strong) ZZGridCollectionCellStateViewFactory* stateViewFactory;
 
 @end
 
@@ -31,14 +34,16 @@
     {
         self.backgroundColor = [UIColor orangeColor];
         [self plusImageView];
-        [self containFriendView];
+        self.stateViewFactory = [ZZGridCollectionCellStateViewFactory new];
+        
     }
     return self;
 }
 
 - (void)prepareForReuse
 {
-    [self.recorderView removeFromSuperview];
+    [self.stateView removeFromSuperview];
+    [self stopVideoPlaying];
 }
 
 - (void)updateWithModel:(id)model
@@ -76,13 +81,13 @@
 
 - (void)_updateIfNeededStateWithUserModel:(ZZGridCollectionCellViewModel *)model
 {
-    if (model.domainModel.relatedUser)
+    if (model.item.relatedUser)
     {
-        self.recorderView = [[ZZUserRecorderGridView alloc] initWithPresentedView:self withModel:model];
+        self.stateView = [self.stateViewFactory stateViewWithPresentedView:self withCellViewModel:model];
     }
     else
     {
-        [self.recorderView removeFromSuperview];
+        [self.stateView removeFromSuperview];
     }
 }
 
@@ -101,23 +106,23 @@
 - (void)stopRecording
 {
     [self.gridModel stopRecording];
-    
-    [self videoDownloadedWithUrl:nil];//TODO: for movie player test
-    
 }
 
 - (void)makeActualScreenShoot
 {
-    CGFloat scale = [UIScreen mainScreen].scale;
-    UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, scale);
-    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
-    self.screenShot = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+    if (![self.stateView isVideoPlayerPalying])
+    {
+        CGFloat scale = [UIScreen mainScreen].scale;
+        UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, scale);
+        [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+        self.gridModel.screenShot = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
 }
 
 - (UIImage *)actualSateImage
 {
-    return self.screenShot;
+    return self.gridModel.screenShot;
 }
 
 
@@ -125,17 +130,29 @@
 
 - (void)showContainFriendAnimation
 {
-    [self.recorderView showContainFriendAnimation];
+    [self.stateView showContainFriendAnimation];
 }
 
 - (void)showUploadVideoAnimationWithCount:(NSInteger)count
 {
-    [self.recorderView showDownloadAnimationWithNewVideoCount:count];
+    [self.stateView showDownloadAnimationWithNewVideoCount:count];
 }
 
 - (void)videoDownloadedWithUrl:(NSURL *)videoUrl
 {
-    [self.recorderView setupPlayerWithUrl:videoUrl];
+    [self.stateView setupPlayerWithUrl:videoUrl];
+}
+
+#pragma mark - Video Player part
+
+- (void)stopVideoPlaying
+{
+    [self.stateView stopPlayVideo];
+}
+
+- (void)startVidePlay
+{
+    [self.stateView startPlayVideo];
 }
 
 @end

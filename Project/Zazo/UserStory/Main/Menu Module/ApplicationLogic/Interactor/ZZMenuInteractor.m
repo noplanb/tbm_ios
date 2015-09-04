@@ -15,8 +15,7 @@
 @implementation ZZMenuInteractor
 
 - (void)loadData
-{
-    
+{   
     [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray *array) {
         
         NSArray *friendsArray = [FEMObjectDeserializer deserializeCollectionExternalRepresentation:array usingMapping:[ZZFriendDomainModel mapping]];

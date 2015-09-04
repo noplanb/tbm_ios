@@ -16,11 +16,12 @@
 #import "ZZVideoUtils.h"
 #import "ZZGridCollectionCellViewModel.h"
 
-
+static NSInteger const kGridCenterCellIndex = 4;
 
 @interface ZZGridPresenter () <ZZGridCellViewModellDelegate>
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
+@property (nonatomic, strong) ZZGridCollectionCellViewModel* selectedCellViewModel;
 
 @end
 
@@ -56,15 +57,33 @@
 
 - (void)dataLoadedWithArray:(NSArray *)data
 {
-    [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([obj isMemberOfClass:[ZZGridCollectionCellViewModel class]])
+    NSArray* dataArray = [self viewModelFromGridDomainModels:data];
+    [self.dataSource.storage addItems:dataArray];
+}
+
+- (NSArray *)viewModelFromGridDomainModels:(NSArray *)itemsArray
+{
+    __block NSMutableArray* viewModels = [NSMutableArray array];
+
+    [itemsArray enumerateObjectsUsingBlock:^(ZZGridDomainModel* item, NSUInteger idx, BOOL *stop) {
+        id model;
+        
+        if (idx == kGridCenterCellIndex)
         {
-            ZZGridCollectionCellViewModel* gridViewModel = (ZZGridCollectionCellViewModel*)obj;
-            gridViewModel.delegate = self;
+            model = [ZZGridCenterCellViewModel new];
         }
+        else
+        {
+            model = [ZZGridCollectionCellViewModel new];
+            ZZGridCollectionCellViewModel* gridCell = model;
+            gridCell.item = item;
+            gridCell.delegate = self;
+        }
+        
+        [viewModels addObject:model];
     }];
     
-    [self.dataSource.storage addItems:data];
+    return viewModels;
 }
 
 - (void)dataLoadedWithError:(NSError *)error
@@ -75,7 +94,8 @@
 
 - (void)modelUpdatedWithUserWithModel:(ZZGridDomainModel *)model
 {
-    [self.dataSource updateModel:model];
+    self.selectedCellViewModel.item = model;
+    [self.dataSource updateModel:self.selectedCellViewModel];
 }
 
 - (void)gridContainedFriend:(ZZFriendDomainModel *)friendModel
@@ -97,7 +117,8 @@
 {
     if (model)
     {
-        [self.interactor selectedPlusCellWithModel:model];
+        self.selectedCellViewModel = model;
+        [self.interactor selectedPlusCellWithModel:model.item];
         [self presentMenu];
     }
 }
