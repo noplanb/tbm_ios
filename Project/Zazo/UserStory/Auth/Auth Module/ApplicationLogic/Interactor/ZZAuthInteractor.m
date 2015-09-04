@@ -83,47 +83,22 @@
 
 - (void)validateSMSCode:(NSString*)code
 {
-    [[[[[[ZZAccountTransportService verifySMSCodeWithUserModel:self.currentUser code:code] catch:^RACSignal *(NSError *error) {
-        
-        //TODO: separate errors
-        [self.output smsCodeValidationCompletedWithError:error];
-        return [RACSignal error:error];
-        
-    }] flattenMap:^RACStream *(NSDictionary* dict) {
-        
-        [self.output smsCodeValidationCompletedSuccessfully];
-        
-        ZZUserDomainModel *user = [FEMObjectDeserializer deserializeObjectExternalRepresentation:dict
+    [[ZZAccountTransportService verifySMSCodeWithUserModel:self.currentUser code:code] subscribeNext:^(id x) {
+       
+        ZZUserDomainModel *user = [FEMObjectDeserializer deserializeObjectExternalRepresentation:x
                                                                                     usingMapping:[ZZUserDomainModel mapping]];
         user.isRegistered = YES; // TODO: check server fields
         [ZZUserDataProvider upsertUserWithModel:user];
         
         [TBMDispatch updateRollBarUserWithItemID:user.idTbm username:[user fullName] phoneNumber:user.mobileNumber];
+        [self.output smsCodeValidationCompletedSuccessfully];
         
-        [ZZFriendDataProvider deleteAllFriendsModels];
+        [self loadFriends];
         
-        return [ZZFriendsTransportService loadFriendList];
-        
-    }] catch:^RACSignal *(NSError *error) {
-        
-        [self.output loadFriendsDidFailWithError:error];
-        return [RACSignal error:error];
-        
-    }] flattenMap:^RACStream *(id value) {
-        
-        [self gotFriends:value];
-        [self detectInvitee:value];
-        
-        [self.output loadedFriendsSuccessfully];
-        
-        
-        return [RACSignal return:nil];
-        
-    }] subscribeNext:^(id x) {
-        
-        [self loadS3Credentials];
     } error:^(NSError *error) {
-        //TODO: remove it?
+        //TODO: separate errors
+        [self.output smsCodeValidationCompletedWithError:error];
+        
     }];
 }
 
