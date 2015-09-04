@@ -15,6 +15,10 @@
 "common.ok" = "OK";
 
 
+//Menu module
+
+"menu.all-contacts.section.header.title.text" = "All Contacts";
+
 //Loading View Controller
 
 "loading-view.empty.label" = "No content";

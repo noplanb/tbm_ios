@@ -8,6 +8,7 @@
 
 #import "ZZMenuController.h"
 #import "ZZMenuDataSource.h"
+#import "ANBaseTableHeaderView.h"
 
 static CGFloat const kTableViewRowHeight = 55.5;
 
@@ -18,8 +19,10 @@ static CGFloat const kTableViewRowHeight = 55.5;
     self = [super initWithTableView:tableView];
     if (self)
     {
-        tableView.rowHeight = kTableViewRowHeight;
+        self.tableView.rowHeight = kTableViewRowHeight;
         [self registerCellClass:[ZZMenuCell class] forModelClass:[ZZMenuCellViewModel class]];
+        [self registerHeaderClass:[ANBaseTableHeaderView class] forModelClass:[NSString class]];
+        self.displayHeaderOnEmptySection = NO;
     }
     return self;
 }
@@ -36,6 +39,19 @@ static CGFloat const kTableViewRowHeight = 55.5;
 }
 
 #pragma mark - Table Delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 3)
+    {
+        return 40;
+    }
+    else
+    {
+        return 0;
+    }
+    
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

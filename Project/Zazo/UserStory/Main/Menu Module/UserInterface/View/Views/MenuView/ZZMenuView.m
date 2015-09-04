@@ -28,7 +28,7 @@ static CGFloat const kSearchBarHeight = 80;
 {
     if (!_tableView)
     {
-        _tableView = [UITableView new];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
