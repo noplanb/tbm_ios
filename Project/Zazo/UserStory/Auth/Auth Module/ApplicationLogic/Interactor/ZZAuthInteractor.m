@@ -161,8 +161,10 @@
         
         [ZZStoredSettingsManager shared].userID = mkey;
         [ZZStoredSettingsManager shared].authToken = auth;
-
-        [self.output registrationCompletedSuccessfullyWithPhoneNumber:user.mobileNumber];
+        if (!forceCall)
+        {
+            [self.output registrationCompletedSuccessfullyWithPhoneNumber:user.mobileNumber];
+        }
         
     } error:^(NSError *error) {
         [self.output registrationDidFailWithError:error];

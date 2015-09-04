@@ -77,7 +77,6 @@
 
 - (void)observeTouch:(UITouch *)touch withEvent:(id)event
 {
-    
     if (touch.phase == UITouchPhaseBegan)
     {
         self.initialLocation = [touch locationInView:self.gridView.collectionView];

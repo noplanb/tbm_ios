@@ -10,6 +10,7 @@
 #import "ANErrorBuilder.h"
 #import "TBMUser.h"
 #import "AFHTTPRequestOperationManager.h"
+#import "ZZStoredSettingsManager.h"
 
 @implementation ZZNetworkTransport
 
@@ -22,16 +23,23 @@
 #ifdef STAGESERVER
         [self setBaseURL:ZZApiBaseURLsList.staging andAPIVersion:@""];
 #endif
-        //TODO:
-        TBMUser *u = [TBMUser getUser];
-        NSURLCredential* credentials;
-        if (u != nil)
-        {
-            credentials = [[NSURLCredential alloc] initWithUser:u.mkey
-                                                      password:u.auth
-                                                   persistence:NSURLCredentialPersistenceForSession];
-        }
-        self.session.credential = credentials;
+        
+        RACSignal* authSignal = RACObserve([ZZStoredSettingsManager shared], authToken);
+        RACSignal* itemIDSignal = RACObserve([ZZStoredSettingsManager shared], userID);
+        
+        [[RACSignal combineLatest:@[authSignal, itemIDSignal] reduce:^id(NSString* authToken, NSString* userID){
+            
+             return @(!ANIsEmpty(authToken) && !ANIsEmpty(userID));
+        }] subscribeNext:^(id x) {
+            
+            if ([x boolValue])
+            {
+                NSURLCredential* credentials = [[NSURLCredential alloc] initWithUser:[ZZStoredSettingsManager shared].userID
+                                                                            password:[ZZStoredSettingsManager shared].authToken
+                                                                         persistence:NSURLCredentialPersistenceForSession];
+                self.session.credential = credentials;
+            }
+        }];
     }
     return self;
 }

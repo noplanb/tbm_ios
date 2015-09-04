@@ -11,8 +11,9 @@
 #import "ZZKeyboardObserver.h"
 #import "ZZTextFieldsDelegate.h"
 #import "NSObject+ANSafeValues.h"
+#import "TBMVerificationAlertHandler.h"
 
-@interface ZZAuthVC ()<ZZKeyboardObserverProtocol>
+@interface ZZAuthVC ()<ZZKeyboardObserverProtocol, TBMVerificationAlertDelegate>
 
 @property (nonatomic, strong) ZZAuthContentView* contentView;
 @property (nonatomic, strong) ZZKeyboardObserver* keyboardObserver;
@@ -95,35 +96,52 @@
     });
 }
 
-- (void)showVerificationCodeInputViewWithPhoneNumber:(NSString*)phoneNumber // TODO: tbmalertcontroller
+- (void)showVerificationCodeInputViewWithPhoneNumber:(NSString*)phoneNumber
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:phoneNumber
-                                                    message:@"Enter verification code:"
-                                                   delegate:self
-                                          cancelButtonTitle:@"Cancel"
-                                          otherButtonTitles:@"Verify", nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [alert show];
+    [[[TBMVerificationAlertHandler alloc] initWithPhoneNumber:phoneNumber
+                                                     delegate:self] presentAlert];
     
-    @weakify(alert);
-    [alert.rac_buttonClickedSignal subscribeNext:^(NSNumber* x) {
-        
-        @strongify(alert);
-        if ([x integerValue] == 1)
-        {
-            NSString *code = [alert textFieldAtIndex:0].text;
-            if (!ANIsEmptyStringByTrimmingWhitespaces(code))
-            {
-                [self.eventHandler verifySMSCode:code];
-            }
-        }
-    }];
     
-#ifdef DEBUG_LOGIN_USER
-    UITextField *textField = [alert textFieldAtIndex:0];
-    textField.text = @"0000";
-#endif
+    
+    
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:phoneNumber
+//                                                    message:@"Enter verification code:"
+//                                                   delegate:self
+//                                          cancelButtonTitle:@"Cancel"
+//                                          otherButtonTitles:@"Verify", nil];
+//    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+//    [alert show];
+//    
+//    @weakify(alert);
+//    [alert.rac_buttonClickedSignal subscribeNext:^(NSNumber* x) {
+//        
+//        @strongify(alert);
+//        if ([x integerValue] == 1)
+//        {
+//            NSString *code = [alert textFieldAtIndex:0].text;
+//            if (!ANIsEmptyStringByTrimmingWhitespaces(code))
+//            {
+//                [self.eventHandler verifySMSCode:code];
+//            }
+//        }
+//    }];
+//    
+//#ifdef DEBUG_LOGIN_USER
+//    UITextField *textField = [alert textFieldAtIndex:0];
+//    textField.text = @"0000";
+//#endif
 }
+
+- (void)didEnterVerificationCode:(NSString*)code
+{
+    [self.eventHandler verifySMSCode:code];
+}
+
+- (void)didTapCallMe
+{
+    [self.eventHandler requestCall];
+}
+
 
 #pragma mark - Keyboard observer
 
@@ -159,7 +177,7 @@
 {
     [UIView animateWithDuration:[self.animationDuration doubleValue] animations:^{
        
-        self.contentView.registrationScrollBottomConstraint.offset = -keyboardHeight;
+        self.contentView.registrationScrollBottomConstraint.offset = -keyboardHeight / 2;
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
         

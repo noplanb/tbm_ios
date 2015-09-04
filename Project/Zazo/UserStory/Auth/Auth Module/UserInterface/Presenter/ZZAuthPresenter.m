@@ -23,6 +23,8 @@
     [self.interactor loadUserData];
 }
 
+#pragma mark - Module Interface
+
 - (void)registrationWithFirstName:(NSString*)firstName
                          lastName:(NSString*)lastName
                       countryCode:(NSString*)countryCode
@@ -35,6 +37,17 @@
     model.plainPhoneNumber = phoneNumber;
     
     [self.interactor registerUser:model];
+}
+
+- (void)requestCall
+{
+    [self.interactor userRequestCallExtendSmsCode];
+}
+
+- (void)verifySMSCode:(NSString*)code
+{
+    [self.userInterface updateStateToLoading:YES message:@"Checking SMS code..."];
+    [self.interactor validateSMSCode:code];
 }
 
 
@@ -56,7 +69,7 @@
     [self.userInterface updateStateToLoading:YES message:@"Sending SMS Code..."];
 }
 
-- (void)registrationCompletedSuccessfullyWithPhoneNumber:(NSString *)phoneNumber
+- (void)registrationCompletedSuccessfullyWithPhoneNumber:(NSString*)phoneNumber
 {
     [self.userInterface updateStateToLoading:NO message:nil];
     ANDispatchBlockToMainQueue(^{
@@ -118,6 +131,11 @@
         [alert presentWithCompletion:nil];
 }
 
+- (void)loadedS3CredentialsSuccessfully
+{
+    //TODO:
+}
+
 - (void)loadS3CredentialsDidFailWithError:(NSError *)error
 {
     ANDispatchBlockToMainQueue(^{
@@ -141,14 +159,6 @@
 - (void)registrationFlowCompletedSuccessfully
 {
     [self.wireframe presentGridController];
-}
-
-#pragma mark - Module Interface
-
-- (void)verifySMSCode:(NSString*)code
-{
-    [self.userInterface updateStateToLoading:YES message:@"Checking SMS code..."];
-    [self.interactor validateSMSCode:code];
 }
 
 @end

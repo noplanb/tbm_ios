@@ -14,5 +14,6 @@
                             phone:(NSString*)phoneNumber;
 
 - (void)verifySMSCode:(NSString*)code;
+- (void)requestCall;
 
 @end

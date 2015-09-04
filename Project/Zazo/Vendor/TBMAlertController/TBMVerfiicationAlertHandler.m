@@ -52,6 +52,7 @@ static NSString *MESSAGE = @"We sent a code";
     return self;
 }
 
+
 #pragma mark interface
 
 - (void)presentAlert
@@ -227,7 +228,7 @@ static NSString *MESSAGE = @"We sent a code";
 
 #pragma mark delegate methods
 
--(void)enterCodeTextFieldDidChange:(UITextField *)tf
+- (void)enterCodeTextFieldDidChange:(UITextField *)tf
 {
     self.confirmationAction.enabled = (tf.text.length > 0);
 }
@@ -239,13 +240,14 @@ static NSString *MESSAGE = @"We sent a code";
 }
 
 
--(void)didTapCallMe
+- (void)didTapCallMe
 {
     self.callMeButton.hidden = YES;
     self.callingLabel.hidden = NO;
-    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(didTapCallMe)])
+    if ([self.delegate respondsToSelector:@selector(didTapCallMe)])
+    {
         [self.delegate didTapCallMe];
-    
+    }
 }
 
 @end
