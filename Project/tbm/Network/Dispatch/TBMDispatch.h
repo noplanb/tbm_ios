@@ -26,7 +26,6 @@ typedef enum {
 + (void)setupDispatchType:(TBMDispatchType)type;
 
 + (void)startRollBar;
-+ (void)setupRollBarUser:(TBMUser *)user;
 + (TBMDispatchType)dispatchType;
 
 + (void)updateRollBarUserWithItemID:(NSString*)itemID

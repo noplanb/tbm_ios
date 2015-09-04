@@ -9,6 +9,7 @@
 #import "ZZAuthPresenter.h"
 #import "ZZErrorHandler.h"
 #import "ZZUserDomainModel.h"
+#import "TBMAlertController.h"
 
 @interface ZZAuthPresenter ()
 
@@ -98,6 +99,23 @@
 - (void)callRequestDidFailWithError:(NSError *)error
 {
     // TODO: check if we need some UI update here, connect supprt with fails not by internet connection
+}
+
+- (void)loadedFriendsSuccessfully
+{
+    // TODO:
+}
+
+- (void)loadFriendsDidFailWithError:(NSError *)error
+{
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+     NSString* badConnectiontitle = [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", [NSObject an_safeString:appName]];
+    
+        TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Bad Connection" message:badConnectiontitle];
+        [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+            [self.interactor loadFriends];
+        }]];
+        [alert presentWithCompletion:nil];
 }
 
 - (void)loadS3CredentialsDidFailWithError:(NSError *)error

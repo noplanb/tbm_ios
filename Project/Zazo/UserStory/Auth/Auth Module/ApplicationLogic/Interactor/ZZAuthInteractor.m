@@ -127,6 +127,24 @@
     }];
 }
 
+- (void)loadFriends
+{
+    [ZZFriendDataProvider deleteAllFriendsModels];
+    
+    [[ZZFriendsTransportService loadFriendList] subscribeNext:^(id x) {
+        
+        [self gotFriends:x];
+        [self detectInvitee:x];
+        [self.output loadedFriendsSuccessfully];
+        
+        [self loadS3Credentials];
+        
+    } error:^(NSError *error) {
+        
+        [self.output loadFriendsDidFailWithError:error];
+    }];
+}
+
 - (void)loadS3Credentials
 {
     [TBMS3CredentialsManager refreshFromServer:^void (BOOL success){

@@ -32,12 +32,12 @@ describe(@"ZZAccountTransportService", ^{
     
     it(@"register user test", ^{
         waitUntil(^(DoneCallback done) {
-            [[ZZAccountTransportService registerUserWithModel:user] subscribeNext:^(NSDictionary *authKeys) {
-                expect(authKeys).willNot.beNil();
-                expect(authKeys).contain(@"auth");
-                expect(authKeys).contain(@"mkey");
-                done();
-            }];
+//            [[ZZAccountTransportService registerUserWithModel:user] subscribeNext:^(NSDictionary *authKeys) {
+//                expect(authKeys).willNot.beNil();
+//                expect(authKeys).contain(@"auth");
+//                expect(authKeys).contain(@"mkey");
+//                done();
+//            }];
         });
     });
     

@@ -42,8 +42,8 @@
 
     CGPoint point = [self locationInView:view];
     //radius from center view to touch
-    CGFloat x = (fabsf(point.x) - view.frame.size.width / 2);
-    CGFloat y = (fabsf(point.y) - view.frame.size.height / 2);
+    CGFloat x = (fabs(point.x) - view.frame.size.width / 2);
+    CGFloat y = (fabs(point.y) - view.frame.size.height / 2);
     CGFloat radius = sqrtf(x * x + y * y);
 
     CGFloat angleVelocity = (CGFloat) sqrtf(velocity.x * velocity.x + velocity.y * velocity.y) / radius;

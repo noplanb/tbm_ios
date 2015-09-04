@@ -158,22 +158,22 @@
 
 #pragma mark Got friends
 
-- (void) getFriends{
-    // This should destroy associated videos as well as they are set to cascade delete.
-    [TBMFriend destroyAll];
-    [_registerForm startWaitingForServer];
-    [[[TBMFriendGetter alloc] initWithDelegate:self] getFriends];
-}
-
-- (void) gotFriends{
-    [_registerForm stopWaitingForServer];
-    [self getS3Credentials];
-}
-
-- (void) friendGetterServerError{
-    [_registerForm stopWaitingForServer];
-    [self showGetFriendsServerErrorDialog];
-}
+//- (void) getFriends{
+//    // This should destroy associated videos as well as they are set to cascade delete.
+//    [TBMFriend destroyAll];
+//    [_registerForm startWaitingForServer];
+//    [[[TBMFriendGetter alloc] initWithDelegate:self] getFriends];
+//}
+//
+//- (void) gotFriends{
+//    [_registerForm stopWaitingForServer];
+//    [self getS3Credentials];
+//}
+//
+//- (void) friendGetterServerError{
+//    [_registerForm stopWaitingForServer];
+//    [self showGetFriendsServerErrorDialog];
+//}
 
 
 #pragma mark Get S3 Credentials
@@ -193,10 +193,10 @@
 
 #pragma mark Dialogs
 
-- (void) connectionError{
-    DebugLog(@"connectionError:");
-    [self showErrorDialogWithTitle:@"Try Again" msg:[self badConnectionMessage]];
-}
+//- (void) connectionError{
+//    DebugLog(@"connectionError:");
+//    [self showErrorDialogWithTitle:@"Try Again" msg:[self badConnectionMessage]];
+//}
 
 - (void) showErrorDialogWithTitle:(NSString *)title msg:(NSString *)msg {
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:title message:msg];

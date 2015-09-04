@@ -36,16 +36,16 @@
 {
     // test with actual sms verification code!!!
     XCTestExpectation* expectation = [self expectationWithDescription:@"registration with sms"];
-    [[ZZAccountTransportService registerUserFromModel:self.userModel withVerificationCode:@"9980"] subscribeNext:^(id x) {
-        
-//        NSData *cookiesData = [NSKeyedArchiver archivedDataWithRootObject: [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]];
-//        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//        [defaults setObject: cookiesData forKey: @"sessionCookies"];
-//        [defaults synchronize];
-        
-        XCTAssertNotNil(x);
-        [expectation fulfill];
-    }];
+//    [[ZZAccountTransportService registerUserFromModel:self.userModel withVerificationCode:@"9980"] subscribeNext:^(id x) {
+//        
+////        NSData *cookiesData = [NSKeyedArchiver archivedDataWithRootObject: [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]];
+////        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+////        [defaults setObject: cookiesData forKey: @"sessionCookies"];
+////        [defaults synchronize];
+//        
+//        XCTAssertNotNil(x);
+//        [expectation fulfill];
+//    }];
     [self waitForExpectationsWithTimeout:8 handler:^(NSError *error) {
         XCTAssertNil(error); 
     }];

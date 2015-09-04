@@ -33,15 +33,15 @@
 //@property(nonatomic, strong) TBMSecretScreenPresenter *secretScreen;
 @end
 
-static const float TBMRegisterLogoTopMargin = 106.0;
-static const float TBMRegisterFieldsTopMargin = 60.0;
-static const float TBMRegisterFieldsVerticalMargin = 10.0;
-static const float TBMRegisterCountryCodeRightMargin = 8.0;
-static const float TBMRegisterSubmitTopMargin = 60.0;
-static const float TBMRegisterSpinnerTopMargin = 10.0;
-
-static const float TBMRegisterTextFieldHeight = 38.0;
-static const float TBMRegisterTextFieldFontSize = 21.0;
+//static const float TBMRegisterLogoTopMargin = 106.0;
+//static const float TBMRegisterFieldsTopMargin = 60.0;
+//static const float TBMRegisterFieldsVerticalMargin = 10.0;
+//static const float TBMRegisterCountryCodeRightMargin = 8.0;
+//static const float TBMRegisterSubmitTopMargin = 60.0;
+//static const float TBMRegisterSpinnerTopMargin = 10.0;
+//
+//static const float TBMRegisterTextFieldHeight = 38.0;
+//static const float TBMRegisterTextFieldFontSize = 21.0;
 static const float TBMRegisterTextFieldMaxWidth = 360.0;
 static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
 

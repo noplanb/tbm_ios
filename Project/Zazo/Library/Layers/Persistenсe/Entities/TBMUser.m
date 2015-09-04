@@ -22,7 +22,6 @@
 
 + (instancetype)getUser
 {
-    NSArray* users = [self MR_findAll];
     return [self MR_findFirstInContext:[self _context]]; //TODO: ??????/ // //!!! /  11111 ARGHH!
 }
 

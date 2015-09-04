@@ -35,18 +35,18 @@ describe(@"ZZLoadFriendList", ^{
     it(@"Load friend list test", ^{
         waitUntilTimeout(10, ^(DoneCallback done) {
             
-           [[ZZAccountTransportService registerUserFromModel:userModel withVerificationCode:actualSmsCode] subscribeNext:^(id x) {
-               [[ZZFriendsTransportService loadFriendList] subscribeNext:^(id x) {
-                   expect(x).willNot.beNil();
-                   done();
-               } error:^(NSError *error) {
-                   expect(error).will.beNil();
-                   done();
-               }];
-           } error:^(NSError *error) {
-               expect(error).will.beNil();
-               done();
-           }];
+//           [[ZZAccountTransportService registerUserFromModel:userModel withVerificationCode:actualSmsCode] subscribeNext:^(id x) {
+//               [[ZZFriendsTransportService loadFriendList] subscribeNext:^(id x) {
+//                   expect(x).willNot.beNil();
+//                   done();
+//               } error:^(NSError *error) {
+//                   expect(error).will.beNil();
+//                   done();
+//               }];
+//           } error:^(NSError *error) {
+//               expect(error).will.beNil();
+//               done();
+//           }];
         });
     });  
     afterEach(^{

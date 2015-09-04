@@ -123,7 +123,6 @@
 		07E2579B1B977865008D3371 /* ZZAppDependecesInjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E254A21B977864008D3371 /* ZZAppDependecesInjection.m */; };
 		07E2579C1B977865008D3371 /* ZZAppDependencies.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E254A41B977864008D3371 /* ZZAppDependencies.m */; };
 		07E2579D1B977865008D3371 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E254A61B977864008D3371 /* main.m */; };
-		07E2579E1B977865008D3371 /* Zazo-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07E254A71B977864008D3371 /* Zazo-Info.plist */; };
 		07E2579F1B977865008D3371 /* ZZRootWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E254AB1B977864008D3371 /* ZZRootWireframe.m */; };
 		07E257A01B977865008D3371 /* UIImage+ANDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E254B01B977864008D3371 /* UIImage+ANDefault.m */; };
 		07E257A11B977865008D3371 /* ZZKeyboardObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E254B71B977864008D3371 /* ZZKeyboardObserver.m */; };
@@ -4224,7 +4223,6 @@
 				07E257F91B977865008D3371 /* icon_people.pdf in Resources */,
 				07E257E51B977865008D3371 /* Roboto-Light.ttf in Resources */,
 				07E2580B1B977865008D3371 /* Localizable.strings in Resources */,
-				07E2579E1B977865008D3371 /* Zazo-Info.plist in Resources */,
 				07E257E91B977865008D3371 /* Roboto-Regular.ttf in Resources */,
 				07E257FA1B977865008D3371 /* icon_plus.pdf in Resources */,
 				07E257E61B977865008D3371 /* Roboto-LightItalic.ttf in Resources */,
