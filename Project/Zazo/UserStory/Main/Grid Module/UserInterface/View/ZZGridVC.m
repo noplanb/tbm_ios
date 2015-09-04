@@ -11,7 +11,7 @@
 #import "ZZGridCollectionController.h"
 #import "ZZGridDataSource.h"
 #import "ZZTouchObserver.h"
-#import "Grid.h"
+#import "ZZMovingGridView.h"
 #import "TBMBenchViewController.h"
 #import "ZZSoundPlayer.h"
 

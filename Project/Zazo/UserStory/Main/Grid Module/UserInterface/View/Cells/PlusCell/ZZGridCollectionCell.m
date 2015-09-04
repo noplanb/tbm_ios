@@ -81,7 +81,7 @@
 
 - (void)_updateIfNeededStateWithUserModel:(ZZGridCollectionCellViewModel *)model
 {
-    if (model.domainModel.relatedUser)
+    if (model.item.relatedUser)
     {
         self.stateView = [self.stateViewFactory stateViewWithPresentedView:self withCellViewModel:model];
     }

@@ -10,17 +10,6 @@
 
 @implementation ZZGridCollectionCellViewModel
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self)
-    {
-        self.domainModel = [ZZGridDomainModel new];
-    }
-    
-    return self;
-}
-
 - (void)startRecordingWithView:(UIView *)view
 {
     [self.delegate startRecordingWithView:view];
@@ -34,7 +23,7 @@
 
 - (void)nudgeSelected
 {
-    [self.delegate nudgeSelectedWithUserModel:self.domainModel.relatedUser];
+    [self.delegate nudgeSelectedWithUserModel:self.item.relatedUser];
 }
 
 

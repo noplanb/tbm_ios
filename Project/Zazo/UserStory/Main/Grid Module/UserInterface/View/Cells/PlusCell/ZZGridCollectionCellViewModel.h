@@ -20,7 +20,7 @@
 @interface ZZGridCollectionCellViewModel : NSObject
 
 @property (nonatomic, weak) id <ZZGridCellViewModellDelegate> delegate;
-@property (nonatomic, strong) ZZGridDomainModel* domainModel;
+@property (nonatomic, strong) ZZGridDomainModel* item;
 @property (nonatomic, strong) NSNumber* badgeNumber;
 @property (nonatomic, strong) UIImage* screenShot;
 @property (nonatomic, assign) BOOL hasUploadedVideo;

@@ -8,7 +8,7 @@
 
 #import "ZZTouchObserver.h"
 #import "ZZGridCollectionCell.h"
-#import "Cell.h"
+#import "ZZFakeRotationCell.h"
 
 #import "ANSectionModel.h"
 #import "ZZGridDomainModel.h"
@@ -22,7 +22,7 @@
 @property (nonatomic, assign) CGPoint initialLocation;
 @property (nonatomic, assign) BOOL isMoving;
 @property (nonatomic, strong) ZZGridView* gridView;
-@property (nonatomic, strong) Grid* grid;
+@property (nonatomic, strong) ZZMovingGridView* grid;
 @property (nonatomic, assign) CGPoint touchPoint;
 
 @end
@@ -62,7 +62,7 @@
 {
     if (!self.grid)
     {
-        self.grid = [[Grid alloc] initWithFrame:self.collectionView.frame];
+        self.grid = [[ZZMovingGridView alloc] initWithFrame:self.collectionView.frame];
         
         self.grid.delegate = self;
         self.grid.hidden = YES;
@@ -144,7 +144,7 @@
             ZZGridCollectionCell* gridCell = (ZZGridCollectionCell*)obj;
             [gridCell makeActualScreenShoot];
             
-            [self.movingViewArray enumerateObjectsUsingBlock:^(Cell* fakeCell, NSUInteger idx, BOOL *stop) {
+            [self.movingViewArray enumerateObjectsUsingBlock:^(ZZFakeRotationCell* fakeCell, NSUInteger idx, BOOL *stop) {
                 if (CGRectContainsPoint(gridCell.frame, fakeCell.center))
                 {
                     fakeCell.stateImageView.image = [gridCell actualSateImage];
@@ -161,7 +161,7 @@
     [self.movingViewArray removeAllObjects];
     
     [[self fakeCellIndexes] enumerateObjectsUsingBlock:^(NSNumber* obj, NSUInteger idx, BOOL *stop) {
-        Cell* moveView = [Cell new];
+        ZZFakeRotationCell* moveView = [ZZFakeRotationCell new];
         NSIndexPath* indexPath = [NSIndexPath indexPathForItem:[obj integerValue] inSection:0];
         moveView.indexPath = indexPath;
         [self.movingViewArray addObject:moveView];
@@ -206,7 +206,7 @@
             
             if ([cell isKindOfClass:[ZZGridCollectionCell class]])
             {
-                [self.movingViewArray enumerateObjectsUsingBlock:^(Cell* fakeCell, NSUInteger idx, BOOL *stop) {
+                [self.movingViewArray enumerateObjectsUsingBlock:^(ZZFakeRotationCell* fakeCell, NSUInteger idx, BOOL *stop) {
                     if (CGRectIntersectsRect(cell.frame, fakeCell.frame))
                     {
                         NSIndexPath* indexPath = [self.collectionView indexPathForCell:cell];

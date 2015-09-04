@@ -15,6 +15,5 @@
 
 - (void)showRecordingOverlay;
 - (void)hideRecordingOverlay;
-- (void)setupWithCaptureSession:(AVCaptureSession *)captureSession;
-
+- (UIView *)topView;
 @end

@@ -293,12 +293,12 @@
 		07FA4A8E1B96425A005E60E8 /* ZZGridCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48C21B96425A005E60E8 /* ZZGridCollectionController.m */; };
 		07FA4A8F1B96425A005E60E8 /* ZZGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48C61B96425A005E60E8 /* ZZGridView.m */; };
 		07FA4A901B96425A005E60E8 /* ZZGridViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48C91B96425A005E60E8 /* ZZGridViewHeader.m */; };
-		07FA4A911B96425A005E60E8 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48CD1B96425A005E60E8 /* Cell.m */; };
-		07FA4A921B96425A005E60E8 /* Geometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48CF1B96425A005E60E8 /* Geometry.m */; };
-		07FA4A931B96425A005E60E8 /* Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48D11B96425A005E60E8 /* Grid.m */; };
-		07FA4A941B96425A005E60E8 /* GridHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48D31B96425A005E60E8 /* GridHelper.m */; };
-		07FA4A951B96425A005E60E8 /* RotationGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48D51B96425A005E60E8 /* RotationGestureRecognizer.m */; };
-		07FA4A961B96425A005E60E8 /* Rotator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48D71B96425A005E60E8 /* Rotator.m */; };
+		07FA4A911B96425A005E60E8 /* ZZFakeRotationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48CD1B96425A005E60E8 /* ZZFakeRotationCell.m */; };
+		07FA4A921B96425A005E60E8 /* ZZGeometryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48CF1B96425A005E60E8 /* ZZGeometryHelper.m */; };
+		07FA4A931B96425A005E60E8 /* ZZMovingGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48D11B96425A005E60E8 /* ZZMovingGridView.m */; };
+		07FA4A941B96425A005E60E8 /* ZZGridHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48D31B96425A005E60E8 /* ZZGridHelper.m */; };
+		07FA4A951B96425A005E60E8 /* ZZRotationGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48D51B96425A005E60E8 /* ZZRotationGestureRecognizer.m */; };
+		07FA4A961B96425A005E60E8 /* ZZRotator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48D71B96425A005E60E8 /* ZZRotator.m */; };
 		07FA4A971B96425A005E60E8 /* ZZTouchObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48DA1B96425A005E60E8 /* ZZTouchObserver.m */; };
 		07FA4A9A1B96425A005E60E8 /* ZZGridVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48E11B96425A005E60E8 /* ZZGridVC.m */; };
 		07FA4A9B1B96425A005E60E8 /* ZZGridWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA48E51B96425A005E60E8 /* ZZGridWireframe.m */; };
@@ -378,6 +378,7 @@
 		795E12E01B972D60007575FF /* contacts-icon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 795E12D61B972D60007575FF /* contacts-icon.pdf */; };
 		795E12E11B972D60007575FF /* edit-friends-icon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 795E12D71B972D60007575FF /* edit-friends-icon.pdf */; };
 		795E12E21B972D60007575FF /* Search-icon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 795E12D81B972D60007575FF /* Search-icon.pdf */; };
+		9E091BC21B998A1C00409B6D /* home-camera-w-fill.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9E091BC11B998A1C00409B6D /* home-camera-w-fill.pdf */; };
 		9E53669A1B9826E800F0E130 /* ZZGridCollectionCellStateViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E5366991B9826E800F0E130 /* ZZGridCollectionCellStateViewFactory.m */; };
 		9E53669E1B9837CB00F0E130 /* ZZFriendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E53669D1B9837CB00F0E130 /* ZZFriendManager.m */; };
 		9EB8F6F61B9727D300F54DE8 /* ZZSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8F6F51B9727D300F54DE8 /* ZZSoundPlayer.m */; };
@@ -981,18 +982,18 @@
 		07FA48C61B96425A005E60E8 /* ZZGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridView.m; sourceTree = "<group>"; };
 		07FA48C81B96425A005E60E8 /* ZZGridViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridViewHeader.h; sourceTree = "<group>"; };
 		07FA48C91B96425A005E60E8 /* ZZGridViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridViewHeader.m; sourceTree = "<group>"; };
-		07FA48CC1B96425A005E60E8 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
-		07FA48CD1B96425A005E60E8 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
-		07FA48CE1B96425A005E60E8 /* Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geometry.h; sourceTree = "<group>"; };
-		07FA48CF1B96425A005E60E8 /* Geometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Geometry.m; sourceTree = "<group>"; };
-		07FA48D01B96425A005E60E8 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
-		07FA48D11B96425A005E60E8 /* Grid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Grid.m; sourceTree = "<group>"; };
-		07FA48D21B96425A005E60E8 /* GridHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridHelper.h; sourceTree = "<group>"; };
-		07FA48D31B96425A005E60E8 /* GridHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridHelper.m; sourceTree = "<group>"; };
-		07FA48D41B96425A005E60E8 /* RotationGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationGestureRecognizer.h; sourceTree = "<group>"; };
-		07FA48D51B96425A005E60E8 /* RotationGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationGestureRecognizer.m; sourceTree = "<group>"; };
-		07FA48D61B96425A005E60E8 /* Rotator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rotator.h; sourceTree = "<group>"; };
-		07FA48D71B96425A005E60E8 /* Rotator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rotator.m; sourceTree = "<group>"; };
+		07FA48CC1B96425A005E60E8 /* ZZFakeRotationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFakeRotationCell.h; sourceTree = "<group>"; };
+		07FA48CD1B96425A005E60E8 /* ZZFakeRotationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFakeRotationCell.m; sourceTree = "<group>"; };
+		07FA48CE1B96425A005E60E8 /* ZZGeometryHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGeometryHelper.h; sourceTree = "<group>"; };
+		07FA48CF1B96425A005E60E8 /* ZZGeometryHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGeometryHelper.m; sourceTree = "<group>"; };
+		07FA48D01B96425A005E60E8 /* ZZMovingGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMovingGridView.h; sourceTree = "<group>"; };
+		07FA48D11B96425A005E60E8 /* ZZMovingGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMovingGridView.m; sourceTree = "<group>"; };
+		07FA48D21B96425A005E60E8 /* ZZGridHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridHelper.h; sourceTree = "<group>"; };
+		07FA48D31B96425A005E60E8 /* ZZGridHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridHelper.m; sourceTree = "<group>"; };
+		07FA48D41B96425A005E60E8 /* ZZRotationGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZRotationGestureRecognizer.h; sourceTree = "<group>"; };
+		07FA48D51B96425A005E60E8 /* ZZRotationGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRotationGestureRecognizer.m; sourceTree = "<group>"; };
+		07FA48D61B96425A005E60E8 /* ZZRotator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZRotator.h; sourceTree = "<group>"; };
+		07FA48D71B96425A005E60E8 /* ZZRotator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRotator.m; sourceTree = "<group>"; };
 		07FA48D91B96425A005E60E8 /* ZZTouchObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZTouchObserver.h; sourceTree = "<group>"; };
 		07FA48DA1B96425A005E60E8 /* ZZTouchObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZTouchObserver.m; sourceTree = "<group>"; };
 		07FA48E01B96425A005E60E8 /* ZZGridVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridVC.h; sourceTree = "<group>"; };
@@ -1134,6 +1135,8 @@
 		795E12D61B972D60007575FF /* contacts-icon.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "contacts-icon.pdf"; sourceTree = "<group>"; };
 		795E12D71B972D60007575FF /* edit-friends-icon.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "edit-friends-icon.pdf"; sourceTree = "<group>"; };
 		795E12D81B972D60007575FF /* Search-icon.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Search-icon.pdf"; sourceTree = "<group>"; };
+		9E091BC11B998A1C00409B6D /* home-camera-w-fill.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "home-camera-w-fill.pdf"; sourceTree = "<group>"; };
+		9E091BCF1B99C1B400409B6D /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		9E5366981B9826E800F0E130 /* ZZGridCollectionCellStateViewFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCollectionCellStateViewFactory.h; sourceTree = "<group>"; };
 		9E5366991B9826E800F0E130 /* ZZGridCollectionCellStateViewFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCollectionCellStateViewFactory.m; sourceTree = "<group>"; };
 		9E53669C1B9837CB00F0E130 /* ZZFriendManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFriendManager.h; sourceTree = "<group>"; };
@@ -3542,18 +3545,18 @@
 		07FA48CB1B96425A005E60E8 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				07FA48CC1B96425A005E60E8 /* Cell.h */,
-				07FA48CD1B96425A005E60E8 /* Cell.m */,
-				07FA48CE1B96425A005E60E8 /* Geometry.h */,
-				07FA48CF1B96425A005E60E8 /* Geometry.m */,
-				07FA48D01B96425A005E60E8 /* Grid.h */,
-				07FA48D11B96425A005E60E8 /* Grid.m */,
-				07FA48D21B96425A005E60E8 /* GridHelper.h */,
-				07FA48D31B96425A005E60E8 /* GridHelper.m */,
-				07FA48D41B96425A005E60E8 /* RotationGestureRecognizer.h */,
-				07FA48D51B96425A005E60E8 /* RotationGestureRecognizer.m */,
-				07FA48D61B96425A005E60E8 /* Rotator.h */,
-				07FA48D71B96425A005E60E8 /* Rotator.m */,
+				07FA48CC1B96425A005E60E8 /* ZZFakeRotationCell.h */,
+				07FA48CD1B96425A005E60E8 /* ZZFakeRotationCell.m */,
+				07FA48CE1B96425A005E60E8 /* ZZGeometryHelper.h */,
+				07FA48CF1B96425A005E60E8 /* ZZGeometryHelper.m */,
+				07FA48D01B96425A005E60E8 /* ZZMovingGridView.h */,
+				07FA48D11B96425A005E60E8 /* ZZMovingGridView.m */,
+				07FA48D21B96425A005E60E8 /* ZZGridHelper.h */,
+				07FA48D31B96425A005E60E8 /* ZZGridHelper.m */,
+				07FA48D41B96425A005E60E8 /* ZZRotationGestureRecognizer.h */,
+				07FA48D51B96425A005E60E8 /* ZZRotationGestureRecognizer.m */,
+				07FA48D61B96425A005E60E8 /* ZZRotator.h */,
+				07FA48D71B96425A005E60E8 /* ZZRotator.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -4043,6 +4046,7 @@
 		220E90271909A18B003C4F82 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9E091BCF1B99C1B400409B6D /* AssetsLibrary.framework */,
 				41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */,
 				41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */,
 				2208E8A61A1419D400150C35 /* AddressBook.framework */,
@@ -4090,6 +4094,7 @@
 		795E12D11B972D60007575FF /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				9E091BC11B998A1C00409B6D /* home-camera-w-fill.pdf */,
 				795E12D21B972D60007575FF /* home-page-add-icon.pdf */,
 				795E12D31B972D60007575FF /* home-page-arrow.pdf */,
 				795E12D41B972D60007575FF /* home-page-view.pdf */,
@@ -4350,6 +4355,7 @@
 				07FA4A551B96425A005E60E8 /* navbar_btn_more.pdf in Resources */,
 				07FA4AB21B96425A005E60E8 /* human.m.motemplate in Resources */,
 				07FA4A191B96425A005E60E8 /* TBMFriend.m.orig in Resources */,
+				9E091BC21B998A1C00409B6D /* home-camera-w-fill.pdf in Resources */,
 				07FA4A581B96425A005E60E8 /* Localizable.strings in Resources */,
 				07FA4A421B96425A005E60E8 /* Roboto-ThinItalic.ttf in Resources */,
 				795E12DF1B972D60007575FF /* home-page-view.pdf in Resources */,
@@ -4467,7 +4473,7 @@
 				07FA49AE1B96425A005E60E8 /* TBMPlayHintView.m in Sources */,
 				07FA4A851B96425A005E60E8 /* ZZGridInteractor.m in Sources */,
 				07FA49BD1B96425A005E60E8 /* TBMDebugData.m in Sources */,
-				07FA4A931B96425A005E60E8 /* Grid.m in Sources */,
+				07FA4A931B96425A005E60E8 /* ZZMovingGridView.m in Sources */,
 				07FA49DA1B96425A005E60E8 /* TBMLongPressTouchHandler.m in Sources */,
 				07FA4A5B1B96425A005E60E8 /* ZZAuthContentView.m in Sources */,
 				07FA499B1B96425A005E60E8 /* TBMHintView.m in Sources */,
@@ -4505,7 +4511,7 @@
 				07FA4A7B1B96425A005E60E8 /* ZZEditFriendListInteractor.m in Sources */,
 				07FA4A8D1B96425A005E60E8 /* ZZGridCollectionLayout.m in Sources */,
 				07FA499F1B96425A005E60E8 /* TBMFeatureUnlockModulePresenter.m in Sources */,
-				07FA4A941B96425A005E60E8 /* GridHelper.m in Sources */,
+				07FA4A941B96425A005E60E8 /* ZZGridHelper.m in Sources */,
 				07FA4ABC1B96425A005E60E8 /* ANNetworkNoContentView.m in Sources */,
 				07FA4A201B96425A005E60E8 /* _TBMVideo.m in Sources */,
 				07FA49981B96425A005E60E8 /* TBMEventHandlerDataSource.m in Sources */,
@@ -4545,7 +4551,7 @@
 				07FA4AC61B96425A005E60E8 /* ANTableContainerView.m in Sources */,
 				07FA49E51B96425A005E60E8 /* TBMAlertControllerVisualStyle.m in Sources */,
 				07FA49801B96425A005E60E8 /* TBMAppDelegate+Boot.m in Sources */,
-				07FA4A911B96425A005E60E8 /* Cell.m in Sources */,
+				07FA4A911B96425A005E60E8 /* ZZFakeRotationCell.m in Sources */,
 				07FA4A061B96425A005E60E8 /* ZZBaseDomainModel.m in Sources */,
 				07FA49E81B96425A005E60E8 /* TBMContactSearchTableDelegate.m in Sources */,
 				07FA4A881B96425A005E60E8 /* ZZGridCenterCell.m in Sources */,
@@ -4574,7 +4580,7 @@
 				9E53669E1B9837CB00F0E130 /* ZZFriendManager.m in Sources */,
 				07FA4A251B96425A005E60E8 /* ZZSettingsAssembly.m in Sources */,
 				07FA4A5A1B96425A005E60E8 /* ZZAuthPresenter.m in Sources */,
-				07FA4A961B96425A005E60E8 /* Rotator.m in Sources */,
+				07FA4A961B96425A005E60E8 /* ZZRotator.m in Sources */,
 				07FA4A891B96425A005E60E8 /* ZZGridCenterCellViewModel.m in Sources */,
 				07FA49E11B96425A005E60E8 /* TBMTextField.m in Sources */,
 				07FA49F71B96425A005E60E8 /* main.m in Sources */,
@@ -4642,7 +4648,7 @@
 				07FA4A2F1B96425A005E60E8 /* ZZTouchControllerWithoutDelay.m in Sources */,
 				07FA49DB1B96425A005E60E8 /* TBMMarginLabel.m in Sources */,
 				07FA4A791B96425A005E60E8 /* ZZSecretVC.m in Sources */,
-				07FA4A951B96425A005E60E8 /* RotationGestureRecognizer.m in Sources */,
+				07FA4A951B96425A005E60E8 /* ZZRotationGestureRecognizer.m in Sources */,
 				07FA49C01B96425A005E60E8 /* TBMSecretScreenView.m in Sources */,
 				07FA4AA21B96425A005E60E8 /* ZZMenuController.m in Sources */,
 				07FA4ACF1B96425A005E60E8 /* PDFView.m in Sources */,
@@ -4732,7 +4738,7 @@
 				07FA4AC01B96425A005E60E8 /* ANError.m in Sources */,
 				07FA4A9D1B96425A005E60E8 /* ZZMenuDataSource.m in Sources */,
 				07FA49EC1B96425A005E60E8 /* TBMHomeViewController+VersionController.m in Sources */,
-				07FA4A921B96425A005E60E8 /* Geometry.m in Sources */,
+				07FA4A921B96425A005E60E8 /* ZZGeometryHelper.m in Sources */,
 				07FA4A021B96425A005E60E8 /* ZZUserDataProvider.m in Sources */,
 				07FA4A7C1B96425A005E60E8 /* ZZEditFriendEnumsAdditions.m in Sources */,
 				07FA49901B96425A005E60E8 /* TBMKeyChainWrapper.m in Sources */,

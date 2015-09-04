@@ -26,7 +26,7 @@
     {
         self.videoPlayer = [[ZZVideoPlayer alloc] initWithVideoPlayerView:presentedView];
         self.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
-        self.friendModel = cellViewModel.domainModel.relatedUser;
+        self.friendModel = cellViewModel.item.relatedUser;
         self.presentedView = presentedView;
         [self presentSelf];
     }

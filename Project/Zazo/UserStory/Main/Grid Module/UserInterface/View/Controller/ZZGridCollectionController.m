@@ -57,7 +57,7 @@ static NSInteger const kCenterCellIndex = 4;
     {
         ZZGridCollectionCell* gridCell = (ZZGridCollectionCell*)cell;
         ZZGridCollectionCellViewModel* model = [gridCell model];
-        isHasUser = (model.domainModel.relatedUser != nil);
+        isHasUser = (model.item.relatedUser != nil);
     }
     
     return isHasUser;
@@ -90,7 +90,7 @@ static NSInteger const kCenterCellIndex = 4;
         {
             ZZGridCollectionCell* gridCell = (ZZGridCollectionCell *)cell;
             ZZGridCollectionCellViewModel* cellModel = [gridCell model];
-            if ([cellModel.domainModel.relatedUser isEqual:friendModel])
+            if ([cellModel.item.relatedUser isEqual:friendModel])
             {
                 [gridCell showContainFriendAnimation];
             }

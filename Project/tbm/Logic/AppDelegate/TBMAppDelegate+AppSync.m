@@ -592,6 +592,7 @@
 - (void)videoProcessorDidFinishProcessingNotification:(NSNotification *)notification
 {
     NSURL *videoUrl = [notification.userInfo objectForKey:@"videoUrl"];
+    
     TBMFriend *friend = [TBMVideoIdUtils friendWithOutgoingVideoUrl:videoUrl];
     NSString *videoId = [TBMVideoIdUtils videoIdWithOutgoingVideoUrl:videoUrl];
     [friend handleOutgoingVideoCreatedWithVideoId:videoId];

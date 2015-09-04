@@ -6,12 +6,12 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import "RotationGestureRecognizer.h"
+#import "ZZRotationGestureRecognizer.h"
 #import "ZZGridViewHeader.h"
 
 @protocol ZZGridViewDelegate <NSObject, UIGestureRecognizerDelegate>
 
-- (void)handleRotationGesture:(RotationGestureRecognizer *)recognizer;
+- (void)handleRotationGesture:(ZZRotationGestureRecognizer *)recognizer;
 
 @end
 
@@ -26,7 +26,7 @@
 
 @property (nonatomic, strong) UICollectionView* collectionView;
 @property (nonatomic, strong) ZZGridViewHeader* headerView;
-@property (nonatomic, strong) RotationGestureRecognizer *rotationRecognizer;
+@property (nonatomic, strong) ZZRotationGestureRecognizer *rotationRecognizer;
 @property (nonatomic, weak) id <ZZGridViewEventDelegate> eventDelegate;
 @property (nonatomic, assign) BOOL isRotationEnabled;
 

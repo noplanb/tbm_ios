@@ -29,8 +29,8 @@
     if (self)
     {
         [self _setupRecognizer];
-        [self setupPlayerWithUrl:[[cellViewModel.domainModel.relatedUser.videos allObjects] firstObject]];
-        self.thumbnailImage = [self _generateThumbWithVideoUrl:[[cellViewModel.domainModel.relatedUser.videos allObjects] firstObject]];// TODO: for test
+        [self setupPlayerWithUrl:[[cellViewModel.item.relatedUser.videos allObjects] firstObject]];
+        self.thumbnailImage = [self _generateThumbWithVideoUrl:[[cellViewModel.item.relatedUser.videos allObjects] firstObject]];// TODO: for test
         [self thumbnailImageView];
         [self userNameLabel];
         [self containFriendView];

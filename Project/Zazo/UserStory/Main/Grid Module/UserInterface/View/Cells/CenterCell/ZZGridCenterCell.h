@@ -10,5 +10,7 @@
 
 @interface ZZGridCenterCell : ZZGridBaseCell
 
+- (void)showChangeCameraButton;
+- (void)hideChangeCameraButton;
 
 @end

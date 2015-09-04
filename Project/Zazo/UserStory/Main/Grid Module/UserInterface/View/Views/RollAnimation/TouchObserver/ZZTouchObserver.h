@@ -12,7 +12,7 @@
 #import "ZZGridVC.h"
 #import "ZZGridDataSource.h"
 #import "ANMemoryStorage.h"
-#import "Grid.h"
+#import "ZZMovingGridView.h"
 
 @interface ZZTouchObserver : NSObject
 

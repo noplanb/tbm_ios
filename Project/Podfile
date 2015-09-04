@@ -64,6 +64,7 @@ target 'Zazo' do
     pod 'SDCAlertView', '~> 2.5.2'
     pod 'SDCAutoLayout', '~> 2.0.3'
     pod 'iToast', '~> 0.0.1'
+    pod 'SCRecorder'
 
 end
 

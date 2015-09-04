@@ -11,27 +11,30 @@
 #import "ZZGridCollectionCellRecordStateView.h"
 #import "ZZGridCollectionCellPreviewStateView.h"
 
+
 @implementation ZZGridCollectionCellStateViewFactory
+
 
 - (ZZGridCollectionCellBaseStateView *)stateViewWithPresentedView:(UIView <ZZGridCollectionCellBaseStateViewDelegate> *)presentedView
                                                 withCellViewModel:(ZZGridCollectionCellViewModel *)cellViewModel
 {
     ZZGridCollectionCellBaseStateView* stateView;
     
-    if (cellViewModel.domainModel.relatedUser.videos.count > 0) // TODO: this condition only for test!, change it later
+    if (cellViewModel.item.relatedUser.videos.count > 0) // TODO: this condition only for test!, change it later
     {
         stateView = [[ZZGridCollectionCellPreviewStateView alloc] initWithPresentedView:presentedView withModel:cellViewModel];
     }
-    else if (cellViewModel.domainModel.relatedUser.hasApp)
+    else if (cellViewModel.item.relatedUser.hasApp)
     {
         stateView = [[ZZGridCollectionCellRecordStateView alloc] initWithPresentedView:presentedView withModel:cellViewModel];
     }
-    else if (!cellViewModel.domainModel.relatedUser.hasApp)
+    else if (!cellViewModel.item.relatedUser.hasApp)
     {
         stateView = [[ZZGridCollectionNudgeStateView alloc] initWithPresentedView:presentedView withModel:cellViewModel];
     }
     
     return stateView;
 }
+
 
 @end

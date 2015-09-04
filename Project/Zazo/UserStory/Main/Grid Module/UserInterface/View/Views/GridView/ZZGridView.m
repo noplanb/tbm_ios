@@ -115,7 +115,7 @@ static CGFloat const kHeaderViewHeight = 64;
 }
 
 - (void)configureRecognizers {
-    self.rotationRecognizer = [[RotationGestureRecognizer alloc] initWithTarget:self.delegate
+    self.rotationRecognizer = [[ZZRotationGestureRecognizer alloc] initWithTarget:self.delegate
                                                                          action:@selector(handleRotationGesture:)];
   
     self.rotationRecognizer.delegate = self.delegate;
