@@ -2,7 +2,7 @@
 //  ZZGridCollectionCellPreviewView.m
 //  Zazo
 //
-//  Created by Dmitriy Frolow on 02/09/15.
+//  Created by ANODA on 02/09/15.
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
@@ -90,7 +90,7 @@
     CGImageRef imageRef = [imageGenerator copyCGImageAtTime:thumbTime actualTime:&actual error:&err];
     if (err != nil){
         OB_ERROR(@"generateThumb: %@", err);
-        return NO;
+        return nil;
     }
     UIImage *thumbnail = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationUp];
     CGImageRelease(imageRef);

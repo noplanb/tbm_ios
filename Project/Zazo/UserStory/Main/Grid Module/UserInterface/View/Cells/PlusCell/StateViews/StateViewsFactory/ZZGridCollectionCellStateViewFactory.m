@@ -2,7 +2,7 @@
 //  ZZGridCollectionCellStateViewFactory.m
 //  Zazo
 //
-//  Created by Dmitriy Frolow on 03/09/15.
+//  Created by ANODA on 03/09/15.
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 

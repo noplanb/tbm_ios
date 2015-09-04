@@ -30,7 +30,7 @@
 
 - (void)initialApplicationSetup:(UIApplication *)application launchOptions:(NSDictionary *)options
 {
-    [ANCrashlyticsAdapter start];
+//    [ANCrashlyticsAdapter start];
     [ZZContentDataAcessor start];
     [ZZVideoRecorder sharedInstance];
     [ZZColorTheme shared];
