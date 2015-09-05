@@ -60,6 +60,26 @@ static NSInteger const kGridCenterCellIndex = 4;
 }
 
 
+#pragma mark - ViewModel Delegate
+
+- (void)startRecordingWithView:(id)view
+{
+//    [[self centerCell] showRecordingOverlay]; // TODO:
+    
+    [self.delegate recordingStateUpdateWithView:view toState:YES];
+}
+
+- (void)stopRecording
+{
+//    [[self centerCell] hideRecordingOverlay]; //TODO:
+    [self.delegate recordingStateUpdateWithView:nil toState:NO];
+}
+
+- (void)nudgeSelectedWithUserModel:(id)userModel
+{
+    [self.delegate nudgeSelectedWithUserModel:userModel];
+}
+
 #pragma mark - Private
 
 - (NSIndexPath*)_centerCellIndexPath

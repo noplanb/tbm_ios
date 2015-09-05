@@ -53,7 +53,7 @@ static NSInteger const kCenterCellIndex = 4;
     }
 }
 
-- (BOOL)isCellContainUserModel:(UICollectionView* )collectionView withIndexPath:(NSIndexPath *)indexPath
+- (BOOL)isCellContainUserModel:(UICollectionView*)collectionView withIndexPath:(NSIndexPath *)indexPath
 {
     BOOL isHasUser = NO;
     

@@ -13,6 +13,8 @@
 @protocol ZZGridDataSourceDelegate <NSObject>
 
 - (void)itemSelectedWithModel:(ZZGridCellViewModel*)model;
+- (void)recordingStateUpdateWithView:(UIView*)view toState:(BOOL)isEnabled;
+- (void)nudgeSelectedWithUserModel:(id)userModel;
 
 @end
 

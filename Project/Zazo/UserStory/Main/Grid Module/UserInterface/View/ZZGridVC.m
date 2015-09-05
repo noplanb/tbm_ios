@@ -21,12 +21,11 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
     ZZEditMenuButtonTypeCancel = 2,
 };
 
-@interface ZZGridVC () <ZZGridCollectionControllerDelegate, ZZGridViewEventDelegate>
+@interface ZZGridVC () <ZZGridViewEventDelegate>
 
 @property (nonatomic, strong) ZZGridView* gridView;
 @property (nonatomic, strong) ZZGridCollectionController* controller;
 @property (nonatomic, strong) ZZTouchObserver* touchObserver;
-@property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
 
 @end
 
@@ -39,7 +38,6 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
         self.gridView = [ZZGridView new];
         self.gridView.eventDelegate = self;
         self.controller = [[ZZGridCollectionController alloc] initWithCollectionView:self.gridView.collectionView];
-        self.controller.delegate = self;
 
         self.touchObserver = [[ZZTouchObserver alloc] initWithGridView:self.gridView];
     }
@@ -57,21 +55,15 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
     [UIApplication sharedApplication].statusBarHidden = YES;
     
     self.view.backgroundColor = [ZZColorTheme shared].gridBackgourndColor;
-    self.soundPlayer = [[ZZSoundPlayer alloc] initWithSoundNamed:kMessageSoundEffectFileName];
 }
 
-- (void)playSound
-{
-    [self.soundPlayer play];
-}
-
-- (void)udpateWithDataSource:(ZZGridDataSource *)dataSource
+- (void)updateWithDataSource:(ZZGridDataSource *)dataSource
 {
     [self.controller updateDataSource:dataSource];
     self.touchObserver.storage = dataSource.storage;
 }
 
-- (void)menuIsOpened
+- (void)menuWasOpened
 {
     [self.touchObserver hideMovedGridIfNeeded];
 }
@@ -126,14 +118,16 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
     }];
 }
 
-- (void)disableRolling
+- (void)updateRollingStateTo:(BOOL)isEnabled
 {
-    [self.gridView disableViewRotation];
-}
-
-- (void)enableRolling
-{
-    [self.gridView enableViewRotation];
+    if (isEnabled)
+    {
+        [self.gridView enableViewRotation]; // TODO:
+    }
+    else
+    {
+        [self.gridView disableViewRotation];
+    }
 }
 
 @end

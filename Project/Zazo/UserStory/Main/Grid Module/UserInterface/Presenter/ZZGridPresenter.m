@@ -15,10 +15,12 @@
 #import "ZZGridCollectionCell.h"
 #import "ZZVideoUtils.h"
 #import "ZZGridCellViewModel.h"
+#import "ZZSoundPlayer.h"
 
 @interface ZZGridPresenter () <ZZGridCellViewModellDelegate, ZZGridDataSourceDelegate>
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
+@property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
 
 @end
 
@@ -30,7 +32,7 @@
     self.dataSource = [ZZGridDataSource new];
     
     self.dataSource.delegate = self;
-    [self.userInterface udpateWithDataSource:self.dataSource];
+    [self.userInterface updateWithDataSource:self.dataSource];
     [self.interactor loadData];
 }
 
@@ -80,7 +82,7 @@
 - (void)presentMenu
 {
     [self.wireframe toggleMenu];
-    [self.userInterface menuIsOpened];
+    [self.userInterface menuWasOpened];
 }
 
 - (void)itemSelectedWithModel:(ZZGridCellViewModel*)model
@@ -92,28 +94,30 @@
     }
 }
 
-
-#pragma mark - Collection Cell View Module Delegate
-
-- (void)startRecordingWithView:(id)view
-{
-    [self.userInterface disableRolling];
-    [self.userInterface playSound];
-    [[self centerCell] showRecordingOverlay];
-    [[ZZVideoRecorder shared] startRecordingWithGridCell:view];
-}
-
-- (void)stopRecording
-{
-    [self.userInterface playSound];
-    [self.userInterface enableRolling];
-    [[self centerCell] hideRecordingOverlay];
-    [[ZZVideoRecorder shared] stopRecording];
-}
-
 - (void)nudgeSelectedWithUserModel:(id)userModel
 {
+    //TODO:
+}
 
+- (void)recordingStateUpdateWithView:(UIView *)view toState:(BOOL)isEnabled
+{
+    if (isEnabled && view)
+    {
+        [[ZZVideoRecorder shared] startRecordingWithGridCell:view];
+    }
+    
+    [self.userInterface updateRollingStateTo:!isEnabled];
+    [self.soundPlayer play];
+    if (isEnabled)
+    {
+        
+        [[self centerCell] showRecordingOverlay];
+    }
+    else
+    {
+        [[self centerCell] hideRecordingOverlay];
+        [[ZZVideoRecorder shared] stopRecording];
+    }
 }
 
 - (ZZGridCenterCell*)centerCell
@@ -131,5 +135,13 @@
     [self.interactor selectedUserWithModel:user];
 }
 
+- (ZZSoundPlayer*)soundPlayer
+{
+    if (!_soundPlayer)
+    {
+        _soundPlayer = [[ZZSoundPlayer alloc] initWithSoundNamed:kMessageSoundEffectFileName];
+    }
+    return _soundPlayer;
+}
 
 @end
