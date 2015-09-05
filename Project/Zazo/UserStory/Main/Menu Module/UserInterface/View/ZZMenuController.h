@@ -22,5 +22,6 @@
 @property (nonatomic, weak) id<ZZMenuControllerDelegate> delegate;
 
 - (void)updateDataSource:(ZZMenuDataSource *)dataSource;
+- (void)reset;
 
 @end

@@ -20,6 +20,7 @@ static CGFloat const kTableViewRowHeight = 55.5;
     if (self)
     {
         self.tableView.rowHeight = kTableViewRowHeight;
+        self.tableView.sectionHeaderHeight = 60;
         [self registerCellClass:[ZZMenuCell class] forModelClass:[ZZMenuCellViewModel class]];
         [self registerHeaderClass:[ANBaseTableHeaderView class] forModelClass:[NSString class]];
         self.displayHeaderOnEmptySection = NO;
@@ -32,26 +33,23 @@ static CGFloat const kTableViewRowHeight = 55.5;
     self.storage = dataSource.storage;
     self.searchingStorage = dataSource.storage;
     self.memoryStorage.storagePredicateBlock = ^NSPredicate *(NSString* searchString, NSInteger scope){
-        NSPredicate* firstNamePredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@",@"item.firstName",searchString];
-        NSPredicate* lastNamePredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@",@"item.lastName",searchString];
+        
+        NSPredicate* firstNamePredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@",@"item.firstName", searchString];
+        NSPredicate* lastNamePredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@",@"item.lastName", searchString];
         return [NSCompoundPredicate orPredicateWithSubpredicates:@[firstNamePredicate,lastNamePredicate]];
     };
 }
 
-#pragma mark - Table Delegate
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+- (void)reset
 {
-    if (section == 3)
-    {
-        return 40;
-    }
-    else
-    {
-        return 0;
-    }
-    
+    ANDispatchBlockToMainQueue(^{
+        self.searchBar.text = @"";
+        [self filterTableItemsForSearchString:self.searchBar.text];
+        [self.tableView setContentOffset:CGPointZero];
+    });
 }
+
+#pragma mark - Table Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

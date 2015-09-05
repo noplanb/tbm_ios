@@ -52,10 +52,7 @@
 
 - (void)reset
 {
-    self.menuView.searchBar.text = @"";
-    ANDispatchBlockToMainQueue(^{
-       [self.menuView.tableView setContentOffset:CGPointZero];
-    });
+    [self.controller reset];
 }
 
 
