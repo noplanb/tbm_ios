@@ -14,14 +14,14 @@
 #import "ZZGridCenterCell.h"
 #import "ZZGridCollectionCell.h"
 #import "ZZVideoUtils.h"
-#import "ZZGridCollectionCellViewModel.h"
+#import "ZZGridCellViewModel.h"
 
 static NSInteger const kGridCenterCellIndex = 4;
 
 @interface ZZGridPresenter () <ZZGridCellViewModellDelegate>
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
-@property (nonatomic, strong) ZZGridCollectionCellViewModel* selectedCellViewModel;
+@property (nonatomic, strong) ZZGridCellViewModel* selectedCellViewModel;
 
 @end
 
@@ -35,30 +35,36 @@ static NSInteger const kGridCenterCellIndex = 4;
     [self.interactor loadData];
 }
 
-- (void)presentEditFriends
+- (void)presentEditFriendsController
 {
     [self.wireframe closeMenu];
-    [self.wireframe presentEditFriends];
+    [self.wireframe presentEditFriendsController];
 }
 
-- (void)presentSendEmail
+- (void)presentSendEmailController
 {
     [self.interactor loadFeedbackModel];
-   
 }
+
 
 #pragma mark - Output
 
 - (void)loadedFeedbackDomainModel:(ANMessageDomainModel *)model
 {
-    [self.wireframe presentSendFeedbackWithFeedbackModel:model];
+    [self.wireframe presentSendFeedbackWithModel:model];
 }
 
-- (void)dataLoadedWithArray:(NSArray *)data
+- (void)dataLoadedWithArray:(NSArray*)data
 {
     NSArray* dataArray = [self viewModelFromGridDomainModels:data];
     [self.dataSource.storage addItems:dataArray];
 }
+
+- (void)dataLoadingDidFailWithError:(NSError*)error
+{
+    
+}
+
 
 - (NSArray*)viewModelFromGridDomainModels:(NSArray *)itemsArray
 {
@@ -73,8 +79,8 @@ static NSInteger const kGridCenterCellIndex = 4;
         }
         else
         {
-            model = [ZZGridCollectionCellViewModel new];
-            ZZGridCollectionCellViewModel* gridCell = model;
+            model = [ZZGridCellViewModel new];
+            ZZGridCellViewModel* gridCell = model;
             gridCell.item = item;
             gridCell.delegate = self;
         }
@@ -85,24 +91,18 @@ static NSInteger const kGridCenterCellIndex = 4;
     return viewModels;
 }
 
-- (void)dataLoadedWithError:(NSError *)error
-{
-
-
-}
-
 - (void)modelUpdatedWithUserWithModel:(ZZGridDomainModel *)model
 {
     self.selectedCellViewModel.item = model;
-    [self.dataSource updateModel:self.selectedCellViewModel];
+    [self.dataSource reloadModel:self.selectedCellViewModel];
 }
 
 - (void)gridContainedFriend:(ZZFriendDomainModel *)friendModel
 {
     [self.wireframe closeMenu];
     [self.userInterface showFriendAnimationWithModel:friendModel];
-    
 }
+
 
 #pragma mark - Module Interface
 
@@ -112,7 +112,7 @@ static NSInteger const kGridCenterCellIndex = 4;
     [self.userInterface menuIsOpened];
 }
 
-- (void)selectedCollectionViewWithModel:(ZZGridCollectionCellViewModel *)model
+- (void)itemSelectedWithModel:(ZZGridCellViewModel *)model
 {
     if (model)
     {
@@ -130,7 +130,7 @@ static NSInteger const kGridCenterCellIndex = 4;
     [self.userInterface disableRolling];
     [self.userInterface playSound];
     [[self centerCell] showRecordingOverlay];
-    [[ZZVideoRecorder sharedInstance] startRecordingWithGridCell:view];
+    [[ZZVideoRecorder shared] startRecordingWithGridCell:view];
 }
 
 - (void)stopRecording
@@ -138,7 +138,7 @@ static NSInteger const kGridCenterCellIndex = 4;
     [self.userInterface playSound];
     [self.userInterface enableRolling];
     [[self centerCell] hideRecordingOverlay];
-    [[ZZVideoRecorder sharedInstance] stopRecording];
+    [[ZZVideoRecorder shared] stopRecording];
 }
 
 - (void)nudgeSelectedWithUserModel:(id)userModel

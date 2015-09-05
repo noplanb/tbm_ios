@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZGridCollectionCellViewModel.h"
+#import "ZZGridCellViewModel.h"
 
-@implementation ZZGridCollectionCellViewModel
+@implementation ZZGridCellViewModel
 
 - (void)startRecordingWithView:(UIView *)view
 {

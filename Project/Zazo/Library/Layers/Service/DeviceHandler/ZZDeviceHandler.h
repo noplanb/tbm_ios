@@ -15,6 +15,6 @@
 + (AVCaptureDeviceInput *)getAvailableBackVideoInputWithError:(NSError * __autoreleasing *)error;
 + (BOOL)isCameraConnected;
 + (BOOL)isMiccrophoneConnected;
-+ (BOOL)isBothCamerasAvailable;
++ (BOOL)areBothCamerasAvailable;
 
 @end

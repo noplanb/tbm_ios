@@ -69,7 +69,8 @@
 {
     NSInteger menuWidth = CGRectGetWidth([UIScreen mainScreen].bounds) - CGRectGetWidth([UIScreen mainScreen].bounds)/4;
     ANDrawerNC* drawerController = [ANDrawerNC drawerWithView:view width:menuWidth direction:ANDrawerOpenDirectionFromRight];
-    drawerController.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1];
+    drawerController.useBackground = YES;
+    drawerController.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
     drawerController.topPin = ANDrawerTopPinNavigationBar;
     drawerController.avoidKeyboard = YES;
     return drawerController;

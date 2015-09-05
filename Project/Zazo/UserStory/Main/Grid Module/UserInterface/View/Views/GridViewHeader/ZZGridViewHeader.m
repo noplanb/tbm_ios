@@ -7,10 +7,12 @@
 //
 
 #pragma mark  - Title Image
+
 static CGFloat const kTileImageLeftPadding = 12;
 static CGFloat const kTitleImageBottomPadding = 18;
 
 #pragma mark  - Menu Button
+
 static CGFloat const kMenuButtonRightPadding = 55;
 static CGFloat const kButtonSize = 44;
 
@@ -20,7 +22,6 @@ static CGFloat const kButtonSize = 44;
 @interface ZZGridViewHeader ()
 
 @end
-
 
 @implementation ZZGridViewHeader
 
@@ -36,14 +37,12 @@ static CGFloat const kButtonSize = 44;
     return self;
 }
 
-
-- (UIImageView *)titleImageView
+- (UIImageView*)titleImageView
 {
     if (!_titleImageView)
     {
         _titleImageView = [UIImageView new];
-        CGSize logoSize = CGSizeMake(74.5, 19);
-        _titleImageView.image = [[UIImage imageWithPDFNamed:@"app_logo" atSize:logoSize]
+        _titleImageView.image = [[UIImage imageWithPDFNamed:@"app_logo" atHeight:19]
                                  an_imageByTintingWithColor:[ZZColorTheme shared].menuTintColor];
         _titleImageView.contentMode = UIViewContentModeCenter;
         [_titleImageView sizeToFit];
@@ -55,7 +54,6 @@ static CGFloat const kButtonSize = 44;
             make.bottom.equalTo(@(kTitleImageBottomPadding));
         }];
     }
-    
     return _titleImageView;
 }
 
@@ -64,9 +62,7 @@ static CGFloat const kButtonSize = 44;
     if (!_menuButton)
     {
         _menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        
-        CGSize imageSize = CGSizeMake(24, 15);
-        UIImage* menuImage = [[UIImage imageWithPDFNamed:@"icon_people" atSize:imageSize]
+        UIImage* menuImage = [[UIImage imageWithPDFNamed:@"icon_people" atHeight:15]
                               an_imageByTintingWithColor:[ZZColorTheme shared].menuTintColor];
         [_menuButton setImage:menuImage forState:UIControlStateNormal];
         [self addSubview:_menuButton];
@@ -78,18 +74,15 @@ static CGFloat const kButtonSize = 44;
             make.bottom.equalTo(self);
         }];
     }
-    
     return _menuButton;
 }
 
-- (UIButton *)editFriendsButton
+- (UIButton*)editFriendsButton
 {
     if (!_editFriendsButton)
     {
-        _editFriendsButton = [UIButton new];
-        
-        CGSize imageSize = CGSizeMake(4, 19);
-        UIImage* menuImage = [[UIImage imageWithPDFNamed:@"icon_dots" atSize:imageSize]
+        _editFriendsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIImage* menuImage = [[UIImage imageWithPDFNamed:@"icon_dots" atHeight:19]
                               an_imageByTintingWithColor:[ZZColorTheme shared].menuTintColor];
         [_editFriendsButton setImage:menuImage forState:UIControlStateNormal];
         [self addSubview:_editFriendsButton];
@@ -103,6 +96,5 @@ static CGFloat const kButtonSize = 44;
     
     return _editFriendsButton;
 }
-
 
 @end

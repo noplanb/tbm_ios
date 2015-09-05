@@ -14,11 +14,12 @@
 #import "ZZGridWireframe.h"
 
 @class ZZGridWireframe;
+
 @interface ZZGridPresenter : NSObject
 <
- ZZGridInteractorOutput,
- ZZGridModuleInterface,
- ZZMenuModuleDelegate
+    ZZGridInteractorOutput,
+    ZZGridModuleInterface,
+    ZZMenuModuleDelegate
 >
 
 @property (nonatomic, strong) id<ZZGridInteractorInput> interactor;

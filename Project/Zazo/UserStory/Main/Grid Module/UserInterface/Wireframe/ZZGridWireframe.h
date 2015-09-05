@@ -6,14 +6,12 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-
 #import "ZZMenuWireframe.h"
 #import "ANMessageDomainModel.h"
 
 @class ZZGridPresenter;
 
 @interface ZZGridWireframe : NSObject
-
 
 @property (nonatomic, strong) ZZGridPresenter* presenter;
 @property (nonatomic, strong) ZZMenuWireframe* menuWireFrame;
@@ -23,7 +21,10 @@
 - (void)toggleMenu;
 - (void)closeMenu;
 
-- (void)presentEditFriends;
-- (void)presentSendFeedbackWithFeedbackModel:(ANMessageDomainModel*)model;
+
+#pragma mark - Details
+
+- (void)presentEditFriendsController;
+- (void)presentSendFeedbackWithModel:(ANMessageDomainModel*)model;
 
 @end

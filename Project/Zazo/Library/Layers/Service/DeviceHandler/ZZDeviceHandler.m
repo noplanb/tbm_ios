@@ -57,7 +57,7 @@
     return YES;
 }
 
-+ (BOOL)isBothCamerasAvailable
++ (BOOL)areBothCamerasAvailable
 {
     
     AVCaptureDevice* frondCamera = [ZZDeviceHandler deviceWithMediaType:AVMediaTypeVideo preferringPosition:AVCaptureDevicePositionFront];

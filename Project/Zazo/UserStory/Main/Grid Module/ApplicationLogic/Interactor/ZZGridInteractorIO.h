@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-@class ZZGridCollectionCellViewModel, ZZFriendDomainModel, ANMessageDomainModel, ZZGridDomainModel;
+@class ZZGridCellViewModel, ZZFriendDomainModel, ANMessageDomainModel, ZZGridDomainModel;
 
 @protocol ZZGridInteractorInput <NSObject>
 
@@ -22,7 +22,7 @@
 @protocol ZZGridInteractorOutput <NSObject>
 
 - (void)dataLoadedWithArray:(NSArray*)data;
-- (void)dataLoadedWithError:(NSError *)error;
+- (void)dataLoadingDidFailWithError:(NSError *)error;
 - (void)modelUpdatedWithUserWithModel:(ZZGridDomainModel *)model;
 - (void)gridContainedFriend:(ZZFriendDomainModel*)friendModel;
 - (void)loadedFeedbackDomainModel:(ANMessageDomainModel*)model;

@@ -295,7 +295,7 @@
 		07E3C7741B9A2C910071CF82 /* ZZGridCollectionCellRecordStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C5871B9A2C900071CF82 /* ZZGridCollectionCellRecordStateView.m */; };
 		07E3C7751B9A2C910071CF82 /* ZZGridCollectionCellStateViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C58A1B9A2C900071CF82 /* ZZGridCollectionCellStateViewFactory.m */; };
 		07E3C7761B9A2C910071CF82 /* ZZGridCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C58C1B9A2C900071CF82 /* ZZGridCollectionCell.m */; };
-		07E3C7771B9A2C910071CF82 /* ZZGridCollectionCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C58E1B9A2C900071CF82 /* ZZGridCollectionCellViewModel.m */; };
+		07E3C7771B9A2C910071CF82 /* ZZGridCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C58E1B9A2C900071CF82 /* ZZGridCellViewModel.m */; };
 		07E3C7781B9A2C910071CF82 /* ZZGridCollectionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C5911B9A2C900071CF82 /* ZZGridCollectionLayout.m */; };
 		07E3C7791B9A2C910071CF82 /* ZZGridCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C5941B9A2C900071CF82 /* ZZGridCollectionController.m */; };
 		07E3C77A1B9A2C910071CF82 /* ZZGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C5981B9A2C900071CF82 /* ZZGridView.m */; };
@@ -620,14 +620,14 @@
 		07E3C37B1B9A2C900071CF82 /* TBMMarginLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMMarginLabel.m; sourceTree = "<group>"; };
 		07E3C37C1B9A2C900071CF82 /* TBMPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMPreviewView.h; sourceTree = "<group>"; };
 		07E3C37D1B9A2C900071CF82 /* TBMPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMPreviewView.m; sourceTree = "<group>"; };
-		07E3C37E1B9A2C900071CF82 /* TBMRegisterForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMRegisterForm.h; sourceTree = "<group>"; };
-		07E3C37F1B9A2C900071CF82 /* TBMRegisterForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMRegisterForm.m; sourceTree = "<group>"; };
-		07E3C3801B9A2C900071CF82 /* TBMRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMRegisterViewController.h; sourceTree = "<group>"; };
-		07E3C3811B9A2C900071CF82 /* TBMRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMRegisterViewController.m; sourceTree = "<group>"; };
+		07E3C37E1B9A2C900071CF82 /* TBMRegisterForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBMRegisterForm.h; path = UI/TBMRegisterForm.h; sourceTree = "<group>"; };
+		07E3C37F1B9A2C900071CF82 /* TBMRegisterForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBMRegisterForm.m; path = UI/TBMRegisterForm.m; sourceTree = "<group>"; };
+		07E3C3801B9A2C900071CF82 /* TBMRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBMRegisterViewController.h; path = UI/TBMRegisterViewController.h; sourceTree = "<group>"; };
+		07E3C3811B9A2C900071CF82 /* TBMRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBMRegisterViewController.m; path = UI/TBMRegisterViewController.m; sourceTree = "<group>"; };
 		07E3C3821B9A2C900071CF82 /* TBMTableModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMTableModal.h; sourceTree = "<group>"; };
 		07E3C3831B9A2C900071CF82 /* TBMTableModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMTableModal.m; sourceTree = "<group>"; };
-		07E3C3841B9A2C900071CF82 /* TBMTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMTextField.h; sourceTree = "<group>"; };
-		07E3C3851B9A2C900071CF82 /* TBMTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMTextField.m; sourceTree = "<group>"; };
+		07E3C3841B9A2C900071CF82 /* TBMTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBMTextField.h; path = UI/TBMTextField.h; sourceTree = "<group>"; };
+		07E3C3851B9A2C900071CF82 /* TBMTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBMTextField.m; path = UI/TBMTextField.m; sourceTree = "<group>"; };
 		07E3C3881B9A2C900071CF82 /* TBMBenchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMBenchTableViewCell.h; sourceTree = "<group>"; };
 		07E3C3891B9A2C900071CF82 /* TBMBenchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMBenchTableViewCell.m; sourceTree = "<group>"; };
 		07E3C38A1B9A2C900071CF82 /* TBMBenchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMBenchViewController.h; sourceTree = "<group>"; };
@@ -988,8 +988,8 @@
 		07E3C58A1B9A2C900071CF82 /* ZZGridCollectionCellStateViewFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCollectionCellStateViewFactory.m; sourceTree = "<group>"; };
 		07E3C58B1B9A2C900071CF82 /* ZZGridCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCollectionCell.h; sourceTree = "<group>"; };
 		07E3C58C1B9A2C900071CF82 /* ZZGridCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCollectionCell.m; sourceTree = "<group>"; };
-		07E3C58D1B9A2C900071CF82 /* ZZGridCollectionCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCollectionCellViewModel.h; sourceTree = "<group>"; };
-		07E3C58E1B9A2C900071CF82 /* ZZGridCollectionCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCollectionCellViewModel.m; sourceTree = "<group>"; };
+		07E3C58D1B9A2C900071CF82 /* ZZGridCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCellViewModel.h; sourceTree = "<group>"; };
+		07E3C58E1B9A2C900071CF82 /* ZZGridCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCellViewModel.m; sourceTree = "<group>"; };
 		07E3C5901B9A2C900071CF82 /* ZZGridCollectionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCollectionLayout.h; sourceTree = "<group>"; };
 		07E3C5911B9A2C900071CF82 /* ZZGridCollectionLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCollectionLayout.m; sourceTree = "<group>"; };
 		07E3C5931B9A2C900071CF82 /* ZZGridCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCollectionController.h; sourceTree = "<group>"; };
@@ -1210,9 +1210,42 @@
 			path = ZazoTests;
 			sourceTree = "<group>";
 		};
+		07CBBC2C1B9B1FF90080D300 /* !_OLD */ = {
+			isa = PBXGroup;
+			children = (
+				07E3C3841B9A2C900071CF82 /* TBMTextField.h */,
+				07E3C3851B9A2C900071CF82 /* TBMTextField.m */,
+				07E3C37E1B9A2C900071CF82 /* TBMRegisterForm.h */,
+				07E3C37F1B9A2C900071CF82 /* TBMRegisterForm.m */,
+				07E3C3801B9A2C900071CF82 /* TBMRegisterViewController.h */,
+				07E3C3811B9A2C900071CF82 /* TBMRegisterViewController.m */,
+				07E3C3871B9A2C900071CF82 /* BenchViewController */,
+				07E3C38C1B9A2C900071CF82 /* Contacts */,
+			);
+			name = "!_OLD";
+			sourceTree = "<group>";
+		};
+		07CBBC2D1B9B20A50080D300 /* CustomElements */ = {
+			isa = PBXGroup;
+			children = (
+				07E3C3761B9A2C900071CF82 /* TBMContentViewModal.h */,
+				07E3C3771B9A2C900071CF82 /* TBMContentViewModal.m */,
+				07E3C3781B9A2C900071CF82 /* TBMLongPressTouchHandler.h */,
+				07E3C3791B9A2C900071CF82 /* TBMLongPressTouchHandler.m */,
+				07E3C37A1B9A2C900071CF82 /* TBMMarginLabel.h */,
+				07E3C37B1B9A2C900071CF82 /* TBMMarginLabel.m */,
+				07E3C37C1B9A2C900071CF82 /* TBMPreviewView.h */,
+				07E3C37D1B9A2C900071CF82 /* TBMPreviewView.m */,
+				07E3C3821B9A2C900071CF82 /* TBMTableModal.h */,
+				07E3C3831B9A2C900071CF82 /* TBMTableModal.m */,
+			);
+			name = CustomElements;
+			sourceTree = "<group>";
+		};
 		07E3C2821B9A2C900071CF82 /* tbm */ = {
 			isa = PBXGroup;
 			children = (
+				07CBBC2C1B9B1FF90080D300 /* !_OLD */,
 				07E3C2831B9A2C900071CF82 /* Logic */,
 				07E3C2C91B9A2C900071CF82 /* Modules */,
 				07E3C3591B9A2C900071CF82 /* Network */,
@@ -1851,22 +1884,7 @@
 		07E3C3751B9A2C900071CF82 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				07E3C3761B9A2C900071CF82 /* TBMContentViewModal.h */,
-				07E3C3771B9A2C900071CF82 /* TBMContentViewModal.m */,
-				07E3C3781B9A2C900071CF82 /* TBMLongPressTouchHandler.h */,
-				07E3C3791B9A2C900071CF82 /* TBMLongPressTouchHandler.m */,
-				07E3C37A1B9A2C900071CF82 /* TBMMarginLabel.h */,
-				07E3C37B1B9A2C900071CF82 /* TBMMarginLabel.m */,
-				07E3C37C1B9A2C900071CF82 /* TBMPreviewView.h */,
-				07E3C37D1B9A2C900071CF82 /* TBMPreviewView.m */,
-				07E3C37E1B9A2C900071CF82 /* TBMRegisterForm.h */,
-				07E3C37F1B9A2C900071CF82 /* TBMRegisterForm.m */,
-				07E3C3801B9A2C900071CF82 /* TBMRegisterViewController.h */,
-				07E3C3811B9A2C900071CF82 /* TBMRegisterViewController.m */,
-				07E3C3821B9A2C900071CF82 /* TBMTableModal.h */,
-				07E3C3831B9A2C900071CF82 /* TBMTableModal.m */,
-				07E3C3841B9A2C900071CF82 /* TBMTextField.h */,
-				07E3C3851B9A2C900071CF82 /* TBMTextField.m */,
+				07CBBC2D1B9B20A50080D300 /* CustomElements */,
 				07E3C3861B9A2C900071CF82 /* UserStory */,
 				07E3C39F1B9A2C900071CF82 /* Utils */,
 			);
@@ -1876,8 +1894,6 @@
 		07E3C3861B9A2C900071CF82 /* UserStory */ = {
 			isa = PBXGroup;
 			children = (
-				07E3C3871B9A2C900071CF82 /* BenchViewController */,
-				07E3C38C1B9A2C900071CF82 /* Contacts */,
 				07E3C38F1B9A2C900071CF82 /* GridController */,
 				07E3C3971B9A2C900071CF82 /* HomeViewController */,
 			);
@@ -1892,7 +1908,8 @@
 				07E3C38A1B9A2C900071CF82 /* TBMBenchViewController.h */,
 				07E3C38B1B9A2C900071CF82 /* TBMBenchViewController.m */,
 			);
-			path = BenchViewController;
+			name = BenchViewController;
+			path = UI/UserStory/BenchViewController;
 			sourceTree = "<group>";
 		};
 		07E3C38C1B9A2C900071CF82 /* Contacts */ = {
@@ -1901,7 +1918,8 @@
 				07E3C38D1B9A2C900071CF82 /* TBMContactSearchTableDelegate.h */,
 				07E3C38E1B9A2C900071CF82 /* TBMContactSearchTableDelegate.m */,
 			);
-			path = Contacts;
+			name = Contacts;
+			path = UI/UserStory/Contacts;
 			sourceTree = "<group>";
 		};
 		07E3C38F1B9A2C900071CF82 /* GridController */ = {
@@ -3439,8 +3457,8 @@
 				07E3C5791B9A2C900071CF82 /* StateViews */,
 				07E3C58B1B9A2C900071CF82 /* ZZGridCollectionCell.h */,
 				07E3C58C1B9A2C900071CF82 /* ZZGridCollectionCell.m */,
-				07E3C58D1B9A2C900071CF82 /* ZZGridCollectionCellViewModel.h */,
-				07E3C58E1B9A2C900071CF82 /* ZZGridCollectionCellViewModel.m */,
+				07E3C58D1B9A2C900071CF82 /* ZZGridCellViewModel.h */,
+				07E3C58E1B9A2C900071CF82 /* ZZGridCellViewModel.m */,
 			);
 			path = PlusCell;
 			sourceTree = "<group>";
@@ -3528,7 +3546,6 @@
 				07E3C5961B9A2C900071CF82 /* GridView */,
 				07E3C5991B9A2C900071CF82 /* GridViewHeader */,
 				07E3C59C1B9A2C900071CF82 /* RollAnimation */,
-				07E3C5AD1B9A2C900071CF82 /* UserRecorderGridView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3586,13 +3603,6 @@
 				07E3C5AC1B9A2C900071CF82 /* ZZTouchObserver.m */,
 			);
 			path = TouchObserver;
-			sourceTree = "<group>";
-		};
-		07E3C5AD1B9A2C900071CF82 /* UserRecorderGridView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = UserRecorderGridView;
 			sourceTree = "<group>";
 		};
 		07E3C5B11B9A2C900071CF82 /* Wireframe */ = {
@@ -4702,7 +4712,7 @@
 				07E3C6EC1B9A2C910071CF82 /* ZZNotificationTransportService.m in Sources */,
 				07E3C6DB1B9A2C910071CF82 /* ZZVideoModelsMapper.m in Sources */,
 				07E3C6811B9A2C910071CF82 /* TBMInviteHintView.m in Sources */,
-				07E3C7771B9A2C910071CF82 /* ZZGridCollectionCellViewModel.m in Sources */,
+				07E3C7771B9A2C910071CF82 /* ZZGridCellViewModel.m in Sources */,
 				07E3C78D1B9A2C910071CF82 /* ZZMenuWireframe.m in Sources */,
 				07E3C7571B9A2C910071CF82 /* ZZSecretSegmentCell.m in Sources */,
 				07E3C73F1B9A2C910071CF82 /* ZZAuthPresenter.m in Sources */,

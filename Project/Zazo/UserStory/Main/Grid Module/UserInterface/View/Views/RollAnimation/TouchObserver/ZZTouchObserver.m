@@ -12,7 +12,7 @@
 
 #import "ANSectionModel.h"
 #import "ZZGridDomainModel.h"
-#import "ZZGridCollectionCellViewModel.h"
+#import "ZZGridCellViewModel.h"
 
 @interface ZZTouchObserver () <GridDelegate>
 
@@ -147,7 +147,7 @@
                 if (CGRectContainsPoint(gridCell.frame, fakeCell.center))
                 {
                     fakeCell.stateImageView.image = [gridCell actualSateImage];
-                    ZZGridCollectionCellViewModel* cellModel = [gridCell model];
+                    ZZGridCellViewModel* cellModel = [gridCell model];
                     [fakeCell updateBadgeWithNumber:cellModel.badgeNumber];
                 }
             }];

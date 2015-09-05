@@ -65,13 +65,16 @@
     [self.menuWireFrame closeMenu];
 }
 
-- (void)presentEditFriends
+
+#pragma mark - Details
+
+- (void)presentEditFriendsController
 {
     ZZEditFriendListWireframe* wireFrame = [ZZEditFriendListWireframe new];
     [wireFrame presentEditFriendListControllerFromViewController:self.gridController withCompletion:nil];
 }
 
-- (void)presentSendFeedbackWithFeedbackModel:(ANMessageDomainModel*)model;
+- (void)presentSendFeedbackWithModel:(ANMessageDomainModel*)model;
 {
     self.emailWireframe = [ANEmailWireframe new];
     [self.emailWireframe presentEmailControllerFromViewController:self.gridController withModel:model completion:nil];

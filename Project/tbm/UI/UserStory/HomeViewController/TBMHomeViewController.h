@@ -25,5 +25,4 @@
 //TODO:Move to module interface after refactoring
 - (void)setupEvensFlowModule:(id <TBMEventsFlowModuleInterface>)eventsFlowModule;
 
-
 @end

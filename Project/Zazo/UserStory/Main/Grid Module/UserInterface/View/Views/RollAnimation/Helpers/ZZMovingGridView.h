@@ -50,7 +50,7 @@
 @property (strong, nonatomic) UILongPressGestureRecognizer *tapRecognizer;
 @property (strong, nonatomic) UILongPressGestureRecognizer *longPressRecognizer;
 
-- (void) setCells:(NSArray *)cells;
+- (void)setCells:(NSArray*)cells;
 - (void)removeAllCells;
 
 @end

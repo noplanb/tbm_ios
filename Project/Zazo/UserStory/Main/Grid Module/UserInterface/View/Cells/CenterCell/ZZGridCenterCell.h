@@ -7,6 +7,7 @@
 //
 
 #import "ZZGridBaseCell.h"
+#import "ZZGridCenterCellViewModel.h"
 
 @interface ZZGridCenterCell : ZZGridBaseCell
 

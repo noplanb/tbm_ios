@@ -16,7 +16,7 @@
 
 
 - (ZZGridCollectionCellBaseStateView *)stateViewWithPresentedView:(UIView <ZZGridCollectionCellBaseStateViewDelegate> *)presentedView
-                                                withCellViewModel:(ZZGridCollectionCellViewModel *)cellViewModel
+                                                withCellViewModel:(ZZGridCellViewModel *)cellViewModel
 {
     ZZGridCollectionCellBaseStateView* stateView;
     
@@ -32,9 +32,7 @@
     {
         stateView = [[ZZGridCollectionNudgeStateView alloc] initWithPresentedView:presentedView withModel:cellViewModel];
     }
-    
     return stateView;
 }
-
 
 @end

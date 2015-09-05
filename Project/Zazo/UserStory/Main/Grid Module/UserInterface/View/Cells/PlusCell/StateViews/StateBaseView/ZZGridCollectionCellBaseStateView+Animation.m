@@ -19,14 +19,17 @@
     
     CGFloat animValue = CGRectGetWidth(self.frame) - [self _indicatorCalculatedWidth];
     [UIView animateWithDuration:0.4 animations:^{
+   
         self.leftUploadIndicatorConstraint.offset = animValue;
         [self layoutIfNeeded];
     } completion:^(BOOL finished) {
+        
         self.uploadBarView.hidden = YES;
     }];
 }
 
-#pragma mark - Upload Views Show/Hide state
+
+#pragma mark - Upload Views Show / Hide state
 
 - (void)_showUploadViews
 {
@@ -52,13 +55,13 @@
 
 }
 
-- (float)_indicatorCalculatedWidth
+- (CGFloat)_indicatorCalculatedWidth
 {
     return fminf(kLayoutConstIndicatorMaxWidth, kLayoutConstIndicatorFractionalWidth * CGRectGetWidth(self.presentedView.frame));
 }
 
-#pragma mark - Download Animation part
 
+#pragma mark - Download Animation part
 
 - (void)_showDownloadAnimationWithNewVideoCount:(NSInteger)count
 {

@@ -11,7 +11,7 @@
 #import "ZZMenuCellViewModel.h"
 #import "ZZContactDomainModel.h"
 #import "ZZFriendDomainModel.h"
-#import "ZZGridCollectionCellViewModel.h"
+#import "ZZGridCellViewModel.h"
 #import "ANMessageDomainModel.h"
 #import "DeviceUtil.h"
 #import "TBMUser.h"
@@ -25,7 +25,6 @@ static NSInteger const kGridCenterCellIndex = 4;
 
 @property (nonatomic, strong) NSMutableArray* dataArray;
 @property (nonatomic, strong) id selectedUserModel;
-//@property (nonatomic, strong) ZZGridCollectionCellViewModel* selectedCellModel;
 @property (nonatomic, strong) ZZGridDomainModel* selectedModel;
 @property (nonatomic, strong) NSMutableArray* friendArray;
 
@@ -47,7 +46,7 @@ static NSInteger const kGridCenterCellIndex = 4;
 {
     self.dataArray = [NSMutableArray array];
     
-    for (NSInteger count = 0;count<kGridCellCount;count++)
+    for (NSInteger count = 0; count<kGridCellCount; count++)
     {
         id model;
         if (count == kGridCenterCellIndex)
@@ -67,7 +66,7 @@ static NSInteger const kGridCenterCellIndex = 4;
 
 - (NSInteger)centerCellIndex
 {
-    return self.dataArray.count/2;
+    return self.dataArray.count / 2;
 }
 
 - (void)selectedPlusCellWithModel:(id)model

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZGridCollectionCellViewModel.h"
+#import "ZZGridCellViewModel.h"
 
 static CGFloat const kSidePadding = 2;
 static CGFloat const kUserNameScaleValue = 5;
@@ -47,7 +47,7 @@ static CGFloat const kHiddenAlphaValue = 0.0;
 @property (nonatomic, weak) UIView <ZZGridCollectionCellBaseStateViewDelegate>* presentedView;
 
 - (instancetype)initWithPresentedView:(UIView <ZZGridCollectionCellBaseStateViewDelegate> *)presentedView
-                            withModel:(ZZGridCollectionCellViewModel *)cellViewModel;
+                            withModel:(ZZGridCellViewModel *)cellViewModel;
 
 - (void)updateBadgeWithNumber:(NSNumber *)badgeNumber;
 - (void)showUploadAnimation;
@@ -56,7 +56,7 @@ static CGFloat const kHiddenAlphaValue = 0.0;
 - (void)setupPlayerWithUrl:(NSURL *)url;
 - (void)stopPlayVideo;
 - (void)startPlayVideo;
-- (BOOL)isVideoPlayerPalying;
+- (BOOL)isVideoPlayerPlaying;
 - (void)showUploadIconWithoutAnimation;
 
 @end

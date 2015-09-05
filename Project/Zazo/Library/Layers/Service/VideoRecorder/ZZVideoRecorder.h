@@ -10,8 +10,7 @@
 
 @interface ZZVideoRecorder : NSObject
 
-
-+ (instancetype)sharedInstance;
++ (instancetype)shared;
 
 - (void)startRecordingWithVideoUrl:(NSURL *)videoUrl;
 - (void)stopRecording;
@@ -19,7 +18,7 @@
 
 - (void)updateViewGridCell:(ZZGridBaseCell *)cell;
 - (void)startRecordingWithGridCell:(ZZGridCollectionCell*)gridCell;
-- (BOOL)isBothCamerasAvailable;
+- (BOOL)areBothCamerasAvailable;
 - (void)switchToFrontCamera;
 - (void)switchToBackCamera;
 

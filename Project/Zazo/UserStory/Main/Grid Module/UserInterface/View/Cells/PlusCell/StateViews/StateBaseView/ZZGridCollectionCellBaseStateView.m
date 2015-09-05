@@ -10,7 +10,6 @@
 #import "ZZGridCollectionCellBaseStateView+Animation.h"
 #import "ZZVideoPlayer.h"
 
-
 @interface ZZGridCollectionCellBaseStateView ()
 
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
@@ -20,7 +19,7 @@
 @implementation ZZGridCollectionCellBaseStateView
 
 - (instancetype)initWithPresentedView:(UIView <ZZGridCollectionCellBaseStateViewDelegate> *)presentedView
-                            withModel:(ZZGridCollectionCellViewModel *)cellViewModel;
+                            withModel:(ZZGridCellViewModel *)cellViewModel;
 {
     if (self = [super init])
     {
@@ -244,7 +243,7 @@
     [self.videoPlayer playVideo];
 }
 
-- (BOOL)isVideoPlayerPalying
+- (BOOL)isVideoPlayerPlaying
 {
     return [self.videoPlayer isPlaying];
 }

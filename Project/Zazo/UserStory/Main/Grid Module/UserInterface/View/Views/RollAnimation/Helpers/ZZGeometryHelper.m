@@ -7,9 +7,7 @@
 #import "ZZGeometryHelper.h"
 #import "ZZMovingGridView.h"
 
-
 @implementation ZZGeometryHelper
-
 
 + (CGPoint)rotatedPointFromPoint:(CGPoint)from byAngle:(double)angle onFrame:(CGRect)frame
 {

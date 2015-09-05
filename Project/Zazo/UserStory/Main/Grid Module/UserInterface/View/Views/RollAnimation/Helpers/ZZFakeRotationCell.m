@@ -28,13 +28,15 @@ static CGFloat const kVideoCountLabelWidth = 23;
     return self;
 }
 
-- (void)setLabel:(NSString *)label {
+- (void)setLabel:(NSString*)label
+{
     _label = label;
     self.numberLabel.text = label;
 }
 
 - (void)layoutSubviews
 {
+    [super layoutSubviews];
     self.numberLabel.frame = self.bounds;
 }
 
@@ -52,7 +54,19 @@ static CGFloat const kVideoCountLabelWidth = 23;
     NSLog(@"Long Tap Ended");
 }
 
-- (UILabel *)numberLabel
+- (void)updateBadgeWithNumber:(NSNumber*)number
+{
+    if (number)
+    {
+        self.badgeLabel.hidden = NO;
+        self.badgeLabel.text = [NSString stringWithFormat:@"%@",number];
+    }
+}
+
+
+#pragma mark - Lazy Load
+
+- (UILabel*)numberLabel
 {
     if (!_numberLabel)
     {
@@ -68,21 +82,21 @@ static CGFloat const kVideoCountLabelWidth = 23;
     return _numberLabel;
 }
 
-- (UIImageView *)stateImageView
+- (UIImageView*)stateImageView
 {
     if (!_stateImageView)
     {
         _stateImageView = [UIImageView new];
         [self addSubview:_stateImageView];
+        
         [_stateImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         }];
     }
-    
     return _stateImageView;
 }
 
-- (UILabel *)badgeLabel
+- (UILabel*)badgeLabel
 {
     if (!_badgeLabel)
     {
@@ -92,9 +106,9 @@ static CGFloat const kVideoCountLabelWidth = 23;
         _badgeLabel.layer.masksToBounds = YES;
         _badgeLabel.hidden = YES;
         _badgeLabel.textColor = [UIColor whiteColor];
-        
         _badgeLabel.textAlignment = NSTextAlignmentCenter;
         [self.stateImageView addSubview:_badgeLabel];
+        
         [_badgeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.stateImageView).with.offset(3);
             make.top.equalTo(self.stateImageView).with.offset(-3);
@@ -102,19 +116,7 @@ static CGFloat const kVideoCountLabelWidth = 23;
             make.width.equalTo(@(kVideoCountLabelWidth));
         }];
     }
-    
     return _badgeLabel;
 }
-
-- (void)updateBadgeWithNumber:(NSNumber*)number
-{
-    if (number)
-    {
-        self.badgeLabel.hidden = NO;
-        self.badgeLabel.text = [NSString stringWithFormat:@"%@",number];
-    }
-
-}
-
 
 @end

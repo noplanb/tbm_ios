@@ -20,6 +20,7 @@
 * returns frame for cell after applying offset
 */
 - (CGRect)frameForCellAtIndex:(NSUInteger)index withOffset:(CGFloat)offset withGrid:(ZZGridHelper *)grid;
+
 @end
 
 @implementation ZZRotator

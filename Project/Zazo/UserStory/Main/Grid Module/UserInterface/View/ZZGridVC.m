@@ -15,19 +15,13 @@
 #import "TBMBenchViewController.h"
 #import "ZZSoundPlayer.h"
 
-typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
-{
+typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
     ZZEditMenuButtonTypeEditFriends = 0,
     ZZEditMenuButtonTypeSendFeedback = 1,
     ZZEditMenuButtonTypeCancel = 2,
 };
 
-@interface ZZGridVC ()
-<
-  ZZGridCollectionControllerDelegate,
-  ZZGridViewEventDelegate,
-  UIActionSheetDelegate
->
+@interface ZZGridVC () <ZZGridCollectionControllerDelegate, ZZGridViewEventDelegate>
 
 @property (nonatomic, strong) ZZGridView* gridView;
 @property (nonatomic, strong) ZZGridCollectionController* controller;
@@ -47,10 +41,8 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
         self.controller = [[ZZGridCollectionController alloc] initWithCollectionView:self.gridView.collectionView];
         self.controller.delegate = self;
 
-        self.touchObserver =
-        [[ZZTouchObserver alloc] initWithGridView:self.gridView];
+        self.touchObserver = [[ZZTouchObserver alloc] initWithGridView:self.gridView];
     }
-    
     return self;
 }
 
@@ -63,6 +55,7 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
 {
     [super viewDidLoad];
     [UIApplication sharedApplication].statusBarHidden = YES;
+    
     self.view.backgroundColor = [ZZColorTheme shared].gridBackgourndColor;
     self.soundPlayer = [[ZZSoundPlayer alloc] initWithSoundNamed:kMessageSoundEffectFileName];
 }
@@ -91,9 +84,9 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
 
 #pragma mark - Controller Delegate Method
 
-- (void)selectedViewWithModel:(ZZGridCollectionCellViewModel *)model
+- (void)selectedViewWithModel:(ZZGridCellViewModel *)model
 {
-    [self.eventHandler selectedCollectionViewWithModel:model];
+    [self.eventHandler itemSelectedWithModel:model];
 }
 
 - (id)cellAtIndexPath:(NSIndexPath *)indexPath
@@ -113,34 +106,29 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
 {
     NSString *editFriendsButtonTitle = NSLocalizedString(@"grid-controller.menu.edit-friends.button.title", nil);
     NSString *sendFeedbackButtonTitle = NSLocalizedString(@"grid-controller.menu.send-feedback.button.title", nil);
-    [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:editFriendsButtonTitle, sendFeedbackButtonTitle, nil] showInView:self.view];
-}
-
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    switch (buttonIndex) {
-            
-        case ZZEditMenuButtonTypeEditFriends:
+    UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                              delegate:nil
+                                                     cancelButtonTitle:@"Cancel"
+                                                destructiveButtonTitle:nil
+                                                     otherButtonTitles:editFriendsButtonTitle, sendFeedbackButtonTitle, nil];
+    [actionSheet showInView:self.view];
+    
+    [actionSheet.rac_buttonClickedSignal subscribeNext:^(NSNumber* x) {
+       
+        switch ([x integerValue])
         {
-            [self.eventHandler presentEditFriends];
-        } break;
-            
-        case ZZEditMenuButtonTypeSendFeedback:
-        {
-            [self.eventHandler presentSendEmail];
-        } break;
-            
-        case ZZEditMenuButtonTypeCancel:
-        {
-            
-        } break;
-            
-        default:
-            break;
-    }
+            case ZZEditMenuButtonTypeEditFriends:
+            {
+                [self.eventHandler presentEditFriendsController];
+            } break;
+                
+            case ZZEditMenuButtonTypeSendFeedback:
+            {
+                [self.eventHandler presentSendEmailController];
+            } break;
+            default: break;
+        }
+    }];
 }
 
 - (void)disableRolling

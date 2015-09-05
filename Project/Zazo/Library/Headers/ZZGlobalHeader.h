@@ -28,7 +28,8 @@
 
 #import "ZZColorTheme.h"
 
-#pragma mark - UI Categories
+
+//#pragma mark - UI Categories
 
 #import "UIFont+ANAdditions.h"
 #import "UIColor+ANAdditions.h"

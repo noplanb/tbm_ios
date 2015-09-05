@@ -58,7 +58,6 @@
     {
         angleVelocity *= -1;
     }
-
     return angleVelocity;
 }
 

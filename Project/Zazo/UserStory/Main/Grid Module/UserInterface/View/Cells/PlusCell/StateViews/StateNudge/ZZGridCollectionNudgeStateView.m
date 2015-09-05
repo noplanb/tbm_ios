@@ -20,7 +20,8 @@
 
 @implementation ZZGridCollectionNudgeStateView
 
-- (instancetype)initWithPresentedView:(UIView<ZZGridCollectionCellBaseStateViewDelegate> *)presentedView withModel:(ZZGridCollectionCellViewModel *)cellViewModel
+- (instancetype)initWithPresentedView:(UIView<ZZGridCollectionCellBaseStateViewDelegate> *)presentedView
+                            withModel:(ZZGridCellViewModel*)cellViewModel
 {
     self = [super initWithPresentedView:presentedView withModel:cellViewModel];
     if (self)
@@ -45,82 +46,13 @@
     return self;
 }
 
-- (UILabel *)userNameLabel
-{
-    if (!_userNameLabel)
-    {
-        _userNameLabel = [UILabel new];
-        _userNameLabel.textAlignment = NSTextAlignmentCenter;
-        _userNameLabel.textColor = [UIColor whiteColor];
-        _userNameLabel.text = self.friendModel.firstName;
-        [self addSubview:_userNameLabel];
-        
-        [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.bottom.equalTo(self);
-            make.height.equalTo(@(CGRectGetHeight(self.presentedView.frame)/kUserNameScaleValue));
-        }];
-        
-    }
-    return _userNameLabel;
-}
-
-- (UIButton *)nudgeButton
-{
-    if (!_nudgeButton)
-    {
-        _nudgeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_nudgeButton.titleLabel setFont:[UIFont an_boldFontWithSize:16]];
-        [_nudgeButton setTitle:NSLocalizedString(@"grid-controller.nudge.title", nil) forState:UIControlStateNormal];
-        [_nudgeButton setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-        [_nudgeButton addTarget:self action:@selector(nudge) forControlEvents:UIControlEventTouchUpInside];
-        _nudgeButton.backgroundColor = [UIColor blackColor];
-        
-        
-        [self addSubview:_nudgeButton];
-        
-        [_nudgeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self).with.offset(kSidePadding);
-            make.left.equalTo(self).with.offset(kSidePadding);
-            make.right.equalTo(self).with.offset(-kSidePadding);
-            make.height.equalTo(@(self.buttonHeight));
-        }];
-    }
-    return _nudgeButton;
-}
-
-- (UILabel *)recordView
-{
-    if (!_recordView)
-    {
-        _recordView = [UILabel new];
-        _recordView.text = NSLocalizedString(@"grid-controller.record.title", nil);
-        _recordView.textColor = [UIColor redColor];
-        _recordView.font = [UIFont an_boldFontWithSize:16];
-        _recordView.textAlignment = NSTextAlignmentCenter;
-        _recordView.backgroundColor = [UIColor blackColor];
-        _recordView.userInteractionEnabled = YES;
-        
-        [_recordView addGestureRecognizer:self.recordRecognizer];
-        
-        [self addSubview:_recordView];
-        
-        [_recordView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.userNameLabel.mas_top);
-            make.left.equalTo(self).with.offset(kSidePadding);
-            make.right.equalTo(self).with.offset(-kSidePadding);
-            make.height.equalTo(@(self.buttonHeight));
-        }];
-    }
-    return _recordView;
-}
-
 - (void)_setupRecognizer
 {
     self.recordRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(recordPressed:)];
     self.recordRecognizer.minimumPressDuration = .5;
 }
 
-- (void)_updateViewStateWithModel:(ZZGridCollectionCellViewModel *)cellViewModel
+- (void)_updateViewStateWithModel:(ZZGridCellViewModel *)cellViewModel
 {
     if (cellViewModel.badgeNumber > 0)
     {
@@ -151,6 +83,73 @@
         [self.presentedView stopRecording];
         [self showUploadAnimation];
     }
+}
+
+
+#pragma mark - Private
+
+- (UILabel*)userNameLabel
+{
+    if (!_userNameLabel)
+    {
+        _userNameLabel = [UILabel new];
+        _userNameLabel.textAlignment = NSTextAlignmentCenter;
+        _userNameLabel.textColor = [UIColor whiteColor];
+        _userNameLabel.text = self.friendModel.firstName;
+        [self addSubview:_userNameLabel];
+        
+        [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(self);
+            make.height.equalTo(@(CGRectGetHeight(self.presentedView.frame)/kUserNameScaleValue));
+        }];
+    }
+    return _userNameLabel;
+}
+
+- (UIButton*)nudgeButton
+{
+    if (!_nudgeButton)
+    {
+        _nudgeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_nudgeButton.titleLabel setFont:[UIFont an_boldFontWithSize:16]];
+        [_nudgeButton setTitle:NSLocalizedString(@"grid-controller.nudge.title", nil) forState:UIControlStateNormal];
+        [_nudgeButton setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+        [_nudgeButton addTarget:self action:@selector(nudge) forControlEvents:UIControlEventTouchUpInside];
+        _nudgeButton.backgroundColor = [UIColor blackColor];
+        [self addSubview:_nudgeButton];
+        
+        [_nudgeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self).with.offset(kSidePadding);
+            make.left.equalTo(self).with.offset(kSidePadding);
+            make.right.equalTo(self).with.offset(-kSidePadding);
+            make.height.equalTo(@(self.buttonHeight));
+        }];
+    }
+    return _nudgeButton;
+}
+
+- (UILabel*)recordView
+{
+    if (!_recordView)
+    {
+        _recordView = [UILabel new];
+        _recordView.text = NSLocalizedString(@"grid-controller.record.title", nil);
+        _recordView.textColor = [UIColor redColor];
+        _recordView.font = [UIFont an_boldFontWithSize:16];
+        _recordView.textAlignment = NSTextAlignmentCenter;
+        _recordView.backgroundColor = [UIColor blackColor];
+        _recordView.userInteractionEnabled = YES;
+        [_recordView addGestureRecognizer:self.recordRecognizer];
+        [self addSubview:_recordView];
+        
+        [_recordView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.userNameLabel.mas_top);
+            make.left.equalTo(self).with.offset(kSidePadding);
+            make.right.equalTo(self).with.offset(-kSidePadding);
+            make.height.equalTo(@(self.buttonHeight));
+        }];
+    }
+    return _recordView;
 }
 
 @end

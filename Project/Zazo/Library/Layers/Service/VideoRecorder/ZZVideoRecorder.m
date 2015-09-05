@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-
 #import "ZZVideoRecorder.h"
 #import "ZZGridBaseCell.h"
 #import "ZZDeviceHandler.h"
@@ -15,11 +14,10 @@
 #import "ZZVideoUtils.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZVideoProcessor.h"
-#import "ZZGridCollectionCellViewModel.h"
+#import "ZZGridCellViewModel.h"
 #import "SCRecorder.h"
 #import "TBMAppDelegate+AppSync.h"
 #import "ZZGridCenterCell.h"
-
 
 static NSString* const kVideoProcessorDidFinishProcessing = @"TBMVideoProcessorDidFinishProcessing";
 static NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing";
@@ -37,14 +35,14 @@ static NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProces
 
 @implementation ZZVideoRecorder
 
-+ (instancetype)sharedInstance
++ (instancetype)shared
 {
-    static ZZVideoRecorder* sharedManager = nil;
+    static id _sharedClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedManager = [[self alloc] init];
+        _sharedClient = [self new];
     });
-    return sharedManager;
+    return _sharedClient;
 }
 
 - (instancetype)init
@@ -52,9 +50,7 @@ static NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProces
     if (self = [super init])
     {
         [self _setupRecorder];
-        
     }
-    
     return self;
 }
 
@@ -80,9 +76,9 @@ static NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProces
 
 }
 
-- (BOOL)isBothCamerasAvailable
+- (BOOL)areBothCamerasAvailable
 {
-    return [ZZDeviceHandler isBothCamerasAvailable];
+    return [ZZDeviceHandler areBothCamerasAvailable];
 }
 
 - (void)switchToFrontCamera
@@ -112,7 +108,7 @@ static NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProces
 
 - (void)startRecordingWithGridCell:(ZZGridCollectionCell*)gridCell
 {
-    ZZGridCollectionCellViewModel* model = [gridCell model];
+    ZZGridCellViewModel* model = [gridCell model];
     if (model.item.relatedUser && model.item.relatedUser.idTbm)
     {
         [self.gridCell hideChangeCameraButton];

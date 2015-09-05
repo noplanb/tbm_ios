@@ -12,9 +12,9 @@
 
 @interface ZZGridHelper ()
 
-@property(assign, nonatomic, readonly) CGRect rails;
-@property(assign, nonatomic, readonly) CGFloat railsHeightToWidthRatio;
-@property(strong, nonatomic) NSArray *cellFrames;
+@property (nonatomic, assign, readonly) CGRect rails;
+@property (nonatomic, assign, readonly) CGFloat railsHeightToWidthRatio;
+@property (nonatomic, strong) NSArray *cellFrames;
 
 @end
 
@@ -81,13 +81,13 @@
 
 #pragma mark - Private
 
-- (NSArray *)cellMatrix {
+- (NSArray *)cellMatrix
+{
     return @[@(0), @(1), @(2), @(5), @(8), @(7), @(6), @(3), @(4)];;
 }
 
 - (void)setCellSize
 {
-    
     CGSize size;
     
     if (IS_IPHONE_4)
@@ -124,14 +124,14 @@
     _verticalInset = 12;
 }
 
--(void) setRails
+- (void) setRails
 {
     CGFloat railXMin = [self centerOfCellWithIndex:0].x;
     CGFloat railXMax = [self centerOfCellWithIndex:2].x;
     _rails = CGRectMake(railXMin, railXMin, railXMax - railXMin, railXMax - railXMin);
 }
 
--(void)setRailsHeightToWidthRatio
+- (void)setRailsHeightToWidthRatio
 {
     CGFloat railYMin = [self centerOfCellWithIndex:2].y;
     CGFloat railYMax = [self centerOfCellWithIndex:4].y;

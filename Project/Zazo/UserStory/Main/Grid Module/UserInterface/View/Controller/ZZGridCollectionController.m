@@ -13,7 +13,7 @@
 #import "ZZGridCenterCellViewModel.h"
 #import "ANRuntimeHelper.h"
 #import "ANMemoryStorage.h"
-#import "ZZGridCollectionCellViewModel.h"
+#import "ZZGridCellViewModel.h"
 #import "ZZFriendDomainModel.h"
 
 static NSInteger const kCenterCellIndex = 4;
@@ -30,7 +30,7 @@ static NSInteger const kCenterCellIndex = 4;
 {
     if (self = [super initWithCollectionView:collectionView])
     {
-        [self registerCellClass:[ZZGridCollectionCell class] forModelClass:[ZZGridCollectionCellViewModel class]];
+        [self registerCellClass:[ZZGridCollectionCell class] forModelClass:[ZZGridCellViewModel class]];
         [self registerCellClass:[ZZGridCenterCell class] forModelClass:[ZZGridCenterCellViewModel class]];
     }
     
@@ -42,7 +42,7 @@ static NSInteger const kCenterCellIndex = 4;
     if (![self isCellContainUserModel:collectionView withIndexPath:indexPath] && indexPath.item != kCenterCellIndex)
     {
         ZZGridCollectionCell* cell = (ZZGridCollectionCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
-        ZZGridCollectionCellViewModel* model = [cell model];
+        ZZGridCellViewModel* model = [cell model];
         [self.delegate selectedViewWithModel:model];
     }
 }
@@ -56,7 +56,7 @@ static NSInteger const kCenterCellIndex = 4;
     if ([cell isKindOfClass:[ZZGridCollectionCell class]])
     {
         ZZGridCollectionCell* gridCell = (ZZGridCollectionCell*)cell;
-        ZZGridCollectionCellViewModel* model = [gridCell model];
+        ZZGridCellViewModel* model = [gridCell model];
         isHasUser = (model.item.relatedUser != nil);
     }
     
@@ -89,7 +89,7 @@ static NSInteger const kCenterCellIndex = 4;
         if ([cell isKindOfClass:[ZZGridCollectionCell class]])
         {
             ZZGridCollectionCell* gridCell = (ZZGridCollectionCell *)cell;
-            ZZGridCollectionCellViewModel* cellModel = [gridCell model];
+            ZZGridCellViewModel* cellModel = [gridCell model];
             if ([cellModel.item.relatedUser isEqual:friendModel])
             {
                 [gridCell showContainFriendAnimation];

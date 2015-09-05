@@ -8,7 +8,6 @@
 
 #import "ZZGridDomainModel.h"
 
-
 @protocol ZZGridCellViewModellDelegate <NSObject>
 
 - (void)startRecordingWithView:(id)view;
@@ -17,7 +16,7 @@
 
 @end
 
-@interface ZZGridCollectionCellViewModel : NSObject
+@interface ZZGridCellViewModel : NSObject
 
 @property (nonatomic, weak) id <ZZGridCellViewModellDelegate> delegate;
 @property (nonatomic, strong) ZZGridDomainModel* item;

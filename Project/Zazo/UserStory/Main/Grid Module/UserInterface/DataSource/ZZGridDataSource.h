@@ -6,12 +6,14 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-@class ANMemoryStorage, ZZGridDomainModel, ZZGridCollectionCellViewModel;
+@class ANMemoryStorage;
+@class ZZGridDomainModel;
+@class ZZGridCellViewModel;
 
 @interface ZZGridDataSource : NSObject
 
 @property (nonatomic, strong) ANMemoryStorage* storage;
 
-- (void)updateModel:(ZZGridCollectionCellViewModel *)model;
+- (void)reloadModel:(ZZGridCellViewModel*)model;
 
 @end

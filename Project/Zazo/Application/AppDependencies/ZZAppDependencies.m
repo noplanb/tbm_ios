@@ -32,7 +32,7 @@
 {
 //    [ANCrashlyticsAdapter start];
     [ZZContentDataAcessor start];
-    [ZZVideoRecorder sharedInstance];
+    [ZZVideoRecorder shared];
     [ZZColorTheme shared];
 #ifndef RELEASE
     [Instabug startWithToken:@"d546deb8f34137b73aa5b0405cee1690" // TODO:

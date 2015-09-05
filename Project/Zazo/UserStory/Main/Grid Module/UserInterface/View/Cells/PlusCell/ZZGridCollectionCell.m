@@ -8,17 +8,16 @@
 
 #import "ZZGridCollectionCell.h"
 #import "ZZFriendDomainModel.h"
-#import "ZZGridCollectionCellViewModel.h"
+#import "ZZGridCellViewModel.h"
 #import "UIImage+PDF.h"
 #import "TBMVideoRecorder.h"
 #import "ZZVideoRecorder.h"
 #import "ZZGridCollectionCellBaseStateView.h"
 #import "ZZGridCollectionCellStateViewFactory.h"
 
-
 @interface ZZGridCollectionCell () <ZZGridCollectionCellBaseStateViewDelegate>
 
-@property (nonatomic, strong) ZZGridCollectionCellViewModel* gridModel;
+@property (nonatomic, strong) ZZGridCellViewModel* gridModel;
 @property (nonatomic, strong) UIImageView* plusImageView;
 @property (nonatomic, strong) UIGestureRecognizer* plusRecognizer;
 @property (nonatomic, strong) ZZGridCollectionCellBaseStateView* stateView;
@@ -79,7 +78,7 @@
     return _plusImageView;
 }
 
-- (void)_updateIfNeededStateWithUserModel:(ZZGridCollectionCellViewModel *)model
+- (void)_updateIfNeededStateWithUserModel:(ZZGridCellViewModel *)model
 {
     if (model.item.relatedUser)
     {
@@ -110,7 +109,7 @@
 
 - (void)makeActualScreenShoot
 {
-    if (![self.stateView isVideoPlayerPalying])
+    if (![self.stateView isVideoPlayerPlaying])
     {
         CGFloat scale = [UIScreen mainScreen].scale;
         UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, scale);

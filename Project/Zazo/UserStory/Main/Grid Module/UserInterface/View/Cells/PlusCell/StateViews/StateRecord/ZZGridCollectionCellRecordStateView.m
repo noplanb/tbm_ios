@@ -18,10 +18,10 @@
 
 @implementation ZZGridCollectionCellRecordStateView
 
-- (instancetype)initWithPresentedView:(UIView<ZZGridCollectionCellBaseStateViewDelegate> *)presentedView withModel:(ZZGridCollectionCellViewModel *)cellViewModel
+- (instancetype)initWithPresentedView:(UIView<ZZGridCollectionCellBaseStateViewDelegate> *)presentedView
+                            withModel:(ZZGridCellViewModel *)cellViewModel
 {
     self = [super initWithPresentedView:presentedView withModel:cellViewModel];
-    
     if (self)
     {
         [self _setupRecognizer];
@@ -34,13 +34,11 @@
         [self downloadBarView];
         [self videoCountLabel];
         [self _updateViewStateWithModel:cellViewModel];
-        
     }
-    
     return self;
 }
 
-- (UILabel *)userNameLabel
+- (UILabel*)userNameLabel
 {
     if (!_userNameLabel)
     {
@@ -54,12 +52,11 @@
             make.left.right.bottom.equalTo(self);
             make.height.equalTo(@(CGRectGetHeight(self.presentedView.frame)/kUserNameScaleValue));
         }];
-        
     }
     return _userNameLabel;
 }
 
-- (UILabel *)recordView
+- (UILabel*)recordView
 {
     if (!_recordView)
     {
@@ -71,7 +68,6 @@
         _recordView.backgroundColor = [UIColor blackColor];
         _recordView.userInteractionEnabled = YES;
         [_recordView addGestureRecognizer:self.recordRecognizer];
-        
         [self addSubview:_recordView];
         
         [_recordView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -91,7 +87,7 @@
 }
 
 
-- (void)_updateViewStateWithModel:(ZZGridCollectionCellViewModel *)cellViewModel
+- (void)_updateViewStateWithModel:(ZZGridCellViewModel *)cellViewModel
 {
     if (cellViewModel.badgeNumber > 0)
     {

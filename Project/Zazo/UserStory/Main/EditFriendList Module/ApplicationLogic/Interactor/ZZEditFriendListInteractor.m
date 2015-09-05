@@ -24,7 +24,8 @@
 {
     [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray *array) {
         
-        NSArray *friendsArray = [FEMObjectDeserializer deserializeCollectionExternalRepresentation:array usingMapping:[ZZFriendDomainModel mapping]];
+        NSArray *friendsArray = [FEMObjectDeserializer deserializeCollectionExternalRepresentation:array
+                                                                                      usingMapping:[ZZFriendDomainModel mapping]];
         [self.output dataLoaded:[self sortArrayByFirstName:friendsArray]];
 
     } error:^(NSError *error) {
@@ -109,7 +110,7 @@
 
 - (NSArray *)sortArrayByFirstName:(NSArray *)array
 {
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES]; // TODO: dangerous
     NSArray* sortedArray = [array sortedArrayUsingDescriptors:@[sort]];
     
     return sortedArray;

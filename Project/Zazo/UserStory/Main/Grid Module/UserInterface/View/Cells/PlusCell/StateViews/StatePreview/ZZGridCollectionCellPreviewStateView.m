@@ -22,10 +22,10 @@
 
 @implementation ZZGridCollectionCellPreviewStateView
 
-- (instancetype)initWithPresentedView:(UIView<ZZGridCollectionCellBaseStateViewDelegate> *)presentedView withModel:(ZZGridCollectionCellViewModel *)cellViewModel
+- (instancetype)initWithPresentedView:(UIView<ZZGridCollectionCellBaseStateViewDelegate> *)presentedView
+                            withModel:(ZZGridCellViewModel*)cellViewModel
 {
     self = [super initWithPresentedView:presentedView withModel:cellViewModel];
-    
     if (self)
     {
         [self _setupRecognizer];
@@ -35,7 +35,6 @@
         [self userNameLabel];
         [self containFriendView];
     }
-    
     return self;
 }
 
@@ -54,7 +53,6 @@
             make.edges.equalTo(self);
         }];
     }
-    
     return _thumbnailImageView;
 }
 
@@ -77,8 +75,8 @@
     return _userNameLabel;
 }
 
-- (UIImage *)_generateThumbWithVideoUrl:(NSURL *)videoUrl{
-    
+- (UIImage *)_generateThumbWithVideoUrl:(NSURL *)videoUrl
+{
     AVAsset *asset = [AVAsset assetWithURL:videoUrl];
     AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc]initWithAsset:asset];
     imageGenerator.appliesPreferredTrackTransform = YES;

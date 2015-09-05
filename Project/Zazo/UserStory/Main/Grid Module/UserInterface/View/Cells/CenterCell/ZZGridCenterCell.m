@@ -25,9 +25,10 @@
 - (void)updateWithModel:(id)model
 {
     self.model = model;
-    [[ZZVideoRecorder sharedInstance] updateViewGridCell:self];
+    //TODO: move to viewModel
+    [[ZZVideoRecorder shared] updateViewGridCell:self];
    
-    if ([[ZZVideoRecorder sharedInstance] isBothCamerasAvailable])
+    if ([[ZZVideoRecorder shared] areBothCamerasAvailable])
     {
         self.isChangeButtonAvailable = YES;
         [self videoView];
@@ -46,9 +47,7 @@
             make.edges.equalTo(self.contentView);
         }];
     }
-    
     return _videoView;
-
 }
 
 - (UIButton *)switchCameraButton
@@ -64,24 +63,25 @@
                                 action:@selector(switchCamera)
                       forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_switchCameraButton];
+        
         [_switchCameraButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.left.right.equalTo(self);
             make.height.equalTo(@(40));
         }];
     }
-    
     return _switchCameraButton;
 }
 
+//TODO: move to vie vmodel
 - (void)switchCamera
 {
     if (!self.isBackCamera)
     {
-        [[ZZVideoRecorder sharedInstance] switchToBackCamera];
+        [[ZZVideoRecorder shared] switchToBackCamera];
     }
     else
     {
-        [[ZZVideoRecorder sharedInstance] switchToFrontCamera];
+        [[ZZVideoRecorder shared] switchToFrontCamera];
     }
     self.isBackCamera = !self.isBackCamera;
 }
@@ -97,7 +97,6 @@
     {
         self.switchCameraButton.hidden = NO;
     }
-
 }
 
 - (void)hideChangeCameraButton

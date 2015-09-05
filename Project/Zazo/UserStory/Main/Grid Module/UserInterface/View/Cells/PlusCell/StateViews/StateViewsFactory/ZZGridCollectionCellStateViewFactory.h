@@ -12,6 +12,6 @@
 @interface ZZGridCollectionCellStateViewFactory : NSObject
 
 - (ZZGridCollectionCellBaseStateView *)stateViewWithPresentedView:(UIView <ZZGridCollectionCellBaseStateViewDelegate> *)presentedView
-                                                withCellViewModel:(ZZGridCollectionCellViewModel *)cellViewModel;
+                                                withCellViewModel:(ZZGridCellViewModel *)cellViewModel;
 
 @end

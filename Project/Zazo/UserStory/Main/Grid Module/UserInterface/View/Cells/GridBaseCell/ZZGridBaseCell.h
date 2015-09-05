@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-
 @import AVFoundation;
 
 #import "ANCollectionViewCell.h"
@@ -15,5 +14,6 @@
 
 - (void)showRecordingOverlay;
 - (void)hideRecordingOverlay;
-- (UIView *)topView;
+- (UIView*)topView;
+
 @end
