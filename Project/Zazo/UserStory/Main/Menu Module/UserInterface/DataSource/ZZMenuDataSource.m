@@ -21,7 +21,7 @@
     return self;
 }
 
-- (void)setupFriendsThatHasAppItems:(NSArray*)items
+- (void)setupFriendsThatHaveAppItems:(NSArray*)items
 {
     [self _addItems:items toSection:ZZMenuSectionsFriendsHasApp];
 }

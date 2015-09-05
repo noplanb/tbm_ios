@@ -93,7 +93,6 @@ static NSInteger const kGridCenterCellIndex = 4;
 
 - (void)_updateSelectedModelWithUser
 {
-    
     ZZFriendDomainModel* friendModel = [self friendModelFromMenuModel:self.selectedUserModel];
     ZZFriendDomainModel* containedUser;
     if (![self _isFriendsOnGridContainFriendModel:friendModel withContainedFriend:&containedUser])

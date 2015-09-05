@@ -23,6 +23,6 @@ typedef NS_ENUM(NSInteger, ZZMenuSections)
 
 - (void)setupAddressbookItems:(NSArray*)items;
 - (void)setupFriendsItems:(NSArray*)items;
-- (void)setupFriendsThatHasAppItems:(NSArray*)items;
+- (void)setupFriendsThatHaveAppItems:(NSArray*)items;
 
 @end

@@ -52,18 +52,17 @@
 {
     ANDispatchBlockToMainQueue(^{
         [self.dataSource setupAddressbookItems:data];
-         // TODO: set data source on start
     });
 }
 
-- (void)friendsThatHasAppLoaded:(NSArray *)friendsData
+- (void)friendsThatHasAppLoaded:(NSArray*)friendsData
 {
     ANDispatchBlockToMainQueue(^{
-        [self.dataSource setupFriendsThatHasAppItems:friendsData];
+        [self.dataSource setupFriendsThatHaveAppItems:friendsData];
     });
 }
 
-- (void)friendsDataLoaded:(NSArray *)friendsData
+- (void)friendsDataLoaded:(NSArray*)friendsData
 {
     ANDispatchBlockToMainQueue(^{
         [self.dataSource setupFriendsItems:friendsData];
@@ -84,7 +83,7 @@
 
 - (void)itemSelected:(id)item
 {   
-    ZZMenuCellViewModel* model = (ZZMenuCellViewModel *)item;
+    ZZMenuCellViewModel* model = (ZZMenuCellViewModel*)item;
     [self.menuModuleDelegate selectedUser:model.item];
     [self.wireframe closeMenu];
 }

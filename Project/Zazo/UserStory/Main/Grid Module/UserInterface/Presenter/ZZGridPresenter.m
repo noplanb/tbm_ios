@@ -35,7 +35,6 @@ static NSInteger const kGridCenterCellIndex = 4;
     [self.interactor loadData];
 }
 
-
 - (void)presentEditFriends
 {
     [self.wireframe closeMenu];
@@ -61,7 +60,7 @@ static NSInteger const kGridCenterCellIndex = 4;
     [self.dataSource.storage addItems:dataArray];
 }
 
-- (NSArray *)viewModelFromGridDomainModels:(NSArray *)itemsArray
+- (NSArray*)viewModelFromGridDomainModels:(NSArray *)itemsArray
 {
     __block NSMutableArray* viewModels = [NSMutableArray array];
 
