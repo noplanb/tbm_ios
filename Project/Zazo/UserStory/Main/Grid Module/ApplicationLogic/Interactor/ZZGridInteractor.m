@@ -16,6 +16,8 @@
 #import "DeviceUtil.h"
 #import "TBMUser.h"
 #import "ZZGridDomainModel.h"
+#import "ZZGridDataProvider.h"
+#import "ZZFriendDataProvider.h"
 
 
 static NSInteger const kGridCellCount = 9;
@@ -23,10 +25,10 @@ static NSInteger const kGridCenterCellIndex = 4;
 
 @interface ZZGridInteractor ()
 
-@property (nonatomic, strong) NSMutableArray* dataArray;
+@property (nonatomic, strong) NSArray* gridModels;
+@property (nonatomic, strong) NSMutableArray* friends;
 @property (nonatomic, strong) id selectedUserModel;
 @property (nonatomic, strong) ZZGridDomainModel* selectedModel;
-@property (nonatomic, strong) NSMutableArray* friendArray;
 
 @end
 
@@ -37,18 +39,43 @@ static NSInteger const kGridCenterCellIndex = 4;
     self = [super init];
     if (self)
     {
-        self.friendArray = [NSMutableArray array];
+        self.friends = [NSMutableArray array];
     }
     return self;
 }
 
+///**
+// *  Fuck....
+// */
+//
+//- (void)createGridElements
+//{
+//    NSManagedObjectContext* context = [NSManagedObjectContext MR_context];
+//    [TBMGridElement destroyAllOncontext:context];
+//    
+//    NSArray *friends = [TBMFriend MR_findAllInContext:context];
+//    
+//    for (NSInteger i = 0; i < 8; i++)
+//    {
+//        TBMGridElement *ge = [TBMGridElement createInContext:context];
+//        ge.index = @(i);
+//        if (i < friends.count)
+//        {
+//            TBMFriend *aFriend = friends[i];
+//            ge.friend = aFriend;
+//        }
+//    }
+//    [context MR_saveToPersistentStoreAndWait];
+//}
+
 - (void)loadData
 {
-    self.dataArray = [NSMutableArray array];
+    NSArray* friends = [ZZFriendDataProvider loadAllFriends];
     
-    for (NSInteger count = 0; count<kGridCellCount; count++)
+    NSMutableArray* gridModels = [NSMutableArray array];
+    for (NSInteger count = 0; count < kGridCellCount; count++)
     {
-        id model;
+        ZZGridDomainModel* model;
         if (count == kGridCenterCellIndex)
         {
             model = [ZZGridDomainModel new];
@@ -56,17 +83,31 @@ static NSInteger const kGridCenterCellIndex = 4;
         else
         {
             model = [ZZGridDomainModel new];
+            model.index = @(count);
+            if (friends.count > count)
+            {
+                ZZFriendDomainModel *aFriend = friends[count];
+                model.relatedUser = aFriend;
+            }
         }
-        
-        [self.dataArray addObject:model];
+        [gridModels addObject:model];
     }
-    
-    [self.output dataLoadedWithArray:self.dataArray];
+    self.gridModels = [gridModels copy];
+    [self.output dataLoadedWithArray:self.gridModels];
 }
+
+- (void)friendSelectedFromMenu:(ZZFriendDomainModel*)friend
+{
+    ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
+    model.relatedUser = friend;
+    [ZZGridDataProvider upsertModel:model];
+}
+
+
 
 - (NSInteger)centerCellIndex
 {
-    return self.dataArray.count / 2;
+    return self.gridModels.count / 2;
 }
 
 - (void)selectedPlusCellWithModel:(id)model
@@ -87,7 +128,7 @@ static NSInteger const kGridCenterCellIndex = 4;
     model.recipients = @[emailAddress];
     model.isHTMLMessage = YES;
     model.message = [NSString stringWithFormat:@"<font color = \"000000\"></br></br></br>---------------------------------</br>iOS: %@</br>Model: %@</br>User mKey: %@</br>App Version: %@</br>Build Version: %@ </font>", [[UIDevice currentDevice] systemVersion], [DeviceUtil hardwareDescription], [TBMUser getUser].mkey, [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"], [NSBundle mainBundle].infoDictionary[(NSString*)kCFBundleVersionKey]];
-    [self.output loadedFeedbackDomainModel:model];
+    [self.output feedbackModelLoadedSuccessfully:model];
 }
 
 - (void)_updateSelectedModelWithUser
@@ -96,7 +137,7 @@ static NSInteger const kGridCenterCellIndex = 4;
     ZZFriendDomainModel* containedUser;
     if (![self _isFriendsOnGridContainFriendModel:friendModel withContainedFriend:&containedUser])
     {
-        [self.friendArray addObject:friendModel];
+        [self.friends addObject:friendModel];
         self.selectedModel.relatedUser = friendModel;
         [self.output modelUpdatedWithUserWithModel:self.selectedModel];
     }
@@ -130,7 +171,7 @@ static NSInteger const kGridCenterCellIndex = 4;
 {
     __block BOOL isContainModel = NO;
     
-    [self.friendArray enumerateObjectsUsingBlock:^(ZZFriendDomainModel* obj, NSUInteger idx, BOOL *stop) {
+    [self.friends enumerateObjectsUsingBlock:^(ZZFriendDomainModel* obj, NSUInteger idx, BOOL *stop) {
         if ([obj isEqual:friendModel])
         {
             *containtedUser = obj;

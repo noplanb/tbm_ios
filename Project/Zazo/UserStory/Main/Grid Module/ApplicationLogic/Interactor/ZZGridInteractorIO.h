@@ -25,6 +25,6 @@
 - (void)dataLoadingDidFailWithError:(NSError *)error;
 - (void)modelUpdatedWithUserWithModel:(ZZGridDomainModel *)model;
 - (void)gridContainedFriend:(ZZFriendDomainModel*)friendModel;
-- (void)loadedFeedbackDomainModel:(ANMessageDomainModel*)model;
+- (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel*)model;
 
 @end

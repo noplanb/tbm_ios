@@ -14,6 +14,21 @@
 
 @implementation ZZGridDataProvider
 
++ (void)upsertModel:(ZZGridDomainModel *)model
+{
+    TBMGridElement* entity = [TBMGridElement an_objectWithItemID:model.itemID context:[self _context]];
+    [ZZGridModelsMapper fillEntity:entity fromModel:model];
+    [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
+}
+
++ (void)deleteModel:(ZZGridDomainModel*)model
+{
+    TBMGridElement* entity = [self entityWithItemID:model.itemID];
+    NSManagedObjectContext* context = entity.managedObjectContext;
+    [entity MR_deleteEntityInContext:context];
+    [context MR_saveToPersistentStoreAndWait];
+}
+
 
 #pragma mark - Fetches
 
@@ -25,6 +40,23 @@
     return [[result.rac_sequence map:^id(id value) {
         return [self modelFromEntity:value];
     }] array];
+}
+
++ (TBMGridElement*)entityWithItemID:(NSString*)itemID
+{
+    NSManagedObject* object;
+    if (!ANIsEmpty(itemID))
+    {
+        NSURL* objectURL = [NSURL URLWithString:[NSString stringWithString:itemID]];
+        NSManagedObjectContext* context = [NSManagedObjectContext MR_rootSavingContext];
+        NSManagedObjectID* objectID = [context.persistentStoreCoordinator managedObjectIDForURIRepresentation:objectURL];
+        NSError* error = nil;
+        if (!ANIsEmpty(objectID))
+        {
+            object = [context existingObjectWithID:objectID error:&error];
+        }
+    }
+    return (TBMGridElement*)object;
 }
 
 + (ZZGridDomainModel*)modelWithIndex:(NSInteger)index
@@ -73,7 +105,7 @@
 
 + (TBMGridElement*)entityFromModel:(ZZGridDomainModel*)model
 {
-    TBMGridElement* entity = [TBMGridElement an_objectWithItemID:model.idTbm context:[self _context] shouldCreate:YES];
+    TBMGridElement* entity = [self entityFromModel:model];
     return [ZZGridModelsMapper fillEntity:entity fromModel:model];
 }
 

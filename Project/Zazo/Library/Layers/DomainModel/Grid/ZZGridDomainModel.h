@@ -9,10 +9,10 @@
 #import "ZZBaseDomainModel.h"
 #import "ZZFriendDomainModel.h"
 
-
 @interface ZZGridDomainModel : ZZBaseDomainModel
 
+@property (nonatomic, copy) NSString* itemID;
 @property (nonatomic, strong) ZZFriendDomainModel* relatedUser;
-@property (nonatomic, strong) NSNumber* index;
+@property (nonatomic, copy) NSNumber* index;
 
 @end

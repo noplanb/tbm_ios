@@ -28,6 +28,7 @@
     @try
     {
         model.index = entity.index;
+        model.itemID = entity.objectID.URIRepresentation.absoluteString;
         model.relatedUser = [ZZFriendDataProvider modelFromEntity:entity.friend];
     }
     @catch (NSException *exception)

@@ -11,7 +11,6 @@
 @protocol ZZGridModuleInterface <NSObject>
 
 - (void)presentMenu;
-- (void)itemSelectedWithModel:(ZZGridCellViewModel*)model;
 - (void)presentEditFriendsController;
 - (void)presentSendEmailController;
 

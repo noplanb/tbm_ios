@@ -12,6 +12,8 @@
 
 @interface ZZGridDataProvider : NSObject
 
++ (void)upsertModel:(ZZGridDomainModel*)model;
++ (void)deleteModel:(ZZGridDomainModel*)model;
 
 #pragma mark - Fetches
 

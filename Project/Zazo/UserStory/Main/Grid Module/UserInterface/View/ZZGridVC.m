@@ -67,8 +67,8 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
 
 - (void)udpateWithDataSource:(ZZGridDataSource *)dataSource
 {
-    self.controller.storage = dataSource.storage;
-    self.touchObserver.storage = self.controller.storage;
+    [self.controller updateDataSource:dataSource];
+    self.touchObserver.storage = dataSource.storage;
 }
 
 - (void)menuIsOpened
@@ -83,11 +83,6 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
 
 
 #pragma mark - Controller Delegate Method
-
-- (void)selectedViewWithModel:(ZZGridCellViewModel *)model
-{
-    [self.eventHandler itemSelectedWithModel:model];
-}
 
 - (id)cellAtIndexPath:(NSIndexPath *)indexPath
 {

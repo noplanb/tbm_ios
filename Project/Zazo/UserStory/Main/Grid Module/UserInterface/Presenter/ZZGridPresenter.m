@@ -16,12 +16,9 @@
 #import "ZZVideoUtils.h"
 #import "ZZGridCellViewModel.h"
 
-static NSInteger const kGridCenterCellIndex = 4;
-
-@interface ZZGridPresenter () <ZZGridCellViewModellDelegate>
+@interface ZZGridPresenter () <ZZGridCellViewModellDelegate, ZZGridDataSourceDelegate>
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
-@property (nonatomic, strong) ZZGridCellViewModel* selectedCellViewModel;
 
 @end
 
@@ -31,6 +28,8 @@ static NSInteger const kGridCenterCellIndex = 4;
 {
     self.userInterface = userInterface;
     self.dataSource = [ZZGridDataSource new];
+    
+    self.dataSource.delegate = self;
     [self.userInterface udpateWithDataSource:self.dataSource];
     [self.interactor loadData];
 }
@@ -49,55 +48,27 @@ static NSInteger const kGridCenterCellIndex = 4;
 
 #pragma mark - Output
 
-- (void)loadedFeedbackDomainModel:(ANMessageDomainModel *)model
+- (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel *)model
 {
     [self.wireframe presentSendFeedbackWithModel:model];
 }
 
 - (void)dataLoadedWithArray:(NSArray*)data
 {
-    NSArray* dataArray = [self viewModelFromGridDomainModels:data];
-    [self.dataSource.storage addItems:dataArray];
+    [self.dataSource setupWithModels:data];
 }
 
 - (void)dataLoadingDidFailWithError:(NSError*)error
 {
-    
+    //TODO: error
 }
 
-
-- (NSArray*)viewModelFromGridDomainModels:(NSArray *)itemsArray
+- (void)modelUpdatedWithUserWithModel:(ZZGridDomainModel*)model
 {
-    __block NSMutableArray* viewModels = [NSMutableArray array];
-
-    [itemsArray enumerateObjectsUsingBlock:^(ZZGridDomainModel* item, NSUInteger idx, BOOL *stop) {
-        id model;
-        
-        if (idx == kGridCenterCellIndex)
-        {
-            model = [ZZGridCenterCellViewModel new];
-        }
-        else
-        {
-            model = [ZZGridCellViewModel new];
-            ZZGridCellViewModel* gridCell = model;
-            gridCell.item = item;
-            gridCell.delegate = self;
-        }
-        
-        [viewModels addObject:model];
-    }];
-    
-    return viewModels;
+    [self.dataSource selectedViewModelUpdatedWithItem:model];
 }
 
-- (void)modelUpdatedWithUserWithModel:(ZZGridDomainModel *)model
-{
-    self.selectedCellViewModel.item = model;
-    [self.dataSource reloadModel:self.selectedCellViewModel];
-}
-
-- (void)gridContainedFriend:(ZZFriendDomainModel *)friendModel
+- (void)gridContainedFriend:(ZZFriendDomainModel*)friendModel
 {
     [self.wireframe closeMenu];
     [self.userInterface showFriendAnimationWithModel:friendModel];
@@ -112,11 +83,10 @@ static NSInteger const kGridCenterCellIndex = 4;
     [self.userInterface menuIsOpened];
 }
 
-- (void)itemSelectedWithModel:(ZZGridCellViewModel *)model
+- (void)itemSelectedWithModel:(ZZGridCellViewModel*)model
 {
     if (model)
     {
-        self.selectedCellViewModel = model;
         [self.interactor selectedPlusCellWithModel:model.item];
         [self presentMenu];
     }

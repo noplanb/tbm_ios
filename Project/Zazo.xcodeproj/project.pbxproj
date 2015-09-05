@@ -1242,6 +1242,16 @@
 			name = CustomElements;
 			sourceTree = "<group>";
 		};
+		07CBBC2E1B9B38BE0080D300 /* OneElement */ = {
+			isa = PBXGroup;
+			children = (
+				07E3C3911B9A2C900071CF82 /* TBMGridElementDelegate.h */,
+				07E3C3921B9A2C900071CF82 /* TBMGridElementViewController.h */,
+				07E3C3931B9A2C900071CF82 /* TBMGridElementViewController.m */,
+			);
+			name = OneElement;
+			sourceTree = "<group>";
+		};
 		07E3C2821B9A2C900071CF82 /* tbm */ = {
 			isa = PBXGroup;
 			children = (
@@ -1926,9 +1936,7 @@
 			isa = PBXGroup;
 			children = (
 				07E3C3901B9A2C900071CF82 /* TBMGridDelegate.h */,
-				07E3C3911B9A2C900071CF82 /* TBMGridElementDelegate.h */,
-				07E3C3921B9A2C900071CF82 /* TBMGridElementViewController.h */,
-				07E3C3931B9A2C900071CF82 /* TBMGridElementViewController.m */,
+				07CBBC2E1B9B38BE0080D300 /* OneElement */,
 				07E3C3941B9A2C900071CF82 /* TBMGridModuleInterface.h */,
 				07E3C3951B9A2C900071CF82 /* TBMGridViewController.h */,
 				07E3C3961B9A2C900071CF82 /* TBMGridViewController.m */,

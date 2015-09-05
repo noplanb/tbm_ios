@@ -15,12 +15,14 @@
 #import "ANMemoryStorage.h"
 #import "ZZGridCellViewModel.h"
 #import "ZZFriendDomainModel.h"
+#import "ZZGridDataSource.h"
 
 static NSInteger const kCenterCellIndex = 4;
 
 @interface ZZGridCollectionController ()
 
 @property (nonatomic, strong) ZZGridCenterCell* centerCell;
+@property (nonatomic, strong) ZZGridDataSource* dataSource;
 
 @end
 
@@ -37,13 +39,17 @@ static NSInteger const kCenterCellIndex = 4;
     return self;
 }
 
+- (void)updateDataSource:(ZZGridDataSource*)dataSource
+{
+    self.dataSource = dataSource;
+    self.storage = dataSource.storage;
+}
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (![self isCellContainUserModel:collectionView withIndexPath:indexPath] && indexPath.item != kCenterCellIndex)
     {
-        ZZGridCollectionCell* cell = (ZZGridCollectionCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
-        ZZGridCellViewModel* model = [cell model];
-        [self.delegate selectedViewWithModel:model];
+        [self.dataSource itemSelectedAtIndexPath:indexPath];
     }
 }
 

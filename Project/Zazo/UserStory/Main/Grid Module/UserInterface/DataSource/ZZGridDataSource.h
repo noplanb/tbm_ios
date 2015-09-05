@@ -10,10 +10,19 @@
 @class ZZGridDomainModel;
 @class ZZGridCellViewModel;
 
+@protocol ZZGridDataSourceDelegate <NSObject>
+
+- (void)itemSelectedWithModel:(ZZGridCellViewModel*)model;
+
+@end
+
 @interface ZZGridDataSource : NSObject
 
 @property (nonatomic, strong) ANMemoryStorage* storage;
+@property (nonatomic, weak) id<ZZGridDataSourceDelegate> delegate;
 
-- (void)reloadModel:(ZZGridCellViewModel*)model;
+- (void)itemSelectedAtIndexPath:(NSIndexPath*)indexPath;
+- (void)setupWithModels:(NSArray*)models;
+- (void)selectedViewModelUpdatedWithItem:(ZZGridDomainModel*)model;
 
 @end
