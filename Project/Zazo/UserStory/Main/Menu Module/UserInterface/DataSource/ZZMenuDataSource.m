@@ -34,6 +34,8 @@
 - (void)setupAddressbookItems:(NSArray*)items
 {
     [self _addItems:items toSection:ZZMenuSectionsAddressbook];
+    [self.storage setSectionHeaderModel:NSLocalizedString(@"menu.all-contacts.section.header.title.text", nil)
+                        forSectionIndex:ZZMenuSectionsAddressbook];
 }
 
 #pragma mark - Private
