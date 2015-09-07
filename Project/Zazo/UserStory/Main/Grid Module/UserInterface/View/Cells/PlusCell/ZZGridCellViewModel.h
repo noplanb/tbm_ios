@@ -8,9 +8,11 @@
 
 #import "ZZGridDomainModel.h"
 
+@class ZZGridCellViewModel;
+
 @protocol ZZGridCellViewModelDelegate <NSObject>
 
-- (void)startRecordingWithView:(id)view;
+- (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel;
 - (void)stopRecording;
 - (void)nudgeSelectedWithUserModel:(id)userModel;
 

@@ -19,9 +19,7 @@
 #import "ZZGridDataProvider.h"
 #import "ZZFriendDataProvider.h"
 
-
-static NSInteger const kGridCellCount = 9;
-static NSInteger const kGridCenterCellIndex = 4;
+static NSInteger const kGridFriendsCellCount = 8;
 
 @interface ZZGridInteractor ()
 
@@ -73,22 +71,15 @@ static NSInteger const kGridCenterCellIndex = 4;
     NSArray* friends = [ZZFriendDataProvider loadAllFriends];
     
     NSMutableArray* gridModels = [NSMutableArray array];
-    for (NSInteger count = 0; count < kGridCellCount; count++)
+    for (NSInteger count = 0; count < kGridFriendsCellCount; count++)
     {
         ZZGridDomainModel* model;
-        if (count == kGridCenterCellIndex)
+        model = [ZZGridDomainModel new];
+        model.index = @(count);
+        if (friends.count > count)
         {
-            model = [ZZGridDomainModel new];
-        }
-        else
-        {
-            model = [ZZGridDomainModel new];
-            model.index = @(count);
-            if (friends.count > count)
-            {
-                ZZFriendDomainModel *aFriend = friends[count];
-                model.relatedUser = aFriend;
-            }
+            ZZFriendDomainModel *aFriend = friends[count];
+            model.relatedUser = aFriend;
         }
         [gridModels addObject:model];
     }
@@ -103,12 +94,6 @@ static NSInteger const kGridCenterCellIndex = 4;
     [ZZGridDataProvider upsertModel:model];
 }
 
-
-
-- (NSInteger)centerCellIndex
-{
-    return self.gridModels.count / 2;
-}
 
 - (void)selectedPlusCellWithModel:(id)model
 {

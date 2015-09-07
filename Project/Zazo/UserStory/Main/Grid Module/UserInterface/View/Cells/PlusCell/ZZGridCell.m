@@ -44,8 +44,10 @@
 
 - (void)updateWithModel:(id)model
 {
-    self.model = model;
-    [self _updateIfNeededStateWithUserModel:self.model];
+    ANDispatchBlockToMainQueue(^{
+        self.model = model;
+        [self _updateIfNeededStateWithUserModel:self.model];
+    });
 }
 
 - (UIImageView *)plusImageView

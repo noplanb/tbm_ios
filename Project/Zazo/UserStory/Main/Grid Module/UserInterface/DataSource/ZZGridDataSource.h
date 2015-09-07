@@ -16,7 +16,7 @@
 @protocol ZZGridDataSourceDelegate <NSObject>
 
 - (void)itemSelectedWithModel:(ZZGridCellViewModel*)model;
-- (void)recordingStateUpdateWithView:(UIView*)view toState:(BOOL)isEnabled;
+- (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel;
 - (void)nudgeSelectedWithUserModel:(id)userModel;
 - (void)switchCamera;
 

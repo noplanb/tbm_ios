@@ -12,7 +12,7 @@
 
 - (void)startRecordingWithView:(UIView *)view
 {
-    [self.delegate startRecordingWithView:view];
+    [self.delegate recordingStateUpdatedToState:YES viewModel:self];
 }
 
 - (void)stopRecording

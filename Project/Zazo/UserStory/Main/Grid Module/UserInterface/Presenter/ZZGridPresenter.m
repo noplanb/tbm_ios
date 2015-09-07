@@ -100,10 +100,10 @@
     //TODO:
 }
 
-- (void)recordingStateUpdateWithView:(UIView *)view toState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel
+- (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel
 {
     ZZGridCenterCellViewModel* model = [self.dataSource centerViewModel];
-    if (isEnabled && view)
+    if (isEnabled)
     {
         if (viewModel.item.relatedUser && viewModel.item.relatedUser.idTbm)
         {
@@ -112,19 +112,14 @@
             model.isRecording = YES;
         }
     }
-    
-    [self.userInterface updateRollingStateTo:!isEnabled];
-    [self.soundPlayer play];
-   
-    if (isEnabled)
-    {
-        
-    }
     else
     {
         model.isRecording = NO;
         [[ZZVideoRecorder shared] stopRecording];
     }
+    
+    [self.userInterface updateRollingStateTo:!isEnabled];
+    [self.soundPlayer play];
     [self.dataSource reloadCenterCell];
 }
 
