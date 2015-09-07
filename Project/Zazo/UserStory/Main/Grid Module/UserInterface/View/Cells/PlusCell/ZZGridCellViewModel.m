@@ -17,8 +17,8 @@
 
 - (void)stopRecording
 {
-    [self.delegate stopRecording];
-    self.hasUploadedVideo = YES;
+    [self.delegate recordingStateUpdatedToState:NO viewModel:self];
+    self.hasUploadedVideo = YES; // TODO:
 }
 
 - (void)nudgeSelected

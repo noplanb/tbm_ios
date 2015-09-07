@@ -42,30 +42,6 @@ static NSInteger const kGridFriendsCellCount = 8;
     return self;
 }
 
-///**
-// *  Fuck....
-// */
-//
-//- (void)createGridElements
-//{
-//    NSManagedObjectContext* context = [NSManagedObjectContext MR_context];
-//    [TBMGridElement destroyAllOncontext:context];
-//    
-//    NSArray *friends = [TBMFriend MR_findAllInContext:context];
-//    
-//    for (NSInteger i = 0; i < 8; i++)
-//    {
-//        TBMGridElement *ge = [TBMGridElement createInContext:context];
-//        ge.index = @(i);
-//        if (i < friends.count)
-//        {
-//            TBMFriend *aFriend = friends[i];
-//            ge.friend = aFriend;
-//        }
-//    }
-//    [context MR_saveToPersistentStoreAndWait];
-//}
-
 - (void)loadData
 {
     NSArray* friends = [ZZFriendDataProvider loadAllFriends];
