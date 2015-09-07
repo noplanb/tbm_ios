@@ -75,7 +75,7 @@ static NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProces
 {
     if ([self areBothCamerasAvailable])
     {
-        BOOL isFrontCamera = (self.recorder.device = AVCaptureDevicePositionFront);
+        BOOL isFrontCamera = (self.recorder.device == AVCaptureDevicePositionFront);
         AVCaptureDevicePosition camera = isFrontCamera ? AVCaptureDevicePositionBack : AVCaptureDevicePositionFront;
         self.recorder.device = camera;
     }
@@ -86,8 +86,8 @@ static NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProces
 
 - (void)updateRecordView:(UIView*)recordView
 {
+    recordView.frame = CGRectMake(0, 0, kGridItemSize().width, kGridItemSize().height);
     self.recorder.previewView = recordView;
-    self.recorder.previewView.frame = CGRectMake(0, 0, kGridItemSize().width, kGridItemSize().height);
 }
 
 - (void)startRecordingWithVideoURL:(NSURL*)url

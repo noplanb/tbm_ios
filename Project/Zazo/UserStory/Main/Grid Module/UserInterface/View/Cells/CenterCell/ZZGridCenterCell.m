@@ -81,7 +81,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
 - (void)setupVideoViewWithView:(UIView*)view
 {
     self.videoView = view;
-    [self.contentView addSubview:view];
+    [self.contentView insertSubview:view atIndex:0];
     
     [self.videoView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.contentView);
