@@ -120,7 +120,6 @@
     
     [self.userInterface updateRollingStateTo:!isEnabled];
     [self.soundPlayer play];
-    [self.dataSource reloadCenterCell];
 }
 
 - (void)switchCamera

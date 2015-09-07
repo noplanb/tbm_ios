@@ -32,7 +32,6 @@
 - (void)setupCenterViewModelShouldHandleCameraRotation:(BOOL)shouldHandleRotation;
 - (void)selectedViewModelUpdatedWithItem:(ZZGridDomainModel*)model;
 
-- (void)reloadCenterCell;
 - (ZZGridCenterCellViewModel*)centerViewModel;
 
 @end

@@ -69,11 +69,6 @@ static NSInteger const kGridCenterCellIndex = 4;
     return [self.storage objectAtIndexPath:[self _centerCellIndexPath]];
 }
 
-- (void)reloadCenterCell
-{
-    [self.storage reloadItem:[self centerViewModel]];
-}
-
 #pragma mark - ViewModel Delegate
 
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel *)viewModel

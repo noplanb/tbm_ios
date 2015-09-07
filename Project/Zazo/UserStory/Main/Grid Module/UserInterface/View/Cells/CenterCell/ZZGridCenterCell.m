@@ -41,17 +41,20 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
     self.model = model;
     ANDispatchBlockToMainQueue(^{
         self.switchCameraButton.hidden = ![model shouldShowSwitchCameraButton];
-        if (model.isRecording)
-        {
-            [self _showRecordingOverlay];
-        }
-        else
-        {
-            [self _hideRecordingOverlay];
-        }
         if (!self.videoView)
         {
             [self setupVideoViewWithView:model.recordView];
+            [RACObserve(model, isRecording) subscribeNext:^(NSNumber* x) {
+               
+                if ([x boolValue])
+                {
+                    [self _showRecordingOverlay];
+                }
+                else
+                {
+                    [self _hideRecordingOverlay];
+                }
+            }];
         }
     });
 }
@@ -124,7 +127,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
         _recordingLabel.textColor = [UIColor an_colorWithHexString:kLayoutConstWhiteTextColor];
         _recordingLabel.textAlignment = NSTextAlignmentCenter;
         _recordingLabel.font = [UIFont systemFontOfSize:kLayoutConstRecordingLabelFontSize];
-        [self.contentView addSubview:self.recordingLabel];
+        [self.videoView addSubview:self.recordingLabel];
         
         [_recordingLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.left.right.equalTo(self);
@@ -146,7 +149,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
         _recordingOverlay.borderWidth = kLayoutConstRecordingBorderWidth;
         _recordingOverlay.borderColor = [UIColor redColor].CGColor;
         _recordingOverlay.zPosition = 100;
-        [self.contentView.layer addSublayer:_recordingOverlay];
+        [self.videoView.layer addSublayer:_recordingOverlay];
     }
     return _recordingOverlay;
 }
