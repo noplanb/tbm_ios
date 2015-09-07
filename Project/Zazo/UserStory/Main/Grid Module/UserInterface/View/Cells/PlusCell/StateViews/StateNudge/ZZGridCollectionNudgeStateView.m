@@ -10,7 +10,6 @@
 
 @interface ZZGridCollectionNudgeStateView ()
 
-@property (nonatomic, assign) CGFloat buttonHeight;
 @property (nonatomic, strong) UIButton* nudgeButton;
 @property (nonatomic, strong) UILabel* recordView;
 @property (nonatomic, strong) UILabel* userNameLabel;
@@ -20,16 +19,14 @@
 
 @implementation ZZGridCollectionNudgeStateView
 
-- (instancetype)initWithPresentedView:(UIView<ZZGridCollectionCellBaseStateViewDelegate> *)presentedView
-                            withModel:(ZZGridCellViewModel*)cellViewModel
+- (instancetype)init
 {
-    self = [super initWithPresentedView:presentedView withModel:cellViewModel];
+    self = [super init];
     if (self)
     {
-        self.buttonHeight = ((CGRectGetHeight(self.presentedView.frame) -
-                              CGRectGetHeight(self.presentedView.frame) / kUserNameScaleValue)/2) - kSidePadding;
+        self.recordRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_recordPressed:)];
+        self.recordRecognizer.minimumPressDuration = .5;
         
-        [self _setupRecognizer];
         [self nudgeButton];
         [self userNameLabel];
         [self recordView];
@@ -39,54 +36,64 @@
         [self downloadIndicator];
         [self downloadBarView];
         [self videoCountLabel];
+    }
+    return self;
+}
+
+- (void)updateWithModel:(ZZGridCellViewModel*)model
+{
+    self.model = model;
+    [self updateBadgeWithNumber:model.badgeNumber];
+    if (model.hasUploadedVideo)
+    {
+        [self showUploadIconWithoutAnimation];
+    }
+    self.userNameLabel.text = [model firstName];
+}
+
+- (instancetype)initWithPresentedView:(UIView<ZZGridCollectionCellBaseStateViewDelegate>*)presentedView
+                            withModel:(ZZGridCellViewModel*)cellViewModel
+{
+    self = [super initWithPresentedView:presentedView withModel:cellViewModel];
+    if (self)
+    {
+//        self.buttonHeight = ((CGRectGetHeight(presentedView.frame) -
+//                              CGRectGetHeight(presentedView.frame) / kUserNameScaleValue)/2) - kSidePadding;
         
-        [self _updateViewStateWithModel:cellViewModel];
+
+        
+//        [self _updateViewStateWithModel:cellViewModel];
     }
     
     return self;
 }
 
-- (void)_setupRecognizer
-{
-    self.recordRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(recordPressed:)];
-    self.recordRecognizer.minimumPressDuration = .5;
-}
-
-- (void)_updateViewStateWithModel:(ZZGridCellViewModel *)cellViewModel
-{
-    if (cellViewModel.badgeNumber > 0)
-    {
-        [self updateBadgeWithNumber:cellViewModel.badgeNumber];
-    }
-    if (cellViewModel.hasUploadedVideo)
-    {
-        [self showUploadIconWithoutAnimation];
-    }
-}
 
 #pragma mark - Actions
 
 - (void)nudge
 {
-    [self.presentedView nudgePressed];
+    [self.model nudgeSelected];
 }
 
 
-- (void)recordPressed:(UILongPressGestureRecognizer *)recognizer
+#pragma mark - Private
+
+- (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer
 {
     if (recognizer.state == UIGestureRecognizerStateBegan)
     {
-        [self.presentedView startRecording];
+        [self.model startRecordingWithView:nil]; // TODO:
     }
     else if (recognizer.state == UIGestureRecognizerStateEnded)
     {
-        [self.presentedView stopRecording];
+        [self.model stopRecording];
         [self showUploadAnimation];
     }
 }
 
 
-#pragma mark - Private
+#pragma mark - Lazy Load
 
 - (UILabel*)userNameLabel
 {
@@ -95,12 +102,11 @@
         _userNameLabel = [UILabel new];
         _userNameLabel.textAlignment = NSTextAlignmentCenter;
         _userNameLabel.textColor = [UIColor whiteColor];
-        _userNameLabel.text = self.friendModel.firstName;
         [self addSubview:_userNameLabel];
         
         [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self);
-            make.height.equalTo(@(CGRectGetHeight(self.presentedView.frame)/kUserNameScaleValue));
+            make.height.equalTo(self).dividedBy(kUserNameScaleValue);
         }];
     }
     return _userNameLabel;
@@ -119,10 +125,9 @@
         [self addSubview:_nudgeButton];
         
         [_nudgeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self).with.offset(kSidePadding);
-            make.left.equalTo(self).with.offset(kSidePadding);
-            make.right.equalTo(self).with.offset(-kSidePadding);
-            make.height.equalTo(@(self.buttonHeight));
+            make.top.left.equalTo(self).offset(kSidePadding);
+            make.right.equalTo(self).offset(-kSidePadding);
+            make.height.equalTo(self).dividedBy(kUserNameScaleValue/2).offset(-kSidePadding);
         }];
     }
     return _nudgeButton;
@@ -144,9 +149,9 @@
         
         [_recordView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.userNameLabel.mas_top);
-            make.left.equalTo(self).with.offset(kSidePadding);
-            make.right.equalTo(self).with.offset(-kSidePadding);
-            make.height.equalTo(@(self.buttonHeight));
+            make.left.equalTo(self).offset(kSidePadding);
+            make.right.equalTo(self).offset(-kSidePadding);
+            make.height.equalTo(self).dividedBy(kUserNameScaleValue/2).offset(-kSidePadding);
         }];
     }
     return _recordView;

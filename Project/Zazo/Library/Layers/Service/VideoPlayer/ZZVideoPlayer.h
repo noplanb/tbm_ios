@@ -8,8 +8,8 @@
 
 @protocol ZZVideoPlayerDelegate <NSObject>
 
-- (void)videoURLWasViewedFully:(NSURL*)videoURL;
-- (void)videoURLWasStartPlaying:(NSURL*)videoURL;
+- (void)videoPlayerURLWasStartPlaying:(NSURL*)videoURL;
+- (void)videoPlayerURLWasFinishedPlaying:(NSURL*)videoURL;
 
 @end
 
@@ -17,7 +17,7 @@
 
 @property (nonatomic, weak) id<ZZVideoPlayerDelegate> delegate;
 
-- (void)playOnView:(UIView*)view withURL:(NSURL*)URL;
+- (void)playOnView:(UIView*)view withURLs:(NSArray*)URLs;
 - (void)stop;
 
 - (void)toggle;

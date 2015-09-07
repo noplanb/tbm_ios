@@ -14,7 +14,7 @@
 #import "ZZSoundPlayer.h"
 #import "ZZVideoPlayer.h"
 
-@interface ZZGridPresenter () <ZZGridDataSourceDelegate>
+@interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate>
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
 @property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
@@ -28,9 +28,12 @@
 {
     self.userInterface = userInterface;
     self.dataSource = [ZZGridDataSource new];
-    
     self.dataSource.delegate = self;
     [self.userInterface updateWithDataSource:self.dataSource];
+    
+    self.videoPlayer = [ZZVideoPlayer new];
+    self.videoPlayer.delegate = self;
+    
     [self.interactor loadData];
 }
 
@@ -98,6 +101,18 @@
 }
 
 
+#pragma mark - Video Player Delegate
+
+- (void)videoPlayerURLWasStartPlaying:(NSURL*)videoURL
+{
+    //TODO: delete video file
+}
+
+- (void)videoPlayerURLWasFinishedPlaying:(NSURL*)videoURL
+{
+    // nothing ...
+}
+
 #pragma mark - Data source delegate
 
 - (void)nudgeSelectedWithUserModel:(id)userModel
@@ -131,14 +146,13 @@
 {
     if (state)
     {
-        [self.videoPlayer playOnView:model.playerContainerView withURL:model.playerVideoURLs];
+        [self.videoPlayer playOnView:model.playerContainerView withURLs:model.playerVideoURLs];
     }
     else
     {
         [self.videoPlayer stop];
     }
 }
-
 
 - (void)switchCamera
 {

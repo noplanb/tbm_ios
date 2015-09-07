@@ -18,6 +18,7 @@
 
 - (void)updateWithModel:(ZZGridCellViewModel*)model
 {
+    self.model = model;
     
 }
 
@@ -26,25 +27,17 @@
 {
     if (self = [super init])
     {
-        self.videoPlayer = [[ZZVideoPlayer alloc] initWithVideoPlayerView:presentedView];
         self.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
-        self.friendModel = cellViewModel.item.relatedUser;
-        self.presentedView = presentedView;
         
-        [self.presentedView addSubview:self];
         //    [self.presentedView sendSubviewToBack:self];
         
-        [self mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.presentedView);
-        }];
+
     }
     return self;
 }
 
 
 #pragma mark - Animation Views
-
-
 
 - (CGFloat)_indicatorCalculatedWidth
 {
@@ -86,26 +79,26 @@
 
 #pragma mark - Video Player Actions
 
-- (void)setupPlayerWithUrl:(NSURL*)url
-{
-    [self.videoPlayer setupMoviePlayerWithContentUrl:url];
-}
-
-- (void)stopPlayVideo
-{
-    [self.videoPlayer stopVideo];
-}
-
-- (void)startPlayVideo
-{
-    [self.presentedView makeActualScreenShoot];
-    [self.videoPlayer playVideo];
-}
-
-- (BOOL)isVideoPlayerPlaying
-{
-    return [self.videoPlayer isPlaying];
-}
+//- (void)setupPlayerWithUrl:(NSURL*)url
+//{
+//    [self.videoPlayer setupMoviePlayerWithContentUrl:url];
+//}
+//
+//- (void)stopPlayVideo
+//{
+//    [self.videoPlayer stopVideo];
+//}
+//
+//- (void)startPlayVideo
+//{
+//    [self.presentedView makeActualScreenShoot];
+//    [self.videoPlayer playVideo];
+//}
+//
+//- (BOOL)isVideoPlayerPlaying
+//{
+//    return [self.videoPlayer isPlaying];
+//}
 
 
 - (void)showContainFriendAnimation

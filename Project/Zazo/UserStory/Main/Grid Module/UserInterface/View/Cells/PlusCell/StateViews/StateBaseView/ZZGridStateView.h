@@ -34,6 +34,7 @@ static CGFloat const kHiddenAlphaValue = 0.0;
 
 @property (nonatomic, strong) UIView* containFriendView;
 
+@property (nonatomic, strong) ZZGridCellViewModel* model;
 @property (nonatomic, strong) UIImageView* uploadingIndicator;
 @property (nonatomic, strong) MASConstraint* leftUploadIndicatorConstraint;
 @property (nonatomic, strong) UIView* uploadBarView;
@@ -43,10 +44,6 @@ static CGFloat const kHiddenAlphaValue = 0.0;
 @property (nonatomic, strong) UIView* downloadBarView;
 @property (nonatomic, strong) UILabel* videoCountLabel;
 
-@property (nonatomic, weak) ZZFriendDomainModel* friendModel;
-
-@property (nonatomic, weak) UIView <ZZGridCollectionCellBaseStateViewDelegate>* presentedView;
-
 - (instancetype)initWithPresentedView:(UIView <ZZGridCollectionCellBaseStateViewDelegate> *)presentedView
                             withModel:(ZZGridCellViewModel *)cellViewModel;
 
@@ -55,9 +52,9 @@ static CGFloat const kHiddenAlphaValue = 0.0;
 - (void)showDownloadAnimationWithNewVideoCount:(NSInteger)count;
 - (void)showContainFriendAnimation;
 - (void)setupPlayerWithUrl:(NSURL *)url;
-- (void)stopPlayVideo;
-- (void)startPlayVideo;
-- (BOOL)isVideoPlayerPlaying;
+//- (void)stopPlayVideo;
+//- (void)startPlayVideo;
+//- (BOOL)isVideoPlayerPlaying;
 - (void)showUploadIconWithoutAnimation;
 
 @end

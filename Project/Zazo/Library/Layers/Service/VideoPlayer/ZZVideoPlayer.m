@@ -48,14 +48,13 @@
         self.moviePlayerController.view.frame = view.bounds;
         self.currentPlayQueue = URLs;
     }
-    if (!ANIsEmpty(URLs))
+    if (!ANIsEmpty(URLs) && ![self.currentPlayQueue isEqualToArray:URLs]) //TODO: if current playback state is equal to user's play list
     {
         self.moviePlayerController.contentURL = [URLs firstObject];
         self.isPlayingVideo = YES;
         [self.moviePlayerController play];
     }
 }
-
 
 
 - (void)stop
@@ -69,11 +68,11 @@
 {
     if (self.isPlayingVideo)
     {
-        [self playOnView:nil withURL:nil];
+        [self stop];
     }
     else
     {
-        [self stop];
+         [self playOnView:nil withURLs:self.currentPlayQueue];
     }
 }
 
@@ -90,6 +89,7 @@
     NSInteger index = [self.currentPlayQueue indexOfObject:self.moviePlayerController.contentURL];
     if (index != NSNotFound)
     {
+        [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL];
         BOOL isNextExist = index < self.currentPlayQueue.count;
         if (isNextExist)
         {
@@ -102,7 +102,7 @@
 {
     if (self.moviePlayerController.playbackState == MPMoviePlaybackStatePlaying)
     {
-        [self.delegate videoURLWasStartPlaying:self.moviePlayerController.contentURL];
+        [self.delegate videoPlayerURLWasStartPlaying:self.moviePlayerController.contentURL];
     }
 }
 

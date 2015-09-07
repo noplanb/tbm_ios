@@ -30,6 +30,7 @@ typedef NS_ENUM(NSInteger, ZZGridCellViewModelState)
 @interface ZZGridCellViewModel : NSObject
 
 @property (nonatomic, strong) ZZGridDomainModel* item;
+@property (nonatomic, assign) ZZGridCellViewModelState state;
 @property (nonatomic, weak) id <ZZGridCellViewModelDelegate> delegate;
 @property (nonatomic, strong) NSNumber* badgeNumber;
 @property (nonatomic, strong) UIView* playerContainerView;
@@ -45,5 +46,6 @@ typedef NS_ENUM(NSInteger, ZZGridCellViewModelState)
 - (void)nudgeSelected;
 
 - (NSArray*)playerVideoURLs;
+- (NSString*)firstName;
 
 @end

@@ -18,10 +18,9 @@
 
 @implementation ZZGridCollectionCellRecordStateView
 
-- (instancetype)initWithPresentedView:(UIView<ZZGridCollectionCellBaseStateViewDelegate> *)presentedView
-                            withModel:(ZZGridCellViewModel *)cellViewModel
+- (instancetype)init
 {
-    self = [super initWithPresentedView:presentedView withModel:cellViewModel];
+    self = [super init];
     if (self)
     {
         [self _setupRecognizer];
@@ -33,9 +32,43 @@
         [self downloadIndicator];
         [self downloadBarView];
         [self videoCountLabel];
-        [self _updateViewStateWithModel:cellViewModel];
     }
     return self;
+}
+
+- (void)updateWithModel:(ZZGridCellViewModel*)model
+{
+    self.userNameLabel.text = [model firstName];
+    [self updateBadgeWithNumber:model.badgeNumber];
+    if (model.hasUploadedVideo)
+    {
+        [self showUploadIconWithoutAnimation];
+    }
+}
+
+
+#pragma mark - Private
+
+- (void)_setupRecognizer
+{
+    self.recordRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_recordPressed:)];
+    self.recordRecognizer.minimumPressDuration = .5;
+}
+
+
+#pragma mark - Actions
+
+- (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer
+{
+    if (recognizer.state == UIGestureRecognizerStateBegan)
+    {
+        [self.model startRecordingWithView:nil]; //TODO:
+    }
+    else if (recognizer.state == UIGestureRecognizerStateEnded)
+    {
+        [self.model stopRecording];
+        [self showUploadAnimation];
+    }
 }
 
 - (UILabel*)userNameLabel
@@ -45,12 +78,11 @@
         _userNameLabel = [UILabel new];
         _userNameLabel.textAlignment = NSTextAlignmentCenter;
         _userNameLabel.textColor = [UIColor whiteColor];
-        _userNameLabel.text = self.friendModel.firstName;
         [self addSubview:_userNameLabel];
         
         [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self);
-            make.height.equalTo(@(CGRectGetHeight(self.presentedView.frame)/kUserNameScaleValue));
+            make.height.equalTo(self).dividedBy(kUserNameScaleValue/2).offset(-kSidePadding);
         }];
     }
     return _userNameLabel;
@@ -77,40 +109,6 @@
         }];
     }
     return _recordView;
-}
-
-- (void)_setupRecognizer
-{
-    self.recordRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(recordPressed:)];
-    self.recordRecognizer.minimumPressDuration = .5;
-}
-
-
-- (void)_updateViewStateWithModel:(ZZGridCellViewModel *)cellViewModel
-{
-    if (cellViewModel.badgeNumber > 0)
-    {
-        [self updateBadgeWithNumber:cellViewModel.badgeNumber];
-    }
-    if (cellViewModel.hasUploadedVideo)
-    {
-        [self showUploadIconWithoutAnimation];
-    }
-}
-
-#pragma mark - Actions
-
-- (void)recordPressed:(UILongPressGestureRecognizer *)recognizer
-{
-    if (recognizer.state == UIGestureRecognizerStateBegan)
-    {
-        [self.presentedView startRecording];
-    }
-    else if (recognizer.state == UIGestureRecognizerStateEnded)
-    {
-        [self.presentedView stopRecording];
-        [self showUploadAnimation];
-    }
 }
 
 @end

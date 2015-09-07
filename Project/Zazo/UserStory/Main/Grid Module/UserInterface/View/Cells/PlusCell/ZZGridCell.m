@@ -15,6 +15,10 @@
 #import "ZZGridStateView.h"
 #import "ZZGridCellStateViewBuilder.h"
 
+#import "ZZGridCollectionNudgeStateView.h"
+#import "ZZGridCollectionCellRecordStateView.h"
+#import "ZZGridCollectionCellPreviewStateView.h"
+
 @interface ZZGridCell () <ZZGridCollectionCellBaseStateViewDelegate>
 
 @property (nonatomic, strong) ZZGridCellViewModel* model;
@@ -45,14 +49,42 @@
 - (void)updateWithModel:(ZZGridCellViewModel*)model
 {
     ANDispatchBlockToMainQueue(^{
+       
         self.model = model;
-        if (self.model.item.relatedUser)
+    
+        switch (model.state)
         {
-            self.stateView = [ZZGridCellStateViewBuilder stateViewWithPresentedView:self withCellViewModel:model];
-        }
-        else
-        {
-            [self.stateView removeFromSuperview];
+            case ZZGridCellViewModelStateAdd:
+            {
+                [self.stateView removeFromSuperview];
+            } break;
+            case ZZGridCellViewModelStateFriendHasApp:
+            {
+                self.stateView = [[ZZGridCollectionCellRecordStateView alloc] initWithPresentedView:self
+                                                                                          withModel:model];
+            } break;
+            case ZZGridCellViewModelStateFriendHasNoApp:
+            {
+                self.stateView = [[ZZGridCollectionNudgeStateView alloc] initWithPresentedView:self
+                                                                                     withModel:model];
+            } break;
+            case ZZGridCellViewModelStateIncomingVideoNotViewed:
+            {
+                //TODO:
+                self.stateView = [[ZZGridCollectionCellPreviewStateView alloc] initWithPresentedView:self
+                                                                                           withModel:model];
+            } break;
+            case ZZGridCellViewModelStateIncomingVideoViewed:
+            {//TODO:
+                self.stateView = [[ZZGridCollectionCellPreviewStateView alloc] initWithPresentedView:self
+                                                                                           withModel:model];
+            } break;
+            case ZZGridCellViewModelStateOutgoingVideo:
+            {//TODO:
+                self.stateView = [[ZZGridCollectionCellPreviewStateView alloc] initWithPresentedView:self
+                                                                                           withModel:model];
+            } break;
+            default: break;
         }
     });
 }
@@ -60,19 +92,32 @@
 
 #pragma mark - Not Logged View Delegate
 
-- (void)nudgePressed
-{
-    [self.model nudgeSelected];
-}
+//- (void)nudgePressed
+//{
+//    [self.model nudgeSelected];
+//}
+//
+//- (void)startRecording
+//{
+//    [self.model startRecordingWithView:self];
+//}
+//
+//- (void)stopRecording
+//{
+//    [self.model stopRecording];
+//}
 
-- (void)startRecording
+- (void)setStateView:(ZZGridStateView*)stateView
 {
-    [self.model startRecordingWithView:self];
-}
-
-- (void)stopRecording
-{
-    [self.model stopRecording];
+    if (_stateView != stateView)
+    {
+        [_stateView removeFromSuperview];
+        _stateView = stateView;
+    }
+    [self.contentView addSubview:stateView];
+    [stateView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.contentView);
+    }];
 }
 
 - (void)makeActualScreenShoot
@@ -124,7 +169,7 @@
 
 
 
-- (UIImageView *)plusImageView
+- (UIImageView*)plusImageView
 {
     if (!_plusImageView)
     {
@@ -138,7 +183,6 @@
             make.edges.equalTo(self);
         }];
     }
-    
     return _plusImageView;
 }
 
