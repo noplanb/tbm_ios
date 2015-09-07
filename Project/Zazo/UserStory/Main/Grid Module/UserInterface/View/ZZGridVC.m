@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
     ZZEditMenuButtonTypeCancel = 2,
 };
 
-@interface ZZGridVC () <ZZGridViewEventDelegate>
+@interface ZZGridVC ()
 
 @property (nonatomic, strong) ZZGridView* gridView;
 @property (nonatomic, strong) ZZGridCollectionController* controller;
@@ -36,9 +36,7 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
     if (self = [super init])
     {   
         self.gridView = [ZZGridView new];
-        self.gridView.eventDelegate = self;
         self.controller = [[ZZGridCollectionController alloc] initWithCollectionView:self.gridView.collectionView];
-
         self.touchObserver = [[ZZTouchObserver alloc] initWithGridView:self.gridView];
     }
     return self;
@@ -55,6 +53,14 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
     [UIApplication sharedApplication].statusBarHidden = YES;
     
     self.view.backgroundColor = [ZZColorTheme shared].gridBackgourndColor;
+    
+    self.gridView.headerView.menuButton.rac_command = [RACCommand commandWithBlock:^{
+        [self menuSelected];
+    }];
+    
+    self.gridView.headerView.editFriendsButton.rac_command = [RACCommand commandWithBlock:^{
+        [self editFriendsSelected];
+    }];
 }
 
 - (void)updateWithDataSource:(ZZGridDataSource *)dataSource
@@ -71,14 +77,6 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
 - (void)showFriendAnimationWithModel:(ZZFriendDomainModel *)friendModel
 {
     [self.controller showContainFriendAnimaionWithFriend:friendModel];
-}
-
-
-#pragma mark - Controller Delegate Method
-
-- (id)cellAtIndexPath:(NSIndexPath *)indexPath
-{
-    return [self.gridView.collectionView cellForItemAtIndexPath:indexPath];
 }
 
 
@@ -120,14 +118,7 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
 
 - (void)updateRollingStateTo:(BOOL)isEnabled
 {
-    if (isEnabled)
-    {
-        [self.gridView enableViewRotation]; // TODO:
-    }
-    else
-    {
-        [self.gridView disableViewRotation];
-    }
+    self.gridView.isRotationEnabled = isEnabled;
 }
 
 @end

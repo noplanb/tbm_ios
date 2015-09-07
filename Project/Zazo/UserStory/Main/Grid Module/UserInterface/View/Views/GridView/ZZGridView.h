@@ -15,23 +15,13 @@
 
 @end
 
-@protocol ZZGridViewEventDelegate <NSObject>
-
-- (void)menuSelected;
-- (void)editFriendsSelected;
-
-@end
-
 @interface ZZGridView : UIView
 
 @property (nonatomic, strong) UICollectionView* collectionView;
 @property (nonatomic, strong) ZZGridViewHeader* headerView;
 @property (nonatomic, strong) ZZRotationGestureRecognizer *rotationRecognizer;
-@property (nonatomic, weak) id <ZZGridViewEventDelegate> eventDelegate;
 @property (nonatomic, assign) BOOL isRotationEnabled;
 
 - (void)updateWithDelegate:(id <ZZGridViewDelegate>)delegate;
-- (void)disableViewRotation;
-- (void)enableViewRotation;
 
 @end

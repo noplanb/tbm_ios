@@ -17,6 +17,7 @@
 #import "SCRecorder.h"
 #import "TBMAppDelegate+AppSync.h"
 #import "ZZGridCenterCell.h"
+#import "ZZGridUIConstants.h"
 
 static NSString* const kVideoProcessorDidFinishProcessing = @"TBMVideoProcessorDidFinishProcessing";
 static NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing";
@@ -86,6 +87,7 @@ static NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProces
 - (void)updateRecordView:(UIView*)recordView
 {
     self.recorder.previewView = recordView;
+    self.recorder.previewView.frame = CGRectMake(0, 0, kGridItemSize().width, kGridItemSize().height);
 }
 
 - (void)startRecordingWithVideoURL:(NSURL*)url

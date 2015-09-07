@@ -19,9 +19,18 @@
 {
     if (self.isRecording)
     {
-        return YES;
+        return NO;
     }
     return self.isChangeButtonAvailable;
+}
+
+- (UIView*)recordView
+{
+    if (!_recordView)
+    {
+        _recordView = [UIView new];
+    }
+    return _recordView;
 }
 
 @end

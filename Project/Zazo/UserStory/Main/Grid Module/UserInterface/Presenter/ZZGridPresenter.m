@@ -13,7 +13,7 @@
 #import "ZZVideoUtils.h"
 #import "ZZSoundPlayer.h"
 
-@interface ZZGridPresenter () <ZZGridCellViewModelDelegate, ZZGridDataSourceDelegate>
+@interface ZZGridPresenter () <ZZGridDataSourceDelegate>
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
 @property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
@@ -105,7 +105,6 @@
     ZZGridCenterCellViewModel* model = [self.dataSource centerViewModel];
     if (isEnabled && view)
     {
-        
         if (viewModel.item.relatedUser && viewModel.item.relatedUser.idTbm)
         {
             NSURL* url = [ZZVideoUtils generateOutgoingVideoUrlWithFriend:viewModel.item.relatedUser];
@@ -129,6 +128,10 @@
     [self.dataSource reloadCenterCell];
 }
 
+- (void)switchCamera
+{
+    [[ZZVideoRecorder shared] switchCamera];
+}
 
 //- (void)startRecordingWithGridCell:(ZZGridCollectionCell*)gridCell
 //{
@@ -144,15 +147,6 @@
 //    [self.gridCell showRecordingOverlay];
 //}
 //
-
-
-- (ZZGridCenterCell*)centerCell
-{
-    NSIndexPath* centerCellIndex = [NSIndexPath indexPathForRow:[self.interactor centerCellIndex] inSection:0];
-    id centerCell = [self.userInterface cellAtIndexPath:centerCellIndex];
-
-    return centerCell;
-}
 
 #pragma mark - Module Delegate Method
 

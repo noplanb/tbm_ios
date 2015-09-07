@@ -45,7 +45,6 @@
 - (void)updateWithModel:(id)model
 {
     self.model = model;
-    
     [self _updateIfNeededStateWithUserModel:self.model];
 }
 

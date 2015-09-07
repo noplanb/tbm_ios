@@ -35,7 +35,6 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
     if (self)
     {
         [self _setupRecordingOverlay];
-        [self videoView];
     }
     return self;
 }
@@ -43,16 +42,21 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
 - (void)updateWithModel:(ZZGridCenterCellViewModel*)model
 {
     self.model = model;
-    self.switchCameraButton.hidden = [model shouldShowSwitchCameraButton];
-    if (model.isRecording)
-    {
-        [self _showRecordingOverlay];
-    }
-    else
-    {
-        [self _hideRecordingOverlay];
-    }
-    model.recordView = self.videoView;
+    ANDispatchBlockToMainQueue(^{
+        self.switchCameraButton.hidden = [model shouldShowSwitchCameraButton];
+        if (model.isRecording)
+        {
+            [self _showRecordingOverlay];
+        }
+        else
+        {
+            [self _hideRecordingOverlay];
+        }
+        if (!self.videoView)
+        {
+            [self setupVideoViewWithView:model.recordView];
+        }
+    });
 }
 
 
@@ -75,6 +79,16 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
     self.recordingOverlay.hidden = YES;
     self.recordingLabel.hidden = YES;
     [NSThread sleepForTimeInterval:0.1f]; // TODO:
+}
+
+- (void)setupVideoViewWithView:(UIView*)view
+{
+    self.videoView = view;
+    [self.contentView addSubview:self.videoView];
+    
+    [_videoView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.contentView);
+    }];
 }
 
 - (void)_setupRecordingOverlay
@@ -100,20 +114,6 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
 
 #pragma mark - Lazy Load
 
-- (UIView*)videoView
-{
-    if (!_videoView)
-    {
-        _videoView = [UIView new];
-        [self.contentView addSubview:_videoView];
-        
-        [_videoView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.contentView);
-        }];
-    }
-    return _videoView;
-}
-
 - (UIButton*)switchCameraButton
 {
     if (!_switchCameraButton)
@@ -126,7 +126,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
         [_switchCameraButton addTarget:self
                                 action:@selector(_switchCamera)
                       forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_switchCameraButton];
+        [self.contentView addSubview:_switchCameraButton];
         
         [_switchCameraButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.left.right.equalTo(self);
@@ -147,7 +147,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
         _recordingLabel.textColor = [UIColor an_colorWithHexString:kLayoutConstWhiteTextColor];
         _recordingLabel.textAlignment = NSTextAlignmentCenter;
         _recordingLabel.font = [UIFont systemFontOfSize:kLayoutConstRecordingLabelFontSize];
-        [self addSubview:self.recordingLabel];
+        [self.contentView addSubview:self.recordingLabel];
         
         [_recordingLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.left.right.equalTo(self);

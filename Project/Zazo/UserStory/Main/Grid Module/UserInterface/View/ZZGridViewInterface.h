@@ -10,10 +10,10 @@
 
 @protocol ZZGridViewInterface <NSObject>
 
-- (void)updateWithDataSource:(ZZGridDataSource *)dataSource;
-- (id)cellAtIndexPath:(NSIndexPath*)indexPath;
-- (void)menuWasOpened;
+- (void)updateWithDataSource:(ZZGridDataSource*)dataSource;
 - (void)showFriendAnimationWithModel:(ZZFriendDomainModel*)friendModel;
 - (void)updateRollingStateTo:(BOOL)isEnabled;
+
+- (void)menuWasOpened;
 
 @end

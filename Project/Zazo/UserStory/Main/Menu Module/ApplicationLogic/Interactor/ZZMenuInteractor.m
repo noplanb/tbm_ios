@@ -15,17 +15,17 @@
 @implementation ZZMenuInteractor
 
 - (void)loadData
-{   
+{
+    [[ZZAddressBookDataProvider loadContacts] subscribeNext:^(NSArray *addressBookContactsArray) {
+        
+        [self.output addressBookDataLoaded:addressBookContactsArray];
+    }];
+    
     [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray *array) {
         
-        NSArray *friendsArray = [FEMObjectDeserializer deserializeCollectionExternalRepresentation:array usingMapping:[ZZFriendDomainModel mapping]];
+        NSArray *friendsArray = [FEMObjectDeserializer deserializeCollectionExternalRepresentation:array
+                                                                                      usingMapping:[ZZFriendDomainModel mapping]];
         [self sortFriendsFromArray:friendsArray];
-//        [self.output friendsDataLoaded:[self _sortArrayByFirstName:friendsArray]];
-        
-        [[ZZAddressBookDataProvider loadContacts] subscribeNext:^(NSArray *addressBookContactsArray) {
-            
-            [self.output addressBookDataLoaded:addressBookContactsArray];
-        }];
         
     } error:^(NSError *error) {
         

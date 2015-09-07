@@ -7,13 +7,7 @@
 //
 
 #import "ZZGridView.h"
-#import "ZZGridCollectionLayout.h"
-#import "ZZGridCell.h"
-
-#define IS_IPHONE_4             ([[UIScreen mainScreen] bounds].size.height == 480.0f)
-
-#pragma mark - Header height
-static CGFloat const kHeaderViewHeight = 64;
+#import "ZZGridUIConstants.h"
 
 @interface ZZGridView () <UIGestureRecognizerDelegate>
 
@@ -31,14 +25,7 @@ static CGFloat const kHeaderViewHeight = 64;
         [self collectionView];
         [self configureRecognizers];
         
-        self.headerView.menuButton.rac_command = [RACCommand commandWithBlock:^{
-            [self.eventDelegate menuSelected];
-        }];
-        
-        self.headerView.editFriendsButton.rac_command = [RACCommand commandWithBlock:^{
-            [self.eventDelegate editFriendsSelected];
-        }];
-        [self enableViewRotation];
+        self.isRotationEnabled = YES;
     }
     
     return self;
@@ -57,7 +44,7 @@ static CGFloat const kHeaderViewHeight = 64;
         
         [_headerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.right.equalTo(self);
-            make.height.equalTo(@(kHeaderViewHeight)).priorityHigh();
+            make.height.equalTo(@(kGridHeaderViewHeight)).priorityHigh();
         }];
     }
     return _headerView;
@@ -67,39 +54,21 @@ static CGFloat const kHeaderViewHeight = 64;
 {
     if (!_collectionView)
     {
-        ZZGridCollectionLayout* collectionLayout = [ZZGridCollectionLayout new];
+        UICollectionViewFlowLayout* collectionLayout = [UICollectionViewFlowLayout new];
+        collectionLayout.sectionInset = kGridSectionInsets;
+        collectionLayout.itemSize = kGridItemSize();
+        collectionLayout.minimumInteritemSpacing = kGridItemSpacing();
+        collectionLayout.minimumLineSpacing = kGridItemSpacing();
+        
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:collectionLayout];
         _collectionView.backgroundColor = [UIColor clearColor];
         _collectionView.scrollEnabled = NO;
-        
-         __block CGFloat height;
-        
-        if (IS_IPHONE_4)
-        {
-            height = 416;
-        }
-        else if (IS_IPHONE_5)
-        {
-            height = 447.5;
-        }
-        else if (IS_IPHONE_6)
-        {
-            height = 522;
-        }
-        else if (IS_IPHONE_6_PLUS)
-        {
-            height = 579;
-        }
-        else if (IS_IPAD)
-        {
-            height = 1021;
-        }
-        
         [self addSubview:_collectionView];
+        
         [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.headerView.mas_bottom);
             make.left.right.equalTo(self);
-            make.height.equalTo(@(height));
+            make.height.equalTo(@(kGridHeight()));
         }];
     }
     return _collectionView;
@@ -121,16 +90,6 @@ static CGFloat const kHeaderViewHeight = 64;
   
     self.rotationRecognizer.delegate = self.delegate;
     [self addGestureRecognizer:self.rotationRecognizer];
-}
-
-- (void)disableViewRotation
-{
-    self.isRotationEnabled = NO;
-}
-
-- (void)enableViewRotation
-{
-    self.isRotationEnabled = YES;
 }
 
 @end

@@ -12,7 +12,6 @@
 #import "ZZVideoPlayer.h"
 #import "ZZVideoRecorder.h"
 
-
 @interface ZZVideoPlayer () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak) UIView * presentedView;
@@ -67,7 +66,6 @@
     self.isPlayVideo = NO;
     [self.moviePlayerController.view removeFromSuperview];
     [self.moviePlayerController stop];
-    
 }
 
 - (BOOL)isPlaying

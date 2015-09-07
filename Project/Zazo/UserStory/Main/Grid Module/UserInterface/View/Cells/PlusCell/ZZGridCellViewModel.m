@@ -26,5 +26,4 @@
     [self.delegate nudgeSelectedWithUserModel:self.item.relatedUser];
 }
 
-
 @end
