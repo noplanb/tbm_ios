@@ -7,10 +7,17 @@
 //
 
 #import "ZZGridCellViewModel.h"
+#import "ZZVideoPlayer.h"
+
+@interface ZZGridCellViewModel ()
+
+@property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
+
+@end
 
 @implementation ZZGridCellViewModel
 
-- (void)startRecordingWithView:(UIView *)view
+- (void)startRecordingWithView:(UIView*)view
 {
     [self.delegate recordingStateUpdatedToState:YES viewModel:self];
 }
@@ -25,5 +32,12 @@
 {
     [self.delegate nudgeSelectedWithUserModel:self.item.relatedUser];
 }
+
+- (void)togglePlayer
+{
+    [self.videoPlayer toggle];
+}
+
+
 
 @end

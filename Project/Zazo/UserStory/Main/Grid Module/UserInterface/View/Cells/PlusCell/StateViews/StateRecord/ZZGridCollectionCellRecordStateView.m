@@ -72,9 +72,8 @@
         
         [_recordView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.userNameLabel.mas_top).with.offset(-kSidePadding);
-            make.left.equalTo(self).with.offset(kSidePadding);
-            make.right.equalTo(self).with.offset(-kSidePadding);
-            make.top.equalTo(self).with.offset(kSidePadding);
+            make.left.top.equalTo(self).offset(kSidePadding);
+            make.right.equalTo(self).offset(-kSidePadding);
         }];
     }
     return _recordView;

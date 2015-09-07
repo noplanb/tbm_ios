@@ -292,7 +292,7 @@
 		07E3C7721B9A2C910071CF82 /* ZZGridCollectionNudgeStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C5811B9A2C900071CF82 /* ZZGridCollectionNudgeStateView.m */; };
 		07E3C7731B9A2C910071CF82 /* ZZGridCollectionCellPreviewStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C5841B9A2C900071CF82 /* ZZGridCollectionCellPreviewStateView.m */; };
 		07E3C7741B9A2C910071CF82 /* ZZGridCollectionCellRecordStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C5871B9A2C900071CF82 /* ZZGridCollectionCellRecordStateView.m */; };
-		07E3C7751B9A2C910071CF82 /* ZZGridCollectionCellStateViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C58A1B9A2C900071CF82 /* ZZGridCollectionCellStateViewFactory.m */; };
+		07E3C7751B9A2C910071CF82 /* ZZGridCellStateViewBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C58A1B9A2C900071CF82 /* ZZGridCellStateViewBuilder.m */; };
 		07E3C7761B9A2C910071CF82 /* ZZGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C58C1B9A2C900071CF82 /* ZZGridCell.m */; };
 		07E3C7771B9A2C910071CF82 /* ZZGridCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C58E1B9A2C900071CF82 /* ZZGridCellViewModel.m */; };
 		07E3C7791B9A2C910071CF82 /* ZZGridCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C5941B9A2C900071CF82 /* ZZGridCollectionController.m */; };
@@ -981,8 +981,8 @@
 		07E3C5841B9A2C900071CF82 /* ZZGridCollectionCellPreviewStateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCollectionCellPreviewStateView.m; sourceTree = "<group>"; };
 		07E3C5861B9A2C900071CF82 /* ZZGridCollectionCellRecordStateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCollectionCellRecordStateView.h; sourceTree = "<group>"; };
 		07E3C5871B9A2C900071CF82 /* ZZGridCollectionCellRecordStateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCollectionCellRecordStateView.m; sourceTree = "<group>"; };
-		07E3C5891B9A2C900071CF82 /* ZZGridCollectionCellStateViewFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCollectionCellStateViewFactory.h; sourceTree = "<group>"; };
-		07E3C58A1B9A2C900071CF82 /* ZZGridCollectionCellStateViewFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCollectionCellStateViewFactory.m; sourceTree = "<group>"; };
+		07E3C5891B9A2C900071CF82 /* ZZGridCellStateViewBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCellStateViewBuilder.h; sourceTree = "<group>"; };
+		07E3C58A1B9A2C900071CF82 /* ZZGridCellStateViewBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCellStateViewBuilder.m; sourceTree = "<group>"; };
 		07E3C58B1B9A2C900071CF82 /* ZZGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCell.h; sourceTree = "<group>"; };
 		07E3C58C1B9A2C900071CF82 /* ZZGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCell.m; sourceTree = "<group>"; };
 		07E3C58D1B9A2C900071CF82 /* ZZGridCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCellViewModel.h; sourceTree = "<group>"; };
@@ -3509,8 +3509,8 @@
 		07E3C5881B9A2C900071CF82 /* StateViewsFactory */ = {
 			isa = PBXGroup;
 			children = (
-				07E3C5891B9A2C900071CF82 /* ZZGridCollectionCellStateViewFactory.h */,
-				07E3C58A1B9A2C900071CF82 /* ZZGridCollectionCellStateViewFactory.m */,
+				07E3C5891B9A2C900071CF82 /* ZZGridCellStateViewBuilder.h */,
+				07E3C58A1B9A2C900071CF82 /* ZZGridCellStateViewBuilder.m */,
 			);
 			path = StateViewsFactory;
 			sourceTree = "<group>";
@@ -4434,7 +4434,7 @@
 				07E3C7761B9A2C910071CF82 /* ZZGridCell.m in Sources */,
 				07E3C75E1B9A2C910071CF82 /* ZZSecretVC.m in Sources */,
 				07E3C6D21B9A2C910071CF82 /* ZZTextFieldsDelegate.m in Sources */,
-				07E3C7751B9A2C910071CF82 /* ZZGridCollectionCellStateViewFactory.m in Sources */,
+				07E3C7751B9A2C910071CF82 /* ZZGridCellStateViewBuilder.m in Sources */,
 				07E3C6E81B9A2C910071CF82 /* ZZFriendsTransportService.m in Sources */,
 				07E3C7631B9A2C910071CF82 /* ZZEditFriendListPresenter.m in Sources */,
 				07E3C6BE1B9A2C910071CF82 /* TBMGridElementViewController.m in Sources */,

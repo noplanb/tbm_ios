@@ -8,9 +8,9 @@
 
 #import "ZZGridStateView.h"
 
-@interface ZZGridCollectionCellStateViewFactory : NSObject
+@interface ZZGridCellStateViewBuilder : NSObject
 
-+ (ZZGridStateView *)stateViewWithPresentedView:(UIView <ZZGridCollectionCellBaseStateViewDelegate> *)presentedView
++ (ZZGridStateView*)stateViewWithPresentedView:(UIView <ZZGridCollectionCellBaseStateViewDelegate> *)presentedView
                                                 withCellViewModel:(ZZGridCellViewModel *)cellViewModel;
 
 @end

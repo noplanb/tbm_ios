@@ -7,70 +7,134 @@
 //
 
 @import MediaPlayer;
-@import AVFoundation;
 
 #import "ZZVideoPlayer.h"
-#import "ZZVideoRecorder.h"
 
-@interface ZZVideoPlayer () <UIGestureRecognizerDelegate>
+@interface ZZVideoPlayer ()
 
-@property (nonatomic, weak) UIView * presentedView;
 @property (nonatomic, strong) MPMoviePlayerController* moviePlayerController;
-
-@property (nonatomic, strong) AVPlayer* avplayer;
-@property (nonatomic, strong) AVPlayerLayer* avPlayerLayer;
-@property (nonatomic, strong) UITapGestureRecognizer *recognizer;
-@property (nonatomic, assign) BOOL isPlayVideo;
+@property (nonatomic, assign) BOOL isPlayingVideo;
 @property (nonatomic, strong) UIButton* tapButton;
+@property (nonatomic, strong) NSArray* currentPlayQueue;
 
 @end
 
 @implementation ZZVideoPlayer
 
-- (instancetype)initWithVideoPlayerView:(UIView *)presentedView
+- (instancetype)init
 {
-    if (self == [super init])
+    self = [super init];
+    if (self)
     {
-        self.presentedView = presentedView;
-        self.tapButton = [UIButton new];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(_playNext)
+                                                     name:MPMoviePlayerPlaybackDidFinishNotification
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(_playerStateWasUpdated)
+                                                     name:MPMoviePlayerPlaybackStateDidChangeNotification
+                                                   object:nil];
     }
-    
     return self;
 }
 
-- (void)setupMoviePlayerWithContentUrl:(NSURL *)contentUrl
+- (void)playOnView:(UIView*)view withURLs:(NSArray*)URLs
 {
-    self.moviePlayerController = [[MPMoviePlayerController alloc] initWithContentURL:contentUrl];
-    self.moviePlayerController.controlStyle = MPMovieControlStyleNone;
-    [[self.moviePlayerController view] setFrame:self.presentedView.bounds];
-    self.moviePlayerController.view.backgroundColor = [UIColor clearColor];
-    
-    [self.moviePlayerController.view addSubview:self.tapButton];
-    
-    [self.tapButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.moviePlayerController.view);
-    }];
-    [self.tapButton addTarget:self action:@selector(stopVideo) forControlEvents:UIControlEventTouchUpInside];
+    if (view != self.moviePlayerController.view.superview && view)
+    {
+        [view addSubview:self.moviePlayerController.view];
+        [view bringSubviewToFront:self.moviePlayerController.view];
+        self.moviePlayerController.view.frame = view.bounds;
+        self.currentPlayQueue = URLs;
+    }
+    if (!ANIsEmpty(URLs))
+    {
+        self.moviePlayerController.contentURL = [URLs firstObject];
+        self.isPlayingVideo = YES;
+        [self.moviePlayerController play];
+    }
 }
 
-- (void)playVideo
-{
-    self.isPlayVideo = YES;
-    [self.presentedView addSubview:self.moviePlayerController.view];
-    [self.presentedView bringSubviewToFront:self.moviePlayerController.view];
-    [self.moviePlayerController play];
-}
 
-- (void)stopVideo
+
+- (void)stop
 {
-    self.isPlayVideo = NO;
+    self.isPlayingVideo = NO;
     [self.moviePlayerController.view removeFromSuperview];
     [self.moviePlayerController stop];
 }
 
+- (void)toggle
+{
+    if (self.isPlayingVideo)
+    {
+        [self playOnView:nil withURL:nil];
+    }
+    else
+    {
+        [self stop];
+    }
+}
+
 - (BOOL)isPlaying
 {
-    return self.isPlayVideo;
+    return self.isPlayingVideo;
+}
+
+
+#pragma mark - Private
+
+- (void)_playNext
+{
+    NSInteger index = [self.currentPlayQueue indexOfObject:self.moviePlayerController.contentURL];
+    if (index != NSNotFound)
+    {
+        BOOL isNextExist = index < self.currentPlayQueue.count;
+        if (isNextExist)
+        {
+            self.moviePlayerController.contentURL = self.currentPlayQueue[index];
+        }
+    }
+}
+
+- (void)_playerStateWasUpdated
+{
+    if (self.moviePlayerController.playbackState == MPMoviePlaybackStatePlaying)
+    {
+        [self.delegate videoURLWasStartPlaying:self.moviePlayerController.contentURL];
+    }
+}
+
+
+#pragma mark - Lazy Load
+
+- (MPMoviePlayerController *)moviePlayerController
+{
+    if (!_moviePlayerController)
+    {
+        _moviePlayerController = [MPMoviePlayerController new];
+        _moviePlayerController.view.backgroundColor = [UIColor clearColor];
+        _moviePlayerController.controlStyle = MPMovieControlStyleNone;
+    }
+    return _moviePlayerController;
+}
+
+- (UIButton*)tapButton
+{
+    if (!_tapButton)
+    {
+        _tapButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_tapButton addTarget:self
+                       action:@selector(toggle)
+             forControlEvents:UIControlEventTouchUpInside];
+        [self.moviePlayerController.view addSubview:_tapButton];
+        
+        [_tapButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.moviePlayerController.view);
+        }];
+    }
+    return _tapButton;
 }
 
 @end

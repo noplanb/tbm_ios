@@ -6,12 +6,12 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZGridCollectionCellStateViewFactory.h"
+#import "ZZGridCellStateViewBuilder.h"
 #import "ZZGridCollectionNudgeStateView.h"
 #import "ZZGridCollectionCellRecordStateView.h"
 #import "ZZGridCollectionCellPreviewStateView.h"
 
-@implementation ZZGridCollectionCellStateViewFactory
+@implementation ZZGridCellStateViewBuilder
 
 + (ZZGridStateView *)stateViewWithPresentedView:(UIView <ZZGridCollectionCellBaseStateViewDelegate> *)presentedView
                                                 withCellViewModel:(ZZGridCellViewModel *)cellViewModel

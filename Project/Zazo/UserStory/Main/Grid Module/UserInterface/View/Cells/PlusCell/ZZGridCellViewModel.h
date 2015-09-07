@@ -13,21 +13,37 @@
 @protocol ZZGridCellViewModelDelegate <NSObject>
 
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel;
-- (void)stopRecording;
 - (void)nudgeSelectedWithUserModel:(id)userModel;
 
 @end
 
+typedef NS_ENUM(NSInteger, ZZGridCellViewModelState)
+{
+    ZZGridCellViewModelStateAdd,
+    ZZGridCellViewModelStateFriendHasApp,
+    ZZGridCellViewModelStateFriendHasNoApp,
+    ZZGridCellViewModelStateIncomingVideoNotViewed,
+    ZZGridCellViewModelStateIncomingVideoViewed,
+    ZZGridCellViewModelStateOutgoingVideo
+};
+
 @interface ZZGridCellViewModel : NSObject
 
-@property (nonatomic, weak) id <ZZGridCellViewModelDelegate> delegate;
 @property (nonatomic, strong) ZZGridDomainModel* item;
+@property (nonatomic, weak) id <ZZGridCellViewModelDelegate> delegate;
 @property (nonatomic, strong) NSNumber* badgeNumber;
+@property (nonatomic, strong) UIView* playerContainerView;
+
+
 @property (nonatomic, strong) UIImage* screenShot;
 @property (nonatomic, assign) BOOL hasUploadedVideo;
 
-- (void)startRecordingWithView:(UIView *)view;
+
+
+- (void)startRecordingWithView:(UIView*)view;
 - (void)stopRecording;
 - (void)nudgeSelected;
+
+- (NSArray*)playerVideoURLs;
 
 @end

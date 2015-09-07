@@ -6,20 +6,20 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-//@protocol ZZVideoPlayerDelegate  <NSObject>
-//
-//- (void)videoPlayerStarted;
-//- (void)videoPlayerStopped;
-//
-//@end
+@protocol ZZVideoPlayerDelegate <NSObject>
 
+- (void)videoURLWasViewedFully:(NSURL*)videoURL;
+- (void)videoURLWasStartPlaying:(NSURL*)videoURL;
+
+@end
 
 @interface ZZVideoPlayer : NSObject
 
-- (instancetype)initWithVideoPlayerView:(UIView *)presentedView;
-- (void)setupMoviePlayerWithContentUrl:(NSURL *)contentUrl;
-- (void)playVideo;
-- (void)stopVideo;
-- (BOOL)isPlaying;
+@property (nonatomic, weak) id<ZZVideoPlayerDelegate> delegate;
+
+- (void)playOnView:(UIView*)view withURL:(NSURL*)URL;
+- (void)stop;
+
+- (void)toggle;
 
 @end

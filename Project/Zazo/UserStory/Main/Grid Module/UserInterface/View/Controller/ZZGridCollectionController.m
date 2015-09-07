@@ -21,7 +21,6 @@ static NSInteger const kCenterCellIndex = 4;
 
 @interface ZZGridCollectionController ()
 
-@property (nonatomic, strong) ZZGridCenterCell* centerCell;
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
 
 @end
@@ -53,6 +52,22 @@ static NSInteger const kCenterCellIndex = 4;
     }
 }
 
+- (void)showContainFriendAnimaionWithFriend:(ZZFriendDomainModel*)friendModel
+{
+    [[self.collectionView visibleCells] enumerateObjectsUsingBlock:^(UICollectionViewCell* cell, NSUInteger idx, BOOL *stop) {
+        
+        if ([cell isKindOfClass:[ZZGridCell class]])
+        {
+            ZZGridCell* gridCell = (ZZGridCell *)cell;
+            ZZGridCellViewModel* cellModel = [gridCell model];
+            if ([cellModel.item.relatedUser isEqual:friendModel])
+            {
+                [gridCell showContainFriendAnimation];
+            }
+        }
+    }];
+}
+
 - (BOOL)isCellContainUserModel:(UICollectionView*)collectionView withIndexPath:(NSIndexPath *)indexPath
 {
     BOOL isHasUser = NO;
@@ -65,44 +80,7 @@ static NSInteger const kCenterCellIndex = 4;
         ZZGridCellViewModel* model = [gridCell model];
         isHasUser = (model.item.relatedUser != nil);
     }
-    
     return isHasUser;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    UICollectionViewCell* cell;
-    
-    if (indexPath.item == kCenterCellIndex)
-    {
-        if (!self.centerCell)
-        {
-            self.centerCell = (ZZGridCenterCell*)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
-        }
-        cell = self.centerCell;
-    }
-    else
-    {
-        cell = [super collectionView:collectionView cellForItemAtIndexPath:indexPath];
-    }
-    return cell;
-}
-
-- (void)showContainFriendAnimaionWithFriend:(ZZFriendDomainModel*)friendModel
-{
-    [[self.collectionView visibleCells] enumerateObjectsUsingBlock:^(UICollectionViewCell* cell, NSUInteger idx, BOOL *stop) {
-       
-        if ([cell isKindOfClass:[ZZGridCell class]])
-        {
-            ZZGridCell* gridCell = (ZZGridCell *)cell;
-            ZZGridCellViewModel* cellModel = [gridCell model];
-            if ([cellModel.item.relatedUser isEqual:friendModel])
-            {
-                [gridCell showContainFriendAnimation];
-            }
-        }
-    }];
-
 }
 
 @end

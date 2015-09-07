@@ -13,7 +13,7 @@
 #import "TBMVideoRecorder.h"
 #import "ZZVideoRecorder.h"
 #import "ZZGridStateView.h"
-#import "ZZGridCollectionCellStateViewFactory.h"
+#import "ZZGridCellStateViewBuilder.h"
 
 @interface ZZGridCell () <ZZGridCollectionCellBaseStateViewDelegate>
 
@@ -42,43 +42,21 @@
     [self stopVideoPlaying];
 }
 
-- (void)updateWithModel:(id)model
+- (void)updateWithModel:(ZZGridCellViewModel*)model
 {
     ANDispatchBlockToMainQueue(^{
         self.model = model;
-        [self _updateIfNeededStateWithUserModel:self.model];
+        if (self.model.item.relatedUser)
+        {
+            self.stateView = [ZZGridCellStateViewBuilder stateViewWithPresentedView:self withCellViewModel:model];
+        }
+        else
+        {
+            [self.stateView removeFromSuperview];
+        }
     });
 }
 
-- (UIImageView *)plusImageView
-{
-    if (!_plusImageView)
-    {
-        _plusImageView = [UIImageView new];
-        _plusImageView.image = [[UIImage imageWithPDFNamed:@"icon_plus" atHeight:50]
-                                an_imageByTintingWithColor:[UIColor whiteColor]];
-        _plusImageView.contentMode = UIViewContentModeCenter;
-        [self addSubview:_plusImageView];
-        
-        [_plusImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self);
-        }];
-    }
-    
-    return _plusImageView;
-}
-
-- (void)_updateIfNeededStateWithUserModel:(ZZGridCellViewModel *)model
-{
-    if (model.item.relatedUser)
-    {
-        self.stateView = [ZZGridCollectionCellStateViewFactory stateViewWithPresentedView:self withCellViewModel:model];
-    }
-    else
-    {
-        [self.stateView removeFromSuperview];
-    }
-}
 
 #pragma mark - Not Logged View Delegate
 
@@ -142,6 +120,26 @@
 - (void)startVidePlay
 {
     [self.stateView startPlayVideo];
+}
+
+
+
+- (UIImageView *)plusImageView
+{
+    if (!_plusImageView)
+    {
+        _plusImageView = [UIImageView new];
+        _plusImageView.image = [[UIImage imageWithPDFNamed:@"icon_plus" atHeight:50]
+                                an_imageByTintingWithColor:[UIColor whiteColor]];
+        _plusImageView.contentMode = UIViewContentModeCenter;
+        [self addSubview:_plusImageView];
+        
+        [_plusImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self);
+        }];
+    }
+    
+    return _plusImageView;
 }
 
 @end

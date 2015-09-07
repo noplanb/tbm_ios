@@ -12,11 +12,13 @@
 #import "ZZVideoRecorder.h"
 #import "ZZVideoUtils.h"
 #import "ZZSoundPlayer.h"
+#import "ZZVideoPlayer.h"
 
 @interface ZZGridPresenter () <ZZGridDataSourceDelegate>
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
 @property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
+@property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
 
 @end
 
@@ -95,6 +97,9 @@
     }
 }
 
+
+#pragma mark - Data source delegate
+
 - (void)nudgeSelectedWithUserModel:(id)userModel
 {
     //TODO:
@@ -103,44 +108,43 @@
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel
 {
     ZZGridCenterCellViewModel* model = [self.dataSource centerViewModel];
-    if (isEnabled)
+    if (!ANIsEmpty(viewModel.item.relatedUser.idTbm))
     {
-        if (viewModel.item.relatedUser && viewModel.item.relatedUser.idTbm)
+        if (isEnabled)
         {
             NSURL* url = [ZZVideoUtils generateOutgoingVideoUrlWithFriend:viewModel.item.relatedUser];
             [[ZZVideoRecorder shared] startRecordingWithVideoURL:url];
             model.isRecording = YES;
         }
+        else
+        {
+            model.isRecording = NO;
+            [[ZZVideoRecorder shared] stopRecording];
+        }
+        
+        [self.userInterface updateRollingStateTo:!isEnabled];
+        [self.soundPlayer play];
+    }
+}
+
+- (void)toggleVideoWithViewModel:(ZZGridCellViewModel*)model toState:(BOOL)state
+{
+    if (state)
+    {
+        [self.videoPlayer playOnView:model.playerContainerView withURL:model.playerVideoURLs];
     }
     else
     {
-        model.isRecording = NO;
-        [[ZZVideoRecorder shared] stopRecording];
+        [self.videoPlayer stop];
     }
-    
-    [self.userInterface updateRollingStateTo:!isEnabled];
-    [self.soundPlayer play];
 }
+
 
 - (void)switchCamera
 {
     [[ZZVideoRecorder shared] switchCamera];
 }
 
-//- (void)startRecordingWithGridCell:(ZZGridCollectionCell*)gridCell
-//{
-//    ZZGridCellViewModel* model = [gridCell model];
-//    if (model.item.relatedUser && model.item.relatedUser.idTbm)
-//    {
-//        [self.gridCell hideChangeCameraButton];
-//        self.recordVideoUrl = [ZZVideoUtils generateOutgoingVideoUrlWithFriend:model.item.relatedUser];
-//        [self startRecordingWithVideoUrl:self.recordVideoUrl];
-//        [self.recorder.session removeAllSegments];
-//        [self.recorder record];
-//    }
-//    [self.gridCell showRecordingOverlay];
-//}
-//
 
 #pragma mark - Module Delegate Method
 

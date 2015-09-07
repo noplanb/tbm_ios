@@ -10,8 +10,6 @@
 #import "ZZMenuDataSource.h"
 #import "ANBaseTableHeaderView.h"
 
-static CGFloat const kTableViewRowHeight = 55.5;
-
 @implementation ZZMenuController
 
 - (instancetype)initWithTableView:(UITableView *)tableView
@@ -19,7 +17,7 @@ static CGFloat const kTableViewRowHeight = 55.5;
     self = [super initWithTableView:tableView];
     if (self)
     {
-        self.tableView.rowHeight = kTableViewRowHeight;
+        self.tableView.rowHeight = 55.5;
         self.tableView.sectionHeaderHeight = 60;
         [self registerCellClass:[ZZMenuCell class] forModelClass:[ZZMenuCellViewModel class]];
         [self registerHeaderClass:[ANBaseTableHeaderView class] forModelClass:[NSString class]];

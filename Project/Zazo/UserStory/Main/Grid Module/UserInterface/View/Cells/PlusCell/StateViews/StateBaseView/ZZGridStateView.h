@@ -7,6 +7,7 @@
 //
 
 #import "ZZGridCellViewModel.h"
+#import "ANModelTransfer.h"
 
 static CGFloat const kSidePadding = 2;
 static CGFloat const kUserNameScaleValue = 5;
@@ -29,7 +30,7 @@ static CGFloat const kHiddenAlphaValue = 0.0;
 
 @end
 
-@interface ZZGridStateView : UIView
+@interface ZZGridStateView : UIView <ANModelTransfer>
 
 @property (nonatomic, strong) UIView* containFriendView;
 
