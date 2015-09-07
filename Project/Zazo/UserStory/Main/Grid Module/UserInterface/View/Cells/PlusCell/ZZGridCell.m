@@ -6,26 +6,25 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import "ZZGridCollectionCell.h"
+#import "ZZGridCell.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZGridCellViewModel.h"
 #import "UIImage+PDF.h"
 #import "TBMVideoRecorder.h"
 #import "ZZVideoRecorder.h"
-#import "ZZGridCollectionCellBaseStateView.h"
+#import "ZZGridStateView.h"
 #import "ZZGridCollectionCellStateViewFactory.h"
 
-@interface ZZGridCollectionCell () <ZZGridCollectionCellBaseStateViewDelegate>
+@interface ZZGridCell () <ZZGridCollectionCellBaseStateViewDelegate>
 
-@property (nonatomic, strong) ZZGridCellViewModel* gridModel;
+@property (nonatomic, strong) ZZGridCellViewModel* model;
 @property (nonatomic, strong) UIImageView* plusImageView;
 @property (nonatomic, strong) UIGestureRecognizer* plusRecognizer;
-@property (nonatomic, strong) ZZGridCollectionCellBaseStateView* stateView;
-@property (nonatomic, strong) ZZGridCollectionCellStateViewFactory* stateViewFactory;
+@property (nonatomic, strong) ZZGridStateView* stateView;
 
 @end
 
-@implementation ZZGridCollectionCell
+@implementation ZZGridCell
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -33,8 +32,6 @@
     {
         self.backgroundColor = [UIColor orangeColor];
         [self plusImageView];
-        self.stateViewFactory = [ZZGridCollectionCellStateViewFactory new];
-        
     }
     return self;
 }
@@ -47,15 +44,9 @@
 
 - (void)updateWithModel:(id)model
 {
-    self.gridModel = nil;
-    self.gridModel = model;
+    self.model = model;
     
-    [self _updateIfNeededStateWithUserModel:self.gridModel];
-}
-
-- (id)model
-{
-    return self.gridModel;
+    [self _updateIfNeededStateWithUserModel:self.model];
 }
 
 - (UIImageView *)plusImageView
@@ -63,9 +54,7 @@
     if (!_plusImageView)
     {
         _plusImageView = [UIImageView new];
-        
-        CGSize size = CGSizeMake(50, 50);
-        _plusImageView.image = [[UIImage imageWithPDFNamed:@"icon_plus" atSize:size]
+        _plusImageView.image = [[UIImage imageWithPDFNamed:@"icon_plus" atHeight:50]
                                 an_imageByTintingWithColor:[UIColor whiteColor]];
         _plusImageView.contentMode = UIViewContentModeCenter;
         [self addSubview:_plusImageView];
@@ -82,7 +71,7 @@
 {
     if (model.item.relatedUser)
     {
-        self.stateView = [self.stateViewFactory stateViewWithPresentedView:self withCellViewModel:model];
+        self.stateView = [ZZGridCollectionCellStateViewFactory stateViewWithPresentedView:self withCellViewModel:model];
     }
     else
     {
@@ -94,17 +83,17 @@
 
 - (void)nudgePressed
 {
-    [self.gridModel nudgeSelected];
+    [self.model nudgeSelected];
 }
 
 - (void)startRecording
 {
-    [self.gridModel startRecordingWithView:self];
+    [self.model startRecordingWithView:self];
 }
 
 - (void)stopRecording
 {
-    [self.gridModel stopRecording];
+    [self.model stopRecording];
 }
 
 - (void)makeActualScreenShoot
@@ -114,14 +103,14 @@
         CGFloat scale = [UIScreen mainScreen].scale;
         UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, scale);
         [self.layer renderInContext:UIGraphicsGetCurrentContext()];
-        self.gridModel.screenShot = UIGraphicsGetImageFromCurrentImageContext();
+        self.model.screenShot = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
     }
 }
 
 - (UIImage *)actualSateImage
 {
-    return self.gridModel.screenShot;
+    return self.model.screenShot;
 }
 
 

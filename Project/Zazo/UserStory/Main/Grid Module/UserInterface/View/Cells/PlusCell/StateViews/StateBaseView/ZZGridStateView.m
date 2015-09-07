@@ -6,17 +6,17 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZGridCollectionCellBaseStateView.h"
+#import "ZZGridStateView.h"
 #import "ZZGridCollectionCellBaseStateView+Animation.h"
 #import "ZZVideoPlayer.h"
 
-@interface ZZGridCollectionCellBaseStateView ()
+@interface ZZGridStateView ()
 
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
 
 @end
 
-@implementation ZZGridCollectionCellBaseStateView
+@implementation ZZGridStateView
 
 - (instancetype)initWithPresentedView:(UIView <ZZGridCollectionCellBaseStateViewDelegate> *)presentedView
                             withModel:(ZZGridCellViewModel *)cellViewModel;

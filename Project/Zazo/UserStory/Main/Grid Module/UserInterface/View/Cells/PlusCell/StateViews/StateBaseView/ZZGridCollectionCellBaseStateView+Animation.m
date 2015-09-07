@@ -8,7 +8,7 @@
 
 #import "ZZGridCollectionCellBaseStateView+Animation.h"
 
-@implementation ZZGridCollectionCellBaseStateView (Animation)
+@implementation ZZGridStateView (Animation)
 
 #pragma mark - Upload Animation
 

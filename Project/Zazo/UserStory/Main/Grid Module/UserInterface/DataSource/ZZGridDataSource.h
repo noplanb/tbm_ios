@@ -6,6 +6,9 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
+#import "ZZGridCenterCell.h"
+#import "ZZGridCell.h"
+
 @class ANMemoryStorage;
 @class ZZGridDomainModel;
 @class ZZGridCellViewModel;
@@ -15,6 +18,7 @@
 - (void)itemSelectedWithModel:(ZZGridCellViewModel*)model;
 - (void)recordingStateUpdateWithView:(UIView*)view toState:(BOOL)isEnabled;
 - (void)nudgeSelectedWithUserModel:(id)userModel;
+- (void)switchCamera;
 
 @end
 
@@ -25,6 +29,10 @@
 
 - (void)itemSelectedAtIndexPath:(NSIndexPath*)indexPath;
 - (void)setupWithModels:(NSArray*)models;
+- (void)setupCenterViewModelShouldHandleCameraRotation:(BOOL)shouldHandleRotation;
 - (void)selectedViewModelUpdatedWithItem:(ZZGridDomainModel*)model;
+
+- (void)reloadCenterCell;
+- (ZZGridCenterCellViewModel*)centerViewModel;
 
 @end

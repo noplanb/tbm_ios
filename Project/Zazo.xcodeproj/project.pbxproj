@@ -287,14 +287,13 @@
 		07E3C76C1B9A2C910071CF82 /* ZZGridPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C56D1B9A2C900071CF82 /* ZZGridPresenter.m */; };
 		07E3C76D1B9A2C910071CF82 /* ZZGridCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C5721B9A2C900071CF82 /* ZZGridCenterCell.m */; };
 		07E3C76E1B9A2C910071CF82 /* ZZGridCenterCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C5741B9A2C900071CF82 /* ZZGridCenterCellViewModel.m */; };
-		07E3C76F1B9A2C910071CF82 /* ZZGridBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C5771B9A2C900071CF82 /* ZZGridBaseCell.m */; };
 		07E3C7701B9A2C910071CF82 /* ZZGridCollectionCellBaseStateView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C57C1B9A2C900071CF82 /* ZZGridCollectionCellBaseStateView+Animation.m */; };
-		07E3C7711B9A2C910071CF82 /* ZZGridCollectionCellBaseStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C57E1B9A2C900071CF82 /* ZZGridCollectionCellBaseStateView.m */; };
+		07E3C7711B9A2C910071CF82 /* ZZGridStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C57E1B9A2C900071CF82 /* ZZGridStateView.m */; };
 		07E3C7721B9A2C910071CF82 /* ZZGridCollectionNudgeStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C5811B9A2C900071CF82 /* ZZGridCollectionNudgeStateView.m */; };
 		07E3C7731B9A2C910071CF82 /* ZZGridCollectionCellPreviewStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C5841B9A2C900071CF82 /* ZZGridCollectionCellPreviewStateView.m */; };
 		07E3C7741B9A2C910071CF82 /* ZZGridCollectionCellRecordStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C5871B9A2C900071CF82 /* ZZGridCollectionCellRecordStateView.m */; };
 		07E3C7751B9A2C910071CF82 /* ZZGridCollectionCellStateViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C58A1B9A2C900071CF82 /* ZZGridCollectionCellStateViewFactory.m */; };
-		07E3C7761B9A2C910071CF82 /* ZZGridCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C58C1B9A2C900071CF82 /* ZZGridCollectionCell.m */; };
+		07E3C7761B9A2C910071CF82 /* ZZGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C58C1B9A2C900071CF82 /* ZZGridCell.m */; };
 		07E3C7771B9A2C910071CF82 /* ZZGridCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C58E1B9A2C900071CF82 /* ZZGridCellViewModel.m */; };
 		07E3C7781B9A2C910071CF82 /* ZZGridCollectionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C5911B9A2C900071CF82 /* ZZGridCollectionLayout.m */; };
 		07E3C7791B9A2C910071CF82 /* ZZGridCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C5941B9A2C900071CF82 /* ZZGridCollectionController.m */; };
@@ -972,12 +971,10 @@
 		07E3C5721B9A2C900071CF82 /* ZZGridCenterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCenterCell.m; sourceTree = "<group>"; };
 		07E3C5731B9A2C900071CF82 /* ZZGridCenterCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCenterCellViewModel.h; sourceTree = "<group>"; };
 		07E3C5741B9A2C900071CF82 /* ZZGridCenterCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCenterCellViewModel.m; sourceTree = "<group>"; };
-		07E3C5761B9A2C900071CF82 /* ZZGridBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridBaseCell.h; sourceTree = "<group>"; };
-		07E3C5771B9A2C900071CF82 /* ZZGridBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridBaseCell.m; sourceTree = "<group>"; };
 		07E3C57B1B9A2C900071CF82 /* ZZGridCollectionCellBaseStateView+Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZZGridCollectionCellBaseStateView+Animation.h"; sourceTree = "<group>"; };
 		07E3C57C1B9A2C900071CF82 /* ZZGridCollectionCellBaseStateView+Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZZGridCollectionCellBaseStateView+Animation.m"; sourceTree = "<group>"; };
-		07E3C57D1B9A2C900071CF82 /* ZZGridCollectionCellBaseStateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCollectionCellBaseStateView.h; sourceTree = "<group>"; };
-		07E3C57E1B9A2C900071CF82 /* ZZGridCollectionCellBaseStateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCollectionCellBaseStateView.m; sourceTree = "<group>"; };
+		07E3C57D1B9A2C900071CF82 /* ZZGridStateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridStateView.h; sourceTree = "<group>"; };
+		07E3C57E1B9A2C900071CF82 /* ZZGridStateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridStateView.m; sourceTree = "<group>"; };
 		07E3C5801B9A2C900071CF82 /* ZZGridCollectionNudgeStateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCollectionNudgeStateView.h; sourceTree = "<group>"; };
 		07E3C5811B9A2C900071CF82 /* ZZGridCollectionNudgeStateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCollectionNudgeStateView.m; sourceTree = "<group>"; };
 		07E3C5831B9A2C900071CF82 /* ZZGridCollectionCellPreviewStateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCollectionCellPreviewStateView.h; sourceTree = "<group>"; };
@@ -986,8 +983,8 @@
 		07E3C5871B9A2C900071CF82 /* ZZGridCollectionCellRecordStateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCollectionCellRecordStateView.m; sourceTree = "<group>"; };
 		07E3C5891B9A2C900071CF82 /* ZZGridCollectionCellStateViewFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCollectionCellStateViewFactory.h; sourceTree = "<group>"; };
 		07E3C58A1B9A2C900071CF82 /* ZZGridCollectionCellStateViewFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCollectionCellStateViewFactory.m; sourceTree = "<group>"; };
-		07E3C58B1B9A2C900071CF82 /* ZZGridCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCollectionCell.h; sourceTree = "<group>"; };
-		07E3C58C1B9A2C900071CF82 /* ZZGridCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCollectionCell.m; sourceTree = "<group>"; };
+		07E3C58B1B9A2C900071CF82 /* ZZGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCell.h; sourceTree = "<group>"; };
+		07E3C58C1B9A2C900071CF82 /* ZZGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCell.m; sourceTree = "<group>"; };
 		07E3C58D1B9A2C900071CF82 /* ZZGridCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCellViewModel.h; sourceTree = "<group>"; };
 		07E3C58E1B9A2C900071CF82 /* ZZGridCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCellViewModel.m; sourceTree = "<group>"; };
 		07E3C5901B9A2C900071CF82 /* ZZGridCollectionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCollectionLayout.h; sourceTree = "<group>"; };
@@ -3433,7 +3430,6 @@
 			isa = PBXGroup;
 			children = (
 				07E3C5701B9A2C900071CF82 /* CenterCell */,
-				07E3C5751B9A2C900071CF82 /* GridBaseCell */,
 				07E3C5781B9A2C900071CF82 /* PlusCell */,
 			);
 			path = Cells;
@@ -3450,21 +3446,12 @@
 			path = CenterCell;
 			sourceTree = "<group>";
 		};
-		07E3C5751B9A2C900071CF82 /* GridBaseCell */ = {
-			isa = PBXGroup;
-			children = (
-				07E3C5761B9A2C900071CF82 /* ZZGridBaseCell.h */,
-				07E3C5771B9A2C900071CF82 /* ZZGridBaseCell.m */,
-			);
-			path = GridBaseCell;
-			sourceTree = "<group>";
-		};
 		07E3C5781B9A2C900071CF82 /* PlusCell */ = {
 			isa = PBXGroup;
 			children = (
 				07E3C5791B9A2C900071CF82 /* StateViews */,
-				07E3C58B1B9A2C900071CF82 /* ZZGridCollectionCell.h */,
-				07E3C58C1B9A2C900071CF82 /* ZZGridCollectionCell.m */,
+				07E3C58B1B9A2C900071CF82 /* ZZGridCell.h */,
+				07E3C58C1B9A2C900071CF82 /* ZZGridCell.m */,
 				07E3C58D1B9A2C900071CF82 /* ZZGridCellViewModel.h */,
 				07E3C58E1B9A2C900071CF82 /* ZZGridCellViewModel.m */,
 			);
@@ -3488,8 +3475,8 @@
 			children = (
 				07E3C57B1B9A2C900071CF82 /* ZZGridCollectionCellBaseStateView+Animation.h */,
 				07E3C57C1B9A2C900071CF82 /* ZZGridCollectionCellBaseStateView+Animation.m */,
-				07E3C57D1B9A2C900071CF82 /* ZZGridCollectionCellBaseStateView.h */,
-				07E3C57E1B9A2C900071CF82 /* ZZGridCollectionCellBaseStateView.m */,
+				07E3C57D1B9A2C900071CF82 /* ZZGridStateView.h */,
+				07E3C57E1B9A2C900071CF82 /* ZZGridStateView.m */,
 			);
 			path = StateBaseView;
 			sourceTree = "<group>";
@@ -4455,7 +4442,7 @@
 				07E3C7531B9A2C910071CF82 /* ZZSecretDataSource.m in Sources */,
 				07E3C7BD1B9A2C910071CF82 /* UIImage+PDF.m in Sources */,
 				07E3C7821B9A2C910071CF82 /* ZZTouchObserver.m in Sources */,
-				07E3C7761B9A2C910071CF82 /* ZZGridCollectionCell.m in Sources */,
+				07E3C7761B9A2C910071CF82 /* ZZGridCell.m in Sources */,
 				07E3C75E1B9A2C910071CF82 /* ZZSecretVC.m in Sources */,
 				07E3C6D21B9A2C910071CF82 /* ZZTextFieldsDelegate.m in Sources */,
 				07E3C7751B9A2C910071CF82 /* ZZGridCollectionCellStateViewFactory.m in Sources */,
@@ -4503,7 +4490,6 @@
 				07E3C7461B9A2C910071CF82 /* ANDebugVC.m in Sources */,
 				07E3C7791B9A2C910071CF82 /* ZZGridCollectionController.m in Sources */,
 				07E3C6691B9A2C900071CF82 /* TBMSoundEffect.m in Sources */,
-				07E3C76F1B9A2C910071CF82 /* ZZGridBaseCell.m in Sources */,
 				07E3C6601B9A2C900071CF82 /* UIButton+TBMRoundedButton.m in Sources */,
 				07E3C6E51B9A2C910071CF82 /* ZZCommonNetworkTransport.m in Sources */,
 				07E3C6BA1B9A2C910071CF82 /* TBMTextField.m in Sources */,
@@ -4663,7 +4649,7 @@
 				07E3C7031B9A2C910071CF82 /* ZZSecretBaseStrategy.m in Sources */,
 				07E3C7941B9A2C910071CF82 /* NSObject+ANSafeValues.m in Sources */,
 				07E3C6791B9A2C910071CF82 /* TBMAbortRecordUsageHintView.m in Sources */,
-				07E3C7711B9A2C910071CF82 /* ZZGridCollectionCellBaseStateView.m in Sources */,
+				07E3C7711B9A2C910071CF82 /* ZZGridStateView.m in Sources */,
 				07E3C69D1B9A2C910071CF82 /* TBMStateDataSource.m in Sources */,
 				07E3C6E21B9A2C910071CF82 /* ZZVideoDomainModel.m in Sources */,
 				07E3C67E1B9A2C910071CF82 /* TBMFrontCameraUsageHintPresenter.m in Sources */,

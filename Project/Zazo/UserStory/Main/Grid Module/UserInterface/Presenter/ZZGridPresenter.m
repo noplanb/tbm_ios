@@ -10,14 +10,10 @@
 #import "ZZGridDataSource.h"
 #import "ANMemoryStorage.h"
 #import "ZZVideoRecorder.h"
-#import "ZZGridCenterCellViewModel.h"
-#import "ZZGridCenterCell.h"
-#import "ZZGridCollectionCell.h"
 #import "ZZVideoUtils.h"
-#import "ZZGridCellViewModel.h"
 #import "ZZSoundPlayer.h"
 
-@interface ZZGridPresenter () <ZZGridCellViewModellDelegate, ZZGridDataSourceDelegate>
+@interface ZZGridPresenter () <ZZGridCellViewModelDelegate, ZZGridDataSourceDelegate>
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
 @property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
@@ -58,6 +54,11 @@
 - (void)dataLoadedWithArray:(NSArray*)data
 {
     [self.dataSource setupWithModels:data];
+    
+    BOOL isSwitchCameraAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
+    [self.dataSource setupCenterViewModelShouldHandleCameraRotation:isSwitchCameraAvailable];
+    
+    [[ZZVideoRecorder shared] updateRecordView:[self.dataSource centerViewModel].recordView];
 }
 
 - (void)dataLoadingDidFailWithError:(NSError*)error
@@ -99,26 +100,51 @@
     //TODO:
 }
 
-- (void)recordingStateUpdateWithView:(UIView *)view toState:(BOOL)isEnabled
+- (void)recordingStateUpdateWithView:(UIView *)view toState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel
 {
+    ZZGridCenterCellViewModel* model = [self.dataSource centerViewModel];
     if (isEnabled && view)
     {
-        [[ZZVideoRecorder shared] startRecordingWithGridCell:view];
+        
+        if (viewModel.item.relatedUser && viewModel.item.relatedUser.idTbm)
+        {
+            NSURL* url = [ZZVideoUtils generateOutgoingVideoUrlWithFriend:viewModel.item.relatedUser];
+            [[ZZVideoRecorder shared] startRecordingWithVideoURL:url];
+            model.isRecording = YES;
+        }
     }
     
     [self.userInterface updateRollingStateTo:!isEnabled];
     [self.soundPlayer play];
+   
     if (isEnabled)
     {
         
-        [[self centerCell] showRecordingOverlay];
     }
     else
     {
-        [[self centerCell] hideRecordingOverlay];
+        model.isRecording = NO;
         [[ZZVideoRecorder shared] stopRecording];
     }
+    [self.dataSource reloadCenterCell];
 }
+
+
+//- (void)startRecordingWithGridCell:(ZZGridCollectionCell*)gridCell
+//{
+//    ZZGridCellViewModel* model = [gridCell model];
+//    if (model.item.relatedUser && model.item.relatedUser.idTbm)
+//    {
+//        [self.gridCell hideChangeCameraButton];
+//        self.recordVideoUrl = [ZZVideoUtils generateOutgoingVideoUrlWithFriend:model.item.relatedUser];
+//        [self startRecordingWithVideoUrl:self.recordVideoUrl];
+//        [self.recorder.session removeAllSegments];
+//        [self.recorder record];
+//    }
+//    [self.gridCell showRecordingOverlay];
+//}
+//
+
 
 - (ZZGridCenterCell*)centerCell
 {

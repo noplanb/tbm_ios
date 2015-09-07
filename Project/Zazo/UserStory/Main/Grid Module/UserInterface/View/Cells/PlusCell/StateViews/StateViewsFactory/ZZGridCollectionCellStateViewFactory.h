@@ -6,12 +6,11 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "ZZGridCollectionCellBaseStateView.h"
+#import "ZZGridStateView.h"
 
 @interface ZZGridCollectionCellStateViewFactory : NSObject
 
-- (ZZGridCollectionCellBaseStateView *)stateViewWithPresentedView:(UIView <ZZGridCollectionCellBaseStateViewDelegate> *)presentedView
++ (ZZGridStateView *)stateViewWithPresentedView:(UIView <ZZGridCollectionCellBaseStateViewDelegate> *)presentedView
                                                 withCellViewModel:(ZZGridCellViewModel *)cellViewModel;
 
 @end

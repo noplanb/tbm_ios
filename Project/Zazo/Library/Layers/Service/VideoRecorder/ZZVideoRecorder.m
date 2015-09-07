@@ -7,9 +7,8 @@
 //
 
 #import "ZZVideoRecorder.h"
-#import "ZZGridBaseCell.h"
 #import "ZZDeviceHandler.h"
-#import "ZZGridCollectionCell.h"
+#import "ZZGridCell.h"
 #import "ZZGridDomainModel.h"
 #import "ZZVideoUtils.h"
 #import "ZZFriendDomainModel.h"
@@ -25,9 +24,7 @@ static NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProces
 
 @interface ZZVideoRecorder () <SCRecorderDelegate>
 
-@property (nonatomic, strong) ZZGridCenterCell* gridCell;
 @property (nonatomic, assign) BOOL didCancelRecording;
-
 @property (nonatomic, strong) SCRecorder *recorder;
 @property (nonatomic, strong) NSURL* recordVideoUrl;
 
@@ -49,31 +46,23 @@ static NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProces
 {
     if (self = [super init])
     {
-        [self _setupRecorder];
+        self.recorder = [SCRecorder recorder];
+        self.recorder.delegate = self;
+        self.recorder.captureSessionPreset = AVCaptureSessionPresetLow;
+        
+        SCAudioConfiguration *audio = self.recorder.audioConfiguration;
+        audio.enabled = YES;
+        
+        SCVideoConfiguration *video = self.recorder.videoConfiguration;
+        video.enabled = YES;
+        video.scalingMode = AVVideoScalingModeResizeAspectFill;
+        
+        self.recorder.device = AVCaptureDevicePositionFront;
+        self.recorder.session = [SCRecordSession recordSession];
+        
+        [self.recorder startRunning];
     }
     return self;
-}
-
-- (void) _setupRecorder
-{
-    self.recorder = [SCRecorder recorder];
-    self.recorder.delegate = self;
-    
-    SCAudioConfiguration *audio = self.recorder.audioConfiguration;
-    audio.enabled = YES;
-    
-    self.recorder.captureSessionPreset = AVCaptureSessionPresetLow;
-    self.recorder.device = AVCaptureDevicePositionFront;
-    
-    SCVideoConfiguration *video = self.recorder.videoConfiguration;
-    video.enabled = YES;
-
-    video.scalingMode = AVVideoScalingModeResizeAspectFill;
-    self.recorder.device = AVCaptureDevicePositionFront;
-    self.recorder.session = [SCRecordSession recordSession];
-
-    [self.recorder startRunning];
-
 }
 
 - (BOOL)areBothCamerasAvailable
@@ -81,61 +70,51 @@ static NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProces
     return [ZZDeviceHandler areBothCamerasAvailable];
 }
 
-- (void)switchToFrontCamera
+- (void)switchCamera
 {
-    self.recorder.device = AVCaptureDevicePositionFront;
+    if ([self areBothCamerasAvailable])
+    {
+        BOOL isFrontCamera = (self.recorder.device = AVCaptureDevicePositionFront);
+        AVCaptureDevicePosition camera = isFrontCamera ? AVCaptureDevicePositionBack : AVCaptureDevicePositionFront;
+        self.recorder.device = camera;
+    }
 }
-
-- (void)switchToBackCamera
-{
-    self.recorder.device = AVCaptureDevicePositionBack;
-}
-
 
 
 #pragma mark - Public Methods
 
-- (void)updateViewGridCell:(ZZGridBaseCell *)cell
+- (void)updateRecordView:(UIView*)recordView
 {
-    self.gridCell = (ZZGridCenterCell* )cell;
-    UIView* videoView = [self.gridCell topView];
-    videoView.frame = self.gridCell.frame;
-    self.recorder.previewView = videoView;
+    self.recorder.previewView = recordView;
+}
+
+- (void)startRecordingWithVideoURL:(NSURL*)url
+{
+    [self _startRecordingWithVideoUrl:url];
+    [self.recorder.session removeAllSegments];
+    [self.recorder record];
 }
 
 
 #pragma mark - Start Recording
 
-- (void)startRecordingWithGridCell:(ZZGridCollectionCell*)gridCell
+- (void)_startRecordingWithVideoUrl:(NSURL *)videoUrl
 {
-    ZZGridCellViewModel* model = [gridCell model];
-    if (model.item.relatedUser && model.item.relatedUser.idTbm)
-    {
-        [self.gridCell hideChangeCameraButton];
-         self.recordVideoUrl = [ZZVideoUtils generateOutgoingVideoUrlWithFriend:model.item.relatedUser];
-         [self startRecordingWithVideoUrl:self.recordVideoUrl];
-         [self.recorder.session removeAllSegments];
-         [self.recorder record];
-    }
-}
-
-- (void)startRecordingWithVideoUrl:(NSURL *)videoUrl
-{
+    self.recordVideoUrl = videoUrl;
     self.didCancelRecording = NO;
     [[NSFileManager defaultManager] removeItemAtURL:videoUrl error:nil];
-    [self.gridCell showRecordingOverlay];
 }
+
 
 #pragma mark - Stop Recording
 
 - (void)stopRecording
 {
-    [self.gridCell showChangeCameraButton];
-    [self.gridCell hideRecordingOverlay];
     [self.recorder pause];
 }
 
-- (void)recorder:(SCRecorder *)recorder didCompleteSegment:(SCRecordSessionSegment *)segment inSession:(SCRecordSession *)recordSession error:(NSError *)error
+- (void)recorder:(SCRecorder*)recorder didCompleteSegment:(SCRecordSessionSegment*)segment
+       inSession:(SCRecordSession*)recordSession error:(NSError*)error
 {
  
     AVAsset *asset = recordSession.assetRepresentingSegments;
@@ -164,16 +143,16 @@ static NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProces
             {
                 NSLog(@"not exitst");
             }
-
-        } else {
+        }
+        else
+        {
             [self handleError:assetExportSession.error dispatch:YES];
         }
     }];
 }
 
-- (void)handleError:(NSError *)error dispatch:(BOOL)dispatch
+- (void)handleError:(NSError*)error dispatch:(BOOL)dispatch
 {
-    
     [[NSFileManager defaultManager] removeItemAtURL:self.recordVideoUrl error:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kVideoProcessorDidFail
                                                         object:self
@@ -184,11 +163,11 @@ static NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProces
 {
     if (error == nil)
     {
-        return @{@"videoUrl":self.recordVideoUrl};
+        return @{@"videoUrl" : self.recordVideoUrl};
     }
     else
     {
-        return @{@"videoUrl":self.recordVideoUrl, @"error": error};
+        return @{@"videoUrl" : self.recordVideoUrl, @"error": error};
     }
 }
 

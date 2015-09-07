@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZGridCollectionCellBaseStateView.h"
+#import "ZZGridStateView.h"
 
-@interface ZZGridCollectionCellBaseStateView (Animation)
+@interface ZZGridStateView (Animation)
 
 - (void)_showUploadAnimation;
 - (void)_showDownloadAnimationWithNewVideoCount:(NSInteger)count;

@@ -7,7 +7,7 @@
 //
 
 #import "ZZTouchObserver.h"
-#import "ZZGridCollectionCell.h"
+#import "ZZGridCell.h"
 #import "ZZFakeRotationCell.h"
 
 #import "ANSectionModel.h"
@@ -138,9 +138,9 @@
 - (void)updateFakeViewImages
 {
     [[self.collectionView visibleCells] enumerateObjectsUsingBlock:^(UICollectionViewCell* obj, NSUInteger idx, BOOL *stop) {
-        if ([obj isKindOfClass:[ZZGridCollectionCell class]])
+        if ([obj isKindOfClass:[ZZGridCell class]])
         {
-            ZZGridCollectionCell* gridCell = (ZZGridCollectionCell*)obj;
+            ZZGridCell* gridCell = (ZZGridCell*)obj;
             [gridCell makeActualScreenShoot];
             
             [self.movingViewArray enumerateObjectsUsingBlock:^(ZZFakeRotationCell* fakeCell, NSUInteger idx, BOOL *stop) {
@@ -170,10 +170,10 @@
 - (void)hideMovingCell
 {
     [[self.collectionView visibleCells] enumerateObjectsUsingBlock:^(UICollectionViewCell* cell, NSUInteger idx, BOOL *stop) {
-        if ([cell isKindOfClass:[ZZGridCollectionCell class]])
+        if ([cell isKindOfClass:[ZZGridCell class]])
         {
             cell.hidden = YES;
-            ZZGridCollectionCell* gridCell = (ZZGridCollectionCell *)cell;
+            ZZGridCell* gridCell = (ZZGridCell *)cell;
             [gridCell stopVideoPlaying];
         }
     }];
@@ -182,7 +182,7 @@
 - (void)showMovingCell
 {
     [[self.collectionView visibleCells] enumerateObjectsUsingBlock:^(UICollectionViewCell* cell, NSUInteger idx, BOOL *stop) {
-        if ([cell isKindOfClass:[ZZGridCollectionCell class]])
+        if ([cell isKindOfClass:[ZZGridCell class]])
         {
             cell.hidden = NO;
         }
@@ -203,7 +203,7 @@
         
         [[self.collectionView visibleCells] enumerateObjectsUsingBlock:^(UICollectionViewCell* cell, NSUInteger idx, BOOL *stop) {
             
-            if ([cell isKindOfClass:[ZZGridCollectionCell class]])
+            if ([cell isKindOfClass:[ZZGridCell class]])
             {
                 [self.movingViewArray enumerateObjectsUsingBlock:^(ZZFakeRotationCell* fakeCell, NSUInteger idx, BOOL *stop) {
                     if (CGRectIntersectsRect(cell.frame, fakeCell.frame))

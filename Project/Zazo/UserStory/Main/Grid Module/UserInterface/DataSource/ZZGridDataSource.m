@@ -14,7 +14,7 @@
 
 static NSInteger const kGridCenterCellIndex = 4;
 
-@interface ZZGridDataSource () <ZZGridCellViewModellDelegate>
+@interface ZZGridDataSource () <ZZGridCellViewModelDelegate, ZZGridCenterCellViewModelDelegate>
 
 @property (nonatomic, strong) ZZGridCellViewModel* selectedCellViewModel;
 
@@ -42,9 +42,6 @@ static NSInteger const kGridCenterCellIndex = 4;
     }] array];
     
     [self.storage addItems:models];
-    
-    ZZGridCenterCellViewModel* model = [ZZGridCenterCellViewModel new];
-    [self.storage addItem:model atIndexPath:[self _centerCellIndexPath]];
 }
 
 - (void)selectedViewModelUpdatedWithItem:(ZZGridDomainModel*)model
@@ -59,25 +56,44 @@ static NSInteger const kGridCenterCellIndex = 4;
     [self.delegate itemSelectedWithModel:self.selectedCellViewModel];
 }
 
+- (void)setupCenterViewModelShouldHandleCameraRotation:(BOOL)shouldHandleRotation
+{
+    ZZGridCenterCellViewModel* model = [ZZGridCenterCellViewModel new];
+    model.isChangeButtonAvailable = shouldHandleRotation;
+    model.delegate = self;
+    [self.storage addItem:model atIndexPath:[self _centerCellIndexPath]];
+}
+
+- (ZZGridCenterCellViewModel*)centerViewModel
+{
+    return [self.storage objectAtIndexPath:[self _centerCellIndexPath]];
+}
+
+- (void)reloadCenterCell
+{
+    [self.storage reloadItem:[self centerViewModel]];
+}
 
 #pragma mark - ViewModel Delegate
 
 - (void)startRecordingWithView:(id)view
 {
-//    [[self centerCell] showRecordingOverlay]; // TODO:
-    
     [self.delegate recordingStateUpdateWithView:view toState:YES];
 }
 
 - (void)stopRecording
 {
-//    [[self centerCell] hideRecordingOverlay]; //TODO:
     [self.delegate recordingStateUpdateWithView:nil toState:NO];
 }
 
 - (void)nudgeSelectedWithUserModel:(id)userModel
 {
     [self.delegate nudgeSelectedWithUserModel:userModel];
+}
+
+- (void)switchCamera
+{
+    [self.delegate switchCamera];
 }
 
 #pragma mark - Private

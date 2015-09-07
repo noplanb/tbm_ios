@@ -29,7 +29,7 @@ static CGFloat const kHiddenAlphaValue = 0.0;
 
 @end
 
-@interface ZZGridCollectionCellBaseStateView : UIView
+@interface ZZGridStateView : UIView
 
 @property (nonatomic, strong) UIView* containFriendView;
 

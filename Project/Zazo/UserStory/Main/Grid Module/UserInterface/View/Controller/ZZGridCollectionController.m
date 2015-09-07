@@ -7,7 +7,7 @@
 //
 
 #import "ZZGridCollectionController.h"
-#import "ZZGridCollectionCell.h"
+#import "ZZGridCell.h"
 #import "ZZGridCenterCell.h"
 #import "ZZGridDomainModel.h"
 #import "ZZGridCenterCellViewModel.h"
@@ -32,7 +32,7 @@ static NSInteger const kCenterCellIndex = 4;
 {
     if (self = [super initWithCollectionView:collectionView])
     {
-        [self registerCellClass:[ZZGridCollectionCell class] forModelClass:[ZZGridCellViewModel class]];
+        [self registerCellClass:[ZZGridCell class] forModelClass:[ZZGridCellViewModel class]];
         [self registerCellClass:[ZZGridCenterCell class] forModelClass:[ZZGridCenterCellViewModel class]];
     }
     
@@ -59,9 +59,9 @@ static NSInteger const kCenterCellIndex = 4;
     
     id cell = [collectionView cellForItemAtIndexPath:indexPath];
     
-    if ([cell isKindOfClass:[ZZGridCollectionCell class]])
+    if ([cell isKindOfClass:[ZZGridCell class]])
     {
-        ZZGridCollectionCell* gridCell = (ZZGridCollectionCell*)cell;
+        ZZGridCell* gridCell = (ZZGridCell*)cell;
         ZZGridCellViewModel* model = [gridCell model];
         isHasUser = (model.item.relatedUser != nil);
     }
@@ -92,9 +92,9 @@ static NSInteger const kCenterCellIndex = 4;
 {
     [[self.collectionView visibleCells] enumerateObjectsUsingBlock:^(UICollectionViewCell* cell, NSUInteger idx, BOOL *stop) {
        
-        if ([cell isKindOfClass:[ZZGridCollectionCell class]])
+        if ([cell isKindOfClass:[ZZGridCell class]])
         {
-            ZZGridCollectionCell* gridCell = (ZZGridCollectionCell *)cell;
+            ZZGridCell* gridCell = (ZZGridCell *)cell;
             ZZGridCellViewModel* cellModel = [gridCell model];
             if ([cellModel.item.relatedUser isEqual:friendModel])
             {

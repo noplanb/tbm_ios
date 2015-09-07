@@ -8,7 +8,7 @@
 
 #import "ZZGridView.h"
 #import "ZZGridCollectionLayout.h"
-#import "ZZGridCollectionCell.h"
+#import "ZZGridCell.h"
 
 #define IS_IPHONE_4             ([[UIScreen mainScreen] bounds].size.height == 480.0f)
 

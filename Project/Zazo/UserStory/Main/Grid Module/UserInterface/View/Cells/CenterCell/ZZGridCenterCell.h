@@ -6,12 +6,9 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import "ZZGridBaseCell.h"
 #import "ZZGridCenterCellViewModel.h"
+#import "ANCollectionViewCell.h"
 
-@interface ZZGridCenterCell : ZZGridBaseCell
-
-- (void)showChangeCameraButton;
-- (void)hideChangeCameraButton;
+@interface ZZGridCenterCell : ANCollectionViewCell
 
 @end

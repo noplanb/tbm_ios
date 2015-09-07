@@ -7,9 +7,9 @@
 //
 
 #import "ANCollectionViewCell.h"
-#import "ZZGridBaseCell.h"
+#import "ZZGridCellViewModel.h"
 
-@interface ZZGridCollectionCell : ZZGridBaseCell
+@interface ZZGridCell : ANCollectionViewCell
 
 - (UIImage*)actualSateImage;
 - (void)makeActualScreenShoot;

@@ -6,20 +6,16 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-@class ZZGridBaseCell, ZZGridCollectionCell;
-
 @interface ZZVideoRecorder : NSObject
 
 + (instancetype)shared;
 
-- (void)startRecordingWithVideoUrl:(NSURL *)videoUrl;
+- (void)updateRecordView:(UIView*)recordView;
+- (void)startRecordingWithVideoURL:(NSURL*)url;
+
 - (void)stopRecording;
 
-
-- (void)updateViewGridCell:(ZZGridBaseCell *)cell;
-- (void)startRecordingWithGridCell:(ZZGridCollectionCell*)gridCell;
 - (BOOL)areBothCamerasAvailable;
-- (void)switchToFrontCamera;
-- (void)switchToBackCamera;
+- (void)switchCamera;
 
 @end

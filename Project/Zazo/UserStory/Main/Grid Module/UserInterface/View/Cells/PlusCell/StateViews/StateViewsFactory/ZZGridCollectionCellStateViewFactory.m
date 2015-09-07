@@ -11,14 +11,12 @@
 #import "ZZGridCollectionCellRecordStateView.h"
 #import "ZZGridCollectionCellPreviewStateView.h"
 
-
 @implementation ZZGridCollectionCellStateViewFactory
 
-
-- (ZZGridCollectionCellBaseStateView *)stateViewWithPresentedView:(UIView <ZZGridCollectionCellBaseStateViewDelegate> *)presentedView
++ (ZZGridStateView *)stateViewWithPresentedView:(UIView <ZZGridCollectionCellBaseStateViewDelegate> *)presentedView
                                                 withCellViewModel:(ZZGridCellViewModel *)cellViewModel
 {
-    ZZGridCollectionCellBaseStateView* stateView;
+    ZZGridStateView* stateView;
     
     if (cellViewModel.item.relatedUser.videos.count > 0) // TODO: this condition only for test!, change it later
     {

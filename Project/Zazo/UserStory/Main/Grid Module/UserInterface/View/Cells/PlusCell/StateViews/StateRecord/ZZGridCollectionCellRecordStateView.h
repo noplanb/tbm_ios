@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZGridCollectionCellBaseStateView.h"
+#import "ZZGridStateView.h"
 
-@interface ZZGridCollectionCellRecordStateView : ZZGridCollectionCellBaseStateView
+@interface ZZGridCollectionCellRecordStateView : ZZGridStateView
 
 @end

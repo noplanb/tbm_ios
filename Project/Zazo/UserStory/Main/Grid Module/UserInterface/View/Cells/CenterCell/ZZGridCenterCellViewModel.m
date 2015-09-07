@@ -10,4 +10,18 @@
 
 @implementation ZZGridCenterCellViewModel
 
+- (void)switchCamera
+{
+    [self.delegate switchCamera];
+}
+
+- (BOOL)shouldShowSwitchCameraButton
+{
+    if (self.isRecording)
+    {
+        return YES;
+    }
+    return self.isChangeButtonAvailable;
+}
+
 @end
