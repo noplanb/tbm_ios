@@ -29,21 +29,18 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
 
 @implementation ZZGridCenterCell
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (void)layoutSubviews
 {
-    self = [super initWithFrame:frame];
-    if (self)
-    {
-        [self _setupRecordingOverlay];
-    }
-    return self;
+    [super layoutSubviews];
+    
+    self.recordingOverlay.frame = self.contentView.bounds;
 }
 
 - (void)updateWithModel:(ZZGridCenterCellViewModel*)model
 {
     self.model = model;
     ANDispatchBlockToMainQueue(^{
-        self.switchCameraButton.hidden = [model shouldShowSwitchCameraButton];
+        self.switchCameraButton.hidden = ![model shouldShowSwitchCameraButton];
         if (model.isRecording)
         {
             [self _showRecordingOverlay];
@@ -84,31 +81,11 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
 - (void)setupVideoViewWithView:(UIView*)view
 {
     self.videoView = view;
-    [self.contentView addSubview:self.videoView];
+    [self.contentView addSubview:view];
     
-    [_videoView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.videoView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.contentView);
     }];
-}
-
-- (void)_setupRecordingOverlay
-{
-    [self _addRedBorderAndDot];
-    [self recordingLabel];
-}
-
-- (void)_addRedBorderAndDot
-{
-    self.recordingOverlay = [CALayer layer];
-    self.recordingOverlay.hidden = YES;
-    self.recordingOverlay.frame = self.bounds;
-    self.recordingOverlay.cornerRadius = 2;
-    self.recordingOverlay.backgroundColor = [UIColor clearColor].CGColor;
-    self.recordingOverlay.borderWidth = kLayoutConstRecordingBorderWidth;
-    self.recordingOverlay.borderColor = [UIColor redColor].CGColor;
-    self.recordingOverlay.zPosition = 100;
-    [self.contentView.layer addSublayer:self.recordingOverlay];
-    [self.recordingOverlay setNeedsDisplay];
 }
 
 
@@ -155,6 +132,23 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
         }];
     }
     return _recordingLabel;
+}
+
+- (CALayer*)recordingOverlay
+{
+    if (!_recordingOverlay)
+    {
+        _recordingOverlay = [CALayer layer];
+        _recordingOverlay.hidden = YES;
+        _recordingOverlay.frame = self.bounds;
+        _recordingOverlay.cornerRadius = 2;
+        _recordingOverlay.backgroundColor = [UIColor clearColor].CGColor;
+        _recordingOverlay.borderWidth = kLayoutConstRecordingBorderWidth;
+        _recordingOverlay.borderColor = [UIColor redColor].CGColor;
+        _recordingOverlay.zPosition = 100;
+        [self.contentView.layer addSublayer:_recordingOverlay];
+    }
+    return _recordingOverlay;
 }
 
 @end
