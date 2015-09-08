@@ -141,14 +141,14 @@
         if ([obj isKindOfClass:[ZZGridCell class]])
         {
             ZZGridCell* gridCell = (ZZGridCell*)obj;
-            [gridCell makeActualScreenShoot];
+//            [gridCell makeActualScreenShoot];
             
             [self.movingViewArray enumerateObjectsUsingBlock:^(ZZFakeRotationCell* fakeCell, NSUInteger idx, BOOL *stop) {
                 if (CGRectContainsPoint(gridCell.frame, fakeCell.center))
                 {
-                    fakeCell.stateImageView.image = [gridCell actualSateImage];
                     ZZGridCellViewModel* cellModel = [gridCell model];
                     [fakeCell updateBadgeWithNumber:cellModel.badgeNumber];
+                    fakeCell.stateImageView.image = [self _screenshotFromView:gridCell];
                 }
             }];
         }
@@ -174,7 +174,7 @@
         {
             cell.hidden = YES;
             ZZGridCell* gridCell = (ZZGridCell *)cell;
-            [gridCell stopVideoPlaying];
+//            [gridCell stopVideoPlaying]; // TODO:
         }
     }];
 }
@@ -238,5 +238,17 @@
     }
     
 }
+
+- (UIImage*)_screenshotFromView:(UIView*)view
+{
+    CGFloat scale = [UIScreen mainScreen].scale;
+    UIGraphicsBeginImageContextWithOptions(view.frame.size, NO, scale);
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
 
 @end

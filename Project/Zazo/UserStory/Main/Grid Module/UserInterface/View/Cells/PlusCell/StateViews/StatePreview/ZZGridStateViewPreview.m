@@ -6,26 +6,23 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZGridCollectionCellPreviewStateView.h"
+#import "ZZGridStateViewPreview.h"
 
-@interface ZZGridCollectionCellPreviewStateView ()
+@interface ZZGridStateViewPreview ()
 
 @property (nonatomic, strong) UIImageView* thumbnailImageView;
 @property (nonatomic, strong) UILabel* userNameLabel;
-@property (nonatomic, strong) UIImage* thumbnailImage;
-@property (nonatomic, strong) UITapGestureRecognizer* tapRecognizer;
 @property (nonatomic, assign) BOOL isVideoPlaying;
 
 @end
 
-@implementation ZZGridCollectionCellPreviewStateView
+@implementation ZZGridStateViewPreview
 
 - (instancetype)init
 {
     self = [super init];
     if (self)
     {
-        [self _setupRecognizer];
         [self thumbnailImageView];
         [self userNameLabel];
         [self containFriendView];
@@ -35,21 +32,31 @@
 
 - (void)updateWithModel:(ZZGridCellViewModel*)model
 {
-    self.thumbnailImage = [self _generateThumbWithVideoUrl:[[model.item.relatedUser.videos allObjects] firstObject]];// TODO: for test
+    [super updateWithModel:model];
+    self.thumbnailImageView.image = [model videoThumbnailImage];
+    self.userNameLabel.text = [model firstName];
+}
+
+- (void)_startVideo:(UITapGestureRecognizer *)recognizer
+{
+    if (!self.superview.isHidden)
+    {
+        [self.model updateVideoPlayingStateTo:YES];
+    }
 }
 
 
 #pragma mark - Lazy Load
 
-- (UIImageView *)thumbnailImageView
+- (UIImageView*)thumbnailImageView
 {
     if (!_thumbnailImageView)
     {
         _thumbnailImageView = [UIImageView new];
-        _thumbnailImageView.image = self.thumbnailImage;
         _thumbnailImageView.backgroundColor = [UIColor whiteColor];
         _thumbnailImageView.userInteractionEnabled = YES;
-        [_thumbnailImageView addGestureRecognizer:self.tapRecognizer];
+        UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_startVideo:)];
+        [_thumbnailImageView addGestureRecognizer:tap];
         [self addSubview:_thumbnailImageView];
         
         [_thumbnailImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -59,36 +66,22 @@
     return _thumbnailImageView;
 }
 
-- (UILabel *)userNameLabel
+- (UILabel*)userNameLabel
 {
     if (!_userNameLabel)
     {
         _userNameLabel = [UILabel new];
         _userNameLabel.textAlignment = NSTextAlignmentCenter;
         _userNameLabel.textColor = [UIColor whiteColor];
-        _userNameLabel.text = self.friendModel.firstName;
         _userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
         [self addSubview:_userNameLabel];
         
         [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self);
-            make.height.equalTo(@(CGRectGetHeight(self.presentedView.frame)/kUserNameScaleValue));
+            make.height.equalTo(self).dividedBy(kUserNameScaleValue);
         }];
     }
     return _userNameLabel;
-}
-
-- (void)_setupRecognizer
-{
-    self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_startVideo:)];
-}
-
-- (void)_startVideo:(UITapGestureRecognizer *)recognizer
-{
-    if (!self.superview.isHidden)
-    {
-        [self startPlayVideo];
-    }
 }
 
 @end

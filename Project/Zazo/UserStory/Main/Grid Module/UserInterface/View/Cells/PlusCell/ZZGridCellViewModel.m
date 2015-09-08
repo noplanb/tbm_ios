@@ -20,15 +20,38 @@
 
 @implementation ZZGridCellViewModel
 
-- (void)startRecordingWithView:(UIView*)view
+- (void)updateRecordingStateTo:(BOOL)isRecording
 {
-    [self.delegate recordingStateUpdatedToState:YES viewModel:self];
+    [self.delegate recordingStateUpdatedToState:isRecording viewModel:self];
 }
 
-- (void)stopRecording
+//- (void)stopRecording
+//{
+//    [self.delegate recordingStateUpdatedToState:NO viewModel:self];
+////    self.hasUploadedVideo = YES; // TODO:
+//}
+
+- (ZZGridCellViewModelState)state
 {
-    [self.delegate recordingStateUpdatedToState:NO viewModel:self];
-//    self.hasUploadedVideo = YES; // TODO:
+    if (self.item.relatedUser.videos.count > 0) // TODO: this condition only for test!, change it later
+    {
+        return ZZGridCellViewModelStateIncomingVideoNotViewed;
+    }
+    else if (self.item.relatedUser.hasApp)
+    {
+        return ZZGridCellViewModelStateFriendHasApp;
+    }
+    else if (!self.item.relatedUser.hasApp)
+    {
+        return ZZGridCellViewModelStateFriendHasNoApp;
+    }
+    
+    return 0;
+}
+
+- (void)updateVideoPlayingStateTo:(BOOL)isPlaying
+{
+    [self.delegate playingStateUpdatedToState:isPlaying viewModel:self];
 }
 
 - (void)nudgeSelected
@@ -56,13 +79,18 @@
     return [self _generateThumbWithVideoUrl:[[self playerVideoURLs] firstObject]];
 }
 
+- (UIImage *)videoThumbnailImage
+{
+    return [self _generateThumbWithVideoUrl:[[self.item.relatedUser.videos allObjects] firstObject]];
+}
+
 
 #pragma mark - Private
 
 - (UIImage *)_generateThumbWithVideoUrl:(NSURL *)videoUrl
 {
     AVAsset *asset = [AVAsset assetWithURL:videoUrl];
-    AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc]initWithAsset:asset];
+    AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
     imageGenerator.appliesPreferredTrackTransform = YES;
     CMTime duration = asset.duration;
     CMTime secondsFromEnd = CMTimeMake(2, 1);

@@ -89,7 +89,7 @@
     if ([[anim class] isSubclassOfClass:[POPDecayAnimation class]])
     {
         CGFloat velocity = [((POPDecayAnimation *) anim).velocity floatValue];
-        if (fabsf(velocity) < grid.rotator.velocityOfBounce * 7.5f)
+        if (fabs(velocity) < grid.rotator.velocityOfBounce * 7.5f)
         {
             CGFloat angle = [((POPDecayAnimation *) anim).toValue floatValue];
             angle = [ZZGeometryHelper normalizedAngle:angle onGrid:grid];

@@ -8,6 +8,6 @@
 
 #import "ZZGridStateView.h"
 
-@interface ZZGridCollectionCellRecordStateView : ZZGridStateView
+@interface ZZGridStateViewRecord : ZZGridStateView
 
 @end

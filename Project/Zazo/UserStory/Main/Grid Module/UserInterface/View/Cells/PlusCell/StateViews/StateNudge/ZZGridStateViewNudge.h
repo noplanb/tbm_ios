@@ -1,5 +1,5 @@
 //
-//  ZZGridCollectionCellPreviewView.h
+//  ZZGridCollectionNudgeView.h
 //  Zazo
 //
 //  Created by ANODA on 02/09/15.
@@ -8,6 +8,6 @@
 
 #import "ZZGridStateView.h"
 
-@interface ZZGridCollectionCellPreviewStateView : ZZGridStateView
+@interface ZZGridStateViewNudge : ZZGridStateView
 
 @end

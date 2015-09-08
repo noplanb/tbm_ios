@@ -7,7 +7,7 @@
 //
 
 #import "ZZGridStateView.h"
-#import "ZZGridCollectionCellBaseStateView+Animation.h"
+#import "ZZGridStateView+Animation.h"
 #import "ZZVideoPlayer.h"
 
 @interface ZZGridStateView ()
@@ -16,24 +16,19 @@
 
 @implementation ZZGridStateView
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        self.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
+    }
+    return self;
+}
+
 - (void)updateWithModel:(ZZGridCellViewModel*)model
 {
     self.model = model;
-    
-}
-
-- (instancetype)initWithPresentedView:(UIView <ZZGridCollectionCellBaseStateViewDelegate> *)presentedView
-                            withModel:(ZZGridCellViewModel *)cellViewModel;
-{
-    if (self = [super init])
-    {
-        self.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
-        
-        //    [self.presentedView sendSubviewToBack:self];
-        
-
-    }
-    return self;
 }
 
 
@@ -42,9 +37,8 @@
 - (CGFloat)_indicatorCalculatedWidth
 {
     return fminf(kLayoutConstIndicatorMaxWidth,
-                 kLayoutConstIndicatorFractionalWidth * CGRectGetWidth(self.presentedView.frame));
+                 kLayoutConstIndicatorFractionalWidth * CGRectGetWidth(self.bounds));
 }
-
 
 
 #pragma mark - Animation part
@@ -67,10 +61,9 @@
     }
     else
     {
-        [self _hideVieoCountLabel];
+        [self _hideVideoCountLabel];
     }
 }
-
 
 - (void)showUploadIconWithoutAnimation
 {
@@ -106,8 +99,10 @@
     [UIView animateWithDuration:kContainFriendAnimationDuration
                           delay:kContainFreindDelayDuration
                         options:UIViewAnimationOptionLayoutSubviews animations:^{
-                            self.containFriendView.alpha = kShowedingAlphaValue;
+                            self.containFriendView.alpha = 1;
+                       
                         } completion:^(BOOL finished) {
+                        
                             [self _hideContainFriendAnimation];
                         }];
 }
@@ -115,9 +110,12 @@
 - (void)_hideContainFriendAnimation
 {
     [UIView animateWithDuration:kContainFriendAnimationDuration animations:^{
-        self.containFriendView.alpha = kHiddenAlphaValue;
+        self.containFriendView.alpha = 0;
     }];
 }
+
+
+#pragma mark - Lazy Load
 
 - (UIImageView*)uploadingIndicator
 {
@@ -215,17 +213,16 @@
         _videoCountLabel.layer.masksToBounds = YES;
         _videoCountLabel.hidden = YES;
         _videoCountLabel.textColor = [UIColor whiteColor];
-        
         _videoCountLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_videoCountLabel];
+        
         [_videoCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self).with.offset(3);
-            make.top.equalTo(self).with.offset(-3);
+            make.right.equalTo(self).offset(3);
+            make.top.equalTo(self).offset(-3);
             make.height.equalTo(@(kVideoCountLabelWidth));
             make.width.equalTo(@(kVideoCountLabelWidth));
         }];
     }
-    
     return _videoCountLabel;
 }
 

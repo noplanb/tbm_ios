@@ -17,7 +17,9 @@
 
 - (void)itemSelectedWithModel:(ZZGridCellViewModel*)model;
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel;
+- (void)toggleVideoWithViewModel:(ZZGridCellViewModel*)model toState:(BOOL)state;
 - (void)nudgeSelectedWithUserModel:(id)userModel;
+
 - (void)switchCamera;
 
 @end

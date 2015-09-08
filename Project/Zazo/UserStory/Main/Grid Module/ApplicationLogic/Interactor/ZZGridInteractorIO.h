@@ -13,7 +13,6 @@
 - (void)loadData;
 - (void)selectedPlusCellWithModel:(id)model;
 - (void)selectedUserWithModel:(id)model;
-- (NSInteger)centerCellIndex;
 - (void)loadFeedbackModel;
 
 @end

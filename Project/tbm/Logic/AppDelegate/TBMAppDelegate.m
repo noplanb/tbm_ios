@@ -40,7 +40,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [self.appDependencies initialApplicationSetup:application launchOptions:launchOptions];
+#ifndef DEBUG
     [TBMDispatch startRollBar];
+#endif
     self.pushAlreadyFailed = NO;
     [self setupLogger];
     [self addObservers];

@@ -11,13 +11,7 @@
 
 @interface ZZGridCell : ANCollectionViewCell
 
-- (UIImage*)actualSateImage;
-- (void)makeActualScreenShoot;
 - (void)showContainFriendAnimation;
 - (void)showUploadVideoAnimationWithCount:(NSInteger)count;
-
-- (void)videoDownloadedWithUrl:(NSURL *)videoUrl;
-- (void)stopVideoPlaying;
-- (void)startVidePlay;
 
 @end

@@ -6,27 +6,23 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZGridCollectionNudgeStateView.h"
+#import "ZZGridStateViewNudge.h"
 
-@interface ZZGridCollectionNudgeStateView ()
+@interface ZZGridStateViewNudge ()
 
 @property (nonatomic, strong) UIButton* nudgeButton;
 @property (nonatomic, strong) UILabel* recordView;
 @property (nonatomic, strong) UILabel* userNameLabel;
-@property (nonatomic, strong) UILongPressGestureRecognizer* recordRecognizer;
 
 @end
 
-@implementation ZZGridCollectionNudgeStateView
+@implementation ZZGridStateViewNudge
 
 - (instancetype)init
 {
     self = [super init];
     if (self)
     {
-        self.recordRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_recordPressed:)];
-        self.recordRecognizer.minimumPressDuration = .5;
-        
         [self nudgeButton];
         [self userNameLabel];
         [self recordView];
@@ -51,27 +47,10 @@
     self.userNameLabel.text = [model firstName];
 }
 
-- (instancetype)initWithPresentedView:(UIView<ZZGridCollectionCellBaseStateViewDelegate>*)presentedView
-                            withModel:(ZZGridCellViewModel*)cellViewModel
-{
-    self = [super initWithPresentedView:presentedView withModel:cellViewModel];
-    if (self)
-    {
-//        self.buttonHeight = ((CGRectGetHeight(presentedView.frame) -
-//                              CGRectGetHeight(presentedView.frame) / kUserNameScaleValue)/2) - kSidePadding;
-        
-
-        
-//        [self _updateViewStateWithModel:cellViewModel];
-    }
-    
-    return self;
-}
-
 
 #pragma mark - Actions
 
-- (void)nudge
+- (void)_nudge
 {
     [self.model nudgeSelected];
 }
@@ -79,15 +58,15 @@
 
 #pragma mark - Private
 
-- (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer
+- (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer //TODO: copy paste
 {
     if (recognizer.state == UIGestureRecognizerStateBegan)
     {
-        [self.model startRecordingWithView:nil]; // TODO:
+        [self.model updateRecordingStateTo:YES];
     }
     else if (recognizer.state == UIGestureRecognizerStateEnded)
     {
-        [self.model stopRecording];
+        [self.model updateRecordingStateTo:NO];
         [self showUploadAnimation];
     }
 }
@@ -120,7 +99,7 @@
         [_nudgeButton.titleLabel setFont:[UIFont an_boldFontWithSize:16]];
         [_nudgeButton setTitle:NSLocalizedString(@"grid-controller.nudge.title", nil) forState:UIControlStateNormal];
         [_nudgeButton setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-        [_nudgeButton addTarget:self action:@selector(nudge) forControlEvents:UIControlEventTouchUpInside];
+        [_nudgeButton addTarget:self action:@selector(_nudge) forControlEvents:UIControlEventTouchUpInside];
         _nudgeButton.backgroundColor = [UIColor blackColor];
         [self addSubview:_nudgeButton];
         
@@ -144,7 +123,12 @@
         _recordView.textAlignment = NSTextAlignmentCenter;
         _recordView.backgroundColor = [UIColor blackColor];
         _recordView.userInteractionEnabled = YES;
-        [_recordView addGestureRecognizer:self.recordRecognizer];
+        
+        UILongPressGestureRecognizer* press = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                                                            action:@selector(_recordPressed:)];
+        press.minimumPressDuration = .5;
+        
+        [_recordView addGestureRecognizer:press];
         [self addSubview:_recordView];
         
         [_recordView mas_makeConstraints:^(MASConstraintMaker *make) {

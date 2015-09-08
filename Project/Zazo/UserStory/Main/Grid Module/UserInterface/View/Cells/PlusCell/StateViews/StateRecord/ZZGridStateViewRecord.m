@@ -6,24 +6,22 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZGridCollectionCellRecordStateView.h"
+#import "ZZGridStateViewRecord.h"
 
-@interface ZZGridCollectionCellRecordStateView ()
+@interface ZZGridStateViewRecord ()
 
 @property (nonatomic, strong) UILabel* userNameLabel;
 @property (nonatomic, strong) UILabel* recordView;
-@property (nonatomic, strong) UILongPressGestureRecognizer* recordRecognizer;
 
 @end
 
-@implementation ZZGridCollectionCellRecordStateView
+@implementation ZZGridStateViewRecord
 
 - (instancetype)init
 {
     self = [super init];
     if (self)
     {
-        [self _setupRecognizer];
         [self userNameLabel];
         [self recordView];
         [self containFriendView];
@@ -49,24 +47,15 @@
 
 #pragma mark - Private
 
-- (void)_setupRecognizer
-{
-    self.recordRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_recordPressed:)];
-    self.recordRecognizer.minimumPressDuration = .5;
-}
-
-
-#pragma mark - Actions
-
 - (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer
 {
     if (recognizer.state == UIGestureRecognizerStateBegan)
     {
-        [self.model startRecordingWithView:nil]; //TODO:
+        [self.model updateRecordingStateTo:YES];
     }
     else if (recognizer.state == UIGestureRecognizerStateEnded)
     {
-        [self.model stopRecording];
+        [self.model updateRecordingStateTo:NO];
         [self showUploadAnimation];
     }
 }
@@ -82,7 +71,7 @@
         
         [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self);
-            make.height.equalTo(self).dividedBy(kUserNameScaleValue/2).offset(-kSidePadding);
+            make.height.equalTo(self).dividedBy(kUserNameScaleValue / 2).offset(-kSidePadding);
         }];
     }
     return _userNameLabel;
@@ -99,7 +88,12 @@
         _recordView.textAlignment = NSTextAlignmentCenter;
         _recordView.backgroundColor = [UIColor blackColor];
         _recordView.userInteractionEnabled = YES;
-        [_recordView addGestureRecognizer:self.recordRecognizer];
+        
+        UILongPressGestureRecognizer* press = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                                                            action:@selector(_recordPressed:)];
+        press.minimumPressDuration = .5;
+        
+        [_recordView addGestureRecognizer:press];
         [self addSubview:_recordView];
         
         [_recordView mas_makeConstraints:^(MASConstraintMaker *make) {

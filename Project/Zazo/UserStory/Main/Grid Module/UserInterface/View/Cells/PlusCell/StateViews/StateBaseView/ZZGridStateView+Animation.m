@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZGridCollectionCellBaseStateView+Animation.h"
+#import "ZZGridStateView+Animation.h"
 
 @implementation ZZGridStateView (Animation)
 
@@ -50,14 +50,14 @@
 - (void)_showUploadIconWithoutAnimation
 {
     self.uploadingIndicator.hidden = NO;
-    CGFloat animValue = CGRectGetWidth(self.presentedView.frame) - [self _indicatorCalculatedWidth];
+    CGFloat animValue = CGRectGetWidth(self.frame) - [self _indicatorCalculatedWidth];
     self.leftUploadIndicatorConstraint.offset = animValue;
 
 }
 
 - (CGFloat)_indicatorCalculatedWidth
 {
-    return fminf(kLayoutConstIndicatorMaxWidth, kLayoutConstIndicatorFractionalWidth * CGRectGetWidth(self.presentedView.frame));
+    return fminf(kLayoutConstIndicatorMaxWidth, kLayoutConstIndicatorFractionalWidth * CGRectGetWidth(self.frame));
 }
 
 
@@ -102,7 +102,7 @@
     self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
 }
 
-- (void)_hideVieoCountLabel
+- (void)_hideVideoCountLabel
 {
     self.videoCountLabel.hidden = YES;
 }

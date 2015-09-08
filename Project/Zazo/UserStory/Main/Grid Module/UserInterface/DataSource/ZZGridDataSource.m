@@ -48,6 +48,8 @@ static NSInteger const kGridCenterCellIndex = 4;
 {
     self.selectedCellViewModel.item = model;
     [self.storage reloadItem:self.selectedCellViewModel];
+    
+    self.selectedCellViewModel = nil;
 }
 
 - (void)itemSelectedAtIndexPath:(NSIndexPath*)indexPath
@@ -69,6 +71,7 @@ static NSInteger const kGridCenterCellIndex = 4;
     return [self.storage objectAtIndexPath:[self _centerCellIndexPath]];
 }
 
+
 #pragma mark - ViewModel Delegate
 
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel *)viewModel
@@ -79,6 +82,11 @@ static NSInteger const kGridCenterCellIndex = 4;
 - (void)nudgeSelectedWithUserModel:(id)userModel
 {
     [self.delegate nudgeSelectedWithUserModel:userModel];
+}
+
+- (void)playingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel
+{
+    [self.delegate toggleVideoWithViewModel:viewModel toState:isEnabled];
 }
 
 - (void)switchCamera

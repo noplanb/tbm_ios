@@ -13,13 +13,12 @@
 #import "TBMVideoRecorder.h"
 #import "ZZVideoRecorder.h"
 #import "ZZGridStateView.h"
-#import "ZZGridCellStateViewBuilder.h"
 
-#import "ZZGridCollectionNudgeStateView.h"
-#import "ZZGridCollectionCellRecordStateView.h"
-#import "ZZGridCollectionCellPreviewStateView.h"
+#import "ZZGridStateViewNudge.h"
+#import "ZZGridStateViewRecord.h"
+#import "ZZGridStateViewPreview.h"
 
-@interface ZZGridCell () <ZZGridCollectionCellBaseStateViewDelegate>
+@interface ZZGridCell ()
 
 @property (nonatomic, strong) ZZGridCellViewModel* model;
 @property (nonatomic, strong) UIImageView* plusImageView;
@@ -43,7 +42,7 @@
 - (void)prepareForReuse
 {
     [self.stateView removeFromSuperview];
-    [self stopVideoPlaying];
+    [self.model updateVideoPlayingStateTo:NO];
 }
 
 - (void)updateWithModel:(ZZGridCellViewModel*)model
@@ -54,58 +53,34 @@
     
         switch (model.state)
         {
-            case ZZGridCellViewModelStateAdd:
-            {
-                [self.stateView removeFromSuperview];
-            } break;
+//            case ZZGridCellViewModelStateAdd:
+//            {
+//                
+//            } break;
             case ZZGridCellViewModelStateFriendHasApp:
             {
-                self.stateView = [[ZZGridCollectionCellRecordStateView alloc] initWithPresentedView:self
-                                                                                          withModel:model];
+                self.stateView = [ZZGridStateViewRecord new];
             } break;
             case ZZGridCellViewModelStateFriendHasNoApp:
             {
-                self.stateView = [[ZZGridCollectionNudgeStateView alloc] initWithPresentedView:self
-                                                                                     withModel:model];
-            } break;
-            case ZZGridCellViewModelStateIncomingVideoNotViewed:
-            {
-                //TODO:
-                self.stateView = [[ZZGridCollectionCellPreviewStateView alloc] initWithPresentedView:self
-                                                                                           withModel:model];
+                self.stateView = [ZZGridStateViewNudge new];
             } break;
             case ZZGridCellViewModelStateIncomingVideoViewed:
-            {//TODO:
-                self.stateView = [[ZZGridCollectionCellPreviewStateView alloc] initWithPresentedView:self
-                                                                                           withModel:model];
-            } break;
+            case ZZGridCellViewModelStateIncomingVideoNotViewed:
             case ZZGridCellViewModelStateOutgoingVideo:
-            {//TODO:
-                self.stateView = [[ZZGridCollectionCellPreviewStateView alloc] initWithPresentedView:self
-                                                                                           withModel:model];
+            {
+                self.stateView = [ZZGridStateViewPreview new];
             } break;
-            default: break;
+            default:
+            {
+                [self.stateView removeFromSuperview];
+            } break;
         }
     });
 }
 
 
-#pragma mark - Not Logged View Delegate
-
-//- (void)nudgePressed
-//{
-//    [self.model nudgeSelected];
-//}
-//
-//- (void)startRecording
-//{
-//    [self.model startRecordingWithView:self];
-//}
-//
-//- (void)stopRecording
-//{
-//    [self.model stopRecording];
-//}
+#pragma mark - Delegate
 
 - (void)setStateView:(ZZGridStateView*)stateView
 {
@@ -120,23 +95,6 @@
     }];
 }
 
-- (void)makeActualScreenShoot
-{
-    if (![self.stateView isVideoPlayerPlaying])
-    {
-        CGFloat scale = [UIScreen mainScreen].scale;
-        UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, scale);
-        [self.layer renderInContext:UIGraphicsGetCurrentContext()];
-        self.model.screenShot = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-    }
-}
-
-- (UIImage *)actualSateImage
-{
-    return self.model.screenShot;
-}
-
 
 #pragma mark - Animation part
 
@@ -149,25 +107,6 @@
 {
     [self.stateView showDownloadAnimationWithNewVideoCount:count];
 }
-
-- (void)videoDownloadedWithUrl:(NSURL *)videoUrl
-{
-    [self.stateView setupPlayerWithUrl:videoUrl];
-}
-
-#pragma mark - Video Player part
-
-- (void)stopVideoPlaying
-{
-    [self.stateView stopPlayVideo];
-}
-
-- (void)startVidePlay
-{
-    [self.stateView startPlayVideo];
-}
-
-
 
 - (UIImageView*)plusImageView
 {
