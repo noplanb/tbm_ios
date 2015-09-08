@@ -141,7 +141,6 @@
         if ([obj isKindOfClass:[ZZGridCell class]])
         {
             ZZGridCell* gridCell = (ZZGridCell*)obj;
-//            [gridCell makeActualScreenShoot];
             
             [self.movingViewArray enumerateObjectsUsingBlock:^(ZZFakeRotationCell* fakeCell, NSUInteger idx, BOOL *stop) {
                 if (CGRectContainsPoint(gridCell.frame, fakeCell.center))
@@ -190,6 +189,7 @@
     
     [self.movingViewArray removeAllObjects];
 }
+
 
 #pragma mark - Grid delegate
 

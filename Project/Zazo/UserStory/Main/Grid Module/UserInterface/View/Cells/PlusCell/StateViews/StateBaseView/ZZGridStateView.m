@@ -54,7 +54,7 @@
     [self _showDownloadAnimationWithNewVideoCount:count];
 }
 
-- (void)updateBadgeWithNumber:(NSNumber *)badgeNumber
+- (void)updateBadgeWithNumber:(NSNumber*)badgeNumber
 {
     if (badgeNumber > 0)
     {
@@ -70,30 +70,6 @@
 {
     [self _showUploadIconWithoutAnimation];
 }
-
-#pragma mark - Video Player Actions
-
-//- (void)setupPlayerWithUrl:(NSURL*)url
-//{
-//    [self.videoPlayer setupMoviePlayerWithContentUrl:url];
-//}
-//
-//- (void)stopPlayVideo
-//{
-//    [self.videoPlayer stopVideo];
-//}
-//
-//- (void)startPlayVideo
-//{
-//    [self.presentedView makeActualScreenShoot];
-//    [self.videoPlayer playVideo];
-//}
-//
-//- (BOOL)isVideoPlayerPlaying
-//{
-//    return [self.videoPlayer isPlaying];
-//}
-
 
 - (void)showContainFriendAnimation
 {
@@ -180,7 +156,6 @@
             make.height.equalTo(@([self _indicatorCalculatedWidth]/aspect));
         }];
     }
-    
     return _downloadIndicator;
 }
 
@@ -199,9 +174,7 @@
             make.left.equalTo(self.downloadIndicator.mas_right);
         }];
     }
-    
     return _downloadBarView;
-    
 }
 
 - (UILabel*)videoCountLabel

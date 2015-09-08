@@ -24,8 +24,6 @@
     self = [super init];
     if (self)
     {
-        [self thumbnailImageView];
-        [self userNameLabel];
         [self containFriendView];
     }
     return self;

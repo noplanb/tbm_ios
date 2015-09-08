@@ -41,7 +41,6 @@
 
 - (void)prepareForReuse
 {
-    [self.stateView removeFromSuperview];
     [self.model updateVideoPlayingStateTo:NO];
 }
 
@@ -117,6 +116,7 @@
                                 an_imageByTintingWithColor:[UIColor whiteColor]];
         _plusImageView.contentMode = UIViewContentModeCenter;
         [self addSubview:_plusImageView];
+        [self sendSubviewToBack:_plusImageView];
         
         [_plusImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
