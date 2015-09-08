@@ -9,6 +9,7 @@
 #import "ZZGridStateView.h"
 #import "ZZGridStateView+Animation.h"
 #import "ZZVideoPlayer.h"
+#import "ZZGridUIConstants.h"
 
 @interface ZZGridStateView ()
 

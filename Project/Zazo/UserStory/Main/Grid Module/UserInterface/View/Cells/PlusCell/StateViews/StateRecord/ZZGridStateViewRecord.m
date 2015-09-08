@@ -7,6 +7,7 @@
 //
 
 #import "ZZGridStateViewRecord.h"
+#import "ZZGridUIConstants.h"
 
 @interface ZZGridStateViewRecord ()
 
