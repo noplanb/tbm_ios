@@ -68,6 +68,7 @@
     {
         [self.output validationCompletedSuccessfully];
         self.currentUser = model;
+        [ZZUserDataProvider upsertUserWithModel:model];
         [self registerUserWithModel:self.currentUser forceCall:NO];
     }
     else

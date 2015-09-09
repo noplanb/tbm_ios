@@ -80,7 +80,7 @@
 - (void)registrationDidFailWithError:(NSError *)error
 {
     [self.userInterface updateStateToLoading:NO message:nil];
-    [ZZErrorHandler showErrorAlertWithLocalizedTitle:@"Try Again" // TODO: local
+    [ZZErrorHandler showErrorAlertWithLocalizedTitle:@"Try Again" // TODO: localization
                                              message:@"Bad Connection"];
 }
 
