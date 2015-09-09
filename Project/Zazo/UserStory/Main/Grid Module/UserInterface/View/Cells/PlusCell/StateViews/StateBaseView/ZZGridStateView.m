@@ -154,7 +154,7 @@
         CGFloat width = [self _indicatorCalculatedWidth];
         CGFloat height = [self _indicatorCalculatedWidth];
         CGSize size = CGSizeMake(width, height);
-        UIImage* image = [UIImage imageWithPDFNamed:@"icon_arrow" atSize:size];
+        UIImage* image = [UIImage imageWithPDFNamed:@"home-page-arrow-left" atSize:size];
         _downloadIndicator.image = image;
         _downloadIndicator.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
         _downloadIndicator.hidden = YES;
