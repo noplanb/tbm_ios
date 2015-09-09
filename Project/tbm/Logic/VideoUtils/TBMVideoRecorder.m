@@ -16,12 +16,13 @@
 #import "TBMVideoIdUtils.h"
 #import "NSError+Extensions.h"
 #import "iToast.h"
+#import "ZZVideoRecorder.h"
 
 
-NSString* const TBMVideoRecorderDidFinishRecording = @"TBMVideoRecorderDidFinishRecording";
-NSString* const TBMVideoRecorderShouldStartRecording = @"TBMVideoRecorderShouldStartRecording";
-NSString* const TBMVideoRecorderDidCancelRecording = @"TBMVideoRecorderDidCancelRecording";
-NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
+//NSString* const TBMVideoRecorderDidFinishRecording = @"TBMVideoRecorderDidFinishRecording";
+//NSString* const TBMVideoRecorderShouldStartRecording = @"TBMVideoRecorderShouldStartRecording";
+//NSString* const TBMVideoRecorderDidCancelRecording = @"TBMVideoRecorderDidCancelRecording";
+//NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 
 static int videoRecorderRetryCount = 0;
 

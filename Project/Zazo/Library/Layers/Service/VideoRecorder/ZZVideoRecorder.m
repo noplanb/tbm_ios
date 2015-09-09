@@ -19,10 +19,12 @@
 #import "ZZGridCenterCell.h"
 #import "ZZGridUIConstants.h"
 
-static NSString* const kVideoProcessorDidFinishProcessing = @"TBMVideoProcessorDidFinishProcessing";
-static NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing";
-static NSString* const TBMVideoRecorderDidFinishRecording = @"TBMVideoRecorderDidFinishRecording";
+NSString* const kVideoProcessorDidFinishProcessing = @"TBMVideoProcessorDidFinishProcessing";
+NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing";
+NSString* const TBMVideoRecorderDidFinishRecording = @"TBMVideoRecorderDidFinishRecording";
 NSString* const TBMVideoRecorderShouldStartRecording = @"TBMVideoRecorderShouldStartRecording";
+NSString* const TBMVideoRecorderDidCancelRecording = @"TBMVideoRecorderDidCancelRecording";
+NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 //NSString* const kZZVideoProcessorErrorReason = @"Problem processing video";
 
 @interface ZZVideoRecorder () <SCRecorderDelegate>

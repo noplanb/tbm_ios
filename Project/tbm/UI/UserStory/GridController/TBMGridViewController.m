@@ -16,6 +16,7 @@
 #import "TBMAlertController.h"
 #import "NSManagedObjectContext+MagicalSaves.h"
 #import "MagicalRecord.h"
+#import "ZZVideoRecorder.h"
 
 @interface TBMGridViewController ()
 @property(nonatomic) NSArray *gridViews;

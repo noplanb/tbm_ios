@@ -15,6 +15,7 @@
 #import "TBMVideoIdUtils.h"
 #import "TBMHttpManager.h"
 #import "TBMVideoProcessor.h"
+#import "ZZVideoRecorder.h"
 
 @implementation TBMAppDelegate (AppSync)
 

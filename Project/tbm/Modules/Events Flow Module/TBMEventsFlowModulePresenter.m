@@ -8,6 +8,7 @@
 #import "TBMEventsFlowDataSource.h"
 #import "TBMEventsFlowModuleEventHandler.h"
 #import "OBLoggerCore.h"
+#import "ZZVideoRecorder.h"
 
 @interface TBMEventsFlowModulePresenter ()
 

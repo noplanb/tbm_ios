@@ -8,6 +8,13 @@
 
 @interface ZZVideoRecorder : NSObject
 
+extern NSString* const kVideoProcessorDidFinishProcessing;
+extern NSString* const kVideoProcessorDidFail;
+extern NSString* const TBMVideoRecorderDidFinishRecording;
+extern NSString* const TBMVideoRecorderShouldStartRecording;
+extern NSString* const TBMVideoRecorderDidCancelRecording;
+extern NSString* const TBMVideoRecorderDidFail;
+
 + (instancetype)shared;
 
 - (void)updateRecordView:(UIView*)recordView;
