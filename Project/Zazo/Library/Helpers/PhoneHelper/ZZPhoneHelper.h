@@ -11,5 +11,6 @@
 @interface ZZPhoneHelper : NSObject
 
 + (NSArray *)getValidPhonesFromContactModel:(ZZContactDomainModel *)model;
-    
++ (NSString *)formatMobileNumberToE164AndServerFormat:(NSString *)number;
+
 @end

@@ -53,7 +53,6 @@
     self.uploadingIndicator.hidden = NO;
     CGFloat animValue = CGRectGetWidth(self.presentedView.frame) - [self _indicatorCalculatedWidth];
     self.leftUploadIndicatorConstraint.offset = animValue;
-
 }
 
 - (CGFloat)_indicatorCalculatedWidth
@@ -69,7 +68,7 @@
     [self _hideUploadViews];
     [self _showDownloadViews];
     
-    CGFloat animValue = CGRectGetWidth(self.frame) - CGRectGetWidth(self.downloadIndicator.frame);
+    CGFloat animValue = CGRectGetWidth(self.presentedView.frame) - CGRectGetWidth(self.downloadIndicator.frame);
     [UIView animateWithDuration:0.4 animations:^{
         self.rightDownloadIndicatorConstraint.offset = -animValue;
         [self layoutIfNeeded];

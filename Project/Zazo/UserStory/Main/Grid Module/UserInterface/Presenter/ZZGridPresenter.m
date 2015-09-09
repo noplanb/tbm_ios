@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
+@import MessageUI;
+
 #import "ZZGridPresenter.h"
 #import "ZZGridDataSource.h"
 #import "ANMemoryStorage.h"
@@ -17,9 +19,10 @@
 #import "TBMAlertController.h"
 #import "iToast.h"
 #import "ZZContactDomainModel.h"
-#import "TBMTableModal.h"
+#import "TBMPhoneUtils.h"
+#import "ZZAPIRoutes.h"
 
-@interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate, TBMTableModalDelegate>
+@interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate, MFMessageComposeViewControllerDelegate>
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
 @property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
@@ -95,6 +98,27 @@
 - (void)userHaSeveralValidNumbers:(NSArray*)phoneNumbers
 {
     [self showChooseNumberDialogFromNumbersArray:phoneNumbers];
+}
+
+- (void)userHasNoAppInstalled:(NSString*)firsName
+{
+    [self showSendInvitationDialogForUser:firsName];
+}
+
+- (void)friendRecievedFromeServer:(ZZFriendDomainModel*)friendModel
+{
+    ANDispatchBlockToMainQueue(^{
+        if (friendModel.hasApp)
+        {
+            //show connect alert
+            [self showConnectedDialogForModel:friendModel];
+        }
+        else
+        {
+            //show sms alert
+            [self showSmsDialogForModel:friendModel];
+        }
+    });
 }
 
 #pragma mark - Module Interface
@@ -216,6 +240,10 @@
     [[ZZVideoRecorder shared] switchCamera];
 }
 
+- (void)stopPlaying
+{
+    [self.videoPlayer stop];
+}
 
 #pragma mark - Module Delegate Method
 
@@ -273,10 +301,90 @@
     });
 }
 
-//TableModalDelegate methods
-- (void)didSelectRow:(NSInteger)index
+- (void)showSendInvitationDialogForUser:(NSString*)firsName
 {
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    NSString *msg = [NSString stringWithFormat:@"%@ has not installed %@ yet. Send them a link!", firsName, appName];
     
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Invite" message:msg];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleCancel handler:nil]];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Send" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+        [self.interactor inviteUserThatHasNoAppInstalled];
+    }]];
+    [alert presentWithCompletion:nil];
+
 }
+
+- (void)showConnectedDialogForModel:(ZZFriendDomainModel*)friend
+{
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    NSString *msg = [NSString stringWithFormat:@"You and %@ are connected.\n\nRecord a welcome %@ to %@ now.", friend.firstName, appName, friend.firstName];
+    
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Send a Zazo" message:msg];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+        //[self.gridViewController moveFriendToGrid:[self friend]]; //TODO:
+    }]];
+    [alert presentWithCompletion:nil];
+}
+
+- (void)showSmsDialogForModel:(ZZFriendDomainModel*)friend
+{
+    if (![MFMessageComposeViewController canSendText])
+    {
+        [self showCantSendSmsErrorForModel:friend];
+        return;
+    }
+    
+    MFMessageComposeViewController *mc = [[MFMessageComposeViewController alloc] init];
+    mc.messageComposeDelegate = self;
+    
+    NSString* formattedNumber = [TBMPhoneUtils phone:friend.mobileNumber withFormat:NBEPhoneNumberFormatE164];
+    mc.recipients = @[formattedNumber];
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    mc.body = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", appName, kInviteFriendBaseURL, friend.idTbm];
+    
+    [self.userInterface presentViewController:mc animated:YES completion:^{
+        NSLog(@"presented sms controller");
+    }];
+}
+
+- (void)showCantSendSmsErrorForModel:(ZZFriendDomainModel*)friend
+{
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    NSString *msg = [NSString stringWithFormat:@"It looks like you can't or didn't send a link by text. Perhaps you can just call or email %@ and tell them about %@.", [friend fullName], appName];
+    
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Didn't Send Link" message:msg];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action){
+        [self showConnectedDialogForModel:friend];
+    }]];
+    [alert presentWithCompletion:nil];
+}
+
+#pragma mark - MFMessageComposeViewControllerDelegate
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    switch (result) {
+        case MessageComposeResultCancelled:
+        {
+            [controller dismissViewControllerAnimated:YES completion:nil];
+        } break;
+            
+        case MessageComposeResultFailed:
+        {
+            
+        } break;
+            
+        case MessageComposeResultSent:
+        {
+            
+        } break;
+            
+        default:
+            break;
+    }
+}
+
+
 
 @end

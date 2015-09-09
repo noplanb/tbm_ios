@@ -13,5 +13,6 @@
 - (void)presentMenu;
 - (void)presentEditFriendsController;
 - (void)presentSendEmailController;
+- (void)stopPlaying;
 
 @end

@@ -132,19 +132,11 @@ static NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProces
 
             NSError* error;
             [[NSFileManager defaultManager] moveItemAtURL:videoPath toURL:self.recordVideoUrl error:&error];
-
+            
             [[NSNotificationCenter defaultCenter] postNotificationName:kVideoProcessorDidFinishProcessing
                                                                 object:self
                                                               userInfo:[self notificationUserInfoWithError:nil]];
-
-            if ([[NSFileManager defaultManager] fileExistsAtPath:[self.recordVideoUrl path]])
-            {
-                NSLog(@"exists");
-            }
-            else
-            {
-                NSLog(@"not exitst");
-            }
+           
         }
         else
         {

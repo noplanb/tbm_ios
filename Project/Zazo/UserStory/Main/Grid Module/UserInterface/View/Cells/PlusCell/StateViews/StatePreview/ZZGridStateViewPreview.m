@@ -9,6 +9,8 @@
 #import "ZZGridStateViewPreview.h"
 #import "ZZGridUIConstants.h"
 
+static CGFloat const kThumbnailSidePadding = 2;
+
 @interface ZZGridStateViewPreview ()
 
 @property (nonatomic, strong) UIImageView* thumbnailImageView;
@@ -36,6 +38,16 @@
     [super updateWithModel:model];
     self.thumbnailImageView.image = [model videoThumbnailImage];
     self.userNameLabel.text = [model firstName];
+    [self updateBackgoundWithModel:model];
+}
+
+- (void)updateBackgoundWithModel:(ZZGridCellViewModel*)model
+{
+    if ([model.badgeNumber integerValue] > 0)
+    {
+        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+        self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+    }
 }
 
 - (void)_startVideo:(UITapGestureRecognizer *)recognizer
@@ -61,7 +73,10 @@
         [self addSubview:_thumbnailImageView];
         
         [_thumbnailImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self);
+            make.left.equalTo(self).with.offset(kThumbnailSidePadding);
+            make.right.equalTo(self).with.offset(-kThumbnailSidePadding);
+            make.top.equalTo(self).with.offset(kThumbnailSidePadding);
+            make.bottom.equalTo(self).with.offset(-kThumbnailSidePadding);
         }];
     }
     return _thumbnailImageView;

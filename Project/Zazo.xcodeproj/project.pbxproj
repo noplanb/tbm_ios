@@ -389,6 +389,7 @@
 		7973FDD11BA03ED000A34283 /* ZZInvitationsTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7973FDD01BA03ED000A34283 /* ZZInvitationsTransportService.m */; };
 		7973FDD51BA0519C00A34283 /* ZZPhoneHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7973FDD41BA0519C00A34283 /* ZZPhoneHelper.m */; };
 		9E7146081BA05A2B005D0A03 /* home-page-arrow-left.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9E7146071BA05A2B005D0A03 /* home-page-arrow-left.pdf */; };
+		9E71460A1BA07184005D0A03 /* sample_iTunes.mov in Resources */ = {isa = PBXBuildFile; fileRef = 9E7146091BA07184005D0A03 /* sample_iTunes.mov */; };
 		DE5C223E15BD5A128DAFDAD1 /* libPods-ZazoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0368F3F1AC201E7765B1898F /* libPods-ZazoTests.a */; };
 		F20151DDD1EA1D5CD6D8CB21 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */; };
 /* End PBXBuildFile section */
@@ -1162,6 +1163,7 @@
 		7973FDD41BA0519C00A34283 /* ZZPhoneHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZPhoneHelper.m; sourceTree = "<group>"; };
 		9E091BCF1B99C1B400409B6D /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		9E7146071BA05A2B005D0A03 /* home-page-arrow-left.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "home-page-arrow-left.pdf"; sourceTree = "<group>"; };
+		9E7146091BA07184005D0A03 /* sample_iTunes.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = sample_iTunes.mov; sourceTree = "<group>"; };
 		A0ECBE9A7392F431C5ADE072 /* Pods-ZazoTests.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.ad-hoc.xcconfig"; sourceTree = "<group>"; };
 		B1860DB43B6E70D5AEF73EF4 /* Pods-Zazo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.release.xcconfig"; sourceTree = "<group>"; };
 		C4392BF41AD48118C492A226 /* Pods-Zazo.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.ad-hoc.xcconfig"; sourceTree = "<group>"; };
@@ -3447,6 +3449,7 @@
 				07E3C58C1B9A2C900071CF82 /* ZZGridCell.m */,
 				07E3C58D1B9A2C900071CF82 /* ZZGridCellViewModel.h */,
 				07E3C58E1B9A2C900071CF82 /* ZZGridCellViewModel.m */,
+				9E7146091BA07184005D0A03 /* sample_iTunes.mov */,
 			);
 			path = PlusCell;
 			sourceTree = "<group>";
@@ -4315,6 +4318,7 @@
 				07E3C7201B9A2C910071CF82 /* Contacts-plaiceholder-men.pdf in Resources */,
 				07E3C7301B9A2C910071CF82 /* contacts-icon.pdf in Resources */,
 				07E3C71F1B9A2C910071CF82 /* contacts-placeholder.pdf in Resources */,
+				9E71460A1BA07184005D0A03 /* sample_iTunes.mov in Resources */,
 				07E3C79E1B9A2C910071CF82 /* mogen.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4842,7 +4846,7 @@
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
 				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "dae33d6c-c5ca-4c75-83c6-3f99dad0c513";
+				PROVISIONING_PROFILE = "2d93206a-9477-439e-9b06-ab0aa3c7fa7c";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};
