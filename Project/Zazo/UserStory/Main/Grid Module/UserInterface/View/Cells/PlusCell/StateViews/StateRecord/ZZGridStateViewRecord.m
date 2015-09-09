@@ -72,7 +72,7 @@
         
         [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self);
-            make.height.equalTo(self).dividedBy(kUserNameScaleValue / 2).offset(-kSidePadding);
+            make.height.equalTo(self).dividedBy(kUserNameScaleValue);
         }];
     }
     return _userNameLabel;
