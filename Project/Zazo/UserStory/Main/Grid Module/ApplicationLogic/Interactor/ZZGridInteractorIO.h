@@ -16,6 +16,7 @@
 - (void)loadFeedbackModel;
 
 - (void)userSelectedPhoneNumber:(NSString*)phoneNumber;
+- (void)inviteUserThatHasNoAppInstalled;
 
 @end
 
@@ -30,5 +31,7 @@
 
 - (void)userHasNoValidNumbers:(ZZContactDomainModel*)model;
 - (void)userHaSeveralValidNumbers:(NSArray*)phoneNumbers;
+- (void)userHasNoAppInstalled:(NSString*)firsName;
+- (void)friendRecievedFromeServer:(ZZFriendDomainModel*)friendModel;
 
 @end

@@ -33,6 +33,15 @@
     
 }
 
++ (NSString *)formatMobileNumberToE164AndServerFormat:(NSString *)number
+{
+    NSString *formatNumberToE164 = [TBMPhoneUtils phone:number withFormat:NBEPhoneNumberFormatE164];
+    NSRange range = NSMakeRange(0,1);
+    NSString *newNumber = [formatNumberToE164 stringByReplacingCharactersInRange:range withString:@"%2B"];
+    
+    return newNumber;
+}
+
 
 
 @end
