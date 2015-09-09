@@ -88,9 +88,18 @@
 - (void)_playNext
 {
     NSInteger index = [self.currentPlayQueue indexOfObject:self.moviePlayerController.contentURL];
-    if (index != NSNotFound)
+    index++;
+    
+    NSURL* nextUrl = nil;
+    
+    if (index < self.currentPlayQueue.count)
     {
-        [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL];
+        nextUrl = self.currentPlayQueue[index];
+    }
+    
+    if (nextUrl)
+    {
+        [self.delegate videoPlayerURLWasFinishedPlaying:nextUrl];
         BOOL isNextExist = index < self.currentPlayQueue.count;
         if (isNextExist)
         {
