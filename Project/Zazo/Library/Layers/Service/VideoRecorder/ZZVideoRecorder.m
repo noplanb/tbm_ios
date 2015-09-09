@@ -21,6 +21,8 @@
 
 static NSString* const kVideoProcessorDidFinishProcessing = @"TBMVideoProcessorDidFinishProcessing";
 static NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing";
+static NSString* const TBMVideoRecorderDidFinishRecording = @"TBMVideoRecorderDidFinishRecording";
+NSString* const TBMVideoRecorderShouldStartRecording = @"TBMVideoRecorderShouldStartRecording";
 //NSString* const kZZVideoProcessorErrorReason = @"Problem processing video";
 
 @interface ZZVideoRecorder () <SCRecorderDelegate>
@@ -92,6 +94,8 @@ static NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProces
 
 - (void)startRecordingWithVideoURL:(NSURL*)url
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
+    
     [self _startRecordingWithVideoUrl:url];
     [self.recorder.session removeAllSegments];
     [self.recorder record];
@@ -118,7 +122,11 @@ static NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProces
 - (void)recorder:(SCRecorder*)recorder didCompleteSegment:(SCRecordSessionSegment*)segment
        inSession:(SCRecordSession*)recordSession error:(NSError*)error
 {
- 
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFinishRecording
+                                                        object:self
+                                                      userInfo:@{@"videoUrl": self.recordVideoUrl}];
+    
     AVAsset *asset = recordSession.assetRepresentingSegments;
     SCAssetExportSession *assetExportSession = [[SCAssetExportSession alloc] initWithAsset:asset];
     assetExportSession.outputUrl = recordSession.outputUrl;
