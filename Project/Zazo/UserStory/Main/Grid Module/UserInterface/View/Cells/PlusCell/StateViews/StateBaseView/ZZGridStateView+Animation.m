@@ -51,7 +51,7 @@
 - (void)_showUploadIconWithoutAnimation
 {
     self.uploadingIndicator.hidden = NO;
-    CGFloat animValue = CGRectGetWidth(self.frame) - [self _indicatorCalculatedWidth];
+    CGFloat animValue = CGRectGetWidth(self.presentedView.frame) - [self _indicatorCalculatedWidth];
     self.leftUploadIndicatorConstraint.offset = animValue;
 
 }

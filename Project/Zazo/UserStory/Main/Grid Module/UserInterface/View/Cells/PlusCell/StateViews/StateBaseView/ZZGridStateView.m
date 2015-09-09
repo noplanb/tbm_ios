@@ -36,6 +36,11 @@
 - (void)updateWithModel:(ZZGridCellViewModel*)model
 {
     self.model = model;
+    if (self.model.hasUploadedVideo)
+    {
+        [self showUploadIconWithoutAnimation];
+    }
+    [self updateBadgeWithNumber:self.model.badgeNumber];
 }
 
 
