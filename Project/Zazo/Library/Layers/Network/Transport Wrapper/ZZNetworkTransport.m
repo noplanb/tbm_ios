@@ -74,6 +74,12 @@
             [subscriber sendNext:json];
             [subscriber sendCompleted];
         }
+        else if ([status isEqualToString:@"failure"])
+        {
+            NSDictionary* errorObject = @{@"status" : status, @"errorMessage" : json[@"title"]};
+            NSError* error = [[NSError alloc] initWithDomain:@"" code:1 userInfo:errorObject];
+            [self handleError:error subscriber:subscriber];
+        }
         else
         {
             NSDictionary* errorObject = json[@"error"];
