@@ -26,7 +26,14 @@
 
 + (TBMUser*)entityFromModel:(ZZUserDomainModel*)model
 {
-    TBMUser* entity = [TBMUser an_objectWithItemID:model.idTbm context:[self _context]];
+    TBMUser* entity = [[TBMUser MR_findByAttribute:TBMUserAttributes.mkey withValue:model.mkey] firstObject];
+    if (!entity)
+    {
+        entity = [TBMUser MR_createEntityInContext:[self _context]];
+        entity.idTbm = @"temporary";
+        [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
+    }
+    
     return [ZZUserModelsMapper fillEntity:entity fromModel:model];
 }
 
@@ -37,8 +44,13 @@
 
 + (ZZUserDomainModel*)upsertUserWithModel:(ZZUserDomainModel*)model
 {
-    // TODO: check is user already exists
-    TBMUser* entity = [TBMUser an_objectWithItemID:model.idTbm context:[self _context]];
+    TBMUser* entity = [[TBMUser MR_findByAttribute:TBMUserAttributes.mkey withValue:model.mkey] firstObject];
+    if (!entity)
+    {
+        entity = [TBMUser MR_createEntityInContext:[self _context]];
+        entity.idTbm = @"temporary";
+        [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
+    }
     [ZZUserModelsMapper fillEntity:entity fromModel:model];
     [[self _context] MR_saveToPersistentStoreAndWait];
     return [self modelFromEntity:entity];
