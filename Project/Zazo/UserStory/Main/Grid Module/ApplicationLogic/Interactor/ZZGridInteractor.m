@@ -18,6 +18,7 @@
 #import "ZZGridDomainModel.h"
 #import "ZZGridDataProvider.h"
 #import "ZZFriendDataProvider.h"
+#import "ZZPhoneHelper.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
@@ -79,7 +80,23 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (void)selectedUserWithModel:(id)model
 {
     self.selectedUserModel = model;
-    [self _updateSelectedModelWithUser];
+    
+    if ([model isKindOfClass:[ZZFriendDomainModel class]])
+    {
+        [self _updateSelectedModelWithUser]; //TODO: selected zazo friend logic
+    }
+    else //invite friend from contact logic
+    {
+        NSArray* validNumbers = [ZZPhoneHelper getValidPhonesFromContactModel:model];
+        if (!ANIsEmpty(validNumbers))
+        {
+            
+        }
+        else
+        {
+            //TODO: show alert that contact has no valid numbers;
+        }
+    }
 }
 
 - (void)loadFeedbackModel
@@ -106,6 +123,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     {
         [self.output gridContainedFriend:containedUser];
     }
+    
 }
 
 - (ZZFriendDomainModel*)friendModelFromMenuModel:(id)model

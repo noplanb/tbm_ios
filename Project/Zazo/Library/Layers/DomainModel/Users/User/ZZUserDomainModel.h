@@ -33,7 +33,6 @@ extern const struct ZZUserDomainModelAttributes {
 @property (nonatomic, copy) NSString* plainPhoneNumber;
 
 + (FEMObjectMapping*)mapping;
-
 - (NSString*)fullName;
 
 @end

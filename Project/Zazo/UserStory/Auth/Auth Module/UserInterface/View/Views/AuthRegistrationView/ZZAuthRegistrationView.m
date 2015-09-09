@@ -52,13 +52,7 @@ static CGFloat const kCodeLableLeftPadding = 3;
         [self signInButton];
         [self countryCodeLabel];
         [self addRecognizer];
-        
-#ifdef DEBUG_LOGIN_USER
-        self.firstNameTextField.text = @"Elena";
-        self.lastNameTextField.text = @"M";
-        self.phoneCodeTextField.text = @"380";
-        self.phoneNumberTextField.text = @"662578748";
-#endif
+    
     }
     return self;
 }
