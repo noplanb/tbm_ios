@@ -14,9 +14,16 @@
 #import "ANMemoryStorage.h"
 #import "ZZMovingGridView.h"
 
+@protocol ZZTouchObserverDelegate <NSObject>
+
+- (void)stopPlaying;
+
+@end
+
 @interface ZZTouchObserver : NSObject
 
 @property (nonatomic, strong) ANMemoryStorage* storage;
+@property (nonatomic, weak) id <ZZTouchObserverDelegate>delegate;
 
 - (instancetype)initWithGridView:(ZZGridView*)gridView;
 - (void)observeTouch:(UITouch*)touch withEvent:(id)event;

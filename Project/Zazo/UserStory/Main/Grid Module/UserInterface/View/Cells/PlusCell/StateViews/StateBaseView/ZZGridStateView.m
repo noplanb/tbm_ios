@@ -41,6 +41,7 @@
         [self showUploadIconWithoutAnimation];
     }
     [self updateBadgeWithNumber:self.model.badgeNumber];
+    model.playerContainerView = self;
 }
 
 

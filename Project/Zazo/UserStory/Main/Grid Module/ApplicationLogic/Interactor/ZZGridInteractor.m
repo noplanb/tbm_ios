@@ -54,11 +54,11 @@ static NSInteger const kGridFriendsCellCount = 8;
         ZZGridDomainModel* model;
         model = [ZZGridDomainModel new];
         model.index = @(count);
-        if (friends.count > count)
-        {
-            ZZFriendDomainModel *aFriend = friends[count];
-            model.relatedUser = aFriend;
-        }
+//        if (friends.count > count)
+//        {
+//            ZZFriendDomainModel *aFriend = friends[count];
+//            model.relatedUser = aFriend;
+//        }
         [gridModels addObject:model];
     }
     self.gridModels = [gridModels copy];

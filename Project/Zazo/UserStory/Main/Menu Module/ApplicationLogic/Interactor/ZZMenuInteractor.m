@@ -16,20 +16,51 @@
 
 - (void)loadData
 {
-    [[ZZAddressBookDataProvider loadContacts] subscribeNext:^(NSArray *addressBookContactsArray) {
-        
-        [self.output addressBookDataLoaded:addressBookContactsArray];
-    }];
     
-    [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray *array) {
+    //TODO: add here data from server only for test!!!
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"sample_iTunes" ofType:@"mov"];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    
+    NSMutableArray* dataArray = [NSMutableArray array];
+    for (int i = 0;i<3;i++)
+    {
+        ZZFriendDomainModel* model = [ZZFriendDomainModel new];
+        model.firstName = [NSString stringWithFormat:@"name %i",i];
+        model.lastName = [NSString stringWithFormat:@"lastname %i",i];
+        model.idTbm = [NSString stringWithFormat:@"id%i",i];
+        model.hasApp = YES;
         
-        NSArray *friendsArray = [FEMObjectDeserializer deserializeCollectionExternalRepresentation:array
-                                                                                      usingMapping:[ZZFriendDomainModel mapping]];
-        [self sortFriendsFromArray:friendsArray];
+        if (i == 0)
+        {
+            model.videos = [NSSet setWithObject:url];
+        }
         
-    } error:^(NSError *error) {
+        if (i == 1)
+        {
+            model.hasApp = NO;
+        }
         
-    }];
+        [dataArray addObject:model];
+    }
+    
+    [self.output addressBookDataLoaded:dataArray];
+    
+    
+//    [[ZZAddressBookDataProvider loadContacts] subscribeNext:^(NSArray *addressBookContactsArray) {
+//        
+//        [self.output addressBookDataLoaded:addressBookContactsArray];
+//    }];
+//    
+//    [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray *array) {
+//        
+//        NSArray *friendsArray = [FEMObjectDeserializer deserializeCollectionExternalRepresentation:array
+//                                                                                      usingMapping:[ZZFriendDomainModel mapping]];
+//        [self sortFriendsFromArray:friendsArray];
+//        
+//    } error:^(NSError *error) {
+//        
+//    }];
 }
 
 - (void)sortFriendsFromArray:(NSArray *)array

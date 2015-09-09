@@ -43,12 +43,13 @@
 {
     if (view != self.moviePlayerController.view.superview && view)
     {
+        
+        self.moviePlayerController.view.frame = view.bounds;
         [view addSubview:self.moviePlayerController.view];
         [view bringSubviewToFront:self.moviePlayerController.view];
-        self.moviePlayerController.view.frame = view.bounds;
         self.currentPlayQueue = URLs;
     }
-    if (!ANIsEmpty(URLs) && ![self.currentPlayQueue isEqualToArray:URLs]) //TODO: if current playback state is equal to user's play list
+    if (!ANIsEmpty(URLs))//&& ![self.currentPlayQueue isEqualToArray:URLs]) //TODO: if current playback state is equal to user's play list
     {
         self.moviePlayerController.contentURL = [URLs firstObject];
         self.isPlayingVideo = YES;
@@ -72,7 +73,7 @@
     }
     else
     {
-         [self playOnView:nil withURLs:self.currentPlayQueue];
+        [self playOnView:nil withURLs:self.currentPlayQueue];
     }
 }
 
@@ -94,6 +95,7 @@
         if (isNextExist)
         {
             self.moviePlayerController.contentURL = self.currentPlayQueue[index];
+            [self.moviePlayerController play];
         }
     }
 }
@@ -116,6 +118,7 @@
         _moviePlayerController = [MPMoviePlayerController new];
         _moviePlayerController.view.backgroundColor = [UIColor clearColor];
         _moviePlayerController.controlStyle = MPMovieControlStyleNone;
+        [_moviePlayerController.view addSubview:self.tapButton];
     }
     return _moviePlayerController;
 }
