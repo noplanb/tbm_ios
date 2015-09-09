@@ -21,6 +21,7 @@
     NSError *err = nil;
     NSString *r;
     
+    ZZUserDomainModel* authenticatedUser = [ZZUserDataProvider authenticatedUser];
     NSString* region = [self phoneRegionFromNumber:@"+380930880008"]; //TODO: authenticated user have no mobile number
     
     NBPhoneNumber *pn = [pu parse:phone defaultRegion:region error:&err];

@@ -329,7 +329,8 @@
 
 - (void)showSmsDialogForModel:(ZZFriendDomainModel*)friend
 {
-    if (![MFMessageComposeViewController canSendText]){
+    if (![MFMessageComposeViewController canSendText])
+    {
         [self showCantSendSmsErrorForModel:friend];
         return;
     }
