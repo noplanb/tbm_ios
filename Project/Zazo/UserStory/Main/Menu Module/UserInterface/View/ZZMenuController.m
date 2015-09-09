@@ -52,7 +52,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    ZZMenuCellViewModel* model = [self.storage objectAtIndexPath:indexPath];
+    ZZMenuCellViewModel* model = [self.currentStorage objectAtIndexPath:indexPath];
     [self.delegate itemSelected:model];
 }
 

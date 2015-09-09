@@ -17,6 +17,7 @@
 
 - (void)userSelectedPhoneNumber:(NSString*)phoneNumber;
 - (void)inviteUserThatHasNoAppInstalled;
+- (void)addNewFriendToGridModelsArray;
 
 @end
 

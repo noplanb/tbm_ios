@@ -322,19 +322,19 @@
     
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Send a Zazo" message:msg];
     [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
-        //[self.gridViewController moveFriendToGrid:[self friend]]; //TODO:
+        [self.interactor addNewFriendToGridModelsArray];
     }]];
     [alert presentWithCompletion:nil];
 }
 
 - (void)showSmsDialogForModel:(ZZFriendDomainModel*)friend
 {
-    if (![MFMessageComposeViewController canSendText])
-    {
+//    if (![MFMessageComposeViewController canSendText])
+//    {
         [self showCantSendSmsErrorForModel:friend];
         return;
-    }
-    
+//    }
+
     MFMessageComposeViewController *mc = [[MFMessageComposeViewController alloc] init];
     mc.messageComposeDelegate = self;
     
