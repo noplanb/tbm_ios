@@ -92,7 +92,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     }
     else //invite friend from contact logic
     {
-        NSArray* validNumbers = [ZZPhoneHelper getValidPhonesFromContactModel:model];
+        NSArray* validNumbers = [ZZPhoneHelper validatePhonesFromContactModel:model];
         if (!ANIsEmpty(validNumbers))
         {
             if (validNumbers.count > 1)

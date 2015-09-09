@@ -182,7 +182,7 @@
     } completion:^(BOOL finished) {
         
         self.contentView.scrollView.scrollEnabled = YES;
-        [self.contentView scrollToBottom];
+//        [self.contentView scrollToBottom];
     }];
 }
 

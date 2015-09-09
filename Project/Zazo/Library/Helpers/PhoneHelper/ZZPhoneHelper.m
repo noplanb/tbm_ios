@@ -12,7 +12,7 @@
 
 @implementation ZZPhoneHelper
 
-+ (NSArray *)getValidPhonesFromContactModel:(ZZContactDomainModel *)model
++ (NSArray *)validatePhonesFromContactModel:(ZZContactDomainModel *)model
 {
     NSMutableArray *validNumbers = [NSMutableArray new];
     
@@ -25,7 +25,6 @@
                 NSString *formattedPhone = [TBMPhoneUtils phone:phoneNumber withFormat:NBEPhoneNumberFormatINTERNATIONAL];
                 [validNumbers addObject:formattedPhone];
             }
-
         }];
     }
     
