@@ -54,17 +54,17 @@
         {
             case ZZGridCellViewModelStateFriendHasApp:
             {
-                self.stateView = [ZZGridStateViewRecord new];
+                self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self];
             } break;
             case ZZGridCellViewModelStateFriendHasNoApp:
             {
-                self.stateView = [ZZGridStateViewNudge new];
+                self.stateView = [[ZZGridStateViewNudge alloc] initWithPresentedView:self];
             } break;
             case ZZGridCellViewModelStateIncomingVideoViewed:
             case ZZGridCellViewModelStateIncomingVideoNotViewed:
             case ZZGridCellViewModelStateOutgoingVideo:
             {
-                self.stateView = [ZZGridStateViewPreview new];
+                self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self];
             } break;
             default:
             {

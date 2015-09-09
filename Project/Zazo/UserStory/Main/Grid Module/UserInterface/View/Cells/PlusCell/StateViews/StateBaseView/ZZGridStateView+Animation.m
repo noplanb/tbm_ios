@@ -59,7 +59,7 @@
 
 - (CGFloat)_indicatorCalculatedWidth
 {
-    return fminf(kLayoutConstIndicatorMaxWidth, kLayoutConstIndicatorFractionalWidth * CGRectGetWidth(self.frame));
+    return fminf(kLayoutConstIndicatorMaxWidth, kLayoutConstIndicatorFractionalWidth * CGRectGetWidth(self.presentedView.frame));
 }
 
 

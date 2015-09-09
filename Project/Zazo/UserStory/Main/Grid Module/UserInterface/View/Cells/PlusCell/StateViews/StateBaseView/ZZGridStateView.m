@@ -18,13 +18,18 @@
 
 @implementation ZZGridStateView
 
-- (instancetype)init
+
+
+- (instancetype)initWithPresentedView:(UIView*)presentedView
 {
     self = [super init];
+ 
     if (self)
     {
         self.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
+        self.presentedView = presentedView;
     }
+    
     return self;
 }
 
@@ -100,21 +105,16 @@
     if (!_uploadingIndicator)
     {
         _uploadingIndicator = [UIImageView new];
-//        _uploadingIndicator.image = [UIImage imageNamed:@"icon-uploading-1x"];
-//        _uploadingIndicator.image = [UIImage imageWithPDFNamed:@"icon_arrow.png" atSize:<#(CGSize)#>]
         
-       
-        CGFloat aspect = CGRectGetWidth(_uploadingIndicator.frame)/CGRectGetHeight(_uploadingIndicator.frame);
         CGFloat width = [self _indicatorCalculatedWidth];
-        CGFloat height = [self _indicatorCalculatedWidth]/aspect;
+        CGFloat height = [self _indicatorCalculatedWidth];
         CGSize size = CGSizeMake(width, height);
         UIImage* image = [UIImage imageWithPDFNamed:@"icon_arrow" atSize:size];
         _uploadingIndicator.image = image;
         _uploadingIndicator.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
         _uploadingIndicator.hidden = YES;
         [self addSubview:_uploadingIndicator];
-        
-        
+        CGFloat aspect = width/height;
         
         [_uploadingIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self);
@@ -150,13 +150,16 @@
     if (!_downloadIndicator)
     {
         _downloadIndicator = [UIImageView new];
-        _downloadIndicator.image = [UIImage imageNamed:@"icon-downloading-1x"];
-        [_downloadIndicator sizeToFit];
+        
+        CGFloat width = [self _indicatorCalculatedWidth];
+        CGFloat height = [self _indicatorCalculatedWidth];
+        CGSize size = CGSizeMake(width, height);
+        UIImage* image = [UIImage imageWithPDFNamed:@"icon_arrow" atSize:size];
+        _downloadIndicator.image = image;
         _downloadIndicator.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
         _downloadIndicator.hidden = YES;
         [self addSubview:_downloadIndicator];
-        
-        CGFloat aspect = CGRectGetWidth(_downloadIndicator.frame)/CGRectGetHeight(_downloadIndicator.frame);
+        CGFloat aspect = width/height;
         
         [_downloadIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self);

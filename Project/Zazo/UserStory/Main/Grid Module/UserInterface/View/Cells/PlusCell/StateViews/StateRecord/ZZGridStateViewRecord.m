@@ -18,9 +18,9 @@
 
 @implementation ZZGridStateViewRecord
 
-- (instancetype)init
+- (instancetype)initWithPresentedView:(UIView *)presentedView
 {
-    self = [super init];
+    self = [super initWithPresentedView:presentedView];
     if (self)
     {
         [self userNameLabel];
@@ -32,6 +32,7 @@
         [self downloadBarView];
         [self videoCountLabel];
     }
+    
     return self;
 }
 
