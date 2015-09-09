@@ -75,6 +75,7 @@ static NSString *const kArraySeparator = @",";
 
 + (NSString *)incomingPrefix:(TBMFriend *)friend
 {
+    
     return [NSString stringWithFormat:@"%@-%@", friend.mkey, [TBMUser getUser].mkey];
 }
 

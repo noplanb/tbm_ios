@@ -19,9 +19,9 @@
 
 @implementation ZZGridStateViewNudge
 
-- (instancetype)init
+- (instancetype)initWithPresentedView:(UIView *)presentedView
 {
-    self = [super init];
+    self = [super initWithPresentedView:presentedView];
     if (self)
     {
         [self nudgeButton];
@@ -34,8 +34,10 @@
         [self downloadBarView];
         [self videoCountLabel];
     }
+    
     return self;
 }
+
 
 - (void)updateWithModel:(ZZGridCellViewModel*)model
 {

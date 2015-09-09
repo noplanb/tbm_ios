@@ -6,7 +6,8 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-@class ZZUserDomainModel;
+#import "ZZUserDomainModel.h"
+
 @class TBMUser;
 
 @interface ZZUserDataProvider : NSObject

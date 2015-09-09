@@ -13,6 +13,7 @@
 #import "TBMDispatch.h"
 #import "ZZAPIRoutes.h"
 #import "ZZNetworkTransport.h"
+#import "ZZUserDataProvider.h"
 
 @implementation ZZSecretInteractor
 
@@ -103,7 +104,7 @@
                      [NSObject an_safeString:version],
                      [NSObject an_safeString:buildNumber]];
     
-    TBMUser *user = [TBMUser getUser];
+    ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
     model.firstName = user.firstName;
     model.lastName = user.lastName;
     model.phoneNumber = user.mobileNumber;
@@ -127,7 +128,7 @@
     [message appendFormat:@"Debug mode:     %@\n", model.isDebugEnabled ? @"ON" : @"OFF"];
     [message appendFormat:@"Server State:   %@\n", [self _serverFormattedStringFromState:model.serverIndex]];
     [message appendFormat:@"Server address: %@\n", [NSObject an_safeString:model.serverURLString]];
-    [message appendFormat:@"Dispatch Type: %@\n", ([TBMDispatch dispatchType] == TBMDispatchTypeSDK) ? @"RollBar SDK" : @"Server"];
+    [message appendFormat:@"Dispatch Type:  %@\n", ([TBMDispatch dispatchType] == TBMDispatchTypeSDK) ? @"RollBar SDK" : @"Server"];
     
     [message appendString:@"\n * * * * * * * * * * * * * * * * * * * * * * * * \n"];
     

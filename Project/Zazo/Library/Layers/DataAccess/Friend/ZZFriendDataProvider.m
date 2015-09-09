@@ -11,6 +11,7 @@
 #import "MagicalRecord.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZFriendModelsMapper.h"
+#import "NSManagedObject+ANAdditions.h"
 
 @implementation ZZFriendDataProvider
 
@@ -53,8 +54,8 @@
 
 + (TBMFriend*)entityFromModel:(ZZFriendDomainModel*)model
 {
-    //TODO:
-    return nil;
+    TBMFriend* entity = [TBMFriend an_objectWithItemID:model.idTbm context:[self _context] shouldCreate:YES];
+    return [ZZFriendModelsMapper fillEntity:entity fromModel:model];
 }
 
 + (ZZFriendDomainModel*)modelFromEntity:(TBMFriend*)entity

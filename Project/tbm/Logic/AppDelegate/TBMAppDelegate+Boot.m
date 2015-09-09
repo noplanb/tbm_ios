@@ -17,6 +17,8 @@
 #import "AVFoundation/AVFoundation.h"
 #import "TBMFileUtils.h"
 #import "AVAudioSession+TBMAudioSession.h"
+#import "ZZUserDataProvider.h"
+#import "ZZUserDomainModel.h"
 
 @implementation TBMAppDelegate (Boot)
 
@@ -26,15 +28,14 @@
     [TBMDispatch enable];
 }
 
-- (void)performDidBecomeActiveActions {
-    OB_INFO(@"performDidBecomeActiveActions: registered: %d", [[TBMUser getUser].isRegistered boolValue]);
+- (void)performDidBecomeActiveActions
+{
+    OB_INFO(@"performDidBecomeActiveActions: registered: %d", [ZZUserDataProvider authenticatedUser].isRegistered);
     
-    if (![TBMUser getUser].isRegistered)
+    if ([ZZUserDataProvider authenticatedUser].isRegistered)
     {
-        return;
+        [self ensureResources];
     }
-
-    [self ensureResources];
 }
 
 #pragma mark - Ensure resources
@@ -50,11 +51,13 @@
 * Note that we call onResources available BEFORE we ensurePushNotification because on IOS7 
 * we do not get any callback if user declines notifications.
 */
-- (void)ensureResources {
+- (void)ensureResources
+{
     [self ensureFreeStorage];
 }
 
-- (void)ensureFreeStorage {
+- (void)ensureFreeStorage
+{
     OB_INFO(@"Boot: ensureFreeStorage:");
     if ([TBMFileUtils getFreeDiskspace] < 250LL * 1024 * 1024)
         [self requestStorage];

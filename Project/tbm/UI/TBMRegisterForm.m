@@ -14,6 +14,7 @@
 #import "NBPhoneNumberUtil.h"
 #import "NBPhoneNumber.h"
 #import "ZZStoredSettingsManager.h"
+#import "ZZUserDataProvider.h"
 
 @interface TBMRegisterForm ()
 @property(nonatomic) float screenWidth;
@@ -125,7 +126,7 @@ static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
 }
 
 - (void)prefillUserData {
-    TBMUser *user = [TBMUser getUser];
+    ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
     if (!user) {
         return;
     }

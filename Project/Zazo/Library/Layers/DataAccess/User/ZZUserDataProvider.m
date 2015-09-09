@@ -13,7 +13,7 @@
 
 @implementation ZZUserDataProvider
 
-+ (ZZUserDomainModel *)authenticatedUser
++ (ZZUserDomainModel*)authenticatedUser
 {
     NSArray* users = [TBMUser MR_findAllInContext:[self _context]];
     if (users.count > 1)

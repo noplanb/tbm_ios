@@ -389,6 +389,7 @@
 		7973FDCE1BA03E3600A34283 /* ZZInvitationsTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 7973FDCD1BA03E3600A34283 /* ZZInvitationsTransport.m */; };
 		7973FDD11BA03ED000A34283 /* ZZInvitationsTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7973FDD01BA03ED000A34283 /* ZZInvitationsTransportService.m */; };
 		7973FDD51BA0519C00A34283 /* ZZPhoneHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7973FDD41BA0519C00A34283 /* ZZPhoneHelper.m */; };
+		9E7146081BA05A2B005D0A03 /* home-page-arrow-left.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9E7146071BA05A2B005D0A03 /* home-page-arrow-left.pdf */; };
 		DE5C223E15BD5A128DAFDAD1 /* libPods-ZazoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0368F3F1AC201E7765B1898F /* libPods-ZazoTests.a */; };
 		F20151DDD1EA1D5CD6D8CB21 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */; };
 /* End PBXBuildFile section */
@@ -1161,6 +1162,7 @@
 		7973FDD31BA0519C00A34283 /* ZZPhoneHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPhoneHelper.h; sourceTree = "<group>"; };
 		7973FDD41BA0519C00A34283 /* ZZPhoneHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZPhoneHelper.m; sourceTree = "<group>"; };
 		9E091BCF1B99C1B400409B6D /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		9E7146071BA05A2B005D0A03 /* home-page-arrow-left.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "home-page-arrow-left.pdf"; sourceTree = "<group>"; };
 		A0ECBE9A7392F431C5ADE072 /* Pods-ZazoTests.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.ad-hoc.xcconfig"; sourceTree = "<group>"; };
 		B1860DB43B6E70D5AEF73EF4 /* Pods-Zazo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.release.xcconfig"; sourceTree = "<group>"; };
 		C4392BF41AD48118C492A226 /* Pods-Zazo.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.ad-hoc.xcconfig"; sourceTree = "<group>"; };
@@ -2798,6 +2800,7 @@
 		07E3C4A81B9A2C900071CF82 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				9E7146071BA05A2B005D0A03 /* home-page-arrow-left.pdf */,
 				07E3C4A91B9A2C900071CF82 /* app_logo.pdf */,
 				07E3C4AA1B9A2C900071CF82 /* icon_arrow.pdf */,
 				07E3C4AB1B9A2C900071CF82 /* icon_dots.pdf */,
@@ -3471,7 +3474,6 @@
 				07E3C57F1B9A2C900071CF82 /* StateNudge */,
 				07E3C5821B9A2C900071CF82 /* StatePreview */,
 				07E3C5851B9A2C900071CF82 /* StateRecord */,
-				07E3C5881B9A2C900071CF82 /* StateViewsFactory */,
 			);
 			path = StateViews;
 			sourceTree = "<group>";
@@ -3512,13 +3514,6 @@
 				07E3C5871B9A2C900071CF82 /* ZZGridStateViewRecord.m */,
 			);
 			path = StateRecord;
-			sourceTree = "<group>";
-		};
-		07E3C5881B9A2C900071CF82 /* StateViewsFactory */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = StateViewsFactory;
 			sourceTree = "<group>";
 		};
 		07E3C5921B9A2C900071CF82 /* Controller */ = {
@@ -4276,7 +4271,6 @@
 				07E3C7B51B9A2C910071CF82 /* TOWebViewControllerLocalizable.strings in Resources */,
 				07E3C7181B9A2C910071CF82 /* Roboto-Medium.ttf in Resources */,
 				0732F5121B8B93D3004FD3AF /* ZazoTests-Info.plist in Resources */,
-				07E3C6F11B9A2C910071CF82 /* TBMFriend.m.orig in Resources */,
 				07E3C7351B9A2C910071CF82 /* navbar_btn_add.pdf in Resources */,
 				07E3C7131B9A2C910071CF82 /* Roboto-Bold.ttf in Resources */,
 				07E3C7191B9A2C910071CF82 /* Roboto-MediumItalic.ttf in Resources */,
@@ -4296,6 +4290,7 @@
 				07E3C7151B9A2C910071CF82 /* Roboto-Italic.ttf in Resources */,
 				07E3C7211B9A2C910071CF82 /* edit-friends-user-has-app.pdf in Resources */,
 				07E3C7331B9A2C910071CF82 /* icon_menu_dots.png in Resources */,
+				9E7146081BA05A2B005D0A03 /* home-page-arrow-left.pdf in Resources */,
 				07E3C7BF1B9A2C910071CF82 /* Zazo.entitlements in Resources */,
 				07E3C79A1B9A2C910071CF82 /* human.h.motemplate in Resources */,
 				07E3C71B1B9A2C910071CF82 /* Roboto-Thin.ttf in Resources */,
