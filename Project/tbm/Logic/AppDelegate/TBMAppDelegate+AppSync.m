@@ -363,7 +363,7 @@
         [TBMRemoteStorageHandler addRemoteOutgoingVideoId:videoId friend:friend];
         [TBMRemoteStorageHandler setRemoteEverSentKVForFriendMkeys:[TBMFriend everSentMkeys]];
 
-//        [self sendNotificationForVideoReceived:friend videoId:videoId];
+        [self sendNotificationForVideoReceived:friend videoId:videoId];
     } else
     {
         OB_ERROR(@"uploadCompletedWithVideoId: upload error. FailedPermanently");
