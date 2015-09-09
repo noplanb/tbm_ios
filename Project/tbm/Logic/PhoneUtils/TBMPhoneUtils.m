@@ -21,8 +21,11 @@
     NSError *err = nil;
     NSString *r;
     
-    ZZUserDomainModel* authenticatedUser = [ZZUserDataProvider authenticatedUser];
-    NSString* region = [self phoneRegionFromNumber:@"+380930880008"]; //TODO: authenticated user have no mobile number
+    NSString* region = [self phoneRegionFromNumber:[self _savedMobileNumber]]; //TODO: authenticated user have no mobile number
+    if (ANIsEmpty(region))
+    {
+        region = @"US";
+    }
     
     NBPhoneNumber *pn = [pu parse:phone defaultRegion:region error:&err];
     
@@ -45,9 +48,11 @@
 {
     NBPhoneNumberUtil* phoneUtil = [[NBPhoneNumberUtil alloc] init];
     
-    ZZUserDomainModel* authenticatedUser = [ZZUserDataProvider authenticatedUser];
-    
-    NSString* region = [self phoneRegionFromNumber:@"+380930880008"]; //TODO: authenticated user have no mobile number
+    NSString* region = [self phoneRegionFromNumber:[self _savedMobileNumber]]; //TODO: authenticated user have no mobile number
+    if (ANIsEmpty(region))
+    {
+        region = @"US";
+    }
     
     OB_DEBUG(@"User region: %@", region);
     
@@ -105,6 +110,11 @@
         return YES;
     
     return NO;
+}
+
++ (NSString*)_savedMobileNumber
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"authenticatedMobileNumber"];
 }
 
 @end
