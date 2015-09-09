@@ -14,7 +14,7 @@
 #import "ZZGridDomainModel.h"
 #import "ZZGridCellViewModel.h"
 
-static CGFloat const kTouchOffset = 20;
+static CGFloat const kTouchOffset = 7;
 
 @interface ZZTouchObserver () <GridDelegate>
 

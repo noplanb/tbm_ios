@@ -24,6 +24,7 @@
 #import "TBMUser.h"
 #import "TBMFriend.h"
 #import "TBMS3CredentialsManager.h"
+#import "TBMPhoneUtils.h"
 
 @interface ZZAuthInteractor ()
 
@@ -161,6 +162,8 @@
 
 - (void)registerUserWithModel:(ZZUserDomainModel*)user forceCall:(BOOL)forceCall
 {
+    [self _saveAuthenticatedUserMobileNumberToDefauts:user.mobileNumber]; //TODO: temp
+    
     [[ZZAccountTransportService registerUserWithModel:user shouldForceCall:forceCall] subscribeNext:^(NSDictionary *authKeys) {
         
         NSString *auth = [authKeys objectForKey:@"auth"];
@@ -338,6 +341,13 @@
         }
         return result;
     }];
+}
+
+- (void)_saveAuthenticatedUserMobileNumberToDefauts:(NSString*)number
+{
+    NSString* numberWithPlus = [NSString stringWithFormat:@"+%@", number];
+    [[NSUserDefaults standardUserDefaults] setObject:numberWithPlus forKey:@"authenticatedMobileNumber"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end
