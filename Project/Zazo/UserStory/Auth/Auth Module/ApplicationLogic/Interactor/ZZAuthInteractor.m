@@ -38,9 +38,9 @@
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
     
 #ifdef DEBUG_LOGIN_USER
-    user.firstName = @"Ol";
-    user.lastName = @"P";
-    user.mobileNumber = @"+380930880008";
+    user.firstName = @"El";
+    user.lastName = @"M";
+    user.mobileNumber = @"+380662578748";
 #endif
     
     if (!ANIsEmpty(user.mobileNumber))
@@ -73,8 +73,7 @@
     if (!validationError)
     {
         [self.output validationCompletedSuccessfully];
-        self.currentUser = model;
-        [ZZUserDataProvider upsertUserWithModel:model];
+        self.currentUser = [ZZUserDataProvider upsertUserWithModel:model];
         [self registerUserWithModel:self.currentUser forceCall:NO];
     }
     else
@@ -169,6 +168,11 @@
         
         [ZZStoredSettingsManager shared].userID = mkey;
         [ZZStoredSettingsManager shared].authToken = auth;
+        
+        self.currentUser.mkey = mkey;
+        self.currentUser.auth = auth;
+        self.currentUser = [ZZUserDataProvider upsertUserWithModel:self.currentUser];
+        
         if (!forceCall)
         {
             [self.output registrationCompletedSuccessfullyWithPhoneNumber:user.mobileNumber];
@@ -302,7 +306,7 @@
         ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
         NSString *myMkey = user.mkey;
         user.isInvitee = ![firstFriendCreatorMkey isEqualToString:myMkey];
-        [ZZUserDataProvider upsertUserWithModel:user];
+        self.currentUser = [ZZUserDataProvider upsertUserWithModel:user];
     }
 }
 

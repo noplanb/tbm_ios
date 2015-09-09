@@ -122,6 +122,11 @@ static NSInteger const kGridFriendsCellCount = 8;
     [self getInvitedFriendFromServer];
 }
 
+- (void)addNewFriendToGridModelsArray
+{
+    
+}
+
 - (void)loadFeedbackModel
 {
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
