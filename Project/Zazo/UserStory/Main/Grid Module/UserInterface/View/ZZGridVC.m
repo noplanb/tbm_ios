@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
     ZZEditMenuButtonTypeCancel = 2,
 };
 
-@interface ZZGridVC ()
+@interface ZZGridVC () <ZZTouchObserverDelegate>
 
 @property (nonatomic, strong) ZZGridView* gridView;
 @property (nonatomic, strong) ZZGridCollectionController* controller;
@@ -38,6 +38,7 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
         self.gridView = [ZZGridView new];
         self.controller = [[ZZGridCollectionController alloc] initWithCollectionView:self.gridView.collectionView];
         self.touchObserver = [[ZZTouchObserver alloc] initWithGridView:self.gridView];
+        self.touchObserver.delegate = self;
     }
     return self;
 }
@@ -119,6 +120,14 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
 - (void)updateRollingStateTo:(BOOL)isEnabled
 {
     self.gridView.isRotationEnabled = isEnabled;
+}
+
+
+#pragma mark - Touch Observer Delegate
+
+- (void)stopPlaying
+{
+    [self.eventHandler stopPlaying];
 }
 
 @end

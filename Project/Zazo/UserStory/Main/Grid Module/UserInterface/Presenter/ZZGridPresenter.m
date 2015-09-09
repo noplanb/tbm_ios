@@ -240,6 +240,10 @@
     [[ZZVideoRecorder shared] switchCamera];
 }
 
+- (void)stopPlaying
+{
+    [self.videoPlayer stop];
+}
 
 #pragma mark - Module Delegate Method
 

@@ -41,6 +41,7 @@
         [self showUploadIconWithoutAnimation];
     }
     [self updateBadgeWithNumber:self.model.badgeNumber];
+    model.playerContainerView = self;
 }
 
 
@@ -62,7 +63,10 @@
 
 - (void)showDownloadAnimationWithNewVideoCount:(NSInteger)count
 {
-    [self _showDownloadAnimationWithNewVideoCount:count];
+    if (count > 0)
+    {
+        [self _showDownloadAnimationWithNewVideoCount:count];
+    }
 }
 
 - (void)updateBadgeWithNumber:(NSNumber*)badgeNumber
@@ -205,6 +209,7 @@
         _videoCountLabel.hidden = YES;
         _videoCountLabel.textColor = [UIColor whiteColor];
         _videoCountLabel.textAlignment = NSTextAlignmentCenter;
+        _videoCountLabel.layer.zPosition = 150;
         [self addSubview:_videoCountLabel];
         
         [_videoCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {

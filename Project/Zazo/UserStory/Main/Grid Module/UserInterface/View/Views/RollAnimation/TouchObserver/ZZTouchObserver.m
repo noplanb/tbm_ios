@@ -95,6 +95,7 @@
         {
             self.collectionView = self.gridView.collectionView;
             CGPoint location = [touch locationInView:self.gridView.collectionView];
+            [self.delegate stopPlaying];
             if (!self.isMoving)
             {
                 self.isMoving = YES;
