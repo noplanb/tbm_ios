@@ -7,6 +7,7 @@
 #import "TBMFriend.h"
 #import "NSNumber+TBMUserDefaults.h"
 #import "TBMUser.h"
+#import "ZZUserDataProvider.h"
 
 static NSString *const kLastUnlockedFeatureNSUDKey = @"kLastUnlockedFeatureNSUDKey";
 
@@ -57,7 +58,8 @@ static NSString *const kLastUnlockedFeatureNSUDKey = @"kLastUnlockedFeatureNSUDK
 
 - (BOOL)isInvitedUser
 {
-    return [[TBMUser getUser].isInvitee boolValue];
+    ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
+    return me.isInvitee;
 }
 
 - (NSInteger)lockedFeaturesCount

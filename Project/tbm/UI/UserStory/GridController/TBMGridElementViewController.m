@@ -48,21 +48,21 @@
 
 @implementation TBMGridElementViewController
 
-- (instancetype)initWithIndex:(NSInteger)index frame:(CGRect)frame
-{
-    self = [super init];
-    if (self != nil)
-    {
-        _index = index;
-        _isAppeared = NO;
-        self.indexOnGrid = index;
-        _videoPlayer = [TBMVideoPlayer sharedInstance];
-        self.gridElement = [TBMGridElement findWithIntIndex:index];
-        _messageDing = [[TBMSoundEffect alloc] initWithSoundNamed:kMessageSoundEffectFileName];
-        _frame = frame;
-    }
-    return self;
-}
+//- (instancetype)initWithIndex:(NSInteger)index frame:(CGRect)frame
+//{
+//    self = [super init];
+//    if (self != nil)
+//    {
+//        _index = index;
+//        _isAppeared = NO;
+//        self.indexOnGrid = index;
+//        _videoPlayer = [TBMVideoPlayer sharedInstance];
+//        self.gridElement = [TBMGridElement findWithIntIndex:index];
+//        _messageDing = [[TBMSoundEffect alloc] initWithSoundNamed:kMessageSoundEffectFileName];
+//        _frame = frame;
+//    }
+//    return self;
+//}
 
 - (void)viewDidLoad
 {

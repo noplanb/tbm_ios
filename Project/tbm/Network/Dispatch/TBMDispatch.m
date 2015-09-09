@@ -25,6 +25,8 @@
 #import "TBMStateStringGenerator.h"
 #import "ZZStoredSettingsManager.h"
 #import "NSObject+ANSafeValues.h"
+#import "ZZUserDataProvider.h"
+#import "ZZUserDomainModel.h"
 
 static NSString *ROLLBAR_TOKEN = @"0ac2aee23dc449309b0c0bf6a46b4d59";
 
@@ -70,9 +72,13 @@ static BOOL TBMDispatchEnabled = NO;
     TBMDispatchEnabled = NO;
 }
 
-+ (void) receivedError:(NSNotification *)notification{
-    if (TBMDispatchEnabled && [TBMUser getUser].isRegistered)
++ (void) receivedError:(NSNotification *)notification
+{
+    ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
+    if (TBMDispatchEnabled && me.isRegistered)
+    {
         [TBMDispatch dispatch: [TBMDispatch message:notification.object] logLevel:TBMDispatchLevelError];
+    }
 }
 
 + (void) dispatch: (NSString *)msg {
@@ -164,12 +170,12 @@ NSString* dispatchLevelStringFromDispatchLevel(TBMDispatchLevel logLevel) {
         default: break;
     }
     config.environment = env;
-    TBMUser *user = [TBMUser getUser];
-    [self setRollBarUser:user forConfig:config];
+    ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
+    [self setRollBarUser:me forConfig:config];
     [Rollbar initWithAccessToken:ROLLBAR_TOKEN configuration:config];
 }
 
-+ (void)setRollBarUser:(TBMUser *)user forConfig:(RollbarConfiguration *)config
++ (void)setRollBarUser:(ZZUserDomainModel*)user forConfig:(RollbarConfiguration *)config
 {
     NSString *personId = user.idTbm;
     NSString *username = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];

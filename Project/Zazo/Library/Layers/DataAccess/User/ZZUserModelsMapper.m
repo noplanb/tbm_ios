@@ -23,6 +23,7 @@
     entity.mkey = model.mkey;
     
     entity.isRegistered = @(model.isRegistered);
+    entity.isInvitee = @(model.isInvitee);
     
     return entity;
 }
@@ -40,6 +41,7 @@
         model.mkey = entity.mkey;
         
         model.isRegistered = [entity.isRegistered boolValue];
+        model.isInvitee = [entity.isInvitee boolValue];
     }
     @catch (NSException *exception)
     {

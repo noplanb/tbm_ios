@@ -5,6 +5,8 @@
 
 #import "TBMDebugData.h"
 #import "TBMUser.h"
+#import "ZZUserDataProvider.h"
+#import "ZZUserDomainModel.h"
 
 @implementation TBMDebugData
 
@@ -25,8 +27,8 @@
     
     NSArray *versionParts = @[version, @"(", buildNumber, @")"];
     self.version = [versionParts componentsJoinedByString:@" "];
-    TBMUser *user = [TBMUser getUser];
-
+    
+    ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
     self.firstName = user.firstName;
     self.lastName = user.lastName;
     self.mobileNumber = user.mobileNumber;

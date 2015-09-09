@@ -18,6 +18,8 @@
 #import "ZZGridDomainModel.h"
 #import "ZZGridDataProvider.h"
 #import "ZZFriendDataProvider.h"
+#import "ZZPhoneHelper.h"
+#import "ZZUserDataProvider.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
@@ -79,16 +81,34 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (void)selectedUserWithModel:(id)model
 {
     self.selectedUserModel = model;
-    [self _updateSelectedModelWithUser];
+    
+    if ([model isKindOfClass:[ZZFriendDomainModel class]])
+    {
+        [self _updateSelectedModelWithUser]; //TODO: selected zazo friend logic
+    }
+    else //invite friend from contact logic
+    {
+        NSArray* validNumbers = [ZZPhoneHelper getValidPhonesFromContactModel:model];
+        if (!ANIsEmpty(validNumbers))
+        {
+            
+        }
+        else
+        {
+            //TODO: show alert that contact has no valid numbers;
+        }
+    }
 }
 
 - (void)loadFeedbackModel
 {
+    ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
+    
     ANMessageDomainModel *model = [ANMessageDomainModel new];
     model.title = emailSubject;
     model.recipients = @[emailAddress];
     model.isHTMLMessage = YES;
-    model.message = [NSString stringWithFormat:@"<font color = \"000000\"></br></br></br>---------------------------------</br>iOS: %@</br>Model: %@</br>User mKey: %@</br>App Version: %@</br>Build Version: %@ </font>", [[UIDevice currentDevice] systemVersion], [DeviceUtil hardwareDescription], [TBMUser getUser].mkey, [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"], [NSBundle mainBundle].infoDictionary[(NSString*)kCFBundleVersionKey]];
+    model.message = [NSString stringWithFormat:@"<font color = \"000000\"></br></br></br>---------------------------------</br>iOS: %@</br>Model: %@</br>User mKey: %@</br>App Version: %@</br>Build Version: %@ </font>", [[UIDevice currentDevice] systemVersion], [DeviceUtil hardwareDescription], user.mkey, [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"], [NSBundle mainBundle].infoDictionary[(NSString*)kCFBundleVersionKey]];
     [self.output feedbackModelLoadedSuccessfully:model];
 }
 
@@ -106,6 +126,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     {
         [self.output gridContainedFriend:containedUser];
     }
+    
 }
 
 - (ZZFriendDomainModel*)friendModelFromMenuModel:(id)model

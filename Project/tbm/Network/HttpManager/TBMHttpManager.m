@@ -10,6 +10,7 @@
 #import "TBMConfig.h"
 #import "TBMUser.h"
 #import "ZZAPIRoutes.h"
+#import "ZZUserDataProvider.h"
 
 NSString * const SERVER_PARAMS_STATUS_KEY = @"status";
 NSString * const SERVER_PARAMS_ERROR_TITLE_KEY = @"title";
@@ -61,10 +62,11 @@ NSString * const SERVER_PARAMS_DISPATCH_ZAZO_VERSION_NUMBER_KEY = @"zazo_version
 
 + (AFHTTPRequestOperationManager *)manager{
     NSURLCredential *credential = nil;
-    TBMUser *u = [TBMUser getUser];
-    if (u != nil){
-        credential = [[NSURLCredential alloc] initWithUser:u.mkey
-                                                password:u.auth
+    ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
+    if (me != nil)
+    {
+        credential = [[NSURLCredential alloc] initWithUser:me.mkey
+                                                password:me.auth
                                              persistence:NSURLCredentialPersistenceForSession];
     }
     return [TBMHttpManager managerWithCredential:credential];;
