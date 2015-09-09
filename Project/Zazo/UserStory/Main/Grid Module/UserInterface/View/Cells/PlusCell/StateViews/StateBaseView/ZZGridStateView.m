@@ -10,6 +10,7 @@
 #import "ZZGridStateView+Animation.h"
 #import "ZZVideoPlayer.h"
 #import "ZZGridUIConstants.h"
+#import "UIImage+PDF.h"
 
 @interface ZZGridStateView ()
 
@@ -99,13 +100,21 @@
     if (!_uploadingIndicator)
     {
         _uploadingIndicator = [UIImageView new];
-        _uploadingIndicator.image = [UIImage imageNamed:@"icon-uploading-1x"];
-        [_uploadingIndicator sizeToFit];
+//        _uploadingIndicator.image = [UIImage imageNamed:@"icon-uploading-1x"];
+//        _uploadingIndicator.image = [UIImage imageWithPDFNamed:@"icon_arrow.png" atSize:<#(CGSize)#>]
+        
+       
+        CGFloat aspect = CGRectGetWidth(_uploadingIndicator.frame)/CGRectGetHeight(_uploadingIndicator.frame);
+        CGFloat width = [self _indicatorCalculatedWidth];
+        CGFloat height = [self _indicatorCalculatedWidth]/aspect;
+        CGSize size = CGSizeMake(width, height);
+        UIImage* image = [UIImage imageWithPDFNamed:@"icon_arrow" atSize:size];
+        _uploadingIndicator.image = image;
         _uploadingIndicator.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
         _uploadingIndicator.hidden = YES;
         [self addSubview:_uploadingIndicator];
         
-        CGFloat aspect = CGRectGetWidth(_uploadingIndicator.frame)/CGRectGetHeight(_uploadingIndicator.frame);
+        
         
         [_uploadingIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self);
