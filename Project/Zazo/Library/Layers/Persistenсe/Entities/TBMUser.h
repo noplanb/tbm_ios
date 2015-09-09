@@ -10,12 +10,12 @@
 
 @interface TBMUser : _TBMUser
 
-+ (instancetype)getUser;
-+ (instancetype)createWithServerParams:(NSDictionary *)params;
+//+ (instancetype)getUser;
+//+ (instancetype)createWithServerParams:(NSDictionary *)params;
 + (NSString *)phoneRegion;
-+ (void)saveRegistrationData:(NSDictionary *)params;
+//+ (void)saveRegistrationData:(NSDictionary *)params;
 
-- (void)setupRegistredFlagTo:(BOOL)registred;
+//- (void)setupRegistredFlagTo:(BOOL)registred;
 - (void)setupIsInviteeFlagTo:(BOOL)flag;
 
 @end

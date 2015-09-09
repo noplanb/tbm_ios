@@ -35,11 +35,13 @@
     return [ZZUserModelsMapper fillModel:[ZZUserDomainModel new] fromEntity:entity];
 }
 
-+ (void)upsertUserWithModel:(ZZUserDomainModel*)model
++ (ZZUserDomainModel*)upsertUserWithModel:(ZZUserDomainModel*)model
 {
+    // TODO: check is user already exists
     TBMUser* entity = [TBMUser an_objectWithItemID:model.idTbm context:[self _context]];
     [ZZUserModelsMapper fillEntity:entity fromModel:model];
     [[self _context] MR_saveToPersistentStoreAndWait];
+    return [self modelFromEntity:entity];
 }
 
 #pragma mark - Private

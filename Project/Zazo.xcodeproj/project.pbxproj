@@ -1217,6 +1217,7 @@
 		07CBBC2C1B9B1FF90080D300 /* !_OLD */ = {
 			isa = PBXGroup;
 			children = (
+				07E3C3A51B9A2C900071CF82 /* TPKeyboardAvoiding */,
 				07E3C37A1B9A2C900071CF82 /* TBMMarginLabel.h */,
 				07E3C37B1B9A2C900071CF82 /* TBMMarginLabel.m */,
 				07E3C3781B9A2C900071CF82 /* TBMLongPressTouchHandler.h */,
@@ -1269,7 +1270,6 @@
 				07E3C3591B9A2C900071CF82 /* Network */,
 				07E3C36C1B9A2C900071CF82 /* Resources */,
 				07E3C3751B9A2C900071CF82 /* UI */,
-				07E3C3A41B9A2C900071CF82 /* Vendor */,
 			);
 			path = tbm;
 			sourceTree = "<group>";
@@ -1965,14 +1965,6 @@
 			path = HomeViewController;
 			sourceTree = "<group>";
 		};
-		07E3C3A41B9A2C900071CF82 /* Vendor */ = {
-			isa = PBXGroup;
-			children = (
-				07E3C3A51B9A2C900071CF82 /* TPKeyboardAvoiding */,
-			);
-			path = Vendor;
-			sourceTree = "<group>";
-		};
 		07E3C3A51B9A2C900071CF82 /* TPKeyboardAvoiding */ = {
 			isa = PBXGroup;
 			children = (
@@ -1985,7 +1977,8 @@
 				07E3C3AC1B9A2C900071CF82 /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
 				07E3C3AD1B9A2C900071CF82 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
 			);
-			path = TPKeyboardAvoiding;
+			name = TPKeyboardAvoiding;
+			path = Vendor/TPKeyboardAvoiding;
 			sourceTree = "<group>";
 		};
 		07E3C3AE1B9A2C900071CF82 /* Zazo */ = {
@@ -4829,7 +4822,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "2d93206a-9477-439e-9b06-ab0aa3c7fa7c";
+				PROVISIONING_PROFILE = "dae33d6c-c5ca-4c75-83c6-3f99dad0c513";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -4958,7 +4951,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "eaf6f4d7-aa5d-40e6-9374-117aa8f7032d";
+				PROVISIONING_PROFILE = "8ef95452-c45d-4cff-a8a6-16869dd0cd7d";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";

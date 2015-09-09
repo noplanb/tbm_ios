@@ -15,6 +15,8 @@
 #import "OBLogger.h"
 #import "NSString+NSStringExtensions.h"
 #import "ZZAPIRoutes.h"
+#import "ZZUserDomainModel.h"
+#import "ZZUserDataProvider.h"
 
 static NSString *const kArraySeparator = @",";
 
@@ -75,24 +77,27 @@ static NSString *const kArraySeparator = @",";
 
 + (NSString *)incomingPrefix:(TBMFriend *)friend
 {
-    
-    return [NSString stringWithFormat:@"%@-%@", friend.mkey, [TBMUser getUser].mkey];
+    ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
+    return [NSString stringWithFormat:@"%@-%@", friend.mkey, model.mkey];
 }
 
 + (NSString *)outgoingPrefix:(TBMFriend *)friend
 {
-    return [NSString stringWithFormat:@"%@-%@", [TBMUser getUser].mkey, friend.mkey];
+     ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
+    return [NSString stringWithFormat:@"%@-%@", model, friend.mkey];
 }
 
 + (NSString *)incomingSuffix:(TBMFriend *)friend withTypeSuffix:(NSString *)typeSuffix
 {
-    NSString *md5 = [[[friend.mkey stringByAppendingString:[TBMUser getUser].mkey] stringByAppendingString:friend.ckey] md5];
+     ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
+    NSString *md5 = [[[friend.mkey stringByAppendingString:model.mkey] stringByAppendingString:friend.ckey] md5];
     return [md5 stringByAppendingString:typeSuffix];
 }
 
 + (NSString *)outgoingSuffix:(TBMFriend *)friend withTypeSuffix:(NSString *)typeSuffix
 {
-    NSString *md5 = [[[[TBMUser getUser].mkey stringByAppendingString:friend.mkey] stringByAppendingString:friend.ckey] md5];
+     ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
+    NSString *md5 = [[[model.mkey stringByAppendingString:friend.mkey] stringByAppendingString:friend.ckey] md5];
     return [md5 stringByAppendingString:typeSuffix];
 }
 
@@ -359,7 +364,8 @@ static NSString *const kArraySeparator = @",";
 
 + (NSString *)_welcomedFriendsKey
 {
-    return [NSString stringWithFormat:@"%@-WelcomedFriends", [TBMUser getUser].mkey];
+    ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
+    return [NSString stringWithFormat:@"%@-WelcomedFriends", model.mkey];
 }
 
 

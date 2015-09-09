@@ -22,6 +22,7 @@ extern const struct ZZUserDomainModelAttributes {
 
 @interface ZZUserDomainModel : ZZBaseDomainModel <ZZUserInterface>
 
+@property (nonatomic, copy) NSString* itemID;
 @property (nonatomic, copy) NSString* firstName;
 @property (nonatomic, copy) NSString* lastName;
 @property (nonatomic, copy) NSString* auth;
