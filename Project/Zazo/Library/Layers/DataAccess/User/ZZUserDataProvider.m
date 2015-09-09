@@ -20,17 +20,18 @@
     {
         // TODO: dispatch message with dupples
     }
-    TBMUser* user = [users firstObject];
+    TBMUser* user = [users lastObject];
     return [self modelFromEntity:user];
 }
 
 + (TBMUser*)entityFromModel:(ZZUserDomainModel*)model
 {
-    TBMUser* entity = [[TBMUser MR_findByAttribute:TBMUserAttributes.mkey withValue:model.mkey] firstObject];
+    NSArray* users = [TBMUser MR_findAllInContext:[self _context]];
+    TBMUser* entity = [users firstObject];
     if (!entity)
     {
         entity = [TBMUser MR_createEntityInContext:[self _context]];
-        entity.idTbm = @"temporary";
+        entity.mkey = @"temporary";
         [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
     }
     
@@ -44,15 +45,15 @@
 
 + (ZZUserDomainModel*)upsertUserWithModel:(ZZUserDomainModel*)model
 {
-    TBMUser* entity = [[TBMUser MR_findByAttribute:TBMUserAttributes.mkey withValue:model.mkey] firstObject];
+    NSArray* users = [TBMUser MR_findAllInContext:[self _context]];
+    TBMUser* entity = [users firstObject];
     if (!entity)
     {
         entity = [TBMUser MR_createEntityInContext:[self _context]];
-        entity.idTbm = @"temporary";
-        [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
+        entity.mkey = @"temporary";
     }
     [ZZUserModelsMapper fillEntity:entity fromModel:model];
-    [[self _context] MR_saveToPersistentStoreAndWait];
+    [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
     return [self modelFromEntity:entity];
 }
 
