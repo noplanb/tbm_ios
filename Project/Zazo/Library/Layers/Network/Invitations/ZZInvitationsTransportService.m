@@ -9,6 +9,7 @@
 #import "ZZInvitationsTransportService.h"
 #import "ZZInvitationsTransport.h"
 #import "TBMPhoneUtils.h"
+#import "ZZPhoneHelper.h"
 
 static const struct
 {
@@ -29,9 +30,9 @@ static const struct
 {
     NSParameterAssert(phoneNumber);
     
-    NSString *formatNumberToE164 = [TBMPhoneUtils phone:phoneNumber withFormat:NBEPhoneNumberFormatE164];
+    NSString *formattedNumber = [ZZPhoneHelper formatMobileNumberToE164AndServerFormat:phoneNumber];
     
-    NSDictionary* parameters = @{ZZInvitationsServerParameters.phoneNumber : [NSObject an_safeString:formatNumberToE164]};
+    NSDictionary* parameters = @{ZZInvitationsServerParameters.phoneNumber : [NSObject an_safeString:formattedNumber]};
     
     return [ZZInvitationsTransport checkIfAnInvitedUserHasAppWithParameters:parameters];
 }
@@ -44,7 +45,9 @@ static const struct
     NSParameterAssert(firstName);
     NSParameterAssert(lastName);
     
-    NSDictionary* parameters = @{ZZInvitationsServerParameters.phoneNumber : [NSObject an_safeString:phoneNumber],
+    NSString *formattedNumber = [ZZPhoneHelper formatMobileNumberToE164AndServerFormat:phoneNumber];
+    
+    NSDictionary* parameters = @{ZZInvitationsServerParameters.phoneNumber : [NSObject an_safeString:formattedNumber],
                                  ZZInvitationsServerParameters.firstName   : [NSObject an_safeString:firstName],
                                  ZZInvitationsServerParameters.lastName    : [NSObject an_safeString:lastName]};
     

@@ -21,6 +21,7 @@
 #import "ZZPhoneHelper.h"
 #import "ZZUserDataProvider.h"
 #import "ZZInvitationsTransportService.h"
+#import "FEMObjectDeserializer.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
@@ -30,6 +31,8 @@ static NSInteger const kGridFriendsCellCount = 8;
 @property (nonatomic, strong) NSMutableArray* friends;
 @property (nonatomic, strong) id selectedUserModel;
 @property (nonatomic, strong) ZZGridDomainModel* selectedModel;
+@property (nonatomic, strong) NSString* selectedPhoneNumber;
+@property (nonatomic, strong) ZZFriendDomainModel* currentFriend;
 
 @end
 
@@ -114,6 +117,11 @@ static NSInteger const kGridFriendsCellCount = 8;
     [self checkIfAnInvitedUserHasApp:phoneNumber];
 }
 
+- (void)inviteUserThatHasNoAppInstalled
+{
+    [self getInvitedFriendFromServer];
+}
+
 - (void)loadFeedbackModel
 {
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
@@ -183,10 +191,39 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)checkIfAnInvitedUserHasApp:(NSString *)phoneNumber
 {
-    [[ZZInvitationsTransportService checkIfAnInvitedUserHasApp:phoneNumber] subscribeNext:^(id x) {
-        
+    self.selectedPhoneNumber = phoneNumber;
+    
+    [[ZZInvitationsTransportService checkIfAnInvitedUserHasApp:phoneNumber] subscribeNext:^(NSDictionary* responseObject) {
+        if ([[responseObject objectForKey:@"has_app"] isEqualToString:@"false"]) //TODO: need model for response object?
+        {
+            //user has no app
+            NSString *firstName = [(ZZContactDomainModel*)self.selectedUserModel firstName];
+            [self.output userHasNoAppInstalled:firstName];
+        }
+        else
+        {
+            //user has app installed
+            [self getInvitedFriendFromServer];
+        }
     } error:^(NSError *error) {
         //TODO: handle error
+    }];
+}
+
+- (void)getInvitedFriendFromServer
+{
+    NSString *firstName = [(ZZContactDomainModel*)self.selectedUserModel firstName];
+    NSString *lastName = [(ZZContactDomainModel*)self.selectedUserModel lastName];
+    
+    [[ZZInvitationsTransportService inviteUserWithPhoneNumber:self.selectedPhoneNumber firstName:[NSObject an_safeString:firstName] andLastName:[NSObject an_safeString:lastName]] subscribeNext:^(NSDictionary* objectArray) {
+        
+        ZZFriendDomainModel* friend = [FEMObjectDeserializer deserializeObjectExternalRepresentation:objectArray usingMapping:[ZZFriendDomainModel mapping]];
+        self.currentFriend = friend;
+        
+        [self.output friendRecievedFromeServer:friend];
+        
+    } error:^(NSError *error) {
+        //TODO: handle Error
     }];
 }
 

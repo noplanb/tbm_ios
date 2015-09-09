@@ -82,11 +82,8 @@
         }
         else
         {
-            NSDictionary* errorObject = json[@"error"];
-            NSError* error = [ANErrorBuilder errorWithType:ANErrorTypeServer
-                                                      code:[errorObject[@"code"] integerValue]
-                                       descriptionArgument:errorObject[@"message"]];
-            [self handleError:error subscriber:subscriber];
+            [subscriber sendNext:json];
+            [subscriber sendCompleted];
         }
     }
     else
