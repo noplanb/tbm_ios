@@ -52,10 +52,6 @@
     
         switch (model.state)
         {
-//            case ZZGridCellViewModelStateAdd:
-//            {
-//                
-//            } break;
             case ZZGridCellViewModelStateFriendHasApp:
             {
                 self.stateView = [ZZGridStateViewRecord new];
