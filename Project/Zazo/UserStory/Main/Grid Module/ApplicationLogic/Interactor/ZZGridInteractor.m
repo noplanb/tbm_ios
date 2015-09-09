@@ -20,6 +20,7 @@
 #import "ZZFriendDataProvider.h"
 #import "ZZPhoneHelper.h"
 #import "ZZUserDataProvider.h"
+#import "ZZInvitationsTransportService.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
@@ -91,13 +92,26 @@ static NSInteger const kGridFriendsCellCount = 8;
         NSArray* validNumbers = [ZZPhoneHelper getValidPhonesFromContactModel:model];
         if (!ANIsEmpty(validNumbers))
         {
-            
+            if (validNumbers.count > 1)
+            {
+                [self.output userHaSeveralValidNumbers:validNumbers];
+            }
+            else
+            {
+                //send has app and invitation requests
+                [self checkIfAnInvitedUserHasApp:[validNumbers firstObject]];
+            }
         }
         else
         {
-            //TODO: show alert that contact has no valid numbers;
+            [self.output userHasNoValidNumbers:model];
         }
     }
+}
+
+- (void)userSelectedPhoneNumber:(NSString*)phoneNumber
+{
+    [self checkIfAnInvitedUserHasApp:phoneNumber];
 }
 
 - (void)loadFeedbackModel
@@ -163,6 +177,17 @@ static NSInteger const kGridFriendsCellCount = 8;
     }];
     
     return isContainModel;
+}
+
+#pragma mark - API
+
+- (void)checkIfAnInvitedUserHasApp:(NSString *)phoneNumber
+{
+    [[ZZInvitationsTransportService checkIfAnInvitedUserHasApp:phoneNumber] subscribeNext:^(id x) {
+        
+    } error:^(NSError *error) {
+        //TODO: handle error
+    }];
 }
 
 @end

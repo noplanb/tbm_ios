@@ -454,7 +454,8 @@
 
 }
 
-- (void)notifyChildrenOfGridChange:(NSInteger)index {
+- (void)notifyChildrenOfGridChange:(NSInteger)index
+{
     for (TBMGridElementViewController *c in self.childViewControllers) {
         [c gridDidChange:index];
     }
@@ -544,7 +545,8 @@
     else if (![self appDelegate].isForeground) {
         OB_WARN(@"HomeViewController: not initializing the VideoRecorder because ! isForeground");
     }
-    else {
+    else
+    {
         OB_WARN(@"HomeviewController: setupVideoRecorder: setting up. vr=%@, rc=%d, isViewLoaded=%d, view.window=%d", self.videoRecorder, retryCount, [self isViewLoaded], [self isViewLoaded] && self.view.window);
 
         self.videoRecorder = [[TBMVideoRecorder alloc] initWithPreviewView:nil//[self centerView]

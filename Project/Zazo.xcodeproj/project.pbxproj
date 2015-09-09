@@ -616,10 +616,10 @@
 		07E3C3741B9A2C900071CF82 /* single_ding_chimes2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = single_ding_chimes2.wav; sourceTree = "<group>"; };
 		07E3C3761B9A2C900071CF82 /* TBMContentViewModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMContentViewModal.h; sourceTree = "<group>"; };
 		07E3C3771B9A2C900071CF82 /* TBMContentViewModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMContentViewModal.m; sourceTree = "<group>"; };
-		07E3C3781B9A2C900071CF82 /* TBMLongPressTouchHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMLongPressTouchHandler.h; sourceTree = "<group>"; };
-		07E3C3791B9A2C900071CF82 /* TBMLongPressTouchHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMLongPressTouchHandler.m; sourceTree = "<group>"; };
-		07E3C37A1B9A2C900071CF82 /* TBMMarginLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMMarginLabel.h; sourceTree = "<group>"; };
-		07E3C37B1B9A2C900071CF82 /* TBMMarginLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMMarginLabel.m; sourceTree = "<group>"; };
+		07E3C3781B9A2C900071CF82 /* TBMLongPressTouchHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBMLongPressTouchHandler.h; path = UI/TBMLongPressTouchHandler.h; sourceTree = "<group>"; };
+		07E3C3791B9A2C900071CF82 /* TBMLongPressTouchHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBMLongPressTouchHandler.m; path = UI/TBMLongPressTouchHandler.m; sourceTree = "<group>"; };
+		07E3C37A1B9A2C900071CF82 /* TBMMarginLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBMMarginLabel.h; path = UI/TBMMarginLabel.h; sourceTree = "<group>"; };
+		07E3C37B1B9A2C900071CF82 /* TBMMarginLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBMMarginLabel.m; path = UI/TBMMarginLabel.m; sourceTree = "<group>"; };
 		07E3C37C1B9A2C900071CF82 /* TBMPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMPreviewView.h; sourceTree = "<group>"; };
 		07E3C37D1B9A2C900071CF82 /* TBMPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMPreviewView.m; sourceTree = "<group>"; };
 		07E3C37E1B9A2C900071CF82 /* TBMRegisterForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBMRegisterForm.h; path = UI/TBMRegisterForm.h; sourceTree = "<group>"; };
@@ -650,10 +650,10 @@
 		07E3C39C1B9A2C900071CF82 /* TBMHomeViewController+VersionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMHomeViewController+VersionController.m"; sourceTree = "<group>"; };
 		07E3C39D1B9A2C900071CF82 /* TBMHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHomeViewController.h; sourceTree = "<group>"; };
 		07E3C39E1B9A2C900071CF82 /* TBMHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHomeViewController.m; sourceTree = "<group>"; };
-		07E3C3A01B9A2C900071CF82 /* TBMGeometryUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMGeometryUtils.h; sourceTree = "<group>"; };
-		07E3C3A11B9A2C900071CF82 /* TBMGeometryUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMGeometryUtils.m; sourceTree = "<group>"; };
-		07E3C3A21B9A2C900071CF82 /* TBMViewUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMViewUtils.h; sourceTree = "<group>"; };
-		07E3C3A31B9A2C900071CF82 /* TBMViewUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMViewUtils.m; sourceTree = "<group>"; };
+		07E3C3A01B9A2C900071CF82 /* TBMGeometryUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBMGeometryUtils.h; path = UI/Utils/TBMGeometryUtils.h; sourceTree = "<group>"; };
+		07E3C3A11B9A2C900071CF82 /* TBMGeometryUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBMGeometryUtils.m; path = UI/Utils/TBMGeometryUtils.m; sourceTree = "<group>"; };
+		07E3C3A21B9A2C900071CF82 /* TBMViewUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBMViewUtils.h; path = UI/Utils/TBMViewUtils.h; sourceTree = "<group>"; };
+		07E3C3A31B9A2C900071CF82 /* TBMViewUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBMViewUtils.m; path = UI/Utils/TBMViewUtils.m; sourceTree = "<group>"; };
 		07E3C3A61B9A2C900071CF82 /* TPKeyboardAvoidingCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingCollectionView.h; sourceTree = "<group>"; };
 		07E3C3A71B9A2C900071CF82 /* TPKeyboardAvoidingCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingCollectionView.m; sourceTree = "<group>"; };
 		07E3C3A81B9A2C900071CF82 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
@@ -1217,6 +1217,14 @@
 		07CBBC2C1B9B1FF90080D300 /* !_OLD */ = {
 			isa = PBXGroup;
 			children = (
+				07E3C37A1B9A2C900071CF82 /* TBMMarginLabel.h */,
+				07E3C37B1B9A2C900071CF82 /* TBMMarginLabel.m */,
+				07E3C3781B9A2C900071CF82 /* TBMLongPressTouchHandler.h */,
+				07E3C3791B9A2C900071CF82 /* TBMLongPressTouchHandler.m */,
+				07E3C3A21B9A2C900071CF82 /* TBMViewUtils.h */,
+				07E3C3A31B9A2C900071CF82 /* TBMViewUtils.m */,
+				07E3C3A01B9A2C900071CF82 /* TBMGeometryUtils.h */,
+				07E3C3A11B9A2C900071CF82 /* TBMGeometryUtils.m */,
 				07E3C3841B9A2C900071CF82 /* TBMTextField.h */,
 				07E3C3851B9A2C900071CF82 /* TBMTextField.m */,
 				07E3C37E1B9A2C900071CF82 /* TBMRegisterForm.h */,
@@ -1234,10 +1242,6 @@
 			children = (
 				07E3C3761B9A2C900071CF82 /* TBMContentViewModal.h */,
 				07E3C3771B9A2C900071CF82 /* TBMContentViewModal.m */,
-				07E3C3781B9A2C900071CF82 /* TBMLongPressTouchHandler.h */,
-				07E3C3791B9A2C900071CF82 /* TBMLongPressTouchHandler.m */,
-				07E3C37A1B9A2C900071CF82 /* TBMMarginLabel.h */,
-				07E3C37B1B9A2C900071CF82 /* TBMMarginLabel.m */,
 				07E3C37C1B9A2C900071CF82 /* TBMPreviewView.h */,
 				07E3C37D1B9A2C900071CF82 /* TBMPreviewView.m */,
 				07E3C3821B9A2C900071CF82 /* TBMTableModal.h */,
@@ -1900,7 +1904,6 @@
 			children = (
 				07CBBC2D1B9B20A50080D300 /* CustomElements */,
 				07E3C3861B9A2C900071CF82 /* UserStory */,
-				07E3C39F1B9A2C900071CF82 /* Utils */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1960,17 +1963,6 @@
 				07E3C39E1B9A2C900071CF82 /* TBMHomeViewController.m */,
 			);
 			path = HomeViewController;
-			sourceTree = "<group>";
-		};
-		07E3C39F1B9A2C900071CF82 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				07E3C3A01B9A2C900071CF82 /* TBMGeometryUtils.h */,
-				07E3C3A11B9A2C900071CF82 /* TBMGeometryUtils.m */,
-				07E3C3A21B9A2C900071CF82 /* TBMViewUtils.h */,
-				07E3C3A31B9A2C900071CF82 /* TBMViewUtils.m */,
-			);
-			path = Utils;
 			sourceTree = "<group>";
 		};
 		07E3C3A41B9A2C900071CF82 /* Vendor */ = {

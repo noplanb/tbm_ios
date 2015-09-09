@@ -16,8 +16,10 @@
 #import "TBMFriend.h"
 #import "TBMAlertController.h"
 #import "iToast.h"
+#import "ZZContactDomainModel.h"
+#import "TBMTableModal.h"
 
-@interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate>
+@interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate, TBMTableModalDelegate>
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
 @property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
@@ -85,6 +87,15 @@
     [self.userInterface showFriendAnimationWithModel:friendModel];
 }
 
+- (void)userHasNoValidNumbers:(ZZContactDomainModel*)model;
+{
+    [self showNoValidPhonesDialogFromModel:model];
+}
+
+- (void)userHaSeveralValidNumbers:(NSArray*)phoneNumbers
+{
+    [self showChooseNumberDialogFromNumbersArray:phoneNumbers];
+}
 
 #pragma mark - Module Interface
 
@@ -233,6 +244,43 @@
 - (void)toastNotSent
 {
     [[iToast makeText:@"Not sent"] show];
+}
+
+- (void)showNoValidPhonesDialogFromModel:(ZZContactDomainModel*)model
+{
+    NSString *title = @"No Mobile Number";
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    NSString *msg = [NSString stringWithFormat:@"I could not find a valid mobile number for %@.\n\nPlease add a mobile number for %@ in your device contacts, kill %@, then try again.", [model fullName], model.firstName, appName];
+    
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:title message:msg];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:nil]];
+    [alert presentWithCompletion:nil];
+}
+
+- (void)showChooseNumberDialogFromNumbersArray:(NSArray*)array
+{
+    //TODO: this alert is SUXX
+    ANDispatchBlockToMainQueue(^{
+        TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Attention"
+                                                                         message:@"Choose phone number"];
+        
+        [array enumerateObjectsUsingBlock:^(NSString* phoneNumber, NSUInteger idx, BOOL *stop) {
+            [alert addAction:[SDCAlertAction actionWithTitle:phoneNumber style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+                [self.interactor userSelectedPhoneNumber:phoneNumber];
+            }]];
+        }];
+        
+        [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
+        }]];
+
+        [alert presentWithCompletion:nil];
+    });
+}
+
+//TableModalDelegate methods
+- (void)didSelectRow:(NSInteger)index
+{
+    
 }
 
 @end

@@ -2,7 +2,7 @@
 //  ZZInvitationsTransportService.h
 //  Zazo
 //
-//  Created by Oleg Panforov on 9/9/15.
+//  Created by ANODA on 9/9/15.
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 

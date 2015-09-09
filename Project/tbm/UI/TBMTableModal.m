@@ -50,12 +50,14 @@ static const CGFloat cancelButtonHeight = 45.f;
 //--------------
 // Show and hide
 //--------------
-- (void) show{
+- (void) show
+{
     [self.parentView addSubview:[self dimParent]];
     [self.parentView addSubview:self.modalView];
 }
 
-- (void) hide{
+- (void) hide
+{
     for (UIView *v in [self.parentView subviews]){
         if (v.tag == self.modalTag)
             [v removeFromSuperview];
@@ -63,7 +65,8 @@ static const CGFloat cancelButtonHeight = 45.f;
 }
 
 #pragma mark - Handle events
-- (void)cancelButtonTap:(id)sender {
+- (void)cancelButtonTap:(id)sender
+{
     [self hide];
 }
 
