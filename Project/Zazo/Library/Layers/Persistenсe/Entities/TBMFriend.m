@@ -18,6 +18,7 @@
 #import "TBMUser.h"
 #import "MagicalRecord.h"
 #import "TBMGridElement.h"
+#import "ZZUserDataProvider.h"
 
 @implementation TBMFriend
 
@@ -133,7 +134,9 @@ static NSMutableArray *videoStatusNotificationDelegates;
     friend.ckey = [params objectForKey:SERVER_PARAMS_FRIEND_CKEY_KEY];
     friend.timeOfLastAction = [NSDate date];
     NSString *creatorMkey = params[@"connection_creator_mkey"];
-    TBMUser *me = [TBMUser getUser];
+
+    ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
+    
     friend.isConnectionCreator = @([me.mkey isEqualToString:creatorMkey]);
     friend.hasApp = @(servHasApp);
     

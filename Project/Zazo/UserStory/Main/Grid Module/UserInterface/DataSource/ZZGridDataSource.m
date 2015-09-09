@@ -94,6 +94,7 @@ static NSInteger const kGridCenterCellIndex = 4;
     [self.delegate switchCamera];
 }
 
+
 #pragma mark - Private
 
 - (NSIndexPath*)_centerCellIndexPath

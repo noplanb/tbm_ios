@@ -18,6 +18,7 @@
 #import "ZZGridDomainModel.h"
 #import "ZZGridDataProvider.h"
 #import "ZZFriendDataProvider.h"
+#import "ZZUserDataProvider.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
@@ -84,11 +85,13 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)loadFeedbackModel
 {
+    ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
+    
     ANMessageDomainModel *model = [ANMessageDomainModel new];
     model.title = emailSubject;
     model.recipients = @[emailAddress];
     model.isHTMLMessage = YES;
-    model.message = [NSString stringWithFormat:@"<font color = \"000000\"></br></br></br>---------------------------------</br>iOS: %@</br>Model: %@</br>User mKey: %@</br>App Version: %@</br>Build Version: %@ </font>", [[UIDevice currentDevice] systemVersion], [DeviceUtil hardwareDescription], [TBMUser getUser].mkey, [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"], [NSBundle mainBundle].infoDictionary[(NSString*)kCFBundleVersionKey]];
+    model.message = [NSString stringWithFormat:@"<font color = \"000000\"></br></br></br>---------------------------------</br>iOS: %@</br>Model: %@</br>User mKey: %@</br>App Version: %@</br>Build Version: %@ </font>", [[UIDevice currentDevice] systemVersion], [DeviceUtil hardwareDescription], user.mkey, [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"], [NSBundle mainBundle].infoDictionary[(NSString*)kCFBundleVersionKey]];
     [self.output feedbackModelLoadedSuccessfully:model];
 }
 

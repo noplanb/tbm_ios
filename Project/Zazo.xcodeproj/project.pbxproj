@@ -161,7 +161,6 @@
 		07E3C6EE1B9A2C910071CF82 /* ZZVideoNetworkTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C4231B9A2C900071CF82 /* ZZVideoNetworkTransport.m */; };
 		07E3C6EF1B9A2C910071CF82 /* ZZVideoNetworkTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C4251B9A2C900071CF82 /* ZZVideoNetworkTransportService.m */; };
 		07E3C6F01B9A2C910071CF82 /* TBMFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C4291B9A2C900071CF82 /* TBMFriend.m */; };
-		07E3C6F11B9A2C910071CF82 /* TBMFriend.m.orig in Resources */ = {isa = PBXBuildFile; fileRef = 07E3C42A1B9A2C900071CF82 /* TBMFriend.m.orig */; };
 		07E3C6F21B9A2C910071CF82 /* TBMGridElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C42C1B9A2C900071CF82 /* TBMGridElement.m */; };
 		07E3C6F31B9A2C910071CF82 /* TBMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C42E1B9A2C900071CF82 /* TBMUser.m */; };
 		07E3C6F41B9A2C910071CF82 /* TBMVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C4301B9A2C900071CF82 /* TBMVideo.m */; };
@@ -3460,7 +3459,6 @@
 				07E3C57F1B9A2C900071CF82 /* StateNudge */,
 				07E3C5821B9A2C900071CF82 /* StatePreview */,
 				07E3C5851B9A2C900071CF82 /* StateRecord */,
-				07E3C5881B9A2C900071CF82 /* StateViewsFactory */,
 			);
 			path = StateViews;
 			sourceTree = "<group>";
@@ -3501,13 +3499,6 @@
 				07E3C5871B9A2C900071CF82 /* ZZGridStateViewRecord.m */,
 			);
 			path = StateRecord;
-			sourceTree = "<group>";
-		};
-		07E3C5881B9A2C900071CF82 /* StateViewsFactory */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = StateViewsFactory;
 			sourceTree = "<group>";
 		};
 		07E3C5921B9A2C900071CF82 /* Controller */ = {
@@ -4245,7 +4236,6 @@
 				07E3C7B51B9A2C910071CF82 /* TOWebViewControllerLocalizable.strings in Resources */,
 				07E3C7181B9A2C910071CF82 /* Roboto-Medium.ttf in Resources */,
 				0732F5121B8B93D3004FD3AF /* ZazoTests-Info.plist in Resources */,
-				07E3C6F11B9A2C910071CF82 /* TBMFriend.m.orig in Resources */,
 				07E3C7351B9A2C910071CF82 /* navbar_btn_add.pdf in Resources */,
 				07E3C7131B9A2C910071CF82 /* Roboto-Bold.ttf in Resources */,
 				07E3C7191B9A2C910071CF82 /* Roboto-MediumItalic.ttf in Resources */,

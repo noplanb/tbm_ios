@@ -23,6 +23,7 @@
 #import "ZZTouchControllerWithoutDelay.h"
 #import "ZZStrategyNavigationLeftRight.h"
 #import "ZZEnvelopStrategy.h"
+#import "ZZUserDataProvider.h"
 
 @interface ZZRootWireframe () <TBMRegisterViewControllerDelegate> // TODO: temp
 
@@ -45,7 +46,7 @@
 //    ZZAuthWireframe* wireframe = [ZZAuthWireframe new];
 //    [wireframe presentAuthControllerFromWindow:window];
     
-    TBMUser *user = [TBMUser getUser];
+    ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
     UIViewController* vc;
     if (!user.isRegistered)
     {

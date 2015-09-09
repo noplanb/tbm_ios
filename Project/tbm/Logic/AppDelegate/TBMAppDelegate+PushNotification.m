@@ -11,6 +11,9 @@
 #import "TBMHttpManager.h"
 #import "TBMUser.h"
 #import "TBMConfig.h"
+#import "ZZUserDataProvider.h"
+#import "ZZUserDomainModel.h"
+#import "NSObject+ANSafeValues.h"
 
 static NSString *NOTIFICATION_TARGET_MKEY_KEY = @"target_mkey";
 static NSString *NOTIFICATION_FROM_MKEY_KEY = @"from_mkey";
@@ -109,9 +112,10 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 
 }
 
-- (void)sendPushTokenToServer:(NSString *)token {
+- (void)sendPushTokenToServer:(NSString *)token
+{
     OB_INFO(@"sendPushTokenToServer");
-    TBMUser *me = [TBMUser getUser];
+    ZZUserDomainModel *me = [ZZUserDataProvider authenticatedUser];
     NSString *myMkey = me.mkey;
     NSDictionary *params = @{@"mkey" : myMkey,
 #ifdef DEBUG
@@ -255,27 +259,31 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 
 
 #pragma mark -  Send outgoing Notifications
-- (void)sendNotificationForVideoReceived:(TBMFriend *)friend videoId:(NSString *)videoId {
-    NSDictionary *params = @{
-            NOTIFICATION_TARGET_MKEY_KEY : friend.mkey,
-            NOTIFICATION_FROM_MKEY_KEY : [TBMUser getUser].mkey,
-            NOTIFICATION_SENDER_NAME_KEY : [TBMUser getUser].firstName,
-            NOTIFICATION_VIDEO_ID_KEY : videoId
-    };
+- (void)sendNotificationForVideoReceived:(TBMFriend *)friend videoId:(NSString *)videoId
+{
+    ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
+    
+    NSDictionary *params = @{NOTIFICATION_TARGET_MKEY_KEY   : [NSObject an_safeString:friend.mkey],
+                             NOTIFICATION_FROM_MKEY_KEY     : [NSObject an_safeString:me.mkey],
+                             NOTIFICATION_SENDER_NAME_KEY   : [NSObject an_safeString:me.firstName],
+                             NOTIFICATION_VIDEO_ID_KEY      : [NSObject an_safeString:videoId]};
+    
     [self sendNotification:@"notification/send_video_received" params:params];
 }
 
-- (void)sendNotificationForVideoStatusUpdate:(TBMFriend *)friend videoId:(NSString *)videoId status:(NSString *)status {
-    NSDictionary *params = @{
-            NOTIFICATION_TARGET_MKEY_KEY : friend.mkey,
-            NOTIFICATION_TO_MKEY_KEY : [TBMUser getUser].mkey,
-            NOTIFICATION_STATUS_KEY : status,
-            NOTIFICATION_VIDEO_ID_KEY : videoId
-    };
+- (void)sendNotificationForVideoStatusUpdate:(TBMFriend *)friend videoId:(NSString *)videoId status:(NSString *)status
+{
+    ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
+    
+    NSDictionary *params = @{NOTIFICATION_TARGET_MKEY_KEY   : [NSObject an_safeString:friend.mkey],
+                             NOTIFICATION_TO_MKEY_KEY       : [NSObject an_safeString:me.mkey],
+                             NOTIFICATION_STATUS_KEY        : [NSObject an_safeString:status],
+                             NOTIFICATION_VIDEO_ID_KEY      : [NSObject an_safeString:videoId]};
     [self sendNotification:@"notification/send_video_status_update" params:params];
 }
 
-- (void)sendNotification:(NSString *)path params:(NSDictionary *)params {
+- (void)sendNotification:(NSString *)path params:(NSDictionary *)params
+{
     [[TBMHttpManager manager] POST:path
                         parameters:params
                            success:nil
