@@ -71,6 +71,12 @@
                 [self.stateView removeFromSuperview];
             } break;
         }
+        
+        if (self.stateView)
+        {
+            [self.stateView updateWithModel:self.model];
+        }
+        
     });
 }
 
