@@ -8,6 +8,8 @@
 #import "TBMUser.h"
 #import "TBMPhoneUtils.h"
 #import "OBLogger.h"
+#import "ZZUserDataProvider.h"
+#import "ZZUserDomainModel.h"
 
 @implementation TBMPhoneUtils
 
@@ -18,7 +20,10 @@
     NBPhoneNumberUtil *pu = [[NBPhoneNumberUtil alloc] init];
     NSError *err = nil;
     NSString *r;
-    NBPhoneNumber *pn = [pu parse:phone defaultRegion:[TBMUser phoneRegion] error:&err];
+    
+    NSString* region = [self phoneRegionFromNumber:@"+380930880008"]; //TODO: authenticated user have no mobile number
+    
+    NBPhoneNumber *pn = [pu parse:phone defaultRegion:region error:&err];
     
     if (err != nil){
         OB_ERROR(@"TBMPhoneUtils: phoneWithFormat: %@", [err localizedDescription]);
@@ -35,13 +40,22 @@
 }
 
 
-+ (BOOL) isValidPhone:(NSString *)phone{
-    NBPhoneNumberUtil *pu = [[NBPhoneNumberUtil alloc] init];
-    OB_DEBUG(@"User region: %@", [TBMUser phoneRegion]);
++ (BOOL) isValidPhone:(NSString *)phone
+{
+    NBPhoneNumberUtil* phoneUtil = [[NBPhoneNumberUtil alloc] init];
+    
+    ZZUserDomainModel* authenticatedUser = [ZZUserDataProvider authenticatedUser];
+    
+    NSString* region = [self phoneRegionFromNumber:@"+380930880008"]; //TODO: authenticated user have no mobile number
+    
+    OB_DEBUG(@"User region: %@", region);
+    
     NSError *error;
-    NBPhoneNumber *pn = [pu parse:phone defaultRegion:[TBMUser phoneRegion] error:&error];
-    if (error == nil){
-        if ([pu isValidNumber:pn]){
+    NBPhoneNumber *phoneNumber = [phoneUtil parse:phone defaultRegion:region error:&error];
+    if (error == nil)
+    {
+        if ([phoneUtil isValidNumber:phoneNumber])
+        {
             OB_DEBUG(@"valid number");
             return true;
         } else {
@@ -52,6 +66,21 @@
         OB_ERROR(@"TBMPhoneUtils: isValidPhone: %@", [error localizedDescription]);
         return false;
     }
+}
+
++ (NSString *)phoneRegionFromNumber:(NSString*)phone
+{
+    NBPhoneNumberUtil *phoneNumberUtil = [NBPhoneNumberUtil sharedInstance];
+    
+    NSError *err = nil;
+    NBPhoneNumber *phoneNumber = [phoneNumberUtil parse:phone defaultRegion:@"US" error:&err];
+    
+    if (err != nil)
+    {
+        return @"US";
+    }
+    
+    return [phoneNumberUtil getRegionCodeForNumber:phoneNumber];
 }
 
 + (BOOL) isNumberMatch:(NSString *)n1 secondNumber:(NSString *)n2{

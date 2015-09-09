@@ -2,12 +2,13 @@
 //  ZZInvitationsTransportService.m
 //  Zazo
 //
-//  Created by Oleg Panforov on 9/9/15.
+//  Created by ANODA on 9/9/15.
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
 #import "ZZInvitationsTransportService.h"
 #import "ZZInvitationsTransport.h"
+#import "TBMPhoneUtils.h"
 
 static const struct
 {
@@ -27,7 +28,10 @@ static const struct
 + (RACSignal*)checkIfAnInvitedUserHasApp:(NSString*)phoneNumber
 {
     NSParameterAssert(phoneNumber);
-    NSDictionary* parameters = @{ZZInvitationsServerParameters.phoneNumber : [NSObject an_safeString:phoneNumber]};
+    
+    NSString *formatNumberToE164 = [TBMPhoneUtils phone:phoneNumber withFormat:NBEPhoneNumberFormatE164];
+    
+    NSDictionary* parameters = @{ZZInvitationsServerParameters.phoneNumber : [NSObject an_safeString:formatNumberToE164]};
     
     return [ZZInvitationsTransport checkIfAnInvitedUserHasAppWithParameters:parameters];
 }

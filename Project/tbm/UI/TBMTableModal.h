@@ -10,10 +10,13 @@
 #import <UIKit/UIKit.h>
 
 @protocol TBMTableModalDelegate <NSObject>
+
 - (void) didSelectRow:(NSInteger)index;
+
 @end
 
 @interface TBMTableModal : NSObject <UITableViewDelegate, UITableViewDataSource>
+
 - (instancetype) initWithParentView:(UIView *)parentView
                               title:(NSString *)title
                             rowData:(NSArray*)rowData

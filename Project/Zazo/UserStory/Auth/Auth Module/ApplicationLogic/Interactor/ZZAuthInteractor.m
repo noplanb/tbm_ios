@@ -37,6 +37,12 @@
 {
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
     
+#ifdef DEBUG_LOGIN_USER
+    user.firstName = @"Oleg";
+    user.lastName = @"Panfyorov";
+    user.mobileNumber = @"380930880008";
+#endif
+    
     if (!ANIsEmpty(user.mobileNumber))
     {
         NSError* error;

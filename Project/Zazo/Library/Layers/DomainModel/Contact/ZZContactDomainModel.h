@@ -16,5 +16,6 @@
 @property (nonatomic, strong) NSSet* phones;
 @property (nonatomic, strong) UIImage* photoImage; // TODO: hanle photo URL string
 
+- (NSString *)fullName;
 
 @end

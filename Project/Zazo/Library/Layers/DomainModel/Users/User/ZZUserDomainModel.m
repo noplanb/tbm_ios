@@ -8,6 +8,7 @@
 
 #import "ZZUserDomainModel.h"
 #import "FEMObjectMapping.h"
+#import "NBPhoneNumberUtil.h"
 
 const struct ZZUserDomainModelAttributes ZZUserDomainModelAttributes = {
     .firstName = @"firstName",
@@ -52,5 +53,6 @@ const struct ZZUserDomainModelAttributes ZZUserDomainModelAttributes = {
     }
     return [username stringByAppendingString:self.lastName ? self.lastName : @""];
 }
+
 
 @end

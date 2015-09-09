@@ -18,7 +18,9 @@
 #import "ZZGridDomainModel.h"
 #import "ZZGridDataProvider.h"
 #import "ZZFriendDataProvider.h"
+#import "ZZPhoneHelper.h"
 #import "ZZUserDataProvider.h"
+#import "ZZInvitationsTransportService.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
@@ -80,7 +82,36 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (void)selectedUserWithModel:(id)model
 {
     self.selectedUserModel = model;
-    [self _updateSelectedModelWithUser];
+    
+    if ([model isKindOfClass:[ZZFriendDomainModel class]])
+    {
+        [self _updateSelectedModelWithUser]; //TODO: selected zazo friend logic
+    }
+    else //invite friend from contact logic
+    {
+        NSArray* validNumbers = [ZZPhoneHelper getValidPhonesFromContactModel:model];
+        if (!ANIsEmpty(validNumbers))
+        {
+            if (validNumbers.count > 1)
+            {
+                [self.output userHaSeveralValidNumbers:validNumbers];
+            }
+            else
+            {
+                //send has app and invitation requests
+                [self checkIfAnInvitedUserHasApp:[validNumbers firstObject]];
+            }
+        }
+        else
+        {
+            [self.output userHasNoValidNumbers:model];
+        }
+    }
+}
+
+- (void)userSelectedPhoneNumber:(NSString*)phoneNumber
+{
+    [self checkIfAnInvitedUserHasApp:phoneNumber];
 }
 
 - (void)loadFeedbackModel
@@ -109,6 +140,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     {
         [self.output gridContainedFriend:containedUser];
     }
+    
 }
 
 - (ZZFriendDomainModel*)friendModelFromMenuModel:(id)model
@@ -145,6 +177,17 @@ static NSInteger const kGridFriendsCellCount = 8;
     }];
     
     return isContainModel;
+}
+
+#pragma mark - API
+
+- (void)checkIfAnInvitedUserHasApp:(NSString *)phoneNumber
+{
+    [[ZZInvitationsTransportService checkIfAnInvitedUserHasApp:phoneNumber] subscribeNext:^(id x) {
+        
+    } error:^(NSError *error) {
+        //TODO: handle error
+    }];
 }
 
 @end
