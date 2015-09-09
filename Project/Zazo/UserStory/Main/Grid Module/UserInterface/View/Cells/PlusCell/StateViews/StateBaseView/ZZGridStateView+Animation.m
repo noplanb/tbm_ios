@@ -26,9 +26,6 @@
         [self layoutIfNeeded];
     } completion:^(BOOL finished) {
         self.uploadBarView.hidden = YES;
-        self.model.badgeNumber = @(2);
-        self.model.item.relatedUser.videos = [NSSet setWithObject:@(1)];
-        [self showDownloadAnimationWithNewVideoCount:2];
     }];
 }
 
