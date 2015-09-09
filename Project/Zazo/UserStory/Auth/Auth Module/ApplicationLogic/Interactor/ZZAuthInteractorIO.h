@@ -13,7 +13,7 @@
 - (void)loadUserData;
 - (void)registerUser:(ZZUserDomainModel*)model;
 - (void)validateSMSCode:(NSString*)code;
-- (void)userRequestCallExtendSmsCode;
+- (void)userRequestCallInsteadSmsCode;
 - (void)loadFriends;
 - (void)loadS3Credentials;
 

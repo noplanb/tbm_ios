@@ -161,7 +161,6 @@
 		07E3C6EE1B9A2C910071CF82 /* ZZVideoNetworkTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C4231B9A2C900071CF82 /* ZZVideoNetworkTransport.m */; };
 		07E3C6EF1B9A2C910071CF82 /* ZZVideoNetworkTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C4251B9A2C900071CF82 /* ZZVideoNetworkTransportService.m */; };
 		07E3C6F01B9A2C910071CF82 /* TBMFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C4291B9A2C900071CF82 /* TBMFriend.m */; };
-		07E3C6F11B9A2C910071CF82 /* TBMFriend.m.orig in Resources */ = {isa = PBXBuildFile; fileRef = 07E3C42A1B9A2C900071CF82 /* TBMFriend.m.orig */; };
 		07E3C6F21B9A2C910071CF82 /* TBMGridElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C42C1B9A2C900071CF82 /* TBMGridElement.m */; };
 		07E3C6F31B9A2C910071CF82 /* TBMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C42E1B9A2C900071CF82 /* TBMUser.m */; };
 		07E3C6F41B9A2C910071CF82 /* TBMVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C4301B9A2C900071CF82 /* TBMVideo.m */; };
@@ -1216,6 +1215,7 @@
 		07CBBC2C1B9B1FF90080D300 /* !_OLD */ = {
 			isa = PBXGroup;
 			children = (
+				07E3C3A51B9A2C900071CF82 /* TPKeyboardAvoiding */,
 				07E3C37A1B9A2C900071CF82 /* TBMMarginLabel.h */,
 				07E3C37B1B9A2C900071CF82 /* TBMMarginLabel.m */,
 				07E3C3781B9A2C900071CF82 /* TBMLongPressTouchHandler.h */,
@@ -1268,7 +1268,6 @@
 				07E3C3591B9A2C900071CF82 /* Network */,
 				07E3C36C1B9A2C900071CF82 /* Resources */,
 				07E3C3751B9A2C900071CF82 /* UI */,
-				07E3C3A41B9A2C900071CF82 /* Vendor */,
 			);
 			path = tbm;
 			sourceTree = "<group>";
@@ -1964,14 +1963,6 @@
 			path = HomeViewController;
 			sourceTree = "<group>";
 		};
-		07E3C3A41B9A2C900071CF82 /* Vendor */ = {
-			isa = PBXGroup;
-			children = (
-				07E3C3A51B9A2C900071CF82 /* TPKeyboardAvoiding */,
-			);
-			path = Vendor;
-			sourceTree = "<group>";
-		};
 		07E3C3A51B9A2C900071CF82 /* TPKeyboardAvoiding */ = {
 			isa = PBXGroup;
 			children = (
@@ -1984,7 +1975,8 @@
 				07E3C3AC1B9A2C900071CF82 /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
 				07E3C3AD1B9A2C900071CF82 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
 			);
-			path = TPKeyboardAvoiding;
+			name = TPKeyboardAvoiding;
+			path = Vendor/TPKeyboardAvoiding;
 			sourceTree = "<group>";
 		};
 		07E3C3AE1B9A2C900071CF82 /* Zazo */ = {

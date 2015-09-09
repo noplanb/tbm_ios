@@ -16,6 +16,6 @@
 
 + (TBMUser*)entityFromModel:(ZZUserDomainModel*)model;
 + (ZZUserDomainModel*)modelFromEntity:(TBMUser*)entity;
-+ (void)upsertUserWithModel:(ZZUserDomainModel*)model;
++ (ZZUserDomainModel*)upsertUserWithModel:(ZZUserDomainModel*)model;
 
 @end

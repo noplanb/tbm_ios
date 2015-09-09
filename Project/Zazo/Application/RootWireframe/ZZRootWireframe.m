@@ -25,7 +25,7 @@
 #import "ZZEnvelopStrategy.h"
 #import "ZZUserDataProvider.h"
 
-@interface ZZRootWireframe () <TBMRegisterViewControllerDelegate> // TODO: temp
+@interface ZZRootWireframe () //<TBMRegisterViewControllerDelegate> // TODO: temp
 
 @property (nonatomic, strong) TBMDependencies* dependencies;
 @property (nonatomic, strong) ZZBaseTouchController* touchController;
@@ -86,7 +86,7 @@
     [self.dependencies setupDependenciesWithHomeViewController:vc];
     
     [controller presentViewController:vc animated:YES completion:nil];
-    [(TBMAppDelegate*)[UIApplication sharedApplication].delegate performDidBecomeActiveActions];
+    [(TBMAppDelegate*)[UIApplication sharedApplication].delegate performDidBecomeActiveActions]; //TODO: call this with new controller
 }
 
 - (void)postRegistrationBoot

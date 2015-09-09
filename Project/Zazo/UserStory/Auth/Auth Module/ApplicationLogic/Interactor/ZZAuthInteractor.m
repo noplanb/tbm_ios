@@ -83,7 +83,7 @@
     }
 }
 
-- (void)userRequestCallExtendSmsCode
+- (void)userRequestCallInsteadSmsCode
 {
     [self registerUserWithModel:self.currentUser forceCall:YES];
 }
@@ -132,7 +132,8 @@
     [TBMS3CredentialsManager refreshFromServer:^void (BOOL success){
         if (success)
         {
-            [[TBMUser getUser] setupRegistredFlagTo:YES];
+            self.currentUser.isRegistered = YES;
+            [ZZUserDataProvider upsertUserWithModel:self.currentUser];
             [self.output registrationFlowCompletedSuccessfully];
         }
         else
@@ -298,9 +299,10 @@
     {
         NSDictionary *firstFriend = sorted.firstObject;
         NSString *firstFriendCreatorMkey = firstFriend[@"connection_creator_mkey"];
-        TBMUser *me = [TBMUser getUser];
-        NSString *myMkey = me.mkey;
-        [me setupIsInviteeFlagTo:![firstFriendCreatorMkey isEqualToString:myMkey]];
+        ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
+        NSString *myMkey = user.mkey;
+        user.isInvitee = ![firstFriendCreatorMkey isEqualToString:myMkey];
+        [ZZUserDataProvider upsertUserWithModel:user];
     }
 }
 

@@ -41,7 +41,7 @@
 
 - (void)requestCall
 {
-    [self.interactor userRequestCallExtendSmsCode];
+    [self.interactor userRequestCallInsteadSmsCode];
 }
 
 - (void)verifySMSCode:(NSString*)code
@@ -99,9 +99,9 @@
     [self.userInterface updateStateToLoading:NO message:nil];
 }
 
-- (void)userRequestCallExtendSmsCode
+- (void)userRequestCallInsteadSmsCode
 {
-    [self.interactor userRequestCallExtendSmsCode];
+    [self.interactor userRequestCallInsteadSmsCode];
 }
 
 - (void)callRequestCompletedSuccessfully

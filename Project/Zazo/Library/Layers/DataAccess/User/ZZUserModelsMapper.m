@@ -32,6 +32,7 @@
 {
     @try
     {
+        model.itemID = entity.objectID.URIRepresentation.absoluteString;
         model.idTbm = entity.idTbm;
         model.firstName = entity.firstName;
         model.lastName = entity.lastName;

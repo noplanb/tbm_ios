@@ -198,16 +198,16 @@
 //    [self showErrorDialogWithTitle:@"Try Again" msg:[self badConnectionMessage]];
 //}
 
-- (void) showErrorDialogWithTitle:(NSString *)title msg:(NSString *)msg {
-    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:title message:msg];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:nil]];
-    [alert presentWithCompletion:nil];
-}
-
-- (void) showVerificationDialog {
-    [[[TBMVerificationAlertHandler alloc] initWithPhoneNumber:self.combinedNumber
-                                                     delegate:self] presentAlert];
-}
+//- (void) showErrorDialogWithTitle:(NSString *)title msg:(NSString *)msg {
+//    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:title message:msg];
+//    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:nil]];
+//    [alert presentWithCompletion:nil];
+//}
+//
+//- (void) showVerificationDialog {
+//    [[[TBMVerificationAlertHandler alloc] initWithPhoneNumber:self.combinedNumber
+//                                                     delegate:self] presentAlert];
+//}
 
 
 //- (void) showGetFriendsServerErrorDialog{
@@ -250,11 +250,11 @@
 //--------------
 
 
-- (void)registrationComplete
-{
-    [[TBMUser getUser] setupRegistredFlagTo:YES];
-    [self.delegate registrationControllerDidCompleteRegistration:self];
-}
+//- (void)registrationComplete
+//{
+//    [[TBMUser getUser] setupRegistredFlagTo:YES];
+//    [self.delegate registrationControllerDidCompleteRegistration:self];
+//}
 
 
 

@@ -10,6 +10,7 @@
 #import "TBMFriend.h"
 #import "TBMHttpManager.h"
 #import "TBMUser.h"
+#import "ZZUserDataProvider.h"
 
 @interface TBMFriendGetter ()
 @property(nonatomic) BOOL destroyAll;
@@ -72,15 +73,15 @@
     {
         NSDictionary *firstFriend = sorted.firstObject;
         NSString *firstFriendCreatorMkey = firstFriend[@"connection_creator_mkey"];
-        TBMUser *me = [TBMUser getUser];
-        NSString *myMkey = me.mkey;
-        [me setupIsInviteeFlagTo:![firstFriendCreatorMkey isEqualToString:myMkey]];
+        ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
+        NSString *myMkey = user.mkey;
+        user.isInvitee = ![firstFriendCreatorMkey isEqualToString:myMkey];
+        [ZZUserDataProvider upsertUserWithModel:user];
     }
 }
 
 - (NSArray *)sortedFriendsByCreatedOn:(NSArray *)friends
 {
-
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
     [dateFormatter setLocale:enUSPOSIXLocale];

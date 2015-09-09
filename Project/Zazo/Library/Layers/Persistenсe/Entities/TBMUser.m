@@ -15,97 +15,97 @@
 
 @implementation TBMUser
 
-+ (NSManagedObjectContext*)_context
-{
-    return [NSManagedObjectContext MR_context];
-}
+//+ (NSManagedObjectContext*)_context
+//{
+//    return [NSManagedObjectContext MR_context];
+//}
+//
+//+ (instancetype)getUser
+//{
+//    return [self MR_findFirstInContext:[self _context]]; //TODO: ??????/ // //!!! /  11111 ARGHH!
+//}
 
-+ (instancetype)getUser
-{
-    return [self MR_findFirstInContext:[self _context]]; //TODO: ??????/ // //!!! /  11111 ARGHH!
-}
+//+ (void)destroy
+//{
+//    [self MR_truncateAllInContext:[self _context]];
+//    [[self _context] MR_saveToPersistentStoreAndWait];
+//}
 
-+ (void)destroy
-{
-    [self MR_truncateAllInContext:[self _context]];
-    [[self _context] MR_saveToPersistentStoreAndWait];
-}
+//+ (TBMUser *)createNewUser
+//{
+//    [TBMUser destroy];
+//    return [self MR_createEntityInContext:[self _context]];
+//}
 
-+ (TBMUser *)createNewUser
-{
-    [TBMUser destroy];
-    return [self MR_createEntityInContext:[self _context]];
-}
+//+ (instancetype)createWithServerParams:(NSDictionary *)params
+//{
+//    NSManagedObjectContext* context = [self _context];
+//    [self MR_truncateAllInContext:context];
+//    [context MR_saveToPersistentStoreAndWait];
+//    
+//    TBMUser *user = [self MR_createEntityInContext:context];
+//    
+//    user.firstName = [params objectForKey:SERVER_PARAMS_USER_FIRST_NAME_KEY];
+//    user.lastName = [params objectForKey:SERVER_PARAMS_USER_LAST_NAME_KEY];
+//    user.idTbm = [params objectForKey:SERVER_PARAMS_USER_ID_KEY];
+//    user.mkey = [params objectForKey:SERVER_PARAMS_USER_MKEY_KEY];
+//    user.auth = [params objectForKey:SERVER_PARAMS_USER_AUTH_KEY];
+//    user.mobileNumber = [params objectForKey:SERVER_PARAMS_USER_MOBILE_NUMBER_KEY];
+//    [user.managedObjectContext MR_saveToPersistentStoreAndWait];
+//    return user;
+//}
 
-+ (instancetype)createWithServerParams:(NSDictionary *)params
-{
-    NSManagedObjectContext* context = [self _context];
-    [self MR_truncateAllInContext:context];
-    [context MR_saveToPersistentStoreAndWait];
-    
-    TBMUser *user = [self MR_createEntityInContext:context];
-    
-    user.firstName = [params objectForKey:SERVER_PARAMS_USER_FIRST_NAME_KEY];
-    user.lastName = [params objectForKey:SERVER_PARAMS_USER_LAST_NAME_KEY];
-    user.idTbm = [params objectForKey:SERVER_PARAMS_USER_ID_KEY];
-    user.mkey = [params objectForKey:SERVER_PARAMS_USER_MKEY_KEY];
-    user.auth = [params objectForKey:SERVER_PARAMS_USER_AUTH_KEY];
-    user.mobileNumber = [params objectForKey:SERVER_PARAMS_USER_MOBILE_NUMBER_KEY];
-    [user.managedObjectContext MR_saveToPersistentStoreAndWait];
-    return user;
-}
+//- (void)setupRegistredFlagTo:(BOOL)registred {
+//    TBMUser *user = [TBMUser getUser];
+//    if (!user) {
+//        return;
+//    }
+//    user.isRegistered = @YES;
+//    [user.managedObjectContext MR_saveToPersistentStoreAndWait];
+//}
 
-- (void)setupRegistredFlagTo:(BOOL)registred {
-    TBMUser *user = [TBMUser getUser];
-    if (!user) {
-        return;
-    }
-    user.isRegistered = @YES;
-    [user.managedObjectContext MR_saveToPersistentStoreAndWait];
-}
+//+ (void)saveRegistrationData:(NSDictionary *)params
+//{
+//    NSManagedObjectContext* context = [self _context];
+//    [self MR_truncateAllInContext:context];
+//    [context MR_saveToPersistentStoreAndWait];
+//    
+//    TBMUser *user = [self MR_createEntityInContext:context];
+//    
+//    if (!user) {
+//        return;
+//    }
+//    user.firstName = [params objectForKey:SERVER_PARAMS_USER_FIRST_NAME_KEY];
+//    user.lastName = [params objectForKey:SERVER_PARAMS_USER_LAST_NAME_KEY];
+//    user.mobileNumber = [params objectForKey:SERVER_PARAMS_USER_MOBILE_NUMBER_KEY];
+//    [user.managedObjectContext MR_saveToPersistentStoreAndWait];
+//}
 
-+ (void)saveRegistrationData:(NSDictionary *)params
-{
-    NSManagedObjectContext* context = [self _context];
-    [self MR_truncateAllInContext:context];
-    [context MR_saveToPersistentStoreAndWait];
-    
-    TBMUser *user = [self MR_createEntityInContext:context];
-    
-    if (!user) {
-        return;
-    }
-    user.firstName = [params objectForKey:SERVER_PARAMS_USER_FIRST_NAME_KEY];
-    user.lastName = [params objectForKey:SERVER_PARAMS_USER_LAST_NAME_KEY];
-    user.mobileNumber = [params objectForKey:SERVER_PARAMS_USER_MOBILE_NUMBER_KEY];
-    [user.managedObjectContext MR_saveToPersistentStoreAndWait];
-}
+//- (void)setupIsInviteeFlagTo:(BOOL)flag
+//{
+//    self.isInvitee = @(flag);
+//    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
+//}
 
-- (void)setupIsInviteeFlagTo:(BOOL)flag
-{
-    self.isInvitee = @(flag);
-    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
-}
-
-//------------------------
-// Phone number and region
-//------------------------
-+ (NSString *)phoneRegion
-{
-    NBPhoneNumberUtil *pu = [NBPhoneNumberUtil sharedInstance];
-    
-    TBMUser *u = [TBMUser getUser];
-    
-    if (u == nil)
-        return @"US";
-    
-    NSError *err = nil;
-    NBPhoneNumber *pn = [pu parse:u.mobileNumber defaultRegion:@"US" error:&err];
-    
-    if (err != nil)
-        return @"US";
-    
-    return [pu getRegionCodeForNumber:pn];
-}
+////------------------------
+//// Phone number and region
+////------------------------
+//+ (NSString *)phoneRegion
+//{
+//    NBPhoneNumberUtil *pu = [NBPhoneNumberUtil sharedInstance];
+//    
+//    TBMUser *u = [TBMUser getUser];
+//    
+//    if (u == nil)
+//        return @"US";
+//    
+//    NSError *err = nil;
+//    NBPhoneNumber *pn = [pu parse:u.mobileNumber defaultRegion:@"US" error:&err];
+//    
+//    if (err != nil)
+//        return @"US";
+//    
+//    return [pu getRegionCodeForNumber:pn];
+//}
 
 @end
