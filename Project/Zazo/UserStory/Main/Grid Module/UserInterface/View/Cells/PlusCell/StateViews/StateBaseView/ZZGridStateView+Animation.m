@@ -9,6 +9,7 @@
 #import "ZZGridStateView+Animation.h"
 #import "ZZGridUIConstants.h"
 
+
 @implementation ZZGridStateView (Animation)
 
 #pragma mark - Upload Animation
@@ -24,7 +25,6 @@
         self.leftUploadIndicatorConstraint.offset = animValue;
         [self layoutIfNeeded];
     } completion:^(BOOL finished) {
-        
         self.uploadBarView.hidden = YES;
     }];
 }
@@ -35,7 +35,7 @@
 - (void)_showUploadViews
 {
     self.leftUploadIndicatorConstraint.offset = 0;
-    self.uploadingIndicator.image = [UIImage imageNamed:@"icon-uploading-1x"];
+//    self.uploadingIndicator.image = [UIImage imageNamed:@"icon-uploading-1x"];
     self.uploadBarView.hidden = NO;
     self.uploadingIndicator.hidden = NO;
 }
@@ -58,7 +58,7 @@
 
 - (CGFloat)_indicatorCalculatedWidth
 {
-    return fminf(kLayoutConstIndicatorMaxWidth, kLayoutConstIndicatorFractionalWidth * CGRectGetWidth(self.frame));
+    return fminf(kLayoutConstIndicatorMaxWidth, kLayoutConstIndicatorFractionalWidth * CGRectGetWidth(self.presentedView.frame));
 }
 
 

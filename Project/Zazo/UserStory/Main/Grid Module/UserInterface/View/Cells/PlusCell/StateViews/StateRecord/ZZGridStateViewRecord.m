@@ -18,9 +18,9 @@
 
 @implementation ZZGridStateViewRecord
 
-- (instancetype)init
+- (instancetype)initWithPresentedView:(UIView *)presentedView
 {
-    self = [super init];
+    self = [super initWithPresentedView:presentedView];
     if (self)
     {
         [self userNameLabel];
@@ -32,11 +32,13 @@
         [self downloadBarView];
         [self videoCountLabel];
     }
+    
     return self;
 }
 
 - (void)updateWithModel:(ZZGridCellViewModel*)model
 {
+    self.model = model;
     self.userNameLabel.text = [model firstName];
     [self updateBadgeWithNumber:model.badgeNumber];
     if (model.hasUploadedVideo)
@@ -72,7 +74,7 @@
         
         [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self);
-            make.height.equalTo(self).dividedBy(kUserNameScaleValue / 2).offset(-kSidePadding);
+            make.height.equalTo(self).dividedBy(kUserNameScaleValue);
         }];
     }
     return _userNameLabel;

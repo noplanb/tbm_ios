@@ -19,13 +19,15 @@
 
 @implementation ZZGridStateViewPreview
 
-- (instancetype)init
+
+- (instancetype)initWithPresentedView:(UIView *)presentedView
 {
-    self = [super init];
+    self = [super initWithPresentedView:presentedView];
     if (self)
     {
         [self containFriendView];
     }
+    
     return self;
 }
 

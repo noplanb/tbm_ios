@@ -33,7 +33,12 @@
 
 - (ZZGridCellViewModelState)state
 {
-    if (self.item.relatedUser.videos.count > 0) // TODO: this condition only for test!, change it later
+    
+    if (!self.item.relatedUser)
+    {
+        return ZZGridCellViewModelStateAdd;
+    }
+    else if (self.item.relatedUser.videos.count > 0) // TODO: this condition only for test!, change it later
     {
         return ZZGridCellViewModelStateIncomingVideoNotViewed;
     }

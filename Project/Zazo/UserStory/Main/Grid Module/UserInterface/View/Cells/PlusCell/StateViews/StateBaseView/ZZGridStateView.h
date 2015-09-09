@@ -24,6 +24,9 @@
 @property (nonatomic, strong) MASConstraint* rightDownloadIndicatorConstraint;
 @property (nonatomic, strong) UIView* downloadBarView;
 @property (nonatomic, strong) UILabel* videoCountLabel;
+@property (nonatomic, strong) UIView* presentedView;
+
+- (instancetype)initWithPresentedView:(UIView*)presentedView;
 
 - (void)updateBadgeWithNumber:(NSNumber*)badgeNumber;
 - (void)showUploadAnimation;

@@ -71,6 +71,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
 {
     self.recordingOverlay.hidden = NO;
     self.recordingLabel.hidden = NO;
+    self.switchCameraButton.hidden = YES;
     [NSThread sleepForTimeInterval:0.4f]; // TODO:
 }
 
@@ -78,6 +79,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
 {
     self.recordingOverlay.hidden = YES;
     self.recordingLabel.hidden = YES;
+    self.switchCameraButton.hidden = ![self.model shouldShowSwitchCameraButton];
     [NSThread sleepForTimeInterval:0.1f]; // TODO:
 }
 
