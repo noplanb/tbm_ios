@@ -76,7 +76,7 @@
         }
         else if ([status isEqualToString:@"failure"])
         {
-            NSDictionary* errorObject = @{@"status" : status, @"errorMessage" : json[@"title"]};
+            NSDictionary* errorObject = @{@"status" : status};
             NSError* error = [[NSError alloc] initWithDomain:@"" code:1 userInfo:errorObject];
             [self handleError:error subscriber:subscriber];
         }
