@@ -14,6 +14,8 @@
 #import "ZZGridDomainModel.h"
 #import "ZZGridCellViewModel.h"
 
+static CGFloat const kTouchOffset = 20;
+
 @interface ZZTouchObserver () <GridDelegate>
 
 @property (nonatomic, strong) UICollectionView* collectionView;
@@ -91,7 +93,7 @@
       
     }
     
-    if (self.grid.hidden && touch.phase == UITouchPhaseMoved && self.gridView.isRotationEnabled)
+    if (self.grid.hidden && touch.phase == UITouchPhaseMoved && self.gridView.isRotationEnabled && [self shouldMoveWithTouch:touch])
         {
             self.collectionView = self.gridView.collectionView;
             CGPoint location = [touch locationInView:self.gridView.collectionView];
@@ -110,6 +112,40 @@
                 [self startObserveWithTouch:touch withEvent:event withLocation:location];
             }
         }
+}
+
+- (BOOL)shouldMoveWithTouch:(UITouch*)touch
+{
+    BOOL shouldMove = NO;
+    
+    CGPoint location = [touch locationInView:self.gridView.collectionView];
+    CGFloat midX;
+    CGFloat midY;
+    if (location.x > self.initialLocation.x)
+    {
+        midX = location.x - self.initialLocation.x;
+    }
+    else
+    {
+        midX = self.initialLocation.x - location.x;
+    }
+    
+    
+    if (location.y > self.initialLocation.y)
+    {
+        midY = location.y - self.initialLocation.y;
+    }
+    else
+    {
+        midY = self.initialLocation.y - location.y;
+    }
+    
+    if (midY > kTouchOffset || midX > kTouchOffset)
+    {
+        shouldMove = YES;
+    }
+    
+    return shouldMove;
 }
 
 - (void)startObserveWithTouch:(UITouch*)touch withEvent:(id)event withLocation:(CGPoint)location

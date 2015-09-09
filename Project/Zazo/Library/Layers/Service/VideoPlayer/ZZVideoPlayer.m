@@ -99,13 +99,9 @@
     
     if (nextUrl)
     {
-        [self.delegate videoPlayerURLWasFinishedPlaying:nextUrl];
-        BOOL isNextExist = index < self.currentPlayQueue.count;
-        if (isNextExist)
-        {
-            self.moviePlayerController.contentURL = self.currentPlayQueue[index];
-            [self.moviePlayerController play];
-        }
+        [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL];
+        self.moviePlayerController.contentURL = nextUrl;
+        [self.moviePlayerController play];
     }
 }
 
