@@ -43,10 +43,6 @@
 {
     self.model = model;
     [self updateBadgeWithNumber:model.badgeNumber];
-    if (model.hasUploadedVideo)
-    {
-        [self showUploadIconWithoutAnimation];
-    }
     self.userNameLabel.text = [model firstName];
 }
 

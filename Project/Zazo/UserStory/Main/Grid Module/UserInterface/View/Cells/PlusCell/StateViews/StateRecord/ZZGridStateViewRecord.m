@@ -58,6 +58,7 @@
     }
     else if (recognizer.state == UIGestureRecognizerStateEnded)
     {
+        self.model.hasUploadedVideo = YES;
         [self.model updateRecordingStateTo:NO];
         [self showUploadAnimation];
     }
