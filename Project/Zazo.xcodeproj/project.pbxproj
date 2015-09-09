@@ -161,7 +161,6 @@
 		07E3C6EE1B9A2C910071CF82 /* ZZVideoNetworkTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C4231B9A2C900071CF82 /* ZZVideoNetworkTransport.m */; };
 		07E3C6EF1B9A2C910071CF82 /* ZZVideoNetworkTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C4251B9A2C900071CF82 /* ZZVideoNetworkTransportService.m */; };
 		07E3C6F01B9A2C910071CF82 /* TBMFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C4291B9A2C900071CF82 /* TBMFriend.m */; };
-		07E3C6F11B9A2C910071CF82 /* TBMFriend.m.orig in Resources */ = {isa = PBXBuildFile; fileRef = 07E3C42A1B9A2C900071CF82 /* TBMFriend.m.orig */; };
 		07E3C6F21B9A2C910071CF82 /* TBMGridElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C42C1B9A2C900071CF82 /* TBMGridElement.m */; };
 		07E3C6F31B9A2C910071CF82 /* TBMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C42E1B9A2C900071CF82 /* TBMUser.m */; };
 		07E3C6F41B9A2C910071CF82 /* TBMVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C4301B9A2C900071CF82 /* TBMVideo.m */; };
@@ -4834,7 +4833,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "dae33d6c-c5ca-4c75-83c6-3f99dad0c513";
+				PROVISIONING_PROFILE = "2d93206a-9477-439e-9b06-ab0aa3c7fa7c";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -4858,7 +4857,7 @@
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
 				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "dae33d6c-c5ca-4c75-83c6-3f99dad0c513";
+				PROVISIONING_PROFILE = "2d93206a-9477-439e-9b06-ab0aa3c7fa7c";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -4963,7 +4962,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "8ef95452-c45d-4cff-a8a6-16869dd0cd7d";
+				PROVISIONING_PROFILE = "eaf6f4d7-aa5d-40e6-9374-117aa8f7032d";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
