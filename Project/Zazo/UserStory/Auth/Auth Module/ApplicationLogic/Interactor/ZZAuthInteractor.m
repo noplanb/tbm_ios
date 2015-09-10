@@ -25,6 +25,7 @@
 #import "TBMFriend.h"
 #import "TBMS3CredentialsManager.h"
 #import "TBMPhoneUtils.h"
+#import "TBMAppDelegate+Boot.h"
 
 @interface ZZAuthInteractor ()
 
@@ -134,6 +135,7 @@
         {
             self.currentUser.isRegistered = YES;
             [ZZUserDataProvider upsertUserWithModel:self.currentUser];
+            [(TBMAppDelegate*)[UIApplication sharedApplication].delegate performDidBecomeActiveActions]; //TODO: call this with new controller
             [self.output registrationFlowCompletedSuccessfully];
         }
         else

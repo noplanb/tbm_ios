@@ -43,16 +43,13 @@
     UIViewController* vc = [ANDebugVC new];
     [self showRootController:vc inWindow:window];
 #else
-//    ZZAuthWireframe* wireframe = [ZZAuthWireframe new];
-//    [wireframe presentAuthControllerFromWindow:window];
     
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
     UIViewController* vc;
     if (!user.isRegistered)
     {
-        TBMRegisterViewController* registrationVC = [TBMRegisterViewController new];
-        registrationVC.delegate = self; // TODO: temp
-        vc = registrationVC;
+        ZZAuthWireframe* wireframe = [ZZAuthWireframe new];
+        [wireframe presentAuthControllerFromWindow:window];
     }
     else
     {
@@ -60,11 +57,10 @@
         [self.dependencies setupDependenciesWithHomeViewController:homeVC];
         vc = homeVC;
         [self postRegistrationBoot];
+        UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:vc];
+        nc.navigationBarHidden = YES;
+        window.rootViewController = nc;
     }
-    
-    UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:vc];
-    nc.navigationBarHidden = YES;
-    window.rootViewController = nc;
     
 #endif
     
@@ -79,15 +75,6 @@
 
 
 #pragma mark - Old // TODO:
-
-- (void)registrationControllerDidCompleteRegistration:(TBMRegisterViewController *)controller
-{
-    TBMHomeViewController* vc = [TBMHomeViewController new];
-    [self.dependencies setupDependenciesWithHomeViewController:vc];
-    
-    [controller presentViewController:vc animated:YES completion:nil];
-    [(TBMAppDelegate*)[UIApplication sharedApplication].delegate performDidBecomeActiveActions]; //TODO: call this with new controller
-}
 
 - (void)postRegistrationBoot
 {

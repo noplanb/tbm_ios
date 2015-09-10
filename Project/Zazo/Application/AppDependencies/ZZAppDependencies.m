@@ -9,7 +9,6 @@
 #import "ZZAppDependencies.h"
 #import "ZZRootWireframe.h"
 #import "ZZColorTheme.h"
-#import "ZZAppDependecesInjection.h"
 #import "ANCrashlyticsAdapter.h"
 #import <Instabug/Instabug.h>
 #import "ZZContentDataAcessor.h"
@@ -39,8 +38,6 @@
                captureSource:IBGCaptureSourceUIKit
              invocationEvent:IBGInvocationEventScreenshot];
 #endif
-    ZZAppDependecesInjection* injection = [ZZAppDependecesInjection new];
-    [injection configureTyphoon];
 }
 
 - (BOOL)handleOpenURL:(NSURL*)url inApplication:(NSString*)application
