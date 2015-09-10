@@ -25,6 +25,7 @@
 #import "ZZEnvelopStrategy.h"
 #import "ZZUserDataProvider.h"
 #import "ZZGridWireframe.h"
+#import "ZZMenuWireframe.h"
 
 @interface ZZRootWireframe () //<TBMRegisterViewControllerDelegate> // TODO: temp
 
@@ -54,8 +55,8 @@
     else
     {
 //        [self.dependencies setupDependenciesWithHomeViewController:homeVC]; //TODO:
-        ZZGridWireframe* wireframe = [ZZGridWireframe new];
-        [wireframe presentGridControllerFromWindow:window];
+        ZZMenuWireframe* wireframe = [ZZMenuWireframe new];
+        [wireframe presentMenuControllerFromWindow:window];
         [self postRegistrationBoot];
     }
     
