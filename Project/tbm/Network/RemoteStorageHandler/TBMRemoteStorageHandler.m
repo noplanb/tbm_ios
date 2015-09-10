@@ -84,7 +84,7 @@ static NSString *const kArraySeparator = @",";
 + (NSString *)outgoingPrefix:(TBMFriend *)friend
 {
      ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
-    return [NSString stringWithFormat:@"%@-%@", model, friend.mkey];
+    return [NSString stringWithFormat:@"%@-%@", model.mkey, friend.mkey];
 }
 
 + (NSString *)incomingSuffix:(TBMFriend *)friend withTypeSuffix:(NSString *)typeSuffix
@@ -201,14 +201,16 @@ static NSString *const kArraySeparator = @",";
 // Convenience getters
 + (void)getRemoteIncomingVideoIdsWithFriend:(TBMFriend *)friend gotVideoIds:(void (^)(NSArray *videoIds))gotVideoIds
 {
+//    __block TBMFriend* someFriend = friend;
     OB_INFO(@"getRemoteIncomingVideoIdsWithFriend:");
     NSString *key1 = [TBMRemoteStorageHandler incomingVideoIDRemoteKVKey:friend];
-    [TBMRemoteStorageHandler getRemoteKVsWithKey:key1 success:^(NSArray *response)
-    {
+    
+    [TBMRemoteStorageHandler getRemoteKVsWithKey:key1 success:^(NSArray *response) {
+    
         NSArray *vIds = [TBMRemoteStorageHandler getVideoIdsWithResponseObjects:response];
         gotVideoIds(vIds);
-    }                                    failure:^(NSError *error)
-    {
+    
+    } failure:^(NSError *error) {
         OB_WARN(@"getRemoteIncomingVideoIdsWithFriend: failure: %@", error);
     }];
 }

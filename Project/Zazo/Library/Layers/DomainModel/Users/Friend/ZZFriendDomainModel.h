@@ -53,7 +53,7 @@ extern const struct ZZFriendDomainModelAttributes {
 @property (nonatomic, copy) NSString* connectionCreatorMkey;
 @property (nonatomic, assign) ZZContactStatusType contactStatusValue;
 
-@property (nonatomic, strong) NSSet* videos;
+@property (nonatomic, strong) NSArray* videos;
 
 + (FEMObjectMapping*)mapping;
 

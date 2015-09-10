@@ -1,3 +1,4 @@
+
 //
 //  TBMFriend.m
 //  tbm
@@ -270,9 +271,9 @@ static NSMutableArray *videoStatusNotificationDelegates;
     return [video isEqual:[self newestIncomingVideo]];
 }
 
-- (TBMVideo *)createIncomingVideoWithVideoId:(NSString *)videoId
-{
-    TBMVideo *video = [TBMVideo newWithVideoId:videoId];
+- (TBMVideo *)createIncomingVideoWithVideoId:(NSString *)videoId   
+{  
+    TBMVideo *video = [TBMVideo newWithVideoId:videoId onContext:self.managedObjectContext];
     [self addVideosObject:video];
     return video;
 }
@@ -512,11 +513,13 @@ static NSMutableArray *videoStatusNotificationDelegates;
 
 - (void)notifyVideoStatusChange
 {
-    DebugLog(@"notifyVideoStatusChange for %@ on %lu delegates", self.firstName, (unsigned long) [videoStatusNotificationDelegates count]);
-    for (id <TBMVideoStatusNotificationProtocol> delegate in videoStatusNotificationDelegates)
-    {
-        [delegate videoStatusDidChange:self];
-    }
+//    DebugLog(@"notifyVideoStatusChange for %@ on %lu delegates", self.firstName, (unsigned long) [videoStatusNotificationDelegates count]);
+//    for (id <TBMVideoStatusNotificationProtocol> delegate in videoStatusNotificationDelegates)
+//    {
+//        [delegate videoStatusDidChange:self];
+//    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kFriendChangeNotification object:self];
 }
 
 - (NSString *)videoStatusString
