@@ -129,9 +129,6 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 - (void)recorder:(SCRecorder*)recorder didCompleteSegment:(SCRecordSessionSegment*)segment
        inSession:(SCRecordSession*)recordSession error:(NSError*)error
 {
-    
-    
-    
     [recordSession mergeSegmentsUsingPreset:AVAssetExportPresetHighestQuality completionHandler:^(NSURL *url, NSError *error) {
         if (error == nil) {
             
@@ -139,7 +136,7 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
             {
                 NSLog(@"ok");
                 NSError* error;
-               if ( [[NSFileManager defaultManager] copyItemAtURL:url toURL:self.recordVideoUrl error:&error])
+               if ([[NSFileManager defaultManager] copyItemAtURL:url toURL:self.recordVideoUrl error:&error])
                {
                    NSError* removeError;
                    [[NSFileManager defaultManager] removeItemAtPath:[url path] error:&removeError];
@@ -150,8 +147,6 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
                {
                    NSLog(@"copy error");
                }
-                
-                
             }
             else
             {

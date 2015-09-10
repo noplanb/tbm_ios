@@ -611,7 +611,6 @@
                                              selector:@selector(videoDidFinishRecording:)
                                                  name:TBMVideoRecorderDidFinishRecording
                                                object:nil];
-
 }
 
 - (void)videoDidStartRecording:(id)sender
