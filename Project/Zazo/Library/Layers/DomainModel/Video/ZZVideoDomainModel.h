@@ -24,6 +24,7 @@ extern const struct ZZVideoDomainModelAttributes {
 @property (nonatomic, assign) NSInteger downloadRetryCount;
 @property (nonatomic, strong) ZZFriendDomainModel* relatedUser;
 @property (nonatomic, copy) NSString* videoID;
+@property (nonatomic, strong) NSURL* videoURL;
 
 + (instancetype)createVideo;
 + (instancetype)createVideoWithItemID:(NSString*)itemID;

@@ -7,6 +7,8 @@
 //
 
 #import "ZZVideoDomainModel.h"
+#import "ZZFriendDomainModel.h"
+#import "TBMConfig.h"
 
 const struct ZZVideoDomainModelAttributes ZZVideoDomainModelAttributes = {
     .status = @"status",
@@ -14,7 +16,6 @@ const struct ZZVideoDomainModelAttributes ZZVideoDomainModelAttributes = {
     .relatedUser = @"relatedUser",
     .videoID = @"videoID",
 };
-
 
 @implementation ZZVideoDomainModel
 
@@ -32,6 +33,13 @@ const struct ZZVideoDomainModelAttributes ZZVideoDomainModelAttributes = {
     model.videoID = itemID;
     
     return model;
+}
+
+- (NSURL*)videoURL
+{
+    NSString *filename = [NSString stringWithFormat:@"incomingVidFromFriend_%@-VideoId_%@", self.relatedUser.idTbm, self.videoID];
+    NSURL* URL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
+    return [URL URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"mp4"]];
 }
 
 @end

@@ -34,6 +34,7 @@
 
 //temp in public
 @property (nonatomic, strong) ZZAppDependencies* appDependencies;
+@property (nonatomic, strong) NSArray* myFriends;
 
 -(void)onGrantedPushAccess;
 -(void)onFailPushAccess;

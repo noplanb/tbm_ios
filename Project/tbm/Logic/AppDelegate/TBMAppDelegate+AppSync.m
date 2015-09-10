@@ -16,6 +16,7 @@
 #import "TBMHttpManager.h"
 #import "TBMVideoProcessor.h"
 #import "ZZVideoRecorder.h"
+#import "MagicalRecord.h"
 
 @implementation TBMAppDelegate (AppSync)
 
@@ -210,7 +211,8 @@
 - (void)pollAllFriends
 {
     OB_INFO(@"pollAllFriends");
-    for (TBMFriend *f in [TBMFriend all])
+    self.myFriends = [TBMFriend all];
+    for (TBMFriend *f in self.myFriends)
     {
         [self pollVideosWithFriend:f];
         [self pollVideoStatusWithFriend:f];
@@ -228,19 +230,57 @@
 
 - (void)pollVideosWithFriend:(TBMFriend *)friend
 {
-    [TBMRemoteStorageHandler getRemoteIncomingVideoIdsWithFriend:friend gotVideoIds:^(NSArray *videoIds)
+    NSLog(@"before");
+    
+//    [TBMRemoteStorageHandler getRemoteIncomingVideoIdsWithFriend:friend gotVideoIds:^(NSArray *videoIds)
+//    {
+//        OB_INFO(@"pollWithFriend: %@  vids = %@", friend.firstName, videoIds);
+//        for (NSString *videoId in videoIds)
+//        {
+////            Removed because IOS sends the vidoes out in parallel a later short one may arrive before an earlier long one.
+////            if ([TBMVideoIdUtils isvid1:videoId olderThanVid2:[friend oldestIncomingVideoId]]) {
+////                OB_WARN(@"pollWithFriend: Deleting remote video and videoId kv older than local oldest.");
+////                [TBMRemoteStorageHandler deleteRemoteFileAndVideoIdWithFriend:friend videoId:videoId];
+////            }
+//            [self queueDownloadWithFriend:friend videoId:videoId];
+//        }
+//    }];
+    
+    if (friend.idTbm)
     {
-        OB_INFO(@"pollWithFriend: %@  vids = %@", friend.firstName, videoIds);
-        for (NSString *videoId in videoIds)
-        {
-//            Removed because IOS sends the vidoes out in parallel a later short one may arrive before an earlier long one.
-//            if ([TBMVideoIdUtils isvid1:videoId olderThanVid2:[friend oldestIncomingVideoId]]) {
-//                OB_WARN(@"pollWithFriend: Deleting remote video and videoId kv older than local oldest.");
-//                [TBMRemoteStorageHandler deleteRemoteFileAndVideoIdWithFriend:friend videoId:videoId];
-//            }
-            [self queueDownloadWithFriend:friend videoId:videoId];
-        }
-    }];
+        __block TBMFriend* someFriend = friend;
+        
+        __block NSString* URL = [someFriend.objectID.URIRepresentation absoluteString];
+        
+        [TBMRemoteStorageHandler getRemoteIncomingVideoIdsWithFriend:friend
+                                                         gotVideoIds:^(NSArray *videoIds) {
+                                                             OB_INFO(@"pollWithFriend: %@  vids = %@", someFriend.firstName, videoIds);
+                                                             for (NSString *videoId in videoIds)
+                                                             {
+                                                                 //            Removed because IOS sends the vidoes out in parallel a later short one may arrive before an earlier long one.
+                                                                 //            if ([TBMVideoIdUtils isvid1:videoId olderThanVid2:[friend oldestIncomingVideoId]]) {
+                                                                 //                OB_WARN(@"pollWithFriend: Deleting remote video and videoId kv older than local oldest.");
+                                                                 //                [TBMRemoteStorageHandler deleteRemoteFileAndVideoIdWithFriend:friend videoId:videoId];
+                                                                 //            }
+                                                                 
+                                                                 NSManagedObject* object;
+                                                                 if (!ANIsEmpty(URL))
+                                                                 {
+                                                                     NSURL* objectURL = [NSURL URLWithString:[NSString stringWithString:URL]];
+                                                                     NSManagedObjectContext* context = [NSManagedObjectContext MR_rootSavingContext];
+                                                                     NSManagedObjectID* objectID = [context.persistentStoreCoordinator managedObjectIDForURIRepresentation:objectURL];
+                                                                     NSError* error = nil;
+                                                                     if (!ANIsEmpty(objectID))
+                                                                     {
+                                                                         object = [context existingObjectWithID:objectID error:&error];
+                                                                     }
+                                                                 }
+                                                                 
+                                                                 [self queueDownloadWithFriend:(TBMFriend*)object videoId:videoId];
+                                                             }
+                                                         }];
+    }
+    
 }
 
 - (void)pollVideoStatusWithFriend:(TBMFriend *)friend
