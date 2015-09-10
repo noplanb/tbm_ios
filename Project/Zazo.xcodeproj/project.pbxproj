@@ -23,7 +23,6 @@
 		07E257301B977865008D3371 /* UILabel+TBMUILabelDynamicHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E2538B1B977864008D3371 /* UILabel+TBMUILabelDynamicHeight.m */; };
 		07E257311B977865008D3371 /* TBMConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E2538E1B977864008D3371 /* TBMConfig.m */; };
 		07E257321B977865008D3371 /* TBMContactsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E253911B977864008D3371 /* TBMContactsManager.m */; };
-		07E257331B977865008D3371 /* TBMDependencies.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E253941B977864008D3371 /* TBMDependencies.m */; };
 		07E257341B977865008D3371 /* TBMDeviceHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E253971B977864008D3371 /* TBMDeviceHandler.m */; };
 		07E257351B977865008D3371 /* TBMFileUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E2539A1B977864008D3371 /* TBMFileUtils.m */; };
 		07E257361B977865008D3371 /* TBMKeyChainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E2539D1B977864008D3371 /* TBMKeyChainWrapper.m */; };
@@ -382,6 +381,7 @@
 		220E904A1909A18C003C4F82 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902E1909A18B003C4F82 /* CoreData.framework */; };
 		22403C2B19D5E63400FC36E3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22403C2A19D5E63400FC36E3 /* MessageUI.framework */; };
 		224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
+		682D643E3307C0CCF4C973CF /* TBMTutorialSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6C97DAF135C51437981F /* TBMTutorialSystem.m */; };
 		DE5C223E15BD5A128DAFDAD1 /* libPods-ZazoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0368F3F1AC201E7765B1898F /* libPods-ZazoTests.a */; };
 		F20151DDD1EA1D5CD6D8CB21 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */; };
 		FE17E9521B977B6D00FD49FE /* TBMNextFeatureDialogPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FE17E94F1B977B6D00FD49FE /* TBMNextFeatureDialogPresenter.m */; };
@@ -455,8 +455,6 @@
 		07E2538E1B977864008D3371 /* TBMConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMConfig.m; sourceTree = "<group>"; };
 		07E253901B977864008D3371 /* TBMContactsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMContactsManager.h; sourceTree = "<group>"; };
 		07E253911B977864008D3371 /* TBMContactsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMContactsManager.m; sourceTree = "<group>"; };
-		07E253931B977864008D3371 /* TBMDependencies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDependencies.h; sourceTree = "<group>"; };
-		07E253941B977864008D3371 /* TBMDependencies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDependencies.m; sourceTree = "<group>"; };
 		07E253961B977864008D3371 /* TBMDeviceHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDeviceHandler.h; sourceTree = "<group>"; };
 		07E253971B977864008D3371 /* TBMDeviceHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDeviceHandler.m; sourceTree = "<group>"; };
 		07E253991B977864008D3371 /* TBMFileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFileUtils.h; sourceTree = "<group>"; };
@@ -1140,6 +1138,8 @@
 		41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		5988C69CC62CF4472CA2040A /* Pods-Zazo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.debug.xcconfig"; sourceTree = "<group>"; };
+		682D6C97DAF135C51437981F /* TBMTutorialSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMTutorialSystem.m; sourceTree = "<group>"; };
+		682D6E3BF8A1AA0AB8514C9E /* TBMTutorialSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMTutorialSystem.h; sourceTree = "<group>"; };
 		A0ECBE9A7392F431C5ADE072 /* Pods-ZazoTests.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.ad-hoc.xcconfig"; sourceTree = "<group>"; };
 		B1860DB43B6E70D5AEF73EF4 /* Pods-Zazo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.release.xcconfig"; sourceTree = "<group>"; };
 		C4392BF41AD48118C492A226 /* Pods-Zazo.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.ad-hoc.xcconfig"; sourceTree = "<group>"; };
@@ -1215,7 +1215,6 @@
 				07E253741B977864008D3371 /* Categories */,
 				07E2538C1B977864008D3371 /* Config */,
 				07E2538F1B977864008D3371 /* Contacts */,
-				07E253921B977864008D3371 /* Dependencies */,
 				07E253951B977864008D3371 /* DeviceHandler */,
 				07E253981B977864008D3371 /* FileUtils */,
 				07E2539B1B977864008D3371 /* Keychain */,
@@ -1339,15 +1338,6 @@
 			path = Contacts;
 			sourceTree = "<group>";
 		};
-		07E253921B977864008D3371 /* Dependencies */ = {
-			isa = PBXGroup;
-			children = (
-				07E253931B977864008D3371 /* TBMDependencies.h */,
-				07E253941B977864008D3371 /* TBMDependencies.m */,
-			);
-			path = Dependencies;
-			sourceTree = "<group>";
-		};
 		07E253951B977864008D3371 /* DeviceHandler */ = {
 			isa = PBXGroup;
 			children = (
@@ -1427,6 +1417,7 @@
 				07E254141B977864008D3371 /* Next Feature Dialog Module */,
 				07E254191B977864008D3371 /* Secret Screen Module */,
 				07E254241B977864008D3371 /* State module */,
+				682D6DB7871B1C7C5CE1963B /* Tutorial System */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -4052,6 +4043,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		682D6DB7871B1C7C5CE1963B /* Tutorial System */ = {
+			isa = PBXGroup;
+			children = (
+				682D6C97DAF135C51437981F /* TBMTutorialSystem.m */,
+				682D6E3BF8A1AA0AB8514C9E /* TBMTutorialSystem.h */,
+			);
+			path = "Tutorial System";
+			sourceTree = "<group>";
+		};
 		984D6697D8F62FFA194F39A2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -4476,7 +4476,6 @@
 				07E257881B977865008D3371 /* TBMVerfiicationAlertHandler.m in Sources */,
 				07E257691B977865008D3371 /* TBMFriendVideosInformation.m in Sources */,
 				07E257321B977865008D3371 /* TBMContactsManager.m in Sources */,
-				07E257331B977865008D3371 /* TBMDependencies.m in Sources */,
 				07E258741B977865008D3371 /* ANError.m in Sources */,
 				07E258841B977865008D3371 /* UIImage+PDF.m in Sources */,
 				07E257AB1B977865008D3371 /* ZZVideoModelsMapper.m in Sources */,
@@ -4614,6 +4613,7 @@
 				07E257501B977865008D3371 /* TBMInviteHintView.m in Sources */,
 				07E257421B977865008D3371 /* TBMEventsFlowDataSource.m in Sources */,
 				07E2575F1B977865008D3371 /* TBMWelcomeHintPresenter.m in Sources */,
+				682D643E3307C0CCF4C973CF /* TBMTutorialSystem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

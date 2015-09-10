@@ -9,11 +9,10 @@
 @protocol TBMEventsFlowModuleEventHandler;
 @protocol TBMEventsFlowModuleEventHandler;
 
-@interface TBMDependencies : NSObject
+@interface TBMTutorialSystem : NSObject
 
-//TODO:Make private after refactoring Home
 @property(nonatomic, strong) id <TBMEventsFlowModuleInterface> eventsFlowModule;
 
-- (void)setupDependenciesWithHomeViewController:(TBMHomeViewController *)homeController;
+- (void)setupHandlersWithGridModule:(TBMHomeViewController *)homeController;
 
 @end

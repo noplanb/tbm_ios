@@ -16,7 +16,7 @@
 //TODO: to remove
 #import "TBMRegisterViewController.h"
 #import "TBMHomeViewController.h"
-#import "TBMDependencies.h"
+#import "TBMTutorialSystem.h"
 #import "TBMUser.h"
 #import "TBMS3CredentialsManager.h"
 #import "TBMAppDelegate+Boot.h" // temp
@@ -26,7 +26,7 @@
 
 @interface ZZRootWireframe () <TBMRegisterViewControllerDelegate> // TODO: temp
 
-@property (nonatomic, strong) TBMDependencies* dependencies;
+@property (nonatomic, strong) TBMTutorialSystem * dependencies;
 @property (nonatomic, strong) ZZBaseTouchController* touchController;
 
 @end
@@ -56,7 +56,7 @@
     else
     {
         TBMHomeViewController* homeVC = [TBMHomeViewController new];
-        [self.dependencies setupDependenciesWithHomeViewController:homeVC];
+        [self.dependencies setupHandlersWithGridModule:homeVC];
         vc = homeVC;
         [self postRegistrationBoot];
     }
@@ -82,7 +82,7 @@
 - (void)registrationControllerDidCompleteRegistration:(TBMRegisterViewController *)controller
 {
     TBMHomeViewController* vc = [TBMHomeViewController new];
-    [self.dependencies setupDependenciesWithHomeViewController:vc];
+    [self.dependencies setupHandlersWithGridModule:vc];
     
     [controller presentViewController:vc animated:YES completion:nil];
     [(TBMAppDelegate*)[UIApplication sharedApplication].delegate performDidBecomeActiveActions];
@@ -147,11 +147,11 @@
 
 #pragma mark - Private
 
-- (TBMDependencies *)dependecies
+- (TBMTutorialSystem *)dependecies
 {
     if (!_dependencies)
     {
-        _dependencies = [[TBMDependencies alloc] init];
+        _dependencies = [[TBMTutorialSystem alloc] init];
     }
     return _dependencies;
 }

@@ -3,7 +3,7 @@
 // Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "TBMDependencies.h"
+#import "TBMTutorialSystem.h"
 #import "TBMGridModuleInterface.h"
 #import "TBMEventsFlowModuleInterface.h"
 #import "TBMEventsFlowModulePresenter.h"
@@ -23,7 +23,7 @@
 #import "TBMRecordWelcomeHintPresenter.h"
 
 
-@interface TBMDependencies ()
+@interface TBMTutorialSystem ()
 
 // Hints
 @property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> inviteHintModule;
@@ -44,12 +44,12 @@
 @property(nonatomic, strong) id <TBMHomeModuleInterface> homeModule;
 @end
 
-@implementation TBMDependencies
+@implementation TBMTutorialSystem
 
 //TODO:Refactor it: move to app delegate and remove grid module from parameter and put it into setup method
 
 
-- (void)setupDependenciesWithHomeViewController:(TBMHomeViewController *)homeController
+- (void)setupHandlersWithGridModule:(TBMHomeViewController *)homeController
 {
     //TODO: Remove HomeViewController from here after it will transform to module
 //    [self.eventsFlowModule setupGridModule:gridModule]; TODO: Bring here from TBMHomeViewController
