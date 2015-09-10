@@ -119,10 +119,13 @@ static NSString* kApiVersion = @"";
     NSMutableArray *parts = [NSMutableArray array];
     for (NSString *key in dictionary)
     {
-        NSString *encodedValue = [[dictionary objectForKey:key]
-                                  stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        id value = [dictionary objectForKey:key];
+        if ([value isKindOfClass:[NSString class]])
+        {
+            value = [value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        }
         NSString *encodedKey = [key stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSString *part = [NSString stringWithFormat: @"%@=%@", encodedKey, encodedValue];
+        NSString *part = [NSString stringWithFormat: @"%@=%@", encodedKey, value];
         [parts addObject:part];
     }
     NSString *encodedDictionary = [parts componentsJoinedByString:@"&"];

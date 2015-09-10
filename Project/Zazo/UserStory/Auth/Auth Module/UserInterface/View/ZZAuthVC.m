@@ -100,36 +100,6 @@
 {
     [[[TBMVerificationAlertHandler alloc] initWithPhoneNumber:phoneNumber
                                                      delegate:self] presentAlert];
-    
-    
-    
-    
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:phoneNumber
-//                                                    message:@"Enter verification code:"
-//                                                   delegate:self
-//                                          cancelButtonTitle:@"Cancel"
-//                                          otherButtonTitles:@"Verify", nil];
-//    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-//    [alert show];
-//    
-//    @weakify(alert);
-//    [alert.rac_buttonClickedSignal subscribeNext:^(NSNumber* x) {
-//        
-//        @strongify(alert);
-//        if ([x integerValue] == 1)
-//        {
-//            NSString *code = [alert textFieldAtIndex:0].text;
-//            if (!ANIsEmptyStringByTrimmingWhitespaces(code))
-//            {
-//                [self.eventHandler verifySMSCode:code];
-//            }
-//        }
-//    }];
-//    
-//#ifdef DEBUG_LOGIN_USER
-//    UITextField *textField = [alert textFieldAtIndex:0];
-//    textField.text = @"0000";
-//#endif
 }
 
 - (void)didEnterVerificationCode:(NSString*)code

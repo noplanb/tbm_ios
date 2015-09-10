@@ -26,28 +26,22 @@
 
 @implementation ZZGridWireframe
 
+- (void)presentGridControllerFromWindow:(UIWindow*)window
+{
+    [self _setup];
+    UINavigationController* nc = [UINavigationController new];
+    window.rootViewController = nc;
+    [self presentGridControllerFromNavigationController:nc];
+}
+
 - (void)presentGridControllerFromNavigationController:(UINavigationController *)nc
 {
-    ZZGridVC* gridController = [ZZGridVC new];
-    ZZGridInteractor* interactor = [ZZGridInteractor new];
-    ZZGridPresenter* presenter = [ZZGridPresenter new];
-    
-    interactor.output = presenter;
-    
-    gridController.eventHandler = presenter;
-    
-    presenter.interactor = interactor;
-    presenter.wireframe = self;
-    [presenter configurePresenterWithUserInterface:gridController];
-    
+    [self _setup];
     ANDispatchBlockToMainQueue(^{
-        [nc pushViewController:gridController animated:YES];
+        [nc pushViewController:self.gridController animated:YES];
     });
     
-    self.presenter = presenter;
     self.presentedController = nc;
-    self.gridController = gridController;
-    
 }
 
 - (void)dismissGridController
@@ -78,6 +72,27 @@
 {
     self.emailWireframe = [ANEmailWireframe new];
     [self.emailWireframe presentEmailControllerFromViewController:self.gridController withModel:model completion:nil];
+}
+
+
+#pragma mark - Private
+
+- (void)_setup
+{
+    ZZGridVC* gridController = [ZZGridVC new];
+    ZZGridInteractor* interactor = [ZZGridInteractor new];
+    ZZGridPresenter* presenter = [ZZGridPresenter new];
+    
+    interactor.output = presenter;
+    
+    gridController.eventHandler = presenter;
+    
+    presenter.interactor = interactor;
+    presenter.wireframe = self;
+    [presenter configurePresenterWithUserInterface:gridController];
+    
+    self.presenter = presenter;
+    self.gridController = gridController;
 }
 
 @end

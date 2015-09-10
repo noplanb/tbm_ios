@@ -24,6 +24,7 @@
 #import "ZZStrategyNavigationLeftRight.h"
 #import "ZZEnvelopStrategy.h"
 #import "ZZUserDataProvider.h"
+#import "ZZGridWireframe.h"
 
 @interface ZZRootWireframe () //<TBMRegisterViewControllerDelegate> // TODO: temp
 
@@ -45,7 +46,6 @@
 #else
     
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
-    UIViewController* vc;
     if (!user.isRegistered)
     {
         ZZAuthWireframe* wireframe = [ZZAuthWireframe new];
@@ -53,13 +53,10 @@
     }
     else
     {
-        TBMHomeViewController* homeVC = [TBMHomeViewController new];
-        [self.dependencies setupDependenciesWithHomeViewController:homeVC];
-        vc = homeVC;
+//        [self.dependencies setupDependenciesWithHomeViewController:homeVC]; //TODO:
+        ZZGridWireframe* wireframe = [ZZGridWireframe new];
+        [wireframe presentGridControllerFromWindow:window];
         [self postRegistrationBoot];
-        UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:vc];
-        nc.navigationBarHidden = YES;
-        window.rootViewController = nc;
     }
     
 #endif
