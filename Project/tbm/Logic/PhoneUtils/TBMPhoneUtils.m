@@ -94,11 +94,11 @@
     
     NSError *error;
     
-    NBPhoneNumber *pn1 = [pu parse:n1 defaultRegion:[TBMUser phoneRegion] error:&error];
+    NBPhoneNumber *pn1 = [pu parse:n1 defaultRegion:[self phoneRegion] error:&error];
     if (error != nil)
         return NO;
     
-    NBPhoneNumber *pn2 = [pu parse:n2 defaultRegion:[TBMUser phoneRegion] error:&error];
+    NBPhoneNumber *pn2 = [pu parse:n2 defaultRegion:[self phoneRegion] error:&error];
     if (error != nil)
         return NO;
     
@@ -115,6 +115,27 @@
 + (NSString*)_savedMobileNumber
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"authenticatedMobileNumber"];
+}
+
+//------------------------
+// Phone number and region
+//------------------------
++ (NSString *)phoneRegion
+{
+    NBPhoneNumberUtil *pu = [NBPhoneNumberUtil sharedInstance];
+
+    ZZUserDomainModel *u = [ZZUserDataProvider authenticatedUser];
+
+    if (u == nil)
+        return @"US";
+
+    NSError *err = nil;
+    NBPhoneNumber *pn = [pu parse:u.mobileNumber defaultRegion:@"US" error:&err];
+
+    if (err != nil)
+        return @"US";
+
+    return [pu getRegionCodeForNumber:pn];
 }
 
 @end

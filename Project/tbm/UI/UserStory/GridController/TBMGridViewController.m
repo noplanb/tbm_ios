@@ -405,16 +405,24 @@
 //- (TBMGridElement *)gridElementWithView:(UIView *)view {
 //    return [TBMGridElement findWithIntIndex:[self indexWithView:view]];
 //}
+
+
+
+
+
+
+
 //-------------------------
 // Handling friends on grid
 //-------------------------
 - (NSMutableArray *)friendsOnGrid {
     NSMutableArray *r = [[NSMutableArray alloc] init];
-    for (TBMGridElement *ge in [TBMGridElement all]) {
-        if (ge.friend != nil) {
-            [r addObject:ge.friend];
-        }
-    }
+//    for (TBMGridElement *ge in [TBMGridElement all])
+//    {
+//        if (ge.friend != nil) {
+//            [r addObject:ge.friend];
+//        }
+//    }
     return r;
 }
 
@@ -442,7 +450,7 @@
     TBMGridElement *ge = [self nextAvailableGridElement];
     self.lastAddedGridElement = ge;
     ge.friend = friend;
-    [self notifyChildrenOfGridChange:[ge getIntIndex]];
+    [self notifyChildrenOfGridChange:ge.index.integerValue];
 //    [self highlightElement:ge];
 
     if (ge.friend.hasApp)
@@ -482,7 +490,8 @@
 }
 
 - (TBMGridElement *)nextAvailableGridElement {
-    TBMGridElement *ge = [TBMGridElement firstEmptyGridElement];
+    TBMGridElement *ge; //= ;
+//    [TBMGridElement firstEmptyGridElement];
 
     if (ge != nil)
         return ge;

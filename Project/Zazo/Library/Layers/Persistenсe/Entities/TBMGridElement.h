@@ -11,22 +11,11 @@
 
 @interface TBMGridElement : _TBMGridElement
 
-// Create and destroy
-+ (instancetype)create;
-+ (instancetype)createInContext:(NSManagedObjectContext *)context;
-+ (void)destroyAllOncontext:(NSManagedObjectContext*)context;
-
 // Finders
-+ (NSArray *)all;
-+ (instancetype)findWithIntIndex:(NSInteger)i;
-+ (instancetype)findWithFriend:(TBMFriend *)friend;
-+ (BOOL)friendIsOnGrid:(TBMFriend *)friend;
-+ (instancetype)firstEmptyGridElement;
++ (TBMGridElement*)findWithIntIndex:(NSInteger)i;
++ (TBMGridElement*)findWithFriend:(TBMFriend *)item;
 
-// Getting and setting index with NSInteger instead of NSNumber
-- (void)setIntIndex:(NSInteger)index;
-
++ (BOOL)friendIsOnGrid:(TBMFriend *)item;
 + (BOOL)hasSentVideos:(NSUInteger)index;
 
-- (NSInteger)getIntIndex;
 @end
