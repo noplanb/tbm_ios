@@ -1317,6 +1317,8 @@
 		07CBBC2C1B9B1FF90080D300 /* !_OLD */ = {
 			isa = PBXGroup;
 			children = (
+				07E3C3421B9A2C900071CF82 /* State module */,
+				07E3C3371B9A2C900071CF82 /* Secret Screen Module */,
 				07E3C3A51B9A2C900071CF82 /* TPKeyboardAvoiding */,
 				07E3C37A1B9A2C900071CF82 /* TBMMarginLabel.h */,
 				07E3C37B1B9A2C900071CF82 /* TBMMarginLabel.m */,
@@ -1591,8 +1593,6 @@
 				07E3C2E01B9A2C900071CF82 /* Features Unlock Module */,
 				07E3C2EB1B9A2C900071CF82 /* Hints */,
 				07E3C3321B9A2C900071CF82 /* Next Feature Dialog Module */,
-				07E3C3371B9A2C900071CF82 /* Secret Screen Module */,
-				07E3C3421B9A2C900071CF82 /* State module */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1871,7 +1871,8 @@
 				07E3C3401B9A2C900071CF82 /* TBMSecretScreenViewController.h */,
 				07E3C3411B9A2C900071CF82 /* TBMSecretScreenViewController.m */,
 			);
-			path = "Secret Screen Module";
+			name = "Secret Screen Module";
+			path = "Modules/Secret Screen Module";
 			sourceTree = "<group>";
 		};
 		07E3C3421B9A2C900071CF82 /* State module */ = {
@@ -1880,7 +1881,8 @@
 				07E3C3431B9A2C900071CF82 /* Data */,
 				07E3C3521B9A2C900071CF82 /* UI */,
 			);
-			path = "State module";
+			name = "State module";
+			path = "Modules/State module";
 			sourceTree = "<group>";
 		};
 		07E3C3431B9A2C900071CF82 /* Data */ = {
