@@ -19,7 +19,6 @@
 #import "ANMessageDomainModel.h"
 #import "DeviceUtil.h"
 #import "TBMUser.h"
-#import "TBMTutorialSystem.h"
 
 typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
 {
@@ -46,7 +45,6 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
 @property(nonatomic, strong) TBMSecretScreenPresenter *secretScreen;
 @property(nonatomic, strong) id <TBMEventsFlowModuleInterface> eventsFlowModule;
 
-@property(nonatomic, strong) TBMTutorialSystem *dependencies;
 @end
 
 @implementation TBMHomeViewController
@@ -158,7 +156,8 @@ static TBMHomeViewController *hvcInstance;
 - (void)viewDidLoad {
     OB_INFO(@"TBMHomeViewController: viewDidLoad");
 
-    [self.dependencies setupHandlersWithGridModule:self];
+    //TODO: Event Flow setup point check for type
+    [self.eventsFlowModule setupGridModule:self];
     [super viewDidLoad];
     self.isSMSProcessActive = NO;
 
@@ -370,16 +369,6 @@ static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
     }
     return _secretScreen;
 }
-
-- (TBMTutorialSystem *)dependencies
-{
-    if (!_dependencies)
-    {
-        _dependencies = [TBMTutorialSystem new];
-    }
-    return _dependencies;
-}
-
 
 #pragma mark - UIActionSheetDelegate
 

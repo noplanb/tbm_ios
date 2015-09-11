@@ -4,10 +4,8 @@
 //
 
 #import "TBMAbortRecordUsageHintPresenter.h"
-#import "TBMEventsFlowModuleDataSourceInterface.h"
 #import "TBMHintView.h"
 #import "TBMAbortRecordUsageHintView.h"
-#import "TBMEventHandlerDataSource.h"
 
 
 @implementation TBMAbortRecordUsageHintPresenter
@@ -20,8 +18,6 @@
     {
         self.dialogView = [TBMAbortRecordUsageHintView new];
         [self.dialogView setupDialogViewDelegate:self];
-        self.eventHandlerDataSource.persistentStateKey = @"kAbortRecordUsageHintNSUDkey";
-
     }
     return self;
 }
@@ -31,7 +27,7 @@
     return 1500;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event;
 {
     return event == TBMEventFlowEventAbortRecordingUnlockDialogDidDismiss;
 }

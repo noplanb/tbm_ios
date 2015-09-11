@@ -33,11 +33,9 @@
 		07E2573B1B977865008D3371 /* TBMVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E253AB1B977864008D3371 /* TBMVideoPlayer.m */; };
 		07E2573C1B977865008D3371 /* TBMVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E253AD1B977864008D3371 /* TBMVideoProcessor.m */; };
 		07E2573D1B977865008D3371 /* TBMVideoRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E253AF1B977864008D3371 /* TBMVideoRecorder.m */; };
-		07E2573E1B977865008D3371 /* TBMEventHandlerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E253B51B977864008D3371 /* TBMEventHandlerDataSource.m */; };
 		07E2573F1B977865008D3371 /* TBMEventHandlerPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E253B71B977864008D3371 /* TBMEventHandlerPresenter.m */; };
 		07E257401B977865008D3371 /* TBMHintArrow.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E253BA1B977864008D3371 /* TBMHintArrow.m */; };
 		07E257411B977865008D3371 /* TBMHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E253BC1B977864008D3371 /* TBMHintView.m */; };
-		07E257421B977865008D3371 /* TBMEventsFlowDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E253C01B977864008D3371 /* TBMEventsFlowDataSource.m */; };
 		07E257431B977865008D3371 /* TBMEventsFlowModulePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E253C61B977864008D3371 /* TBMEventsFlowModulePresenter.m */; };
 		07E257441B977865008D3371 /* TBMFeatureUnlockDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E253CB1B977864008D3371 /* TBMFeatureUnlockDataSource.m */; };
 		07E257451B977865008D3371 /* TBMFeatureUnlockModulePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E253CD1B977864008D3371 /* TBMFeatureUnlockModulePresenter.m */; };
@@ -381,7 +379,7 @@
 		220E904A1909A18C003C4F82 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902E1909A18B003C4F82 /* CoreData.framework */; };
 		22403C2B19D5E63400FC36E3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22403C2A19D5E63400FC36E3 /* MessageUI.framework */; };
 		224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
-		682D643E3307C0CCF4C973CF /* TBMTutorialSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6C97DAF135C51437981F /* TBMTutorialSystem.m */; };
+		682D6F465FEF69D4E65DF82B /* TBMEventsFlowDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6477DF7484EEE660B489 /* TBMEventsFlowDataSource.m */; };
 		DE5C223E15BD5A128DAFDAD1 /* libPods-ZazoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0368F3F1AC201E7765B1898F /* libPods-ZazoTests.a */; };
 		F20151DDD1EA1D5CD6D8CB21 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */; };
 		FE17E9521B977B6D00FD49FE /* TBMNextFeatureDialogPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FE17E94F1B977B6D00FD49FE /* TBMNextFeatureDialogPresenter.m */; };
@@ -477,18 +475,13 @@
 		07E253AF1B977864008D3371 /* TBMVideoRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoRecorder.m; sourceTree = "<group>"; };
 		07E253B21B977864008D3371 /* TBMDialogViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDialogViewDelegate.h; sourceTree = "<group>"; };
 		07E253B31B977864008D3371 /* TBMDialogViewInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDialogViewInterface.h; sourceTree = "<group>"; };
-		07E253B41B977864008D3371 /* TBMEventHandlerDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEventHandlerDataSource.h; sourceTree = "<group>"; };
-		07E253B51B977864008D3371 /* TBMEventHandlerDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMEventHandlerDataSource.m; sourceTree = "<group>"; };
 		07E253B61B977864008D3371 /* TBMEventHandlerPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEventHandlerPresenter.h; sourceTree = "<group>"; };
 		07E253B71B977864008D3371 /* TBMEventHandlerPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMEventHandlerPresenter.m; sourceTree = "<group>"; };
 		07E253B91B977864008D3371 /* TBMHintArrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHintArrow.h; sourceTree = "<group>"; };
 		07E253BA1B977864008D3371 /* TBMHintArrow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHintArrow.m; sourceTree = "<group>"; };
 		07E253BB1B977864008D3371 /* TBMHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHintView.h; sourceTree = "<group>"; };
 		07E253BC1B977864008D3371 /* TBMHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHintView.m; sourceTree = "<group>"; };
-		07E253BF1B977864008D3371 /* TBMEventsFlowDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEventsFlowDataSource.h; sourceTree = "<group>"; };
-		07E253C01B977864008D3371 /* TBMEventsFlowDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMEventsFlowDataSource.m; sourceTree = "<group>"; };
-		07E253C21B977864008D3371 /* TBMEventsFlowModuleDataSourceInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEventsFlowModuleDataSourceInterface.h; sourceTree = "<group>"; };
-		07E253C31B977864008D3371 /* TBMEventsFlowModuleEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEventsFlowModuleEventHandler.h; sourceTree = "<group>"; };
+		07E253C31B977864008D3371 /* TBMEventsFlowModuleEventHandlerInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEventsFlowModuleEventHandlerInterface.h; sourceTree = "<group>"; };
 		07E253C41B977864008D3371 /* TBMEventsFlowModuleInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEventsFlowModuleInterface.h; sourceTree = "<group>"; };
 		07E253C51B977864008D3371 /* TBMEventsFlowModulePresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEventsFlowModulePresenter.h; sourceTree = "<group>"; };
 		07E253C61B977864008D3371 /* TBMEventsFlowModulePresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMEventsFlowModulePresenter.m; sourceTree = "<group>"; };
@@ -1138,8 +1131,8 @@
 		41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		5988C69CC62CF4472CA2040A /* Pods-Zazo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.debug.xcconfig"; sourceTree = "<group>"; };
-		682D6C97DAF135C51437981F /* TBMTutorialSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMTutorialSystem.m; sourceTree = "<group>"; };
-		682D6E3BF8A1AA0AB8514C9E /* TBMTutorialSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMTutorialSystem.h; sourceTree = "<group>"; };
+		682D623CB6A66D9808873E4E /* TBMEventsFlowDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEventsFlowDataSource.h; sourceTree = "<group>"; };
+		682D6477DF7484EEE660B489 /* TBMEventsFlowDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMEventsFlowDataSource.m; sourceTree = "<group>"; };
 		A0ECBE9A7392F431C5ADE072 /* Pods-ZazoTests.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.ad-hoc.xcconfig"; sourceTree = "<group>"; };
 		B1860DB43B6E70D5AEF73EF4 /* Pods-Zazo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.release.xcconfig"; sourceTree = "<group>"; };
 		C4392BF41AD48118C492A226 /* Pods-Zazo.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.ad-hoc.xcconfig"; sourceTree = "<group>"; };
@@ -1417,7 +1410,6 @@
 				07E254141B977864008D3371 /* Next Feature Dialog Module */,
 				07E254191B977864008D3371 /* Secret Screen Module */,
 				07E254241B977864008D3371 /* State module */,
-				682D6DB7871B1C7C5CE1963B /* Tutorial System */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1427,8 +1419,6 @@
 			children = (
 				07E253B21B977864008D3371 /* TBMDialogViewDelegate.h */,
 				07E253B31B977864008D3371 /* TBMDialogViewInterface.h */,
-				07E253B41B977864008D3371 /* TBMEventHandlerDataSource.h */,
-				07E253B51B977864008D3371 /* TBMEventHandlerDataSource.m */,
 				07E253B61B977864008D3371 /* TBMEventHandlerPresenter.h */,
 				07E253B71B977864008D3371 /* TBMEventHandlerPresenter.m */,
 				07E253B81B977864008D3371 /* Views */,
@@ -1450,28 +1440,18 @@
 		07E253BD1B977864008D3371 /* Events Flow Module */ = {
 			isa = PBXGroup;
 			children = (
-				07E253BE1B977864008D3371 /* Data Source */,
 				07E253C11B977864008D3371 /* Module Interface */,
 				07E253C51B977864008D3371 /* TBMEventsFlowModulePresenter.h */,
 				07E253C61B977864008D3371 /* TBMEventsFlowModulePresenter.m */,
+				682D682FEBF9301D404EB94C /* Data Source */,
 			);
 			path = "Events Flow Module";
-			sourceTree = "<group>";
-		};
-		07E253BE1B977864008D3371 /* Data Source */ = {
-			isa = PBXGroup;
-			children = (
-				07E253BF1B977864008D3371 /* TBMEventsFlowDataSource.h */,
-				07E253C01B977864008D3371 /* TBMEventsFlowDataSource.m */,
-			);
-			path = "Data Source";
 			sourceTree = "<group>";
 		};
 		07E253C11B977864008D3371 /* Module Interface */ = {
 			isa = PBXGroup;
 			children = (
-				07E253C21B977864008D3371 /* TBMEventsFlowModuleDataSourceInterface.h */,
-				07E253C31B977864008D3371 /* TBMEventsFlowModuleEventHandler.h */,
+				07E253C31B977864008D3371 /* TBMEventsFlowModuleEventHandlerInterface.h */,
 				07E253C41B977864008D3371 /* TBMEventsFlowModuleInterface.h */,
 			);
 			path = "Module Interface";
@@ -4043,13 +4023,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		682D6DB7871B1C7C5CE1963B /* Tutorial System */ = {
+		682D682FEBF9301D404EB94C /* Data Source */ = {
 			isa = PBXGroup;
 			children = (
-				682D6C97DAF135C51437981F /* TBMTutorialSystem.m */,
-				682D6E3BF8A1AA0AB8514C9E /* TBMTutorialSystem.h */,
+				682D623CB6A66D9808873E4E /* TBMEventsFlowDataSource.h */,
+				682D6477DF7484EEE660B489 /* TBMEventsFlowDataSource.m */,
 			);
-			path = "Tutorial System";
+			path = "Data Source";
 			sourceTree = "<group>";
 		};
 		984D6697D8F62FFA194F39A2 /* Pods */ = {
@@ -4383,7 +4363,6 @@
 				07E258311B977865008D3371 /* ZZEditFriendListPresenter.m in Sources */,
 				07E257451B977865008D3371 /* TBMFeatureUnlockModulePresenter.m in Sources */,
 				07E2584B1B977865008D3371 /* ZZTouchObserver.m in Sources */,
-				07E2573E1B977865008D3371 /* TBMEventHandlerDataSource.m in Sources */,
 				07E257381B977865008D3371 /* TBMSoundEffect.m in Sources */,
 				07E258801B977865008D3371 /* UIImage+TOWebViewControllerIcons.m in Sources */,
 				07E2572F1B977865008D3371 /* UIButton+TBMRoundedButton.m in Sources */,
@@ -4611,9 +4590,8 @@
 				07E258171B977865008D3371 /* ZZDebugStateDomainModel.m in Sources */,
 				07E257CC1B977865008D3371 /* ZZSettingsModel.m in Sources */,
 				07E257501B977865008D3371 /* TBMInviteHintView.m in Sources */,
-				07E257421B977865008D3371 /* TBMEventsFlowDataSource.m in Sources */,
 				07E2575F1B977865008D3371 /* TBMWelcomeHintPresenter.m in Sources */,
-				682D643E3307C0CCF4C973CF /* TBMTutorialSystem.m in Sources */,
+				682D6F465FEF69D4E65DF82B /* TBMEventsFlowDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

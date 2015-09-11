@@ -6,35 +6,29 @@
  * Copyright (c) 2015 No Plan B. All rights reserved.
  */
 
-#import "TBMEventsFlowModuleEventHandler.h"
+#import "TBMEventsFlowModuleEventHandlerInterface.h"
 #import "TBMDialogViewDelegate.h"
 
 @class TBMHintView;
-@class TBMEventHandlerDataSource;
 @protocol TBMDialogViewInterface;
+@class TBMEventsFlowDataSource;
 
-@interface TBMEventHandlerPresenter : NSObject <TBMEventsFlowModuleEventHandler, TBMDialogViewDelegate>
+@interface TBMEventHandlerPresenter : NSObject <TBMEventsFlowModuleEventHandlerInterface, TBMDialogViewDelegate>
 
-/**
- *  is event handler view presented
- */
+@property(nonatomic, weak) TBMEventsFlowDataSource *dataSource;
+@property(nonatomic, weak) id <TBMGridModuleInterface> gridModule;
+@property(nonatomic, weak) id <TBMEventsFlowModuleInterface> eventFlowModule;
+
+// State
+@property(nonatomic, assign) BOOL sessionState;
 @property(nonatomic) BOOL isPresented;
 
 /**
- * Hint view should be initiated by concrete subclass
+ * Dialog view should be initiated by concrete subclass
  */
-
 @property(nonatomic, strong) id <TBMDialogViewInterface> dialogView;
 
-/**
- * Data source only persistentStateKey should be set in subclasses
- */
-@property(nonatomic, strong) TBMEventHandlerDataSource *eventHandlerDataSource;
 
-/**
- * Used by subclasses for decisions
- */
-@property(nonatomic, weak) id <TBMEventsFlowModuleInterface> eventFlowModule;
 /**
  * Event flow module also needs for callback events
  */

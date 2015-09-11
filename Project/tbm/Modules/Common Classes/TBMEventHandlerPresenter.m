@@ -5,22 +5,10 @@
 
 #import "TBMEventHandlerPresenter.h"
 #import "TBMHintView.h"
-#import "TBMEventHandlerDataSource.h"
 #import "OBLoggerCore.h"
+#import "TBMEventsFlowDataSource.h"
 
 @implementation TBMEventHandlerPresenter
-
-
-- (instancetype)init
-{
-    self = [super init];
-
-    if (self)
-    {
-        self.eventHandlerDataSource = [TBMEventHandlerDataSource new];
-    }
-    return self;
-}
 
 - (void)setDialogView:(id <TBMDialogViewInterface>)dialogView
 {
@@ -28,14 +16,9 @@
     [_dialogView setupDialogViewDelegate:self];
 }
 
-- (void)setupEventFlowModule:(id <TBMEventsFlowModuleInterface>)eventFlowModule
-{
-    self.eventFlowModule = eventFlowModule;
-}
-
 - (void)resetSessionState
 {
-    [self.eventHandlerDataSource setSessionState:NO];
+    [self setSessionState:NO];
 }
 
 - (void)didPresented
@@ -44,7 +27,7 @@
     [self saveHandlerState];
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event
 {
     return NO;
 }
@@ -65,8 +48,8 @@
 
 - (void)saveHandlerState
 {
-    [self.eventHandlerDataSource setPersistentState:YES];
-    [self.eventHandlerDataSource setSessionState:YES];
+    [self.dataSource setPersistentState:YES forHandler:self];
+    [self setSessionState:YES];
 }
 
 - (void)dialogDidDismiss

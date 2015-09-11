@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TBMEventsFlowModuleEventHandler.h"
+#import "TBMEventsFlowModuleEventHandlerInterface.h"
 #import "TBMEventHandlerPresenter.h"
 
 @protocol TBMHomeModuleInterface;

@@ -4,7 +4,6 @@
 //
 
 #import "TBMFeatureUnlockModulePresenter.h"
-#import "TBMEventHandlerDataSource.h"
 #import "TBMFeatureUnlockDialogView.h"
 #import "TBMFeatureUnlockDataSource.h"
 #import "NSString+NSStringExtensions.h"
@@ -22,7 +21,6 @@
     if (self)
     {
         self.dialogView = [TBMFeatureUnlockDialogView new];
-        self.eventHandlerDataSource.persistentStateKey = @"";
         self.featuresUnlockDatasource = [TBMFeatureUnlockDataSource new];
     }
     return self;
@@ -35,7 +33,7 @@
     return 1600;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event
 {
     if (event != TBMEventFlowEventMessageDidSend)
     {

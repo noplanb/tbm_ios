@@ -4,10 +4,8 @@
 //
 
 #import "TBMEarpieceUsageHintPresenter.h"
-#import "TBMEventsFlowModuleDataSourceInterface.h"
 #import "TBMHintView.h"
 #import "TBMEarpieceUsageHintView.h"
-#import "TBMEventHandlerDataSource.h"
 
 
 @implementation TBMEarpieceUsageHintPresenter
@@ -19,7 +17,6 @@
     {
         self.dialogView = [TBMEarpieceUsageHintView new];
         [self.dialogView setupDialogViewDelegate:self];
-        self.eventHandlerDataSource.persistentStateKey = @"kEarpieceUsageUsageHintNSUDkey";
     }
     return self;
 }
@@ -29,7 +26,7 @@
     return 1300;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event
 {
     return event == TBMEventFlowEventEarpieceUnlockDialogDidDismiss;
 }

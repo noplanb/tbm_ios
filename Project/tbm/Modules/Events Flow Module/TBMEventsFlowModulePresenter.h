@@ -11,4 +11,5 @@
 
 @property(nonatomic, weak) id <TBMGridModuleInterface> gridModule;
 
+- (void)setupHandlers;
 @end

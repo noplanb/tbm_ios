@@ -16,17 +16,17 @@
 //TODO: to remove
 #import "TBMRegisterViewController.h"
 #import "TBMHomeViewController.h"
-#import "TBMTutorialSystem.h"
 #import "TBMUser.h"
 #import "TBMS3CredentialsManager.h"
 #import "TBMAppDelegate+Boot.h" // temp
 #import "ZZTouchControllerWithoutDelay.h"
 #import "ZZStrategyNavigationLeftRight.h"
 #import "ZZEnvelopStrategy.h"
+#import "TBMEventsFlowModulePresenter.h"
 
 @interface ZZRootWireframe () <TBMRegisterViewControllerDelegate> // TODO: temp
 
-@property (nonatomic, strong) TBMTutorialSystem * dependencies;
+@property (nonatomic, strong) TBMEventsFlowModulePresenter *eventFlowSystem;
 @property (nonatomic, strong) ZZBaseTouchController* touchController;
 
 @end
@@ -56,7 +56,7 @@
     else
     {
         TBMHomeViewController* homeVC = [TBMHomeViewController new];
-        [self.dependencies setupHandlersWithGridModule:homeVC];
+        [self.eventFlowSystem setupHandlers];
         vc = homeVC;
         [self postRegistrationBoot];
     }
@@ -82,7 +82,7 @@
 - (void)registrationControllerDidCompleteRegistration:(TBMRegisterViewController *)controller
 {
     TBMHomeViewController* vc = [TBMHomeViewController new];
-    [self.dependencies setupHandlersWithGridModule:vc];
+    [self.eventFlowSystem setupHandlers];
     
     [controller presentViewController:vc animated:YES completion:nil];
     [(TBMAppDelegate*)[UIApplication sharedApplication].delegate performDidBecomeActiveActions];
@@ -144,16 +144,18 @@
     [wireframe presentSecretControllerFromNavigationController:nc];
 }
 
+- (TBMEventsFlowModulePresenter *)eventFlowSystem
+{
+    if (!_eventFlowSystem)
+    {
+        _eventFlowSystem = [TBMEventsFlowModulePresenter new];
+        //TODO: Event Flow needs to setup gridModule
+    }
+    return _eventFlowSystem;
+}
+
 
 #pragma mark - Private
 
-- (TBMTutorialSystem *)dependecies
-{
-    if (!_dependencies)
-    {
-        _dependencies = [[TBMTutorialSystem alloc] init];
-    }
-    return _dependencies;
-}
 
 @end

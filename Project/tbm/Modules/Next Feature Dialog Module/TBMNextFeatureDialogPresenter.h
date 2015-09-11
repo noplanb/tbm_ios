@@ -4,25 +4,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TBMEventsFlowModuleEventHandler.h"
+#import "TBMEventsFlowModuleEventHandlerInterface.h"
 #import "TBMEventHandlerPresenter.h"
 
 @protocol TBMHomeModuleInterface;
 @protocol TBMFeatureUnlockModuleInterface;
 
 
-@interface TBMNextFeatureDialogPresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandler, TBMDialogViewDelegate>
+@interface TBMNextFeatureDialogPresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandlerInterface, TBMDialogViewDelegate>
 
-/**
- * Home module needs for present bench
- */
-- (void)setupHomeModule:(id <TBMHomeModuleInterface>)homeModule;
-
-- (void)setupInviteSomeOneElseHintModule:(id <TBMEventsFlowModuleEventHandler>)inviteSomeOneElseHintModule;
-/**
- * Feature unlock  module needs for check locked features
- */
-- (void)setupFeatureUnlockModule:(id <TBMFeatureUnlockModuleInterface>)featureUnlockModule;
+@property(nonatomic, strong) id <TBMHomeModuleInterface> homeModule;
+@property(nonatomic, strong) id <TBMFeatureUnlockModuleInterface> featureUnlockModule;
+@property(nonatomic, strong) id <TBMEventsFlowModuleEventHandlerInterface> inviteSomeOneElseHintModule;
 
 /**
  * View callback
