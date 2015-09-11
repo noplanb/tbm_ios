@@ -33,6 +33,7 @@
 - (void)setupWithModels:(NSArray*)models;
 - (void)setupCenterViewModelShouldHandleCameraRotation:(BOOL)shouldHandleRotation;
 - (void)selectedViewModelUpdatedWithItem:(ZZGridDomainModel*)model;
+- (void)updateStorageWithModel:(ZZGridDomainModel*)model;
 
 - (ZZGridCenterCellViewModel*)centerViewModel;
 
