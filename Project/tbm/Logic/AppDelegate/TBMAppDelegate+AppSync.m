@@ -8,7 +8,6 @@
 #import "TBMAppDelegate+AppSync.h"
 #import <objc/runtime.h>
 #import "TBMAppDelegate+PushNotification.h"
-#import "TBMConfig.h"
 #import "TBMS3CredentialsManager.h"
 #import "TBMVideoRecorder.h"
 #import "TBMRemoteStorageHandler.h"
@@ -30,7 +29,8 @@
     {
         ftm = [OBFileTransferManager instance];
         ftm.delegate = self;
-        ftm.downloadDirectory = [TBMConfig videosDirectoryUrl].path;
+         NSURL* videosURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
+        ftm.downloadDirectory = videosURL.path;
         ftm.remoteUrlBase = [TBMRemoteStorageHandler fileTransferRemoteUrlBase];
         NSDictionary *cparams;
         NSDictionary *cred = [TBMS3CredentialsManager credentials];

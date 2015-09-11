@@ -11,7 +11,6 @@
 #import "TBMVideo.h"
 #import "TBMFriend.h"
 #import "TBMAppDelegate.h"
-#import "TBMConfig.h"
 #import "OBLogger.h"
 #import "MagicalRecord.h"
 
@@ -128,7 +127,8 @@
 //----------------
 - (NSURL *)videoUrl{
     NSString *filename = [NSString stringWithFormat:@"incomingVidFromFriend_%@-VideoId_%@", self.friend.idTbm, self.videoId];
-    return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"mp4"]];
+     NSURL* videosURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
+    return [videosURL URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"mp4"]];
 }
 
 - (NSString *)videoPath{
@@ -168,7 +168,8 @@
 //----------------
 - (NSURL *)thumbUrl{
     NSString *filename = [NSString stringWithFormat:@"thumbFromFriend_%@-VideoId_%@", self.friend.idTbm, self.videoId];
-    return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"png"]];
+     NSURL* videosURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
+    return [videosURL URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"png"]];
 }
 
 - (NSString *)thumbPath{

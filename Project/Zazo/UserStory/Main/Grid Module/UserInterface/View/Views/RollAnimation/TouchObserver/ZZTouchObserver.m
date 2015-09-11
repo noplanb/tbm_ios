@@ -209,8 +209,6 @@ static CGFloat const kTouchOffset = 7;
         if ([cell isKindOfClass:[ZZGridCell class]])
         {
             cell.hidden = YES;
-            ZZGridCell* gridCell = (ZZGridCell *)cell;
-//            [gridCell stopVideoPlaying]; // TODO:
         }
     }];
 }
