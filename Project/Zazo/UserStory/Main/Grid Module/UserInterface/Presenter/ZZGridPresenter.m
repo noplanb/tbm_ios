@@ -57,7 +57,6 @@
 - (void)updateGridData:(NSNotification*)notification
 {
    TBMFriend* updatedFriend = notification.object;
-    
     [self.dataSource updateModelWithFriend:updatedFriend];
 }
 
