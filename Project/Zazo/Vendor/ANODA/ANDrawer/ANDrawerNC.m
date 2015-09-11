@@ -16,7 +16,6 @@
 static CGFloat const kDefaultDrawerVelocityTrigger = 350;
 static CGFloat const kStatusBarHeight = 20;
 
-
 @interface ANDrawerNC () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, assign) BOOL isOpen;
