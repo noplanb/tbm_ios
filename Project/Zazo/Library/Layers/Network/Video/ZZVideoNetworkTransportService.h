@@ -8,4 +8,6 @@
 
 @interface ZZVideoNetworkTransportService : NSObject
 
++ (RACSignal*)deleteVideoFileWithName:(NSString*)filename;
+
 @end

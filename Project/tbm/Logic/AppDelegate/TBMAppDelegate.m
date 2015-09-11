@@ -13,7 +13,6 @@
 #import "TBMStringUtils.h"
 #import "OBFileTransferManager.h"
 #import "TBMUser.h"
-#import "TBMHttpManager.h"
 #import "AVAudioSession+TBMAudioSession.h"
 #import "TBMDispatch.h"
 #import "TBMDependencies.h"

@@ -17,6 +17,7 @@
 #import "TBMVideoProcessor.h"
 #import "ZZVideoRecorder.h"
 #import "MagicalRecord.h"
+#import "ZZVideoNetworkTransportService.h"
 
 @implementation TBMAppDelegate (AppSync)
 
@@ -157,12 +158,12 @@
     {
         NSString *full = [NSString stringWithFormat:@"%@/%@", [TBMRemoteStorageHandler fileTransferDeletePath], filename];
         [self performSelectorInBackground:@selector(ftmDelete:) withObject:full];
-    } else
+    }
+    else
     {
-        [[TBMHttpManager manager] GET:@"videos/delete"
-                           parameters:@{@"filename" : filename}
-                              success:nil
-                              failure:nil];
+        [[ZZVideoNetworkTransportService deleteVideoFileWithName:filename] subscribeNext:^(id x) {
+            
+        }];
     }
 }
 

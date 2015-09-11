@@ -8,7 +8,6 @@
 
 #import "TBMAppDelegate+PushNotification.h"
 #import "TBMAppDelegate+AppSync.h"
-#import "TBMHttpManager.h"
 #import "TBMUser.h"
 #import "TBMConfig.h"
 #import "ZZUserDataProvider.h"
@@ -16,6 +15,8 @@
 #import "NSObject+ANSafeValues.h"
 #import "ZZStoredSettingsManager.h"
 #import "ZZNotificationTransportService.h"
+#import "ZZAPIRoutes.h"
+#import "ZZFriendDataProvider.h"
 
 static NSString *NOTIFICATION_TARGET_MKEY_KEY = @"target_mkey";
 static NSString *NOTIFICATION_FROM_MKEY_KEY = @"from_mkey";
@@ -252,33 +253,24 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 - (void)sendNotificationForVideoReceived:(TBMFriend *)friend videoId:(NSString *)videoId
 {
     ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
-    
-    NSDictionary *params = @{NOTIFICATION_TARGET_MKEY_KEY   : [NSObject an_safeString:friend.mkey],
-                             NOTIFICATION_FROM_MKEY_KEY     : [NSObject an_safeString:me.mkey],
-                             NOTIFICATION_SENDER_NAME_KEY   : [NSObject an_safeString:me.firstName],
-                             NOTIFICATION_VIDEO_ID_KEY      : [NSObject an_safeString:videoId]};
-    
-    [self sendNotification:@"notification/send_video_received" params:params];
+    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
+    [[ZZNotificationTransportService sendVideoReceivedNotificationTo:friendModel
+                                                         videoItemID:videoId
+                                                                from:me] subscribeNext:^(id x) {
+        
+    }];
 }
 
 - (void)sendNotificationForVideoStatusUpdate:(TBMFriend *)friend videoId:(NSString *)videoId status:(NSString *)status
 {
     ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
+    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
     
-    NSDictionary *params = @{NOTIFICATION_TARGET_MKEY_KEY   : [NSObject an_safeString:friend.mkey],
-                             NOTIFICATION_TO_MKEY_KEY       : [NSObject an_safeString:me.mkey],
-                             NOTIFICATION_STATUS_KEY        : [NSObject an_safeString:status],
-                             NOTIFICATION_VIDEO_ID_KEY      : [NSObject an_safeString:videoId]};
-    [self sendNotification:@"notification/send_video_status_update" params:params];
+    [[ZZNotificationTransportService sendVideoStatusUpdateNotificationTo:friendModel
+                                                             videoItemID:videoId
+                                                                  status:status from:me] subscribeNext:^(id x) {
+        
+    }];
 }
-
-- (void)sendNotification:(NSString *)path params:(NSDictionary *)params
-{
-    [[TBMHttpManager manager] POST:path
-                        parameters:params
-                           success:nil
-                           failure:nil];
-}
-
 
 @end

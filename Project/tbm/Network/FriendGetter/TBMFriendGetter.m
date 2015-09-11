@@ -8,9 +8,9 @@
 
 #import "TBMFriendGetter.h"
 #import "TBMFriend.h"
-#import "TBMHttpManager.h"
 #import "TBMUser.h"
 #import "ZZUserDataProvider.h"
+#import "ZZFriendsTransportService.h"
 
 @interface TBMFriendGetter ()
 @property(nonatomic) BOOL destroyAll;
@@ -32,29 +32,25 @@
 
 - (void)getFriends
 {
-    [[TBMHttpManager manager] GET:@"reg/get_friends"
-                       parameters:nil
-                          success:^(AFHTTPRequestOperation *operation, id responseObject)
-                          {
-                              [self gotFriends:responseObject];
-                              [self detectInvitee:responseObject];
-                          }
-                          failure:^(AFHTTPRequestOperation *operation, NSError *error)
-                          {
-                              [_delegate friendGetterServerError];
-                          }];
+    [[ZZFriendsTransportService loadFriendList] subscribeNext:^(id x) {
+        
+        [self gotFriends:x];
+        [self detectInvitee:x];
+        
+    } error:^(NSError *error) {
+        [_delegate friendGetterServerError];
+    }];
 }
 
 - (void)getFriendsArray
 {
-    [[TBMHttpManager manager] GET:@"reg/get_friends"
-                       parameters:nil
-                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                              [_delegate gotFriendsArray:responseObject];
-                          }
-                          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                              [_delegate friendGetterServerError];
-                          }];
+    [[ZZFriendsTransportService loadFriendList] subscribeNext:^(id x) {
+        
+         [_delegate gotFriendsArray:x];
+        
+    } error:^(NSError *error) {
+        [_delegate friendGetterServerError];
+    }];
 }
 
 - (void)gotFriends:(NSArray *)friends

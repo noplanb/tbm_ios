@@ -7,7 +7,16 @@
 //
 
 #import "ZZVideoNetworkTransportService.h"
+#import "ZZVideoNetworkTransport.h"
 
 @implementation ZZVideoNetworkTransportService
+
++ (RACSignal*)deleteVideoFileWithName:(NSString*)filename
+{
+    NSParameterAssert(filename);
+    
+    NSDictionary* parameters = @{@"filename" : [NSObject an_safeString:filename]};
+    return [ZZVideoNetworkTransport deleteVideoWithParameters:parameters];
+}
 
 @end

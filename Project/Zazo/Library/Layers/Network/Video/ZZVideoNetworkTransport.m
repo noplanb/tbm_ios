@@ -7,23 +7,17 @@
 //
 
 #import "ZZVideoNetworkTransport.h"
+#import "ZZNetworkTransport.h"
 
 @implementation ZZVideoNetworkTransport
 
-#pragma mark - Videos
-//
-//- (void)deleteRemoteFile:(NSString *)filename {
-//    
-//    if (REMOTE_STORAGE_USE_S3) {
-//        NSString *full = [NSString stringWithFormat:@"%@/%@", [TBMRemoteStorageHandler fileTransferDeletePath], filename];
-//        [self performSelectorInBackground:@selector(ftmDelete:) withObject:full];
-//    } else {
-//        [[TBMHttpManager manager] GET:@"videos/delete"
-//                           parameters:@{@"filename" : filename}
-//                              success:nil
-//                              failure:nil];
-//    }
-//}
++ (RACSignal*)deleteVideoWithParameters:(NSDictionary*)parameters
+{
+    return [[ZZNetworkTransport shared] requestWithPath:kApiDeleteVideo httpMethod:ANHttpMethodTypeGET];
+}
+
+
+
 //
 //
 //
