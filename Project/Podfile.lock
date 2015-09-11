@@ -89,6 +89,28 @@ PODS:
     - OBLogger
   - OBLogger (0.2.1)
   - pop (1.0.7)
+  - POP+MCAnimate (2.0.1):
+    - pop (~> 1.0)
+    - POP+MCAnimate/Animations (= 2.0.1)
+    - POP+MCAnimate/Group (= 2.0.1)
+    - POP+MCAnimate/Internal (= 2.0.1)
+    - POP+MCAnimate/Shorthand (= 2.0.1)
+    - POP+MCAnimate/Velocity (= 2.0.1)
+  - POP+MCAnimate/Animations (2.0.1):
+    - pop (~> 1.0)
+    - POP+MCAnimate/Group
+    - POP+MCAnimate/Internal
+    - POP+MCAnimate/Shorthand
+    - POP+MCAnimate/Velocity
+  - POP+MCAnimate/Group (2.0.1):
+    - pop (~> 1.0)
+  - POP+MCAnimate/Internal (2.0.1):
+    - pop (~> 1.0)
+  - POP+MCAnimate/Shorthand (2.0.1):
+    - pop (~> 1.0)
+  - POP+MCAnimate/Velocity (2.0.1):
+    - pop (~> 1.0)
+    - POP+MCAnimate/Internal
   - RBBAnimation (0.4.0)
   - ReactiveCocoa (2.4.7):
     - ReactiveCocoa/UI (= 2.4.7)
@@ -147,6 +169,7 @@ DEPENDENCIES:
   - MSSPopMasonry (~> 0.0.1)
   - OBFileTransfer (~> 0.5.7)
   - OBLogger (~> 0.2.1)
+  - POP+MCAnimate (~> 2.0)
   - Reveal-iOS-SDK (~> 1.5.1)
   - Rollbar (~> 0.1.5)
   - SCRecorder
@@ -192,6 +215,7 @@ SPEC CHECKSUMS:
   OBFileTransfer: 67593dbd9bc079e329e1241a8c44881e5e0eb7d9
   OBLogger: 8cfaed1a86da006f2b24877e6c7329bc5071260b
   pop: 628ffc631644601567ee8bfaaaea493ebd7d0923
+  POP+MCAnimate: a99e209148c602512de487f1160a44bf78572024
   RBBAnimation: 4b2d66f6d993febce63cd564da934985313b9c59
   ReactiveCocoa: eb38dee0a0e698f73a9b25e5c1faea2bb4c79240
   Reveal-iOS-SDK: c9c55cad2729c85f6ced415f1b21857c9a2d8ef9
