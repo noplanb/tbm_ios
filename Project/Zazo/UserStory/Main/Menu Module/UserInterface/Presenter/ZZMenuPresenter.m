@@ -25,24 +25,7 @@
     self.dataSource = [ZZMenuDataSource new];
     [self.userInterface updateDataSource:self.dataSource];
     
-#ifdef DEBUG
-    ABAddressBookRef addressBookRef = ABAddressBookCreateWithOptions(nil, nil);
-    
-    if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined)
-    {
-        ABAddressBookRequestAccessWithCompletion(addressBookRef, ^(bool granted, CFErrorRef error) {
-            if (granted) {
-                [self.interactor loadData];
-            }
-        });
-    }
-    else if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized)
-    {
-        [self.interactor loadData];
-    }
-#endif
-    
-    //[self.interactor loadData];
+    [self.interactor loadData];
 }
 
 
@@ -77,6 +60,11 @@
 - (void)addressBookDataLoadingDidFailWithError:(NSError *)error
 {
     // TODO:
+}
+
+- (void)menuToggled
+{
+    [self.interactor loadAddressBookContactsWithRequestAccess:YES];
 }
 
 #pragma mark - Module Interface

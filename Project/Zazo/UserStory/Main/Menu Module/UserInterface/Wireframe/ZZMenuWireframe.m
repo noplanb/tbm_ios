@@ -78,6 +78,7 @@
 
 - (void)toggleMenu
 {
+    [self.presenter menuToggled];
     [self.menuController reset];
     [self.drawerController toggle];
 }

@@ -8,6 +8,6 @@
 
 @interface ZZAddressBookDataProvider : NSObject
 
-+ (RACSignal*)loadContacts;
++ (RACSignal*)loadContactsWithContactsRequest:(BOOL)shouldRequest;
 
 @end

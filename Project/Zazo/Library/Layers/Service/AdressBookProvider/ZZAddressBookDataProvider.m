@@ -19,19 +19,48 @@ static APAddressBook* addressBook = nil;
 
 @implementation ZZAddressBookDataProvider
 
-+ (RACSignal*)loadContacts
++ (RACSignal*)loadContactsWithContactsRequest:(BOOL)shouldRequest
 {
-    RACSignal* loadSignal = [RACSignal empty];
-    switch([APAddressBook access])
+    if (shouldRequest)
     {
-        case APAddressBookAccessGranted:
-        {
-            loadSignal = [self _loadData];
-        }
-        break;
-        default: break;
+        return [[self _requestAccess] flattenMap:^RACStream *(id value) {
+            
+            if ([value boolValue])
+            {
+                return [self _loadData];
+            }
+            else
+            {
+                return [RACSignal return:@[]];
+            }
+        }];
     }
-    return loadSignal;
+    else
+    {
+        RACSignal* loadSignal = [RACSignal empty];
+        switch([APAddressBook access])
+        {
+            case APAddressBookAccessGranted:
+            {
+                loadSignal = [self _loadData];
+            }
+                break;
+            default: break;
+        }
+        return loadSignal;
+    }
+}
+
++ (RACSignal*)_requestAccess
+{
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        
+        [APAddressBook requestAccess:^(BOOL granted, NSError *error) {
+            [NSObject an_handleSubcriber:subscriber withObject:@(granted) error:error];
+        }];
+        
+        return [RACDisposable disposableWithBlock:^{}];
+    }];
 }
 
 
@@ -51,7 +80,7 @@ static APAddressBook* addressBook = nil;
     
     addressBook.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES],
                                     [NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES]];
-
+    
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         
         [addressBook loadContacts:^(NSArray *contacts, NSError *error) {
