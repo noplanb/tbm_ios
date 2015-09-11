@@ -7,9 +7,9 @@
 
 //#define DEBUG_CONTROLLER
 
-#define HTTPLog
+//#define HTTPLog
 //#define DEBUG_LOGIN_USER
-#define STAGESERVER
+//#define STAGESERVER
 
 
 //helpers

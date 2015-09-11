@@ -53,11 +53,11 @@ static NSInteger const kGridCenterCellIndex = 4;
 //                        NSLog(@"stop");
 //                    }
 //                }
-                if (friend.unviewedCount > 0)
+                if (friendEntity.unviewedCount > 0)
                 {
-                    cellModel.badgeNumber =  @(friend.unviewedCount);
+                    cellModel.badgeNumber =  @(friendEntity.unviewedCount);
                 }
-                cellModel.hasUploadedVideo = [friend hasIncomingVideo];
+                cellModel.hasUploadedVideo = [friendEntity hasIncomingVideo];
               
                 *stop = YES;
             }
