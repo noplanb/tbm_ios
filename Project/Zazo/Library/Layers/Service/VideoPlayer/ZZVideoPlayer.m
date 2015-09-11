@@ -10,6 +10,8 @@
 
 #import "ZZVideoPlayer.h"
 #import "ZZVideoDomainModel.h"
+#import "TBMVideo.h"
+#import "MagicalRecord.h"
 
 @interface ZZVideoPlayer ()
 
@@ -17,6 +19,7 @@
 @property (nonatomic, assign) BOOL isPlayingVideo;
 @property (nonatomic, strong) UIButton* tapButton;
 @property (nonatomic, strong) NSArray* currentPlayQueue;
+@property (nonatomic, strong) NSArray* videoModelsArray;
 
 @end
 
@@ -42,6 +45,7 @@
 
 - (void)playOnView:(UIView*)view withURLs:(NSArray*)URLs
 {
+    self.videoModelsArray = URLs;
     if (view != self.moviePlayerController.view.superview && view)
     {
         
@@ -59,17 +63,24 @@
     }
     if (!ANIsEmpty(URLs))//&& ![self.currentPlayQueue isEqualToArray:URLs]) //TODO: if current playback state is equal to user's play list
     {
-        ZZVideoDomainModel* videoModel = [URLs firstObject];
-        NSURL* firstVideoUrl = videoModel.videoURL;
-        if ([[NSFileManager defaultManager] fileExistsAtPath:[firstVideoUrl path]])
-        {
-            NSLog(@"asdf");
-        }
-        else
-        {
-            NSLog(@"asdf");
-        }
-        self.moviePlayerController.contentURL = videoModel.videoURL;
+//        ZZVideoDomainModel* videoModel = [URLs firstObject];
+//        NSURL* firstVideoUrl = videoModel.videoURL;
+
+        NSURL* firstVideoUrl = [self.currentPlayQueue firstObject];
+        ZZVideoDomainModel* playedVideoModel = [self.videoModelsArray firstObject];
+        
+        TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
+        viewedVideo.status = @(INCOMING_VIDEO_STATUS_VIEWED);
+        [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
+        //        if ([[NSFileManager defaultManager] fileExistsAtPath:[firstVideoUrl path]])
+//        {
+//            NSLog(@"asdf");
+//        }
+//        else
+//        {
+//            NSLog(@"asdf");
+//        }
+        self.moviePlayerController.contentURL = firstVideoUrl;
         self.isPlayingVideo = YES;
         [self.moviePlayerController play];
     }
@@ -119,9 +130,13 @@
         [self.moviePlayerController.view removeFromSuperview];
     }
     
-    
     if (nextUrl)
     {
+        ZZVideoDomainModel* playedVideoModel = self.videoModelsArray[index];
+        TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
+        viewedVideo.status = @(INCOMING_VIDEO_STATUS_VIEWED);
+        [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
+        
         [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL];
         self.moviePlayerController.contentURL = nextUrl;
         [self.moviePlayerController play];

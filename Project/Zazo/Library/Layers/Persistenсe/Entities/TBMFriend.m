@@ -524,7 +524,7 @@ static NSMutableArray *videoStatusNotificationDelegates;
 //    {
 //        [delegate videoStatusDidChange:self];
 //    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:kFriendChangeNotification object:self];
+    
 }
 
 - (NSString *)videoStatusString

@@ -46,16 +46,10 @@ static NSInteger const kGridCenterCellIndex = 4;
             if ([cellModel.item.relatedUser.mKey isEqualToString:friendModel.mKey])
             {
                 cellModel.item.relatedUser = friendModel;
-//                if ([friend.lastVideoStatusEventType integerValue] == INCOMING_VIDEO_STATUS_EVENT_TYPE)
-//                {
-//                    if ([friend.lastIncomingVideoStatus integerValue] == INCOMING_VIDEO_STATUS_DOWNLOADING)
-//                    {
-//                        NSLog(@"stop");
-//                    }
-//                }
-                if (friendEntity.unviewedCount > 0)
+
+                if ([friendEntity unviewedCount ] > 0)
                 {
-                    cellModel.badgeNumber =  @(friendEntity.unviewedCount);
+                    cellModel.badgeNumber =  @([friendEntity unviewedCount]);
                 }
                 cellModel.hasUploadedVideo = [friendEntity hasIncomingVideo];
               
