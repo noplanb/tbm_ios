@@ -1,0 +1,1 @@
+PODS_ZAZO_APADDRESSBOOK_OTHER_LDFLAGS = -framework "AddressBook"
