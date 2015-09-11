@@ -19,33 +19,27 @@ NSString * const S3_SECRET_KEY = @"TBMS3SecretKey";
 
 @implementation TBMS3CredentialsManager
 
-+ (void) refreshFromServer:(void (^)(BOOL))completionHandler{
++ (void) refreshFromServer:(void (^)(BOOL))completionHandler
+{
     OB_INFO(@"getS3Credentials");
     
-    
-    [ZZCommonNetworkTransportService s3]
-    
-    
-    
-    
-    
-    [[TBMHttpManager manager] GET:@"s3_credentials/info"
-                        parameters:nil
-                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                               if (![self validateServerResponse:responseObject]){
-                                   if (completionHandler != nil)
-                                       completionHandler(NO);
-                                   return;
-                               }
-                               [self storeS3CredentialsInKeychain:responseObject];
-                               if (completionHandler != nil)
-                                   completionHandler(YES);
-                           }
-                           failure:^(AFHTTPRequestOperation *operation, NSError *error){
-                               OB_WARN(@"Attempt to get s3 credentials failed.");
-                               if (completionHandler != nil)
-                                   completionHandler(NO);
-                           }];
+    [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {
+        
+        if (![self validateServerResponse:x])
+        {
+            if (completionHandler)
+                completionHandler(NO);
+            return;
+        }
+        [self storeS3CredentialsInKeychain:x];
+        if (completionHandler)
+            completionHandler(YES);
+        
+    } error:^(NSError *error) {
+        OB_WARN(@"Attempt to get s3 credentials failed.");
+        if (completionHandler)
+            completionHandler(NO);
+    }];
 }
 
 + (NSMutableDictionary *) credentials
