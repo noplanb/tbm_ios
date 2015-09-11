@@ -46,6 +46,19 @@ static NSInteger const kGridCenterCellIndex = 4;
             if ([cellModel.item.relatedUser.mKey isEqualToString:friendModel.mKey])
             {
                 cellModel.item.relatedUser = friendModel;
+//                if ([friend.lastVideoStatusEventType integerValue] == INCOMING_VIDEO_STATUS_EVENT_TYPE)
+//                {
+//                    if ([friend.lastIncomingVideoStatus integerValue] == INCOMING_VIDEO_STATUS_DOWNLOADING)
+//                    {
+//                        NSLog(@"stop");
+//                    }
+//                }
+                if (friend.unviewedCount > 0)
+                {
+                    cellModel.badgeNumber =  @(friend.unviewedCount);
+                }
+                cellModel.hasUploadedVideo = [friend hasIncomingVideo];
+              
                 *stop = YES;
             }
         }
@@ -128,6 +141,8 @@ static NSInteger const kGridCenterCellIndex = 4;
 
 - (void)playingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel
 {
+    viewModel.hasUploadedVideo = NO;
+    viewModel.badgeNumber = nil;
     [self.delegate toggleVideoWithViewModel:viewModel toState:isEnabled];
 }
 
