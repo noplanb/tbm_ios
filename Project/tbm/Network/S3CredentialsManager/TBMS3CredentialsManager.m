@@ -39,7 +39,8 @@ NSString * const S3_SECRET_KEY = @"TBMS3SecretKey";
                            }];
 }
 
-+ (NSMutableDictionary *) credentials{
++ (NSMutableDictionary *) credentials
+{
     NSMutableDictionary *c = [NSMutableDictionary dictionary];
     NSString *v;
     

@@ -8,8 +8,8 @@
 //#define DEBUG_CONTROLLER
 
 #define HTTPLog
-#define DEBUG_LOGIN_USER
-//#define STAGESERVER
+//#define DEBUG_LOGIN_USER
+#define STAGESERVER
 
 
 //helpers
@@ -64,10 +64,5 @@ static NSString* const kMessageSoundEffectFileName = @"BeepSin30.wav";
 #define DebugLog( s, ... )
 #endif
 
-
-#define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
-#define SYSTEM_VERSION_GREATER_THAN(v)([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
-#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
-#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 

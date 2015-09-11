@@ -42,6 +42,9 @@
         
         self.contentView.registrationView.signInButton.rac_command = [RACCommand commandWithBlock:^{
             
+            ANDispatchBlockToMainQueue(^{
+                [self.view endEditing:YES];
+            });
             [self.eventHandler registrationWithFirstName:view.firstNameTextField.text
                                                 lastName:view.lastNameTextField.text
                                              countryCode:view.phoneCodeTextField.text
