@@ -13,6 +13,8 @@
 #import <Instabug/Instabug.h>
 #import "ZZContentDataAcessor.h"
 #import "ZZVideoRecorder.h"
+#import "ANLogger.h"
+#import "MagicalRecord.h"
 
 @interface ZZAppDependencies ()
 
@@ -30,6 +32,8 @@
 - (void)initialApplicationSetup:(UIApplication *)application launchOptions:(NSDictionary *)options
 {
     [ANCrashlyticsAdapter start];
+    [ANLogger initializeLogger];
+    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelInfo];
     [ZZContentDataAcessor start];
     [ZZVideoRecorder shared];
     [ZZColorTheme shared];
