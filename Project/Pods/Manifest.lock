@@ -31,13 +31,6 @@ PODS:
   - ANColorTheme (1.0.4):
     - ANCategories (~> 1.0)
     - ANHelperFunctions (~> 1.0)
-  - ANDrawer (1.0.1):
-    - ANHelperFunctions (~> 1.0)
-    - FrameAccessor (~> 1.3.2)
-    - MSSPopMasonry
-    - pop
-    - POP+MCAnimate (~> 1.1)
-    - ReactiveCocoa (~> 2.4.2)
   - ANHelperFunctions (1.0.3)
   - ANKeyboardHandler (1.0.2):
     - ANHelperFunctions (~> 1.0)
@@ -96,28 +89,6 @@ PODS:
     - OBLogger
   - OBLogger (0.2.1)
   - pop (1.0.7)
-  - POP+MCAnimate (1.1):
-    - pop (~> 1.0)
-    - POP+MCAnimate/Animations (= 1.1)
-    - POP+MCAnimate/Group (= 1.1)
-    - POP+MCAnimate/Internal (= 1.1)
-    - POP+MCAnimate/Shorthand (= 1.1)
-    - POP+MCAnimate/Velocity (= 1.1)
-  - POP+MCAnimate/Animations (1.1):
-    - pop (~> 1.0)
-    - POP+MCAnimate/Group
-    - POP+MCAnimate/Internal
-    - POP+MCAnimate/Shorthand
-    - POP+MCAnimate/Velocity
-  - POP+MCAnimate/Group (1.1):
-    - pop (~> 1.0)
-  - POP+MCAnimate/Internal (1.1):
-    - pop (~> 1.0)
-  - POP+MCAnimate/Shorthand (1.1):
-    - pop (~> 1.0)
-  - POP+MCAnimate/Velocity (1.1):
-    - pop (~> 1.0)
-    - POP+MCAnimate/Internal
   - RBBAnimation (0.4.0)
   - ReactiveCocoa (2.4.7):
     - ReactiveCocoa/UI (= 2.4.7)
@@ -150,7 +121,6 @@ DEPENDENCIES:
   - ANCategories (~> 1.0.6)
   - ANCollectonController (~> 1.0)
   - ANColorTheme (~> 1.0.4)
-  - ANDrawer (~> 1.0.1)
   - ANHelperFunctions (~> 1.0.3)
   - ANKeyboardHandler (~> 1.0.2)
   - ANLogger (~> 1.0.2)
@@ -160,10 +130,10 @@ DEPENDENCIES:
   - ANTableViews (~> 1.0.10)
   - APAddressBook (~> 0.1.11)
   - CocoaLumberjack (~> 2.0.1)
-  - Crashlytics (~> 3.1.1)
+  - Crashlytics
   - DeviceUtil (~> 1.2.0)
   - Expecta (~> 1.0.2)
-  - Fabric (~> 1.4.0)
+  - Fabric
   - FastEasyMapping (~> 0.5.1)
   - FrameAccessor (~> 1.3.2)
   - HexColors (~> 2.3.0)
@@ -195,7 +165,6 @@ SPEC CHECKSUMS:
   ANCategories: e27e6963e30875ff0e46352179b06aecaefe4037
   ANCollectonController: c4b028707a2a922b03903a835b94b8126f6a5503
   ANColorTheme: 5fcbfba22ba047c68a9f4b92c5012fc9d02c1dc8
-  ANDrawer: 9d8a9ff18a3b6ae3cc86a2dafad354be21d31584
   ANHelperFunctions: 39cbb913f8af9b52fc8921ba4051583a7bfc13ab
   ANKeyboardHandler: 800b1f318d59cd7746be449286ebbd78ee81465a
   ANLogger: 5ed038a64e650b0576f13d6816fa4b53367553e2
@@ -223,7 +192,6 @@ SPEC CHECKSUMS:
   OBFileTransfer: 67593dbd9bc079e329e1241a8c44881e5e0eb7d9
   OBLogger: 8cfaed1a86da006f2b24877e6c7329bc5071260b
   pop: 628ffc631644601567ee8bfaaaea493ebd7d0923
-  POP+MCAnimate: f7da55f7bc48caa65c074493045a1755aa7fc9b0
   RBBAnimation: 4b2d66f6d993febce63cd564da934985313b9c59
   ReactiveCocoa: eb38dee0a0e698f73a9b25e5c1faea2bb4c79240
   Reveal-iOS-SDK: c9c55cad2729c85f6ced415f1b21857c9a2d8ef9

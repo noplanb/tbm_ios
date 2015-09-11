@@ -10,8 +10,7 @@
 #import "FrameAccessor.h"
 #import "ReactiveCocoa.h"
 
-#define MCANIMATE_SHORTHAND
-#import <POP+MCAnimate.h>
+#import "POP+MCAnimate.h"
 
 
 static CGFloat const kDefaultDrawerVelocityTrigger = 350;
@@ -168,10 +167,10 @@ static CGFloat const kStatusBarHeight = 20;
     if (isOpen)
     {
         self.backgroundView.hidden = NO;
-        if (self.avoidKeyboard)
-        {
-            [self.view endEditing:YES]; // hack for keyboard;
-        }
+    }
+    if (self.avoidKeyboard)
+    {
+        [self.view endEditing:YES]; // hack for keyboard;
     }
     
     CGFloat newOffset = isOpen ? [self _offsetForOpenState] : 0;

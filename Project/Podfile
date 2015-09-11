@@ -22,7 +22,6 @@ target 'Zazo' do
     pod 'ANColorTheme', '~> 1.0.4'
     pod 'ANProgressButton', '~> 1.0.2'
     pod 'ANKeyboardHandler', '~> 1.0.2'
-    pod 'ANDrawer', '~> 1.0.1'
     pod 'ANCollectonController', '~> 1.0'
     
     #UI
@@ -40,8 +39,8 @@ target 'Zazo' do
     #Testing
     pod 'Instabug', '~> 4.1.5'
     pod 'Reveal-iOS-SDK', '~> 1.5.1', :configurations => ['Debug']
-    pod 'Fabric', '~> 1.4.0'
-    pod 'Crashlytics', '~> 3.1.1'
+    pod 'Fabric'
+    pod 'Crashlytics'
     
     pod 'KVOController', '~> 1.0.3'
     

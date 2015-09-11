@@ -29,12 +29,12 @@
 
 - (void)initialApplicationSetup:(UIApplication *)application launchOptions:(NSDictionary *)options
 {
-//    [ANCrashlyticsAdapter start]; //TODO:
+    [ANCrashlyticsAdapter start];
     [ZZContentDataAcessor start];
     [ZZVideoRecorder shared];
     [ZZColorTheme shared];
 #ifndef RELEASE
-    [Instabug startWithToken:@"d546deb8f34137b73aa5b0405cee1690" // TODO:
+    [Instabug startWithToken:@"d546deb8f34137b73aa5b0405cee1690"
                captureSource:IBGCaptureSourceUIKit
              invocationEvent:IBGInvocationEventScreenshot];
 #endif

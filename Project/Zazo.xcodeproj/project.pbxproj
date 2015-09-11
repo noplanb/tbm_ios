@@ -13,6 +13,7 @@
 		077FF1BF1BA1ED7400032D4B /* ZZStartPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 077FF1B61BA1ED7400032D4B /* ZZStartPresenter.m */; };
 		077FF1C01BA1ED7400032D4B /* ZZStartVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 077FF1B91BA1ED7400032D4B /* ZZStartVC.m */; };
 		077FF1C11BA1ED7400032D4B /* ZZStartWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 077FF1BD1BA1ED7400032D4B /* ZZStartWireframe.m */; };
+		077FF1C51BA32A7600032D4B /* ANDrawerNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 077FF1C41BA32A7600032D4B /* ANDrawerNC.m */; };
 		07E3C6561B9A2C900071CF82 /* TBMAppDelegate+AppSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C2861B9A2C900071CF82 /* TBMAppDelegate+AppSync.m */; };
 		07E3C6571B9A2C900071CF82 /* TBMAppDelegate+Boot.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C2881B9A2C900071CF82 /* TBMAppDelegate+Boot.m */; };
 		07E3C6581B9A2C900071CF82 /* TBMAppDelegate+PushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C28A1B9A2C900071CF82 /* TBMAppDelegate+PushNotification.m */; };
@@ -448,6 +449,8 @@
 		077FF1BA1BA1ED7400032D4B /* ZZStartViewInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZStartViewInterface.h; sourceTree = "<group>"; };
 		077FF1BC1BA1ED7400032D4B /* ZZStartWireframe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZStartWireframe.h; sourceTree = "<group>"; };
 		077FF1BD1BA1ED7400032D4B /* ZZStartWireframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZStartWireframe.m; sourceTree = "<group>"; };
+		077FF1C31BA32A7600032D4B /* ANDrawerNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDrawerNC.h; sourceTree = "<group>"; };
+		077FF1C41BA32A7600032D4B /* ANDrawerNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDrawerNC.m; sourceTree = "<group>"; };
 		07CBBC2F1B9DBE250080D300 /* ZZGridUIConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZGridUIConstants.h; sourceTree = "<group>"; };
 		07E3C2851B9A2C900071CF82 /* TBMAppDelegate+AppSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMAppDelegate+AppSync.h"; sourceTree = "<group>"; };
 		07E3C2861B9A2C900071CF82 /* TBMAppDelegate+AppSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMAppDelegate+AppSync.m"; sourceTree = "<group>"; };
@@ -1300,6 +1303,15 @@
 				077FF1BD1BA1ED7400032D4B /* ZZStartWireframe.m */,
 			);
 			path = Wireframe;
+			sourceTree = "<group>";
+		};
+		077FF1C21BA32A7600032D4B /* ANDrawer */ = {
+			isa = PBXGroup;
+			children = (
+				077FF1C31BA32A7600032D4B /* ANDrawerNC.h */,
+				077FF1C41BA32A7600032D4B /* ANDrawerNC.m */,
+			);
+			path = ANDrawer;
 			sourceTree = "<group>";
 		};
 		07CBBC2C1B9B1FF90080D300 /* !_OLD */ = {
@@ -3795,6 +3807,7 @@
 		07E3C5D61B9A2C900071CF82 /* ANODA */ = {
 			isa = PBXGroup;
 			children = (
+				077FF1C21BA32A7600032D4B /* ANDrawer */,
 				07E3C5D71B9A2C900071CF82 /* ANActivityIndicator */,
 				07E3C5DA1B9A2C900071CF82 /* ANAnimator */,
 				07E3C5DD1B9A2C900071CF82 /* ANBaseListTableCell */,
@@ -4431,7 +4444,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" 614db54f91c11edf6117193953fc20467d62cd05 06786661ab10c149ccf35734a13a2efd732d9dd1cb481ab620fc97be50a9ef38";
 		};
 		90DCA26FC9A448EB9C5E5879 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4792,6 +4805,7 @@
 				07E3C7B01B9A2C910071CF82 /* ANWebViewController.m in Sources */,
 				07E3C7051B9A2C910071CF82 /* ZZStrategyNavigationLeftRight.m in Sources */,
 				07E3C6C71B9A2C910071CF82 /* TPKeyboardAvoidingTableView.m in Sources */,
+				077FF1C51BA32A7600032D4B /* ANDrawerNC.m in Sources */,
 				07E3C6EC1B9A2C910071CF82 /* ZZNotificationTransportService.m in Sources */,
 				07E3C6DB1B9A2C910071CF82 /* ZZVideoModelsMapper.m in Sources */,
 				07E3C6811B9A2C910071CF82 /* TBMInviteHintView.m in Sources */,
