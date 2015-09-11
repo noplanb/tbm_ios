@@ -12,6 +12,7 @@
 #import "OBLogger.h"
 #import "NSObject+ANSafeValues.h"
 #import "NSString+ANAdditions.h"
+#import "ZZCommonNetworkTransport.h"
 
 static const NSString *VH_RESULT_KEY = @"result";
 static const NSString *VH_UPDATE_SCHEMA_REQUIRED = @"update_schema_required";
@@ -20,20 +21,25 @@ static const NSString *VH_UPDATE_OPTIONAL = @"update_optional";
 static const NSString *VH_CURRENT = @"current";
 
 @interface TBMVersionHandler()
+
 @property (nonatomic, retain) id<TBMVersionHandlerDelegate> delegate;
+
 @end
 
 @implementation TBMVersionHandler
 
-- (instancetype) initWithDelegate:(id<TBMVersionHandlerDelegate>)delegate{
+- (instancetype) initWithDelegate:(id<TBMVersionHandlerDelegate>)delegate
+{
     self = [super init];
-    if (self){
+    if (self)
+    {
         _delegate = delegate;
     }
     return self;
 }
 
-+ (BOOL) updateSchemaRequired:(NSString *)result{
++ (BOOL) updateSchemaRequired:(NSString *)result
+{
     return [result isEqual:VH_UPDATE_SCHEMA_REQUIRED];
 }
 + (BOOL) updateRequired:(NSString *)result{
@@ -54,19 +60,18 @@ static const NSString *VH_CURRENT = @"current";
 {
     NSString* version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     version = [version an_stripAllNonNumericCharacters];
+    NSDictionary* parameters = @{@"device_platform": @"ios",
+                                 @"version": @([version integerValue])};
     
-    [[TBMHttpManager manager]
-      GET:@"version/check_compatibility"
-      parameters:@{@"device_platform": @"ios",
-                   @"version": @([version integerValue])}
-      success:^(AFHTTPRequestOperation *operation, id responseObject){
-          OB_INFO(@"checkVersionCompatibility: success: %@", [responseObject objectForKey:@"result"]);
-          if (_delegate)
-              [_delegate versionCheckCallback:[responseObject objectForKey:VH_RESULT_KEY]];
-      }
-      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-          OB_WARN(@"checkVersionCompatibility: %@", error);
-      }];
+    [[ZZCommonNetworkTransport checkApplicationVersionWithParameters:parameters] subscribeNext:^(id x) {
+        OB_INFO(@"checkVersionCompatibility: success: %@", [x objectForKey:@"result"]);
+        if (_delegate)
+        {
+            [_delegate versionCheckCallback:[x objectForKey:VH_RESULT_KEY]];
+        }
+    } error:^(NSError *error) {
+        OB_WARN(@"checkVersionCompatibility: %@", error);
+    }];
 }
 
 @end

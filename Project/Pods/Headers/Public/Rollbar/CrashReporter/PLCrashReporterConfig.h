@@ -1,1 +1,0 @@
-../../../../Rollbar/Vendor/CrashReporter.framework/Versions/A/Headers/PLCrashReporterConfig.h

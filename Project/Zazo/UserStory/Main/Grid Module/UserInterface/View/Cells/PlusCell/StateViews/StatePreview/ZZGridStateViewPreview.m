@@ -68,7 +68,15 @@ static CGFloat const kThumbnailSidePadding = 2;
         _thumbnailImageView = [UIImageView new];
         _thumbnailImageView.backgroundColor = [UIColor whiteColor];
         _thumbnailImageView.userInteractionEnabled = YES;
-        UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_startVideo:)];
+        UITapGestureRecognizer* tap =
+        [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                action:@selector(_startVideo:)];
+        
+        UILongPressGestureRecognizer* press =
+        [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                      action:@selector(_recordPressed:)];
+        press.minimumPressDuration = .5;
+        [_thumbnailImageView addGestureRecognizer:press];
         [_thumbnailImageView addGestureRecognizer:tap];
         [self addSubview:_thumbnailImageView];
         
@@ -98,6 +106,22 @@ static CGFloat const kThumbnailSidePadding = 2;
         }];
     }
     return _userNameLabel;
+}
+
+#pragma mark - Private
+
+- (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer
+{
+    if (recognizer.state == UIGestureRecognizerStateBegan)
+    {
+        [self.model updateRecordingStateTo:YES];
+    }
+    else if (recognizer.state == UIGestureRecognizerStateEnded)
+    {
+        self.model.hasUploadedVideo = YES;
+        [self.model updateRecordingStateTo:NO];
+        [self showUploadAnimation];
+    }
 }
 
 @end

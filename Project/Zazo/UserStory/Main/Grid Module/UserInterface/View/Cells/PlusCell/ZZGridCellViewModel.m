@@ -11,6 +11,7 @@
 #import "ZZGridCellViewModel.h"
 #import "ZZVideoPlayer.h"
 #import "NSObject+ANSafeValues.h"
+#import "ZZVideoDomainModel.h"
 
 @interface ZZGridCellViewModel ()
 
@@ -76,7 +77,7 @@
 
 - (NSArray*)playerVideoURLs
 {
-    return [self.item.relatedUser.videos allObjects];
+    return self.item.relatedUser.videos;
 }
 
 - (UIImage*)thumbSnapshot
@@ -86,7 +87,8 @@
 
 - (UIImage *)videoThumbnailImage
 {
-    return [self _generateThumbWithVideoUrl:[[self.item.relatedUser.videos allObjects] firstObject]];
+    ZZVideoDomainModel* model = [self.item.relatedUser.videos firstObject];
+    return [self _generateThumbWithVideoUrl:model.videoURL];
 }
 
 

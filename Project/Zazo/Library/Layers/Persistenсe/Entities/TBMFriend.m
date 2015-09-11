@@ -1,3 +1,4 @@
+
 //
 //  TBMFriend.m
 //  tbm
@@ -270,9 +271,9 @@ static NSMutableArray *videoStatusNotificationDelegates;
     return [video isEqual:[self newestIncomingVideo]];
 }
 
-- (TBMVideo *)createIncomingVideoWithVideoId:(NSString *)videoId
-{
-    TBMVideo *video = [TBMVideo newWithVideoId:videoId];
+- (TBMVideo *)createIncomingVideoWithVideoId:(NSString *)videoId   
+{  
+    TBMVideo *video = [TBMVideo newWithVideoId:videoId onContext:self.managedObjectContext];
     [self addVideosObject:video];
     return video;
 }
@@ -291,8 +292,12 @@ static NSMutableArray *videoStatusNotificationDelegates;
     NSArray *all = [self sortedIncomingVideos];
     for (TBMVideo *v in all)
     {
-        if (v.statusValue == INCOMING_VIDEO_STATUS_VIEWED || v.statusValue == INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY)
+        if (v.statusValue == INCOMING_VIDEO_STATUS_VIEWED ||
+            v.statusValue == INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY)
+        {
             [self deleteVideo:v];
+        }
+        
     }
 }
 
@@ -512,11 +517,11 @@ static NSMutableArray *videoStatusNotificationDelegates;
 
 - (void)notifyVideoStatusChange
 {
-    DebugLog(@"notifyVideoStatusChange for %@ on %lu delegates", self.firstName, (unsigned long) [videoStatusNotificationDelegates count]);
-    for (id <TBMVideoStatusNotificationProtocol> delegate in videoStatusNotificationDelegates)
-    {
-        [delegate videoStatusDidChange:self];
-    }
+//    DebugLog(@"notifyVideoStatusChange for %@ on %lu delegates", self.firstName, (unsigned long) [videoStatusNotificationDelegates count]);
+//    for (id <TBMVideoStatusNotificationProtocol> delegate in videoStatusNotificationDelegates)
+//    {
+//        [delegate videoStatusDidChange:self];
+//    }
 }
 
 - (NSString *)videoStatusString
@@ -637,7 +642,9 @@ static NSMutableArray *videoStatusNotificationDelegates;
     // he gets to see the status of the last outgoing video he sent after play is complete and the unviewed count
     // indicator goes away.
     if (status != INCOMING_VIDEO_STATUS_VIEWED)
+    {
         self.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
+    }
 
     [self notifyVideoStatusChangeOnMainThread];
 }

@@ -78,7 +78,7 @@
     if (friend.gridElement == nil)
         return NO;
 
-    if (friend.gridElement.getIntIndex != self.index)
+    if (friend.gridElement.index.integerValue != self.index)
         return NO;
     
     if (![self isPlaying])

@@ -9,6 +9,7 @@
 @import MediaPlayer;
 
 #import "ZZVideoPlayer.h"
+#import "ZZVideoDomainModel.h"
 
 @interface ZZVideoPlayer ()
 
@@ -47,11 +48,28 @@
         self.moviePlayerController.view.frame = view.bounds;
         [view addSubview:self.moviePlayerController.view];
         [view bringSubviewToFront:self.moviePlayerController.view];
-        self.currentPlayQueue = URLs;
+        
+        
+        NSArray* videoUrls = [[URLs.rac_sequence map:^id(ZZVideoDomainModel* value) {
+            return value.videoURL;
+        }] array];
+        
+        self.currentPlayQueue = videoUrls;
+    
     }
     if (!ANIsEmpty(URLs))//&& ![self.currentPlayQueue isEqualToArray:URLs]) //TODO: if current playback state is equal to user's play list
     {
-        self.moviePlayerController.contentURL = [URLs firstObject];
+        ZZVideoDomainModel* videoModel = [URLs firstObject];
+        NSURL* firstVideoUrl = videoModel.videoURL;
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[firstVideoUrl path]])
+        {
+            NSLog(@"asdf");
+        }
+        else
+        {
+            NSLog(@"asdf");
+        }
+        self.moviePlayerController.contentURL = videoModel.videoURL;
         self.isPlayingVideo = YES;
         [self.moviePlayerController play];
     }
@@ -96,6 +114,11 @@
     {
         nextUrl = self.currentPlayQueue[index];
     }
+    else
+    {
+        [self.moviePlayerController.view removeFromSuperview];
+    }
+    
     
     if (nextUrl)
     {
@@ -121,8 +144,8 @@
     if (!_moviePlayerController)
     {
         _moviePlayerController = [MPMoviePlayerController new];
-        _moviePlayerController.view.backgroundColor = [UIColor clearColor];
         _moviePlayerController.controlStyle = MPMovieControlStyleNone;
+        _moviePlayerController.view.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
         [_moviePlayerController.view addSubview:self.tapButton];
     }
     return _moviePlayerController;

@@ -25,9 +25,9 @@
 //-------------------
 // Create and destroy
 //-------------------
-+ (instancetype)new // TODO: dangerous
++ (instancetype)createOncontext:(NSManagedObjectContext*)context // TODO: dangerous
 {
-    TBMVideo* video = [self MR_createEntityInContext:[self _context]];
+    TBMVideo* video = [self MR_createEntityInContext:context];
     video.downloadRetryCount = @(0);
     video.status = INCOMING_VIDEO_STATUS_NEW;
     [video.managedObjectContext MR_saveToPersistentStoreAndWait];
@@ -35,10 +35,12 @@
     return video;
 }
 
-+ (instancetype)newWithVideoId:(NSString *)videoId
++ (instancetype)newWithVideoId:(NSString *)videoId onContext:(NSManagedObjectContext *)context
 {
-    TBMVideo *video = [TBMVideo new];
+    TBMVideo *video = [TBMVideo createOncontext:context];
     video.videoId = videoId;
+    [video.managedObjectContext MR_saveToPersistentStoreAndWait];
+    
     return video;
 }
 

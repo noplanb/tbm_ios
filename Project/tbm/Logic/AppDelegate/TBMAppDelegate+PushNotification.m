@@ -280,6 +280,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
                              NOTIFICATION_STATUS_KEY        : [NSObject an_safeString:status],
                              NOTIFICATION_VIDEO_ID_KEY      : [NSObject an_safeString:videoId]};
     [self sendNotification:@"notification/send_video_status_update" params:params];
+     [[NSNotificationCenter defaultCenter] postNotificationName:kFriendChangeNotification object:self];
 }
 
 - (void)sendNotification:(NSString *)path params:(NSDictionary *)params

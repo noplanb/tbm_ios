@@ -11,6 +11,9 @@
 #import "ZZGridCellViewModel.h"
 #import "ZZGridCenterCellViewModel.h"
 #import "ZZFriendDomainModel.h"
+#import "TBMFriend.h"
+#import "ZZFriendDataProvider.h"
+
 
 static NSInteger const kGridCenterCellIndex = 4;
 
@@ -29,6 +32,30 @@ static NSInteger const kGridCenterCellIndex = 4;
         self.storage = [ANMemoryStorage new];
     }
     return self;
+}
+
+- (void)updateModelWithFriend:(TBMFriend*)friend
+{
+    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
+    ANSectionModel* section = [self.storage.sections firstObject];
+    NSArray* cellModels = section.objects;
+    __block ZZGridCellViewModel* cellModel;
+    [cellModels enumerateObjectsUsingBlock:^(id model, NSUInteger idx, BOOL *stop) {
+        if ([model isKindOfClass:[ZZGridCellViewModel class]])
+        {
+            cellModel = model;
+            if ([cellModel.item.relatedUser.mKey isEqualToString:friendModel.mKey])
+            {
+                cellModel.item.relatedUser = friendModel;
+                *stop = YES;
+            }
+        }
+    }];
+    
+    if (cellModel)
+    {
+        [self.storage reloadItem:cellModel];
+    }
 }
 
 - (void)setupWithModels:(NSArray *)models

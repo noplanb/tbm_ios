@@ -9,9 +9,12 @@
 #import "ZZGridCenterCell.h"
 #import "ZZGridCell.h"
 
+
 @class ANMemoryStorage;
 @class ZZGridDomainModel;
 @class ZZGridCellViewModel;
+@class TBMFriend;
+
 
 @protocol ZZGridDataSourceDelegate <NSObject>
 
@@ -34,6 +37,8 @@
 - (void)setupCenterViewModelShouldHandleCameraRotation:(BOOL)shouldHandleRotation;
 - (void)selectedViewModelUpdatedWithItem:(ZZGridDomainModel*)model;
 - (void)updateStorageWithModel:(ZZGridDomainModel*)model;
+- (void)updateModelWithFriend:(TBMFriend*)friend;
+
 
 - (ZZGridCenterCellViewModel*)centerViewModel;
 

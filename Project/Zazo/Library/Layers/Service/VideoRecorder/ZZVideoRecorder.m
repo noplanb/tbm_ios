@@ -18,6 +18,7 @@
 #import "TBMAppDelegate+AppSync.h"
 #import "ZZGridCenterCell.h"
 #import "ZZGridUIConstants.h"
+#import "TBMVideoProcessor.h"
 
 NSString* const kVideoProcessorDidFinishProcessing = @"TBMVideoProcessorDidFinishProcessing";
 NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing";
@@ -32,6 +33,7 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 @property (nonatomic, assign) BOOL didCancelRecording;
 @property (nonatomic, strong) SCRecorder *recorder;
 @property (nonatomic, strong) NSURL* recordVideoUrl;
+@property (nonatomic, strong) TBMVideoProcessor* videoProcessor;
 
 @end
 
@@ -51,6 +53,7 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 {
     if (self = [super init])
     {
+        self.videoProcessor = [TBMVideoProcessor new];
         self.recorder = [SCRecorder recorder];
         self.recorder.delegate = self;
         self.recorder.captureSessionPreset = AVCaptureSessionPresetLow;
@@ -100,6 +103,7 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
     
     [self _startRecordingWithVideoUrl:url];
     [self.recorder.session removeAllSegments];
+    
     [self.recorder record];
 }
 
@@ -110,6 +114,7 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 {
     self.recordVideoUrl = videoUrl;
     self.didCancelRecording = NO;
+    
     [[NSFileManager defaultManager] removeItemAtURL:videoUrl error:nil];
 }
 
@@ -124,34 +129,81 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
        inSession:(SCRecordSession*)recordSession error:(NSError*)error
 {
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFinishRecording
-                                                        object:self
-                                                      userInfo:@{@"videoUrl": self.recordVideoUrl}];
     
-    AVAsset *asset = recordSession.assetRepresentingSegments;
-    SCAssetExportSession *assetExportSession = [[SCAssetExportSession alloc] initWithAsset:asset];
-    assetExportSession.outputUrl = recordSession.outputUrl;
-    NSURL* videoPath = recordSession.outputUrl;
-    assetExportSession.outputFileType = AVFileTypeMPEG4;
-    assetExportSession.videoConfiguration.preset = SCPresetLowQuality;
-    assetExportSession.audioConfiguration.preset = SCPresetMediumQuality;
-
-    [assetExportSession exportAsynchronouslyWithCompletionHandler: ^{
-        if (assetExportSession.error == nil) {
-
-            NSError* error;
-            [[NSFileManager defaultManager] moveItemAtURL:videoPath toURL:self.recordVideoUrl error:&error];
+    
+    [recordSession mergeSegmentsUsingPreset:AVAssetExportPresetHighestQuality completionHandler:^(NSURL *url, NSError *error) {
+        if (error == nil) {
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:kVideoProcessorDidFinishProcessing
-                                                                object:self
-                                                              userInfo:[self notificationUserInfoWithError:nil]];
-           
-        }
-        else
-        {
-            [self handleError:assetExportSession.error dispatch:YES];
+            if ([[NSFileManager defaultManager] fileExistsAtPath:[url path]])
+            {
+                NSLog(@"ok");
+                NSError* error;
+               if ( [[NSFileManager defaultManager] copyItemAtURL:url toURL:self.recordVideoUrl error:&error])
+               {
+                   NSError* removeError;
+                   [[NSFileManager defaultManager] removeItemAtPath:[url path] error:&removeError];
+                   
+                   [self.videoProcessor processVideoWithUrl:self.recordVideoUrl];
+               }
+               else
+               {
+                   NSLog(@"copy error");
+               }
+                
+                
+            }
+            else
+            {
+                NSLog(@"wrong");
+            }
+            
+        } else {
+            
         }
     }];
+    
+    
+    
+    
+//    [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFinishRecording
+//                                                        object:self
+//                                                      userInfo:@{@"videoUrl": self.recordVideoUrl}];
+//    
+//    AVAsset *asset = recordSession.assetRepresentingSegments;
+//    SCAssetExportSession *assetExportSession = [[SCAssetExportSession alloc] initWithAsset:asset];
+//    assetExportSession.outputUrl = self.recordVideoUrl;
+//    
+//    assetExportSession.outputFileType = AVFileTypeMPEG4;
+//    assetExportSession.videoConfiguration.preset = SCPresetLowQuality;
+//    assetExportSession.audioConfiguration.preset = SCPresetMediumQuality;
+//
+//    [assetExportSession exportAsynchronouslyWithCompletionHandler: ^{
+//        if (assetExportSession.error == nil) {
+//
+////            NSError* error;
+////            [[NSFileManager defaultManager] moveItemAtURL:videoPath toURL:self.recordVideoUrl error:&error];
+////
+//            
+//            if ([[NSFileManager defaultManager] fileExistsAtPath:[self.recordVideoUrl path]])
+//            {
+//                NSLog(@"ok");
+//            }
+//            else
+//            {
+//                NSLog(@"wrong");
+//            }
+//            
+//            
+//            [[NSNotificationCenter defaultCenter] postNotificationName:kVideoProcessorDidFinishProcessing
+//                                                                object:self
+//                                                              userInfo:[self notificationUserInfoWithError:nil]];
+//           
+//        }
+//        else
+//        {
+//            [self handleError:assetExportSession.error dispatch:YES];
+//        }
+//    }];
 }
 
 - (void)handleError:(NSError*)error dispatch:(BOOL)dispatch

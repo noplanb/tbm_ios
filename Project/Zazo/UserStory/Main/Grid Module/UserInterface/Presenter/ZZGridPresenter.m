@@ -41,8 +41,24 @@
     
     self.videoPlayer = [ZZVideoPlayer new];
     self.videoPlayer.delegate = self;
-    
+    [self setupNotification];
     [self.interactor loadData];
+}
+
+- (void)setupNotification
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateGridData:)
+                                                 name:kFriendChangeNotification
+                                               object:nil];
+
+}
+
+- (void)updateGridData:(NSNotification*)notification
+{
+   TBMFriend* updatedFriend = notification.object;
+    
+    [self.dataSource updateModelWithFriend:updatedFriend];
 }
 
 - (void)presentEditFriendsController
