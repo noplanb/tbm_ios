@@ -114,6 +114,11 @@
     {
         nextUrl = self.currentPlayQueue[index];
     }
+    else
+    {
+        [self.moviePlayerController.view removeFromSuperview];
+    }
+    
     
     if (nextUrl)
     {

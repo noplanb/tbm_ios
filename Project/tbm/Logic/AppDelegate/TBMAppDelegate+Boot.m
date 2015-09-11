@@ -26,6 +26,7 @@
 {
     OB_INFO(@"Boot");
     [TBMDispatch enable];
+//    [self ensurePushNotification]; // TODO: find correct place for calling this method, only for test
 }
 
 - (void)performDidBecomeActiveActions

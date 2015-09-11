@@ -292,8 +292,12 @@ static NSMutableArray *videoStatusNotificationDelegates;
     NSArray *all = [self sortedIncomingVideos];
     for (TBMVideo *v in all)
     {
-        if (v.statusValue == INCOMING_VIDEO_STATUS_VIEWED || v.statusValue == INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY)
+        if (v.statusValue == INCOMING_VIDEO_STATUS_VIEWED ||
+            v.statusValue == INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY)
+        {
             [self deleteVideo:v];
+        }
+        
     }
 }
 
@@ -518,8 +522,6 @@ static NSMutableArray *videoStatusNotificationDelegates;
 //    {
 //        [delegate videoStatusDidChange:self];
 //    }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:kFriendChangeNotification object:self];
 }
 
 - (NSString *)videoStatusString
@@ -640,7 +642,9 @@ static NSMutableArray *videoStatusNotificationDelegates;
     // he gets to see the status of the last outgoing video he sent after play is complete and the unviewed count
     // indicator goes away.
     if (status != INCOMING_VIDEO_STATUS_VIEWED)
+    {
         self.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
+    }
 
     [self notifyVideoStatusChangeOnMainThread];
 }

@@ -28,6 +28,7 @@
         model.videoID = entity.videoId;
         model.downloadRetryCount = [entity.downloadRetryCount integerValue];
         model.status = [entity.status integerValue];
+        model.videoURL = entity.videoUrl;
     }
     @catch (NSException *exception)
     {
