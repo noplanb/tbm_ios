@@ -14,7 +14,7 @@
 
 #pragma mark - Genral APNS
 
-+ (RACSignal*)uploadToken:(NSString*)token userMKey:(NSString*)mkey buildString:(NSString*)buildString;
++ (RACSignal*)uploadToken:(NSString*)token userMKey:(NSString*)mkey;
 
 
 #pragma mark - Outgoing Events

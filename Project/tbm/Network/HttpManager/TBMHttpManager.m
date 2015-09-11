@@ -53,24 +53,23 @@ NSString * const SERVER_PARAMS_DISPATCH_ZAZO_VERSION_NUMBER_KEY = @"zazo_version
 
 @implementation TBMHttpManager
 
-+ (AFHTTPRequestOperationManager *)managerWithCredential:(NSURLCredential *)credential{
++ (AFHTTPRequestOperationManager *)managerWithCredential:(NSURLCredential *)credential
+{
     AFHTTPRequestOperationManager *m = [[AFHTTPRequestOperationManager alloc]
                                         initWithBaseURL:[NSURL URLWithString:apiBaseURL()]];
     m.credential = credential;
     return m;
 }
 
-+ (AFHTTPRequestOperationManager *)manager{
-    NSURLCredential *credential = nil;
-    ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
-    if (me != nil)
-    {
-        credential = [[NSURLCredential alloc] initWithUser:me.mkey
-                                                password:me.auth
-                                             persistence:NSURLCredentialPersistenceForSession];
-    }
++ (AFHTTPRequestOperationManager*)manager
+{
+    NSURLCredential* credential = [[NSURLCredential alloc] initWithUser:[ZZStoredSettingsManager shared].userID
+                                                               password:[ZZStoredSettingsManager shared].authToken
+                                                            persistence:NSURLCredentialPersistenceForSession];
+    
     return [TBMHttpManager managerWithCredential:credential];;
 }
+
 
 + (BOOL) isSuccess:(NSDictionary *)responseObject{
     return [[responseObject objectForKey:SERVER_PARAMS_STATUS_KEY] isEqualToString:SERVER_STATUS_VALUE_SUCCESS];

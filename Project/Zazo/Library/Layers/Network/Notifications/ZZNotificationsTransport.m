@@ -16,7 +16,9 @@
 
 + (RACSignal*)uploadTokenWithParameters:(NSDictionary*)parameters
 {
-    return [[ZZNetworkTransport shared] requestWithPath:kApiSavePushToken parameters:parameters httpMethod:ANHttpMethodTypePOST];
+    return [[ZZNetworkTransport shared] requestWithPath:kApiSavePushToken
+                                             parameters:parameters
+                                             httpMethod:ANHttpMethodTypePOST];
 }
 
 

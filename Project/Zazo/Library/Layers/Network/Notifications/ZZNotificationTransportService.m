@@ -58,10 +58,17 @@ static const struct
 
 #pragma mark - General APNS
 
-+ (RACSignal*)uploadToken:(NSString*)token userMKey:(NSString*)mkey buildString:(NSString*)buildString
++ (RACSignal*)uploadToken:(NSString*)token userMKey:(NSString*)mkey
 {
+    NSString* state;
+#ifdef DEBUG
+    state = @"dev";
+#else
+    state = @"prod";
+#endif
+
     NSDictionary* parameters = @{ZZNotificationsServerParameters.mKey           : [NSObject an_safeString:mkey],
-                                 ZZNotificationsServerParameters.buildNumber    : [NSObject an_safeString:buildString],
+                                 ZZNotificationsServerParameters.buildNumber    : [NSObject an_safeString:state],
                                  ZZNotificationsServerParameters.apnsToken      : [NSObject an_safeString:token],
                                  ZZNotificationsServerParameters.platform       : @"ios"};
     
@@ -86,10 +93,10 @@ static const struct
                                            status:(NSString*)status
                                              from:(ZZUserDomainModel*)user
 {
-    NSDictionary* parameters = @{ZZNotificationsServerParameters.targetMKey     : model.mKey,
-                                 ZZNotificationsServerParameters.toUserMKey     : user.mkey,
-                                 ZZNotificationsServerParameters.status         : status,
-                                 ZZNotificationsServerParameters.videoItemID    : videoItemID};
+    NSDictionary* parameters = @{ZZNotificationsServerParameters.targetMKey     : [NSObject an_safeString:model.mKey],
+                                 ZZNotificationsServerParameters.toUserMKey     : [NSObject an_safeString:user.mkey],
+                                 ZZNotificationsServerParameters.status         : [NSObject an_safeString:status],
+                                 ZZNotificationsServerParameters.videoItemID    : [NSObject an_safeString:videoItemID]};
     
     return [ZZNotificationsTransport sendVideoStatusUpdateNotificationWithParameters:parameters];
 }

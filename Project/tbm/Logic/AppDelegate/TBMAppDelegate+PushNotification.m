@@ -14,6 +14,8 @@
 #import "ZZUserDataProvider.h"
 #import "ZZUserDomainModel.h"
 #import "NSObject+ANSafeValues.h"
+#import "ZZStoredSettingsManager.h"
+#import "ZZNotificationTransportService.h"
 
 static NSString *NOTIFICATION_TARGET_MKEY_KEY = @"target_mkey";
 static NSString *NOTIFICATION_FROM_MKEY_KEY = @"from_mkey";
@@ -115,26 +117,14 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 - (void)sendPushTokenToServer:(NSString *)token
 {
     OB_INFO(@"sendPushTokenToServer");
-    ZZUserDomainModel *me = [ZZUserDataProvider authenticatedUser];
-    NSString *myMkey = me.mkey;
-    NSDictionary *params = @{@"mkey" : myMkey,
-#ifdef DEBUG
-                             @"device_build" : @"dev",
-                             
-#else
-                             @"device_build" : @"prod",
-#endif
-                             @"push_token" : token,
-                             @"device_platform" : @"ios"};
+    NSString *myMkey = [ZZUserDataProvider authenticatedUser].mkey;
 
-    [[TBMHttpManager manager] POST:@"notification/set_push_token"
-                        parameters:params
-                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                               OB_INFO(@"notification/push_token: SUCCESS %@", responseObject);
-                           }
-                           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                               OB_WARN(@"notification/push_token: %@", error);
-                           }];
+    [[ZZNotificationTransportService uploadToken:token userMKey:myMkey] subscribeNext:^(id x) {
+        
+        OB_INFO(@"notification/push_token: SUCCESS %@", x);
+    } error:^(NSError *error) {
+        OB_WARN(@"notification/push_token: %@", error);
+    }];
 }
 
 #pragma mark -  Handle Incoming Notifications
