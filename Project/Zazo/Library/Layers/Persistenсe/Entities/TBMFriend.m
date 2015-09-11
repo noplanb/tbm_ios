@@ -127,12 +127,12 @@ static NSMutableArray *videoStatusNotificationDelegates;
     TBMFriend *friend = [TBMFriend MR_createEntityInContext:[self _context]];
     
     
-    friend.firstName = [params objectForKey:SERVER_PARAMS_FRIEND_FIRST_NAME_KEY];
-    friend.lastName = [params objectForKey:SERVER_PARAMS_FRIEND_LAST_NAME_KEY];
-    friend.mobileNumber = [params objectForKey:SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY];
-    friend.idTbm = [params objectForKey:SERVER_PARAMS_FRIEND_ID_KEY];
-    friend.mkey = [params objectForKey:SERVER_PARAMS_FRIEND_MKEY_KEY];
-    friend.ckey = [params objectForKey:SERVER_PARAMS_FRIEND_CKEY_KEY];
+    friend.firstName = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_FIRST_NAME_KEY]];
+    friend.lastName = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_LAST_NAME_KEY]];
+    friend.mobileNumber = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY]];
+    friend.idTbm = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_ID_KEY]];
+    friend.mkey = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_MKEY_KEY]];
+    friend.ckey = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_CKEY_KEY]];
     friend.timeOfLastAction = [NSDate date];
     NSString *creatorMkey = params[@"connection_creator_mkey"];
 
