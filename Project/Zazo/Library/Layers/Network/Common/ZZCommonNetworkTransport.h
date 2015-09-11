@@ -10,6 +10,6 @@
 
 + (RACSignal*)logMessageWithParameters:(NSDictionary*)parameters;
 + (RACSignal*)checkApplicationVersionWithParameters:(NSDictionary*)parameters;
-+ (RACSignal*)loadS3CredentialsWithParameters:(NSDictionary*)parameters;
++ (RACSignal*)loadS3Credentials;
 
 @end

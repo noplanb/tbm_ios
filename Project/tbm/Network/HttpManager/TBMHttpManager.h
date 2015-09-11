@@ -48,9 +48,11 @@ extern NSString * const SERVER_PARAMS_DISPATCH_ZAZO_VERSION_KEY;
 extern NSString * const SERVER_PARAMS_DISPATCH_ZAZO_VERSION_NUMBER_KEY;
 
 @interface TBMHttpManager : NSObject
+
 + (AFHTTPRequestOperationManager *)manager;
 + (AFHTTPRequestOperationManager *)managerWithCredential:(NSURLCredential *)credential;
 + (BOOL)isSuccess:(NSDictionary *)responseObject;
 + (BOOL)isFailure:(NSDictionary *)responseObject;
 + (BOOL) hasAppWithServerValue:(NSString *)value;
+
 @end

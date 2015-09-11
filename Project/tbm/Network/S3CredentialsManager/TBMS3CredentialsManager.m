@@ -10,6 +10,7 @@
 #import "TBMHttpManager.h"
 #import "OBLogger.h"
 #import "TBMKeyChainWrapper.h"
+#import "ZZCommonNetworkTransportService.h"
 
 NSString * const S3_REGION_KEY = @"TBMS3Region";
 NSString * const S3_BUCKET_KEY = @"TBMS3Bucket";
@@ -20,6 +21,14 @@ NSString * const S3_SECRET_KEY = @"TBMS3SecretKey";
 
 + (void) refreshFromServer:(void (^)(BOOL))completionHandler{
     OB_INFO(@"getS3Credentials");
+    
+    
+    [ZZCommonNetworkTransportService s3]
+    
+    
+    
+    
+    
     [[TBMHttpManager manager] GET:@"s3_credentials/info"
                         parameters:nil
                            success:^(AFHTTPRequestOperation *operation, id responseObject) {

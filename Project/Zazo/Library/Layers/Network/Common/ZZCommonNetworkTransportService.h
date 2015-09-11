@@ -8,4 +8,9 @@
 
 @interface ZZCommonNetworkTransportService : NSObject
 
++ (RACSignal*)logMessage:(NSString*)message;
++ (RACSignal*)checkApplicationVersion;
++ (RACSignal*)loadS3Credentials;
+
 @end
+

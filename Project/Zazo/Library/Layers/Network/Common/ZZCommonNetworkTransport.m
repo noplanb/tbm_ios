@@ -25,11 +25,9 @@
                                              httpMethod:ANHttpMethodTypePOST];
 }
 
-+ (RACSignal*)loadS3CredentialsWithParameters:(NSDictionary*)parameters
++ (RACSignal*)loadS3Credentials
 {
-    return [[ZZNetworkTransport shared] requestWithPath:kApiS3Credentials
-                                             parameters:parameters
-                                             httpMethod:ANHttpMethodTypeGET];
+    return [[ZZNetworkTransport shared] requestWithPath:kApiS3Credentials httpMethod:ANHttpMethodTypeGET];
 }
 
 @end

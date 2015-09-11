@@ -49,10 +49,10 @@ PODS:
     - ANColorTheme (~> 1.0)
     - MSSPopMasonry
     - ReactiveCocoa (~> 2.4.2)
-  - ANStorage (1.1.2):
+  - ANStorage (HEAD based on 1.1.2):
     - ANHelperFunctions (~> 1.0)
     - ANLogger (~> 1.0)
-  - ANTableController (1.1):
+  - ANTableController (HEAD based on 1.1):
     - ANHelperFunctions (~> 1.0)
     - ANKeyboardHandler (~> 1.0)
     - ANStorage (~> 1.0)
@@ -155,8 +155,8 @@ DEPENDENCIES:
   - ANKeyboardHandler (~> 1.0.2)
   - ANLogger (~> 1.0.2)
   - ANProgressButton (~> 1.0.2)
-  - ANStorage (~> 1.1.2)
-  - ANTableController (~> 1.1)
+  - ANStorage (HEAD)
+  - ANTableController (HEAD)
   - ANTableViews (~> 1.0.10)
   - APAddressBook (~> 0.1.11)
   - CocoaLumberjack (~> 2.0.1)

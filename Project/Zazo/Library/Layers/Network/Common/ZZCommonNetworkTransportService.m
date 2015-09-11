@@ -7,71 +7,37 @@
 //
 
 #import "ZZCommonNetworkTransportService.h"
+#import "ZZCommonNetworkTransport.h"
+#import "NSString+ANAdditions.h"
 
 @implementation ZZCommonNetworkTransportService
 
-+ (RACSignal*)logMessage
++ (RACSignal*)logMessage:(NSString*)message
 {
-    return [RACSignal empty];
+    NSString* version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSString* buildNumber = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    
+    NSDictionary* parameters = @{@"msg"                 : [NSObject an_safeString:message],
+                                 @"device_model"        : [NSObject an_safeString:[[UIDevice currentDevice] model]],
+                                 @"os_version"          : [NSObject an_safeString:[[UIDevice currentDevice] systemVersion]],
+                                 @"zazo_version"        : [NSObject an_safeString:version],
+                                 @"zazo_version_number" : [NSObject an_safeString:buildNumber]};
+    
+    return [ZZCommonNetworkTransport logMessageWithParameters:parameters];
 }
 
 + (RACSignal*)checkApplicationVersion
 {
-    return [RACSignal empty];
+    NSString* version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    version = [NSObject an_safeString:[version an_stripAllNonNumericCharacters]];
+    NSDictionary* parameters = @{@"device_platform": @"ios",
+                                 @"version": @([version integerValue])};
+    return [ZZCommonNetworkTransport checkApplicationVersionWithParameters:parameters];
 }
 
 + (RACSignal*)loadS3Credentials
 {
-    return [RACSignal empty];
+    return [ZZCommonNetworkTransport loadS3Credentials];
 }
-
-//+ (void) dispatch: (NSString *)msg{
-//    [[TBMHttpManager manager] POST:
-//                        parameters:@{SERVER_PARAMS_DISPATCH_MSG_KEY: msg,
-//                                     SERVER_PARAMS_DISPATCH_DEVICE_MODEL_KEY: [[UIDevice currentDevice] model],
-//                                     SERVER_PARAMS_DISPATCH_OS_VERSION_KEY: [[UIDevice currentDevice] systemVersion],
-//                                     SERVER_PARAMS_DISPATCH_ZAZO_VERSION_KEY: CONFIG_VERSION_STRING,
-//                                     SERVER_PARAMS_DISPATCH_ZAZO_VERSION_NUMBER_KEY: CONFIG_VERSION_NUMBER}
-//                           success:nil
-//                           failure:nil];
-//}
-//
-//
-//- (void) checkVersionCompatibility{
-//    [[TBMHttpManager manager]
-//     GET:@"version/check_compatibility"
-//     parameters:@{@"device_platform": @"ios", @"version": CONFIG_VERSION_NUMBER}
-//     success:^(AFHTTPRequestOperation *operation, id responseObject){
-//         OB_INFO(@"checkVersionCompatibility: success: %@", [responseObject objectForKey:@"result"]);
-//         if (_delegate)
-//             [_delegate versionCheckCallback:[responseObject objectForKey:VH_RESULT_KEY]];
-//     }
-//     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//         OB_WARN(@"checkVersionCompatibility: %@", error);
-//     }];
-//}
-//
-//
-//
-//+ (void) refreshFromServer:(void (^)(BOOL))completionHandler{
-//    OB_INFO(@"getS3Credentials");
-//    [[TBMHttpManager manager] GET:@"s3_credentials/info"
-//                       parameters:nil
-//                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//                              if (![self validateServerResponse:responseObject]){
-//                                  if (completionHandler != nil)
-//                                      completionHandler(NO);
-//                                  return;
-//                              }
-//                              [self storeS3CredentialsInKeychain:responseObject];
-//                              if (completionHandler != nil)
-//                                  completionHandler(YES);
-//                          }
-//                          failure:^(AFHTTPRequestOperation *operation, NSError *error){
-//                              OB_WARN(@"Attempt to get s3 credentials failed.");
-//                              if (completionHandler != nil)
-//                                  completionHandler(NO);
-//                          }];
-//}
 
 @end
