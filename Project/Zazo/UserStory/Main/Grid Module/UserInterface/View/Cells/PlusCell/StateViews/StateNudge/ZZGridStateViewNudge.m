@@ -41,8 +41,7 @@
 
 - (void)updateWithModel:(ZZGridCellViewModel*)model
 {
-    self.model = model;
-    [self updateBadgeWithNumber:model.badgeNumber];
+    [super updateWithModel:model];
     self.userNameLabel.text = [model firstName];
 }
 

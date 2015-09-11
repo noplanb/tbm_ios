@@ -378,7 +378,9 @@ static NSMutableArray *videoStatusNotificationDelegates;
     for (TBMVideo *v in [self sortedIncomingVideos])
     {
         if (v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADED)
-            i++;
+        {
+             i++;
+        }
     }
     return i;
 }

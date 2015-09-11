@@ -38,13 +38,8 @@
 
 - (void)updateWithModel:(ZZGridCellViewModel*)model
 {
-    self.model = model;
+    [super updateWithModel:model];
     self.userNameLabel.text = [model firstName];
-    [self updateBadgeWithNumber:model.badgeNumber];
-    if (model.hasUploadedVideo)
-    {
-        [self showUploadIconWithoutAnimation];
-    }
 }
 
 
