@@ -29,7 +29,6 @@
     return self;
 }
 
-
 - (void)getFriends
 {
     [[ZZFriendsTransportService loadFriendList] subscribeNext:^(id x) {

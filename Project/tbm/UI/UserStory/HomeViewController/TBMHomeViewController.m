@@ -10,7 +10,7 @@
 #import "TBMHomeViewController+Invite.h"
 
 #import "TBMAppDelegate+AppSync.h"
-#import "ANEmailWireframe.h"
+#import "ANMessagesWireframe.h"
 #import "HexColors.h"
 #import "TBMSecretScreenPresenter.h"
 #import "TBMSecretGestureRecognizer.h"
@@ -38,7 +38,7 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
 //@property (nonatomic, strong) UIButton *editFriendsButton;
 //@property(nonatomic, strong) UIView *menuButton;
 @property(nonatomic) BOOL isPlaying;
-@property (nonatomic, strong) ANEmailWireframe* emailWireframe;
+@property (nonatomic, strong) ANMessagesWireframe* emailWireframe;
 @property (nonatomic, strong) ZZEditFriendListWireframe* editFriendsWireframe;
 
 @property(nonatomic) BOOL isSMSProcessActive; // this means if sms composer presented on screen.

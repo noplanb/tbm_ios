@@ -21,8 +21,9 @@
 #import "ZZContactDomainModel.h"
 #import "TBMPhoneUtils.h"
 #import "ZZAPIRoutes.h"
+#import "ZZGridAlertBuilder.h"
 
-@interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate, MFMessageComposeViewControllerDelegate>
+@interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate>
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
 @property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
@@ -51,7 +52,6 @@
                                              selector:@selector(updateGridData:)
                                                  name:kFriendChangeNotification
                                                object:nil];
-
 }
 
 - (void)updateGridData:(NSNotification*)notification
@@ -122,18 +122,14 @@
 
 - (void)friendRecievedFromeServer:(ZZFriendDomainModel*)friendModel
 {
-    ANDispatchBlockToMainQueue(^{
-        if (friendModel.hasApp)
-        {
-            //show connect alert
-            [self showConnectedDialogForModel:friendModel];
-        }
-        else
-        {
-            //show sms alert
-            [self showSmsDialogForModel:friendModel];
-        }
-    });
+    if (friendModel.hasApp)
+    {
+        [self showConnectedDialogForModel:friendModel];
+    }
+    else
+    {
+        [self showSmsDialogForModel:friendModel];
+    }
 }
 
 - (void)updateGridWithModel:(ZZGridDomainModel *)model
@@ -162,9 +158,7 @@
         else
             msg = @"Press and hold a friend to record.";
         
-        TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Hint" message:msg];
-        [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:nil]];
-        [alert presentWithCompletion:nil];
+        [ZZGridAlertBuilder showHintalertWithMessage:msg];
     }
     else if (model.item.relatedUser)
     {
@@ -193,12 +187,14 @@
 
 #pragma mark - Data source delegate
 
-- (void)nudgeSelectedWithUserModel:(id)userModel
+- (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel*)userModel // TODO: check friedn model
 {
-    //TODO:
+    [ZZGridAlertBuilder showPreNudgeAlertWithFriendFirstName:userModel.firstName completion:^{
+//        [self smsDialog]; // TODO: make friendDomain model and present SMSAlert
+    }];
 }
 
-- (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel
+- (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel // TODO: add states for gesture recognizer and show toasts
 {
     ZZGridCenterCellViewModel* model = [self.dataSource centerViewModel];
     if (!ANIsEmpty(viewModel.item.relatedUser.idTbm))
@@ -292,13 +288,7 @@
 
 - (void)showNoValidPhonesDialogFromModel:(ZZContactDomainModel*)model
 {
-    NSString *title = @"No Mobile Number";
-    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
-    NSString *msg = [NSString stringWithFormat:@"I could not find a valid mobile number for %@.\n\nPlease add a mobile number for %@ in your device contacts, kill %@, then try again.", [model fullName], model.firstName, appName];
-    
-    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:title message:msg];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:nil]];
-    [alert presentWithCompletion:nil];
+    [ZZGridAlertBuilder showNoValidPhonesDialogForUserWithFirstName:model.firstName fullName:model.fullName];
 }
 
 - (void)showChooseNumberDialogFromNumbersArray:(NSArray*)array
@@ -323,88 +313,39 @@
 
 - (void)showSendInvitationDialogForUser:(NSString*)firsName
 {
-    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
-    NSString *msg = [NSString stringWithFormat:@"%@ has not installed %@ yet. Send them a link!", firsName, appName];
-    
-    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Invite" message:msg];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleCancel handler:nil]];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Send" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+    [ZZGridAlertBuilder showSendInvitationDialogForUser:firsName completion:^{
         [self.interactor inviteUserThatHasNoAppInstalled];
-    }]];
-    [alert presentWithCompletion:nil];
-
+    }];
 }
 
 - (void)showConnectedDialogForModel:(ZZFriendDomainModel*)friend
 {
-    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
-    NSString *msg = [NSString stringWithFormat:@"You and %@ are connected.\n\nRecord a welcome %@ to %@ now.", friend.firstName, appName, friend.firstName];
-    
-    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Send a Zazo" message:msg];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+    [ZZGridAlertBuilder showConnectedDialogForUser:friend.firstName completion:^{
         [self.interactor addNewFriendToGridModelsArray];
-    }]];
-    [alert presentWithCompletion:nil];
+    }];
 }
 
 - (void)showSmsDialogForModel:(ZZFriendDomainModel*)friend
 {
-    if (![MFMessageComposeViewController canSendText])
-    {
-        [self showCantSendSmsErrorForModel:friend];
-        return;
-    }
-
-    MFMessageComposeViewController *mc = [[MFMessageComposeViewController alloc] init];
-    mc.messageComposeDelegate = self;
-    
+    ANMessageDomainModel* model = [ANMessageDomainModel new];
     NSString* formattedNumber = [TBMPhoneUtils phone:friend.mobileNumber withFormat:NBEPhoneNumberFormatE164];
-    mc.recipients = @[formattedNumber];
-    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
-    mc.body = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", appName, kInviteFriendBaseURL, friend.idTbm];
+    model.recipients = @[[NSObject an_safeString:formattedNumber]];
     
-    [self.userInterface presentViewController:mc animated:YES completion:^{
-        NSLog(@"presented sms controller");
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    model.message = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", appName, kInviteFriendBaseURL, friend.idTbm];
+    
+    [self.wireframe presentSMSDialogWithModel:model success:^{
+        [self showConnectedDialogForModel:friend];
+    } fail:^{
+        [self showCantSendSmsErrorForModel:friend];
     }];
 }
 
 - (void)showCantSendSmsErrorForModel:(ZZFriendDomainModel*)friend
 {
-    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
-    NSString *msg = [NSString stringWithFormat:@"It looks like you can't or didn't send a link by text. Perhaps you can just call or email %@ and tell them about %@.", [friend fullName], appName];
-    
-    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Didn't Send Link" message:msg];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action){
+    [ZZGridAlertBuilder showCannotSendSmsErrorToUser:[friend fullName] completion:^{
         [self showConnectedDialogForModel:friend];
-    }]];
-    [alert presentWithCompletion:nil];
+    }];
 }
-
-#pragma mark - MFMessageComposeViewControllerDelegate
-
-- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
-{
-    switch (result) {
-        case MessageComposeResultCancelled:
-        {
-            [controller dismissViewControllerAnimated:YES completion:nil];
-        } break;
-            
-        case MessageComposeResultFailed:
-        {
-            
-        } break;
-            
-        case MessageComposeResultSent:
-        {
-            
-        } break;
-            
-        default:
-            break;
-    }
-}
-
-
 
 @end

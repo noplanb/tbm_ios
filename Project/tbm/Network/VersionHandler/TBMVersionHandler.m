@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 #import "TBMVersionHandler.h"
-#import "TBMHttpManager.h"
 #import "TBMConfig.h"
 #import "TBMStringUtils.h"
 #import "OBLogger.h"

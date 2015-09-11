@@ -30,7 +30,6 @@ static NSMutableArray *videoStatusNotificationDelegates;
     return [NSManagedObjectContext MR_context];
 }
 
-
 + (NSArray *)all
 {
     return [self MR_findAllInContext:[self _context]];
