@@ -99,7 +99,6 @@ static NSMutableArray *videoStatusNotificationDelegates;
 
 + (NSUInteger)everSentNonInviteeFriendsCount
 {
-
     NSArray *result = [self _allEverSentFriends];
     return [result count];
 }
@@ -149,7 +148,6 @@ static NSMutableArray *videoStatusNotificationDelegates;
         complete(friend);
     }
 }
-
 
 + (void)destroyAll
 {
