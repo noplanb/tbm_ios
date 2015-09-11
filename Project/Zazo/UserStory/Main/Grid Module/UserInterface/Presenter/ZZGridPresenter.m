@@ -136,6 +136,11 @@
     });
 }
 
+- (void)updateGridWithModel:(ZZGridDomainModel *)model
+{
+    [self.dataSource updateStorageWithModel:model];
+}
+
 #pragma mark - Module Interface
 
 - (void)presentMenu
@@ -344,11 +349,11 @@
 
 - (void)showSmsDialogForModel:(ZZFriendDomainModel*)friend
 {
-//    if (![MFMessageComposeViewController canSendText])
-//    {
+    if (![MFMessageComposeViewController canSendText])
+    {
         [self showCantSendSmsErrorForModel:friend];
         return;
-//    }
+    }
 
     MFMessageComposeViewController *mc = [[MFMessageComposeViewController alloc] init];
     mc.messageComposeDelegate = self;

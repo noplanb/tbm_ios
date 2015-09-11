@@ -1,4 +1,4 @@
-//
+ //
 //  ZZGridInteractor.m
 //  Zazo
 //
@@ -64,16 +64,27 @@ static NSInteger const kGridFriendsCellCount = 8;
             model.relatedUser = aFriend;
         }
         [gridModels addObject:model];
+
+        [ZZGridDataProvider upsertModel:model];
     }
     self.gridModels = [gridModels copy];
     [self.output dataLoadedWithArray:self.gridModels];
 }
 
-- (void)friendSelectedFromMenu:(ZZFriendDomainModel*)friend
+- (void)friendSelectedFromMenu:(ZZFriendDomainModel*)friend isContact:(BOOL)contact
 {
-    ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
-    model.relatedUser = friend;
-    [ZZGridDataProvider upsertModel:model];
+    //TODO: last loadFirstEmptyGridElement not work!
+    
+//    ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
+//    model.relatedUser = friend;
+//    [ZZGridDataProvider upsertModel:model];
+
+    //TODO: clean datasource storage before new output?
+    
+//    if (contact)
+//    {
+//        [self.output updateGridWithModel:model];
+//    }
 }
 
 
@@ -124,7 +135,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)addNewFriendToGridModelsArray
 {
-    
+    [self friendSelectedFromMenu:self.currentFriend isContact:YES];
 }
 
 - (void)loadFeedbackModel
