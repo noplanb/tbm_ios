@@ -52,23 +52,32 @@
     
         switch (model.state)
         {
+//            case ZZGridCellViewModelStateAdd:
+//            {
+//                [self.stateView showDownloadAnimationWithNewVideoCount:1];
+//                
+//            }break;
             case ZZGridCellViewModelStateFriendHasApp:
             {
                 self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self];
+                
             } break;
             case ZZGridCellViewModelStateFriendHasNoApp:
             {
                 self.stateView = [[ZZGridStateViewNudge alloc] initWithPresentedView:self];
+                
             } break;
             case ZZGridCellViewModelStateIncomingVideoViewed:
             case ZZGridCellViewModelStateIncomingVideoNotViewed:
             case ZZGridCellViewModelStateOutgoingVideo:
             {
                 self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self];
+                
             } break;
             default:
             {
                 [self.stateView removeFromSuperview];
+                
             } break;
         }
         

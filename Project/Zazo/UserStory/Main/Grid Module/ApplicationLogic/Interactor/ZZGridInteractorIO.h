@@ -35,4 +35,6 @@
 - (void)userHasNoAppInstalled:(NSString*)firsName;
 - (void)friendRecievedFromeServer:(ZZFriendDomainModel*)friendModel;
 
+- (void)updateGridWithModel:(ZZGridDomainModel *)model;
+
 @end

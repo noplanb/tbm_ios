@@ -49,7 +49,7 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
     return _sharedClient;
 }
 
-- (instancetype)init
+- (instancetype)init 
 {
     if (self = [super init])
     {
@@ -117,7 +117,6 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
     
     [[NSFileManager defaultManager] removeItemAtURL:videoUrl error:nil];
 }
-
 
 #pragma mark - Stop Recording
 

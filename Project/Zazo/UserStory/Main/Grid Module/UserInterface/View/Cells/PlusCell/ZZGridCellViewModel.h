@@ -34,9 +34,8 @@ typedef NS_ENUM(NSInteger, ZZGridCellViewModelState)
 @property (nonatomic, weak) id <ZZGridCellViewModelDelegate> delegate;
 @property (nonatomic, strong) NSNumber* badgeNumber;
 @property (nonatomic, strong) UIView* playerContainerView;
-
-
 @property (nonatomic, assign) BOOL hasUploadedVideo;
+
 
 - (void)updateRecordingStateTo:(BOOL)isRecording;
 - (void)nudgeSelected;

@@ -78,6 +78,22 @@ static NSInteger const kGridCenterCellIndex = 4;
     self.selectedCellViewModel = nil;
 }
 
+- (void)updateStorageWithModel:(ZZGridDomainModel*)model
+{
+    
+    NSArray *allItems = [self.storage itemsInSection:0];
+    [allItems enumerateObjectsUsingBlock:^(ZZGridCellViewModel *viewModel, NSUInteger idx, BOOL *stop) {
+        if (![viewModel isKindOfClass:[ZZGridCenterCellViewModel class]])
+        {
+            if ([viewModel.item.index isEqual:model.index])
+            {
+                viewModel.item = model;
+                [self.storage reloadItem:viewModel];
+            }
+        }
+    }];
+}
+
 - (void)itemSelectedAtIndexPath:(NSIndexPath*)indexPath
 {
     self.selectedCellViewModel = [self.storage objectAtIndexPath:indexPath];

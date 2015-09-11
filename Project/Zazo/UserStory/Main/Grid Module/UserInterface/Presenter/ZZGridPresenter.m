@@ -57,7 +57,6 @@
 - (void)updateGridData:(NSNotification*)notification
 {
    TBMFriend* updatedFriend = notification.object;
-    
     [self.dataSource updateModelWithFriend:updatedFriend];
 }
 
@@ -135,6 +134,11 @@
             [self showSmsDialogForModel:friendModel];
         }
     });
+}
+
+- (void)updateGridWithModel:(ZZGridDomainModel *)model
+{
+    [self.dataSource updateStorageWithModel:model];
 }
 
 #pragma mark - Module Interface
