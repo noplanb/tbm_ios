@@ -16,11 +16,6 @@
 
 - (void)loadData
 {
-    [[ZZAddressBookDataProvider loadContacts] subscribeNext:^(NSArray *addressBookContactsArray) {
-        
-        [self.output addressBookDataLoaded:addressBookContactsArray];
-    }];
-    
     [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray *array) {
         
         NSArray *friendsArray = [FEMObjectDeserializer deserializeCollectionExternalRepresentation:array
@@ -29,6 +24,16 @@
         
     } error:^(NSError *error) {
         
+    }];
+    
+    [self loadAddressBookContactsWithRequestAccess:NO];
+}
+
+- (void)loadAddressBookContactsWithRequestAccess:(BOOL)shouldRequest
+{
+    [[ZZAddressBookDataProvider loadContactsWithContactsRequest:shouldRequest] subscribeNext:^(NSArray *addressBookContactsArray) {
+        
+        [self.output addressBookDataLoaded:addressBookContactsArray];
     }];
 }
 

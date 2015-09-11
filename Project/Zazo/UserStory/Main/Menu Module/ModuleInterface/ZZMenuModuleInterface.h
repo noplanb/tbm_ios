@@ -9,5 +9,6 @@
 @protocol ZZMenuModuleInterface <NSObject>
 
 - (void)itemSelected:(id)item;
+- (void)menuToggled;
 
 @end
