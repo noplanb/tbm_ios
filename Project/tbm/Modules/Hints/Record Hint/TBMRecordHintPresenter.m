@@ -4,11 +4,9 @@
 //
 
 #import "TBMRecordHintPresenter.h"
-#import "TBMEventsFlowModuleDataSourceInterface.h"
 #import "TBMHintView.h"
 #import "TBMRecordHintView.h"
 #import "TBMPlayHintPresenter.h"
-#import "TBMEventHandlerDataSource.h"
 
 
 @implementation TBMRecordHintPresenter
@@ -20,7 +18,6 @@
     if (self)
     {
         self.dialogView = [TBMRecordHintView new];
-        self.eventHandlerDataSource.persistentStateKey = @"kRecordHintNSUDkey";
     }
     return self;
 }
@@ -30,7 +27,7 @@
     return 900;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event
 {
 
     if (event != TBMEventFlowEventMessageDidStopPlaying
@@ -41,15 +38,15 @@
         return NO;
     }
 
-    return ((![dataSource messageRecordedState]) && ([dataSource friendsCount] == 1));
+    return ((![self.dataSource messageRecordedState]) && ([self.dataSource friendsCount] == 1));
 
 }
 
-- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule
+- (void)present
 {
     if (![self.eventFlowModule isAnyHandlerActive])
     {
-        [super presentWithGridModule:gridModule];
+        [super present];
         [self setupRecordTip];
         [self didPresented];
     }

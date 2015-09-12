@@ -16,7 +16,6 @@
 //TODO: to remove
 #import "TBMRegisterViewController.h"
 #import "TBMHomeViewController.h"
-#import "TBMDependencies.h"
 #import "TBMUser.h"
 #import "TBMS3CredentialsManager.h"
 #import "TBMAppDelegate+Boot.h" // temp
@@ -24,10 +23,12 @@
 #import "ZZStrategyNavigationLeftRight.h"
 #import "ZZEnvelopStrategy.h"
 #import "ZZStartWireframe.h"
+#import "TBMEventsFlowModulePresenter.h"
 
 @interface ZZRootWireframe ()
 
 @property (nonatomic, strong) TBMDependencies* dependencies;
+@property (nonatomic, strong) TBMEventsFlowModulePresenter *eventFlowSystem;
 @property (nonatomic, strong) ZZBaseTouchController* touchController;
 
 @end
@@ -108,16 +109,18 @@
     [wireframe presentSecretControllerFromNavigationController:nc];
 }
 
+- (TBMEventsFlowModulePresenter *)eventFlowSystem
+{
+    if (!_eventFlowSystem)
+    {
+        _eventFlowSystem = [TBMEventsFlowModulePresenter new];
+        //TODO: Event Flow needs to setup gridModule
+    }
+    return _eventFlowSystem;
+}
+
 
 #pragma mark - Private
 
-- (TBMDependencies *)dependecies
-{
-    if (!_dependencies)
-    {
-        _dependencies = [[TBMDependencies alloc] init];
-    }
-    return _dependencies;
-}
 
 @end

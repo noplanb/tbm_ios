@@ -5,5 +5,5 @@
 
 #import "TBMEventHandlerPresenter.h"
 
-@interface TBMDeleteFriendUsageHintPresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandler>
+@interface TBMDeleteFriendUsageHintPresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandlerInterface>
 @end

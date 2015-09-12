@@ -7,7 +7,7 @@
 #import "TBMEventHandlerPresenter.h"
 
 
-@interface TBMPlayHintPresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandler>
+@interface TBMPlayHintPresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandlerInterface>
 /**
  * Custom presentation logic for play and record hint
  */

@@ -7,5 +7,5 @@
 #import "TBMEventHandlerPresenter.h"
 
 
-@interface TBMInviteHintPresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandler>
+@interface TBMInviteHintPresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandlerInterface>
 @end

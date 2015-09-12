@@ -36,6 +36,26 @@ typedef NS_ENUM(NSUInteger, ZZConfigServerState) {
 @property (nonatomic, copy) NSString* userID;
 @property (nonatomic, copy) NSString* authToken;
 
+@property (nonatomic, assign) BOOL abortRecordUsageHintDidShow;
+
+
+@property (nonatomic, assign) BOOL deleteFriendUsageUsageHintDidShow;
+@property (nonatomic, assign) BOOL earpieceUsageUsageHintDidShow;
+@property (nonatomic, assign) BOOL frontCameraUsageUsageHintDidShow;
+@property (nonatomic, assign) BOOL inviteHintDidShow;
+@property (nonatomic, assign) BOOL inviteSomeoneElseKey;
+@property (nonatomic, assign) BOOL playHintDidShow;
+@property (nonatomic, assign) BOOL recordHintDidShow;
+@property (nonatomic, assign) BOOL recordWelcomeHintDidShow;
+@property (nonatomic, assign) BOOL sentHintDidShow;
+@property (nonatomic, assign) BOOL spinUsageUsageUsageHintDidShow;
+@property (nonatomic, assign) BOOL viewedHintDidShow;
+@property (nonatomic, assign) BOOL welcomeHintDidShow;
+
+@property (nonatomic, assign) NSUInteger lastUnlockedFeature;
+
+
+
 + (instancetype)shared;
 
 @end

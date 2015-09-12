@@ -4,10 +4,8 @@
 //
 
 #import "TBMViewedHintPresenter.h"
-#import "TBMEventsFlowModuleDataSourceInterface.h"
 #import "TBMHintView.h"
 #import "TBMViewedHintView.h"
-#import "TBMEventHandlerDataSource.h"
 
 
 @implementation TBMViewedHintPresenter
@@ -19,7 +17,6 @@
     if (self)
     {
         self.dialogView = [TBMViewedHintView new];
-        self.eventHandlerDataSource.persistentStateKey = @"kViewedHintNSUDkey";
     }
     return self;
 }
@@ -29,29 +26,29 @@
     return 500;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event
 {
     if (event != TBMEventFlowEventMessageDidViewed)
     {
         return NO;
     }
 
-    if (dataSource.friendsCount != 1)
+    if (self.dataSource.friendsCount != 1)
     {
         return NO;
     }
 
-    if ([self.eventHandlerDataSource persistentState])
+    if ([self.dataSource persistentStateForHandler:self])
     {
         return NO;
     }
 
-    return ([dataSource unviewedCountForCenterRightBox] > 0);
+    return ([self.dataSource unviewedCountForCenterRightBox] > 0);
 }
 
 - (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule
 {
-    [super presentWithGridModule:gridModule];
+    [super present];
 
     [self dismissAfter:3.f];
 }

@@ -7,5 +7,5 @@
 #import "TBMEventHandlerPresenter.h"
 
 
-@interface TBMSpinUsageHintPresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandler>
+@interface TBMSpinUsageHintPresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandlerInterface>
 @end

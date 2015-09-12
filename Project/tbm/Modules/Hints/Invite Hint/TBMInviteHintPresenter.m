@@ -5,7 +5,6 @@
 
 #import "TBMInviteHintPresenter.h"
 #import "TBMInviteHintView.h"
-#import "TBMEventHandlerDataSource.h"
 
 
 @implementation TBMInviteHintPresenter
@@ -17,7 +16,6 @@
     if (self)
     {
         self.dialogView = [TBMInviteHintView new];
-        self.eventHandlerDataSource.persistentStateKey = @"kInviteHintNSUDkey";
     }
     return self;
 }
@@ -27,14 +25,14 @@
     return 1700;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event
 {
     if (event != TBMEventFlowEventApplicationDidLaunch)
     {
         return NO;
     }
     
-    return ([dataSource friendsCount] == 0);
+    return ([self.dataSource friendsCount] == 0);
 }
 
 @end
