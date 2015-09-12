@@ -159,6 +159,7 @@
     if (!_moviePlayerController)
     {
         _moviePlayerController = [MPMoviePlayerController new];
+        [_moviePlayerController setScalingMode:MPMovieScalingModeFill];
         _moviePlayerController.controlStyle = MPMovieControlStyleNone;
         _moviePlayerController.view.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
         [_moviePlayerController.view addSubview:self.tapButton];
