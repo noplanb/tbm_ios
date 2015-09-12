@@ -16,4 +16,6 @@
 
 - (void)menuWasOpened;
 
+- (CGRect)frameForIndexPath:(NSIndexPath*)indexPath;
+
 @end

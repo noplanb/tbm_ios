@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-@import MessageUI;
-
 #import "ZZGridPresenter.h"
 #import "ZZGridDataSource.h"
 #import "ANMemoryStorage.h"
@@ -52,6 +50,11 @@
                                              selector:@selector(updateGridData:)
                                                  name:kFriendChangeNotification
                                                object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)updateGridData:(NSNotification*)notification

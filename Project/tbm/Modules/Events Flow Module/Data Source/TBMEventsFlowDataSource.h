@@ -1,5 +1,3 @@
-@protocol TBMEventsFlowModuleEventHandlerInterface;
-
 /**
  * Events flow data source - proxy for user defaults
  *
@@ -7,10 +5,11 @@
  * Copyright (c) 2015 No Plan B. All rights reserved.
  */
 
+@protocol TBMEventsFlowModuleEventHandlerInterface;
 
 @interface TBMEventsFlowDataSource : NSObject
 
-- (void)setPersistentState:(BOOL)state forHandler:(id <TBMEventsFlowModuleEventHandlerInterface>)eventHandler;
+- (void)setPersistentState:(BOOL)state forHandler:(id <TBMEventsFlowModuleEventHandlerInterface>)eventHandler; //TODO: update
 - (BOOL)persistentStateForHandler:(id <TBMEventsFlowModuleEventHandlerInterface>)eventHandler;
 
 - (BOOL)messageRecordedState;

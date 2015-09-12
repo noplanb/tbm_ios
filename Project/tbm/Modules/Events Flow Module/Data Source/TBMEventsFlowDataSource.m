@@ -10,41 +10,15 @@
 #import "TBMEventsFlowModuleEventHandlerInterface.h"
 #import "POPAnimatableProperty.h"
 #import "ZZStoredSettingsManager.h"
-
-
-NSString
-// Events state
-        *const kMessagePlayedNSUDkey = @"kMessagePlayedNSUDkey",
-        *const kMessageRecordedNSUDkey = @"kMessageRecordedNSUDkey";
-
+#import "TBMInviteHintPresenter.h"
 
 @interface TBMEventsFlowDataSource ()
-@property(nonatomic, strong) NSDictionary *handlersKeys;
+
+@property(nonatomic, strong) NSDictionary* handlersKeys;
+
 @end
 
 @implementation TBMEventsFlowDataSource
-
-// Viewed at least one mesaage
-- (BOOL)messageEverPlayedState
-{
-    return [[NSNumber loadUserDefaultsObjectForKey:kMessagePlayedNSUDkey] boolValue];
-}
-
-- (void)setMessageEverPlayedState:(BOOL)state
-{
-    [@(state) saveUserDefaultsObjectForKey:kMessagePlayedNSUDkey];
-}
-
-// Recorded at least one mesaage
-- (BOOL)messageRecordedState
-{
-    return [[NSNumber loadUserDefaultsObjectForKey:kMessageRecordedNSUDkey] boolValue];
-}
-
-- (void)setMessageRecordedState:(BOOL)state
-{
-    [@(state) saveUserDefaultsObjectForKey:kMessageRecordedNSUDkey];
-}
 
 //Other useful data
 - (NSUInteger)friendsCount
@@ -76,7 +50,7 @@ NSString
 // Event handler Data Source 
 - (void)setPersistentState:(BOOL)state forHandler:(id <TBMEventsFlowModuleEventHandlerInterface>)eventHandler
 {
-    NSString *handlerClassName = [[eventHandler class] name];
+    NSString *handlerClassName = NSStringFromClass([eventHandler class]);
     id key = self.handlersKeys[handlerClassName];
     if ([key isKindOfClass:[NSString class]])
     {
@@ -88,7 +62,8 @@ NSString
 {
     ZZStoredSettingsManager *manager = [ZZStoredSettingsManager shared];
 
-    if ([key isEqualToString:@"TBMInviteHintPresenter"]) {
+    if ([key isEqualToString:NSStringFromClass([TBMInviteHintPresenter class])])
+    {
         [manager setInviteHintDidShow:state];
     }
 }
@@ -98,16 +73,16 @@ NSString
     return NO;
 }
 
-- (NSDictionary *)handlersKeys
+
+#pragma mark - Private
+
+- (NSDictionary*)handlersKeys
 {
     if (!_handlersKeys)
     {
-        _handlersKeys = @{
-                @"" : @"",
-        };
+        _handlersKeys = @{@"" : @""};
     }
     return _handlersKeys;
 }
-
 
 @end
