@@ -47,46 +47,70 @@
 - (void)updateWithModel:(ZZGridCellViewModel*)model
 {
     ANDispatchBlockToMainQueue(^{
-       
         self.model = model;
-    
-        switch (model.state)
+        if ([self.model.badgeNumber integerValue] > 0)
         {
-//            case ZZGridCellViewModelStateAdd:
-//            {
-//                [self.stateView showDownloadAnimationWithNewVideoCount:1];
-//                
-//            }break;
-            case ZZGridCellViewModelStateFriendHasApp:
+            
+            if (self.model.prevBadgeNumber == self.model.badgeNumber)
             {
-                self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self];
-                
-            } break;
-            case ZZGridCellViewModelStateFriendHasNoApp:
+                [self updateStateViewWithModel:self.model];
+                [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
+            }
+            else
             {
-                self.stateView = [[ZZGridStateViewNudge alloc] initWithPresentedView:self];
-                
-            } break;
-            case ZZGridCellViewModelStateIncomingVideoViewed:
-            case ZZGridCellViewModelStateIncomingVideoNotViewed:
-            case ZZGridCellViewModelStateOutgoingVideo:
-            {
-                self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self];
-                
-            } break;
-            default:
-            {
-                [self.stateView removeFromSuperview];
-                
-            } break;
+                [self updateStateViewWithModel:model];
+                [self showDownloadAnimationWithCompletionBlock:^{
+                    [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
+                    self.model.prevBadgeNumber = self.model.badgeNumber;
+                }];
+            }
+            
         }
-        
-        if (self.stateView)
+        else if (self.model.isUploadedVideoViewed)
         {
-            [self.stateView updateWithModel:self.model];
+            [self updateStateViewWithModel:self.model];
+//            self.stateView
         }
-        
+        else
+        {
+            [self updateStateViewWithModel:model];
+        }
     });
+}
+
+- (void)updateStateViewWithModel:(ZZGridCellViewModel*)model
+{
+    switch (model.state)
+    {
+        case ZZGridCellViewModelStateFriendHasApp:
+        {
+            self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self];
+            
+        } break;
+        case ZZGridCellViewModelStateFriendHasNoApp:
+        {
+            self.stateView = [[ZZGridStateViewNudge alloc] initWithPresentedView:self];
+            
+        } break;
+        case ZZGridCellViewModelStateIncomingVideoViewed:
+        case ZZGridCellViewModelStateIncomingVideoNotViewed:
+        case ZZGridCellViewModelStateOutgoingVideo:
+        {
+            self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self];
+            
+        } break;
+        default:
+        {
+            [self.stateView removeFromSuperview];
+            
+        } break;
+    }
+    
+    if (self.stateView)
+    {
+        [self.stateView updateWithModel:self.model];
+    }
+
 }
 
 
@@ -113,9 +137,14 @@
     [self.stateView showContainFriendAnimation];
 }
 
-- (void)showUploadVideoAnimationWithCount:(NSInteger)count
+- (void)showDownloadVideoAnimationWithCount:(NSInteger)count
 {
     [self.stateView showDownloadAnimationWithNewVideoCount:count];
+}
+
+- (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock
+{
+    [self.stateView showDownloadAnimationWithCompletionBlock:completionBlock];
 }
 
 - (UIImageView*)plusImageView

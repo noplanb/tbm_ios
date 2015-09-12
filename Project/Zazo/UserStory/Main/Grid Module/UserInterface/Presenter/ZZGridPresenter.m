@@ -42,15 +42,21 @@
     
     self.videoPlayer = [ZZVideoPlayer new];
     self.videoPlayer.delegate = self;
-    [self setupNotification];
+    [self _setupNotifications];
     [self.interactor loadData];
 }
 
-- (void)setupNotification
+- (void)_setupNotifications
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateGridData:)
                                                  name:kFriendChangeNotification
+                                               object:nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateGridData:)
+                                                 name:kFriendVideoViewedNotification
                                                object:nil];
 }
 

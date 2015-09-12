@@ -261,17 +261,17 @@ static CGFloat const kTouchOffset = 7;
             [self.initialStorageValue addObject:positionDict[n]];
         }
         
-        [self.storage removeAllItems];
-        [self.storage addItems:self.initialStorageValue];
+        [UIView performWithoutAnimation:^{
+            [self.storage removeAllItems];
+            [self.storage addItems:self.initialStorageValue];
+        }];
         
-        
-        [UIView animateWithDuration:.13 animations:^{
+        [self showMovingCell];
+        [UIView animateWithDuration:.2 animations:^{
             self.grid.alpha = 0.0;
         } completion:^(BOOL finished) {
             self.grid.hidden = YES;
         }];
-        
-        [self showMovingCell];
     }
     
 }
