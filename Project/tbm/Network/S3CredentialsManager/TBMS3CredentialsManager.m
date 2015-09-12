@@ -19,7 +19,7 @@ NSString * const S3_SECRET_KEY = @"TBMS3SecretKey";
 
 @implementation TBMS3CredentialsManager
 
-+ (void) refreshFromServer:(void (^)(BOOL))completionHandler
++ (void)refreshFromServer:(void (^)(BOOL))completionHandler
 {
     OB_INFO(@"getS3Credentials");
     

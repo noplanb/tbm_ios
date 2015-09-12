@@ -14,13 +14,13 @@
 
 #import "DeviceUtil.h"
 #import "TBMUser.h"
-#import "ANEmailWireframe.h"
+#import "ANMessagesWireframe.h"
 
 @interface ZZGridWireframe ()
 
 @property (nonatomic, strong) ZZGridVC* gridController;
 @property (nonatomic, strong) UINavigationController* presentedController;
-@property (nonatomic, strong) ANEmailWireframe* emailWireframe;
+@property (nonatomic, strong) ANMessagesWireframe* emailWireframe;
 
 @end
 
@@ -70,8 +70,26 @@
 
 - (void)presentSendFeedbackWithModel:(ANMessageDomainModel*)model;
 {
-    self.emailWireframe = [ANEmailWireframe new];
+    self.emailWireframe = [ANMessagesWireframe new];
     [self.emailWireframe presentEmailControllerFromViewController:self.gridController withModel:model completion:nil];
+}
+
+- (void)presentSMSDialogWithModel:(ANMessageDomainModel*)model success:(ANCodeBlock)success fail:(ANCodeBlock)fail
+{
+    self.emailWireframe = [ANMessagesWireframe new];
+    [self.emailWireframe presentMessageControllerFromViewController:self.gridController withModel:model completion:^(MessageComposeResult result) {
+        switch (result)
+        {
+            case MessageComposeResultSent:
+            {
+                if (success) success();
+            } break;
+            default:
+            {
+                if (fail) fail();
+            } break;
+        }
+    }];
 }
 
 

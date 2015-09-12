@@ -6,12 +6,10 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-@import MessageUI;
-
-#import "ANEmailWireframe.h"
+#import "ANMessagesWireframe.h"
 #import "ANMessageDomainModel.h"
 
-@interface ANEmailWireframe ()
+@interface ANMessagesWireframe ()
 <
     MFMailComposeViewControllerDelegate,
     MFMessageComposeViewControllerDelegate,
@@ -22,11 +20,14 @@
 
 @end
 
-@implementation ANEmailWireframe
+@implementation ANMessagesWireframe
+
+
+#pragma mark - Emails
 
 - (void)presentEmailControllerFromViewController:(UIViewController*)vc
                                        withModel:(ANMessageDomainModel*)model
-                                      completion:(ANCodeBlock)completion
+                                      completion:(ANEmailComletionBlock)completion
 {
     MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
     [composer setMailComposeDelegate:self];
@@ -75,6 +76,31 @@
         self.completion();
     }
     [controller dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+#pragma mark - Messages
+
+- (void)presentMessageControllerFromViewController:(UIViewController*)vc
+                                         withModel:(ANMessageDomainModel*)model
+                                        completion:(ANMessageCompletionBlock)completion
+{
+    if ([MFMessageComposeViewController canSendText])
+    {
+        MFMessageComposeViewController *mc = [[MFMessageComposeViewController alloc] init];
+        mc.messageComposeDelegate = self;
+        
+//        NSString* formattedNumber = [TBMPhoneUtils phone:friend.mobileNumber withFormat:NBEPhoneNumberFormatE164];
+//        mc.recipients = @[formattedNumber];
+//        NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+//        mc.body = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", appName, kInviteFriendBaseURL, friend.idTbm];
+        
+        [vc presentViewController:mc animated:YES completion:nil];
+    }
+    else
+    {
+        completion(kApplicationCannotSendMessage);
+    }
 }
 
 - (void)messageComposeViewController:(MFMessageComposeViewController*)controller

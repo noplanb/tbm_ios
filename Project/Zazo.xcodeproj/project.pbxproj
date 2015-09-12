@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0732F50C1B8B93D3004FD3AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0732F5041B8B93D3004FD3AF /* InfoPlist.strings */; };
 		0732F5121B8B93D3004FD3AF /* ZazoTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */; };
+		07773C7F1BA3494E007B48C4 /* ZZAlertBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07773C7E1BA3494E007B48C4 /* ZZAlertBuilder.m */; };
+		07773C831BA34BF4007B48C4 /* ZZGridAlertBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07773C821BA34BF4007B48C4 /* ZZGridAlertBuilder.m */; };
 		077FF1BE1BA1ED7400032D4B /* ZZStartInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 077FF1AE1BA1ED7400032D4B /* ZZStartInteractor.m */; };
 		077FF1BF1BA1ED7400032D4B /* ZZStartPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 077FF1B61BA1ED7400032D4B /* ZZStartPresenter.m */; };
 		077FF1C01BA1ED7400032D4B /* ZZStartVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 077FF1B91BA1ED7400032D4B /* ZZStartVC.m */; };
@@ -338,7 +340,7 @@
 		07E3C79E1B9A2C910071CF82 /* mogen.sh in Resources */ = {isa = PBXBuildFile; fileRef = 07E3C6021B9A2C900071CF82 /* mogen.sh */; };
 		07E3C79F1B9A2C910071CF82 /* mogend.sh in Resources */ = {isa = PBXBuildFile; fileRef = 07E3C6031B9A2C900071CF82 /* mogend.sh */; };
 		07E3C7A01B9A2C910071CF82 /* ANImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C6061B9A2C900071CF82 /* ANImageCache.m */; };
-		07E3C7A11B9A2C910071CF82 /* ANEmailWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C6091B9A2C900071CF82 /* ANEmailWireframe.m */; };
+		07E3C7A11B9A2C910071CF82 /* ANMessagesWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C6091B9A2C900071CF82 /* ANMessagesWireframe.m */; };
 		07E3C7A21B9A2C910071CF82 /* ANMessageDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C60B1B9A2C900071CF82 /* ANMessageDomainModel.m */; };
 		07E3C7A31B9A2C910071CF82 /* ANNetworkLoadingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C6111B9A2C900071CF82 /* ANNetworkLoadingVC.m */; };
 		07E3C7A41B9A2C910071CF82 /* ANNetworkLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E3C6141B9A2C900071CF82 /* ANNetworkLoadingView.m */; };
@@ -437,6 +439,10 @@
 		06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Zazo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0732F5051B8B93D3004FD3AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ZazoTests-Info.plist"; sourceTree = "<group>"; };
+		07773C7D1BA3494E007B48C4 /* ZZAlertBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZAlertBuilder.h; path = AlertBuilder/ZZAlertBuilder.h; sourceTree = "<group>"; };
+		07773C7E1BA3494E007B48C4 /* ZZAlertBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZAlertBuilder.m; path = AlertBuilder/ZZAlertBuilder.m; sourceTree = "<group>"; };
+		07773C811BA34BF4007B48C4 /* ZZGridAlertBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZGridAlertBuilder.h; path = AlertBuilder/ZZGridAlertBuilder.h; sourceTree = "<group>"; };
+		07773C821BA34BF4007B48C4 /* ZZGridAlertBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZGridAlertBuilder.m; path = AlertBuilder/ZZGridAlertBuilder.m; sourceTree = "<group>"; };
 		077FF1AD1BA1ED7400032D4B /* ZZStartInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZStartInteractor.h; sourceTree = "<group>"; };
 		077FF1AE1BA1ED7400032D4B /* ZZStartInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZStartInteractor.m; sourceTree = "<group>"; };
 		077FF1AF1BA1ED7400032D4B /* ZZStartInteractorIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZStartInteractorIO.h; sourceTree = "<group>"; };
@@ -1085,8 +1091,8 @@
 		07E3C6031B9A2C900071CF82 /* mogend.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = mogend.sh; sourceTree = "<group>"; };
 		07E3C6051B9A2C900071CF82 /* ANImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANImageCache.h; sourceTree = "<group>"; };
 		07E3C6061B9A2C900071CF82 /* ANImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANImageCache.m; sourceTree = "<group>"; };
-		07E3C6081B9A2C900071CF82 /* ANEmailWireframe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANEmailWireframe.h; sourceTree = "<group>"; };
-		07E3C6091B9A2C900071CF82 /* ANEmailWireframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANEmailWireframe.m; sourceTree = "<group>"; };
+		07E3C6081B9A2C900071CF82 /* ANMessagesWireframe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMessagesWireframe.h; sourceTree = "<group>"; };
+		07E3C6091B9A2C900071CF82 /* ANMessagesWireframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMessagesWireframe.m; sourceTree = "<group>"; };
 		07E3C60A1B9A2C900071CF82 /* ANMessageDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMessageDomainModel.h; sourceTree = "<group>"; };
 		07E3C60B1B9A2C900071CF82 /* ANMessageDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMessageDomainModel.m; sourceTree = "<group>"; };
 		07E3C60D1B9A2C900071CF82 /* ANNetworkLoadingViewInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNetworkLoadingViewInterface.h; sourceTree = "<group>"; };
@@ -1230,6 +1236,24 @@
 			path = ZazoTests;
 			sourceTree = "<group>";
 		};
+		07773C801BA34951007B48C4 /* AlertBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				07773C7D1BA3494E007B48C4 /* ZZAlertBuilder.h */,
+				07773C7E1BA3494E007B48C4 /* ZZAlertBuilder.m */,
+			);
+			name = AlertBuilder;
+			sourceTree = "<group>";
+		};
+		07773C841BA34BF7007B48C4 /* AlertBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				07773C811BA34BF4007B48C4 /* ZZGridAlertBuilder.h */,
+				07773C821BA34BF4007B48C4 /* ZZGridAlertBuilder.m */,
+			);
+			name = AlertBuilder;
+			sourceTree = "<group>";
+		};
 		077FF1AA1BA1ED7400032D4B /* Start Module */ = {
 			isa = PBXGroup;
 			children = (
@@ -1317,6 +1341,8 @@
 		07CBBC2C1B9B1FF90080D300 /* !_OLD */ = {
 			isa = PBXGroup;
 			children = (
+				07E3C3421B9A2C900071CF82 /* State module */,
+				07E3C3371B9A2C900071CF82 /* Secret Screen Module */,
 				07E3C3A51B9A2C900071CF82 /* TPKeyboardAvoiding */,
 				07E3C37A1B9A2C900071CF82 /* TBMMarginLabel.h */,
 				07E3C37B1B9A2C900071CF82 /* TBMMarginLabel.m */,
@@ -1591,8 +1617,6 @@
 				07E3C2E01B9A2C900071CF82 /* Features Unlock Module */,
 				07E3C2EB1B9A2C900071CF82 /* Hints */,
 				07E3C3321B9A2C900071CF82 /* Next Feature Dialog Module */,
-				07E3C3371B9A2C900071CF82 /* Secret Screen Module */,
-				07E3C3421B9A2C900071CF82 /* State module */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1871,7 +1895,8 @@
 				07E3C3401B9A2C900071CF82 /* TBMSecretScreenViewController.h */,
 				07E3C3411B9A2C900071CF82 /* TBMSecretScreenViewController.m */,
 			);
-			path = "Secret Screen Module";
+			name = "Secret Screen Module";
+			path = "Modules/Secret Screen Module";
 			sourceTree = "<group>";
 		};
 		07E3C3421B9A2C900071CF82 /* State module */ = {
@@ -1880,7 +1905,8 @@
 				07E3C3431B9A2C900071CF82 /* Data */,
 				07E3C3521B9A2C900071CF82 /* UI */,
 			);
-			path = "State module";
+			name = "State module";
+			path = "Modules/State module";
 			sourceTree = "<group>";
 		};
 		07E3C3431B9A2C900071CF82 /* Data */ = {
@@ -2542,6 +2568,7 @@
 		07E3C4431B9A2C900071CF82 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				07773C801BA34951007B48C4 /* AlertBuilder */,
 				07E3C4441B9A2C900071CF82 /* AdressBookProvider */,
 				07E3C4471B9A2C900071CF82 /* Assemblies */,
 				07E3C44E1B9A2C900071CF82 /* ColorTheme */,
@@ -3479,6 +3506,7 @@
 		07E3C5671B9A2C900071CF82 /* UserInterface */ = {
 			isa = PBXGroup;
 			children = (
+				07773C841BA34BF7007B48C4 /* AlertBuilder */,
 				07E3C5681B9A2C900071CF82 /* DataSource */,
 				07E3C56B1B9A2C900071CF82 /* Presenter */,
 				07E3C56E1B9A2C900071CF82 /* View */,
@@ -3967,8 +3995,8 @@
 		07E3C6071B9A2C900071CF82 /* ANMessageUIWireframe */ = {
 			isa = PBXGroup;
 			children = (
-				07E3C6081B9A2C900071CF82 /* ANEmailWireframe.h */,
-				07E3C6091B9A2C900071CF82 /* ANEmailWireframe.m */,
+				07E3C6081B9A2C900071CF82 /* ANMessagesWireframe.h */,
+				07E3C6091B9A2C900071CF82 /* ANMessagesWireframe.m */,
 				07E3C60A1B9A2C900071CF82 /* ANMessageDomainModel.h */,
 				07E3C60B1B9A2C900071CF82 /* ANMessageDomainModel.m */,
 			);
@@ -4569,6 +4597,7 @@
 				07E3C7011B9A2C910071CF82 /* ZZErrorHandler.m in Sources */,
 				07E3C6C01B9A2C910071CF82 /* TBMHomeViewController+Invite.m in Sources */,
 				07E3C75B1B9A2C910071CF82 /* ZZSecretValueCell.m in Sources */,
+				07773C831BA34BF4007B48C4 /* ZZGridAlertBuilder.m in Sources */,
 				07E3C6ED1B9A2C910071CF82 /* ZZNetworkTransport.m in Sources */,
 				07E3C65C1B9A2C900071CF82 /* NSArray+TBMArrayHelpers.m in Sources */,
 				07E3C77A1B9A2C910071CF82 /* ZZGridView.m in Sources */,
@@ -4593,7 +4622,7 @@
 				07E3C6BA1B9A2C910071CF82 /* TBMTextField.m in Sources */,
 				07E3C7B71B9A2C910071CF82 /* TOActivitySafari.m in Sources */,
 				07E3C7731B9A2C910071CF82 /* ZZGridStateViewPreview.m in Sources */,
-				07E3C7A11B9A2C910071CF82 /* ANEmailWireframe.m in Sources */,
+				07E3C7A11B9A2C910071CF82 /* ANMessagesWireframe.m in Sources */,
 				07E3C6741B9A2C900071CF82 /* TBMEventsFlowModulePresenter.m in Sources */,
 				07E3C7AF1B9A2C910071CF82 /* ANTableContainerView.m in Sources */,
 				07E3C7801B9A2C910071CF82 /* ZZRotationGestureRecognizer.m in Sources */,
@@ -4626,6 +4655,7 @@
 				07E3C6A71B9A2C910071CF82 /* TBMHttpManager.m in Sources */,
 				7973FDD11BA03ED000A34283 /* ZZInvitationsTransportService.m in Sources */,
 				07E3C75A1B9A2C910071CF82 /* ZZSecretSwitchCellViewModel.m in Sources */,
+				07773C7F1BA3494E007B48C4 /* ZZAlertBuilder.m in Sources */,
 				07E3C66A1B9A2C900071CF82 /* TBMStringUtils.m in Sources */,
 				07E3C7101B9A2C910071CF82 /* ZZVideoUtils.m in Sources */,
 				07E3C74C1B9A2C910071CF82 /* ZZDebugStatePresenter.m in Sources */,
