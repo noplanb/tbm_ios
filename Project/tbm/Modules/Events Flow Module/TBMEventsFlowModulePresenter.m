@@ -21,6 +21,8 @@
 #import "TBMEarpieceUsageHintPresenter.h"
 #import "TBMFeatureUnlockModulePresenter.h"
 #import "TBMNextFeatureDialogPresenter.h"
+#import "TBMVideoRecorder.h"
+#import "ZZVideoRecorder.h"
 
 @interface TBMEventsFlowModulePresenter ()
 
@@ -398,7 +400,7 @@
         nextFeatureDialogPresenter.eventFlowModule = self;
         nextFeatureDialogPresenter.gridModule = self.gridModule;
         nextFeatureDialogPresenter.dataSource = self.dataSource;
-        nextFeatureDialogPresenter.featureUnlockModule =self.featureUnlockModule;
+//        nextFeatureDialogPresenter.featureUnlockModule = self.featureUnlockModule;
         //[nextFeatureDialogPresenter setupInviteSomeOneElseHintModule:self.inviteSomeOneElseHintModule];
         _nextFeatureModule = nextFeatureDialogPresenter;
     }

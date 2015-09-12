@@ -3,7 +3,6 @@
 // Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "TBMEventsFlowModuleEventHandlerInterface.h"
 #import "TBMEventHandlerPresenter.h"
 
@@ -11,14 +10,14 @@
 @protocol TBMFeatureUnlockModuleInterface;
 
 
-@interface TBMNextFeatureDialogPresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandler, TBMDialogViewDelegate>
+@interface TBMNextFeatureDialogPresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandlerInterface, TBMDialogViewDelegate>
 
 /**
  * Home module needs for present bench
  */
 - (void)setupHomeModule:(id <TBMHomeModuleInterface>)homeModule;
 
-- (void)setupInviteSomeOneElseHintModule:(id <TBMEventsFlowModuleEventHandler>)inviteSomeOneElseHintModule;
+- (void)setupInviteSomeOneElseHintModule:(id <TBMEventsFlowModuleEventHandlerInterface>)inviteSomeOneElseHintModule;
 /**
  * Feature unlock  module needs for check locked features
  */

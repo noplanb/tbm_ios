@@ -27,7 +27,6 @@
 
 @interface ZZRootWireframe ()
 
-@property (nonatomic, strong) TBMDependencies* dependencies;
 @property (nonatomic, strong) TBMEventsFlowModulePresenter *eventFlowSystem;
 @property (nonatomic, strong) ZZBaseTouchController* touchController;
 

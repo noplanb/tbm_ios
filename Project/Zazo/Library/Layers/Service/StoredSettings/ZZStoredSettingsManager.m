@@ -16,6 +16,8 @@ static NSString* const kZZShouldUseRollBarSDKEnabledKey = @"kZZShouldUseRollBarS
 static NSString* const kZZHintsDidStartPlayKey = @"kMessagePlayedNSUDkey";
 static NSString* const kZZHintsDidStartRecordKey = @"kMessageRecordedNSUDkey";
 
+static NSString* const kZZUserAuthToken = @"kZZUserAuthToken";
+static NSString* const kZZUserItemID = @"kZZUserItemID";
 
 static NSString *const kAbortRecordUsageHintDidShowKey = @"kAbortRecordUsageHintDidShowKey";
 static NSString *const kDeleteFriendUsageUsageHintDidShowKey = @"kDeleteFriendUsageUsageHintDidShowKey";
@@ -42,6 +44,9 @@ static NSString *const kLastUnlockedFeatureKey = @"kLastUnlockedFeatureKey";
 @dynamic serverEndpointState;
 @dynamic debugModeEnabled;
 
+@dynamic userID;
+@dynamic authToken;
+
 @dynamic hintsDidStartRecord;
 @dynamic hintsDidStartPlay;
 @dynamic deleteFriendUsageUsageHintDidShow;
@@ -56,9 +61,6 @@ static NSString *const kLastUnlockedFeatureKey = @"kLastUnlockedFeatureKey";
 @dynamic spinUsageUsageUsageHintDidShow;
 @dynamic viewedHintDidShow;
 @dynamic welcomeHintDidShow;
-
-@dynamic userID;
-@dynamic authToken;
 
 + (instancetype)shared
 {

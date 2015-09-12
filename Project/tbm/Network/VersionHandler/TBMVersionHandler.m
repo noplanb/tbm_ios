@@ -12,6 +12,7 @@
 #import "NSObject+ANSafeValues.h"
 #import "NSString+ANAdditions.h"
 #import "ZZCommonNetworkTransport.h"
+#import "TBMAlertController.h"
 
 static const NSString *VH_RESULT_KEY = @"result";
 static const NSString *VH_UPDATE_SCHEMA_REQUIRED = @"update_schema_required";
