@@ -50,7 +50,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)loadData
 {
-    NSArray* friends = [ZZFriendDataProvider loadAllFriends];
+    [self.friends addObjectsFromArray:[ZZFriendDataProvider loadAllFriends]];
     
     NSMutableArray* gridModels = [NSMutableArray array];
     for (NSInteger count = 0; count < kGridFriendsCellCount; count++)
@@ -58,9 +58,9 @@ static NSInteger const kGridFriendsCellCount = 8;
         ZZGridDomainModel* model;
         model = [ZZGridDomainModel new];
         model.index = @(count);
-        if (friends.count > count)
+        if (self.friends.count > count)
         {
-            ZZFriendDomainModel *aFriend = friends[count];
+            ZZFriendDomainModel *aFriend = self.friends[count];
             model.relatedUser = aFriend;
         }
         [gridModels addObject:model];
