@@ -10,18 +10,21 @@
 #import "ZZStartInteractor.h"
 #import "ZZStartVC.h"
 #import "ZZStartPresenter.h"
+#import "ZZAuthWireframe.h"
+#import "ZZMenuWireframe.h"
 
 @interface ZZStartWireframe ()
 
 @property (nonatomic, strong) ZZStartPresenter* presenter;
 @property (nonatomic, strong) ZZStartVC* startController;
 @property (nonatomic, strong) UINavigationController* presentedController;
+@property (nonatomic, strong) UIWindow* presentedWindow;
 
 @end
 
 @implementation ZZStartWireframe
 
-- (void)presentStartControllerFromNavigationController:(UINavigationController *)nc
+- (void)presentStartControllerFromWindow:(UIWindow *)window
 {
     ZZStartVC* startController = [ZZStartVC new];
     ZZStartInteractor* interactor = [ZZStartInteractor new];
@@ -33,20 +36,37 @@
     
     presenter.interactor = interactor;
     presenter.wireframe = self;
-    [presenter configurePresenterWithUserInterface:startController];
+    
+    UINavigationController* nc = [UINavigationController new];
+    nc.viewControllers = @[startController];
     
     ANDispatchBlockToMainQueue(^{
-        [nc pushViewController:startController animated:YES];
+        window.rootViewController = nc;
     });
     
     self.presenter = presenter;
     self.presentedController = nc;
     self.startController = startController;
+    self.presentedWindow = window;
+    
+    [presenter configurePresenterWithUserInterface:startController];
 }
 
 - (void)dismissStartController
 {
     [self.presentedController popViewControllerAnimated:YES];
+}
+
+- (void)presentMenuControllerWithGrid
+{
+    ZZMenuWireframe* wireframe = [ZZMenuWireframe new];
+    [wireframe presentMenuControllerFromWindow:self.presentedWindow];
+}
+
+- (void)presentRegistrationController
+{
+    ZZAuthWireframe* wireframe = [ZZAuthWireframe new];
+    [wireframe presentAuthControllerFromWindow:self.presentedWindow];
 }
 
 @end

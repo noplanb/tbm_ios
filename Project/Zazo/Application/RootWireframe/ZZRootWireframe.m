@@ -23,11 +23,9 @@
 #import "ZZTouchControllerWithoutDelay.h"
 #import "ZZStrategyNavigationLeftRight.h"
 #import "ZZEnvelopStrategy.h"
-#import "ZZUserDataProvider.h"
-#import "ZZGridWireframe.h"
-#import "ZZMenuWireframe.h"
+#import "ZZStartWireframe.h"
 
-@interface ZZRootWireframe () //<TBMRegisterViewControllerDelegate> // TODO: temp
+@interface ZZRootWireframe ()
 
 @property (nonatomic, strong) TBMDependencies* dependencies;
 @property (nonatomic, strong) ZZBaseTouchController* touchController;
@@ -45,20 +43,8 @@
     UIViewController* vc = [ANDebugVC new];
     [self showRootController:vc inWindow:window];
 #else
-    
-    ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
-    if (!user.isRegistered)
-    {
-        ZZAuthWireframe* wireframe = [ZZAuthWireframe new];
-        [wireframe presentAuthControllerFromWindow:window];
-    }
-    else
-    {
-//        [self.dependencies setupDependenciesWithHomeViewController:homeVC]; //TODO:
-        ZZMenuWireframe* wireframe = [ZZMenuWireframe new];
-        [wireframe presentMenuControllerFromWindow:window];
-        [self postRegistrationBoot];
-    }
+    ZZStartWireframe* wireframe = [ZZStartWireframe new];
+    [wireframe presentStartControllerFromWindow:window];
     
 #endif
     
@@ -69,14 +55,6 @@
 {
     UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:vc];
     window.rootViewController = nc;
-}
-
-
-#pragma mark - Old // TODO:
-
-- (void)postRegistrationBoot
-{
-    [TBMS3CredentialsManager refreshFromServer:nil];
 }
 
 

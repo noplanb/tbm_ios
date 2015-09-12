@@ -69,6 +69,13 @@ static NSInteger const kGridFriendsCellCount = 8;
     }
     self.gridModels = [gridModels copy];
     [self.output dataLoadedWithArray:self.gridModels];
+//    
+//#pragma mark - Old // TODO:
+//    
+//    - (void)postRegistrationBoot
+//    {
+//        [TBMS3CredentialsManager refreshFromServer:nil];
+//    }
 }
 
 - (void)friendSelectedFromMenu:(ZZFriendDomainModel*)friend isContact:(BOOL)contact

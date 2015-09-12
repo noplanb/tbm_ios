@@ -8,13 +8,14 @@
 
 @protocol ZZStartInteractorInput <NSObject>
 
-
+- (void)checkVersion;
 
 @end
 
 
 @protocol ZZStartInteractorOutput <NSObject>
 
-
+- (void)userRequiresAuthentication;
+- (void)userHasAuthentication;
 
 @end
