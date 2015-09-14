@@ -212,11 +212,16 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     NSString *videoId = [userInfo objectForKey:NOTIFICATION_VIDEO_ID_KEY];
 
     TBMOutgoingVideoStatus outgoingStatus;
-    if ([nstatus isEqual:NOTIFICATION_STATUS_DOWNLOADED]) {
+    if ([nstatus isEqual:NOTIFICATION_STATUS_DOWNLOADED])
+    {
         outgoingStatus = OUTGOING_VIDEO_STATUS_DOWNLOADED;
-    } else if ([nstatus isEqual:NOTIFICATION_STATUS_VIEWED]) {
+    }
+    else if ([nstatus isEqual:NOTIFICATION_STATUS_VIEWED])
+    {
         outgoingStatus = OUTGOING_VIDEO_STATUS_VIEWED;
-    } else {
+    }
+    else
+    {
         OB_ERROR(@"unknown status received in notification");
         return;
     }

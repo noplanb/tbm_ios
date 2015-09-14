@@ -19,6 +19,9 @@
 #import "MagicalRecord.h"
 #import "TBMGridElement.h"
 #import "ZZUserDataProvider.h"
+#import "ZZFriendDataProvider.h"
+#import "ZZUserFriendshipStatusHandler.h"
+#import "ZZFriendDomainModel.h"
 
 @implementation TBMFriend
 
@@ -628,6 +631,16 @@ static NSMutableArray *videoStatusNotificationDelegates;
 
     self.lastVideoStatusEventTypeValue = OUTGOING_VIDEO_STATUS_EVENT_TYPE;
     self.outgoingVideoStatusValue = status;
+    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
+    
+    ZZFriendDomainModel* model = [ZZFriendDataProvider modelFromEntity:self];
+    BOOL shouldVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:model];
+    if (!shouldVisible)
+    {
+        model.contactStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:model];
+        self.friendshipStatus = ZZContactStatusTypeStringFromValue(model.contactStatusValue);
+    }
+
     [self notifyVideoStatusChangeOnMainThread];
 }
 
@@ -654,6 +667,14 @@ static NSMutableArray *videoStatusNotificationDelegates;
         self.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
     }
 
+    ZZFriendDomainModel* model = [ZZFriendDataProvider modelFromEntity:self];
+    BOOL shouldVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:model];
+    if (!shouldVisible)
+    {
+        model.contactStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:model];
+        self.friendshipStatus = ZZContactStatusTypeStringFromValue(model.contactStatusValue);
+    }
+    
     [self notifyVideoStatusChangeOnMainThread];
 }
 
