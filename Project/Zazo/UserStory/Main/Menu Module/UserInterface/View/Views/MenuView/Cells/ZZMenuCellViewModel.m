@@ -9,11 +9,28 @@
 #import "ZZMenuCellViewModel.h"
 #import "NSString+ZZAdditions.h"
 
+static UIImage* ZZPlaceholderImage = nil;
+static UIImage* ZZZazoImage = nil;
+
 @interface ZZMenuCellViewModel ()
 
 @end
 
 @implementation ZZMenuCellViewModel
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            ZZZazoImage = [self _zazoImage];
+            ZZPlaceholderImage = [self _placeHolderImage];
+        });
+    }
+    return self;
+}
 
 + (instancetype)viewModelWithItem:(id<ZZUserInterface>)item
 {
@@ -42,11 +59,11 @@
     {
         if (self.item.hasApp)
         {
-            imageView.image = [self _zazoImage];
+            imageView.image = ZZZazoImage;
         }
         else
         {
-            imageView.image = [self _placeHolderImage];
+            imageView.image = ZZPlaceholderImage;
         }
     }
 }
