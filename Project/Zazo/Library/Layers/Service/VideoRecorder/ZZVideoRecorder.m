@@ -31,7 +31,6 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 
 @interface ZZVideoRecorder () <SCRecorderDelegate>
 
-@property (nonatomic, assign) BOOL didCancelRecording;
 @property (nonatomic, strong) SCRecorder *recorder;
 @property (nonatomic, strong) NSURL* recordVideoUrl;
 @property (nonatomic, strong) TBMVideoProcessor* videoProcessor;

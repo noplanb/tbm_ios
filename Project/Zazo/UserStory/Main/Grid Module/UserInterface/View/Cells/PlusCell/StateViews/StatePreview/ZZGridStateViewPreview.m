@@ -8,6 +8,7 @@
 
 #import "ZZGridStateViewPreview.h"
 #import "ZZGridUIConstants.h"
+#import "ZZVideoRecorder.h"
 
 static CGFloat const kThumbnailSidePadding = 2;
 
@@ -126,9 +127,12 @@ static CGFloat const kThumbnailSidePadding = 2;
     }
     else if (recognizer.state == UIGestureRecognizerStateEnded)
     {
-        self.model.hasUploadedVideo = YES;
+        if (![ZZVideoRecorder shared].didCancelRecording)
+        {
+            self.model.hasUploadedVideo = YES;
+            [self showUploadAnimation];
+        }
         [self.model updateRecordingStateTo:NO];
-        [self showUploadAnimation];
     }
 }
 
