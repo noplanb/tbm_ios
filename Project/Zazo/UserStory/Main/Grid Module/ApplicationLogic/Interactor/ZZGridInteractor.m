@@ -87,7 +87,6 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)friendSelectedFromMenu:(ZZFriendDomainModel*)friend isContact:(BOOL)contact
 {
-    ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
     
     BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friend];
     if (!shouldBeVisible)
@@ -99,7 +98,24 @@ static NSInteger const kGridFriendsCellCount = 8;
                                                           toVisible:!shouldBeVisible] subscribeNext:^(NSDictionary* response) {
         }];
     }
-    model.relatedUser = friend;
+    
+    ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
+    
+    if (ANIsEmpty(model))
+    {
+        NSArray *sortingByLastAction = [NSArray arrayWithArray:self.gridModels];
+        [sortingByLastAction sortedArrayUsingComparator:^NSComparisonResult(ZZGridDomainModel* obj1, ZZGridDomainModel* obj2) {
+            return [obj1.relatedUser.lastActionTimestamp compare:obj2.relatedUser.lastActionTimestamp];
+        }];
+        
+        model = sortingByLastAction[0];
+        model.relatedUser = friend;
+    }
+    else
+    {
+        model.relatedUser = friend;
+    }
+    
     [ZZGridDataProvider upsertModel:model];
     
     if (contact)
