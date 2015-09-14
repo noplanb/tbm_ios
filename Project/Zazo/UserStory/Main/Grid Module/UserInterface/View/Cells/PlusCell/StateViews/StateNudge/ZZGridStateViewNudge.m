@@ -33,6 +33,7 @@
         [self downloadIndicator];
         [self downloadBarView];
         [self videoCountLabel];
+        [self videoViewedView];
     }
     
     return self;

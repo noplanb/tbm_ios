@@ -47,12 +47,12 @@ static NSInteger const kGridCenterCellIndex = 4;
             {
                 cellModel.item.relatedUser = friendModel;
 
-                if ([friendEntity unviewedCount ] > 0)
+                if ([friendEntity unviewedCount] > 0)
                 {
                     cellModel.badgeNumber =  @([friendEntity unviewedCount]);
                 }
                 cellModel.hasUploadedVideo = [friendEntity hasIncomingVideo];
-              
+                cellModel.isUploadedVideoViewed = (friendEntity.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
                 *stop = YES;
             }
         }
@@ -60,7 +60,9 @@ static NSInteger const kGridCenterCellIndex = 4;
     
     if (cellModel)
     {
-        [self.storage reloadItem:cellModel];
+        [UIView performWithoutAnimation:^{
+            [self.storage reloadItem:cellModel];
+        }];
     }
 }
 
@@ -135,8 +137,6 @@ static NSInteger const kGridCenterCellIndex = 4;
 
 - (void)playingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel
 {
-    viewModel.hasUploadedVideo = NO;
-    viewModel.badgeNumber = nil;
     [self.delegate toggleVideoWithViewModel:viewModel toState:isEnabled];
 }
 

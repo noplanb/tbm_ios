@@ -57,6 +57,11 @@
 
 - (void)updateVideoPlayingStateTo:(BOOL)isPlaying
 {
+    if (isPlaying)
+    {
+        self.badgeNumber = nil;
+    }
+    
     [self.delegate playingStateUpdatedToState:isPlaying viewModel:self];
 }
 
@@ -91,6 +96,11 @@
     return [self _generateThumbWithVideoUrl:model.videoURL];
 }
 
+
+- (void)setBadgeNumber:(NSNumber *)badgeNumber
+{
+    _badgeNumber = badgeNumber;
+}
 
 #pragma mark - Private
 
