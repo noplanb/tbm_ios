@@ -62,6 +62,7 @@ static CGFloat const kCodeLableLeftPadding = 3;
     [super layoutSubviews];
     
     self.countryCodeLabel.preferredMaxLayoutWidth = self.phoneCodeTextField.bounds.size.width;
+    _plusLabel.frame = CGRectMake(kCodeLableLeftPadding, 0, 10, self.phoneCodeTextField.height);
 }
 
 - (CGFloat)_textFieldSidePadding
@@ -160,11 +161,11 @@ static CGFloat const kCodeLableLeftPadding = 3;
         _plusLabel.text = @"+";
         _plusLabel.font = [UIFont an_lightFontWithSize:18];
         [self.phoneCodeTextField addSubview:_plusLabel];
-        
-        [_plusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(@(kCodeLableLeftPadding));
-            make.centerY.equalTo(self.phoneCodeTextField);
-        }];
+    
+//        [_plusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(@(kCodeLableLeftPadding));
+//            make.centerY.equalTo(self.phoneCodeTextField);
+//        }];
     }
     return _plusLabel;
 }
