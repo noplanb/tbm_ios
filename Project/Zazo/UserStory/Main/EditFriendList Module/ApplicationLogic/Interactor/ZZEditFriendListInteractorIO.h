@@ -18,7 +18,7 @@
 @protocol ZZEditFriendListInteractorOutput <NSObject>
 
 - (void)dataLoaded:(NSArray *)friends;
-- (void)contactSuccessfullyUpdated:(ZZFriendDomainModel *)model;
+- (void)contactSuccessfullyUpdated:(ZZFriendDomainModel *)model toVisibleState:(BOOL)isVisible;
 - (void)updatedWithError:(NSError *)error;
 
 @end

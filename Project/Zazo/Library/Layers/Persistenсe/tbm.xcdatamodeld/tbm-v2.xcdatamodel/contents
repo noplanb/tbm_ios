@@ -4,6 +4,7 @@
         <attribute name="ckey" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="everSent" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="friendshipStatus" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="hasApp" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="idTbm" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isConnectionCreator" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -40,7 +41,7 @@
         <relationship name="friend" maxCount="1" deletionRule="Nullify" destinationEntity="TBMFriend" inverseName="videos" inverseEntity="TBMFriend" syncable="YES"/>
     </entity>
     <elements>
-        <element name="TBMFriend" positionX="-18" positionY="2" width="128" height="300"/>
+        <element name="TBMFriend" positionX="-18" positionY="2" width="128" height="315"/>
         <element name="TBMGridElement" positionX="-218" positionY="153" width="128" height="75"/>
         <element name="TBMUser" positionX="-218" positionY="-0" width="128" height="165"/>
         <element name="TBMVideo" positionX="171" positionY="-0" width="128" height="103"/>

@@ -131,6 +131,8 @@ static NSMutableArray *videoStatusNotificationDelegates;
     friend.mkey = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_MKEY_KEY]];
     friend.ckey = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_CKEY_KEY]];
     friend.timeOfLastAction = [NSDate date];
+    friend.friendshipStatus = [NSObject an_safeString:params[@"connection_status"]];
+    
     NSString *creatorMkey = params[@"connection_creator_mkey"];
 
     ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];

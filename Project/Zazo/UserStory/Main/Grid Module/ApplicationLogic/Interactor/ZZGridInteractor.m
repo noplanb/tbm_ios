@@ -23,6 +23,7 @@
 #import "FEMObjectDeserializer.h"
 #import "ZZFriendsTransportService.h"
 #import "TBMS3CredentialsManager.h"
+#import "ZZUserFriendshipStatusHandler.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
@@ -79,21 +80,24 @@ static NSInteger const kGridFriendsCellCount = 8;
     }
     self.gridModels = [gridModels copy];
     [self.output dataLoadedWithArray:self.gridModels];
-//    
-//#pragma mark - Old // TODO:
-//    
-//    - (void)postRegistrationBoot
-//    {
-        [TBMS3CredentialsManager refreshFromServer:nil];
-//    }
+    
+    //#pragma mark - Old // TODO:
+    [TBMS3CredentialsManager refreshFromServer:nil];
 }
 
 - (void)friendSelectedFromMenu:(ZZFriendDomainModel*)friend isContact:(BOOL)contact
 {
     ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
-    if (ANIsEmpty(model))
+    
+    BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friend];
+    if (!shouldBeVisible)
     {
+        friend.contactStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friend];
+        [ZZFriendDataProvider upsertFriendWithModel:friend];
         
+        [[ZZFriendsTransportService changeModelContactStatusForUser:friend.mKey
+                                                          toVisible:!shouldBeVisible] subscribeNext:^(NSDictionary* response) {
+        }];
     }
     model.relatedUser = friend;
     [ZZGridDataProvider upsertModel:model];
@@ -104,6 +108,10 @@ static NSInteger const kGridFriendsCellCount = 8;
     }
 }
 
+- (void)removeUserFromContacts:(ZZFriendDomainModel*)model
+{
+    //TODO: replace existing grid friend with nil.
+}
 
 - (void)selectedPlusCellWithModel:(id)model
 {
@@ -194,7 +202,6 @@ static NSInteger const kGridFriendsCellCount = 8;
     {
         [self.output gridContainedFriend:containedUser];
     }
-    
 }
 
 - (ZZFriendDomainModel*)friendModelFromMenuModel:(id)model
