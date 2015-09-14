@@ -36,6 +36,15 @@
     [ZZAlertBuilder presentAlertWithTitle:@"Send a Zazo" details:msg cancelButtonTitle:nil actionButtonTitle:@"OK" action:completion];
 }
 
++ (void)showAlreadyConnectedDialogForUser:(NSString*)userName completion:(ANCodeBlock)completion
+{
+    userName = [NSObject an_safeString:userName];
+    
+    NSString *msg = [NSString stringWithFormat:@"It seems that %@ is already connected with you.\n\nRecord Zazo to Testing now.", userName];
+    
+    [ZZAlertBuilder presentAlertWithTitle:@"Send a Zazo" details:msg cancelButtonTitle:nil actionButtonTitle:@"OK" action:completion];
+}
+
 + (void)showNoValidPhonesDialogForUserWithFirstName:(NSString*)firstName fullName:(NSString*)fullName
 {
     firstName = [NSObject an_safeString:firstName];
