@@ -24,13 +24,11 @@
 - (instancetype)initWithPresentedView:(UIView*)presentedView
 {
     self = [super init];
- 
     if (self)
     {
         self.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
         self.presentedView = presentedView;
     }
-    
     return self;
 }
 
