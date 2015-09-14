@@ -111,7 +111,10 @@
 - (void)gridContainedFriend:(ZZFriendDomainModel*)friendModel
 {
     [self.wireframe closeMenu];
-    [self.userInterface showFriendAnimationWithModel:friendModel];
+    [ZZGridAlertBuilder showAlreadyConnectedDialogForUser:friendModel.firstName completion:^{
+        [self.userInterface showFriendAnimationWithModel:friendModel];
+    }];
+    
 }
 
 - (void)userHasNoValidNumbers:(ZZContactDomainModel*)model;
@@ -199,7 +202,18 @@
 - (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel*)userModel // TODO: check friedn model
 {
     [ZZGridAlertBuilder showPreNudgeAlertWithFriendFirstName:userModel.firstName completion:^{
-//        [self smsDialog]; // TODO: make friendDomain model and present SMSAlert
+        ANMessageDomainModel* model = [ANMessageDomainModel new];
+        NSString* formattedNumber = [TBMPhoneUtils phone:userModel.mobileNumber withFormat:NBEPhoneNumberFormatE164];
+        model.recipients = @[[NSObject an_safeString:formattedNumber]];
+        
+        NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+        model.message = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", appName, kInviteFriendBaseURL, userModel.idTbm];
+        
+        [self.wireframe presentSMSDialogWithModel:model success:^{
+            [self showConnectedDialogForModel:userModel];
+        } fail:^{
+            [self showCantSendSmsErrorForModel:userModel];
+        }];
     }];
 }
 
