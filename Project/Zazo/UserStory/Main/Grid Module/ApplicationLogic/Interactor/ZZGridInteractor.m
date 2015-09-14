@@ -110,7 +110,14 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)removeUserFromContacts:(ZZFriendDomainModel*)model
 {
-    //TODO: replace existing grid friend with nil.
+    [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel* gridModel, NSUInteger idx, BOOL *stop) {
+        if ([gridModel.relatedUser.idTbm isEqualToString:model.idTbm]) {
+            gridModel.relatedUser = nil;
+            [ZZGridDataProvider upsertModel:gridModel];
+            [self.output updateGridWithModel:gridModel];
+            *stop = YES;
+        }
+    }];
 }
 
 - (void)selectedPlusCellWithModel:(id)model
