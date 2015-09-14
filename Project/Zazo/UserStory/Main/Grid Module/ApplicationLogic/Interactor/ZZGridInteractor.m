@@ -103,12 +103,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     
     if (ANIsEmpty(model))
     {
-        NSArray *sortingByLastAction = [NSArray arrayWithArray:self.gridModels];
-        [sortingByLastAction sortedArrayUsingComparator:^NSComparisonResult(ZZGridDomainModel* obj1, ZZGridDomainModel* obj2) {
-            return [obj1.relatedUser.lastActionTimestamp compare:obj2.relatedUser.lastActionTimestamp];
-        }];
-        
-        model = sortingByLastAction[0];
+        model = [self _getGridModelWithLatestAction];
         model.relatedUser = friend;
     }
     else
@@ -317,6 +312,19 @@ static NSInteger const kGridFriendsCellCount = 8;
     } error:^(NSError *error) {
         //TODO: handle Error
     }];
+}
+
+#pragma mark - Privat
+
+- (ZZGridDomainModel*)_getGridModelWithLatestAction
+{
+    NSArray *sortingByLastAction = [NSArray arrayWithArray:self.gridModels];
+    
+    [sortingByLastAction sortedArrayUsingComparator:^NSComparisonResult(ZZGridDomainModel* obj1, ZZGridDomainModel* obj2) {
+        return [obj1.relatedUser.lastActionTimestamp compare:obj2.relatedUser.lastActionTimestamp];
+    }];
+    
+    return sortingByLastAction[0];
 }
 
 @end
