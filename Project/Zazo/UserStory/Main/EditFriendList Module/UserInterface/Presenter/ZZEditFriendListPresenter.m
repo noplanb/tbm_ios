@@ -39,7 +39,7 @@
 
 #pragma mark - Output
 
-- (void)dataLoaded:(NSArray *)friends
+- (void)dataLoaded:(NSArray*)friends
 {
     ANDispatchBlockToMainQueue(^{
         [self.tableDataSource setupStorageWithModels:[self _convertToViewModels:friends]];
@@ -47,10 +47,18 @@
     });
 }
 
-- (void)contactSuccessfullyUpdated:(ZZFriendDomainModel *)model
+- (void)contactSuccessfullyUpdated:(ZZFriendDomainModel *)model toVisibleState:(BOOL)isVisible
 {
     self.selectedViewModel.item = model;
     [self.tableDataSource updateViewModel:self.selectedViewModel];
+    if (isVisible)
+    {
+        // TODO: is it needed.
+    }
+    else
+    {
+        [self.editFriendListModuleDelegate friendRemovedContacts:model];
+    }
 }
 
 - (void)updatedWithError:(NSError *)error

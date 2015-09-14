@@ -65,8 +65,7 @@
                 visible = YES;
             } break;
 
-            default:
-                break;
+            default: break;
         }
     }
     else
@@ -96,13 +95,12 @@
                 visible = YES;
             } break;
                 
-            default:
-                break;
+            default: break;
         }
     }
     
     [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey toVisible:visible] subscribeNext:^(NSDictionary* response) {
-        [self.output contactSuccessfullyUpdated:self.selectedFriendModel];
+        [self.output contactSuccessfullyUpdated:friendModel toVisibleState:visible];
     } error:^(NSError *error) {
         
     }];

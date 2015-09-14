@@ -19,6 +19,9 @@
 #import "MagicalRecord.h"
 #import "TBMGridElement.h"
 #import "ZZUserDataProvider.h"
+#import "ZZFriendDataProvider.h"
+#import "ZZUserFriendshipStatusHandler.h"
+#import "ZZFriendDomainModel.h"
 
 @implementation TBMFriend
 
@@ -131,6 +134,8 @@ static NSMutableArray *videoStatusNotificationDelegates;
     friend.mkey = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_MKEY_KEY]];
     friend.ckey = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_CKEY_KEY]];
     friend.timeOfLastAction = [NSDate date];
+    friend.friendshipStatus = [NSObject an_safeString:params[@"connection_status"]];
+    
     NSString *creatorMkey = params[@"connection_creator_mkey"];
 
     ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
@@ -626,6 +631,16 @@ static NSMutableArray *videoStatusNotificationDelegates;
 
     self.lastVideoStatusEventTypeValue = OUTGOING_VIDEO_STATUS_EVENT_TYPE;
     self.outgoingVideoStatusValue = status;
+    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
+    
+    ZZFriendDomainModel* model = [ZZFriendDataProvider modelFromEntity:self];
+    BOOL shouldVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:model];
+    if (!shouldVisible)
+    {
+        model.contactStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:model];
+        self.friendshipStatus = ZZContactStatusTypeStringFromValue(model.contactStatusValue);
+    }
+
     [self notifyVideoStatusChangeOnMainThread];
 }
 
@@ -652,6 +667,14 @@ static NSMutableArray *videoStatusNotificationDelegates;
         self.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
     }
 
+    ZZFriendDomainModel* model = [ZZFriendDataProvider modelFromEntity:self];
+    BOOL shouldVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:model];
+    if (!shouldVisible)
+    {
+        model.contactStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:model];
+        self.friendshipStatus = ZZContactStatusTypeStringFromValue(model.contactStatusValue);
+    }
+    
     [self notifyVideoStatusChangeOnMainThread];
 }
 

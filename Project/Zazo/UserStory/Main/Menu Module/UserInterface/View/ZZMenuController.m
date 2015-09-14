@@ -55,4 +55,11 @@
     [self.delegate itemSelected:model];
 }
 
+- (void)_performAnimatedUpdate:(ANStorageUpdate*)update
+{
+    ANDispatchBlockToMainQueue(^{
+        [self.tableView reloadData];
+    });
+}
+
 @end

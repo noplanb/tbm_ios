@@ -14,6 +14,7 @@ const struct TBMFriendAttributes TBMFriendAttributes = {
 	.ckey = @"ckey",
 	.everSent = @"everSent",
 	.firstName = @"firstName",
+	.friendshipStatus = @"friendshipStatus",
 	.hasApp = @"hasApp",
 	.idTbm = @"idTbm",
 	.isConnectionCreator = @"isConnectionCreator",
@@ -121,6 +122,8 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
 }
 
 @dynamic firstName;
+
+@dynamic friendshipStatus;
 
 @dynamic hasApp;
 

@@ -35,6 +35,8 @@
     entity.timeOfLastAction = model.lastActionTimestamp;
     entity.uploadRetryCount = @(model.uploadRetryCount);
     
+    entity.friendshipStatus = model.connectionStatus;
+    
     return entity;
 }
 
@@ -59,6 +61,9 @@
         
         model.lastActionTimestamp = entity.timeOfLastAction;
         model.uploadRetryCount = [entity.uploadRetryCount integerValue];
+        
+        model.connectionStatus = entity.friendshipStatus;
+        
         model.videos = [[entity.videos.allObjects.rac_sequence map:^id(TBMVideo* value) {
             ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:value];
             videoModel.relatedUser = model;

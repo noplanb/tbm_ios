@@ -23,6 +23,7 @@
 #import "FEMObjectDeserializer.h"
 #import "ZZFriendsTransportService.h"
 #import "TBMS3CredentialsManager.h"
+#import "ZZUserFriendshipStatusHandler.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
@@ -79,24 +80,43 @@ static NSInteger const kGridFriendsCellCount = 8;
     }
     self.gridModels = [gridModels copy];
     [self.output dataLoadedWithArray:self.gridModels];
-//    
-//#pragma mark - Old // TODO:
-//    
-//    - (void)postRegistrationBoot
-//    {
-        [TBMS3CredentialsManager refreshFromServer:nil];
-//    }
+    
+    //#pragma mark - Old // TODO:
+    [TBMS3CredentialsManager refreshFromServer:nil];
 }
 
 - (void)friendSelectedFromMenu:(ZZFriendDomainModel*)friend isContact:(BOOL)contact
 {
-    //TODO: last loadFirstEmptyGridElement not work!
+    
+    BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friend];
+    if (!shouldBeVisible)
+    {
+        friend.contactStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friend];
+        [ZZFriendDataProvider upsertFriendWithModel:friend];
+        
+        [[ZZFriendsTransportService changeModelContactStatusForUser:friend.mKey
+                                                          toVisible:!shouldBeVisible] subscribeNext:^(NSDictionary* response) {
+        }];
+    }
     
     ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
-    model.relatedUser = friend;
+    
+    if (ANIsEmpty(model))
+    {
+        NSArray *sortingByLastAction = [NSArray arrayWithArray:self.gridModels];
+        [sortingByLastAction sortedArrayUsingComparator:^NSComparisonResult(ZZGridDomainModel* obj1, ZZGridDomainModel* obj2) {
+            return [obj1.relatedUser.lastActionTimestamp compare:obj2.relatedUser.lastActionTimestamp];
+        }];
+        
+        model = sortingByLastAction[0];
+        model.relatedUser = friend;
+    }
+    else
+    {
+        model.relatedUser = friend;
+    }
+    
     [ZZGridDataProvider upsertModel:model];
-
-//    TODO: clean datasource storage before new output?
     
     if (contact)
     {
@@ -104,6 +124,17 @@ static NSInteger const kGridFriendsCellCount = 8;
     }
 }
 
+- (void)removeUserFromContacts:(ZZFriendDomainModel*)model
+{
+    [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel* gridModel, NSUInteger idx, BOOL *stop) {
+        if ([gridModel.relatedUser.idTbm isEqualToString:model.idTbm]) {
+            gridModel.relatedUser = nil;
+            [ZZGridDataProvider upsertModel:gridModel];
+            [self.output updateGridWithModel:gridModel];
+            *stop = YES;
+        }
+    }];
+}
 
 - (void)selectedPlusCellWithModel:(id)model
 {
@@ -162,6 +193,12 @@ static NSInteger const kGridFriendsCellCount = 8;
     [self friendSelectedFromMenu:self.currentFriend isContact:YES];
 }
 
+- (void)updateLastActionForFriend:(ZZFriendDomainModel*)friendModel
+{
+    friendModel.lastActionTimestamp = [NSDate date];
+    [ZZFriendDataProvider upsertFriendWithModel:friendModel];
+}
+
 - (void)loadFeedbackModel
 {
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
@@ -188,7 +225,6 @@ static NSInteger const kGridFriendsCellCount = 8;
     {
         [self.output gridContainedFriend:containedUser];
     }
-    
 }
 
 - (ZZFriendDomainModel*)friendModelFromMenuModel:(id)model
