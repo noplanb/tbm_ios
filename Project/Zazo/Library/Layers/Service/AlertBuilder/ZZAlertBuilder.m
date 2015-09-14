@@ -25,6 +25,11 @@
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:[NSObject an_safeString:title]
                                                                      message:[NSObject an_safeString:details]];
     
+    if (!ANIsEmpty(cancelTitle))
+    {
+        [alert addAction:[SDCAlertAction actionWithTitle:cancelTitle style:SDCAlertActionStyleCancel handler:nil]];
+    }
+    
     if (!ANIsEmpty(actionButtonTitle))
     {
         [alert addAction:[SDCAlertAction actionWithTitle:actionButtonTitle
@@ -33,14 +38,12 @@
             completion();
         }]];
     }
+    
     if (ANIsEmpty(cancelTitle) && ANIsEmpty(actionButtonTitle))
     {
         cancelTitle = @"OK";
     }
-    if (!ANIsEmpty(cancelTitle))
-    {
-        [alert addAction:[SDCAlertAction actionWithTitle:cancelTitle style:SDCAlertActionStyleCancel handler:nil]];
-    }
+
     ANDispatchBlockToMainQueue(^{
        [alert presentWithCompletion:nil];
     });
