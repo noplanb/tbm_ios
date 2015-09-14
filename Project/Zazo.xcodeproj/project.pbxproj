@@ -5118,7 +5118,7 @@
 				);
 				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
 				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "bb194e2d-63e3-40d6-978a-f719bf127deb";
+				PROVISIONING_PROFILE = "a5518245-2340-44e4-9c18-714a2e8ec8a3";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};

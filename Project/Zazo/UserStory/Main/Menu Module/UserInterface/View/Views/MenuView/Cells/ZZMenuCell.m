@@ -50,12 +50,8 @@ static CGFloat const kSeparatorHeight = 1;
     return self;
 }
 
-
-- (void)updateWithModel:(ZZMenuCellViewModel*)model
+- (void)updateConstraints
 {
-    self.username.text = [model username];
-    [model updateImageView:self.photoImageView];
-    
     if (ANIsEmpty(self.photoImageView.image))
     {
         [self.photoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -76,6 +72,16 @@ static CGFloat const kSeparatorHeight = 1;
             make.left.equalTo(self.photoImageView.mas_right).with.offset(10);
         }];
     }
+    
+    [super updateConstraints];
+}
+
+
+- (void)updateWithModel:(ZZMenuCellViewModel*)model
+{
+    self.username.text = [model username];
+    [model updateImageView:self.photoImageView];
+    [self setNeedsUpdateConstraints];
 }
 
 
