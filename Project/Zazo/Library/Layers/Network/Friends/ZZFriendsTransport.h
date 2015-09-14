@@ -10,8 +10,12 @@
 
 + (RACSignal*)loadFriendList;
 + (RACSignal*)loadFriendProfileWithParameters:(NSDictionary*)parameters;
++ (RACSignal*)changeContactVisibilityStatusWithParameters:(NSDictionary*)parameters;
+
+
+#pragma mark - Invitations
 
 + (RACSignal*)checkIsUserHasProfileWithParameters:(NSDictionary*)parameters;
-+ (RACSignal*)changeContactVisibilityStatusWithParameters:(NSDictionary*)parameters;
++ (RACSignal*)inviteUserWithParameters:(NSDictionary*)parameters;
 
 @end

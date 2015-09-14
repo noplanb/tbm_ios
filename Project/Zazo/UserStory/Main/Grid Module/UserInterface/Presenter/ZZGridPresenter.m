@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-@import MessageUI;
-
 #import "ZZGridPresenter.h"
 #import "ZZGridDataSource.h"
 #import "ANMemoryStorage.h"
@@ -60,9 +58,14 @@
                                                object:nil];
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)updateGridData:(NSNotification*)notification
 {
-   TBMFriend* updatedFriend = notification.object;
+    TBMFriend* updatedFriend = notification.object;
     [self.dataSource updateModelWithFriend:updatedFriend];
 }
 
@@ -297,7 +300,7 @@
     [ZZGridAlertBuilder showNoValidPhonesDialogForUserWithFirstName:model.firstName fullName:model.fullName];
 }
 
-- (void)showChooseNumberDialogFromNumbersArray:(NSArray*)array
+- (void)showChooseNumberDialogFromNumbersArray:(NSArray*)array// TODO: move to grid alerts
 {
     //TODO: this alert is SUXX
     ANDispatchBlockToMainQueue(^{

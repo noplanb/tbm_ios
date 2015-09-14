@@ -10,6 +10,7 @@
 #import "ZZFriendsTransport.h"
 #import "NSObject+ANSafeValues.h"
 #import "ZZEditFriendEnumsAdditions.h"
+#import "ZZPhoneHelper.h"
 
 static const struct
 {
@@ -35,6 +36,20 @@ static const struct
     .visibility = @"visibility",
 };
 
+static const struct
+{
+    __unsafe_unretained NSString *phoneNumber;
+    __unsafe_unretained NSString *firstName;
+    __unsafe_unretained NSString *lastName;
+    
+} ZZInvitationsServerParameters =
+{
+    .phoneNumber = @"mobile_number",
+    .firstName = @"first_name",
+    .lastName = @"last_name",
+};
+
+
 @implementation ZZFriendsTransportService
 
 + (RACSignal*)loadFriendList
@@ -55,13 +70,6 @@ static const struct
     return [ZZFriendsTransport loadFriendProfileWithParameters:parameters];
 }
 
-+ (RACSignal*)checkIsUserHasProfileWithPhoneNumber:(NSString*)phoneNumber
-{
-    NSParameterAssert(phoneNumber);
-    NSDictionary* parameters = @{ZZFriendsServerParameters.phoneNumber : [NSObject an_safeString:phoneNumber]};
-    return [ZZFriendsTransport checkIsUserHasProfileWithParameters:parameters];
-}
-
 + (RACSignal *)changeModelContactStatusForUser:(NSString *)userKey toVisible:(BOOL)visible
 {
     NSParameterAssert(userKey);
@@ -73,5 +81,35 @@ static const struct
     
     return [ZZFriendsTransport changeContactVisibilityStatusWithParameters:parameters];
 }
+
+
+#pragma mark - Invitations
+
++ (RACSignal*)checkIsUserHasProfileWithPhoneNumber:(NSString*)phoneNumber
+{
+    NSParameterAssert(phoneNumber);
+    
+    NSString *formattedNumber = [ZZPhoneHelper formatMobileNumberToE164AndServerFormat:phoneNumber];
+    NSDictionary* parameters = @{ZZFriendsServerParameters.phoneNumber : [NSObject an_safeString:formattedNumber]};
+    return [ZZFriendsTransport checkIsUserHasProfileWithParameters:parameters];
+}
+
++ (RACSignal*)inviteUserWithPhoneNumber:(NSString*)phoneNumber
+                              firstName:(NSString*)firstName
+                            andLastName:(NSString*)lastName
+{
+    NSParameterAssert(phoneNumber);
+    NSParameterAssert(firstName);
+    NSParameterAssert(lastName);
+    
+    NSString *formattedNumber = [ZZPhoneHelper formatMobileNumberToE164AndServerFormat:phoneNumber];
+    
+    NSDictionary* parameters = @{ZZInvitationsServerParameters.phoneNumber : [NSObject an_safeString:formattedNumber],
+                                 ZZInvitationsServerParameters.firstName   : [NSObject an_safeString:firstName],
+                                 ZZInvitationsServerParameters.lastName    : [NSObject an_safeString:lastName]};
+    
+    return [ZZFriendsTransport inviteUserWithParameters:parameters];
+}
+
 
 @end

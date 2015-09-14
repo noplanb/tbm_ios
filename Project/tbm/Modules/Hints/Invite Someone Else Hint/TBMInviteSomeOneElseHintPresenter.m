@@ -4,10 +4,8 @@
 //
 
 #import "TBMInviteSomeOneElseHintPresenter.h"
-#import "TBMEventsFlowModuleDataSourceInterface.h"
 #import "TBMHintView.h"
 #import "TBMInviteSomeoneElseHintView.h"
-#import "TBMEventHandlerDataSource.h"
 
 
 @implementation TBMInviteSomeOneElseHintPresenter
@@ -19,7 +17,6 @@
     if (self)
     {
         self.dialogView = [TBMInviteSomeoneElseHintView new];
-        self.eventHandlerDataSource.persistentStateKey = @"kInviteSomeoneElseNSUDkey";
     }
     return self;
 }
@@ -29,7 +26,7 @@
     return 300;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event
 {
     if (event != TBMEventFlowEventMessageDidSend
             && event != TBMEventFlowEventSentHintDidDismiss)
@@ -37,12 +34,12 @@
         return NO;
     }
 
-    if ([self.eventHandlerDataSource sessionState])
+    if ([self sessionState])
     {
         return NO;
     }
 
-    return (([dataSource friendsCount] == 1) && ([dataSource unviewedCount] == 0));
+    return (([self.dataSource friendsCount] == 1) && ([self.dataSource unviewedCount] == 0));
 
 }
 

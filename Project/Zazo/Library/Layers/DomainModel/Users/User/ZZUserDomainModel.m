@@ -43,6 +43,11 @@ const struct ZZUserDomainModelAttributes ZZUserDomainModelAttributes = {
     return nil;
 }
 
+- (BOOL)hasApp
+{
+    return YES;
+}
+
 //TODO: copy-paste from friend class
 - (NSString*)fullName
 {

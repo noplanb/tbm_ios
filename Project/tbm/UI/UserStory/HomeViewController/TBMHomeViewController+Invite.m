@@ -176,8 +176,12 @@
 //-------------
 // Server calls
 //-------------
-- (void)checkFriendHasApp{
+- (void)checkFriendHasApp
+{
     [self startWaitingForServer];
+    
+    
+    
     [[TBMHttpManager manager] GET:@"invitation/has_app"
                         parameters:@{SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY: [self selectedPhoneE164]}
                            success:^(AFHTTPRequestOperation *operation, id responseObject) {

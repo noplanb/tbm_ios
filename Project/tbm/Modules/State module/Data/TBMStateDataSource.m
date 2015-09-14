@@ -7,7 +7,6 @@
 #import "TBMVideo.h"
 #import "TBMFriend.h"
 #import "TBMFriendVideosInformation.h"
-#import "TBMConfig.h"
 #import "TBMVideoObject.h"
 
 NSString *status(TBMOutgoingVideoStatus status);
@@ -70,7 +69,8 @@ BOOL containID(NSString *fileName, NSString *fileId) {
 
 
 - (void)loadVideos {
-    NSURL *videoDirURL = [TBMConfig videosDirectoryUrl];
+    NSURL *videoDirURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
+    
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSArray *contents = [fileManager contentsOfDirectoryAtURL:videoDirURL
                                    includingPropertiesForKeys:@[]

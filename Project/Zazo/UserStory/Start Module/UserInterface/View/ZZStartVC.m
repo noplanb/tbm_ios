@@ -7,16 +7,39 @@
 //
 
 #import "ZZStartVC.h"
+#import "ZZStartView.h"
+#import "UIImage+ANDefault.h"
 
 @interface ZZStartVC ()
+
+@property (nonatomic, strong) ZZStartView* containerView;
 
 @end
 
 @implementation ZZStartVC
 
+- (void)loadView
+{
+    self.view = self.containerView;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.containerView.backgroundImageView.image = [UIImage an_defaultImage];
+}
+
+
+#pragma mark - Private
+
+- (ZZStartView *)containerView
+{
+    if (!_containerView)
+    {
+        _containerView = [ZZStartView new];
+    }
+    return _containerView;
 }
 
 @end

@@ -47,7 +47,6 @@
     CGPoint arrowPoint = CGPointZero;
     TBMHintArrowCurveKind curveKind = [self.arrowKindMatrix[friendIndexInGrid] integerValue];
     CGFloat angle1 = [self.angles1Matrix[friendIndexInGrid] floatValue];
-    CGFloat angle2 = [self.angles2Matrix[friendIndexInGrid] floatValue];
     BOOL button = [self.buttonMatrix[friendIndexInGrid] boolValue];
     self.dismissAfterAction = YES;
     self.framesToCutOut = @[

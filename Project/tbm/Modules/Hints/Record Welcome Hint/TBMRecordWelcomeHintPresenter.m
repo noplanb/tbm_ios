@@ -4,11 +4,9 @@
 //
 
 #import "TBMRecordWelcomeHintPresenter.h"
-#import "TBMEventsFlowModuleDataSourceInterface.h"
 #import "TBMHintView.h"
 #import "TBMRecordWelcomeHintView.h"
 #import "TBMPlayHintPresenter.h"
-#import "TBMEventHandlerDataSource.h"
 
 
 @implementation TBMRecordWelcomeHintPresenter
@@ -20,7 +18,6 @@
     if (self)
     {
         self.dialogView = [TBMRecordWelcomeHintView new];
-        self.eventHandlerDataSource.persistentStateKey = @"kRecordWelcomeHintNSUDkey";
     }
     return self;
 }
@@ -30,7 +27,7 @@
     return 1000;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event
 {
 
     if (event != TBMEventFlowEventFriendDidAdd)
@@ -38,7 +35,7 @@
         return NO;
     }
 
-    return (![dataSource messageRecordedState]);
+    return (![self.dataSource messageRecordedState]);
 
 }
 

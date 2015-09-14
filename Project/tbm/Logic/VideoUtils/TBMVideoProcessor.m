@@ -98,7 +98,9 @@ NSString* const TBMVideoProcessorErrorReason = @"Problem processing video";
 - (NSURL *)generateTempVideoUrl{
     double seconds = [[NSDate date] timeIntervalSince1970];
     NSString *filename =  [NSString stringWithFormat:@"temp_%.0f", seconds * 1000.0];
-    NSURL *url = [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:filename];
+    
+    NSURL* videosURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
+    NSURL *url = [videosURL URLByAppendingPathComponent:filename];
     return [url URLByAppendingPathExtension:@"mov"];
 }
 

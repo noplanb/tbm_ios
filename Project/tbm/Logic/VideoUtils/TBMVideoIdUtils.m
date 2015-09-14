@@ -9,7 +9,6 @@
 #import "TBMVideoIdUtils.h"
 #import "TBMUser.h"
 #import "TBMStringUtils.h"
-#import "TBMConfig.h"
 
 @implementation TBMVideoIdUtils
 
@@ -82,8 +81,10 @@
     return [TBMVideoIdUtils outgoingVideoUrlWithMarker:marker];
 }
 
-+ (NSURL *)outgoingVideoUrlWithMarker:(NSString *)marker{
-    return [[[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:marker] URLByAppendingPathExtension:@"mov"];
++ (NSURL *)outgoingVideoUrlWithMarker:(NSString *)marker
+{
+     NSURL* videosURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
+    return [[videosURL URLByAppendingPathComponent:marker] URLByAppendingPathExtension:@"mov"];
 }
 
 + (NSString *)markerWithOutgoingVideoUrl:(NSURL *)url{

@@ -4,10 +4,8 @@
 //
 
 #import "TBMFrontCameraUsageHintPresenter.h"
-#import "TBMEventsFlowModuleDataSourceInterface.h"
 #import "TBMHintView.h"
 #import "TBMFrontCameraUsageHintView.h"
-#import "TBMEventHandlerDataSource.h"
 
 
 @implementation TBMFrontCameraUsageHintPresenter
@@ -19,7 +17,6 @@
     {
         self.dialogView = [TBMFrontCameraUsageHintView new];
         [self.dialogView setupDialogViewDelegate:self];
-        self.eventHandlerDataSource.persistentStateKey = @"kFrontCameraUsageUsageHintNSUDkey";
     }
     return self;
 }
@@ -29,7 +26,7 @@
     return 1600;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event
 {
     return event == TBMEventFlowEventFrontCameraUnlockDialogDidDismiss;
 }

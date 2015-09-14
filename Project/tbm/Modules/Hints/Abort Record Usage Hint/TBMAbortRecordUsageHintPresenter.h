@@ -5,6 +5,6 @@
 
 #import "TBMEventHandlerPresenter.h"
 
-@interface TBMAbortRecordUsageHintPresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandler>
+@interface TBMAbortRecordUsageHintPresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandlerInterface>
 
 @end

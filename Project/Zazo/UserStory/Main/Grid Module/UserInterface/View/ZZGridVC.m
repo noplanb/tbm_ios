@@ -122,6 +122,12 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
     self.gridView.isRotationEnabled = isEnabled;
 }
 
+- (CGRect)frameForIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell* cell = [self.gridView.collectionView cellForItemAtIndexPath:indexPath];
+    return cell.bounds;
+}
+
 
 #pragma mark - Touch Observer Delegate
 

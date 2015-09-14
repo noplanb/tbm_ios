@@ -10,7 +10,6 @@
 
 #import "TBMAppDelegate.h"
 #import "TBMAppDelegate+PushNotification.h"
-#import "TBMConfig.h"
 #import "TBMVideoIdUtils.h"
 #import "OBLogger.h"
 #import "TBMPhoneUtils.h"
@@ -437,7 +436,8 @@ static NSMutableArray *videoStatusNotificationDelegates;
 - (NSURL *)lastThumbUrl
 {
     NSString *filename = [NSString stringWithFormat:@"lastThumbFromFriend_%@", self.friendDomainModel.idTbm];
-    return [[TBMConfig videosDirectoryUrl] URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"png"]];
+     NSURL* videosURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
+    return [videosURL URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"png"]];
 }
 
 - (UIImage *)lastThumbImage

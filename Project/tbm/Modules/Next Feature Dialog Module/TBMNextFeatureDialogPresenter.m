@@ -6,16 +6,7 @@
 #import "TBMNextFeatureDialogPresenter.h"
 #import "TBMNextFeatureDialogView.h"
 #import "TBMHomeModuleInterface.h"
-#import "TBMEventHandlerDataSource.h"
 #import "TBMFeatureUnlockModuleInterface.h"
-
-@interface TBMNextFeatureDialogPresenter ()
-
-@property(nonatomic, strong) id <TBMHomeModuleInterface> homeModule;
-@property(nonatomic, strong) id <TBMFeatureUnlockModuleInterface> featureUnlockModule;
-@property(nonatomic, strong) id <TBMEventsFlowModuleEventHandler> inviteSomeOneElseHintModule;
-
-@end
 
 @implementation TBMNextFeatureDialogPresenter
 
@@ -27,7 +18,6 @@
     {
         self.dialogView = [TBMNextFeatureDialogView new];
         [self.dialogView setupDialogViewDelegate:self];
-        self.eventHandlerDataSource.persistentStateKey = @""; // it means don't store
     }
     return self;
 }
@@ -37,7 +27,7 @@
     self.homeModule = homeModule;
 }
 
-- (void)setupInviteSomeOneElseHintModule:(id <TBMEventsFlowModuleEventHandler>)inviteSomeOneElseHintModule
+- (void)setupInviteSomeOneElseHintModule:(id <TBMEventsFlowModuleEventHandlerInterface>)inviteSomeOneElseHintModule
 {
     self.inviteSomeOneElseHintModule = inviteSomeOneElseHintModule;
 }
@@ -47,7 +37,7 @@
     self.featureUnlockModule = featureUnlockModule;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event
 {
 
     if (
@@ -59,14 +49,14 @@
         return NO;
     }
 
-    id <TBMEventsFlowModuleEventHandler> someOneElseHintModule = self.inviteSomeOneElseHintModule;
+    id <TBMEventsFlowModuleEventHandlerInterface> someOneElseHintModule = self.inviteSomeOneElseHintModule;
 
-    if (event == TBMEventFlowEventMessageDidSend && [someOneElseHintModule conditionForEvent:TBMEventFlowEventMessageDidSend dataSource:dataSource])
+    if (event == TBMEventFlowEventMessageDidSend && [someOneElseHintModule conditionForEvent:TBMEventFlowEventMessageDidSend])
     {
         return NO;
     }
 
-    if (event == TBMEventFlowEventMessageDidStopPlaying && [someOneElseHintModule conditionForEvent:TBMEventFlowEventMessageDidStopPlaying dataSource:dataSource])
+    if (event == TBMEventFlowEventMessageDidStopPlaying && [someOneElseHintModule conditionForEvent:TBMEventFlowEventMessageDidStopPlaying])
     {
         return NO;
     }

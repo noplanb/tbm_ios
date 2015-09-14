@@ -11,7 +11,15 @@
 + (RACSignal*)loadFriendList;
 + (RACSignal*)loadFriendProfileWithPhone:(NSString*)phone firstName:(NSString*)firstName lastName:(NSString*)lastName;
 
-+ (RACSignal*)checkIsUserHasProfileWithPhoneNumber:(NSString*)phoneNumber;
 + (RACSignal*)changeModelContactStatusForUser:(NSString *)userKey toVisible:(BOOL)visible;
+
+
+#pragma mark - Invitations
+
++ (RACSignal*)checkIsUserHasProfileWithPhoneNumber:(NSString*)phoneNumber;
+
++ (RACSignal*)inviteUserWithPhoneNumber:(NSString*)phoneNumber
+                              firstName:(NSString*)firstName
+                            andLastName:(NSString*)lastName;
 
 @end

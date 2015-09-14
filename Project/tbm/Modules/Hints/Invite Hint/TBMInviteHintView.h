@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TBMHintView.h"
-#import "TBMEventsFlowModuleEventHandler.h"
+#import "TBMEventsFlowModuleEventHandlerInterface.h"
 
 @interface TBMInviteHintView : TBMHintView
 

@@ -67,8 +67,6 @@ static NSString* const kApiNotificationVideoStatusUpdate = @"notification/send_v
 
 #pragma mark - Friends
 
-static NSString* const kApiCheckIsFriendHasApp = @"invitation/has_app";
-
 static NSString* const kApiLoadFriends = @"reg/get_friends";
 static NSString* const kApiLoadFriendProfile = @"invitation/invite";
 static NSString* const kApiUserHapApp = @"invitation/has_app";

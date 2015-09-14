@@ -20,8 +20,8 @@
 #import "ZZFriendDataProvider.h"
 #import "ZZPhoneHelper.h"
 #import "ZZUserDataProvider.h"
-#import "ZZInvitationsTransportService.h"
 #import "FEMObjectDeserializer.h"
+#import "ZZFriendsTransportService.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
@@ -69,6 +69,13 @@ static NSInteger const kGridFriendsCellCount = 8;
     }
     self.gridModels = [gridModels copy];
     [self.output dataLoadedWithArray:self.gridModels];
+//    
+//#pragma mark - Old // TODO:
+//    
+//    - (void)postRegistrationBoot
+//    {
+//        [TBMS3CredentialsManager refreshFromServer:nil];
+//    }
 }
 
 - (void)friendSelectedFromMenu:(ZZFriendDomainModel*)friend isContact:(BOOL)contact
@@ -209,7 +216,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 {
     self.selectedPhoneNumber = phoneNumber;
     
-    [[ZZInvitationsTransportService checkIfAnInvitedUserHasApp:phoneNumber] subscribeNext:^(NSDictionary* responseObject) {
+    [[ZZFriendsTransportService checkIsUserHasProfileWithPhoneNumber:phoneNumber] subscribeNext:^(NSDictionary* responseObject) {
         if ([[responseObject objectForKey:@"has_app"] isEqualToString:@"false"]) //TODO: need model for response object?
         {
             //user has no app
@@ -231,7 +238,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     NSString *firstName = [(ZZContactDomainModel*)self.selectedUserModel firstName];
     NSString *lastName = [(ZZContactDomainModel*)self.selectedUserModel lastName];
     
-    [[ZZInvitationsTransportService inviteUserWithPhoneNumber:self.selectedPhoneNumber firstName:[NSObject an_safeString:firstName] andLastName:[NSObject an_safeString:lastName]] subscribeNext:^(NSDictionary* objectArray) {
+    [[ZZFriendsTransportService inviteUserWithPhoneNumber:self.selectedPhoneNumber firstName:[NSObject an_safeString:firstName] andLastName:[NSObject an_safeString:lastName]] subscribeNext:^(NSDictionary* objectArray) {
         
         ZZFriendDomainModel* friend = [FEMObjectDeserializer deserializeObjectExternalRepresentation:objectArray usingMapping:[ZZFriendDomainModel mapping]];
         self.currentFriend = friend;

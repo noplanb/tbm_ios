@@ -16,20 +16,18 @@
 //TODO: to remove
 #import "TBMRegisterViewController.h"
 #import "TBMHomeViewController.h"
-#import "TBMDependencies.h"
 #import "TBMUser.h"
 #import "TBMS3CredentialsManager.h"
 #import "TBMAppDelegate+Boot.h" // temp
 #import "ZZTouchControllerWithoutDelay.h"
 #import "ZZStrategyNavigationLeftRight.h"
 #import "ZZEnvelopStrategy.h"
-#import "ZZUserDataProvider.h"
-#import "ZZGridWireframe.h"
-#import "ZZMenuWireframe.h"
+#import "ZZStartWireframe.h"
+#import "TBMEventsFlowModulePresenter.h"
 
-@interface ZZRootWireframe () //<TBMRegisterViewControllerDelegate> // TODO: temp
+@interface ZZRootWireframe ()
 
-@property (nonatomic, strong) TBMDependencies* dependencies;
+@property (nonatomic, strong) TBMEventsFlowModulePresenter *eventFlowSystem;
 @property (nonatomic, strong) ZZBaseTouchController* touchController;
 
 @end
@@ -45,20 +43,8 @@
     UIViewController* vc = [ANDebugVC new];
     [self showRootController:vc inWindow:window];
 #else
-    
-    ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
-    if (!user.isRegistered)
-    {
-        ZZAuthWireframe* wireframe = [ZZAuthWireframe new];
-        [wireframe presentAuthControllerFromWindow:window];
-    }
-    else
-    {
-//        [self.dependencies setupDependenciesWithHomeViewController:homeVC]; //TODO:
-        ZZMenuWireframe* wireframe = [ZZMenuWireframe new];
-        [wireframe presentMenuControllerFromWindow:window];
-        [self postRegistrationBoot];
-    }
+    ZZStartWireframe* wireframe = [ZZStartWireframe new];
+    [wireframe presentStartControllerFromWindow:window];
     
 #endif
     
@@ -69,14 +55,6 @@
 {
     UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:vc];
     window.rootViewController = nc;
-}
-
-
-#pragma mark - Old // TODO:
-
-- (void)postRegistrationBoot
-{
-    [TBMS3CredentialsManager refreshFromServer:nil];
 }
 
 
@@ -130,16 +108,18 @@
     [wireframe presentSecretControllerFromNavigationController:nc];
 }
 
+- (TBMEventsFlowModulePresenter *)eventFlowSystem
+{
+    if (!_eventFlowSystem)
+    {
+        _eventFlowSystem = [TBMEventsFlowModulePresenter new];
+        //TODO: Event Flow needs to setup gridModule
+    }
+    return _eventFlowSystem;
+}
+
 
 #pragma mark - Private
 
-- (TBMDependencies *)dependecies
-{
-    if (!_dependencies)
-    {
-        _dependencies = [[TBMDependencies alloc] init];
-    }
-    return _dependencies;
-}
 
 @end

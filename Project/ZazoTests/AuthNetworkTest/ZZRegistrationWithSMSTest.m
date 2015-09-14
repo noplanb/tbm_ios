@@ -35,7 +35,7 @@
 - (void)testRegistrationWithSMS
 {
     // test with actual sms verification code!!!
-    XCTestExpectation* expectation = [self expectationWithDescription:@"registration with sms"];
+//    XCTestExpectation* expectation = [self expectationWithDescription:@"registration with sms"];
 //    [[ZZAccountTransportService registerUserFromModel:self.userModel withVerificationCode:@"9980"] subscribeNext:^(id x) {
 //        
 ////        NSData *cookiesData = [NSKeyedArchiver archivedDataWithRootObject: [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]];

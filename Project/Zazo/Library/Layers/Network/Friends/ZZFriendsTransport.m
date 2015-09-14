@@ -21,14 +21,24 @@
     return [[ZZNetworkTransport shared] requestWithPath:kApiLoadFriendProfile parameters:parameters httpMethod:ANHttpMethodTypeGET];
 }
 
-+ (RACSignal*)checkIsUserHasProfileWithParameters:(NSDictionary*)parameters
-{
-    return [[ZZNetworkTransport shared] requestWithPath:kApiCheckIsFriendHasApp parameters:parameters httpMethod:ANHttpMethodTypeGET];
-}
-
 + (RACSignal*)changeContactVisibilityStatusWithParameters:(NSDictionary*)parameters
 {
     return [[ZZNetworkTransport shared] requestWithPath:kApiChangeFriendVisibilityStatus parameters:parameters httpMethod:ANHttpMethodTypePOST];
+}
+
+
+#pragma mark - Invitations
+
++ (RACSignal*)checkIsUserHasProfileWithParameters:(NSDictionary*)parameters
+{
+    return [[ZZNetworkTransport shared] requestWithPath:kApiUserHapApp parameters:parameters httpMethod:ANHttpMethodTypeGET];
+}
+
++ (RACSignal*)inviteUserWithParameters:(NSDictionary*)parameters
+{
+    return [[ZZNetworkTransport shared] requestWithPath:kApiLoadFriendProfile
+                                             parameters:parameters
+                                             httpMethod:ANHttpMethodTypeGET];
 }
 
 @end

@@ -4,10 +4,8 @@
 //
 
 #import "TBMDeleteFriendUsageHintPresenter.h"
-#import "TBMEventsFlowModuleDataSourceInterface.h"
 #import "TBMHintView.h"
 #import "TBMDeleteFriendUsageHintView.h"
-#import "TBMEventHandlerDataSource.h"
 
 
 @implementation TBMDeleteFriendUsageHintPresenter
@@ -20,7 +18,6 @@
     {
         self.dialogView = [TBMDeleteFriendUsageHintView new];
         [self.dialogView setupDialogViewDelegate:self];
-        self.eventHandlerDataSource.persistentStateKey = @"kDeleteFriendUsageUsageHintNSUDkey";
     }
     return self;
 }
@@ -30,7 +27,7 @@
     return 1400;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event
 {
     return event == TBMEventFlowEventDeleteFriendUnlockDialogDidDismiss;
 }

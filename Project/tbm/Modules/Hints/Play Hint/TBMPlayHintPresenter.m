@@ -4,11 +4,9 @@
 //
 
 #import "TBMPlayHintPresenter.h"
-#import "TBMEventsFlowModuleDataSourceInterface.h"
 #import "TBMHintView.h"
 #import "TBMPlayHintView.h"
 #import "TBMRecordHintPresenter.h"
-#import "TBMEventHandlerDataSource.h"
 
 
 @implementation TBMPlayHintPresenter
@@ -20,7 +18,6 @@
     if (self)
     {
         self.dialogView = [TBMPlayHintView new];
-        self.eventHandlerDataSource.persistentStateKey = @"kPlayHintNSUDkey";
     }
     return self;
 }
@@ -30,8 +27,9 @@
     return 1100;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event
 {
+    
     if (event != TBMEventFlowEventMessageDidReceive
             && event != TBMEventFlowEventMessageDidRecorded
             && event != TBMEventFlowEventApplicationDidLaunch)
@@ -44,17 +42,18 @@
         return NO;
     }
 
-    if ([self.eventHandlerDataSource sessionState])
+    if ([self sessionState])
     {
         return NO;
     }
 
+    TBMEventsFlowDataSource *dataSource = self.dataSource;
     if ([dataSource unviewedCount] <= 0)
     {
         return NO;
     }
 
-    return ((![dataSource messagePlayedState]) && ([dataSource friendsCount] == 1));
+    return ((![dataSource messageEverPlayedState]) && ([dataSource friendsCount] == 1));
 
 }
 
@@ -62,7 +61,7 @@
 {
     if (![self.eventFlowModule isAnyHandlerActive])
     {
-        [super presentWithGridModule:gridModule];
+        [super present];
         [self setupPlayTip];
         [self didPresented];
     } else if ([[self.eventFlowModule currentHandler] respondsToSelector:@selector(addPlayHint)])

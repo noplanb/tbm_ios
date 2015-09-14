@@ -19,7 +19,6 @@
 #import "ANMessageDomainModel.h"
 #import "DeviceUtil.h"
 #import "TBMUser.h"
-#import "TBMDependencies.h"
 
 typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
 {
@@ -46,7 +45,6 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
 @property(nonatomic, strong) TBMSecretScreenPresenter *secretScreen;
 @property(nonatomic, strong) id <TBMEventsFlowModuleInterface> eventsFlowModule;
 
-@property(nonatomic, strong) TBMDependencies *dependencies;
 @end
 
 @implementation TBMHomeViewController
@@ -60,8 +58,11 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
 
 #pragma mark - Lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    OB_INFO(@"TBMHomeViewController: viewDidLoad");
+
+    //TODO: Event Flow setup point check for type
+    [self.eventsFlowModule setupGridModule:self];
     [super viewDidLoad];
     OB_INFO(@"TBMHomeViewController: viewDidLoad");
 //    [[self.dependencies setupDependenciesWithHomeViewController:self];
@@ -189,94 +190,7 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
 //    }
 //}
 
-#pragma mark - Instantiation
-//static TBMHomeViewController *hvcInstance;
-//+ (TBMHomeViewController *)existingInstance {
-//    return hvcInstance;
-//}
-//
-//- (UIView *)headerView {
-//    if (!_headerView) {
-//        _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), kLayoutHeaderheight)];
-//        _headerView.backgroundColor = [UIColor colorWithHexString:@"1B1B19" alpha:1];
-//
-//        [_headerView addSubview:self.logoView];
-//        [_headerView bringSubviewToFront:self.logoView];
-//
-//        [_headerView addSubview:self.menuButton];
-//        [_headerView bringSubviewToFront:self.menuButton];
-//
-//        [_headerView addSubview:self.editFriendsButton];
-//        [_headerView bringSubviewToFront:self.editFriendsButton];
-//
-//        [self.view addSubview:_headerView];
-//    }
-//    return _headerView;
-//}
-//
-//- (UIView *)logoView {
-//    if (!_logoView) {
-//        UIImage *logoImage = [UIImage imageNamed:@"zazo-type"];
-//        CGFloat logoAspect = logoImage.size.width / logoImage.size.height;
-//        CGFloat top = (kLayoutHeaderheight - kLayoutLogoHeight) / 2;
-//        CGRect frame = CGRectMake(kLayoutGutter, top, logoAspect * kLayoutLogoHeight, kLayoutLogoHeight);
-//        _logoView = [[UIView alloc] initWithFrame:frame];
-//
-//        UIImageView *logoImageView = [[UIImageView alloc] initWithImage:logoImage];
-//        logoImageView.frame = _logoView.bounds;
-//        [_logoView addSubview:logoImageView];
-//        _logoView.userInteractionEnabled = YES;
-//    }
-//    return _logoView;
-//}
-//
-//- (UIView *)menuButton {
-//    if (!_menuButton) {
-//
-//        //Prepare menu button
-//        CGFloat buttonSize = CGRectGetHeight(self.headerView.bounds);
-//        CGFloat x = CGRectGetMaxX(self.headerView.bounds) - (buttonSize * 3);
-//        CGFloat y = CGRectGetMinY(self.headerView.bounds);
-//
-//        CGRect frame = CGRectMake(x, y, buttonSize * 2, buttonSize);
-//        _menuButton = [[UIView alloc] initWithFrame:frame];
-//
-//        //Prepare image
-//        UIImage *image = [UIImage imageNamed:@"icon-drawer"];
-//        UIImageView *icon = [[UIImageView alloc] initWithImage:image];
-//
-//        CGFloat imageAspectRatio = image.size.width / image.size.height;
-//        CGFloat iconSize = imageAspectRatio * kLayoutBenchIconHeight;
-//        CGFloat iconX = CGRectGetMaxX(_menuButton.bounds) - (iconSize) - kLayoutGutter;
-//        CGFloat iconY = (CGRectGetHeight(_menuButton.bounds) / 2) - (kLayoutBenchIconHeight / 2);
-//        CGRect iconFrame = CGRectMake(iconX, iconY, iconSize, kLayoutBenchIconHeight);
-//        icon.frame = iconFrame;
-//        [_menuButton addSubview:icon];
-//
-//        _menuButton.userInteractionEnabled = YES;
-//        [_menuButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(menuButtonTaped:)]];
-//    }
-//    return _menuButton;
-//}
-
-//- (UIButton *)editFriendsButton
-//{
-//    if (!_editFriendsButton)
-//    {
-//        _editFriendsButton = [UIButton new];
-//        [_editFriendsButton setImage:[UIImage imageNamed:@"icon_menu_dots"] forState:UIControlStateNormal];
-//        [_editFriendsButton addTarget:self action:@selector(editFriendButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-//        [self.headerView addSubview:_editFriendsButton];
-//
-//        [_editFriendsButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.top.bottom.right.equalTo(self.headerView);
-//            make.width.equalTo(@55);
-//        }];
-//    }
-//
-//    return _editFriendsButton;
-//}
-
+#pragma mark - UIActionSheetDelegate
 
 //- (void)menuButtonTaped:(id)sender {
 //    [self.benchViewController toggle];

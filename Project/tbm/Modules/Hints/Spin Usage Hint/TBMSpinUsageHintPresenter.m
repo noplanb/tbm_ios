@@ -4,9 +4,7 @@
 //
 
 #import "TBMSpinUsageHintPresenter.h"
-#import "TBMEventsFlowModuleDataSourceInterface.h"
 #import "TBMHintView.h"
-#import "TBMEventHandlerDataSource.h"
 #import "TBMSpinUsageHintView.h"
 
 
@@ -19,7 +17,6 @@
     {
         self.dialogView = [TBMSpinUsageHintView new];
         [self.dialogView setupDialogViewDelegate:self];
-        self.eventHandlerDataSource.persistentStateKey = @"kSpinUsageUsageUsageHintNSUDkey";
     }
     return self;
 }
@@ -29,7 +26,7 @@
     return 1200;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event
 {
     return (event == TBMEventFlowEventSpinUnlockDialogDidDismiss);
 }

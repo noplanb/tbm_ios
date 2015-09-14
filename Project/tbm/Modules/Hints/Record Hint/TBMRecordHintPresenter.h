@@ -7,6 +7,6 @@
 #import "TBMEventHandlerPresenter.h"
 
 
-@interface TBMRecordHintPresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandler>
+@interface TBMRecordHintPresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandlerInterface>
 - (void)addPlayHint;
 @end

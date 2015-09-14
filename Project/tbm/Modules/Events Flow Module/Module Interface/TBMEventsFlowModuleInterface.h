@@ -1,4 +1,6 @@
 //
+// Events Flow and handlers system is responsive for handle user-flow events
+//
 // Created by Maksim Bazarov on 10/06/15.
 // Copyright (c) 2015 No Plan B. All rights reserved.
 //
@@ -6,7 +8,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol TBMGridModuleInterface;
-@protocol TBMEventsFlowModuleEventHandler;
+@protocol TBMEventsFlowModuleEventHandlerInterface;
 
 
 /**
@@ -66,11 +68,6 @@ typedef NS_ENUM(NSInteger, TBMEventFlowEvent)
 - (void)resetHintsState;
 
 /**
- * Add an event handler e.g. hint, dialog etc.
- */
-- (void)addEventHandler:(id <TBMEventsFlowModuleEventHandler>)eventHandler;
-
-/**
  * Events happens
  *
  * Parent modules send signals about application state and flow
@@ -80,6 +77,6 @@ typedef NS_ENUM(NSInteger, TBMEventFlowEvent)
 - (BOOL)isRecording;
 
 // Event handler
-- (id <TBMEventsFlowModuleEventHandler>)currentHandler;
-- (void)setupCurrentHandler:(id <TBMEventsFlowModuleEventHandler>)eventHandler;
+- (id <TBMEventsFlowModuleEventHandlerInterface>)currentHandler;
+- (void)setupCurrentHandler:(id <TBMEventsFlowModuleEventHandlerInterface>)eventHandler;
 @end

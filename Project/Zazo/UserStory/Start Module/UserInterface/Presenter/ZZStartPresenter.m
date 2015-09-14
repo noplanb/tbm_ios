@@ -17,11 +17,20 @@
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZStartViewInterface>*)userInterface
 {
     self.userInterface = userInterface;
+    [self.interactor checkVersion];
 }
 
 #pragma mark - Output
 
+- (void)userRequiresAuthentication
+{
+    [self.wireframe presentRegistrationController];
+}
 
+- (void)userHasAuthentication
+{
+    [self.wireframe presentMenuControllerWithGrid];
+}
 
 
 #pragma mark - Module Interface

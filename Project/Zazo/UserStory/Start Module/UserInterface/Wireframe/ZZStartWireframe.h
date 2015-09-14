@@ -8,7 +8,14 @@
 
 @interface ZZStartWireframe : NSObject
 
+- (void)presentStartControllerFromWindow:(UIWindow*)window;
 - (void)presentStartControllerFromNavigationController:(UINavigationController*)nc;
 - (void)dismissStartController;
+
+
+#pragma mark - Details
+
+- (void)presentMenuControllerWithGrid;
+- (void)presentRegistrationController;
 
 @end

@@ -4,10 +4,8 @@
 //
 
 #import "TBMSentHintPresenter.h"
-#import "TBMEventsFlowModuleDataSourceInterface.h"
 #import "TBMHintView.h"
 #import "TBMSentHintView.h"
-#import "TBMEventHandlerDataSource.h"
 
 
 @implementation TBMSentHintPresenter
@@ -20,7 +18,6 @@
     {
         self.dialogView = [TBMSentHintView new];
         [self.dialogView setupDialogViewDelegate:self];
-        self.eventHandlerDataSource.persistentStateKey = @"kSentHintNSUDkey";
     }
     return self;
 }
@@ -30,25 +27,25 @@
     return 600;
 }
 
-- (BOOL)conditionForEvent:(TBMEventFlowEvent)event dataSource:(id <TBMEventsFlowModuleDataSourceInterface>)dataSource
+- (BOOL)conditionForEvent:(TBMEventFlowEvent)event
 {
     if (event != TBMEventFlowEventMessageDidSend)
     {
         return NO;
     }
 
-    if (![dataSource hasSentVideos:0])
+    if (![self.dataSource hasSentVideos:0])
     {
         return NO;
     }
 
-    return (([dataSource friendsCount] == 1) && (![self.eventHandlerDataSource persistentState]));
+    return (([self.dataSource friendsCount] == 1) && (![self.dataSource persistentStateForHandler:self]));
 
 }
 
 - (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule
 {
-    [super presentWithGridModule:gridModule];
+    [super present];
 
     [self dismissAfter:3.f];
 }
