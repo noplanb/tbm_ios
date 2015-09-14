@@ -14,5 +14,6 @@
 - (void)showContainFriendAnimation;
 - (void)showDownloadVideoAnimationWithCount:(NSInteger)count;
 - (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock;
+- (void)hideAllAnimations;
 
 @end

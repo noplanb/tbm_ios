@@ -11,6 +11,7 @@
 #import "ZZVideoPlayer.h"
 #import "ZZGridUIConstants.h"
 #import "UIImage+PDF.h"
+#import "ZZVideoRecorder.h"
 
 @interface ZZGridStateView ()
 
@@ -49,6 +50,16 @@
     }
 }
 
+
+- (void)checkIsCancelRecordingWithRecognizer:(UILongPressGestureRecognizer*)recognizer
+{
+    UIView* recordView = recognizer.view;
+    CGPoint location = [recognizer locationInView:recordView];
+    if (!CGRectContainsPoint(recordView.frame,location))
+    {
+        [[ZZVideoRecorder shared] cancelRecordingWithReason:NSLocalizedString(@"record-dragged-finger-away", nil)];
+    }
+}
 
 #pragma mark - Animation Views
 

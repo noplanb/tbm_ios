@@ -126,4 +126,7 @@
 //Record Notifications
 "record-problem-recording" = "Problem recording video";
 "record-video-too-short" = "Video too short";
+"record-two-fingers-touch" = "Two finger touch";
+"record-dragged-finger-away" = "Dragged finger away";
+
 

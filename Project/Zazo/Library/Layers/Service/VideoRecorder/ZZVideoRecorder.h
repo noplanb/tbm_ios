@@ -24,5 +24,6 @@ extern NSString* const TBMVideoRecorderDidFail;
 
 - (BOOL)areBothCamerasAvailable;
 - (void)switchCamera;
+- (void)cancelRecordingWithReason:(NSString*)reason;
 
 @end

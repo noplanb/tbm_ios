@@ -117,6 +117,9 @@ static CGFloat const kThumbnailSidePadding = 2;
 
 - (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer
 {
+    
+    [self checkIsCancelRecordingWithRecognizer:recognizer];
+    
     if (recognizer.state == UIGestureRecognizerStateBegan)
     {
         [self.model updateRecordingStateTo:YES];
