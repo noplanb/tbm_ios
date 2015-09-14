@@ -91,10 +91,12 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (void)friendSelectedFromMenu:(ZZFriendDomainModel*)friend isContact:(BOOL)contact
 {
     ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
+    if (ANIsEmpty(model))
+    {
+        
+    }
     model.relatedUser = friend;
     [ZZGridDataProvider upsertModel:model];
-
-//    TODO: clean datasource storage before new output?
     
     if (contact)
     {

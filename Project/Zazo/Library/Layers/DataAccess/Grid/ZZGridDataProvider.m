@@ -108,6 +108,10 @@
                                                inContext:[self _context]];
     
     TBMGridElement* entity = [result firstObject];
+    if (!entity)
+    {
+        return nil;
+    }
     return [self modelFromEntity:entity];
 }
 
