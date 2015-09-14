@@ -8,6 +8,7 @@
 
 #import "ZZGridStateViewRecord.h"
 #import "ZZGridUIConstants.h"
+#import "ZZVideoRecorder.h"
 
 @interface ZZGridStateViewRecord ()
 
@@ -48,15 +49,20 @@
 
 - (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer
 {
+    [self checkIsCancelRecordingWithRecognizer:recognizer];
+    
     if (recognizer.state == UIGestureRecognizerStateBegan)
     {
         [self.model updateRecordingStateTo:YES];
     }
     else if (recognizer.state == UIGestureRecognizerStateEnded)
     {
-        self.model.hasUploadedVideo = YES;
+        if (![ZZVideoRecorder shared].didCancelRecording)
+        {
+            self.model.hasUploadedVideo = YES;
+            [self showUploadAnimation];
+        }
         [self.model updateRecordingStateTo:NO];
-        [self showUploadAnimation];
     }
 }
 

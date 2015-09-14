@@ -15,6 +15,8 @@ extern NSString* const TBMVideoRecorderShouldStartRecording;
 extern NSString* const TBMVideoRecorderDidCancelRecording;
 extern NSString* const TBMVideoRecorderDidFail;
 
+@property (nonatomic, assign) BOOL didCancelRecording;
+
 + (instancetype)shared;
 
 - (void)updateRecordView:(UIView*)recordView;
@@ -24,5 +26,6 @@ extern NSString* const TBMVideoRecorderDidFail;
 
 - (BOOL)areBothCamerasAvailable;
 - (void)switchCamera;
+- (void)cancelRecordingWithReason:(NSString*)reason;
 
 @end

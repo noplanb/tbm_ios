@@ -31,7 +31,6 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 
 @interface ZZVideoRecorder () <SCRecorderDelegate>
 
-@property (nonatomic, assign) BOOL didCancelRecording;
 @property (nonatomic, strong) SCRecorder *recorder;
 @property (nonatomic, strong) NSURL* recordVideoUrl;
 @property (nonatomic, strong) TBMVideoProcessor* videoProcessor;
@@ -70,8 +69,29 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
         self.recorder.session = [SCRecordSession recordSession];
         
         [self.recorder startRunning];
+        
     }
     return self;
+}
+
+- (void)startTouchObserve
+{
+    UIWindow* window = [UIApplication sharedApplication].keyWindow;
+    [[window rac_signalForSelector:@selector(sendEvent:)] subscribeNext:^(RACTuple *touches) {
+        for (id event in touches)
+        {
+            NSSet* touches = [event allTouches];
+            [self handleTouches:touches];
+        };
+    }];
+}
+
+- (void)handleTouches:(NSSet*)touches
+{
+    if ([[touches allObjects] count] > 1)
+    {
+        [self cancelRecordingWithReason:NSLocalizedString(@"record-two-fingers-touch", nil)];
+    }
 }
 
 - (BOOL)areBothCamerasAvailable
@@ -100,11 +120,11 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 
 - (void)startRecordingWithVideoURL:(NSURL*)url
 {
+    self.didCancelRecording = NO;
+    [self startTouchObserve];
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
-    
     [self _startRecordingWithVideoUrl:url];
     [self.recorder.session removeAllSegments];
-    
     [self.recorder record];
 }
 
@@ -114,9 +134,15 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 - (void)_startRecordingWithVideoUrl:(NSURL *)videoUrl
 {
     self.recordVideoUrl = videoUrl;
-    self.didCancelRecording = NO;
-    
     [[NSFileManager defaultManager] removeItemAtURL:videoUrl error:nil];
+}
+
+#pragma mark - Cancel Recording
+
+- (void)cancelRecordingWithReason:(NSString*)reason
+{
+    self.didCancelRecording = YES;
+    [self showMessage:reason];
 }
 
 #pragma mark - Stop Recording
@@ -129,7 +155,6 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 - (void)recorder:(SCRecorder*)recorder didCompleteSegment:(SCRecordSessionSegment*)segment
        inSession:(SCRecordSession*)recordSession error:(NSError*)error
 {
-    
     if (error)
     {
         [self showMessage:NSLocalizedString(@"record-problem-recording", nil)];
@@ -143,6 +168,7 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 
 - (void)recordVideoToFileWithRecordSession:(SCRecordSession*)recordSession
 {
+    
     [recordSession mergeSegmentsUsingPreset:AVAssetExportPresetHighestQuality completionHandler:^(NSURL *url, NSError *error) {
         if (error == nil)
         {
@@ -150,6 +176,10 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
             if ([self isVideoShort:url])
             {
                 [self showMessage:NSLocalizedString(@"record-video-too-short", nil)];
+                [[NSFileManager defaultManager] removeItemAtPath:[url path] error:nil];
+            }
+            else if (self.didCancelRecording)
+            {
                 [[NSFileManager defaultManager] removeItemAtPath:[url path] error:nil];
             }
             else

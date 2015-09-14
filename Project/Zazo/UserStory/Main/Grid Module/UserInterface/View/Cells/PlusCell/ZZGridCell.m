@@ -165,4 +165,9 @@
     return _plusImageView;
 }
 
+- (void)hideAllAnimations
+{
+    [self.stateView hideAllAnimationViews];
+}
+
 @end
