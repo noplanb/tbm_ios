@@ -134,7 +134,7 @@
                                                                                             action:@selector(_recordPressed:)];
         press.minimumPressDuration = .5;
         
-        [_recordView addGestureRecognizer:press];
+        [self addGestureRecognizer:press];
         [self addSubview:_recordView];
         
         [_recordView mas_makeConstraints:^(MASConstraintMaker *make) {
