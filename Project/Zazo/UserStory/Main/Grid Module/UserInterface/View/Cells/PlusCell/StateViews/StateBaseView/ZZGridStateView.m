@@ -45,7 +45,7 @@
     if (self.model.isUploadedVideoViewed)
     {
         [self hideAllAnimationViews];
-        self.videoViewedView.hidden = YES;
+        self.videoViewedView.hidden = NO;
     }
 }
 

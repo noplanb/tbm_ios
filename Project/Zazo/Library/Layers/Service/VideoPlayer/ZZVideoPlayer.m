@@ -51,7 +51,7 @@
     self.videoModelsArray = URLs;
     if (view != self.moviePlayerController.view.superview && view)
     {
-        
+    
         self.moviePlayerController.view.frame = view.bounds;
         [view addSubview:self.moviePlayerController.view];
         [view bringSubviewToFront:self.moviePlayerController.view];
@@ -74,15 +74,19 @@
         viewedVideo.status = @(INCOMING_VIDEO_STATUS_VIEWED);
         [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
         self.moviePlayerController.contentURL = firstVideoUrl;
-        self.isPlayingVideo = YES;
+       
         
+        [self.moviePlayerController play];
+       
+        
+        self.isPlayingVideo = YES;
         TBMFriend* friend = [ZZFriendDataProvider entityFromModel:playedVideoModel.relatedUser];
         [friend setViewedWithIncomingVideo:viewedVideo];
         [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
                                                       videoId:viewedVideo.videoId
                                                        friend:friend];
         
-        [self.moviePlayerController play];
+        
         
     }
 }
