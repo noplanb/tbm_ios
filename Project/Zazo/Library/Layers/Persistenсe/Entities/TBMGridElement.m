@@ -39,7 +39,7 @@
 
 + (NSManagedObjectContext*)_context
 {
-    return [NSManagedObjectContext MR_context];
+    return [NSManagedObjectContext MR_rootSavingContext];
 }
 
 
