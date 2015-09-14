@@ -30,4 +30,9 @@
     return NO;
 }
 
+- (ZZMenuContactType)contactType
+{
+    return ZZMenuContactTypeAddressbook;
+}
+
 @end

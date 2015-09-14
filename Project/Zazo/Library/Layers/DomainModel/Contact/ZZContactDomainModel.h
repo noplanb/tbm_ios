@@ -8,6 +8,7 @@
 
 #import "ANBaseDomainModel.h"
 #import "ZZUserInterface.h"
+#import "ZZMenuEnumsAdditions.h"
 
 @interface ZZContactDomainModel : ANBaseDomainModel <ZZUserInterface>
 
@@ -15,7 +16,9 @@
 @property (nonatomic, copy) NSString* lastName;
 @property (nonatomic, strong) NSSet* phones;
 @property (nonatomic, strong) UIImage* photoImage; // TODO: hanle photo URL string
+@property (nonatomic, assign) ZZMenuContactType contactType;
 
 - (NSString *)fullName;
+- (ZZMenuContactType)contactType;
 
 @end

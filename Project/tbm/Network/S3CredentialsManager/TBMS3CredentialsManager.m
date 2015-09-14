@@ -78,14 +78,16 @@ NSString * const S3_SECRET_KEY = @"TBMS3SecretKey";
     return c;
 }
 
-+ (void) storeS3CredentialsInKeychain:(NSDictionary *)resp{
++ (void) storeS3CredentialsInKeychain:(NSDictionary *)resp
+{
     [TBMKeyChainWrapper putItem:S3_REGION_KEY value:resp[SERVER_PARAMS_S3_REGION_KEY]];
     [TBMKeyChainWrapper putItem:S3_BUCKET_KEY value:resp[SERVER_PARAMS_S3_BUCKET_KEY]];
     [TBMKeyChainWrapper putItem:S3_ACCESS_KEY value:resp[SERVER_PARAMS_S3_ACCESS_KEY]];
     [TBMKeyChainWrapper putItem:S3_SECRET_KEY value:resp[SERVER_PARAMS_S3_SECRET_KEY]];
 }
 
-+ (BOOL) validateServerResponse:(NSDictionary *)resp{
++ (BOOL) validateServerResponse:(NSDictionary *)resp
+{
     if ([TBMHttpManager isFailure:resp]){
         OB_ERROR(@"S3CredentialsManager: refreshFromServer: Server Error. This should never happen: %@", resp);
         return NO;
