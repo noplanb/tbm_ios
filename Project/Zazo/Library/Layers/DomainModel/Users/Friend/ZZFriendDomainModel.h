@@ -9,6 +9,7 @@
 #import "ZZBaseDomainModel.h"
 #import "ZZUserInterface.h"
 #import "ZZEditFriendEnumsAdditions.h"
+#import "ZZMenuEnumsAdditions.h"
 
 @class FEMObjectMapping;
 
@@ -52,6 +53,7 @@ extern const struct ZZFriendDomainModelAttributes {
 @property (nonatomic, copy) NSString* connectionStatus;
 @property (nonatomic, copy) NSString* connectionCreatorMkey;
 @property (nonatomic, assign) ZZContactStatusType contactStatusValue;
+@property (nonatomic, assign) ZZMenuContactType contactType;
 
 @property (nonatomic, strong) NSArray* videos;
 
@@ -59,5 +61,6 @@ extern const struct ZZFriendDomainModelAttributes {
 
 - (NSString *)fullName;
 - (BOOL)isCreator;
+- (ZZMenuContactType)contactType;
 
 @end
