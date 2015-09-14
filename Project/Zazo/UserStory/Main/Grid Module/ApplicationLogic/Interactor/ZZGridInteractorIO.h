@@ -21,6 +21,8 @@
 
 - (void)removeUserFromContacts:(ZZFriendDomainModel*)model;
 
+- (void)updateLastActionForFriend:(ZZFriendDomainModel*)friendModel;
+
 @end
 
 

@@ -102,7 +102,6 @@
     NSPredicate* excludeCreator = [NSCompoundPredicate orPredicateWithSubpredicates:@[creatorWithNilId, creatorWithNullId, creatorWithEmptyStringId]];
     
 //    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, @"nil"];
-    NSArray* array = [TBMGridElement MR_findAllInContext:[self _context]];
     NSArray* result = [TBMGridElement MR_findAllSortedBy:TBMGridElementAttributes.index
                                                ascending:YES
                                            withPredicate:excludeCreator

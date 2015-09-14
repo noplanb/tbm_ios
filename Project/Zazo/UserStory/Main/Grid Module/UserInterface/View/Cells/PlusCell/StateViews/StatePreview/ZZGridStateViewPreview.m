@@ -40,9 +40,11 @@ static CGFloat const kThumbnailSidePadding = 2;
 - (void)updateWithModel:(ZZGridCellViewModel*)model
 {
     [super updateWithModel:model];
-    self.thumbnailImageView.image = [model videoThumbnailImage];
+    UIImage* thumbImage = [model videoThumbnailImage];
+    self.thumbnailImageView.image = thumbImage;
     self.userNameLabel.text = [model firstName];
     [self updateBackgoundWithModel:model];
+
 }
 
 - (void)updateBackgoundWithModel:(ZZGridCellViewModel*)model

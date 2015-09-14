@@ -26,6 +26,7 @@ static CGFloat const kTouchOffset = 7;
 @property (nonatomic, strong) ZZGridView* gridView;
 @property (nonatomic, strong) ZZMovingGridView* grid;
 @property (nonatomic, assign) CGPoint touchPoint;
+@property (nonatomic, assign) BOOL isUpdatedAfterStart;
 
 @end
 
@@ -79,7 +80,7 @@ static CGFloat const kTouchOffset = 7;
 }
 
 - (void)observeTouch:(UITouch *)touch withEvent:(id)event
-{
+{   
     if (touch.phase == UITouchPhaseBegan)
     {
         self.initialLocation = [touch locationInView:self.gridView.collectionView];
@@ -230,8 +231,9 @@ static CGFloat const kTouchOffset = 7;
 
 - (void)rotationStoped
 {   
-    if (!self.grid.isHidden)
+    if (!self.grid.isHidden && !self.isUpdatedAfterStart)
     {
+        self.isUpdatedAfterStart = YES;
         [self.initialStorageValue removeAllObjects];
         
         NSMutableDictionary* positionDict = [NSMutableDictionary dictionary];
@@ -269,6 +271,7 @@ static CGFloat const kTouchOffset = 7;
             self.grid.alpha = 0.0;
         } completion:^(BOOL finished) {
             self.grid.hidden = YES;
+            self.isUpdatedAfterStart = NO;
         }];
     }
     

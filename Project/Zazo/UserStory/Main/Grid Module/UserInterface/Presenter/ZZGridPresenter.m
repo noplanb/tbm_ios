@@ -20,6 +20,7 @@
 #import "TBMPhoneUtils.h"
 #import "ZZAPIRoutes.h"
 #import "ZZGridAlertBuilder.h"
+#import "ZZUserDataProvider.h"
 
 @interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate>
 
@@ -111,7 +112,9 @@
 - (void)gridContainedFriend:(ZZFriendDomainModel*)friendModel
 {
     [self.wireframe closeMenu];
-    [self.userInterface showFriendAnimationWithModel:friendModel];
+    [ZZGridAlertBuilder showAlreadyConnectedDialogForUser:friendModel.firstName completion:^{
+        [self.userInterface showFriendAnimationWithModel:friendModel];
+    }];
 }
 
 - (void)userHasNoValidNumbers:(ZZContactDomainModel*)model;
@@ -198,6 +201,8 @@
 
 - (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel*)userModel // TODO: check friedn model
 {
+    [self.interactor updateLastActionForFriend:userModel];
+    
     [ZZGridAlertBuilder showPreNudgeAlertWithFriendFirstName:userModel.firstName completion:^{
         ANMessageDomainModel* model = [ANMessageDomainModel new];
         NSString* formattedNumber = [TBMPhoneUtils phone:userModel.mobileNumber withFormat:NBEPhoneNumberFormatE164];
@@ -216,6 +221,8 @@
 
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel // TODO: add states for gesture recognizer and show toasts
 {
+    [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
+    
     ZZGridCenterCellViewModel* model = [self.dataSource centerViewModel];
     if (!ANIsEmpty(viewModel.item.relatedUser.idTbm))
     {
@@ -261,6 +268,8 @@
 
 - (void)toggleVideoWithViewModel:(ZZGridCellViewModel*)model toState:(BOOL)state
 {
+    [self.interactor updateLastActionForFriend:model.item.relatedUser];
+    
     if (state)
     {
         [self.videoPlayer playOnView:model.playerContainerView withURLs:model.playerVideoURLs];
@@ -340,6 +349,8 @@
 
 - (void)showConnectedDialogForModel:(ZZFriendDomainModel*)friend
 {
+    [self.interactor updateLastActionForFriend:friend];
+    
     [ZZGridAlertBuilder showConnectedDialogForUser:friend.firstName completion:^{
         [self.interactor addNewFriendToGridModelsArray];
     }];
@@ -352,7 +363,7 @@
     model.recipients = @[[NSObject an_safeString:formattedNumber]];
     
     NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
-    model.message = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", appName, kInviteFriendBaseURL, friend.idTbm];
+    model.message = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", appName, kInviteFriendBaseURL, [ZZUserDataProvider authenticatedUser].idTbm];
     
     [self.wireframe presentSMSDialogWithModel:model success:^{
         [self showConnectedDialogForModel:friend];
