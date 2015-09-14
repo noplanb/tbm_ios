@@ -41,6 +41,7 @@
 
 - (void)prepareForReuse
 {
+    [self.stateView removeFromSuperview];
     [self.model updateVideoPlayingStateTo:NO];
 }
 
@@ -79,19 +80,19 @@
     {
         case ZZGridCellViewModelStateFriendHasApp:
         {
-            self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self];
+            self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self.contentView];
             
         } break;
         case ZZGridCellViewModelStateFriendHasNoApp:
         {
-            self.stateView = [[ZZGridStateViewNudge alloc] initWithPresentedView:self];
+            self.stateView = [[ZZGridStateViewNudge alloc] initWithPresentedView:self.contentView];
             
         } break;
         case ZZGridCellViewModelStateIncomingVideoViewed:
         case ZZGridCellViewModelStateIncomingVideoNotViewed:
         case ZZGridCellViewModelStateOutgoingVideo:
         {
-            self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self];
+            self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self.contentView];
             
         } break;
         default:
