@@ -50,6 +50,7 @@ static CGFloat const kFontSize = 21;
        
         self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:attributes];
     }
+    [self layoutIfNeeded];
 }
 
 @end
