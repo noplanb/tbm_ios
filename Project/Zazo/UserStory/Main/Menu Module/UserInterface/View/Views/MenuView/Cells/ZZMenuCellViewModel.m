@@ -34,17 +34,15 @@
 
 - (void)updateImageView:(UIImageView *)imageView
 {
-    if (self.item.hasApp)
+    if ([self.item contactType] == ZZMenuContactTypeAddressbook)
     {
-        imageView.image = [self _zazoImage];
+        imageView.image = nil;
     }
     else
     {
-        UIImage* photo = [self.item photoImage];
-        
-        if (photo)
+        if (self.item.hasApp)
         {
-            imageView.image = photo; // TODO: load from cache
+            imageView.image = [self _zazoImage];
         }
         else
         {

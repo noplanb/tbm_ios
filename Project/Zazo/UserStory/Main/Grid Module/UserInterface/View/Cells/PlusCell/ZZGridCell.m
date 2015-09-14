@@ -66,11 +66,6 @@
             }
             
         }
-        else if (self.model.isUploadedVideoViewed)
-        {
-            [self updateStateViewWithModel:self.model];
-//            self.stateView
-        }
         else
         {
             [self updateStateViewWithModel:model];
@@ -163,6 +158,11 @@
         }];
     }
     return _plusImageView;
+}
+
+- (void)hideAllAnimations
+{
+    [self.stateView hideAllAnimationViews];
 }
 
 @end

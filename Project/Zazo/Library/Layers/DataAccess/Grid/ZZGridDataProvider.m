@@ -14,11 +14,22 @@
 
 @implementation ZZGridDataProvider
 
-+ (void)upsertModel:(ZZGridDomainModel *)model
++ (ZZGridDomainModel*)upsertModel:(ZZGridDomainModel *)model
 {
-    TBMGridElement* entity = [TBMGridElement an_objectWithItemID:model.itemID context:[self _context]];
+    TBMGridElement* entity;
+    if (ANIsEmpty(model.itemID))
+    {
+//        model.itemID = [NSString stringWithFormat:@"CREATE_%@", [self _randomStringWithLength:32]];
+        entity = [TBMGridElement MR_createEntityInContext:[self _context]];
+    }
+    else
+    {
+        entity =  [self entityWithItemID:model.itemID];
+    }
     [ZZGridModelsMapper fillEntity:entity fromModel:model];
     [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
+    
+    return [self modelFromEntity:entity];
 }
 
 + (void)deleteModel:(ZZGridDomainModel*)model
@@ -85,10 +96,16 @@
 
 + (ZZGridDomainModel*)loadFirstEmptyGridElement
 {
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, nil];
+    NSPredicate* creatorWithNilId = [NSPredicate predicateWithFormat:@"%K = nil", TBMGridElementRelationships.friend];
+    NSPredicate* creatorWithNullId = [NSPredicate predicateWithFormat:@"%K = NULL", TBMGridElementRelationships.friend];
+    NSPredicate* creatorWithEmptyStringId = [NSPredicate predicateWithFormat:@"%K = ''", TBMGridElementRelationships.friend];
+    NSPredicate* excludeCreator = [NSCompoundPredicate orPredicateWithSubpredicates:@[creatorWithNilId, creatorWithNullId, creatorWithEmptyStringId]];
+    
+//    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, @"nil"];
+    NSArray* array = [TBMGridElement MR_findAllInContext:[self _context]];
     NSArray* result = [TBMGridElement MR_findAllSortedBy:TBMGridElementAttributes.index
                                                ascending:YES
-                                           withPredicate:predicate
+                                           withPredicate:excludeCreator
                                                inContext:[self _context]];
     
     TBMGridElement* entity = [result firstObject];
@@ -112,9 +129,21 @@
 
 #pragma mark - Private
 
+
++ (NSString*)_randomStringWithLength:(NSInteger)len
+{
+    NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    NSMutableString *randomString = [NSMutableString stringWithCapacity:len];
+    for (int i = 0; i < len; i++)
+    {
+        [randomString appendFormat: @"%C", [letters characterAtIndex:arc4random_uniform((uint32_t)[letters length])]];
+    }
+    return randomString;
+}
+
 + (NSManagedObjectContext*)_context
 {
-    return [NSManagedObjectContext MR_context];
+    return [NSManagedObjectContext MR_rootSavingContext];
 }
 
 @end

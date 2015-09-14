@@ -46,7 +46,6 @@ static CGFloat const kSeparatorHeight = 1;
             make.right.equalTo(self);
             make.height.equalTo(@(kSeparatorHeight));
         }];
-        
     }
     return self;
 }
@@ -56,6 +55,27 @@ static CGFloat const kSeparatorHeight = 1;
 {
     self.username.text = [model username];
     [model updateImageView:self.photoImageView];
+    
+    if (ANIsEmpty(self.photoImageView.image))
+    {
+        [self.photoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@0);
+        }];
+        
+        [self.username mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.photoImageView.mas_right);
+        }];
+    }
+    else
+    {
+        [self.photoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@36);
+        }];
+        
+        [self.username mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.photoImageView.mas_right).with.offset(10);
+        }];
+    }
 }
 
 

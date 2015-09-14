@@ -11,12 +11,13 @@
 
 @interface ANMessagesWireframe ()
 <
-    MFMailComposeViewControllerDelegate,
-    MFMessageComposeViewControllerDelegate,
-    UINavigationControllerDelegate
+MFMailComposeViewControllerDelegate,
+MFMessageComposeViewControllerDelegate,
+UINavigationControllerDelegate
 >
 
-@property (nonatomic, copy) ANCodeBlock completion;
+@property (nonatomic, copy) ANMessageCompletionBlock messageCompletion;
+@property (nonatomic, copy) ANEmailCompletionBlock emailCompletion;
 
 @end
 
@@ -27,8 +28,9 @@
 
 - (void)presentEmailControllerFromViewController:(UIViewController*)vc
                                        withModel:(ANMessageDomainModel*)model
-                                      completion:(ANEmailComletionBlock)completion
+                                      completion:(ANEmailCompletionBlock)completion
 {
+    self.emailCompletion = [completion copy];
     MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
     [composer setMailComposeDelegate:self];
     if ([MFMailComposeViewController canSendMail])
@@ -55,7 +57,9 @@
         
         composer.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
         composer.navigationBar.tintColor = [UIColor whiteColor];
-        [vc presentViewController:composer animated:YES completion:nil];
+        ANDispatchBlockToMainQueue(^{
+            [vc presentViewController:composer animated:YES completion:nil];
+        });
     }
     else
     {
@@ -68,14 +72,17 @@
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller
-         didFinishWithResult:(MFMailComposeResult)result
-                       error:(NSError*)error
+          didFinishWithResult:(MFMailComposeResult)result
+                        error:(NSError*)error
 {
-    if (self.completion)
+    if (self.emailCompletion)
     {
-        self.completion();
+        self.emailCompletion(result);
     }
-    [controller dismissViewControllerAnimated:YES completion:nil];
+    ANDispatchBlockToMainQueue(^{
+        controller.mailComposeDelegate = nil;
+        [controller dismissViewControllerAnimated:YES completion:nil];
+    });
 }
 
 
@@ -85,32 +92,51 @@
                                          withModel:(ANMessageDomainModel*)model
                                         completion:(ANMessageCompletionBlock)completion
 {
+    self.messageCompletion = [completion copy];
     if ([MFMessageComposeViewController canSendText])
     {
-        MFMessageComposeViewController *mc = [[MFMessageComposeViewController alloc] init];
-        mc.messageComposeDelegate = self;
+        MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
+        messageController.messageComposeDelegate = self;
         
-//        NSString* formattedNumber = [TBMPhoneUtils phone:friend.mobileNumber withFormat:NBEPhoneNumberFormatE164];
-//        mc.recipients = @[formattedNumber];
-//        NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
-//        mc.body = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", appName, kInviteFriendBaseURL, friend.idTbm];
+        if (!ANIsEmpty(model.recipients))
+        {
+            [messageController setRecipients:model.recipients];
+        }
+        if (!ANIsEmpty(model.title))
+        {
+            [messageController setSubject:model.title];
+        }
         
-        [vc presentViewController:mc animated:YES completion:nil];
+        if (!ANIsEmpty(model.message))
+        {
+            [messageController setBody:model.message];
+        }
+        
+        messageController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        messageController.navigationBar.tintColor = [UIColor whiteColor];
+        
+        ANDispatchBlockToMainQueue(^{
+            [vc presentViewController:messageController animated:YES completion:nil];
+        });
     }
     else
     {
-        completion(kApplicationCannotSendMessage);
+        self.messageCompletion(kApplicationCannotSendMessage);
     }
 }
 
 - (void)messageComposeViewController:(MFMessageComposeViewController*)controller
                  didFinishWithResult:(MessageComposeResult)result
 {
-    if (self.completion)
-    {
-        self.completion();
-    }
-    [controller dismissViewControllerAnimated:YES completion:nil];
+    ANDispatchBlockToMainQueue(^{
+        controller.messageComposeDelegate = nil;
+        [controller dismissViewControllerAnimated:YES completion:^{
+            if (self.messageCompletion)
+            {
+                self.messageCompletion(result);
+            }
+        }];
+    });
 }
 
 @end

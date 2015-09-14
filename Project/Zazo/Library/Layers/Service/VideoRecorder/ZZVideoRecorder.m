@@ -19,6 +19,7 @@
 #import "ZZGridCenterCell.h"
 #import "ZZGridUIConstants.h"
 #import "TBMVideoProcessor.h"
+#import "iToast.h"
 
 NSString* const kVideoProcessorDidFinishProcessing = @"TBMVideoProcessorDidFinishProcessing";
 NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing";
@@ -30,7 +31,6 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 
 @interface ZZVideoRecorder () <SCRecorderDelegate>
 
-@property (nonatomic, assign) BOOL didCancelRecording;
 @property (nonatomic, strong) SCRecorder *recorder;
 @property (nonatomic, strong) NSURL* recordVideoUrl;
 @property (nonatomic, strong) TBMVideoProcessor* videoProcessor;
@@ -69,8 +69,29 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
         self.recorder.session = [SCRecordSession recordSession];
         
         [self.recorder startRunning];
+        
     }
     return self;
+}
+
+- (void)startTouchObserve
+{
+    UIWindow* window = [UIApplication sharedApplication].keyWindow;
+    [[window rac_signalForSelector:@selector(sendEvent:)] subscribeNext:^(RACTuple *touches) {
+        for (id event in touches)
+        {
+            NSSet* touches = [event allTouches];
+            [self handleTouches:touches];
+        };
+    }];
+}
+
+- (void)handleTouches:(NSSet*)touches
+{
+    if ([[touches allObjects] count] > 1)
+    {
+        [self cancelRecordingWithReason:NSLocalizedString(@"record-two-fingers-touch", nil)];
+    }
 }
 
 - (BOOL)areBothCamerasAvailable
@@ -99,11 +120,11 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 
 - (void)startRecordingWithVideoURL:(NSURL*)url
 {
+    self.didCancelRecording = NO;
+    [self startTouchObserve];
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
-    
     [self _startRecordingWithVideoUrl:url];
     [self.recorder.session removeAllSegments];
-    
     [self.recorder record];
 }
 
@@ -113,9 +134,15 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 - (void)_startRecordingWithVideoUrl:(NSURL *)videoUrl
 {
     self.recordVideoUrl = videoUrl;
-    self.didCancelRecording = NO;
-    
     [[NSFileManager defaultManager] removeItemAtURL:videoUrl error:nil];
+}
+
+#pragma mark - Cancel Recording
+
+- (void)cancelRecordingWithReason:(NSString*)reason
+{
+    self.didCancelRecording = YES;
+    [self showMessage:reason];
 }
 
 #pragma mark - Stop Recording
@@ -128,77 +155,58 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 - (void)recorder:(SCRecorder*)recorder didCompleteSegment:(SCRecordSessionSegment*)segment
        inSession:(SCRecordSession*)recordSession error:(NSError*)error
 {
+    if (error)
+    {
+        [self showMessage:NSLocalizedString(@"record-problem-recording", nil)];
+    }
+    else
+    {
+        [self recordVideoToFileWithRecordSession:recordSession];
+    }
+    
+}
+
+- (void)recordVideoToFileWithRecordSession:(SCRecordSession*)recordSession
+{
+    
     [recordSession mergeSegmentsUsingPreset:AVAssetExportPresetHighestQuality completionHandler:^(NSURL *url, NSError *error) {
-        if (error == nil) {
+        if (error == nil)
+        {
             
-            if ([[NSFileManager defaultManager] fileExistsAtPath:[url path]])
+            if ([self isVideoShort:url])
             {
-                NSLog(@"ok");
-                NSError* error;
-               if ([[NSFileManager defaultManager] copyItemAtURL:url toURL:self.recordVideoUrl error:&error])
-               {
-                   NSError* removeError;
-                   [[NSFileManager defaultManager] removeItemAtPath:[url path] error:&removeError];
-                   
-                   [self.videoProcessor processVideoWithUrl:self.recordVideoUrl];
-               }
-               else
-               {
-                   NSLog(@"copy error");
-               }
+                [self showMessage:NSLocalizedString(@"record-video-too-short", nil)];
+                [[NSFileManager defaultManager] removeItemAtPath:[url path] error:nil];
+            }
+            else if (self.didCancelRecording)
+            {
+                [[NSFileManager defaultManager] removeItemAtPath:[url path] error:nil];
             }
             else
             {
-                NSLog(@"wrong");
+                if ([[NSFileManager defaultManager] fileExistsAtPath:[url path]])
+                {
+                    NSError* error;
+                    if ([[NSFileManager defaultManager] copyItemAtURL:url toURL:self.recordVideoUrl error:&error])
+                    {
+                        NSError* removeError;
+                        [[NSFileManager defaultManager] removeItemAtPath:[url path] error:&removeError];
+                        [self.videoProcessor processVideoWithUrl:self.recordVideoUrl];
+                    }
+                    else
+                    {
+                        NSLog(@"copy error");
+                    }
+                }
+                else
+                {
+                    NSLog(@"wrong");
+                }
             }
-            
         } else {
             
         }
     }];
-    
-    
-    
-    
-//    [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFinishRecording
-//                                                        object:self
-//                                                      userInfo:@{@"videoUrl": self.recordVideoUrl}];
-//    
-//    AVAsset *asset = recordSession.assetRepresentingSegments;
-//    SCAssetExportSession *assetExportSession = [[SCAssetExportSession alloc] initWithAsset:asset];
-//    assetExportSession.outputUrl = self.recordVideoUrl;
-//    
-//    assetExportSession.outputFileType = AVFileTypeMPEG4;
-//    assetExportSession.videoConfiguration.preset = SCPresetLowQuality;
-//    assetExportSession.audioConfiguration.preset = SCPresetMediumQuality;
-//
-//    [assetExportSession exportAsynchronouslyWithCompletionHandler: ^{
-//        if (assetExportSession.error == nil) {
-//
-////            NSError* error;
-////            [[NSFileManager defaultManager] moveItemAtURL:videoPath toURL:self.recordVideoUrl error:&error];
-////
-//            
-//            if ([[NSFileManager defaultManager] fileExistsAtPath:[self.recordVideoUrl path]])
-//            {
-//                NSLog(@"ok");
-//            }
-//            else
-//            {
-//                NSLog(@"wrong");
-//            }
-//            
-//            
-//            [[NSNotificationCenter defaultCenter] postNotificationName:kVideoProcessorDidFinishProcessing
-//                                                                object:self
-//                                                              userInfo:[self notificationUserInfoWithError:nil]];
-//           
-//        }
-//        else
-//        {
-//            [self handleError:assetExportSession.error dispatch:YES];
-//        }
-//    }];
 }
 
 - (void)handleError:(NSError*)error dispatch:(BOOL)dispatch
@@ -221,5 +229,24 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
     }
 }
 
+- (BOOL)isVideoShort:(NSURL *)videoUrl{
+    NSError *error = nil;
+    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:videoUrl.path error:&error];
+    if (error != nil){
+        OB_ERROR(@"VideoRecorder#videoTooShort: Can't set attributes for file: %@. Error: %@", videoUrl.path, error);
+        return NO;
+    }
+    OB_INFO(@"VideoRecorder: filesize %llu", fileAttributes.fileSize);
+    if (fileAttributes.fileSize < 28000){
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (void)showMessage:(NSString*)message
+{
+    [[iToast makeText:message] show];
+}
 
 @end

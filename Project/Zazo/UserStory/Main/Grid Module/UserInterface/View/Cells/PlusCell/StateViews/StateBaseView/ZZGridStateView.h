@@ -37,5 +37,5 @@
 - (void)showUploadIconWithoutAnimation;
 - (void)hideAllAnimationViews;
 - (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock;
-
+- (void)checkIsCancelRecordingWithRecognizer:(UILongPressGestureRecognizer*)recognizer;
 @end

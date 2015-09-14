@@ -313,8 +313,6 @@
 		07636ED51BA49A0100925671 /* ZZMenuDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CF91BA49A0100925671 /* ZZMenuDataSource.m */; };
 		07636ED61BA49A0100925671 /* ZZMenuPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CFC1BA49A0100925671 /* ZZMenuPresenter.m */; };
 		07636ED71BA49A0100925671 /* ZZMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D011BA49A0100925671 /* ZZMenuView.m */; };
-		07636ED81BA49A0100925671 /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D031BA49A0100925671 /* ZZMenuCell.m */; };
-		07636ED91BA49A0100925671 /* ZZMenuCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D051BA49A0100925671 /* ZZMenuCellViewModel.m */; };
 		07636EDA1BA49A0100925671 /* ZZMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D071BA49A0100925671 /* ZZMenuController.m */; };
 		07636EDB1BA49A0100925671 /* ZZMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D091BA49A0100925671 /* ZZMenuVC.m */; };
 		07636EDC1BA49A0100925671 /* ZZMenuWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D0D1BA49A0100925671 /* ZZMenuWireframe.m */; };
@@ -395,6 +393,8 @@
 		220E904A1909A18C003C4F82 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902E1909A18B003C4F82 /* CoreData.framework */; };
 		22403C2B19D5E63400FC36E3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22403C2A19D5E63400FC36E3 /* MessageUI.framework */; };
 		224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
+		7952764A1BA6B4AB00E506D5 /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276471BA6B4AB00E506D5 /* ZZMenuCell.m */; };
+		7952764B1BA6B4AB00E506D5 /* ZZMenuCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276491BA6B4AB00E506D5 /* ZZMenuCellViewModel.m */; };
 		DE5C223E15BD5A128DAFDAD1 /* libPods-ZazoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0368F3F1AC201E7765B1898F /* libPods-ZazoTests.a */; };
 		F20151DDD1EA1D5CD6D8CB21 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */; };
 /* End PBXBuildFile section */
@@ -1031,10 +1031,6 @@
 		07636CFC1BA49A0100925671 /* ZZMenuPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuPresenter.m; sourceTree = "<group>"; };
 		07636D001BA49A0100925671 /* ZZMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuView.h; sourceTree = "<group>"; };
 		07636D011BA49A0100925671 /* ZZMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuView.m; sourceTree = "<group>"; };
-		07636D021BA49A0100925671 /* ZZMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCell.h; sourceTree = "<group>"; };
-		07636D031BA49A0100925671 /* ZZMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCell.m; sourceTree = "<group>"; };
-		07636D041BA49A0100925671 /* ZZMenuCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCellViewModel.h; sourceTree = "<group>"; };
-		07636D051BA49A0100925671 /* ZZMenuCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCellViewModel.m; sourceTree = "<group>"; };
 		07636D061BA49A0100925671 /* ZZMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuController.h; sourceTree = "<group>"; };
 		07636D071BA49A0100925671 /* ZZMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuController.m; sourceTree = "<group>"; };
 		07636D081BA49A0100925671 /* ZZMenuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuVC.h; sourceTree = "<group>"; };
@@ -1178,6 +1174,11 @@
 		41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		5988C69CC62CF4472CA2040A /* Pods-Zazo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.debug.xcconfig"; sourceTree = "<group>"; };
+		795276461BA6B4AB00E506D5 /* ZZMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCell.h; sourceTree = "<group>"; };
+		795276471BA6B4AB00E506D5 /* ZZMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCell.m; sourceTree = "<group>"; };
+		795276481BA6B4AB00E506D5 /* ZZMenuCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCellViewModel.h; sourceTree = "<group>"; };
+		795276491BA6B4AB00E506D5 /* ZZMenuCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCellViewModel.m; sourceTree = "<group>"; };
+		7952764C1BA6BDEB00E506D5 /* ZZMenuEnumsAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZMenuEnumsAdditions.h; sourceTree = "<group>"; };
 		A0ECBE9A7392F431C5ADE072 /* Pods-ZazoTests.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.ad-hoc.xcconfig"; sourceTree = "<group>"; };
 		B1860DB43B6E70D5AEF73EF4 /* Pods-Zazo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.release.xcconfig"; sourceTree = "<group>"; };
 		C4392BF41AD48118C492A226 /* Pods-Zazo.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.ad-hoc.xcconfig"; sourceTree = "<group>"; };
@@ -3625,6 +3626,7 @@
 		07636CEE1BA49A0100925671 /* ApplicationLogic */ = {
 			isa = PBXGroup;
 			children = (
+				7952764C1BA6BDEB00E506D5 /* ZZMenuEnumsAdditions.h */,
 				07636CEF1BA49A0100925671 /* Interactor */,
 			);
 			path = ApplicationLogic;
@@ -3682,10 +3684,6 @@
 			isa = PBXGroup;
 			children = (
 				07636CFE1BA49A0100925671 /* Views */,
-				07636D021BA49A0100925671 /* ZZMenuCell.h */,
-				07636D031BA49A0100925671 /* ZZMenuCell.m */,
-				07636D041BA49A0100925671 /* ZZMenuCellViewModel.h */,
-				07636D051BA49A0100925671 /* ZZMenuCellViewModel.m */,
 				07636D061BA49A0100925671 /* ZZMenuController.h */,
 				07636D071BA49A0100925671 /* ZZMenuController.m */,
 				07636D081BA49A0100925671 /* ZZMenuVC.h */,
@@ -3708,6 +3706,7 @@
 			children = (
 				07636D001BA49A0100925671 /* ZZMenuView.h */,
 				07636D011BA49A0100925671 /* ZZMenuView.m */,
+				795276451BA6B4AB00E506D5 /* Cells */,
 			);
 			path = MenuView;
 			sourceTree = "<group>";
@@ -4236,6 +4235,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		795276451BA6B4AB00E506D5 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				795276461BA6B4AB00E506D5 /* ZZMenuCell.h */,
+				795276471BA6B4AB00E506D5 /* ZZMenuCell.m */,
+				795276481BA6B4AB00E506D5 /* ZZMenuCellViewModel.h */,
+				795276491BA6B4AB00E506D5 /* ZZMenuCellViewModel.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		984D6697D8F62FFA194F39A2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -4572,6 +4582,7 @@
 				07636EC71BA49A0100925671 /* ZZGridCellViewModel.m in Sources */,
 				07636DE81BA49A0100925671 /* TBMSecretScreenViewController.m in Sources */,
 				07636EB51BA49A0100925671 /* ZZEditFriendCellViewModel.m in Sources */,
+				7952764B1BA6B4AB00E506D5 /* ZZMenuCellViewModel.m in Sources */,
 				07636DCE1BA49A0100925671 /* TBMFrontCameraUsageHintPresenter.m in Sources */,
 				07636E401BA49A0100925671 /* TBMGridElement.m in Sources */,
 				07636E991BA49A0100925671 /* ZZDebugStateDomainModel.m in Sources */,
@@ -4693,7 +4704,6 @@
 				07636DF71BA49A0100925671 /* TBMS3CredentialsManager.m in Sources */,
 				07636EE21BA49A0100925671 /* ANActivityIndicator.m in Sources */,
 				07636E2C1BA49A0100925671 /* ZZContactDomainModel.m in Sources */,
-				07636ED81BA49A0100925671 /* ZZMenuCell.m in Sources */,
 				07636E141BA49A0100925671 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				07636DD21BA49A0100925671 /* TBMInviteSomeOneElseHintPresenter.m in Sources */,
 				07636DC01BA49A0100925671 /* TBMEventHandlerPresenter.m in Sources */,
@@ -4713,7 +4723,6 @@
 				07636DBA1BA49A0100925671 /* TBMSoundEffect.m in Sources */,
 				07636ECB1BA49A0100925671 /* ZZFakeRotationCell.m in Sources */,
 				07636EC91BA49A0100925671 /* ZZGridView.m in Sources */,
-				07636ED91BA49A0100925671 /* ZZMenuCellViewModel.m in Sources */,
 				07636DB91BA49A0100925671 /* TBMPhoneUtils.m in Sources */,
 				07636E961BA49A0100925671 /* ANDebugVC.m in Sources */,
 				07636E231BA49A0100925671 /* ZZFriendDataProvider.m in Sources */,
@@ -4753,6 +4762,7 @@
 				07636DD51BA49A0100925671 /* TBMPlayHintView.m in Sources */,
 				07636DBC1BA49A0100925671 /* TBMVideoIdUtils.m in Sources */,
 				07636E151BA49A0100925671 /* TPKeyboardAvoidingTableView.m in Sources */,
+				7952764A1BA6B4AB00E506D5 /* ZZMenuCell.m in Sources */,
 				07636E351BA49A0100925671 /* ZZCommonNetworkTransportService.m in Sources */,
 				07636E0A1BA49A0100925671 /* TBMBenchViewController.m in Sources */,
 				07636DC71BA49A0100925671 /* TBMFeatureUnlockDialogView.m in Sources */,
@@ -4874,8 +4884,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4889,7 +4899,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "af085b18-d2ac-4e87-b3c7-512124c28fe0";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4902,8 +4912,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImageFinal;
 				CODE_SIGN_ENTITLEMENTS = Zazo/Zazo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Zazo/Vendor",
@@ -4919,7 +4929,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "af085b18-d2ac-4e87-b3c7-512124c28fe0";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -4943,7 +4953,7 @@
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
 				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "af085b18-d2ac-4e87-b3c7-512124c28fe0";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -4987,7 +4997,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "eaf6f4d7-aa5d-40e6-9374-117aa8f7032d";
+				PROVISIONING_PROFILE = "bb194e2d-63e3-40d6-978a-f719bf127deb";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -5048,7 +5058,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "bb194e2d-63e3-40d6-978a-f719bf127deb";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -5063,8 +5073,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImageFinal;
 				CODE_SIGN_ENTITLEMENTS = Zazo/Zazo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Zazo/Vendor",
@@ -5108,7 +5118,7 @@
 				);
 				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
 				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "64f0a104-2850-42a4-832c-59db57fda915";
+				PROVISIONING_PROFILE = "a5518245-2340-44e4-9c18-714a2e8ec8a3";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};

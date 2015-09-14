@@ -146,5 +146,11 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     return (isFirstNameEqual && isLastNameEqual && isPhoneEqual);
 }
 
+- (ZZMenuContactType)contactType
+{
+    return ZZContactStatusTypeZazoFriend;
+}
+
+
 
 @end

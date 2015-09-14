@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
+#import "ZZMenuEnumsAdditions.h"
+
 @protocol ZZUserInterface <NSObject>
 
 - (NSString*)firstName;
@@ -13,5 +15,6 @@
 - (NSString*)photoURLString;
 - (UIImage *)photoImage; // TODO; temp
 - (BOOL)hasApp;
+- (ZZMenuContactType)contactType;
 
 @end
