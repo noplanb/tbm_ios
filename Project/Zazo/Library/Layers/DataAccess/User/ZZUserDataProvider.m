@@ -10,31 +10,36 @@
 #import "ZZUserModelsMapper.h"
 #import "NSManagedObject+ANAdditions.h"
 #import "MagicalRecord.h"
+#import "TBMDispatch.h"
 
 @implementation ZZUserDataProvider
 
 + (ZZUserDomainModel*)authenticatedUser
 {
+    TBMUser* user = [self _authenticatedEntity];
+    return [self modelFromEntity:user];
+}
+
++ (TBMUser*)_authenticatedEntity
+{
     NSArray* users = [TBMUser MR_findAllInContext:[self _context]];
     if (users.count > 1)
     {
         // TODO: dispatch message with dupples
+        OB_INFO(@"Model dupples founded %@ %@", NSStringFromSelector(_cmd), [users debugDescription]);
     }
     TBMUser* user = [users lastObject];
-    return [self modelFromEntity:user];
+    return user;
 }
 
 + (TBMUser*)entityFromModel:(ZZUserDomainModel*)model
 {
-    NSArray* users = [TBMUser MR_findAllInContext:[self _context]];
-    TBMUser* entity = [users firstObject];
+    TBMUser* entity = [self _authenticatedEntity];
     if (!entity)
     {
         entity = [TBMUser MR_createEntityInContext:[self _context]];
-        entity.mkey = @"temporary";
         [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
     }
-    
     return [ZZUserModelsMapper fillEntity:entity fromModel:model];
 }
 
@@ -45,12 +50,10 @@
 
 + (ZZUserDomainModel*)upsertUserWithModel:(ZZUserDomainModel*)model
 {
-    NSArray* users = [TBMUser MR_findAllInContext:[self _context]];
-    TBMUser* entity = [users firstObject];
+    TBMUser* entity = [self _authenticatedEntity];
     if (!entity)
     {
         entity = [TBMUser MR_createEntityInContext:[self _context]];
-        entity.mkey = @"temporary";
     }
     [ZZUserModelsMapper fillEntity:entity fromModel:model];
     [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
@@ -61,7 +64,7 @@
 
 + (NSManagedObjectContext*)_context
 {
-    return [NSManagedObjectContext MR_context];
+    return [NSManagedObjectContext MR_rootSavingContext];
 }
 
 @end

@@ -22,7 +22,7 @@
 {
     return [[ZZNetworkTransport shared] requestWithPath:kApiCheckApplicationVersion
                                              parameters:parameters
-                                             httpMethod:ANHttpMethodTypePOST];
+                                             httpMethod:ANHttpMethodTypeGET];
 }
 
 + (RACSignal*)loadS3Credentials
