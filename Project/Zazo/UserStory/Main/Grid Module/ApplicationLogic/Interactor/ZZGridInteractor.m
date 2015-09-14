@@ -90,8 +90,6 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)friendSelectedFromMenu:(ZZFriendDomainModel*)friend isContact:(BOOL)contact
 {
-    //TODO: last loadFirstEmptyGridElement not work!
-    
     ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
     model.relatedUser = friend;
     [ZZGridDataProvider upsertModel:model];
@@ -160,6 +158,12 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (void)addNewFriendToGridModelsArray
 {
     [self friendSelectedFromMenu:self.currentFriend isContact:YES];
+}
+
+- (void)updateLastActionForFriend:(ZZFriendDomainModel*)friendModel
+{
+    friendModel.lastActionTimestamp = [NSDate date];
+    [ZZFriendDataProvider upsertFriendWithModel:friendModel];
 }
 
 - (void)loadFeedbackModel

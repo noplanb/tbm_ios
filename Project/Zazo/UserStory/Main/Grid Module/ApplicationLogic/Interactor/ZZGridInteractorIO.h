@@ -19,6 +19,8 @@
 - (void)inviteUserThatHasNoAppInstalled;
 - (void)addNewFriendToGridModelsArray;
 
+- (void)updateLastActionForFriend:(ZZFriendDomainModel*)friendModel;
+
 @end
 
 
