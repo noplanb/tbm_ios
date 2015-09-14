@@ -34,6 +34,15 @@
     return self;
 }
 
+
+- (void)addToView
+{
+    [self.presentedView addSubview:self];
+    [self mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.presentedView);
+    }];
+}
+
 - (void)updateWithModel:(ZZGridCellViewModel*)model
 {
     self.model = model;

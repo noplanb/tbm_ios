@@ -79,19 +79,19 @@
     {
         case ZZGridCellViewModelStateFriendHasApp:
         {
-            self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self];
+            self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self.contentView];
             
         } break;
         case ZZGridCellViewModelStateFriendHasNoApp:
         {
-            self.stateView = [[ZZGridStateViewNudge alloc] initWithPresentedView:self];
+            self.stateView = [[ZZGridStateViewNudge alloc] initWithPresentedView:self.contentView];
             
         } break;
         case ZZGridCellViewModelStateIncomingVideoViewed:
         case ZZGridCellViewModelStateIncomingVideoNotViewed:
         case ZZGridCellViewModelStateOutgoingVideo:
         {
-            self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self];
+            self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self.contentView];
             
         } break;
         default:
@@ -118,10 +118,10 @@
         [_stateView removeFromSuperview];
         _stateView = stateView;
     }
-    [self.contentView addSubview:stateView];
-    [stateView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.contentView);
-    }];
+//    [self.contentView addSubview:stateView];
+//    [stateView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(self.contentView);
+//    }];
 }
 
 
