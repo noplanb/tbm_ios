@@ -38,6 +38,7 @@ static CGFloat const kVideoCountLabelWidth = 23;
 {
     [super layoutSubviews];
     self.numberLabel.frame = self.bounds;
+    [super layoutSubviews];
 }
 
 - (void)tapped
