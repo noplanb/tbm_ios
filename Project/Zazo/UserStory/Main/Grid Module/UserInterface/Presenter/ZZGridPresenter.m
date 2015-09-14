@@ -114,7 +114,6 @@
     [ZZGridAlertBuilder showAlreadyConnectedDialogForUser:friendModel.firstName completion:^{
         [self.userInterface showFriendAnimationWithModel:friendModel];
     }];
-    
 }
 
 - (void)userHasNoValidNumbers:(ZZContactDomainModel*)model;
