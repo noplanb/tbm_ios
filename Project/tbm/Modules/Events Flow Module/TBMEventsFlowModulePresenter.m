@@ -57,6 +57,11 @@
 
 #pragma mark - TBMEventsFlowModuleInterface -
 
+- (void)setupGridModule:(id <ZZGridModuleInterface>)gridModule
+{
+    self.gridModule = gridModule;
+}
+
 
 - (void)resetSession
 {
