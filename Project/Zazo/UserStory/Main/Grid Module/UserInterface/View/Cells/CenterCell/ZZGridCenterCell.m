@@ -101,8 +101,8 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
     if (!_switchCameraButton)
     {
         _switchCameraButton = [UIButton new];
-        CGSize imageSize = CGSizeMake(24, 21);
-        UIImage* cameraImage = [[UIImage imageWithPDFNamed:@"home-camera-w-fill" atSize:imageSize]
+        CGSize imageSize = CGSizeMake(30, 20);
+        UIImage* cameraImage = [[UIImage imageWithPDFNamed:@"camera-icon" atSize:imageSize]
                                 an_imageByTintingWithColor:[UIColor colorWithWhite:0.9 alpha:0.8]];
         [_switchCameraButton setImage:cameraImage forState:UIControlStateNormal];
         [_switchCameraButton addTarget:self
