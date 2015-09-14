@@ -8,6 +8,7 @@
 
 #import "ZZMenuDataSource.h"
 #import "ANMemoryStorage.h"
+#import "ANMemoryStorage+UpdateWithoutAnimations.h"
 
 @implementation ZZMenuDataSource
 
@@ -42,15 +43,19 @@
 
 - (void)_addItems:(NSArray*)items toSection:(NSUInteger)sectionIndex
 {
+    
     items = [[items.rac_sequence map:^id(id value) {
         return [ZZMenuCellViewModel viewModelWithItem:value];
     }] array];
     
-    [self.storage removeSections:[NSIndexSet indexSetWithIndex:sectionIndex]]; // TODO: handle animations
-    if (!ANIsEmpty(items))
-    {
-        [self.storage addItems:items toSection:sectionIndex];
-    }
+    
+    [self.storage updateWithoutAnimations:^{
+        [self.storage removeSections:[NSIndexSet indexSetWithIndex:sectionIndex]]; // TODO: handle animations
+        if (!ANIsEmpty(items))
+        {
+            [self.storage addItems:items toSection:sectionIndex];
+        }
+    }];
 }
 
 @end

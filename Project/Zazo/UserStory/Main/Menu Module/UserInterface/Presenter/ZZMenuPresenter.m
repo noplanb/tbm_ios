@@ -35,6 +35,7 @@
 {
     ANDispatchBlockToMainQueue(^{
         [self.dataSource setupAddressbookItems:data];
+        [self.userInterface updateDataSource:self.dataSource];
     });
 }
 

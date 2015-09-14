@@ -29,28 +29,31 @@
 
 - (void)presentMenuControllerFromWindow:(UIWindow *)window
 {
+    
+    ZZMenuVC* menuController = [ZZMenuVC new];
+    ANDrawerNC* drawerController = [self drawerControllerWithView:menuController.view];
+    drawerController.navigationBarHidden = YES;
+    ZZMenuInteractor* interactor = [ZZMenuInteractor new];
+    ZZMenuPresenter* presenter = [ZZMenuPresenter new];
+    
+    interactor.output = presenter;
+    
+    menuController.eventHandler = presenter;
+    
+    presenter.interactor = interactor;
+    presenter.wireframe = self;
+    
+    [presenter configurePresenterWithUserInterface:menuController];
+    
     ANDispatchBlockToMainQueue(^{
-        ZZMenuVC* menuController = [ZZMenuVC new];
-        ANDrawerNC* drawerController = [self drawerControllerWithView:menuController.view];
-        drawerController.navigationBarHidden = YES;
-        ZZMenuInteractor* interactor = [ZZMenuInteractor new];
-        ZZMenuPresenter* presenter = [ZZMenuPresenter new];
-        
-        interactor.output = presenter;
-        
-        menuController.eventHandler = presenter;
-        
-        presenter.interactor = interactor;
-        presenter.wireframe = self;
-        
-        [presenter configurePresenterWithUserInterface:menuController];
-        
         window.rootViewController = drawerController;
-        self.presenter = presenter;
-        self.menuController = menuController;
-        self.drawerController = drawerController;
-        [self presentGridController];
     });
+    
+    self.presenter = presenter;
+    self.menuController = menuController;
+    self.drawerController = drawerController;
+    [self presentGridController];
+    
 }
 
 #pragma mark - Menu

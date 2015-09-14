@@ -29,7 +29,6 @@
 - (void)updateDataSource:(ZZMenuDataSource*)dataSource
 {
     self.storage = dataSource.storage;
-    self.searchingStorage = dataSource.storage;
     self.memoryStorage.storagePredicateBlock = ^NSPredicate *(NSString* searchString, NSInteger scope){
         
         NSPredicate* firstNamePredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@",@"item.firstName", searchString];

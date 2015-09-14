@@ -26,7 +26,7 @@
         
     }];
     
-    [self loadAddressBookContactsWithRequestAccess:NO];
+//    [self loadAddressBookContactsWithRequestAccess:NO];
 }
 
 - (void)loadAddressBookContactsWithRequestAccess:(BOOL)shouldRequest
@@ -34,6 +34,8 @@
     [[ZZAddressBookDataProvider loadContactsWithContactsRequest:shouldRequest] subscribeNext:^(NSArray *addressBookContactsArray) {
         
         [self.output addressBookDataLoaded:addressBookContactsArray];
+    } error:^(NSError *error) {
+        
     }];
 }
 
