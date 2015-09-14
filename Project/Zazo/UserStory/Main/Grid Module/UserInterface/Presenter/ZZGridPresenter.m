@@ -368,4 +368,12 @@
     }];
 }
 
+
+#pragma mark - Edit Friends
+
+- (void)friendRemovedContacts:(ZZFriendDomainModel*)model
+{
+    [self.interactor removeUserFromContacts:model];
+}
+
 @end

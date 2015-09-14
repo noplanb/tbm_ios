@@ -13,12 +13,9 @@
 
 @interface ZZEditFriendListWireframe ()
 
-@property (nonatomic, strong) ZZEditFriendListPresenter* presenter;
 @property (nonatomic, strong) ZZEditFriendListVC* editFriendListController;
 @property (nonatomic, strong) UIViewController* presentedController;
-
 @property (nonatomic, copy) ANCodeBlock completion;
-
 
 @end
 

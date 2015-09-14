@@ -12,6 +12,7 @@ extern const struct TBMFriendAttributes {
 	__unsafe_unretained NSString *ckey;
 	__unsafe_unretained NSString *everSent;
 	__unsafe_unretained NSString *firstName;
+	__unsafe_unretained NSString *friendshipStatus;
 	__unsafe_unretained NSString *hasApp;
 	__unsafe_unretained NSString *idTbm;
 	__unsafe_unretained NSString *isConnectionCreator;
@@ -58,6 +59,10 @@ extern const struct TBMFriendRelationships {
 @property (nonatomic, strong) NSString* firstName;
 
 //- (BOOL)validateFirstName:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSString* friendshipStatus;
+
+//- (BOOL)validateFriendshipStatus:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSNumber* hasApp;
 
@@ -161,6 +166,9 @@ extern const struct TBMFriendRelationships {
 
 - (NSString*)primitiveFirstName;
 - (void)setPrimitiveFirstName:(NSString*)value;
+
+- (NSString*)primitiveFriendshipStatus;
+- (void)setPrimitiveFriendshipStatus:(NSString*)value;
 
 - (NSNumber*)primitiveHasApp;
 - (void)setPrimitiveHasApp:(NSNumber*)value;

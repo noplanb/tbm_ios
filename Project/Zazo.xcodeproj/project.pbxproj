@@ -372,6 +372,7 @@
 		07636F121BA49A0100925671 /* UIImage+PDF.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA41BA49A0100925671 /* UIImage+PDF.m */; };
 		07636F131BA49A0100925671 /* UIView+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA61BA49A0100925671 /* UIView+Image.m */; };
 		07636F141BA49A0100925671 /* Zazo.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 07636DA71BA49A0100925671 /* Zazo.entitlements */; };
+		07C94DD01BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C94DCF1BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m */; };
 		07F0E7EF1B8CD7A900036AB2 /* KeyChainWrapperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E21B8CD7A900036AB2 /* KeyChainWrapperTests.m */; };
 		07F0E7F01B8CD7A900036AB2 /* S3CredentialsManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E31B8CD7A900036AB2 /* S3CredentialsManagerTests.m */; };
 		07F0E7F11B8CD7A900036AB2 /* StringUtilsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E41B8CD7A900036AB2 /* StringUtilsTest.m */; };
@@ -1150,6 +1151,8 @@
 		07636DA51BA49A0100925671 /* UIView+Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Image.h"; sourceTree = "<group>"; };
 		07636DA61BA49A0100925671 /* UIView+Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Image.m"; sourceTree = "<group>"; };
 		07636DA71BA49A0100925671 /* Zazo.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Zazo.entitlements; sourceTree = "<group>"; };
+		07C94DCE1BA7246A009338B1 /* ZZUserFriendshipStatusHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZUserFriendshipStatusHandler.h; path = FriendshipStatusHandler/ZZUserFriendshipStatusHandler.h; sourceTree = "<group>"; };
+		07C94DCF1BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZUserFriendshipStatusHandler.m; path = FriendshipStatusHandler/ZZUserFriendshipStatusHandler.m; sourceTree = "<group>"; };
 		07F0E7E21B8CD7A900036AB2 /* KeyChainWrapperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainWrapperTests.m; sourceTree = "<group>"; };
 		07F0E7E31B8CD7A900036AB2 /* S3CredentialsManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = S3CredentialsManagerTests.m; sourceTree = "<group>"; };
 		07F0E7E41B8CD7A900036AB2 /* StringUtilsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringUtilsTest.m; sourceTree = "<group>"; };
@@ -2468,6 +2471,7 @@
 				07636BC01BA49A0100925671 /* VideoProcessor */,
 				07636BC31BA49A0100925671 /* VideoRecorder */,
 				07636BC61BA49A0100925671 /* VideoUtils */,
+				07C94DD11BA7246D009338B1 /* UserFriendshipStatusHandler */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -4157,6 +4161,15 @@
 			path = "UIImage+PDF";
 			sourceTree = "<group>";
 		};
+		07C94DD11BA7246D009338B1 /* UserFriendshipStatusHandler */ = {
+			isa = PBXGroup;
+			children = (
+				07C94DCE1BA7246A009338B1 /* ZZUserFriendshipStatusHandler.h */,
+				07C94DCF1BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m */,
+			);
+			name = UserFriendshipStatusHandler;
+			sourceTree = "<group>";
+		};
 		07F0E7E11B8CD7A900036AB2 /* tbm */ = {
 			isa = PBXGroup;
 			children = (
@@ -4542,6 +4555,7 @@
 				07636F101BA49A0100925671 /* NSString+MD5.m in Sources */,
 				07636EF61BA49A0100925671 /* ANMessageDomainModel.m in Sources */,
 				07636E291BA49A0100925671 /* ZZVideoDataProvider.m in Sources */,
+				07C94DD01BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m in Sources */,
 				07636EE31BA49A0100925671 /* ANAnimator.m in Sources */,
 				07636EE01BA49A0100925671 /* ZZStartView.m in Sources */,
 				07636DE91BA49A0100925671 /* TBMFriend+StateProtocol.m in Sources */,

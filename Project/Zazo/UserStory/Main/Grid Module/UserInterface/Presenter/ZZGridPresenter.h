@@ -12,6 +12,7 @@
 #import "ZZGridModuleInterface.h"
 #import "ZZMenuModuleDelegate.h"
 #import "ZZGridWireframe.h"
+#import "ZZEditFriendListModuleDelegate.h"
 
 @class ZZGridWireframe;
 
@@ -19,7 +20,8 @@
 <
     ZZGridInteractorOutput,
     ZZGridModuleInterface,
-    ZZMenuModuleDelegate
+    ZZMenuModuleDelegate,
+    ZZEditFriendListModuleDelegate
 >
 
 @property (nonatomic, strong) id<ZZGridInteractorInput> interactor;

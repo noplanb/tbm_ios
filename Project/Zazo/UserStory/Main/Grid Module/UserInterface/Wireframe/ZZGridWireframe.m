@@ -15,6 +15,7 @@
 #import "DeviceUtil.h"
 #import "TBMUser.h"
 #import "ANMessagesWireframe.h"
+#import "ZZEditFriendListPresenter.h"
 
 @interface ZZGridWireframe ()
 
@@ -66,6 +67,7 @@
 {
     ZZEditFriendListWireframe* wireFrame = [ZZEditFriendListWireframe new];
     [wireFrame presentEditFriendListControllerFromViewController:self.gridController withCompletion:nil];
+    wireFrame.presenter.editFriendListModuleDelegate = self.presenter;
 }
 
 - (void)presentSendFeedbackWithModel:(ANMessageDomainModel*)model;

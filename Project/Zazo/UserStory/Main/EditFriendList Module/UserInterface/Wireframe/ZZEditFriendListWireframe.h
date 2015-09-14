@@ -6,7 +6,11 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
+@class ZZEditFriendListPresenter;
+
 @interface ZZEditFriendListWireframe : NSObject
+
+@property (nonatomic, strong) ZZEditFriendListPresenter* presenter;
 
 - (void)presentEditFriendListControllerFromViewController:(UIViewController*)vc withCompletion:(ANCodeBlock)completion;
 - (void)dismissEditFriendListController;
