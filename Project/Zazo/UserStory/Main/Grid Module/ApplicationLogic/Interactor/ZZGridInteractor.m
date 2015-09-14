@@ -112,7 +112,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)removeUserFromContacts:(ZZFriendDomainModel*)model
 {
-    
+    //TODO: replace existing grid friend with nil.
 }
 
 - (void)selectedPlusCellWithModel:(id)model
