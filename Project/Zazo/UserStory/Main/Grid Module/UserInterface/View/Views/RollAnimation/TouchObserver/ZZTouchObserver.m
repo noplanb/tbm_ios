@@ -234,10 +234,11 @@ static CGFloat const kTouchOffset = 7;
     if (!self.grid.isHidden && !self.isUpdatedAfterStart)
     {
         self.isUpdatedAfterStart = YES;
+     
         [self.initialStorageValue removeAllObjects];
         
         NSMutableDictionary* positionDict = [NSMutableDictionary dictionary];
-        
+    
         [[self.collectionView visibleCells] enumerateObjectsUsingBlock:^(UICollectionViewCell* cell, NSUInteger idx, BOOL *stop) {
             
             if ([cell isKindOfClass:[ZZGridCell class]])
@@ -245,6 +246,7 @@ static CGFloat const kTouchOffset = 7;
                 [self.movingViewArray enumerateObjectsUsingBlock:^(ZZFakeRotationCell* fakeCell, NSUInteger idx, BOOL *stop) {
                     if (CGRectIntersectsRect(cell.frame, fakeCell.frame))
                     {
+                        
                         NSIndexPath* indexPath = [self.collectionView indexPathForCell:cell];
                         NSNumber* index = indexPath.item == 0 ? @(0) : @(indexPath.item);
                         [positionDict setObject:[self.storage itemAtIndexPath:fakeCell.indexPath] forKey:index];

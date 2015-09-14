@@ -72,7 +72,7 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
 
 - (void)menuWasOpened
 {
-    [self.touchObserver hideMovedGridIfNeeded];
+    
 }
 
 - (void)showFriendAnimationWithModel:(ZZFriendDomainModel *)friendModel
