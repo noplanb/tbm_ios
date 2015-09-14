@@ -34,7 +34,7 @@
     {
         [alert addAction:[SDCAlertAction actionWithTitle:actionButtonTitle
                                                    style:SDCAlertActionStyleDefault
-                                                 handler:^(SDCAlertAction *action){
+                                                 handler:^(SDCAlertAction *action) {
             completion();
         }]];
     }

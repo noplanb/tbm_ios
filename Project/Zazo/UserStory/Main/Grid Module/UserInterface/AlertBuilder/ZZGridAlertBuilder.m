@@ -17,7 +17,7 @@
     NSString* format = @"It looks like you can't or didn't send a link by text. Perhaps you can just call or email %@ and tell them about %@.";
     NSString *msg = [NSString stringWithFormat:format, [NSObject an_safeString:username], [self _appName]];
     
-    [ZZAlertBuilder presentAlertWithTitle:@"Didn't Send Link" details:msg cancelButtonTitle:@"OK"];
+    [ZZAlertBuilder presentAlertWithTitle:@"Didn't Send Link" details:msg cancelButtonTitle:nil actionButtonTitle:@"OK" action:completion];
 }
 
 + (void)showSendInvitationDialogForUser:(NSString*)firsName completion:(ANCodeBlock)completion
