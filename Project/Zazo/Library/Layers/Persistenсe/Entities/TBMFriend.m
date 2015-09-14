@@ -373,7 +373,8 @@ static NSMutableArray *videoStatusNotificationDelegates;
     NSInteger i = 0;
     for (TBMVideo *v in [self sortedIncomingVideos])
     {
-        if (v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADED)
+        if (v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADED ||
+            v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADING)
         {
              i++;
         }
@@ -384,6 +385,7 @@ static NSMutableArray *videoStatusNotificationDelegates;
 - (void)setViewedWithIncomingVideo:(TBMVideo *)video
 {
     [self setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_VIEWED video:video];
+    
     TBMAppDelegate* delegate = (TBMAppDelegate*)[UIApplication sharedApplication].delegate;
     [delegate sendNotificationForVideoStatusUpdate:self videoId:video.videoId status:NOTIFICATION_STATUS_VIEWED];
 }
@@ -522,6 +524,10 @@ static NSMutableArray *videoStatusNotificationDelegates;
 //        [delegate videoStatusDidChange:self];
 //    }
     
+    if (self.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED)
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kFriendVideoViewedNotification object:self];
+    }
 }
 
 - (NSString *)videoStatusString

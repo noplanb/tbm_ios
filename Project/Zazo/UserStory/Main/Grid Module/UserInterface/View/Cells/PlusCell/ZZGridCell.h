@@ -12,6 +12,7 @@
 @interface ZZGridCell : ANCollectionViewCell
 
 - (void)showContainFriendAnimation;
-- (void)showUploadVideoAnimationWithCount:(NSInteger)count;
+- (void)showDownloadVideoAnimationWithCount:(NSInteger)count;
+- (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock;
 
 @end

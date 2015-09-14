@@ -27,7 +27,10 @@ static CGFloat const kThumbnailSidePadding = 2;
     self = [super initWithPresentedView:presentedView];
     if (self)
     {
+        [self thumbnailImageView];
+        [self userNameLabel];
         [self containFriendView];
+        [self videoViewedView];
     }
     
     return self;
@@ -54,6 +57,8 @@ static CGFloat const kThumbnailSidePadding = 2;
 {
     if (!self.superview.isHidden)
     {
+        [self hideAllAnimationViews];
+        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
         [self.model updateVideoPlayingStateTo:YES];
     }
 }

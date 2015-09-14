@@ -264,8 +264,6 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 - (void)sendNotificationForVideoStatusUpdate:(TBMFriend *)friend videoId:(NSString *)videoId status:(NSString *)status
 {
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kFriendChangeNotification object:friend];
-    
     ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
     ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
     
