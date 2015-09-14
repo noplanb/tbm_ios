@@ -123,5 +123,7 @@
 "secret-controller.rollbar.segment-control.title" = "RollbarSDK";
 "secret-controller.server.segment-control.title" = "Server";
 
-
+//Record Notifications
+"record-problem-recording" = "Problem recording video";
+"record-video-too-short" = "Video too short";
 
