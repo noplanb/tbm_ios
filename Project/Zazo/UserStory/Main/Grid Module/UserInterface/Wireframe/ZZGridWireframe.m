@@ -105,7 +105,7 @@
     
     gridController.eventHandler = presenter;
     gridController.vcDelegate = presenter;
-    
+
     presenter.interactor = interactor;
     presenter.wireframe = self;
     [presenter configurePresenterWithUserInterface:gridController];

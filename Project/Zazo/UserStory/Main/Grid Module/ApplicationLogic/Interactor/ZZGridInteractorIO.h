@@ -19,6 +19,8 @@
 - (void)inviteUserThatHasNoAppInstalled;
 - (void)addNewFriendToGridModelsArray;
 
+- (NSUInteger)lastAddedFriendIndex;
+- (NSString*)lastAddedFriendName;
 @end
 
 

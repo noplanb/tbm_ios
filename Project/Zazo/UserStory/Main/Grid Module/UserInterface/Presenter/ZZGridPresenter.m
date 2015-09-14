@@ -192,6 +192,38 @@
     }
 }
 
+- (UIView*)viewForDialog
+{
+    return [self.userInterface viewForDialogs];
+}
+
+- (CGRect)gridGetFrameForFriend:(NSUInteger)friendCellIndex inView:(UIView*)view
+{
+    NSIndexPath* friendIndexPath = [self _indexPathForFriendAtindex:friendCellIndex];
+    return [self.userInterface gridGetFrameForIndexPath:friendIndexPath inView:view];
+}
+
+- (CGRect)gridGetCenterCellFrameInView:(UIView*)view
+{
+    return [self.userInterface gridGetCenterCellFrameInView:view];
+}
+
+- (CGRect)gridGetFrameForUnviewedBadgeForFriend:(NSUInteger)friendCellIndex inView:(UIView*)view
+{
+    NSIndexPath* friendIndexPath = [self _indexPathForFriendAtindex:friendCellIndex];
+    return [self.userInterface gridGetUnviewedBadgeFrameForIndexPath:friendIndexPath inView:view];
+}
+
+- (NSUInteger)lastAddedFriendOnGridIndex
+{
+    return [self.interactor lastAddedFriendIndex];
+}
+
+- (NSString*)lastAddedFriendOnGridName
+{
+    return [self.interactor lastAddedFriendName];
+}
+
 
 #pragma mark - Video Player Delegate
 
@@ -385,5 +417,12 @@
         [self showConnectedDialogForModel:friend];
     }];
 }
+
+- (NSIndexPath*)_indexPathForFriendAtindex:(NSUInteger)friendIndex
+{
+    NSIndexPath *friendIndexPath = [NSIndexPath indexPathForItem:friendIndex inSection:0];
+    return friendIndexPath;
+}
+
 
 @end

@@ -75,6 +75,37 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
     self.touchObserver.storage = dataSource.storage;
 }
 
+#pragma mark VC Interface
+
+- (UIView*)viewForDialogs
+{
+    return self.view;
+}
+
+- (CGRect)gridGetFrameForIndexPath:(NSIndexPath*)path inView:(UIView*)view
+{
+    CGRect rect = [self frameForIndexPath:path];
+    CGRect result = [self.view convertRect:rect toView:view];
+    return result;
+}
+
+- (CGRect)gridGetCenterCellFrameInView:(UIView*)view
+{
+    //TODO: (EventsFlow) Central cell frame
+    //CGRect rect =
+    //CGRect result = [self.view convertRect:rect toView:view];
+    return CGRectZero;
+}
+
+- (CGRect)gridGetUnviewedBadgeFrameForIndexPath:(NSIndexPath*)path inView:(UIView*)view
+{
+    //TODO: (EventsFlow) Central cell frame
+    //CGRect rect =
+    //CGRect result = [self.view convertRect:rect toView:view];
+    return CGRectZero;
+}
+
+
 - (void)menuWasOpened
 {
     [self.touchObserver hideMovedGridIfNeeded];
