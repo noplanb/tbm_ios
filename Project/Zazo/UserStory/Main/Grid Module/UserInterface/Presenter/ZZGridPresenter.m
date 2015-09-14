@@ -8,7 +8,6 @@
 
 #import "ZZGridPresenter.h"
 #import "ZZGridDataSource.h"
-#import "ANMemoryStorage.h"
 #import "ZZVideoRecorder.h"
 #import "ZZVideoUtils.h"
 #import "ZZSoundPlayer.h"
@@ -20,24 +19,35 @@
 #import "TBMPhoneUtils.h"
 #import "ZZAPIRoutes.h"
 #import "ZZGridAlertBuilder.h"
+#import "TBMEventsFlowModuleInterface.h"
 
 @interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate>
 
-@property (nonatomic, strong) ZZGridDataSource* dataSource;
-@property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
-@property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
+@property(nonatomic, strong) ZZGridDataSource* dataSource;
+@property(nonatomic, strong) ZZSoundPlayer* soundPlayer;
+@property(nonatomic, strong) ZZVideoPlayer* videoPlayer;
 
 @end
 
 @implementation ZZGridPresenter
+//TODO: (EventsFlow) When sent                  [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidSend];
+//TODO: (EventsFlow) When friend add            [self.eventsFlowModule throwEvent:TBMEventFlowEventFriendDidAddWithoutApp];
+//TODO: (EventsFlow) When Message Received      [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidReceive];
+//TODO: (EventsFlow) When grid was appear       [self.eventsFlowModule throwEvent:TBMEventFlowEventApplicationDidLaunch]; *if not active sms dialog
+//TODO: (EventsFlow) When
+//TODO: (EventsFlow) When
 
-- (void)configurePresenterWithUserInterface:(UIViewController<ZZGridViewInterface>*)userInterface
+
+//TODO: (EventsFlow) Setup events flow module
+
+
+- (void)configurePresenterWithUserInterface:(UIViewController <ZZGridViewInterface>*)userInterface
 {
     self.userInterface = userInterface;
     self.dataSource = [ZZGridDataSource new];
     self.dataSource.delegate = self;
     [self.userInterface updateWithDataSource:self.dataSource];
-    
+
     self.videoPlayer = [ZZVideoPlayer new];
     self.videoPlayer.delegate = self;
     [self setupNotification];
@@ -77,7 +87,7 @@
 
 #pragma mark - Output
 
-- (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel *)model
+- (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel*)model
 {
     [self.wireframe presentSendFeedbackWithModel:model];
 }
@@ -85,10 +95,10 @@
 - (void)dataLoadedWithArray:(NSArray*)data
 {
     [self.dataSource setupWithModels:data];
-    
+
     BOOL isSwitchCameraAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
     [self.dataSource setupCenterViewModelShouldHandleCameraRotation:isSwitchCameraAvailable];
-    
+
     [[ZZVideoRecorder shared] updateRecordView:[self.dataSource centerViewModel].recordView];
 }
 
@@ -135,7 +145,7 @@
     }
 }
 
-- (void)updateGridWithModel:(ZZGridDomainModel *)model
+- (void)updateGridWithModel:(ZZGridDomainModel*)model
 {
     [self.dataSource updateStorageWithModel:model];
 }
@@ -150,17 +160,17 @@
 
 - (void)itemSelectedWithModel:(ZZGridCellViewModel*)model
 {
-    if ((ZZGridCenterCellViewModel*)model == [self.dataSource centerViewModel])
+    if ((ZZGridCenterCellViewModel*) model == [self.dataSource centerViewModel])
     {
         if ([TBMFriend count] == 0)
             return;
-        
-        NSString *msg;
+
+        NSString* msg;
         if ([TBMVideo downloadedUnviewedCount] > 0)
             msg = @"Tap a friend to play.";
         else
             msg = @"Press and hold a friend to record.";
-        
+
         [ZZGridAlertBuilder showHintalertWithMessage:msg];
     }
     else if (model.item.relatedUser)
@@ -181,18 +191,21 @@
 - (void)videoPlayerURLWasStartPlaying:(NSURL*)videoURL
 {
     //TODO: delete video file
+    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidStartPlaying];
 }
 
 - (void)videoPlayerURLWasFinishedPlaying:(NSURL*)videoURL
 {
-    // nothing ...
+    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidViewed];
+    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidStopPlaying];
 }
 
 #pragma mark - Data source delegate
 
 - (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel*)userModel // TODO: check friedn model
 {
-    [ZZGridAlertBuilder showPreNudgeAlertWithFriendFirstName:userModel.firstName completion:^{
+    [ZZGridAlertBuilder showPreNudgeAlertWithFriendFirstName:userModel.firstName completion:^
+    {
 //        [self smsDialog]; // TODO: make friendDomain model and present SMSAlert
     }];
 }
@@ -236,7 +249,7 @@
 //                }
 //            }
 //        }
-        
+
         [self.userInterface updateRollingStateTo:!isEnabled];
         [self.soundPlayer play];
     }
@@ -297,17 +310,21 @@
 - (void)showChooseNumberDialogFromNumbersArray:(NSArray*)array// TODO: move to grid alerts
 {
     //TODO: this alert is SUXX
-    ANDispatchBlockToMainQueue(^{
-        TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Attention"
+    ANDispatchBlockToMainQueue(^
+    {
+        TBMAlertController* alert = [TBMAlertController alertControllerWithTitle:@"Attention"
                                                                          message:@"Choose phone number"];
-        
-        [array enumerateObjectsUsingBlock:^(NSString* phoneNumber, NSUInteger idx, BOOL *stop) {
-            [alert addAction:[SDCAlertAction actionWithTitle:phoneNumber style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+
+        [array enumerateObjectsUsingBlock:^(NSString* phoneNumber, NSUInteger idx, BOOL* stop)
+        {
+            [alert addAction:[SDCAlertAction actionWithTitle:phoneNumber style:SDCAlertActionStyleDefault handler:^(SDCAlertAction* action)
+            {
                 [self.interactor userSelectedPhoneNumber:phoneNumber];
             }]];
         }];
-        
-        [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
+
+        [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction* action)
+        {
         }]];
 
         [alert presentWithCompletion:nil];
@@ -316,14 +333,16 @@
 
 - (void)showSendInvitationDialogForUser:(NSString*)firsName
 {
-    [ZZGridAlertBuilder showSendInvitationDialogForUser:firsName completion:^{
+    [ZZGridAlertBuilder showSendInvitationDialogForUser:firsName completion:^
+    {
         [self.interactor inviteUserThatHasNoAppInstalled];
     }];
 }
 
 - (void)showConnectedDialogForModel:(ZZFriendDomainModel*)friend
 {
-    [ZZGridAlertBuilder showConnectedDialogForUser:friend.firstName completion:^{
+    [ZZGridAlertBuilder showConnectedDialogForUser:friend.firstName completion:^
+    {
         [self.interactor addNewFriendToGridModelsArray];
     }];
 }
@@ -333,20 +352,23 @@
     ANMessageDomainModel* model = [ANMessageDomainModel new];
     NSString* formattedNumber = [TBMPhoneUtils phone:friend.mobileNumber withFormat:NBEPhoneNumberFormatE164];
     model.recipients = @[[NSObject an_safeString:formattedNumber]];
-    
+
     NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
     model.message = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", appName, kInviteFriendBaseURL, friend.idTbm];
-    
-    [self.wireframe presentSMSDialogWithModel:model success:^{
+
+    [self.wireframe presentSMSDialogWithModel:model success:^
+    {
         [self showConnectedDialogForModel:friend];
-    } fail:^{
+    }                                    fail:^
+    {
         [self showCantSendSmsErrorForModel:friend];
     }];
 }
 
 - (void)showCantSendSmsErrorForModel:(ZZFriendDomainModel*)friend
 {
-    [ZZGridAlertBuilder showCannotSendSmsErrorToUser:[friend fullName] completion:^{
+    [ZZGridAlertBuilder showCannotSendSmsErrorToUser:[friend fullName] completion:^
+    {
         [self showConnectedDialogForModel:friend];
     }];
 }
