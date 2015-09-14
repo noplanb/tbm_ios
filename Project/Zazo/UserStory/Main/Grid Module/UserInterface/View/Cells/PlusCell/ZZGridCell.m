@@ -41,6 +41,7 @@
 
 - (void)prepareForReuse
 {
+    [self.stateView removeFromSuperview];
     [self.model updateVideoPlayingStateTo:NO];
 }
 
@@ -118,10 +119,10 @@
         [_stateView removeFromSuperview];
         _stateView = stateView;
     }
-//    [self.contentView addSubview:stateView];
-//    [stateView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo(self.contentView);
-//    }];
+    [self.contentView addSubview:stateView];
+    [stateView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.contentView);
+    }];
 }
 
 

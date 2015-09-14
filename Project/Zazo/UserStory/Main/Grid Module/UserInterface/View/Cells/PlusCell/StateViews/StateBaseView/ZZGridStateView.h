@@ -29,7 +29,7 @@
 @property (nonatomic, strong) UIImageView* videoViewedView;
 
 - (instancetype)initWithPresentedView:(UIView*)presentedView;
-- (void)addToView;
+
 - (void)updateBadgeWithNumber:(NSNumber*)badgeNumber;
 - (void)showUploadAnimation;
 - (void)showDownloadAnimationWithNewVideoCount:(NSInteger)count;
