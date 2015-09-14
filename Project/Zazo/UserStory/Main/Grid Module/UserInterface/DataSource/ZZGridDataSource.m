@@ -33,6 +33,11 @@ static NSInteger const kGridCenterCellIndex = 4;
     return self;
 }
 
+- (void)reloadStorage
+{
+//    [self.storage.delegate storageNeedsReload];
+}
+
 - (void)updateModelWithFriend:(TBMFriend*)friendEntity
 {
     ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friendEntity];

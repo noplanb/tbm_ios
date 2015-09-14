@@ -41,6 +41,7 @@
 
 - (void)prepareForReuse
 {
+    self.model = nil;
     [self.stateView removeFromSuperview];
     [self.model updateVideoPlayingStateTo:NO];
 }

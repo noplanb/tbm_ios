@@ -13,7 +13,6 @@
 - (void)updateWithDataSource:(ZZGridDataSource*)dataSource;
 - (void)showFriendAnimationWithModel:(ZZFriendDomainModel*)friendModel;
 - (void)updateRollingStateTo:(BOOL)isEnabled;
-
 - (void)menuWasOpened;
 
 - (CGRect)frameForIndexPath:(NSIndexPath*)indexPath;

@@ -12,6 +12,7 @@
 @property (nonatomic, strong) NSIndexPath* indexPath;
 @property (nonatomic, strong) UIImageView* stateImageView;
 
+
 - (void)tapped;
 - (void)longTapStarted;
 - (void)longTapEnded;
