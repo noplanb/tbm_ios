@@ -26,6 +26,8 @@
 @property (nonatomic, strong) UILabel* videoCountLabel;
 @property (nonatomic, strong) UIView* presentedView;
 
+@property (nonatomic, strong) UIImageView* videoViewedView;
+
 - (instancetype)initWithPresentedView:(UIView*)presentedView;
 
 - (void)updateBadgeWithNumber:(NSNumber*)badgeNumber;
@@ -33,5 +35,7 @@
 - (void)showDownloadAnimationWithNewVideoCount:(NSInteger)count;
 - (void)showContainFriendAnimation;
 - (void)showUploadIconWithoutAnimation;
-
+- (void)hideAllAnimationViews;
+- (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock;
+- (void)checkIsCancelRecordingWithRecognizer:(UILongPressGestureRecognizer*)recognizer;
 @end

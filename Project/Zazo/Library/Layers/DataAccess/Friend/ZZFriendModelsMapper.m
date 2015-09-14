@@ -11,6 +11,7 @@
 #import "ZZFriendDomainModel.h"
 #import "TBMVideo.h"
 #import "ZZVideoDataProvider.h"
+#import "ZZVideoDomainModel.h"
 
 @implementation ZZFriendModelsMapper
 
@@ -59,7 +60,9 @@
         model.lastActionTimestamp = entity.timeOfLastAction;
         model.uploadRetryCount = [entity.uploadRetryCount integerValue];
         model.videos = [[entity.videos.allObjects.rac_sequence map:^id(TBMVideo* value) {
-            return [ZZVideoDataProvider modelFromEntity:value];
+            ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:value];
+            videoModel.relatedUser = model;
+            return videoModel;
         }] array];
     }
     @catch (NSException *exception)

@@ -8,6 +8,7 @@
 
 #import "ZZGridStateViewNudge.h"
 #import "ZZGridUIConstants.h"
+#import "ZZVideoRecorder.h"
 
 @interface ZZGridStateViewNudge ()
 
@@ -33,6 +34,7 @@
         [self downloadIndicator];
         [self downloadBarView];
         [self videoCountLabel];
+        [self videoViewedView];
     }
     
     return self;
@@ -58,14 +60,20 @@
 
 - (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer //TODO: copy paste
 {
+    [self checkIsCancelRecordingWithRecognizer:recognizer];
+    
     if (recognizer.state == UIGestureRecognizerStateBegan)
     {
         [self.model updateRecordingStateTo:YES];
     }
     else if (recognizer.state == UIGestureRecognizerStateEnded)
     {
+        if (![ZZVideoRecorder shared].didCancelRecording)
+        {
+            self.model.hasUploadedVideo = YES;
+            [self showUploadAnimation];
+        }
         [self.model updateRecordingStateTo:NO];
-        [self showUploadAnimation];
     }
 }
 
@@ -126,7 +134,7 @@
                                                                                             action:@selector(_recordPressed:)];
         press.minimumPressDuration = .5;
         
-        [_recordView addGestureRecognizer:press];
+        [self addGestureRecognizer:press];
         [self addSubview:_recordView];
         
         [_recordView mas_makeConstraints:^(MASConstraintMaker *make) {

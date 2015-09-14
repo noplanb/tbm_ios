@@ -8,6 +8,7 @@
 
 #import "ZZGridStateViewPreview.h"
 #import "ZZGridUIConstants.h"
+#import "ZZVideoRecorder.h"
 
 static CGFloat const kThumbnailSidePadding = 2;
 
@@ -27,7 +28,10 @@ static CGFloat const kThumbnailSidePadding = 2;
     self = [super initWithPresentedView:presentedView];
     if (self)
     {
+        [self thumbnailImageView];
+        [self userNameLabel];
         [self containFriendView];
+        [self videoViewedView];
     }
     
     return self;
@@ -54,6 +58,8 @@ static CGFloat const kThumbnailSidePadding = 2;
 {
     if (!self.superview.isHidden)
     {
+        [self hideAllAnimationViews];
+        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
         [self.model updateVideoPlayingStateTo:YES];
     }
 }
@@ -112,15 +118,21 @@ static CGFloat const kThumbnailSidePadding = 2;
 
 - (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer
 {
+    
+    [self checkIsCancelRecordingWithRecognizer:recognizer];
+    
     if (recognizer.state == UIGestureRecognizerStateBegan)
     {
         [self.model updateRecordingStateTo:YES];
     }
     else if (recognizer.state == UIGestureRecognizerStateEnded)
     {
-        self.model.hasUploadedVideo = YES;
+        if (![ZZVideoRecorder shared].didCancelRecording)
+        {
+            self.model.hasUploadedVideo = YES;
+            [self showUploadAnimation];
+        }
         [self.model updateRecordingStateTo:NO];
-        [self showUploadAnimation];
     }
 }
 

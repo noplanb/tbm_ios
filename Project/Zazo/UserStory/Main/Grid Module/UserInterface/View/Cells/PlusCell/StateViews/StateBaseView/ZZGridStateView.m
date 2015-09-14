@@ -11,6 +11,7 @@
 #import "ZZVideoPlayer.h"
 #import "ZZGridUIConstants.h"
 #import "UIImage+PDF.h"
+#import "ZZVideoRecorder.h"
 
 @interface ZZGridStateView ()
 
@@ -40,10 +41,25 @@
     {
         [self showUploadIconWithoutAnimation];
     }
-    [self updateBadgeWithNumber:self.model.badgeNumber];
     model.playerContainerView = self;
+    
+    if (self.model.isUploadedVideoViewed)
+    {
+        [self hideAllAnimationViews];
+        self.videoViewedView.hidden = NO;
+    }
 }
 
+
+- (void)checkIsCancelRecordingWithRecognizer:(UILongPressGestureRecognizer*)recognizer
+{
+    UIView* recordView = recognizer.view;
+    CGPoint location = [recognizer locationInView:recordView];
+    if (!CGRectContainsPoint(recordView.frame,location))
+    {
+        [[ZZVideoRecorder shared] cancelRecordingWithReason:NSLocalizedString(@"record-dragged-finger-away", nil)];
+    }
+}
 
 #pragma mark - Animation Views
 
@@ -56,6 +72,11 @@
 
 #pragma mark - Animation part
 
+- (void)hideAllAnimationViews
+{
+    [self _hideAllAnimationViews];
+}
+
 - (void)showUploadAnimation
 {
     [self _showUploadAnimation];
@@ -67,6 +88,11 @@
     {
         [self _showDownloadAnimationWithNewVideoCount:count];
     }
+}
+
+- (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock
+{
+    [self _showDownloadAnimationWithCompletionBlock:completionBlock];
 }
 
 - (void)updateBadgeWithNumber:(NSNumber*)badgeNumber
@@ -236,6 +262,33 @@
         }];
     }
     return _containFriendView;
+}
+
+- (UIImageView *)videoViewedView
+{
+    if (!_videoViewedView)
+    {
+        _videoViewedView = [UIImageView new];
+        CGFloat width = [self _indicatorCalculatedWidth];
+        CGFloat height = [self _indicatorCalculatedWidth];
+        
+        UIImage* image = [UIImage imageWithPDFNamed:@"home-page-view" atHeight:height];
+        _videoViewedView.image = image;
+        [_videoViewedView sizeToFit];
+        _videoViewedView.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+        _videoViewedView.hidden = YES;
+        [self addSubview:_videoViewedView];
+        CGFloat aspect = width/height;
+        
+        [_videoViewedView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self);
+            self.rightDownloadIndicatorConstraint = make.right.equalTo(self);
+//            make.width.equalTo(@([self _indicatorCalculatedWidth]));
+//            make.height.equalTo(@([self _indicatorCalculatedWidth]/aspect));
+        }];
+    }
+
+    return _videoViewedView;
 }
 
 @end

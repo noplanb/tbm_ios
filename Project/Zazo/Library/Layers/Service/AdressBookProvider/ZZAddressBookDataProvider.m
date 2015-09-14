@@ -72,7 +72,7 @@ static APAddressBook* addressBook = nil;
     {
         addressBook = [[APAddressBook alloc] init];
     }
-    addressBook.fieldsMask = APContactFieldFirstName | APContactFieldLastName  | APContactFieldPhones | APContactFieldThumbnail;
+    addressBook.fieldsMask = APContactFieldFirstName | APContactFieldLastName  | APContactFieldPhones;
     
     addressBook.filterBlock = ^BOOL(APContact *contact) {
         return ((contact.phones.count > 0) | (contact.firstName.length));
@@ -107,7 +107,6 @@ static APAddressBook* addressBook = nil;
         
         model.firstName = contact.firstName;
         model.lastName = contact.lastName;
-        model.photoImage = contact.thumbnail;
         
         NSArray* phones = [[contact.phones.rac_sequence map:^id(NSString* value) {
             return [value an_stripAllNonNumericCharacters];

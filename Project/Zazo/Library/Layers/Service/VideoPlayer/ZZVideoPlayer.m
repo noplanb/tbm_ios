@@ -12,6 +12,9 @@
 #import "ZZVideoDomainModel.h"
 #import "TBMVideo.h"
 #import "MagicalRecord.h"
+#import "ZZFriendDataProvider.h"
+#import "TBMFriend.h"
+#import "TBMRemoteStorageHandler.h"
 
 @interface ZZVideoPlayer ()
 
@@ -48,7 +51,7 @@
     self.videoModelsArray = URLs;
     if (view != self.moviePlayerController.view.superview && view)
     {
-        
+    
         self.moviePlayerController.view.frame = view.bounds;
         [view addSubview:self.moviePlayerController.view];
         [view bringSubviewToFront:self.moviePlayerController.view];
@@ -63,8 +66,6 @@
     }
     if (!ANIsEmpty(URLs))//&& ![self.currentPlayQueue isEqualToArray:URLs]) //TODO: if current playback state is equal to user's play list
     {
-//        ZZVideoDomainModel* videoModel = [URLs firstObject];
-//        NSURL* firstVideoUrl = videoModel.videoURL;
 
         NSURL* firstVideoUrl = [self.currentPlayQueue firstObject];
         ZZVideoDomainModel* playedVideoModel = [self.videoModelsArray firstObject];
@@ -72,17 +73,21 @@
         TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
         viewedVideo.status = @(INCOMING_VIDEO_STATUS_VIEWED);
         [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
-        //        if ([[NSFileManager defaultManager] fileExistsAtPath:[firstVideoUrl path]])
-//        {
-//            NSLog(@"asdf");
-//        }
-//        else
-//        {
-//            NSLog(@"asdf");
-//        }
         self.moviePlayerController.contentURL = firstVideoUrl;
-        self.isPlayingVideo = YES;
+       
+        
         [self.moviePlayerController play];
+       
+        
+        self.isPlayingVideo = YES;
+        TBMFriend* friend = [ZZFriendDataProvider entityFromModel:playedVideoModel.relatedUser];
+        [friend setViewedWithIncomingVideo:viewedVideo];
+        [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
+                                                      videoId:viewedVideo.videoId
+                                                       friend:friend];
+        
+        
+        
     }
 }
 
@@ -139,7 +144,17 @@
         
         [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL];
         self.moviePlayerController.contentURL = nextUrl;
+        
+        TBMFriend* friend = [ZZFriendDataProvider entityFromModel:playedVideoModel.relatedUser];
+        [friend setViewedWithIncomingVideo:viewedVideo];
+        [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
+                                                      videoId:viewedVideo.videoId
+                                                       friend:friend];
+        
+        
         [self.moviePlayerController play];
+        
+        
     }
 }
 
@@ -159,6 +174,7 @@
     if (!_moviePlayerController)
     {
         _moviePlayerController = [MPMoviePlayerController new];
+        [_moviePlayerController setScalingMode:MPMovieScalingModeFill];
         _moviePlayerController.controlStyle = MPMovieControlStyleNone;
         _moviePlayerController.view.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
         [_moviePlayerController.view addSubview:self.tapButton];

@@ -12,6 +12,7 @@
 @class TBMGridElement;
 
 static NSString* const kFriendChangeNotification = @"friendChangeNotification";
+static NSString* const kFriendVideoViewedNotification = @"videoViewedNotification";
 
 @protocol TBMVideoStatusNotificationProtocol <NSObject>
 - (void)videoStatusDidChange:(TBMFriend *)friend;

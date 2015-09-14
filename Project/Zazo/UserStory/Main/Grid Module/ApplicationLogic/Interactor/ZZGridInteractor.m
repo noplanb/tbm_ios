@@ -22,6 +22,7 @@
 #import "ZZUserDataProvider.h"
 #import "FEMObjectDeserializer.h"
 #import "ZZFriendsTransportService.h"
+#import "TBMS3CredentialsManager.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
@@ -50,22 +51,30 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)loadData
 {
-    NSArray* friends = [ZZFriendDataProvider loadAllFriends];
+    [self.friends addObjectsFromArray:[ZZFriendDataProvider loadAllFriends]];
+    NSArray* gridStoredModels = [ZZGridDataProvider loadAllGridsSortByIndex:YES];
     
     NSMutableArray* gridModels = [NSMutableArray array];
     for (NSInteger count = 0; count < kGridFriendsCellCount; count++)
     {
         ZZGridDomainModel* model;
-        model = [ZZGridDomainModel new];
-        model.index = @(count);
-        if (friends.count > count)
+        if (gridStoredModels.count > count)
         {
-            ZZFriendDomainModel *aFriend = friends[count];
+            model = gridStoredModels[count];
+        }
+        else
+        {
+            model = [ZZGridDomainModel new];
+        }
+        model.index = @(count);
+        if (self.friends.count > count)
+        {
+            ZZFriendDomainModel *aFriend = self.friends[count];
             model.relatedUser = aFriend;
         }
         [gridModels addObject:model];
 
-        [ZZGridDataProvider upsertModel:model];
+        model = [ZZGridDataProvider upsertModel:model];
     }
     self.gridModels = [gridModels copy];
     [self.output dataLoadedWithArray:self.gridModels];
@@ -74,7 +83,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 //    
 //    - (void)postRegistrationBoot
 //    {
-//        [TBMS3CredentialsManager refreshFromServer:nil];
+        [TBMS3CredentialsManager refreshFromServer:nil];
 //    }
 }
 
@@ -82,16 +91,16 @@ static NSInteger const kGridFriendsCellCount = 8;
 {
     //TODO: last loadFirstEmptyGridElement not work!
     
-//    ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
-//    model.relatedUser = friend;
-//    [ZZGridDataProvider upsertModel:model];
+    ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
+    model.relatedUser = friend;
+    [ZZGridDataProvider upsertModel:model];
 
-    //TODO: clean datasource storage before new output?
+//    TODO: clean datasource storage before new output?
     
-//    if (contact)
-//    {
-//        [self.output updateGridWithModel:model];
-//    }
+    if (contact)
+    {
+        [self.output updateGridWithModel:model];
+    }
 }
 
 
