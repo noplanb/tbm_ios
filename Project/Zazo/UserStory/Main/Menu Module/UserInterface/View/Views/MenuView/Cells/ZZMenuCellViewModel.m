@@ -14,6 +14,8 @@ static UIImage* ZZZazoImage = nil;
 
 @interface ZZMenuCellViewModel ()
 
+@property (nonatomic, strong) NSString* username;
+
 @end
 
 @implementation ZZMenuCellViewModel
@@ -40,13 +42,12 @@ static UIImage* ZZZazoImage = nil;
     return model;
 }
 
-- (NSString *)username
+-(void)setItem:(id<ZZUserInterface>)item
 {
+    _item = item;
     NSString* firstName = [self.item firstName].length > 0 ? [self.item firstName] : @"";
     NSString* lastName = [self.item lastName].length > 0 ? [self.item lastName] : @"";
-    
-    NSString *name = [NSString stringWithFormat:@"%@ %@",firstName,lastName];
-    return name; // TODO;
+    self.username = [NSString stringWithFormat:@"%@ %@",firstName,lastName];
 }
 
 - (void)updateImageView:(UIImageView *)imageView
