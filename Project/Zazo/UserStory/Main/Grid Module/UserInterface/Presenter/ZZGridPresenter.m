@@ -20,6 +20,7 @@
 #import "ZZAPIRoutes.h"
 #import "ZZGridAlertBuilder.h"
 #import "TBMEventsFlowModuleInterface.h"
+#import "TBMEventsFlowModulePresenter.h"
 
 @interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate>
 
@@ -33,13 +34,8 @@
 //TODO: (EventsFlow) When sent                  [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidSend];
 //TODO: (EventsFlow) When friend add            [self.eventsFlowModule throwEvent:TBMEventFlowEventFriendDidAddWithoutApp];
 //TODO: (EventsFlow) When Message Received      [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidReceive];
-//TODO: (EventsFlow) When grid was appear       [self.eventsFlowModule throwEvent:TBMEventFlowEventApplicationDidLaunch]; *if not active sms dialog
 //TODO: (EventsFlow) When
-//TODO: (EventsFlow) When
-
-
 //TODO: (EventsFlow) Setup events flow module
-
 
 - (void)configurePresenterWithUserInterface:(UIViewController <ZZGridViewInterface>*)userInterface
 {
@@ -60,6 +56,17 @@
                                              selector:@selector(updateGridData:)
                                                  name:kFriendChangeNotification
                                                object:nil];
+}
+
+- (id)eventsFlowModule
+{
+    if (!_eventsFlowModule)
+    {
+        TBMEventsFlowModulePresenter* eventsFlowModulePresenter = [TBMEventsFlowModulePresenter new];
+        eventsFlowModulePresenter.gridModule = self;
+        _eventsFlowModule = eventsFlowModulePresenter;
+    }
+    return _eventsFlowModule;
 }
 
 - (void)dealloc
@@ -293,6 +300,12 @@
     return _soundPlayer;
 }
 
+#pragma mark - View delegate
+
+- (void)gridDidAppear
+{
+    [self.eventsFlowModule throwEvent:TBMEventFlowEventApplicationDidLaunch];
+}
 
 #pragma mark - Private
 

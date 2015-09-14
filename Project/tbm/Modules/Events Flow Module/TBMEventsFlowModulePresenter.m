@@ -57,10 +57,6 @@
 
 #pragma mark - TBMEventsFlowModuleInterface -
 
-- (void)setupGridModule:(id <TBMGridModuleInterface>)gridModule
-{
-    self.gridModule = gridModule;
-}
 
 - (void)resetSession
 {

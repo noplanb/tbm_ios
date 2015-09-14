@@ -104,6 +104,7 @@
     interactor.output = presenter;
     
     gridController.eventHandler = presenter;
+    gridController.vcDelegate = presenter;
     
     presenter.interactor = interactor;
     presenter.wireframe = self;

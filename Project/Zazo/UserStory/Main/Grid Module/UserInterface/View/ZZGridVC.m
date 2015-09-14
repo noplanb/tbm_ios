@@ -11,7 +11,7 @@
 #import "ZZGridCollectionController.h"
 #import "ZZGridDataSource.h"
 #import "ZZTouchObserver.h"
-#import "ZZMovingGridView.h"
+#import "ZZGridVCDelegate.h"
 #import "TBMBenchViewController.h"
 #import "ZZSoundPlayer.h"
 
@@ -62,6 +62,11 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
     self.gridView.headerView.editFriendsButton.rac_command = [RACCommand commandWithBlock:^{
         [self editFriendsSelected];
     }];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self.vcDelegate gridDidAppear];
 }
 
 - (void)updateWithDataSource:(ZZGridDataSource *)dataSource
