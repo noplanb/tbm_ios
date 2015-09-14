@@ -55,13 +55,21 @@
 
 + (TBMFriend*)entityFromModel:(ZZFriendDomainModel*)model
 {
-    TBMFriend* entity = [TBMFriend an_objectWithItemID:model.idTbm context:[self _context] shouldCreate:YES];
-    return [ZZFriendModelsMapper fillEntity:entity fromModel:model];
+    if (!ANIsEmpty(model))
+    {
+        TBMFriend* entity = [TBMFriend an_objectWithItemID:model.idTbm context:[self _context] shouldCreate:YES];
+        return [ZZFriendModelsMapper fillEntity:entity fromModel:model];
+    }
+    return nil;
 }
 
 + (ZZFriendDomainModel*)modelFromEntity:(TBMFriend*)entity
 {
-    return [ZZFriendModelsMapper fillModel:[ZZFriendDomainModel new] fromEntity:entity];
+    if (!ANIsEmpty(entity))
+    {
+        return [ZZFriendModelsMapper fillModel:[ZZFriendDomainModel new] fromEntity:entity];
+    }
+    return nil;
 }
 
 
@@ -99,7 +107,7 @@
 
 + (NSManagedObjectContext*)_context
 {
-    return [NSManagedObjectContext MR_context];
+    return [NSManagedObjectContext MR_rootSavingContext];
 }
 
 

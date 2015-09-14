@@ -16,7 +16,8 @@ MFMessageComposeViewControllerDelegate,
 UINavigationControllerDelegate
 >
 
-@property (nonatomic, copy) ANCodeBlock completion;
+@property (nonatomic, copy) ANMessageCompletionBlock messageCompletion;
+@property (nonatomic, copy) ANEmailCompletionBlock emailCompletion;
 
 @end
 
@@ -27,8 +28,9 @@ UINavigationControllerDelegate
 
 - (void)presentEmailControllerFromViewController:(UIViewController*)vc
                                        withModel:(ANMessageDomainModel*)model
-                                      completion:(ANEmailComletionBlock)completion
+                                      completion:(ANEmailCompletionBlock)completion
 {
+    self.emailCompletion = [completion copy];
     MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
     [composer setMailComposeDelegate:self];
     if ([MFMailComposeViewController canSendMail])
@@ -58,7 +60,6 @@ UINavigationControllerDelegate
         ANDispatchBlockToMainQueue(^{
             [vc presentViewController:composer animated:YES completion:nil];
         });
-        
     }
     else
     {
@@ -74,11 +75,12 @@ UINavigationControllerDelegate
           didFinishWithResult:(MFMailComposeResult)result
                         error:(NSError*)error
 {
-    if (self.completion)
+    if (self.emailCompletion)
     {
-        self.completion();
+        self.emailCompletion(result);
     }
     ANDispatchBlockToMainQueue(^{
+        controller.mailComposeDelegate = nil;
         [controller dismissViewControllerAnimated:YES completion:nil];
     });
 }
@@ -90,6 +92,7 @@ UINavigationControllerDelegate
                                          withModel:(ANMessageDomainModel*)model
                                         completion:(ANMessageCompletionBlock)completion
 {
+    self.messageCompletion = [completion copy];
     if ([MFMessageComposeViewController canSendText])
     {
         MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
@@ -118,19 +121,21 @@ UINavigationControllerDelegate
     }
     else
     {
-        completion(kApplicationCannotSendMessage);
+        self.messageCompletion(kApplicationCannotSendMessage);
     }
 }
 
 - (void)messageComposeViewController:(MFMessageComposeViewController*)controller
                  didFinishWithResult:(MessageComposeResult)result
 {
-    if (self.completion)
-    {
-        self.completion();
-    }
     ANDispatchBlockToMainQueue(^{
-        [controller dismissViewControllerAnimated:YES completion:nil];
+        controller.messageComposeDelegate = nil;
+        [controller dismissViewControllerAnimated:YES completion:^{
+            if (self.messageCompletion)
+            {
+                self.messageCompletion(result);
+            }
+        }];
     });
 }
 
