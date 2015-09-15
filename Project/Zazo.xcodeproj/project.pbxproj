@@ -4612,6 +4612,7 @@
 				07636ED01BA49A0100925671 /* ZZRotator.m in Sources */,
 				070560FD1BA8737700C130E0 /* ZZGridActionStoredSettings.m in Sources */,
 				79EBFDA51BA8609100A26684 /* JFMinimalNotification.m in Sources */,
+				070560FD1BA8737700C130E0 /* ZZGridActionStoredSettings.m in Sources */,
 				07636DD01BA49A0100925671 /* TBMInviteHintPresenter.m in Sources */,
 				07636E2E1BA49A0100925671 /* ZZS3CredentialsDomainModel.m in Sources */,
 				07636E901BA49A0100925671 /* ZZAuthContentView.m in Sources */,
