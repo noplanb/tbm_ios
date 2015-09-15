@@ -7,6 +7,8 @@
 #import "TBMHintView.h"
 #import "TBMRecordHintView.h"
 #import "TBMPlayHintPresenter.h"
+#import "TBMEventsFlowDataSource.h"
+#import "ZZStoredSettingsManager.h"
 
 
 @implementation TBMRecordHintPresenter
@@ -68,4 +70,13 @@
 {
     [(TBMRecordHintView *) self.dialogView setupRecordTip];
 }
+
+//TODO: Needs datasource here
+- (void)saveHandlerState
+{
+    [super saveHandlerState];
+
+    [[ZZStoredSettingsManager shared] setRecordHintWasShown:YES];
+}
+
 @end

@@ -6,6 +6,7 @@
 #import "TBMEarpieceUsageHintPresenter.h"
 #import "TBMHintView.h"
 #import "TBMEarpieceUsageHintView.h"
+#import "ZZStoredSettingsManager.h"
 
 
 @implementation TBMEarpieceUsageHintPresenter
@@ -38,4 +39,11 @@
     [self.eventFlowModule throwEvent:TBMEventFlowEventFeatureUsageHintDidDismiss];
 }
 
+//TODO: Needs datasource here
+- (void)saveHandlerState
+{
+    [super saveHandlerState];
+
+    [[ZZStoredSettingsManager shared] setEarpieceHintWasShown:YES];
+}
 @end

@@ -6,7 +6,6 @@
 #import <HexColors/HexColors.h>
 #import "TBMNextFeatureDialogView.h"
 #import "TBMNextFeatureDialogPresenter.h"
-#import "TBMGridModuleInterface.h"
 #import "NSArray+TBMArrayHelpers.h"
 
 CGFloat const kDialogHeight = 50.f;
@@ -38,9 +37,9 @@ CGFloat const kElementsHorizontalMargin = 15.f;
     self.dialogViewDelegate = viewDelegate;
 }
 
-- (void)showInGrid:(id <TBMGridModuleInterface>)gridModule
+- (void)showInGrid:(id <ZZGridModuleInterface>)gridModule
 {
-    UIView *view = gridModule.viewForDialog;
+    UIView *view = [gridModule viewForDialog];
 
     [view addSubview:self];
     [view bringSubviewToFront:self];

@@ -7,6 +7,7 @@
 #import "TBMHintView.h"
 #import "OBLoggerCore.h"
 #import "TBMEventsFlowDataSource.h"
+#import "ZZStoredSettingsManager.h"
 
 @implementation TBMEventHandlerPresenter
 
@@ -37,19 +38,20 @@
     return 0;
 }
 
-- (void)presentWithGridModule:(id <TBMGridModuleInterface>)gridModule
+- (void)present
 {
     if (![self.eventFlowModule isAnyHandlerActive])
     {
         [self didPresented];
-        [self.dialogView showInGrid:gridModule];
+        [self.dialogView showInGrid:self.gridModule];
     }
 }
 
 - (void)saveHandlerState
 {
-    [self.dataSource setPersistentState:YES forHandler:self];
     [self setSessionState:YES];
+    //[[ZZStoredSettingsManager shared] <%CONCRETE_METHOD%>:YES];
+    //needs to override in
 }
 
 - (void)dialogDidDismiss

@@ -8,9 +8,8 @@
 #import <Foundation/Foundation.h>
 #import "TBMEventsFlowModulePresenter.h"
 #import "TBMHintArrow.h"
-#import "TBMEventsFlowDataSource.h"
-#import "TBMGridModuleInterface.h"
 #import "TBMDialogViewInterface.h"
+#import "ZZGridModuleInterface.h"
 
 
 NSString *const kTBMTutorialFontName;
@@ -30,7 +29,7 @@ NSString *const kTBMTutorialFontName;
 
 @property(nonatomic) BOOL showGotItButton;
 
-@property(nonatomic, weak) id <TBMGridModuleInterface> gridModule;
+@property(nonatomic, weak) id <ZZGridModuleInterface> gridModule;
 
 @property(nonatomic) BOOL dismissAfterAction;
 

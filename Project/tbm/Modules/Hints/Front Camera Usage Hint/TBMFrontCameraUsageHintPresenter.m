@@ -6,6 +6,7 @@
 #import "TBMFrontCameraUsageHintPresenter.h"
 #import "TBMHintView.h"
 #import "TBMFrontCameraUsageHintView.h"
+#import "ZZStoredSettingsManager.h"
 
 
 @implementation TBMFrontCameraUsageHintPresenter
@@ -38,4 +39,11 @@
     [self.eventFlowModule throwEvent:TBMEventFlowEventFeatureUsageHintDidDismiss];
 }
 
+//TODO: Needs datasource here
+- (void)saveHandlerState
+{
+    [super saveHandlerState];
+
+    [[ZZStoredSettingsManager shared] setFrontCameraHintWasShown:YES];
+}
 @end

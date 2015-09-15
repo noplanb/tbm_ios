@@ -531,7 +531,6 @@
 		07636A431BA49A0100925671 /* TBMInviteSomeOneElseHintPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMInviteSomeOneElseHintPresenter.m; sourceTree = "<group>"; };
 		07636A441BA49A0100925671 /* TBMInviteSomeoneElseHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMInviteSomeoneElseHintView.h; sourceTree = "<group>"; };
 		07636A451BA49A0100925671 /* TBMInviteSomeoneElseHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMInviteSomeoneElseHintView.m; sourceTree = "<group>"; };
-		07636A471BA49A0100925671 /* TBMNextFeatureDialogPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMNextFeatureDialogPresenter.h; sourceTree = "<group>"; };
 		07636A491BA49A0100925671 /* TBMPlayHintPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMPlayHintPresenter.h; sourceTree = "<group>"; };
 		07636A4A1BA49A0100925671 /* TBMPlayHintPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMPlayHintPresenter.m; sourceTree = "<group>"; };
 		07636A4B1BA49A0100925671 /* TBMPlayHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMPlayHintView.h; sourceTree = "<group>"; };
@@ -1549,7 +1548,6 @@
 				07636A371BA49A0000925671 /* Front Camera Usage Hint */,
 				07636A3C1BA49A0100925671 /* Invite Hint */,
 				07636A411BA49A0100925671 /* Invite Someone Else Hint */,
-				07636A461BA49A0100925671 /* Next Feature Dialog Module */,
 				07636A481BA49A0100925671 /* Play Hint */,
 				07636A4D1BA49A0100925671 /* Record Hint */,
 				07636A521BA49A0100925671 /* Record Welcome Hint */,
@@ -1625,14 +1623,6 @@
 				07636A451BA49A0100925671 /* TBMInviteSomeoneElseHintView.m */,
 			);
 			path = "Invite Someone Else Hint";
-			sourceTree = "<group>";
-		};
-		07636A461BA49A0100925671 /* Next Feature Dialog Module */ = {
-			isa = PBXGroup;
-			children = (
-				07636A471BA49A0100925671 /* TBMNextFeatureDialogPresenter.h */,
-			);
-			path = "Next Feature Dialog Module";
 			sourceTree = "<group>";
 		};
 		07636A481BA49A0100925671 /* Play Hint */ = {

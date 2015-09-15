@@ -5,41 +5,33 @@
 
 #import "TBMFeatureUnlockDataSource.h"
 #import "TBMFriend.h"
-#import "NSNumber+TBMUserDefaults.h"
-#import "TBMUser.h"
 #import "ZZUserDataProvider.h"
-
-static NSString *const kLastUnlockedFeatureNSUDKey = @"kLastUnlockedFeatureNSUDKey";
+#import "ZZStoredSettingsManager.h"
 
 @interface TBMFeatureUnlockDataSource ()
 
-@property(nonatomic, strong, readonly) NSDictionary *featuresHeaders;
+@property(nonatomic, strong, readonly) NSDictionary* featuresHeaders;
 
 @end
 
 @implementation TBMFeatureUnlockDataSource
 
-- (TBMUnlockedFeature)featureToUnlockWithEverSentCount:(NSInteger)count
-{
-    return TBMUnlockedFeatureNone;
-}
-
-- (NSString *)featureHeader:(TBMUnlockedFeature)feature
+- (NSString*)featureHeader:(TBMUnlockedFeature)feature
 {
     return self.featuresHeaders[@(feature)];
 }
 
 - (TBMUnlockedFeature)lastUnlockedFeature
 {
-    return (TBMUnlockedFeature) [[NSNumber loadUserDefaultsObjectForKey:kLastUnlockedFeatureNSUDKey] integerValue];
+    return (TBMUnlockedFeature) [[ZZStoredSettingsManager shared] lastUnlockedFeature];
 }
 
 - (void)setLastUnlockedFeature:(TBMUnlockedFeature)feature
 {
-    [@(feature) saveUserDefaultsObjectForKey:kLastUnlockedFeatureNSUDKey];
+    [[ZZStoredSettingsManager shared] setLastUnlockedFeature:(NSUInteger) feature];
 }
 
-- (NSDictionary *)featuresHeaders
+- (NSDictionary*)featuresHeaders
 {
     return
             @{
@@ -69,8 +61,7 @@ static NSString *const kLastUnlockedFeatureNSUDKey = @"kLastUnlockedFeatureNSUDK
 
 - (BOOL)isFeaturesUnlockedCountSet
 {
-    id currentUnlockedCountValue = [NSNumber loadUserDefaultsObjectForKey:kLastUnlockedFeatureNSUDKey];
-    return currentUnlockedCountValue != nil;
+    return ([self lastUnlockedFeature] > 0);
 }
 
 - (void)silentUpdateUnlockedFeaturesCount:(TBMUnlockedFeature)feature

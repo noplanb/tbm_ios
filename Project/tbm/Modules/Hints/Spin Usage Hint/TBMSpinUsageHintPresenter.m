@@ -6,6 +6,7 @@
 #import "TBMSpinUsageHintPresenter.h"
 #import "TBMHintView.h"
 #import "TBMSpinUsageHintView.h"
+#import "ZZStoredSettingsManager.h"
 
 
 @implementation TBMSpinUsageHintPresenter
@@ -36,6 +37,14 @@
     [super dialogDidDismiss];
 
     [self.eventFlowModule throwEvent:TBMEventFlowEventFeatureUsageHintDidDismiss];
+}
+
+//TODO: Needs datasource here
+- (void)saveHandlerState
+{
+    [super saveHandlerState];
+
+    [[ZZStoredSettingsManager shared] setSpinHintWasShown:YES];
 }
 
 @end

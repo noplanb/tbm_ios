@@ -5,7 +5,6 @@
 
 #import "TBMHomeViewController+Invite.h"
 #import "TBMEventsFlowModulePresenter.h"
-#import "TBMEventsFlowDataSource.h"
 #import "TBMEventsFlowModuleEventHandlerInterface.h"
 #import "TBMFeatureUnlockModuleInterface.h"
 #import "TBMInviteHintPresenter.h"
@@ -21,14 +20,14 @@
 #import "TBMEarpieceUsageHintPresenter.h"
 #import "TBMFeatureUnlockModulePresenter.h"
 #import "TBMNextFeatureDialogPresenter.h"
-#import "TBMVideoRecorder.h"
 #import "ZZVideoRecorder.h"
+#import "ZZStoredSettingsManager.h"
 
 @interface TBMEventsFlowModulePresenter ()
 
-@property(nonatomic, strong) TBMEventsFlowDataSource *dataSource;
+@property(nonatomic, strong) TBMEventsFlowDataSource* dataSource;
 
-@property(nonatomic, strong) NSSet *eventHandlers;
+@property(nonatomic, strong) NSSet* eventHandlers;
 @property(nonatomic, strong) id <TBMEventsFlowModuleEventHandlerInterface> curentEventHandler;
 @property(nonatomic) BOOL isRecordingFlag;
 
@@ -71,14 +70,9 @@
     }
 }
 
-- (void)resetHintsState
-{
-    [self.dataSource resetHintsState];
-}
-
 - (void)addEventHandler:(id <TBMEventsFlowModuleEventHandlerInterface>)eventHandler
 {
-    NSMutableSet *eventHandlers = [self.eventHandlers mutableCopy];
+    NSMutableSet* eventHandlers = [self.eventHandlers mutableCopy];
     [eventHandlers addObject:eventHandler];
     self.eventHandlers = eventHandlers;
 }
@@ -89,7 +83,7 @@
 
     if (anEvent == TBMEventFlowEventMessageDidStopPlaying)
     {
-        [self.dataSource setMessageEverPlayedState:YES];
+        [[ZZStoredSettingsManager shared] setMessageEverPlayed:YES];
     }
 
     id <TBMEventsFlowModuleEventHandlerInterface> currentEvenHandler = nil;
@@ -165,7 +159,7 @@
 - (void)messageDidRecorded
 {
     self.isRecordingFlag = NO;
-    [self.dataSource setMessageRecordedState:YES];
+    [[ZZStoredSettingsManager shared] setMessageEverRecorded:YES];
 }
 
 - (void)messageDidStartRecording
@@ -186,10 +180,6 @@
 
 - (void)setupHandlers
 {
-    //TODO: Remove HomeViewController from here after it will transform to module
-//    [self.eventsFlowModule setupGridModule:gridModule]; TODO: Bring here from TBMHomeViewController
-//    [homeController setupEvensFlowModule:self.eventsFlowModule];
-//    self.homeModule = homeController;
     /**
      * Hints
      */
@@ -218,16 +208,7 @@
 
 #pragma mark - Lazy initialization
 
-- (TBMEventsFlowDataSource *)dataSource
-{
-    if (!_dataSource)
-    {
-        _dataSource = [[TBMEventsFlowDataSource alloc] init];
-    }
-    return _dataSource;
-}
-
-- (NSSet *)eventHandlers
+- (NSSet*)eventHandlers
 {
     if (!_eventHandlers)
     {
@@ -237,11 +218,12 @@
 }
 
 #pragma mark Hints and Features
+
 - (id <TBMEventsFlowModuleEventHandlerInterface>)inviteHintModule
 {
     if (!_inviteHintModule)
     {
-        TBMInviteHintPresenter *inviteHintModule = [TBMInviteHintPresenter new];
+        TBMInviteHintPresenter* inviteHintModule = [TBMInviteHintPresenter new];
         inviteHintModule.eventFlowModule = self;
         inviteHintModule.gridModule = self.gridModule;
         inviteHintModule.dataSource = self.dataSource;
@@ -254,7 +236,7 @@
 {
     if (!_inviteSomeOneElseHintModule)
     {
-        TBMInviteSomeOneElseHintPresenter *inviteSomeOneElseHintModule = [TBMInviteSomeOneElseHintPresenter new];
+        TBMInviteSomeOneElseHintPresenter* inviteSomeOneElseHintModule = [TBMInviteSomeOneElseHintPresenter new];
         inviteSomeOneElseHintModule.eventFlowModule = self;
         inviteSomeOneElseHintModule.gridModule = self.gridModule;
         inviteSomeOneElseHintModule.dataSource = self.dataSource;
@@ -267,7 +249,7 @@
 {
     if (!_playHintModule)
     {
-        TBMPlayHintPresenter *playHintPresenter = [[TBMPlayHintPresenter alloc] init];
+        TBMPlayHintPresenter* playHintPresenter = [[TBMPlayHintPresenter alloc] init];
         playHintPresenter.eventFlowModule = self;
         playHintPresenter.gridModule = self.gridModule;
         playHintPresenter.dataSource = self.dataSource;
@@ -280,7 +262,7 @@
 {
     if (!_recordHintModule)
     {
-        TBMRecordHintPresenter *recordHintPresenter = [[TBMRecordHintPresenter alloc] init];
+        TBMRecordHintPresenter* recordHintPresenter = [[TBMRecordHintPresenter alloc] init];
         recordHintPresenter.eventFlowModule = self;
         recordHintPresenter.gridModule = self.gridModule;
         recordHintPresenter.dataSource = self.dataSource;
@@ -293,7 +275,7 @@
 {
     if (!_recordWelcomeHintModule)
     {
-        TBMRecordWelcomeHintPresenter *recordWelcomeHintModule = [[TBMRecordWelcomeHintPresenter alloc] init];
+        TBMRecordWelcomeHintPresenter* recordWelcomeHintModule = [[TBMRecordWelcomeHintPresenter alloc] init];
         recordWelcomeHintModule.eventFlowModule = self;
         recordWelcomeHintModule.gridModule = self.gridModule;
         recordWelcomeHintModule.dataSource = self.dataSource;
@@ -307,7 +289,7 @@
 {
     if (!_sentHintModule)
     {
-        TBMSentHintPresenter *sentHintPresenter = [[TBMSentHintPresenter alloc] init];
+        TBMSentHintPresenter* sentHintPresenter = [[TBMSentHintPresenter alloc] init];
         sentHintPresenter.eventFlowModule = self;
         sentHintPresenter.gridModule = self.gridModule;
         sentHintPresenter.dataSource = self.dataSource;
@@ -320,7 +302,7 @@
 {
     if (!_viewedHintModule)
     {
-        TBMViewedHintPresenter *viewedHintPresenter = [[TBMViewedHintPresenter alloc] init];
+        TBMViewedHintPresenter* viewedHintPresenter = [[TBMViewedHintPresenter alloc] init];
         viewedHintPresenter.eventFlowModule = self;
         viewedHintPresenter.gridModule = self.gridModule;
         viewedHintPresenter.dataSource = self.dataSource;
@@ -333,7 +315,7 @@
 {
     if (!_welcomeHintModule)
     {
-        TBMWelcomeHintPresenter *welcomeHintPresenter = [[TBMWelcomeHintPresenter alloc] init];
+        TBMWelcomeHintPresenter* welcomeHintPresenter = [[TBMWelcomeHintPresenter alloc] init];
         welcomeHintPresenter.eventFlowModule = self;
         welcomeHintPresenter.gridModule = self.gridModule;
         welcomeHintPresenter.dataSource = self.dataSource;
@@ -346,7 +328,7 @@
 {
     if (!_abortRecordUsageHintModule)
     {
-        TBMAbortRecordUsageHintPresenter *recordUsageHintPresenter = [TBMAbortRecordUsageHintPresenter new];
+        TBMAbortRecordUsageHintPresenter* recordUsageHintPresenter = [TBMAbortRecordUsageHintPresenter new];
         recordUsageHintPresenter.eventFlowModule = self;
         recordUsageHintPresenter.gridModule = self.gridModule;
         recordUsageHintPresenter.dataSource = self.dataSource;
@@ -359,7 +341,7 @@
 {
     if (!_featureUnlockModule)
     {
-        TBMFrontCameraUsageHintPresenter *frontCameraUsageHintModule = [[TBMFrontCameraUsageHintPresenter alloc] init];
+        TBMFrontCameraUsageHintPresenter* frontCameraUsageHintModule = [[TBMFrontCameraUsageHintPresenter alloc] init];
         frontCameraUsageHintModule.eventFlowModule = self;
         frontCameraUsageHintModule.gridModule = self.gridModule;
         frontCameraUsageHintModule.dataSource = self.dataSource;
@@ -373,7 +355,7 @@
 {
     if (!_earpieceUsageHintModule)
     {
-        TBMEarpieceUsageHintPresenter *earpieceUsageHintModule = [[TBMEarpieceUsageHintPresenter alloc] init];
+        TBMEarpieceUsageHintPresenter* earpieceUsageHintModule = [[TBMEarpieceUsageHintPresenter alloc] init];
         earpieceUsageHintModule.eventFlowModule = self;
         earpieceUsageHintModule.gridModule = self.gridModule;
         earpieceUsageHintModule.dataSource = self.dataSource;
@@ -386,7 +368,7 @@
 {
     if (!_featureUnlockModule)
     {
-        TBMFeatureUnlockModulePresenter *featureUnlockModule = [[TBMFeatureUnlockModulePresenter alloc] init];
+        TBMFeatureUnlockModulePresenter* featureUnlockModule = [[TBMFeatureUnlockModulePresenter alloc] init];
         featureUnlockModule.eventFlowModule = self;
         featureUnlockModule.gridModule = self.gridModule;
         featureUnlockModule.dataSource = self.dataSource;
@@ -400,15 +382,12 @@
 {
     if (!_nextFeatureModule)
     {
-        TBMNextFeatureDialogPresenter *nextFeatureDialogPresenter = [[TBMNextFeatureDialogPresenter alloc] init];
-
-        //TODO: MAKS
-        //[nextFeatureDialogPresenter setupHomeModule:self.homeModule];
+        TBMNextFeatureDialogPresenter* nextFeatureDialogPresenter = [[TBMNextFeatureDialogPresenter alloc] init];
         nextFeatureDialogPresenter.eventFlowModule = self;
         nextFeatureDialogPresenter.gridModule = self.gridModule;
         nextFeatureDialogPresenter.dataSource = self.dataSource;
-//        nextFeatureDialogPresenter.featureUnlockModule = self.featureUnlockModule;
-        //[nextFeatureDialogPresenter setupInviteSomeOneElseHintModule:self.inviteSomeOneElseHintModule];
+        nextFeatureDialogPresenter.featureUnlockModule = self.featureUnlockModule;
+        nextFeatureDialogPresenter.inviteSomeOneElseHintModule = self.inviteSomeOneElseHintModule;
         _nextFeatureModule = nextFeatureDialogPresenter;
     }
     return _nextFeatureModule;

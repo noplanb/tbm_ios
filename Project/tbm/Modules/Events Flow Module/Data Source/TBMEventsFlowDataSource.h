@@ -9,9 +9,6 @@
 
 @interface TBMEventsFlowDataSource : NSObject
 
-- (void)setPersistentState:(BOOL)state forHandler:(id <TBMEventsFlowModuleEventHandlerInterface>)eventHandler; //TODO: update
-- (BOOL)persistentStateForHandler:(id <TBMEventsFlowModuleEventHandlerInterface>)eventHandler;
-
 - (BOOL)messageRecordedState;
 - (void)setMessageRecordedState:(BOOL)state;
 

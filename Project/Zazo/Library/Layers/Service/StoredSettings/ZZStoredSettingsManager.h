@@ -41,21 +41,21 @@ typedef NS_ENUM(NSUInteger, ZZConfigServerState) {
 @property (nonatomic, copy) NSString* userID;
 @property (nonatomic, copy) NSString* authToken;
 
-@property (nonatomic, assign) BOOL abortRecordUsageHintDidShow;
+@property (nonatomic, assign) BOOL abortRecordHintWasShown;
 
 
-@property (nonatomic, assign) BOOL deleteFriendUsageUsageHintDidShow;
-@property (nonatomic, assign) BOOL earpieceUsageUsageHintDidShow;
-@property (nonatomic, assign) BOOL frontCameraUsageUsageHintDidShow;
-@property (nonatomic, assign) BOOL inviteHintDidShow;
-@property (nonatomic, assign) BOOL inviteSomeoneElseKey;
-@property (nonatomic, assign) BOOL playHintDidShow;
-@property (nonatomic, assign) BOOL recordHintDidShow;
-@property (nonatomic, assign) BOOL recordWelcomeHintDidShow;
-@property (nonatomic, assign) BOOL sentHintDidShow;
-@property (nonatomic, assign) BOOL spinUsageUsageUsageHintDidShow;
-@property (nonatomic, assign) BOOL viewedHintDidShow;
-@property (nonatomic, assign) BOOL welcomeHintDidShow;
+@property (nonatomic, assign) BOOL deleteFriendHintWasShown;
+@property (nonatomic, assign) BOOL earpieceHintWasShown;
+@property (nonatomic, assign) BOOL frontCameraHintWasShown;
+@property (nonatomic, assign) BOOL inviteHintWasShown;
+@property (nonatomic, assign) BOOL inviteSomeoneHintWasShown;
+@property (nonatomic, assign) BOOL playHintWasShown;
+@property (nonatomic, assign) BOOL recordHintWasShown;
+@property (nonatomic, assign) BOOL recordWelcomeHintWasShown;
+@property (nonatomic, assign) BOOL sentHintWasShown;
+@property (nonatomic, assign) BOOL spinHintWasShown;
+@property (nonatomic, assign) BOOL viewedHintWasShown;
+@property (nonatomic, assign) BOOL welcomeHintWasShown;
 
 @property (nonatomic, assign) NSUInteger lastUnlockedFeature;
 

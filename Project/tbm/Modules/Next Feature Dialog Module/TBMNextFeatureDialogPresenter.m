@@ -7,12 +7,13 @@
 #import "TBMNextFeatureDialogView.h"
 #import "TBMHomeModuleInterface.h"
 #import "TBMFeatureUnlockModuleInterface.h"
+#import "ZZGridModuleInterface.h"
 
 @implementation TBMNextFeatureDialogPresenter
 
 - (instancetype)init
 {
-    self = [super init]; //todo:
+    self = [super init];
 
     if (self)
     {
@@ -20,21 +21,6 @@
         [self.dialogView setupDialogViewDelegate:self];
     }
     return self;
-}
-
-- (void)setupHomeModule:(id <TBMHomeModuleInterface>)homeModule
-{
-    self.homeModule = homeModule;
-}
-
-- (void)setupInviteSomeOneElseHintModule:(id <TBMEventsFlowModuleEventHandlerInterface>)inviteSomeOneElseHintModule
-{
-    self.inviteSomeOneElseHintModule = inviteSomeOneElseHintModule;
-}
-
-- (void)setupFeatureUnlockModule:(id <TBMFeatureUnlockModuleInterface>)featureUnlockModule
-{
-    self.featureUnlockModule = featureUnlockModule;
 }
 
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event
@@ -78,8 +64,7 @@
 
 - (void)dialogDidTap
 {
-    [self.homeModule showBench];
+    [self.gridModule presentMenu];
 }
-
 
 @end

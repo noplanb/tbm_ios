@@ -7,6 +7,8 @@
 #import "TBMHintView.h"
 #import "TBMRecordWelcomeHintView.h"
 #import "TBMPlayHintPresenter.h"
+#import "TBMEventsFlowDataSource.h"
+#import "ZZStoredSettingsManager.h"
 
 
 @implementation TBMRecordWelcomeHintPresenter
@@ -37,6 +39,14 @@
 
     return (![self.dataSource messageRecordedState]);
 
+}
+
+//TODO: Needs datasource here
+- (void)saveHandlerState
+{
+    [super saveHandlerState];
+
+    [[ZZStoredSettingsManager shared] setRecordWelcomeHintWasShown:YES];
 }
 
 @end

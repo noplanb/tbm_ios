@@ -6,6 +6,8 @@
 #import "TBMInviteSomeOneElseHintPresenter.h"
 #import "TBMHintView.h"
 #import "TBMInviteSomeoneElseHintView.h"
+#import "TBMEventsFlowDataSource.h"
+#import "ZZStoredSettingsManager.h"
 
 
 @implementation TBMInviteSomeOneElseHintPresenter
@@ -43,4 +45,11 @@
 
 }
 
+//TODO: Needs datasource here
+- (void)saveHandlerState
+{
+    [super saveHandlerState];
+
+    [[ZZStoredSettingsManager shared] setInviteSomeoneHintWasShown:YES];
+}
 @end

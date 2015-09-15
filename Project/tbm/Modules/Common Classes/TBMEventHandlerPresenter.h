@@ -39,5 +39,6 @@
  */
 - (void)didPresented;
 
+- (void)saveHandlerState;
 - (void)dismissAfter:(CGFloat)delay;
 @end

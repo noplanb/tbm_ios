@@ -6,6 +6,7 @@
 #import "TBMAbortRecordUsageHintPresenter.h"
 #import "TBMHintView.h"
 #import "TBMAbortRecordUsageHintView.h"
+#import "ZZStoredSettingsManager.h"
 
 
 @implementation TBMAbortRecordUsageHintPresenter
@@ -39,4 +40,11 @@
     [self.eventFlowModule throwEvent:TBMEventFlowEventFeatureUsageHintDidDismiss];
 }
 
+//TODO: Needs datasource here
+- (void)saveHandlerState
+{
+    [super saveHandlerState];
+
+    [[ZZStoredSettingsManager shared] setAbortRecordHintWasShown:YES];
+}
 @end
