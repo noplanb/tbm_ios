@@ -14,10 +14,9 @@
 #import "ZZGridWireframe.h"
 #import "ZZEditFriendListModuleDelegate.h"
 #import "ZZGridView.h"
-#import "ZZGridVCDelegate.h"
-
 
 @class ZZGridWireframe;
+
 @protocol TBMEventsFlowModuleInterface;
 
 @interface ZZGridPresenter : NSObject
@@ -25,7 +24,6 @@
     ZZGridInteractorOutput,
     ZZGridModuleInterface,
     ZZMenuModuleDelegate,
-    ZZGridVCDelegate
     ZZEditFriendListModuleDelegate
 >
 

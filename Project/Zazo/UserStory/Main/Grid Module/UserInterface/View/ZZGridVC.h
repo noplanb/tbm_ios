@@ -10,11 +10,8 @@
 #import "ZZGridModuleInterface.h"
 #import "ZZBaseVC.h"
 
-@protocol ZZGridVCDelegate;
 @interface ZZGridVC : ZZBaseVC <ZZGridViewInterface>
 
 @property (nonatomic, weak) id<ZZGridModuleInterface> eventHandler;
-@property (nonatomic, weak) id<ZZGridVCDelegate> vcDelegate;
-
 
 @end

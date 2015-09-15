@@ -11,7 +11,6 @@
 #import "ZZGridCollectionController.h"
 #import "ZZGridDataSource.h"
 #import "ZZTouchObserver.h"
-#import "ZZGridVCDelegate.h"
 #import "TBMBenchViewController.h"
 #import "ZZSoundPlayer.h"
 
@@ -66,7 +65,8 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self.vcDelegate gridDidAppear];
+    [super viewDidAppear:animated];
+    [self.eventHandler gridDidAppear];
 }
 
 - (void)updateWithDataSource:(ZZGridDataSource *)dataSource

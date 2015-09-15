@@ -327,18 +327,16 @@ static NSInteger const kGridFriendsCellCount = 8;
     return sortingByLastAction[0];
 }
 
+- (NSUInteger)lastAddedFriendIndex
+{
+    //TODO: (EventsFlow) return last added friend
+    return 0;
+}
+
+- (NSString*)lastAddedFriendName
+{
+    //TODO: (EventsFlow) return last added friend's name
+    return @"Vasya";
+}
+
 @end
-
- - (NSUInteger)lastAddedFriendIndex
- {
-     //TODO: (EventsFlow) return last added friend
-     return 0;
- }
-
- - (NSString*)lastAddedFriendName
- {
-     //TODO: (EventsFlow) return last added friend's name
-     return @"Vasya";
- }
-
- @end

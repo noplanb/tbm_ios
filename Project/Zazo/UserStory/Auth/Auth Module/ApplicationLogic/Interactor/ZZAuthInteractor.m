@@ -130,7 +130,7 @@
 
 - (void)loadS3Credentials
 {
-    [TBMS3CredentialsManager refreshFromServer:^void (BOOL success){
+    [TBMS3CredentialsManager refreshFromServer:^void (BOOL success) {
         if (success)
         {
             self.currentUser.isRegistered = YES;

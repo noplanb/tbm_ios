@@ -13,7 +13,6 @@
 #import "ZZSoundPlayer.h"
 #import "ZZVideoPlayer.h"
 #import "TBMFriend.h"
-#import "TBMAlertController.h"
 #import "iToast.h"
 #import "ZZContactDomainModel.h"
 #import "TBMPhoneUtils.h"
@@ -22,6 +21,7 @@
 #import "ZZUserDataProvider.h"
 #import "TBMEventsFlowModuleInterface.h"
 #import "TBMEventsFlowModulePresenter.h"
+#import "TBMAlertController.h"
 
 @interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate>
 
@@ -65,6 +65,11 @@
                                                object:nil];
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (id)eventsFlowModule
 {
     if (!_eventsFlowModule)
@@ -74,11 +79,6 @@
         _eventsFlowModule = eventsFlowModulePresenter;
     }
     return _eventsFlowModule;
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)updateGridData:(NSNotification*)notification
@@ -190,7 +190,7 @@
         else
         {
             msg = @"Press and hold a friend to record.";
-
+        }
         [ZZGridAlertBuilder showHintalertWithMessage:msg];
     }
     else if (model.item.relatedUser)
