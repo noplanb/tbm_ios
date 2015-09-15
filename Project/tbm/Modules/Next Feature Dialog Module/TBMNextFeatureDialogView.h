@@ -3,12 +3,10 @@
 // Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "TBMDialogViewInterface.h"
 
 @class TBMNextFeatureDialogPresenter;
 @protocol TBMGridModuleInterface;
-
 
 @interface TBMNextFeatureDialogView : UIView <TBMDialogViewInterface>
 

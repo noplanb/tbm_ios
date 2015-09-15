@@ -16,16 +16,14 @@ CGFloat const kIconSize = 50.f;
 CGFloat const kElementsVerticalMargin = 15.f;
 CGFloat const kElementsHorizontalMargin = 15.f;
 
-
 @interface TBMNextFeatureDialogView ()
+
 @property(nonatomic, strong) UILabel *headerLabel;
 @property(nonatomic, strong) UILabel *subHeaderLabel;
-
 @property(nonatomic, strong) UIImageView *presentIconImage;
-
 @property(nonatomic, weak) id <TBMDialogViewDelegate> dialogViewDelegate;
-
 @property(nonatomic, strong) NSDictionary *posibbleHeaders;
+
 @end
 
 @implementation TBMNextFeatureDialogView
@@ -97,11 +95,9 @@ CGFloat const kElementsHorizontalMargin = 15.f;
     self.frame = [self makeRectWithTop:dialogTop];
     self.alpha = 1;
 
-    [UIView animateWithDuration:.35f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^
-    {
+    [UIView animateWithDuration:.35f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^ {
         self.frame = [self makeRectWithTop:correctDialogTop];
-    }                completion:^(BOOL finished)
-    {
+    } completion:^(BOOL finished) {
         [self hideAnimated];
     }];
 }
@@ -245,7 +241,6 @@ CGFloat const kElementsHorizontalMargin = 15.f;
                 @"Unlock a secret feature!" : @"Just Zazo someone new.",
                 @"Unlock a surprise!" : @"Just Zazo someone new.",
                 @"What did you win?" : @"Find out. Zazo someone new."
-
         };
     }
     return _posibbleHeaders;

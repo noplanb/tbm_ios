@@ -13,7 +13,6 @@
 - (instancetype)init
 {
     self = [super init]; //todo:
-
     if (self)
     {
         self.dialogView = [TBMNextFeatureDialogView new];
@@ -39,12 +38,9 @@
 
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event
 {
-
-    if (
-            event != TBMEventFlowEventFeatureUsageHintDidDismiss
-                    && event != TBMEventFlowEventMessageDidSend
-                    && event != TBMEventFlowEventMessageDidStopPlaying
-            )
+    if (event != TBMEventFlowEventFeatureUsageHintDidDismiss &&
+        event != TBMEventFlowEventMessageDidSend &&
+        event != TBMEventFlowEventMessageDidStopPlaying)
     {
         return NO;
     }
