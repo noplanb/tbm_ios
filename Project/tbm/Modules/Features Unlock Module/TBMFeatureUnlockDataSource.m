@@ -41,14 +41,11 @@ static NSString *const kLastUnlockedFeatureNSUDKey = @"kLastUnlockedFeatureNSUDK
 
 - (NSDictionary *)featuresHeaders
 {
-    return
-            @{
-                    @(TBMUnlockedFeatureNone) : @"No feature.",
-                    @(TBMUnlockedFeatureFrontCamera) : @"Use both cameras!",
-                    @(TBMUnlockedFeatureAbortRecord) : @"Abort a recording!",
-                    @(TBMUnlockedFeatureEarpiece) : @"Listen from earpiece!",
-                    @(TBMUnlockedFeatureSpin) : @"Spin your friends!",
-            };;
+    return @{@(TBMUnlockedFeatureNone) : @"No feature.",
+             @(TBMUnlockedFeatureFrontCamera) : @"Use both cameras!",
+             @(TBMUnlockedFeatureAbortRecord) : @"Abort a recording!",
+             @(TBMUnlockedFeatureEarpiece) : @"Listen from earpiece!",
+             @(TBMUnlockedFeatureSpin) : @"Spin your friends!"};
 }
 
 - (NSInteger)everSentCount
@@ -77,4 +74,5 @@ static NSString *const kLastUnlockedFeatureNSUDKey = @"kLastUnlockedFeatureNSUDK
 {
     [self setLastUnlockedFeature:feature];
 }
+
 @end

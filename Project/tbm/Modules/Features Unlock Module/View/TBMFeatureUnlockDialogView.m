@@ -389,8 +389,7 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
 
 - (void)hide
 {
-    [UIView animateWithDuration:.25f animations:^
-    {
+    [UIView animateWithDuration:.25f animations:^ {
         self.alpha = 0;
     }];
     self.hidden = YES;
