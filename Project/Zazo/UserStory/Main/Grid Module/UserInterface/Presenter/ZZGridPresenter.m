@@ -22,12 +22,17 @@
 #import "TBMEventsFlowModuleInterface.h"
 #import "TBMEventsFlowModulePresenter.h"
 #import "TBMAlertController.h"
+#import "ZZToastMessageBuilder.h"
+
+@protocol TBMEventsFlowModuleInterface;
 
 @interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate>
 
 @property(nonatomic, strong) ZZGridDataSource* dataSource;
 @property(nonatomic, strong) ZZSoundPlayer* soundPlayer;
 @property(nonatomic, strong) ZZVideoPlayer* videoPlayer;
+
+@property (nonatomic, strong) id<TBMEventsFlowModuleInterface> eventsFlowModule;
 
 @end
 
@@ -355,6 +360,10 @@
 - (void)gridDidAppear
 {
     [self.eventsFlowModule throwEvent:TBMEventFlowEventApplicationDidLaunch];
+    
+    //TODO: temp to debug UI
+    ZZToastMessageBuilder *toastBuilder = [ZZToastMessageBuilder new];
+    [toastBuilder showToastWithMessage:@"Just Zazo someone new!"];
 }
 
 #pragma mark - Private
