@@ -166,9 +166,13 @@
         
         NSString *msg;
         if ([TBMVideo downloadedUnviewedCount] > 0)
+        {
             msg = @"Tap a friend to play.";
+        }
         else
+        {
             msg = @"Press and hold a friend to record.";
+        }
         
         [ZZGridAlertBuilder showHintalertWithMessage:msg];
     }
@@ -199,23 +203,12 @@
 
 #pragma mark - Data source delegate
 
-- (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel*)userModel // TODO: check friedn model
+- (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel*)userModel
 {
     [self.interactor updateLastActionForFriend:userModel];
     
     [ZZGridAlertBuilder showPreNudgeAlertWithFriendFirstName:userModel.firstName completion:^{
-        ANMessageDomainModel* model = [ANMessageDomainModel new];
-        NSString* formattedNumber = [TBMPhoneUtils phone:userModel.mobileNumber withFormat:NBEPhoneNumberFormatE164];
-        model.recipients = @[[NSObject an_safeString:formattedNumber]];
-        
-        NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
-        model.message = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", appName, kInviteFriendBaseURL, userModel.idTbm];
-        
-        [self.wireframe presentSMSDialogWithModel:model success:^{
-            [self showConnectedDialogForModel:userModel];
-        } fail:^{
-            [self showCantSendSmsErrorForModel:userModel];
-        }];
+        [self showSmsDialogForModel:userModel];
     }];
 }
 
