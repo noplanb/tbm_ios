@@ -33,7 +33,7 @@
 {
     if (self = [super initWithFrame:frame])
     {
-        self.backgroundColor = [UIColor orangeColor];
+        self.backgroundColor = [ZZColorTheme shared].gridCellOrangeColor;
         [self plusImageView];
     }
     return self;
@@ -150,7 +150,7 @@
     {
         _plusImageView = [UIImageView new];
         _plusImageView.image = [[UIImage imageWithPDFNamed:@"icon_plus" atHeight:50]
-                                an_imageByTintingWithColor:[UIColor whiteColor]];
+                                an_imageByTintingWithColor:[ZZColorTheme shared].gridCellPlusWhiteColor];
         _plusImageView.contentMode = UIViewContentModeCenter;
         [self addSubview:_plusImageView];
         [self sendSubviewToBack:_plusImageView];

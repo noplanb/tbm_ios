@@ -19,7 +19,7 @@ static CGFloat const kBetweenElementPadding = 10.0;
 
 #pragma mark - Phone Code TextField
 
-static CGFloat const kPhoneCodeTextFieldWidthScaleValue = 5.5;
+static CGFloat const kPhoneCodeTextFieldWidthScaleValue = 4;
 
 
 #pragma mark - SignIn Button
@@ -196,7 +196,7 @@ static CGFloat const kCodeLableLeftPadding = 3;
         _signInButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_signInButton setTitle:NSLocalizedString(@"auth-controller.signIn.button.title", nil) forState:UIControlStateNormal];
         _signInButton.titleLabel.font = [UIFont an_regularFontWithSize:21];
-        _signInButton.backgroundColor = [UIColor blackColor];
+        _signInButton.backgroundColor = [UIColor an_colorWithHexString:@"#2F2E28"];
         _signInButton.layer.cornerRadius = kSignInButtonCornerRadius;
         _signInButton.accessibilityLabel = @"SignIn";
         [self addSubview:_signInButton];
@@ -219,13 +219,21 @@ static CGFloat const kCodeLableLeftPadding = 3;
         _countryCodeLabel.textColor = [UIColor whiteColor];
         _countryCodeLabel.numberOfLines = 0;
         _countryCodeLabel.textAlignment = NSTextAlignmentCenter;
-        _countryCodeLabel.text = NSLocalizedString(@"auth-controller.country.code.example.title", nil);
-        _countryCodeLabel.font = [UIFont an_lightFontWithSize:9];
+        
+        
+        NSString* titleString = NSLocalizedString(@"auth-controller.country.code.example.title", nil);
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:titleString];
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        [paragraphStyle setLineSpacing:5];
+        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [titleString length])];
+        _countryCodeLabel.attributedText = attributedString;
+        _countryCodeLabel.font = [UIFont an_regularFontWithSize:11];
+        _countryCodeLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_countryCodeLabel];
         
         [_countryCodeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.phoneCodeTextField);
-            make.top.equalTo(self.phoneCodeTextField.mas_bottom);
+            make.top.equalTo(self.phoneCodeTextField.mas_bottom).with.offset(2);
         }];
     }
     return _countryCodeLabel;
