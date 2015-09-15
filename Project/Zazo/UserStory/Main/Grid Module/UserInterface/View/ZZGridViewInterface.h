@@ -17,4 +17,9 @@
 
 - (CGRect)frameForIndexPath:(NSIndexPath*)indexPath;
 
+//Hints
+- (UIView*)viewForDialogs;
+- (CGRect)gridGetFrameForIndexPath:(NSIndexPath*)path inView:(UIView*)view;
+- (CGRect)gridGetCenterCellFrameInView:(UIView*)view;
+- (CGRect)gridGetUnviewedBadgeFrameForIndexPath:(NSIndexPath*)path inView:(UIView*)view;
 @end

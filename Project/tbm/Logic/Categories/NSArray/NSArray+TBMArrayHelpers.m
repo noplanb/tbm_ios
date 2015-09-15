@@ -11,7 +11,7 @@
 {
     NSUInteger myCount = [self count];
     if (myCount)
-        return [self objectAtIndex:arc4random_uniform(myCount)];
+        return [self objectAtIndex:arc4random_uniform((u_int32_t)myCount)];
     else
         return nil;
 }

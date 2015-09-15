@@ -11,7 +11,7 @@
 #import "ZZGridCollectionController.h"
 #import "ZZGridDataSource.h"
 #import "ZZTouchObserver.h"
-#import "ZZMovingGridView.h"
+#import "ZZGridVCDelegate.h"
 #import "TBMBenchViewController.h"
 #import "ZZSoundPlayer.h"
 
@@ -64,11 +64,47 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
     }];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self.vcDelegate gridDidAppear];
+}
+
 - (void)updateWithDataSource:(ZZGridDataSource *)dataSource
 {
     [self.controller updateDataSource:dataSource];
     self.touchObserver.storage = dataSource.storage;
 }
+
+#pragma mark VC Interface
+
+- (UIView*)viewForDialogs
+{
+    return self.view;
+}
+
+- (CGRect)gridGetFrameForIndexPath:(NSIndexPath*)path inView:(UIView*)view
+{
+    CGRect rect = [self frameForIndexPath:path];
+    CGRect result = [self.view convertRect:rect toView:view];
+    return result;
+}
+
+- (CGRect)gridGetCenterCellFrameInView:(UIView*)view
+{
+    //TODO: (EventsFlow) Central cell frame
+    //CGRect rect =
+    //CGRect result = [self.view convertRect:rect toView:view];
+    return CGRectZero;
+}
+
+- (CGRect)gridGetUnviewedBadgeFrameForIndexPath:(NSIndexPath*)path inView:(UIView*)view
+{
+    //TODO: (EventsFlow) Central cell frame
+    //CGRect rect =
+    //CGRect result = [self.view convertRect:rect toView:view];
+    return CGRectZero;
+}
+
 
 - (void)menuWasOpened
 {

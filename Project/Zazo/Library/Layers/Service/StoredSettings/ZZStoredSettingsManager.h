@@ -25,6 +25,11 @@ typedef NS_ENUM(NSUInteger, ZZConfigServerState) {
 @property (nonatomic, strong) NSString* serverURLString;
 @property (nonatomic, assign) ZZConfigServerState serverEndpointState;
 
+#pragma mark - Messages
+
+@property (nonatomic, assign) BOOL messageEverRecorded;
+@property (nonatomic, assign) BOOL messageEverPlayed;
+
 
 #pragma mark - Hints
 

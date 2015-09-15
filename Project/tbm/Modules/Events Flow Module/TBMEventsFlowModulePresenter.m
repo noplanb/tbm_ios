@@ -55,12 +55,13 @@
 
 @implementation TBMEventsFlowModulePresenter
 
-#pragma mark - TBMEventsFlowModuleInterface
+#pragma mark - TBMEventsFlowModuleInterface -
 
-- (void)setupGridModule:(id <TBMGridModuleInterface>)gridModule
+- (void)setupGridModule:(id <ZZGridModuleInterface>)gridModule
 {
     self.gridModule = gridModule;
 }
+
 
 - (void)resetSession
 {
@@ -153,6 +154,12 @@
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageDidStartRecording) name:TBMVideoRecorderShouldStartRecording object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageDidRecorded) name:TBMVideoRecorderDidFinishRecording object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+}
+
+- (void)applicationDidEnterBackground
+{
+    [self throwEvent:TBMEventFlowEventApplicationDidEnterBackground];
 }
 
 - (void)messageDidRecorded

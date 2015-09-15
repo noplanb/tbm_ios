@@ -6,9 +6,7 @@
 #import "TBMEventsFlowDataSource.h"
 #import "TBMFriend.h"
 #import "TBMGridElement.h"
-#import "NSNumber+TBMUserDefaults.h"
 #import "TBMEventsFlowModuleEventHandlerInterface.h"
-#import "POPAnimatableProperty.h"
 #import "ZZStoredSettingsManager.h"
 #import "TBMInviteHintPresenter.h"
 
@@ -19,6 +17,27 @@
 @end
 
 @implementation TBMEventsFlowDataSource
+
+- (BOOL)messageRecordedState
+{
+    return [[ZZStoredSettingsManager shared] messageEverRecorded];
+}
+
+- (void)setMessageRecordedState:(BOOL)state
+{
+    [[ZZStoredSettingsManager shared] setMessageEverRecorded:state];
+}
+
+- (BOOL)messageEverPlayedState
+{
+    return [[ZZStoredSettingsManager shared] messageEverPlayed];
+}
+
+- (void)setMessageEverPlayedState:(BOOL)state
+{
+    [[ZZStoredSettingsManager shared] setMessageEverPlayed:state];
+}
+
 
 //Other useful data
 - (NSUInteger)friendsCount
@@ -50,17 +69,17 @@
 // Event handler Data Source 
 - (void)setPersistentState:(BOOL)state forHandler:(id <TBMEventsFlowModuleEventHandlerInterface>)eventHandler
 {
-    NSString *handlerClassName = NSStringFromClass([eventHandler class]);
+    NSString* handlerClassName = NSStringFromClass([eventHandler class]);
     id key = self.handlersKeys[handlerClassName];
     if ([key isKindOfClass:[NSString class]])
     {
-        [self setPersistentState:state forKey:(NSString *) key];
+        [self setPersistentState:state forKey:(NSString*) key];
     };
 }
 
-- (void)setPersistentState:(BOOL)state forKey:(NSString *)key
+- (void)setPersistentState:(BOOL)state forKey:(NSString*)key
 {
-    ZZStoredSettingsManager *manager = [ZZStoredSettingsManager shared];
+    ZZStoredSettingsManager* manager = [ZZStoredSettingsManager shared];
 
     if ([key isEqualToString:NSStringFromClass([TBMInviteHintPresenter class])])
     {

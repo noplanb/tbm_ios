@@ -15,4 +15,12 @@
 - (void)presentSendEmailController;
 - (void)stopPlaying;
 
+// Hints appearance
+- (UIView *)viewForDialog;
+- (CGRect)gridGetFrameForFriend:(NSUInteger)friendCellIndex inView:(UIView *)view;
+- (CGRect)gridGetCenterCellFrameInView:(UIView *)view;
+- (CGRect)gridGetFrameForUnviewedBadgeForFriend:(NSUInteger)friendCellIndex inView:(UIView *)view;
+- (NSUInteger)lastAddedFriendOnGridIndex;
+- (NSString *)lastAddedFriendOnGridName;
+
 @end

@@ -49,20 +49,10 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
 
 @implementation TBMHomeViewController
 
-
-//TODO:Move to module presenter after refactoring
-- (void)setupEvensFlowModule:(id <TBMEventsFlowModuleInterface>)eventsFlowModule {
-    self.eventsFlowModule = eventsFlowModule;
-}
-
-
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad {
     OB_INFO(@"TBMHomeViewController: viewDidLoad");
-
-    //TODO: Event Flow setup point check for type
-    [self.eventsFlowModule setupGridModule:self];
     [super viewDidLoad];
     OB_INFO(@"TBMHomeViewController: viewDidLoad");
 //    [[self.dependencies setupDependenciesWithHomeViewController:self];
@@ -84,7 +74,6 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
 {
 //    [self.benchViewController hide];
     if (!self.isSMSProcessActive) {
-        [self.eventsFlowModule throwEvent:TBMEventFlowEventApplicationDidEnterBackground];
         [self.eventsFlowModule resetSession];
     }
 }
@@ -92,7 +81,7 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
 - (void)applicationDidEnterForeground
 {
     if (!self.isSMSProcessActive) {
-        [self.eventsFlowModule throwEvent:TBMEventFlowEventApplicationDidLaunch];
+
     }
 
     self.isSMSProcessActive = NO;
@@ -136,46 +125,15 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
 
 #pragma mark - TBMGridDelegate
 
-- (void)gridDidAppear:(TBMGridViewController *)gridViewController {
-    if (!self.isSMSProcessActive) {
-        [self.eventsFlowModule throwEvent:TBMEventFlowEventApplicationDidLaunch];
-        
-    }
-}
-
 - (void)videoPlayerDidStartPlaying:(TBMVideoPlayer *)player {
     self.isPlaying = YES;
-    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidStartPlaying];
 }
 
 - (void)videoPlayerDidStopPlaying:(TBMVideoPlayer *)player {
     if (self.isPlaying) {
         self.isPlaying = NO;
-        [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidStopPlaying];
     }
 }
-
-- (void)messageDidUpload {
-    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidSend];
-}
-
-- (void)messageDidViewed {
-    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidViewed];
-}
-
-- (void)friendDidAdd {
-    [self.eventsFlowModule throwEvent:TBMEventFlowEventFriendDidAdd];
-}
-
-- (void)friendDidAddWithoutApp
-{
-    [self.eventsFlowModule throwEvent:TBMEventFlowEventFriendDidAddWithoutApp];
-}
-
-- (void)messageDidReceive {
-    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidReceive];
-}
-
 
 - (void)applicationWillSwitchToSMS {
     self.isSMSProcessActive = YES;

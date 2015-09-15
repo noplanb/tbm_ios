@@ -6,65 +6,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TBMEventFlowEvent.h"
 
-@protocol TBMGridModuleInterface;
+@protocol ZZGridModuleInterface;
 @protocol TBMEventsFlowModuleEventHandlerInterface;
-
-
-/**
- * Enum of possible events for throwEvent:
- */
-typedef NS_ENUM(NSInteger, TBMEventFlowEvent)
-{
-    TBMEventFlowEventNone,
-
-    // Application
-
-    TBMEventFlowEventApplicationDidLaunch,
-    TBMEventFlowEventApplicationDidEnterBackground,
-
-    // Friends
-
-    TBMEventFlowEventFriendDidAdd,
-    TBMEventFlowEventFriendDidAddWithoutApp,
-
-    // Messages
-
-    TBMEventFlowEventMessageDidReceive,
-    TBMEventFlowEventMessageDidSend,
-    TBMEventFlowEventMessageDidStartPlaying,
-    TBMEventFlowEventMessageDidStopPlaying,
-    TBMEventFlowEventMessageDidStartRecording,
-    TBMEventFlowEventMessageDidRecorded,
-    TBMEventFlowEventMessageDidViewed,
-
-    // Hints
-
-    TBMEventFlowEventSentHintDidDismiss,
-    TBMEventFlowEventFeatureUsageHintDidDismiss,
-
-    // Unlocks dialogs
-
-    TBMEventFlowEventFrontCameraUnlockDialogDidDismiss,
-    TBMEventFlowEventAbortRecordingUnlockDialogDidDismiss,
-    TBMEventFlowEventDeleteFriendUnlockDialogDidDismiss,
-    TBMEventFlowEventEarpieceUnlockDialogDidDismiss,
-    TBMEventFlowEventSpinUnlockDialogDidDismiss,
-};
-
 
 @protocol TBMEventsFlowModuleInterface <NSObject>
 
 /**
  * Setup grid module for hints
  */
-- (void)setupGridModule:(id <TBMGridModuleInterface>)gridModule;
+- (void)setupGridModule:(id <ZZGridModuleInterface>)gridModule;
 
 /**
  * States of event handlers
  */
 - (void)resetSession;
-
 - (void)resetHintsState;
 
 /**

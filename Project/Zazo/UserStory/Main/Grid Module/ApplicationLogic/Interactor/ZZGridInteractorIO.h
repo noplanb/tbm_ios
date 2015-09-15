@@ -23,6 +23,8 @@
 
 - (void)updateLastActionForFriend:(ZZFriendDomainModel*)friendModel;
 
+- (NSUInteger)lastAddedFriendIndex;
+- (NSString*)lastAddedFriendName;
 @end
 
 

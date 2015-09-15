@@ -16,7 +16,7 @@
 @interface TBMEventHandlerPresenter : NSObject <TBMEventsFlowModuleEventHandlerInterface, TBMDialogViewDelegate>
 
 @property(nonatomic, weak) TBMEventsFlowDataSource *dataSource;
-@property(nonatomic, weak) id <TBMGridModuleInterface> gridModule;
+@property(nonatomic, weak) id <ZZGridModuleInterface> gridModule;
 @property(nonatomic, weak) id <TBMEventsFlowModuleInterface> eventFlowModule;
 
 // State

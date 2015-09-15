@@ -1184,6 +1184,8 @@
 		795276491BA6B4AB00E506D5 /* ZZMenuCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCellViewModel.m; sourceTree = "<group>"; };
 		7952764C1BA6BDEB00E506D5 /* ZZMenuEnumsAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZMenuEnumsAdditions.h; sourceTree = "<group>"; };
 		7952764D1BA71F2700E506D5 /* camera-icon.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "camera-icon.pdf"; sourceTree = "<group>"; };
+		682D6A11B32FAA08DE5B6285 /* ZZGridVCDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridVCDelegate.h; sourceTree = "<group>"; };
+		682D6CAC9A6769375C4786EB /* TBMEventFlowEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEventFlowEvent.h; sourceTree = "<group>"; };
 		A0ECBE9A7392F431C5ADE072 /* Pods-ZazoTests.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.ad-hoc.xcconfig"; sourceTree = "<group>"; };
 		B1860DB43B6E70D5AEF73EF4 /* Pods-Zazo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.release.xcconfig"; sourceTree = "<group>"; };
 		C4392BF41AD48118C492A226 /* Pods-Zazo.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.ad-hoc.xcconfig"; sourceTree = "<group>"; };
@@ -1508,6 +1510,7 @@
 			children = (
 				07636A181BA49A0000925671 /* TBMEventsFlowModuleEventHandlerInterface.h */,
 				07636A191BA49A0000925671 /* TBMEventsFlowModuleInterface.h */,
+				682D6CAC9A6769375C4786EB /* TBMEventFlowEvent.h */,
 			);
 			path = "Module Interface";
 			sourceTree = "<group>";
@@ -3451,6 +3454,7 @@
 				07636CE71BA49A0100925671 /* ZZGridVC.h */,
 				07636CE81BA49A0100925671 /* ZZGridVC.m */,
 				07636CE91BA49A0100925671 /* ZZGridViewInterface.h */,
+				682D6A11B32FAA08DE5B6285 /* ZZGridVCDelegate.h */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5066,6 +5070,7 @@
 				CODE_SIGN_ENTITLEMENTS = Zazo/Zazo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Zazo/Vendor",

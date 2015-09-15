@@ -8,7 +8,6 @@
 
 #import "ZZGridPresenter.h"
 #import "ZZGridDataSource.h"
-#import "ANMemoryStorage.h"
 #import "ZZVideoRecorder.h"
 #import "ZZVideoUtils.h"
 #import "ZZSoundPlayer.h"
@@ -21,24 +20,31 @@
 #import "ZZAPIRoutes.h"
 #import "ZZGridAlertBuilder.h"
 #import "ZZUserDataProvider.h"
+#import "TBMEventsFlowModuleInterface.h"
+#import "TBMEventsFlowModulePresenter.h"
 
 @interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate>
 
-@property (nonatomic, strong) ZZGridDataSource* dataSource;
-@property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
-@property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
+@property(nonatomic, strong) ZZGridDataSource* dataSource;
+@property(nonatomic, strong) ZZSoundPlayer* soundPlayer;
+@property(nonatomic, strong) ZZVideoPlayer* videoPlayer;
 
 @end
 
 @implementation ZZGridPresenter
+//TODO: (EventsFlow) When sent                  [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidSend];
+//TODO: (EventsFlow) When friend add            [self.eventsFlowModule throwEvent:TBMEventFlowEventFriendDidAddWithoutApp];
+//TODO: (EventsFlow) When Message Received      [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidReceive];
+//TODO: (EventsFlow) When
+//TODO: (EventsFlow) Setup events flow module
 
-- (void)configurePresenterWithUserInterface:(UIViewController<ZZGridViewInterface>*)userInterface
+- (void)configurePresenterWithUserInterface:(UIViewController <ZZGridViewInterface>*)userInterface
 {
     self.userInterface = userInterface;
     self.dataSource = [ZZGridDataSource new];
     self.dataSource.delegate = self;
     [self.userInterface updateWithDataSource:self.dataSource];
-    
+
     self.videoPlayer = [ZZVideoPlayer new];
     self.videoPlayer.delegate = self;
     [self _setupNotifications];
@@ -57,6 +63,17 @@
                                              selector:@selector(updateGridData:)
                                                  name:kFriendVideoViewedNotification
                                                object:nil];
+}
+
+- (id)eventsFlowModule
+{
+    if (!_eventsFlowModule)
+    {
+        TBMEventsFlowModulePresenter* eventsFlowModulePresenter = [TBMEventsFlowModulePresenter new];
+        eventsFlowModulePresenter.gridModule = self;
+        _eventsFlowModule = eventsFlowModulePresenter;
+    }
+    return _eventsFlowModule;
 }
 
 - (void)dealloc
@@ -85,7 +102,7 @@
 
 #pragma mark - Output
 
-- (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel *)model
+- (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel*)model
 {
     [self.wireframe presentSendFeedbackWithModel:model];
 }
@@ -93,10 +110,10 @@
 - (void)dataLoadedWithArray:(NSArray*)data
 {
     [self.dataSource setupWithModels:data];
-    
+
     BOOL isSwitchCameraAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
     [self.dataSource setupCenterViewModelShouldHandleCameraRotation:isSwitchCameraAvailable];
-    
+
     [[ZZVideoRecorder shared] updateRecordView:[self.dataSource centerViewModel].recordView];
 }
 
@@ -145,7 +162,7 @@
     }
 }
 
-- (void)updateGridWithModel:(ZZGridDomainModel *)model
+- (void)updateGridWithModel:(ZZGridDomainModel*)model
 {
     [self.dataSource updateStorageWithModel:model];
 }
@@ -160,12 +177,12 @@
 
 - (void)itemSelectedWithModel:(ZZGridCellViewModel*)model
 {
-    if ((ZZGridCenterCellViewModel*)model == [self.dataSource centerViewModel])
+    if ((ZZGridCenterCellViewModel*) model == [self.dataSource centerViewModel])
     {
         if ([TBMFriend count] == 0)
             return;
-        
-        NSString *msg;
+
+        NSString* msg;
         if ([TBMVideo downloadedUnviewedCount] > 0)
         {
             msg = @"Tap a friend to play.";
@@ -173,8 +190,7 @@
         else
         {
             msg = @"Press and hold a friend to record.";
-        }
-        
+
         [ZZGridAlertBuilder showHintalertWithMessage:msg];
     }
     else if (model.item.relatedUser)
@@ -189,17 +205,51 @@
     }
 }
 
+- (UIView*)viewForDialog
+{
+    return [self.userInterface viewForDialogs];
+}
+
+- (CGRect)gridGetFrameForFriend:(NSUInteger)friendCellIndex inView:(UIView*)view
+{
+    NSIndexPath* friendIndexPath = [self _indexPathForFriendAtindex:friendCellIndex];
+    return [self.userInterface gridGetFrameForIndexPath:friendIndexPath inView:view];
+}
+
+- (CGRect)gridGetCenterCellFrameInView:(UIView*)view
+{
+    return [self.userInterface gridGetCenterCellFrameInView:view];
+}
+
+- (CGRect)gridGetFrameForUnviewedBadgeForFriend:(NSUInteger)friendCellIndex inView:(UIView*)view
+{
+    NSIndexPath* friendIndexPath = [self _indexPathForFriendAtindex:friendCellIndex];
+    return [self.userInterface gridGetUnviewedBadgeFrameForIndexPath:friendIndexPath inView:view];
+}
+
+- (NSUInteger)lastAddedFriendOnGridIndex
+{
+    return [self.interactor lastAddedFriendIndex];
+}
+
+- (NSString*)lastAddedFriendOnGridName
+{
+    return [self.interactor lastAddedFriendName];
+}
+
 
 #pragma mark - Video Player Delegate
 
 - (void)videoPlayerURLWasStartPlaying:(NSURL*)videoURL
 {
     //TODO: delete video file
+    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidStartPlaying];
 }
 
 - (void)videoPlayerURLWasFinishedPlaying:(NSURL*)videoURL
 {
-    // nothing ...
+    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidViewed];
+    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidStopPlaying];
 }
 
 #pragma mark - Data source delegate
@@ -254,7 +304,7 @@
 //                }
 //            }
 //        }
-        
+
         [self.userInterface updateRollingStateTo:!isEnabled];
         [self.soundPlayer play];
     }
@@ -300,6 +350,12 @@
     return _soundPlayer;
 }
 
+#pragma mark - View delegate
+
+- (void)gridDidAppear
+{
+    [self.eventsFlowModule throwEvent:TBMEventFlowEventApplicationDidLaunch];
+}
 
 #pragma mark - Private
 
@@ -336,7 +392,8 @@
 
 - (void)showSendInvitationDialogForUser:(NSString*)firsName
 {
-    [ZZGridAlertBuilder showSendInvitationDialogForUser:firsName completion:^{
+    [ZZGridAlertBuilder showSendInvitationDialogForUser:firsName completion:^
+    {
         [self.interactor inviteUserThatHasNoAppInstalled];
     }];
 }
@@ -355,7 +412,7 @@
     ANMessageDomainModel* model = [ANMessageDomainModel new];
     NSString* formattedNumber = [TBMPhoneUtils phone:friend.mobileNumber withFormat:NBEPhoneNumberFormatE164];
     model.recipients = @[[NSObject an_safeString:formattedNumber]];
-    
+
     NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
     model.message = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", appName, kInviteFriendBaseURL, [ZZUserDataProvider authenticatedUser].idTbm];
     
@@ -372,6 +429,13 @@
         [self showConnectedDialogForModel:friend];
     }];
 }
+
+- (NSIndexPath*)_indexPathForFriendAtindex:(NSUInteger)friendIndex
+{
+    NSIndexPath *friendIndexPath = [NSIndexPath indexPathForItem:friendIndex inSection:0];
+    return friendIndexPath;
+}
+
 
 
 #pragma mark - Edit Friends
