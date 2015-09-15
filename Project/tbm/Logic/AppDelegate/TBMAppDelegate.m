@@ -17,6 +17,7 @@
 #import "TBMDispatch.h"
 #import "ZZAppDependencies.h"
 #import "ZZContentDataAcessor.h"
+#import "ZZVideoRecorder.h"
 
 @interface TBMAppDelegate()
 
@@ -99,6 +100,7 @@
     
     [self performDidBecomeActiveActions];
     [[OBLogger instance] logEvent:OBLogEventAppForeground];
+    [[ZZVideoRecorder shared] updateRecorder];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application{
