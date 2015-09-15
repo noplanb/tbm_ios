@@ -62,7 +62,7 @@
 "auth-controller.lastname.placeholder.title" = "Last Name";
 "auth-controller.phone.placeholder.title" = "Mobile Number";
 "auth-controller.signIn.button.title" = "Sign In";
-"auth-controller.country.code.example.title" = "Country code\n(USA +1)";
+"auth-controller.country.code.example.title" = "Country code\nUSA +1";
 "auth-controller.country.code.title" = "Country code";
 
 "auth-controller.bad-code.alert.title" = "Bad Code";

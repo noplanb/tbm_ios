@@ -141,8 +141,8 @@
         
         CGFloat width = [self _indicatorCalculatedWidth];
         CGFloat height = [self _indicatorCalculatedWidth];
-        CGSize size = CGSizeMake(width, height);
-        UIImage* image = [UIImage imageWithPDFNamed:@"icon_arrow" atSize:size];
+        UIImage* image = [UIImage imageWithPDFNamed:@"icon_arrow" atHeight:(height/1.5)];
+        _uploadingIndicator.contentMode = UIViewContentModeCenter;
         _uploadingIndicator.image = image;
         _uploadingIndicator.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
         _uploadingIndicator.hidden = YES;
@@ -186,8 +186,8 @@
         
         CGFloat width = [self _indicatorCalculatedWidth];
         CGFloat height = [self _indicatorCalculatedWidth];
-        CGSize size = CGSizeMake(width, height);
-        UIImage* image = [UIImage imageWithPDFNamed:@"home-page-arrow-left" atSize:size];
+        UIImage* image = [UIImage imageWithPDFNamed:@"home-page-arrow-left" atHeight:(height/1.5)];
+        _downloadIndicator.contentMode = UIViewContentModeCenter;
         _downloadIndicator.image = image;
         _downloadIndicator.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
         _downloadIndicator.hidden = YES;
@@ -234,6 +234,7 @@
         _videoCountLabel.textColor = [UIColor whiteColor];
         _videoCountLabel.textAlignment = NSTextAlignmentCenter;
         _videoCountLabel.layer.zPosition = 150;
+        _videoCountLabel.font = [UIFont an_regularFontWithSize:12];
         [self addSubview:_videoCountLabel];
         
         [_videoCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -270,9 +271,9 @@
         CGFloat width = [self _indicatorCalculatedWidth];
         CGFloat height = [self _indicatorCalculatedWidth];
         
-        UIImage* image = [UIImage imageWithPDFNamed:@"home-page-view" atHeight:height];
+        UIImage* image = [UIImage imageWithPDFNamed:@"home-page-view" atHeight:(height/1.7)];
+        _videoViewedView.contentMode = UIViewContentModeCenter;
         _videoViewedView.image = image;
-        [_videoViewedView sizeToFit];
         _videoViewedView.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
         _videoViewedView.hidden = YES;
         [self addSubview:_videoViewedView];
@@ -281,8 +282,8 @@
         [_videoViewedView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self);
             self.rightDownloadIndicatorConstraint = make.right.equalTo(self);
-//            make.width.equalTo(@([self _indicatorCalculatedWidth]));
-//            make.height.equalTo(@([self _indicatorCalculatedWidth]/aspect));
+            make.width.equalTo(@([self _indicatorCalculatedWidth]));
+            make.height.equalTo(@([self _indicatorCalculatedWidth]/aspect));
         }];
     }
 

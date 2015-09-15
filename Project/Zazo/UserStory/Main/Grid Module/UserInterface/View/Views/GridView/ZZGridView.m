@@ -9,6 +9,8 @@
 #import "ZZGridView.h"
 #import "ZZGridUIConstants.h"
 
+
+
 @interface ZZGridView () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak) id <ZZGridViewDelegate> delegate;
@@ -64,9 +66,9 @@
         _collectionView.backgroundColor = [UIColor clearColor];
         _collectionView.scrollEnabled = NO;
         [self addSubview:_collectionView];
-        
+        CGFloat topPadding = (CGRectGetHeight([UIScreen mainScreen].bounds) - kGridHeight() - kGridHeaderViewHeight)/2;
         [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.headerView.mas_bottom);
+            make.top.equalTo(self.headerView.mas_bottom).with.offset(topPadding);
             make.left.right.equalTo(self);
             make.height.equalTo(@(kGridHeight()));
         }];

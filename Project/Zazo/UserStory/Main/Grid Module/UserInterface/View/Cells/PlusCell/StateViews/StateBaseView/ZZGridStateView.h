@@ -11,6 +11,8 @@
 
 @class ZZGridCellViewModel;
 
+static CGFloat const kUserNameFontSize = 13;
+
 @interface ZZGridStateView : UIView <ANModelTransfer>
 
 @property (nonatomic, strong) UIView* containFriendView;

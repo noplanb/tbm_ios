@@ -88,6 +88,7 @@
         _userNameLabel = [UILabel new];
         _userNameLabel.textAlignment = NSTextAlignmentCenter;
         _userNameLabel.textColor = [UIColor whiteColor];
+        _userNameLabel.font = [UIFont an_regularFontWithSize:kUserNameFontSize];
         [self addSubview:_userNameLabel];
         
         [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -105,9 +106,9 @@
         _nudgeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_nudgeButton.titleLabel setFont:[UIFont an_boldFontWithSize:16]];
         [_nudgeButton setTitle:NSLocalizedString(@"grid-controller.nudge.title", nil) forState:UIControlStateNormal];
-        [_nudgeButton setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+        [_nudgeButton setTitleColor:[ZZColorTheme shared].gridStatusViewNudgeColor forState:UIControlStateNormal];
         [_nudgeButton addTarget:self action:@selector(_nudge) forControlEvents:UIControlEventTouchUpInside];
-        _nudgeButton.backgroundColor = [UIColor blackColor];
+        _nudgeButton.backgroundColor = [ZZColorTheme shared].gridStatusViewBlackColor;
         [self addSubview:_nudgeButton];
         
         [_nudgeButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -125,10 +126,10 @@
     {
         _recordView = [UILabel new];
         _recordView.text = NSLocalizedString(@"grid-controller.record.title", nil);
-        _recordView.textColor = [UIColor redColor];
+        _recordView.textColor = [ZZColorTheme shared].gridStatusViewRecordColor;
         _recordView.font = [UIFont an_boldFontWithSize:16];
         _recordView.textAlignment = NSTextAlignmentCenter;
-        _recordView.backgroundColor = [UIColor blackColor];
+        _recordView.backgroundColor = [ZZColorTheme shared].gridStatusViewBlackColor;
         _recordView.userInteractionEnabled = YES;
         
         UILongPressGestureRecognizer* press = [[UILongPressGestureRecognizer alloc] initWithTarget:self

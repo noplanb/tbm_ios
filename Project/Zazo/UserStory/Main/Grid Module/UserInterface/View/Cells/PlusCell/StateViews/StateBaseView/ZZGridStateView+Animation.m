@@ -136,7 +136,7 @@
     self.rightDownloadIndicatorConstraint.offset = 0;
     self.downloadBarView.hidden = YES;
     self.downloadIndicator.hidden = YES;
-    self.backgroundColor = [UIColor grayColor];
+    self.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
     self.videoCountLabel.hidden = YES;
 }
 

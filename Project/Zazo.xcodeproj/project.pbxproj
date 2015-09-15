@@ -289,7 +289,6 @@
 		07636EBD1BA49A0100925671 /* ZZGridPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CAE1BA49A0100925671 /* ZZGridPresenter.m */; };
 		07636EBE1BA49A0100925671 /* ZZGridCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CB31BA49A0100925671 /* ZZGridCenterCell.m */; };
 		07636EBF1BA49A0100925671 /* ZZGridCenterCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CB51BA49A0100925671 /* ZZGridCenterCellViewModel.m */; };
-		07636EC01BA49A0100925671 /* sample_iTunes.mov in Resources */ = {isa = PBXBuildFile; fileRef = 07636CB71BA49A0100925671 /* sample_iTunes.mov */; };
 		07636EC11BA49A0100925671 /* ZZGridStateView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CBB1BA49A0100925671 /* ZZGridStateView+Animation.m */; };
 		07636EC21BA49A0100925671 /* ZZGridStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CBD1BA49A0100925671 /* ZZGridStateView.m */; };
 		07636EC31BA49A0100925671 /* ZZGridStateViewNudge.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CC01BA49A0100925671 /* ZZGridStateViewNudge.m */; };
@@ -981,7 +980,6 @@
 		07636CB31BA49A0100925671 /* ZZGridCenterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCenterCell.m; sourceTree = "<group>"; };
 		07636CB41BA49A0100925671 /* ZZGridCenterCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCenterCellViewModel.h; sourceTree = "<group>"; };
 		07636CB51BA49A0100925671 /* ZZGridCenterCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCenterCellViewModel.m; sourceTree = "<group>"; };
-		07636CB71BA49A0100925671 /* sample_iTunes.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = sample_iTunes.mov; sourceTree = "<group>"; };
 		07636CBA1BA49A0100925671 /* ZZGridStateView+Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZZGridStateView+Animation.h"; sourceTree = "<group>"; };
 		07636CBB1BA49A0100925671 /* ZZGridStateView+Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZZGridStateView+Animation.m"; sourceTree = "<group>"; };
 		07636CBC1BA49A0100925671 /* ZZGridStateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridStateView.h; sourceTree = "<group>"; };
@@ -3478,7 +3476,6 @@
 		07636CB61BA49A0100925671 /* PlusCell */ = {
 			isa = PBXGroup;
 			children = (
-				07636CB71BA49A0100925671 /* sample_iTunes.mov */,
 				07636CB81BA49A0100925671 /* StateViews */,
 				07636CC71BA49A0100925671 /* ZZGridCell.h */,
 				07636CC81BA49A0100925671 /* ZZGridCell.m */,
@@ -4415,7 +4412,6 @@
 				07636E001BA49A0100925671 /* single_ding_chimes2.wav in Resources */,
 				07636E7A1BA49A0100925671 /* icon_man.pdf in Resources */,
 				07636E651BA49A0100925671 /* Roboto-Light.ttf in Resources */,
-				07636EC01BA49A0100925671 /* sample_iTunes.mov in Resources */,
 				07636F0A1BA49A0100925671 /* TOWebViewControllerLocalizable.strings in Resources */,
 				07636DFF1BA49A0100925671 /* single_ding_chimes.wav in Resources */,
 				07636E7B1BA49A0100925671 /* icon_people.pdf in Resources */,
