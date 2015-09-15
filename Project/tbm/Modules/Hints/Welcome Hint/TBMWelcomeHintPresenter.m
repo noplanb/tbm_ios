@@ -7,7 +7,6 @@
 #import "TBMHintView.h"
 #import "TBMWelcomeHintView.h"
 
-
 @implementation TBMWelcomeHintPresenter
 
 - (instancetype)init
@@ -36,12 +35,10 @@
     {
         return NO;
     }
-
     if ([self.dataSource friendsCount] > 8)
     {
         return NO;
     }
-
     return YES;
 }
 

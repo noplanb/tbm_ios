@@ -7,7 +7,6 @@
 #import "TBMHintView.h"
 #import "TBMAbortRecordUsageHintView.h"
 
-
 @implementation TBMAbortRecordUsageHintPresenter
 
 - (instancetype)init

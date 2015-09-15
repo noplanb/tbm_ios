@@ -6,6 +6,6 @@
 #import <Foundation/Foundation.h>
 #import "TBMEventHandlerPresenter.h"
 
-
 @interface TBMSentHintPresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandlerInterface,TBMDialogViewDelegate>
+
 @end

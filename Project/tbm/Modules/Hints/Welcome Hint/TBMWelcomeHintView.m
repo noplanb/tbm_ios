@@ -6,9 +6,7 @@
 #import "TBMWelcomeHintView.h"
 
 @implementation TBMWelcomeHintView
-{
 
-}
 /**
  * Matrix need for get button,angle and curve kind values for 0..7th grid element
  */

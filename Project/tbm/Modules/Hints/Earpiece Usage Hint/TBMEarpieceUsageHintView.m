@@ -6,9 +6,6 @@
 #import "TBMEarpieceUsageHintView.h"
 
 @implementation TBMEarpieceUsageHintView
-{
-
-}
 
 - (void)configureHint
 {

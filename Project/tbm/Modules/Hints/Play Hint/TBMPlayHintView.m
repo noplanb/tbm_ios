@@ -6,15 +6,15 @@
 #import "TBMPlayHintView.h"
 
 @interface TBMPlayHintView ()
+
 @property(nonatomic, strong) TBMHintArrow *playArrow;
 @property(nonatomic, strong) TBMHintArrow *recordArrow;
-@property(nonatomic) CGRect highlightFrame;
+@property(nonatomic, assign) CGRect highlightFrame;
+
 @end
 
 @implementation TBMPlayHintView
-{
 
-}
 - (void)configureHint
 {
     self.highlightFrame = [self.gridModule gridGetFrameForFriend:0 inView:self.superview];

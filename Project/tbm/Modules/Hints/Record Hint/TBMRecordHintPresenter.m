@@ -8,7 +8,6 @@
 #import "TBMRecordHintView.h"
 #import "TBMPlayHintPresenter.h"
 
-
 @implementation TBMRecordHintPresenter
 
 - (instancetype)init
@@ -61,11 +60,11 @@
 
 - (void)addPlayHint
 {
-    [(TBMRecordHintView *) self.dialogView addPlayTip];
+    [(TBMRecordHintView*) self.dialogView addPlayTip];
 }
 
 - (void)setupRecordTip
 {
-    [(TBMRecordHintView *) self.dialogView setupRecordTip];
+    [(TBMRecordHintView*) self.dialogView setupRecordTip];
 }
 @end

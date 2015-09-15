@@ -6,9 +6,6 @@
 #import "TBMSentHintView.h"
 
 @implementation TBMSentHintView
-{
-
-}
 
 - (void)configureHint
 {

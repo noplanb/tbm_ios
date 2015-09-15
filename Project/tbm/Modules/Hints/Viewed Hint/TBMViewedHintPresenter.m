@@ -7,13 +7,11 @@
 #import "TBMHintView.h"
 #import "TBMViewedHintView.h"
 
-
 @implementation TBMViewedHintPresenter
 
 - (instancetype)init
 {
     self = [super init];
-
     if (self)
     {
         self.dialogView = [TBMViewedHintView new];
@@ -52,4 +50,5 @@
 
     [self dismissAfter:3.f];
 }
+
 @end

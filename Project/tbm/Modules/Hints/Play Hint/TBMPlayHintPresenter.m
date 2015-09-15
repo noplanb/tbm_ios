@@ -8,13 +8,11 @@
 #import "TBMPlayHintView.h"
 #import "TBMRecordHintPresenter.h"
 
-
 @implementation TBMPlayHintPresenter
 
 - (instancetype)init
 {
     self = [super init];
-
     if (self)
     {
         self.dialogView = [TBMPlayHintView new];
@@ -64,7 +62,8 @@
         [super present];
         [self setupPlayTip];
         [self didPresented];
-    } else if ([[self.eventFlowModule currentHandler] respondsToSelector:@selector(addPlayHint)])
+    }
+    else if ([[self.eventFlowModule currentHandler] respondsToSelector:@selector(addPlayHint)])
     {
         [[self.eventFlowModule currentHandler] performSelector:@selector(addPlayHint)];
         [self didPresented];
@@ -75,12 +74,12 @@
 
 - (void)addRecordHint
 {
-    [(TBMPlayHintView *) self.dialogView addRecordTip];
+    [(TBMPlayHintView *)self.dialogView addRecordTip];
 }
 
 - (void)setupPlayTip
 {
-    [(TBMPlayHintView *) self.dialogView setupPlayTip];
+    [(TBMPlayHintView *)self.dialogView setupPlayTip];
 }
 
 @end

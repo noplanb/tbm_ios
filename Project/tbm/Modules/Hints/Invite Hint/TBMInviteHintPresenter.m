@@ -6,13 +6,11 @@
 #import "TBMInviteHintPresenter.h"
 #import "TBMInviteHintView.h"
 
-
 @implementation TBMInviteHintPresenter
 
 - (instancetype)init
 {
     self = [super init];
-
     if (self)
     {
         self.dialogView = [TBMInviteHintView new];
@@ -31,7 +29,6 @@
     {
         return NO;
     }
-    
     return ([self.dataSource friendsCount] == 0);
 }
 

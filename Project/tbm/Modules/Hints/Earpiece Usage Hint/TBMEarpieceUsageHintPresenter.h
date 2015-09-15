@@ -6,4 +6,5 @@
 #import "TBMEventHandlerPresenter.h"
 
 @interface TBMEarpieceUsageHintPresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandlerInterface>
+
 @end

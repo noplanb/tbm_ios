@@ -3,10 +3,11 @@
 // Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "TBMHintView.h"
 
 @interface TBMPlayHintView : TBMHintView
+
 - (void)addRecordTip;
 - (void)setupPlayTip;
+
 @end

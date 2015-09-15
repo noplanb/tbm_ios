@@ -127,7 +127,6 @@
 		07636E1B1BA49A0100925671 /* Zazo-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07636AF41BA49A0100925671 /* Zazo-Info.plist */; };
 		07636E1C1BA49A0100925671 /* ZZRootWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AF81BA49A0100925671 /* ZZRootWireframe.m */; };
 		07636E1D1BA49A0100925671 /* UIImage+ANDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AFD1BA49A0100925671 /* UIImage+ANDefault.m */; };
-		07636E1E1BA49A0100925671 /* ZZFriendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B041BA49A0100925671 /* ZZFriendManager.m */; };
 		07636E1F1BA49A0100925671 /* ZZKeyboardObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B071BA49A0100925671 /* ZZKeyboardObserver.m */; };
 		07636E201BA49A0100925671 /* ZZPhoneHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B0A1BA49A0100925671 /* ZZPhoneHelper.m */; };
 		07636E211BA49A0100925671 /* ZZTextFieldsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B0D1BA49A0100925671 /* ZZTextFieldsDelegate.m */; };
@@ -679,8 +678,6 @@
 		07636AFD1BA49A0100925671 /* UIImage+ANDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ANDefault.m"; sourceTree = "<group>"; };
 		07636AFF1BA49A0100925671 /* ZZAPIRoutes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAPIRoutes.h; sourceTree = "<group>"; };
 		07636B001BA49A0100925671 /* ZZGlobalHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGlobalHeader.h; sourceTree = "<group>"; };
-		07636B031BA49A0100925671 /* ZZFriendManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFriendManager.h; sourceTree = "<group>"; };
-		07636B041BA49A0100925671 /* ZZFriendManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFriendManager.m; sourceTree = "<group>"; };
 		07636B061BA49A0100925671 /* ZZKeyboardObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZKeyboardObserver.h; sourceTree = "<group>"; };
 		07636B071BA49A0100925671 /* ZZKeyboardObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZKeyboardObserver.m; sourceTree = "<group>"; };
 		07636B091BA49A0100925671 /* ZZPhoneHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPhoneHelper.h; sourceTree = "<group>"; };
@@ -2099,21 +2096,11 @@
 		07636B011BA49A0100925671 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				07636B021BA49A0100925671 /* FriendManager */,
 				07636B051BA49A0100925671 /* KeyboardObserver */,
 				07636B081BA49A0100925671 /* PhoneHelper */,
 				07636B0B1BA49A0100925671 /* TextFieldsDelegate */,
 			);
 			path = Helpers;
-			sourceTree = "<group>";
-		};
-		07636B021BA49A0100925671 /* FriendManager */ = {
-			isa = PBXGroup;
-			children = (
-				07636B031BA49A0100925671 /* ZZFriendManager.h */,
-				07636B041BA49A0100925671 /* ZZFriendManager.m */,
-			);
-			path = FriendManager;
 			sourceTree = "<group>";
 		};
 		07636B051BA49A0100925671 /* KeyboardObserver */ = {
@@ -4556,7 +4543,6 @@
 				07636DD01BA49A0100925671 /* TBMInviteHintPresenter.m in Sources */,
 				07636E2E1BA49A0100925671 /* ZZS3CredentialsDomainModel.m in Sources */,
 				07636E901BA49A0100925671 /* ZZAuthContentView.m in Sources */,
-				07636E1E1BA49A0100925671 /* ZZFriendManager.m in Sources */,
 				07636DC81BA49A0100925671 /* TBMAbortRecordUsageHintPresenter.m in Sources */,
 				07636F101BA49A0100925671 /* NSString+MD5.m in Sources */,
 				07636EF61BA49A0100925671 /* ANMessageDomainModel.m in Sources */,

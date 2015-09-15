@@ -211,19 +211,18 @@
     self.hidden = NO;
     [self setNeedsLayout];
     [self layoutIfNeeded];
-    [UIView animateWithDuration:.25f animations:^
-    {
+    [UIView animateWithDuration:.25f animations:^ {
         self.alpha = 1;
     }];
 }
 
 - (void)hide
 {
-    [UIView animateWithDuration:.25f animations:^
-    {
+    [UIView animateWithDuration:.25f animations:^ {
         self.alpha = 0;
+    } completion:^(BOOL finished) {
+        self.hidden = YES;
     }];
-    self.hidden = YES;
 }
 
 @end

@@ -6,12 +6,10 @@
 #import "TBMRecordWelcomeHintView.h"
 
 @implementation TBMRecordWelcomeHintView
-{
-
-}
 
 - (NSString *)hintMessage
 {
     return @"Press and hold to record \n a welcome message for %@";
 }
+
 @end

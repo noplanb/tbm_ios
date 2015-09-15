@@ -7,12 +7,11 @@
 #import "TBMHintView.h"
 #import "TBMEarpieceUsageHintView.h"
 
-
 @implementation TBMEarpieceUsageHintPresenter
+
 - (instancetype)init
 {
     self = [super init];
-
     if (self)
     {
         self.dialogView = [TBMEarpieceUsageHintView new];

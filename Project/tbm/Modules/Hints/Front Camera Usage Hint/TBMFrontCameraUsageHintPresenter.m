@@ -7,8 +7,8 @@
 #import "TBMHintView.h"
 #import "TBMFrontCameraUsageHintView.h"
 
-
 @implementation TBMFrontCameraUsageHintPresenter
+
 - (instancetype)init
 {
     self = [super init];

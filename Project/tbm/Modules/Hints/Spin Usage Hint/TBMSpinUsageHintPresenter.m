@@ -7,12 +7,11 @@
 #import "TBMHintView.h"
 #import "TBMSpinUsageHintView.h"
 
-
 @implementation TBMSpinUsageHintPresenter
+
 - (instancetype)init
 {
     self = [super init];
-
     if (self)
     {
         self.dialogView = [TBMSpinUsageHintView new];

@@ -7,7 +7,9 @@
 #import "NSArray+TBMArrayHelpers.h"
 
 @interface TBMInviteSomeoneElseHintView ()
+
 @property(nonatomic, strong) UIImageView *presentImage;
+
 @end
 
 @implementation TBMInviteSomeoneElseHintView

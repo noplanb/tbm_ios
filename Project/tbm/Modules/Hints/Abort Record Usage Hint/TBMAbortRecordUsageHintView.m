@@ -6,9 +6,6 @@
 #import "TBMAbortRecordUsageHintView.h"
 
 @implementation TBMAbortRecordUsageHintView
-{
-
-}
 
 - (void)configureHint
 {

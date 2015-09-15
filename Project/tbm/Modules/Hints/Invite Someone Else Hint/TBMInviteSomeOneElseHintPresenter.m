@@ -7,13 +7,11 @@
 #import "TBMHintView.h"
 #import "TBMInviteSomeoneElseHintView.h"
 
-
 @implementation TBMInviteSomeOneElseHintPresenter
 
 - (instancetype)init
 {
     self = [super init];
-
     if (self)
     {
         self.dialogView = [TBMInviteSomeoneElseHintView new];

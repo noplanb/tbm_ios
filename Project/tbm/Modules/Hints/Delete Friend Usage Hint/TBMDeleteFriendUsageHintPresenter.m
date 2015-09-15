@@ -7,13 +7,11 @@
 #import "TBMHintView.h"
 #import "TBMDeleteFriendUsageHintView.h"
 
-
 @implementation TBMDeleteFriendUsageHintPresenter
 
 - (instancetype)init
 {
     self = [super init];
-
     if (self)
     {
         self.dialogView = [TBMDeleteFriendUsageHintView new];

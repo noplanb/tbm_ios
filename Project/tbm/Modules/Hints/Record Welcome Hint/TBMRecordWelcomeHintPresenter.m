@@ -8,13 +8,11 @@
 #import "TBMRecordWelcomeHintView.h"
 #import "TBMPlayHintPresenter.h"
 
-
 @implementation TBMRecordWelcomeHintPresenter
 
 - (instancetype)init
 {
     self = [super init];
-
     if (self)
     {
         self.dialogView = [TBMRecordWelcomeHintView new];
@@ -29,14 +27,11 @@
 
 - (BOOL)conditionForEvent:(TBMEventFlowEvent)event
 {
-
     if (event != TBMEventFlowEventFriendDidAdd)
     {
         return NO;
     }
-
     return (![self.dataSource messageRecordedState]);
-
 }
 
 @end

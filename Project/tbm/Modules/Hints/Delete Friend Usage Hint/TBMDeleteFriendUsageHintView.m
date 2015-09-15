@@ -6,9 +6,6 @@
 #import "TBMDeleteFriendUsageHintView.h"
 
 @implementation TBMDeleteFriendUsageHintView
-{
-
-}
 
 - (void)configureHint
 {

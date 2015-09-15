@@ -6,9 +6,7 @@
 #import "TBMViewedHintView.h"
 
 @implementation TBMViewedHintView
-{
 
-}
 - (void)configureHint
 {
     CGRect highlightFrame = [self.gridModule gridGetFrameForFriend:0 inView:self.superview];

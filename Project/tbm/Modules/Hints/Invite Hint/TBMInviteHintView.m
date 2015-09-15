@@ -6,9 +6,6 @@
 #import "TBMInviteHintView.h"
 
 @implementation TBMInviteHintView
-{
-
-}
 
 - (void)configureHint
 {

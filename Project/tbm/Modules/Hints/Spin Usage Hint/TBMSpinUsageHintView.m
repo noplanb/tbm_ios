@@ -6,9 +6,6 @@
 #import "TBMSpinUsageHintView.h"
 
 @implementation TBMSpinUsageHintView
-{
-
-}
 
 - (void)configureHint
 {

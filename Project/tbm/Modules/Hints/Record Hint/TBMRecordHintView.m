@@ -6,9 +6,11 @@
 #import "TBMRecordHintView.h"
 
 @interface TBMRecordHintView ()
+
 @property(nonatomic, strong) TBMHintArrow *playArrow;
 @property(nonatomic, strong) TBMHintArrow *recordArrow;
-@property(nonatomic) CGRect highlightFrame;
+@property(nonatomic, assign) CGRect highlightFrame;
+
 @end
 
 @implementation TBMRecordHintView

@@ -7,7 +7,6 @@
 #import "TBMHintView.h"
 #import "TBMSentHintView.h"
 
-
 @implementation TBMSentHintPresenter
 
 - (instancetype)init
