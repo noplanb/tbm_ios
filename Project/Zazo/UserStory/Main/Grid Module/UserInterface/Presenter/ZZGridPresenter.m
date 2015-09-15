@@ -74,6 +74,7 @@
 {
     [self.wireframe closeMenu];
     [self.wireframe presentEditFriendsController];
+   
 }
 
 - (void)presentSendEmailController

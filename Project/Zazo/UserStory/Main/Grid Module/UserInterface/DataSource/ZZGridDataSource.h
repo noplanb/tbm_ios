@@ -36,6 +36,7 @@
 - (void)selectedViewModelUpdatedWithItem:(ZZGridDomainModel*)model;
 - (void)updateStorageWithModel:(ZZGridDomainModel*)model;
 - (void)updateModelWithFriend:(TBMFriend*)friend;
+- (void)reloadStorage;
 
 - (ZZGridCenterCellViewModel*)centerViewModel;
 
