@@ -143,6 +143,10 @@ static NSString *MESSAGE = @"We sent a code";
 - (UITextField *)makeCodeTextField
 {
     UITextField *tf = [[UITextField alloc] initWithFrame:[self textFieldFrame]];
+#ifdef DEBUG_LOGIN_USER
+    tf.text = @"0000";
+    self.confirmationAction.enabled = YES;
+#endif
     tf.keyboardType = UIKeyboardTypeNumberPad;
     tf.backgroundColor = [UIColor whiteColor];
     tf.borderStyle = UITextBorderStyleRoundedRect;
