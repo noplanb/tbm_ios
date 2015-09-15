@@ -74,6 +74,34 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
     return self;
 }
 
+- (void)updateRecorder
+{
+    if (!self.recorder)
+    {
+        self.videoProcessor = [TBMVideoProcessor new];
+        self.recorder = [SCRecorder recorder];
+        self.recorder.delegate = self;
+        self.recorder.captureSessionPreset = AVCaptureSessionPresetLow;
+        
+        SCAudioConfiguration *audio = self.recorder.audioConfiguration;
+        audio.enabled = YES;
+        
+        SCVideoConfiguration *video = self.recorder.videoConfiguration;
+        video.enabled = YES;
+        video.scalingMode = AVVideoScalingModeResizeAspectFill;
+        
+        self.recorder.device = AVCaptureDevicePositionFront;
+        self.recorder.session = [SCRecordSession recordSession];
+        
+        [self.recorder startRunning];
+    }
+    else
+    {
+        [self.recorder startRunning];
+    }
+
+}
+
 - (void)startTouchObserve
 {
     UIWindow* window = [UIApplication sharedApplication].keyWindow;
