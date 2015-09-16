@@ -59,6 +59,11 @@ typedef NS_ENUM(NSInteger, ZZGridActionFeatureType)
     ZZGridActionFeatureTypeSpinWheel
 };
 
+NSString* ZZGridActionFeatureTypeStringFromEnumValue(ZZGridActionFeatureType);
+ZZGridActionFeatureType ZZGridActionFeatureTypeEnumValueFromSrting(NSString*);
+
+
+
 @interface ZZGridActionHandlerEnums : NSObject
 
 @end

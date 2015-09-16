@@ -12,4 +12,5 @@
 @property(nonatomic, weak) id <ZZGridModuleInterface> gridModule;
 
 - (void)setupHandlers;
+
 @end

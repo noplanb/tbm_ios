@@ -42,8 +42,6 @@ typedef NS_ENUM(NSUInteger, ZZConfigServerState) {
 @property (nonatomic, copy) NSString* authToken;
 
 @property (nonatomic, assign) BOOL abortRecordUsageHintDidShow;
-
-
 @property (nonatomic, assign) BOOL deleteFriendUsageUsageHintDidShow;
 @property (nonatomic, assign) BOOL earpieceUsageUsageHintDidShow;
 @property (nonatomic, assign) BOOL frontCameraUsageUsageHintDidShow;

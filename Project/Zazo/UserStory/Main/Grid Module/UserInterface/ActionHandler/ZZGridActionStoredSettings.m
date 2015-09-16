@@ -7,7 +7,23 @@
 //
 
 #import "ZZGridActionStoredSettings.h"
+#import "NSObject+ANUserDefaults.h"
 
 @implementation ZZGridActionStoredSettings
+
++ (instancetype)shared
+{
+    static id _sharedClient = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedClient = [self new];
+    });
+    return _sharedClient;
+}
+
+- (void)reset
+{
+
+}
 
 @end
