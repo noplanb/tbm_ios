@@ -213,6 +213,44 @@ static NSInteger const kGridFriendsCellCount = 8;
     [ZZFriendDataProvider upsertFriendWithModel:friendModel];
 }
 
+- (void)handleNotificationForFriend:(TBMFriend *)friendEntity
+{
+    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friendEntity];
+    
+    __block ZZGridDomainModel *modelThatContainCurrentFriend;
+    
+    [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel* obj, NSUInteger idx, BOOL *stop) {
+        if ([obj.relatedUser.mKey isEqualToString:friendModel.mKey])
+        {
+            modelThatContainCurrentFriend = obj;
+            *stop = YES;
+        }
+    }];
+    
+    if (ANIsEmpty(modelThatContainCurrentFriend))
+    {
+            ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
+        
+            if (ANIsEmpty(model))
+            {
+                model = [self _getGridModelWithLatestAction];
+                model.relatedUser = friendModel;
+            }
+            else
+            {
+                model.relatedUser = friendModel;
+            }
+            [ZZGridDataProvider upsertModel:model];
+            [self.output updateGridWithModelFromNotification:modelThatContainCurrentFriend];
+    }
+    else
+    {
+        modelThatContainCurrentFriend.relatedUser = friendModel;
+        [ZZGridDataProvider upsertModel:modelThatContainCurrentFriend];
+        [self.output updateGridWithModelFromNotification:modelThatContainCurrentFriend];
+    }
+}
+
 - (void)loadFeedbackModel
 {
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
