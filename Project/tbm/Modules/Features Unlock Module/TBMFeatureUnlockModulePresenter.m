@@ -82,10 +82,10 @@
 - (void)featureDidUnlock:(TBMUnlockedFeature)feature
 {
     [self.featuresUnlockDatasource setLastUnlockedFeature:feature];
-    NSString *featureHeader = [self.featuresUnlockDatasource featureHeader:feature];
+    NSString* featureHeader = [self.featuresUnlockDatasource featureHeader:feature];
     if (![featureHeader isEmpty])
     {
-        [(TBMFeatureUnlockDialogView *) self.dialogView setFeatureDescription:featureHeader];
+        [(TBMFeatureUnlockDialogView*) self.dialogView setFeatureDescription:featureHeader];
     }
 }
 
@@ -141,7 +141,7 @@
 
 - (void)silentUpdateUnlockedFeaturesCount
 {
-    TBMFeatureUnlockDataSource *dataSource = self.featuresUnlockDatasource;
+    TBMFeatureUnlockDataSource* dataSource = self.featuresUnlockDatasource;
     if (![dataSource isFeaturesUnlockedCountSet])
     {
 

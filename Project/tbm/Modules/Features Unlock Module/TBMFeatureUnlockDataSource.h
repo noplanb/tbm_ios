@@ -11,7 +11,7 @@
 /**
  * Returns header for feature
  */
-- (NSString *)featureHeader:(TBMUnlockedFeature)feature;
+- (NSString*)featureHeader:(TBMUnlockedFeature)feature;
 
 /**
  * Last unlocked feature property

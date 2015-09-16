@@ -49,18 +49,18 @@ static NSString *const kLastUnlockedFeatureKey = @"kLastUnlockedFeatureKey";
 
 @dynamic hintsDidStartRecord;
 @dynamic hintsDidStartPlay;
-@dynamic deleteFriendUsageUsageHintDidShow;
-@dynamic earpieceUsageUsageHintDidShow;
-@dynamic frontCameraUsageUsageHintDidShow;
-@dynamic inviteHintDidShow;
-@dynamic inviteSomeoneElseKey;
-@dynamic playHintDidShow;
-@dynamic recordHintDidShow;
-@dynamic recordWelcomeHintDidShow;
-@dynamic sentHintDidShow;
-@dynamic spinUsageUsageUsageHintDidShow;
-@dynamic viewedHintDidShow;
-@dynamic welcomeHintDidShow;
+@dynamic deleteFriendHintWasShown;
+@dynamic earpieceHintWasShown;
+@dynamic frontCameraHintWasShown;
+@dynamic inviteHintWasShown;
+@dynamic inviteSomeoneHintWasShown;
+@dynamic playHintWasShown;
+@dynamic recordHintWasShown;
+@dynamic recordWelcomeHintWasShown;
+@dynamic sentHintWasShown;
+@dynamic spinHintWasShown;
+@dynamic viewedHintWasShown;
+@dynamic welcomeHintWasShown;
 
 + (instancetype)shared
 {
@@ -80,7 +80,7 @@ static NSString *const kLastUnlockedFeatureKey = @"kLastUnlockedFeatureKey";
 
     self.hintsDidStartPlay = NO;
     self.hintsDidStartRecord = NO;
-    
+
     self.userID = nil;
     self.authToken = nil;
 }
@@ -178,7 +178,7 @@ static NSString *const kLastUnlockedFeatureKey = @"kLastUnlockedFeatureKey";
     return [[self an_objectForKey:kZZHintsDidStartRecordKey] boolValue];
 }
 
-- (BOOL)abortRecordUsageHintDidShow
+- (BOOL)abortRecordHintWasShown
 {
     return [[self an_objectForKey:kRecordHintDidShowKey] boolValue];
 }
@@ -205,101 +205,101 @@ static NSString *const kLastUnlockedFeatureKey = @"kLastUnlockedFeatureKey";
     return [self an_objectForKey:kZZUserAuthToken];
 }
 
-- (void)setAbortRecordUsageHintDidShow:(BOOL)abortRecordUsageHintDidShow
+- (void)setAbortRecordHintWasShown:(BOOL)abortRecordHintWasShown
 {
-    [self an_updateBool:abortRecordUsageHintDidShow forKey:kAbortRecordUsageHintDidShowKey];
+    [self an_updateBool:abortRecordHintWasShown forKey:kAbortRecordUsageHintDidShowKey];
 }
 
-- (BOOL)deleteFriendUsageUsageHintDidShow
+- (BOOL)deleteFriendHintWasShown
 {
     return [[self an_objectForKey:kDeleteFriendUsageUsageHintDidShowKey] boolValue];
 }
 
-- (void)setDeleteFriendUsageUsageHintDidShow:(BOOL)deleteFriendUsageUsageHintDidShow
+- (void)setDeleteFriendHintWasShown:(BOOL)deleteFriendHintWasShown
 {
-    [self an_updateBool:deleteFriendUsageUsageHintDidShow forKey:kDeleteFriendUsageUsageHintDidShowKey];
+    [self an_updateBool:deleteFriendHintWasShown forKey:kDeleteFriendUsageUsageHintDidShowKey];
 
 }
 
-- (BOOL)earpieceUsageUsageHintDidShow
+- (BOOL)earpieceHintWasShown
 {
     return [[self an_objectForKey:kEarpieceUsageUsageHintDidShowKey] boolValue];
 }
 
-- (void)setEarpieceUsageUsageHintDidShow:(BOOL)earpieceUsageUsageHintDidShow
+- (void)setEarpieceHintWasShown:(BOOL)earpieceHintWasShown
 {
-    [self an_updateBool:earpieceUsageUsageHintDidShow forKey:kEarpieceUsageUsageHintDidShowKey];
+    [self an_updateBool:earpieceHintWasShown forKey:kEarpieceUsageUsageHintDidShowKey];
 
 }
 
-- (BOOL)frontCameraUsageUsageHintDidShow
+- (BOOL)frontCameraHintWasShown
 {
     return [[self an_objectForKey:kFrontCameraUsageUsageHintDidShowKey] boolValue];
 }
 
-- (void)setFrontCameraUsageUsageHintDidShow:(BOOL)frontCameraUsageUsageHintDidShow
+- (void)setFrontCameraHintWasShown:(BOOL)frontCameraHintWasShown
 {
-    [self an_updateBool:frontCameraUsageUsageHintDidShow forKey:kFrontCameraUsageUsageHintDidShowKey];
+    [self an_updateBool:frontCameraHintWasShown forKey:kFrontCameraUsageUsageHintDidShowKey];
 }
 
-- (BOOL)inviteHintDidShow
+- (BOOL)inviteHintWasShown
 {
     return [[self an_objectForKey:kInviteHintDidShowKey] boolValue];
 }
 
-- (void)setInviteHintDidShow:(BOOL)inviteHintDidShow
+- (void)setInviteHintWasShown:(BOOL)inviteHintWasShown
 {
-    [self an_updateBool:inviteHintDidShow forKey:kInviteHintDidShowKey];
+    [self an_updateBool:inviteHintWasShown forKey:kInviteHintDidShowKey];
 }
 
-- (BOOL)inviteSomeoneElseKey
+- (BOOL)inviteSomeoneHintWasShown
 {
     return [[self an_objectForKey:kInviteSomeoneElseKey] boolValue];
 }
 
-- (void)setInviteSomeoneElseKey:(BOOL)inviteSomeoneElseKey
+- (void)setInviteSomeoneHintWasShown:(BOOL)inviteSomeoneHintWasShown
 {
-    [self an_updateBool:inviteSomeoneElseKey forKey:kInviteSomeoneElseKey];
+    [self an_updateBool:inviteSomeoneHintWasShown forKey:kInviteSomeoneElseKey];
 }
 
-- (BOOL)playHintDidShow
+- (BOOL)playHintWasShown
 {
     return [[self an_objectForKey:kPlayHintDidShowKey] boolValue];
 }
 
-- (void)setPlayHintDidShow:(BOOL)playHintDidShow
+- (void)setPlayHintWasShown:(BOOL)playHintWasShown
 {
-    [self an_updateBool:playHintDidShow forKey:kPlayHintDidShowKey];
+    [self an_updateBool:playHintWasShown forKey:kPlayHintDidShowKey];
 }
 
-- (BOOL)recordHintDidShow
+- (BOOL)recordHintWasShown
 {
     return [[self an_objectForKey:kRecordHintDidShowKey] boolValue];
 }
 
-- (void)setRecordHintDidShow:(BOOL)recordHintDidShow
+- (void)setRecordHintWasShown:(BOOL)recordHintWasShown
 {
-    [self an_updateBool:recordHintDidShow forKey:kRecordHintDidShowKey];
+    [self an_updateBool:recordHintWasShown forKey:kRecordHintDidShowKey];
 }
 
-- (BOOL)recordWelcomeHintDidShow
+- (BOOL)recordWelcomeHintWasShown
 {
     return [[self an_objectForKey:kRecordWelcomeHintDidShowKey] boolValue];
 }
 
-- (void)setRecordWelcomeHintDidShow:(BOOL)recordWelcomeHintDidShow
+- (void)setRecordWelcomeHintWasShown:(BOOL)recordWelcomeHintWasShown
 {
-    [self an_updateBool:recordWelcomeHintDidShow forKey:kRecordWelcomeHintDidShowKey];
+    [self an_updateBool:recordWelcomeHintWasShown forKey:kRecordWelcomeHintDidShowKey];
 }
 
-- (BOOL)sentHintDidShow
+- (BOOL)sentHintWasShown
 {
     return [[self an_objectForKey:kSentHintDidShowKey] boolValue];
 }
 
-- (void)setSentHintDidShow:(BOOL)sentHintDidShow
+- (void)setSentHintWasShown:(BOOL)sentHintWasShown
 {
-    [self an_updateBool:sentHintDidShow forKey:kSentHintDidShowKey];
+    [self an_updateBool:sentHintWasShown forKey:kSentHintDidShowKey];
 }
 
 - (BOOL)spinUsageUsageUsageHintDidShow
@@ -322,14 +322,14 @@ static NSString *const kLastUnlockedFeatureKey = @"kLastUnlockedFeatureKey";
     [self an_updateBool:viewedHintDidShow forKey:kViewedHintDidShowKey];
 }
 
-- (BOOL)welcomeHintDidShow
+- (BOOL)welcomeHintWasShown
 {
     return [[self an_objectForKey:kWelcomeHintDidShowKey] boolValue];
 }
 
-- (void)setWelcomeHintDidShow:(BOOL)welcomeHintDidShow
+- (void)setWelcomeHintWasShown:(BOOL)welcomeHintWasShown
 {
-    [self an_updateBool:welcomeHintDidShow forKey:kWelcomeHintDidShowKey];
+    [self an_updateBool:welcomeHintWasShown forKey:kWelcomeHintDidShowKey];
 }
 
 - (NSUInteger)lastUnlockedFeature
@@ -343,6 +343,5 @@ static NSString *const kLastUnlockedFeatureKey = @"kLastUnlockedFeatureKey";
 {
     [self an_updateInteger:lastUnlockedFeature forKey:kLastUnlockedFeatureKey];
 }
-
 
 @end

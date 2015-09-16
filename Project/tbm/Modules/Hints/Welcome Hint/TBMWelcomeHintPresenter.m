@@ -6,6 +6,8 @@
 #import "TBMWelcomeHintPresenter.h"
 #import "TBMHintView.h"
 #import "TBMWelcomeHintView.h"
+#import "TBMEventsFlowDataSource.h"
+#import "ZZStoredSettingsManager.h"
 
 @implementation TBMWelcomeHintPresenter
 
@@ -31,15 +33,25 @@
     {
         return NO;
     }
-    if ([self.dataSource friendsCount] <= 1)
+    NSUInteger friendsCount = [self.dataSource friendsCount];
+    if (friendsCount <= 1)
     {
         return NO;
     }
-    if ([self.dataSource friendsCount] > 8)
+
+    if (friendsCount > 8)
     {
         return NO;
     }
     return YES;
+}
+
+//TODO: Needs datasource here
+- (void)saveHandlerState
+{
+    [super saveHandlerState];
+
+    [[ZZStoredSettingsManager shared] setWelcomeHintWasShown:YES];
 }
 
 @end

@@ -5,6 +5,8 @@
 
 #import "TBMInviteHintPresenter.h"
 #import "TBMInviteHintView.h"
+#import "TBMEventsFlowDataSource.h"
+#import "ZZStoredSettingsManager.h"
 
 @implementation TBMInviteHintPresenter
 
@@ -32,4 +34,11 @@
     return ([self.dataSource friendsCount] == 0);
 }
 
+//TODO: Needs datasource here
+- (void)saveHandlerState
+{
+    [super saveHandlerState];
+
+    [[ZZStoredSettingsManager shared] setInviteHintWasShown:YES];
+}
 @end

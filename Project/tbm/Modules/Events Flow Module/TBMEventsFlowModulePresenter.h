@@ -10,7 +10,6 @@
 @interface TBMEventsFlowModulePresenter : NSObject <TBMEventsFlowModuleInterface>
 
 @property(nonatomic, weak) id <ZZGridModuleInterface> gridModule;
-
 - (void)setupHandlers;
 
 @end

@@ -6,6 +6,8 @@
 #import "TBMSentHintPresenter.h"
 #import "TBMHintView.h"
 #import "TBMSentHintView.h"
+#import "TBMEventsFlowDataSource.h"
+#import "ZZStoredSettingsManager.h"
 
 @implementation TBMSentHintPresenter
 
@@ -38,7 +40,7 @@
         return NO;
     }
 
-    return (([self.dataSource friendsCount] == 1) && (![self.dataSource persistentStateForHandler:self]));
+    return (([self.dataSource friendsCount] == 1) && (![self handlerState]));
 
 }
 
@@ -53,6 +55,19 @@
 {
     [super dialogDidDismiss];
     [self.eventFlowModule throwEvent:TBMEventFlowEventSentHintDidDismiss];
+}
+
+//TODO: Needs datasource here
+- (void)saveHandlerState
+{
+    [super saveHandlerState];
+
+    [[ZZStoredSettingsManager shared] setSentHintWasShown:YES];
+}
+
+- (BOOL)handlerState
+{
+    return [[ZZStoredSettingsManager shared] sentHintWasShown];
 }
 
 @end

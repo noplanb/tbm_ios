@@ -6,6 +6,7 @@
 #import "TBMDeleteFriendUsageHintPresenter.h"
 #import "TBMHintView.h"
 #import "TBMDeleteFriendUsageHintView.h"
+#import "ZZStoredSettingsManager.h"
 
 @implementation TBMDeleteFriendUsageHintPresenter
 
@@ -33,6 +34,14 @@
 - (void)dialogDidDismiss
 {
     [self.eventFlowModule throwEvent:TBMEventFlowEventFeatureUsageHintDidDismiss];
+}
+
+//TODO: Needs datasource here
+- (void)saveHandlerState
+{
+    [super saveHandlerState];
+
+    [[ZZStoredSettingsManager shared] setDeleteFriendHintWasShown:YES];
 }
 
 @end

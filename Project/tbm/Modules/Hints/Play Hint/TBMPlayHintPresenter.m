@@ -7,6 +7,8 @@
 #import "TBMHintView.h"
 #import "TBMPlayHintView.h"
 #import "TBMRecordHintPresenter.h"
+#import "TBMEventsFlowDataSource.h"
+#import "ZZStoredSettingsManager.h"
 
 @implementation TBMPlayHintPresenter
 
@@ -81,5 +83,11 @@
 {
     [(TBMPlayHintView *)self.dialogView setupPlayTip];
 }
+//TODO: Needs datasource here
+- (void)saveHandlerState
+{
+    [super saveHandlerState];
 
+    [[ZZStoredSettingsManager shared] setPlayHintWasShown:YES];
+}
 @end

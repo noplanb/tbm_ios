@@ -6,6 +6,8 @@
 #import "TBMViewedHintPresenter.h"
 #import "TBMHintView.h"
 #import "TBMViewedHintView.h"
+#import "TBMEventsFlowDataSource.h"
+#import "ZZStoredSettingsManager.h"
 
 @implementation TBMViewedHintPresenter
 
@@ -36,7 +38,7 @@
         return NO;
     }
 
-    if ([self.dataSource persistentStateForHandler:self])
+    if ([self handlerState])
     {
         return NO;
     }
@@ -49,6 +51,19 @@
     [super present];
 
     [self dismissAfter:3.f];
+}
+
+//TODO: Needs datasource here
+- (void)saveHandlerState
+{
+    [super saveHandlerState];
+
+    [[ZZStoredSettingsManager shared] setViewedHintWasShown:YES];
+}
+
+- (BOOL)handlerState
+{
+    return [[ZZStoredSettingsManager shared] viewedHintWasShown];
 }
 
 @end

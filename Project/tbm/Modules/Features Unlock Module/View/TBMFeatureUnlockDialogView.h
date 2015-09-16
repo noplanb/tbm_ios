@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "TBMEventsFlowModulePresenter.h"
 #import "TBMEventsFlowDataSource.h"
-#import "TBMGridModuleInterface.h"
+#import "ZZGridModuleInterface.h"
 #import "TBMDialogViewInterface.h"
 
 @class TBMFeatureUnlockModulePresenter;

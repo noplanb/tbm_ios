@@ -55,53 +55,9 @@
     return [TBMFriend unviewedCountForGridCellAtIndex:0];
 }
 
-- (void)resetHintsState
-{
-    [self setMessageEverPlayedState:NO];
-    [self setMessageRecordedState:NO];
-}
-
 - (BOOL)hasSentVideos:(NSUInteger)gridIndex
 {
     return [TBMGridElement hasSentVideos:gridIndex];
-}
-
-// Event handler Data Source 
-- (void)setPersistentState:(BOOL)state forHandler:(id <TBMEventsFlowModuleEventHandlerInterface>)eventHandler
-{
-    NSString* handlerClassName = NSStringFromClass([eventHandler class]);
-    id key = self.handlersKeys[handlerClassName];
-    if ([key isKindOfClass:[NSString class]])
-    {
-        [self setPersistentState:state forKey:(NSString*) key];
-    };
-}
-
-- (void)setPersistentState:(BOOL)state forKey:(NSString*)key
-{
-    ZZStoredSettingsManager* manager = [ZZStoredSettingsManager shared];
-
-    if ([key isEqualToString:NSStringFromClass([TBMInviteHintPresenter class])])
-    {
-        [manager setInviteHintDidShow:state];
-    }
-}
-
-- (BOOL)persistentStateForHandler:(id <TBMEventsFlowModuleEventHandlerInterface>)eventHandler
-{
-    return NO;
-}
-
-
-#pragma mark - Private
-
-- (NSDictionary*)handlersKeys
-{
-    if (!_handlersKeys)
-    {
-        _handlersKeys = @{@"" : @""};
-    }
-    return _handlersKeys;
 }
 
 @end

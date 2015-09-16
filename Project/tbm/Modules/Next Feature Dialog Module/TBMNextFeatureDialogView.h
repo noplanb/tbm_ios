@@ -4,9 +4,9 @@
 //
 
 #import "TBMDialogViewInterface.h"
+#import "ZZGridModuleInterface.h"
 
 @class TBMNextFeatureDialogPresenter;
-@protocol TBMGridModuleInterface;
 
 @interface TBMNextFeatureDialogView : UIView <TBMDialogViewInterface>
 

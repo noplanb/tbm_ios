@@ -4,8 +4,10 @@
 //
 
 
+#import <UIKit/UIKit.h>
 #import "TBMHintView.h"
 #import "TBMDialogViewDelegate.h"
+
 
 @interface TBMHintView ()
 
@@ -26,9 +28,9 @@
     self.dialogViewDelegate = viewDelegate;
 }
 
-- (void)showInGrid:(id <TBMGridModuleInterface>)gridModule
+- (void)showInGrid:(id <ZZGridModuleInterface>)gridModule
 {
-    UIView *view = gridModule.viewForDialog;
+    UIView *view = [gridModule viewForDialog];
     self.gridModule = gridModule;
     self.frame = view.bounds;
 

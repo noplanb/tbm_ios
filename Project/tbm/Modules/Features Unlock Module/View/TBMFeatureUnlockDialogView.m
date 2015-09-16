@@ -26,7 +26,7 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
 @property(nonatomic, strong) UIView *showMeButtonRoundedRectangle;
 @property(nonatomic, strong) UIView *showMeButtonSquare;
 @property(nonatomic, strong) UILabel *showMeButtonLabel;
-@property(nonatomic, weak) id <TBMGridModuleInterface> gridModule;
+@property(nonatomic, weak) id <ZZGridModuleInterface> gridModule;
 @property(nonatomic, weak) id <TBMDialogViewDelegate> dialogViewDelegate;
 @property(nonatomic, strong) TBMSoundEffect *featureUnlockSound;
 @end
@@ -41,9 +41,9 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
     self.dialogViewDelegate = viewDelegate;
 }
 
-- (void)showInGrid:(id <TBMGridModuleInterface>)gridModule
+- (void)showInGrid:(id <ZZGridModuleInterface>)gridModule
 {
-    UIView *view = gridModule.viewForDialog;
+    UIView *view = [gridModule viewForDialog];
     self.gridModule = gridModule;
     self.frame = view.bounds;
     [view addSubview:self];
