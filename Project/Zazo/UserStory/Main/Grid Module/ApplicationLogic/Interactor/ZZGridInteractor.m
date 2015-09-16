@@ -152,7 +152,15 @@ static NSInteger const kGridFriendsCellCount = 8;
         }
         else
         {
-            [self friendSelectedFromMenu:self.selectedUserModel];
+            ZZFriendDomainModel* containedUser;
+            if (![self _isFriendsOnGridContainFriendModel:self.selectedUserModel withContainedFriend:&containedUser])
+            {
+                [self friendSelectedFromMenu:self.selectedUserModel];
+            }
+            else
+            {
+                [self.output gridContainedFriend:containedUser];
+            }
         }
     }
     else //invite friend from contact logic
