@@ -129,6 +129,10 @@
 
 - (void)modelUpdatedWithUserWithModel:(ZZGridDomainModel*)model
 {
+    if (!ANIsEmpty(model.relatedUser))
+    {
+        [self.interactor updateLastActionForFriend:model.relatedUser];
+    }
     [self.dataSource selectedViewModelUpdatedWithItem:model];
 }
 
@@ -169,6 +173,10 @@
 
 - (void)updateGridWithModel:(ZZGridDomainModel*)model
 {
+    if (!ANIsEmpty(model.relatedUser))
+    {
+        [self.interactor updateLastActionForFriend:model.relatedUser];
+    }
     [self.dataSource updateStorageWithModel:model];
 }
 

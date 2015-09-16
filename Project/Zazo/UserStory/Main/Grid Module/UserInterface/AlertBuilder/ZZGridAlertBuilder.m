@@ -40,7 +40,7 @@
 {
     userName = [NSObject an_safeString:userName];
     
-    NSString *msg = [NSString stringWithFormat:@"It seems that %@ is already connected with you.\n\nRecord Zazo to Testing now.", userName];
+    NSString *msg = [NSString stringWithFormat:@"It seems that %@ is already connected with you.\n\nRecord Zazo to %@ now.", userName, userName];
     
     [ZZAlertBuilder presentAlertWithTitle:@"Send a Zazo" details:msg cancelButtonTitle:nil actionButtonTitle:@"OK" action:completion];
 }
