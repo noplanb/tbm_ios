@@ -39,7 +39,7 @@
 @implementation ZZGridPresenter
 //TODO: (EventsFlow) When sent                  [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidSend];
 //TODO: (EventsFlow) When friend add            [self.eventsFlowModule throwEvent:TBMEventFlowEventFriendDidAddWithoutApp];
-//TODO: (EventsFlow) When Message Received      [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidReceive];
+//TODO: (EventsFlow) When Message Received      [self.eventsFlowModule throwEvent:TBMEvexntFlowEventMessageDidReceive];
 //TODO: (EventsFlow) When
 //TODO: (EventsFlow) Setup events flow module
 
