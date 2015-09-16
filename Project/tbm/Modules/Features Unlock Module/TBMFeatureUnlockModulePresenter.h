@@ -12,7 +12,10 @@
 
 @class TBMFeatureUnlockDataSource;
 
-@interface TBMFeatureUnlockModulePresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandlerInterface, TBMFeatureUnlockModuleInterface>
+@interface TBMFeatureUnlockModulePresenter : TBMEventHandlerPresenter
+<   TBMEventsFlowModuleEventHandlerInterface,
+    TBMFeatureUnlockModuleInterface
+>
 
 - (void)showMeButtonDidSelect;
 

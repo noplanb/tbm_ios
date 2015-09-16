@@ -9,15 +9,16 @@
 #import "NSString+NSStringExtensions.h"
 
 @interface TBMFeatureUnlockModulePresenter ()
+
 @property(nonatomic, strong) TBMFeatureUnlockDataSource *featuresUnlockDatasource;
 
 @end
 
 @implementation TBMFeatureUnlockModulePresenter
+
 - (instancetype)init
 {
     self = [super init];
-
     if (self)
     {
         self.dialogView = [TBMFeatureUnlockDialogView new];
@@ -86,7 +87,6 @@
     {
         [(TBMFeatureUnlockDialogView *) self.dialogView setFeatureDescription:featureHeader];
     }
-
 }
 
 #pragma mark - View Callbacks
