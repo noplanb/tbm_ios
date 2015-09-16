@@ -17,8 +17,6 @@
 
 @class ZZGridWireframe;
 
-@protocol TBMEventsFlowModuleInterface;
-
 @interface ZZGridPresenter : NSObject
 <
     ZZGridInteractorOutput,
@@ -32,8 +30,6 @@
 
 @property (nonatomic, weak) UIViewController<ZZGridViewInterface>* userInterface;
 @property (nonatomic, weak) id<ZZGridModuleDelegate> gridModuleDelegate;
-
-@property (nonatomic, strong) id<TBMEventsFlowModuleInterface> eventsFlowModule;
 
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZGridViewInterface>*)userInterface;
 

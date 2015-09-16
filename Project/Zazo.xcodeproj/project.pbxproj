@@ -395,6 +395,12 @@
 		7952764A1BA6B4AB00E506D5 /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276471BA6B4AB00E506D5 /* ZZMenuCell.m */; };
 		7952764B1BA6B4AB00E506D5 /* ZZMenuCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276491BA6B4AB00E506D5 /* ZZMenuCellViewModel.m */; };
 		7952764E1BA71F2700E506D5 /* camera-icon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7952764D1BA71F2700E506D5 /* camera-icon.pdf */; };
+		79EBFD401BA8554100A26684 /* ZZToastMessageBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 79EBFD3F1BA8554100A26684 /* ZZToastMessageBuilder.m */; };
+		79EBFDA51BA8609100A26684 /* JFMinimalNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 79EBFD9C1BA8609100A26684 /* JFMinimalNotification.m */; };
+		79EBFDA61BA8609100A26684 /* JFMinimalNotificationArt.m in Sources */ = {isa = PBXBuildFile; fileRef = 79EBFD9E1BA8609100A26684 /* JFMinimalNotificationArt.m */; };
+		79EBFDA71BA8609100A26684 /* NSInvocation+Constructors.m in Sources */ = {isa = PBXBuildFile; fileRef = 79EBFDA01BA8609100A26684 /* NSInvocation+Constructors.m */; };
+		79EBFDA81BA8609100A26684 /* UIColor+JFMinimalNotificationColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 79EBFDA21BA8609100A26684 /* UIColor+JFMinimalNotificationColors.m */; };
+		79EBFDA91BA8609100A26684 /* UIView+Round.m in Sources */ = {isa = PBXBuildFile; fileRef = 79EBFDA41BA8609100A26684 /* UIView+Round.m */; };
 		DE5C223E15BD5A128DAFDAD1 /* libPods-ZazoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0368F3F1AC201E7765B1898F /* libPods-ZazoTests.a */; };
 		F20151DDD1EA1D5CD6D8CB21 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */; };
 /* End PBXBuildFile section */
@@ -1180,6 +1186,18 @@
 		795276491BA6B4AB00E506D5 /* ZZMenuCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCellViewModel.m; sourceTree = "<group>"; };
 		7952764C1BA6BDEB00E506D5 /* ZZMenuEnumsAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZMenuEnumsAdditions.h; sourceTree = "<group>"; };
 		7952764D1BA71F2700E506D5 /* camera-icon.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "camera-icon.pdf"; sourceTree = "<group>"; };
+		79EBFD3E1BA8554100A26684 /* ZZToastMessageBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZToastMessageBuilder.h; sourceTree = "<group>"; };
+		79EBFD3F1BA8554100A26684 /* ZZToastMessageBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZToastMessageBuilder.m; sourceTree = "<group>"; };
+		79EBFD9B1BA8609100A26684 /* JFMinimalNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFMinimalNotification.h; sourceTree = "<group>"; };
+		79EBFD9C1BA8609100A26684 /* JFMinimalNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFMinimalNotification.m; sourceTree = "<group>"; };
+		79EBFD9D1BA8609100A26684 /* JFMinimalNotificationArt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFMinimalNotificationArt.h; sourceTree = "<group>"; };
+		79EBFD9E1BA8609100A26684 /* JFMinimalNotificationArt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFMinimalNotificationArt.m; sourceTree = "<group>"; };
+		79EBFD9F1BA8609100A26684 /* NSInvocation+Constructors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSInvocation+Constructors.h"; sourceTree = "<group>"; };
+		79EBFDA01BA8609100A26684 /* NSInvocation+Constructors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSInvocation+Constructors.m"; sourceTree = "<group>"; };
+		79EBFDA11BA8609100A26684 /* UIColor+JFMinimalNotificationColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+JFMinimalNotificationColors.h"; sourceTree = "<group>"; };
+		79EBFDA21BA8609100A26684 /* UIColor+JFMinimalNotificationColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+JFMinimalNotificationColors.m"; sourceTree = "<group>"; };
+		79EBFDA31BA8609100A26684 /* UIView+Round.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Round.h"; sourceTree = "<group>"; };
+		79EBFDA41BA8609100A26684 /* UIView+Round.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Round.m"; sourceTree = "<group>"; };
 		A0ECBE9A7392F431C5ADE072 /* Pods-ZazoTests.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.ad-hoc.xcconfig"; sourceTree = "<group>"; };
 		B1860DB43B6E70D5AEF73EF4 /* Pods-Zazo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.release.xcconfig"; sourceTree = "<group>"; };
 		C4392BF41AD48118C492A226 /* Pods-Zazo.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.ad-hoc.xcconfig"; sourceTree = "<group>"; };
@@ -2443,6 +2461,7 @@
 		07636B7D1BA49A0100925671 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				79EBFD3D1BA8554100A26684 /* ToastBuilder */,
 				07636B7E1BA49A0100925671 /* AdressBookProvider */,
 				07636B811BA49A0100925671 /* AlertBuilder */,
 				07636B841BA49A0100925671 /* Assemblies */,
@@ -3793,6 +3812,7 @@
 		07636D241BA49A0100925671 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				79EBFD9A1BA8609100A26684 /* JFMinimalNotification */,
 				07636D251BA49A0100925671 /* ANODA */,
 				07636D881BA49A0100925671 /* TBMAlertController */,
 				07636D911BA49A0100925671 /* TOWebViewController */,
@@ -4248,6 +4268,32 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		79EBFD3D1BA8554100A26684 /* ToastBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				79EBFD3E1BA8554100A26684 /* ZZToastMessageBuilder.h */,
+				79EBFD3F1BA8554100A26684 /* ZZToastMessageBuilder.m */,
+			);
+			path = ToastBuilder;
+			sourceTree = "<group>";
+		};
+		79EBFD9A1BA8609100A26684 /* JFMinimalNotification */ = {
+			isa = PBXGroup;
+			children = (
+				79EBFD9B1BA8609100A26684 /* JFMinimalNotification.h */,
+				79EBFD9C1BA8609100A26684 /* JFMinimalNotification.m */,
+				79EBFD9D1BA8609100A26684 /* JFMinimalNotificationArt.h */,
+				79EBFD9E1BA8609100A26684 /* JFMinimalNotificationArt.m */,
+				79EBFD9F1BA8609100A26684 /* NSInvocation+Constructors.h */,
+				79EBFDA01BA8609100A26684 /* NSInvocation+Constructors.m */,
+				79EBFDA11BA8609100A26684 /* UIColor+JFMinimalNotificationColors.h */,
+				79EBFDA21BA8609100A26684 /* UIColor+JFMinimalNotificationColors.m */,
+				79EBFDA31BA8609100A26684 /* UIView+Round.h */,
+				79EBFDA41BA8609100A26684 /* UIView+Round.m */,
+			);
+			path = JFMinimalNotification;
+			sourceTree = "<group>";
+		};
 		984D6697D8F62FFA194F39A2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -4536,9 +4582,11 @@
 				07636ED71BA49A0100925671 /* ZZMenuView.m in Sources */,
 				07636EBA1BA49A0100925671 /* ZZGridInteractor.m in Sources */,
 				07636ED01BA49A0100925671 /* ZZRotator.m in Sources */,
+				79EBFDA51BA8609100A26684 /* JFMinimalNotification.m in Sources */,
 				07636DD01BA49A0100925671 /* TBMInviteHintPresenter.m in Sources */,
 				07636E2E1BA49A0100925671 /* ZZS3CredentialsDomainModel.m in Sources */,
 				07636E901BA49A0100925671 /* ZZAuthContentView.m in Sources */,
+				79EBFDA71BA8609100A26684 /* NSInvocation+Constructors.m in Sources */,
 				07636DC81BA49A0100925671 /* TBMAbortRecordUsageHintPresenter.m in Sources */,
 				07636F101BA49A0100925671 /* NSString+MD5.m in Sources */,
 				07636EF61BA49A0100925671 /* ANMessageDomainModel.m in Sources */,
@@ -4560,6 +4608,7 @@
 				07636ED31BA49A0100925671 /* ZZGridWireframe.m in Sources */,
 				07636E221BA49A0100925671 /* ZZContentDataAcessor.m in Sources */,
 				07636EB91BA49A0100925671 /* ZZEditFriendListWireframe.m in Sources */,
+				79EBFDA61BA8609100A26684 /* JFMinimalNotificationArt.m in Sources */,
 				07636E531BA49A0100925671 /* ZZEnvelopStrategy.m in Sources */,
 				07636DBD1BA49A0100925671 /* TBMVideoPlayer.m in Sources */,
 				07636DF11BA49A0100925671 /* TBMStateScreenView.m in Sources */,
@@ -4607,6 +4656,7 @@
 				07636E0B1BA49A0100925671 /* TBMContactSearchTableDelegate.m in Sources */,
 				07636EE81BA49A0100925671 /* NSObject+ANSafeValues.m in Sources */,
 				07636E3D1BA49A0100925671 /* ZZVideoNetworkTransport.m in Sources */,
+				79EBFD401BA8554100A26684 /* ZZToastMessageBuilder.m in Sources */,
 				07636EA71BA49A0100925671 /* ZZSecretSegmentCell.m in Sources */,
 				07636EA91BA49A0100925671 /* ZZSecretSwitchCell.m in Sources */,
 				07636E071BA49A0100925671 /* TBMTableModal.m in Sources */,
@@ -4646,6 +4696,7 @@
 				07636F111BA49A0100925671 /* PDFView.m in Sources */,
 				07636E8F1BA49A0100925671 /* ZZAuthPresenter.m in Sources */,
 				07636EC31BA49A0100925671 /* ZZGridStateViewNudge.m in Sources */,
+				79EBFDA91BA8609100A26684 /* UIView+Round.m in Sources */,
 				07636E3A1BA49A0100925671 /* ZZNotificationsTransport.m in Sources */,
 				07636DB81BA49A0100925671 /* TBMKeyChainWrapper.m in Sources */,
 				07636E571BA49A0100925671 /* ZZTouchControllerWithoutDelay.m in Sources */,
@@ -4769,6 +4820,7 @@
 				07636E0A1BA49A0100925671 /* TBMBenchViewController.m in Sources */,
 				07636DC71BA49A0100925671 /* TBMFeatureUnlockDialogView.m in Sources */,
 				07636E5E1BA49A0100925671 /* ZZVideoRecorder.m in Sources */,
+				79EBFDA81BA8609100A26684 /* UIColor+JFMinimalNotificationColors.m in Sources */,
 				07636E2A1BA49A0100925671 /* ZZVideoModelsMapper.m in Sources */,
 				07636DCC1BA49A0100925671 /* TBMEarpieceUsageHintPresenter.m in Sources */,
 				07636E5B1BA49A0100925671 /* ZZStringUtils.m in Sources */,
