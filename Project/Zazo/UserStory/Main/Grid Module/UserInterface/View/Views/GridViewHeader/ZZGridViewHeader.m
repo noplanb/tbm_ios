@@ -9,7 +9,6 @@
 #pragma mark  - Title Image
 
 static CGFloat const kTileImageLeftPadding = 12;
-static CGFloat const kTitleImageBottomPadding = 18;
 
 #pragma mark  - Menu Button
 
@@ -49,9 +48,8 @@ static CGFloat const kButtonSize = 44;
         [self addSubview:_titleImageView];
         
         [_titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self);
+            make.top.bottom.equalTo(self);
             make.left.equalTo(@(kTileImageLeftPadding));
-            make.bottom.equalTo(@(kTitleImageBottomPadding));
         }];
     }
     return _titleImageView;
@@ -69,9 +67,8 @@ static CGFloat const kButtonSize = 44;
         
         [_menuButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@(kButtonSize));
-            make.height.equalTo(@(kButtonSize));
             make.right.equalTo(self).with.offset(-kMenuButtonRightPadding);
-            make.bottom.equalTo(self);
+            make.bottom.top.equalTo(self);
         }];
     }
     return _menuButton;
@@ -88,9 +85,8 @@ static CGFloat const kButtonSize = 44;
         [self addSubview:_editFriendsButton];
         
         [_editFriendsButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.right.equalTo(self);
+            make.bottom.top.right.equalTo(self);
             make.width.equalTo(@(kButtonSize));
-            make.height.equalTo(@(kButtonSize));
         }];
     }
     
