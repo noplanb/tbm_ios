@@ -11,11 +11,21 @@
 
 @interface ZZGridActionHandler ()
 
-@property (nonatomic, assign) ZZGridActionFeatureType lastUnlockedFeature;
+@property (nonatomic, assign) ZZGridActionFeatureType lastUnlockedFeature; //this property should load from data provider
 
 @end
 
 @implementation ZZGridActionHandler
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        
+    }
+    return self;
+}
 
 - (void)handleEvent:(ZZGridActionEventType)event
 {
@@ -29,13 +39,17 @@
     }
 }
 
-- (void)welcomeZazoSentSuccessfully
+- (void)welcomeZazoSentSuccessfully // welcome zazo - message to user that we invited, and no other messages from this friend was not received
 {
     self.lastUnlockedFeature++;
-    // store in data provider
-    
-    []
+    // store new value in data provider
     [self.delegate unlockFeature:self.lastUnlockedFeature]; // show message, unlock UI
+    //
+}
+
+- (void)dismissedHintWithType:(ZZGridActionEventType)type
+{
+
 }
 
 @end
