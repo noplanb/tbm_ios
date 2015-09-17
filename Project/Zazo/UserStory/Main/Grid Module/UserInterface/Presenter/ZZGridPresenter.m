@@ -23,6 +23,7 @@
 #import "TBMEventsFlowModulePresenter.h"
 #import "TBMAlertController.h"
 #import "ZZToastMessageBuilder.h"
+#import "TBMAppDelegate.h"
 
 @protocol TBMEventsFlowModuleInterface;
 
@@ -68,11 +69,16 @@
                                              selector:@selector(updateGridData:)
                                                  name:kFriendVideoViewedNotification
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sendMessageEvent)
+                                                 name:kNotificationSendMessage object:nil];
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
 }
 
 - (id)eventsFlowModule
@@ -85,6 +91,11 @@
         _eventsFlowModule = eventsFlowModulePresenter;
     }
     return _eventsFlowModule;
+}
+
+- (void)sendMessageEvent
+{
+    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidSend];
 }
 
 - (void)updateGridData:(NSNotification*)notification

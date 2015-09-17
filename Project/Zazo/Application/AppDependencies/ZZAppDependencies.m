@@ -15,6 +15,7 @@
 #import "ZZVideoRecorder.h"
 #import "ANLogger.h"
 #import "MagicalRecord.h"
+#import "ZZFeatureObserver.h"
 
 @interface ZZAppDependencies ()
 
@@ -37,6 +38,7 @@
     [ZZContentDataAcessor start];
     [ZZVideoRecorder shared];
     [ZZColorTheme shared];
+    [ZZFeatureObserver sharedInstance];
 //#ifndef RELEASE
 //    [Instabug startWithToken:@"d546deb8f34137b73aa5b0405cee1690"
 //               captureSource:IBGCaptureSourceUIKit
