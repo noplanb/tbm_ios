@@ -50,14 +50,16 @@ static NSInteger const kGridCenterCellIndex = 4;
             if ([cellModel.item.index isEqual:gridModel.index])
             {
                 cellModel.item = gridModel;
+                cellModel.hasUploadedVideo = [gridModel.relatedUser hasIncomingVideo];
+                cellModel.isUploadedVideoViewed = (gridModel.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
+                
+                if (gridModel.relatedUser.unviewedCount > 0)
+                {
+                    cellModel.badgeNumber = @(gridModel.relatedUser.unviewedCount);
+                }
+                
                 [self.storage reloadItem:cellModel];
-//                if ([gridModel.relatedUser unviewedCount] > 0)
-//                {
-//                    cellModel.badgeNumber =  @([friendEntity unviewedCount]);
-//                }
-//                cellModel.hasUploadedVideo = [friendEntity hasIncomingVideo];
-//                cellModel.isUploadedVideoViewed = (friendEntity.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
-//                *stop = YES;
+                *stop = YES;
             }
         }
     }];

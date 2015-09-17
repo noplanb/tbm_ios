@@ -84,6 +84,11 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     return [self.mKey isEqualToString:self.connectionCreatorMkey];
 }
 
+- (BOOL)hasIncomingVideo
+{
+    return [self.videos count] > 0;
+}
+
 #pragma mark - Getters / Setters
 
 - (ZZContactStatusType)contactStatusValue

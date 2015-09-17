@@ -24,6 +24,7 @@
 #import "ZZFriendsTransportService.h"
 #import "TBMS3CredentialsManager.h"
 #import "ZZUserFriendshipStatusHandler.h"
+#import "TBMFriend.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
