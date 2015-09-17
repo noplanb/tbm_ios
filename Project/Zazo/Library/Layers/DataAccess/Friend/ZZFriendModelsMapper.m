@@ -36,6 +36,7 @@
     entity.uploadRetryCount = @(model.uploadRetryCount);
     
     entity.friendshipStatus = model.connectionStatus;
+    entity.outgoingVideoStatusValue = (int)model.outgoingVideoStatusValue;
     
     return entity;
 }
@@ -69,6 +70,9 @@
             videoModel.relatedUser = model;
             return videoModel;
         }] array];
+        
+        model.unviewedCount = [entity unviewedCount];
+        model.outgoingVideoStatusValue = entity.outgoingVideoStatusValue;
     }
     @catch (NSException *exception)
     {
