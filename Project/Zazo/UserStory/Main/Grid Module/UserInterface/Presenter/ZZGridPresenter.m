@@ -89,8 +89,14 @@
 
 - (void)updateGridData:(NSNotification*)notification
 {
-    TBMFriend* updatedFriend = notification.object;
-    [self.dataSource updateModelWithFriend:updatedFriend];
+    [self.interactor handleNotificationForFriend:notification.object];
+//    TBMFriend* updatedFriend = notification.object;
+//    [self.dataSource updateModelWithFriend:updatedFriend];
+}
+
+- (void)updateGridWithModelFromNotification:(ZZGridDomainModel *)model
+{
+    [self.dataSource updateDataSourceWithGridModelFromNotification:model];
 }
 
 - (void)presentEditFriendsController

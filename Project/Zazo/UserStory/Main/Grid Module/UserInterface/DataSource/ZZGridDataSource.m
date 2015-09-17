@@ -38,9 +38,8 @@ static NSInteger const kGridCenterCellIndex = 4;
 //    [self.storage.delegate storageNeedsReload];
 }
 
-- (void)updateModelWithFriend:(TBMFriend*)friendEntity
+- (void)updateDataSourceWithGridModelFromNotification:(ZZGridDomainModel*)gridModel
 {
-    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friendEntity];
     ANSectionModel* section = [self.storage.sections firstObject];
     NSArray* cellModels = section.objects;
     __block ZZGridCellViewModel* cellModel;
@@ -48,27 +47,22 @@ static NSInteger const kGridCenterCellIndex = 4;
         if ([model isKindOfClass:[ZZGridCellViewModel class]])
         {
             cellModel = model;
-            if ([cellModel.item.relatedUser.mKey isEqualToString:friendModel.mKey])
+            if ([cellModel.item.index isEqual:gridModel.index])
             {
-                cellModel.item.relatedUser = friendModel;
-
-                if ([friendEntity unviewedCount] > 0)
+                cellModel.item = gridModel;
+                cellModel.hasUploadedVideo = [gridModel.relatedUser hasIncomingVideo];
+                cellModel.isUploadedVideoViewed = (gridModel.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
+                
+                if (gridModel.relatedUser.unviewedCount > 0)
                 {
-                    cellModel.badgeNumber =  @([friendEntity unviewedCount]);
+                    cellModel.badgeNumber = @(gridModel.relatedUser.unviewedCount);
                 }
-                cellModel.hasUploadedVideo = [friendEntity hasIncomingVideo];
-                cellModel.isUploadedVideoViewed = (friendEntity.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
+                
+                [self.storage reloadItem:cellModel];
                 *stop = YES;
             }
         }
     }];
-    
-    if (cellModel)
-    {
-        [UIView performWithoutAnimation:^{
-            [self.storage reloadItem:cellModel];
-        }];
-    }
 }
 
 - (void)setupWithModels:(NSArray *)models

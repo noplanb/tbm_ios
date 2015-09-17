@@ -404,6 +404,12 @@
 		7952764A1BA6B4AB00E506D5 /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276471BA6B4AB00E506D5 /* ZZMenuCell.m */; };
 		7952764B1BA6B4AB00E506D5 /* ZZMenuCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276491BA6B4AB00E506D5 /* ZZMenuCellViewModel.m */; };
 		7952764E1BA71F2700E506D5 /* camera-icon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7952764D1BA71F2700E506D5 /* camera-icon.pdf */; };
+		7997E4EB1BAABE2F001697D5 /* ZZGridActionStoredSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4EA1BAABE2F001697D5 /* ZZGridActionStoredSettings.m */; settings = {ASSET_TAGS = (); }; };
+		7997E4F71BAABE85001697D5 /* JFMinimalNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4EE1BAABE85001697D5 /* JFMinimalNotification.m */; settings = {ASSET_TAGS = (); }; };
+		7997E4F81BAABE85001697D5 /* JFMinimalNotificationArt.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4F01BAABE85001697D5 /* JFMinimalNotificationArt.m */; settings = {ASSET_TAGS = (); }; };
+		7997E4F91BAABE85001697D5 /* NSInvocation+Constructors.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4F21BAABE85001697D5 /* NSInvocation+Constructors.m */; settings = {ASSET_TAGS = (); }; };
+		7997E4FA1BAABE85001697D5 /* UIColor+JFMinimalNotificationColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4F41BAABE85001697D5 /* UIColor+JFMinimalNotificationColors.m */; settings = {ASSET_TAGS = (); }; };
+		7997E4FB1BAABE85001697D5 /* UIView+Round.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4F61BAABE85001697D5 /* UIView+Round.m */; settings = {ASSET_TAGS = (); }; };
 		79EBFD401BA8554100A26684 /* ZZToastMessageBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 79EBFD3F1BA8554100A26684 /* ZZToastMessageBuilder.m */; };
 		DE5C223E15BD5A128DAFDAD1 /* libPods-ZazoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0368F3F1AC201E7765B1898F /* libPods-ZazoTests.a */; };
 		F20151DDD1EA1D5CD6D8CB21 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */; };
@@ -1207,6 +1213,18 @@
 		795276491BA6B4AB00E506D5 /* ZZMenuCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCellViewModel.m; sourceTree = "<group>"; };
 		7952764C1BA6BDEB00E506D5 /* ZZMenuEnumsAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZMenuEnumsAdditions.h; sourceTree = "<group>"; };
 		7952764D1BA71F2700E506D5 /* camera-icon.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "camera-icon.pdf"; sourceTree = "<group>"; };
+		7997E4E91BAABE2F001697D5 /* ZZGridActionStoredSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZGridActionStoredSettings.h; path = ActionHandler/ZZGridActionStoredSettings.h; sourceTree = "<group>"; };
+		7997E4EA1BAABE2F001697D5 /* ZZGridActionStoredSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZGridActionStoredSettings.m; path = ActionHandler/ZZGridActionStoredSettings.m; sourceTree = "<group>"; };
+		7997E4ED1BAABE85001697D5 /* JFMinimalNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFMinimalNotification.h; sourceTree = "<group>"; };
+		7997E4EE1BAABE85001697D5 /* JFMinimalNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFMinimalNotification.m; sourceTree = "<group>"; };
+		7997E4EF1BAABE85001697D5 /* JFMinimalNotificationArt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFMinimalNotificationArt.h; sourceTree = "<group>"; };
+		7997E4F01BAABE85001697D5 /* JFMinimalNotificationArt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFMinimalNotificationArt.m; sourceTree = "<group>"; };
+		7997E4F11BAABE85001697D5 /* NSInvocation+Constructors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSInvocation+Constructors.h"; sourceTree = "<group>"; };
+		7997E4F21BAABE85001697D5 /* NSInvocation+Constructors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSInvocation+Constructors.m"; sourceTree = "<group>"; };
+		7997E4F31BAABE85001697D5 /* UIColor+JFMinimalNotificationColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+JFMinimalNotificationColors.h"; sourceTree = "<group>"; };
+		7997E4F41BAABE85001697D5 /* UIColor+JFMinimalNotificationColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+JFMinimalNotificationColors.m"; sourceTree = "<group>"; };
+		7997E4F51BAABE85001697D5 /* UIView+Round.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Round.h"; sourceTree = "<group>"; };
+		7997E4F61BAABE85001697D5 /* UIView+Round.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Round.m"; sourceTree = "<group>"; };
 		79EBFD3E1BA8554100A26684 /* ZZToastMessageBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZToastMessageBuilder.h; sourceTree = "<group>"; };
 		79EBFD3F1BA8554100A26684 /* ZZToastMessageBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZToastMessageBuilder.m; sourceTree = "<group>"; };
 		A0ECBE9A7392F431C5ADE072 /* Pods-ZazoTests.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.ad-hoc.xcconfig"; sourceTree = "<group>"; };
@@ -3815,7 +3833,7 @@
 		07636D241BA49A0100925671 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				18E80D4A1BA9C4D700E31267 /* JFMinimalNotification */,
+				7997E4EC1BAABE85001697D5 /* JFMinimalNotification */,
 				07636D251BA49A0100925671 /* ANODA */,
 				07636D881BA49A0100925671 /* TBMAlertController */,
 				07636D911BA49A0100925671 /* TOWebViewController */,
@@ -4176,8 +4194,8 @@
 		079280A51BA8544B00E22553 /* ActionHandler */ = {
 			isa = PBXGroup;
 			children = (
-				18E80D471BA9C48C00E31267 /* ZZGridActionStoredSettings.h */,
-				18E80D481BA9C48C00E31267 /* ZZGridActionStoredSettings.m */,
+				7997E4E91BAABE2F001697D5 /* ZZGridActionStoredSettings.h */,
+				7997E4EA1BAABE2F001697D5 /* ZZGridActionStoredSettings.m */,
 				070560FE1BA8824F00C130E0 /* ZZGridActionHandlerEnums.h */,
 				070560FF1BA8824F00C130E0 /* ZZGridActionHandlerEnums.m */,
 				079280A21BA8544800E22553 /* ZZGridActionHandler.h */,
@@ -4301,6 +4319,23 @@
 				795276491BA6B4AB00E506D5 /* ZZMenuCellViewModel.m */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		7997E4EC1BAABE85001697D5 /* JFMinimalNotification */ = {
+			isa = PBXGroup;
+			children = (
+				7997E4ED1BAABE85001697D5 /* JFMinimalNotification.h */,
+				7997E4EE1BAABE85001697D5 /* JFMinimalNotification.m */,
+				7997E4EF1BAABE85001697D5 /* JFMinimalNotificationArt.h */,
+				7997E4F01BAABE85001697D5 /* JFMinimalNotificationArt.m */,
+				7997E4F11BAABE85001697D5 /* NSInvocation+Constructors.h */,
+				7997E4F21BAABE85001697D5 /* NSInvocation+Constructors.m */,
+				7997E4F31BAABE85001697D5 /* UIColor+JFMinimalNotificationColors.h */,
+				7997E4F41BAABE85001697D5 /* UIColor+JFMinimalNotificationColors.m */,
+				7997E4F51BAABE85001697D5 /* UIView+Round.h */,
+				7997E4F61BAABE85001697D5 /* UIView+Round.m */,
+			);
+			path = JFMinimalNotification;
 			sourceTree = "<group>";
 		};
 		79EBFD3D1BA8554100A26684 /* ToastBuilder */ = {
@@ -4605,7 +4640,7 @@
 				07636E901BA49A0100925671 /* ZZAuthContentView.m in Sources */,
 				07636DC81BA49A0100925671 /* TBMAbortRecordUsageHintPresenter.m in Sources */,
 				07636F101BA49A0100925671 /* NSString+MD5.m in Sources */,
-				18E80D581BA9C4D700E31267 /* UIColor+JFMinimalNotificationColors.m in Sources */,
+				7997E4FA1BAABE85001697D5 /* UIColor+JFMinimalNotificationColors.m in Sources */,
 				07636EF61BA49A0100925671 /* ANMessageDomainModel.m in Sources */,
 				07636E291BA49A0100925671 /* ZZVideoDataProvider.m in Sources */,
 				07C94DD01BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m in Sources */,
@@ -4614,8 +4649,8 @@
 				07636DE91BA49A0100925671 /* TBMFriend+StateProtocol.m in Sources */,
 				07636ECF1BA49A0100925671 /* ZZRotationGestureRecognizer.m in Sources */,
 				07636E361BA49A0100925671 /* ZZFriendsTransport.m in Sources */,
-				18E80D491BA9C48C00E31267 /* ZZGridActionStoredSettings.m in Sources */,
-				18E80D551BA9C4D700E31267 /* JFMinimalNotification.m in Sources */,
+				7997E4EB1BAABE2F001697D5 /* ZZGridActionStoredSettings.m in Sources */,
+				7997E4F71BAABE85001697D5 /* JFMinimalNotification.m in Sources */,
 				07636F121BA49A0100925671 /* UIImage+PDF.m in Sources */,
 				07636DC31BA49A0100925671 /* TBMEventsFlowDataSource.m in Sources */,
 				07636E941BA49A0100925671 /* ZZAuthWireframe.m in Sources */,
@@ -4777,7 +4812,7 @@
 				07636EE21BA49A0100925671 /* ANActivityIndicator.m in Sources */,
 				07636E2C1BA49A0100925671 /* ZZContactDomainModel.m in Sources */,
 				07636E141BA49A0100925671 /* TPKeyboardAvoidingScrollView.m in Sources */,
-				18E80D571BA9C4D700E31267 /* NSInvocation+Constructors.m in Sources */,
+				7997E4F91BAABE85001697D5 /* NSInvocation+Constructors.m in Sources */,
 				07636DD21BA49A0100925671 /* TBMInviteSomeOneElseHintPresenter.m in Sources */,
 				07636DC01BA49A0100925671 /* TBMEventHandlerPresenter.m in Sources */,
 				07636DB51BA49A0100925671 /* TBMContactsManager.m in Sources */,
@@ -4811,7 +4846,7 @@
 				07636EB61BA49A0100925671 /* ZZEditFriendView.m in Sources */,
 				07636EDE1BA49A0100925671 /* ZZStartPresenter.m in Sources */,
 				07636EA61BA49A0100925671 /* ZZSecretScreenTextEditCellViewModel.m in Sources */,
-				18E80D561BA9C4D700E31267 /* JFMinimalNotificationArt.m in Sources */,
+				7997E4F81BAABE85001697D5 /* JFMinimalNotificationArt.m in Sources */,
 				07636E1A1BA49A0100925671 /* main.m in Sources */,
 				07636E491BA49A0100925671 /* ZZAddressBookDataProvider.m in Sources */,
 				07636E241BA49A0100925671 /* ZZFriendModelsMapper.m in Sources */,
@@ -4855,7 +4890,7 @@
 				07636E1D1BA49A0100925671 /* UIImage+ANDefault.m in Sources */,
 				07636ED51BA49A0100925671 /* ZZMenuDataSource.m in Sources */,
 				07636E161BA49A0100925671 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
-				18E80D591BA9C4D700E31267 /* UIView+Round.m in Sources */,
+				7997E4FB1BAABE85001697D5 /* UIView+Round.m in Sources */,
 				07636DBE1BA49A0100925671 /* TBMVideoProcessor.m in Sources */,
 				07636E971BA49A0100925671 /* ZZDebugStateEnumHelper.m in Sources */,
 				07636DA81BA49A0100925671 /* TBMAppDelegate+AppSync.m in Sources */,
@@ -4990,6 +5025,7 @@
 				CODE_SIGN_ENTITLEMENTS = Zazo/Zazo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Zazo/Vendor",
@@ -5152,6 +5188,7 @@
 				CODE_SIGN_ENTITLEMENTS = Zazo/Zazo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Zazo/Vendor",
