@@ -85,6 +85,11 @@
     {
         [[ZZStoredSettingsManager shared] setMessageEverPlayed:YES];
     }
+    
+//    if (anEvent == TBMEventFlowEventMessageDidSend)
+//    {
+//        
+//    }
 
     id <TBMEventsFlowModuleEventHandlerInterface> currentEvenHandler = nil;
     for (id <TBMEventsFlowModuleEventHandlerInterface> evenHandler in self.eventHandlers)

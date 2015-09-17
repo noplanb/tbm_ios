@@ -240,15 +240,4 @@
     return _appDependencies;
 }
 
-- (id)eventsFlowModule
-{
-    if (!_eventsFlowModule)
-    {
-        TBMEventsFlowModulePresenter* eventsFlowModulePresenter = [TBMEventsFlowModulePresenter new];
-        [eventsFlowModulePresenter setupHandlers];
-        _eventsFlowModule = eventsFlowModulePresenter;
-    }
-    return _eventsFlowModule;
-}
-
 @end

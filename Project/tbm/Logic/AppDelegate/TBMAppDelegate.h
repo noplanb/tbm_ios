@@ -7,7 +7,8 @@
 //
 
 #import "ZZAppDependencies.h"
-#import "TBMEventsFlowModuleInterface.h"
+
+static NSString* const kNotificationSendMessage = @"sendMessageNotification";
 
 @class TBMHomeViewController;
 
@@ -36,8 +37,6 @@
 //temp in public
 @property (nonatomic, strong) ZZAppDependencies* appDependencies;
 @property (nonatomic, strong) NSArray* myFriends;
-
-@property (nonatomic, strong) id<TBMEventsFlowModuleInterface> eventsFlowModule;
 
 -(void)onGrantedPushAccess;
 -(void)onFailPushAccess;
