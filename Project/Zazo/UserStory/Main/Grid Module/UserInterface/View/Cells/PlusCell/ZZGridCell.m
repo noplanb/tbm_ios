@@ -24,6 +24,7 @@
 @property (nonatomic, strong) UIImageView* plusImageView;
 @property (nonatomic, strong) UIGestureRecognizer* plusRecognizer;
 @property (nonatomic, strong) ZZGridStateView* stateView;
+@property (nonatomic, assign) BOOL wasSetuped;
 
 @end
 
@@ -61,10 +62,21 @@
             else
             {
                 [self updateStateViewWithModel:model];
-                [self showDownloadAnimationWithCompletionBlock:^{
+                
+                if (self.wasSetuped)
+                {
+                    [self showDownloadAnimationWithCompletionBlock:^{
+                        [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
+                        self.model.prevBadgeNumber = self.model.badgeNumber;
+                    }];
+                }
+                else
+                {
                     [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
                     self.model.prevBadgeNumber = self.model.badgeNumber;
-                }];
+                    self.wasSetuped = YES;
+                }
+            
             }
             
         }
