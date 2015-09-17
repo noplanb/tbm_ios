@@ -14,11 +14,8 @@
 
 #pragma mark - Upload Animation
 
-- (void)_showUploadAnimation
+- (void)_showUploadAnimationWithCompletionBlock:(void(^)())completionBlock;
 {
-//    [self _hideDownloadViews];
-//    [self _showUploadViews];
-    
     [self hideAllAnimationViews];
     
     [self _updateUploadViewsToDefaultState];
@@ -30,6 +27,10 @@
         [self layoutIfNeeded];
     } completion:^(BOOL finished) {
         self.uploadBarView.hidden = YES;
+        if (completionBlock)
+        {
+            completionBlock();
+        }
     }];
 }
 

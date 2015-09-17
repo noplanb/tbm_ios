@@ -10,7 +10,7 @@
 #import "ZZGridUIConstants.h"
 #import "ZZVideoRecorder.h"
 
-static CGFloat const kThumbnailSidePadding = 2;
+static CGFloat const kThumbnailBorderWidth = 2;
 
 @interface ZZGridStateViewPreview ()
 
@@ -43,17 +43,32 @@ static CGFloat const kThumbnailSidePadding = 2;
     UIImage* thumbImage = [model videoThumbnailImage];
     self.thumbnailImageView.image = thumbImage;
     self.userNameLabel.text = [model firstName];
-    [self updateBackgoundWithModel:model];
+    [self updateBadgeWithModel:model];
 
 }
 
-- (void)updateBackgoundWithModel:(ZZGridCellViewModel*)model
+- (void)updateBadgeWithModel:(ZZGridCellViewModel*)model
 {
     if ([model.badgeNumber integerValue] > 0)
     {
+        [self hideAllAnimationViews];
+        self.videoCountLabel.hidden = NO;
         self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
         self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+        [self _showThumbnailGreenBorder];
     }
+}
+
+- (void)_showThumbnailGreenBorder
+{
+    self.thumbnailImageView.layer.borderColor = [ZZColorTheme shared].gridCellLayoutGreenColor.CGColor;
+    self.thumbnailImageView.layer.borderWidth = kThumbnailBorderWidth;
+}
+
+- (void)_hideThumbnailGreenBorder
+{
+    self.thumbnailImageView.layer.borderColor = [UIColor clearColor].CGColor;
+    self.thumbnailImageView.layer.borderWidth = 0.0;
 }
 
 - (void)_startVideo:(UITapGestureRecognizer *)recognizer
@@ -61,6 +76,7 @@ static CGFloat const kThumbnailSidePadding = 2;
     if (!self.superview.isHidden)
     {
         [self hideAllAnimationViews];
+        [self _hideThumbnailGreenBorder];
         self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
         [self.model updateVideoPlayingStateTo:YES];
     }
@@ -89,10 +105,7 @@ static CGFloat const kThumbnailSidePadding = 2;
         [self addSubview:_thumbnailImageView];
         
         [_thumbnailImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self).with.offset(kThumbnailSidePadding);
-            make.right.equalTo(self).with.offset(-kThumbnailSidePadding);
-            make.top.equalTo(self).with.offset(kThumbnailSidePadding);
-            make.bottom.equalTo(self).with.offset(-kThumbnailSidePadding);
+            make.left.right.top.bottom.equalTo(self);
         }];
     }
     return _thumbnailImageView;
@@ -133,7 +146,9 @@ static CGFloat const kThumbnailSidePadding = 2;
         if (![ZZVideoRecorder shared].didCancelRecording)
         {
             self.model.hasUploadedVideo = YES;
-            [self showUploadAnimation];
+            [self showUploadAnimationWithCompletionBlock:^{
+                [self updateWithModel:self.model];
+            }];
         }
         [self.model updateRecordingStateTo:NO];
     }

@@ -75,9 +75,9 @@
     [self _hideAllAnimationViews];
 }
 
-- (void)showUploadAnimation
+- (void)showUploadAnimationWithCompletionBlock:(void(^)())completionBlock;
 {
-    [self _showUploadAnimation];
+    [self _showUploadAnimationWithCompletionBlock:completionBlock];
 }
 
 - (void)showDownloadAnimationWithNewVideoCount:(NSInteger)count
