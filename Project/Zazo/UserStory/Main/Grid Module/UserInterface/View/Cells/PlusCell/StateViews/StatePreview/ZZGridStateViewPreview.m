@@ -147,6 +147,7 @@ static CGFloat const kThumbnailBorderWidth = 2;
         {
             self.model.hasUploadedVideo = YES;
             [self showUploadAnimationWithCompletionBlock:^{
+                self.model.isUploadedVideoViewed = NO;
                 [self updateWithModel:self.model];
             }];
         }
