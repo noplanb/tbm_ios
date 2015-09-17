@@ -47,7 +47,7 @@ static NSInteger const kGridCenterCellIndex = 4;
         if ([model isKindOfClass:[ZZGridCellViewModel class]])
         {
             cellModel = model;
-            if ([cellModel.item.index isEqual:gridModel.index])
+            if ([cellModel.item.index isEqualToNumber:gridModel.index])
             {
                 cellModel.item = gridModel;
                 cellModel.hasUploadedVideo = [gridModel.relatedUser hasIncomingVideo];
@@ -72,6 +72,15 @@ static NSInteger const kGridCenterCellIndex = 4;
         ZZGridCellViewModel* viewModel = [ZZGridCellViewModel new];
         viewModel.item = value;
         viewModel.delegate = self;
+        
+        viewModel.hasUploadedVideo = [value.relatedUser hasIncomingVideo];
+        viewModel.isUploadedVideoViewed = (value.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
+        
+        if (value.relatedUser.unviewedCount > 0)
+        {
+            viewModel.badgeNumber = @(value.relatedUser.unviewedCount);
+        }
+
         return viewModel;
     }] array];
     
