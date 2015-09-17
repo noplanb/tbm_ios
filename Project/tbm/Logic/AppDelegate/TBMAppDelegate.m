@@ -18,6 +18,7 @@
 #import "ZZAppDependencies.h"
 #import "ZZContentDataAcessor.h"
 #import "ZZVideoRecorder.h"
+#import "TBMEventsFlowModulePresenter.h"
 
 @interface TBMAppDelegate()
 
@@ -237,6 +238,17 @@
         _appDependencies = [ZZAppDependencies new];
     }
     return _appDependencies;
+}
+
+- (id)eventsFlowModule
+{
+    if (!_eventsFlowModule)
+    {
+        TBMEventsFlowModulePresenter* eventsFlowModulePresenter = [TBMEventsFlowModulePresenter new];
+        [eventsFlowModulePresenter setupHandlers];
+        _eventsFlowModule = eventsFlowModulePresenter;
+    }
+    return _eventsFlowModule;
 }
 
 @end
