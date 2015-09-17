@@ -51,10 +51,11 @@ static CGFloat const kThumbnailBorderWidth = 2;
 {
     if ([model.badgeNumber integerValue] > 0)
     {
-        [self hideAllAnimationViews];
-        self.videoCountLabel.hidden = NO;
+//        [self hideAllAnimationViews];
+//        self.videoCountLabel.hidden = NO;
         self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
         self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+        [self showDownloadAnimationWithNewVideoCount:[model.badgeNumber integerValue]];
         [self _showThumbnailGreenBorder];
     }
 }
