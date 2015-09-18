@@ -168,6 +168,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     {
         if ([self _isFriendsOnGridContainContactFriendModel:model])
         {
+            //implement check friend logic
             [self.output gridContainedFriend:self.containedModel];
         }
         else
@@ -329,6 +330,25 @@ static NSInteger const kGridFriendsCellCount = 8;
             self.containedModel = obj.relatedUser;
         }
     }];
+    
+    if (!isContainModel)
+    {
+        NSArray* validNumbers = [ZZPhoneHelper validatePhonesFromContactModel:contactModel];
+        if (!ANIsEmpty(validNumbers))
+        {
+            [validNumbers enumerateObjectsUsingBlock:^(NSString* number, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSString *trimmedNumber = [number stringByReplacingOccurrencesOfString:@" " withString:@""];
+                [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel* obj, NSUInteger idx, BOOL *stop) {
+                    if ([[obj.relatedUser mobileNumber] isEqualToString:trimmedNumber])
+                    {
+                        isContainModel = YES;
+                        self.containedModel = obj.relatedUser;
+                        *stop = YES;
+                    }
+                }];
+            }];
+        }
+    }
     
     return isContainModel;
 }
