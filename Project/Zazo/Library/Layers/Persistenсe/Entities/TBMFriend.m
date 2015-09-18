@@ -808,7 +808,7 @@ static NSMutableArray *videoStatusNotificationDelegates;
     return s;
 }
 
-+ (NSArray *)everSentMkeys
++ (NSArray*)everSentMkeys
 {
     NSMutableArray *result = [NSMutableArray array];
     for (TBMFriend *friend in [self _allEverSentFriends])
@@ -818,10 +818,9 @@ static NSMutableArray *videoStatusNotificationDelegates;
     return result;
 }
 
-+ (void)setEverSentForMkeys:(NSArray *)mkeys
++ (void)setEverSentForMkeys:(NSArray*)mkeys
 {
-    [mkeys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
-    {
+    [mkeys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         TBMFriend *aFriend = [self findWithMkey:obj];
         aFriend.everSent = @(YES);
         aFriend.isConnectionCreator = @(YES);
@@ -829,13 +828,14 @@ static NSMutableArray *videoStatusNotificationDelegates;
     }];
 }
 
+
 #pragma mark Private
 
 + (NSArray *)_allEverSentFriends
 {
     NSPredicate *everSent = [NSPredicate predicateWithFormat:@"everSent = %@", @(YES)];
     NSPredicate *creator = [NSPredicate predicateWithFormat:@"isConnectionCreator = %@", @(YES)];
-    NSCompoundPredicate *filter = [NSCompoundPredicate andPredicateWithSubpredicates:@[everSent, creator]];
+    NSPredicate *filter = [NSCompoundPredicate andPredicateWithSubpredicates:@[everSent, creator]];
     return [self MR_findAllWithPredicate:filter inContext:[self _context]];
 }
 

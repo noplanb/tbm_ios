@@ -9,11 +9,11 @@
 @protocol TBMHomeModuleInterface;
 @protocol TBMFeatureUnlockModuleInterface;
 
-
 @interface TBMNextFeatureDialogPresenter : TBMEventHandlerPresenter <TBMEventsFlowModuleEventHandlerInterface, TBMDialogViewDelegate>
 
-@property(nonatomic, strong) id <TBMFeatureUnlockModuleInterface> featureUnlockModule;
-@property(nonatomic, strong) id <TBMEventsFlowModuleEventHandlerInterface> inviteSomeOneElseHintModule;
+@property (nonatomic, strong) id <TBMFeatureUnlockModuleInterface> featureUnlockModule;
+@property (nonatomic, strong) id <TBMEventsFlowModuleEventHandlerInterface> inviteSomeOneElseHintModule;
+
 - (void)dialogDidTap;
 
 @end

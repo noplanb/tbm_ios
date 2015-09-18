@@ -17,24 +17,25 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
 @interface TBMFeatureUnlockDialogView ()
 
 //Subviews
-@property(nonatomic, strong) UIView *dialogView;
-@property(nonatomic, strong) UIImageView *starsImage;
-@property(nonatomic, strong) UILabel *headerLabel;
-@property(nonatomic, strong) UILabel *subHeaderLabel;
-@property(nonatomic, strong) UILabel *featureNameLabel;
-@property(nonatomic, strong) UIView *showMeButton;
-@property(nonatomic, strong) UIView *showMeButtonRoundedRectangle;
-@property(nonatomic, strong) UIView *showMeButtonSquare;
-@property(nonatomic, strong) UILabel *showMeButtonLabel;
-@property(nonatomic, weak) id <ZZGridModuleInterface> gridModule;
-@property(nonatomic, weak) id <TBMDialogViewDelegate> dialogViewDelegate;
-@property(nonatomic, strong) TBMSoundEffect *featureUnlockSound;
+@property (nonatomic, strong) UIView *dialogView;
+@property (nonatomic, strong) UIImageView *starsImage;
+@property (nonatomic, strong) UILabel *headerLabel;
+@property (nonatomic, strong) UILabel *subHeaderLabel;
+@property (nonatomic, strong) UILabel *featureNameLabel;
+@property (nonatomic, strong) UIView *showMeButton;
+@property (nonatomic, strong) UIView *showMeButtonRoundedRectangle;
+@property (nonatomic, strong) UIView *showMeButtonSquare;
+@property (nonatomic, strong) UILabel *showMeButtonLabel;
+@property (nonatomic, weak) id <ZZGridModuleInterface> gridModule;
+@property (nonatomic, weak) id <TBMDialogViewDelegate> dialogViewDelegate;
+@property (nonatomic, strong) TBMSoundEffect *featureUnlockSound;
+
 @end
 
 @implementation TBMFeatureUnlockDialogView
 
-#pragma mark - Interface
 
+#pragma mark - Interface
 
 - (void)setupDialogViewDelegate:(id <TBMDialogViewDelegate>)viewDelegate
 {
@@ -56,7 +57,6 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
 - (instancetype)init
 {
     self = [super init];
-
     if (self)
     {
         [self setup];
