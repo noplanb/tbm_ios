@@ -4,27 +4,34 @@
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "D1FF257CCCF9590C0ECC1C69AAC3BFEFF5820577" : 0,
+    "F17204E2A497AE1194AADBFE8F8689D2F990B3FA" : 0,
+    "BFD2DA9980DE67FC7CAB1D16B5598E77285C78EF" : 0,
     "D2D6D892B57F566ED579A107C638881ED0F62DDD" : 0
   },
-  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "1547D08F-2777-4131-96B8-4FCF8AC6491B",
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "84873340-B529-45A3-AD42-ABFFAEEE376C",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "D1FF257CCCF9590C0ECC1C69AAC3BFEFF5820577" : "CtrlDoProject",
-    "D2D6D892B57F566ED579A107C638881ED0F62DDD" : "build-mirror"
+    "F17204E2A497AE1194AADBFE8F8689D2F990B3FA" : "ANODA\/ANStorage\/",
+    "BFD2DA9980DE67FC7CAB1D16B5598E77285C78EF" : "ANODA\/ANTableController\/",
+    "D2D6D892B57F566ED579A107C638881ED0F62DDD" : "tbm_ios"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Zazo",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Project\/Zazo.xcworkspace",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "ssh:\/\/stash.anoda.mobi:7999\/cd\/ctrldo-ios-latest.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:anodamobi\/ANTableController.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D1FF257CCCF9590C0ECC1C69AAC3BFEFF5820577"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "BFD2DA9980DE67FC7CAB1D16B5598E77285C78EF"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "ssh:\/\/stash.anoda.mobi:7999\/zz\/build-mirror.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D2D6D892B57F566ED579A107C638881ED0F62DDD"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:anodamobi\/ANStorage.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F17204E2A497AE1194AADBFE8F8689D2F990B3FA"
     }
   ]
 }

@@ -1,0 +1,37 @@
+{
+  "name": "ANTableController",
+  "version": "1.1",
+  "license": {
+    "type": "MIT"
+  },
+  "homepage": "https://github.com/anodamobi/ANTableController",
+  "authors": {
+    "Oksana Kovalchuk": "oksana@anoda.mobi"
+  },
+  "summary": "Adoption of DTTableViewController for using without UIViewController sublassing",
+  "source": {
+    "git": "https://github.com/anodamobi/ANTableController.git",
+    "tag": "1.1"
+  },
+  "source_files": "TableController/**/*.{h,m}",
+  "public_header_files": "TableController/**/*.h",
+  "frameworks": [
+    "Foundation",
+    "UIKit"
+  ],
+  "requires_arc": true,
+  "dependencies": {
+    "ANHelperFunctions": [
+      "~> 1.0"
+    ],
+    "ANKeyboardHandler": [
+      "~> 1.0"
+    ],
+    "ANStorage": [
+      "~> 1.0"
+    ]
+  },
+  "platforms": {
+    "ios": "6.0"
+  }
+}
