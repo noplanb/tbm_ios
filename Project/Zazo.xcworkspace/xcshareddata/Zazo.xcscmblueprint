@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "D2D6D892B57F566ED579A107C638881ED0F62DDD",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "D1FF257CCCF9590C0ECC1C69AAC3BFEFF5820577" : 0,
+    "D2D6D892B57F566ED579A107C638881ED0F62DDD" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "1547D08F-2777-4131-96B8-4FCF8AC6491B",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "D1FF257CCCF9590C0ECC1C69AAC3BFEFF5820577" : "CtrlDoProject",
+    "D2D6D892B57F566ED579A107C638881ED0F62DDD" : "build-mirror"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Zazo",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Project\/Zazo.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "ssh:\/\/stash.anoda.mobi:7999\/cd\/ctrldo-ios-latest.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D1FF257CCCF9590C0ECC1C69AAC3BFEFF5820577"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "ssh:\/\/stash.anoda.mobi:7999\/zz\/build-mirror.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D2D6D892B57F566ED579A107C638881ED0F62DDD"
+    }
+  ]
+}

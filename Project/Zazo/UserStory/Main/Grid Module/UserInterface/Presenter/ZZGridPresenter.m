@@ -23,6 +23,7 @@
 #import "TBMEventsFlowModulePresenter.h"
 #import "TBMAlertController.h"
 #import "ZZToastMessageBuilder.h"
+#import "TBMAppDelegate.h"
 
 @protocol TBMEventsFlowModuleInterface;
 
@@ -39,7 +40,7 @@
 @implementation ZZGridPresenter
 //TODO: (EventsFlow) When sent                  [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidSend];
 //TODO: (EventsFlow) When friend add            [self.eventsFlowModule throwEvent:TBMEventFlowEventFriendDidAddWithoutApp];
-//TODO: (EventsFlow) When Message Received      [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidReceive];
+//TODO: (EventsFlow) When Message Received      [self.eventsFlowModule throwEvent:TBMEvexntFlowEventMessageDidReceive];
 //TODO: (EventsFlow) When
 //TODO: (EventsFlow) Setup events flow module
 
@@ -68,11 +69,16 @@
                                              selector:@selector(updateGridData:)
                                                  name:kFriendVideoViewedNotification
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sendMessageEvent)
+                                                 name:kNotificationSendMessage object:nil];
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
 }
 
 - (id)eventsFlowModule
@@ -87,10 +93,21 @@
     return _eventsFlowModule;
 }
 
+- (void)sendMessageEvent
+{
+    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidSend];
+}
+
 - (void)updateGridData:(NSNotification*)notification
 {
-    TBMFriend* updatedFriend = notification.object;
-    [self.dataSource updateModelWithFriend:updatedFriend];
+    [self.interactor handleNotificationForFriend:notification.object];
+//    TBMFriend* updatedFriend = notification.object;
+//    [self.dataSource updateModelWithFriend:updatedFriend];
+}
+
+- (void)updateGridWithModelFromNotification:(ZZGridDomainModel *)model
+{
+    [self.dataSource updateDataSourceWithGridModelFromNotification:model];
 }
 
 - (void)presentEditFriendsController

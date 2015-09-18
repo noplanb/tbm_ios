@@ -35,7 +35,7 @@
 - (void)setupCenterViewModelShouldHandleCameraRotation:(BOOL)shouldHandleRotation;
 - (void)selectedViewModelUpdatedWithItem:(ZZGridDomainModel*)model;
 - (void)updateStorageWithModel:(ZZGridDomainModel*)model;
-- (void)updateModelWithFriend:(TBMFriend*)friend;
+- (void)updateDataSourceWithGridModelFromNotification:(ZZGridDomainModel*)gridModel;
 - (void)reloadStorage;
 
 - (ZZGridCenterCellViewModel*)centerViewModel;

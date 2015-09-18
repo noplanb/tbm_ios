@@ -77,7 +77,7 @@
        
         
         [self.moviePlayerController play];
-       
+        [self.delegate videoPlayerURLWasStartPlaying:firstVideoUrl];
         
         self.isPlayingVideo = YES;
         TBMFriend* friend = [ZZFriendDataProvider entityFromModel:playedVideoModel.relatedUser];
@@ -85,6 +85,10 @@
         [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
                                                       videoId:viewedVideo.videoId
                                                        friend:friend];
+        
+        
+        
+        
         
         
         
@@ -96,6 +100,7 @@
 {
     self.isPlayingVideo = NO;
     [self.moviePlayerController.view removeFromSuperview];
+    [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL];
     [self.moviePlayerController stop];
 }
 
@@ -151,7 +156,7 @@
                                                       videoId:viewedVideo.videoId
                                                        friend:friend];
         
-        
+        [self.delegate videoPlayerURLWasStartPlaying:nextUrl];
         [self.moviePlayerController play];
         
         

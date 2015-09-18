@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-@class ZZGridCellViewModel, ZZFriendDomainModel, ANMessageDomainModel, ZZGridDomainModel, ZZContactDomainModel;
+@class ZZGridCellViewModel, ZZFriendDomainModel, ANMessageDomainModel, ZZGridDomainModel, ZZContactDomainModel, TBMFriend;
 
 @protocol ZZGridInteractorInput <NSObject>
 
@@ -20,8 +20,8 @@
 - (void)addNewFriendToGridModelsArray;
 
 - (void)removeUserFromContacts:(ZZFriendDomainModel*)model;
-
 - (void)updateLastActionForFriend:(ZZFriendDomainModel*)friendModel;
+- (void)handleNotificationForFriend:(TBMFriend *)friendEntity;
 
 - (NSUInteger)lastAddedFriendIndex;
 - (NSString*)lastAddedFriendName;
@@ -42,5 +42,6 @@
 - (void)friendRecievedFromeServer:(ZZFriendDomainModel*)friendModel;
 
 - (void)updateGridWithModel:(ZZGridDomainModel *)model;
+- (void)updateGridWithModelFromNotification:(ZZGridDomainModel *)model;
 
 @end

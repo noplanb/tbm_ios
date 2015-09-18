@@ -54,6 +54,9 @@ extern const struct ZZFriendDomainModelAttributes {
 @property (nonatomic, copy) NSString* connectionCreatorMkey;
 @property (nonatomic, assign) ZZContactStatusType contactStatusValue;
 @property (nonatomic, assign) ZZMenuContactType contactType;
+@property (nonatomic, assign) NSInteger unviewedCount;
+@property (nonatomic, assign) NSInteger outgoingVideoStatusValue;
+
 
 @property (nonatomic, strong) NSArray* videos;
 
@@ -62,5 +65,6 @@ extern const struct ZZFriendDomainModelAttributes {
 - (NSString *)fullName;
 - (BOOL)isCreator;
 - (ZZMenuContactType)contactType;
+- (BOOL)hasIncomingVideo;
 
 @end

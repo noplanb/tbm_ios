@@ -13,7 +13,6 @@
 #import "ZZMenuModuleDelegate.h"
 #import "ZZGridWireframe.h"
 #import "ZZEditFriendListModuleDelegate.h"
-#import "ZZGridView.h"
 
 @class ZZGridWireframe;
 
