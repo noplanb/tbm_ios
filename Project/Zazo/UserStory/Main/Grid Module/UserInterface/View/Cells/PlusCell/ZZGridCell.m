@@ -54,15 +54,15 @@
         if ([self.model.badgeNumber integerValue] > 0)
         {
             
-            if (self.model.prevBadgeNumber == self.model.badgeNumber)
-            {
-                [self updateStateViewWithModel:self.model];
-                [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
-            }
-            else
-            {
-                [self updateStateViewWithModel:model];
-                
+//            if (self.model.prevBadgeNumber == self.model.badgeNumber)
+//            {
+//                [self updateStateViewWithModel:self.model];
+//                [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
+//            }
+//            else
+//            {
+//                [self updateStateViewWithModel:model];
+            
                 if (self.wasSetuped)
                 {
                     [self showDownloadAnimationWithCompletionBlock:^{
@@ -77,13 +77,13 @@
                     self.wasSetuped = YES;
                 }
             
-            }
+//            }
             
         }
-        else
-        {
+//        else
+//        {
             [self updateStateViewWithModel:model];
-        }
+//        }
     });
 }
 
