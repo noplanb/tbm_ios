@@ -100,13 +100,13 @@
 #define COCOAPODS_POD_AVAILABLE_ANStorage
 #define COCOAPODS_VERSION_MAJOR_ANStorage 1
 #define COCOAPODS_VERSION_MINOR_ANStorage 1
-#define COCOAPODS_VERSION_PATCH_ANStorage 2
+#define COCOAPODS_VERSION_PATCH_ANStorage 3
 
 // ANTableController
 #define COCOAPODS_POD_AVAILABLE_ANTableController
 #define COCOAPODS_VERSION_MAJOR_ANTableController 1
 #define COCOAPODS_VERSION_MINOR_ANTableController 1
-#define COCOAPODS_VERSION_PATCH_ANTableController 0
+#define COCOAPODS_VERSION_PATCH_ANTableController 5
 
 // ANTableViews
 #define COCOAPODS_POD_AVAILABLE_ANTableViews
@@ -154,7 +154,7 @@
 #define COCOAPODS_POD_AVAILABLE_Crashlytics
 #define COCOAPODS_VERSION_MAJOR_Crashlytics 3
 #define COCOAPODS_VERSION_MINOR_Crashlytics 3
-#define COCOAPODS_VERSION_PATCH_Crashlytics 0
+#define COCOAPODS_VERSION_PATCH_Crashlytics 1
 
 // DeviceUtil
 #define COCOAPODS_POD_AVAILABLE_DeviceUtil
@@ -166,13 +166,13 @@
 #define COCOAPODS_POD_AVAILABLE_Fabric
 #define COCOAPODS_VERSION_MAJOR_Fabric 1
 #define COCOAPODS_VERSION_MINOR_Fabric 5
-#define COCOAPODS_VERSION_PATCH_Fabric 0
+#define COCOAPODS_VERSION_PATCH_Fabric 1
 
 // Fabric/Base
 #define COCOAPODS_POD_AVAILABLE_Fabric_Base
 #define COCOAPODS_VERSION_MAJOR_Fabric_Base 1
 #define COCOAPODS_VERSION_MINOR_Fabric_Base 5
-#define COCOAPODS_VERSION_PATCH_Fabric_Base 0
+#define COCOAPODS_VERSION_PATCH_Fabric_Base 1
 
 // FastEasyMapping
 #define COCOAPODS_POD_AVAILABLE_FastEasyMapping
@@ -196,7 +196,7 @@
 #define COCOAPODS_POD_AVAILABLE_Instabug
 #define COCOAPODS_VERSION_MAJOR_Instabug 4
 #define COCOAPODS_VERSION_MINOR_Instabug 1
-#define COCOAPODS_VERSION_PATCH_Instabug 5
+#define COCOAPODS_VERSION_PATCH_Instabug 6
 
 // KVOController
 #define COCOAPODS_POD_AVAILABLE_KVOController
@@ -310,13 +310,13 @@
 #define COCOAPODS_POD_AVAILABLE_SCRecorder
 #define COCOAPODS_VERSION_MAJOR_SCRecorder 2
 #define COCOAPODS_VERSION_MINOR_SCRecorder 5
-#define COCOAPODS_VERSION_PATCH_SCRecorder 0
+#define COCOAPODS_VERSION_PATCH_SCRecorder 3
 
 // SDCAlertView
 #define COCOAPODS_POD_AVAILABLE_SDCAlertView
 #define COCOAPODS_VERSION_MAJOR_SDCAlertView 2
 #define COCOAPODS_VERSION_MINOR_SDCAlertView 5
-#define COCOAPODS_VERSION_PATCH_SDCAlertView 2
+#define COCOAPODS_VERSION_PATCH_SDCAlertView 3
 
 // SDCAutoLayout
 #define COCOAPODS_POD_AVAILABLE_SDCAutoLayout
@@ -382,7 +382,7 @@
 #define COCOAPODS_POD_AVAILABLE_pop
 #define COCOAPODS_VERSION_MAJOR_pop 1
 #define COCOAPODS_VERSION_MINOR_pop 0
-#define COCOAPODS_VERSION_PATCH_pop 7
+#define COCOAPODS_VERSION_PATCH_pop 8
 
 // Debug build configuration
 #ifdef DEBUG

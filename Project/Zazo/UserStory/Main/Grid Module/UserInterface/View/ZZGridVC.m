@@ -81,13 +81,13 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
 
 - (UIView*)viewForDialogs
 {
-    return self.view;
+    return self.gridView;
 }
 
 - (CGRect)gridGetFrameForIndexPath:(NSIndexPath*)path inView:(UIView*)view
 {
     CGRect rect = [self frameForIndexPath:path];
-    CGRect result = [self.view convertRect:rect toView:view];
+    CGRect result = [self.gridView convertRect:rect toView:view];
     return result;
 }
 

@@ -188,7 +188,6 @@ CGFloat const kElementsHorizontalMargin = 15.f;
     if (!_headerLabel)
     {
         _headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _headerLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:16];
         _headerLabel.textColor = [UIColor whiteColor];
         _headerLabel.text = @"Unlock Another Feature";
@@ -204,7 +203,6 @@ CGFloat const kElementsHorizontalMargin = 15.f;
 {
     if (!_subHeaderLabel)
     {
-        _subHeaderLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _subHeaderLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _subHeaderLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16];
         _subHeaderLabel.textColor = [UIColor colorWithHexString:@"#F68B1F"];
@@ -228,19 +226,17 @@ CGFloat const kElementsHorizontalMargin = 15.f;
     return _presentIconImage;
 }
 
-- (NSDictionary *)posibbleHeaders
+- (NSDictionary*)posibbleHeaders
 {
     if (!_posibbleHeaders)
     {
-        _posibbleHeaders = @{
-                @"What is in the box?" : @"Find out. Just Zazo someone new.",
-                @"A gift is waiting!" : @"Find out. Just Zazo someone new.",
-                @"Unlock a another feature!" : @"Just Zazo someone new.",
-                @"Surprise feature waiting" : @"Zazo someone new to unlock.",
-                @"Unlock a secret feature!" : @"Just Zazo someone new.",
-                @"Unlock a surprise!" : @"Just Zazo someone new.",
-                @"What did you win?" : @"Find out. Zazo someone new."
-        };
+        _posibbleHeaders = @{@"What is in the box?" : @"Find out. Just Zazo someone new.",
+                             @"A gift is waiting!" : @"Find out. Just Zazo someone new.",
+                             @"Unlock a another feature!" : @"Just Zazo someone new.",
+                             @"Surprise feature waiting" : @"Zazo someone new to unlock.",
+                             @"Unlock a secret feature!" : @"Just Zazo someone new.",
+                             @"Unlock a surprise!" : @"Just Zazo someone new.",
+                             @"What did you win?" : @"Find out. Zazo someone new."};
     }
     return _posibbleHeaders;
 }

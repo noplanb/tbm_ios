@@ -39,30 +39,33 @@ static NSInteger const kGridCenterCellIndex = 4;
 }
 
 - (void)updateDataSourceWithGridModelFromNotification:(ZZGridDomainModel*)gridModel
-{
-    ANSectionModel* section = [self.storage.sections firstObject];
-    NSArray* cellModels = section.objects;
-    __block ZZGridCellViewModel* cellModel;
-    [cellModels enumerateObjectsUsingBlock:^(id model, NSUInteger idx, BOOL *stop) {
-        if ([model isKindOfClass:[ZZGridCellViewModel class]])
-        {
-            cellModel = model;
-            if ([cellModel.item.index isEqualToNumber:gridModel.index])
+{   
+    if (!ANIsEmpty(gridModel))
+    {
+        ANSectionModel* section = [self.storage.sections firstObject];
+        NSArray* cellModels = section.objects;
+        __block ZZGridCellViewModel* cellModel;
+        [cellModels enumerateObjectsUsingBlock:^(id model, NSUInteger idx, BOOL *stop) {
+            if ([model isKindOfClass:[ZZGridCellViewModel class]])
             {
-                cellModel.item = gridModel;
-                cellModel.hasUploadedVideo = [gridModel.relatedUser hasIncomingVideo];
-                cellModel.isUploadedVideoViewed = (gridModel.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
-                
-                if (gridModel.relatedUser.unviewedCount > 0)
+                cellModel = model;
+                if ([cellModel.item.index isEqualToNumber:gridModel.index])
                 {
-                    cellModel.badgeNumber = @(gridModel.relatedUser.unviewedCount);
+                    cellModel.item = gridModel;
+                    cellModel.hasUploadedVideo = [gridModel.relatedUser hasIncomingVideo];
+                    cellModel.isUploadedVideoViewed = (gridModel.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
+                    
+                    if (gridModel.relatedUser.unviewedCount > 0)
+                    {
+                        cellModel.badgeNumber = @(gridModel.relatedUser.unviewedCount);
+                    }
+                    
+                    [self.storage reloadItem:cellModel];
+                    *stop = YES;
                 }
-                
-                [self.storage reloadItem:cellModel];
-                *stop = YES;
             }
-        }
-    }];
+        }];
+    }
 }
 
 - (void)setupWithModels:(NSArray *)models
