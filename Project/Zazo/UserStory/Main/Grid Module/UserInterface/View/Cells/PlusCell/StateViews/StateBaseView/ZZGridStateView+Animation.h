@@ -10,7 +10,7 @@
 
 @interface ZZGridStateView (Animation)
 
-- (void)_showUploadAnimation;
+- (void)_showUploadAnimationWithCompletionBlock:(void(^)())completionBlock;
 - (void)_showDownloadAnimationWithNewVideoCount:(NSInteger)count;
 - (void)_showVideoCountLabelWithCount:(NSInteger)count;
 - (void)_hideVideoCountLabel;

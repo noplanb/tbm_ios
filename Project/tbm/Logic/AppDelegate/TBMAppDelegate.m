@@ -18,6 +18,7 @@
 #import "ZZAppDependencies.h"
 #import "ZZContentDataAcessor.h"
 #import "ZZVideoRecorder.h"
+#import "TBMEventsFlowModulePresenter.h"
 
 @interface TBMAppDelegate()
 

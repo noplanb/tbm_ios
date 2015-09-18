@@ -60,7 +60,7 @@
         if (![ZZVideoRecorder shared].didCancelRecording)
         {
             self.model.hasUploadedVideo = YES;
-            [self showUploadAnimation];
+            [self showUploadAnimationWithCompletionBlock:nil];
         }
         [self.model updateRecordingStateTo:NO];
     }

@@ -8,6 +8,8 @@
 
 #import "ZZAppDependencies.h"
 
+static NSString* const kNotificationSendMessage = @"sendMessageNotification";
+
 @class TBMHomeViewController;
 
 @protocol TBMAppDelegateEventNotificationProtocol <NSObject>

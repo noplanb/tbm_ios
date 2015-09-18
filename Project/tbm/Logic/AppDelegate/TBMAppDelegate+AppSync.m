@@ -17,6 +17,7 @@
 #import "MagicalRecord.h"
 #import "ZZVideoNetworkTransportService.h"
 
+
 @implementation TBMAppDelegate (AppSync)
 
 //-------------------
@@ -80,10 +81,10 @@
     // fileTransferManager should create a copy of ougtoing file synchronously
     // prior to returning from the above call so should be safe to delete video file here.
     [[NSFileManager defaultManager] removeItemAtURL:videoUrl error:nil];
-
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSendMessage object:nil];
+    
     [friend handleOutgoingVideoUploadingWithVideoId:videoId];
 }
-
 
 //---------
 // Download
