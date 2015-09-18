@@ -97,8 +97,10 @@
 
 - (void)updateSwithCameraButtonWithState:(BOOL)isHidden
 {
-    ZZGridCenterCell* centerCell = (ZZGridCenterCell*)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:4 inSection:0]];
-    centerCell.switchCameraButton.hidden = isHidden;
+    ANDispatchBlockToMainQueue(^{
+        ZZGridCenterCell* centerCell = (ZZGridCenterCell*)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:4 inSection:0]];
+        centerCell.switchCameraButton.hidden = isHidden;
+    });
 }
 
 @end

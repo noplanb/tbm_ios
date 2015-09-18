@@ -130,6 +130,7 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
 {
     NSString *editFriendsButtonTitle = NSLocalizedString(@"grid-controller.menu.edit-friends.button.title", nil);
     NSString *sendFeedbackButtonTitle = NSLocalizedString(@"grid-controller.menu.send-feedback.button.title", nil);
+
     UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                               delegate:nil
                                                      cancelButtonTitle:@"Cancel"
