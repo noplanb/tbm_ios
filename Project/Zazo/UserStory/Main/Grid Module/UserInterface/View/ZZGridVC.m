@@ -13,6 +13,7 @@
 #import "ZZTouchObserver.h"
 #import "TBMBenchViewController.h"
 #import "ZZSoundPlayer.h"
+#import "ZZFeatureObserver.h"
 
 typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
     ZZEditMenuButtonTypeEditFriends = 0,
@@ -33,7 +34,8 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
 - (instancetype)init
 {
     if (self = [super init])
-    {   
+    {
+        [ZZFeatureObserver sharedInstance];
         self.gridView = [ZZGridView new];
         self.controller = [[ZZGridCollectionController alloc] initWithCollectionView:self.gridView.collectionView];
         self.touchObserver = [[ZZTouchObserver alloc] initWithGridView:self.gridView];
@@ -162,6 +164,11 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
 {
     UICollectionViewCell* cell = [self.gridView.collectionView cellForItemAtIndexPath:indexPath];
     return cell.bounds;
+}
+
+- (void)updateSwitchButtonWithState:(BOOL)isHidden
+{
+    [self.gridView updateSwithCameraButtonWithState:isHidden];
 }
 
 

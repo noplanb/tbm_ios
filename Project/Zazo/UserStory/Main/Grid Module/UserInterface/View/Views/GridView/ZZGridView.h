@@ -23,5 +23,6 @@
 @property (nonatomic, assign) BOOL isRotationEnabled;
 
 - (void)updateWithDelegate:(id <ZZGridViewDelegate>)delegate;
+- (void)updateSwithCameraButtonWithState:(BOOL)isHidden;
 
 @end

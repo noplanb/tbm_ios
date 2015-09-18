@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+static NSString* const kFeatureObserverFeatureUpdatedNotification = @"featureUploadNotification";
+
 @interface ZZFeatureObserver : NSObject
 
 + (instancetype)sharedInstance;

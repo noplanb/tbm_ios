@@ -10,6 +10,7 @@
 #import "ZZGridCenterCellViewModel.h"
 #import "ZZVideoRecorder.h"
 #import "UIImage+PDF.h"
+#import "ZZFeatureObserver.h"
 
 static CGFloat const kLayoutConstRecordingLabelHeight = 22;
 static CGFloat const kLayoutConstRecordingLabelFontSize = 0.55 * kLayoutConstRecordingLabelHeight;
@@ -20,7 +21,6 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
 @interface ZZGridCenterCell ()
 
 @property (nonatomic, strong) ZZGridCenterCellViewModel* model;
-@property (nonatomic, strong) UIButton* switchCameraButton;
 @property (nonatomic, strong) UIView* videoView;
 @property (nonatomic, strong) CALayer *recordingOverlay;
 @property (nonatomic, strong) UILabel *recordingLabel;
@@ -108,6 +108,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
         [_switchCameraButton addTarget:self
                                 action:@selector(_switchCamera)
                       forControlEvents:UIControlEventTouchUpInside];
+        _switchCameraButton.hidden = [ZZFeatureObserver sharedInstance].isBothCameraEnabled;
         [self.contentView addSubview:_switchCameraButton];
         
         [_switchCameraButton mas_makeConstraints:^(MASConstraintMaker *make) {

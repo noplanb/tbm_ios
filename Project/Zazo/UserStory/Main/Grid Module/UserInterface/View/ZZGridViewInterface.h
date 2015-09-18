@@ -14,6 +14,7 @@
 - (void)showFriendAnimationWithModel:(ZZFriendDomainModel*)friendModel;
 - (void)updateRollingStateTo:(BOOL)isEnabled;
 - (void)menuWasOpened;
+- (void)updateSwitchButtonWithState:(BOOL)isHidden;
 
 - (CGRect)frameForIndexPath:(NSIndexPath*)indexPath;
 
