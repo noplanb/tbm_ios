@@ -8,6 +8,7 @@
 
 #import "ZZGridView.h"
 #import "ZZGridUIConstants.h"
+#import "ZZGridCenterCell.h"
 
 
 
@@ -92,6 +93,14 @@
   
     self.rotationRecognizer.delegate = self.delegate;
     [self addGestureRecognizer:self.rotationRecognizer];
+}
+
+- (void)updateSwithCameraButtonWithState:(BOOL)isHidden
+{
+    ANDispatchBlockToMainQueue(^{
+        ZZGridCenterCell* centerCell = (ZZGridCenterCell*)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:4 inSection:0]];
+        centerCell.switchCameraButton.hidden = isHidden;
+    });
 }
 
 @end

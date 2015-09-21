@@ -111,8 +111,8 @@ static CGFloat const kVideoCountLabelWidth = 23;
         [self.stateImageView addSubview:_badgeLabel];
         
         [_badgeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.stateImageView).with.offset(3);
-            make.top.equalTo(self.stateImageView).with.offset(-3);
+            make.right.equalTo(self.stateImageView).with.offset(5);
+            make.top.equalTo(self.stateImageView).with.offset(-5);
             make.height.equalTo(@(kVideoCountLabelWidth));
             make.width.equalTo(@(kVideoCountLabelWidth));
         }];

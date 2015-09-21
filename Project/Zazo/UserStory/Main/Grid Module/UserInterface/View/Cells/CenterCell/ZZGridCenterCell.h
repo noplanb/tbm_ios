@@ -10,5 +10,5 @@
 #import "ANCollectionViewCell.h"
 
 @interface ZZGridCenterCell : ANCollectionViewCell
-
+@property (nonatomic, strong) UIButton* switchCameraButton;
 @end

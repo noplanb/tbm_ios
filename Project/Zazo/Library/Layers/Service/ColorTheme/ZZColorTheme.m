@@ -51,7 +51,7 @@ static CGFloat const kNavigationBarIconHeight = 20;
 //        self.authBackgroundColor = [UIColor colorWithRed:0.61f green:0.75f blue:0.27f alpha:1.0f];
         self.authBackgroundColor = [UIColor an_colorWithHexString:@"#9CBE45"];
         self.gridBackgourndColor = [UIColor an_colorWithHexString:@"#2E2D28"];
-        self.gridHeaderBackgroundColor = [UIColor colorWithRed:0.11 green:0.11 blue:0.1 alpha:1];
+        self.gridHeaderBackgroundColor = [UIColor colorWithRed:0.11 green:.11 blue:0.1 alpha:1];
         self.gridMenuColor = [UIColor colorWithRed:0.18 green:0.18 blue:0.16 alpha:1];
         self.gridMenuTextColor = [UIColor colorWithRed:0.64 green:0.62 blue:0.57 alpha:1];
         
@@ -81,7 +81,7 @@ static CGFloat const kNavigationBarIconHeight = 20;
         self.gridStatusViewNudgeColor = [UIColor an_colorWithHexString:@"#F58A31"];
         self.gridStatusViewBlackColor = [UIColor an_colorWithHexString:@"#1C1C19"];
         self.gridStatusViewRecordColor = [UIColor an_colorWithHexString:@"#DA0D19"];
-        
+        self.gridStatusViewUserNameLabelColor = [UIColor whiteColor];//[UIColor an_colorWithHexString:@"4E4D42"];
         
         self.menuTextColor = [UIColor an_colorWithHexString:@"A8A295"];
         self.menuBackgroundColor = [UIColor an_colorWithHexString:@"2F2E28"];

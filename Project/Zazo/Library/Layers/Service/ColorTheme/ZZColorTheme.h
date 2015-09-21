@@ -23,6 +23,7 @@
 @property (nonatomic, strong) UIColor* gridStatusViewNudgeColor;
 @property (nonatomic, strong) UIColor* gridStatusViewBlackColor;
 @property (nonatomic, strong) UIColor* gridStatusViewRecordColor;
+@property (nonatomic, strong) UIColor* gridStatusViewUserNameLabelColor;
 
 
 @property (nonatomic, strong) UIColor* menuBackgroundColor;

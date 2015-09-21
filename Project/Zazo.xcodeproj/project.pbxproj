@@ -126,7 +126,6 @@
 		07636E181BA49A0100925671 /* ZZAppDependecesInjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AEF1BA49A0100925671 /* ZZAppDependecesInjection.m */; };
 		07636E191BA49A0100925671 /* ZZAppDependencies.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AF11BA49A0100925671 /* ZZAppDependencies.m */; };
 		07636E1A1BA49A0100925671 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AF31BA49A0100925671 /* main.m */; };
-		07636E1B1BA49A0100925671 /* Zazo-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07636AF41BA49A0100925671 /* Zazo-Info.plist */; };
 		07636E1C1BA49A0100925671 /* ZZRootWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AF81BA49A0100925671 /* ZZRootWireframe.m */; };
 		07636E1D1BA49A0100925671 /* UIImage+ANDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AFD1BA49A0100925671 /* UIImage+ANDefault.m */; };
 		07636E1F1BA49A0100925671 /* ZZKeyboardObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B071BA49A0100925671 /* ZZKeyboardObserver.m */; };
@@ -371,7 +370,6 @@
 		07636F111BA49A0100925671 /* PDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA21BA49A0100925671 /* PDFView.m */; };
 		07636F121BA49A0100925671 /* UIImage+PDF.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA41BA49A0100925671 /* UIImage+PDF.m */; };
 		07636F131BA49A0100925671 /* UIView+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA61BA49A0100925671 /* UIView+Image.m */; };
-		07636F141BA49A0100925671 /* Zazo.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 07636DA71BA49A0100925671 /* Zazo.entitlements */; };
 		079280A41BA8544800E22553 /* ZZGridActionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 079280A31BA8544800E22553 /* ZZGridActionHandler.m */; };
 		07C94DD01BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C94DCF1BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m */; };
 		07F0E7EF1B8CD7A900036AB2 /* KeyChainWrapperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E21B8CD7A900036AB2 /* KeyChainWrapperTests.m */; };
@@ -384,6 +382,7 @@
 		07F0E7F61B8CD7A900036AB2 /* ZZLoadFriendListSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EB1B8CD7A900036AB2 /* ZZLoadFriendListSpec.m */; };
 		07F0E7F71B8CD7A900036AB2 /* ZZLoadFriendListTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EC1B8CD7A900036AB2 /* ZZLoadFriendListTest.m */; };
 		07F0E7F81B8CD7A900036AB2 /* ZZStartScreenTestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */; };
+		18965CAC1BAC5D2A009AC8A4 /* ZZActionSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18965CAB1BAC5D29009AC8A4 /* ZZActionSheetController.m */; settings = {ASSET_TAGS = (); }; };
 		18EB0DEF1BAB1749007C01B0 /* ZZFeatureObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EB0DEE1BAB1749007C01B0 /* ZZFeatureObserver.m */; };
 		2208E8A81A1419D400150C35 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208E8A61A1419D400150C35 /* AddressBook.framework */; };
 		2208E8A91A1419D400150C35 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208E8A71A1419D400150C35 /* AddressBookUI.framework */; };
@@ -1160,7 +1159,6 @@
 		07636DA41BA49A0100925671 /* UIImage+PDF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PDF.m"; sourceTree = "<group>"; };
 		07636DA51BA49A0100925671 /* UIView+Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Image.h"; sourceTree = "<group>"; };
 		07636DA61BA49A0100925671 /* UIView+Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Image.m"; sourceTree = "<group>"; };
-		07636DA71BA49A0100925671 /* Zazo.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Zazo.entitlements; sourceTree = "<group>"; };
 		079280A21BA8544800E22553 /* ZZGridActionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZGridActionHandler.h; path = ActionHandler/ZZGridActionHandler.h; sourceTree = "<group>"; };
 		079280A31BA8544800E22553 /* ZZGridActionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZGridActionHandler.m; path = ActionHandler/ZZGridActionHandler.m; sourceTree = "<group>"; };
 		07C94DCE1BA7246A009338B1 /* ZZUserFriendshipStatusHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZUserFriendshipStatusHandler.h; path = FriendshipStatusHandler/ZZUserFriendshipStatusHandler.h; sourceTree = "<group>"; };
@@ -1175,6 +1173,8 @@
 		07F0E7EB1B8CD7A900036AB2 /* ZZLoadFriendListSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZLoadFriendListSpec.m; sourceTree = "<group>"; };
 		07F0E7EC1B8CD7A900036AB2 /* ZZLoadFriendListTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZLoadFriendListTest.m; sourceTree = "<group>"; };
 		07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZStartScreenTestSpec.m; sourceTree = "<group>"; };
+		18965CAA1BAC5D29009AC8A4 /* ZZActionSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZActionSheetController.h; sourceTree = "<group>"; };
+		18965CAB1BAC5D29009AC8A4 /* ZZActionSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZActionSheetController.m; sourceTree = "<group>"; };
 		18EB0DED1BAB1749007C01B0 /* ZZFeatureObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFeatureObserver.h; sourceTree = "<group>"; };
 		18EB0DEE1BAB1749007C01B0 /* ZZFeatureObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFeatureObserver.m; sourceTree = "<group>"; };
 		2208E8A61A1419D400150C35 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -2014,7 +2014,6 @@
 				07636BC91BA49A0100925671 /* Resources */,
 				07636C021BA49A0100925671 /* UserStory */,
 				07636D241BA49A0100925671 /* Vendor */,
-				07636DA71BA49A0100925671 /* Zazo.entitlements */,
 			);
 			path = Zazo;
 			sourceTree = "<group>";
@@ -2320,12 +2319,12 @@
 		07636B401BA49A0100925671 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				07636B5A1BA49A0100925671 /* Transport Wrapper */,
 				07636B411BA49A0100925671 /* Authentication */,
 				07636B461BA49A0100925671 /* Common */,
 				07636B4B1BA49A0100925671 /* Friends */,
 				07636B501BA49A0100925671 /* KeyStore */,
 				07636B551BA49A0100925671 /* Notifications */,
-				07636B5A1BA49A0100925671 /* Transport Wrapper */,
 				07636B5D1BA49A0100925671 /* Video */,
 			);
 			path = Network;
@@ -3457,6 +3456,7 @@
 		07636CAF1BA49A0100925671 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				18965CA91BAC5D14009AC8A4 /* ActionSheetController */,
 				07636CB01BA49A0100925671 /* Cells */,
 				07636CCB1BA49A0100925671 /* Controller */,
 				07636CCE1BA49A0100925671 /* Views */,
@@ -4239,6 +4239,15 @@
 			path = StartScreenTests;
 			sourceTree = "<group>";
 		};
+		18965CA91BAC5D14009AC8A4 /* ActionSheetController */ = {
+			isa = PBXGroup;
+			children = (
+				18965CAA1BAC5D29009AC8A4 /* ZZActionSheetController.h */,
+				18965CAB1BAC5D29009AC8A4 /* ZZActionSheetController.m */,
+			);
+			path = ActionSheetController;
+			sourceTree = "<group>";
+		};
 		18EB0DEC1BAB1738007C01B0 /* FeatureObserver */ = {
 			isa = PBXGroup;
 			children = (
@@ -4390,7 +4399,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = TBM;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "No Plan B";
 				TargetAttributes = {
 					220E90241909A18B003C4F82 = {
@@ -4404,6 +4413,9 @@
 							};
 							com.apple.OMC = {
 								enabled = 0;
+							};
+							com.apple.Push = {
+								enabled = 1;
 							};
 						};
 					};
@@ -4439,7 +4451,6 @@
 				07636E621BA49A0100925671 /* Roboto-Bold.ttf in Resources */,
 				7952764E1BA71F2700E506D5 /* camera-icon.pdf in Resources */,
 				0732F5121B8B93D3004FD3AF /* ZazoTests-Info.plist in Resources */,
-				07636E1B1BA49A0100925671 /* Zazo-Info.plist in Resources */,
 				07636E851BA49A0100925671 /* navbar_btn_add.pdf in Resources */,
 				07636EF31BA49A0100925671 /* mogen.sh in Resources */,
 				07636E6E1BA49A0100925671 /* contacts-placeholder.pdf in Resources */,
@@ -4448,7 +4459,6 @@
 				07636E6A1BA49A0100925671 /* Roboto-Thin.ttf in Resources */,
 				0732F50C1B8B93D3004FD3AF /* InfoPlist.strings in Resources */,
 				07636E641BA49A0100925671 /* Roboto-Italic.ttf in Resources */,
-				07636F141BA49A0100925671 /* Zazo.entitlements in Resources */,
 				07636E871BA49A0100925671 /* navbar_btn_close.pdf in Resources */,
 				07636EF41BA49A0100925671 /* mogend.sh in Resources */,
 				07636E8B1BA49A0100925671 /* ANGeneralErrorLocalizable.strings in Resources */,
@@ -4878,6 +4888,7 @@
 				07636E9D1BA49A0100925671 /* ZZDebugStateCell.m in Sources */,
 				07636ECA1BA49A0100925671 /* ZZGridViewHeader.m in Sources */,
 				07636E271BA49A0100925671 /* ZZUserDataProvider.m in Sources */,
+				18965CAC1BAC5D2A009AC8A4 /* ZZActionSheetController.m in Sources */,
 				07636EDD1BA49A0100925671 /* ZZStartInteractor.m in Sources */,
 				07636E451BA49A0100925671 /* _TBMUser.m in Sources */,
 				07636E341BA49A0100925671 /* ZZCommonNetworkTransport.m in Sources */,
@@ -5001,9 +5012,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImageFinal;
-				CODE_SIGN_ENTITLEMENTS = Zazo/Zazo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5019,8 +5030,9 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Zazo/Application/BundleFiles/Zazo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "609cc5d1-9da6-4d78-9a7b-f6311c770d32";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -5043,8 +5055,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.noplanbees.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "af085b18-d2ac-4e87-b3c7-512124c28fe0";
+				PROVISIONING_PROFILE = "609cc5d1-9da6-4d78-9a7b-f6311c770d32";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -5069,6 +5082,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -5136,9 +5150,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImageFinal;
-				CODE_SIGN_ENTITLEMENTS = Zazo/Zazo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5149,8 +5163,9 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Zazo/Application/BundleFiles/Zazo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "dd9a6e1a-6e7a-4a97-9a33-684fe449dcb4";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -5164,9 +5179,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImageFinal;
-				CODE_SIGN_ENTITLEMENTS = Zazo/Zazo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5182,6 +5197,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Zazo/Application/BundleFiles/Zazo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
 				PRODUCT_NAME = Zazo;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5210,8 +5226,9 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.noplanbees.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "a5518245-2340-44e4-9c18-714a2e8ec8a3";
+				PROVISIONING_PROFILE = "79f1cdd2-9104-4d66-ac87-168a5b2cfba8";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -5232,6 +5249,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.noplanbees.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ZazoTests;
 				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";

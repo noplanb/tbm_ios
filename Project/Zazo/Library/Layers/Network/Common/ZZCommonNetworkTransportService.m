@@ -28,7 +28,7 @@
 
 + (RACSignal*)checkApplicationVersion
 {
-    NSString* version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSString* version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     version = [NSObject an_safeString:[version an_stripAllNonNumericCharacters]];
     NSDictionary* parameters = @{@"device_platform": @"ios",
                                  @"version": @([version integerValue])};

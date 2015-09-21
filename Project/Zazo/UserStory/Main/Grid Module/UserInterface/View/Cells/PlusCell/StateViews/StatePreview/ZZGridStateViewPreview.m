@@ -118,7 +118,7 @@ static CGFloat const kThumbnailBorderWidth = 2;
     {
         _userNameLabel = [UILabel new];
         _userNameLabel.textAlignment = NSTextAlignmentCenter;
-        _userNameLabel.textColor = [UIColor whiteColor];
+        _userNameLabel.textColor = [ZZColorTheme shared].gridStatusViewUserNameLabelColor ;
         _userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
         _userNameLabel.font = [UIFont an_regularFontWithSize:kUserNameFontSize];
         [self addSubview:_userNameLabel];

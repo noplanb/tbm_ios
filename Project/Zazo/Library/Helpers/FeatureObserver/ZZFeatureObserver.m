@@ -7,23 +7,33 @@
 //
 
 #import "ZZFeatureObserver.h"
+#import "ZZUserDataProvider.h"
 
 
 static NSString* const kUnlockFeatureDefaultKey = @"kLastUnlockedFeatureKey";
 
-typedef NS_ENUM(NSInteger, ZZFeatureType)
+typedef NS_ENUM(NSInteger, ZZFeatureTypeUninvited)
 {
-    ZZFeatureTypeBothCamera,
-    ZZFeatureTypeRecordAbortWithDragging,
-    ZZFeatureTypeDeleteFriend,
-    ZZFeatureTypeEarpiece,
-    ZZFeatureTypeSpinWeel
+    ZZFeatureTypeUninvitedBothCamera = 2,
+    ZZFeatureTypeUninvitedRecordAbortWithDragging = 4,
+    ZZFeatureTypeUninvitedDeleteFriend = 4,
+    ZZFeatureTypeUninvitedEarpiece = 5,
+    ZZFeatureTypeUninvitedSpinWeel = 6
 };
 
+typedef NS_ENUM(NSInteger, ZZFeatureTypeInvited)
+{
+    ZZFeatureTypeInvitedBothCamera = 1,
+    ZZFeatureTypeInvitedRecordAbortWithDragging = 3,
+    ZZFeatureTypeInvitedDeleteFriend = 3,
+    ZZFeatureTypeInvitedEarpiece = 4,
+    ZZFeatureTypeInvitedSpinWeel = 5
+};
 
 @interface ZZFeatureObserver ()
 
 @property (nonatomic, strong) NSNumber* unlockedFeatureType;
+@property (nonatomic, assign) BOOL isInvitedUser;
 
 @end
 
@@ -50,11 +60,20 @@ typedef NS_ENUM(NSInteger, ZZFeatureType)
             if ([featureName isEqualToString:kUnlockFeatureDefaultKey])
             {
                 self.unlockedFeatureType = x.first;
+                [[NSNotificationCenter defaultCenter] postNotificationName:kFeatureObserverFeatureUpdatedNotification
+                                                                    object:nil];
             }
         }];
         [self _setupCurrenUnlockedFeatureType];
+        [self _configrueIsInvitedUser];
     }
     return self;
+}
+
+- (void)_configrueIsInvitedUser
+{
+    ZZUserDomainModel* userModel = [ZZUserDataProvider authenticatedUser];
+    self.isInvitedUser = userModel.isInvitee;
 }
 
 - (void)_setupCurrenUnlockedFeatureType
@@ -64,27 +83,82 @@ typedef NS_ENUM(NSInteger, ZZFeatureType)
 
 - (BOOL)isBothCameraEnabled
 {
-    return NO;
+    BOOL isEnabled;
+
+    if (self.isInvitedUser)
+    {
+        isEnabled = ([self.unlockedFeatureType integerValue] >= ZZFeatureTypeInvitedBothCamera);
+    }
+    else
+    {
+        isEnabled = ([self.unlockedFeatureType integerValue] >= ZZFeatureTypeUninvitedBothCamera);
+    }
+    
+    return isEnabled;
 }
 
 - (BOOL)isRecordAbortWithDraggedEnabled
 {
-    return NO;
+    BOOL isEnabled;
+    
+    if (self.isInvitedUser)
+    {
+        isEnabled = ([self.unlockedFeatureType integerValue] >= ZZFeatureTypeInvitedRecordAbortWithDragging);
+    }
+    else
+    {
+        isEnabled = ([self.unlockedFeatureType integerValue] >= ZZFeatureTypeUninvitedRecordAbortWithDragging);
+    }
+    
+    return isEnabled;
 }
 
 - (BOOL)isDeleteFriendsEnabled
 {
-    return NO;
+    BOOL isEnabled;
+    
+    if (self.isInvitedUser)
+    {
+        isEnabled = ([self.unlockedFeatureType integerValue] >= ZZFeatureTypeInvitedDeleteFriend);
+    }
+    else
+    {
+        isEnabled = ([self.unlockedFeatureType integerValue] >= ZZFeatureTypeUninvitedDeleteFriend);
+    }
+    
+    return isEnabled;
 }
 
 - (BOOL)isEarpieceEnabled
 {
-    return NO;
+    BOOL isEnabled;
+    
+    if (self.isInvitedUser)
+    {
+        isEnabled = ([self.unlockedFeatureType integerValue] >= ZZFeatureTypeInvitedEarpiece);
+    }
+    else
+    {
+        isEnabled = ([self.unlockedFeatureType integerValue] >= ZZFeatureTypeUninvitedEarpiece);
+    }
+    
+    return isEnabled;
 }
 
 - (BOOL)isSpinWeelEnabled
 {
-    return NO;
+    BOOL isEnabled;
+    
+    if (self.isInvitedUser)
+    {
+        isEnabled = ([self.unlockedFeatureType integerValue] >= ZZFeatureTypeInvitedSpinWeel);
+    }
+    else
+    {
+        isEnabled = ([self.unlockedFeatureType integerValue] >= ZZFeatureTypeUninvitedSpinWeel);
+    }
+    
+    return isEnabled;
 }
 
 @end

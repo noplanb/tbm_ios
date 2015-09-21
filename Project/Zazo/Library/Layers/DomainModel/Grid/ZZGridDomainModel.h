@@ -9,6 +9,12 @@
 #import "ZZBaseDomainModel.h"
 #import "ZZFriendDomainModel.h"
 
+extern const struct ZZGridDomainModelAttributes {
+    __unsafe_unretained NSString *itemID;
+    __unsafe_unretained NSString *relatedUser;
+    __unsafe_unretained NSString *index;
+} ZZGridDomainModelAttributes;
+
 @interface ZZGridDomainModel : ZZBaseDomainModel
 
 @property (nonatomic, copy) NSString* itemID;
