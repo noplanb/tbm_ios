@@ -9,6 +9,13 @@
 @import QuartzCore;
 #import "ZZHintsView.h"
 #import "TBMHintArrow.h"
+#import "ZZArrowDirectionHelper.h"
+
+@interface ZZHintsView ()
+
+@property (nonatomic, strong) ZZArrowDirectionHelper* arrowDirectonHelper;
+
+@end
 
 @implementation ZZHintsView
 
@@ -41,14 +48,40 @@
     
     [self.layer addSublayer:fillLayer];
     
-    TBMHintArrow *hintView = [TBMHintArrow arrowWithText:@"Send a Zazo"
-                                        curveKind:TBMTutorialArrowCurveKindRight
-                                       arrowPoint:CGPointMake(
-                                                              CGRectGetMinX(highlightFrame),
-                                                              CGRectGetMidY(highlightFrame))
-                                            angle:-40.f
-                                           hidden:NO
-                                            frame:self.frame];
+    TBMHintArrow *hintView;
+    
+    switch (type) {
+        case ZZHintsTypeSendZazo:
+        {
+            hintView = [TBMHintArrow arrowWithText:@"Send a Zazo"
+                                         curveKind:TBMTutorialArrowCurveKindRight
+                                        arrowPoint:CGPointMake(CGRectGetMinX(highlightFrame),
+                                                               CGRectGetMidY(highlightFrame))
+                                             angle:-40.f
+                                            hidden:NO
+                                             frame:self.frame];
+
+        } break;
+        case ZZHintsTypePressAndHoldToRecord:
+        {
+            
+
+        } break;
+        case ZZHintsTypeZazoSent:
+        {
+            
+
+        } break;
+        case ZZHintsTypeGiftIsWaiting:
+        {
+            
+            
+        } break;
+            
+        default: break;
+    }
+    
+
     [self addSubview:hintView];
 }
 

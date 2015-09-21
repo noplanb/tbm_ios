@@ -8,9 +8,18 @@
 
 typedef NS_ENUM(NSInteger, ZZHintsType)
 {
-    ZZHintsTypeWelcome = 0,
-    ZZHintsTypeViewed = 1,
+    ZZHintsTypeSendZazo = 0,
+    ZZHintsTypePressAndHoldToRecord,
+    ZZHintsTypeZazoSent,
+    ZZHintsTypeGiftIsWaiting,
 };
+
+typedef NS_ENUM(NSInteger, ZZArrowDirection)
+{
+    ZZArrowDirectionLeft = 0,
+    ZZArrowDirectionRight,
+};
+
 
 @interface ZZHintsConstants : NSObject
 
