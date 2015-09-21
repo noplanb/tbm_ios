@@ -417,9 +417,10 @@
 {
     [self.eventsFlowModule throwEvent:TBMEventFlowEventApplicationDidLaunch];
     self.isGridAppear = YES;
+    
     //TODO: temp to debug UI
-    ZZToastMessageBuilder *toastBuilder = [ZZToastMessageBuilder new];
-    [toastBuilder showToastWithMessage:@"Just Zazo someone new!"];
+//    ZZToastMessageBuilder *toastBuilder = [ZZToastMessageBuilder new];
+//    [toastBuilder showToastWithMessage:@"Just Zazo someone new!"];
 }
 
 #pragma mark - Private
