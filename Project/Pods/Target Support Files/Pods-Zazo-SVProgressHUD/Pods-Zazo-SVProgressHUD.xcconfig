@@ -1,0 +1,1 @@
+PODS_ZAZO_SVPROGRESSHUD_OTHER_LDFLAGS = -framework "QuartzCore"
