@@ -35,7 +35,9 @@ static NSInteger const kGridCenterCellIndex = 4;
 
 - (void)reloadStorage
 {
-//    [self.storage.delegate storageNeedsReload];
+    ANDispatchBlockToMainQueue(^{
+       [self.storage.delegate storageNeedsReload];
+    });
 }
 
 - (void)updateDataSourceWithGridModelFromNotification:(ZZGridDomainModel*)gridModel
@@ -60,7 +62,9 @@ static NSInteger const kGridCenterCellIndex = 4;
                         cellModel.badgeNumber = @(gridModel.relatedUser.unviewedCount);
                     }
                     
-                    [self.storage reloadItem:cellModel];
+                    ANDispatchBlockToMainQueue(^{
+                       [self.storage reloadItem:cellModel];
+                    });
                     *stop = YES;
                 }
             }
@@ -87,13 +91,17 @@ static NSInteger const kGridCenterCellIndex = 4;
         return viewModel;
     }] array];
     
-    [self.storage addItems:models];
+    ANDispatchBlockToMainQueue(^{
+       [self.storage addItems:models];
+    });
 }
 
 - (void)selectedViewModelUpdatedWithItem:(ZZGridDomainModel*)model
 {
     self.selectedCellViewModel.item = model;
-    [self.storage reloadItem:self.selectedCellViewModel];
+    ANDispatchBlockToMainQueue(^{
+        [self.storage reloadItem:self.selectedCellViewModel];
+    });
     
     self.selectedCellViewModel = nil;
 }
@@ -108,7 +116,9 @@ static NSInteger const kGridCenterCellIndex = 4;
             if ([viewModel.item.index isEqual:model.index])
             {
                 viewModel.item = model;
-                [self.storage reloadItem:viewModel];
+                ANDispatchBlockToMainQueue(^{
+                   [self.storage reloadItem:viewModel];
+                });
             }
         }
     }];
@@ -125,7 +135,9 @@ static NSInteger const kGridCenterCellIndex = 4;
     ZZGridCenterCellViewModel* model = [ZZGridCenterCellViewModel new];
     model.isChangeButtonAvailable = shouldHandleRotation;
     model.delegate = self;
-    [self.storage addItem:model atIndexPath:[self _centerCellIndexPath]];
+    ANDispatchBlockToMainQueue(^{
+        [self.storage addItem:model atIndexPath:[self _centerCellIndexPath]];
+    });
 }
 
 - (ZZGridCenterCellViewModel*)centerViewModel
@@ -134,7 +146,9 @@ static NSInteger const kGridCenterCellIndex = 4;
 }
 - (void)updateCenterCellWithModel:(ZZGridCenterCellViewModel*)model
 {
-    [self.storage reloadItem:model];
+    ANDispatchBlockToMainQueue(^{
+       [self.storage reloadItem:model];
+    });
 }
 
 #pragma mark - ViewModel Delegate
