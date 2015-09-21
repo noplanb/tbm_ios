@@ -52,7 +52,7 @@ static NSInteger const kGridCenterCellIndex = 4;
                 if ([cellModel.item.index isEqualToNumber:gridModel.index])
                 {
                     cellModel.item = gridModel;
-//                    cellModel.hasUploadedVideo = [gridModel.relatedUser hasIncomingVideo];
+                    cellModel.hasUploadedVideo = [gridModel.relatedUser hasIncomingVideo];
                     
                     cellModel.isUploadedVideoViewed = (gridModel.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
                     

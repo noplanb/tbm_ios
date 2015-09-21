@@ -89,6 +89,7 @@ static NSMutableSet *TBMDelegates;
             OB_INFO(@"TBMAudioSession: near the ear");
             [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideNone
                                                                error: &error];
+            
         } else {
             OB_INFO(@"TBMAudioSession: far from the ear");
             [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker
@@ -105,7 +106,7 @@ static NSMutableSet *TBMDelegates;
 
 -(void)addObservers {
     UIDevice *device = [UIDevice currentDevice];
-    device.proximityMonitoringEnabled = NO; //TODO: temp disable
+    device.proximityMonitoringEnabled = YES; //TODO: temp disable
     
     [self addRouteChangeObserver];
     [[NSNotificationCenter defaultCenter] addObserver:self
