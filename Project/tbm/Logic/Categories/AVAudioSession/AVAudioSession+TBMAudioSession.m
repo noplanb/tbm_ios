@@ -82,23 +82,37 @@ static NSMutableSet *TBMDelegates;
 }
 
 - (void)setPortOverride {
-    if ([self hasNoExternalOutputs]) {
-        OB_INFO(@"TBMAudioSession: setPortOverride: no external outputs");
-        NSError *error = nil;
-        if ([self nearTheEar]){
-            OB_INFO(@"TBMAudioSession: near the ear");
-            [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideNone
-                                                               error: &error];
-            
+    
+    
+    ANDispatchBlockToBackgroundQueue(^{
+        if ([self hasNoExternalOutputs]) {
+            OB_INFO(@"TBMAudioSession: setPortOverride: no external outputs");
+            NSError *error = nil;
+            if ([self nearTheEar]){
+                OB_INFO(@"TBMAudioSession: near the ear");
+                //            [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideNone
+                //                                                               error: &error];
+                
+                AVAudioSession* session = [AVAudioSession sharedInstance];
+                [session overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:nil];
+                [session setActive:YES error:nil];
+                [session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDuckOthers error:nil];
+                
+            } else {
+                OB_INFO(@"TBMAudioSession: far from the ear");
+                //            [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker
+                //                                                               error: &error];
+                AVAudioSession* session = [AVAudioSession sharedInstance];
+                [session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
+                [session setActive:YES error:nil];
+                [session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDuckOthers error:nil];
+                
+            }
+            if (error!=nil) OB_ERROR(@"TBMAudioSession#setPortOverride: %@", error);
         } else {
-            OB_INFO(@"TBMAudioSession: far from the ear");
-            [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker
-                                                               error: &error];
+            OB_INFO(@"TBMAudioSession: setPortOverride: Yes external outputs");
         }
-        if (error!=nil) OB_ERROR(@"TBMAudioSession#setPortOverride: %@", error);
-    } else {
-        OB_INFO(@"TBMAudioSession: setPortOverride: Yes external outputs");
-    }
+    });
 }
 
 
@@ -146,18 +160,24 @@ static NSMutableSet *TBMDelegates;
 
 #pragma mark Event Handlers
 
--(void)handleRouteChange:(NSNotification *)notification{
-    OB_INFO(@"TBMAudioSession: handleRouteChange: %@", notification.userInfo[AVAudioSessionRouteChangeReasonKey]);
-    AVAudioSessionRouteDescription *previousRoute = (AVAudioSessionRouteDescription *) notification.userInfo[AVAudioSessionRouteChangePreviousRouteKey];
-    
-    [self printOutputsWithPrefix:@"previousRoute:" Route:previousRoute];
-    [self printOutputsWithPrefix:@"currentRoute:" Route:[self currentRoute]];
-    
-    // GARF: This is a hack. For some reason when changing route from bluetooth back to the built in spearker for
-    // example when bluetooth is turned off it will play through earpiece and ignore the override unless I set the category
-    // again. resetAudioSession does this.
-    if (![self isOutputBuiltInWithRoute:previousRoute] &&
-        [self isOutputBuiltInWithRoute:[self currentRoute]]) [self resetAudioSession];
+-(void)handleRouteChange:(NSNotification *)notification
+{
+    ANDispatchBlockToMainQueue(^{
+        OB_INFO(@"TBMAudioSession: handleRouteChange: %@", notification.userInfo[AVAudioSessionRouteChangeReasonKey]);
+        AVAudioSessionRouteDescription *previousRoute = (AVAudioSessionRouteDescription *) notification.userInfo[AVAudioSessionRouteChangePreviousRouteKey];
+        
+        [self printOutputsWithPrefix:@"previousRoute:" Route:previousRoute];
+        [self printOutputsWithPrefix:@"currentRoute:" Route:[self currentRoute]];
+        
+        // GARF: This is a hack. For some reason when changing route from bluetooth back to the built in spearker for
+        // example when bluetooth is turned off it will play through earpiece and ignore the override unless I set the category
+        // again. resetAudioSession does this.
+        if (![self isOutputBuiltInWithRoute:previousRoute] &&
+            [self isOutputBuiltInWithRoute:[self currentRoute]])
+        {
+            [self resetAudioSession];
+        }
+    });
 }
 
 -(void)handleProximityChange:(NSNotification *)notification{
