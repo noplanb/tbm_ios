@@ -335,7 +335,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         NSArray* validNumbers = [ZZPhoneHelper validatePhonesFromContactModel:contactModel];
         if (!ANIsEmpty(validNumbers))
         {
-            [validNumbers enumerateObjectsUsingBlock:^(NSString* number, NSUInteger idx, BOOL * _Nonnull stop) {
+            [validNumbers enumerateObjectsUsingBlock:^(NSString* number, NSUInteger idx, BOOL *stop) {
                 NSString *trimmedNumber = [number stringByReplacingOccurrencesOfString:@" " withString:@""];
                 [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel* obj, NSUInteger idx, BOOL *stop) {
                     if ([[obj.relatedUser mobileNumber] isEqualToString:trimmedNumber])
