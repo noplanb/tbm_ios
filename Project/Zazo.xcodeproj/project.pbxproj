@@ -395,6 +395,9 @@
 		220E904A1909A18C003C4F82 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902E1909A18B003C4F82 /* CoreData.framework */; };
 		22403C2B19D5E63400FC36E3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22403C2A19D5E63400FC36E3 /* MessageUI.framework */; };
 		224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
+		79123D731BB032C3007E1CBF /* ZZHintsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D721BB032C3007E1CBF /* ZZHintsController.m */; settings = {ASSET_TAGS = (); }; };
+		79123D761BB032D9007E1CBF /* ZZHintsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D751BB032D9007E1CBF /* ZZHintsView.m */; settings = {ASSET_TAGS = (); }; };
+		79123D791BB03359007E1CBF /* ZZHintsConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D781BB03359007E1CBF /* ZZHintsConstants.m */; settings = {ASSET_TAGS = (); }; };
 		7952764A1BA6B4AB00E506D5 /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276471BA6B4AB00E506D5 /* ZZMenuCell.m */; };
 		7952764B1BA6B4AB00E506D5 /* ZZMenuCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276491BA6B4AB00E506D5 /* ZZMenuCellViewModel.m */; };
 		7952764E1BA71F2700E506D5 /* camera-icon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7952764D1BA71F2700E506D5 /* camera-icon.pdf */; };
@@ -1192,6 +1195,12 @@
 		41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		5988C69CC62CF4472CA2040A /* Pods-Zazo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.debug.xcconfig"; sourceTree = "<group>"; };
 		682D6CAC9A6769375C4786EB /* TBMEventFlowEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEventFlowEvent.h; sourceTree = "<group>"; };
+		79123D711BB032C3007E1CBF /* ZZHintsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsController.h; sourceTree = "<group>"; };
+		79123D721BB032C3007E1CBF /* ZZHintsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsController.m; sourceTree = "<group>"; };
+		79123D741BB032D9007E1CBF /* ZZHintsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsView.h; sourceTree = "<group>"; };
+		79123D751BB032D9007E1CBF /* ZZHintsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsView.m; sourceTree = "<group>"; };
+		79123D771BB03359007E1CBF /* ZZHintsConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsConstants.h; sourceTree = "<group>"; };
+		79123D781BB03359007E1CBF /* ZZHintsConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsConstants.m; sourceTree = "<group>"; };
 		795276461BA6B4AB00E506D5 /* ZZMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCell.h; sourceTree = "<group>"; };
 		795276471BA6B4AB00E506D5 /* ZZMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCell.m; sourceTree = "<group>"; };
 		795276481BA6B4AB00E506D5 /* ZZMenuCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCellViewModel.h; sourceTree = "<group>"; };
@@ -4188,6 +4197,7 @@
 				079280A31BA8544800E22553 /* ZZGridActionHandler.m */,
 				070560F81BA8736600C130E0 /* ZZGridActionDataProvider.h */,
 				070560F91BA8736600C130E0 /* ZZGridActionDataProvider.m */,
+				79123D701BB032B7007E1CBF /* Hints */,
 			);
 			name = ActionHandler;
 			sourceTree = "<group>";
@@ -4295,6 +4305,20 @@
 				0368F3F1AC201E7765B1898F /* libPods-ZazoTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		79123D701BB032B7007E1CBF /* Hints */ = {
+			isa = PBXGroup;
+			children = (
+				79123D771BB03359007E1CBF /* ZZHintsConstants.h */,
+				79123D781BB03359007E1CBF /* ZZHintsConstants.m */,
+				79123D711BB032C3007E1CBF /* ZZHintsController.h */,
+				79123D721BB032C3007E1CBF /* ZZHintsController.m */,
+				79123D741BB032D9007E1CBF /* ZZHintsView.h */,
+				79123D751BB032D9007E1CBF /* ZZHintsView.m */,
+			);
+			name = Hints;
+			path = ActionHandler/Hints;
 			sourceTree = "<group>";
 		};
 		795276451BA6B4AB00E506D5 /* Cells */ = {
@@ -4744,6 +4768,7 @@
 				07636DB81BA49A0100925671 /* TBMKeyChainWrapper.m in Sources */,
 				07636E571BA49A0100925671 /* ZZTouchControllerWithoutDelay.m in Sources */,
 				07636F091BA49A0100925671 /* TBMVerfiicationAlertHandler.m in Sources */,
+				79123D731BB032C3007E1CBF /* ZZHintsController.m in Sources */,
 				07636EF71BA49A0100925671 /* ANMessagesWireframe.m in Sources */,
 				07636EB41BA49A0100925671 /* ZZEditFriendCell.m in Sources */,
 				07636E9F1BA49A0100925671 /* ZZDebugStateController.m in Sources */,
@@ -4767,6 +4792,7 @@
 				07636EEB1BA49A0100925671 /* UIImageView+ANLoadingAdditions.m in Sources */,
 				07636E021BA49A0100925671 /* TBMLongPressTouchHandler.m in Sources */,
 				07636DB01BA49A0100925671 /* NSNumber+TBMUserDefaults.m in Sources */,
+				79123D761BB032D9007E1CBF /* ZZHintsView.m in Sources */,
 				07636DC61BA49A0100925671 /* TBMFeatureUnlockModulePresenter.m in Sources */,
 				07636E261BA49A0100925671 /* ZZGridModelsMapper.m in Sources */,
 				07636DAB1BA49A0100925671 /* TBMAppDelegate.m in Sources */,
@@ -4880,6 +4906,7 @@
 				07636ED51BA49A0100925671 /* ZZMenuDataSource.m in Sources */,
 				07636E161BA49A0100925671 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				7997E4FB1BAABE85001697D5 /* UIView+Round.m in Sources */,
+				79123D791BB03359007E1CBF /* ZZHintsConstants.m in Sources */,
 				07636DBE1BA49A0100925671 /* TBMVideoProcessor.m in Sources */,
 				07636E971BA49A0100925671 /* ZZDebugStateEnumHelper.m in Sources */,
 				07636DA81BA49A0100925671 /* TBMAppDelegate+AppSync.m in Sources */,

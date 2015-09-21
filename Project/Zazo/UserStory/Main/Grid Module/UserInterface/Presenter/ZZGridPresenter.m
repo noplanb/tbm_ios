@@ -25,6 +25,7 @@
 #import "ZZToastMessageBuilder.h"
 #import "TBMAppDelegate.h"
 #import "ZZFeatureObserver.h"
+#import "ZZHintsController.h"
 
 @protocol TBMEventsFlowModuleInterface;
 
@@ -421,6 +422,9 @@
     //TODO: temp to debug UI
 //    ZZToastMessageBuilder *toastBuilder = [ZZToastMessageBuilder new];
 //    [toastBuilder showToastWithMessage:@"Just Zazo someone new!"];
+    ZZHintsController *controller = [ZZHintsController new];
+    UIView* focusView = [[UIView alloc] initWithFrame:CGRectMake(212, 246, 96, 137)];
+    [controller showHintWithType:ZZHintsTypeViewed focusOnView:focusView];
 }
 
 #pragma mark - Private

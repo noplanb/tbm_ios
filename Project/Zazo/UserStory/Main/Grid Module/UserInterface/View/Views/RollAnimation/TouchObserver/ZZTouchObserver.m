@@ -94,7 +94,6 @@ static CGFloat const kTouchOffset = 7;
                 [self showMovingCell];
                 self.grid.hidden = YES;
             }
-          
         }
         
         if (self.grid.hidden && touch.phase == UITouchPhaseMoved && self.gridView.isRotationEnabled && [self shouldMoveWithTouch:touch])
