@@ -247,8 +247,8 @@ static NSInteger const kGridFriendsCellCount = 8;
     else
     {
         modelThatContainCurrentFriend.relatedUser = friendModel;
-        [ZZGridDataProvider upsertModel:modelThatContainCurrentFriend];
-        [self.output updateGridWithModelFromNotification:modelThatContainCurrentFriend];
+        id model = [ZZGridDataProvider upsertModel:modelThatContainCurrentFriend];
+        [self.output updateGridWithModelFromNotification:model];
     }
 }
 

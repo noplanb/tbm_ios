@@ -455,8 +455,7 @@
 
 - (void)showSendInvitationDialogForUser:(NSString*)firsName
 {
-    [ZZGridAlertBuilder showSendInvitationDialogForUser:firsName completion:^
-    {
+    [ZZGridAlertBuilder showSendInvitationDialogForUser:firsName completion:^ {
         [self.interactor inviteUserThatHasNoAppInstalled];
     }];
 }
