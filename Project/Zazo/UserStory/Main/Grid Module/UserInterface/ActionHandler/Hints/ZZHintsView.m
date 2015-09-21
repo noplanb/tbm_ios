@@ -10,6 +10,7 @@
 #import "ZZHintsView.h"
 #import "TBMHintArrow.h"
 #import "ZZArrowDirectionHelper.h"
+#import "ZZHintsDisplayHandler.h"
 
 @interface ZZHintsView ()
 
@@ -50,10 +51,13 @@
     
     TBMHintArrow *hintView;
     
+    ZZArrowDirection directionType = [self.arrowDirectonHelper arrowDirectionForGridViewWithIndex:5];
+    
+    
     switch (type) {
         case ZZHintsTypeSendZazo:
         {
-            hintView = [TBMHintArrow arrowWithText:@"Send a Zazo"
+            hintView = [TBMHintArrow arrowWithText:NSLocalizedString(@"hints.send-a-zazo.label.text", nil)
                                          curveKind:TBMTutorialArrowCurveKindRight
                                         arrowPoint:CGPointMake(CGRectGetMinX(highlightFrame),
                                                                CGRectGetMidY(highlightFrame))
@@ -64,7 +68,7 @@
         } break;
         case ZZHintsTypePressAndHoldToRecord:
         {
-            
+            hintView = [ZZHintsDisplayHandler arrowWithText:NSLocalizedString(@"hints.press-to-record.label.text", nil) directionType:directionType focusFrame:highlightFrame displayType:ZZHintsDisplayTypeGridCell fromFrame:self.frame];
 
         } break;
         case ZZHintsTypeZazoSent:

@@ -20,6 +20,14 @@ typedef NS_ENUM(NSInteger, ZZArrowDirection)
     ZZArrowDirectionRight,
 };
 
+typedef NS_ENUM(NSInteger, ZZHintsDisplayType)
+{
+    ZZHintsDisplayTypeGridCell = 0,
+    ZZHintsDisplayTypePlain,
+    ZZHintsDisplayTypeCustom,
+};
+
+
 
 @interface ZZHintsConstants : NSObject
 
