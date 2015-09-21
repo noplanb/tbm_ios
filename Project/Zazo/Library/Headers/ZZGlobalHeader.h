@@ -12,6 +12,7 @@
 #define HTTPLog
 //#define DEBUG_LOGIN_USER
 //#define STAGESERVER
+//#define HINTS
 
 #endif
 
