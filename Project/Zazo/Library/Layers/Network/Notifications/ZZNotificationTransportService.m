@@ -60,7 +60,7 @@ static const struct
 + (RACSignal*)uploadToken:(NSString*)token userMKey:(NSString*)mkey
 {
     NSString* state;
-#ifndef RELEASE
+#ifndef DEBUG
     state = @"dev";
 #else
     state = @"prod";
