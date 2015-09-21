@@ -517,7 +517,7 @@ static NSMutableArray *videoStatusNotificationDelegates;
     {
         friend.everSent = @([friend.outgoingVideoStatus integerValue] > OUTGOING_VIDEO_STATUS_NONE);
         friend.isConnectionCreator = @(YES);
-        [[friend managedObjectContext] save:nil];
+        [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
     }
 }
 
