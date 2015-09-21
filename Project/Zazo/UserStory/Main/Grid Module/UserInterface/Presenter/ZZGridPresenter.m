@@ -85,10 +85,12 @@
 {
     if (!_eventsFlowModule)
     {
-        TBMEventsFlowModulePresenter* eventsFlowModulePresenter = [TBMEventsFlowModulePresenter new];
-        eventsFlowModulePresenter.gridModule = self;
-        [eventsFlowModulePresenter setupHandlers];
-        _eventsFlowModule = eventsFlowModulePresenter;
+#ifdef HINTS
+    TBMEventsFlowModulePresenter* eventsFlowModulePresenter = [TBMEventsFlowModulePresenter new];
+    eventsFlowModulePresenter.gridModule = self;
+    [eventsFlowModulePresenter setupHandlers];
+    _eventsFlowModule = eventsFlowModulePresenter;
+#endif
     }
     return _eventsFlowModule;
 }
@@ -387,9 +389,9 @@
 {
     [self.eventsFlowModule throwEvent:TBMEventFlowEventApplicationDidLaunch];
     
-    //TODO: temp to debug UI
-    ZZToastMessageBuilder *toastBuilder = [ZZToastMessageBuilder new];
-    [toastBuilder showToastWithMessage:@"Just Zazo someone new!"];
+    //TODO: debug Toast UI
+//    ZZToastMessageBuilder *toastBuilder = [ZZToastMessageBuilder new];
+//    [toastBuilder showToastWithMessage:@"Just Zazo someone new!"];
 }
 
 #pragma mark - Private
