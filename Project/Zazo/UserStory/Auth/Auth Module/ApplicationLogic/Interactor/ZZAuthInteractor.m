@@ -23,9 +23,9 @@
 #import "ZZFriendDataProvider.h"
 #import "TBMUser.h"
 #import "TBMFriend.h"
-#import "TBMS3CredentialsManager.h"
 #import "TBMPhoneUtils.h"
 #import "TBMAppDelegate+Boot.h"
+#import "ZZCommonNetworkTransportService.h"
 
 @interface ZZAuthInteractor ()
 
@@ -130,18 +130,16 @@
 
 - (void)loadS3Credentials
 {
-    [TBMS3CredentialsManager refreshFromServer:^void (BOOL success) {
-        if (success)
-        {
-            self.currentUser.isRegistered = YES;
-            [ZZUserDataProvider upsertUserWithModel:self.currentUser];
-            [(TBMAppDelegate*)[UIApplication sharedApplication].delegate performDidBecomeActiveActions]; //TODO: call this with new controller
-            [self.output registrationFlowCompletedSuccessfully];
-        }
-        else
-        {
-            [self.output loadS3CredentialsDidFailWithError:nil]; // TODO: create an error here
-        }
+    [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {
+       
+        self.currentUser.isRegistered = YES;
+        [ZZUserDataProvider upsertUserWithModel:self.currentUser];
+        [(TBMAppDelegate*)[UIApplication sharedApplication].delegate performDidBecomeActiveActions]; //TODO: call this with new controller
+        [self.output registrationFlowCompletedSuccessfully];
+        
+    } error:^(NSError *error) {
+        
+        [self.output loadS3CredentialsDidFailWithError:nil]; // TODO: create an error here
     }];
 }
 

@@ -112,10 +112,8 @@
 		07636E0A1BA49A0100925671 /* TBMBenchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AC41BA49A0100925671 /* TBMBenchViewController.m */; };
 		07636E0B1BA49A0100925671 /* TBMContactSearchTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AC71BA49A0100925671 /* TBMContactSearchTableDelegate.m */; };
 		07636E0C1BA49A0100925671 /* TBMGridElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636ACC1BA49A0100925671 /* TBMGridElementViewController.m */; };
-		07636E0D1BA49A0100925671 /* TBMGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636ACF1BA49A0100925671 /* TBMGridViewController.m */; };
 		07636E0E1BA49A0100925671 /* TBMHomeViewController+Invite.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AD31BA49A0100925671 /* TBMHomeViewController+Invite.m */; };
 		07636E0F1BA49A0100925671 /* TBMHomeViewController+VersionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AD51BA49A0100925671 /* TBMHomeViewController+VersionController.m */; };
-		07636E101BA49A0100925671 /* TBMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AD71BA49A0100925671 /* TBMHomeViewController.m */; };
 		07636E111BA49A0100925671 /* TBMGeometryUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636ADA1BA49A0100925671 /* TBMGeometryUtils.m */; };
 		07636E121BA49A0100925671 /* TBMViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636ADC1BA49A0100925671 /* TBMViewUtils.m */; };
 		07636E131BA49A0100925671 /* TPKeyboardAvoidingCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AE01BA49A0100925671 /* TPKeyboardAvoidingCollectionView.m */; };
@@ -371,6 +369,8 @@
 		07636F121BA49A0100925671 /* UIImage+PDF.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA41BA49A0100925671 /* UIImage+PDF.m */; };
 		07636F131BA49A0100925671 /* UIView+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA61BA49A0100925671 /* UIView+Image.m */; };
 		079280A41BA8544800E22553 /* ZZGridActionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 079280A31BA8544800E22553 /* ZZGridActionHandler.m */; };
+		07C256181BB0334C00098E3C /* TBMGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636ACF1BA49A0100925671 /* TBMGridViewController.m */; settings = {ASSET_TAGS = (); }; };
+		07C256191BB0335100098E3C /* TBMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AD71BA49A0100925671 /* TBMHomeViewController.m */; settings = {ASSET_TAGS = (); }; };
 		07C94DD01BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C94DCF1BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m */; };
 		07F0E7EF1B8CD7A900036AB2 /* KeyChainWrapperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E21B8CD7A900036AB2 /* KeyChainWrapperTests.m */; };
 		07F0E7F01B8CD7A900036AB2 /* S3CredentialsManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E31B8CD7A900036AB2 /* S3CredentialsManagerTests.m */; };
@@ -2010,9 +2010,9 @@
 			isa = PBXGroup;
 			children = (
 				07636AE81BA49A0100925671 /* Application */,
+				07636C021BA49A0100925671 /* UserStory */,
 				07636AF91BA49A0100925671 /* Library */,
 				07636BC91BA49A0100925671 /* Resources */,
-				07636C021BA49A0100925671 /* UserStory */,
 				07636D241BA49A0100925671 /* Vendor */,
 			);
 			path = Zazo;
@@ -4702,8 +4702,10 @@
 				79EBFD401BA8554100A26684 /* ZZToastMessageBuilder.m in Sources */,
 				07636EA71BA49A0100925671 /* ZZSecretSegmentCell.m in Sources */,
 				07636EA91BA49A0100925671 /* ZZSecretSwitchCell.m in Sources */,
+				07C256191BB0335100098E3C /* TBMHomeViewController.m in Sources */,
 				07636E071BA49A0100925671 /* TBMTableModal.m in Sources */,
 				07636E211BA49A0100925671 /* ZZTextFieldsDelegate.m in Sources */,
+				07C256181BB0334C00098E3C /* TBMGridViewController.m in Sources */,
 				07636F0E1BA49A0100925671 /* UIImage+TOWebViewControllerIcons.m in Sources */,
 				07636E3B1BA49A0100925671 /* ZZNotificationTransportService.m in Sources */,
 				07636E041BA49A0100925671 /* TBMPreviewView.m in Sources */,
@@ -4784,12 +4786,10 @@
 				07636E4D1BA49A0100925671 /* ZZColorTheme.m in Sources */,
 				07636DEE1BA49A0100925671 /* TBMVideo+StateProtocol.m in Sources */,
 				07636DED1BA49A0100925671 /* TBMStateStringGenerator.m in Sources */,
-				07636E101BA49A0100925671 /* TBMHomeViewController.m in Sources */,
 				07636F0B1BA49A0100925671 /* TOActivityChrome.m in Sources */,
 				07636E371BA49A0100925671 /* ZZFriendsTransportService.m in Sources */,
 				07636E301BA49A0100925671 /* ZZUserDomainModel.m in Sources */,
 				07636E5A1BA49A0100925671 /* ZZStoredSettingsManager.m in Sources */,
-				07636E0D1BA49A0100925671 /* TBMGridViewController.m in Sources */,
 				07636DF21BA49A0100925671 /* TBMStateScreenViewController.m in Sources */,
 				07636DE31BA49A0100925671 /* TBMNextFeatureDialogView.m in Sources */,
 				07636DF41BA49A0100925671 /* TBMFriendGetter.m in Sources */,

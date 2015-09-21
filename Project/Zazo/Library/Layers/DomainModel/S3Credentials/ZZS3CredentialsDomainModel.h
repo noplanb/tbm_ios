@@ -24,6 +24,8 @@ extern const struct ZZS3CredentialsDomainModelAttributes {
 @property (nonatomic, copy) NSString* accessKey;
 @property (nonatomic, copy) NSString* secretKey;
 
++ (FEMObjectMapping*)mapping;
+
 - (BOOL)isValid;
 
 @end

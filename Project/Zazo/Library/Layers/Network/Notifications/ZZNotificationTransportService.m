@@ -45,7 +45,6 @@ static const struct
     
     .toUserMKey = @"to_mkey",
     
-    
     .status = @"status",
     .type = @"type",
     
@@ -61,7 +60,7 @@ static const struct
 + (RACSignal*)uploadToken:(NSString*)token userMKey:(NSString*)mkey
 {
     NSString* state;
-#ifdef DEBUG
+#ifndef RELEASE
     state = @"dev";
 #else
     state = @"prod";

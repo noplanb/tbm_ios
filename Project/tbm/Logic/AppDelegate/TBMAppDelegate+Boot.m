@@ -11,7 +11,6 @@
 #import "TBMAppDelegate+Boot.h"
 #import "TBMAppDelegate+PushNotification.h"
 #import "TBMAppDelegate+AppSync.h"
-#import "TBMS3CredentialsManager.h"
 #import "TBMUser.h"
 #import "TBMDispatch.h"
 #import "AVFoundation/AVFoundation.h"

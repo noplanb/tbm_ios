@@ -91,10 +91,10 @@
 {
     if (!_eventsFlowModule)
     {
-        TBMEventsFlowModulePresenter* eventsFlowModulePresenter = [TBMEventsFlowModulePresenter new];
-        eventsFlowModulePresenter.gridModule = self;
-        [eventsFlowModulePresenter setupHandlers];
-        _eventsFlowModule = eventsFlowModulePresenter;
+//        TBMEventsFlowModulePresenter* eventsFlowModulePresenter = [TBMEventsFlowModulePresenter new];
+//        eventsFlowModulePresenter.gridModule = self;
+//        [eventsFlowModulePresenter setupHandlers];
+//        _eventsFlowModule = eventsFlowModulePresenter;
     }
     return _eventsFlowModule;
 }
