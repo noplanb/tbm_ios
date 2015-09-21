@@ -7,8 +7,8 @@
 //
 
 #import "ZZKeychainDataProvider.h"
-#import "VALValet.h"
 #import "ZZS3CredentialsDomainModel.h"
+#import "NSObject+ANUserDefaults.h"
 
 @implementation ZZKeychainDataProvider
 
@@ -16,34 +16,23 @@
 {
     if ([model isValid])
     {
-        VALValet *valet = [[VALValet alloc] initWithIdentifier:[self _bundleID] accessibility:VALAccessibilityWhenUnlocked];
-        
-        [valet setString:model.region forKey:ZZS3CredentialsDomainModelAttributes.region];
-        [valet setString:model.bucket forKey:ZZS3CredentialsDomainModelAttributes.bucket];
-        [valet setString:model.accessKey forKey:ZZS3CredentialsDomainModelAttributes.accessKey];
-        [valet setString:model.secretKey forKey:ZZS3CredentialsDomainModelAttributes.secretKey];
+        [NSObject an_updateObject:model.region forKey:ZZS3CredentialsDomainModelAttributes.region];
+        [NSObject an_updateObject:model.bucket forKey:ZZS3CredentialsDomainModelAttributes.bucket];
+        [NSObject an_updateObject:model.accessKey forKey:ZZS3CredentialsDomainModelAttributes.accessKey];
+        [NSObject an_updateObject:model.secretKey forKey:ZZS3CredentialsDomainModelAttributes.secretKey];
     }
 }
 
 + (ZZS3CredentialsDomainModel*)loadCredentials
 {
     ZZS3CredentialsDomainModel* model = [ZZS3CredentialsDomainModel new];
-    VALValet *valet = [[VALValet alloc] initWithIdentifier:[self _bundleID] accessibility:VALAccessibilityWhenUnlocked];
     
-    model.region = [valet stringForKey:ZZS3CredentialsDomainModelAttributes.region];
-    model.bucket = [valet stringForKey:ZZS3CredentialsDomainModelAttributes.bucket];
-    model.accessKey = [valet stringForKey:ZZS3CredentialsDomainModelAttributes.accessKey];
-    model.secretKey = [valet stringForKey:ZZS3CredentialsDomainModelAttributes.secretKey];
+    model.region = [NSObject an_stringForKey:ZZS3CredentialsDomainModelAttributes.region];
+    model.bucket = [NSObject an_stringForKey:ZZS3CredentialsDomainModelAttributes.bucket];
+    model.accessKey = [NSObject an_stringForKey:ZZS3CredentialsDomainModelAttributes.accessKey];
+    model.secretKey = [NSObject an_stringForKey:ZZS3CredentialsDomainModelAttributes.secretKey];
     
     return model;
-}
-
-
-#pragma mark - Private
-
-+ (NSString*)_bundleID
-{
-    return [[NSBundle mainBundle] bundleIdentifier];
 }
 
 @end

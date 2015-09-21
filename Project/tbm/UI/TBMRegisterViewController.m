@@ -9,7 +9,6 @@
 #import "TBMAppDelegate+Boot.h"
 #import "TBMRegisterViewController.h"
 #import "TBMHttpManager.h"
-#import "TBMS3CredentialsManager.h"
 #import "TBMConfig.h"
 #import "TBMUser.h"
 #import "TBMFriend.h"

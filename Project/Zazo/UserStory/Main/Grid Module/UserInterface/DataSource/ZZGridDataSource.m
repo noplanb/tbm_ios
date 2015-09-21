@@ -43,7 +43,7 @@ static NSInteger const kGridCenterCellIndex = 4;
     if (!ANIsEmpty(gridModel))
     {
         ANSectionModel* section = [self.storage.sections firstObject];
-        NSArray* cellModels = section.objects;
+        NSArray* cellModels = [section.objects copy];
         __block ZZGridCellViewModel* cellModel;
         [cellModels enumerateObjectsUsingBlock:^(id model, NSUInteger idx, BOOL *stop) {
             if ([model isKindOfClass:[ZZGridCellViewModel class]])

@@ -8,7 +8,6 @@
 #import "TBMAppDelegate+AppSync.h"
 #import <objc/runtime.h>
 #import "TBMAppDelegate+PushNotification.h"
-#import "TBMS3CredentialsManager.h"
 #import "TBMVideoRecorder.h"
 #import "TBMRemoteStorageHandler.h"
 #import "TBMVideoIdUtils.h"
@@ -16,6 +15,9 @@
 #import "ZZVideoRecorder.h"
 #import "MagicalRecord.h"
 #import "ZZVideoNetworkTransportService.h"
+#import "ZZKeychainDataProvider.h"
+#import "ZZS3CredentialsDomainModel.h"
+#import "ZZCommonNetworkTransportService.h"
 
 
 @implementation TBMAppDelegate (AppSync)
@@ -34,11 +36,11 @@
         ftm.downloadDirectory = videosURL.path;
         ftm.remoteUrlBase = [TBMRemoteStorageHandler fileTransferRemoteUrlBase];
         NSDictionary *cparams;
-        NSDictionary *cred = [TBMS3CredentialsManager credentials];
+        ZZS3CredentialsDomainModel* credentials = [ZZKeychainDataProvider loadCredentials];
         cparams = @{
-                OBS3RegionParam : cred[S3_REGION_KEY],
-                OBS3NoTvmAccessKeyParam : cred[S3_ACCESS_KEY],
-                OBS3NoTvmSecretKeyParam : cred[S3_SECRET_KEY]
+                OBS3RegionParam : [NSObject an_safeString:credentials.region],
+                OBS3NoTvmAccessKeyParam : [NSObject an_safeString:credentials.accessKey],
+                OBS3NoTvmSecretKeyParam : [NSObject an_safeString:credentials.secretKey]
         };
         [ftm configure:cparams];
         [self setFileTransferManager:ftm];
@@ -358,7 +360,7 @@
     NSString *type = [TBMVideoIdUtils isUploadWithMarker:marker] ? @"upload" : @"download";
     OB_ERROR(@"AppSync: Permanent failure in %@ due to error: %@", type, error);
     // Refresh the credentials from the server and set ftm to nil so that it uses new credentials if they have arrived by the next time we need it.
-    [TBMS3CredentialsManager refreshFromServer:nil];
+    [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {}];
     [self setFileTransferManager:nil];
 }
 

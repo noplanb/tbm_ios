@@ -22,9 +22,9 @@
 #import "ZZUserDataProvider.h"
 #import "FEMObjectDeserializer.h"
 #import "ZZFriendsTransportService.h"
-#import "TBMS3CredentialsManager.h"
 #import "ZZUserFriendshipStatusHandler.h"
 #import "TBMFriend.h"
+#import "ZZCommonNetworkTransportService.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
@@ -79,12 +79,11 @@ static NSInteger const kGridFriendsCellCount = 8;
     [self.output dataLoadedWithArray:self.gridModels];
     
     //#pragma mark - Old // TODO:
-    [TBMS3CredentialsManager refreshFromServer:nil];
+    [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {}];
 }
 
 - (void)friendSelectedFromMenu:(ZZFriendDomainModel*)friend
 {
-    
     BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friend];
     if (!shouldBeVisible)
     {
@@ -248,8 +247,8 @@ static NSInteger const kGridFriendsCellCount = 8;
     else
     {
         modelThatContainCurrentFriend.relatedUser = friendModel;
-        [ZZGridDataProvider upsertModel:modelThatContainCurrentFriend];
-        [self.output updateGridWithModelFromNotification:modelThatContainCurrentFriend];
+        id model = [ZZGridDataProvider upsertModel:modelThatContainCurrentFriend];
+        [self.output updateGridWithModelFromNotification:model];
     }
 }
 
