@@ -1,0 +1,1 @@
+PODS_ZAZO_ANBASEDOMAINMODEL_OTHER_LDFLAGS = -framework "Foundation"

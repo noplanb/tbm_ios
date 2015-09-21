@@ -39,8 +39,8 @@ static NSInteger const kGridCenterCellIndex = 4;
 }
 
 - (void)updateDataSourceWithGridModelFromNotification:(ZZGridDomainModel*)gridModel
-{
-    if (gridModel)
+{   
+    if (!ANIsEmpty(gridModel))
     {
         ANSectionModel* section = [self.storage.sections firstObject];
         NSArray* cellModels = section.objects;
@@ -65,7 +65,6 @@ static NSInteger const kGridCenterCellIndex = 4;
                 }
             }
         }];
-
     }
 }
 

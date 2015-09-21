@@ -230,13 +230,13 @@
     {
         region = [numberUtils getRegionCodeForCountryCode:@([code integerValue])];
     }
-    if (ANIsEmpty(region))
+    if (ANIsEmpty(region) || [region isEqualToString:@"ZZ"])
     {
         region = [self countryCodeFromPhoneSettings];
     }
     
     NSError *error;
-    NBPhoneNumber* phoneNumber = [numberUtils parse:phone defaultRegion:[self countryCodeFromPhoneSettings] error:&error];
+    NBPhoneNumber* phoneNumber = [numberUtils parse:phone defaultRegion:region error:&error];
     if (!error)
     {
         return [numberUtils isValidNumber:phoneNumber];
