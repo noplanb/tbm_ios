@@ -26,7 +26,7 @@ NSString* ZZVideoIncomingStatusStringFromEnumValue(ZZVideoIncomingStatus type)
 
 ZZVideoIncomingStatus ZZVideoIncomingStatusEnumValueFromString(NSString* string)
 {
-    NSArray* array = [NSArray arrayWithObjects:incomeTypeString count:8];
+    NSArray* array = [NSArray arrayWithObjects:incomeTypeString count:5];
     return [array indexOfObject:string];
 }
 
@@ -51,6 +51,6 @@ NSString* ZZVideoOutgoingStatusStringFromEnumValue(ZZVideoOutgoingStatus type)
 
 ZZVideoOutgoingStatus ZZVideoOutgoingStatusEnumValueFromString(NSString* string)
 {
-    NSArray* array = [NSArray arrayWithObjects:outgoingTypeString count:5];
+    NSArray* array = [NSArray arrayWithObjects:outgoingTypeString count:8];
     return [array indexOfObject:string];
 }

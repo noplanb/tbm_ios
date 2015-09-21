@@ -2320,12 +2320,12 @@
 		07636B401BA49A0100925671 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				07636B5A1BA49A0100925671 /* Transport Wrapper */,
 				07636B411BA49A0100925671 /* Authentication */,
 				07636B461BA49A0100925671 /* Common */,
 				07636B4B1BA49A0100925671 /* Friends */,
 				07636B501BA49A0100925671 /* KeyStore */,
 				07636B551BA49A0100925671 /* Notifications */,
-				07636B5A1BA49A0100925671 /* Transport Wrapper */,
 				07636B5D1BA49A0100925671 /* Video */,
 			);
 			path = Network;
