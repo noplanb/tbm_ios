@@ -24,15 +24,16 @@
 #import "TBMAlertController.h"
 #import "ZZToastMessageBuilder.h"
 #import "TBMAppDelegate.h"
+#import "ZZFeatureObserver.h"
 
 @protocol TBMEventsFlowModuleInterface;
 
 @interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate>
 
-@property(nonatomic, strong) ZZGridDataSource* dataSource;
-@property(nonatomic, strong) ZZSoundPlayer* soundPlayer;
-@property(nonatomic, strong) ZZVideoPlayer* videoPlayer;
-
+@property (nonatomic, strong) ZZGridDataSource* dataSource;
+@property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
+@property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
+@property (nonatomic, assign) BOOL isGridAppear;
 @property (nonatomic, strong) id<TBMEventsFlowModuleInterface> eventsFlowModule;
 
 @end
@@ -73,6 +74,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(sendMessageEvent)
                                                  name:kNotificationSendMessage object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_updateFeatures)
+                                                 name:kFeatureObserverFeatureUpdatedNotification
+                                               object:nil];
 }
 
 - (void)dealloc
@@ -110,6 +116,27 @@
     [self.dataSource updateDataSourceWithGridModelFromNotification:model];
 }
 
+- (void)_updateFeatures
+{
+    [self _updateCenterCell];
+}
+
+
+- (void)_updateCenterCell
+{
+    if (self.isGridAppear)
+    {
+        if ([self.dataSource centerViewModel])
+        {
+            id model = [self.dataSource centerViewModel];
+            if ([model isKindOfClass:[ZZGridCenterCellViewModel class]])
+            {
+                [self.userInterface updateSwitchButtonWithState:(![ZZFeatureObserver sharedInstance].isBothCameraEnabled)];
+            }
+        }
+    }
+}
+
 - (void)presentEditFriendsController
 {
     [self.wireframe closeMenu];
@@ -134,8 +161,9 @@
 {
     [self.dataSource setupWithModels:data];
 
-    BOOL isSwitchCameraAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
-    [self.dataSource setupCenterViewModelShouldHandleCameraRotation:isSwitchCameraAvailable];
+    BOOL isTwoCamerasAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
+    BOOL isSwichCameraAvailable = [ZZFeatureObserver sharedInstance].isBothCameraEnabled;
+    [self.dataSource setupCenterViewModelShouldHandleCameraRotation:(isTwoCamerasAvailable && isSwichCameraAvailable)];
 
     [[ZZVideoRecorder shared] updateRecordView:[self.dataSource centerViewModel].recordView];
 }
@@ -386,7 +414,7 @@
 - (void)gridDidAppear
 {
     [self.eventsFlowModule throwEvent:TBMEventFlowEventApplicationDidLaunch];
-    
+    self.isGridAppear = YES;
     //TODO: temp to debug UI
     ZZToastMessageBuilder *toastBuilder = [ZZToastMessageBuilder new];
     [toastBuilder showToastWithMessage:@"Just Zazo someone new!"];

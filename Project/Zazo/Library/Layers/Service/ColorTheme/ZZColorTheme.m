@@ -81,7 +81,7 @@ static CGFloat const kNavigationBarIconHeight = 20;
         self.gridStatusViewNudgeColor = [UIColor an_colorWithHexString:@"#F58A31"];
         self.gridStatusViewBlackColor = [UIColor an_colorWithHexString:@"#1C1C19"];
         self.gridStatusViewRecordColor = [UIColor an_colorWithHexString:@"#DA0D19"];
-        
+        self.gridStatusViewUserNameLabelColor = [UIColor whiteColor];//[UIColor an_colorWithHexString:@"4E4D42"];
         
         self.menuTextColor = [UIColor an_colorWithHexString:@"A8A295"];
         self.menuBackgroundColor = [UIColor an_colorWithHexString:@"2F2E28"];

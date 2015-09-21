@@ -10,17 +10,17 @@
 #import "ZZGridCenterCellViewModel.h"
 #import "ZZVideoRecorder.h"
 #import "UIImage+PDF.h"
+#import "ZZFeatureObserver.h"
 
 static CGFloat const kLayoutConstRecordingLabelHeight = 22;
 static CGFloat const kLayoutConstRecordingLabelFontSize = 0.55 * kLayoutConstRecordingLabelHeight;
 static NSString* kLayoutConstRecordingLabelBackgroundColor = @"000";
 static NSString* kLayoutConstWhiteTextColor  = @"fff";
-static CGFloat const kLayoutConstRecordingBorderWidth = 2;
+static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
 
 @interface ZZGridCenterCell ()
 
 @property (nonatomic, strong) ZZGridCenterCellViewModel* model;
-@property (nonatomic, strong) UIButton* switchCameraButton;
 @property (nonatomic, strong) UIView* videoView;
 @property (nonatomic, strong) CALayer *recordingOverlay;
 @property (nonatomic, strong) UILabel *recordingLabel;
@@ -108,6 +108,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
         [_switchCameraButton addTarget:self
                                 action:@selector(_switchCamera)
                       forControlEvents:UIControlEventTouchUpInside];
+        _switchCameraButton.hidden = [ZZFeatureObserver sharedInstance].isBothCameraEnabled;
         [self.contentView addSubview:_switchCameraButton];
         
         [_switchCameraButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -126,7 +127,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2;
         _recordingLabel.hidden = YES;
         _recordingLabel.text = NSLocalizedString(@"grid-controller.cell.record.title", nil);
         _recordingLabel.backgroundColor = [[UIColor an_colorWithHexString:kLayoutConstRecordingLabelBackgroundColor] colorWithAlphaComponent:0.5];
-        _recordingLabel.textColor = [UIColor an_colorWithHexString:kLayoutConstWhiteTextColor];
+        _recordingLabel.textColor = [UIColor whiteColor];
         _recordingLabel.textAlignment = NSTextAlignmentCenter;
         _recordingLabel.font = [UIFont systemFontOfSize:kLayoutConstRecordingLabelFontSize];
         [self.videoView addSubview:self.recordingLabel];

@@ -20,6 +20,7 @@
 #import "ZZGridUIConstants.h"
 #import "TBMVideoProcessor.h"
 #import "iToast.h"
+#import "ZZFeatureObserver.h"
 
 NSString* const kVideoProcessorDidFinishProcessing = @"TBMVideoProcessorDidFinishProcessing";
 NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing";

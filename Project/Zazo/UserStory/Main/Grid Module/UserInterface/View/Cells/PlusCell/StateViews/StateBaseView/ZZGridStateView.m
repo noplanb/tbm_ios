@@ -12,6 +12,7 @@
 #import "ZZGridUIConstants.h"
 #import "UIImage+PDF.h"
 #import "ZZVideoRecorder.h"
+#import "ZZFeatureObserver.h"
 
 @interface ZZGridStateView ()
 
@@ -51,11 +52,14 @@
 
 - (void)checkIsCancelRecordingWithRecognizer:(UILongPressGestureRecognizer*)recognizer
 {
-    UIView* recordView = recognizer.view;
-    CGPoint location = [recognizer locationInView:recordView];
-    if (!CGRectContainsPoint(recordView.frame,location))
+    if ([ZZFeatureObserver sharedInstance].isRecordAbortWithDraggedEnabled)
     {
-        [[ZZVideoRecorder shared] cancelRecordingWithReason:NSLocalizedString(@"record-dragged-finger-away", nil)];
+        UIView* recordView = recognizer.view;
+        CGPoint location = [recognizer locationInView:recordView];
+        if (!CGRectContainsPoint(recordView.frame,location))
+        {
+            [[ZZVideoRecorder shared] cancelRecordingWithReason:NSLocalizedString(@"record-dragged-finger-away", nil)];
+        }
     }
 }
 
@@ -234,12 +238,12 @@
         _videoCountLabel.textColor = [UIColor whiteColor];
         _videoCountLabel.textAlignment = NSTextAlignmentCenter;
         _videoCountLabel.layer.zPosition = 150;
-        _videoCountLabel.font = [UIFont an_regularFontWithSize:12];
+        _videoCountLabel.font = [UIFont an_regularFontWithSize:11];
         [self addSubview:_videoCountLabel];
         
         [_videoCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self).offset(3);
-            make.top.equalTo(self).offset(-3);
+            make.right.equalTo(self).offset(5);
+            make.top.equalTo(self).offset(-5);
             make.height.equalTo(@(kVideoCountLabelWidth));
             make.width.equalTo(@(kVideoCountLabelWidth));
         }];

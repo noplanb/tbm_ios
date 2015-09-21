@@ -13,12 +13,9 @@
 #import "ZZTouchObserver.h"
 #import "TBMBenchViewController.h"
 #import "ZZSoundPlayer.h"
+#import "ZZFeatureObserver.h"
+#import "ZZActionSheetController.h"
 
-typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
-    ZZEditMenuButtonTypeEditFriends = 0,
-    ZZEditMenuButtonTypeSendFeedback = 1,
-    ZZEditMenuButtonTypeCancel = 2,
-};
 
 @interface ZZGridVC () <ZZTouchObserverDelegate>
 
@@ -33,7 +30,8 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
 - (instancetype)init
 {
     if (self = [super init])
-    {   
+    {
+        [ZZFeatureObserver sharedInstance];
         self.gridView = [ZZGridView new];
         self.controller = [[ZZGridCollectionController alloc] initWithCollectionView:self.gridView.collectionView];
         self.touchObserver = [[ZZTouchObserver alloc] initWithGridView:self.gridView];
@@ -126,31 +124,26 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
 
 - (void)editFriendsSelected
 {
-    NSString *editFriendsButtonTitle = NSLocalizedString(@"grid-controller.menu.edit-friends.button.title", nil);
-    NSString *sendFeedbackButtonTitle = NSLocalizedString(@"grid-controller.menu.send-feedback.button.title", nil);
-    UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                              delegate:nil
-                                                     cancelButtonTitle:@"Cancel"
-                                                destructiveButtonTitle:nil
-                                                     otherButtonTitles:editFriendsButtonTitle, sendFeedbackButtonTitle, nil];
-    [actionSheet showInView:self.view];
     
-    [actionSheet.rac_buttonClickedSignal subscribeNext:^(NSNumber* x) {
-       
-        switch ([x integerValue])
-        {
-            case ZZEditMenuButtonTypeEditFriends:
-            {
-                [self.eventHandler presentEditFriendsController];
-            } break;
-                
-            case ZZEditMenuButtonTypeSendFeedback:
-            {
-                [self.eventHandler presentSendEmailController];
-            } break;
-            default: break;
-        }
+    [ZZActionSheetController actionSheetWithPresentedView:self.view
+                                          completionBlock:^(ZZEditMenuButtonType selectedType) {
+        
+              switch (selectedType)
+              {
+                  case ZZEditMenuButtonTypeEditFriends:
+                  {
+                      [self.eventHandler presentEditFriendsController];
+                  } break;
+                      
+                  case ZZEditMenuButtonTypeSendFeedback:
+                  {
+                      [self.eventHandler presentSendEmailController];
+                  } break;
+                  default: break;
+              
+              }
     }];
+    
 }
 
 - (void)updateRollingStateTo:(BOOL)isEnabled
@@ -162,6 +155,11 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
 {
     UICollectionViewCell* cell = [self.gridView.collectionView cellForItemAtIndexPath:indexPath];
     return cell.bounds;
+}
+
+- (void)updateSwitchButtonWithState:(BOOL)isHidden
+{
+    [self.gridView updateSwithCameraButtonWithState:isHidden];
 }
 
 

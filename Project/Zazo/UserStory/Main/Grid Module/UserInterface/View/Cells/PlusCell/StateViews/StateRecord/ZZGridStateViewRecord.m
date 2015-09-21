@@ -72,7 +72,7 @@
     {
         _userNameLabel = [UILabel new];
         _userNameLabel.textAlignment = NSTextAlignmentCenter;
-        _userNameLabel.textColor = [UIColor whiteColor];
+        _userNameLabel.textColor = [ZZColorTheme shared].gridStatusViewUserNameLabelColor;
         _userNameLabel.font = [UIFont an_regularFontWithSize:kUserNameFontSize];
         [self addSubview:_userNameLabel];
         
