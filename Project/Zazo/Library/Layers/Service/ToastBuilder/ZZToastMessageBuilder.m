@@ -29,7 +29,7 @@
     [self.minimalNotification setSubTitleFont:[UIFont an_regularFontWithSize:15]];
     [self.minimalNotification.subTitleLabel sizeToFit];
     
-    [[[[UIApplication sharedApplication] windows] lastObject] addSubview:self.minimalNotification];
+    [[[UIApplication sharedApplication] keyWindow] addSubview:self.minimalNotification];
 
     [self.minimalNotification show];
     
