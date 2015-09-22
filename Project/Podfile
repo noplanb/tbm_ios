@@ -38,14 +38,12 @@ target 'Zazo' do
     pod 'POP+MCAnimate', '~> 2.0'
     
     #Testing
-    pod 'Instabug', '~> 4.1.5'
     pod 'Reveal-iOS-SDK', '~> 1.5.1', :configurations => ['Debug']
     pod 'Fabric', '~> 1.5'
     pod 'Crashlytics', '~> 3.3.0'
     
     pod 'KVOController', '~> 1.0.3'
     
-    pod 'Typhoon', '~> 3.1.8'
     #Core Data
     pod 'FastEasyMapping', '~> 0.5.1'
     pod 'MagicalRecord', '~> 2.3.0'
@@ -56,7 +54,6 @@ target 'Zazo' do
     #! ----- debugging tools, remove on prod --------- !
     pod 'CocoaLumberjack', '~> 2.0.1'
     pod 'Rollbar', '~> 0.1.5'
-    pod 'Valet', '~> 2.0.2'
     
     pod 'AFNetworking', '~> 2.6.0'
     pod 'OBLogger', '~> 0.2.1'

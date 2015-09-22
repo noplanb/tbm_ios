@@ -188,7 +188,7 @@
     }
     
     AVAsset *asset = [AVAsset assetWithURL:[self videoUrl]];
-    AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc]initWithAsset:asset];
+    AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
     imageGenerator.appliesPreferredTrackTransform = YES;
     CMTime duration = asset.duration;
     CMTime secondsFromEnd = CMTimeMake(2, 1);
@@ -206,7 +206,8 @@
     return YES;
 }
 
-- (void)deleteThumbFile{
+- (void)deleteThumbFile
+{
     DebugLog(@"deleteThumbFile");
     NSFileManager *fm = [NSFileManager defaultManager];
     NSError *error = nil;

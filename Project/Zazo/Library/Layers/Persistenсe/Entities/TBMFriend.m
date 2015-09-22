@@ -22,6 +22,7 @@
 #import "ZZFriendDataProvider.h"
 #import "ZZUserFriendshipStatusHandler.h"
 #import "ZZFriendDomainModel.h"
+#import "ZZUserPresentationHelper.h"
 
 @implementation TBMFriend
 
@@ -298,7 +299,6 @@ static NSMutableArray *videoStatusNotificationDelegates;
         {
             [self deleteVideo:v];
         }
-        
     }
 }
 
@@ -640,7 +640,8 @@ static NSMutableArray *videoStatusNotificationDelegates;
         model.contactStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:model];
         self.friendshipStatus = ZZContactStatusTypeStringFromValue(model.contactStatusValue);
     }
-
+    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
+    
     [self notifyVideoStatusChangeOnMainThread];
 }
 
@@ -754,11 +755,7 @@ static NSMutableArray *videoStatusNotificationDelegates;
 
 - (NSString *)fullName
 {
-    NSString *firstName = self.firstName ? self.firstName : @"";
-    NSString *lastName = self.lastName ? self.lastName : @"";
-    NSMutableString *fullName = [[firstName stringByAppendingString:@" "] mutableCopy];
-    [fullName appendString:lastName];
-    return fullName;
+    return [ZZUserPresentationHelper fullNameWithFirstName:self.firstName lastName:self.lastName];
 }
 
 - (BOOL)hasOutgoingVideo

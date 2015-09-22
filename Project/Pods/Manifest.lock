@@ -73,7 +73,6 @@ PODS:
   - FastEasyMapping (0.5.1)
   - FrameAccessor (1.3.2)
   - HexColors (2.3.0)
-  - Instabug (4.1.6)
   - iToast (0.0.1)
   - KIF (3.2.3):
     - KIF/XCTest (= 3.2.3)
@@ -131,11 +130,7 @@ PODS:
   - SDWebImage/Core (3.7.3)
   - Specta (1.0.3)
   - SVProgressHUD (1.1.3)
-  - Typhoon (3.1.9):
-    - Typhoon/no-arc (= 3.1.9)
-  - Typhoon/no-arc (3.1.9)
   - UIAlertView+Blocks (0.9)
-  - Valet (2.0.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6.0)
@@ -159,7 +154,6 @@ DEPENDENCIES:
   - FastEasyMapping (~> 0.5.1)
   - FrameAccessor (~> 1.3.2)
   - HexColors (~> 2.3.0)
-  - Instabug (~> 4.1.5)
   - iToast (~> 0.0.1)
   - KIF (~> 3.2.3)
   - KVOController (~> 1.0.3)
@@ -178,9 +172,7 @@ DEPENDENCIES:
   - SDWebImage (~> 3.7.3)
   - Specta (~> 1.0.3)
   - SVProgressHUD (~> 1.1.3)
-  - Typhoon (~> 3.1.8)
   - UIAlertView+Blocks (~> 0.9)
-  - Valet (~> 2.0.2)
 
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
@@ -204,7 +196,6 @@ SPEC CHECKSUMS:
   FastEasyMapping: 03a3fbe3af1005e67974358a4ec2b4764f8aa3b4
   FrameAccessor: 0f7ba6ce37be9a5d0302a27c731dca70af8d438b
   HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
-  Instabug: 6f87a52937b449c03e9f99b81ee85b13eea0cf25
   iToast: df147188215cc3293bd4366822833f2862fec451
   KIF: a94bffe9c97e449e44f8fa481c53243d21309e1e
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
@@ -226,8 +217,6 @@ SPEC CHECKSUMS:
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   Specta: cf3e4188cf35375c3ee2cd03f8db8f1f4ef98234
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
-  Typhoon: b48a0ba0023f7ebc92d8693f79d4985dc0f94d13
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
-  Valet: 05e94ab2495077d147879c6dd822782450a96785
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.38.2

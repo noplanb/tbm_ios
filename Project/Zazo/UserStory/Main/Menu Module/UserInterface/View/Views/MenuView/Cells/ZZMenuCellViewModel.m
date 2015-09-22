@@ -8,31 +8,17 @@
 
 #import "ZZMenuCellViewModel.h"
 #import "NSString+ZZAdditions.h"
-
-static UIImage* ZZPlaceholderImage = nil;
-static UIImage* ZZZazoImage = nil;
+#import "ZZUserPresentationHelper.h"
+#import "ZZThumbnailGenerator.h"
 
 @interface ZZMenuCellViewModel ()
 
 @property (nonatomic, strong) NSString* username;
+@property (nonatomic, strong) UIImage* image;
 
 @end
 
 @implementation ZZMenuCellViewModel
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self)
-    {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            ZZZazoImage = [self _zazoImage];
-            ZZPlaceholderImage = [self _placeHolderImage];
-        });
-    }
-    return self;
-}
 
 + (instancetype)viewModelWithItem:(id<ZZUserInterface>)item
 {
@@ -42,47 +28,23 @@ static UIImage* ZZZazoImage = nil;
     return model;
 }
 
--(void)setItem:(id<ZZUserInterface>)item
+- (void)setItem:(id<ZZUserInterface>)item
 {
     _item = item;
-    NSString* firstName = [self.item firstName].length > 0 ? [self.item firstName] : @"";
-    NSString* lastName = [self.item lastName].length > 0 ? [self.item lastName] : @"";
-    self.username = [NSString stringWithFormat:@"%@ %@",firstName,lastName];
-}
-
-- (void)updateImageView:(UIImageView *)imageView
-{
+    self.username = [ZZUserPresentationHelper fullNameWithFirstName:[self.item firstName] lastName:[self.item lastName]];
     if ([self.item contactType] == ZZMenuContactTypeAddressbook)
     {
-        imageView.image = nil;
+        self.image = nil;
     }
     else
     {
-        if (self.item.hasApp)
-        {
-            imageView.image = ZZZazoImage;
-        }
-        else
-        {
-            imageView.image = ZZPlaceholderImage;
-        }
+        self.image = [ZZThumbnailGenerator thumbImageForUser:(id)self.item];
     }
 }
 
-#pragma mark - Private
-
-- (UIImage *)_placeHolderImage
+- (void)updateImageView:(UIImageView*)imageView
 {
-    UIImage* placeholder = [UIImage imageWithPDFNamed:@"Contacts-plaiceholder-men" atHeight:36.f];
-    
-    return [placeholder an_imageByTintingWithColor:[UIColor an_colorWithHexString:@"625f57"]];
-}
-
--(UIImage *)_zazoImage
-{
-    UIImage* zazoImage = [UIImage imageWithPDFNamed:@"icon_zazo" atHeight:36.f];
-    
-    return [zazoImage an_imageByTintingWithColor:[UIColor an_colorWithHexString:@"625f57"]];
+    imageView.image = self.image;
 }
 
 @end
