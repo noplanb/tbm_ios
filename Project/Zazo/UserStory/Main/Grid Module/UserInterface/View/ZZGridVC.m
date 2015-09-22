@@ -151,6 +151,13 @@
     self.gridView.isRotationEnabled = isEnabled;
 }
 
+- (CGRect)frameForIndex:(NSInteger)index
+{
+    NSIndexPath* indexPath = [NSIndexPath indexPathForItem:index inSection:0];
+    UICollectionViewCell* cell = [self.gridView.collectionView cellForItemAtIndexPath:indexPath];
+    return cell.bounds;
+}
+
 - (CGRect)frameForIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell* cell = [self.gridView.collectionView cellForItemAtIndexPath:indexPath];

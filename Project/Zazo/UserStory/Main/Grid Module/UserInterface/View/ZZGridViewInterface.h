@@ -17,6 +17,7 @@
 - (void)updateSwitchButtonWithState:(BOOL)isHidden;
 
 - (CGRect)frameForIndexPath:(NSIndexPath*)indexPath;
+- (CGRect)frameForIndex:(NSInteger)index;
 
 //Hints
 - (UIView*)viewForDialogs;
