@@ -7,9 +7,10 @@
 //
 
 #import "ZZHintsConstants.h"
+@class ZZHintsViewModel;
 
 @interface ZZHintsView : UIView
 
-- (void)updateWithType:(ZZHintsType)type andFocusOnView:(UIView*)view;
+- (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel;
 
 @end

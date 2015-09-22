@@ -10,11 +10,12 @@
 
 @implementation ZZArrowDirectionHelper
 
-- (ZZArrowDirection)arrowDirectionForGridViewWithIndex:(NSInteger)index
++ (ZZArrowDirection)arrowDirectionForGridViewWithIndex:(NSInteger)index
 {
     ZZArrowDirection direction;
     
-    switch (index) {
+    switch (index)
+    {
         case 0:
         case 1:
         case 3:

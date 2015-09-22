@@ -89,6 +89,18 @@
 // Hints
 "hints.send-a-zazo.label.text" = "Send a Zazo";
 "hints.press-to-record.label.text" = "Press and hold to record";
+"hints.play-video.label.text" = "Tap to play";
+"hints.send-first-video.label.text" = "Zazo sent! Well done!";
+"hints.viewed-video.label.text" = "Your Zazo was Viewed!";
+"hints.invite-someone-else.label.text" = "A gift is waiting \nJust Zazo someone else!";
+"hints.welcome-has-app.label.text" = "Record a welcome Zazo \nfor %@";
+"hints.welcome-nudge-user.label.text" = "Press and hold to record a \nwelcome Zazo for %@";
+"hints.switch-camera.label.text" = "Tap to switch camera";
+"hints.abort-recording.label.text" = "Abort a recording. \nDrag finger away while \nrecording";
+"hints.delete-a-friend.label.text" = "Delete a friend. Tap menu. \nAnd chose Edit friends";
+"hints.earpiece-usage.label.text" = "Play quietly. \nTap to play. Then hold \nphone to ear";
+"hints.spin-usage.label.text" = "Move a friend. \nDrag a friend to any \nposition";
+
 
 
 

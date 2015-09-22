@@ -8,6 +8,8 @@
 
 #import "ZZHintsConstants.h"
 
+NSString *const kZZTutorialFontName = @"DKCrayonCrumble";
+
 @implementation ZZHintsConstants
 
 @end

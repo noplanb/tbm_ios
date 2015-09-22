@@ -8,6 +8,7 @@
 #import "TBMHintView.h"
 #import "TBMDialogViewDelegate.h"
 
+NSString *const kTBMTutorialFontName = @"DKCrayonCrumble";
 
 @interface TBMHintView ()
 

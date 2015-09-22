@@ -10,11 +10,12 @@
 #import "ZZHintsView.h"
 #import "TBMHintArrow.h"
 #import "ZZArrowDirectionHelper.h"
-#import "ZZHintsDisplayHandler.h"
+#import "ZZHintsViewModel.h"
+#import "ZZHintsGotItView.h"
 
 @interface ZZHintsView ()
 
-@property (nonatomic, strong) ZZArrowDirectionHelper* arrowDirectonHelper;
+@property (nonatomic, strong) ZZHintsGotItView *gotItView;
 
 @end
 
@@ -32,11 +33,11 @@
     return self;
 }
 
-- (void)updateWithType:(ZZHintsType)type andFocusOnView:(UIView*)view
+- (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel
 {
     UIBezierPath *overlayPath = [UIBezierPath bezierPathWithRect:self.frame];
     
-    CGRect highlightFrame = view.frame;
+    CGRect highlightFrame = [viewModel focusFrame];
     
     UIBezierPath *transparentPath = [UIBezierPath bezierPathWithRect:highlightFrame];
     [overlayPath appendPath:transparentPath];
@@ -49,44 +50,19 @@
     
     [self.layer addSublayer:fillLayer];
     
-    TBMHintArrow *hintView;
-    
-    ZZArrowDirection directionType = [self.arrowDirectonHelper arrowDirectionForGridViewWithIndex:5];
-    
-    
-    switch (type) {
-        case ZZHintsTypeSendZazo:
-        {
-            hintView = [TBMHintArrow arrowWithText:NSLocalizedString(@"hints.send-a-zazo.label.text", nil)
-                                         curveKind:TBMTutorialArrowCurveKindRight
-                                        arrowPoint:CGPointMake(CGRectGetMinX(highlightFrame),
-                                                               CGRectGetMidY(highlightFrame))
-                                             angle:-40.f
-                                            hidden:NO
-                                             frame:self.frame];
-
-        } break;
-        case ZZHintsTypePressAndHoldToRecord:
-        {
-            hintView = [ZZHintsDisplayHandler arrowWithText:NSLocalizedString(@"hints.press-to-record.label.text", nil) directionType:directionType focusFrame:highlightFrame displayType:ZZHintsDisplayTypeGridCell fromFrame:self.frame];
-
-        } break;
-        case ZZHintsTypeZazoSent:
-        {
-            
-
-        } break;
-        case ZZHintsTypeGiftIsWaiting:
-        {
-            
-            
-        } break;
-            
-        default: break;
-    }
-    
-
+    TBMHintArrow *hintView = [TBMHintArrow arrowWithText:[viewModel text]
+                                               curveKind:(NSInteger)[viewModel arrowDirection]
+                                              arrowPoint:[viewModel generateArrowFocusPoint]
+                                                   angle:[viewModel arrowAngle]
+                                                  hidden:[viewModel hidesArrow]
+                                                   frame:[UIScreen mainScreen].bounds];
     [self addSubview:hintView];
+    
+    
+    if ([viewModel bottomImageType] != ZZHintsBottomImageTypeNone)
+    {
+        [self.gotItView updateWithType:[viewModel bottomImageType]];
+    }
 }
 
 - (void)tutorialViewDidTap:(UITapGestureRecognizer *)sender
@@ -98,5 +74,31 @@
 {
     [self removeFromSuperview];
 }
+
+#pragma mark - Lazy Load
+
+- (ZZHintsGotItView*)gotItView
+{
+    if (!_gotItView)
+    {
+        _gotItView = [ZZHintsGotItView new];
+        
+        UIImage* gotItImage = [UIImage imageNamed:@"circle-white"];
+        CGFloat aspectRatio = gotItImage.size.height / gotItImage.size.width;
+        CGFloat width = [UIScreen mainScreen].bounds.size.width / 2.5;
+        CGFloat height = width * aspectRatio;
+        [self addSubview:_gotItView];
+        
+        [_gotItView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@(width));
+            make.height.equalTo(@(height));
+            make.bottom.equalTo(self.mas_bottom).with.offset(-50);
+            make.centerX.equalTo(self.mas_centerX);
+        }];
+    }
+    
+    return _gotItView;
+}
+
 
 @end
