@@ -171,6 +171,16 @@
     [self.dataSource setupCenterViewModelShouldHandleCameraRotation:(isTwoCamerasAvailable && isSwichCameraAvailable)];
 
     [[ZZVideoRecorder shared] updateRecordView:[self.dataSource centerViewModel].recordView];
+    
+    
+    //TOOO: remove from here
+    
+    ANDispatchBlockAfter(1, ^{
+        UIView* focusView = [[UIView alloc] initWithFrame:[self.userInterface frameForIndex:6]];
+        
+        ZZHintsController *controller = [ZZHintsController new];
+        [controller showHintWithType:ZZHintsTypeSpin focusOnView:focusView];
+    });
 }
 
 - (void)dataLoadingDidFailWithError:(NSError*)error
@@ -424,15 +434,6 @@
     //TODO: temp to debug UI
 //    ZZToastMessageBuilder *toastBuilder = [ZZToastMessageBuilder new];
 //    [toastBuilder showToastWithMessage:@"Just Zazo someone new!"];
-    ZZHintsController *controller = [ZZHintsController new];
-    
-    //5 index
-//    UIView* focusView = [[UIView alloc] initWithFrame:CGRectMake(212, 246, 96, 137)];
-    
-    //2 index
-    UIView* focusView = [[UIView alloc] initWithFrame:CGRectMake(212, 246, 96, 137)];
-    
-    [controller showHintWithType:ZZHintsTypeGiftIsWaiting focusOnView:focusView];
 }
 
 #pragma mark - Private

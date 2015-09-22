@@ -32,10 +32,16 @@
 
 - (void)showHintWithType:(ZZHintsType)type focusOnView:(UIView*)view 
 {
+    UIView* focusView = view;
     ZZHintsDomainModel *model = [ZZHintsModelGenerator generateHintModelForType:type];
     ZZHintsViewModel *viewModel = [ZZHintsViewModel viewModelWithItem:model];
-    [viewModel updateFocusFrame:view.frame];
     
+    if (model.type == ZZHintsTypeEditFriends)
+    {
+        focusView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 44, 0, 44, 64)];
+    }
+    
+    [viewModel updateFocusFrame:focusView.frame];
     [self.hintsView updateWithHintsViewModel:viewModel];
 }
 

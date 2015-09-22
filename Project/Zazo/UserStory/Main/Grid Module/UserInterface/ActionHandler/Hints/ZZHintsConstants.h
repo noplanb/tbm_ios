@@ -6,12 +6,21 @@
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+
 typedef NS_ENUM(NSInteger, ZZHintsType)
 {
     ZZHintsTypeSendZazo = 0,
     ZZHintsTypePressAndHoldToRecord,
     ZZHintsTypeZazoSent,
     ZZHintsTypeGiftIsWaiting,
+    ZZHintsTypeTapToSwitchCamera,
+    ZZHintsTypeWelcomeNudgeUser,
+    ZZHintsTypeWelcomeFor,
+    ZZHintsTypeAbortRecording,
+    ZZHintsTypeEditFriends,
+    ZZHintsTypeEarpieceUsage,
+    ZZHintsTypeSpin,
 };
 
 typedef NS_ENUM(NSInteger, ZZArrowDirection)

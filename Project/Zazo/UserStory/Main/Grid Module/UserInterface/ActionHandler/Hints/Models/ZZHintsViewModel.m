@@ -2,7 +2,7 @@
 //  ZZHintsViewModel.m
 //  Zazo
 //
-//  Created by Oleg Panforov on 9/22/15.
+//  Created by ANODA on 9/22/15.
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
@@ -38,6 +38,9 @@
     {
         case ZZHintsTypeSendZazo:
         case ZZHintsTypePressAndHoldToRecord:
+        case ZZHintsTypeWelcomeFor:
+        case ZZHintsTypeAbortRecording:
+        case ZZHintsTypeEarpieceUsage:
         {
             return CGPointMake(CGRectGetMinX(self.focusFrame),
                                 CGRectGetMinY(self.focusFrame));
@@ -52,11 +55,27 @@
         } break;
             
         case ZZHintsTypeGiftIsWaiting:
+        case ZZHintsTypeEditFriends:
         {
             return CGPointMake(CGRectGetMinX(self.focusFrame),
                                CGRectGetMidY(self.focusFrame) + (CGRectGetHeight(self.focusFrame) / 4));
             
         } break;
+            
+        case ZZHintsTypeTapToSwitchCamera:
+        case ZZHintsTypeWelcomeNudgeUser:
+        {
+            return CGPointMake(CGRectGetMaxX(self.focusFrame),
+                               CGRectGetMidY(self.focusFrame));
+        } break;
+        
+        case ZZHintsTypeSpin:
+        {
+            return CGPointMake(CGRectGetMaxX(self.focusFrame),
+                               CGRectGetMinY(self.focusFrame));
+            
+        } break;
+            
             
         default: break;
     }
