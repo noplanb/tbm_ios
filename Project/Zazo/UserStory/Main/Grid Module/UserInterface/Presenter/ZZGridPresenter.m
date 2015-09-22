@@ -25,6 +25,7 @@
 #import "ZZToastMessageBuilder.h"
 #import "TBMAppDelegate.h"
 #import "ZZFeatureObserver.h"
+#import "ZZHintsController.h"
 
 @protocol TBMEventsFlowModuleInterface;
 
@@ -91,10 +92,12 @@
 {
     if (!_eventsFlowModule)
     {
-        TBMEventsFlowModulePresenter* eventsFlowModulePresenter = [TBMEventsFlowModulePresenter new];
-        eventsFlowModulePresenter.gridModule = self;
-        [eventsFlowModulePresenter setupHandlers];
-        _eventsFlowModule = eventsFlowModulePresenter;
+#ifdef HINTS
+    TBMEventsFlowModulePresenter* eventsFlowModulePresenter = [TBMEventsFlowModulePresenter new];
+    eventsFlowModulePresenter.gridModule = self;
+    [eventsFlowModulePresenter setupHandlers];
+    _eventsFlowModule = eventsFlowModulePresenter;
+#endif
     }
     return _eventsFlowModule;
 }
@@ -415,9 +418,19 @@
 {
     [self.eventsFlowModule throwEvent:TBMEventFlowEventApplicationDidLaunch];
     self.isGridAppear = YES;
+    
     //TODO: temp to debug UI
-    ZZToastMessageBuilder *toastBuilder = [ZZToastMessageBuilder new];
-    [toastBuilder showToastWithMessage:@"Just Zazo someone new!"];
+//    ZZToastMessageBuilder *toastBuilder = [ZZToastMessageBuilder new];
+//    [toastBuilder showToastWithMessage:@"Just Zazo someone new!"];
+    ZZHintsController *controller = [ZZHintsController new];
+    
+    //5 index
+//    UIView* focusView = [[UIView alloc] initWithFrame:CGRectMake(212, 246, 96, 137)];
+    
+    //2 index
+    UIView* focusView = [[UIView alloc] initWithFrame:CGRectMake(212, 246, 96, 137)];
+    
+    [controller showHintWithType:ZZHintsTypeGiftIsWaiting focusOnView:focusView];
 }
 
 #pragma mark - Private
@@ -455,8 +468,7 @@
 
 - (void)showSendInvitationDialogForUser:(NSString*)firsName
 {
-    [ZZGridAlertBuilder showSendInvitationDialogForUser:firsName completion:^
-    {
+    [ZZGridAlertBuilder showSendInvitationDialogForUser:firsName completion:^ {
         [self.interactor inviteUserThatHasNoAppInstalled];
     }];
 }

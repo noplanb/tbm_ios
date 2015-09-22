@@ -16,8 +16,6 @@
 //TODO: to remove
 #import "TBMRegisterViewController.h"
 #import "TBMHomeViewController.h"
-#import "TBMUser.h"
-#import "TBMS3CredentialsManager.h"
 #import "TBMAppDelegate+Boot.h" // temp
 #import "ZZTouchControllerWithoutDelay.h"
 #import "ZZStrategyNavigationLeftRight.h"

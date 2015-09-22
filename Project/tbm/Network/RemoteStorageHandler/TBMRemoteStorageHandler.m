@@ -7,7 +7,6 @@
 //
 
 #import "TBMRemoteStorageHandler.h"
-#import "TBMS3CredentialsManager.h"
 #import "TBMFriend.h"
 #import "TBMUser.h"
 #import "TBMStringUtils.h"
@@ -17,6 +16,8 @@
 #import "ZZAPIRoutes.h"
 #import "ZZUserDomainModel.h"
 #import "ZZUserDataProvider.h"
+#import "ZZKeychainDataProvider.h"
+#import "ZZS3CredentialsDomainModel.h"
 
 static NSString *const kArraySeparator = @",";
 
@@ -127,7 +128,7 @@ static NSString *const kArraySeparator = @",";
 
 + (NSString *)s3Bucket
 {
-    return [TBMS3CredentialsManager credentials][S3_BUCKET_KEY];
+    return [ZZKeychainDataProvider loadCredentials].bucket;
 }
 
 //-------------------------

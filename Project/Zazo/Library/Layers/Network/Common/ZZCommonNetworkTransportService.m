@@ -9,6 +9,9 @@
 #import "ZZCommonNetworkTransportService.h"
 #import "ZZCommonNetworkTransport.h"
 #import "NSString+ANAdditions.h"
+#import "ZZKeychainDataProvider.h"
+#import "FEMObjectDeserializer.h"
+#import "ZZS3CredentialsDomainModel.h"
 
 @implementation ZZCommonNetworkTransportService
 
@@ -28,7 +31,7 @@
 
 + (RACSignal*)checkApplicationVersion
 {
-    NSString* version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSString* version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     version = [NSObject an_safeString:[version an_stripAllNonNumericCharacters]];
     NSDictionary* parameters = @{@"device_platform": @"ios",
                                  @"version": @([version integerValue])};
@@ -37,7 +40,30 @@
 
 + (RACSignal*)loadS3Credentials
 {
-    return [ZZCommonNetworkTransport loadS3Credentials];
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+    
+        [[ZZCommonNetworkTransport loadS3Credentials] subscribeNext:^(id x) {
+            
+            FEMObjectMapping* mapping = [ZZS3CredentialsDomainModel mapping];
+            ZZS3CredentialsDomainModel* model = [FEMObjectDeserializer deserializeObjectExternalRepresentation:x
+                                                                                                  usingMapping:mapping];
+            if ([model isValid])
+            {
+                [ZZKeychainDataProvider updateWithCredentials:model];
+                [subscriber sendNext:model];
+            }
+            else
+            {
+                [subscriber sendError:nil]; // TODO: credentials not valid
+            }
+            
+        } error:^(NSError *error) {
+            
+            [subscriber sendError:error];
+        }];
+        
+        return [RACDisposable disposableWithBlock:^{}];
+    }];
 }
 
 @end

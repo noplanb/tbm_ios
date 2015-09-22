@@ -69,7 +69,6 @@
     self.videoModelsArray = URLs;
     if (view != self.moviePlayerController.view.superview && view)
     {
-    
         self.moviePlayerController.view.frame = view.bounds;
         [view addSubview:self.moviePlayerController.view];
         [view bringSubviewToFront:self.moviePlayerController.view];

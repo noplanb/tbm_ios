@@ -11,7 +11,7 @@
 
 @interface ZZAppDelegate ()
 
-@property (nonatomic, strong) ZZAppDependencies * appDependencies;
+@property (nonatomic, strong) ZZAppDependencies* appDependencies;
 
 @end
 
