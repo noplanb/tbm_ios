@@ -9,7 +9,6 @@
 #import "TBMVideoProcessor.h"
 #import "AVFoundation/AVFoundation.h"
 #import "OBLogger.h"
-#import "TBMConfig.h"
 #import "NSError+Extensions.h"
 
 NSString* const TBMVideoProcessorDidFinishProcessing = @"TBMVideoProcessorDidFinishProcessing";

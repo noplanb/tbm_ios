@@ -11,7 +11,6 @@
 #import "TBMDispatch.h"
 #import "OBLogger.h"
 #import <Rollbar.h>
-#import "TBMConfig.h"
 
 #import "NSString+NSStringExtensions.h"
 

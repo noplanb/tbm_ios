@@ -61,6 +61,10 @@
     self.gridModule = gridModule;
 }
 
+- (void)resetHintsState
+{
+    // ???
+}
 
 - (void)resetSession
 {

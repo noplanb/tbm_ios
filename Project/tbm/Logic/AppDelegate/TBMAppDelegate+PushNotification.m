@@ -9,7 +9,6 @@
 #import "TBMAppDelegate+PushNotification.h"
 #import "TBMAppDelegate+AppSync.h"
 #import "TBMUser.h"
-#import "TBMConfig.h"
 #import "ZZUserDataProvider.h"
 #import "ZZUserDomainModel.h"
 #import "NSObject+ANSafeValues.h"

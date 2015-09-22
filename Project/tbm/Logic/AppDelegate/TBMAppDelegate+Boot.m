@@ -7,7 +7,6 @@
 //
 
 #import "TBMAlertController.h"
-#import "TBMConfig.h"
 #import "TBMAppDelegate+Boot.h"
 #import "TBMAppDelegate+PushNotification.h"
 #import "TBMAppDelegate+AppSync.h"
