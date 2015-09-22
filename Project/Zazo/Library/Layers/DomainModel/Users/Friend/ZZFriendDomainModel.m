@@ -8,6 +8,7 @@
 
 #import "ZZFriendDomainModel.h"
 #import "FEMObjectMapping.h"
+#import "ZZUserPresentationHelper.h"
 
 const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     .firstName = @"firstName",
@@ -66,12 +67,7 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
 
 - (NSString *)fullName
 {
-    NSString* username = self.firstName ? self.firstName : @"";
-    if (username.length)
-    {
-        username = [username stringByAppendingString:@" "];
-    }
-    return [username stringByAppendingString:self.lastName ? self.lastName : @""];
+    return [ZZUserPresentationHelper fullNameWithFirstName:self.firstName lastName:self.lastName];
 }
 
 - (BOOL)hasApp
@@ -155,7 +151,5 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
 {
     return ZZContactStatusTypeZazoFriend;
 }
-
-
 
 @end

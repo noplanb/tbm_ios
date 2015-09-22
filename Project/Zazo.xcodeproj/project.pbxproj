@@ -344,6 +344,7 @@
 		07636F131BA49A0100925671 /* UIView+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA61BA49A0100925671 /* UIView+Image.m */; };
 		079280A41BA8544800E22553 /* ZZGridActionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 079280A31BA8544800E22553 /* ZZGridActionHandler.m */; };
 		07BAA7051BB18DD2009878B9 /* NSArray+TBMArrayHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA7041BB18DD2009878B9 /* NSArray+TBMArrayHelpers.m */; settings = {ASSET_TAGS = (); }; };
+		07BAA7081BB1B488009878B9 /* ZZUserPresentationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA7071BB1B488009878B9 /* ZZUserPresentationHelper.m */; settings = {ASSET_TAGS = (); }; };
 		07C256181BB0334C00098E3C /* TBMGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636ACF1BA49A0100925671 /* TBMGridViewController.m */; settings = {ASSET_TAGS = (); }; };
 		07C256191BB0335100098E3C /* TBMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AD71BA49A0100925671 /* TBMHomeViewController.m */; settings = {ASSET_TAGS = (); }; };
 		07C94DD01BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C94DCF1BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m */; };
@@ -1091,6 +1092,8 @@
 		079280A31BA8544800E22553 /* ZZGridActionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZGridActionHandler.m; path = ActionHandler/ZZGridActionHandler.m; sourceTree = "<group>"; };
 		07BAA7031BB18DD2009878B9 /* NSArray+TBMArrayHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+TBMArrayHelpers.h"; path = "NSArray/NSArray+TBMArrayHelpers.h"; sourceTree = "<group>"; };
 		07BAA7041BB18DD2009878B9 /* NSArray+TBMArrayHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+TBMArrayHelpers.m"; path = "NSArray/NSArray+TBMArrayHelpers.m"; sourceTree = "<group>"; };
+		07BAA7061BB1B488009878B9 /* ZZUserPresentationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZUserPresentationHelper.h; path = UserPresentationHelper/ZZUserPresentationHelper.h; sourceTree = "<group>"; };
+		07BAA7071BB1B488009878B9 /* ZZUserPresentationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZUserPresentationHelper.m; path = UserPresentationHelper/ZZUserPresentationHelper.m; sourceTree = "<group>"; };
 		07C94DCE1BA7246A009338B1 /* ZZUserFriendshipStatusHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZUserFriendshipStatusHandler.h; path = FriendshipStatusHandler/ZZUserFriendshipStatusHandler.h; sourceTree = "<group>"; };
 		07C94DCF1BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZUserFriendshipStatusHandler.m; path = FriendshipStatusHandler/ZZUserFriendshipStatusHandler.m; sourceTree = "<group>"; };
 		07F0E7E41B8CD7A900036AB2 /* StringUtilsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringUtilsTest.m; sourceTree = "<group>"; };
@@ -1799,8 +1802,8 @@
 			isa = PBXGroup;
 			children = (
 				07636AE81BA49A0100925671 /* Application */,
-				07636AF91BA49A0100925671 /* Library */,
 				07636C021BA49A0100925671 /* UserStory */,
+				07636AF91BA49A0100925671 /* Library */,
 				07636BC91BA49A0100925671 /* Resources */,
 				07636D241BA49A0100925671 /* Vendor */,
 			);
@@ -2274,6 +2277,7 @@
 				07636BC31BA49A0100925671 /* VideoRecorder */,
 				07636BC61BA49A0100925671 /* VideoUtils */,
 				07C94DD11BA7246D009338B1 /* UserFriendshipStatusHandler */,
+				07BAA7091BB1B48F009878B9 /* UserPresentationHelper */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -3982,6 +3986,15 @@
 			name = ActionHandler;
 			sourceTree = "<group>";
 		};
+		07BAA7091BB1B48F009878B9 /* UserPresentationHelper */ = {
+			isa = PBXGroup;
+			children = (
+				07BAA7061BB1B488009878B9 /* ZZUserPresentationHelper.h */,
+				07BAA7071BB1B488009878B9 /* ZZUserPresentationHelper.m */,
+			);
+			name = UserPresentationHelper;
+			sourceTree = "<group>";
+		};
 		07C94DD11BA7246D009338B1 /* UserFriendshipStatusHandler */ = {
 			isa = PBXGroup;
 			children = (
@@ -4666,12 +4679,12 @@
 				07636DBC1BA49A0100925671 /* TBMVideoIdUtils.m in Sources */,
 				7952764A1BA6B4AB00E506D5 /* ZZMenuCell.m in Sources */,
 				07636E351BA49A0100925671 /* ZZCommonNetworkTransportService.m in Sources */,
-				07636E0A1BA49A0100925671 /* TBMBenchViewController.m in Sources */,
 				79123D891BB14F9E007E1CBF /* ZZHintsDomainModel.m in Sources */,
 				07636DC71BA49A0100925671 /* TBMFeatureUnlockDialogView.m in Sources */,
 				07636E5E1BA49A0100925671 /* ZZVideoRecorder.m in Sources */,
 				07636E2A1BA49A0100925671 /* ZZVideoModelsMapper.m in Sources */,
 				07636DCC1BA49A0100925671 /* TBMEarpieceUsageHintPresenter.m in Sources */,
+				07BAA7081BB1B488009878B9 /* ZZUserPresentationHelper.m in Sources */,
 				07636E5B1BA49A0100925671 /* ZZStringUtils.m in Sources */,
 				07636E501BA49A0100925671 /* ZZErrorHandler.m in Sources */,
 				07636F041BA49A0100925671 /* ANTableContainerView.m in Sources */,
