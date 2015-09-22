@@ -11,6 +11,11 @@
 
 @implementation TBMEventHandlerPresenter
 
+- (void)setupEventFlowModule:(id<TBMEventsFlowModuleInterface>)eventFlowModule
+{
+    //TODO:
+}
+
 - (void)setDialogView:(id <TBMDialogViewInterface>)dialogView
 {
     _dialogView = dialogView;
@@ -43,7 +48,7 @@
     if (![self.eventFlowModule isAnyHandlerActive])
     {
         [self didPresented];
-        [self.dialogView showInGrid:self.gridModule];
+        [self.dialogView showInGrid:(id)self.gridModule];
     }
 }
 

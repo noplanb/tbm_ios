@@ -17,6 +17,8 @@
 #import "NSManagedObjectContext+MagicalSaves.h"
 #import "MagicalRecord.h"
 #import "ZZVideoRecorder.h"
+#import "TBMFriend.h"
+#import "TBMGridViewController.h"
 
 @interface TBMGridViewController ()
 @property(nonatomic) NSArray *gridViews;
@@ -62,9 +64,10 @@
     [self addObservers];
 }
 
--(void)viewDidAppear:(BOOL)animated {
+-(void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
-    [self.delegate gridDidAppear:self];
+//    [self.delegate gridDidAppear:self];
     [self setupVideoRecorder:0];
 }
 
@@ -139,7 +142,7 @@
         if (reason != nil)
             [[iToast makeText:reason] show];
 
-        [self performSelector:@selector(toastNotSent) withObject:nil afterDelay:1.2];
+//        [self performSelector:@selector(toastNotSent) withObject:nil afterDelay:1.2];
     });
 }
 
@@ -441,31 +444,32 @@
 - (void)moveFriendToGrid:(TBMFriend *)friend {
     OB_INFO(@"moveFriendToGrid: %@", friend.firstName);
     [self rankingActionOccurred:friend];
-    self.lastAddedFriend = friend;
+//    self.lastAddedFriend = friend;
     if ([TBMGridElement friendIsOnGrid:friend]) {
 //        [self highlightElement:[TBMGridElement findWithFriend:friend]];
         return;
     }
 
     TBMGridElement *ge = [self nextAvailableGridElement];
-    self.lastAddedGridElement = ge;
+//    self.lastAddedGridElement = ge;
     ge.friend = friend;
     [self notifyChildrenOfGridChange:ge.index.integerValue];
 //    [self highlightElement:ge];
 
     if (ge.friend.hasApp)
     {
-        [self.delegate friendDidAdd];
+//        [self.delegate friendDidAdd];
     } else
     {
-        [self.delegate friendDidAddWithoutApp];
+//        [self.delegate friendDidAddWithoutApp];
     }
 
 }
 
 - (void)notifyChildrenOfGridChange:(NSInteger)index
 {
-    for (TBMGridElementViewController *c in self.childViewControllers) {
+    for (TBMGridElementViewController *c in self.childViewControllers)
+    {
         [c gridDidChange:index];
     }
 }
@@ -628,25 +632,25 @@
 
 #pragma mark - TBMGridElementDelegate
 
-- (void)videoPlayerDidStartPlaying:(TBMVideoPlayer *)player {
-    [self.delegate videoPlayerDidStartPlaying:player];
-}
-
-- (void)videoPlayerDidStopPlaying:(TBMVideoPlayer *)player {
-    [self.delegate videoPlayerDidStopPlaying:player];
-}
-
-- (void)messageDidUpload {
-    [self.delegate messageDidUpload];
-}
-
-- (void)messageDidViewed:(NSUInteger)gridIndex {
-    self.lastViewedMessageGridIndex = gridIndex;
-    [self.delegate messageDidViewed];
-}
-
-- (void)messageDidReceive {
-    [self.delegate messageDidReceive];
-}
+//- (void)videoPlayerDidStartPlaying:(TBMVideoPlayer *)player {
+//    [self.delegate videoPlayerDidStartPlaying:player];
+//}
+//
+//- (void)videoPlayerDidStopPlaying:(TBMVideoPlayer *)player {
+//    [self.delegate videoPlayerDidStopPlaying:player];
+//}
+//
+//- (void)messageDidUpload {
+//    [self.delegate messageDidUpload];
+//}
+//
+//- (void)messageDidViewed:(NSUInteger)gridIndex {
+//    self.lastViewedMessageGridIndex = gridIndex;
+//    [self.delegate messageDidViewed];
+//}
+//
+//- (void)messageDidReceive {
+//    [self.delegate messageDidReceive];
+//}
 
 @end

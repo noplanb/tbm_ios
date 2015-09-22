@@ -14,9 +14,6 @@
 #import "ZZBaseTouchController.h"
 
 //TODO: to remove
-#import "TBMRegisterViewController.h"
-#import "TBMHomeViewController.h"
-#import "TBMAppDelegate+Boot.h" // temp
 #import "ZZTouchControllerWithoutDelay.h"
 #import "ZZStrategyNavigationLeftRight.h"
 #import "ZZEnvelopStrategy.h"

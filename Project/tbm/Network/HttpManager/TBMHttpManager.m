@@ -7,7 +7,6 @@
 //
 
 #import "TBMHttpManager.h"
-#import "TBMConfig.h"
 #import "TBMUser.h"
 #import "ZZAPIRoutes.h"
 #import "ZZUserDataProvider.h"

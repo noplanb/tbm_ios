@@ -18,6 +18,11 @@
 
 @implementation TBMEventsFlowDataSource
 
+- (void)resetHintsState
+{
+    // TODO:
+}
+
 - (BOOL)messageRecordedState
 {
     return [[ZZStoredSettingsManager shared] messageEverRecorded];

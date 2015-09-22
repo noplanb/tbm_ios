@@ -9,7 +9,6 @@
 #import "TBMHomeViewController+Invite.h"
 #import "TBMContactsManager.h"
 #import "OBLogger.h"
-#import "TBMConfig.h"
 #import <objc/runtime.h>
 #import "TBMPhoneUtils.h"
 #import "SDCAlertController.h"
@@ -18,6 +17,7 @@
 #import "TBMUser.h"
 #import "TBMAlertController.h"
 #import "ZZAPIRoutes.h"
+#import "TBMFriend.h"
 
 @implementation TBMHomeViewController (Invite)
 
@@ -251,7 +251,7 @@
     
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Send a Zazo" message:msg];
     [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
-        [self.gridViewController moveFriendToGrid:[self friend]];
+//        [self.gridViewController moveFriendToGrid:[self friend]];
     }]];
     [alert presentWithCompletion:nil];
 }
@@ -299,7 +299,7 @@
     NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
     mc.body = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", appName, kInviteFriendBaseURL, [self friend].idTbm];
     [self startWaitingForServer];
-    [self applicationWillSwitchToSMS];
+//    [self applicationWillSwitchToSMS];
     [self presentViewController:mc animated:YES completion:^{
         [self stopWaitingForServer];
         NSLog(@"presented sms controller");

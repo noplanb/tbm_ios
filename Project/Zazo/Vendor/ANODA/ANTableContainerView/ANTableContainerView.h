@@ -11,7 +11,6 @@
 @property (nonatomic, strong) UITableView* tableView;
 
 + (instancetype)containerWithTableViewStyle:(UITableViewStyle)style;
-
-- (instancetype)initWithStyle:(UITableViewStyle)style NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithStyle:(UITableViewStyle)style;
 
 @end
