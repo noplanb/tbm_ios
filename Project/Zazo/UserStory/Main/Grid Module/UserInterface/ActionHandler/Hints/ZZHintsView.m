@@ -16,6 +16,7 @@
 @interface ZZHintsView ()
 
 @property (nonatomic, strong) ZZHintsGotItView *gotItView;
+@property (nonatomic, assign) ZZHintsBottomImageType currentBottomImageType;
 
 @end
 
@@ -61,6 +62,7 @@
     
     if ([viewModel bottomImageType] != ZZHintsBottomImageTypeNone)
     {
+        self.currentBottomImageType = [viewModel bottomImageType];
         [self.gotItView updateWithType:[viewModel bottomImageType]];
     }
 }
@@ -83,9 +85,20 @@
     {
         _gotItView = [ZZHintsGotItView new];
         
-        UIImage* gotItImage = [UIImage imageNamed:@"circle-white"];
+        UIImage* gotItImage;
+        CGFloat width;
+        
+        if (self.currentBottomImageType == ZZHintsBottomImageTypePresent)
+        {
+            gotItImage = [UIImage imageNamed:@"present-icon"];
+            width = [UIScreen mainScreen].bounds.size.width / 4;
+        }
+        else
+        {
+            gotItImage = [UIImage imageNamed:@"circle-white"];
+            width = [UIScreen mainScreen].bounds.size.width / 2.5;
+        }
         CGFloat aspectRatio = gotItImage.size.height / gotItImage.size.width;
-        CGFloat width = [UIScreen mainScreen].bounds.size.width / 2.5;
         CGFloat height = width * aspectRatio;
         [self addSubview:_gotItView];
         

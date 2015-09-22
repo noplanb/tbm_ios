@@ -77,7 +77,7 @@ CGFloat degreesToRadians(CGFloat x)
     CGFloat y;
 
     CGRect arrow = [self.rotationWrapper convertRect:self.arrowImageView.frame toView:self];
-    y = self.arrowAngle >= -90 && self.arrowAngle <= 90 ? CGRectGetMinY(arrow) - CGRectGetHeight(self.arrowLabel.bounds) - 30 : CGRectGetMaxY(arrow) + 30;
+    y = self.arrowAngle >= -90 && self.arrowAngle <= 90 ? CGRectGetMinY(arrow) - CGRectGetHeight(self.arrowLabel.bounds) -50 : CGRectGetMaxY(arrow) + 50;
     self.arrowLabel.preferredMaxLayoutWidth = width;
     self.arrowLabel.frame = CGRectMake(x, y, width, height);
     CGSize newSize = self.arrowLabel.sizeOfMultiLineLabel;
@@ -125,7 +125,7 @@ CGFloat degreesToRadians(CGFloat x)
     {
         _arrowLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _arrowLabel.textColor = [UIColor whiteColor];
-        _arrowLabel.font = [UIFont fontWithName:kTBMTutorialFontName size:32];
+        _arrowLabel.font = [UIFont fontWithName:kTBMTutorialFontName size:30];
         _arrowLabel.textAlignment = NSTextAlignmentCenter;
         _arrowLabel.lineBreakMode = NSLineBreakByWordWrapping;
         _arrowLabel.numberOfLines = 0;
