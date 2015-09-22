@@ -6,7 +6,8 @@
 #import "TBMHintArrow.h"
 #import "UILabel+TBMUILabelDynamicHeight.h"
 
-NSString *const kTBMTutorialFontName = @"DKCrayonCrumble";
+
+CGFloat const kImageScale = 0.75f;
 
 @interface TBMHintArrow ()
 
@@ -69,7 +70,6 @@ CGFloat degreesToRadians(CGFloat x)
 
 - (void)layoutLabels
 {
-
     CGFloat margin = 15.f;
     CGFloat height = 40;
     CGFloat width = CGRectGetWidth(self.bounds) - (margin * 2);
@@ -77,7 +77,7 @@ CGFloat degreesToRadians(CGFloat x)
     CGFloat y;
 
     CGRect arrow = [self.rotationWrapper convertRect:self.arrowImageView.frame toView:self];
-    y = self.arrowAngle >= -90 && self.arrowAngle <= 90 ? CGRectGetMinY(arrow) - CGRectGetHeight(self.arrowLabel.bounds) : CGRectGetMaxY(arrow);
+    y = self.arrowAngle >= -90 && self.arrowAngle <= 90 ? CGRectGetMinY(arrow) - CGRectGetHeight(self.arrowLabel.bounds) - 30 : CGRectGetMaxY(arrow) + 30;
     self.arrowLabel.preferredMaxLayoutWidth = width;
     self.arrowLabel.frame = CGRectMake(x, y, width, height);
     CGSize newSize = self.arrowLabel.sizeOfMultiLineLabel;
@@ -86,11 +86,10 @@ CGFloat degreesToRadians(CGFloat x)
 
 - (void)layoutArrow
 {
-    CGFloat imageWidth = self.arrowImage.size.width;
-    CGFloat imageHeight = self.arrowImage.size.height;
-    CGFloat width = self.arrowImage.size.width;
-    CGFloat height = self.arrowImage.size.height;
-    CGRect frame = CGRectMake(self.arrowPoint.x - (width / 2), self.arrowPoint.y - (height / 2), width, height);
+    CGFloat imageWidth = self.arrowImage.size.width * kImageScale;
+    CGFloat imageHeight = self.arrowImage.size.height * kImageScale;
+
+    CGRect frame = CGRectMake(self.arrowPoint.x - (imageWidth / 2), self.arrowPoint.y - (imageHeight / 2), imageWidth, imageHeight);
     self.rotationWrapper.frame = frame;
     self.arrowImageView.image = self.arrowImage;
     self.arrowImageView.frame = CGRectMake(0, 0, imageWidth, imageHeight);

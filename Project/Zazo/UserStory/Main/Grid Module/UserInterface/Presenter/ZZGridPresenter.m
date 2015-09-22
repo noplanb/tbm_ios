@@ -423,8 +423,14 @@
 //    ZZToastMessageBuilder *toastBuilder = [ZZToastMessageBuilder new];
 //    [toastBuilder showToastWithMessage:@"Just Zazo someone new!"];
     ZZHintsController *controller = [ZZHintsController new];
+    
+    //5 index
+//    UIView* focusView = [[UIView alloc] initWithFrame:CGRectMake(212, 246, 96, 137)];
+    
+    //2 index
     UIView* focusView = [[UIView alloc] initWithFrame:CGRectMake(212, 246, 96, 137)];
-    [controller showHintWithType:ZZHintsTypeSendZazo focusOnView:focusView];
+    
+    [controller showHintWithType:ZZHintsTypeGiftIsWaiting focusOnView:focusView];
 }
 
 #pragma mark - Private

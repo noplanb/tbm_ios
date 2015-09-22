@@ -7,8 +7,10 @@
 //
 
 #import "ZZHintsController.h"
-
 #import "ZZHintsView.h"
+#import "ZZHintsModelGenerator.h"
+#import "ZZHintsViewModel.h"
+#import "ZZHintsDomainModel.h"
 
 @interface ZZHintsController ()
 
@@ -28,9 +30,13 @@
     return self;
 }
 
-- (void)showHintWithType:(ZZHintsType)type focusOnView:(UIView*)view
+- (void)showHintWithType:(ZZHintsType)type focusOnView:(UIView*)view 
 {
-    [self.hintsView updateWithType:type andFocusOnView:view];
+    ZZHintsDomainModel *model = [ZZHintsModelGenerator generateHintModelForType:type];
+    ZZHintsViewModel *viewModel = [ZZHintsViewModel viewModelWithItem:model];
+    [viewModel updateFocusFrame:view.frame];
+    
+    [self.hintsView updateWithHintsViewModel:viewModel];
 }
 
 #pragma mark - Lazy Load

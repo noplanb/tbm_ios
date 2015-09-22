@@ -27,6 +27,15 @@ typedef NS_ENUM(NSInteger, ZZHintsDisplayType)
     ZZHintsDisplayTypeCustom,
 };
 
+typedef NS_ENUM(NSInteger, ZZHintsBottomImageType)
+{
+    ZZHintsBottomImageTypeNone = 0,
+    ZZHintsBottomImageTypePresent,
+    ZZHintsBottomImageTypeGotIt,
+    ZZHintsBottomImageTypeTryItNow,
+};
+
+NSString *const kZZTutorialFontName;
 
 
 @interface ZZHintsConstants : NSObject

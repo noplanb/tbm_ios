@@ -10,8 +10,7 @@
 
 @interface ZZArrowDirectionHelper : NSObject
 
-- (NSInteger)angleForGridViewWithIndex:(NSInteger)index;
-- (ZZArrowDirection)arrowDirectionForGridViewWithIndex:(NSInteger)index;
++ (ZZArrowDirection)arrowDirectionForGridViewWithIndex:(NSInteger)index;
 
 
 @end
