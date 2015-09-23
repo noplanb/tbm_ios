@@ -174,6 +174,11 @@ static NSInteger const kGridCenterCellIndex = 4;
     [self.delegate switchCamera];
 }
 
+- (BOOL)isVideoPalying
+{
+    return [self.delegate isVideoPlaying];
+}
+
 
 #pragma mark - Private
 

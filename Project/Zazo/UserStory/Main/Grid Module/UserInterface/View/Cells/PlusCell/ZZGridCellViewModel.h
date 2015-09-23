@@ -22,6 +22,7 @@
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel;
 - (void)playingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel;
 - (void)nudgeSelectedWithUserModel:(id)userModel;
+- (BOOL)isVideoPalying;
 
 @end
 

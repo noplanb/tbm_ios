@@ -21,5 +21,6 @@
 - (void)stop;
 
 - (void)toggle;
+- (BOOL)isPlaying;
 
 @end

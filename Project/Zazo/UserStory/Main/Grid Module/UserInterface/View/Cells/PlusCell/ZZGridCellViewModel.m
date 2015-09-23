@@ -19,10 +19,21 @@
 
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
 @property (nonatomic, strong) UILongPressGestureRecognizer* recordRecognizer;
+@property (nonatomic, strong) NSMutableArray* recognizerStatesArray;
 
 @end
 
 @implementation ZZGridCellViewModel
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        self.recognizerStatesArray = [NSMutableArray array];
+    }
+    return self;
+}
 
 - (void)updateRecordingStateTo:(BOOL)isRecording
 {
@@ -134,21 +145,50 @@
 
 - (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer
 {
-    [self _checkIsCancelRecordingWithRecognizer:recognizer];
     
-    if (recognizer.state == UIGestureRecognizerStateBegan)
+    if (![self.delegate isVideoPalying] && [self isRecordingBehaviorRightWithRecroder:recognizer])
     {
-        [self updateRecordingStateTo:YES];
-    }
-    else if (recognizer.state == UIGestureRecognizerStateEnded)
-    {
-        if (![ZZVideoRecorder shared].didCancelRecording)
+        [self _checkIsCancelRecordingWithRecognizer:recognizer];
+        
+        if (recognizer.state == UIGestureRecognizerStateBegan)
         {
-            self.hasUploadedVideo = YES;
-            [self.animationDelegate showUploadAnimation];
+            [self updateRecordingStateTo:YES];
         }
-        [self updateRecordingStateTo:NO];
+        else if (recognizer.state == UIGestureRecognizerStateEnded)
+        {
+            if (![ZZVideoRecorder shared].didCancelRecording)
+            {
+                self.hasUploadedVideo = YES;
+                [self.animationDelegate showUploadAnimation];
+            }
+            [self updateRecordingStateTo:NO];
+        }
     }
+}
+
+- (BOOL)isRecordingBehaviorRightWithRecroder:(UILongPressGestureRecognizer*)recorgnizer
+{
+    BOOL isRightBehavior = NO;
+    if ([self.recognizerStatesArray count] == 0 && recorgnizer.state == UIGestureRecognizerStateBegan)
+    {
+        [self.recognizerStatesArray addObject:@(UIGestureRecognizerStateBegan)];
+        isRightBehavior = YES;
+    }
+    else if ([self.recognizerStatesArray count] == 0 && recorgnizer.state == UIGestureRecognizerStateEnded)
+    {
+        isRightBehavior = NO;
+    }
+    else if ([self.recognizerStatesArray count] > 0 && recorgnizer.state == UIGestureRecognizerStateEnded)
+    {
+        NSNumber* containedState = [self.recognizerStatesArray firstObject];
+        if ([containedState integerValue] == UIGestureRecognizerStateBegan)
+        {
+            isRightBehavior = YES;
+            [self.recognizerStatesArray removeAllObjects];
+        }
+    }
+        
+    return isRightBehavior;
 }
 
 - (void)_checkIsCancelRecordingWithRecognizer:(UILongPressGestureRecognizer*)recognizer

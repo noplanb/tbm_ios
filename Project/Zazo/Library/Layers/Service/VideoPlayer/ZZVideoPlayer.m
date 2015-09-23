@@ -63,6 +63,11 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (BOOL)isPlaying
+{
+    return (self.moviePlayerController.playbackState == MPMoviePlaybackStatePlaying);
+}
+
 - (void)playOnView:(UIView*)view withURLs:(NSArray*)URLs
 {
     
@@ -133,10 +138,10 @@
     }
 }
 
-- (BOOL)isPlaying
-{
-    return self.isPlayingVideo;
-}
+//- (BOOL)isPlaying
+//{
+//    return self.isPlayingVideo;
+//}
 
 
 #pragma mark - Private

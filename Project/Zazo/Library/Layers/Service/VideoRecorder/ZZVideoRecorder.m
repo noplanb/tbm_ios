@@ -35,6 +35,7 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 @property (nonatomic, strong) SCRecorder *recorder;
 @property (nonatomic, strong) NSURL* recordVideoUrl;
 @property (nonatomic, strong) TBMVideoProcessor* videoProcessor;
+@property (nonatomic, strong) NSMutableArray* delegatesArray;
 
 @end
 
@@ -68,7 +69,7 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
         
         self.recorder.device = AVCaptureDevicePositionFront;
         self.recorder.session = [SCRecordSession recordSession];
-        
+        self.delegatesArray = [NSMutableArray array];
         [self.recorder startRunning];
         
     }
@@ -175,6 +176,7 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
         self.didCancelRecording = YES;
         [self showMessage:reason];
         [self stopRecording];
+        [self _notifyCancelRecording];
     }
 }
 
@@ -281,5 +283,26 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 {
     [[iToast makeText:message] show];
 }
+
+#pragma mark - Video Recorder Observer Methods
+
+- (void)addDelegate:(id<ZZVideoRecorderDelegate>)delegate
+{
+    [self.delegatesArray addObject:delegate];
+}
+
+- (void)removeDelegate:(id<ZZVideoRecorderDelegate>)delegate
+{
+    [self.delegatesArray removeObject:delegate];
+}
+
+- (void)_notifyCancelRecording
+{
+    [self.delegatesArray enumerateObjectsUsingBlock:^(id<ZZVideoRecorderDelegate> delegate, NSUInteger idx, BOOL * _Nonnull stop) {
+        [delegate videoRecordingCanceled];
+    }];
+}
+
+
 
 @end
