@@ -57,6 +57,10 @@
 //                                             selector:@selector(changeAudioOutput)
 //                                                 name:UIDeviceProximityStateDidChangeNotification
 //                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(stop)
+                                                 name:UIApplicationWillResignActiveNotification object:nil];
+    
 }
 
 - (void)dealloc

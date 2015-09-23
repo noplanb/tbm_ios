@@ -97,6 +97,11 @@
                                              selector:@selector(_updateFeatures)
                                                  name:kFeatureObserverFeatureUpdatedNotification
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(stopPlaying)
+                                                 name:@"incomingCall"
+                                               object:nil];
+    
 }
 
 - (void)dealloc
@@ -334,51 +339,60 @@
                            viewModel:(ZZGridCellViewModel*)viewModel
                  withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock // TODO: add states for gesture recognizer and show toasts
 {
-    [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
     
+    
+    [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
     ZZGridCenterCellViewModel* model = [self.dataSource centerViewModel];
     if (!ANIsEmpty(viewModel.item.relatedUser.idTbm))
     {
         if (isEnabled)
         {
             //OLD
-//            TBMGridElement *ge = [self gridElementWithView:view];
-//            if (ge.friend != nil) {
-//                [self rankingActionOccurred:ge.friend];
-//                [[TBMVideoPlayer sharedInstance] stop];
-//                NSURL *videoUrl = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriend:ge.friend];
-//                [[self videoRecorder] startRecordingWithVideoUrl:videoUrl];
-//            }
+            //            TBMGridElement *ge = [self gridElementWithView:view];
+            //            if (ge.friend != nil) {
+            //                [self rankingActionOccurred:ge.friend];
+            //                [[TBMVideoPlayer sharedInstance] stop];
+            //                NSURL *videoUrl = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriend:ge.friend];
+            //                [[self videoRecorder] startRecordingWithVideoUrl:videoUrl];
+            //            }
             
-            [self.videoPlayer stop];
-            NSURL* url = [ZZVideoUtils generateOutgoingVideoUrlWithFriend:viewModel.item.relatedUser];
-            [[ZZVideoRecorder shared] startRecordingWithVideoURL:url];
+            
+            [self.soundPlayer play];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.9 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.videoPlayer stop];
+                NSURL* url = [ZZVideoUtils generateOutgoingVideoUrlWithFriend:viewModel.item.relatedUser];
+                [[ZZVideoRecorder shared] startRecordingWithVideoURL:url];
+            });
             model.isRecording = YES;
         }
         else
         {//OLD
-//            TBMGridElement *ge = [self gridElementWithView:view];
-//            if (ge.friend != nil) {
-//                [[self videoRecorder] stopRecording];
-//            }
+            //            TBMGridElement *ge = [self gridElementWithView:view];
+            //            if (ge.friend != nil) {
+            //                [[self videoRecorder] stopRecording];
+            //            }
             model.isRecording = NO;
-            [[ZZVideoRecorder shared] stopRecordingWithCompletionBlock:completionBlock];
+            [[ZZVideoRecorder shared] stopRecordingWithCompletionBlock:^(BOOL isRecordingSuccess) {
+                [self.soundPlayer play];
+                completionBlock(isRecordingSuccess);
+            }];
         }
         // TODO: add states of gesture and hanlde cancel situatuin
-//        - (void)LPTHCancelLongPressWithTargetView:(UIView *)view reason:(NSString *)reason
-//        {
-//            TBMGridElement *ge = [self gridElementWithView:view];
-//            if (ge.friend != nil) {
-//                if ([[self videoRecorder] cancelRecording]) {
-//                    [[iToast makeText:reason] show];
-//                    [self performSelector:@selector(toastNotSent) withObject:nil afterDelay:1.2];
-//                }
-//            }
-//        }
-
+        //        - (void)LPTHCancelLongPressWithTargetView:(UIView *)view reason:(NSString *)reason
+        //        {
+        //            TBMGridElement *ge = [self gridElementWithView:view];
+        //            if (ge.friend != nil) {
+        //                if ([[self videoRecorder] cancelRecording]) {
+        //                    [[iToast makeText:reason] show];
+        //                    [self performSelector:@selector(toastNotSent) withObject:nil afterDelay:1.2];
+        //                }
+        //            }
+        //        }
+        
         [self.userInterface updateRollingStateTo:!isEnabled];
-        [self.soundPlayer play];
     }
+
+    
 }
 
 - (void)toggleVideoWithViewModel:(ZZGridCellViewModel*)model toState:(BOOL)state
