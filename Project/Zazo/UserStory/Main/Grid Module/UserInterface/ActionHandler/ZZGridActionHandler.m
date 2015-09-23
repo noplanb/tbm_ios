@@ -11,6 +11,7 @@
 #import "ZZToastMessageBuilder.h"
 #import "ZZHintsController.h"
 #import "ZZHintsConstants.h"
+#import "ZZGridUIConstants.h"
 
 @interface ZZGridActionHandler ()
 
@@ -65,11 +66,7 @@
     NSInteger nextHintCellIndex = NSNotFound;
     if (numberFilledGrids < 8) // TODO: constants
     {
-        NSNumber* cellIndex = [self _indexMap][@(numberFilledGrids + 1)];
-        if (cellIndex)
-        {
-            nextHintCellIndex = [cellIndex integerValue];
-        }
+        nextHintCellIndex = kGridElementIndex(numberFilledGrids - 1); // to get index from count
     }
     
     if (nextHintCellIndex != NSNotFound)

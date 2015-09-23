@@ -16,7 +16,6 @@ typedef NS_ENUM(NSInteger, TBMEventFlowEvent)
     TBMEventFlowEventApplicationDidEnterBackground,
 
     // Friends
-
     TBMEventFlowEventFriendDidAdd,
     TBMEventFlowEventFriendDidAddWithoutApp,
 

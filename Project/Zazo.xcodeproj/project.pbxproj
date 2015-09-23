@@ -377,7 +377,6 @@
 		79123D731BB032C3007E1CBF /* ZZHintsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D721BB032C3007E1CBF /* ZZHintsController.m */; settings = {ASSET_TAGS = (); }; };
 		79123D761BB032D9007E1CBF /* ZZHintsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D751BB032D9007E1CBF /* ZZHintsView.m */; settings = {ASSET_TAGS = (); }; };
 		79123D791BB03359007E1CBF /* ZZHintsConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D781BB03359007E1CBF /* ZZHintsConstants.m */; settings = {ASSET_TAGS = (); }; };
-		79123D7C1BB06441007E1CBF /* ZZArrowDirectionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D7B1BB06441007E1CBF /* ZZArrowDirectionHelper.m */; settings = {ASSET_TAGS = (); }; };
 		79123D861BB14F8E007E1CBF /* ZZHintsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D851BB14F8E007E1CBF /* ZZHintsViewModel.m */; settings = {ASSET_TAGS = (); }; };
 		79123D891BB14F9E007E1CBF /* ZZHintsDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D881BB14F9E007E1CBF /* ZZHintsDomainModel.m */; settings = {ASSET_TAGS = (); }; };
 		79123D8C1BB15002007E1CBF /* ZZHintsModelGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D8B1BB15002007E1CBF /* ZZHintsModelGenerator.m */; settings = {ASSET_TAGS = (); }; };
@@ -1143,8 +1142,6 @@
 		79123D751BB032D9007E1CBF /* ZZHintsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsView.m; sourceTree = "<group>"; };
 		79123D771BB03359007E1CBF /* ZZHintsConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsConstants.h; sourceTree = "<group>"; };
 		79123D781BB03359007E1CBF /* ZZHintsConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsConstants.m; sourceTree = "<group>"; };
-		79123D7A1BB06441007E1CBF /* ZZArrowDirectionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZArrowDirectionHelper.h; sourceTree = "<group>"; };
-		79123D7B1BB06441007E1CBF /* ZZArrowDirectionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZArrowDirectionHelper.m; sourceTree = "<group>"; };
 		79123D841BB14F8E007E1CBF /* ZZHintsViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsViewModel.h; sourceTree = "<group>"; };
 		79123D851BB14F8E007E1CBF /* ZZHintsViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsViewModel.m; sourceTree = "<group>"; };
 		79123D871BB14F9E007E1CBF /* ZZHintsDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsDomainModel.h; sourceTree = "<group>"; };
@@ -3981,8 +3978,8 @@
 				070560FE1BA8824F00C130E0 /* ZZGridActionHandlerEnums.h */,
 				070560FF1BA8824F00C130E0 /* ZZGridActionHandlerEnums.m */,
 				079280A21BA8544800E22553 /* ZZGridActionHandler.h */,
-				1878422E1BB2D4960007CDE2 /* ZZGridActionHandlerUserInterfaceDelegate.h */,
 				079280A31BA8544800E22553 /* ZZGridActionHandler.m */,
+				1878422E1BB2D4960007CDE2 /* ZZGridActionHandlerUserInterfaceDelegate.h */,
 				070560F81BA8736600C130E0 /* ZZGridActionDataProvider.h */,
 				070560F91BA8736600C130E0 /* ZZGridActionDataProvider.m */,
 				79123D701BB032B7007E1CBF /* Hints */,
@@ -4141,8 +4138,6 @@
 				79123D751BB032D9007E1CBF /* ZZHintsView.m */,
 				79123D8D1BB1748B007E1CBF /* ZZHintsGotItView.h */,
 				79123D8E1BB1748B007E1CBF /* ZZHintsGotItView.m */,
-				79123D7A1BB06441007E1CBF /* ZZArrowDirectionHelper.h */,
-				79123D7B1BB06441007E1CBF /* ZZArrowDirectionHelper.m */,
 				79123D831BB14F77007E1CBF /* Models */,
 				79123D8A1BB15002007E1CBF /* ZZHintsModelGenerator.h */,
 				79123D8B1BB15002007E1CBF /* ZZHintsModelGenerator.m */,
@@ -4502,7 +4497,6 @@
 				07636ECF1BA49A0100925671 /* ZZRotationGestureRecognizer.m in Sources */,
 				07636E361BA49A0100925671 /* ZZFriendsTransport.m in Sources */,
 				7997E4EB1BAABE2F001697D5 /* ZZGridActionStoredSettings.m in Sources */,
-				79123D7C1BB06441007E1CBF /* ZZArrowDirectionHelper.m in Sources */,
 				7997E4F71BAABE85001697D5 /* JFMinimalNotification.m in Sources */,
 				07636F121BA49A0100925671 /* UIImage+PDF.m in Sources */,
 				07636DC31BA49A0100925671 /* TBMEventsFlowDataSource.m in Sources */,

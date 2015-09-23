@@ -288,16 +288,16 @@
 
 
 
-- (CGRect)gridGetCenterCellFrameInView:(UIView*)view
-{
-    return [self.userInterface gridGetCenterCellFrameInView:view];
-}
-
-- (CGRect)gridGetFrameForUnviewedBadgeForFriend:(NSUInteger)friendCellIndex inView:(UIView*)view
-{
-    NSIndexPath* friendIndexPath = [self _indexPathForFriendAtindex:friendCellIndex];
-    return [self.userInterface gridGetUnviewedBadgeFrameForIndexPath:friendIndexPath inView:view];
-}
+//- (CGRect)gridGetCenterCellFrameInView:(UIView*)view
+//{
+//    return [self.userInterface gridGetCenterCellFrameInView:view];
+//}
+//
+//- (CGRect)gridGetFrameForUnviewedBadgeForFriend:(NSUInteger)friendCellIndex inView:(UIView*)view
+//{
+//    NSIndexPath* friendIndexPath = [self _indexPathForFriendAtindex:friendCellIndex];
+//    return [self.userInterface gridGetUnviewedBadgeFrameForIndexPath:friendIndexPath inView:view];
+//}
 
 
 #pragma mark - Video Player Delegate
@@ -305,13 +305,13 @@
 - (void)videoPlayerURLWasStartPlaying:(NSURL*)videoURL
 {
     //TODO: delete video file
-    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidStartPlaying];
+//    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidStartPlaying];
 }
 
 - (void)videoPlayerURLWasFinishedPlaying:(NSURL*)videoURL
 {
-    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidViewed];
-    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidStopPlaying];
+//    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidViewed];
+//    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidStopPlaying];
 }
 
 #pragma mark - Data source delegate
@@ -465,10 +465,10 @@
 //        [stringNumbers addObject:communicationModel.contact];
 //    }];
 //    
-    ANDispatchBlockToMainQueue(^{
-        TBMTableModal *table = [[TBMTableModal alloc] initWithParentView:self.userInterface.view title:@"Choose phone number" rowData:array delegate:self];
-        [table show];
-    });
+//    ANDispatchBlockToMainQueue(^{
+//        TBMTableModal *table = [[TBMTableModal alloc] initWithParentView:self.userInterface.view title:@"Choose phone number" rowData:array delegate:self];
+//        [table show];
+//    });
 }
 
 
@@ -479,7 +479,7 @@
     
 }
 
-- (void)showSendInvitationDialogForUser:(NSString*)firsName
+- (void)showSendInvitationDialogForUser:(ZZContactDomainModel*)user
 {
     [ZZGridAlertBuilder showSendInvitationDialogForUser:user.firstName completion:^ {
         [self.interactor inviteUserInApplication:user];

@@ -10,6 +10,13 @@
 
 @class ZZHintsDomainModel;
 
+typedef NS_ENUM(NSInteger, ZZHintPresentationState)
+{
+    ZZHintPresentationStateInactive,
+    ZZHintPresentationStateActive,
+    ZZHintPresentationStatePresented
+};
+
 @interface ZZHintsViewModel : NSObject
 
 + (instancetype)viewModelWithItem:(ZZHintsDomainModel*)item;
@@ -28,9 +35,7 @@
 - (ZZArrowDirection)arrowDirection;
 - (ZZArrowDirection)arrowDirectionForIndex:(NSInteger)index;
 
-
 - (BOOL)hidesArrow;
 - (ZZHintsBottomImageType)bottomImageType;
-
 
 @end
