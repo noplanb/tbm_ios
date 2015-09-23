@@ -11,6 +11,8 @@
 #import "ZZUserPresentationHelper.h"
 #import "ZZThumbnailGenerator.h"
 
+static UIImage* kImagePlaceholder = nil;
+
 @interface ZZMenuCellViewModel ()
 
 @property (nonatomic, strong) NSString* username;
@@ -28,6 +30,19 @@
     return model;
 }
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            kImagePlaceholder = [UIImage imageNamed:@"icon-no-pic"];
+        });
+    }
+    return self;
+}
+
 - (void)setItem:(id<ZZUserInterface>)item
 {
     _item = item;
@@ -38,7 +53,8 @@
     }
     else
     {
-        self.image = [ZZThumbnailGenerator thumbImageForUser:(id)self.item];
+        UIImage* image = [ZZThumbnailGenerator thumbImageForUser:(id)self.item];
+        self.image = image ? : kImagePlaceholder;
     }
 }
 

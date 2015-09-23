@@ -30,10 +30,7 @@
     {
         return [self legacyThumbImageForFriend:friend];
     }
-    else
-    {
-        return [UIImage imageNamed:@"icon-no-pic"]; // TODO: static variable
-    }
+    return nil;
 }
 
 + (BOOL)isThumbNoPicForUser:(ZZFriendDomainModel*)friend
