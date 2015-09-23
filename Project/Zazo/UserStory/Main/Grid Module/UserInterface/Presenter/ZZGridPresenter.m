@@ -26,11 +26,12 @@
 #import "ZZFeatureObserver.h"
 #import "ZZGridCenterCellViewModel.h"
 #import "ZZGridActionHandler.h"
+#import "TBMTableModal.h"
 
 
 @protocol TBMEventsFlowModuleInterface;
 
-@interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate, ZZVideoRecorderDelegate, ZZGridActionHanlderDelegate>
+@interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate, ZZVideoRecorderDelegate, ZZGridActionHanlderDelegate, TBMTableModalDelegate>
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
 @property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
@@ -441,21 +442,38 @@
 - (void)showChooseNumberDialogFromNumbersArray:(NSArray*)array// TODO: move to grid alerts
 {
     //TODO: this alert is SUXX
+//    ANDispatchBlockToMainQueue(^{
+//        TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Attention"
+//                                                                         message:@"Choose phone number"];
+//        
+//        [array enumerateObjectsUsingBlock:^(NSString* phoneNumber, NSUInteger idx, BOOL *stop) {
+//            [alert addAction:[SDCAlertAction actionWithTitle:phoneNumber style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+//                [self.interactor userSelectedPhoneNumber:phoneNumber];
+//            }]];
+//        }];
+//        
+//        [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
+//        }]];
+//
+//        [alert presentWithCompletion:nil];
+//    });
+//    NSMutableArray* stringNumbers = [NSMutableArray new];
+//    [array enumerateObjectsUsingBlock:^(ZZCommunicationDomainModel* communicationModel, NSUInteger idx, BOOL * _Nonnull stop) {
+//        [stringNumbers addObject:communicationModel.contact];
+//    }];
+//    
     ANDispatchBlockToMainQueue(^{
-        TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Attention"
-                                                                         message:@"Choose phone number"];
-        
-        [array enumerateObjectsUsingBlock:^(NSString* phoneNumber, NSUInteger idx, BOOL *stop) {
-            [alert addAction:[SDCAlertAction actionWithTitle:phoneNumber style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
-                [self.interactor userSelectedPhoneNumber:phoneNumber];
-            }]];
-        }];
-        
-        [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
-        }]];
-
-        [alert presentWithCompletion:nil];
+        TBMTableModal *table = [[TBMTableModal alloc] initWithParentView:self.userInterface.view title:@"Choose phone number" rowData:array delegate:self];
+        [table show];
     });
+}
+
+
+#pragma mark - TBMTableModalDelegate
+
+- (void) didSelectRow:(NSInteger)index
+{
+    
 }
 
 - (void)showSendInvitationDialogForUser:(NSString*)firsName

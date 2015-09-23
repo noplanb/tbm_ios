@@ -115,23 +115,33 @@ static const CGFloat cancelButtonHeight = 45.f;
     return [self maxModalHeight] - self.titleHeight;
 }
 
-- (float)tableHeight{
+- (float)tableHeight
+{
     float fullHeight = [[self rowData] count] * [self tableCellHeight];
     return fminf(fullHeight, [self maxTableHeight]);
 }
 
-- (float)tableCellHeight{
+- (float)tableCellHeight
+{
     return [self cell].frame.size.height;
 }
 
 //------------------------------
 // Table Delegate and Datasource
 //------------------------------
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     UITableViewCell *cell;
     
     cell = [tableView dequeueReusableCellWithIdentifier:TBMTableReuseId];
@@ -146,7 +156,8 @@ static const CGFloat cancelButtonHeight = 45.f;
     return cell;
 }
 
-- (UITableViewCell *)cell{
+- (UITableViewCell *)cell
+{
     UITableViewCell *cell;
     id row0 = [self.rowData objectAtIndex:0];
     if ([row0 isKindOfClass: [NSArray class]])
