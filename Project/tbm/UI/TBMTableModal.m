@@ -191,9 +191,10 @@ static const CGFloat cancelButtonHeight = 45.f;
     return [self.rowData count];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self hide];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [self.delegate didSelectRow:indexPath.row];
+    [self hide];
 }
 
 - (UITableView *)tableView {
