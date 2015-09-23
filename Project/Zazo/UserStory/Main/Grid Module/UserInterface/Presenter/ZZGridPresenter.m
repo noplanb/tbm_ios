@@ -347,6 +347,8 @@
 //                NSURL *videoUrl = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriend:ge.friend];
 //                [[self videoRecorder] startRecordingWithVideoUrl:videoUrl];
 //            }
+            
+            [self.videoPlayer stop];
             NSURL* url = [ZZVideoUtils generateOutgoingVideoUrlWithFriend:viewModel.item.relatedUser];
             [[ZZVideoRecorder shared] startRecordingWithVideoURL:url];
             model.isRecording = YES;

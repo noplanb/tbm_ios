@@ -81,6 +81,13 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
     return self;
 }
 
+- (void)cancelRecording
+{
+    ANDispatchBlockToMainQueue(^{
+        [self cancelRecordingWithReason:nil];
+    });
+}
+
 - (void)updateRecorder
 {
     if (!self.recorder)
@@ -182,8 +189,10 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
     if (!self.didCancelRecording)
     {
         self.didCancelRecording = YES;
-        [self showMessage:reason];
-//        [self stopRecording];
+        if (!ANIsEmpty(reason))
+        {
+            [self showMessage:reason];
+        }
         [self.recorder pause];
         [self _notifyCancelRecording];
     }

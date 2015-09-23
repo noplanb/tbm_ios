@@ -17,6 +17,7 @@
 #import "ZZFriendDataProvider.h"
 #import "TBMFriend.h"
 #import "TBMRemoteStorageHandler.h"
+#import "iToast.h"
 
 @interface ZZVideoPlayer ()
 
@@ -43,7 +44,7 @@
 - (void)addNotifications
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(_playNext)
+                                             selector:@selector(_playNext:)
                                                  name:MPMoviePlayerPlaybackDidFinishNotification
                                                object:nil];
     
@@ -144,6 +145,22 @@
 
 
 #pragma mark - Private
+
+- (void)_playNext:(NSNotification*)notification
+{
+    OB_DEBUG(@"VideoPlayer#playbackDidFinishNotification: %@", notification.userInfo);
+    NSError *error = (NSError *) notification.userInfo[@"error"];
+    if ( error != nil){
+        OB_ERROR(@"VideoPlayer#playbackDidFinishNotification: %@", error);
+        ANDispatchBlockToMainQueue(^{
+            [[iToast makeText:NSLocalizedString(@"video-player-not-playable", nil)] show];
+        });
+    }
+    else
+    {
+        [self _playNext];
+    }
+}
 
 - (void)_playNext
 {

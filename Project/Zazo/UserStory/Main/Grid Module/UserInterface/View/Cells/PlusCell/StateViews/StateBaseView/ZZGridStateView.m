@@ -313,6 +313,7 @@
         _userNameLabel.textAlignment = NSTextAlignmentCenter;
         _userNameLabel.textColor = [ZZColorTheme shared].gridStatusViewUserNameLabelColor;
         _userNameLabel.font = [UIFont an_regularFontWithSize:kUserNameFontSize];
+        _userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
         [self addSubview:_userNameLabel];
         
         [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {

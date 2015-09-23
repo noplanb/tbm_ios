@@ -146,9 +146,7 @@
 
 - (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer
 {
-    
-    if (![self.delegate isVideoPalying] && [self isRecordingBehaviorRightWithRecroder:recognizer])
-    {
+
         [self _checkIsCancelRecordingWithRecognizer:recognizer];
         
         if (recognizer.state == UIGestureRecognizerStateBegan)
@@ -165,32 +163,6 @@
                }
             }];
         }
-    }
-}
-
-- (BOOL)isRecordingBehaviorRightWithRecroder:(UILongPressGestureRecognizer*)recorgnizer
-{
-    BOOL isRightBehavior = NO;
-    if ([self.recognizerStatesArray count] == 0 && recorgnizer.state == UIGestureRecognizerStateBegan)
-    {
-        [self.recognizerStatesArray addObject:@(UIGestureRecognizerStateBegan)];
-        isRightBehavior = YES;
-    }
-    else if ([self.recognizerStatesArray count] == 0 && recorgnizer.state == UIGestureRecognizerStateEnded)
-    {
-        isRightBehavior = NO;
-    }
-    else if ([self.recognizerStatesArray count] > 0 && recorgnizer.state == UIGestureRecognizerStateEnded)
-    {
-        NSNumber* containedState = [self.recognizerStatesArray firstObject];
-        if ([containedState integerValue] == UIGestureRecognizerStateBegan)
-        {
-            isRightBehavior = YES;
-            [self.recognizerStatesArray removeAllObjects];
-        }
-    }
-        
-    return isRightBehavior;
 }
 
 - (void)_checkIsCancelRecordingWithRecognizer:(UILongPressGestureRecognizer*)recognizer

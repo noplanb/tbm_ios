@@ -150,3 +150,9 @@
 "record-canceled-reason-incoming-call" = "Incoming call";
 "record-canceled-not-sent" = "Not sent";
 
+
+
+//Video player
+
+"video-player-not-playable" = "Video is not playable";
+
