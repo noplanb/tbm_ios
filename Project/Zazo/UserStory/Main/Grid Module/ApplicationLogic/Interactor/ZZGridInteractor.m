@@ -69,9 +69,9 @@ static NSInteger const kGridFriendsCellCount = 8;
             ZZFriendDomainModel *aFriend = friendArrayForSorting[count];
             model.relatedUser = aFriend;
         }
-        [gridModels addObject:model];
 
         model = [ZZGridDataProvider upsertModel:model];
+        [gridModels addObject:model];
     }
     self.gridModels = [NSArray arrayWithArray:gridModels];
     [self.output dataLoadedWithArray:self.gridModels];

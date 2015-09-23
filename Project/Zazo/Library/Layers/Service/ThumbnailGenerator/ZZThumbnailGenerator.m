@@ -44,13 +44,13 @@
 + (void)generateThumbVideo:(ZZVideoDomainModel*)video
 {
     OB_INFO(@"generateThumbWithVideo: %@ vid:%@", video.relatedUser.firstName, video.videoID);
-    if ([self generateThumbForVideo:video])
+    if ([self _generateThumbForVideo:video])
     {
-        [self copyToLastThumbWithVideo:video];
+        [self _copyToLastThumbWithVideo:video];
     }
 }
 
-+ (void)copyToLastThumbWithVideo:(ZZVideoDomainModel*)video
++ (void)_copyToLastThumbWithVideo:(ZZVideoDomainModel*)video
 {
     if ([self hasThumbForVideo:video])
     {
@@ -131,7 +131,7 @@
     return [ZZFileHelper isFileExistsAtURL:[self thumbUrlForVideo:video]];
 }
 
-+ (BOOL)generateThumbForVideo:(ZZVideoDomainModel*)video
++ (BOOL)_generateThumbForVideo:(ZZVideoDomainModel*)video
 {
     DebugLog(@"generateThumb vid: %@ for %@", video.videoID, video.relatedUser.firstName);
     if (![ZZFileHelper isFileValidWithFileURL:video.videoURL])

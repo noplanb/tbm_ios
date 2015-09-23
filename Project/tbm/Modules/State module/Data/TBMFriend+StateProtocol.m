@@ -7,6 +7,8 @@
 //
 
 #import "TBMFriend+StateProtocol.h"
+#import "ZZThumbnailGenerator.h"
+#import "ZZFriendDataProvider.h"
 
 static NSString *TBMFriendLastVideStatusTypeNameIn = @"IN";
 static NSString *TBMFriendLastVideStatusTypeNameOut = @"OUT";
@@ -55,7 +57,9 @@ static NSString *TBMFriendLastVideStatusTypeNameOut = @"OUT";
         item = TBMFriendLastVideStatusTypeNameOut;
     }
     [items addObject:item];
-    [items addObject:boolToStr(![self isThumbNoPic])];
+    
+    ZZFriendDomainModel* model = [ZZFriendDataProvider modelFromEntity:self];
+    [items addObject:boolToStr(![ZZThumbnailGenerator isThumbNoPicForUser:model])];
     [items addObject:boolToStr(![self hasDownloadingVideo])];
     
     return tbm_stateRowForItems(items);

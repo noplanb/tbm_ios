@@ -18,6 +18,9 @@
 #import "ZZKeychainDataProvider.h"
 #import "ZZS3CredentialsDomainModel.h"
 #import "ZZCommonNetworkTransportService.h"
+#import "ZZFriendDataProvider.h"
+#import "ZZThumbnailGenerator.h"
+#import "ZZVideoDataProvider.h"
 
 
 @implementation TBMAppDelegate (AppSync)
@@ -450,7 +453,8 @@
         return;
     }
 
-    [friend generateThumbWithVideo:video];
+    ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:video];
+    [ZZThumbnailGenerator generateThumbVideo:videoModel];
 
     [friend deleteAllViewedOrFailedVideos];
     [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_DOWNLOADED video:video];

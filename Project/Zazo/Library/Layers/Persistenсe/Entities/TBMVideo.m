@@ -13,6 +13,8 @@
 #import "TBMAppDelegate.h"
 #import "OBLogger.h"
 #import "MagicalRecord.h"
+#import "ZZVideoDataProvider.h"
+#import "ZZThumbnailGenerator.h"
 
 @implementation TBMVideo
 
@@ -119,7 +121,8 @@
 - (void)deleteFiles
 {
     [self deleteVideoFile];
-    [self deleteThumbFile];
+    ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:self];
+    [ZZThumbnailGenerator deleteThumbFileForVideo:videoModel];
 }
 
 //----------------
@@ -162,57 +165,6 @@
     [fm removeItemAtURL:[self videoUrl] error:&error];
 }
 
-
-//----------------
-// Thumb URL stuff
-//----------------
-- (NSURL *)thumbUrl{
-    NSString *filename = [NSString stringWithFormat:@"thumbFromFriend_%@-VideoId_%@", self.friend.idTbm, self.videoId];
-     NSURL* videosURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
-    return [videosURL URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"png"]];
-}
-
-- (NSString *)thumbPath{
-    return [self thumbUrl].path;
-}
-
-- (BOOL)hasThumb{
-    return [[NSFileManager defaultManager] fileExistsAtPath:[self thumbPath]];
-}
-
-- (BOOL)generateThumb{
-    DebugLog(@"generateThumb vid: %@ for %@",self.videoId, self.friend.firstName);
-    if (![self hasValidVideoFile]){
-        OB_ERROR(@"generateThumb: vid: %@ !hasValidVideoFile", self.videoId);
-        return NO;
-    }
-    
-    AVAsset *asset = [AVAsset assetWithURL:[self videoUrl]];
-    AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
-    imageGenerator.appliesPreferredTrackTransform = YES;
-    CMTime duration = asset.duration;
-    CMTime secondsFromEnd = CMTimeMake(2, 1);
-    CMTime thumbTime = CMTimeSubtract(duration, secondsFromEnd);
-    CMTime actual;
-    NSError *err = nil;
-    CGImageRef imageRef = [imageGenerator copyCGImageAtTime:thumbTime actualTime:&actual error:&err];
-    if (err != nil){
-        OB_ERROR(@"generateThumb: %@", err);
-        return NO;
-    }
-    UIImage *thumbnail = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationUp];
-    CGImageRelease(imageRef);  // CGImageRef won't be released by ARC
-    [UIImagePNGRepresentation(thumbnail) writeToURL:[self thumbUrl] atomically:YES];
-    return YES;
-}
-
-- (void)deleteThumbFile
-{
-    DebugLog(@"deleteThumbFile");
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NSError *error = nil;
-    [fm removeItemAtURL:[self thumbUrl] error:&error];
-}
 
 //---------------------------
 // Status convenience methods

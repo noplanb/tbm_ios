@@ -14,7 +14,6 @@
 + (UIImage*)thumbImageForUser:(ZZFriendDomainModel*)friendModel;
 + (BOOL)isThumbNoPicForUser:(ZZFriendDomainModel*)friendModel;
 + (void)generateThumbVideo:(ZZVideoDomainModel*)video;
-+ (void)copyToLastThumbWithVideo:(ZZVideoDomainModel*)video;
 + (NSURL*)lastThumbUrlForForUser:(ZZFriendDomainModel*)friendModel;
 + (UIImage*)lastThumbImageForUser:(ZZFriendDomainModel*)friendModel;
 + (BOOL)hasLastThumbForUser:(ZZFriendDomainModel*)friendModel;
@@ -28,7 +27,6 @@
 + (NSURL*)thumbUrlForVideo:(ZZVideoDomainModel*)video;
 + (NSString*)thumbPathForVideo:(ZZVideoDomainModel*)video;
 + (BOOL)hasThumbForVideo:(ZZVideoDomainModel*)video;
-+ (BOOL)generateThumbForVideo:(ZZVideoDomainModel*)video;
 + (void)deleteThumbFileForVideo:(ZZVideoDomainModel*)video;
 
 @end

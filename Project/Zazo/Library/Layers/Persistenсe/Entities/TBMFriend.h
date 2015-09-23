@@ -80,13 +80,15 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 + (void)addVideoStatusNotificationDelegate:(id)delegate;
 + (void)removeVideoStatusNotificationDelegate:(id)delegate;
 
-- (UIImage *)thumbImage;
+
+
+
 
 + (void)fillAfterMigration;
 
-- (BOOL)isThumbNoPic;
+
 + (NSArray *)everSentMkeys;
-- (void)generateThumbWithVideo:(TBMVideo *)video;
+
 + (void)setEverSentForMkeys:(NSArray *)mkeys;
 
 - (NSString *)videoStatusString;
