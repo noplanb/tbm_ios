@@ -15,6 +15,7 @@
 #import "ZZVideoRecorder.h"
 #import "ZZFeatureObserver.h"
 #import "ZZThumbnailGenerator.h"
+#import "ZZVideoStatuses.h"
 
 @interface ZZGridCellViewModel ()
 
@@ -203,6 +204,13 @@
             [[ZZVideoRecorder shared] cancelRecordingWithReason:NSLocalizedString(@"record-dragged-finger-away", nil)];
         }
     }
+}
+
+
+- (NSString*)videoStatus
+{
+    NSInteger status = self.item.relatedUser.lastIncomingVideoStatus;
+    return ZZVideoIncomingStatusShortStringFromEnumValue(status);
 }
 
 

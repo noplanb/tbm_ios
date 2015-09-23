@@ -6,8 +6,35 @@
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 
-@interface ZZVideoStatuses : NSObject
+typedef NS_ENUM (NSInteger, ZZVideoIncomingStatus) {
+    ZZVideoIncomingStatusNew,
+    ZZVideoIncomingStatusDownloading,
+    ZZVideoIncomingStatusDownloaded,
+    ZZVideoIncomingStatusViewed,
+    ZZVideoIncomingStatusFailedPermanently
+};
 
-@end
+typedef NS_ENUM (NSInteger, ZZVideoOutgoingStatus) {
+    ZZVideoOutgoingStatusNone,
+    ZZVideoOutgoingStatusNew,
+    ZZVideoOutgoingStatusQueued,
+    ZZVideoOutgoingStatusUploading,
+    ZZVideoOutgoingStatusUploaded,
+    ZZVideoOutgoingStatusDownloaded,
+    ZZVideoOutgoingStatusViewed,
+    ZZVideoOutgoingStatusFailedPermanently
+};
+
+typedef NS_ENUM(NSInteger, ZZVideoStatusEventType) {
+    ZZVideoStatusEventTypeIncoming,
+    ZZVideoStatusEventTypeOutgoing
+};
+
+NSString* ZZVideoIncomingStatusShortStringFromEnumValue(ZZVideoIncomingStatus);
+NSString* ZZVideoIncomingStatusStringFromEnumValue(ZZVideoIncomingStatus);
+ZZVideoIncomingStatus ZZVideoIncomingStatusEnumValueFromString(NSString*);
+
+
+NSString* ZZVideoOutgoingStatusStringFromEnumValue(ZZVideoOutgoingStatus);
+ZZVideoOutgoingStatus ZZVideoOutgoingStatusEnumValueFromString(NSString*);

@@ -64,4 +64,6 @@ typedef NS_ENUM(NSInteger, ZZGridCellViewModelState)
 - (void)setupRecorderRecognizerOnView:(UIView*)view
                 withAnimationDelegate:(id <ZZGridCellVeiwModelAnimationDelegate>)animationDelegate;
 
+- (NSString*)videoStatus;
+
 @end
