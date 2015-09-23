@@ -233,7 +233,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     self.noFriendView = [[UIView alloc] initWithFrame:self.view.frame];
     self.noFriendView.backgroundColor = [UIColor colorWithHexString:LayoutConstOrangeColor];
     [self.noFriendView addSubview:iv];
-    [self.noFriendView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(noFriendTap)]];
+//    [self.noFriendView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(noFriendTap)]];
     [self.view addSubview:self.noFriendView];
 }
 

@@ -99,4 +99,14 @@ static CGFloat const kVideoCountLabelWidth = 22;
 static CGFloat const kContainFriendAnimationDuration = 0.20;
 static CGFloat const kContainFreindDelayDuration = 0.16;
 
+static inline NSInteger const kGridElementIndex(NSInteger element)
+{
+    NSArray* array = @[@(8), @(7), @(5), @(6), @(9), @(1), @(4), @(2), @(3)];
+    if (array.count < element)
+    {
+        return [array[element] integerValue];
+    }
+    return NSNotFound;
+}
+
 

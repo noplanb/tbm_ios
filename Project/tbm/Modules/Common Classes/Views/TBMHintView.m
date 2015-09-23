@@ -3,8 +3,6 @@
 // Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-
-#import <UIKit/UIKit.h>
 #import "TBMHintView.h"
 #import "TBMDialogViewDelegate.h"
 
@@ -53,23 +51,17 @@ NSString *const kTBMTutorialFontName = @"DKCrayonCrumble";
 - (instancetype)init
 {
     self = [super init];
-
     if (self)
     {
-        [self setup];
+        self.fillColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65f];
+        self.backgroundColor = [UIColor clearColor];
+        self.hidden = YES;
+        self.alpha = 0;
+        self.userInteractionEnabled = YES;
+        UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tutorialViewDidTap:)];
+        [self addGestureRecognizer:recognizer];
     }
     return self;
-}
-
-- (void)setup
-{
-    self.fillColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65f];
-    self.backgroundColor = [UIColor clearColor];
-    self.hidden = YES;
-    self.alpha = 0;
-    self.userInteractionEnabled = YES;
-    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tutorialViewDidTap:)];
-    [self addGestureRecognizer:recognizer];
 }
 
 - (UIView *)gotItButton

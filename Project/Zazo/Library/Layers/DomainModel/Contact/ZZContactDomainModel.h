@@ -14,8 +14,9 @@
 
 @property (nonatomic, copy) NSString* firstName;
 @property (nonatomic, copy) NSString* lastName;
-@property (nonatomic, strong) NSSet* phones;
-@property (nonatomic, strong) UIImage* photoImage; // TODO: hanle photo URL string
+@property (nonatomic, strong) NSArray* phones;
+
+@property (nonatomic, copy) NSString* primaryPhone;
 @property (nonatomic, assign) ZZMenuContactType contactType;
 
 - (NSString *)fullName;

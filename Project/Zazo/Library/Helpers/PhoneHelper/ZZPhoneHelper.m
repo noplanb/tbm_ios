@@ -16,9 +16,9 @@
 {
     NSMutableArray *validNumbers = [NSMutableArray new];
     
-    if (model.phones.allObjects.count > 0)
+    if (model.phones.count > 0)
     {
-        [model.phones.allObjects enumerateObjectsUsingBlock:^(NSString* phoneNumber, NSUInteger idx, BOOL *stop) {
+        [model.phones enumerateObjectsUsingBlock:^(NSString* phoneNumber, NSUInteger idx, BOOL *stop) {
             
             if ([TBMPhoneUtils isValidPhone:phoneNumber])
             {
@@ -27,9 +27,7 @@
             }
         }];
     }
-    
     return validNumbers;
-    
 }
 
 + (NSString *)formatMobileNumberToE164AndServerFormat:(NSString *)number
@@ -40,7 +38,5 @@
     
     return newNumber;
 }
-
-
 
 @end

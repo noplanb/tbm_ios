@@ -22,6 +22,7 @@
 
 @property (nonatomic, strong) ZZRootWireframe* rootWireframe;
 @property (nonatomic, strong) CTCallCenter* callCenter;
+
 @end
 
 @implementation ZZAppDependencies

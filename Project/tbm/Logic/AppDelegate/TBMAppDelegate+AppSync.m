@@ -625,7 +625,6 @@
 - (void)videoDidStartRecording:(id)sender
 {
     [UIApplication sharedApplication].idleTimerDisabled = YES;
-
 }
 
 - (void)videoDidFinishRecording:(id)sender

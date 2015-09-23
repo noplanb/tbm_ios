@@ -112,9 +112,8 @@ static APAddressBook* addressBook = nil;
             return [value an_stripAllNonNumericCharacters];
         }] array];
         
-        model.phones = [NSSet setWithArray:phones ? : @[]];
+        model.phones = phones ? : @[];
     }
-    
     return model;
 }
 

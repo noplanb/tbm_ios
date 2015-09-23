@@ -73,7 +73,7 @@
 - (void)itemSelected:(id)item
 {   
     ZZMenuCellViewModel* model = (ZZMenuCellViewModel*)item;
-    [self.menuModuleDelegate selectedUser:model.item];
+    [self.menuModuleDelegate userSelectedOnMenu:model.item];
     [self.wireframe closeMenu];
 }
 

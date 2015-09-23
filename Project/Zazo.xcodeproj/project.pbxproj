@@ -339,6 +339,8 @@
 		07636F111BA49A0100925671 /* PDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA21BA49A0100925671 /* PDFView.m */; };
 		07636F121BA49A0100925671 /* UIImage+PDF.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA41BA49A0100925671 /* UIImage+PDF.m */; };
 		07636F131BA49A0100925671 /* UIView+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA61BA49A0100925671 /* UIView+Image.m */; };
+		07829D641BB2A9A80000D5D9 /* ZZCommonModelsGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07829D631BB2A9A80000D5D9 /* ZZCommonModelsGenerator.m */; settings = {ASSET_TAGS = (); }; };
+		07829D681BB2AA840000D5D9 /* ZZGridTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07829D671BB2AA840000D5D9 /* ZZGridTransportService.m */; settings = {ASSET_TAGS = (); }; };
 		079280A41BA8544800E22553 /* ZZGridActionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 079280A31BA8544800E22553 /* ZZGridActionHandler.m */; };
 		07BAA7051BB18DD2009878B9 /* NSArray+TBMArrayHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA7041BB18DD2009878B9 /* NSArray+TBMArrayHelpers.m */; settings = {ASSET_TAGS = (); }; };
 		07BAA7081BB1B488009878B9 /* ZZUserPresentationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA7071BB1B488009878B9 /* ZZUserPresentationHelper.m */; settings = {ASSET_TAGS = (); }; };
@@ -1083,6 +1085,10 @@
 		07636DA41BA49A0100925671 /* UIImage+PDF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PDF.m"; sourceTree = "<group>"; };
 		07636DA51BA49A0100925671 /* UIView+Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Image.h"; sourceTree = "<group>"; };
 		07636DA61BA49A0100925671 /* UIView+Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Image.m"; sourceTree = "<group>"; };
+		07829D621BB2A9A80000D5D9 /* ZZCommonModelsGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZCommonModelsGenerator.h; path = CommonModelsGenerator/ZZCommonModelsGenerator.h; sourceTree = "<group>"; };
+		07829D631BB2A9A80000D5D9 /* ZZCommonModelsGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZCommonModelsGenerator.m; path = CommonModelsGenerator/ZZCommonModelsGenerator.m; sourceTree = "<group>"; };
+		07829D661BB2AA840000D5D9 /* ZZGridTransportService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZGridTransportService.h; path = TransportService/ZZGridTransportService.h; sourceTree = "<group>"; };
+		07829D671BB2AA840000D5D9 /* ZZGridTransportService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZGridTransportService.m; path = TransportService/ZZGridTransportService.m; sourceTree = "<group>"; };
 		079280A21BA8544800E22553 /* ZZGridActionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZGridActionHandler.h; path = ActionHandler/ZZGridActionHandler.h; sourceTree = "<group>"; };
 		079280A31BA8544800E22553 /* ZZGridActionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZGridActionHandler.m; path = ActionHandler/ZZGridActionHandler.m; sourceTree = "<group>"; };
 		07BAA7031BB18DD2009878B9 /* NSArray+TBMArrayHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+TBMArrayHelpers.h"; path = "NSArray/NSArray+TBMArrayHelpers.h"; sourceTree = "<group>"; };
@@ -2252,6 +2258,7 @@
 		07636B7D1BA49A0100925671 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				07829D651BB2A9AE0000D5D9 /* CommonModelsGenerator */,
 				79EBFD3D1BA8554100A26684 /* ToastBuilder */,
 				07636B7E1BA49A0100925671 /* AdressBookProvider */,
 				07636B811BA49A0100925671 /* AlertBuilder */,
@@ -3151,6 +3158,7 @@
 			isa = PBXGroup;
 			children = (
 				07636C9E1BA49A0100925671 /* Interactor */,
+				07829D691BB2AA8C0000D5D9 /* TransportService */,
 			);
 			path = ApplicationLogic;
 			sourceTree = "<group>";
@@ -3938,6 +3946,24 @@
 			path = "UIImage+PDF";
 			sourceTree = "<group>";
 		};
+		07829D651BB2A9AE0000D5D9 /* CommonModelsGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				07829D621BB2A9A80000D5D9 /* ZZCommonModelsGenerator.h */,
+				07829D631BB2A9A80000D5D9 /* ZZCommonModelsGenerator.m */,
+			);
+			name = CommonModelsGenerator;
+			sourceTree = "<group>";
+		};
+		07829D691BB2AA8C0000D5D9 /* TransportService */ = {
+			isa = PBXGroup;
+			children = (
+				07829D661BB2AA840000D5D9 /* ZZGridTransportService.h */,
+				07829D671BB2AA840000D5D9 /* ZZGridTransportService.m */,
+			);
+			name = TransportService;
+			sourceTree = "<group>";
+		};
 		079280A51BA8544B00E22553 /* ActionHandler */ = {
 			isa = PBXGroup;
 			children = (
@@ -4543,6 +4569,7 @@
 				07636EBD1BA49A0100925671 /* ZZGridPresenter.m in Sources */,
 				07636DD91BA49A0100925671 /* TBMRecordWelcomeHintView.m in Sources */,
 				07636DD61BA49A0100925671 /* TBMRecordHintPresenter.m in Sources */,
+				07829D641BB2A9A80000D5D9 /* ZZCommonModelsGenerator.m in Sources */,
 				07636E3C1BA49A0100925671 /* ZZNetworkTransport.m in Sources */,
 				07636E9B1BA49A0100925671 /* ZZDebugStateDataSource.m in Sources */,
 				07636E591BA49A0100925671 /* ZZSoundPlayer.m in Sources */,
@@ -4567,6 +4594,7 @@
 				07636F091BA49A0100925671 /* TBMVerfiicationAlertHandler.m in Sources */,
 				79123D731BB032C3007E1CBF /* ZZHintsController.m in Sources */,
 				07636EF71BA49A0100925671 /* ANMessagesWireframe.m in Sources */,
+				07829D681BB2AA840000D5D9 /* ZZGridTransportService.m in Sources */,
 				07636EB41BA49A0100925671 /* ZZEditFriendCell.m in Sources */,
 				07636E9F1BA49A0100925671 /* ZZDebugStateController.m in Sources */,
 				07636E1C1BA49A0100925671 /* ZZRootWireframe.m in Sources */,

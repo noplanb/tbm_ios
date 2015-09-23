@@ -52,8 +52,8 @@
 
 //email constants
 
-static NSString* emailSubject = @"Feedback";
-static NSString* emailAddress = @"feedback@zazoapp.com";
+static NSString* kApplicationFeedbackEmailSubject = @"Feedback";
+static NSString* kApplicationFeedbackEmailAddress = @"feedback@zazoapp.com";
 //ios, app version, user mkey, iphone 5s.
 
 static NSString* const kContentDBName = @"tbm";

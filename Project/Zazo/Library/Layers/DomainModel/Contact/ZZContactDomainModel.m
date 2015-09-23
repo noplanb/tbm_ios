@@ -31,4 +31,13 @@
     return ZZMenuContactTypeAddressbook;
 }
 
+- (void)setPhones:(NSArray*)phones
+{
+    _phones = phones;
+    if (_phones.count == 1)
+    {
+        self.primaryPhone = [_phones firstObject];
+    }
+}
+
 @end

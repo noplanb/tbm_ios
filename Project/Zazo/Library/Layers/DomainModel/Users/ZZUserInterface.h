@@ -13,7 +13,6 @@
 - (NSString*)firstName;
 - (NSString*)lastName;
 - (NSString*)photoURLString;
-- (UIImage *)photoImage; // TODO; temp
 - (BOOL)hasApp;
 - (ZZMenuContactType)contactType;
 

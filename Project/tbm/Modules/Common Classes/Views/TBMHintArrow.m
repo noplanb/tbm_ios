@@ -6,7 +6,6 @@
 #import "TBMHintArrow.h"
 #import "UILabel+TBMUILabelDynamicHeight.h"
 
-
 CGFloat const kImageScale = 0.75f;
 
 @interface TBMHintArrow ()

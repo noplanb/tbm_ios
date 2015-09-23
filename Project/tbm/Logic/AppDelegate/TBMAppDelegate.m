@@ -145,17 +145,6 @@
 
 
 
-//---------
-// CoreData
-//---------
-
-
-- (void)fillDataBaseAfterMigration {
-    OB_INFO(@"Successfull Core Data migration. Trying to fill new fields");
-    [TBMFriend fillAfterMigration];
-
-}
-
 #pragma mark - Application's Documents directory
 
 // Returns the URL to the application's Documents directory.

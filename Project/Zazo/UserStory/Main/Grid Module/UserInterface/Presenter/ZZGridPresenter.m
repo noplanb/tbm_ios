@@ -214,17 +214,17 @@
     [self showNoValidPhonesDialogFromModel:model];
 }
 
-- (void)userHaSeveralValidNumbers:(NSArray*)phoneNumbers
+- (void)userNeedsToPickPrimaryPhone:(ZZContactDomainModel*)contact
 {
-    [self showChooseNumberDialogFromNumbersArray:phoneNumbers];
+    [self showChooseNumberDialogForUser:contact];
 }
 
-- (void)userHasNoAppInstalled:(NSString*)firsName
+- (void)userHasNoAppInstalled:(ZZContactDomainModel *)contact
 {
-    [self showSendInvitationDialogForUser:firsName];
+    [self showSendInvitationDialogForUser:contact];
 }
 
-- (void)friendRecievedFromeServer:(ZZFriendDomainModel*)friendModel
+- (void)friendRecievedFromServer:(ZZFriendDomainModel*)friendModel
 {
     if (friendModel.hasApp)
     {
@@ -278,7 +278,6 @@
     }
     else
     {
-        [self.interactor selectedPlusCellWithModel:model.item];
         [self presentMenu];
     }
 }
@@ -303,16 +302,6 @@
 {
     NSIndexPath* friendIndexPath = [self _indexPathForFriendAtindex:friendCellIndex];
     return [self.userInterface gridGetUnviewedBadgeFrameForIndexPath:friendIndexPath inView:view];
-}
-
-- (NSUInteger)lastAddedFriendOnGridIndex
-{
-    return [self.interactor lastAddedFriendIndex];
-}
-
-- (NSString*)lastAddedFriendOnGridName
-{
-    return [self.interactor lastAddedFriendName];
 }
 
 
@@ -419,9 +408,9 @@
 
 #pragma mark - Module Delegate Method
 
-- (void)selectedUser:(id)user
+- (void)userSelectedOnMenu:(id)user
 {
-    [self.interactor selectedUserWithModel:user];
+    [self.interactor addUserToGrid:user];
 }
 
 - (ZZSoundPlayer*)soundPlayer
@@ -458,30 +447,32 @@
     [ZZGridAlertBuilder showNoValidPhonesDialogForUserWithFirstName:model.firstName fullName:model.fullName];
 }
 
-- (void)showChooseNumberDialogFromNumbersArray:(NSArray*)array// TODO: move to grid alerts
+- (void)showChooseNumberDialogForUser:(ZZContactDomainModel*)user// TODO: move to grid alerts
 {
     //TODO: this alert is SUXX
     ANDispatchBlockToMainQueue(^{
         TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Attention"
                                                                          message:@"Choose phone number"];
         
-        [array enumerateObjectsUsingBlock:^(NSString* phoneNumber, NSUInteger idx, BOOL *stop) {
+        [user.phones enumerateObjectsUsingBlock:^(NSString* phoneNumber, NSUInteger idx, BOOL *stop) {
             [alert addAction:[SDCAlertAction actionWithTitle:phoneNumber style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
-                [self.interactor userSelectedPhoneNumber:phoneNumber];
+                user.primaryPhone = phoneNumber;
+                [self.interactor userSelectedPrimaryPhoneNumber:user];
             }]];
         }];
         
-        [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
-        }]];
+        [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel"
+                                                   style:SDCAlertActionStyleCancel
+                                                 handler:^(SDCAlertAction *action) {}]];
 
         [alert presentWithCompletion:nil];
     });
 }
 
-- (void)showSendInvitationDialogForUser:(NSString*)firsName
+- (void)showSendInvitationDialogForUser:(ZZContactDomainModel*)user
 {
-    [ZZGridAlertBuilder showSendInvitationDialogForUser:firsName completion:^ {
-        [self.interactor inviteUserThatHasNoAppInstalled];
+    [ZZGridAlertBuilder showSendInvitationDialogForUser:user.firstName completion:^ {
+        [self.interactor inviteUserInApplication:user];
     }];
 }
 
@@ -490,7 +481,7 @@
     [self.interactor updateLastActionForFriend:friend];
     
     [ZZGridAlertBuilder showConnectedDialogForUser:friend.firstName completion:^{
-        [self.interactor addNewFriendToGridModelsArray];
+        [self.interactor addUserToGrid:friend];
     }];
 }
 
@@ -524,13 +515,13 @@
 }
 
 
-
 #pragma mark - Edit Friends
 
 - (void)friendRemovedContacts:(ZZFriendDomainModel*)model
 {
     [self.interactor removeUserFromContacts:model];
 }
+
 
 #pragma mark - Video Recorder Delegate
 

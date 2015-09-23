@@ -8,6 +8,6 @@
 
 @protocol ZZMenuModuleDelegate <NSObject>
 
-- (void)selectedUser:(id)user;
+- (void)userSelectedOnMenu:(id)user;
 
 @end

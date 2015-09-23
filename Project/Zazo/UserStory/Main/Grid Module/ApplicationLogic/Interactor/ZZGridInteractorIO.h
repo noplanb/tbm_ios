@@ -6,25 +6,27 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-@class ZZGridCellViewModel, ZZFriendDomainModel, ANMessageDomainModel, ZZGridDomainModel, ZZContactDomainModel, TBMFriend;
+@class ZZGridCellViewModel;
+@class ZZFriendDomainModel;
+@class ANMessageDomainModel;
+@class ZZGridDomainModel;
+@class ZZContactDomainModel;
+@class TBMFriend;
 
 @protocol ZZGridInteractorInput <NSObject>
 
 - (void)loadData;
-- (void)selectedPlusCellWithModel:(id)model;
-- (void)selectedUserWithModel:(id)model;
-- (void)loadFeedbackModel;
+- (void)addUserToGrid:(id)friendModel;
 
-- (void)userSelectedPhoneNumber:(NSString*)phoneNumber;
-- (void)inviteUserThatHasNoAppInstalled;
-- (void)addNewFriendToGridModelsArray;
+- (void)userSelectedPrimaryPhoneNumber:(ZZContactDomainModel*)contact;
+- (void)inviteUserInApplication:(ZZContactDomainModel*)contact;
 
 - (void)removeUserFromContacts:(ZZFriendDomainModel*)model;
 - (void)updateLastActionForFriend:(ZZFriendDomainModel*)friendModel;
-- (void)handleNotificationForFriend:(TBMFriend *)friendEntity;
+- (void)handleNotificationForFriend:(TBMFriend*)friendEntity;
 
-- (NSUInteger)lastAddedFriendIndex;
-- (NSString*)lastAddedFriendName;
+- (void)loadFeedbackModel;
+
 @end
 
 
@@ -37,11 +39,11 @@
 - (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel*)model;
 
 - (void)userHasNoValidNumbers:(ZZContactDomainModel*)model;
-- (void)userHaSeveralValidNumbers:(NSArray*)phoneNumbers;
-- (void)userHasNoAppInstalled:(NSString*)firsName;
-- (void)friendRecievedFromeServer:(ZZFriendDomainModel*)friendModel;
+- (void)userNeedsToPickPrimaryPhone:(ZZContactDomainModel*)contacts;
+- (void)userHasNoAppInstalled:(ZZContactDomainModel*)contact;
+- (void)friendRecievedFromServer:(ZZFriendDomainModel*)friendModel;
 
-- (void)updateGridWithModel:(ZZGridDomainModel *)model;
-- (void)updateGridWithModelFromNotification:(ZZGridDomainModel *)model;
+- (void)updateGridWithModel:(ZZGridDomainModel*)model;
+- (void)updateGridWithModelFromNotification:(ZZGridDomainModel*)model;
 
 @end
