@@ -9,6 +9,7 @@
 #import "ZZPhoneHelper.h"
 #import "ZZContactDomainModel.h"
 #import "TBMPhoneUtils.h"
+#import "ZZCommunicationDomainModel.h"
 
 @implementation ZZPhoneHelper
 
@@ -18,11 +19,11 @@
     
     if (model.phones.allObjects.count > 0)
     {
-        [model.phones.allObjects enumerateObjectsUsingBlock:^(NSString* phoneNumber, NSUInteger idx, BOOL *stop) {
+        [model.phones.allObjects enumerateObjectsUsingBlock:^(ZZCommunicationDomainModel* communicationModel, NSUInteger idx, BOOL *stop) {
             
-            if ([TBMPhoneUtils isValidPhone:phoneNumber])
+            if ([TBMPhoneUtils isValidPhone:communicationModel.contact])
             {
-                NSString *formattedPhone = [TBMPhoneUtils phone:phoneNumber withFormat:NBEPhoneNumberFormatINTERNATIONAL];
+                NSString *formattedPhone = [TBMPhoneUtils phone:communicationModel.contact withFormat:NBEPhoneNumberFormatINTERNATIONAL];
                 [validNumbers addObject:formattedPhone];
             }
         }];
