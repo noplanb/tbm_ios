@@ -132,7 +132,6 @@
 
 #pragma mark - Private
 
-
 + (NSString*)_randomStringWithLength:(NSInteger)len
 {
     NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
