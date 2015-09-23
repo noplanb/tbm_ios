@@ -14,6 +14,7 @@
 #import "ZZVideoDomainModel.h"
 #import "ZZVideoRecorder.h"
 #import "ZZFeatureObserver.h"
+#import "ZZThumbnailGenerator.h"
 
 @interface ZZGridCellViewModel ()
 
@@ -36,8 +37,9 @@
 }
 
 - (void)updateRecordingStateTo:(BOOL)isRecording
+           withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
-    [self.delegate recordingStateUpdatedToState:isRecording viewModel:self];
+    [self.delegate recordingStateUpdatedToState:isRecording viewModel:self withCompletionBlock:completionBlock];
 }
 
 //- (void)stopRecording
@@ -101,15 +103,13 @@
 
 - (UIImage*)thumbSnapshot
 {
-    return [self _generateThumbWithVideoUrl:[[self playerVideoURLs] firstObject]];
+    return [self _videoThumbnail];
 }
 
 - (UIImage *)videoThumbnailImage
 {
-    ZZVideoDomainModel* model = [self.item.relatedUser.videos firstObject];
-    return [self _generateThumbWithVideoUrl:model.videoURL];
+    return [self _videoThumbnail];
 }
-
 
 - (void)setBadgeNumber:(NSNumber *)badgeNumber
 {
@@ -152,16 +152,17 @@
         
         if (recognizer.state == UIGestureRecognizerStateBegan)
         {
-            [self updateRecordingStateTo:YES];
+            [self updateRecordingStateTo:YES withCompletionBlock:nil];
         }
         else if (recognizer.state == UIGestureRecognizerStateEnded)
         {
-            if (![ZZVideoRecorder shared].didCancelRecording)
-            {
-                self.hasUploadedVideo = YES;
-                [self.animationDelegate showUploadAnimation];
-            }
-            [self updateRecordingStateTo:NO];
+            [self updateRecordingStateTo:NO withCompletionBlock:^(BOOL isRecordingSuccess) {
+               if (isRecordingSuccess)
+               {
+                   self.hasUploadedVideo = YES;
+                   [self.animationDelegate showUploadAnimation];
+               }
+            }];
         }
     }
 }
@@ -207,25 +208,12 @@
 
 #pragma mark - Generate Thumbnail
 
-- (UIImage *)_generateThumbWithVideoUrl:(NSURL *)videoUrl
+- (UIImage*)_videoThumbnail
 {
-    AVAsset *asset = [AVAsset assetWithURL:videoUrl];
-    AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
-    imageGenerator.appliesPreferredTrackTransform = YES;
-    CMTime duration = asset.duration;
-    CMTime secondsFromEnd = CMTimeMake(2, 1);
-    CMTime thumbTime = CMTimeSubtract(duration, secondsFromEnd);
-    CMTime actual;
-    NSError *err = nil;
-    CGImageRef imageRef = [imageGenerator copyCGImageAtTime:thumbTime actualTime:&actual error:&err];
-    if (err != nil){
-        OB_ERROR(@"generateThumb: %@", err);
-        return nil;
-    }
-    UIImage *thumbnail = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationUp];
-    CGImageRelease(imageRef);
+    ZZVideoDomainModel* model = [self.item.relatedUser.videos firstObject];
+    [ZZThumbnailGenerator generateThumbVideo:model];
     
-    return thumbnail;
+    return [ZZThumbnailGenerator lastThumbImageForUser:self.item.relatedUser];
 }
 
 @end

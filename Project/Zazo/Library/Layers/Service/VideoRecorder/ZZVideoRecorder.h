@@ -29,7 +29,7 @@ extern NSString* const TBMVideoRecorderDidFail;
 - (void)updateRecordView:(UIView*)recordView;
 - (void)startRecordingWithVideoURL:(NSURL*)url;
 
-- (void)stopRecording;
+- (void)stopRecordingWithCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock;
 
 - (BOOL)areBothCamerasAvailable;
 - (void)switchCamera;
