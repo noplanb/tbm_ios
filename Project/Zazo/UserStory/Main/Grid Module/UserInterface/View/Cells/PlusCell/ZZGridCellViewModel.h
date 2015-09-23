@@ -10,11 +10,19 @@
 
 @class ZZGridCellViewModel;
 
+@protocol ZZGridCellVeiwModelAnimationDelegate <NSObject>
+
+- (void)showUploadAnimation;
+
+@end
+
+
 @protocol ZZGridCellViewModelDelegate <NSObject>
 
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel;
 - (void)playingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel;
 - (void)nudgeSelectedWithUserModel:(id)userModel;
+- (BOOL)isVideoPalying;
 
 @end
 
@@ -32,6 +40,7 @@ typedef NS_ENUM(NSInteger, ZZGridCellViewModelState)
 
 @property (nonatomic, strong) ZZGridDomainModel* item;
 @property (nonatomic, weak) id <ZZGridCellViewModelDelegate> delegate;
+@property (nonatomic, weak) id <ZZGridCellVeiwModelAnimationDelegate> animationDelegate;
 @property (nonatomic, strong) NSNumber* badgeNumber;
 @property (nonatomic, strong) NSNumber* prevBadgeNumber;
 @property (nonatomic, strong) UIView* playerContainerView;
@@ -48,7 +57,9 @@ typedef NS_ENUM(NSInteger, ZZGridCellViewModelState)
 - (UIImage*)videoThumbnailImage;
 
 - (void)updateVideoPlayingStateTo:(BOOL)isPlaying;
-
 - (ZZGridCellViewModelState)state;
+
+- (void)setupRecorderRecognizerOnView:(UIView*)view
+                withAnimationDelegate:(id <ZZGridCellVeiwModelAnimationDelegate>)animationDelegate;
 
 @end

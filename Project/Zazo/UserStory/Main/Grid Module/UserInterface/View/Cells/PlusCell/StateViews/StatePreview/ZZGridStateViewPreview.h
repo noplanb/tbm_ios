@@ -10,4 +10,6 @@
 
 @interface ZZGridStateViewPreview : ZZGridStateView
 
+@property (nonatomic, strong) UIImageView* thumbnailImageView;
+
 @end

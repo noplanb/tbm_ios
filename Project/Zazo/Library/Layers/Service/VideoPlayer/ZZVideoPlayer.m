@@ -7,6 +7,8 @@
 //
 
 @import MediaPlayer;
+@import AVFoundation;
+
 
 #import "ZZVideoPlayer.h"
 #import "ZZVideoDomainModel.h"
@@ -33,21 +35,42 @@
     self = [super init];
     if (self)
     {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(_playNext)
-                                                     name:MPMoviePlayerPlaybackDidFinishNotification
-                                                   object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(_playerStateWasUpdated)
-                                                     name:MPMoviePlayerPlaybackStateDidChangeNotification
-                                                   object:nil];
+        [self addNotifications];
     }
     return self;
 }
 
+- (void)addNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_playNext)
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_playerStateWasUpdated)
+                                                 name:MPMoviePlayerPlaybackStateDidChangeNotification
+                                               object:nil];
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(changeAudioOutput)
+//                                                 name:UIDeviceProximityStateDidChangeNotification
+//                                               object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (BOOL)isPlaying
+{
+    return (self.moviePlayerController.playbackState == MPMoviePlaybackStatePlaying);
+}
+
 - (void)playOnView:(UIView*)view withURLs:(NSArray*)URLs
 {
+    
     self.videoModelsArray = URLs;
     if (view != self.moviePlayerController.view.superview && view)
     {
@@ -115,10 +138,10 @@
     }
 }
 
-- (BOOL)isPlaying
-{
-    return self.isPlayingVideo;
-}
+//- (BOOL)isPlaying
+//{
+//    return self.isPlayingVideo;
+//}
 
 
 #pragma mark - Private
@@ -170,6 +193,21 @@
     }
 }
 
+//#pragma mark - Change Output
+//
+//- (void)changeAudioOutput
+//{
+//    if ([self isDeviceNearEar])
+//    {
+//        
+//    
+//    }
+//}
+
+- (BOOL)isDeviceNearEar
+{
+    return [UIDevice currentDevice].proximityState;
+}
 
 #pragma mark - Lazy Load
 

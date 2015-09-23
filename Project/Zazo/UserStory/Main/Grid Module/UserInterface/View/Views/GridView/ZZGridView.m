@@ -67,7 +67,16 @@
         _collectionView.backgroundColor = [UIColor clearColor];
         _collectionView.scrollEnabled = NO;
         [self addSubview:_collectionView];
-        CGFloat topPadding = (CGRectGetHeight([UIScreen mainScreen].bounds) - kGridHeight() - kGridHeaderViewHeight)/2;
+        CGFloat topPadding;
+        if (!IS_IPAD)
+        {
+            topPadding = (CGRectGetHeight([UIScreen mainScreen].bounds) - kGridHeight() - kGridHeaderViewHeight)/2;
+        }
+        else
+        {
+            topPadding = (CGRectGetHeight([UIScreen mainScreen].bounds) - kGridHeight());
+        }
+        
         [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.headerView.mas_bottom).with.offset(topPadding);
             make.left.right.equalTo(self);

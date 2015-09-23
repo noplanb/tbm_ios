@@ -6,6 +6,13 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
+@protocol ZZVideoRecorderDelegate <NSObject>
+
+- (void)videoRecordingCanceled;
+
+@end
+
+
 @interface ZZVideoRecorder : NSObject
 
 extern NSString* const kVideoProcessorDidFinishProcessing;
@@ -29,6 +36,8 @@ extern NSString* const TBMVideoRecorderDidFail;
 - (void)cancelRecordingWithReason:(NSString*)reason;
 - (void)updateRecorder;
 
+- (void)addDelegate:(id<ZZVideoRecorderDelegate>)delegate;
+- (void)removeDelegate:(id<ZZVideoRecorderDelegate>)delegate;
 
 
 @end
