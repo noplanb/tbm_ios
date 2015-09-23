@@ -9,7 +9,6 @@
 #import "TBMContactsManager.h"
 #import <AddressBook/AddressBook.h>
 #import "OBLogger.h"
-#import "TBMConfig.h"
 #import "TBMAlertController.h"
 
 @interface TBMContactsManager()
@@ -209,11 +208,13 @@
     }
 }
 
-- (NSMutableSet *)phoneNumbersWithRecord:(ABRecordRef)record{
+- (NSMutableSet *)phoneNumbersWithRecord:(ABRecordRef)record
+{
     NSMutableSet *result = [[NSMutableSet alloc] init];
     
     ABMultiValueRef phoneNumbers = ABRecordCopyValue(record, kABPersonPhoneProperty);
-    for (CFIndex i = 0; i < ABMultiValueGetCount(phoneNumbers); i++) {
+    for (CFIndex i = 0; i < ABMultiValueGetCount(phoneNumbers); i++)
+    {
         NSString* phoneNumber = (__bridge_transfer NSString*) ABMultiValueCopyValueAtIndex(phoneNumbers, i);
         CFStringRef label = ABMultiValueCopyLabelAtIndex(phoneNumbers, i);
         CFStringRef ll = ABAddressBookCopyLocalizedLabel(label);

@@ -57,6 +57,11 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
     {
         self.videoProcessor = [TBMVideoProcessor new];
         self.recorder = [SCRecorder recorder];
+        // Start running the flow of buffers
+        if (![self.recorder startRunning])
+        {
+            NSLog(@"Something wrong there: %@", self.recorder.error);
+        }
         self.recorder.delegate = self;
         self.recorder.captureSessionPreset = AVCaptureSessionPresetLow;
         
@@ -71,7 +76,6 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
         self.recorder.session = [SCRecordSession recordSession];
         self.delegatesArray = [NSMutableArray array];
         [self.recorder startRunning];
-        
     }
     return self;
 }
@@ -167,6 +171,7 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
     [[NSFileManager defaultManager] removeItemAtURL:videoUrl error:nil];
 }
 
+
 #pragma mark - Cancel Recording
 
 - (void)cancelRecordingWithReason:(NSString*)reason
@@ -198,7 +203,6 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
     {
         [self recordVideoToFileWithRecordSession:recordSession];
     }
-    
 }
 
 - (void)recordVideoToFileWithRecordSession:(SCRecordSession*)recordSession

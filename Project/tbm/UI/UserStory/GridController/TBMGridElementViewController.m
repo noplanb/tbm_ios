@@ -48,11 +48,11 @@
 
 @implementation TBMGridElementViewController
 
-//- (instancetype)initWithIndex:(NSInteger)index frame:(CGRect)frame
-//{
-//    self = [super init];
-//    if (self != nil)
-//    {
+- (instancetype)initWithIndex:(NSInteger)index frame:(CGRect)frame
+{
+    self = [super init];
+    if (self != nil)
+    {
 //        _index = index;
 //        _isAppeared = NO;
 //        self.indexOnGrid = index;
@@ -60,9 +60,9 @@
 //        self.gridElement = [TBMGridElement findWithIntIndex:index];
 //        _messageDing = [[TBMSoundEffect alloc] initWithSoundNamed:kMessageSoundEffectFileName];
 //        _frame = frame;
-//    }
-//    return self;
-//}
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -81,11 +81,11 @@
 - (void)viewDidAppear:(BOOL)animated {
     self.isAppeared = YES;
     if (!self.countLabel.hidden) {
-        [self.gridElementDelegate messageDidReceive];
+//        [self.gridElementDelegate messageDidReceive];
     }
 
     if (!self.viewedIndicator.hidden) {
-        [self.gridElementDelegate messageDidViewed:[self.gridElement.index unsignedIntegerValue]];
+//        [self.gridElementDelegate messageDidViewed:[self.gridElement.index unsignedIntegerValue]];
     }
 }
 - (void)viewDidDisappear:(BOOL)animated {
@@ -122,14 +122,14 @@
     if (index == self.index) {
         self.isPlaying = YES;
         [self performSelectorOnMainThread:@selector(updateView) withObject:nil waitUntilDone:NO];
-        [self.gridElementDelegate videoPlayerDidStartPlaying:self.videoPlayer];
+//        [self.gridElementDelegate videoPlayerDidStartPlaying:self.videoPlayer];
     }
 }
 
 - (void)videoPlayerStopped {
     self.isPlaying = NO;
     [self performSelectorOnMainThread:@selector(updateView) withObject:nil waitUntilDone:NO];
-    [self.gridElementDelegate videoPlayerDidStopPlaying:self.videoPlayer];
+//    [self.gridElementDelegate videoPlayerDidStopPlaying:self.videoPlayer];
 }
 
 
@@ -380,7 +380,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     [self showGreenBorder];
     self.countLabel.hidden = NO;
     if (self.isAppeared && !self.countLabel.hidden) {
-        [self.gridElementDelegate messageDidReceive];
+//        [self.gridElementDelegate messageDidReceive];
     }
 }
 
@@ -423,7 +423,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     [self hideAllIcons];
     self.viewedIndicator.hidden = NO;
     if (self.isAppeared) {
-        [self.gridElementDelegate messageDidViewed:[self.gridElement.index unsignedIntegerValue]];
+//        [self.gridElementDelegate messageDidViewed:[self.gridElement.index unsignedIntegerValue]];
     }
 }
 
@@ -454,7 +454,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
     }                completion:^(BOOL finished) {
         [self performSelector:@selector(hideUploadBar) withObject:nil afterDelay:0.2];
         [self performSelector:@selector(updateView) withObject:nil afterDelay:0.4];
-        [self.gridElementDelegate messageDidUpload];
+//        [self.gridElementDelegate messageDidUpload];
     }];
 }
 
@@ -488,8 +488,8 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 
 // Sound actions
 - (void)playDing {
-    if (![[TBMVideoPlayer sharedInstance] isPlaying] && ![(TBMGridViewController *) [self parentViewController] isRecording])
-        [self.messageDing play];
+//    if (![[TBMVideoPlayer sharedInstance] isPlaying] && ![(TBMGridViewController *) [self parentViewController] isRecording])
+//        [self.messageDing play];
 }
 
 // Name Label
@@ -681,24 +681,20 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 // Tap events
 //-----------
 - (void)nudgeTap {
-    if ([TBMBenchViewController existingInstance].isShowing)
-        return;
 
-    [[TBMHomeViewController existingInstance] nudge:self.gridElement.friend];
+//    [[TBMHomeViewController existingInstance] nudge:self.gridElement.friend];
 }
 
 - (void)recordTap {
-    if ([TBMBenchViewController existingInstance].isShowing)
-        return;
-
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Hold to Record"
                                                                      message:@"Press and hold the RECORD button to record"];
 
     [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:nil]];
     [alert presentWithCompletion:nil];
 }
+//
+//- (void)noFriendTap {
+//    [[TBMBenchViewController existingInstance] toggle];
+//}
 
-- (void)noFriendTap {
-    [[TBMBenchViewController existingInstance] toggle];
-}
 @end

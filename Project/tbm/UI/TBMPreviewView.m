@@ -9,7 +9,6 @@
 #import "TBMPreviewView.h"
 #import "TBMSoundEffect.h"
 #import "HexColors.h"
-#import "TBMConfig.h"
 
 static const float LayoutConstRecordingLabelHeight = 22;
 static const float LayoutConstRecordingLabelFontSize = 0.55 * LayoutConstRecordingLabelHeight;

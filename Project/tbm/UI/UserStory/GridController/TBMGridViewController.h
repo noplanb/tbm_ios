@@ -14,7 +14,8 @@
 
 @protocol TBMGridDelegate;
 
-@interface TBMGridViewController : UIViewController <TBMGridElementDelegate, TBMGridModuleInterface, TBMLongPressTouchHandlerCallback, TBMVideoRecorderDelegate, TBMAppDelegateEventNotificationProtocol, TBMVideoStatusNotificationProtocol>
+@interface TBMGridViewController : UIViewController
+//<TBMGridElementDelegate, TBMGridModuleInterface, TBMLongPressTouchHandlerCallback, TBMVideoRecorderDelegate, TBMAppDelegateEventNotificationProtocol, TBMVideoStatusNotificationProtocol>
 
 @property(nonatomic, weak) id <TBMGridDelegate> delegate;
 /**

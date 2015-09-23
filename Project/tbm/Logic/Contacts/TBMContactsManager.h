@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 static const NSString * kContactsManagerFirstNameKey = @"firstName";
 static const NSString * kContactsManagerLastNameKey = @"lastName";
 static const NSString * kContactsManagerPhoneTypeKey = @"phoneType";

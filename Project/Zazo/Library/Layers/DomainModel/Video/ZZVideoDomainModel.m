@@ -8,7 +8,6 @@
 
 #import "ZZVideoDomainModel.h"
 #import "ZZFriendDomainModel.h"
-#import "TBMConfig.h"
 
 const struct ZZVideoDomainModelAttributes ZZVideoDomainModelAttributes = {
     .status = @"status",

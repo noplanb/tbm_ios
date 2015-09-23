@@ -31,7 +31,6 @@ static NSInteger const kGridFriendsCellCount = 8;
 @interface ZZGridInteractor ()
 
 @property (nonatomic, strong) NSArray* gridModels;
-//@property (nonatomic, strong) NSMutableArray* friends;
 @property (nonatomic, strong) id selectedUserModel;
 @property (nonatomic, strong) ZZGridDomainModel* selectedModel;
 @property (nonatomic, assign) BOOL selectedFromGrid;
@@ -45,7 +44,6 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)loadData
 {
-//    [self.friends addObjectsFromArray:[ZZFriendDataProvider loadAllFriends]];
     NSArray *friendArrayForSorting = [ZZFriendDataProvider loadAllFriends];
     [friendArrayForSorting sortedArrayUsingComparator:^NSComparisonResult(ZZFriendDomainModel* obj1, ZZFriendDomainModel* obj2) {
         return [obj1.lastActionTimestamp compare:obj2.lastActionTimestamp];
@@ -392,7 +390,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     }];
 }
 
-#pragma mark - Privat
+#pragma mark - Private
 
 - (ZZGridDomainModel*)_getGridModelWithLatestAction
 {

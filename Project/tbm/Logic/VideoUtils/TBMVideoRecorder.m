@@ -8,7 +8,6 @@
 
 #import "TBMVideoRecorder.h"
 #import "TBMDeviceHandler.h"
-#import "TBMConfig.h"
 #import "OBLogger.h"
 #import "TBMAlertController.h"
 #import "TBMVideoProcessor.h"

@@ -21,6 +21,7 @@
 #import "OBFileTransferManager.h"
 
 @interface TBMVideoPlayer()
+
 @property TBMGridElement *gridElement;
 @property (nonatomic) NSInteger index;
 @property (nonatomic) CGRect playerFrame;
@@ -30,6 +31,7 @@
 @property (nonatomic) NSMutableSet *eventNotificationDelegates;
 @property (nonatomic) BOOL videosAreDownloading;
 @property (nonatomic) BOOL userStopped;
+
 @end
 
 @implementation TBMVideoPlayer

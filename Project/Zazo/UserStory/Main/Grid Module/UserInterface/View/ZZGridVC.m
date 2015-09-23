@@ -11,7 +11,6 @@
 #import "ZZGridCollectionController.h"
 #import "ZZGridDataSource.h"
 #import "ZZTouchObserver.h"
-#import "TBMBenchViewController.h"
 #import "ZZSoundPlayer.h"
 #import "ZZFeatureObserver.h"
 #import "ZZActionSheetController.h"
@@ -155,7 +154,9 @@
 {
     NSIndexPath* indexPath = [NSIndexPath indexPathForItem:index inSection:0];
     UICollectionViewCell* cell = [self.gridView.collectionView cellForItemAtIndexPath:indexPath];
-    return cell.bounds;
+    CGRect position = [cell convertRect:cell.contentView.bounds toView:self.view];
+    
+    return position;
 }
 
 - (CGRect)frameForIndexPath:(NSIndexPath *)indexPath
