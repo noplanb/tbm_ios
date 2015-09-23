@@ -459,12 +459,14 @@
 
 - (void)showChooseNumberDialogForUser:(ZZContactDomainModel*)user// TODO: move to grid alerts
 {
-    self.contactPhoneNumbers = [NSArray arrayWithArray:array];
-   
-    ANDispatchBlockToMainQueue(^{
-        self.table = [[TBMTableModal alloc] initWithParentView:self.userInterface.view title:@"Choose phone number" rowData:array delegate:self];
-        [self.table show];
-    });
+    
+    //TODO
+//    self.contactPhoneNumbers = [NSArray arrayWithArray:array];
+//   
+//    ANDispatchBlockToMainQueue(^{
+//        self.table = [[TBMTableModal alloc] initWithParentView:self.userInterface.view title:@"Choose phone number" rowData:array delegate:self];
+//        [self.table show];
+//    });
 }
 
 
@@ -472,7 +474,7 @@
 
 - (void) didSelectRow:(NSInteger)index
 {
-    [self.interactor userSelectedPhoneNumber:self.contactPhoneNumbers[index]];
+//    [self.interactor userSelectedPhoneNumber:self.contactPhoneNumbers[index]];
 }
 
 - (void)showSendInvitationDialogForUser:(ZZContactDomainModel*)user
