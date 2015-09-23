@@ -28,16 +28,13 @@
 #import "ZZHintsController.h"
 #import "ZZGridCenterCellViewModel.h"
 
-
-@protocol TBMEventsFlowModuleInterface;
-
 @interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate, ZZVideoRecorderDelegate>
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
 @property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
 @property (nonatomic, assign) BOOL isGridAppear;
-@property (nonatomic, strong) id<TBMEventsFlowModuleInterface> eventsFlowModule;
+//@property (nonatomic, strong) id<TBMEventsFlowModuleInterface> eventsFlowModule;
 
 
 
@@ -94,23 +91,24 @@
     [[ZZVideoRecorder shared] removeDelegate:self];
 }
 
-- (id)eventsFlowModule
-{
-    if (!_eventsFlowModule)
-    {
-#ifdef HINTS
-    TBMEventsFlowModulePresenter* eventsFlowModulePresenter = [TBMEventsFlowModulePresenter new];
-    eventsFlowModulePresenter.gridModule = self;
-    [eventsFlowModulePresenter setupHandlers];
-    _eventsFlowModule = eventsFlowModulePresenter;
-#endif
-    }
-    return _eventsFlowModule;
-}
+//- (id)eventsFlowModule
+//{
+//    if (!_eventsFlowModule)
+//    {
+//#ifdef HINTS
+//    TBMEventsFlowModulePresenter* eventsFlowModulePresenter = [TBMEventsFlowModulePresenter new];
+//    eventsFlowModulePresenter.gridModule = self;
+//    [eventsFlowModulePresenter setupHandlers];
+//    _eventsFlowModule = eventsFlowModulePresenter;
+//#endif
+//    }
+//    return _eventsFlowModule;
+//}
 
 - (void)sendMessageEvent
 {
-    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidSend];
+//    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidSend];
+    
 }
 
 - (void)updateGridData:(NSNotification*)notification

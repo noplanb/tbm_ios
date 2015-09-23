@@ -316,7 +316,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     // retrive grid item releva
     
     
-    //TODO: 
+    //TODO:
 //    if (self.selectedFromGrid)
 //    {
 //        self.selectedModel.relatedUser = friend;
