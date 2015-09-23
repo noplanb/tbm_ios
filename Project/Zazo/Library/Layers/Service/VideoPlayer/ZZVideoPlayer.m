@@ -70,14 +70,13 @@
 
 - (void)playOnView:(UIView*)view withURLs:(NSArray*)URLs
 {
-    
+    self.moviePlayerController.contentURL = nil;
     self.videoModelsArray = URLs;
     if (view != self.moviePlayerController.view.superview && view)
     {
         self.moviePlayerController.view.frame = view.bounds;
         [view addSubview:self.moviePlayerController.view];
         [view bringSubviewToFront:self.moviePlayerController.view];
-        
         
         NSArray* videoUrls = [[URLs.rac_sequence map:^id(ZZVideoDomainModel* value) {
             return value.videoURL;
