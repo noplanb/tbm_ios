@@ -48,11 +48,20 @@
     if (!ANIsEmpty(user.mobileNumber))
     {
         NSError* error;
-        NBPhoneNumber *phoneNumber = [[NBPhoneNumberUtil new] parse:user.mobileNumber defaultRegion:@"US" error:&error];
+        
+        NSString *nationalNumber = nil;
+        NSNumber *countryCode = [[NBPhoneNumberUtil new] extractCountryCode:user.mobileNumber nationalNumber:&nationalNumber];
         if (!error)
         {
-            user.countryCode = [phoneNumber.countryCode stringValue];
-            user.plainPhoneNumber = [phoneNumber.nationalNumber stringValue];
+            if (!ANIsEmpty([countryCode stringValue]))
+            {
+                user.countryCode = [countryCode stringValue];
+            }
+            if (!ANIsEmpty(nationalNumber))
+            {
+                user.plainPhoneNumber = nationalNumber;
+            }
+            
         }
     }
     [self.output userDataLoadedSuccessfully:user];
