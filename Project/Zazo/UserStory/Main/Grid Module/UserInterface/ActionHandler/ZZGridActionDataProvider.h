@@ -8,6 +8,6 @@
 
 @interface ZZGridActionDataProvider : NSObject
 
-
++ (NSInteger)numberOfUsersOnGrid;
 
 @end

@@ -36,20 +36,7 @@
 
 - (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel
 {
-    UIBezierPath *overlayPath = [UIBezierPath bezierPathWithRect:self.frame];
-    
-    CGRect highlightFrame = [viewModel focusFrame];
-    
-    UIBezierPath *transparentPath = [UIBezierPath bezierPathWithRect:highlightFrame];
-    [overlayPath appendPath:transparentPath];
-    [overlayPath setUsesEvenOddFillRule:YES];
-    
-    CAShapeLayer *fillLayer = [CAShapeLayer layer];
-    fillLayer.path = overlayPath.CGPath;
-    fillLayer.fillRule = kCAFillRuleEvenOdd;
-    fillLayer.fillColor = [[UIColor blackColor] colorWithAlphaComponent:0.65].CGColor;
-    
-    [self.layer addSublayer:fillLayer];
+    [self showFocusOnFrame:[viewModel focusFrame]];
     
     TBMHintArrow *hintView = [TBMHintArrow arrowWithText:[viewModel text]
                                                curveKind:(NSInteger)[viewModel arrowDirection]
@@ -65,6 +52,39 @@
         self.currentBottomImageType = [viewModel bottomImageType];
         [self.gotItView updateWithType:[viewModel bottomImageType]];
     }
+}
+
+- (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel andIndex:(NSInteger)index
+{
+    [self showFocusOnFrame:[viewModel focusFrame]];
+    
+    TBMHintArrow *hintView = [TBMHintArrow arrowWithText:[viewModel text]
+                                               curveKind:(NSInteger)[viewModel arrowDirectionForIndex:index]
+                                              arrowPoint:[viewModel generateArrowFocusPointForIndex:index]
+                                                   angle:[viewModel arrowAngleForIndex:index]
+                                                  hidden:[viewModel hidesArrow]
+                                                   frame:[UIScreen mainScreen].bounds];
+    [self addSubview:hintView];
+    
+    
+}
+
+- (void)showFocusOnFrame:(CGRect)focusFrame
+{
+    UIBezierPath *overlayPath = [UIBezierPath bezierPathWithRect:self.frame];
+    
+    CGRect highlightFrame = focusFrame;
+    
+    UIBezierPath *transparentPath = [UIBezierPath bezierPathWithRect:highlightFrame];
+    [overlayPath appendPath:transparentPath];
+    [overlayPath setUsesEvenOddFillRule:YES];
+    
+    CAShapeLayer *fillLayer = [CAShapeLayer layer];
+    fillLayer.path = overlayPath.CGPath;
+    fillLayer.fillRule = kCAFillRuleEvenOdd;
+    fillLayer.fillColor = [[UIColor blackColor] colorWithAlphaComponent:0.65].CGColor;
+    
+    [self.layer addSublayer:fillLayer];
 }
 
 - (void)tutorialViewDidTap:(UITapGestureRecognizer *)sender

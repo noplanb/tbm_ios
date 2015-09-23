@@ -13,6 +13,7 @@
 #import "UIImage+PDF.h"
 #import "ZZVideoRecorder.h"
 #import "ZZFeatureObserver.h"
+#import "ZZStoredSettingsManager.h"
 
 @interface ZZGridStateView ()
 
@@ -46,6 +47,16 @@
     {
         [self hideAllAnimationViews];
         self.videoViewedView.hidden = NO;
+    }
+    
+    
+    if ([ZZStoredSettingsManager shared].debugModeEnabled)
+    {
+        self.userNameLabel.text = [model videoStatus];
+    }
+    else
+    {
+        self.userNameLabel.text = [model firstName];
     }
 }
 
@@ -292,6 +303,25 @@
     }
 
     return _videoViewedView;
+}
+
+- (UILabel*)userNameLabel
+{
+    if (!_userNameLabel)
+    {
+        _userNameLabel = [UILabel new];
+        _userNameLabel.textAlignment = NSTextAlignmentCenter;
+        _userNameLabel.textColor = [ZZColorTheme shared].gridStatusViewUserNameLabelColor;
+        _userNameLabel.font = [UIFont an_regularFontWithSize:kUserNameFontSize];
+        _userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
+        [self addSubview:_userNameLabel];
+        
+        [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(self);
+            make.height.equalTo(self).dividedBy(kUserNameScaleValue);
+        }];
+    }
+    return _userNameLabel;
 }
 
 @end

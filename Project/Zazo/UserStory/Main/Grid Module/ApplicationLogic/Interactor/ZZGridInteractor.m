@@ -25,6 +25,7 @@
 #import "ZZCommonNetworkTransportService.h"
 #import "ZZCommonModelsGenerator.h"
 #import "ZZGridTransportService.h"
+#import "ZZCommunicationDomainModel.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
@@ -219,7 +220,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         friendModel = [ZZFriendDomainModel new];
         friendModel.firstName = contactModel.firstName;
         friendModel.lastName = contactModel.lastName;
-        friendModel.mobileNumber = [contactModel.phones firstObject];
+        friendModel.mobileNumber = [(ZZCommunicationDomainModel*)[contactModel.phones firstObject] contact];
     }
     else
     {

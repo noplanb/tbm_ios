@@ -12,6 +12,24 @@
 
 @property (nonatomic, assign) ZZGridActionFeatureType lastUnlockedFeature;
 
+#pragma mark - Hints
+
+@property (nonatomic, assign) BOOL hintsDidStartPlay;
+@property (nonatomic, assign) BOOL hintsDidStartRecord;
+@property (nonatomic, assign) BOOL abortRecordHintWasShown;
+@property (nonatomic, assign) BOOL deleteFriendHintWasShown;
+@property (nonatomic, assign) BOOL earpieceHintWasShown;
+@property (nonatomic, assign) BOOL frontCameraHintWasShown;
+@property (nonatomic, assign) BOOL inviteHintWasShown;
+@property (nonatomic, assign) BOOL inviteSomeoneHintWasShown;
+@property (nonatomic, assign) BOOL playHintWasShown;
+@property (nonatomic, assign) BOOL recordHintWasShown;
+@property (nonatomic, assign) BOOL recordWelcomeHintWasShown;
+@property (nonatomic, assign) BOOL sentHintWasShown;
+@property (nonatomic, assign) BOOL spinHintWasShown;
+@property (nonatomic, assign) BOOL viewedHintWasShown;
+@property (nonatomic, assign) BOOL welcomeHintWasShown;
+
 + (instancetype)shared;
 
 @end

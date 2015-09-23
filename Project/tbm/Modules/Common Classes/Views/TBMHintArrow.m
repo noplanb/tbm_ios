@@ -5,6 +5,7 @@
 
 #import "TBMHintArrow.h"
 #import "UILabel+TBMUILabelDynamicHeight.h"
+#import "ZZHintsConstants.h"
 
 CGFloat const kImageScale = 0.75f;
 
@@ -76,7 +77,22 @@ CGFloat degreesToRadians(CGFloat x)
     CGFloat y;
 
     CGRect arrow = [self.rotationWrapper convertRect:self.arrowImageView.frame toView:self];
-    y = self.arrowAngle >= -90 && self.arrowAngle <= 90 ? CGRectGetMinY(arrow) - CGRectGetHeight(self.arrowLabel.bounds) -50 : CGRectGetMaxY(arrow) + 50;
+    
+    CGFloat offset;
+    if ([self countLinesForArrowLabel] == 1)
+    {
+        offset = 30;
+    }
+    else if ([self countLinesForArrowLabel] == 2)
+    {
+        offset = 50;
+    }
+    else
+    {
+        offset = 60;
+    }
+    
+    y = self.arrowAngle >= -90 && self.arrowAngle <= 90 ? CGRectGetMinY(arrow) - CGRectGetHeight(self.arrowLabel.bounds) - offset * 2 : CGRectGetMaxY(arrow) + offset;
     self.arrowLabel.preferredMaxLayoutWidth = width;
     self.arrowLabel.frame = CGRectMake(x, y, width, height);
     CGSize newSize = self.arrowLabel.sizeOfMultiLineLabel;
@@ -114,6 +130,19 @@ CGFloat degreesToRadians(CGFloat x)
     CGPoint endPoint = self.arrowEndPointView.frame.origin;
     CGPoint correctionDelta = CGPointMake(anchor.x - endPoint.x, anchor.y - endPoint.y);
     self.arrowImageView.frame = CGRectMake(x + correctionDelta.x, y + correctionDelta.y, width, height);
+}
+
+- (NSInteger)countLinesForArrowLabel
+{
+    NSInteger lineCount = 0;
+    
+    CGSize textSize = CGSizeMake(SCREEN_WIDTH - 30, MAXFLOAT);
+    int rHeight = lroundf([self.arrowLabel sizeThatFits:textSize].height);
+    int charSize = lroundf(30);
+    
+    lineCount = rHeight/charSize;
+    
+    return lineCount;
 }
 
 #pragma mark - Lazy initialization

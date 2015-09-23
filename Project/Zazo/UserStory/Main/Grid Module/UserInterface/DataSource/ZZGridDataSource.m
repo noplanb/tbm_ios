@@ -73,7 +73,7 @@ static NSInteger const kGridCenterCellIndex = 4;
     }
 }
 
-- (void)setupWithModels:(NSArray *)models
+- (void)setupWithModels:(NSArray *)models completion:(ANCodeBlock)completion
 {
     models = [[models.rac_sequence map:^id(ZZGridDomainModel* value) {
         
@@ -94,6 +94,10 @@ static NSInteger const kGridCenterCellIndex = 4;
     
     ANDispatchBlockToMainQueue(^{
        [self.storage addItems:models];
+        if (completion)
+        {
+            completion();
+        }
     });
 }
 
@@ -153,9 +157,9 @@ static NSInteger const kGridCenterCellIndex = 4;
 
 #pragma mark - ViewModel Delegate
 
-- (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel *)viewModel
+- (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel *)viewModel withCompletionBlock:(void (^)(BOOL))completionBlock
 {
-    [self.delegate recordingStateUpdatedToState:isEnabled viewModel:viewModel];
+    [self.delegate recordingStateUpdatedToState:isEnabled viewModel:viewModel withCompletionBlock:completionBlock];
 }
 
 - (void)nudgeSelectedWithUserModel:(id)userModel

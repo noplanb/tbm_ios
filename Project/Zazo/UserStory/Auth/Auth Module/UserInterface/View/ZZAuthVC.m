@@ -128,8 +128,7 @@
         CGRect intersectionFrame =  CGRectIntersection(self.contentView.registrationView.signInButton.frame, keyboarFrame);
         [self changeRegistartionViewPositionWithKeyboardHeight:(CGRectGetHeight(intersectionFrame) + CGRectGetHeight(self.contentView.registrationView.phoneNumberTextField.frame))];
     }
-    
-    if (CGRectIntersectsRect(self.contentView.registrationView.signInButton.frame, keyboarFrame))
+    else if (CGRectIntersectsRect(self.contentView.registrationView.signInButton.frame, keyboarFrame))
     {
         self.contentView.registrationScrollBottomConstraint.offset = -keyboardHeight;
         self.contentView.scrollView.scrollEnabled = YES;

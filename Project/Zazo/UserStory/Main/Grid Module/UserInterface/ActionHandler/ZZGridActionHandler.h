@@ -7,6 +7,7 @@
 //
 
 #import "ZZGridActionHandlerEnums.h"
+#import "ZZGridActionHandlerUserInterfaceDelegate.h"
 
 @protocol ZZGridActionHanlderDelegate <NSObject>
 
@@ -17,6 +18,7 @@
 @interface ZZGridActionHandler : NSObject
 
 @property (nonatomic, weak) id<ZZGridActionHanlderDelegate> delegate;
+@property (nonatomic, weak) id<ZZGridActionHanlderUserInterfaceDelegate> userInterface;
 
 - (void)handleEvent:(ZZGridActionEventType)event;
 

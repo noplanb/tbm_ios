@@ -25,25 +25,24 @@ typedef NS_ENUM(NSUInteger, ZZConfigServerState) {
 @property (nonatomic, strong) NSString* serverURLString;
 @property (nonatomic, assign) ZZConfigServerState serverEndpointState;
 
+
 #pragma mark - Messages
 
 @property (nonatomic, assign) BOOL messageEverRecorded;
 @property (nonatomic, assign) BOOL messageEverPlayed;
 
 
-#pragma mark - Hints
-
-@property (nonatomic, assign) BOOL hintsDidStartPlay;
-@property (nonatomic, assign) BOOL hintsDidStartRecord;
-
 #pragma mark - User
 
 @property (nonatomic, copy) NSString* userID;
 @property (nonatomic, copy) NSString* authToken;
 
+
+#pragma mark - Hints
+
+@property (nonatomic, assign) BOOL hintsDidStartPlay;
+@property (nonatomic, assign) BOOL hintsDidStartRecord;
 @property (nonatomic, assign) BOOL abortRecordHintWasShown;
-
-
 @property (nonatomic, assign) BOOL deleteFriendHintWasShown;
 @property (nonatomic, assign) BOOL earpieceHintWasShown;
 @property (nonatomic, assign) BOOL frontCameraHintWasShown;

@@ -59,13 +59,12 @@ static const struct
 
 + (RACSignal*)uploadToken:(NSString*)token userMKey:(NSString*)mkey
 {
-    NSString* state;
-#ifndef DEBUG
-    state = @"dev";
-#else
+    NSString* state = @"dev";
+    
+#ifdef RELEASE
     state = @"prod";
 #endif
-
+    
     NSDictionary* parameters = @{ZZNotificationsServerParameters.mKey           : [NSObject an_safeString:mkey],
                                  ZZNotificationsServerParameters.buildNumber    : [NSObject an_safeString:state],
                                  ZZNotificationsServerParameters.apnsToken      : [NSObject an_safeString:token],

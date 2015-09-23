@@ -83,6 +83,33 @@
     return CGPointZero;
 }
 
+- (CGPoint)generateArrowFocusPointForIndex:(NSInteger)index
+{
+    switch (index)
+    {
+        case 0:
+        case 1:
+        case 3:
+        case 6:
+        case 7:
+        {
+            return CGPointMake(CGRectGetMaxX(self.focusFrame),
+                               CGRectGetMidY(self.focusFrame));
+        } break;
+            
+        case 2:
+        case 8:
+        {
+            return CGPointMake(CGRectGetMinX(self.focusFrame),
+                               CGRectGetMidY(self.focusFrame));
+        } break;
+            
+        default: break;
+    }
+    
+    return CGPointZero;
+}
+
 - (BOOL)hidesArrow
 {
     return self.item.hidesArrow;
@@ -93,14 +120,87 @@
     return self.item.angle;
 }
 
+- (CGFloat)arrowAngleForIndex:(NSInteger)index
+{
+    switch (index)
+    {
+        case 0:
+        case 1:
+        {
+            return 120.0f;
+        } break;
+            
+        case 2:
+        {
+            return -120.f;
+        } break;
+            
+        case 3:
+        {
+            return 45;
+        } break;
+        
+        case 6:
+        case 7:
+        {
+            return 30;
+        } break;
+            
+        case 8:
+        {
+            return -60;
+        } break;
+            
+        default: break;
+    }
+    
+    return 0;
+}
+
+
 - (ZZArrowDirection)arrowDirection
 {
     return self.item.arrowDirection;
 }
 
+- (ZZArrowDirection)arrowDirectionForIndex:(NSInteger)index
+{
+    ZZArrowDirection direction;
+    
+    switch (index)
+    {
+        case 0:
+        case 1:
+        case 8:
+            direction = ZZArrowDirectionRight;
+            break;
+            
+        case 2:
+        case 3:
+        case 6:
+        case 7:
+            direction = ZZArrowDirectionLeft;
+            break;
+            
+        default:
+            direction = ZZArrowDirectionRight;
+            break;
+    }
+    
+    return direction;
+}
+
 - (NSString*)text
 {
-    return self.item.title;
+    if (self.item.formatParameter)
+    {
+        NSString* fulltext = [NSString stringWithFormat:NSLocalizedString(self.item.title, @""), self.item.formatParameter];
+        return fulltext;
+    }
+    else
+    {
+        return self.item.title;
+    }
 }
 
 - (ZZHintsBottomImageType)bottomImageType

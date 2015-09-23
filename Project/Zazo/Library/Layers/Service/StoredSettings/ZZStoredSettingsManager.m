@@ -13,12 +13,11 @@ static NSString* const kZZForceSMSEnabledKey = @"kZZForceSMSEnabledKey";
 static NSString* const kZZForceCallEnabledKey = @"kZZForceCallEnabledKey";
 static NSString* const kZZShouldUseRollBarSDKEnabledKey = @"kZZShouldUseRollBarSDKEnabledKey";
 
-static NSString* const kZZHintsDidStartPlayKey = @"kMessagePlayedNSUDkey";
-static NSString* const kZZHintsDidStartRecordKey = @"kMessageRecordedNSUDkey";
-
 static NSString* const kZZUserAuthToken = @"kZZUserAuthToken";
 static NSString* const kZZUserItemID = @"kZZUserItemID";
 
+static NSString* const kZZHintsDidStartPlayKey = @"kMessagePlayedNSUDkey";
+static NSString* const kZZHintsDidStartRecordKey = @"kMessageRecordedNSUDkey";
 static NSString *const kAbortRecordUsageHintDidShowKey = @"kAbortRecordUsageHintDidShowKey";
 static NSString *const kDeleteFriendUsageUsageHintDidShowKey = @"kDeleteFriendUsageUsageHintDidShowKey";
 static NSString *const kEarpieceUsageUsageHintDidShowKey = @"kEarpieceUsageUsageHintDidShowKey";

@@ -16,5 +16,6 @@
 @property (nonatomic, assign) ZZHintsBottomImageType imageType;
 @property (nonatomic, strong) NSString* title;
 @property (nonatomic, assign) BOOL hidesArrow;
+@property (nonatomic, copy) NSString* formatParameter;
 
 @end

@@ -8,10 +8,10 @@
 
 #import "ZZVideoStatuses.h"
 
-NSString* ZZVideoIncomingStatusStringFromEnumValue(ZZVideoIncomingStatus);
-ZZVideoIncomingStatus ZZVideoIncomingStatusEnumValueFromString(NSString*);
-
-
-NSString* ZZVideoOutgoingStatusStringFromEnumValue(ZZVideoOutgoingStatus);
-ZZVideoOutgoingStatus ZZVideoOutgoingStatusEnumValueFromString(NSString*);
+//NSString* ZZVideoIncomingStatusStringFromEnumValue(ZZVideoIncomingStatus);
+//ZZVideoIncomingStatus ZZVideoIncomingStatusEnumValueFromString(NSString*);
+//
+//
+//NSString* ZZVideoOutgoingStatusStringFromEnumValue(ZZVideoOutgoingStatus);
+//ZZVideoOutgoingStatus ZZVideoOutgoingStatusEnumValueFromString(NSString*);
 

@@ -22,17 +22,26 @@
 #import "TBMEventsFlowModuleInterface.h"
 #import "TBMEventsFlowModulePresenter.h"
 #import "TBMAlertController.h"
-#import "ZZToastMessageBuilder.h"
 #import "TBMAppDelegate.h"
 #import "ZZFeatureObserver.h"
-#import "ZZHintsController.h"
 #import "ZZGridCenterCellViewModel.h"
+#import "ZZGridActionHandler.h"
+#import "TBMTableModal.h"
 
-@interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate, ZZVideoRecorderDelegate>
+
+@protocol TBMEventsFlowModuleInterface;
+
+@interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate, ZZVideoRecorderDelegate, ZZGridActionHanlderDelegate, TBMTableModalDelegate>
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
 @property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
+@property (nonatomic, strong) ZZGridActionHandler* actionHandler;
+
+
+
+
+//shiiiiit
 @property (nonatomic, assign) BOOL isGridAppear;
 //@property (nonatomic, strong) id<TBMEventsFlowModuleInterface> eventsFlowModule;
 
@@ -50,6 +59,11 @@
 - (void)configurePresenterWithUserInterface:(UIViewController <ZZGridViewInterface>*)userInterface
 {
     self.userInterface = userInterface;
+    
+    self.actionHandler = [ZZGridActionHandler new];
+    self.actionHandler.delegate = self;
+    self.actionHandler.userInterface = self.userInterface;
+    
     self.dataSource = [ZZGridDataSource new];
     self.dataSource.delegate = self;
     [self.userInterface updateWithDataSource:self.dataSource];
@@ -166,23 +180,15 @@
 
 - (void)dataLoadedWithArray:(NSArray*)data
 {
-    [self.dataSource setupWithModels:data];
+    [self.dataSource setupWithModels:data completion:^{
+        [self.actionHandler handleEvent:ZZGridActionEventTypeGridLoaded];
+    }];
 
     BOOL isTwoCamerasAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
     BOOL isSwichCameraAvailable = [ZZFeatureObserver sharedInstance].isBothCameraEnabled;
     [self.dataSource setupCenterViewModelShouldHandleCameraRotation:(isTwoCamerasAvailable && isSwichCameraAvailable)];
 
     [[ZZVideoRecorder shared] updateRecordView:[self.dataSource centerViewModel].recordView];
-    
-    
-    //TOOO: remove from here
-    
-    ANDispatchBlockAfter(1, ^{
-        UIView* focusView = [[UIView alloc] initWithFrame:[self.userInterface frameForIndex:6]];
-        
-        ZZHintsController *controller = [ZZHintsController new];
-        [controller showHintWithType:ZZHintsTypeSpin focusOnView:focusView];
-    });
 }
 
 - (void)dataLoadingDidFailWithError:(NSError*)error
@@ -280,16 +286,7 @@
     }
 }
 
-- (UIView*)viewForDialog
-{
-    return [self.userInterface viewForDialogs];
-}
 
-- (CGRect)gridGetFrameForFriend:(NSUInteger)friendCellIndex inView:(UIView*)view
-{
-    NSIndexPath* friendIndexPath = [self _indexPathForFriendAtindex:friendCellIndex];
-    return [self.userInterface gridGetFrameForIndexPath:friendIndexPath inView:view];
-}
 
 - (CGRect)gridGetCenterCellFrameInView:(UIView*)view
 {
@@ -333,7 +330,9 @@
     }];
 }
 
-- (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel // TODO: add states for gesture recognizer and show toasts
+- (void)recordingStateUpdatedToState:(BOOL)isEnabled
+                           viewModel:(ZZGridCellViewModel*)viewModel
+                 withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock // TODO: add states for gesture recognizer and show toasts
 {
     [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
     
@@ -350,6 +349,8 @@
 //                NSURL *videoUrl = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriend:ge.friend];
 //                [[self videoRecorder] startRecordingWithVideoUrl:videoUrl];
 //            }
+            
+            [self.videoPlayer stop];
             NSURL* url = [ZZVideoUtils generateOutgoingVideoUrlWithFriend:viewModel.item.relatedUser];
             [[ZZVideoRecorder shared] startRecordingWithVideoURL:url];
             model.isRecording = YES;
@@ -361,7 +362,7 @@
 //                [[self videoRecorder] stopRecording];
 //            }
             model.isRecording = NO;
-            [[ZZVideoRecorder shared] stopRecording];
+            [[ZZVideoRecorder shared] stopRecordingWithCompletionBlock:completionBlock];
         }
         // TODO: add states of gesture and hanlde cancel situatuin
 //        - (void)LPTHCancelLongPressWithTargetView:(UIView *)view reason:(NSString *)reason
@@ -426,10 +427,6 @@
 {
     [self.eventsFlowModule throwEvent:TBMEventFlowEventApplicationDidLaunch];
     self.isGridAppear = YES;
-    
-    //TODO: temp to debug UI
-//    ZZToastMessageBuilder *toastBuilder = [ZZToastMessageBuilder new];
-//    [toastBuilder showToastWithMessage:@"Just Zazo someone new!"];
 }
 
 #pragma mark - Private
@@ -448,26 +445,41 @@
 - (void)showChooseNumberDialogForUser:(ZZContactDomainModel*)user// TODO: move to grid alerts
 {
     //TODO: this alert is SUXX
+//    ANDispatchBlockToMainQueue(^{
+//        TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Attention"
+//                                                                         message:@"Choose phone number"];
+//        
+//        [array enumerateObjectsUsingBlock:^(NSString* phoneNumber, NSUInteger idx, BOOL *stop) {
+//            [alert addAction:[SDCAlertAction actionWithTitle:phoneNumber style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+//                [self.interactor userSelectedPhoneNumber:phoneNumber];
+//            }]];
+//        }];
+//        
+//        [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleCancel handler:^(SDCAlertAction *action) {
+//        }]];
+//
+//        [alert presentWithCompletion:nil];
+//    });
+//    NSMutableArray* stringNumbers = [NSMutableArray new];
+//    [array enumerateObjectsUsingBlock:^(ZZCommunicationDomainModel* communicationModel, NSUInteger idx, BOOL * _Nonnull stop) {
+//        [stringNumbers addObject:communicationModel.contact];
+//    }];
+//    
     ANDispatchBlockToMainQueue(^{
-        TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Attention"
-                                                                         message:@"Choose phone number"];
-        
-        [user.phones enumerateObjectsUsingBlock:^(NSString* phoneNumber, NSUInteger idx, BOOL *stop) {
-            [alert addAction:[SDCAlertAction actionWithTitle:phoneNumber style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
-                user.primaryPhone = phoneNumber;
-                [self.interactor userSelectedPrimaryPhoneNumber:user];
-            }]];
-        }];
-        
-        [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel"
-                                                   style:SDCAlertActionStyleCancel
-                                                 handler:^(SDCAlertAction *action) {}]];
-
-        [alert presentWithCompletion:nil];
+        TBMTableModal *table = [[TBMTableModal alloc] initWithParentView:self.userInterface.view title:@"Choose phone number" rowData:array delegate:self];
+        [table show];
     });
 }
 
-- (void)showSendInvitationDialogForUser:(ZZContactDomainModel*)user
+
+#pragma mark - TBMTableModalDelegate
+
+- (void) didSelectRow:(NSInteger)index
+{
+    
+}
+
+- (void)showSendInvitationDialogForUser:(NSString*)firsName
 {
     [ZZGridAlertBuilder showSendInvitationDialogForUser:user.firstName completion:^ {
         [self.interactor inviteUserInApplication:user];

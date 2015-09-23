@@ -47,7 +47,7 @@
 
 typedef NS_ENUM(NSInteger, ZZGridActionEventType)
 {
-    ZZGridActionEventTypeTest
+    ZZGridActionEventTypeGridLoaded
 };
 
 typedef NS_ENUM(NSInteger, ZZGridActionFeatureType)

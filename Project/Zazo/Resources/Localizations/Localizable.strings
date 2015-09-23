@@ -58,7 +58,7 @@
 "auth-controller.lastname.placeholder.title" = "Last Name";
 "auth-controller.phone.placeholder.title" = "Phone";
 "auth-controller.signIn.button.title" = "Sign In";
-"auth-controller.country.code.example.title" = "Country code\nUSA +1";
+"auth-controller.country.code.example.title" = "Country code\n+1 USA";
 "auth-controller.country.code.title" = "Country code";
 
 "auth-controller.bad-code.alert.title" = "Bad Code";
@@ -102,7 +102,9 @@
 "hints.spin-usage.label.text" = "Move a friend. \nDrag a friend to any \nposition";
 
 //Toasts Hints
-"toast-hints.zazo-someone-else.label.text" = "Unlock another feature! \nJust Zazo someone new!";
+"toast-hints.zazo-someone-else.title" = "Unlock another feature!";
+"toast-hints.zazo-someone-else.message" = " Just Zazo someone new!";
+
 //Feature Alerts
 "feature-alerts.unviewed-video.label.text" = "Tap a friend to play";
 
@@ -146,4 +148,11 @@
 "record-two-fingers-touch" = "Two finger touch";
 "record-dragged-finger-away" = "Dragged finger away";
 "record-canceled-reason-incoming-call" = "Incoming call";
+"record-canceled-not-sent" = "Not sent";
+
+
+
+//Video player
+
+"video-player-not-playable" = "Video is not playable";
 

@@ -18,9 +18,17 @@
 
 - (NSString*)text;
 - (CGRect)focusFrame;
+
 - (CGPoint)generateArrowFocusPoint;
-- (ZZArrowDirection)arrowDirection;
+- (CGPoint)generateArrowFocusPointForIndex:(NSInteger)index;
+
 - (CGFloat)arrowAngle;
+- (CGFloat)arrowAngleForIndex:(NSInteger)index;
+
+- (ZZArrowDirection)arrowDirection;
+- (ZZArrowDirection)arrowDirectionForIndex:(NSInteger)index;
+
+
 - (BOOL)hidesArrow;
 - (ZZHintsBottomImageType)bottomImageType;
 
