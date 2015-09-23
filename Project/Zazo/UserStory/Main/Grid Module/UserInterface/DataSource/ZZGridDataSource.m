@@ -153,9 +153,9 @@ static NSInteger const kGridCenterCellIndex = 4;
 
 #pragma mark - ViewModel Delegate
 
-- (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel *)viewModel
+- (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel *)viewModel withCompletionBlock:(void (^)(BOOL))completionBlock
 {
-    [self.delegate recordingStateUpdatedToState:isEnabled viewModel:viewModel];
+    [self.delegate recordingStateUpdatedToState:isEnabled viewModel:viewModel withCompletionBlock:completionBlock];
 }
 
 - (void)nudgeSelectedWithUserModel:(id)userModel

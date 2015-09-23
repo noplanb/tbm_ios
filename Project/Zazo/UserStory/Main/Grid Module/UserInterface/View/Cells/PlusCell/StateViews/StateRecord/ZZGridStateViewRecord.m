@@ -12,8 +12,6 @@
 
 @interface ZZGridStateViewRecord ()
 
-@property (nonatomic, strong) UILabel* userNameLabel;
-
 
 @end
 
@@ -41,29 +39,10 @@
 - (void)updateWithModel:(ZZGridCellViewModel*)model
 {
     [super updateWithModel:model];
-    self.userNameLabel.text = [model firstName];
 }
 
 
 #pragma mark - Private
-
-- (UILabel*)userNameLabel
-{
-    if (!_userNameLabel)
-    {
-        _userNameLabel = [UILabel new];
-        _userNameLabel.textAlignment = NSTextAlignmentCenter;
-        _userNameLabel.textColor = [ZZColorTheme shared].gridStatusViewUserNameLabelColor;
-        _userNameLabel.font = [UIFont an_regularFontWithSize:kUserNameFontSize];
-        [self addSubview:_userNameLabel];
-        
-        [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.bottom.equalTo(self);
-            make.height.equalTo(self).dividedBy(kUserNameScaleValue);
-        }];
-    }
-    return _userNameLabel;
-}
 
 - (UILabel*)recordView
 {
