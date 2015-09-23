@@ -6,9 +6,12 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-@class ZZGridDataSource, ZZFriendDomainModel;
+#import "ZZGridActionHandlerUserInterfaceDelegate.h"
 
-@protocol ZZGridViewInterface <NSObject>
+@class ZZGridDataSource;
+@class ZZFriendDomainModel;
+
+@protocol ZZGridViewInterface <ZZGridActionHanlderUserInterfaceDelegate>
 
 - (void)updateWithDataSource:(ZZGridDataSource*)dataSource;
 - (void)showFriendAnimationWithModel:(ZZFriendDomainModel*)friendModel;
@@ -16,12 +19,4 @@
 - (void)menuWasOpened;
 - (void)updateSwitchButtonWithState:(BOOL)isHidden;
 
-- (CGRect)frameForIndexPath:(NSIndexPath*)indexPath;
-- (CGRect)frameForIndex:(NSInteger)index;
-
-//Hints
-- (UIView*)viewForDialogs;
-- (CGRect)gridGetFrameForIndexPath:(NSIndexPath*)path inView:(UIView*)view;
-- (CGRect)gridGetCenterCellFrameInView:(UIView*)view;
-- (CGRect)gridGetUnviewedBadgeFrameForIndexPath:(NSIndexPath*)path inView:(UIView*)view;
 @end

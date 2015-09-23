@@ -31,8 +31,10 @@
 @property (nonatomic, weak) id<ZZGridDataSourceDelegate> delegate;
 
 - (void)itemSelectedAtIndexPath:(NSIndexPath*)indexPath;
-- (void)setupWithModels:(NSArray*)models;
+
+- (void)setupWithModels:(NSArray *)models completion:(ANCodeBlock)completion;
 - (void)setupCenterViewModelShouldHandleCameraRotation:(BOOL)shouldHandleRotation;
+
 - (void)selectedViewModelUpdatedWithItem:(ZZGridDomainModel*)model;
 - (void)updateStorageWithModel:(ZZGridDomainModel*)model;
 - (void)updateDataSourceWithGridModelFromNotification:(ZZGridDomainModel*)gridModel;

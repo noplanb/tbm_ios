@@ -102,7 +102,9 @@
 "hints.spin-usage.label.text" = "Move a friend. \nDrag a friend to any \nposition";
 
 //Toasts Hints
-"toast-hints.zazo-someone-else.label.text" = "Unlock another feature! \nJust Zazo someone new!";
+"toast-hints.zazo-someone-else.title" = "Unlock another feature!";
+"toast-hints.zazo-someone-else.message" = " Just Zazo someone new!";
+
 //Feature Alerts
 "feature-alerts.unviewed-video.label.text" = "Tap a friend to play";
 

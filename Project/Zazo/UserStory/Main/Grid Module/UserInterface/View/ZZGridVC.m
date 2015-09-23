@@ -74,35 +74,6 @@
 
 #pragma mark VC Interface
 
-- (UIView*)viewForDialogs
-{
-    return self.gridView;
-}
-
-- (CGRect)gridGetFrameForIndexPath:(NSIndexPath*)path inView:(UIView*)view
-{
-    CGRect rect = [self frameForIndexPath:path];
-    CGRect result = [self.gridView convertRect:rect toView:view];
-    return result;
-}
-
-- (CGRect)gridGetCenterCellFrameInView:(UIView*)view
-{
-    //TODO: (EventsFlow) Central cell frame
-    //CGRect rect =
-    //CGRect result = [self.view convertRect:rect toView:view];
-    return CGRectZero;
-}
-
-- (CGRect)gridGetUnviewedBadgeFrameForIndexPath:(NSIndexPath*)path inView:(UIView*)view
-{
-    //TODO: (EventsFlow) Central cell frame
-    //CGRect rect =
-    //CGRect result = [self.view convertRect:rect toView:view];
-    return CGRectZero;
-}
-
-
 - (void)menuWasOpened
 {
     
@@ -149,19 +120,16 @@
     self.gridView.isRotationEnabled = isEnabled;
 }
 
-- (CGRect)frameForIndex:(NSInteger)index
+
+#pragma mark - Action Hadler User Interface Delegate
+
+- (CGRect)focusFrameForIndex:(NSInteger)index
 {
     NSIndexPath* indexPath = [NSIndexPath indexPathForItem:index inSection:0];
     UICollectionViewCell* cell = [self.gridView.collectionView cellForItemAtIndexPath:indexPath];
     CGRect position = [cell convertRect:cell.contentView.bounds toView:self.view];
     
     return position;
-}
-
-- (CGRect)frameForIndexPath:(NSIndexPath *)indexPath
-{
-    UICollectionViewCell* cell = [self.gridView.collectionView cellForItemAtIndexPath:indexPath];
-    return cell.bounds;
 }
 
 - (void)updateSwitchButtonWithState:(BOOL)isHidden

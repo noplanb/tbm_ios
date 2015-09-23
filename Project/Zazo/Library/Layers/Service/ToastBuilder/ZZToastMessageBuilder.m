@@ -16,9 +16,9 @@
 
 @implementation ZZToastMessageBuilder
 
-- (void)showToastWithMessage:(NSString*)message
+- (void)showToastWithTitle:(NSString*)title andMessage:(NSString*)message
 {
-    self.minimalNotification = [JFMinimalNotification notificationWithStyle:JFMinimalNotificationStyleError title:@"Unlock another feature!"
+    self.minimalNotification = [JFMinimalNotification notificationWithStyle:JFMinimalNotificationStyleError title:title
                                                                    subTitle:message dismissalDelay:0.0 touchHandler:^{
                                                                        [self.minimalNotification dismiss];
                                                                    }];

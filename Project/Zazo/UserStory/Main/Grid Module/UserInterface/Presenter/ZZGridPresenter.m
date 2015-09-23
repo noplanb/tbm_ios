@@ -22,20 +22,25 @@
 #import "TBMEventsFlowModuleInterface.h"
 #import "TBMEventsFlowModulePresenter.h"
 #import "TBMAlertController.h"
-#import "ZZToastMessageBuilder.h"
 #import "TBMAppDelegate.h"
 #import "ZZFeatureObserver.h"
-#import "ZZHintsController.h"
 #import "ZZGridCenterCellViewModel.h"
+#import "ZZGridActionHandler.h"
 
 
 @protocol TBMEventsFlowModuleInterface;
 
-@interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate, ZZVideoRecorderDelegate>
+@interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate, ZZVideoRecorderDelegate, ZZGridActionHanlderDelegate>
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
 @property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
+@property (nonatomic, strong) ZZGridActionHandler* actionHandler;
+
+
+
+
+//shiiiiit
 @property (nonatomic, assign) BOOL isGridAppear;
 @property (nonatomic, strong) id<TBMEventsFlowModuleInterface> eventsFlowModule;
 
@@ -53,6 +58,11 @@
 - (void)configurePresenterWithUserInterface:(UIViewController <ZZGridViewInterface>*)userInterface
 {
     self.userInterface = userInterface;
+    
+    self.actionHandler = [ZZGridActionHandler new];
+    self.actionHandler.delegate = self;
+    self.actionHandler.userInterface = self.userInterface;
+    
     self.dataSource = [ZZGridDataSource new];
     self.dataSource.delegate = self;
     [self.userInterface updateWithDataSource:self.dataSource];
@@ -168,24 +178,15 @@
 
 - (void)dataLoadedWithArray:(NSArray*)data
 {
-    [self.dataSource setupWithModels:data];
+    [self.dataSource setupWithModels:data completion:^{
+        [self.actionHandler handleEvent:ZZGridActionEventTypeGridLoaded];
+    }];
 
     BOOL isTwoCamerasAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
     BOOL isSwichCameraAvailable = [ZZFeatureObserver sharedInstance].isBothCameraEnabled;
     [self.dataSource setupCenterViewModelShouldHandleCameraRotation:(isTwoCamerasAvailable && isSwichCameraAvailable)];
 
     [[ZZVideoRecorder shared] updateRecordView:[self.dataSource centerViewModel].recordView];
-    
-    
-    //TOOO: remove from here
-    
-    ANDispatchBlockAfter(1, ^{
-        NSInteger focusIndex = 8;
-        UIView* focusView = [[UIView alloc] initWithFrame:[self.userInterface frameForIndex:focusIndex]];
-        
-        ZZHintsController *controller = [ZZHintsController new];
-        [controller showHintWithType:ZZHintsTypeWelcomeNudgeUser focusOnView:focusView withIndex:focusIndex formatParameter:@"Oleg"];
-    });
 }
 
 - (void)dataLoadingDidFailWithError:(NSError*)error
@@ -284,27 +285,7 @@
     }
 }
 
-- (UIView*)viewForDialog
-{
-    return [self.userInterface viewForDialogs];
-}
 
-- (CGRect)gridGetFrameForFriend:(NSUInteger)friendCellIndex inView:(UIView*)view
-{
-    NSIndexPath* friendIndexPath = [self _indexPathForFriendAtindex:friendCellIndex];
-    return [self.userInterface gridGetFrameForIndexPath:friendIndexPath inView:view];
-}
-
-- (CGRect)gridGetCenterCellFrameInView:(UIView*)view
-{
-    return [self.userInterface gridGetCenterCellFrameInView:view];
-}
-
-- (CGRect)gridGetFrameForUnviewedBadgeForFriend:(NSUInteger)friendCellIndex inView:(UIView*)view
-{
-    NSIndexPath* friendIndexPath = [self _indexPathForFriendAtindex:friendCellIndex];
-    return [self.userInterface gridGetUnviewedBadgeFrameForIndexPath:friendIndexPath inView:view];
-}
 
 - (NSUInteger)lastAddedFriendOnGridIndex
 {
@@ -440,10 +421,6 @@
 {
     [self.eventsFlowModule throwEvent:TBMEventFlowEventApplicationDidLaunch];
     self.isGridAppear = YES;
-    
-    //TODO: temp to debug UI
-//    ZZToastMessageBuilder *toastBuilder = [ZZToastMessageBuilder new];
-//    [toastBuilder showToastWithMessage:@"Just Zazo someone new!"];
 }
 
 #pragma mark - Private

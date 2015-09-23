@@ -19,6 +19,6 @@
 
 @property (nonatomic, weak) id<ZZToastMessageBuilderDelegate> delegate;
 
-- (void)showToastWithMessage:(NSString*)message;
+- (void)showToastWithTitle:(NSString*)title andMessage:(NSString*)message;
 
 @end

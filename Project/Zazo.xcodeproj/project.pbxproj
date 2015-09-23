@@ -1106,6 +1106,7 @@
 		07F0E7EC1B8CD7A900036AB2 /* ZZLoadFriendListTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZLoadFriendListTest.m; sourceTree = "<group>"; };
 		07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZStartScreenTestSpec.m; sourceTree = "<group>"; };
 		182398D21BB27B36008D1324 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		1878422E1BB2D4960007CDE2 /* ZZGridActionHandlerUserInterfaceDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZGridActionHandlerUserInterfaceDelegate.h; sourceTree = "<group>"; };
 		18965CAA1BAC5D29009AC8A4 /* ZZActionSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZActionSheetController.h; sourceTree = "<group>"; };
 		18965CAB1BAC5D29009AC8A4 /* ZZActionSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZActionSheetController.m; sourceTree = "<group>"; };
 		18EB0DED1BAB1749007C01B0 /* ZZFeatureObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFeatureObserver.h; sourceTree = "<group>"; };
@@ -3946,6 +3947,7 @@
 				070560FE1BA8824F00C130E0 /* ZZGridActionHandlerEnums.h */,
 				070560FF1BA8824F00C130E0 /* ZZGridActionHandlerEnums.m */,
 				079280A21BA8544800E22553 /* ZZGridActionHandler.h */,
+				1878422E1BB2D4960007CDE2 /* ZZGridActionHandlerUserInterfaceDelegate.h */,
 				079280A31BA8544800E22553 /* ZZGridActionHandler.m */,
 				070560F81BA8736600C130E0 /* ZZGridActionDataProvider.h */,
 				070560F91BA8736600C130E0 /* ZZGridActionDataProvider.m */,
