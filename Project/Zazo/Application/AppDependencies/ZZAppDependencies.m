@@ -12,7 +12,6 @@
 #import "ZZRootWireframe.h"
 #import "ZZColorTheme.h"
 #import "ANCrashlyticsAdapter.h"
-#import <Instabug/Instabug.h>
 #import "ZZContentDataAcessor.h"
 #import "ZZVideoRecorder.h"
 #import "ANLogger.h"
@@ -41,12 +40,6 @@
     [ZZVideoRecorder shared];
     [ZZColorTheme shared];
     [self _handleIncomingCall];
-    
-//#ifndef RELEASE
-//    [Instabug startWithToken:@"d546deb8f34137b73aa5b0405cee1690"
-//               captureSource:IBGCaptureSourceUIKit
-//             invocationEvent:IBGInvocationEventScreenshot];
-//#endif
 }
 
 - (BOOL)handleOpenURL:(NSURL*)url inApplication:(NSString*)application

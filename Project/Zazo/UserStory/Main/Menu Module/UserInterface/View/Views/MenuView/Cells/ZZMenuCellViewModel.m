@@ -8,31 +8,19 @@
 
 #import "ZZMenuCellViewModel.h"
 #import "NSString+ZZAdditions.h"
+#import "ZZUserPresentationHelper.h"
+#import "ZZThumbnailGenerator.h"
 
-static UIImage* ZZPlaceholderImage = nil;
-static UIImage* ZZZazoImage = nil;
+static UIImage* kImagePlaceholder = nil;
 
 @interface ZZMenuCellViewModel ()
 
 @property (nonatomic, strong) NSString* username;
+@property (nonatomic, strong) UIImage* image;
 
 @end
 
 @implementation ZZMenuCellViewModel
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self)
-    {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            ZZZazoImage = [self _zazoImage];
-            ZZPlaceholderImage = [self _placeHolderImage];
-        });
-    }
-    return self;
-}
 
 + (instancetype)viewModelWithItem:(id<ZZUserInterface>)item
 {
@@ -42,47 +30,37 @@ static UIImage* ZZZazoImage = nil;
     return model;
 }
 
--(void)setItem:(id<ZZUserInterface>)item
+- (instancetype)init
 {
-    _item = item;
-    NSString* firstName = [self.item firstName].length > 0 ? [self.item firstName] : @"";
-    NSString* lastName = [self.item lastName].length > 0 ? [self.item lastName] : @"";
-    self.username = [NSString stringWithFormat:@"%@ %@",firstName,lastName];
+    self = [super init];
+    if (self)
+    {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            kImagePlaceholder = [UIImage imageNamed:@"icon-no-pic"];
+        });
+    }
+    return self;
 }
 
-- (void)updateImageView:(UIImageView *)imageView
+- (void)setItem:(id<ZZUserInterface>)item
 {
+    _item = item;
+    self.username = [ZZUserPresentationHelper fullNameWithFirstName:[self.item firstName] lastName:[self.item lastName]];
     if ([self.item contactType] == ZZMenuContactTypeAddressbook)
     {
-        imageView.image = nil;
+        self.image = nil;
     }
     else
     {
-        if (self.item.hasApp)
-        {
-            imageView.image = ZZZazoImage;
-        }
-        else
-        {
-            imageView.image = ZZPlaceholderImage;
-        }
+        UIImage* image = [ZZThumbnailGenerator thumbImageForUser:(id)self.item];
+        self.image = image ? : kImagePlaceholder;
     }
 }
 
-#pragma mark - Private
-
-- (UIImage *)_placeHolderImage
+- (void)updateImageView:(UIImageView*)imageView
 {
-    UIImage* placeholder = [UIImage imageWithPDFNamed:@"Contacts-plaiceholder-men" atHeight:36.f];
-    
-    return [placeholder an_imageByTintingWithColor:[UIColor an_colorWithHexString:@"625f57"]];
-}
-
--(UIImage *)_zazoImage
-{
-    UIImage* zazoImage = [UIImage imageWithPDFNamed:@"icon_zazo" atHeight:36.f];
-    
-    return [zazoImage an_imageByTintingWithColor:[UIColor an_colorWithHexString:@"625f57"]];
+    imageView.image = self.image;
 }
 
 @end

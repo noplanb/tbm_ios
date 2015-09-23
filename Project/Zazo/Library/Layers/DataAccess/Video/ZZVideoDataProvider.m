@@ -13,6 +13,7 @@
 #import "NSManagedObject+ANAdditions.h"
 #import "MagicalRecord.h"
 #import "ZZVideoStatuses.h"
+#import "ZZFriendDataProvider.h"
 
 @implementation ZZVideoDataProvider
 
@@ -101,6 +102,17 @@
 + (NSUInteger)countAllVideos
 {
     return [TBMVideo MR_countOfEntitiesWithContext:[self _context]];
+}
+
++ (NSArray*)sortedIncomingVideosForUser:(ZZFriendDomainModel*)friendModel
+{
+    TBMFriend* friendEntity = [ZZFriendDataProvider entityFromModel:friendModel];
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMVideoRelationships.friend, friendEntity];
+    NSArray* videos = [TBMVideo MR_findAllSortedBy:TBMVideoAttributes.videoId ascending:YES withPredicate:predicate inContext:[self _context]];
+    
+    return [[videos.rac_sequence map:^id(id value) {
+        return [self modelFromEntity:value];
+    }] array];
 }
 
 

@@ -8,6 +8,7 @@
 
 @class ZZVideoDomainModel;
 @class TBMVideo;
+@class ZZFriendDomainModel;
 
 @interface ZZVideoDataProvider : NSObject
 
@@ -30,6 +31,8 @@
 + (NSArray*)loadDownloadingVideos;
 + (NSArray*)loadAllVideos;
 
+
++ (NSArray*)sortedIncomingVideosForUser:(ZZFriendDomainModel*)friendModel;
 
 #pragma mark - Mapping
 

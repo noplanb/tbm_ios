@@ -39,6 +39,8 @@
 @property (nonatomic, assign) BOOL isGridAppear;
 @property (nonatomic, strong) id<TBMEventsFlowModuleInterface> eventsFlowModule;
 
+
+
 @end
 
 @implementation ZZGridPresenter

@@ -11,6 +11,8 @@
 #import "ZZFriendDomainModel.h"
 #import "ZZFriendsTransportService.h"
 #import "FEMObjectDeserializer.h"
+#import "ZZGridDataProvider.h"
+#import "ZZFriendDataProvider.h"
 
 @implementation ZZMenuInteractor
 
@@ -22,11 +24,11 @@
                                                                                       usingMapping:[ZZFriendDomainModel mapping]];
         [self sortFriendsFromArray:friendsArray];
         
+        //TODO: it should be loaded from start VC and saved to data base
+        
     } error:^(NSError *error) {
         
     }];
-    
-//    [self loadAddressBookContactsWithRequestAccess:NO];
 }
 
 - (void)loadAddressBookContactsWithRequestAccess:(BOOL)shouldRequest
@@ -44,14 +46,27 @@
     NSMutableArray* friendsThaHasAppArray = [NSMutableArray new];
     NSMutableArray* otherFriendsArray = [NSMutableArray new];
     
+    NSArray* gridUsers = [ZZFriendDataProvider friendsOnGrid];
+    if (!gridUsers)
+    {
+        gridUsers = @[];
+    }
+    NSArray* gridUsersIDs = [gridUsers valueForKey:ZZFriendDomainModelAttributes.mKey];
+    NSSet* gridUserIDsSet = [NSSet setWithArray:gridUsersIDs];
+    
     [array enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friend, NSUInteger idx, BOOL *stop) {
-        if (friend.hasApp)
+        
+        //check if user is on grid - do not add him
+        if (!ANIsEmpty(friend.mKey) && ![gridUserIDsSet containsObject:friend.mKey])
         {
-            [friendsThaHasAppArray addObject:friend];
-        }
-        else
-        {
-            [otherFriendsArray addObject:friend];
+            if (friend.hasApp)
+            {
+                [friendsThaHasAppArray addObject:friend];
+            }
+            else
+            {
+                [otherFriendsArray addObject:friend];
+            }
         }
     }];
     
@@ -71,7 +86,7 @@
 
 - (NSArray *)_sortByFirstName:(NSArray *)array
 {
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES]; // TODO: constant
     NSArray* sortedArray = [array sortedArrayUsingDescriptors:@[sort]];
     
     return sortedArray;

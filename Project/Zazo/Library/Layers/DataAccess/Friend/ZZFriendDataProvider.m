@@ -13,6 +13,8 @@
 #import "ZZFriendDomainModel.h"
 #import "ZZFriendModelsMapper.h"
 #import "NSManagedObject+ANAdditions.h"
+#import "ZZGridDataProvider.h"
+#import "ZZGridDomainModel.h"
 
 @implementation ZZFriendDataProvider
 
@@ -72,6 +74,13 @@
     return nil;
 }
 
++ (NSArray*)friendsOnGrid
+{
+    NSArray* gridModels = [ZZGridDataProvider loadAllGridsSortByIndex:NO];
+    return [[gridModels.rac_sequence map:^id(ZZGridDomainModel* value) {
+        return value.relatedUser;
+    }] array];
+}
 
 #pragma mark - CRUD
 
