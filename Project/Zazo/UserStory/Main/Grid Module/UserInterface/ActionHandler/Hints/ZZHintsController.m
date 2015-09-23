@@ -30,10 +30,14 @@
     return self;
 }
 
-- (void)showHintWithType:(ZZHintsType)type focusOnView:(UIView*)view 
+- (void)showHintWithType:(ZZHintsType)type focusOnView:(UIView*)view withIndex:(NSInteger)index formatParameter:(NSString*)parameter
 {
     UIView* focusView = view;
     ZZHintsDomainModel *model = [ZZHintsModelGenerator generateHintModelForType:type];
+    if (!ANIsEmpty(parameter))
+    {
+        model.formatParameter = parameter;
+    }
     ZZHintsViewModel *viewModel = [ZZHintsViewModel viewModelWithItem:model];
     
     if (model.type == ZZHintsTypeEditFriends)
@@ -42,7 +46,15 @@
     }
     
     [viewModel updateFocusFrame:focusView.frame];
-    [self.hintsView updateWithHintsViewModel:viewModel];
+    
+    if ((model.type == ZZHintsTypeWelcomeNudgeUser) || model.type == ZZHintsTypeWelcomeFor)
+    {
+        [self.hintsView updateWithHintsViewModel:viewModel andIndex:index];
+    }
+    else
+    {
+        [self.hintsView updateWithHintsViewModel:viewModel];
+    }
 }
 
 #pragma mark - Lazy Load

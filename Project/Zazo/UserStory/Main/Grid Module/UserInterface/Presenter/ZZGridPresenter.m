@@ -174,10 +174,11 @@
     //TOOO: remove from here
     
     ANDispatchBlockAfter(1, ^{
-        UIView* focusView = [[UIView alloc] initWithFrame:[self.userInterface frameForIndex:6]];
+        NSInteger focusIndex = 8;
+        UIView* focusView = [[UIView alloc] initWithFrame:[self.userInterface frameForIndex:focusIndex]];
         
         ZZHintsController *controller = [ZZHintsController new];
-        [controller showHintWithType:ZZHintsTypeSpin focusOnView:focusView];
+        [controller showHintWithType:ZZHintsTypeWelcomeNudgeUser focusOnView:focusView withIndex:focusIndex formatParameter:@"Oleg"];
     });
 }
 

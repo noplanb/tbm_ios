@@ -4666,7 +4666,6 @@
 				07636DBC1BA49A0100925671 /* TBMVideoIdUtils.m in Sources */,
 				7952764A1BA6B4AB00E506D5 /* ZZMenuCell.m in Sources */,
 				07636E351BA49A0100925671 /* ZZCommonNetworkTransportService.m in Sources */,
-				07636E0A1BA49A0100925671 /* TBMBenchViewController.m in Sources */,
 				79123D891BB14F9E007E1CBF /* ZZHintsDomainModel.m in Sources */,
 				07636DC71BA49A0100925671 /* TBMFeatureUnlockDialogView.m in Sources */,
 				07636E5E1BA49A0100925671 /* ZZVideoRecorder.m in Sources */,

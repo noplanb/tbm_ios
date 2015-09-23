@@ -10,6 +10,6 @@
 
 @interface ZZHintsController : NSObject
 
-- (void)showHintWithType:(ZZHintsType)type focusOnView:(UIView*)view;
+- (void)showHintWithType:(ZZHintsType)type focusOnView:(UIView*)view withIndex:(NSInteger)index formatParameter:(NSString*)parameter;
 
 @end
