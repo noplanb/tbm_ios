@@ -139,7 +139,6 @@
                       [self.eventHandler presentSendEmailController];
                   } break;
                   default: break;
-              
               }
     }];
     
