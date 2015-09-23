@@ -49,7 +49,7 @@
 
 - (void)handleApplicationDidBecomeActive
 {
-    
+    [[ZZVideoRecorder shared] updateRecorder];
 }
 
 - (void)handleApplicationWillTerminate
@@ -102,8 +102,10 @@
     [self.callCenter setCallEventHandler:^(CTCall * call) {
         if ([call.callState isEqualToString:CTCallStateIncoming])
         {
+            
             ANDispatchBlockToMainQueue(^{
                 [[ZZVideoRecorder shared] cancelRecordingWithReason:NSLocalizedString(@"record-canceled-reason-incoming-call", nil)];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"incomingCall" object:nil];
             });
         }
     }];

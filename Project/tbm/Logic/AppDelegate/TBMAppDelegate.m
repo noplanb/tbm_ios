@@ -102,7 +102,6 @@
     
     [self performDidBecomeActiveActions];
     [[OBLogger instance] logEvent:OBLogEventAppForeground];
-    [[ZZVideoRecorder shared] updateRecorder];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application{
@@ -111,9 +110,6 @@
     [self.appDependencies handleApplicationWillTerminate];
     [self removeObservers];
 }
-
-
-
 
 
 #pragma mark - Notification Observers
