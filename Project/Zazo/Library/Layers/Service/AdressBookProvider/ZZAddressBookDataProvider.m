@@ -72,7 +72,7 @@ static APAddressBook* addressBook = nil;
     {
         addressBook = [[APAddressBook alloc] init];
     }
-    addressBook.fieldsMask = APContactFieldFirstName | APContactFieldLastName  | APContactFieldPhones;
+    addressBook.fieldsMask = APContactFieldFirstName | APContactFieldLastName  | APContactFieldPhonesWithLabels;
     
     addressBook.filterBlock = ^BOOL(APContact *contact) {
         return ((contact.phones.count > 0) | (contact.firstName.length));
@@ -101,15 +101,18 @@ static APAddressBook* addressBook = nil;
 {
     ZZContactDomainModel* model;
     
-    if (!ANIsEmpty(contact.firstName) && !ANIsEmpty(contact.phones))
+    if (!ANIsEmpty(contact.firstName) && !ANIsEmpty(contact.phonesWithLabels))
     {
         model = [ZZContactDomainModel new];
         
         model.firstName = contact.firstName;
         model.lastName = contact.lastName;
         
-        NSArray* phones = [[contact.phones.rac_sequence map:^id(NSString* value) {
-            return [value an_stripAllNonNumericCharacters];
+        NSArray* phones = [[contact.phonesWithLabels.rac_sequence map:^id(APPhoneWithLabel* value) {
+            ZZCommunicationDomainModel *model = [ZZCommunicationDomainModel new];
+            model.contact = [value.phone an_stripAllNonNumericCharacters];
+            model.label = value.localizedLabel;
+            return model;
         }] array];
         
         model.phones = [NSSet setWithArray:phones ? : @[]];
