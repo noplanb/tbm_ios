@@ -170,8 +170,12 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 
 - (void)cancelRecordingWithReason:(NSString*)reason
 {
-    self.didCancelRecording = YES;
-    [self showMessage:reason];
+    if (!self.didCancelRecording)
+    {
+        self.didCancelRecording = YES;
+        [self showMessage:reason];
+        [self stopRecording];
+    }
 }
 
 #pragma mark - Stop Recording
