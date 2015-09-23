@@ -124,7 +124,10 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 {
     if ([[touches allObjects] count] > 1)
     {
-        [self cancelRecordingWithReason:NSLocalizedString(@"record-two-fingers-touch", nil)];
+        NSString* notificationString = [NSString stringWithFormat:@"%@\n%@",NSLocalizedString(@"record-two-fingers-touch", nil),NSLocalizedString(@"record-canceled-not-sent", nil)];
+        [self cancelRecordingWithReason:notificationString];
+//        [self cancelRecordingWithReason:NSLocalizedString(@"record-two-fingers-touch", nil)];
+//        [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
     }
 }
 
