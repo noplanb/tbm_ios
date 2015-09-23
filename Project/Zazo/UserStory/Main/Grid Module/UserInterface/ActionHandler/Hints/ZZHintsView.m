@@ -9,7 +9,7 @@
 @import QuartzCore;
 #import "ZZHintsView.h"
 #import "TBMHintArrow.h"
-#import "ZZArrowDirectionHelper.h"
+//#import "ZZArrowDirectionHelper.h"
 #import "ZZHintsViewModel.h"
 #import "ZZHintsGotItView.h"
 
