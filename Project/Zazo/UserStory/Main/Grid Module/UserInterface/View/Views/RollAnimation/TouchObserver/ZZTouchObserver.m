@@ -82,8 +82,8 @@ static CGFloat const kTouchOffset = 7;
 
 - (void)observeTouch:(UITouch *)touch withEvent:(id)event
 {
-//    if ([ZZFeatureObserver sharedInstance].isSpinWeelEnabled)
-//    {
+    if ([ZZFeatureObserver sharedInstance].isSpinWeelEnabled)
+    {
         if (touch.phase == UITouchPhaseBegan)
         {
             self.initialLocation = [touch locationInView:self.gridView.collectionView];
@@ -115,7 +115,7 @@ static CGFloat const kTouchOffset = 7;
                     [self startObserveWithTouch:touch withEvent:event withLocation:location];
                 }
             }
-//    }
+    }
 }
 
 - (BOOL)shouldMoveWithTouch:(UITouch*)touch

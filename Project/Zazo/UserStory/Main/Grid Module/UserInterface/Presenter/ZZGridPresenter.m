@@ -328,7 +328,9 @@
     }];
 }
 
-- (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel // TODO: add states for gesture recognizer and show toasts
+- (void)recordingStateUpdatedToState:(BOOL)isEnabled
+                           viewModel:(ZZGridCellViewModel*)viewModel
+                 withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock // TODO: add states for gesture recognizer and show toasts
 {
     [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
     
@@ -356,7 +358,7 @@
 //                [[self videoRecorder] stopRecording];
 //            }
             model.isRecording = NO;
-            [[ZZVideoRecorder shared] stopRecording];
+            [[ZZVideoRecorder shared] stopRecordingWithCompletionBlock:completionBlock];
         }
         // TODO: add states of gesture and hanlde cancel situatuin
 //        - (void)LPTHCancelLongPressWithTargetView:(UIView *)view reason:(NSString *)reason

@@ -2,9 +2,10 @@
 //  ZZVideoStatuses.h
 //  Zazo
 //
-//  Created by ANODA on 8/10/15.
-//  Copyright (c) 2015 ANODA. All rights reserved.
+//  Created by ANODA on 9/23/15.
+//  Copyright © 2015 No Plan B. All rights reserved.
 //
+
 
 typedef NS_ENUM (NSInteger, ZZVideoIncomingStatus) {
     ZZVideoIncomingStatusNew,
@@ -29,3 +30,11 @@ typedef NS_ENUM(NSInteger, ZZVideoStatusEventType) {
     ZZVideoStatusEventTypeIncoming,
     ZZVideoStatusEventTypeOutgoing
 };
+
+NSString* ZZVideoIncomingStatusShortStringFromEnumValue(ZZVideoIncomingStatus);
+NSString* ZZVideoIncomingStatusStringFromEnumValue(ZZVideoIncomingStatus);
+ZZVideoIncomingStatus ZZVideoIncomingStatusEnumValueFromString(NSString*);
+
+
+NSString* ZZVideoOutgoingStatusStringFromEnumValue(ZZVideoOutgoingStatus);
+ZZVideoOutgoingStatus ZZVideoOutgoingStatusEnumValueFromString(NSString*);

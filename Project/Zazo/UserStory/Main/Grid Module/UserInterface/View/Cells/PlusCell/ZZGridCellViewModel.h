@@ -19,7 +19,7 @@
 
 @protocol ZZGridCellViewModelDelegate <NSObject>
 
-- (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel;
+- (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock;
 - (void)playingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel;
 - (void)nudgeSelectedWithUserModel:(id)userModel;
 - (BOOL)isVideoPalying;
@@ -48,7 +48,9 @@ typedef NS_ENUM(NSInteger, ZZGridCellViewModelState)
 @property (nonatomic, assign) BOOL isUploadedVideoViewed;
 
 
-- (void)updateRecordingStateTo:(BOOL)isRecording;
+- (void)updateRecordingStateTo:(BOOL)isRecording
+           withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock;
+
 - (void)nudgeSelected;
 
 - (NSArray*)playerVideoURLs;
@@ -61,5 +63,7 @@ typedef NS_ENUM(NSInteger, ZZGridCellViewModelState)
 
 - (void)setupRecorderRecognizerOnView:(UIView*)view
                 withAnimationDelegate:(id <ZZGridCellVeiwModelAnimationDelegate>)animationDelegate;
+
+- (NSString*)videoStatus;
 
 @end

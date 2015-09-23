@@ -14,7 +14,6 @@ static CGFloat const kThumbnailBorderWidth = 2;
 
 @interface ZZGridStateViewPreview ()
 
-@property (nonatomic, strong) UILabel* userNameLabel;
 @property (nonatomic, assign) BOOL isVideoPlaying;
 
 @end
@@ -41,7 +40,6 @@ static CGFloat const kThumbnailBorderWidth = 2;
     [super updateWithModel:model];
     UIImage* thumbImage = [model videoThumbnailImage];
     self.thumbnailImageView.image = thumbImage;
-    self.userNameLabel.text = [model firstName];
     [self updateBadgeWithModel:model];
 
 }
@@ -103,25 +101,6 @@ static CGFloat const kThumbnailBorderWidth = 2;
         }];
     }
     return _thumbnailImageView;
-}
-
-- (UILabel*)userNameLabel
-{
-    if (!_userNameLabel)
-    {
-        _userNameLabel = [UILabel new];
-        _userNameLabel.textAlignment = NSTextAlignmentCenter;
-        _userNameLabel.textColor = [ZZColorTheme shared].gridStatusViewUserNameLabelColor ;
-        _userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
-        _userNameLabel.font = [UIFont an_regularFontWithSize:kUserNameFontSize];
-        [self addSubview:_userNameLabel];
-        
-        [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.bottom.equalTo(self);
-            make.height.equalTo(self).dividedBy(kUserNameScaleValue);
-        }];
-    }
-    return _userNameLabel;
 }
 
 @end
