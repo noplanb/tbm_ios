@@ -14,7 +14,6 @@ static CGFloat const kThumbnailBorderWidth = 2;
 
 @interface ZZGridStateViewPreview ()
 
-@property (nonatomic, strong) UIImageView* thumbnailImageView;
 @property (nonatomic, strong) UILabel* userNameLabel;
 @property (nonatomic, assign) BOOL isVideoPlaying;
 
@@ -96,12 +95,6 @@ static CGFloat const kThumbnailBorderWidth = 2;
         UITapGestureRecognizer* tap =
         [[UITapGestureRecognizer alloc] initWithTarget:self
                                                 action:@selector(_startVideo:)];
-        
-        UILongPressGestureRecognizer* press =
-        [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                      action:@selector(_recordPressed:)];
-        press.minimumPressDuration = .5;
-        [_thumbnailImageView addGestureRecognizer:press];
         [_thumbnailImageView addGestureRecognizer:tap];
         [self addSubview:_thumbnailImageView];
         
@@ -129,31 +122,6 @@ static CGFloat const kThumbnailBorderWidth = 2;
         }];
     }
     return _userNameLabel;
-}
-
-#pragma mark - Private
-
-- (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer
-{
-    
-    [self checkIsCancelRecordingWithRecognizer:recognizer];
-    
-    if (recognizer.state == UIGestureRecognizerStateBegan)
-    {
-        [self.model updateRecordingStateTo:YES];
-    }
-    else if (recognizer.state == UIGestureRecognizerStateEnded)
-    {
-        if (![ZZVideoRecorder shared].didCancelRecording)
-        {
-            self.model.hasUploadedVideo = YES;
-            [self showUploadAnimationWithCompletionBlock:^{
-                self.model.isUploadedVideoViewed = NO;
-                [self updateWithModel:self.model];
-            }];
-        }
-        [self.model updateRecordingStateTo:NO];
-    }
 }
 
 @end

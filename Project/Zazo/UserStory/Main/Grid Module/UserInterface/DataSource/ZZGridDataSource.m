@@ -55,6 +55,7 @@ static NSInteger const kGridCenterCellIndex = 4;
                 {
                     cellModel.item = gridModel;
                     cellModel.hasUploadedVideo = [gridModel.relatedUser hasIncomingVideo];
+                    
                     cellModel.isUploadedVideoViewed = (gridModel.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
                     
                     if (gridModel.relatedUser.unviewedCount > 0)
@@ -108,7 +109,6 @@ static NSInteger const kGridCenterCellIndex = 4;
 
 - (void)updateStorageWithModel:(ZZGridDomainModel*)model
 {
-    
     NSArray *allItems = [self.storage itemsInSection:0];
     [allItems enumerateObjectsUsingBlock:^(ZZGridCellViewModel *viewModel, NSUInteger idx, BOOL *stop) {
         if (![viewModel isKindOfClass:[ZZGridCenterCellViewModel class]])
@@ -171,6 +171,11 @@ static NSInteger const kGridCenterCellIndex = 4;
 - (void)switchCamera
 {
     [self.delegate switchCamera];
+}
+
+- (BOOL)isVideoPalying
+{
+    return [self.delegate isVideoPlaying];
 }
 
 

@@ -7,17 +7,13 @@
 //
 
 #import "ZZContactDomainModel.h"
+#import "ZZUserPresentationHelper.h"
 
 @implementation ZZContactDomainModel
 
 - (NSString *)fullName
 {
-    NSString* username = self.firstName ? self.firstName : @"";
-    if (username.length)
-    {
-        username = [username stringByAppendingString:@" "];
-    }
-    return [username stringByAppendingString:self.lastName ? self.lastName : @""];
+    return [ZZUserPresentationHelper fullNameWithFirstName:self.firstName lastName:self.lastName];
 }
 
 - (NSString*)photoURLString

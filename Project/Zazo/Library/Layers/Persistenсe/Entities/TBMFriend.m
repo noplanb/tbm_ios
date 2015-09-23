@@ -22,6 +22,7 @@
 #import "ZZFriendDataProvider.h"
 #import "ZZUserFriendshipStatusHandler.h"
 #import "ZZFriendDomainModel.h"
+#import "ZZUserPresentationHelper.h"
 
 @implementation TBMFriend
 
@@ -298,7 +299,6 @@ static NSMutableArray *videoStatusNotificationDelegates;
         {
             [self deleteVideo:v];
         }
-        
     }
 }
 
@@ -394,93 +394,6 @@ static NSMutableArray *videoStatusNotificationDelegates;
     TBMAppDelegate* delegate = (TBMAppDelegate*)[UIApplication sharedApplication].delegate;
     [delegate sendNotificationForVideoStatusUpdate:self videoId:video.videoId status:NOTIFICATION_STATUS_VIEWED];
 }
-
-//------
-// Thumb
-//------
-#pragma mark Thumb
-
-- (UIImage *)thumbImage
-{
-    if ([self hasLastThumb])
-        return [self lastThumbImage];
-    else if ([self legacyThumbImage] != nil)
-        return [self legacyThumbImage];
-    else
-        return [UIImage imageNamed:@"icon-no-pic"];
-}
-
-- (BOOL)isThumbNoPic
-{
-    return ![self hasLastThumb] && ![self hasLegacyThumb];
-}
-
-- (void)generateThumbWithVideo:(TBMVideo *)video
-{
-    OB_INFO(@"generateThumbWithVideo: %@ vid:%@", self.firstName, video.videoId);
-    if ([video generateThumb])
-        [self copyToLastThumbWithVideo:video];
-}
-
-
-- (void)copyToLastThumbWithVideo:(TBMVideo *)video
-{
-    if ([video hasThumb])
-    {
-        [self deleteLastThumb];
-        NSError *error = nil;
-        [[NSFileManager defaultManager] copyItemAtURL:[video thumbUrl] toURL:[self lastThumbUrl] error:&error];
-        if (error != nil)
-            OB_ERROR(@"copyToLastThumbWithVideo: %@ vid:%@ %@", self.firstName, video.videoId, error);
-    }
-}
-
-- (NSURL *)lastThumbUrl
-{
-    NSString *filename = [NSString stringWithFormat:@"lastThumbFromFriend_%@", self.idTbm];
-     NSURL* videosURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
-    return [videosURL URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"png"]];
-}
-
-- (UIImage *)lastThumbImage
-{
-    return [UIImage imageWithContentsOfFile:[self lastThumbUrl].path];
-}
-
-- (BOOL)hasLastThumb
-{
-    return [[NSFileManager defaultManager] fileExistsAtPath:[self lastThumbUrl].path];
-}
-
-- (void)deleteLastThumb
-{
-    if ([self hasLastThumb])
-        [[NSFileManager defaultManager] removeItemAtURL:[self lastThumbUrl] error:nil];
-}
-
-- (UIImage *)legacyThumbImage
-{
-    UIImage *thumbImage = nil;
-    NSURL *thumbUrl = nil;
-
-    for (TBMVideo *v in [self sortedIncomingVideos])
-    {
-        if ([v hasThumb])
-        {
-            thumbUrl = [v thumbUrl];
-        }
-    }
-    if (thumbUrl != nil)
-        thumbImage = [UIImage imageWithContentsOfFile:thumbUrl.path];
-
-    return thumbImage;
-}
-
-- (BOOL)hasLegacyThumb
-{
-    return [self legacyThumbImage] != nil;
-}
-
 
 //-------------------------------------
 // VideoStatus Delegates and UI Strings
@@ -640,7 +553,8 @@ static NSMutableArray *videoStatusNotificationDelegates;
         model.contactStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:model];
         self.friendshipStatus = ZZContactStatusTypeStringFromValue(model.contactStatusValue);
     }
-
+    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
+    
     [self notifyVideoStatusChangeOnMainThread];
 }
 
@@ -754,11 +668,7 @@ static NSMutableArray *videoStatusNotificationDelegates;
 
 - (NSString *)fullName
 {
-    NSString *firstName = self.firstName ? self.firstName : @"";
-    NSString *lastName = self.lastName ? self.lastName : @"";
-    NSMutableString *fullName = [[firstName stringByAppendingString:@" "] mutableCopy];
-    [fullName appendString:lastName];
-    return fullName;
+    return [ZZUserPresentationHelper fullNameWithFirstName:self.firstName lastName:self.lastName];
 }
 
 - (BOOL)hasOutgoingVideo

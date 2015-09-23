@@ -22,7 +22,7 @@
 - (void)nudgeSelectedWithUserModel:(id)userModel;
 
 - (void)switchCamera;
-
+- (BOOL)isVideoPlaying;
 @end
 
 @interface ZZGridDataSource : NSObject

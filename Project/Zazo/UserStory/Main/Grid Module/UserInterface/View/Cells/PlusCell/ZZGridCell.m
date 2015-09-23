@@ -18,7 +18,7 @@
 #import "ZZGridStateViewRecord.h"
 #import "ZZGridStateViewPreview.h"
 
-@interface ZZGridCell ()
+@interface ZZGridCell () <ZZGridCellVeiwModelAnimationDelegate>
 
 @property (nonatomic, strong) ZZGridCellViewModel* model;
 @property (nonatomic, strong) UIImageView* plusImageView;
@@ -62,7 +62,7 @@
             else
             {
                 [self updateStateViewWithModel:model];
-                
+            
                 if (self.wasSetuped)
                 {
                     [self showDownloadAnimationWithCompletionBlock:^{
@@ -84,6 +84,7 @@
         {
             [self updateStateViewWithModel:model];
         }
+        [self _setupRecordRecognizerWithModel:model];
     });
 }
 
@@ -107,6 +108,7 @@
         {
             self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self.contentView];
             
+            
         } break;
         default:
         {
@@ -122,6 +124,28 @@
 
 }
 
+
+
+#pragma mark - Record recognizer;
+
+- (void)_setupRecordRecognizerWithModel:(ZZGridCellViewModel *)model
+{
+    if ([self.stateView isKindOfClass:[ZZGridStateViewNudge class]])
+    {
+        ZZGridStateViewNudge* nudgeStateView = (ZZGridStateViewNudge*)self.stateView;
+        [model setupRecorderRecognizerOnView:nudgeStateView.recordView withAnimationDelegate:self];
+    }
+    else if ([self.stateView isKindOfClass:[ZZGridStateViewRecord class]])
+    {
+        ZZGridStateViewRecord* recordStateView = (ZZGridStateViewRecord*)self.stateView;
+        [model setupRecorderRecognizerOnView:recordStateView.recordView withAnimationDelegate:self];
+    }
+    else if ([self.stateView isKindOfClass:[ZZGridStateViewPreview class]])
+    {
+        ZZGridStateViewPreview* previewStateView = (ZZGridStateViewPreview*)self.stateView;
+        [model setupRecorderRecognizerOnView:previewStateView.thumbnailImageView withAnimationDelegate:self];
+    }
+}
 
 #pragma mark - Delegate
 
@@ -177,6 +201,14 @@
 - (void)hideAllAnimations
 {
     [self.stateView hideAllAnimationViews];
+}
+
+
+#pragma mark - Aniamtion Delegate Methods
+
+- (void)showUploadAnimation
+{
+    [self.stateView showUploadAnimationWithCompletionBlock:nil];
 }
 
 @end

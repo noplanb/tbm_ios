@@ -9,6 +9,7 @@
 #import "ZZUserDomainModel.h"
 #import "FEMObjectMapping.h"
 #import "NBPhoneNumberUtil.h"
+#import "ZZUserPresentationHelper.h"
 
 const struct ZZUserDomainModelAttributes ZZUserDomainModelAttributes = {
     .firstName = @"firstName",
@@ -48,15 +49,14 @@ const struct ZZUserDomainModelAttributes ZZUserDomainModelAttributes = {
     return YES;
 }
 
-//TODO: copy-paste from friend class
+- (ZZMenuContactType)contactType
+{
+    return -1;
+}
+
 - (NSString*)fullName
 {
-    NSString* username = self.firstName ? self.firstName : @"";
-    if (username.length)
-    {
-        username = [username stringByAppendingString:@" "];
-    }
-    return [username stringByAppendingString:self.lastName ? self.lastName : @""];
+    return [ZZUserPresentationHelper fullNameWithFirstName:self.firstName lastName:self.lastName];
 }
 
 

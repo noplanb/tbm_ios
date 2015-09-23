@@ -19,6 +19,7 @@
 + (ZZFriendDomainModel*)friendWithItemID:(NSString*)itemID;
 + (ZZFriendDomainModel*)friendWithMKeyValue:(NSString*)mKeyValue;
 
++ (NSArray*)friendsOnGrid;
 
 #pragma mark - Count
 

@@ -4,15 +4,17 @@
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "F17204E2A497AE1194AADBFE8F8689D2F990B3FA" : 0,
+    "D2D6D892B57F566ED579A107C638881ED0F62DDD" : 0,
+    "D5D840A1061AFA800283AD3ACCDEC9D2CDDDC21E" : 0,
     "BFD2DA9980DE67FC7CAB1D16B5598E77285C78EF" : 0,
-    "D2D6D892B57F566ED579A107C638881ED0F62DDD" : 0
+    "F17204E2A497AE1194AADBFE8F8689D2F990B3FA" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "84873340-B529-45A3-AD42-ABFFAEEE376C",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "F17204E2A497AE1194AADBFE8F8689D2F990B3FA" : "ANODA\/ANStorage\/",
+    "D2D6D892B57F566ED579A107C638881ED0F62DDD" : "tbm_ios",
+    "D5D840A1061AFA800283AD3ACCDEC9D2CDDDC21E" : "ANODA\/ANTableViews\/",
     "BFD2DA9980DE67FC7CAB1D16B5598E77285C78EF" : "ANODA\/ANTableController\/",
-    "D2D6D892B57F566ED579A107C638881ED0F62DDD" : "tbm_ios"
+    "F17204E2A497AE1194AADBFE8F8689D2F990B3FA" : "ANODA\/ANStorage\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Zazo",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -27,6 +29,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "ssh:\/\/stash.anoda.mobi:7999\/zz\/build-mirror.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D2D6D892B57F566ED579A107C638881ED0F62DDD"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:anodamobi\/ANTableViews.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D5D840A1061AFA800283AD3ACCDEC9D2CDDDC21E"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:anodamobi\/ANStorage.git",

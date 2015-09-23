@@ -286,7 +286,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 }
 
 - (void)setThumbContentMode {
-    self.thumbView.contentMode = [self.gridElement.friend isThumbNoPic] ? UIViewContentModeCenter : UIViewContentModeScaleToFill;
+//    self.thumbView.contentMode = [self.gridElement.friend isThumbNoPic] ? UIViewContentModeCenter : UIViewContentModeScaleToFill;
 }
 
 // Uploading, downloading and viewed indicators
@@ -525,7 +525,7 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 }
 
 - (void)updateThumbImage {
-    [self.thumbView setImage:[self.gridElement.friend thumbImage]];
+//    [self.thumbView setImage:[self.gridElement.friend thumbImage]];
     [self setThumbContentMode];
 }
 

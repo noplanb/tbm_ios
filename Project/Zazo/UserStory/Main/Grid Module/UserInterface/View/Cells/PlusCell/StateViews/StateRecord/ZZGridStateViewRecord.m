@@ -13,7 +13,7 @@
 @interface ZZGridStateViewRecord ()
 
 @property (nonatomic, strong) UILabel* userNameLabel;
-@property (nonatomic, strong) UILabel* recordView;
+
 
 @end
 
@@ -47,25 +47,6 @@
 
 #pragma mark - Private
 
-- (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer
-{
-    [self checkIsCancelRecordingWithRecognizer:recognizer];
-    
-    if (recognizer.state == UIGestureRecognizerStateBegan)
-    {
-        [self.model updateRecordingStateTo:YES];
-    }
-    else if (recognizer.state == UIGestureRecognizerStateEnded)
-    {
-        if (![ZZVideoRecorder shared].didCancelRecording)
-        {
-            self.model.hasUploadedVideo = YES;
-            [self showUploadAnimationWithCompletionBlock:nil];
-        }
-        [self.model updateRecordingStateTo:NO];
-    }
-}
-
 - (UILabel*)userNameLabel
 {
     if (!_userNameLabel)
@@ -95,12 +76,6 @@
         _recordView.textAlignment = NSTextAlignmentCenter;
         _recordView.backgroundColor = [UIColor blackColor];
         _recordView.userInteractionEnabled = YES;
-        
-        UILongPressGestureRecognizer* press = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                                                            action:@selector(_recordPressed:)];
-        press.minimumPressDuration = .5;
-        
-        [_recordView addGestureRecognizer:press];
         [self addSubview:_recordView];
         
         [_recordView mas_makeConstraints:^(MASConstraintMaker *make) {

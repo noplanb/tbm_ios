@@ -13,7 +13,7 @@
 @interface ZZGridStateViewNudge ()
 
 @property (nonatomic, strong) UIButton* nudgeButton;
-@property (nonatomic, strong) UILabel* recordView;
+
 @property (nonatomic, strong) UILabel* userNameLabel;
 
 @end
@@ -58,25 +58,6 @@
 
 
 #pragma mark - Private
-
-- (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer //TODO: copy paste
-{
-    [self checkIsCancelRecordingWithRecognizer:recognizer];
-    
-    if (recognizer.state == UIGestureRecognizerStateBegan)
-    {
-        [self.model updateRecordingStateTo:YES];
-    }
-    else if (recognizer.state == UIGestureRecognizerStateEnded)
-    {
-        if (![ZZVideoRecorder shared].didCancelRecording)
-        {
-            self.model.hasUploadedVideo = YES;
-            [self showUploadAnimationWithCompletionBlock:nil];
-        }
-        [self.model updateRecordingStateTo:NO];
-    }
-}
 
 
 #pragma mark - Lazy Load
@@ -131,12 +112,6 @@
         _recordView.textAlignment = NSTextAlignmentCenter;
         _recordView.backgroundColor = [ZZColorTheme shared].gridStatusViewBlackColor;
         _recordView.userInteractionEnabled = YES;
-        
-        UILongPressGestureRecognizer* press = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                                                            action:@selector(_recordPressed:)];
-        press.minimumPressDuration = .5;
-        
-        [self addGestureRecognizer:press];
         [self addSubview:_recordView];
         
         [_recordView mas_makeConstraints:^(MASConstraintMaker *make) {

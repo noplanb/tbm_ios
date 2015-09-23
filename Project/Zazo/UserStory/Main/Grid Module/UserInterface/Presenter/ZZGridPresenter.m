@@ -26,16 +26,20 @@
 #import "TBMAppDelegate.h"
 #import "ZZFeatureObserver.h"
 #import "ZZHintsController.h"
+#import "ZZGridCenterCellViewModel.h"
+
 
 @protocol TBMEventsFlowModuleInterface;
 
-@interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate>
+@interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate, ZZVideoRecorderDelegate>
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
 @property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
 @property (nonatomic, assign) BOOL isGridAppear;
 @property (nonatomic, strong) id<TBMEventsFlowModuleInterface> eventsFlowModule;
+
+
 
 @end
 
@@ -52,11 +56,13 @@
     self.dataSource = [ZZGridDataSource new];
     self.dataSource.delegate = self;
     [self.userInterface updateWithDataSource:self.dataSource];
-
+    
     self.videoPlayer = [ZZVideoPlayer new];
     self.videoPlayer.delegate = self;
     [self _setupNotifications];
     [self.interactor loadData];
+    
+    [[ZZVideoRecorder shared] addDelegate:self];
 }
 
 - (void)_setupNotifications
@@ -85,7 +91,7 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
+    [[ZZVideoRecorder shared] removeDelegate:self];
 }
 
 - (id)eventsFlowModule
@@ -327,6 +333,11 @@
 
 #pragma mark - Data source delegate
 
+- (BOOL)isVideoPlaying
+{
+    return [self.videoPlayer isPlaying];
+}
+
 - (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel*)userModel
 {
     [self.interactor updateLastActionForFriend:userModel];
@@ -520,6 +531,14 @@
 - (void)friendRemovedContacts:(ZZFriendDomainModel*)model
 {
     [self.interactor removeUserFromContacts:model];
+}
+
+#pragma mark - Video Recorder Delegate
+
+- (void)videoRecordingCanceled
+{
+    ZZGridCenterCellViewModel* centerCellModel = [self.dataSource centerViewModel];
+    centerCellModel.isRecording = NO;
 }
 
 @end
