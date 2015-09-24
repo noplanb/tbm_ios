@@ -1109,6 +1109,7 @@
 		180254A11BB2C5A400138A52 /* ZZVideoStatuses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoStatuses.h; sourceTree = "<group>"; };
 		180254A21BB2C5A400138A52 /* ZZVideoStatuses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoStatuses.m; sourceTree = "<group>"; };
 		182398D21BB27B36008D1324 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		183710481BB3CA6800A22FB3 /* ZZCoreTelephonyConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZCoreTelephonyConstants.h; sourceTree = "<group>"; };
 		1878422E1BB2D4960007CDE2 /* ZZGridActionHandlerUserInterfaceDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZGridActionHandlerUserInterfaceDelegate.h; sourceTree = "<group>"; };
 		1878422F1BB2F2760007CDE2 /* ZZCommunicationDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZCommunicationDomainModel.h; sourceTree = "<group>"; };
 		187842301BB2F2760007CDE2 /* ZZCommunicationDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZCommunicationDomainModel.m; sourceTree = "<group>"; };
@@ -1900,6 +1901,7 @@
 			children = (
 				07636AFF1BA49A0100925671 /* ZZAPIRoutes.h */,
 				07636B001BA49A0100925671 /* ZZGlobalHeader.h */,
+				183710481BB3CA6800A22FB3 /* ZZCoreTelephonyConstants.h */,
 			);
 			path = Headers;
 			sourceTree = "<group>";

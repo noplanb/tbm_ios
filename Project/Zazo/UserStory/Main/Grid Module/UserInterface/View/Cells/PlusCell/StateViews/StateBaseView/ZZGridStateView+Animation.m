@@ -76,30 +76,11 @@
 
 #pragma mark - Download Animation part
 
-- (void)_showDownloadAnimationWithNewVideoCount:(NSInteger)count
-{
-    [self _updateDownloadViewsToDefaultState];
-    
-    CGFloat animValue = CGRectGetWidth(self.presentedView.frame) - CGRectGetWidth(self.downloadIndicator.frame);
-    
-    [UIView animateWithDuration:0.6 animations:^{
-        self.rightDownloadIndicatorConstraint.offset = -animValue;
-        [self layoutIfNeeded];
-    } completion:^(BOOL finished) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self _hideDownloadViews];
-            [self _showVideoCountLabelWithCount:count];
-        });
-    }];
-}
-
 - (void)_updateDownloadViewsToDefaultState
 {
     [self hideAllAnimationViews];
-    CGFloat animValue = CGRectGetWidth(self.presentedView.frame) - CGRectGetWidth(self.downloadIndicator.frame);
-    self.rightDownloadIndicatorConstraint.offset = animValue;
     [self layoutIfNeeded];
-    [self _showUploadViews];
+    [self _showDownloadViews];
 }
 
 

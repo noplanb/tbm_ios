@@ -37,7 +37,8 @@
 
 - (void)selectedViewModelUpdatedWithItem:(ZZGridDomainModel*)model;
 - (void)updateStorageWithModel:(ZZGridDomainModel*)model;
-- (void)updateDataSourceWithGridModelFromNotification:(ZZGridDomainModel*)gridModel;
+- (void)updateDataSourceWithGridModelFromNotification:(ZZGridDomainModel*)gridModel
+                                  withCompletionBlock:(void(^)(BOOL isNewVideoDownloaded))completionBlock;
 - (void)reloadStorage;
 - (void)updateCenterCellWithModel:(ZZGridCenterCellViewModel*)model;
 

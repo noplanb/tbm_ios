@@ -27,7 +27,7 @@
 #import "ZZGridCenterCellViewModel.h"
 #import "ZZGridActionHandler.h"
 #import "TBMTableModal.h"
-
+#import "ZZCoreTelephonyConstants.h"
 
 @protocol TBMEventsFlowModuleInterface;
 
@@ -99,7 +99,7 @@
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(stopPlaying)
-                                                 name:@"incomingCall"
+                                                 name:kNotificationIncomingCall
                                                object:nil];
     
 }
@@ -138,7 +138,16 @@
 
 - (void)updateGridWithModelFromNotification:(ZZGridDomainModel *)model
 {
-    [self.dataSource updateDataSourceWithGridModelFromNotification:model];
+    [self.dataSource updateDataSourceWithGridModelFromNotification:model
+                                               withCompletionBlock:^(BOOL isNewVideoDownloaded) {
+       if (isNewVideoDownloaded)
+       {
+           CGFloat animationDelay = 1.8;
+           dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(animationDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+               [self.soundPlayer play];
+           });
+       }
+    }];
 }
 
 - (void)_updateFeatures
