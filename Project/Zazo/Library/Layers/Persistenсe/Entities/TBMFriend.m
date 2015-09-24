@@ -109,7 +109,8 @@ static NSMutableArray *videoStatusNotificationDelegates;
     if (f != nil)
     {
         // OB_INFO(@"createWithServerParams: friend already exists.");
-        if ([f.hasApp boolValue] ^ servHasApp){
+        if ([f.hasApp boolValue] ^ servHasApp)
+        {
             OB_INFO(@"createWithServerParams: Friend exists updating hasApp only since it is different.");
             f.hasApp = @(servHasApp);
             [f notifyVideoStatusChange];
