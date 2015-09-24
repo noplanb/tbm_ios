@@ -108,8 +108,8 @@
                                                ascending:YES
                                            withPredicate:excludeCreator
                                                inContext:[self _context]];
-    
-    NSInteger index = kNextGridElementIndexFromFlowIndex(result.count);
+    //TODO: cleanup this, remove this part at all, we don't need new fetch
+    NSInteger index = (result.count);
     if (index != NSNotFound)
     {
         NSPredicate* indexPredicate = [NSPredicate predicateWithFormat:@"%K == %@", TBMGridElementAttributes.index, @(index)];
