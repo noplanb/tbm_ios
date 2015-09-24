@@ -28,6 +28,8 @@ NSString* const TBMVideoRecorderDidFinishRecording = @"TBMVideoRecorderDidFinish
 NSString* const TBMVideoRecorderShouldStartRecording = @"TBMVideoRecorderShouldStartRecording";
 NSString* const TBMVideoRecorderDidCancelRecording = @"TBMVideoRecorderDidCancelRecording";
 NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
+static CGFloat const kDelayBeforeNextMessage = 1.1;
+
 //NSString* const kZZVideoProcessorErrorReason = @"Problem processing video";
 
 @interface ZZVideoRecorder () <SCRecorderDelegate>
@@ -132,10 +134,20 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 {
     if ([[touches allObjects] count] > 1)
     {
-        [self cancelRecordingWithReason:NSLocalizedString(@"record-two-fingers-touch", nil)];
-        [[[iToast makeText:NSLocalizedString(@"record-canceled-not-sent", nil)] setGravity:iToastGravityCenter
-                                                                                offsetLeft:0 offsetTop:60] show];
+         UITouch* touch = [[touches allObjects] firstObject];
+        if (touch.phase == UITouchPhaseBegan)
+        {
+            [self cancelRecordingWithDoubleTap];
+        }
     }
+}
+
+- (void)cancelRecordingWithDoubleTap
+{
+    [self cancelRecordingWithReason:NSLocalizedString(@"record-two-fingers-touch", nil)];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kDelayBeforeNextMessage * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
+    });
 }
 
 - (BOOL)areBothCamerasAvailable
@@ -225,17 +237,28 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
     [recordSession mergeSegmentsUsingPreset:AVAssetExportPresetHighestQuality completionHandler:^(NSURL *url, NSError *error) {
         if (error == nil)
         {
-            
             if ([self isVideoShort:url])
             {
-                [self showMessage:NSLocalizedString(@"record-video-too-short", nil)];
-                [[NSFileManager defaultManager] removeItemAtPath:[url path] error:nil];
                 [self _recordingResultSuccess:NO];
+                
+                if (self.didCancelRecording)
+                {
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kDelayBeforeNextMessage * 2)  * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self showMessage:NSLocalizedString(@"record-video-too-short", nil)];
+                    });
+                }
+                else
+                {
+                    [self showMessage:NSLocalizedString(@"record-video-too-short", nil)];
+                }
+                
+                [[NSFileManager defaultManager] removeItemAtPath:[url path] error:nil];
             }
             else if (self.didCancelRecording)
             {
-                [[NSFileManager defaultManager] removeItemAtPath:[url path] error:nil];
                 [self _recordingResultSuccess:NO];
+                [[NSFileManager defaultManager] removeItemAtPath:[url path] error:nil];
+                
             }
             else
             {
@@ -311,7 +334,7 @@ NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 
 - (void)showMessage:(NSString*)message
 {
-    [[iToast makeText:message] show];
+    [[iToast makeText:message]show];
 }
 
 #pragma mark - Video Recorder Observer Methods
