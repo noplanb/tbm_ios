@@ -114,6 +114,11 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     else
     {
         [self.recorder startRunning];
+        if (self.didCancelRecording)
+        {
+            [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
+        }
+        
     }
 
 }
@@ -198,15 +203,19 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 - (void)cancelRecordingWithReason:(NSString*)reason
 {
-    if (!self.didCancelRecording)
+    
+    if ([self.recorder isRecording])
     {
-        self.didCancelRecording = YES;
-        if (!ANIsEmpty(reason))
+        if (!self.didCancelRecording)
         {
-            [self showMessage:reason];
+            self.didCancelRecording = YES;
+            if (!ANIsEmpty(reason))
+            {
+                [self showMessage:reason];
+            }
+            [self.recorder pause];
+            [self _notifyCancelRecording];
         }
-        [self.recorder pause];
-        [self _notifyCancelRecording];
     }
 }
 
