@@ -9,6 +9,7 @@
 #import "ZZGridActionDataProvider.h"
 #import "ZZGridDataProvider.h"
 #import "ZZGridDomainModel.h"
+#import "ZZHintsConstants.h"
 
 @implementation ZZGridActionDataProvider
 
@@ -71,4 +72,28 @@
 //}
 
 
++ (NSUInteger)friendsCount
+{
+    return 0;
+}
+
++ (BOOL)messageRecordedState
+{
+    return NO;
+}
+
++ (BOOL)hasSentVideos:(NSUInteger)gridIndex
+{
+    return NO;
+}
+
++ (BOOL)hintStateForHintType:(ZZHintsType)type
+{
+    return NO;
+}
+
++ (BOOL)hasFeaturesForUnlock
+{
+    return NO;
+}
 @end

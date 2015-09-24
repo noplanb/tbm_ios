@@ -8,6 +8,8 @@
 
 #import "ZZHintsConstants.h"
 
+@class ZZHintsDomainModel;
+
 @protocol ZZHintsControllerDelegate <NSObject>
 
 - (void)hintWasDissmissed;
@@ -18,6 +20,6 @@
 
 @property (nonatomic, weak) id<ZZHintsControllerDelegate> delegate;
 
-- (void)showHintWithType:(ZZHintsType)type focusFrame:(CGRect)frame withIndex:(NSInteger)index formatParameter:(NSString*)parameter;
+- (void)showHintWithModel:(ZZHintsDomainModel*)model;
 
 @end

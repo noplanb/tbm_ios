@@ -30,6 +30,11 @@
     return self;
 }
 
+- (void)showHintWithModel:(ZZHintsDomainModel*)model
+{
+    // TODO: (HINTS) Show hint with model;
+}
+
 //- (void)showHintWithType:(ZZHintsType)type focusFrame:(CGRect)focusFrame withIndex:(NSInteger)index formatParameter:(NSString*)parameter
 //{
 //    ZZHintsDomainModel *model = [ZZHintsModelGenerator generateHintModelForType:type];

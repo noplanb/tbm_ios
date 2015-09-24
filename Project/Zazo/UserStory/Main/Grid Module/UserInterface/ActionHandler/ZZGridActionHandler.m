@@ -13,6 +13,7 @@
 #import "ZZHintsConstants.h"
 #import "ZZGridUIConstants.h"
 #import "ZZHintsModelGenerator.h"
+#import "ZZHintsDomainModel.h"
 
 @interface ZZGridActionHandler ()
 
@@ -20,7 +21,7 @@
 @property (nonatomic, strong) ZZHintsController* hintsController;
 @property(nonatomic, strong) NSSet* hints;
 
-
+@property(nonatomic, strong) ZZHintsDomainModel* hint;
 @end
 
 @implementation ZZGridActionHandler
@@ -53,14 +54,15 @@
 
 - (void)handleEvent:(ZZGridActionEventType)event
 {
-    switch (event)
+    __block ZZHintsDomainModel* hint;
+    [self.hints enumerateObjectsUsingBlock:^(ZZHintsDomainModel* obj, BOOL* stop)
     {
-        case ZZGridActionEventTypeGridLoaded:
+        if (obj.condition && obj.condition(event))
         {
-            [self _handleGridBecomeActive];
-        } break;
-        default: break;
-    }
+            hint = (!hint || hint.priority < obj.priority) ?  obj: hint;
+        }
+    }];
+    // TODO: (HINTS) Show controller with current hint
 }
 
 - (void)welcomeZazoSentSuccessfully // welcome zazo - message to user that we invited, and no other messages from this friend was not received
