@@ -506,7 +506,7 @@ TBMTableModalDelegate
 
 - (void) didSelectRow:(NSInteger)index
 {
-    self.contactWithMultiplyPhones.primaryPhone = self.contactPhoneNumbers[index];
+    self.contactWithMultiplyPhones.primaryPhone = self.contactWithMultiplyPhones.phones[index];
     [self.interactor userSelectedPrimaryPhoneNumber:self.contactWithMultiplyPhones];
 }
 

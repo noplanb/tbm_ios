@@ -13,4 +13,5 @@
 @property (nonatomic, strong) NSString* contact;
 @property (nonatomic, strong) NSString* label;
 
+
 @end
