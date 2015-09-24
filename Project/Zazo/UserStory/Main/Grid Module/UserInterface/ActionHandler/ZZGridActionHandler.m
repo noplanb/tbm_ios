@@ -12,11 +12,14 @@
 #import "ZZHintsController.h"
 #import "ZZHintsConstants.h"
 #import "ZZGridUIConstants.h"
+#import "ZZHintsModelGenerator.h"
 
 @interface ZZGridActionHandler ()
 
 @property (nonatomic, assign) ZZGridActionFeatureType lastUnlockedFeature; //this property should load from data provider
 @property (nonatomic, strong) ZZHintsController* hintsController;
+@property(nonatomic, strong) NSSet* hints;
+
 
 @end
 
@@ -27,10 +30,26 @@
     self = [super init];
     if (self)
     {
-        
+        [self setupHints];
     }
     return self;
 }
+
+- (void)setupHints
+{
+    NSMutableSet* hints = [NSMutableSet set];
+    [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeSendZazo]];
+    [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypePressAndHoldToRecord]];
+    [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeGiftIsWaiting]];
+    [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeTapToSwitchCamera]];
+    [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeWelcomeNudgeUser]];
+    [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeWelcomeFor]];
+    [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeAbortRecording]];
+    [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeEarpieceUsage]];
+    [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeSpin]];
+    self.hints = hints;
+}
+
 
 - (void)handleEvent:(ZZGridActionEventType)event
 {
