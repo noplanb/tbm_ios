@@ -59,6 +59,7 @@ static NSString* const kContentDBName = @"tbm";
 
 static NSString* const kAppstoreURLString = @"https://itunes.apple.com/us/app/zazo/id922294638";
 static NSString* const kMessageSoundEffectFileName = @"BeepSin30.wav";
+static NSString* const kMessageSoundZazoFileName = @"NotificationTone.wav";
 
 
 #define DEBUG_MODE

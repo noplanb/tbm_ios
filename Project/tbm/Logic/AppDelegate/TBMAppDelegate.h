@@ -11,6 +11,7 @@
 static NSString* const kNotificationSendMessage = @"sendMessageNotification";
 
 @class TBMHomeViewController;
+@class ZZSoundPlayer;
 
 @protocol TBMAppDelegateEventNotificationProtocol <NSObject>
 
@@ -33,6 +34,7 @@ static NSString* const kNotificationSendMessage = @"sendMessageNotification";
 @property(nonatomic) UIUserNotificationType notificationAllowedTypes;
 
 @property(nonatomic) BOOL pushAlreadyFailed;
+@property (nonatomic, strong) ZZSoundPlayer* zazoSoundPlayer;
 
 //temp in public
 @property (nonatomic, strong) ZZAppDependencies* appDependencies;
