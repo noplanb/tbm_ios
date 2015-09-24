@@ -16,6 +16,7 @@
 #import "ZZVideoRecorder.h"
 #import "ANLogger.h"
 #import "MagicalRecord.h"
+#import "ZZCoreTelephonyConstants.h"
 
 
 @interface ZZAppDependencies ()
@@ -106,7 +107,7 @@
             
             ANDispatchBlockToMainQueue(^{
                 [[ZZVideoRecorder shared] cancelRecordingWithReason:NSLocalizedString(@"record-canceled-reason-incoming-call", nil)];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"incomingCall" object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationIncomingCall object:nil];
             });
         }
     }];

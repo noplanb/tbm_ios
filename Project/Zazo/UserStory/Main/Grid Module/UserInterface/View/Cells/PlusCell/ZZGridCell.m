@@ -24,7 +24,6 @@
 @property (nonatomic, strong) UIImageView* plusImageView;
 @property (nonatomic, strong) UIGestureRecognizer* plusRecognizer;
 @property (nonatomic, strong) ZZGridStateView* stateView;
-@property (nonatomic, assign) BOOL wasSetuped;
 
 @end
 
@@ -53,7 +52,6 @@
         self.model = model;
         if ([self.model.badgeNumber integerValue] > 0)
         {
-            
             if (self.model.prevBadgeNumber == self.model.badgeNumber)
             {
                 [self updateStateViewWithModel:self.model];
@@ -62,23 +60,11 @@
             else
             {
                 [self updateStateViewWithModel:model];
-            
-                if (self.wasSetuped)
-                {
-                    [self showDownloadAnimationWithCompletionBlock:^{
-                        [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
-                        self.model.prevBadgeNumber = self.model.badgeNumber;
-                    }];
-                }
-                else
-                {
+                [self showDownloadAnimationWithCompletionBlock:^{
                     [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
                     self.model.prevBadgeNumber = self.model.badgeNumber;
-                    self.wasSetuped = YES;
-                }
-            
+                }];
             }
-            
         }
         else
         {
@@ -170,11 +156,6 @@
     [self.stateView showContainFriendAnimation];
 }
 
-- (void)showDownloadVideoAnimationWithCount:(NSInteger)count
-{
-    [self.stateView showDownloadAnimationWithNewVideoCount:count];
-}
-
 - (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock
 {
     [self.stateView showDownloadAnimationWithCompletionBlock:completionBlock];
@@ -208,7 +189,12 @@
 
 - (void)showUploadAnimation
 {
-    [self.stateView showUploadAnimationWithCompletionBlock:nil];
+    [self.stateView showUploadAnimationWithCompletionBlock:^{
+        if (self.model.badgeNumber > 0)
+        {
+            [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
+        }
+    }];
 }
 
 @end

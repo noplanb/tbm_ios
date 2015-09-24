@@ -5,8 +5,8 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 #import "ZZFakeRotationCell.h"
+#import "ZZGridUIConstants.h"
 
-static CGFloat const kVideoCountLabelWidth = 23;
 
 @interface ZZFakeRotationCell ()
 
@@ -104,15 +104,16 @@ static CGFloat const kVideoCountLabelWidth = 23;
         _badgeLabel = [UILabel new];
         _badgeLabel.backgroundColor = [UIColor redColor];
         _badgeLabel.layer.cornerRadius = kVideoCountLabelWidth/2;
-        _badgeLabel.layer.masksToBounds = YES;
+        _badgeLabel.clipsToBounds = YES;
         _badgeLabel.hidden = YES;
         _badgeLabel.textColor = [UIColor whiteColor];
         _badgeLabel.textAlignment = NSTextAlignmentCenter;
+        _badgeLabel.font = [UIFont an_regularFontWithSize:11];
         [self.stateImageView addSubview:_badgeLabel];
         
         [_badgeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.stateImageView).with.offset(5);
-            make.top.equalTo(self.stateImageView).with.offset(-5);
+            make.right.equalTo(self.stateImageView).with.offset(3);
+            make.top.equalTo(self.stateImageView).with.offset(-4);
             make.height.equalTo(@(kVideoCountLabelWidth));
             make.width.equalTo(@(kVideoCountLabelWidth));
         }];

@@ -8,6 +8,12 @@
 
 #import "ZZGridCenterCellViewModel.h"
 
+@interface ZZGridCenterCellViewModel ()
+
+@property (nonatomic, strong) UILongPressGestureRecognizer* longPressRecognizer;
+
+@end
+
 @implementation ZZGridCenterCellViewModel
 
 - (void)switchCamera
@@ -31,6 +37,30 @@
         _recordView = [UIView new];
     }
     return _recordView;
+}
+
+- (void)setupLongRecognizerOnView:(UIView*)view
+{
+    [view addGestureRecognizer:self.longPressRecognizer];
+}
+
+- (UILongPressGestureRecognizer *)longPressRecognizer
+{
+    if (!_longPressRecognizer)
+    {
+        _longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showHint:)];
+        _longPressRecognizer.minimumPressDuration = 0.5;
+    }
+    
+    return _longPressRecognizer;
+}
+
+- (void)showHint:(UILongPressGestureRecognizer*)recognizer
+{
+    if (recognizer.state == UIGestureRecognizerStateBegan)
+    {
+        [self.delegate showHint];
+    }
 }
 
 @end
