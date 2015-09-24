@@ -46,6 +46,7 @@ TBMTableModalDelegate
 @property (nonatomic, strong) ZZGridActionHandler* actionHandler;
 @property (nonatomic, strong) TBMTableModal *table;
 @property (nonatomic, strong) NSArray* contactPhoneNumbers;
+@property (nonatomic, strong) ZZContactDomainModel* contactWithMultiplyPhones;
 
 
 
@@ -485,14 +486,19 @@ TBMTableModalDelegate
 
 - (void)showChooseNumberDialogForUser:(ZZContactDomainModel*)user// TODO: move to grid alerts
 {
+    NSMutableArray *phonesArray = [NSMutableArray new];
     
-    //TODO
-//    self.contactPhoneNumbers = [NSArray arrayWithArray:array];
-//   
-//    ANDispatchBlockToMainQueue(^{
-//        self.table = [[TBMTableModal alloc] initWithParentView:self.userInterface.view title:@"Choose phone number" rowData:array delegate:self];
-//        [self.table show];
-//    });
+    [user.phones enumerateObjectsUsingBlock:^(ZZCommunicationDomainModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [phonesArray addObject:obj.contact];
+    }];
+    
+    self.contactPhoneNumbers = phonesArray;
+    self.contactWithMultiplyPhones = user;
+   
+    ANDispatchBlockToMainQueue(^{
+        self.table = [[TBMTableModal alloc] initWithParentView:self.userInterface.view title:@"Choose phone number" rowData:self.contactPhoneNumbers delegate:self];
+        [self.table show];
+    });
 }
 
 
@@ -500,7 +506,8 @@ TBMTableModalDelegate
 
 - (void) didSelectRow:(NSInteger)index
 {
-//    [self.interactor userSelectedPhoneNumber:self.contactPhoneNumbers[index]];
+    self.contactWithMultiplyPhones.primaryPhone = self.contactPhoneNumbers[index];
+    [self.interactor userSelectedPrimaryPhoneNumber:self.contactWithMultiplyPhones];
 }
 
 - (void)showSendInvitationDialogForUser:(ZZContactDomainModel*)user
