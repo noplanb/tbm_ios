@@ -16,5 +16,6 @@
 
 + (id)alertControllerWithTitle:(NSString *)title message:(NSString *)message;
 + (id)alertControllerWithTitle:(NSString *)title message:(NSString *)message forcePlain:(BOOL)forcePlain;
++ (id)badConnectionAlert;
 
 @end

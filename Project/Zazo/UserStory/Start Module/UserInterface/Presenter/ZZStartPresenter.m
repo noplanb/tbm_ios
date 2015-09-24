@@ -76,7 +76,10 @@
     return [NSString stringWithFormat:@"Your %@ app is %@. Please update", appName, q];
 }
 
-
+- (void)userVersionStateLoadedingDidFailWithError:(NSError*)error
+{
+    
+}
 
 
 #pragma mark - Module Interface

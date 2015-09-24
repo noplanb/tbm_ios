@@ -493,6 +493,22 @@ TBMTableModalDelegate
     });
 }
 
+- (void)addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel*)contact
+{
+    TBMAlertController *alert = [TBMAlertController badConnectionAlert];
+    
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleRecommended handler:^(SDCAlertAction *action) {
+        [alert dismissWithCompletion:nil];
+    }]];
+    
+    
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+        [self.interactor addUserToGrid:contact];
+    }]];
+    
+    [alert presentWithCompletion:nil];
+}
+
 
 #pragma mark - TBMTableModalDelegate
 
