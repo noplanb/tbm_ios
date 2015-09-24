@@ -10,4 +10,9 @@
 
 @implementation ZZCommunicationDomainModel
 
+- (NSString *)stringByReplacingOccurrencesOfString:(NSString *)target withString:(NSString *)replacement
+{
+    
+    return @"";
+}
 @end

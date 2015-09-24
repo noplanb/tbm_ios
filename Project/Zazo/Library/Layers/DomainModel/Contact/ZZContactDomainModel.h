@@ -17,7 +17,7 @@
 @property (nonatomic, copy) NSString* lastName;
 @property (nonatomic, strong) NSArray* phones;
 
-@property (nonatomic, strong) NSString* primaryPhone;
+@property (nonatomic, strong) ZZCommunicationDomainModel* primaryPhone;
 @property (nonatomic, assign) ZZMenuContactType contactType;
 
 - (NSString *)fullName;

@@ -16,7 +16,7 @@
 
 + (RACSignal*)inviteUserToApp:(ZZContactDomainModel*)contact
 {
-    return [[ZZFriendsTransportService inviteUserWithPhoneNumber:contact.primaryPhone
+    return [[ZZFriendsTransportService inviteUserWithPhoneNumber:contact.primaryPhone.contact
                                                 firstName:[NSObject an_safeString:contact.firstName]
                                               andLastName:[NSObject an_safeString:contact.lastName]] map:^id(id value) {
         
@@ -29,9 +29,9 @@
 
 + (RACSignal*)checkIsUserHasApp:(ZZContactDomainModel*)contact
 {
-    return [[ZZFriendsTransportService checkIsUserHasProfileWithPhoneNumber:contact.primaryPhone] map:^id(id value) {
+    return [[ZZFriendsTransportService checkIsUserHasProfileWithPhoneNumber:contact.primaryPhone.contact] map:^id(id value) {
     
-        return @([[value objectForKey:@"has_app"] isEqualToString:@"false"]);
+        return @(![[value objectForKey:@"has_app"] isEqualToString:@"false"]);
     }];
 }
 

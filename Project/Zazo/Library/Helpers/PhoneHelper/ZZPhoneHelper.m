@@ -24,7 +24,8 @@
             if ([TBMPhoneUtils isValidPhone:communicationModel.contact])
             {
                 NSString *formattedPhone = [TBMPhoneUtils phone:communicationModel.contact withFormat:NBEPhoneNumberFormatINTERNATIONAL];
-                [validNumbers addObject:formattedPhone];
+                communicationModel.contact = formattedPhone;
+                [validNumbers addObject:communicationModel];
             }
         }];
     }
