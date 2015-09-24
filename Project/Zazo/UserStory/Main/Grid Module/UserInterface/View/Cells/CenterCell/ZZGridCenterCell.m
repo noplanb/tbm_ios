@@ -72,7 +72,6 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
     self.recordingOverlay.hidden = NO;
     self.recordingLabel.hidden = NO;
     self.switchCameraButton.hidden = YES;
-    [NSThread sleepForTimeInterval:0.4f]; // TODO:
 }
 
 - (void)_hideRecordingOverlay
@@ -80,7 +79,6 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
     self.recordingOverlay.hidden = YES;
     self.recordingLabel.hidden = YES;
     self.switchCameraButton.hidden = ![self.model shouldShowSwitchCameraButton];
-    [NSThread sleepForTimeInterval:0.1f]; // TODO:
 }
 
 - (void)setupVideoViewWithView:(UIView*)view
