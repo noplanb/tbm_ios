@@ -58,14 +58,14 @@
         [self editFriendsSelected];
     }];
     
-    [[RACObserve(self.gridView.collectionView.visibleCells, count) filter:^BOOL(NSNumber* value) {
-        
-        return (value.integerValue != 9);
-        
-    }] subscribeNext:^(NSNumber* x) {
-        
-        [self.eventHandler gridDidAppear];
-    }];
+//    [[RACObserve(self.gridView.collectionView.visibleCells, count) filter:^BOOL(NSNumber* value) {
+//        
+//        return (value.integerValue != 9);
+//        
+//    }] subscribeNext:^(NSNumber* x) {
+//        
+//        [self.eventHandler gridDidAppear];
+//    }];
 }
 
 - (void)updateWithDataSource:(ZZGridDataSource *)dataSource

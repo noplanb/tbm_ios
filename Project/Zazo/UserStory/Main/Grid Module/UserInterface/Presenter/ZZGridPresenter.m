@@ -167,8 +167,8 @@ TBMTableModalDelegate
 
 - (void)_updateCenterCell
 {
-    if (self.isGridAppear)
-    {
+//    if (self.isGridAppear)
+//    {
         if ([self.dataSource centerViewModel])
         {
             id model = [self.dataSource centerViewModel];
@@ -177,7 +177,7 @@ TBMTableModalDelegate
                 [self.userInterface updateSwitchButtonWithState:(![ZZFeatureObserver sharedInstance].isBothCameraEnabled)];
             }
         }
-    }
+//    }
 }
 
 - (void)presentEditFriendsController
