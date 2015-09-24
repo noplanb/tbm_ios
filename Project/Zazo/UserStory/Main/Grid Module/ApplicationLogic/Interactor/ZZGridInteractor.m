@@ -96,7 +96,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         
         if ([gridModel.relatedUser.idTbm isEqualToString:model.idTbm]) {
             gridModel.relatedUser = nil;
-            [ZZGridDataProvider upsertModel:gridModel];
+            [self _upsertGridModel:gridModel];
             [self.output updateGridWithModel:gridModel];
             *stop = YES;
         }
@@ -163,13 +163,13 @@ static NSInteger const kGridFriendsCellCount = 8;
             {
                 model.relatedUser = friendModel;
             }
-            [ZZGridDataProvider upsertModel:model];
+            [self _upsertGridModel:model];
             [self.output updateGridWithModelFromNotification:modelThatContainCurrentFriend];
     }
     else
     {
         modelThatContainCurrentFriend.relatedUser = friendModel;
-        id model = [ZZGridDataProvider upsertModel:modelThatContainCurrentFriend];
+        id model = [self _upsertGridModel:modelThatContainCurrentFriend];
         [self.output updateGridWithModelFromNotification:model];
     }
 }
@@ -277,13 +277,28 @@ static NSInteger const kGridFriendsCellCount = 8;
         {
             model.relatedUser = friendModel;
         }
-        [ZZGridDataProvider upsertModel:model];
+        
+        [self _upsertGridModel:model];
         [self.output updateGridWithModel:model];
     }
     else
     {
         [self.output gridContainedFriend:containedUser];
     }
+}
+
+- (ZZGridDomainModel*)_upsertGridModel:(ZZGridDomainModel*)model
+{
+    NSMutableArray* array = [self.gridModels mutableCopy];
+    [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (obj.index == model.index)
+        {
+            [array replaceObjectAtIndex:idx withObject:model];
+        }
+    }];
+    
+    self.gridModels = [array copy];
+    return [ZZGridDataProvider upsertModel:model];
 }
 
 - (void)_addUserAsContactToGrid:(ZZContactDomainModel*)model
