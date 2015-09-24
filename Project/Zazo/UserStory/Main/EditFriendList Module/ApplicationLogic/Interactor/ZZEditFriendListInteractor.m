@@ -36,7 +36,7 @@
 - (void)changeContactStatusTypeForFriend:(ZZFriendDomainModel *)friendModel
 {
     self.selectedFriendModel = friendModel;
-    BOOL visible;
+    BOOL visible = NO;
     
     if ([friendModel isCreator])
     {

@@ -44,14 +44,13 @@
 
 - (void)_addItems:(NSArray*)items toSection:(NSUInteger)sectionIndex
 {
-    
     items = [[items.rac_sequence map:^id(id value) {
         return [ZZMenuCellViewModel viewModelWithItem:value];
     }] array];
     
     
     [self.storage updateWithoutAnimations:^{
-        [self.storage removeSections:[NSIndexSet indexSetWithIndex:sectionIndex]]; // TODO: handle animations
+        [self.storage removeSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
         if (!ANIsEmpty(items))
         {
             [self.storage addItems:items toSection:sectionIndex];

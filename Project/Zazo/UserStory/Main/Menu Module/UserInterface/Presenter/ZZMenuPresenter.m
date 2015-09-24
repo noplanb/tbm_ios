@@ -26,7 +26,7 @@
     self.dataSource = [ZZMenuDataSource new];
     [self.userInterface updateDataSource:self.dataSource];
     
-    [self.interactor loadData];
+    [self.interactor loadDataIncludeAddressBookRequest:NO];
 }
 
 
@@ -66,10 +66,10 @@
 
 - (void)menuToggled
 {
-    [self.interactor loadAddressBookContactsWithRequestAccess:YES];
+    [self.interactor loadDataIncludeAddressBookRequest:YES];
 }
 
-- (void)needPermissionForAddressBook
+- (void)needsPermissionForAddressBook
 {
     [ZZContactsPermissionAlertBuilder showNeedAccessForAddressBookAlert];
 }

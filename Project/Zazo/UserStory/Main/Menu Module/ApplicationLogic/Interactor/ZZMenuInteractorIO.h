@@ -8,8 +8,7 @@
 
 @protocol ZZMenuInteractorInput <NSObject>
 
-- (void)loadData;
-- (void)loadAddressBookContactsWithRequestAccess:(BOOL)shouldRequest;
+- (void)loadDataIncludeAddressBookRequest:(BOOL)shouldRequest;
 
 @end
 
@@ -21,6 +20,6 @@
 - (void)friendsThatHasAppLoaded:(NSArray *)friendsData;
 - (void)friendsDataLoaded:(NSArray *)friendsData;
 - (void)friendsDataLoadingDidFailWithError:(NSError *)error;
-- (void)needPermissionForAddressBook;
+- (void)needsPermissionForAddressBook;
 
 @end

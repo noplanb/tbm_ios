@@ -16,22 +16,36 @@
 
 @implementation ZZMenuInteractor
 
-- (void)loadData
+- (void)loadDataIncludeAddressBookRequest:(BOOL)shouldRequest
+{
+    NSArray* friends = [ZZFriendDataProvider loadAllFriends];
+    [self _sortFriendsFromArray:friends];
+    
+    [self _loadAddressBookContactsWithRequestAccess:shouldRequest];
+}
+
+
+#pragma mark - Private
+
+- (void)_updateFriends
 {
     [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray *array) {
         
         NSArray *friendsArray = [FEMObjectDeserializer deserializeCollectionExternalRepresentation:array
                                                                                       usingMapping:[ZZFriendDomainModel mapping]];
-        [self sortFriendsFromArray:friendsArray];
         
-        //TODO: it should be loaded from start VC and saved to data base
+        [friendsArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [ZZFriendDataProvider upsertFriendWithModel:obj];
+        }];
+        
+        [self loadDataIncludeAddressBookRequest:NO];
         
     } error:^(NSError *error) {
         
     }];
 }
 
-- (void)loadAddressBookContactsWithRequestAccess:(BOOL)shouldRequest
+- (void)_loadAddressBookContactsWithRequestAccess:(BOOL)shouldRequest
 {
     [[ZZAddressBookDataProvider loadContactsWithContactsRequest:shouldRequest] subscribeNext:^(NSArray *addressBookContactsArray) {
         
@@ -39,14 +53,14 @@
         
     } error:^(NSError *error) {
         
-        [self.output needPermissionForAddressBook];
+        [self.output needsPermissionForAddressBook];
         
     }];
 }
 
-- (void)sortFriendsFromArray:(NSArray *)array
+- (void)_sortFriendsFromArray:(NSArray *)array
 {
-    NSMutableArray* friendsThaHasAppArray = [NSMutableArray new];
+    NSMutableArray* friendsHasAppArray = [NSMutableArray new];
     NSMutableArray* otherFriendsArray = [NSMutableArray new];
     
     NSArray* gridUsers = [ZZFriendDataProvider friendsOnGrid];
@@ -54,17 +68,15 @@
     {
         gridUsers = @[];
     }
-    NSArray* gridUsersIDs = [gridUsers valueForKey:ZZFriendDomainModelAttributes.mKey];
-    NSSet* gridUserIDsSet = [NSSet setWithArray:gridUsersIDs];
     
     [array enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friend, NSUInteger idx, BOOL *stop) {
         
         //check if user is on grid - do not add him
-        if (!ANIsEmpty(friend.mKey) && ![gridUserIDsSet containsObject:friend.mKey])
+        if (!ANIsEmpty(friend.mKey) && ![gridUsers containsObject:friend])
         {
             if (friend.hasApp)
             {
-                [friendsThaHasAppArray addObject:friend];
+                [friendsHasAppArray addObject:friend];
             }
             else
             {
@@ -73,9 +85,9 @@
         }
     }];
     
-    if (friendsThaHasAppArray.count > 0)
+    if (friendsHasAppArray.count > 0)
     {
-        [self.output friendsThatHasAppLoaded:[self _sortByFirstName:friendsThaHasAppArray]];
+        [self.output friendsThatHasAppLoaded:[self _sortByFirstName:friendsHasAppArray]];
     }
     
     if (otherFriendsArray.count > 0)
