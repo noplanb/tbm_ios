@@ -10,4 +10,8 @@
 
 @implementation ZZHintsDomainModel
 
+-(void)conditionForEvent:(HintCondition)condition {
+    self.condition = condition;
+}
+
 @end

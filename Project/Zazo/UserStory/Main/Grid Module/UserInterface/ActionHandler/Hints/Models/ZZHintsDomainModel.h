@@ -7,6 +7,10 @@
 //
 
 #import "ZZHintsConstants.h"
+#import "ZZGridActionHandlerEnums.h"
+
+
+typedef BOOL (^HintCondition)(ZZGridActionEventType event);
 
 @interface ZZHintsDomainModel : NSObject
 
@@ -17,6 +21,10 @@
 @property (nonatomic, copy) NSString* title;
 @property (nonatomic, copy) NSString* formatParameter;
 @property (nonatomic, assign) BOOL hidesArrow;
+
 @property (nonatomic, assign) NSInteger priority;
+@property (nonatomic, assign) HintCondition condition;
+
+-(void)conditionForEvent:(HintCondition)condition;
 
 @end
