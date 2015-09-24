@@ -21,6 +21,8 @@
 #import "ZZFriendDataProvider.h"
 #import "ZZThumbnailGenerator.h"
 #import "ZZVideoDataProvider.h"
+#import "ZZFileHelper.h"
+#import "ZZVideoDomainModel.h"
 
 
 @implementation TBMAppDelegate (AppSync)
@@ -454,7 +456,28 @@
 
     ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:video];
     [ZZThumbnailGenerator generateThumbVideo:videoModel];
-
+    
+    NSURL* videoUrl = videoModel.videoURL;
+    
+    if ([ZZFileHelper isFileExistsAtURL:videoUrl])
+    {
+        NSLog(@"exist");
+    }
+    else
+    {
+        NSLog(@"not exist")
+    }
+    
+    
+    if ([ZZFileHelper isFileValidWithFileURL:videoUrl])
+    {
+        NSLog(@"valid file");
+    }
+    else
+    {
+        NSLog(@"not valid");
+    }
+    
     [friend deleteAllViewedOrFailedVideos];
     [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_DOWNLOADED video:video];
     [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_DOWNLOADED videoId:videoId friend:friend];
