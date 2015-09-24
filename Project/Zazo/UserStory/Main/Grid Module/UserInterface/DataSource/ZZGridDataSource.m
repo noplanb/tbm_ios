@@ -117,7 +117,17 @@ static NSInteger const kGridCenterCellIndex = 4;
     [allItems enumerateObjectsUsingBlock:^(ZZGridCellViewModel *viewModel, NSUInteger idx, BOOL *stop) {
         if (![viewModel isKindOfClass:[ZZGridCenterCellViewModel class]])
         {
-            if ([viewModel.item.index isEqual:model.index])
+            NSInteger index;
+            if ([model.index integerValue] > 4)
+            {
+                index = [model.index integerValue] - 1;
+            }
+            else
+            {
+                index = [model.index integerValue];
+            }
+            
+            if ([viewModel.item.index integerValue] == index)
             {
                 viewModel.item = model;
                 ANDispatchBlockToMainQueue(^{

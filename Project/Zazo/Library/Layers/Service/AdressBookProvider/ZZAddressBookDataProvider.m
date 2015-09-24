@@ -31,7 +31,7 @@ static APAddressBook* addressBook = nil;
             }
             else
             {
-                return [RACSignal return:@[]];
+                return [RACSignal error:nil];
             }
         }];
     }

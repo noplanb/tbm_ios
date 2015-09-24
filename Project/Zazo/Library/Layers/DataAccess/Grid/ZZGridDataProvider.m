@@ -97,29 +97,31 @@
 
 + (ZZGridDomainModel*)loadFirstEmptyGridElement
 {
-    NSPredicate* creatorWithNilId = [NSPredicate predicateWithFormat:@"%K = nil", TBMGridElementRelationships.friend];
-    NSPredicate* creatorWithNullId = [NSPredicate predicateWithFormat:@"%K = NULL", TBMGridElementRelationships.friend];
-    NSPredicate* creatorWithEmptyStringId = [NSPredicate predicateWithFormat:@"%K = ''", TBMGridElementRelationships.friend];
+    NSPredicate* creatorWithNilId = [NSPredicate predicateWithFormat:@"%K != nil", TBMGridElementRelationships.friend];
+    NSPredicate* creatorWithNullId = [NSPredicate predicateWithFormat:@"%K != NULL", TBMGridElementRelationships.friend];
+    NSPredicate* creatorWithEmptyStringId = [NSPredicate predicateWithFormat:@"%K != ''", TBMGridElementRelationships.friend];
+    
     NSPredicate* excludeCreator = [NSCompoundPredicate orPredicateWithSubpredicates:@[creatorWithNilId, creatorWithNullId, creatorWithEmptyStringId]];
     
-//    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, @"nil"];
+    //    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, @"nil"];
     NSArray* result = [TBMGridElement MR_findAllSortedBy:TBMGridElementAttributes.index
                                                ascending:YES
                                            withPredicate:excludeCreator
                                                inContext:[self _context]];
     
-    if (result.count > 0)
+    NSInteger index = kNextGridElementIndexFromCount(result.count);
+    if (index != NSNotFound)
     {
-        NSInteger index = kGridElementIndex(result.count - 1);
-        TBMGridElement* rightOrderEntity = result[index];
+        NSPredicate* indexPredicate = [NSPredicate predicateWithFormat:@"%K == %@", TBMGridElementAttributes.index, @(index)];
+        NSArray* fullResult = [TBMGridElement MR_findAllWithPredicate:indexPredicate inContext:[self _context]];
         
-        return [self modelFromEntity:rightOrderEntity];
+        if (!ANIsEmpty(fullResult))
+        {
+            TBMGridElement* rightOrderEntity = [fullResult firstObject];
+            return [self modelFromEntity:rightOrderEntity];
+        }
     }
-    else
-    {
-        return nil;
-    }
-    
+    return nil;
 }
 
 

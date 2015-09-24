@@ -36,7 +36,10 @@
     [[ZZAddressBookDataProvider loadContactsWithContactsRequest:shouldRequest] subscribeNext:^(NSArray *addressBookContactsArray) {
         
         [self.output addressBookDataLoaded:addressBookContactsArray];
+        
     } error:^(NSError *error) {
+        
+        [self.output needPermissionForAddressBook];
         
     }];
 }
