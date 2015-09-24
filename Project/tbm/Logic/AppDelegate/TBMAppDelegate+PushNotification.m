@@ -16,6 +16,8 @@
 #import "ZZNotificationTransportService.h"
 #import "ZZAPIRoutes.h"
 #import "ZZFriendDataProvider.h"
+#import "ZZSoundPlayer.h"
+#import "ZZGlobalHeader.h"
 
 static NSString *NOTIFICATION_TARGET_MKEY_KEY = @"target_mkey";
 static NSString *NOTIFICATION_FROM_MKEY_KEY = @"from_mkey";
@@ -140,6 +142,12 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     OB_INFO(@"didReceiveRemoteNotification:fetchCompletionHandler %@", userInfo);
     [self requestBackground];
     [self handleNotificationPayload:userInfo];
+    
+    if ([application applicationState] == UIApplicationStateBackground)
+    {
+        [self.zazoSoundPlayer play];
+    }
+    
     // See doc/notification.txt for why we call the completion handler with sucess immediately here.
 //    _completionHandler = [completionHandler copy];
 //    [NSTimer scheduledTimerWithTimeInterval:4.0
