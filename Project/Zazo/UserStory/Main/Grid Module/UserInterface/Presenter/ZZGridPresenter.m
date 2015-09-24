@@ -29,7 +29,7 @@
 #import "TBMTableModal.h"
 
 
-@protocol TBMEventsFlowModuleInterface;
+//@protocol TBMEventsFlowModuleInterface;
 
 @interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate, ZZVideoRecorderDelegate, ZZGridActionHanlderDelegate, TBMTableModalDelegate>
 

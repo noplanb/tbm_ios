@@ -60,11 +60,6 @@ static NSMutableArray *videoStatusNotificationDelegates;
 }
 
 
-+ (instancetype)findWithOutgoingVideoId:(NSString *)videoId
-{
-    return [self findWithAttributeKey:@"outgoingVideoId" value:videoId];
-}
-
 + (instancetype)findWithId:(NSString *)idTbm
 {
     return [self findWithAttributeKey:@"idTbm" value:idTbm];
@@ -154,18 +149,6 @@ static NSMutableArray *videoStatusNotificationDelegates;
     }
 }
 
-+ (void)destroyAll
-{
-    [self MR_truncateAllInContext:[self _context]];
-    [[self _context] MR_saveToPersistentStoreAndWait];
-}
-
-+ (void)destroyWithId:(NSString *)idTbm
-{
-    TBMFriend* user = [TBMFriend findWithId:idTbm];
-    [user MR_deleteEntity];
-    [[self _context] MR_saveToPersistentStoreAndWait];
-}
 
 //-----------
 // UI helpers
@@ -359,14 +342,6 @@ static NSMutableArray *videoStatusNotificationDelegates;
     return nil;
 }
 
-- (void)printVideos
-{
-    for (TBMVideo *v in [self sortedIncomingVideos])
-    {
-        DebugLog(@"Video id:%@ status:%d file_exists:%d", v.videoId, v.statusValue, [v videoFileExists]);
-    }
-
-}
 
 - (BOOL)incomingVideoNotViewed
 {
@@ -453,7 +428,8 @@ static NSMutableArray *videoStatusNotificationDelegates;
     if (self.lastVideoStatusEventTypeValue == OUTGOING_VIDEO_STATUS_EVENT_TYPE)
     {
         return [self outgoingVideoStatusString];
-    } else
+    }
+    else
     {
         return [self incomingVideoStatusString];
     }

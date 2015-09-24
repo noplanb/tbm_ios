@@ -102,24 +102,19 @@
     NSPredicate* creatorWithEmptyStringId = [NSPredicate predicateWithFormat:@"%K = ''", TBMGridElementRelationships.friend];
     NSPredicate* excludeCreator = [NSCompoundPredicate orPredicateWithSubpredicates:@[creatorWithNilId, creatorWithNullId, creatorWithEmptyStringId]];
     
-//    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, @"nil"];
+    //    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, @"nil"];
     NSArray* result = [TBMGridElement MR_findAllSortedBy:TBMGridElementAttributes.index
                                                ascending:YES
                                            withPredicate:excludeCreator
                                                inContext:[self _context]];
     
-    if (result.count > 0)
+    NSInteger index = kNextGridElementIndexFromCount(result.count);
+    if (index != NSNotFound && result.count > index)
     {
-        NSInteger index = kGridElementIndex(result.count - 1);
         TBMGridElement* rightOrderEntity = result[index];
-        
         return [self modelFromEntity:rightOrderEntity];
     }
-    else
-    {
-        return nil;
-    }
-    
+    return nil;
 }
 
 

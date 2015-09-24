@@ -66,15 +66,15 @@
     NSInteger nextHintCellIndex = NSNotFound;
     if (numberFilledGrids < 8) // TODO: constants
     {
-        nextHintCellIndex = kGridElementIndex(numberFilledGrids - 1); // to get index from count
+        nextHintCellIndex = kNextGridElementIndexFromCount(numberFilledGrids); // to get index from count
     }
     
     if (nextHintCellIndex != NSNotFound)
     {
-        [self.hintsController showHintWithType:ZZHintsTypeSendZazo
-                                    focusFrame:[self.userInterface focusFrameForIndex:nextHintCellIndex]
-                                     withIndex:nextHintCellIndex
-                               formatParameter:@""];  // TODO: move format parameter to domain model
+//        [self.hintsController showHintWithType:ZZHintsTypeSendZazo
+//                                    focusFrame:[self.userInterface focusFrameForIndex:nextHintCellIndex]
+//                                     withIndex:nextHintCellIndex
+//                               formatParameter:@""];  // TODO: move format parameter to domain model
     }
 }
 
