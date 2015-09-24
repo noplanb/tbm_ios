@@ -21,8 +21,6 @@
 
 @implementation ZZGridStateView
 
-
-
 - (instancetype)initWithPresentedView:(UIView*)presentedView
 {
     self = [super init];
@@ -93,14 +91,6 @@
 - (void)showUploadAnimationWithCompletionBlock:(void(^)())completionBlock;
 {
     [self _showUploadAnimationWithCompletionBlock:completionBlock];
-}
-
-- (void)showDownloadAnimationWithNewVideoCount:(NSInteger)count
-{
-    if (count > 0)
-    {
-        [self _showDownloadAnimationWithNewVideoCount:count];
-    }
 }
 
 - (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock
@@ -244,17 +234,16 @@
         _videoCountLabel = [UILabel new];
         _videoCountLabel.backgroundColor = [UIColor redColor];
         _videoCountLabel.layer.cornerRadius = kVideoCountLabelWidth/2;
-        _videoCountLabel.layer.masksToBounds = YES;
+        _videoCountLabel.clipsToBounds = YES;
         _videoCountLabel.hidden = YES;
         _videoCountLabel.textColor = [UIColor whiteColor];
         _videoCountLabel.textAlignment = NSTextAlignmentCenter;
-        _videoCountLabel.layer.zPosition = 150;
         _videoCountLabel.font = [UIFont an_regularFontWithSize:11];
         [self addSubview:_videoCountLabel];
         
         [_videoCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self).offset(5);
-            make.top.equalTo(self).offset(-5);
+            make.right.equalTo(self).offset(3);
+            make.top.equalTo(self).offset(-4);
             make.height.equalTo(@(kVideoCountLabelWidth));
             make.width.equalTo(@(kVideoCountLabelWidth));
         }];

@@ -76,6 +76,7 @@
 {
     if (isPlaying)
     {
+        self.prevBadgeNumber = nil;
         self.badgeNumber = nil;
     }
     

@@ -52,7 +52,7 @@ static CGFloat const kThumbnailBorderWidth = 2;
 //        self.videoCountLabel.hidden = NO;
         self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
         self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-        [self showDownloadAnimationWithNewVideoCount:[model.badgeNumber integerValue]];
+//        [self showDownloadAnimationWithNewVideoCount:[model.badgeNumber integerValue]];
         [self _showThumbnailGreenBorder];
     }
 }
