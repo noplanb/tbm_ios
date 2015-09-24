@@ -228,10 +228,9 @@
 
 - (void)pollEverSentStatusForAllFriends
 {
-    [TBMRemoteStorageHandler getRemoteEverSentFriendsWithSuccess:^(NSArray *response)
-    {
+    [TBMRemoteStorageHandler getRemoteEverSentFriendsWithSuccess:^(NSArray *response) {
         [TBMFriend setEverSentForMkeys:response];
-    }                                                    failure:nil];
+    } failure:nil];
 }
 
 - (void)pollVideosWithFriend:(TBMFriend *)friend

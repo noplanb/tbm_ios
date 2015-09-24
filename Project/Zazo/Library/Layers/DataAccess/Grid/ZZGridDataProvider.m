@@ -97,9 +97,9 @@
 
 + (ZZGridDomainModel*)loadFirstEmptyGridElement
 {
-    NSPredicate* creatorWithNilId = [NSPredicate predicateWithFormat:@"%K = nil", TBMGridElementRelationships.friend];
-    NSPredicate* creatorWithNullId = [NSPredicate predicateWithFormat:@"%K = NULL", TBMGridElementRelationships.friend];
-    NSPredicate* creatorWithEmptyStringId = [NSPredicate predicateWithFormat:@"%K = ''", TBMGridElementRelationships.friend];
+    NSPredicate* creatorWithNilId = [NSPredicate predicateWithFormat:@"%K != nil", TBMGridElementRelationships.friend];
+    NSPredicate* creatorWithNullId = [NSPredicate predicateWithFormat:@"%K != NULL", TBMGridElementRelationships.friend];
+    NSPredicate* creatorWithEmptyStringId = [NSPredicate predicateWithFormat:@"%K != ''", TBMGridElementRelationships.friend];
     NSPredicate* excludeCreator = [NSCompoundPredicate orPredicateWithSubpredicates:@[creatorWithNilId, creatorWithNullId, creatorWithEmptyStringId]];
     
     //    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, @"nil"];

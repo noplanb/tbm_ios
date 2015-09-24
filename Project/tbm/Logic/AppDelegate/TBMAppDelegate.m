@@ -208,7 +208,7 @@
 
 #pragma mark - Lazy Load
 
-- (UIWindow *)window
+- (UIWindow*)window
 {
     if (!_window)
     {
@@ -217,7 +217,7 @@
     return _window;
 }
 
-- (ZZAppDependencies *)appDependencies
+- (ZZAppDependencies*)appDependencies
 {
     if (!_appDependencies)
     {

@@ -70,9 +70,6 @@ static NSInteger const kGridFriendsCellCount = 8;
     }
     self.gridModels = [NSArray arrayWithArray:gridModels];
     [self.output dataLoadedWithArray:self.gridModels];
-    
-    //#pragma mark - Old // TODO:
-    [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {}];
 }
 
 
@@ -313,7 +310,6 @@ static NSInteger const kGridFriendsCellCount = 8;
     
     
     // TODO: check if we have empty elements on grid and place to specified index new friend
-    
     // retrive grid item releva
     
     ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
@@ -327,13 +323,9 @@ static NSInteger const kGridFriendsCellCount = 8;
     {
         model.relatedUser = friend;
     }
-    
     [ZZGridDataProvider upsertModel:model];
-    
     [self.output updateGridWithModel:model];
-
 }
-
 
 
 #pragma mark - Transport 

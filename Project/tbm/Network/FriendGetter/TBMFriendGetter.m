@@ -42,17 +42,6 @@
     }];
 }
 
-- (void)getFriendsArray
-{
-    [[ZZFriendsTransportService loadFriendList] subscribeNext:^(id x) {
-        
-         [_delegate gotFriendsArray:x];
-        
-    } error:^(NSError *error) {
-        [_delegate friendGetterServerError];
-    }];
-}
-
 - (void)gotFriends:(NSArray *)friends
 {
     for (NSDictionary *fParams in friends){

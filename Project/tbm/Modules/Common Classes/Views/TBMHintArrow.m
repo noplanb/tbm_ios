@@ -137,8 +137,8 @@ CGFloat degreesToRadians(CGFloat x)
     NSInteger lineCount = 0;
     
     CGSize textSize = CGSizeMake(SCREEN_WIDTH - 30, MAXFLOAT);
-    int rHeight = lroundf([self.arrowLabel sizeThatFits:textSize].height);
-    int charSize = lroundf(30);
+    NSInteger rHeight = roundf([self.arrowLabel sizeThatFits:textSize].height);
+    NSInteger charSize = roundf(30);
     
     lineCount = rHeight/charSize;
     
