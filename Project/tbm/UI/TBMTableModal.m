@@ -7,6 +7,7 @@
 //
 
 #import "TBMTableModal.h"
+#import "ZZCommunicationDomainModel.h"
 
 @interface TBMTableModal()
 @property (nonatomic) NSString *title;
@@ -123,7 +124,7 @@ static const CGFloat cancelButtonHeight = 45.f;
 
 - (float)tableCellHeight
 {
-    return [self cell].frame.size.height;
+    return 44.0f;
 }
 
 //------------------------------
@@ -142,49 +143,24 @@ static const CGFloat cancelButtonHeight = 45.f;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell;
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TBMTableReuseId];
     
-    cell = [tableView dequeueReusableCellWithIdentifier:TBMTableReuseId];
-    if (cell == nil)
-        cell = [self cell];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
+                                      reuseIdentifier:TBMTableReuseId];
+        
+        cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:15.0f];
+        cell.detailTextLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:15.0f];
+    }
+
+    NSInteger index = indexPath.row;
     
-    NSInteger i = indexPath.row;
+    ZZCommunicationDomainModel *model = [self.rowData objectAtIndex:index];
     
-    [cell.textLabel setText: [self mainTextWithIndex:i]];
-    if ([self detailTextWithIndex:i] != nil)
-        [cell.detailTextLabel setText:[self detailTextWithIndex:i]];
+    [cell.textLabel setText:model.contact];
+    [cell.detailTextLabel setText:model.label];
+
     return cell;
-}
-
-- (UITableViewCell *)cell
-{
-    UITableViewCell *cell;
-    id row0 = [self.rowData objectAtIndex:0];
-    if ([row0 isKindOfClass: [NSArray class]])
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:TBMTableReuseId];
-    else
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TBMTableReuseId];
-    
-    cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:15.0f];
-    cell.detailTextLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:15.0f];
-    
-    return cell;
-}
-
-- (NSString *)mainTextWithIndex:(NSInteger)index{
-    id data = [self.rowData objectAtIndex:index];
-    if ([data isKindOfClass:[NSArray class]])
-        return [data objectAtIndex:0];
-    else
-        return data;
-}
-
-- (NSString *)detailTextWithIndex:(NSInteger)index{
-    id data = [self.rowData objectAtIndex:index];
-    if ([data isKindOfClass:[NSArray class]])
-        return [data objectAtIndex:1];
-    else
-        return nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

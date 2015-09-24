@@ -492,11 +492,11 @@ TBMTableModalDelegate
         [phonesArray addObject:obj.contact];
     }];
     
-    self.contactPhoneNumbers = phonesArray;
+//    self.contactPhoneNumbers = phonesArray;
     self.contactWithMultiplyPhones = user;
    
     ANDispatchBlockToMainQueue(^{
-        self.table = [[TBMTableModal alloc] initWithParentView:self.userInterface.view title:@"Choose phone number" rowData:self.contactPhoneNumbers delegate:self];
+        self.table = [[TBMTableModal alloc] initWithParentView:self.userInterface.view title:@"Choose phone number" rowData:user.phones delegate:self];
         [self.table show];
     });
 }
