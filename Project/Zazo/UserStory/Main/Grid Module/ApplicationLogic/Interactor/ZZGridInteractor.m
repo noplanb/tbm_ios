@@ -94,7 +94,8 @@ static NSInteger const kGridFriendsCellCount = 8;
 {
     [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel* gridModel, NSUInteger idx, BOOL *stop) {
         
-        if ([gridModel.relatedUser.idTbm isEqualToString:model.idTbm]) {
+        if ([gridModel.relatedUser isEqual:model])
+        {
             gridModel.relatedUser = nil;
             [self _upsertGridModel:gridModel];
             [self.output updateGridWithModel:gridModel];

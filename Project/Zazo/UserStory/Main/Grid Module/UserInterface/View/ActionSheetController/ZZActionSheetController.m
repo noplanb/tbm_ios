@@ -39,7 +39,9 @@
     
     
     UIActionSheet* actionSheet;
-    if ([ZZFeatureObserver sharedInstance].isDeleteFriendsEnabled)
+    
+
+    if (YES) // ([ZZFeatureObserver sharedInstance].isDeleteFriendsEnabled)
     {
         actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                   delegate:nil
@@ -63,9 +65,9 @@
 {
     ZZEditMenuButtonType type;
     
-    if ([ZZFeatureObserver sharedInstance].isDeleteFriendsEnabled)
+    if (YES) //([ZZFeatureObserver sharedInstance].isDeleteFriendsEnabled)
     {
-        type = selectedIndex.integerValue;
+        type = ZZEditMenuButtonTypeEditFriends;
     }
     else
     {
