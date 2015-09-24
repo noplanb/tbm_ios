@@ -38,8 +38,7 @@ static CGFloat const kTouchOffset = 7;
     self = [super init];
     if (self)
     {
-        UIWindow* window = [UIApplication sharedApplication].keyWindow;
-        [[window rac_signalForSelector:@selector(sendEvent:)] subscribeNext:^(RACTuple *touches) {
+        [[gridView.window rac_signalForSelector:@selector(sendEvent:)] subscribeNext:^(RACTuple *touches) {
             for (id event in touches)
             {
                 NSSet* touches = [event allTouches];
