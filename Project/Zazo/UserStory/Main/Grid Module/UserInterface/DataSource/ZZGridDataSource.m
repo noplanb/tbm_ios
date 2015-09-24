@@ -56,7 +56,7 @@ ZZGridCenterCellViewModelDelegate
             if ([model isKindOfClass:[ZZGridCellViewModel class]])
             {
                 cellModel = model;
-                if ([cellModel.item.index isEqualToNumber:gridModel.index])
+                if (cellModel.item.index == gridModel.index)
                 {
                     cellModel.item = gridModel;
                     cellModel.hasUploadedVideo = [gridModel.relatedUser hasIncomingVideo];
@@ -133,7 +133,7 @@ ZZGridCenterCellViewModelDelegate
     [allItems enumerateObjectsUsingBlock:^(ZZGridCellViewModel *viewModel, NSUInteger idx, BOOL *stop) {
         if (![viewModel isKindOfClass:[ZZGridCenterCellViewModel class]])
         {
-            if ([viewModel.item.index isEqual:model.index])
+            if (viewModel.item.index == model.index)
             {
                 viewModel.item = model;
                 ANDispatchBlockToMainQueue(^{

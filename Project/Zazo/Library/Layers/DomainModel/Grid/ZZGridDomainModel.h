@@ -19,6 +19,8 @@ extern const struct ZZGridDomainModelAttributes {
 
 @property (nonatomic, copy) NSString* itemID;
 @property (nonatomic, strong) ZZFriendDomainModel* relatedUser;
-@property (nonatomic, copy) NSNumber* index;
+@property (nonatomic, assign) NSInteger index;
+
+- (NSInteger)indexPathIndexForItem;
 
 @end

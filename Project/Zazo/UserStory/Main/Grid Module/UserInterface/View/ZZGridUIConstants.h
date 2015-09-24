@@ -99,12 +99,19 @@ static CGFloat const kVideoCountLabelWidth = 22;
 static CGFloat const kContainFriendAnimationDuration = 0.20;
 static CGFloat const kContainFreindDelayDuration = 0.16;
 
-static inline NSInteger const kNextGridElementIndexFromCount(NSInteger count) // get index jf grid element by index path in grid
+
+static inline NSArray* const kGridElementsIndexes()
 {
-//    8 7 5
-//    6 c 1
-//    4 2 3
-    NSArray* array = @[@(4), @(6), @(7), @(5), @(2), @(3), @(1), @(0)];
+    return @[@(4), @(6), @(7), @(5), @(2), @(3), @(1), @(0)];
+}
+
+
+static inline NSInteger const kNextGridElementIndexFromFlowIndex(NSInteger count)
+{
+//    7 6 4
+//    5 c 0
+//    3 1 2
+    NSArray* array = kGridElementsIndexes();
     if (count < array.count)
     {
         return [[array objectAtIndex:count] integerValue];
@@ -112,7 +119,14 @@ static inline NSInteger const kNextGridElementIndexFromCount(NSInteger count) //
     return NSNotFound;
 }
 
-
+static inline NSInteger const kGridIndexFromFlowIndex(NSInteger count)
+{
+    //    8 7 5
+    //    6 c 1
+    //    4 2 3
+    NSArray* array = kGridElementsIndexes();
+    return [array indexOfObject:@(count)];
+}
 
 
 

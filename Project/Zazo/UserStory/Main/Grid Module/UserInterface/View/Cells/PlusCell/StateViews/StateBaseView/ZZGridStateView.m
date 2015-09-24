@@ -49,7 +49,6 @@
         self.videoViewedView.hidden = NO;
     }
     
-    
     if ([ZZStoredSettingsManager shared].debugModeEnabled)
     {
         ZZFriendDomainModel* friendModel = model.item.relatedUser;
@@ -122,22 +121,29 @@
 
 - (void)showContainFriendAnimation
 {
-    [UIView animateWithDuration:kContainFriendAnimationDuration
-                          delay:kContainFreindDelayDuration
-                        options:UIViewAnimationOptionLayoutSubviews animations:^{
-                            self.containFriendView.alpha = 1;
-                       
-                        } completion:^(BOOL finished) {
-                        
-                            [self _hideContainFriendAnimation];
-                        }];
+    ANDispatchBlockToMainQueue(^{
+        
+        [self bringSubviewToFront:self.containFriendView];
+        
+        [UIView animateWithDuration:kContainFriendAnimationDuration
+                              delay:kContainFreindDelayDuration
+                            options:UIViewAnimationOptionLayoutSubviews animations:^{
+                                self.containFriendView.alpha = 1;
+                                
+                            } completion:^(BOOL finished) {
+                                
+                                [self _hideContainFriendAnimation];
+                            }];
+    });
 }
 
 - (void)_hideContainFriendAnimation
 {
-    [UIView animateWithDuration:kContainFriendAnimationDuration animations:^{
-        self.containFriendView.alpha = 0;
-    }];
+    ANDispatchBlockToMainQueue(^{
+        [UIView animateWithDuration:kContainFriendAnimationDuration animations:^{
+            self.containFriendView.alpha = 0;
+        }];
+    });
 }
 
 

@@ -109,7 +109,7 @@
                                            withPredicate:excludeCreator
                                                inContext:[self _context]];
     
-    NSInteger index = kNextGridElementIndexFromCount(result.count);
+    NSInteger index = kNextGridElementIndexFromFlowIndex(result.count);
     if (index != NSNotFound)
     {
         NSPredicate* indexPredicate = [NSPredicate predicateWithFormat:@"%K == %@", TBMGridElementAttributes.index, @(index)];

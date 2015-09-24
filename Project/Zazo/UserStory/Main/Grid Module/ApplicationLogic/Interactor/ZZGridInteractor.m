@@ -45,30 +45,39 @@ static NSInteger const kGridFriendsCellCount = 8;
     NSArray* gridStoredModels = [ZZGridDataProvider loadAllGridsSortByIndex:YES];
     
     NSMutableArray* gridModels = [NSMutableArray array];
-    for (NSInteger count = 0; count < kGridFriendsCellCount; count++)
+    if (gridStoredModels.count != kGridFriendsCellCount)
     {
-        ZZGridDomainModel* model;
-        if (gridStoredModels.count > count)
+        for (NSInteger count = 0; count < kGridFriendsCellCount; count++)
         {
-            model = gridStoredModels[count];
+            ZZGridDomainModel* model;
+            if (gridStoredModels.count > count)
+            {
+                model = gridStoredModels[count];
+            }
+            else
+            {
+                model = [ZZGridDomainModel new];
+            }
+            model.index = count;
+            if (friendArrayForSorting.count > count)
+            {
+                ZZFriendDomainModel *aFriend = friendArrayForSorting[count];
+                model.relatedUser = aFriend;
+            }
+            
+            model = [ZZGridDataProvider upsertModel:model];
+            [gridModels addObject:model];
         }
-        else
-        {
-            model = [ZZGridDomainModel new];
-        }
-        model.index = @(kNextGridElementIndexFromCount(count));
-        if (friendArrayForSorting.count > count)
-        {
-            ZZFriendDomainModel *aFriend = friendArrayForSorting[count];
-            model.relatedUser = aFriend;
-        }
-
-        model = [ZZGridDataProvider upsertModel:model];
-        [gridModels addObject:model];
     }
-    NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
-    NSArray* descriptorsArray = @[sort];
-    self.gridModels = [gridModels sortedArrayUsingDescriptors:descriptorsArray];
+    else
+    {
+        [gridModels addObjectsFromArray:gridStoredModels];
+    }
+    
+    // they need to be sorted not by index, thay need to be sorted
+    
+    NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:@"indexPathIndexForItem" ascending:YES];
+    self.gridModels = [gridModels sortedArrayUsingDescriptors:@[sort]];
     [self.output dataLoadedWithArray:self.gridModels];
 }
 
@@ -144,7 +153,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     __block ZZGridDomainModel *modelThatContainCurrentFriend;
     
     [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel* obj, NSUInteger idx, BOOL *stop) {
-        if ([obj.relatedUser.mKey isEqualToString:friendModel.mKey])
+        if ([obj.relatedUser isEqual:friendModel])
         {
             modelThatContainCurrentFriend = obj;
             *stop = YES;

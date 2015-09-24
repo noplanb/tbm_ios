@@ -17,7 +17,7 @@
 
 + (TBMGridElement*)fillEntity:(TBMGridElement*)entity fromModel:(ZZGridDomainModel*)model
 {
-    entity.index = model.index;
+    entity.index = @(model.index);
     entity.friend = [ZZFriendDataProvider entityFromModel:model.relatedUser];
     
     return entity;
@@ -27,7 +27,7 @@
 {
     @try
     {
-        model.index = entity.index;
+        model.index = [entity.index integerValue];
         model.itemID = entity.objectID.URIRepresentation.absoluteString;
         model.relatedUser = [ZZFriendDataProvider modelFromEntity:entity.friend];
     }
