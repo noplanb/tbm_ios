@@ -58,20 +58,25 @@
         [self editFriendsSelected];
     }];
     
-    [[RACObserve(self.gridView.collectionView.visibleCells, count) filter:^BOOL(NSNumber* value) {
-        
-        return (value.integerValue != 9);
-        
-    }] subscribeNext:^(NSNumber* x) {
-        
-        [self.eventHandler gridDidAppear];
-    }];
+//    [[RACObserve(self.gridView.collectionView.visibleCells, count) filter:^BOOL(NSNumber* value) {
+//        
+//        return (value.integerValue != 9);
+//        
+//    }] subscribeNext:^(NSNumber* x) {
+//        
+//        [self.eventHandler gridDidAppear];
+//    }];
 }
 
 - (void)updateWithDataSource:(ZZGridDataSource *)dataSource
 {
     [self.controller updateDataSource:dataSource];
     self.touchObserver.storage = dataSource.storage;
+}
+
+- (void)updateLoadingStateTo:(BOOL)isLoading
+{
+    [self updateStateToLoading:isLoading message:nil];
 }
 
 #pragma mark VC Interface

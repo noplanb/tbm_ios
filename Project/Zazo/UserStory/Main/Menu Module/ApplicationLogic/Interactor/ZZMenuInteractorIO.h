@@ -18,9 +18,9 @@
 
 - (void)addressBookDataLoaded:(NSArray *)data;
 - (void)addressBookDataLoadingDidFailWithError:(NSError *)error;
-
 - (void)friendsThatHasAppLoaded:(NSArray *)friendsData;
 - (void)friendsDataLoaded:(NSArray *)friendsData;
 - (void)friendsDataLoadingDidFailWithError:(NSError *)error;
+- (void)needPermissionForAddressBook;
 
 @end

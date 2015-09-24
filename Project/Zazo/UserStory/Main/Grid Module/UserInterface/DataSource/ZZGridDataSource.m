@@ -129,6 +129,7 @@ ZZGridCenterCellViewModelDelegate
 - (void)updateStorageWithModel:(ZZGridDomainModel*)model
 {
     NSArray *allItems = [self.storage itemsInSection:0];
+
     [allItems enumerateObjectsUsingBlock:^(ZZGridCellViewModel *viewModel, NSUInteger idx, BOOL *stop) {
         if (![viewModel isKindOfClass:[ZZGridCenterCellViewModel class]])
         {

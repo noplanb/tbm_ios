@@ -46,4 +46,6 @@
 - (void)updateGridWithModel:(ZZGridDomainModel*)model;
 - (void)updateGridWithModelFromNotification:(ZZGridDomainModel*)model;
 
+- (void)loadedStateUpdatedTo:(BOOL)isLoading;
+
 @end

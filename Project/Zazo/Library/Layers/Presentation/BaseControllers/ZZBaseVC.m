@@ -24,18 +24,22 @@
 
 - (void)updateStateToLoading:(BOOL)isLoading message:(NSString*)message
 {
+    
     if (ANIsEmpty(message))
     {
         message = @"Loading..."; // TODO: localizable
     }
-    if (isLoading)
-    {
-        [SVProgressHUD showWithStatus:message];
-    }
-    else
-    {
-        [SVProgressHUD dismiss];
-    }
+    
+    ANDispatchBlockToMainQueue(^{
+        if (isLoading)
+        {
+            [SVProgressHUD showWithStatus:message];
+        }
+        else
+        {
+            [SVProgressHUD dismiss];
+        }
+    });
 }
 
 @end

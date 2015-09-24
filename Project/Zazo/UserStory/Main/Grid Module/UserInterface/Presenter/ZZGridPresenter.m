@@ -167,8 +167,8 @@ TBMTableModalDelegate
 
 - (void)_updateCenterCell
 {
-    if (self.isGridAppear)
-    {
+//    if (self.isGridAppear)
+//    {
         if ([self.dataSource centerViewModel])
         {
             id model = [self.dataSource centerViewModel];
@@ -177,7 +177,7 @@ TBMTableModalDelegate
                 [self.userInterface updateSwitchButtonWithState:(![ZZFeatureObserver sharedInstance].isBothCameraEnabled)];
             }
         }
-    }
+//    }
 }
 
 - (void)presentEditFriendsController
@@ -269,6 +269,11 @@ TBMTableModalDelegate
         [self.interactor updateLastActionForFriend:model.relatedUser];
     }
     [self.dataSource updateStorageWithModel:model];
+}
+
+- (void)loadedStateUpdatedTo:(BOOL)isLoading
+{
+    [self.userInterface updateLoadingStateTo:isLoading];
 }
 
 #pragma mark - Module Interface

@@ -100,6 +100,7 @@
     NSPredicate* creatorWithNilId = [NSPredicate predicateWithFormat:@"%K != nil", TBMGridElementRelationships.friend];
     NSPredicate* creatorWithNullId = [NSPredicate predicateWithFormat:@"%K != NULL", TBMGridElementRelationships.friend];
     NSPredicate* creatorWithEmptyStringId = [NSPredicate predicateWithFormat:@"%K != ''", TBMGridElementRelationships.friend];
+    
     NSPredicate* excludeCreator = [NSCompoundPredicate orPredicateWithSubpredicates:@[creatorWithNilId, creatorWithNullId, creatorWithEmptyStringId]];
     
     //    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, @"nil"];
@@ -109,10 +110,16 @@
                                                inContext:[self _context]];
     
     NSInteger index = kNextGridElementIndexFromCount(result.count);
-    if (index != NSNotFound && result.count > index)
+    if (index != NSNotFound)
     {
-        TBMGridElement* rightOrderEntity = result[index];
-        return [self modelFromEntity:rightOrderEntity];
+        NSPredicate* indexPredicate = [NSPredicate predicateWithFormat:@"%K == %@", TBMGridElementAttributes.index, @(index)];
+        NSArray* fullResult = [TBMGridElement MR_findAllWithPredicate:indexPredicate inContext:[self _context]];
+        
+        if (!ANIsEmpty(fullResult))
+        {
+            TBMGridElement* rightOrderEntity = [fullResult firstObject];
+            return [self modelFromEntity:rightOrderEntity];
+        }
     }
     return nil;
 }

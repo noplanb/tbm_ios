@@ -10,6 +10,7 @@
 
 #import "ZZMenuPresenter.h"
 #import "ZZMenuDataSource.h"
+#import "ZZContactsPermissionAlertBuilder.h"
 
 @interface ZZMenuPresenter ()
 
@@ -66,6 +67,11 @@
 - (void)menuToggled
 {
     [self.interactor loadAddressBookContactsWithRequestAccess:YES];
+}
+
+- (void)needPermissionForAddressBook
+{
+    [ZZContactsPermissionAlertBuilder showNeedAccessForAddressBookAlert];
 }
 
 #pragma mark - Module Interface
