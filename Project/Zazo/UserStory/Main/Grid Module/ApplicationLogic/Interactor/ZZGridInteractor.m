@@ -26,6 +26,7 @@
 #import "ZZCommonModelsGenerator.h"
 #import "ZZGridTransportService.h"
 #import "ZZCommunicationDomainModel.h"
+#import "ZZGridUIConstants.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
@@ -58,7 +59,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         {
             model = [ZZGridDomainModel new];
         }
-        model.index = @(count);
+        model.index = @(kNextGridElementIndexFromCount(count));
         if (friendArrayForSorting.count > count)
         {
             ZZFriendDomainModel *aFriend = friendArrayForSorting[count];
@@ -68,7 +69,9 @@ static NSInteger const kGridFriendsCellCount = 8;
         model = [ZZGridDataProvider upsertModel:model];
         [gridModels addObject:model];
     }
-    self.gridModels = [NSArray arrayWithArray:gridModels];
+    NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
+    NSArray* descriptorsArray = @[sort];
+    self.gridModels = [gridModels sortedArrayUsingDescriptors:descriptorsArray];
     [self.output dataLoadedWithArray:self.gridModels];
     
     //#pragma mark - Old // TODO:
@@ -340,6 +343,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)_checkIfAnInvitedUserHasApp:(ZZContactDomainModel*)contact
 {
+    [self.output loadedStateUpdatedTo:YES];
     [[ZZGridTransportService checkIsUserHasApp:contact] subscribeNext:^(id x) {
         if ([x boolValue])
         {
@@ -347,8 +351,11 @@ static NSInteger const kGridFriendsCellCount = 8;
         }
         else
         {
+            [self.output loadedStateUpdatedTo:NO];
             [self.output userHasNoAppInstalled:contact];
         }
+    } error:^(NSError *error) {
+        [self.output loadedStateUpdatedTo:NO];
     }];
 }
 
@@ -356,6 +363,10 @@ static NSInteger const kGridFriendsCellCount = 8;
 {
     [[ZZGridTransportService inviteUserToApp:contact] subscribeNext:^(ZZFriendDomainModel* x) {
         [self.output friendRecievedFromServer:x];
+        [self.output loadedStateUpdatedTo:NO];
+
+    } error:^(NSError *error) {
+        [self.output loadedStateUpdatedTo:NO];
     }];
 }
 

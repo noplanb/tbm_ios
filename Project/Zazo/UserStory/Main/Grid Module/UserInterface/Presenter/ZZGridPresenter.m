@@ -271,6 +271,11 @@ TBMTableModalDelegate
     [self.dataSource updateStorageWithModel:model];
 }
 
+- (void)loadedStateUpdatedTo:(BOOL)isLoading
+{
+    [self.userInterface updateLoadingStateTo:isLoading];
+}
+
 #pragma mark - Module Interface
 
 - (void)presentMenu

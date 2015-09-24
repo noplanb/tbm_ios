@@ -74,6 +74,11 @@
     self.touchObserver.storage = dataSource.storage;
 }
 
+- (void)updateLoadingStateTo:(BOOL)isLoading
+{
+    [self updateStateToLoading:isLoading message:nil];
+}
+
 #pragma mark VC Interface
 
 - (void)menuWasOpened
