@@ -76,6 +76,7 @@
 {
     if (isPlaying)
     {
+        self.prevBadgeNumber = nil;
         self.badgeNumber = nil;
     }
     
@@ -160,6 +161,7 @@
                {
                    self.hasUploadedVideo = YES;
                    [self.animationDelegate showUploadAnimation];
+                   
                }
             }];
         }

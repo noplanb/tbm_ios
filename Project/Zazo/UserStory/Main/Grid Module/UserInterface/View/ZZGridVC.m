@@ -15,7 +15,6 @@
 #import "ZZFeatureObserver.h"
 #import "ZZActionSheetController.h"
 
-
 @interface ZZGridVC () <ZZTouchObserverDelegate>
 
 @property (nonatomic, strong) ZZGridView* gridView;
@@ -58,12 +57,15 @@
     self.gridView.headerView.editFriendsButton.rac_command = [RACCommand commandWithBlock:^{
         [self editFriendsSelected];
     }];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self.eventHandler gridDidAppear];
+    
+    [[RACObserve(self.gridView.collectionView.visibleCells, count) filter:^BOOL(NSNumber* value) {
+        
+        return (value.integerValue != 9);
+        
+    }] subscribeNext:^(NSNumber* x) {
+        
+        [self.eventHandler gridDidAppear];
+    }];
 }
 
 - (void)updateWithDataSource:(ZZGridDataSource *)dataSource
@@ -94,7 +96,6 @@
 
 - (void)editFriendsSelected
 {
-    
     [ZZActionSheetController actionSheetWithPresentedView:self.view
                                           completionBlock:^(ZZEditMenuButtonType selectedType) {
         

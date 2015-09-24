@@ -43,7 +43,6 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 + (NSUInteger)allUnviewedCount;
 + (NSUInteger)unviewedCountForGridCellAtIndex:(NSUInteger)index;
 + (instancetype)findWithId:(NSString *)idTbm;
-+ (instancetype)findWithOutgoingVideoId:(NSString *)videoId;
 + (instancetype)findWithMkey:(NSString *)mkey;
 + (instancetype)findWithMatchingPhoneNumber:(NSString *)phone;
 + (NSUInteger)count;
@@ -53,7 +52,6 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 - (NSString *)displayName;
 
 // Incoming videos
-- (void)printVideos;
 - (BOOL) hasIncomingVideo;
 - (NSArray *) sortedIncomingVideos;
 - (TBMVideo *) oldestIncomingVideo;
@@ -73,8 +71,7 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 
 // Create and destroy
 + (void)createOrUpdateWithServerParams:(NSDictionary *)params complete:(void (^)(TBMFriend *friend))complete;
-+ (void)destroyAll;
-+ (void)destroyWithId:(NSNumber *)idTbm;
+
 
 // VideoStatusNotification
 + (void)addVideoStatusNotificationDelegate:(id)delegate;

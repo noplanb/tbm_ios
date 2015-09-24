@@ -16,7 +16,11 @@
 
 static NSInteger const kGridCenterCellIndex = 4;
 
-@interface ZZGridDataSource () <ZZGridCellViewModelDelegate, ZZGridCenterCellViewModelDelegate>
+@interface ZZGridDataSource ()
+<
+ZZGridCellViewModelDelegate,
+ZZGridCenterCellViewModelDelegate
+>
 
 @property (nonatomic, strong) ZZGridCellViewModel* selectedCellViewModel;
 
@@ -41,7 +45,8 @@ static NSInteger const kGridCenterCellIndex = 4;
 }
 
 - (void)updateDataSourceWithGridModelFromNotification:(ZZGridDomainModel*)gridModel
-{   
+                                  withCompletionBlock:(void(^)(BOOL isNewVideoDownloaded))completionBlock
+{
     if (!ANIsEmpty(gridModel))
     {
         ANSectionModel* section = [self.storage.sections firstObject];
@@ -58,13 +63,22 @@ static NSInteger const kGridCenterCellIndex = 4;
                     
                     cellModel.isUploadedVideoViewed = (gridModel.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
                     
+                    
                     if (gridModel.relatedUser.unviewedCount > 0)
                     {
                         cellModel.badgeNumber = @(gridModel.relatedUser.unviewedCount);
                     }
                     
                     ANDispatchBlockToMainQueue(^{
-                       [self.storage reloadItem:cellModel];
+                        [self.storage reloadItem:cellModel];
+                        if (![cellModel.prevBadgeNumber isEqualToNumber:cellModel.badgeNumber])
+                        {
+                            if (completionBlock)
+                            {
+                                completionBlock(YES);
+                            }
+                            cellModel.prevBadgeNumber = cellModel.badgeNumber;
+                        }
                     });
                     *stop = YES;
                 }
@@ -86,6 +100,7 @@ static NSInteger const kGridCenterCellIndex = 4;
         
         if (value.relatedUser.unviewedCount > 0)
         {
+            viewModel.prevBadgeNumber = @(value.relatedUser.unviewedCount);
             viewModel.badgeNumber = @(value.relatedUser.unviewedCount);
         }
 
@@ -182,9 +197,17 @@ static NSInteger const kGridCenterCellIndex = 4;
     [self.delegate toggleVideoWithViewModel:viewModel toState:isEnabled];
 }
 
+
+#pragma mark - Center Cell Delegate
+
 - (void)switchCamera
 {
     [self.delegate switchCamera];
+}
+
+- (void)showHint
+{
+    [self.delegate showHint];
 }
 
 - (BOOL)isVideoPalying

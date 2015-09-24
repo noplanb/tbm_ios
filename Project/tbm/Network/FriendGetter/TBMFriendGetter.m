@@ -13,8 +13,9 @@
 #import "ZZFriendsTransportService.h"
 
 @interface TBMFriendGetter ()
-@property(nonatomic) BOOL destroyAll;
+
 @property(nonatomic, retain) id <TBMFriendGetterCallback> delegate;
+
 @end
 
 @implementation TBMFriendGetter

@@ -34,7 +34,6 @@ static NSInteger const kCenterCellIndex = 4;
         [self registerCellClass:[ZZGridCell class] forModelClass:[ZZGridCellViewModel class]];
         [self registerCellClass:[ZZGridCenterCell class] forModelClass:[ZZGridCenterCellViewModel class]];
     }
-    
     return self;
 }
 

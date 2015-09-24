@@ -27,11 +27,18 @@
 #import "ZZGridCenterCellViewModel.h"
 #import "ZZGridActionHandler.h"
 #import "TBMTableModal.h"
+#import "ZZCoreTelephonyConstants.h"
 
+//@protocol TBMEventsFlowModuleInterface;
 
-@protocol TBMEventsFlowModuleInterface;
-
-@interface ZZGridPresenter () <ZZGridDataSourceDelegate, ZZVideoPlayerDelegate, ZZVideoRecorderDelegate, ZZGridActionHanlderDelegate, TBMTableModalDelegate>
+@interface ZZGridPresenter ()
+<
+ZZGridDataSourceDelegate,
+ZZVideoPlayerDelegate,
+ZZVideoRecorderDelegate,
+ZZGridActionHanlderDelegate,
+TBMTableModalDelegate
+>
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
 @property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
@@ -100,7 +107,7 @@
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(stopPlaying)
-                                                 name:@"incomingCall"
+                                                 name:kNotificationIncomingCall
                                                object:nil];
     
 }
@@ -140,7 +147,16 @@
 
 - (void)updateGridWithModelFromNotification:(ZZGridDomainModel *)model
 {
-    [self.dataSource updateDataSourceWithGridModelFromNotification:model];
+    [self.dataSource updateDataSourceWithGridModelFromNotification:model
+                                               withCompletionBlock:^(BOOL isNewVideoDownloaded) {
+       if (isNewVideoDownloaded)
+       {
+           CGFloat animationDelay = 1.8;
+           dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(animationDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+               [self.soundPlayer play];
+           });
+       }
+    }];
 }
 
 - (void)_updateFeatures
@@ -263,25 +279,13 @@
     [self.userInterface menuWasOpened];
 }
 
+
+
+#pragma mark - DataSource Delegate
+
 - (void)itemSelectedWithModel:(ZZGridCellViewModel*)model
 {
-    if ((ZZGridCenterCellViewModel*) model == [self.dataSource centerViewModel])
-    {
-        if ([TBMFriend count] == 0)
-            return;
-
-        NSString* msg;
-        if ([TBMVideo downloadedUnviewedCount] > 0)
-        {
-            msg = @"Tap a friend to play.";
-        }
-        else
-        {
-            msg = @"Press and hold a friend to record.";
-        }
-        [ZZGridAlertBuilder showHintalertWithMessage:msg];
-    }
-    else if (model.item.relatedUser)
+    if (model.item.relatedUser)
     {
 //        model.item.relatedUser.timeOfLastAction = [NSDate date]; //TODO:
 //        [[TBMVideoPlayer sharedInstance] togglePlayWithIndex:[self indexWithView:view] frame:view.frame];
@@ -292,7 +296,24 @@
     }
 }
 
-
+- (void)showHint
+{
+    if ([TBMFriend count] == 0)
+    {
+        return;
+    }
+    
+    NSString* msg;
+    if ([TBMVideo downloadedUnviewedCount] > 0)
+    {
+        msg = NSLocalizedString(@"hint.center.cell.tap.friend.to.play", nil);
+    }
+    else
+    {
+        msg = NSLocalizedString(@"hint.center.cell.press.to.record", nil);
+    }
+    [ZZGridAlertBuilder showHintalertWithMessage:msg];
+}
 
 //- (CGRect)gridGetCenterCellFrameInView:(UIView*)view
 //{

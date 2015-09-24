@@ -35,7 +35,6 @@ static CGFloat const kUserNameFontSize = 13;
 
 - (void)updateBadgeWithNumber:(NSNumber*)badgeNumber;
 - (void)showUploadAnimationWithCompletionBlock:(void(^)())completionBlock;
-- (void)showDownloadAnimationWithNewVideoCount:(NSInteger)count;
 - (void)showContainFriendAnimation;
 - (void)showUploadIconWithoutAnimation;
 - (void)hideAllAnimationViews;

@@ -101,6 +101,8 @@
 "hints.delete-a-friend.label.text" = "Delete a friend. Tap menu. \nAnd chose Edit friends";
 "hints.earpiece-usage.label.text" = "Play quietly. \nTap to play. Then hold \nphone to ear";
 "hints.spin-usage.label.text" = "Move a friend. \nDrag a friend to any \nposition";
+"hint.center.cell.tap.friend.to.play" = "Tap a friend to play.";
+"hint.center.cell.press.to.record" = "Press and hold a friend to record.";
 
 //Toasts Hints
 "toast-hints.zazo-someone-else.title" = "Unlock another feature!";
