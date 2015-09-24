@@ -11,6 +11,7 @@
 #import "MagicalRecord.h"
 #import "NSManagedObject+ANAdditions.h"
 #import "ZZUserDataProvider.h"
+#import "ZZGridUIConstants.h"
 
 @implementation ZZGridDataProvider
 
@@ -107,12 +108,18 @@
                                            withPredicate:excludeCreator
                                                inContext:[self _context]];
     
-    TBMGridElement* entity = [result firstObject];
-    if (!entity)
+    if (result.count > 0)
+    {
+        NSInteger index = kGridElementIndex(result.count - 1);
+        TBMGridElement* rightOrderEntity = result[index];
+        
+        return [self modelFromEntity:rightOrderEntity];
+    }
+    else
     {
         return nil;
     }
-    return [self modelFromEntity:entity];
+    
 }
 
 

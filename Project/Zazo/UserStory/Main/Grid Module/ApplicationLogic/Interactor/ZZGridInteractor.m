@@ -316,33 +316,22 @@ static NSInteger const kGridFriendsCellCount = 8;
     
     // retrive grid item releva
     
+    ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
     
-    //TODO:
-//    if (self.selectedFromGrid)
-//    {
-//        self.selectedModel.relatedUser = friend;
-//        
-//        [ZZGridDataProvider upsertModel:self.selectedModel];
-//        [self.output modelUpdatedWithUserWithModel:self.selectedModel];
-//    }
-//    else
-//    {
-//        ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
-//        
-//        if (ANIsEmpty(model))
-//        {
-//            model = [self _loadGridModelWithLatestAction];
-//            model.relatedUser = friend;
-//        }
-//        else
-//        {
-//            model.relatedUser = friend;
-//        }
-//        
-//        [ZZGridDataProvider upsertModel:model];
-//        
-//        [self.output updateGridWithModel:model];
-//    }
+    if (ANIsEmpty(model))
+    {
+        model = [self _loadGridModelWithLatestAction];
+        model.relatedUser = friend;
+    }
+    else
+    {
+        model.relatedUser = friend;
+    }
+    
+    [ZZGridDataProvider upsertModel:model];
+    
+    [self.output updateGridWithModel:model];
+
 }
 
 
