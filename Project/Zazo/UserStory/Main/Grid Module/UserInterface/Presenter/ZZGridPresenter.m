@@ -439,7 +439,7 @@
 
 - (void)gridDidAppear
 {
-    [self.eventsFlowModule throwEvent:TBMEventFlowEventApplicationDidLaunch];
+//    [self.eventsFlowModule throwEvent:TBMEventFlowEventApplicationDidLaunch];
     self.isGridAppear = YES;
 }
 
