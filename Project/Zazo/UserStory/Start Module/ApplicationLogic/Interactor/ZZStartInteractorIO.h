@@ -6,9 +6,11 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
+#import "ZZApplicationVersionEnumHelper.h"
+
 @protocol ZZStartInteractorInput <NSObject>
 
-- (void)checkVersion;
+- (void)checkVersionState;
 
 @end
 
@@ -17,5 +19,8 @@
 
 - (void)userRequiresAuthentication;
 - (void)userHasAuthentication;
+
+- (void)userVersionStateLoadedSuccessfully:(ZZApplicationVersionState)versionState;
+- (void)userVersionStateLoadedingDidFailWithError:(NSError*)error;
 
 @end

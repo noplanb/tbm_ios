@@ -35,10 +35,10 @@
 
 - (void)initialApplicationSetup:(UIApplication *)application launchOptions:(NSDictionary *)options
 {
-    [ANCrashlyticsAdapter start];
-    [ANLogger initializeLogger];
     [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelInfo];
     [ZZContentDataAcessor start];
+    [ANCrashlyticsAdapter start];
+    [ANLogger initializeLogger];
     [ZZVideoRecorder shared];
     [ZZColorTheme shared];
     [self _handleIncomingCall];

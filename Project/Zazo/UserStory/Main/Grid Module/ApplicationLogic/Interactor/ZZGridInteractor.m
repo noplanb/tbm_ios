@@ -12,17 +12,14 @@
 #import "ZZContactDomainModel.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZGridCellViewModel.h"
-#import "TBMUser.h"
 #import "ZZGridDomainModel.h"
 #import "ZZGridDataProvider.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZPhoneHelper.h"
 #import "ZZUserDataProvider.h"
-#import "FEMObjectDeserializer.h"
 #import "ZZFriendsTransportService.h"
 #import "ZZUserFriendshipStatusHandler.h"
 #import "TBMFriend.h"
-#import "ZZCommonNetworkTransportService.h"
 #import "ZZCommonModelsGenerator.h"
 #import "ZZGridTransportService.h"
 #import "ZZCommunicationDomainModel.h"
@@ -73,13 +70,10 @@ static NSInteger const kGridFriendsCellCount = 8;
     NSArray* descriptorsArray = @[sort];
     self.gridModels = [gridModels sortedArrayUsingDescriptors:descriptorsArray];
     [self.output dataLoadedWithArray:self.gridModels];
-    
-    //#pragma mark - Old // TODO:
-    [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {}];
 }
 
 
-#pragma mark - Add Friend to Grid
+#pragma mark - Grid Updates
 
 - (void)addUserToGrid:(id)friendModel
 {
@@ -87,55 +81,14 @@ static NSInteger const kGridFriendsCellCount = 8;
     {
         if ([friendModel isKindOfClass:[ZZFriendDomainModel class]])
         {
-            ZZFriendDomainModel* newFriend = friendModel;
-            
-            ZZFriendDomainModel* containedUser;
-            if (![self _isFriendsOnGridContainFriendModel:newFriend withContainedFriend:&containedUser])
-            {
-                [self _friendSelectedFromMenu:newFriend];
-            }
-            else
-            {
-                [self.output gridContainedFriend:containedUser];
-            }
+            [self _addUserAsFriendToGrid:(ZZFriendDomainModel*)friendModel];
         }
         else if ([friendModel isKindOfClass:[ZZContactDomainModel class]])
         {
-            ZZContactDomainModel* newContact = friendModel;
-            
-            ZZFriendDomainModel* containedUser;
-            if ([self _isFriendsOnGridContainContactFriendModel:newContact withContainedFriend:&containedUser])
-            {
-                //implement check friend logic
-                [self.output gridContainedFriend:containedUser];
-            }
-            else
-            {
-                newContact.phones = [ZZPhoneHelper validatePhonesFromContactModel:newContact];
-                if (!ANIsEmpty(newContact.phones))
-                {
-                    if (ANIsEmpty(newContact.primaryPhone))
-                    {
-                        [self.output userNeedsToPickPrimaryPhone:newContact];
-                    }
-                    else
-                    {
-                        //send has app and invitation requests
-                        [self _checkIfAnInvitedUserHasApp:newContact];
-                    }
-                }
-                else
-                {
-                    [self.output userHasNoValidNumbers:newContact];
-                }
-            }
-
+            [self _addUserAsContactToGrid:(ZZContactDomainModel*)friendModel];
         }
     }
 }
-
-
-
 
 - (void)removeUserFromContacts:(ZZFriendDomainModel*)model
 {
@@ -151,14 +104,17 @@ static NSInteger const kGridFriendsCellCount = 8;
 }
 
 
+
+#pragma mark - User Invitation
+
 - (void)userSelectedPrimaryPhoneNumber:(ZZContactDomainModel*)phoneNumber
 {
-    [self _checkIfAnInvitedUserHasApp:phoneNumber];
+    [self _checkIsContactHasApp:phoneNumber];
 }
 
 - (void)inviteUserInApplication:(ZZContactDomainModel*)contact
 {
-    [self getInvitedFriendFromServer:contact];
+    [self _loadFriendModelFromContact:contact];
 }
 
 - (void)updateLastActionForFriend:(ZZFriendDomainModel*)friendModel
@@ -166,6 +122,9 @@ static NSInteger const kGridFriendsCellCount = 8;
     friendModel.lastActionTimestamp = [NSDate date];
     [ZZFriendDataProvider upsertFriendWithModel:friendModel];
 }
+
+
+#pragma mark - Notifications
 
 - (void)handleNotificationForFriend:(TBMFriend *)friendEntity
 {
@@ -205,6 +164,9 @@ static NSInteger const kGridFriendsCellCount = 8;
     }
 }
 
+
+#pragma mark - Feedback
+
 - (void)loadFeedbackModel
 {
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
@@ -213,74 +175,54 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 
 
-- (ZZFriendDomainModel*)_friendModelFromMenuModel:(id)model
-{
-    ZZFriendDomainModel* friendModel;
-    
-    if ([model isMemberOfClass:[ZZContactDomainModel class]])
-    {
-        ZZContactDomainModel* contactModel = (ZZContactDomainModel*)model;
-        friendModel = [ZZFriendDomainModel new];
-        friendModel.firstName = contactModel.firstName;
-        friendModel.lastName = contactModel.lastName;
-        friendModel.mobileNumber = [(ZZCommunicationDomainModel*)[contactModel.phones firstObject] contact];
-    }
-    else
-    {
-        friendModel = (ZZFriendDomainModel*)model;
-    }
-    
-    return friendModel;
-}
+#pragma mark - Private
 
-- (BOOL)_isFriendsOnGridContainFriendModel:(ZZFriendDomainModel *)friendModel withContainedFriend:(ZZFriendDomainModel**)containtedUser
+- (ZZFriendDomainModel*)_friendModelOnGridMatchedToFriendModel:(ZZFriendDomainModel*)friendModel
 {
-    __block BOOL isContainModel = NO;
+    __block ZZFriendDomainModel* containedModel = nil;
     
     [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel* obj, NSUInteger idx, BOOL *stop) {
         if ([obj.relatedUser isEqual:friendModel])
         {
-            *containtedUser = obj.relatedUser;
-            isContainModel = YES;
+            containedModel = obj.relatedUser;
             *stop = YES;
         }
     }];
-    return isContainModel;
+    return containedModel;
 }
 
-- (BOOL)_isFriendsOnGridContainContactFriendModel:(ZZContactDomainModel*)contactModel withContainedFriend:(ZZFriendDomainModel**)containtedUser
+- (ZZFriendDomainModel*)_friendOnGridMatchedToContact:(ZZContactDomainModel*)contactModel
 {
-    __block BOOL isContainModel = NO;
+    __block ZZFriendDomainModel* containtedUser = nil;
     
     [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel* obj, NSUInteger idx, BOOL *stop) {
         if ([[obj.relatedUser fullName] isEqualToString:[contactModel fullName]])
         {
-            *containtedUser = obj.relatedUser;
-            isContainModel = YES;
+            containtedUser = obj.relatedUser;
             *stop = YES;
         }
     }];
     
-    if (!isContainModel)
+    if (!containtedUser)
     {
         NSArray* validNumbers = [ZZPhoneHelper validatePhonesFromContactModel:contactModel];
         if (!ANIsEmpty(validNumbers))
         {
             [validNumbers enumerateObjectsUsingBlock:^(ZZCommunicationDomainModel* communicationModel, NSUInteger idx, BOOL *stop) {
+                
                 NSString *trimmedNumber = [communicationModel.contact stringByReplacingOccurrencesOfString:@" " withString:@""];
+                
                 [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel* obj, NSUInteger idx, BOOL *stop) {
                     if ([[obj.relatedUser mobileNumber] isEqualToString:trimmedNumber])
                     {
-                        *containtedUser = obj.relatedUser;
-                        isContainModel = YES;
+                        containtedUser = obj.relatedUser;
                         *stop = YES;
                     }
                 }];
             }];
         }
     }
-    
-    return isContainModel;
+    return containtedUser;
 }
 
 
@@ -298,56 +240,81 @@ static NSInteger const kGridFriendsCellCount = 8;
     return [sortingByLastAction firstObject];
 }
 
-
-#pragma mark - User Selection
-
-- (void)_friendSelectedFromMenu:(ZZFriendDomainModel*)friend
+- (void)_addUserAsFriendToGrid:(ZZFriendDomainModel*)friendModel
 {
-    BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friend];
-    if (!shouldBeVisible)
+    ZZFriendDomainModel* containedUser = [self _friendModelOnGridMatchedToFriendModel:friendModel];
+    if (ANIsEmpty(containedUser))
     {
-        friend.contactStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friend];
-        [ZZFriendDataProvider upsertFriendWithModel:friend];
+        BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
+        if (!shouldBeVisible)
+        {
+            friendModel.contactStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
+            [ZZFriendDataProvider upsertFriendWithModel:friendModel];
+            
+            [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey
+                                                              toVisible:!shouldBeVisible] subscribeNext:^(NSDictionary* response) {
+            }];
+        }
         
-        [[ZZFriendsTransportService changeModelContactStatusForUser:friend.mKey
-                                                          toVisible:!shouldBeVisible] subscribeNext:^(NSDictionary* response) {
-        }];
-    }
-    
-    
-    // TODO: check if we have empty elements on grid and place to specified index new friend
-    
-    // retrive grid item relev
-    
-    ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
-    
-    if (ANIsEmpty(model))
-    {
-        model = [self _loadGridModelWithLatestAction];
-        model.relatedUser = friend;
+        ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
+        
+        if (ANIsEmpty(model))
+        {
+            model = [self _loadGridModelWithLatestAction];
+            model.relatedUser = friendModel;
+        }
+        else
+        {
+            model.relatedUser = friendModel;
+        }
+        [ZZGridDataProvider upsertModel:model];
+        [self.output updateGridWithModel:model];
     }
     else
     {
-        model.relatedUser = friend;
+        [self.output gridContainedFriend:containedUser];
     }
-    
-    [ZZGridDataProvider upsertModel:model];
-    
-    [self.output updateGridWithModel:model];
+}
 
+- (void)_addUserAsContactToGrid:(ZZContactDomainModel*)model
+{
+    ZZFriendDomainModel* containedUser = [self _friendOnGridMatchedToContact:model];
+    if (!ANIsEmpty(containedUser))
+    {
+        [self.output gridContainedFriend:containedUser];
+    }
+    else
+    {
+        model.phones = [ZZPhoneHelper validatePhonesFromContactModel:model];
+        if (!ANIsEmpty(model.phones))
+        {
+            if (ANIsEmpty(model.primaryPhone))
+            {
+                [self.output userNeedsToPickPrimaryPhone:model];
+            }
+            else
+            {
+                [self _checkIsContactHasApp:model];
+            }
+        }
+        else
+        {
+            [self.output userHasNoValidNumbers:model];
+        }
+    }
 }
 
 
 
 #pragma mark - Transport 
 
-- (void)_checkIfAnInvitedUserHasApp:(ZZContactDomainModel*)contact
+- (void)_checkIsContactHasApp:(ZZContactDomainModel*)contact
 {
     [self.output loadedStateUpdatedTo:YES];
     [[ZZGridTransportService checkIsUserHasApp:contact] subscribeNext:^(id x) {
         if ([x boolValue])
         {
-            [self getInvitedFriendFromServer:contact];
+            [self _loadFriendModelFromContact:contact];
         }
         else
         {
@@ -359,7 +326,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     }];
 }
 
-- (void)getInvitedFriendFromServer:(ZZContactDomainModel*)contact
+- (void)_loadFriendModelFromContact:(ZZContactDomainModel*)contact
 {
     [[ZZGridTransportService inviteUserToApp:contact] subscribeNext:^(ZZFriendDomainModel* x) {
         [self.output friendRecievedFromServer:x];

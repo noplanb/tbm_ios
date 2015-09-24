@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		070238D81BB430B200B8197E /* ZZApplicationVersionEnumHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 070238D71BB430B100B8197E /* ZZApplicationVersionEnumHelper.m */; settings = {ASSET_TAGS = (); }; };
 		070560FA1BA8736600C130E0 /* ZZGridActionDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 070560F91BA8736600C130E0 /* ZZGridActionDataProvider.m */; };
 		070561001BA8824F00C130E0 /* ZZGridActionHandlerEnums.m in Sources */ = {isa = PBXBuildFile; fileRef = 070560FF1BA8824F00C130E0 /* ZZGridActionHandlerEnums.m */; };
 		0732F50C1B8B93D3004FD3AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0732F5041B8B93D3004FD3AF /* InfoPlist.strings */; };
@@ -432,6 +433,8 @@
 /* Begin PBXFileReference section */
 		0368F3F1AC201E7765B1898F /* libPods-ZazoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZazoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Zazo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		070238D61BB430B100B8197E /* ZZApplicationVersionEnumHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZApplicationVersionEnumHelper.h; path = EnumHelpers/ZZApplicationVersionEnumHelper.h; sourceTree = "<group>"; };
+		070238D71BB430B100B8197E /* ZZApplicationVersionEnumHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZApplicationVersionEnumHelper.m; path = EnumHelpers/ZZApplicationVersionEnumHelper.m; sourceTree = "<group>"; };
 		070560F81BA8736600C130E0 /* ZZGridActionDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZGridActionDataProvider.h; path = ActionHandler/ZZGridActionDataProvider.h; sourceTree = "<group>"; };
 		070560F91BA8736600C130E0 /* ZZGridActionDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZGridActionDataProvider.m; path = ActionHandler/ZZGridActionDataProvider.m; sourceTree = "<group>"; };
 		070560FE1BA8824F00C130E0 /* ZZGridActionHandlerEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZGridActionHandlerEnums.h; path = ActionHandler/ZZGridActionHandlerEnums.h; sourceTree = "<group>"; };
@@ -1212,6 +1215,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		070238D91BB430B500B8197E /* EnumHelper */ = {
+			isa = PBXGroup;
+			children = (
+				070238D61BB430B100B8197E /* ZZApplicationVersionEnumHelper.h */,
+				070238D71BB430B100B8197E /* ZZApplicationVersionEnumHelper.m */,
+			);
+			name = EnumHelper;
+			sourceTree = "<group>";
+		};
 		0732F5031B8B93D3004FD3AF /* ZazoTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -3533,6 +3545,7 @@
 		07636D0F1BA49A0100925671 /* ApplicationLogic */ = {
 			isa = PBXGroup;
 			children = (
+				070238D91BB430B500B8197E /* EnumHelper */,
 				07636D101BA49A0100925671 /* Interactor */,
 			);
 			path = ApplicationLogic;
@@ -4663,6 +4676,7 @@
 				07636E5A1BA49A0100925671 /* ZZStoredSettingsManager.m in Sources */,
 				07636DE31BA49A0100925671 /* TBMNextFeatureDialogView.m in Sources */,
 				07636DF41BA49A0100925671 /* TBMFriendGetter.m in Sources */,
+				070238D81BB430B200B8197E /* ZZApplicationVersionEnumHelper.m in Sources */,
 				07636EC11BA49A0100925671 /* ZZGridStateView+Animation.m in Sources */,
 				07636DB71BA49A0100925671 /* TBMFileUtils.m in Sources */,
 				07636EC61BA49A0100925671 /* ZZGridCell.m in Sources */,
@@ -4861,6 +4875,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
+				OTHER_LDFLAGS = "-ObjC";
 				PROVISIONING_PROFILE = "94a16900-bb1b-4cad-8219-0474897df4cd";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -4963,6 +4978,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				PROVISIONING_PROFILE = "458913f4-9798-4673-a5a8-44a1967228b9";
 				SDKROOT = iphoneos;
 			};
@@ -4999,6 +5015,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
+				OTHER_LDFLAGS = "-ObjC";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
