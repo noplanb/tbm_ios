@@ -150,7 +150,7 @@ static NSInteger const kGridFriendsCellCount = 8;
             else
             {
                 //send has app and invitation requests
-                [self _checkIfAnInvitedUserHasApp:model];
+                [self _checkIsContactHasApp:model];
             }
         }
         else
@@ -180,12 +180,12 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)userSelectedPrimaryPhoneNumber:(ZZContactDomainModel*)phoneNumber
 {
-    [self _checkIfAnInvitedUserHasApp:phoneNumber];
+    [self _checkIsContactHasApp:phoneNumber];
 }
 
 - (void)inviteUserInApplication:(ZZContactDomainModel*)contact
 {
-    [self getInvitedFriendFromServer:contact];
+    [self _loadFriendModelFromContact:contact];
 }
 
 - (void)updateLastActionForFriend:(ZZFriendDomainModel*)friendModel
@@ -307,13 +307,13 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 #pragma mark - Transport 
 
-- (void)_checkIfAnInvitedUserHasApp:(ZZContactDomainModel*)contact
+- (void)_checkIsContactHasApp:(ZZContactDomainModel*)contact
 {
     [self.output loadedStateUpdatedTo:YES];
     [[ZZGridTransportService checkIsUserHasApp:contact] subscribeNext:^(id x) {
         if ([x boolValue])
         {
-            [self getInvitedFriendFromServer:contact];
+            [self _loadFriendModelFromContact:contact];
         }
         else
         {
@@ -325,7 +325,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     }];
 }
 
-- (void)getInvitedFriendFromServer:(ZZContactDomainModel*)contact
+- (void)_loadFriendModelFromContact:(ZZContactDomainModel*)contact
 {
     [[ZZGridTransportService inviteUserToApp:contact] subscribeNext:^(ZZFriendDomainModel* x) {
         [self.output friendRecievedFromServer:x];
