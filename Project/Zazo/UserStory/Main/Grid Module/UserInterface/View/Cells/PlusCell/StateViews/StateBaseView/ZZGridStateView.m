@@ -14,6 +14,8 @@
 #import "ZZVideoRecorder.h"
 #import "ZZFeatureObserver.h"
 #import "ZZStoredSettingsManager.h"
+#import "ZZFriendDataProvider.h"
+#import "TBMFriend.h"
 
 @interface ZZGridStateView ()
 
@@ -50,7 +52,10 @@
     
     if ([ZZStoredSettingsManager shared].debugModeEnabled)
     {
-        self.userNameLabel.text = [model videoStatus];
+        ZZFriendDomainModel* friendModel = model.item.relatedUser;
+        TBMFriend* friend = [ZZFriendDataProvider entityFromModel:friendModel];
+        
+        self.userNameLabel.text = friend.videoStatusString;
     }
     else
     {

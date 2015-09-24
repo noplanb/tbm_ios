@@ -12,6 +12,7 @@
 #import "UIImage+PDF.h"
 #import "ZZFeatureObserver.h"
 
+
 static CGFloat const kLayoutConstRecordingLabelHeight = 22;
 static CGFloat const kLayoutConstRecordingLabelFontSize = 0.55 * kLayoutConstRecordingLabelHeight;
 static NSString* kLayoutConstRecordingLabelBackgroundColor = @"000";
@@ -39,6 +40,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
 - (void)updateWithModel:(ZZGridCenterCellViewModel*)model
 {
     self.model = model;
+    [self.model setupLongRecognizerOnView:self];
     ANDispatchBlockToMainQueue(^{
         self.switchCameraButton.hidden = ![model shouldShowSwitchCameraButton];
         if (!self.videoView)

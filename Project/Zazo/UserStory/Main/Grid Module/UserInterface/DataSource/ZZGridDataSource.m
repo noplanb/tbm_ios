@@ -16,7 +16,11 @@
 
 static NSInteger const kGridCenterCellIndex = 4;
 
-@interface ZZGridDataSource () <ZZGridCellViewModelDelegate, ZZGridCenterCellViewModelDelegate>
+@interface ZZGridDataSource ()
+<
+ZZGridCellViewModelDelegate,
+ZZGridCenterCellViewModelDelegate
+>
 
 @property (nonatomic, strong) ZZGridCellViewModel* selectedCellViewModel;
 
@@ -183,9 +187,17 @@ static NSInteger const kGridCenterCellIndex = 4;
     [self.delegate toggleVideoWithViewModel:viewModel toState:isEnabled];
 }
 
+
+#pragma mark - Center Cell Delegate
+
 - (void)switchCamera
 {
     [self.delegate switchCamera];
+}
+
+- (void)showHint
+{
+    [self.delegate showHint];
 }
 
 - (BOOL)isVideoPalying

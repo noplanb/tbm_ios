@@ -161,6 +161,7 @@
                {
                    self.hasUploadedVideo = YES;
                    [self.animationDelegate showUploadAnimation];
+                   
                }
             }];
         }

@@ -189,7 +189,12 @@
 
 - (void)showUploadAnimation
 {
-    [self.stateView showUploadAnimationWithCompletionBlock:nil];
+    [self.stateView showUploadAnimationWithCompletionBlock:^{
+        if (self.model.badgeNumber > 0)
+        {
+            [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
+        }
+    }];
 }
 
 @end

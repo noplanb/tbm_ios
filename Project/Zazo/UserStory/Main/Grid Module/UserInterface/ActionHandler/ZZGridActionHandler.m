@@ -66,7 +66,7 @@
     NSInteger nextHintCellIndex = NSNotFound;
     if (numberFilledGrids < 8) // TODO: constants
     {
-        nextHintCellIndex = kGridElementIndex(numberFilledGrids - 1); // to get index from count
+//        nextHintCellIndex = kGridElementIndex(numberFilledGrids - 1); // to get index from count
     }
     
     if (nextHintCellIndex != NSNotFound)
