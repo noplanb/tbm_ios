@@ -18,10 +18,16 @@
     UIActionSheet* actionSheet = [ZZActionSheetController _currentActionSheet];
     [actionSheet showInView:presentedView];
     
+    @weakify(actionSheet);
     [actionSheet.rac_buttonClickedSignal subscribeNext:^(NSNumber* x) {
-        if (completionBlock)
+        
+        @strongify(actionSheet);
+        if (x.integerValue != actionSheet.cancelButtonIndex)
         {
-            completionBlock([ZZActionSheetController _selectedWithSelectedIndex:x]);
+            if (completionBlock)
+            {
+                completionBlock([ZZActionSheetController _selectedWithSelectedIndex:x]);
+            }
         }
     }];
 }

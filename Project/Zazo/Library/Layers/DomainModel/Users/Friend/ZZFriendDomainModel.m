@@ -116,7 +116,7 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
         
         ZZFriendDomainModel* friendModel = object;
         
-        if (friendModel.firstName)
+        if ([friendModel.firstName isKindOfClass:[NSString class]])
         {
             isFirstNameEqual = [friendModel.firstName isEqualToString:self.firstName];
         }
@@ -125,7 +125,7 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
             isFirstNameEqual = (friendModel.firstName == self.firstName);
         }
             
-        if (friendModel.lastName)
+        if ([friendModel.lastName isKindOfClass:[NSString class]])
         {
             isLastNameEqual = [friendModel.lastName isEqualToString:self.lastName];
         }
@@ -134,7 +134,7 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
             isLastNameEqual = (friendModel.lastName == self.lastName);
         }
         
-        if (friendModel.mobileNumber)
+        if ([friendModel.mobileNumber isKindOfClass:[NSString class]])
         {
             isPhoneEqual = [friendModel.mobileNumber isEqualToString:self.mobileNumber];
         }

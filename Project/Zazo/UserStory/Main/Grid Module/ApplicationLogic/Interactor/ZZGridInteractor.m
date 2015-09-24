@@ -120,6 +120,16 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (void)updateLastActionForFriend:(ZZFriendDomainModel*)friendModel
 {
     friendModel.lastActionTimestamp = [NSDate date];
+    
+    NSMutableArray* array = [self.gridModels mutableCopy];
+    [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.relatedUser isEqual:friendModel])
+        {
+            obj.relatedUser = friendModel;
+        }
+    }];
+    
+    self.gridModels = [array copy];
     [ZZFriendDataProvider upsertFriendWithModel:friendModel];
 }
 
