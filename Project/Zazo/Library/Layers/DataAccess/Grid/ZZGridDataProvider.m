@@ -11,6 +11,7 @@
 #import "MagicalRecord.h"
 #import "NSManagedObject+ANAdditions.h"
 #import "ZZUserDataProvider.h"
+#import "ZZGridUIConstants.h"
 
 @implementation ZZGridDataProvider
 
@@ -107,61 +108,18 @@
                                            withPredicate:excludeCreator
                                                inContext:[self _context]];
     
-    __block TBMGridElement* rightOrderEntity;
-
-//    [result enumerateObjectsUsingBlock:^(TBMGridElement* entity, NSUInteger idx, BOOL * _Nonnull stop) {
-////        @[@(8), @(7), @(5), @(6), @(9), @(1), @(4), @(2), @(3)];
-//        switch ([entity.index intValue])
-//        {
-//            case 8:
-//                rightOrderEntity = entity;
-//                *stop = YES;
-//                break;
-//            case 7:
-//                rightOrderEntity = entity;
-//                *stop = YES;
-//                break;
-//            case 5:
-//                rightOrderEntity = entity;
-//                *stop = YES;
-//                break;
-//            case 6:
-//                rightOrderEntity = entity;
-//                *stop = YES;
-//                break;
-//            case 9:
-//                rightOrderEntity = entity;
-//                *stop = YES;
-//                break;
-//            case 1:
-//                rightOrderEntity = entity;
-//                *stop = YES;
-//                break;
-//            case 4:
-//                rightOrderEntity = entity;
-//                *stop = YES;
-//                break;
-//            case 2:
-//                rightOrderEntity = entity;
-//                *stop = YES;
-//                break;
-//            case 3:
-//                rightOrderEntity = entity;
-//                *stop = YES;
-//                break;
-//                
-//            default:
-//                break;
-//        }
-//        return nil;
-//    }];
-    
-    TBMGridElement* entity = [result firstObject];
-    if (!entity)
+    if (result.count > 0)
+    {
+        NSInteger index = kGridElementIndex(result.count - 1);
+        TBMGridElement* rightOrderEntity = result[index];
+        
+        return [self modelFromEntity:rightOrderEntity];
+    }
+    else
     {
         return nil;
     }
-    return [self modelFromEntity:entity];
+    
 }
 
 
