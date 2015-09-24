@@ -47,5 +47,6 @@
 - (void)updateGridWithModelFromNotification:(ZZGridDomainModel*)model;
 
 - (void)loadedStateUpdatedTo:(BOOL)isLoading;
+- (void)addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel*)contact;
 
 @end

@@ -57,6 +57,15 @@
     return alert;
 }
 
++ (id)badConnectionAlert
+{
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    NSString* badConnectionMessage = [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", [NSObject an_safeString:appName]];
+    NSString* title = @"Bad Connection";
+    
+    return [self alertControllerWithTitle:title message:badConnectionMessage forcePlain:NO];
+}
+
 #pragma mark - Lifecycle
 
 - (void)viewWillAppear:(BOOL)animated

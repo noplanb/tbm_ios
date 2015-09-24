@@ -45,7 +45,6 @@ TBMTableModalDelegate
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
 @property (nonatomic, strong) ZZGridActionHandler* actionHandler;
 @property (nonatomic, strong) TBMTableModal *table;
-@property (nonatomic, strong) NSArray* contactPhoneNumbers;
 @property (nonatomic, strong) ZZContactDomainModel* contactWithMultiplyPhones;
 
 
@@ -486,19 +485,28 @@ TBMTableModalDelegate
 
 - (void)showChooseNumberDialogForUser:(ZZContactDomainModel*)user// TODO: move to grid alerts
 {
-    NSMutableArray *phonesArray = [NSMutableArray new];
-    
-    [user.phones enumerateObjectsUsingBlock:^(ZZCommunicationDomainModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [phonesArray addObject:obj.contact];
-    }];
-    
-//    self.contactPhoneNumbers = phonesArray;
     self.contactWithMultiplyPhones = user;
    
     ANDispatchBlockToMainQueue(^{
         self.table = [[TBMTableModal alloc] initWithParentView:self.userInterface.view title:@"Choose phone number" rowData:user.phones delegate:self];
         [self.table show];
     });
+}
+
+- (void)addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel*)contact
+{
+    TBMAlertController *alert = [TBMAlertController badConnectionAlert];
+    
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleRecommended handler:^(SDCAlertAction *action) {
+        [alert dismissWithCompletion:nil];
+    }]];
+    
+    
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+        [self.interactor addUserToGrid:contact];
+    }]];
+    
+    [alert presentWithCompletion:nil];
 }
 
 

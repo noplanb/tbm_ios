@@ -349,6 +349,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         }
     } error:^(NSError *error) {
         [self.output loadedStateUpdatedTo:NO];
+        [self.output addingUserToGridDidFailWithError:error forUser:contact];
     }];
 }
 
@@ -360,6 +361,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 
     } error:^(NSError *error) {
         [self.output loadedStateUpdatedTo:NO];
+        [self.output addingUserToGridDidFailWithError:error forUser:contact];
     }];
 }
 

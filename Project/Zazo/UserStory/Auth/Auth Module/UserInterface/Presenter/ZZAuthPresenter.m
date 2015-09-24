@@ -121,10 +121,7 @@
 
 - (void)loadFriendsDidFailWithError:(NSError *)error
 {
-    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
-     NSString* badConnectiontitle = [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", [NSObject an_safeString:appName]];
-    
-        TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Bad Connection" message:badConnectiontitle];
+        TBMAlertController *alert = [TBMAlertController badConnectionAlert];
         [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
             [self.interactor loadFriends];
         }]];
