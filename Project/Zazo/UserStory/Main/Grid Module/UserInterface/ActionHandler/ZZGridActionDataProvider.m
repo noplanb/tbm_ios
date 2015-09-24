@@ -9,7 +9,10 @@
 #import "ZZGridActionDataProvider.h"
 #import "ZZGridDataProvider.h"
 #import "ZZGridDomainModel.h"
-#import "ZZHintsConstants.h"
+#import "NSObject+ANUserDefaults.h"
+#import "ZZStoredSettingsManager.h"
+#import "TBMGridElement.h"
+#import "ZZGridActionHandlerEnums.h"
 
 @implementation ZZGridActionDataProvider
 
@@ -28,32 +31,11 @@
 }
 
 
-
-//- (BOOL)messageRecordedState
-//{
-//    return [[ZZStoredSettingsManager shared] messageEverRecorded];
-//}
-//
-//- (void)setMessageRecordedState:(BOOL)state
-//{
-//    [[ZZStoredSettingsManager shared] setMessageEverRecorded:state];
-//}
-//
-//- (BOOL)messageEverPlayedState
-//{
-//    return [[ZZStoredSettingsManager shared] messageEverPlayed];
-//}
-//
-//- (void)setMessageEverPlayedState:(BOOL)state
-//{
-//    [[ZZStoredSettingsManager shared] setMessageEverPlayed:state];
-//}
-//
 //
 ////Other useful data
 //- (NSUInteger)friendsCount
 //{
-//    return [TBMFriend count];
+//
 //}
 //
 //- (NSUInteger)unviewedCount
@@ -68,32 +50,52 @@
 //
 //- (BOOL)hasSentVideos:(NSUInteger)gridIndex
 //{
-//    return [TBMGridElement hasSentVideos:gridIndex];
+//
 //}
 
 
 + (NSUInteger)friendsCount
 {
-    return 0;
+    return [TBMFriend count];
 }
 
 + (BOOL)messageRecordedState
 {
-    return NO;
+    return [[ZZStoredSettingsManager shared] messageEverRecorded];
+}
+
++ (void)setMessageRecordedState:(BOOL)state
+{
+    [[ZZStoredSettingsManager shared] setMessageEverRecorded:state];
+}
+
++ (BOOL)messageEverPlayedState
+{
+    return [[ZZStoredSettingsManager shared] messageEverPlayed];
+}
+
++ (void)setMessageEverPlayedState:(BOOL)state
+{
+    [[ZZStoredSettingsManager shared] setMessageEverPlayed:state];
 }
 
 + (BOOL)hasSentVideos:(NSUInteger)gridIndex
 {
-    return NO;
+    return [TBMGridElement hasSentVideos:gridIndex];
 }
 
 + (BOOL)hintStateForHintType:(ZZHintsType)type
 {
-    return NO;
+    return [NSObject an_boolForKey:@(type)];
+}
+
++ (void)saveHintState:(BOOL)state forHintType:(ZZHintsType)type
+{
+    [NSObject an_updateBool:state forKey:@(type)];
 }
 
 + (BOOL)hasFeaturesForUnlock
 {
-    return NO;
+    return (ZZGridActionFeatureTypeTotal -1) < [[ZZStoredSettingsManager shared] lastUnlockedFeature];
 }
 @end

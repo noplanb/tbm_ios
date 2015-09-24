@@ -65,7 +65,10 @@ typedef NS_ENUM(NSInteger, ZZGridActionFeatureType)
     ZZGridActionFeatureTypeAbortRec,
     ZZGridActionFeatureTypeDeleteFriend,
     ZZGridActionFeatureTypeEarpiece,
-    ZZGridActionFeatureTypeSpinWheel
+    ZZGridActionFeatureTypeSpinWheel,
+
+    //Add new above
+    ZZGridActionFeatureTypeTotal,
 };
 
 NSString* ZZGridActionFeatureTypeStringFromEnumValue(ZZGridActionFeatureType);

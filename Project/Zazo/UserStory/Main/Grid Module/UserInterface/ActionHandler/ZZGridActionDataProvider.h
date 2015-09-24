@@ -14,6 +14,9 @@
 
 + (NSUInteger)friendsCount;
 + (BOOL)messageRecordedState;
++ (void)setMessageRecordedState:(BOOL)state;
++ (BOOL)messageEverPlayedState;
++ (void)setMessageEverPlayedState:(BOOL)state;
 + (BOOL)hasSentVideos:(NSUInteger)gridIndex;
 + (BOOL)hintStateForHintType:(ZZHintsType)type;
 + (BOOL)hasFeaturesForUnlock;
