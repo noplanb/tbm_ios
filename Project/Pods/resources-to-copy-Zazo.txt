@@ -1,3 +1,0 @@
-/Users/oks/Development/tbm_ios/Project/Pods/OBFileTransfer/Pod/Assets/FileTransferAgents.plist
-/Users/oks/Development/tbm_ios/Project/Pods/OBFileTransfer/Pod/Assets/mimeTypes.txt
-/Users/oks/Development/tbm_ios/Project/Pods/OBFileTransfer/Pod/Assets/OBFTMErrors.strings
