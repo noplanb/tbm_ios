@@ -314,7 +314,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     
     // TODO: check if we have empty elements on grid and place to specified index new friend
     
-    // retrive grid item releva
+    // retrive grid item relev
     
     ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
     

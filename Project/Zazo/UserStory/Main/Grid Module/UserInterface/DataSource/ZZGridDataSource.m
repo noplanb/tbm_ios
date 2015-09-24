@@ -129,20 +129,11 @@ ZZGridCenterCellViewModelDelegate
 - (void)updateStorageWithModel:(ZZGridDomainModel*)model
 {
     NSArray *allItems = [self.storage itemsInSection:0];
+
     [allItems enumerateObjectsUsingBlock:^(ZZGridCellViewModel *viewModel, NSUInteger idx, BOOL *stop) {
         if (![viewModel isKindOfClass:[ZZGridCenterCellViewModel class]])
         {
-            NSInteger index;
-            if ([model.index integerValue] > 4)
-            {
-                index = [model.index integerValue] - 1;
-            }
-            else
-            {
-                index = [model.index integerValue];
-            }
-            
-            if ([viewModel.item.index integerValue] == index)
+            if ([viewModel.item.index isEqual:model.index])
             {
                 viewModel.item = model;
                 ANDispatchBlockToMainQueue(^{
