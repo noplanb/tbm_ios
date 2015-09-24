@@ -78,6 +78,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         self.recorder.device = AVCaptureDevicePositionFront;
         self.recorder.session = [SCRecordSession recordSession];
         self.delegatesArray = [NSMutableArray array];
+        [self setupNotifications];
         [self.recorder startRunning];
     }
     return self;
@@ -108,7 +109,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         
         self.recorder.device = AVCaptureDevicePositionFront;
         self.recorder.session = [SCRecordSession recordSession];
-        
+        [self setupNotifications];
         [self.recorder startRunning];
     }
     else
@@ -121,6 +122,31 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         
     }
 
+}
+
+- (void)setupNotifications
+{
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(proximilityActive)
+                                                     name:UIDeviceProximityStateDidChangeNotification
+                                                   object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)proximilityActive
+{
+    if ([UIDevice currentDevice].proximityState)
+    {
+        ANDispatchBlockToMainQueue(^{
+            [self _notifyCancelRecording];
+            self.didCancelRecording = YES;
+            [self.recorder pause];
+        });
+    }
 }
 
 - (void)startTouchObserve
@@ -208,13 +234,13 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     {
         if (!self.didCancelRecording)
         {
+            [self _notifyCancelRecording];
             self.didCancelRecording = YES;
             if (!ANIsEmpty(reason))
             {
                 [self showMessage:reason];
             }
             [self.recorder pause];
-            [self _notifyCancelRecording];
         }
     }
 }

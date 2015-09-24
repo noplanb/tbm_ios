@@ -75,6 +75,7 @@
 
 - (void)playOnView:(UIView*)view withURLs:(NSArray*)URLs
 {
+    
     self.moviePlayerController.contentURL = nil;
     self.videoModelsArray = URLs;
     if (view != self.moviePlayerController.view.superview && view)
@@ -102,7 +103,11 @@
         self.moviePlayerController.contentURL = firstVideoUrl;
        
         
+        self.moviePlayerController.view.frame = view.bounds;
+        [view addSubview:self.moviePlayerController.view];
+       
         [self.moviePlayerController play];
+  
         [self.delegate videoPlayerURLWasStartPlaying:firstVideoUrl];
         
         self.isPlayingVideo = YES;
@@ -111,12 +116,6 @@
         [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
                                                       videoId:viewedVideo.videoId
                                                        friend:friend];
-        
-        
-        
-        
-        
-        
         
     }
 }
@@ -201,7 +200,6 @@
         [self.delegate videoPlayerURLWasStartPlaying:nextUrl];
         [self.moviePlayerController play];
         
-        
     }
 }
 
@@ -238,7 +236,7 @@
         _moviePlayerController = [MPMoviePlayerController new];
         [_moviePlayerController setScalingMode:MPMovieScalingModeFill];
         _moviePlayerController.controlStyle = MPMovieControlStyleNone;
-        _moviePlayerController.view.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
+        _moviePlayerController.view.backgroundColor = [UIColor clearColor];
         [_moviePlayerController.view addSubview:self.tapButton];
     }
     return _moviePlayerController;
