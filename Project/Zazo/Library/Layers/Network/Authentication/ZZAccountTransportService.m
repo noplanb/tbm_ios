@@ -74,9 +74,18 @@ static const struct {
 + (NSDictionary*)_generateRegistrationParametersFromUserModel:(ZZUserDomainModel*)user
 {
     NSString *formattedMobileNumber = [NSString stringWithFormat:@"%%2B%@", [NSObject an_safeString:user.mobileNumber]];
+    
+    NSString *firstName = [NSObject an_safeString:user.firstName];
+    NSString *lastName = [NSObject an_safeString:user.lastName];
+    
+    if ([firstName isKindOfClass:[NSString class]] && [lastName isKindOfClass:[NSString class]])
+    {
+        firstName = [firstName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        lastName = [lastName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    }
 
-    NSDictionary* params = @{ZZAccountParameters.firstName                  : [NSObject an_safeString:user.firstName],
-                             ZZAccountParameters.lastName                   : [NSObject an_safeString:user.lastName],
+    NSDictionary* params = @{ZZAccountParameters.firstName                  : firstName,
+                             ZZAccountParameters.lastName                   : lastName,
                              ZZAccountParameters.devicePlatform             : @"ios",
                              ZZAccountParameters.mobileNumber               : formattedMobileNumber};
     return params;

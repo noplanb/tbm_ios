@@ -23,8 +23,8 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
 
 @property (nonatomic, strong) ZZGridCenterCellViewModel* model;
 @property (nonatomic, strong) UIView* videoView;
-@property (nonatomic, strong) CALayer *recordingOverlay;
-@property (nonatomic, strong) UILabel *recordingLabel;
+@property (nonatomic, strong) CALayer* recordingOverlay;
+@property (nonatomic, strong) UILabel* recordingLabel;
 
 @end
 
@@ -101,10 +101,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
     if (!_switchCameraButton)
     {
         _switchCameraButton = [UIButton new];
-        CGSize imageSize = CGSizeMake(30, 20);
-        UIImage* cameraImage = [[UIImage imageWithPDFNamed:@"camera-icon" atSize:imageSize]
-                                an_imageByTintingWithColor:[UIColor colorWithWhite:0.9 alpha:0.8]];
-        [_switchCameraButton setImage:cameraImage forState:UIControlStateNormal];
+
         [_switchCameraButton addTarget:self
                                 action:@selector(_switchCamera)
                       forControlEvents:UIControlEventTouchUpInside];
@@ -115,6 +112,20 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
             make.bottom.left.right.equalTo(self);
             make.height.equalTo(@(40));
         }];
+        
+        UIImageView* photoImage = [UIImageView new];
+     
+        UIImage* cameraImage = [UIImage imageNamed:@"icon_camera_switch"];
+        photoImage.image = cameraImage;
+        [_switchCameraButton addSubview:photoImage];
+        [photoImage mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.bottom.equalTo(_switchCameraButton);
+            make.width.equalTo(@(30));
+            make.height.equalTo(@(30));
+        }];
+        
+        
+        
     }
     return _switchCameraButton;
 }

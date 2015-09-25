@@ -39,4 +39,7 @@ extern NSString* const TBMVideoRecorderDidFail;
 - (void)removeDelegate:(id<ZZVideoRecorderDelegate>)delegate;
 - (void)cancelRecording;
 
+- (void)stopAudioSession;
+- (void)startAudioSession;
+
 @end
