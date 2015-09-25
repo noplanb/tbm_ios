@@ -18,9 +18,9 @@
 @interface ZZGridActionHandler ()
 
 @property (nonatomic, strong) ZZHintsController* hintsController;
-@property(nonatomic, strong) NSSet* hints;
+@property (nonatomic, strong) NSSet* hints;
+@property (nonatomic, strong) ZZHintsDomainModel* hint;
 
-@property(nonatomic, strong) ZZHintsDomainModel* hint;
 @end
 
 @implementation ZZGridActionHandler
@@ -54,28 +54,27 @@
 - (void)handleEvent:(ZZGridActionEventType)event
 {
     __block ZZHintsDomainModel* hint;
-    [self.hints enumerateObjectsUsingBlock:^(ZZHintsDomainModel* obj, BOOL* stop)
-    {
+    [self.hints enumerateObjectsUsingBlock:^(ZZHintsDomainModel* obj, BOOL* stop) {
         if (obj.condition && obj.condition(event))
         {
             hint = (!hint || hint.priority < obj.priority) ?  obj: hint;
         }
     }];
 
-    if (hint && ![self.hint isEqual:hint]) {
+    if (hint && (self.hint.type != hint.type) | !self.hint)
+    {
         [self showHint:hint];
     }
 }
 
 - (void)showHint:(ZZHintsDomainModel*)hint
 {
-
-
     // text becomes from model with type play or record
 
     ZZHintsDomainModel* currentHint = self.hintsController.hintModel;
 
-    if (!currentHint) {
+    if (!currentHint)
+    {
         self.hint = hint;
         [self.hint toggleStateTo:YES];
         [self.hintsController showHintWithModel:hint];
