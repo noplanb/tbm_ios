@@ -137,7 +137,7 @@ static NSMutableArray *videoStatusNotificationDelegates;
 
     ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
     
-    friendEntity.isConnectionCreator = @([me.mkey isEqualToString:creatorMkey]);
+    friendEntity.isConnectionCreator = @(![me.mkey isEqualToString:creatorMkey]);
     friendEntity.hasApp = @(servHasApp);
     
     [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
@@ -405,7 +405,7 @@ static NSMutableArray *videoStatusNotificationDelegates;
     for (TBMFriend *friend in [self all])
     {
         friend.everSent = @([friend.outgoingVideoStatus integerValue] > OUTGOING_VIDEO_STATUS_NONE);
-        friend.isConnectionCreator = @(YES);
+//        friend.isConnectionCreator = @(YES); //TODO:
         [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
     }
 }
@@ -711,7 +711,7 @@ static NSMutableArray *videoStatusNotificationDelegates;
     [mkeys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         TBMFriend *aFriend = [self findWithMkey:obj];
         aFriend.everSent = @(YES);
-        aFriend.isConnectionCreator = @(YES);
+        //aFriend.isConnectionCreator = @(YES); //TODO:
         [[aFriend managedObjectContext] save:nil];
     }];
 }

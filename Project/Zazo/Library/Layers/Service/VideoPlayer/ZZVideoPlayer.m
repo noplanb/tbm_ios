@@ -113,6 +113,7 @@
         [self.delegate videoPlayerURLWasStartPlaying:firstVideoUrl];
         
         self.isPlayingVideo = YES;
+        [UIDevice currentDevice].proximityMonitoringEnabled = YES;
         TBMFriend* friend = [ZZFriendDataProvider entityFromModel:playedVideoModel.relatedUser];
         [friend setViewedWithIncomingVideo:viewedVideo];
         [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
@@ -147,6 +148,7 @@
     [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL
                                 withPlayedUserModel:self.playedFriend];
     [self.moviePlayerController stop];
+    [UIDevice currentDevice].proximityMonitoringEnabled = NO;
 }
 
 - (void)toggle
@@ -179,6 +181,7 @@
             [[iToast makeText:NSLocalizedString(@"video-player-not-playable", nil)] show];
         });
         self.isPlayingVideo = NO;
+        [UIDevice currentDevice].proximityMonitoringEnabled = NO;
     }
     else
     {
@@ -202,6 +205,7 @@
         [self.delegate videoPlayerURLWasFinishedPlaying:[self.currentPlayQueue lastObject] withPlayedUserModel:self.playedFriend];
         [self.moviePlayerController.view removeFromSuperview];
         self.isPlayingVideo = NO;
+        [UIDevice currentDevice].proximityMonitoringEnabled = NO;
     }
     
     if (nextUrl)

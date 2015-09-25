@@ -102,7 +102,8 @@ static CGFloat const kContainFreindDelayDuration = 0.16;
 
 static inline NSArray* const kGridElementsIndexes()
 {
-    return @[@(4), @(6), @(7), @(5), @(2), @(3), @(1), @(0)];
+//    return @[@(4), @(6), @(7), @(5), @(2), @(3), @(1), @(0)];
+    return @[@(7), @(6), @(4), @(5), @(0), @(3), @(1), @(2)];
 }
 
 

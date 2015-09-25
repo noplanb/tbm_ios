@@ -27,6 +27,7 @@ extern const struct ZZFriendDomainModelAttributes {
     __unsafe_unretained NSString *outgoingVideoStatus;
     __unsafe_unretained NSString *hasApp;
     __unsafe_unretained NSString *connectionStatus;
+    __unsafe_unretained NSString *isConnectionCreator;
     __unsafe_unretained NSString *connectionCreatorMkey;
 } ZZFriendDomainModelAttributes;
 
@@ -52,6 +53,7 @@ extern const struct ZZFriendDomainModelAttributes {
 @property (nonatomic, assign, getter=isHasApp) BOOL hasApp;
 
 @property (nonatomic, copy) NSString* connectionStatus;
+@property (nonatomic, assign) BOOL isConnectionCreator;
 @property (nonatomic, copy) NSString* connectionCreatorMkey;
 
 @property (nonatomic, assign) ZZConnectionStatusType connectionStatusValue;
