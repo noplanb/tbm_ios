@@ -36,6 +36,14 @@
     if (self)
     {
         self.recognizerStatesArray = [NSMutableArray array];
+        
+        
+        
+        
+        
+        
+        
+        
     }
     return self;
 }
@@ -43,7 +51,9 @@
 - (void)setUsernameLabel:(UILabel *)usernameLabel
 {
     _usernameLabel = usernameLabel;
-    _usernameLabel.text = [self videoStatusString];
+    ANDispatchBlockToMainQueue(^{
+       _usernameLabel.text = [self videoStatusString];
+    });
 }
 
 - (NSString*)videoStatusString
@@ -63,7 +73,9 @@
 
 - (void)reloadDebugVideoStatus
 {
-    self.usernameLabel.text = [self videoStatusString];
+    ANDispatchBlockToMainQueue(^{
+       self.usernameLabel.text = [self videoStatusString];
+    });
 }
 
 
