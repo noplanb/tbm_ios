@@ -6,17 +6,17 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-typedef NS_ENUM(NSInteger, ZZContactStatusType)
+typedef NS_ENUM(NSInteger, ZZConnectionStatusType)
 {
-    ZZContactStatusTypeVoided = 0,
-    ZZContactStatusTypeEstablished = 1,
-    ZZContactStatusTypeHiddenByCreator = 2,
-    ZZContactStatusTypeHiddenByTarget = 3,
-    ZZContactStatusTypeHiddenByBoth = 4
+    ZZConnectionStatusTypeVoided = 0,
+    ZZConnectionStatusTypeEstablished = 1,
+    ZZConnectionStatusTypeHiddenByCreator = 2,
+    ZZConnectionStatusTypeHiddenByTarget = 3,
+    ZZConnectionStatusTypeHiddenByBoth = 4
 };
 
-NSString* ZZContactStatusTypeStringFromValue(ZZContactStatusType);
-ZZContactStatusType ZZContactStatusTypeValueFromSrting(NSString*);
+NSString* ZZConnectionStatusTypeStringFromValue(ZZConnectionStatusType);
+ZZConnectionStatusType ZZConnectionStatusTypeValueFromSrting(NSString*);
 
 
 @interface ZZEditFriendEnumsAdditions : NSObject

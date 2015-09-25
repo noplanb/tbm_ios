@@ -27,8 +27,8 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
 {
     if ([self.item isCreator])
     {
-        if (self.item.contactStatusValue == ZZContactStatusTypeEstablished ||
-            self.item.contactStatusValue == ZZContactStatusTypeHiddenByCreator)
+        if (self.item.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
+            self.item.connectionStatusValue == ZZConnectionStatusTypeHiddenByCreator)
         {
             [self _updateButton:button toState:ZZContactActionButtonStateDelete];
         }
@@ -39,8 +39,8 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
     }
     else
     {
-        if (self.item.contactStatusValue == ZZContactStatusTypeEstablished ||
-            self.item.contactStatusValue == ZZContactStatusTypeHiddenByTarget)
+        if (self.item.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
+            self.item.connectionStatusValue == ZZConnectionStatusTypeHiddenByTarget)
         {
             [self _updateButton:button toState:ZZContactActionButtonStateDelete];
         }
@@ -89,8 +89,8 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
     
     if ([self.item isCreator])
     {
-        if (self.item.contactStatusValue == ZZContactStatusTypeEstablished ||
-            self.item.contactStatusValue == ZZContactStatusTypeHiddenByCreator)
+        if (self.item.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
+            self.item.connectionStatusValue == ZZConnectionStatusTypeHiddenByCreator)
         {
             cellColor = [UIColor an_colorWithHexString:@"f1efe9"];
         }
@@ -101,8 +101,8 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
     }
     else
     {
-        if (self.item.contactStatusValue == ZZContactStatusTypeEstablished ||
-            self.item.contactStatusValue == ZZContactStatusTypeHiddenByTarget)
+        if (self.item.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
+            self.item.connectionStatusValue == ZZConnectionStatusTypeHiddenByTarget)
         {
             cellColor = [UIColor an_colorWithHexString:@"f1efe9"];
         }

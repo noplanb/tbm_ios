@@ -12,7 +12,7 @@
 
 @interface ZZUserFriendshipStatusHandler : NSObject
 
-+ (ZZContactStatusType)switchedContactStatusTypeForFriend:(ZZFriendDomainModel*)friendModel;
++ (ZZConnectionStatusType)switchedContactStatusTypeForFriend:(ZZFriendDomainModel*)friendModel;
 + (BOOL)shouldFriendBeVisible:(ZZFriendDomainModel*)friendModel;
 
 @end

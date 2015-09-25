@@ -102,7 +102,7 @@ static NSMutableArray *videoStatusNotificationDelegates;
 }
 
 
-+ (void)createOrUpdateWithServerParams:(NSDictionary *)params complete:(void (^)(TBMFriend *friend))complete
++ (void)createOrUpdateWithServerParams:(NSDictionary *)params complete:(void (^)(TBMFriend *user))complete
 {
     BOOL servHasApp = [TBMHttpManager hasAppWithServerValue:[params objectForKey:SERVER_PARAMS_FRIEND_HAS_APP_KEY]];
     TBMFriend *f = [TBMFriend findWithMkey:[params objectForKey:SERVER_PARAMS_FRIEND_MKEY_KEY]];
@@ -121,32 +121,32 @@ static NSMutableArray *videoStatusNotificationDelegates;
     }
     
     
-    TBMFriend *friend = [TBMFriend MR_createEntityInContext:[self _context]];
+    TBMFriend *friendEntity = [TBMFriend MR_createEntityInContext:[self _context]];
     
     
-    friend.firstName = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_FIRST_NAME_KEY]];
-    friend.lastName = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_LAST_NAME_KEY]];
-    friend.mobileNumber = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY]];
-    friend.idTbm = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_ID_KEY]];
-    friend.mkey = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_MKEY_KEY]];
-    friend.ckey = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_CKEY_KEY]];
-    friend.timeOfLastAction = [NSDate date];
-    friend.friendshipStatus = [NSObject an_safeString:params[@"connection_status"]];
+    friendEntity.firstName = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_FIRST_NAME_KEY]];
+    friendEntity.lastName = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_LAST_NAME_KEY]];
+    friendEntity.mobileNumber = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY]];
+    friendEntity.idTbm = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_ID_KEY]];
+    friendEntity.mkey = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_MKEY_KEY]];
+    friendEntity.ckey = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_CKEY_KEY]];
+    friendEntity.timeOfLastAction = [NSDate date];
+    friendEntity.friendshipStatus = [NSObject an_safeString:params[@"connection_status"]];
     
     NSString *creatorMkey = params[@"connection_creator_mkey"];
 
     ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
     
-    friend.isConnectionCreator = @([me.mkey isEqualToString:creatorMkey]);
-    friend.hasApp = @(servHasApp);
+    friendEntity.isConnectionCreator = @([me.mkey isEqualToString:creatorMkey]);
+    friendEntity.hasApp = @(servHasApp);
     
-    [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
+    [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
     
-    OB_INFO(@"Added friend: %@", friend.firstName);
-    [friend notifyVideoStatusChange];
+    OB_INFO(@"Added friend: %@", friendEntity.firstName);
+    [friendEntity notifyVideoStatusChange];
     if (complete)
     {
-        complete(friend);
+        complete(friendEntity);
     }
 }
 
@@ -527,8 +527,8 @@ static NSMutableArray *videoStatusNotificationDelegates;
     BOOL shouldVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:model];
     if (!shouldVisible)
     {
-        model.contactStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:model];
-        self.friendshipStatus = ZZContactStatusTypeStringFromValue(model.contactStatusValue);
+        model.connectionStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:model];
+        self.friendshipStatus = ZZConnectionStatusTypeStringFromValue(model.connectionStatusValue);
     }
     [self.managedObjectContext MR_saveToPersistentStoreAndWait];
     
@@ -562,8 +562,8 @@ static NSMutableArray *videoStatusNotificationDelegates;
     BOOL shouldVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:model];
     if (!shouldVisible)
     {
-        model.contactStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:model];
-        self.friendshipStatus = ZZContactStatusTypeStringFromValue(model.contactStatusValue);
+        model.connectionStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:model];
+        self.friendshipStatus = ZZConnectionStatusTypeStringFromValue(model.connectionStatusValue);
     }
     
     [self notifyVideoStatusChangeOnMainThread];
