@@ -124,6 +124,93 @@ static NSInteger const kGridFriendsCellCount = 8;
             *stop = YES;
         }
     }];
+    
+    //TODO: copy paste from menu interactor
+
+    ZZFriendDomainModel *newFriendForEpmtyGridViewModel = [self _loadFirstFriendFromMenu:[ZZFriendDataProvider loadAllFriends]];
+    if (!ANIsEmpty(newFriendForEpmtyGridViewModel))
+    {
+        [self addUserToGrid:newFriendForEpmtyGridViewModel];
+    }
+    
+}
+
+- (ZZFriendDomainModel*)_loadFirstFriendFromMenu:(NSArray *)array
+{
+    NSMutableArray* friendsHasAppArray = [NSMutableArray new];
+    NSMutableArray* otherFriendsArray = [NSMutableArray new];
+    
+    NSArray* gridUsers = [ZZFriendDataProvider friendsOnGrid];
+    if (!gridUsers)
+    {
+        gridUsers = @[];
+    }
+    
+    [array enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friend, NSUInteger idx, BOOL *stop) {
+        
+        //check if user is on grid - do not add him
+        if (![gridUsers containsObject:friend])
+        {
+            if (friend.hasApp)
+            {
+                [friendsHasAppArray addObject:friend];
+            }
+            else
+            {
+                [otherFriendsArray addObject:friend];
+            }
+        }
+    }];
+    
+    NSArray *filteredFriendsHasAppArray = [self _filterFriendByConnectionStatus:friendsHasAppArray];
+    NSArray *filteredOtherFriendsArray = [self _filterFriendByConnectionStatus:otherFriendsArray];
+    
+    NSArray* allFilteredFriendsArray = [filteredFriendsHasAppArray arrayByAddingObjectsFromArray:filteredOtherFriendsArray];
+    NSArray* sortedByFirstNameArray = [self _sortByFirstName:allFilteredFriendsArray];
+    
+    if (!ANIsEmpty(sortedByFirstNameArray))
+    {
+        return [sortedByFirstNameArray firstObject];
+    }
+    else
+    {
+        return nil;
+    }
+}
+
+- (NSArray*)_filterFriendByConnectionStatus:(NSMutableArray*)friendsArray
+{
+    NSMutableArray* filteredFriends = [NSMutableArray new];
+    
+    [friendsArray enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if ([friendModel isCreator])
+        {
+            if (friendModel.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
+                friendModel.connectionStatusValue == ZZConnectionStatusTypeHiddenByCreator)
+            {
+                [filteredFriends addObject:friendModel];
+            }
+        }
+        else
+        {
+            if (friendModel.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
+                friendModel.connectionStatusValue == ZZConnectionStatusTypeHiddenByTarget)
+            {
+                [filteredFriends addObject:friendModel];
+            }
+        }
+    }];
+    
+    return filteredFriends;
+}
+
+- (NSArray *)_sortByFirstName:(NSArray *)array
+{
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES]; // TODO: constant
+    NSArray* sortedArray = [array sortedArrayUsingDescriptors:@[sort]];
+    
+    return sortedArray;
 }
 
 
@@ -318,16 +405,16 @@ static NSInteger const kGridFriendsCellCount = 8;
     ZZFriendDomainModel* containedUser = [self _friendModelOnGridMatchedToFriendModel:friendModel];
     if (ANIsEmpty(containedUser))
     {
-        BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
-        if (!shouldBeVisible)
-        {
-            friendModel.connectionStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
-            [ZZFriendDataProvider upsertFriendWithModel:friendModel];
-            
-            [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey
-                                                              toVisible:!shouldBeVisible] subscribeNext:^(NSDictionary* response) {
-            }];
-        }
+//        BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
+//        if (!shouldBeVisible)
+//        {
+//            friendModel.connectionStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
+//            [ZZFriendDataProvider upsertFriendWithModel:friendModel];
+//            
+//            [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey
+//                                                              toVisible:!shouldBeVisible] subscribeNext:^(NSDictionary* response) {
+//            }];
+//        }
         
         ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
         
