@@ -16,5 +16,5 @@
 - (void)_showUploadIconWithoutAnimation;
 - (void)_hideAllAnimationViews;
 - (void)_showDownloadAnimationWithCompletionBlock:(void (^)())completionBlock;
-
+- (void)_showDownloadViews;
 @end
