@@ -146,13 +146,6 @@ static int videoRecorderRetryCount = 0;
 }
 
 
-
-
-
-
-
-
-
 #pragma mark - intialization of Video, Audio and Capture
 
 - (void)initVideoInput
