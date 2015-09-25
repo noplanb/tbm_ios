@@ -44,12 +44,7 @@ static const float LayoutConstRecordingBorderWidth = 2;
     [self playSoundEffect];
 }
 
-- (void)setupWithCaptureSession:(AVCaptureSession *)captureSession {
-    self.layer.sublayers = nil;
-    [self connectVideoCaptureSession:captureSession];
-    [self setupRecordingOverlay];
-    [self setupSoundEffects];
-}
+
 
 #pragma mark - Private
 
@@ -58,9 +53,7 @@ static const float LayoutConstRecordingBorderWidth = 2;
 }
 
 - (void) connectVideoCaptureSession:(AVCaptureSession *)captureSession {
-    AVCaptureVideoPreviewLayer *previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:captureSession];
-    previewLayer.frame = self.layer.bounds;
-    [self.layer addSublayer:previewLayer];
+
 }
 
 - (void) setupRecordingOverlay {

@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "AVFoundation/AVFoundation.h"
 #import "TBMPreviewView.h"
 #import "AVAudioSession+TBMAudioSession.h"
@@ -17,17 +16,30 @@
 //extern NSString* const TBMVideoRecorderDidFail;
 
 @protocol TBMVideoRecorderDelegate <NSObject>
+
 - (void)videoRecorderDidStartRunning;
+
+- (void)videoRecorderDidStartRecording;
+- (void)videoRecorderDidStopRecording;
+- (void)videoRecorderDidStopButDidNotStartRecording;
+
+- (void)videoRecorderDidFinishRecordingWithURL:(NSURL*)url error:(NSError*)error;
+
+
 - (void)videoRecorderRuntimeErrorWithRetryCount:(int)videoRecorderRetryCount;
+
 @end
 
 @interface TBMVideoRecorder : NSObject <TBMAudioSessionDelegate>
+
 @property (nonatomic) id <TBMVideoRecorderDelegate> delegate;
-- (instancetype)initWithPreviewView:(TBMPreviewView *)previewView delegate:(id)delegate;
+@property (nonatomic, assign) AVCaptureDevicePosition device;
+
+- (void)setupCaptureSessionView:(UIView*)view;
 - (void)startRunning;
 - (void)startRecordingWithVideoUrl:(NSURL *)videoUrl;
 - (void)stopRecording;
 - (BOOL)cancelRecording;
-- (void)dispose;
 - (BOOL)isRecording;
+
 @end

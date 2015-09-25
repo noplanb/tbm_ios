@@ -48,14 +48,10 @@
         return [ZZMenuCellViewModel viewModelWithItem:value];
     }] array];
     
-    
-    [self.storage updateWithoutAnimations:^{
-        [self.storage removeSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
-        if (!ANIsEmpty(items))
-        {
-            [self.storage addItems:items toSection:sectionIndex];
-        }
-    }];
+    ANSectionModel* section = [self.storage sectionAtIndex:sectionIndex];
+    [section.objects removeAllObjects];
+    [section.objects addObjectsFromArray:items];
+    [self.storage.delegate storageNeedsReload];
 }
 
 @end

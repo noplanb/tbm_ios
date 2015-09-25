@@ -29,9 +29,16 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
 };
 
 @implementation ZZFriendDomainModel
-//        TODO:
-//        friend.timeOfLastAction = [NSDate date];
-//        friend.hasApp = servHasApp;
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        self.lastActionTimestamp = [NSDate date];
+    }
+    return self;
+}
 
 + (FEMObjectMapping*)mapping
 {

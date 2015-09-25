@@ -13,8 +13,8 @@
 
 #pragma mark - Video
 
-+ (AVCaptureDeviceInput *) getAvailableFrontVideoInputWithError:(NSError * __autoreleasing *)error {
-    
++ (AVCaptureDeviceInput*)getAvailableFrontVideoInputWithError:(NSError * __autoreleasing *)error
+{
     AVCaptureDevice *device = [TBMDeviceHandler deviceWithMediaType:AVMediaTypeVideo preferringPosition:AVCaptureDevicePositionFront];
     if (!device) {
         *error = [[NSError alloc] initWithDomain:@"TBM" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Device has no camera"}];
