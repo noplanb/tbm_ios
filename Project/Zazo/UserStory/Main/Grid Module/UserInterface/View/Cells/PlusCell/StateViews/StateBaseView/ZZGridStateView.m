@@ -104,7 +104,7 @@
 
 - (void)updateBadgeWithNumber:(NSNumber*)badgeNumber
 {
-    if (badgeNumber > 0)
+    if ([badgeNumber integerValue] > 0)
     {
         [self _showVideoCountLabelWithCount:[badgeNumber integerValue]];
     }

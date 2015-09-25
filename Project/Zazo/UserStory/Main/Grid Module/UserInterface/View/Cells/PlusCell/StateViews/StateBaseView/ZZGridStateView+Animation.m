@@ -91,7 +91,7 @@
         [self _hideAllAnimationViews];
         
         CGFloat animValue = CGRectGetWidth(self.presentedView.frame) - [self _indicatorCalculatedWidth];
-//        self.rightDownloadIndicatorConstraint.offset = 0.0;
+        self.rightDownloadIndicatorConstraint.offset = 0.0;
         [self _showDownloadViews];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
