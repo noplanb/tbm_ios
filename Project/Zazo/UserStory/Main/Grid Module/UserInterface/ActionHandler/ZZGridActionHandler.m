@@ -59,7 +59,7 @@
         }
     }];
 
-    if (hint && ![self.hint isEqual:hint]) {
+    if (!self.hint || (hint && self.hint.type != hint.type)) {
         [self _applyHint:hint];
     }
 }
