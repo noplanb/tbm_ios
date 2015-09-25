@@ -44,7 +44,7 @@
     [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeAbortRecording]];
     [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeEarpieceUsage]];
     [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeSpin]];
-    self.hints = hints;
+//    self.hints = hints;
 }
 
 

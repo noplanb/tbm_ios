@@ -203,7 +203,12 @@ TBMTableModalDelegate
 - (void)dataLoadedWithArray:(NSArray*)data
 {
     [self.dataSource setupWithModels:data completion:^{
-        [self.actionHandler handleEvent:ZZGridActionEventTypeGridLoaded];
+        ANDispatchBlockAfter(3.f, ^{ //TODO: Get this out here
+            ANDispatchBlockToMainQueue(^{
+                [self.actionHandler handleEvent:ZZGridActionEventTypeGridLoaded];
+            });
+        });
+        
     }];
 
     BOOL isTwoCamerasAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
