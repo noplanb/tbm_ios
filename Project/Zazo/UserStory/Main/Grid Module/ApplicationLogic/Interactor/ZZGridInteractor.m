@@ -37,8 +37,30 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)loadData
 {
-    NSArray *friendArrayForSorting = [ZZFriendDataProvider loadAllFriends];
-    [friendArrayForSorting sortedArrayUsingComparator:^NSComparisonResult(ZZFriendDomainModel* obj1, ZZFriendDomainModel* obj2) {
+    NSArray* allfriends = [ZZFriendDataProvider loadAllFriends];
+    NSMutableArray* filteredFriends = [NSMutableArray new];
+    
+    [allfriends enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
+
+        if ([friendModel isCreator])
+        {
+            if (friendModel.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
+                friendModel.connectionStatusValue == ZZConnectionStatusTypeHiddenByCreator)
+            {
+                [filteredFriends addObject:friendModel];
+            }
+        }
+        else
+        {
+            if (friendModel.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
+                friendModel.connectionStatusValue == ZZConnectionStatusTypeHiddenByTarget)
+            {
+                [filteredFriends addObject:friendModel];
+            }
+        }
+    }];
+    
+    [filteredFriends sortedArrayUsingComparator:^NSComparisonResult(ZZFriendDomainModel* obj1, ZZFriendDomainModel* obj2) {
         return [obj1.lastActionTimestamp compare:obj2.lastActionTimestamp];
     }];
     
@@ -57,9 +79,9 @@ static NSInteger const kGridFriendsCellCount = 8;
             model = [ZZGridDomainModel new];
         }
         model.index = count;
-        if (friendArrayForSorting.count > count)
+        if (filteredFriends.count > count)
         {
-            ZZFriendDomainModel *aFriend = friendArrayForSorting[count];
+            ZZFriendDomainModel *aFriend = filteredFriends[count];
             model.relatedUser = aFriend;
         }
         

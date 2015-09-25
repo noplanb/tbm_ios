@@ -24,6 +24,7 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     .outgoingVideoStatus = @"outgoingVideoStatus",
     .hasApp = @"hasApp",
     .connectionStatus = @"connectionStatus",
+    .isConnectionCreator = @"isConnectionCreator",
     .connectionCreatorMkey = @"connectionCreatorMkey",
 };
 
@@ -44,6 +45,7 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
            ZZFriendDomainModelAttributes.mKey               : @"mkey",
            ZZFriendDomainModelAttributes.cKey               : @"ckey",
            ZZFriendDomainModelAttributes.connectionStatus   : @"connection_status",
+           ZZFriendDomainModelAttributes.isConnectionCreator : @"isConnectionCreator",
            ZZFriendDomainModelAttributes.connectionCreatorMkey : @"connection_creator_mkey"}];
         
         FEMAttribute* attribute = [FEMAttribute mappingOfProperty:ZZFriendDomainModelAttributes.hasApp
@@ -77,7 +79,7 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
 
 - (BOOL)isCreator
 {
-    return [self.mKey isEqualToString:self.connectionCreatorMkey];
+    return self.isConnectionCreator;
 }
 
 - (BOOL)hasIncomingVideo
