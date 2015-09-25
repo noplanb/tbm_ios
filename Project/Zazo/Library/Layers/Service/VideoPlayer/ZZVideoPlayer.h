@@ -19,6 +19,7 @@
 @interface ZZVideoPlayer : NSObject
 
 @property (nonatomic, weak) id<ZZVideoPlayerDelegate> delegate;
+@property (nonatomic, assign) BOOL isPlayingVideo;
 
 - (void)playOnView:(UIView*)view withURLs:(NSArray*)URLs;
 - (void)stop;

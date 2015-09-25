@@ -23,7 +23,7 @@
 @interface ZZVideoPlayer ()
 
 @property (nonatomic, strong) MPMoviePlayerController* moviePlayerController;
-@property (nonatomic, assign) BOOL isPlayingVideo;
+
 @property (nonatomic, strong) UIButton* tapButton;
 @property (nonatomic, strong) NSArray* currentPlayQueue;
 @property (nonatomic, strong) NSArray* videoModelsArray;
@@ -178,6 +178,7 @@
         ANDispatchBlockToMainQueue(^{
             [[iToast makeText:NSLocalizedString(@"video-player-not-playable", nil)] show];
         });
+        self.isPlayingVideo = NO;
     }
     else
     {
@@ -200,6 +201,7 @@
     {
         [self.delegate videoPlayerURLWasFinishedPlaying:[self.currentPlayQueue lastObject] withPlayedUserModel:self.playedFriend];
         [self.moviePlayerController.view removeFromSuperview];
+        self.isPlayingVideo = NO;
     }
     
     if (nextUrl)
