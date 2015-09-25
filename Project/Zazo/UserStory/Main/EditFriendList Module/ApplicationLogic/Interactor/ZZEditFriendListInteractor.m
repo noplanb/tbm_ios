@@ -11,6 +11,7 @@
 #import "ZZAddressBookDataProvider.h"
 #import "ZZFriendsTransportService.h"
 #import "FEMObjectDeserializer.h"
+#import "ZZFriendDataProvider.h"
 
 @interface ZZEditFriendListInteractor ()
 
@@ -99,8 +100,13 @@
         }
     }
     
+    
+    
     [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey toVisible:visible] subscribeNext:^(NSDictionary* response) {
+        
+        [ZZFriendDataProvider upsertFriendWithModel:self.selectedFriendModel];
         [self.output contactSuccessfullyUpdated:friendModel toVisibleState:visible];
+        
     } error:^(NSError *error) {
         
     }];

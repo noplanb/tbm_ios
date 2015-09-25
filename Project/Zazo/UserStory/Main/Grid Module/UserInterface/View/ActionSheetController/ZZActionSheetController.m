@@ -18,15 +18,13 @@
     UIActionSheet* actionSheet = [ZZActionSheetController _currentActionSheet];
     [actionSheet showInView:presentedView];
     
-    @weakify(actionSheet);
     [actionSheet.rac_buttonClickedSignal subscribeNext:^(NSNumber* x) {
         
-        @strongify(actionSheet);
-        if (x.integerValue != actionSheet.cancelButtonIndex)
+        if (x.integerValue != ZZEditMenuButtonTypeCancel)
         {
             if (completionBlock)
             {
-                completionBlock([ZZActionSheetController _selectedWithSelectedIndex:x]);
+                completionBlock([x integerValue]);
             }
         }
     }];
