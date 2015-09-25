@@ -46,4 +46,8 @@
 - (BOOL)cancelRecording;
 - (BOOL)isRecording;
 - (void)initVideoInput;
+
+- (void)removeAudioInput;
+- (void)addAudioInput;
+
 @end

@@ -131,6 +131,8 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
             [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
         }
     }
+//    [self startAudioSession];
+    
 }
 
 - (void)dealloc
@@ -294,7 +296,18 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     }
 }
 
+
 #pragma mark - Stop Recording
+
+- (void)stopAudioSession
+{
+    [self.recorder removeAudioInput];
+}
+
+- (void)startAudioSession
+{
+    [self.recorder addAudioInput];
+}
 
 - (void)stopRecordingWithCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {

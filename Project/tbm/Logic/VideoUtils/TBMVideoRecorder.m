@@ -26,8 +26,6 @@ static int videoRecorderRetryCount = 0;
 @interface TBMVideoRecorder () <AVCaptureFileOutputRecordingDelegate>
 
 @property (nonatomic) dispatch_queue_t sessionQueue;
-
-
 @property (nonatomic, assign) BOOL didCancelRecording;
 
 @end
@@ -80,8 +78,6 @@ static int videoRecorderRetryCount = 0;
 {
     [self switchCameraTo:device];
 }
-
-
 
 - (void)startRunning
 {
@@ -191,14 +187,24 @@ static int videoRecorderRetryCount = 0;
 
 - (void)addAudioInput
 {
-    NSError *error;
-    self.audioInput = [TBMDeviceHandler getAudioInputWithError:&error];
-    if (error)
-    {
-        OB_ERROR(@"VideoRecorder#addAudioInput Unable to get microphone: %@", error);
-        return;
-    }
-    [self.captureSession addInput:self.audioInput];
+    
+//    if (!self.audioInput)
+//    {
+        NSError *error;
+        self.audioInput = [TBMDeviceHandler getAudioInputWithError:&error];
+        if (error)
+        {
+            OB_ERROR(@"VideoRecorder#addAudioInput Unable to get microphone: %@", error);
+            return;
+        }
+        
+        [self.captureSession addInput:self.audioInput];
+//    }
+//    else
+//    {
+//        [self.captureSession removeInput:self.audioInput];
+//        [self.captureSession addInput:self.audioInput];
+//    }
 }
 
 - (void)removeAudioInput
