@@ -10,10 +10,10 @@
 #import "TBMPreviewView.h"
 #import "AVAudioSession+TBMAudioSession.h"
 
-extern NSString* const TBMVideoRecorderDidFinishRecording;
-extern NSString* const TBMVideoRecorderShouldStartRecording;
-extern NSString* const TBMVideoRecorderDidCancelRecording;
-extern NSString* const TBMVideoRecorderDidFail;
+//extern NSString* const TBMVideoRecorderDidFinishRecording;
+//extern NSString* const TBMVideoRecorderShouldStartRecording;
+//extern NSString* const TBMVideoRecorderDidCancelRecording;
+//extern NSString* const TBMVideoRecorderDidFail;
 
 @protocol TBMVideoRecorderDelegate <NSObject>
 
@@ -40,7 +40,6 @@ extern NSString* const TBMVideoRecorderDidFail;
 - (void)startRecordingWithVideoUrl:(NSURL *)videoUrl;
 - (void)stopRecording;
 - (BOOL)cancelRecording;
-- (void)dispose;
 - (BOOL)isRecording;
 
 @end

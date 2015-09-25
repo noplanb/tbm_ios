@@ -102,7 +102,7 @@ ZZGridCenterCellViewModelDelegate
             if ([model isKindOfClass:[ZZGridCellViewModel class]])
             {
                 cellModel = model;
-                if ([cellModel.item.index isEqualToNumber:gridModel.index])
+                if (cellModel.item.index == gridModel.index)
                 {
                     cellModel.isNeedToShowDownloadAnimation = YES;
                     
