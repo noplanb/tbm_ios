@@ -37,11 +37,22 @@ static CGFloat const kThumbnailBorderWidth = 2;
 
 - (void)updateWithModel:(ZZGridCellViewModel*)model
 {
-    [super updateWithModel:model];
-    UIImage* thumbImage = [model videoThumbnailImage];
-    self.thumbnailImageView.image = thumbImage;
-    [self updateBadgeWithModel:model];
-
+    ANDispatchBlockToMainQueue(^{
+        [super updateWithModel:model];
+        UIImage* thumbImage = [model videoThumbnailImage];
+        if (!thumbImage)
+        {
+            self.thumbnailImageView.contentMode = UIViewContentModeCenter;
+            CGSize size = CGSizeMake(15, 15);
+            thumbImage = [UIImage imageWithPDFNamed:@"contacts-placeholder" atSize:size];
+        }
+        else
+        {
+            self.thumbnailImageView.contentMode = UIViewContentModeScaleToFill;
+        }
+        self.thumbnailImageView.image = thumbImage;
+        [self updateBadgeWithModel:model];
+    });
 }
 
 - (void)updateBadgeWithModel:(ZZGridCellViewModel*)model
@@ -88,8 +99,11 @@ static CGFloat const kThumbnailBorderWidth = 2;
     if (!_thumbnailImageView)
     {
         _thumbnailImageView = [UIImageView new];
-        _thumbnailImageView.backgroundColor = [UIColor whiteColor];
+//        _thumbnailImageView.backgroundColor = [UIColor clearColor];
+        _thumbnailImageView.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
+//        _thumbnailImageView.contentMode = UIViewContentModeScaleAspectFit;
         _thumbnailImageView.userInteractionEnabled = YES;
+        
         UITapGestureRecognizer* tap =
         [[UITapGestureRecognizer alloc] initWithTarget:self
                                                 action:@selector(_startVideo:)];
