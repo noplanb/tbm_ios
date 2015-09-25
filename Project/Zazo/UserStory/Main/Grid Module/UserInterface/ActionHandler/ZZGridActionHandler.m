@@ -173,7 +173,7 @@
         if (obj.type == hintType)
         {
             hint = obj;
-            stop = YES;
+            *stop = YES;
         }
     }];
     return hint;
