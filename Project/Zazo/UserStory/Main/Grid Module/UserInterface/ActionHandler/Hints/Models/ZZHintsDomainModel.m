@@ -7,7 +7,13 @@
 //
 
 #import "ZZHintsDomainModel.h"
+#import "ZZGridActionDataProvider.h"
 
 @implementation ZZHintsDomainModel
+
+- (void)toggleStateTo:(BOOL)state
+{
+    [ZZGridActionDataProvider saveHintState:state forHintType:self.type];
+}
 
 @end

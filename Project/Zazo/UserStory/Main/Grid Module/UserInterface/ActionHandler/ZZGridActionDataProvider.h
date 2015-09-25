@@ -19,5 +19,8 @@
 + (void)setMessageEverPlayedState:(BOOL)state;
 + (BOOL)hasSentVideos:(NSUInteger)gridIndex;
 + (BOOL)hintStateForHintType:(ZZHintsType)type;
++ (void)saveHintState:(BOOL)state forHintType:(ZZHintsType)type;
 + (BOOL)hasFeaturesForUnlock;
++ (NSUInteger)lastUnlockedFeature;
++ (BOOL)unlockNextFeature;
 @end

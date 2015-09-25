@@ -86,16 +86,40 @@
 
 + (BOOL)hintStateForHintType:(ZZHintsType)type
 {
-    return [NSObject an_boolForKey:@(type)];
+    // TODO: make an converter type to human format
+    return [NSObject an_boolForKey:[@(type) stringValue]];
 }
 
 + (void)saveHintState:(BOOL)state forHintType:(ZZHintsType)type
 {
-    [NSObject an_updateBool:state forKey:@(type)];
+    // TODO: make an converter type to human format
+    [NSObject an_updateBool:state forKey:[@(type) stringValue]];
 }
 
 + (BOOL)hasFeaturesForUnlock
 {
-    return (ZZGridActionFeatureTypeTotal -1) < [[ZZStoredSettingsManager shared] lastUnlockedFeature];
+    return (ZZGridActionFeatureTypeTotal -1) < [self lastUnlockedFeature];
+}
+
++ (NSUInteger)lastUnlockedFeature
+{
+    return [ZZStoredSettingsManager shared].lastUnlockedFeature;
+}
+
+/*
+ * Return YES if feature was unlocked
+ */
++ (BOOL)unlockNextFeature
+{
+    ZZStoredSettingsManager* manager = [ZZStoredSettingsManager shared];
+    NSUInteger lastUnlockedFeature = manager.lastUnlockedFeature;
+    NSUInteger nextFeature = lastUnlockedFeature + 1;
+
+    if (nextFeature < ZZGridActionFeatureTypeTotal) {
+        manager.lastUnlockedFeature = nextFeature;
+        return YES;
+    }
+
+    return NO;
 }
 @end

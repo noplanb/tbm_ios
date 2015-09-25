@@ -19,6 +19,7 @@
 @interface ZZHintsController : NSObject
 
 @property (nonatomic, weak) id<ZZHintsControllerDelegate> delegate;
+@property(nonatomic, strong) ZZHintsDomainModel* hintModel;
 
 - (void)showHintWithModel:(ZZHintsDomainModel*)model;
 

@@ -22,8 +22,11 @@ typedef BOOL (^HintCondition)(ZZGridActionEventType event);
 @property (nonatomic, copy) NSString* title;
 @property (nonatomic, copy) NSString* formatParameter;
 @property (nonatomic, assign) BOOL hidesArrow;
+
 //Logic
 @property (nonatomic, assign) NSInteger priority;
 @property (nonatomic, assign) HintCondition condition;
 
+//State
+- (void)toggleStateTo:(BOOL)state;
 @end

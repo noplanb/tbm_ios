@@ -33,7 +33,8 @@
 - (void)showHintWithModel:(ZZHintsDomainModel*)model
 {
     ZZHintsViewModel* viewModel = [ZZHintsViewModel viewModelWithItem:model];
-    [self.hintsView updateWithHintsViewModel:model];
+    self.hintModel = model;
+    [self.hintsView updateWithHintsViewModel:viewModel];
 }
 
 #pragma mark - Lazy Load
