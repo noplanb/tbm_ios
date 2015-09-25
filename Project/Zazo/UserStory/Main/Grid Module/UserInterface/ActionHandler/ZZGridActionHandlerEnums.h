@@ -47,7 +47,16 @@
 
 typedef NS_ENUM(NSInteger, ZZGridActionEventType)
 {
-    ZZGridActionEventTypeGridLoaded
+    ZZGridActionEventTypeGridLoaded, // done
+    ZZGridActionEventTypeMessageDidStopPlaying,
+    ZZGridActionEventTypeFriendDidAdd,
+    ZZGridActionEventTypeMessageDidReceive,
+    ZZGridActionEventTypeMessageDidSend,
+    ZZGridActionEventTypeUsageHintDidDismiss,  // done
+    ZZGridActionEventTypeAbortRecordingUnlockDialogDidDismiss, // max
+    ZZGridActionEventTypeDeleteFriendUnlockDialogDidDismiss, // max
+    ZZGridActionEventTypeEarpieceUnlockDialogDidDismiss, // max
+    ZZGridActionEventTypeSpinUnlockDialogDidDismiss // max
 };
 
 typedef NS_ENUM(NSInteger, ZZGridActionFeatureType)
@@ -56,7 +65,10 @@ typedef NS_ENUM(NSInteger, ZZGridActionFeatureType)
     ZZGridActionFeatureTypeAbortRec,
     ZZGridActionFeatureTypeDeleteFriend,
     ZZGridActionFeatureTypeEarpiece,
-    ZZGridActionFeatureTypeSpinWheel
+    ZZGridActionFeatureTypeSpinWheel,
+
+    //Add new above
+    ZZGridActionFeatureTypeTotal,
 };
 
 NSString* ZZGridActionFeatureTypeStringFromEnumValue(ZZGridActionFeatureType);

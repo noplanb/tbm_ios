@@ -102,7 +102,6 @@ static CGFloat const kContainFreindDelayDuration = 0.16;
 
 static inline NSArray* const kGridElementsIndexes()
 {
-//    return @[@(4), @(6), @(7), @(5), @(2), @(3), @(1), @(0)];
     return @[@(7), @(6), @(4), @(5), @(0), @(3), @(1), @(2)];
 }
 
@@ -122,14 +121,32 @@ static inline NSInteger const kNextGridElementIndexFromFlowIndex(NSInteger count
 
 static inline NSInteger const kGridIndexFromFlowIndex(NSInteger count)
 {
-    //    8 7 5
-    //    6 c 1
-    //    4 2 3
     NSArray* array = kGridElementsIndexes();
     return [array indexOfObject:@(count)];
 }
 
 
+#pragma mark - Hints
 
+static inline NSArray* const kHintsGridElementsIndexes()
+{
+    return @[@(7), @(6), @(4), @(5), @(8), @(0), @(3), @(1), @(2)];
+}
+
+static inline NSInteger const kHintNextGridElementIndexFromFlowIndex(NSInteger count)
+{
+    NSArray* array = kHintsGridElementsIndexes();
+    if (count < array.count)
+    {
+        return [[array objectAtIndex:count] integerValue];
+    }
+    return NSNotFound;
+}
+
+static inline NSInteger const kHintGridIndexFromFlowIndex(NSInteger count)
+{
+    NSArray* array = kHintsGridElementsIndexes();
+    return [array indexOfObject:@(count)];
+}
 
 

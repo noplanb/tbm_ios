@@ -146,7 +146,7 @@ TBMTableModalDelegate
 - (void)sendMessageEvent
 {
 //    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidSend];
-    
+     [self.dataSource reloadDebugStatuses];
 }
 
 
@@ -162,11 +162,11 @@ TBMTableModalDelegate
     {
         self.notificationFriend = notification.object;
     }
+    [self.dataSource reloadDebugStatuses];
 }
 
 - (void)updateGridData:(NSNotification*)notification
 {
-    
     if (![self.videoPlayer isPlaying])
     {
         if (self.notificationFriend)
@@ -183,6 +183,8 @@ TBMTableModalDelegate
     {
         self.notificationFriend = notification.object;
     }
+    
+    [self.dataSource reloadDebugStatuses];
 //    TBMFriend* updatedFriend = notification.object;
 //    [self.dataSource updateModelWithFriend:updatedFriend];
 }
@@ -249,6 +251,7 @@ TBMTableModalDelegate
 - (void)_updateFeatures
 {
     [self _updateCenterCell];
+     [self.dataSource reloadDebugStatuses];
 }
 
 
@@ -290,7 +293,12 @@ TBMTableModalDelegate
 - (void)dataLoadedWithArray:(NSArray*)data
 {
     [self.dataSource setupWithModels:data completion:^{
-        [self.actionHandler handleEvent:ZZGridActionEventTypeGridLoaded];
+        ANDispatchBlockAfter(3.f, ^{ //TODO: Get this out here
+            ANDispatchBlockToMainQueue(^{
+                [self.actionHandler handleEvent:ZZGridActionEventTypeGridLoaded];
+            });
+        });
+        
     }];
 
     BOOL isTwoCamerasAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
@@ -551,6 +559,7 @@ TBMTableModalDelegate
 - (void)stopPlaying
 {
     [self.videoPlayer stop];
+     [self.dataSource reloadDebugStatuses];
 }
 
 #pragma mark - Module Delegate Method

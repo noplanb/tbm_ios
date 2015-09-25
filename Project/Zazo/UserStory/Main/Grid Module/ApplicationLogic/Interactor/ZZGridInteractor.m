@@ -405,16 +405,16 @@ static NSInteger const kGridFriendsCellCount = 8;
     ZZFriendDomainModel* containedUser = [self _friendModelOnGridMatchedToFriendModel:friendModel];
     if (ANIsEmpty(containedUser))
     {
-//        BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
-//        if (!shouldBeVisible)
-//        {
-//            friendModel.connectionStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
-//            [ZZFriendDataProvider upsertFriendWithModel:friendModel];
-//            
-//            [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey
-//                                                              toVisible:!shouldBeVisible] subscribeNext:^(NSDictionary* response) {
-//            }];
-//        }
+        BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
+        if (!shouldBeVisible)
+        {
+            friendModel.connectionStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
+            [ZZFriendDataProvider upsertFriendWithModel:friendModel];
+
+            [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey
+                                                              toVisible:!shouldBeVisible] subscribeNext:^(NSDictionary* response) {
+            }];
+        }
         
         ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
         

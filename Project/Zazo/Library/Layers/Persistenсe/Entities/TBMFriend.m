@@ -447,7 +447,8 @@ static NSMutableArray *videoStatusNotificationDelegates;
         if ([v.downloadRetryCount intValue] == 0)
         {
             return @"Downloading...";
-        } else
+        }
+        else
         {
             return [NSString stringWithFormat:@"Dwnld r%@", v.downloadRetryCount];
         }

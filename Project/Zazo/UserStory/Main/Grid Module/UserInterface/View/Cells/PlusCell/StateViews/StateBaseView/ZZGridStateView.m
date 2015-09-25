@@ -36,30 +36,22 @@
 
 - (void)updateWithModel:(ZZGridCellViewModel*)model
 {
-    self.model = model;
-    if (self.model.hasUploadedVideo)
-    {
-        [self showUploadIconWithoutAnimation];
-    }
-    model.playerContainerView = self;
-    
-    if (self.model.isUploadedVideoViewed)
-    {
-        [self hideAllAnimationViews];
-        self.videoViewedView.hidden = NO;
-    }
-    
-    if ([ZZStoredSettingsManager shared].debugModeEnabled)
-    {
-        ZZFriendDomainModel* friendModel = model.item.relatedUser;
-        TBMFriend* friend = [ZZFriendDataProvider entityFromModel:friendModel];
+    ANDispatchBlockToMainQueue(^{
+        self.model = model;
+        if (self.model.hasUploadedVideo)
+        {
+            [self showUploadIconWithoutAnimation];
+        }
+        model.playerContainerView = self;
         
-        self.userNameLabel.text = friend.videoStatusString;
-    }
-    else
-    {
-        self.userNameLabel.text = [model firstName];
-    }
+        if (self.model.isUploadedVideoViewed)
+        {
+            [self hideAllAnimationViews];
+            self.videoViewedView.hidden = NO;
+        }
+        model.usernameLabel = self.userNameLabel;
+        [self.model reloadDebugVideoStatus];
+    });
 }
 
 

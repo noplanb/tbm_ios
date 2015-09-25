@@ -45,6 +45,19 @@ ZZGridCenterCellViewModelDelegate
     });
 }
 
+- (void)reloadDebugStatuses
+{
+    NSArray* objects = [[self.storage sectionAtIndex:0] objects];
+    
+    [objects enumerateObjectsUsingBlock:^(ZZGridCellViewModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if ([obj isKindOfClass:[ZZGridCellViewModel class]])
+        {
+            [obj reloadDebugVideoStatus];
+        }
+    }];
+}
+
 - (void)updateDataSourceWithGridModelFromNotification:(ZZGridDomainModel*)gridModel
                                   withCompletionBlock:(void(^)(BOOL isNewVideoDownloaded))completionBlock
 {

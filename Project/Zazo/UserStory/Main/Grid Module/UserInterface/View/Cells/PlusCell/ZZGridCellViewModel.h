@@ -16,12 +16,17 @@
 
 @end
 
-
 @protocol ZZGridCellViewModelDelegate <NSObject>
 
-- (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock;
-- (void)playingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel;
+- (void)recordingStateUpdatedToState:(BOOL)isEnabled
+                           viewModel:(ZZGridCellViewModel*)viewModel
+                 withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock;
+
+- (void)playingStateUpdatedToState:(BOOL)isEnabled
+                         viewModel:(ZZGridCellViewModel*)viewModel;
+
 - (void)nudgeSelectedWithUserModel:(id)userModel;
+
 - (BOOL)isVideoPalying;
 
 @end
@@ -48,6 +53,10 @@ typedef NS_ENUM(NSInteger, ZZGridCellViewModelState)
 @property (nonatomic, assign) BOOL isUploadedVideoViewed;
 @property (nonatomic, assign) BOOL isNeedToShowDownloadAnimation;
 @property (nonatomic, assign) BOOL hasDownloadedVideo;
+
+
+@property (nonatomic, weak) UILabel* usernameLabel;
+
 - (void)updateRecordingStateTo:(BOOL)isRecording
            withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock;
 
@@ -65,5 +74,6 @@ typedef NS_ENUM(NSInteger, ZZGridCellViewModelState)
                 withAnimationDelegate:(id <ZZGridCellVeiwModelAnimationDelegate>)animationDelegate;
 
 - (NSString*)videoStatus;
+- (void)reloadDebugVideoStatus;
 
 @end

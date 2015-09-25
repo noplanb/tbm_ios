@@ -51,6 +51,8 @@
 - (void)updateCenterCellWithModel:(ZZGridCenterCellViewModel*)model;
 - (void)updateModel:(ZZGridDomainModel*)model;
 
+- (void)reloadDebugStatuses;
+
 
 - (ZZGridCenterCellViewModel*)centerViewModel;
 

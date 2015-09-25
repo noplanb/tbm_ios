@@ -9,6 +9,8 @@
 #import "ZZGridActionHandlerEnums.h"
 #import "ZZGridActionHandlerUserInterfaceDelegate.h"
 
+@class ZZHintsDomainModel;
+
 @protocol ZZGridActionHanlderDelegate <NSObject>
 
 - (void)unlockFeature:(ZZGridActionFeatureType)feature;

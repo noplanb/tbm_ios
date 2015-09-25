@@ -71,21 +71,21 @@
         {
             case ZZConnectionStatusTypeEstablished:
             {
-                visible = NO;
+                visible = YES;
             } break;
             case ZZConnectionStatusTypeHiddenByCreator:
             {
-                visible = NO;
+                visible = YES;
             } break;
                 
             case ZZConnectionStatusTypeHiddenByTarget:
             {
-                visible = YES;
+                visible = NO;
             } break;
                 
             case ZZConnectionStatusTypeHiddenByBoth:
             {
-                visible = YES;
+                visible = NO;
             } break;
                 
             default: break;
@@ -97,21 +97,21 @@
         {
             case ZZConnectionStatusTypeEstablished:
             {
-                visible = NO;
+                visible = YES;
             } break;
                 
             case ZZConnectionStatusTypeHiddenByTarget:
             {
-                visible = NO;
+                visible = YES;
             } break;
                 
             case ZZConnectionStatusTypeHiddenByCreator:
             {
-                visible = YES;
+                visible = NO;
             } break;
             case ZZConnectionStatusTypeHiddenByBoth:
             {
-                visible = YES;
+                visible = NO;
             } break;
                 
             default: break;

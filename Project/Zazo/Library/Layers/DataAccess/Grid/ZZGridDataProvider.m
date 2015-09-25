@@ -116,21 +116,6 @@
     models = [models sortedArrayUsingDescriptors:@[sort]];
     
     return [models firstObject];
-    
-    
-//    //TODO: cleanup this, remove this part at all, we don't need new fetch
-//    NSInteger indexDataSource = (result.count);
-//    NSNumber* fuckingIndex = @(kGridIndexFromFlowIndex(indexDataSource));
-//    NSPredicate* indexPredicate = [NSPredicate predicateWithFormat:@"%K == %@", TBMGridElementAttributes.index, fuckingIndex];
-//    NSArray* fullResult = [TBMGridElement MR_findAllWithPredicate:indexPredicate inContext:[self _context]];
-//    
-//    if (!ANIsEmpty(fullResult))
-//    {
-//        TBMGridElement* rightOrderEntity = [fullResult firstObject];
-//        return [self modelFromEntity:rightOrderEntity];
-//    }
-//    
-//    return nil;
 }
 
 
