@@ -53,8 +53,10 @@ extern const struct ZZFriendDomainModelAttributes {
 
 @property (nonatomic, copy) NSString* connectionStatus;
 @property (nonatomic, copy) NSString* connectionCreatorMkey;
-@property (nonatomic, assign) ZZContactStatusType contactStatusValue;
+
+@property (nonatomic, assign) ZZConnectionStatusType connectionStatusValue;
 @property (nonatomic, assign) ZZMenuContactType contactType;
+
 @property (nonatomic, assign) NSInteger unviewedCount;
 @property (nonatomic, assign) NSInteger outgoingVideoStatusValue;
 

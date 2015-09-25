@@ -118,7 +118,6 @@
                   default: break;
               }
     }];
-    
 }
 
 - (void)updateRollingStateTo:(BOOL)isEnabled

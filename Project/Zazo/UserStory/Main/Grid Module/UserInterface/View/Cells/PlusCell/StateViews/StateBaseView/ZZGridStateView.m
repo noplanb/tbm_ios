@@ -104,7 +104,7 @@
 
 - (void)updateBadgeWithNumber:(NSNumber*)badgeNumber
 {
-    if (badgeNumber > 0)
+    if ([badgeNumber integerValue] > 0)
     {
         [self _showVideoCountLabelWithCount:[badgeNumber integerValue]];
     }
@@ -212,7 +212,7 @@
         
         [_downloadIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self);
-            self.rightDownloadIndicatorConstraint = make.right.equalTo(self);
+            self.rightDownloadIndicatorConstraint = make.right.equalTo(self).offset(0);
             make.width.equalTo(@([self _indicatorCalculatedWidth]));
             make.height.equalTo(@([self _indicatorCalculatedWidth]/aspect));
         }];

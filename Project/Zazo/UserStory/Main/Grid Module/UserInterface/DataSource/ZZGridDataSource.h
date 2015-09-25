@@ -49,6 +49,8 @@
 
 - (void)reloadStorage;
 - (void)updateCenterCellWithModel:(ZZGridCenterCellViewModel*)model;
+- (void)updateModel:(ZZGridDomainModel*)model;
+
 
 - (ZZGridCenterCellViewModel*)centerViewModel;
 

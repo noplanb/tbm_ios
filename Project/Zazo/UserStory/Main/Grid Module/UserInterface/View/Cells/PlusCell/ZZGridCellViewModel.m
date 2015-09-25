@@ -77,11 +77,11 @@
 
 - (void)updateVideoPlayingStateTo:(BOOL)isPlaying
 {
-    if (isPlaying)
-    {
-        self.prevBadgeNumber = nil;
-        self.badgeNumber = nil;
-    }
+//    if (isPlaying)
+//    {
+//        self.prevBadgeNumber = nil;
+//        self.badgeNumber = nil;
+//    }
     
     [self.delegate playingStateUpdatedToState:isPlaying viewModel:self];
 }

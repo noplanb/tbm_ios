@@ -54,6 +54,7 @@
     if (isVisible)
     {
         // TODO: is it needed.
+        
     }
     else
     {

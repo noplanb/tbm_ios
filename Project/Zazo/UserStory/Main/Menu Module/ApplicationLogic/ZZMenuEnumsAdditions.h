@@ -9,5 +9,5 @@
 typedef NS_ENUM(NSInteger, ZZMenuContactType)
 {
     ZZMenuContactTypeAddressbook = 0,
-    ZZContactStatusTypeZazoFriend = 1,
+    ZZConnectionStatusTypeZazoFriend = 1,
 };

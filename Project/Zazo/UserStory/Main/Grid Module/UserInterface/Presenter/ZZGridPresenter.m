@@ -46,7 +46,7 @@ TBMTableModalDelegate
 @property (nonatomic, strong) ZZGridActionHandler* actionHandler;
 @property (nonatomic, strong) TBMTableModal *table;
 @property (nonatomic, strong) ZZContactDomainModel* contactWithMultiplyPhones;
-
+@property (nonatomic, strong) TBMFriend* notificationFriend;
 
 
 //shiiiiit
@@ -80,6 +80,13 @@ TBMTableModalDelegate
     self.videoPlayer.delegate = self;
     [self _setupNotifications];
     [self.interactor loadData];
+    
+    [[RACObserve(self.videoPlayer, isPlayingVideo) filter:^BOOL(id value) {
+        return [value integerValue] == 0;
+    }] subscribeNext:^(id x) {
+        [self updateFriendIfNeeded];
+    }];
+    
     
     [[ZZVideoRecorder shared] addDelegate:self];
 }
@@ -147,20 +154,55 @@ TBMTableModalDelegate
 
 - (void)videoStartDownloadingNotification:(NSNotification*)notification
 {
-    
-    if ([self.videoPlayer isPlaying])
+    if (![self.videoPlayer isPlaying])
     {
-        [self.videoPlayer stop];
+        [self.interactor showDownloadAniamtionForFriend:notification.object];
     }
-    
-    [self.interactor showDownloadAniamtionForFriend:notification.object];
+    else
+    {
+        self.notificationFriend = notification.object;
+    }
 }
 
 - (void)updateGridData:(NSNotification*)notification
 {
-    [self.interactor handleNotificationForFriend:notification.object];
+    
+    if (![self.videoPlayer isPlaying])
+    {
+        if (self.notificationFriend)
+        {
+            self.notificationFriend = notification.object;
+            [self updateFriendIfNeeded];
+        }
+        else
+        {
+            [self.interactor handleNotificationForFriend:notification.object];
+        }
+    }
+    else
+    {
+        self.notificationFriend = notification.object;
+    }
 //    TBMFriend* updatedFriend = notification.object;
 //    [self.dataSource updateModelWithFriend:updatedFriend];
+}
+
+- (void)updateFriendIfNeeded
+{
+    if (self.notificationFriend)
+    {
+        ANDispatchBlockToMainQueue(^{
+            CGFloat timeToUpdateInterface = 0.6;
+            CGFloat timeAfterAnimationEnd = 3.6;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeToUpdateInterface * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.interactor showDownloadAniamtionForFriend:self.notificationFriend];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeAfterAnimationEnd * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.interactor handleNotificationForFriend:self.notificationFriend];
+                    self.notificationFriend = nil;
+                });
+            });
+        });
+    }
 }
 
 - (void)updateGridWithModelFromNotification:(ZZGridDomainModel *)model
@@ -169,7 +211,10 @@ TBMTableModalDelegate
                                                withCompletionBlock:^(BOOL isNewVideoDownloaded) {
             if (isNewVideoDownloaded)
             {
-                [self.soundPlayer play];
+                if (model.relatedUser.outgoingVideoStatusValue != OUTGOING_VIDEO_STATUS_VIEWED)
+                {
+                    [self.soundPlayer play];
+                }
             }
 
      }];
@@ -267,6 +312,16 @@ TBMTableModalDelegate
         [self.interactor updateLastActionForFriend:model.relatedUser];
     }
     [self.dataSource selectedViewModelUpdatedWithItem:model];
+}
+
+
+- (void)updateGridWithGridDomainModel:(ZZGridDomainModel *)model
+{
+    if (!ANIsEmpty(model.relatedUser))
+    {
+        [self.interactor updateLastActionForFriend:model.relatedUser];
+    }
+    [self.dataSource updateModel:model];
 }
 
 - (void)gridContainedFriend:(ZZFriendDomainModel*)friendModel
@@ -382,10 +437,13 @@ TBMTableModalDelegate
 //    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidStartPlaying];
 }
 
-- (void)videoPlayerURLWasFinishedPlaying:(NSURL*)videoURL
+
+- (void)videoPlayerURLWasFinishedPlaying:(NSURL *)videoURL withPlayedUserModel:(ZZFriendDomainModel *)playedFriendModel
 {
-//    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidViewed];
-//    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidStopPlaying];
+    NSLog(@"palyedModel");
+    [self.interactor updateFriendAfterVideoStopped:playedFriendModel];
+    ////    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidViewed];
+    ////    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidStopPlaying];
 }
 
 #pragma mark - Data source delegate
@@ -424,6 +482,12 @@ TBMTableModalDelegate
             //                NSURL *videoUrl = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriend:ge.friend];
             //                [[self videoRecorder] startRecordingWithVideoUrl:videoUrl];
             //            }
+            
+            
+            if ([self.videoPlayer isPlaying])
+            {
+                [self.videoPlayer stop];
+            }
             
             
             [self.soundPlayer play];

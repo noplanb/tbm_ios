@@ -11,6 +11,7 @@
 #import "ZZAddressBookDataProvider.h"
 #import "ZZFriendsTransportService.h"
 #import "FEMObjectDeserializer.h"
+#import "ZZFriendDataProvider.h"
 
 @interface ZZEditFriendListInteractor ()
 
@@ -40,28 +41,28 @@
     
     if ([friendModel isCreator])
     {
-        switch (friendModel.contactStatusValue)
+        switch (friendModel.connectionStatusValue)
         {
-            case ZZContactStatusTypeEstablished:
+            case ZZConnectionStatusTypeEstablished:
             {
-                self.selectedFriendModel.contactStatusValue = ZZContactStatusTypeHiddenByTarget;
+                self.selectedFriendModel.connectionStatusValue = ZZConnectionStatusTypeHiddenByTarget;
                 visible = NO;
             } break;
-            case ZZContactStatusTypeHiddenByCreator:
+            case ZZConnectionStatusTypeHiddenByCreator:
             {
-                self.selectedFriendModel.contactStatusValue = ZZContactStatusTypeHiddenByBoth;
+                self.selectedFriendModel.connectionStatusValue = ZZConnectionStatusTypeHiddenByBoth;
                 visible = NO;
             } break;
                 
-            case ZZContactStatusTypeHiddenByTarget:
+            case ZZConnectionStatusTypeHiddenByTarget:
             {
-                self.selectedFriendModel.contactStatusValue = ZZContactStatusTypeEstablished;
+                self.selectedFriendModel.connectionStatusValue = ZZConnectionStatusTypeEstablished;
                 visible = YES;
             } break;
                 
-            case ZZContactStatusTypeHiddenByBoth:
+            case ZZConnectionStatusTypeHiddenByBoth:
             {
-                self.selectedFriendModel.contactStatusValue = ZZContactStatusTypeHiddenByCreator;
+                self.selectedFriendModel.connectionStatusValue = ZZConnectionStatusTypeHiddenByCreator;
                 visible = YES;
             } break;
 
@@ -70,28 +71,28 @@
     }
     else
     {
-        switch (friendModel.contactStatusValue)
+        switch (friendModel.connectionStatusValue)
         {
-            case ZZContactStatusTypeEstablished:
+            case ZZConnectionStatusTypeEstablished:
             {
-                self.selectedFriendModel.contactStatusValue = ZZContactStatusTypeHiddenByCreator;
+                self.selectedFriendModel.connectionStatusValue = ZZConnectionStatusTypeHiddenByCreator;
                 visible = NO;
             } break;
                 
-            case ZZContactStatusTypeHiddenByTarget:
+            case ZZConnectionStatusTypeHiddenByTarget:
             {
-                self.selectedFriendModel.contactStatusValue = ZZContactStatusTypeHiddenByBoth;
+                self.selectedFriendModel.connectionStatusValue = ZZConnectionStatusTypeHiddenByBoth;
                 visible = NO;
             } break;
                 
-            case ZZContactStatusTypeHiddenByCreator:
+            case ZZConnectionStatusTypeHiddenByCreator:
             {
-                self.selectedFriendModel.contactStatusValue = ZZContactStatusTypeEstablished;
+                self.selectedFriendModel.connectionStatusValue = ZZConnectionStatusTypeEstablished;
                 visible = YES;
             } break;
-            case ZZContactStatusTypeHiddenByBoth:
+            case ZZConnectionStatusTypeHiddenByBoth:
             {
-                self.selectedFriendModel.contactStatusValue = ZZContactStatusTypeHiddenByTarget;
+                self.selectedFriendModel.connectionStatusValue = ZZConnectionStatusTypeHiddenByTarget;
                 visible = YES;
             } break;
                 
@@ -99,8 +100,13 @@
         }
     }
     
+    
+    
     [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey toVisible:visible] subscribeNext:^(NSDictionary* response) {
+        
+        [ZZFriendDataProvider upsertFriendWithModel:self.selectedFriendModel];
         [self.output contactSuccessfullyUpdated:friendModel toVisibleState:visible];
+        
     } error:^(NSError *error) {
         
     }];
