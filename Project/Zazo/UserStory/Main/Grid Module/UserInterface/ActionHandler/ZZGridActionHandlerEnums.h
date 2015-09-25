@@ -47,16 +47,16 @@
 
 typedef NS_ENUM(NSInteger, ZZGridActionEventType)
 {
-    ZZGridActionEventTypeGridLoaded,
+    ZZGridActionEventTypeGridLoaded, // done
     ZZGridActionEventTypeMessageDidStopPlaying,
     ZZGridActionEventTypeFriendDidAdd,
     ZZGridActionEventTypeMessageDidReceive,
     ZZGridActionEventTypeMessageDidSend,
-    ZZGridActionEventTypeUsageHintDidDismiss,
-    ZZGridActionEventTypeAbortRecordingUnlockDialogDidDismiss,
-    ZZGridActionEventTypeDeleteFriendUnlockDialogDidDismiss,
-    ZZGridActionEventTypeEarpieceUnlockDialogDidDismiss,
-    ZZGridActionEventTypeSpinUnlockDialogDidDismiss
+    ZZGridActionEventTypeUsageHintDidDismiss,  // done
+    ZZGridActionEventTypeAbortRecordingUnlockDialogDidDismiss, // max
+    ZZGridActionEventTypeDeleteFriendUnlockDialogDidDismiss, // max
+    ZZGridActionEventTypeEarpieceUnlockDialogDidDismiss, // max
+    ZZGridActionEventTypeSpinUnlockDialogDidDismiss // max
 };
 
 typedef NS_ENUM(NSInteger, ZZGridActionFeatureType)
