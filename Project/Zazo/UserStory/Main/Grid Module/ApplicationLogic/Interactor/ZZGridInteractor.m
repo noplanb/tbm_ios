@@ -165,7 +165,7 @@ static NSInteger const kGridFriendsCellCount = 8;
                 model.relatedUser = friendModel;
             }
             [self _upsertGridModel:model];
-            [self.output updateGridWithModelFromNotification:modelThatContainCurrentFriend];
+            [self.output updateGridWithModelFromNotification:model];
     }
     else
     {
@@ -274,7 +274,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
         if (!shouldBeVisible)
         {
-            friendModel.contactStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
+            friendModel.connectionStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
             [ZZFriendDataProvider upsertFriendWithModel:friendModel];
             
             [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey

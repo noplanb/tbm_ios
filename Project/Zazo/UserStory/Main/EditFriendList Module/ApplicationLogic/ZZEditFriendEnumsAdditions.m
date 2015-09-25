@@ -18,12 +18,12 @@ static NSString* contactStatusString[] = {
     @"hidden_by_both"
 };
 
-NSString* ZZContactStatusTypeStringFromValue(ZZContactStatusType type)
+NSString* ZZConnectionStatusTypeStringFromValue(ZZConnectionStatusType type)
 {
     return contactStatusString[type];
 }
 
-ZZContactStatusType ZZContactStatusTypeValueFromSrting(NSString* string)
+ZZConnectionStatusType ZZConnectionStatusTypeValueFromSrting(NSString* string)
 {
     NSArray* array = [NSArray arrayWithObjects:contactStatusString count:5];
     NSInteger index = [array indexOfObject:string];

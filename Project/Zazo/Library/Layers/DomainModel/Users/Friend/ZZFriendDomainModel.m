@@ -87,14 +87,14 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
 
 #pragma mark - Getters / Setters
 
-- (ZZContactStatusType)contactStatusValue
+- (ZZConnectionStatusType)connectionStatusValue
 {
-    return ZZContactStatusTypeValueFromSrting(self.connectionStatus);
+    return ZZConnectionStatusTypeValueFromSrting(self.connectionStatus);
 }
 
-- (void)setContactStatusValue:(ZZContactStatusType)contactStatusValue
+- (void)setConnectionStatusValue:(ZZConnectionStatusType)contactStatusValue
 {
-    self.connectionStatus = ZZContactStatusTypeStringFromValue(contactStatusValue);
+    self.connectionStatus = ZZConnectionStatusTypeStringFromValue(contactStatusValue);
 }
 
 - (NSUInteger)hash
@@ -149,7 +149,7 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
 
 - (ZZMenuContactType)contactType
 {
-    return ZZContactStatusTypeZazoFriend;
+    return ZZConnectionStatusTypeZazoFriend;
 }
 
 @end
