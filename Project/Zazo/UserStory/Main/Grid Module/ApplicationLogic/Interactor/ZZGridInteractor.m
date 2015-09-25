@@ -135,6 +135,32 @@ static NSInteger const kGridFriendsCellCount = 8;
 }
 
 
+
+#pragma mark - Update after stoppedVideo
+
+- (void)updateFriendAfterVideoStopped:(ZZFriendDomainModel *)model
+{
+//    [self updateLastActionForFriend:model];
+    
+    
+    __block ZZGridDomainModel* gridModel = nil;;
+    NSMutableArray* array = [self.gridModels mutableCopy];
+    [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.relatedUser.mKey isEqualToString:model.mKey])
+        {
+            obj.relatedUser = model;
+            gridModel = obj;
+        }
+    }];
+    self.gridModels = [array copy];
+    
+    if (!ANIsEmpty(gridModel))
+    {
+        [self.output updateGridWithGridDomainModel:gridModel];
+    }
+}
+
+
 #pragma mark - Notifications
 
 - (void)handleNotificationForFriend:(TBMFriend *)friendEntity

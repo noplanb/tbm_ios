@@ -27,6 +27,7 @@
 
 - (void)loadFeedbackModel;
 - (void)showDownloadAniamtionForFriend:(TBMFriend*)friend;
+- (void)updateFriendAfterVideoStopped:(ZZFriendDomainModel*)model;
 
 
 @end
@@ -51,4 +52,7 @@
 - (void)loadedStateUpdatedTo:(BOOL)isLoading;
 - (void)addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel*)contact;
 - (void)updateGridWithDownloadAnimationModel:(ZZGridDomainModel*)model;
+- (void)updateGridWithGridDomainModel:(ZZGridDomainModel*)model;
+
+
 @end

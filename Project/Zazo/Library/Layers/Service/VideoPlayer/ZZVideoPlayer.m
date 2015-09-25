@@ -27,6 +27,7 @@
 @property (nonatomic, strong) UIButton* tapButton;
 @property (nonatomic, strong) NSArray* currentPlayQueue;
 @property (nonatomic, strong) NSArray* videoModelsArray;
+@property (nonatomic, strong) ZZFriendDomainModel* playedFriend;
 
 @end
 
@@ -97,14 +98,12 @@
 
         NSURL* firstVideoUrl = [self.currentPlayQueue firstObject];
         ZZVideoDomainModel* playedVideoModel = [self.videoModelsArray firstObject];
-        
         TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
-        viewedVideo.status = @(INCOMING_VIDEO_STATUS_VIEWED);
-        playedVideoModel.relatedUser.unviewedCount--;
-        
-        [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
+
         self.moviePlayerController.contentURL = firstVideoUrl;
-       
+        
+        //save video state
+        [self updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
         
         self.moviePlayerController.view.frame = view.bounds;
         [view addSubview:self.moviePlayerController.view];
@@ -124,11 +123,29 @@
 }
 
 
+- (void)updateViewedVideoCounterWithVideoDomainModel:(ZZVideoDomainModel*)playedVideoModel
+{
+    
+    TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
+    viewedVideo.status = @(INCOMING_VIDEO_STATUS_VIEWED);
+    if (playedVideoModel.relatedUser.unviewedCount > 0)
+    {
+        playedVideoModel.relatedUser.unviewedCount--;
+    }
+    else
+    {
+        playedVideoModel.relatedUser.unviewedCount = 0;
+    }
+    self.playedFriend = playedVideoModel.relatedUser;
+    [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
+}
+
 - (void)stop
 {
     self.isPlayingVideo = NO;
     [self.moviePlayerController.view removeFromSuperview];
-    [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL];
+    [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL
+                                withPlayedUserModel:self.playedFriend];
     [self.moviePlayerController stop];
 }
 
@@ -181,6 +198,7 @@
     }
     else
     {
+        [self.delegate videoPlayerURLWasFinishedPlaying:[self.currentPlayQueue lastObject] withPlayedUserModel:self.playedFriend];
         [self.moviePlayerController.view removeFromSuperview];
     }
     
@@ -188,12 +206,12 @@
     {
         ZZVideoDomainModel* playedVideoModel = self.videoModelsArray[index];
         TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
-        viewedVideo.status = @(INCOMING_VIDEO_STATUS_VIEWED);
-        playedVideoModel.relatedUser.unviewedCount--;
         
-        [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
+        //save video state
+        [self updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
         
-        [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL];
+//        [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL];
+        
         self.moviePlayerController.contentURL = nextUrl;
         
         TBMFriend* friend = [ZZFriendDataProvider entityFromModel:playedVideoModel.relatedUser];
