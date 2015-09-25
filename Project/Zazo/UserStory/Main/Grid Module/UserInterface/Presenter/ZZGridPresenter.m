@@ -366,6 +366,7 @@ TBMTableModalDelegate
         [self.interactor updateLastActionForFriend:model.relatedUser];
     }
     [self.dataSource updateStorageWithModel:model];
+    [self.userInterface showFriendAnimationWithModel:model.relatedUser];
 }
 
 - (void)loadedStateUpdatedTo:(BOOL)isLoading
