@@ -236,6 +236,7 @@ static int videoRecorderRetryCount = 0;
     
     view.layer.sublayers = nil;
     AVCaptureVideoPreviewLayer *previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.captureSession];
+    previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     previewLayer.frame = view.layer.bounds;
     [view.layer addSublayer:previewLayer];
 }
