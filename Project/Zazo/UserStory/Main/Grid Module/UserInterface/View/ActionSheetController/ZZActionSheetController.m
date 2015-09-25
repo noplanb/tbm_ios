@@ -18,15 +18,13 @@
     UIActionSheet* actionSheet = [ZZActionSheetController _currentActionSheet];
     [actionSheet showInView:presentedView];
     
-    @weakify(actionSheet);
     [actionSheet.rac_buttonClickedSignal subscribeNext:^(NSNumber* x) {
         
-        @strongify(actionSheet);
-        if (x.integerValue != actionSheet.cancelButtonIndex)
+        if (x.integerValue != ZZEditMenuButtonTypeCancel)
         {
             if (completionBlock)
             {
-                completionBlock([ZZActionSheetController _selectedWithSelectedIndex:x]);
+                completionBlock([x integerValue]);
             }
         }
     }];
@@ -39,7 +37,9 @@
     
     
     UIActionSheet* actionSheet;
-    if ([ZZFeatureObserver sharedInstance].isDeleteFriendsEnabled)
+    
+
+    if (YES) // ([ZZFeatureObserver sharedInstance].isDeleteFriendsEnabled)
     {
         actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                   delegate:nil
@@ -63,9 +63,9 @@
 {
     ZZEditMenuButtonType type;
     
-    if ([ZZFeatureObserver sharedInstance].isDeleteFriendsEnabled)
+    if (YES) //([ZZFeatureObserver sharedInstance].isDeleteFriendsEnabled)
     {
-        type = selectedIndex.integerValue;
+        type = ZZEditMenuButtonTypeEditFriends;
     }
     else
     {

@@ -13,28 +13,29 @@ static NSString* const kDefaultIphone6Plus = @"LaunchImage-800-Portrait-736h@3x.
 static NSString* const kDefaultIphone5 = @"LaunchImage-700-568h";
 static NSString* const kDefaultIphone4 = @"LaunchImage-700";
 
-
 @implementation UIImage (ANDefault)
 
 + (UIImage*)an_defaultImage
 {
     UIImage* result;
-    if (IS_IPHONE_6)
-    {
-        result = [UIImage imageNamed:kDefaultIphone6];
-    }
-    else if (IS_IPHONE_6_PLUS)
-    {
-        result = [UIImage imageNamed:kDefaultIphone6Plus];
-    }
-    else if (IS_IPHONE_5)
-    {
-        result = [UIImage imageNamed:kDefaultIphone5];
-    }
-    else
-    {
-        result = [UIImage imageNamed:kDefaultIphone4];
-    }
+    
+        if (IS_IPHONE_6)
+        {
+            result = [UIImage imageNamed:kDefaultIphone6];
+        }
+        else if (IS_IPHONE_6_PLUS)
+        {
+            result = [UIImage imageNamed:kDefaultIphone6Plus];
+        }
+        else if (IS_IPHONE_5)
+        {
+            result = [UIImage imageNamed:kDefaultIphone5];
+        }
+        else
+        {
+            result = [UIImage imageNamed:kDefaultIphone4];
+        }
+    
     return result;
 }
 

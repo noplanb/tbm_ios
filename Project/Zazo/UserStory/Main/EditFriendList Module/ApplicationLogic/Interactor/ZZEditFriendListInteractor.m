@@ -11,6 +11,7 @@
 #import "ZZAddressBookDataProvider.h"
 #import "ZZFriendsTransportService.h"
 #import "FEMObjectDeserializer.h"
+#import "ZZFriendDataProvider.h"
 
 @interface ZZEditFriendListInteractor ()
 
@@ -28,7 +29,7 @@
                                                                                       usingMapping:[ZZFriendDomainModel mapping]];
         [self.output dataLoaded:[self sortArrayByFirstName:friendsArray]];
 
-    } error:^(NSError *error) {
+    } error:^(NSError* error) {
         
     }];
 }
@@ -36,7 +37,7 @@
 - (void)changeContactStatusTypeForFriend:(ZZFriendDomainModel *)friendModel
 {
     self.selectedFriendModel = friendModel;
-    BOOL visible;
+    BOOL visible = NO;
     
     if ([friendModel isCreator])
     {
@@ -99,8 +100,13 @@
         }
     }
     
+    
+    
     [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey toVisible:visible] subscribeNext:^(NSDictionary* response) {
+        
+        [ZZFriendDataProvider upsertFriendWithModel:self.selectedFriendModel];
         [self.output contactSuccessfullyUpdated:friendModel toVisibleState:visible];
+        
     } error:^(NSError *error) {
         
     }];

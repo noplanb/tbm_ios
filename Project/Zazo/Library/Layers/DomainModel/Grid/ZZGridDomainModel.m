@@ -7,6 +7,7 @@
 //
 
 #import "ZZGridDomainModel.h"
+#import "ZZGridUIConstants.h"
 
 const struct ZZGridDomainModelAttributes ZZGridDomainModelAttributes = {
     .itemID = @"itemID",
@@ -15,5 +16,10 @@ const struct ZZGridDomainModelAttributes ZZGridDomainModelAttributes = {
 };
 
 @implementation ZZGridDomainModel
+
+- (NSInteger)indexPathIndexForItem
+{
+    return kGridIndexFromFlowIndex(self.index);
+}
 
 @end

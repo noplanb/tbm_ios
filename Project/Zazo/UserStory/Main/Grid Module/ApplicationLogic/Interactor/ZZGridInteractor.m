@@ -56,19 +56,19 @@ static NSInteger const kGridFriendsCellCount = 8;
         {
             model = [ZZGridDomainModel new];
         }
-        model.index = @(kNextGridElementIndexFromCount(count));
+        model.index = count;
         if (friendArrayForSorting.count > count)
         {
             ZZFriendDomainModel *aFriend = friendArrayForSorting[count];
             model.relatedUser = aFriend;
         }
-
+        
         model = [ZZGridDataProvider upsertModel:model];
         [gridModels addObject:model];
     }
-    NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
-    NSArray* descriptorsArray = @[sort];
-    self.gridModels = [gridModels sortedArrayUsingDescriptors:descriptorsArray];
+    
+    NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:@"indexPathIndexForItem" ascending:YES];
+    self.gridModels = [gridModels sortedArrayUsingDescriptors:@[sort]];
     [self.output dataLoadedWithArray:self.gridModels];
 }
 
@@ -94,7 +94,8 @@ static NSInteger const kGridFriendsCellCount = 8;
 {
     [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel* gridModel, NSUInteger idx, BOOL *stop) {
         
-        if ([gridModel.relatedUser.idTbm isEqualToString:model.idTbm]) {
+        if ([gridModel.relatedUser isEqual:model])
+        {
             gridModel.relatedUser = nil;
             [self _upsertGridModel:gridModel];
             [self.output updateGridWithModel:gridModel];
@@ -169,7 +170,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     __block ZZGridDomainModel *modelThatContainCurrentFriend;
     
     [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel* obj, NSUInteger idx, BOOL *stop) {
-        if ([obj.relatedUser.mKey isEqualToString:friendModel.mKey])
+        if ([obj.relatedUser isEqual:friendModel])
         {
             modelThatContainCurrentFriend = obj;
             *stop = YES;
