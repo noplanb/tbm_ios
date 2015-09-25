@@ -285,9 +285,8 @@ static NSInteger const kGridFriendsCellCount = 8;
 {
     NSArray *sortingByLastAction = [NSArray arrayWithArray:self.gridModels];
     
-    [sortingByLastAction sortedArrayUsingComparator:^NSComparisonResult(ZZGridDomainModel* obj1, ZZGridDomainModel* obj2) {
-        return [obj1.relatedUser.lastActionTimestamp compare:obj2.relatedUser.lastActionTimestamp];
-    }];
+    NSSortDescriptor* secriptor = [NSSortDescriptor sortDescriptorWithKey:@"relatedUser.lastActionTimestamp" ascending:YES];
+    sortingByLastAction = [sortingByLastAction sortedArrayUsingDescriptors:@[secriptor]];
     
     return [sortingByLastAction firstObject];
 }

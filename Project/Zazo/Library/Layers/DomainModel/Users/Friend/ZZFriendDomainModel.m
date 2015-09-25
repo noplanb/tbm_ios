@@ -28,23 +28,30 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
 };
 
 @implementation ZZFriendDomainModel
-//        TODO:
-//        friend.timeOfLastAction = [NSDate date];
-//        friend.hasApp = servHasApp;
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        self.lastActionTimestamp = [NSDate date];
+    }
+    return self;
+}
 
 + (FEMObjectMapping*)mapping
 {
     return [FEMObjectMapping mappingForClass:[self class] configuration:^(FEMObjectMapping *mapping) {
         
         [mapping addAttributesFromDictionary:
-         @{ZZFriendDomainModelAttributes.firstName          : @"first_name",
-           ZZFriendDomainModelAttributes.lastName           : @"last_name",
-           ZZFriendDomainModelAttributes.mobileNumber       : @"mobile_number",
-           ZZBaseDomainModelAttributes.idTbm                : @"id",
-           ZZFriendDomainModelAttributes.mKey               : @"mkey",
-           ZZFriendDomainModelAttributes.cKey               : @"ckey",
-           ZZFriendDomainModelAttributes.connectionStatus   : @"connection_status",
-           ZZFriendDomainModelAttributes.connectionCreatorMkey : @"connection_creator_mkey"}];
+         @{ZZFriendDomainModelAttributes.firstName              : @"first_name",
+           ZZFriendDomainModelAttributes.lastName               : @"last_name",
+           ZZFriendDomainModelAttributes.mobileNumber           : @"mobile_number",
+           ZZBaseDomainModelAttributes.idTbm                    : @"id",
+           ZZFriendDomainModelAttributes.mKey                   : @"mkey",
+           ZZFriendDomainModelAttributes.cKey                   : @"ckey",
+           ZZFriendDomainModelAttributes.connectionStatus       : @"connection_status",
+           ZZFriendDomainModelAttributes.connectionCreatorMkey  : @"connection_creator_mkey"}];
         
         FEMAttribute* attribute = [FEMAttribute mappingOfProperty:ZZFriendDomainModelAttributes.hasApp
                                                         toKeyPath:@"has_app"
