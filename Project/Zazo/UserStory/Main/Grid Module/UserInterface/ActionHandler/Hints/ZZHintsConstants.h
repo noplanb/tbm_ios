@@ -11,6 +11,7 @@
 typedef NS_ENUM(NSInteger, ZZHintsType)
 {
     ZZHintsTypeSendZazo = 0,
+    ZZHintsTypeTapToPlay,
     ZZHintsTypePressAndHoldToRecord,
     ZZHintsTypeZazoSent,
     ZZHintsTypeGiftIsWaiting,
