@@ -196,6 +196,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     if (!ANIsEmpty(modelForDownloadAnimation))
     {
         [self.output updateGridWithDownloadAnimationModel:modelForDownloadAnimation];
+        
     }
 }
 
