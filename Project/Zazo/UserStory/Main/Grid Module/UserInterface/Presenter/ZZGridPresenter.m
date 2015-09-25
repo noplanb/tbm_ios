@@ -110,6 +110,10 @@ TBMTableModalDelegate
                                                  name:kNotificationIncomingCall
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(videoStartDownloadingNotification:)
+                                                 name:kVideoStartDownloadingNotification object:nil];
+    
 }
 
 - (void)dealloc
@@ -138,6 +142,20 @@ TBMTableModalDelegate
     
 }
 
+
+#pragma mark - Notifications
+
+- (void)videoStartDownloadingNotification:(NSNotification*)notification
+{
+    
+    if ([self.videoPlayer isPlaying])
+    {
+        [self.videoPlayer stop];
+    }
+    
+    [self.interactor showDownloadAniamtionForFriend:notification.object];
+}
+
 - (void)updateGridData:(NSNotification*)notification
 {
     [self.interactor handleNotificationForFriend:notification.object];
@@ -149,14 +167,38 @@ TBMTableModalDelegate
 {
     [self.dataSource updateDataSourceWithGridModelFromNotification:model
                                                withCompletionBlock:^(BOOL isNewVideoDownloaded) {
-       if (isNewVideoDownloaded)
-       {
-           CGFloat animationDelay = 1.8;
-           dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(animationDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-               [self.soundPlayer play];
-           });
-       }
+            if (isNewVideoDownloaded)
+            {
+                [self.soundPlayer play];
+            }
+
+     }];
+}
+
+- (void)updateGridWithDownloadAnimationModel:(ZZGridDomainModel*)model
+{
+    
+//    [self.dataSource updateDataSourceWithGridModelFromNotification:model
+//                                               withCompletionBlock:^(BOOL isNewVideoDownloaded) {
+//           if (isNewVideoDownloaded)
+//           {
+//               CGFloat animationDelay = 1.8;
+//               dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(animationDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                   [self.soundPlayer play];
+//               });
+//           }
+//    }];
+    
+    [self.dataSource updateDataSourceWithDownloadAnimationWithGridModel:model withCompletionBlock:^(BOOL isNewVideoDownloaded) {
+//        if (isNewVideoDownloaded)
+//        {
+//            CGFloat animationDelay = 1.8;
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(animationDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                [self.soundPlayer play];
+//            });
+//        }
     }];
+    
 }
 
 - (void)_updateFeatures

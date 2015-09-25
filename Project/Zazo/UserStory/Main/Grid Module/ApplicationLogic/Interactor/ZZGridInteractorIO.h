@@ -26,6 +26,8 @@
 - (void)handleNotificationForFriend:(TBMFriend*)friendEntity;
 
 - (void)loadFeedbackModel;
+- (void)showDownloadAniamtionForFriend:(TBMFriend*)friend;
+
 
 @end
 
