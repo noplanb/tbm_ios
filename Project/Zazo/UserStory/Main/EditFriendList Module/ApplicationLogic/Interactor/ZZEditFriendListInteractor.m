@@ -12,6 +12,7 @@
 #import "ZZFriendsTransportService.h"
 #import "FEMObjectDeserializer.h"
 #import "ZZFriendDataProvider.h"
+#import "ZZUserDataProvider.h"
 
 @interface ZZEditFriendListInteractor ()
 
@@ -27,6 +28,12 @@
         
         NSArray *friendsArray = [FEMObjectDeserializer deserializeCollectionExternalRepresentation:array
                                                                                       usingMapping:[ZZFriendDomainModel mapping]];
+        
+        [friendsArray enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friendObject, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            friendObject.isConnectionCreator = ![[ZZUserDataProvider authenticatedUser].mkey isEqualToString:friendObject.connectionCreatorMkey];
+        }];
+        
         [self.output dataLoaded:[self sortArrayByFirstName:friendsArray]];
 
     } error:^(NSError* error) {
@@ -99,8 +106,6 @@
             default: break;
         }
     }
-    
-    
     
     [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey toVisible:visible] subscribeNext:^(NSDictionary* response) {
         

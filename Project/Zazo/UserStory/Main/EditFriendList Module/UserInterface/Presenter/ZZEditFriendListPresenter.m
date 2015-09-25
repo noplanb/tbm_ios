@@ -53,8 +53,7 @@
     [self.tableDataSource updateViewModel:self.selectedViewModel];
     if (isVisible)
     {
-        // TODO: is it needed.
-        
+        [self.editFriendListModuleDelegate restoreFriendAtGrid:model];
     }
     else
     {

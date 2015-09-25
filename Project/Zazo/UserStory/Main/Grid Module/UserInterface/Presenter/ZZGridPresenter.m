@@ -678,6 +678,11 @@ TBMTableModalDelegate
     [self.interactor removeUserFromContacts:model];
 }
 
+- (void)restoreFriendAtGrid:(ZZFriendDomainModel*)model
+{
+    [self.interactor addUserToGrid:model];
+}
+
 
 #pragma mark - Video Recorder Delegate
 
