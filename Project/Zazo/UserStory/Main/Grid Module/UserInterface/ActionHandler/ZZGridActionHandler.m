@@ -11,6 +11,7 @@
 #import "ZZHintsController.h"
 #import "ZZHintsModelGenerator.h"
 #import "ZZHintsDomainModel.h"
+#import "ZZGridUIConstants.h"
 
 @interface ZZGridActionHandler ()
 
@@ -44,7 +45,7 @@
     [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeAbortRecording]];
     [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeEarpieceUsage]];
     [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeSpin]];
-//    self.hints = hints;
+    self.hints = hints;
 }
 
 
@@ -59,7 +60,7 @@
         }
     }];
 
-    if (!self.hint || (hint && self.hint.type != hint.type)) {
+    if ((!self.hint && hint) || (hint && self.hint.type != hint.type)) {
         [self _applyHint:hint];
     }
 }
@@ -81,8 +82,8 @@
 - (void)_showHint
 {
     NSUInteger gridIndex = [self _gridIndexForHintType:self.hint.type];
-    self.hint.arrowDirection = [ZZHintsDomainModel arrowDirectionForIndex:gridIndex];
-    CGRect focusFrame = [self.userInterface focusFrameForIndex:gridIndex];
+//    self.hint.arrowDirection = [ZZHintsDomainModel arrowDirectionForIndex:gridIndex];
+    CGRect focusFrame = [self.userInterface focusFrameForIndex:kHintGridIndexFromFlowIndex(gridIndex)];
     [self.hintsController showHintWithModel:self.hint forFocusFrame:focusFrame];
     [self.hint toggleStateTo:YES];
 }

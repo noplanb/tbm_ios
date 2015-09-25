@@ -131,7 +131,6 @@
 
 - (CGRect)focusFrameForIndex:(NSInteger)index
 {
-    
     NSIndexPath* indexPath = [NSIndexPath indexPathForItem:index inSection:0];
     
     UICollectionViewCell* cell = [self.gridView.collectionView cellForItemAtIndexPath:indexPath];
