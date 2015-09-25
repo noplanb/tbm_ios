@@ -166,7 +166,6 @@ TBMTableModalDelegate
 
 - (void)updateGridData:(NSNotification*)notification
 {
-    
     if (![self.videoPlayer isPlaying])
     {
         if (self.notificationFriend)
