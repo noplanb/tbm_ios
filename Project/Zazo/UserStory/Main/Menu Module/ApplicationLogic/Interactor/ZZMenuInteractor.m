@@ -72,7 +72,7 @@
     [array enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friend, NSUInteger idx, BOOL *stop) {
         
         //check if user is on grid - do not add him
-        if (!ANIsEmpty(friend.mKey) && ![gridUsers containsObject:friend])
+        if (![gridUsers containsObject:friend])
         {
             if (friend.hasApp)
             {
@@ -85,15 +85,9 @@
         }
     }];
     
-    if (friendsHasAppArray.count > 0)
-    {
-        [self.output friendsThatHasAppLoaded:[self _sortByFirstName:friendsHasAppArray]];
-    }
-    
-    if (otherFriendsArray.count > 0)
-    {
-        [self.output friendsDataLoaded:[self _sortByFirstName:otherFriendsArray]];
-    }
+    [self.output friendsThatHasAppLoaded:[self _sortByFirstName:friendsHasAppArray]];
+    [self.output friendsDataLoaded:[self _sortByFirstName:otherFriendsArray]];
+
 }
 
 
