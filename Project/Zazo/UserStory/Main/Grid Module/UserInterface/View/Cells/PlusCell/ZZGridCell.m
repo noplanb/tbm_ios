@@ -49,6 +49,7 @@
 - (void)updateWithModel:(ZZGridCellViewModel*)model
 {
     ANDispatchBlockToMainQueue(^{
+        
         self.model = model;
         
         if (self.model.isNeedToShowDownloadAnimation)
@@ -87,42 +88,37 @@
 
 - (void)updateStateViewWithModel:(ZZGridCellViewModel*)model
 {
-    
-        switch (model.state)
+    switch (model.state)
+    {
+        case ZZGridCellViewModelStateFriendHasApp:
         {
-            case ZZGridCellViewModelStateFriendHasApp:
-            {
-                self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self.contentView];
-                
-            } break;
-            case ZZGridCellViewModelStateFriendHasNoApp:
-            {
-                self.stateView = [[ZZGridStateViewNudge alloc] initWithPresentedView:self.contentView];
-                
-            } break;
-            case ZZGridCellViewModelStateIncomingVideoViewed:
-            case ZZGridCellViewModelStateIncomingVideoNotViewed:
-            case ZZGridCellViewModelStateOutgoingVideo:
-            {
-                self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self.contentView];
-                
-                
-            } break;
-            default:
-            {
-               [self.stateView removeFromSuperview];
-                
-            } break;
-        }
-    
+            self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self.contentView];
+            
+        } break;
+        case ZZGridCellViewModelStateFriendHasNoApp:
+        {
+            self.stateView = [[ZZGridStateViewNudge alloc] initWithPresentedView:self.contentView];
+            
+        } break;
+        case ZZGridCellViewModelStateIncomingVideoViewed:
+        case ZZGridCellViewModelStateIncomingVideoNotViewed:
+        case ZZGridCellViewModelStateOutgoingVideo:
+        {
+            self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self.contentView];
+            
+        } break;
+        default:
+        {
+            [self.stateView removeFromSuperview];
+            
+        } break;
+    }
     
     if (self.stateView)
     {
         [self.stateView updateWithModel:self.model];
     }
-    
 }
-
 
 
 #pragma mark - Record recognizer;
@@ -195,6 +191,7 @@
 - (void)hideAllAnimations
 {
     [self.stateView hideAllAnimationViews];
+    [self.model reloadDebugVideoStatus];
 }
 
 
@@ -207,6 +204,7 @@
         {
             [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
         }
+        [self.model reloadDebugVideoStatus];
     }];
 }
 

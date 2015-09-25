@@ -16,6 +16,9 @@
 #import "ZZFeatureObserver.h"
 #import "ZZThumbnailGenerator.h"
 #import "ZZVideoStatuses.h"
+#import "ZZStoredSettingsManager.h"
+#import "TBMFriend.h"
+#import "ZZFriendDataProvider.h"
 
 @interface ZZGridCellViewModel ()
 
@@ -37,10 +40,38 @@
     return self;
 }
 
+- (void)setUsernameLabel:(UILabel *)usernameLabel
+{
+    _usernameLabel = usernameLabel;
+    _usernameLabel.text = [self videoStatusString];
+}
+
+- (NSString*)videoStatusString
+{
+    if (YES)//([ZZStoredSettingsManager shared].debugModeEnabled) //TODO:
+    {
+        ZZFriendDomainModel* friendModel = self.item.relatedUser;
+        TBMFriend* friendEntity = [ZZFriendDataProvider entityFromModel:friendModel];
+        
+        return friendEntity.videoStatusString;
+    }
+    else
+    {
+        return [self firstName];
+    }
+}
+
+- (void)reloadDebugVideoStatus
+{
+    self.usernameLabel.text = [self videoStatusString];
+}
+
+
 - (void)updateRecordingStateTo:(BOOL)isRecording
            withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
     [self.delegate recordingStateUpdatedToState:isRecording viewModel:self withCompletionBlock:completionBlock];
+    [self reloadDebugVideoStatus];
 }
 
 //- (void)stopRecording
@@ -84,16 +115,19 @@
 //    }
     
     [self.delegate playingStateUpdatedToState:isPlaying viewModel:self];
+    [self reloadDebugVideoStatus];
 }
 
 - (void)nudgeSelected
 {
+    [self reloadDebugVideoStatus];
     [self.delegate nudgeSelectedWithUserModel:self.item.relatedUser];
 }
 
 - (void)togglePlayer
 {
     [self.videoPlayer toggle];
+    self.usernameLabel.text = [self videoStatusString];
 }
 
 - (NSString*)firstName
@@ -136,7 +170,6 @@
         _recordRecognizer =
         [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_recordPressed:)];
         _recordRecognizer.minimumPressDuration = 0.5;
-    
     }
     return _recordRecognizer;
 }
@@ -164,10 +197,11 @@
                {
                    self.hasUploadedVideo = YES;
                    [self.animationDelegate showUploadAnimation];
-                   
+                   self.usernameLabel.text = [self videoStatusString];
                }
             }];
         }
+    
 }
 
 - (void)_checkIsCancelRecordingWithRecognizer:(UILongPressGestureRecognizer*)recognizer
