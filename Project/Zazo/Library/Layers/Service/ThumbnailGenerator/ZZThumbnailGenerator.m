@@ -45,6 +45,10 @@
     {
         [self _copyToLastThumbWithVideo:video];
     }
+    else
+    {
+    
+    }
 }
 
 + (void)_copyToLastThumbWithVideo:(ZZVideoDomainModel*)video
@@ -69,6 +73,7 @@
 
 + (UIImage*)lastThumbImageForUser:(ZZFriendDomainModel*)friend
 {
+    
     UIImage* image = [UIImage imageWithContentsOfFile:[self lastThumbUrlForForUser:friend].path];
     return image;
 }
