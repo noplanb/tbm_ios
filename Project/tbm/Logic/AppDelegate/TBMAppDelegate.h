@@ -35,6 +35,7 @@ static NSString* const kNotificationSendMessage = @"sendMessageNotification";
 
 @property(nonatomic) BOOL pushAlreadyFailed;
 @property (nonatomic, strong) ZZSoundPlayer* zazoSoundPlayer;
+@property (nonatomic, strong) NSString* pushVideoId;
 
 //temp in public
 @property (nonatomic, strong) ZZAppDependencies* appDependencies;

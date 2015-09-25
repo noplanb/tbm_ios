@@ -13,6 +13,8 @@
 
 static NSString* const kFriendChangeNotification = @"friendChangeNotification";
 static NSString* const kFriendVideoViewedNotification = @"videoViewedNotification";
+static NSString* const kVideoStartDownloadingNotification = @"videoStartDownloadingNotification";
+
 
 @protocol TBMVideoStatusNotificationProtocol <NSObject>
 - (void)videoStatusDidChange:(TBMFriend *)friend;

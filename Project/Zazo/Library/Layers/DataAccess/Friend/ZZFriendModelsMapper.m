@@ -73,6 +73,7 @@
         
         model.unviewedCount = [entity unviewedCount];
         model.outgoingVideoStatusValue = entity.outgoingVideoStatusValue;
+        model.hasOutgoingVideo = entity.hasOutgoingVideo;
     }
     @catch (NSException *exception)
     {

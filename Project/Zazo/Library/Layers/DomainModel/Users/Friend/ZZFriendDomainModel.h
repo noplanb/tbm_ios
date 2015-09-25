@@ -47,6 +47,7 @@ extern const struct ZZFriendDomainModelAttributes {
 
 @property (nonatomic, copy) NSString* outgoingVideoItemID;
 @property (nonatomic, assign) NSInteger outgoingVideoStatus;
+@property (nonatomic, assign) BOOL hasOutgoingVideo;
 
 @property (nonatomic, assign, getter=isHasApp) BOOL hasApp;
 

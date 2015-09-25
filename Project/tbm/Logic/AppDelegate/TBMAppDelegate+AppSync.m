@@ -137,6 +137,12 @@
 
     NSString *marker = [TBMVideoIdUtils markerWithFriend:friend videoId:videoId isUpload:NO];
     NSString *remoteFilename = [TBMRemoteStorageHandler incomingVideoRemoteFilename:video];
+    
+    
+    if(!ANIsEmpty(self.pushVideoId) && [videoId isEqualToString:self.pushVideoId])
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kVideoStartDownloadingNotification object:friend];
+    }
     [[self fileTransferManager] downloadFile:[TBMRemoteStorageHandler fileTransferDownloadPath]
                                           to:[video videoPath]
                                   withMarker:marker
@@ -456,29 +462,15 @@
     }
 
     ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:video];
-    [ZZThumbnailGenerator generateThumbVideo:videoModel];
-    
     NSURL* videoUrl = videoModel.videoURL;
     
-    if ([ZZFileHelper isFileExistsAtURL:videoUrl])
-    {
-        NSLog(@"exist");
-    }
-    else
-    {
-        NSLog(@"not exist")
-    }
+//    if ([ZZFileHelper isMediaFileCorruptedWithFileUrl:videoUrl])
+//    {
+//        [ZZFileHelper deleteFileWithURL:videoUrl];
+//        return;
+//    }
     
-    
-    if ([ZZFileHelper isFileValidWithFileURL:videoUrl])
-    {
-        NSLog(@"valid file");
-    }
-    else
-    {
-        NSLog(@"not valid");
-    }
-    
+    [ZZThumbnailGenerator generateThumbVideo:videoModel];
     [friend deleteAllViewedOrFailedVideos];
     [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_DOWNLOADED video:video];
     [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_DOWNLOADED videoId:videoId friend:friend];

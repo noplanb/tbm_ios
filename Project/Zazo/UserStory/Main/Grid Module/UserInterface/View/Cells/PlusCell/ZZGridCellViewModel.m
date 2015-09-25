@@ -51,8 +51,11 @@
 
 - (ZZGridCellViewModelState)state
 {
-    
-    if (!self.item.relatedUser)
+    if (self.item.relatedUser.hasApp && self.hasDownloadedVideo)
+    {
+        return ZZGridCellViewModelStateIncomingVideoNotViewed;
+    }
+    else if (!self.item.relatedUser)
     {
         return ZZGridCellViewModelStateAdd;
     }

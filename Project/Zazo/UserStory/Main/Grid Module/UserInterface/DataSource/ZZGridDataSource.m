@@ -1,3 +1,4 @@
+
 //
 //  ZZGridDataSource.m
 //  Zazo
@@ -59,7 +60,9 @@ ZZGridCenterCellViewModelDelegate
                 if ([cellModel.item.index isEqualToNumber:gridModel.index])
                 {
                     cellModel.item = gridModel;
-                    cellModel.hasUploadedVideo = [gridModel.relatedUser hasIncomingVideo];
+                    
+                    cellModel.hasDownloadedVideo = [gridModel.relatedUser hasIncomingVideo];
+                    cellModel.hasUploadedVideo = [gridModel.relatedUser hasOutgoingVideo];//[gridModel.relatedUser hasIncomingVideo];
                     
                     cellModel.isUploadedVideoViewed = (gridModel.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
                     
@@ -87,6 +90,36 @@ ZZGridCenterCellViewModelDelegate
     }
 }
 
+- (void)updateDataSourceWithDownloadAnimationWithGridModel:(ZZGridDomainModel*)gridModel
+                                  withCompletionBlock:(void(^)(BOOL isNewVideoDownloaded))completionBlock
+{
+    if (!ANIsEmpty(gridModel))
+    {
+        ANSectionModel* section = [self.storage.sections firstObject];
+        NSArray* cellModels = [section.objects copy];
+        __block ZZGridCellViewModel* cellModel;
+        [cellModels enumerateObjectsUsingBlock:^(id model, NSUInteger idx, BOOL *stop) {
+            if ([model isKindOfClass:[ZZGridCellViewModel class]])
+            {
+                cellModel = model;
+                if ([cellModel.item.index isEqualToNumber:gridModel.index])
+                {
+                    cellModel.isNeedToShowDownloadAnimation = YES;
+                    
+                    ANDispatchBlockToMainQueue(^{
+                        [self.storage reloadItem:cellModel];
+                        if (completionBlock)
+                        {
+                            completionBlock(YES);
+                        }
+                    });
+                    *stop = YES;
+                }
+            }
+        }];
+    }
+}
+
 - (void)setupWithModels:(NSArray *)models completion:(ANCodeBlock)completion
 {
     models = [[models.rac_sequence map:^id(ZZGridDomainModel* value) {
@@ -94,8 +127,8 @@ ZZGridCenterCellViewModelDelegate
         ZZGridCellViewModel* viewModel = [ZZGridCellViewModel new];
         viewModel.item = value;
         viewModel.delegate = self;
-        
-        viewModel.hasUploadedVideo = [value.relatedUser hasIncomingVideo];
+        viewModel.hasDownloadedVideo = [value.relatedUser hasIncomingVideo];
+        viewModel.hasUploadedVideo = [value.relatedUser hasOutgoingVideo];//[value.relatedUser hasIncomingVideo];
         viewModel.isUploadedVideoViewed = (value.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
         
         if (value.relatedUser.unviewedCount > 0)
