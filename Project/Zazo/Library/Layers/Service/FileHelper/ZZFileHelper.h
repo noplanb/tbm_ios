@@ -21,4 +21,9 @@
 + (NSURL*)fileURLInDocumentsDirectoryWithName:(NSString*)fileName;
 + (void)deleteFileWithURL:(NSURL*)fileURL;
 
+
+#pragma mark - Media File
+
++ (BOOL)isMediaFileCorruptedWithFileUrl:(NSURL*)fileUrl;
+
 @end

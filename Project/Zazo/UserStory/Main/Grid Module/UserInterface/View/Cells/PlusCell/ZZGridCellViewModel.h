@@ -46,8 +46,8 @@ typedef NS_ENUM(NSInteger, ZZGridCellViewModelState)
 @property (nonatomic, strong) UIView* playerContainerView;
 @property (nonatomic, assign) BOOL hasUploadedVideo;
 @property (nonatomic, assign) BOOL isUploadedVideoViewed;
-
-
+@property (nonatomic, assign) BOOL isNeedToShowDownloadAnimation;
+@property (nonatomic, assign) BOOL hasDownloadedVideo;
 - (void)updateRecordingStateTo:(BOOL)isRecording
            withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock;
 

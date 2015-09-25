@@ -18,6 +18,7 @@
 #import "TBMFriend.h"
 #import "TBMRemoteStorageHandler.h"
 #import "iToast.h"
+#import "ZZFriendDomainModel.h"
 
 @interface ZZVideoPlayer ()
 
@@ -99,6 +100,8 @@
         
         TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
         viewedVideo.status = @(INCOMING_VIDEO_STATUS_VIEWED);
+        playedVideoModel.relatedUser.unviewedCount--;
+        
         [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
         self.moviePlayerController.contentURL = firstVideoUrl;
        
@@ -186,6 +189,8 @@
         ZZVideoDomainModel* playedVideoModel = self.videoModelsArray[index];
         TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
         viewedVideo.status = @(INCOMING_VIDEO_STATUS_VIEWED);
+        playedVideoModel.relatedUser.unviewedCount--;
+        
         [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
         
         [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL];

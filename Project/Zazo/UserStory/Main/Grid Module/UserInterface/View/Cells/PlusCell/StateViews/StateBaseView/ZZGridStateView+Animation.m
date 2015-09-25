@@ -86,21 +86,24 @@
 
 - (void)_showDownloadAnimationWithCompletionBlock:(void (^)())completionBlock
 {
-    [self _hideAllAnimationViews];
-    
-    CGFloat animValue = CGRectGetWidth(self.presentedView.frame) - [self _indicatorCalculatedWidth];
-    self.rightDownloadIndicatorConstraint.offset = 0.0;
-    [self _showDownloadViews];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [ANAnimator animateConstraint:self.rightDownloadIndicatorConstraint newOffset:-animValue key:@"download" delay:1.6 bouncingRate:0];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (completionBlock)
-            {
-                [self _hideDownloadViews];
-                completionBlock();
-            }
-            
+    ANDispatchBlockToMainQueue(^{
+        [self _hideAllAnimationViews];
+        
+        CGFloat animValue = CGRectGetWidth(self.presentedView.frame) - [self _indicatorCalculatedWidth];
+        self.rightDownloadIndicatorConstraint.offset = 0.0;
+        [self _showDownloadViews];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self layoutIfNeeded];
+            [ANAnimator animateConstraint:self.rightDownloadIndicatorConstraint newOffset:-animValue key:@"download" delay:1.6 bouncingRate:0];
+            [self layoutIfNeeded];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                if (completionBlock)
+                {
+                    //                [self _hideDownloadViews];
+                    completionBlock();
+                }
+                
+            });
         });
     });
 }

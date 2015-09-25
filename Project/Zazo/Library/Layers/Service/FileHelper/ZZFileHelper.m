@@ -6,7 +6,10 @@
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
+@import MediaPlayer;
+
 #import "ZZFileHelper.h"
+
 
 @implementation ZZFileHelper
 
@@ -68,5 +71,21 @@
 }
 
 
++ (BOOL)isMediaFileCorruptedWithFileUrl:(NSURL*)fileUrl
+{
+    
+    BOOL isFileCorrupted = YES;
+    MPMoviePlayerViewController* playerController = [[MPMoviePlayerViewController alloc] initWithContentURL:fileUrl];
+    MPMoviePlayerController* player = [playerController moviePlayer];
+    player.movieSourceType = MPMovieSourceTypeFile;
+    [player prepareToPlay];
+    
+    if (player.loadState == MPMovieLoadStatePlayable)
+    {
+        isFileCorrupted = NO;
+    }
+    
+    return isFileCorrupted;
+}
 
 @end
