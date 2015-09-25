@@ -107,8 +107,6 @@
         }
     }
     
-    
-    
     [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey toVisible:visible] subscribeNext:^(NSDictionary* response) {
         
         [ZZFriendDataProvider upsertFriendWithModel:self.selectedFriendModel];
