@@ -34,6 +34,10 @@
 
 @property (nonatomic) id <TBMVideoRecorderDelegate> delegate;
 @property (nonatomic, assign) AVCaptureDevicePosition device;
+@property (nonatomic, strong) AVCaptureSession *captureSession;
+@property (nonatomic, strong) AVCaptureInput *videoInput;
+@property (nonatomic, strong) AVCaptureInput *audioInput;
+@property (nonatomic, strong) AVCaptureMovieFileOutput *captureOutput;
 
 - (void)setupCaptureSessionView:(UIView*)view;
 - (void)startRunning;
@@ -41,5 +45,5 @@
 - (void)stopRecording;
 - (BOOL)cancelRecording;
 - (BOOL)isRecording;
-
+- (void)initVideoInput;
 @end

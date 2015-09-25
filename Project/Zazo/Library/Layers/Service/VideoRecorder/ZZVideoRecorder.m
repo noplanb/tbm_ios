@@ -179,9 +179,71 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     if ([self areBothCamerasAvailable])
     {
         BOOL isFrontCamera = (self.recorder.device == AVCaptureDevicePositionFront);
-        AVCaptureDevicePosition camera = isFrontCamera ? AVCaptureDevicePositionBack : AVCaptureDevicePositionFront;
-        self.recorder.device = camera;
+        if (isFrontCamera)
+        {
+            [self _switchToBackCamera];
+        }
+        else
+        {
+            [self _switchToFrontCamera];
+        }
+//        AVCaptureDevicePosition camera = isFrontCamera ? AVCaptureDevicePositionBack : AVCaptureDevicePositionFront;
+//        self.recorder.device = camera;
     }
+}
+
+- (void)_switchToBackCamera
+{
+    NSError *error;
+    self.recorder.videoInput = [ZZDeviceHandler getAvailableBackVideoInputWithError:&error];
+    if (error)
+    {
+        // TODO:
+    }
+    [self.recorder.captureSession beginConfiguration];
+    for (AVCaptureInput* input in self.recorder.captureSession.inputs)
+    {
+        [self.recorder.captureSession removeInput:input];
+    }
+    
+    [self.recorder.captureSession addInput:self.recorder.videoInput];
+    
+    [self.recorder.captureSession commitConfiguration];
+    [self _initAudioInput];
+}
+
+- (void)_switchToFrontCamera
+{
+//    [self.recorder initVideoInput];
+    
+    NSError *error;
+    self.recorder.videoInput = [ZZDeviceHandler getAvailableFrontVideoInputWithError:&error];
+    if (error)
+    {
+        // TODO:
+    }
+    [self.recorder.captureSession beginConfiguration];
+    for (AVCaptureInput* input in self.recorder.captureSession.inputs)
+    {
+        [self.recorder.captureSession removeInput:input];
+    }
+    
+    [self.recorder.captureSession addInput:self.recorder.videoInput];
+    
+    [self.recorder.captureSession commitConfiguration];
+    [self _initAudioInput];
+}
+
+
+- (void)_initAudioInput
+{
+    NSError *error;
+    self.recorder.audioInput = [ZZDeviceHandler getAudioInputWithError:&error];
+    if (error)
+    {
+        //TODO:
+    }
+    [self.recorder.captureSession addInput:self.recorder.audioInput];
 }
 
 
@@ -271,12 +333,16 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidCancelRecording
                                                             object:self
                                                           userInfo:@{@"videoUrl": outputFileURL}];
+        
+        [self _recordingResultSuccess:NO];
+  
         abort = YES;
     }
     else if (error != nil)
     {
         NSError *newError = [NSError errorWithError:error reason:@"Problem recording video"];
         [self handleError:newError];
+         [self _recordingResultSuccess:NO];
         abort = YES;
     }
     else if ([self videoTooShort:outputFileURL])
@@ -284,6 +350,20 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         OB_INFO(@"VideoRecorder#videoTooShort aborting");
         NSError *error = [self videoRecorderError:@"Video too short" reason:@"Too short"];
         [self handleError:error dispatch:NO];
+        
+        
+        [self _recordingResultSuccess:NO];
+        
+        if (self.didCancelRecording)
+        {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kDelayBeforeNextMessage * 2)  * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self showMessage:NSLocalizedString(@"record-video-too-short", nil)];
+            });
+        }
+        else
+        {
+            [self showMessage:NSLocalizedString(@"record-video-too-short", nil)];
+        }
         abort = YES;
     }
     
@@ -296,6 +376,9 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     OB_INFO(@"didFinishRecording success friend:%@ videoId:%@",
             [TBMVideoIdUtils friendWithOutgoingVideoUrl:outputFileURL].firstName,
             [TBMVideoIdUtils videoIdWithOutgoingVideoUrl:outputFileURL]);
+    
+    
+     [self _recordingResultSuccess:YES];
     
     [[[TBMVideoProcessor alloc] init] processVideoWithUrl:outputFileURL];
 }
@@ -322,14 +405,6 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
                                                       userInfo:@{@"error":error}];
 }
 
-
-
-
-
-
-
-
-
 - (void)videoRecordDidFailNotification:(NSNotification *)notification
 {
     NSError *error = (NSError *) notification.userInfo[@"error"];
@@ -348,10 +423,6 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 {
     [[iToast makeText:@"Not sent"] show];
 }
-
-
-
-
 
 
 //
@@ -377,7 +448,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 //            if ([self isVideoShort:url])
 //            {
 //                [self _recordingResultSuccess:NO];
-//                
+//
 //                if (self.didCancelRecording)
 //                {
 //                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kDelayBeforeNextMessage * 2)  * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -427,13 +498,13 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 //    }];
 //}
 
-//- (void)_recordingResultSuccess:(BOOL)result
-//{
-//    if (self.completionBlock)
-//    {
-//        self.completionBlock(result);
-//    }
-//}
+- (void)_recordingResultSuccess:(BOOL)result
+{
+    if (self.completionBlock)
+    {
+        self.completionBlock(result);
+    }
+}
 
 //- (void)handleError:(NSError*)error dispatch:(BOOL)dispatch
 //{

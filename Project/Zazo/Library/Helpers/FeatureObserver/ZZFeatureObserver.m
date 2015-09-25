@@ -83,16 +83,16 @@ typedef NS_ENUM(NSInteger, ZZFeatureTypeInvited)
 
 - (BOOL)isBothCameraEnabled
 {
-    BOOL isEnabled;
+    BOOL isEnabled = YES;
 
-    if (self.isInvitedUser)
-    {
-        isEnabled = ([self.unlockedFeatureType integerValue] >= ZZFeatureTypeInvitedBothCamera);
-    }
-    else
-    {
-        isEnabled = ([self.unlockedFeatureType integerValue] >= ZZFeatureTypeUninvitedBothCamera);
-    }
+//    if (self.isInvitedUser)
+//    {
+//        isEnabled = ([self.unlockedFeatureType integerValue] >= ZZFeatureTypeInvitedBothCamera);
+//    }
+//    else
+//    {
+//        isEnabled = ([self.unlockedFeatureType integerValue] >= ZZFeatureTypeUninvitedBothCamera);
+//    }
     
     return isEnabled;
 }
