@@ -127,6 +127,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         [self.recorder startRunning];
         if (self.didCancelRecording)
         {
+            self.didCancelRecording = NO;
             [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
         }
     }

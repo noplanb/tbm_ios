@@ -43,7 +43,7 @@ static CGFloat const kThumbnailBorderWidth = 2;
         if (!thumbImage)
         {
             self.thumbnailImageView.contentMode = UIViewContentModeCenter;
-            CGSize size = CGSizeMake(15, 15);
+            CGSize size = CGSizeMake(20, 20);
             thumbImage = [UIImage imageWithPDFNamed:@"contacts-placeholder" atSize:size];
         }
         else
