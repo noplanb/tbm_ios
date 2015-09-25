@@ -26,6 +26,8 @@
 - (void)handleNotificationForFriend:(TBMFriend*)friendEntity;
 
 - (void)loadFeedbackModel;
+- (void)showDownloadAniamtionForFriend:(TBMFriend*)friend;
+
 
 @end
 
@@ -48,5 +50,5 @@
 
 - (void)loadedStateUpdatedTo:(BOOL)isLoading;
 - (void)addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel*)contact;
-
+- (void)updateGridWithDownloadAnimationModel:(ZZGridDomainModel*)model;
 @end

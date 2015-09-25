@@ -184,7 +184,22 @@ static NSInteger const kGridFriendsCellCount = 8;
     [self.output feedbackModelLoadedSuccessfully:[ZZCommonModelsGenerator feedbackModelWithUser:user]];
 }
 
-
+- (void)showDownloadAniamtionForFriend:(TBMFriend *)friend
+{
+    __block ZZGridDomainModel* modelForDownloadAnimation = nil;
+    [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel*  obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.relatedUser.mKey isEqualToString:friend.mkey])
+        {
+            modelForDownloadAnimation = obj;
+            *stop = YES;
+        }
+    }];
+    if (!ANIsEmpty(modelForDownloadAnimation))
+    {
+        [self.output updateGridWithDownloadAnimationModel:modelForDownloadAnimation];
+        
+    }
+}
 
 #pragma mark - Private
 

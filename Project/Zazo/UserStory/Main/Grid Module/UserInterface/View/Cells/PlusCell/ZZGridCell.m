@@ -50,25 +50,38 @@
 {
     ANDispatchBlockToMainQueue(^{
         self.model = model;
+        
+        if (self.model.isNeedToShowDownloadAnimation)
+        {
+            [self updateStateViewWithModel:model];
+            [self showDownloadAnimationWithCompletionBlock:^{
+                self.model.isNeedToShowDownloadAnimation = NO;
+            }];
+        }
+        
         if ([self.model.badgeNumber integerValue] > 0)
         {
-            if (self.model.prevBadgeNumber == self.model.badgeNumber)
+            if (self.model.prevBadgeNumber != self.model.badgeNumber)
             {
                 [self updateStateViewWithModel:self.model];
+                
                 [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
             }
-            else
-            {
-                [self updateStateViewWithModel:model];
-                [self showDownloadAnimationWithCompletionBlock:^{
-                    [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
-                    self.model.prevBadgeNumber = self.model.badgeNumber;
-                }];
-            }
+//            else
+//            {
+//                [self updateStateViewWithModel:model];
+//                [self showDownloadAnimationWithCompletionBlock:^{
+//                    [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
+//                    self.model.prevBadgeNumber = self.model.badgeNumber;
+//                }];
+//            }
         }
         else
         {
-            [self updateStateViewWithModel:model];
+            if (!self.model.isNeedToShowDownloadAnimation)
+            {
+                [self updateStateViewWithModel:model];
+            }
         }
         [self _setupRecordRecognizerWithModel:model];
     });
@@ -76,38 +89,40 @@
 
 - (void)updateStateViewWithModel:(ZZGridCellViewModel*)model
 {
-    switch (model.state)
-    {
-        case ZZGridCellViewModelStateFriendHasApp:
+    
+        switch (model.state)
         {
-            self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self.contentView];
-            
-        } break;
-        case ZZGridCellViewModelStateFriendHasNoApp:
-        {
-            self.stateView = [[ZZGridStateViewNudge alloc] initWithPresentedView:self.contentView];
-            
-        } break;
-        case ZZGridCellViewModelStateIncomingVideoViewed:
-        case ZZGridCellViewModelStateIncomingVideoNotViewed:
-        case ZZGridCellViewModelStateOutgoingVideo:
-        {
-            self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self.contentView];
-            
-            
-        } break;
-        default:
-        {
-            [self.stateView removeFromSuperview];
-            
-        } break;
-    }
+            case ZZGridCellViewModelStateFriendHasApp:
+            {
+                self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self.contentView];
+                
+            } break;
+            case ZZGridCellViewModelStateFriendHasNoApp:
+            {
+                self.stateView = [[ZZGridStateViewNudge alloc] initWithPresentedView:self.contentView];
+                
+            } break;
+            case ZZGridCellViewModelStateIncomingVideoViewed:
+            case ZZGridCellViewModelStateIncomingVideoNotViewed:
+            case ZZGridCellViewModelStateOutgoingVideo:
+            {
+                self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self.contentView];
+                
+                
+            } break;
+            default:
+            {
+               [self.stateView removeFromSuperview];
+                
+            } break;
+        }
+    
     
     if (self.stateView)
     {
         [self.stateView updateWithModel:self.model];
     }
-
+    
 }
 
 
