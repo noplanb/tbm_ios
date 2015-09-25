@@ -69,7 +69,8 @@
 
 + (UIImage*)lastThumbImageForUser:(ZZFriendDomainModel*)friend
 {
-    return [UIImage imageWithContentsOfFile:[self lastThumbUrlForForUser:friend].path];
+    UIImage* image = [UIImage imageWithContentsOfFile:[self lastThumbUrlForForUser:friend].path];
+    return image;
 }
 
 + (BOOL)hasLastThumbForUser:(ZZFriendDomainModel*)friend

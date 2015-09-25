@@ -26,10 +26,7 @@ static int videoRecorderRetryCount = 0;
 @interface TBMVideoRecorder () <AVCaptureFileOutputRecordingDelegate>
 
 @property (nonatomic) dispatch_queue_t sessionQueue;
-@property (nonatomic, strong) AVCaptureSession *captureSession;
-@property (nonatomic, strong) AVCaptureInput *videoInput;
-@property (nonatomic, strong) AVCaptureInput *audioInput;
-@property (nonatomic, strong) AVCaptureMovieFileOutput *captureOutput;
+
 
 @property (nonatomic, assign) BOOL didCancelRecording;
 
