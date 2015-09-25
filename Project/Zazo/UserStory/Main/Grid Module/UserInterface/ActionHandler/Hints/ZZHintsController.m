@@ -38,12 +38,15 @@
     [self.hintsView updateWithHintsViewModel:viewModel];
 }
 
+
 #pragma mark - Private
+
 - (void)_destroyHintView
 {
     [self.hintsView removeFromSuperview];
     self.hintsView = nil;
 }
+
 
 #pragma mark - Lazy Load
 
