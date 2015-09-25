@@ -16,4 +16,31 @@
     [ZZGridActionDataProvider saveHintState:state forHintType:self.type];
 }
 
++ (ZZArrowDirection)arrowDirectionForIndex:(NSInteger)index
+{
+    ZZArrowDirection direction;
+
+    switch (index)
+    {
+        case 0:
+        case 1:
+        case 8:
+            direction = ZZArrowDirectionRight;
+            break;
+
+        case 2:
+        case 3:
+        case 6:
+        case 7:
+            direction = ZZArrowDirectionLeft;
+            break;
+
+        default:
+            direction = ZZArrowDirectionRight;
+            break;
+    }
+
+    return direction;
+}
+
 @end

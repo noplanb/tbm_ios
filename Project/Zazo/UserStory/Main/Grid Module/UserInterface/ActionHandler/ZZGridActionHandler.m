@@ -8,10 +8,7 @@
 
 #import "ZZGridActionHandler.h"
 #import "ZZGridActionDataProvider.h"
-#import "ZZToastMessageBuilder.h"
 #import "ZZHintsController.h"
-#import "ZZHintsConstants.h"
-#import "ZZGridUIConstants.h"
 #import "ZZHintsModelGenerator.h"
 #import "ZZHintsDomainModel.h"
 
@@ -63,25 +60,58 @@
     }];
 
     if (hint && ![self.hint isEqual:hint]) {
-        [self showHint:hint];
+        [self _applyHint:hint];
     }
 }
 
-- (void)showHint:(ZZHintsDomainModel*)hint
+- (void)_applyHint:(ZZHintsDomainModel*)hint
 {
-
-
-    // text becomes from model with type play or record
-
     ZZHintsDomainModel* currentHint = self.hintsController.hintModel;
 
     if (!currentHint) {
         self.hint = hint;
         [self.hint toggleStateTo:YES];
-        [self.hintsController showHintWithModel:hint];
-        return;
     }
 
+    [self _checkPlayAndRecordHintsForAppend:currentHint];
+
+    [self _showHint];
+
+}
+
+- (void)_showHint
+{
+    NSUInteger gridIndex = [self _gridIndexForHintType:self.hint.type];
+    self.hint.arrowDirection = [ZZHintsDomainModel arrowDirectionForIndex:gridIndex];
+    CGRect focusFrame = [self.userInterface focusFrameForIndex:gridIndex];
+    [self.hintsController showHintWithModel:self.hint forFocusFrame:focusFrame];
+}
+
+- (NSUInteger)_gridIndexForHintType:(ZZHintsType)hintType
+{
+    switch (hintType)
+    {
+        case ZZHintsTypePressAndHoldToRecord:
+        case ZZHintsTypeSendZazo:
+        case ZZHintsTypeZazoSent:
+        case ZZHintsTypeGiftIsWaiting:
+        case ZZHintsTypeTapToSwitchCamera:
+        case ZZHintsTypeWelcomeNudgeUser:
+        case ZZHintsTypeWelcomeFor:
+        case ZZHintsTypeAbortRecording:
+        case ZZHintsTypeEditFriends:
+        case ZZHintsTypeEarpieceUsage:
+        case ZZHintsTypeSpin:
+            return 0;
+            break;
+        default:
+            return 0;
+            break;
+    }
+}
+
+- (void)_checkPlayAndRecordHintsForAppend:(ZZHintsDomainModel*)currentHint
+{
     ZZHintsDomainModel* recordHint = [self _hintWithType:ZZHintsTypePressAndHoldToRecord];
     ZZHintsDomainModel* playHint = [self _hintWithType:ZZHintsTypeTapToPlay];
     ZZHintsDomainModel* hintForAppend;
@@ -98,8 +128,9 @@
         currentHint.title = [NSString stringWithFormat:@"%@\n%@",currentHint.title,hintForAppend.title];
         [hintForAppend toggleStateTo:YES];
     }
-
 }
+
+
 
 - (void)welcomeZazoSentSuccessfully // welcome zazo - message to user that we invited, and no other messages from this friend was not received
 {
@@ -173,7 +204,7 @@
         if (obj.type == hintType)
         {
             hint = obj;
-            stop = YES;
+            *stop = YES;
         }
     }];
     return hint;

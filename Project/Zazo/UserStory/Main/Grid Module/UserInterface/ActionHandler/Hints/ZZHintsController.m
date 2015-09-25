@@ -8,7 +8,6 @@
 
 #import "ZZHintsController.h"
 #import "ZZHintsView.h"
-#import "ZZHintsModelGenerator.h"
 #import "ZZHintsViewModel.h"
 #import "ZZHintsDomainModel.h"
 
@@ -30,11 +29,20 @@
     return self;
 }
 
-- (void)showHintWithModel:(ZZHintsDomainModel*)model
+- (void)showHintWithModel:(ZZHintsDomainModel*)model forFocusFrame:(CGRect)focusFrame
 {
     ZZHintsViewModel* viewModel = [ZZHintsViewModel viewModelWithItem:model];
+    [viewModel updateFocusFrame:focusFrame];
     self.hintModel = model;
-    [self.hintsView updateWithHintsViewModel:viewModel];
+    [self _destroyHintView];
+    [self.hintsView updateWithHintsViewModel:viewModel andFocusOnFrame:focusFrame];
+}
+
+#pragma mark - Private
+- (void)_destroyHintView
+{
+    [self.hintsView removeFromSuperview];
+    self.hintsView = nil;
 }
 
 #pragma mark - Lazy Load

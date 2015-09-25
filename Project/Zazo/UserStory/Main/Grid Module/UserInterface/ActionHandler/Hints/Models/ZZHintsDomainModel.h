@@ -29,4 +29,5 @@ typedef BOOL (^HintCondition)(ZZGridActionEventType event);
 
 //State
 - (void)toggleStateTo:(BOOL)state;
++ (ZZArrowDirection)arrowDirectionForIndex:(NSInteger)index;
 @end

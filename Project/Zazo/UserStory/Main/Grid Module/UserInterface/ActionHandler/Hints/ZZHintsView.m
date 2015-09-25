@@ -33,10 +33,12 @@
     return self;
 }
 
-- (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel
+
+- (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel andFocusOnFrame:(CGRect)focusFrame
 {
+
     [self showFocusOnFrame:[viewModel focusFrame]];
-    
+
     TBMHintArrow *hintView = [TBMHintArrow arrowWithText:[viewModel text]
                                                curveKind:(NSInteger)[viewModel arrowDirection]
                                               arrowPoint:[viewModel generateArrowFocusPoint]
@@ -44,8 +46,8 @@
                                                   hidden:[viewModel hidesArrow]
                                                    frame:[UIScreen mainScreen].bounds];
     [self addSubview:hintView];
-    
-    
+
+
     if ([viewModel bottomImageType] != ZZHintsBottomImageTypeNone)
     {
         self.currentBottomImageType = [viewModel bottomImageType];
@@ -53,20 +55,21 @@
     }
 }
 
-- (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel andIndex:(NSInteger)index
-{
-    [self showFocusOnFrame:[viewModel focusFrame]];
-    
-    TBMHintArrow *hintView = [TBMHintArrow arrowWithText:[viewModel text]
-                                               curveKind:(NSInteger)[viewModel arrowDirectionForIndex:index]
-                                              arrowPoint:[viewModel generateArrowFocusPointForIndex:index]
-                                                   angle:[viewModel arrowAngleForIndex:index]
-                                                  hidden:[viewModel hidesArrow]
-                                                   frame:[UIScreen mainScreen].bounds];
-    [self addSubview:hintView];
-    
-    
-}
+
+//- (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel andIndex:(NSInteger)index
+//{
+//    [self showFocusOnFrame:[viewModel focusFrame]];
+//
+//    TBMHintArrow *hintView = [TBMHintArrow arrowWithText:[viewModel text]
+//                                               curveKind:(NSInteger)[viewModel arrowDirectionForIndex:index]
+//                                              arrowPoint:[viewModel generateArrowFocusPointForIndex:index]
+//                                                   angle:[viewModel arrowAngleForIndex:index]
+//                                                  hidden:[viewModel hidesArrow]
+//                                                   frame:[UIScreen mainScreen].bounds];
+//    [self addSubview:hintView];
+//
+//
+//}
 
 - (void)showFocusOnFrame:(CGRect)focusFrame
 {
