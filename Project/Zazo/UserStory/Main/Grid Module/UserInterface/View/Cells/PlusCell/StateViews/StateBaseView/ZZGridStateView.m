@@ -147,6 +147,12 @@
 }
 
 
+- (void)showDownloadViews
+{
+    [self _showDownloadViews];
+}
+
+
 #pragma mark - Lazy Load
 
 - (UIImageView*)uploadingIndicator

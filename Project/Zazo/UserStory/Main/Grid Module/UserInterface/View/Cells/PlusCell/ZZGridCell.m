@@ -54,27 +54,25 @@
         if (self.model.isNeedToShowDownloadAnimation)
         {
             [self updateStateViewWithModel:model];
-            [self showDownloadAnimationWithCompletionBlock:^{
-                self.model.isNeedToShowDownloadAnimation = NO;
-            }];
+            [self.stateView hideAllAnimationViews];
+            [self.stateView showDownloadViews];
         }
         
         if ([self.model.badgeNumber integerValue] > 0)
         {
-            if (self.model.prevBadgeNumber != self.model.badgeNumber)
+            if (self.model.prevBadgeNumber == self.model.badgeNumber)
             {
                 [self updateStateViewWithModel:self.model];
-                
                 [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
             }
-//            else
-//            {
-//                [self updateStateViewWithModel:model];
-//                [self showDownloadAnimationWithCompletionBlock:^{
-//                    [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
-//                    self.model.prevBadgeNumber = self.model.badgeNumber;
-//                }];
-//            }
+            else
+            {
+                [self updateStateViewWithModel:model];
+                [self showDownloadAnimationWithCompletionBlock:^{
+                    [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
+                    self.model.prevBadgeNumber = self.model.badgeNumber;
+                }];
+            }
         }
         else
         {
