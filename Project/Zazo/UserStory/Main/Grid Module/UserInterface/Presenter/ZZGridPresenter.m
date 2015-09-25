@@ -169,7 +169,10 @@ TBMTableModalDelegate
                                                withCompletionBlock:^(BOOL isNewVideoDownloaded) {
             if (isNewVideoDownloaded)
             {
-                [self.soundPlayer play];
+                if (model.relatedUser.outgoingVideoStatusValue != OUTGOING_VIDEO_STATUS_VIEWED)
+                {
+                    [self.soundPlayer play];
+                }
             }
 
      }];
@@ -267,6 +270,16 @@ TBMTableModalDelegate
         [self.interactor updateLastActionForFriend:model.relatedUser];
     }
     [self.dataSource selectedViewModelUpdatedWithItem:model];
+}
+
+
+- (void)updateGridWithGridDomainModel:(ZZGridDomainModel *)model
+{
+    if (!ANIsEmpty(model.relatedUser))
+    {
+        [self.interactor updateLastActionForFriend:model.relatedUser];
+    }
+    [self.dataSource updateModel:model];
 }
 
 - (void)gridContainedFriend:(ZZFriendDomainModel*)friendModel
@@ -382,10 +395,13 @@ TBMTableModalDelegate
 //    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidStartPlaying];
 }
 
-- (void)videoPlayerURLWasFinishedPlaying:(NSURL*)videoURL
+
+- (void)videoPlayerURLWasFinishedPlaying:(NSURL *)videoURL withPlayedUserModel:(ZZFriendDomainModel *)playedFriendModel
 {
-//    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidViewed];
-//    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidStopPlaying];
+    NSLog(@"palyedModel");
+    [self.interactor updateFriendAfterVideoStopped:playedFriendModel];
+    ////    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidViewed];
+    ////    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidStopPlaying];
 }
 
 #pragma mark - Data source delegate
@@ -424,6 +440,12 @@ TBMTableModalDelegate
             //                NSURL *videoUrl = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriend:ge.friend];
             //                [[self videoRecorder] startRecordingWithVideoUrl:videoUrl];
             //            }
+            
+            
+            if ([self.videoPlayer isPlaying])
+            {
+                [self.videoPlayer stop];
+            }
             
             
             [self.soundPlayer play];

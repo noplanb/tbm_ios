@@ -177,6 +177,37 @@ ZZGridCenterCellViewModelDelegate
     }];
 }
 
+- (void)updateModel:(ZZGridDomainModel*)model
+{
+    NSArray *allItems = [self.storage itemsInSection:0];
+    
+    [allItems enumerateObjectsUsingBlock:^(ZZGridCellViewModel *viewModel, NSUInteger idx, BOOL *stop) {
+        if (![viewModel isKindOfClass:[ZZGridCenterCellViewModel class]])
+        {
+            if ([viewModel.item.relatedUser.mKey isEqualToString:model.relatedUser.mKey])
+            {
+                
+                
+                
+                viewModel.item = model;
+                
+                viewModel.hasDownloadedVideo = [model.relatedUser hasIncomingVideo];
+                viewModel.hasUploadedVideo = [model.relatedUser hasOutgoingVideo];//[gridModel.relatedUser hasIncomingVideo];
+                viewModel.isUploadedVideoViewed = (model.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
+                
+                
+             
+                viewModel.badgeNumber = @(model.relatedUser.unviewedCount);
+                
+                
+                ANDispatchBlockToMainQueue(^{
+                    [self.storage reloadItem:viewModel];
+                });
+            }
+        }
+    }];
+}
+
 - (void)itemSelectedAtIndexPath:(NSIndexPath*)indexPath
 {
     self.selectedCellViewModel = [self.storage objectAtIndexPath:indexPath];

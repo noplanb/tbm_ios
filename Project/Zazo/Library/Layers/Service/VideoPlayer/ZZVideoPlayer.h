@@ -6,10 +6,13 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
+
+@class ZZFriendDomainModel;
+
 @protocol ZZVideoPlayerDelegate <NSObject>
 
 - (void)videoPlayerURLWasStartPlaying:(NSURL*)videoURL;
-- (void)videoPlayerURLWasFinishedPlaying:(NSURL*)videoURL;
+- (void)videoPlayerURLWasFinishedPlaying:(NSURL*)videoURL withPlayedUserModel:(ZZFriendDomainModel*)playedFriendModel;
 
 @end
 
