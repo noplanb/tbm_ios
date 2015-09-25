@@ -14,13 +14,16 @@
 #import "ZZFriendDomainModel.h"
 #import "ZZVideoProcessor.h"
 #import "ZZGridCellViewModel.h"
-#import "SCRecorder.h"
 #import "TBMAppDelegate+AppSync.h"
 #import "ZZGridCenterCell.h"
 #import "ZZGridUIConstants.h"
 #import "TBMVideoProcessor.h"
 #import "iToast.h"
 #import "ZZFeatureObserver.h"
+#import "AVAudioSession+TBMAudioSession.h"
+#import "TBMVideoRecorder.h"
+#import "TBMVideoIdUtils.h"
+#import "NSError+Extensions.h"
 
 NSString* const kVideoProcessorDidFinishProcessing = @"TBMVideoProcessorDidFinishProcessing";
 NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing";
@@ -28,17 +31,17 @@ NSString* const TBMVideoRecorderDidFinishRecording = @"TBMVideoRecorderDidFinish
 NSString* const TBMVideoRecorderShouldStartRecording = @"TBMVideoRecorderShouldStartRecording";
 NSString* const TBMVideoRecorderDidCancelRecording = @"TBMVideoRecorderDidCancelRecording";
 NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
+
 static CGFloat const kDelayBeforeNextMessage = 1.1;
 
-//NSString* const kZZVideoProcessorErrorReason = @"Problem processing video";
+@interface ZZVideoRecorder () <TBMAudioSessionDelegate, TBMVideoRecorderDelegate>
 
-@interface ZZVideoRecorder () <SCRecorderDelegate>
-
-@property (nonatomic, strong) SCRecorder *recorder;
+@property (nonatomic, strong) TBMVideoRecorder *recorder;
 @property (nonatomic, strong) NSURL* recordVideoUrl;
 @property (nonatomic, strong) TBMVideoProcessor* videoProcessor;
 @property (nonatomic, strong) NSMutableArray* delegatesArray;
 @property (nonatomic, copy) void (^completionBlock)(BOOL isRecordingSuccess);
+@property (nonatomic, strong) UIView* recordingView;
 
 @end
 
@@ -59,29 +62,46 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     if (self = [super init])
     {
         self.videoProcessor = [TBMVideoProcessor new];
-        self.recorder = [SCRecorder recorder];
-        // Start running the flow of buffers
-        if (![self.recorder startRunning])
-        {
-            NSLog(@"Something wrong there: %@", self.recorder.error);
-        }
+        self.recorder = [[TBMVideoRecorder alloc] init];
         self.recorder.delegate = self;
-        self.recorder.captureSessionPreset = AVCaptureSessionPresetLow;
-        
-        SCAudioConfiguration *audio = self.recorder.audioConfiguration;
-        audio.enabled = YES;
-        
-        SCVideoConfiguration *video = self.recorder.videoConfiguration;
-        video.enabled = YES;
-        video.scalingMode = AVVideoScalingModeResizeAspectFill;
-        
-        self.recorder.device = AVCaptureDevicePositionFront;
-        self.recorder.session = [SCRecordSession recordSession];
-        self.delegatesArray = [NSMutableArray array];
-        [self setupNotifications];
         [self.recorder startRunning];
+        
+        self.delegatesArray = [NSMutableArray array];
+        [self.recorder startRunning];
+        
+        [[AVAudioSession sharedInstance] addTBMAudioSessionDelegate:self];
     }
     return self;
+}
+
+- (void)setRecordingView:(UIView *)recordingView
+{
+    _recordingView = recordingView;
+    [self.recorder setupCaptureSessionView:_recordingView];
+}
+
+//TODO:
+- (void)videoRecorderRuntimeErrorWithRetryCount:(int)videoRecorderRetryCount {
+    OB_ERROR(@"videoRecorderRuntimeErrorWithRetryCount %d", videoRecorderRetryCount);
+    [self setupVideoRecorder:videoRecorderRetryCount];
+}
+
+// We call setupVideoRecorder on multiple events so the first qualifying event takes effect. All later events are ignored.
+- (void)setupVideoRecorder:(int)retryCount
+{
+    self.recorder = [TBMVideoRecorder new];
+    self.recorder.delegate = self;
+    
+    [self.recorder startRunning];
+}
+
+
+#pragma mark - TBMAudioDelegate
+
+- (void)willDeactivateAudioSession
+{
+//    [self.recorder stopRunning]; //TODO:
+    [self cancelRecording];
 }
 
 - (void)cancelRecording
@@ -96,20 +116,10 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     if (!self.recorder)
     {
         self.videoProcessor = [TBMVideoProcessor new];
-        self.recorder = [SCRecorder recorder];
         self.recorder.delegate = self;
-        self.recorder.captureSessionPreset = AVCaptureSessionPresetLow;
-        
-        SCAudioConfiguration *audio = self.recorder.audioConfiguration;
-        audio.enabled = YES;
-        
-        SCVideoConfiguration *video = self.recorder.videoConfiguration;
-        video.enabled = YES;
-        video.scalingMode = AVVideoScalingModeResizeAspectFill;
-        
-        self.recorder.device = AVCaptureDevicePositionFront;
-        self.recorder.session = [SCRecordSession recordSession];
-        [self setupNotifications];
+        [self.recorder setupCaptureSessionView:self.recordingView];
+       
+//        [self setupNotifications];
         [self.recorder startRunning];
     }
     else
@@ -119,34 +129,12 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         {
             [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
         }
-        
     }
-
-}
-
-- (void)setupNotifications
-{
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(proximilityActive)
-                                                     name:UIDeviceProximityStateDidChangeNotification
-                                                   object:nil];
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)proximilityActive
-{
-    if ([UIDevice currentDevice].proximityState)
-    {
-        ANDispatchBlockToMainQueue(^{
-            [self _notifyCancelRecording];
-            self.didCancelRecording = YES;
-            [self.recorder pause];
-        });
-    }
 }
 
 - (void)startTouchObserve
@@ -202,7 +190,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 - (void)updateRecordView:(UIView*)recordView
 {
     recordView.frame = CGRectMake(0, 0, kGridItemSize().width, kGridItemSize().height);
-    self.recorder.previewView = recordView;
+    [self.recorder setupCaptureSessionView:recordView];
 }
 
 - (void)startRecordingWithVideoURL:(NSURL*)url
@@ -211,8 +199,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     [self startTouchObserve];
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
     [self _startRecordingWithVideoUrl:url];
-    [self.recorder.session removeAllSegments];
-    [self.recorder record];
+    [self.recorder startRecordingWithVideoUrl:url];
 }
 
 
@@ -229,7 +216,6 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 - (void)cancelRecordingWithReason:(NSString*)reason
 {
-    
     if ([self.recorder isRecording])
     {
         if (!self.didCancelRecording)
@@ -240,7 +226,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
             {
                 [self showMessage:reason];
             }
-            [self.recorder pause];
+            [self.recorder cancelRecording];
         }
     }
 }
@@ -250,127 +236,265 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 - (void)stopRecordingWithCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
     self.completionBlock = completionBlock;
-    [self.recorder pause];
+    [self.recorder stopRecording];
 }
 
-- (void)recorder:(SCRecorder*)recorder didCompleteSegment:(SCRecordSessionSegment*)segment
-       inSession:(SCRecordSession*)recordSession error:(NSError*)error
-{
-    if (error)
-    {
-        [self showMessage:NSLocalizedString(@"record-problem-recording", nil)];
-    }
-    else
-    {
-        [self recordVideoToFileWithRecordSession:recordSession];
-    }
-}
-
-- (void)recordVideoToFileWithRecordSession:(SCRecordSession*)recordSession
+- (void)videoRecorderDidStartRecording
 {
     
-    [recordSession mergeSegmentsUsingPreset:AVAssetExportPresetHighestQuality completionHandler:^(NSURL *url, NSError *error) {
-        if (error == nil)
-        {
-            if ([self isVideoShort:url])
-            {
-                [self _recordingResultSuccess:NO];
-                
-                if (self.didCancelRecording)
-                {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kDelayBeforeNextMessage * 2)  * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self showMessage:NSLocalizedString(@"record-video-too-short", nil)];
-                    });
-                }
-                else
-                {
-                    [self showMessage:NSLocalizedString(@"record-video-too-short", nil)];
-                }
-                
-                [[NSFileManager defaultManager] removeItemAtPath:[url path] error:nil];
-            }
-            else if (self.didCancelRecording)
-            {
-                [self _recordingResultSuccess:NO];
-                [[NSFileManager defaultManager] removeItemAtPath:[url path] error:nil];
-                
-            }
-            else
-            {
-                if ([[NSFileManager defaultManager] fileExistsAtPath:[url path]])
-                {
-                    NSError* error;
-                    if ([[NSFileManager defaultManager] copyItemAtURL:url toURL:self.recordVideoUrl error:&error])
-                    {
-                        NSError* removeError;
-                        [[NSFileManager defaultManager] removeItemAtPath:[url path] error:&removeError];
-                        [self.videoProcessor processVideoWithUrl:self.recordVideoUrl];
-                        [self _recordingResultSuccess:YES];
-                    }
-                    else
-                    {
-                        NSLog(@"copy error");
-                        [self _recordingResultSuccess:NO];
-                    }
-                }
-                else
-                {
-                    NSLog(@"wrong");
-                    [self _recordingResultSuccess:NO];
-                }
-            }
-        } else {
-            
-        }
-    }];
 }
 
-- (void)_recordingResultSuccess:(BOOL)result
+- (void)videoRecorderDidStopRecording
 {
-    if (self.completionBlock)
-    {
-        self.completionBlock(result);
-    }
+    
 }
-- (void)handleError:(NSError*)error dispatch:(BOOL)dispatch
+
+- (void)videoRecorderDidStartRunning
 {
-    [[NSFileManager defaultManager] removeItemAtURL:self.recordVideoUrl error:nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kVideoProcessorDidFail
+    
+}
+
+- (void)videoRecorderDidStopButDidNotStartRecording
+{
+    NSString* details = @"VideoRecorder@stopRecording called but not recording. This should never happen";
+    NSError* error = [self videoRecorderError:details reason:@"Problem recording video"];
+    [self handleError:error];
+}
+
+- (void)videoRecorderDidFinishRecordingWithURL:(NSURL *)outputFileURL error:(NSError *)error
+{
+    BOOL abort = NO;
+    
+    if (self.didCancelRecording)
+    {
+        OB_INFO(@"didCancelRecordingToOutputFileAtURL:%@ error:%@", outputFileURL, error);
+        [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidCancelRecording
+                                                            object:self
+                                                          userInfo:@{@"videoUrl": outputFileURL}];
+        abort = YES;
+    }
+    else if (error != nil)
+    {
+        NSError *newError = [NSError errorWithError:error reason:@"Problem recording video"];
+        [self handleError:newError];
+        abort = YES;
+    }
+    else if ([self videoTooShort:outputFileURL])
+    {
+        OB_INFO(@"VideoRecorder#videoTooShort aborting");
+        NSError *error = [self videoRecorderError:@"Video too short" reason:@"Too short"];
+        [self handleError:error dispatch:NO];
+        abort = YES;
+    }
+    
+    if (abort)
+    {
+        [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
+        return;
+    }
+    
+    OB_INFO(@"didFinishRecording success friend:%@ videoId:%@",
+            [TBMVideoIdUtils friendWithOutgoingVideoUrl:outputFileURL].firstName,
+            [TBMVideoIdUtils videoIdWithOutgoingVideoUrl:outputFileURL]);
+    
+    [[[TBMVideoProcessor alloc] init] processVideoWithUrl:outputFileURL];
+}
+
+
+
+
+#pragma mark - Recording Error Handling.
+
+- (void)handleError:(NSError *)error
+{
+    [self handleError:error dispatch:YES];
+}
+
+- (void)handleError:(NSError *)error dispatch:(BOOL)dispatch
+{
+    if (dispatch)
+    {
+        OB_ERROR(@"VideoRecorder: %@", error);
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFail
                                                         object:self
-                                                      userInfo:[self notificationUserInfoWithError:error]];
+                                                      userInfo:@{@"error":error}];
 }
 
-- (NSDictionary *)notificationUserInfoWithError:(NSError *)error
+
+
+
+
+
+
+
+
+- (void)videoRecordDidFailNotification:(NSNotification *)notification
 {
-    if (error == nil)
-    {
-        return @{@"videoUrl" : self.recordVideoUrl};
-    }
-    else
-    {
-        return @{@"videoUrl" : self.recordVideoUrl, @"error": error};
-    }
+    NSError *error = (NSError *) notification.userInfo[@"error"];
+    NSString *reason = error.userInfo[NSLocalizedFailureReasonErrorKey];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (reason != nil)
+            [[iToast makeText:reason] show];
+        
+                [self performSelector:@selector(toastNotSent) withObject:nil afterDelay:1.2];
+    });
 }
 
-- (BOOL)isVideoShort:(NSURL *)videoUrl{
-    NSError *error = nil;
-    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:videoUrl.path error:&error];
-    if (error != nil){
-        OB_ERROR(@"VideoRecorder#videoTooShort: Can't set attributes for file: %@. Error: %@", videoUrl.path, error);
-        return NO;
-    }
-    OB_INFO(@"VideoRecorder: filesize %llu", fileAttributes.fileSize);
-    if (fileAttributes.fileSize < 28000){
-        return YES;
-    } else {
-        return NO;
-    }
+//TODO:
+- (void)toastNotSent
+{
+    [[iToast makeText:@"Not sent"] show];
 }
+
+
+
+
+
+
+//
+//- (void)recorder:(SCRecorder*)recorder didCompleteSegment:(SCRecordSessionSegment*)segment
+//       inSession:(SCRecordSession*)recordSession error:(NSError*)error
+//{
+//    if (error)
+//    {
+//        [self showMessage:NSLocalizedString(@"record-problem-recording", nil)];
+//    }
+//    else
+//    {
+//        [self recordVideoToFileWithRecordSession:recordSession];
+//    }
+//}
+
+//- (void)recordVideoToFileWithRecordSession:(SCRecordSession*)recordSession
+//{
+//    
+//    [recordSession mergeSegmentsUsingPreset:AVAssetExportPresetHighestQuality completionHandler:^(NSURL *url, NSError *error) {
+//        if (error == nil)
+//        {
+//            if ([self isVideoShort:url])
+//            {
+//                [self _recordingResultSuccess:NO];
+//                
+//                if (self.didCancelRecording)
+//                {
+//                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kDelayBeforeNextMessage * 2)  * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                        [self showMessage:NSLocalizedString(@"record-video-too-short", nil)];
+//                    });
+//                }
+//                else
+//                {
+//                    [self showMessage:NSLocalizedString(@"record-video-too-short", nil)];
+//                }
+//                
+//                [[NSFileManager defaultManager] removeItemAtPath:[url path] error:nil];
+//            }
+//            else if (self.didCancelRecording)
+//            {
+//                [self _recordingResultSuccess:NO];
+//                [[NSFileManager defaultManager] removeItemAtPath:[url path] error:nil];
+//                
+//            }
+//            else
+//            {
+//                if ([[NSFileManager defaultManager] fileExistsAtPath:[url path]])
+//                {
+//                    NSError* error;
+//                    if ([[NSFileManager defaultManager] copyItemAtURL:url toURL:self.recordVideoUrl error:&error])
+//                    {
+//                        NSError* removeError;
+//                        [[NSFileManager defaultManager] removeItemAtPath:[url path] error:&removeError];
+//                        [self.videoProcessor processVideoWithUrl:self.recordVideoUrl];
+//                        [self _recordingResultSuccess:YES];
+//                    }
+//                    else
+//                    {
+//                        NSLog(@"copy error");
+//                        [self _recordingResultSuccess:NO];
+//                    }
+//                }
+//                else
+//                {
+//                    NSLog(@"wrong");
+//                    [self _recordingResultSuccess:NO];
+//                }
+//            }
+//        } else {
+//            
+//        }
+//    }];
+//}
+
+//- (void)_recordingResultSuccess:(BOOL)result
+//{
+//    if (self.completionBlock)
+//    {
+//        self.completionBlock(result);
+//    }
+//}
+
+//- (void)handleError:(NSError*)error dispatch:(BOOL)dispatch
+//{
+//    [[NSFileManager defaultManager] removeItemAtURL:self.recordVideoUrl error:nil];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kVideoProcessorDidFail
+//                                                        object:self
+//                                                      userInfo:[self notificationUserInfoWithError:error]];
+//}
+//
+//- (NSDictionary*)notificationUserInfoWithError:(NSError *)error
+//{
+//    if (error == nil)
+//    {
+//        return @{@"videoUrl" : self.recordVideoUrl};
+//    }
+//    else
+//    {
+//        return @{@"videoUrl" : self.recordVideoUrl, @"error": error};
+//    }
+//}
 
 - (void)showMessage:(NSString*)message
 {
     [[iToast makeText:message]show];
 }
+
+
+#pragma mark Util
+
+- (BOOL)videoTooShort:(NSURL *)videoUrl
+{
+    NSError *error = nil;
+    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:videoUrl.path error:&error];
+    if (error != nil)
+    {
+        OB_ERROR(@"VideoRecorder#videoTooShort: Can't set attributes for file: %@. Error: %@", videoUrl.path, error);
+        return NO;
+    }
+    
+    OB_INFO(@"VideoRecorder: filesize %llu", fileAttributes.fileSize);
+    if (fileAttributes.fileSize < 28000)
+    {
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
+}
+
+- (NSError *)videoRecorderError:(NSString *)description reason:(NSString *)reason
+{
+    return [NSError errorWithDomain:@"TBMVideoRecorder"
+                               code:1
+                           userInfo:@{NSLocalizedDescriptionKey: description,
+                                      NSLocalizedFailureReasonErrorKey: reason}];
+}
+
+
+
+
 
 #pragma mark - Video Recorder Observer Methods
 

@@ -50,7 +50,8 @@
 
 - (instancetype)init{
     self = [super init];
-    if (self != nil){
+    if (self != nil)
+    {
         [[AVAudioSession sharedInstance] addTBMAudioSessionDelegate:self];
         _moviePlayerController = [[MPMoviePlayerController alloc] init];
         _moviePlayerController.controlStyle = MPMovieControlStyleNone;

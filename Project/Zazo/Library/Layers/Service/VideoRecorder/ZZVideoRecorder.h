@@ -12,7 +12,6 @@
 
 @end
 
-
 @interface ZZVideoRecorder : NSObject
 
 extern NSString* const kVideoProcessorDidFinishProcessing;
