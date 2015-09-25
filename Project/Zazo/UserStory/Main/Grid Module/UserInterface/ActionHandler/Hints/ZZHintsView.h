@@ -11,6 +11,6 @@
 
 @interface ZZHintsView : UIView
 
-- (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel andFocusOnFrame:(CGRect)focusFrame;
+- (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel;
 
 @end

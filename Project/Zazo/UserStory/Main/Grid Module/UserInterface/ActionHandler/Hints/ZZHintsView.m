@@ -34,9 +34,10 @@
 }
 
 
-- (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel andFocusOnFrame:(CGRect)focusFrame
+- (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel
 {
-
+    //TODO: remove from superview
+    
     [self showFocusOnFrame:[viewModel focusFrame]];
 
     TBMHintArrow *hintView = [TBMHintArrow arrowWithText:[viewModel text]

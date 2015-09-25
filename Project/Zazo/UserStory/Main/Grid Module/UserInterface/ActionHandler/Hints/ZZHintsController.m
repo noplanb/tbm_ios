@@ -34,8 +34,8 @@
     ZZHintsViewModel* viewModel = [ZZHintsViewModel viewModelWithItem:model];
     [viewModel updateFocusFrame:focusFrame];
     self.hintModel = model;
-    [self _destroyHintView];
-    [self.hintsView updateWithHintsViewModel:viewModel andFocusOnFrame:focusFrame];
+    //[self _destroyHintView];
+    [self.hintsView updateWithHintsViewModel:viewModel];
 }
 
 #pragma mark - Private

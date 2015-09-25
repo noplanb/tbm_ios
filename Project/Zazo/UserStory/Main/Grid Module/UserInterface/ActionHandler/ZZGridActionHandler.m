@@ -70,10 +70,9 @@
 
     if (!currentHint) {
         self.hint = hint;
-        [self.hint toggleStateTo:YES];
     }
 
-    [self _checkPlayAndRecordHintsForAppend:currentHint];
+    [self _checkPlayAndRecordHintsForAppend];
 
     [self _showHint];
 
@@ -85,6 +84,7 @@
     self.hint.arrowDirection = [ZZHintsDomainModel arrowDirectionForIndex:gridIndex];
     CGRect focusFrame = [self.userInterface focusFrameForIndex:gridIndex];
     [self.hintsController showHintWithModel:self.hint forFocusFrame:focusFrame];
+    [self.hint toggleStateTo:YES];
 }
 
 - (NSUInteger)_gridIndexForHintType:(ZZHintsType)hintType
@@ -110,8 +110,9 @@
     }
 }
 
-- (void)_checkPlayAndRecordHintsForAppend:(ZZHintsDomainModel*)currentHint
+- (void)_checkPlayAndRecordHintsForAppend
 {
+    ZZHintsDomainModel* currentHint = self.hint;
     ZZHintsDomainModel* recordHint = [self _hintWithType:ZZHintsTypePressAndHoldToRecord];
     ZZHintsDomainModel* playHint = [self _hintWithType:ZZHintsTypeTapToPlay];
     ZZHintsDomainModel* hintForAppend;
