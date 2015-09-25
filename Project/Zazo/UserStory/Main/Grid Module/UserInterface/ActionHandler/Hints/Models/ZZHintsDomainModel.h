@@ -8,11 +8,12 @@
 
 #import "ZZHintsConstants.h"
 #import "ZZGridActionHandlerEnums.h"
+#import "ANBaseDomainModel.h"
 
 
 typedef BOOL (^HintCondition)(ZZGridActionEventType event);
 
-@interface ZZHintsDomainModel : NSObject
+@interface ZZHintsDomainModel : ANBaseDomainModel
 
 //Appearance
 @property (nonatomic, assign) ZZHintsType type;
