@@ -85,13 +85,43 @@
         }
     }];
     
-    [self.output friendsThatHasAppLoaded:[self _sortByFirstName:friendsHasAppArray]];
-    [self.output friendsDataLoaded:[self _sortByFirstName:otherFriendsArray]];
+    NSArray *filteredFriendsHasAppArray = [self _filterFriendByConnectionStatus:friendsHasAppArray];
+    NSArray *filteredOtherFriendsArray = [self _filterFriendByConnectionStatus:otherFriendsArray];
+    
+    [self.output friendsThatHasAppLoaded:[self _sortByFirstName:filteredFriendsHasAppArray]];
+    [self.output friendsDataLoaded:[self _sortByFirstName:filteredOtherFriendsArray]];
 
 }
 
 
 #pragma mark - Private
+
+- (NSArray*)_filterFriendByConnectionStatus:(NSMutableArray*)friendsArray
+{
+    NSMutableArray* filteredFriends = [NSMutableArray new];
+    
+    [friendsArray enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if ([friendModel isCreator])
+        {
+            if (friendModel.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
+                friendModel.connectionStatusValue == ZZConnectionStatusTypeHiddenByCreator)
+            {
+                [filteredFriends addObject:friendModel];
+            }
+        }
+        else
+        {
+            if (friendModel.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
+                friendModel.connectionStatusValue == ZZConnectionStatusTypeHiddenByTarget)
+            {
+                [filteredFriends addObject:friendModel];
+            }
+        }
+    }];
+    
+    return filteredFriends;
+}
 
 - (NSArray *)_sortByFirstName:(NSArray *)array
 {

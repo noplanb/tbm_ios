@@ -97,31 +97,40 @@
 
 + (ZZGridDomainModel*)loadFirstEmptyGridElement
 {
-    NSPredicate* creatorWithNilId = [NSPredicate predicateWithFormat:@"%K != nil", TBMGridElementRelationships.friend];
-    NSPredicate* creatorWithNullId = [NSPredicate predicateWithFormat:@"%K != NULL", TBMGridElementRelationships.friend];
-    NSPredicate* creatorWithEmptyStringId = [NSPredicate predicateWithFormat:@"%K != ''", TBMGridElementRelationships.friend];
+    NSPredicate* creatorWithNilId = [NSPredicate predicateWithFormat:@"%K = nil", TBMGridElementRelationships.friend];
+    NSPredicate* creatorWithNullId = [NSPredicate predicateWithFormat:@"%K = NULL", TBMGridElementRelationships.friend];
+    NSPredicate* creatorWithEmptyStringId = [NSPredicate predicateWithFormat:@"%K = ''", TBMGridElementRelationships.friend];
     
     NSPredicate* excludeCreator = [NSCompoundPredicate orPredicateWithSubpredicates:@[creatorWithNilId, creatorWithNullId, creatorWithEmptyStringId]];
     
-    //    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, @"nil"];
     NSArray* result = [TBMGridElement MR_findAllSortedBy:TBMGridElementAttributes.index
                                                ascending:YES
                                            withPredicate:excludeCreator
                                                inContext:[self _context]];
-    //TODO: cleanup this, remove this part at all, we don't need new fetch
-    NSInteger index = (result.count);
-    if (index != NSNotFound)
-    {
-        NSPredicate* indexPredicate = [NSPredicate predicateWithFormat:@"%K == %@", TBMGridElementAttributes.index, @(index)];
-        NSArray* fullResult = [TBMGridElement MR_findAllWithPredicate:indexPredicate inContext:[self _context]];
-        
-        if (!ANIsEmpty(fullResult))
-        {
-            TBMGridElement* rightOrderEntity = [fullResult firstObject];
-            return [self modelFromEntity:rightOrderEntity];
-        }
-    }
-    return nil;
+    
+    NSArray* models = [[result.rac_sequence map:^id(id value) {
+        return [self modelFromEntity:value];
+    }] array];
+    
+    NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:@"indexPathIndexForItem" ascending:YES];
+    models = [models sortedArrayUsingDescriptors:@[sort]];
+    
+    return [models firstObject];
+    
+    
+//    //TODO: cleanup this, remove this part at all, we don't need new fetch
+//    NSInteger indexDataSource = (result.count);
+//    NSNumber* fuckingIndex = @(kGridIndexFromFlowIndex(indexDataSource));
+//    NSPredicate* indexPredicate = [NSPredicate predicateWithFormat:@"%K == %@", TBMGridElementAttributes.index, fuckingIndex];
+//    NSArray* fullResult = [TBMGridElement MR_findAllWithPredicate:indexPredicate inContext:[self _context]];
+//    
+//    if (!ANIsEmpty(fullResult))
+//    {
+//        TBMGridElement* rightOrderEntity = [fullResult firstObject];
+//        return [self modelFromEntity:rightOrderEntity];
+//    }
+//    
+//    return nil;
 }
 
 
