@@ -127,20 +127,22 @@ TBMTableModalDelegate
 
 - (void)videoStartDownloadingNotification:(NSNotification*)notification
 {
-    if (![self.videoPlayer isPlaying])
-    {
-        [self.interactor showDownloadAniamtionForFriend:notification.object];
-    }
-    else
-    {
-        self.notificationFriend = notification.object;
-    }
-    [self.dataSource reloadDebugStatuses];
+    ANDispatchBlockToMainQueue(^{
+        if (!self.videoPlayer.isPlayingVideo)
+        {
+            [self.interactor showDownloadAniamtionForFriend:notification.object];
+        }
+        else
+        {
+            self.notificationFriend = notification.object;
+        }
+        [self.dataSource reloadDebugStatuses];
+    });
 }
 
 - (void)updateGridData:(NSNotification*)notification
 {
-    if (![self.videoPlayer isPlaying])
+    if (!self.videoPlayer.isPlayingVideo)
     {
         if (self.notificationFriend)
         {
@@ -148,6 +150,7 @@ TBMTableModalDelegate
             [self updateFriendIfNeeded];
         }
         else
+            
         {
             [self.interactor handleNotificationForFriend:notification.object];
         }

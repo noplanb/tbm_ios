@@ -193,9 +193,13 @@ static NSString *const kArraySeparator = @",";
 + (void)setRemoteIncomingVideoStatus:(NSString *)status videoId:(NSString *)videoId friend:(TBMFriend *)friend
 {
     OB_INFO(@"setRemoteIncomingVideoStatus");
-    NSDictionary *value = @{REMOTE_STORAGE_VIDEO_ID_KEY : videoId, REMOTE_STORAGE_STATUS_KEY : status};
-    NSString *key = [TBMRemoteStorageHandler incomingVideoStatusRemoteKVKey:friend];
-    [TBMRemoteStorageHandler setRemoteKVWithKey1:key key2:NULL value:value];
+    if (!ANIsEmpty(videoId) && !ANIsEmpty(friend))
+    {
+        NSDictionary *value = @{REMOTE_STORAGE_VIDEO_ID_KEY : videoId, REMOTE_STORAGE_STATUS_KEY : status};
+        NSString *key = [TBMRemoteStorageHandler incomingVideoStatusRemoteKVKey:friend];
+        [TBMRemoteStorageHandler setRemoteKVWithKey1:key key2:NULL value:value];
+    }
+    
 }
 
 
