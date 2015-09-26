@@ -24,29 +24,10 @@
 
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
 @property (nonatomic, strong) UILongPressGestureRecognizer* recordRecognizer;
-@property (nonatomic, strong) NSMutableArray* recognizerStatesArray;
 
 @end
 
 @implementation ZZGridCellViewModel
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self)
-    {
-        self.recognizerStatesArray = [NSMutableArray array];
-        
-        
-        
-        
-        
-        
-        
-        
-    }
-    return self;
-}
 
 - (void)setUsernameLabel:(UILabel *)usernameLabel
 {
@@ -58,16 +39,16 @@
 
 - (NSString*)videoStatusString
 {
-    if (YES)//([ZZStoredSettingsManager shared].debugModeEnabled) //TODO:
+    ZZFriendDomainModel* friendModel = self.item.relatedUser;
+    TBMFriend* friendEntity = [ZZFriendDataProvider entityFromModel:friendModel];
+    
+    if ([ZZStoredSettingsManager shared].debugModeEnabled)
     {
-        ZZFriendDomainModel* friendModel = self.item.relatedUser;
-        TBMFriend* friendEntity = [ZZFriendDataProvider entityFromModel:friendModel];
-        
         return friendEntity.videoStatusString;
     }
     else
     {
-        return [self firstName];
+        return friendEntity.displayName;
     }
 }
 

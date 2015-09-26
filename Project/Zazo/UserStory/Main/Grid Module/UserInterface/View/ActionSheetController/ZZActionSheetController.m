@@ -16,7 +16,9 @@
                      completionBlock:(void(^)(ZZEditMenuButtonType selectedType))completionBlock;
 {
     UIActionSheet* actionSheet = [ZZActionSheetController _currentActionSheet];
-    [actionSheet showInView:presentedView];
+    ANDispatchBlockToMainQueue(^{
+        [actionSheet showInView:presentedView];
+    });
     
     [actionSheet.rac_buttonClickedSignal subscribeNext:^(NSNumber* x) {
         
