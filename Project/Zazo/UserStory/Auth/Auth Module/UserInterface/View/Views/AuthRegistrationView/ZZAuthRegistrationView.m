@@ -24,7 +24,9 @@ static CGFloat const kPhoneCodeTextFieldWidthScaleValue = 4;
 
 #pragma mark - SignIn Button
 
+static CGFloat const kSignInButtonTopPaddingIphone4 = 15;
 static CGFloat const kSignInButtonTopPadding = 40;
+
 static CGFloat const kSignInButtonCornerRadius = 4;
 static CGFloat const kSignInButtonHeight = 55;
 
@@ -62,7 +64,7 @@ static CGFloat const kCodeLableLeftPadding = 3;
     [super layoutSubviews];
     
     self.countryCodeLabel.preferredMaxLayoutWidth = self.phoneCodeTextField.bounds.size.width;
-    _plusLabel.frame = CGRectMake(kCodeLableLeftPadding, 0, 10, self.phoneCodeTextField.height);
+    self.plusLabel.frame = CGRectMake(kCodeLableLeftPadding, 0, 10, self.phoneCodeTextField.height);
 }
 
 - (CGFloat)_textFieldSidePadding
@@ -161,11 +163,6 @@ static CGFloat const kCodeLableLeftPadding = 3;
         _plusLabel.text = @"+";
         _plusLabel.font = [UIFont an_lightFontWithSize:18];
         [self.phoneCodeTextField addSubview:_plusLabel];
-    
-//        [_plusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.equalTo(@(kCodeLableLeftPadding));
-//            make.centerY.equalTo(self.phoneCodeTextField);
-//        }];
     }
     return _plusLabel;
 }
@@ -202,7 +199,7 @@ static CGFloat const kCodeLableLeftPadding = 3;
         [self addSubview:_signInButton];
 
         [_signInButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.countryCodeLabel.mas_bottom).with.offset(kSignInButtonTopPadding);
+            make.top.equalTo(self.countryCodeLabel.mas_bottom).with.offset(IS_IPHONE_4 ? kSignInButtonTopPaddingIphone4 : kSignInButtonTopPadding);
             make.centerX.equalTo(self.mas_centerX);
             make.width.equalTo(@(CGRectGetWidth([UIScreen mainScreen].bounds) / 2));
             make.height.equalTo(@(kSignInButtonHeight));

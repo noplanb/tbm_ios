@@ -123,20 +123,41 @@
                                withKeyboardFrame:(CGRect)keyboarFrame
 {
     self.animationDuration = animationDuration;
-    if (CGRectIntersectsRect(self.contentView.registrationView.phoneNumberTextField.frame, keyboarFrame))
+    if (IS_IPHONE_4)
     {
-        CGRect intersectionFrame =  CGRectIntersection(self.contentView.registrationView.signInButton.frame, keyboarFrame);
-        [self changeRegistartionViewPositionWithKeyboardHeight:(CGRectGetHeight(intersectionFrame) + CGRectGetHeight(self.contentView.registrationView.phoneNumberTextField.frame))];
-    }
-    else if (CGRectIntersectsRect(self.contentView.registrationView.signInButton.frame, keyboarFrame))
-    {
-        self.contentView.registrationScrollBottomConstraint.offset = -keyboardHeight;
-        self.contentView.scrollView.scrollEnabled = YES;
+        [UIView animateWithDuration:[self.animationDuration doubleValue] animations:^{
+            
+            UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, 320, 0);
+            self.contentView.scrollView.contentInset = insets;
+            self.contentView.scrollView.scrollIndicatorInsets = insets;
+            [self.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            
+            self.contentView.scrollView.scrollEnabled = NO;
+        }];
     }
     else
     {
-        self.contentView.registrationScrollBottomConstraint.offset = 0;
-        self.contentView.scrollView.scrollEnabled = NO;
+        if (CGRectIntersectsRect(self.contentView.registrationView.phoneNumberTextField.frame, keyboarFrame))
+        {
+            CGRect intersectionFrame =  CGRectIntersection(self.contentView.registrationView.signInButton.frame, keyboarFrame);
+            [self changeRegistartionViewPositionWithKeyboardHeight:(CGRectGetHeight(intersectionFrame) + CGRectGetHeight(self.contentView.registrationView.phoneNumberTextField.frame))];
+        }
+        else if (CGRectIntersectsRect(self.contentView.registrationView.signInButton.frame, keyboarFrame))
+        {
+            UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, keyboardHeight, 0);
+            self.contentView.scrollView.contentInset = insets;
+            self.contentView.scrollView.scrollIndicatorInsets = insets;
+            self.contentView.scrollView.scrollEnabled = YES;
+        }
+        else
+        {
+            UIEdgeInsets insets = UIEdgeInsetsZero;
+            self.contentView.scrollView.contentInset = insets;
+            self.contentView.scrollView.scrollIndicatorInsets = insets;
+            
+            self.contentView.scrollView.scrollEnabled = NO;
+        }
     }
 }
 
@@ -149,12 +170,12 @@
 {
     [UIView animateWithDuration:[self.animationDuration doubleValue] animations:^{
        
-        self.contentView.registrationScrollBottomConstraint.offset = -keyboardHeight / 2;
+        self.contentView.scrollView.contentInset = UIEdgeInsetsMake(0, 0, keyboardHeight / 2, 0);
+        self.contentView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, keyboardHeight / 2, 0);
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
         
         self.contentView.scrollView.scrollEnabled = YES;
-//        [self.contentView scrollToBottom];
     }];
 }
 
@@ -162,8 +183,10 @@
 {
     [UIView animateWithDuration:[self.animationDuration doubleValue] animations:^{
         
-        self.contentView.registrationScrollBottomConstraint.offset = 0;
+        self.contentView.scrollView.contentInset = UIEdgeInsetsZero;
+        self.contentView.scrollView.scrollIndicatorInsets = UIEdgeInsetsZero;
         [self.view layoutIfNeeded];
+        
     } completion:^(BOOL finished) {
         
         self.contentView.scrollView.scrollEnabled = NO;

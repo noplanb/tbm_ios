@@ -461,7 +461,7 @@
     }
 
     ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:video];
-    NSURL* videoUrl = videoModel.videoURL;
+//    NSURL* videoUrl = videoModel.videoURL;
     
 //    if ([ZZFileHelper isMediaFileCorruptedWithFileUrl:videoUrl])
 //    {

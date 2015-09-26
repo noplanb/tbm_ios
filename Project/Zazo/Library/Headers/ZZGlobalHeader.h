@@ -71,3 +71,6 @@ static NSString* const kMessageSoundZazoFileName = @"NotificationTone.wav";
 
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 
+#define IS_IPHONE_4             ([[UIScreen mainScreen] bounds].size.height == 480.0f)
+
+

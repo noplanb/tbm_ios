@@ -8,8 +8,6 @@
 #import "ZZGridHelper.h"
 #import "ZZGeometryHelper.h"
 
-#define IS_IPHONE_4             ([[UIScreen mainScreen] bounds].size.height == 480.0f)
-
 @interface ZZGridHelper ()
 
 @property (nonatomic, assign, readonly) CGRect rails;

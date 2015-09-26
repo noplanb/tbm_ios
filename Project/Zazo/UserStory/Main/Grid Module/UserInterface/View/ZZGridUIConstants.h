@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#define IS_IPHONE_4             ([[UIScreen mainScreen] bounds].size.height == 480.0f)
-
 static inline CGSize const kGridItemSize()
 {
     if (IS_IPHONE_4)
