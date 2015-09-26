@@ -112,9 +112,6 @@
         return [self modelFromEntity:value];
     }] array];
     
-//    NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:@"indexPathIndexForItem" ascending:YES];
-//    models = [models sortedArrayUsingDescriptors:@[sort]];
-//    
     return [models firstObject];
 }
 

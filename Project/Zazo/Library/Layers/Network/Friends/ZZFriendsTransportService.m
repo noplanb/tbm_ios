@@ -107,11 +107,8 @@ static const struct
     firstName = [NSObject an_safeString:firstName];
     lastName = [NSObject an_safeString:lastName];
     
-    if ([firstName isKindOfClass:[NSString class]] && [lastName isKindOfClass:[NSString class]])
-    {
-        firstName = [firstName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        lastName = [lastName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    }
+    firstName = [firstName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    lastName = [lastName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
     NSDictionary* parameters = @{ZZInvitationsServerParameters.phoneNumber : [NSObject an_safeString:formattedNumber],
                                  ZZInvitationsServerParameters.firstName   : firstName,
