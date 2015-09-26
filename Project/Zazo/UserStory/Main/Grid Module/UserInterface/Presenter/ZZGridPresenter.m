@@ -87,7 +87,7 @@ TBMTableModalDelegate
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateGridData:)
+                                             selector:@selector(_videoWasViewed:)
                                                  name:kFriendVideoViewedNotification
                                                object:nil];
     
@@ -120,6 +120,12 @@ TBMTableModalDelegate
 {
     [self.actionHandler handleEvent:ZZGridActionEventTypeOutgoingMessageDidSend];
     [self.dataSource reloadDebugStatuses];
+}
+
+- (void)_videoWasViewed:(NSNotification*)notif
+{
+    [self.actionHandler handleEvent:ZZGridActionEventTypeOutgoingMessageWasViewed];
+    [self updateGridData:notif];
 }
 
 
@@ -206,6 +212,7 @@ TBMTableModalDelegate
 
 - (void)updateGridWithDownloadAnimationModel:(ZZGridDomainModel*)model
 {
+    [self.actionHandler handleEvent:ZZGridActionEventTypeIncomingMessageDidReceived];
     [self.dataSource updateDataSourceWithDownloadAnimationWithGridModel:model
                                                     withCompletionBlock:^(BOOL isNewVideoDownloaded) {}];
 }
