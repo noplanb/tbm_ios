@@ -47,7 +47,7 @@
 - (void)friendRecievedFromServer:(ZZFriendDomainModel*)friendModel;
 
 - (void)updateGridWithModel:(ZZGridDomainModel*)model;
-- (void)updateGridWithModelFromNotification:(ZZGridDomainModel*)model;
+- (void)updateGridWithModelFromNotification:(ZZGridDomainModel*)model isNewFriend:(BOOL)isNewFriend;
 
 - (void)loadedStateUpdatedTo:(BOOL)isLoading;
 - (void)addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel*)contact;

@@ -307,13 +307,13 @@ static NSInteger const kGridFriendsCellCount = 8;
                 model.relatedUser = friendModel;
             }
             [self _upsertGridModel:model];
-            [self.output updateGridWithModelFromNotification:model];
+            [self.output updateGridWithModelFromNotification:model isNewFriend:YES];
     }
     else
     {
         modelThatContainCurrentFriend.relatedUser = friendModel;
         id model = [self _upsertGridModel:modelThatContainCurrentFriend];
-        [self.output updateGridWithModelFromNotification:model];
+        [self.output updateGridWithModelFromNotification:model isNewFriend:NO];
     }
 }
 

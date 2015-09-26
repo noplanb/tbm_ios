@@ -9,17 +9,26 @@
 #import "ZZActionSheetController.h"
 #import "ZZFeatureObserver.h"
 
-
 @implementation ZZActionSheetController
 
 + (void)actionSheetWithPresentedView:(UIView*)presentedView
+                               frame:(CGRect)frame
                      completionBlock:(void(^)(ZZEditMenuButtonType selectedType))completionBlock;
 {
     UIActionSheet* actionSheet = [ZZActionSheetController _currentActionSheet];
-    ANDispatchBlockToMainQueue(^{
-        [actionSheet showInView:presentedView];
-    });
-    
+    if (IS_IPAD)
+    {
+        ANDispatchBlockToMainQueue(^{
+            [actionSheet showFromRect:frame inView:presentedView animated:YES];
+        });
+    }
+    else
+    {
+        ANDispatchBlockToMainQueue(^{
+            [actionSheet showInView:presentedView];
+        });
+    }
+
     [actionSheet.rac_buttonClickedSignal subscribeNext:^(NSNumber* x) {
         
         if (x.integerValue != ZZEditMenuButtonTypeCancel)

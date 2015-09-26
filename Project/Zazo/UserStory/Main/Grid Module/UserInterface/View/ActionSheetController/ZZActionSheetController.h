@@ -6,9 +6,8 @@
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
-typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
+typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
+{
     ZZEditMenuButtonTypeEditFriends,
     ZZEditMenuButtonTypeSendFeedback,
     ZZEditMenuButtonTypeCancel,
@@ -17,6 +16,7 @@ typedef NS_ENUM(NSInteger, ZZEditMenuButtonType) {
 @interface ZZActionSheetController : NSObject
 
 + (void)actionSheetWithPresentedView:(UIView*)presentedView
+                               frame:(CGRect)frame
                      completionBlock:(void(^)(ZZEditMenuButtonType selectedType))completionBlock;
 
 @end

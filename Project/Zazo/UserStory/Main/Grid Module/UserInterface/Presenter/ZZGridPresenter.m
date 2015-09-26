@@ -180,7 +180,7 @@ TBMTableModalDelegate
     }
 }
 
-- (void)updateGridWithModelFromNotification:(ZZGridDomainModel *)model
+- (void)updateGridWithModelFromNotification:(ZZGridDomainModel *)model isNewFriend:(BOOL)isNewFriend
 {
     [self.dataSource updateDataSourceWithGridModelFromNotification:model
                                                withCompletionBlock:^(BOOL isNewVideoDownloaded) {
@@ -191,8 +191,13 @@ TBMTableModalDelegate
                     [self.soundPlayer play];
                 }
             }
-
-     }];
+    }];
+    
+    if (isNewFriend)
+    {
+        [self.userInterface showFriendAnimationWithModel:model.relatedUser];
+        [self.actionHandler handleEvent:ZZGridActionEventTypeFriendDidAdd];
+    }
 }
 
 - (void)updateGridWithDownloadAnimationModel:(ZZGridDomainModel*)model
