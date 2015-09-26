@@ -8,7 +8,7 @@
 
 #pragma mark  - Title Image
 
-static CGFloat const kTileImageLeftPadding = 12;
+static CGFloat const kTileImageLeftPadding = 10;
 
 #pragma mark  - Menu Button
 
@@ -41,7 +41,7 @@ static CGFloat const kButtonSize = 44;
     if (!_titleImageView)
     {
         _titleImageView = [UIImageView new];
-        _titleImageView.image = [[UIImage imageWithPDFNamed:@"app_logo" atHeight:19]
+        _titleImageView.image = [[UIImage imageWithPDFNamed:@"app_logo" atHeight:22]
                                  an_imageByTintingWithColor:[ZZColorTheme shared].menuTintColor];
         _titleImageView.contentMode = UIViewContentModeCenter;
         [_titleImageView sizeToFit];
@@ -55,12 +55,12 @@ static CGFloat const kButtonSize = 44;
     return _titleImageView;
 }
 
-- (UIButton *)menuButton
+- (UIButton*)menuButton
 {
     if (!_menuButton)
     {
         _menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        UIImage* menuImage = [[UIImage imageWithPDFNamed:@"icon_people" atHeight:15]
+        UIImage* menuImage = [[UIImage imageWithPDFNamed:@"icon_people" atHeight:20]
                               an_imageByTintingWithColor:[ZZColorTheme shared].menuTintColor];
         [_menuButton setImage:menuImage forState:UIControlStateNormal];
         [self addSubview:_menuButton];
@@ -79,7 +79,7 @@ static CGFloat const kButtonSize = 44;
     if (!_editFriendsButton)
     {
         _editFriendsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        UIImage* menuImage = [[UIImage imageWithPDFNamed:@"icon_dots" atHeight:19]
+        UIImage* menuImage = [[UIImage imageWithPDFNamed:@"icon_dots" atHeight:20]
                               an_imageByTintingWithColor:[ZZColorTheme shared].menuTintColor];
         [_editFriendsButton setImage:menuImage forState:UIControlStateNormal];
         [self addSubview:_editFriendsButton];

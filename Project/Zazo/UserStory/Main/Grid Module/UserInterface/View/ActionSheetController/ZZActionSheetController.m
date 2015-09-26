@@ -31,24 +31,13 @@
     
     [actionSheet.rac_buttonClickedSignal subscribeNext:^(NSNumber* x) {
         
-//        if (IS_IPAD)
-//        {
-//            if (completionBlock)
-//            {
-//                completionBlock([x integerValue]);
-//            }
-//        }
-//        else
-//        {
-            if (x.integerValue != actionSheet.cancelButtonIndex)
+        if (x.integerValue != actionSheet.cancelButtonIndex)
+        {
+            if (completionBlock)
             {
-                if (completionBlock)
-                {
-                    completionBlock([x integerValue]);
-                }
-                
+                completionBlock([x integerValue]);
             }
-//        }
+        }
     }];
 }
 
@@ -80,22 +69,5 @@
     }
     return actionSheet;
 }
-
-+ (ZZEditMenuButtonType)_selectedWithSelectedIndex:(NSNumber*)selectedIndex
-{
-    ZZEditMenuButtonType type;
-    
-    if (YES) //([ZZFeatureObserver sharedInstance].isDeleteFriendsEnabled)
-    {
-        type = ZZEditMenuButtonTypeEditFriends;
-    }
-    else
-    {
-        type = ZZEditMenuButtonTypeSendFeedback;
-    }
-    
-    return type;
-}
-
 
 @end

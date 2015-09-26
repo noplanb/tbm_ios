@@ -10,8 +10,6 @@
 #import "ZZGridUIConstants.h"
 #import "ZZGridCenterCell.h"
 
-
-
 @interface ZZGridView () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak) id <ZZGridViewDelegate> delegate;

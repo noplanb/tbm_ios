@@ -28,6 +28,7 @@
     {
         [self separator];
         [self.deleteAndRestoreButton addTarget:self action:@selector(deleteButtonSelected) forControlEvents:UIControlEventTouchUpInside];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
