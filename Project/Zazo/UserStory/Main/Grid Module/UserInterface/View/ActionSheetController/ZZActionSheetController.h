@@ -9,8 +9,7 @@
 typedef NS_ENUM(NSInteger, ZZEditMenuButtonType)
 {
     ZZEditMenuButtonTypeEditFriends,
-    ZZEditMenuButtonTypeSendFeedback,
-    ZZEditMenuButtonTypeCancel,
+    ZZEditMenuButtonTypeSendFeedback
 };
 
 @interface ZZActionSheetController : NSObject

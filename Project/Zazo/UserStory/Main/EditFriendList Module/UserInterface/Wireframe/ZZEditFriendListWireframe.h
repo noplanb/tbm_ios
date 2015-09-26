@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong) ZZEditFriendListPresenter* presenter;
 
-- (void)presentEditFriendListControllerFromViewController:(UIViewController*)vc withCompletion:(ANCodeBlock)completion;
+- (void)presentEditFriendListControllerFromNavigationController:(UINavigationController*)nc;
 - (void)dismissEditFriendListController;
 
 @end

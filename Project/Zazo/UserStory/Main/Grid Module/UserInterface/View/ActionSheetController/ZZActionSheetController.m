@@ -31,16 +31,16 @@
     
     [actionSheet.rac_buttonClickedSignal subscribeNext:^(NSNumber* x) {
         
-        if (IS_IPAD)
-        {
-            if (completionBlock)
-            {
-                completionBlock([x integerValue]);
-            }
-        }
-        else
-        {
-            if (x.integerValue != ZZEditMenuButtonTypeCancel)
+//        if (IS_IPAD)
+//        {
+//            if (completionBlock)
+//            {
+//                completionBlock([x integerValue]);
+//            }
+//        }
+//        else
+//        {
+            if (x.integerValue != actionSheet.cancelButtonIndex)
             {
                 if (completionBlock)
                 {
@@ -48,7 +48,7 @@
                 }
                 
             }
-        }
+//        }
     }];
 }
 

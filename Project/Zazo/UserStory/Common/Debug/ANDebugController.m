@@ -79,14 +79,12 @@ typedef NS_ENUM(NSInteger, ANSections)
         {
             ZZAuthWireframe* wireframe = [ZZAuthWireframe new];
             [wireframe presentAuthControllerFromNavigationController:self.rootController.navigationController];
-            
         } break;
             
         case ZZGridController:
         {
             ZZMenuWireframe* menuwireframe = [ZZMenuWireframe new];
             [menuwireframe presentMenuControllerFromWindow:self.rootController.view.window];
-            
         } break;
             
         case ZZStateController:
@@ -101,10 +99,9 @@ typedef NS_ENUM(NSInteger, ANSections)
         } break;
             
         case ZZEditFriendsController:
-            
         {
             ZZEditFriendListWireframe* wireframe = [ZZEditFriendListWireframe new];
-            [wireframe presentEditFriendListControllerFromViewController:self.rootController withCompletion:nil];
+            [wireframe presentEditFriendListControllerFromNavigationController:self.rootController.navigationController];
         } break;
             
         case ZZSecretController:

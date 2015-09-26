@@ -67,7 +67,7 @@
 - (void)presentEditFriendsController
 {
     ZZEditFriendListWireframe* wireFrame = [ZZEditFriendListWireframe new];
-    [wireFrame presentEditFriendListControllerFromViewController:self.gridController withCompletion:nil];
+    [wireFrame presentEditFriendListControllerFromNavigationController:self.presentedController];
     wireFrame.presenter.editFriendListModuleDelegate = self.presenter;
 }
 
