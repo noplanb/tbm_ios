@@ -41,4 +41,5 @@ static CGFloat const kUserNameFontSize = 13;
 - (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock;
 - (void)checkIsCancelRecordingWithRecognizer:(UILongPressGestureRecognizer*)recognizer;
 - (void)showDownloadViews;
+- (void)hideDownloadViews;
 @end

@@ -17,4 +17,5 @@
 - (void)_hideAllAnimationViews;
 - (void)_showDownloadAnimationWithCompletionBlock:(void (^)())completionBlock;
 - (void)_showDownloadViews;
+- (void)_hideDownloadViews;
 @end

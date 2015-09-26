@@ -144,6 +144,11 @@
     [self _showDownloadViews];
 }
 
+- (void)hideDownloadViews
+{
+    [self _hideDownloadViews];
+}
+
 
 #pragma mark - Lazy Load
 

@@ -54,6 +54,7 @@
         
         if (self.model.isNeedToShowDownloadAnimation)
         {
+            self.model.isNeedToShowDownloadAnimation = NO;
             [self updateStateViewWithModel:model];
             [self.stateView hideAllAnimationViews];
             [self.stateView showDownloadViews];
@@ -72,6 +73,7 @@
                 [self showDownloadAnimationWithCompletionBlock:^{
                     [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
                     self.model.prevBadgeNumber = self.model.badgeNumber;
+                    [self.stateView hideDownloadViews];
                 }];
             }
         }
