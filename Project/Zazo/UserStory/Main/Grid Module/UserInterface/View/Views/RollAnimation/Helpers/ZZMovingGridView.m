@@ -15,8 +15,8 @@
 
 @interface ZZMovingGridView ()
 
-@property(nonatomic) CGFloat startOffset;
-@property(nonatomic) BOOL touchedWhileAnimation;
+@property (nonatomic, assign) CGFloat startOffset;
+@property (nonatomic, assign) BOOL touchedWhileAnimation;
 
 @end
 
@@ -44,6 +44,7 @@
     self.grid = [[ZZGridHelper alloc] init];
     
     self.rotator = [[ZZRotator alloc] initWithAnimationCompletionBlock:^{
+        self.isGridMoved = NO;
         [self.delegate rotationStoped];
     }];
 
@@ -59,9 +60,11 @@
 {
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan:
+        {
+            NSLog(@"ZZMOVINGGRIDVIEW START TOUCH");
             [self.tapRecognizer setEnabled:NO];
-
             self.startOffset = self.cellsOffset;
+        } break;
         case UIGestureRecognizerStateChanged:
         {
             CGPoint point = [recognizer locationInView:self];
@@ -75,10 +78,11 @@
             }
             self.cellsOffset = self.startOffset + (CGFloat) (deltaAngle);
         }
-            break;
+        break;
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateEnded:
         {
+            self.isGridMoved = YES;
             [self.tapRecognizer setEnabled:YES];
             [self.rotator decayAnimationWithVelocity:[recognizer angleVelocityInView:self] onCarouselView:self];
         }

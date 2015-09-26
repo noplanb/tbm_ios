@@ -25,7 +25,6 @@
 @property (nonatomic, strong) MPMoviePlayerController* moviePlayerController;
 
 @property (nonatomic, strong) UIButton* tapButton;
-//@property (nonatomic, strong) NSArray* currentPlayQueue;
 @property (nonatomic, strong) NSArray* videoModelsArray;
 @property (nonatomic, strong) ZZFriendDomainModel* playedFriend;
 
@@ -54,11 +53,7 @@
                                              selector:@selector(_playerStateWasUpdated)
                                                  name:MPMoviePlayerPlaybackStateDidChangeNotification
                                                object:nil];
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(changeAudioOutput)
-//                                                 name:UIDeviceProximityStateDidChangeNotification
-//                                               object:nil];
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(stop)
                                                  name:UIApplicationWillResignActiveNotification object:nil];
@@ -84,24 +79,14 @@
     self.videoModelsArray = [URLs sortedArrayUsingDescriptors:@[sortDescriptor]];
     
     
-//    self.videoModelsArray = URLs;
     if (view != self.moviePlayerController.view.superview && view)
     {
         self.moviePlayerController.view.frame = view.bounds;
         [view addSubview:self.moviePlayerController.view];
         [view bringSubviewToFront:self.moviePlayerController.view];
-        
-//        NSArray* videoUrls = [[URLs.rac_sequence map:^id(ZZVideoDomainModel* value) {
-//            return value.videoURL;
-//        }] array];
-        
-//        self.currentPlayQueue = videoUrls;
-    
     }
     if (!ANIsEmpty(URLs))//&& ![self.currentPlayQueue isEqualToArray:URLs]) //TODO: if current playback state is equal to user's play list
     {
-
-//        NSURL* firstVideoUrl = [self.currentPlayQueue firstObject];
         
         ZZVideoDomainModel* playedVideoModel = [self.videoModelsArray firstObject];
         TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
@@ -171,10 +156,6 @@
     }
 }
 
-//- (BOOL)isPlaying
-//{
-//    return self.isPlayingVideo;
-//}
 
 
 #pragma mark - Private
@@ -202,7 +183,6 @@
 
 - (void)_playNext
 {
-//    NSInteger index = [self.currentPlayQueue indexOfObject:self.moviePlayerController.contentURL];
     
     __block NSInteger index;
     [self.videoModelsArray enumerateObjectsUsingBlock:^(ZZVideoDomainModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -224,7 +204,6 @@
         ZZVideoDomainModel* nextModel = self.videoModelsArray[index];
         TBMVideo* nextVideo = [TBMVideo findWithVideoId:nextModel.videoID];
         nextUrl = nextVideo.videoUrl;
-//        nextUrl = self.currentPlayQueue[index];
     }
     else
     {
@@ -268,17 +247,6 @@
         [self.delegate videoPlayerURLWasStartPlaying:self.moviePlayerController.contentURL];
     }
 }
-
-//#pragma mark - Change Output
-//
-//- (void)changeAudioOutput
-//{
-//    if ([self isDeviceNearEar])
-//    {
-//        
-//    
-//    }
-//}
 
 - (BOOL)isDeviceNearEar
 {

@@ -49,6 +49,7 @@
 @property (strong, nonatomic) ZZRotationGestureRecognizer *rotationRecognizer;
 @property (strong, nonatomic) UILongPressGestureRecognizer *tapRecognizer;
 @property (strong, nonatomic) UILongPressGestureRecognizer *longPressRecognizer;
+@property (nonatomic, assign) BOOL isGridMoved;
 
 - (void)setCells:(NSArray*)cells;
 - (void)removeAllCells;

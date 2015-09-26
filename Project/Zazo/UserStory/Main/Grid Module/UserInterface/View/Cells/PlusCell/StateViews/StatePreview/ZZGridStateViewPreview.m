@@ -43,12 +43,15 @@ static CGFloat const kThumbnailBorderWidth = 2;
         if (!thumbImage)
         {
             self.thumbnailImageView.contentMode = UIViewContentModeCenter;
-            CGSize size = CGSizeMake(20, 20);
-            thumbImage = [UIImage imageWithPDFNamed:@"contacts-placeholder" atSize:size];
+            self.thumbnailImageView.backgroundColor = [UIColor blackColor];
+            CGSize size = CGSizeMake(30, 30);
+            thumbImage = [[UIImage imageWithPDFNamed:@"contacts-placeholder-withoutborder2" atSize:size]
+                          an_imageByTintingWithColor:[ZZColorTheme shared].menuTextColor];
         }
         else
         {
             self.thumbnailImageView.contentMode = UIViewContentModeScaleToFill;
+            self.thumbnailImageView.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
         }
         self.thumbnailImageView.image = thumbImage;
         [self updateBadgeWithModel:model];
