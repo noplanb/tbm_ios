@@ -41,7 +41,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {   
-    self.zazoSoundPlayer = [[ZZSoundPlayer alloc] initWithSoundNamed:kMessageSoundZazoFileName];
+   
     [self.appDependencies initialApplicationSetup:application launchOptions:launchOptions];
 #ifndef DEBUG
     [TBMDispatch startRollBar];

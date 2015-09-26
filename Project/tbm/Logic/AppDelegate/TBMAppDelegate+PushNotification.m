@@ -145,12 +145,6 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     [self requestBackground];
     [self handleNotificationPayload:userInfo];
     
-    
-    if ([application applicationState] == UIApplicationStateBackground)
-    {
-        [self.zazoSoundPlayer play];
-    }
-    
     // See doc/notification.txt for why we call the completion handler with sucess immediately here.
 //    _completionHandler = [completionHandler copy];
 //    [NSTimer scheduledTimerWithTimeInterval:4.0

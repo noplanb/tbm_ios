@@ -54,6 +54,7 @@
         
         if (self.model.isNeedToShowDownloadAnimation)
         {
+            self.model.isNeedToShowDownloadAnimation = NO;
             [self updateStateViewWithModel:model];
             [self.stateView hideAllAnimationViews];
             [self.stateView showDownloadViews];
@@ -61,19 +62,7 @@
         
         if ([self.model.badgeNumber integerValue] > 0)
         {
-            if (self.model.prevBadgeNumber == self.model.badgeNumber)
-            {
-                [self updateStateViewWithModel:self.model];
-                [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
-            }
-            else
-            {
-                [self updateStateViewWithModel:model];
-                [self showDownloadAnimationWithCompletionBlock:^{
-                    [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
-                    self.model.prevBadgeNumber = self.model.badgeNumber;
-                }];
-            }
+            [self updateDownloadVideoState];
         }
         else
         {
@@ -85,6 +74,35 @@
         [self _setupRecordRecognizerWithModel:model];
     });
 }
+
+- (void)updateDownloadVideoState
+{
+    if (self.model.item.relatedUser.isVideoStopped)
+    {
+        self.model.item.relatedUser.isVideoStopped = YES;
+        [self updateStateViewWithModel:self.model];
+        [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
+        
+    }
+    else
+    {
+        if (self.model.prevBadgeNumber == self.model.badgeNumber)
+        {
+            [self updateStateViewWithModel:self.model];
+            [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
+        }
+        else
+        {
+            [self updateStateViewWithModel:self.model];
+            [self showDownloadAnimationWithCompletionBlock:^{
+                [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
+                self.model.prevBadgeNumber = self.model.badgeNumber;
+                [self.stateView hideDownloadViews];
+            }];
+        }
+    }
+}
+
 
 - (void)updateStateViewWithModel:(ZZGridCellViewModel*)model
 {

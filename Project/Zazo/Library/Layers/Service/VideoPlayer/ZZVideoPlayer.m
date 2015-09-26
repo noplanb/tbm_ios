@@ -25,7 +25,7 @@
 @property (nonatomic, strong) MPMoviePlayerController* moviePlayerController;
 
 @property (nonatomic, strong) UIButton* tapButton;
-@property (nonatomic, strong) NSArray* currentPlayQueue;
+//@property (nonatomic, strong) NSArray* currentPlayQueue;
 @property (nonatomic, strong) NSArray* videoModelsArray;
 @property (nonatomic, strong) ZZFriendDomainModel* playedFriend;
 
@@ -79,28 +79,34 @@
 {
     
     self.moviePlayerController.contentURL = nil;
-    self.videoModelsArray = URLs;
+    
+    NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
+    self.videoModelsArray = [URLs sortedArrayUsingDescriptors:@[sortDescriptor]];
+    
+    
+//    self.videoModelsArray = URLs;
     if (view != self.moviePlayerController.view.superview && view)
     {
         self.moviePlayerController.view.frame = view.bounds;
         [view addSubview:self.moviePlayerController.view];
         [view bringSubviewToFront:self.moviePlayerController.view];
         
-        NSArray* videoUrls = [[URLs.rac_sequence map:^id(ZZVideoDomainModel* value) {
-            return value.videoURL;
-        }] array];
+//        NSArray* videoUrls = [[URLs.rac_sequence map:^id(ZZVideoDomainModel* value) {
+//            return value.videoURL;
+//        }] array];
         
-        self.currentPlayQueue = videoUrls;
+//        self.currentPlayQueue = videoUrls;
     
     }
     if (!ANIsEmpty(URLs))//&& ![self.currentPlayQueue isEqualToArray:URLs]) //TODO: if current playback state is equal to user's play list
     {
 
-        NSURL* firstVideoUrl = [self.currentPlayQueue firstObject];
+//        NSURL* firstVideoUrl = [self.currentPlayQueue firstObject];
+        
         ZZVideoDomainModel* playedVideoModel = [self.videoModelsArray firstObject];
         TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
 
-        self.moviePlayerController.contentURL = firstVideoUrl;
+        self.moviePlayerController.contentURL = viewedVideo.videoUrl;//firstVideoUrl;
         
         //save video state
         [self updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
@@ -110,7 +116,7 @@
        
         [self.moviePlayerController play];
   
-        [self.delegate videoPlayerURLWasStartPlaying:firstVideoUrl];
+        [self.delegate videoPlayerURLWasStartPlaying:viewedVideo.videoUrl];
         
         self.isPlayingVideo = YES;
         [UIDevice currentDevice].proximityMonitoringEnabled = YES;
@@ -145,9 +151,11 @@
 {
     self.isPlayingVideo = NO;
     [self.moviePlayerController.view removeFromSuperview];
+    [self.moviePlayerController stop];
+    self.playedFriend.isVideoStopped = YES;
     [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL
                                 withPlayedUserModel:self.playedFriend];
-    [self.moviePlayerController stop];
+    
     [UIDevice currentDevice].proximityMonitoringEnabled = NO;
 }
 
@@ -159,7 +167,7 @@
     }
     else
     {
-        [self playOnView:nil withURLs:self.currentPlayQueue];
+        [self playOnView:nil withURLs:self.videoModelsArray];
     }
 }
 
@@ -185,24 +193,45 @@
     }
     else
     {
-        [self _playNext];
+        if (self.isPlayingVideo)
+        {
+            [self _playNext];
+        }
     }
 }
 
 - (void)_playNext
 {
-    NSInteger index = [self.currentPlayQueue indexOfObject:self.moviePlayerController.contentURL];
+//    NSInteger index = [self.currentPlayQueue indexOfObject:self.moviePlayerController.contentURL];
+    
+    __block NSInteger index;
+    [self.videoModelsArray enumerateObjectsUsingBlock:^(ZZVideoDomainModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        TBMVideo* viewedVideo = [TBMVideo findWithVideoId:obj.videoID];
+        if ([viewedVideo.videoUrl.path isEqualToString:self.moviePlayerController.contentURL.path])
+        {
+            index = idx;
+            *stop = YES;
+        }
+    }];
+    
     index++;
     
     NSURL* nextUrl = nil;
     
-    if (index < self.currentPlayQueue.count)
+    if (index < self.videoModelsArray.count)
     {
-        nextUrl = self.currentPlayQueue[index];
+        
+        ZZVideoDomainModel* nextModel = self.videoModelsArray[index];
+        TBMVideo* nextVideo = [TBMVideo findWithVideoId:nextModel.videoID];
+        nextUrl = nextVideo.videoUrl;
+//        nextUrl = self.currentPlayQueue[index];
     }
     else
     {
-        [self.delegate videoPlayerURLWasFinishedPlaying:[self.currentPlayQueue lastObject] withPlayedUserModel:self.playedFriend];
+        ZZVideoDomainModel* lastModel = [self.videoModelsArray lastObject];
+        TBMVideo* lastVideo = [TBMVideo findWithVideoId:lastModel.videoID];
+        
+        [self.delegate videoPlayerURLWasFinishedPlaying:lastVideo.videoUrl withPlayedUserModel:self.playedFriend];
         [self.moviePlayerController.view removeFromSuperview];
         self.isPlayingVideo = NO;
         [UIDevice currentDevice].proximityMonitoringEnabled = NO;

@@ -51,18 +51,9 @@ TBMTableModalDelegate
 
 //shiiiiit
 @property (nonatomic, assign) BOOL isGridAppear;
-//@property (nonatomic, strong) id<TBMEventsFlowModuleInterface> eventsFlowModule;
-
-
-
 @end
 
 @implementation ZZGridPresenter
-//TODO: (EventsFlow) When sent                  [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidSend];
-//TODO: (EventsFlow) When friend add            [self.eventsFlowModule throwEvent:TBMEventFlowEventFriendDidAddWithoutApp];
-//TODO: (EventsFlow) When Message Received      [self.eventsFlowModule throwEvent:TBMEvexntFlowEventMessageDidReceive];
-//TODO: (EventsFlow) When
-//TODO: (EventsFlow) Setup events flow module
 
 - (void)configurePresenterWithUserInterface:(UIViewController <ZZGridViewInterface>*)userInterface
 {
@@ -129,24 +120,10 @@ TBMTableModalDelegate
     [[ZZVideoRecorder shared] removeDelegate:self];
 }
 
-//- (id)eventsFlowModule
-//{
-//    if (!_eventsFlowModule)
-//    {
-//#ifdef HINTS
-//    TBMEventsFlowModulePresenter* eventsFlowModulePresenter = [TBMEventsFlowModulePresenter new];
-//    eventsFlowModulePresenter.gridModule = self;
-//    [eventsFlowModulePresenter setupHandlers];
-//    _eventsFlowModule = eventsFlowModulePresenter;
-//#endif
-//    }
-//    return _eventsFlowModule;
-//}
-
 - (void)sendMessageEvent
 {
-//    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidSend];
-     [self.dataSource reloadDebugStatuses];
+    [self.actionHandler handleEvent:ZZGridActionEventTypeMessageDidSend];
+    [self.dataSource reloadDebugStatuses];
 }
 
 
@@ -298,7 +275,6 @@ TBMTableModalDelegate
                 [self.actionHandler handleEvent:ZZGridActionEventTypeGridLoaded];
             });
         });
-        
     }];
 
     BOOL isTwoCamerasAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
@@ -374,6 +350,7 @@ TBMTableModalDelegate
         [self.interactor updateLastActionForFriend:model.relatedUser];
     }
     [self.dataSource updateStorageWithModel:model];
+    [self.actionHandler handleEvent:ZZGridActionEventTypeFriendDidAdd];
     [self.userInterface showFriendAnimationWithModel:model.relatedUser];
 }
 
@@ -382,6 +359,7 @@ TBMTableModalDelegate
     [self.userInterface updateLoadingStateTo:isLoading];
 }
 
+
 #pragma mark - Module Interface
 
 - (void)presentMenu
@@ -389,7 +367,6 @@ TBMTableModalDelegate
     [self.wireframe toggleMenu];
     [self.userInterface menuWasOpened];
 }
-
 
 
 #pragma mark - DataSource Delegate
@@ -426,17 +403,6 @@ TBMTableModalDelegate
     [ZZGridAlertBuilder showHintalertWithMessage:msg];
 }
 
-//- (CGRect)gridGetCenterCellFrameInView:(UIView*)view
-//{
-//    return [self.userInterface gridGetCenterCellFrameInView:view];
-//}
-//
-//- (CGRect)gridGetFrameForUnviewedBadgeForFriend:(NSUInteger)friendCellIndex inView:(UIView*)view
-//{
-//    NSIndexPath* friendIndexPath = [self _indexPathForFriendAtindex:friendCellIndex];
-//    return [self.userInterface gridGetUnviewedBadgeFrameForIndexPath:friendIndexPath inView:view];
-//}
-
 
 #pragma mark - Video Player Delegate
 
@@ -447,13 +413,12 @@ TBMTableModalDelegate
 }
 
 
-- (void)videoPlayerURLWasFinishedPlaying:(NSURL *)videoURL withPlayedUserModel:(ZZFriendDomainModel *)playedFriendModel
+- (void)videoPlayerURLWasFinishedPlaying:(NSURL *)videoURL withPlayedUserModel:(ZZFriendDomainModel*)playedFriendModel
 {
-    NSLog(@"palyedModel");
     [self.interactor updateFriendAfterVideoStopped:playedFriendModel];
-    ////    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidViewed];
-    ////    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidStopPlaying];
+    [self.actionHandler handleEvent:ZZGridActionEventTypeMessageDidStopPlaying];
 }
+
 
 #pragma mark - Data source delegate
 

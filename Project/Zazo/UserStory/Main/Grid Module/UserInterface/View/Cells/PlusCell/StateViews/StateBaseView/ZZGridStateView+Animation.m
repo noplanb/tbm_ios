@@ -127,6 +127,12 @@
 
 - (void)_hideDownloadViews
 {
+    self.downloadIndicator.hidden = YES;
+    self.downloadBarView.hidden = YES;
+}
+
+- (void)_hideAllDownloadViews
+{
     self.rightDownloadIndicatorConstraint.offset = 0;
     self.downloadBarView.hidden = YES;
     self.downloadIndicator.hidden = YES;
@@ -149,7 +155,7 @@
 
 - (void)_hideAllAnimationViews
 {
-    [self _hideDownloadViews];
+    [self _hideAllDownloadViews];
     [self _hideUploadViews];
     [self _hideVideoCountLabel];
     self.videoViewedView.hidden = YES;
