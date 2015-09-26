@@ -53,7 +53,7 @@
                                              selector:@selector(_playerStateWasUpdated)
                                                  name:MPMoviePlayerPlaybackStateDidChangeNotification
                                                object:nil];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(stop)
                                                  name:UIApplicationWillResignActiveNotification object:nil];
@@ -119,17 +119,23 @@
 {
     
     TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
-    viewedVideo.status = @(INCOMING_VIDEO_STATUS_VIEWED);
-    if (playedVideoModel.relatedUser.unviewedCount > 0)
+    if (!ANIsEmpty(viewedVideo))
     {
-        playedVideoModel.relatedUser.unviewedCount--;
+        if (viewedVideo.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADED)
+        {
+            viewedVideo.status = @(INCOMING_VIDEO_STATUS_VIEWED);
+            if (playedVideoModel.relatedUser.unviewedCount > 0)
+            {
+                playedVideoModel.relatedUser.unviewedCount--;
+            }
+            else
+            {
+                playedVideoModel.relatedUser.unviewedCount = 0;
+            }
+            self.playedFriend = playedVideoModel.relatedUser;
+            [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
+        }
     }
-    else
-    {
-        playedVideoModel.relatedUser.unviewedCount = 0;
-    }
-    self.playedFriend = playedVideoModel.relatedUser;
-    [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
 }
 
 - (void)stop
@@ -223,8 +229,6 @@
         
         //save video state
         [self updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
-        
-//        [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL];
         
         self.moviePlayerController.contentURL = nextUrl;
         
