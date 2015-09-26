@@ -27,6 +27,16 @@
     [self.userInterface updateDataSource:self.dataSource];
     
     [self.interactor loadDataIncludeAddressBookRequest:NO];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_applicationWillEnterInBackground)
+                                                 name:UIApplicationWillResignActiveNotification
+                                               object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -80,6 +90,14 @@
 {   
     ZZMenuCellViewModel* model = (ZZMenuCellViewModel*)item;
     [self.menuModuleDelegate userSelectedOnMenu:model.item];
+    [self.wireframe closeMenu];
+}
+
+
+#pragma mark - Private
+
+- (void)_applicationWillEnterInBackground
+{
     [self.wireframe closeMenu];
 }
 

@@ -12,5 +12,5 @@
 @interface TBMPreviewView : UIView
 - (void)showRecordingOverlay;
 - (void)hideRecordingOverlay;
-- (void)setupWithCaptureSession:(AVCaptureSession *)captureSession;
+//- (void)setupWithCaptureSession:(AVCaptureSession *)captureSession;
 @end

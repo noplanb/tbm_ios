@@ -78,6 +78,10 @@ static APAddressBook* addressBook = nil;
         return ((contact.phones.count > 0) | (contact.firstName.length));
     };
     
+    [addressBook startObserveChangesWithCallback:^{
+        addressBook = [[APAddressBook alloc] init];
+    }];
+    
     addressBook.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES],
                                     [NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES]];
     

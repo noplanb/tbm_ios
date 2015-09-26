@@ -82,13 +82,17 @@
 - (void)toggleMenu
 {
     [self.presenter menuToggled];
-    [self.menuController reset];
-    [self.drawerController toggle];
+    ANDispatchBlockToMainQueue(^{
+        [self.menuController reset];
+        [self.drawerController toggle];
+    });
 }
 
 - (void)closeMenu
 {
-    [self.drawerController updateStateToOpened:NO];
+    ANDispatchBlockToMainQueue(^{
+       [self.drawerController updateStateToOpened:NO]; 
+    });
 }
 
 @end

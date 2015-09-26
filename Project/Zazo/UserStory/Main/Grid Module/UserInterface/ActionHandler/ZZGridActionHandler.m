@@ -141,7 +141,7 @@
         [self.delegate unlockFeature:unlockedFeature];
     }
      // TODO: (FEATURES) show message, unlock UI
-    [self handleEvent:ZZGridActionEventTypeMessageDidSend];
+    [self handleEvent:ZZGridActionEventTypeOutgoingMessageDidSend];
 }
 
 - (void)dismissedHintWithType:(ZZHintsType)type

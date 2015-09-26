@@ -54,7 +54,6 @@
     } error:^(NSError *error) {
         
         [self.output needsPermissionForAddressBook];
-        
     }];
 }
 

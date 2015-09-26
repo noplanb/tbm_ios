@@ -50,9 +50,9 @@ typedef NS_ENUM(NSInteger, ZZGridActionEventType)
     ZZGridActionEventTypeGridLoaded, // done
     ZZGridActionEventTypeMessageDidStopPlaying, // done
     ZZGridActionEventTypeFriendDidAdd, // done
-    ZZGridActionEventTypeMessageDidReceive,
-    ZZGridActionEventTypeMessageDidSend,
-    ZZGridActionEventTypeMessageOurVideoWasViewed,
+    ZZGridActionEventTypeIncomingMessageDidReceived,
+    ZZGridActionEventTypeOutgoingMessageDidSend,
+    ZZGridActionEventTypeOutgoingMessageWasViewed,
     ZZGridActionEventTypeUsageHintDidDismiss,  // done
     ZZGridActionEventTypeAbortRecordingUnlockDialogDidDismiss, // max
     ZZGridActionEventTypeDeleteFriendUnlockDialogDidDismiss, // max

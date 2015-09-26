@@ -15,8 +15,6 @@
 - (void)presentSendEmailController;
 - (void)stopPlaying;
 
-- (void)gridDidAppear;
-
 // Hints appearance
 - (UIView*)viewForDialog;
 - (CGRect)gridGetFrameForFriend:(NSUInteger)friendCellIndex inView:(UIView*)view;

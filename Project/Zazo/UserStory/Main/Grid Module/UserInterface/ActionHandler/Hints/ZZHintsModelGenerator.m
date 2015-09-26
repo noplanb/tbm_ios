@@ -115,7 +115,7 @@
     model.condition = ^BOOL(ZZGridActionEventType event) {
         if (event != ZZGridActionEventTypeMessageDidStopPlaying
                 && event != ZZGridActionEventTypeFriendDidAdd
-                && event != ZZGridActionEventTypeMessageDidReceive
+                && event != ZZGridActionEventTypeIncomingMessageDidReceived
                 && event != ZZGridActionEventTypeGridLoaded)
         {
             return NO;
@@ -137,7 +137,7 @@
     model.imageType = ZZHintsBottomImageTypeGotIt;
     model.priority = 600;
     model.condition = ^BOOL(ZZGridActionEventType event) {
-        if (event != ZZGridActionEventTypeMessageDidSend)
+        if (event != ZZGridActionEventTypeOutgoingMessageDidSend)
         {
             return NO;
         }
@@ -164,7 +164,7 @@
     model.priority = 200;
     model.condition = ^BOOL(ZZGridActionEventType event) {
         if (event != ZZGridActionEventTypeUsageHintDidDismiss &&
-                event != ZZGridActionEventTypeMessageDidSend &&
+                event != ZZGridActionEventTypeOutgoingMessageDidSend &&
                 event != ZZGridActionEventTypeMessageDidStopPlaying)
         {
             return NO;
@@ -203,7 +203,7 @@
     model.priority = 200;
     model.condition = ^BOOL(ZZGridActionEventType event) {
         if (event != ZZGridActionEventTypeUsageHintDidDismiss &&
-                event != ZZGridActionEventTypeMessageDidSend &&
+                event != ZZGridActionEventTypeOutgoingMessageDidSend &&
                 event != ZZGridActionEventTypeMessageDidStopPlaying)
         {
             return NO;

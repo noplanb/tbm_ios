@@ -29,8 +29,6 @@
 #import "TBMTableModal.h"
 #import "ZZCoreTelephonyConstants.h"
 
-//@protocol TBMEventsFlowModuleInterface;
-
 @interface ZZGridPresenter ()
 <
 ZZGridDataSourceDelegate,
@@ -48,9 +46,6 @@ TBMTableModalDelegate
 @property (nonatomic, strong) ZZContactDomainModel* contactWithMultiplyPhones;
 @property (nonatomic, strong) TBMFriend* notificationFriend;
 
-
-//shiiiiit
-@property (nonatomic, assign) BOOL isGridAppear;
 @end
 
 @implementation ZZGridPresenter
@@ -59,7 +54,7 @@ TBMTableModalDelegate
 {
     self.userInterface = userInterface;
     
-    self.actionHandler = [ZZGridActionHandler new];
+//    self.actionHandler = [ZZGridActionHandler new];
     self.actionHandler.delegate = self;
     self.actionHandler.userInterface = self.userInterface;
     
@@ -122,7 +117,7 @@ TBMTableModalDelegate
 
 - (void)sendMessageEvent
 {
-    [self.actionHandler handleEvent:ZZGridActionEventTypeMessageDidSend];
+    [self.actionHandler handleEvent:ZZGridActionEventTypeOutgoingMessageDidSend];
     [self.dataSource reloadDebugStatuses];
 }
 
@@ -162,8 +157,6 @@ TBMTableModalDelegate
     }
     
     [self.dataSource reloadDebugStatuses];
-//    TBMFriend* updatedFriend = notification.object;
-//    [self.dataSource updateModelWithFriend:updatedFriend];
 }
 
 - (void)updateFriendIfNeeded
@@ -173,8 +166,11 @@ TBMTableModalDelegate
         ANDispatchBlockToMainQueue(^{
             CGFloat timeToUpdateInterface = 0.6;
             CGFloat timeAfterAnimationEnd = 3.6;
+            
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeToUpdateInterface * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
                 [self.interactor showDownloadAniamtionForFriend:self.notificationFriend];
+                
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeAfterAnimationEnd * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.interactor handleNotificationForFriend:self.notificationFriend];
                     self.notificationFriend = nil;
@@ -201,28 +197,8 @@ TBMTableModalDelegate
 
 - (void)updateGridWithDownloadAnimationModel:(ZZGridDomainModel*)model
 {
-    
-//    [self.dataSource updateDataSourceWithGridModelFromNotification:model
-//                                               withCompletionBlock:^(BOOL isNewVideoDownloaded) {
-//           if (isNewVideoDownloaded)
-//           {
-//               CGFloat animationDelay = 1.8;
-//               dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(animationDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                   [self.soundPlayer play];
-//               });
-//           }
-//    }];
-    
-    [self.dataSource updateDataSourceWithDownloadAnimationWithGridModel:model withCompletionBlock:^(BOOL isNewVideoDownloaded) {
-//        if (isNewVideoDownloaded)
-//        {
-//            CGFloat animationDelay = 1.8;
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(animationDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                [self.soundPlayer play];
-//            });
-//        }
-    }];
-    
+    [self.dataSource updateDataSourceWithDownloadAnimationWithGridModel:model
+                                                    withCompletionBlock:^(BOOL isNewVideoDownloaded) {}];
 }
 
 - (void)_updateFeatures
@@ -231,20 +207,16 @@ TBMTableModalDelegate
      [self.dataSource reloadDebugStatuses];
 }
 
-
 - (void)_updateCenterCell
 {
-//    if (self.isGridAppear)
-//    {
-        if ([self.dataSource centerViewModel])
+    if ([self.dataSource centerViewModel])
+    {
+        id model = [self.dataSource centerViewModel];
+        if ([model isKindOfClass:[ZZGridCenterCellViewModel class]])
         {
-            id model = [self.dataSource centerViewModel];
-            if ([model isKindOfClass:[ZZGridCenterCellViewModel class]])
-            {
-                [self.userInterface updateSwitchButtonWithState:(![ZZFeatureObserver sharedInstance].isBothCameraEnabled)];
-            }
+            [self.userInterface updateSwitchButtonWithState:(![ZZFeatureObserver sharedInstance].isBothCameraEnabled)];
         }
-//    }
+    }
 }
 
 - (void)presentEditFriendsController
@@ -373,12 +345,7 @@ TBMTableModalDelegate
 
 - (void)itemSelectedWithModel:(ZZGridCellViewModel*)model
 {
-    if (model.item.relatedUser)
-    {
-//        model.item.relatedUser.timeOfLastAction = [NSDate date]; //TODO:
-//        [[TBMVideoPlayer sharedInstance] togglePlayWithIndex:[self indexWithView:view] frame:view.frame];
-    }
-    else
+    if (!model.item.relatedUser)
     {
         [self presentMenu];
     }
@@ -438,33 +405,21 @@ TBMTableModalDelegate
 
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled
                            viewModel:(ZZGridCellViewModel*)viewModel
-                 withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock // TODO: add states for gesture recognizer and show toasts
+                 withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
-    
-    
     [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
     ZZGridCenterCellViewModel* model = [self.dataSource centerViewModel];
     if (!ANIsEmpty(viewModel.item.relatedUser.idTbm))
     {
         if (isEnabled)
         {
-            //OLD
-            //            TBMGridElement *ge = [self gridElementWithView:view];
-            //            if (ge.friend != nil) {
-            //                [self rankingActionOccurred:ge.friend];
-            //                [[TBMVideoPlayer sharedInstance] stop];
-            //                NSURL *videoUrl = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriend:ge.friend];
-            //                [[self videoRecorder] startRecordingWithVideoUrl:videoUrl];
-            //            }
-            
-            
             if ([self.videoPlayer isPlaying])
             {
                 [self.videoPlayer stop];
             }
             
-            
             [self.soundPlayer play];
+            
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.9 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.videoPlayer stop];
                 NSURL* url = [ZZVideoUtils generateOutgoingVideoUrlWithFriend:viewModel.item.relatedUser];
@@ -473,29 +428,14 @@ TBMTableModalDelegate
             model.isRecording = YES;
         }
         else
-        {//OLD
-            //            TBMGridElement *ge = [self gridElementWithView:view];
-            //            if (ge.friend != nil) {
-            //                [[self videoRecorder] stopRecording];
-            //            }
+        {
             model.isRecording = NO;
             [[ZZVideoRecorder shared] stopRecordingWithCompletionBlock:^(BOOL isRecordingSuccess) {
                 [self.soundPlayer play];
                 completionBlock(isRecordingSuccess);
             }];
         }
-        // TODO: add states of gesture and hanlde cancel situatuin
-        //        - (void)LPTHCancelLongPressWithTargetView:(UIView *)view reason:(NSString *)reason
-        //        {
-        //            TBMGridElement *ge = [self gridElementWithView:view];
-        //            if (ge.friend != nil) {
-        //                if ([[self videoRecorder] cancelRecording]) {
-        //                    [[iToast makeText:reason] show];
-        //                    [self performSelector:@selector(toastNotSent) withObject:nil afterDelay:1.2];
-        //                }
-        //            }
-        //        }
-        
+
         [self.userInterface updateRollingStateTo:!isEnabled];
     }
 
@@ -543,21 +483,8 @@ TBMTableModalDelegate
     return _soundPlayer;
 }
 
-#pragma mark - View delegate
-
-- (void)gridDidAppear
-{
-    //[self.eventsFlowModule throwEvent:TBMEventFlowEventApplicationDidLaunch];
-    self.isGridAppear = YES;
-}
 
 #pragma mark - Private
-
-//TODO:
-- (void)toastNotSent
-{
-    [[iToast makeText:@"Not sent"] show];
-}
 
 - (void)showNoValidPhonesDialogFromModel:(ZZContactDomainModel*)model
 {
@@ -593,7 +520,7 @@ TBMTableModalDelegate
 
 #pragma mark - TBMTableModalDelegate
 
-- (void) didSelectRow:(NSInteger)index
+- (void)didSelectRow:(NSInteger)index
 {
     self.contactWithMultiplyPhones.primaryPhone = self.contactWithMultiplyPhones.phones[index];
     [self.interactor userSelectedPrimaryPhoneNumber:self.contactWithMultiplyPhones];

@@ -33,7 +33,6 @@ typedef NS_ENUM(NSInteger, ZZHintPresentationState)
 - (CGFloat)arrowAngleForIndex:(NSInteger)index;
 
 - (ZZArrowDirection)arrowDirection;
-- (ZZArrowDirection)arrowDirectionForIndex:(NSInteger)index;
 
 - (BOOL)hidesArrow;
 - (ZZHintsBottomImageType)bottomImageType;

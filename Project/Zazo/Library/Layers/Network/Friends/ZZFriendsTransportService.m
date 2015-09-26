@@ -102,11 +102,20 @@ static const struct
     NSParameterAssert(firstName);
     NSParameterAssert(lastName);
     
-    NSString *formattedNumber = [ZZPhoneHelper formatMobileNumberToE164AndServerFormat:phoneNumber];
+    NSString* formattedNumber = [ZZPhoneHelper formatMobileNumberToE164AndServerFormat:phoneNumber];
     
+    firstName = [NSObject an_safeString:firstName];
+    lastName = [NSObject an_safeString:lastName];
+    
+    if ([firstName isKindOfClass:[NSString class]] && [lastName isKindOfClass:[NSString class]])
+    {
+        firstName = [firstName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        lastName = [lastName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    }
+
     NSDictionary* parameters = @{ZZInvitationsServerParameters.phoneNumber : [NSObject an_safeString:formattedNumber],
-                                 ZZInvitationsServerParameters.firstName   : [NSObject an_safeString:firstName],
-                                 ZZInvitationsServerParameters.lastName    : [NSObject an_safeString:lastName]};
+                                 ZZInvitationsServerParameters.firstName   : firstName,
+                                 ZZInvitationsServerParameters.lastName    : lastName};
     
     return [ZZFriendsTransport inviteUserWithParameters:parameters];
 }
