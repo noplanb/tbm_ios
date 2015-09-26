@@ -12,7 +12,16 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
     ZZContactActionButtonStateRestore = 1,
 };
 
+static UIImage* kImagePlaceholder = nil;
+
 #import "ZZEditFriendCellViewModel.h"
+#import "ZZThumbnailGenerator.h"
+
+@interface ZZEditFriendCellViewModel ()
+
+@property (nonatomic, strong) UIImage* image;
+
+@end
 
 @implementation ZZEditFriendCellViewModel
 
@@ -65,15 +74,38 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
     }
 }
 
-- (void)updatePhotoImageView:(UIImageView *)imageView
+
+- (instancetype)init
 {
-    if (self.item.isHasApp)
+    self = [super init];
+    if (self)
     {
-        imageView.image = [UIImage imageNamed:@"zazo_color"];
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            kImagePlaceholder = [UIImage imageNamed:@"zazo_color"];
+        });
+    }
+    return self;
+}
+
+- (void)setItem:(id<ZZUserInterface>)item
+{
+    _item = item;
+    
+    if (_item.isHasApp)
+    {
+        UIImage* image = [ZZThumbnailGenerator thumbImageForUser:(id)_item];
+        self.image = image ? : kImagePlaceholder;
     }
 }
 
-- (NSString *)username
+
+- (void)updatePhotoImageView:(UIImageView*)imageView
+{
+    imageView.image = self.image;
+}
+
+- (NSString*)username
 {
     return [self.item fullName];
 }

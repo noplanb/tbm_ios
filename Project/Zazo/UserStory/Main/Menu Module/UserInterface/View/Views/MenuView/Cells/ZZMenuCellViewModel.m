@@ -46,14 +46,14 @@ static UIImage* kImagePlaceholder = nil;
 - (void)setItem:(id<ZZUserInterface>)item
 {
     _item = item;
-    self.username = [ZZUserPresentationHelper fullNameWithFirstName:[self.item firstName] lastName:[self.item lastName]];
-    if ([self.item contactType] == ZZMenuContactTypeAddressbook)
+    self.username = [ZZUserPresentationHelper fullNameWithFirstName:[_item firstName] lastName:[_item lastName]];
+    if ([_item contactType] == ZZMenuContactTypeAddressbook)
     {
         self.image = nil;
     }
     else
     {
-        UIImage* image = [ZZThumbnailGenerator thumbImageForUser:(id)self.item];
+        UIImage* image = [ZZThumbnailGenerator thumbImageForUser:(id)_item];
         self.image = image ? : kImagePlaceholder;
     }
 }
