@@ -48,10 +48,10 @@
 typedef NS_ENUM(NSInteger, ZZGridActionEventType)
 {
     ZZGridActionEventTypeGridLoaded, // done
-    ZZGridActionEventTypeMessageDidStopPlaying,
-    ZZGridActionEventTypeFriendDidAdd,
+    ZZGridActionEventTypeMessageDidStopPlaying, // done
+    ZZGridActionEventTypeFriendDidAdd, // done
     ZZGridActionEventTypeMessageDidReceive,
-    ZZGridActionEventTypeMessageDidSend,
+    ZZGridActionEventTypeMessageDidSend, // done
     ZZGridActionEventTypeUsageHintDidDismiss,  // done
     ZZGridActionEventTypeAbortRecordingUnlockDialogDidDismiss, // max
     ZZGridActionEventTypeDeleteFriendUnlockDialogDidDismiss, // max
