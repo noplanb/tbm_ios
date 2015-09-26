@@ -357,6 +357,8 @@
 		07F0E7F81B8CD7A900036AB2 /* ZZStartScreenTestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */; };
 		180254A31BB2C5A400138A52 /* ZZVideoStatuses.m in Sources */ = {isa = PBXBuildFile; fileRef = 180254A21BB2C5A400138A52 /* ZZVideoStatuses.m */; settings = {ASSET_TAGS = (); }; };
 		182398D31BB27B36008D1324 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182398D21BB27B36008D1324 /* CoreTelephony.framework */; };
+		182BCF661BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 182BCF651BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf */; settings = {ASSET_TAGS = (); }; };
+		182BCF681BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 182BCF671BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf */; settings = {ASSET_TAGS = (); }; };
 		182D8D981BB5D45E0080E100 /* icon_camera_switch.png in Resources */ = {isa = PBXBuildFile; fileRef = 182D8D971BB5D45E0080E100 /* icon_camera_switch.png */; settings = {ASSET_TAGS = (); }; };
 		1872F4391BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1872F4381BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.m */; settings = {ASSET_TAGS = (); }; };
 		187842311BB2F2760007CDE2 /* ZZCommunicationDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187842301BB2F2760007CDE2 /* ZZCommunicationDomainModel.m */; settings = {ASSET_TAGS = (); }; };
@@ -1111,6 +1113,8 @@
 		180254A11BB2C5A400138A52 /* ZZVideoStatuses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoStatuses.h; sourceTree = "<group>"; };
 		180254A21BB2C5A400138A52 /* ZZVideoStatuses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoStatuses.m; sourceTree = "<group>"; };
 		182398D21BB27B36008D1324 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		182BCF651BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "contacts-placeholder_withoutborder.pdf"; sourceTree = "<group>"; };
+		182BCF671BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "contacts-placeholder-withoutborder2.pdf"; sourceTree = "<group>"; };
 		182D8D971BB5D45E0080E100 /* icon_camera_switch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_camera_switch.png; sourceTree = "<group>"; };
 		183710481BB3CA6800A22FB3 /* ZZCoreTelephonyConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZCoreTelephonyConstants.h; sourceTree = "<group>"; };
 		1872F4371BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactsPermissionAlertBuilder.h; sourceTree = "<group>"; };
@@ -2584,6 +2588,8 @@
 		07636BDB1BA49A0100925671 /* contacts */ = {
 			isa = PBXGroup;
 			children = (
+				182BCF671BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf */,
+				182BCF651BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf */,
 				07636BDC1BA49A0100925671 /* contacts-placeholder.pdf */,
 				07636BDD1BA49A0100925671 /* Contacts-plaiceholder-men.pdf */,
 			);
@@ -4359,8 +4365,10 @@
 				07636DFB1BA49A0100925671 /* FeatureUnlock.wav in Resources */,
 				07636E771BA49A0100925671 /* icon_arrow.pdf in Resources */,
 				07636EEF1BA49A0100925671 /* human.h.motemplate in Resources */,
+				182BCF661BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf in Resources */,
 				07636E8D1BA49A0100925671 /* Localizable.strings in Resources */,
 				07636E811BA49A0100925671 /* edit-friends-icon.pdf in Resources */,
+				182BCF681BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf in Resources */,
 				07636E781BA49A0100925671 /* icon_dots.pdf in Resources */,
 				07636DFA1BA49A0100925671 /* DK Crayon Crumble.ttf in Resources */,
 				07636E721BA49A0100925671 /* home-page-add-icon.pdf in Resources */,

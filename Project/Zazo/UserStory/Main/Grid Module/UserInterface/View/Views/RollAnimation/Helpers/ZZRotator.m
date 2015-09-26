@@ -51,13 +51,13 @@
 {
     CGFloat angleVelocity = velocity;
 
-    POPDecayAnimation *decayAnimation = [POPDecayAnimation animation];
-    decayAnimation.property = [self animatableProperty];
-    decayAnimation.velocity = @(angleVelocity);
-    decayAnimation.deceleration = self.decelerationValue;
-    decayAnimation.name = self.decayAnimationName;
-    decayAnimation.delegate = grid;
-    [grid pop_addAnimation:decayAnimation forKey:self.decayAnimationName];
+    self.decayAnimation = [POPDecayAnimation animation];
+    self.decayAnimation.property = [self animatableProperty];
+    self.decayAnimation.velocity = @(angleVelocity);
+    self.decayAnimation.deceleration = self.decelerationValue;
+    self.decayAnimation.name = self.decayAnimationName;
+    self.decayAnimation.delegate = grid;
+    [grid pop_addAnimation:self.decayAnimation forKey:self.decayAnimationName];
 }
 
 - (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(ZZMovingGridView *)grid

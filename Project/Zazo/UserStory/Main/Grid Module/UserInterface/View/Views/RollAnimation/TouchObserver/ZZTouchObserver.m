@@ -14,6 +14,7 @@
 #import "ZZGridDomainModel.h"
 #import "ZZGridCellViewModel.h"
 #import "ZZFeatureObserver.h"
+#import "ZZRotator.h"
 
 static CGFloat const kTouchOffset = 7;
 
@@ -81,10 +82,24 @@ static CGFloat const kTouchOffset = 7;
 
 - (void)observeTouch:(UITouch *)touch withEvent:(id)event
 {
-    if ([ZZFeatureObserver sharedInstance].isSpinWeelEnabled)
-    {
+//    if ([ZZFeatureObserver sharedInstance].isSpinWeelEnabled)
+//    {
+    
+    
+    
         if (touch.phase == UITouchPhaseBegan)
         {
+            
+            
+//            if (self.grid.isGridMoved)
+//            {
+//                
+////                [self.grid.rotator stopAnimationsOnGrid:self.grid];
+//                [self.grid.rotator stopDecayAnimationIfNeeded:self.grid.rotator.decayAnimation onGrid:self.grid];
+//                
+//            }
+//            else
+//            {
             self.initialLocation = [touch locationInView:self.gridView.collectionView];
             NSIndexPath* indexPath = [self.gridView.collectionView indexPathForItemAtPoint:self.initialLocation];
             UICollectionViewCell* cell = [self.gridView.collectionView cellForItemAtIndexPath:indexPath];
@@ -93,6 +108,8 @@ static CGFloat const kTouchOffset = 7;
                 [self showMovingCell];
                 self.grid.hidden = YES;
             }
+//            }
+            
         }
         
         if (self.grid.hidden && touch.phase == UITouchPhaseMoved && self.gridView.isRotationEnabled && [self shouldMoveWithTouch:touch])
@@ -114,7 +131,7 @@ static CGFloat const kTouchOffset = 7;
                     [self startObserveWithTouch:touch withEvent:event withLocation:location];
                 }
             }
-    }
+//    }
 }
 
 - (BOOL)shouldMoveWithTouch:(UITouch*)touch
@@ -188,6 +205,7 @@ static CGFloat const kTouchOffset = 7;
                     ZZGridCellViewModel* cellModel = [gridCell model];
                     [fakeCell updateBadgeWithNumber:cellModel.badgeNumber];
                     fakeCell.stateImageView.image = [self _screenshotFromView:gridCell];
+//                    fakeCell.stateImageView.alpha = 0.8;
                 }
             }];
         }
@@ -246,9 +264,8 @@ static CGFloat const kTouchOffset = 7;
             if ([cell isKindOfClass:[ZZGridCell class]])
             {
                 [self.movingViewArray enumerateObjectsUsingBlock:^(ZZFakeRotationCell* fakeCell, NSUInteger idx, BOOL *stop) {
-                    if (CGRectIntersectsRect(cell.frame, fakeCell.frame))
+                    if (CGRectContainsPoint(cell.frame, fakeCell.center))
                     {
-                        
                         NSIndexPath* indexPath = [self.collectionView indexPathForCell:cell];
                         NSNumber* index = indexPath.item == 0 ? @(0) : @(indexPath.item);
                         [positionDict setObject:[self.storage itemAtIndexPath:fakeCell.indexPath] forKey:index];

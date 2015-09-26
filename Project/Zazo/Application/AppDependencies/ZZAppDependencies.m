@@ -17,6 +17,8 @@
 #import "ANLogger.h"
 #import "MagicalRecord.h"
 #import "ZZCoreTelephonyConstants.h"
+#import "ZZUserDataProvider.h"
+#import "ZZUserDomainModel.h"
 
 
 @interface ZZAppDependencies ()
@@ -39,7 +41,6 @@
     [ZZContentDataAcessor start];
     [ANCrashlyticsAdapter start];
     [ANLogger initializeLogger];
-    [ZZVideoRecorder shared];
     [ZZColorTheme shared];
     [self _handleIncomingCall];
 }
@@ -51,7 +52,11 @@
 
 - (void)handleApplicationDidBecomeActive
 {
-    [[ZZVideoRecorder shared] updateRecorder];
+    ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
+    if (user.isRegistered)
+    {
+        [[ZZVideoRecorder shared] updateRecorder];
+    }
 }
 
 - (void)handleApplicationWillTerminate

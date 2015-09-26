@@ -26,6 +26,7 @@
 #import "TBMPhoneUtils.h"
 #import "TBMAppDelegate+Boot.h"
 #import "ZZCommonNetworkTransportService.h"
+#import "ZZVideoRecorder.h"
 
 @interface ZZAuthInteractor ()
 
@@ -174,6 +175,7 @@
     [self _saveAuthenticatedUserMobileNumberToDefauts:user.mobileNumber]; //TODO: temp
     
     [[ZZAccountTransportService registerUserWithModel:user shouldForceCall:forceCall] subscribeNext:^(NSDictionary *authKeys) {
+        [ZZVideoRecorder shared];
         
         NSString *auth = [authKeys objectForKey:@"auth"];
         NSString *mkey = [authKeys objectForKey:@"mkey"];

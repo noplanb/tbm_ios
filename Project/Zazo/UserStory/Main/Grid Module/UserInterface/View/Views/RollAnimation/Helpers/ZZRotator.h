@@ -12,7 +12,7 @@
 
 @property(assign, nonatomic, readonly) CGFloat decelerationValue;
 @property(assign, nonatomic, readonly) CGFloat velocityOfBounce;
-
+@property (nonatomic, strong) POPDecayAnimation *decayAnimation;
 
 - (instancetype)initWithAnimationCompletionBlock:(void(^)())completionBlock;
 
@@ -28,7 +28,7 @@
 * animate inertial spinning on view
 * @param velocity Initial angle velocity, with which animation will start
 * @param grid Grid to animate
-*/
+ */
 - (void)decayAnimationWithVelocity:(CGFloat)velocity onCarouselView:(ZZMovingGridView *)grid;
 
 /**

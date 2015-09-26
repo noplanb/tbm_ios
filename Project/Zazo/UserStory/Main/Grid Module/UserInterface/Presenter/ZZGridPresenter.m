@@ -47,6 +47,7 @@ TBMTableModalDelegate
 @property (nonatomic, strong) TBMTableModal *table;
 @property (nonatomic, strong) ZZContactDomainModel* contactWithMultiplyPhones;
 @property (nonatomic, strong) TBMFriend* notificationFriend;
+@property (nonatomic, strong) TBMFriend* notifatedFriend;
 
 
 //shiiiiit
@@ -191,7 +192,7 @@ TBMTableModalDelegate
 
 - (void)updateFriendIfNeeded
 {
-    if (self.notificationFriend)
+    if (![self.notificationFriend.mkey isEqualToString:self.notifatedFriend.mkey])
     {
         ANDispatchBlockToMainQueue(^{
             CGFloat timeToUpdateInterface = 0.6;
@@ -200,7 +201,7 @@ TBMTableModalDelegate
                 [self.interactor showDownloadAniamtionForFriend:self.notificationFriend];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeAfterAnimationEnd * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.interactor handleNotificationForFriend:self.notificationFriend];
-                    self.notificationFriend = nil;
+                    self.notifatedFriend = self.notifatedFriend;
                 });
             });
         });

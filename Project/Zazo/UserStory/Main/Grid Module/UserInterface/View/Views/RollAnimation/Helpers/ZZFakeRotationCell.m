@@ -60,7 +60,10 @@
     if (number)
     {
         self.badgeLabel.hidden = NO;
-        self.badgeLabel.text = [NSString stringWithFormat:@"%@",number];
+        if ([number integerValue] > 0)
+        {
+            self.badgeLabel.text = [NSString stringWithFormat:@"%@",number];
+        }
     }
 }
 

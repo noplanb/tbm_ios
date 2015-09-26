@@ -12,10 +12,7 @@ typedef NS_ENUM(NSInteger, ZZSpinDirection) {
     ZZSpinDirectionCounterClockwise
 };
 
-/**
-* Геометрия - расчет секторов, позиций, скоростей и прочего ответсвенность:
-- Рассчитывать сложные математические расчеты основанные на геометрии (например синусУгла или угловаяСкорость)
-*/
+
 @interface ZZGeometryHelper : NSObject
 
 /**
