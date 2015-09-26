@@ -64,6 +64,7 @@ extern const struct ZZFriendDomainModelAttributes {
 
 
 @property (nonatomic, strong) NSArray* videos;
+@property (nonatomic, assign) BOOL isVideoStopped;
 
 + (FEMObjectMapping*)mapping;
 
@@ -71,5 +72,6 @@ extern const struct ZZFriendDomainModelAttributes {
 - (BOOL)isCreator;
 - (ZZMenuContactType)contactType;
 - (BOOL)hasIncomingVideo;
+
 
 @end
