@@ -28,14 +28,25 @@
             [actionSheet showInView:presentedView];
         });
     }
-
+    
     [actionSheet.rac_buttonClickedSignal subscribeNext:^(NSNumber* x) {
         
-        if (x.integerValue != ZZEditMenuButtonTypeCancel)
+        if (IS_IPAD)
         {
             if (completionBlock)
             {
                 completionBlock([x integerValue]);
+            }
+        }
+        else
+        {
+            if (x.integerValue != ZZEditMenuButtonTypeCancel)
+            {
+                if (completionBlock)
+                {
+                    completionBlock([x integerValue]);
+                }
+                
             }
         }
     }];
