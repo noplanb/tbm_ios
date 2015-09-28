@@ -51,7 +51,7 @@
         _recordView = [UILabel new];
         _recordView.text = NSLocalizedString(@"grid-controller.record.title", nil);
         _recordView.textColor = [UIColor redColor];
-        _recordView.font = [UIFont an_boldFontWithSize:16];
+        _recordView.font = [UIFont an_meduimFontWithSize:14];
         _recordView.textAlignment = NSTextAlignmentCenter;
         _recordView.backgroundColor = [UIColor blackColor];
         _recordView.userInteractionEnabled = YES;
