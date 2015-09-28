@@ -36,8 +36,7 @@
 
 - (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel
 {
-    //TODO: remove from superview
-    
+
     [self showFocusOnFrame:[viewModel focusFrame]];
 
     ZZHintsArrow *hintView = [ZZHintsArrow arrowWithText:[viewModel text]
@@ -135,6 +134,5 @@
     
     return _gotItView;
 }
-
 
 @end
