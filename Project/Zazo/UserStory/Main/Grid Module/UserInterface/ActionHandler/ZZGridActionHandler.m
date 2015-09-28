@@ -19,6 +19,7 @@
 @property(nonatomic, strong) NSSet* hints;
 
 @property(nonatomic, strong, readonly) ZZHintsDomainModel* presentedHint;
+@property(nonatomic, assign) ZZGridActionEventType filterEvent; //Filter multuply times of event throwing
 @end
 
 @implementation ZZGridActionHandler
@@ -37,7 +38,10 @@
 {
     NSMutableSet* hints = [NSMutableSet set];
     [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeSendZazo]];
+    
     [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypePressAndHoldToRecord]];
+//    [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeTapToPlay]];
+    
     [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeGiftIsWaiting]];
     [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeTapToSwitchCamera]];
     [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeWelcomeNudgeUser]];
@@ -51,6 +55,10 @@
 
 - (void)handleEvent:(ZZGridActionEventType)event
 {
+    if (event == self.filterEvent)
+    {
+        return;
+    }
     __block ZZHintsDomainModel* hint;
     [self.hints enumerateObjectsUsingBlock:^(ZZHintsDomainModel* obj, BOOL* stop)
     {
@@ -63,6 +71,7 @@
 
     if (hint && !self.presentedHint.type != hint.type)
     {
+        self.filterEvent = event;
         [self _applyHint:hint];
     }
 }
@@ -82,6 +91,7 @@
 
 - (void)_showHint
 {
+    self.filterEvent = ZZGridActionEventTypeGridNone;
     NSUInteger gridIndex = [self _gridIndexForHintType:self.presentedHint.type];
 //    self.hint.arrowDirection = [ZZHintsDomainModel arrowDirectionForIndex:gridIndex];
     CGRect focusFrame = [self.userInterface focusFrameForIndex:kHintGridIndexFromFlowIndex(gridIndex)];
@@ -201,7 +211,7 @@
 
 - (ZZHintsDomainModel*)_hintWithType:(ZZHintsType)hintType
 {
-    __block ZZHintsDomainModel* hint;
+    __block ZZHintsDomainModel* hint = nil;
     [self.hints enumerateObjectsUsingBlock:^(ZZHintsDomainModel* obj, BOOL* stop)
     {
         if (obj.type == hintType)
