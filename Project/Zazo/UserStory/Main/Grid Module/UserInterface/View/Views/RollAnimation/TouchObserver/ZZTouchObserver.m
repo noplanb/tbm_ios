@@ -264,7 +264,7 @@ static CGFloat const kTouchOffset = 7;
             if ([cell isKindOfClass:[ZZGridCell class]])
             {
                 [self.movingViewArray enumerateObjectsUsingBlock:^(ZZFakeRotationCell* fakeCell, NSUInteger idx, BOOL *stop) {
-                    if (CGRectContainsPoint(cell.frame, fakeCell.center))
+                    if (CGRectIntersectsRect(cell.frame, fakeCell.frame))
                     {
                         NSIndexPath* indexPath = [self.collectionView indexPathForCell:cell];
                         NSNumber* index = indexPath.item == 0 ? @(0) : @(indexPath.item);
