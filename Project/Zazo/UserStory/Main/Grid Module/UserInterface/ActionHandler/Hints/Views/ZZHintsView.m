@@ -8,7 +8,7 @@
 
 @import QuartzCore;
 #import "ZZHintsView.h"
-#import "TBMHintArrow.h"
+#import "ZZHintsArrow.h"
 #import "ZZHintsViewModel.h"
 #import "ZZHintsGotItView.h"
 
@@ -40,7 +40,7 @@
     
     [self showFocusOnFrame:[viewModel focusFrame]];
 
-    TBMHintArrow *hintView = [TBMHintArrow arrowWithText:[viewModel text]
+    ZZHintsArrow *hintView = [ZZHintsArrow arrowWithText:[viewModel text]
                                                curveKind:(NSInteger)[viewModel arrowDirection]
                                               arrowPoint:[viewModel generateArrowFocusPoint]
                                                    angle:[viewModel arrowAngle]

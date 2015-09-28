@@ -31,11 +31,16 @@
 
 - (void)showHintWithModel:(ZZHintsDomainModel*)model forFocusFrame:(CGRect)focusFrame
 {
+    [self _clearView];
     ZZHintsViewModel* viewModel = [ZZHintsViewModel viewModelWithItem:model];
     [viewModel updateFocusFrame:focusFrame];
     self.hintModel = model;
-    //[self _destroyHintView];
     [self.hintsView updateWithHintsViewModel:viewModel];
+}
+
+- (void)_clearView
+{
+//    self.
 }
 
 

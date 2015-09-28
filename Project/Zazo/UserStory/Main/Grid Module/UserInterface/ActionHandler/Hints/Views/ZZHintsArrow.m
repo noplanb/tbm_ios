@@ -3,13 +3,15 @@
 // Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "TBMHintArrow.h"
+#import "ZZHintsArrow.h"
 #import "UILabel+TBMUILabelDynamicHeight.h"
 #import "ZZHintsConstants.h"
 
 CGFloat const kImageScale = 0.75f;
+NSString *const kZZHintsFontName = @"DKCrayonCrumble";
 
-@interface TBMHintArrow ()
+
+@interface ZZHintsArrow ()
 
 @property(nonatomic, strong) UIView *rotationWrapper;
 @property(nonatomic, strong) UIImageView *arrowImageView;
@@ -19,7 +21,7 @@ CGFloat const kImageScale = 0.75f;
 @property(nonatomic, strong) UIFont *mainLabelFont;
 @end
 
-@implementation TBMHintArrow
+@implementation ZZHintsArrow
 
 - (instancetype)init
 {
@@ -48,9 +50,9 @@ CGFloat degreesToRadians(CGFloat x)
     _hideArrow = hideArrow;
 }
 
-+ (TBMHintArrow *)arrowWithText:(NSString *)text curveKind:(TBMHintArrowCurveKind)curveKind arrowPoint:(CGPoint)point angle:(CGFloat)angle hidden:(BOOL)hidden frame:(CGRect)frame
++ (ZZHintsArrow *)arrowWithText:(NSString *)text curveKind:(ZZHintsArrowCurveKind)curveKind arrowPoint:(CGPoint)point angle:(CGFloat)angle hidden:(BOOL)hidden frame:(CGRect)frame
 {
-    TBMHintArrow *result = [[TBMHintArrow alloc] initWithFrame:frame];
+    ZZHintsArrow *result = [[ZZHintsArrow alloc] initWithFrame:frame];
     result.text = text;
     result.arrowCurveKind = curveKind;
     result.arrowPoint = point;
@@ -153,7 +155,7 @@ CGFloat degreesToRadians(CGFloat x)
     {
         _arrowLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _arrowLabel.textColor = [UIColor whiteColor];
-        _arrowLabel.font = [UIFont fontWithName:kTBMTutorialFontName size:30];
+        _arrowLabel.font = [UIFont fontWithName:kZZHintsFontName size:30];
         _arrowLabel.textAlignment = NSTextAlignmentCenter;
         _arrowLabel.lineBreakMode = NSLineBreakByWordWrapping;
         _arrowLabel.numberOfLines = 0;
