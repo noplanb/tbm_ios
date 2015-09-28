@@ -47,6 +47,7 @@
 
 typedef NS_ENUM(NSInteger, ZZGridActionEventType)
 {
+    ZZGridActionEventTypeGridNone,
     ZZGridActionEventTypeGridLoaded, // done
     ZZGridActionEventTypeMessageDidStopPlaying, // done
     ZZGridActionEventTypeFriendDidAdd, // done
