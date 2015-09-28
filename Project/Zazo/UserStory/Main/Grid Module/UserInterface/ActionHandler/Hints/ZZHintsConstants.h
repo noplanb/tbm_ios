@@ -10,7 +10,8 @@
 
 typedef NS_ENUM(NSInteger, ZZHintsType)
 {
-    ZZHintsTypeSendZazo = 0,
+    ZZHintsTypeNoHint = 0,
+    ZZHintsTypeSendZazo,
     ZZHintsTypeTapToPlay,
     ZZHintsTypePressAndHoldToRecord,
     ZZHintsTypeZazoSent,
