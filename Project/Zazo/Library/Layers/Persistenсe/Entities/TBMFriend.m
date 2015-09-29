@@ -26,7 +26,7 @@
 
 @implementation TBMFriend
 
-static NSMutableArray *videoStatusNotificationDelegates;
+static NSMutableSet *videoStatusNotificationDelegates;
 
 + (NSManagedObjectContext*)_context
 {
@@ -222,7 +222,7 @@ static NSMutableArray *videoStatusNotificationDelegates;
     return [[self sortedIncomingVideos] lastObject];
 }
 
-- (BOOL)hasIncomingVideoId:(NSString *)videoId
+- (BOOL)hasIncomingVideoId:(NSString*)videoId
 {
     for (TBMVideo *v in [self incomingVideos])
     {
@@ -380,24 +380,21 @@ static NSMutableArray *videoStatusNotificationDelegates;
 
 + (void)addVideoStatusNotificationDelegate:(id)delegate
 {
-    if (!videoStatusNotificationDelegates)
+    if (delegate)
     {
-        videoStatusNotificationDelegates = [[NSMutableArray alloc] init];
+        if (!videoStatusNotificationDelegates)
+        {
+            videoStatusNotificationDelegates = [NSMutableSet new];
+        }
+        [videoStatusNotificationDelegates addObject:delegate];
     }
-    [TBMFriend removeVideoStatusNotificationDelegate:delegate];
-    [videoStatusNotificationDelegates addObject:delegate];
-}
-
-+ (void)removeVideoStatusNotificationDelegate:(id)delegate
-{
-    [videoStatusNotificationDelegates removeObject:delegate];
 }
 
 - (void)notifyVideoStatusChangeOnMainThread
 {
+    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
     [self performSelectorOnMainThread:@selector(notifyVideoStatusChange) withObject:nil waitUntilDone:YES];
     self.everSent = @(YES);
-    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
 }
 
 + (void)fillAfterMigration
@@ -405,23 +402,23 @@ static NSMutableArray *videoStatusNotificationDelegates;
     for (TBMFriend *friend in [self all])
     {
         friend.everSent = @([friend.outgoingVideoStatus integerValue] > OUTGOING_VIDEO_STATUS_NONE);
-//        friend.isConnectionCreator = @(YES); //TODO:
+//        friend.isConnectionCreator = @(YES); TODO: core data
         [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
     }
 }
 
 - (void)notifyVideoStatusChange
 {
-//    DebugLog(@"notifyVideoStatusChange for %@ on %lu delegates", self.firstName, (unsigned long) [videoStatusNotificationDelegates count]);
-//    for (id <TBMVideoStatusNotificationProtocol> delegate in videoStatusNotificationDelegates)
-//    {
-//        [delegate videoStatusDidChange:self];
-//    }
-    
-    if (self.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED)
+    DebugLog(@"notifyVideoStatusChange for %@ on %lu delegates", self.firstName, (unsigned long) [videoStatusNotificationDelegates count]);
+    for (id <TBMVideoStatusNotificationProtocol> delegate in videoStatusNotificationDelegates)
     {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kFriendVideoViewedNotification object:self];
+        [delegate videoStatusDidChange:self];
     }
+//    
+//    if (self.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED)//TODO: coredata
+//    {
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kFriendVideoViewedNotification object:self];
+//    }
 }
 
 - (NSString *)videoStatusString
@@ -712,7 +709,7 @@ static NSMutableArray *videoStatusNotificationDelegates;
         TBMFriend *aFriend = [self findWithMkey:obj];
         aFriend.everSent = @(YES);
         //aFriend.isConnectionCreator = @(YES); //TODO:
-        [[aFriend managedObjectContext] save:nil];
+        [aFriend.managedObjectContext MR_saveToPersistentStoreAndWait];
     }];
 }
 

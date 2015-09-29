@@ -24,10 +24,11 @@
 #import "ZZGridTransportService.h"
 #import "ZZCommunicationDomainModel.h"
 #import "ZZGridUIConstants.h"
+#import "NSObject+ANRACAdditions.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
-@interface ZZGridInteractor ()
+@interface ZZGridInteractor () <TBMVideoStatusNotificationProtocol>
 
 @property (nonatomic, strong) NSArray* gridModels;
 
@@ -37,68 +38,10 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)loadData
 {
-    NSArray* allfriends = [ZZFriendDataProvider loadAllFriends];
-    NSMutableArray* filteredFriends = [NSMutableArray new];
-    
-    [allfriends enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
-
-        if ([friendModel isCreator])
-        {
-            if (friendModel.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
-                friendModel.connectionStatusValue == ZZConnectionStatusTypeHiddenByCreator)
-            {
-                [filteredFriends addObject:friendModel];
-            }
-        }
-        else
-        {
-            if (friendModel.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
-                friendModel.connectionStatusValue == ZZConnectionStatusTypeHiddenByTarget)
-            {
-                [filteredFriends addObject:friendModel];
-            }
-        }
-    }];
-    
-    [filteredFriends sortedArrayUsingComparator:^NSComparisonResult(ZZFriendDomainModel* obj1, ZZFriendDomainModel* obj2) {
-        return [obj1.lastActionTimestamp compare:obj2.lastActionTimestamp];
-    }];
-    
-    NSArray* gridStoredModels = [ZZGridDataProvider loadAllGridsSortByIndex:YES];
-    NSMutableArray* gridModels = [NSMutableArray array];
-    
-    if (gridStoredModels.count != kGridFriendsCellCount)
-    {
-        for (NSInteger count = 0; count < kGridFriendsCellCount; count++)
-        {
-            ZZGridDomainModel* model;
-            if (gridStoredModels.count > count)
-            {
-                model = gridStoredModels[count];
-            }
-            else
-            {
-                model = [ZZGridDomainModel new];
-            }
-            model.index = count;
-            if (filteredFriends.count > count)
-            {
-                ZZFriendDomainModel *aFriend = filteredFriends[count];
-                model.relatedUser = aFriend;
-            }
-            
-            model = [ZZGridDataProvider upsertModel:model];
-            [gridModels addObject:model];
-        }
-    }
-    else
-    {
-        gridModels = [gridStoredModels mutableCopy];
-    }
-    
-    NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:@"indexPathIndexForItem" ascending:YES];
-    self.gridModels = [gridModels sortedArrayUsingDescriptors:@[sort]];
+    self.gridModels = [self _generateGridModels];
     [self.output dataLoadedWithArray:self.gridModels];
+    
+    [TBMFriend addVideoStatusNotificationDelegate:self];
 }
 
 
@@ -257,23 +200,25 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (void)updateFriendAfterVideoStopped:(ZZFriendDomainModel *)model
 {
 //    [self updateLastActionForFriend:model];
-    
-    
-    __block ZZGridDomainModel* gridModel = nil;;
-    NSMutableArray* array = [self.gridModels mutableCopy];
-    [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj.relatedUser.mKey isEqualToString:model.mKey])
-        {
-            obj.relatedUser = model;
-            gridModel = obj;
-        }
-    }];
-    self.gridModels = [array copy];
-    
-    if (!ANIsEmpty(gridModel))
-    {
-        [self.output updateGridWithGridDomainModel:gridModel];
-    }
+//    
+//    
+//    __block ZZGridDomainModel* gridModel = nil;;
+//    NSMutableArray* array = [self.gridModels mutableCopy];
+//    [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        if ([obj.relatedUser.mKey isEqualToString:model.mKey])
+//        {
+//            obj.relatedUser = model;
+//            gridModel = obj;
+//        }
+//    }];
+//    self.gridModels = [array copy];
+//    
+//    if (!ANIsEmpty(gridModel))
+//    {
+//        [self.output updateGridWithGridDomainModel:gridModel];
+//    }
+    [self updateLastActionForFriend:model];
+    [self.output reloadGridWithData:[self _generateGridModels]];
 }
 
 
@@ -339,8 +284,8 @@ static NSInteger const kGridFriendsCellCount = 8;
     if (!ANIsEmpty(modelForDownloadAnimation))
     {
         [self.output updateGridWithDownloadAnimationModel:modelForDownloadAnimation];
-        
     }
+//    [self.output reloadGridWithData:[self _generateGridModels]];
 }
 
 #pragma mark - Private
@@ -487,8 +432,15 @@ static NSInteger const kGridFriendsCellCount = 8;
 }
 
 
+#pragma mark - TBMFriend Delegate 
 
-#pragma mark - Transport 
+- (void)videoStatusDidChange:(TBMFriend*)model
+{
+    [self.output reloadGridWithData:[self _generateGridModels]];
+}
+
+
+#pragma mark - Transport
 
 - (void)_checkIsContactHasApp:(ZZContactDomainModel*)contact
 {
@@ -520,5 +472,74 @@ static NSInteger const kGridFriendsCellCount = 8;
         [self.output addingUserToGridDidFailWithError:error forUser:contact];
     }];
 }
+
+
+#pragma mark - Loading
+
+- (NSArray*)_generateGridModels
+{
+    NSArray* allfriends = [ZZFriendDataProvider loadAllFriends];
+    NSMutableArray* filteredFriends = [NSMutableArray new];
+    
+    [allfriends enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if ([friendModel isCreator])
+        {
+            if (friendModel.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
+                friendModel.connectionStatusValue == ZZConnectionStatusTypeHiddenByCreator)
+            {
+                [filteredFriends addObject:friendModel];
+            }
+        }
+        else
+        {
+            if (friendModel.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
+                friendModel.connectionStatusValue == ZZConnectionStatusTypeHiddenByTarget)
+            {
+                [filteredFriends addObject:friendModel];
+            }
+        }
+    }];
+    
+    [filteredFriends sortedArrayUsingComparator:^NSComparisonResult(ZZFriendDomainModel* obj1, ZZFriendDomainModel* obj2) {
+        return [obj1.lastActionTimestamp compare:obj2.lastActionTimestamp];
+    }];
+    
+    NSArray* gridStoredModels = [ZZGridDataProvider loadAllGridsSortByIndex:YES];
+    NSMutableArray* gridModels = [NSMutableArray array];
+    
+    if (gridStoredModels.count != kGridFriendsCellCount)
+    {
+        for (NSInteger count = 0; count < kGridFriendsCellCount; count++)
+        {
+            ZZGridDomainModel* model;
+            if (gridStoredModels.count > count)
+            {
+                model = gridStoredModels[count];
+            }
+            else
+            {
+                model = [ZZGridDomainModel new];
+            }
+            model.index = count;
+            if (filteredFriends.count > count)
+            {
+                ZZFriendDomainModel *aFriend = filteredFriends[count];
+                model.relatedUser = aFriend;
+            }
+            
+            model = [ZZGridDataProvider upsertModel:model];
+            [gridModels addObject:model];
+        }
+    }
+    else
+    {
+        gridModels = [gridStoredModels mutableCopy];
+    }
+    
+    NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:@"indexPathIndexForItem" ascending:YES];
+    return [gridModels sortedArrayUsingDescriptors:@[sort]];
+}
+
 
 @end

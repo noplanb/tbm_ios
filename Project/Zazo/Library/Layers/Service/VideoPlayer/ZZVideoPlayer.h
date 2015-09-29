@@ -21,6 +21,8 @@
 @property (nonatomic, weak) id<ZZVideoPlayerDelegate> delegate;
 @property (nonatomic, assign) BOOL isPlayingVideo;
 
++ (instancetype)videoPlayerWithDelegate:(id<ZZVideoPlayerDelegate>)delegate;
+
 - (void)playOnView:(UIView*)view withURLs:(NSArray*)URLs;
 - (void)stop;
 

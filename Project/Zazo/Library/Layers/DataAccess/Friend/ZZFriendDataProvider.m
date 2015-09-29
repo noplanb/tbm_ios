@@ -45,6 +45,16 @@
 }
 
 
+#pragma mark - Entities
+
++ (TBMFriend*)friendEntityWithItemID:(NSString*)itemID
+{
+    NSArray* result = [TBMFriend MR_findByAttribute:TBMFriendAttributes.idTbm withValue:itemID inContext:[self _context]];
+    TBMFriend* entity = [result firstObject];
+    return entity;
+}
+
+
 #pragma mark - Count
 
 + (NSInteger)friendsCount

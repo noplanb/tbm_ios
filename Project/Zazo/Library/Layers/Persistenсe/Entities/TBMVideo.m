@@ -38,10 +38,12 @@
 
 + (instancetype)newWithVideoId:(NSString *)videoId onContext:(NSManagedObjectContext *)context
 {
-    TBMVideo *video = [TBMVideo createOncontext:context];
-    video.videoId = videoId;
-    [video.managedObjectContext MR_saveToPersistentStoreAndWait];
-    
+    __block TBMVideo *video = nil;
+    ANDispatchBlockToMainQueue(^{
+        video = [TBMVideo createOncontext:context];
+        video.videoId = videoId;
+        [video.managedObjectContext MR_saveToPersistentStoreAndWait];
+    });
     return video;
 }
 

@@ -474,6 +474,7 @@
     [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_DOWNLOADED video:video];
     [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_DOWNLOADED videoId:videoId friend:friend];
     [self sendNotificationForVideoStatusUpdate:friend videoId:videoId status:NOTIFICATION_STATUS_DOWNLOADED];
+  
     OB_INFO(@"downloadCompletedWithFriend: Video count = %ld", (unsigned long) [TBMVideo count]);
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kFriendChangeNotification object:friend];
@@ -565,7 +566,8 @@
     {
         OB_INFO(@"isStuckWithVideo: YES");
         return YES;
-    } else
+    }
+    else
     {
         OB_INFO(@"isStuckWithVideo: NO");
         return NO;

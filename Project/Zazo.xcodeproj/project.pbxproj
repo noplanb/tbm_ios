@@ -10,6 +10,7 @@
 		070238D81BB430B200B8197E /* ZZApplicationVersionEnumHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 070238D71BB430B100B8197E /* ZZApplicationVersionEnumHelper.m */; settings = {ASSET_TAGS = (); }; };
 		070560FA1BA8736600C130E0 /* ZZGridActionDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 070560F91BA8736600C130E0 /* ZZGridActionDataProvider.m */; };
 		070561001BA8824F00C130E0 /* ZZGridActionHandlerEnums.m in Sources */ = {isa = PBXBuildFile; fileRef = 070560FF1BA8824F00C130E0 /* ZZGridActionHandlerEnums.m */; };
+		071F18E91BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.m in Sources */ = {isa = PBXBuildFile; fileRef = 071F18E81BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.m */; settings = {ASSET_TAGS = (); }; };
 		0732F50C1B8B93D3004FD3AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0732F5041B8B93D3004FD3AF /* InfoPlist.strings */; };
 		0732F5121B8B93D3004FD3AF /* ZazoTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */; };
 		07636DA81BA49A0100925671 /* TBMAppDelegate+AppSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369C81BA49A0000925671 /* TBMAppDelegate+AppSync.m */; };
@@ -442,6 +443,8 @@
 		070560F91BA8736600C130E0 /* ZZGridActionDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZGridActionDataProvider.m; path = ActionHandler/ZZGridActionDataProvider.m; sourceTree = "<group>"; };
 		070560FE1BA8824F00C130E0 /* ZZGridActionHandlerEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZGridActionHandlerEnums.h; path = ActionHandler/ZZGridActionHandlerEnums.h; sourceTree = "<group>"; };
 		070560FF1BA8824F00C130E0 /* ZZGridActionHandlerEnums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZGridActionHandlerEnums.m; path = ActionHandler/ZZGridActionHandlerEnums.m; sourceTree = "<group>"; };
+		071F18E71BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZZGridPresenter+UserDialogs.h"; sourceTree = "<group>"; };
+		071F18E81BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZZGridPresenter+UserDialogs.m"; sourceTree = "<group>"; };
 		0732F5051B8B93D3004FD3AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ZazoTests-Info.plist"; sourceTree = "<group>"; };
 		076369C71BA49A0000925671 /* TBMAppDelegate+AppSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMAppDelegate+AppSync.h"; sourceTree = "<group>"; };
@@ -3250,6 +3253,8 @@
 			children = (
 				07636CAD1BA49A0100925671 /* ZZGridPresenter.h */,
 				07636CAE1BA49A0100925671 /* ZZGridPresenter.m */,
+				071F18E71BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.h */,
+				071F18E81BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.m */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -4608,6 +4613,7 @@
 				07636ED41BA49A0100925671 /* ZZMenuInteractor.m in Sources */,
 				07636EEC1BA49A0100925671 /* ANCrashlyticsAdapter.m in Sources */,
 				07636EC51BA49A0100925671 /* ZZGridStateViewRecord.m in Sources */,
+				071F18E91BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.m in Sources */,
 				07636DE21BA49A0100925671 /* TBMNextFeatureDialogPresenter.m in Sources */,
 				07636DDC1BA49A0100925671 /* TBMSpinUsageHintPresenter.m in Sources */,
 				07636DEB1BA49A0100925671 /* TBMStateDataSource.m in Sources */,

@@ -14,6 +14,7 @@
 #import "ZZFriendDomainModel.h"
 #import "TBMFriend.h"
 #import "ZZFriendDataProvider.h"
+#import "ANMemoryStorage+UpdateWithoutAnimations.h"
 
 static NSInteger const kGridCenterCellIndex = 4;
 
@@ -45,96 +46,116 @@ ZZGridCenterCellViewModelDelegate
     });
 }
 
-- (void)reloadDebugStatuses
-{
-    NSArray* objects = [[self.storage sectionAtIndex:0] objects];
-    
-    [objects enumerateObjectsUsingBlock:^(ZZGridCellViewModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        if ([obj isKindOfClass:[ZZGridCellViewModel class]])
-        {
-            [obj reloadDebugVideoStatus];
-        }
-    }];
-}
+//- (void)reloadDebugStatuses
+//{
+////    NSArray* objects = [[self.storage sectionAtIndex:0] objects];
+////    
+////    [objects enumerateObjectsUsingBlock:^(ZZGridCellViewModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+////        
+////        if ([obj isKindOfClass:[ZZGridCellViewModel class]])
+////        {
+////            [obj reloadDebugVideoStatus];
+////        }
+////    }];
+//    [self.storage.delegate storageNeedsReload];
+//}
 
 - (void)updateDataSourceWithGridModelFromNotification:(ZZGridDomainModel*)gridModel
                                   withCompletionBlock:(void(^)(BOOL isNewVideoDownloaded))completionBlock
 {
-    if (!ANIsEmpty(gridModel))
-    {
-        ANSectionModel* section = [self.storage.sections firstObject];
-        NSArray* cellModels = [section.objects copy];
-        __block ZZGridCellViewModel* cellModel;
-        [cellModels enumerateObjectsUsingBlock:^(id model, NSUInteger idx, BOOL *stop) {
-            if ([model isKindOfClass:[ZZGridCellViewModel class]])
-            {
-                cellModel = model;
-                if (cellModel.item.index == gridModel.index)
-                {
-                    cellModel.item = gridModel;
-                    
-                    cellModel.hasDownloadedVideo = [gridModel.relatedUser hasIncomingVideo];
-                    cellModel.hasUploadedVideo = [gridModel.relatedUser hasOutgoingVideo];//[gridModel.relatedUser hasIncomingVideo];
-                    
-                    cellModel.isUploadedVideoViewed = (gridModel.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
-                    
-                    
-                    if (gridModel.relatedUser.unviewedCount > 0)
-                    {
-                        cellModel.badgeNumber = @(gridModel.relatedUser.unviewedCount);
-                    }
-                    
-                    ANDispatchBlockToMainQueue(^{
-                        [self.storage reloadItem:cellModel];
-                        if (![cellModel.prevBadgeNumber isEqualToNumber:cellModel.badgeNumber])
-                        {
-                            if (completionBlock)
-                            {
-                                completionBlock(YES);
-                            }
-                            cellModel.prevBadgeNumber = cellModel.badgeNumber;
-                        }
-                    });
-                    *stop = YES;
-                }
-            }
-        }];
-    }
+    [self reloadStorage];
+//    if (!ANIsEmpty(gridModel))
+//    {
+//        ANSectionModel* section = [self.storage.sections firstObject];
+//        NSArray* cellModels = [section.objects copy];
+//        __block ZZGridCellViewModel* cellModel;
+//        [cellModels enumerateObjectsUsingBlock:^(id model, NSUInteger idx, BOOL *stop) {
+//            if ([model isKindOfClass:[ZZGridCellViewModel class]])
+//            {
+//                cellModel = model;
+//                if (cellModel.item.index == gridModel.index)
+//                {
+//                    cellModel.item = gridModel;
+//                    
+//                    cellModel.hasDownloadedVideo = [gridModel.relatedUser hasIncomingVideo];
+//                    cellModel.hasUploadedVideo = [gridModel.relatedUser hasOutgoingVideo];//[gridModel.relatedUser hasIncomingVideo];
+//                    
+//                    cellModel.isUploadedVideoViewed = (gridModel.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
+//                    
+//                    
+//                    if (gridModel.relatedUser.unviewedCount > 0)
+//                    {
+//                        cellModel.badgeNumber = @(gridModel.relatedUser.unviewedCount);
+//                    }
+//                    
+//                    ANDispatchBlockToMainQueue(^{
+//                        [self.storage reloadItem:cellModel];
+//                        if (![cellModel.prevBadgeNumber isEqualToNumber:cellModel.badgeNumber])
+//                        {
+//                            if (completionBlock)
+//                            {
+//                                completionBlock(YES);
+//                            }
+//                            cellModel.prevBadgeNumber = cellModel.badgeNumber;
+//                        }
+//                    });
+//                    *stop = YES;
+//                }
+//            }
+//        }];
+//    }
 }
 
 - (void)updateDataSourceWithDownloadAnimationWithGridModel:(ZZGridDomainModel*)gridModel
                                   withCompletionBlock:(void(^)(BOOL isNewVideoDownloaded))completionBlock
 {
-    if (!ANIsEmpty(gridModel))
-    {
-        ANSectionModel* section = [self.storage.sections firstObject];
-        NSArray* cellModels = [section.objects copy];
-        __block ZZGridCellViewModel* cellModel;
-        [cellModels enumerateObjectsUsingBlock:^(id model, NSUInteger idx, BOOL *stop) {
-            if ([model isKindOfClass:[ZZGridCellViewModel class]])
-            {
-                cellModel = model;
-                if (cellModel.item.index == gridModel.index)
-                {
-                    cellModel.isNeedToShowDownloadAnimation = YES;
-                    
-                    ANDispatchBlockToMainQueue(^{
-                        [self.storage reloadItem:cellModel];
-                        if (completionBlock)
-                        {
-                            completionBlock(YES);
-                        }
-                    });
-                    *stop = YES;
-                }
-            }
-        }];
-    }
+    [self reloadStorage];
+//    if (!ANIsEmpty(gridModel))
+//    {
+//        ANSectionModel* section = [self.storage.sections firstObject];
+//        NSArray* cellModels = [section.objects copy];
+//        __block ZZGridCellViewModel* cellModel;
+//        [cellModels enumerateObjectsUsingBlock:^(id model, NSUInteger idx, BOOL *stop) {
+//            if ([model isKindOfClass:[ZZGridCellViewModel class]])
+//            {
+//                cellModel = model;
+//                if (cellModel.item.index == gridModel.index)
+//                {
+//                    cellModel.isNeedToShowDownloadAnimation = YES;
+//                    
+//                    ANDispatchBlockToMainQueue(^{
+//                        [self.storage reloadItem:cellModel];
+//                        if (completionBlock)
+//                        {
+//                            completionBlock(YES);
+//                        }
+//                    });
+//                    *stop = YES;
+//                }
+//            }
+//        }];
+//    }
 }
 
-- (void)setupWithModels:(NSArray *)models completion:(ANCodeBlock)completion
+- (void)setupWithModels:(NSArray*)models
 {
+    __block ZZGridCenterCellViewModel* center = nil;
+    
+    ANSectionModel* sectionModel = [self.storage sectionAtIndex:0];
+    NSArray* objects = [sectionModel.objects copy];
+    NSMutableArray* updatedSection = [NSMutableArray arrayWithArray:sectionModel.objects ? : @[]];
+    
+    if (updatedSection.count)
+    {
+        [objects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isKindOfClass:[ZZGridCenterCellViewModel class]])
+            {
+                center = obj;
+            }
+            [updatedSection removeObject:obj];
+        }];
+    }
+    
     models = [[models.rac_sequence map:^id(ZZGridDomainModel* value) {
         
         ZZGridCellViewModel* viewModel = [ZZGridCellViewModel new];
@@ -149,76 +170,81 @@ ZZGridCenterCellViewModelDelegate
             viewModel.prevBadgeNumber = @(value.relatedUser.unviewedCount);
             viewModel.badgeNumber = @(value.relatedUser.unviewedCount);
         }
-
         return viewModel;
     }] array];
     
-    ANDispatchBlockToMainQueue(^{
-       [self.storage addItems:models];
-        if (completion)
-        {
-            completion();
-        }
-    });
+    [updatedSection addObjectsFromArray:models];
+
+    if (center)
+    {
+        [updatedSection insertObject:center atIndex:kGridCenterCellIndex];
+    }
+    ANSectionModel* updatedSectionModel = [self.storage sectionAtIndex:0 createIfNeeded:YES];
+    [updatedSectionModel.objects removeAllObjects];
+    [updatedSectionModel.objects addObjectsFromArray:updatedSection];
+    [self.storage.delegate storageNeedsReload];
 }
 
 - (void)selectedViewModelUpdatedWithItem:(ZZGridDomainModel*)model
 {
-    self.selectedCellViewModel.item = model;
-    ANDispatchBlockToMainQueue(^{
-        [self.storage reloadItem:self.selectedCellViewModel];
-    });
-    
-    self.selectedCellViewModel = nil;
+//    self.selectedCellViewModel.item = model;
+//    ANDispatchBlockToMainQueue(^{
+//        [self.storage reloadItem:self.selectedCellViewModel];
+//    });
+//    
+//    self.selectedCellViewModel = nil;
+    [self reloadStorage];
 }
 
 - (void)updateStorageWithModel:(ZZGridDomainModel*)model
 {
-    NSArray *allItems = [self.storage itemsInSection:0];
-
-    [allItems enumerateObjectsUsingBlock:^(ZZGridCellViewModel *viewModel, NSUInteger idx, BOOL *stop) {
-        if (![viewModel isKindOfClass:[ZZGridCenterCellViewModel class]])
-        {
-            if (viewModel.item.index == model.index)
-            {
-                viewModel.item = model;
-                ANDispatchBlockToMainQueue(^{
-                   [self.storage reloadItem:viewModel];
-                });
-            }
-        }
-    }];
+//    NSArray *allItems = [self.storage itemsInSection:0];
+//
+//    [allItems enumerateObjectsUsingBlock:^(ZZGridCellViewModel *viewModel, NSUInteger idx, BOOL *stop) {
+//        if (![viewModel isKindOfClass:[ZZGridCenterCellViewModel class]])
+//        {
+//            if (viewModel.item.index == model.index)
+//            {
+//                viewModel.item = model;
+//                ANDispatchBlockToMainQueue(^{
+//                   [self.storage reloadItem:viewModel];
+//                });
+//            }
+//        }
+//    }];
+    [self reloadStorage];
 }
 
 - (void)updateModel:(ZZGridDomainModel*)model
 {
-    NSArray *allItems = [self.storage itemsInSection:0];
-    
-    [allItems enumerateObjectsUsingBlock:^(ZZGridCellViewModel *viewModel, NSUInteger idx, BOOL *stop) {
-        if (![viewModel isKindOfClass:[ZZGridCenterCellViewModel class]])
-        {
-            if ([viewModel.item.relatedUser.mKey isEqualToString:model.relatedUser.mKey])
-            {
-                
-                
-                
-                viewModel.item = model;
-                
-                viewModel.hasDownloadedVideo = [model.relatedUser hasIncomingVideo];
-                viewModel.hasUploadedVideo = [model.relatedUser hasOutgoingVideo];//[gridModel.relatedUser hasIncomingVideo];
-                viewModel.isUploadedVideoViewed = (model.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
-                
-                
-             
-                viewModel.badgeNumber = @(model.relatedUser.unviewedCount);
-                
-                
-                ANDispatchBlockToMainQueue(^{
-                    [self.storage reloadItem:viewModel];
-                });
-            }
-        }
-    }];
+//    NSArray *allItems = [self.storage itemsInSection:0];
+//    
+//    [allItems enumerateObjectsUsingBlock:^(ZZGridCellViewModel *viewModel, NSUInteger idx, BOOL *stop) {
+//        if (![viewModel isKindOfClass:[ZZGridCenterCellViewModel class]])
+//        {
+//            if ([viewModel.item.relatedUser.mKey isEqualToString:model.relatedUser.mKey])
+//            {
+//                
+//                
+//                
+//                viewModel.item = model;
+//                
+//                viewModel.hasDownloadedVideo = [model.relatedUser hasIncomingVideo];
+//                viewModel.hasUploadedVideo = [model.relatedUser hasOutgoingVideo];//[gridModel.relatedUser hasIncomingVideo];
+//                viewModel.isUploadedVideoViewed = (model.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
+//                
+//                
+//             
+//                viewModel.badgeNumber = @(model.relatedUser.unviewedCount);
+//                
+//                
+//                ANDispatchBlockToMainQueue(^{
+//                    [self.storage reloadItem:viewModel];
+//                });
+//            }
+//        }
+//    }];
+    [self reloadStorage];
 }
 
 - (void)itemSelectedAtIndexPath:(NSIndexPath*)indexPath

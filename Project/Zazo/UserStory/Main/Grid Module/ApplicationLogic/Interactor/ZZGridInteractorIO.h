@@ -37,7 +37,7 @@
 
 - (void)dataLoadedWithArray:(NSArray*)data;
 - (void)dataLoadingDidFailWithError:(NSError *)error;
-- (void)modelUpdatedWithUserWithModel:(ZZGridDomainModel *)model;
+//- (void)modelUpdatedWithUserWithModel:(ZZGridDomainModel *)model;
 - (void)gridContainedFriend:(ZZFriendDomainModel*)friendModel;
 - (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel*)model;
 
@@ -52,7 +52,8 @@
 - (void)loadedStateUpdatedTo:(BOOL)isLoading;
 - (void)addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel*)contact;
 - (void)updateGridWithDownloadAnimationModel:(ZZGridDomainModel*)model;
-- (void)updateGridWithGridDomainModel:(ZZGridDomainModel*)model;
+//- (void)updateGridWithGridDomainModel:(ZZGridDomainModel*)model;
 
+- (void)reloadGridWithData:(NSArray*)data;
 
 @end

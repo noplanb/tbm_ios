@@ -36,7 +36,7 @@
 
 - (void)itemSelectedAtIndexPath:(NSIndexPath*)indexPath;
 
-- (void)setupWithModels:(NSArray *)models completion:(ANCodeBlock)completion;
+- (void)setupWithModels:(NSArray*)models;
 - (void)setupCenterViewModelShouldHandleCameraRotation:(BOOL)shouldHandleRotation;
 
 - (void)selectedViewModelUpdatedWithItem:(ZZGridDomainModel*)model;
@@ -51,7 +51,7 @@
 - (void)updateCenterCellWithModel:(ZZGridCenterCellViewModel*)model;
 - (void)updateModel:(ZZGridDomainModel*)model;
 
-- (void)reloadDebugStatuses;
+//- (void)reloadDebugStatuses;
 
 
 - (ZZGridCenterCellViewModel*)centerViewModel;

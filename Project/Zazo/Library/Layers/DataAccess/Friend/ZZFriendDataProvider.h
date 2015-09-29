@@ -26,6 +26,11 @@
 + (NSInteger)friendsCount;
 
 
+#pragma mark - Entities
+
++ (TBMFriend*)friendEntityWithItemID:(NSString*)itemID;
+
+
 #pragma mark - CRUD
 
 + (void)upsertFriendWithModel:(ZZFriendDomainModel*)model;

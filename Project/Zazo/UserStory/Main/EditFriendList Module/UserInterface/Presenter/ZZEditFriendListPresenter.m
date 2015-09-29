@@ -53,11 +53,11 @@
     [self.tableDataSource updateViewModel:self.selectedViewModel];
     if (isVisible)
     {
-        [self.editFriendListModuleDelegate restoreFriendAtGrid:model];
+        [self.editFriendListModuleDelegate friendWasUnblockedFromContacts:model];
     }
     else
     {
-        [self.editFriendListModuleDelegate friendRemovedContacts:model];
+        [self.editFriendListModuleDelegate friendWasRemovedFromContacts:model];
     }
 }
 
