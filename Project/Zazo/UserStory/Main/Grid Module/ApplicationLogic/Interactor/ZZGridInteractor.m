@@ -226,22 +226,24 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)handleNotificationForFriend:(TBMFriend *)friendEntity
 {
-    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friendEntity];
-    
-    __block ZZGridDomainModel *modelThatContainCurrentFriend;
-    
-    [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel* obj, NSUInteger idx, BOOL *stop) {
-        if ([obj.relatedUser isEqual:friendModel])
-        {
-            modelThatContainCurrentFriend = obj;
-            *stop = YES;
-        }
-    }];
-    
-    if (ANIsEmpty(modelThatContainCurrentFriend))
+    if (!ANIsEmpty(friendEntity))
     {
-            ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
+        ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friendEntity];
         
+        __block ZZGridDomainModel *modelThatContainCurrentFriend;
+        
+        [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel* obj, NSUInteger idx, BOOL *stop) {
+            if ([obj.relatedUser.mKey isEqualToString:friendModel.mKey])
+            {
+                modelThatContainCurrentFriend = obj;
+                *stop = YES;
+            }
+        }];
+        
+        if (ANIsEmpty(modelThatContainCurrentFriend))
+        {
+            ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
+            
             if (ANIsEmpty(model))
             {
                 model = [self _loadGridModelWithLatestAction];
@@ -253,12 +255,13 @@ static NSInteger const kGridFriendsCellCount = 8;
             }
             [self _upsertGridModel:model];
             [self.output updateGridWithModelFromNotification:model isNewFriend:YES];
-    }
-    else
-    {
-        modelThatContainCurrentFriend.relatedUser = friendModel;
-        id model = [self _upsertGridModel:modelThatContainCurrentFriend];
-        [self.output updateGridWithModelFromNotification:model isNewFriend:NO];
+        }
+        else
+        {
+            modelThatContainCurrentFriend.relatedUser = friendModel;
+            id model = [self _upsertGridModel:modelThatContainCurrentFriend];
+            [self.output updateGridWithModelFromNotification:model isNewFriend:NO];
+        }
     }
 }
 

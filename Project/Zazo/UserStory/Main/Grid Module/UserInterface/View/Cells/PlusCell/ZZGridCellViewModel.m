@@ -34,6 +34,7 @@
     _usernameLabel = usernameLabel;
     ANDispatchBlockToMainQueue(^{
        _usernameLabel.text = [self videoStatusString];
+//        _usernameLabel.text = self.item.relatedUser.fullName;
     });
 }
 
