@@ -37,6 +37,8 @@
 - (void)itemSelectedAtIndexPath:(NSIndexPath*)indexPath;
 
 - (void)setupWithModels:(NSArray*)models;
+//- (void)reloadStorageWithModels:(NSArray*)models;//TODO to reload
+
 - (void)setupCenterViewModelShouldHandleCameraRotation:(BOOL)shouldHandleRotation;
 
 - (void)selectedViewModelUpdatedWithItem:(ZZGridDomainModel*)model;

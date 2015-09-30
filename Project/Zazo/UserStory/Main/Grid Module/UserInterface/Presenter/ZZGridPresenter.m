@@ -30,6 +30,7 @@
 #import "ZZCoreTelephonyConstants.h"
 #import "ZZGridPresenter+UserDialogs.h"
 
+
 @interface ZZGridPresenter ()
 <
 ZZGridDataSourceDelegate,
@@ -47,6 +48,7 @@ TBMTableModalDelegate
 @property (nonatomic, strong) ZZContactDomainModel* contactWithMultiplyPhones;
 @property (nonatomic, strong) TBMFriend* notificationFriend;
 @property (nonatomic, strong) TBMFriend* notifatedFriend;
+@property (nonatomic, assign) BOOL isVideoRecorderActive;
 
 @end
 
@@ -147,16 +149,13 @@ TBMTableModalDelegate
     });
 }
 
-
-
-
 - (void)reloadGridWithData:(NSArray*)data
 {
-    [self.dataSource setupWithModels:data];
+    if (!self.isVideoRecorderActive)
+    {
+        [self.dataSource setupWithModels:data];
+    }
 }
-
-
-
 
 - (void)updateGridData:(NSNotification*)notification
 {
@@ -237,22 +236,6 @@ TBMTableModalDelegate
     [self.actionHandler handleEvent:ZZGridActionEventTypeFriendDidAdd];
     [self.userInterface showFriendAnimationWithModel:model.relatedUser];
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 - (void)updateFriendIfNeeded
 {
@@ -443,6 +426,7 @@ TBMTableModalDelegate
                            viewModel:(ZZGridCellViewModel*)viewModel
                  withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
+    self.isVideoRecorderActive = isEnabled;
     [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
     ZZGridCenterCellViewModel* model = [self.dataSource centerViewModel];
     if (!ANIsEmpty(viewModel.item.relatedUser.idTbm))
@@ -462,6 +446,7 @@ TBMTableModalDelegate
                 [[ZZVideoRecorder shared] startRecordingWithVideoURL:url];
             });
             model.isRecording = YES;
+            
         }
         else
         {

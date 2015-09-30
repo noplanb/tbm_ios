@@ -52,13 +52,8 @@
         
         self.model = model;
         
-        if (self.model.isNeedToShowDownloadAnimation)
-        {
-            self.model.isNeedToShowDownloadAnimation = NO;
-            [self updateStateViewWithModel:model];
-            [self.stateView hideAllAnimationViews];
-            [self.stateView showDownloadViews];
-        }
+        [self updateStateViewWithModel:model];
+        
         
         if ([self.model.badgeNumber integerValue] > 0)
         {
@@ -71,6 +66,19 @@
                 [self updateStateViewWithModel:model];
             }
         }
+        
+        
+        
+        
+//        if (self.model.isNeedToShowDownloadAnimation)
+//        {
+//            self.model.isNeedToShowDownloadAnimation = NO;
+//            [self updateStateViewWithModel:model];
+//            [self.stateView hideAllAnimationViews];
+//            [self.stateView showDownloadViews];
+//        }
+//        
+
         [self _setupRecordRecognizerWithModel:model];
     });
 }

@@ -185,6 +185,60 @@ ZZGridCenterCellViewModelDelegate
     [self.storage.delegate storageNeedsReload];
 }
 
+//- (void)reloadStorageWithModels:(NSArray*)models
+//{
+//    __block ZZGridCenterCellViewModel* center = nil;
+//    
+//    ANSectionModel* sectionModel = [self.storage sectionAtIndex:0];
+//    NSMutableArray* objects = [sectionModel.objects mutableCopy];
+//    NSMutableArray* updatedSection = [NSMutableArray arrayWithArray:sectionModel.objects ? : @[]];
+//    
+//    if (updatedSection.count)
+//    {
+//        
+//        [objects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            [models enumerateObjectsUsingBlock:^(ZZGridDomainModel*  _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+//                if ([obj isKindOfClass:[ZZGridCellViewModel class]])
+//                {
+//                    ZZGridCellViewModel* cellViewModel = (ZZGridCellViewModel*)obj;
+//                    if (cellViewModel.item.index == model.index)
+//                    {
+//                        cellViewModel.item = model;
+//                        cellViewModel.delegate = self;
+//                        cellViewModel.item.relatedUser = model.relatedUser;
+//                        
+//                        cellViewModel.hasDownloadedVideo = [model.relatedUser hasIncomingVideo];
+//                        cellViewModel.hasUploadedVideo = [model.relatedUser hasOutgoingVideo];//[value.relatedUser hasIncomingVideo];
+//                        cellViewModel.isUploadedVideoViewed = (model.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
+//                        
+//                        if (model.relatedUser.unviewedCount > 0)
+//                        {
+//                            cellViewModel.prevBadgeNumber = @(model.relatedUser.unviewedCount);
+//                            cellViewModel.badgeNumber = @(model.relatedUser.unviewedCount);
+//                        }
+//                    }
+//                }
+//                else if ([obj isKindOfClass:[ZZGridCenterCellViewModel class]])
+//                {
+//                    center = obj;
+//                }
+//            }];
+//        }];
+//        
+//        [updatedSection removeAllObjects];
+//        
+//        [objects removeObject:center];
+//        
+//        [updatedSection addObjectsFromArray:objects];
+//        [updatedSection insertObject:center atIndex:kGridCenterCellIndex];
+//        
+//        ANSectionModel* updatedSectionModel = [self.storage sectionAtIndex:0 createIfNeeded:YES];
+//        [updatedSectionModel.objects removeAllObjects];
+//        [updatedSectionModel.objects addObjectsFromArray:updatedSection];
+//        [self.storage.delegate storageNeedsReload];
+//    }
+//}
+
 - (void)selectedViewModelUpdatedWithItem:(ZZGridDomainModel*)model
 {
 //    self.selectedCellViewModel.item = model;

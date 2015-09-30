@@ -600,6 +600,9 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     }];
 }
 
-
+- (BOOL)isRecording
+{
+    return [self.recorder isRecording];
+}
 
 @end

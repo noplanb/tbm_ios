@@ -38,17 +38,24 @@
 {
     ANDispatchBlockToMainQueue(^{
         self.model = model;
+        
+//        if (self.model.isNeedToShowUploadAnimation)
+//        {
+//            [self showUploadAnimationWithCompletionBlock:nil];
+//            self.model.isNeedToShowUploadAnimation = NO;
+//        }
         if (self.model.hasUploadedVideo)
         {
             [self showUploadIconWithoutAnimation];
         }
-        model.playerContainerView = self;
         
-        if (self.model.isUploadedVideoViewed)
-        {
-            [self hideAllAnimationViews];
-            self.videoViewedView.hidden = NO;
-        }
+        model.playerContainerView = self;
+//
+//        if (self.model.isUploadedVideoViewed)
+//        {
+//            [self hideAllAnimationViews];
+//            self.videoViewedView.hidden = NO;
+//        }
         model.usernameLabel = self.userNameLabel;
         [self.model reloadDebugVideoStatus];
     });
