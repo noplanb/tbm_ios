@@ -11,13 +11,14 @@
 #import "ZZContactDomainModel.h"
 
 @interface TBMTableModal()
-@property (nonatomic) NSString *title;
-@property (nonatomic) UIView *parentView;
-@property (nonatomic) NSArray *rowData;
-@property (nonatomic) id <TBMTableModalDelegate> delegate;
 
-@property (nonatomic) float titleHeight;
-@property (nonatomic) int modalTag;
+@property (nonatomic, strong)  NSString *title;
+@property (nonatomic, strong)  UIView *parentView;
+@property (nonatomic, strong)  NSArray *rowData;
+@property (nonatomic, weak)  id <TBMTableModalDelegate> delegate;
+
+@property (nonatomic, assign)  float titleHeight;
+@property (nonatomic, assign)  int modalTag;
 
 // UI elements
 @property(nonatomic, strong) UITableView *tableView;
@@ -25,6 +26,7 @@
 @property(nonatomic, strong) UILabel *titleView;
 @property(nonatomic, strong) UIButton *cancelButton;
 @property (nonatomic, strong) ZZContactDomainModel* currentContact;
+
 @end
 
 static NSString *TBMTableReuseId = @"tableModalReuseId";
@@ -33,19 +35,25 @@ static const CGFloat cancelButtonHeight = 45.f;
 
 @implementation TBMTableModal
 
-- (void)initWithParentView:(UIView *)parentView
+- (void)setupViewWithParentView:(UIView *)parentView
                      title:(NSString *)title
                    contact:(ZZContactDomainModel*)contact
                   delegate:(id<TBMTableModalDelegate>)delegate
 {
+    _parentView = nil;
+    _title = nil;
+    _rowData = nil;
+    _delegate = nil;
+    _currentContact = nil;
+    
     _parentView = parentView;
     _title = title;
     _rowData = contact.phones;
     _delegate = delegate;
-    
     _titleHeight = 60;
     _modalTag = 93470095;
     _currentContact = contact;
+    [self.tableView reloadData];
 }
 
 + (instancetype)shared
