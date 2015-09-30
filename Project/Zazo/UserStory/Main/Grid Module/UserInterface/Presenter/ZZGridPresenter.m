@@ -44,7 +44,6 @@ TBMTableModalDelegate
 @property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
 @property (nonatomic, strong) ZZGridActionHandler* actionHandler;
-@property (nonatomic, strong) ZZContactDomainModel* contactWithMultiplyPhones;
 @property (nonatomic, strong) TBMFriend* notificationFriend;
 @property (nonatomic, strong) TBMFriend* notifatedFriend;
 @property (nonatomic, assign) BOOL isVideoRecorderActive;
@@ -75,7 +74,6 @@ TBMTableModalDelegate
     }] subscribeNext:^(id x) {
         [self updateFriendIfNeeded];
     }];
-    
     
     [[ZZVideoRecorder shared] addDelegate:self];
 }
