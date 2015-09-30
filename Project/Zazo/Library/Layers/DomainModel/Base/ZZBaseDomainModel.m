@@ -8,10 +8,6 @@
 
 #import "ZZBaseDomainModel.h"
 
-const struct ZZBaseDomainModelAttributes ZZBaseDomainModelAttributes = {
-    .idTbm = @"idTbm",
-};
-
 @implementation ZZBaseDomainModel
 
 @end

@@ -19,7 +19,11 @@
 
 + (TBMVideo*)entityFromModel:(ZZVideoDomainModel*)model
 {
-    TBMVideo* entity = [TBMVideo an_objectWithItemID:model.idTbm context:[self _context]];
+    TBMVideo* entity = [self entityWithID:model.videoID];
+    if (!entity)
+    {
+        entity = [TBMVideo MR_createEntityInContext:[self _context]];
+    }
     return [ZZVideoModelsMapper fillEntity:entity fromModel:model];
 }
 
@@ -48,6 +52,21 @@
         model = [self modelFromEntity:entity];
     }
     return model;
+}
+
++ (TBMVideo*)entityWithID:(NSString*)itemID
+{
+    TBMVideo* item = nil;
+    if (!ANIsEmpty(itemID))
+    {
+        NSArray* items = [TBMVideo MR_findByAttribute:TBMVideoAttributes.videoId withValue:itemID inContext:[self _context]];
+        if (items.count > 1)
+        {
+            ANLogWarning(@"TBMVideo contains dupples for %@", itemID);
+        }
+        item = [items firstObject];
+    }
+    return item;
 }
 
 

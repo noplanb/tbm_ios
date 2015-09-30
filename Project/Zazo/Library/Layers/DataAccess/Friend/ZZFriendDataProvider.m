@@ -69,7 +69,11 @@
 {
     if (!ANIsEmpty(model))
     {
-        TBMFriend* entity = [TBMFriend an_objectWithItemID:model.idTbm context:[self _context] shouldCreate:YES];
+        TBMFriend* entity = [self friendEntityWithItemID:model.idTbm];
+        if (!entity)
+        {
+            entity = [TBMFriend MR_createEntityInContext:[self _context]];
+        }
         return [ZZFriendModelsMapper fillEntity:entity fromModel:model];
     }
     return nil;
@@ -128,66 +132,6 @@
 {
     return [NSManagedObjectContext MR_rootSavingContext];
 }
-
-
-//+ (NSUInteger)allUnviewedCount { // TODO:
-//    NSUInteger result = 0;
-//    for (TBMFriend *friend in [self all]) {
-//        result += friend.unviewedCount;
-//    }
-//    return result;
-//}
-
-//
-//+ (instancetype)findWithMatchingPhoneNumber:(NSString *)phone{
-//    for (TBMFriend *f in [TBMFriend all]){
-//        if ([TBMPhoneUtils isNumberMatch:phone secondNumber:f.mobileNumber])
-//            return f;
-//    }
-//    return nil;
-//}
-
-
-
-//// TODO: GARF! This method will block forever if it is called from the uiThread. Make sure to fix this problem.
-//+ (void)createOrUpdateWithServerParams:(NSDictionary *)params complete:(void (^)(TBMFriend *friend))complete{
-//    
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        BOOL servHasApp = [TBMHttpManager hasAppWithServerValue: [params objectForKey:SERVER_PARAMS_FRIEND_HAS_APP_KEY]];
-//        TBMFriend *f = [TBMFriend findWithMkey:[params objectForKey:SERVER_PARAMS_FRIEND_MKEY_KEY]];
-//        if (f != nil){
-//            // OB_INFO(@"createWithServerParams: friend already exists.");
-//            if (f.hasApp ^ servHasApp){
-//                OB_INFO(@"createWithServerParams: Friend exists updating hasApp only since it is different.");
-//                f.hasApp = servHasApp;
-//                [f notifyVideoStatusChange];
-//            }
-//            if (complete != nil)
-//                complete(f);
-//            return;
-//        }
-//        
-//        __block TBMFriend *friend;
-//        [[TBMFriend managedObjectContext] performBlockAndWait:^{
-//            friend = (TBMFriend *)[[NSManagedObject alloc]
-//                                   initWithEntity:[TBMFriend entityDescription]
-//                                   insertIntoManagedObjectContext:[TBMFriend managedObjectContext]];
-//            
-//            friend.firstName = [params objectForKey:SERVER_PARAMS_FRIEND_FIRST_NAME_KEY];
-//            friend.lastName = [params objectForKey:SERVER_PARAMS_FRIEND_LAST_NAME_KEY];
-//            friend.mobileNumber = [params objectForKey:SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY];
-//            friend.idTbm = [params objectForKey:SERVER_PARAMS_FRIEND_ID_KEY];
-//            friend.mkey = [params objectForKey:SERVER_PARAMS_FRIEND_MKEY_KEY];
-//            friend.ckey = [params objectForKey:SERVER_PARAMS_FRIEND_CKEY_KEY];
-//            friend.timeOfLastAction = [NSDate date];
-//            friend.hasApp = servHasApp;
-//        }];
-//        OB_INFO(@"Added friend: %@", friend.firstName);
-//        [friend notifyVideoStatusChange];
-//        if (complete != nil)
-//            complete(friend);
-//    });
-//}
 
 
 @end

@@ -14,5 +14,6 @@
 - (void)_showConnectedDialogForModel:(ZZFriendDomainModel*)friendModel;
 - (void)_showSmsDialogForModel:(ZZFriendDomainModel*)friendModel;
 - (void)_showCantSendSmsErrorForModel:(ZZFriendDomainModel*)friendModel;
+- (void)_nudgeUser:(ZZFriendDomainModel*)userModel;
 
 @end

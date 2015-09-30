@@ -11,6 +11,7 @@
 #import "ZZUserPresentationHelper.h"
 
 const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
+    .idTbm = @"idTbm",
     .firstName = @"firstName",
     .lastName = @"lastName",
     .mobileNumber = @"mobileNumber",
@@ -23,9 +24,9 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     .outgoingVideoItemID = @"outgoingVideoItemID",
     .outgoingVideoStatus = @"outgoingVideoStatus",
     .hasApp = @"hasApp",
-    .connectionStatus = @"connectionStatus",
-    .isConnectionCreator = @"isConnectionCreator",
-    .connectionCreatorMkey = @"connectionCreatorMkey",
+    .friendshipStatus = @"friendshipStatus",
+    .isFriendshipCreator = @"isFriendshipCreator",
+    .friendshipCreatorMkey = @"friendshipCreatorMkey",
 };
 
 @implementation ZZFriendDomainModel
@@ -45,33 +46,23 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     return [FEMObjectMapping mappingForClass:[self class] configuration:^(FEMObjectMapping *mapping) {
         
         [mapping addAttributesFromDictionary:
-         @{ZZFriendDomainModelAttributes.firstName          : @"first_name",
-           ZZFriendDomainModelAttributes.lastName           : @"last_name",
-           ZZFriendDomainModelAttributes.mobileNumber       : @"mobile_number",
-           ZZBaseDomainModelAttributes.idTbm                : @"id",
-           ZZFriendDomainModelAttributes.mKey               : @"mkey",
-           ZZFriendDomainModelAttributes.cKey               : @"ckey",
-           ZZFriendDomainModelAttributes.connectionStatus   : @"connection_status",
-           ZZFriendDomainModelAttributes.isConnectionCreator : @"isConnectionCreator",
-           ZZFriendDomainModelAttributes.connectionCreatorMkey : @"connection_creator_mkey"}];
+         @{ZZFriendDomainModelAttributes.firstName              : @"first_name",
+           ZZFriendDomainModelAttributes.lastName               : @"last_name",
+           ZZFriendDomainModelAttributes.mobileNumber           : @"mobile_number",
+           ZZFriendDomainModelAttributes.idTbm                    : @"id",
+           ZZFriendDomainModelAttributes.mKey                   : @"mkey",
+           ZZFriendDomainModelAttributes.cKey                   : @"ckey",
+           ZZFriendDomainModelAttributes.friendshipStatus       : @"connection_status",
+           ZZFriendDomainModelAttributes.isFriendshipCreator    : @"isConnectionCreator",
+           ZZFriendDomainModelAttributes.friendshipCreatorMkey  : @"connection_creator_mkey"}];
         
         FEMAttribute* attribute = [FEMAttribute mappingOfProperty:ZZFriendDomainModelAttributes.hasApp
                                                         toKeyPath:@"has_app"
                                                               map:^id(NSString* value) {
-            return @([value isEqualToString:@"true"]);
-        }];
+                                                                  return @([value isEqualToString:@"true"]);
+                                                              }];
         [mapping addAttribute:attribute];
     }];
-}
-
-- (NSString*)photoURLString
-{
-    return nil; // TODO:
-}
-
-- (UIImage *)photoImage
-{
-    return nil; // TODO:
 }
 
 - (NSString *)fullName
@@ -86,7 +77,7 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
 
 - (BOOL)isCreator
 {
-    return self.isConnectionCreator;
+    return self.isFriendshipCreator;
 }
 
 - (BOOL)hasIncomingVideo
@@ -94,16 +85,17 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     return [self.videos count] > 0;
 }
 
+
 #pragma mark - Getters / Setters
 
-- (ZZConnectionStatusType)connectionStatusValue
+- (ZZFriendshipStatusType)friendshipStatusValue
 {
-    return ZZConnectionStatusTypeValueFromSrting(self.connectionStatus);
+    return ZZFriendshipStatusTypeValueFromSrting(self.friendshipStatus);
 }
 
-- (void)setConnectionStatusValue:(ZZConnectionStatusType)contactStatusValue
+- (void)setFriendshipStatusValue:(ZZFriendshipStatusType)friendshipStatusValue
 {
-    self.connectionStatus = ZZConnectionStatusTypeStringFromValue(contactStatusValue);
+    self.friendshipStatus = ZZFriendshipStatusTypeStringFromValue(friendshipStatusValue);
 }
 
 - (NSUInteger)hash
@@ -158,7 +150,7 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
 
 - (ZZMenuContactType)contactType
 {
-    return ZZConnectionStatusTypeZazoFriend;
+    return ZZFriendshipStatusTypeZazoFriend;
 }
 
 @end

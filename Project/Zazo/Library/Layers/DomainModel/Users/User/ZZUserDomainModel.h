@@ -12,6 +12,7 @@
 @class FEMObjectMapping;
 
 extern const struct ZZUserDomainModelAttributes {
+    __unsafe_unretained NSString *idTbm;
     __unsafe_unretained NSString *firstName;
     __unsafe_unretained NSString *lastName;
     __unsafe_unretained NSString *auth;
@@ -22,6 +23,7 @@ extern const struct ZZUserDomainModelAttributes {
 
 @interface ZZUserDomainModel : ZZBaseDomainModel <ZZUserInterface>
 
+@property (nonatomic, copy) NSString* idTbm;
 @property (nonatomic, copy) NSString* itemID;
 @property (nonatomic, copy) NSString* firstName;
 @property (nonatomic, copy) NSString* lastName;

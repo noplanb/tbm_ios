@@ -14,6 +14,7 @@
 @class FEMObjectMapping;
 
 extern const struct ZZFriendDomainModelAttributes {
+    __unsafe_unretained NSString *idTbm;
     __unsafe_unretained NSString *firstName;
     __unsafe_unretained NSString *lastName;
     __unsafe_unretained NSString *mobileNumber;
@@ -26,13 +27,14 @@ extern const struct ZZFriendDomainModelAttributes {
     __unsafe_unretained NSString *outgoingVideoItemID;
     __unsafe_unretained NSString *outgoingVideoStatus;
     __unsafe_unretained NSString *hasApp;
-    __unsafe_unretained NSString *connectionStatus;
-    __unsafe_unretained NSString *isConnectionCreator;
-    __unsafe_unretained NSString *connectionCreatorMkey;
+    __unsafe_unretained NSString *friendshipStatus;
+    __unsafe_unretained NSString *isFriendshipCreator;
+    __unsafe_unretained NSString *friendshipCreatorMkey;
 } ZZFriendDomainModelAttributes;
 
 @interface ZZFriendDomainModel : ZZBaseDomainModel <ZZUserInterface>
 
+@property (nonatomic, copy) NSString* idTbm;
 @property (nonatomic, copy) NSString* firstName;
 @property (nonatomic, copy) NSString* lastName;
 
@@ -52,16 +54,15 @@ extern const struct ZZFriendDomainModelAttributes {
 
 @property (nonatomic, assign, getter=isHasApp) BOOL hasApp;
 
-@property (nonatomic, copy) NSString* connectionStatus;
-@property (nonatomic, assign) BOOL isConnectionCreator;
-@property (nonatomic, copy) NSString* connectionCreatorMkey;
+@property (nonatomic, copy) NSString* friendshipStatus;
+@property (nonatomic, assign) BOOL isFriendshipCreator;
+@property (nonatomic, copy) NSString* friendshipCreatorMkey;
 
-@property (nonatomic, assign) ZZConnectionStatusType connectionStatusValue;
+@property (nonatomic, assign) ZZFriendshipStatusType friendshipStatusValue;
 @property (nonatomic, assign) ZZMenuContactType contactType;
 
 @property (nonatomic, assign) NSInteger unviewedCount;
 @property (nonatomic, assign) NSInteger outgoingVideoStatusValue;
-
 
 @property (nonatomic, strong) NSArray* videos;
 @property (nonatomic, assign) BOOL isVideoStopped;
@@ -72,6 +73,5 @@ extern const struct ZZFriendDomainModelAttributes {
 - (BOOL)isCreator;
 - (ZZMenuContactType)contactType;
 - (BOOL)hasIncomingVideo;
-
 
 @end
