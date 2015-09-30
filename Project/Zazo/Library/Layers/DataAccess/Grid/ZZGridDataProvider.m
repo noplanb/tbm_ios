@@ -11,6 +11,7 @@
 #import "MagicalRecord.h"
 #import "ZZUserDataProvider.h"
 #import "ZZGridUIConstants.h"
+#import "ZZFriendDataProvider.h"
 
 @implementation ZZGridDataProvider
 
@@ -51,9 +52,9 @@
     return [self modelFromEntity:entity];
 }
 
-+ (ZZGridDomainModel*)modelWithRelatedUser:(ZZUserDomainModel*)user
++ (ZZGridDomainModel*)modelWithRelatedUserID:(NSString*)userID
 {
-    TBMUser* userEntity = [ZZUserDataProvider entityFromModel:user];
+    TBMFriend* userEntity = [ZZFriendDataProvider friendEntityWithItemID:userID];
     
     NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, userEntity];
     TBMGridElement* entity = [[TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]] firstObject];
@@ -61,9 +62,9 @@
     return [self modelFromEntity:entity];
 }
 
-+ (BOOL)isRelatedUserOnGrid:(ZZFriendDomainModel*)user
++ (BOOL)isRelatedUserOnGridWithID:(NSString*)userID
 {
-    ZZGridDomainModel* model = [self modelWithRelatedUser:user];
+    ZZGridDomainModel* model = [self modelWithRelatedUserID:userID];
     return (model != nil);
 }
 
@@ -93,12 +94,6 @@
 + (ZZGridDomainModel*)modelFromEntity:(TBMGridElement*)entity
 {
     return [ZZGridModelsMapper fillModel:[ZZGridDomainModel new] fromEntity:entity];
-}
-
-+ (TBMGridElement*)entityFromModel:(ZZGridDomainModel*)model
-{
-    TBMGridElement* entity = [self entityFromModel:model];
-    return [ZZGridModelsMapper fillEntity:entity fromModel:model];
 }
 
 

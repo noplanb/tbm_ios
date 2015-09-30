@@ -17,15 +17,16 @@
 
 + (NSArray*)loadAllGridsSortByIndex:(BOOL)shouldSortByIndex;
 + (ZZGridDomainModel*)modelWithIndex:(NSInteger)index;
-+ (ZZGridDomainModel*)modelWithRelatedUser:(ZZFriendDomainModel*)user;
-+ (BOOL)isRelatedUserOnGrid:(ZZFriendDomainModel*)user;
+
++ (ZZGridDomainModel*)modelWithRelatedUserID:(NSString*)userID;
++ (BOOL)isRelatedUserOnGridWithID:(NSString*)userID;
+
 + (ZZGridDomainModel*)loadFirstEmptyGridElement;
 
 
 #pragma mark - Mapping
 
 + (ZZGridDomainModel*)modelFromEntity:(TBMGridElement*)entity;
-+ (TBMGridElement*)entityFromModel:(ZZGridDomainModel*)model;
 
 + (TBMGridElement*)entityWithItemID:(NSString*)itemID;
 
