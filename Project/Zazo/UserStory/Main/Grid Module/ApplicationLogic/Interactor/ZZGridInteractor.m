@@ -1,4 +1,4 @@
- //
+//
 //  ZZGridInteractor.m
 //  Zazo
 //
@@ -26,6 +26,7 @@
 #import "ZZGridUIConstants.h"
 #import "NSObject+ANRACAdditions.h"
 #import "ZZGridDataUpdater.h"
+#import "ZZFriendDataUpdater.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
@@ -84,7 +85,6 @@ static NSInteger const kGridFriendsCellCount = 8;
     {
         [self addUserToGrid:newFriendForEpmtyGridViewModel];
     }
-    
 }
 
 - (ZZFriendDomainModel*)_loadFirstFriendFromMenu:(NSArray *)array
@@ -183,8 +183,8 @@ static NSInteger const kGridFriendsCellCount = 8;
 {
     if (!ANIsEmpty(friendModel))
     {
-        friendModel.lastActionTimestamp = [NSDate date];
-        
+        friendModel = [ZZFriendDataUpdater updateLastTimeActionFriendWithID:friendModel.idTbm];
+      
         NSMutableArray* array = [self.gridModels mutableCopy];
         [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([obj.relatedUser isEqual:friendModel])
@@ -194,7 +194,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         }];
         
         self.gridModels = [array copy];
-        [ZZFriendDataProvider upsertFriendWithModel:friendModel];
+        
     }
 }
 
@@ -368,9 +368,9 @@ static NSInteger const kGridFriendsCellCount = 8;
         BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
         if (!shouldBeVisible)
         {
-            friendModel.friendshipStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
-            [ZZFriendDataProvider upsertFriendWithModel:friendModel];
-
+            ZZFriendshipStatusType status = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
+            friendModel = [ZZFriendDataUpdater updateConnectionStatusForUserWithID:friendModel.idTbm toValue:status];
+            
             [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey
                                                               toVisible:!shouldBeVisible] subscribeNext:^(NSDictionary* response) {
             }];
