@@ -71,6 +71,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         {
             gridModel.relatedUser = nil;
             [self _upsertGridModel:gridModel];
+            [self updateLastActionForFriend:gridModel.relatedUser];
             [self.output updateGridWithModel:gridModel];
             *stop = YES;
         }
@@ -137,16 +138,16 @@ static NSInteger const kGridFriendsCellCount = 8;
         
         if ([friendModel isCreator])
         {
-            if (friendModel.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
-                friendModel.connectionStatusValue == ZZConnectionStatusTypeHiddenByCreator)
+            if (friendModel.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
+                friendModel.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByCreator)
             {
                 [filteredFriends addObject:friendModel];
             }
         }
         else
         {
-            if (friendModel.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
-                friendModel.connectionStatusValue == ZZConnectionStatusTypeHiddenByTarget)
+            if (friendModel.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
+                friendModel.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByTarget)
             {
                 [filteredFriends addObject:friendModel];
             }
@@ -180,18 +181,21 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)updateLastActionForFriend:(ZZFriendDomainModel*)friendModel
 {
-    friendModel.lastActionTimestamp = [NSDate date];
-    
-    NSMutableArray* array = [self.gridModels mutableCopy];
-    [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj.relatedUser isEqual:friendModel])
-        {
-            obj.relatedUser = friendModel;
-        }
-    }];
-    
-    self.gridModels = [array copy];
-    [ZZFriendDataProvider upsertFriendWithModel:friendModel];
+    if (!ANIsEmpty(friendModel))
+    {
+        friendModel.lastActionTimestamp = [NSDate date];
+        
+        NSMutableArray* array = [self.gridModels mutableCopy];
+        [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj.relatedUser isEqual:friendModel])
+            {
+                obj.relatedUser = friendModel;
+            }
+        }];
+        
+        self.gridModels = [array copy];
+        [ZZFriendDataProvider upsertFriendWithModel:friendModel];
+    }
 }
 
 
@@ -364,7 +368,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
         if (!shouldBeVisible)
         {
-            friendModel.connectionStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
+            friendModel.friendshipStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
             [ZZFriendDataProvider upsertFriendWithModel:friendModel];
 
             [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey
@@ -385,6 +389,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         }
         
         [self _upsertGridModel:model];
+        [self updateLastActionForFriend:model.relatedUser];
         [self.output updateGridWithModel:model];
     }
     else
@@ -490,16 +495,16 @@ static NSInteger const kGridFriendsCellCount = 8;
         
         if ([friendModel isCreator])
         {
-            if (friendModel.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
-                friendModel.connectionStatusValue == ZZConnectionStatusTypeHiddenByCreator)
+            if (friendModel.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
+                friendModel.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByCreator)
             {
                 [filteredFriends addObject:friendModel];
             }
         }
         else
         {
-            if (friendModel.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
-                friendModel.connectionStatusValue == ZZConnectionStatusTypeHiddenByTarget)
+            if (friendModel.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
+                friendModel.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByTarget)
             {
                 [filteredFriends addObject:friendModel];
             }

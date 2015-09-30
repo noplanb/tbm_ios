@@ -31,7 +31,7 @@
         
         [friendsArray enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friendObject, NSUInteger idx, BOOL * _Nonnull stop) {
             
-            friendObject.isConnectionCreator = ![[ZZUserDataProvider authenticatedUser].mkey isEqualToString:friendObject.connectionCreatorMkey];
+            friendObject.isFriendshipCreator = ![[ZZUserDataProvider authenticatedUser].mkey isEqualToString:friendObject.friendshipCreatorMkey];
         }];
         
         [self.output dataLoaded:[self sortArrayByFirstName:friendsArray]];
@@ -48,28 +48,28 @@
     
     if ([friendModel isCreator])
     {
-        switch (friendModel.connectionStatusValue)
+        switch (friendModel.friendshipStatusValue)
         {
-            case ZZConnectionStatusTypeEstablished:
+            case ZZFriendshipStatusTypeEstablished:
             {
-                self.selectedFriendModel.connectionStatusValue = ZZConnectionStatusTypeHiddenByTarget;
+                self.selectedFriendModel.friendshipStatusValue = ZZFriendshipStatusTypeHiddenByTarget;
                 visible = NO;
             } break;
-            case ZZConnectionStatusTypeHiddenByCreator:
+            case ZZFriendshipStatusTypeHiddenByCreator:
             {
-                self.selectedFriendModel.connectionStatusValue = ZZConnectionStatusTypeHiddenByBoth;
+                self.selectedFriendModel.friendshipStatusValue = ZZFriendshipStatusTypeHiddenByBoth;
                 visible = NO;
             } break;
                 
-            case ZZConnectionStatusTypeHiddenByTarget:
+            case ZZFriendshipStatusTypeHiddenByTarget:
             {
-                self.selectedFriendModel.connectionStatusValue = ZZConnectionStatusTypeEstablished;
+                self.selectedFriendModel.friendshipStatusValue = ZZFriendshipStatusTypeEstablished;
                 visible = YES;
             } break;
                 
-            case ZZConnectionStatusTypeHiddenByBoth:
+            case ZZFriendshipStatusTypeHiddenByBoth:
             {
-                self.selectedFriendModel.connectionStatusValue = ZZConnectionStatusTypeHiddenByCreator;
+                self.selectedFriendModel.friendshipStatusValue = ZZFriendshipStatusTypeHiddenByCreator;
                 visible = YES;
             } break;
 
@@ -78,28 +78,28 @@
     }
     else
     {
-        switch (friendModel.connectionStatusValue)
+        switch (friendModel.friendshipStatusValue)
         {
-            case ZZConnectionStatusTypeEstablished:
+            case ZZFriendshipStatusTypeEstablished:
             {
-                self.selectedFriendModel.connectionStatusValue = ZZConnectionStatusTypeHiddenByCreator;
+                self.selectedFriendModel.friendshipStatusValue = ZZFriendshipStatusTypeHiddenByCreator;
                 visible = NO;
             } break;
                 
-            case ZZConnectionStatusTypeHiddenByTarget:
+            case ZZFriendshipStatusTypeHiddenByTarget:
             {
-                self.selectedFriendModel.connectionStatusValue = ZZConnectionStatusTypeHiddenByBoth;
+                self.selectedFriendModel.friendshipStatusValue = ZZFriendshipStatusTypeHiddenByBoth;
                 visible = NO;
             } break;
                 
-            case ZZConnectionStatusTypeHiddenByCreator:
+            case ZZFriendshipStatusTypeHiddenByCreator:
             {
-                self.selectedFriendModel.connectionStatusValue = ZZConnectionStatusTypeEstablished;
+                self.selectedFriendModel.friendshipStatusValue = ZZFriendshipStatusTypeEstablished;
                 visible = YES;
             } break;
-            case ZZConnectionStatusTypeHiddenByBoth:
+            case ZZFriendshipStatusTypeHiddenByBoth:
             {
-                self.selectedFriendModel.connectionStatusValue = ZZConnectionStatusTypeHiddenByTarget;
+                self.selectedFriendModel.friendshipStatusValue = ZZFriendshipStatusTypeHiddenByTarget;
                 visible = YES;
             } break;
                 

@@ -6,17 +6,18 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-typedef NS_ENUM(NSInteger, ZZConnectionStatusType)
+typedef NS_ENUM(NSInteger, ZZFriendshipStatusType)
 {
-    ZZConnectionStatusTypeVoided = 0,
-    ZZConnectionStatusTypeEstablished = 1,
-    ZZConnectionStatusTypeHiddenByCreator = 2,
-    ZZConnectionStatusTypeHiddenByTarget = 3,
-    ZZConnectionStatusTypeHiddenByBoth = 4
+    ZZFriendshipStatusTypeVoided = 0,
+    ZZFriendshipStatusTypeEstablished = 1,
+    ZZFriendshipStatusTypeHiddenByCreator = 2,
+    ZZFriendshipStatusTypeHiddenByTarget = 3,
+    ZZFriendshipStatusTypeHiddenByBoth = 4
 };
 
-NSString* ZZConnectionStatusTypeStringFromValue(ZZConnectionStatusType);
-ZZConnectionStatusType ZZConnectionStatusTypeValueFromSrting(NSString*);
+
+NSString* ZZFriendshipStatusTypeStringFromValue(ZZFriendshipStatusType);
+ZZFriendshipStatusType ZZFriendshipStatusTypeValueFromSrting(NSString*);
 
 
 @interface ZZEditFriendEnumsAdditions : NSObject

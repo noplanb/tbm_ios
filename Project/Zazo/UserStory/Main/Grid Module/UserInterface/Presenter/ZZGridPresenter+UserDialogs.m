@@ -55,5 +55,11 @@
     }];
 }
 
+- (void)_nudgeUser:(ZZFriendDomainModel*)userModel
+{
+    [ZZGridAlertBuilder showPreNudgeAlertWithFriendFirstName:userModel.firstName completion:^{
+        [self _showSmsDialogForModel:userModel];
+    }];
+}
 
 @end

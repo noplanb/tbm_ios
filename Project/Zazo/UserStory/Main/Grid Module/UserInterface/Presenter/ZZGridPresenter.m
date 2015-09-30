@@ -109,7 +109,6 @@ TBMTableModalDelegate
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(videoStartDownloadingNotification:)
                                                  name:kVideoStartDownloadingNotification object:nil];
-    
 }
 
 - (void)dealloc
@@ -227,10 +226,10 @@ TBMTableModalDelegate
 
 - (void)updateGridWithModel:(ZZGridDomainModel*)model
 {
-    if (!ANIsEmpty(model.relatedUser))
-    {
-        [self.interactor updateLastActionForFriend:model.relatedUser]; // TODO: check
-    }
+//    if (!ANIsEmpty(model.relatedUser))
+//    {
+////        [self.interactor updateLastActionForFriend:model.relatedUser]; // TODO: check
+//    }
     [self.dataSource updateStorageWithModel:model];
     [self.actionHandler handleEvent:ZZGridActionEventTypeFriendDidAdd];
     [self.userInterface showFriendAnimationWithModel:model.relatedUser];
@@ -415,10 +414,7 @@ TBMTableModalDelegate
 - (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel*)userModel
 {
     [self.interactor updateLastActionForFriend:userModel];
-    
-    [ZZGridAlertBuilder showPreNudgeAlertWithFriendFirstName:userModel.firstName completion:^{
-        [self _showSmsDialogForModel:userModel];
-    }];
+    [self _nudgeUser:userModel];
 }
 
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled

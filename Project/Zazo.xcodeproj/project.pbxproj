@@ -291,7 +291,6 @@
 		07636EE31BA49A0100925671 /* ANAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D2B1BA49A0100925671 /* ANAnimator.m */; };
 		07636EE41BA49A0100925671 /* ANBaseListTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D2E1BA49A0100925671 /* ANBaseListTableCell.m */; };
 		07636EE51BA49A0100925671 /* ANBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D311BA49A0100925671 /* ANBaseVC.m */; };
-		07636EE61BA49A0100925671 /* NSManagedObject+ANAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D351BA49A0100925671 /* NSManagedObject+ANAdditions.m */; };
 		07636EE71BA49A0100925671 /* NSObject+ANRACAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D381BA49A0100925671 /* NSObject+ANRACAdditions.m */; };
 		07636EE81BA49A0100925671 /* NSObject+ANSafeValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D3A1BA49A0100925671 /* NSObject+ANSafeValues.m */; };
 		07636EE91BA49A0100925671 /* NSObject+ANUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D3C1BA49A0100925671 /* NSObject+ANUserDefaults.m */; };
@@ -337,6 +336,7 @@
 		07636F111BA49A0100925671 /* PDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA21BA49A0100925671 /* PDFView.m */; };
 		07636F121BA49A0100925671 /* UIImage+PDF.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA41BA49A0100925671 /* UIImage+PDF.m */; };
 		07636F131BA49A0100925671 /* UIView+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA61BA49A0100925671 /* UIView+Image.m */; };
+		07738E6C1BBC25C500CD3E7C /* ZZFriendDataUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 07738E6B1BBC25C500CD3E7C /* ZZFriendDataUpdater.m */; settings = {ASSET_TAGS = (); }; };
 		07829D641BB2A9A80000D5D9 /* ZZCommonModelsGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07829D631BB2A9A80000D5D9 /* ZZCommonModelsGenerator.m */; settings = {ASSET_TAGS = (); }; };
 		07829D681BB2AA840000D5D9 /* ZZGridTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07829D671BB2AA840000D5D9 /* ZZGridTransportService.m */; settings = {ASSET_TAGS = (); }; };
 		079280A41BA8544800E22553 /* ZZGridActionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 079280A31BA8544800E22553 /* ZZGridActionHandler.m */; };
@@ -999,8 +999,6 @@
 		07636D2E1BA49A0100925671 /* ANBaseListTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBaseListTableCell.m; sourceTree = "<group>"; };
 		07636D301BA49A0100925671 /* ANBaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBaseVC.h; sourceTree = "<group>"; };
 		07636D311BA49A0100925671 /* ANBaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBaseVC.m; sourceTree = "<group>"; };
-		07636D341BA49A0100925671 /* NSManagedObject+ANAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+ANAdditions.h"; sourceTree = "<group>"; };
-		07636D351BA49A0100925671 /* NSManagedObject+ANAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+ANAdditions.m"; sourceTree = "<group>"; };
 		07636D371BA49A0100925671 /* NSObject+ANRACAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ANRACAdditions.h"; sourceTree = "<group>"; };
 		07636D381BA49A0100925671 /* NSObject+ANRACAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ANRACAdditions.m"; sourceTree = "<group>"; };
 		07636D391BA49A0100925671 /* NSObject+ANSafeValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ANSafeValues.h"; sourceTree = "<group>"; };
@@ -1088,6 +1086,8 @@
 		07636DA41BA49A0100925671 /* UIImage+PDF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PDF.m"; sourceTree = "<group>"; };
 		07636DA51BA49A0100925671 /* UIView+Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Image.h"; sourceTree = "<group>"; };
 		07636DA61BA49A0100925671 /* UIView+Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Image.m"; sourceTree = "<group>"; };
+		07738E6A1BBC25C500CD3E7C /* ZZFriendDataUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFriendDataUpdater.h; sourceTree = "<group>"; };
+		07738E6B1BBC25C500CD3E7C /* ZZFriendDataUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFriendDataUpdater.m; sourceTree = "<group>"; };
 		07829D621BB2A9A80000D5D9 /* ZZCommonModelsGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZCommonModelsGenerator.h; path = CommonModelsGenerator/ZZCommonModelsGenerator.h; sourceTree = "<group>"; };
 		07829D631BB2A9A80000D5D9 /* ZZCommonModelsGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZCommonModelsGenerator.m; path = CommonModelsGenerator/ZZCommonModelsGenerator.m; sourceTree = "<group>"; };
 		07829D661BB2AA840000D5D9 /* ZZGridTransportService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZGridTransportService.h; path = TransportService/ZZGridTransportService.h; sourceTree = "<group>"; };
@@ -2011,6 +2011,8 @@
 		07636B131BA49A0100925671 /* Friend */ = {
 			isa = PBXGroup;
 			children = (
+				07738E6A1BBC25C500CD3E7C /* ZZFriendDataUpdater.h */,
+				07738E6B1BBC25C500CD3E7C /* ZZFriendDataUpdater.m */,
 				07636B141BA49A0100925671 /* ZZFriendDataProvider.h */,
 				07636B151BA49A0100925671 /* ZZFriendDataProvider.m */,
 				07636B161BA49A0100925671 /* ZZFriendModelsMapper.h */,
@@ -3703,21 +3705,11 @@
 		07636D321BA49A0100925671 /* ANCategories */ = {
 			isa = PBXGroup;
 			children = (
-				07636D331BA49A0100925671 /* NSManagedObject */,
 				07636D361BA49A0100925671 /* NSObject */,
 				07636D3D1BA49A0100925671 /* NSString */,
 				07636D401BA49A0100925671 /* UIImageView */,
 			);
 			path = ANCategories;
-			sourceTree = "<group>";
-		};
-		07636D331BA49A0100925671 /* NSManagedObject */ = {
-			isa = PBXGroup;
-			children = (
-				07636D341BA49A0100925671 /* NSManagedObject+ANAdditions.h */,
-				07636D351BA49A0100925671 /* NSManagedObject+ANAdditions.m */,
-			);
-			path = NSManagedObject;
 			sourceTree = "<group>";
 		};
 		07636D361BA49A0100925671 /* NSObject */ = {
@@ -4594,7 +4586,6 @@
 				07636E321BA49A0100925671 /* ZZAccountTransport.m in Sources */,
 				07636ED21BA49A0100925671 /* ZZGridVC.m in Sources */,
 				07636F0C1BA49A0100925671 /* TOActivitySafari.m in Sources */,
-				07636EE61BA49A0100925671 /* NSManagedObject+ANAdditions.m in Sources */,
 				07636E931BA49A0100925671 /* ZZAuthVC.m in Sources */,
 				07636EB71BA49A0100925671 /* ZZEditFriendListController.m in Sources */,
 				07636EBF1BA49A0100925671 /* ZZGridCenterCellViewModel.m in Sources */,
@@ -4719,6 +4710,7 @@
 				07636DF31BA49A0100925671 /* TBMDispatch.m in Sources */,
 				07636DD11BA49A0100925671 /* TBMInviteHintView.m in Sources */,
 				07636DD31BA49A0100925671 /* TBMInviteSomeoneElseHintView.m in Sources */,
+				07738E6C1BBC25C500CD3E7C /* ZZFriendDataUpdater.m in Sources */,
 				07636DC51BA49A0100925671 /* TBMFeatureUnlockDataSource.m in Sources */,
 				07636ECC1BA49A0100925671 /* ZZGeometryHelper.m in Sources */,
 				07636EAE1BA49A0100925671 /* ZZSecretVC.m in Sources */,

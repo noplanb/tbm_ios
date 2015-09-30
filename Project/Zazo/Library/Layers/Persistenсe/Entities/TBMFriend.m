@@ -525,8 +525,8 @@ static NSMutableSet *videoStatusNotificationDelegates;
     BOOL shouldVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:model];
     if (!shouldVisible)
     {
-        model.connectionStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:model];
-        self.friendshipStatus = ZZConnectionStatusTypeStringFromValue(model.connectionStatusValue);
+        model.friendshipStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:model];
+        self.friendshipStatus = ZZFriendshipStatusTypeStringFromValue(model.friendshipStatusValue);
     }
     [self.managedObjectContext MR_saveToPersistentStoreAndWait];
     
@@ -560,8 +560,8 @@ static NSMutableSet *videoStatusNotificationDelegates;
     BOOL shouldVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:model];
     if (!shouldVisible)
     {
-        model.connectionStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:model];
-        self.friendshipStatus = ZZConnectionStatusTypeStringFromValue(model.connectionStatusValue);
+        model.friendshipStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:model];
+        self.friendshipStatus = ZZFriendshipStatusTypeStringFromValue(model.friendshipStatusValue);
     }
     
     [self notifyVideoStatusChangeOnMainThread];
