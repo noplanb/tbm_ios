@@ -13,6 +13,8 @@
 #import "ZZContactDomainModel.h"
 #import "TBMPhoneUtils.h"
 #import "ZZAPIRoutes.h"
+#import "TBMAlertController.h"
+#import "TBMTableModal.h"
 
 @implementation ZZGridPresenter (UserDialogs)
 
@@ -61,5 +63,35 @@
         [self _showSmsDialogForModel:userModel];
     }];
 }
+
+- (void)_showNoValidPhonesDialogFromModel:(ZZContactDomainModel*)model
+{
+    [ZZGridAlertBuilder showNoValidPhonesDialogForUserWithFirstName:model.firstName fullName:model.fullName];
+}
+
+- (void)_addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel*)contact
+{
+    TBMAlertController *alert = [TBMAlertController badConnectionAlert];
+    
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleRecommended handler:^(SDCAlertAction *action) {
+        [alert dismissWithCompletion:nil];
+    }]];
+    
+    
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+        [self.interactor addUserToGrid:contact];
+    }]];
+    
+    [alert presentWithCompletion:nil];
+}
+
+- (void)_showChooseNumberDialogForUser:(ZZContactDomainModel*)user
+{
+    ANDispatchBlockToMainQueue(^{
+        [[TBMTableModal shared] setupViewWithParentView:self.userInterface.view title:@"Choose phone number" contact:user delegate:self];
+        [[TBMTableModal shared] show];
+    });
+}
+
 
 @end

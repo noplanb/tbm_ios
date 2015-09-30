@@ -105,7 +105,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     [self _addUserAsFriendToGrid:model fromNotification:YES];
 }
 
-- (void)showDownloadAniamtionForFriend:(TBMFriend *)friend
+- (void)showDownloadAnimationForFriend:(TBMFriend *)friend
 {
     // TODO:
 }
