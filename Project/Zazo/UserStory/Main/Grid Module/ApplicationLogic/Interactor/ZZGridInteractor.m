@@ -39,17 +39,6 @@ static NSInteger const kGridFriendsCellCount = 8;
     [TBMFriend addVideoStatusNotificationDelegate:self];
 }
 
-- (NSArray*)_gridModels
-{
-    NSArray* gridModels = [ZZGridDataProvider loadAllGridsSortByIndex:NO];
-    if (gridModels.count != kGridFriendsCellCount)
-    {
-        gridModels = [ZZGridDataProvider loadOrCreateGridModelsWithCount:kGridFriendsCellCount];
-    }
-    NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:@"indexPathIndexForItem" ascending:YES];
-    return [gridModels sortedArrayUsingDescriptors:@[sort]];
-}
-
 
 #pragma mark - Grid Updates
 
@@ -86,85 +75,6 @@ static NSInteger const kGridFriendsCellCount = 8;
     }
 }
 
-- (ZZFriendDomainModel*)_loadFirstFriendFromMenu:(NSArray *)array
-{
-    NSMutableArray* friendsHasAppArray = [NSMutableArray new];
-    NSMutableArray* otherFriendsArray = [NSMutableArray new];
-    
-    NSArray* gridUsers = [ZZFriendDataProvider friendsOnGrid];
-    if (!gridUsers)
-    {
-        gridUsers = @[];
-    }
-    
-    [array enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friend, NSUInteger idx, BOOL *stop) {
-        
-        //check if user is on grid - do not add him
-        if (![gridUsers containsObject:friend])
-        {
-            if (friend.hasApp)
-            {
-                [friendsHasAppArray addObject:friend];
-            }
-            else
-            {
-                [otherFriendsArray addObject:friend];
-            }
-        }
-    }];
-    
-    NSArray *filteredFriendsHasAppArray = [self _filterFriendByConnectionStatus:friendsHasAppArray];
-    NSArray *filteredOtherFriendsArray = [self _filterFriendByConnectionStatus:otherFriendsArray];
-    
-    NSArray* allFilteredFriendsArray = [filteredFriendsHasAppArray arrayByAddingObjectsFromArray:filteredOtherFriendsArray];
-    NSArray* sortedByFirstNameArray = [self _sortByFirstName:allFilteredFriendsArray];
-    
-    if (!ANIsEmpty(sortedByFirstNameArray))
-    {
-        return [sortedByFirstNameArray firstObject];
-    }
-    else
-    {
-        return nil;
-    }
-}
-
-- (NSArray*)_filterFriendByConnectionStatus:(NSMutableArray*)friendsArray
-{
-    NSMutableArray* filteredFriends = [NSMutableArray new];
-    
-    [friendsArray enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        if ([friendModel isCreator])
-        {
-            if (friendModel.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
-                friendModel.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByCreator)
-            {
-                [filteredFriends addObject:friendModel];
-            }
-        }
-        else
-        {
-            if (friendModel.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
-                friendModel.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByTarget)
-            {
-                [filteredFriends addObject:friendModel];
-            }
-        }
-    }];
-    
-    return filteredFriends;
-}
-
-- (NSArray *)_sortByFirstName:(NSArray *)array
-{
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES]; // TODO: constant
-    NSArray* sortedArray = [array sortedArrayUsingDescriptors:@[sort]];
-    
-    return sortedArray;
-}
-
-
 
 #pragma mark - User Invitation
 
@@ -182,7 +92,6 @@ static NSInteger const kGridFriendsCellCount = 8;
 {
     [ZZFriendDataUpdater updateLastTimeActionFriendWithID:friendModel.idTbm];
 }
-
 
 
 #pragma mark - Update after stoppedVideo
@@ -219,6 +128,50 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 #pragma mark - Private
 
+- (NSArray*)_gridModels
+{
+    NSArray* gridModels = [ZZGridDataProvider loadAllGridsSortByIndex:NO];
+    if (gridModels.count != kGridFriendsCellCount)
+    {
+        gridModels = [ZZGridDataProvider loadOrCreateGridModelsWithCount:kGridFriendsCellCount];
+    }
+    NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:@"indexPathIndexForItem" ascending:YES];
+    return [gridModels sortedArrayUsingDescriptors:@[sort]];
+}
+
+- (ZZFriendDomainModel*)_loadFirstFriendFromMenu:(NSArray*)array
+{
+    NSArray* gridUsers = [ZZFriendDataProvider friendsOnGrid];
+    gridUsers = gridUsers ? : @[];
+    
+    NSMutableArray* friendsArray = [NSMutableArray new];
+    [array enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friend, NSUInteger idx, BOOL *stop) {
+        if (![gridUsers containsObject:friend])
+        {
+            [friendsArray addObject:friend];
+        }
+    }];
+    
+    NSArray *filteredArray = [self _filterFriendByConnectionStatus:friendsArray];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES];
+    NSArray* sortedByFirstNameArray = [filteredArray sortedArrayUsingDescriptors:@[sort]];
+    
+    return [sortedByFirstNameArray firstObject];
+}
+
+- (NSArray*)_filterFriendByConnectionStatus:(NSMutableArray*)friendsArray
+{
+    NSMutableArray* filteredFriends = [NSMutableArray new];
+    [friendsArray enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if ([ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel])
+        {
+            [filteredFriends addObject:friendModel];
+        }
+    }];
+    return filteredFriends;
+}
+
 - (ZZFriendDomainModel*)_friendOnGridMatchedToContact:(ZZContactDomainModel*)contactModel
 {
     __block ZZFriendDomainModel* containtedUser = nil;
@@ -240,6 +193,7 @@ static NSInteger const kGridFriendsCellCount = 8;
                 
                 NSString *trimmedNumber = [communicationModel.contact stringByReplacingOccurrencesOfString:@" " withString:@""];
                 
+                //TODO: fetch from data base
                 [[self _gridModels] enumerateObjectsUsingBlock:^(ZZGridDomainModel* obj, NSUInteger idx, BOOL *stop) {
                     if ([[obj.relatedUser mobileNumber] isEqualToString:trimmedNumber])
                     {
