@@ -157,11 +157,11 @@
 }
 
 - (void)selectPhoneNumberDialog{
-    TBMTableModal *tm = [[TBMTableModal alloc] initWithParentView:self.view title:@"Mobile Phone?"
-                                                          rowData:[self validPhones]
-                                                         delegate:self];
-    [self setTableModal: tm];
-    [[self tableModal] show];
+//    TBMTableModal *tm = [[TBMTableModal alloc] initWithParentView:self.view title:@"Mobile Phone?"
+//                                                          rowData:[self validPhones]
+//                                                         delegate:self];
+//    [self setTableModal: tm];
+//    [[self tableModal] show];
 }
 
 //TableModalDelegate methods

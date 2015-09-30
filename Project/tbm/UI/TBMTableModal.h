@@ -6,21 +6,24 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+@class ZZContactDomainModel;
 
 @protocol TBMTableModalDelegate <NSObject>
 
-- (void) didSelectRow:(NSInteger)index;
+- (void)updatePrimaryPhoneNumberForContact:(ZZContactDomainModel*)contact;
+
 
 @end
 
 @interface TBMTableModal : NSObject <UITableViewDelegate, UITableViewDataSource>
 
-- (instancetype) initWithParentView:(UIView *)parentView
-                              title:(NSString *)title
-                            rowData:(NSArray*)rowData
-                           delegate:(id<TBMTableModalDelegate>)delegate;
+- (void)initWithParentView:(UIView *)parentView
+                     title:(NSString *)title
+                   contact:(ZZContactDomainModel*)contact
+                  delegate:(id<TBMTableModalDelegate>)delegate;
 - (void) show;
 - (void) hide;
+
++ (instancetype)shared;
+
 @end

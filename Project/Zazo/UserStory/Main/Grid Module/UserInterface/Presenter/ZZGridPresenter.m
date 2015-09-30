@@ -44,7 +44,6 @@ TBMTableModalDelegate
 @property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
 @property (nonatomic, strong) ZZGridActionHandler* actionHandler;
-@property (nonatomic, strong) TBMTableModal *table;
 @property (nonatomic, strong) ZZContactDomainModel* contactWithMultiplyPhones;
 @property (nonatomic, strong) TBMFriend* notificationFriend;
 @property (nonatomic, strong) TBMFriend* notifatedFriend;
@@ -510,17 +509,6 @@ TBMTableModalDelegate
     [ZZGridAlertBuilder showNoValidPhonesDialogForUserWithFirstName:model.firstName fullName:model.fullName];
 }
 
-- (void)showChooseNumberDialogForUser:(ZZContactDomainModel*)user// TODO: move to grid alerts
-{
-    self.contactWithMultiplyPhones = user;
-   
-    ANDispatchBlockToMainQueue(^{
-        
-        self.table = [[TBMTableModal alloc] initWithParentView:self.userInterface.view title:@"Choose phone number" rowData:user.phones delegate:self];
-        [self.table show];
-    });
-}
-
 - (void)addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel*)contact
 {//TODO: category
     TBMAlertController *alert = [TBMAlertController badConnectionAlert];
@@ -537,13 +525,19 @@ TBMTableModalDelegate
     [alert presentWithCompletion:nil];
 }
 
+- (void)showChooseNumberDialogForUser:(ZZContactDomainModel*)user// TODO: move to grid alerts
+{
+    ANDispatchBlockToMainQueue(^{
+        [[TBMTableModal shared] initWithParentView:self.userInterface.view title:@"Choose phone number" contact:user delegate:self];
+        [[TBMTableModal shared] show];
+    });
+}
 
 #pragma mark - TBMTableModalDelegate
-//TODO: category
-- (void)didSelectRow:(NSInteger)index
+
+- (void)updatePrimaryPhoneNumberForContact:(ZZContactDomainModel*)contact
 {
-    self.contactWithMultiplyPhones.primaryPhone = self.contactWithMultiplyPhones.phones[index];
-    [self.interactor userSelectedPrimaryPhoneNumber:self.contactWithMultiplyPhones];
+    [self.interactor userSelectedPrimaryPhoneNumber:contact];
 }
 
 
