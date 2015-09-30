@@ -7,9 +7,13 @@
 //
 
 @class ZZGridDomainModel;
+@class ZZFriendDomainModel;
 
 @interface ZZGridDataUpdater : NSObject
 
-+ (ZZGridDomainModel*)upsertGridModelWithModel:(ZZGridDomainModel*)model;
++ (ZZGridDomainModel*)upsertModel:(ZZGridDomainModel*)model;
++ (ZZGridDomainModel*)updateRelatedUserOnItemID:(NSString*)itemID toValue:(ZZFriendDomainModel*)model;
+
++ (void)deleteModel:(ZZGridDomainModel*)model;
 
 @end

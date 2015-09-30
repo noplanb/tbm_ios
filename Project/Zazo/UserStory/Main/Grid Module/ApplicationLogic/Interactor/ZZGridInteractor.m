@@ -7,11 +7,8 @@
 //
 
 #import "ZZGridInteractor.h"
-#import "ZZGridCenterCellViewModel.h"
-#import "ZZMenuCellViewModel.h"
 #import "ZZContactDomainModel.h"
 #import "ZZFriendDomainModel.h"
-#import "ZZGridCellViewModel.h"
 #import "ZZGridDomainModel.h"
 #import "ZZGridDataProvider.h"
 #import "ZZFriendDataProvider.h"
@@ -32,20 +29,24 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 @interface ZZGridInteractor () <TBMVideoStatusNotificationProtocol>
 
-@property (nonatomic, strong) NSArray* gridModels;
-
 @end
 
 @implementation ZZGridInteractor
 
 - (void)loadData
 {
-    self.gridModels = [self _generateGridModels];
-    [self.output dataLoadedWithArray:self.gridModels];
+    NSArray* gridModels = [self _generateGridModels];
+    [self.output dataLoadedWithArray:gridModels];
     
     [TBMFriend addVideoStatusNotificationDelegate:self];
 }
 
+- (NSArray*)_gridModels
+{
+    NSArray* gridModels = [ZZGridDataProvider loadAllGridsSortByIndex:NO];
+    NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:@"indexPathIndexForItem" ascending:YES];
+    return [gridModels sortedArrayUsingDescriptors:@[sort]];
+}
 
 #pragma mark - Grid Updates
 
@@ -66,12 +67,12 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)removeUserFromContacts:(ZZFriendDomainModel*)model
 {
-    [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel* gridModel, NSUInteger idx, BOOL *stop) {
+    [[self _gridModels] enumerateObjectsUsingBlock:^(ZZGridDomainModel* gridModel, NSUInteger idx, BOOL *stop) {
         
         if ([gridModel.relatedUser isEqual:model])
         {
-            gridModel.relatedUser = nil;
-            [self _upsertGridModel:gridModel];
+            gridModel = [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:nil];
+            
             [self updateLastActionForFriend:gridModel.relatedUser];
             [self.output updateGridWithModel:gridModel];
             *stop = YES;
@@ -181,21 +182,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)updateLastActionForFriend:(ZZFriendDomainModel*)friendModel
 {
-    if (!ANIsEmpty(friendModel))
-    {
-        friendModel = [ZZFriendDataUpdater updateLastTimeActionFriendWithID:friendModel.idTbm];
-      
-        NSMutableArray* array = [self.gridModels mutableCopy];
-        [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj.relatedUser isEqual:friendModel])
-            {
-                obj.relatedUser = friendModel;
-            }
-        }];
-        
-        self.gridModels = [array copy];
-        
-    }
+    [ZZFriendDataUpdater updateLastTimeActionFriendWithID:friendModel.idTbm];
 }
 
 
@@ -237,7 +224,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         
         __block ZZGridDomainModel *modelThatContainCurrentFriend;
         
-        [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel* obj, NSUInteger idx, BOOL *stop) {
+        [[self _gridModels] enumerateObjectsUsingBlock:^(ZZGridDomainModel* obj, NSUInteger idx, BOOL *stop) {
             if ([obj.relatedUser.mKey isEqualToString:friendModel.mKey])
             {
                 modelThatContainCurrentFriend = obj;
@@ -282,7 +269,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (void)showDownloadAniamtionForFriend:(TBMFriend *)friend
 {
     __block ZZGridDomainModel* modelForDownloadAnimation = nil;
-    [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel*  obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [[self _gridModels] enumerateObjectsUsingBlock:^(ZZGridDomainModel*  obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj.relatedUser.mKey isEqualToString:friend.mkey])
         {
             modelForDownloadAnimation = obj;
@@ -302,7 +289,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 {
     __block ZZFriendDomainModel* containedModel = nil;
     
-    [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel* obj, NSUInteger idx, BOOL *stop) {
+    [[self _gridModels] enumerateObjectsUsingBlock:^(ZZGridDomainModel* obj, NSUInteger idx, BOOL *stop) {
         if ([obj.relatedUser isEqual:friendModel])
         {
             containedModel = obj.relatedUser;
@@ -316,7 +303,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 {
     __block ZZFriendDomainModel* containtedUser = nil;
     
-    [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel* obj, NSUInteger idx, BOOL *stop) {
+    [[self _gridModels] enumerateObjectsUsingBlock:^(ZZGridDomainModel* obj, NSUInteger idx, BOOL *stop) {
         if ([[obj.relatedUser fullName] isEqualToString:[contactModel fullName]])
         {
             containtedUser = obj.relatedUser;
@@ -333,7 +320,7 @@ static NSInteger const kGridFriendsCellCount = 8;
                 
                 NSString *trimmedNumber = [communicationModel.contact stringByReplacingOccurrencesOfString:@" " withString:@""];
                 
-                [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel* obj, NSUInteger idx, BOOL *stop) {
+                [[self _gridModels] enumerateObjectsUsingBlock:^(ZZGridDomainModel* obj, NSUInteger idx, BOOL *stop) {
                     if ([[obj.relatedUser mobileNumber] isEqualToString:trimmedNumber])
                     {
                         containtedUser = obj.relatedUser;
@@ -352,7 +339,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (ZZGridDomainModel*)_loadGridModelWithLatestAction
 {
-    NSArray *sortingByLastAction = [NSArray arrayWithArray:self.gridModels];
+    NSArray *sortingByLastAction = [self _gridModels];
     
     NSSortDescriptor* secriptor = [NSSortDescriptor sortDescriptorWithKey:@"relatedUser.lastActionTimestamp" ascending:YES];
     sortingByLastAction = [sortingByLastAction sortedArrayUsingDescriptors:@[secriptor]];
@@ -362,8 +349,9 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)_addUserAsFriendToGrid:(ZZFriendDomainModel*)friendModel
 {
-    ZZFriendDomainModel* containedUser = [self _friendModelOnGridMatchedToFriendModel:friendModel];
-    if (ANIsEmpty(containedUser))
+    BOOL isUserAlreadyOnGrid = [ZZGridDataProvider isRelatedUserOnGrid:friendModel];
+   
+    if (!isUserAlreadyOnGrid)
     {
         BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
         if (!shouldBeVisible)
@@ -381,35 +369,22 @@ static NSInteger const kGridFriendsCellCount = 8;
         if (ANIsEmpty(model))
         {
             model = [self _loadGridModelWithLatestAction];
-            model.relatedUser = friendModel;
-        }
-        else
-        {
-            model.relatedUser = friendModel;
         }
         
-        [self _upsertGridModel:model];
+        model = [ZZGridDataUpdater updateRelatedUserOnItemID:model.itemID toValue:friendModel];
+        
         [self updateLastActionForFriend:model.relatedUser];
         [self.output updateGridWithModel:model];
     }
     else
     {
-        [self.output gridContainedFriend:containedUser];
+        [self.output gridAlreadyContainsFriend:friendModel];
     }
 }
 
 - (ZZGridDomainModel*)_upsertGridModel:(ZZGridDomainModel*)model
 {
-    NSMutableArray* array = [self.gridModels mutableCopy];
-    [self.gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (obj.index == model.index)
-        {
-            [array replaceObjectAtIndex:idx withObject:model];
-        }
-    }];
-    
-    self.gridModels = [array copy];
-    return [ZZGridDataUpdater upsertGridModelWithModel:model];
+    return [ZZGridDataUpdater upsertModel:model];
 }
 
 - (void)_addUserAsContactToGrid:(ZZContactDomainModel*)model
@@ -417,7 +392,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     ZZFriendDomainModel* containedUser = [self _friendOnGridMatchedToContact:model];
     if (!ANIsEmpty(containedUser))
     {
-        [self.output gridContainedFriend:containedUser];
+        [self.output gridAlreadyContainsFriend:containedUser];
     }
     else
     {
@@ -538,7 +513,7 @@ static NSInteger const kGridFriendsCellCount = 8;
                 model.relatedUser = aFriend;
             }
             
-            model = [ZZGridDataUpdater upsertGridModelWithModel:model];
+            model = [ZZGridDataUpdater upsertModel:model];
             [gridModels addObject:model];
         }
     }

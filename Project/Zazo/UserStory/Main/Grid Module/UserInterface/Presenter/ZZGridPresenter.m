@@ -305,7 +305,7 @@ TBMTableModalDelegate
 }
 
 
-- (void)gridContainedFriend:(ZZFriendDomainModel*)friendModel
+- (void)gridAlreadyContainsFriend:(ZZFriendDomainModel*)friendModel
 {
     [self.wireframe closeMenu];
     [ZZGridAlertBuilder showAlreadyConnectedDialogForUser:friendModel.firstName completion:^{

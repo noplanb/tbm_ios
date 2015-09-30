@@ -38,7 +38,7 @@
 - (void)dataLoadedWithArray:(NSArray*)data;
 - (void)dataLoadingDidFailWithError:(NSError *)error;
 //- (void)modelUpdatedWithUserWithModel:(ZZGridDomainModel *)model;
-- (void)gridContainedFriend:(ZZFriendDomainModel*)friendModel;
+- (void)gridAlreadyContainsFriend:(ZZFriendDomainModel*)friendModel;
 - (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel*)model;
 
 - (void)userHasNoValidNumbers:(ZZContactDomainModel*)model;

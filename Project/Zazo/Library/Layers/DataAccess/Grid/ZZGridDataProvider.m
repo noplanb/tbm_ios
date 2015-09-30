@@ -14,32 +14,6 @@
 
 @implementation ZZGridDataProvider
 
-+ (ZZGridDomainModel*)upsertModel:(ZZGridDomainModel *)model
-{
-    TBMGridElement* entity;
-    if (ANIsEmpty(model.itemID))
-    {
-        entity = [TBMGridElement MR_createEntityInContext:[self _context]];
-    }
-    else
-    {
-        entity =  [self entityWithItemID:model.itemID];
-    }
-    [ZZGridModelsMapper fillEntity:entity fromModel:model];
-    [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
-    
-    return [self modelFromEntity:entity];
-}
-
-+ (void)deleteModel:(ZZGridDomainModel*)model
-{
-    TBMGridElement* entity = [self entityWithItemID:model.itemID];
-    NSManagedObjectContext* context = entity.managedObjectContext;
-    [entity MR_deleteEntityInContext:context];
-    [context MR_saveToPersistentStoreAndWait];
-}
-
-
 #pragma mark - Fetches
 
 + (NSArray*)loadAllGridsSortByIndex:(BOOL)shouldSortByIndex
@@ -87,7 +61,7 @@
     return [self modelFromEntity:entity];
 }
 
-+ (BOOL)isRelatedUserOnGrid:(ZZUserDomainModel*)user
++ (BOOL)isRelatedUserOnGrid:(ZZFriendDomainModel*)user
 {
     ZZGridDomainModel* model = [self modelWithRelatedUser:user];
     return (model != nil);
