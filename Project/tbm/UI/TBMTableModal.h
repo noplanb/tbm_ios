@@ -17,10 +17,10 @@
 
 @interface TBMTableModal : NSObject <UITableViewDelegate, UITableViewDataSource>
 
-- (void)initWithParentView:(UIView *)parentView
-                     title:(NSString *)title
-                   contact:(ZZContactDomainModel*)contact
-                  delegate:(id<TBMTableModalDelegate>)delegate;
+- (void)setupViewWithParentView:(UIView *)parentView
+                          title:(NSString *)title
+                        contact:(ZZContactDomainModel*)contact
+                       delegate:(id<TBMTableModalDelegate>)delegate;
 - (void) show;
 - (void) hide;
 

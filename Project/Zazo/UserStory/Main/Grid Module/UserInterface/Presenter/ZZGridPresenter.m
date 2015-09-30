@@ -522,7 +522,7 @@ TBMTableModalDelegate
 - (void)showChooseNumberDialogForUser:(ZZContactDomainModel*)user// TODO: move to grid alerts
 {
     ANDispatchBlockToMainQueue(^{
-        [[TBMTableModal shared] initWithParentView:self.userInterface.view title:@"Choose phone number" contact:user delegate:self];
+        [[TBMTableModal shared] setupViewWithParentView:self.userInterface.view title:@"Choose phone number" contact:user delegate:self];
         [[TBMTableModal shared] show];
     });
 }
