@@ -9,6 +9,7 @@
 @class ZZGridDomainModel;
 @class ZZFriendDomainModel;
 @class TBMGridElement;
+@class ZZContactDomainModel;
 
 @interface ZZGridDataProvider : NSObject
 
@@ -23,12 +24,13 @@
 + (BOOL)isRelatedUserOnGridWithID:(NSString*)userID;
 
 + (ZZGridDomainModel*)loadFirstEmptyGridElement;
++ (ZZGridDomainModel*)modelWithEarlierLastActionFriend;
++ (ZZGridDomainModel*)modelWithContact:(ZZContactDomainModel*)contactModel;
 
 
 #pragma mark - Mapping
 
 + (ZZGridDomainModel*)modelFromEntity:(TBMGridElement*)entity;
-
 + (TBMGridElement*)entityWithItemID:(NSString*)itemID;
 
 @end
