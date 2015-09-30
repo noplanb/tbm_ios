@@ -25,6 +25,7 @@
 #import "ZZCommunicationDomainModel.h"
 #import "ZZGridUIConstants.h"
 #import "NSObject+ANRACAdditions.h"
+#import "ZZGridDataUpdater.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
@@ -403,7 +404,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     }];
     
     self.gridModels = [array copy];
-    return [ZZGridDataProvider upsertModel:model];
+    return [ZZGridDataUpdater upsertGridModelWithModel:model];
 }
 
 - (void)_addUserAsContactToGrid:(ZZContactDomainModel*)model
@@ -532,7 +533,7 @@ static NSInteger const kGridFriendsCellCount = 8;
                 model.relatedUser = aFriend;
             }
             
-            model = [ZZGridDataProvider upsertModel:model];
+            model = [ZZGridDataUpdater upsertGridModelWithModel:model];
             [gridModels addObject:model];
         }
     }
