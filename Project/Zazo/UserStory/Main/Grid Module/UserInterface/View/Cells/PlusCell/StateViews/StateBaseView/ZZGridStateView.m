@@ -38,12 +38,14 @@
 {
     ANDispatchBlockToMainQueue(^{
         self.model = model;
+
         if (self.model.hasUploadedVideo)
         {
             [self showUploadIconWithoutAnimation];
         }
-        model.playerContainerView = self;
         
+        model.playerContainerView = self;
+
         if (self.model.isUploadedVideoViewed)
         {
             [self hideAllAnimationViews];

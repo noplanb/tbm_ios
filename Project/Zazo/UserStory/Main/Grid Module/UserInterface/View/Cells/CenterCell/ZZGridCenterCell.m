@@ -47,14 +47,18 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
         {
             [self setupVideoViewWithView:model.recordView];
             [RACObserve(model, isRecording) subscribeNext:^(NSNumber* x) {
-               
+                
                 if ([x boolValue])
                 {
-                    [self _showRecordingOverlay];
+                    ANDispatchBlockToMainQueue(^{
+                        [self _showRecordingOverlay];
+                    });
                 }
                 else
                 {
-                    [self _hideRecordingOverlay];
+                    ANDispatchBlockToMainQueue(^{
+                        [self _hideRecordingOverlay];
+                    });
                 }
             }];
         }

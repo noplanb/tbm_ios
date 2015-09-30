@@ -440,6 +440,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (void)videoStatusDidChange:(TBMFriend*)model
 {
     [self.output reloadGridWithData:[self _generateGridModels]];
+    
 }
 
 

@@ -24,10 +24,21 @@
 
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
 @property (nonatomic, strong) UILongPressGestureRecognizer* recordRecognizer;
+@property (nonatomic, strong) NSMutableSet* recognizers;
 
 @end
 
 @implementation ZZGridCellViewModel
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        self.recognizers = [NSMutableSet set];
+    }
+    return self;
+}
 
 - (void)setUsernameLabel:(UILabel *)usernameLabel
 {
@@ -154,7 +165,25 @@
                 withAnimationDelegate:(id <ZZGridCellVeiwModelAnimationDelegate>)animationDelegate
 {
     self.animationDelegate = animationDelegate;
-    [view addGestureRecognizer:self.recordRecognizer];
+    [self _removeLongPressRecognizerFromView:view];
+    if ([[self.recognizers allObjects] count] > 0){
+        UILongPressGestureRecognizer* recognizer = [[self.recognizers allObjects] firstObject];
+        [view addGestureRecognizer:recognizer];
+    }
+    else
+    {
+        [view addGestureRecognizer:self.recordRecognizer];
+    }
+}
+
+- (void)_removeLongPressRecognizerFromView:(UIView*)view
+{
+    [view.gestureRecognizers enumerateObjectsUsingBlock:^(__kindof UIGestureRecognizer * _Nonnull recognizer, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([recognizer isKindOfClass:[UILongPressGestureRecognizer class]])
+        {
+            [view removeGestureRecognizer:recognizer];
+        }
+    }];
 }
 
 - (UILongPressGestureRecognizer *)recordRecognizer
@@ -164,6 +193,7 @@
         _recordRecognizer =
         [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_recordPressed:)];
         _recordRecognizer.minimumPressDuration = 0.5;
+        [self.recognizers addObject:_recordRecognizer];
     }
     return _recordRecognizer;
 }
@@ -171,6 +201,7 @@
 
 
 #pragma mark - Private
+
 
 
 #pragma mark  - Recording recognizer handle
@@ -195,7 +226,6 @@
                }
             }];
         }
-    
 }
 
 - (void)_checkIsCancelRecordingWithRecognizer:(UILongPressGestureRecognizer*)recognizer
