@@ -8,21 +8,25 @@
 
 #import "TBMTableModal.h"
 #import "ZZCommunicationDomainModel.h"
+#import "ZZContactDomainModel.h"
 
 @interface TBMTableModal()
-@property (nonatomic) NSString *title;
-@property (nonatomic) UIView *parentView;
-@property (nonatomic) NSArray *rowData;
-@property (nonatomic) id <TBMTableModalDelegate> delegate;
 
-@property (nonatomic) float titleHeight;
-@property (nonatomic) int modalTag;
+@property (nonatomic, strong)  NSString *title;
+@property (nonatomic, strong)  UIView *parentView;
+@property (nonatomic, strong)  NSArray *rowData;
+@property (nonatomic, weak)  id <TBMTableModalDelegate> delegate;
+
+@property (nonatomic, assign)  float titleHeight;
+@property (nonatomic, assign)  int modalTag;
 
 // UI elements
 @property(nonatomic, strong) UITableView *tableView;
 @property(nonatomic, strong) UIView *modalView;
 @property(nonatomic, strong) UILabel *titleView;
 @property(nonatomic, strong) UIButton *cancelButton;
+@property (nonatomic, strong) ZZContactDomainModel* currentContact;
+
 @end
 
 static NSString *TBMTableReuseId = @"tableModalReuseId";
@@ -31,21 +35,35 @@ static const CGFloat cancelButtonHeight = 45.f;
 
 @implementation TBMTableModal
 
-- (instancetype) initWithParentView:(UIView *)parentView
-                              title:(NSString *)title
-                            rowData:(NSArray*)rowData
-                           delegate:(id<TBMTableModalDelegate>)delegate{
-    self = [super init];
-    if (self !=nil){
-        _parentView = parentView;
-        _title = title;
-        _rowData = rowData;
-        _delegate = delegate;
-        
-        _titleHeight = 60;
-        _modalTag = 93470095;
-    }
-    return self;
+- (void)setupViewWithParentView:(UIView *)parentView
+                     title:(NSString *)title
+                   contact:(ZZContactDomainModel*)contact
+                  delegate:(id<TBMTableModalDelegate>)delegate
+{
+    _parentView = nil;
+    _title = nil;
+    _rowData = nil;
+    _delegate = nil;
+    _currentContact = nil;
+    
+    _parentView = parentView;
+    _title = title;
+    _rowData = contact.phones;
+    _delegate = delegate;
+    _titleHeight = 60;
+    _modalTag = 93470095;
+    _currentContact = contact;
+    [self.tableView reloadData];
+}
+
++ (instancetype)shared
+{
+    static id _sharedClient = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedClient = [self new];
+    });
+    return _sharedClient;
 }
 
 //--------------
@@ -75,7 +93,8 @@ static const CGFloat cancelButtonHeight = 45.f;
 //----------
 // The Views
 //----------
-- (UIView *) dimParent{
+- (UIView *) dimParent
+{
     UIView *dp = [[UIView alloc] initWithFrame:self.parentView.frame];
     [dp setBackgroundColor:[UIColor colorWithRed:0.16f green:0.16f blue:0.16f alpha:0.8f]];
     dp.tag = self.modalTag;
@@ -169,7 +188,8 @@ static const CGFloat cancelButtonHeight = 45.f;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.delegate didSelectRow:indexPath.row];
+    self.currentContact.primaryPhone = self.currentContact.phones[indexPath.row];
+    [self.delegate updatePrimaryPhoneNumberForContact:self.currentContact];
     [self hide];
 }
 

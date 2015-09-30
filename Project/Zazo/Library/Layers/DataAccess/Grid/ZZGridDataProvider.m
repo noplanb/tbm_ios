@@ -9,7 +9,6 @@
 #import "ZZGridDataProvider.h"
 #import "ZZGridModelsMapper.h"
 #import "MagicalRecord.h"
-#import "NSManagedObject+ANAdditions.h"
 #import "ZZUserDataProvider.h"
 #import "ZZGridUIConstants.h"
 
@@ -20,7 +19,6 @@
     TBMGridElement* entity;
     if (ANIsEmpty(model.itemID))
     {
-//        model.itemID = [NSString stringWithFormat:@"CREATE_%@", [self _randomStringWithLength:32]];
         entity = [TBMGridElement MR_createEntityInContext:[self _context]];
     }
     else
@@ -131,17 +129,6 @@
 
 
 #pragma mark - Private
-
-+ (NSString*)_randomStringWithLength:(NSInteger)len
-{
-    NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    NSMutableString *randomString = [NSMutableString stringWithCapacity:len];
-    for (int i = 0; i < len; i++)
-    {
-        [randomString appendFormat: @"%C", [letters characterAtIndex:arc4random_uniform((uint32_t)[letters length])]];
-    }
-    return randomString;
-}
 
 + (NSManagedObjectContext*)_context
 {

@@ -44,8 +44,6 @@ TBMTableModalDelegate
 @property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
 @property (nonatomic, strong) ZZGridActionHandler* actionHandler;
-@property (nonatomic, strong) TBMTableModal *table;
-@property (nonatomic, strong) ZZContactDomainModel* contactWithMultiplyPhones;
 @property (nonatomic, strong) TBMFriend* notificationFriend;
 @property (nonatomic, strong) TBMFriend* notifatedFriend;
 @property (nonatomic, assign) BOOL isVideoRecorderActive;
@@ -76,7 +74,6 @@ TBMTableModalDelegate
     }] subscribeNext:^(id x) {
         [self updateFriendIfNeeded];
     }];
-    
     
     [[ZZVideoRecorder shared] addDelegate:self];
 }
@@ -110,7 +107,6 @@ TBMTableModalDelegate
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(videoStartDownloadingNotification:)
                                                  name:kVideoStartDownloadingNotification object:nil];
-    
 }
 
 - (void)dealloc
@@ -228,10 +224,10 @@ TBMTableModalDelegate
 
 - (void)updateGridWithModel:(ZZGridDomainModel*)model
 {
-    if (!ANIsEmpty(model.relatedUser))
-    {
-        [self.interactor updateLastActionForFriend:model.relatedUser]; // TODO: check
-    }
+//    if (!ANIsEmpty(model.relatedUser))
+//    {
+////        [self.interactor updateLastActionForFriend:model.relatedUser]; // TODO: check
+//    }
     [self.dataSource updateStorageWithModel:model];
     [self.actionHandler handleEvent:ZZGridActionEventTypeFriendDidAdd];
     [self.userInterface showFriendAnimationWithModel:model.relatedUser];
@@ -416,10 +412,7 @@ TBMTableModalDelegate
 - (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel*)userModel
 {
     [self.interactor updateLastActionForFriend:userModel];
-    
-    [ZZGridAlertBuilder showPreNudgeAlertWithFriendFirstName:userModel.firstName completion:^{
-        [self _showSmsDialogForModel:userModel];
-    }];
+    [self _nudgeUser:userModel];
 }
 
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled
@@ -510,17 +503,6 @@ TBMTableModalDelegate
     [ZZGridAlertBuilder showNoValidPhonesDialogForUserWithFirstName:model.firstName fullName:model.fullName];
 }
 
-- (void)showChooseNumberDialogForUser:(ZZContactDomainModel*)user// TODO: move to grid alerts
-{
-    self.contactWithMultiplyPhones = user;
-   
-    ANDispatchBlockToMainQueue(^{
-        
-        self.table = [[TBMTableModal alloc] initWithParentView:self.userInterface.view title:@"Choose phone number" rowData:user.phones delegate:self];
-        [self.table show];
-    });
-}
-
 - (void)addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel*)contact
 {//TODO: category
     TBMAlertController *alert = [TBMAlertController badConnectionAlert];
@@ -537,13 +519,19 @@ TBMTableModalDelegate
     [alert presentWithCompletion:nil];
 }
 
+- (void)showChooseNumberDialogForUser:(ZZContactDomainModel*)user// TODO: move to grid alerts
+{
+    ANDispatchBlockToMainQueue(^{
+        [[TBMTableModal shared] setupViewWithParentView:self.userInterface.view title:@"Choose phone number" contact:user delegate:self];
+        [[TBMTableModal shared] show];
+    });
+}
 
 #pragma mark - TBMTableModalDelegate
-//TODO: category
-- (void)didSelectRow:(NSInteger)index
+
+- (void)updatePrimaryPhoneNumberForContact:(ZZContactDomainModel*)contact
 {
-    self.contactWithMultiplyPhones.primaryPhone = self.contactWithMultiplyPhones.phones[index];
-    [self.interactor userSelectedPrimaryPhoneNumber:self.contactWithMultiplyPhones];
+    [self.interactor userSelectedPrimaryPhoneNumber:contact];
 }
 
 

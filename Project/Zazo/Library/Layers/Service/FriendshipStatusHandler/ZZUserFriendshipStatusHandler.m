@@ -11,55 +11,55 @@
 
 @implementation ZZUserFriendshipStatusHandler
 
-+ (ZZConnectionStatusType)switchedContactStatusTypeForFriend:(ZZFriendDomainModel*)friendModel
++ (ZZFriendshipStatusType)switchedContactStatusTypeForFriend:(ZZFriendDomainModel*)friendModel
 {
     if ([friendModel isCreator])
     {
-        switch (friendModel.connectionStatusValue)
+        switch (friendModel.friendshipStatusValue)
         {
-            case ZZConnectionStatusTypeEstablished:
+            case ZZFriendshipStatusTypeEstablished:
             {
-                return ZZConnectionStatusTypeHiddenByTarget;
+                return ZZFriendshipStatusTypeHiddenByTarget;
             } break;
-            case ZZConnectionStatusTypeHiddenByCreator:
+            case ZZFriendshipStatusTypeHiddenByCreator:
             {
-                return ZZConnectionStatusTypeHiddenByBoth;
+                return ZZFriendshipStatusTypeHiddenByBoth;
             } break;
-            case ZZConnectionStatusTypeHiddenByTarget:
+            case ZZFriendshipStatusTypeHiddenByTarget:
             {
-                return ZZConnectionStatusTypeEstablished;
+                return ZZFriendshipStatusTypeEstablished;
             } break;
-            case ZZConnectionStatusTypeHiddenByBoth:
+            case ZZFriendshipStatusTypeHiddenByBoth:
             {
-                return ZZConnectionStatusTypeHiddenByCreator;
+                return ZZFriendshipStatusTypeHiddenByCreator;
             } break;
             default: break;
         }
     }
     else
     {
-        switch (friendModel.connectionStatusValue)
+        switch (friendModel.friendshipStatusValue)
         {
-            case ZZConnectionStatusTypeEstablished:
+            case ZZFriendshipStatusTypeEstablished:
             {
-                return ZZConnectionStatusTypeHiddenByCreator;
+                return ZZFriendshipStatusTypeHiddenByCreator;
             } break;
-            case ZZConnectionStatusTypeHiddenByTarget:
+            case ZZFriendshipStatusTypeHiddenByTarget:
             {
-                return ZZConnectionStatusTypeHiddenByBoth;
+                return ZZFriendshipStatusTypeHiddenByBoth;
             } break;
-            case ZZConnectionStatusTypeHiddenByCreator:
+            case ZZFriendshipStatusTypeHiddenByCreator:
             {
-                return ZZConnectionStatusTypeEstablished;
+                return ZZFriendshipStatusTypeEstablished;
             } break;
-            case ZZConnectionStatusTypeHiddenByBoth:
+            case ZZFriendshipStatusTypeHiddenByBoth:
             {
-                return ZZConnectionStatusTypeHiddenByTarget;
+                return ZZFriendshipStatusTypeHiddenByTarget;
             } break;
             default: break;
         }
     }
-    return ZZConnectionStatusTypeVoided;
+    return ZZFriendshipStatusTypeVoided;
 }
 
 + (BOOL)shouldFriendBeVisible:(ZZFriendDomainModel*)friendModel
@@ -67,23 +67,23 @@
     BOOL visible;
     if ([friendModel isCreator])
     {
-        switch (friendModel.connectionStatusValue)
+        switch (friendModel.friendshipStatusValue)
         {
-            case ZZConnectionStatusTypeEstablished:
+            case ZZFriendshipStatusTypeEstablished:
             {
                 visible = YES;
             } break;
-            case ZZConnectionStatusTypeHiddenByCreator:
+            case ZZFriendshipStatusTypeHiddenByCreator:
             {
                 visible = YES;
             } break;
                 
-            case ZZConnectionStatusTypeHiddenByTarget:
+            case ZZFriendshipStatusTypeHiddenByTarget:
             {
                 visible = NO;
             } break;
                 
-            case ZZConnectionStatusTypeHiddenByBoth:
+            case ZZFriendshipStatusTypeHiddenByBoth:
             {
                 visible = NO;
             } break;
@@ -93,23 +93,23 @@
     }
     else
     {
-        switch (friendModel.connectionStatusValue)
+        switch (friendModel.friendshipStatusValue)
         {
-            case ZZConnectionStatusTypeEstablished:
+            case ZZFriendshipStatusTypeEstablished:
             {
                 visible = YES;
             } break;
                 
-            case ZZConnectionStatusTypeHiddenByTarget:
+            case ZZFriendshipStatusTypeHiddenByTarget:
             {
                 visible = YES;
             } break;
                 
-            case ZZConnectionStatusTypeHiddenByCreator:
+            case ZZFriendshipStatusTypeHiddenByCreator:
             {
                 visible = NO;
             } break;
-            case ZZConnectionStatusTypeHiddenByBoth:
+            case ZZFriendshipStatusTypeHiddenByBoth:
             {
                 visible = NO;
             } break;
