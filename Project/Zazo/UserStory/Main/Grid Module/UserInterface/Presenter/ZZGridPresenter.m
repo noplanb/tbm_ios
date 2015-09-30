@@ -483,7 +483,7 @@ TBMTableModalDelegate
 - (void)stopPlaying
 {
     [self.videoPlayer stop];
-    [self.dataSource reloadStorage];
+//    [self.dataSource reloadStorage];
 }
 
 #pragma mark - Module Delegate Method

@@ -38,24 +38,41 @@
 {
     ANDispatchBlockToMainQueue(^{
         self.model = model;
-
+        
+        // upload video animation
         if (self.model.hasUploadedVideo)
         {
             [self showUploadIconWithoutAnimation];
         }
         
         model.playerContainerView = self;
-
+        
+        // Upload video was viewed
         if (self.model.isUploadedVideoViewed)
         {
             [self hideAllAnimationViews];
             self.videoViewedView.hidden = NO;
         }
+        
+        
+        //download video animation
+   
+        if (self.model.item.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE)
+        {
+            if (self.model.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED)
+            {
+                [self showDownloadAnimationWithCompletionBlock:^{
+                    [self hideDownloadViews];
+                    [self updateBadgeWithNumber:model.badgeNumber];
+                }];
+            }
+        }
+        
+        
         model.usernameLabel = self.userNameLabel;
         [self.model reloadDebugVideoStatus];
     });
 }
-
 
 - (void)checkIsCancelRecordingWithRecognizer:(UILongPressGestureRecognizer*)recognizer
 {

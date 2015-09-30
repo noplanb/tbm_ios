@@ -9,6 +9,7 @@
 #import "ZZGridStateViewPreview.h"
 #import "ZZGridUIConstants.h"
 #import "ZZVideoRecorder.h"
+#import "TBMFriend.h"
 
 static CGFloat const kThumbnailBorderWidth = 2;
 
@@ -40,6 +41,7 @@ static CGFloat const kThumbnailBorderWidth = 2;
     ANDispatchBlockToMainQueue(^{
         [super updateWithModel:model];
         UIImage* thumbImage = [model videoThumbnailImage];
+        
         if (!thumbImage)
         {
             self.thumbnailImageView.contentMode = UIViewContentModeCenter;
@@ -53,29 +55,62 @@ static CGFloat const kThumbnailBorderWidth = 2;
             self.thumbnailImageView.contentMode = UIViewContentModeScaleToFill;
             self.thumbnailImageView.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
         }
+        
         self.thumbnailImageView.image = thumbImage;
-        [self updateBadgeWithModel:model];
+        
+        
+        
+        // change download video state
+        
+        if ([model.badgeNumber integerValue] > 0)
+        {
+            self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+            self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+            [self _showThumbnailGreenBorder];
+            [self updateBadgeWithNumber:model.badgeNumber];
+        }
+        
+        
+        if (self.model.item.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE)
+        {
+            if (self.model.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING)
+            {
+                [self hideAllAnimationViews];
+                [self showDownloadViews];
+                self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+                self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+                [self _showThumbnailGreenBorder];
+                
+            }
+//            else
+//            {
+//
+//                self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
+//                self.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
+//            }
+        }
+        
+        
+        
+        
+        
     });
 }
 
-- (void)updateBadgeWithModel:(ZZGridCellViewModel*)model
-{
-    if ([model.badgeNumber integerValue] > 0)
-    {
-//        [self hideAllAnimationViews];
-//        self.videoCountLabel.hidden = NO;
-        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-        self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-//        [self showDownloadAnimationWithNewVideoCount:[model.badgeNumber integerValue]];
-        [self _showThumbnailGreenBorder];
-    }
-    else
-    {
-        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
-        self.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
-        
-    }
-}
+//- (void)updateBadgeWithModel:(ZZGridCellViewModel*)model
+//{
+//    if ([model.badgeNumber integerValue] > 0)
+//    {
+//        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+//        self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+//        [self _showThumbnailGreenBorder];
+//    }
+//    else
+//    {
+//        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
+//        self.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
+//    }
+//}
 
 - (void)_showThumbnailGreenBorder
 {

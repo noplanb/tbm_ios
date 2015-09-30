@@ -55,17 +55,17 @@
         [self updateStateViewWithModel:model];
         
         
-        if ([self.model.badgeNumber integerValue] > 0)
-        {
-            [self updateDownloadVideoState];
-        }
-        else
-        {
-            if (!self.model.isNeedToShowDownloadAnimation)
-            {
-                [self updateStateViewWithModel:model];
-            }
-        }
+//        if ([self.model.badgeNumber integerValue] > 0)
+//        {
+//            [self updateDownloadVideoState];
+//        }
+//        else
+//        {
+//            if (!self.model.isNeedToShowDownloadAnimation)
+//            {
+//                [self updateStateViewWithModel:model];
+//            }
+//        }
         
         
         
@@ -83,33 +83,33 @@
     });
 }
 
-- (void)updateDownloadVideoState
-{
-    if (self.model.item.relatedUser.isVideoStopped)
-    {
-        self.model.item.relatedUser.isVideoStopped = YES;
-        [self updateStateViewWithModel:self.model];
-        [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
-        
-    }
-    else
-    {
-        if (self.model.prevBadgeNumber == self.model.badgeNumber)
-        {
-            [self updateStateViewWithModel:self.model];
-            [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
-        }
-        else
-        {
-            [self updateStateViewWithModel:self.model];
-            [self showDownloadAnimationWithCompletionBlock:^{
-                [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
-                self.model.prevBadgeNumber = self.model.badgeNumber;
-                [self.stateView hideDownloadViews];
-            }];
-        }
-    }
-}
+//- (void)updateDownloadVideoState
+//{
+//    if (self.model.item.relatedUser.isVideoStopped)
+//    {
+//        self.model.item.relatedUser.isVideoStopped = YES;
+//        [self updateStateViewWithModel:self.model];
+//        [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
+//        
+//    }
+//    else
+//    {
+//        if (self.model.prevBadgeNumber == self.model.badgeNumber)
+//        {
+//            [self updateStateViewWithModel:self.model];
+//            [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
+//        }
+//        else
+//        {
+//            [self updateStateViewWithModel:self.model];
+//            [self showDownloadAnimationWithCompletionBlock:^{
+//                [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
+//                self.model.prevBadgeNumber = self.model.badgeNumber;
+//                [self.stateView hideDownloadViews];
+//            }];
+//        }
+//    }
+//}
 
 
 - (void)updateStateViewWithModel:(ZZGridCellViewModel*)model
