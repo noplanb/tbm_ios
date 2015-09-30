@@ -12,6 +12,7 @@
 #import "ZZUserDataProvider.h"
 #import "ZZGridUIConstants.h"
 #import "ZZFriendDataProvider.h"
+#import "ZZGridDataUpdater.h"
 
 @implementation ZZGridDataProvider
 
@@ -86,6 +87,69 @@
     }] array];
     
     return [models firstObject];
+}
+
++ (NSArray*)loadOrCreateGridModelsWithCount:(NSInteger)gridModelsCount
+{
+    NSArray* allfriends = [ZZFriendDataProvider loadAllFriends];
+    NSMutableArray* filteredFriends = [NSMutableArray new];
+    
+    [allfriends enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if ([friendModel isCreator])
+        {
+            if (friendModel.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
+                friendModel.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByCreator)
+            {
+                [filteredFriends addObject:friendModel];
+            }
+        }
+        else
+        {
+            if (friendModel.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
+                friendModel.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByTarget)
+            {
+                [filteredFriends addObject:friendModel];
+            }
+        }
+    }];
+    //TODO: sort descriptor
+    [filteredFriends sortedArrayUsingComparator:^NSComparisonResult(ZZFriendDomainModel* obj1, ZZFriendDomainModel* obj2) {
+        return [obj1.lastActionTimestamp compare:obj2.lastActionTimestamp];
+    }];
+    
+    NSArray* gridStoredModels = [ZZGridDataProvider loadAllGridsSortByIndex:YES];
+    NSMutableArray* gridModels = [NSMutableArray array];
+    
+    if (gridStoredModels.count != gridModelsCount)
+    {
+        for (NSInteger count = 0; count < gridModelsCount; count++)
+        {
+            ZZGridDomainModel* model;
+            if (gridStoredModels.count > count)
+            {
+                model = gridStoredModels[count];
+            }
+            else
+            {
+                model = [ZZGridDomainModel new];
+            }
+            model.index = count;
+            if (filteredFriends.count > count)
+            {
+                ZZFriendDomainModel *aFriend = filteredFriends[count];
+                model.relatedUser = aFriend;
+            }
+            
+            model = [ZZGridDataUpdater upsertModel:model];
+            [gridModels addObject:model];
+        }
+    }
+    else
+    {
+        return gridStoredModels;
+    }
+    return gridModels;
 }
 
 

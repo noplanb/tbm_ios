@@ -203,34 +203,16 @@ TBMTableModalDelegate
                                                     withCompletionBlock:^(BOOL isNewVideoDownloaded) {}];
 }
 
-//- (void)modelUpdatedWithUserWithModel:(ZZGridDomainModel*)model
-//{
-//    if (!ANIsEmpty(model.relatedUser))
-//    {
-//        [self.interactor updateLastActionForFriend:model.relatedUser];
-//    }
-//    [self.dataSource selectedViewModelUpdatedWithItem:model];
-//}
 
-
-//- (void)updateGridWithGridDomainModel:(ZZGridDomainModel *)model
-//{
-//    if (!ANIsEmpty(model.relatedUser))
-//    {
-//        [self.interactor updateLastActionForFriend:model.relatedUser];
-//    }
-//    [self.dataSource updateModel:model];
-//}
-
-- (void)updateGridWithModel:(ZZGridDomainModel*)model
+- (void)updateGridWithModel:(ZZGridDomainModel*)model isNewFriend:(BOOL)isNewFriend
 {
-//    if (!ANIsEmpty(model.relatedUser))
-//    {
-////        [self.interactor updateLastActionForFriend:model.relatedUser]; // TODO: check
-//    }
     [self.dataSource updateStorageWithModel:model];
-    [self.actionHandler handleEvent:ZZGridActionEventTypeFriendDidAdd];
     [self.userInterface showFriendAnimationWithModel:model.relatedUser];
+    
+    if (isNewFriend)
+    {
+        [self.actionHandler handleEvent:ZZGridActionEventTypeFriendDidAdd];
+    }
 }
 
 - (void)updateFriendIfNeeded
@@ -561,7 +543,6 @@ TBMTableModalDelegate
 {
     [self.wireframe closeMenu];
     [self.wireframe presentEditFriendsController];
-    
 }
 
 - (void)presentSendEmailController

@@ -12,6 +12,7 @@
 
 @interface ZZGridDataProvider : NSObject
 
++ (NSArray*)loadOrCreateGridModelsWithCount:(NSInteger)gridModelsCount;
 
 #pragma mark - Fetches
 

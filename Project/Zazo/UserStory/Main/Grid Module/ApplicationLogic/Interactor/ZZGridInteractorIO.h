@@ -46,7 +46,7 @@
 - (void)userHasNoAppInstalled:(ZZContactDomainModel*)contact;
 - (void)friendRecievedFromServer:(ZZFriendDomainModel*)friendModel;
 
-- (void)updateGridWithModel:(ZZGridDomainModel*)model;
+- (void)updateGridWithModel:(ZZGridDomainModel*)model isNewFriend:(BOOL)isNewFriend;
 - (void)updateGridWithModelFromNotification:(ZZGridDomainModel*)model isNewFriend:(BOOL)isNewFriend;
 
 - (void)loadedStateUpdatedTo:(BOOL)isLoading;
