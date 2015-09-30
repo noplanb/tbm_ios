@@ -9,7 +9,6 @@
 #import "ZZGridDataProvider.h"
 #import "ZZGridModelsMapper.h"
 #import "MagicalRecord.h"
-#import "NSManagedObject+ANAdditions.h"
 #import "ZZUserDataProvider.h"
 #import "ZZGridUIConstants.h"
 

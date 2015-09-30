@@ -10,7 +10,6 @@
 #import "ZZVideoModelsMapper.h"
 #import "ZZVideoDomainModel.h"
 #import "TBMVideo.h"
-#import "NSManagedObject+ANAdditions.h"
 #import "MagicalRecord.h"
 #import "ZZVideoStatuses.h"
 #import "ZZFriendDataProvider.h"

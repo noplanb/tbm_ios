@@ -12,7 +12,6 @@
 #import "MagicalRecord.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZFriendModelsMapper.h"
-#import "NSManagedObject+ANAdditions.h"
 #import "ZZGridDataProvider.h"
 #import "ZZGridDomainModel.h"
 

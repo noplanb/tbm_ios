@@ -8,7 +8,6 @@
 
 #import "ZZUserDataProvider.h"
 #import "ZZUserModelsMapper.h"
-#import "NSManagedObject+ANAdditions.h"
 #import "MagicalRecord.h"
 #import "TBMDispatch.h"
 
