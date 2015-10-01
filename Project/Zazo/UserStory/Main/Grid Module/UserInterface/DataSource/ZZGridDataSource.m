@@ -46,10 +46,7 @@ ZZGridCenterCellViewModelDelegate
 
 - (void)setupWithModels:(NSArray*)models
 {
-    
-    
-    ANSectionModel* sectionModel = [self.storage sectionAtIndex:0];
-    NSMutableArray* updatedSection = [NSMutableArray arrayWithArray:sectionModel.objects ? : @[]];
+    NSMutableArray* updatedSection = [NSMutableArray new];
     
     models = [[models.rac_sequence map:^id(ZZGridDomainModel* value) {
         
@@ -83,7 +80,6 @@ ZZGridCenterCellViewModelDelegate
         }];
         [self reloadStorage];
     });
-
 }
 
 - (void)itemSelectedAtIndexPath:(NSIndexPath*)indexPath

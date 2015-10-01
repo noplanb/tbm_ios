@@ -17,8 +17,6 @@
 #import "ZZFriendDomainModel.h"
 #import "ZZGridDataSource.h"
 
-static NSInteger const kCenterCellIndex = 4;
-
 @interface ZZGridCollectionController () <ANStorageUpdatingInterface>
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
@@ -37,7 +35,8 @@ static NSInteger const kCenterCellIndex = 4;
             NSArray* items = [section objects];
             if (items.count > idx)
             {
-                [obj updateWithModel:items[idx]];
+                id model = items[idx];
+                [obj updateWithModel:model];
             }
         }
     }];

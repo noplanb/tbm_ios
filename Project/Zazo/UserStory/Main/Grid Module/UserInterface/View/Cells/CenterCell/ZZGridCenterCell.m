@@ -21,6 +21,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
 @interface ZZGridCenterCell ()
 
 @property (nonatomic, strong) ZZGridCenterCellViewModel* model;
+@property (nonatomic, strong) UIView* recordingContainer;
 @property (nonatomic, strong) UIView* videoView;
 @property (nonatomic, strong) CALayer* recordingOverlay;
 @property (nonatomic, strong) UILabel* recordingLabel;
@@ -28,6 +29,16 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
 @end
 
 @implementation ZZGridCenterCell
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        self.clipsToBounds = YES;
+    }
+    return self;
+}
 
 - (void)layoutSubviews
 {
@@ -93,8 +104,8 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
         [_videoView removeFromSuperview];
     }
     _videoView = videoView;
-    [self addSubview:_videoView];
-    [self sendSubviewToBack:_videoView];
+    [self.recordingContainer addSubview:_videoView];
+    [self.recordingContainer sendSubviewToBack:_videoView];
     [_videoView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
@@ -134,23 +145,36 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
     return _switchCameraButton;
 }
 
+- (UIView *)recordingContainer
+{
+    if (!_recordingContainer)
+    {
+        _recordingContainer = [UIView new];
+        [self addSubview:_recordingContainer];
+        [_recordingContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self);
+        }];
+    }
+    return _recordingContainer;
+}
+
 - (UILabel*)recordingLabel
 {
     if (!_recordingLabel)
     {
-//        _recordingLabel = [UILabel new];
-//        _recordingLabel.hidden = YES;
-//        _recordingLabel.text = NSLocalizedString(@"grid-controller.cell.record.title", nil);
-//        _recordingLabel.backgroundColor = [[UIColor an_colorWithHexString:kLayoutConstRecordingLabelBackgroundColor] colorWithAlphaComponent:0.5];
-//        _recordingLabel.textColor = [UIColor whiteColor];
-//        _recordingLabel.textAlignment = NSTextAlignmentCenter;
-//        _recordingLabel.font = [UIFont systemFontOfSize:kLayoutConstRecordingLabelFontSize];
-//        [self.videoView addSubview:_recordingLabel];
-//        
-//        [_recordingLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.right.equalTo(self.videoView);
-//            make.height.equalTo(@(kLayoutConstRecordingLabelHeight - kLayoutConstRecordingBorderWidth));
-//        }];
+        _recordingLabel = [UILabel new];
+        _recordingLabel.hidden = YES;
+        _recordingLabel.text = NSLocalizedString(@"grid-controller.cell.record.title", nil);
+        _recordingLabel.backgroundColor = [[UIColor an_colorWithHexString:kLayoutConstRecordingLabelBackgroundColor] colorWithAlphaComponent:0.5];
+        _recordingLabel.textColor = [UIColor whiteColor];
+        _recordingLabel.textAlignment = NSTextAlignmentCenter;
+        _recordingLabel.font = [UIFont systemFontOfSize:kLayoutConstRecordingLabelFontSize];
+        [self.recordingContainer addSubview:_recordingLabel];
+        
+        [_recordingLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.bottom.right.equalTo(self.recordingContainer);
+            make.height.equalTo(@(kLayoutConstRecordingLabelHeight - kLayoutConstRecordingBorderWidth));
+        }];
     }
     return _recordingLabel;
 }
