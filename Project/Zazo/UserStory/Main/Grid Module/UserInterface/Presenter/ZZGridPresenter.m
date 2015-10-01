@@ -33,11 +33,11 @@
 
 @interface ZZGridPresenter ()
 <
-ZZGridDataSourceDelegate,
-ZZVideoPlayerDelegate,
-ZZVideoRecorderDelegate,
-ZZGridActionHanlderDelegate,
-TBMTableModalDelegate
+    ZZGridDataSourceDelegate,
+    ZZVideoPlayerDelegate,
+    ZZVideoRecorderDelegate,
+    ZZGridActionHanlderDelegate,
+    TBMTableModalDelegate
 >
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
@@ -109,22 +109,17 @@ TBMTableModalDelegate
 {
     if (![ZZVideoRecorder shared].isRecorderActive && !self.videoPlayer.isPlayingVideo)
     {
-        [self.dataSource setupWithModels:data];
+//        [self.dataSource setupWithModels:data];
     }
 }
 
 - (void)updateGridWithModelFromNotification:(ZZGridDomainModel *)model isNewFriend:(BOOL)isNewFriend
 {
-    [self.dataSource updateDataSourceWithGridModelFromNotification:model
-                                               withCompletionBlock:^(BOOL isNewVideoDownloaded) {
-                                                   if (isNewVideoDownloaded)
-                                                   {
-                                                       if (model.relatedUser.outgoingVideoStatusValue != OUTGOING_VIDEO_STATUS_VIEWED)
-                                                       {
-                                                           [self.soundPlayer play];
-                                                       }
-                                                   }
-                                               }];
+    [self.dataSource reloadStorage];
+    if (model.relatedUser.outgoingVideoStatusValue != OUTGOING_VIDEO_STATUS_VIEWED)
+    {
+        [self.soundPlayer play]; // TODO: check
+    }
     
     if (isNewFriend)
     {
@@ -136,14 +131,13 @@ TBMTableModalDelegate
 - (void)updateGridWithDownloadAnimationModel:(ZZGridDomainModel*)model
 {
     [self.actionHandler handleEvent:ZZGridActionEventTypeIncomingMessageDidReceived]; // TODO:
-    [self.dataSource updateDataSourceWithDownloadAnimationWithGridModel:model
-                                                    withCompletionBlock:^(BOOL isNewVideoDownloaded) {}];
+    [self.dataSource reloadStorage];
 }
 
 
 - (void)updateGridWithModel:(ZZGridDomainModel*)model isNewFriend:(BOOL)isNewFriend
 {
-    [self.dataSource updateStorageWithModel:model];
+    [self.dataSource reloadStorage];
     [self.userInterface showFriendAnimationWithModel:model.relatedUser];
     
     if (isNewFriend)

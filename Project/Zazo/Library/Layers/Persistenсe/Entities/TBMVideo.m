@@ -171,8 +171,9 @@
 //---------------------------
 // Status convenience methods
 //---------------------------
-- (BOOL)isStatusDownloading{
-    return self.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADING;
+- (BOOL)isStatusDownloading
+{
+    return (self.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADING);
 }
 
 

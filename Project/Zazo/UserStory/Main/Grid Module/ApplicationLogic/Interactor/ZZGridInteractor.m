@@ -84,7 +84,9 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)updateLastActionForFriend:(ZZFriendDomainModel*)friendModel
 {
-    [ZZFriendDataUpdater updateLastTimeActionFriendWithID:friendModel.idTbm];
+    ANDispatchBlockToBackgroundQueue(^{
+       [ZZFriendDataUpdater updateLastTimeActionFriendWithID:friendModel.idTbm];
+    });
 }
 
 
@@ -92,14 +94,13 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)updateFriendAfterVideoStopped:(ZZFriendDomainModel *)model
 {
-    [self updateLastActionForFriend:model];
-    
    NSArray* gridModels = [[[self _gridModels].rac_sequence map:^id(ZZGridDomainModel* value) {
         value.isDownloadAnimationViewed = YES;
         return value;
     }] array];
     
     [self.output reloadGridWithData:gridModels];
+    [self updateLastActionForFriend:model];
 }
 
 

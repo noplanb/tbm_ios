@@ -261,6 +261,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 {  
     TBMVideo *video = [TBMVideo newWithVideoId:videoId onContext:self.managedObjectContext];
     [self addVideosObject:video];
+    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
     return video;
 }
 
@@ -286,11 +287,12 @@ static NSMutableSet *videoStatusNotificationDelegates;
     }
 }
 
-- (void)deleteVideo:(TBMVideo *)video
+- (void)deleteVideo:(TBMVideo*)video
 {
     [video deleteFiles];
     [self removeVideosObject:video];
     [TBMVideo destroy:video];
+    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
 }
 
 - (TBMVideo *)firstPlayableVideo
@@ -392,9 +394,12 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (void)notifyVideoStatusChangeOnMainThread
 {
-    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
-    [self performSelectorOnMainThread:@selector(notifyVideoStatusChange) withObject:nil waitUntilDone:YES];
-    self.everSent = @(YES);
+    if (!self.everSent.boolValue)
+    {
+        self.everSent = @(YES);
+        [self.managedObjectContext MR_saveToPersistentStoreAndWait];
+    }
+    [self notifyVideoStatusChange];
 }
 
 + (void)fillAfterMigration
@@ -402,18 +407,19 @@ static NSMutableSet *videoStatusNotificationDelegates;
     for (TBMFriend *friend in [self all])
     {
         friend.everSent = @([friend.outgoingVideoStatus integerValue] > OUTGOING_VIDEO_STATUS_NONE);
-//        friend.isConnectionCreator = @(YES); TODO: core data
-        [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
     }
+    [[self _context] MR_saveToPersistentStoreAndWait];
 }
 
 - (void)notifyVideoStatusChange
 {
-    DebugLog(@"notifyVideoStatusChange for %@ on %lu delegates", self.firstName, (unsigned long) [videoStatusNotificationDelegates count]);
-    for (id <TBMVideoStatusNotificationProtocol> delegate in videoStatusNotificationDelegates)
-    {
-        [delegate videoStatusDidChange:self];
-    }
+    ANDispatchBlockToBackgroundQueue(^{
+        DebugLog(@"notifyVideoStatusChange for %@ on %lu delegates", self.firstName, (unsigned long) [videoStatusNotificationDelegates count]);
+        for (id <TBMVideoStatusNotificationProtocol> delegate in videoStatusNotificationDelegates)
+        {
+            [delegate videoStatusDidChange:self];
+        }
+    });
 //    
 //    if (self.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED)//TODO: coredata
 //    {
@@ -519,7 +525,6 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
     self.lastVideoStatusEventTypeValue = OUTGOING_VIDEO_STATUS_EVENT_TYPE;
     self.outgoingVideoStatusValue = status;
-    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
     
     ZZFriendDomainModel* model = [ZZFriendDataProvider modelFromEntity:self];
     BOOL shouldVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:model];
@@ -556,17 +561,15 @@ static NSMutableSet *videoStatusNotificationDelegates;
         self.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
     }
 
-    [self notifyVideoStatusChangeOnMainThread];
-    
-    
     ZZFriendDomainModel* model = [ZZFriendDataProvider modelFromEntity:self];
     BOOL shouldVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:model];
     if (!shouldVisible)
     {
         model.friendshipStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:model];
         self.friendshipStatus = ZZFriendshipStatusTypeStringFromValue(model.friendshipStatusValue);
-        [self.managedObjectContext MR_saveOnlySelfAndWait];
     }
+    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
+    [self notifyVideoStatusChangeOnMainThread];
 }
 
 // --------------------
@@ -584,8 +587,10 @@ static NSMutableSet *videoStatusNotificationDelegates;
     {
         self.uploadRetryCount = retryCount;
         self.lastVideoStatusEventTypeValue = OUTGOING_VIDEO_STATUS_EVENT_TYPE;
+        [self.managedObjectContext MR_saveToPersistentStoreAndWait];
         [self notifyVideoStatusChangeOnMainThread];
-    } else
+    }
+    else
     {
         OB_WARN(@"retryCount:%@ equals self.retryCount:%@. Ignoring.", retryCount, self.uploadRetryCount);
     }
@@ -597,11 +602,12 @@ static NSMutableSet *videoStatusNotificationDelegates;
         return;
 
     video.downloadRetryCount = retryCount;
-
+    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
 
     if ([self isNewestIncomingVideo:video])
     {
         self.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
+        [self.managedObjectContext MR_saveToPersistentStoreAndWait];
         [self notifyVideoStatusChangeOnMainThread];
     }
 }
@@ -711,8 +717,8 @@ static NSMutableSet *videoStatusNotificationDelegates;
         TBMFriend *aFriend = [self findWithMkey:obj];
         aFriend.everSent = @(YES);
         //aFriend.isConnectionCreator = @(YES); //TODO:
-        [aFriend.managedObjectContext MR_saveToPersistentStoreAndWait];
     }];
+    [[self _context] MR_saveToPersistentStoreAndWait];
 }
 
 

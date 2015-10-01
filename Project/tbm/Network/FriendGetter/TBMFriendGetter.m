@@ -61,7 +61,9 @@
         ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
         NSString *myMkey = user.mkey;
         user.isInvitee = ![firstFriendCreatorMkey isEqualToString:myMkey];
-        [ZZUserDataProvider upsertUserWithModel:user];
+        ANDispatchBlockToBackgroundQueue(^{
+           [ZZUserDataProvider upsertUserWithModel:user]; 
+        });
     }
 }
 

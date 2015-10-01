@@ -237,7 +237,9 @@
 - (void)pollEverSentStatusForAllFriends
 {
     [TBMRemoteStorageHandler getRemoteEverSentFriendsWithSuccess:^(NSArray *response) {
-        [TBMFriend setEverSentForMkeys:response];
+        ANDispatchBlockToBackgroundQueue(^{
+            [TBMFriend setEverSentForMkeys:response];
+        });
     } failure:nil];
 }
 
@@ -331,31 +333,27 @@
 
 - (void)fileTransferCompleted:(NSString *)marker withError:(NSError *)error
 {
-    // Run on the main queue since managed object context is on the main queue and you cant pass the resutant objects between threads.
-    dispatch_async(dispatch_get_main_queue(), ^
+    OB_INFO(@"fileTransferCompleted marker = %@", marker);
+    
+    [self requestBackground];
+    TBMFriend *friend = [TBMVideoIdUtils friendWithMarker:marker];
+    NSString *videoId = [TBMVideoIdUtils videoIdWithMarker:marker];
+    if (friend == nil)
     {
-        OB_INFO(@"fileTransferCompleted marker = %@", marker);
-
-        [self requestBackground];
-        TBMFriend *friend = [TBMVideoIdUtils friendWithMarker:marker];
-        NSString *videoId = [TBMVideoIdUtils videoIdWithMarker:marker];
-        if (friend == nil)
-        {
-            OB_ERROR(@"fileTransferCompleted - Could not find friend with marker = %@. This should never happen", marker);
-            return;
-        }
-
-        [self handleError:error marker:marker];
-
-        BOOL isUpload = [TBMVideoIdUtils isUploadWithMarker:marker];
-        if (isUpload)
-        {
-            [self uploadCompletedWithFriend:friend videoId:videoId error:error];
-        } else
-        {
-            [self downloadCompletedWithFriend:friend videoId:videoId error:error];
-        }
-    });
+        OB_ERROR(@"fileTransferCompleted - Could not find friend with marker = %@. This should never happen", marker);
+        return;
+    }
+    
+    [self handleError:error marker:marker];
+    
+    BOOL isUpload = [TBMVideoIdUtils isUploadWithMarker:marker];
+    if (isUpload)
+    {
+        [self uploadCompletedWithFriend:friend videoId:videoId error:error];
+    } else
+    {
+        [self downloadCompletedWithFriend:friend videoId:videoId error:error];
+    }
 }
 
 - (void)handleError:(NSError *)error marker:(NSString *)marker
