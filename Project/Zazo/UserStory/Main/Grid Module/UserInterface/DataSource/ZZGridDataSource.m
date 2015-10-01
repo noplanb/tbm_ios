@@ -86,11 +86,16 @@ ZZGridCenterCellViewModelDelegate
     {
         [updatedSection insertObject:center atIndex:kGridCenterCellIndex];
     }
-    ANSectionModel* updatedSectionModel = [self.storage sectionAtIndex:0 createIfNeeded:YES];
-    [updatedSectionModel.objects removeAllObjects];
-    [updatedSectionModel.objects addObjectsFromArray:updatedSection];
-    
-    [self reloadStorage];
+    ANDispatchBlockToMainQueue(^{
+        
+        [self.storage updateWithoutAnimations:^{
+            ANSectionModel* updatedSectionModel = [self.storage sectionAtIndex:0 createIfNeeded:YES];
+            [updatedSectionModel.objects removeAllObjects];
+            [updatedSectionModel.objects addObjectsFromArray:updatedSection];
+        }];
+        [self reloadStorage];
+    });
+
 }
 
 - (void)itemSelectedAtIndexPath:(NSIndexPath*)indexPath

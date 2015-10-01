@@ -133,8 +133,11 @@
         NSArray* items = [TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]];
         entity = [items firstObject];
     }
-    
-    return [self modelFromEntity:entity];
+    if (entity)
+    {
+        return [self modelFromEntity:entity];
+    }
+    return nil;
 }
 
 + (NSArray*)loadOrCreateGridModelsWithCount:(NSInteger)gridModelsCount
