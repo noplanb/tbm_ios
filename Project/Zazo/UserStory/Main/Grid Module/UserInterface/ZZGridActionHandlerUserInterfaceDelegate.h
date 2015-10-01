@@ -6,8 +6,13 @@
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
+#import "ZZGridPart.h"
+
 @protocol ZZGridActionHanlderUserInterfaceDelegate <NSObject>
 
 - (CGRect)focusFrameForIndex:(NSInteger)index;
 
+- (CGRect)frameForGridPart:(ZZGridPart)part;
+
+//TODO: (Hints) frames
 @end

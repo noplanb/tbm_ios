@@ -60,8 +60,6 @@
     {
         return;
     }
-    
-    
 
     if ([ZZVideoRecorder shared].isRecording)
     {

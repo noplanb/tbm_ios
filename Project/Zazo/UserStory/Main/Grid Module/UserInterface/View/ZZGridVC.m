@@ -132,11 +132,69 @@
     return position;
 }
 
+- (CGRect)frameForGridPart:(ZZGridPart)part
+{
+    switch (part)
+    {
+        case ZZGridPartCenralRightCell:
+            return [self _frameForCentralRightCell];
+            break;
+        case ZZGridPartLastAddedFriendCell:
+            return [self _frameForLastAddedFriendCell];
+            break;
+        case ZZGridPartLastViewedIndicator:
+            return [self _frameForLastViewedIndicator];
+            break;
+        case ZZGridPartLastUnviewedIndicator:
+            return [self _frameForLastUnviewedIndicator];
+            break;
+        case ZZGridPartLastUnviewedCell:
+            return [self _frameForLastUnviewedCell];
+            break;
+        case ZZGridPartLastSentIndicator:
+            return [self _frameForLastSentIndicator];
+            break;
+        default:break;
+    }
+    return CGRectZero;
+}
+
+#pragma mark Private
 - (void)updateSwitchButtonWithState:(BOOL)isHidden
 {
     [self.gridView updateSwithCameraButtonWithState:isHidden];
 }
 
+- (CGRect)_frameForCentralRightCell
+{
+    return CGRect();
+}
+
+
+- (CGRect)_frameForLastSentIndicator
+{
+    return CGRect();
+}
+
+- (CGRect)_frameForLastUnviewedCell
+{
+    return CGRect();
+}
+
+- (CGRect)_frameForLastUnviewedIndicator
+{
+    return CGRect();
+}
+
+- (CGRect)_frameForLastViewedIndicator
+{
+    return CGRect();
+}
+
+- (CGRect)_frameForLastAddedFriendCell
+{
+    return CGRect();
+}
 
 #pragma mark - Touch Observer Delegate
 
@@ -144,5 +202,7 @@
 {
     [self.eventHandler stopPlaying];
 }
+
+
 
 @end

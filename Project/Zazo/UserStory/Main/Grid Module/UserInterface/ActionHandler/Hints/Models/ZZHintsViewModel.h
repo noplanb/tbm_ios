@@ -37,4 +37,5 @@ typedef NS_ENUM(NSInteger, ZZHintPresentationState)
 - (BOOL)hidesArrow;
 - (ZZHintsBottomImageType)bottomImageType;
 
+
 @end
