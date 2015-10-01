@@ -137,7 +137,7 @@
 - (CGFloat)_indicatorCalculatedWidth
 {
     return fminf(kLayoutConstIndicatorMaxWidth,
-                 kLayoutConstIndicatorFractionalWidth * CGRectGetWidth(self.bounds));
+                 kLayoutConstIndicatorFractionalWidth * kGridItemSize().width);
 }
 
 

@@ -73,7 +73,7 @@
 
 - (CGFloat)_indicatorCalculatedWidth
 {
-    return fminf(kLayoutConstIndicatorMaxWidth, kLayoutConstIndicatorFractionalWidth * CGRectGetWidth(self.presentedView.frame));
+    return fminf(kLayoutConstIndicatorMaxWidth, kLayoutConstIndicatorFractionalWidth * kGridItemSize().width);
 }
 
 
@@ -108,6 +108,7 @@
         });
     });
 }
+
 
 #pragma mark - Download Views Show/Hide
 

@@ -19,7 +19,7 @@
 
 static NSInteger const kCenterCellIndex = 4;
 
-@interface ZZGridCollectionController ()
+@interface ZZGridCollectionController () <ANStorageUpdatingInterface>
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
 
@@ -27,59 +27,58 @@ static NSInteger const kCenterCellIndex = 4;
 
 @implementation ZZGridCollectionController
 
-- (instancetype)initWithCollectionView:(UICollectionView *)collectionView
+- (void)reload
 {
-    if (self = [super initWithCollectionView:collectionView])
-    {
-        [self registerCellClass:[ZZGridCell class] forModelClass:[ZZGridCellViewModel class]];
-        [self registerCellClass:[ZZGridCenterCell class] forModelClass:[ZZGridCenterCellViewModel class]];
-    }
-    return self;
-}
-
-- (void)updateDataSource:(ZZGridDataSource*)dataSource
-{
-    self.dataSource = dataSource;
-    self.storage = dataSource.storage;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (![self isCellContainUserModel:collectionView withIndexPath:indexPath] && indexPath.item != kCenterCellIndex)
-    {
-        [self.dataSource itemSelectedAtIndexPath:indexPath];
-    }
-}
-
-- (void)showContainFriendAnimaionWithFriend:(ZZFriendDomainModel*)friendModel
-{
-    [[self.collectionView visibleCells] enumerateObjectsUsingBlock:^(UICollectionViewCell* cell, NSUInteger idx, BOOL *stop) {
-        
-        if ([cell isKindOfClass:[ZZGridCell class]])
+    NSArray* items = [self.delegate items];
+    [items enumerateObjectsUsingBlock:^(id <ANModelTransfer> _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        ANSectionModel* section = [self.dataSource.storage sectionAtIndex:0];
+        if (section)
         {
-            ZZGridCell* gridCell = (ZZGridCell *)cell;
-            ZZGridCellViewModel* cellModel = [gridCell model];
-            if ([cellModel.item.relatedUser isEqual:friendModel])
+            NSArray* items = [section objects];
+            if (items.count > idx)
             {
-                [gridCell showContainFriendAnimation];
+                [obj updateWithModel:items[idx]];
             }
         }
     }];
 }
 
-- (BOOL)isCellContainUserModel:(UICollectionView*)collectionView withIndexPath:(NSIndexPath *)indexPath
+- (void)reloadItemAtIndex:(NSInteger)index withModel:(id)model
 {
-    BOOL isHasUser = NO;
-    
-    id cell = [collectionView cellForItemAtIndexPath:indexPath];
-    
-    if ([cell isKindOfClass:[ZZGridCell class]])
-    {
-        ZZGridCell* gridCell = (ZZGridCell*)cell;
-        ZZGridCellViewModel* model = [gridCell model];
-        isHasUser = (model.item.relatedUser != nil);
-    }
-    return isHasUser;
+    id<ANModelTransfer> item = (id<ANModelTransfer>)[self.delegate items];
+    [item updateWithModel:model];
+}
+
+- (void)updateDataSource:(ZZGridDataSource*)dataSource
+{
+    self.dataSource = dataSource;
+    self.dataSource.storage.delegate = self;
+}
+
+- (void)storageNeedsReload
+{
+    [self reload];
+}
+
+- (void)storageDidPerformUpdate:(ANStorageUpdate *)update
+{
+    [self reload]; // TODO: temp
+}
+
+- (void)showContainFriendAnimaionWithFriend:(ZZFriendDomainModel*)friendModel
+{
+//    [[self.collectionView visibleCells] enumerateObjectsUsingBlock:^(UICollectionViewCell* cell, NSUInteger idx, BOOL *stop) {
+//        
+//        if ([cell isKindOfClass:[ZZGridCell class]])
+//        {
+//            ZZGridCell* gridCell = (ZZGridCell *)cell;
+//            ZZGridCellViewModel* cellModel = [gridCell model];
+//            if ([cellModel.item.relatedUser isEqual:friendModel])
+//            {
+//                [gridCell showContainFriendAnimation];
+//            }
+//        }
+//    }];
 }
 
 @end

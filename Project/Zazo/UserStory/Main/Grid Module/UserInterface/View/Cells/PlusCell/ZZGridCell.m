@@ -29,21 +29,14 @@
 
 @implementation ZZGridCell
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)init
 {
-    if (self = [super initWithFrame:frame])
+    if (self = [super init])
     {
         self.backgroundColor = [ZZColorTheme shared].gridCellOrangeColor;
         [self plusImageView];
     }
     return self;
-}
-
-- (void)prepareForReuse
-{
-    self.model = nil;
-    [self.stateView removeFromSuperview];
-    [self.model updateVideoPlayingStateTo:NO];
 }
 
 - (void)updateWithModel:(ZZGridCellViewModel*)model
@@ -61,19 +54,19 @@
     {
         case ZZGridCellViewModelStateFriendHasApp:
         {
-            self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self.contentView];
+            self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self];
             
         } break;
         case ZZGridCellViewModelStateFriendHasNoApp:
         {
-            self.stateView = [[ZZGridStateViewNudge alloc] initWithPresentedView:self.contentView];
+            self.stateView = [[ZZGridStateViewNudge alloc] initWithPresentedView:self];
             
         } break;
         case ZZGridCellViewModelStateIncomingVideoViewed:
         case ZZGridCellViewModelStateIncomingVideoNotViewed:
         case ZZGridCellViewModelStateOutgoingVideo:
         {
-            self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self.contentView];
+            self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self];
             
         } break;
         default:
@@ -120,9 +113,9 @@
         [_stateView removeFromSuperview];
         _stateView = stateView;
     }
-    [self.contentView addSubview:stateView];
+    [self addSubview:stateView];
     [stateView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.contentView);
+        make.edges.equalTo(self);
     }];
 }
 

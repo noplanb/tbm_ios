@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import "ANCollectionViewCell.h"
 #import "ZZGridCellViewModel.h"
+#import "ANModelTransfer.h"
 
-@interface ZZGridCell : ANCollectionViewCell
+@interface ZZGridCell : UIView <ANModelTransfer>
 
 - (void)showContainFriendAnimation;
 - (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock;

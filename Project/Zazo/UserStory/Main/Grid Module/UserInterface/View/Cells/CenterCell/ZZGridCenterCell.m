@@ -12,7 +12,6 @@
 #import "UIImage+PDF.h"
 #import "ZZFeatureObserver.h"
 
-
 static CGFloat const kLayoutConstRecordingLabelHeight = 22;
 static CGFloat const kLayoutConstRecordingLabelFontSize = 0.55 * kLayoutConstRecordingLabelHeight;
 static NSString* kLayoutConstRecordingLabelBackgroundColor = @"000";
@@ -34,7 +33,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
 {
     [super layoutSubviews];
     
-    self.recordingOverlay.frame = self.contentView.bounds;
+    self.recordingOverlay.frame = self.bounds;
 }
 
 - (void)updateWithModel:(ZZGridCenterCellViewModel*)model
@@ -45,7 +44,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
         self.switchCameraButton.hidden = ![model shouldShowSwitchCameraButton];
         if (!self.videoView)
         {
-            [self setupVideoViewWithView:model.recordView];
+            self.videoView = model.recordView;
             [RACObserve(model, isRecording) subscribeNext:^(NSNumber* x) {
                 
                 if ([x boolValue])
@@ -87,13 +86,17 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
     self.switchCameraButton.hidden = ![self.model shouldShowSwitchCameraButton];
 }
 
-- (void)setupVideoViewWithView:(UIView*)view
+- (void)setVideoView:(UIView *)videoView
 {
-    self.videoView = view;
-    [self.contentView insertSubview:view atIndex:0];
-    
-    [self.videoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.contentView);
+    if (_videoView != videoView)
+    {
+        [_videoView removeFromSuperview];
+    }
+    _videoView = videoView;
+    [self addSubview:_videoView];
+    [self sendSubviewToBack:_videoView];
+    [_videoView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
     }];
 }
 
@@ -110,7 +113,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
                                 action:@selector(_switchCamera)
                       forControlEvents:UIControlEventTouchUpInside];
         _switchCameraButton.hidden = [ZZFeatureObserver sharedInstance].isBothCameraEnabled;
-        [self.contentView addSubview:_switchCameraButton];
+        [self addSubview:_switchCameraButton];
         
         [_switchCameraButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.left.right.equalTo(self);
@@ -127,9 +130,6 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
             make.width.equalTo(@(30));
             make.height.equalTo(@(30));
         }];
-        
-        
-        
     }
     return _switchCameraButton;
 }
@@ -138,19 +138,19 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
 {
     if (!_recordingLabel)
     {
-        _recordingLabel = [UILabel new];
-        _recordingLabel.hidden = YES;
-        _recordingLabel.text = NSLocalizedString(@"grid-controller.cell.record.title", nil);
-        _recordingLabel.backgroundColor = [[UIColor an_colorWithHexString:kLayoutConstRecordingLabelBackgroundColor] colorWithAlphaComponent:0.5];
-        _recordingLabel.textColor = [UIColor whiteColor];
-        _recordingLabel.textAlignment = NSTextAlignmentCenter;
-        _recordingLabel.font = [UIFont systemFontOfSize:kLayoutConstRecordingLabelFontSize];
-        [self.videoView addSubview:self.recordingLabel];
-        
-        [_recordingLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.left.right.equalTo(self);
-            make.height.equalTo(@(kLayoutConstRecordingLabelHeight - kLayoutConstRecordingBorderWidth));
-        }];
+//        _recordingLabel = [UILabel new];
+//        _recordingLabel.hidden = YES;
+//        _recordingLabel.text = NSLocalizedString(@"grid-controller.cell.record.title", nil);
+//        _recordingLabel.backgroundColor = [[UIColor an_colorWithHexString:kLayoutConstRecordingLabelBackgroundColor] colorWithAlphaComponent:0.5];
+//        _recordingLabel.textColor = [UIColor whiteColor];
+//        _recordingLabel.textAlignment = NSTextAlignmentCenter;
+//        _recordingLabel.font = [UIFont systemFontOfSize:kLayoutConstRecordingLabelFontSize];
+//        [self.videoView addSubview:_recordingLabel];
+//        
+//        [_recordingLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.right.equalTo(self.videoView);
+//            make.height.equalTo(@(kLayoutConstRecordingLabelHeight - kLayoutConstRecordingBorderWidth));
+//        }];
     }
     return _recordingLabel;
 }

@@ -16,7 +16,7 @@
 #import "ZZActionSheetController.h"
 #import "ZZGridUIConstants.h"
 
-@interface ZZGridVC () <ZZTouchObserverDelegate>
+@interface ZZGridVC () <ZZTouchObserverDelegate, ZZGridCollectionControllerDelegate>
 
 @property (nonatomic, strong) ZZGridView* gridView;
 @property (nonatomic, strong) ZZGridCollectionController* controller;
@@ -32,11 +32,17 @@
     {
         [ZZFeatureObserver sharedInstance];
         self.gridView = [ZZGridView new];
-        self.controller = [[ZZGridCollectionController alloc] initWithCollectionView:self.gridView.collectionView];
+        self.controller = [ZZGridCollectionController new];
+        self.controller.delegate = self;
 //        self.touchObserver = [[ZZTouchObserver alloc] initWithGridView:self.gridView];
 //        self.touchObserver.delegate = self;
     }
     return self;
+}
+
+- (NSArray*)items
+{
+    return self.gridView.items;
 }
 
 - (void)loadView
@@ -124,9 +130,7 @@
 
 - (CGRect)focusFrameForIndex:(NSInteger)index
 {
-    NSIndexPath* indexPath = [NSIndexPath indexPathForItem:index inSection:0];
-    
-    UICollectionViewCell* cell = [self.gridView.collectionView cellForItemAtIndexPath:indexPath];
+    UICollectionViewCell* cell = [self.gridView.items objectAtIndex:index];
     CGRect position = [cell convertRect:cell.contentView.bounds toView:self.view];
     
     return position;

@@ -8,6 +8,7 @@
 
 #import "ZZRotationGestureRecognizer.h"
 #import "ZZGridViewHeader.h"
+#import "ZZGridContainerView.h"
 
 @protocol ZZGridViewDelegate <NSObject, UIGestureRecognizerDelegate>
 
@@ -17,12 +18,14 @@
 
 @interface ZZGridView : UIView
 
-@property (nonatomic, strong) UICollectionView* collectionView;
 @property (nonatomic, strong) ZZGridViewHeader* headerView;
 @property (nonatomic, strong) ZZRotationGestureRecognizer *rotationRecognizer;
 @property (nonatomic, assign) BOOL isRotationEnabled;
+@property (nonatomic, strong) ZZGridContainerView* itemsContainerView;
 
-- (void)updateWithDelegate:(id <ZZGridViewDelegate>)delegate;
+- (NSArray*)items;
+
+- (void)updateWithDelegate:(id<ZZGridViewDelegate>)delegate;
 - (void)updateSwithCameraButtonWithState:(BOOL)isHidden;
 
 @end

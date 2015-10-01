@@ -23,7 +23,7 @@
     if (self = [super init])
     {
         [self headerView];
-        [self collectionView];
+        [self itemsContainerView];
         [self configureRecognizers];
         
         self.isRotationEnabled = YES;
@@ -32,6 +32,10 @@
     return self;
 }
 
+- (NSArray *)items
+{
+    return self.itemsContainerView.items;
+}
 
 #pragma mark - Header  View
 
@@ -51,20 +55,13 @@
     return _headerView;
 }
 
-- (UICollectionView *)collectionView
+- (ZZGridContainerView*)itemsContainerView
 {
-    if (!_collectionView)
+    if (!_itemsContainerView)
     {
-        UICollectionViewFlowLayout* collectionLayout = [UICollectionViewFlowLayout new];
-        collectionLayout.sectionInset = kGridSectionInsets;
-        collectionLayout.itemSize = kGridItemSize();
-        collectionLayout.minimumInteritemSpacing = kGridItemSpacing();
-        collectionLayout.minimumLineSpacing = kGridItemSpacing();
-        
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:collectionLayout];
-        _collectionView.backgroundColor = [UIColor clearColor];
-        _collectionView.scrollEnabled = NO;
-        [self addSubview:_collectionView];
+        _itemsContainerView = [[ZZGridContainerView alloc] initWithSegementsCount:9];
+        _itemsContainerView.backgroundColor = [UIColor clearColor];
+        [self addSubview:_itemsContainerView];
         CGFloat topPadding;
         if (!IS_IPAD)
         {
@@ -75,13 +72,13 @@
             topPadding = (CGRectGetHeight([UIScreen mainScreen].bounds) - kGridHeight());
         }
         
-        [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [_itemsContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.headerView.mas_bottom).with.offset(topPadding);
             make.left.right.equalTo(self);
             make.height.equalTo(@(kGridHeight()));
         }];
     }
-    return _collectionView;
+    return _itemsContainerView;
 }
 
 - (void)updateWithDelegate:(id<ZZGridViewDelegate>)delegate
@@ -96,7 +93,7 @@
 - (void)configureRecognizers
 {
     self.rotationRecognizer = [[ZZRotationGestureRecognizer alloc] initWithTarget:self.delegate
-                                                                         action:@selector(handleRotationGesture:)];
+                                                                           action:@selector(handleRotationGesture:)];
   
     self.rotationRecognizer.delegate = self.delegate;
     [self addGestureRecognizer:self.rotationRecognizer];
@@ -105,8 +102,8 @@
 - (void)updateSwithCameraButtonWithState:(BOOL)isHidden
 {
     ANDispatchBlockToMainQueue(^{
-        ZZGridCenterCell* centerCell = (ZZGridCenterCell*)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:4 inSection:0]];
-        centerCell.switchCameraButton.hidden = isHidden;
+//        ZZGridCenterCell* centerCell = (ZZGridCenterCell*)[self.itemsContainerView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:4 inSection:0]];
+//        centerCell.switchCameraButton.hidden = isHidden; //TODO:
     });
 }
 

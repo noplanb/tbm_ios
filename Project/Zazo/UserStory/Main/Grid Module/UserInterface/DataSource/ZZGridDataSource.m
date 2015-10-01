@@ -46,22 +46,10 @@ ZZGridCenterCellViewModelDelegate
 
 - (void)setupWithModels:(NSArray*)models
 {
-    __block ZZGridCenterCellViewModel* center = nil;
+    
     
     ANSectionModel* sectionModel = [self.storage sectionAtIndex:0];
-    NSArray* objects = [sectionModel.objects copy];
     NSMutableArray* updatedSection = [NSMutableArray arrayWithArray:sectionModel.objects ? : @[]];
-    
-    if (updatedSection.count)
-    {
-        [objects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj isKindOfClass:[ZZGridCenterCellViewModel class]])
-            {
-                center = obj;
-            }
-            [updatedSection removeObject:obj];
-        }];
-    }
     
     models = [[models.rac_sequence map:^id(ZZGridDomainModel* value) {
         
@@ -81,11 +69,11 @@ ZZGridCenterCellViewModelDelegate
     }] array];
     
     [updatedSection addObjectsFromArray:models];
-
-    if (center)
-    {
-        [updatedSection insertObject:center atIndex:kGridCenterCellIndex];
-    }
+    
+    ZZGridCenterCellViewModel* center = [ZZGridCenterCellViewModel new];
+    center.delegate = self;
+    [updatedSection insertObject:center atIndex:kGridCenterCellIndex];
+    
     ANDispatchBlockToMainQueue(^{
         
         [self.storage updateWithoutAnimations:^{
@@ -106,11 +94,12 @@ ZZGridCenterCellViewModelDelegate
 
 - (void)setupCenterViewModelShouldHandleCameraRotation:(BOOL)shouldHandleRotation
 {
-    ZZGridCenterCellViewModel* model = [ZZGridCenterCellViewModel new];
+    ANSectionModel* section = [self.storage sectionAtIndex:0];
+    ZZGridCenterCellViewModel* model = [section objects][kGridCenterCellIndex]; // TODO safety
     model.isChangeButtonAvailable = shouldHandleRotation;
-    model.delegate = self;
+    
     ANDispatchBlockToMainQueue(^{
-        [self.storage addItem:model atIndexPath:[self _centerCellIndexPath]];
+        [self.storage reloadItem:model];
     });
 }
 

@@ -74,9 +74,9 @@ static CGFloat const kTouchOffset = 7;
         self.grid.rotationRecognizer = self.gridView.rotationRecognizer;
         [self.gridView addSubview:self.grid];
         
-        [self.grid mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.gridView.collectionView);
-        }];
+//        [self.grid mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.edges.equalTo(self.gridView.collectionView);
+//        }];
     }
 }
 
@@ -100,45 +100,45 @@ static CGFloat const kTouchOffset = 7;
 //            }
 //            else
 //            {
-            self.initialLocation = [touch locationInView:self.gridView.collectionView];
-            NSIndexPath* indexPath = [self.gridView.collectionView indexPathForItemAtPoint:self.initialLocation];
-            UICollectionViewCell* cell = [self.gridView.collectionView cellForItemAtIndexPath:indexPath];
-            if (cell.isHidden && !self.grid.isHidden)
-            {
-                [self showMovingCell];
-                self.grid.hidden = YES;
-            }
+//            self.initialLocation = [touch locationInView:self.gridView.itemsContainerView];
+//            NSIndexPath* indexPath = [self.gridView.collectionView indexPathForItemAtPoint:self.initialLocation];
+//            UICollectionViewCell* cell = [self.gridView.collectionView cellForItemAtIndexPath:indexPath];
+//            if (cell.isHidden && !self.grid.isHidden)
+//            {
+//                [self showMovingCell];
+//                self.grid.hidden = YES;
+//            }
 //            }
             
         }
         
-        if (self.grid.hidden && touch.phase == UITouchPhaseMoved && self.gridView.isRotationEnabled && [self shouldMoveWithTouch:touch])
-            {
-                self.collectionView = self.gridView.collectionView;
-                CGPoint location = [touch locationInView:self.gridView.collectionView];
-                [self.delegate stopPlaying];
-                if (!self.isMoving)
-                {
-                    self.isMoving = YES;
-                    self.initialLocation = location;
-                    
-                }
-                // start observer if touch start in cell
-                NSIndexPath* indexPath = [self.gridView.collectionView indexPathForItemAtPoint:location];
-                UICollectionViewCell* cell = [self.gridView.collectionView cellForItemAtIndexPath:indexPath];
-                if (cell)
-                {
-                    [self startObserveWithTouch:touch withEvent:event withLocation:location];
-                }
-            }
-//    }
+//        if (self.grid.hidden && touch.phase == UITouchPhaseMoved && self.gridView.isRotationEnabled && [self shouldMoveWithTouch:touch])
+//            {
+//                self.collectionView = self.gridView.collectionView;
+//                CGPoint location = [touch locationInView:self.gridView.collectionView];
+//                [self.delegate stopPlaying];
+//                if (!self.isMoving)
+//                {
+//                    self.isMoving = YES;
+//                    self.initialLocation = location;
+//                    
+//                }
+//                // start observer if touch start in cell
+//                NSIndexPath* indexPath = [self.gridView.collectionView indexPathForItemAtPoint:location];
+//                UICollectionViewCell* cell = [self.gridView.collectionView cellForItemAtIndexPath:indexPath];
+//                if (cell)
+//                {
+//                    [self startObserveWithTouch:touch withEvent:event withLocation:location];
+//                }
+//            }
+////    }
 }
 
 - (BOOL)shouldMoveWithTouch:(UITouch*)touch
 {
     BOOL shouldMove = NO;
     
-    CGPoint location = [touch locationInView:self.gridView.collectionView];
+    CGPoint location = CGPointZero;//[touch locationInView:self.gridView.collectionView];
     CGFloat midX;
     CGFloat midY;
     if (location.x > self.initialLocation.x)

@@ -7,9 +7,9 @@
 //
 
 #import "ZZGridCenterCellViewModel.h"
-#import "ANCollectionViewCell.h"
+#import "ANModelTransfer.h"
 
-@interface ZZGridCenterCell : ANCollectionViewCell
+@interface ZZGridCenterCell : UIView <ANModelTransfer>
 
 @property (nonatomic, strong) UIButton* switchCameraButton;
 

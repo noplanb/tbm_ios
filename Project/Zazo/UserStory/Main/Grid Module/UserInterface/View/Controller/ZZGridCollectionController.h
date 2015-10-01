@@ -12,7 +12,15 @@
 @class ZZFriendDomainModel;
 @class ZZGridDataSource;
 
-@interface ZZGridCollectionController : ANCollectionController
+@protocol ZZGridCollectionControllerDelegate <NSObject>
+
+- (NSArray*)items;
+
+@end
+
+@interface ZZGridCollectionController : NSObject
+
+@property (nonatomic, weak) id<ZZGridCollectionControllerDelegate> delegate;
 
 - (void)showContainFriendAnimaionWithFriend:(ZZFriendDomainModel*)friendModel;
 - (void)updateDataSource:(ZZGridDataSource*)dataSource;
