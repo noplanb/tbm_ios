@@ -13,6 +13,6 @@
 - (CGRect)focusFrameForIndex:(NSInteger)index;
 
 - (CGRect)frameForGridPart:(ZZGridPart)part;
+- (NSInteger)indexForGridPart:(ZZGridPart)part;
 
-//TODO: (Hints) frames
 @end

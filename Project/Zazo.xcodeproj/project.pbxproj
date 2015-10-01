@@ -363,6 +363,7 @@
 		FECF29461BB94A140098E7A1 /* ZZHintsGotItView.m in Sources */ = {isa = PBXBuildFile; fileRef = FECF29431BB94A140098E7A1 /* ZZHintsGotItView.m */; settings = {ASSET_TAGS = (); }; };
 		FECF29471BB94A140098E7A1 /* ZZHintsView.m in Sources */ = {isa = PBXBuildFile; fileRef = FECF29451BB94A140098E7A1 /* ZZHintsView.m */; settings = {ASSET_TAGS = (); }; };
 		FECF294A1BB94BD60098E7A1 /* ZZHintsArrow.m in Sources */ = {isa = PBXBuildFile; fileRef = FECF29491BB94BD60098E7A1 /* ZZHintsArrow.m */; settings = {ASSET_TAGS = (); }; };
+		FED336F41BBDC6E70031C95C /* ZZTouchObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = FED336F31BBDC6E70031C95C /* ZZTouchObserver.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -1077,6 +1078,8 @@
 		FECF29451BB94A140098E7A1 /* ZZHintsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsView.m; sourceTree = "<group>"; };
 		FECF29481BB94BD60098E7A1 /* ZZHintsArrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsArrow.h; sourceTree = "<group>"; };
 		FECF29491BB94BD60098E7A1 /* ZZHintsArrow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsArrow.m; sourceTree = "<group>"; };
+		FED336F21BBDC6E70031C95C /* ZZTouchObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZTouchObserver.h; sourceTree = "<group>"; };
+		FED336F31BBDC6E70031C95C /* ZZTouchObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZTouchObserver.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3019,6 +3022,7 @@
 		07636CD51BA49A0100925671 /* RollAnimation */ = {
 			isa = PBXGroup;
 			children = (
+				FED336F11BBDC6E70031C95C /* TouchObserver */,
 				07636CD61BA49A0100925671 /* Helpers */,
 			);
 			path = RollAnimation;
@@ -3883,6 +3887,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		FED336F11BBDC6E70031C95C /* TouchObserver */ = {
+			isa = PBXGroup;
+			children = (
+				FED336F21BBDC6E70031C95C /* ZZTouchObserver.h */,
+				FED336F31BBDC6E70031C95C /* ZZTouchObserver.m */,
+			);
+			path = TouchObserver;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -4368,6 +4381,7 @@
 				07BAA7081BB1B488009878B9 /* ZZUserPresentationHelper.m in Sources */,
 				07636E5B1BA49A0100925671 /* ZZStringUtils.m in Sources */,
 				07636E501BA49A0100925671 /* ZZErrorHandler.m in Sources */,
+				FED336F41BBDC6E70031C95C /* ZZTouchObserver.m in Sources */,
 				07636F041BA49A0100925671 /* ANTableContainerView.m in Sources */,
 				FECF294A1BB94BD60098E7A1 /* ZZHintsArrow.m in Sources */,
 				07636F0F1BA49A0100925671 /* NSData+MD5.m in Sources */,

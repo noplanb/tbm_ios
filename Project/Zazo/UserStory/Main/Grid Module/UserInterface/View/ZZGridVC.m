@@ -11,10 +11,8 @@
 #import "ZZGridCollectionController.h"
 #import "ZZGridDataSource.h"
 #import "ZZTouchObserver.h"
-#import "ZZSoundPlayer.h"
 #import "ZZFeatureObserver.h"
 #import "ZZActionSheetController.h"
-#import "ZZGridUIConstants.h"
 
 @interface ZZGridVC () <ZZTouchObserverDelegate>
 
@@ -124,12 +122,7 @@
 
 - (CGRect)focusFrameForIndex:(NSInteger)index
 {
-    NSIndexPath* indexPath = [NSIndexPath indexPathForItem:index inSection:0];
-    
-    UICollectionViewCell* cell = [self.gridView.collectionView cellForItemAtIndexPath:indexPath];
-    CGRect position = [cell convertRect:cell.contentView.bounds toView:self.view];
-    
-    return position;
+    return [self _frameForIndex:index];
 }
 
 - (CGRect)frameForGridPart:(ZZGridPart)part
@@ -145,9 +138,6 @@
         case ZZGridPartLastViewedIndicator:
             return [self _frameForLastViewedIndicator];
             break;
-        case ZZGridPartLastUnviewedIndicator:
-            return [self _frameForLastUnviewedIndicator];
-            break;
         case ZZGridPartLastUnviewedCell:
             return [self _frameForLastUnviewedCell];
             break;
@@ -159,10 +149,64 @@
     return CGRectZero;
 }
 
+- (NSInteger)indexForGridPart:(ZZGridPart)part
+{
+    switch (part)
+    {
+        case ZZGridPartLastAddedFriendCell:
+            return [self _indexOfLastAddedFriend];
+            break;
+        case ZZGridPartLastViewedIndicator:
+            return [self _indexOfLastViewed];
+            break;
+        case ZZGridPartLastUnviewedIndicator:
+        case ZZGridPartLastUnviewedCell:
+            return [self _indexOfLastUnviewed];
+            break;
+        case ZZGridPartLastSentIndicator:
+            return [self _indexOfLastSent];
+            break;
+        default:
+            return 0;
+            break;
+    }
+}
+
 #pragma mark Private
+
 - (void)updateSwitchButtonWithState:(BOOL)isHidden
 {
     [self.gridView updateSwithCameraButtonWithState:isHidden];
+}
+
+- (NSInteger)_indexOfLastSent
+{
+    return 0; //TODO: (Grid)
+}
+
+- (NSInteger)_indexOfLastUnviewed
+{
+    return 0;//TODO: (Grid)
+}
+
+- (NSInteger)_indexOfLastViewed
+{
+    return 0;//TODO: (Grid)
+}
+
+- (NSInteger)_indexOfLastAddedFriend
+{
+    //TODO:
+    return 1;
+}
+
+- (CGRect)_frameForIndex:(NSInteger)index
+{
+    NSIndexPath* indexPath = [NSIndexPath indexPathForItem:index inSection:0];
+
+    UICollectionViewCell* cell = [self.gridView.collectionView cellForItemAtIndexPath:indexPath];
+    CGRect position = [cell convertRect:cell.contentView.bounds toView:self.view];
+    return position;
 }
 
 - (CGRect)_frameForCentralRightCell
@@ -202,7 +246,5 @@
 {
     [self.eventHandler stopPlaying];
 }
-
-
 
 @end
