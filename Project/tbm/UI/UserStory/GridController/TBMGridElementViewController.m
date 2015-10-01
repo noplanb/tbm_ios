@@ -686,11 +686,12 @@ static NSString *LayoutConstBlackButtonColor = @"1C1C19";
 }
 
 - (void)recordTap {
-    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Hold to Record"
-                                                                     message:@"Press and hold the RECORD button to record"];
-
-    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:nil]];
-    [alert presentWithCompletion:nil];
+    //TODO: i removed this because it was duplicate a hints
+//    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Hold to Record"
+//                                                                     message:@"Press and hold the RECORD button to record"];
+//
+//    [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:nil]];
+//    [alert presentWithCompletion:nil];
 }
 //
 //- (void)noFriendTap {
