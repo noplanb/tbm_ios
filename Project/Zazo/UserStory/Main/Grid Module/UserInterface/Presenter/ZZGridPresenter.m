@@ -313,7 +313,6 @@
                 [[ZZVideoRecorder shared] startRecordingWithVideoURL:url];
             });
             model.isRecording = YES;
-            
         }
         else
         {

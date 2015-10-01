@@ -83,12 +83,6 @@
     [self reloadDebugVideoStatus];
 }
 
-//- (void)stopRecording
-//{
-//    [self.delegate recordingStateUpdatedToState:NO viewModel:self];
-////    self.hasUploadedVideo = YES; // TODO:
-//}
-
 - (ZZGridCellViewModelState)state
 {
     if (self.item.relatedUser.hasApp && self.hasDownloadedVideo)
