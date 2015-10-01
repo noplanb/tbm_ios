@@ -12,6 +12,7 @@
 #import "ZZHintsModelGenerator.h"
 #import "ZZHintsDomainModel.h"
 #import "ZZGridUIConstants.h"
+#import "ZZVideoRecorder.h"
 
 @interface ZZGridActionHandler ()
 
@@ -59,6 +60,14 @@
     {
         return;
     }
+    
+    
+
+    if ([ZZVideoRecorder shared].isRecording)
+    {
+        return;
+    }
+
     __block ZZHintsDomainModel* hint;
     [self.hints enumerateObjectsUsingBlock:^(ZZHintsDomainModel* obj, BOOL* stop)
     {
