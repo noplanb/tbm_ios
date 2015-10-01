@@ -90,7 +90,7 @@ ZZGridCenterCellViewModelDelegate
     [updatedSectionModel.objects removeAllObjects];
     [updatedSectionModel.objects addObjectsFromArray:updatedSection];
     
-    [self.storage.delegate storageNeedsReload];
+    [self reloadStorage];
 }
 
 - (void)itemSelectedAtIndexPath:(NSIndexPath*)indexPath

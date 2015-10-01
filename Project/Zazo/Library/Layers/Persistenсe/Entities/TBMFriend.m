@@ -258,7 +258,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 }
 
 - (TBMVideo *)createIncomingVideoWithVideoId:(NSString *)videoId   
-{  
+{
     TBMVideo *video = [TBMVideo newWithVideoId:videoId onContext:self.managedObjectContext];
     [self addVideosObject:video];
     [self.managedObjectContext MR_saveToPersistentStoreAndWait];

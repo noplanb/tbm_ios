@@ -66,12 +66,6 @@
     [self _setupNotifications];
     [self.interactor loadData];
     
-    [[RACObserve(self.videoPlayer, isPlayingVideo) filter:^BOOL(id value) {
-        return [value integerValue] == 0;
-    }] subscribeNext:^(id x) {
-//        [self.interactor loadData];
-    }];
-    
     [[ZZVideoRecorder shared] addDelegate:self];
 }
 
@@ -109,7 +103,7 @@
 {
     if (![ZZVideoRecorder shared].isRecorderActive && !self.videoPlayer.isPlayingVideo)
     {
-//        [self.dataSource setupWithModels:data];
+        [self.dataSource setupWithModels:data];
     }
 }
 

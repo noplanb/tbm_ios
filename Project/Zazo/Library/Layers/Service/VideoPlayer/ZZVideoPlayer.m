@@ -123,14 +123,17 @@
 
 - (void)stop
 {
-    self.isPlayingVideo = NO;
-    [self.moviePlayerController.view removeFromSuperview];
-    [self.moviePlayerController stop];
-    self.playedFriend.isVideoStopped = YES;
-    [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL
-                                withPlayedUserModel:self.playedFriend];
-    
-    [UIDevice currentDevice].proximityMonitoringEnabled = NO;
+    if (self.isPlayingVideo)
+    {
+        self.isPlayingVideo = NO;
+        [self.moviePlayerController.view removeFromSuperview];
+        [self.moviePlayerController stop];
+        self.playedFriend.isVideoStopped = YES;
+        [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL
+                                    withPlayedUserModel:self.playedFriend];
+        
+        [UIDevice currentDevice].proximityMonitoringEnabled = NO;
+    }
 }
 
 - (void)toggle

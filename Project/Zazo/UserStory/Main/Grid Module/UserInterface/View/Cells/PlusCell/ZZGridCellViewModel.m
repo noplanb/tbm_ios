@@ -252,11 +252,11 @@
 
 - (UIImage*)_videoThumbnail
 {
-    NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
-    NSArray* sortedVideoArray = [self.item.relatedUser.videos sortedArrayUsingDescriptors:@[sortDescriptor]];
-    ZZVideoDomainModel* lastModel = [sortedVideoArray lastObject];
-    
-    [ZZThumbnailGenerator generateThumbVideo:lastModel];
+//    NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
+//    NSArray* sortedVideoArray = [self.item.relatedUser.videos sortedArrayUsingDescriptors:@[sortDescriptor]];
+//    ZZVideoDomainModel* lastModel = [sortedVideoArray lastObject];
+//    
+//    [ZZThumbnailGenerator generateThumbVideo:lastModel];
     
     return [ZZThumbnailGenerator lastThumbImageForUser:self.item.relatedUser];
 }

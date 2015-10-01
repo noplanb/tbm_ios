@@ -28,22 +28,18 @@
 //-------------------
 + (instancetype)createOncontext:(NSManagedObjectContext*)context // TODO: dangerous
 {
-    TBMVideo* video = [self MR_createEntityInContext:context];
+    TBMVideo *video = [self MR_createEntityInContext:context];
     video.downloadRetryCount = @(0);
     video.status = INCOMING_VIDEO_STATUS_NEW;
     [video.managedObjectContext MR_saveToPersistentStoreAndWait];
-    
     return video;
 }
 
 + (instancetype)newWithVideoId:(NSString *)videoId onContext:(NSManagedObjectContext *)context
 {
-    __block TBMVideo *video = nil;
-    ANDispatchBlockToMainQueue(^{
-        video = [TBMVideo createOncontext:context];
-        video.videoId = videoId;
-        [video.managedObjectContext MR_saveToPersistentStoreAndWait];
-    });
+    TBMVideo* video = [TBMVideo createOncontext:context];
+    video.videoId = videoId;
+    [video.managedObjectContext MR_saveToPersistentStoreAndWait];
     return video;
 }
 
