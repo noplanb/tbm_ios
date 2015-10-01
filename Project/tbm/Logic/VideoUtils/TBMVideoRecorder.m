@@ -220,7 +220,7 @@ static int videoRecorderRetryCount = 0;
 
 - (BOOL)isRecording
 {
-    return [self.captureOutput isRecording];
+    return [self.captureSession isRunning];
 }
 
 

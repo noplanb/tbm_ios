@@ -47,6 +47,11 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 @implementation ZZVideoRecorder
 
+- (BOOL)isRecording
+{
+    return self.recorder.isRecording;
+}
+
 + (instancetype)shared
 {
     static id _sharedClient = nil;
