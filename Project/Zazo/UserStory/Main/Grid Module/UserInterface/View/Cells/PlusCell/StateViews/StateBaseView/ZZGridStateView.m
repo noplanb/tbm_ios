@@ -119,6 +119,10 @@
         self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
         [self updateBadgeWithNumber:model.badgeNumber];
     }
+    else
+    {
+        [self hideDownloadViews];
+    }
 }
 
 
