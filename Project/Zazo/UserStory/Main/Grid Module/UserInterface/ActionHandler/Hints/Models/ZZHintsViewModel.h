@@ -7,6 +7,7 @@
 //
 
 #import "ZZHintsConstants.h"
+#import "ZZGridPart.h"
 
 @class ZZHintsDomainModel;
 
@@ -19,6 +20,8 @@ typedef NS_ENUM(NSInteger, ZZHintPresentationState)
 
 @interface ZZHintsViewModel : NSObject
 
+@property(nonatomic, assign)  ZZGridPart pointsToPart;
+
 + (instancetype)viewModelWithItem:(ZZHintsDomainModel*)item;
 
 - (void)updateFocusFrame:(CGRect)focusFrame;
@@ -26,14 +29,11 @@ typedef NS_ENUM(NSInteger, ZZHintPresentationState)
 - (NSString*)text;
 - (CGRect)focusFrame;
 
-- (CGPoint)generateArrowFocusPoint;
-- (CGPoint)generateArrowFocusPointForIndex:(NSInteger)index;
+- (CGPoint)arrowFocusPointForIndex:(NSInteger)index;
 
-- (CGFloat)arrowAngle;
 - (CGFloat)arrowAngleForIndex:(NSInteger)index;
 
-- (ZZArrowDirection)arrowDirection;
-
+- (ZZArrowDirection)arrowDirectionForIndex:(NSInteger)index;
 - (BOOL)hidesArrow;
 - (ZZHintsBottomImageType)bottomImageType;
 

@@ -86,10 +86,11 @@
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.send-a-zazo.label.text", @"");
-    model.angle = -90.f;
+//    model.angle = -90.f;
+//    model.arrowDirection = ZZArrowDirectionRight;
+    model.pointsTo = ZZGridPartCentralRightCell;
     model.type = ZZHintsTypeSendZazo;
     model.hidesArrow = NO;
-    model.arrowDirection = ZZArrowDirectionRight;
     model.imageType = ZZHintsBottomImageTypeNone;
     model.priority = 1700;
     model.condition = ^BOOL(ZZGridActionEventType event) {
@@ -106,10 +107,11 @@
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.press-to-record.label.text", @"");
-    model.angle = -90.f;
+//    model.angle = -90.f;
+//    model.arrowDirection = ZZArrowDirectionRight;
+    model.pointsTo = ZZGridPartCentralRightCell;
     model.type = ZZHintsTypePressAndHoldToRecord;
     model.hidesArrow = NO;
-    model.arrowDirection = ZZArrowDirectionRight;
     model.imageType = ZZHintsBottomImageTypeNone;
     model.priority = 900;
     model.condition = ^BOOL(ZZGridActionEventType event) {
@@ -130,10 +132,11 @@
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.send-first-video.label.text", @"");
-    model.angle = -90.f;
+//    model.angle = -90.f;
+//    model.arrowDirection = ZZArrowDirectionRight;
+    model.pointsTo = ZZGridPartCentralRightCell;
     model.type = ZZHintsTypeZazoSent;
     model.hidesArrow = NO;
-    model.arrowDirection = ZZArrowDirectionRight;
     model.imageType = ZZHintsBottomImageTypeGotIt;
     model.priority = 600;
     model.condition = ^BOOL(ZZGridActionEventType event) {
@@ -156,10 +159,11 @@
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = [self _possiblePhrases].randomObject;
-    model.angle = -95.f;
+//    model.angle = -95.f;
+//    model.arrowDirection = ZZArrowDirectionLeft;
+    model.pointsTo = ZZGridPartNone;
     model.type = ZZHintsTypeGiftIsWaiting;
     model.hidesArrow = NO;
-    model.arrowDirection = ZZArrowDirectionLeft;
     model.imageType = ZZHintsBottomImageTypePresent;
     model.priority = 200;
     model.condition = ^BOOL(ZZGridActionEventType event) {
@@ -195,10 +199,11 @@
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.switch-camera.label.text", @"");
-    model.angle = 30;
+//    model.angle = 30;
+//    model.arrowDirection = ZZArrowDirectionLeft;
+    model.pointsTo = ZZGridPartCentralCell;
     model.type = ZZHintsTypeTapToSwitchCamera;
     model.hidesArrow = NO;
-    model.arrowDirection = ZZArrowDirectionLeft;
     model.imageType = ZZHintsBottomImageTypeNone;
     model.priority = 200;
     model.condition = ^BOOL(ZZGridActionEventType event) {
@@ -234,10 +239,11 @@
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.welcome-nudge-user.label.text", @"");
-    model.angle = 30;
+//    model.angle = 30;
+//    model.arrowDirection = ZZArrowDirectionLeft;
+    model.pointsTo = ZZGridPartLastAddedFriendCell;
     model.type = ZZHintsTypeWelcomeNudgeUser;
     model.hidesArrow = NO;
-    model.arrowDirection = ZZArrowDirectionLeft;
     model.imageType = ZZHintsBottomImageTypeNone;
     model.priority = 1000;
     model.condition = ^BOOL(ZZGridActionEventType event) {
@@ -254,10 +260,11 @@
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.welcome-for.label.text", @"");
-    model.angle = -90.f;
+//    model.angle = -90.f;
+//    model.arrowDirection = ZZArrowDirectionRight;
+    model.pointsTo = ZZGridPartCentralRightCell;
     model.type = ZZHintsTypeWelcomeFor;
     model.hidesArrow = NO;
-    model.arrowDirection = ZZArrowDirectionRight;
     model.imageType = ZZHintsBottomImageTypeNone;
     model.priority = 800;
     model.condition = ^BOOL(ZZGridActionEventType event) {
@@ -285,10 +292,11 @@
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.abort-recording.label.text", @"");
-    model.angle = -90.f;
+//    model.angle = -90.f;
+//    model.arrowDirection = ZZArrowDirectionRight;
+    model.pointsTo = ZZGridPartCentralRightCell;
     model.type = ZZHintsTypeAbortRecording;
     model.hidesArrow = NO;
-    model.arrowDirection = ZZArrowDirectionRight;
     model.imageType = ZZHintsBottomImageTypeTryItNow;
     model.priority = 1500;
     model.condition = ^BOOL(ZZGridActionEventType event) {
@@ -301,10 +309,11 @@
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.delete-a-friend.label.text", @"");
-    model.angle = -95.f;
+//    model.angle = -95.f;
+//    model.arrowDirection = ZZArrowDirectionLeft;
+    model.pointsTo = ZZGridPartEditFriendsButton;
     model.type = ZZHintsTypeEditFriends;
     model.hidesArrow = NO;
-    model.arrowDirection = ZZArrowDirectionLeft;
     model.imageType = ZZHintsBottomImageTypeGotIt;
     model.priority = 1500;
     model.condition = ^BOOL(ZZGridActionEventType event) {
@@ -317,10 +326,11 @@
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.earpiece-usage.label.text", @"");
-    model.angle = -90.f;
+//    model.angle = -90.f;
+//    model.arrowDirection = ZZArrowDirectionRight;
+    model.pointsTo = ZZGridPartCentralRightCell;
     model.type = ZZHintsTypeEarpieceUsage;
     model.hidesArrow = NO;
-    model.arrowDirection = ZZArrowDirectionRight;
     model.imageType = ZZHintsBottomImageTypeTryItNow;
     model.priority = 1500;
     model.condition = ^BOOL(ZZGridActionEventType event) {
@@ -333,10 +343,11 @@
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.spin-usage.label.text", @"");
-    model.angle = 90.f;
+//    model.angle = 90.f;
+//    model.arrowDirection = ZZArrowDirectionLeft;
+    model.pointsTo = ZZGridPartCentralRightCell;
     model.type = ZZHintsTypeSpin;
     model.hidesArrow = NO;
-    model.arrowDirection = ZZArrowDirectionLeft;
     model.imageType = ZZHintsBottomImageTypeTryItNow;
     model.priority = 1500;
     model.condition = ^BOOL(ZZGridActionEventType event) {

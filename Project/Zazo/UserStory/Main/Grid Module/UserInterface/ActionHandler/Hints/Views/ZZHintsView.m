@@ -11,6 +11,7 @@
 #import "ZZHintsArrow.h"
 #import "ZZHintsViewModel.h"
 #import "ZZHintsGotItView.h"
+#import "ZZGridActionHandlerUserInterfaceDelegate.h"
 
 @interface ZZHintsView ()
 
@@ -39,10 +40,12 @@
 
     [self showFocusOnFrame:[viewModel focusFrame]];
 
+    NSInteger index = [self.actionHandlerGridDelegate indexForGridPart:viewModel.pointsToPart];
+
     ZZHintsArrow *hintView = [ZZHintsArrow arrowWithText:[viewModel text]
-                                               curveKind:(NSInteger)[viewModel arrowDirection]
-                                              arrowPoint:[viewModel generateArrowFocusPoint]
-                                                   angle:[viewModel arrowAngle]
+                                               curveKind:(ZZHintsArrowCurveKind)[viewModel arrowDirectionForIndex:index]
+                                              arrowPoint:[viewModel arrowFocusPointForIndex:index]
+                                                   angle:[viewModel arrowAngleForIndex:index]
                                                   hidden:[viewModel hidesArrow]
                                                    frame:[UIScreen mainScreen].bounds];
     [self addSubview:hintView];
@@ -54,22 +57,6 @@
         [self.gotItView updateWithType:[viewModel bottomImageType]];
     }
 }
-
-
-//- (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel andIndex:(NSInteger)index
-//{
-//    [self showFocusOnFrame:[viewModel focusFrame]];
-//
-//    TBMHintArrow *hintView = [TBMHintArrow arrowWithText:[viewModel text]
-//                                               curveKind:(NSInteger)[viewModel arrowDirectionForIndex:index]
-//                                              arrowPoint:[viewModel generateArrowFocusPointForIndex:index]
-//                                                   angle:[viewModel arrowAngleForIndex:index]
-//                                                  hidden:[viewModel hidesArrow]
-//                                                   frame:[UIScreen mainScreen].bounds];
-//    [self addSubview:hintView];
-//
-//
-//}
 
 - (void)showFocusOnFrame:(CGRect)focusFrame
 {

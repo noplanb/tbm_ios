@@ -129,7 +129,7 @@
 {
     switch (part)
     {
-        case ZZGridPartCenralRightCell:
+        case ZZGridPartCentralRightCell:
             return [self _frameForCentralRightCell];
             break;
         case ZZGridPartLastAddedFriendCell:
@@ -211,33 +211,39 @@
 
 - (CGRect)_frameForCentralRightCell
 {
-    return CGRect();
+    //TODO: (HINT)
+    return CGRectZero;
 }
 
 
 - (CGRect)_frameForLastSentIndicator
 {
-    return CGRect();
+    //TODO: (HINT)
+    return CGRectZero;
 }
 
 - (CGRect)_frameForLastUnviewedCell
 {
-    return CGRect();
+    //TODO: (HINT)
+    return CGRectZero;
 }
 
 - (CGRect)_frameForLastUnviewedIndicator
 {
-    return CGRect();
+    //TODO: (HINT)
+    return CGRectZero;
 }
 
 - (CGRect)_frameForLastViewedIndicator
 {
-    return CGRect();
+    //TODO: (HINT)
+    return CGRectZero;
 }
 
 - (CGRect)_frameForLastAddedFriendCell
 {
-    return CGRect();
+    //TODO: (HINT)
+    return CGRectZero;
 }
 
 #pragma mark - Touch Observer Delegate

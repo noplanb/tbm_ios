@@ -17,7 +17,8 @@
 
 @end
 
-@implementation ZZHintsViewModel
+@implementation
+ZZHintsViewModel
 
 + (instancetype)viewModelWithItem:(ZZHintsDomainModel*)item
 {
@@ -32,58 +33,58 @@
     self.focusFrame = focusFrame;
 }
 
-- (CGPoint)generateArrowFocusPoint
-{
-    switch (self.item.type)
-    {
-        case ZZHintsTypeSendZazo:
-        case ZZHintsTypePressAndHoldToRecord:
-        case ZZHintsTypeWelcomeFor:
-        case ZZHintsTypeAbortRecording:
-        case ZZHintsTypeEarpieceUsage:
-        {
-            return CGPointMake(CGRectGetMinX(self.focusFrame),
-                                CGRectGetMinY(self.focusFrame));
-            
-        } break;
-            
-        case ZZHintsTypeZazoSent:
-        {
-            return CGPointMake(CGRectGetMaxX(self.focusFrame) - 20.f,
-                               CGRectGetMinY(self.focusFrame));
-            
-        } break;
-            
-        case ZZHintsTypeGiftIsWaiting:
-        case ZZHintsTypeEditFriends:
-        {
-            return CGPointMake(CGRectGetMinX(self.focusFrame),
-                               CGRectGetMidY(self.focusFrame) + (CGRectGetHeight(self.focusFrame) / 4));
-            
-        } break;
-            
-        case ZZHintsTypeTapToSwitchCamera:
-        case ZZHintsTypeWelcomeNudgeUser:
-        {
-            return CGPointMake(CGRectGetMaxX(self.focusFrame),
-                               CGRectGetMidY(self.focusFrame));
-        } break;
-        
-        case ZZHintsTypeSpin:
-        {
-            return CGPointMake(CGRectGetMaxX(self.focusFrame),
-                               CGRectGetMinY(self.focusFrame));
-            
-        } break;
-            
-            
-        default: break;
-    }
+//- (CGPoint)generateArrowFocusPoint
+//{
+//    switch (self.item.type)
+//    {
+//        case ZZHintsTypeSendZazo:
+//        case ZZHintsTypePressAndHoldToRecord:
+//        case ZZHintsTypeWelcomeFor:
+//        case ZZHintsTypeAbortRecording:
+//        case ZZHintsTypeEarpieceUsage:
+//        {
+//            return CGPointMake(CGRectGetMinX(self.focusFrame),
+//                                CGRectGetMinY(self.focusFrame));
+//
+//        } break;
+//
+//        case ZZHintsTypeZazoSent:
+//        {
+//            return CGPointMake(CGRectGetMaxX(self.focusFrame) - 20.f,
+//                               CGRectGetMinY(self.focusFrame));
+//
+//        } break;
+//
+//        case ZZHintsTypeGiftIsWaiting:
+//        case ZZHintsTypeEditFriends:
+//        {
+//            return CGPointMake(CGRectGetMinX(self.focusFrame),
+//                               CGRectGetMidY(self.focusFrame) + (CGRectGetHeight(self.focusFrame) / 4));
+//
+//        } break;
+//
+//        case ZZHintsTypeTapToSwitchCamera:
+//        case ZZHintsTypeWelcomeNudgeUser:
+//        {
+//            return CGPointMake(CGRectGetMaxX(self.focusFrame),
+//                               CGRectGetMidY(self.focusFrame));
+//        } break;
+//
+//        case ZZHintsTypeSpin:
+//        {
+//            return CGPointMake(CGRectGetMaxX(self.focusFrame),
+//                               CGRectGetMinY(self.focusFrame));
+//
+//        } break;
+//
+//
+//        default: break;
+//    }
+//
+//    return CGPointZero;
+//}
 
-    return CGPointZero;
-}
-
-- (CGPoint)generateArrowFocusPointForIndex:(NSInteger)index
+- (CGPoint)arrowFocusPointForIndex:(NSInteger)index
 {
     switch (index)
     {
@@ -113,11 +114,6 @@
 - (BOOL)hidesArrow
 {
     return self.item.hidesArrow;
-}
-
-- (CGFloat)arrowAngle
-{
-    return self.item.angle;
 }
 
 - (CGFloat)arrowAngleForIndex:(NSInteger)index
@@ -157,10 +153,10 @@
     return 0;
 }
 
-
-- (ZZArrowDirection)arrowDirection
+- (ZZArrowDirection)arrowDirectionForIndex:(NSInteger)index;
 {
-    return self.item.arrowDirection;
+    //TODO: (HINTS)
+    return ZZArrowDirectionLeft;
 }
 
 - (NSString*)text

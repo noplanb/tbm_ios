@@ -2,7 +2,9 @@
 typedef NS_ENUM(NSInteger, ZZGridPart)
 {
     ZZGridPartNone = 0,
-    ZZGridPartCenralRightCell,
+    ZZGridPartCentralRightCell,
+    ZZGridPartCentralCell,
+    ZZGridPartEditFriendsButton,
     ZZGridPartLastAddedFriendCell,
     ZZGridPartLastViewedIndicator,
     ZZGridPartLastUnviewedIndicator,

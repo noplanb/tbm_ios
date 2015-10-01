@@ -342,7 +342,6 @@
 		220E904A1909A18C003C4F82 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902E1909A18B003C4F82 /* CoreData.framework */; };
 		22403C2B19D5E63400FC36E3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22403C2A19D5E63400FC36E3 /* MessageUI.framework */; };
 		224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
-		682D6D961B74AB0FB6DA6D73 /* ZZTouchObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 682D6836CF29DCE523B0C47F /* ZZTouchObserver.m */; };
 		79123D731BB032C3007E1CBF /* ZZHintsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D721BB032C3007E1CBF /* ZZHintsController.m */; settings = {ASSET_TAGS = (); }; };
 		79123D791BB03359007E1CBF /* ZZHintsConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D781BB03359007E1CBF /* ZZHintsConstants.m */; settings = {ASSET_TAGS = (); }; };
 		79123D861BB14F8E007E1CBF /* ZZHintsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D851BB14F8E007E1CBF /* ZZHintsViewModel.m */; settings = {ASSET_TAGS = (); }; };
@@ -1034,8 +1033,6 @@
 		41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		5988C69CC62CF4472CA2040A /* Pods-Zazo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.debug.xcconfig"; sourceTree = "<group>"; };
-		682D62CA9C23916828D16103 /* ZZTouchObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZTouchObserver.h; sourceTree = "<group>"; };
-		682D6836CF29DCE523B0C47F /* ZZTouchObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZTouchObserver.m; sourceTree = "<group>"; };
 		682D6AFEDA8C21AECA3F4B0D /* ZZGridPart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridPart.h; sourceTree = "<group>"; };
 		682D6FED0FB5BB01473E7A0B /* ZZGridPart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridPart.h; sourceTree = "<group>"; };
 		79123D711BB032C3007E1CBF /* ZZHintsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsController.h; sourceTree = "<group>"; };
@@ -3043,7 +3040,6 @@
 				07636CE01BA49A0100925671 /* ZZRotationGestureRecognizer.m */,
 				07636CE11BA49A0100925671 /* ZZRotator.h */,
 				07636CE21BA49A0100925671 /* ZZRotator.m */,
-				682D6D478A9AEEBF7212840B /* TouchObserver */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -3788,15 +3784,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		682D6D478A9AEEBF7212840B /* TouchObserver */ = {
-			isa = PBXGroup;
-			children = (
-				682D62CA9C23916828D16103 /* ZZTouchObserver.h */,
-				682D6836CF29DCE523B0C47F /* ZZTouchObserver.m */,
-			);
-			path = TouchObserver;
-			sourceTree = "<group>";
-		};
 		79123D701BB032B7007E1CBF /* Hints */ = {
 			isa = PBXGroup;
 			children = (
@@ -4425,7 +4412,6 @@
 				07636E331BA49A0100925671 /* ZZAccountTransportService.m in Sources */,
 				07636EC21BA49A0100925671 /* ZZGridStateView.m in Sources */,
 				07636EB31BA49A0100925671 /* ZZEditFriendListPresenter.m in Sources */,
-				682D6D961B74AB0FB6DA6D73 /* ZZTouchObserver.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
