@@ -22,6 +22,7 @@ extern NSString* const TBMVideoRecorderDidCancelRecording;
 extern NSString* const TBMVideoRecorderDidFail;
 
 @property (nonatomic, assign) BOOL didCancelRecording;
+@property (nonatomic, assign) BOOL isRecorderActive;
 
 + (instancetype)shared;
 

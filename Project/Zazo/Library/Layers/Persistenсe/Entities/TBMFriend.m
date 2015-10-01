@@ -565,6 +565,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
     {
         model.friendshipStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:model];
         self.friendshipStatus = ZZFriendshipStatusTypeStringFromValue(model.friendshipStatusValue);
+        [self.managedObjectContext MR_saveOnlySelfAndWait];
     }
 }
 

@@ -44,9 +44,6 @@ TBMTableModalDelegate
 @property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
 @property (nonatomic, strong) ZZGridActionHandler* actionHandler;
-@property (nonatomic, strong) TBMFriend* notificationFriend;
-@property (nonatomic, strong) TBMFriend* notifatedFriend;
-@property (nonatomic, assign) BOOL isVideoRecorderActive;
 
 @end
 
@@ -72,7 +69,7 @@ TBMTableModalDelegate
     [[RACObserve(self.videoPlayer, isPlayingVideo) filter:^BOOL(id value) {
         return [value integerValue] == 0;
     }] subscribeNext:^(id x) {
-        NSLog(@"video player stop playing");
+//        [self.interactor loadData];
     }];
     
     [[ZZVideoRecorder shared] addDelegate:self];
@@ -80,17 +77,6 @@ TBMTableModalDelegate
 
 - (void)_setupNotifications
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateGridData:)
-                                                 name:kFriendChangeNotification
-                                               object:nil];
-    
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(_videoWasViewed:)
-                                                 name:kFriendVideoViewedNotification
-                                               object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(sendMessageEvent)
                                                  name:kNotificationSendMessage object:nil];
@@ -117,44 +103,14 @@ TBMTableModalDelegate
     [self.dataSource reloadStorage];
 }
 
-- (void)_videoWasViewed:(NSNotification*)notif
-{
-    [self.actionHandler handleEvent:ZZGridActionEventTypeOutgoingMessageWasViewed];
-    [self updateGridData:notif];
-}
-
-
 #pragma mark - Notifications
 
 - (void)reloadGridWithData:(NSArray*)data
 {
-    if (!self.isVideoRecorderActive)
+    if (![ZZVideoRecorder shared].isRecorderActive && !self.videoPlayer.isPlayingVideo)
     {
         [self.dataSource setupWithModels:data];
     }
-}
-
-- (void)updateGridData:(NSNotification*)notification
-{
-    if (!self.videoPlayer.isPlayingVideo)
-    {
-        if (self.notificationFriend)
-        {
-            self.notificationFriend = notification.object;
-//            [self updateFriendIfNeeded];
-        }
-        else
-            
-        {
-            [self.interactor handleNotificationForFriend:notification.object];
-        }
-    }
-    else
-    {
-        self.notificationFriend = notification.object;
-    }
-    
-    [self.dataSource reloadStorage];
 }
 
 - (void)updateGridWithModelFromNotification:(ZZGridDomainModel *)model isNewFriend:(BOOL)isNewFriend
@@ -353,7 +309,6 @@ TBMTableModalDelegate
                            viewModel:(ZZGridCellViewModel*)viewModel
                  withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
-    self.isVideoRecorderActive = isEnabled;
     [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
     ZZGridCenterCellViewModel* model = [self.dataSource centerViewModel];
     if (!ANIsEmpty(viewModel.item.relatedUser.idTbm))
