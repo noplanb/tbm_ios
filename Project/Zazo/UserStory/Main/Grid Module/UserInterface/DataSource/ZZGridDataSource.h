@@ -26,6 +26,7 @@
 - (void)showHint;
 - (void)switchCamera;
 - (BOOL)isVideoPlaying;
+- (void)addUser;
 
 @end
 

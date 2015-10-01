@@ -128,6 +128,10 @@ ZZGridCenterCellViewModelDelegate
     [self.delegate toggleVideoWithViewModel:viewModel toState:isEnabled];
 }
 
+- (void)addUserToItem:(ZZGridCellViewModel*)model
+{
+    [self.delegate addUser];
+}
 
 #pragma mark - Center Cell Delegate
 

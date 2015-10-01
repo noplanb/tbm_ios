@@ -71,7 +71,6 @@
         {
             topPadding = (CGRectGetHeight([UIScreen mainScreen].bounds) - kGridHeight());
         }
-        
         [_itemsContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.headerView.mas_bottom).with.offset(topPadding);
             make.left.right.equalTo(self);

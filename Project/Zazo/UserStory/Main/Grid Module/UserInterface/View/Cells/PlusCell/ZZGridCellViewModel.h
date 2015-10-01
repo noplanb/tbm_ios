@@ -26,8 +26,9 @@
                          viewModel:(ZZGridCellViewModel*)viewModel;
 
 - (void)nudgeSelectedWithUserModel:(id)userModel;
-
 - (BOOL)isVideoPalying;
+
+- (void)addUserToItem:(ZZGridCellViewModel*)model;
 
 @end
 
@@ -60,6 +61,7 @@ typedef NS_ENUM(NSInteger, ZZGridCellViewModelState)
            withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock;
 
 - (void)nudgeSelected;
+- (void)itemSelected;
 
 - (NSArray*)playerVideoURLs;
 - (NSString*)firstName;

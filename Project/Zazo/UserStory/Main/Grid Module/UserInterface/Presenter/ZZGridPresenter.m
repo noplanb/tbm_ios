@@ -241,12 +241,9 @@
 
 #pragma mark - DataSource Delegate
 
-- (void)itemSelectedWithModel:(ZZGridCellViewModel*)model
+- (void)addUser
 {
-    if (!model.item.relatedUser)
-    {
-        [self presentMenu];
-    }
+    [self presentMenu];
 }
 
 - (void)showHint

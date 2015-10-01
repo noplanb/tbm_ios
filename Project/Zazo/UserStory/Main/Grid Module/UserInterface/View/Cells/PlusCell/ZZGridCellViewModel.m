@@ -63,6 +63,11 @@
     }
 }
 
+- (void)itemSelected
+{
+    [self.delegate addUserToItem:self];
+}
+
 - (void)reloadDebugVideoStatus
 {
     ANDispatchBlockToMainQueue(^{

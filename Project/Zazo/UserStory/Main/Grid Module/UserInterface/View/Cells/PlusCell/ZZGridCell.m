@@ -21,7 +21,7 @@
 @interface ZZGridCell () <ZZGridCellVeiwModelAnimationDelegate>
 
 @property (nonatomic, strong) ZZGridCellViewModel* model;
-@property (nonatomic, strong) UIImageView* plusImageView;
+@property (nonatomic, strong) UIButton* plusButton;
 @property (nonatomic, strong) UIGestureRecognizer* plusRecognizer;
 @property (nonatomic, strong) ZZGridStateView* stateView;
 
@@ -35,7 +35,7 @@
     {
         self.backgroundColor = [ZZColorTheme shared].gridCellOrangeColor;
         self.clipsToBounds = YES;
-        [self plusImageView];
+        [self plusButton];
     }
     return self;
 }
@@ -133,22 +133,31 @@
     [self.stateView showDownloadAnimationWithCompletionBlock:completionBlock];
 }
 
-- (UIImageView*)plusImageView
+- (void)_itemSelected
 {
-    if (!_plusImageView)
+    [self.model itemSelected];
+}
+
+- (UIButton*)plusButton
+{
+    if (!_plusButton)
     {
-        _plusImageView = [UIImageView new];
-        _plusImageView.image = [[UIImage imageWithPDFNamed:@"icon_plus" atHeight:50]
+        _plusButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIImage* image = [[UIImage imageWithPDFNamed:@"icon_plus" atHeight:50]
                                 an_imageByTintingWithColor:[ZZColorTheme shared].gridCellPlusWhiteColor];
-        _plusImageView.contentMode = UIViewContentModeCenter;
-        [self addSubview:_plusImageView];
-        [self sendSubviewToBack:_plusImageView];
         
-        [_plusImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [_plusButton setImage:image forState:UIControlStateNormal];
+        _plusButton.showsTouchWhenHighlighted = NO;
+        _plusButton.reversesTitleShadowWhenHighlighted = NO;
+        [_plusButton addTarget:self action:@selector(_itemSelected) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_plusButton];
+        [self sendSubviewToBack:_plusButton];
+        
+        [_plusButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         }];
     }
-    return _plusImageView;
+    return _plusButton;
 }
 
 - (void)hideAllAnimations
