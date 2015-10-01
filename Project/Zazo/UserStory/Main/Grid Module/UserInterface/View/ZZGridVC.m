@@ -33,8 +33,8 @@
         [ZZFeatureObserver sharedInstance];
         self.gridView = [ZZGridView new];
         self.controller = [[ZZGridCollectionController alloc] initWithCollectionView:self.gridView.collectionView];
-        self.touchObserver = [[ZZTouchObserver alloc] initWithGridView:self.gridView];
-        self.touchObserver.delegate = self;
+//        self.touchObserver = [[ZZTouchObserver alloc] initWithGridView:self.gridView];
+//        self.touchObserver.delegate = self;
     }
     return self;
 }

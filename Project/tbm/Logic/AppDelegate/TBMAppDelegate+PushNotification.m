@@ -143,7 +143,9 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     
     self.pushVideoId = [userInfo objectForKey:@"video_id"];
     [self requestBackground];
-    [self handleNotificationPayload:userInfo];
+    ANDispatchBlockToBackgroundQueue(^{
+       [self handleNotificationPayload:userInfo];
+    });
     
     // See doc/notification.txt for why we call the completion handler with sucess immediately here.
 //    _completionHandler = [completionHandler copy];

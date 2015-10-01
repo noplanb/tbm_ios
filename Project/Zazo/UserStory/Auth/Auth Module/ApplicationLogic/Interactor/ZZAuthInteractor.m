@@ -304,10 +304,12 @@
 
 - (void)gotFriends:(NSArray *)friends
 {
-    for (NSDictionary *fParams in friends)
-    {
-        [TBMFriend createOrUpdateWithServerParams:fParams complete:nil];
-    }
+    ANDispatchBlockToBackgroundQueue(^{
+        for (NSDictionary *fParams in friends)
+        {
+            [TBMFriend createOrUpdateWithServerParams:fParams complete:nil];
+        }
+    });
 }
 
 - (void)detectInvitee:(NSArray *)friends

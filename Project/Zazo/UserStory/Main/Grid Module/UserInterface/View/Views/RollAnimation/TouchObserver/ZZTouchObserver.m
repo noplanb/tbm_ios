@@ -205,7 +205,6 @@ static CGFloat const kTouchOffset = 7;
                     ZZGridCellViewModel* cellModel = [gridCell model];
                     [fakeCell updateBadgeWithNumber:cellModel.badgeNumber];
                     fakeCell.stateImageView.image = [self _screenshotFromView:gridCell];
-//                    fakeCell.stateImageView.alpha = 0.8;
                 }
             }];
         }

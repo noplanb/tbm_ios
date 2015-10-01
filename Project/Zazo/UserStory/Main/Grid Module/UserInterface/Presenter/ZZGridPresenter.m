@@ -33,20 +33,17 @@
 
 @interface ZZGridPresenter ()
 <
-ZZGridDataSourceDelegate,
-ZZVideoPlayerDelegate,
-ZZVideoRecorderDelegate,
-ZZGridActionHanlderDelegate,
-TBMTableModalDelegate
+    ZZGridDataSourceDelegate,
+    ZZVideoPlayerDelegate,
+    ZZVideoRecorderDelegate,
+    ZZGridActionHanlderDelegate,
+    TBMTableModalDelegate
 >
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
 @property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
 @property (nonatomic, strong) ZZGridActionHandler* actionHandler;
-@property (nonatomic, strong) TBMFriend* notificationFriend;
-@property (nonatomic, strong) TBMFriend* notifatedFriend;
-@property (nonatomic, assign) BOOL isVideoRecorderActive;
 
 @end
 
@@ -69,28 +66,11 @@ TBMTableModalDelegate
     [self _setupNotifications];
     [self.interactor loadData];
     
-    [[RACObserve(self.videoPlayer, isPlayingVideo) filter:^BOOL(id value) {
-        return [value integerValue] == 0;
-    }] subscribeNext:^(id x) {
-        [self updateFriendIfNeeded];
-    }];
-    
     [[ZZVideoRecorder shared] addDelegate:self];
 }
 
 - (void)_setupNotifications
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateGridData:)
-                                                 name:kFriendChangeNotification
-                                               object:nil];
-    
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(_videoWasViewed:)
-                                                 name:kFriendVideoViewedNotification
-                                               object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(sendMessageEvent)
                                                  name:kNotificationSendMessage object:nil];
@@ -103,10 +83,6 @@ TBMTableModalDelegate
                                              selector:@selector(stopPlaying)
                                                  name:kNotificationIncomingCall
                                                object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(videoStartDownloadingNotification:)
-                                                 name:kVideoStartDownloadingNotification object:nil];
 }
 
 - (void)dealloc
@@ -121,73 +97,23 @@ TBMTableModalDelegate
     [self.dataSource reloadStorage];
 }
 
-- (void)_videoWasViewed:(NSNotification*)notif
-{
-    [self.actionHandler handleEvent:ZZGridActionEventTypeOutgoingMessageWasViewed];
-    [self updateGridData:notif];
-}
-
-
 #pragma mark - Notifications
-
-- (void)videoStartDownloadingNotification:(NSNotification*)notification
-{
-    ANDispatchBlockToMainQueue(^{
-        if (!self.videoPlayer.isPlayingVideo)
-        {
-            [self.interactor showDownloadAnimationForFriend:notification.object];
-        }
-        else
-        {
-            self.notificationFriend = notification.object;
-        }
-        [self.dataSource reloadStorage];
-    });
-}
 
 - (void)reloadGridWithData:(NSArray*)data
 {
-    if (!self.isVideoRecorderActive)
+    if (![ZZVideoRecorder shared].isRecorderActive && !self.videoPlayer.isPlayingVideo)
     {
         [self.dataSource setupWithModels:data];
     }
 }
 
-- (void)updateGridData:(NSNotification*)notification
-{
-    if (!self.videoPlayer.isPlayingVideo)
-    {
-        if (self.notificationFriend)
-        {
-            self.notificationFriend = notification.object;
-            [self updateFriendIfNeeded];
-        }
-        else
-            
-        {
-            [self.interactor handleNotificationForFriend:notification.object];
-        }
-    }
-    else
-    {
-        self.notificationFriend = notification.object;
-    }
-    
-    [self.dataSource reloadStorage];
-}
-
 - (void)updateGridWithModelFromNotification:(ZZGridDomainModel *)model isNewFriend:(BOOL)isNewFriend
 {
-    [self.dataSource updateDataSourceWithGridModelFromNotification:model
-                                               withCompletionBlock:^(BOOL isNewVideoDownloaded) {
-                                                   if (isNewVideoDownloaded)
-                                                   {
-                                                       if (model.relatedUser.outgoingVideoStatusValue != OUTGOING_VIDEO_STATUS_VIEWED)
-                                                       {
-                                                           [self.soundPlayer play];
-                                                       }
-                                                   }
-                                               }];
+    [self.dataSource reloadStorage];
+    if (model.relatedUser.outgoingVideoStatusValue != OUTGOING_VIDEO_STATUS_VIEWED)
+    {
+        [self.soundPlayer play]; // TODO: check
+    }
     
     if (isNewFriend)
     {
@@ -199,40 +125,18 @@ TBMTableModalDelegate
 - (void)updateGridWithDownloadAnimationModel:(ZZGridDomainModel*)model
 {
     [self.actionHandler handleEvent:ZZGridActionEventTypeIncomingMessageDidReceived]; // TODO:
-    [self.dataSource updateDataSourceWithDownloadAnimationWithGridModel:model
-                                                    withCompletionBlock:^(BOOL isNewVideoDownloaded) {}];
+    [self.dataSource reloadStorage];
 }
 
 
 - (void)updateGridWithModel:(ZZGridDomainModel*)model isNewFriend:(BOOL)isNewFriend
 {
-    [self.dataSource updateStorageWithModel:model];
+    [self.dataSource reloadStorage];
     [self.userInterface showFriendAnimationWithModel:model.relatedUser];
     
     if (isNewFriend)
     {
         [self.actionHandler handleEvent:ZZGridActionEventTypeFriendDidAdd];
-    }
-}
-
-- (void)updateFriendIfNeeded
-{
-    if (![self.notificationFriend.mkey isEqualToString:self.notifatedFriend.mkey])
-    {
-        ANDispatchBlockToMainQueue(^{
-            CGFloat timeToUpdateInterface = 0.6;
-            CGFloat timeAfterAnimationEnd = 3.6;
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeToUpdateInterface * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            
-                [self.interactor showDownloadAnimationForFriend:self.notificationFriend];
-                
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeAfterAnimationEnd * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self.interactor handleNotificationForFriend:self.notificationFriend];
-                    self.notifatedFriend = self.notifatedFriend;
-                });
-            });
-        });
     }
 }
 
@@ -393,7 +297,6 @@ TBMTableModalDelegate
                            viewModel:(ZZGridCellViewModel*)viewModel
                  withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
-    self.isVideoRecorderActive = isEnabled;
     [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
     ZZGridCenterCellViewModel* model = [self.dataSource centerViewModel];
     if (!ANIsEmpty(viewModel.item.relatedUser.idTbm))
@@ -450,7 +353,7 @@ TBMTableModalDelegate
 - (void)stopPlaying
 {
     [self.videoPlayer stop];
-    [self.dataSource reloadStorage];
+//    [self.dataSource reloadStorage];
 }
 
 #pragma mark - Menu Delegate

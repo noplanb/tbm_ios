@@ -98,7 +98,9 @@
 //---------
 - (void)queueDownloadWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId
 {
-    [self queueDownloadWithFriend:friend videoId:videoId force:NO];
+    ANDispatchBlockToBackgroundQueue(^{
+       [self queueDownloadWithFriend:friend videoId:videoId force:NO];
+    });
 }
 
 - (void)queueDownloadWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId force:(BOOL)force
@@ -138,11 +140,6 @@
     NSString *marker = [TBMVideoIdUtils markerWithFriend:friend videoId:videoId isUpload:NO];
     NSString *remoteFilename = [TBMRemoteStorageHandler incomingVideoRemoteFilename:video];
     
-    
-    if(!ANIsEmpty(self.pushVideoId) && [videoId isEqualToString:self.pushVideoId])
-    {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kVideoStartDownloadingNotification object:friend];
-    }
     [[self fileTransferManager] downloadFile:[TBMRemoteStorageHandler fileTransferDownloadPath]
                                           to:[video videoPath]
                                   withMarker:marker
@@ -237,7 +234,9 @@
 - (void)pollEverSentStatusForAllFriends
 {
     [TBMRemoteStorageHandler getRemoteEverSentFriendsWithSuccess:^(NSArray *response) {
-        [TBMFriend setEverSentForMkeys:response];
+        ANDispatchBlockToBackgroundQueue(^{
+            [TBMFriend setEverSentForMkeys:response];
+        });
     } failure:nil];
 }
 
@@ -331,31 +330,27 @@
 
 - (void)fileTransferCompleted:(NSString *)marker withError:(NSError *)error
 {
-    // Run on the main queue since managed object context is on the main queue and you cant pass the resutant objects between threads.
-    dispatch_async(dispatch_get_main_queue(), ^
+    OB_INFO(@"fileTransferCompleted marker = %@", marker);
+    
+    [self requestBackground];
+    TBMFriend *friend = [TBMVideoIdUtils friendWithMarker:marker];
+    NSString *videoId = [TBMVideoIdUtils videoIdWithMarker:marker];
+    if (friend == nil)
     {
-        OB_INFO(@"fileTransferCompleted marker = %@", marker);
-
-        [self requestBackground];
-        TBMFriend *friend = [TBMVideoIdUtils friendWithMarker:marker];
-        NSString *videoId = [TBMVideoIdUtils videoIdWithMarker:marker];
-        if (friend == nil)
-        {
-            OB_ERROR(@"fileTransferCompleted - Could not find friend with marker = %@. This should never happen", marker);
-            return;
-        }
-
-        [self handleError:error marker:marker];
-
-        BOOL isUpload = [TBMVideoIdUtils isUploadWithMarker:marker];
-        if (isUpload)
-        {
-            [self uploadCompletedWithFriend:friend videoId:videoId error:error];
-        } else
-        {
-            [self downloadCompletedWithFriend:friend videoId:videoId error:error];
-        }
-    });
+        OB_ERROR(@"fileTransferCompleted - Could not find friend with marker = %@. This should never happen", marker);
+        return;
+    }
+    
+    [self handleError:error marker:marker];
+    
+    BOOL isUpload = [TBMVideoIdUtils isUploadWithMarker:marker];
+    if (isUpload)
+    {
+        [self uploadCompletedWithFriend:friend videoId:videoId error:error];
+    } else
+    {
+        [self downloadCompletedWithFriend:friend videoId:videoId error:error];
+    }
 }
 
 - (void)handleError:(NSError *)error marker:(NSString *)marker
@@ -381,23 +376,19 @@
 
 - (void)fileTransferRetrying:(NSString *)marker attemptCount:(NSInteger)attemptCount withError:(NSError *)error
 {
-    // Run on the main queue since managed object context is on the main queue and you cant pass the resutant objects between threads.
-    dispatch_async(dispatch_get_main_queue(), ^
+    OB_INFO(@"fileTransferRetrying");
+    [self requestBackground];
+    TBMFriend *friend = [TBMVideoIdUtils friendWithMarker:marker];
+    NSString *videoId = [TBMVideoIdUtils videoIdWithMarker:marker];
+    
+    BOOL isUpload = [TBMVideoIdUtils isUploadWithMarker:marker];
+    if (isUpload)
     {
-        OB_INFO(@"fileTransferRetrying");
-        [self requestBackground];
-        TBMFriend *friend = [TBMVideoIdUtils friendWithMarker:marker];
-        NSString *videoId = [TBMVideoIdUtils videoIdWithMarker:marker];
-
-        BOOL isUpload = [TBMVideoIdUtils isUploadWithMarker:marker];
-        if (isUpload)
-        {
-            [self uploadRetryingWithFriend:friend videoId:videoId retryCount:attemptCount];
-        } else
-        {
-            [self downloadRetryingWithFriend:friend videoId:videoId retryCount:attemptCount];
-        }
-    });
+        [self uploadRetryingWithFriend:friend videoId:videoId retryCount:attemptCount];
+    } else
+    {
+        [self downloadRetryingWithFriend:friend videoId:videoId retryCount:attemptCount];
+    }
 }
 
 //--------------

@@ -38,24 +38,85 @@
 {
     ANDispatchBlockToMainQueue(^{
         self.model = model;
-
+        
+        // upload video animation
         if (self.model.hasUploadedVideo)
         {
             [self showUploadIconWithoutAnimation];
         }
         
         model.playerContainerView = self;
-
+        
+        // Upload video was viewed
         if (self.model.isUploadedVideoViewed)
         {
             [self hideAllAnimationViews];
             self.videoViewedView.hidden = NO;
         }
+        
+        //download video animation
+        [self _setupDownloadAnimationsWithModel:model];
+        
         model.usernameLabel = self.userNameLabel;
         [self.model reloadDebugVideoStatus];
     });
 }
 
+
+#pragma makr - Downloaded Animation behavior
+
+- (void)_setupDownloadAnimationsWithModel:(ZZGridCellViewModel*)model
+{
+    if (self.model.item.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
+        self.model.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING)
+    {
+        [self _setupDownloadingState];
+    }
+    else if (self.model.item.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
+             self.model.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED &&
+             !self.model.item.isDownloadAnimationViewed)
+    {
+        
+        [self _setupDownloadedStateWithModel:model];
+    }
+    else
+    {
+        [self _setupBadgeWithModel:model];
+    }
+}
+
+
+- (void)_setupDownloadingState
+{
+    [self hideAllAnimationViews];
+    [self showDownloadViews];
+    self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+    self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+}
+
+- (void)_setupDownloadedStateWithModel:(ZZGridCellViewModel*)model
+{
+    self.userNameLabel.backgroundColor =
+    [model.badgeNumber  integerValue] > 0 ? [ZZColorTheme shared].gridCellLayoutGreenColor : [ZZColorTheme shared].gridCellGrayColor;
+    self.model.isDownloadAnimationPlayed = YES;
+    [self showDownloadAnimationWithCompletionBlock:^{
+        [self _setupBadgeWithModel:model];
+    }];
+}
+
+- (void)_setupBadgeWithModel:(ZZGridCellViewModel*)model
+{
+     [self hideDownloadViews];
+    if ([model.badgeNumber integerValue] > 0)
+    {
+        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+        self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+        [self updateBadgeWithNumber:model.badgeNumber];
+    }
+}
+
+
+#pragma mark - Setup Recognizer
 
 - (void)checkIsCancelRecordingWithRecognizer:(UILongPressGestureRecognizer*)recognizer
 {
@@ -69,6 +130,7 @@
         }
     }
 }
+
 
 #pragma mark - Animation Views
 

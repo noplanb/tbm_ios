@@ -94,7 +94,8 @@
 
 + (ZZGridDomainModel*)modelWithEarlierLastActionFriend
 {
-    NSArray* items = [TBMGridElement MR_findAllSortedBy:@"relatedUser.lastActionTimestamp" ascending:YES inContext:[self _context]];
+    NSString* keypath = [NSString stringWithFormat:@"%@.%@", TBMGridElementRelationships.friend, TBMFriendAttributes.timeOfLastAction];
+    NSArray* items = [TBMGridElement MR_findAllSortedBy:keypath ascending:YES inContext:[self _context]];
     return [self modelFromEntity:[items firstObject]];
 }
 
@@ -105,12 +106,12 @@
     NSMutableArray* predicates = [NSMutableArray array];
     if (!ANIsEmpty(contactModel.firstName))
     {
-        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.firstName, contactModel.firstName];
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", [NSString stringWithFormat:@"%@.%@", TBMGridElementRelationships.friend, TBMFriendAttributes.firstName], contactModel.firstName];
         [predicates addObject:predicate];
     }
     if (!ANIsEmpty(contactModel.lastName))
     {
-        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.lastName, contactModel.lastName];
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", [NSString stringWithFormat:@"%@.%@", TBMGridElementRelationships.friend, TBMFriendAttributes.lastName], contactModel.lastName];
         [predicates addObject:predicate];
     }
     
@@ -127,12 +128,16 @@
             return [value.contact stringByReplacingOccurrencesOfString:@" " withString:@""];
         }] array];
         
-        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"friend.mobileNumber IN %@", validNumbers];
+        NSString* keypath = [NSString stringWithFormat:@"%@.%@", TBMGridElementRelationships.friend, TBMFriendAttributes.mobileNumber];
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K IN %@", keypath, validNumbers];
         NSArray* items = [TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]];
         entity = [items firstObject];
     }
-    
-    return [self modelFromEntity:entity];
+    if (entity)
+    {
+        return [self modelFromEntity:entity];
+    }
+    return nil;
 }
 
 + (NSArray*)loadOrCreateGridModelsWithCount:(NSInteger)gridModelsCount
