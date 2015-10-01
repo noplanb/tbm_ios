@@ -73,7 +73,8 @@
         [self _setupDownloadingState];
     }
     else if (self.model.item.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
-             self.model.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED)
+             self.model.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED &&
+             !self.model.item.isDownloadAnimationViewed)
     {
         
         [self _setupDownloadedStateWithModel:model];

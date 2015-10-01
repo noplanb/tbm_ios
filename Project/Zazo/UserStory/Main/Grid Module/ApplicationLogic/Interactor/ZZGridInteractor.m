@@ -93,7 +93,13 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (void)updateFriendAfterVideoStopped:(ZZFriendDomainModel *)model
 {
     [self updateLastActionForFriend:model];
-    [self.output reloadGridWithData:[self _gridModels]];
+    
+   NSArray* gridModels = [[[self _gridModels].rac_sequence map:^id(ZZGridDomainModel* value) {
+        value.isDownloadAnimationViewed = YES;
+        return value;
+    }] array];
+    
+    [self.output reloadGridWithData:gridModels];
 }
 
 

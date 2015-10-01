@@ -72,7 +72,7 @@ TBMTableModalDelegate
     [[RACObserve(self.videoPlayer, isPlayingVideo) filter:^BOOL(id value) {
         return [value integerValue] == 0;
     }] subscribeNext:^(id x) {
-        [self updateFriendIfNeeded];
+        NSLog(@"video player stop playing");
     }];
     
     [[ZZVideoRecorder shared] addDelegate:self];
@@ -103,10 +103,6 @@ TBMTableModalDelegate
                                              selector:@selector(stopPlaying)
                                                  name:kNotificationIncomingCall
                                                object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(videoStartDownloadingNotification:)
-                                                 name:kVideoStartDownloadingNotification object:nil];
 }
 
 - (void)dealloc
@@ -130,21 +126,6 @@ TBMTableModalDelegate
 
 #pragma mark - Notifications
 
-- (void)videoStartDownloadingNotification:(NSNotification*)notification
-{
-    ANDispatchBlockToMainQueue(^{
-        if (!self.videoPlayer.isPlayingVideo)
-        {
-            [self.interactor showDownloadAnimationForFriend:notification.object];
-        }
-        else
-        {
-            self.notificationFriend = notification.object;
-        }
-        [self.dataSource reloadStorage];
-    });
-}
-
 - (void)reloadGridWithData:(NSArray*)data
 {
     if (!self.isVideoRecorderActive)
@@ -160,7 +141,7 @@ TBMTableModalDelegate
         if (self.notificationFriend)
         {
             self.notificationFriend = notification.object;
-            [self updateFriendIfNeeded];
+//            [self updateFriendIfNeeded];
         }
         else
             
@@ -212,27 +193,6 @@ TBMTableModalDelegate
     if (isNewFriend)
     {
         [self.actionHandler handleEvent:ZZGridActionEventTypeFriendDidAdd];
-    }
-}
-
-- (void)updateFriendIfNeeded
-{
-    if (![self.notificationFriend.mkey isEqualToString:self.notifatedFriend.mkey])
-    {
-        ANDispatchBlockToMainQueue(^{
-            CGFloat timeToUpdateInterface = 0.6;
-            CGFloat timeAfterAnimationEnd = 3.6;
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeToUpdateInterface * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            
-                [self.interactor showDownloadAnimationForFriend:self.notificationFriend];
-                
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeAfterAnimationEnd * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self.interactor handleNotificationForFriend:self.notificationFriend];
-                    self.notifatedFriend = self.notifatedFriend;
-                });
-            });
-        });
     }
 }
 

@@ -26,7 +26,7 @@
 - (void)handleNotificationForFriend:(TBMFriend*)friendEntity;
 
 - (void)loadFeedbackModel;
-- (void)showDownloadAnimationForFriend:(TBMFriend*)friend;
+//- (void)showDownloadAnimationForFriend:(TBMFriend*)friend;
 - (void)updateFriendAfterVideoStopped:(ZZFriendDomainModel*)model;
 
 

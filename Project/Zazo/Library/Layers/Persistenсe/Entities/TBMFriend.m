@@ -556,6 +556,9 @@ static NSMutableSet *videoStatusNotificationDelegates;
         self.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
     }
 
+    [self notifyVideoStatusChangeOnMainThread];
+    
+    
     ZZFriendDomainModel* model = [ZZFriendDataProvider modelFromEntity:self];
     BOOL shouldVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:model];
     if (!shouldVisible)
@@ -563,8 +566,6 @@ static NSMutableSet *videoStatusNotificationDelegates;
         model.friendshipStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:model];
         self.friendshipStatus = ZZFriendshipStatusTypeStringFromValue(model.friendshipStatusValue);
     }
-    
-    [self notifyVideoStatusChangeOnMainThread];
 }
 
 // --------------------
