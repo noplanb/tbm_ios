@@ -7,26 +7,30 @@
 //
 
 @class ZZGridDomainModel;
-@class ZZUserDomainModel;
+@class ZZFriendDomainModel;
 @class TBMGridElement;
+@class ZZContactDomainModel;
 
 @interface ZZGridDataProvider : NSObject
 
-+ (ZZGridDomainModel*)upsertModel:(ZZGridDomainModel*)model;
-+ (void)deleteModel:(ZZGridDomainModel*)model;
++ (NSArray*)loadOrCreateGridModelsWithCount:(NSInteger)gridModelsCount;
 
 #pragma mark - Fetches
 
 + (NSArray*)loadAllGridsSortByIndex:(BOOL)shouldSortByIndex;
 + (ZZGridDomainModel*)modelWithIndex:(NSInteger)index;
-+ (ZZGridDomainModel*)modelWithRelatedUser:(ZZUserDomainModel*)user;
-+ (BOOL)isRelatedUserOnGrid:(ZZUserDomainModel*)user;
+
++ (ZZGridDomainModel*)modelWithRelatedUserID:(NSString*)userID;
++ (BOOL)isRelatedUserOnGridWithID:(NSString*)userID;
+
 + (ZZGridDomainModel*)loadFirstEmptyGridElement;
++ (ZZGridDomainModel*)modelWithEarlierLastActionFriend;
++ (ZZGridDomainModel*)modelWithContact:(ZZContactDomainModel*)contactModel;
 
 
 #pragma mark - Mapping
 
 + (ZZGridDomainModel*)modelFromEntity:(TBMGridElement*)entity;
-+ (TBMGridElement*)entityFromModel:(ZZGridDomainModel*)model;
++ (TBMGridElement*)entityWithItemID:(NSString*)itemID;
 
 @end

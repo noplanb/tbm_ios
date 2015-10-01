@@ -135,7 +135,7 @@ TBMTableModalDelegate
     ANDispatchBlockToMainQueue(^{
         if (!self.videoPlayer.isPlayingVideo)
         {
-            [self.interactor showDownloadAniamtionForFriend:notification.object];
+            [self.interactor showDownloadAnimationForFriend:notification.object];
         }
         else
         {
@@ -203,34 +203,16 @@ TBMTableModalDelegate
                                                     withCompletionBlock:^(BOOL isNewVideoDownloaded) {}];
 }
 
-//- (void)modelUpdatedWithUserWithModel:(ZZGridDomainModel*)model
-//{
-//    if (!ANIsEmpty(model.relatedUser))
-//    {
-//        [self.interactor updateLastActionForFriend:model.relatedUser];
-//    }
-//    [self.dataSource selectedViewModelUpdatedWithItem:model];
-//}
 
-
-//- (void)updateGridWithGridDomainModel:(ZZGridDomainModel *)model
-//{
-//    if (!ANIsEmpty(model.relatedUser))
-//    {
-//        [self.interactor updateLastActionForFriend:model.relatedUser];
-//    }
-//    [self.dataSource updateModel:model];
-//}
-
-- (void)updateGridWithModel:(ZZGridDomainModel*)model
+- (void)updateGridWithModel:(ZZGridDomainModel*)model isNewFriend:(BOOL)isNewFriend
 {
-//    if (!ANIsEmpty(model.relatedUser))
-//    {
-////        [self.interactor updateLastActionForFriend:model.relatedUser]; // TODO: check
-//    }
     [self.dataSource updateStorageWithModel:model];
-    [self.actionHandler handleEvent:ZZGridActionEventTypeFriendDidAdd];
     [self.userInterface showFriendAnimationWithModel:model.relatedUser];
+    
+    if (isNewFriend)
+    {
+        [self.actionHandler handleEvent:ZZGridActionEventTypeFriendDidAdd];
+    }
 }
 
 - (void)updateFriendIfNeeded
@@ -243,7 +225,7 @@ TBMTableModalDelegate
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeToUpdateInterface * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-                [self.interactor showDownloadAniamtionForFriend:self.notificationFriend];
+                [self.interactor showDownloadAnimationForFriend:self.notificationFriend];
                 
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeAfterAnimationEnd * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.interactor handleNotificationForFriend:self.notificationFriend];
@@ -253,8 +235,6 @@ TBMTableModalDelegate
         });
     }
 }
-
-
 
 - (void)_updateFeatures
 {
@@ -273,7 +253,6 @@ TBMTableModalDelegate
         }
     }
 }
-
 
 
 #pragma mark - Output
@@ -305,7 +284,7 @@ TBMTableModalDelegate
 }
 
 
-- (void)gridContainedFriend:(ZZFriendDomainModel*)friendModel
+- (void)gridAlreadyContainsFriend:(ZZFriendDomainModel*)friendModel
 {
     [self.wireframe closeMenu];
     [ZZGridAlertBuilder showAlreadyConnectedDialogForUser:friendModel.firstName completion:^{
@@ -388,12 +367,7 @@ TBMTableModalDelegate
 
 #pragma mark - Video Player Delegate
 
-- (void)videoPlayerURLWasStartPlaying:(NSURL*)videoURL
-{
-    //TODO: delete video file
-//    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidStartPlaying];
-}
-
+- (void)videoPlayerURLWasStartPlaying:(NSURL*)videoURL{}
 
 - (void)videoPlayerURLWasFinishedPlaying:(NSURL *)videoURL withPlayedUserModel:(ZZFriendDomainModel*)playedFriendModel
 {
@@ -479,52 +453,29 @@ TBMTableModalDelegate
 //    [self.dataSource reloadStorage];
 }
 
-#pragma mark - Module Delegate Method
+#pragma mark - Menu Delegate
 
 - (void)userSelectedOnMenu:(id)user
 {
     [self.interactor addUserToGrid:user];
 }
 
-- (ZZSoundPlayer*)soundPlayer
-{
-    if (!_soundPlayer)
-    {
-        _soundPlayer = [[ZZSoundPlayer alloc] initWithSoundNamed:kMessageSoundEffectFileName];
-    }
-    return _soundPlayer;
-}
 
-
-#pragma mark - Private
+#pragma mark - Invites
 
 - (void)showNoValidPhonesDialogFromModel:(ZZContactDomainModel*)model
 {
-    [ZZGridAlertBuilder showNoValidPhonesDialogForUserWithFirstName:model.firstName fullName:model.fullName];
+    [self _showNoValidPhonesDialogFromModel:model];
 }
 
 - (void)addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel*)contact
-{//TODO: category
-    TBMAlertController *alert = [TBMAlertController badConnectionAlert];
-    
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleRecommended handler:^(SDCAlertAction *action) {
-        [alert dismissWithCompletion:nil];
-    }]];
-    
-    
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
-        [self.interactor addUserToGrid:contact];
-    }]];
-    
-    [alert presentWithCompletion:nil];
+{
+    [self _addingUserToGridDidFailWithError:error forUser:contact];
 }
 
-- (void)showChooseNumberDialogForUser:(ZZContactDomainModel*)user// TODO: move to grid alerts
+- (void)showChooseNumberDialogForUser:(ZZContactDomainModel*)user
 {
-    ANDispatchBlockToMainQueue(^{
-        [[TBMTableModal shared] setupViewWithParentView:self.userInterface.view title:@"Choose phone number" contact:user delegate:self];
-        [[TBMTableModal shared] show];
-    });
+    [self _showChooseNumberDialogForUser:user];
 }
 
 #pragma mark - TBMTableModalDelegate
@@ -532,13 +483,6 @@ TBMTableModalDelegate
 - (void)updatePrimaryPhoneNumberForContact:(ZZContactDomainModel*)contact
 {
     [self.interactor userSelectedPrimaryPhoneNumber:contact];
-}
-
-
-- (NSIndexPath*)_indexPathForFriendAtindex:(NSUInteger)friendIndex
-{
-    NSIndexPath *friendIndexPath = [NSIndexPath indexPathForItem:friendIndex inSection:0];
-    return friendIndexPath;
 }
 
 
@@ -559,9 +503,7 @@ TBMTableModalDelegate
 
 - (void)presentEditFriendsController
 {
-    [self.wireframe closeMenu];
     [self.wireframe presentEditFriendsController];
-    
 }
 
 - (void)presentSendEmailController
@@ -576,6 +518,15 @@ TBMTableModalDelegate
 {
     ZZGridCenterCellViewModel* centerCellModel = [self.dataSource centerViewModel];
     centerCellModel.isRecording = NO;
+}
+
+- (ZZSoundPlayer*)soundPlayer
+{
+    if (!_soundPlayer)
+    {
+        _soundPlayer = [[ZZSoundPlayer alloc] initWithSoundNamed:kMessageSoundEffectFileName];
+    }
+    return _soundPlayer;
 }
 
 @end

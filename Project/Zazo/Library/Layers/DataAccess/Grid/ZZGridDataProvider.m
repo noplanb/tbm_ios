@@ -11,34 +11,13 @@
 #import "MagicalRecord.h"
 #import "ZZUserDataProvider.h"
 #import "ZZGridUIConstants.h"
+#import "ZZFriendDataProvider.h"
+#import "ZZGridDataUpdater.h"
+#import "ZZUserFriendshipStatusHandler.h"
+#import "ZZContactDomainModel.h"
+#import "ZZPhoneHelper.h"
 
 @implementation ZZGridDataProvider
-
-+ (ZZGridDomainModel*)upsertModel:(ZZGridDomainModel *)model
-{
-    TBMGridElement* entity;
-    if (ANIsEmpty(model.itemID))
-    {
-        entity = [TBMGridElement MR_createEntityInContext:[self _context]];
-    }
-    else
-    {
-        entity =  [self entityWithItemID:model.itemID];
-    }
-    [ZZGridModelsMapper fillEntity:entity fromModel:model];
-    [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
-    
-    return [self modelFromEntity:entity];
-}
-
-+ (void)deleteModel:(ZZGridDomainModel*)model
-{
-    TBMGridElement* entity = [self entityWithItemID:model.itemID];
-    NSManagedObjectContext* context = entity.managedObjectContext;
-    [entity MR_deleteEntityInContext:context];
-    [context MR_saveToPersistentStoreAndWait];
-}
-
 
 #pragma mark - Fetches
 
@@ -77,9 +56,9 @@
     return [self modelFromEntity:entity];
 }
 
-+ (ZZGridDomainModel*)modelWithRelatedUser:(ZZUserDomainModel*)user
++ (ZZGridDomainModel*)modelWithRelatedUserID:(NSString*)userID
 {
-    TBMUser* userEntity = [ZZUserDataProvider entityFromModel:user];
+    TBMFriend* userEntity = [ZZFriendDataProvider friendEntityWithItemID:userID];
     
     NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, userEntity];
     TBMGridElement* entity = [[TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]] firstObject];
@@ -87,9 +66,9 @@
     return [self modelFromEntity:entity];
 }
 
-+ (BOOL)isRelatedUserOnGrid:(ZZUserDomainModel*)user
++ (BOOL)isRelatedUserOnGridWithID:(NSString*)userID
 {
-    ZZGridDomainModel* model = [self modelWithRelatedUser:user];
+    ZZGridDomainModel* model = [self modelWithRelatedUserID:userID];
     return (model != nil);
 }
 
@@ -113,18 +92,106 @@
     return [models firstObject];
 }
 
++ (ZZGridDomainModel*)modelWithEarlierLastActionFriend
+{
+    NSArray* items = [TBMGridElement MR_findAllSortedBy:@"relatedUser.lastActionTimestamp" ascending:YES inContext:[self _context]];
+    return [self modelFromEntity:[items firstObject]];
+}
+
++ (ZZGridDomainModel*)modelWithContact:(ZZContactDomainModel*)contactModel
+{
+    TBMGridElement* entity = nil;
+    
+    NSMutableArray* predicates = [NSMutableArray array];
+    if (!ANIsEmpty(contactModel.firstName))
+    {
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.firstName, contactModel.firstName];
+        [predicates addObject:predicate];
+    }
+    if (!ANIsEmpty(contactModel.lastName))
+    {
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.lastName, contactModel.lastName];
+        [predicates addObject:predicate];
+    }
+    
+    if (predicates.count)
+    {
+        NSArray* items = [TBMGridElement MR_findAllWithPredicate:[NSCompoundPredicate andPredicateWithSubpredicates:predicates]];
+        entity = [items firstObject];
+    }
+    
+    if (!entity)
+    {
+        NSArray* validNumbers = [ZZPhoneHelper validatePhonesFromContactModel:contactModel];
+        validNumbers = [[validNumbers.rac_sequence map:^id(ZZCommunicationDomainModel* value) {
+            return [value.contact stringByReplacingOccurrencesOfString:@" " withString:@""];
+        }] array];
+        
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"friend.mobileNumber IN %@", validNumbers];
+        NSArray* items = [TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]];
+        entity = [items firstObject];
+    }
+    
+    return [self modelFromEntity:entity];
+}
+
++ (NSArray*)loadOrCreateGridModelsWithCount:(NSInteger)gridModelsCount
+{
+    NSArray* allfriends = [ZZFriendDataProvider loadAllFriends];
+    NSMutableArray* filteredFriends = [NSMutableArray new];
+    
+    [allfriends enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if ([ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel])
+        {
+            [filteredFriends addObject:friendModel];
+        }
+    }];
+    //TODO: sort descriptor
+    [filteredFriends sortedArrayUsingComparator:^NSComparisonResult(ZZFriendDomainModel* obj1, ZZFriendDomainModel* obj2) {
+        return [obj1.lastActionTimestamp compare:obj2.lastActionTimestamp];
+    }];
+    
+    NSArray* gridStoredModels = [ZZGridDataProvider loadAllGridsSortByIndex:YES];
+    NSMutableArray* gridModels = [NSMutableArray array];
+    
+    if (gridStoredModels.count != gridModelsCount)
+    {
+        for (NSInteger count = 0; count < gridModelsCount; count++)
+        {
+            ZZGridDomainModel* model;
+            if (gridStoredModels.count > count)
+            {
+                model = gridStoredModels[count];
+            }
+            else
+            {
+                model = [ZZGridDomainModel new];
+            }
+            model.index = count;
+            if (filteredFriends.count > count)
+            {
+                ZZFriendDomainModel *aFriend = filteredFriends[count];
+                model.relatedUser = aFriend;
+            }
+            
+            model = [ZZGridDataUpdater upsertModel:model];
+            [gridModels addObject:model];
+        }
+    }
+    else
+    {
+        return gridStoredModels;
+    }
+    return gridModels;
+}
+
 
 #pragma mark - Mapping
 
 + (ZZGridDomainModel*)modelFromEntity:(TBMGridElement*)entity
 {
     return [ZZGridModelsMapper fillModel:[ZZGridDomainModel new] fromEntity:entity];
-}
-
-+ (TBMGridElement*)entityFromModel:(ZZGridDomainModel*)model
-{
-    TBMGridElement* entity = [self entityFromModel:model];
-    return [ZZGridModelsMapper fillEntity:entity fromModel:model];
 }
 
 

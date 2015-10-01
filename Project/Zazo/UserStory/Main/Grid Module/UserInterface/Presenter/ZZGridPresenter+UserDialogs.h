@@ -15,5 +15,8 @@
 - (void)_showSmsDialogForModel:(ZZFriendDomainModel*)friendModel;
 - (void)_showCantSendSmsErrorForModel:(ZZFriendDomainModel*)friendModel;
 - (void)_nudgeUser:(ZZFriendDomainModel*)userModel;
+- (void)_showNoValidPhonesDialogFromModel:(ZZContactDomainModel*)model;
+- (void)_addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel*)contact;
+- (void)_showChooseNumberDialogForUser:(ZZContactDomainModel*)user;
 
 @end

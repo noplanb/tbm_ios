@@ -64,60 +64,18 @@
 
 + (BOOL)shouldFriendBeVisible:(ZZFriendDomainModel*)friendModel
 {
-    BOOL visible;
+    BOOL isShouldBeVisible = NO;
     if ([friendModel isCreator])
     {
-        switch (friendModel.friendshipStatusValue)
-        {
-            case ZZFriendshipStatusTypeEstablished:
-            {
-                visible = YES;
-            } break;
-            case ZZFriendshipStatusTypeHiddenByCreator:
-            {
-                visible = YES;
-            } break;
-                
-            case ZZFriendshipStatusTypeHiddenByTarget:
-            {
-                visible = NO;
-            } break;
-                
-            case ZZFriendshipStatusTypeHiddenByBoth:
-            {
-                visible = NO;
-            } break;
-                
-            default: break;
-        }
+        isShouldBeVisible = (friendModel.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
+                             friendModel.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByCreator);
     }
     else
     {
-        switch (friendModel.friendshipStatusValue)
-        {
-            case ZZFriendshipStatusTypeEstablished:
-            {
-                visible = YES;
-            } break;
-                
-            case ZZFriendshipStatusTypeHiddenByTarget:
-            {
-                visible = YES;
-            } break;
-                
-            case ZZFriendshipStatusTypeHiddenByCreator:
-            {
-                visible = NO;
-            } break;
-            case ZZFriendshipStatusTypeHiddenByBoth:
-            {
-                visible = NO;
-            } break;
-                
-            default: break;
-        }
+        isShouldBeVisible =  (friendModel.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
+                              friendModel.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByTarget);
     }
-    return visible;
+    return isShouldBeVisible;
 }
 
 @end
