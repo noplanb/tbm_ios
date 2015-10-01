@@ -90,21 +90,22 @@
 - (void)_showDownloadAnimationWithCompletionBlock:(void (^)())completionBlock
 {
     ANDispatchBlockToMainQueue(^{
-        
+        CGFloat animationDuration = 1.6;
         [self _hideAllAnimationViews];
         
         CGFloat animValue = CGRectGetWidth(self.presentedView.frame) - [self _indicatorCalculatedWidth];
         self.rightDownloadIndicatorConstraint.offset = 0.0;
         [self _showDownloadViews];
         
-        [ANAnimator animateConstraint:self.rightDownloadIndicatorConstraint newOffset:-animValue key:@"download" delay:1.6 bouncingRate:0];
+        [ANAnimator animateConstraint:self.rightDownloadIndicatorConstraint newOffset:-animValue key:@"download" delay:animationDuration bouncingRate:0];
         [self.model reloadDebugVideoStatus];
-        
-        if (completionBlock)
-        {
-            completionBlock();
-            [self.model reloadDebugVideoStatus];
-        }
+        ANDispatchBlockAfter(animationDuration, ^{
+            if (completionBlock)
+            {
+                completionBlock();
+                [self.model reloadDebugVideoStatus];
+            }
+        });
     });
 }
 

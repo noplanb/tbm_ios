@@ -40,77 +40,45 @@ static CGFloat const kThumbnailBorderWidth = 2;
 {
     ANDispatchBlockToMainQueue(^{
         [super updateWithModel:model];
-        UIImage* thumbImage = [model videoThumbnailImage];
-        
-        if (!thumbImage)
-        {
-            self.thumbnailImageView.contentMode = UIViewContentModeCenter;
-            self.thumbnailImageView.backgroundColor = [UIColor blackColor];
-            CGSize size = CGSizeMake(30, 30);
-            thumbImage = [[UIImage imageWithPDFNamed:@"contacts-placeholder-withoutborder2" atSize:size]
-                          an_imageByTintingWithColor:[ZZColorTheme shared].menuTextColor];
-        }
-        else
-        {
-            self.thumbnailImageView.contentMode = UIViewContentModeScaleToFill;
-            self.thumbnailImageView.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
-        }
-        
-        self.thumbnailImageView.image = thumbImage;
-        
-        
-        
-        // change download video state
-        
-        if ([model.badgeNumber integerValue] > 0)
-        {
-            self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-            self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-            [self _showThumbnailGreenBorder];
-            [self updateBadgeWithNumber:model.badgeNumber];
-        }
-        
-        
-        if (self.model.item.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE)
-        {
-            if (self.model.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING)
-            {
-                [self hideAllAnimationViews];
-                [self showDownloadViews];
-                self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-                self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-                [self _showThumbnailGreenBorder];
-                
-            }
-//            else
-//            {
-//
-//                self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
-//                self.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
-//            }
-        }
-        
-        
-        
-        
-        
+        [self _setupThumbnailWithModel:model];
     });
 }
 
-//- (void)updateBadgeWithModel:(ZZGridCellViewModel*)model
-//{
-//    if ([model.badgeNumber integerValue] > 0)
-//    {
-//        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-//        self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-//        [self _showThumbnailGreenBorder];
-//    }
-//    else
-//    {
-//        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
-//        self.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
-//    }
-//}
+
+
+#pragma mark - Private
+
+
+- (void)_setupThumbnailWithModel:(ZZGridCellViewModel*)model
+{
+    UIImage* thumbImage = [model videoThumbnailImage];
+    
+    if (!thumbImage)
+    {
+        self.thumbnailImageView.contentMode = UIViewContentModeCenter;
+        self.thumbnailImageView.backgroundColor = [UIColor blackColor];
+        CGSize size = CGSizeMake(30, 30);
+        thumbImage = [[UIImage imageWithPDFNamed:@"contacts-placeholder-withoutborder2" atSize:size]
+                      an_imageByTintingWithColor:[ZZColorTheme shared].menuTextColor];
+    }
+    else
+    {
+        self.thumbnailImageView.contentMode = UIViewContentModeScaleToFill;
+        self.thumbnailImageView.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
+    }
+    
+    self.thumbnailImageView.image = thumbImage;
+    
+    if ([model.badgeNumber integerValue] > 0)
+    {
+        [self _showThumbnailGreenBorder];
+    }
+    else
+    {
+        [self _hideThumbnailGreenBorder];
+    }
+    
+}
 
 - (void)_showThumbnailGreenBorder
 {
@@ -143,9 +111,7 @@ static CGFloat const kThumbnailBorderWidth = 2;
     if (!_thumbnailImageView)
     {
         _thumbnailImageView = [UIImageView new];
-//        _thumbnailImageView.backgroundColor = [UIColor clearColor];
         _thumbnailImageView.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
-//        _thumbnailImageView.contentMode = UIViewContentModeScaleAspectFit;
         _thumbnailImageView.userInteractionEnabled = YES;
         
         UITapGestureRecognizer* tap =
