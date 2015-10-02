@@ -354,9 +354,9 @@ static NSMutableSet *videoStatusNotificationDelegates;
 - (NSInteger)unviewedCount
 {
     NSInteger i = 0;
-    for (TBMVideo *v in [self sortedIncomingVideos])
+    for (TBMVideo *v in [self videos])
     {
-        if (v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADED &&
+        if (v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADED ||
             v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADING)
         {
              i++;
