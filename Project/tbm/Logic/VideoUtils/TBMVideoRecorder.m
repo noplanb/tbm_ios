@@ -175,9 +175,9 @@ static int videoRecorderRetryCount = 0;
 - (void)initCaptureSession
 {
     self.captureSession = [AVCaptureSession new];
-    if ([self.captureSession canSetSessionPreset:AVCaptureSessionPresetHigh])
+    if ([self.captureSession canSetSessionPreset:AVCaptureSessionPresetLow])
     {
-        self.captureSession.sessionPreset = AVCaptureSessionPresetHigh;
+        self.captureSession.sessionPreset = AVCaptureSessionPresetLow;
     }
     else
     {
