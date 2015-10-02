@@ -66,7 +66,8 @@
 - (void)_showUploadIconWithoutAnimation
 {
     self.uploadingIndicator.hidden = NO;
-    CGFloat animValue = CGRectGetWidth(self.presentedView.frame) - [self _indicatorCalculatedWidth];
+    CGSize itemSize = kGridItemSize();
+    CGFloat animValue = itemSize.width - [self _indicatorCalculatedWidth];
     self.leftUploadIndicatorConstraint.offset = animValue;
     [self.model reloadDebugVideoStatus];
 }
@@ -92,8 +93,8 @@
     ANDispatchBlockToMainQueue(^{
         CGFloat animationDuration = 1.6;
         [self _hideAllAnimationViews];
-        
-        CGFloat animValue = CGRectGetWidth(self.presentedView.frame) - [self _indicatorCalculatedWidth];
+        CGSize itemSize = kGridItemSize();
+        CGFloat animValue = itemSize.width - [self _indicatorCalculatedWidth];
         self.rightDownloadIndicatorConstraint.offset = 0.0;
         [self _showDownloadViews];
         

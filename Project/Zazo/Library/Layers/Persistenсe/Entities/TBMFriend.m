@@ -356,7 +356,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
     NSInteger i = 0;
     for (TBMVideo *v in [self sortedIncomingVideos])
     {
-        if (v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADED ||
+        if (v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADED &&
             v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADING)
         {
              i++;
@@ -560,7 +560,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
     {
         self.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
     }
-
+    
     ZZFriendDomainModel* model = [ZZFriendDataProvider modelFromEntity:self];
     BOOL shouldVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:model];
     if (!shouldVisible)
@@ -568,8 +568,10 @@ static NSMutableSet *videoStatusNotificationDelegates;
         model.friendshipStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:model];
         self.friendshipStatus = ZZFriendshipStatusTypeStringFromValue(model.friendshipStatusValue);
     }
+    
     [self.managedObjectContext MR_saveToPersistentStoreAndWait];
     [self notifyVideoStatusChangeOnMainThread];
+    
 }
 
 // --------------------
