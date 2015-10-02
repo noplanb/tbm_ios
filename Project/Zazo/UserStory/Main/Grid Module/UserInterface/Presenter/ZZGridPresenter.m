@@ -295,7 +295,7 @@
                  withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
     [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
-    ZZGridCenterCellViewModel* model = [self.dataSource centerViewModel];
+    [self.userInterface updateRecordViewStateTo:isEnabled];
     if (!ANIsEmpty(viewModel.item.relatedUser.idTbm))
     {
         if (isEnabled)
@@ -312,11 +312,9 @@
                 NSURL* url = [ZZVideoUtils generateOutgoingVideoUrlWithFriend:viewModel.item.relatedUser];
                 [[ZZVideoRecorder shared] startRecordingWithVideoURL:url];
             });
-            model.isRecording = YES;
         }
         else
         {
-            model.isRecording = NO;
             [[ZZVideoRecorder shared] stopRecordingWithCompletionBlock:^(BOOL isRecordingSuccess) {
                 [self.soundPlayer play];
                 completionBlock(isRecordingSuccess);
@@ -415,8 +413,7 @@
 
 - (void)videoRecordingCanceled
 {
-    ZZGridCenterCellViewModel* centerCellModel = [self.dataSource centerViewModel];
-    centerCellModel.isRecording = NO;
+    [self.userInterface updateRecordViewStateTo:NO];
 }
 
 - (ZZSoundPlayer*)soundPlayer
