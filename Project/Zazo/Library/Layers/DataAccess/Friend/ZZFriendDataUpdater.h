@@ -14,5 +14,6 @@
 
 + (ZZFriendDomainModel*)updateLastTimeActionFriendWithID:(NSString*)itemID;
 + (ZZFriendDomainModel*)updateConnectionStatusForUserWithID:(NSString*)itemID toValue:(ZZFriendshipStatusType)value;
++ (ZZFriendDomainModel*)upsertFriend:(ZZFriendDomainModel*)model;
 
 @end

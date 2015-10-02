@@ -36,15 +36,15 @@
 @protocol ZZGridInteractorOutput <NSObject>
 
 - (void)dataLoadedWithArray:(NSArray*)data;
-- (void)dataLoadingDidFailWithError:(NSError *)error;
-//- (void)modelUpdatedWithUserWithModel:(ZZGridDomainModel *)model;
-- (void)gridAlreadyContainsFriend:(ZZFriendDomainModel*)friendModel;
+- (void)dataLoadingDidFailWithError:(NSError*)error;
+
+- (void)gridAlreadyContainsFriend:(ZZGridDomainModel*)model;
 - (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel*)model;
 
 - (void)userHasNoValidNumbers:(ZZContactDomainModel*)model;
-- (void)userNeedsToPickPrimaryPhone:(ZZContactDomainModel*)contacts;
-- (void)userHasNoAppInstalled:(ZZContactDomainModel*)contact;
-- (void)friendRecievedFromServer:(ZZFriendDomainModel*)friendModel;
+- (void)userNeedsToPickPrimaryPhone:(ZZContactDomainModel*)model;
+- (void)userHasNoAppInstalled:(ZZContactDomainModel*)model;
+- (void)friendRecievedFromServer:(ZZFriendDomainModel*)model;
 
 - (void)updateGridWithModel:(ZZGridDomainModel*)model isNewFriend:(BOOL)isNewFriend;
 - (void)updateGridWithModelFromNotification:(ZZGridDomainModel*)model isNewFriend:(BOOL)isNewFriend;

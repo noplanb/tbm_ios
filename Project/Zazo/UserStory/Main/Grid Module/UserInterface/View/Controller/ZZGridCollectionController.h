@@ -6,10 +6,6 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import "ANCollectionController.h"
-
-@class ZZGridCellViewModel;
-@class ZZFriendDomainModel;
 @class ZZGridDataSource;
 
 @protocol ZZGridCollectionControllerDelegate <NSObject>
@@ -22,7 +18,6 @@
 
 @property (nonatomic, weak) id<ZZGridCollectionControllerDelegate> delegate;
 
-- (void)showContainFriendAnimaionWithFriend:(ZZFriendDomainModel*)friendModel;
 - (void)updateDataSource:(ZZGridDataSource*)dataSource;
 
 @end

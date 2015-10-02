@@ -11,6 +11,7 @@
 #import "TBMFriend.h"
 #import "ZZFriendModelsMapper.h"
 #import "ZZFriendDomainModel.h"
+#import "ZZFriendDataProvider.h"
 
 @implementation ZZFriendDataUpdater
 
@@ -30,6 +31,18 @@
     return [ZZFriendModelsMapper fillModel:[ZZFriendDomainModel new] fromEntity:item];
 }
 
++ (ZZFriendDomainModel *)upsertFriend:(ZZFriendDomainModel *)model
+{
+    TBMFriend* item = [self _userWithID:model.idTbm];
+    if (!item)
+    {
+        item = [TBMFriend MR_createEntityInContext:[self _context]];
+    }
+    item = [ZZFriendModelsMapper fillEntity:item fromModel:model];
+    [item.managedObjectContext MR_saveToPersistentStoreAndWait];
+    
+    return [ZZFriendDataProvider modelFromEntity:item];
+}
 
 #pragma mark - Private
 

@@ -24,24 +24,15 @@ ZZGridCellViewModelDelegate,
 ZZGridCenterCellViewModelDelegate
 >
 
-@property (nonatomic, strong) ZZGridCellViewModel* selectedCellViewModel;
+@property (nonatomic, strong) NSArray* models;
 
 @end
 
 @implementation ZZGridDataSource
 
-- (instancetype)init
-{
-    if (self = [super init])
-    {
-        self.storage = [ANMemoryStorage new];
-    }
-    return self;
-}
-
 - (void)reloadStorage
 {
-    [self.storage.delegate storageNeedsReload];
+    [self.controllerDelegate reload];
 }
 
 - (void)setupWithModels:(NSArray*)models
@@ -71,49 +62,89 @@ ZZGridCenterCellViewModelDelegate
     center.delegate = self;
     [updatedSection insertObject:center atIndex:kGridCenterCellIndex];
     
-    ANDispatchBlockToMainQueue(^{
-        
-        [self.storage updateWithoutAnimations:^{
-            ANSectionModel* updatedSectionModel = [self.storage sectionAtIndex:0 createIfNeeded:YES];
-            [updatedSectionModel.objects removeAllObjects];
-            [updatedSectionModel.objects addObjectsFromArray:updatedSection];
-        }];
-        [self reloadStorage];
-    });
-}
-
-- (void)itemSelectedAtIndexPath:(NSIndexPath*)indexPath
-{
-    self.selectedCellViewModel = [self.storage objectAtIndexPath:indexPath];
-    [self.delegate itemSelectedWithModel:self.selectedCellViewModel];
-}
-
-- (void)setupCenterViewModelShouldHandleCameraRotation:(BOOL)shouldHandleRotation
-{
-    ANSectionModel* section = [self.storage sectionAtIndex:0];
-    ZZGridCenterCellViewModel* model = [section objects][kGridCenterCellIndex]; // TODO safety
-    model.isChangeButtonAvailable = shouldHandleRotation;
+    self.models = [updatedSection copy];
     
-    ANDispatchBlockToMainQueue(^{
-        [self.storage reloadItem:model];
-    });
+    [self reloadStorage];
+}
+
+- (void)updateCellWithModel:(ZZGridDomainModel*)model
+{
+    NSInteger index = [self viewModelIndexWithModelIndex:model.index];
+    if (index != NSNotFound)
+    {
+        ZZGridCellViewModel* viewModel = [self.models objectAtIndex:index];
+        viewModel.item = model;
+        [self _reloadModelAtIndex:index];
+    }
+}
+
+- (void)updateValueOnCenterCellWithHandleCameraRotation:(BOOL)shouldHandleRotation
+{
+    ZZGridCenterCellViewModel* model = [self centerViewModel];
+    model.isChangeButtonAvailable = shouldHandleRotation;
+    [self.controllerDelegate reloadItem:model];
 }
 
 - (ZZGridCenterCellViewModel*)centerViewModel
 {
-    return [self.storage objectAtIndexPath:[self _centerCellIndexPath]];
-}
-- (void)updateCenterCellWithModel:(ZZGridCenterCellViewModel*)model
-{
-    ANDispatchBlockToMainQueue(^{
-       [self.storage reloadItem:model];
-    });
+    return [self.models objectAtIndex:kGridCenterCellIndex];
 }
 
+- (void)updateCenterCellWithModel:(ZZGridCenterCellViewModel*)model
+{
+    [self updateCellWithModel:(id)model];
+}
+
+- (id)viewModelAtIndex:(NSInteger)index
+{
+    id model = nil;
+    if (self.models.count > index)
+    {
+        model = [self.models objectAtIndex:index];
+    }
+    return model;
+}
+
+- (NSInteger)indexForViewModel:(ZZGridCellViewModel*)model
+{
+    if ([model isKindOfClass:[ZZGridCellViewModel class]])
+    {
+         return [self viewModelIndexWithModelIndex:model.item.index];
+    }
+    else if ([model isKindOfClass:[ZZGridCenterCellViewModel class]])
+    {
+        return kGridCenterCellIndex;
+    }
+    return NSNotFound;
+}
+
+- (NSInteger)viewModelIndexWithModelIndex:(NSInteger)index
+{
+    __block id item = nil;
+    
+    [self.models enumerateObjectsUsingBlock:^(ZZGridCellViewModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[ZZGridCellViewModel class]])
+        {
+            if (obj.item.index == index)
+            {
+                item = obj;
+                *stop = YES;
+            }
+        }
+    }];
+    
+    if (item)
+    {
+        return [self.models indexOfObject:item];
+    }
+    return NSNotFound;
+}
 
 #pragma mark - ViewModel Delegate
 
-- (void)recordingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel *)viewModel withCompletionBlock:(void (^)(BOOL))completionBlock
+- (void)recordingStateUpdatedToState:(BOOL)isEnabled
+                           viewModel:(ZZGridCellViewModel*)viewModel
+                 withCompletionBlock:(ZZBoolBlock)completionBlock
 {
     [self.delegate recordingStateUpdatedToState:isEnabled viewModel:viewModel withCompletionBlock:completionBlock];
 }
@@ -133,6 +164,7 @@ ZZGridCenterCellViewModelDelegate
     [self.delegate addUser];
 }
 
+
 #pragma mark - Center Cell Delegate
 
 - (void)switchCamera
@@ -145,7 +177,7 @@ ZZGridCenterCellViewModelDelegate
     [self.delegate showHint];
 }
 
-- (BOOL)isVideoPalying
+- (BOOL)isVideoPlaying
 {
     return [self.delegate isVideoPlaying];
 }
@@ -153,9 +185,18 @@ ZZGridCenterCellViewModelDelegate
 
 #pragma mark - Private
 
-- (NSIndexPath*)_centerCellIndexPath
+- (NSArray*)models
 {
-    return [NSIndexPath indexPathForItem:kGridCenterCellIndex inSection:0];
+    if (!_models)
+    {
+        _models = [NSArray new];
+    }
+    return _models;
+}
+
+- (void)_reloadModelAtIndex:(NSInteger)index
+{
+    [self.controllerDelegate reloadItemAtIndex:index];
 }
 
 @end

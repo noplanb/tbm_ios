@@ -447,6 +447,7 @@
 		070560FF1BA8824F00C130E0 /* ZZGridActionHandlerEnums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZGridActionHandlerEnums.m; path = ActionHandler/ZZGridActionHandlerEnums.m; sourceTree = "<group>"; };
 		070D84771BBDAD8900196527 /* ZZGridContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridContainerView.h; sourceTree = "<group>"; };
 		070D84781BBDAD8900196527 /* ZZGridContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridContainerView.m; sourceTree = "<group>"; };
+		070D847D1BBE670700196527 /* ZZGridDataSourceInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZGridDataSourceInterface.h; sourceTree = "<group>"; };
 		071F18E71BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZZGridPresenter+UserDialogs.h"; sourceTree = "<group>"; };
 		071F18E81BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZZGridPresenter+UserDialogs.m"; sourceTree = "<group>"; };
 		0732F5051B8B93D3004FD3AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -3252,6 +3253,7 @@
 		07636CA91BA49A0100925671 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
+				070D847D1BBE670700196527 /* ZZGridDataSourceInterface.h */,
 				07636CAA1BA49A0100925671 /* ZZGridDataSource.h */,
 				07636CAB1BA49A0100925671 /* ZZGridDataSource.m */,
 			);

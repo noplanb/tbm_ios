@@ -196,14 +196,14 @@ static NSInteger const kGridFriendsCellCount = 8;
     }
     else
     {
+        ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendModel.idTbm];
         if (isFromNotification)
         {
-            ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendModel.idTbm];
             [self.output updateGridWithModelFromNotification:gridModel isNewFriend:!isUserAlreadyOnGrid];
         }
         else
         {
-            [self.output gridAlreadyContainsFriend:friendModel];
+            [self.output gridAlreadyContainsFriend:gridModel];
         }
     }
 }
@@ -213,8 +213,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithContact:model];
     if (!ANIsEmpty(gridModel))
     {
-        ZZFriendDomainModel* containedUser = gridModel.relatedUser;
-        [self.output gridAlreadyContainsFriend:containedUser];
+        [self.output gridAlreadyContainsFriend:gridModel];
     }
     else
     {
@@ -270,6 +269,9 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (void)_loadFriendModelFromContact:(ZZContactDomainModel*)contact
 {
     [[ZZGridTransportService inviteUserToApp:contact] subscribeNext:^(ZZFriendDomainModel* x) {
+        
+        [ZZFriendDataUpdater upsertFriend:x];
+        
         [self.output friendRecievedFromServer:x];
         [self.output loadedStateUpdatedTo:NO];
 

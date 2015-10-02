@@ -63,7 +63,11 @@
     NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, userEntity];
     TBMGridElement* entity = [[TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]] firstObject];
     
-    return [self modelFromEntity:entity];
+    if (entity)
+    {
+        return [self modelFromEntity:entity];
+    }
+    return nil;
 }
 
 + (BOOL)isRelatedUserOnGridWithID:(NSString*)userID
@@ -96,7 +100,8 @@
 {
     NSString* keypath = [NSString stringWithFormat:@"%@.%@", TBMGridElementRelationships.friend, TBMFriendAttributes.timeOfLastAction];
     NSArray* items = [TBMGridElement MR_findAllSortedBy:keypath ascending:YES inContext:[self _context]];
-    return [self modelFromEntity:[items firstObject]];
+    ZZGridDomainModel* model = [self modelFromEntity:[items firstObject]];
+    return model;
 }
 
 + (ZZGridDomainModel*)modelWithContact:(ZZContactDomainModel*)contactModel

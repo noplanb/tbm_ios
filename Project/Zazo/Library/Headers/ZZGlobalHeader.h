@@ -74,3 +74,4 @@ static NSString* const kMessageSoundZazoFileName = @"NotificationTone.wav";
 #define IS_IPHONE_4             ([[UIScreen mainScreen] bounds].size.height == 480.0f)
 
 
+typedef void(^ZZBoolBlock)(BOOL isSuccess);
