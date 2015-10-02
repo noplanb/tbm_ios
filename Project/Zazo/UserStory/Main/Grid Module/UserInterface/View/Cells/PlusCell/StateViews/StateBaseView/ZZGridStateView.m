@@ -90,8 +90,6 @@
 {
     [self hideAllAnimationViews];
     [self showDownloadViews];
-    self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-    self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
 }
 
 - (void)_setupDownloadedStateWithModel:(ZZGridCellViewModel*)model
@@ -100,6 +98,8 @@
     [model.badgeNumber  integerValue] > 0 ? [ZZColorTheme shared].gridCellLayoutGreenColor : [ZZColorTheme shared].gridCellGrayColor;
     self.model.isDownloadAnimationPlayed = YES;
     [self showDownloadAnimationWithCompletionBlock:^{
+        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+        self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
         [self _setupBadgeWithModel:model];
     }];
 }

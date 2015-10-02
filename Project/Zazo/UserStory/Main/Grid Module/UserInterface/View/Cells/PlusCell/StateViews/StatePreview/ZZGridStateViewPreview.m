@@ -45,7 +45,6 @@ static CGFloat const kThumbnailBorderWidth = 2;
 }
 
 
-
 #pragma mark - Private
 
 
@@ -69,7 +68,8 @@ static CGFloat const kThumbnailBorderWidth = 2;
     
     self.thumbnailImageView.image = thumbImage;
     
-    if ([model.badgeNumber integerValue] > 0)
+    if ([model.badgeNumber integerValue] > 0
+        && self.model.item.relatedUser.lastIncomingVideoStatus != INCOMING_VIDEO_STATUS_DOWNLOADING)
     {
         [self _showThumbnailGreenBorder];
     }

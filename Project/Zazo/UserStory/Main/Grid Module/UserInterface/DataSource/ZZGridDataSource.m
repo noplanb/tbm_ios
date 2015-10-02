@@ -25,6 +25,7 @@ ZZGridCenterCellViewModelDelegate
 >
 
 @property (nonatomic, strong) NSArray* models;
+@property (nonatomic, assign) BOOL wasInitialSetuped;
 
 @end
 
@@ -42,6 +43,7 @@ ZZGridCenterCellViewModelDelegate
     models = [[models.rac_sequence map:^id(ZZGridDomainModel* value) {
         
         ZZGridCellViewModel* viewModel = [ZZGridCellViewModel new];
+        value.isDownloadAnimationViewed = !self.wasInitialSetuped;
         viewModel.item = value;
         viewModel.delegate = self;
         viewModel.hasDownloadedVideo = [value.relatedUser hasIncomingVideo];
@@ -65,6 +67,7 @@ ZZGridCenterCellViewModelDelegate
     self.models = [updatedSection copy];
     
     [self reloadStorage];
+    self.wasInitialSetuped = YES;
 }
 
 - (void)updateCellWithModel:(ZZGridDomainModel*)model
@@ -74,6 +77,17 @@ ZZGridCenterCellViewModelDelegate
     {
         ZZGridCellViewModel* viewModel = [self.models objectAtIndex:index];
         viewModel.item = model;
+        viewModel.delegate = self;
+        viewModel.hasDownloadedVideo = [model.relatedUser hasIncomingVideo];
+        viewModel.hasUploadedVideo = [model.relatedUser hasOutgoingVideo];//[value.relatedUser hasIncomingVideo];
+        viewModel.isUploadedVideoViewed = (model.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
+        
+        if (model.relatedUser.unviewedCount > 0)
+        {
+            viewModel.prevBadgeNumber = @(model.relatedUser.unviewedCount);
+            viewModel.badgeNumber = @(model.relatedUser.unviewedCount);
+        }
+        
         [self _reloadModelAtIndex:index];
     }
 }
