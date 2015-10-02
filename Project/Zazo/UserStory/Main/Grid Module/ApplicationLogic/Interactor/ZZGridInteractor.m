@@ -269,6 +269,9 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (void)_loadFriendModelFromContact:(ZZContactDomainModel*)contact
 {
     [[ZZGridTransportService inviteUserToApp:contact] subscribeNext:^(ZZFriendDomainModel* x) {
+        
+        [ZZFriendDataUpdater upsertFriend:x];
+        
         [self.output friendRecievedFromServer:x];
         [self.output loadedStateUpdatedTo:NO];
 
