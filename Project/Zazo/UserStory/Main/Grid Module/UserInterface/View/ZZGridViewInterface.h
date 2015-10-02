@@ -14,7 +14,8 @@
 @protocol ZZGridViewInterface <ZZGridActionHanlderUserInterfaceDelegate>
 
 - (void)updateWithDataSource:(ZZGridDataSource*)dataSource;
-- (void)showFriendAnimationWithModel:(ZZFriendDomainModel*)friendModel;
+- (void)showFriendAnimationWithIndex:(NSInteger)index;
+
 - (void)updateRollingStateTo:(BOOL)isEnabled;
 - (void)menuWasOpened;
 - (void)updateSwitchButtonWithState:(BOOL)isHidden;

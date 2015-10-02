@@ -109,7 +109,7 @@
 
 - (void)updateGridWithModelFromNotification:(ZZGridDomainModel *)model isNewFriend:(BOOL)isNewFriend
 {
-    [self.dataSource reloadStorage];
+    [self.dataSource updateCellWithModel:model];
     if (model.relatedUser.outgoingVideoStatusValue != OUTGOING_VIDEO_STATUS_VIEWED)
     {
         [self.soundPlayer play]; // TODO: check
@@ -117,7 +117,7 @@
     
     if (isNewFriend)
     {
-        [self.userInterface showFriendAnimationWithModel:model.relatedUser];
+        [self.userInterface showFriendAnimationWithIndex:[self.dataSource viewModelIndexWithModelIndex:model.index]];
         [self.actionHandler handleEvent:ZZGridActionEventTypeFriendDidAdd];
     }
 }
@@ -125,14 +125,14 @@
 - (void)updateGridWithDownloadAnimationModel:(ZZGridDomainModel*)model
 {
     [self.actionHandler handleEvent:ZZGridActionEventTypeIncomingMessageDidReceived]; // TODO:
-    [self.dataSource reloadStorage];
+    [self.dataSource updateCellWithModel:model];
 }
 
 
 - (void)updateGridWithModel:(ZZGridDomainModel*)model isNewFriend:(BOOL)isNewFriend
 {
-    [self.dataSource reloadStorage];
-    [self.userInterface showFriendAnimationWithModel:model.relatedUser];
+    [self.dataSource updateCellWithModel:model];
+    [self.userInterface showFriendAnimationWithIndex:[self.dataSource viewModelIndexWithModelIndex:model.index]];
     
     if (isNewFriend)
     {
@@ -188,11 +188,12 @@
 }
 
 
-- (void)gridAlreadyContainsFriend:(ZZFriendDomainModel*)friendModel
+- (void)gridAlreadyContainsFriend:(ZZGridDomainModel*)model
 {
     [self.wireframe closeMenu];
-    [ZZGridAlertBuilder showAlreadyConnectedDialogForUser:friendModel.firstName completion:^{
-        [self.userInterface showFriendAnimationWithModel:friendModel];
+    [ZZGridAlertBuilder showAlreadyConnectedDialogForUser:model.relatedUser.firstName completion:^{
+        [self.dataSource updateCellWithModel:model];
+        [self.userInterface showFriendAnimationWithIndex:[self.dataSource viewModelIndexWithModelIndex:model.index]];
     }];
 }
 

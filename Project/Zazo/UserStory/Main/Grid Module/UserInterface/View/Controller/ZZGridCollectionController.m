@@ -21,14 +21,14 @@
 {
     NSArray* items = [self.delegate items];
     [items enumerateObjectsUsingBlock:^(id <ANModelTransfer> _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        id model = [self.dataSource modelAtIndex:idx];
+        id model = [self.dataSource viewModelAtIndex:idx];
         [obj updateWithModel:model];
     }];
 }
 
 - (void)reloadItem:(id)item
 {
-    NSInteger index = [self.dataSource indexForModel:item];
+    NSInteger index = [self.dataSource indexForViewModel:item];
     if (index != NSNotFound)
     {
         [self reloadItemAtIndex:index];
@@ -42,7 +42,7 @@
     {
         item = (id<ANModelTransfer>)[self.delegate items][index];
     }
-    id model = [self.dataSource modelAtIndex:index];
+    id model = [self.dataSource viewModelAtIndex:index];
     if (item)
     {
         [item updateWithModel:model];
@@ -53,22 +53,6 @@
 {
     self.dataSource = dataSource;
     self.dataSource.controllerDelegate = self;
-}
-
-- (void)showContainFriendAnimaionWithFriend:(ZZFriendDomainModel*)friendModel
-{
-//    [[self.collectionView visibleCells] enumerateObjectsUsingBlock:^(UICollectionViewCell* cell, NSUInteger idx, BOOL *stop) {
-//        
-//        if ([cell isKindOfClass:[ZZGridCell class]])
-//        {
-//            ZZGridCell* gridCell = (ZZGridCell *)cell;
-//            ZZGridCellViewModel* cellModel = [gridCell model];
-//            if ([cellModel.item.relatedUser isEqual:friendModel])
-//            {
-//                [gridCell showContainFriendAnimation];
-//            }
-//        }
-//    }];
 }
 
 @end

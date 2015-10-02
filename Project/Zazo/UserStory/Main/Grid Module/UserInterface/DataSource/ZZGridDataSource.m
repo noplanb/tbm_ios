@@ -69,16 +69,18 @@ ZZGridCenterCellViewModelDelegate
 
 - (void)updateCellWithModel:(ZZGridDomainModel*)model
 {
-    NSMutableArray* array = [self.models mutableCopy];
-    id existingModel = [self _modelWithModelIndex:model.index];
-    NSInteger index = [array indexOfObject:existingModel];
-    [array replaceObjectAtIndex:[array indexOfObject:existingModel] withObject:model];
-    [self _reloadModelAtIndex:index];
+    NSInteger index = [self viewModelIndexWithModelIndex:model.index];
+    if (index != NSNotFound)
+    {
+        ZZGridCellViewModel* viewModel = [self.models objectAtIndex:index];
+        viewModel.item = model;
+        [self _reloadModelAtIndex:index];
+    }
 }
 
 - (void)updateValueOnCenterCellWithHandleCameraRotation:(BOOL)shouldHandleRotation
 {
-    ZZGridCenterCellViewModel* model = [self modelAtIndex:kGridCenterCellIndex];
+    ZZGridCenterCellViewModel* model = [self centerViewModel];
     model.isChangeButtonAvailable = shouldHandleRotation;
     [self.controllerDelegate reloadItem:model];
 }
@@ -93,7 +95,7 @@ ZZGridCenterCellViewModelDelegate
     [self updateCellWithModel:(id)model];
 }
 
-- (id)modelAtIndex:(NSInteger)index
+- (id)viewModelAtIndex:(NSInteger)index
 {
     id model = nil;
     if (self.models.count > index)
@@ -103,11 +105,34 @@ ZZGridCenterCellViewModelDelegate
     return model;
 }
 
-- (NSInteger)indexForModel:(id)model
+- (NSInteger)indexForViewModel:(ZZGridCellViewModel*)model
 {
-    if (model)
+    if ([model isKindOfClass:[ZZGridCellViewModel class]])
     {
-        return [self.models indexOfObject:model];
+         return [self viewModelIndexWithModelIndex:model.item.index];
+    }
+    else if ([model isKindOfClass:[ZZGridCenterCellViewModel class]])
+    {
+        return kGridCenterCellIndex;
+    }
+    return NSNotFound;
+}
+
+- (NSInteger)viewModelIndexWithModelIndex:(NSInteger)index
+{
+    __block id item = nil;
+    
+    [self.models enumerateObjectsUsingBlock:^(ZZGridCellViewModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[ZZGridCellViewModel class]])
+        {
+            item = obj;
+            *stop = YES;
+        }
+    }];
+    
+    if (item)
+    {
+        return [self.models indexOfObject:item];
     }
     return NSNotFound;
 }
@@ -169,15 +194,6 @@ ZZGridCenterCellViewModelDelegate
 - (void)_reloadModelAtIndex:(NSInteger)index
 {
     [self.controllerDelegate reloadItemAtIndex:index];
-}
-
-- (id)_modelWithModelIndex:(NSInteger)index
-{
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %d",
-                              [NSString stringWithFormat:@"item.%@", ZZGridDomainModelAttributes.index], index];
-    NSArray* filtered = [self.models filteredArrayUsingPredicate:predicate];
-    
-    return [filtered firstObject];
 }
 
 @end

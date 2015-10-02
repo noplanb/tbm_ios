@@ -85,9 +85,10 @@
     
 }
 
-- (void)showFriendAnimationWithModel:(ZZFriendDomainModel *)friendModel
+- (void)showFriendAnimationWithIndex:(NSInteger)index
 {
-    [self.controller showContainFriendAnimaionWithFriend:friendModel];
+    ZZGridCell* view = [self.gridView items][index];
+    [view showContainFriendAnimation];
 }
 
 

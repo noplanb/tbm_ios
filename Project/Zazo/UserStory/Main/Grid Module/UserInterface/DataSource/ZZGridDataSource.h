@@ -28,7 +28,12 @@
 
 - (ZZGridCenterCellViewModel*)centerViewModel;
 
-- (id)modelAtIndex:(NSInteger)index;
-- (NSInteger)indexForModel:(id)model;
+- (id)viewModelAtIndex:(NSInteger)index;
+- (NSInteger)indexForViewModel:(ZZGridCellViewModel*)model;
+
+- (NSInteger)viewModelIndexWithModelIndex:(NSInteger)index;
+
+- (void)updateCellWithModel:(ZZGridDomainModel*)model;
+
 
 @end
