@@ -119,8 +119,6 @@ static NSMutableSet *TBMDelegates;
 #pragma mark Observers
 
 -(void)addObservers {
-    UIDevice *device = [UIDevice currentDevice];
-    device.proximityMonitoringEnabled = YES; //TODO: temp disable
     
     [self addRouteChangeObserver];
     [[NSNotificationCenter defaultCenter] addObserver:self
