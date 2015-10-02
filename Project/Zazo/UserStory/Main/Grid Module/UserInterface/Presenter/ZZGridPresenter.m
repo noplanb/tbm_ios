@@ -296,6 +296,7 @@
                            viewModel:(ZZGridCellViewModel*)viewModel
                  withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
+    [ZZVideoRecorder shared].isRecorderActive = isEnabled;
     [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
     [self.userInterface updateRecordViewStateTo:isEnabled];
     if (!ANIsEmpty(viewModel.item.relatedUser.idTbm))
