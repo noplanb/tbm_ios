@@ -547,6 +547,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
     }
 
     video.statusValue = status;
+    [video.managedObjectContext MR_saveToPersistentStoreAndWait];
     self.lastIncomingVideoStatusValue = status;
 
     // Serhii says: We want to preserve previous status if last event type is incoming and status is VIEWED
@@ -604,6 +605,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
         return;
 
     video.downloadRetryCount = retryCount;
+    [video.managedObjectContext MR_saveToPersistentStoreAndWait];
     [self.managedObjectContext MR_saveToPersistentStoreAndWait];
 
     if ([self isNewestIncomingVideo:video])
