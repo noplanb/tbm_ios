@@ -69,11 +69,16 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
     pushToken = [pushToken stringByReplacingOccurrencesOfString:@"\"" withString:@""];
     DebugLog(@"Push token: %@", pushToken);
     
-    [self sendPushTokenToServer:pushToken];
+    ANDispatchBlockToBackgroundQueue(^{
+       [self sendPushTokenToServer:pushToken];
+    });
     
-    if ([self userHasGrantedPushAccess]) {
+    if ([self userHasGrantedPushAccess])
+    {
         [self onGrantedPushAccess];
-    } else {
+    }
+    else
+    {
         [self onFailPushAccess];
     };
 }

@@ -121,11 +121,13 @@
 
 - (void)loadFriendsDidFailWithError:(NSError *)error
 {
-        TBMAlertController *alert = [TBMAlertController badConnectionAlert];
-        [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
-            [self.interactor loadFriends];
-        }]];
-        [alert presentWithCompletion:nil];
+    TBMAlertController *alert = [TBMAlertController badConnectionAlert];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+        [self.interactor loadFriends];
+    }]];
+    ANDispatchBlockToMainQueue(^{
+       [alert presentWithCompletion:nil]; 
+    });
 }
 
 - (void)loadedS3CredentialsSuccessfully

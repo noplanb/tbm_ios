@@ -221,14 +221,16 @@
 
 - (void)pollAllFriends
 {
-    OB_INFO(@"pollAllFriends");
-    self.myFriends = [TBMFriend all];
-    for (TBMFriend *f in self.myFriends)
-    {
-        [self pollVideosWithFriend:f];
-        [self pollVideoStatusWithFriend:f];
-    }
-    [self pollEverSentStatusForAllFriends];
+    ANDispatchBlockToBackgroundQueue(^{
+        OB_INFO(@"pollAllFriends");
+        self.myFriends = [TBMFriend all];
+        for (TBMFriend *f in self.myFriends)
+        {
+            [self pollVideosWithFriend:f];
+            [self pollVideoStatusWithFriend:f];
+        }
+        [self pollEverSentStatusForAllFriends];
+    });
 }
 
 - (void)pollEverSentStatusForAllFriends
@@ -362,11 +364,14 @@
     if (error.code == 404)
         return;
 
-    NSString *type = [TBMVideoIdUtils isUploadWithMarker:marker] ? @"upload" : @"download";
-    OB_ERROR(@"AppSync: Permanent failure in %@ due to error: %@", type, error);
-    // Refresh the credentials from the server and set ftm to nil so that it uses new credentials if they have arrived by the next time we need it.
-    [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {}];
-    [self setFileTransferManager:nil];
+    
+    ANDispatchBlockToBackgroundQueue(^{
+        NSString *type = [TBMVideoIdUtils isUploadWithMarker:marker] ? @"upload" : @"download";
+        OB_ERROR(@"AppSync: Permanent failure in %@ due to error: %@", type, error);
+        // Refresh the credentials from the server and set ftm to nil so that it uses new credentials if they have arrived by the next time we need it.
+        [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {}];
+        [self setFileTransferManager:nil];
+    });
 }
 
 - (void)fileTransferProgress:(NSString *)marker percent:(NSUInteger)progress

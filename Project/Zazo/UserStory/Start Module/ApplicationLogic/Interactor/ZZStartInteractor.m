@@ -14,8 +14,18 @@
 
 - (void)checkVersionState
 {
+    ANDispatchBlockToBackgroundQueue(^{
+        [self _checkVersionState];
+    });
+}
+
+
+#pragma mark - Private
+
+- (void)_checkVersionState
+{
     [[ZZCommonNetworkTransportService checkApplicationVersion] subscribeNext:^(id x) {
-       
+        
         NSString* result = [x objectForKey:@"result"];
         
         if (!ANIsEmpty(result))
@@ -40,9 +50,6 @@
     
     [self _checkSession];
 }
-
-
-#pragma mark - Private
 
 - (void)_checkSession
 {

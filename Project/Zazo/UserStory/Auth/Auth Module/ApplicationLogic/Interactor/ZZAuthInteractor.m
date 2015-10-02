@@ -126,11 +126,12 @@
     
     [[ZZFriendsTransportService loadFriendList] subscribeNext:^(id x) {
         
-        [self gotFriends:x];
-        [self detectInvitee:x];
-        [self.output loadedFriendsSuccessfully];
-        
-        [self loadS3Credentials];
+        ANDispatchBlockToBackgroundQueue(^{
+            [self gotFriends:x];
+            [self detectInvitee:x];
+            [self.output loadedFriendsSuccessfully];
+            [self loadS3Credentials];
+        });
         
     } error:^(NSError *error) {
         
@@ -140,17 +141,19 @@
 
 - (void)loadS3Credentials
 {
-    [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {
-       
-        self.currentUser.isRegistered = YES;
-        [ZZUserDataProvider upsertUserWithModel:self.currentUser];
-        [(TBMAppDelegate*)[UIApplication sharedApplication].delegate performDidBecomeActiveActions]; //TODO: call this with new controller
-        [self.output registrationFlowCompletedSuccessfully];
-        
-    } error:^(NSError *error) {
-        
-        [self.output loadS3CredentialsDidFailWithError:nil]; // TODO: create an error here
-    }];
+    ANDispatchBlockToBackgroundQueue(^{
+        [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {
+            
+            self.currentUser.isRegistered = YES;
+            [ZZUserDataProvider upsertUserWithModel:self.currentUser];
+            [(TBMAppDelegate*)[UIApplication sharedApplication].delegate performDidBecomeActiveActions]; //TODO: call this with new controller
+            [self.output registrationFlowCompletedSuccessfully];
+            
+        } error:^(NSError *error) {
+            
+            [self.output loadS3CredentialsDidFailWithError:nil]; // TODO: create an error here
+        }];
+    });
 }
 
 - (NSString*)countryCodeFromPhoneSettings

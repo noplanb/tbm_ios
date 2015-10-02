@@ -31,9 +31,11 @@
 - (void)presentGridControllerFromWindow:(UIWindow*)window
 {
     [self _setup];
-    UINavigationController* nc = [UINavigationController new];
-    window.rootViewController = nc;
-    [self presentGridControllerFromNavigationController:nc];
+    ANDispatchBlockToMainQueue(^{
+        UINavigationController* nc = [UINavigationController new];
+        window.rootViewController = nc;
+        [self presentGridControllerFromNavigationController:nc];
+    });
 }
 
 - (void)presentGridControllerFromNavigationController:(UINavigationController *)nc

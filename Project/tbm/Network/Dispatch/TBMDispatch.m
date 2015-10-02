@@ -55,43 +55,53 @@ static BOOL TBMDispatchEnabled = NO;
                                                  name:OBLoggerErrorNotification object:nil];
 }
 
-+ (void)setupDispatchType:(TBMDispatchType)type {
++ (void)setupDispatchType:(TBMDispatchType)type
+{
     tbmDispatchSelectedType = type;
 }
 
-+ (TBMDispatchType)dispatchType {
++ (TBMDispatchType)dispatchType
+{
     return tbmDispatchSelectedType;
 }
 
-+ (void)enable{
++ (void)enable
+{
     TBMDispatchEnabled = YES;
 }
 
-+ (void)disable{
++ (void)disable
+{
     TBMDispatchEnabled = NO;
 }
 
-+ (void) receivedError:(NSNotification *)notification
++ (void)receivedError:(NSNotification *)notification
 {
-    ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
-    if (TBMDispatchEnabled && me.isRegistered)
-    {
-        [TBMDispatch dispatch: [TBMDispatch message:notification.object] logLevel:TBMDispatchLevelError];
-    }
+    ANDispatchBlockToBackgroundQueue(^{
+        ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
+        if (TBMDispatchEnabled && me.isRegistered)
+        {
+            [TBMDispatch dispatch: [TBMDispatch message:notification.object] logLevel:TBMDispatchLevelError];
+        }
+    });
 }
 
-+ (void) dispatch: (NSString *)msg {
++ (void) dispatch: (NSString *)msg
+{
     [self dispatch:msg logLevel:TBMDispatchLevelDebug];
 }
 
-+ (void) dispatch:(NSString *)msg logLevel:(TBMDispatchLevel)logLevel {
-    NSString *log = [msg stringByAppendingFormat:@"\n%@", [TBMStateStringGenerator stateString]];
-    if (tbmDispatchSelectedType == TBMDispatchTypeServer) {
-        [self dispatchViaServer:log];
-    } else {
-        NSString *level = dispatchLevelStringFromDispatchLevel(logLevel);
-        [Rollbar logWithLevel:level message:log];
-    }
++ (void)dispatch:(NSString *)msg logLevel:(TBMDispatchLevel)logLevel
+{
+    ANDispatchBlockToBackgroundQueue(^{
+        NSString *log = [msg stringByAppendingFormat:@"\n%@", [TBMStateStringGenerator stateString]];
+        if (tbmDispatchSelectedType == TBMDispatchTypeServer) {
+            [self dispatchViaServer:log];
+        } else {
+            NSString *level = dispatchLevelStringFromDispatchLevel(logLevel);
+            [Rollbar logWithLevel:level message:log];
+        }
+    });
 }
 
 + (void) dispatchViaServer:(NSString *)msg

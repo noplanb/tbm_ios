@@ -39,10 +39,12 @@
 {
     [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelInfo];
     [ZZContentDataAcessor start];
-    [ANCrashlyticsAdapter start];
-    [ANLogger initializeLogger];
-    [ZZColorTheme shared];
-    [self _handleIncomingCall];
+    ANDispatchBlockToBackgroundQueue(^{
+        [ANCrashlyticsAdapter start];
+        [ANLogger initializeLogger];
+        [ZZColorTheme shared];
+        [self _handleIncomingCall];
+    });
 }
 
 - (BOOL)handleOpenURL:(NSURL*)url inApplication:(NSString*)application
