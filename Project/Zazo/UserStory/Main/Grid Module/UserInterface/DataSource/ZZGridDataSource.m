@@ -76,7 +76,6 @@ ZZGridCenterCellViewModelDelegate
     if (index != NSNotFound)
     {
         ZZGridCellViewModel* viewModel = [self.models objectAtIndex:index];
-        model.isDownloadAnimationViewed = !self.wasInitialSetuped;
         viewModel.item = model;
         viewModel.delegate = self;
         viewModel.hasDownloadedVideo = [model.relatedUser hasIncomingVideo];
