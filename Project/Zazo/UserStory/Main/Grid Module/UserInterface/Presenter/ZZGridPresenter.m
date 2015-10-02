@@ -132,7 +132,8 @@
 - (void)updateGridWithModel:(ZZGridDomainModel*)model isNewFriend:(BOOL)isNewFriend
 {
     [self.dataSource updateCellWithModel:model];
-    [self.userInterface showFriendAnimationWithIndex:[self.dataSource viewModelIndexWithModelIndex:model.index]];
+    NSInteger index = [self.dataSource viewModelIndexWithModelIndex:model.index];
+    [self.userInterface showFriendAnimationWithIndex:index];
     
     if (isNewFriend)
     {

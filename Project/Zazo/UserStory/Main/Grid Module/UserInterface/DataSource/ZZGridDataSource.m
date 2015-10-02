@@ -125,8 +125,11 @@ ZZGridCenterCellViewModelDelegate
     [self.models enumerateObjectsUsingBlock:^(ZZGridCellViewModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[ZZGridCellViewModel class]])
         {
-            item = obj;
-            *stop = YES;
+            if (obj.item.index == index)
+            {
+                item = obj;
+                *stop = YES;
+            }
         }
     }];
     
