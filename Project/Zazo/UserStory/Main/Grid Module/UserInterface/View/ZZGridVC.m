@@ -69,7 +69,7 @@
 - (void)updateWithDataSource:(ZZGridDataSource *)dataSource
 {
     [self.controller updateDataSource:dataSource];
-    self.touchObserver.storage = dataSource.storage;
+//    self.touchObserver.storage = dataSource.storage;
 }
 
 - (void)updateLoadingStateTo:(BOOL)isLoading

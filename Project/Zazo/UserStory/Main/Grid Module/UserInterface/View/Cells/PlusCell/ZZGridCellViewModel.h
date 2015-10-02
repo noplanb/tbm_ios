@@ -26,7 +26,7 @@
                          viewModel:(ZZGridCellViewModel*)viewModel;
 
 - (void)nudgeSelectedWithUserModel:(id)userModel;
-- (BOOL)isVideoPalying;
+- (BOOL)isVideoPlaying;
 
 - (void)addUserToItem:(ZZGridCellViewModel*)model;
 

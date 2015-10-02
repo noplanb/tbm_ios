@@ -8,40 +8,27 @@
 
 #import "ZZGridCenterCell.h"
 #import "ZZGridCell.h"
+#import "ZZGridDataSourceInterface.h"
 
 @class ANMemoryStorage;
 @class ZZGridDomainModel;
 @class ZZGridCellViewModel;
 @class TBMFriend;
 
-@protocol ZZGridDataSourceDelegate <NSObject>
-
-- (void)itemSelectedWithModel:(ZZGridCellViewModel*)model;
-- (void)recordingStateUpdatedToState:(BOOL)isEnabled
-                           viewModel:(ZZGridCellViewModel*)viewModel
-                 withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock;
-
-- (void)toggleVideoWithViewModel:(ZZGridCellViewModel*)model toState:(BOOL)state;
-- (void)nudgeSelectedWithUserModel:(id)userModel;
-- (void)showHint;
-- (void)switchCamera;
-- (BOOL)isVideoPlaying;
-- (void)addUser;
-
-@end
-
 @interface ZZGridDataSource : NSObject
 
-@property (nonatomic, strong) ANMemoryStorage* storage;
 @property (nonatomic, weak) id<ZZGridDataSourceDelegate> delegate;
+@property (nonatomic, weak) id<ZZGridDataSourceControllerDelegate> controllerDelegate;
 
 - (void)setupWithModels:(NSArray*)models;
-- (void)setupCenterViewModelShouldHandleCameraRotation:(BOOL)shouldHandleRotation;
+- (void)updateValueOnCenterCellWithHandleCameraRotation:(BOOL)shouldHandleRotation;
 
-- (void)itemSelectedAtIndexPath:(NSIndexPath*)indexPath;
 - (void)reloadStorage;
 - (void)updateCenterCellWithModel:(ZZGridCenterCellViewModel*)model;
 
 - (ZZGridCenterCellViewModel*)centerViewModel;
+
+- (id)modelAtIndex:(NSInteger)index;
+- (NSInteger)indexForModel:(id)model;
 
 @end
