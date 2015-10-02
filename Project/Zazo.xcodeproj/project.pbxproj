@@ -32,42 +32,6 @@
 		07636DBD1BA49A0100925671 /* TBMVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A031BA49A0000925671 /* TBMVideoPlayer.m */; };
 		07636DBE1BA49A0100925671 /* TBMVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A051BA49A0000925671 /* TBMVideoProcessor.m */; };
 		07636DBF1BA49A0100925671 /* TBMVideoRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A071BA49A0000925671 /* TBMVideoRecorder.m */; };
-		07636DC01BA49A0100925671 /* TBMEventHandlerPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A0D1BA49A0000925671 /* TBMEventHandlerPresenter.m */; };
-		07636DC11BA49A0100925671 /* TBMHintArrow.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A101BA49A0000925671 /* TBMHintArrow.m */; };
-		07636DC21BA49A0100925671 /* TBMHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A121BA49A0000925671 /* TBMHintView.m */; };
-		07636DC31BA49A0100925671 /* TBMEventsFlowDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A161BA49A0000925671 /* TBMEventsFlowDataSource.m */; };
-		07636DC41BA49A0100925671 /* TBMEventsFlowModulePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A1B1BA49A0000925671 /* TBMEventsFlowModulePresenter.m */; };
-		07636DC51BA49A0100925671 /* TBMFeatureUnlockDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A201BA49A0000925671 /* TBMFeatureUnlockDataSource.m */; };
-		07636DC61BA49A0100925671 /* TBMFeatureUnlockModulePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A221BA49A0000925671 /* TBMFeatureUnlockModulePresenter.m */; };
-		07636DC71BA49A0100925671 /* TBMFeatureUnlockDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A261BA49A0000925671 /* TBMFeatureUnlockDialogView.m */; };
-		07636DC81BA49A0100925671 /* TBMAbortRecordUsageHintPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A2A1BA49A0000925671 /* TBMAbortRecordUsageHintPresenter.m */; };
-		07636DC91BA49A0100925671 /* TBMAbortRecordUsageHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A2C1BA49A0000925671 /* TBMAbortRecordUsageHintView.m */; };
-		07636DCA1BA49A0100925671 /* TBMDeleteFriendUsageHintPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A2F1BA49A0000925671 /* TBMDeleteFriendUsageHintPresenter.m */; };
-		07636DCB1BA49A0100925671 /* TBMDeleteFriendUsageHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A311BA49A0000925671 /* TBMDeleteFriendUsageHintView.m */; };
-		07636DCC1BA49A0100925671 /* TBMEarpieceUsageHintPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A341BA49A0000925671 /* TBMEarpieceUsageHintPresenter.m */; };
-		07636DCD1BA49A0100925671 /* TBMEarpieceUsageHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A361BA49A0000925671 /* TBMEarpieceUsageHintView.m */; };
-		07636DCE1BA49A0100925671 /* TBMFrontCameraUsageHintPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A391BA49A0000925671 /* TBMFrontCameraUsageHintPresenter.m */; };
-		07636DCF1BA49A0100925671 /* TBMFrontCameraUsageHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A3B1BA49A0100925671 /* TBMFrontCameraUsageHintView.m */; };
-		07636DD01BA49A0100925671 /* TBMInviteHintPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A3E1BA49A0100925671 /* TBMInviteHintPresenter.m */; };
-		07636DD11BA49A0100925671 /* TBMInviteHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A401BA49A0100925671 /* TBMInviteHintView.m */; };
-		07636DD21BA49A0100925671 /* TBMInviteSomeOneElseHintPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A431BA49A0100925671 /* TBMInviteSomeOneElseHintPresenter.m */; };
-		07636DD31BA49A0100925671 /* TBMInviteSomeoneElseHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A451BA49A0100925671 /* TBMInviteSomeoneElseHintView.m */; };
-		07636DD41BA49A0100925671 /* TBMPlayHintPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A4A1BA49A0100925671 /* TBMPlayHintPresenter.m */; };
-		07636DD51BA49A0100925671 /* TBMPlayHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A4C1BA49A0100925671 /* TBMPlayHintView.m */; };
-		07636DD61BA49A0100925671 /* TBMRecordHintPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A4F1BA49A0100925671 /* TBMRecordHintPresenter.m */; };
-		07636DD71BA49A0100925671 /* TBMRecordHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A511BA49A0100925671 /* TBMRecordHintView.m */; };
-		07636DD81BA49A0100925671 /* TBMRecordWelcomeHintPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A541BA49A0100925671 /* TBMRecordWelcomeHintPresenter.m */; };
-		07636DD91BA49A0100925671 /* TBMRecordWelcomeHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A561BA49A0100925671 /* TBMRecordWelcomeHintView.m */; };
-		07636DDA1BA49A0100925671 /* TBMSentHintPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A591BA49A0100925671 /* TBMSentHintPresenter.m */; };
-		07636DDB1BA49A0100925671 /* TBMSentHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A5B1BA49A0100925671 /* TBMSentHintView.m */; };
-		07636DDC1BA49A0100925671 /* TBMSpinUsageHintPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A5E1BA49A0100925671 /* TBMSpinUsageHintPresenter.m */; };
-		07636DDD1BA49A0100925671 /* TBMSpinUsageHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A601BA49A0100925671 /* TBMSpinUsageHintView.m */; };
-		07636DDE1BA49A0100925671 /* TBMViewedHintPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A631BA49A0100925671 /* TBMViewedHintPresenter.m */; };
-		07636DDF1BA49A0100925671 /* TBMViewedHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A651BA49A0100925671 /* TBMViewedHintView.m */; };
-		07636DE01BA49A0100925671 /* TBMWelcomeHintPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A681BA49A0100925671 /* TBMWelcomeHintPresenter.m */; };
-		07636DE11BA49A0100925671 /* TBMWelcomeHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A6A1BA49A0100925671 /* TBMWelcomeHintView.m */; };
-		07636DE21BA49A0100925671 /* TBMNextFeatureDialogPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A6D1BA49A0100925671 /* TBMNextFeatureDialogPresenter.m */; };
-		07636DE31BA49A0100925671 /* TBMNextFeatureDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A6F1BA49A0100925671 /* TBMNextFeatureDialogView.m */; };
 		07636DE41BA49A0100925671 /* TBMDebugData.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A721BA49A0100925671 /* TBMDebugData.m */; };
 		07636DE91BA49A0100925671 /* TBMFriend+StateProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A7E1BA49A0100925671 /* TBMFriend+StateProtocol.m */; };
 		07636DEA1BA49A0100925671 /* TBMFriendVideosInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A801BA49A0100925671 /* TBMFriendVideosInformation.m */; };
@@ -383,12 +347,10 @@
 		22403C2B19D5E63400FC36E3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22403C2A19D5E63400FC36E3 /* MessageUI.framework */; };
 		224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
 		79123D731BB032C3007E1CBF /* ZZHintsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D721BB032C3007E1CBF /* ZZHintsController.m */; settings = {ASSET_TAGS = (); }; };
-		79123D761BB032D9007E1CBF /* ZZHintsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D751BB032D9007E1CBF /* ZZHintsView.m */; settings = {ASSET_TAGS = (); }; };
 		79123D791BB03359007E1CBF /* ZZHintsConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D781BB03359007E1CBF /* ZZHintsConstants.m */; settings = {ASSET_TAGS = (); }; };
 		79123D861BB14F8E007E1CBF /* ZZHintsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D851BB14F8E007E1CBF /* ZZHintsViewModel.m */; settings = {ASSET_TAGS = (); }; };
 		79123D891BB14F9E007E1CBF /* ZZHintsDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D881BB14F9E007E1CBF /* ZZHintsDomainModel.m */; settings = {ASSET_TAGS = (); }; };
 		79123D8C1BB15002007E1CBF /* ZZHintsModelGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D8B1BB15002007E1CBF /* ZZHintsModelGenerator.m */; settings = {ASSET_TAGS = (); }; };
-		79123D8F1BB1748B007E1CBF /* ZZHintsGotItView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D8E1BB1748B007E1CBF /* ZZHintsGotItView.m */; settings = {ASSET_TAGS = (); }; };
 		7952764A1BA6B4AB00E506D5 /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276471BA6B4AB00E506D5 /* ZZMenuCell.m */; };
 		7952764B1BA6B4AB00E506D5 /* ZZMenuCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276491BA6B4AB00E506D5 /* ZZMenuCellViewModel.m */; };
 		7952764E1BA71F2700E506D5 /* camera-icon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7952764D1BA71F2700E506D5 /* camera-icon.pdf */; };
@@ -401,6 +363,9 @@
 		79EBFD401BA8554100A26684 /* ZZToastMessageBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 79EBFD3F1BA8554100A26684 /* ZZToastMessageBuilder.m */; };
 		DE5C223E15BD5A128DAFDAD1 /* libPods-ZazoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0368F3F1AC201E7765B1898F /* libPods-ZazoTests.a */; };
 		F20151DDD1EA1D5CD6D8CB21 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */; };
+		FE7D83281BBE580C00445108 /* ZZHintsArrow.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7D83231BBE580C00445108 /* ZZHintsArrow.m */; settings = {ASSET_TAGS = (); }; };
+		FE7D83291BBE580C00445108 /* ZZHintsGotItView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7D83251BBE580C00445108 /* ZZHintsGotItView.m */; settings = {ASSET_TAGS = (); }; };
+		FE7D832A1BBE580C00445108 /* ZZHintsView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7D83271BBE580C00445108 /* ZZHintsView.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -488,84 +453,6 @@
 		07636A051BA49A0000925671 /* TBMVideoProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoProcessor.m; sourceTree = "<group>"; };
 		07636A061BA49A0000925671 /* TBMVideoRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoRecorder.h; sourceTree = "<group>"; };
 		07636A071BA49A0000925671 /* TBMVideoRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoRecorder.m; sourceTree = "<group>"; };
-		07636A0A1BA49A0000925671 /* TBMDialogViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDialogViewDelegate.h; sourceTree = "<group>"; };
-		07636A0B1BA49A0000925671 /* TBMDialogViewInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDialogViewInterface.h; sourceTree = "<group>"; };
-		07636A0C1BA49A0000925671 /* TBMEventHandlerPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEventHandlerPresenter.h; sourceTree = "<group>"; };
-		07636A0D1BA49A0000925671 /* TBMEventHandlerPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMEventHandlerPresenter.m; sourceTree = "<group>"; };
-		07636A0F1BA49A0000925671 /* TBMHintArrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHintArrow.h; sourceTree = "<group>"; };
-		07636A101BA49A0000925671 /* TBMHintArrow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHintArrow.m; sourceTree = "<group>"; };
-		07636A111BA49A0000925671 /* TBMHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHintView.h; sourceTree = "<group>"; };
-		07636A121BA49A0000925671 /* TBMHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHintView.m; sourceTree = "<group>"; };
-		07636A151BA49A0000925671 /* TBMEventsFlowDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEventsFlowDataSource.h; sourceTree = "<group>"; };
-		07636A161BA49A0000925671 /* TBMEventsFlowDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMEventsFlowDataSource.m; sourceTree = "<group>"; };
-		07636A181BA49A0000925671 /* TBMEventsFlowModuleEventHandlerInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEventsFlowModuleEventHandlerInterface.h; sourceTree = "<group>"; };
-		07636A191BA49A0000925671 /* TBMEventsFlowModuleInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEventsFlowModuleInterface.h; sourceTree = "<group>"; };
-		07636A1A1BA49A0000925671 /* TBMEventsFlowModulePresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEventsFlowModulePresenter.h; sourceTree = "<group>"; };
-		07636A1B1BA49A0000925671 /* TBMEventsFlowModulePresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMEventsFlowModulePresenter.m; sourceTree = "<group>"; };
-		07636A1E1BA49A0000925671 /* TBMFeatureUnlockModuleInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFeatureUnlockModuleInterface.h; sourceTree = "<group>"; };
-		07636A1F1BA49A0000925671 /* TBMFeatureUnlockDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFeatureUnlockDataSource.h; sourceTree = "<group>"; };
-		07636A201BA49A0000925671 /* TBMFeatureUnlockDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFeatureUnlockDataSource.m; sourceTree = "<group>"; };
-		07636A211BA49A0000925671 /* TBMFeatureUnlockModulePresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFeatureUnlockModulePresenter.h; sourceTree = "<group>"; };
-		07636A221BA49A0000925671 /* TBMFeatureUnlockModulePresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFeatureUnlockModulePresenter.m; sourceTree = "<group>"; };
-		07636A231BA49A0000925671 /* TBMUnlockedFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMUnlockedFeature.h; sourceTree = "<group>"; };
-		07636A251BA49A0000925671 /* TBMFeatureUnlockDialogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFeatureUnlockDialogView.h; sourceTree = "<group>"; };
-		07636A261BA49A0000925671 /* TBMFeatureUnlockDialogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFeatureUnlockDialogView.m; sourceTree = "<group>"; };
-		07636A291BA49A0000925671 /* TBMAbortRecordUsageHintPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAbortRecordUsageHintPresenter.h; sourceTree = "<group>"; };
-		07636A2A1BA49A0000925671 /* TBMAbortRecordUsageHintPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAbortRecordUsageHintPresenter.m; sourceTree = "<group>"; };
-		07636A2B1BA49A0000925671 /* TBMAbortRecordUsageHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAbortRecordUsageHintView.h; sourceTree = "<group>"; };
-		07636A2C1BA49A0000925671 /* TBMAbortRecordUsageHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAbortRecordUsageHintView.m; sourceTree = "<group>"; };
-		07636A2E1BA49A0000925671 /* TBMDeleteFriendUsageHintPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDeleteFriendUsageHintPresenter.h; sourceTree = "<group>"; };
-		07636A2F1BA49A0000925671 /* TBMDeleteFriendUsageHintPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDeleteFriendUsageHintPresenter.m; sourceTree = "<group>"; };
-		07636A301BA49A0000925671 /* TBMDeleteFriendUsageHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDeleteFriendUsageHintView.h; sourceTree = "<group>"; };
-		07636A311BA49A0000925671 /* TBMDeleteFriendUsageHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDeleteFriendUsageHintView.m; sourceTree = "<group>"; };
-		07636A331BA49A0000925671 /* TBMEarpieceUsageHintPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEarpieceUsageHintPresenter.h; sourceTree = "<group>"; };
-		07636A341BA49A0000925671 /* TBMEarpieceUsageHintPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMEarpieceUsageHintPresenter.m; sourceTree = "<group>"; };
-		07636A351BA49A0000925671 /* TBMEarpieceUsageHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEarpieceUsageHintView.h; sourceTree = "<group>"; };
-		07636A361BA49A0000925671 /* TBMEarpieceUsageHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMEarpieceUsageHintView.m; sourceTree = "<group>"; };
-		07636A381BA49A0000925671 /* TBMFrontCameraUsageHintPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFrontCameraUsageHintPresenter.h; sourceTree = "<group>"; };
-		07636A391BA49A0000925671 /* TBMFrontCameraUsageHintPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFrontCameraUsageHintPresenter.m; sourceTree = "<group>"; };
-		07636A3A1BA49A0100925671 /* TBMFrontCameraUsageHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFrontCameraUsageHintView.h; sourceTree = "<group>"; };
-		07636A3B1BA49A0100925671 /* TBMFrontCameraUsageHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFrontCameraUsageHintView.m; sourceTree = "<group>"; };
-		07636A3D1BA49A0100925671 /* TBMInviteHintPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMInviteHintPresenter.h; sourceTree = "<group>"; };
-		07636A3E1BA49A0100925671 /* TBMInviteHintPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMInviteHintPresenter.m; sourceTree = "<group>"; };
-		07636A3F1BA49A0100925671 /* TBMInviteHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMInviteHintView.h; sourceTree = "<group>"; };
-		07636A401BA49A0100925671 /* TBMInviteHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMInviteHintView.m; sourceTree = "<group>"; };
-		07636A421BA49A0100925671 /* TBMInviteSomeOneElseHintPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMInviteSomeOneElseHintPresenter.h; sourceTree = "<group>"; };
-		07636A431BA49A0100925671 /* TBMInviteSomeOneElseHintPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMInviteSomeOneElseHintPresenter.m; sourceTree = "<group>"; };
-		07636A441BA49A0100925671 /* TBMInviteSomeoneElseHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMInviteSomeoneElseHintView.h; sourceTree = "<group>"; };
-		07636A451BA49A0100925671 /* TBMInviteSomeoneElseHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMInviteSomeoneElseHintView.m; sourceTree = "<group>"; };
-		07636A491BA49A0100925671 /* TBMPlayHintPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMPlayHintPresenter.h; sourceTree = "<group>"; };
-		07636A4A1BA49A0100925671 /* TBMPlayHintPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMPlayHintPresenter.m; sourceTree = "<group>"; };
-		07636A4B1BA49A0100925671 /* TBMPlayHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMPlayHintView.h; sourceTree = "<group>"; };
-		07636A4C1BA49A0100925671 /* TBMPlayHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMPlayHintView.m; sourceTree = "<group>"; };
-		07636A4E1BA49A0100925671 /* TBMRecordHintPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMRecordHintPresenter.h; sourceTree = "<group>"; };
-		07636A4F1BA49A0100925671 /* TBMRecordHintPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMRecordHintPresenter.m; sourceTree = "<group>"; };
-		07636A501BA49A0100925671 /* TBMRecordHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMRecordHintView.h; sourceTree = "<group>"; };
-		07636A511BA49A0100925671 /* TBMRecordHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMRecordHintView.m; sourceTree = "<group>"; };
-		07636A531BA49A0100925671 /* TBMRecordWelcomeHintPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMRecordWelcomeHintPresenter.h; sourceTree = "<group>"; };
-		07636A541BA49A0100925671 /* TBMRecordWelcomeHintPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMRecordWelcomeHintPresenter.m; sourceTree = "<group>"; };
-		07636A551BA49A0100925671 /* TBMRecordWelcomeHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMRecordWelcomeHintView.h; sourceTree = "<group>"; };
-		07636A561BA49A0100925671 /* TBMRecordWelcomeHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMRecordWelcomeHintView.m; sourceTree = "<group>"; };
-		07636A581BA49A0100925671 /* TBMSentHintPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSentHintPresenter.h; sourceTree = "<group>"; };
-		07636A591BA49A0100925671 /* TBMSentHintPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSentHintPresenter.m; sourceTree = "<group>"; };
-		07636A5A1BA49A0100925671 /* TBMSentHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSentHintView.h; sourceTree = "<group>"; };
-		07636A5B1BA49A0100925671 /* TBMSentHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSentHintView.m; sourceTree = "<group>"; };
-		07636A5D1BA49A0100925671 /* TBMSpinUsageHintPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSpinUsageHintPresenter.h; sourceTree = "<group>"; };
-		07636A5E1BA49A0100925671 /* TBMSpinUsageHintPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSpinUsageHintPresenter.m; sourceTree = "<group>"; };
-		07636A5F1BA49A0100925671 /* TBMSpinUsageHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSpinUsageHintView.h; sourceTree = "<group>"; };
-		07636A601BA49A0100925671 /* TBMSpinUsageHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSpinUsageHintView.m; sourceTree = "<group>"; };
-		07636A621BA49A0100925671 /* TBMViewedHintPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMViewedHintPresenter.h; sourceTree = "<group>"; };
-		07636A631BA49A0100925671 /* TBMViewedHintPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMViewedHintPresenter.m; sourceTree = "<group>"; };
-		07636A641BA49A0100925671 /* TBMViewedHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMViewedHintView.h; sourceTree = "<group>"; };
-		07636A651BA49A0100925671 /* TBMViewedHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMViewedHintView.m; sourceTree = "<group>"; };
-		07636A671BA49A0100925671 /* TBMWelcomeHintPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMWelcomeHintPresenter.h; sourceTree = "<group>"; };
-		07636A681BA49A0100925671 /* TBMWelcomeHintPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMWelcomeHintPresenter.m; sourceTree = "<group>"; };
-		07636A691BA49A0100925671 /* TBMWelcomeHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMWelcomeHintView.h; sourceTree = "<group>"; };
-		07636A6A1BA49A0100925671 /* TBMWelcomeHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMWelcomeHintView.m; sourceTree = "<group>"; };
-		07636A6C1BA49A0100925671 /* TBMNextFeatureDialogPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMNextFeatureDialogPresenter.h; sourceTree = "<group>"; };
-		07636A6D1BA49A0100925671 /* TBMNextFeatureDialogPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMNextFeatureDialogPresenter.m; sourceTree = "<group>"; };
-		07636A6E1BA49A0100925671 /* TBMNextFeatureDialogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMNextFeatureDialogView.h; sourceTree = "<group>"; };
-		07636A6F1BA49A0100925671 /* TBMNextFeatureDialogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMNextFeatureDialogView.m; sourceTree = "<group>"; };
 		07636A711BA49A0100925671 /* TBMDebugData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDebugData.h; sourceTree = "<group>"; };
 		07636A721BA49A0100925671 /* TBMDebugData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDebugData.m; sourceTree = "<group>"; };
 		07636A7D1BA49A0100925671 /* TBMFriend+StateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMFriend+StateProtocol.h"; sourceTree = "<group>"; };
@@ -1158,11 +1045,8 @@
 		41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		5988C69CC62CF4472CA2040A /* Pods-Zazo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.debug.xcconfig"; sourceTree = "<group>"; };
-		682D6CAC9A6769375C4786EB /* TBMEventFlowEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMEventFlowEvent.h; sourceTree = "<group>"; };
 		79123D711BB032C3007E1CBF /* ZZHintsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsController.h; sourceTree = "<group>"; };
 		79123D721BB032C3007E1CBF /* ZZHintsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsController.m; sourceTree = "<group>"; };
-		79123D741BB032D9007E1CBF /* ZZHintsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsView.h; sourceTree = "<group>"; };
-		79123D751BB032D9007E1CBF /* ZZHintsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsView.m; sourceTree = "<group>"; };
 		79123D771BB03359007E1CBF /* ZZHintsConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsConstants.h; sourceTree = "<group>"; };
 		79123D781BB03359007E1CBF /* ZZHintsConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsConstants.m; sourceTree = "<group>"; };
 		79123D841BB14F8E007E1CBF /* ZZHintsViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsViewModel.h; sourceTree = "<group>"; };
@@ -1171,8 +1055,6 @@
 		79123D881BB14F9E007E1CBF /* ZZHintsDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsDomainModel.m; sourceTree = "<group>"; };
 		79123D8A1BB15002007E1CBF /* ZZHintsModelGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsModelGenerator.h; sourceTree = "<group>"; };
 		79123D8B1BB15002007E1CBF /* ZZHintsModelGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsModelGenerator.m; sourceTree = "<group>"; };
-		79123D8D1BB1748B007E1CBF /* ZZHintsGotItView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsGotItView.h; sourceTree = "<group>"; };
-		79123D8E1BB1748B007E1CBF /* ZZHintsGotItView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsGotItView.m; sourceTree = "<group>"; };
 		795276461BA6B4AB00E506D5 /* ZZMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCell.h; sourceTree = "<group>"; };
 		795276471BA6B4AB00E506D5 /* ZZMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCell.m; sourceTree = "<group>"; };
 		795276481BA6B4AB00E506D5 /* ZZMenuCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCellViewModel.h; sourceTree = "<group>"; };
@@ -1197,6 +1079,13 @@
 		B1860DB43B6E70D5AEF73EF4 /* Pods-Zazo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.release.xcconfig"; sourceTree = "<group>"; };
 		C4392BF41AD48118C492A226 /* Pods-Zazo.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.ad-hoc.xcconfig"; sourceTree = "<group>"; };
 		EBC6C0A37344F4BEEFA60089 /* Pods-ZazoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.release.xcconfig"; sourceTree = "<group>"; };
+		FE7D83201BBE57BB00445108 /* ZZGridPart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZGridPart.h; path = Views/ZZGridPart.h; sourceTree = "<group>"; };
+		FE7D83221BBE580C00445108 /* ZZHintsArrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsArrow.h; sourceTree = "<group>"; };
+		FE7D83231BBE580C00445108 /* ZZHintsArrow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsArrow.m; sourceTree = "<group>"; };
+		FE7D83241BBE580C00445108 /* ZZHintsGotItView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsGotItView.h; sourceTree = "<group>"; };
+		FE7D83251BBE580C00445108 /* ZZHintsGotItView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsGotItView.m; sourceTree = "<group>"; };
+		FE7D83261BBE580C00445108 /* ZZHintsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsView.h; sourceTree = "<group>"; };
+		FE7D83271BBE580C00445108 /* ZZHintsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1417,273 +1306,10 @@
 		07636A081BA49A0000925671 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				07636A091BA49A0000925671 /* Common Classes */,
-				07636A131BA49A0000925671 /* Events Flow Module */,
-				07636A1C1BA49A0000925671 /* Features Unlock Module */,
-				07636A271BA49A0000925671 /* Hints */,
-				07636A6B1BA49A0100925671 /* Next Feature Dialog Module */,
 				07636A701BA49A0100925671 /* Secret Screen Module */,
 				07636A7B1BA49A0100925671 /* State module */,
 			);
 			path = Modules;
-			sourceTree = "<group>";
-		};
-		07636A091BA49A0000925671 /* Common Classes */ = {
-			isa = PBXGroup;
-			children = (
-				07636A0A1BA49A0000925671 /* TBMDialogViewDelegate.h */,
-				07636A0B1BA49A0000925671 /* TBMDialogViewInterface.h */,
-				07636A0C1BA49A0000925671 /* TBMEventHandlerPresenter.h */,
-				07636A0D1BA49A0000925671 /* TBMEventHandlerPresenter.m */,
-				07636A0E1BA49A0000925671 /* Views */,
-			);
-			path = "Common Classes";
-			sourceTree = "<group>";
-		};
-		07636A0E1BA49A0000925671 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				07636A0F1BA49A0000925671 /* TBMHintArrow.h */,
-				07636A101BA49A0000925671 /* TBMHintArrow.m */,
-				07636A111BA49A0000925671 /* TBMHintView.h */,
-				07636A121BA49A0000925671 /* TBMHintView.m */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		07636A131BA49A0000925671 /* Events Flow Module */ = {
-			isa = PBXGroup;
-			children = (
-				07636A141BA49A0000925671 /* Data Source */,
-				07636A171BA49A0000925671 /* Module Interface */,
-				07636A1A1BA49A0000925671 /* TBMEventsFlowModulePresenter.h */,
-				07636A1B1BA49A0000925671 /* TBMEventsFlowModulePresenter.m */,
-			);
-			path = "Events Flow Module";
-			sourceTree = "<group>";
-		};
-		07636A141BA49A0000925671 /* Data Source */ = {
-			isa = PBXGroup;
-			children = (
-				07636A151BA49A0000925671 /* TBMEventsFlowDataSource.h */,
-				07636A161BA49A0000925671 /* TBMEventsFlowDataSource.m */,
-			);
-			path = "Data Source";
-			sourceTree = "<group>";
-		};
-		07636A171BA49A0000925671 /* Module Interface */ = {
-			isa = PBXGroup;
-			children = (
-				07636A181BA49A0000925671 /* TBMEventsFlowModuleEventHandlerInterface.h */,
-				07636A191BA49A0000925671 /* TBMEventsFlowModuleInterface.h */,
-				682D6CAC9A6769375C4786EB /* TBMEventFlowEvent.h */,
-			);
-			path = "Module Interface";
-			sourceTree = "<group>";
-		};
-		07636A1C1BA49A0000925671 /* Features Unlock Module */ = {
-			isa = PBXGroup;
-			children = (
-				07636A1D1BA49A0000925671 /* Module Interface */,
-				07636A1F1BA49A0000925671 /* TBMFeatureUnlockDataSource.h */,
-				07636A201BA49A0000925671 /* TBMFeatureUnlockDataSource.m */,
-				07636A211BA49A0000925671 /* TBMFeatureUnlockModulePresenter.h */,
-				07636A221BA49A0000925671 /* TBMFeatureUnlockModulePresenter.m */,
-				07636A231BA49A0000925671 /* TBMUnlockedFeature.h */,
-				07636A241BA49A0000925671 /* View */,
-			);
-			path = "Features Unlock Module";
-			sourceTree = "<group>";
-		};
-		07636A1D1BA49A0000925671 /* Module Interface */ = {
-			isa = PBXGroup;
-			children = (
-				07636A1E1BA49A0000925671 /* TBMFeatureUnlockModuleInterface.h */,
-			);
-			path = "Module Interface";
-			sourceTree = "<group>";
-		};
-		07636A241BA49A0000925671 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				07636A251BA49A0000925671 /* TBMFeatureUnlockDialogView.h */,
-				07636A261BA49A0000925671 /* TBMFeatureUnlockDialogView.m */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		07636A271BA49A0000925671 /* Hints */ = {
-			isa = PBXGroup;
-			children = (
-				07636A281BA49A0000925671 /* Abort Record Usage Hint */,
-				07636A2D1BA49A0000925671 /* Delete Friend Usage Hint */,
-				07636A321BA49A0000925671 /* Earpiece Usage Hint */,
-				07636A371BA49A0000925671 /* Front Camera Usage Hint */,
-				07636A3C1BA49A0100925671 /* Invite Hint */,
-				07636A411BA49A0100925671 /* Invite Someone Else Hint */,
-				07636A481BA49A0100925671 /* Play Hint */,
-				07636A4D1BA49A0100925671 /* Record Hint */,
-				07636A521BA49A0100925671 /* Record Welcome Hint */,
-				07636A571BA49A0100925671 /* Sent Hint */,
-				07636A5C1BA49A0100925671 /* Spin Usage Hint */,
-				07636A611BA49A0100925671 /* Viewed Hint */,
-				07636A661BA49A0100925671 /* Welcome Hint */,
-			);
-			path = Hints;
-			sourceTree = "<group>";
-		};
-		07636A281BA49A0000925671 /* Abort Record Usage Hint */ = {
-			isa = PBXGroup;
-			children = (
-				07636A291BA49A0000925671 /* TBMAbortRecordUsageHintPresenter.h */,
-				07636A2A1BA49A0000925671 /* TBMAbortRecordUsageHintPresenter.m */,
-				07636A2B1BA49A0000925671 /* TBMAbortRecordUsageHintView.h */,
-				07636A2C1BA49A0000925671 /* TBMAbortRecordUsageHintView.m */,
-			);
-			path = "Abort Record Usage Hint";
-			sourceTree = "<group>";
-		};
-		07636A2D1BA49A0000925671 /* Delete Friend Usage Hint */ = {
-			isa = PBXGroup;
-			children = (
-				07636A2E1BA49A0000925671 /* TBMDeleteFriendUsageHintPresenter.h */,
-				07636A2F1BA49A0000925671 /* TBMDeleteFriendUsageHintPresenter.m */,
-				07636A301BA49A0000925671 /* TBMDeleteFriendUsageHintView.h */,
-				07636A311BA49A0000925671 /* TBMDeleteFriendUsageHintView.m */,
-			);
-			path = "Delete Friend Usage Hint";
-			sourceTree = "<group>";
-		};
-		07636A321BA49A0000925671 /* Earpiece Usage Hint */ = {
-			isa = PBXGroup;
-			children = (
-				07636A331BA49A0000925671 /* TBMEarpieceUsageHintPresenter.h */,
-				07636A341BA49A0000925671 /* TBMEarpieceUsageHintPresenter.m */,
-				07636A351BA49A0000925671 /* TBMEarpieceUsageHintView.h */,
-				07636A361BA49A0000925671 /* TBMEarpieceUsageHintView.m */,
-			);
-			path = "Earpiece Usage Hint";
-			sourceTree = "<group>";
-		};
-		07636A371BA49A0000925671 /* Front Camera Usage Hint */ = {
-			isa = PBXGroup;
-			children = (
-				07636A381BA49A0000925671 /* TBMFrontCameraUsageHintPresenter.h */,
-				07636A391BA49A0000925671 /* TBMFrontCameraUsageHintPresenter.m */,
-				07636A3A1BA49A0100925671 /* TBMFrontCameraUsageHintView.h */,
-				07636A3B1BA49A0100925671 /* TBMFrontCameraUsageHintView.m */,
-			);
-			path = "Front Camera Usage Hint";
-			sourceTree = "<group>";
-		};
-		07636A3C1BA49A0100925671 /* Invite Hint */ = {
-			isa = PBXGroup;
-			children = (
-				07636A3D1BA49A0100925671 /* TBMInviteHintPresenter.h */,
-				07636A3E1BA49A0100925671 /* TBMInviteHintPresenter.m */,
-				07636A3F1BA49A0100925671 /* TBMInviteHintView.h */,
-				07636A401BA49A0100925671 /* TBMInviteHintView.m */,
-			);
-			path = "Invite Hint";
-			sourceTree = "<group>";
-		};
-		07636A411BA49A0100925671 /* Invite Someone Else Hint */ = {
-			isa = PBXGroup;
-			children = (
-				07636A421BA49A0100925671 /* TBMInviteSomeOneElseHintPresenter.h */,
-				07636A431BA49A0100925671 /* TBMInviteSomeOneElseHintPresenter.m */,
-				07636A441BA49A0100925671 /* TBMInviteSomeoneElseHintView.h */,
-				07636A451BA49A0100925671 /* TBMInviteSomeoneElseHintView.m */,
-			);
-			path = "Invite Someone Else Hint";
-			sourceTree = "<group>";
-		};
-		07636A481BA49A0100925671 /* Play Hint */ = {
-			isa = PBXGroup;
-			children = (
-				07636A491BA49A0100925671 /* TBMPlayHintPresenter.h */,
-				07636A4A1BA49A0100925671 /* TBMPlayHintPresenter.m */,
-				07636A4B1BA49A0100925671 /* TBMPlayHintView.h */,
-				07636A4C1BA49A0100925671 /* TBMPlayHintView.m */,
-			);
-			path = "Play Hint";
-			sourceTree = "<group>";
-		};
-		07636A4D1BA49A0100925671 /* Record Hint */ = {
-			isa = PBXGroup;
-			children = (
-				07636A4E1BA49A0100925671 /* TBMRecordHintPresenter.h */,
-				07636A4F1BA49A0100925671 /* TBMRecordHintPresenter.m */,
-				07636A501BA49A0100925671 /* TBMRecordHintView.h */,
-				07636A511BA49A0100925671 /* TBMRecordHintView.m */,
-			);
-			path = "Record Hint";
-			sourceTree = "<group>";
-		};
-		07636A521BA49A0100925671 /* Record Welcome Hint */ = {
-			isa = PBXGroup;
-			children = (
-				07636A531BA49A0100925671 /* TBMRecordWelcomeHintPresenter.h */,
-				07636A541BA49A0100925671 /* TBMRecordWelcomeHintPresenter.m */,
-				07636A551BA49A0100925671 /* TBMRecordWelcomeHintView.h */,
-				07636A561BA49A0100925671 /* TBMRecordWelcomeHintView.m */,
-			);
-			path = "Record Welcome Hint";
-			sourceTree = "<group>";
-		};
-		07636A571BA49A0100925671 /* Sent Hint */ = {
-			isa = PBXGroup;
-			children = (
-				07636A581BA49A0100925671 /* TBMSentHintPresenter.h */,
-				07636A591BA49A0100925671 /* TBMSentHintPresenter.m */,
-				07636A5A1BA49A0100925671 /* TBMSentHintView.h */,
-				07636A5B1BA49A0100925671 /* TBMSentHintView.m */,
-			);
-			path = "Sent Hint";
-			sourceTree = "<group>";
-		};
-		07636A5C1BA49A0100925671 /* Spin Usage Hint */ = {
-			isa = PBXGroup;
-			children = (
-				07636A5D1BA49A0100925671 /* TBMSpinUsageHintPresenter.h */,
-				07636A5E1BA49A0100925671 /* TBMSpinUsageHintPresenter.m */,
-				07636A5F1BA49A0100925671 /* TBMSpinUsageHintView.h */,
-				07636A601BA49A0100925671 /* TBMSpinUsageHintView.m */,
-			);
-			path = "Spin Usage Hint";
-			sourceTree = "<group>";
-		};
-		07636A611BA49A0100925671 /* Viewed Hint */ = {
-			isa = PBXGroup;
-			children = (
-				07636A621BA49A0100925671 /* TBMViewedHintPresenter.h */,
-				07636A631BA49A0100925671 /* TBMViewedHintPresenter.m */,
-				07636A641BA49A0100925671 /* TBMViewedHintView.h */,
-				07636A651BA49A0100925671 /* TBMViewedHintView.m */,
-			);
-			path = "Viewed Hint";
-			sourceTree = "<group>";
-		};
-		07636A661BA49A0100925671 /* Welcome Hint */ = {
-			isa = PBXGroup;
-			children = (
-				07636A671BA49A0100925671 /* TBMWelcomeHintPresenter.h */,
-				07636A681BA49A0100925671 /* TBMWelcomeHintPresenter.m */,
-				07636A691BA49A0100925671 /* TBMWelcomeHintView.h */,
-				07636A6A1BA49A0100925671 /* TBMWelcomeHintView.m */,
-			);
-			path = "Welcome Hint";
-			sourceTree = "<group>";
-		};
-		07636A6B1BA49A0100925671 /* Next Feature Dialog Module */ = {
-			isa = PBXGroup;
-			children = (
-				07636A6C1BA49A0100925671 /* TBMNextFeatureDialogPresenter.h */,
-				07636A6D1BA49A0100925671 /* TBMNextFeatureDialogPresenter.m */,
-				07636A6E1BA49A0100925671 /* TBMNextFeatureDialogView.h */,
-				07636A6F1BA49A0100925671 /* TBMNextFeatureDialogView.m */,
-			);
-			path = "Next Feature Dialog Module";
 			sourceTree = "<group>";
 		};
 		07636A701BA49A0100925671 /* Secret Screen Module */ = {
@@ -3278,6 +2904,7 @@
 				07636CB01BA49A0100925671 /* Cells */,
 				07636CCB1BA49A0100925671 /* Controller */,
 				07636CCE1BA49A0100925671 /* Views */,
+				FE7D83201BBE57BB00445108 /* ZZGridPart.h */,
 				07636CE61BA49A0100925671 /* ZZGridUIConstants.h */,
 				07636CE71BA49A0100925671 /* ZZGridVC.h */,
 				07636CE81BA49A0100925671 /* ZZGridVC.m */,
@@ -4176,14 +3803,11 @@
 		79123D701BB032B7007E1CBF /* Hints */ = {
 			isa = PBXGroup;
 			children = (
+				FE7D83211BBE580C00445108 /* Views */,
 				79123D771BB03359007E1CBF /* ZZHintsConstants.h */,
 				79123D781BB03359007E1CBF /* ZZHintsConstants.m */,
 				79123D711BB032C3007E1CBF /* ZZHintsController.h */,
 				79123D721BB032C3007E1CBF /* ZZHintsController.m */,
-				79123D741BB032D9007E1CBF /* ZZHintsView.h */,
-				79123D751BB032D9007E1CBF /* ZZHintsView.m */,
-				79123D8D1BB1748B007E1CBF /* ZZHintsGotItView.h */,
-				79123D8E1BB1748B007E1CBF /* ZZHintsGotItView.m */,
 				79123D831BB14F77007E1CBF /* Models */,
 				79123D8A1BB15002007E1CBF /* ZZHintsModelGenerator.h */,
 				79123D8B1BB15002007E1CBF /* ZZHintsModelGenerator.m */,
@@ -4251,6 +3875,19 @@
 				A0ECBE9A7392F431C5ADE072 /* Pods-ZazoTests.ad-hoc.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		FE7D83211BBE580C00445108 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FE7D83221BBE580C00445108 /* ZZHintsArrow.h */,
+				FE7D83231BBE580C00445108 /* ZZHintsArrow.m */,
+				FE7D83241BBE580C00445108 /* ZZHintsGotItView.h */,
+				FE7D83251BBE580C00445108 /* ZZHintsGotItView.m */,
+				FE7D83261BBE580C00445108 /* ZZHintsView.h */,
+				FE7D83271BBE580C00445108 /* ZZHintsView.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -4522,7 +4159,6 @@
 				07636F031BA49A0100925671 /* ANScrollHandler.m in Sources */,
 				07636E171BA49A0100925671 /* ZZAppDelegate.m in Sources */,
 				07636E921BA49A0100925671 /* ZZAuthTextField.m in Sources */,
-				07636DC21BA49A0100925671 /* TBMHintView.m in Sources */,
 				07636E2D1BA49A0100925671 /* ZZGridDomainModel.m in Sources */,
 				07636DF51BA49A0100925671 /* TBMHttpManager.m in Sources */,
 				07636EFC1BA49A0100925671 /* ANNetworkRetryView.m in Sources */,
@@ -4530,10 +4166,8 @@
 				07636ED71BA49A0100925671 /* ZZMenuView.m in Sources */,
 				07636EBA1BA49A0100925671 /* ZZGridInteractor.m in Sources */,
 				07636ED01BA49A0100925671 /* ZZRotator.m in Sources */,
-				07636DD01BA49A0100925671 /* TBMInviteHintPresenter.m in Sources */,
 				07636E2E1BA49A0100925671 /* ZZS3CredentialsDomainModel.m in Sources */,
 				07636E901BA49A0100925671 /* ZZAuthContentView.m in Sources */,
-				07636DC81BA49A0100925671 /* TBMAbortRecordUsageHintPresenter.m in Sources */,
 				07636F101BA49A0100925671 /* NSString+MD5.m in Sources */,
 				7997E4FA1BAABE85001697D5 /* UIColor+JFMinimalNotificationColors.m in Sources */,
 				07636EF61BA49A0100925671 /* ANMessageDomainModel.m in Sources */,
@@ -4542,12 +4176,12 @@
 				07636EE31BA49A0100925671 /* ANAnimator.m in Sources */,
 				07636EE01BA49A0100925671 /* ZZStartView.m in Sources */,
 				07636DE91BA49A0100925671 /* TBMFriend+StateProtocol.m in Sources */,
+				FE7D832A1BBE580C00445108 /* ZZHintsView.m in Sources */,
 				07636ECF1BA49A0100925671 /* ZZRotationGestureRecognizer.m in Sources */,
 				07636E361BA49A0100925671 /* ZZFriendsTransport.m in Sources */,
 				7997E4EB1BAABE2F001697D5 /* ZZGridActionStoredSettings.m in Sources */,
 				7997E4F71BAABE85001697D5 /* JFMinimalNotification.m in Sources */,
 				07636F121BA49A0100925671 /* UIImage+PDF.m in Sources */,
-				07636DC31BA49A0100925671 /* TBMEventsFlowDataSource.m in Sources */,
 				07636E941BA49A0100925671 /* ZZAuthWireframe.m in Sources */,
 				070560FA1BA8736600C130E0 /* ZZGridActionDataProvider.m in Sources */,
 				07636EFD1BA49A0100925671 /* ANNetworkActivityManager.m in Sources */,
@@ -4574,22 +4208,16 @@
 				07636E8E1BA49A0100925671 /* ZZAuthInteractor.m in Sources */,
 				07636E421BA49A0100925671 /* TBMVideo.m in Sources */,
 				07636E9A1BA49A0100925671 /* ZZDebugStateItemDomainModel.m in Sources */,
-				07636DC11BA49A0100925671 /* TBMHintArrow.m in Sources */,
 				07636ED11BA49A0100925671 /* ZZTouchObserver.m in Sources */,
 				07636EC71BA49A0100925671 /* ZZGridCellViewModel.m in Sources */,
 				07BAA7051BB18DD2009878B9 /* NSArray+TBMArrayHelpers.m in Sources */,
 				07636EB51BA49A0100925671 /* ZZEditFriendCellViewModel.m in Sources */,
 				7952764B1BA6B4AB00E506D5 /* ZZMenuCellViewModel.m in Sources */,
-				07636DCE1BA49A0100925671 /* TBMFrontCameraUsageHintPresenter.m in Sources */,
 				07636E401BA49A0100925671 /* TBMGridElement.m in Sources */,
 				07636E991BA49A0100925671 /* ZZDebugStateDomainModel.m in Sources */,
 				07636DAC1BA49A0100925671 /* AVAudioSession+TBMAudioSession.m in Sources */,
 				07636EF51BA49A0100925671 /* ANImageCache.m in Sources */,
-				07636DD81BA49A0100925671 /* TBMRecordWelcomeHintPresenter.m in Sources */,
-				07636DDE1BA49A0100925671 /* TBMViewedHintPresenter.m in Sources */,
-				07636DC91BA49A0100925671 /* TBMAbortRecordUsageHintView.m in Sources */,
 				07636EA21BA49A0100925671 /* ZZSecretInteractor.m in Sources */,
-				07636DCB1BA49A0100925671 /* TBMDeleteFriendUsageHintView.m in Sources */,
 				07636E321BA49A0100925671 /* ZZAccountTransport.m in Sources */,
 				07636ED21BA49A0100925671 /* ZZGridVC.m in Sources */,
 				07636F0C1BA49A0100925671 /* TOActivitySafari.m in Sources */,
@@ -4612,35 +4240,26 @@
 				07636F0E1BA49A0100925671 /* UIImage+TOWebViewControllerIcons.m in Sources */,
 				07636E3B1BA49A0100925671 /* ZZNotificationTransportService.m in Sources */,
 				07636E041BA49A0100925671 /* TBMPreviewView.m in Sources */,
-				07636DDF1BA49A0100925671 /* TBMViewedHintView.m in Sources */,
 				07636ED41BA49A0100925671 /* ZZMenuInteractor.m in Sources */,
 				07636EEC1BA49A0100925671 /* ANCrashlyticsAdapter.m in Sources */,
 				07636EC51BA49A0100925671 /* ZZGridStateViewRecord.m in Sources */,
 				071F18E91BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.m in Sources */,
-				07636DE21BA49A0100925671 /* TBMNextFeatureDialogPresenter.m in Sources */,
-				07636DDC1BA49A0100925671 /* TBMSpinUsageHintPresenter.m in Sources */,
 				07636DEB1BA49A0100925671 /* TBMStateDataSource.m in Sources */,
 				07636DA91BA49A0100925671 /* TBMAppDelegate+Boot.m in Sources */,
 				07636EBD1BA49A0100925671 /* ZZGridPresenter.m in Sources */,
-				07636DD91BA49A0100925671 /* TBMRecordWelcomeHintView.m in Sources */,
-				07636DD61BA49A0100925671 /* TBMRecordHintPresenter.m in Sources */,
 				07829D641BB2A9A80000D5D9 /* ZZCommonModelsGenerator.m in Sources */,
 				18C947E41BB566A500D31B99 /* _TBMFriend.m in Sources */,
 				07636E3C1BA49A0100925671 /* ZZNetworkTransport.m in Sources */,
 				07636E9B1BA49A0100925671 /* ZZDebugStateDataSource.m in Sources */,
 				07636E591BA49A0100925671 /* ZZSoundPlayer.m in Sources */,
 				07636EA01BA49A0100925671 /* ZZDebugStateVC.m in Sources */,
-				07636DE01BA49A0100925671 /* TBMWelcomeHintPresenter.m in Sources */,
 				07636EA81BA49A0100925671 /* ZZSecretSegmentCellViewModel.m in Sources */,
 				07636EB81BA49A0100925671 /* ZZEditFriendListVC.m in Sources */,
 				07636E0E1BA49A0100925671 /* TBMHomeViewController+Invite.m in Sources */,
 				07636F011BA49A0100925671 /* ANNetworkRequest.m in Sources */,
 				07636EE91BA49A0100925671 /* NSObject+ANUserDefaults.m in Sources */,
 				07636E4E1BA49A0100925671 /* ZZConfig.m in Sources */,
-				07636DD41BA49A0100925671 /* TBMPlayHintPresenter.m in Sources */,
 				07636EEE1BA49A0100925671 /* ANErrorBuilder.m in Sources */,
-				07636DC41BA49A0100925671 /* TBMEventsFlowModulePresenter.m in Sources */,
-				07636DDB1BA49A0100925671 /* TBMSentHintView.m in Sources */,
 				07636F111BA49A0100925671 /* PDFView.m in Sources */,
 				07636E8F1BA49A0100925671 /* ZZAuthPresenter.m in Sources */,
 				07636EC31BA49A0100925671 /* ZZGridStateViewNudge.m in Sources */,
@@ -4659,7 +4278,6 @@
 				07636EC41BA49A0100925671 /* ZZGridStateViewPreview.m in Sources */,
 				07636EBB1BA49A0100925671 /* ZZGridAlertBuilder.m in Sources */,
 				07636DB11BA49A0100925671 /* NSString+NSStringExtensions.m in Sources */,
-				07636DCA1BA49A0100925671 /* TBMDeleteFriendUsageHintPresenter.m in Sources */,
 				07636DAF1BA49A0100925671 /* NSError+Extensions.m in Sources */,
 				07636E981BA49A0100925671 /* ZZDebugStateInteractor.m in Sources */,
 				07636DBF1BA49A0100925671 /* TBMVideoRecorder.m in Sources */,
@@ -4670,18 +4288,15 @@
 				07636E191BA49A0100925671 /* ZZAppDependencies.m in Sources */,
 				07636EEB1BA49A0100925671 /* UIImageView+ANLoadingAdditions.m in Sources */,
 				07636E021BA49A0100925671 /* TBMLongPressTouchHandler.m in Sources */,
-				79123D761BB032D9007E1CBF /* ZZHintsView.m in Sources */,
-				07636DC61BA49A0100925671 /* TBMFeatureUnlockModulePresenter.m in Sources */,
-				79123D8F1BB1748B007E1CBF /* ZZHintsGotItView.m in Sources */,
 				07636E261BA49A0100925671 /* ZZGridModelsMapper.m in Sources */,
 				07636DAB1BA49A0100925671 /* TBMAppDelegate.m in Sources */,
 				07636F001BA49A0100925671 /* ANEnumAdditions.m in Sources */,
 				07636E561BA49A0100925671 /* ZZTouchControllerWithTouchDelay.m in Sources */,
 				07636ED61BA49A0100925671 /* ZZMenuPresenter.m in Sources */,
 				07636E5C1BA49A0100925671 /* ZZVideoPlayer.m in Sources */,
+				FE7D83291BBE580C00445108 /* ZZHintsGotItView.m in Sources */,
 				07636F131BA49A0100925671 /* UIView+Image.m in Sources */,
 				07636E3F1BA49A0100925671 /* TBMFriend.m in Sources */,
-				07636DDD1BA49A0100925671 /* TBMSpinUsageHintView.m in Sources */,
 				07636E2F1BA49A0100925671 /* ZZFriendDomainModel.m in Sources */,
 				07636EEA1BA49A0100925671 /* NSString+ZZAdditions.m in Sources */,
 				79123D861BB14F8E007E1CBF /* ZZHintsViewModel.m in Sources */,
@@ -4692,12 +4307,12 @@
 				07636DEE1BA49A0100925671 /* TBMVideo+StateProtocol.m in Sources */,
 				18C947E71BB566A500D31B99 /* _TBMVideo.m in Sources */,
 				07636DED1BA49A0100925671 /* TBMStateStringGenerator.m in Sources */,
+				FE7D83281BBE580C00445108 /* ZZHintsArrow.m in Sources */,
 				07636F0B1BA49A0100925671 /* TOActivityChrome.m in Sources */,
 				07636E371BA49A0100925671 /* ZZFriendsTransportService.m in Sources */,
 				18C947E51BB566A500D31B99 /* _TBMGridElement.m in Sources */,
 				07636E301BA49A0100925671 /* ZZUserDomainModel.m in Sources */,
 				07636E5A1BA49A0100925671 /* ZZStoredSettingsManager.m in Sources */,
-				07636DE31BA49A0100925671 /* TBMNextFeatureDialogView.m in Sources */,
 				07636DF41BA49A0100925671 /* TBMFriendGetter.m in Sources */,
 				070238D81BB430B200B8197E /* ZZApplicationVersionEnumHelper.m in Sources */,
 				07636EC11BA49A0100925671 /* ZZGridStateView+Animation.m in Sources */,
@@ -4707,18 +4322,13 @@
 				07636EE21BA49A0100925671 /* ANActivityIndicator.m in Sources */,
 				07636E2C1BA49A0100925671 /* ZZContactDomainModel.m in Sources */,
 				7997E4F91BAABE85001697D5 /* NSInvocation+Constructors.m in Sources */,
-				07636DD21BA49A0100925671 /* TBMInviteSomeOneElseHintPresenter.m in Sources */,
-				07636DC01BA49A0100925671 /* TBMEventHandlerPresenter.m in Sources */,
 				07636DB51BA49A0100925671 /* TBMContactsManager.m in Sources */,
 				07636F0D1BA49A0100925671 /* TOWebViewController.m in Sources */,
 				07636EBC1BA49A0100925671 /* ZZGridDataSource.m in Sources */,
 				07636EA51BA49A0100925671 /* ZZSecretScreenTextEditCell.m in Sources */,
 				07636EE51BA49A0100925671 /* ANBaseVC.m in Sources */,
 				07636DF31BA49A0100925671 /* TBMDispatch.m in Sources */,
-				07636DD11BA49A0100925671 /* TBMInviteHintView.m in Sources */,
-				07636DD31BA49A0100925671 /* TBMInviteSomeoneElseHintView.m in Sources */,
 				07738E6C1BBC25C500CD3E7C /* ZZFriendDataUpdater.m in Sources */,
-				07636DC51BA49A0100925671 /* TBMFeatureUnlockDataSource.m in Sources */,
 				07636ECC1BA49A0100925671 /* ZZGeometryHelper.m in Sources */,
 				07636EAE1BA49A0100925671 /* ZZSecretVC.m in Sources */,
 				07636EDC1BA49A0100925671 /* ZZMenuWireframe.m in Sources */,
@@ -4731,7 +4341,6 @@
 				07636E231BA49A0100925671 /* ZZFriendDataProvider.m in Sources */,
 				07636EFF1BA49A0100925671 /* ANErrorHandler.m in Sources */,
 				07636E951BA49A0100925671 /* ANDebugController.m in Sources */,
-				07636DCF1BA49A0100925671 /* TBMFrontCameraUsageHintView.m in Sources */,
 				07636E5F1BA49A0100925671 /* ZZVideoUtils.m in Sources */,
 				07636EAC1BA49A0100925671 /* ZZSecretValueCellViewModel.m in Sources */,
 				07636E011BA49A0100925671 /* TBMContentViewModal.m in Sources */,
@@ -4760,21 +4369,17 @@
 				07636EA31BA49A0100925671 /* ZZSecretDataSource.m in Sources */,
 				07636E391BA49A0100925671 /* ZZKeyStoreTransportService.m in Sources */,
 				07636DEF1BA49A0100925671 /* TBMVideoObject.m in Sources */,
-				07636DD51BA49A0100925671 /* TBMPlayHintView.m in Sources */,
 				07636DBC1BA49A0100925671 /* TBMVideoIdUtils.m in Sources */,
 				7952764A1BA6B4AB00E506D5 /* ZZMenuCell.m in Sources */,
 				07636E351BA49A0100925671 /* ZZCommonNetworkTransportService.m in Sources */,
 				79123D891BB14F9E007E1CBF /* ZZHintsDomainModel.m in Sources */,
-				07636DC71BA49A0100925671 /* TBMFeatureUnlockDialogView.m in Sources */,
 				07636E5E1BA49A0100925671 /* ZZVideoRecorder.m in Sources */,
 				07636E2A1BA49A0100925671 /* ZZVideoModelsMapper.m in Sources */,
-				07636DCC1BA49A0100925671 /* TBMEarpieceUsageHintPresenter.m in Sources */,
 				07BAA7081BB1B488009878B9 /* ZZUserPresentationHelper.m in Sources */,
 				07636E5B1BA49A0100925671 /* ZZStringUtils.m in Sources */,
 				070D84791BBDAD8900196527 /* ZZGridContainerView.m in Sources */,
 				07636E501BA49A0100925671 /* ZZErrorHandler.m in Sources */,
 				07636F041BA49A0100925671 /* ANTableContainerView.m in Sources */,
-				07636DDA1BA49A0100925671 /* TBMSentHintPresenter.m in Sources */,
 				07636F0F1BA49A0100925671 /* NSData+MD5.m in Sources */,
 				79123D8C1BB15002007E1CBF /* ZZHintsModelGenerator.m in Sources */,
 				07636E4A1BA49A0100925671 /* ZZAlertBuilder.m in Sources */,
@@ -4797,7 +4402,6 @@
 				07636EDD1BA49A0100925671 /* ZZStartInteractor.m in Sources */,
 				07636E341BA49A0100925671 /* ZZCommonNetworkTransport.m in Sources */,
 				07636E0C1BA49A0100925671 /* TBMGridElementViewController.m in Sources */,
-				07636DD71BA49A0100925671 /* TBMRecordHintView.m in Sources */,
 				07636EE11BA49A0100925671 /* ZZStartWireframe.m in Sources */,
 				07636EDA1BA49A0100925671 /* ZZMenuController.m in Sources */,
 				07636E111BA49A0100925671 /* TBMGeometryUtils.m in Sources */,
@@ -4810,11 +4414,9 @@
 				07636F081BA49A0100925671 /* TBMAlertControllerVisualStyle.m in Sources */,
 				07636EC81BA49A0100925671 /* ZZGridCollectionController.m in Sources */,
 				070561001BA8824F00C130E0 /* ZZGridActionHandlerEnums.m in Sources */,
-				07636DE11BA49A0100925671 /* TBMWelcomeHintView.m in Sources */,
 				07636F021BA49A0100925671 /* ANNetworkSessionManager.m in Sources */,
 				07636EAD1BA49A0100925671 /* ZZSecretController.m in Sources */,
 				07636EB21BA49A0100925671 /* ZZEditFriendListDataSource.m in Sources */,
-				07636DCD1BA49A0100925671 /* TBMEarpieceUsageHintView.m in Sources */,
 				07636E541BA49A0100925671 /* ZZStrategyNavigationLeftRight.m in Sources */,
 				07636F051BA49A0100925671 /* ANWebViewController.m in Sources */,
 				07636E331BA49A0100925671 /* ZZAccountTransportService.m in Sources */,

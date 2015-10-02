@@ -19,8 +19,6 @@
 #import "ZZAPIRoutes.h"
 #import "ZZGridAlertBuilder.h"
 #import "ZZUserDataProvider.h"
-#import "TBMEventsFlowModuleInterface.h"
-#import "TBMEventsFlowModulePresenter.h"
 #import "TBMAlertController.h"
 #import "TBMAppDelegate.h"
 #import "ZZFeatureObserver.h"
@@ -53,7 +51,7 @@
 {
     self.userInterface = userInterface;
     
-//    self.actionHandler = [ZZGridActionHandler new];
+    self.actionHandler = [ZZGridActionHandler new];
     self.actionHandler.delegate = self;
     self.actionHandler.userInterface = self.userInterface;
     

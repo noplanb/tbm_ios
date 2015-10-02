@@ -12,13 +12,15 @@
 #import "ZZHintsModelGenerator.h"
 #import "ZZHintsDomainModel.h"
 #import "ZZGridUIConstants.h"
+#import "ZZVideoRecorder.h"
 
 @interface ZZGridActionHandler ()
 
 @property (nonatomic, strong) ZZHintsController* hintsController;
 @property(nonatomic, strong) NSSet* hints;
 
-@property(nonatomic, strong) ZZHintsDomainModel* hint;
+@property(nonatomic, strong, readonly) ZZHintsDomainModel* presentedHint;
+@property(nonatomic, assign) ZZGridActionEventType filterEvent; //Filter multuply times of event throwing
 @end
 
 @implementation ZZGridActionHandler
@@ -37,7 +39,10 @@
 {
     NSMutableSet* hints = [NSMutableSet set];
     [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeSendZazo]];
+    
     [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypePressAndHoldToRecord]];
+//    [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeTapToPlay]];
+    
     [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeGiftIsWaiting]];
     [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeTapToSwitchCamera]];
     [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeWelcomeNudgeUser]];
@@ -51,6 +56,16 @@
 
 - (void)handleEvent:(ZZGridActionEventType)event
 {
+    if (event == self.filterEvent)
+    {
+        return;
+    }
+
+    if ([ZZVideoRecorder shared].isRecording)
+    {
+        return;
+    }
+
     __block ZZHintsDomainModel* hint;
     [self.hints enumerateObjectsUsingBlock:^(ZZHintsDomainModel* obj, BOOL* stop)
     {
@@ -60,32 +75,35 @@
         }
     }];
 
-    if ((!self.hint && hint) || (hint && self.hint.type != hint.type)) {
+
+    if (hint && !self.presentedHint.type != hint.type)
+    {
+        self.filterEvent = event;
         [self _applyHint:hint];
     }
 }
 
 - (void)_applyHint:(ZZHintsDomainModel*)hint
 {
-    ZZHintsDomainModel* currentHint = self.hintsController.hintModel;
-
-    if (!currentHint) {
-        self.hint = hint;
+    if (!self.presentedHint) {
+        self.hintsController.hintModel = hint;
+    }
+    else
+    {
+        [self _checkPlayAndRecordHintsForAppend];
     }
 
-    [self _checkPlayAndRecordHintsForAppend];
-
     [self _showHint];
-
 }
 
 - (void)_showHint
 {
-    NSUInteger gridIndex = [self _gridIndexForHintType:self.hint.type];
+    self.filterEvent = ZZGridActionEventTypeGridNone;
+    NSUInteger gridIndex = [self _gridIndexForHintType:self.presentedHint.type];
 //    self.hint.arrowDirection = [ZZHintsDomainModel arrowDirectionForIndex:gridIndex];
     CGRect focusFrame = [self.userInterface focusFrameForIndex:kHintGridIndexFromFlowIndex(gridIndex)];
-    [self.hintsController showHintWithModel:self.hint forFocusFrame:focusFrame];
-    [self.hint toggleStateTo:YES];
+    [self.hintsController showHintWithModel:self.presentedHint forFocusFrame:focusFrame];
+    [self.presentedHint toggleStateTo:YES];
 }
 
 - (NSUInteger)_gridIndexForHintType:(ZZHintsType)hintType
@@ -113,21 +131,21 @@
 
 - (void)_checkPlayAndRecordHintsForAppend
 {
-    ZZHintsDomainModel* currentHint = self.hint;
+    ZZHintsDomainModel* presentedHint = self.presentedHint;
     ZZHintsDomainModel* recordHint = [self _hintWithType:ZZHintsTypePressAndHoldToRecord];
     ZZHintsDomainModel* playHint = [self _hintWithType:ZZHintsTypeTapToPlay];
     ZZHintsDomainModel* hintForAppend;
 
-    if (currentHint.type == recordHint.type) {
+    if (presentedHint.type == recordHint.type) {
         hintForAppend = playHint;
     }
 
-    if (currentHint.type == playHint.type) {
+    if (presentedHint.type == playHint.type) {
         hintForAppend = recordHint;
     }
 
     if (hintForAppend) {
-        currentHint.title = [NSString stringWithFormat:@"%@\n%@",currentHint.title,hintForAppend.title];
+        presentedHint.title = [NSString stringWithFormat:@"%@\n%@", presentedHint.title, hintForAppend.title];
         [hintForAppend toggleStateTo:YES];
     }
 }
@@ -200,7 +218,7 @@
 
 - (ZZHintsDomainModel*)_hintWithType:(ZZHintsType)hintType
 {
-    __block ZZHintsDomainModel* hint;
+    __block ZZHintsDomainModel* hint = nil;
     [self.hints enumerateObjectsUsingBlock:^(ZZHintsDomainModel* obj, BOOL* stop)
     {
         if (obj.type == hintType)
@@ -223,5 +241,11 @@
     }
     return _hintsController;
 }
+
+- (ZZHintsDomainModel*)presentedHint
+{
+    return self.hintsController.hintModel;
+}
+
 
 @end

@@ -19,34 +19,22 @@
 
 @implementation ZZHintsController
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self)
-    {
-        [[[UIApplication sharedApplication] keyWindow] addSubview:self.hintsView];
-    }
-    return self;
-}
-
 - (void)showHintWithModel:(ZZHintsDomainModel*)model forFocusFrame:(CGRect)focusFrame
 {
+    [self _clearView];
     ZZHintsViewModel* viewModel = [ZZHintsViewModel viewModelWithItem:model];
     [viewModel updateFocusFrame:focusFrame];
     self.hintModel = model;
-    //[self _destroyHintView];
     [self.hintsView updateWithHintsViewModel:viewModel];
 }
 
-
 #pragma mark - Private
 
-- (void)_destroyHintView
+- (void)_clearView
 {
-    [self.hintsView removeFromSuperview];
-    self.hintsView = nil;
+    [_hintsView removeFromSuperview];
+    _hintsView = nil;
 }
-
 
 #pragma mark - Lazy Load
 
@@ -55,6 +43,7 @@
     if (!_hintsView)
     {
         _hintsView = [[ZZHintsView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        [[[UIApplication sharedApplication] keyWindow] addSubview:_hintsView];
     }
     return _hintsView;
 }
