@@ -116,6 +116,7 @@
     
     if (isNewFriend)
     {
+        model.isDownloadAnimationViewed = YES;
         [self.userInterface showFriendAnimationWithIndex:[self.dataSource viewModelIndexWithModelIndex:model.index]];
         [self.actionHandler handleEvent:ZZGridActionEventTypeFriendDidAdd];
     }
@@ -136,6 +137,7 @@
 
 - (void)updateGridWithModel:(ZZGridDomainModel*)model isNewFriend:(BOOL)isNewFriend
 {
+    model.isDownloadAnimationViewed = YES;
     [self.dataSource updateCellWithModel:model];
     NSInteger index = [self.dataSource viewModelIndexWithModelIndex:model.index];
     [self.userInterface showFriendAnimationWithIndex:index];
@@ -198,6 +200,7 @@
 {
     [self.wireframe closeMenu];
     [ZZGridAlertBuilder showAlreadyConnectedDialogForUser:model.relatedUser.firstName completion:^{
+        model.isDownloadAnimationViewed = YES;
         [self.dataSource updateCellWithModel:model];
         [self.userInterface showFriendAnimationWithIndex:[self.dataSource viewModelIndexWithModelIndex:model.index]];
     }];

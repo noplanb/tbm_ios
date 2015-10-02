@@ -76,7 +76,19 @@ ZZGridCenterCellViewModelDelegate
     if (index != NSNotFound)
     {
         ZZGridCellViewModel* viewModel = [self.models objectAtIndex:index];
+        model.isDownloadAnimationViewed = !self.wasInitialSetuped;
         viewModel.item = model;
+        viewModel.delegate = self;
+        viewModel.hasDownloadedVideo = [model.relatedUser hasIncomingVideo];
+        viewModel.hasUploadedVideo = [model.relatedUser hasOutgoingVideo];//[value.relatedUser hasIncomingVideo];
+        viewModel.isUploadedVideoViewed = (model.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
+        
+        if (model.relatedUser.unviewedCount > 0)
+        {
+            viewModel.prevBadgeNumber = @(model.relatedUser.unviewedCount);
+            viewModel.badgeNumber = @(model.relatedUser.unviewedCount);
+        }
+        
         [self _reloadModelAtIndex:index];
     }
 }

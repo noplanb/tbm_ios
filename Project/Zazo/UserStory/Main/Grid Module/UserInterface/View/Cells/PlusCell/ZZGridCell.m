@@ -17,6 +17,7 @@
 #import "ZZGridStateViewNudge.h"
 #import "ZZGridStateViewRecord.h"
 #import "ZZGridStateViewPreview.h"
+#import "TBMFriend.h"
 
 @interface ZZGridCell () <ZZGridCellVeiwModelAnimationDelegate>
 
@@ -67,7 +68,10 @@
         case ZZGridCellViewModelStateIncomingVideoNotViewed:
         case ZZGridCellViewModelStateOutgoingVideo:
         {
-            self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self];
+            if (self.model.item.relatedUser.lastIncomingVideoStatus != INCOMING_VIDEO_STATUS_DOWNLOADING)
+            {
+                self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self];
+            }
             
         } break;
         default:

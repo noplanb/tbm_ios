@@ -45,7 +45,6 @@ static CGFloat const kThumbnailBorderWidth = 2;
 }
 
 
-
 #pragma mark - Private
 
 
