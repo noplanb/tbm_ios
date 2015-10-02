@@ -94,7 +94,6 @@
 - (void)sendMessageEvent
 {
     [self.actionHandler handleEvent:ZZGridActionEventTypeOutgoingMessageDidSend];
-    [self.dataSource reloadStorage];
 }
 
 #pragma mark - Notifications
@@ -127,6 +126,12 @@
     [self.actionHandler handleEvent:ZZGridActionEventTypeIncomingMessageDidReceived]; // TODO:
     [self.dataSource updateCellWithModel:model];
 }
+
+- (void)reloadGridModel:(ZZGridDomainModel*)model
+{
+    [self.dataSource updateCellWithModel:model];
+}
+
 
 
 - (void)updateGridWithModel:(ZZGridDomainModel*)model isNewFriend:(BOOL)isNewFriend
@@ -298,7 +303,6 @@
 {
     [ZZVideoRecorder shared].isRecorderActive = isEnabled;
     [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
-    [self.userInterface updateRecordViewStateTo:isEnabled];
     if (!ANIsEmpty(viewModel.item.relatedUser.idTbm))
     {
         if (isEnabled)
@@ -310,15 +314,17 @@
             
             [self.soundPlayer play];
             
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.9 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.videoPlayer stop];
                 NSURL* url = [ZZVideoUtils generateOutgoingVideoUrlWithFriend:viewModel.item.relatedUser];
+                [self.userInterface updateRecordViewStateTo:isEnabled];
                 [[ZZVideoRecorder shared] startRecordingWithVideoURL:url];
             });
         }
         else
         {
             [[ZZVideoRecorder shared] stopRecordingWithCompletionBlock:^(BOOL isRecordingSuccess) {
+                [self.userInterface updateRecordViewStateTo:isEnabled];
                 [self.soundPlayer play];
                 completionBlock(isRecordingSuccess);
             }];

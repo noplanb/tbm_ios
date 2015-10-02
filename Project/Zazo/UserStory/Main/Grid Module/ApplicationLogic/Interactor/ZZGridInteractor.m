@@ -94,15 +94,20 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)updateFriendAfterVideoStopped:(ZZFriendDomainModel *)model
 {
-   NSArray* gridModels = [[[self _gridModels].rac_sequence map:^id(ZZGridDomainModel* value) {
-        value.isDownloadAnimationViewed = YES;
-        return value;
-    }] array];
-    
+    NSArray* gridModels = [self gridModelsWithoutDownloadAnimation];
     [self.output reloadGridWithData:gridModels];
     [self updateLastActionForFriend:model];
 }
 
+- (NSArray*)gridModelsWithoutDownloadAnimation
+{
+    NSArray* gridModels = [[[self _gridModels].rac_sequence map:^id(ZZGridDomainModel* value) {
+        value.isDownloadAnimationViewed = YES;
+        return value;
+    }] array];
+    
+    return gridModels;
+}
 
 #pragma mark - Notifications
 
@@ -240,8 +245,9 @@ static NSInteger const kGridFriendsCellCount = 8;
 #pragma mark - TBMFriend Delegate 
 
 - (void)videoStatusDidChange:(TBMFriend*)model
-{
-    [self.output reloadGridWithData:[self _gridModels]];
+{   
+    ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithRelatedUserID:model.idTbm];
+    [self.output reloadGridModel:gridModel];
 }
 
 
