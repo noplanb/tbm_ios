@@ -129,7 +129,6 @@
 
 - (CGRect)focusFrameForIndex:(NSInteger)index
 {
-    UICollectionViewCell* cell = [self.gridView.items objectAtIndex:index];
     return [self _frameForIndex:index];
 }
 
@@ -210,10 +209,8 @@
 
 - (CGRect)_frameForIndex:(NSInteger)index
 {
-    NSIndexPath* indexPath = [NSIndexPath indexPathForItem:index inSection:0];
-
-    UICollectionViewCell* cell = [self.gridView.collectionView cellForItemAtIndexPath:indexPath];
-    CGRect position = [cell convertRect:cell.contentView.bounds toView:self.view];
+    UIView* cell = [self.items objectAtIndex:index];
+    CGRect position = [cell convertRect:cell.bounds toView:self.view];
     return position;
 }
 
