@@ -24,10 +24,12 @@
 
 - (void)presentAuthControllerFromWindow:(UIWindow*)window
 {
-    UINavigationController* navigationController = [UINavigationController new];
-    navigationController.navigationBarHidden = YES;
-    window.rootViewController = navigationController;
-    [self presentAuthControllerFromNavigationController:navigationController];
+    ANDispatchBlockToMainQueue(^{
+        UINavigationController* navigationController = [UINavigationController new];
+        navigationController.navigationBarHidden = YES;
+        window.rootViewController = navigationController;
+        [self presentAuthControllerFromNavigationController:navigationController];
+    });
 }
 
 - (void)presentAuthControllerFromNavigationController:(UINavigationController *)nc
