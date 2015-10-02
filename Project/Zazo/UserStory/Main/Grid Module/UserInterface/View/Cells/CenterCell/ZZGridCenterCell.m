@@ -56,23 +56,21 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
         if (!self.videoView)
         {
             self.videoView = model.recordView;
-            [RACObserve(model, isRecording) subscribeNext:^(NSNumber* x) {
-                
-                if ([x boolValue])
-                {
-                    ANDispatchBlockToMainQueue(^{
-                        [self _showRecordingOverlay];
-                    });
-                }
-                else
-                {
-                    ANDispatchBlockToMainQueue(^{
-                        [self _hideRecordingOverlay];
-                    });
-                }
-            }];
+            [self bringSubviewToFront:self.switchCameraButton];
         }
     });
+}
+
+- (void)updataeRecordStateTo:(BOOL)isRecording
+{
+    if (isRecording)
+    {
+        [self _showRecordingOverlay];
+    }
+    else
+    {
+        [self _hideRecordingOverlay];
+    }
 }
 
 
@@ -119,13 +117,11 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
     if (!_switchCameraButton)
     {
         _switchCameraButton = [UIButton new];
-
         [_switchCameraButton addTarget:self
                                 action:@selector(_switchCamera)
                       forControlEvents:UIControlEventTouchUpInside];
         _switchCameraButton.hidden = [ZZFeatureObserver sharedInstance].isBothCameraEnabled;
         [self addSubview:_switchCameraButton];
-        
         [_switchCameraButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.left.right.equalTo(self);
             make.height.equalTo(@(40));

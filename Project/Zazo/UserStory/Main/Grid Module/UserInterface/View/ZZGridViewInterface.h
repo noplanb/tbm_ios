@@ -19,5 +19,6 @@
 - (void)menuWasOpened;
 - (void)updateSwitchButtonWithState:(BOOL)isHidden;
 - (void)updateLoadingStateTo:(BOOL)isLoading;
+- (void)updateRecordViewStateTo:(BOOL)isRecording;
 
 @end

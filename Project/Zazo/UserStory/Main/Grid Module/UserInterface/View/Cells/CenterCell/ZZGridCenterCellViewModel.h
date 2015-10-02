@@ -16,7 +16,7 @@
 @interface ZZGridCenterCellViewModel : NSObject
 
 @property (nonatomic, assign) BOOL isChangeButtonAvailable;
-@property (nonatomic, assign) BOOL isRecording;
+
 @property (nonatomic, weak) id<ZZGridCenterCellViewModelDelegate> delegate;
 @property (nonatomic, strong) UIView* recordView;
 

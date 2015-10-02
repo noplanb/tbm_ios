@@ -34,7 +34,7 @@
     if (self = [super init])
     {
         self.backgroundColor = [ZZColorTheme shared].gridCellOrangeColor;
-        self.clipsToBounds = YES;
+        self.clipsToBounds = NO;
         [self plusButton];
     }
     return self;

@@ -23,10 +23,6 @@
 
 - (BOOL)shouldShowSwitchCameraButton
 {
-    if (self.isRecording)
-    {
-        return NO;
-    }
     return self.isChangeButtonAvailable;
 }
 

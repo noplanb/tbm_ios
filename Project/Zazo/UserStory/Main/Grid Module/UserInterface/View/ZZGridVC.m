@@ -149,4 +149,14 @@
     [self.eventHandler stopPlaying];
 }
 
+
+#pragma mark - Update Record View State
+
+- (void)updateRecordViewStateTo:(BOOL)isRecording
+{
+    NSInteger centerCellIndex = 4;
+    ZZGridCenterCell* centerCell = self.gridView.items[centerCellIndex];
+    [centerCell updataeRecordStateTo:isRecording];
+}
+
 @end

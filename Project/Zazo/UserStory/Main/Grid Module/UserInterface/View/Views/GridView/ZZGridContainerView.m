@@ -34,7 +34,8 @@
         for (NSInteger line = 0; line < numberOfLines; line++)
         {
             __block MASViewAttribute* previousViewAttribute = self.mas_left;
-            CGFloat leftOffset = 0;
+            
+            CGFloat leftOffset = (CGRectGetWidth([UIScreen mainScreen].bounds) - (itemSize.width * 3) - (paddingBetweenItems * 2))/2;  //0;
             
             for (NSInteger row = 0; row < numberOfItemsInRow; row++)
             {
