@@ -104,7 +104,8 @@
 //---------------------------
 #pragma mark Events from friend
 
-- (void)videoStatusDidChange:(TBMFriend *)friend {
+- (void)videoStatusDidChange:(TBMFriend *)friend
+{
     if (![TBMGridElement friendIsOnGrid:friend])
         [self moveFriendToGrid:friend];
 }

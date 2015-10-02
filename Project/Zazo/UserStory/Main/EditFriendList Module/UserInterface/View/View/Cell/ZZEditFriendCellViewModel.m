@@ -36,8 +36,8 @@ static UIImage* kImagePlaceholder = nil;
 {
     if ([self.item isCreator])
     {
-        if (self.item.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
-            self.item.connectionStatusValue == ZZConnectionStatusTypeHiddenByCreator)
+        if (self.item.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
+            self.item.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByCreator)
         {
             [self _updateButton:button toState:ZZContactActionButtonStateDelete];
         }
@@ -48,8 +48,8 @@ static UIImage* kImagePlaceholder = nil;
     }
     else
     {
-        if (self.item.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
-            self.item.connectionStatusValue == ZZConnectionStatusTypeHiddenByTarget)
+        if (self.item.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
+            self.item.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByTarget)
         {
             [self _updateButton:button toState:ZZContactActionButtonStateDelete];
         }
@@ -121,8 +121,8 @@ static UIImage* kImagePlaceholder = nil;
     
     if ([self.item isCreator])
     {
-        if (self.item.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
-            self.item.connectionStatusValue == ZZConnectionStatusTypeHiddenByCreator)
+        if (self.item.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
+            self.item.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByCreator)
         {
             cellColor = [UIColor an_colorWithHexString:@"f1efe9"];
         }
@@ -133,8 +133,8 @@ static UIImage* kImagePlaceholder = nil;
     }
     else
     {
-        if (self.item.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
-            self.item.connectionStatusValue == ZZConnectionStatusTypeHiddenByTarget)
+        if (self.item.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
+            self.item.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByTarget)
         {
             cellColor = [UIColor an_colorWithHexString:@"f1efe9"];
         }

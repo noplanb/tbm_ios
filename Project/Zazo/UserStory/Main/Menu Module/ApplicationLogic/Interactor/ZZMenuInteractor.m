@@ -103,16 +103,16 @@
         
         if ([friendModel isCreator])
         {
-            if (friendModel.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
-                friendModel.connectionStatusValue == ZZConnectionStatusTypeHiddenByCreator)
+            if (friendModel.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
+                friendModel.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByCreator)
             {
                 [filteredFriends addObject:friendModel];
             }
         }
         else
         {
-            if (friendModel.connectionStatusValue == ZZConnectionStatusTypeEstablished ||
-                friendModel.connectionStatusValue == ZZConnectionStatusTypeHiddenByTarget)
+            if (friendModel.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
+                friendModel.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByTarget)
             {
                 [filteredFriends addObject:friendModel];
             }

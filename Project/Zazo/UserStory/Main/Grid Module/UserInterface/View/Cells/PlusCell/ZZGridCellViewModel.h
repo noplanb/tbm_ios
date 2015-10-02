@@ -53,8 +53,7 @@ typedef NS_ENUM(NSInteger, ZZGridCellViewModelState)
 @property (nonatomic, assign) BOOL isUploadedVideoViewed;
 @property (nonatomic, assign) BOOL isNeedToShowDownloadAnimation;
 @property (nonatomic, assign) BOOL hasDownloadedVideo;
-
-
+@property (nonatomic, assign) BOOL isDownloadAnimationPlayed;
 @property (nonatomic, weak) UILabel* usernameLabel;
 
 - (void)updateRecordingStateTo:(BOOL)isRecording

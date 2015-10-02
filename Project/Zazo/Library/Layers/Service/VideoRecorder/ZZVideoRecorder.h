@@ -22,7 +22,7 @@ extern NSString* const TBMVideoRecorderDidCancelRecording;
 extern NSString* const TBMVideoRecorderDidFail;
 
 @property (nonatomic, assign) BOOL didCancelRecording;
-@property (nonatomic, assign, readonly) BOOL isRecording;
+@property (nonatomic, assign) BOOL isRecorderActive;
 
 + (instancetype)shared;
 
@@ -42,5 +42,7 @@ extern NSString* const TBMVideoRecorderDidFail;
 
 - (void)stopAudioSession;
 - (void)startAudioSession;
+
+- (BOOL)isRecording;
 
 @end

@@ -26,7 +26,7 @@
 - (void)handleNotificationForFriend:(TBMFriend*)friendEntity;
 
 - (void)loadFeedbackModel;
-- (void)showDownloadAniamtionForFriend:(TBMFriend*)friend;
+//- (void)showDownloadAnimationForFriend:(TBMFriend*)friend;
 - (void)updateFriendAfterVideoStopped:(ZZFriendDomainModel*)model;
 
 
@@ -37,8 +37,8 @@
 
 - (void)dataLoadedWithArray:(NSArray*)data;
 - (void)dataLoadingDidFailWithError:(NSError *)error;
-- (void)modelUpdatedWithUserWithModel:(ZZGridDomainModel *)model;
-- (void)gridContainedFriend:(ZZFriendDomainModel*)friendModel;
+//- (void)modelUpdatedWithUserWithModel:(ZZGridDomainModel *)model;
+- (void)gridAlreadyContainsFriend:(ZZFriendDomainModel*)friendModel;
 - (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel*)model;
 
 - (void)userHasNoValidNumbers:(ZZContactDomainModel*)model;
@@ -46,13 +46,14 @@
 - (void)userHasNoAppInstalled:(ZZContactDomainModel*)contact;
 - (void)friendRecievedFromServer:(ZZFriendDomainModel*)friendModel;
 
-- (void)updateGridWithModel:(ZZGridDomainModel*)model;
+- (void)updateGridWithModel:(ZZGridDomainModel*)model isNewFriend:(BOOL)isNewFriend;
 - (void)updateGridWithModelFromNotification:(ZZGridDomainModel*)model isNewFriend:(BOOL)isNewFriend;
 
 - (void)loadedStateUpdatedTo:(BOOL)isLoading;
 - (void)addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel*)contact;
 - (void)updateGridWithDownloadAnimationModel:(ZZGridDomainModel*)model;
-- (void)updateGridWithGridDomainModel:(ZZGridDomainModel*)model;
+//- (void)updateGridWithGridDomainModel:(ZZGridDomainModel*)model;
 
+- (void)reloadGridWithData:(NSArray*)data;
 
 @end

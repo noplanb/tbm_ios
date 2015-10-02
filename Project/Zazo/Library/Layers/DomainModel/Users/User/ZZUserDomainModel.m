@@ -12,6 +12,7 @@
 #import "ZZUserPresentationHelper.h"
 
 const struct ZZUserDomainModelAttributes ZZUserDomainModelAttributes = {
+    .idTbm = @"idTbm",
     .firstName = @"firstName",
     .lastName = @"lastName",
     .auth = @"auth",
@@ -27,21 +28,11 @@ const struct ZZUserDomainModelAttributes ZZUserDomainModelAttributes = {
     return [FEMObjectMapping mappingForClass:[self class] configuration:^(FEMObjectMapping *mapping) {
         [mapping addAttributesFromDictionary:@{ZZUserDomainModelAttributes.firstName    : @"first_name",
                                                ZZUserDomainModelAttributes.lastName     : @"last_name",
-                                               ZZBaseDomainModelAttributes.idTbm        : @"id",
+                                               ZZUserDomainModelAttributes.idTbm        : @"id",
                                                ZZUserDomainModelAttributes.auth         : @"auth",
                                                ZZUserDomainModelAttributes.mkey         : @"mkey",
                                                ZZUserDomainModelAttributes.mobileNumber : @"mobile_number"}];
     }];
-}
-
-- (NSString*)photoURLString
-{
-    return nil; // TODO:
-}
-
-- (UIImage*)photoImage
-{
-    return nil;
 }
 
 - (BOOL)hasApp
@@ -58,6 +49,5 @@ const struct ZZUserDomainModelAttributes ZZUserDomainModelAttributes = {
 {
     return [ZZUserPresentationHelper fullNameWithFirstName:self.firstName lastName:self.lastName];
 }
-
 
 @end

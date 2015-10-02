@@ -10,7 +10,7 @@
 
 @protocol ZZEditFriendListModuleDelegate <NSObject>
 
-- (void)friendRemovedContacts:(ZZFriendDomainModel*)model;
-- (void)restoreFriendAtGrid:(ZZFriendDomainModel*)model;
+- (void)friendWasRemovedFromContacts:(ZZFriendDomainModel*)model;
+- (void)friendWasUnblockedFromContacts:(ZZFriendDomainModel*)model;
 
 @end

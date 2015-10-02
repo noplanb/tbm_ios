@@ -9,7 +9,6 @@
 @import MediaPlayer;
 @import AVFoundation;
 
-
 #import "ZZVideoPlayer.h"
 #import "ZZVideoDomainModel.h"
 #import "TBMVideo.h"
@@ -23,7 +22,6 @@
 @interface ZZVideoPlayer ()
 
 @property (nonatomic, strong) MPMoviePlayerController* moviePlayerController;
-
 @property (nonatomic, strong) UIButton* tapButton;
 @property (nonatomic, strong) NSArray* videoModelsArray;
 @property (nonatomic, strong) ZZFriendDomainModel* playedFriend;
@@ -31,6 +29,13 @@
 @end
 
 @implementation ZZVideoPlayer
+
++ (instancetype)videoPlayerWithDelegate:(id<ZZVideoPlayerDelegate>)delegate
+{
+    ZZVideoPlayer* player = [self new];
+    player.delegate = delegate;
+    return player;
+}
 
 - (instancetype)init
 {
@@ -56,14 +61,17 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(stop)
-                                                 name:UIApplicationWillResignActiveNotification object:nil];
-    
+                                                 name:UIApplicationWillResignActiveNotification
+                                               object:nil];
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+
+#pragma mark - Public
 
 - (BOOL)isPlaying
 {
@@ -72,7 +80,6 @@
 
 - (void)playOnView:(UIView*)view withURLs:(NSArray*)URLs
 {
-    
     self.moviePlayerController.contentURL = nil;
     
     NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
@@ -87,14 +94,13 @@
     }
     if (!ANIsEmpty(URLs))//&& ![self.currentPlayQueue isEqualToArray:URLs]) //TODO: if current playback state is equal to user's play list
     {
-        
         ZZVideoDomainModel* playedVideoModel = [self.videoModelsArray firstObject];
         TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
 
         self.moviePlayerController.contentURL = viewedVideo.videoUrl;//firstVideoUrl;
         
         //save video state
-        [self updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
+        [self _updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
         
         self.moviePlayerController.view.frame = view.bounds;
         [view addSubview:self.moviePlayerController.view];
@@ -105,49 +111,29 @@
         
         self.isPlayingVideo = YES;
         [UIDevice currentDevice].proximityMonitoringEnabled = YES;
-        TBMFriend* friend = [ZZFriendDataProvider entityFromModel:playedVideoModel.relatedUser];
+        
+        //TODO:coredata
+        TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:playedVideoModel.relatedUser.idTbm];
         [friend setViewedWithIncomingVideo:viewedVideo];
         [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
                                                       videoId:viewedVideo.videoId
                                                        friend:friend];
-        
-    }
-}
-
-
-- (void)updateViewedVideoCounterWithVideoDomainModel:(ZZVideoDomainModel*)playedVideoModel
-{
-    
-    TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
-    if (!ANIsEmpty(viewedVideo))
-    {
-        if (viewedVideo.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADED)
-        {
-            viewedVideo.status = @(INCOMING_VIDEO_STATUS_VIEWED);
-            if (playedVideoModel.relatedUser.unviewedCount > 0)
-            {
-                playedVideoModel.relatedUser.unviewedCount--;
-            }
-            else
-            {
-                playedVideoModel.relatedUser.unviewedCount = 0;
-            }
-            self.playedFriend = playedVideoModel.relatedUser;
-            [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
-        }
     }
 }
 
 - (void)stop
 {
-    self.isPlayingVideo = NO;
-    [self.moviePlayerController.view removeFromSuperview];
-    [self.moviePlayerController stop];
-    self.playedFriend.isVideoStopped = YES;
-    [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL
-                                withPlayedUserModel:self.playedFriend];
-    
-    [UIDevice currentDevice].proximityMonitoringEnabled = NO;
+    if (self.isPlayingVideo)
+    {
+        self.isPlayingVideo = NO;
+        [self.moviePlayerController.view removeFromSuperview];
+        [self.moviePlayerController stop];
+        self.playedFriend.isVideoStopped = YES;
+        [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL
+                                    withPlayedUserModel:self.playedFriend];
+        
+        [UIDevice currentDevice].proximityMonitoringEnabled = NO;
+    }
 }
 
 - (void)toggle
@@ -183,6 +169,28 @@
         if (self.isPlayingVideo)
         {
             [self _playNext];
+        }
+    }
+}
+
+- (void)_updateViewedVideoCounterWithVideoDomainModel:(ZZVideoDomainModel*)playedVideoModel
+{
+    TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
+    if (!ANIsEmpty(viewedVideo))
+    {
+        if (viewedVideo.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADED)
+        {
+            viewedVideo.status = @(INCOMING_VIDEO_STATUS_VIEWED);
+            if (playedVideoModel.relatedUser.unviewedCount > 0)
+            {
+                playedVideoModel.relatedUser.unviewedCount--;
+            }
+            else
+            {
+                playedVideoModel.relatedUser.unviewedCount = 0;
+            }
+            self.playedFriend = playedVideoModel.relatedUser;
+            [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
         }
     }
 }
@@ -228,7 +236,7 @@
         TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
         
         //save video state
-        [self updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
+        [self _updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
         
         self.moviePlayerController.contentURL = nextUrl;
         

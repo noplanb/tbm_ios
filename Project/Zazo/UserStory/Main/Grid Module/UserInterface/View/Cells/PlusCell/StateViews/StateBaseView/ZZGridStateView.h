@@ -29,6 +29,7 @@ static CGFloat const kUserNameFontSize = 13;
 @property (nonatomic, strong) UIView* presentedView;
 @property (nonatomic, strong) UILabel* userNameLabel;
 
+
 @property (nonatomic, strong) UIImageView* videoViewedView;
 
 - (instancetype)initWithPresentedView:(UIView*)presentedView;

@@ -12,7 +12,6 @@
 
 - (NSString*)firstName;
 - (NSString*)lastName;
-- (NSString*)photoURLString;
 - (BOOL)hasApp;
 - (ZZMenuContactType)contactType;
 

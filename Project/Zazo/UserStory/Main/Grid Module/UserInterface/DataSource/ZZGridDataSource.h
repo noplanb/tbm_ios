@@ -34,25 +34,12 @@
 @property (nonatomic, strong) ANMemoryStorage* storage;
 @property (nonatomic, weak) id<ZZGridDataSourceDelegate> delegate;
 
-- (void)itemSelectedAtIndexPath:(NSIndexPath*)indexPath;
-
-- (void)setupWithModels:(NSArray *)models completion:(ANCodeBlock)completion;
+- (void)setupWithModels:(NSArray*)models;
 - (void)setupCenterViewModelShouldHandleCameraRotation:(BOOL)shouldHandleRotation;
 
-- (void)selectedViewModelUpdatedWithItem:(ZZGridDomainModel*)model;
-- (void)updateStorageWithModel:(ZZGridDomainModel*)model;
-- (void)updateDataSourceWithGridModelFromNotification:(ZZGridDomainModel*)gridModel
-                                  withCompletionBlock:(void(^)(BOOL isNewVideoDownloaded))completionBlock;
-
-- (void)updateDataSourceWithDownloadAnimationWithGridModel:(ZZGridDomainModel*)gridModel
-                                       withCompletionBlock:(void(^)(BOOL isNewVideoDownloaded))completionBlock;
-
+- (void)itemSelectedAtIndexPath:(NSIndexPath*)indexPath;
 - (void)reloadStorage;
 - (void)updateCenterCellWithModel:(ZZGridCenterCellViewModel*)model;
-- (void)updateModel:(ZZGridDomainModel*)model;
-
-- (void)reloadDebugStatuses;
-
 
 - (ZZGridCenterCellViewModel*)centerViewModel;
 

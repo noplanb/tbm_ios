@@ -205,7 +205,6 @@ static CGFloat const kTouchOffset = 7;
                     ZZGridCellViewModel* cellModel = [gridCell model];
                     [fakeCell updateBadgeWithNumber:cellModel.badgeNumber];
                     fakeCell.stateImageView.image = [self _screenshotFromView:gridCell];
-//                    fakeCell.stateImageView.alpha = 0.8;
                 }
             }];
         }
@@ -264,7 +263,7 @@ static CGFloat const kTouchOffset = 7;
             if ([cell isKindOfClass:[ZZGridCell class]])
             {
                 [self.movingViewArray enumerateObjectsUsingBlock:^(ZZFakeRotationCell* fakeCell, NSUInteger idx, BOOL *stop) {
-                    if (CGRectContainsPoint(cell.frame, fakeCell.center))
+                    if (CGRectIntersectsRect(cell.frame, fakeCell.frame))
                     {
                         NSIndexPath* indexPath = [self.collectionView indexPathForCell:cell];
                         NSNumber* index = indexPath.item == 0 ? @(0) : @(indexPath.item);

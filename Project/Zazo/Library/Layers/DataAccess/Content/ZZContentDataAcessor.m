@@ -18,7 +18,9 @@
     if ([NSManagedObjectContext MR_rootSavingContext])
     {
         OB_INFO(@"Successfull Core Data migration. Trying to fill new fields"); // TODO: cleanup
-        [TBMFriend fillAfterMigration];
+        ANDispatchBlockToBackgroundQueue(^{
+           [TBMFriend fillAfterMigration];
+        });
     }
 }
 

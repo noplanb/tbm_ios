@@ -26,24 +26,22 @@
 #import "ZZGridActionHandler.h"
 #import "TBMTableModal.h"
 #import "ZZCoreTelephonyConstants.h"
+#import "ZZGridPresenter+UserDialogs.h"
+
 
 @interface ZZGridPresenter ()
 <
-ZZGridDataSourceDelegate,
-ZZVideoPlayerDelegate,
-ZZVideoRecorderDelegate,
-ZZGridActionHanlderDelegate,
-TBMTableModalDelegate
+    ZZGridDataSourceDelegate,
+    ZZVideoPlayerDelegate,
+    ZZVideoRecorderDelegate,
+    ZZGridActionHanlderDelegate,
+    TBMTableModalDelegate
 >
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
 @property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
 @property (nonatomic, strong) ZZGridActionHandler* actionHandler;
-@property (nonatomic, strong) TBMTableModal *table;
-@property (nonatomic, strong) ZZContactDomainModel* contactWithMultiplyPhones;
-@property (nonatomic, strong) TBMFriend* notificationFriend;
-@property (nonatomic, strong) TBMFriend* notifatedFriend;
 
 @end
 
@@ -66,29 +64,11 @@ TBMTableModalDelegate
     [self _setupNotifications];
     [self.interactor loadData];
     
-    [[RACObserve(self.videoPlayer, isPlayingVideo) filter:^BOOL(id value) {
-        return [value integerValue] == 0;
-    }] subscribeNext:^(id x) {
-        [self updateFriendIfNeeded];
-    }];
-    
-    
     [[ZZVideoRecorder shared] addDelegate:self];
 }
 
 - (void)_setupNotifications
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateGridData:)
-                                                 name:kFriendChangeNotification
-                                               object:nil];
-    
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(_videoWasViewed:)
-                                                 name:kFriendVideoViewedNotification
-                                               object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(sendMessageEvent)
                                                  name:kNotificationSendMessage object:nil];
@@ -101,11 +81,6 @@ TBMTableModalDelegate
                                              selector:@selector(stopPlaying)
                                                  name:kNotificationIncomingCall
                                                object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(videoStartDownloadingNotification:)
-                                                 name:kVideoStartDownloadingNotification object:nil];
-    
 }
 
 - (void)dealloc
@@ -117,89 +92,26 @@ TBMTableModalDelegate
 - (void)sendMessageEvent
 {
     [self.actionHandler handleEvent:ZZGridActionEventTypeOutgoingMessageDidSend];
-    [self.dataSource reloadDebugStatuses];
+    [self.dataSource reloadStorage];
 }
-
-- (void)_videoWasViewed:(NSNotification*)notif
-{
-    [self.actionHandler handleEvent:ZZGridActionEventTypeOutgoingMessageWasViewed];
-    [self updateGridData:notif];
-}
-
 
 #pragma mark - Notifications
 
-- (void)videoStartDownloadingNotification:(NSNotification*)notification
+- (void)reloadGridWithData:(NSArray*)data
 {
-    ANDispatchBlockToMainQueue(^{
-        if (!self.videoPlayer.isPlayingVideo)
-        {
-            [self.interactor showDownloadAniamtionForFriend:notification.object];
-        }
-        else
-        {
-            self.notificationFriend = notification.object;
-        }
-        [self.dataSource reloadDebugStatuses];
-    });
-}
-
-- (void)updateGridData:(NSNotification*)notification
-{
-    if (!self.videoPlayer.isPlayingVideo)
+    if (![ZZVideoRecorder shared].isRecorderActive && !self.videoPlayer.isPlayingVideo)
     {
-        if (self.notificationFriend)
-        {
-            self.notificationFriend = notification.object;
-            [self updateFriendIfNeeded];
-        }
-        else
-            
-        {
-            [self.interactor handleNotificationForFriend:notification.object];
-        }
-    }
-    else
-    {
-        self.notificationFriend = notification.object;
-    }
-    
-    [self.dataSource reloadDebugStatuses];
-}
-
-- (void)updateFriendIfNeeded
-{
-    if (![self.notificationFriend.mkey isEqualToString:self.notifatedFriend.mkey])
-    {
-        ANDispatchBlockToMainQueue(^{
-            CGFloat timeToUpdateInterface = 0.6;
-            CGFloat timeAfterAnimationEnd = 3.6;
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeToUpdateInterface * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            
-                [self.interactor showDownloadAniamtionForFriend:self.notificationFriend];
-                
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeAfterAnimationEnd * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self.interactor handleNotificationForFriend:self.notificationFriend];
-                    self.notifatedFriend = self.notifatedFriend;
-                });
-            });
-        });
+        [self.dataSource setupWithModels:data];
     }
 }
 
 - (void)updateGridWithModelFromNotification:(ZZGridDomainModel *)model isNewFriend:(BOOL)isNewFriend
 {
-    [self.dataSource updateDataSourceWithGridModelFromNotification:model
-                                               withCompletionBlock:^(BOOL isNewVideoDownloaded) {
-            if (isNewVideoDownloaded)
-            {
-                if (model.relatedUser.outgoingVideoStatusValue != OUTGOING_VIDEO_STATUS_VIEWED)
-                {
-                    [self.soundPlayer play];
-                }
-            }
-    }];
+    [self.dataSource reloadStorage];
+    if (model.relatedUser.outgoingVideoStatusValue != OUTGOING_VIDEO_STATUS_VIEWED)
+    {
+        [self.soundPlayer play]; // TODO: check
+    }
     
     if (isNewFriend)
     {
@@ -210,15 +122,26 @@ TBMTableModalDelegate
 
 - (void)updateGridWithDownloadAnimationModel:(ZZGridDomainModel*)model
 {
-    [self.actionHandler handleEvent:ZZGridActionEventTypeIncomingMessageDidReceived];
-    [self.dataSource updateDataSourceWithDownloadAnimationWithGridModel:model
-                                                    withCompletionBlock:^(BOOL isNewVideoDownloaded) {}];
+    [self.actionHandler handleEvent:ZZGridActionEventTypeIncomingMessageDidReceived]; // TODO:
+    [self.dataSource reloadStorage];
+}
+
+
+- (void)updateGridWithModel:(ZZGridDomainModel*)model isNewFriend:(BOOL)isNewFriend
+{
+    [self.dataSource reloadStorage];
+    [self.userInterface showFriendAnimationWithModel:model.relatedUser];
+    
+    if (isNewFriend)
+    {
+        [self.actionHandler handleEvent:ZZGridActionEventTypeFriendDidAdd];
+    }
 }
 
 - (void)_updateFeatures
 {
     [self _updateCenterCell];
-     [self.dataSource reloadDebugStatuses];
+    [self.dataSource reloadStorage];
 }
 
 - (void)_updateCenterCell
@@ -233,18 +156,6 @@ TBMTableModalDelegate
     }
 }
 
-- (void)presentEditFriendsController
-{
-    [self.wireframe closeMenu];
-    [self.wireframe presentEditFriendsController];
-   
-}
-
-- (void)presentSendEmailController
-{
-    [self.interactor loadFeedbackModel];
-}
-
 
 #pragma mark - Output
 
@@ -255,17 +166,16 @@ TBMTableModalDelegate
 
 - (void)dataLoadedWithArray:(NSArray*)data
 {
-    [self.dataSource setupWithModels:data completion:^{
-        ANDispatchBlockAfter(3.f, ^{ //TODO: Get this out here
-            ANDispatchBlockToMainQueue(^{
-                [self.actionHandler handleEvent:ZZGridActionEventTypeGridLoaded];
-            });
+    [self.dataSource setupWithModels:data];
+    ANDispatchBlockAfter(3.f, ^{ //TODO: Get this out here
+        ANDispatchBlockToMainQueue(^{
+            [self.actionHandler handleEvent:ZZGridActionEventTypeGridLoaded];
         });
-    }];
+    });
 
     BOOL isTwoCamerasAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
-    BOOL isSwichCameraAvailable = [ZZFeatureObserver sharedInstance].isBothCameraEnabled;
-    [self.dataSource setupCenterViewModelShouldHandleCameraRotation:(isTwoCamerasAvailable && isSwichCameraAvailable)];
+    BOOL isSwitchCameraAvailable = [ZZFeatureObserver sharedInstance].isBothCameraEnabled;
+    [self.dataSource setupCenterViewModelShouldHandleCameraRotation:(isTwoCamerasAvailable && isSwitchCameraAvailable)];
 
     [[ZZVideoRecorder shared] updateRecordView:[self.dataSource centerViewModel].recordView];
 }
@@ -275,26 +185,8 @@ TBMTableModalDelegate
     //TODO: error
 }
 
-- (void)modelUpdatedWithUserWithModel:(ZZGridDomainModel*)model
-{
-    if (!ANIsEmpty(model.relatedUser))
-    {
-        [self.interactor updateLastActionForFriend:model.relatedUser];
-    }
-    [self.dataSource selectedViewModelUpdatedWithItem:model];
-}
 
-
-- (void)updateGridWithGridDomainModel:(ZZGridDomainModel *)model
-{
-    if (!ANIsEmpty(model.relatedUser))
-    {
-        [self.interactor updateLastActionForFriend:model.relatedUser];
-    }
-    [self.dataSource updateModel:model];
-}
-
-- (void)gridContainedFriend:(ZZFriendDomainModel*)friendModel
+- (void)gridAlreadyContainsFriend:(ZZFriendDomainModel*)friendModel
 {
     [self.wireframe closeMenu];
     [ZZGridAlertBuilder showAlreadyConnectedDialogForUser:friendModel.firstName completion:^{
@@ -314,31 +206,21 @@ TBMTableModalDelegate
 
 - (void)userHasNoAppInstalled:(ZZContactDomainModel *)contact
 {
-    [self showSendInvitationDialogForUser:contact];
+    [self _showSendInvitationDialogForUser:contact];
 }
 
 - (void)friendRecievedFromServer:(ZZFriendDomainModel*)friendModel
 {
     if (friendModel.hasApp)
     {
-        [self showConnectedDialogForModel:friendModel];
+        [self _showConnectedDialogForModel:friendModel];
     }
     else
     {
-        [self showSmsDialogForModel:friendModel];
+        [self _showSmsDialogForModel:friendModel];
     }
 }
 
-- (void)updateGridWithModel:(ZZGridDomainModel*)model
-{
-    if (!ANIsEmpty(model.relatedUser))
-    {
-        [self.interactor updateLastActionForFriend:model.relatedUser];
-    }
-    [self.dataSource updateStorageWithModel:model];
-    [self.actionHandler handleEvent:ZZGridActionEventTypeFriendDidAdd];
-    [self.userInterface showFriendAnimationWithModel:model.relatedUser];
-}
 
 - (void)loadedStateUpdatedTo:(BOOL)isLoading
 {
@@ -387,12 +269,7 @@ TBMTableModalDelegate
 
 #pragma mark - Video Player Delegate
 
-- (void)videoPlayerURLWasStartPlaying:(NSURL*)videoURL
-{
-    //TODO: delete video file
-//    [self.eventsFlowModule throwEvent:TBMEventFlowEventMessageDidStartPlaying];
-}
-
+- (void)videoPlayerURLWasStartPlaying:(NSURL*)videoURL{}
 
 - (void)videoPlayerURLWasFinishedPlaying:(NSURL *)videoURL withPlayedUserModel:(ZZFriendDomainModel*)playedFriendModel
 {
@@ -411,10 +288,7 @@ TBMTableModalDelegate
 - (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel*)userModel
 {
     [self.interactor updateLastActionForFriend:userModel];
-    
-    [ZZGridAlertBuilder showPreNudgeAlertWithFriendFirstName:userModel.firstName completion:^{
-        [self showSmsDialogForModel:userModel];
-    }];
+    [self _nudgeUser:userModel];
 }
 
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled
@@ -440,6 +314,7 @@ TBMTableModalDelegate
                 [[ZZVideoRecorder shared] startRecordingWithVideoURL:url];
             });
             model.isRecording = YES;
+            
         }
         else
         {
@@ -452,8 +327,6 @@ TBMTableModalDelegate
 
         [self.userInterface updateRollingStateTo:!isEnabled];
     }
-
-    
 }
 
 - (void)toggleVideoWithViewModel:(ZZGridCellViewModel*)model toState:(BOOL)state
@@ -478,124 +351,65 @@ TBMTableModalDelegate
 - (void)stopPlaying
 {
     [self.videoPlayer stop];
-     [self.dataSource reloadDebugStatuses];
+//    [self.dataSource reloadStorage];
 }
 
-#pragma mark - Module Delegate Method
+#pragma mark - Menu Delegate
 
 - (void)userSelectedOnMenu:(id)user
 {
     [self.interactor addUserToGrid:user];
 }
 
-- (ZZSoundPlayer*)soundPlayer
-{
-    if (!_soundPlayer)
-    {
-        _soundPlayer = [[ZZSoundPlayer alloc] initWithSoundNamed:kMessageSoundEffectFileName];
-    }
-    return _soundPlayer;
-}
 
-
-#pragma mark - Private
+#pragma mark - Invites
 
 - (void)showNoValidPhonesDialogFromModel:(ZZContactDomainModel*)model
 {
-    [ZZGridAlertBuilder showNoValidPhonesDialogForUserWithFirstName:model.firstName fullName:model.fullName];
-}
-
-- (void)showChooseNumberDialogForUser:(ZZContactDomainModel*)user// TODO: move to grid alerts
-{
-    self.contactWithMultiplyPhones = user;
-   
-    ANDispatchBlockToMainQueue(^{
-        self.table = [[TBMTableModal alloc] initWithParentView:self.userInterface.view title:@"Choose phone number" rowData:user.phones delegate:self];
-        [self.table show];
-    });
+    [self _showNoValidPhonesDialogFromModel:model];
 }
 
 - (void)addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel*)contact
 {
-    TBMAlertController *alert = [TBMAlertController badConnectionAlert];
-    
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleRecommended handler:^(SDCAlertAction *action) {
-        [alert dismissWithCompletion:nil];
-    }]];
-    
-    
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
-        [self.interactor addUserToGrid:contact];
-    }]];
-    
-    [alert presentWithCompletion:nil];
+    [self _addingUserToGridDidFailWithError:error forUser:contact];
 }
 
+- (void)showChooseNumberDialogForUser:(ZZContactDomainModel*)user
+{
+    [self _showChooseNumberDialogForUser:user];
+}
 
 #pragma mark - TBMTableModalDelegate
 
-- (void)didSelectRow:(NSInteger)index
+- (void)updatePrimaryPhoneNumberForContact:(ZZContactDomainModel*)contact
 {
-    self.contactWithMultiplyPhones.primaryPhone = self.contactWithMultiplyPhones.phones[index];
-    [self.interactor userSelectedPrimaryPhoneNumber:self.contactWithMultiplyPhones];
-}
-
-- (void)showSendInvitationDialogForUser:(ZZContactDomainModel*)user
-{
-    [ZZGridAlertBuilder showSendInvitationDialogForUser:user.firstName completion:^ {
-        [self.interactor inviteUserInApplication:user];
-    }];
-}
-
-- (void)showConnectedDialogForModel:(ZZFriendDomainModel*)friend
-{
-    [self.interactor updateLastActionForFriend:friend];
-    
-    [ZZGridAlertBuilder showConnectedDialogForUser:friend.firstName completion:^{
-        [self.interactor addUserToGrid:friend];
-    }];
-}
-
-- (void)showSmsDialogForModel:(ZZFriendDomainModel*)friend
-{
-    ANMessageDomainModel* model = [ANMessageDomainModel new];
-    NSString* formattedNumber = [TBMPhoneUtils phone:friend.mobileNumber withFormat:NBEPhoneNumberFormatE164];
-    model.recipients = @[[NSObject an_safeString:formattedNumber]];
-
-    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
-    model.message = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", appName, kInviteFriendBaseURL, [ZZUserDataProvider authenticatedUser].idTbm];
-    
-    [self.wireframe presentSMSDialogWithModel:model success:^{
-        [self showConnectedDialogForModel:friend];
-    } fail:^{
-        [self showCantSendSmsErrorForModel:friend];
-    }];
-}
-
-- (void)showCantSendSmsErrorForModel:(ZZFriendDomainModel*)friend
-{
-    [ZZGridAlertBuilder showCannotSendSmsErrorToUser:[friend fullName] completion:^{
-        [self showConnectedDialogForModel:friend];
-    }];
-}
-
-- (NSIndexPath*)_indexPathForFriendAtindex:(NSUInteger)friendIndex
-{
-    NSIndexPath *friendIndexPath = [NSIndexPath indexPathForItem:friendIndex inSection:0];
-    return friendIndexPath;
+    [self.interactor userSelectedPrimaryPhoneNumber:contact];
 }
 
 
 #pragma mark - Edit Friends
 
-- (void)friendRemovedContacts:(ZZFriendDomainModel*)model
+- (void)friendWasRemovedFromContacts:(ZZFriendDomainModel*)model
 {
     [self.interactor removeUserFromContacts:model];
 }
 
-- (void)restoreFriendAtGrid:(ZZFriendDomainModel*)model
+- (void)friendWasUnblockedFromContacts:(ZZFriendDomainModel*)model
 {
     [self.interactor addUserToGrid:model];
+}
+
+
+#pragma mark - Detail Screens
+
+- (void)presentEditFriendsController
+{
+    [self.wireframe presentEditFriendsController];
+}
+
+- (void)presentSendEmailController
+{
+    [self.interactor loadFeedbackModel];
 }
 
 
@@ -605,6 +419,15 @@ TBMTableModalDelegate
 {
     ZZGridCenterCellViewModel* centerCellModel = [self.dataSource centerViewModel];
     centerCellModel.isRecording = NO;
+}
+
+- (ZZSoundPlayer*)soundPlayer
+{
+    if (!_soundPlayer)
+    {
+        _soundPlayer = [[ZZSoundPlayer alloc] initWithSoundNamed:kMessageSoundEffectFileName];
+    }
+    return _soundPlayer;
 }
 
 @end

@@ -265,6 +265,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 - (void)startRecordingWithVideoURL:(NSURL*)url
 {
+    self.isRecorderActive = YES;
     self.didCancelRecording = NO;
     [self startTouchObserve];
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
@@ -286,6 +287,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 - (void)cancelRecordingWithReason:(NSString*)reason
 {
+    self.isRecorderActive = NO;
     if ([self.recorder isRecording])
     {
         if (!self.didCancelRecording)
@@ -316,6 +318,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 - (void)stopRecordingWithCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
+    self.isRecorderActive = NO;
     self.completionBlock = completionBlock;
     [self.recorder stopRecording];
 }
@@ -605,6 +608,9 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     }];
 }
 
-
+- (BOOL)isRecording
+{
+    return [self.recorder isRecording];
+}
 
 @end

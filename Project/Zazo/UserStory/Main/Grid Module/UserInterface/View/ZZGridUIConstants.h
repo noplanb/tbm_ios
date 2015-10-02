@@ -85,7 +85,7 @@ static inline CGFloat const kGridHeight()
 
 
 static UIEdgeInsets const kGridSectionInsets = {12, 12, 12, 12};
-static CGFloat const kGridHeaderViewHeight = 64;
+static CGFloat const kGridHeaderViewHeight = 55;
 
 static CGFloat const kSidePadding = 2;
 static CGFloat const kUserNameScaleValue = 5;
