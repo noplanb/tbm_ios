@@ -63,7 +63,7 @@ static CGFloat const kThumbnailBorderWidth = 2;
     }
     else
     {
-        self.thumbnailImageView.contentMode = UIViewContentModeScaleToFill;
+        self.thumbnailImageView.contentMode = UIViewContentModeScaleAspectFill;
         self.thumbnailImageView.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
     }
     
@@ -113,7 +113,7 @@ static CGFloat const kThumbnailBorderWidth = 2;
         _thumbnailImageView = [UIImageView new];
         _thumbnailImageView.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
         _thumbnailImageView.userInteractionEnabled = YES;
-        
+        _thumbnailImageView.clipsToBounds = YES;
         UITapGestureRecognizer* tap =
         [[UITapGestureRecognizer alloc] initWithTarget:self
                                                 action:@selector(_startVideo:)];
