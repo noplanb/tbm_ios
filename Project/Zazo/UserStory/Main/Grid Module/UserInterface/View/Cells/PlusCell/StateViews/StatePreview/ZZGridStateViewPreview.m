@@ -94,7 +94,7 @@ static CGFloat const kThumbnailBorderWidth = 2;
 
 - (void)_startVideo:(UITapGestureRecognizer *)recognizer
 {
-    if (!self.superview.isHidden)
+    if (!self.superview.isHidden && [self.model isEnablePlayingVideo])
     {
         [self hideAllAnimationViews];
         [self _hideThumbnailGreenBorder];

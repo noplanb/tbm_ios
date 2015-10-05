@@ -19,6 +19,7 @@
 #import "ZZStoredSettingsManager.h"
 #import "TBMFriend.h"
 #import "ZZFriendDataProvider.h"
+#import "iToast.h"
 
 @interface ZZGridCellViewModel ()
 
@@ -211,19 +212,31 @@
         
         if (recognizer.state == UIGestureRecognizerStateBegan)
         {
-            [self updateRecordingStateTo:YES withCompletionBlock:nil];
+            [self updateRecordingStateTo:YES withCompletionBlock:^(BOOL isRecordingSuccess) {
+                if (isRecordingSuccess)
+                {
+                    self.hasUploadedVideo = YES;
+                    [self.animationDelegate showUploadAnimation];
+                    self.usernameLabel.text = [self videoStatusString];
+                }
+            }];
         }
         else if (recognizer.state == UIGestureRecognizerStateEnded)
         {
-            [self updateRecordingStateTo:NO withCompletionBlock:^(BOOL isRecordingSuccess) {
-               if (isRecordingSuccess)
-               {
-                   self.hasUploadedVideo = YES;
-                   [self.animationDelegate showUploadAnimation];
-                   self.usernameLabel.text = [self videoStatusString];
-               }
-            }];
+            [self _stopVideoRecording];
         }
+}
+
+- (void)_stopVideoRecording
+{
+    [self updateRecordingStateTo:NO withCompletionBlock:^(BOOL isRecordingSuccess) {
+        if (isRecordingSuccess)
+        {
+            self.hasUploadedVideo = YES;
+            [self.animationDelegate showUploadAnimation];
+            self.usernameLabel.text = [self videoStatusString];
+        }
+    }];
 }
 
 - (void)_checkIsCancelRecordingWithRecognizer:(UILongPressGestureRecognizer*)recognizer
@@ -258,6 +271,27 @@
     [ZZThumbnailGenerator generateThumbVideo:lastModel];
     
     return [ZZThumbnailGenerator lastThumbImageForUser:self.item.relatedUser];
+}
+
+
+#pragma mark  - Video Play Validation
+
+- (BOOL)isEnablePlayingVideo
+{
+    BOOL isEnbaled = YES;
+    
+    if (self.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING)
+    {
+        isEnbaled = NO;
+        [self _showMessage:NSLocalizedString(@"video-playing-disabled-reason-downloading", nil)];
+    }
+    
+    return isEnbaled;
+}
+
+- (void)_showMessage:(NSString*)message
+{
+    [[iToast makeText:message]show];
 }
 
 @end

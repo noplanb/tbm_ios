@@ -158,4 +158,5 @@
 //Video player
 
 "video-player-not-playable" = "Video is not playable";
+"video-playing-disabled-reason-downloading" = "downloading...";
 

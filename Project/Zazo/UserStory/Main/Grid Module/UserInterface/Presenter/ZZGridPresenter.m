@@ -319,7 +319,12 @@
                 [self.videoPlayer stop];
                 NSURL* url = [ZZVideoUtils generateOutgoingVideoUrlWithFriend:viewModel.item.relatedUser];
                 [self.userInterface updateRecordViewStateTo:isEnabled];
-                [[ZZVideoRecorder shared] startRecordingWithVideoURL:url];
+
+                [[ZZVideoRecorder shared] startRecordingWithVideoURL:url completionBlock:^(BOOL isRecordingSuccess) {
+                    [self.userInterface updateRecordViewStateTo:NO];
+                    [self.soundPlayer play];
+                    completionBlock(isRecordingSuccess);
+                }];
             });
         }
         else

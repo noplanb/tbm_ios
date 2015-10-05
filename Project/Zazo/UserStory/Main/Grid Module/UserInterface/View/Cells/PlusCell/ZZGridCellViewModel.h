@@ -76,5 +76,5 @@ typedef NS_ENUM(NSInteger, ZZGridCellViewModelState)
 
 - (NSString*)videoStatus;
 - (void)reloadDebugVideoStatus;
-
+- (BOOL)isEnablePlayingVideo;
 @end

@@ -96,7 +96,7 @@
     {
         ZZVideoDomainModel* playedVideoModel = [self.videoModelsArray firstObject];
         TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
-
+        self.playedFriend = playedVideoModel.relatedUser;
         self.moviePlayerController.contentURL = viewedVideo.videoUrl;//firstVideoUrl;
         
         //save video state
@@ -189,7 +189,6 @@
             {
                 playedVideoModel.relatedUser.unviewedCount = 0;
             }
-            self.playedFriend = playedVideoModel.relatedUser;
             [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
         }
     }
@@ -234,7 +233,7 @@
     {
         ZZVideoDomainModel* playedVideoModel = self.videoModelsArray[index];
         TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
-        
+        self.playedFriend = playedVideoModel.relatedUser;
         //save video state
         [self _updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
         

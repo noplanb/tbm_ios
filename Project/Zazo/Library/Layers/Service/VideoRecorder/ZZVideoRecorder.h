@@ -27,7 +27,7 @@ extern NSString* const TBMVideoRecorderDidFail;
 + (instancetype)shared;
 
 - (void)updateRecordView:(UIView*)recordView;
-- (void)startRecordingWithVideoURL:(NSURL*)url;
+- (void)startRecordingWithVideoURL:(NSURL*)url completionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock;
 
 - (void)stopRecordingWithCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock;
 

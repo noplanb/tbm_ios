@@ -159,21 +159,26 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 - (void)handleTouches:(NSSet*)touches
 {
-    if ([[touches allObjects] count] > 1)
-    {
-         UITouch* touch = [[touches allObjects] firstObject];
-        if (touch.phase == UITouchPhaseBegan)
+    ANDispatchBlockToMainQueue(^{
+        UITouch* touch = [[touches allObjects] firstObject];
+        
+        if ((touch.phase == UITouchPhaseBegan && self.isRecorderActive) ||
+            (touch.phase == UITouchPhaseStationary && self.isRecorderActive))
         {
             [self cancelRecordingWithDoubleTap];
         }
-    }
+        else if (touch.phase == UITouchPhaseEnded && self.isRecorderActive)
+        {
+            [self stopRecordingWithCompletionBlock:self.completionBlock];
+        }
+    });
 }
 
 - (void)cancelRecordingWithDoubleTap
 {
     [self cancelRecordingWithReason:NSLocalizedString(@"record-two-fingers-touch", nil)];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kDelayBeforeNextMessage * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
+    ANDispatchBlockAfter(kDelayBeforeNextMessage, ^{
+      [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
     });
 }
 
@@ -263,8 +268,10 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     [self.recorder setupCaptureSessionView:recordView];
 }
 
-- (void)startRecordingWithVideoURL:(NSURL*)url
+//- (void)startRecordingWithVideoURL:(NSURL*)url
+- (void)startRecordingWithVideoURL:(NSURL*)url completionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
+    self.completionBlock = completionBlock;
     self.isRecorderActive = YES;
     self.didCancelRecording = NO;
     [self startTouchObserve];
@@ -330,7 +337,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 - (void)videoRecorderDidStopRecording
 {
-    
+
 }
 
 - (void)videoRecorderDidStartRunning
@@ -378,13 +385,16 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         
         if (self.didCancelRecording)
         {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kDelayBeforeNextMessage * 2)  * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self showMessage:NSLocalizedString(@"record-video-too-short", nil)];
+            ANDispatchBlockAfter((kDelayBeforeNextMessage * 2), ^{
+                [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
             });
         }
         else
         {
             [self showMessage:NSLocalizedString(@"record-video-too-short", nil)];
+            ANDispatchBlockAfter(kDelayBeforeNextMessage, ^{
+                [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
+            });
         }
         abort = YES;
     }
@@ -607,6 +617,5 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         [delegate videoRecordingCanceled];
     }];
 }
-
 
 @end

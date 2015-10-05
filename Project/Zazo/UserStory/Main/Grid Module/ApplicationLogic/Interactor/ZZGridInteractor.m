@@ -94,9 +94,14 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)updateFriendAfterVideoStopped:(ZZFriendDomainModel *)model
 {
-    NSArray* gridModels = [self gridModelsWithoutDownloadAnimation];
-    [self.output reloadGridWithData:gridModels];
+    ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithRelatedUserID:model.idTbm];
+    gridModel.isDownloadAnimationViewed = YES;
+    [self.output reloadGridModel:gridModel];
     [self updateLastActionForFriend:model];
+//    NSArray* gridModels = [self gridModelsWithoutDownloadAnimation];
+//    [self.output reloadGridWithData:gridModels];
+//    [self updateLastActionForFriend:model];
+    
 }
 
 - (NSArray*)gridModelsWithoutDownloadAnimation

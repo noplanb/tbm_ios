@@ -36,6 +36,9 @@ ZZGridCenterCellViewModelDelegate
     [self.controllerDelegate reload];
 }
 
+
+#pragma mark - ViewModels Setup After first launch
+
 - (void)setupWithModels:(NSArray*)models
 {
     NSMutableArray* updatedSection = [NSMutableArray new];
@@ -44,17 +47,7 @@ ZZGridCenterCellViewModelDelegate
         
         ZZGridCellViewModel* viewModel = [ZZGridCellViewModel new];
         value.isDownloadAnimationViewed = !self.wasInitialSetuped;
-        viewModel.item = value;
-        viewModel.delegate = self;
-        viewModel.hasDownloadedVideo = [value.relatedUser hasIncomingVideo];
-        viewModel.hasUploadedVideo = [value.relatedUser hasOutgoingVideo];//[value.relatedUser hasIncomingVideo];
-        viewModel.isUploadedVideoViewed = (value.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
-        
-        if (value.relatedUser.unviewedCount > 0)
-        {
-            viewModel.prevBadgeNumber = @(value.relatedUser.unviewedCount);
-            viewModel.badgeNumber = @(value.relatedUser.unviewedCount);
-        }
+        [self _configureCellViewModel:viewModel withDomainModel:value];
         return viewModel;
     }] array];
     
@@ -70,25 +63,40 @@ ZZGridCenterCellViewModelDelegate
     self.wasInitialSetuped = YES;
 }
 
+
+#pragma mark - Update Current model
+
 - (void)updateCellWithModel:(ZZGridDomainModel*)model
 {
     NSInteger index = [self viewModelIndexWithModelIndex:model.index];
     if (index != NSNotFound)
     {
         ZZGridCellViewModel* viewModel = [self.models objectAtIndex:index];
-        viewModel.item = model;
-        viewModel.delegate = self;
-        viewModel.hasDownloadedVideo = [model.relatedUser hasIncomingVideo];
-        viewModel.hasUploadedVideo = [model.relatedUser hasOutgoingVideo];//[value.relatedUser hasIncomingVideo];
-        viewModel.isUploadedVideoViewed = (model.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
-        
-        if (model.relatedUser.unviewedCount > 0)
-        {
-            viewModel.prevBadgeNumber = @(model.relatedUser.unviewedCount);
-            viewModel.badgeNumber = @(model.relatedUser.unviewedCount);
-        }
-        
+        [self _configureCellViewModel:viewModel withDomainModel:model];
         [self _reloadModelAtIndex:index];
+    }
+}
+
+
+#pragma mark - GridCell Configuration depends on Domain model
+
+- (void)_configureCellViewModel:(ZZGridCellViewModel*)viewModel withDomainModel:(ZZGridDomainModel*)model
+{
+    viewModel.item = model;
+    viewModel.delegate = self;
+    viewModel.hasDownloadedVideo = [model.relatedUser hasIncomingVideo];
+    viewModel.hasUploadedVideo = [model.relatedUser hasOutgoingVideo];//[value.relatedUser hasIncomingVideo];
+    viewModel.isUploadedVideoViewed = (model.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED);
+    
+    if (model.relatedUser.unviewedCount > 0)
+    {
+        viewModel.prevBadgeNumber = @(model.relatedUser.unviewedCount);
+        viewModel.badgeNumber = @(model.relatedUser.unviewedCount);
+    }
+    else
+    {
+        viewModel.prevBadgeNumber = @(0);
+        viewModel.badgeNumber = @(0);
     }
 }
 
