@@ -294,8 +294,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 - (void)cancelRecordingWithReason:(NSString*)reason
 {
-    self.isRecorderActive = NO;
-    if ([self.recorder isRecording])
+    if (self.isRecorderActive)
     {
         if (!self.didCancelRecording)
         {
@@ -308,6 +307,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
             [self.recorder cancelRecording];
         }
     }
+    self.isRecorderActive = NO;
 }
 
 
