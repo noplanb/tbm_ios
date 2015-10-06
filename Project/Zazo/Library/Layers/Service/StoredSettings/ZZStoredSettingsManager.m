@@ -9,8 +9,7 @@
 static NSString* const kZZServerEndpointStateKey = @"kTBMConfigServerStateKey";
 static NSString* const kZZServerURLStringKey = @"kTBMConfigCustomServerURLKey";
 static NSString* const kZZDebugModeEnabledKey = @"kTBMConfigDeviceDebugModeKey";
-static NSString* const kZZForceSMSEnabledKey = @"kZZForceSMSEnabledKey";
-static NSString* const kZZForceCallEnabledKey = @"kZZForceCallEnabledKey";
+
 static NSString* const kZZShouldUseRollBarSDKEnabledKey = @"kZZShouldUseRollBarSDKEnabledKey";
 
 static NSString* const kZZUserAuthToken = @"kZZUserAuthToken";
@@ -86,28 +85,6 @@ static NSString *const kLastUnlockedFeatureKey = @"kLastUnlockedFeatureKey";
 
 
 #pragma mark - Configuration
-
-//force SMS
-- (void)setForceSMS:(BOOL)forceSMS
-{
-    [NSObject an_updateBool:forceSMS forKey:kZZForceSMSEnabledKey];
-}
-
-- (BOOL)forceSMS
-{
-    return [NSObject an_boolForKey:kZZForceSMSEnabledKey];
-}
-
-//force Call
-- (void)setForceCall:(BOOL)forceCall
-{
-    [NSObject an_updateBool:forceCall forKey:kZZForceCallEnabledKey];
-}
-
-- (BOOL)forceCall
-{
-    return [NSObject an_boolForKey:kZZForceCallEnabledKey];
-}
 
 //debug mode
 - (void)setDebugModeEnabled:(BOOL)debugModeEnabled

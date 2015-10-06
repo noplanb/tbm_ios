@@ -200,9 +200,7 @@
 
 - (void)_addCustomModesSectionWithData:(ZZSettingsModel*)model
 {
-    NSArray* models = @[[self _switchModelWithTitle:@"Debug Mode" state:model.isDebugEnabled],
-                        [self _switchModelWithTitle:@"Force SMS during registration" state:model.forceRegSMS],
-                        [self _switchModelWithTitle:@"Force Call during registration" state:model.forceRegCall]];
+    NSArray* models = @[[self _switchModelWithTitle:@"Debug Mode" state:model.isDebugEnabled]];
 
     [self.storage addItems:models toSection:ZZSecretSectionCustomAppModes];
     [self.storage setSectionHeaderModel:NSLocalizedString(@"secret-controller.customization-header.title.text", nil)
@@ -280,16 +278,6 @@
         case 0:
         {
             [self.delegate updateDebugModeValueTo:value];
-        } break;
-            
-        case 1:
-        {
-            [self.delegate updateShouldForceSMSValueTo:value];
-        } break;
-            
-        case 2:
-        {
-            [self.delegate updateShouldForceCallValueTo:value];
         } break;
             
         default: break;

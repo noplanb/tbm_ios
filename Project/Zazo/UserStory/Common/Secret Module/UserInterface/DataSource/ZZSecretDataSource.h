@@ -46,8 +46,6 @@ typedef NS_ENUM(NSInteger, ZZSecrectScreenActionsType)
 - (void)actionWithType:(ZZSecrectScreenActionsType)type;
 
 - (void)updateDebugModeValueTo:(BOOL)isEnabled;
-- (void)updateShouldForceSMSValueTo:(BOOL)isEnabled;
-- (void)updateShouldForceCallValueTo:(BOOL)isEnabled;
 
 - (void)updateEnabledAllFeaturesValueTo:(BOOL)isEnabled;
 
