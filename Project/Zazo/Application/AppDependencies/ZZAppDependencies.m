@@ -54,11 +54,15 @@
 
 - (void)handleApplicationDidBecomeActive
 {
-    ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
-    if (user.isRegistered)
-    {
-        [[ZZVideoRecorder shared] updateRecorder];
-    }
+    ANDispatchBlockToBackgroundQueue(^{
+        ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
+        if (user.isRegistered)
+        {
+            ANDispatchBlockToMainQueue(^{
+               [[ZZVideoRecorder shared] updateRecorder];
+            });
+        }
+    });
 }
 
 - (void)handleApplicationWillTerminate

@@ -22,43 +22,33 @@
 
 @implementation ZZMovingGridView
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)init
 {
-    if (self = [super initWithFrame:frame])
+    self = [super init];
+    if (self)
     {
-        [self calculateDefaults];
+        self.grid = [[ZZGridHelper alloc] init];
+        
+        self.rotator = [[ZZRotator alloc] initWithAnimationCompletionBlock:^{
+            self.isGridMoved = NO;
+            [self.delegate rotationStoped];
+        }];
+        
+        [self.grid setFrame:self.frame];
+        
+        CGFloat offsetMax = (CGFloat) (M_PI * 2);
+        
+        _maxCellsOffset = offsetMax;
+        _cellsOffset = 0.f;
     }
     return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
-{
-    if (self = [super initWithCoder:aDecoder])
-    {
-        [self calculateDefaults];
-    }
-    return self;
-}
-
-- (void)calculateDefaults {
-    self.grid = [[ZZGridHelper alloc] init];
-    
-    self.rotator = [[ZZRotator alloc] initWithAnimationCompletionBlock:^{
-        self.isGridMoved = NO;
-        [self.delegate rotationStoped];
-    }];
-
-    [self.grid setFrame:self.frame];
-
-    CGFloat offsetMax = (CGFloat) (M_PI * 2);
-
-    _maxCellsOffset = offsetMax;
-    _cellsOffset = 0.f;
-}
 
 - (void)handleRotationGesture:(ZZRotationGestureRecognizer *)recognizer
 {
-    switch (recognizer.state) {
+    switch (recognizer.state)
+    {
         case UIGestureRecognizerStateBegan:
         {
             NSLog(@"ZZMOVINGGRIDVIEW START TOUCH");
@@ -87,16 +77,15 @@
             [self.rotator decayAnimationWithVelocity:[recognizer angleVelocityInView:self] onCarouselView:self];
         }
             break;
-        default: {
-            // Do nothing...
-        }
-            break;
+        default: break;
     }
 }
 
--(void)layoutSubviews
+- (void)layoutSubviews
 {
-    [self.grid setFrame:self.frame];
+    [super layoutSubviews];
+    
+    [self.grid setFrame:self.bounds];
 }
 
 
