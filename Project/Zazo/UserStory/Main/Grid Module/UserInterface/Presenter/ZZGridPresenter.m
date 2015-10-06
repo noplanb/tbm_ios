@@ -175,7 +175,7 @@
 - (void)dataLoadedWithArray:(NSArray*)data
 {
     [self.dataSource setupWithModels:data];
-    ANDispatchBlockAfter(3.f, ^{ //TODO: Get this out here
+    ANDispatchBlockAfter(1.f, ^{ //TODO: Get this out here
         ANDispatchBlockToMainQueue(^{
             [self.actionHandler handleEvent:ZZGridActionEventTypeGridLoaded];
         });

@@ -16,15 +16,15 @@
 {
     switch (hintType)
     {
-        case ZZHintsTypeSendZazo:
+        case ZZHintsTypeInviteHint:
             return [self _sendZazoModel];
             break;
             
-        case ZZHintsTypePressAndHoldToRecord:
+        case ZZHintsTypeRecordHint:
             return [self _pressAndHoldToRecord];
             break;
             
-        case ZZHintsTypeZazoSent:
+        case ZZHintsTypeSentHint:
             return [self _zazoSent];
             break;
             
@@ -32,7 +32,7 @@
             return [self _giftIsWaiting];
             break;
             
-        case ZZHintsTypeTapToSwitchCamera:
+        case ZZHintsTypeFrontCameraUsageHint:
             return [self _tapToSwitchCamera];
             break;
             
@@ -40,23 +40,23 @@
             return [self _welcomeNudgeUser];
             break;
             
-        case ZZHintsTypeWelcomeFor:
+        case ZZHintsTypeSendWelcomeHint:
             return [self _welcomeFor];
             break;
             
-        case ZZHintsTypeAbortRecording:
+        case ZZHintsTypeAbortRecordingUsageHint:
             return [self _abortRecording];
             break;
             
-        case ZZHintsTypeEditFriends:
+        case ZZHintsTypeDeleteFriendUsageHint:
             return [self _editFriends];
             break;
             
-        case ZZHintsTypeEarpieceUsage:
+        case ZZHintsTypeEarpieceUsageHint:
             return [self _earpieceUsage];
             break;
             
-        case ZZHintsTypeSpin:
+        case ZZHintsTypeSpinUsageHint:
             return [self _spin];
             break;
             
@@ -86,7 +86,7 @@
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.send-a-zazo.label.text", @"");
     model.angle = 0.f;
-    model.type = ZZHintsTypeSendZazo;
+    model.type = ZZHintsTypeInviteHint;
     model.hidesArrow = NO;
     model.arrowDirection = ZZArrowDirectionRight;
     model.imageType = ZZHintsBottomImageTypeNone;
@@ -99,7 +99,7 @@
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.press-to-record.label.text", @"");
     model.angle = -90.f;
-    model.type = ZZHintsTypePressAndHoldToRecord;
+    model.type = ZZHintsTypeRecordHint;
     model.hidesArrow = NO;
     model.arrowDirection = ZZArrowDirectionRight;
     model.imageType = ZZHintsBottomImageTypeNone;
@@ -112,7 +112,7 @@
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.send-first-video.label.text", @"");
     model.angle = -90.f;
-    model.type = ZZHintsTypeZazoSent;
+    model.type = ZZHintsTypeSentHint;
     model.hidesArrow = NO;
     model.arrowDirection = ZZArrowDirectionRight;
     model.imageType = ZZHintsBottomImageTypeGotIt;
@@ -138,7 +138,7 @@
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.switch-camera.label.text", @"");
     model.angle = 30;
-    model.type = ZZHintsTypeTapToSwitchCamera;
+    model.type = ZZHintsTypeFrontCameraUsageHint;
     model.hidesArrow = NO;
     model.arrowDirection = ZZArrowDirectionLeft;
     model.imageType = ZZHintsBottomImageTypeNone;
@@ -164,7 +164,7 @@
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.welcome-for.label.text", @"");
     model.angle = -90.f;
-    model.type = ZZHintsTypeWelcomeFor;
+    model.type = ZZHintsTypeSendWelcomeHint;
     model.hidesArrow = NO;
     model.arrowDirection = ZZArrowDirectionRight;
     model.imageType = ZZHintsBottomImageTypeNone;
@@ -177,7 +177,7 @@
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.abort-recording.label.text", @"");
     model.angle = -90.f;
-    model.type = ZZHintsTypeAbortRecording;
+    model.type = ZZHintsTypeAbortRecordingUsageHint;
     model.hidesArrow = NO;
     model.arrowDirection = ZZArrowDirectionRight;
     model.imageType = ZZHintsBottomImageTypeTryItNow;
@@ -190,7 +190,7 @@
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.delete-a-friend.label.text", @"");
     model.angle = -95.f;
-    model.type = ZZHintsTypeEditFriends;
+    model.type = ZZHintsTypeDeleteFriendUsageHint;
     model.hidesArrow = NO;
     model.arrowDirection = ZZArrowDirectionLeft;
     model.imageType = ZZHintsBottomImageTypeGotIt;
@@ -203,7 +203,7 @@
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.earpiece-usage.label.text", @"");
     model.angle = -90.f;
-    model.type = ZZHintsTypeEarpieceUsage;
+    model.type = ZZHintsTypeEarpieceUsageHint;
     model.hidesArrow = NO;
     model.arrowDirection = ZZArrowDirectionRight;
     model.imageType = ZZHintsBottomImageTypeTryItNow;
@@ -216,7 +216,7 @@
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.spin-usage.label.text", @"");
     model.angle = 90.f;
-    model.type = ZZHintsTypeSpin;
+    model.type = ZZHintsTypeSpinUsageHint;
     model.hidesArrow = NO;
     model.arrowDirection = ZZArrowDirectionLeft;
     model.imageType = ZZHintsBottomImageTypeTryItNow;

@@ -28,12 +28,18 @@
 
 - (void)handleEvent:(ZZGridActionEventType)event
 {
-    [self.hintsController showHintWithType:ZZHintsTypeSendZazo
-                                focusFrame:[self.userInterface focusFrameForIndex:0]
-                                 withIndex:0
-                           formatParameter:@""];
+     //TODO: getCurrent index from delegate
+    [self _configureHintControllerWithHintType:ZZHintsTypeInviteHint index:4];
+    
 }
 
+- (void)_configureHintControllerWithHintType:(ZZHintsType)hintType index:(NSInteger)index
+{
+    [self.hintsController showHintWithType:hintType
+                                focusFrame:[self.userInterface focusFrameForIndex:index]
+                                 withIndex:index
+                           formatParameter:@""];
+}
 
 
 #pragma mark - Lazy Load

@@ -327,6 +327,7 @@
 		182BCF681BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 182BCF671BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf */; settings = {ASSET_TAGS = (); }; };
 		182D8D981BB5D45E0080E100 /* icon_camera_switch.png in Resources */ = {isa = PBXBuildFile; fileRef = 182D8D971BB5D45E0080E100 /* icon_camera_switch.png */; settings = {ASSET_TAGS = (); }; };
 		186BD4B61BC3C87F00B47C6B /* TBMHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 186BD4B41BC3C87F00B47C6B /* TBMHintView.m */; settings = {ASSET_TAGS = (); }; };
+		186BD4BA1BC40EF900B47C6B /* ZZHintArrowConfigurationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186BD4B91BC40EF900B47C6B /* ZZHintArrowConfigurationModel.m */; settings = {ASSET_TAGS = (); }; };
 		1872F4391BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1872F4381BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.m */; settings = {ASSET_TAGS = (); }; };
 		187842311BB2F2760007CDE2 /* ZZCommunicationDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187842301BB2F2760007CDE2 /* ZZCommunicationDomainModel.m */; settings = {ASSET_TAGS = (); }; };
 		18965CAC1BAC5D2A009AC8A4 /* ZZActionSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18965CAB1BAC5D29009AC8A4 /* ZZActionSheetController.m */; settings = {ASSET_TAGS = (); }; };
@@ -1015,6 +1016,8 @@
 		183710481BB3CA6800A22FB3 /* ZZCoreTelephonyConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZCoreTelephonyConstants.h; sourceTree = "<group>"; };
 		186BD4B31BC3C87F00B47C6B /* TBMHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHintView.h; sourceTree = "<group>"; };
 		186BD4B41BC3C87F00B47C6B /* TBMHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHintView.m; sourceTree = "<group>"; };
+		186BD4B81BC40EF900B47C6B /* ZZHintArrowConfigurationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintArrowConfigurationModel.h; sourceTree = "<group>"; };
+		186BD4B91BC40EF900B47C6B /* ZZHintArrowConfigurationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintArrowConfigurationModel.m; sourceTree = "<group>"; };
 		1872F4371BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactsPermissionAlertBuilder.h; sourceTree = "<group>"; };
 		1872F4381BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContactsPermissionAlertBuilder.m; sourceTree = "<group>"; };
 		1878422E1BB2D4960007CDE2 /* ZZGridActionHandlerUserInterfaceDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZGridActionHandlerUserInterfaceDelegate.h; sourceTree = "<group>"; };
@@ -3753,6 +3756,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		186BD4B71BC40EDE00B47C6B /* ZZHintArrowConfigurationModel */ = {
+			isa = PBXGroup;
+			children = (
+				186BD4B81BC40EF900B47C6B /* ZZHintArrowConfigurationModel.h */,
+				186BD4B91BC40EF900B47C6B /* ZZHintArrowConfigurationModel.m */,
+			);
+			path = ZZHintArrowConfigurationModel;
+			sourceTree = "<group>";
+		};
 		1872F4361BB3FA9D00E99356 /* AlertBuilder */ = {
 			isa = PBXGroup;
 			children = (
@@ -3840,6 +3852,7 @@
 		79123D831BB14F77007E1CBF /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				186BD4B71BC40EDE00B47C6B /* ZZHintArrowConfigurationModel */,
 				79123D871BB14F9E007E1CBF /* ZZHintsDomainModel.h */,
 				79123D881BB14F9E007E1CBF /* ZZHintsDomainModel.m */,
 				79123D841BB14F8E007E1CBF /* ZZHintsViewModel.h */,
@@ -4210,6 +4223,7 @@
 				07636E911BA49A0100925671 /* ZZAuthRegistrationView.m in Sources */,
 				07636DAA1BA49A0100925671 /* TBMAppDelegate+PushNotification.m in Sources */,
 				07636ED31BA49A0100925671 /* ZZGridWireframe.m in Sources */,
+				186BD4BA1BC40EF900B47C6B /* ZZHintArrowConfigurationModel.m in Sources */,
 				07636E221BA49A0100925671 /* ZZContentDataAcessor.m in Sources */,
 				079280A41BA8544800E22553 /* ZZGridActionHandler.m in Sources */,
 				07636EB91BA49A0100925671 /* ZZEditFriendListWireframe.m in Sources */,

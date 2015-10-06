@@ -40,14 +40,14 @@
     }
     ZZHintsViewModel *viewModel = [ZZHintsViewModel viewModelWithItem:model];
     
-    if (model.type == ZZHintsTypeEditFriends)
+    if (model.type == ZZHintsTypeDeleteFriendUsageHint)
     {
         focusFrame = CGRectMake(SCREEN_WIDTH - 44, 0, 44, 64);
     }
     
     [viewModel updateFocusFrame:focusFrame];
     
-//    if ((model.type == ZZHintsTypeWelcomeNudgeUser) || model.type == ZZHintsTypeWelcomeFor)
+//    if ((model.type == ZZHintsTypeWelcomeNudgeUser) || model.type == ZZHintsTypeSendWelcomeHint)
 //    {
         [self.hintsView updateWithHintsViewModel:viewModel andIndex:index];
 //    }

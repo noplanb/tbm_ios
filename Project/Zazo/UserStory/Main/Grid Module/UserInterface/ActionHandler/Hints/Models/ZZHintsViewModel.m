@@ -8,6 +8,7 @@
 
 #import "ZZHintsViewModel.h"
 #import "ZZHintsDomainModel.h"
+#import "ZZHintArrowConfigurationModel.h"
 
 @interface ZZHintsViewModel ()
 
@@ -32,144 +33,236 @@
     self.focusFrame = focusFrame;
 }
 
-- (CGPoint)generateArrowFocusPoint
-{
-    switch (self.item.type)
-    {
-        case ZZHintsTypeSendZazo:
-        case ZZHintsTypePressAndHoldToRecord:
-        case ZZHintsTypeWelcomeFor:
-        case ZZHintsTypeAbortRecording:
-        case ZZHintsTypeEarpieceUsage:
-        {
-            return CGPointMake(CGRectGetMinX(self.focusFrame),
-                               CGRectGetMinY(self.focusFrame));
-            
-        } break;
-            
-        case ZZHintsTypeZazoSent:
-        {
-            return CGPointMake(CGRectGetMaxX(self.focusFrame) - 20.f,
-                               CGRectGetMinY(self.focusFrame));
-            
-        } break;
-            
-        case ZZHintsTypeGiftIsWaiting:
-        case ZZHintsTypeEditFriends:
-        {
-            return CGPointMake(CGRectGetMinX(self.focusFrame),
-                               CGRectGetMidY(self.focusFrame) + (CGRectGetHeight(self.focusFrame) / 4));
-            
-        } break;
-            
-        case ZZHintsTypeTapToSwitchCamera:
-        case ZZHintsTypeWelcomeNudgeUser:
-        {
-            return CGPointMake(CGRectGetMaxX(self.focusFrame),
-                               CGRectGetMidY(self.focusFrame));
-        } break;
-            
-        case ZZHintsTypeSpin:
-        {
-            return CGPointMake(CGRectGetMaxX(self.focusFrame),
-                               CGRectGetMinY(self.focusFrame));
-            
-        } break;
-            
-            
-        default: break;
-    }
-    
-    return CGPointZero;
-}
-
-- (CGPoint)generateArrowFocusPointForIndex:(NSInteger)index
-{
-//    switch (index)
+//- (CGPoint)generateArrowFocusPoint
+//{
+//    switch (self.item.type)
 //    {
-//        case 0:
-//        case 1:
-//        case 3:
-//        case 6:
-//        case 7:
+//        case ZZHintsTypeInviteHint:
+//        case ZZHintsTypeRecordHint:
+//        case ZZHintsTypeSendWelcomeHint:
+//        case ZZHintsTypeAbortRecordingUsageHint:
+//        case ZZHintsTypeEarpieceUsageHint:
+//        {
+//            return CGPointMake(CGRectGetMinX(self.focusFrame),
+//                               CGRectGetMinY(self.focusFrame));
+//            
+//        } break;
+//            
+//        case ZZHintsTypeSentHint:
+//        {
+//            return CGPointMake(CGRectGetMaxX(self.focusFrame) - 20.f,
+//                               CGRectGetMinY(self.focusFrame));
+//            
+//        } break;
+//            
+//        case ZZHintsTypeGiftIsWaiting:
+//        case ZZHintsTypeDeleteFriendUsageHint:
+//        {
+//            return CGPointMake(CGRectGetMinX(self.focusFrame),
+//                               CGRectGetMidY(self.focusFrame) + (CGRectGetHeight(self.focusFrame) / 4));
+//            
+//        } break;
+//            
+//        case ZZHintsTypeFrontCameraUsageHint:
+//        case ZZHintsTypeWelcomeNudgeUser:
 //        {
 //            return CGPointMake(CGRectGetMaxX(self.focusFrame),
 //                               CGRectGetMidY(self.focusFrame));
 //        } break;
 //            
-//        case 2:
-//        case 8:
+//        case ZZHintsTypeSpinUsageHint:
 //        {
-//            return CGPointMake(CGRectGetMinX(self.focusFrame),
-//                               CGRectGetMidY(self.focusFrame));
+//            return CGPointMake(CGRectGetMaxX(self.focusFrame),
+//                               CGRectGetMinY(self.focusFrame));
+//            
 //        } break;
+//            
 //            
 //        default: break;
 //    }
-    
-    
+//    
+//    return CGPointZero;
+//}
+
+- (CGPoint)generateArrowFocusPointForIndex:(NSInteger)index
+{
+    ZZHintArrowConfigurationModel* configurationModel = [self _modelDependsOnTypeWithIndex:index];
+    return configurationModel.focusPoint;
+}
+
+- (NSArray*)_configurationModelsForShowCellBehavior
+{
+    return @[
+                //0
+                [ZZHintArrowConfigurationModel configureWithFocusPosition:ZZHintArrowFocusPositionBottomRight
+                                                           arrowDirection:ZZArrowDirectionRight
+                                                                    angle:90
+                                                               focusFrame:self.focusFrame
+                                                                 itemType:self.item.type],
+                //1
+                [ZZHintArrowConfigurationModel configureWithFocusPosition:ZZHintArrowFocusPositionMiddleRight
+                                                           arrowDirection:ZZArrowDirectionRight
+                                                                    angle:180
+                                                               focusFrame:self.focusFrame
+                                                                 itemType:self.item.type],
+                //2
+                [ZZHintArrowConfigurationModel configureWithFocusPosition:ZZHintArrowFocusPositionBottomLeft
+                                                           arrowDirection:ZZArrowDirectionLeft
+                                                                    angle:-90
+                                                               focusFrame:self.focusFrame
+                                                                 itemType:self.item.type],
+                //3
+                [ZZHintArrowConfigurationModel configureWithFocusPosition:ZZHintArrowFocusPositionTopRight
+                                                           arrowDirection:ZZArrowDirectionLeft
+                                                                    angle:90
+                                                               focusFrame:self.focusFrame
+                                                                 itemType:self.item.type],
+                //4
+                [ZZHintArrowConfigurationModel configureWithFocusPosition:ZZHintArrowFocusPositionMiddleRight
+                                                           arrowDirection:ZZArrowDirectionLeft
+                                                                    angle:30
+                                                               focusFrame:self.focusFrame
+                                                                 itemType:self.item.type],
+                //5
+                [ZZHintArrowConfigurationModel configureWithFocusPosition:ZZHintArrowFocusPositionTopLeft
+                                                           arrowDirection:ZZArrowDirectionRight
+                                                                    angle:-90
+                                                               focusFrame:self.focusFrame
+                                                                 itemType:self.item.type],
+                //6
+                [ZZHintArrowConfigurationModel configureWithFocusPosition:ZZHintArrowFocusPositionTopRight
+                                                           arrowDirection:ZZArrowDirectionLeft
+                                                                    angle:90
+                                                               focusFrame:self.focusFrame
+                                                                 itemType:self.item.type],
+                
+                //7
+                [ZZHintArrowConfigurationModel configureWithFocusPosition:ZZHintArrowFocusPositionMiddleRight
+                                                           arrowDirection:ZZArrowDirectionLeft
+                                                                    angle:30
+                                                               focusFrame:self.focusFrame
+                                                                 itemType:self.item.type],
+                
+                //8
+                [ZZHintArrowConfigurationModel configureWithFocusPosition:ZZHintArrowFocusPositionTopLeft
+                                                           arrowDirection:ZZArrowDirectionRight
+                                                                    angle:-90
+                                                               focusFrame:self.focusFrame
+                                                                 itemType:self.item.type],
+                
+             ];
+
+}
+
+- (NSArray*)_configuratoinModelsForSentAndViewedState
+{
+    return @[
+             //0
+             [ZZHintArrowConfigurationModel configureWithFocusPosition:ZZHintArrowFocusPositionTopRight
+                                                        arrowDirection:ZZArrowDirectionRight
+                                                                 angle:90
+                                                            focusFrame:self.focusFrame
+                                                              itemType:self.item.type],
+             //1
+             [ZZHintArrowConfigurationModel configureWithFocusPosition:ZZHintArrowFocusPositionTopRight
+                                                        arrowDirection:ZZArrowDirectionRight
+                                                                 angle:180
+                                                            focusFrame:self.focusFrame
+                                                              itemType:self.item.type],
+             //2
+             [ZZHintArrowConfigurationModel configureWithFocusPosition:ZZHintArrowFocusPositionTopLeft
+                                                        arrowDirection:ZZArrowDirectionLeft
+                                                                 angle:-90
+                                                            focusFrame:self.focusFrame
+                                                              itemType:self.item.type],
+             //3
+             [ZZHintArrowConfigurationModel configureWithFocusPosition:ZZHintArrowFocusPositionTopRight
+                                                        arrowDirection:ZZArrowDirectionLeft
+                                                                 angle:90
+                                                            focusFrame:self.focusFrame
+                                                              itemType:self.item.type],
+             //4 TODO://
+             [ZZHintArrowConfigurationModel configureWithFocusPosition:ZZHintArrowFocusPositionMiddleRight
+                                                        arrowDirection:ZZArrowDirectionLeft
+                                                                 angle:30
+                                                            focusFrame:self.focusFrame
+                                                              itemType:self.item.type],
+             //5
+             [ZZHintArrowConfigurationModel configureWithFocusPosition:ZZHintArrowFocusPositionTopLeft
+                                                        arrowDirection:ZZArrowDirectionRight
+                                                                 angle:-90
+                                                            focusFrame:self.focusFrame
+                                                              itemType:self.item.type],
+             //6
+             [ZZHintArrowConfigurationModel configureWithFocusPosition:ZZHintArrowFocusPositionTopRight
+                                                        arrowDirection:ZZArrowDirectionLeft
+                                                                 angle:90
+                                                            focusFrame:self.focusFrame
+                                                              itemType:self.item.type],
+             
+             //7
+             [ZZHintArrowConfigurationModel configureWithFocusPosition:ZZHintArrowFocusPositionTopRight
+                                                        arrowDirection:ZZArrowDirectionLeft
+                                                                 angle:30
+                                                            focusFrame:self.focusFrame
+                                                              itemType:self.item.type],
+             
+             //8
+             [ZZHintArrowConfigurationModel configureWithFocusPosition:ZZHintArrowFocusPositionTopLeft
+                                                        arrowDirection:ZZArrowDirectionRight
+                                                                 angle:-90
+                                                            focusFrame:self.focusFrame
+                                                              itemType:self.item.type],
+             ];
+}
+
+- (ZZHintArrowConfigurationModel*)_modelDependsOnTypeWithIndex:(NSInteger)index
+{
+    ZZHintArrowConfigurationModel* configurationModel;
+
     switch (self.item.type)
     {
-        case ZZHintsTypeSendZazo:
-        case ZZHintsTypePressAndHoldToRecord:
-        case ZZHintsTypeWelcomeFor:
-        case ZZHintsTypeAbortRecording:
-        case ZZHintsTypeEarpieceUsage:
+        case ZZHintsTypeInviteHint:
+        case ZZHintsTypeRecordHint:
+        case ZZHintsTypeSendWelcomeHint:
+        case ZZHintsTypeAbortRecordingUsageHint:
+        case ZZHintsTypeEarpieceUsageHint:
         {
-
+            configurationModel = [self _configurationModelsForShowCellBehavior][index];
             
         } break;
             
-        case ZZHintsTypeZazoSent:
+        case ZZHintsTypeViewedHint:
+        case ZZHintsTypeSentHint:
         {
+            configurationModel = [self _configuratoinModelsForSentAndViewedState][index];
+            
+        } break;
         
-       
-            
-        } break;
-            
         case ZZHintsTypeGiftIsWaiting:
-        case ZZHintsTypeEditFriends:
+        case ZZHintsTypeDeleteFriendUsageHint:
         {
-   
+            
             
         } break;
             
-        case ZZHintsTypeTapToSwitchCamera:
+        case ZZHintsTypeFrontCameraUsageHint:
         case ZZHintsTypeWelcomeNudgeUser:
         {
-           
+            
         } break;
             
-        case ZZHintsTypeSpin:
+        case ZZHintsTypeSpinUsageHint:
         {
-          
+            
             
         } break;
             
             
         default: break;
     }
-
     
-    
-    
-    return CGPointZero;
-}
-
-- (NSArray*)configureShowCellBehaviorDependsOnIndex:(NSInteger)index
-{
-    return @[
-             @{
-                 @"focusPosition" : @"bootomLeft",
-                 @"angle" : @"90",
-              }
-             
-             
-             
-             
-             
-             ];
-
+    return configurationModel;
 }
 
 
@@ -185,39 +278,8 @@
 
 - (CGFloat)arrowAngleForIndex:(NSInteger)index
 {
-    switch (index)
-    {
-        case 0:
-        case 1:
-        {
-            return 120.0f;
-        } break;
-            
-        case 2:
-        {
-            return -120.f;
-        } break;
-            
-        case 3:
-        {
-            return 45;
-        } break;
-            
-        case 6:
-        case 7:
-        {
-            return 30;
-        } break;
-            
-        case 8:
-        {
-            return -60;
-        } break;
-            
-        default: break;
-    }
-    
-    return 0;
+    ZZHintArrowConfigurationModel* configurationModel = [self _modelDependsOnTypeWithIndex:index];
+    return configurationModel.angle;
 }
 
 
@@ -229,27 +291,9 @@
 - (ZZArrowDirection)arrowDirectionForIndex:(NSInteger)index
 {
     ZZArrowDirection direction;
-    
-    switch (index)
-    {
-        case 0:
-        case 1:
-        case 8:
-            direction = ZZArrowDirectionRight;
-            break;
-            
-        case 2:
-        case 3:
-        case 6:
-        case 7:
-            direction = ZZArrowDirectionLeft;
-            break;
-            
-        default:
-            direction = ZZArrowDirectionRight;
-            break;
-    }
-    
+    ZZHintArrowConfigurationModel* configurationModel = [self _modelDependsOnTypeWithIndex:index];
+    direction = configurationModel.arrowDirection;
+
     return direction;
 }
 
