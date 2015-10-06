@@ -9,7 +9,6 @@
 #import "ZZHintsModelGenerator.h"
 #import "ZZHintsDomainModel.h"
 #import "NSArray+TBMArrayHelpers.h"
-#import "ZZGridActionDataProvider.h"
 
 @implementation ZZHintsModelGenerator
 
@@ -19,47 +18,47 @@
     {
         case ZZHintsTypeSendZazo:
             return [self _sendZazoModel];
-        break;
+            break;
             
         case ZZHintsTypePressAndHoldToRecord:
             return [self _pressAndHoldToRecord];
-        break;
+            break;
             
         case ZZHintsTypeZazoSent:
             return [self _zazoSent];
-        break;
+            break;
             
         case ZZHintsTypeGiftIsWaiting:
             return [self _giftIsWaiting];
-        break;
+            break;
             
         case ZZHintsTypeTapToSwitchCamera:
             return [self _tapToSwitchCamera];
-        break;
+            break;
             
         case ZZHintsTypeWelcomeNudgeUser:
             return [self _welcomeNudgeUser];
-        break;
+            break;
             
         case ZZHintsTypeWelcomeFor:
             return [self _welcomeFor];
-        break;
+            break;
             
         case ZZHintsTypeAbortRecording:
             return [self _abortRecording];
-        break;
+            break;
             
         case ZZHintsTypeEditFriends:
             return [self _editFriends];
-        break;
-        
+            break;
+            
         case ZZHintsTypeEarpieceUsage:
             return [self _earpieceUsage];
-        break;
-        
+            break;
+            
         case ZZHintsTypeSpin:
             return [self _spin];
-        break;
+            break;
             
             
         default: break;
@@ -86,20 +85,12 @@
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.send-a-zazo.label.text", @"");
-//    model.angle = -90.f;
-//    model.arrowDirection = ZZArrowDirectionRight;
-    model.pointsTo = ZZGridPartCentralRightCell;
+    model.angle = 0.f;
     model.type = ZZHintsTypeSendZazo;
     model.hidesArrow = NO;
+    model.arrowDirection = ZZArrowDirectionRight;
     model.imageType = ZZHintsBottomImageTypeNone;
-    model.priority = 1700;
-    model.condition = ^BOOL(ZZGridActionEventType event) {
-        if (event != ZZGridActionEventTypeGridLoaded)
-        {
-            return NO;
-        }
-        return ([ZZGridActionDataProvider friendsCount] == 0);
-    };
+    
     return model;
 }
 
@@ -107,24 +98,12 @@
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.press-to-record.label.text", @"");
-//    model.angle = -90.f;
-//    model.arrowDirection = ZZArrowDirectionRight;
-    model.pointsTo = ZZGridPartCentralRightCell;
+    model.angle = -90.f;
     model.type = ZZHintsTypePressAndHoldToRecord;
     model.hidesArrow = NO;
+    model.arrowDirection = ZZArrowDirectionRight;
     model.imageType = ZZHintsBottomImageTypeNone;
-    model.priority = 900;
-    model.condition = ^BOOL(ZZGridActionEventType event) {
-        if (event != ZZGridActionEventTypeMessageDidStopPlaying
-                && event != ZZGridActionEventTypeFriendDidAdd
-                && event != ZZGridActionEventTypeIncomingMessageDidReceived
-                && event != ZZGridActionEventTypeGridLoaded)
-        {
-            return NO;
-        }
-
-        return ((![ZZGridActionDataProvider messageRecordedState]) && ([ZZGridActionDataProvider friendsCount] == 1));
-    };
+    
     return model;
 }
 
@@ -132,26 +111,12 @@
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.send-first-video.label.text", @"");
-//    model.angle = -90.f;
-//    model.arrowDirection = ZZArrowDirectionRight;
-    model.pointsTo = ZZGridPartCentralRightCell;
+    model.angle = -90.f;
     model.type = ZZHintsTypeZazoSent;
     model.hidesArrow = NO;
+    model.arrowDirection = ZZArrowDirectionRight;
     model.imageType = ZZHintsBottomImageTypeGotIt;
-    model.priority = 600;
-    model.condition = ^BOOL(ZZGridActionEventType event) {
-        if (event != ZZGridActionEventTypeOutgoingMessageDidSend)
-        {
-            return NO;
-        }
-
-        if (![ZZGridActionDataProvider hasSentVideos:0])
-        {
-            return NO;
-        }
-
-        return (([ZZGridActionDataProvider friendsCount] == 1) && (![ZZGridActionDataProvider hintStateForHintType:ZZHintsTypeZazoSent]));
-    };
+    
     return model;
 }
 
@@ -159,39 +124,12 @@
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = [self _possiblePhrases].randomObject;
-//    model.angle = -95.f;
-//    model.arrowDirection = ZZArrowDirectionLeft;
-    model.pointsTo = ZZGridPartNone;
+    model.angle = -95.f;
     model.type = ZZHintsTypeGiftIsWaiting;
     model.hidesArrow = NO;
+    model.arrowDirection = ZZArrowDirectionLeft;
     model.imageType = ZZHintsBottomImageTypePresent;
-    model.priority = 200;
-    model.condition = ^BOOL(ZZGridActionEventType event) {
-        if (event != ZZGridActionEventTypeUsageHintDidDismiss &&
-                event != ZZGridActionEventTypeOutgoingMessageDidSend &&
-                event != ZZGridActionEventTypeMessageDidStopPlaying)
-        {
-            return NO;
-        }
-
-        // TODO: (HINTS) if inviteSomeOneElseCondition is valid return no
-//        if (event == TBMEventFlowEventMessageDidSend && [[ZZGridActionDataProvider hintStateForHintType:ZZHintsTypeZazoSent]])
-//        {
-//            return NO;
-//        }
-
-//        if (event == TBMEventFlowEventMessageDidStopPlaying && [someOneElseHintModule conditionForEvent:TBMEventFlowEventMessageDidStopPlaying])
-//        {
-//            return NO;
-//        }
-
-        if (![ZZGridActionDataProvider hasFeaturesForUnlock])
-        {
-            return NO;
-        }
-
-        return YES;
-    };
+    
     return model;
 }
 
@@ -199,39 +137,12 @@
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.switch-camera.label.text", @"");
-//    model.angle = 30;
-//    model.arrowDirection = ZZArrowDirectionLeft;
-    model.pointsTo = ZZGridPartCentralCell;
+    model.angle = 30;
     model.type = ZZHintsTypeTapToSwitchCamera;
     model.hidesArrow = NO;
+    model.arrowDirection = ZZArrowDirectionLeft;
     model.imageType = ZZHintsBottomImageTypeNone;
-    model.priority = 200;
-    model.condition = ^BOOL(ZZGridActionEventType event) {
-        if (event != ZZGridActionEventTypeUsageHintDidDismiss &&
-                event != ZZGridActionEventTypeOutgoingMessageDidSend &&
-                event != ZZGridActionEventTypeMessageDidStopPlaying)
-        {
-            return NO;
-        }
-
-        // TODO: (HINTS) if inviteSomeOneElseCondition is valid return no
-//        if (event == TBMEventFlowEventMessageDidSend && [[ZZGridActionDataProvider hintStateForHintType:ZZHintsTypeZazoSent]])
-//        {
-//            return NO;
-//        }
-
-//        if (event == TBMEventFlowEventMessageDidStopPlaying && [someOneElseHintModule conditionForEvent:TBMEventFlowEventMessageDidStopPlaying])
-//        {
-//            return NO;
-//        }
-
-        if (![ZZGridActionDataProvider hasFeaturesForUnlock])
-        {
-            return NO;
-        }
-
-        return YES;
-    };
+    
     return model;
 }
 
@@ -239,20 +150,12 @@
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.welcome-nudge-user.label.text", @"");
-//    model.angle = 30;
-//    model.arrowDirection = ZZArrowDirectionLeft;
-    model.pointsTo = ZZGridPartLastAddedFriendCell;
+    model.angle = 30;
     model.type = ZZHintsTypeWelcomeNudgeUser;
     model.hidesArrow = NO;
+    model.arrowDirection = ZZArrowDirectionLeft;
     model.imageType = ZZHintsBottomImageTypeNone;
-    model.priority = 1000;
-    model.condition = ^BOOL(ZZGridActionEventType event) {
-        if (event != ZZGridActionEventTypeFriendDidAdd)
-        {
-            return NO;
-        }
-        return (![ZZGridActionDataProvider messageRecordedState]);
-    };
+    
     return model;
 }
 
@@ -260,31 +163,12 @@
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.welcome-for.label.text", @"");
-//    model.angle = -90.f;
-//    model.arrowDirection = ZZArrowDirectionRight;
-    model.pointsTo = ZZGridPartCentralRightCell;
+    model.angle = -90.f;
     model.type = ZZHintsTypeWelcomeFor;
     model.hidesArrow = NO;
+    model.arrowDirection = ZZArrowDirectionRight;
     model.imageType = ZZHintsBottomImageTypeNone;
-    model.priority = 800;
-    model.condition = ^BOOL(ZZGridActionEventType event) {
-        if (event != ZZGridActionEventTypeFriendDidAdd)
-        {
-            return NO;
-        }
-        NSUInteger friendsCount = [ZZGridActionDataProvider friendsCount];
-        if (friendsCount <= 1)
-        {
-            return NO;
-        }
-
-        if (friendsCount > 8)
-        {
-            return NO;
-        }
-        return YES;
-
-    };
+    
     return model;
 }
 
@@ -292,16 +176,12 @@
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.abort-recording.label.text", @"");
-//    model.angle = -90.f;
-//    model.arrowDirection = ZZArrowDirectionRight;
-    model.pointsTo = ZZGridPartCentralRightCell;
+    model.angle = -90.f;
     model.type = ZZHintsTypeAbortRecording;
     model.hidesArrow = NO;
+    model.arrowDirection = ZZArrowDirectionRight;
     model.imageType = ZZHintsBottomImageTypeTryItNow;
-    model.priority = 1500;
-    model.condition = ^BOOL(ZZGridActionEventType event) {
-        return event == ZZGridActionEventTypeAbortRecordingUnlockDialogDidDismiss;
-    };
+    
     return model;
 }
 
@@ -309,16 +189,12 @@
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.delete-a-friend.label.text", @"");
-//    model.angle = -95.f;
-//    model.arrowDirection = ZZArrowDirectionLeft;
-    model.pointsTo = ZZGridPartEditFriendsButton;
+    model.angle = -95.f;
     model.type = ZZHintsTypeEditFriends;
     model.hidesArrow = NO;
+    model.arrowDirection = ZZArrowDirectionLeft;
     model.imageType = ZZHintsBottomImageTypeGotIt;
-    model.priority = 1500;
-    model.condition = ^BOOL(ZZGridActionEventType event) {
-        return event == ZZGridActionEventTypeDeleteFriendUnlockDialogDidDismiss;
-    };
+    
     return model;
 }
 
@@ -326,16 +202,12 @@
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.earpiece-usage.label.text", @"");
-//    model.angle = -90.f;
-//    model.arrowDirection = ZZArrowDirectionRight;
-    model.pointsTo = ZZGridPartCentralRightCell;
+    model.angle = -90.f;
     model.type = ZZHintsTypeEarpieceUsage;
     model.hidesArrow = NO;
+    model.arrowDirection = ZZArrowDirectionRight;
     model.imageType = ZZHintsBottomImageTypeTryItNow;
-    model.priority = 1500;
-    model.condition = ^BOOL(ZZGridActionEventType event) {
-        return event == ZZGridActionEventTypeEarpieceUnlockDialogDidDismiss;
-    };
+    
     return model;
 }
 
@@ -343,16 +215,12 @@
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.spin-usage.label.text", @"");
-//    model.angle = 90.f;
-//    model.arrowDirection = ZZArrowDirectionLeft;
-    model.pointsTo = ZZGridPartCentralRightCell;
+    model.angle = 90.f;
     model.type = ZZHintsTypeSpin;
     model.hidesArrow = NO;
+    model.arrowDirection = ZZArrowDirectionLeft;
     model.imageType = ZZHintsBottomImageTypeTryItNow;
-    model.priority = 1500;
-    model.condition = ^BOOL(ZZGridActionEventType event) {
-        return event == ZZGridActionEventTypeSpinUnlockDialogDidDismiss;
-    };
+    
     return model;
 }
 

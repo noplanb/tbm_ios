@@ -8,15 +8,10 @@
 
 #import "ZZHintsConstants.h"
 @class ZZHintsViewModel;
-@protocol ZZGridActionHanlderUserInterfaceDelegate;
 
 @interface ZZHintsView : UIView
 
-@property(nonatomic, weak) id <ZZGridActionHanlderUserInterfaceDelegate> actionHandlerGridDelegate;
-
-
 - (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel;
-
-
+- (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel andIndex:(NSInteger)index;
 
 @end

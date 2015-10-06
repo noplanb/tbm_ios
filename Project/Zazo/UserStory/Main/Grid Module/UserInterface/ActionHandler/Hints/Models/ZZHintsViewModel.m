@@ -17,8 +17,7 @@
 
 @end
 
-@implementation
-ZZHintsViewModel
+@implementation ZZHintsViewModel
 
 + (instancetype)viewModelWithItem:(ZZHintsDomainModel*)item
 {
@@ -33,77 +32,50 @@ ZZHintsViewModel
     self.focusFrame = focusFrame;
 }
 
-//- (CGPoint)generateArrowFocusPoint
-//{
-//    switch (self.item.type)
-//    {
-//        case ZZHintsTypeSendZazo:
-//        case ZZHintsTypePressAndHoldToRecord:
-//        case ZZHintsTypeWelcomeFor:
-//        case ZZHintsTypeAbortRecording:
-//        case ZZHintsTypeEarpieceUsage:
-//        {
-//            return CGPointMake(CGRectGetMinX(self.focusFrame),
-//                                CGRectGetMinY(self.focusFrame));
-//
-//        } break;
-//
-//        case ZZHintsTypeZazoSent:
-//        {
-//            return CGPointMake(CGRectGetMaxX(self.focusFrame) - 20.f,
-//                               CGRectGetMinY(self.focusFrame));
-//
-//        } break;
-//
-//        case ZZHintsTypeGiftIsWaiting:
-//        case ZZHintsTypeEditFriends:
-//        {
-//            return CGPointMake(CGRectGetMinX(self.focusFrame),
-//                               CGRectGetMidY(self.focusFrame) + (CGRectGetHeight(self.focusFrame) / 4));
-//
-//        } break;
-//
-//        case ZZHintsTypeTapToSwitchCamera:
-//        case ZZHintsTypeWelcomeNudgeUser:
-//        {
-//            return CGPointMake(CGRectGetMaxX(self.focusFrame),
-//                               CGRectGetMidY(self.focusFrame));
-//        } break;
-//
-//        case ZZHintsTypeSpin:
-//        {
-//            return CGPointMake(CGRectGetMaxX(self.focusFrame),
-//                               CGRectGetMinY(self.focusFrame));
-//
-//        } break;
-//
-//
-//        default: break;
-//    }
-//
-//    return CGPointZero;
-//}
-
-- (CGPoint)arrowFocusPointForIndex:(NSInteger)index
+- (CGPoint)generateArrowFocusPoint
 {
-    switch (index)
+    switch (self.item.type)
     {
-        case 0:
-        case 1:
-        case 3:
-        case 6:
-        case 7:
+        case ZZHintsTypeSendZazo:
+        case ZZHintsTypePressAndHoldToRecord:
+        case ZZHintsTypeWelcomeFor:
+        case ZZHintsTypeAbortRecording:
+        case ZZHintsTypeEarpieceUsage:
+        {
+            return CGPointMake(CGRectGetMinX(self.focusFrame),
+                               CGRectGetMinY(self.focusFrame));
+            
+        } break;
+            
+        case ZZHintsTypeZazoSent:
+        {
+            return CGPointMake(CGRectGetMaxX(self.focusFrame) - 20.f,
+                               CGRectGetMinY(self.focusFrame));
+            
+        } break;
+            
+        case ZZHintsTypeGiftIsWaiting:
+        case ZZHintsTypeEditFriends:
+        {
+            return CGPointMake(CGRectGetMinX(self.focusFrame),
+                               CGRectGetMidY(self.focusFrame) + (CGRectGetHeight(self.focusFrame) / 4));
+            
+        } break;
+            
+        case ZZHintsTypeTapToSwitchCamera:
+        case ZZHintsTypeWelcomeNudgeUser:
         {
             return CGPointMake(CGRectGetMaxX(self.focusFrame),
                                CGRectGetMidY(self.focusFrame));
         } break;
             
-        case 2:
-        case 8:
+        case ZZHintsTypeSpin:
         {
-            return CGPointMake(CGRectGetMinX(self.focusFrame),
-                               CGRectGetMidY(self.focusFrame));
+            return CGPointMake(CGRectGetMaxX(self.focusFrame),
+                               CGRectGetMinY(self.focusFrame));
+            
         } break;
+            
             
         default: break;
     }
@@ -111,9 +83,104 @@ ZZHintsViewModel
     return CGPointZero;
 }
 
+- (CGPoint)generateArrowFocusPointForIndex:(NSInteger)index
+{
+//    switch (index)
+//    {
+//        case 0:
+//        case 1:
+//        case 3:
+//        case 6:
+//        case 7:
+//        {
+//            return CGPointMake(CGRectGetMaxX(self.focusFrame),
+//                               CGRectGetMidY(self.focusFrame));
+//        } break;
+//            
+//        case 2:
+//        case 8:
+//        {
+//            return CGPointMake(CGRectGetMinX(self.focusFrame),
+//                               CGRectGetMidY(self.focusFrame));
+//        } break;
+//            
+//        default: break;
+//    }
+    
+    
+    switch (self.item.type)
+    {
+        case ZZHintsTypeSendZazo:
+        case ZZHintsTypePressAndHoldToRecord:
+        case ZZHintsTypeWelcomeFor:
+        case ZZHintsTypeAbortRecording:
+        case ZZHintsTypeEarpieceUsage:
+        {
+
+            
+        } break;
+            
+        case ZZHintsTypeZazoSent:
+        {
+        
+       
+            
+        } break;
+            
+        case ZZHintsTypeGiftIsWaiting:
+        case ZZHintsTypeEditFriends:
+        {
+   
+            
+        } break;
+            
+        case ZZHintsTypeTapToSwitchCamera:
+        case ZZHintsTypeWelcomeNudgeUser:
+        {
+           
+        } break;
+            
+        case ZZHintsTypeSpin:
+        {
+          
+            
+        } break;
+            
+            
+        default: break;
+    }
+
+    
+    
+    
+    return CGPointZero;
+}
+
+- (NSArray*)configureShowCellBehaviorDependsOnIndex:(NSInteger)index
+{
+    return @[
+             @{
+                 @"focusPosition" : @"bootomLeft",
+                 @"angle" : @"90",
+              }
+             
+             
+             
+             
+             
+             ];
+
+}
+
+
 - (BOOL)hidesArrow
 {
     return self.item.hidesArrow;
+}
+
+- (CGFloat)arrowAngle
+{
+    return self.item.angle;
 }
 
 - (CGFloat)arrowAngleForIndex:(NSInteger)index
@@ -135,7 +202,7 @@ ZZHintsViewModel
         {
             return 45;
         } break;
-        
+            
         case 6:
         case 7:
         {
@@ -153,10 +220,37 @@ ZZHintsViewModel
     return 0;
 }
 
-- (ZZArrowDirection)arrowDirectionForIndex:(NSInteger)index;
+
+- (ZZArrowDirection)arrowDirection
 {
-    //TODO: (HINTS)
-    return ZZArrowDirectionLeft;
+    return self.item.arrowDirection;
+}
+
+- (ZZArrowDirection)arrowDirectionForIndex:(NSInteger)index
+{
+    ZZArrowDirection direction;
+    
+    switch (index)
+    {
+        case 0:
+        case 1:
+        case 8:
+            direction = ZZArrowDirectionRight;
+            break;
+            
+        case 2:
+        case 3:
+        case 6:
+        case 7:
+            direction = ZZArrowDirectionLeft;
+            break;
+            
+        default:
+            direction = ZZArrowDirectionRight;
+            break;
+    }
+    
+    return direction;
 }
 
 - (NSString*)text

@@ -8,10 +8,9 @@
 
 @import QuartzCore;
 #import "ZZHintsView.h"
-#import "ZZHintsArrow.h"
 #import "ZZHintsViewModel.h"
 #import "ZZHintsGotItView.h"
-#import "ZZGridActionHandlerUserInterfaceDelegate.h"
+#import "ZZHintsArrow.h"
 
 @interface ZZHintsView ()
 
@@ -34,28 +33,39 @@
     return self;
 }
 
+//- (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel
+//{
+//    [self showFocusOnFrame:[viewModel focusFrame]];
+//    
+//    ZZHintsArrow *hintView = [ZZHintsArrow arrowWithText:[viewModel text]
+//                                               curveKind:(NSInteger)[viewModel arrowDirection]
+//                                              arrowPoint:[viewModel generateArrowFocusPoint]
+//                                                   angle:[viewModel arrowAngle]
+//                                                  hidden:[viewModel hidesArrow]
+//                                                   frame:[UIScreen mainScreen].bounds];
+//    [self addSubview:hintView];
+//    
+//    
+//    if ([viewModel bottomImageType] != ZZHintsBottomImageTypeNone)
+//    {
+//        self.currentBottomImageType = [viewModel bottomImageType];
+//        [self.gotItView updateWithType:[viewModel bottomImageType]];
+//    }
+//}
 
-- (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel
+- (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel andIndex:(NSInteger)index
 {
-
     [self showFocusOnFrame:[viewModel focusFrame]];
-
-    NSInteger index = [self.actionHandlerGridDelegate indexForGridPart:viewModel.pointsToPart];
-
-    ZZHintsArrow *hintView = [ZZHintsArrow arrowWithText:[viewModel text]
-                                               curveKind:(ZZHintsArrowCurveKind)[viewModel arrowDirectionForIndex:index]
-                                              arrowPoint:[viewModel arrowFocusPointForIndex:index]
+    
+    ZZHintsArrow *hintArrow = [ZZHintsArrow arrowWithText:[viewModel text]
+                                               curveKind:(NSInteger)[viewModel arrowDirectionForIndex:index]
+                                              arrowPoint:[viewModel generateArrowFocusPointForIndex:index]
                                                    angle:[viewModel arrowAngleForIndex:index]
                                                   hidden:[viewModel hidesArrow]
                                                    frame:[UIScreen mainScreen].bounds];
-    [self addSubview:hintView];
-
-
-    if ([viewModel bottomImageType] != ZZHintsBottomImageTypeNone)
-    {
-        self.currentBottomImageType = [viewModel bottomImageType];
-        [self.gotItView updateWithType:[viewModel bottomImageType]];
-    }
+    [self addSubview:hintArrow];
+    
+    
 }
 
 - (void)showFocusOnFrame:(CGRect)focusFrame
@@ -121,5 +131,6 @@
     
     return _gotItView;
 }
+
 
 @end

@@ -58,8 +58,6 @@ typedef NS_ENUM(NSUInteger, ZZConfigServerState) {
 
 @property (nonatomic, assign) NSUInteger lastUnlockedFeature;
 
-
-
 + (instancetype)shared;
 
 @end
