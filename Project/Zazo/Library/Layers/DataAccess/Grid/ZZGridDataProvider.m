@@ -181,7 +181,7 @@
             model.index = count;
             if (filteredFriends.count > count)
             {
-                ZZFriendDomainModel *aFriend = filteredFriends[count];
+                ZZFriendDomainModel* aFriend = filteredFriends[count];
                 model.relatedUser = aFriend;
             }
             
@@ -209,7 +209,7 @@
 
 + (NSManagedObjectContext*)_context
 {
-    return [NSManagedObjectContext MR_context];
+    return [NSManagedObjectContext MR_contextForCurrentThread];
 }
 
 @end

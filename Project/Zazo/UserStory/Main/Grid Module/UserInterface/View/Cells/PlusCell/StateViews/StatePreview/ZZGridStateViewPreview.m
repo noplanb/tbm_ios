@@ -47,7 +47,6 @@ static CGFloat const kThumbnailBorderWidth = 2;
 
 #pragma mark - Private
 
-
 - (void)_setupThumbnailWithModel:(ZZGridCellViewModel*)model
 {
     UIImage* thumbImage = [model videoThumbnailImage];

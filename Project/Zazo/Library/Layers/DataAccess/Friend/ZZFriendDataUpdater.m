@@ -12,6 +12,7 @@
 #import "ZZFriendModelsMapper.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZFriendDataProvider.h"
+#import "ZZGridDataProvider.h"
 
 @implementation ZZFriendDataUpdater
 
@@ -20,7 +21,6 @@
     TBMFriend* item = [self _userWithID:itemID];
     item.timeOfLastAction = [NSDate date];
     [item.managedObjectContext MR_saveToPersistentStoreAndWait];
-    [[self _context] MR_saveToPersistentStoreAndWait];
 }
 
 + (ZZFriendDomainModel*)updateConnectionStatusForUserWithID:(NSString *)itemID toValue:(ZZFriendshipStatusType)value
@@ -28,11 +28,10 @@
     TBMFriend* item = [self _userWithID:itemID];
     item.friendshipStatus = ZZFriendshipStatusTypeStringFromValue(value);
     [item.managedObjectContext MR_saveToPersistentStoreAndWait];
-    [[self _context] MR_saveToPersistentStoreAndWait];
     return [ZZFriendModelsMapper fillModel:[ZZFriendDomainModel new] fromEntity:item];
 }
 
-+ (ZZFriendDomainModel *)upsertFriend:(ZZFriendDomainModel *)model
++ (ZZFriendDomainModel*)upsertFriend:(ZZFriendDomainModel *)model
 {
     TBMFriend* item = [self _userWithID:model.idTbm];
     if (!item)
@@ -65,7 +64,7 @@
 
 + (NSManagedObjectContext*)_context
 {
-    return [NSManagedObjectContext MR_context];
+    return [NSManagedObjectContext MR_contextForCurrentThread];
 }
 
 @end
