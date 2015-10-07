@@ -12,7 +12,7 @@
 
 - (void)handleEvent:(ZZGridActionEventType)event withCompletionBlock:(void (^)(ZZHintsType type))completionBlock
 {
-    if (event == ZZGridActionEventTypeDontHaveFriends && ![ZZGridActionStoredSettings shared].inviteHintWasShown)
+    if (event == ZZGridActionEventTypeDontHaveFriends) //&& ![ZZGridActionStoredSettings shared].inviteHintWasShown)
     {
         [ZZGridActionStoredSettings shared].inviteHintWasShown = YES;
         

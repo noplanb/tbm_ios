@@ -55,7 +55,7 @@
     ANDispatchBlockToMainQueue(^{
         if ([[self dataSource] frindsOnGridNumber] == 1)
         {
-            CGFloat delayAfterUploadAnimationStopped = 2.0f;
+            CGFloat delayAfterUploadAnimationStopped = 0.5f;
             ANDispatchBlockAfter(delayAfterUploadAnimationStopped, ^{
                 NSInteger index = [[self dataSource] indexForViewModel:cellViewModel];
                 if (index != NSNotFound)
@@ -73,7 +73,10 @@
         NSInteger index = [[self dataSource] indexForFriendDomainModel:model];
         if (index != NSNotFound)
         {
-            [[self actionHandler] handleEvent:ZZGridActionEventTypeFriendDidInvited withIndex:index];
+            CGFloat delayAfterAddFriendToGridAnimation = 1.7f;
+            ANDispatchBlockAfter(delayAfterAddFriendToGridAnimation, ^{
+                [[self actionHandler] handleEvent:ZZGridActionEventTypeFriendDidInvited withIndex:index];
+            });
         }
     });
 }

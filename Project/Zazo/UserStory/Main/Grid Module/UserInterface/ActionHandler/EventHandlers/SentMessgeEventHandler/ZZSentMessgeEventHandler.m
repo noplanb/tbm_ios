@@ -12,7 +12,7 @@
 
 - (void)handleEvent:(ZZGridActionEventType)event withCompletionBlock:(void (^)(ZZHintsType type))completionBlock
 {
-    if (event == ZZGridActionEventTypeMessageDidSent && ![ZZGridActionStoredSettings shared].sentHintWasShown)
+    if (event == ZZGridActionEventTypeMessageDidSent) //&& ![ZZGridActionStoredSettings shared].sentHintWasShown)
     {
         [ZZGridActionStoredSettings shared].sentHintWasShown = YES;
         if (completionBlock)

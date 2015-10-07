@@ -327,10 +327,7 @@
                 [[ZZVideoRecorder shared] startRecordingWithVideoURL:url completionBlock:^(BOOL isRecordingSuccess) {
                     [self.userInterface updateRecordViewStateTo:NO];
                     [self.soundPlayer play];
-                    if (isRecordingSuccess)
-                    {
-                        [self _handleSentMessageEventWithCellViewModel:viewModel];
-                    }
+                   
                     completionBlock(isRecordingSuccess);
                 }];
             });
@@ -340,6 +337,10 @@
             [[ZZVideoRecorder shared] stopRecordingWithCompletionBlock:^(BOOL isRecordingSuccess) {
                 [self.userInterface updateRecordViewStateTo:isEnabled];
                 [self.soundPlayer play];
+                if (isRecordingSuccess)
+                {
+                    [self _handleSentMessageEventWithCellViewModel:viewModel];
+                }
                 completionBlock(isRecordingSuccess);
             }];
         }
