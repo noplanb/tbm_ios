@@ -19,22 +19,6 @@ static CGFloat const kAnimationViewWidth = 20.0;
 
 @implementation ZZHintArrowConfigurationModel
 
-- (instancetype)initWithFocusPosition:(ZZHintArrowFocusPosition)focusPosition
-                       arrowDirection:(ZZArrowDirection)direction
-                                angle:(CGFloat)angle
-{
-    self = [super init];
-    
-    if (self)
-    {
-        _focusPosition = focusPosition;
-        _arrowDirection = direction;
-        _angle = angle;
-    }
-    
-    return self;
-}
-
 + (instancetype)configureWithFocusPosition:(ZZHintArrowFocusPosition)focusPosition
                             arrowDirection:(ZZArrowDirection)direction
                                      angle:(CGFloat)angle

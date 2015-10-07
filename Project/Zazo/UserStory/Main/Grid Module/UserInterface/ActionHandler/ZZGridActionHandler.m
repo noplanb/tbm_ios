@@ -29,7 +29,7 @@
 - (void)handleEvent:(ZZGridActionEventType)event
 {
      //TODO: getCurrent index from delegate
-    [self _configureHintControllerWithHintType:ZZHintsTypeInviteHint index:4];
+    [self _configureHintControllerWithHintType:ZZHintsTypeInviteHint index:7];
     
 }
 

@@ -13,12 +13,12 @@ NSString *const kZZHintsFontName = @"DKCrayonCrumble";
 
 @interface ZZHintsArrow ()
 
-@property(nonatomic, strong) UIView *rotationWrapper;
-@property(nonatomic, strong) UIImageView *arrowImageView;
-@property(nonatomic, strong) UIImage *arrowImage;
-@property(nonatomic, strong) UIView *arrowEndPointView;
-
-@property(nonatomic, strong) UIFont *mainLabelFont;
+@property (nonatomic, strong) UIView *rotationWrapper;
+@property (nonatomic, strong) UIImageView *arrowImageView;
+@property (nonatomic, strong) UIImage *arrowImage;
+@property (nonatomic, strong) UIView *arrowEndPointView;
+@property (nonatomic, assign) NSInteger focusViewIndex;
+@property (nonatomic, strong) UIFont *mainLabelFont;
 @end
 
 @implementation ZZHintsArrow
@@ -50,7 +50,13 @@ CGFloat degreesToRadians(CGFloat x)
     _hideArrow = hideArrow;
 }
 
-+ (ZZHintsArrow *)arrowWithText:(NSString *)text curveKind:(ZZHintsArrowCurveKind)curveKind arrowPoint:(CGPoint)point angle:(CGFloat)angle hidden:(BOOL)hidden frame:(CGRect)frame
++ (ZZHintsArrow *)arrowWithText:(NSString *)text
+                      curveKind:(ZZHintsArrowCurveKind)curveKind
+                     arrowPoint:(CGPoint)point
+                          angle:(CGFloat)angle
+                         hidden:(BOOL)hidden
+                          frame:(CGRect)frame
+                 focusViewIndex:(NSInteger)index
 {
     ZZHintsArrow *result = [[ZZHintsArrow alloc] initWithFrame:frame];
     result.text = text;
@@ -58,6 +64,7 @@ CGFloat degreesToRadians(CGFloat x)
     result.arrowPoint = point;
     result.arrowAngle = angle;
     result.hideArrow = hidden;
+    result.focusViewIndex = index;
     return result;
 }
 
@@ -94,7 +101,25 @@ CGFloat degreesToRadians(CGFloat x)
         offset = 60;
     }
     
-    y = self.arrowAngle >= -90 && self.arrowAngle <= 90 ? CGRectGetMinY(arrow) - CGRectGetHeight(self.arrowLabel.bounds) - offset * 2 : CGRectGetMaxY(arrow) + offset;
+    
+    // hint label position top or bottom
+    switch (self.focusViewIndex)
+    {
+        case 0:
+        case 1:
+        case 2:
+        {
+            y =  CGRectGetMaxY(arrow) + offset;
+            
+        }break;
+        default:
+        {
+            y = CGRectGetMinY(arrow) - CGRectGetHeight(self.arrowLabel.bounds) - offset * 2;
+            
+        } break;
+    }
+    
+    
     self.arrowLabel.preferredMaxLayoutWidth = width;
     self.arrowLabel.frame = CGRectMake(x, y, width, height);
     CGSize newSize = self.arrowLabel.sizeOfMultiLineLabel;

@@ -62,10 +62,9 @@
                                               arrowPoint:[viewModel generateArrowFocusPointForIndex:index]
                                                    angle:[viewModel arrowAngleForIndex:index]
                                                   hidden:[viewModel hidesArrow]
-                                                   frame:[UIScreen mainScreen].bounds];
+                                                   frame:[UIScreen mainScreen].bounds
+                                          focusViewIndex:index];
     [self addSubview:hintArrow];
-    
-    
 }
 
 - (void)showFocusOnFrame:(CGRect)focusFrame

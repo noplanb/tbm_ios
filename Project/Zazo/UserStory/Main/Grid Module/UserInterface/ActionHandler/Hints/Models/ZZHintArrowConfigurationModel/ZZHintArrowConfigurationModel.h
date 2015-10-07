@@ -10,11 +10,6 @@
 
 @interface ZZHintArrowConfigurationModel : NSObject
 
-- (instancetype)initWithFocusPosition:(ZZHintArrowFocusPosition)focusPosition
-                       arrowDirection:(ZZArrowDirection)direction
-                                angle:(CGFloat)angle;
-
-
 + (instancetype)configureWithFocusPosition:(ZZHintArrowFocusPosition)focusPosition
                             arrowDirection:(ZZArrowDirection)direction
                                      angle:(CGFloat)angle

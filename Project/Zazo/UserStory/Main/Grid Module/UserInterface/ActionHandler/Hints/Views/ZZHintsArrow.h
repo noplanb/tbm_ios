@@ -26,5 +26,6 @@ typedef NS_ENUM(NSInteger, ZZHintsArrowCurveKind)
                      arrowPoint:(CGPoint)point
                           angle:(CGFloat)angle
                          hidden:(BOOL)hidden
-                          frame:(CGRect)frame;
+                          frame:(CGRect)frame
+                 focusViewIndex:(NSInteger)index;
 @end
