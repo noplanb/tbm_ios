@@ -104,8 +104,9 @@
     
     if (self.eventNotificationDelegate !=  nil)
         [self.eventNotificationDelegate appDidBecomeActive];
-    
-    [self performDidBecomeActiveActions];
+    ANDispatchBlockToBackgroundQueue(^{
+       [self performDidBecomeActiveActions];
+    });
     [[OBLogger instance] logEvent:OBLogEventAppForeground];
 }
 

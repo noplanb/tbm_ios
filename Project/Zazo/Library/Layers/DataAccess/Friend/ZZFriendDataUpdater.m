@@ -15,12 +15,12 @@
 
 @implementation ZZFriendDataUpdater
 
-+ (ZZFriendDomainModel*)updateLastTimeActionFriendWithID:(NSString*)itemID
++ (void)updateLastTimeActionFriendWithID:(NSString*)itemID
 {
     TBMFriend* item = [self _userWithID:itemID];
-    item.timeOfLastAction = [NSDate new];
+    item.timeOfLastAction = [NSDate date];
     [item.managedObjectContext MR_saveToPersistentStoreAndWait];
-    return [ZZFriendModelsMapper fillModel:[ZZFriendDomainModel new] fromEntity:item];
+    [[self _context] MR_saveToPersistentStoreAndWait];
 }
 
 + (ZZFriendDomainModel*)updateConnectionStatusForUserWithID:(NSString *)itemID toValue:(ZZFriendshipStatusType)value
@@ -28,6 +28,7 @@
     TBMFriend* item = [self _userWithID:itemID];
     item.friendshipStatus = ZZFriendshipStatusTypeStringFromValue(value);
     [item.managedObjectContext MR_saveToPersistentStoreAndWait];
+    [[self _context] MR_saveToPersistentStoreAndWait];
     return [ZZFriendModelsMapper fillModel:[ZZFriendDomainModel new] fromEntity:item];
 }
 
@@ -64,7 +65,7 @@
 
 + (NSManagedObjectContext*)_context
 {
-    return [NSManagedObjectContext MR_rootSavingContext];
+    return [NSManagedObjectContext MR_context];
 }
 
 @end

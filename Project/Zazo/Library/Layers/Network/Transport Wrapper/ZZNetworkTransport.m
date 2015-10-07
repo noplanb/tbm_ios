@@ -101,22 +101,7 @@
 
 - (void)injectSideEffectToRequest:(ANNetworkRequest*)request
 {
-//    NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:@"mkey"];
-//    NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:@"auth"];
-//    
-//    if (!ANIsEmpty(user))
-//    {
-//        NSString *authStr = [NSString stringWithFormat:@"%@:%@", user, password];
-//        
-//        NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
-//        NSString *base64String = [plainData base64EncodedStringWithOptions:0];
-//        
-//        NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
-//        [request setValue:authValue forHTTPHeaderField:@"Authorization"];
-//    }
-    
     [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    
 }
 
 @end

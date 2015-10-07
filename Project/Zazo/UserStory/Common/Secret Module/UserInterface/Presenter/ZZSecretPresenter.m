@@ -108,16 +108,6 @@
     [self.interactor updateDebugStateTo:isEnabled];
 }
 
-- (void)updateShouldForceSMSValueTo:(BOOL)isEnabled
-{
-    [self.interactor updateShouldForceSMSStateTo:isEnabled];
-}
-
-- (void)updateShouldForceCallValueTo:(BOOL)isEnabled
-{
-    [self.interactor updateShouldForceCallStateTo:isEnabled];
-}
-
 - (void)updateEnabledAllFeaturesValueTo:(BOOL)isEnabled
 {
     //TODO: check Maxim code

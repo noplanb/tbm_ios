@@ -46,7 +46,7 @@
 
 - (void)verifySMSCode:(NSString*)code
 {
-    [self.userInterface updateStateToLoading:YES message:@"Checking SMS code..."];
+    [self.userInterface updateStateToLoading:YES message:@"Checking verification code.."];
     [self.interactor validateSMSCode:code];
 }
 
@@ -66,7 +66,7 @@
 
 - (void)validationCompletedSuccessfully
 {
-    [self.userInterface updateStateToLoading:YES message:@"Sending SMS Code..."];
+    [self.userInterface updateStateToLoading:YES message:@"Sending verification code..."];
 }
 
 - (void)registrationCompletedSuccessfullyWithPhoneNumber:(NSString*)phoneNumber
