@@ -50,6 +50,7 @@ static CGFloat const kTouchOffset = 7;
         
         self.movingViewArray = [NSMutableArray array];
         self.initialStorageValue = [NSMutableArray array];
+        
         self.gridView = gridView;
         
         self.grid = [ZZMovingGridView new];
@@ -64,10 +65,7 @@ static CGFloat const kTouchOffset = 7;
         [self.grid mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.gridView.itemsContainerView);
         }];
-
-        
     }
-    
     return self;
 }
 
