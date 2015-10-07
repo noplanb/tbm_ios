@@ -227,6 +227,10 @@
         case ZZHintsTypeSendWelcomeHint:
         case ZZHintsTypeAbortRecordingUsageHint:
         case ZZHintsTypeEarpieceUsageHint:
+        case ZZHintsTypePlayHint:
+        case ZZHintsTypeInviteSomeElseHint:
+        case ZZHintsTypeFrontCameraUsageHint:
+        case ZZHintsTypeSpinUsageHint:
         {
             configurationModel = [self _configurationModelsForShowCellBehavior][index];
             
@@ -239,25 +243,21 @@
             
         } break;
         
-        case ZZHintsTypeGiftIsWaiting:
+//        case ZZHintsTypeGiftIsWaiting:
         case ZZHintsTypeDeleteFriendUsageHint:
         {
-            
+            configurationModel = [ZZHintArrowConfigurationModel configureWithFocusPosition:ZZHintArrowFocusPositionBottomLeft
+                                                                            arrowDirection:ZZArrowDirectionLeft
+                                                                                     angle:-90
+                                                                                focusFrame:self.focusFrame
+                                                                                  itemType:self.item.type];
             
         } break;
             
-        case ZZHintsTypeFrontCameraUsageHint:
         case ZZHintsTypeWelcomeNudgeUser:
         {
             
         } break;
-            
-        case ZZHintsTypeSpinUsageHint:
-        {
-            
-            
-        } break;
-            
             
         default: break;
     }

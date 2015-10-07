@@ -48,17 +48,33 @@
 typedef NS_ENUM(NSInteger, ZZGridActionEventType)
 {
     ZZGridActionEventTypeGridNone,
-    ZZGridActionEventTypeGridLoaded, // done
-    ZZGridActionEventTypeMessageDidStopPlaying, // done
-    ZZGridActionEventTypeFriendDidAdd, // done
-    ZZGridActionEventTypeIncomingMessageDidReceived,
-    ZZGridActionEventTypeOutgoingMessageDidSend,
-    ZZGridActionEventTypeOutgoingMessageWasViewed,
-    ZZGridActionEventTypeUsageHintDidDismiss,  // done
-    ZZGridActionEventTypeAbortRecordingUnlockDialogDidDismiss, // max
-    ZZGridActionEventTypeDeleteFriendUnlockDialogDidDismiss, // max
-    ZZGridActionEventTypeEarpieceUnlockDialogDidDismiss, // max
-    ZZGridActionEventTypeSpinUnlockDialogDidDismiss // max
+
+//    ZZGridActionEventTypeGridLoaded, // done
+//    ZZGridActionEventTypeMessageDidStopPlaying, // done
+//    ZZGridActionEventTypeFriendDidAdd, // done
+//    ZZGridActionEventTypeIncomingMessageDidReceived,
+//    ZZGridActionEventTypeOutgoingMessageDidSend,
+//    ZZGridActionEventTypeOutgoingMessageWasViewed,
+//    ZZGridActionEventTypeUsageHintDidDismiss,  // done
+//    ZZGridActionEventTypeAbortRecordingUnlockDialogDidDismiss, // max
+//    ZZGridActionEventTypeDeleteFriendUnlockDialogDidDismiss, // max
+//    ZZGridActionEventTypeEarpieceUnlockDialogDidDismiss, // max
+//    ZZGridActionEventTypeSpinUnlockDialogDidDismiss // max
+    ZZGridActionEventTypeDontHaveFriends,
+    ZZGridActionEventTypeGridLoaded,
+    ZZGridActionEventTypeBecomeMessage,
+    ZZGridActionEventTypeMessageDidPlayed,
+    ZZGridActionEventTypeFriendAddedToGrid,
+    ZZGridActionEventTypeMessageDidSent,
+    ZZGridActionEventTypeMessageNotViewed,
+    ZZGridActionEventTypeSentZazo,
+    ZZGridActionEventTypeFriendDidInvited,
+    
+    ZZGridActionEventTypeFrontCameraFeatureUnlocked,
+    ZZGridActionEventTypeAbortRecordingFeatureUnlocked,
+    ZZGridActionEventTypeDeleteFriendsFeatureUnlocked,
+    ZZGridActionEventTypeEarpieceFeatureUnlocked,
+    ZZGridActionEventTypeSpinUsageFeatureUnlocked
 };
 
 typedef NS_ENUM(NSInteger, ZZGridActionFeatureType)

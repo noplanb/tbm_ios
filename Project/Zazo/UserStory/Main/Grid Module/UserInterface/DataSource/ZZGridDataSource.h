@@ -35,5 +35,8 @@
 
 - (void)updateCellWithModel:(ZZGridDomainModel*)model;
 
+- (NSInteger)frindsOnGridNumber;
+- (NSInteger)indexForUpdatedDomainModel:(ZZGridDomainModel*)domainModel;
+
 
 @end

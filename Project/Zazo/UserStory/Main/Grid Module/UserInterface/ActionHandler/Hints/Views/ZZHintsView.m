@@ -33,26 +33,6 @@
     return self;
 }
 
-//- (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel
-//{
-//    [self showFocusOnFrame:[viewModel focusFrame]];
-//    
-//    ZZHintsArrow *hintView = [ZZHintsArrow arrowWithText:[viewModel text]
-//                                               curveKind:(NSInteger)[viewModel arrowDirection]
-//                                              arrowPoint:[viewModel generateArrowFocusPoint]
-//                                                   angle:[viewModel arrowAngle]
-//                                                  hidden:[viewModel hidesArrow]
-//                                                   frame:[UIScreen mainScreen].bounds];
-//    [self addSubview:hintView];
-//    
-//    
-//    if ([viewModel bottomImageType] != ZZHintsBottomImageTypeNone)
-//    {
-//        self.currentBottomImageType = [viewModel bottomImageType];
-//        [self.gotItView updateWithType:[viewModel bottomImageType]];
-//    }
-//}
-
 - (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel andIndex:(NSInteger)index
 {
     [self showFocusOnFrame:[viewModel focusFrame]];
@@ -64,7 +44,16 @@
                                                   hidden:[viewModel hidesArrow]
                                                    frame:[UIScreen mainScreen].bounds
                                           focusViewIndex:index];
+    
+    
+    if ([viewModel bottomImageType] != ZZHintsBottomImageTypeNone)
+    {
+        self.currentBottomImageType = [viewModel bottomImageType];
+        [self.gotItView updateWithType:[viewModel bottomImageType]];
+    }
+    
     [self addSubview:hintArrow];
+    
 }
 
 - (void)showFocusOnFrame:(CGRect)focusFrame

@@ -12,6 +12,7 @@
 #import "ZZHintsModelGenerator.h"
 #import "ZZHintsViewModel.h"
 #import "ZZHintsDomainModel.h"
+#import "ZZGridUIConstants.h"
 
 @interface ZZHintsController ()
 
@@ -42,7 +43,7 @@
     
     if (model.type == ZZHintsTypeDeleteFriendUsageHint)
     {
-        focusFrame = CGRectMake(SCREEN_WIDTH - 44, 0, 44, 64);
+        focusFrame = CGRectMake(SCREEN_WIDTH - kEditFriendsButtonWidth, 0, kEditFriendsButtonWidth,kGridHeaderViewHeight);
     }
     
     [viewModel updateFocusFrame:focusFrame];

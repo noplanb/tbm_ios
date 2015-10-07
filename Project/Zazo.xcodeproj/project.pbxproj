@@ -322,6 +322,21 @@
 		07F0E7F71B8CD7A900036AB2 /* ZZLoadFriendListTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EC1B8CD7A900036AB2 /* ZZLoadFriendListTest.m */; };
 		07F0E7F81B8CD7A900036AB2 /* ZZStartScreenTestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */; };
 		180254A31BB2C5A400138A52 /* ZZVideoStatuses.m in Sources */ = {isa = PBXBuildFile; fileRef = 180254A21BB2C5A400138A52 /* ZZVideoStatuses.m */; settings = {ASSET_TAGS = (); }; };
+		181D1C9E1BC51A4600044F83 /* ZZBaseEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1C9D1BC51A4600044F83 /* ZZBaseEventHandler.m */; settings = {ASSET_TAGS = (); }; };
+		181D1CA41BC51B2000044F83 /* ZZInviteEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CA31BC51B2000044F83 /* ZZInviteEventHandler.m */; settings = {ASSET_TAGS = (); }; };
+		181D1CA71BC51B7100044F83 /* ZZPlayEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CA61BC51B7100044F83 /* ZZPlayEventHandler.m */; settings = {ASSET_TAGS = (); }; };
+		181D1CAA1BC5209000044F83 /* ZZRecordEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CA91BC5209000044F83 /* ZZRecordEventHandler.m */; settings = {ASSET_TAGS = (); }; };
+		181D1CAD1BC5219300044F83 /* ZZSentMessgeEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CAC1BC5219300044F83 /* ZZSentMessgeEventHandler.m */; settings = {ASSET_TAGS = (); }; };
+		181D1CB01BC5222600044F83 /* ZZViewedMessageEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CAF1BC5222600044F83 /* ZZViewedMessageEventHandler.m */; settings = {ASSET_TAGS = (); }; };
+		181D1CB31BC522C600044F83 /* ZZInviteSomeoneElseEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CB21BC522C600044F83 /* ZZInviteSomeoneElseEventHandler.m */; settings = {ASSET_TAGS = (); }; };
+		181D1CB61BC5236E00044F83 /* ZZSentWelcomeEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CB51BC5236E00044F83 /* ZZSentWelcomeEventHandler.m */; settings = {ASSET_TAGS = (); }; };
+		181D1CB91BC523FA00044F83 /* ZZFronCameraFeatureEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CB81BC523FA00044F83 /* ZZFronCameraFeatureEventHandler.m */; settings = {ASSET_TAGS = (); }; };
+		181D1CBC1BC5246C00044F83 /* ZZAbortRecordingFeatureEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CBB1BC5246C00044F83 /* ZZAbortRecordingFeatureEventHandler.m */; settings = {ASSET_TAGS = (); }; };
+		181D1CBF1BC524E100044F83 /* ZZDeleteFriendsFeatureEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CBE1BC524E100044F83 /* ZZDeleteFriendsFeatureEventHandler.m */; settings = {ASSET_TAGS = (); }; };
+		181D1CC21BC5255D00044F83 /* ZZEarpieceFeatureEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CC11BC5255D00044F83 /* ZZEarpieceFeatureEventHandler.m */; settings = {ASSET_TAGS = (); }; };
+		181D1CC51BC525CC00044F83 /* ZZSpinFeatureEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CC41BC525CC00044F83 /* ZZSpinFeatureEventHandler.m */; settings = {ASSET_TAGS = (); }; };
+		181D1CCB1BC54E6F00044F83 /* ZZGridPresenter+ActionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CCA1BC54E6F00044F83 /* ZZGridPresenter+ActionHandler.m */; settings = {ASSET_TAGS = (); }; };
+		181D1CCF1BC550DE00044F83 /* ZZGridInteractor+ActionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CCE1BC550DE00044F83 /* ZZGridInteractor+ActionHandler.m */; settings = {ASSET_TAGS = (); }; };
 		182398D31BB27B36008D1324 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182398D21BB27B36008D1324 /* CoreTelephony.framework */; };
 		182BCF661BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 182BCF651BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf */; settings = {ASSET_TAGS = (); }; };
 		182BCF681BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 182BCF671BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf */; settings = {ASSET_TAGS = (); }; };
@@ -1009,6 +1024,37 @@
 		07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZStartScreenTestSpec.m; sourceTree = "<group>"; };
 		180254A11BB2C5A400138A52 /* ZZVideoStatuses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoStatuses.h; sourceTree = "<group>"; };
 		180254A21BB2C5A400138A52 /* ZZVideoStatuses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoStatuses.m; sourceTree = "<group>"; };
+		181D1C9C1BC51A4600044F83 /* ZZBaseEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZBaseEventHandler.h; sourceTree = "<group>"; };
+		181D1C9D1BC51A4600044F83 /* ZZBaseEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZBaseEventHandler.m; sourceTree = "<group>"; };
+		181D1CA21BC51B2000044F83 /* ZZInviteEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZInviteEventHandler.h; sourceTree = "<group>"; };
+		181D1CA31BC51B2000044F83 /* ZZInviteEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZInviteEventHandler.m; sourceTree = "<group>"; };
+		181D1CA51BC51B7100044F83 /* ZZPlayEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPlayEventHandler.h; sourceTree = "<group>"; };
+		181D1CA61BC51B7100044F83 /* ZZPlayEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZPlayEventHandler.m; sourceTree = "<group>"; };
+		181D1CA81BC5209000044F83 /* ZZRecordEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZRecordEventHandler.h; sourceTree = "<group>"; };
+		181D1CA91BC5209000044F83 /* ZZRecordEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRecordEventHandler.m; sourceTree = "<group>"; };
+		181D1CAB1BC5219300044F83 /* ZZSentMessgeEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSentMessgeEventHandler.h; sourceTree = "<group>"; };
+		181D1CAC1BC5219300044F83 /* ZZSentMessgeEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSentMessgeEventHandler.m; sourceTree = "<group>"; };
+		181D1CAE1BC5222600044F83 /* ZZViewedMessageEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZViewedMessageEventHandler.h; sourceTree = "<group>"; };
+		181D1CAF1BC5222600044F83 /* ZZViewedMessageEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZViewedMessageEventHandler.m; sourceTree = "<group>"; };
+		181D1CB11BC522C600044F83 /* ZZInviteSomeoneElseEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZInviteSomeoneElseEventHandler.h; sourceTree = "<group>"; };
+		181D1CB21BC522C600044F83 /* ZZInviteSomeoneElseEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZInviteSomeoneElseEventHandler.m; sourceTree = "<group>"; };
+		181D1CB41BC5236E00044F83 /* ZZSentWelcomeEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSentWelcomeEventHandler.h; sourceTree = "<group>"; };
+		181D1CB51BC5236E00044F83 /* ZZSentWelcomeEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSentWelcomeEventHandler.m; sourceTree = "<group>"; };
+		181D1CB71BC523FA00044F83 /* ZZFronCameraFeatureEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFronCameraFeatureEventHandler.h; sourceTree = "<group>"; };
+		181D1CB81BC523FA00044F83 /* ZZFronCameraFeatureEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFronCameraFeatureEventHandler.m; sourceTree = "<group>"; };
+		181D1CBA1BC5246C00044F83 /* ZZAbortRecordingFeatureEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAbortRecordingFeatureEventHandler.h; sourceTree = "<group>"; };
+		181D1CBB1BC5246C00044F83 /* ZZAbortRecordingFeatureEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAbortRecordingFeatureEventHandler.m; sourceTree = "<group>"; };
+		181D1CBD1BC524E100044F83 /* ZZDeleteFriendsFeatureEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDeleteFriendsFeatureEventHandler.h; sourceTree = "<group>"; };
+		181D1CBE1BC524E100044F83 /* ZZDeleteFriendsFeatureEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDeleteFriendsFeatureEventHandler.m; sourceTree = "<group>"; };
+		181D1CC01BC5255D00044F83 /* ZZEarpieceFeatureEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZEarpieceFeatureEventHandler.h; sourceTree = "<group>"; };
+		181D1CC11BC5255D00044F83 /* ZZEarpieceFeatureEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZEarpieceFeatureEventHandler.m; sourceTree = "<group>"; };
+		181D1CC31BC525CC00044F83 /* ZZSpinFeatureEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSpinFeatureEventHandler.h; sourceTree = "<group>"; };
+		181D1CC41BC525CC00044F83 /* ZZSpinFeatureEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSpinFeatureEventHandler.m; sourceTree = "<group>"; };
+		181D1CC71BC54DF000044F83 /* ZZGridPresenterInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridPresenterInterface.h; sourceTree = "<group>"; };
+		181D1CC91BC54E6F00044F83 /* ZZGridPresenter+ActionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZZGridPresenter+ActionHandler.h"; sourceTree = "<group>"; };
+		181D1CCA1BC54E6F00044F83 /* ZZGridPresenter+ActionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZZGridPresenter+ActionHandler.m"; sourceTree = "<group>"; };
+		181D1CCD1BC550DE00044F83 /* ZZGridInteractor+ActionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZZGridInteractor+ActionHandler.h"; sourceTree = "<group>"; };
+		181D1CCE1BC550DE00044F83 /* ZZGridInteractor+ActionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZZGridInteractor+ActionHandler.m"; sourceTree = "<group>"; };
 		182398D21BB27B36008D1324 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		182BCF651BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "contacts-placeholder_withoutborder.pdf"; sourceTree = "<group>"; };
 		182BCF671BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "contacts-placeholder-withoutborder2.pdf"; sourceTree = "<group>"; };
@@ -2845,6 +2891,7 @@
 		07636C9E1BA49A0100925671 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
+				181D1CCC1BC550C900044F83 /* InteractorActionHandlerExtension */,
 				07636C9F1BA49A0100925671 /* ZZGridInteractor.h */,
 				07636CA01BA49A0100925671 /* ZZGridInteractor.m */,
 				07636CA11BA49A0100925671 /* ZZGridInteractorIO.h */,
@@ -2896,6 +2943,8 @@
 		07636CAC1BA49A0100925671 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				181D1CC81BC54E4700044F83 /* PresenterActionHandlerCategory */,
+				181D1CC61BC54DD800044F83 /* PresenterUserInterface */,
 				07636CAD1BA49A0100925671 /* ZZGridPresenter.h */,
 				07636CAE1BA49A0100925671 /* ZZGridPresenter.m */,
 				071F18E71BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.h */,
@@ -3644,6 +3693,7 @@
 		079280A51BA8544B00E22553 /* ActionHandler */ = {
 			isa = PBXGroup;
 			children = (
+				181D1C8E1BC51A2800044F83 /* EventHandlers */,
 				7997E4E91BAABE2F001697D5 /* ZZGridActionStoredSettings.h */,
 				7997E4EA1BAABE2F001697D5 /* ZZGridActionStoredSettings.m */,
 				070560FE1BA8824F00C130E0 /* ZZGridActionHandlerEnums.h */,
@@ -3737,6 +3787,170 @@
 				07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */,
 			);
 			path = StartScreenTests;
+			sourceTree = "<group>";
+		};
+		181D1C8E1BC51A2800044F83 /* EventHandlers */ = {
+			isa = PBXGroup;
+			children = (
+				181D1C901BC51A2800044F83 /* BaseEventHandler */,
+				181D1C941BC51A2800044F83 /* InviteEventHandler */,
+				181D1C961BC51A2800044F83 /* PlayEventHandler */,
+				181D1C981BC51A2800044F83 /* SentMessgeEventHandler */,
+				181D1C9B1BC51A2800044F83 /* ViewedMessageEventHandler */,
+				181D1C971BC51A2800044F83 /* RecordEventHandler */,
+				181D1C951BC51A2800044F83 /* InviteSomeoneElseEventHandler */,
+				181D1C991BC51A2800044F83 /* SentWelcomeEventHandler */,
+				181D1C931BC51A2800044F83 /* FrontCameraFeatureEventHandler */,
+				181D1C8F1BC51A2800044F83 /* AbortRecordingFeatureEventHandler */,
+				181D1C911BC51A2800044F83 /* DeleteFriendsFeatureEventHandler */,
+				181D1C921BC51A2800044F83 /* EarpieceFeatureEventHandler */,
+				181D1C9A1BC51A2800044F83 /* SpinFeatureEventHandler */,
+			);
+			name = EventHandlers;
+			path = ActionHandler/EventHandlers;
+			sourceTree = "<group>";
+		};
+		181D1C8F1BC51A2800044F83 /* AbortRecordingFeatureEventHandler */ = {
+			isa = PBXGroup;
+			children = (
+				181D1CBA1BC5246C00044F83 /* ZZAbortRecordingFeatureEventHandler.h */,
+				181D1CBB1BC5246C00044F83 /* ZZAbortRecordingFeatureEventHandler.m */,
+			);
+			path = AbortRecordingFeatureEventHandler;
+			sourceTree = "<group>";
+		};
+		181D1C901BC51A2800044F83 /* BaseEventHandler */ = {
+			isa = PBXGroup;
+			children = (
+				181D1C9C1BC51A4600044F83 /* ZZBaseEventHandler.h */,
+				181D1C9D1BC51A4600044F83 /* ZZBaseEventHandler.m */,
+			);
+			path = BaseEventHandler;
+			sourceTree = "<group>";
+		};
+		181D1C911BC51A2800044F83 /* DeleteFriendsFeatureEventHandler */ = {
+			isa = PBXGroup;
+			children = (
+				181D1CBD1BC524E100044F83 /* ZZDeleteFriendsFeatureEventHandler.h */,
+				181D1CBE1BC524E100044F83 /* ZZDeleteFriendsFeatureEventHandler.m */,
+			);
+			path = DeleteFriendsFeatureEventHandler;
+			sourceTree = "<group>";
+		};
+		181D1C921BC51A2800044F83 /* EarpieceFeatureEventHandler */ = {
+			isa = PBXGroup;
+			children = (
+				181D1CC01BC5255D00044F83 /* ZZEarpieceFeatureEventHandler.h */,
+				181D1CC11BC5255D00044F83 /* ZZEarpieceFeatureEventHandler.m */,
+			);
+			path = EarpieceFeatureEventHandler;
+			sourceTree = "<group>";
+		};
+		181D1C931BC51A2800044F83 /* FrontCameraFeatureEventHandler */ = {
+			isa = PBXGroup;
+			children = (
+				181D1CB71BC523FA00044F83 /* ZZFronCameraFeatureEventHandler.h */,
+				181D1CB81BC523FA00044F83 /* ZZFronCameraFeatureEventHandler.m */,
+			);
+			path = FrontCameraFeatureEventHandler;
+			sourceTree = "<group>";
+		};
+		181D1C941BC51A2800044F83 /* InviteEventHandler */ = {
+			isa = PBXGroup;
+			children = (
+				181D1CA21BC51B2000044F83 /* ZZInviteEventHandler.h */,
+				181D1CA31BC51B2000044F83 /* ZZInviteEventHandler.m */,
+			);
+			path = InviteEventHandler;
+			sourceTree = "<group>";
+		};
+		181D1C951BC51A2800044F83 /* InviteSomeoneElseEventHandler */ = {
+			isa = PBXGroup;
+			children = (
+				181D1CB11BC522C600044F83 /* ZZInviteSomeoneElseEventHandler.h */,
+				181D1CB21BC522C600044F83 /* ZZInviteSomeoneElseEventHandler.m */,
+			);
+			path = InviteSomeoneElseEventHandler;
+			sourceTree = "<group>";
+		};
+		181D1C961BC51A2800044F83 /* PlayEventHandler */ = {
+			isa = PBXGroup;
+			children = (
+				181D1CA51BC51B7100044F83 /* ZZPlayEventHandler.h */,
+				181D1CA61BC51B7100044F83 /* ZZPlayEventHandler.m */,
+			);
+			path = PlayEventHandler;
+			sourceTree = "<group>";
+		};
+		181D1C971BC51A2800044F83 /* RecordEventHandler */ = {
+			isa = PBXGroup;
+			children = (
+				181D1CA81BC5209000044F83 /* ZZRecordEventHandler.h */,
+				181D1CA91BC5209000044F83 /* ZZRecordEventHandler.m */,
+			);
+			path = RecordEventHandler;
+			sourceTree = "<group>";
+		};
+		181D1C981BC51A2800044F83 /* SentMessgeEventHandler */ = {
+			isa = PBXGroup;
+			children = (
+				181D1CAB1BC5219300044F83 /* ZZSentMessgeEventHandler.h */,
+				181D1CAC1BC5219300044F83 /* ZZSentMessgeEventHandler.m */,
+			);
+			path = SentMessgeEventHandler;
+			sourceTree = "<group>";
+		};
+		181D1C991BC51A2800044F83 /* SentWelcomeEventHandler */ = {
+			isa = PBXGroup;
+			children = (
+				181D1CB41BC5236E00044F83 /* ZZSentWelcomeEventHandler.h */,
+				181D1CB51BC5236E00044F83 /* ZZSentWelcomeEventHandler.m */,
+			);
+			path = SentWelcomeEventHandler;
+			sourceTree = "<group>";
+		};
+		181D1C9A1BC51A2800044F83 /* SpinFeatureEventHandler */ = {
+			isa = PBXGroup;
+			children = (
+				181D1CC31BC525CC00044F83 /* ZZSpinFeatureEventHandler.h */,
+				181D1CC41BC525CC00044F83 /* ZZSpinFeatureEventHandler.m */,
+			);
+			path = SpinFeatureEventHandler;
+			sourceTree = "<group>";
+		};
+		181D1C9B1BC51A2800044F83 /* ViewedMessageEventHandler */ = {
+			isa = PBXGroup;
+			children = (
+				181D1CAE1BC5222600044F83 /* ZZViewedMessageEventHandler.h */,
+				181D1CAF1BC5222600044F83 /* ZZViewedMessageEventHandler.m */,
+			);
+			path = ViewedMessageEventHandler;
+			sourceTree = "<group>";
+		};
+		181D1CC61BC54DD800044F83 /* PresenterUserInterface */ = {
+			isa = PBXGroup;
+			children = (
+				181D1CC71BC54DF000044F83 /* ZZGridPresenterInterface.h */,
+			);
+			path = PresenterUserInterface;
+			sourceTree = "<group>";
+		};
+		181D1CC81BC54E4700044F83 /* PresenterActionHandlerCategory */ = {
+			isa = PBXGroup;
+			children = (
+				181D1CC91BC54E6F00044F83 /* ZZGridPresenter+ActionHandler.h */,
+				181D1CCA1BC54E6F00044F83 /* ZZGridPresenter+ActionHandler.m */,
+			);
+			path = PresenterActionHandlerCategory;
+			sourceTree = "<group>";
+		};
+		181D1CCC1BC550C900044F83 /* InteractorActionHandlerExtension */ = {
+			isa = PBXGroup;
+			children = (
+				181D1CCD1BC550DE00044F83 /* ZZGridInteractor+ActionHandler.h */,
+				181D1CCE1BC550DE00044F83 /* ZZGridInteractor+ActionHandler.m */,
+			);
+			path = InteractorActionHandlerExtension;
 			sourceTree = "<group>";
 		};
 		186BD4AF1BC3C87F00B47C6B /* CommonClasses */ = {
@@ -4225,11 +4439,13 @@
 				07636ED31BA49A0100925671 /* ZZGridWireframe.m in Sources */,
 				186BD4BA1BC40EF900B47C6B /* ZZHintArrowConfigurationModel.m in Sources */,
 				07636E221BA49A0100925671 /* ZZContentDataAcessor.m in Sources */,
+				181D1CC51BC525CC00044F83 /* ZZSpinFeatureEventHandler.m in Sources */,
 				079280A41BA8544800E22553 /* ZZGridActionHandler.m in Sources */,
 				07636EB91BA49A0100925671 /* ZZEditFriendListWireframe.m in Sources */,
 				180254A31BB2C5A400138A52 /* ZZVideoStatuses.m in Sources */,
 				07636E531BA49A0100925671 /* ZZEnvelopStrategy.m in Sources */,
 				07636DBD1BA49A0100925671 /* TBMVideoPlayer.m in Sources */,
+				181D1CC21BC5255D00044F83 /* ZZEarpieceFeatureEventHandler.m in Sources */,
 				07636EA11BA49A0100925671 /* ZZDebugStateWireframe.m in Sources */,
 				07636E511BA49A0100925671 /* ANExternURLBuilder.m in Sources */,
 				07636E9E1BA49A0100925671 /* ZZDebugStateCellViewModel.m in Sources */,
@@ -4238,6 +4454,7 @@
 				07636ECD1BA49A0100925671 /* ZZGridHelper.m in Sources */,
 				07636EB01BA49A0100925671 /* ZZEditFriendListInteractor.m in Sources */,
 				07636DE41BA49A0100925671 /* TBMDebugData.m in Sources */,
+				181D1CAA1BC5209000044F83 /* ZZRecordEventHandler.m in Sources */,
 				07636E2B1BA49A0100925671 /* ZZBaseDomainModel.m in Sources */,
 				07636EA41BA49A0100925671 /* ZZSecretPresenter.m in Sources */,
 				07636E8E1BA49A0100925671 /* ZZAuthInteractor.m in Sources */,
@@ -4245,6 +4462,7 @@
 				07636E9A1BA49A0100925671 /* ZZDebugStateItemDomainModel.m in Sources */,
 				07636ED11BA49A0100925671 /* ZZTouchObserver.m in Sources */,
 				07636EC71BA49A0100925671 /* ZZGridCellViewModel.m in Sources */,
+				181D1C9E1BC51A4600044F83 /* ZZBaseEventHandler.m in Sources */,
 				07BAA7051BB18DD2009878B9 /* NSArray+TBMArrayHelpers.m in Sources */,
 				07636EB51BA49A0100925671 /* ZZEditFriendCellViewModel.m in Sources */,
 				7952764B1BA6B4AB00E506D5 /* ZZMenuCellViewModel.m in Sources */,
@@ -4291,6 +4509,7 @@
 				07636EA81BA49A0100925671 /* ZZSecretSegmentCellViewModel.m in Sources */,
 				07636EB81BA49A0100925671 /* ZZEditFriendListVC.m in Sources */,
 				07636E0E1BA49A0100925671 /* TBMHomeViewController+Invite.m in Sources */,
+				181D1CB31BC522C600044F83 /* ZZInviteSomeoneElseEventHandler.m in Sources */,
 				07636F011BA49A0100925671 /* ANNetworkRequest.m in Sources */,
 				07636EE91BA49A0100925671 /* NSObject+ANUserDefaults.m in Sources */,
 				07636E4E1BA49A0100925671 /* ZZConfig.m in Sources */,
@@ -4306,11 +4525,13 @@
 				07636EF71BA49A0100925671 /* ANMessagesWireframe.m in Sources */,
 				07829D681BB2AA840000D5D9 /* ZZGridTransportService.m in Sources */,
 				07636EB41BA49A0100925671 /* ZZEditFriendCell.m in Sources */,
+				181D1CBC1BC5246C00044F83 /* ZZAbortRecordingFeatureEventHandler.m in Sources */,
 				07636E9F1BA49A0100925671 /* ZZDebugStateController.m in Sources */,
 				07636E1C1BA49A0100925671 /* ZZRootWireframe.m in Sources */,
 				07636EDB1BA49A0100925671 /* ZZMenuVC.m in Sources */,
 				07636EFA1BA49A0100925671 /* ANNetworkNoContentView.m in Sources */,
 				07636EC41BA49A0100925671 /* ZZGridStateViewPreview.m in Sources */,
+				181D1CB61BC5236E00044F83 /* ZZSentWelcomeEventHandler.m in Sources */,
 				07636EBB1BA49A0100925671 /* ZZGridAlertBuilder.m in Sources */,
 				07636DB11BA49A0100925671 /* NSString+NSStringExtensions.m in Sources */,
 				07636DAF1BA49A0100925671 /* NSError+Extensions.m in Sources */,
@@ -4320,6 +4541,7 @@
 				07636E3E1BA49A0100925671 /* ZZVideoNetworkTransportService.m in Sources */,
 				07636E121BA49A0100925671 /* TBMViewUtils.m in Sources */,
 				07636E551BA49A0100925671 /* ZZBaseTouchController.m in Sources */,
+				181D1CCF1BC550DE00044F83 /* ZZGridInteractor+ActionHandler.m in Sources */,
 				07636E191BA49A0100925671 /* ZZAppDependencies.m in Sources */,
 				07636EEB1BA49A0100925671 /* UIImageView+ANLoadingAdditions.m in Sources */,
 				07636E021BA49A0100925671 /* TBMLongPressTouchHandler.m in Sources */,
@@ -4331,6 +4553,7 @@
 				07636E5C1BA49A0100925671 /* ZZVideoPlayer.m in Sources */,
 				FE7D83291BBE580C00445108 /* ZZHintsGotItView.m in Sources */,
 				07636F131BA49A0100925671 /* UIView+Image.m in Sources */,
+				181D1CA71BC51B7100044F83 /* ZZPlayEventHandler.m in Sources */,
 				07636E3F1BA49A0100925671 /* TBMFriend.m in Sources */,
 				07636E2F1BA49A0100925671 /* ZZFriendDomainModel.m in Sources */,
 				07636EEA1BA49A0100925671 /* NSString+ZZAdditions.m in Sources */,
@@ -4353,6 +4576,7 @@
 				07636EC11BA49A0100925671 /* ZZGridStateView+Animation.m in Sources */,
 				07636DB71BA49A0100925671 /* TBMFileUtils.m in Sources */,
 				07636EC61BA49A0100925671 /* ZZGridCell.m in Sources */,
+				181D1CA41BC51B2000044F83 /* ZZInviteEventHandler.m in Sources */,
 				07636DEC1BA49A0100925671 /* TBMStateProtocolHelper.m in Sources */,
 				07636EE21BA49A0100925671 /* ANActivityIndicator.m in Sources */,
 				186BD4B61BC3C87F00B47C6B /* TBMHintView.m in Sources */,
@@ -4366,14 +4590,17 @@
 				07636DF31BA49A0100925671 /* TBMDispatch.m in Sources */,
 				07738E6C1BBC25C500CD3E7C /* ZZFriendDataUpdater.m in Sources */,
 				07636ECC1BA49A0100925671 /* ZZGeometryHelper.m in Sources */,
+				181D1CBF1BC524E100044F83 /* ZZDeleteFriendsFeatureEventHandler.m in Sources */,
 				07636EAE1BA49A0100925671 /* ZZSecretVC.m in Sources */,
 				07636EDC1BA49A0100925671 /* ZZMenuWireframe.m in Sources */,
 				07636DBA1BA49A0100925671 /* TBMSoundEffect.m in Sources */,
 				07636ECB1BA49A0100925671 /* ZZFakeRotationCell.m in Sources */,
 				07636EC91BA49A0100925671 /* ZZGridView.m in Sources */,
+				181D1CB01BC5222600044F83 /* ZZViewedMessageEventHandler.m in Sources */,
 				07BAA7141BB1C55E009878B9 /* ZZThumbnailGenerator.m in Sources */,
 				07636DB91BA49A0100925671 /* TBMPhoneUtils.m in Sources */,
 				07636E961BA49A0100925671 /* ANDebugVC.m in Sources */,
+				181D1CAD1BC5219300044F83 /* ZZSentMessgeEventHandler.m in Sources */,
 				07636E231BA49A0100925671 /* ZZFriendDataProvider.m in Sources */,
 				07636EFF1BA49A0100925671 /* ANErrorHandler.m in Sources */,
 				07636E951BA49A0100925671 /* ANDebugController.m in Sources */,
@@ -4388,10 +4615,12 @@
 				7997E4F81BAABE85001697D5 /* JFMinimalNotificationArt.m in Sources */,
 				07636E1A1BA49A0100925671 /* main.m in Sources */,
 				07636E491BA49A0100925671 /* ZZAddressBookDataProvider.m in Sources */,
+				181D1CB91BC523FA00044F83 /* ZZFronCameraFeatureEventHandler.m in Sources */,
 				07636E241BA49A0100925671 /* ZZFriendModelsMapper.m in Sources */,
 				07636E251BA49A0100925671 /* ZZGridDataProvider.m in Sources */,
 				07636DBB1BA49A0100925671 /* TBMStringUtils.m in Sources */,
 				07636EAF1BA49A0100925671 /* ZZSecretWireframe.m in Sources */,
+				181D1CCB1BC54E6F00044F83 /* ZZGridPresenter+ActionHandler.m in Sources */,
 				07636E201BA49A0100925671 /* ZZPhoneHelper.m in Sources */,
 				07636E481BA49A0100925671 /* ZZBaseVC.m in Sources */,
 				07636EAA1BA49A0100925671 /* ZZSecretSwitchCellViewModel.m in Sources */,

@@ -59,7 +59,15 @@
         case ZZHintsTypeSpinUsageHint:
             return [self _spin];
             break;
-            
+        case ZZHintsTypePlayHint:
+            return [self _playHintModel];
+            break;
+        case ZZHintsTypeViewedHint:
+            return [self _viewedHint];
+            break;
+        case ZZHintsTypeInviteSomeElseHint:
+            return [self _inviteSomeoneElseHint];
+            break;
             
         default: break;
     }
@@ -80,6 +88,39 @@
 }
 
 #pragma mark - Lazy Load
+
++ (ZZHintsDomainModel*)_inviteSomeoneElseHint
+{
+    ZZHintsDomainModel* model = [ZZHintsDomainModel new];
+    model.title = NSLocalizedString(@"hints.invite-someone-else.label.text", nil);
+    model.type = ZZHintsTypeInviteSomeElseHint;
+    model.hidesArrow = NO;
+    model.imageType = ZZHintsBottomImageTypeNone;
+    
+    return model;
+}
+
++ (ZZHintsDomainModel*)_viewedHint
+{
+    ZZHintsDomainModel* model = [ZZHintsDomainModel new];
+    model.title = NSLocalizedString(@"hints.viewed-video.label.text", nil);
+    model.type = ZZHintsTypeViewedHint;
+    model.hidesArrow = NO;
+    model.imageType = ZZHintsBottomImageTypeGotIt;
+    
+    return model;
+}
+
++ (ZZHintsDomainModel*)_playHintModel
+{
+    ZZHintsDomainModel* model = [ZZHintsDomainModel new];
+    model.title = NSLocalizedString(@"hints.play-video.label.text", nil);
+    model.type = ZZHintsTypePlayHint;
+    model.hidesArrow = NO;
+    model.imageType = ZZHintsBottomImageTypeNone;
+    
+    return model;
+}
 
 + (ZZHintsDomainModel*)_sendZazoModel
 {

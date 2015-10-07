@@ -10,7 +10,8 @@
 
 @interface ZZGridInteractor : NSObject <ZZGridInteractorInput>
 
-@property (nonatomic, weak) id<ZZGridInteractorOutput> output;
+@property (nonatomic, weak) id<ZZGridInteractorOutput, ZZGridInteractorOutputActionHandler> output;
+
 
 @end
 
