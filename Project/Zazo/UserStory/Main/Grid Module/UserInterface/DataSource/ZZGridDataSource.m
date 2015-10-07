@@ -145,6 +145,29 @@ ZZGridCenterCellViewModelDelegate
     return [self viewModelIndexWithModelIndex:domainModel.index];
 }
 
+- (NSInteger)indexForFriendDomainModel:(ZZFriendDomainModel*)friendModel
+{
+    
+    __block id item;
+    
+    [self.models enumerateObjectsUsingBlock:^(ZZGridCellViewModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[ZZGridCellViewModel class]])
+        {
+            if ([obj.item.relatedUser isEqual:friendModel])
+            {
+                item = obj;
+            }
+        }
+    }];
+    
+    if (item)
+    {
+        return [self.models indexOfObject:item];
+    }
+    
+    return NSNotFound;
+}
+
 - (NSInteger)indexForViewModel:(ZZGridCellViewModel*)model
 {
     if ([model isKindOfClass:[ZZGridCellViewModel class]])

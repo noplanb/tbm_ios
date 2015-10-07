@@ -16,25 +16,66 @@
 
 - (void)_handleEvent:(ZZGridActionEventType)event withDomainModel:(ZZGridDomainModel*)model
 {
-    NSInteger index = [[self dataSource] indexForUpdatedDomainModel:model];
-    [[self actionHandler] handleEvent:event withIndex:index];
-}
-
-- (void)_handleInviteEvent
-{
-    CGFloat delayAfterViewDownloaded = 2.0f;
-    ANDispatchBlockAfter(delayAfterViewDownloaded, ^{
-        if ([[self dataSource] frindsOnGridNumber] == 0)
+    ANDispatchBlockToMainQueue(^{
+        NSInteger index = [[self dataSource] indexForUpdatedDomainModel:model];
+        if (index != NSNotFound)
         {
-            NSInteger indexForInviteEvent = 5;
-            [[self actionHandler] handleEvent:ZZGridActionEventTypeDontHaveFriends withIndex:indexForInviteEvent];
+            [[self actionHandler] handleEvent:event withIndex:index];
         }
     });
 }
 
-- (void)_handleRecordEventWithCellViewModel:(ZZGridCellViewModel*)cellViewModel
+- (void)_handleInviteEvent
 {
-    
+    ANDispatchBlockToMainQueue(^{
+        CGFloat delayAfterViewDownloaded = 2.0f;
+        ANDispatchBlockAfter(delayAfterViewDownloaded, ^{
+            if ([[self dataSource] frindsOnGridNumber] == 0)
+            {
+                NSInteger indexForInviteEvent = 5;
+                [[self actionHandler] handleEvent:ZZGridActionEventTypeDontHaveFriends withIndex:indexForInviteEvent];
+            }
+        });
+    });
+}
+
+- (void)_handleRecordHintWithCellViewModel:(ZZFriendDomainModel*)model
+{
+    ANDispatchBlockToMainQueue(^{
+        NSInteger index = [[self dataSource] indexForFriendDomainModel:model];
+        if (index != NSNotFound)
+        {
+            [[self actionHandler] handleEvent:ZZGridActionEventTypeMessageDidPlayed withIndex:index];
+        }
+    });
+}
+
+- (void)_handleSentMessageEventWithCellViewModel:(ZZGridCellViewModel*)cellViewModel
+{
+    ANDispatchBlockToMainQueue(^{
+        if ([[self dataSource] frindsOnGridNumber] == 1)
+        {
+            CGFloat delayAfterUploadAnimationStopped = 2.0f;
+            ANDispatchBlockAfter(delayAfterUploadAnimationStopped, ^{
+                NSInteger index = [[self dataSource] indexForViewModel:cellViewModel];
+                if (index != NSNotFound)
+                {
+                    [[self actionHandler] handleEvent:ZZGridActionEventTypeMessageDidSent withIndex:index];
+                }
+            });
+        }
+    });
+}
+
+- (void)_handleSentWelcomeHintWithFriendDomainModel:(ZZFriendDomainModel*)model
+{
+    ANDispatchBlockToMainQueue(^{
+        NSInteger index = [[self dataSource] indexForFriendDomainModel:model];
+        if (index != NSNotFound)
+        {
+            [[self actionHandler] handleEvent:ZZGridActionEventTypeFriendDidInvited withIndex:index];
+        }
+    });
 }
 
 @end

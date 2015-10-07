@@ -22,6 +22,10 @@
         {
             [self.output handleModel:model withEvent:ZZGridActionEventTypeBecomeMessage];
         }
+        else if (model.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED)
+        {
+            [self.output handleModel:model withEvent:ZZGridActionEventTypeMessageViewed];
+        }
 }
 
 @end

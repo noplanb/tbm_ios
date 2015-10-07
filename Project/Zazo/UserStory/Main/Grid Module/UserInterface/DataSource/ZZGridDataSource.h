@@ -37,6 +37,6 @@
 
 - (NSInteger)frindsOnGridNumber;
 - (NSInteger)indexForUpdatedDomainModel:(ZZGridDomainModel*)domainModel;
-
+- (NSInteger)indexForFriendDomainModel:(ZZFriendDomainModel*)friendModel;
 
 @end

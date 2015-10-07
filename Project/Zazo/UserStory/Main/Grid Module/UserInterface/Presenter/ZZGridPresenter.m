@@ -285,7 +285,7 @@
 - (void)videoPlayerURLWasFinishedPlaying:(NSURL *)videoURL withPlayedUserModel:(ZZFriendDomainModel*)playedFriendModel
 {
     [self.interactor updateFriendAfterVideoStopped:playedFriendModel];
-//    [self.actionHandler handleEvent:ZZGridActionEventTypeMessageDidStopPlaying];
+    [self _handleRecordHintWithCellViewModel:playedFriendModel];
 }
 
 
@@ -327,7 +327,10 @@
                 [[ZZVideoRecorder shared] startRecordingWithVideoURL:url completionBlock:^(BOOL isRecordingSuccess) {
                     [self.userInterface updateRecordViewStateTo:NO];
                     [self.soundPlayer play];
-                    
+                    if (isRecordingSuccess)
+                    {
+                        [self _handleSentMessageEventWithCellViewModel:viewModel];
+                    }
                     completionBlock(isRecordingSuccess);
                 }];
             });

@@ -9,7 +9,16 @@
 #import "ZZHintsConstants.h"
 @class ZZHintsViewModel;
 
+@protocol ZZHintsViewDelegate <NSObject>
+
+- (void)hintViewHiddenWithType:(ZZHintsType)type;
+
+@end
+
+
 @interface ZZHintsView : UIView
+
+@property (nonatomic, weak) id <ZZHintsViewDelegate> delegate;
 
 - (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel;
 - (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel andIndex:(NSInteger)index;

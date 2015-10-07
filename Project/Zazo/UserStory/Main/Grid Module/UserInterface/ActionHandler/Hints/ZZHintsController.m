@@ -14,7 +14,7 @@
 #import "ZZHintsDomainModel.h"
 #import "ZZGridUIConstants.h"
 
-@interface ZZHintsController ()
+@interface ZZHintsController () <ZZHintsViewDelegate>
 
 @property (nonatomic, strong) ZZHintsView* hintsView;
 
@@ -65,8 +65,16 @@
     if (!_hintsView)
     {
         _hintsView = [[ZZHintsView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        _hintsView.delegate = self;
     }
     return _hintsView;
+}
+
+#pragma mark - HintView Delegate
+
+- (void)hintViewHiddenWithType:(ZZHintsType)type
+{
+    [self.delegate hintWasDissmissedWithType:type];
 }
 
 //

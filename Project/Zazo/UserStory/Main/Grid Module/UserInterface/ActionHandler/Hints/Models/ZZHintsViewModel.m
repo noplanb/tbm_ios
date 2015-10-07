@@ -33,6 +33,11 @@
     self.focusFrame = focusFrame;
 }
 
+- (ZZHintsType)hintType
+{
+    return self.item.type;
+}
+
 //- (CGPoint)generateArrowFocusPoint
 //{
 //    switch (self.item.type)

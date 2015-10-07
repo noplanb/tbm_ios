@@ -13,6 +13,7 @@
 
 - (void)_handleEvent:(ZZGridActionEventType)event withDomainModel:(ZZGridDomainModel*)model;
 - (void)_handleInviteEvent;
-- (void)_handleRecordEventWithCellViewModel:(ZZGridCellViewModel*)cellViewModel;
-
+- (void)_handleRecordHintWithCellViewModel:(ZZFriendDomainModel*)model;
+- (void)_handleSentMessageEventWithCellViewModel:(ZZGridCellViewModel*)cellViewModel;
+- (void)_handleSentWelcomeHintWithFriendDomainModel:(ZZFriendDomainModel*)model;
 @end

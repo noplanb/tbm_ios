@@ -12,7 +12,7 @@
 
 @protocol ZZHintsControllerDelegate <NSObject>
 
-- (void)hintWasDissmissed;
+- (void)hintWasDissmissedWithType:(ZZHintsType)type;
 
 @end
 

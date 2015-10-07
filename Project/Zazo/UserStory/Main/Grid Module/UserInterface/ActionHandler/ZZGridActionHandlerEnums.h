@@ -66,7 +66,7 @@ typedef NS_ENUM(NSInteger, ZZGridActionEventType)
     ZZGridActionEventTypeMessageDidPlayed,
     ZZGridActionEventTypeFriendAddedToGrid,
     ZZGridActionEventTypeMessageDidSent,
-    ZZGridActionEventTypeMessageNotViewed,
+    ZZGridActionEventTypeMessageViewed,
     ZZGridActionEventTypeSentZazo,
     ZZGridActionEventTypeFriendDidInvited,
     

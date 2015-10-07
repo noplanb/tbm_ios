@@ -15,6 +15,7 @@
 #import "ZZAPIRoutes.h"
 #import "TBMAlertController.h"
 #import "TBMTableModal.h"
+#import "ZZGridPresenter+ActionHandler.h"
 
 @implementation ZZGridPresenter (UserDialogs)
 
@@ -31,6 +32,7 @@
     
     [ZZGridAlertBuilder showConnectedDialogForUser:friendModel.firstName completion:^{
         [self.interactor addUserToGrid:friendModel];
+        [self _handleSentWelcomeHintWithFriendDomainModel:friendModel];
     }];
 }
 

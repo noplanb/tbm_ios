@@ -14,8 +14,9 @@
 
 @interface ZZHintsView ()
 
-@property (nonatomic, strong) ZZHintsGotItView *gotItView;
+@property (nonatomic, strong) ZZHintsGotItView* gotItView;
 @property (nonatomic, assign) ZZHintsBottomImageType currentBottomImageType;
+@property (nonatomic, strong) ZZHintsViewModel* hintViewModel;
 
 @end
 
@@ -35,6 +36,7 @@
 
 - (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel andIndex:(NSInteger)index
 {
+    self.hintViewModel = viewModel;
     [self showFocusOnFrame:[viewModel focusFrame]];
     
     ZZHintsArrow *hintArrow = [ZZHintsArrow arrowWithText:[viewModel text]
@@ -82,6 +84,7 @@
 - (void)dismissHintsView
 {
     [self removeFromSuperview];
+    [self.delegate hintViewHiddenWithType:[self.hintViewModel hintType]];
 }
 
 #pragma mark - Lazy Load

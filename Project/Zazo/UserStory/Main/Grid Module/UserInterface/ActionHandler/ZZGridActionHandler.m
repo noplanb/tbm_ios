@@ -28,7 +28,7 @@
 #import "ZZSpinFeatureEventHandler.h"
 
 
-@interface ZZGridActionHandler ()
+@interface ZZGridActionHandler () <ZZHintsControllerDelegate>
 
 @property (nonatomic, strong) ZZHintsController* hintsController;
 @property(nonatomic, strong) NSSet* hints;
@@ -100,6 +100,17 @@
                                 focusFrame:[self.userInterface focusFrameForIndex:index]
                                  withIndex:index
                            formatParameter:@""];
+}
+
+
+#pragma mark - Hints Controller Delegate methods
+
+- (void)hintWasDissmissedWithType:(ZZHintsType)type
+{
+    if (type == ZZHintsTypeSentHint)
+    {
+        [self _configureHintControllerWithHintType:ZZHintsTypeInviteSomeElseHint index:2];
+    }
 }
 
 
