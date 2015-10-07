@@ -114,19 +114,6 @@ static NSInteger const kGridFriendsCellCount = 8;
     return gridModels;
 }
 
-#pragma mark - Notifications
-
-- (void)handleNotificationForFriend:(TBMFriend*)friendEntity
-{
-    ZZFriendDomainModel* model = [ZZFriendDataProvider modelFromEntity:friendEntity];
-    [self _addUserAsFriendToGrid:model fromNotification:YES];
-}
-
-- (void)showDownloadAnimationForFriend:(TBMFriend *)friend
-{
-    // TODO:
-}
-
 
 #pragma mark - Feedback
 
@@ -189,7 +176,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
         if (ANIsEmpty(model))
         {
-            model = [ZZGridDataProvider modelWithEarlierLastActionFriend];;
+            model = [ZZGridDataProvider modelWithEarlierLastActionFriend];
         }
         
         model = [ZZGridDataUpdater updateRelatedUserOnItemID:model.itemID toValue:friendModel];
@@ -250,9 +237,20 @@ static NSInteger const kGridFriendsCellCount = 8;
 #pragma mark - TBMFriend Delegate 
 
 - (void)videoStatusDidChange:(TBMFriend*)model
-{   
+{
     ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithRelatedUserID:model.idTbm];
-    [self.output reloadGridModel:gridModel];
+    if (!gridModel)
+    {
+        if (model.lastVideoStatusEventTypeValue == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
+            model.lastIncomingVideoStatusValue == INCOMING_VIDEO_STATUS_DOWNLOADED)
+        {
+            [self addUserToGrid:[ZZFriendDataProvider modelFromEntity:model]];
+        }
+    }
+    else
+    {
+        [self.output reloadGridModel:gridModel];
+    }
 }
 
 

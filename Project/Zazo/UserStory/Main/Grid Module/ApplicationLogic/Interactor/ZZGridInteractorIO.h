@@ -23,10 +23,8 @@
 
 - (void)removeUserFromContacts:(ZZFriendDomainModel*)model;
 - (void)updateLastActionForFriend:(ZZFriendDomainModel*)friendModel;
-- (void)handleNotificationForFriend:(TBMFriend*)friendEntity;
 
 - (void)loadFeedbackModel;
-//- (void)showDownloadAnimationForFriend:(TBMFriend*)friend;
 - (void)updateFriendAfterVideoStopped:(ZZFriendDomainModel*)model;
 
 

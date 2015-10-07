@@ -12,7 +12,7 @@
 
 @interface ZZFriendDataUpdater : NSObject
 
-+ (ZZFriendDomainModel*)updateLastTimeActionFriendWithID:(NSString*)itemID;
++ (void)updateLastTimeActionFriendWithID:(NSString*)itemID;
 + (ZZFriendDomainModel*)updateConnectionStatusForUserWithID:(NSString*)itemID toValue:(ZZFriendshipStatusType)value;
 + (ZZFriendDomainModel*)upsertFriend:(ZZFriendDomainModel*)model;
 

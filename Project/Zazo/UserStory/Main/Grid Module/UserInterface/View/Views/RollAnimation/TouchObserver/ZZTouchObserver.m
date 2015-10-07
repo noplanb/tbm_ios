@@ -76,19 +76,19 @@ static CGFloat const kTouchOffset = 7;
 
 - (void)observeTouch:(UITouch *)touch withEvent:(id)event
 {
-//    if ([ZZFeatureObserver sharedInstance].isSpinWeelEnabled)
-//    {
-        if (touch.phase == UITouchPhaseBegan)
+    //    if ([ZZFeatureObserver sharedInstance].isSpinWeelEnabled)
+    //    {
+    if (touch.phase == UITouchPhaseBegan)
+    {
+        if (self.grid.isGridMoved)
         {
-            if (self.grid.isGridMoved)
-            {
-                
-//                [self.grid.rotator stopAnimationsOnGrid:self.grid];
-                [self.grid.rotator stopDecayAnimationIfNeeded:self.grid.rotator.decayAnimation onGrid:self.grid];
-                
-            }
-            else
-            {
+            
+            //                [self.grid.rotator stopAnimationsOnGrid:self.grid];
+            [self.grid.rotator stopDecayAnimationIfNeeded:self.grid.rotator.decayAnimation onGrid:self.grid];
+            
+        }
+        else
+        {
             self.initialLocation = [touch locationInView:self.gridView.itemsContainerView];
             UIView* cell = [self.gridView.itemsContainerView hitTest:self.initialLocation withEvent:nil];
             if (cell.isHidden && !self.grid.isHidden)
@@ -96,27 +96,27 @@ static CGFloat const kTouchOffset = 7;
                 [self updateCellsHiddenStateTo:NO];
                 self.grid.hidden = YES;
             }
-            }
-            
         }
         
-        if (self.grid.hidden && touch.phase == UITouchPhaseMoved && self.gridView.isRotationEnabled && [self shouldMoveWithTouch:touch])
-            {
-                CGPoint location = [touch locationInView:self.gridView.itemsContainerView];
-                [self.delegate stopPlaying];
-                if (!self.isMoving)
-                {
-                    self.isMoving = YES;
-                    self.initialLocation = location;
-                }
-                // start observer if touch start in cell
-                UIView* cell = [self.gridView.itemsContainerView hitTest:location withEvent:nil];
-                if (cell)
-                {
-                    [self startObserveWithTouch:touch withEvent:event withLocation:location];
-                }
-            }
-//    }
+    }
+    
+    if (self.grid.hidden && touch.phase == UITouchPhaseMoved && self.gridView.isRotationEnabled && [self shouldMoveWithTouch:touch])
+    {
+        CGPoint location = [touch locationInView:self.gridView.itemsContainerView];
+        [self.delegate stopPlaying];
+        if (!self.isMoving)
+        {
+            self.isMoving = YES;
+            self.initialLocation = location;
+        }
+        // start observer if touch start in cell
+        UIView* cell = [self.gridView.itemsContainerView hitTest:location withEvent:nil];
+        if (cell)
+        {
+            [self startObserveWithTouch:touch withEvent:event withLocation:location];
+        }
+    }
+    //    }
 }
 
 - (BOOL)shouldMoveWithTouch:(UITouch*)touch
@@ -164,7 +164,7 @@ static CGFloat const kTouchOffset = 7;
             [self.grid removeAllCells];
             [self.grid setCells:self.movingViewArray];
             if (self.grid.isHidden)
-            [self updateFakeViewImages];
+                [self updateFakeViewImages];
             self.grid.alpha = 1.0;
             self.grid.hidden = NO;
             [self updateCellsHiddenStateTo:YES];
@@ -227,15 +227,15 @@ static CGFloat const kTouchOffset = 7;
 #pragma mark - Grid delegate
 
 - (void)rotationStoped
-{   
+{
     if (!self.grid.isHidden && !self.isUpdatedAfterStart)
     {
         self.isUpdatedAfterStart = YES;
-     
+        
         [self.initialStorageValue removeAllObjects];
         
         NSMutableDictionary* positionDict = [NSMutableDictionary dictionary];
-    
+        
         [[self.gridView items] enumerateObjectsUsingBlock:^(UICollectionViewCell* cell, NSUInteger idx, BOOL *stop) {
             
             if ([cell isKindOfClass:[ZZGridCell class]])
@@ -248,7 +248,7 @@ static CGFloat const kTouchOffset = 7;
                             NSInteger index = [[self.gridView items] indexOfObject:cell];
                             if (index != NSNotFound)
                             {
-//                                [positionDict setObject:[self.storage itemAtIndexPath:fakeCell.indexPath] forKey:@(index)];//TODO:
+                                //                                [positionDict setObject:[self.storage itemAtIndexPath:fakeCell.indexPath] forKey:@(index)];//TODO:
                             }
                         }
                     }
@@ -256,7 +256,7 @@ static CGFloat const kTouchOffset = 7;
             }
         }];
         
-//        [positionDict setObject:[self.storage itemAtIndexPath:[NSIndexPath indexPathForItem:4 inSection:0]] forKey:@(4)]; // TODO:
+        //        [positionDict setObject:[self.storage itemAtIndexPath:[NSIndexPath indexPathForItem:4 inSection:0]] forKey:@(4)]; // TODO:
         
         NSArray* arr = [[positionDict allKeys] sortedArrayUsingSelector:@selector(compare:)];
         for (NSNumber* n in arr)
@@ -264,10 +264,10 @@ static CGFloat const kTouchOffset = 7;
             [self.initialStorageValue addObject:positionDict[n]];
         }
         //TODO:
-//        [UIView performWithoutAnimation:^{
-//            [self.storage removeAllItems];
-//            [self.storage addItems:self.initialStorageValue];
-//        }];
+        //        [UIView performWithoutAnimation:^{
+        //            [self.storage removeAllItems];
+        //            [self.storage addItems:self.initialStorageValue];
+        //        }];
         
         [self updateCellsHiddenStateTo:NO];
         [UIView animateWithDuration:.2 animations:^{
