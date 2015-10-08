@@ -105,7 +105,7 @@ static APAddressBook* addressBook = nil;
 {
     ZZContactDomainModel* model;
     
-    if (!ANIsEmpty(contact.firstName) && !ANIsEmpty(contact.phonesWithLabels))
+    if (!ANIsEmpty(contact.firstName) && !ANIsEmpty(contact.lastName))
     {
         model = [ZZContactDomainModel new];
         
