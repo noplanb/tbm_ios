@@ -98,12 +98,4 @@
     [self addGestureRecognizer:self.rotationRecognizer];
 }
 
-- (void)updateSwithCameraButtonWithState:(BOOL)isHidden
-{
-    ANDispatchBlockToMainQueue(^{
-//        ZZGridCenterCell* centerCell = (ZZGridCenterCell*)[self.itemsContainerView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:4 inSection:0]];
-//        centerCell.switchCameraButton.hidden = isHidden; //TODO:
-    });
-}
-
 @end

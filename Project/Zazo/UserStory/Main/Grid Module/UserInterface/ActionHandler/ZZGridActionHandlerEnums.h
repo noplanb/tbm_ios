@@ -79,6 +79,7 @@ typedef NS_ENUM(NSInteger, ZZGridActionEventType)
 
 typedef NS_ENUM(NSInteger, ZZGridActionFeatureType)
 {
+    ZZGridActionEventTypeNone,
     ZZGridActionFeatureTypeSwitchCamera,
     ZZGridActionFeatureTypeAbortRec,
     ZZGridActionFeatureTypeDeleteFriend,

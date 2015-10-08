@@ -14,7 +14,7 @@
 
 @protocol ZZGridActionHanlderDelegate <NSObject>
 
-- (void)unlockFeature:(ZZGridActionFeatureType)feature;
+- (void)unlockedFeature:(ZZGridActionFeatureType)feature;
 - (id)modelAtIndex:(NSInteger)index;
 
 @end

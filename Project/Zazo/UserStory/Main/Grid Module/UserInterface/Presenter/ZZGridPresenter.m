@@ -28,6 +28,7 @@
 #import "ZZCoreTelephonyConstants.h"
 #import "ZZGridPresenter+UserDialogs.h"
 #import "ZZGridPresenter+ActionHandler.h"
+#import "ZZGridActionStoredSettings.h"
 
 
 @interface ZZGridPresenter ()
@@ -185,7 +186,8 @@
         [self _handleInviteEvent];
         
         BOOL isTwoCamerasAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
-        BOOL isSwitchCameraAvailable = [ZZFeatureObserver sharedInstance].isBothCameraEnabled;
+        BOOL isSwitchCameraAvailable = [ZZGridActionStoredSettings shared].frontCameraHintWasShown;
+        
         [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:(isTwoCamerasAvailable && isSwitchCameraAvailable)];
         
         [[ZZVideoRecorder shared] updateRecordView:[self.dataSource centerViewModel].recordView];
@@ -452,10 +454,38 @@
 
 #pragma mark - Action Handler Delegate
 
-- (void)unlockFeature:(ZZGridActionFeatureType)feature
+- (void)unlockedFeature:(ZZGridActionFeatureType)feature
 {
-
-
+    switch (feature) {
+        case ZZGridActionFeatureTypeSwitchCamera:
+        {
+             [self.userInterface updateSwitchButtonWithState:NO];
+            
+        } break;
+        case ZZGridActionFeatureTypeAbortRec:
+        {
+            
+        } break;
+        case ZZGridActionFeatureTypeDeleteFriend:
+        {
+            
+        } break;
+        case ZZGridActionFeatureTypeEarpiece:
+        {
+            
+        } break;
+        case ZZGridActionFeatureTypeSpinWheel:
+        {
+            
+        } break;
+        case ZZGridActionFeatureTypeTotal:
+        {
+            
+        } break;
+        default:
+        {
+        } break;
+    }
 }
 
 - (id)modelAtIndex:(NSInteger)index

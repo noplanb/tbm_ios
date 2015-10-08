@@ -26,6 +26,6 @@
 - (NSArray*)items;
 
 - (void)updateWithDelegate:(id<ZZGridViewDelegate>)delegate;
-- (void)updateSwithCameraButtonWithState:(BOOL)isHidden;
+
 
 @end

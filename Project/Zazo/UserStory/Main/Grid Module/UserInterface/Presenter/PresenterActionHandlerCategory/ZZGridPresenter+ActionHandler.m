@@ -53,8 +53,8 @@
 - (void)_handleSentMessageEventWithCellViewModel:(ZZGridCellViewModel*)cellViewModel
 {
     ANDispatchBlockToMainQueue(^{
-        if ([[self dataSource] frindsOnGridNumber] == 1)
-        {
+//        if ([[self dataSource] frindsOnGridNumber] == 1)
+//        {
             CGFloat delayAfterUploadAnimationStopped = 0.5f;
             ANDispatchBlockAfter(delayAfterUploadAnimationStopped, ^{
                 NSInteger index = [[self dataSource] indexForViewModel:cellViewModel];
@@ -63,7 +63,7 @@
                     [[self actionHandler] handleEvent:ZZGridActionEventTypeMessageDidSent withIndex:index];
                 }
             });
-        }
+//        }
     });
 }
 
