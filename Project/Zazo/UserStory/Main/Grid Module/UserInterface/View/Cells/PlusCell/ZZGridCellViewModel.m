@@ -94,7 +94,7 @@
     {
         return ZZGridCellViewModelStateAdd;
     }
-    else if (self.item.relatedUser.videos.count > 0) // TODO: this condition only for test!, change it later
+    else if (self.item.relatedUser.videos.count > 0)
     {
         return ZZGridCellViewModelStateIncomingVideoNotViewed;
     }
@@ -107,6 +107,10 @@
         return ZZGridCellViewModelStateFriendHasNoApp;
     }
     
+    if ((self.item.relatedUser.videos.count == 0) && self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
+    {
+        return ZZGridCellViewModelStateFriendHasApp;
+    }
     return 0;
 }
 

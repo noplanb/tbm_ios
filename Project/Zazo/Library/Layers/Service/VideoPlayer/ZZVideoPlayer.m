@@ -105,7 +105,7 @@
         self.moviePlayerController.view.frame = view.bounds;
         [view addSubview:self.moviePlayerController.view];
        
-        [self.moviePlayerController play];
+        [self.moviePlayerController play]; // TODO: cleanup this.Have only one entry point to play video and update this flags
   
         [self.delegate videoPlayerURLWasStartPlaying:viewedVideo.videoUrl];
         

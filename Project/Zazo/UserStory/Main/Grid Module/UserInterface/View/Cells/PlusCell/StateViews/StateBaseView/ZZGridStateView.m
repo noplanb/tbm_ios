@@ -70,6 +70,7 @@
     if (self.model.item.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
         self.model.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING)
     {
+        [self _setupBadgeWithModel:model];
         [self _setupDownloadingState];
     }
     else if (self.model.item.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
@@ -106,7 +107,7 @@
 
 - (void)_setupBadgeWithModel:(ZZGridCellViewModel*)model
 {
-     [self hideDownloadViews];
+    [self hideDownloadViews];
     if ([model.badgeNumber integerValue] > 0)
     {
         self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;

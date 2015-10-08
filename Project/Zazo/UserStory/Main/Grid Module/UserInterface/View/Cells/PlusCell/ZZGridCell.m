@@ -52,39 +52,38 @@
 
 - (void)updateStateViewWithModel:(ZZGridCellViewModel*)model
 {
-    switch (model.state)
-    {
-        case ZZGridCellViewModelStateFriendHasApp:
+    ANDispatchBlockToMainQueue(^{
+        switch (model.state)
         {
-            self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self];
-            
-        } break;
-        case ZZGridCellViewModelStateFriendHasNoApp:
-        {
-            self.stateView = [[ZZGridStateViewNudge alloc] initWithPresentedView:self];
-            
-        } break;
-        case ZZGridCellViewModelStateIncomingVideoViewed:
-        case ZZGridCellViewModelStateIncomingVideoNotViewed:
-        case ZZGridCellViewModelStateOutgoingVideo:
-        {
-            if (self.model.item.relatedUser.lastIncomingVideoStatus != INCOMING_VIDEO_STATUS_DOWNLOADING)
+            case ZZGridCellViewModelStateFriendHasApp:
+            {
+                self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self];
+                
+            } break;
+            case ZZGridCellViewModelStateFriendHasNoApp:
+            {
+                self.stateView = [[ZZGridStateViewNudge alloc] initWithPresentedView:self];
+                
+            } break;
+            case ZZGridCellViewModelStateIncomingVideoViewed:
+            case ZZGridCellViewModelStateIncomingVideoNotViewed:
+            case ZZGridCellViewModelStateOutgoingVideo:
             {
                 self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self];
-            }
-            
-        } break;
-        default:
+                
+            } break;
+            default:
+            {
+                [self.stateView removeFromSuperview];
+                
+            } break;
+        }
+        
+        if (self.stateView)
         {
-            [self.stateView removeFromSuperview];
-            
-        } break;
-    }
-    
-    if (self.stateView)
-    {
-        [self.stateView updateWithModel:self.model];
-    }
+            [self.stateView updateWithModel:self.model];
+        }
+    });
 }
 
 
