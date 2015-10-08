@@ -75,7 +75,19 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)userSelectedPrimaryPhoneNumber:(ZZContactDomainModel*)phoneNumber
 {
-    [self _checkIsContactHasApp:phoneNumber];
+    ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithContact:phoneNumber];
+    if (!ANIsEmpty(gridModel))
+    {
+        [self.output gridAlreadyContainsFriend:gridModel];
+    }
+    else if (!ANIsEmpty(phoneNumber.primaryPhone.contact))
+    {
+        [self _checkIsContactHasApp:phoneNumber];
+    }
+    else
+    {
+        [self.output userHasNoValidNumbers:phoneNumber];
+    }
 }
 
 - (void)inviteUserInApplication:(ZZContactDomainModel*)contact
@@ -99,10 +111,6 @@ static NSInteger const kGridFriendsCellCount = 8;
     gridModel.isDownloadAnimationViewed = YES;
     [self.output reloadGridModel:gridModel];
     [self updateLastActionForFriend:model];
-//    NSArray* gridModels = [self gridModelsWithoutDownloadAnimation];
-//    [self.output reloadGridWithData:gridModels];
-//    [self updateLastActionForFriend:model];
-    
 }
 
 - (NSArray*)gridModelsWithoutDownloadAnimation
@@ -208,31 +216,25 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)_addUserAsContactToGrid:(ZZContactDomainModel*)model
 {
-    ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithContact:model];
-    if (!ANIsEmpty(gridModel))
+    model.phones = [ZZPhoneHelper validatePhonesFromContactModel:model];
+    
+    if (!ANIsEmpty(model.phones))
     {
-        [self.output gridAlreadyContainsFriend:gridModel];
-    }
-    else
-    {
-        model.phones = [ZZPhoneHelper validatePhonesFromContactModel:model];
-        if (!ANIsEmpty(model.phones))
+        if (ANIsEmpty(model.primaryPhone))
         {
-            if (ANIsEmpty(model.primaryPhone))
-            {
-                [self.output userNeedsToPickPrimaryPhone:model];
-            }
-            else
-            {
-                [self _checkIsContactHasApp:model];
-            }
+            [self.output userNeedsToPickPrimaryPhone:model];
         }
         else
         {
-            [self.output userHasNoValidNumbers:model];
+            [self userSelectedPrimaryPhoneNumber:model];
         }
     }
+    else
+    {
+        [self.output userHasNoValidNumbers:model];
+    }
 }
+
 
 
 #pragma mark - TBMFriend Delegate 
