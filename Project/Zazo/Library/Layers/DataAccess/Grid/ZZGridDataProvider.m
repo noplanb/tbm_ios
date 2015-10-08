@@ -107,43 +107,13 @@
 + (ZZGridDomainModel*)modelWithContact:(ZZContactDomainModel*)contactModel
 {
     TBMGridElement* entity = nil;
-    
-//    NSMutableArray* predicates = [NSMutableArray array];
-//    if (!ANIsEmpty(contactModel.firstName))
-//    {
-//        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", [NSString stringWithFormat:@"%@.%@", TBMGridElementRelationships.friend, TBMFriendAttributes.firstName], contactModel.firstName];
-//        [predicates addObject:predicate];
-//    }
-//    if (!ANIsEmpty(contactModel.lastName))
-//    {
-//        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", [NSString stringWithFormat:@"%@.%@", TBMGridElementRelationships.friend, TBMFriendAttributes.lastName], contactModel.lastName];
-//        [predicates addObject:predicate];
-//    }
-//    
-//    if (predicates.count)
-//    {
-//        NSArray* items = [TBMGridElement MR_findAllWithPredicate:[NSCompoundPredicate andPredicateWithSubpredicates:predicates]];
-//        entity = [items firstObject];
-//    }
-    
-    if (!(contactModel.phones.count > 1))
+    if (!ANIsEmpty(contactModel.primaryPhone.contact))
     {
-//        NSArray* validNumbers = [ZZPhoneHelper validatePhonesFromContactModel:contactModel];
-//        validNumbers = [[validNumbers.rac_sequence map:^id(ZZCommunicationDomainModel* value) {
-//            return [value.contact stringByReplacingOccurrencesOfString:@" " withString:@""];
-//        }] array];
-//        
-//
-//        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K IN %@", keypath, validNumbers];
-//        
-        NSString* phone = [ZZPhoneHelper clearPhone:contactModel.primaryPhone];
-        if (!ANIsEmpty(phone))
-        {
-            NSString* keypath = [NSString stringWithFormat:@"%@.%@", TBMGridElementRelationships.friend, TBMFriendAttributes.mobileNumber];
-            NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", keypath, phone];
-            NSArray* items = [TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]];
-            entity = [items firstObject];
-        }
+        NSString* phone = [contactModel.primaryPhone.contact stringByReplacingOccurrencesOfString:@" " withString:@""];
+        NSString* keypath = [NSString stringWithFormat:@"%@.%@", TBMGridElementRelationships.friend, TBMFriendAttributes.mobileNumber];
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", keypath, phone];
+        NSArray* items = [TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]];
+        entity = [items firstObject];
     }
     if (entity)
     {
