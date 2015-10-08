@@ -12,15 +12,17 @@
 
 @protocol ZZHintsControllerDelegate <NSObject>
 
-- (void)hintWasDissmissed;
+- (void)hintWasDissmissedWithType:(ZZHintsType)type;
+- (UIView*)hintPresetedView;
 
 @end
 
 @interface ZZHintsController : NSObject
 
 @property (nonatomic, weak) id<ZZHintsControllerDelegate> delegate;
-@property (nonatomic, strong) ZZHintsDomainModel* hintModel;
+//@property (nonatomic, strong) ZZHintsDomainModel* hintModel;
 
-- (void)showHintWithModel:(ZZHintsDomainModel*)model forFocusFrame:(CGRect)focusFrame;
+//- (void)showHintWithModel:(ZZHintsDomainModel*)model forFocusFrame:(CGRect)focusFrame;
+- (void)showHintWithType:(ZZHintsType)type focusFrame:(CGRect)frame withIndex:(NSInteger)index formatParameter:(NSString*)parameter;
 
 @end

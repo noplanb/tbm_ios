@@ -8,15 +8,15 @@
 
 @import QuartzCore;
 #import "ZZHintsView.h"
-#import "ZZHintsArrow.h"
 #import "ZZHintsViewModel.h"
 #import "ZZHintsGotItView.h"
-#import "ZZGridActionHandlerUserInterfaceDelegate.h"
+#import "ZZHintsArrow.h"
 
 @interface ZZHintsView ()
 
-@property (nonatomic, strong) ZZHintsGotItView *gotItView;
+@property (nonatomic, strong) ZZHintsGotItView* gotItView;
 @property (nonatomic, assign) ZZHintsBottomImageType currentBottomImageType;
+@property (nonatomic, strong) ZZHintsViewModel* hintViewModel;
 
 @end
 
@@ -34,28 +34,28 @@
     return self;
 }
 
-
-- (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel
+- (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel andIndex:(NSInteger)index
 {
-
+    self.hintViewModel = viewModel;
     [self showFocusOnFrame:[viewModel focusFrame]];
-
-    NSInteger index = [self.actionHandlerGridDelegate indexForGridPart:viewModel.pointsToPart];
-
-    ZZHintsArrow *hintView = [ZZHintsArrow arrowWithText:[viewModel text]
-                                               curveKind:(ZZHintsArrowCurveKind)[viewModel arrowDirectionForIndex:index]
-                                              arrowPoint:[viewModel arrowFocusPointForIndex:index]
+    
+    ZZHintsArrow *hintArrow = [ZZHintsArrow arrowWithText:[viewModel text]
+                                               curveKind:(NSInteger)[viewModel arrowDirectionForIndex:index]
+                                              arrowPoint:[viewModel generateArrowFocusPointForIndex:index]
                                                    angle:[viewModel arrowAngleForIndex:index]
                                                   hidden:[viewModel hidesArrow]
-                                                   frame:[UIScreen mainScreen].bounds];
-    [self addSubview:hintView];
-
-
+                                                   frame:[UIScreen mainScreen].bounds
+                                          focusViewIndex:index];
+    
+    
     if ([viewModel bottomImageType] != ZZHintsBottomImageTypeNone)
     {
         self.currentBottomImageType = [viewModel bottomImageType];
         [self.gotItView updateWithType:[viewModel bottomImageType]];
     }
+    
+    [self addSubview:hintArrow];
+    
 }
 
 - (void)showFocusOnFrame:(CGRect)focusFrame
@@ -84,6 +84,10 @@
 - (void)dismissHintsView
 {
     [self removeFromSuperview];
+    CGFloat kDelayAfterViewRemoved = 0.3;
+    ANDispatchBlockAfter(kDelayAfterViewRemoved, ^{
+        [self.delegate hintViewHiddenWithType:[self.hintViewModel hintType]];
+    });
 }
 
 #pragma mark - Lazy Load
@@ -121,5 +125,6 @@
     
     return _gotItView;
 }
+
 
 @end

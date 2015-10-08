@@ -21,6 +21,7 @@
 #import "ZZGridTransportService.h"
 #import "ZZGridDataUpdater.h"
 #import "ZZFriendDataUpdater.h"
+#import "ZZGridInteractor+ActionHandler.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
@@ -251,6 +252,9 @@ static NSInteger const kGridFriendsCellCount = 8;
     {
         [self.output reloadGridModel:gridModel];
     }
+    
+    [self _handleModel:gridModel];
+    
 }
 
 

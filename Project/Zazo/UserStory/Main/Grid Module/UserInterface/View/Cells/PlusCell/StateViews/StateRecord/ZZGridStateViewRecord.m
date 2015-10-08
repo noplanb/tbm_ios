@@ -53,7 +53,7 @@
         _recordView.textColor = [UIColor redColor];
         _recordView.font = [UIFont an_meduimFontWithSize:14];
         _recordView.textAlignment = NSTextAlignmentCenter;
-        _recordView.backgroundColor = [UIColor blackColor];
+        _recordView.backgroundColor = [ZZColorTheme shared].gridStatusViewBlackColor;
         _recordView.userInteractionEnabled = YES;
         [self addSubview:_recordView];
         

@@ -37,6 +37,17 @@ ZZGridCenterCellViewModelDelegate
 }
 
 
+- (NSInteger)frindsOnGridNumber
+{
+    ZZGridCenterCellViewModel* centerCell = [self centerViewModel];
+    NSMutableArray* modelsCopy = [self.models mutableCopy];
+    [modelsCopy removeObject:centerCell];
+    NSArray* friends = [modelsCopy valueForKeyPath:@"@unionOfObjects.item.relatedUser"];
+    
+    return friends.count;
+}
+
+
 #pragma mark - ViewModels Setup After first launch
 
 - (void)setupWithModels:(NSArray*)models
@@ -125,6 +136,36 @@ ZZGridCenterCellViewModelDelegate
         model = [self.models objectAtIndex:index];
     }
     return model;
+}
+
+
+
+- (NSInteger)indexForUpdatedDomainModel:(ZZGridDomainModel*)domainModel
+{
+    return [self viewModelIndexWithModelIndex:domainModel.index];
+}
+
+- (NSInteger)indexForFriendDomainModel:(ZZFriendDomainModel*)friendModel
+{
+    
+    __block id item;
+    
+    [self.models enumerateObjectsUsingBlock:^(ZZGridCellViewModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[ZZGridCellViewModel class]])
+        {
+            if ([obj.item.relatedUser isEqual:friendModel])
+            {
+                item = obj;
+            }
+        }
+    }];
+    
+    if (item)
+    {
+        return [self.models indexOfObject:item];
+    }
+    
+    return NSNotFound;
 }
 
 - (NSInteger)indexForViewModel:(ZZGridCellViewModel*)model
