@@ -73,6 +73,13 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
     }
 }
 
+- (void)updateSwithCameraStateTo:(BOOL)isHidden
+{
+    ANDispatchBlockToMainQueue(^{
+        self.switchCameraButton.hidden = isHidden;
+    });
+}
+
 
 #pragma mark - Private
 

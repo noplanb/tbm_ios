@@ -21,6 +21,7 @@
 @property (nonatomic, assign) BOOL viewedHintWasShown;
 @property (nonatomic, assign) BOOL inviteSomeoneHintWasShown;
 @property (nonatomic, assign) BOOL welcomeHintWasShown;
+
 @property (nonatomic, assign) BOOL frontCameraHintWasShown;
 @property (nonatomic, assign) BOOL abortRecordHintWasShown;
 @property (nonatomic, assign) BOOL deleteFriendHintWasShown;

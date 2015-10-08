@@ -27,9 +27,11 @@
 #import "ZZEarpieceFeatureEventHandler.h"
 #import "ZZSpinFeatureEventHandler.h"
 #import "ZZGridCellViewModel.h"
+#import "ZZFeatureEventObserver.h"
+#import "TBMFeatureUnlockDialogView.h"
 
 
-@interface ZZGridActionHandler () <ZZHintsControllerDelegate>
+@interface ZZGridActionHandler () <ZZHintsControllerDelegate, ZZFeatureEventObserverDelegate>
 
 @property (nonatomic, strong) ZZHintsController* hintsController;
 @property(nonatomic, strong) NSSet* hints;
@@ -37,6 +39,7 @@
 @property(nonatomic, strong, readonly) ZZHintsDomainModel* presentedHint;
 @property(nonatomic, assign) ZZGridActionEventType filterEvent; //Filter multuply times of event throwing
 @property (nonatomic, strong) ZZInviteEventHandler* startEventHandler;
+@property (nonatomic, strong) ZZFeatureEventObserver* featureEventObserver;
 
 @end
 
@@ -48,10 +51,16 @@
     if (self)
     {
         [self _configureEventHandlers];
+        [self _setupFeatureEventObserver];
     }
     return self;
 }
 
+- (void)_setupFeatureEventObserver
+{
+    self.featureEventObserver = [ZZFeatureEventObserver new];
+    self.featureEventObserver.delegate = self;
+}
 
 - (void)_configureEventHandlers
 {
@@ -86,7 +95,6 @@
 
 - (void)handleEvent:(ZZGridActionEventType)event withIndex:(NSInteger)index
 {
-    
     id model = [self.delegate modelAtIndex:index];
     if (model)
     {
@@ -101,6 +109,7 @@
        }
     }];
     
+    [self.featureEventObserver handleEvent:event withModel:model];
 }
 
 - (void)_configureHintControllerWithHintType:(ZZHintsType)hintType withModel:(ZZGridCellViewModel*)model index:(NSInteger)index
@@ -129,6 +138,47 @@
    return [self.userInterface presentedView];
 }
 
+
+#pragma mark - Feature Event Observer Delegate
+
+- (void)handleUnlockFeatureWithType:(ZZGridActionFeatureType)type
+{
+    switch (type)
+    {
+      case ZZGridActionFeatureTypeSwitchCamera:
+        {
+            NSInteger centerViewIndex = 4;
+            [TBMFeatureUnlockDialogView showFeatureDialog:@"Camera available" withPresentedView:[self.userInterface presentedView] completionBlock:^{
+                [self handleEvent:ZZGridActionEventTypeFrontCameraFeatureUnlocked withIndex:centerViewIndex];
+                [self.delegate unlockedFeature:ZZGridActionFeatureTypeSwitchCamera];
+            }];
+            
+        } break;
+        case ZZGridActionFeatureTypeAbortRec:
+        {
+            
+        } break;
+        case ZZGridActionFeatureTypeDeleteFriend:
+        {
+            
+        } break;
+        case ZZGridActionFeatureTypeEarpiece:
+        {
+            
+        } break;
+        case ZZGridActionFeatureTypeSpinWheel:
+        {
+            
+        } break;
+        case ZZGridActionFeatureTypeTotal:
+        {
+            
+        } break;
+        default:
+        {
+        } break;
+    }
+}
 
 #pragma mark - Lazy Load
 
