@@ -68,6 +68,12 @@
         case ZZHintsTypeInviteSomeElseHint:
             return [self _inviteSomeoneElseHint];
             break;
+        case ZZHintsTypeRecrodWelcomeHint:
+            return [self _recordWelocmeHint];
+            break;
+        case ZZHintsTypeSendWelcomeHintForFriendWithoutApp:
+            return [self _welcomeHintForUserWithoutApp];
+            break;
             
         default: break;
     }
@@ -88,6 +94,30 @@
 }
 
 #pragma mark - Lazy Load
+
++ (ZZHintsDomainModel*)_welcomeHintForUserWithoutApp
+{
+    ZZHintsDomainModel* model = [ZZHintsDomainModel new];
+    model.title = NSLocalizedString(@"hints.welcome-nudge-user.label.text", nil);
+    model.type = ZZHintsTypeSendWelcomeHintForFriendWithoutApp;
+    model.hidesArrow = NO;
+    model.imageType = ZZHintsBottomImageTypeNone;
+    
+    return model;
+}
+
+
++ (ZZHintsDomainModel*)_recordWelocmeHint
+{
+    ZZHintsDomainModel* model = [ZZHintsDomainModel new];
+    model.title = NSLocalizedString(@"hints.press-to-record.label.text", nil);
+    model.type = ZZHintsTypeRecrodWelcomeHint;
+    model.hidesArrow = NO;
+    model.imageType = ZZHintsBottomImageTypeNone;
+    
+    return model;
+}
+
 
 + (ZZHintsDomainModel*)_inviteSomeoneElseHint
 {

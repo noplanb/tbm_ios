@@ -10,10 +10,12 @@
 #import "ZZGridActionHandlerUserInterfaceDelegate.h"
 
 @class ZZHintsDomainModel;
+@class ZZGridCellViewModel;
 
 @protocol ZZGridActionHanlderDelegate <NSObject>
 
 - (void)unlockFeature:(ZZGridActionFeatureType)feature;
+- (id)modelAtIndex:(NSInteger)index;
 
 @end
 

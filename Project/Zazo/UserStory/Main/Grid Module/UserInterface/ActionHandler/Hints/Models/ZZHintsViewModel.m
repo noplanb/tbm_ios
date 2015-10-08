@@ -229,6 +229,7 @@
     {
         case ZZHintsTypeInviteHint:
         case ZZHintsTypeRecordHint:
+        case ZZHintsTypeRecrodWelcomeHint:
         case ZZHintsTypeSendWelcomeHint:
         case ZZHintsTypeAbortRecordingUsageHint:
         case ZZHintsTypeEarpieceUsageHint:
@@ -236,6 +237,7 @@
         case ZZHintsTypeInviteSomeElseHint:
         case ZZHintsTypeFrontCameraUsageHint:
         case ZZHintsTypeSpinUsageHint:
+        case ZZHintsTypeSendWelcomeHintForFriendWithoutApp:
         {
             configurationModel = [self _configurationModelsForShowCellBehavior][index];
             

@@ -10,27 +10,27 @@
 
 @implementation ZZEarpieceFeatureEventHandler
 
-- (void)handleEvent:(ZZGridActionEventType)event withCompletionBlock:(void (^)(ZZHintsType type))completionBlock
+- (void)handleEvent:(ZZGridActionEventType)event model:(ZZGridCellViewModel *)model withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBlock
 {
     if (event == ZZGridActionEventTypeEarpieceFeatureUnlocked && ![ZZGridActionStoredSettings shared].earpieceHintWasShown)
     {
         [ZZGridActionStoredSettings shared].earpieceHintWasShown = YES;
         if (completionBlock)
         {
-            completionBlock(ZZHintsTypeEarpieceUsageHint);
+            completionBlock(ZZHintsTypeEarpieceUsageHint, model);
         }
     }
     else
     {
         if(!ANIsEmpty(self.eventHandler))
         {
-            [super nextHandlerHandleEvent:event withCompletionBlock:completionBlock];
+            [super nextHandlerHandleEvent:event model:model withCompletionBlock:completionBlock];
         }
         else
         {
             if (completionBlock)
             {
-                completionBlock(ZZHintsTypeNoHint);
+                completionBlock(ZZHintsTypeNoHint, model);
             }
         }
     }

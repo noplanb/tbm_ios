@@ -84,7 +84,10 @@
 - (void)dismissHintsView
 {
     [self removeFromSuperview];
-    [self.delegate hintViewHiddenWithType:[self.hintViewModel hintType]];
+    CGFloat kDelayAfterViewRemoved = 0.3;
+    ANDispatchBlockAfter(kDelayAfterViewRemoved, ^{
+        [self.delegate hintViewHiddenWithType:[self.hintViewModel hintType]];
+    });
 }
 
 #pragma mark - Lazy Load

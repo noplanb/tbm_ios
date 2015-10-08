@@ -26,6 +26,7 @@
 #import "ZZDeleteFriendsFeatureEventHandler.h"
 #import "ZZEarpieceFeatureEventHandler.h"
 #import "ZZSpinFeatureEventHandler.h"
+#import "ZZGridCellViewModel.h"
 
 
 @interface ZZGridActionHandler () <ZZHintsControllerDelegate>
@@ -85,21 +86,31 @@
 
 - (void)handleEvent:(ZZGridActionEventType)event withIndex:(NSInteger)index
 {
-  
-    [self.startEventHandler handleEvent:event withCompletionBlock:^(ZZHintsType type) {
+    
+    id model = [self.delegate modelAtIndex:index];
+    if (model)
+    {
+        model = [model isKindOfClass:[ZZGridCellViewModel class]] ? model : nil;
+    
+    }
+    
+    [self.startEventHandler handleEvent:event model:model withCompletionBlock:^(ZZHintsType type, ZZGridCellViewModel *model) {
        if (type != ZZHintsTypeNoHint)
        {
-           [self _configureHintControllerWithHintType:type index:index];
+           [self _configureHintControllerWithHintType:type withModel:model index:index];
        }
     }];
+    
 }
 
-- (void)_configureHintControllerWithHintType:(ZZHintsType)hintType index:(NSInteger)index
+- (void)_configureHintControllerWithHintType:(ZZHintsType)hintType withModel:(ZZGridCellViewModel*)model index:(NSInteger)index
 {
+    NSString* formatParametr = model.item.relatedUser.fullName;
+    
     [self.hintsController showHintWithType:hintType
                                 focusFrame:[self.userInterface focusFrameForIndex:index]
                                  withIndex:index
-                           formatParameter:@""];
+                           formatParameter:formatParametr];
 }
 
 
@@ -109,8 +120,13 @@
 {
     if (type == ZZHintsTypeSentHint)
     {
-        [self _configureHintControllerWithHintType:ZZHintsTypeInviteSomeElseHint index:2];
+        [self handleEvent:ZZGridActionEventTypeSentZazo withIndex:2];
     }
+}
+
+- (UIView *)hintPresetedView
+{
+   return [self.userInterface presentedView];
 }
 
 
@@ -121,6 +137,7 @@
     if (!_hintsController)
     {
         _hintsController = [ZZHintsController new];
+        _hintsController.delegate = self;
     }
     return _hintsController;
 }

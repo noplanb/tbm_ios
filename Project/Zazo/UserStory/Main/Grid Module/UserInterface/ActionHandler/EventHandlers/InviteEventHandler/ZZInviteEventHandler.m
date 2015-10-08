@@ -10,28 +10,31 @@
 
 @implementation ZZInviteEventHandler
 
-- (void)handleEvent:(ZZGridActionEventType)event withCompletionBlock:(void (^)(ZZHintsType type))completionBlock
+- (void)handleEvent:(ZZGridActionEventType)event
+              model:(ZZGridCellViewModel *)model
+withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBlock
 {
-    if (event == ZZGridActionEventTypeDontHaveFriends) //&& ![ZZGridActionStoredSettings shared].inviteHintWasShown)
+
+    if (event == ZZGridActionEventTypeDontHaveFriends)// && ![ZZGridActionStoredSettings shared].inviteHintWasShown)
     {
         [ZZGridActionStoredSettings shared].inviteHintWasShown = YES;
         
         if (completionBlock)
         {
-            completionBlock(ZZHintsTypeInviteHint);
+            completionBlock(ZZHintsTypeInviteHint, model);
         }
     }
     else
     {
         if(!ANIsEmpty(self.eventHandler))
         {
-            [super nextHandlerHandleEvent:event withCompletionBlock:completionBlock];
+            [super nextHandlerHandleEvent:event model:model withCompletionBlock:completionBlock];
         }
         else
         {
             if (completionBlock)
             {
-                completionBlock(ZZHintsTypeNoHint);
+                completionBlock(ZZHintsTypeNoHint, model);
             }
         }
     }

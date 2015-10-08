@@ -10,15 +10,18 @@
 
 @implementation ZZBaseEventHandler
 
-- (void)handleEvent:(ZZGridActionEventType)event withCompletionBlock:(void (^)(ZZHintsType))completionBlock
+- (void)handleEvent:(ZZGridActionEventType)event
+              model:(ZZGridCellViewModel*)model
+withCompletionBlock:(void(^)(ZZHintsType type, ZZGridCellViewModel* model))completionBlock
 {
     NSLog(@"base class");
 }
 
-
-- (void)nextHandlerHandleEvent:(ZZGridActionEventType)event withCompletionBlock:(void(^)(ZZHintsType handledEvent))completionBlock
+- (void)nextHandlerHandleEvent:(ZZGridActionEventType)event
+                         model:(ZZGridCellViewModel*)model
+           withCompletionBlock:(void(^)(ZZHintsType handledEvent, ZZGridCellViewModel* model))completionBlock
 {
-    [self.eventHandler handleEvent:event withCompletionBlock:completionBlock];
+    [self.eventHandler handleEvent:event model:model withCompletionBlock:completionBlock];
 }
 
 @end

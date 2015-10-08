@@ -10,27 +10,36 @@
 
 @implementation ZZRecordEventHandler
 
-- (void)handleEvent:(ZZGridActionEventType)event withCompletionBlock:(void (^)(ZZHintsType type))completionBlock
+
+- (void)handleEvent:(ZZGridActionEventType)event model:(ZZGridCellViewModel *)model withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBlock
 {
-    if (event == ZZGridActionEventTypeMessageDidPlayed && ![ZZGridActionStoredSettings shared].recordHintWasShown)
+    if (event == ZZGridActionEventTypeMessageDidPlayed && ![ZZGridActionStoredSettings shared].recordWelcomeHintWasShown)
+    {
+        [ZZGridActionStoredSettings shared].recordWelcomeHintWasShown = YES;
+        if (completionBlock)
+        {
+            completionBlock(ZZHintsTypeRecrodWelcomeHint, model);
+        }
+    }
+    else if (event == ZZGridActionEventTypeMessageDidPlayed && ![ZZGridActionStoredSettings shared].recordHintWasShown)
     {
         [ZZGridActionStoredSettings shared].recordHintWasShown = YES;
         if (completionBlock)
         {
-            completionBlock(ZZHintsTypeRecordHint);
+            completionBlock(ZZHintsTypeRecordHint, model);
         }
     }
     else
     {
         if(!ANIsEmpty(self.eventHandler))
         {
-            [super nextHandlerHandleEvent:event withCompletionBlock:completionBlock];
+            [super nextHandlerHandleEvent:event model:model withCompletionBlock:completionBlock];
         }
         else
         {
             if (completionBlock)
             {
-                completionBlock(ZZHintsTypeNoHint);
+                completionBlock(ZZHintsTypeNoHint, model);
             }
         }
     }

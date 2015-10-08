@@ -10,27 +10,27 @@
 
 @implementation ZZSpinFeatureEventHandler
 
-- (void)handleEvent:(ZZGridActionEventType)event withCompletionBlock:(void (^)(ZZHintsType type))completionBlock
+- (void)handleEvent:(ZZGridActionEventType)event model:(ZZGridCellViewModel *)model withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBlock
 {
     if (event == ZZGridActionEventTypeSpinUsageFeatureUnlocked && ![ZZGridActionStoredSettings shared].spinHintWasShown)
     {
         [ZZGridActionStoredSettings shared].spinHintWasShown = YES;
         if (completionBlock)
         {
-            completionBlock(ZZHintsTypeSpinUsageHint);
+            completionBlock(ZZHintsTypeSpinUsageHint, model);
         }
     }
     else
     {
         if(!ANIsEmpty(self.eventHandler))
         {
-            [super nextHandlerHandleEvent:event withCompletionBlock:completionBlock];
+            [super nextHandlerHandleEvent:event model:model withCompletionBlock:completionBlock];
         }
         else
         {
             if (completionBlock)
             {
-                completionBlock(ZZHintsTypeNoHint);
+                completionBlock(ZZHintsTypeNoHint, model);
             }
         }
     }

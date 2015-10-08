@@ -10,12 +10,18 @@
 #import "ZZGridActionHandlerEnums.h"
 #import "ZZGridActionStoredSettings.h"
 #import "ZZHintsConstants.h"
+#import "ZZGridCellViewModel.h"
 
 @interface ZZBaseEventHandler : NSObject
 
 @property (nonatomic, strong) ZZBaseEventHandler* eventHandler;
 
-- (void)handleEvent:(ZZGridActionEventType)event withCompletionBlock:(void(^)(ZZHintsType type))completionBlock;
-- (void)nextHandlerHandleEvent:(ZZGridActionEventType)event withCompletionBlock:(void(^)(ZZHintsType handledEvent))completionBlock;
+- (void)handleEvent:(ZZGridActionEventType)event
+              model:(ZZGridCellViewModel*)model
+withCompletionBlock:(void(^)(ZZHintsType type, ZZGridCellViewModel* model))completionBlock;
+
+- (void)nextHandlerHandleEvent:(ZZGridActionEventType)event
+                         model:(ZZGridCellViewModel*)model
+           withCompletionBlock:(void(^)(ZZHintsType handledEvent, ZZGridCellViewModel* model))completionBlock;
 
 @end

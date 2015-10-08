@@ -22,18 +22,15 @@
 
 @implementation ZZHintsController
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self)
-    {
-        [[[UIApplication sharedApplication] keyWindow] addSubview:self.hintsView];
-    }
-    return self;
-}
-
 - (void)showHintWithType:(ZZHintsType)type focusFrame:(CGRect)focusFrame withIndex:(NSInteger)index formatParameter:(NSString*)parameter
 {
+    if (self.hintsView)
+    {
+        [self.hintsView removeFromSuperview];
+        self.hintsView = nil;
+    }
+    
+    
     ZZHintsDomainModel *model = [ZZHintsModelGenerator generateHintModelForType:type];
     if (!ANIsEmpty(parameter))
     {
@@ -48,14 +45,9 @@
     
     [viewModel updateFocusFrame:focusFrame];
     
-//    if ((model.type == ZZHintsTypeWelcomeNudgeUser) || model.type == ZZHintsTypeSendWelcomeHint)
-//    {
-        [self.hintsView updateWithHintsViewModel:viewModel andIndex:index];
-//    }
-//    else
-//    {
-//        [self.hintsView updateWithHintsViewModel:viewModel];
-//    }
+    [self.hintsView updateWithHintsViewModel:viewModel andIndex:index];
+    
+    [[self.delegate hintPresetedView] addSubview:self.hintsView];
 }
 
 #pragma mark - Lazy Load
@@ -74,6 +66,7 @@
 
 - (void)hintViewHiddenWithType:(ZZHintsType)type
 {
+    self.hintsView = nil;
     [self.delegate hintWasDissmissedWithType:type];
 }
 

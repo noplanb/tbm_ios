@@ -10,6 +10,8 @@
 
 @protocol ZZGridActionHanlderUserInterfaceDelegate <NSObject>
 
+
+- (UIView*)presentedView;
 - (CGRect)focusFrameForIndex:(NSInteger)index;
 
 

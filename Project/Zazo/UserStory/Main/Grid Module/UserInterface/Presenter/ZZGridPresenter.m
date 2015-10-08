@@ -458,6 +458,13 @@
 
 }
 
+- (id)modelAtIndex:(NSInteger)index
+{
+    id model = [self.dataSource viewModelAtIndex:index];
+    return model;
+
+}
+
 #pragma mark - Interactor Action Handler
 
 - (void)handleModel:(ZZGridDomainModel *)model withEvent:(ZZGridActionEventType)event

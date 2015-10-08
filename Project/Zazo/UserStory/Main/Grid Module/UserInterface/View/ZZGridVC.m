@@ -132,6 +132,11 @@
     return [self _frameForIndex:index];
 }
 
+- (UIView *)presentedView
+{
+    return self.view;
+}
+
 //- (CGRect)frameForGridPart:(ZZGridPart)part
 //{
 //    switch (part)

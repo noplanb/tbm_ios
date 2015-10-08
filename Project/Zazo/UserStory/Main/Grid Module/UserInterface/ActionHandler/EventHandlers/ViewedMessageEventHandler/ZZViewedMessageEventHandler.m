@@ -10,30 +10,33 @@
 
 @implementation ZZViewedMessageEventHandler
 
-- (void)handleEvent:(ZZGridActionEventType)event withCompletionBlock:(void (^)(ZZHintsType type))completionBlock
+- (void)handleEvent:(ZZGridActionEventType)event
+              model:(ZZGridCellViewModel *)model
+withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBlock
 {
     if (event == ZZGridActionEventTypeMessageViewed && ![ZZGridActionStoredSettings shared].viewedHintWasShown)
     {
         [ZZGridActionStoredSettings shared].viewedHintWasShown = YES;
         if (completionBlock)
         {
-            completionBlock(ZZHintsTypeViewedHint);
+            completionBlock(ZZHintsTypeViewedHint, model);
         }
     }
     else
     {
         if(!ANIsEmpty(self.eventHandler))
         {
-            [super nextHandlerHandleEvent:event withCompletionBlock:completionBlock];
+            [super nextHandlerHandleEvent:event model:model withCompletionBlock:completionBlock];
         }
         else
         {
             if (completionBlock)
             {
-                completionBlock(ZZHintsTypeNoHint);
+                completionBlock(ZZHintsTypeNoHint, model);
             }
         }
     }
+
 }
 
 @end

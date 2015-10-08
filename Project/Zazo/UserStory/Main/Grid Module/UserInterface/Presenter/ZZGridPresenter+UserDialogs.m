@@ -16,6 +16,7 @@
 #import "TBMAlertController.h"
 #import "TBMTableModal.h"
 #import "ZZGridPresenter+ActionHandler.h"
+#import "ZZGridDataSource.h"
 
 @implementation ZZGridPresenter (UserDialogs)
 
@@ -32,7 +33,15 @@
     
     [ZZGridAlertBuilder showConnectedDialogForUser:friendModel.firstName completion:^{
         [self.interactor addUserToGrid:friendModel];
-        [self _handleSentWelcomeHintWithFriendDomainModel:friendModel];
+        
+        if ([[self dataSource] frindsOnGridNumber] == 1)
+        {
+            [self _handleRecordHintWithCellViewModel:friendModel];
+        }
+        else //if ([[self dataSource] frindsOnGridNumber] == 2)
+        {
+            [self _handleSentWelcomeHintWithFriendDomainModel:friendModel];
+        }
     }];
 }
 

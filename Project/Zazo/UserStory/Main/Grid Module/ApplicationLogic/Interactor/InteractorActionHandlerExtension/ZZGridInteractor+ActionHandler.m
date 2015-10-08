@@ -18,7 +18,7 @@
     
         if (model.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
             model.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED &&
-            [self.output friendsNumberOnGrid] == 0)
+            [self.output friendsNumberOnGrid] == 1)
         {
             [self.output handleModel:model withEvent:ZZGridActionEventTypeBecomeMessage];
         }
