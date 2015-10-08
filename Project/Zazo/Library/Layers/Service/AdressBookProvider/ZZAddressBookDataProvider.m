@@ -86,7 +86,7 @@ static APAddressBook* addressBook = nil;
     addressBook.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES],
                                     [NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES]];
     
-    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+    return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         
         [addressBook loadContacts:^(NSArray *contacts, NSError *error) {
             
@@ -110,6 +110,9 @@ static APAddressBook* addressBook = nil;
             });
         }];
         return [RACDisposable disposableWithBlock:^{}];
+        
+    }] map:^id(NSArray* value) {
+        return [value sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"fullName" ascending:YES]]];
     }];
 }
 
@@ -119,11 +122,15 @@ static APAddressBook* addressBook = nil;
     
     if (!ANIsEmpty(contact.firstName))
     {
+        if ([contact.firstName rangeOfString:@"mult" options:NSCaseInsensitiveSearch].location != NSNotFound)
+        {
+            NSLog(@"%@ \n %@", contact.firstName, contact.phonesWithLabels);
+        }
         if (!model)
         {
             model = [ZZContactDomainModel new];
-            model.firstName = contact.firstName;
-            model.lastName = contact.lastName;
+            model.firstName = [NSObject an_safeString:contact.firstName];
+            model.lastName = [NSObject an_safeString:contact.lastName];
         }
         
         NSArray* phones = [[contact.phonesWithLabels.rac_sequence map:^id(APPhoneWithLabel* value) {

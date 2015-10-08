@@ -13,6 +13,10 @@
 + (NSString*)an_safeString:(NSString*)value
 {
     value = value ? : @"";
+    if ([value isKindOfClass:[NSNull class]])
+    {
+        value = @"";
+    }
     return [NSString stringWithFormat:@"%@", value];
 }
 

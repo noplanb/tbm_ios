@@ -157,13 +157,15 @@
 {
     OB_DEBUG(@"VideoPlayer#playbackDidFinishNotification: %@", notification.userInfo);
     NSError *error = (NSError *) notification.userInfo[@"error"];
-    if ( error != nil){
+    if (error != nil)
+    {
         OB_ERROR(@"VideoPlayer#playbackDidFinishNotification: %@", error);
         ANDispatchBlockToMainQueue(^{
             [[iToast makeText:NSLocalizedString(@"video-player-not-playable", nil)] show];
         });
         self.isPlayingVideo = NO;
         [UIDevice currentDevice].proximityMonitoringEnabled = NO;
+        [self _playNext];
     }
     else
     {
@@ -226,6 +228,7 @@
         
         [self.delegate videoPlayerURLWasFinishedPlaying:lastVideo.videoUrl withPlayedUserModel:self.playedFriend];
         [self.moviePlayerController.view removeFromSuperview];
+       
         self.isPlayingVideo = NO;
         [UIDevice currentDevice].proximityMonitoringEnabled = NO;
     }
@@ -247,6 +250,10 @@
                                                        friend:friend];
         
         [self.delegate videoPlayerURLWasStartPlaying:nextUrl];
+        
+        self.isPlayingVideo = YES;
+        [UIDevice currentDevice].proximityMonitoringEnabled = YES;
+        
         [self.moviePlayerController play];
         
     }

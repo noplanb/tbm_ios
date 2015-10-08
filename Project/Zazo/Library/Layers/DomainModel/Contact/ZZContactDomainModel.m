@@ -34,10 +34,18 @@
 - (void)setPhones:(NSArray*)phones
 {
     _phones = phones;
-    if (_phones.count == 1)
+}
+
+- (ZZCommunicationDomainModel*)primaryPhone
+{
+    if (!_primaryPhone)
     {
-        self.primaryPhone = [_phones firstObject];
+        if (_phones.count == 1)
+        {
+            _primaryPhone = [_phones firstObject];
+        }
     }
+    return _primaryPhone;
 }
 
 #pragma mark - Override
