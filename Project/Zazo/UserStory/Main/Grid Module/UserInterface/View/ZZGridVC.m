@@ -137,80 +137,15 @@
     return self.view;
 }
 
-//- (CGRect)frameForGridPart:(ZZGridPart)part
-//{
-//    switch (part)
-//    {
-//        case ZZGridPartCentralRightCell:
-//            return [self _frameForCentralRightCell];
-//            break;
-//        case ZZGridPartLastAddedFriendCell:
-//            return [self _frameForLastAddedFriendCell];
-//            break;
-//        case ZZGridPartLastViewedIndicator:
-//            return [self _frameForLastViewedIndicator];
-//            break;
-//        case ZZGridPartLastUnviewedCell:
-//            return [self _frameForLastUnviewedCell];
-//            break;
-//        case ZZGridPartLastSentIndicator:
-//            return [self _frameForLastSentIndicator];
-//            break;
-//        default:break;
-//    }
-//    return CGRectZero;
-//}
-
-//- (NSInteger)indexForGridPart:(ZZGridPart)part
-//{
-//    switch (part)
-//    {
-//        case ZZGridPartLastAddedFriendCell:
-//            return [self _indexOfLastAddedFriend];
-//            break;
-//        case ZZGridPartLastViewedIndicator:
-//            return [self _indexOfLastViewed];
-//            break;
-//        case ZZGridPartLastUnviewedIndicator:
-//        case ZZGridPartLastUnviewedCell:
-//            return [self _indexOfLastUnviewed];
-//            break;
-//        case ZZGridPartLastSentIndicator:
-//            return [self _indexOfLastSent];
-//            break;
-//        default:
-//            return 0;
-//            break;
-//    }
-//}
 
 #pragma mark Private
 
 - (void)updateSwitchButtonWithState:(BOOL)isHidden
 {
-    [self.gridView updateSwithCameraButtonWithState:isHidden];
+    NSInteger centerCellIndex = 4;
+    ZZGridCenterCell* centerCell = self.gridView.items[centerCellIndex];
+    [centerCell updateSwithCameraStateTo:isHidden];
 }
-
-//- (NSInteger)_indexOfLastSent
-//{
-//    return 0; //TODO: (Grid)
-//}
-//
-//- (NSInteger)_indexOfLastUnviewed
-//{
-//    return 0;//TODO: (Grid)
-//}
-//
-//- (NSInteger)_indexOfLastViewed
-//{
-//    return 0;//TODO: (Grid)
-//}
-//
-//- (NSInteger)_indexOfLastAddedFriend
-//{
-//    //TODO:
-//    return 1;
-//}
 
 - (CGRect)_frameForIndex:(NSInteger)index
 {
@@ -218,43 +153,6 @@
     CGRect position = [cell convertRect:cell.bounds toView:self.view];
     return position;
 }
-
-//- (CGRect)_frameForCentralRightCell
-//{
-//    //TODO: (HINT)
-//    return CGRectZero;
-//}
-//
-//
-//- (CGRect)_frameForLastSentIndicator
-//{
-//    //TODO: (HINT)
-//    return CGRectZero;
-//}
-//
-//- (CGRect)_frameForLastUnviewedCell
-//{
-//    //TODO: (HINT)
-//    return CGRectZero;
-//}
-//
-//- (CGRect)_frameForLastUnviewedIndicator
-//{
-//    //TODO: (HINT)
-//    return CGRectZero;
-//}
-//
-//- (CGRect)_frameForLastViewedIndicator
-//{
-//    //TODO: (HINT)
-//    return CGRectZero;
-//}
-//
-//- (CGRect)_frameForLastAddedFriendCell
-//{
-//    //TODO: (HINT)
-//    return CGRectZero;
-//}
 
 #pragma mark - Touch Observer Delegate
 
