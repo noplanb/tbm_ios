@@ -20,16 +20,22 @@
     if (model.phones.count > 0)
     {
         [model.phones enumerateObjectsUsingBlock:^(ZZCommunicationDomainModel* communicationModel, NSUInteger idx, BOOL *stop) {
-            
-            if ([TBMPhoneUtils isValidPhone:communicationModel.contact])
-            {
-                NSString *formattedPhone = [TBMPhoneUtils phone:communicationModel.contact withFormat:NBEPhoneNumberFormatINTERNATIONAL];
-                communicationModel.contact = formattedPhone;
-                [validNumbers addObject:communicationModel];
-            }
+            communicationModel.contact = [self clearPhone:communicationModel.contact];
+            [validNumbers addObject:communicationModel];
         }];
     }
     return validNumbers;
+}
+
++ (NSString*)clearPhone:(NSString*)phone
+{
+    NSString* result = nil;
+    if ([TBMPhoneUtils isValidPhone:phone])
+    {
+        NSString *formattedPhone = [TBMPhoneUtils phone:phone withFormat:NBEPhoneNumberFormatINTERNATIONAL];
+        result = formattedPhone;
+    }
+    return result;
 }
 
 + (NSString *)formatMobileNumberToE164AndServerFormat:(NSString *)number
