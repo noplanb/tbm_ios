@@ -26,7 +26,7 @@
 
 + (void)saveDataBase
 {
-    [[NSManagedObjectContext MR_rootSavingContext] MR_saveToPersistentStoreAndWait];
+    [[NSManagedObjectContext MR_contextForCurrentThread] MR_saveToPersistentStoreAndWait];
 }
 
 @end
