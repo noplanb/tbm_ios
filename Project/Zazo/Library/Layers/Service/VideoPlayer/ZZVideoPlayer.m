@@ -118,6 +118,7 @@
         [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
                                                       videoId:viewedVideo.videoId
                                                        friend:friend];
+//        [self.actionHandler handleEvent:<#(ZZGridActionEventType)#>]
     }
 }
 

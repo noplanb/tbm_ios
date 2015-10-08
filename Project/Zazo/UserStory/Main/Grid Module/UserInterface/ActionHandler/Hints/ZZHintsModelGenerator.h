@@ -6,6 +6,7 @@
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
+
 #import "ZZHintsConstants.h"
 @class ZZHintsDomainModel;
 
@@ -14,3 +15,4 @@
 + (ZZHintsDomainModel*)generateHintModelForType:(ZZHintsType)hintType;
 
 @end
+

@@ -13,14 +13,31 @@
 #import "ZZHintsDomainModel.h"
 #import "ZZGridUIConstants.h"
 #import "ZZVideoRecorder.h"
+#import "ZZBaseEventHandler.h"
+#import "ZZInviteEventHandler.h"
+#import "ZZPlayEventHandler.h"
+#import "ZZSentMessgeEventHandler.h"
+#import "ZZViewedMessageEventHandler.h"
+#import "ZZRecordEventHandler.h"
+#import "ZZInviteSomeoneElseEventHandler.h"
+#import "ZZSentWelcomeEventHandler.h"
+#import "ZZFronCameraFeatureEventHandler.h"
+#import "ZZAbortRecordingFeatureEventHandler.h"
+#import "ZZDeleteFriendsFeatureEventHandler.h"
+#import "ZZEarpieceFeatureEventHandler.h"
+#import "ZZSpinFeatureEventHandler.h"
+#import "ZZGridCellViewModel.h"
 
-@interface ZZGridActionHandler ()
+
+@interface ZZGridActionHandler () <ZZHintsControllerDelegate>
 
 @property (nonatomic, strong) ZZHintsController* hintsController;
 @property(nonatomic, strong) NSSet* hints;
 
 @property(nonatomic, strong, readonly) ZZHintsDomainModel* presentedHint;
 @property(nonatomic, assign) ZZGridActionEventType filterEvent; //Filter multuply times of event throwing
+@property (nonatomic, strong) ZZInviteEventHandler* startEventHandler;
+
 @end
 
 @implementation ZZGridActionHandler
@@ -30,204 +47,86 @@
     self = [super init];
     if (self)
     {
-        [self setupHints];
+        [self _configureEventHandlers];
     }
     return self;
 }
 
-- (void)setupHints
+
+- (void)_configureEventHandlers
 {
-    NSMutableSet* hints = [NSMutableSet set];
-    [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeSendZazo]];
+    //TODO: made initialization in enum [string from class]
     
-    [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypePressAndHoldToRecord]];
-//    [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeTapToPlay]];
+    self.startEventHandler = [ZZInviteEventHandler new];
+    ZZPlayEventHandler* playEventHandler = [ZZPlayEventHandler new];
+    ZZRecordEventHandler* recordEventHandler = [ZZRecordEventHandler new];
+    ZZSentMessgeEventHandler* sentMessageEventHandler = [ZZSentMessgeEventHandler new];
+    ZZViewedMessageEventHandler* viewedmessageEventHandler = [ZZViewedMessageEventHandler new];
+    ZZInviteSomeoneElseEventHandler* inviteSomeoneElseEventHandler = [ZZInviteSomeoneElseEventHandler new];
+    ZZSentWelcomeEventHandler* sentWelcomeEventHandler = [ZZSentWelcomeEventHandler new];
+    ZZFronCameraFeatureEventHandler* frontCameraEventHandler = [ZZFronCameraFeatureEventHandler new];
+    ZZAbortRecordingFeatureEventHandler* abortRecordingEventHandler = [ZZAbortRecordingFeatureEventHandler new];
+    ZZDeleteFriendsFeatureEventHandler* deleteFriendEventHandler = [ZZDeleteFriendsFeatureEventHandler new];
+    ZZEarpieceFeatureEventHandler* earpieceEventHandler = [ZZEarpieceFeatureEventHandler new];
+    ZZSpinFeatureEventHandler* spinFeatureEventHandler = [ZZSpinFeatureEventHandler new];
     
-    [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeGiftIsWaiting]];
-    [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeTapToSwitchCamera]];
-    [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeWelcomeNudgeUser]];
-    [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeWelcomeFor]];
-    [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeAbortRecording]];
-    [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeEarpieceUsage]];
-    [hints addObject:[ZZHintsModelGenerator generateHintModelForType:ZZHintsTypeSpin]];
-    self.hints = hints;
+    self.startEventHandler.eventHandler = playEventHandler;
+    playEventHandler.eventHandler = recordEventHandler;
+    recordEventHandler.eventHandler = sentMessageEventHandler;
+    sentMessageEventHandler.eventHandler = viewedmessageEventHandler;
+    viewedmessageEventHandler.eventHandler = inviteSomeoneElseEventHandler;
+    inviteSomeoneElseEventHandler.eventHandler = sentWelcomeEventHandler;
+    sentWelcomeEventHandler.eventHandler = frontCameraEventHandler;
+    frontCameraEventHandler.eventHandler = abortRecordingEventHandler;
+    abortRecordingEventHandler.eventHandler = deleteFriendEventHandler;
+    deleteFriendEventHandler.eventHandler = earpieceEventHandler;
+    earpieceEventHandler.eventHandler = spinFeatureEventHandler;
 }
 
 
-- (void)handleEvent:(ZZGridActionEventType)event
+- (void)handleEvent:(ZZGridActionEventType)event withIndex:(NSInteger)index
 {
-    if (event == self.filterEvent)
+    
+    id model = [self.delegate modelAtIndex:index];
+    if (model)
     {
-        return;
+        model = [model isKindOfClass:[ZZGridCellViewModel class]] ? model : nil;
+    
     }
-
-    if ([ZZVideoRecorder shared].isRecording)
-    {
-        return;
-    }
-
-    __block ZZHintsDomainModel* hint;
-    [self.hints enumerateObjectsUsingBlock:^(ZZHintsDomainModel* obj, BOOL* stop)
-    {
-        if (obj.condition && obj.condition(event))
-        {
-            hint = (!hint || hint.priority < obj.priority) ?  obj: hint;
-        }
+    
+    [self.startEventHandler handleEvent:event model:model withCompletionBlock:^(ZZHintsType type, ZZGridCellViewModel *model) {
+       if (type != ZZHintsTypeNoHint)
+       {
+           [self _configureHintControllerWithHintType:type withModel:model index:index];
+       }
     }];
+    
+}
+
+- (void)_configureHintControllerWithHintType:(ZZHintsType)hintType withModel:(ZZGridCellViewModel*)model index:(NSInteger)index
+{
+    NSString* formatParametr = model.item.relatedUser.fullName;
+    
+    [self.hintsController showHintWithType:hintType
+                                focusFrame:[self.userInterface focusFrameForIndex:index]
+                                 withIndex:index
+                           formatParameter:formatParametr];
+}
 
 
-    if (hint && !self.presentedHint.type != hint.type)
+#pragma mark - Hints Controller Delegate methods
+
+- (void)hintWasDissmissedWithType:(ZZHintsType)type
+{
+    if (type == ZZHintsTypeSentHint)
     {
-        self.filterEvent = event;
-        [self _applyHint:hint];
+        [self handleEvent:ZZGridActionEventTypeSentZazo withIndex:2];
     }
 }
 
-- (void)_applyHint:(ZZHintsDomainModel*)hint
+- (UIView *)hintPresetedView
 {
-    if (!self.presentedHint) {
-        self.hintsController.hintModel = hint;
-    }
-    else
-    {
-        [self _checkPlayAndRecordHintsForAppend];
-    }
-
-    [self _showHint];
-}
-
-- (void)_showHint
-{
-    self.filterEvent = ZZGridActionEventTypeGridNone;
-    NSUInteger gridIndex = [self _gridIndexForHintType:self.presentedHint.type];
-//    self.hint.arrowDirection = [ZZHintsDomainModel arrowDirectionForIndex:gridIndex];
-    CGRect focusFrame = [self.userInterface focusFrameForIndex:kHintGridIndexFromFlowIndex(gridIndex)];
-    [self.hintsController showHintWithModel:self.presentedHint forFocusFrame:focusFrame];
-    [self.presentedHint toggleStateTo:YES];
-}
-
-- (NSUInteger)_gridIndexForHintType:(ZZHintsType)hintType
-{
-    switch (hintType)
-    {
-        case ZZHintsTypePressAndHoldToRecord:
-        case ZZHintsTypeSendZazo:
-        case ZZHintsTypeZazoSent:
-        case ZZHintsTypeGiftIsWaiting:
-        case ZZHintsTypeTapToSwitchCamera:
-        case ZZHintsTypeWelcomeNudgeUser:
-        case ZZHintsTypeWelcomeFor:
-        case ZZHintsTypeAbortRecording:
-        case ZZHintsTypeEditFriends:
-        case ZZHintsTypeEarpieceUsage:
-        case ZZHintsTypeSpin:
-            return 0;
-            break;
-        default:
-            return 0;
-            break;
-    }
-}
-
-- (void)_checkPlayAndRecordHintsForAppend
-{
-    ZZHintsDomainModel* presentedHint = self.presentedHint;
-    ZZHintsDomainModel* recordHint = [self _hintWithType:ZZHintsTypePressAndHoldToRecord];
-    ZZHintsDomainModel* playHint = [self _hintWithType:ZZHintsTypeTapToPlay];
-    ZZHintsDomainModel* hintForAppend;
-
-    if (presentedHint.type == recordHint.type) {
-        hintForAppend = playHint;
-    }
-
-    if (presentedHint.type == playHint.type) {
-        hintForAppend = recordHint;
-    }
-
-    if (hintForAppend) {
-        presentedHint.title = [NSString stringWithFormat:@"%@\n%@", presentedHint.title, hintForAppend.title];
-        [hintForAppend toggleStateTo:YES];
-    }
-}
-
-
-
-- (void)welcomeZazoSentSuccessfully // welcome zazo - message to user that we invited, and no other messages from this friend was not received
-{
-    if ([ZZGridActionDataProvider unlockNextFeature] ) {
-        NSUInteger unlockedFeature = [ZZGridActionDataProvider lastUnlockedFeature];
-        [self.delegate unlockFeature:unlockedFeature];
-    }
-     // TODO: (FEATURES) show message, unlock UI
-    [self handleEvent:ZZGridActionEventTypeOutgoingMessageDidSend];
-}
-
-- (void)dismissedHintWithType:(ZZHintsType)type
-{
-    switch (type)
-    {
-        case ZZHintsTypeTapToSwitchCamera:
-        case ZZHintsTypeAbortRecording:
-        case ZZHintsTypeEditFriends:
-        case ZZHintsTypeEarpieceUsage:
-        case ZZHintsTypeSpin:
-            [self handleEvent:ZZGridActionEventTypeUsageHintDidDismiss];
-            break;
-        default:
-            break;
-    }
-}
-
-
-#pragma mark - Actions
-
-//- (void)_handleGridBecomeActive
-//{ // TODO: (HINTS) Remove
-//    NSInteger numberFilledGrids = [ZZGridActionDataProvider numberOfUsersOnGrid];
-//    NSInteger nextHintCellIndex = NSNotFound;
-//    if (numberFilledGrids < 8) // TODO: constants
-//    {
-//        nextHintCellIndex = kNextGridElementIndexFromCount(numberFilledGrids); // to get index from count
-//    }
-//    
-//    if (nextHintCellIndex != NSNotFound)
-//    {
-////        [self.hintsController showHintWithType:ZZHintsTypeSendZazo
-////                                    focusFrame:[self.userInterface focusFrameForIndex:nextHintCellIndex]
-////                                     withIndex:nextHintCellIndex
-////                               formatParameter:@""];  // TODO: move format parameter to domain model
-//    }
-//}
-
-
-//- (NSDictionary*)_indexMap
-//{ // TODO: (HINTS) Remove or get a reason to do not
-//    return @{@(0) : @(5)}; // TODO: fill other
-//}
-
-#pragma mark - Private
-
-//- (void)_showUnlockAnotherFeatureToast
-//{ // TODO: (HINTS) Remove, cause it is implemented in next feature(gift) hint
-//    ZZToastMessageBuilder *toastBuilder = [ZZToastMessageBuilder new];
-//    NSString* title = NSLocalizedString(@"toast-hints.zazo-someone-else.title", @"");
-//    NSString* message = NSLocalizedString(@"toast-hints.zazo-someone-else.message", @"");
-//    
-//    [toastBuilder showToastWithTitle:title andMessage:message];
-//}
-
-- (ZZHintsDomainModel*)_hintWithType:(ZZHintsType)hintType
-{
-    __block ZZHintsDomainModel* hint = nil;
-    [self.hints enumerateObjectsUsingBlock:^(ZZHintsDomainModel* obj, BOOL* stop)
-    {
-        if (obj.type == hintType)
-        {
-            hint = obj;
-            *stop = YES;
-        }
-    }];
-    return hint;
+   return [self.userInterface presentedView];
 }
 
 
@@ -238,14 +137,9 @@
     if (!_hintsController)
     {
         _hintsController = [ZZHintsController new];
+        _hintsController.delegate = self;
     }
     return _hintsController;
 }
-
-- (ZZHintsDomainModel*)presentedHint
-{
-    return self.hintsController.hintModel;
-}
-
 
 @end

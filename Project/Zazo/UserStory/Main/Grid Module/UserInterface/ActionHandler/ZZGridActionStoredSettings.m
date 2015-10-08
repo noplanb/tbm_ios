@@ -195,12 +195,12 @@ static NSString* const kWelcomeHintDidShowKey = @"kWelcomeHintDidShowKey";
     [NSObject an_updateBool:spinUsageUsageUsageHintDidShow forKey:kSpinUsageUsageUsageHintDidShowKey];
 }
 
-- (BOOL)viewedHintDidShow
+- (BOOL)viewedHintWasShown
 {
     return [[NSObject an_objectForKey:kViewedHintDidShowKey] boolValue];
 }
 
-- (void)setViewedHintDidShow:(BOOL)viewedHintDidShow
+- (void)setViewedHintWasShown:(BOOL)viewedHintDidShow
 {
     [NSObject an_updateBool:viewedHintDidShow forKey:kViewedHintDidShowKey];
 }

@@ -10,10 +10,12 @@
 #import "ZZGridActionHandlerUserInterfaceDelegate.h"
 
 @class ZZHintsDomainModel;
+@class ZZGridCellViewModel;
 
 @protocol ZZGridActionHanlderDelegate <NSObject>
 
 - (void)unlockFeature:(ZZGridActionFeatureType)feature;
+- (id)modelAtIndex:(NSInteger)index;
 
 @end
 
@@ -22,6 +24,6 @@
 @property (nonatomic, weak) id<ZZGridActionHanlderDelegate> delegate;
 @property (nonatomic, weak) id<ZZGridActionHanlderUserInterfaceDelegate> userInterface;
 
-- (void)handleEvent:(ZZGridActionEventType)event;
+- (void)handleEvent:(ZZGridActionEventType)event withIndex:(NSInteger)index;
 
 @end

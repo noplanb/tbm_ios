@@ -7,29 +7,16 @@
 //
 
 #import "ZZHintsConstants.h"
-#import "ZZGridActionHandlerEnums.h"
-#import "ANBaseDomainModel.h"
-#import "ZZGridPart.h"
 
+@interface ZZHintsDomainModel : NSObject
 
-typedef BOOL (^HintCondition)(ZZGridActionEventType event);
-
-@interface ZZHintsDomainModel : ANBaseDomainModel
-
-//Appearance
 @property (nonatomic, assign) ZZHintsType type;
+@property (nonatomic, assign) ZZArrowDirection arrowDirection;
+@property (nonatomic, assign) CGFloat angle;
 @property (nonatomic, assign) ZZHintsBottomImageType imageType;
-@property (nonatomic, copy) NSString* formatParameter;
-//arrow
-
 @property (nonatomic, copy) NSString* title;
+@property (nonatomic, copy) NSString* formatParameter;
 @property (nonatomic, assign) BOOL hidesArrow;
-@property(nonatomic, assign)  ZZGridPart pointsTo;
-
-//Logic
 @property (nonatomic, assign) NSInteger priority;
-@property (nonatomic, assign) HintCondition condition;
 
-//State
-- (void)toggleStateTo:(BOOL)state;
 @end

@@ -17,6 +17,7 @@ static CGFloat const kButtonSize = 44;
 
 #import "ZZGridViewHeader.h"
 #import "UIImage+PDF.h"
+#import "ZZGridUIConstants.h"
 
 @interface ZZGridViewHeader ()
 
@@ -66,7 +67,7 @@ static CGFloat const kButtonSize = 44;
         [self addSubview:_menuButton];
         
         [_menuButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@(kButtonSize));
+            make.width.equalTo(@(kEditFriendsButtonWidth));
             make.right.equalTo(self).with.offset(-kMenuButtonRightPadding);
             make.bottom.top.equalTo(self);
         }];

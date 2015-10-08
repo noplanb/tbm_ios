@@ -6,12 +6,15 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
+#import "ZZGridActionHandlerEnums.h"
+
 @class ZZGridCellViewModel;
 @class ZZFriendDomainModel;
 @class ANMessageDomainModel;
 @class ZZGridDomainModel;
 @class ZZContactDomainModel;
 @class TBMFriend;
+@class ZZGridDomainModel;
 
 @protocol ZZGridInteractorInput <NSObject>
 
@@ -56,3 +59,11 @@
 - (void)reloadGridWithData:(NSArray*)data;
 
 @end
+
+@protocol ZZGridInteractorOutputActionHandler <NSObject>
+
+- (NSInteger)friendsNumberOnGrid;
+- (void)handleModel:(ZZGridDomainModel*)model withEvent:(ZZGridActionEventType)event;
+
+@end
+

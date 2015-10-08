@@ -11,18 +11,22 @@
 typedef NS_ENUM(NSInteger, ZZHintsType)
 {
     ZZHintsTypeNoHint = 0,
-    ZZHintsTypeSendZazo,
-    ZZHintsTypeTapToPlay,
-    ZZHintsTypePressAndHoldToRecord,
-    ZZHintsTypeZazoSent,
+    ZZHintsTypeInviteHint,
+    ZZHintsTypePlayHint,
+    ZZHintsTypeRecrodWelcomeHint,
+    ZZHintsTypeRecordHint,
+    ZZHintsTypeSentHint,
+    ZZHintsTypeViewedHint,
+    ZZHintsTypeInviteSomeElseHint,
+    ZZHintsTypeSendWelcomeHint,
+    ZZHintsTypeSendWelcomeHintForFriendWithoutApp,
+    ZZHintsTypeFrontCameraUsageHint,
+    ZZHintsTypeAbortRecordingUsageHint,
+    ZZHintsTypeDeleteFriendUsageHint,
+    ZZHintsTypeEarpieceUsageHint,
+    ZZHintsTypeSpinUsageHint,
     ZZHintsTypeGiftIsWaiting,
-    ZZHintsTypeTapToSwitchCamera,
     ZZHintsTypeWelcomeNudgeUser,
-    ZZHintsTypeWelcomeFor,
-    ZZHintsTypeAbortRecording,
-    ZZHintsTypeEditFriends,
-    ZZHintsTypeEarpieceUsage,
-    ZZHintsTypeSpin,
 };
 
 typedef NS_ENUM(NSInteger, ZZArrowDirection)
@@ -47,6 +51,18 @@ typedef NS_ENUM(NSInteger, ZZHintsBottomImageType)
 };
 
 NSString *const kZZTutorialFontName;
+
+
+typedef NS_ENUM(NSInteger,ZZHintArrowFocusPosition)
+{
+    ZZHintArrowFocusPositionTopLeft,
+    ZZHintArrowFocusPositionTopRight,
+    ZZHintArrowFocusPositionBottomLeft,
+    ZZHintArrowFocusPositionBottomRight,
+    ZZHintArrowFocusPositionMiddleLeft,
+    ZZHintArrowFocusPositionMiddleRight
+};
+
 
 
 @interface ZZHintsConstants : NSObject

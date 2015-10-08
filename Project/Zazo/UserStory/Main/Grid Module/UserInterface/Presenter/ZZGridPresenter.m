@@ -27,6 +27,7 @@
 #import "TBMTableModal.h"
 #import "ZZCoreTelephonyConstants.h"
 #import "ZZGridPresenter+UserDialogs.h"
+#import "ZZGridPresenter+ActionHandler.h"
 
 
 @interface ZZGridPresenter ()
@@ -91,7 +92,7 @@
 
 - (void)sendMessageEvent
 {
-    [self.actionHandler handleEvent:ZZGridActionEventTypeOutgoingMessageDidSend];
+//    [self.actionHandler handleEvent:ZZGridActionEventTypeMessageDidSent];
 }
 
 #pragma mark - Notifications
@@ -116,22 +117,24 @@
     {
         model.isDownloadAnimationViewed = YES;
         [self.userInterface showFriendAnimationWithIndex:[self.dataSource viewModelIndexWithModelIndex:model.index]];
-        [self.actionHandler handleEvent:ZZGridActionEventTypeFriendDidAdd];
+//        [self.actionHandler handleEvent:ZZGridActionEventTypeFriendAddedToGrid];
     }
 }
 
 - (void)updateGridWithDownloadAnimationModel:(ZZGridDomainModel*)model
 {
-    [self.actionHandler handleEvent:ZZGridActionEventTypeIncomingMessageDidReceived]; // TODO:
+//    [self.actionHandler handleEvent:ZZGridActionEventTypeIncomingMessageDidReceived]; // TODO:
     [self.dataSource updateCellWithModel:model];
 }
+
+
+#pragma mark - Update User
 
 - (void)reloadGridModel:(ZZGridDomainModel*)model
 {
     [self.dataSource updateCellWithModel:model];
+
 }
-
-
 
 - (void)updateGridWithModel:(ZZGridDomainModel*)model isNewFriend:(BOOL)isNewFriend
 {
@@ -142,7 +145,7 @@
     
     if (isNewFriend)
     {
-        [self.actionHandler handleEvent:ZZGridActionEventTypeFriendDidAdd];
+//        [self.actionHandler handleEvent:ZZGridActionEventTypeFriendDidAdd];
     }
 }
 
@@ -172,20 +175,21 @@
     [self.wireframe presentSendFeedbackWithModel:model];
 }
 
+
+#pragma makr - EVENT InviteHint
+
 - (void)dataLoadedWithArray:(NSArray*)data
 {
-    [self.dataSource setupWithModels:data];
-    ANDispatchBlockAfter(3.f, ^{ //TODO: Get this out here
-        ANDispatchBlockToMainQueue(^{
-            [self.actionHandler handleEvent:ZZGridActionEventTypeGridLoaded];
-        });
+    ANDispatchBlockToMainQueue(^{
+        [self.dataSource setupWithModels:data];
+        [self _handleInviteEvent];
+        
+        BOOL isTwoCamerasAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
+        BOOL isSwitchCameraAvailable = [ZZFeatureObserver sharedInstance].isBothCameraEnabled;
+        [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:(isTwoCamerasAvailable && isSwitchCameraAvailable)];
+        
+        [[ZZVideoRecorder shared] updateRecordView:[self.dataSource centerViewModel].recordView];
     });
-
-    BOOL isTwoCamerasAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
-    BOOL isSwitchCameraAvailable = [ZZFeatureObserver sharedInstance].isBothCameraEnabled;
-    [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:(isTwoCamerasAvailable && isSwitchCameraAvailable)];
-
-    [[ZZVideoRecorder shared] updateRecordView:[self.dataSource centerViewModel].recordView];
 }
 
 - (void)dataLoadingDidFailWithError:(NSError*)error
@@ -281,7 +285,7 @@
 - (void)videoPlayerURLWasFinishedPlaying:(NSURL *)videoURL withPlayedUserModel:(ZZFriendDomainModel*)playedFriendModel
 {
     [self.interactor updateFriendAfterVideoStopped:playedFriendModel];
-    [self.actionHandler handleEvent:ZZGridActionEventTypeMessageDidStopPlaying];
+    [self _handleRecordHintWithCellViewModel:playedFriendModel];
 }
 
 
@@ -323,6 +327,7 @@
                 [[ZZVideoRecorder shared] startRecordingWithVideoURL:url completionBlock:^(BOOL isRecordingSuccess) {
                     [self.userInterface updateRecordViewStateTo:NO];
                     [self.soundPlayer play];
+                   
                     completionBlock(isRecordingSuccess);
                 }];
             });
@@ -332,6 +337,10 @@
             [[ZZVideoRecorder shared] stopRecordingWithCompletionBlock:^(BOOL isRecordingSuccess) {
                 [self.userInterface updateRecordViewStateTo:isEnabled];
                 [self.soundPlayer play];
+                if (isRecordingSuccess)
+                {
+                    [self _handleSentMessageEventWithCellViewModel:viewModel];
+                }
                 completionBlock(isRecordingSuccess);
             }];
         }
@@ -438,6 +447,34 @@
         _soundPlayer = [[ZZSoundPlayer alloc] initWithSoundNamed:kMessageSoundEffectFileName];
     }
     return _soundPlayer;
+}
+
+
+#pragma mark - Action Handler Delegate
+
+- (void)unlockFeature:(ZZGridActionFeatureType)feature
+{
+
+
+}
+
+- (id)modelAtIndex:(NSInteger)index
+{
+    id model = [self.dataSource viewModelAtIndex:index];
+    return model;
+
+}
+
+#pragma mark - Interactor Action Handler
+
+- (void)handleModel:(ZZGridDomainModel *)model withEvent:(ZZGridActionEventType)event
+{
+    [self _handleEvent:event withDomainModel:model];
+}
+
+- (NSInteger)friendsNumberOnGrid
+{
+    return [self.dataSource frindsOnGridNumber];
 }
 
 @end
