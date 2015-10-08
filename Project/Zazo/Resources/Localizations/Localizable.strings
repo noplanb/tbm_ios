@@ -110,7 +110,8 @@
 
 //Feature Alerts
 "feature-alerts.unviewed-video.label.text" = "Tap a friend to play";
-
+"feature-alerts.use-both-cameras" = "Use both cameras!";
+"feature-alerts.abort-recording" = "Abort a recording";
 
 
 // Debug

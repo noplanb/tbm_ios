@@ -55,6 +55,8 @@
         case ZZGridActionEventTypeMessageDidSent:
         {
             [self _handleBothCameraFeatureWithViewModel:model];
+            [self _handleAbortRecordingWithDragWithViewModel:model];
+            
         }break;
     }
 }
@@ -73,5 +75,18 @@
     }];
 }
 
+- (void)_handleAbortRecordingWithDragWithViewModel:(ZZGridCellViewModel*)model
+{
+    [self.strategy handleAbortRecordingFeatureWithModel:model withCompletionBlock:^(BOOL isFeatureEnabled) {
+        if (isFeatureEnabled)
+        {
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeAbortRec];
+        }
+        else
+        {
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionEventTypeNone];
+        }
+    }];
+}
 
 @end

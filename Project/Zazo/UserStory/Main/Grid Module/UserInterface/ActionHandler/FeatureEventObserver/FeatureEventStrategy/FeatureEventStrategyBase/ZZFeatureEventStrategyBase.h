@@ -7,7 +7,7 @@
 //
 
 #import "ZZGridCellViewModel.h"
-
+#import "ZZGridActionStoredSettings.h"
 
 #pragma mark - Use both camera keys
 
@@ -17,5 +17,5 @@ static NSString* const kSendMessageCounterKey = @"sendMessageCounterKey";
 @interface ZZFeatureEventStrategyBase : NSObject
 
 - (void)handleBothCameraFeatureWithModel:(ZZGridCellViewModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock;
-
+- (void)handleAbortRecordingFeatureWithModel:(ZZGridCellViewModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock;
 @end
