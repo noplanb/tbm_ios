@@ -20,7 +20,7 @@
 @property (nonatomic, strong) ZZCommunicationDomainModel* primaryPhone;
 @property (nonatomic, assign) ZZMenuContactType contactType;
 
-- (NSString *)fullName;
+- (NSString*)fullName;
 - (ZZMenuContactType)contactType;
 
 @end

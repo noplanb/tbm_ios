@@ -40,4 +40,40 @@
     }
 }
 
+#pragma mark - Override
+
+- (BOOL)isEqualToContactDomainModel:(ZZContactDomainModel*)model
+{
+    if (!model)
+    {
+        return NO;
+    }
+    
+    BOOL haveEqualItems = (ANIsEmpty(self.fullName) && ANIsEmpty(model.fullName)) ||
+    [self.fullName isEqualToString:model.fullName];
+    return haveEqualItems;
+}
+
+
+#pragma mark - NSObject
+
+- (BOOL)isEqual:(id)object
+{
+    if (self == object)
+    {
+        return YES;
+    }
+    if (![object isKindOfClass:[ZZContactDomainModel class]])
+    {
+        return NO;
+    }
+    return [self isEqualToContactDomainModel:object];
+}
+
+- (NSUInteger)hash
+{
+    return [self.fullName hash];
+}
+
+
 @end

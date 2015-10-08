@@ -14,6 +14,7 @@
 #import "NSString+ANAdditions.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZContactDomainModel.h"
+#import "ZZUserPresentationHelper.h"
 
 static APAddressBook* addressBook = nil;
 
@@ -90,36 +91,51 @@ static APAddressBook* addressBook = nil;
         [addressBook loadContacts:^(NSArray *contacts, NSError *error) {
             
             ANDispatchBlockToBackgroundQueue(^{
-                NSArray* contactData = [[contacts.rac_sequence map:^id(id value) {
-                    return [self _userModelFromContact:value];
-                }] array];
                 
-                [NSObject an_handleSubcriber:subscriber withObject:contactData error:error];
+                __block NSMutableArray* result = [NSMutableArray new];
+                [contacts enumerateObjectsUsingBlock:^(APContact*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                   
+                    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"fullName =[c] %@", [ZZUserPresentationHelper fullNameWithFirstName:obj.firstName lastName:obj.lastName]];
+              
+                    NSArray* items = [result filteredArrayUsingPredicate:predicate];
+                    id item = [self _userModelFromContact:obj container:[items firstObject]];
+                    if (item)
+                    {
+                        [result removeObject:item];
+                        [result addObject:item];
+                    }
+                }];
+                
+                [NSObject an_handleSubcriber:subscriber withObject:result error:error];
             });
         }];
         return [RACDisposable disposableWithBlock:^{}];
     }];
 }
 
-+ (ZZContactDomainModel*)_userModelFromContact:(APContact*)contact
++ (ZZContactDomainModel*)_userModelFromContact:(APContact*)contact container:(ZZContactDomainModel*)container
 {
-    ZZContactDomainModel* model;
+    ZZContactDomainModel* model = container;
     
-    if (!ANIsEmpty(contact.firstName) && !ANIsEmpty(contact.phonesWithLabels))
+    if (!ANIsEmpty(contact.firstName))
     {
-        model = [ZZContactDomainModel new];
-        
-        model.firstName = contact.firstName;
-        model.lastName = contact.lastName;
+        if (!model)
+        {
+            model = [ZZContactDomainModel new];
+            model.firstName = contact.firstName;
+            model.lastName = contact.lastName;
+        }
         
         NSArray* phones = [[contact.phonesWithLabels.rac_sequence map:^id(APPhoneWithLabel* value) {
-            ZZCommunicationDomainModel *model = [ZZCommunicationDomainModel new];
-            model.contact = [value.phone an_stripAllNonNumericCharacters];
-            model.label = value.localizedLabel;
-            return model;
+            ZZCommunicationDomainModel* communication = [ZZCommunicationDomainModel new];
+            communication.contact = [value.phone an_stripAllNonNumericCharacters];
+            communication.label = value.localizedLabel;
+            return communication;
         }] array];
         
-        model.phones = phones ? : @[];
+        NSSet* modelPhones = model.phones ? [NSSet setWithArray:model.phones] : [NSSet set];
+        NSSet* allPhones = [modelPhones setByAddingObjectsFromArray:phones ? : @[]];
+        model.phones = [allPhones allObjects];
     }
     return model;
 }
