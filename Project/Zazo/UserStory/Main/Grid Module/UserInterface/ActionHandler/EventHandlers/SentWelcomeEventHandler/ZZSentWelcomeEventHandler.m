@@ -24,13 +24,11 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
         
         ZZHintsType type = ZZHintsTypeNoHint;
         
-        if (launchCounter <= 6)
+        if (launchCounter < 6)
         {
             launchCounter++;
             [[NSUserDefaults standardUserDefaults] setInteger:launchCounter forKey:kLaunchTimeCounterKey];
             [[NSUserDefaults standardUserDefaults] synchronize];
-            
-            [ZZGridActionStoredSettings shared].welcomeHintWasShown = YES;
             
             type = ZZHintsTypeSendWelcomeHint;
             if (![model.item.relatedUser hasApp])
@@ -38,6 +36,10 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
                 type = ZZHintsTypeSendWelcomeHintForFriendWithoutApp;
             }
             
+        }
+        else if (launchCounter == 6)
+        {
+            [ZZGridActionStoredSettings shared].welcomeHintWasShown = YES;
         }
         
         if (completionBlock)
