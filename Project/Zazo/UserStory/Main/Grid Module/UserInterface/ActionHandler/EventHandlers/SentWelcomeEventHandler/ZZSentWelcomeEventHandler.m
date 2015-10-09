@@ -16,7 +16,8 @@ static NSString* kLaunchTimeCounterKey = @"LaunchTimeCounterKey";
               model:(ZZGridCellViewModel *)model
 withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBlock
 {
-    if (event == ZZGridActionEventTypeFriendDidInvited) //&& ![ZZGridActionStoredSettings shared].welcomeHintWasShown)
+    if (event == ZZGridActionEventTypeFriendDidInvited &&
+        ![ZZGridActionStoredSettings shared].welcomeHintWasShown)
     {
         
         NSInteger launchCounter = [[NSUserDefaults standardUserDefaults] integerForKey:kLaunchTimeCounterKey];

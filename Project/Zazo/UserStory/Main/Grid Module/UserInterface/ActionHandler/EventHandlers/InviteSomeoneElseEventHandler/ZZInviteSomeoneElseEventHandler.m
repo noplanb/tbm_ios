@@ -14,12 +14,24 @@
               model:(ZZGridCellViewModel *)model
 withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBlock
 {
-    if (event == ZZGridActionEventTypeSentZazo && ![ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown)
+    if (event == ZZGridActionEventTypeSentZazo &&
+        ![ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown &&
+        [self.delegate frinedsNumberOnGrid] == 1)
     {
         [ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown = YES;
         if (completionBlock)
         {
             completionBlock(ZZHintsTypeInviteSomeElseHint, model);
+        }
+    }
+    else  if (event == ZZGridActionEventTypeSentZazo &&
+              ![ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown &&
+              [self.delegate frinedsNumberOnGrid] > 1)
+    {
+        [ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown = YES;
+        if (completionBlock)
+        {
+            completionBlock(ZZHintsTypeNoHint, model);
         }
     }
     else

@@ -238,6 +238,7 @@
         case ZZHintsTypeFrontCameraUsageHint:
         case ZZHintsTypeSpinUsageHint:
         case ZZHintsTypeSendWelcomeHintForFriendWithoutApp:
+        case ZZHintsTypeRecordAndTapToPlay:
         {
             configurationModel = [self _configurationModelsForShowCellBehavior][index];
             

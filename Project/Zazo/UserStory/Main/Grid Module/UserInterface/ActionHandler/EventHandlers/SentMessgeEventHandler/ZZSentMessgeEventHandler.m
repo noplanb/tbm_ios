@@ -15,12 +15,25 @@
               model:(ZZGridCellViewModel *)model
 withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBlock
 {
-    if (event == ZZGridActionEventTypeMessageDidSent && ![ZZGridActionStoredSettings shared].sentHintWasShown)
+    if (event == ZZGridActionEventTypeMessageDidSent &&
+        ![ZZGridActionStoredSettings shared].sentHintWasShown &&
+        [self.delegate frinedsNumberOnGrid] == 1 &&
+        model.item.relatedUser.unviewedCount == 0)
     {
         [ZZGridActionStoredSettings shared].sentHintWasShown = YES;
         if (completionBlock)
         {
             completionBlock(ZZHintsTypeSentHint, model);
+        }
+    }
+    else if (event == ZZGridActionEventTypeMessageDidSent &&
+             ![ZZGridActionStoredSettings shared].sentHintWasShown &&
+             [self.delegate frinedsNumberOnGrid] > 1)
+    {
+        [ZZGridActionStoredSettings shared].sentHintWasShown = YES;
+        if (completionBlock)
+        {
+            completionBlock(ZZHintsTypeNoHint, model);
         }
     }
     else

@@ -24,6 +24,7 @@ static NSString* const kSentHintDidShowKey = @"kSentHintDidShowKey";
 static NSString* const kSpinUsageUsageUsageHintDidShowKey = @"kSpinUsageUsageUsageHintDidShowKey";
 static NSString* const kViewedHintDidShowKey = @"kViewedHintDidShowKey";
 static NSString* const kWelcomeHintDidShowKey = @"kWelcomeHintDidShowKey";
+static NSString* const kHoldToRecordAndTapToPlayKey = @"khHldToRecordAndTapToPlayKey";
 
 //static NSString *const kLastUnlockedFeatureKey = @"kLastUnlockedFeatureKey";
 
@@ -43,6 +44,7 @@ static NSString* const kWelcomeHintDidShowKey = @"kWelcomeHintDidShowKey";
 @dynamic spinHintWasShown;
 @dynamic viewedHintWasShown;
 @dynamic welcomeHintWasShown;
+@dynamic holdToRecordAndTapToPlayWasShown;
 
 + (instancetype)shared
 {
@@ -213,6 +215,16 @@ static NSString* const kWelcomeHintDidShowKey = @"kWelcomeHintDidShowKey";
 - (void)setWelcomeHintWasShown:(BOOL)welcomeHintWasShown
 {
     [NSObject an_updateBool:welcomeHintWasShown forKey:kWelcomeHintDidShowKey];
+}
+
+- (BOOL)holdToRecordAndTapToPlayWasShown
+{
+    return [[NSObject an_objectForKey:kHoldToRecordAndTapToPlayKey] boolValue];
+}
+
+- (void)setHoldToRecordAndTapToPlayWasShown:(BOOL)holdToRecordAndTapToPlayWasShown
+{
+    [NSObject an_updateBool:holdToRecordAndTapToPlayWasShown forKey:kHoldToRecordAndTapToPlayKey];
 }
 
 //- (NSUInteger)lastUnlockedFeature

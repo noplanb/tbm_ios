@@ -22,5 +22,6 @@
 
 - (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel;
 - (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel andIndex:(NSInteger)index;
+- (ZZHintsViewModel*)hintModel;
 
 @end

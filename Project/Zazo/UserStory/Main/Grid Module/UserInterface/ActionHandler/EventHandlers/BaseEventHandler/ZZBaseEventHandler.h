@@ -11,10 +11,21 @@
 #import "ZZGridActionStoredSettings.h"
 #import "ZZHintsConstants.h"
 #import "ZZGridCellViewModel.h"
+#import "ZZGridDomainModel.h"
+
+
+@protocol ZZEventHandlerDelegate <NSObject>
+
+- (NSInteger)frinedsNumberOnGrid;
+
+@end
+
+
 
 @interface ZZBaseEventHandler : NSObject
 
 @property (nonatomic, strong) ZZBaseEventHandler* eventHandler;
+@property (nonatomic, weak) id <ZZEventHandlerDelegate> delegate;
 
 - (void)handleEvent:(ZZGridActionEventType)event
               model:(ZZGridCellViewModel*)model

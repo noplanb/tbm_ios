@@ -16,6 +16,8 @@
 
 - (void)unlockedFeature:(ZZGridActionFeatureType)feature;
 - (id)modelAtIndex:(NSInteger)index;
+- (BOOL)isVideoPlayingNow;
+- (NSInteger)friendsCountOnGrid;
 
 @end
 

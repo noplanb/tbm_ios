@@ -103,6 +103,7 @@
 "hints.spin-usage.label.text" = "Move a friend. \nDrag a friend to any \nposition";
 "hint.center.cell.tap.friend.to.play" = "Tap a friend to play.";
 "hint.center.cell.press.to.record" = "Press and hold a friend to record.";
+"hint.record.and.tap.to.play" = "Press and hold to record \n Tap to play";
 
 //Toasts Hints
 "toast-hints.zazo-someone-else.title" = "Unlock another feature!";

@@ -29,6 +29,9 @@
 @property (nonatomic, assign) BOOL spinHintWasShown;
 @property (nonatomic, assign) BOOL recordWelcomeHintWasShown;
 
+
+@property (nonatomic, assign) BOOL holdToRecordAndTapToPlayWasShown;
+
 @property (nonatomic, assign) BOOL hintsDidStartPlay;
 @property (nonatomic, assign) BOOL hintsDidStartRecord;
 

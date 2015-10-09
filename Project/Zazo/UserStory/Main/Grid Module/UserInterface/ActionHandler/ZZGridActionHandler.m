@@ -31,7 +31,12 @@
 #import "TBMFeatureUnlockDialogView.h"
 
 
-@interface ZZGridActionHandler () <ZZHintsControllerDelegate, ZZFeatureEventObserverDelegate>
+@interface ZZGridActionHandler ()
+<
+ ZZHintsControllerDelegate,
+ ZZFeatureEventObserverDelegate,
+ ZZEventHandlerDelegate
+>
 
 @property (nonatomic, strong) ZZHintsController* hintsController;
 @property(nonatomic, strong) NSSet* hints;
@@ -67,17 +72,39 @@
     //TODO: made initialization in enum [string from class]
     
     self.startEventHandler = [ZZInviteEventHandler new];
+    self.startEventHandler.delegate = self;
     ZZPlayEventHandler* playEventHandler = [ZZPlayEventHandler new];
+    playEventHandler.delegate = self;
+    
     ZZRecordEventHandler* recordEventHandler = [ZZRecordEventHandler new];
+    recordEventHandler.delegate = self;
+   
     ZZSentMessgeEventHandler* sentMessageEventHandler = [ZZSentMessgeEventHandler new];
+    sentMessageEventHandler.delegate = self;
+   
     ZZViewedMessageEventHandler* viewedmessageEventHandler = [ZZViewedMessageEventHandler new];
+    viewedmessageEventHandler.delegate = self;
+    
     ZZInviteSomeoneElseEventHandler* inviteSomeoneElseEventHandler = [ZZInviteSomeoneElseEventHandler new];
+    inviteSomeoneElseEventHandler.delegate = self;
+    
     ZZSentWelcomeEventHandler* sentWelcomeEventHandler = [ZZSentWelcomeEventHandler new];
+    sentWelcomeEventHandler.delegate = self;
+    
     ZZFronCameraFeatureEventHandler* frontCameraEventHandler = [ZZFronCameraFeatureEventHandler new];
+    frontCameraEventHandler.delegate = self;
+    
     ZZAbortRecordingFeatureEventHandler* abortRecordingEventHandler = [ZZAbortRecordingFeatureEventHandler new];
+    abortRecordingEventHandler.delegate = self;
+    
     ZZDeleteFriendsFeatureEventHandler* deleteFriendEventHandler = [ZZDeleteFriendsFeatureEventHandler new];
+    deleteFriendEventHandler.delegate = self;
+    
     ZZEarpieceFeatureEventHandler* earpieceEventHandler = [ZZEarpieceFeatureEventHandler new];
+    earpieceEventHandler.delegate = self;
+    
     ZZSpinFeatureEventHandler* spinFeatureEventHandler = [ZZSpinFeatureEventHandler new];
+    spinFeatureEventHandler.delegate = self;
     
     self.startEventHandler.eventHandler = playEventHandler;
     playEventHandler.eventHandler = recordEventHandler;
@@ -95,21 +122,25 @@
 
 - (void)handleEvent:(ZZGridActionEventType)event withIndex:(NSInteger)index
 {
-    id model = [self.delegate modelAtIndex:index];
-    if (model)
+    if ([self _isAbleToShowHints])
     {
-        model = [model isKindOfClass:[ZZGridCellViewModel class]] ? model : nil;
-    
+        
+        id model = [self.delegate modelAtIndex:index];
+        if (model)
+        {
+            model = [model isKindOfClass:[ZZGridCellViewModel class]] ? model : nil;
+            
+        }
+        
+        [self.startEventHandler handleEvent:event model:model withCompletionBlock:^(ZZHintsType type, ZZGridCellViewModel *model) {
+            if (type != ZZHintsTypeNoHint)
+            {
+                [self _configureHintControllerWithHintType:type withModel:model index:index];
+            }
+        }];
+        
+        [self.featureEventObserver handleEvent:event withModel:model withIndex:index];
     }
-    
-    [self.startEventHandler handleEvent:event model:model withCompletionBlock:^(ZZHintsType type, ZZGridCellViewModel *model) {
-       if (type != ZZHintsTypeNoHint)
-       {
-           [self _configureHintControllerWithHintType:type withModel:model index:index];
-       }
-    }];
-    
-    [self.featureEventObserver handleEvent:event withModel:model withIndex:index];
 }
 
 - (void)_configureHintControllerWithHintType:(ZZHintsType)hintType withModel:(ZZGridCellViewModel*)model index:(NSInteger)index
@@ -192,6 +223,30 @@
         {
         } break;
     }
+}
+
+
+#pragma mark - Event Handler Delegate
+
+- (NSInteger)frinedsNumberOnGrid
+{
+    return [self.delegate friendsCountOnGrid];
+}
+
+
+#pragma mark - IS ABLE SHOW HINTS
+
+- (BOOL)_isAbleToShowHints
+{
+    BOOL isAble = NO;
+    
+    if (![ZZVideoRecorder shared].isRecorderActive &&
+        ![self.delegate isVideoPlayingNow])
+    {
+        isAble = YES;
+    }
+    
+    return isAble;
 }
 
 #pragma mark - Lazy Load

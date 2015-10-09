@@ -27,6 +27,7 @@ typedef NS_ENUM(NSInteger, ZZHintsType)
     ZZHintsTypeSpinUsageHint,
     ZZHintsTypeGiftIsWaiting,
     ZZHintsTypeWelcomeNudgeUser,
+    ZZHintsTypeRecordAndTapToPlay
 };
 
 typedef NS_ENUM(NSInteger, ZZArrowDirection)
