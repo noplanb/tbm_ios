@@ -12,38 +12,80 @@
 
 - (void)handleBothCameraFeatureWithModel:(ZZGridCellViewModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
 {
-    
-    NSInteger kUnlockFeatureCounterValue = 2;
-    NSInteger kOnceUnlockCounterValue = 1;
-    
-    NSInteger sendMessageCounter = [[NSUserDefaults standardUserDefaults] integerForKey:kSendMessageCounterKey];
-    NSString* lastAddedUserId = [[NSUserDefaults standardUserDefaults] objectForKey:kFriendIdDefaultKey];
-    
     BOOL isFeatureEnabled = NO;
     
-    if (sendMessageCounter == kUnlockFeatureCounterValue)
+    if (![ZZGridActionStoredSettings shared].frontCameraHintWasShown)
     {
-        isFeatureEnabled = YES;
-    }
-    else if (![model.item.relatedUser.idTbm isEqualToString:lastAddedUserId] && sendMessageCounter == kOnceUnlockCounterValue)
-    {
-        sendMessageCounter++;
-        [[NSUserDefaults standardUserDefaults] setInteger:sendMessageCounter forKey:kSendMessageCounterKey];
-        isFeatureEnabled = YES;
-    }
-    else if (![model.item.relatedUser.idTbm isEqualToString:lastAddedUserId] && sendMessageCounter == 0)
-    {
-        sendMessageCounter++;
-        [[NSUserDefaults standardUserDefaults] setInteger:sendMessageCounter forKey:kSendMessageCounterKey];
-        [[NSUserDefaults standardUserDefaults] setObject:model.item.relatedUser.idTbm forKey:kFriendIdDefaultKey];
-        isFeatureEnabled = NO;
+        NSInteger kUnlockFeatureCounterValue = 2;
+        NSInteger kOnceUnlockCounterValue = 1;
+        
+        NSInteger sendMessageCounter = [[NSUserDefaults standardUserDefaults] integerForKey:kSendMessageCounterKey];
+        NSString* lastAddedUserId = [[NSUserDefaults standardUserDefaults] objectForKey:kFriendIdDefaultKey];
+        
+        
+        
+        if (sendMessageCounter == kUnlockFeatureCounterValue)
+        {
+            isFeatureEnabled = YES;
+        }
+        else if (![model.item.relatedUser.idTbm isEqualToString:lastAddedUserId] && sendMessageCounter == kOnceUnlockCounterValue)
+        {
+            sendMessageCounter++;
+            [[NSUserDefaults standardUserDefaults] setInteger:sendMessageCounter forKey:kSendMessageCounterKey];
+            isFeatureEnabled = YES;
+        }
+        else if (![model.item.relatedUser.idTbm isEqualToString:lastAddedUserId] && sendMessageCounter == 0)
+        {
+            sendMessageCounter++;
+            [[NSUserDefaults standardUserDefaults] setInteger:sendMessageCounter forKey:kSendMessageCounterKey];
+            [[NSUserDefaults standardUserDefaults] setObject:model.item.relatedUser.idTbm forKey:kFriendIdDefaultKey];
+            isFeatureEnabled = NO;
+        }
+        
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
     if (completionBlock)
     {
         completionBlock(isFeatureEnabled);
     }
-    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)handleAbortRecordingFeatureWithModel:(ZZGridCellViewModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
+{
+    BOOL isFeatureEnabled = NO;
+    
+    if (![ZZGridActionStoredSettings shared].abortRecordHintWasShown && [ZZGridActionStoredSettings shared].frontCameraHintWasShown)
+        
+    {
+        NSInteger kBeforeUnlockAbortFeatureMessagesCount = 3;
+        
+        NSInteger sendMessageCounter = [[NSUserDefaults standardUserDefaults] integerForKey:kSendMessageCounterKey];
+        NSString* lastAddedUserId = [[NSUserDefaults standardUserDefaults] objectForKey:kFriendIdDefaultKey];
+        
+        if (![model.item.relatedUser.idTbm isEqualToString:lastAddedUserId] && sendMessageCounter < kBeforeUnlockAbortFeatureMessagesCount)
+        {
+            sendMessageCounter++;
+            [[NSUserDefaults standardUserDefaults] setInteger:sendMessageCounter forKey:kSendMessageCounterKey];
+            [[NSUserDefaults standardUserDefaults] setObject:model.item.relatedUser.idTbm forKey:kFriendIdDefaultKey];
+            isFeatureEnabled = NO;
+        }
+        else if (![model.item.relatedUser.idTbm isEqualToString:lastAddedUserId] && sendMessageCounter == kBeforeUnlockAbortFeatureMessagesCount)
+        {
+            sendMessageCounter++;
+            [[NSUserDefaults standardUserDefaults] setInteger:sendMessageCounter forKey:kSendMessageCounterKey];
+            [[NSUserDefaults standardUserDefaults] setObject:model.item.relatedUser.idTbm forKey:kFriendIdDefaultKey];
+            isFeatureEnabled = YES;
+        }
+        
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+
+    if (completionBlock)
+    {
+        completionBlock(isFeatureEnabled);
+    }
+
 }
 
 @end

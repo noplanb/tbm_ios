@@ -148,7 +148,7 @@
       case ZZGridActionFeatureTypeSwitchCamera:
         {
             NSInteger centerViewIndex = 4;
-            [TBMFeatureUnlockDialogView showFeatureDialog:@"Camera available" withPresentedView:[self.userInterface presentedView] completionBlock:^{
+            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.use-both-cameras", nil) withPresentedView:[self.userInterface presentedView] completionBlock:^{
                 [self handleEvent:ZZGridActionEventTypeFrontCameraFeatureUnlocked withIndex:centerViewIndex];
                 [self.delegate unlockedFeature:ZZGridActionFeatureTypeSwitchCamera];
             }];
@@ -156,6 +156,11 @@
         } break;
         case ZZGridActionFeatureTypeAbortRec:
         {
+            NSInteger middleRightIndex = 5;
+            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.abort-recording", nil) withPresentedView:[self.userInterface presentedView] completionBlock:^{
+                [self handleEvent:ZZGridActionEventTypeAbortRecordingFeatureUnlocked withIndex:middleRightIndex];
+                [self.delegate unlockedFeature:ZZGridActionFeatureTypeAbortRec];
+            }];
             
         } break;
         case ZZGridActionFeatureTypeDeleteFriend:
