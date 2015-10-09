@@ -14,7 +14,9 @@
               model:(ZZGridCellViewModel *)model
 withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBlock
 {
-    if (event == ZZGridActionEventTypeMessageViewed && ![ZZGridActionStoredSettings shared].viewedHintWasShown)
+    if (event == ZZGridActionEventTypeMessageViewed &&
+        ![ZZGridActionStoredSettings shared].viewedHintWasShown &&
+        model.item.relatedUser.unviewedCount == 0)
     {
         [ZZGridActionStoredSettings shared].viewedHintWasShown = YES;
         if (completionBlock)

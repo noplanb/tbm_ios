@@ -15,12 +15,25 @@
               model:(ZZGridCellViewModel *)model
 withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBlock
 {
-    if (event == ZZGridActionEventTypeBecomeMessage)// && ![ZZGridActionStoredSettings shared].playHintWasShown)
+    
+    if (event == ZZGridActionEventTypeBecomeMessage &&
+        [self.delegate frinedsNumberOnGrid] == 1 &&
+        ![ZZGridActionStoredSettings shared].playHintWasShown)
     {
         [ZZGridActionStoredSettings shared].playHintWasShown = YES;
         if (completionBlock)
         {
             completionBlock(ZZHintsTypePlayHint, model);
+        }
+    }
+    else if (event == ZZGridActionEventTypeBecomeMessage &&
+             [self.delegate frinedsNumberOnGrid] > 1 &&
+             ![ZZGridActionStoredSettings shared].playHintWasShown)
+    {
+        [ZZGridActionStoredSettings shared].playHintWasShown = YES;
+        if (completionBlock)
+        {
+            completionBlock(ZZHintsTypeNoHint, model);
         }
     }
     else

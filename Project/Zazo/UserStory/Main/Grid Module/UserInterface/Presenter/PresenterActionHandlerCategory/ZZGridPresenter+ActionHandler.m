@@ -28,7 +28,7 @@
 - (void)_handleInviteEvent
 {
     ANDispatchBlockToMainQueue(^{
-        CGFloat delayAfterViewDownloaded = 2.0f;
+        CGFloat delayAfterViewDownloaded = 1.0f;
         ANDispatchBlockAfter(delayAfterViewDownloaded, ^{
             if ([[self dataSource] frindsOnGridNumber] == 0)
             {
@@ -73,10 +73,7 @@
         NSInteger index = [[self dataSource] indexForFriendDomainModel:model];
         if (index != NSNotFound)
         {
-            CGFloat delayAfterAddFriendToGridAnimation = 1.7f;
-            ANDispatchBlockAfter(delayAfterAddFriendToGridAnimation, ^{
-                [[self actionHandler] handleEvent:ZZGridActionEventTypeFriendDidInvited withIndex:index];
-            });
+            [[self actionHandler] handleEvent:ZZGridActionEventTypeFriendDidInvited withIndex:index];
         }
     });
 }

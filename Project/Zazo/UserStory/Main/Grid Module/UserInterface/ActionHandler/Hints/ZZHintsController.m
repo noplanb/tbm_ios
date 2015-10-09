@@ -13,10 +13,12 @@
 #import "ZZHintsViewModel.h"
 #import "ZZHintsDomainModel.h"
 #import "ZZGridUIConstants.h"
+#import "ZZGridActionStoredSettings.h"
 
 @interface ZZHintsController () <ZZHintsViewDelegate>
 
 @property (nonatomic, strong) ZZHintsView* hintsView;
+
 
 @end
 
@@ -24,7 +26,16 @@
 
 - (void)showHintWithType:(ZZHintsType)type focusFrame:(CGRect)focusFrame withIndex:(NSInteger)index formatParameter:(NSString*)parameter
 {
-    if (self.hintsView)
+    
+    if (self.hintsView &&
+        [self.hintsView hintModel].hintType == ZZHintsTypeRecrodWelcomeHint &&
+        ![ZZGridActionStoredSettings shared].holdToRecordAndTapToPlayWasShown)
+    {
+        [self.hintsView removeFromSuperview];
+        self.hintsView = nil;
+        [ZZGridActionStoredSettings shared].holdToRecordAndTapToPlayWasShown = YES;
+        type = ZZHintsTypeRecordAndTapToPlay;
+    } else if  (self.hintsView)
     {
         [self.hintsView removeFromSuperview];
         self.hintsView = nil;
@@ -48,6 +59,7 @@
     [self.hintsView updateWithHintsViewModel:viewModel andIndex:index];
     
     [[self.delegate hintPresetedView] addSubview:self.hintsView];
+    
 }
 
 #pragma mark - Lazy Load

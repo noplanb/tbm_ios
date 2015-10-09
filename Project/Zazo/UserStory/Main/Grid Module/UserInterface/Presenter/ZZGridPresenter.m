@@ -469,6 +469,11 @@
 
 }
 
+- (NSInteger)friendsCountOnGrid
+{
+    return [self.dataSource frindsOnGridNumber];
+}
+
 #pragma mark - Interactor Action Handler
 
 - (void)handleModel:(ZZGridDomainModel *)model withEvent:(ZZGridActionEventType)event
@@ -479,6 +484,11 @@
 - (NSInteger)friendsNumberOnGrid
 {
     return [self.dataSource frindsOnGridNumber];
+}
+
+- (BOOL)isVideoPlayingNow
+{
+    return self.videoPlayer.isPlayingVideo;
 }
 
 @end

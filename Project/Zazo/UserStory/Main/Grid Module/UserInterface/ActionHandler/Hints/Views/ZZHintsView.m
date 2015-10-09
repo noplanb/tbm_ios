@@ -90,6 +90,11 @@
     });
 }
 
+- (ZZHintsViewModel*)hintModel
+{
+    return self.hintViewModel;
+}
+
 #pragma mark - Lazy Load
 
 - (ZZHintsGotItView*)gotItView

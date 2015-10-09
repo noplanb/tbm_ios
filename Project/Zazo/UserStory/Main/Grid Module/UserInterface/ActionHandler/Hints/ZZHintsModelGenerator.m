@@ -74,7 +74,9 @@
         case ZZHintsTypeSendWelcomeHintForFriendWithoutApp:
             return [self _welcomeHintForUserWithoutApp];
             break;
-            
+        case ZZHintsTypeRecordAndTapToPlay:
+            return [self _recordAndTapToPlay];
+            break;
         default: break;
     }
     
@@ -94,6 +96,17 @@
 }
 
 #pragma mark - Lazy Load
+
++ (ZZHintsDomainModel*)_recordAndTapToPlay
+{
+    ZZHintsDomainModel* model = [ZZHintsDomainModel new];
+    model.title = NSLocalizedString(@"hint.record.and.tap.to.play", nil);
+    model.type = ZZHintsTypeRecordAndTapToPlay;
+    model.hidesArrow = NO;
+    model.imageType = ZZHintsBottomImageTypeNone;
+    
+    return model;
+}
 
 + (ZZHintsDomainModel*)_welcomeHintForUserWithoutApp
 {
