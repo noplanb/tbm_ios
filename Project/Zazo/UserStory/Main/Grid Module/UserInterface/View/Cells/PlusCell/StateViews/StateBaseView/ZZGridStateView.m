@@ -63,7 +63,7 @@
 }
 
 
-#pragma makr - Downloaded Animation behavior
+#pragma mark - Downloaded Animation behavior
 
 - (void)_setupDownloadAnimationsWithModel:(ZZGridCellViewModel*)model
 {
@@ -85,7 +85,6 @@
         [self _setupBadgeWithModel:model];
     }
 }
-
 
 - (void)_setupDownloadingState
 {
