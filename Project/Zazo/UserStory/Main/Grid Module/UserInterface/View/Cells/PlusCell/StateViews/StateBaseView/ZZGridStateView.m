@@ -12,10 +12,10 @@
 #import "ZZGridUIConstants.h"
 #import "UIImage+PDF.h"
 #import "ZZVideoRecorder.h"
-#import "ZZFeatureObserver.h"
 #import "ZZStoredSettingsManager.h"
 #import "ZZFriendDataProvider.h"
 #import "TBMFriend.h"
+#import "ZZGridActionStoredSettings.h"
 
 @interface ZZGridStateView ()
 
@@ -120,7 +120,8 @@
 
 - (void)checkIsCancelRecordingWithRecognizer:(UILongPressGestureRecognizer*)recognizer
 {
-    if ([ZZFeatureObserver sharedInstance].isRecordAbortWithDraggedEnabled)
+   
+    if ([ZZGridActionStoredSettings shared].abortRecordHintWasShown)
     {
         UIView* recordView = recognizer.view;
         CGPoint location = [recognizer locationInView:recordView];

@@ -21,7 +21,6 @@
 #import "ZZUserDataProvider.h"
 #import "TBMAlertController.h"
 #import "TBMAppDelegate.h"
-#import "ZZFeatureObserver.h"
 #import "ZZGridCenterCellViewModel.h"
 #import "ZZGridActionHandler.h"
 #import "TBMTableModal.h"
@@ -75,10 +74,10 @@
                                              selector:@selector(sendMessageEvent)
                                                  name:kNotificationSendMessage object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(_updateFeatures)
-                                                 name:kFeatureObserverFeatureUpdatedNotification
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(_updateFeatures)
+//                                                 name:kFeatureObserverFeatureUpdatedNotification
+//                                               object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(stopPlaying)
                                                  name:kNotificationIncomingCall
@@ -150,23 +149,23 @@
     }
 }
 
-- (void)_updateFeatures
-{
-    [self _updateCenterCell];
-    [self.dataSource reloadStorage];
-}
-
-- (void)_updateCenterCell
-{
-    if ([self.dataSource centerViewModel])
-    {
-        id model = [self.dataSource centerViewModel];
-        if ([model isKindOfClass:[ZZGridCenterCellViewModel class]])
-        {
-            [self.userInterface updateSwitchButtonWithState:(![ZZFeatureObserver sharedInstance].isBothCameraEnabled)];
-        }
-    }
-}
+//- (void)_updateFeatures
+//{
+//    [self _updateCenterCell];
+//    [self.dataSource reloadStorage];
+//}
+//
+//- (void)_updateCenterCell
+//{
+//    if ([self.dataSource centerViewModel])
+//    {
+//        id model = [self.dataSource centerViewModel];
+//        if ([model isKindOfClass:[ZZGridCenterCellViewModel class]])
+//        {
+//            [self.userInterface updateSwitchButtonWithState:(![ZZFeatureObserver sharedInstance].isBothCameraEnabled)];
+//        }
+//    }
+//}
 
 
 #pragma mark - Output
