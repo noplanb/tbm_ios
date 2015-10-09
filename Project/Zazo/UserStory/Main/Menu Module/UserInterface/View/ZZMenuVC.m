@@ -61,6 +61,10 @@
 
 - (void)itemSelected:(ZZMenuCellViewModel*)model
 {
+    ANDispatchBlockToMainQueue(^{
+        [self.controller.searchBar resignFirstResponder];
+        [self.view endEditing:YES];
+    });
     [self.eventHandler itemSelected:model];
 }
 

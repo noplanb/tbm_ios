@@ -105,7 +105,7 @@
        
         ZZUserDomainModel *user = [FEMObjectDeserializer deserializeObjectExternalRepresentation:x
                                                                                     usingMapping:[ZZUserDomainModel mapping]];
-        user.isRegistered = YES; // TODO: check server fields
+        user.isRegistered = YES;
         [ZZUserDataProvider upsertUserWithModel:user];
         
         [TBMDispatch updateRollBarUserWithItemID:user.idTbm username:[user fullName] phoneNumber:user.mobileNumber];
@@ -178,7 +178,6 @@
     [self _saveAuthenticatedUserMobileNumberToDefauts:user.mobileNumber]; //TODO: temp
     
     [[ZZAccountTransportService registerUserWithModel:user shouldForceCall:forceCall] subscribeNext:^(NSDictionary *authKeys) {
-        [ZZVideoRecorder shared];
         
         NSString *auth = [authKeys objectForKey:@"auth"];
         NSString *mkey = [authKeys objectForKey:@"mkey"];

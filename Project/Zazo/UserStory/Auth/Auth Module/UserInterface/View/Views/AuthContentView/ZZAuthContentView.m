@@ -7,6 +7,7 @@
 //
 
 #import "ZZAuthContentView.h"
+#import "TPKeyboardAvoidingScrollView.h"
 
 @implementation ZZAuthContentView
 
@@ -32,7 +33,6 @@
             make.centerX.equalTo(self.scrollView.mas_centerX);
         }];
     }
-    
     return _registrationView;
 }
 
@@ -40,7 +40,7 @@
 {
     if (!_scrollView)
     {
-        _scrollView = [UIScrollView new];
+        _scrollView = [TPKeyboardAvoidingScrollView new];
         _scrollView.scrollEnabled = NO;
         _scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
         [self addSubview:_scrollView];

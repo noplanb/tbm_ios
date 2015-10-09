@@ -41,4 +41,13 @@
                                              httpMethod:ANHttpMethodTypeGET];
 }
 
++ (RACSignal*)updateUserWithParameters:(NSDictionary*)parameters
+{
+    return [[ZZNetworkTransport shared] requestWithPath:kApiUpdateFriendProfile
+                                             parameters:parameters
+                                             httpMethod:ANHttpMethodTypeGET];
+}
+
+
+
 @end

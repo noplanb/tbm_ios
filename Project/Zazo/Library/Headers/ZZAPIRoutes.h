@@ -69,6 +69,7 @@ static NSString* const kApiNotificationVideoStatusUpdate = @"notification/send_v
 
 static NSString* const kApiLoadFriends = @"reg/get_friends";
 static NSString* const kApiLoadFriendProfile = @"invitation/invite";
+static NSString* const kApiUpdateFriendProfile = @"/invitation/update_friend";
 static NSString* const kApiUserHapApp = @"invitation/has_app";
 static NSString* const kApiChangeFriendVisibilityStatus = @"connection/set_visibility";
 

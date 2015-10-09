@@ -24,7 +24,7 @@
 
 - (void)updateStateToLoading:(BOOL)isLoading message:(NSString*)message
 {
-    
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
     if (ANIsEmpty(message))
     {
         message = @"Loading..."; // TODO: localizable

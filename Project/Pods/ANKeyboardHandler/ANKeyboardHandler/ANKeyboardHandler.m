@@ -46,7 +46,6 @@
 - (void)setEventHandler:(id<ANKeyboardEventHandler>)eventHandler
 {
     _eventHandler = eventHandler;
-    
 }
 
 - (void)setupKeyboard

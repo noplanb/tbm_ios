@@ -17,5 +17,6 @@
 
 + (RACSignal*)checkIsUserHasProfileWithParameters:(NSDictionary*)parameters;
 + (RACSignal*)inviteUserWithParameters:(NSDictionary*)parameters;
++ (RACSignal*)updateUserWithParameters:(NSDictionary*)parameters;
 
 @end

@@ -343,6 +343,7 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
         [self.delegate videoRecorderRuntimeErrorWithRetryCount:videoRecorderRetryCount];
     }
 }
+
 - (void)AVCaptureSessionDidStartRunningNotification:(NSNotification *)notification
 {
     OB_INFO(@"AVCaptureSessionDidStartRunningNotification");

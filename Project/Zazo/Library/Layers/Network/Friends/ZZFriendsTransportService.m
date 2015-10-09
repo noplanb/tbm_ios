@@ -70,7 +70,7 @@ static const struct
     return [ZZFriendsTransport loadFriendProfileWithParameters:parameters];
 }
 
-+ (RACSignal *)changeModelContactStatusForUser:(NSString *)userKey toVisible:(BOOL)visible
++ (RACSignal*)changeModelContactStatusForUser:(NSString *)userKey toVisible:(BOOL)visible
 {
     NSParameterAssert(userKey);
     
@@ -92,6 +92,15 @@ static const struct
     NSString *formattedNumber = [ZZPhoneHelper formatMobileNumberToE164AndServerFormat:phoneNumber];
     NSDictionary* parameters = @{ZZFriendsServerParameters.phoneNumber : [NSObject an_safeString:formattedNumber]};
     return [ZZFriendsTransport checkIsUserHasProfileWithParameters:parameters];
+}
+
++ (RACSignal*)updateUser:(NSString*)mKey withEmails:(NSArray*)emails
+{
+    NSParameterAssert(mKey);
+
+    NSDictionary* parameters = @{@"mkey"    : [NSObject an_safeString:mKey],
+                                 @"emails"  : emails ? : @[]};
+    return [ZZFriendsTransport updateUserWithParameters:parameters];
 }
 
 + (RACSignal*)inviteUserWithPhoneNumber:(NSString*)phoneNumber
