@@ -15,10 +15,12 @@
 #import "ZZGridUIConstants.h"
 #import "ZZGridActionStoredSettings.h"
 
+
+static CGFloat const kDelayBeforHintHidden = 3.5;
+
 @interface ZZHintsController () <ZZHintsViewDelegate>
 
 @property (nonatomic, strong) ZZHintsView* hintsView;
-
 
 @end
 
@@ -59,8 +61,27 @@
     [self.hintsView updateWithHintsViewModel:viewModel andIndex:index];
     
     [[self.delegate hintPresetedView] addSubview:self.hintsView];
+    [self _removeViewAfterDelayIfNeededWithType:type];
     
 }
+
+
+#pragma mark - Remove after show 
+
+- (void)_removeViewAfterDelayIfNeededWithType:(ZZHintsType)type
+{
+    if (type == ZZHintsTypeSentHint || type == ZZHintsTypeViewedHint)
+    {
+        ANDispatchBlockAfter(kDelayBeforHintHidden, ^{
+            if (self.hintsView)
+            {
+                [self.hintsView removeFromSuperview];
+                self.hintsView = nil;
+            }
+        });
+    }
+}
+
 
 #pragma mark - Lazy Load
 

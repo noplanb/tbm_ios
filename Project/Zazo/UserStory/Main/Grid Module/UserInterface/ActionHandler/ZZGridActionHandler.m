@@ -29,6 +29,7 @@
 #import "ZZGridCellViewModel.h"
 #import "ZZFeatureEventObserver.h"
 #import "TBMFeatureUnlockDialogView.h"
+#import "TBMNextFeatureDialogView.h"
 
 
 @interface ZZGridActionHandler ()
@@ -162,6 +163,20 @@
     {
         [self handleEvent:ZZGridActionEventTypeSentZazo withIndex:2];
     }
+    
+    if ((type == ZZHintsTypeFrontCameraUsageHint ||
+        type == ZZHintsTypeAbortRecordingUsageHint ||
+        type == ZZHintsTypeDeleteFriendUsageHint ||
+         type == ZZHintsTypeEarpieceUsageHint ||
+         type == ZZHintsTypeSpinUsageHint) &&
+        ![ZZGridActionStoredSettings shared].spinHintWasShown)
+    {
+        [TBMNextFeatureDialogView showNextFeatureDialogWithPresentedView:[self.userInterface presentedView] completionBlock:^{
+            
+        }];
+    }
+    
+    
 }
 
 - (UIView *)hintPresetedView
