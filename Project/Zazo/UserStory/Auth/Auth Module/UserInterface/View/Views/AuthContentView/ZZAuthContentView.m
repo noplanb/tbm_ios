@@ -7,6 +7,7 @@
 //
 
 #import "ZZAuthContentView.h"
+#import "TPKeyboardAvoidingScrollView.h"
 
 @implementation ZZAuthContentView
 
@@ -40,7 +41,7 @@
 {
     if (!_scrollView)
     {
-        _scrollView = [UIScrollView new];
+        _scrollView = [TPKeyboardAvoidingScrollView new];
         _scrollView.scrollEnabled = NO;
         _scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
         [self addSubview:_scrollView];

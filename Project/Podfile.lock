@@ -64,7 +64,7 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.0.1):
     - CocoaLumberjack/Default
-  - Crashlytics (3.3.1)
+  - Crashlytics (3.3.4)
   - DeviceUtil (1.2.0)
   - Expecta (1.0.3)
   - Fabric (1.5.1):
@@ -130,6 +130,7 @@ PODS:
   - SDWebImage/Core (3.7.3)
   - Specta (1.0.3)
   - SVProgressHUD (1.1.3)
+  - TPKeyboardAvoiding (1.2.9)
   - UIAlertView+Blocks (0.9)
 
 DEPENDENCIES:
@@ -147,7 +148,7 @@ DEPENDENCIES:
   - ANTableViews (~> 1.0.10)
   - APAddressBook (~> 0.1.11)
   - CocoaLumberjack (~> 2.0.1)
-  - Crashlytics (~> 3.3.0)
+  - Crashlytics (~> 3.3.4)
   - DeviceUtil (~> 1.2.0)
   - Expecta (~> 1.0.2)
   - Fabric (~> 1.5)
@@ -172,6 +173,7 @@ DEPENDENCIES:
   - SDWebImage (~> 3.7.3)
   - Specta (~> 1.0.3)
   - SVProgressHUD (~> 1.1.3)
+  - TPKeyboardAvoiding
   - UIAlertView+Blocks (~> 0.9)
 
 SPEC CHECKSUMS:
@@ -189,7 +191,7 @@ SPEC CHECKSUMS:
   ANTableViews: dbfd364d5f541c71be904a9096cb893cecb4662e
   APAddressBook: 2c949367b190a993d2cce769a3b20bce8bcf000c
   CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
-  Crashlytics: 0e61bdda9def51f1e99720f804eebe94865442b2
+  Crashlytics: 41c082440d2e14da444186fff65e79c0b4b35d4c
   DeviceUtil: 818812d4d2413e145a05d502cd1378e484d0c293
   Expecta: 9d1bff6c8b0eeee73a166a2ee898892478927a15
   Fabric: 03c3b3fe77e11a2bc31421b989a9c7adaa4779a5
@@ -217,6 +219,7 @@ SPEC CHECKSUMS:
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   Specta: cf3e4188cf35375c3ee2cd03f8db8f1f4ef98234
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
+  TPKeyboardAvoiding: ff1ee4e5a5a0c119b965552af8f183868ea20207
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
 
 COCOAPODS: 0.38.2

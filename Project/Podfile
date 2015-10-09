@@ -38,6 +38,7 @@ target 'Zazo' do
     pod 'MSSPopMasonry', '~> 0.0.1'
     pod 'SDWebImage', '~> 3.7.3'
     pod 'POP+MCAnimate', '~> 2.0'
+    pod 'TPKeyboardAvoiding'
     
     #Testing
     pod 'Reveal-iOS-SDK', '~> 1.5.1', :configurations => ['Debug']
