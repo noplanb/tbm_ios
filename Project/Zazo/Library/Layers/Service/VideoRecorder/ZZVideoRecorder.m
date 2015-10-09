@@ -303,6 +303,9 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
             if (!ANIsEmpty(reason))
             {
                 [self showMessage:reason];
+                ANDispatchBlockAfter(kDelayBeforeNextMessage, ^{
+                    [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
+                });
             }
             [self.recorder cancelRecording];
         }

@@ -456,35 +456,9 @@
 
 - (void)unlockedFeature:(ZZGridActionFeatureType)feature
 {
-    switch (feature) {
-        case ZZGridActionFeatureTypeSwitchCamera:
-        {
-             [self.userInterface updateSwitchButtonWithState:NO];
-            
-        } break;
-        case ZZGridActionFeatureTypeAbortRec:
-        {
-            
-        } break;
-        case ZZGridActionFeatureTypeDeleteFriend:
-        {
-            
-        } break;
-        case ZZGridActionFeatureTypeEarpiece:
-        {
-            
-        } break;
-        case ZZGridActionFeatureTypeSpinWheel:
-        {
-            
-        } break;
-        case ZZGridActionFeatureTypeTotal:
-        {
-            
-        } break;
-        default:
-        {
-        } break;
+    if (feature == ZZGridActionFeatureTypeSwitchCamera)
+    {
+        [self.userInterface updateSwitchButtonWithState:NO];
     }
 }
 

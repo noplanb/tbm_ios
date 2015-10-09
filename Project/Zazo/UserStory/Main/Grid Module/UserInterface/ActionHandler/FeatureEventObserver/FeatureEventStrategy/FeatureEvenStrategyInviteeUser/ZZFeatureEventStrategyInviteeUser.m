@@ -10,6 +10,9 @@
 
 @implementation ZZFeatureEventStrategyInviteeUser
 
+
+#pragma mark - Use Both Cameras
+
 - (void)handleBothCameraFeatureWithModel:(ZZGridCellViewModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
 {
     BOOL isFeatureEnabled = NO;
@@ -32,6 +35,7 @@
         {
             sendMessageCounter++;
             [[NSUserDefaults standardUserDefaults] setInteger:sendMessageCounter forKey:kSendMessageCounterKey];
+            [[NSUserDefaults standardUserDefaults] setObject:model.item.relatedUser.idTbm forKey:kFriendIdDefaultKey];
             isFeatureEnabled = YES;
         }
         else if (![model.item.relatedUser.idTbm isEqualToString:lastAddedUserId] && sendMessageCounter == 0)
@@ -41,7 +45,6 @@
             [[NSUserDefaults standardUserDefaults] setObject:model.item.relatedUser.idTbm forKey:kFriendIdDefaultKey];
             isFeatureEnabled = NO;
         }
-        
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
@@ -51,6 +54,9 @@
     }
 }
 
+
+#pragma mark - Abort Recording
+
 - (void)handleAbortRecordingFeatureWithModel:(ZZGridCellViewModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
 {
     BOOL isFeatureEnabled = NO;
@@ -59,26 +65,7 @@
         
     {
         NSInteger kBeforeUnlockAbortFeatureMessagesCount = 3;
-        
-        NSInteger sendMessageCounter = [[NSUserDefaults standardUserDefaults] integerForKey:kSendMessageCounterKey];
-        NSString* lastAddedUserId = [[NSUserDefaults standardUserDefaults] objectForKey:kFriendIdDefaultKey];
-        
-        if (![model.item.relatedUser.idTbm isEqualToString:lastAddedUserId] && sendMessageCounter < kBeforeUnlockAbortFeatureMessagesCount)
-        {
-            sendMessageCounter++;
-            [[NSUserDefaults standardUserDefaults] setInteger:sendMessageCounter forKey:kSendMessageCounterKey];
-            [[NSUserDefaults standardUserDefaults] setObject:model.item.relatedUser.idTbm forKey:kFriendIdDefaultKey];
-            isFeatureEnabled = NO;
-        }
-        else if (![model.item.relatedUser.idTbm isEqualToString:lastAddedUserId] && sendMessageCounter == kBeforeUnlockAbortFeatureMessagesCount)
-        {
-            sendMessageCounter++;
-            [[NSUserDefaults standardUserDefaults] setInteger:sendMessageCounter forKey:kSendMessageCounterKey];
-            [[NSUserDefaults standardUserDefaults] setObject:model.item.relatedUser.idTbm forKey:kFriendIdDefaultKey];
-            isFeatureEnabled = YES;
-        }
-        
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kBeforeUnlockAbortFeatureMessagesCount];
     }
 
     if (completionBlock)
@@ -86,6 +73,64 @@
         completionBlock(isFeatureEnabled);
     }
 
+}
+
+
+#pragma mark - Delete Friend
+
+- (void)handleDeleteFriendFeatureWithModel:(ZZGridCellViewModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
+{
+    BOOL isFeatureEnabled = NO;
+    
+    if (![ZZGridActionStoredSettings shared].deleteFriendHintWasShown && [ZZGridActionStoredSettings shared].abortRecordHintWasShown)
+    {
+        NSInteger kBeforeUnlockDeleteFriendFeatureMessageCount = 4;
+        isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kBeforeUnlockDeleteFriendFeatureMessageCount];
+    }
+
+    if (completionBlock)
+    {
+        completionBlock(isFeatureEnabled);
+    }
+}
+
+
+#pragma mark - Earpiece
+
+- (void)handleEarpieceFeatureWithModel:(ZZGridCellViewModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
+{
+    
+    BOOL isFeatureEnabled = NO;
+    
+    if (![ZZGridActionStoredSettings shared].earpieceHintWasShown && [ZZGridActionStoredSettings shared].deleteFriendHintWasShown)
+    {
+        NSInteger kBeforeUnlockEarpieceMessageCount = 5;
+        isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kBeforeUnlockEarpieceMessageCount];
+    }
+    
+    if (completionBlock)
+    {
+        completionBlock(isFeatureEnabled);
+    }
+}
+
+
+#pragma mark - Speen Wheel
+
+- (void)handleSpinWheelFeatureWithModel:(ZZGridCellViewModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
+{
+    BOOL isFeatureEnabled = NO;
+    
+    if (![ZZGridActionStoredSettings shared].spinHintWasShown && [ZZGridActionStoredSettings shared].earpieceHintWasShown)
+    {
+        NSInteger kBeforeUnlockSpinMessageCount = 6;
+        isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kBeforeUnlockSpinMessageCount];
+    }
+    
+    if (completionBlock)
+    {
+        completionBlock(isFeatureEnabled);
+    }
 }
 
 @end

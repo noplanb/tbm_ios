@@ -15,6 +15,7 @@
 #import "ZZGridCellViewModel.h"
 #import "ZZFeatureObserver.h"
 #import "ZZRotator.h"
+#import "ZZGridActionStoredSettings.h"
 
 static CGFloat const kTouchOffset = 7;
 
@@ -76,47 +77,48 @@ static CGFloat const kTouchOffset = 7;
 
 - (void)observeTouch:(UITouch *)touch withEvent:(id)event
 {
-        if ([ZZFeatureObserver sharedInstance].isSpinWeelEnabled)
-        {
-    if (touch.phase == UITouchPhaseBegan)
+    
+    if ([ZZGridActionStoredSettings shared].spinHintWasShown)
     {
-        if (self.grid.isGridMoved)
+        if (touch.phase == UITouchPhaseBegan)
         {
-            
-            //                [self.grid.rotator stopAnimationsOnGrid:self.grid];
-            [self.grid.rotator stopDecayAnimationIfNeeded:self.grid.rotator.decayAnimation onGrid:self.grid];
-            
-        }
-        else
-        {
-            self.initialLocation = [touch locationInView:self.gridView.itemsContainerView];
-            UIView* cell = [self.gridView.itemsContainerView hitTest:self.initialLocation withEvent:nil];
-            if (cell.isHidden && !self.grid.isHidden)
+            if (self.grid.isGridMoved)
             {
-                [self updateCellsHiddenStateTo:NO];
-                self.grid.hidden = YES;
+                
+                //                [self.grid.rotator stopAnimationsOnGrid:self.grid];
+                [self.grid.rotator stopDecayAnimationIfNeeded:self.grid.rotator.decayAnimation onGrid:self.grid];
+                
             }
+            else
+            {
+                self.initialLocation = [touch locationInView:self.gridView.itemsContainerView];
+                UIView* cell = [self.gridView.itemsContainerView hitTest:self.initialLocation withEvent:nil];
+                if (cell.isHidden && !self.grid.isHidden)
+                {
+                    [self updateCellsHiddenStateTo:NO];
+                    self.grid.hidden = YES;
+                }
+            }
+            
         }
         
-    }
-    
-    if (self.grid.hidden && touch.phase == UITouchPhaseMoved && self.gridView.isRotationEnabled && [self shouldMoveWithTouch:touch])
-    {
-        CGPoint location = [touch locationInView:self.gridView.itemsContainerView];
-        [self.delegate stopPlaying];
-        if (!self.isMoving)
+        if (self.grid.hidden && touch.phase == UITouchPhaseMoved && self.gridView.isRotationEnabled && [self shouldMoveWithTouch:touch])
         {
-            self.isMoving = YES;
-            self.initialLocation = location;
-        }
-        // start observer if touch start in cell
-        UIView* cell = [self.gridView.itemsContainerView hitTest:location withEvent:nil];
-        if (cell)
-        {
-            [self startObserveWithTouch:touch withEvent:event withLocation:location];
+            CGPoint location = [touch locationInView:self.gridView.itemsContainerView];
+            [self.delegate stopPlaying];
+            if (!self.isMoving)
+            {
+                self.isMoving = YES;
+                self.initialLocation = location;
+            }
+            // start observer if touch start in cell
+            UIView* cell = [self.gridView.itemsContainerView hitTest:location withEvent:nil];
+            if (cell)
+            {
+                [self startObserveWithTouch:touch withEvent:event withLocation:location];
+            }
         }
     }
-        }
 }
 
 - (BOOL)shouldMoveWithTouch:(UITouch*)touch

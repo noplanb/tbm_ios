@@ -20,6 +20,7 @@
 #import "TBMFriend.h"
 #import "ZZFriendDataProvider.h"
 #import "iToast.h"
+#import "ZZGridActionStoredSettings.h"
 
 @interface ZZGridCellViewModel ()
 
@@ -245,11 +246,19 @@
 
 - (void)_checkIsCancelRecordingWithRecognizer:(UILongPressGestureRecognizer*)recognizer
 {
-    if ([ZZFeatureObserver sharedInstance].isRecordAbortWithDraggedEnabled)
+    
+    if ([ZZGridActionStoredSettings shared].abortRecordHintWasShown)
     {
+        
+        CGFloat kAddedPadding = 50;
         UIView* recordView = recognizer.view;
+        CGRect observeFrame = CGRectMake((recognizer.view.frame.origin.x - kAddedPadding),
+                                         (recognizer.view.frame.origin.y - kAddedPadding),
+                                         (CGRectGetWidth(recognizer.view.frame) + kAddedPadding),
+                                         (CGRectGetHeight(recognizer.view.frame)+ kAddedPadding));
+        
         CGPoint location = [recognizer locationInView:recordView];
-        if (!CGRectContainsPoint(recordView.frame,location))
+        if (!CGRectContainsPoint(observeFrame,location))
         {
             [[ZZVideoRecorder shared] cancelRecordingWithReason:NSLocalizedString(@"record-dragged-finger-away", nil)];
         }
