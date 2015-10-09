@@ -70,14 +70,7 @@
 
 - (void)_setupNotifications
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(sendMessageEvent)
-                                                 name:kNotificationSendMessage object:nil];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(_updateFeatures)
-//                                                 name:kFeatureObserverFeatureUpdatedNotification
-//                                               object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(stopPlaying)
                                                  name:kNotificationIncomingCall
@@ -90,10 +83,6 @@
     [[ZZVideoRecorder shared] removeDelegate:self];
 }
 
-- (void)sendMessageEvent
-{
-//    [self.actionHandler handleEvent:ZZGridActionEventTypeMessageDidSent];
-}
 
 #pragma mark - Notifications
 
@@ -105,25 +94,8 @@
     }
 }
 
-- (void)updateGridWithModelFromNotification:(ZZGridDomainModel *)model isNewFriend:(BOOL)isNewFriend
-{
-    [self.dataSource updateCellWithModel:model];
-    if (model.relatedUser.outgoingVideoStatusValue != OUTGOING_VIDEO_STATUS_VIEWED)
-    {
-        [self.soundPlayer play]; // TODO: check
-    }
-    
-    if (isNewFriend)
-    {
-        model.isDownloadAnimationViewed = YES;
-        [self.userInterface showFriendAnimationWithIndex:[self.dataSource viewModelIndexWithModelIndex:model.index]];
-//        [self.actionHandler handleEvent:ZZGridActionEventTypeFriendAddedToGrid];
-    }
-}
-
 - (void)updateGridWithDownloadAnimationModel:(ZZGridDomainModel*)model
 {
-//    [self.actionHandler handleEvent:ZZGridActionEventTypeIncomingMessageDidReceived]; // TODO:
     [self.dataSource updateCellWithModel:model];
 }
 
@@ -140,32 +112,19 @@
 {
     model.isDownloadAnimationViewed = YES;
     [self.dataSource updateCellWithModel:model];
-    NSInteger index = [self.dataSource viewModelIndexWithModelIndex:model.index];
-    [self.userInterface showFriendAnimationWithIndex:index];
+ //TODO:
+//    if (model.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED)
+//    {
+//        [self.soundPlayer play]; // TODO: check
+//    }
     
     if (isNewFriend)
     {
-//        [self.actionHandler handleEvent:ZZGridActionEventTypeFriendDidAdd];
+        NSInteger index = [self.dataSource viewModelIndexWithModelIndex:model.index];
+        [self.userInterface showFriendAnimationWithIndex:index];
     }
+    
 }
-
-//- (void)_updateFeatures
-//{
-//    [self _updateCenterCell];
-//    [self.dataSource reloadStorage];
-//}
-//
-//- (void)_updateCenterCell
-//{
-//    if ([self.dataSource centerViewModel])
-//    {
-//        id model = [self.dataSource centerViewModel];
-//        if ([model isKindOfClass:[ZZGridCenterCellViewModel class]])
-//        {
-//            [self.userInterface updateSwitchButtonWithState:(![ZZFeatureObserver sharedInstance].isBothCameraEnabled)];
-//        }
-//    }
-//}
 
 
 #pragma mark - Output

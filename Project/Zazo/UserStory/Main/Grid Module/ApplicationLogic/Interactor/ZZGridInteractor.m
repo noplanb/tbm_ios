@@ -191,21 +191,14 @@ static NSInteger const kGridFriendsCellCount = 8;
         model = [ZZGridDataUpdater updateRelatedUserOnItemID:model.itemID toValue:friendModel];
         
         [self updateLastActionForFriend:model.relatedUser];
-        if (isFromNotification)
-        {
-            [self.output updateGridWithModelFromNotification:model isNewFriend:!isUserAlreadyOnGrid];
-        }
-        else
-        {
-            [self.output updateGridWithModel:model isNewFriend:!isUserAlreadyOnGrid];
-        }
+        [self.output updateGridWithModel:model isNewFriend:!isUserAlreadyOnGrid];
     }
     else
     {
         ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendModel.idTbm];
         if (isFromNotification)
         {
-            [self.output updateGridWithModelFromNotification:gridModel isNewFriend:!isUserAlreadyOnGrid];
+            [self.output updateGridWithModel:gridModel isNewFriend:!isUserAlreadyOnGrid];
         }
         else
         {
@@ -244,7 +237,8 @@ static NSInteger const kGridFriendsCellCount = 8;
     ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithRelatedUserID:model.idTbm];
     if (!gridModel)
     {
-        [self addUserToGrid:[ZZFriendDataProvider modelFromEntity:model]];
+        ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:model];
+        [self _addUserAsFriendToGrid:friendModel fromNotification:YES];
     }
     else
     {

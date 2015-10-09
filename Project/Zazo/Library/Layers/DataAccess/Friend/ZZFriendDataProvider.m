@@ -47,7 +47,7 @@
 {
     NSArray* friendsOnGrid = [self friendsOnGrid];
     NSArray* friendsIDs = [friendsOnGrid valueForKeyPath:ZZFriendDomainModelAttributes.idTbm];
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K NOT IN %@", TBMFriendAttributes.idTbm, friendsIDs ? : @[]];
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"NOT (%K IN %@)", TBMFriendAttributes.idTbm, friendsIDs ? : @[]];
     NSArray* items = [TBMFriend MR_findAllSortedBy:TBMFriendAttributes.timeOfLastAction ascending:YES withPredicate:predicate inContext:[self _context]];
     
     TBMFriend* friend = [items firstObject];
