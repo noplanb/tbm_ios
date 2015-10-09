@@ -76,7 +76,7 @@ static APAddressBook* addressBook = nil;
     addressBook.fieldsMask = APContactFieldFirstName | APContactFieldLastName  | APContactFieldPhonesWithLabels | APContactFieldEmails;
     
     addressBook.filterBlock = ^BOOL(APContact *contact) {
-        return ((contact.phones.count > 0) | (contact.firstName.length));
+        return (contact.firstName.length);
     };
     
     [addressBook startObserveChangesWithCallback:^{
@@ -91,19 +91,19 @@ static APAddressBook* addressBook = nil;
         [addressBook loadContacts:^(NSArray *contacts, NSError *error) {
             
             ANDispatchBlockToBackgroundQueue(^{
-                
-                __block NSMutableArray* result = [NSMutableArray new];
+            
+                NSMutableDictionary* result = [NSMutableDictionary new];
                 [contacts enumerateObjectsUsingBlock:^(APContact*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                    
-                    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"fullName =[c] %@", [ZZUserPresentationHelper fullNameWithFirstName:obj.firstName lastName:obj.lastName]];
-              
-                    NSArray* items = [result filteredArrayUsingPredicate:predicate];
-                    id item = [self _userModelFromContact:obj container:[items firstObject]];
-                    if (item)
+                    ZZContactDomainModel* item = [ZZContactDomainModel modelWithFirstName:obj.firstName lastName:obj.lastName];
+                    ZZContactDomainModel* existingItem = result[[item.fullName lowercaseString]];
+                    if (existingItem)
                     {
-                        [result removeObject:item];
-                        [result addObject:item];
+                        item = existingItem;
                     }
+                    
+                    item = [self _fillUserModel:item fromContact:obj];
+                    result[[item.fullName lowercaseString]] = item;
                 }];
                 
                 [NSObject an_handleSubcriber:subscriber withObject:result error:error];
@@ -111,22 +111,21 @@ static APAddressBook* addressBook = nil;
         }];
         return [RACDisposable disposableWithBlock:^{}];
         
-    }] map:^id(NSArray* value) {
+    }] map:^id(NSDictionary* result) {
+        
+        NSArray* value = [result allValues];
+        
         return [value sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"fullName" ascending:YES]]];
     }];
 }
 
-+ (ZZContactDomainModel*)_userModelFromContact:(APContact*)contact container:(ZZContactDomainModel*)container
++ (ZZContactDomainModel*)_fillUserModel:(ZZContactDomainModel*)model fromContact:(APContact*)contact
 {
-    ZZContactDomainModel* model = container;
-    
     if (!ANIsEmpty(contact.firstName))
     {
         if (!model)
         {
-            model = [ZZContactDomainModel new];
-            model.firstName = [NSObject an_safeString:contact.firstName];
-            model.lastName = [NSObject an_safeString:contact.lastName];
+            model = [ZZContactDomainModel modelWithFirstName:contact.firstName lastName:contact.lastName];
         }
         
         NSArray* phones = [[contact.phonesWithLabels.rac_sequence map:^id(APPhoneWithLabel* value) {

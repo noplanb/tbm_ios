@@ -14,14 +14,22 @@
 #import "ZZGridDataProvider.h"
 #import "ZZFriendDataProvider.h"
 
+@interface ZZMenuInteractor ()
+
+@property (nonatomic, assign) BOOL isLoading;
+
+@end
+
 @implementation ZZMenuInteractor
 
 - (void)loadDataIncludeAddressBookRequest:(BOOL)shouldRequest
 {
-    NSArray* friends = [ZZFriendDataProvider loadAllFriends];
-    [self _sortFriendsFromArray:friends];
-    
-    [self _loadAddressBookContactsWithRequestAccess:shouldRequest];
+    ANDispatchBlockToBackgroundQueue(^{
+        NSArray* friends = [ZZFriendDataProvider loadAllFriends];
+        [self _sortFriendsFromArray:friends];
+        
+        [self _loadAddressBookContactsWithRequestAccess:shouldRequest];
+    });
 }
 
 
@@ -47,14 +55,20 @@
 
 - (void)_loadAddressBookContactsWithRequestAccess:(BOOL)shouldRequest
 {
-    [[ZZAddressBookDataProvider loadContactsWithContactsRequest:shouldRequest] subscribeNext:^(NSArray *addressBookContactsArray) {
-        
-        [self.output addressBookDataLoaded:addressBookContactsArray];
-        
-    } error:^(NSError *error) {
-        
-        [self.output needsPermissionForAddressBook];
-    }];
+    if (!self.isLoading)
+    {
+        self.isLoading = YES;
+        [[ZZAddressBookDataProvider loadContactsWithContactsRequest:shouldRequest] subscribeNext:^(NSArray *addressBookContactsArray) {
+            
+            [self.output addressBookDataLoaded:addressBookContactsArray];
+            self.isLoading = NO;
+            
+        } error:^(NSError *error) {
+            
+            [self.output needsPermissionForAddressBook];
+            self.isLoading = NO;
+        }];
+    }
 }
 
 - (void)_sortFriendsFromArray:(NSArray *)array
