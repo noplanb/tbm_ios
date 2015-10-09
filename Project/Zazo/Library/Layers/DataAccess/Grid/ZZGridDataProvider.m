@@ -142,33 +142,28 @@
     NSArray* gridStoredModels = [ZZGridDataProvider loadAllGridsSortByIndex:YES];
     NSMutableArray* gridModels = [NSMutableArray array];
     
-    if (gridStoredModels.count != gridModelsCount)
+    for (NSInteger count = 0; count < gridModelsCount; count++)
     {
-        for (NSInteger count = 0; count < gridModelsCount; count++)
+        ZZGridDomainModel* model;
+        if (gridStoredModels.count > count)
         {
-            ZZGridDomainModel* model;
-            if (gridStoredModels.count > count)
-            {
-                model = gridStoredModels[count];
-            }
-            else
-            {
-                model = [ZZGridDomainModel new];
-            }
-            model.index = count;
-            if (filteredFriends.count > count)
-            {
-                ZZFriendDomainModel* aFriend = filteredFriends[count];
-                model.relatedUser = aFriend;
-            }
-            
-            model = [ZZGridDataUpdater upsertModel:model];
-            [gridModels addObject:model];
+            model = gridStoredModels[count];
         }
-    }
-    else
-    {
-        return gridStoredModels;
+        else
+        {
+            model = [ZZGridDomainModel new];
+            model.index = count;
+        }
+        
+        if (filteredFriends.count > count)
+        {
+            if (ANIsEmpty(model.relatedUser))
+            {
+                model.relatedUser = [ZZFriendDataProvider lastActionFriendWihoutGrid];
+            }
+        }
+        model = [ZZGridDataUpdater upsertModel:model];
+        [gridModels addObject:model];
     }
     return gridModels;
 }
