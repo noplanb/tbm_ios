@@ -18,6 +18,7 @@
 + (ZZFriendDomainModel*)friendWithOutgoingVideoItemID:(NSString*)videoItemID;
 + (ZZFriendDomainModel*)friendWithItemID:(NSString*)itemID;
 + (ZZFriendDomainModel*)friendWithMKeyValue:(NSString*)mKeyValue;
++ (ZZFriendDomainModel*)lastActionFriendWihoutGrid;
 
 + (NSArray*)friendsOnGrid;
 

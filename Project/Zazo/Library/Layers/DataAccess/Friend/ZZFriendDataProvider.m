@@ -43,6 +43,20 @@
     return [self _findFirstWithAttribute:TBMFriendAttributes.mkey value:mKeyValue];
 }
 
++ (ZZFriendDomainModel*)lastActionFriendWihoutGrid
+{
+    NSArray* friendsOnGrid = [self friendsOnGrid];
+    NSArray* friendsIDs = [friendsOnGrid valueForKeyPath:ZZFriendDomainModelAttributes.idTbm];
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K NOT IN %@", TBMFriendAttributes.idTbm, friendsIDs ? : @[]];
+    NSArray* items = [TBMFriend MR_findAllSortedBy:TBMFriendAttributes.timeOfLastAction ascending:YES withPredicate:predicate inContext:[self _context]];
+    
+    TBMFriend* friend = [items firstObject];
+    if (friend)
+    {
+        return [ZZFriendDataProvider modelFromEntity:friend];
+    }
+    return nil;
+}
 
 #pragma mark - Entities
 
