@@ -273,7 +273,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         
         if (!ANIsEmpty(contact.emails))
         {
-            [ZZGridTransportService updateContactEmails:contact friend:x];
+            [[ZZGridTransportService updateContactEmails:contact friend:x] subscribeNext:^(id x) {}];
         }
         
         [ZZFriendDataUpdater upsertFriend:x];
