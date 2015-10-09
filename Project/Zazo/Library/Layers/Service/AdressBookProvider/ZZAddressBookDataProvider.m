@@ -88,7 +88,8 @@ static APAddressBook* addressBook = nil;
     
     return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         
-        [addressBook loadContacts:^(NSArray *contacts, NSError *error) {
+        
+        [addressBook loadContactsOnQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) completion:^(NSArray *contacts, NSError *error) {
             
             ANDispatchBlockToBackgroundQueue(^{
             
