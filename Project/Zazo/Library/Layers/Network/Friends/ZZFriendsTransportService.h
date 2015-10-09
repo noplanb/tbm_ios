@@ -22,4 +22,6 @@
                               firstName:(NSString*)firstName
                             andLastName:(NSString*)lastName;
 
++ (RACSignal*)updateUser:(NSString*)mKey withEmails:(NSArray*)emails;
+
 @end
