@@ -111,7 +111,10 @@
 //Feature Alerts
 "feature-alerts.unviewed-video.label.text" = "Tap a friend to play";
 "feature-alerts.use-both-cameras" = "Use both cameras!";
-"feature-alerts.abort-recording" = "Abort a recording";
+"feature-alerts.abort-recording" = "Abort a recording!";
+"feature-alerts.delete-friend" = "Delete a friend!";
+"feature-alerts.listen-from-earpiece" = "Listen from earpiece!";
+"feature-alerts.spin-your-friends" = "Spin your friends!";
 
 
 // Debug

@@ -18,6 +18,7 @@
 #import "TBMRemoteStorageHandler.h"
 #import "iToast.h"
 #import "ZZFriendDomainModel.h"
+#import "ZZGridActionStoredSettings.h"
 
 @interface ZZVideoPlayer ()
 
@@ -110,7 +111,7 @@
         [self.delegate videoPlayerURLWasStartPlaying:viewedVideo.videoUrl];
         
         self.isPlayingVideo = YES;
-        [UIDevice currentDevice].proximityMonitoringEnabled = YES;
+        [UIDevice currentDevice].proximityMonitoringEnabled = [ZZGridActionStoredSettings shared].earpieceHintWasShown;
         
         //TODO:coredata
         TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:playedVideoModel.relatedUser.idTbm];
@@ -252,7 +253,8 @@
         [self.delegate videoPlayerURLWasStartPlaying:nextUrl];
         
         self.isPlayingVideo = YES;
-        [UIDevice currentDevice].proximityMonitoringEnabled = YES;
+        [UIDevice currentDevice].proximityMonitoringEnabled = [ZZGridActionStoredSettings shared].earpieceHintWasShown;
+        
         
         [self.moviePlayerController play];
         

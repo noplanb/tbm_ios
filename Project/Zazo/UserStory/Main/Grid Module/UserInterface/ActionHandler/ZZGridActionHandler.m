@@ -109,7 +109,7 @@
        }
     }];
     
-    [self.featureEventObserver handleEvent:event withModel:model];
+    [self.featureEventObserver handleEvent:event withModel:model withIndex:index];
 }
 
 - (void)_configureHintControllerWithHintType:(ZZHintsType)hintType withModel:(ZZGridCellViewModel*)model index:(NSInteger)index
@@ -141,7 +141,7 @@
 
 #pragma mark - Feature Event Observer Delegate
 
-- (void)handleUnlockFeatureWithType:(ZZGridActionFeatureType)type
+- (void)handleUnlockFeatureWithType:(ZZGridActionFeatureType)type withIndex:(NSInteger)index
 {
     switch (type)
     {
@@ -165,20 +165,29 @@
         } break;
         case ZZGridActionFeatureTypeDeleteFriend:
         {
+            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.delete-friend", nil) withPresentedView:[self.userInterface presentedView] completionBlock:^{
+                [self handleEvent:ZZGridActionEventTypeDeleteFriendsFeatureUnlocked withIndex:0];
+                [self.delegate unlockedFeature:ZZGridActionFeatureTypeDeleteFriend];
+            }];
             
         } break;
         case ZZGridActionFeatureTypeEarpiece:
         {
+            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.listen-from-earpiece", nil) withPresentedView:[self.userInterface presentedView] completionBlock:^{
+                [self handleEvent:ZZGridActionEventTypeEarpieceFeatureUnlocked withIndex:5];
+                [self.delegate unlockedFeature:ZZGridActionFeatureTypeEarpiece];
+            }];
             
         } break;
         case ZZGridActionFeatureTypeSpinWheel:
         {
+            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.spin-your-friends", nil) withPresentedView:[self.userInterface presentedView] completionBlock:^{
+                [self handleEvent:ZZGridActionEventTypeSpinUsageFeatureUnlocked withIndex:6];
+                [self.delegate unlockedFeature:ZZGridActionFeatureTypeSpinWheel];
+            }];
             
         } break;
-        case ZZGridActionFeatureTypeTotal:
-        {
             
-        } break;
         default:
         {
         } break;

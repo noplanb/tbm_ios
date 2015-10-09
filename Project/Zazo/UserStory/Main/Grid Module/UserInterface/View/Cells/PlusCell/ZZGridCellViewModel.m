@@ -20,6 +20,7 @@
 #import "TBMFriend.h"
 #import "ZZFriendDataProvider.h"
 #import "iToast.h"
+#import "ZZGridActionStoredSettings.h"
 
 @interface ZZGridCellViewModel ()
 
@@ -245,7 +246,8 @@
 
 - (void)_checkIsCancelRecordingWithRecognizer:(UILongPressGestureRecognizer*)recognizer
 {
-    if ([ZZFeatureObserver sharedInstance].isRecordAbortWithDraggedEnabled)
+    
+    if ([ZZGridActionStoredSettings shared].abortRecordHintWasShown)
     {
         UIView* recordView = recognizer.view;
         CGPoint location = [recognizer locationInView:recordView];

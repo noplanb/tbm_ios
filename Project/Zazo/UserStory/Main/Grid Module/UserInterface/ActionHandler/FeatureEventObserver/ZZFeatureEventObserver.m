@@ -36,55 +36,109 @@
 
 - (void)_setupStrategy
 {
-    ZZUserDomainModel* authUser = [ZZUserDataProvider authenticatedUser];
-    
-    if (authUser.isInvitee)
-    {
-        self.strategy = [ZZFeatureEventStrategyInviteeUser new];
-    }
-    else
-    {
-        self.strategy = [ZZFeatureEventStrategyRegisteredUser new];
-    }
+//    ZZUserDomainModel* authUser = [ZZUserDataProvider authenticatedUser];
+//    
+//    if (authUser.isInvitee)
+//    {
+          self.strategy = [ZZFeatureEventStrategyInviteeUser new];
+//    }
+//    else
+//    {
+//        self.strategy = [ZZFeatureEventStrategyRegisteredUser new];
+//    }
 }
 
-- (void)handleEvent:(ZZGridActionEventType)event withModel:(ZZGridCellViewModel*)model
+- (void)handleEvent:(ZZGridActionEventType)event withModel:(ZZGridCellViewModel*)model withIndex:(NSInteger)index
 {
-    switch (event)
+    if (event == ZZGridActionEventTypeMessageDidSent)
     {
-        case ZZGridActionEventTypeMessageDidSent:
-        {
-            [self _handleBothCameraFeatureWithViewModel:model];
-            [self _handleAbortRecordingWithDragWithViewModel:model];
-            
-        }break;
+        [self _handleBothCameraFeatureWithViewModel:model withIndex:index];
+        [self _handleAbortRecordingWithDragWithViewModel:model withIndex:index];
+        [self _handleDeleteFriendWithViewModel:model withIndex:index];
+        [self _handleEventEarpieceWithViewModel:model withIndex:index];
+        [self _handelSpinWheelEventWithModel:model withIndex:index];
     }
 }
 
-- (void)_handleBothCameraFeatureWithViewModel:(ZZGridCellViewModel*)viewModel
+
+#pragma mark - Both Camera handel event
+
+- (void)_handleBothCameraFeatureWithViewModel:(ZZGridCellViewModel*)viewModel withIndex:(NSInteger)index
 {
     [self.strategy handleBothCameraFeatureWithModel:viewModel withCompletionBlock:^(BOOL isFeatureEnabled) {
         if (isFeatureEnabled)
         {
-            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeSwitchCamera];
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeSwitchCamera withIndex:index];
         }
         else
         {
-            [self.delegate handleUnlockFeatureWithType:ZZGridActionEventTypeNone];
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionEventTypeNone withIndex:index];
         }
     }];
 }
 
-- (void)_handleAbortRecordingWithDragWithViewModel:(ZZGridCellViewModel*)model
+
+#pragma mark - Abort Recording Handle event
+
+- (void)_handleAbortRecordingWithDragWithViewModel:(ZZGridCellViewModel*)model withIndex:(NSInteger)index
 {
     [self.strategy handleAbortRecordingFeatureWithModel:model withCompletionBlock:^(BOOL isFeatureEnabled) {
         if (isFeatureEnabled)
         {
-            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeAbortRec];
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeAbortRec withIndex:index];
         }
         else
         {
-            [self.delegate handleUnlockFeatureWithType:ZZGridActionEventTypeNone];
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionEventTypeNone withIndex:index];
+        }
+    }];
+}
+
+
+#pragma mark - Delete Friend handle event
+
+- (void)_handleDeleteFriendWithViewModel:(ZZGridCellViewModel*)model withIndex:(NSInteger)index
+{
+    [self.strategy handleDeleteFriendFeatureWithModel:model withCompletionBlock:^(BOOL isFeatureEnabled) {
+       if (isFeatureEnabled)
+       {
+           [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeDeleteFriend withIndex:index];
+       }
+       else
+       {
+           [self.delegate handleUnlockFeatureWithType:ZZGridActionEventTypeNone withIndex:index];
+       }
+    }];
+}
+
+
+#pragma mark - Handle Earpice event
+
+- (void)_handleEventEarpieceWithViewModel:(ZZGridCellViewModel*)model withIndex:(NSInteger)index
+{
+    [self.strategy handleEarpieceFeatureWithModel:model withCompletionBlock:^(BOOL isFeatureEnabled) {
+        if (isFeatureEnabled)
+        {
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeEarpiece withIndex:index];
+        }
+        else
+        {
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionEventTypeNone withIndex:index];
+        }
+    }];
+}
+
+
+- (void)_handelSpinWheelEventWithModel:(ZZGridCellViewModel*)model withIndex:(NSInteger)index
+{
+    [self.strategy handleSpinWheelFeatureWithModel:model withCompletionBlock:^(BOOL isFeatureEnabled) {
+        if (isFeatureEnabled)
+        {
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeSpinWheel withIndex:index];
+        }
+        else
+        {
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionEventTypeNone withIndex:index];
         }
     }];
 }

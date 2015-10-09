@@ -8,6 +8,7 @@
 
 #import "ZZActionSheetController.h"
 #import "ZZFeatureObserver.h"
+#import "ZZGridActionStoredSettings.h"
 
 @implementation ZZActionSheetController
 
@@ -46,11 +47,10 @@
     NSString *editFriendsButtonTitle = NSLocalizedString(@"grid-controller.menu.edit-friends.button.title", nil);
     NSString *sendFeedbackButtonTitle = NSLocalizedString(@"grid-controller.menu.send-feedback.button.title", nil);
     
-    
     UIActionSheet* actionSheet;
-    
 
-    if (YES) // ([ZZFeatureObserver sharedInstance].isDeleteFriendsEnabled)
+    
+    if ([ZZGridActionStoredSettings shared].deleteFriendHintWasShown)
     {
         actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                   delegate:nil
