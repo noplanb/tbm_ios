@@ -13,7 +13,6 @@
 #import "NSObject+ANSafeValues.h"
 #import "ZZVideoDomainModel.h"
 #import "ZZVideoRecorder.h"
-#import "ZZFeatureObserver.h"
 #import "ZZThumbnailGenerator.h"
 #import "ZZVideoStatuses.h"
 #import "ZZStoredSettingsManager.h"

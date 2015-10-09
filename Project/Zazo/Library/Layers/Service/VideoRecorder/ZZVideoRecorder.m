@@ -19,7 +19,6 @@
 #import "ZZGridUIConstants.h"
 #import "TBMVideoProcessor.h"
 #import "iToast.h"
-#import "ZZFeatureObserver.h"
 #import "AVAudioSession+TBMAudioSession.h"
 #import "TBMVideoRecorder.h"
 #import "TBMVideoIdUtils.h"

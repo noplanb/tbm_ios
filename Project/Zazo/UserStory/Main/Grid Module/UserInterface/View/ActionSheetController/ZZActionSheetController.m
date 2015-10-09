@@ -7,7 +7,6 @@
 //
 
 #import "ZZActionSheetController.h"
-#import "ZZFeatureObserver.h"
 #import "ZZGridActionStoredSettings.h"
 
 @implementation ZZActionSheetController
@@ -36,7 +35,17 @@
         {
             if (completionBlock)
             {
-                completionBlock([x integerValue]);
+                NSInteger buttonType;
+                if (![ZZGridActionStoredSettings shared].deleteFriendHintWasShown)
+                {
+                    buttonType = ZZEditMenuButtonTypeSendFeedback;
+                }
+                else
+                {
+                    buttonType = [x integerValue];
+                }
+                
+                completionBlock(buttonType);
             }
         }
     }];

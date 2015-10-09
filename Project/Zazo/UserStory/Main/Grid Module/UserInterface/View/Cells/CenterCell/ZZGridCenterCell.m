@@ -10,7 +10,8 @@
 #import "ZZGridCenterCellViewModel.h"
 #import "ZZVideoRecorder.h"
 #import "UIImage+PDF.h"
-#import "ZZFeatureObserver.h"
+#import "ZZGridActionStoredSettings.h"
+
 
 static CGFloat const kLayoutConstRecordingLabelHeight = 22;
 static CGFloat const kLayoutConstRecordingLabelFontSize = 0.55 * kLayoutConstRecordingLabelHeight;
@@ -127,7 +128,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
         [_switchCameraButton addTarget:self
                                 action:@selector(_switchCamera)
                       forControlEvents:UIControlEventTouchUpInside];
-        _switchCameraButton.hidden = [ZZFeatureObserver sharedInstance].isBothCameraEnabled;
+        _switchCameraButton.hidden = ![ZZGridActionStoredSettings shared].frontCameraHintWasShown;
         [self addSubview:_switchCameraButton];
         [_switchCameraButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.left.right.equalTo(self);

@@ -11,7 +11,6 @@
 #import "ZZGridCollectionController.h"
 #import "ZZGridDataSource.h"
 #import "ZZTouchObserver.h"
-#import "ZZFeatureObserver.h"
 #import "ZZActionSheetController.h"
 
 @interface ZZGridVC () <ZZTouchObserverDelegate, ZZGridCollectionControllerDelegate>
@@ -28,7 +27,6 @@
 {
     if (self = [super init])
     {
-        [ZZFeatureObserver sharedInstance];
         self.gridView = [ZZGridView new];
         self.controller = [ZZGridCollectionController new];
         self.controller.delegate = self;
