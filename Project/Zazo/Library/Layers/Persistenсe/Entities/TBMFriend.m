@@ -30,7 +30,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 + (NSManagedObjectContext*)_context
 {
-    return [NSManagedObjectContext MR_rootSavingContext];
+    return [NSManagedObjectContext MR_contextForCurrentThread];
 }
 
 + (NSArray *)all
@@ -413,18 +413,11 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (void)notifyVideoStatusChange
 {
-    ANDispatchBlockToBackgroundQueue(^{
-        DebugLog(@"notifyVideoStatusChange for %@ on %lu delegates", self.firstName, (unsigned long) [videoStatusNotificationDelegates count]);
-        for (id <TBMVideoStatusNotificationProtocol> delegate in videoStatusNotificationDelegates)
-        {
-            [delegate videoStatusDidChange:self];
-        }
-    });
-//    
-//    if (self.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED)//TODO: coredata
-//    {
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kFriendVideoViewedNotification object:self];
-//    }
+    DebugLog(@"notifyVideoStatusChange for %@ on %lu delegates", self.firstName, (unsigned long) [videoStatusNotificationDelegates count]);
+    for (id <TBMVideoStatusNotificationProtocol> delegate in videoStatusNotificationDelegates)
+    {
+        [delegate videoStatusDidChange:self];
+    }
 }
 
 - (NSString *)videoStatusString

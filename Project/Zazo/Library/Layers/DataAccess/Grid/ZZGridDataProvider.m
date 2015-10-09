@@ -37,7 +37,7 @@
     if (!ANIsEmpty(itemID))
     {
         NSURL* objectURL = [NSURL URLWithString:[NSString stringWithString:itemID]];
-        NSManagedObjectContext* context = [NSManagedObjectContext MR_rootSavingContext];
+        NSManagedObjectContext* context = [NSManagedObjectContext MR_contextForCurrentThread];
         NSManagedObjectID* objectID = [context.persistentStoreCoordinator managedObjectIDForURIRepresentation:objectURL];
         NSError* error = nil;
         if (!ANIsEmpty(objectID))
