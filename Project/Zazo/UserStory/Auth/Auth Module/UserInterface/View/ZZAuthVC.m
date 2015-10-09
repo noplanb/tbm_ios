@@ -19,6 +19,7 @@
 @property (nonatomic, strong) ZZKeyboardObserver* keyboardObserver;
 @property (nonatomic, strong) NSNumber* animationDuration;
 @property (nonatomic, strong) ZZTextFieldsDelegate* textFieldDelegate;
+@property (nonatomic, assign) BOOL isKeyboardShown;
 
 @end
 
@@ -29,7 +30,7 @@
     if (self = [super init])
     {
         self.contentView = [ZZAuthContentView new];
-        self.keyboardObserver = [[ZZKeyboardObserver alloc] initWithDelegate:self];
+//        self.keyboardObserver = [[ZZKeyboardObserver alloc] initWithDelegate:self];
         self.textFieldDelegate = [ZZTextFieldsDelegate new];
         
         ZZAuthRegistrationView* view = self.contentView.registrationView;
@@ -50,6 +51,8 @@
                                              countryCode:view.phoneCodeTextField.text
                                                    phone:view.phoneNumberTextField.text];
         }];
+        
+        [self setupKeyboard];
     }
     return self;
 }
@@ -61,6 +64,7 @@
 
 - (void)dealloc
 {
+    [self prepareForDie];
     [self.keyboardObserver removeKeyboardNotification];
 }
 
@@ -116,81 +120,186 @@
 }
 
 
-#pragma mark - Keyboard observer
+#pragma mark - Keyboard
 
-- (void)keyboardChangeFrameWithAnimationDuration:(NSNumber*)animationDuration
-                              withKeyboardHeight:(CGFloat)keyboardHeight
-                               withKeyboardFrame:(CGRect)keyboarFrame
+- (void)setupKeyboard
 {
-    self.animationDuration = animationDuration;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillChangeFrameNotification
+                                               object:nil];
+}
+
+- (void)prepareForDie
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)keyboardWillShow:(NSNotification*)aNotification
+{
+    if (!self.isKeyboardShown)
+    {
+        self.isKeyboardShown = YES;
+        [self handleKeyboardWithNotification:aNotification];
+    }
+}
+
+- (void)keyboardWillHide:(NSNotification*)aNotification
+{
+    if (self.isKeyboardShown)
+    {
+        self.isKeyboardShown = NO;
+        [self handleKeyboardWithNotification:aNotification];
+    }
+}
+
+- (UIView*)findViewThatIsFirstResponderInParent:(UIView*)parent
+{
+    if (parent.isFirstResponder)
+    {
+        return parent;
+    }
+    
+    for (UIView *subView in parent.subviews)
+    {
+        UIView *firstResponder = [self findViewThatIsFirstResponderInParent:subView];
+        if (firstResponder != nil)
+        {
+            return firstResponder;
+        }
+    }
+    
+    return nil;
+}
+
+- (void)handleKeyboardWithNotification:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGFloat kbHeight = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
+    CGFloat duration = [info[UIKeyboardAnimationDurationUserInfoKey] floatValue];
     if (IS_IPHONE_4)
     {
-        [UIView animateWithDuration:[self.animationDuration doubleValue] animations:^{
+        kbHeight = 320;
+    }
+    kbHeight = self.isKeyboardShown ? kbHeight : -kbHeight;
+    
+    ANDispatchBlockToMainQueue(^{
+        [UIView animateWithDuration:duration animations:^{
             
-            UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, 320, 0);
-            self.contentView.scrollView.contentInset = insets;
-            self.contentView.scrollView.scrollIndicatorInsets = insets;
-            [self.view layoutIfNeeded];
+            UIEdgeInsets contentInsets = UIEdgeInsetsMake(self.contentView.scrollView.contentInset.top,
+                                                          0.0,
+                                                          self.contentView.scrollView.contentInset.bottom + kbHeight,
+                                                          0.0);
+            
+            self.contentView.scrollView.contentInset = contentInsets;
+            self.contentView.scrollView.scrollIndicatorInsets = contentInsets;
+            UIView* responder = [self findViewThatIsFirstResponderInParent:self.contentView.scrollView];
+            if (responder)
+            {
+                CGRect rect = [self.contentView.scrollView convertRect:responder.frame
+                                                              fromView:responder.superview];
+                
+                [self.contentView.scrollView scrollRectToVisible:rect animated:NO];
+            }
         } completion:^(BOOL finished) {
             
-            self.contentView.scrollView.scrollEnabled = NO;
         }];
-    }
-    else
-    {
-        if (CGRectIntersectsRect(self.contentView.registrationView.phoneNumberTextField.frame, keyboarFrame))
-        {
-            CGRect intersectionFrame =  CGRectIntersection(self.contentView.registrationView.signInButton.frame, keyboarFrame);
-            [self changeRegistartionViewPositionWithKeyboardHeight:(CGRectGetHeight(intersectionFrame) + CGRectGetHeight(self.contentView.registrationView.phoneNumberTextField.frame))];
-        }
-        else if (CGRectIntersectsRect(self.contentView.registrationView.signInButton.frame, keyboarFrame))
-        {
-            UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, keyboardHeight, 0);
-            self.contentView.scrollView.contentInset = insets;
-            self.contentView.scrollView.scrollIndicatorInsets = insets;
-            self.contentView.scrollView.scrollEnabled = YES;
-        }
-        else
-        {
-            UIEdgeInsets insets = UIEdgeInsetsZero;
-            self.contentView.scrollView.contentInset = insets;
-            self.contentView.scrollView.scrollIndicatorInsets = insets;
-            
-            self.contentView.scrollView.scrollEnabled = NO;
-        }
-    }
+    });
 }
 
-- (void)keyboardWillHide
+- (void)hideKeyboard
 {
-    [self scrollDownRegistrationView];
+    [self.contentView endEditing:YES];
 }
 
-- (void)changeRegistartionViewPositionWithKeyboardHeight:(CGFloat)keyboardHeight
-{
-    [UIView animateWithDuration:[self.animationDuration doubleValue] animations:^{
-       
-        self.contentView.scrollView.contentInset = UIEdgeInsetsMake(0, 0, keyboardHeight / 2, 0);
-        self.contentView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, keyboardHeight / 2, 0);
-        [self.view layoutIfNeeded];
-    } completion:^(BOOL finished) {
-        
-        self.contentView.scrollView.scrollEnabled = YES;
-    }];
-}
 
-- (void)scrollDownRegistrationView
-{
-    [UIView animateWithDuration:[self.animationDuration doubleValue] animations:^{
-        
-        self.contentView.scrollView.contentInset = UIEdgeInsetsZero;
-        self.contentView.scrollView.scrollIndicatorInsets = UIEdgeInsetsZero;
-        [self.view layoutIfNeeded];
-        
-    } completion:^(BOOL finished) {
-        
-        self.contentView.scrollView.scrollEnabled = NO;
-    }];
-}
+//
+//
+//#pragma mark - Keyboard observer
+//
+//- (void)keyboardChangeFrameWithAnimationDuration:(NSNumber*)animationDuration
+//                              withKeyboardHeight:(CGFloat)keyboardHeight
+//                               withKeyboardFrame:(CGRect)keyboarFrame
+//{
+//    self.animationDuration = animationDuration;
+//    if (IS_IPHONE_4)
+//    {
+//        [UIView animateWithDuration:[self.animationDuration doubleValue] animations:^{
+//            
+//            UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, 320, 0);
+//            self.contentView.scrollView.contentInset = insets;
+//            self.contentView.scrollView.scrollIndicatorInsets = insets;
+//            [self.view layoutIfNeeded];
+//        } completion:^(BOOL finished) {
+//            
+//            self.contentView.scrollView.scrollEnabled = NO;
+//        }];
+//    }
+//    else
+//    {
+//        if (CGRectIntersectsRect(self.contentView.registrationView.phoneNumberTextField.frame, keyboarFrame))
+//        {
+//            CGRect intersectionFrame =  CGRectIntersection(self.contentView.registrationView.signInButton.frame, keyboarFrame);
+//            [self changeRegistartionViewPositionWithKeyboardHeight:(CGRectGetHeight(intersectionFrame) + CGRectGetHeight(self.contentView.registrationView.phoneNumberTextField.frame))];
+//        }
+//        else if (CGRectIntersectsRect(self.contentView.registrationView.signInButton.frame, keyboarFrame))
+//        {
+//            UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, keyboardHeight, 0);
+//            self.contentView.scrollView.contentInset = insets;
+//            self.contentView.scrollView.scrollIndicatorInsets = insets;
+//            self.contentView.scrollView.scrollEnabled = YES;
+//        }
+//        else
+//        {
+//            UIEdgeInsets insets = UIEdgeInsetsZero;
+//            self.contentView.scrollView.contentInset = insets;
+//            self.contentView.scrollView.scrollIndicatorInsets = insets;
+//            
+//            self.contentView.scrollView.scrollEnabled = NO;
+//        }
+//    }
+//}
+//
+//- (void)keyboardWillHide
+//{
+//    [self scrollDownRegistrationView];
+//}
+//
+//- (void)changeRegistartionViewPositionWithKeyboardHeight:(CGFloat)keyboardHeight
+//{
+//    [UIView animateWithDuration:[self.animationDuration doubleValue] animations:^{
+//       
+//        self.contentView.scrollView.contentInset = UIEdgeInsetsMake(0, 0, keyboardHeight / 2, 0);
+//        self.contentView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, keyboardHeight / 2, 0);
+//        [self.view layoutIfNeeded];
+//    } completion:^(BOOL finished) {
+//        
+//        self.contentView.scrollView.scrollEnabled = YES;
+//    }];
+//}
+//
+//- (void)scrollDownRegistrationView
+//{
+//    [UIView animateWithDuration:[self.animationDuration doubleValue] animations:^{
+//        
+//        self.contentView.scrollView.contentInset = UIEdgeInsetsZero;
+//        self.contentView.scrollView.scrollIndicatorInsets = UIEdgeInsetsZero;
+//        [self.view layoutIfNeeded];
+//        
+//    } completion:^(BOOL finished) {
+//        
+//        self.contentView.scrollView.scrollEnabled = NO;
+//    }];
+//}
 
 @end

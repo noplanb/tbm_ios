@@ -15,16 +15,13 @@
 
 + (NSArray *)validatePhonesFromContactModel:(ZZContactDomainModel *)model
 {
-    NSMutableArray *validNumbers = [NSMutableArray new];
-    
-    if (model.phones.count > 0)
-    {
-        [model.phones enumerateObjectsUsingBlock:^(ZZCommunicationDomainModel* communicationModel, NSUInteger idx, BOOL *stop) {
-            communicationModel.contact = [self clearPhone:communicationModel.contact];
-            [validNumbers addObject:communicationModel];
-        }];
-    }
-    return validNumbers;
+    model.phones = [[model.phones.rac_sequence map:^id(ZZCommunicationDomainModel* communicationModel) {
+        
+        communicationModel.contact = [self clearPhone:communicationModel.contact];
+        return ANIsEmpty(communicationModel.contact) ? nil : communicationModel;
+        
+    }] array];
+    return model.phones;
 }
 
 + (NSString*)clearPhone:(NSString*)phone
