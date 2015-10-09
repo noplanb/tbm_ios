@@ -294,7 +294,6 @@
                                                              }
                                                          }];
     }
-    
 }
 
 - (void)pollVideoStatusWithFriend:(TBMFriend *)friend

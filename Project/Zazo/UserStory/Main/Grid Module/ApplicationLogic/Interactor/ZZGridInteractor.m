@@ -244,11 +244,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithRelatedUserID:model.idTbm];
     if (!gridModel)
     {
-        if (model.lastVideoStatusEventTypeValue == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
-            model.lastIncomingVideoStatusValue == INCOMING_VIDEO_STATUS_DOWNLOADING)
-        {
-            [self addUserToGrid:[ZZFriendDataProvider modelFromEntity:model]];
-        }
+        [self addUserToGrid:[ZZFriendDataProvider modelFromEntity:model]];
     }
     else
     {
