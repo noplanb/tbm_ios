@@ -48,8 +48,6 @@
                                              countryCode:view.phoneCodeTextField.text
                                                    phone:view.phoneNumberTextField.text];
         }];
-        
-//        [self setupKeyboard];
     }
     return self;
 }
@@ -58,12 +56,6 @@
 {
     self.view = self.contentView;
 }
-
-//- (void)dealloc
-//{
-//    [self prepareForDie];
-//    [self.keyboardObserver removeKeyboardNotification];
-//}
 
 - (void)viewDidLoad
 {
@@ -115,108 +107,5 @@
 {
     [self.eventHandler requestCall];
 }
-
-
-//#pragma mark - Keyboard
-//
-//- (void)setupKeyboard
-//{
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(keyboardWillShow:)
-//                                                 name:UIKeyboardWillShowNotification
-//                                               object:nil];
-//    
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(keyboardWillHide:)
-//                                                 name:UIKeyboardWillHideNotification
-//                                               object:nil];
-//    
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(keyboardWillShow:)
-//                                                 name:UIKeyboardWillChangeFrameNotification
-//                                               object:nil];
-//}
-//
-//- (void)prepareForDie
-//{
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];
-//}
-//
-//- (void)keyboardWillShow:(NSNotification*)aNotification
-//{
-//    if (!self.isKeyboardShown)
-//    {
-//        self.isKeyboardShown = YES;
-//        [self handleKeyboardWithNotification:aNotification];
-//    }
-//}
-//
-//- (void)keyboardWillHide:(NSNotification*)aNotification
-//{
-//    if (self.isKeyboardShown)
-//    {
-//        self.isKeyboardShown = NO;
-//        [self handleKeyboardWithNotification:aNotification];
-//    }
-//}
-//
-//- (UIView*)findViewThatIsFirstResponderInParent:(UIView*)parent
-//{
-//    if (parent.isFirstResponder)
-//    {
-//        return parent;
-//    }
-//    
-//    for (UIView *subView in parent.subviews)
-//    {
-//        UIView *firstResponder = [self findViewThatIsFirstResponderInParent:subView];
-//        if (firstResponder != nil)
-//        {
-//            return firstResponder;
-//        }
-//    }
-//    
-//    return nil;
-//}
-//
-//- (void)handleKeyboardWithNotification:(NSNotification*)aNotification
-//{
-//    NSDictionary* info = [aNotification userInfo];
-//    CGFloat kbHeight = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
-//    CGFloat duration = [info[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-//    if (IS_IPHONE_4)
-//    {
-//        kbHeight = 320;
-//    }
-//    kbHeight = self.isKeyboardShown ? kbHeight : -kbHeight;
-//    
-//    ANDispatchBlockToMainQueue(^{
-//        [UIView animateWithDuration:duration animations:^{
-//            
-//            UIEdgeInsets contentInsets = UIEdgeInsetsMake(self.contentView.scrollView.contentInset.top,
-//                                                          0.0,
-//                                                          self.contentView.scrollView.contentInset.bottom + kbHeight,
-//                                                          0.0);
-//            
-//            self.contentView.scrollView.contentInset = contentInsets;
-//            self.contentView.scrollView.scrollIndicatorInsets = contentInsets;
-//            UIView* responder = [self findViewThatIsFirstResponderInParent:self.contentView.scrollView];
-//            if (responder)
-//            {
-//                CGRect rect = [self.contentView.scrollView convertRect:responder.frame
-//                                                              fromView:responder.superview];
-//                
-//                [self.contentView.scrollView scrollRectToVisible:rect animated:NO];
-//            }
-//        } completion:^(BOOL finished) {
-//            
-//        }];
-//    });
-//}
-//
-//- (void)hideKeyboard
-//{
-//    [self.contentView endEditing:YES];
-//}
 
 @end

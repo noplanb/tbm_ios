@@ -33,7 +33,6 @@
             make.centerX.equalTo(self.scrollView.mas_centerX);
         }];
     }
-    
     return _registrationView;
 }
 
