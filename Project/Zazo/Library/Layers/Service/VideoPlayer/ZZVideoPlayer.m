@@ -235,29 +235,12 @@
 - (void)_playNext
 {
     
-//    __block NSInteger index;
-//    [self.videoModelsArray enumerateObjectsUsingBlock:^(ZZVideoDomainModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        TBMVideo* viewedVideo = [TBMVideo findWithVideoId:obj.videoID];
-//        if ([viewedVideo.videoUrl.path isEqualToString:self.moviePlayerController.contentURL.path])
-//        {
-//            index = idx;
-//            *stop = YES;
-//        }
-//    }];
-//    
-//    index++;
-    
     NSInteger index = [self _nextVideoIndex];
     
     NSURL* nextUrl = nil;
     
-//    if (index < self.videoModelsArray.count)
     if (index < self.playedVideoUrls.count)
     {
-        
-//        ZZVideoDomainModel* nextModel = self.videoModelsArray[index];
-//        TBMVideo* nextVideo = [TBMVideo findWithVideoId:nextModel.videoID];
-//        nextUrl = nextVideo.videoUrl;
         nextUrl = self.playedVideoUrls[index];
     }
     else

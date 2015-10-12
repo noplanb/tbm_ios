@@ -173,7 +173,9 @@
         BOOL isTwoCamerasAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
         BOOL isSwitchCameraAvailable = [ZZGridActionStoredSettings shared].frontCameraHintWasShown;
         
-        [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:(isTwoCamerasAvailable && isSwitchCameraAvailable)];
+        [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:(isTwoCamerasAvailable &&
+                                                                          isSwitchCameraAvailable &&
+                                                                          [ZZGridActionStoredSettings shared].frontCameraHintWasShown)];
         
         [[ZZVideoRecorder shared] updateRecordView:[self.dataSource centerViewModel].recordView];
     });
@@ -233,8 +235,11 @@
 
 - (void)presentMenu
 {
-    [self.wireframe toggleMenu];
-    [self.userInterface menuWasOpened];
+    if (![ZZVideoRecorder shared].isRecordingInProgress)
+    {
+        [self.wireframe toggleMenu];
+        [self.userInterface menuWasOpened];
+    }
 }
 
 
@@ -285,8 +290,11 @@
 
 - (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel*)userModel
 {
-    [self.interactor updateLastActionForFriend:userModel];
-    [self _nudgeUser:userModel];
+    if (![ZZVideoRecorder shared].isRecordingInProgress)
+    {
+        [self.interactor updateLastActionForFriend:userModel];
+        [self _nudgeUser:userModel];
+    }
 }
 
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled
@@ -419,6 +427,10 @@
     [self.interactor loadFeedbackModel];
 }
 
+- (BOOL)isRecordingInProgress
+{
+    return [ZZVideoRecorder shared].isRecordingInProgress;
+}
 
 #pragma mark - Video Recorder Delegate
 
@@ -443,7 +455,12 @@
 {
     if (feature == ZZGridActionFeatureTypeSwitchCamera)
     {
-        [self.userInterface updateSwitchButtonWithState:NO];
+        BOOL isTwoCamerasAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
+        BOOL isSwitchCameraAvailable = [ZZGridActionStoredSettings shared].frontCameraHintWasShown;
+        [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:(isTwoCamerasAvailable &&
+                                                                          isSwitchCameraAvailable &&
+                                                                          [ZZGridActionStoredSettings shared].frontCameraHintWasShown)];
+        
     }
 }
 

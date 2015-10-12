@@ -97,24 +97,28 @@
 
 - (void)editFriendsSelected
 {
-    [ZZActionSheetController actionSheetWithPresentedView:self.view
-                                                    frame:self.gridView.headerView.editFriendsButton.frame
-                                          completionBlock:^(ZZEditMenuButtonType selectedType) {
+    if (![self.eventHandler isRecordingInProgress])
+    {
         
-              switch (selectedType)
-              {
-                  case ZZEditMenuButtonTypeEditFriends:
-                  {
-                      [self.eventHandler presentEditFriendsController];
-                  } break;
-                      
-                  case ZZEditMenuButtonTypeSendFeedback:
-                  {
-                      [self.eventHandler presentSendEmailController];
-                  } break;
-                  default: break;
-              }
-    }];
+        [ZZActionSheetController actionSheetWithPresentedView:self.view
+                                                        frame:self.gridView.headerView.editFriendsButton.frame
+                                              completionBlock:^(ZZEditMenuButtonType selectedType) {
+                                                  
+                                                  switch (selectedType)
+                                                  {
+                                                      case ZZEditMenuButtonTypeEditFriends:
+                                                      {
+                                                          [self.eventHandler presentEditFriendsController];
+                                                      } break;
+                                                          
+                                                      case ZZEditMenuButtonTypeSendFeedback:
+                                                      {
+                                                          [self.eventHandler presentSendEmailController];
+                                                      } break;
+                                                      default: break;
+                                                  }
+                                              }];
+    }
 }
 
 - (void)updateRollingStateTo:(BOOL)isEnabled
@@ -137,13 +141,6 @@
 
 
 #pragma mark Private
-
-- (void)updateSwitchButtonWithState:(BOOL)isHidden
-{
-    NSInteger centerCellIndex = 4;
-    ZZGridCenterCell* centerCell = self.gridView.items[centerCellIndex];
-    [centerCell updateSwithCameraStateTo:isHidden];
-}
 
 - (CGRect)_frameForIndex:(NSInteger)index
 {

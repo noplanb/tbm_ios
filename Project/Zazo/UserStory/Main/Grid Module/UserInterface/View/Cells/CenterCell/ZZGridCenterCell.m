@@ -74,13 +74,6 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
     }
 }
 
-- (void)updateSwithCameraStateTo:(BOOL)isHidden
-{
-    ANDispatchBlockToMainQueue(^{
-        self.switchCameraButton.hidden = isHidden;
-    });
-}
-
 
 #pragma mark - Private
 
@@ -176,7 +169,8 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
         [self.recordingContainer addSubview:_recordingLabel];
         
         [_recordingLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.bottom.right.equalTo(self.recordingContainer);
+            make.left.equalTo(self.recordingContainer).with.offset(kLayoutConstRecordingBorderWidth);
+            make.bottom.right.equalTo(self.recordingContainer).with.offset(-kLayoutConstRecordingBorderWidth);
             make.height.equalTo(@(kLayoutConstRecordingLabelHeight - kLayoutConstRecordingBorderWidth));
         }];
     }
