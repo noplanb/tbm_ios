@@ -48,8 +48,8 @@
         [[NSUserDefaults standardUserDefaults] setInteger:sendMessageCounter forKey:kSendMessageCounterKey];
         [[NSUserDefaults standardUserDefaults] setObject:model.item.relatedUser.idTbm forKey:kFriendIdDefaultKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        
         isFeatureEnabled = YES;
+        self.isFeatureShowed = YES;
     }
     
     return isFeatureEnabled;
