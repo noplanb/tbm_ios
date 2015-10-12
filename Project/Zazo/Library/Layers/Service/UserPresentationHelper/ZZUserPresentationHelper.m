@@ -13,11 +13,14 @@
 + (NSString*)fullNameWithFirstName:(NSString*)firstName lastName:(NSString*)lastName
 {
     NSString* username = [NSObject an_safeString:firstName];
-    if (username.length)
+    if (username.length && lastName.length)
     {
         username = [username stringByAppendingString:@" "];
     }
-    return [username stringByAppendingString:[NSObject an_safeString:lastName]];
+    
+    BOOL shouldUseSpace = (!ANIsEmpty(firstName) && !ANIsEmpty(lastName));
+    
+    return [NSString stringWithFormat:@"%@%@%@", [NSObject an_safeString:firstName], shouldUseSpace ? @" " : @"", [NSObject an_safeString:lastName]];
 }
 
 @end

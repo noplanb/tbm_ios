@@ -15,7 +15,11 @@
     value = value ? : @"";
     if ([value isKindOfClass:[NSNull class]])
     {
-        value = @"";
+        return @"";
+    }
+    if ([value isKindOfClass:[NSString class]])
+    {
+        return value;
     }
     return [NSString stringWithFormat:@"%@", value];
 }

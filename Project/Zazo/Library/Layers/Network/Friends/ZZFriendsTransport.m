@@ -45,7 +45,7 @@
 {
     return [[ZZNetworkTransport shared] requestWithPath:kApiUpdateFriendProfile
                                              parameters:parameters
-                                             httpMethod:ANHttpMethodTypeGET];
+                                             httpMethod:ANHttpMethodTypePOSTJSON];
 }
 
 

@@ -138,10 +138,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (NSArray*)_gridModels
 {
     NSArray* gridModels = [ZZGridDataProvider loadAllGridsSortByIndex:NO];
-    if (gridModels.count != kGridFriendsCellCount)
-    {
-        gridModels = [ZZGridDataProvider loadOrCreateGridModelsWithCount:kGridFriendsCellCount];
-    }
+    gridModels = [ZZGridDataProvider loadOrCreateGridModelsWithCount:kGridFriendsCellCount];
     NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:@"indexPathIndexForItem" ascending:YES];
     return [gridModels sortedArrayUsingDescriptors:@[sort]];
 }
@@ -277,7 +274,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         
         if (!ANIsEmpty(contact.emails))
         {
-            [ZZGridTransportService updateContactEmails:contact friend:x];
+            [[ZZGridTransportService updateContactEmails:contact friend:x] subscribeNext:^(id x) {}];
         }
         
         [ZZFriendDataUpdater upsertFriend:x];

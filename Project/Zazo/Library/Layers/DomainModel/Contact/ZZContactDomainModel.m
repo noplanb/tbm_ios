@@ -9,11 +9,21 @@
 #import "ZZContactDomainModel.h"
 #import "ZZUserPresentationHelper.h"
 
+@interface ZZContactDomainModel ()
+
+@property (nonatomic, copy) NSString* fullName;
+
+@end
+
 @implementation ZZContactDomainModel
 
-- (NSString *)fullName
++ (instancetype)modelWithFirstName:(NSString *)firstName lastName:(NSString *)lastName
 {
-    return [ZZUserPresentationHelper fullNameWithFirstName:self.firstName lastName:self.lastName];
+    ZZContactDomainModel* model = [self new];
+    model.firstName = firstName;
+    model.lastName = lastName;
+    model.fullName = [ZZUserPresentationHelper fullNameWithFirstName:model.firstName lastName:model.lastName];
+    return model;
 }
 
 - (NSString*)photoURLString

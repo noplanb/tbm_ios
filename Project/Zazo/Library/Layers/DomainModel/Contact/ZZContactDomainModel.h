@@ -24,4 +24,6 @@
 - (NSString*)fullName;
 - (ZZMenuContactType)contactType;
 
++ (instancetype)modelWithFirstName:(NSString*)firstName lastName:(NSString*)lastName;
+
 @end
