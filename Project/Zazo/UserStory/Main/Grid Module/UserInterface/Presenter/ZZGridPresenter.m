@@ -105,25 +105,52 @@
 - (void)reloadGridModel:(ZZGridDomainModel*)model
 {
     [self.dataSource updateCellWithModel:model];
+}
 
+- (void)reloadAfterVideoUpdateGridModel:(ZZGridDomainModel *)model
+{
+    if ([self _isAbleToUpdateWithModel:model])
+    {
+        [self.dataSource updateCellWithModel:model];
+    }
 }
 
 - (void)updateGridWithModel:(ZZGridDomainModel*)model isNewFriend:(BOOL)isNewFriend
 {
-    model.isDownloadAnimationViewed = YES;
-    [self.dataSource updateCellWithModel:model];
- //TODO:
-//    if (model.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED)
-//    {
-//        [self.soundPlayer play]; // TODO: check
-//    }
-    
-    if (isNewFriend)
+    if ([self _isAbleToUpdateWithModel:model])
     {
-        NSInteger index = [self.dataSource viewModelIndexWithModelIndex:model.index];
-        [self.userInterface showFriendAnimationWithIndex:index];
+        model.isDownloadAnimationViewed = YES;
+        [self.dataSource updateCellWithModel:model];
+        //TODO:
+        //    if (model.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED)
+        //    {
+        //        [self.soundPlayer play]; // TODO: check
+        //    }
+        
+        if (isNewFriend)
+        {
+            NSInteger index = [self.dataSource viewModelIndexWithModelIndex:model.index];
+            [self.userInterface showFriendAnimationWithIndex:index];
+        }
+    }
+}
+
+- (BOOL)_isAbleToUpdateWithModel:(ZZGridDomainModel*)model
+{
+    BOOL isAbleUpdte = YES;
+    
+    if (self.videoPlayer.isPlayingVideo &&
+        [[self.videoPlayer playedFriendModel].idTbm isEqualToString:model.relatedUser.idTbm])
+    {
+        if (model.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED)
+        {
+            [self.videoPlayer updateWithFriendModel:model.relatedUser];
+        }
+        
+        isAbleUpdte = NO;
     }
     
+    return isAbleUpdte;
 }
 
 

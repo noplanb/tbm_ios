@@ -242,7 +242,8 @@ static NSInteger const kGridFriendsCellCount = 8;
     }
     else
     {
-        [self.output reloadGridModel:gridModel];
+//        [self.output reloadGridModel:gridModel];
+        [self.output reloadAfterVideoUpdateGridModel:gridModel];
     }
     
     [self _handleModel:gridModel];

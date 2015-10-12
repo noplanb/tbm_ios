@@ -22,7 +22,8 @@
 @property (nonatomic, assign) BOOL isPlayingVideo;
 
 + (instancetype)videoPlayerWithDelegate:(id<ZZVideoPlayerDelegate>)delegate;
-
+- (ZZFriendDomainModel*)playedFriendModel;
+- (void)updateWithFriendModel:(ZZFriendDomainModel*)friendModel;
 - (void)playOnView:(UIView*)view withURLs:(NSArray*)URLs;
 - (void)stop;
 
