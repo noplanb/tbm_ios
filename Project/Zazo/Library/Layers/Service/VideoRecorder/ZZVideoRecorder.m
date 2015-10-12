@@ -164,7 +164,10 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         if ((touch.phase == UITouchPhaseBegan && self.isRecorderActive) ||
             (touch.phase == UITouchPhaseStationary && self.isRecorderActive))
         {
-            [self cancelRecordingWithDoubleTap];
+//            CGFloat kDelayAfterTouch = 0.5;
+//            ANDispatchBlockAfter(kDelayAfterTouch, ^{
+                [self cancelRecordingWithDoubleTap];
+//            });
         }
         else if (touch.phase == UITouchPhaseEnded && self.isRecorderActive)
         {
@@ -272,6 +275,8 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 {
     self.completionBlock = completionBlock;
     self.isRecorderActive = YES;
+    self.isRecordingInProgress = YES;
+    
     self.didCancelRecording = NO;
     [self startTouchObserve];
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
@@ -310,8 +315,16 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         }
     }
     self.isRecorderActive = NO;
+    [self _recordingProgressStopped];
 }
 
+- (void)_recordingProgressStopped
+{
+    CGFloat kDelayAfterRecordingStopped = 0.5f;
+    ANDispatchBlockAfter(kDelayAfterRecordingStopped, ^{
+        self.isRecordingInProgress = NO;
+    });
+}
 
 #pragma mark - Stop Recording
 
@@ -330,6 +343,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     self.isRecorderActive = NO;
     self.completionBlock = completionBlock;
     [self.recorder stopRecording];
+    [self _recordingProgressStopped];
 }
 
 - (void)videoRecorderDidStartRecording

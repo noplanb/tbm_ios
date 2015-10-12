@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UIButton* tapButton;
 @property (nonatomic, strong) NSArray* videoModelsArray;
 @property (nonatomic, strong) ZZFriendDomainModel* playedFriend;
+@property (nonatomic, strong) NSMutableArray* playedVideoUrls;
 
 @end
 
@@ -44,6 +45,7 @@
     if (self)
     {
         [self addNotifications];
+        self.playedVideoUrls = [NSMutableArray array];
     }
     return self;
 }
@@ -86,6 +88,7 @@
     NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
     self.videoModelsArray = [URLs sortedArrayUsingDescriptors:@[sortDescriptor]];
     
+    [self _configurePlayedUrlsWithModels:self.videoModelsArray];
     
     if (view != self.moviePlayerController.view.superview && view)
     {
@@ -119,8 +122,16 @@
         [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
                                                       videoId:viewedVideo.videoId
                                                        friend:friend];
-//        [self.actionHandler handleEvent:<#(ZZGridActionEventType)#>]
     }
+}
+
+- (void)_configurePlayedUrlsWithModels:(NSArray*)videoModels
+{
+    [self.playedVideoUrls removeAllObjects];
+    [self.playedVideoUrls addObjectsFromArray:[[self.videoModelsArray.rac_sequence map:^id(ZZVideoDomainModel* value) {
+        TBMVideo* video = [TBMVideo findWithVideoId:value.videoID];
+        return video.videoUrl;
+    }] array]];
 }
 
 - (void)stop
@@ -198,29 +209,39 @@
     }
 }
 
-- (void)_playNext
+
+#pragma mark - Configure Next played index
+
+- (NSInteger)_nextVideoIndex
 {
-    
-    __block NSInteger index;
-    [self.videoModelsArray enumerateObjectsUsingBlock:^(ZZVideoDomainModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        TBMVideo* viewedVideo = [TBMVideo findWithVideoId:obj.videoID];
-        if ([viewedVideo.videoUrl.path isEqualToString:self.moviePlayerController.contentURL.path])
+    __block NSInteger index = NSNotFound;
+    [self.playedVideoUrls enumerateObjectsUsingBlock:^(NSURL*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.path isEqualToString:self.moviePlayerController.contentURL.path])
         {
             index = idx;
             *stop = YES;
         }
     }];
     
-    index++;
+    if (index != NSNotFound)
+    {
+        index++;
+    }
+    
+    return index;
+}
+
+
+- (void)_playNext
+{
+    
+    NSInteger index = [self _nextVideoIndex];
     
     NSURL* nextUrl = nil;
     
-    if (index < self.videoModelsArray.count)
+    if (index < self.playedVideoUrls.count)
     {
-        
-        ZZVideoDomainModel* nextModel = self.videoModelsArray[index];
-        TBMVideo* nextVideo = [TBMVideo findWithVideoId:nextModel.videoID];
-        nextUrl = nextVideo.videoUrl;
+        nextUrl = self.playedVideoUrls[index];
     }
     else
     {
@@ -243,7 +264,7 @@
         [self _updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
         
         self.moviePlayerController.contentURL = nextUrl;
-        
+
         TBMFriend* friend = [ZZFriendDataProvider entityFromModel:playedVideoModel.relatedUser];
         [friend setViewedWithIncomingVideo:viewedVideo];
         [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
@@ -261,6 +282,21 @@
     }
 }
 
+- (void)updateWithFriendModel:(ZZFriendDomainModel *)friendModel
+{
+    NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
+    NSArray* acutalVideos = [friendModel.videos sortedArrayUsingDescriptors:@[sortDescriptor]];
+    
+    NSMutableArray* videoModelsCopy = [self.videoModelsArray mutableCopy];
+    ZZVideoDomainModel* lastVideoModel = [acutalVideos lastObject];
+    TBMVideo* lastVideo = [TBMVideo findWithVideoId:lastVideoModel.videoID];
+    
+    [self.playedVideoUrls addObject:lastVideo.videoUrl];
+    
+    [videoModelsCopy addObject:lastVideoModel];
+    self.videoModelsArray = videoModelsCopy;
+}
+
 - (void)_playerStateWasUpdated
 {
     if (self.moviePlayerController.playbackState == MPMoviePlaybackStatePlaying)
@@ -272,6 +308,11 @@
 - (BOOL)isDeviceNearEar
 {
     return [UIDevice currentDevice].proximityState;
+}
+
+- (ZZFriendDomainModel*)playedFriendModel
+{
+    return self.playedFriend;
 }
 
 #pragma mark - Lazy Load

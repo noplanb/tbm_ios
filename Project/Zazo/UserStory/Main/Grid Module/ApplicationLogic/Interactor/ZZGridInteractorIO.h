@@ -54,7 +54,7 @@
 - (void)updateGridWithDownloadAnimationModel:(ZZGridDomainModel*)model;
 //- (void)updateGridWithGridDomainModel:(ZZGridDomainModel*)model;
 - (void)reloadGridModel:(ZZGridDomainModel*)model;
-
+- (void)reloadAfterVideoUpdateGridModel:(ZZGridDomainModel*)model;
 - (void)reloadGridWithData:(NSArray*)data;
 
 @end

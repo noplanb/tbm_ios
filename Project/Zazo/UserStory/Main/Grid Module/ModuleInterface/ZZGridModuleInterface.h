@@ -22,5 +22,6 @@
 - (CGRect)gridGetFrameForUnviewedBadgeForFriend:(NSUInteger)friendCellIndex inView:(UIView*)view;
 - (NSUInteger)lastAddedFriendOnGridIndex;
 - (NSString*)lastAddedFriendOnGridName;
+- (BOOL)isRecordingInProgress;
 
 @end
