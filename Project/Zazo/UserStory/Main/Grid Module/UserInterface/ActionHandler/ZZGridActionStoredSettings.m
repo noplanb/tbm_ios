@@ -25,6 +25,7 @@ static NSString* const kSpinUsageUsageUsageHintDidShowKey = @"kSpinUsageUsageUsa
 static NSString* const kViewedHintDidShowKey = @"kViewedHintDidShowKey";
 static NSString* const kWelcomeHintDidShowKey = @"kWelcomeHintDidShowKey";
 static NSString* const kHoldToRecordAndTapToPlayKey = @"khHldToRecordAndTapToPlayKey";
+static NSString* const kInviteSomeoneElseShowedDuringSession = @"inviteSomeoneElseShowedDuringSession";
 
 //static NSString *const kLastUnlockedFeatureKey = @"kLastUnlockedFeatureKey";
 
@@ -45,6 +46,7 @@ static NSString* const kHoldToRecordAndTapToPlayKey = @"khHldToRecordAndTapToPla
 @dynamic viewedHintWasShown;
 @dynamic welcomeHintWasShown;
 @dynamic holdToRecordAndTapToPlayWasShown;
+@dynamic isInviteSomeoneElseShowedDuringSession;
 
 + (instancetype)shared
 {
@@ -62,6 +64,16 @@ static NSString* const kHoldToRecordAndTapToPlayKey = @"khHldToRecordAndTapToPla
 }
 
 #pragma mark - Hints
+
+- (void)setIsInviteSomeoneElseShowedDuringSession:(BOOL)isInviteSomeoneElseShowedDuringSession
+{
+    [NSObject an_updateObject:@(isInviteSomeoneElseShowedDuringSession) forKey:kInviteSomeoneElseShowedDuringSession];
+}
+
+- (BOOL)isInviteSomeoneElseShowedDuringSession
+{
+    return [[NSObject an_objectForKey:kInviteSomeoneElseShowedDuringSession] boolValue];
+}
 
 //hints did start view
 - (void)setHintsDidStartPlay:(BOOL)hintsDidStartPlay

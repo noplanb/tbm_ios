@@ -20,6 +20,7 @@
 #import "ZZVideoRecorder.h"
 #import "ZZSoundPlayer.h"
 #import "ZZGlobalHeader.h"
+#import "ZZGridActionStoredSettings.h"
 
 @interface TBMAppDelegate()
 
@@ -90,6 +91,9 @@
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application{
+    
+    [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = NO;
+    
     OB_INFO(@"applicationWillEnterForeground");
     self.isForeground = YES;
 

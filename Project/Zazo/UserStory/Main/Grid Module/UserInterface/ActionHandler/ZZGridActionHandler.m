@@ -123,10 +123,11 @@
 
 - (void)handleEvent:(ZZGridActionEventType)event withIndex:(NSInteger)index
 {
+    __block NSInteger actionIndex = index;
     if ([self _isAbleToShowHints])
     {
         
-        id model = [self.delegate modelAtIndex:index];
+        id model = [self.delegate modelAtIndex:actionIndex];
         if (model)
         {
             model = [model isKindOfClass:[ZZGridCellViewModel class]] ? model : nil;
@@ -136,10 +137,15 @@
         [self.startEventHandler handleEvent:event model:model withCompletionBlock:^(ZZHintsType type, ZZGridCellViewModel *model) {
             if (type != ZZHintsTypeNoHint)
             {
-                [self _configureHintControllerWithHintType:type withModel:model index:index];
+                if (type == ZZHintsTypeInviteSomeElseHint)
+                {
+                    actionIndex = 2;
+                }
+                
+                [self _configureHintControllerWithHintType:type withModel:model index:actionIndex];
             }
             
-            [self.featureEventObserver handleEvent:event withModel:model withIndex:index withCompletionBlock:^(BOOL isFeatureShowed) {
+            [self.featureEventObserver handleEvent:event withModel:model withIndex:actionIndex withCompletionBlock:^(BOOL isFeatureShowed) {
                 if (!isFeatureShowed && type == ZZHintsTypeNoHint)
                 {
                     [self _showNextFeatureHintIfNeeded];

@@ -21,7 +21,6 @@
 @end
 
 
-
 @interface ZZBaseEventHandler : NSObject
 
 @property (nonatomic, strong) ZZBaseEventHandler* eventHandler;

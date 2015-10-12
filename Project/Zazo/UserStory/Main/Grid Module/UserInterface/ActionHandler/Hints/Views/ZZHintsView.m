@@ -11,6 +11,8 @@
 #import "ZZHintsViewModel.h"
 #import "ZZHintsGotItView.h"
 #import "ZZHintsArrow.h"
+#import "ZZGridActionStoredSettings.h"
+
 
 @interface ZZHintsView ()
 
@@ -55,7 +57,6 @@
     }
     
     [self addSubview:hintArrow];
-    
 }
 
 - (void)showFocusOnFrame:(CGRect)focusFrame

@@ -135,7 +135,7 @@
 + (ZZHintsDomainModel*)_inviteSomeoneElseHint
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
-    model.title = NSLocalizedString(@"hints.invite-someone-else.label.text", nil);
+    model.title = [self _possiblePhrases].randomObject;
     model.type = ZZHintsTypeInviteSomeElseHint;
     model.hidesArrow = NO;
     model.imageType = ZZHintsBottomImageTypeNone;
