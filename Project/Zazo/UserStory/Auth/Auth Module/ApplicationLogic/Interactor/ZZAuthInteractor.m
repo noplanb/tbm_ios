@@ -43,7 +43,7 @@
 #ifdef DEBUG_LOGIN_USER
     user.firstName = @"Dkkk";
     user.lastName = @"kkkk";
-    user.mobileNumber = @"+380974720085";
+    user.mobileNumber = @"+380974720101";
 #endif
     
     if (!ANIsEmpty(user.mobileNumber))

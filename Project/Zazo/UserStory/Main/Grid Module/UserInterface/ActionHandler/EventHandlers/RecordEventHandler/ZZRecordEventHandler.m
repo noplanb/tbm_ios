@@ -13,8 +13,20 @@
 
 - (void)handleEvent:(ZZGridActionEventType)event model:(ZZGridCellViewModel *)model withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBlock
 {
-    
-    if (event == ZZGridActionEventTypeMessageDidPlayed &&
+    if (event == ZZGridActionEventTypeGridLoaded &&
+        [self.delegate frinedsNumberOnGrid] == 1 &&
+        ![ZZGridActionStoredSettings shared].recordWelcomeHintWasShown)
+    {
+        [ZZGridActionStoredSettings shared].recordWelcomeHintWasShown = YES;
+        CGFloat kDelayAfterViewLoaded = 0.8;
+        ANDispatchBlockAfter(kDelayAfterViewLoaded, ^{
+            if (completionBlock)
+            {
+                completionBlock(ZZHintsTypeRecrodWelcomeHint, model);
+            }
+        });
+    }
+    else if (event == ZZGridActionEventTypeMessageDidPlayed &&
         ![ZZGridActionStoredSettings shared].recordWelcomeHintWasShown &&
         [self.delegate frinedsNumberOnGrid] == 1)
     {
