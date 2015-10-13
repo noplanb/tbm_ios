@@ -48,15 +48,21 @@
 //    }
 }
 
-- (void)handleEvent:(ZZGridActionEventType)event withModel:(ZZGridCellViewModel*)model withIndex:(NSInteger)index
+- (void)handleEvent:(ZZGridActionEventType)event withModel:(ZZGridCellViewModel*)model withIndex:(NSInteger)index withCompletionBlock:(void(^)(BOOL isFeatureShowed))completionBlock;
 {
     if (event == ZZGridActionEventTypeMessageDidSent)
     {
+        self.strategy.isFeatureShowed = NO;
         [self _handleBothCameraFeatureWithViewModel:model withIndex:index];
         [self _handleAbortRecordingWithDragWithViewModel:model withIndex:index];
         [self _handleDeleteFriendWithViewModel:model withIndex:index];
         [self _handleEventEarpieceWithViewModel:model withIndex:index];
         [self _handelSpinWheelEventWithModel:model withIndex:index];
+        
+        if (completionBlock)
+        {
+            completionBlock(self.strategy.isFeatureShowed);
+        }
     }
 }
 

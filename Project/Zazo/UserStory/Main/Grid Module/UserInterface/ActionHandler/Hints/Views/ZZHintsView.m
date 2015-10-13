@@ -11,6 +11,8 @@
 #import "ZZHintsViewModel.h"
 #import "ZZHintsGotItView.h"
 #import "ZZHintsArrow.h"
+#import "ZZGridActionStoredSettings.h"
+
 
 @interface ZZHintsView ()
 
@@ -55,7 +57,6 @@
     }
     
     [self addSubview:hintArrow];
-    
 }
 
 - (void)showFocusOnFrame:(CGRect)focusFrame
@@ -94,6 +95,20 @@
 {
     return self.hintViewModel;
 }
+
+#pragma mark - Hit test
+
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+    UIView* hitView = nil;
+    if (!CGRectContainsPoint([self.hintViewModel focusFrame], point))
+    {
+        hitView = self;
+    }
+    
+    return hitView;
+}
+
 
 #pragma mark - Lazy Load
 

@@ -247,11 +247,10 @@
     {
         ZZVideoDomainModel* lastModel = [self.videoModelsArray lastObject];
         TBMVideo* lastVideo = [TBMVideo findWithVideoId:lastModel.videoID];
-        
+        self.isPlayingVideo = NO;
         [self.delegate videoPlayerURLWasFinishedPlaying:lastVideo.videoUrl withPlayedUserModel:self.playedFriend];
         [self.moviePlayerController.view removeFromSuperview];
-       
-        self.isPlayingVideo = NO;
+        
         [UIDevice currentDevice].proximityMonitoringEnabled = NO;
     }
     

@@ -123,10 +123,11 @@
 
 - (void)handleEvent:(ZZGridActionEventType)event withIndex:(NSInteger)index
 {
+    __block NSInteger actionIndex = index;
     if ([self _isAbleToShowHints])
     {
         
-        id model = [self.delegate modelAtIndex:index];
+        id model = [self.delegate modelAtIndex:actionIndex];
         if (model)
         {
             model = [model isKindOfClass:[ZZGridCellViewModel class]] ? model : nil;
@@ -136,11 +137,21 @@
         [self.startEventHandler handleEvent:event model:model withCompletionBlock:^(ZZHintsType type, ZZGridCellViewModel *model) {
             if (type != ZZHintsTypeNoHint)
             {
-                [self _configureHintControllerWithHintType:type withModel:model index:index];
+                if (type == ZZHintsTypeInviteSomeElseHint)
+                {
+                    actionIndex = 2;
+                }
+                
+                [self _configureHintControllerWithHintType:type withModel:model index:actionIndex];
             }
+            
+            [self.featureEventObserver handleEvent:event withModel:model withIndex:actionIndex withCompletionBlock:^(BOOL isFeatureShowed) {
+                if (!isFeatureShowed && type == ZZHintsTypeNoHint)
+                {
+                    [self _showNextFeatureHintIfNeeded];
+                }
+            }];
         }];
-        
-        [self.featureEventObserver handleEvent:event withModel:model withIndex:index];
     }
 }
 
@@ -162,6 +173,12 @@
     if (type == ZZHintsTypeSentHint)
     {
         [self handleEvent:ZZGridActionEventTypeSentZazo withIndex:2];
+        
+    }
+    
+    if (type == ZZHintsTypeInviteSomeElseHint)
+    {
+        [self _showNextFeatureHintIfNeeded];
     }
     
     if ((type == ZZHintsTypeFrontCameraUsageHint ||
@@ -175,8 +192,16 @@
             
         }];
     }
-    
-    
+}
+
+- (void)_showNextFeatureHintIfNeeded
+{
+    if (![ZZGridActionStoredSettings shared].spinHintWasShown)
+    {
+        [TBMNextFeatureDialogView showNextFeatureDialogWithPresentedView:[self.userInterface presentedView] completionBlock:^{
+            
+        }];
+    }
 }
 
 - (UIView *)hintPresetedView
@@ -187,11 +212,16 @@
 
 #pragma mark - Feature Event Observer Delegate
 
+- (void)showNextFeatureDialog
+{
+    [self _showNextFeatureHintIfNeeded];
+}
+
 - (void)handleUnlockFeatureWithType:(ZZGridActionFeatureType)type withIndex:(NSInteger)index
 {
     switch (type)
     {
-      case ZZGridActionFeatureTypeSwitchCamera:
+        case ZZGridActionFeatureTypeSwitchCamera:
         {
             NSInteger centerViewIndex = 4;
             [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.use-both-cameras", nil) withPresentedView:[self.userInterface presentedView] completionBlock:^{

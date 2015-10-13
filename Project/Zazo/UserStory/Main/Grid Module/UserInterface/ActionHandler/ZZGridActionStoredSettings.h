@@ -28,7 +28,7 @@
 @property (nonatomic, assign) BOOL earpieceHintWasShown;
 @property (nonatomic, assign) BOOL spinHintWasShown;
 @property (nonatomic, assign) BOOL recordWelcomeHintWasShown;
-
+@property (nonatomic, assign) BOOL isInviteSomeoneElseShowedDuringSession;
 
 @property (nonatomic, assign) BOOL holdToRecordAndTapToPlayWasShown;
 

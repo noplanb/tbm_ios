@@ -178,7 +178,14 @@
                                                                           [ZZGridActionStoredSettings shared].frontCameraHintWasShown)];
         
         [[ZZVideoRecorder shared] updateRecordView:[self.dataSource centerViewModel].recordView];
+        [self _showRecordWelcomeIfNeeded];
     });
+}
+
+- (void)_showRecordWelcomeIfNeeded
+{
+    NSInteger indexWhenOneFriendOnGrid = 5;
+    [self.actionHandler handleEvent:ZZGridActionEventTypeGridLoaded withIndex:indexWhenOneFriendOnGrid];
 }
 
 - (void)dataLoadingDidFailWithError:(NSError*)error

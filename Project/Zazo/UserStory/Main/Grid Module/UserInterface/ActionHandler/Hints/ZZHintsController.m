@@ -70,13 +70,27 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
 
 - (void)_removeViewAfterDelayIfNeededWithType:(ZZHintsType)type
 {
-    if (type == ZZHintsTypeSentHint || type == ZZHintsTypeViewedHint)
+    if (type == ZZHintsTypeViewedHint)
     {
         ANDispatchBlockAfter(kDelayBeforHintHidden, ^{
             if (self.hintsView)
             {
                 [self.hintsView removeFromSuperview];
                 self.hintsView = nil;
+            }
+        });
+    }
+    if (type == ZZHintsTypeSentHint)
+    {
+        ANDispatchBlockAfter(kDelayBeforHintHidden, ^{
+            if (self.hintsView)
+            {
+                [self.hintsView removeFromSuperview];
+                self.hintsView = nil;
+                CGFloat kDelayAfterViewRemoved = 0.3;
+                ANDispatchBlockAfter(kDelayAfterViewRemoved, ^{
+                    [self.delegate hintWasDissmissedWithType:ZZHintsTypeSentHint];
+                });
             }
         });
     }

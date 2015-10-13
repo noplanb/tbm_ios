@@ -16,6 +16,8 @@ static NSString* const kSendMessageCounterKey = @"sendMessageCounterKey";
 
 @interface ZZFeatureEventStrategyBase : NSObject
 
+@property (nonatomic, assign) BOOL isFeatureShowed;
+
 - (void)handleBothCameraFeatureWithModel:(ZZGridCellViewModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock;
 - (void)handleAbortRecordingFeatureWithModel:(ZZGridCellViewModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock;
 - (void)handleDeleteFriendFeatureWithModel:(ZZGridCellViewModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock;
@@ -23,5 +25,5 @@ static NSString* const kSendMessageCounterKey = @"sendMessageCounterKey";
 - (void)handleSpinWheelFeatureWithModel:(ZZGridCellViewModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock;
 
 - (BOOL)isFeatureEnabledWithModel:(ZZGridCellViewModel*)model beforeUnlockFeatureSentCount:(NSInteger)sentCount;
-
+- (void)updateFeatureUnlockIdsWithModel:(ZZGridCellViewModel*)model;
 @end

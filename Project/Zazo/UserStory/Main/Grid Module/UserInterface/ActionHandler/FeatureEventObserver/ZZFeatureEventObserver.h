@@ -26,6 +26,9 @@ typedef NS_ENUM(NSInteger, ZZUnlockFeatureType) {
 
 @property (nonatomic, weak) id <ZZFeatureEventObserverDelegate> delegate;
 
-- (void)handleEvent:(ZZGridActionEventType)event withModel:(ZZGridCellViewModel*)model withIndex:(NSInteger)index;
+- (void)handleEvent:(ZZGridActionEventType)event
+          withModel:(ZZGridCellViewModel*)model
+          withIndex:(NSInteger)index
+withCompletionBlock:(void(^)(BOOL isFeatureShowed))completionBlock;
 
 @end

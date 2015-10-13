@@ -23,28 +23,17 @@
         NSInteger kOnceUnlockCounterValue = 1;
         
         NSInteger sendMessageCounter = [[NSUserDefaults standardUserDefaults] integerForKey:kSendMessageCounterKey];
-        NSString* lastAddedUserId = [[NSUserDefaults standardUserDefaults] objectForKey:kFriendIdDefaultKey];
-        
-        
-        
-        if (sendMessageCounter == kUnlockFeatureCounterValue)
-        {
-            isFeatureEnabled = YES;
-        }
-        else if (![model.item.relatedUser.idTbm isEqualToString:lastAddedUserId] && sendMessageCounter == kOnceUnlockCounterValue)
+        if (sendMessageCounter == 0)
         {
             sendMessageCounter++;
             [[NSUserDefaults standardUserDefaults] setInteger:sendMessageCounter forKey:kSendMessageCounterKey];
-            [[NSUserDefaults standardUserDefaults] setObject:model.item.relatedUser.idTbm forKey:kFriendIdDefaultKey];
-            isFeatureEnabled = YES;
+            [self updateFeatureUnlockIdsWithModel:model];
         }
-        else if (![model.item.relatedUser.idTbm isEqualToString:lastAddedUserId] && sendMessageCounter == 0)
+        else if (sendMessageCounter == kOnceUnlockCounterValue)
         {
-            sendMessageCounter++;
-            [[NSUserDefaults standardUserDefaults] setInteger:sendMessageCounter forKey:kSendMessageCounterKey];
-            [[NSUserDefaults standardUserDefaults] setObject:model.item.relatedUser.idTbm forKey:kFriendIdDefaultKey];
-            isFeatureEnabled = NO;
+            isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kUnlockFeatureCounterValue];
         }
+        
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
