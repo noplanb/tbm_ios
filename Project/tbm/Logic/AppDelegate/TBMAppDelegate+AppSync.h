@@ -16,7 +16,7 @@
 @property (strong, nonatomic) OBFileTransferManager *fileTransferManager;
 
 // Upload download events
-- (void) queueDownloadWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId;
+- (void) queueDownloadWithFriendID:(NSString*)friendID videoId:(NSString *)videoId;
 - (void) retryPendingFileTransfers;
 
 // Polling

@@ -88,8 +88,8 @@ static NSMutableSet *TBMDelegates;
         if ([self hasNoExternalOutputs]) {
             OB_INFO(@"TBMAudioSession: setPortOverride: no external outputs");
             NSError *error = nil;
-            if ([self nearTheEar]){
-                OB_INFO(@"TBMAudioSession: near the ear");
+            if ([self nearTheEar])
+            {
                 //            [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideNone
                 //                                                               error: &error];
                 
@@ -99,7 +99,6 @@ static NSMutableSet *TBMDelegates;
                 [session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDuckOthers error:nil];
                 
             } else {
-                OB_INFO(@"TBMAudioSession: far from the ear");
                 //            [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker
                 //                                                               error: &error];
                 AVAudioSession* session = [AVAudioSession sharedInstance];

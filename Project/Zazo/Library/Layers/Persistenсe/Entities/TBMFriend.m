@@ -225,7 +225,8 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (BOOL)hasIncomingVideoId:(NSString*)videoId
 {
-    for (TBMVideo *v in [self incomingVideos])
+    NSArray* videos = [self.videos.allObjects copy];
+    for (TBMVideo *v in videos)
     {
         if ([v.videoId isEqual:videoId])
             return true;
@@ -235,7 +236,8 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (BOOL)hasDownloadingVideo
 {
-    for (TBMVideo *v in [self incomingVideos])
+    NSArray* videos = [self.videos.allObjects copy];
+    for (TBMVideo *v in videos)
     {
         if (v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADING)
             return YES;
@@ -245,7 +247,8 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (BOOL)hasRetryingDownload
 {
-    for (TBMVideo *v in [self incomingVideos])
+    NSArray* videos = [self.videos.allObjects copy];
+    for (TBMVideo *v in videos)
     {
         if ([v.downloadRetryCount intValue] > 0)
             return YES;
@@ -268,7 +271,8 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (void)deleteAllVideos
 {
-    for (TBMVideo *v in [self incomingVideos])
+    NSArray* videos = [self.videos.allObjects copy];
+    for (TBMVideo *v in videos)
     {
         [self deleteVideo:v];
     }
@@ -441,7 +445,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
     if (v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADING)
     {
-        if ([v.downloadRetryCount intValue] == 0)
+        if (v.downloadRetryCountValue == 0)
         {
             return @"Downloading...";
         }

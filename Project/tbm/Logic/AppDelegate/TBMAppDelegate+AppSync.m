@@ -23,6 +23,7 @@
 #import "ZZVideoDataProvider.h"
 #import "ZZFileHelper.h"
 #import "ZZVideoDomainModel.h"
+#import "ZZContentDataAcessor.h"
 
 
 @implementation TBMAppDelegate (AppSync)
@@ -96,14 +97,12 @@
 //---------
 // Download
 //---------
-- (void)queueDownloadWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId
+- (void)queueDownloadWithFriendID:(NSString*)friendID videoId:(NSString *)videoId
 {
-    ANDispatchBlockToBackgroundQueue(^{
-       [self queueDownloadWithFriend:friend videoId:videoId force:NO];
-    });
+    [self queueDownloadWithFriendID:friendID videoId:videoId force:NO];
 }
 
-- (void)queueDownloadWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId force:(BOOL)force
+- (void)queueDownloadWithFriendID:(NSString*)friendID videoId:(NSString *)videoId force:(BOOL)force
 {
 //    Removed because IOS sends the vidoes out in parallel a later short one may arrive before an earlier long one.
 //    if ([TBMVideoIdUtils isvid1:videoId olderThanVid2:[friend oldestIncomingVideo].videoId]) {
@@ -111,6 +110,8 @@
 //        return;
 //    }
 
+    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
+    
     if ([friend hasIncomingVideoId:videoId] && !force)
     {
         OB_WARN(@"queueVideoDownloadWithFriend: Ignoring incoming videoId already processed.");
@@ -262,13 +263,11 @@
     
     if (friend.idTbm)
     {
-        __block TBMFriend* someFriend = friend;
-        
-        __block NSString* URL = [someFriend.objectID.URIRepresentation absoluteString];
-        
+        __block NSString* friendID = friend.idTbm;
+        __block NSString* firstName = friend.firstName;
         [TBMRemoteStorageHandler getRemoteIncomingVideoIdsWithFriend:friend
                                                          gotVideoIds:^(NSArray *videoIds) {
-                                                             OB_INFO(@"pollWithFriend: %@  vids = %@", someFriend.firstName, videoIds);
+                                                             OB_INFO(@"pollWithFriend: %@  vids = %@", firstName, videoIds);
                                                              for (NSString *videoId in videoIds)
                                                              {
                                                                  //            Removed because IOS sends the vidoes out in parallel a later short one may arrive before an earlier long one.
@@ -276,21 +275,8 @@
                                                                  //                OB_WARN(@"pollWithFriend: Deleting remote video and videoId kv older than local oldest.");
                                                                  //                [TBMRemoteStorageHandler deleteRemoteFileAndVideoIdWithFriend:friend videoId:videoId];
                                                                  //            }
-                                                                 
-                                                                 NSManagedObject* object;
-                                                                 if (!ANIsEmpty(URL))
-                                                                 {
-                                                                     NSURL* objectURL = [NSURL URLWithString:[NSString stringWithString:URL]];
-                                                                     NSManagedObjectContext* context = [NSManagedObjectContext MR_rootSavingContext];
-                                                                     NSManagedObjectID* objectID = [context.persistentStoreCoordinator managedObjectIDForURIRepresentation:objectURL];
-                                                                     NSError* error = nil;
-                                                                     if (!ANIsEmpty(objectID))
-                                                                     {
-                                                                         object = [context existingObjectWithID:objectID error:&error];
-                                                                     }
-                                                                 }
-                                                                 
-                                                                 [self queueDownloadWithFriend:(TBMFriend*)object videoId:videoId];
+                                                                 NSLog(@"OKS- %@ - %@", NSStringFromSelector(_cmd), videoId);
+                                                                 [self queueDownloadWithFriendID:friendID videoId:videoId];
                                                              }
                                                          }];
     }
@@ -347,10 +333,10 @@
     BOOL isUpload = [TBMVideoIdUtils isUploadWithMarker:marker];
     if (isUpload)
     {
-        [self uploadCompletedWithFriend:friend videoId:videoId error:error];
+        [self uploadCompletedWithFriendID:friend.idTbm videoId:videoId error:error];
     } else
     {
-        [self downloadCompletedWithFriend:friend videoId:videoId error:error];
+        [self downloadCompletedWithFriendID:friend.idTbm videoId:videoId error:error];
     }
 }
 
@@ -388,18 +374,19 @@
     BOOL isUpload = [TBMVideoIdUtils isUploadWithMarker:marker];
     if (isUpload)
     {
-        [self uploadRetryingWithFriend:friend videoId:videoId retryCount:attemptCount];
+        [self uploadRetryingWithFriendID:friend.idTbm videoId:videoId retryCount:attemptCount];
     } else
     {
-        [self downloadRetryingWithFriend:friend videoId:videoId retryCount:attemptCount];
+        [self downloadRetryingWithFriendID:friend.idTbm videoId:videoId retryCount:attemptCount];
     }
 }
 
 //--------------
 // Upload events
 //--------------
-- (void)uploadCompletedWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId error:(NSError *)error
+- (void)uploadCompletedWithFriendID:(NSString*)friendID videoId:(NSString *)videoId error:(NSError *)error
 {
+    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
     if (friend == nil)
     {
         OB_ERROR(@"uploadCompletedWithFriend - Could not find friend with marker.");
@@ -420,8 +407,9 @@
     }
 }
 
-- (void)uploadRetryingWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId retryCount:(NSInteger)retryCount
+- (void)uploadRetryingWithFriendID:(NSString*)friendID videoId:(NSString *)videoId retryCount:(NSInteger)retryCount
 {
+    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
     OB_INFO(@"uploadRetryingWithFriend retryCount=%ld", (long) retryCount);
     if (friend == nil)
     {
@@ -435,8 +423,9 @@
 //----------------
 // Download events
 //----------------
-- (void)downloadCompletedWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId error:(NSError *)error
+- (void)downloadCompletedWithFriendID:(NSString*)friendID videoId:(NSString *)videoId error:(NSError *)error
 {
+    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
     TBMVideo *video = [TBMVideo findWithVideoId:videoId];
     if (video == nil)
     {
@@ -474,7 +463,7 @@
 }
 
 
-- (void)downloadRetryingWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId retryCount:(NSInteger)retryCount
+- (void)downloadRetryingWithFriendID:(NSString*)friendID videoId:(NSString *)videoId retryCount:(NSInteger)retryCount
 {
     TBMVideo *video = [TBMVideo findWithVideoId:videoId];
 
@@ -483,9 +472,9 @@
         OB_ERROR(@"downloadRetryingWithFriend: ERROR: unrecognized videoId");
         return;
     }
-    NSNumber *ncount = [NSNumber numberWithInteger:retryCount];
-    OB_INFO(@"downloadRetryingWithFriend %@ retryCount= %@", friend.firstName, ncount);
-    [friend setAndNotifyDownloadRetryCount:ncount video:video];
+    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
+    OB_INFO(@"downloadRetryingWithFriend %@ retryCount= %@", friend.firstName, @(retryCount));
+    [friend setAndNotifyDownloadRetryCount:retryCount video:video];
 }
 
 
@@ -518,7 +507,7 @@
                 if ([video isStatusDownloading])
                 {
                     OB_ERROR(@"AppSync.handleStuckDownloads: Got no obInfo for vid:%@ this should not happen. Force requeue the video.", video.videoId);
-                    [self queueDownloadWithFriend:video.friend videoId:video.videoId force:YES];
+                    [self queueDownloadWithFriendID:video.friend.idTbm videoId:video.videoId force:YES];
                 }
 
             } else if ([self isPendingRetryWithObInfo:obInfo])

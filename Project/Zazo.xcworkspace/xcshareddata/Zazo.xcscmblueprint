@@ -4,6 +4,7 @@
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "874C8E8751B34C639A13B0EEFE9B44FC096DF007" : 0,
     "D2D6D892B57F566ED579A107C638881ED0F62DDD" : 0,
     "D5D840A1061AFA800283AD3ACCDEC9D2CDDDC21E" : 0,
     "BFD2DA9980DE67FC7CAB1D16B5598E77285C78EF" : 0,
@@ -11,6 +12,7 @@
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "84873340-B529-45A3-AD42-ABFFAEEE376C",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "874C8E8751B34C639A13B0EEFE9B44FC096DF007" : "OBFileTransfer\/",
     "D2D6D892B57F566ED579A107C638881ED0F62DDD" : "tbm_ios",
     "D5D840A1061AFA800283AD3ACCDEC9D2CDDDC21E" : "ANODA\/ANTableViews\/",
     "BFD2DA9980DE67FC7CAB1D16B5598E77285C78EF" : "ANODA\/ANTableController\/",
@@ -20,6 +22,11 @@
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Project\/Zazo.xcworkspace",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/etcetc\/OBFileTransfer",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "874C8E8751B34C639A13B0EEFE9B44FC096DF007"
+    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:anodamobi\/ANTableController.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",

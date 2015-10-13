@@ -71,7 +71,6 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         [self.recorder startRunning];
         
         self.delegatesArray = [NSMutableArray array];
-        [self.recorder startRunning];
         
         [[AVAudioSession sharedInstance] addTBMAudioSessionDelegate:self];
     }
