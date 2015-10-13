@@ -13,6 +13,7 @@
 #import "MagicalRecord.h"
 #import "ZZVideoStatuses.h"
 #import "ZZFriendDataProvider.h"
+#import "ZZContentDataAcessor.h"
 
 @implementation ZZVideoDataProvider
 
@@ -138,7 +139,7 @@
 
 + (NSManagedObjectContext*)_context
 {
-    return [NSManagedObjectContext MR_contextForCurrentThread];
+    return [ZZContentDataAcessor contextForCurrentThread];
 }
 
 @end

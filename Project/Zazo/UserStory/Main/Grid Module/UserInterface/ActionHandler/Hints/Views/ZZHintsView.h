@@ -20,7 +20,6 @@
 
 @property (nonatomic, weak) id <ZZHintsViewDelegate> delegate;
 
-- (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel;
 - (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel andIndex:(NSInteger)index;
 - (ZZHintsViewModel*)hintModel;
 

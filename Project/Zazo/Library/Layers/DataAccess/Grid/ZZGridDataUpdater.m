@@ -12,6 +12,7 @@
 #import "MagicalRecord.h"
 #import "ZZGridModelsMapper.h"
 #import "ZZFriendDataProvider.h"
+#import "ZZContentDataAcessor.h"
 
 @implementation ZZGridDataUpdater
 
@@ -50,7 +51,7 @@
 
 + (NSManagedObjectContext*)_context
 {
-    return [NSManagedObjectContext MR_contextForCurrentThread];
+    return [ZZContentDataAcessor contextForCurrentThread];
 }
 
 @end

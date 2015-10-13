@@ -15,12 +15,13 @@
 #import "MagicalRecord.h"
 #import "ZZVideoDataProvider.h"
 #import "ZZThumbnailGenerator.h"
+#import "ZZContentDataAcessor.h"
 
 @implementation TBMVideo
 
 + (NSManagedObjectContext*)_context
 {
-    return [NSManagedObjectContext MR_contextForCurrentThread];
+    return [ZZContentDataAcessor contextForCurrentThread];
 }
 
 //-------------------

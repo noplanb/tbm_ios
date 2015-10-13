@@ -99,7 +99,10 @@
 - (void)_showChooseNumberDialogForUser:(ZZContactDomainModel*)user
 {
     ANDispatchBlockToMainQueue(^{
-        [[TBMTableModal shared] setupViewWithParentView:self.userInterface.view title:@"Choose phone number" contact:user delegate:self];
+        [[TBMTableModal shared] setupViewWithParentView:self.userInterface.view
+                                                  title:@"Choose phone number"
+                                                contact:user
+                                               delegate:(id<TBMTableModalDelegate>)self];
         [[TBMTableModal shared] show];
     });
 }

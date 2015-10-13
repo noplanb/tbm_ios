@@ -12,7 +12,7 @@
 
 @class TBMFriend;
 
-@interface TBMHomeViewController (Invite) <TBMTableModalDelegate, MFMessageComposeViewControllerDelegate>
+@interface TBMHomeViewController (Invite) <MFMessageComposeViewControllerDelegate>
 
 - (void)invite:(NSString *)fullname;
 - (void)nudge:(TBMFriend *)friend;

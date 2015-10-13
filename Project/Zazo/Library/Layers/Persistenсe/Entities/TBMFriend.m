@@ -23,6 +23,7 @@
 #import "ZZUserFriendshipStatusHandler.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZUserPresentationHelper.h"
+#import "ZZContentDataAcessor.h"
 
 @implementation TBMFriend
 
@@ -30,7 +31,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 + (NSManagedObjectContext*)_context
 {
-    return [NSManagedObjectContext MR_contextForCurrentThread];
+    return [ZZContentDataAcessor contextForCurrentThread];
 }
 
 + (NSArray *)all
