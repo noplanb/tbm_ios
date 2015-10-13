@@ -99,9 +99,10 @@
     if (!ANIsEmpty(URLs))//&& ![self.currentPlayQueue isEqualToArray:URLs]) //TODO: if current playback state is equal to user's play list
     {
         ZZVideoDomainModel* playedVideoModel = [self.videoModelsArray firstObject];
+       
         TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
         self.playedFriend = playedVideoModel.relatedUser;
-        self.moviePlayerController.contentURL = viewedVideo.videoUrl;//firstVideoUrl;
+        self.moviePlayerController.contentURL = playedVideoModel.videoURL;//firstVideoUrl;
         
         //save video state
         [self _updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
