@@ -14,10 +14,11 @@
               model:(ZZGridCellViewModel *)model
 withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBlock
 {
-
+    self.hintModel = model;
     if (event == ZZGridActionEventTypeDontHaveFriends)// && ![ZZGridActionStoredSettings shared].inviteHintWasShown)
     {
         [ZZGridActionStoredSettings shared].inviteHintWasShown = YES;
+        self.isLastAcitionDone = YES;
         
         if (completionBlock)
         {
@@ -26,6 +27,8 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
     }
     else
     {
+        self.hintModel = nil;
+        self.isLastAcitionDone = NO;
         if(!ANIsEmpty(self.eventHandler))
         {
             [super nextHandlerHandleEvent:event model:model withCompletionBlock:completionBlock];
@@ -36,6 +39,26 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
             {
                 completionBlock(ZZHintsTypeNoHint, model);
             }
+        }
+    }
+}
+
+- (void)handleResetLastActionWithCompletionBlock:(void (^)(ZZGridActionEventType, ZZGridCellViewModel *))completionBlock
+{
+    if (self.isLastAcitionDone)
+    {
+        [ZZGridActionStoredSettings shared].inviteHintWasShown = NO;
+        self.isLastAcitionDone = NO;
+        if (completionBlock)
+        {
+            completionBlock(ZZGridActionEventTypeDontHaveFriends,self.hintModel);
+        }
+    }
+    else
+    {
+        if (self.eventHandler)
+        {
+            [self.eventHandler handleResetLastActionWithCompletionBlock:completionBlock];
         }
     }
 }

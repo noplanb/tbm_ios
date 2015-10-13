@@ -27,5 +27,6 @@
 @property (nonatomic, weak) id<ZZGridActionHanlderUserInterfaceDelegate> userInterface;
 
 - (void)handleEvent:(ZZGridActionEventType)event withIndex:(NSInteger)index;
+- (void)resetLastHintAndShowIfNeeded;
 
 @end

@@ -19,6 +19,7 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
         model.item.relatedUser.unviewedCount == 0)
     {
         [ZZGridActionStoredSettings shared].viewedHintWasShown = YES;
+        
         if (completionBlock)
         {
             completionBlock(ZZHintsTypeViewedHint, model);
@@ -26,6 +27,7 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
     }
     else
     {
+        
         if(!ANIsEmpty(self.eventHandler))
         {
             [super nextHandlerHandleEvent:event model:model withCompletionBlock:completionBlock];
@@ -39,6 +41,14 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
         }
     }
 
+}
+
+- (void)handleResetLastActionWithCompletionBlock:(void (^)(ZZGridActionEventType, ZZGridCellViewModel *))completionBlock
+{
+    if (self.eventHandler)
+    {
+        [self.eventHandler handleResetLastActionWithCompletionBlock:completionBlock];
+    }
 }
 
 @end

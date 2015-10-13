@@ -24,4 +24,9 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZGridCellViewModel* model))compl
     [self.eventHandler handleEvent:event model:model withCompletionBlock:completionBlock];
 }
 
+- (void)handleResetLastActionWithCompletionBlock:(void(^)(ZZGridActionEventType event, ZZGridCellViewModel* model))completionBlock
+{
+    NSAssert(false, @"This is base class");
+}
+
 @end

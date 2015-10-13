@@ -14,12 +14,15 @@
               model:(ZZGridCellViewModel *)model
 withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBlock
 {
-   
+    self.hintModel = model;
     if (event == ZZGridActionEventTypeSentZazo &&
         ![ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown &&
-        [self.delegate frinedsNumberOnGrid] == 1)
+        [self.delegate frinedsNumberOnGrid] == 1 &&
+        ![ZZGridActionStoredSettings shared].spinHintWasShown)
     {
+        self.isLastAcitionDone = YES;
         [ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown = YES;
+        
         if (completionBlock)
         {
             completionBlock(ZZHintsTypeInviteSomeElseHint, model);
@@ -27,8 +30,10 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
     }
     else  if (event == ZZGridActionEventTypeMessageDidSent &&
               ![ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession &&
-              [self.delegate frinedsNumberOnGrid] == 1)
+              [self.delegate frinedsNumberOnGrid] == 1 &&
+              ![ZZGridActionStoredSettings shared].spinHintWasShown)
     {
+        self.isLastAcitionDone = YES;
         [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = YES;
         if (completionBlock)
         {
@@ -39,6 +44,7 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
               ![ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown &&
               [self.delegate frinedsNumberOnGrid] > 1)
     {
+        self.isLastAcitionDone = YES;
         [ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown = YES;
         if (completionBlock)
         {
@@ -47,6 +53,8 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
     }
     else
     {
+        self.hintModel = nil;
+        self.isLastAcitionDone = NO;
         if(!ANIsEmpty(self.eventHandler))
         {
             [super nextHandlerHandleEvent:event model:model withCompletionBlock:completionBlock];
@@ -57,6 +65,26 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
             {
                 completionBlock(ZZHintsTypeNoHint, model);
             }
+        }
+    }
+}
+
+- (void)handleResetLastActionWithCompletionBlock:(void (^)(ZZGridActionEventType, ZZGridCellViewModel *))completionBlock
+{
+    if (self.isLastAcitionDone)
+    {
+        self.isLastAcitionDone = NO;
+        [ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown = NO;
+        if (completionBlock)
+        {
+            completionBlock(ZZGridActionEventTypeSentZazo,self.hintModel);
+        }
+    }
+    else
+    {
+        if (self.eventHandler)
+        {
+            [self.eventHandler handleResetLastActionWithCompletionBlock:completionBlock];
         }
     }
 }

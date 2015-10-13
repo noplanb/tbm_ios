@@ -20,7 +20,9 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
         [self.delegate frinedsNumberOnGrid] == 1 &&
         ![ZZGridActionStoredSettings shared].playHintWasShown)
     {
+        self.hintModel = model;
         [ZZGridActionStoredSettings shared].playHintWasShown = YES;
+        self.isLastAcitionDone = YES;
         if (completionBlock)
         {
             completionBlock(ZZHintsTypePlayHint, model);
@@ -30,7 +32,9 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
              [self.delegate frinedsNumberOnGrid] > 1 &&
              ![ZZGridActionStoredSettings shared].playHintWasShown)
     {
+        self.hintModel = model;
         [ZZGridActionStoredSettings shared].playHintWasShown = YES;
+        self.isLastAcitionDone = YES;
         if (completionBlock)
         {
             completionBlock(ZZHintsTypeNoHint, model);
@@ -38,16 +42,40 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
     }
     else
     {
+        self.hintModel = nil;
+         self.isLastAcitionDone = NO;
         if(!ANIsEmpty(self.eventHandler))
         {
+            
             [super nextHandlerHandleEvent:event model:model withCompletionBlock:completionBlock];
         }
         else
         {
             if (completionBlock)
-            {
+            {  
                 completionBlock(ZZHintsTypeNoHint, model);
             }
+        }
+    }
+}
+
+
+- (void)handleResetLastActionWithCompletionBlock:(void (^)(ZZGridActionEventType, ZZGridCellViewModel *))completionBlock
+{
+    if (self.isLastAcitionDone)
+    {
+        self.isLastAcitionDone = NO;
+        [ZZGridActionStoredSettings shared].playHintWasShown = NO;
+        if (completionBlock)
+        {
+            completionBlock(ZZGridActionEventTypeBecomeMessage,self.hintModel);
+        }
+    }
+    else
+    {
+        if (self.eventHandler)
+        {
+            [self.eventHandler handleResetLastActionWithCompletionBlock:completionBlock];
         }
     }
 }
