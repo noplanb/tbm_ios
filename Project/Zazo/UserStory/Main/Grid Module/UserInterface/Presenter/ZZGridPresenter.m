@@ -75,6 +75,8 @@
                                              selector:@selector(stopPlaying)
                                                  name:kNotificationIncomingCall
                                                object:nil];
+    
+//    [NSNotificationCenter defaultCenter] addObserver:self selector:@selector(<#selector#>) name:<#(nullable NSString *)#> object:<#(nullable id)#>
 }
 
 - (void)dealloc
