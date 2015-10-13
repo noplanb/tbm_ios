@@ -25,5 +25,5 @@ static NSString* const kSendMessageCounterKey = @"sendMessageCounterKey";
 - (void)handleSpinWheelFeatureWithModel:(ZZGridCellViewModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock;
 
 - (BOOL)isFeatureEnabledWithModel:(ZZGridCellViewModel*)model beforeUnlockFeatureSentCount:(NSInteger)sentCount;
-
+- (void)updateFeatureUnlockIdsWithModel:(ZZGridCellViewModel*)model;
 @end
