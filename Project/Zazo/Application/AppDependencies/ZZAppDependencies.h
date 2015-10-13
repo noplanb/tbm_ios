@@ -10,6 +10,7 @@
 
 - (void)initialApplicationSetup:(UIApplication *)application launchOptions:(NSDictionary*)options;
 
+- (void)handleWillResignActive;
 - (BOOL)handleOpenURL:(NSURL*)url inApplication:(NSString*)application;
 - (void)handleApplicationDidBecomeActive;
 - (void)handleApplicationWillTerminate;
