@@ -467,7 +467,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
             statusString = @"q...";
             break;
         case OUTGOING_VIDEO_STATUS_UPLOADING:
-            if (self.uploadRetryCount == 0)
+            if (self.uploadRetryCountValue == 0)
             {
                 statusString = @"p...";
             } else
@@ -572,7 +572,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 // --------------------
 // Setting Retry Counts
 // --------------------
-- (void)setAndNotifyUploadRetryCount:(NSNumber *)retryCount videoId:(NSString *)videoId
+- (void)setAndNotifyUploadRetryCount:(NSInteger)retryCount videoId:(NSString *)videoId
 {
     if (![videoId isEqual:self.outgoingVideoId])
     {
@@ -580,25 +580,25 @@ static NSMutableSet *videoStatusNotificationDelegates;
         return;
     }
 
-    if (retryCount != self.uploadRetryCount)
+    if (retryCount != self.uploadRetryCountValue)
     {
-        self.uploadRetryCount = retryCount;
+        self.uploadRetryCount = @(retryCount);
         self.lastVideoStatusEventTypeValue = OUTGOING_VIDEO_STATUS_EVENT_TYPE;
         [self.managedObjectContext MR_saveToPersistentStoreAndWait];
         [self notifyVideoStatusChangeOnMainThread];
     }
     else
     {
-        OB_WARN(@"retryCount:%@ equals self.retryCount:%@. Ignoring.", retryCount, self.uploadRetryCount);
+        OB_WARN(@"retryCount:%ld equals self.retryCount:%@. Ignoring.", (long)retryCount, self.uploadRetryCount);
     }
 }
 
-- (void)setAndNotifyDownloadRetryCount:(NSNumber *)retryCount video:(TBMVideo *)video
+- (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount video:(TBMVideo *)video
 {
-    if (video.downloadRetryCount == retryCount)
+    if (video.downloadRetryCountValue == retryCount)
         return;
 
-    video.downloadRetryCount = retryCount;
+    video.downloadRetryCount = @(retryCount);
     [video.managedObjectContext MR_saveToPersistentStoreAndWait];
     [self.managedObjectContext MR_saveToPersistentStoreAndWait];
 
@@ -642,9 +642,9 @@ static NSMutableSet *videoStatusNotificationDelegates;
     [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY videoId:videoId];
 }
 
-- (void)handleUploadRetryCount:(NSNumber *)retryCount videoId:(NSString *)videoId
+- (void)handleUploadRetryCount:(NSInteger)retryCount videoId:(NSString *)videoId
 {
-    [self setAndNotifyUploadRetryCount:(NSNumber *) retryCount videoId:(NSString *) videoId];
+    [self setAndNotifyUploadRetryCount:retryCount videoId:(NSString *) videoId];
 }
 
 - (NSString *)fullName

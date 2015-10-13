@@ -54,7 +54,7 @@ target 'Zazo' do
     #Helpers
     pod 'DeviceUtil', '~> 1.2.0'
     
-    #! ----- debugging tools, remove on prod --------- !
+    #! ----- debugging tools --------- !
     pod 'CocoaLumberjack', '~> 2.0.1'
     pod 'Rollbar', '~> 0.1.5'
     

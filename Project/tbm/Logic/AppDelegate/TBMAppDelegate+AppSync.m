@@ -428,9 +428,7 @@
         OB_ERROR(@"uploadRetryingWithFriend - Could not find friend with marker");
         return;
     }
-
-    NSNumber *ncount = [NSNumber numberWithInteger:retryCount];
-    [friend handleUploadRetryCount:ncount videoId:videoId];
+    [friend handleUploadRetryCount:retryCount videoId:videoId];
 }
 
 

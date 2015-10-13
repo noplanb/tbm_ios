@@ -96,7 +96,7 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 
 // Probably should not expose this and rather have setters for various states.
 - (void)setAndNotifyIncomingVideoStatus:(TBMIncomingVideoStatus)status video:(TBMVideo *)video;
-- (void)setAndNotifyDownloadRetryCount:(NSNumber *)retryCount video:(TBMVideo *)video;
+- (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount video:(TBMVideo *)video;
 
 - (void)setViewedWithIncomingVideo:(TBMVideo *)video;
 - (BOOL)incomingVideoNotViewed;
@@ -107,7 +107,8 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 - (void)handleOutgoingVideoUploadedWithVideoId:(NSString *)videoId;
 - (void)handleOutgoingVideoViewedWithVideoId:(NSString *)videoId;
 - (void)handleOutgoingVideoFailedPermanentlyWithVideoId:(NSString *)videoId;
-- (void)handleUploadRetryCount:(NSNumber *)retryCount videoId:(NSString *)videoId;
+
+- (void)handleUploadRetryCount:(NSInteger)retryCount videoId:(NSString *)videoId;
 
 - (NSString *)fullName;
 
