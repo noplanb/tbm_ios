@@ -63,4 +63,12 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
     }
 }
 
+- (void)handleResetLastActionWithCompletionBlock:(void (^)(ZZGridActionEventType, ZZGridCellViewModel *))completionBlock
+{
+    if (self.eventHandler)
+    {
+        [self.eventHandler handleResetLastActionWithCompletionBlock:completionBlock];
+    }
+}
+
 @end

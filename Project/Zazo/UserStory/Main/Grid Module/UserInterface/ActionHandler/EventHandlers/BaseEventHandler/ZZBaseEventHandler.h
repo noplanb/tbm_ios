@@ -25,6 +25,8 @@
 
 @property (nonatomic, strong) ZZBaseEventHandler* eventHandler;
 @property (nonatomic, weak) id <ZZEventHandlerDelegate> delegate;
+@property (nonatomic, assign) BOOL isLastAcitionDone;
+@property (nonatomic, strong) ZZGridCellViewModel* hintModel;
 
 - (void)handleEvent:(ZZGridActionEventType)event
               model:(ZZGridCellViewModel*)model
@@ -33,5 +35,7 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZGridCellViewModel* model))compl
 - (void)nextHandlerHandleEvent:(ZZGridActionEventType)event
                          model:(ZZGridCellViewModel*)model
            withCompletionBlock:(void(^)(ZZHintsType handledEvent, ZZGridCellViewModel* model))completionBlock;
+
+- (void)handleResetLastActionWithCompletionBlock:(void(^)(ZZGridActionEventType event, ZZGridCellViewModel* model))completionBlock;
 
 @end

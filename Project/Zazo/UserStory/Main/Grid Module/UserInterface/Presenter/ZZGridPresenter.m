@@ -75,9 +75,15 @@
                                              selector:@selector(stopPlaying)
                                                  name:kNotificationIncomingCall
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_handleAppBeomeActive)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
 }
 
 - (void)dealloc
+
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[ZZVideoRecorder shared] removeDelegate:self];
@@ -99,6 +105,10 @@
     [self.dataSource updateCellWithModel:model];
 }
 
+- (void)_handleAppBeomeActive
+{
+    [self.actionHandler resetLastHintAndShowIfNeeded];
+}
 
 #pragma mark - Update User
 

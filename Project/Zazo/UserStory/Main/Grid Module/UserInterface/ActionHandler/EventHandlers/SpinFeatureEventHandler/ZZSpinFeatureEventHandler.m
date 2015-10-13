@@ -36,4 +36,9 @@
     }
 }
 
+- (void)handleResetLastActionWithCompletionBlock:(void (^)(ZZGridActionEventType, ZZGridCellViewModel *))completionBlock
+{
+    NSLog(@"stop");
+}
+
 @end

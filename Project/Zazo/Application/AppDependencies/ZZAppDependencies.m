@@ -47,6 +47,19 @@
     });
 }
 
+- (void)handleWillResignActive
+{
+    ANDispatchBlockToBackgroundQueue(^{
+        ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
+        if (user.isRegistered)
+        {
+            ANDispatchBlockToMainQueue(^{
+                [self _handleResignAvtive];
+            });
+        }
+    });
+}
+
 - (BOOL)handleOpenURL:(NSURL*)url inApplication:(NSString*)application
 {
     return NO;
@@ -124,4 +137,9 @@
     }];
 }
 
+- (void)_handleResignAvtive
+{
+    [[ZZVideoRecorder shared] stopAudioSession];
+    [[ZZVideoRecorder shared] cancelRecording];
+}
 @end

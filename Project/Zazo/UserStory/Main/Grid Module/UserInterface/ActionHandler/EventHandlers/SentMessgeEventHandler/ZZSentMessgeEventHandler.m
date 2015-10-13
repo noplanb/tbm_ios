@@ -21,6 +21,7 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
         model.item.relatedUser.unviewedCount == 0)
     {
         [ZZGridActionStoredSettings shared].sentHintWasShown = YES;
+        
         if (completionBlock)
         {
             completionBlock(ZZHintsTypeSentHint, model);
@@ -31,6 +32,7 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
              [self.delegate frinedsNumberOnGrid] > 1)
     {
         [ZZGridActionStoredSettings shared].sentHintWasShown = YES;
+        
         if (completionBlock)
         {
             completionBlock(ZZHintsTypeNoHint, model);
@@ -38,6 +40,7 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
     }
     else
     {
+        
         if(!ANIsEmpty(self.eventHandler))
         {
             [super nextHandlerHandleEvent:event model:model withCompletionBlock:completionBlock];
@@ -51,6 +54,14 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
         }
     }
 
+}
+
+- (void)handleResetLastActionWithCompletionBlock:(void (^)(ZZGridActionEventType, ZZGridCellViewModel *))completionBlock
+{
+    if (self.eventHandler)
+    {
+        [self.eventHandler handleResetLastActionWithCompletionBlock:completionBlock];
+    }
 }
 
 @end

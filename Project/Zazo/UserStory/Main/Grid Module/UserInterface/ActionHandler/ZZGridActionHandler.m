@@ -46,6 +46,7 @@
 @property(nonatomic, assign) ZZGridActionEventType filterEvent; //Filter multuply times of event throwing
 @property (nonatomic, strong) ZZInviteEventHandler* startEventHandler;
 @property (nonatomic, strong) ZZFeatureEventObserver* featureEventObserver;
+@property (nonatomic, assign) NSInteger lastActionIndex;
 
 @end
 
@@ -141,7 +142,7 @@
                 {
                     actionIndex = 2;
                 }
-                
+                self.lastActionIndex = actionIndex;
                 [self _configureHintControllerWithHintType:type withModel:model index:actionIndex];
             }
             
@@ -292,6 +293,16 @@
     }
     
     return isAble;
+}
+
+- (void)resetLastHintAndShowIfNeeded
+{
+    if (![ZZGridActionStoredSettings shared].spinHintWasShown)
+    {
+        [self.startEventHandler handleResetLastActionWithCompletionBlock:^(ZZGridActionEventType event, ZZGridCellViewModel *model) {
+            [self handleEvent:event withIndex:self.lastActionIndex];
+        }];
+    }
 }
 
 #pragma mark - Lazy Load
