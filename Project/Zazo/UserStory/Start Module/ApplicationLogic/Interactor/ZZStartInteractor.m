@@ -10,6 +10,10 @@
 #import "ZZCommonNetworkTransportService.h"
 #import "ZZUserDataProvider.h"
 
+@interface ZZStartInteractor ()
+@property(nonatomic, assign) BOOL isNeedUpdate;
+@end
+
 @implementation ZZStartInteractor
 
 - (void)checkVersionState
@@ -35,7 +39,7 @@
             if (state < ZZApplicationVersionStateTotalCount)
             {
                 OB_INFO(@"checkVersionCompatibility: success: %@", [NSObject an_safeString:result]);
-                [self.output userVersionStateLoadedSuccessfully:state];
+                [self _userVersionStateLoadedSuccessfully:state];
             }
             else
             {
@@ -45,10 +49,38 @@
     } error:^(NSError *error) {
         
         OB_WARN(@"checkVersionCompatibility: %@", error);
-        [self.output userVersionStateLoadedingDidFailWithError:error];
+        [self.output userVersionStateLoadingDidFailWithError:error];
     }];
     
     [self _checkSession];
+}
+
+- (void)_userVersionStateLoadedSuccessfully:(ZZApplicationVersionState)state
+{
+    switch (state)
+    {
+        case ZZApplicationVersionStateCurrent:
+        {
+            [self.output applicationIsUpToDate];
+        }
+            break;
+        case ZZApplicationVersionStateUpdateOptional:
+        {
+            _isNeedUpdate = YES;
+            [self.output needUpdate:YES];
+
+        }
+            break;
+        case ZZApplicationVersionStateUpdateSchemaRequired:
+        case ZZApplicationVersionStateUpdateRequired:
+        {
+            _isNeedUpdate = YES;
+            [self.output needUpdate:NO];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)_checkSession
@@ -68,5 +100,11 @@
         [self.output userRequiresAuthentication];
     }
 }
+
+- (BOOL)isNeedUpdate
+{
+    return _isNeedUpdate;
+}
+
 
 @end

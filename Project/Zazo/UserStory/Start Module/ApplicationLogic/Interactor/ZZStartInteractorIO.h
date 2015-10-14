@@ -11,7 +11,7 @@
 @protocol ZZStartInteractorInput <NSObject>
 
 - (void)checkVersionState;
-
+- (BOOL)isNeedUpdate;
 @end
 
 
@@ -20,7 +20,8 @@
 - (void)userRequiresAuthentication;
 - (void)userHasAuthentication;
 
-- (void)userVersionStateLoadedSuccessfully:(ZZApplicationVersionState)versionState;
-- (void)userVersionStateLoadedingDidFailWithError:(NSError*)error;
+- (void)userVersionStateLoadingDidFailWithError:(NSError*)error;
+- (void)needUpdate:(BOOL)canBeSkipped;
+- (void)applicationIsUpToDate;
 
 @end
