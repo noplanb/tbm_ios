@@ -9,6 +9,7 @@
 @protocol ZZMenuInteractorInput <NSObject>
 
 - (void)loadDataIncludeAddressBookRequest:(BOOL)shouldRequest;
+- (void)resetAddressBookData;
 
 @end
 

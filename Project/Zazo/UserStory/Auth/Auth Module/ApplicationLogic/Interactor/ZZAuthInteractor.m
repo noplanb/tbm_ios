@@ -62,7 +62,6 @@
             {
                 user.plainPhoneNumber = nationalNumber;
             }
-            
         }
     }
     [self.output userDataLoadedSuccessfully:user];

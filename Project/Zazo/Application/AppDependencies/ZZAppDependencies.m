@@ -54,7 +54,7 @@
         if (user.isRegistered)
         {
             ANDispatchBlockToMainQueue(^{
-                [self _handleResignAvtive];
+                [self _handleResignActive];
             });
         }
     });
@@ -128,7 +128,6 @@
     [self.callCenter setCallEventHandler:^(CTCall * call) {
         if ([call.callState isEqualToString:CTCallStateIncoming])
         {
-            
             ANDispatchBlockToMainQueue(^{
                 [[ZZVideoRecorder shared] cancelRecordingWithReason:NSLocalizedString(@"record-canceled-reason-incoming-call", nil)];
                 [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationIncomingCall object:nil];
@@ -137,7 +136,7 @@
     }];
 }
 
-- (void)_handleResignAvtive
+- (void)_handleResignActive
 {
     [[ZZVideoRecorder shared] stopAudioSession];
     [[ZZVideoRecorder shared] cancelRecording];

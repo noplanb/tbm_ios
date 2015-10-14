@@ -48,10 +48,12 @@
         return [ZZMenuCellViewModel viewModelWithItem:value];
     }] array];
     
-    ANSectionModel* section = [self.storage sectionAtIndex:sectionIndex];
-    [section.objects removeAllObjects];
-    [section.objects addObjectsFromArray:items];
-    [self.storage.delegate storageNeedsReload];
+    ANDispatchBlockToMainQueue(^{
+        ANSectionModel* section = [self.storage sectionAtIndex:sectionIndex createIfNeeded:YES];
+        [section.objects removeAllObjects];
+        [section.objects addObjectsFromArray:items];
+        [self.storage.delegate storageNeedsReload];
+    });
 }
 
 @end

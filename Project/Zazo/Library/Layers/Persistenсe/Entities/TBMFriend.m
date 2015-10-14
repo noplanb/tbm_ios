@@ -403,10 +403,11 @@ static NSMutableSet *videoStatusNotificationDelegates;
     {
         self.everSent = @(YES);
         [self.managedObjectContext MR_saveToPersistentStoreAndWait];
-//        [self.managedObjectContext refreshAllObjects];
+        [ZZContentDataAcessor refreshContext:self.managedObjectContext];
     }
     [self notifyVideoStatusChange];
 }
+
 
 + (void)fillAfterMigration
 {
@@ -510,8 +511,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 //---------------
 - (void)setAndNotifyOutgoingVideoStatus:(TBMOutgoingVideoStatus)status videoId:(NSString *)videoId
 {
-//    [self.managedObjectContext refreshAllObjects];
-    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
+    [ZZContentDataAcessor refreshContext:self.managedObjectContext];
     if (![videoId isEqual:self.outgoingVideoId])
     {
         OB_WARN(@"setAndNotifyOutgoingVideoStatus: Unrecognized vidoeId:%@. != ougtoingVid:%@. friendId:%@ Ignoring.", videoId, self.outgoingVideoId, self.idTbm);
@@ -541,7 +541,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (void)setAndNotifyIncomingVideoStatus:(TBMIncomingVideoStatus)status video:(TBMVideo *)video
 {
-    [self.managedObjectContext refreshAllObjects];
+    [ZZContentDataAcessor refreshContext:self.managedObjectContext];
     if (video.statusValue == status)
     {
         OB_WARN(@"setAndNotifyIncomingVideoStatusWithVideo: Identical status. Ignoring.");
@@ -582,7 +582,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 // --------------------
 - (void)setAndNotifyUploadRetryCount:(NSInteger)retryCount videoId:(NSString *)videoId
 {
-    [self.managedObjectContext refreshAllObjects];
+    [ZZContentDataAcessor refreshContext:self.managedObjectContext];
     if (![videoId isEqual:self.outgoingVideoId])
     {
         OB_WARN(@"setAndNotifyUploadRetryCount: Unrecognized vidoeId. Ignoring.");
@@ -604,7 +604,9 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount video:(TBMVideo *)video
 {
-    [self.managedObjectContext refreshAllObjects];
+    [ZZContentDataAcessor refreshContext:self.managedObjectContext];
+    [ZZContentDataAcessor refreshContext:video.managedObjectContext];
+    
     if (video.downloadRetryCountValue == retryCount)
         return;
 
