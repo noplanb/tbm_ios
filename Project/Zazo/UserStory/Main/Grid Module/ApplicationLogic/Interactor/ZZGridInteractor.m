@@ -251,18 +251,25 @@ static NSInteger const kGridFriendsCellCount = 8;
         //TODO:
         BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
         
-        if (!shouldBeVisible &&
-            (model.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeIncoming) &&
-            model.lastIncomingVideoStatusValue == ZZVideoIncomingStatusDownloading)
+        if (!shouldBeVisible)
         {
-            ZZFriendshipStatusType status = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
-            friendModel = [ZZFriendDataUpdater updateConnectionStatusForUserWithID:friendModel.idTbm toValue:status];
+            BOOL isUserSendsUsAVideo = ((model.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeIncoming) &&
+                                        (model.lastIncomingVideoStatusValue  == ZZVideoIncomingStatusDownloading));
             
-            [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey
-                                                              toVisible:!shouldBeVisible] subscribeNext:^(NSDictionary* response) {
-            }];
+            BOOL isUserViewedOurVideo = ((model.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeOutgoing) &&
+                                         (model.outgoingVideoStatusValue  == ZZVideoOutgoingStatusViewed));
             
-            [self _addUserAsFriendToGrid:friendModel fromNotification:YES];
+            if (isUserSendsUsAVideo | isUserViewedOurVideo)
+            {
+                ZZFriendshipStatusType status = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
+                friendModel = [ZZFriendDataUpdater updateConnectionStatusForUserWithID:friendModel.idTbm toValue:status];
+                
+                [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey
+                                                                  toVisible:!shouldBeVisible] subscribeNext:^(NSDictionary* response) {
+                }];
+                
+                [self _addUserAsFriendToGrid:friendModel fromNotification:YES];
+            }
         }
         if (shouldBeVisible)
         {
