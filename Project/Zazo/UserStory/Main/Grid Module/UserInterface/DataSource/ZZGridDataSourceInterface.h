@@ -19,8 +19,6 @@
 
 @protocol ZZGridDataSourceDelegate <NSObject>
 
-- (void)itemSelectedWithModel:(ZZGridCellViewModel*)model;
-
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled
                            viewModel:(ZZGridCellViewModel*)viewModel
                  withCompletionBlock:(ZZBoolBlock)completionBlock;

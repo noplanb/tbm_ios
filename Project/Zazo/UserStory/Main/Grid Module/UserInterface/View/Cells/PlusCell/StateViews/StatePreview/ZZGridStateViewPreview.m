@@ -41,6 +41,7 @@ static CGFloat const kThumbnailBorderWidth = 2;
     ANDispatchBlockToMainQueue(^{
         [super updateWithModel:model];
         [self _setupThumbnailWithModel:model];
+        self.userNameLabel.hidden = NO;
     });
 }
 
@@ -98,6 +99,7 @@ static CGFloat const kThumbnailBorderWidth = 2;
         [self hideAllAnimationViews];
         [self _hideThumbnailGreenBorder];
         self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
+        self.userNameLabel.hidden = YES;
         [self.model updateVideoPlayingStateTo:YES];
     }
 }

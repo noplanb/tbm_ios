@@ -23,6 +23,7 @@
 #import "ZZUserFriendshipStatusHandler.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZUserPresentationHelper.h"
+#import "ZZContentDataAcessor.h"
 
 @implementation TBMFriend
 
@@ -30,7 +31,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 + (NSManagedObjectContext*)_context
 {
-    return [NSManagedObjectContext MR_contextForCurrentThread];
+    return [ZZContentDataAcessor contextForCurrentThread];
 }
 
 + (NSArray *)all
@@ -224,7 +225,8 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (BOOL)hasIncomingVideoId:(NSString*)videoId
 {
-    for (TBMVideo *v in [self incomingVideos])
+    NSArray* videos = [self.videos.allObjects copy];
+    for (TBMVideo *v in videos)
     {
         if ([v.videoId isEqual:videoId])
             return true;
@@ -234,7 +236,8 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (BOOL)hasDownloadingVideo
 {
-    for (TBMVideo *v in [self incomingVideos])
+    NSArray* videos = [self.videos.allObjects copy];
+    for (TBMVideo *v in videos)
     {
         if (v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADING)
             return YES;
@@ -244,7 +247,8 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (BOOL)hasRetryingDownload
 {
-    for (TBMVideo *v in [self incomingVideos])
+    NSArray* videos = [self.videos.allObjects copy];
+    for (TBMVideo *v in videos)
     {
         if ([v.downloadRetryCount intValue] > 0)
             return YES;
@@ -267,7 +271,8 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (void)deleteAllVideos
 {
-    for (TBMVideo *v in [self incomingVideos])
+    NSArray* videos = [self.videos.allObjects copy];
+    for (TBMVideo *v in videos)
     {
         [self deleteVideo:v];
     }
@@ -398,6 +403,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
     {
         self.everSent = @(YES);
         [self.managedObjectContext MR_saveToPersistentStoreAndWait];
+        [self.managedObjectContext refreshAllObjects];
     }
     [self notifyVideoStatusChange];
 }
@@ -440,7 +446,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
     if (v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADING)
     {
-        if ([v.downloadRetryCount intValue] == 0)
+        if (v.downloadRetryCountValue == 0)
         {
             return @"Downloading...";
         }
@@ -466,7 +472,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
             statusString = @"q...";
             break;
         case OUTGOING_VIDEO_STATUS_UPLOADING:
-            if (self.uploadRetryCount == 0)
+            if (self.uploadRetryCountValue == 0)
             {
                 statusString = @"p...";
             } else
@@ -504,6 +510,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 //---------------
 - (void)setAndNotifyOutgoingVideoStatus:(TBMOutgoingVideoStatus)status videoId:(NSString *)videoId
 {
+    [self.managedObjectContext refreshAllObjects];
     if (![videoId isEqual:self.outgoingVideoId])
     {
         OB_WARN(@"setAndNotifyOutgoingVideoStatus: Unrecognized vidoeId:%@. != ougtoingVid:%@. friendId:%@ Ignoring.", videoId, self.outgoingVideoId, self.idTbm);
@@ -533,6 +540,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (void)setAndNotifyIncomingVideoStatus:(TBMIncomingVideoStatus)status video:(TBMVideo *)video
 {
+    [self.managedObjectContext refreshAllObjects];
     if (video.statusValue == status)
     {
         OB_WARN(@"setAndNotifyIncomingVideoStatusWithVideo: Identical status. Ignoring.");
@@ -571,33 +579,35 @@ static NSMutableSet *videoStatusNotificationDelegates;
 // --------------------
 // Setting Retry Counts
 // --------------------
-- (void)setAndNotifyUploadRetryCount:(NSNumber *)retryCount videoId:(NSString *)videoId
+- (void)setAndNotifyUploadRetryCount:(NSInteger)retryCount videoId:(NSString *)videoId
 {
+    [self.managedObjectContext refreshAllObjects];
     if (![videoId isEqual:self.outgoingVideoId])
     {
         OB_WARN(@"setAndNotifyUploadRetryCount: Unrecognized vidoeId. Ignoring.");
         return;
     }
 
-    if (retryCount != self.uploadRetryCount)
+    if (retryCount != self.uploadRetryCountValue)
     {
-        self.uploadRetryCount = retryCount;
+        self.uploadRetryCount = @(retryCount);
         self.lastVideoStatusEventTypeValue = OUTGOING_VIDEO_STATUS_EVENT_TYPE;
         [self.managedObjectContext MR_saveToPersistentStoreAndWait];
         [self notifyVideoStatusChangeOnMainThread];
     }
     else
     {
-        OB_WARN(@"retryCount:%@ equals self.retryCount:%@. Ignoring.", retryCount, self.uploadRetryCount);
+        OB_WARN(@"retryCount:%ld equals self.retryCount:%@. Ignoring.", (long)retryCount, self.uploadRetryCount);
     }
 }
 
-- (void)setAndNotifyDownloadRetryCount:(NSNumber *)retryCount video:(TBMVideo *)video
+- (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount video:(TBMVideo *)video
 {
-    if (video.downloadRetryCount == retryCount)
+    [self.managedObjectContext refreshAllObjects];
+    if (video.downloadRetryCountValue == retryCount)
         return;
 
-    video.downloadRetryCount = retryCount;
+    video.downloadRetryCount = @(retryCount);
     [video.managedObjectContext MR_saveToPersistentStoreAndWait];
     [self.managedObjectContext MR_saveToPersistentStoreAndWait];
 
@@ -641,9 +651,9 @@ static NSMutableSet *videoStatusNotificationDelegates;
     [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY videoId:videoId];
 }
 
-- (void)handleUploadRetryCount:(NSNumber *)retryCount videoId:(NSString *)videoId
+- (void)handleUploadRetryCount:(NSInteger)retryCount videoId:(NSString *)videoId
 {
-    [self setAndNotifyUploadRetryCount:(NSNumber *) retryCount videoId:(NSString *) videoId];
+    [self setAndNotifyUploadRetryCount:retryCount videoId:(NSString *) videoId];
 }
 
 - (NSString *)fullName

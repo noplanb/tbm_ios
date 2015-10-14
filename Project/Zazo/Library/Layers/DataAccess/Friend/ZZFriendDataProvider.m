@@ -14,6 +14,7 @@
 #import "ZZFriendModelsMapper.h"
 #import "ZZGridDataProvider.h"
 #import "ZZGridDomainModel.h"
+#import "ZZContentDataAcessor.h"
 
 @implementation ZZFriendDataProvider
 
@@ -143,7 +144,7 @@
 
 + (NSManagedObjectContext*)_context
 {
-    return [NSManagedObjectContext MR_contextForCurrentThread];
+    return [ZZContentDataAcessor contextForCurrentThread];
 }
 
 

@@ -10,6 +10,7 @@
 #import "ZZUserModelsMapper.h"
 #import "MagicalRecord.h"
 #import "TBMDispatch.h"
+#import "ZZContentDataAcessor.h"
 
 @implementation ZZUserDataProvider
 
@@ -63,7 +64,7 @@
 
 + (NSManagedObjectContext*)_context
 {
-    return [NSManagedObjectContext MR_contextForCurrentThread];
+    return [ZZContentDataAcessor contextForCurrentThread];
 }
 
 @end

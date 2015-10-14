@@ -7,7 +7,6 @@
 //
 
 #import "ZZContentDataAcessor.h"
-#import "MagicalRecord.h"
 #import "TBMFriend.h"
 
 @implementation ZZContentDataAcessor
@@ -26,8 +25,23 @@
 
 + (void)saveDataBase
 {
-    
-    [[NSManagedObjectContext MR_contextForCurrentThread] MR_saveToPersistentStoreAndWait];
+    [[self contextForCurrentThread] MR_saveToPersistentStoreAndWait];
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++ (NSManagedObjectContext *)contextForCurrentThread
+{
+    return [NSManagedObjectContext MR_contextForCurrentThread];
+}
+#pragma GCC diagnostic pop
+
 @end
+
+
+
+
+
+
+
+

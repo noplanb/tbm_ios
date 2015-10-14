@@ -383,7 +383,6 @@
 - (void)stopPlaying
 {
     [self.videoPlayer stop];
-//    [self.dataSource reloadStorage];
 }
 
 #pragma mark - Menu Delegate

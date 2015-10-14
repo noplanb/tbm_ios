@@ -8,6 +8,7 @@
 
 #import "TBMGridElement.h"
 #import "MagicalRecord.h"
+#import "ZZContentDataAcessor.h"
 
 @implementation TBMGridElement
 
@@ -39,7 +40,7 @@
 
 + (NSManagedObjectContext*)_context
 {
-    return [NSManagedObjectContext MR_contextForCurrentThread];
+    return [ZZContentDataAcessor contextForCurrentThread];
 }
 
 

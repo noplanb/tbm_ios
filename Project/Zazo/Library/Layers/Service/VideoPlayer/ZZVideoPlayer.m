@@ -99,9 +99,10 @@
     if (!ANIsEmpty(URLs))//&& ![self.currentPlayQueue isEqualToArray:URLs]) //TODO: if current playback state is equal to user's play list
     {
         ZZVideoDomainModel* playedVideoModel = [self.videoModelsArray firstObject];
+       
         TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
         self.playedFriend = playedVideoModel.relatedUser;
-        self.moviePlayerController.contentURL = viewedVideo.videoUrl;//firstVideoUrl;
+        self.moviePlayerController.contentURL = playedVideoModel.videoURL;//firstVideoUrl;
         
         //save video state
         [self _updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
@@ -234,7 +235,6 @@
 
 - (void)_playNext
 {
-    
     NSInteger index = [self _nextVideoIndex];
     
     NSURL* nextUrl = nil;
@@ -270,7 +270,7 @@
                                                       videoId:viewedVideo.videoId
                                                        friend:friend];
         
-        [self.delegate videoPlayerURLWasStartPlaying:nextUrl];
+        [self.delegate videoPlayerURLWasStartPlaying:nextUrl]; //TODO: this causes blinking. reload only after full stop
         
         self.isPlayingVideo = YES;
         [UIDevice currentDevice].proximityMonitoringEnabled = [ZZGridActionStoredSettings shared].earpieceHintWasShown;
@@ -324,6 +324,10 @@
         [_moviePlayerController setScalingMode:MPMovieScalingModeFill];
         _moviePlayerController.controlStyle = MPMovieControlStyleNone;
         _moviePlayerController.view.backgroundColor = [UIColor clearColor];
+        for (UIView *aSubView in _moviePlayerController.view.subviews)
+        {
+            aSubView.backgroundColor = [UIColor clearColor];
+        }
         [_moviePlayerController.view addSubview:self.tapButton];
     }
     return _moviePlayerController;

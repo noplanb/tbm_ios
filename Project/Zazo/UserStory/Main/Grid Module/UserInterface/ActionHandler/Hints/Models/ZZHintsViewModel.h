@@ -26,7 +26,6 @@ typedef NS_ENUM(NSInteger, ZZHintPresentationState)
 - (NSString*)text;
 - (CGRect)focusFrame;
 
-- (CGPoint)generateArrowFocusPoint;
 - (CGPoint)generateArrowFocusPointForIndex:(NSInteger)index;
 
 - (CGFloat)arrowAngle;

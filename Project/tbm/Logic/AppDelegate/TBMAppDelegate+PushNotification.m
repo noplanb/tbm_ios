@@ -148,9 +148,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     
     self.pushVideoId = [userInfo objectForKey:@"video_id"];
     [self requestBackground];
-    ANDispatchBlockToBackgroundQueue(^{
-       [self handleNotificationPayload:userInfo];
-    });
+    [self handleNotificationPayload:userInfo];
     
     // See doc/notification.txt for why we call the completion handler with sucess immediately here.
 //    _completionHandler = [completionHandler copy];
@@ -204,8 +202,9 @@ void (^_completionHandler)(UIBackgroundFetchResult);
         [self getAndPollAllFriends];
         return;
     }
-
-    [self queueDownloadWithFriend:friend videoId:videoId];
+    //TODO: DEBUG
+    NSLog(@"OKS- %@ - %@", NSStringFromSelector(_cmd), videoId);
+    [self queueDownloadWithFriendID:friend.idTbm videoId:videoId];
 }
 
 - (void)handleVideoStatusUpdateNotification:(NSDictionary *)userInfo {
