@@ -11,6 +11,9 @@
 #import "TBMUser.h"
 #import "ZZUserDataProvider.h"
 #import "ZZFriendsTransportService.h"
+#import "ZZFriendDomainModel.h"
+#import "FEMObjectDeserializer.h"
+#import "ZZFriendDataUpdater.h"
 
 @interface TBMFriendGetter ()
 
@@ -44,8 +47,11 @@
 
 - (void)gotFriends:(NSArray *)friends
 {
-    for (NSDictionary *fParams in friends){
-        [TBMFriend createOrUpdateWithServerParams:fParams complete:nil];
+    for (NSDictionary *fParams in friends)
+    {
+        ZZFriendDomainModel* model = [FEMObjectDeserializer deserializeObjectExternalRepresentation:fParams
+                                                                                       usingMapping:[ZZFriendDomainModel mapping]];
+        [ZZFriendDataUpdater upsertFriend:model];
     }
 
     [_delegate gotFriends];

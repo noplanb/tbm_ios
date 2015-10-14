@@ -234,14 +234,14 @@
     if ([self statusIsFailure:params])
         return;
     
-    [TBMFriend createOrUpdateWithServerParams:params complete:^(TBMFriend *friend) {
-        [self setFriend: friend];
-        
-        if ([friend hasApp])
-            [self connectedDialog];
-        else
-            [self smsDialog];
-    }];
+//    [TBMFriend createOrUpdateWithServerParams:params complete:^(TBMFriend *friend) {
+//        [self setFriend: friend];
+//        
+//        if ([friend hasApp])
+//            [self connectedDialog];
+//        else
+//            [self smsDialog];
+//    }];
 }
 
 - (void) connectedDialog

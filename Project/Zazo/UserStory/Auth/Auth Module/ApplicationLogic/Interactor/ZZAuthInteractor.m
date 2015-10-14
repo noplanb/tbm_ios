@@ -27,6 +27,8 @@
 #import "TBMAppDelegate+Boot.h"
 #import "ZZCommonNetworkTransportService.h"
 #import "ZZVideoRecorder.h"
+#import "ZZFriendDataUpdater.h"
+#import "ZZFriendDomainModel.h"
 
 @interface ZZAuthInteractor ()
 
@@ -308,7 +310,9 @@
     ANDispatchBlockToBackgroundQueue(^{
         for (NSDictionary *fParams in friends)
         {
-            [TBMFriend createOrUpdateWithServerParams:fParams complete:nil];
+            ZZFriendDomainModel* model = [FEMObjectDeserializer deserializeObjectExternalRepresentation:fParams
+                                                                                           usingMapping:[ZZFriendDomainModel mapping]];
+            [ZZFriendDataUpdater upsertFriend:model];
         }
     });
 }

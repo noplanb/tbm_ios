@@ -105,55 +105,6 @@ static NSMutableSet *videoStatusNotificationDelegates;
 }
 
 
-+ (void)createOrUpdateWithServerParams:(NSDictionary *)params complete:(void (^)(TBMFriend *user))complete
-{
-    ZZFriendDomainModel* model = [FEMObjectDeserializer deserializeObjectExternalRepresentation:params
-                                                                                   usingMapping:[ZZFriendDomainModel mapping]];
-    [ZZFriendDataUpdater upsertFriend:model];
-//    
-//    
-//    BOOL servHasApp = [TBMHttpManager hasAppWithServerValue:[params objectForKey:SERVER_PARAMS_FRIEND_HAS_APP_KEY]];
-//    TBMFriend *f = [TBMFriend findWithMkey:[params objectForKey:SERVER_PARAMS_FRIEND_MKEY_KEY]];
-//    if (f != nil)
-//    {
-//        // OB_INFO(@"createWithServerParams: friend already exists.");
-//        if ([f.hasApp boolValue] ^ servHasApp)
-//        {
-//            OB_INFO(@"createWithServerParams: Friend exists updating hasApp only since it is different.");
-//            f.hasApp = @(servHasApp);
-//            [f notifyVideoStatusChange];
-//        }
-//        if (complete != nil)
-//            complete(f);
-//        return;
-//    }
-//    
-//    
-//    TBMFriend *friendEntity = [TBMFriend MR_createEntityInContext:[self _context]];
-//    
-//    
-//    friendEntity.firstName = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_FIRST_NAME_KEY]];
-//    friendEntity.lastName = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_LAST_NAME_KEY]];
-//    friendEntity.mobileNumber = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_MOBILE_NUMBER_KEY]];
-//    friendEntity.idTbm = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_ID_KEY]];
-//    friendEntity.mkey = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_MKEY_KEY]];
-//    friendEntity.ckey = [NSObject an_safeString:[params objectForKey:SERVER_PARAMS_FRIEND_CKEY_KEY]];
-//    friendEntity.timeOfLastAction = [NSDate date];
-//    friendEntity.friendshipStatus = [NSObject an_safeString:params[@"connection_status"]];
-//    friendEntity.friendshipCreatorMKey = [NSObject an_safeString:params[@"connection_creator_mkey"]];
-//    friendEntity.hasApp = @(servHasApp);
-//    
-//    [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
-//    
-//    OB_INFO(@"Added friend: %@", friendEntity.firstName);
-//    [friendEntity notifyVideoStatusChange];
-//    if (complete)
-//    {
-//        complete(friendEntity);
-//    }
-}
-
-
 //-----------
 // UI helpers
 //-----------
