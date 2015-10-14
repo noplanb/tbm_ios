@@ -387,8 +387,8 @@
         [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self);
             make.centerX.equalTo(self);
-            make.leftMargin.equalTo(@(3));
-            make.rightMargin.equalTo(@(3));
+            make.leftMargin.equalTo(@(2));
+            make.rightMargin.equalTo(@(2));
             make.height.equalTo(self).dividedBy(kUserNameScaleValue);
         }];
     }
