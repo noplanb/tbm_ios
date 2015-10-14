@@ -250,7 +250,6 @@
 		07636EDF1BA49A0100925671 /* ZZStartVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D1D1BA49A0100925671 /* ZZStartVC.m */; };
 		07636EE01BA49A0100925671 /* ZZStartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D1F1BA49A0100925671 /* ZZStartView.m */; };
 		07636EE11BA49A0100925671 /* ZZStartWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D231BA49A0100925671 /* ZZStartWireframe.m */; };
-		07636EE21BA49A0100925671 /* ANActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D281BA49A0100925671 /* ANActivityIndicator.m */; };
 		07636EE31BA49A0100925671 /* ANAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D2B1BA49A0100925671 /* ANAnimator.m */; };
 		07636EE41BA49A0100925671 /* ANBaseListTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D2E1BA49A0100925671 /* ANBaseListTableCell.m */; };
 		07636EE51BA49A0100925671 /* ANBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D311BA49A0100925671 /* ANBaseVC.m */; };
@@ -268,23 +267,15 @@
 		07636EF21BA49A0100925671 /* machine.m.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = 07636D531BA49A0100925671 /* machine.m.motemplate */; };
 		07636EF31BA49A0100925671 /* mogen.sh in Resources */ = {isa = PBXBuildFile; fileRef = 07636D541BA49A0100925671 /* mogen.sh */; };
 		07636EF41BA49A0100925671 /* mogend.sh in Resources */ = {isa = PBXBuildFile; fileRef = 07636D551BA49A0100925671 /* mogend.sh */; };
-		07636EF51BA49A0100925671 /* ANImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D581BA49A0100925671 /* ANImageCache.m */; };
 		07636EF61BA49A0100925671 /* ANMessageDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D5B1BA49A0100925671 /* ANMessageDomainModel.m */; };
 		07636EF71BA49A0100925671 /* ANMessagesWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D5D1BA49A0100925671 /* ANMessagesWireframe.m */; };
-		07636EF81BA49A0100925671 /* ANNetworkLoadingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D631BA49A0100925671 /* ANNetworkLoadingVC.m */; };
-		07636EF91BA49A0100925671 /* ANNetworkLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D661BA49A0100925671 /* ANNetworkLoadingView.m */; };
-		07636EFA1BA49A0100925671 /* ANNetworkNoContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D691BA49A0100925671 /* ANNetworkNoContentView.m */; };
-		07636EFB1BA49A0100925671 /* ANNetworkProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D6B1BA49A0100925671 /* ANNetworkProgressView.m */; };
-		07636EFC1BA49A0100925671 /* ANNetworkRetryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D6D1BA49A0100925671 /* ANNetworkRetryView.m */; };
 		07636EFD1BA49A0100925671 /* ANNetworkActivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D711BA49A0100925671 /* ANNetworkActivityManager.m */; };
 		07636EFE1BA49A0100925671 /* ANError.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D741BA49A0100925671 /* ANError.m */; };
 		07636EFF1BA49A0100925671 /* ANErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D761BA49A0100925671 /* ANErrorHandler.m */; };
 		07636F001BA49A0100925671 /* ANEnumAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D791BA49A0100925671 /* ANEnumAdditions.m */; };
 		07636F011BA49A0100925671 /* ANNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D7B1BA49A0100925671 /* ANNetworkRequest.m */; };
 		07636F021BA49A0100925671 /* ANNetworkSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D7E1BA49A0100925671 /* ANNetworkSessionManager.m */; };
-		07636F031BA49A0100925671 /* ANScrollHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D811BA49A0100925671 /* ANScrollHandler.m */; };
 		07636F041BA49A0100925671 /* ANTableContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D841BA49A0100925671 /* ANTableContainerView.m */; };
-		07636F051BA49A0100925671 /* ANWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D871BA49A0100925671 /* ANWebViewController.m */; };
 		07636F061BA49A0100925671 /* TBMAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D8A1BA49A0100925671 /* TBMAlertController.m */; };
 		07636F071BA49A0100925671 /* TBMAlertControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D8C1BA49A0100925671 /* TBMAlertControllerView.m */; };
 		07636F081BA49A0100925671 /* TBMAlertControllerVisualStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D8E1BA49A0100925671 /* TBMAlertControllerVisualStyle.m */; };
@@ -899,8 +890,6 @@
 		07636D201BA49A0100925671 /* ZZStartViewInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZStartViewInterface.h; sourceTree = "<group>"; };
 		07636D221BA49A0100925671 /* ZZStartWireframe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZStartWireframe.h; sourceTree = "<group>"; };
 		07636D231BA49A0100925671 /* ZZStartWireframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZStartWireframe.m; sourceTree = "<group>"; };
-		07636D271BA49A0100925671 /* ANActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANActivityIndicator.h; sourceTree = "<group>"; };
-		07636D281BA49A0100925671 /* ANActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANActivityIndicator.m; sourceTree = "<group>"; };
 		07636D2A1BA49A0100925671 /* ANAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAnimator.h; sourceTree = "<group>"; };
 		07636D2B1BA49A0100925671 /* ANAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAnimator.m; sourceTree = "<group>"; };
 		07636D2D1BA49A0100925671 /* ANBaseListTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBaseListTableCell.h; sourceTree = "<group>"; };
@@ -931,24 +920,10 @@
 		07636D531BA49A0100925671 /* machine.m.motemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = machine.m.motemplate; sourceTree = "<group>"; };
 		07636D541BA49A0100925671 /* mogen.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = mogen.sh; sourceTree = "<group>"; };
 		07636D551BA49A0100925671 /* mogend.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = mogend.sh; sourceTree = "<group>"; };
-		07636D571BA49A0100925671 /* ANImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANImageCache.h; sourceTree = "<group>"; };
-		07636D581BA49A0100925671 /* ANImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANImageCache.m; sourceTree = "<group>"; };
 		07636D5A1BA49A0100925671 /* ANMessageDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMessageDomainModel.h; sourceTree = "<group>"; };
 		07636D5B1BA49A0100925671 /* ANMessageDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMessageDomainModel.m; sourceTree = "<group>"; };
 		07636D5C1BA49A0100925671 /* ANMessagesWireframe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMessagesWireframe.h; sourceTree = "<group>"; };
 		07636D5D1BA49A0100925671 /* ANMessagesWireframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMessagesWireframe.m; sourceTree = "<group>"; };
-		07636D5F1BA49A0100925671 /* ANNetworkLoadingViewInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNetworkLoadingViewInterface.h; sourceTree = "<group>"; };
-		07636D601BA49A0100925671 /* ANNetworkLoadingViewState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNetworkLoadingViewState.h; sourceTree = "<group>"; };
-		07636D621BA49A0100925671 /* ANNetworkLoadingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNetworkLoadingVC.h; sourceTree = "<group>"; };
-		07636D631BA49A0100925671 /* ANNetworkLoadingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNetworkLoadingVC.m; sourceTree = "<group>"; };
-		07636D651BA49A0100925671 /* ANNetworkLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNetworkLoadingView.h; sourceTree = "<group>"; };
-		07636D661BA49A0100925671 /* ANNetworkLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNetworkLoadingView.m; sourceTree = "<group>"; };
-		07636D681BA49A0100925671 /* ANNetworkNoContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNetworkNoContentView.h; sourceTree = "<group>"; };
-		07636D691BA49A0100925671 /* ANNetworkNoContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNetworkNoContentView.m; sourceTree = "<group>"; };
-		07636D6A1BA49A0100925671 /* ANNetworkProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNetworkProgressView.h; sourceTree = "<group>"; };
-		07636D6B1BA49A0100925671 /* ANNetworkProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNetworkProgressView.m; sourceTree = "<group>"; };
-		07636D6C1BA49A0100925671 /* ANNetworkRetryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNetworkRetryView.h; sourceTree = "<group>"; };
-		07636D6D1BA49A0100925671 /* ANNetworkRetryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNetworkRetryView.m; sourceTree = "<group>"; };
 		07636D701BA49A0100925671 /* ANNetworkActivityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNetworkActivityManager.h; sourceTree = "<group>"; };
 		07636D711BA49A0100925671 /* ANNetworkActivityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNetworkActivityManager.m; sourceTree = "<group>"; };
 		07636D731BA49A0100925671 /* ANError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANError.h; sourceTree = "<group>"; };
@@ -961,12 +936,8 @@
 		07636D7B1BA49A0100925671 /* ANNetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNetworkRequest.m; sourceTree = "<group>"; };
 		07636D7D1BA49A0100925671 /* ANNetworkSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNetworkSessionManager.h; sourceTree = "<group>"; };
 		07636D7E1BA49A0100925671 /* ANNetworkSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNetworkSessionManager.m; sourceTree = "<group>"; };
-		07636D801BA49A0100925671 /* ANScrollHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANScrollHandler.h; sourceTree = "<group>"; };
-		07636D811BA49A0100925671 /* ANScrollHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANScrollHandler.m; sourceTree = "<group>"; };
 		07636D831BA49A0100925671 /* ANTableContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTableContainerView.h; sourceTree = "<group>"; };
 		07636D841BA49A0100925671 /* ANTableContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTableContainerView.m; sourceTree = "<group>"; };
-		07636D861BA49A0100925671 /* ANWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANWebViewController.h; sourceTree = "<group>"; };
-		07636D871BA49A0100925671 /* ANWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANWebViewController.m; sourceTree = "<group>"; };
 		07636D891BA49A0100925671 /* TBMAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAlertController.h; sourceTree = "<group>"; };
 		07636D8A1BA49A0100925671 /* TBMAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAlertController.m; sourceTree = "<group>"; };
 		07636D8B1BA49A0100925671 /* TBMAlertControllerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMAlertControllerView.h; sourceTree = "<group>"; };
@@ -3337,7 +3308,6 @@
 		07636D251BA49A0100925671 /* ANODA */ = {
 			isa = PBXGroup;
 			children = (
-				07636D261BA49A0100925671 /* ANActivityIndicator */,
 				07636D291BA49A0100925671 /* ANAnimator */,
 				07636D2C1BA49A0100925671 /* ANBaseListTableCell */,
 				07636D2F1BA49A0100925671 /* ANBaseVC */,
@@ -3346,24 +3316,11 @@
 				07636D461BA49A0100925671 /* ANDrawer */,
 				07636D491BA49A0100925671 /* ANErrorBuilder */,
 				07636D4F1BA49A0100925671 /* ANHandyMogenerator */,
-				07636D561BA49A0100925671 /* ANImageCache */,
 				07636D591BA49A0100925671 /* ANMessageUIWireframe */,
-				07636D5E1BA49A0100925671 /* ANNetworkLoadingVC */,
 				07636D6E1BA49A0100925671 /* ANNetworkManager */,
-				07636D7F1BA49A0100925671 /* ANScrollHandler */,
 				07636D821BA49A0100925671 /* ANTableContainerView */,
-				07636D851BA49A0100925671 /* ANWebViewController */,
 			);
 			path = ANODA;
-			sourceTree = "<group>";
-		};
-		07636D261BA49A0100925671 /* ANActivityIndicator */ = {
-			isa = PBXGroup;
-			children = (
-				07636D271BA49A0100925671 /* ANActivityIndicator.h */,
-				07636D281BA49A0100925671 /* ANActivityIndicator.m */,
-			);
-			path = ANActivityIndicator;
 			sourceTree = "<group>";
 		};
 		07636D291BA49A0100925671 /* ANAnimator */ = {
@@ -3484,15 +3441,6 @@
 			path = ANHandyMogenerator;
 			sourceTree = "<group>";
 		};
-		07636D561BA49A0100925671 /* ANImageCache */ = {
-			isa = PBXGroup;
-			children = (
-				07636D571BA49A0100925671 /* ANImageCache.h */,
-				07636D581BA49A0100925671 /* ANImageCache.m */,
-			);
-			path = ANImageCache;
-			sourceTree = "<group>";
-		};
 		07636D591BA49A0100925671 /* ANMessageUIWireframe */ = {
 			isa = PBXGroup;
 			children = (
@@ -3502,49 +3450,6 @@
 				07636D5D1BA49A0100925671 /* ANMessagesWireframe.m */,
 			);
 			path = ANMessageUIWireframe;
-			sourceTree = "<group>";
-		};
-		07636D5E1BA49A0100925671 /* ANNetworkLoadingVC */ = {
-			isa = PBXGroup;
-			children = (
-				07636D5F1BA49A0100925671 /* ANNetworkLoadingViewInterface.h */,
-				07636D601BA49A0100925671 /* ANNetworkLoadingViewState.h */,
-				07636D611BA49A0100925671 /* Controller */,
-				07636D641BA49A0100925671 /* View */,
-			);
-			path = ANNetworkLoadingVC;
-			sourceTree = "<group>";
-		};
-		07636D611BA49A0100925671 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				07636D621BA49A0100925671 /* ANNetworkLoadingVC.h */,
-				07636D631BA49A0100925671 /* ANNetworkLoadingVC.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		07636D641BA49A0100925671 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				07636D651BA49A0100925671 /* ANNetworkLoadingView.h */,
-				07636D661BA49A0100925671 /* ANNetworkLoadingView.m */,
-				07636D671BA49A0100925671 /* ChildViews */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		07636D671BA49A0100925671 /* ChildViews */ = {
-			isa = PBXGroup;
-			children = (
-				07636D681BA49A0100925671 /* ANNetworkNoContentView.h */,
-				07636D691BA49A0100925671 /* ANNetworkNoContentView.m */,
-				07636D6A1BA49A0100925671 /* ANNetworkProgressView.h */,
-				07636D6B1BA49A0100925671 /* ANNetworkProgressView.m */,
-				07636D6C1BA49A0100925671 /* ANNetworkRetryView.h */,
-				07636D6D1BA49A0100925671 /* ANNetworkRetryView.m */,
-			);
-			path = ChildViews;
 			sourceTree = "<group>";
 		};
 		07636D6E1BA49A0100925671 /* ANNetworkManager */ = {
@@ -3598,15 +3503,6 @@
 			path = SessionManager;
 			sourceTree = "<group>";
 		};
-		07636D7F1BA49A0100925671 /* ANScrollHandler */ = {
-			isa = PBXGroup;
-			children = (
-				07636D801BA49A0100925671 /* ANScrollHandler.h */,
-				07636D811BA49A0100925671 /* ANScrollHandler.m */,
-			);
-			path = ANScrollHandler;
-			sourceTree = "<group>";
-		};
 		07636D821BA49A0100925671 /* ANTableContainerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -3614,15 +3510,6 @@
 				07636D841BA49A0100925671 /* ANTableContainerView.m */,
 			);
 			path = ANTableContainerView;
-			sourceTree = "<group>";
-		};
-		07636D851BA49A0100925671 /* ANWebViewController */ = {
-			isa = PBXGroup;
-			children = (
-				07636D861BA49A0100925671 /* ANWebViewController.h */,
-				07636D871BA49A0100925671 /* ANWebViewController.m */,
-			);
-			path = ANWebViewController;
 			sourceTree = "<group>";
 		};
 		07636D881BA49A0100925671 /* TBMAlertController */ = {
@@ -4465,12 +4352,10 @@
 				07636EDF1BA49A0100925671 /* ZZStartVC.m in Sources */,
 				07636DEA1BA49A0100925671 /* TBMFriendVideosInformation.m in Sources */,
 				07636DB61BA49A0100925671 /* TBMDeviceHandler.m in Sources */,
-				07636F031BA49A0100925671 /* ANScrollHandler.m in Sources */,
 				07636E171BA49A0100925671 /* ZZAppDelegate.m in Sources */,
 				07636E921BA49A0100925671 /* ZZAuthTextField.m in Sources */,
 				07636E2D1BA49A0100925671 /* ZZGridDomainModel.m in Sources */,
 				07636DF51BA49A0100925671 /* TBMHttpManager.m in Sources */,
-				07636EFC1BA49A0100925671 /* ANNetworkRetryView.m in Sources */,
 				07636EBE1BA49A0100925671 /* ZZGridCenterCell.m in Sources */,
 				07636ED71BA49A0100925671 /* ZZMenuView.m in Sources */,
 				07636EBA1BA49A0100925671 /* ZZGridInteractor.m in Sources */,
@@ -4530,7 +4415,6 @@
 				07636E401BA49A0100925671 /* TBMGridElement.m in Sources */,
 				07636E991BA49A0100925671 /* ZZDebugStateDomainModel.m in Sources */,
 				07636DAC1BA49A0100925671 /* AVAudioSession+TBMAudioSession.m in Sources */,
-				07636EF51BA49A0100925671 /* ANImageCache.m in Sources */,
 				07636EA21BA49A0100925671 /* ZZSecretInteractor.m in Sources */,
 				07636E321BA49A0100925671 /* ZZAccountTransport.m in Sources */,
 				07636ED21BA49A0100925671 /* ZZGridVC.m in Sources */,
@@ -4538,7 +4422,6 @@
 				07636E931BA49A0100925671 /* ZZAuthVC.m in Sources */,
 				07636EB71BA49A0100925671 /* ZZEditFriendListController.m in Sources */,
 				07636EBF1BA49A0100925671 /* ZZGridCenterCellViewModel.m in Sources */,
-				07636EF81BA49A0100925671 /* ANNetworkLoadingVC.m in Sources */,
 				07636EE81BA49A0100925671 /* NSObject+ANSafeValues.m in Sources */,
 				07636E3D1BA49A0100925671 /* ZZVideoNetworkTransport.m in Sources */,
 				79EBFD401BA8554100A26684 /* ZZToastMessageBuilder.m in Sources */,
@@ -4591,7 +4474,6 @@
 				07636E9F1BA49A0100925671 /* ZZDebugStateController.m in Sources */,
 				07636E1C1BA49A0100925671 /* ZZRootWireframe.m in Sources */,
 				07636EDB1BA49A0100925671 /* ZZMenuVC.m in Sources */,
-				07636EFA1BA49A0100925671 /* ANNetworkNoContentView.m in Sources */,
 				07636EC41BA49A0100925671 /* ZZGridStateViewPreview.m in Sources */,
 				181D1CB61BC5236E00044F83 /* ZZSentWelcomeEventHandler.m in Sources */,
 				07636EBB1BA49A0100925671 /* ZZGridAlertBuilder.m in Sources */,
@@ -4599,7 +4481,6 @@
 				07636DAF1BA49A0100925671 /* NSError+Extensions.m in Sources */,
 				07636E981BA49A0100925671 /* ZZDebugStateInteractor.m in Sources */,
 				07636DBF1BA49A0100925671 /* TBMVideoRecorder.m in Sources */,
-				07636EFB1BA49A0100925671 /* ANNetworkProgressView.m in Sources */,
 				07636E3E1BA49A0100925671 /* ZZVideoNetworkTransportService.m in Sources */,
 				07636E121BA49A0100925671 /* TBMViewUtils.m in Sources */,
 				07636E551BA49A0100925671 /* ZZBaseTouchController.m in Sources */,
@@ -4641,7 +4522,6 @@
 				07636EC61BA49A0100925671 /* ZZGridCell.m in Sources */,
 				181D1CA41BC51B2000044F83 /* ZZInviteEventHandler.m in Sources */,
 				07636DEC1BA49A0100925671 /* TBMStateProtocolHelper.m in Sources */,
-				07636EE21BA49A0100925671 /* ANActivityIndicator.m in Sources */,
 				186BD4B61BC3C87F00B47C6B /* TBMHintView.m in Sources */,
 				18E1F2FA1BC6AC780070ECF1 /* ZZFeatureEventStrategyBase.m in Sources */,
 				07636E2C1BA49A0100925671 /* ZZContactDomainModel.m in Sources */,
@@ -4713,7 +4593,6 @@
 				07636F0F1BA49A0100925671 /* NSData+MD5.m in Sources */,
 				79123D8C1BB15002007E1CBF /* ZZHintsModelGenerator.m in Sources */,
 				07636E4A1BA49A0100925671 /* ZZAlertBuilder.m in Sources */,
-				07636EF91BA49A0100925671 /* ANNetworkLoadingView.m in Sources */,
 				18E042AF1BBC2A3300318C6F /* ZZGridDataUpdater.m in Sources */,
 				07636E1D1BA49A0100925671 /* UIImage+ANDefault.m in Sources */,
 				07636ED51BA49A0100925671 /* ZZMenuDataSource.m in Sources */,
@@ -4748,7 +4627,6 @@
 				07636EAD1BA49A0100925671 /* ZZSecretController.m in Sources */,
 				07636EB21BA49A0100925671 /* ZZEditFriendListDataSource.m in Sources */,
 				07636E541BA49A0100925671 /* ZZStrategyNavigationLeftRight.m in Sources */,
-				07636F051BA49A0100925671 /* ANWebViewController.m in Sources */,
 				07636E331BA49A0100925671 /* ZZAccountTransportService.m in Sources */,
 				07636EC21BA49A0100925671 /* ZZGridStateView.m in Sources */,
 				07636EB31BA49A0100925671 /* ZZEditFriendListPresenter.m in Sources */,
