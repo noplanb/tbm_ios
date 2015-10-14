@@ -79,6 +79,10 @@
                                              selector:@selector(_handleAppBeomeActive)
                                                  name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_handleResignActive)
+                                                 name:UIApplicationWillResignActiveNotification object:nil];
 }
 
 - (void)dealloc
@@ -106,6 +110,11 @@
 - (void)_handleAppBeomeActive
 {
     [self.actionHandler resetLastHintAndShowIfNeeded];
+}
+
+- (void)_handleResignActive
+{
+    [self.actionHandler hideHint];
 }
 
 #pragma mark - Update User
@@ -193,8 +202,11 @@
 
 - (void)_showRecordWelcomeIfNeeded
 {
-    NSInteger indexWhenOneFriendOnGrid = 5;
-    [self.actionHandler handleEvent:ZZGridActionEventTypeGridLoaded withIndex:indexWhenOneFriendOnGrid];
+    CGFloat kDelayAfterViewLoaded = 0.8f;
+    ANDispatchBlockAfter(kDelayAfterViewLoaded, ^{
+        NSInteger indexWhenOneFriendOnGrid = 5;
+        [self.actionHandler handleEvent:ZZGridActionEventTypeGridLoaded withIndex:indexWhenOneFriendOnGrid];
+    });
 }
 
 - (void)dataLoadingDidFailWithError:(NSError*)error

@@ -111,7 +111,7 @@
         [view addSubview:self.moviePlayerController.view];
        
         [self.moviePlayerController play]; // TODO: cleanup this.Have only one entry point to play video and update this flags
-  
+        [ZZGridActionStoredSettings shared].incomingVideoWasPlayed = YES;
         [self.delegate videoPlayerURLWasStartPlaying:viewedVideo.videoUrl];
         
         self.isPlayingVideo = YES;
@@ -129,6 +129,7 @@
 - (void)_configurePlayedUrlsWithModels:(NSArray*)videoModels
 {
     [self.playedVideoUrls removeAllObjects];
+    
     [self.playedVideoUrls addObjectsFromArray:[[self.videoModelsArray.rac_sequence map:^id(ZZVideoDomainModel* value) {
         TBMVideo* video = [TBMVideo findWithVideoId:value.videoID];
         return video.videoUrl;
@@ -266,6 +267,7 @@
 
         TBMFriend* friend = [ZZFriendDataProvider entityFromModel:playedVideoModel.relatedUser];
         [friend setViewedWithIncomingVideo:viewedVideo];
+        [self.playedVideoUrls removeObject:nextUrl];
         [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
                                                       videoId:viewedVideo.videoId
                                                        friend:friend];

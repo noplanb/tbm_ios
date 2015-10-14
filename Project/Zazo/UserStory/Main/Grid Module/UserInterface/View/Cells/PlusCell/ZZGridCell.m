@@ -141,6 +141,14 @@
     [self.model itemSelected];
 }
 
+- (void)_itemSelectedWithRecognizer:(UILongPressGestureRecognizer*)recognizer
+{
+    if (recognizer.state == UIGestureRecognizerStateBegan)
+    {
+        [self _itemSelected];
+    }
+}
+
 - (UIButton*)plusButton
 {
     if (!_plusButton)
@@ -152,7 +160,10 @@
         [_plusButton setImage:image forState:UIControlStateNormal];
         _plusButton.showsTouchWhenHighlighted = NO;
         _plusButton.reversesTitleShadowWhenHighlighted = NO;
-        [_plusButton addTarget:self action:@selector(_itemSelected) forControlEvents:UIControlEventTouchDown];
+        [_plusButton addTarget:self action:@selector(_itemSelected) forControlEvents:UIControlEventTouchUpInside];
+        UILongPressGestureRecognizer* longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_itemSelectedWithRecognizer:)];
+        longPressRecognizer.minimumPressDuration = 0.8;
+        [_plusButton addGestureRecognizer:longPressRecognizer];
         [self addSubview:_plusButton];
         [self sendSubviewToBack:_plusButton];
         

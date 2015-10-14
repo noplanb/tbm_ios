@@ -21,11 +21,12 @@
     [self _updateUploadViewsToDefaultState];
     
     CGFloat animValue = CGRectGetWidth(self.frame) - [self _indicatorCalculatedWidth];
-    [UIView animateWithDuration:0.4 animations:^{
-   
-        self.leftUploadIndicatorConstraint.offset = animValue;
-        [self layoutIfNeeded];
-    } completion:^(BOOL finished) {
+    
+    [ANAnimator animateConstraint:self.leftUploadIndicatorConstraint
+                        newOffset:animValue
+                              key:@"upload"
+                            delay:0.4 bouncingRate:0
+                       completion:^{
         self.uploadBarView.hidden = YES;
         [self.model reloadDebugVideoStatus];
         if (completionBlock)
@@ -108,6 +109,7 @@
             }
         });
     });
+    
 }
 
 

@@ -16,6 +16,18 @@
 withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBlock
 {
     if (event == ZZGridActionEventTypeMessageDidSent &&
+        ![ZZGridActionStoredSettings shared].incomingVideoWasPlayed &&
+        [self.delegate frinedsNumberOnGrid] == 1 &&
+        model.item.relatedUser.unviewedCount > 0)
+    {
+        [ZZGridActionStoredSettings shared].playHintWasShown = YES;
+        if (completionBlock)
+        {
+            completionBlock(ZZHintsTypePlayHint,model);
+        }
+    
+    }
+    else if (event == ZZGridActionEventTypeMessageDidSent &&
         ![ZZGridActionStoredSettings shared].sentHintWasShown &&
         [self.delegate frinedsNumberOnGrid] == 1 &&
         model.item.relatedUser.unviewedCount == 0)
@@ -40,7 +52,6 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
     }
     else
     {
-        
         if(!ANIsEmpty(self.eventHandler))
         {
             [super nextHandlerHandleEvent:event model:model withCompletionBlock:completionBlock];

@@ -96,20 +96,19 @@
     return self.hintViewModel;
 }
 
-#pragma mark - Hit test
 
+#pragma mark - Hit test
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
-    if (!CGRectContainsPoint([self.hintViewModel focusFrame], point))
+    if (CGRectContainsPoint([self.hintViewModel focusFrame], point))
     {
-        [NSThread sleepForTimeInterval:1.5];
         [self removeFromSuperview];
         return nil;
     }
     else
     {
-        return nil;
+        return self;
     }
 }
 

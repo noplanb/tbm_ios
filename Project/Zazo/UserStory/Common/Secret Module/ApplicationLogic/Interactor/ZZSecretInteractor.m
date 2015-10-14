@@ -58,6 +58,7 @@
     [ZZGridActionStoredSettings shared].holdToRecordAndTapToPlayWasShown = NO;
     [ZZGridActionStoredSettings shared].hintsDidStartPlay = NO;
     [ZZGridActionStoredSettings shared].hintsDidStartRecord = NO;
+    [ZZGridActionStoredSettings shared].incomingVideoWasPlayed = NO;
     
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:kSendMessageCounterKey];
     [[NSUserDefaults standardUserDefaults] setObject:[NSArray array] forKey:kUsersIdsArrayKey];

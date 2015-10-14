@@ -68,7 +68,7 @@
         [_nudgeButton.titleLabel setFont:[UIFont an_meduimFontWithSize:15]];
         [_nudgeButton setTitle:NSLocalizedString(@"grid-controller.nudge.title", nil) forState:UIControlStateNormal];
         [_nudgeButton setTitleColor:[ZZColorTheme shared].gridStatusViewNudgeColor forState:UIControlStateNormal];
-        [_nudgeButton addTarget:self action:@selector(_nudge) forControlEvents:UIControlEventTouchDown];
+        [_nudgeButton addTarget:self action:@selector(_nudge) forControlEvents:UIControlEventTouchUpInside];
         _nudgeButton.backgroundColor = [ZZColorTheme shared].gridStatusViewBlackColor;
         [self addSubview:_nudgeButton];
         

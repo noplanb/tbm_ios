@@ -16,11 +16,23 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
 {
     self.hintModel = model;
     if (event == ZZGridActionEventTypeSentZazo &&
+        [self.delegate frinedsNumberOnGrid] == 1 &&
+        model.item.relatedUser.unviewedCount > 0 &&
+        ![ZZGridActionStoredSettings shared].incomingVideoWasPlayed)
+    {
+        [ZZGridActionStoredSettings shared].playHintWasShown = YES;
+        if (completionBlock)
+        {
+            completionBlock(ZZHintsTypePlayHint, model);
+        }
+    }
+    else if (event == ZZGridActionEventTypeSentZazo &&
         ![ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown &&
         [self.delegate frinedsNumberOnGrid] == 1 &&
         ![ZZGridActionStoredSettings shared].spinHintWasShown)
     {
         self.isLastAcitionDone = YES;
+        [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = YES;
         [ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown = YES;
         
         if (completionBlock)
@@ -31,6 +43,7 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
     else  if (event == ZZGridActionEventTypeMessageDidSent &&
               ![ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession &&
               [self.delegate frinedsNumberOnGrid] == 1 &&
+              model.item.relatedUser.unviewedCount == 0 &&
               ![ZZGridActionStoredSettings shared].spinHintWasShown)
     {
         self.isLastAcitionDone = YES;
@@ -46,6 +59,7 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
     {
         self.isLastAcitionDone = YES;
         [ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown = YES;
+        [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = YES;
         if (completionBlock)
         {
             completionBlock(ZZHintsTypeNoHint, model);
