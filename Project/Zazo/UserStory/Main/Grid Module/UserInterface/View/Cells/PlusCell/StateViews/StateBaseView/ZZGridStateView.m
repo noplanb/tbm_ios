@@ -385,7 +385,10 @@
         [self addSubview:_userNameLabel];
         
         [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.bottom.equalTo(self);
+            make.bottom.equalTo(self);
+            make.centerX.equalTo(self);
+            make.leftMargin.equalTo(@(2));
+            make.rightMargin.equalTo(@(2));
             make.height.equalTo(self).dividedBy(kUserNameScaleValue);
         }];
     }
