@@ -272,6 +272,11 @@
 }
 
 
+- (void)hideHint
+{
+    [self.hintsController hideHintView];
+}
+
 #pragma mark - Event Handler Delegate
 
 - (NSInteger)frinedsNumberOnGrid

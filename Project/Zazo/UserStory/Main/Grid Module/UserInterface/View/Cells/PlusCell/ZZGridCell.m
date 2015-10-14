@@ -152,7 +152,7 @@
         [_plusButton setImage:image forState:UIControlStateNormal];
         _plusButton.showsTouchWhenHighlighted = NO;
         _plusButton.reversesTitleShadowWhenHighlighted = NO;
-        [_plusButton addTarget:self action:@selector(_itemSelected) forControlEvents:UIControlEventTouchUpInside];
+        [_plusButton addTarget:self action:@selector(_itemSelected) forControlEvents:UIControlEventTouchDown];
         [self addSubview:_plusButton];
         [self sendSubviewToBack:_plusButton];
         

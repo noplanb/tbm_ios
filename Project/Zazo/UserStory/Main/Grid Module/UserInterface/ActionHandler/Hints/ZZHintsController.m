@@ -33,14 +33,12 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
         [self.hintsView hintModel].hintType == ZZHintsTypeRecrodWelcomeHint &&
         ![ZZGridActionStoredSettings shared].holdToRecordAndTapToPlayWasShown)
     {
-        [self.hintsView removeFromSuperview];
-        self.hintsView = nil;
+        [self hideHintView];
         [ZZGridActionStoredSettings shared].holdToRecordAndTapToPlayWasShown = YES;
         type = ZZHintsTypeRecordAndTapToPlay;
     } else if  (self.hintsView)
     {
-        [self.hintsView removeFromSuperview];
-        self.hintsView = nil;
+        [self hideHintView];
     }
     
     
@@ -63,6 +61,12 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
     [[self.delegate hintPresetedView] addSubview:self.hintsView];
     [self _removeViewAfterDelayIfNeededWithType:type];
     
+}
+
+- (void)hideHintView
+{
+    [self.hintsView removeFromSuperview];
+    self.hintsView = nil;
 }
 
 

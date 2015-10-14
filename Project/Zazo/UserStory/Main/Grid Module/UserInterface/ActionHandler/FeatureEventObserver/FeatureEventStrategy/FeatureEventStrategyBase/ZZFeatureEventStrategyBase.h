@@ -13,6 +13,7 @@
 
 static NSString* const kFriendIdDefaultKey = @"userIdDefaultKey";
 static NSString* const kSendMessageCounterKey = @"sendMessageCounterKey";
+static NSString* const kUsersIdsArrayKey = @"usersIdsArrayKey";
 
 @interface ZZFeatureEventStrategyBase : NSObject
 

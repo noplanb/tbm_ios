@@ -15,6 +15,7 @@
 #import "ZZNetworkTransport.h"
 #import "ZZUserDataProvider.h"
 #import "ZZGridActionStoredSettings.h"
+#import "ZZFeatureEventStrategyBase.h"
 
 @implementation ZZSecretInteractor
 
@@ -39,8 +40,6 @@
 
 - (void)resetHints
 {
-//    [ZZStoredSettingsManager shared].hintsDidStartRecord = NO;
-//    [ZZStoredSettingsManager shared].hintsDidStartPlay = NO;
     [ZZGridActionStoredSettings shared].inviteHintWasShown = NO;
     [ZZGridActionStoredSettings shared].playHintWasShown = NO;
     [ZZGridActionStoredSettings shared].recordHintWasShown = NO;
@@ -59,6 +58,10 @@
     [ZZGridActionStoredSettings shared].holdToRecordAndTapToPlayWasShown = NO;
     [ZZGridActionStoredSettings shared].hintsDidStartPlay = NO;
     [ZZGridActionStoredSettings shared].hintsDidStartRecord = NO;
+    
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:kSendMessageCounterKey];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSArray array] forKey:kUsersIdsArrayKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)removeAllDanglingFiles

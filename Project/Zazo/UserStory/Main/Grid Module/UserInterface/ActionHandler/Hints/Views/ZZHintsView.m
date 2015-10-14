@@ -98,15 +98,19 @@
 
 #pragma mark - Hit test
 
+
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
-    UIView* hitView = nil;
     if (!CGRectContainsPoint([self.hintViewModel focusFrame], point))
     {
-        hitView = self;
+        [NSThread sleepForTimeInterval:1.5];
+        [self removeFromSuperview];
+        return nil;
     }
-    
-    return hitView;
+    else
+    {
+        return nil;
+    }
 }
 
 

@@ -254,6 +254,7 @@
 {
     if (![ZZVideoRecorder shared].isRecordingInProgress)
     {
+        [self.actionHandler hideHint];
         [self.wireframe toggleMenu];
         [self.userInterface menuWasOpened];
     }
@@ -324,6 +325,7 @@
     {
         if (isEnabled)
         {
+            [self.actionHandler hideHint];
             if ([self.videoPlayer isPlaying])
             {
                 [self.videoPlayer stop];

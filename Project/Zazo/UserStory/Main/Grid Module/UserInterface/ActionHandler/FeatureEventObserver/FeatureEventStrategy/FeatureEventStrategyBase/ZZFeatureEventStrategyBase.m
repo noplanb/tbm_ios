@@ -8,7 +8,7 @@
 
 #import "ZZFeatureEventStrategyBase.h"
 
-static NSString* const kUsersIdsArrayKey = @"usersIdsArrayKey";
+
 
 @implementation ZZFeatureEventStrategyBase
 

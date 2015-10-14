@@ -28,5 +28,6 @@
 
 - (void)handleEvent:(ZZGridActionEventType)event withIndex:(NSInteger)index;
 - (void)resetLastHintAndShowIfNeeded;
+- (void)hideHint;
 
 @end

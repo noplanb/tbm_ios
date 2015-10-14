@@ -24,5 +24,6 @@
 
 //- (void)showHintWithModel:(ZZHintsDomainModel*)model forFocusFrame:(CGRect)focusFrame;
 - (void)showHintWithType:(ZZHintsType)type focusFrame:(CGRect)frame withIndex:(NSInteger)index formatParameter:(NSString*)parameter;
+- (void)hideHintView;
 
 @end
