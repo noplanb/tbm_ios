@@ -14,6 +14,7 @@
 #import "ZZAPIRoutes.h"
 #import "ZZNetworkTransport.h"
 #import "ZZUserDataProvider.h"
+#import "ZZGridActionStoredSettings.h"
 
 @implementation ZZSecretInteractor
 
@@ -38,8 +39,26 @@
 
 - (void)resetHints
 {
-    [ZZStoredSettingsManager shared].hintsDidStartRecord = NO;
-    [ZZStoredSettingsManager shared].hintsDidStartPlay = NO;
+//    [ZZStoredSettingsManager shared].hintsDidStartRecord = NO;
+//    [ZZStoredSettingsManager shared].hintsDidStartPlay = NO;
+    [ZZGridActionStoredSettings shared].inviteHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].playHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].recordHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].sentHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].viewedHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].welcomeHintWasShown = NO;
+    
+    [ZZGridActionStoredSettings shared].frontCameraHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].abortRecordHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].deleteFriendHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].earpieceHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].spinHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].recordWelcomeHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = NO;
+    [ZZGridActionStoredSettings shared].holdToRecordAndTapToPlayWasShown = NO;
+    [ZZGridActionStoredSettings shared].hintsDidStartPlay = NO;
+    [ZZGridActionStoredSettings shared].hintsDidStartRecord = NO;
 }
 
 - (void)removeAllDanglingFiles
