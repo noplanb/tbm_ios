@@ -16,18 +16,23 @@
     [self presentAlertWithTitle:title details:details cancelButtonTitle:@"OK" actionButtonTitle:nil action:nil];
 }
 
-+ (void)presentAlertWithTitle:(NSString*)title
-                      details:(NSString*)details
-            cancelButtonTitle:(NSString*)cancelTitle
-            actionButtonTitle:(NSString*)actionButtonTitle
-                       action:(ANCodeBlock)completion
++ (void)presentAlertWithTitle:(NSString*)title details:(NSString*)details cancelButtonTitle:(NSString*)cancelTitle actionButtonTitle:(NSString*)actionButtonTitle action:(ANCodeBlock)completion
+{
+    [self presentAlertWithTitle:title details:details cancelButtonTitle:cancelTitle cancelButtonAction:nil actionButtonTitle:actionButtonTitle action:completion];
+}
+
++ (void)presentAlertWithTitle:(NSString*)title details:(NSString*)details cancelButtonTitle:(NSString*)cancelTitle cancelButtonAction:(ANCodeBlock)cancelAction actionButtonTitle:(NSString*)actionButtonTitle action:(ANCodeBlock)completion
 {
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:[NSObject an_safeString:title]
                                                                      message:[NSObject an_safeString:details]];
     
     if (!ANIsEmpty(cancelTitle))
     {
-        [alert addAction:[SDCAlertAction actionWithTitle:cancelTitle style:SDCAlertActionStyleCancel handler:nil]];
+        [alert addAction:[SDCAlertAction actionWithTitle:cancelTitle
+                                                   style:SDCAlertActionStyleCancel
+                                                 handler:^(SDCAlertAction *action) {
+                                                     cancelAction();
+                                                 }]];
     }
     
     if (!ANIsEmpty(actionButtonTitle))

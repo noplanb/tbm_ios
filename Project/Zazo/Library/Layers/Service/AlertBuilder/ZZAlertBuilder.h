@@ -16,4 +16,11 @@
             actionButtonTitle:(NSString*)actionButtonTitle
                        action:(ANCodeBlock)completion;
 
++ (void)presentAlertWithTitle:(NSString*)title
+                      details:(NSString*)details
+            cancelButtonTitle:(NSString*)cancelTitle
+           cancelButtonAction:(ANCodeBlock)cancelAction
+            actionButtonTitle:(NSString*)actionButtonTitle
+                       action:(ANCodeBlock)completion;
+
 @end
