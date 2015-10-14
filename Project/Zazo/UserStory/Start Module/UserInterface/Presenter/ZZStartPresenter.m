@@ -18,7 +18,7 @@
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZStartViewInterface>*)userInterface
 {
     self.userInterface = userInterface;
-    [self.interactor checkVersionState];
+    [self.interactor checkVersionStateAndSession];
 }
 
 #pragma mark - Output
@@ -28,46 +28,49 @@
     [self.wireframe presentRegistrationController];
 }
 
-- (void)userHasAuthentication
+- (void)needUpdateAndCanSkip:(BOOL)canBeSkipped logged:(BOOL)isLoggedIn
 {
-    if (!self.interactor.isNeedUpdate)
+    [self _needUpdate:canBeSkipped];
+}
+
+- (void)applicationIsUpToDateAndUserLogged:(BOOL)isUserLoggedIn
+{
+    if (isUserLoggedIn)
     {
-        [self.wireframe presentMenuControllerWithGrid];
+        [self _showMenuWithGrid];
     }
 }
 
-- (void)applicationIsUpToDate
+- (void)userVersionStateLoadingDidFailWithError:(NSError*)error
 {
 
 }
 
-- (void)needUpdate:(BOOL)canBeSkipped
+#pragma mark Private
+
+- (void)_needUpdate:(BOOL)canBeSkipped
 {
-    NSString* message = canBeSkipped ? [self makeMessageWithQualifier:@"out of date"] : [self makeMessageWithQualifier:@"obsolete"];
+    NSString* message = canBeSkipped ? [self _makeMessageWithQualifier:@"out of date"] : [self _makeMessageWithQualifier:@"obsolete"];
     [ZZAlertBuilder presentAlertWithTitle:@"Update Available"
                                   details:message
                         cancelButtonTitle:canBeSkipped ? @"Later" : nil
                        cancelButtonAction:canBeSkipped ? ^{
-                           [self.wireframe presentMenuControllerWithGrid];
+                           [self _showMenuWithGrid];
                        }: nil
                         actionButtonTitle:@"Update" action:^{
                             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kAppstoreURLString]];
                         }];
 }
 
-- (NSString*)makeMessageWithQualifier:(NSString *)q
+- (void)_showMenuWithGrid
+{
+    [self.wireframe presentMenuControllerWithGrid];
+}
+
+- (NSString*)_makeMessageWithQualifier:(NSString *)q
 {
     NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
     return [NSString stringWithFormat:@"Your %@ app is %@. Please update", appName, q];
 }
-
-- (void)userVersionStateLoadingDidFailWithError:(NSError*)error
-{
-    
-}
-
-
-#pragma mark - Module Interface
-
 
 @end

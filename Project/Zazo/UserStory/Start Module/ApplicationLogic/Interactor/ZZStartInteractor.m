@@ -10,78 +10,17 @@
 #import "ZZCommonNetworkTransportService.h"
 #import "ZZUserDataProvider.h"
 
-@interface ZZStartInteractor ()
-@property(nonatomic, assign) BOOL isNeedUpdate;
-@end
 
 @implementation ZZStartInteractor
 
-- (void)checkVersionState
+- (void)checkVersionStateAndSession
 {
     ANDispatchBlockToBackgroundQueue(^{
-        [self _checkVersionState];
+        [self _checkSession];
     });
 }
 
-
 #pragma mark - Private
-
-- (void)_checkVersionState
-{
-    [[ZZCommonNetworkTransportService checkApplicationVersion] subscribeNext:^(id x) {
-        
-        NSString* result = [x objectForKey:@"result"];
-        
-        if (!ANIsEmpty(result))
-        {
-            ZZApplicationVersionState state = ZZApplicationVersionStateEnumValueFromString(result);
-            
-            if (state < ZZApplicationVersionStateTotalCount)
-            {
-                OB_INFO(@"checkVersionCompatibility: success: %@", [NSObject an_safeString:result]);
-                [self _userVersionStateLoadedSuccessfully:state];
-            }
-            else
-            {
-                OB_ERROR(@"versionCheckCallback: unknown version check result: %@", [NSObject an_safeString:result]);
-            }
-        }
-    } error:^(NSError *error) {
-        
-        OB_WARN(@"checkVersionCompatibility: %@", error);
-        [self.output userVersionStateLoadingDidFailWithError:error];
-    }];
-    
-    [self _checkSession];
-}
-
-- (void)_userVersionStateLoadedSuccessfully:(ZZApplicationVersionState)state
-{
-    switch (state)
-    {
-        case ZZApplicationVersionStateCurrent:
-        {
-            [self.output applicationIsUpToDate];
-        }
-            break;
-        case ZZApplicationVersionStateUpdateOptional:
-        {
-            _isNeedUpdate = YES;
-            [self.output needUpdate:YES];
-
-        }
-            break;
-        case ZZApplicationVersionStateUpdateSchemaRequired:
-        case ZZApplicationVersionStateUpdateRequired:
-        {
-            _isNeedUpdate = YES;
-            [self.output needUpdate:NO];
-        }
-            break;
-        default:
-            break;
-    }
-}
 
 - (void)_checkSession
 {
@@ -89,10 +28,9 @@
     if (user.isRegistered)
     {
         [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {
-            
-            [self.output userHasAuthentication];
+            [self _checkVersionStateForUserLoggedInState:YES];
         } error:^(NSError *error) {
-            [self.output userHasAuthentication]; // TODO: check this
+            [self _checkVersionStateForUserLoggedInState:NO];
         }];
     }
     else
@@ -101,9 +39,57 @@
     }
 }
 
-- (BOOL)isNeedUpdate
+- (void)_checkVersionStateForUserLoggedInState:(BOOL)loggedIn
 {
-    return _isNeedUpdate;
+    [[ZZCommonNetworkTransportService checkApplicationVersion] subscribeNext:^(id x) {
+
+        NSString* result = [x objectForKey:@"result"];
+
+        if (!ANIsEmpty(result))
+        {
+            ZZApplicationVersionState state = ZZApplicationVersionStateEnumValueFromString(result);
+
+            if (state < ZZApplicationVersionStateTotalCount)
+            {
+                OB_INFO(@"checkVersionCompatibility: success: %@", [NSObject an_safeString:result]);
+                [self _userVersionStateLoadedSuccessfully:state logged:loggedIn];
+            }
+            else
+            {
+                OB_ERROR(@"versionCheckCallback: unknown version check result: %@", [NSObject an_safeString:result]);
+            }
+        }
+    } error:^(NSError *error) {
+
+        OB_WARN(@"checkVersionCompatibility: %@", error);
+        [self.output userVersionStateLoadingDidFailWithError:error];
+    }];
+}
+
+- (void)_userVersionStateLoadedSuccessfully:(ZZApplicationVersionState)state logged:(BOOL)logged
+{
+    switch (state)
+    {
+        case ZZApplicationVersionStateCurrent:
+        {
+            [self.output applicationIsUpToDateAndUserLogged:logged];
+        }
+            break;
+        case ZZApplicationVersionStateUpdateOptional:
+        {
+            [self.output needUpdateAndCanSkip:YES logged:logged];
+
+        }
+            break;
+        case ZZApplicationVersionStateUpdateSchemaRequired:
+        case ZZApplicationVersionStateUpdateRequired:
+        {
+            [self.output needUpdateAndCanSkip:NO logged:logged];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 

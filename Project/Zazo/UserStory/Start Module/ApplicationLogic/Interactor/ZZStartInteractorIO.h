@@ -10,18 +10,17 @@
 
 @protocol ZZStartInteractorInput <NSObject>
 
-- (void)checkVersionState;
-- (BOOL)isNeedUpdate;
+- (void)checkVersionStateAndSession;
+
 @end
 
 
 @protocol ZZStartInteractorOutput <NSObject>
 
 - (void)userRequiresAuthentication;
-- (void)userHasAuthentication;
 
 - (void)userVersionStateLoadingDidFailWithError:(NSError*)error;
-- (void)needUpdate:(BOOL)canBeSkipped;
-- (void)applicationIsUpToDate;
+- (void)needUpdateAndCanSkip:(BOOL)canBeSkipped logged:(BOOL)isLoggedIn;
+- (void)applicationIsUpToDateAndUserLogged:(BOOL)isUserLoggedIn;
 
 @end
