@@ -40,6 +40,8 @@
     
     entity.friendshipCreatorMKey = model.friendshipCreatorMkey;
     
+    entity.isFriendshipCreator = @([model isCreator]);
+    
     return entity;
 }
 

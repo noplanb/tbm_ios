@@ -16,6 +16,7 @@ extern const struct TBMFriendAttributes {
 	__unsafe_unretained NSString *friendshipStatus;
 	__unsafe_unretained NSString *hasApp;
 	__unsafe_unretained NSString *idTbm;
+	__unsafe_unretained NSString *isFriendshipCreator;
 	__unsafe_unretained NSString *lastIncomingVideoStatus;
 	__unsafe_unretained NSString *lastName;
 	__unsafe_unretained NSString *lastVideoStatusEventType;
@@ -79,6 +80,14 @@ extern const struct TBMFriendRelationships {
 @property (nonatomic, strong) NSString* idTbm;
 
 //- (BOOL)validateIdTbm:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSNumber* isFriendshipCreator;
+
+@property (atomic) BOOL isFriendshipCreatorValue;
+- (BOOL)isFriendshipCreatorValue;
+- (void)setIsFriendshipCreatorValue:(BOOL)value_;
+
+//- (BOOL)validateIsFriendshipCreator:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSNumber* lastIncomingVideoStatus;
 
@@ -177,6 +186,12 @@ extern const struct TBMFriendRelationships {
 
 - (NSString*)primitiveIdTbm;
 - (void)setPrimitiveIdTbm:(NSString*)value;
+
+- (NSNumber*)primitiveIsFriendshipCreator;
+- (void)setPrimitiveIsFriendshipCreator:(NSNumber*)value;
+
+- (BOOL)primitiveIsFriendshipCreatorValue;
+- (void)setPrimitiveIsFriendshipCreatorValue:(BOOL)value_;
 
 - (NSNumber*)primitiveLastIncomingVideoStatus;
 - (void)setPrimitiveLastIncomingVideoStatus:(NSNumber*)value;

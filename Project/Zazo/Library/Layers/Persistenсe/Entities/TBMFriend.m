@@ -528,14 +528,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
     self.lastVideoStatusEventTypeValue = OUTGOING_VIDEO_STATUS_EVENT_TYPE;
     self.outgoingVideoStatusValue = status;
-    
-//    ZZFriendDomainModel* model = [ZZFriendDataProvider modelFromEntity:self];
-//    BOOL shouldVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:model];
-//    if (!shouldVisible)
-//    {
-//        model.friendshipStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:model];
-//        self.friendshipStatus = ZZFriendshipStatusTypeStringFromValue(model.friendshipStatusValue);
-//    }
+
     [self.managedObjectContext MR_saveToPersistentStoreAndWait];
     
     [self notifyVideoStatusChangeOnMainThread];
@@ -565,14 +558,6 @@ static NSMutableSet *videoStatusNotificationDelegates;
     {
         self.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
     }
-    
-//    ZZFriendDomainModel* model = [ZZFriendDataProvider modelFromEntity:self];
-//    BOOL shouldVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:model];
-//    if (!shouldVisible)
-//    {
-//        model.friendshipStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:model];
-//        self.friendshipStatus = ZZFriendshipStatusTypeStringFromValue(model.friendshipStatusValue);
-//    }
     
     [self.managedObjectContext MR_saveToPersistentStoreAndWait];
     [self notifyVideoStatusChangeOnMainThread];
@@ -728,7 +713,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
     [mkeys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         TBMFriend *aFriend = [self findWithMkey:obj];
         aFriend.everSent = @(YES);
-        //aFriend.isConnectionCreator = @(YES); //TODO:
+        aFriend.isFriendshipCreator = @([aFriend.friendshipCreatorMKey isEqualToString:aFriend.mkey]);
     }];
     [[self _context] MR_saveToPersistentStoreAndWait];
 }
@@ -738,8 +723,8 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 + (NSArray *)_allEverSentFriends
 {
-    NSPredicate *everSent = [NSPredicate predicateWithFormat:@"everSent = %@", @(YES)];
-    NSPredicate *creator = [NSPredicate predicateWithFormat:@"isConnectionCreator = %@", @(YES)];
+    NSPredicate *everSent = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.everSent, @(YES)];
+    NSPredicate *creator = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.isFriendshipCreator, @(YES)];
     NSPredicate *filter = [NSCompoundPredicate andPredicateWithSubpredicates:@[everSent, creator]];
     return [self MR_findAllWithPredicate:filter inContext:[self _context]];
 }
