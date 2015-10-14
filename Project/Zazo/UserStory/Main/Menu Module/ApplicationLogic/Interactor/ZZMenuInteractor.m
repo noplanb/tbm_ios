@@ -67,6 +67,9 @@
             
             [self.output needsPermissionForAddressBook];
             self.isLoading = NO;
+            
+        } completed:^{
+            self.isLoading = NO;
         }];
     }
 }
@@ -103,7 +106,6 @@
     
     [self.output friendsThatHasAppLoaded:[self _sortByFirstName:filteredFriendsHasAppArray]];
     [self.output friendsDataLoaded:[self _sortByFirstName:filteredOtherFriendsArray]];
-
 }
 
 
