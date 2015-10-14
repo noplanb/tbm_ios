@@ -13,6 +13,7 @@
 #import "FEMObjectDeserializer.h"
 #import "ZZGridDataProvider.h"
 #import "ZZFriendDataProvider.h"
+#import "ZZUserDataProvider.h"
 
 @interface ZZMenuInteractor ()
 
@@ -125,6 +126,8 @@
     
     [friendsArray enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
         
+//        friendModel.isFriendshipCreator = ![[ZZUserDataProvider authenticatedUser].mkey isEqualToString:friendModel.friendshipCreatorMkey];
+        //TODO:
         if ([friendModel isCreator])
         {
             if (friendModel.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||

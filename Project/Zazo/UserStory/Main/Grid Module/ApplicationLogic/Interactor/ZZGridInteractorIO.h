@@ -30,6 +30,7 @@
 - (void)loadFeedbackModel;
 - (void)updateFriendAfterVideoStopped:(ZZFriendDomainModel*)model;
 
+- (void)friendWasUpdatedFromEditContacts:(ZZFriendDomainModel*)model toVisible:(BOOL)isVisible;
 
 @end
 

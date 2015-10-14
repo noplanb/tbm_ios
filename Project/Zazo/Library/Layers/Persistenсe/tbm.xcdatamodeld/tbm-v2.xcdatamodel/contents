@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="2" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14F27" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="2" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="15A284" minimumToolsVersion="Automatic">
     <entity name="TBMFriend" representedClassName="TBMFriend" syncable="YES">
         <attribute name="ckey" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="everSent" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="friendshipCreatorMKey" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="friendshipStatus" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="hasApp" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="idTbm" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="isConnectionCreator" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="lastIncomingVideoStatus" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastVideoStatusEventType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>

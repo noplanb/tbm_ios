@@ -15,6 +15,7 @@
 #import "ZZGridDataProvider.h"
 #import "ZZGridDomainModel.h"
 #import "ZZContentDataAcessor.h"
+#import "ZZUserFriendshipStatusHandler.h"
 
 @implementation ZZFriendDataProvider
 
@@ -23,6 +24,8 @@
 
 + (NSArray*)loadAllFriends
 {
+    [ZZContentDataAcessor refreshContext:[self _context]];
+    
     NSArray* result = [TBMFriend MR_findAllInContext:[self _context]];
     return [[result.rac_sequence map:^id(id value) {
         return [self modelFromEntity:value];
@@ -49,14 +52,25 @@
     NSArray* friendsOnGrid = [self friendsOnGrid];
     NSArray* friendsIDs = [friendsOnGrid valueForKeyPath:ZZFriendDomainModelAttributes.idTbm];
     NSPredicate* predicate = [NSPredicate predicateWithFormat:@"NOT (%K IN %@)", TBMFriendAttributes.idTbm, friendsIDs ? : @[]];
-    NSArray* items = [TBMFriend MR_findAllSortedBy:TBMFriendAttributes.timeOfLastAction ascending:YES withPredicate:predicate inContext:[self _context]];
     
-    TBMFriend* friend = [items firstObject];
-    if (friend)
-    {
-        return [ZZFriendDataProvider modelFromEntity:friend];
-    }
-    return nil;
+    NSArray* items = [TBMFriend MR_findAllSortedBy:TBMFriendAttributes.timeOfLastAction
+                                         ascending:YES
+                                     withPredicate:predicate
+                                         inContext:[self _context]];
+    
+    __block ZZFriendDomainModel* nextFriend = nil;
+    
+    [items enumerateObjectsUsingBlock:^(TBMFriend*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        ZZFriendDomainModel* model = [ZZFriendDataProvider modelFromEntity:obj];
+        if ([ZZUserFriendshipStatusHandler shouldFriendBeVisible:model])
+        {
+            nextFriend = model;
+            *stop = YES;
+        }
+    }];
+
+    return nextFriend;
 }
 
 #pragma mark - Entities

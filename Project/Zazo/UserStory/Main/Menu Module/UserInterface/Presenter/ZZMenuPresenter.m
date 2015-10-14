@@ -44,24 +44,17 @@
 
 - (void)addressBookDataLoaded:(NSArray*)data
 {
-    ANDispatchBlockToMainQueue(^{
-        [self.dataSource setupAddressbookItems:data];
-        [self.userInterface updateDataSource:self.dataSource];
-    });
+    [self.dataSource setupAddressbookItems:data];
 }
 
 - (void)friendsThatHasAppLoaded:(NSArray*)friendsData
 {
-    ANDispatchBlockToMainQueue(^{
-        [self.dataSource setupFriendsThatHaveAppItems:friendsData];
-    });
+    [self.dataSource setupFriendsThatHaveAppItems:friendsData];
 }
 
 - (void)friendsDataLoaded:(NSArray*)friendsData
 {
-    ANDispatchBlockToMainQueue(^{
         [self.dataSource setupFriendsItems:friendsData];
-    });
 }
 
 - (void)friendsDataLoadingDidFailWithError:(NSError *)error

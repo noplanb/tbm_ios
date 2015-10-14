@@ -13,10 +13,10 @@
 #import "FEMObjectDeserializer.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZUserDataProvider.h"
+#import "ZZFriendDataUpdater.h"
+#import "ZZUserFriendshipStatusHandler.h"
 
 @interface ZZEditFriendListInteractor ()
-
-@property (nonatomic, strong) ZZFriendDomainModel* selectedFriendModel;
 
 @end
 
@@ -24,102 +24,37 @@
 
 - (void)loadData
 {
-    [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray *array) {
-        
-        NSArray *friendsArray = [FEMObjectDeserializer deserializeCollectionExternalRepresentation:array
-                                                                                      usingMapping:[ZZFriendDomainModel mapping]];
-        
-        [friendsArray enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friendObject, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            friendObject.isFriendshipCreator = ![[ZZUserDataProvider authenticatedUser].mkey isEqualToString:friendObject.friendshipCreatorMkey];
-        }];
-        
-        [self.output dataLoaded:[self sortArrayByFirstName:friendsArray]];
-
-    } error:^(NSError* error) {
-        
-    }];
+    NSArray* friends = [ZZFriendDataProvider loadAllFriends];
+//    [friends enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friendObject, NSUInteger idx, BOOL * _Nonnull stop) {
+//        
+//        friendObject.isFriendshipCreator = ![[ZZUserDataProvider authenticatedUser].mkey isEqualToString:friendObject.friendshipCreatorMkey];
+//    }];
+    
+    [self.output dataLoaded:[self sortArrayByFirstName:friends]];
 }
 
 - (void)changeContactStatusTypeForFriend:(ZZFriendDomainModel *)friendModel
 {
-    self.selectedFriendModel = friendModel;
-    BOOL visible = NO;
+    friendModel.friendshipStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
+    BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
     
-    if ([friendModel isCreator])
-    {
-        switch (friendModel.friendshipStatusValue)
-        {
-            case ZZFriendshipStatusTypeEstablished:
-            {
-                self.selectedFriendModel.friendshipStatusValue = ZZFriendshipStatusTypeHiddenByTarget;
-                visible = NO;
-            } break;
-            case ZZFriendshipStatusTypeHiddenByCreator:
-            {
-                self.selectedFriendModel.friendshipStatusValue = ZZFriendshipStatusTypeHiddenByBoth;
-                visible = NO;
-            } break;
-                
-            case ZZFriendshipStatusTypeHiddenByTarget:
-            {
-                self.selectedFriendModel.friendshipStatusValue = ZZFriendshipStatusTypeEstablished;
-                visible = YES;
-            } break;
-                
-            case ZZFriendshipStatusTypeHiddenByBoth:
-            {
-                self.selectedFriendModel.friendshipStatusValue = ZZFriendshipStatusTypeHiddenByCreator;
-                visible = YES;
-            } break;
-
-            default: break;
-        }
-    }
-    else
-    {
-        switch (friendModel.friendshipStatusValue)
-        {
-            case ZZFriendshipStatusTypeEstablished:
-            {
-                self.selectedFriendModel.friendshipStatusValue = ZZFriendshipStatusTypeHiddenByCreator;
-                visible = NO;
-            } break;
-                
-            case ZZFriendshipStatusTypeHiddenByTarget:
-            {
-                self.selectedFriendModel.friendshipStatusValue = ZZFriendshipStatusTypeHiddenByBoth;
-                visible = NO;
-            } break;
-                
-            case ZZFriendshipStatusTypeHiddenByCreator:
-            {
-                self.selectedFriendModel.friendshipStatusValue = ZZFriendshipStatusTypeEstablished;
-                visible = YES;
-            } break;
-            case ZZFriendshipStatusTypeHiddenByBoth:
-            {
-                self.selectedFriendModel.friendshipStatusValue = ZZFriendshipStatusTypeHiddenByTarget;
-                visible = YES;
-            } break;
-                
-            default: break;
-        }
-    }
-    
-    [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey toVisible:visible] subscribeNext:^(NSDictionary* response) {
+    [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey
+                                                      toVisible:shouldBeVisible] subscribeNext:^(NSDictionary* response) {
         
-        [ZZFriendDataProvider upsertFriendWithModel:self.selectedFriendModel];
-        [self.output contactSuccessfullyUpdated:friendModel toVisibleState:visible];
+        [ZZFriendDataUpdater updateConnectionStatusForUserWithID:friendModel.idTbm
+                                                         toValue:friendModel.friendshipStatusValue];
+        
+        [self.output contactSuccessfullyUpdated:friendModel toVisibleState:shouldBeVisible];
         
     } error:^(NSError *error) {
-        
+        //TODO: revert status?
     }];
 }
 
 - (NSArray *)sortArrayByFirstName:(NSArray *)array
 {
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES]; // TODO: dangerous
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:ZZUserDomainModelAttributes.firstName
+                                                           ascending:YES];
     NSArray* sortedArray = [array sortedArrayUsingDescriptors:@[sort]];
     
     return sortedArray;

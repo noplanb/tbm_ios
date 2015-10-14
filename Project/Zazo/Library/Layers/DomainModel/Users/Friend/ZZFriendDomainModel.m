@@ -9,6 +9,7 @@
 #import "ZZFriendDomainModel.h"
 #import "FEMObjectMapping.h"
 #import "ZZUserPresentationHelper.h"
+#import "ZZStoredSettingsManager.h"
 
 const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     .idTbm = @"idTbm",
@@ -49,11 +50,10 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
          @{ZZFriendDomainModelAttributes.firstName              : @"first_name",
            ZZFriendDomainModelAttributes.lastName               : @"last_name",
            ZZFriendDomainModelAttributes.mobileNumber           : @"mobile_number",
-           ZZFriendDomainModelAttributes.idTbm                    : @"id",
+           ZZFriendDomainModelAttributes.idTbm                  : @"id",
            ZZFriendDomainModelAttributes.mKey                   : @"mkey",
            ZZFriendDomainModelAttributes.cKey                   : @"ckey",
            ZZFriendDomainModelAttributes.friendshipStatus       : @"connection_status",
-           ZZFriendDomainModelAttributes.isFriendshipCreator    : @"isConnectionCreator",
            ZZFriendDomainModelAttributes.friendshipCreatorMkey  : @"connection_creator_mkey"}];
         
         FEMAttribute* attribute = [FEMAttribute mappingOfProperty:ZZFriendDomainModelAttributes.hasApp
@@ -77,7 +77,7 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
 
 - (BOOL)isCreator
 {
-    return self.isFriendshipCreator;
+    return [self.friendshipCreatorMkey isEqualToString:self.mKey];
 }
 
 - (BOOL)hasIncomingVideo

@@ -426,14 +426,9 @@
 
 #pragma mark - Edit Friends
 
-- (void)friendWasRemovedFromContacts:(ZZFriendDomainModel*)model
+- (void)friendStateWasUpdated:(ZZFriendDomainModel *)model toVisible:(BOOL)isVisible
 {
-    [self.interactor removeUserFromContacts:model];
-}
-
-- (void)friendWasUnblockedFromContacts:(ZZFriendDomainModel*)model
-{
-    [self.interactor addUserToGrid:model];
+    [self.interactor friendWasUpdatedFromEditContacts:model toVisible:isVisible];
 }
 
 

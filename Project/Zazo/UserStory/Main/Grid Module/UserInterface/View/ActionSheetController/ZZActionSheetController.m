@@ -36,14 +36,14 @@
             if (completionBlock)
             {
                 NSInteger buttonType;
-                if (![ZZGridActionStoredSettings shared].deleteFriendHintWasShown)
-                {
-                    buttonType = ZZEditMenuButtonTypeSendFeedback;
-                }
-                else
-                {
+//                if (![ZZGridActionStoredSettings shared].deleteFriendHintWasShown)
+//                {
+//                    buttonType = ZZEditMenuButtonTypeSendFeedback;
+//                }
+//                else
+//                {
                     buttonType = [x integerValue];
-                }
+//                }
                 
                 completionBlock(buttonType);
             }
@@ -59,7 +59,7 @@
     UIActionSheet* actionSheet;
 
     
-    if ([ZZGridActionStoredSettings shared].deleteFriendHintWasShown)
+    if (YES) // ([ZZGridActionStoredSettings shared].deleteFriendHintWasShown)
     {
         actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                   delegate:nil

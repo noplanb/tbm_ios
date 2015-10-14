@@ -38,6 +38,8 @@
     entity.friendshipStatus = model.friendshipStatus;
     entity.outgoingVideoStatusValue = (int)model.outgoingVideoStatusValue;
     
+    entity.friendshipCreatorMKey = model.friendshipCreatorMkey;
+    
     return entity;
 }
 
@@ -74,7 +76,7 @@
         model.unviewedCount = [entity unviewedCount];
         model.outgoingVideoStatusValue = entity.outgoingVideoStatusValue;
         model.hasOutgoingVideo = entity.hasOutgoingVideo;
-        model.isFriendshipCreator = entity.isConnectionCreatorValue;
+        model.friendshipCreatorMkey = entity.friendshipCreatorMKey;
     }
     @catch (NSException *exception)
     {

@@ -10,7 +10,6 @@
 
 @protocol ZZEditFriendListModuleDelegate <NSObject>
 
-- (void)friendWasRemovedFromContacts:(ZZFriendDomainModel*)model;
-- (void)friendWasUnblockedFromContacts:(ZZFriendDomainModel*)model;
+- (void)friendStateWasUpdated:(ZZFriendDomainModel*)model toVisible:(BOOL)isVisible;
 
 @end

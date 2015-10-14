@@ -12,6 +12,5 @@
 
 @property (nonatomic, weak) id<ZZGridInteractorOutput, ZZGridInteractorOutputActionHandler> output;
 
-
 @end
 

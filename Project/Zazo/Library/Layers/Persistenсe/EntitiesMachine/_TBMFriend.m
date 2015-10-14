@@ -14,10 +14,10 @@ const struct TBMFriendAttributes TBMFriendAttributes = {
 	.ckey = @"ckey",
 	.everSent = @"everSent",
 	.firstName = @"firstName",
+	.friendshipCreatorMKey = @"friendshipCreatorMKey",
 	.friendshipStatus = @"friendshipStatus",
 	.hasApp = @"hasApp",
 	.idTbm = @"idTbm",
-	.isConnectionCreator = @"isConnectionCreator",
 	.lastIncomingVideoStatus = @"lastIncomingVideoStatus",
 	.lastName = @"lastName",
 	.lastVideoStatusEventType = @"lastVideoStatusEventType",
@@ -70,11 +70,6 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
-	if ([key isEqualToString:@"isConnectionCreatorValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"isConnectionCreator"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
 	if ([key isEqualToString:@"lastIncomingVideoStatusValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"lastIncomingVideoStatus"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -123,6 +118,8 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
 
 @dynamic firstName;
 
+@dynamic friendshipCreatorMKey;
+
 @dynamic friendshipStatus;
 
 @dynamic hasApp;
@@ -146,26 +143,6 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
 }
 
 @dynamic idTbm;
-
-@dynamic isConnectionCreator;
-
-- (BOOL)isConnectionCreatorValue {
-	NSNumber *result = [self isConnectionCreator];
-	return [result boolValue];
-}
-
-- (void)setIsConnectionCreatorValue:(BOOL)value_ {
-	[self setIsConnectionCreator:@(value_)];
-}
-
-- (BOOL)primitiveIsConnectionCreatorValue {
-	NSNumber *result = [self primitiveIsConnectionCreator];
-	return [result boolValue];
-}
-
-- (void)setPrimitiveIsConnectionCreatorValue:(BOOL)value_ {
-	[self setPrimitiveIsConnectionCreator:@(value_)];
-}
 
 @dynamic lastIncomingVideoStatus;
 

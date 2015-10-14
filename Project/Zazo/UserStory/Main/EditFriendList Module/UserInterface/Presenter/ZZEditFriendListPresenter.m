@@ -51,14 +51,7 @@
 {
     self.selectedViewModel.item = model;
     [self.tableDataSource updateViewModel:self.selectedViewModel];
-    if (isVisible)
-    {
-        [self.editFriendListModuleDelegate friendWasUnblockedFromContacts:model];
-    }
-    else
-    {
-        [self.editFriendListModuleDelegate friendWasRemovedFromContacts:model];
-    }
+    [self.editFriendListModuleDelegate friendStateWasUpdated:model toVisible:isVisible];
 }
 
 - (void)updatedWithError:(NSError *)error

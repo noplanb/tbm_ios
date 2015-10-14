@@ -133,6 +133,29 @@ static NSInteger const kGridFriendsCellCount = 8;
 }
 
 
+#pragma mark - Edit Friends
+
+- (void)friendWasUpdatedFromEditContacts:(ZZFriendDomainModel*)friendModel toVisible:(BOOL)isVisible
+{
+    if (isVisible)
+    {
+        ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
+        if (ANIsEmpty(model))
+        {
+            model = [ZZGridDataProvider modelWithEarlierLastActionFriend];
+        }
+        
+        model = [ZZGridDataUpdater updateRelatedUserOnItemID:model.itemID toValue:friendModel];
+        [self updateLastActionForFriend:model.relatedUser];
+        [self.output updateGridWithModel:model isNewFriend:NO];
+    }
+    else
+    {
+        [self removeUserFromContacts:friendModel];
+    }
+}
+
+
 #pragma mark - Private
 
 - (NSArray*)_gridModels
@@ -150,6 +173,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     
     NSMutableArray* friendsArray = [NSMutableArray new];
     [array enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friend, NSUInteger idx, BOOL *stop) {
+        
         if (![gridUsers containsObject:friend] && [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friend])
         {
             [friendsArray addObject:friend];
@@ -168,17 +192,6 @@ static NSInteger const kGridFriendsCellCount = 8;
    
     if (!isUserAlreadyOnGrid)
     {
-        BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
-        if (!shouldBeVisible)
-        {
-            ZZFriendshipStatusType status = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
-            friendModel = [ZZFriendDataUpdater updateConnectionStatusForUserWithID:friendModel.idTbm toValue:status];
-            
-            [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey
-                                                              toVisible:!shouldBeVisible] subscribeNext:^(NSDictionary* response) {
-            }];
-        }
-        
         ZZGridDomainModel* model = [ZZGridDataProvider loadFirstEmptyGridElement];
         if (ANIsEmpty(model))
         {
@@ -235,11 +248,29 @@ static NSInteger const kGridFriendsCellCount = 8;
     if (!gridModel)
     {
         ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:model];
-        [self _addUserAsFriendToGrid:friendModel fromNotification:YES];
+        //TODO:
+        BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
+        
+        if (!shouldBeVisible &&
+            (model.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeIncoming) &&
+            model.lastIncomingVideoStatusValue == ZZVideoIncomingStatusDownloading)
+        {
+            ZZFriendshipStatusType status = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
+            friendModel = [ZZFriendDataUpdater updateConnectionStatusForUserWithID:friendModel.idTbm toValue:status];
+            
+            [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey
+                                                              toVisible:!shouldBeVisible] subscribeNext:^(NSDictionary* response) {
+            }];
+            
+            [self _addUserAsFriendToGrid:friendModel fromNotification:YES];
+        }
+        if (shouldBeVisible)
+        {
+            [self _addUserAsFriendToGrid:friendModel fromNotification:YES];
+        }
     }
     else
     {
-//        [self.output reloadGridModel:gridModel];
         [self.output reloadAfterVideoUpdateGridModel:gridModel];
     }
     

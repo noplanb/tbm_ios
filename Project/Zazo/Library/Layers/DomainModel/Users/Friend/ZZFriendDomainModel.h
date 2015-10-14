@@ -10,6 +10,7 @@
 #import "ZZUserInterface.h"
 #import "ZZEditFriendEnumsAdditions.h"
 #import "ZZMenuEnumsAdditions.h"
+#import "ZZVideoStatuses.h"
 
 @class FEMObjectMapping;
 
@@ -45,17 +46,17 @@ extern const struct ZZFriendDomainModelAttributes {
 @property (nonatomic, assign) NSInteger uploadRetryCount;
 @property (nonatomic, strong) NSDate* lastActionTimestamp;
 
-@property (nonatomic, assign) NSInteger lastVideoStatusEventType;
-@property (nonatomic, assign) NSInteger lastIncomingVideoStatus;
+@property (nonatomic, assign) ZZVideoStatusEventType lastVideoStatusEventType;
+@property (nonatomic, assign) ZZVideoIncomingStatus lastIncomingVideoStatus;
+@property (nonatomic, assign) ZZVideoOutgoingStatus outgoingVideoStatus;
 
 @property (nonatomic, copy) NSString* outgoingVideoItemID;
-@property (nonatomic, assign) NSInteger outgoingVideoStatus;
+
 @property (nonatomic, assign) BOOL hasOutgoingVideo;
 
 @property (nonatomic, assign, getter=isHasApp) BOOL hasApp;
 
 @property (nonatomic, copy) NSString* friendshipStatus;
-@property (nonatomic, assign) BOOL isFriendshipCreator;
 @property (nonatomic, copy) NSString* friendshipCreatorMkey;
 
 @property (nonatomic, assign) ZZFriendshipStatusType friendshipStatusValue;
