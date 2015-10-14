@@ -61,6 +61,10 @@
 {
     ZZGridWireframe* gridWireframe = [ZZGridWireframe new];
     gridWireframe.menuWireFrame = self;
+
+    UIPanGestureRecognizer* recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self.drawerController action:@selector(_moveDrawer:)];
+    [gridWireframe.presenter.userInterface.view addGestureRecognizer:recognizer];
+
     [gridWireframe presentGridControllerFromNavigationController:self.drawerController];
     self.presenter.menuModuleDelegate = gridWireframe.presenter;
 }
