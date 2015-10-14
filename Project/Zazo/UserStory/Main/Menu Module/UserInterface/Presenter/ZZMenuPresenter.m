@@ -26,7 +26,7 @@
     self.dataSource = [ZZMenuDataSource new];
     [self.userInterface updateDataSource:self.dataSource];
     
-    [self.interactor loadDataIncludeAddressBookRequest:NO];
+    [self.interactor loadDataIncludeAddressBookRequest:YES];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_applicationWillEnterInBackground)

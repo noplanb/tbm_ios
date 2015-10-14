@@ -403,7 +403,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
     {
         self.everSent = @(YES);
         [self.managedObjectContext MR_saveToPersistentStoreAndWait];
-        [self.managedObjectContext refreshAllObjects];
+//        [self.managedObjectContext refreshAllObjects];
     }
     [self notifyVideoStatusChange];
 }
@@ -510,7 +510,8 @@ static NSMutableSet *videoStatusNotificationDelegates;
 //---------------
 - (void)setAndNotifyOutgoingVideoStatus:(TBMOutgoingVideoStatus)status videoId:(NSString *)videoId
 {
-    [self.managedObjectContext refreshAllObjects];
+//    [self.managedObjectContext refreshAllObjects];
+    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
     if (![videoId isEqual:self.outgoingVideoId])
     {
         OB_WARN(@"setAndNotifyOutgoingVideoStatus: Unrecognized vidoeId:%@. != ougtoingVid:%@. friendId:%@ Ignoring.", videoId, self.outgoingVideoId, self.idTbm);
@@ -628,7 +629,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 {
     self.uploadRetryCount = 0;
     self.outgoingVideoId = videoId;
-    [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_NEW videoId:self.outgoingVideoId];
+   [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_NEW videoId:self.outgoingVideoId];
 }
 
 - (void)handleOutgoingVideoUploadingWithVideoId:(NSString *)videoId

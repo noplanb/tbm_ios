@@ -323,6 +323,7 @@
     [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
     if (!ANIsEmpty(viewModel.item.relatedUser.idTbm))
     {
+        
         if (isEnabled)
         {
             [self.actionHandler hideHint];
@@ -332,22 +333,26 @@
             }
             
             [self.soundPlayer play];
-            
+            [ZZVideoRecorder shared].wasRecordingStopped = NO;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.videoPlayer stop];
-                NSURL* url = [ZZVideoUtils generateOutgoingVideoUrlWithFriend:viewModel.item.relatedUser];
-                [self.userInterface updateRecordViewStateTo:isEnabled];
-
-                [[ZZVideoRecorder shared] startRecordingWithVideoURL:url completionBlock:^(BOOL isRecordingSuccess) {
-                    [self.userInterface updateRecordViewStateTo:NO];
-                    [self.soundPlayer play];
-                   
-                    completionBlock(isRecordingSuccess);
-                }];
+                if (![ZZVideoRecorder shared].wasRecordingStopped)
+                {
+                    [self.videoPlayer stop];
+                    NSURL* url = [ZZVideoUtils generateOutgoingVideoUrlWithFriend:viewModel.item.relatedUser];
+                    [self.userInterface updateRecordViewStateTo:isEnabled];
+                    
+                    [[ZZVideoRecorder shared] startRecordingWithVideoURL:url completionBlock:^(BOOL isRecordingSuccess) {
+                        [self.userInterface updateRecordViewStateTo:NO];
+                        [self.soundPlayer play];
+                        
+                        completionBlock(isRecordingSuccess);
+                    }];
+                }
             });
         }
         else
         {
+            [ZZVideoRecorder shared].wasRecordingStopped = YES;
             [[ZZVideoRecorder shared] stopRecordingWithCompletionBlock:^(BOOL isRecordingSuccess) {
                 [self.userInterface updateRecordViewStateTo:isEnabled];
                 [self.soundPlayer play];
