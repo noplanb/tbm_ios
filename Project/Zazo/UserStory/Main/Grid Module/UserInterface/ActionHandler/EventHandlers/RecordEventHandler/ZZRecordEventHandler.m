@@ -8,14 +8,6 @@
 
 #import "ZZRecordEventHandler.h"
 
-@interface ZZRecordEventHandler ()
-
-@property (nonatomic, assign) BOOL isWelcomeRecordShown;
-@property (nonatomic, assign) BOOL isRecordWasShown;
-
-@end
-
-
 @implementation ZZRecordEventHandler
 
 
@@ -23,11 +15,10 @@
 {
     if (event == ZZGridActionEventTypeGridLoaded &&
         [self.delegate frinedsNumberOnGrid] == 1 &&
-        ![ZZGridActionStoredSettings shared].recordWelcomeHintWasShown)
+        model.item.relatedUser.unviewedCount == 0 &&
+        ![ZZGridActionStoredSettings shared].sentHintWasShown)
     {
         self.isLastAcitionDone = YES;
-        self.isWelcomeRecordShown = YES;
-        self.isRecordWasShown = NO;
         self.hintModel = model;
         [ZZGridActionStoredSettings shared].recordWelcomeHintWasShown = YES;
         
@@ -40,14 +31,12 @@
         });
     }
     else if (event == ZZGridActionEventTypeMessageDidPlayed &&
-        ![ZZGridActionStoredSettings shared].recordWelcomeHintWasShown &&
-        [self.delegate frinedsNumberOnGrid] == 1)
+             ![ZZGridActionStoredSettings shared].sentHintWasShown &&
+             [self.delegate frinedsNumberOnGrid] == 1)
     {
         self.hintModel = model;
         self.isLastAcitionDone = YES;
-        self.isWelcomeRecordShown = YES;
-        self.isRecordWasShown = NO;
-        
+       
         [ZZGridActionStoredSettings shared].recordWelcomeHintWasShown = YES;
         if (completionBlock)
         {
@@ -55,14 +44,12 @@
         }
     }
     else if (event == ZZGridActionEventTypeMessageDidPlayed &&
-             ![ZZGridActionStoredSettings shared].recordWelcomeHintWasShown &&
              [self.delegate frinedsNumberOnGrid] > 1)
     {
         self.isLastAcitionDone = YES;
-        self.isWelcomeRecordShown = YES;
-        self.isRecordWasShown = NO;
         self.hintModel = model;
         [ZZGridActionStoredSettings shared].recordWelcomeHintWasShown = YES;
+     
         if (completionBlock)
         {
             completionBlock(ZZHintsTypeNoHint, model);
@@ -71,14 +58,15 @@
     
     else if (event == ZZGridActionEventTypeMessageDidPlayed &&
              ![ZZGridActionStoredSettings shared].recordHintWasShown &&
-             [self.delegate frinedsNumberOnGrid] == 1)
+             [self.delegate frinedsNumberOnGrid] == 1 &&
+             ![ZZGridActionStoredSettings shared].sentHintWasShown)
     {
         self.isLastAcitionDone = YES;
-        self.isWelcomeRecordShown = NO;
-        self.isRecordWasShown = YES;
+
         self.hintModel = model;
         
         [ZZGridActionStoredSettings shared].recordHintWasShown = YES;
+      
         if (completionBlock)
         {
             completionBlock(ZZHintsTypeRecordHint, model);
@@ -89,8 +77,7 @@
              [self.delegate frinedsNumberOnGrid] > 1)
     {
         self.isLastAcitionDone = YES;
-        self.isWelcomeRecordShown = NO;
-        self.isRecordWasShown = YES;
+
         self.hintModel = model;
         
         [ZZGridActionStoredSettings shared].recordHintWasShown = YES;
@@ -102,7 +89,7 @@
     else
     {
         self.hintModel = nil;
-        [self _resetAllActionsMarker];
+        self.isLastAcitionDone = NO;
         if(!ANIsEmpty(self.eventHandler))
         {
             [super nextHandlerHandleEvent:event model:model withCompletionBlock:completionBlock];
@@ -122,21 +109,13 @@
 {
     if (self.isLastAcitionDone)
     {
-        if (self.isWelcomeRecordShown)
-        {
-            [self _resetAllActionsMarker];
-            [ZZGridActionStoredSettings shared].recordWelcomeHintWasShown = NO;
-            
-        }
-        else
-        {
-            [self _resetAllActionsMarker];
-            [ZZGridActionStoredSettings shared].recordHintWasShown = NO;
-        }
+        self.isLastAcitionDone = NO;
+        [ZZGridActionStoredSettings shared].recordWelcomeHintWasShown = NO;
+        
         
         if (completionBlock)
         {
-            completionBlock(ZZGridActionEventTypeMessageDidPlayed,self.hintModel);
+            completionBlock(ZZGridActionEventTypeGridLoaded,self.hintModel);
         }
         
     }
@@ -148,13 +127,6 @@
         }
     }
 
-}
-
-- (void)_resetAllActionsMarker
-{
-    self.isLastAcitionDone = NO;
-    self.isWelcomeRecordShown = NO;
-    self.isRecordWasShown = NO;
 }
 
 @end

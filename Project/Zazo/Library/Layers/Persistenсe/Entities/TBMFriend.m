@@ -114,6 +114,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
         {
             OB_INFO(@"createWithServerParams: Friend exists updating hasApp only since it is different.");
             f.hasApp = @(servHasApp);
+            [f.managedObjectContext MR_saveToPersistentStoreAndWait];
             [f notifyVideoStatusChange];
         }
         if (complete != nil)

@@ -142,6 +142,7 @@
                 {
                     actionIndex = 2;
                 }
+                
                 self.lastActionIndex = actionIndex;
                 [self _configureHintControllerWithHintType:type withModel:model index:actionIndex];
             }
@@ -304,6 +305,7 @@
 {
     if (![ZZGridActionStoredSettings shared].spinHintWasShown)
     {
+        [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = NO;
         [self.startEventHandler handleResetLastActionWithCompletionBlock:^(ZZGridActionEventType event, ZZGridCellViewModel *model) {
             [self handleEvent:event withIndex:self.lastActionIndex];
         }];

@@ -15,7 +15,20 @@
 withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBlock
 {
     self.hintModel = model;
-    if (event == ZZGridActionEventTypeDontHaveFriends)// && ![ZZGridActionStoredSettings shared].inviteHintWasShown)
+
+    if (event == ZZGridActionEventTypeGridLoaded &&
+        [self.delegate frinedsNumberOnGrid] == 0)
+    {
+        [ZZGridActionStoredSettings shared].inviteHintWasShown = YES;
+        self.isLastAcitionDone = YES;
+        
+        if (completionBlock)
+        {
+            completionBlock(ZZHintsTypeInviteHint, model);
+        }
+        
+    }
+    else if (event == ZZGridActionEventTypeDontHaveFriends)// && ![ZZGridActionStoredSettings shared].inviteHintWasShown)
     {
         [ZZGridActionStoredSettings shared].inviteHintWasShown = YES;
         self.isLastAcitionDone = YES;

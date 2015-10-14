@@ -31,6 +31,7 @@
 @property (nonatomic, assign) BOOL isInviteSomeoneElseShowedDuringSession;
 
 @property (nonatomic, assign) BOOL holdToRecordAndTapToPlayWasShown;
+@property (nonatomic, assign) BOOL incomingVideoWasPlayed;
 
 @property (nonatomic, assign) BOOL hintsDidStartPlay;
 @property (nonatomic, assign) BOOL hintsDidStartRecord;
