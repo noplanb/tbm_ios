@@ -70,7 +70,6 @@
 
 - (void)_setupNotifications
 {
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(stopPlaying)
                                                  name:kNotificationIncomingCall
@@ -87,7 +86,6 @@
 }
 
 - (void)dealloc
-
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[ZZVideoRecorder shared] removeDelegate:self];
@@ -196,6 +194,7 @@
                                                                           isSwitchCameraAvailable &&
                                                                           [ZZGridActionStoredSettings shared].frontCameraHintWasShown)];
         
+        [[ZZVideoRecorder shared] updateRecorder];
         [[ZZVideoRecorder shared] updateRecordView:[self.dataSource centerViewModel].recordView];
         [self _showRecordWelcomeIfNeeded];
     });

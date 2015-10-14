@@ -15,4 +15,6 @@
 
 + (NSManagedObjectContext*)contextForCurrentThread;
 
++ (void)refreshContext:(NSManagedObjectContext*)context;
+
 @end

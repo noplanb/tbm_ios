@@ -36,6 +36,28 @@
 }
 #pragma GCC diagnostic pop
 
++ (void)refreshContext:(NSManagedObjectContext*)context
+{
+    if ([context respondsToSelector:@selector(refreshAllObjects)])
+    {
+        [context refreshAllObjects];
+    }
+    else
+    {
+        [context.insertedObjects enumerateObjectsUsingBlock:^(__kindof NSManagedObject * _Nonnull obj, BOOL * _Nonnull stop) {
+            [context refreshObject:obj mergeChanges:YES];
+        }];
+        
+        [context.updatedObjects enumerateObjectsUsingBlock:^(__kindof NSManagedObject * _Nonnull obj, BOOL * _Nonnull stop) {
+            [context refreshObject:obj mergeChanges:YES];
+        }];
+        
+        [context.deletedObjects enumerateObjectsUsingBlock:^(__kindof NSManagedObject * _Nonnull obj, BOOL * _Nonnull stop) {
+            [context refreshObject:obj mergeChanges:YES];
+        }];
+    }
+}
+
 @end
 
 

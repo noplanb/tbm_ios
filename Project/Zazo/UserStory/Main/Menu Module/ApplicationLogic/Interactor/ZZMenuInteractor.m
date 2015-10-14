@@ -17,10 +17,17 @@
 @interface ZZMenuInteractor ()
 
 @property (nonatomic, assign) BOOL isLoading;
+@property (nonatomic, assign) BOOL isLoaded;
 
 @end
 
 @implementation ZZMenuInteractor
+
+- (void)resetAddressBookData
+{
+    [ZZAddressBookDataProvider resetAddressBook];
+    self.isLoaded = NO;
+}
 
 - (void)loadDataIncludeAddressBookRequest:(BOOL)shouldRequest
 {
@@ -55,17 +62,21 @@
 
 - (void)_loadAddressBookContactsWithRequestAccess:(BOOL)shouldRequest
 {
-    if (!self.isLoading)
+    if (!self.isLoading && !self.isLoaded)
     {
         self.isLoading = YES;
         [[ZZAddressBookDataProvider loadContactsWithContactsRequest:shouldRequest] subscribeNext:^(NSArray *addressBookContactsArray) {
             
             [self.output addressBookDataLoaded:addressBookContactsArray];
             self.isLoading = NO;
+            self.isLoaded = YES;
             
         } error:^(NSError *error) {
             
             [self.output needsPermissionForAddressBook];
+            self.isLoading = NO;
+            
+        } completed:^{
             self.isLoading = NO;
         }];
     }
@@ -103,7 +114,6 @@
     
     [self.output friendsThatHasAppLoaded:[self _sortByFirstName:filteredFriendsHasAppArray]];
     [self.output friendsDataLoaded:[self _sortByFirstName:filteredOtherFriendsArray]];
-
 }
 
 

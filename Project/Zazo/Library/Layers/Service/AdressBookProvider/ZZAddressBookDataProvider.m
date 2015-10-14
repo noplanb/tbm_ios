@@ -16,9 +16,14 @@
 #import "ZZContactDomainModel.h"
 #import "ZZUserPresentationHelper.h"
 
-static APAddressBook* addressBook = nil;
+static APAddressBook* _addressBook = nil;
 
 @implementation ZZAddressBookDataProvider
+
++ (void)resetAddressBook
+{
+    _addressBook = nil;
+}
 
 + (RACSignal*)loadContactsWithContactsRequest:(BOOL)shouldRequest
 {
@@ -39,17 +44,17 @@ static APAddressBook* addressBook = nil;
     else
     {
         RACSignal* loadSignal = [RACSignal empty];
-        switch([APAddressBook access])
+        if ([self isAccessGranted])
         {
-            case APAddressBookAccessGranted:
-            {
-                loadSignal = [self _loadData];
-            }
-                break;
-            default: break;
+            loadSignal = [self _loadData];
         }
         return loadSignal;
     }
+}
+
++ (BOOL)isAccessGranted
+{
+    return ([APAddressBook access] == APAddressBookAccessGranted);
 }
 
 + (RACSignal*)_requestAccess
@@ -67,21 +72,27 @@ static APAddressBook* addressBook = nil;
 
 #pragma mark - Private
 
++ (APAddressBook*)_addressbook
+{
+    if (!_addressBook)
+    {
+        _addressBook = [[APAddressBook alloc] init];
+        [_addressBook startObserveChangesWithCallback:^{
+            _addressBook = nil;
+        }];
+    }
+    return _addressBook;
+}
+
 + (RACSignal*)_loadData
 {
-    if (!addressBook)
-    {
-        addressBook = [[APAddressBook alloc] init];
-    }
+    APAddressBook* addressBook = [self _addressbook];
+    
     addressBook.fieldsMask = APContactFieldFirstName | APContactFieldLastName  | APContactFieldPhonesWithLabels | APContactFieldEmails;
     
     addressBook.filterBlock = ^BOOL(APContact *contact) {
         return (contact.firstName.length);
     };
-    
-    [addressBook startObserveChangesWithCallback:^{
-        addressBook = [[APAddressBook alloc] init];
-    }];
     
     addressBook.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES],
                                     [NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES]];

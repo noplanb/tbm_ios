@@ -98,6 +98,7 @@
 
 - (void)_applicationWillEnterInBackground
 {
+    [self.interactor resetAddressBookData];
     [self.wireframe closeMenu];
 }
 
