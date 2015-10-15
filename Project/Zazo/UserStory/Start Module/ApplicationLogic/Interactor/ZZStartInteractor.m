@@ -30,7 +30,7 @@
         [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {
             [self _checkVersionStateForUserLoggedInState:YES];
         } error:^(NSError *error) {
-            [self _checkVersionStateForUserLoggedInState:NO];
+            [self _checkVersionStateForUserLoggedInState:YES];
         }];
     }
     else
@@ -62,6 +62,10 @@
     } error:^(NSError *error) {
 
         OB_WARN(@"checkVersionCompatibility: %@", error);
+        if (loggedIn)
+        {
+            [self _userVersionStateLoadedSuccessfully:ZZApplicationVersionStateCurrent logged:loggedIn];
+        }
         [self.output userVersionStateLoadingDidFailWithError:error];
     }];
 }
