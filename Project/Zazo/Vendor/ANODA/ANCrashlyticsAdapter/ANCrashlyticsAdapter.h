@@ -15,4 +15,6 @@ static NSString* kANCrashlyticsKey;
 + (void)updateUserDataWithID:(NSString*)userID username:(NSString*)username email:(NSString*)email;
 + (void)updateUserDataWithDictionary:(NSDictionary*)data;
 
++ (instancetype)shared;
+
 @end
