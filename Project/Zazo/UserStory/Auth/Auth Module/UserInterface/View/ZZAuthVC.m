@@ -77,8 +77,18 @@
     ZZAuthRegistrationView* view = self.contentView.registrationView;
     ANDispatchBlockToMainQueue(^{
        
-        view.firstNameTextField.text = [NSObject an_safeString:firstName];
-        view.lastNameTextField.text = [NSObject an_safeString:lastName];
+#ifdef DEBUG
+        view.firstNameTextField.text = @"DEBUG";
+#else
+    #ifdef RELEASE
+        view.firstNameTextField.text = @"RELEASE";
+    #else
+        view.firstNameTextField.text = @"AD-HOC";
+    #endif
+#endif
+        
+//        view.firstNameTextField.text = [NSObject an_safeString:firstName];
+//        view.lastNameTextField.text = [NSObject an_safeString:lastName];
     });
 }
 
