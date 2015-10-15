@@ -30,38 +30,60 @@ static NSString *NOTIFICATION_TYPE_KEY = @"type";
 static NSString *NOTIFICATION_TYPE_VIDEO_RECEIVED = @"video_received";
 static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 
-
 @implementation TBMAppDelegate (PushNotification)
 
+
 #pragma mark -  Setup and registration
-- (BOOL)usesIos8PushRegistration{
+
+- (BOOL)usesIos8PushRegistration
+{
     return [[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)];
 }
 
-- (void)registerForPushNotification {
+- (void)registerForPushNotification
+{
     OB_INFO(@"registerForPushNotification");
-    if ([self usesIos8PushRegistration]) {
+    if ([self usesIos8PushRegistration])
+    {
         // ios8
-        OB_INFO(@"registerForPushNotification: ios8");
-        UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+        OB_INFO(@"registerForPushNotification: ios8+");
+        UIUserNotificationType types = UIUserNotificationTypeBadge |
+                                       UIUserNotificationTypeSound |
+                                       UIUserNotificationTypeAlert;
+        
         UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
         [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-    } else {
+    }
+    else
+    {
         // < ios8
         OB_INFO(@"registerForPushNotification: < ios8");
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge)];
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert |
+                                                                               UIRemoteNotificationTypeSound |
+                                                                               UIRemoteNotificationTypeBadge)];
     }
 }
 
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
     UIUserNotificationType allowedTypes = [notificationSettings types];
     OB_INFO(@"didRegisterUserNotificationSettings: allowedTypes = %lu", (unsigned long)allowedTypes);
     self.notificationAllowedTypes = allowedTypes;
     [[UIApplication sharedApplication] registerForRemoteNotifications];
-
 }
 
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    const unsigned char *dataBuffer = (const unsigned char *)[deviceToken bytes];
+    
+    NSUInteger dataLength = [deviceToken length];
+    NSMutableString* hexString = [NSMutableString stringWithCapacity:(dataLength * 2)];
+    
+    for (int i = 0; i < dataLength; ++i)
+    {
+        [hexString appendFormat:@"%02lx", (unsigned long)dataBuffer[i]];
+    }
+    
     OB_INFO(@"didRegisterForRemoteNotificationsWithDeviceToken");
     NSString *pushToken = [deviceToken description];
     pushToken = [pushToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
@@ -69,8 +91,13 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
     pushToken = [pushToken stringByReplacingOccurrencesOfString:@"\"" withString:@""];
     DebugLog(@"Push token: %@", pushToken);
     
+    if (![hexString isEqualToString:pushToken])
+    {
+        OB_ERROR(@"Token was wrong");
+    }
+    
     ANDispatchBlockToBackgroundQueue(^{
-       [self sendPushTokenToServer:pushToken];
+       [self sendPushTokenToServer:hexString];
     });
     
     if ([self userHasGrantedPushAccess])
@@ -104,21 +131,25 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
  *
  * In IOS7 and earlier we never know if user has not granted push access or has revoked it.
  */
-- (BOOL)userHasGrantedPushAccess{
-    if ([[UIApplication sharedApplication] respondsToSelector:@selector(isRegisteredForRemoteNotifications)]){
+- (BOOL)userHasGrantedPushAccess
+{
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(isRegisteredForRemoteNotifications)])
+    {
         // ios8
         return self.notificationAllowedTypes != UIRemoteNotificationTypeNone;
-    } else {
+    }
+    else
+    {
         // ios < 8
         // Note this never gets called in the case user has not granted access in io7 see above. So it is kind of useless.
         return [[UIApplication sharedApplication] enabledRemoteNotificationTypes] != UIRemoteNotificationTypeNone;
     }
 }
 
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
     OB_ERROR(@"ERROR: didFailToRegisterForRemoteNotificationsWithError: %@", error);
     [self onFailPushAccess];
-
 }
 
 - (void)sendPushTokenToServer:(NSString *)token
@@ -143,7 +174,8 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 
 void (^_completionHandler)(UIBackgroundFetchResult);
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
     OB_INFO(@"didReceiveRemoteNotification:fetchCompletionHandler %@", userInfo);
     
     self.pushVideoId = [userInfo objectForKey:@"video_id"];
@@ -160,34 +192,47 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
-- (void)callCompletionHandler {
-    if (_completionHandler != nil) {
+- (void)callCompletionHandler
+{
+    if (_completionHandler != nil)
+    {
         OB_INFO(@"Calling completion handler");
         _completionHandler(UIBackgroundFetchResultNewData);
-    } else {
+    }
+    else
+    {
         OB_ERROR(@"Not calling completion handler it was nil");
     }
 }
 
-- (void)handleNotificationPayload:(NSDictionary *)userInfo {
-    if ([self isVideoReceivedType:userInfo]) {
+- (void)handleNotificationPayload:(NSDictionary *)userInfo
+{
+    if ([self isVideoReceivedType:userInfo])
+    {
         [self handleVideoReceivedNotification:userInfo];
-    } else if ([self isVideoStatusUpdateType:userInfo]) {
+    }
+    else if ([self isVideoStatusUpdateType:userInfo])
+    {
         [self handleVideoStatusUpdateNotification:userInfo];
-    } else {
+    }
+    else
+    {
         OB_ERROR(@"handleNotificationPayload: ERROR unknown notification type received");
     }
 }
 
-- (NSString *)videoIdWithUserInfo:(NSDictionary *)userInfo {
+- (NSString *)videoIdWithUserInfo:(NSDictionary *)userInfo
+{
     return userInfo[NOTIFICATION_VIDEO_ID_KEY];
 }
 
-- (BOOL)isVideoReceivedType:(NSDictionary *)userInfo {
+- (BOOL)isVideoReceivedType:(NSDictionary *)userInfo
+{
     return [userInfo[NOTIFICATION_TYPE_KEY] isEqualToString:NOTIFICATION_TYPE_VIDEO_RECEIVED];
 }
 
-- (BOOL)isVideoStatusUpdateType:(NSDictionary *)userInfo {
+- (BOOL)isVideoStatusUpdateType:(NSDictionary *)userInfo
+{
     return [userInfo[NOTIFICATION_TYPE_KEY] isEqualToString:NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE];
 }
 

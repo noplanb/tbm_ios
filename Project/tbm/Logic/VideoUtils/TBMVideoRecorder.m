@@ -110,7 +110,7 @@ static int videoRecorderRetryCount = 0;
         AVCaptureDeviceInput *newVideoInput = [[AVCaptureDeviceInput alloc] initWithDevice:newCamera error:&err];
         if(!newVideoInput || err)
         {
-            NSLog(@"Error creating capture device input: %@", err.localizedDescription);
+            NSLog(@"VideoRecorder#Error creating capture device input: %@", err.localizedDescription);
         }
         else
         {
@@ -228,7 +228,7 @@ static int videoRecorderRetryCount = 0;
 
 - (void)setupCaptureSessionView:(UIView *)view
 {
-    OB_DEBUG(@"VideoRecorder:setupPreviewView:");
+    OB_DEBUG(@"VideoRecorder#:setupPreviewView:");
     
     view.layer.sublayers = nil;
     AVCaptureVideoPreviewLayer *previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.captureSession];
@@ -245,7 +245,7 @@ static int videoRecorderRetryCount = 0;
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
     self.didCancelRecording = NO;
     
-    OB_INFO(@"Start recording to %@ videoId:%@",
+    OB_INFO(@"VideoRecorder#Start recording to %@ videoId:%@",
             [TBMVideoIdUtils friendWithOutgoingVideoUrl:videoUrl].firstName,
             [TBMVideoIdUtils videoIdWithOutgoingVideoUrl:videoUrl]);
     
@@ -283,8 +283,8 @@ static int videoRecorderRetryCount = 0;
 didStartRecordingToOutputFileAtURL:(NSURL*)fileURL
       fromConnections:(NSArray*)connections
 {
-    OB_INFO(@"VideoRecoder: captureOutput:didStartRecording");
-    OB_INFO(@"captureOutput:didStartRecording %@", connections);
+    OB_INFO(@"VideoRecorder# captureOutput:didStartRecording");
+    OB_INFO(@"VideoRecorder# captureOutput:didStartRecording %@", connections);
 }
 
 - (void)captureOutput:(AVCaptureFileOutput*)captureOutput
@@ -292,16 +292,16 @@ willFinishRecordingToOutputFileAtURL:(NSURL*)outputFileURL
       fromConnections:(NSArray*)connections
                 error:(NSError*)error
 {
-    OB_INFO(@"willFinishRecordingToOutputFileAtURL %@", error);
-    OB_INFO(@"willFinishRecordingToOutputFileAtURL %@", connections);
+    OB_INFO(@"VideoRecorder#willFinishRecordingToOutputFileAtURL %@", error);
+    OB_INFO(@"VideoRecorder#willFinishRecordingToOutputFileAtURL %@", connections);
 }
 
 - (void)captureOutput:(AVCaptureFileOutput*)captureOutput
 didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
       fromConnections:(NSArray *)connections
                 error:(NSError *)error{
-    OB_INFO(@"didFinishRecordingToOutputFileAtURL %@", error);
-    OB_INFO(@"didFinishRecordingToOutputFileAtURL %@", connections);
+    OB_INFO(@"VideoRecorder#didFinishRecordingToOutputFileAtURL %@", error);
+    OB_INFO(@"VideoRecorder#didFinishRecordingToOutputFileAtURL %@", connections);
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFinishRecording
                                                         object:self
@@ -316,7 +316,7 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
 
 - (void)addObservers
 {
-    OB_INFO(@"videoRecorder: addObservers");
+    OB_INFO(@"VideoRecorder#: addObservers");
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(AVCaptureSessionRuntimeErrorNotification:)
                                                  name:AVCaptureSessionRuntimeErrorNotification
@@ -336,14 +336,14 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
 
 - (void)AVCaptureSessionRuntimeErrorNotification:(NSNotification *)notification
 {
-    OB_INFO(@"AVCaptureSessionRuntimeErrorNotification: %@", notification.userInfo[AVCaptureSessionErrorKey]);
+    OB_INFO(@"VideoRecorder#AVCaptureSessionRuntimeErrorNotification: %@", notification.userInfo[AVCaptureSessionErrorKey]);
     videoRecorderRetryCount += 1;
     [self.delegate videoRecorderRuntimeErrorWithRetryCount:videoRecorderRetryCount];
 }
 
 - (void)AVCaptureSessionDidStartRunningNotification:(NSNotification *)notification
 {
-    OB_INFO(@"AVCaptureSessionDidStartRunningNotification");
+    OB_INFO(@"VideoRecorder#AVCaptureSessionDidStartRunningNotification");
     [self.delegate videoRecorderDidStartRunning];
 }
 
@@ -352,7 +352,7 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
 
 - (void)willDeactivateAudioSession
 {
-    OB_INFO(@"VideoRecorder: willDeactivateAudioSession");
+    OB_INFO(@"VideoRecorder#VideoRecorder: willDeactivateAudioSession");
     [self.captureSession stopRunning];
 }
 
