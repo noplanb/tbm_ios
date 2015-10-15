@@ -147,6 +147,7 @@
                 [self _configureHintControllerWithHintType:type withModel:model index:actionIndex];
             }
             
+            
             [self.featureEventObserver handleEvent:event withModel:model withIndex:actionIndex withCompletionBlock:^(BOOL isFeatureShowed) {
                 if (!isFeatureShowed && type == ZZHintsTypeNoHint)
                 {
@@ -155,6 +156,11 @@
             }];
         }];
     }
+}
+
+- (void)updateFeaturesWithFriendsMkeys:(NSArray *)friendsMkeys
+{
+    [self.featureEventObserver updateFeaturesWithRemoteFriendMkeys:friendsMkeys];
 }
 
 - (void)_configureHintControllerWithHintType:(ZZHintsType)hintType withModel:(ZZGridCellViewModel*)model index:(NSInteger)index

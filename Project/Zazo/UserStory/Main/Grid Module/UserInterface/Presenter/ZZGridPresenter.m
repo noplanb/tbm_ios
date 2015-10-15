@@ -178,6 +178,11 @@
     [self.wireframe presentSendFeedbackWithModel:model];
 }
 
+- (void)updatedFeatureWithFriendMkeys:(NSArray *)friendsMkeys
+{
+    [self.actionHandler updateFeaturesWithFriendsMkeys:friendsMkeys];
+}
+
 
 #pragma makr - EVENT InviteHint
 
@@ -198,6 +203,12 @@
         [[ZZVideoRecorder shared] updateRecordView:[self.dataSource centerViewModel].recordView];
         [self _showRecordWelcomeIfNeeded];
     });
+}
+
+- (void)updateSwithCameraFeatureIsEnabled:(BOOL)isEnabled
+{
+    BOOL isTwoCamerasAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
+    [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:(isTwoCamerasAvailable && isEnabled)];
 }
 
 - (void)_showRecordWelcomeIfNeeded

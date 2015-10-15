@@ -22,6 +22,7 @@
 #import "ZZGridDataUpdater.h"
 #import "ZZFriendDataUpdater.h"
 #import "ZZGridInteractor+ActionHandler.h"
+#import "ZZGridActionStoredSettings.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
@@ -35,7 +36,16 @@ static NSInteger const kGridFriendsCellCount = 8;
 {
     [self.output dataLoadedWithArray:[self _gridModels]];
     [TBMFriend addVideoStatusNotificationDelegate:self];
+    [self _configureFeatureObserver];
 }
+
+- (void)_configureFeatureObserver
+{
+    [RACObserve([ZZGridActionStoredSettings shared], frontCameraHintWasShown) subscribeNext:^(NSNumber* x) {
+        [self.output updateSwithCameraFeatureIsEnabled:[x boolValue]];
+    }];
+}
+
 
 - (void)addUserToGrid:(id)friendModel
 {
@@ -284,6 +294,11 @@ static NSInteger const kGridFriendsCellCount = 8;
     [self _handleModel:gridModel];
 }
 
+
+- (void)unlockFeaturesUpdateWithMkeysArray:(NSArray *)mkeysArray
+{
+    [self.output updatedFeatureWithFriendMkeys:mkeysArray];
+}
 
 #pragma mark - Transport
 

@@ -15,9 +15,18 @@ static NSString* const kFriendIdDefaultKey = @"userIdDefaultKey";
 static NSString* const kSendMessageCounterKey = @"sendMessageCounterKey";
 static NSString* const kUsersIdsArrayKey = @"usersIdsArrayKey";
 
+@protocol ZZFeatureEventStrategyDelegate <NSObject>
+
+- (void)showLastUnlockFeatureWithFeatureType:(ZZGridActionFeatureType)type;
+
+@end
+
+
 @interface ZZFeatureEventStrategyBase : NSObject
 
 @property (nonatomic, assign) BOOL isFeatureShowed;
+@property (nonatomic, weak) id <ZZFeatureEventStrategyDelegate> delegate;
+
 
 - (void)handleBothCameraFeatureWithModel:(ZZGridCellViewModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock;
 - (void)handleAbortRecordingFeatureWithModel:(ZZGridCellViewModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock;
@@ -27,4 +36,6 @@ static NSString* const kUsersIdsArrayKey = @"usersIdsArrayKey";
 
 - (BOOL)isFeatureEnabledWithModel:(ZZGridCellViewModel*)model beforeUnlockFeatureSentCount:(NSInteger)sentCount;
 - (void)updateFeatureUnlockIdsWithModel:(ZZGridCellViewModel*)model;
+- (void)updateFeaturesWithRemoteFriendsMkeys:(NSArray*)friendMkeys;
+
 @end

@@ -666,7 +666,20 @@ static NSMutableSet *videoStatusNotificationDelegates;
         aFriend.everSent = @(YES);
         aFriend.isFriendshipCreator = @([aFriend.friendshipCreatorMKey isEqualToString:aFriend.mkey]);
     }];
+    
+    [TBMFriend updateUnlockFeatureWithMkeys:mkeys];
+    
     [[self _context] MR_saveToPersistentStoreAndWait];
+}
+
+#pragma mark - Update Friends Mkeys For Unlock Features
+
++ (void)updateUnlockFeatureWithMkeys:(NSArray*)mkeys
+{
+    for (id <TBMVideoStatusNotificationProtocol> delegate in videoStatusNotificationDelegates)
+    {
+        [delegate unlockFeaturesUpdateWithMkeysArray:mkeys];
+    }
 }
 
 
@@ -675,7 +688,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 + (NSArray *)_allEverSentFriends
 {
     NSPredicate *everSent = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.everSent, @(YES)];
-    NSPredicate *creator = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.isFriendshipCreator, @(YES)];
+    NSPredicate *creator = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.isFriendshipCreator, @(NO)];
     NSPredicate *filter = [NSCompoundPredicate andPredicateWithSubpredicates:@[everSent, creator]];
     return [self MR_findAllWithPredicate:filter inContext:[self _context]];
 }

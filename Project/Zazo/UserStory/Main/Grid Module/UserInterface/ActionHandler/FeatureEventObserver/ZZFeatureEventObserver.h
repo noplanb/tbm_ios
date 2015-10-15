@@ -31,4 +31,6 @@ typedef NS_ENUM(NSInteger, ZZUnlockFeatureType) {
           withIndex:(NSInteger)index
 withCompletionBlock:(void(^)(BOOL isFeatureShowed))completionBlock;
 
+- (void)updateFeaturesWithRemoteFriendMkeys:(NSArray*)friendMkeys;
+
 @end

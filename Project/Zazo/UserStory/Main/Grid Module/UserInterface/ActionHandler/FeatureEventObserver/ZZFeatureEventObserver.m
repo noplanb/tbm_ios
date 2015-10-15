@@ -12,7 +12,7 @@
 #import "ZZFeatureEventStrategyInviteeUser.h"
 #import "ZZFeatureEventStrategyRegisteredUser.h"
 
-@interface ZZFeatureEventObserver ()
+@interface ZZFeatureEventObserver () <ZZFeatureEventStrategyDelegate>
 
 @property (nonatomic, strong) ZZFeatureEventStrategyBase* strategy;
 
@@ -41,11 +41,17 @@
 //    if (authUser.isInvitee)
 //    {
           self.strategy = [ZZFeatureEventStrategyInviteeUser new];
+          self.strategy.delegate = self;
 //    }
 //    else
 //    {
 //        self.strategy = [ZZFeatureEventStrategyRegisteredUser new];
 //    }
+}
+
+- (void)updateFeaturesWithRemoteFriendMkeys:(NSArray*)friendMkeys
+{
+    [self.strategy updateFeaturesWithRemoteFriendsMkeys:friendMkeys];
 }
 
 - (void)handleEvent:(ZZGridActionEventType)event withModel:(ZZGridCellViewModel*)model withIndex:(NSInteger)index withCompletionBlock:(void(^)(BOOL isFeatureShowed))completionBlock;
@@ -66,6 +72,37 @@
     }
 }
 
+
+#pragma mark - Event Strategy Delegate
+
+- (void)showLastUnlockFeatureWithFeatureType:(ZZGridActionFeatureType)type
+{
+    switch (type) {
+        case ZZGridActionFeatureTypeSwitchCamera:
+        {
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeSwitchCamera withIndex:0];
+        } break;
+        case ZZGridActionFeatureTypeAbortRec:
+        {
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeAbortRec withIndex:0];
+        } break;
+        case ZZGridActionFeatureTypeDeleteFriend:
+        {
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeDeleteFriend withIndex:0];
+        } break;
+        case ZZGridActionFeatureTypeEarpiece:
+        {
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeEarpiece withIndex:0];
+        } break;
+        case ZZGridActionFeatureTypeSpinWheel:
+        {
+             [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeSpinWheel withIndex:0];
+        } break;
+        default:
+        {
+        } break;
+    }
+}
 
 #pragma mark - Both Camera handel event
 
