@@ -22,10 +22,6 @@
 #import "OBLoggerNotification.h"
 #import <Crashlytics/Crashlytics.h>
 
-//#warning REMOVE AFTER OBLOGGER UPDATED
-//#define OBLoggerEventNotification @"OBLoggerEventNotification"
-//#define OBLoggerInfoNotification @"OBLoggerInfoNotification"
-//#define OBLoggerDebugNotification @"OBLoggerDebugNotification"
 
 @interface ZZAppDependencies ()
 
