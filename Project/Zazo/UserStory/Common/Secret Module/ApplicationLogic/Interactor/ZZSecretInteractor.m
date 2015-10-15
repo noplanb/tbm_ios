@@ -65,6 +65,15 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+- (void)updateAllFeaturesEnabled:(BOOL)isEnabled
+{
+    [ZZGridActionStoredSettings shared].frontCameraHintWasShown = isEnabled;
+    [ZZGridActionStoredSettings shared].abortRecordHintWasShown = isEnabled;
+    [ZZGridActionStoredSettings shared].deleteFriendHintWasShown = isEnabled;
+    [ZZGridActionStoredSettings shared].earpieceHintWasShown = isEnabled;
+    [ZZGridActionStoredSettings shared].spinHintWasShown = isEnabled;
+}
+
 - (void)removeAllDanglingFiles
 {
     //TODO:
