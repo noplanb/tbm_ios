@@ -383,12 +383,11 @@
         _userNameLabel.font = [UIFont an_regularFontWithSize:kUserNameFontSize];
         _userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
         [self addSubview:_userNameLabel];
-        
+
+        UIEdgeInsets padding = UIEdgeInsetsMake(0, 2, 0, 2);
         [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self);
-            make.centerX.equalTo(self);
-            make.leftMargin.equalTo(@(2));
-            make.rightMargin.equalTo(@(2));
+            make.left.right.equalTo(self).with.insets(padding);
             make.height.equalTo(self).dividedBy(kUserNameScaleValue);
         }];
     }
