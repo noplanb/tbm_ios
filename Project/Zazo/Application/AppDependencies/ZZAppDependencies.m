@@ -22,10 +22,10 @@
 #import "OBLoggerNotification.h"
 #import <Crashlytics/Crashlytics.h>
 
-#warning REMOVE AFTER OBLOGGER UPDATED
-#define OBLoggerEventNotification @"OBLoggerEventNotification"
-#define OBLoggerInfoNotification @"OBLoggerInfoNotification"
-#define OBLoggerDebugNotification @"OBLoggerDebugNotification"
+//#warning REMOVE AFTER OBLOGGER UPDATED
+//#define OBLoggerEventNotification @"OBLoggerEventNotification"
+//#define OBLoggerInfoNotification @"OBLoggerInfoNotification"
+//#define OBLoggerDebugNotification @"OBLoggerDebugNotification"
 
 @interface ZZAppDependencies ()
 
@@ -90,7 +90,7 @@
     if ([notification.object isKindOfClass:[NSString class]])
     {
         NSString* message = notification.object;
-        CLS_LOG(@"[%@] : %@",prefix,message);
+        CLSLog(@"[%@] : %@",prefix,message);
     }
 }
 
