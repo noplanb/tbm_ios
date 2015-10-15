@@ -58,6 +58,9 @@
 - (void)reloadAfterVideoUpdateGridModel:(ZZGridDomainModel*)model;
 - (void)reloadGridWithData:(NSArray*)data;
 
+- (void)updatedFeatureWithFriendMkeys:(NSArray*)friendsMkeys;
+- (void)updateSwithCameraFeatureIsEnabled:(BOOL)isEnabled;
+
 @end
 
 @protocol ZZGridInteractorOutputActionHandler <NSObject>

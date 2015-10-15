@@ -29,5 +29,6 @@
 - (void)handleEvent:(ZZGridActionEventType)event withIndex:(NSInteger)index;
 - (void)resetLastHintAndShowIfNeeded;
 - (void)hideHint;
+- (void)updateFeaturesWithFriendsMkeys:(NSArray*)friendsMkeys;
 
 @end

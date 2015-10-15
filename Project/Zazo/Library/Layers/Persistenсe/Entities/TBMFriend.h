@@ -18,6 +18,7 @@ static NSString* const kVideoStartDownloadingNotification = @"videoStartDownload
 @protocol TBMVideoStatusNotificationProtocol <NSObject>
 
 - (void)videoStatusDidChange:(TBMFriend *)model;
+- (void)unlockFeaturesUpdateWithMkeysArray:(NSArray*)mkeysArray;
 
 @end
 
