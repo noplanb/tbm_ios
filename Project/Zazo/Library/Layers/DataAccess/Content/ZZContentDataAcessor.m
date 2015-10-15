@@ -8,6 +8,7 @@
 
 #import "ZZContentDataAcessor.h"
 #import "TBMFriend.h"
+#import "OBLoggerNotification.h"
 
 @implementation ZZContentDataAcessor
 
