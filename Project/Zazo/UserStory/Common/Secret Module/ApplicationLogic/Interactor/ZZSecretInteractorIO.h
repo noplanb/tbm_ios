@@ -17,12 +17,13 @@
 - (void)resetHints;
 - (void)removeAllUserData;
 - (void)removeAllDanglingFiles;
-
+- (void)updateAllFeaturesEnabled:(BOOL)isEnabled;
 - (void)updateDebugStateTo:(BOOL)isEnabled;
 - (void)updateShouldUserSDKForLogging:(BOOL)isEnabled;
 
 - (void)updateServerStateTo:(NSInteger)state;
 - (void)updateCustomServerEnpointValueTo:(NSString *)value;
+
 
 @end
 

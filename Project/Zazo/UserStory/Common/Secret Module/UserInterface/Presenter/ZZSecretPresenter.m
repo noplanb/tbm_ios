@@ -111,6 +111,7 @@
 - (void)updateEnabledAllFeaturesValueTo:(BOOL)isEnabled
 {
     //TODO: check Maxim code
+    [self.interactor updateAllFeaturesEnabled:isEnabled];
 }
 
 - (void)updateShouldUseSDKToLoggingTypeValueTo:(BOOL)value
