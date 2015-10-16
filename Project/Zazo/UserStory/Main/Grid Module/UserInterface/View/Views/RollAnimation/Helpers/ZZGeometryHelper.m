@@ -125,69 +125,83 @@
 
 + (NSUInteger)quarterOfAngle:(double)angle inFrame:(CGRect)frame
 {
-    if (angle >= 0.f && angle < M_PI_2) {
+    if (angle >= 0.f && angle < M_PI_2)
+    {
         return 0;
-    } else if (angle >= M_PI_2 && angle < M_PI) {
+    }
+    else if (angle >= M_PI_2 && angle < M_PI)
+    {
         return 1;
-    } else if (angle >= M_PI && angle < M_PI + M_PI_2) {
+    }
+    else if (angle >= M_PI && angle < M_PI + M_PI_2)
+    {
         return 2;
-    } else if (angle >= M_PI + M_PI_2 && angle < 2 * M_PI) {
+    }
+    else if (angle >= M_PI + M_PI_2 && angle < 2 * M_PI)
+    {
         return 3;
-    } else {
+    }
+    else
+    {
         return NAN;
     }
 }
 
-+ (ZZSpinDirection)directionWithVelocity:(CGPoint *)velocity fromAngle:(CGFloat)angle {
++ (ZZSpinDirection)directionWithVelocity:(CGPoint)velocity fromAngle:(CGFloat)angle
+{
     ZZSpinDirection res = ZZSpinDirectionNone;
+    
     if (angle >= 0.f && angle < M_PI_4)
     {
-        if ((*velocity).y < 0)
+        if (velocity.y < 0)
         {
             res = ZZSpinDirectionCounterClockwise;
         }
-        else if ((*velocity).y > 0)
+        else if (velocity.y > 0)
         {
             res = ZZSpinDirectionClockwise;
         }
     }
-    if (angle >= M_PI_4 && angle < 3 * M_PI_4) {
-        if ((*velocity).x < 0)
+    if (angle >= M_PI_4 && angle < 3 * M_PI_4)
+    {
+        if (velocity.x < 0)
         {
             res = ZZSpinDirectionCounterClockwise;
         }
-        else if ((*velocity).x > 0)
+        else if (velocity.x > 0)
         {
             res = ZZSpinDirectionClockwise;
         }
     }
     if (angle >= 3 * M_PI_4 && angle < 5 * M_PI_4)
     {
-        if ((*velocity).y > 0)
+        if (velocity.y > 0)
         {
             res = ZZSpinDirectionCounterClockwise;
         }
-        else if ((*velocity).y < 0)
+        else if (velocity.y < 0)
         {
             res = ZZSpinDirectionClockwise;
         }
     }
     if (angle >= 5 * M_PI_4 && angle < 7 * M_PI_4)
     {
-        if ((*velocity).x > 0)
+        if (velocity.x > 0)
         {
             res = ZZSpinDirectionCounterClockwise;
         }
-        else if ((*velocity).x < 0)
+        else if (velocity.x < 0)
         {
             res = ZZSpinDirectionClockwise;
         }
     }
-    if (angle >= 7 * M_PI_4 && angle < 8 * M_PI_4) {
-        if ((*velocity).y < 0)
+    if (angle >= 7 * M_PI_4 && angle < 8 * M_PI_4)
+    {
+        if (velocity.y < 0)
         {
             res = ZZSpinDirectionCounterClockwise;
-        } else if ((*velocity).y > 0)
+        }
+        else if (velocity.y > 0)
         {
             res = ZZSpinDirectionClockwise;
         }
@@ -195,7 +209,8 @@
     return res;
 }
 
-+ (CGFloat)nearestFixedPositionFrom:(CGFloat)currentPosition {
++ (CGFloat)nearestFixedPositionFrom:(CGFloat)currentPosition
+{
     CGFloat moveToAngle = currentPosition;
     if (currentPosition < M_PI_4 / 2 && currentPosition > 0)
     {

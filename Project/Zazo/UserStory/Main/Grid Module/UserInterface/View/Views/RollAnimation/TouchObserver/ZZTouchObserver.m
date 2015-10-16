@@ -43,7 +43,6 @@
 
         self.rotationRecognizer = [[ZZRotationGestureRecognizer alloc] initWithTarget:self
                                                                                action:@selector(handleRotationGesture:)];
-        
         self.rotationRecognizer.delegate = self;
         [self.gridView addGestureRecognizer:self.rotationRecognizer];
         

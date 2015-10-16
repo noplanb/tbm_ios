@@ -4,8 +4,6 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-@class ZZMovingGridView;
-
 typedef NS_ENUM(NSInteger, ZZSpinDirection) {
     ZZSpinDirectionNone = 0,
     ZZSpinDirectionClockwise,
@@ -44,7 +42,7 @@ typedef NS_ENUM(NSInteger, ZZSpinDirection) {
 /**
 * get direction from linear velocity and angle
 */
-+ (ZZSpinDirection)directionWithVelocity:(CGPoint *)velocity fromAngle:(CGFloat)angle;
++ (ZZSpinDirection)directionWithVelocity:(CGPoint)velocity fromAngle:(CGFloat)angle;
 
 
 /**
