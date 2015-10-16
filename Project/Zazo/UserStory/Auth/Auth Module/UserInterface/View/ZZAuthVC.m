@@ -76,7 +76,7 @@
 {
     ZZAuthRegistrationView* view = self.contentView.registrationView;
     ANDispatchBlockToMainQueue(^{
-       
+        
         view.firstNameTextField.text = [NSObject an_safeString:firstName];
         view.lastNameTextField.text = [NSObject an_safeString:lastName];
     });

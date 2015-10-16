@@ -20,7 +20,6 @@
 #import "ZZUserDataProvider.h"
 #import "ZZUserDomainModel.h"
 
-
 @interface ZZAppDependencies ()
 
 @property (nonatomic, strong) ZZRootWireframe* rootWireframe;
@@ -39,6 +38,7 @@
 {
     [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelInfo];
     [ZZContentDataAcessor start];
+    
     ANDispatchBlockToBackgroundQueue(^{
         [ANCrashlyticsAdapter start];
         [ANLogger initializeLogger];
@@ -93,6 +93,7 @@
     [ZZContentDataAcessor saveDataBase];
 }
 
+
 #pragma mark - Push
 
 - (void)handleApplicationDidRegisterForPushWithToken:(NSData *)token
@@ -112,6 +113,11 @@
 
 
 #pragma mark - Private
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (ZZRootWireframe *)rootWireframe
 {
@@ -141,4 +147,5 @@
     [[ZZVideoRecorder shared] stopAudioSession];
     [[ZZVideoRecorder shared] cancelRecording];
 }
+
 @end

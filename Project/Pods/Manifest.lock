@@ -84,9 +84,9 @@ PODS:
   - MSSPopMasonry (0.0.1):
     - Masonry
     - pop
-  - OBFileTransfer (0.5.7):
+  - OBFileTransfer (0.5.8):
     - OBLogger
-  - OBLogger (0.2.1)
+  - OBLogger (0.2.2)
   - pop (1.0.8)
   - POP+MCAnimate (2.0.1):
     - pop (~> 1.0)
@@ -162,8 +162,8 @@ DEPENDENCIES:
   - MagicalRecord (~> 2.3.0)
   - Masonry (~> 0.6.2)
   - MSSPopMasonry (~> 0.0.1)
-  - OBFileTransfer (~> 0.5.7)
-  - OBLogger (~> 0.2.1)
+  - OBFileTransfer (~> 0.5.8)
+  - OBLogger (~> 0.2.2)
   - POP+MCAnimate (~> 2.0)
   - Reveal-iOS-SDK (~> 1.5.1)
   - Rollbar (~> 0.1.5)
@@ -205,8 +205,8 @@ SPEC CHECKSUMS:
   MagicalRecord: 89eb7d7ead39fb37f01c3d010665ee94d17f8dba
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
   MSSPopMasonry: 6700cb03db3f2e7c16ecc96f53c0bd1a2a73fc4f
-  OBFileTransfer: 67593dbd9bc079e329e1241a8c44881e5e0eb7d9
-  OBLogger: 8cfaed1a86da006f2b24877e6c7329bc5071260b
+  OBFileTransfer: 34529a3d506e3b518265a3efdd88712d05a4a358
+  OBLogger: 52dc3733c54460c3a80d635e47be8556ce6a1312
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
   POP+MCAnimate: a99e209148c602512de487f1160a44bf78572024
   RBBAnimation: 4b2d66f6d993febce63cd564da934985313b9c59
