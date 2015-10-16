@@ -15,6 +15,18 @@
 @property (nonatomic, assign, readonly) CGFloat railsHeightToWidthRatio;
 @property (nonatomic, strong) NSArray *cellFrames;
 
+/**
+ * space between top border of frame and top cell
+ * equals to space between bottom border of frame and bottom cell
+ */
+@property(assign, nonatomic) CGFloat verticalInset;
+
+/**
+ * space between left border of frame and left cell
+ * equals to space between right border of frame and right cell
+ */
+@property(assign, nonatomic) CGFloat horizontalInset;
+
 @end
 
 @implementation ZZGridHelper
@@ -33,9 +45,9 @@
 {
     _frame = rect;
 
-    [self setVerticalInset];
-    [self setHorizontalInset];
-
+    self.horizontalInset = (rect.size.width - 3 * self.cellSize.width - 2 * self.spaceBetweenCells) / 2;
+    self.verticalInset = 5;
+    
     [self layoutCells];
 
     [self setRails];
@@ -60,29 +72,23 @@
     NSMutableArray *res = [cellsFrames mutableCopy];
     NSArray *transform;
     transform = [self cellMatrix];
-    for (int index = 0; index < 9; index++) {
-        res[index] = cellsFrames[[transform[index] unsignedIntegerValue]];
+    
+    for (int index = 0; index < 9; index++)
+    {
+        NSUInteger flowIndex = [transform[index] unsignedIntegerValue];
+        res[index] = cellsFrames[flowIndex];
     }
     ANDispatchBlockToMainQueue(^{
        self.cellFrames = [res copy];
     });
 }
 
+
 #pragma mark - Private
 
 - (NSArray *)cellMatrix
 {
-    return @[@(0), @(1), @(2), @(5), @(8), @(7), @(6), @(3), @(4)];;
-}
-
-- (void)setHorizontalInset
-{
-    _horizontalInset = (self.frame.size.width - 3*self.cellSize.width - 2*self.spaceBetweenCells)/2;
-}
-
-- (void)setVerticalInset
-{
-    _verticalInset = 5;
+    return @[@(0), @(1), @(2), @(5), @(8), @(7), @(6), @(3), @(4)];
 }
 
 - (void) setRails
@@ -166,8 +172,11 @@
     for (NSValue *boxedRect in self.cellFrames)
     {
         CGRect rect = [boxedRect CGRectValue];
-        if (point.x > rect.origin.x && point.x < rect.origin.x + rect.size.width) {
-            if (point.y > rect.origin.y && point.y < rect.origin.y + rect.size.height) {
+        
+        if (point.x > rect.origin.x && point.x < rect.origin.x + rect.size.width)
+        {
+            if (point.y > rect.origin.y && point.y < rect.origin.y + rect.size.height)
+            {
                 res = [results[index] unsignedIntegerValue];
                 return res;
             }
