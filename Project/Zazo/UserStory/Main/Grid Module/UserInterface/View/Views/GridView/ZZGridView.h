@@ -10,22 +10,24 @@
 #import "ZZGridViewHeader.h"
 #import "ZZGridContainerView.h"
 
-@protocol ZZGridViewDelegate <NSObject, UIGestureRecognizerDelegate>
+@protocol ZZGridViewDelegate <NSObject>
 
-- (void)handleRotationGesture:(ZZRotationGestureRecognizer *)recognizer;
+- (void)updatedFrame:(CGRect)frame;
+- (void)placeCells;
 
 @end
 
 @interface ZZGridView : UIView
 
+@property (nonatomic, weak) id <ZZGridViewDelegate> delegate;
 @property (nonatomic, strong) ZZGridViewHeader* headerView;
-@property (nonatomic, strong) ZZRotationGestureRecognizer *rotationRecognizer;
 @property (nonatomic, assign) BOOL isRotationEnabled;
 @property (nonatomic, strong) ZZGridContainerView* itemsContainerView;
 
+//rotation
+@property (nonatomic, assign) CGFloat cellsOffset;
+@property (nonatomic, assign) CGFloat maxCellsOffset;
+
 - (NSArray*)items;
-
-- (void)updateWithDelegate:(id<ZZGridViewDelegate>)delegate;
-
 
 @end

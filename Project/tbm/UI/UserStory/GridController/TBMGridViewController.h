@@ -26,8 +26,8 @@
 @property(nonatomic, weak) UIView *homeView;
 - (NSMutableArray *)friendsOnGrid;
 - (NSMutableArray *)friendsOnBench;
-- (void)moveFriendToGrid:(TBMFriend *)friend;
-- (void)rankingActionOccurred:(TBMFriend *)friend;
+//- (void)moveFriendToGrid:(TBMFriend *)friend;
+//- (void)rankingActionOccurred:(TBMFriend *)friend;
 - (BOOL)isRecording;
 
 

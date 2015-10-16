@@ -7,6 +7,7 @@
 
 #import "ZZGridHelper.h"
 #import "ZZGeometryHelper.h"
+#import "ZZGridUIConstants.h"
 
 @interface ZZGridHelper ()
 
@@ -18,32 +19,20 @@
 
 @implementation ZZGridHelper
 
+- (CGFloat)spaceBetweenCells
+{
+    return kGridItemSpacing();
+}
+
+- (CGSize)cellSize
+{
+    return kGridItemSize();
+}
+
 - (void)setFrame:(CGRect)rect
 {
     _frame = rect;
-    
-    if (IS_IPHONE_4)
-    {
-        _spaceBetweenCells = 4.f;
 
-    }
-    else if (IS_IPHONE_5)
-    {
-        _spaceBetweenCells = 4.f;
-    }
-    else if (IS_IPHONE_6)
-    {
-        _spaceBetweenCells = 4.5f;
-    }
-    else if (IS_IPHONE_6_PLUS)
-    {
-        _spaceBetweenCells = 4.5f;
-    }
-    else if (IS_IPAD)
-    {
-        _spaceBetweenCells = 4.5f;
-    }
-    [self setCellSize];
     [self setVerticalInset];
     [self setHorizontalInset];
 
@@ -74,7 +63,9 @@
     for (int index = 0; index < 9; index++) {
         res[index] = cellsFrames[[transform[index] unsignedIntegerValue]];
     }
-    self.cellFrames = [res copy];
+    ANDispatchBlockToMainQueue(^{
+       self.cellFrames = [res copy];
+    });
 }
 
 #pragma mark - Private
@@ -84,34 +75,6 @@
     return @[@(0), @(1), @(2), @(5), @(8), @(7), @(6), @(3), @(4)];;
 }
 
-- (void)setCellSize
-{
-    CGSize size;
-    
-    if (IS_IPHONE_4)
-    {
-        size = CGSizeMake(96, 128);
-    }
-    else if(IS_IPHONE_5)
-    {
-     size = CGSizeMake(96, 137.5);
-    }
-    else if (IS_IPHONE_6)
-    {
-        size = CGSizeMake(114, 163);
-    }
-    else if (IS_IPHONE_6_PLUS)
-    {
-        size = CGSizeMake(127,182);
-    }
-    else if (IS_IPAD)
-    {
-        size = CGSizeMake(245, 308);
-    }
-    
-    _cellSize = size;
-}
-
 - (void)setHorizontalInset
 {
     _horizontalInset = (self.frame.size.width - 3*self.cellSize.width - 2*self.spaceBetweenCells)/2;
@@ -119,7 +82,7 @@
 
 - (void)setVerticalInset
 {
-    _verticalInset = 12;
+    _verticalInset = 5;
 }
 
 - (void) setRails

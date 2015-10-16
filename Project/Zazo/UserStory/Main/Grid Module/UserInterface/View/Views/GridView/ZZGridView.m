@@ -10,9 +10,7 @@
 #import "ZZGridUIConstants.h"
 #import "ZZGridCenterCell.h"
 
-@interface ZZGridView () <UIGestureRecognizerDelegate>
-
-@property (nonatomic, weak) id <ZZGridViewDelegate> delegate;
+@interface ZZGridView ()
 
 @end
 
@@ -24,12 +22,32 @@
     {
         [self headerView];
         [self itemsContainerView];
-        [self configureRecognizers];
         
         self.isRotationEnabled = YES;
+        
+        self.maxCellsOffset = (CGFloat) (M_PI * 2);
     }
-    
     return self;
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    [self.delegate updatedFrame:self.bounds];
+}
+
+- (void)setCellsOffset:(CGFloat)cellsOffset
+{
+    _cellsOffset = cellsOffset;
+    while (_cellsOffset > self.maxCellsOffset)
+    {
+        _cellsOffset -= self.maxCellsOffset;
+    }
+    while (_cellsOffset < 0)
+    {
+        _cellsOffset += self.maxCellsOffset;
+    }
+    [self.delegate placeCells];
 }
 
 - (NSArray *)items
@@ -78,24 +96,6 @@
         }];
     }
     return _itemsContainerView;
-}
-
-- (void)updateWithDelegate:(id<ZZGridViewDelegate>)delegate
-{
-    if (delegate)
-    {
-        self.delegate = delegate;
-        [self configureRecognizers];
-    }
-}
-
-- (void)configureRecognizers
-{
-    self.rotationRecognizer = [[ZZRotationGestureRecognizer alloc] initWithTarget:self.delegate
-                                                                           action:@selector(handleRotationGesture:)];
-  
-    self.rotationRecognizer.delegate = self.delegate;
-    [self addGestureRecognizer:self.rotationRecognizer];
 }
 
 @end

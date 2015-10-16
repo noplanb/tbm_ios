@@ -7,10 +7,9 @@
 #import <pop/POPDecayAnimation.h>
 #import <pop/POPSpringAnimation.h>
 #import "ZZRotator.h"
-#import "ZZMovingGridView.h"
 #import "ZZGridHelper.h"
 #import "ZZGeometryHelper.h"
-
+#import "ZZGridView.h"
 
 @interface ZZRotator ()
 
@@ -19,7 +18,7 @@
 /**
 * returns frame for cell after applying offset
 */
-- (CGRect)frameForCellAtIndex:(NSUInteger)index withOffset:(CGFloat)offset withGrid:(ZZGridHelper *)grid;
+- (CGRect)frameForCellAtIndex:(NSUInteger)index withOffset:(CGFloat)offset withGrid:(ZZGridHelper*)grid;
 
 @end
 
@@ -32,11 +31,10 @@
     {
         self.completionBlock = completionBlock;
     }
-    
     return self;
 }
 
-- (void)rotateCells:(NSArray *)cells onAngle:(CGFloat)angle withGrid:(ZZGridHelper *)grid
+- (void)rotateCells:(NSArray*)cells onAngle:(CGFloat)angle withGrid:(ZZGridHelper*)grid
 {
     NSUInteger index = 0;
     for (UIView *cell in cells)
@@ -47,7 +45,7 @@
     }
 }
 
-- (void)decayAnimationWithVelocity:(CGFloat)velocity onCarouselView:(ZZMovingGridView *)grid
+- (void)decayAnimationWithVelocity:(CGFloat)velocity onCarouselView:(UIView*)grid
 {
     CGFloat angleVelocity = velocity;
 
@@ -56,16 +54,16 @@
     self.decayAnimation.velocity = @(angleVelocity);
     self.decayAnimation.deceleration = self.decelerationValue;
     self.decayAnimation.name = self.decayAnimationName;
-    self.decayAnimation.delegate = grid;
+    self.decayAnimation.delegate = self.delegate;
     [grid pop_addAnimation:self.decayAnimation forKey:self.decayAnimationName];
 }
 
-- (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(ZZMovingGridView *)grid
+- (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(UIView *)grid
 {
     [self bounceAnimationToAngle:angle onCarouselView:grid withVelocity:self.velocityOfBounce];
 }
 
-- (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(ZZMovingGridView *)grid withVelocity:(CGFloat)velocity
+- (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(UIView *)grid withVelocity:(CGFloat)velocity
 {
     POPSpringAnimation *springAnimation = [POPSpringAnimation animation];
     springAnimation.property = [self animatableProperty];
@@ -81,53 +79,55 @@
             }
         }
     };
-    
 }
 
-- (void)stopDecayAnimationIfNeeded:(POPAnimation *)anim onGrid:(ZZMovingGridView *)grid
+- (void)stopDecayAnimationIfNeeded:(POPAnimation*)anim
+                            onGrid:(ZZGridView*)grid
 {
     if ([[anim class] isSubclassOfClass:[POPDecayAnimation class]])
     {
         CGFloat velocity = [((POPDecayAnimation *) anim).velocity floatValue];
-        if (fabs(velocity) < grid.rotator.velocityOfBounce * 7.5f)
+        if (fabs(velocity) < self.velocityOfBounce * 7.5f)
         {
             CGFloat angle = [((POPDecayAnimation *) anim).toValue floatValue];
-            angle = [ZZGeometryHelper normalizedAngle:angle onGrid:grid];
-            if (angle - grid.cellsOffset < M_PI_4) {
+            angle = [ZZGeometryHelper normalizedAngle:angle withMaxCellOffset:[grid maxCellsOffset]];
+            
+            if (angle - grid.cellsOffset < M_PI_4)
+            {
                 angle = [ZZGeometryHelper nextFixedPositionFrom:angle withDirection:velocity > 0 ? ZZSpinDirectionClockwise : ZZSpinDirectionCounterClockwise];
 
                 if (angle >= grid.cellsOffset -0.09f || angle <= grid.cellsOffset +0.09f)
                 {
                     [self stopAnimationsOnGrid:grid];
-                    [grid.rotator bounceAnimationToAngle:angle onCarouselView:grid withVelocity:velocity];
+                    [self bounceAnimationToAngle:angle onCarouselView:grid withVelocity:velocity];
                 }
             }
         }
     }
 }
 
-- (void)stopDecayAnimationOnGrid:(ZZMovingGridView *)grid
+- (void)stopDecayAnimationOnGrid:(UIView*)grid
 {
     [grid pop_removeAnimationForKey:self.decayAnimationName];
 }
 
-- (void)stopBounceAnimationOnGrid:(ZZMovingGridView *)grid
+- (void)stopBounceAnimationOnGrid:(UIView*)grid
 {
     [grid pop_removeAnimationForKey:self.bounceAnimationName];
 }
 
-- (void)stopAnimationsOnGrid:(ZZMovingGridView *) grid
+- (void)stopAnimationsOnGrid:(UIView*) grid
 {
     [self stopBounceAnimationOnGrid:grid];
     [self stopDecayAnimationOnGrid:grid];
 }
 
-- (BOOL)isDecayAnimationActiveOnGrid:(ZZMovingGridView *)grid
+- (BOOL)isDecayAnimationActiveOnGrid:(UIView*)grid
 {
     return [grid pop_animationForKey:self.decayAnimationName] != nil;
 }
 
-- (BOOL)isBounceAnimationActiveOnGrid:(ZZMovingGridView *)grid
+- (BOOL)isBounceAnimationActiveOnGrid:(UIView*)grid
 {
     return [grid pop_animationForKey:self.bounceAnimationName] != nil;
 }
@@ -143,7 +143,6 @@
     return @"CarouselViewBounce";
 }
 
-
 - (CGFloat)decelerationValue
 {
     return 0.998f;
@@ -153,6 +152,7 @@
 {
     return 0.2f;
 }
+
 
 #pragma mark - Private
 
@@ -166,22 +166,20 @@
     {
         [grid moveCellCenter:&center byAngle:offset];
     }
-
     frame.origin = CGPointMake(center.x - frame.size.width / 2, center.y - frame.size.height / 2);
-
     return frame;
 }
 
 - (POPAnimatableProperty *)animatableProperty
 {
-    POPAnimatableProperty *prop = [POPAnimatableProperty propertyWithName:@"com.artolkov.carousel.cellsOffset"
+    POPAnimatableProperty *prop = [POPAnimatableProperty propertyWithName:@"spin.cellsOffset"
                                                               initializer:^(POPMutableAnimatableProperty *local_prop) {
                                                                   // read value
                                                                   local_prop.readBlock = ^(id obj, CGFloat values[]) {
                                                                       values[0] = [obj cellsOffset];
                                                                   };
                                                                   // write value
-                                                                  local_prop.writeBlock = ^(id obj, const CGFloat values[]) {
+                                                                  local_prop.writeBlock = ^(ZZGridView* obj, const CGFloat values[]) {
                                                                       [obj setCellsOffset:values[0]];
                                                                   };
                                                                   // dynamics threshold

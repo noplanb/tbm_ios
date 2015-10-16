@@ -106,8 +106,8 @@
 
 - (void)videoStatusDidChange:(TBMFriend *)friend
 {
-    if (![TBMGridElement friendIsOnGrid:friend])
-        [self moveFriendToGrid:friend];
+//    if (![TBMGridElement friendIsOnGrid:friend])
+//        [self moveFriendToGrid:friend];
 }
 
 #pragma mark - Notification Center Observers
@@ -442,30 +442,30 @@
     return allFriends;
 }
 
-- (void)moveFriendToGrid:(TBMFriend *)friend {
-    OB_INFO(@"moveFriendToGrid: %@", friend.firstName);
-    [self rankingActionOccurred:friend];
-//    self.lastAddedFriend = friend;
-    if ([TBMGridElement friendIsOnGrid:friend]) {
-//        [self highlightElement:[TBMGridElement findWithFriend:friend]];
-        return;
-    }
-
-    TBMGridElement *ge = [self nextAvailableGridElement];
-//    self.lastAddedGridElement = ge;
-    ge.friend = friend;
-    [self notifyChildrenOfGridChange:ge.index.integerValue];
-//    [self highlightElement:ge];
-
-    if (ge.friend.hasApp)
-    {
-//        [self.delegate friendDidAdd];
-    } else
-    {
-//        [self.delegate friendDidAddWithoutApp];
-    }
-
-}
+//- (void)moveFriendToGrid:(TBMFriend *)friend {
+//    OB_INFO(@"moveFriendToGrid: %@", friend.firstName);
+//    [self rankingActionOccurred:friend];
+////    self.lastAddedFriend = friend;
+//    if ([TBMGridElement friendIsOnGrid:friend]) {
+////        [self highlightElement:[TBMGridElement findWithFriend:friend]];
+//        return;
+//    }
+//
+////    TBMGridElement *ge = [self nextAvailableGridElement];
+////    self.lastAddedGridElement = ge;
+//    ge.friend = friend;
+//    [self notifyChildrenOfGridChange:ge.index.integerValue];
+////    [self highlightElement:ge];
+//
+//    if (ge.friend.hasApp)
+//    {
+////        [self.delegate friendDidAdd];
+//    } else
+//    {
+////        [self.delegate friendDidAddWithoutApp];
+//    }
+//
+//}
 
 - (void)notifyChildrenOfGridChange:(NSInteger)index
 {
@@ -480,29 +480,29 @@
 // Ranking
 //--------
 
-- (void)rankingActionOccurred:(TBMFriend *)friend {
-    friend.timeOfLastAction = [NSDate date];
-}
+//- (void)rankingActionOccurred:(TBMFriend *)friend {
+//    friend.timeOfLastAction = [NSDate date];
+//}
+//
+//- (NSArray *)rankedFriendsOnGrid {
+//    return [[self friendsOnGrid] sortedArrayUsingComparator:^NSComparisonResult(TBMFriend *a, TBMFriend *b) {
+//        return [a.timeOfLastAction compare:b.timeOfLastAction];
+//    }];
+//}
 
-- (NSArray *)rankedFriendsOnGrid {
-    return [[self friendsOnGrid] sortedArrayUsingComparator:^NSComparisonResult(TBMFriend *a, TBMFriend *b) {
-        return [a.timeOfLastAction compare:b.timeOfLastAction];
-    }];
-}
-
-- (TBMFriend *)lowestRankedFriendOnGrid {
-    return self.rankedFriendsOnGrid[0];
-}
-
-- (TBMGridElement *)nextAvailableGridElement {
-    TBMGridElement *ge; //= ;
-//    [TBMGridElement firstEmptyGridElement];
-
-    if (ge != nil)
-        return ge;
-
-    return [TBMGridElement findWithFriend:[self lowestRankedFriendOnGrid]];
-}
+//- (TBMFriend *)lowestRankedFriendOnGrid {
+//    return self.rankedFriendsOnGrid[0];
+//}
+//
+//- (TBMGridElement *)nextAvailableGridElement {
+//    TBMGridElement *ge; //= ;
+////    [TBMGridElement firstEmptyGridElement];
+//
+//    if (ge != nil)
+//        return ge;
+//
+//    return [TBMGridElement findWithFriend:[self lowestRankedFriendOnGrid]];
+//}
 
 
 ////---------------------------
@@ -570,15 +570,15 @@
     [self.videoRecorder startRunning];
 }
 
-- (BOOL)isRecording {
-    return [self.videoRecorder isRecording];
-}
-
-#pragma mark - TBMGridModuleInterface
-
-- (UIView *)viewForDialog {
-    return self.homeView;
-}
+//- (BOOL)isRecording {
+//    return [self.videoRecorder isRecording];
+//}
+//
+//#pragma mark - TBMGridModuleInterface
+//
+//- (UIView *)viewForDialog {
+//    return self.homeView;
+//}
 
 //
 //- (CGRect)gridGetFrameForUnviewedBadgeForFriend:(NSUInteger)friendCellIndex inView:(UIView *)view {
@@ -610,26 +610,26 @@
 //
 //    return result;
 //}
+//
+//- (NSUInteger)lastAddedFriendOnGridIndex {
+//    NSUInteger result = 0;
+//    TBMGridElement *gridElement = self.lastAddedFriend.gridElement;
+//    if (gridElement) {
+//        result = [gridElement.index unsignedIntegerValue];
+//    }
+//    return result;
+//}
 
-- (NSUInteger)lastAddedFriendOnGridIndex {
-    NSUInteger result = 0;
-    TBMGridElement *gridElement = self.lastAddedFriend.gridElement;
-    if (gridElement) {
-        result = [gridElement.index unsignedIntegerValue];
-    }
-    return result;
-}
-
-- (NSString *)lastAddedFriendOnGridName
-{
-    NSString *result = @"";
-    TBMGridElement *gridElement = self.lastAddedFriend.gridElement;
-    if (gridElement)
-    {
-        result = gridElement.friend.firstName;
-    }
-    return result;
-}
+//- (NSString *)lastAddedFriendOnGridName
+//{
+//    NSString *result = @"";
+//    TBMGridElement *gridElement = self.lastAddedFriend.gridElement;
+//    if (gridElement)
+//    {
+//        result = gridElement.friend.firstName;
+//    }
+//    return result;
+//}
 
 #pragma mark - TBMGridElementDelegate
 
