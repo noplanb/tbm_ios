@@ -16,6 +16,12 @@
 #import "ZZUserDataProvider.h"
 #import "ZZGridActionStoredSettings.h"
 #import "ZZFeatureEventStrategyBase.h"
+#import "TBMFriend.h"
+#import "TBMVideo.h"
+#import "MagicalRecord.h"
+#import "ZZSecretConstants.h"
+#import "ZZVideoRecorder.h"
+#import "ZZGridInteractor.h"
 
 @implementation ZZSecretInteractor
 
@@ -65,8 +71,9 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (void)updateAllFeaturesEnabled:(BOOL)isEnabled
+- (void)updateAllFeaturesToEnabled
 {
+    BOOL isEnabled = YES;
     [ZZGridActionStoredSettings shared].frontCameraHintWasShown = isEnabled;
     [ZZGridActionStoredSettings shared].abortRecordHintWasShown = isEnabled;
     [ZZGridActionStoredSettings shared].deleteFriendHintWasShown = isEnabled;
@@ -81,7 +88,9 @@
 
 - (void)removeAllUserData
 {
-    //TODO: magical record
+    [TBMFriend MR_truncateAll];
+    [TBMVideo MR_truncateAll];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kResetAllUserDataNotificationKey object:nil];
 }
 
 

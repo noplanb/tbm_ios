@@ -70,6 +70,10 @@
         {
 //            [self.interactor featu] // TODO: check Maxim code
         } break;
+        case ZZSecretScreenActionsTypeEnableAllFeatures:
+        {
+            [self.interactor updateAllFeaturesToEnabled];
+        } break;
         case ZZSecrectScreenActionsTypeDispatchMessage:
         {
             [self.interactor dispatchData];
@@ -106,12 +110,6 @@
 - (void)updateDebugModeValueTo:(BOOL)isEnabled
 {
     [self.interactor updateDebugStateTo:isEnabled];
-}
-
-- (void)updateEnabledAllFeaturesValueTo:(BOOL)isEnabled
-{
-    //TODO: check Maxim code
-    [self.interactor updateAllFeaturesEnabled:isEnabled];
 }
 
 - (void)updateShouldUseSDKToLoggingTypeValueTo:(BOOL)value

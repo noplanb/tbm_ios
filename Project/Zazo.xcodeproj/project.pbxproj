@@ -312,6 +312,7 @@
 		07F0E7F71B8CD7A900036AB2 /* ZZLoadFriendListTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EC1B8CD7A900036AB2 /* ZZLoadFriendListTest.m */; };
 		07F0E7F81B8CD7A900036AB2 /* ZZStartScreenTestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */; };
 		180254A31BB2C5A400138A52 /* ZZVideoStatuses.m in Sources */ = {isa = PBXBuildFile; fileRef = 180254A21BB2C5A400138A52 /* ZZVideoStatuses.m */; settings = {ASSET_TAGS = (); }; };
+		18084AAE1BD0E49C00CB4623 /* ZZSecretConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 18084AAD1BD0E49C00CB4623 /* ZZSecretConstants.m */; settings = {ASSET_TAGS = (); }; };
 		181D1C9E1BC51A4600044F83 /* ZZBaseEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1C9D1BC51A4600044F83 /* ZZBaseEventHandler.m */; settings = {ASSET_TAGS = (); }; };
 		181D1CA41BC51B2000044F83 /* ZZInviteEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CA31BC51B2000044F83 /* ZZInviteEventHandler.m */; settings = {ASSET_TAGS = (); }; };
 		181D1CA71BC51B7100044F83 /* ZZPlayEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CA61BC51B7100044F83 /* ZZPlayEventHandler.m */; settings = {ASSET_TAGS = (); }; };
@@ -997,6 +998,8 @@
 		07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZStartScreenTestSpec.m; sourceTree = "<group>"; };
 		180254A11BB2C5A400138A52 /* ZZVideoStatuses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoStatuses.h; sourceTree = "<group>"; };
 		180254A21BB2C5A400138A52 /* ZZVideoStatuses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoStatuses.m; sourceTree = "<group>"; };
+		18084AAC1BD0E49C00CB4623 /* ZZSecretConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretConstants.h; sourceTree = "<group>"; };
+		18084AAD1BD0E49C00CB4623 /* ZZSecretConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretConstants.m; sourceTree = "<group>"; };
 		181D1C9C1BC51A4600044F83 /* ZZBaseEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZBaseEventHandler.h; sourceTree = "<group>"; };
 		181D1C9D1BC51A4600044F83 /* ZZBaseEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZBaseEventHandler.m; sourceTree = "<group>"; };
 		181D1CA21BC51B2000044F83 /* ZZInviteEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZInviteEventHandler.h; sourceTree = "<group>"; };
@@ -2641,6 +2644,7 @@
 		07636C561BA49A0100925671 /* UserInterface */ = {
 			isa = PBXGroup;
 			children = (
+				18084AAB1BD0E48600CB4623 /* Constants */,
 				07636C571BA49A0100925671 /* DataSource */,
 				07636C5A1BA49A0100925671 /* Presenter */,
 				07636C5D1BA49A0100925671 /* View */,
@@ -3678,6 +3682,15 @@
 			path = StartScreenTests;
 			sourceTree = "<group>";
 		};
+		18084AAB1BD0E48600CB4623 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				18084AAC1BD0E49C00CB4623 /* ZZSecretConstants.h */,
+				18084AAD1BD0E49C00CB4623 /* ZZSecretConstants.m */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
 		181D1C8E1BC51A2800044F83 /* EventHandlers */ = {
 			isa = PBXGroup;
 			children = (
@@ -4550,6 +4563,7 @@
 				07636E951BA49A0100925671 /* ANDebugController.m in Sources */,
 				07636E5F1BA49A0100925671 /* ZZVideoUtils.m in Sources */,
 				07636EAC1BA49A0100925671 /* ZZSecretValueCellViewModel.m in Sources */,
+				18084AAE1BD0E49C00CB4623 /* ZZSecretConstants.m in Sources */,
 				07636E011BA49A0100925671 /* TBMContentViewModal.m in Sources */,
 				07636E9C1BA49A0100925671 /* ZZDebugStatePresenter.m in Sources */,
 				07636E311BA49A0100925671 /* ZZVideoDomainModel.m in Sources */,

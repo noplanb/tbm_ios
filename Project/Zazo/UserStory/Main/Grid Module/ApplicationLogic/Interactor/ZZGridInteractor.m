@@ -39,6 +39,11 @@ static NSInteger const kGridFriendsCellCount = 8;
     [self _configureFeatureObserver];
 }
 
+- (void)reloadDataAfterResetUserData
+{
+    [self.output reloadGridAfterClearUserDataWithData:[self _gridModels]];
+}
+
 - (void)_configureFeatureObserver
 {
     [RACObserve([ZZGridActionStoredSettings shared], frontCameraHintWasShown) subscribeNext:^(NSNumber* x) {

@@ -31,6 +31,7 @@
 - (void)updateFriendAfterVideoStopped:(ZZFriendDomainModel*)model;
 
 - (void)friendWasUpdatedFromEditContacts:(ZZFriendDomainModel*)model toVisible:(BOOL)isVisible;
+- (void)reloadDataAfterResetUserData;
 
 @end
 
@@ -57,6 +58,8 @@
 - (void)reloadGridModel:(ZZGridDomainModel*)model;
 - (void)reloadAfterVideoUpdateGridModel:(ZZGridDomainModel*)model;
 - (void)reloadGridWithData:(NSArray*)data;
+
+- (void)reloadGridAfterClearUserDataWithData:(NSArray*)data; // For secret screen option
 
 - (void)updatedFeatureWithFriendMkeys:(NSArray*)friendsMkeys;
 - (void)updateSwithCameraFeatureIsEnabled:(BOOL)isEnabled;

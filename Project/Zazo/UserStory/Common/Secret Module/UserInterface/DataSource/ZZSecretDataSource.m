@@ -13,6 +13,19 @@
 #import "ZZSecretSegmentCellViewModel.h"
 #import "NSObject+ANSafeValues.h"
 
+typedef NS_ENUM(NSInteger, ZZSecretSectionTutorialIndexes) {
+    ZZSecretSectionTutorialIndexResetHints,
+    ZZSecretSectionTutorialIndexFeatureOptions,
+    ZZSecretSectionTutorialIndexEnableAllFeatures
+};
+
+typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
+    ZZSecretSectionResetDataIndexClearUserData,
+    ZZSecretSectionResetDataIndexDeleteAllDanglingFiles,
+    ZZSecretSectionResetDataIndexCrashApplication
+};
+
+
 @interface ZZSecretDataSource ()
 <
     ZZSecretSwitchCellViewModelDelegate,
@@ -63,13 +76,17 @@
     {
         case ZZSecretSectionTutorial:
         {
-            if (indexPath.row == 0) // reset tutorial hints
+            if (indexPath.row == ZZSecretSectionTutorialIndexResetHints) // reset tutorial hints
             {
                 [self.delegate actionWithType:ZZSecrectScreenActionsTypeResetTutorialHints];
             }
-            else if (indexPath.row == 1) // feature options
+            else if (indexPath.row == ZZSecretSectionTutorialIndexFeatureOptions) // feature options
             {
                 [self.delegate actionWithType:ZZSecrectScreenActionsTypeFeatureOptions];
+            }
+            else if (indexPath.row == ZZSecretSectionTutorialIndexEnableAllFeatures)
+            {
+                [self.delegate actionWithType:ZZSecretScreenActionsTypeEnableAllFeatures];
             }
         } break;
             
@@ -99,15 +116,15 @@
             
         case ZZSecretSectionResetData:
         {
-            if (indexPath.row == 0) //clear all data
+            if (indexPath.row == ZZSecretSectionResetDataIndexClearUserData)
             {
                 [self.delegate actionWithType:ZZSecrectScreenActionsTypeClearUserData];
             }
-            else if (indexPath.row == 1) // delete all dangling files
+            else if (indexPath.row == ZZSecretSectionResetDataIndexDeleteAllDanglingFiles)
             {
                 [self.delegate actionWithType:ZZSecrectScreenActionsTypeDeleteAllDanglingFiles];
             }
-            else if (indexPath.row == 2) // crash application
+            else if (indexPath.row == ZZSecrectScreenActionsTypeCrashApplication)
             {
                 [self.delegate actionWithType:ZZSecrectScreenActionsTypeCrashApplication];
             }
@@ -138,14 +155,6 @@
             [self _customAppModeRowWithIndex:indexPath.row updatedTo:isEnabled];
         }
         break;
-            
-        case ZZSecretSectionTutorial:
-        {
-            if (indexPath.row == 2)
-            {
-                [self.delegate updateEnabledAllFeaturesValueTo:isEnabled];
-            }
-        } break;
             
         default: break;
     }
@@ -211,7 +220,8 @@
 {
     NSArray* items = @[[ZZSecretValueCellViewModel viewModelWithTitle:@"Reset tutorial hints" details:nil],
                        [ZZSecretValueCellViewModel viewModelWithTitle:@"Feature options" details:nil],
-                       [self _switchModelWithTitle:@"Enable all features" state:model.enableAllFeatures]];
+                       [ZZSecretValueCellViewModel viewModelWithTitle:@"Enable all features" details:nil]];
+                       //[self _switchModelWithTitle:@"Enable all features" state:model.enableAllFeatures]];
    
     [self.storage addItems:items toSection:ZZSecretSectionTutorial];
     [self.storage setSectionHeaderModel:NSLocalizedString(@"secret-controller.tutorial-header.title.text", nil)

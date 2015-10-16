@@ -17,7 +17,7 @@
 - (void)resetHints;
 - (void)removeAllUserData;
 - (void)removeAllDanglingFiles;
-- (void)updateAllFeaturesEnabled:(BOOL)isEnabled;
+- (void)updateAllFeaturesToEnabled;
 - (void)updateDebugStateTo:(BOOL)isEnabled;
 - (void)updateShouldUserSDKForLogging:(BOOL)isEnabled;
 
