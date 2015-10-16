@@ -24,7 +24,7 @@
 @property (nonatomic, weak) id <ZZTouchObserverDelegate>delegate;
 
 - (instancetype)initWithGridView:(ZZGridView*)gridView;
-- (void)observeTouch:(UITouch*)touch withEvent:(id)event;
+//- (void)observeTouch:(UITouch*)touch withEvent:(id)event;
 //- (void)hideMovedGridIfNeeded;
 
 @end

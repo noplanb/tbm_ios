@@ -11,8 +11,6 @@
 #import "ZZGridActionStoredSettings.h"
 #import "ZZGridHelper.h"
 
-static CGFloat const kTouchOffset = 7;
-
 @interface ZZTouchObserver () <ZZRotatorDelegate, UIGestureRecognizerDelegate, ZZGridViewDelegate>
 
 @property (nonatomic, assign) CGPoint initialLocation;
@@ -24,7 +22,6 @@ static CGFloat const kTouchOffset = 7;
 @property (nonatomic, strong) ZZGridHelper* gridHelper;
 
 @property (nonatomic, strong) ZZRotationGestureRecognizer *rotationRecognizer;
-@property (nonatomic, assign) BOOL isGridMoved;
 
 @end
 
@@ -43,17 +40,7 @@ static CGFloat const kTouchOffset = 7;
         self.gridView = gridView;
         self.gridView.delegate = self;
         self.gridHelper = [ZZGridHelper new];
-        
-        UIWindow* window = [UIApplication sharedApplication].keyWindow;
-        [[window rac_signalForSelector:@selector(sendEvent:)] subscribeNext:^(RACTuple *touches) {
-            for (id event in touches)
-            {
-                NSSet* touches = [event allTouches];
-                UITouch* touch = [touches anyObject];
-                [self observeTouch:touch withEvent:event];
-            };
-        }];
-        
+
         self.rotationRecognizer = [[ZZRotationGestureRecognizer alloc] initWithTarget:self
                                                                                action:@selector(handleRotationGesture:)];
         
@@ -61,75 +48,11 @@ static CGFloat const kTouchOffset = 7;
         [self.gridView addGestureRecognizer:self.rotationRecognizer];
         
         self.rotator = [[ZZRotator alloc] initWithAnimationCompletionBlock:^{
-            self.isGridMoved = NO;
+            self.isMoving = NO;
         }];
         self.rotator.delegate = self;
     }
     return self;
-}
-
-- (void)observeTouch:(UITouch *)touch withEvent:(id)event
-{
-    if (YES) //([ZZGridActionStoredSettings shared].spinHintWasShown)
-    {
-        if (touch.phase == UITouchPhaseBegan)
-        {
-            if (self.isGridMoved)
-            {
-                [self.rotator stopDecayAnimationIfNeeded:self.rotator.decayAnimation onGrid:self.gridView];
-                
-            }
-            else
-            {
-                self.initialLocation = [touch locationInView:self.gridView.itemsContainerView];
-            }
-        }
-        
-        if (touch.phase == UITouchPhaseMoved && self.gridView.isRotationEnabled && [self shouldMoveWithTouch:touch])
-        {
-            CGPoint location = [touch locationInView:self.gridView.itemsContainerView];
-            [self.delegate stopPlaying];
-            if (!self.isMoving)
-            {
-                self.isMoving = YES;
-                self.initialLocation = location;
-            }
-        }
-    }
-}
-
-- (BOOL)shouldMoveWithTouch:(UITouch*)touch
-{
-    BOOL shouldMove = NO;
-    
-    CGPoint location = [touch locationInView:self.gridView.itemsContainerView];
-    CGFloat midX;
-    CGFloat midY;
-    if (location.x > self.initialLocation.x)
-    {
-        midX = location.x - self.initialLocation.x;
-    }
-    else
-    {
-        midX = self.initialLocation.x - location.x;
-    }
-    
-    
-    if (location.y > self.initialLocation.y)
-    {
-        midY = location.y - self.initialLocation.y;
-    }
-    else
-    {
-        midY = self.initialLocation.y - location.y;
-    }
-    
-    if (midY > kTouchOffset || midX > kTouchOffset)
-    {
-        shouldMove = YES;
-    }
-    
-    return shouldMove;
 }
 
 - (void)handleRotationGesture:(ZZRotationGestureRecognizer*)recognizer
@@ -143,22 +66,15 @@ static CGFloat const kTouchOffset = 7;
         } break;
         case UIGestureRecognizerStateChanged:
         {
-            CGPoint point = [recognizer locationInView:self.gridView];
-            
             CGFloat currentAngle = [recognizer currentAngleInView:self.gridView];
             CGFloat startAngle = [recognizer startAngleInView:self.gridView];
             CGFloat deltaAngle = (CGFloat)((CGFloat)currentAngle - (CGFloat)startAngle);
-           
-            if (![self.gridHelper isCameraCellInPoint:point])
-            {
-                self.gridView.cellsOffset = self.startOffset + (CGFloat)(deltaAngle);
-            }
+            self.gridView.cellsOffset = self.startOffset + (CGFloat)(deltaAngle);
         }
             break;
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateEnded:
         {
-            self.isGridMoved = YES;
             [self.rotator decayAnimationWithVelocity:[recognizer angleVelocityInView:self.gridView] onCarouselView:self.gridView];
         }
             break;
@@ -166,13 +82,9 @@ static CGFloat const kTouchOffset = 7;
     }
 }
 
-
 - (void)placeCells
 {
-    
-    NSMutableArray* array = [self.gridView.items mutableCopy];
-//    [array removeObjectAtIndex:4];
-    [self.rotator rotateCells:array onAngle:self.gridView.cellsOffset withGrid:self.gridHelper];
+    [self.rotator rotateCells:self.gridView.items onAngle:self.gridView.cellsOffset withGrid:self.gridHelper];
 }
 
 - (void)bounceCells
