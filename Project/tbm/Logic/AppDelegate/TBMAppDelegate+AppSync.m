@@ -453,7 +453,12 @@
     
     [ZZThumbnailGenerator generateThumbVideo:videoModel];
     [friend deleteAllViewedOrFailedVideos];
+    
+//    ANDispatchBlockToMainQueue(^{
+//        
+//    });
     [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_DOWNLOADED video:video];
+    
     [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_DOWNLOADED videoId:videoId friend:friend];
     [self sendNotificationForVideoStatusUpdate:friend videoId:videoId status:NOTIFICATION_STATUS_DOWNLOADED];
   

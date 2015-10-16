@@ -110,7 +110,14 @@
 - (void)_setupBadgeWithModel:(ZZGridCellViewModel*)model
 {
     [self hideDownloadViews];
-    if ([model.badgeNumber integerValue] > 0)
+    if ([model.badgeNumber integerValue] == 1
+        && model.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED)
+    {
+        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+        self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+        [self updateBadgeWithNumber:model.badgeNumber];
+    }
+    else if ([model.badgeNumber integerValue] > 1)
     {
         self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
         self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;

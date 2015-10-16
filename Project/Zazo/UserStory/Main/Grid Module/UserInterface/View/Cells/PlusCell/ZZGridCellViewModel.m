@@ -292,7 +292,8 @@
 {
     BOOL isEnbaled = YES;
     
-    if (self.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING)
+    if (([self.item.relatedUser.videos count] == 1) &&
+        self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
     {
         isEnbaled = NO;
         [self _showMessage:NSLocalizedString(@"video-playing-disabled-reason-downloading", nil)];

@@ -340,7 +340,9 @@
 
 - (void)videoPlayerURLWasFinishedPlaying:(NSURL *)videoURL withPlayedUserModel:(ZZFriendDomainModel*)playedFriendModel
 {
+    
     [self.interactor updateFriendAfterVideoStopped:playedFriendModel];
+    
     [self _handleRecordHintWithCellViewModel:playedFriendModel];
 }
 

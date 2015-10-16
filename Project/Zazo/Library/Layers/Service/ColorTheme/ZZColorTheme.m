@@ -121,6 +121,7 @@ static CGFloat const kNavigationBarIconHeight = 20;
         self.gridStatusViewRecordColor = [UIColor an_colorWithHexString:@"#DA0D19"];
         self.gridStatusViewUserNameLabelColor = [UIColor whiteColor];//[UIColor an_colorWithHexString:@"4E4D42"];
         self.gridStatusViewThumbnailDefaultColor = [UIColor an_colorWithHexString:@"#343434"];
+        self.gridStatusViewThumnailZColor = [UIColor an_colorWithHexString:@"#625F58"];
         
         self.menuTextColor = [UIColor an_colorWithHexString:@"A8A295"];
         self.menuBackgroundColor = [UIColor an_colorWithHexString:@"2F2E28"];

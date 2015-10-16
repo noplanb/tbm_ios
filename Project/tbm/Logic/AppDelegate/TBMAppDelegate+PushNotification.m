@@ -177,7 +177,6 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     OB_INFO(@"didReceiveRemoteNotification:fetchCompletionHandler %@", userInfo);
-    
     self.pushVideoId = [userInfo objectForKey:@"video_id"];
     [self requestBackground];
     [self handleNotificationPayload:userInfo];
@@ -189,6 +188,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 //                                   selector:@selector(callCompletionHandler)
 //                                   userInfo:nil
 //                                    repeats:NO];
+    
     completionHandler(UIBackgroundFetchResultNewData);
 }
 

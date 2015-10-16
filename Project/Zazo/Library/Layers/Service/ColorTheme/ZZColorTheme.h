@@ -25,6 +25,7 @@
 @property (nonatomic, strong) UIColor* gridStatusViewRecordColor;
 @property (nonatomic, strong) UIColor* gridStatusViewUserNameLabelColor;
 @property (nonatomic, strong) UIColor* gridStatusViewThumbnailDefaultColor;
+@property (nonatomic, strong) UIColor* gridStatusViewThumnailZColor;
 
 
 @property (nonatomic, strong) UIColor* menuBackgroundColor;
