@@ -20,7 +20,6 @@
 
 @property (nonatomic, strong) NSArray* originalFrames;
 
-
 @end
 
 @implementation ZZGridHelper

@@ -63,6 +63,8 @@
         {
             NSLog(@"ZZMOVINGGRIDVIEW START TOUCH");
             self.startOffset = self.gridView.cellsOffset;
+            [self.rotator stopAnimationsOnGrid:self.gridView];
+            
         } break;
         case UIGestureRecognizerStateChanged:
         {
