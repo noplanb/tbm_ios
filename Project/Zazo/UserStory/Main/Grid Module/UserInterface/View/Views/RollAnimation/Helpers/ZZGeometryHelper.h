@@ -57,5 +57,6 @@ typedef NS_ENUM(NSInteger, ZZSpinDirection) {
 /**
 * get angle between 0. and grid.maxCellsOffset
 */
-+ (CGFloat)normalizedAngle:(CGFloat)angle onGrid:(ZZMovingGridView *)grid;
++ (CGFloat)normalizedAngle:(CGFloat)angle withMaxCellOffset:(CGFloat)maxCellsOffset;
+
 @end

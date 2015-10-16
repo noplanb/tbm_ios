@@ -5,7 +5,6 @@
 //
 
 #import "ZZGeometryHelper.h"
-#import "ZZMovingGridView.h"
 
 @implementation ZZGeometryHelper
 
@@ -325,12 +324,15 @@
     return YES;
 }
 
-+ (CGFloat)normalizedAngle:(CGFloat)angle onGrid:(ZZMovingGridView *)grid {
-    while (angle > grid.maxCellsOffset) {
-        angle -= grid.maxCellsOffset;
++ (CGFloat)normalizedAngle:(CGFloat)angle withMaxCellOffset:(CGFloat)maxCellsOffset
+{
+    while (angle > maxCellsOffset)
+    {
+        angle -= maxCellsOffset;
     }
-    while (angle < 0) {
-        angle += grid.maxCellsOffset;
+    while (angle < 0)
+    {
+        angle += maxCellsOffset;
     }
     return angle;
 }

@@ -7,6 +7,7 @@
 
 #import "ZZGridHelper.h"
 #import "ZZGeometryHelper.h"
+#import "ZZGridUIConstants.h"
 
 @interface ZZGridHelper ()
 
@@ -14,39 +15,39 @@
 @property (nonatomic, assign, readonly) CGFloat railsHeightToWidthRatio;
 @property (nonatomic, strong) NSArray *cellFrames;
 
+/**
+ * space between top border of frame and top cell
+ * equals to space between bottom border of frame and bottom cell
+ */
+@property(assign, nonatomic) CGFloat verticalInset;
+
+/**
+ * space between left border of frame and left cell
+ * equals to space between right border of frame and right cell
+ */
+@property(assign, nonatomic) CGFloat horizontalInset;
+
 @end
 
 @implementation ZZGridHelper
 
+- (CGFloat)spaceBetweenCells
+{
+    return kGridItemSpacing();
+}
+
+- (CGSize)cellSize
+{
+    return kGridItemSize();
+}
+
 - (void)setFrame:(CGRect)rect
 {
     _frame = rect;
+
+    self.horizontalInset = (rect.size.width - 3 * self.cellSize.width - 2 * self.spaceBetweenCells) / 2;
+    self.verticalInset = 5;
     
-    if (IS_IPHONE_4)
-    {
-        _spaceBetweenCells = 4.f;
-
-    }
-    else if (IS_IPHONE_5)
-    {
-        _spaceBetweenCells = 4.f;
-    }
-    else if (IS_IPHONE_6)
-    {
-        _spaceBetweenCells = 4.5f;
-    }
-    else if (IS_IPHONE_6_PLUS)
-    {
-        _spaceBetweenCells = 4.5f;
-    }
-    else if (IS_IPAD)
-    {
-        _spaceBetweenCells = 4.5f;
-    }
-    [self setCellSize];
-    [self setVerticalInset];
-    [self setHorizontalInset];
-
     [self layoutCells];
 
     [self setRails];
@@ -71,55 +72,23 @@
     NSMutableArray *res = [cellsFrames mutableCopy];
     NSArray *transform;
     transform = [self cellMatrix];
-    for (int index = 0; index < 9; index++) {
-        res[index] = cellsFrames[[transform[index] unsignedIntegerValue]];
+    
+    for (int index = 0; index < 9; index++)
+    {
+        NSUInteger flowIndex = [transform[index] unsignedIntegerValue];
+        res[index] = cellsFrames[flowIndex];
     }
-    self.cellFrames = [res copy];
+    ANDispatchBlockToMainQueue(^{
+       self.cellFrames = [res copy];
+    });
 }
+
 
 #pragma mark - Private
 
 - (NSArray *)cellMatrix
 {
-    return @[@(0), @(1), @(2), @(5), @(8), @(7), @(6), @(3), @(4)];;
-}
-
-- (void)setCellSize
-{
-    CGSize size;
-    
-    if (IS_IPHONE_4)
-    {
-        size = CGSizeMake(96, 128);
-    }
-    else if(IS_IPHONE_5)
-    {
-     size = CGSizeMake(96, 137.5);
-    }
-    else if (IS_IPHONE_6)
-    {
-        size = CGSizeMake(114, 163);
-    }
-    else if (IS_IPHONE_6_PLUS)
-    {
-        size = CGSizeMake(127,182);
-    }
-    else if (IS_IPAD)
-    {
-        size = CGSizeMake(245, 308);
-    }
-    
-    _cellSize = size;
-}
-
-- (void)setHorizontalInset
-{
-    _horizontalInset = (self.frame.size.width - 3*self.cellSize.width - 2*self.spaceBetweenCells)/2;
-}
-
-- (void)setVerticalInset
-{
-    _verticalInset = 12;
+    return @[@(0), @(1), @(2), @(5), @(8), @(7), @(6), @(3), @(4)];
 }
 
 - (void) setRails
@@ -203,8 +172,11 @@
     for (NSValue *boxedRect in self.cellFrames)
     {
         CGRect rect = [boxedRect CGRectValue];
-        if (point.x > rect.origin.x && point.x < rect.origin.x + rect.size.width) {
-            if (point.y > rect.origin.y && point.y < rect.origin.y + rect.size.height) {
+        
+        if (point.x > rect.origin.x && point.x < rect.origin.x + rect.size.width)
+        {
+            if (point.y > rect.origin.y && point.y < rect.origin.y + rect.size.height)
+            {
                 res = [results[index] unsignedIntegerValue];
                 return res;
             }

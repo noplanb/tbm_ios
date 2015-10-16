@@ -45,7 +45,7 @@
     }];
 }
 
-- (void)_showSmsDialogForModel:(ZZFriendDomainModel*)friendModel
+- (void)_showSmsDialogForModel:(ZZFriendDomainModel*)friendModel //TODO:isNudgeAction:(BOOL)isNudge
 {
     ANMessageDomainModel* model = [ANMessageDomainModel new];
     NSString* formattedNumber = [TBMPhoneUtils phone:friendModel.mobileNumber withFormat:NBEPhoneNumberFormatE164];

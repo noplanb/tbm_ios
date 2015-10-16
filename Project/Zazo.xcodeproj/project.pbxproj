@@ -229,10 +229,8 @@
 		07636EC81BA49A0100925671 /* ZZGridCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CCD1BA49A0100925671 /* ZZGridCollectionController.m */; };
 		07636EC91BA49A0100925671 /* ZZGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CD11BA49A0100925671 /* ZZGridView.m */; };
 		07636ECA1BA49A0100925671 /* ZZGridViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CD41BA49A0100925671 /* ZZGridViewHeader.m */; };
-		07636ECB1BA49A0100925671 /* ZZFakeRotationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CD81BA49A0100925671 /* ZZFakeRotationCell.m */; };
 		07636ECC1BA49A0100925671 /* ZZGeometryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CDA1BA49A0100925671 /* ZZGeometryHelper.m */; };
 		07636ECD1BA49A0100925671 /* ZZGridHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CDC1BA49A0100925671 /* ZZGridHelper.m */; };
-		07636ECE1BA49A0100925671 /* ZZMovingGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CDE1BA49A0100925671 /* ZZMovingGridView.m */; };
 		07636ECF1BA49A0100925671 /* ZZRotationGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CE01BA49A0100925671 /* ZZRotationGestureRecognizer.m */; };
 		07636ED01BA49A0100925671 /* ZZRotator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CE21BA49A0100925671 /* ZZRotator.m */; };
 		07636ED11BA49A0100925671 /* ZZTouchObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CE51BA49A0100925671 /* ZZTouchObserver.m */; };
@@ -839,14 +837,10 @@
 		07636CD11BA49A0100925671 /* ZZGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridView.m; sourceTree = "<group>"; };
 		07636CD31BA49A0100925671 /* ZZGridViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridViewHeader.h; sourceTree = "<group>"; };
 		07636CD41BA49A0100925671 /* ZZGridViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridViewHeader.m; sourceTree = "<group>"; };
-		07636CD71BA49A0100925671 /* ZZFakeRotationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFakeRotationCell.h; sourceTree = "<group>"; };
-		07636CD81BA49A0100925671 /* ZZFakeRotationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFakeRotationCell.m; sourceTree = "<group>"; };
 		07636CD91BA49A0100925671 /* ZZGeometryHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGeometryHelper.h; sourceTree = "<group>"; };
 		07636CDA1BA49A0100925671 /* ZZGeometryHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGeometryHelper.m; sourceTree = "<group>"; };
 		07636CDB1BA49A0100925671 /* ZZGridHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridHelper.h; sourceTree = "<group>"; };
 		07636CDC1BA49A0100925671 /* ZZGridHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridHelper.m; sourceTree = "<group>"; };
-		07636CDD1BA49A0100925671 /* ZZMovingGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMovingGridView.h; sourceTree = "<group>"; };
-		07636CDE1BA49A0100925671 /* ZZMovingGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMovingGridView.m; sourceTree = "<group>"; };
 		07636CDF1BA49A0100925671 /* ZZRotationGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZRotationGestureRecognizer.h; sourceTree = "<group>"; };
 		07636CE01BA49A0100925671 /* ZZRotationGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRotationGestureRecognizer.m; sourceTree = "<group>"; };
 		07636CE11BA49A0100925671 /* ZZRotator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZRotator.h; sourceTree = "<group>"; };
@@ -3077,14 +3071,10 @@
 		07636CD61BA49A0100925671 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				07636CD71BA49A0100925671 /* ZZFakeRotationCell.h */,
-				07636CD81BA49A0100925671 /* ZZFakeRotationCell.m */,
 				07636CD91BA49A0100925671 /* ZZGeometryHelper.h */,
 				07636CDA1BA49A0100925671 /* ZZGeometryHelper.m */,
 				07636CDB1BA49A0100925671 /* ZZGridHelper.h */,
 				07636CDC1BA49A0100925671 /* ZZGridHelper.m */,
-				07636CDD1BA49A0100925671 /* ZZMovingGridView.h */,
-				07636CDE1BA49A0100925671 /* ZZMovingGridView.m */,
 				07636CDF1BA49A0100925671 /* ZZRotationGestureRecognizer.h */,
 				07636CE01BA49A0100925671 /* ZZRotationGestureRecognizer.m */,
 				07636CE11BA49A0100925671 /* ZZRotator.h */,
@@ -4551,7 +4541,6 @@
 				07636EAE1BA49A0100925671 /* ZZSecretVC.m in Sources */,
 				07636EDC1BA49A0100925671 /* ZZMenuWireframe.m in Sources */,
 				07636DBA1BA49A0100925671 /* TBMSoundEffect.m in Sources */,
-				07636ECB1BA49A0100925671 /* ZZFakeRotationCell.m in Sources */,
 				07636EC91BA49A0100925671 /* ZZGridView.m in Sources */,
 				181D1CB01BC5222600044F83 /* ZZViewedMessageEventHandler.m in Sources */,
 				07BAA7141BB1C55E009878B9 /* ZZThumbnailGenerator.m in Sources */,
@@ -4588,7 +4577,6 @@
 				07636E5D1BA49A0100925671 /* ZZVideoProcessor.m in Sources */,
 				07636F071BA49A0100925671 /* TBMAlertControllerView.m in Sources */,
 				07636E4F1BA49A0100925671 /* ZZDeviceHandler.m in Sources */,
-				07636ECE1BA49A0100925671 /* ZZMovingGridView.m in Sources */,
 				07636EA31BA49A0100925671 /* ZZSecretDataSource.m in Sources */,
 				07636E391BA49A0100925671 /* ZZKeyStoreTransportService.m in Sources */,
 				07636DEF1BA49A0100925671 /* TBMVideoObject.m in Sources */,

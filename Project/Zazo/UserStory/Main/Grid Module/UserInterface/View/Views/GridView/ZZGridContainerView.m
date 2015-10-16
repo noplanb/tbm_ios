@@ -48,7 +48,7 @@
                     view = [ZZGridCell new];
                 }
                 [self addSubview:view];
-                
+
                 [view mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.width.equalTo(@(itemSize.width));
                     make.height.equalTo(@(itemSize.height));

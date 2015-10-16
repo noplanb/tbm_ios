@@ -18,17 +18,7 @@
 */
 @property(assign, nonatomic) CGFloat spaceBetweenCells;
 
-/**
-* space between top border of frame and top cell
-* equals to space between bottom border of frame and bottom cell
-*/
-@property(assign, nonatomic, readonly) CGFloat verticalInset;
 
-/**
-* space between left border of frame and left cell
-* equals to space between right border of frame and right cell
-*/
-@property(assign, nonatomic, readonly) CGFloat horizontalInset;
 
 /**
 * frame to place cells

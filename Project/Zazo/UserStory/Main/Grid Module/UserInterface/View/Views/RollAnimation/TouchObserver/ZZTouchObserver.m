@@ -7,37 +7,43 @@
 //
 
 #import "ZZTouchObserver.h"
-#import "ZZGridCell.h"
-#import "ZZFakeRotationCell.h"
-
-#import "ANSectionModel.h"
-#import "ZZGridDomainModel.h"
-#import "ZZGridCellViewModel.h"
 #import "ZZRotator.h"
 #import "ZZGridActionStoredSettings.h"
+#import "ZZGridHelper.h"
 
 static CGFloat const kTouchOffset = 7;
 
-@interface ZZTouchObserver () <GridDelegate>
+@interface ZZTouchObserver () <ZZRotatorDelegate, UIGestureRecognizerDelegate, ZZGridViewDelegate>
 
-@property (nonatomic, strong) NSMutableArray* movingViewArray;
-@property (nonatomic, strong) NSMutableArray* initialStorageValue;
 @property (nonatomic, assign) CGPoint initialLocation;
 @property (nonatomic, assign) BOOL isMoving;
 @property (nonatomic, strong) ZZGridView* gridView;
-@property (nonatomic, strong) ZZMovingGridView* grid;
-@property (nonatomic, assign) CGPoint touchPoint;
-@property (nonatomic, assign) BOOL isUpdatedAfterStart;
+@property (nonatomic, assign) CGFloat startOffset;
+
+@property (nonatomic, strong) ZZRotator* rotator;
+@property (nonatomic, strong) ZZGridHelper* gridHelper;
+
+@property (nonatomic, strong) ZZRotationGestureRecognizer *rotationRecognizer;
+@property (nonatomic, assign) BOOL isGridMoved;
 
 @end
 
 @implementation ZZTouchObserver
+
+- (void)updatedFrame:(CGRect)frame
+{
+    [self.gridHelper setFrame:frame];
+}
 
 - (instancetype)initWithGridView:(ZZGridView*)gridView
 {
     self = [super init];
     if (self)
     {
+        self.gridView = gridView;
+        self.gridView.delegate = self;
+        self.gridHelper = [ZZGridHelper new];
+        
         UIWindow* window = [UIApplication sharedApplication].keyWindow;
         [[window rac_signalForSelector:@selector(sendEvent:)] subscribeNext:^(RACTuple *touches) {
             for (id event in touches)
@@ -48,60 +54,38 @@ static CGFloat const kTouchOffset = 7;
             };
         }];
         
-        self.movingViewArray = [NSMutableArray array];
-        self.initialStorageValue = [NSMutableArray array];
+        self.rotationRecognizer = [[ZZRotationGestureRecognizer alloc] initWithTarget:self
+                                                                               action:@selector(handleRotationGesture:)];
         
-        self.gridView = gridView;
+        self.rotationRecognizer.delegate = self;
+        [self.gridView addGestureRecognizer:self.rotationRecognizer];
         
-        self.grid = [ZZMovingGridView new];
-        self.grid.delegate = self;
-        self.grid.hidden = YES;
-        
-        [self.gridView updateWithDelegate:self.grid];
-        
-        self.grid.rotationRecognizer = self.gridView.rotationRecognizer;
-        [self.gridView addSubview:self.grid];
-        
-        [self.grid mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.gridView.itemsContainerView);
+        self.rotator = [[ZZRotator alloc] initWithAnimationCompletionBlock:^{
+            self.isGridMoved = NO;
         }];
+        self.rotator.delegate = self;
     }
     return self;
 }
 
-//- (void)hideMovedGridIfNeeded
-//{
-//    [self rotationStoped];
-//}
-
 - (void)observeTouch:(UITouch *)touch withEvent:(id)event
 {
-    
-    if ([ZZGridActionStoredSettings shared].spinHintWasShown)
+    if (YES) //([ZZGridActionStoredSettings shared].spinHintWasShown)
     {
         if (touch.phase == UITouchPhaseBegan)
         {
-            if (self.grid.isGridMoved)
+            if (self.isGridMoved)
             {
-                
-                //                [self.grid.rotator stopAnimationsOnGrid:self.grid];
-                [self.grid.rotator stopDecayAnimationIfNeeded:self.grid.rotator.decayAnimation onGrid:self.grid];
+                [self.rotator stopDecayAnimationIfNeeded:self.rotator.decayAnimation onGrid:self.gridView];
                 
             }
             else
             {
                 self.initialLocation = [touch locationInView:self.gridView.itemsContainerView];
-                UIView* cell = [self.gridView.itemsContainerView hitTest:self.initialLocation withEvent:nil];
-                if (cell.isHidden && !self.grid.isHidden)
-                {
-                    [self updateCellsHiddenStateTo:NO];
-                    self.grid.hidden = YES;
-                }
             }
-            
         }
         
-        if (self.grid.hidden && touch.phase == UITouchPhaseMoved && self.gridView.isRotationEnabled && [self shouldMoveWithTouch:touch])
+        if (touch.phase == UITouchPhaseMoved && self.gridView.isRotationEnabled && [self shouldMoveWithTouch:touch])
         {
             CGPoint location = [touch locationInView:self.gridView.itemsContainerView];
             [self.delegate stopPlaying];
@@ -109,12 +93,6 @@ static CGFloat const kTouchOffset = 7;
             {
                 self.isMoving = YES;
                 self.initialLocation = location;
-            }
-            // start observer if touch start in cell
-            UIView* cell = [self.gridView.itemsContainerView hitTest:location withEvent:nil];
-            if (cell)
-            {
-                [self startObserveWithTouch:touch withEvent:event withLocation:location];
             }
         }
     }
@@ -124,7 +102,7 @@ static CGFloat const kTouchOffset = 7;
 {
     BOOL shouldMove = NO;
     
-    CGPoint location = CGPointZero;//[touch locationInView:self.gridView.collectionView];
+    CGPoint location = [touch locationInView:self.gridView.itemsContainerView];
     CGFloat midX;
     CGFloat midY;
     if (location.x > self.initialLocation.x)
@@ -154,143 +132,59 @@ static CGFloat const kTouchOffset = 7;
     return shouldMove;
 }
 
-- (void)startObserveWithTouch:(UITouch*)touch withEvent:(id)event withLocation:(CGPoint)location
+- (void)handleRotationGesture:(ZZRotationGestureRecognizer*)recognizer
 {
-    if (touch.phase == UITouchPhaseMoved)
+    switch (recognizer.state)
     {
-        // update grid view if it hidden
-        if (self.grid.isHidden)
+        case UIGestureRecognizerStateBegan:
         {
-            [self createMovingView];
-            [self.grid removeAllCells];
-            [self.grid setCells:self.movingViewArray];
-            if (self.grid.isHidden)
-                [self updateFakeViewImages];
-            self.grid.alpha = 1.0;
-            self.grid.hidden = NO;
-            [self updateCellsHiddenStateTo:YES];
-        }
-    }
-}
-
-- (NSArray *)fakeCellIndexes
-{
-    return @[@(0),@(1),@(2),@(5),@(8),@(7),@(6),@(3)];
-}
-
-- (void)updateFakeViewImages
-{
-    [[self.gridView items] enumerateObjectsUsingBlock:^(UICollectionViewCell* obj, NSUInteger idx, BOOL *stop) {
-        if ([obj isKindOfClass:[ZZGridCell class]])
+            NSLog(@"ZZMOVINGGRIDVIEW START TOUCH");
+            self.startOffset = self.gridView.cellsOffset;
+        } break;
+        case UIGestureRecognizerStateChanged:
         {
-            ZZGridCell* gridCell = (ZZGridCell*)obj;
+            CGPoint point = [recognizer locationInView:self.gridView];
             
-            [self.movingViewArray enumerateObjectsUsingBlock:^(ZZFakeRotationCell* fakeCell, NSUInteger idx, BOOL *stop) {
-                if (CGRectContainsPoint(gridCell.frame, fakeCell.center))
-                {
-                    ZZGridCellViewModel* cellModel = [gridCell model];
-                    [fakeCell updateBadgeWithNumber:cellModel.badgeNumber];
-                    fakeCell.stateImageView.image = [self _screenshotFromView:gridCell];
-                }
-            }];
-        }
-    }];
-}
-
-- (void)createMovingView
-{
-    [self.movingViewArray removeAllObjects];
-    
-    [[self fakeCellIndexes] enumerateObjectsUsingBlock:^(NSNumber* obj, NSUInteger idx, BOOL *stop) {
-        ZZFakeRotationCell* moveView = [ZZFakeRotationCell new];
-        NSIndexPath* indexPath = [NSIndexPath indexPathForItem:[obj integerValue] inSection:0];
-        moveView.indexPath = indexPath;
-        [self.movingViewArray addObject:moveView];
-    }];
-}
-
-- (void)updateCellsHiddenStateTo:(BOOL)isHidden
-{
-    [[self.gridView items] enumerateObjectsUsingBlock:^(UIView* cell, NSUInteger idx, BOOL *stop) {
-        if ([cell isKindOfClass:[ZZGridCell class]])
-        {
-            cell.hidden = isHidden;
-        }
-    }];
-    
-    if (!isHidden)
-    {
-        [self.movingViewArray removeAllObjects];
-    }
-}
-
-
-#pragma mark - Grid delegate
-
-- (void)rotationStoped
-{
-    if (!self.grid.isHidden && !self.isUpdatedAfterStart)
-    {
-        self.isUpdatedAfterStart = YES;
-        
-        [self.initialStorageValue removeAllObjects];
-        
-        NSMutableDictionary* positionDict = [NSMutableDictionary dictionary];
-        
-        [[self.gridView items] enumerateObjectsUsingBlock:^(UICollectionViewCell* cell, NSUInteger idx, BOOL *stop) {
-            
-            if ([cell isKindOfClass:[ZZGridCell class]])
+            CGFloat currentAngle = [recognizer currentAngleInView:self.gridView];
+            CGFloat startAngle = [recognizer startAngleInView:self.gridView];
+            CGFloat deltaAngle = (CGFloat)((CGFloat)currentAngle - (CGFloat)startAngle);
+            NSUInteger indexPath = [self.gridHelper indexWithPoint:point];
+            if (indexPath == 8)
             {
-                [self.movingViewArray enumerateObjectsUsingBlock:^(ZZFakeRotationCell* fakeCell, NSUInteger idx, BOOL *stop) {
-                    if (CGRectIntersectsRect(cell.frame, fakeCell.frame))
-                    {
-                        if (cell)
-                        {
-                            NSInteger index = [[self.gridView items] indexOfObject:cell];
-                            if (index != NSNotFound)
-                            {
-                                //                                [positionDict setObject:[self.storage itemAtIndexPath:fakeCell.indexPath] forKey:@(index)];//TODO:
-                            }
-                        }
-                    }
-                }];
+                return;
             }
-        }];
-        
-        //        [positionDict setObject:[self.storage itemAtIndexPath:[NSIndexPath indexPathForItem:4 inSection:0]] forKey:@(4)]; // TODO:
-        
-        NSArray* arr = [[positionDict allKeys] sortedArrayUsingSelector:@selector(compare:)];
-        for (NSNumber* n in arr)
-        {
-            [self.initialStorageValue addObject:positionDict[n]];
+            self.gridView.cellsOffset = self.startOffset + (CGFloat) (deltaAngle);
         }
-        //TODO:
-        //        [UIView performWithoutAnimation:^{
-        //            [self.storage removeAllItems];
-        //            [self.storage addItems:self.initialStorageValue];
-        //        }];
-        
-        [self updateCellsHiddenStateTo:NO];
-        [UIView animateWithDuration:.2 animations:^{
-            self.grid.alpha = 0.0;
-        } completion:^(BOOL finished) {
-            self.grid.hidden = YES;
-            self.isUpdatedAfterStart = NO;
-        }];
+            break;
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateEnded:
+        {
+            self.isGridMoved = YES;
+            [self.rotator decayAnimationWithVelocity:[recognizer angleVelocityInView:self.gridView] onCarouselView:self.gridView];
+        }
+            break;
+        default: break;
     }
-    
 }
 
-- (UIImage*)_screenshotFromView:(UIView*)view
+
+- (void)placeCells
 {
-    CGFloat scale = [UIScreen mainScreen].scale;
-    UIGraphicsBeginImageContextWithOptions(view.frame.size, NO, scale);
-    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return image;
+    [self.rotator rotateCells:self.gridView.items onAngle:self.gridView.cellsOffset withGrid:self.gridHelper];
 }
 
+- (void)bounceCells
+{
+    self.gridView.cellsOffset = self.gridView.cellsOffset;
+    CGFloat angle = [ZZGeometryHelper nearestFixedPositionFrom:self.gridView.cellsOffset];
+    [self.rotator bounceAnimationToAngle:angle onCarouselView:self.gridView];
+}
+
+#pragma mark - <POPAnimationDelegate>
+
+- (void)pop_animationDidApply:(POPAnimation *)anim
+{
+    [self.rotator stopDecayAnimationIfNeeded:anim onGrid:self.gridView];
+}
 
 @end
