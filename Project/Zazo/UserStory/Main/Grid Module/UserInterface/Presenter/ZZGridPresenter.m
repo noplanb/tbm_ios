@@ -28,6 +28,7 @@
 #import "ZZGridPresenter+UserDialogs.h"
 #import "ZZGridPresenter+ActionHandler.h"
 #import "ZZGridActionStoredSettings.h"
+#import "ZZSecretConstants.h"
 
 
 @interface ZZGridPresenter ()
@@ -83,6 +84,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_handleResignActive)
                                                  name:UIApplicationWillResignActiveNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_reloadDataAfterResetAllUserDataNotification)
+                                                 name:kResetAllUserDataNotificationKey object:nil];
 }
 
 - (void)dealloc
@@ -93,6 +98,16 @@
 
 
 #pragma mark - Notifications
+
+- (void)_reloadDataAfterResetAllUserDataNotification
+{
+    [self.interactor reloadDataAfterResetUserData];
+}
+
+- (void)reloadGridAfterClearUserDataWithData:(NSArray *)data
+{
+    [self.dataSource setupWithModels:data];
+}
 
 - (void)reloadGridWithData:(NSArray*)data
 {
@@ -129,6 +144,15 @@
     if ([self _isAbleToUpdateWithModel:model])
     {
         [self.dataSource updateCellWithModel:model];
+        
+        if (model.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
+            model.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED )
+        {
+            CGFloat delayAfterDownloadAnimationCompleted = 1.6f;
+            ANDispatchBlockAfter(delayAfterDownloadAnimationCompleted, ^{
+                [self.soundPlayer play];
+            });
+        }
     }
 }
 

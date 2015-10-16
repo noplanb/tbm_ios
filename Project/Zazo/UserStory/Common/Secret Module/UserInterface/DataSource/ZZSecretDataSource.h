@@ -33,6 +33,7 @@ typedef NS_ENUM(NSInteger, ZZSecrectScreenActionsType)
     
     ZZSecrectScreenActionsTypeResetTutorialHints,
     ZZSecrectScreenActionsTypeFeatureOptions,
+    ZZSecretScreenActionsTypeEnableAllFeatures,
     
     ZZSecrectScreenActionsTypeDispatchMessage,
     
@@ -46,8 +47,6 @@ typedef NS_ENUM(NSInteger, ZZSecrectScreenActionsType)
 - (void)actionWithType:(ZZSecrectScreenActionsType)type;
 
 - (void)updateDebugModeValueTo:(BOOL)isEnabled;
-
-- (void)updateEnabledAllFeaturesValueTo:(BOOL)isEnabled;
 
 - (void)updateShouldUseSDKToLoggingTypeValueTo:(BOOL)value;
 

@@ -57,6 +57,8 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
         if (!self.videoView)
         {
             self.videoView = model.recordView;
+            UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_switchCamera)];
+            [self.videoView addGestureRecognizer:tapRecognizer];
             [self bringSubviewToFront:self.switchCameraButton];
         }
     });
@@ -118,9 +120,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
     if (!_switchCameraButton)
     {
         _switchCameraButton = [UIButton new];
-        [_switchCameraButton addTarget:self
-                                action:@selector(_switchCamera)
-                      forControlEvents:UIControlEventTouchUpInside];
+        _switchCameraButton.userInteractionEnabled = NO;
         _switchCameraButton.hidden = ![ZZGridActionStoredSettings shared].frontCameraHintWasShown;
         [self addSubview:_switchCameraButton];
         [_switchCameraButton mas_makeConstraints:^(MASConstraintMaker *make) {
