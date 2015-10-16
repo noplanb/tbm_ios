@@ -40,7 +40,9 @@
         self.model = model;
         
         // upload video animation
-        if (self.model.hasUploadedVideo)
+        if (self.model.hasUploadedVideo &&
+            !self.model.isUploadedVideoViewed &&
+            self.model.item.relatedUser.lastVideoStatusEventType != ZZVideoStatusEventTypeIncoming)
         {
             [self showUploadIconWithoutAnimation];
         }
@@ -48,7 +50,8 @@
         model.playerContainerView = self;
         
         // Upload video was viewed
-        if (self.model.isUploadedVideoViewed)
+        if (self.model.isUploadedVideoViewed &&
+            self.model.item.relatedUser.lastVideoStatusEventType != INCOMING_VIDEO_STATUS_EVENT_TYPE)
         {
             [self hideAllAnimationViews];
             self.videoViewedView.hidden = NO;
@@ -354,19 +357,19 @@
         CGFloat width = [self _indicatorCalculatedWidth];
         CGFloat height = [self _indicatorCalculatedWidth];
         
-        UIImage* image = [UIImage imageWithPDFNamed:@"home-page-view" atHeight:(height/1.7)];
+        UIImage* image = [UIImage imageWithPDFNamed:@"home-page-view" atHeight:(height/2)];
         _videoViewedView.contentMode = UIViewContentModeCenter;
         _videoViewedView.image = image;
         _videoViewedView.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
         _videoViewedView.hidden = YES;
         [self addSubview:_videoViewedView];
         CGFloat aspect = width/height;
-        
+       
         [_videoViewedView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self);
             self.rightDownloadIndicatorConstraint = make.right.equalTo(self);
             make.width.equalTo(@([self _indicatorCalculatedWidth]));
-            make.height.equalTo(@([self _indicatorCalculatedWidth]/aspect));
+            make.height.equalTo(@(([self _indicatorCalculatedWidth]/aspect)));
         }];
     }
 
@@ -381,14 +384,14 @@
         _userNameLabel.textAlignment = NSTextAlignmentCenter;
         _userNameLabel.textColor = [ZZColorTheme shared].gridStatusViewUserNameLabelColor;
         _userNameLabel.font = [UIFont an_regularFontWithSize:kUserNameFontSize];
-        _userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
+        _userNameLabel.backgroundColor = [[ZZColorTheme shared].gridCellGrayColor colorWithAlphaComponent:0.8];
         [self addSubview:_userNameLabel];
 
         UIEdgeInsets padding = UIEdgeInsetsMake(0, 2, 0, 2);
         [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self);
             make.left.right.equalTo(self).with.insets(padding);
-            make.height.equalTo(self).dividedBy(kUserNameScaleValue);
+            make.height.equalTo(@(kLayoutConstNameLabelHeight));
         }];
     }
     return _userNameLabel;

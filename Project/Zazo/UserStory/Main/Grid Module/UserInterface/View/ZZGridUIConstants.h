@@ -84,6 +84,8 @@ static inline CGFloat const kGridHeight()
 }
 
 
+static CGFloat const kLayoutConstNameLabelHeight = 22;
+
 static UIEdgeInsets const kGridSectionInsets = {12, 12, 12, 12};
 static CGFloat const kGridHeaderViewHeight = 55;
 static CGFloat const kEditFriendsButtonWidth = 44;

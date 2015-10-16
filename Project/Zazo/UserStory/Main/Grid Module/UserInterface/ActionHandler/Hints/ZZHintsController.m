@@ -36,7 +36,8 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
         [self hideHintView];
         [ZZGridActionStoredSettings shared].holdToRecordAndTapToPlayWasShown = YES;
         type = ZZHintsTypeRecordAndTapToPlay;
-    } else if  (self.hintsView)
+    }
+    else if  (self.hintsView)
     {
         [self hideHintView];
     }

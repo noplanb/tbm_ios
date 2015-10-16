@@ -55,7 +55,7 @@ static CGFloat const kThumbnailBorderWidth = 2;
     if (!thumbImage)
     {
         self.thumbnailImageView.contentMode = UIViewContentModeCenter;
-        self.thumbnailImageView.backgroundColor = [UIColor blackColor];
+        self.thumbnailImageView.backgroundColor = [ZZColorTheme shared].gridStatusViewThumbnailDefaultColor;
         CGSize size = CGSizeMake(30, 30);
         thumbImage = [[UIImage imageWithPDFNamed:@"contacts-placeholder-withoutborder2" atSize:size]
                       an_imageByTintingWithColor:[ZZColorTheme shared].menuTextColor];
