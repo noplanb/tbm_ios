@@ -87,6 +87,8 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
 {
     CGFloat horizMargin = 25.f;
     CGFloat height = CGRectGetHeight(self.bounds) / 2.f;
+    height = height < 300.f ? 300.f: height;
+    
     CGFloat vertMargin = (CGRectGetHeight(self.bounds) - height) / 2;
     self.dialogView.frame = CGRectMake(
             CGRectGetMinX(self.bounds) + horizMargin,
