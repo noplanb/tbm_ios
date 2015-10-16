@@ -148,12 +148,11 @@ static CGFloat const kTouchOffset = 7;
             CGFloat currentAngle = [recognizer currentAngleInView:self.gridView];
             CGFloat startAngle = [recognizer startAngleInView:self.gridView];
             CGFloat deltaAngle = (CGFloat)((CGFloat)currentAngle - (CGFloat)startAngle);
-            NSUInteger indexPath = [self.gridHelper indexWithPoint:point];
-            if (indexPath == 8)
+           
+            if (![self.gridHelper isCameraCellInPoint:point])
             {
-                return;
+                self.gridView.cellsOffset = self.startOffset + (CGFloat)(deltaAngle);
             }
-            self.gridView.cellsOffset = self.startOffset + (CGFloat) (deltaAngle);
         }
             break;
         case UIGestureRecognizerStateCancelled:
@@ -170,7 +169,10 @@ static CGFloat const kTouchOffset = 7;
 
 - (void)placeCells
 {
-    [self.rotator rotateCells:self.gridView.items onAngle:self.gridView.cellsOffset withGrid:self.gridHelper];
+    
+    NSMutableArray* array = [self.gridView.items mutableCopy];
+//    [array removeObjectAtIndex:4];
+    [self.rotator rotateCells:array onAngle:self.gridView.cellsOffset withGrid:self.gridHelper];
 }
 
 - (void)bounceCells

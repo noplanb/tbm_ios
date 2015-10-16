@@ -13,19 +13,13 @@
 
 @property (nonatomic, assign, readonly) CGRect rails;
 @property (nonatomic, assign, readonly) CGFloat railsHeightToWidthRatio;
-@property (nonatomic, strong) NSArray *cellFrames;
+@property (nonatomic, strong) NSArray *cellFlowFrames;
 
-/**
- * space between top border of frame and top cell
- * equals to space between bottom border of frame and bottom cell
- */
 @property(assign, nonatomic) CGFloat verticalInset;
-
-/**
- * space between left border of frame and left cell
- * equals to space between right border of frame and right cell
- */
 @property(assign, nonatomic) CGFloat horizontalInset;
+
+@property (nonatomic, strong) NSArray* originalFrames;
+
 
 @end
 
@@ -69,6 +63,9 @@
             [cellsFrames addObject:[NSValue valueWithCGRect:frame]];
         }
     }
+    
+    self.originalFrames = cellsFrames;
+    
     NSMutableArray *res = [cellsFrames mutableCopy];
     NSArray *transform;
     transform = [self cellMatrix];
@@ -78,9 +75,7 @@
         NSUInteger flowIndex = [transform[index] unsignedIntegerValue];
         res[index] = cellsFrames[flowIndex];
     }
-    ANDispatchBlockToMainQueue(^{
-       self.cellFrames = [res copy];
-    });
+    self.cellFlowFrames = [res copy];
 }
 
 
@@ -88,36 +83,48 @@
 
 - (NSArray *)cellMatrix
 {
-    return @[@(0), @(1), @(2), @(5), @(8), @(7), @(6), @(3), @(4)];
+    return @[@(ZZGridSpinPositionTypeTopLeft),
+             @(ZZGridSpinPositionTypeTopCenter),
+             @(ZZGridSpinPositionTypeTopRight),
+             @(ZZGridSpinPositionTypeCenterRight),
+             @(ZZGridSpinPositionTypeBottomRight),
+             @(ZZGridSpinPositionTypeBottomCenter),
+             @(ZZGridSpinPositionTypeBottomLeft),
+             @(ZZGridSpinPositionTypeCenterLeft),
+             @(ZZGridSpinPositionTypeCamera)];
 }
 
-- (void) setRails
+- (void)setRails
 {
-    CGFloat railXMin = [self centerOfCellWithIndex:0].x;
-    CGFloat railXMax = [self centerOfCellWithIndex:2].x;
+    CGFloat railXMin = [self centerCellPointWithNormalIndex:ZZGridSpinPositionTypeTopLeft].x;
+    CGFloat railXMax = [self centerCellPointWithNormalIndex:ZZGridSpinPositionTypeTopRight].x;
     _rails = CGRectMake(railXMin, railXMin, railXMax - railXMin, railXMax - railXMin);
 }
 
 - (void)setRailsHeightToWidthRatio
 {
-    CGFloat railYMin = [self centerOfCellWithIndex:2].y;
-    CGFloat railYMax = [self centerOfCellWithIndex:4].y;
-    CGFloat railXMin = [self centerOfCellWithIndex:0].x;
-    CGFloat railXMax = [self centerOfCellWithIndex:2].x;
+    CGFloat railYMin = [self centerCellPointWithNormalIndex:ZZGridSpinPositionTypeTopLeft].y;
+    CGFloat railYMax = [self centerCellPointWithNormalIndex:ZZGridSpinPositionTypeBottomLeft].y;
+    CGFloat railXMin = [self centerCellPointWithNormalIndex:ZZGridSpinPositionTypeTopLeft].x;
+    CGFloat railXMax = [self centerCellPointWithNormalIndex:ZZGridSpinPositionTypeTopRight].x;
     _railsHeightToWidthRatio = (railYMax - railYMin) / (railXMax - railXMin);
 }
 
-- (CGPoint)centerOfCellWithIndex:(NSUInteger)index
+- (CGPoint)centerCellPointWithNormalIndex:(NSUInteger)index
 {
     CGPoint result = CGPointZero;
-
-    result.x = [self.cellFrames[index] CGRectValue].origin.x + self.cellSize.width / 2;
-    result.y = [self.cellFrames[index] CGRectValue].origin.y + self.cellSize.height / 2;
+    if (self.cellFlowFrames.count > index)
+    {
+        NSValue* frameValue = self.originalFrames[index];
+        CGRect frame = [frameValue CGRectValue];
+        
+        result = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
+    }
 
     return result;
 }
 
-- (void)moveCellCenter:(CGPoint *)center byAngle:(double)angle
+- (void)moveCellCenter:(CGPoint*)center byAngle:(double)angle
 {
     CGPoint p = (*center);
     double remain = angle;
@@ -137,53 +144,9 @@
     (*center) = CGPointMake(rotated.x, rotated.y);
 }
 
-- (NSUInteger)indexForCellWithPoint:(CGPoint)point withOffset:(CGFloat)offset
+- (BOOL)isCameraCellInPoint:(CGPoint)point
 {
-    NSUInteger index = 0;
-
-
-    if (point.x < self.horizontalInset + 2 * self.cellSize.width + self.spaceBetweenCells )
-    {
-        if (point.x > self.horizontalInset + self.cellSize.width + self.spaceBetweenCells )
-        {
-            if (point.y < self.verticalInset + 2 * self.cellSize.height + self.spaceBetweenCells )
-            {
-                if (point.y > self.verticalInset + self.cellSize.height + self.spaceBetweenCells )
-                {
-                    return 8;
-                }
-            }
-        }
-    }
-    CGPoint pointWithoutOffset = point;
-    [self moveCellCenter:&pointWithoutOffset byAngle:(-offset)];
-
-    index = [self indexWithPoint:pointWithoutOffset];
-    return index;
-}
-
-- (NSUInteger)indexWithPoint:(CGPoint)point
-{
-    NSUInteger res = NAN;
-
-    NSArray *results = @[@(0), @(1), @(2), @(3), @(4), @(5), @(6), @(7), @(8)];
-
-    NSUInteger index = 0;
-    for (NSValue *boxedRect in self.cellFrames)
-    {
-        CGRect rect = [boxedRect CGRectValue];
-        
-        if (point.x > rect.origin.x && point.x < rect.origin.x + rect.size.width)
-        {
-            if (point.y > rect.origin.y && point.y < rect.origin.y + rect.size.height)
-            {
-                res = [results[index] unsignedIntegerValue];
-                return res;
-            }
-        }
-        index++;
-    }
-    return res;
+    return CGRectContainsPoint([[self.originalFrames objectAtIndex:ZZGridSpinPositionTypeCamera] CGRectValue], point);
 }
 
 @end

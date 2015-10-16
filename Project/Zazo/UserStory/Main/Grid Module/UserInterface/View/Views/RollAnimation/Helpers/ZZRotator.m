@@ -13,36 +13,28 @@
 
 @interface ZZRotator ()
 
-@property (nonatomic, copy) void (^completionBlock)();
-
-/**
-* returns frame for cell after applying offset
-*/
-- (CGRect)frameForCellAtIndex:(NSUInteger)index withOffset:(CGFloat)offset withGrid:(ZZGridHelper*)grid;
+@property (nonatomic, copy) ANCodeBlock completionBlock;
 
 @end
 
 @implementation ZZRotator
 
-- (instancetype)initWithAnimationCompletionBlock:(void(^)())completionBlock
+- (instancetype)initWithAnimationCompletionBlock:(ANCodeBlock)completionBlock
 {
     self = [super init];
     if (self)
     {
-        self.completionBlock = completionBlock;
+        self.completionBlock = [completionBlock copy];
     }
     return self;
 }
 
 - (void)rotateCells:(NSArray*)cells onAngle:(CGFloat)angle withGrid:(ZZGridHelper*)grid
 {
-    NSUInteger index = 0;
-    for (UIView *cell in cells)
-    {
-        CGRect frame = [self frameForCellAtIndex:index withOffset:angle withGrid:grid];
-        [cell setFrame:frame];
-        index++;
-    }
+    [cells enumerateObjectsUsingBlock:^(UIView*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        CGRect frame = [self _frameForCellAtPosition:idx withOffset:angle withGrid:grid];
+        obj.frame = frame;
+    }];
 }
 
 - (void)decayAnimationWithVelocity:(CGFloat)velocity onCarouselView:(UIView*)grid
@@ -81,8 +73,7 @@
     };
 }
 
-- (void)stopDecayAnimationIfNeeded:(POPAnimation*)anim
-                            onGrid:(ZZGridView*)grid
+- (void)stopDecayAnimationIfNeeded:(POPAnimation*)anim onGrid:(ZZGridView*)grid
 {
     if ([[anim class] isSubclassOfClass:[POPDecayAnimation class]])
     {
@@ -124,14 +115,13 @@
 
 - (BOOL)isDecayAnimationActiveOnGrid:(UIView*)grid
 {
-    return [grid pop_animationForKey:self.decayAnimationName] != nil;
+    return ([grid pop_animationForKey:self.decayAnimationName] != nil);
 }
 
 - (BOOL)isBounceAnimationActiveOnGrid:(UIView*)grid
 {
-    return [grid pop_animationForKey:self.bounceAnimationName] != nil;
+    return ([grid pop_animationForKey:self.bounceAnimationName] != nil);
 }
-
 
 - (NSString *)decayAnimationName
 {
@@ -156,13 +146,12 @@
 
 #pragma mark - Private
 
-- (CGRect)frameForCellAtIndex:(NSUInteger)index withOffset:(CGFloat)offset withGrid:(ZZGridHelper *)grid
+- (CGRect)_frameForCellAtPosition:(ZZGridSpinPositionType)position withOffset:(CGFloat)offset withGrid:(ZZGridHelper *)grid
 {
-    CGRect frame = CGRectZero;
-
-    frame.size = [grid cellSize];
-    CGPoint center = [grid centerOfCellWithIndex:index];
-    if (index != 8)
+    CGRect frame = (CGRect){CGPointZero, [grid cellSize]};
+    
+    CGPoint center = [grid centerCellPointWithNormalIndex:position];
+    if (position != ZZGridSpinPositionTypeCamera)
     {
         [grid moveCellCenter:&center byAngle:offset];
     }

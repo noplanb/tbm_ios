@@ -21,7 +21,7 @@
 
 @property (nonatomic, weak) id<ZZRotatorDelegate> delegate;
 
-- (instancetype)initWithAnimationCompletionBlock:(void(^)())completionBlock;
+- (instancetype)initWithAnimationCompletionBlock:(ANCodeBlock)completionBlock;
 
 /**
 * rotating cells. For each cell recalculates frame and setting that frame to cell
