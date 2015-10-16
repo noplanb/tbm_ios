@@ -8,12 +8,7 @@
 
 #import "TBMVideoRecorder.h"
 #import "TBMDeviceHandler.h"
-#import "OBLogger.h"
-#import "TBMAlertController.h"
-#import "TBMVideoProcessor.h"
 #import "TBMVideoIdUtils.h"
-#import "NSError+Extensions.h"
-#import "iToast.h"
 #import "ZZVideoRecorder.h" // TODO: for constants
 
 //NSString* const TBMVideoRecorderDidFinishRecording = @"TBMVideoRecorderDidFinishRecording";
@@ -318,6 +313,11 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
 {
     OB_INFO(@"VideoRecorder#: addObservers");
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_sessionInterrupted:)
+                                                 name:AVAudioSessionInterruptionNotification
+                                               object:_captureSession];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(AVCaptureSessionRuntimeErrorNotification:)
                                                  name:AVCaptureSessionRuntimeErrorNotification
                                                object:_captureSession];
@@ -354,6 +354,28 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
 {
     OB_INFO(@"VideoRecorder#VideoRecorder: willDeactivateAudioSession");
     [self.captureSession stopRunning];
+}
+
+
+#pragma mark Private
+
+- (void)_sessionInterrupted:(NSNotification*)notification
+{
+    NSNumber* interruption = notification.userInfo[AVAudioSessionInterruptionOptionKey];
+
+    if (interruption != nil)
+    {
+        AVAudioSessionInterruptionOptions options = (AVAudioSessionInterruptionOptions) interruption.unsignedIntValue;
+        if (options == AVAudioSessionInterruptionOptionShouldResume)
+        {
+            OB_INFO(@"VideoRecorder#AVAudioSessionInterruptionNotification: should resume");
+            [self.delegate videoRecorderRuntimeErrorWithRetryCount:videoRecorderRetryCount];
+        }
+    }
+    else
+    {
+        OB_INFO(@"VideoRecorder#AVAudioSessionInterruptionNotification: interrupted");
+    }
 }
 
 @end
