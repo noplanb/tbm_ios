@@ -65,13 +65,9 @@
     switch (recognizer.state)
     {
         case UIGestureRecognizerStateBegan:
-        {//TODO: handle rotation only if it starts on friend cell
-//            UIView* view = [self.gridView hitTest:[recognizer locationInView:self.gridView] withEvent:nil];
-//            if (view && [self.gridView.items containsObject:view])
-//            {
-                self.startOffset = self.gridView.calculatedCellsOffset;
-                [self.rotator stopAnimationsOnGrid:self.gridView];
-//            }
+        {
+            self.startOffset = self.gridView.calculatedCellsOffset;
+            [self.rotator stopAnimationsOnGrid:self.gridView];
         } break;
             
         case UIGestureRecognizerStateChanged:
