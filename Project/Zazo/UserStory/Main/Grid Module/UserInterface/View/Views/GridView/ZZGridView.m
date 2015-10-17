@@ -36,17 +36,19 @@
     [self.delegate updatedFrame:self.bounds];
 }
 
-- (void)setCellsOffset:(CGFloat)cellsOffset
+- (void)setCalculatedCellsOffset:(CGFloat)calculatedCellsOffset
 {
-    _cellsOffset = cellsOffset;
-    while (_cellsOffset > self.maxCellsOffset)
-    {
-        _cellsOffset -= self.maxCellsOffset;
-    }
-    while (_cellsOffset < 0)
-    {
-        _cellsOffset += self.maxCellsOffset;
-    }
+//    NSLog(@"SPIN: original celloffset - %f", _calculatedCellsOffset);
+    _calculatedCellsOffset = calculatedCellsOffset; //TODO: uncomment it and check
+//    while (_calculatedCellsOffset >= self.maxCellsOffset)
+//    {
+//        _calculatedCellsOffset -= self.maxCellsOffset;
+//    }
+//    while (_calculatedCellsOffset <= 0)
+//    {
+//        _calculatedCellsOffset += self.maxCellsOffset;
+//    }
+//    NSLog(@"SPIN: new celloffset - %f", _calculatedCellsOffset);
     [self.delegate placeCells];
 }
 

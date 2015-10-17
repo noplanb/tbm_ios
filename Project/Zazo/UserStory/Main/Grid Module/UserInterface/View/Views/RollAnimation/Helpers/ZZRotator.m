@@ -39,12 +39,13 @@
 
 - (void)decayAnimationWithVelocity:(CGFloat)velocity onCarouselView:(UIView*)grid
 {
-    CGFloat angleVelocity = velocity;
-
+    NSLog(@"velocity - %f", velocity);
     self.decayAnimation = [POPDecayAnimation animation];
+    
     self.decayAnimation.property = [self animatableProperty];
-    self.decayAnimation.velocity = @(angleVelocity);
+    self.decayAnimation.velocity = @(-velocity);
     self.decayAnimation.deceleration = self.decelerationValue;
+    
     self.decayAnimation.name = self.decayAnimationName;
     self.decayAnimation.delegate = self.delegate;
     [grid pop_addAnimation:self.decayAnimation forKey:self.decayAnimationName];
@@ -75,6 +76,7 @@
 
 - (void)stopDecayAnimationIfNeeded:(POPAnimation*)anim onGrid:(ZZGridView*)grid
 {
+//    NSLog(@"SPIN: %@", NSStringFromSelector(_cmd));
     if ([[anim class] isSubclassOfClass:[POPDecayAnimation class]])
     {
         CGFloat velocity = [((POPDecayAnimation *) anim).velocity floatValue];
@@ -83,34 +85,27 @@
             CGFloat angle = [((POPDecayAnimation *) anim).toValue floatValue];
             angle = [ZZGeometryHelper normalizedAngle:angle withMaxCellOffset:[grid maxCellsOffset]];
             
-            if (angle - grid.cellsOffset < M_PI_4)
+            if (angle - grid.calculatedCellsOffset < M_PI_4)
             {
-                angle = [ZZGeometryHelper nextFixedPositionFrom:angle withDirection:velocity > 0 ? ZZSpinDirectionClockwise : ZZSpinDirectionCounterClockwise];
+                
+                ZZSpinDirection direction = velocity >= 0 ? ZZSpinDirectionClockwise : ZZSpinDirectionCounterClockwise;
+                
+                angle = [ZZGeometryHelper nextFixedPositionFrom:angle withDirection:direction];
 
-                if (angle >= grid.cellsOffset -0.09f || angle <= grid.cellsOffset +0.09f)
+                if ((angle >= (grid.calculatedCellsOffset - 0.09f)) || (angle <= (grid.calculatedCellsOffset +0.09f)))
                 {
                     [self stopAnimationsOnGrid:grid];
-                    [self bounceAnimationToAngle:angle onCarouselView:grid withVelocity:velocity];
+//                    [self bounceAnimationToAngle:angle onCarouselView:grid withVelocity:velocity]; //TODO: uncomment
                 }
             }
         }
     }
 }
 
-- (void)stopDecayAnimationOnGrid:(UIView*)grid
-{
-    [grid pop_removeAnimationForKey:self.decayAnimationName];
-}
-
-- (void)stopBounceAnimationOnGrid:(UIView*)grid
-{
-    [grid pop_removeAnimationForKey:self.bounceAnimationName];
-}
-
 - (void)stopAnimationsOnGrid:(UIView*) grid
 {
-    [self stopBounceAnimationOnGrid:grid];
-    [self stopDecayAnimationOnGrid:grid];
+    [grid pop_removeAnimationForKey:self.bounceAnimationName];
+    [grid pop_removeAnimationForKey:self.decayAnimationName];
 }
 
 - (BOOL)isDecayAnimationActiveOnGrid:(UIView*)grid
@@ -165,11 +160,11 @@
                                                               initializer:^(POPMutableAnimatableProperty *local_prop) {
                                                                   // read value
                                                                   local_prop.readBlock = ^(id obj, CGFloat values[]) {
-                                                                      values[0] = [obj cellsOffset];
+                                                                      values[0] = [obj calculatedCellsOffset];
                                                                   };
                                                                   // write value
                                                                   local_prop.writeBlock = ^(ZZGridView* obj, const CGFloat values[]) {
-                                                                      [obj setCellsOffset:values[0]];
+                                                                      [obj setCalculatedCellsOffset:values[0]];
                                                                   };
                                                                   // dynamics threshold
                                                                   local_prop.threshold = 0.01;

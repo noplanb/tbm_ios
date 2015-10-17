@@ -60,7 +60,7 @@
     {
         case UIGestureRecognizerStateBegan:
         {
-            self.startOffset = self.gridView.cellsOffset;
+            self.startOffset = self.gridView.calculatedCellsOffset;
             [self.rotator stopAnimationsOnGrid:self.gridView];
             
         } break;
@@ -68,8 +68,8 @@
         {
             CGFloat currentAngle = [recognizer currentAngleInView:self.gridView];
             CGFloat startAngle = [recognizer startAngleInView:self.gridView];
-            CGFloat deltaAngle = (CGFloat)((CGFloat)currentAngle - (CGFloat)startAngle);
-            self.gridView.cellsOffset = self.startOffset + (CGFloat)(deltaAngle);
+            CGFloat deltaAngle = currentAngle - startAngle;
+            self.gridView.calculatedCellsOffset = self.startOffset + deltaAngle;
         }
             break;
         case UIGestureRecognizerStateCancelled:
@@ -84,15 +84,9 @@
 
 - (void)placeCells
 {
-    [self.rotator rotateCells:self.gridView.items onAngle:self.gridView.cellsOffset withGrid:self.gridHelper];
+    [self.rotator rotateCells:self.gridView.items onAngle:self.gridView.calculatedCellsOffset withGrid:self.gridHelper];
 }
 
-- (void)bounceCells
-{
-    self.gridView.cellsOffset = self.gridView.cellsOffset;
-    CGFloat angle = [ZZGeometryHelper nearestFixedPositionFrom:self.gridView.cellsOffset];
-    [self.rotator bounceAnimationToAngle:angle onCarouselView:self.gridView];
-}
 
 #pragma mark - <POPAnimationDelegate>
 

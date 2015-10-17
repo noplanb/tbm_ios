@@ -147,30 +147,43 @@
     }
 }
 
-+ (ZZSpinDirection)directionWithVelocity:(CGPoint)velocity fromAngle:(CGFloat)angle
++ (ZZSpinDirection)directionWithVelocity:(CGPoint)velocity fromAngle:(CGFloat)angle //TODO: error with rotation is here
 {
     ZZSpinDirection res = ZZSpinDirectionNone;
     
+    if (velocity.x > velocity.y)
+    {
+        velocity.y = 0;
+    }
+    else
+    {
+        velocity.x = 0;
+    }
+    
     if (angle >= 0.f && angle < M_PI_4)
     {
-        if (velocity.y < 0)
+        if (velocity.y > 0)
         {
             res = ZZSpinDirectionCounterClockwise;
+            NSLog(@"DIRECTION - 1");
         }
-        else if (velocity.y > 0)
+        else if (velocity.y < 0)
         {
             res = ZZSpinDirectionClockwise;
+            NSLog(@"DIRECTION - 2");
         }
     }
     if (angle >= M_PI_4 && angle < 3 * M_PI_4)
     {
-        if (velocity.x < 0)
+        if (velocity.x > 0)
         {
             res = ZZSpinDirectionCounterClockwise;
+            NSLog(@"DIRECTION - 3");
         }
-        else if (velocity.x > 0)
+        else if (velocity.x < 0)
         {
             res = ZZSpinDirectionClockwise;
+            NSLog(@"DIRECTION - 4");
         }
     }
     if (angle >= 3 * M_PI_4 && angle < 5 * M_PI_4)
@@ -178,10 +191,12 @@
         if (velocity.y > 0)
         {
             res = ZZSpinDirectionCounterClockwise;
+            NSLog(@"DIRECTION - 5");
         }
         else if (velocity.y < 0)
         {
             res = ZZSpinDirectionClockwise;
+            NSLog(@"DIRECTION - 6");
         }
     }
     if (angle >= 5 * M_PI_4 && angle < 7 * M_PI_4)
@@ -189,76 +204,43 @@
         if (velocity.x > 0)
         {
             res = ZZSpinDirectionCounterClockwise;
+            NSLog(@"DIRECTION - 7");
         }
         else if (velocity.x < 0)
         {
             res = ZZSpinDirectionClockwise;
+            NSLog(@"DIRECTION - 8");
         }
     }
     if (angle >= 7 * M_PI_4 && angle < 8 * M_PI_4)
     {
         if (velocity.y < 0)
         {
-            res = ZZSpinDirectionCounterClockwise;
+            res = ZZSpinDirectionClockwise;
+            NSLog(@"DIRECTION - 9");
         }
         else if (velocity.y > 0)
         {
-            res = ZZSpinDirectionClockwise;
+            res = ZZSpinDirectionCounterClockwise;
+            NSLog(@"DIRECTION - 10");
         }
     }
+    
+    NSLog(@"result direction - %@", res == ZZSpinDirectionClockwise ? @"ZZSpinDirectionClockwise" : @"ZZSpinDirectionCounterClockwise");
+    
     return res;
-}
-
-+ (CGFloat)nearestFixedPositionFrom:(CGFloat)currentPosition
-{
-    CGFloat moveToAngle = currentPosition;
-    if (currentPosition < M_PI_4 / 2 && currentPosition > 0)
-    {
-        moveToAngle = 0;
-    }
-    else if (currentPosition < 3 * M_PI_4 / 2 && currentPosition > M_PI_4 / 2)
-    {
-        moveToAngle = (CGFloat) M_PI_4;
-    }
-    else if (currentPosition < 5 * M_PI_4 / 2 && currentPosition > 3 * M_PI_4 / 2)
-    {
-        moveToAngle = (CGFloat) M_PI_2;
-    }
-    else if (currentPosition < 7 * M_PI_4 / 2 && currentPosition > 5 * M_PI_4 / 2)
-    {
-        moveToAngle = (CGFloat) (3 * M_PI_4);
-    }
-    else if (currentPosition < 9 * M_PI_4 / 2 && currentPosition > 7 * M_PI_4 / 2)
-    {
-        moveToAngle = (CGFloat) M_PI;
-    }
-    else if (currentPosition < 11 * M_PI_4 / 2 && currentPosition > 9 * M_PI_4 / 2)
-    {
-        moveToAngle = (CGFloat) (5 * M_PI_4);
-    }
-    else if (currentPosition < 13 * M_PI_4 / 2 && currentPosition > 11 * M_PI_4 / 2)
-    {
-        moveToAngle = (CGFloat) (3 * M_PI_2);
-    }
-    else if (currentPosition < 15 * M_PI_4 / 2 && currentPosition > 13 * M_PI_4 / 2)
-    {
-        moveToAngle = (CGFloat) (7 * M_PI_4);
-    }
-    else if (currentPosition < 16 * M_PI_4 / 2 && currentPosition > 15 * M_PI_4 / 2)
-    {
-        moveToAngle = (CGFloat) (2 * M_PI);
-    }
-    return moveToAngle;
 }
 
 + (CGFloat)nextFixedPositionFrom:(CGFloat)currentPosition withDirection:(ZZSpinDirection) direction
 {
     CGFloat moveToAngle = currentPosition;
 
-    while (currentPosition > (CGFloat)(2*M_PI)) {
+    while (currentPosition > (CGFloat)(2*M_PI))
+    {
         currentPosition -= (CGFloat)(2*M_PI);
     }
-    while (currentPosition < 0) {
+    while (currentPosition < 0)
+    {
         currentPosition += (CGFloat)(2*M_PI);
     }
 

@@ -25,7 +25,7 @@
 @property (nonatomic, strong) ZZGridContainerView* itemsContainerView;
 
 //rotation
-@property (nonatomic, assign) CGFloat cellsOffset;
+@property (nonatomic, assign) CGFloat calculatedCellsOffset;
 @property (nonatomic, assign) CGFloat maxCellsOffset;
 
 - (NSArray*)items;
