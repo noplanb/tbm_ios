@@ -26,6 +26,8 @@ static CGFloat const kStatusBarHeight = 20;
 @property (nonatomic, strong) UIPanGestureRecognizer* panGesure;
 @property (nonatomic, assign) CGPoint startPoint;
 
+@property (nonatomic, strong) NSArray* additionalPans;
+
 @end
 
 @implementation ANDrawerNC
@@ -160,6 +162,8 @@ static CGFloat const kStatusBarHeight = 20;
 - (void)attachPanRecognizer:(UIPanGestureRecognizer*)recognizer
 {
     [recognizer addTarget:self action:@selector(_moveDrawer:)];
+    recognizer.delegate = self;
+    self.additionalPans = [self.additionalPans arrayByAddingObject:recognizer];
 }
 
 
@@ -219,13 +223,11 @@ static CGFloat const kStatusBarHeight = 20;
     CGPoint translation = [recognizer translationInView:self.view];
     CGPoint velocity = [recognizer velocityInView:self.view];
     
-    BOOL isInBounds = self.startPoint.x > (self.view.bounds.size.width - 40); //TODO: this only for rifht side
-    
     if (recognizer.state == UIGestureRecognizerStateBegan)
     {
         self.startPoint = [recognizer locationInView:self.view];
         
-        if (isInBounds && recognizer != self.panGesure)
+        if (recognizer != self.panGesure)
         {
             if (velocity.x > kDefaultDrawerVelocityTrigger && !self.isOpen)
             {
@@ -239,11 +241,6 @@ static CGFloat const kStatusBarHeight = 20;
     }
     else if (recognizer.state == UIGestureRecognizerStateChanged)
     {
-        if (!self.isOpen && !isInBounds)
-        {
-            return;
-        }
-        
         CGFloat startOffset = self.isOpen ? [self _offsetForOpenState] : 0;
         CGFloat newOffset = startOffset + translation.x;
         
@@ -288,11 +285,46 @@ static CGFloat const kStatusBarHeight = 20;
         {
             [self updateStateToOpened:newState];
         }
-        else if (isInBounds)
+        else
         {
             [self updateStateToOpened:YES];
         }
     }
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)panGestureRecognizer
+{
+    if (panGestureRecognizer != self.panGesure)
+    {
+        CGPoint point = [panGestureRecognizer locationInView:panGestureRecognizer.view];
+        BOOL isInBounds = point.x > (self.view.bounds.size.width - 40); //TODO: this only for rifht side
+        return isInBounds;
+    }
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    if ([self.additionalPans containsObject:gestureRecognizer])
+    {
+        CGPoint point = [gestureRecognizer locationInView:gestureRecognizer.view];
+        BOOL isInBounds = point.x > (self.view.bounds.size.width - 40); //TODO: this only for rifht side
+        return isInBounds;
+    }
+    return NO;
+}
+
+
+#pragma mark - Lazy Load
+
+- (NSArray *)additionalPans
+{
+    if (!_additionalPans)
+    {
+        _additionalPans = [NSArray new];
+    }
+    return _additionalPans;
 }
 
 @end

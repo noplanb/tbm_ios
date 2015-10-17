@@ -64,8 +64,7 @@
     }];
     
     self.menuPanRecognizer = [UIPanGestureRecognizer new];
-    self.menuPanRecognizer.delegate = self;
-//    [self.view addGestureRecognizer:self.menuPanRecognizer];
+    [self.view addGestureRecognizer:self.menuPanRecognizer];
     
     [self.eventHandler attachToMenuPanGesture:self.menuPanRecognizer];
 }
@@ -176,18 +175,5 @@
     ZZGridCenterCell* centerCell = self.gridView.items[centerCellIndex];
     [centerCell updataeRecordStateTo:isRecording];
 }
-
-
-//#pragma mark - Menu Gesture Delegate
-//
-//- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
-//{
-//    return YES;
-//}
-//
-//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
-//{
-//    return YES;
-//}
 
 @end
