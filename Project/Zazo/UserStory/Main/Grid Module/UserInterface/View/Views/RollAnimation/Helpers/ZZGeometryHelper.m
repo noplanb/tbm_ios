@@ -149,86 +149,80 @@
 
 + (ZZSpinDirection)directionWithVelocity:(CGPoint)velocity fromAngle:(CGFloat)angle //TODO: error with rotation is here
 {
-    ZZSpinDirection res = ZZSpinDirectionNone;
     
-    if (velocity.x > velocity.y)
-    {
-        velocity.y = 0;
-    }
-    else
-    {
-        velocity.x = 0;
-    }
     
-    if (angle >= 0.f && angle < M_PI_4)
-    {
-        if (velocity.y > 0)
-        {
-            res = ZZSpinDirectionCounterClockwise;
-            NSLog(@"DIRECTION - 1");
-        }
-        else if (velocity.y < 0)
-        {
-            res = ZZSpinDirectionClockwise;
-            NSLog(@"DIRECTION - 2");
-        }
-    }
-    if (angle >= M_PI_4 && angle < 3 * M_PI_4)
-    {
-        if (velocity.x > 0)
-        {
-            res = ZZSpinDirectionCounterClockwise;
-            NSLog(@"DIRECTION - 3");
-        }
-        else if (velocity.x < 0)
-        {
-            res = ZZSpinDirectionClockwise;
-            NSLog(@"DIRECTION - 4");
-        }
-    }
-    if (angle >= 3 * M_PI_4 && angle < 5 * M_PI_4)
-    {
-        if (velocity.y > 0)
-        {
-            res = ZZSpinDirectionCounterClockwise;
-            NSLog(@"DIRECTION - 5");
-        }
-        else if (velocity.y < 0)
-        {
-            res = ZZSpinDirectionClockwise;
-            NSLog(@"DIRECTION - 6");
-        }
-    }
-    if (angle >= 5 * M_PI_4 && angle < 7 * M_PI_4)
-    {
-        if (velocity.x > 0)
-        {
-            res = ZZSpinDirectionCounterClockwise;
-            NSLog(@"DIRECTION - 7");
-        }
-        else if (velocity.x < 0)
-        {
-            res = ZZSpinDirectionClockwise;
-            NSLog(@"DIRECTION - 8");
-        }
-    }
-    if (angle >= 7 * M_PI_4 && angle < 8 * M_PI_4)
-    {
-        if (velocity.y < 0)
-        {
-            res = ZZSpinDirectionClockwise;
-            NSLog(@"DIRECTION - 9");
-        }
-        else if (velocity.y > 0)
-        {
-            res = ZZSpinDirectionCounterClockwise;
-            NSLog(@"DIRECTION - 10");
-        }
-    }
     
-    NSLog(@"result direction - %@", res == ZZSpinDirectionClockwise ? @"ZZSpinDirectionClockwise" : @"ZZSpinDirectionCounterClockwise");
-    
-    return res;
+//    ZZSpinDirection res = ZZSpinDirectionNone;
+//    
+//    if (angle >= 0.f && angle < M_PI_4)
+//    {
+//        if (velocity.y < 0)
+//        {
+//            res = ZZSpinDirectionCounterClockwise;
+//            NSLog(@"DIRECTION - 1");
+//        }
+//        else if (velocity.y > 0)
+//        {
+//            res = ZZSpinDirectionClockwise;
+//            NSLog(@"DIRECTION - 2");
+//        }
+//    }
+//    if (angle >= M_PI_4 && angle < 3 * M_PI_4)
+//    {
+//        if (velocity.x > 0)
+//        {
+//            res = ZZSpinDirectionCounterClockwise;
+//            NSLog(@"DIRECTION - 3");
+//        }
+//        else if (velocity.x < 0)
+//        {
+//            res = ZZSpinDirectionClockwise;
+//            NSLog(@"DIRECTION - 4");
+//        }
+//    }
+//    if (angle >= 3 * M_PI_4 && angle < 5 * M_PI_4)
+//    {
+//        if (velocity.y > 0)
+//        {
+//            res = ZZSpinDirectionCounterClockwise;
+//            NSLog(@"DIRECTION - 5");
+//        }
+//        else if (velocity.y < 0)
+//        {
+//            res = ZZSpinDirectionClockwise;
+//            NSLog(@"DIRECTION - 6");
+//        }
+//    }
+//    if (angle >= 5 * M_PI_4 && angle < 7 * M_PI_4)
+//    {
+//        if (velocity.x < 0)
+//        {
+//            res = ZZSpinDirectionCounterClockwise;
+//            NSLog(@"DIRECTION - 7");
+//        }
+//        else if (velocity.x > 0)
+//        {
+//            res = ZZSpinDirectionClockwise;
+//            NSLog(@"DIRECTION - 8");
+//        }
+//    }
+//    if (angle >= 7 * M_PI_4 && angle < 8 * M_PI_4)
+//    {
+//        if (velocity.y < 0)
+//        {
+//            res = ZZSpinDirectionCounterClockwise;
+//            NSLog(@"DIRECTION - 9");
+//        }
+//        else if (velocity.y > 0)
+//        {
+//            res = ZZSpinDirectionClockwise;
+//            NSLog(@"DIRECTION - 10");
+//        }
+//    }
+//    
+//    NSLog(@"result direction - %@", res == ZZSpinDirectionClockwise ? @"ZZSpinDirectionClockwise" : @"ZZSpinDirectionCounterClockwise");
+//    
+    return ZZSpinDirectionNone;
 }
 
 + (CGFloat)nextFixedPositionFrom:(CGFloat)currentPosition withDirection:(ZZSpinDirection) direction

@@ -23,6 +23,8 @@
 
 @property (nonatomic, strong) ZZRotationGestureRecognizer *rotationRecognizer;
 
+@property (nonatomic, assign) ZZSpinDirection gestureDirection;
+
 @end
 
 @implementation ZZTouchObserver

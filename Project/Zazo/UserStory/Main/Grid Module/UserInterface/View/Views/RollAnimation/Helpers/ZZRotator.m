@@ -43,7 +43,7 @@
     self.decayAnimation = [POPDecayAnimation animation];
     
     self.decayAnimation.property = [self animatableProperty];
-    self.decayAnimation.velocity = @(-velocity);
+    self.decayAnimation.velocity = @(velocity);
     self.decayAnimation.deceleration = self.decelerationValue;
     
     self.decayAnimation.name = self.decayAnimationName;
