@@ -147,10 +147,66 @@
     }
 }
 
-+ (ZZSpinDirection)directionWithVelocity:(CGPoint)velocity fromAngle:(CGFloat)angle //TODO: error with rotation is here
++ (ZZSpinDirection)directionWithVelocity:(CGPoint)velocity fromAngle:(CGFloat)angle gridFrame:(CGRect)frame
 {
+    NSUInteger quarter = [self quarterOfAngle:angle inFrame:frame];
+    BOOL isHorizontal = (fabs(velocity.x) > fabs(velocity.y));
     
+    ZZSpinDirection direction = ZZSpinDirectionNone;
     
+    switch (quarter)
+    {
+        case 0:
+        {
+            if (isHorizontal)
+            {
+                direction = (velocity.x > 0) ? ZZSpinDirectionClockwise : ZZSpinDirectionCounterClockwise;
+            }
+            else
+            {
+                direction = (velocity.y > 0) ? ZZSpinDirectionClockwise : ZZSpinDirectionCounterClockwise;
+            }
+        } break;
+            
+        case 1:
+        {
+            if (isHorizontal)
+            {
+                direction = (velocity.x > 0) ? ZZSpinDirectionClockwise : ZZSpinDirectionCounterClockwise;
+            }
+            else
+            {
+                direction = (velocity.y > 0) ? ZZSpinDirectionCounterClockwise : ZZSpinDirectionClockwise;
+            }
+        } break;
+            
+        case 2:
+        {
+            if (isHorizontal)
+            {
+                direction = (velocity.x > 0) ? ZZSpinDirectionClockwise : ZZSpinDirectionCounterClockwise;
+            }
+            else
+            {
+                direction = (velocity.y > 0) ? ZZSpinDirectionCounterClockwise : ZZSpinDirectionClockwise;
+            }
+        } break;
+            
+        case 3:
+        {
+            if (isHorizontal)
+            {
+                direction = (velocity.x > 0) ? ZZSpinDirectionCounterClockwise : ZZSpinDirectionClockwise;
+            }
+            else
+            {
+                direction = (velocity.y > 0) ? ZZSpinDirectionClockwise : ZZSpinDirectionCounterClockwise;
+            }
+            
+        } break;
+            
+        default: break;
+    }
     
 //    ZZSpinDirection res = ZZSpinDirectionNone;
 //    
@@ -222,7 +278,7 @@
 //    
 //    NSLog(@"result direction - %@", res == ZZSpinDirectionClockwise ? @"ZZSpinDirectionClockwise" : @"ZZSpinDirectionCounterClockwise");
 //    
-    return ZZSpinDirectionNone;
+    return direction;
 }
 
 + (CGFloat)nextFixedPositionFrom:(CGFloat)currentPosition withDirection:(ZZSpinDirection) direction

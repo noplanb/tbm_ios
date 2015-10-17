@@ -36,7 +36,7 @@
     CGPoint point = [self locationInView:view];
     CGFloat angle = [ZZGeometryHelper angleFromPoint:point onFrame:view.frame];
 
-    res = [ZZGeometryHelper directionWithVelocity:velocity fromAngle:angle];
+    res = [ZZGeometryHelper directionWithVelocity:velocity fromAngle:angle gridFrame:view.frame];
 
     return res;
 }
