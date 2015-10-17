@@ -19,8 +19,14 @@
 - (void)presentGridControllerFromWindow:(UIWindow*)window;
 - (void)presentGridControllerFromNavigationController:(UINavigationController*)nc;
 - (void)dismissGridController;
+
+
+#pragma mark - Menu Events
+
 - (void)toggleMenu;
 - (void)closeMenu;
+
+- (void)attachAdditionalPanGestureToMenu:(UIPanGestureRecognizer*)pan;
 
 
 #pragma mark - Details

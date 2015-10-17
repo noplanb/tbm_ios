@@ -225,7 +225,7 @@
 		07636ECD1BA49A0100925671 /* ZZGridHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CDC1BA49A0100925671 /* ZZGridHelper.m */; };
 		07636ECF1BA49A0100925671 /* ZZRotationGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CE01BA49A0100925671 /* ZZRotationGestureRecognizer.m */; };
 		07636ED01BA49A0100925671 /* ZZRotator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CE21BA49A0100925671 /* ZZRotator.m */; };
-		07636ED11BA49A0100925671 /* ZZTouchObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CE51BA49A0100925671 /* ZZTouchObserver.m */; };
+		07636ED11BA49A0100925671 /* ZZGridRotationTouchObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CE51BA49A0100925671 /* ZZGridRotationTouchObserver.m */; };
 		07636ED21BA49A0100925671 /* ZZGridVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CE81BA49A0100925671 /* ZZGridVC.m */; };
 		07636ED31BA49A0100925671 /* ZZGridWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CEC1BA49A0100925671 /* ZZGridWireframe.m */; };
 		07636ED41BA49A0100925671 /* ZZMenuInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CF11BA49A0100925671 /* ZZMenuInteractor.m */; };
@@ -812,8 +812,8 @@
 		07636CE01BA49A0100925671 /* ZZRotationGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRotationGestureRecognizer.m; sourceTree = "<group>"; };
 		07636CE11BA49A0100925671 /* ZZRotator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZRotator.h; sourceTree = "<group>"; };
 		07636CE21BA49A0100925671 /* ZZRotator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRotator.m; sourceTree = "<group>"; };
-		07636CE41BA49A0100925671 /* ZZTouchObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZTouchObserver.h; sourceTree = "<group>"; };
-		07636CE51BA49A0100925671 /* ZZTouchObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZTouchObserver.m; sourceTree = "<group>"; };
+		07636CE41BA49A0100925671 /* ZZGridRotationTouchObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridRotationTouchObserver.h; sourceTree = "<group>"; };
+		07636CE51BA49A0100925671 /* ZZGridRotationTouchObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridRotationTouchObserver.m; sourceTree = "<group>"; };
 		07636CE61BA49A0100925671 /* ZZGridUIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridUIConstants.h; sourceTree = "<group>"; };
 		07636CE71BA49A0100925671 /* ZZGridVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridVC.h; sourceTree = "<group>"; };
 		07636CE81BA49A0100925671 /* ZZGridVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridVC.m; sourceTree = "<group>"; };
@@ -2981,8 +2981,8 @@
 		07636CE31BA49A0100925671 /* TouchObserver */ = {
 			isa = PBXGroup;
 			children = (
-				07636CE41BA49A0100925671 /* ZZTouchObserver.h */,
-				07636CE51BA49A0100925671 /* ZZTouchObserver.m */,
+				07636CE41BA49A0100925671 /* ZZGridRotationTouchObserver.h */,
+				07636CE51BA49A0100925671 /* ZZGridRotationTouchObserver.m */,
 			);
 			path = TouchObserver;
 			sourceTree = "<group>";
@@ -4309,7 +4309,7 @@
 				07636E8E1BA49A0100925671 /* ZZAuthInteractor.m in Sources */,
 				07636E421BA49A0100925671 /* TBMVideo.m in Sources */,
 				07636E9A1BA49A0100925671 /* ZZDebugStateItemDomainModel.m in Sources */,
-				07636ED11BA49A0100925671 /* ZZTouchObserver.m in Sources */,
+				07636ED11BA49A0100925671 /* ZZGridRotationTouchObserver.m in Sources */,
 				07636EC71BA49A0100925671 /* ZZGridCellViewModel.m in Sources */,
 				181D1C9E1BC51A4600044F83 /* ZZBaseEventHandler.m in Sources */,
 				07BAA7051BB18DD2009878B9 /* NSArray+TBMArrayHelpers.m in Sources */,

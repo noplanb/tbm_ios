@@ -1565,7 +1565,7 @@ static const float kAfterInteractiveMaxProgressValue    = 0.9f;
     //Pull out the animation and attach a delegate so we can receive an event when it's finished, to clean it up properly
     CABasicAnimation *anim = [[self.webView.scrollView.layer animationForKey:@"bounds"] mutableCopy];
     if (anim == nil) { //anim may be nil if the zoomScale wasn't sufficiently different to warrant an animation
-        [self animationDidStop:nil finished:YES];
+//        [self animationDidStop:nil finished:YES];
         return;
     }
     

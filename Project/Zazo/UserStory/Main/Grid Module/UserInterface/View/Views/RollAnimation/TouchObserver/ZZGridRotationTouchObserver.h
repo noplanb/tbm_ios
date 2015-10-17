@@ -16,15 +16,14 @@
 @protocol ZZTouchObserverDelegate <NSObject>
 
 - (void)stopPlaying;
+- (void)spinRecognizerWasInstalled:(UIGestureRecognizer*)recognizer;
 
 @end
 
-@interface ZZTouchObserver : NSObject
+@interface ZZGridRotationTouchObserver : NSObject
 
-@property (nonatomic, weak) id <ZZTouchObserverDelegate>delegate;
+@property (nonatomic, weak) id <ZZTouchObserverDelegate> delegate;
 
 - (instancetype)initWithGridView:(ZZGridView*)gridView;
-//- (void)observeTouch:(UITouch*)touch withEvent:(id)event;
-//- (void)hideMovedGridIfNeeded;
 
 @end

@@ -6,12 +6,12 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import "ZZTouchObserver.h"
+#import "ZZGridRotationTouchObserver.h"
 #import "ZZRotator.h"
 #import "ZZGridActionStoredSettings.h"
 #import "ZZGridHelper.h"
 
-@interface ZZTouchObserver () <ZZRotatorDelegate, UIGestureRecognizerDelegate, ZZGridViewDelegate>
+@interface ZZGridRotationTouchObserver () <ZZRotatorDelegate, UIGestureRecognizerDelegate, ZZGridViewDelegate>
 
 @property (nonatomic, assign) CGPoint initialLocation;
 @property (nonatomic, assign) BOOL isMoving;
@@ -27,7 +27,7 @@
 
 @end
 
-@implementation ZZTouchObserver
+@implementation ZZGridRotationTouchObserver
 
 - (void)updatedFrame:(CGRect)frame
 {
@@ -42,12 +42,19 @@
         self.gridView = gridView;
         self.gridView.delegate = self;
         self.gridHelper = [ZZGridHelper new];
-
+        
         self.rotationRecognizer = [[ZZRotationGestureRecognizer alloc] initWithTarget:self
                                                                                action:@selector(handleRotationGesture:)];
         self.rotationRecognizer.delegate = self;
-        
         [self.gridView addGestureRecognizer:self.rotationRecognizer];
+        
+//        [RACObserve([ZZGridActionStoredSettings shared], spinHintWasShown) subscribeNext:^(id x) {
+//            self.rotationRecognizer.enabled = [x boolValue];
+//            if ([x boolValue])
+//            {
+                [self.delegate spinRecognizerWasInstalled:self.rotationRecognizer];
+//            }
+//        }];
         
         self.rotator = [[ZZRotator alloc] initWithAnimationCompletionBlock:^{
             self.isMoving = NO;
@@ -59,31 +66,32 @@
 
 - (void)handleRotationGesture:(ZZRotationGestureRecognizer*)recognizer
 {
-    if ([ZZGridActionStoredSettings shared].spinHintWasShown)
+    switch (recognizer.state)
     {
-        switch (recognizer.state)
-        {
-            case UIGestureRecognizerStateBegan:
-            {
+        case UIGestureRecognizerStateBegan:
+        {//TODO: handle rotation only if it starts on friend cell
+//            UIView* view = [self.gridView hitTest:[recognizer locationInView:self.gridView] withEvent:nil];
+//            if (view && [self.gridView.items containsObject:view])
+//            {
                 self.startOffset = self.gridView.calculatedCellsOffset;
                 [self.rotator stopAnimationsOnGrid:self.gridView];
-            } break;
-           
-            case UIGestureRecognizerStateChanged:
-            {
-                CGFloat currentAngle = [recognizer currentAngleInView:self.gridView];
-                CGFloat startAngle = [recognizer startAngleInView:self.gridView];
-                CGFloat deltaAngle = currentAngle - startAngle;
-                self.gridView.calculatedCellsOffset = self.startOffset + deltaAngle;
-            } break;
-           
-            case UIGestureRecognizerStateCancelled:
-            case UIGestureRecognizerStateEnded:
-            {
-                [self.rotator decayAnimationWithVelocity:[recognizer angleVelocityInView:self.gridView] onCarouselView:self.gridView];
-            } break;
-            default: break;
-        }
+//            }
+        } break;
+            
+        case UIGestureRecognizerStateChanged:
+        {
+            CGFloat currentAngle = [recognizer currentAngleInView:self.gridView];
+            CGFloat startAngle = [recognizer startAngleInView:self.gridView];
+            CGFloat deltaAngle = currentAngle - startAngle;
+            self.gridView.calculatedCellsOffset = self.startOffset + deltaAngle;
+        } break;
+            
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateEnded:
+        {
+            [self.rotator decayAnimationWithVelocity:[recognizer angleVelocityInView:self.gridView] onCarouselView:self.gridView];
+        } break;
+        default: break;
     }
 }
 

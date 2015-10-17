@@ -24,6 +24,7 @@ static CGFloat const kStatusBarHeight = 20;
 @property (nonatomic, assign) CGFloat drawerWidth;
 @property (nonatomic, assign) ANDrawerOpenDirection openDirection;
 @property (nonatomic, strong) UIPanGestureRecognizer* panGesure;
+@property (nonatomic, assign) CGPoint startPoint;
 
 @end
 
@@ -60,7 +61,7 @@ static CGFloat const kStatusBarHeight = 20;
     [_drawerView addGestureRecognizer:self.panGesure];
     
     [_drawerView mas_makeConstraints:^(MASConstraintMaker *make) {
-
+        
         make.bottom.equalTo(self.view);
         make.width.equalTo(@(self.drawerWidth));
         
@@ -150,10 +151,17 @@ static CGFloat const kStatusBarHeight = 20;
 {
     if (!_panGesure)
     {
-        _panGesure = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_moveDrawer:)];
+        _panGesure = [UIPanGestureRecognizer new];
+        [self attachPanRecognizer:_panGesure];
     }
     return _panGesure;
 }
+
+- (void)attachPanRecognizer:(UIPanGestureRecognizer*)recognizer
+{
+    [recognizer addTarget:self action:@selector(_moveDrawer:)];
+}
+
 
 #pragma mark - Global Opening State
 
@@ -192,9 +200,9 @@ static CGFloat const kStatusBarHeight = 20;
     POPSpringAnimation *drawerAlphaAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewAlpha];
     drawerAlphaAnimation.toValue = isOpen ? @(1) : @(0); //HACK: for POP
     drawerAlphaAnimation.springBounciness = 4;
-
+    
     [self.drawerView pop_addAnimation:drawerAlphaAnimation forKey:@"drawerAlphaAnimation"];
-
+    
     self.isOpen = isOpen;
 }
 
@@ -211,19 +219,31 @@ static CGFloat const kStatusBarHeight = 20;
     CGPoint translation = [recognizer translationInView:self.view];
     CGPoint velocity = [recognizer velocityInView:self.view];
     
+    BOOL isInBounds = self.startPoint.x > (self.view.bounds.size.width - 40); //TODO: this only for rifht side
+    
     if (recognizer.state == UIGestureRecognizerStateBegan)
     {
-        if (velocity.x > kDefaultDrawerVelocityTrigger && !self.isOpen)
+        self.startPoint = [recognizer locationInView:self.view];
+        
+        if (isInBounds && recognizer != self.panGesure)
         {
-            [self updateStateToOpened:YES];
-        }
-        else if (velocity.x < -kDefaultDrawerVelocityTrigger && self.isOpen)
-        {
-            [self updateStateToOpened:NO];
+            if (velocity.x > kDefaultDrawerVelocityTrigger && !self.isOpen)
+            {
+                [self updateStateToOpened:YES];
+            }
+            else if (velocity.x < -kDefaultDrawerVelocityTrigger && self.isOpen)
+            {
+                [self updateStateToOpened:NO];
+            }
         }
     }
     else if (recognizer.state == UIGestureRecognizerStateChanged)
     {
+        if (!self.isOpen && !isInBounds)
+        {
+            return;
+        }
+        
         CGFloat startOffset = self.isOpen ? [self _offsetForOpenState] : 0;
         CGFloat newOffset = startOffset + translation.x;
         
@@ -238,27 +258,40 @@ static CGFloat const kStatusBarHeight = 20;
         
         self.animatedConstraint.offset(newOffset);
         self.backgroundView.hidden = NO;
+        
+        CGFloat alpha = 0;
         if (self.openDirection == ANDrawerOpenDirectionFromLeft)
         {
-            self.backgroundView.alpha =  1 / self.drawerWidth * newOffset + 0.5;
+            alpha =  1 / self.drawerWidth * newOffset + 0.5;
         }
         else
         {
-            self.backgroundView.alpha = 1 - (1 / self.drawerWidth * newOffset + 0.5);
+            alpha = 1 - (1 / self.drawerWidth * newOffset + 0.5);
         }
+        self.backgroundView.alpha = alpha;
+        self.drawerView.alpha = alpha;
     }
-    else if (recognizer.state == UIGestureRecognizerStateEnded)
+    else if (recognizer.state == UIGestureRecognizerStateEnded ||
+             recognizer.state == UIGestureRecognizerStateCancelled)
     {
-        BOOL newState;
-        if (self.openDirection == ANDrawerOpenDirectionFromLeft)
+        CGFloat padding = 0;
+        if (self.openDirection == ANDrawerOpenDirectionFromRight)
         {
-            newState = (self.drawerView.center.x > (self.drawerWidth / 2));
+            padding = self.view.center.x;
         }
-        else
+        BOOL newState = ((self.drawerView.center.x - padding) < ((self.drawerWidth - 10) / 2));
+        if (newState == NO)
         {
-            newState = (self.drawerView.center.x < (self.drawerWidth / 2));
+            [self updateStateToOpened:newState];
         }
-        [self updateStateToOpened:newState];
+        else if (recognizer == self.panGesure)
+        {
+            [self updateStateToOpened:newState];
+        }
+        else if (isInBounds)
+        {
+            [self updateStateToOpened:YES];
+        }
     }
 }
 

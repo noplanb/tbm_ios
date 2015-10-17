@@ -15,9 +15,9 @@ target 'Zazo' do
     pod 'ANBaseDomainModel', '~> 1.0'
     pod 'ANHelperFunctions', '~> 1.0.3'
     pod 'ANCategories', '~> 1.0.6'
-    pod 'ANStorage', '~> 1.1.3'
+    pod 'ANStorage'#, '~> 1.1.3'
     pod 'ANTableController', '~> 1.1.5'
-    pod 'ANTableViews', '~> 1.0.10'
+    pod 'ANTableViews'#, '~> 1.0.10'
 #
 #
     pod 'ANLogger', '~> 1.0.2'

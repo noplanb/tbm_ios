@@ -10,14 +10,15 @@
 #import "ZZGridView.h"
 #import "ZZGridCollectionController.h"
 #import "ZZGridDataSource.h"
-#import "ZZTouchObserver.h"
+#import "ZZGridRotationTouchObserver.h"
 #import "ZZActionSheetController.h"
 
-@interface ZZGridVC () <ZZTouchObserverDelegate, ZZGridCollectionControllerDelegate>
+@interface ZZGridVC () <ZZTouchObserverDelegate, ZZGridCollectionControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) ZZGridView* gridView;
 @property (nonatomic, strong) ZZGridCollectionController* controller;
-@property (nonatomic, strong) ZZTouchObserver* touchObserver;
+@property (nonatomic, strong) ZZGridRotationTouchObserver* touchObserver;
+@property (nonatomic, strong) UIPanGestureRecognizer* menuPanRecognizer;
 
 @end
 
@@ -30,7 +31,8 @@
         self.gridView = [ZZGridView new];
         self.controller = [ZZGridCollectionController new];
         self.controller.delegate = self;
-        self.touchObserver = [[ZZTouchObserver alloc] initWithGridView:self.gridView];
+        
+        self.touchObserver = [[ZZGridRotationTouchObserver alloc] initWithGridView:self.gridView];
         self.touchObserver.delegate = self;
     }
     return self;
@@ -60,12 +62,17 @@
     self.gridView.headerView.editFriendsButton.rac_command = [RACCommand commandWithBlock:^{
         [self editFriendsSelected];
     }];
+    
+    self.menuPanRecognizer = [UIPanGestureRecognizer new];
+    self.menuPanRecognizer.delegate = self;
+//    [self.view addGestureRecognizer:self.menuPanRecognizer];
+    
+    [self.eventHandler attachToMenuPanGesture:self.menuPanRecognizer];
 }
 
 - (void)updateWithDataSource:(ZZGridDataSource *)dataSource
 {
     [self.controller updateDataSource:dataSource];
-//    self.touchObserver.storage = dataSource.storage;
 }
 
 - (void)updateLoadingStateTo:(BOOL)isLoading
@@ -126,6 +133,10 @@
     self.gridView.isRotationEnabled = isEnabled;
 }
 
+- (void)spinRecognizerWasInstalled:(UIGestureRecognizer *)recognizer
+{
+//    [recognizer requireGestureRecognizerToFail:self.menuPanRecognizer];
+}
 
 #pragma mark - Action Hadler User Interface Delegate
 
@@ -165,5 +176,18 @@
     ZZGridCenterCell* centerCell = self.gridView.items[centerCellIndex];
     [centerCell updataeRecordStateTo:isRecording];
 }
+
+
+//#pragma mark - Menu Gesture Delegate
+//
+//- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+//{
+//    return YES;
+//}
+//
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+//{
+//    return YES;
+//}
 
 @end

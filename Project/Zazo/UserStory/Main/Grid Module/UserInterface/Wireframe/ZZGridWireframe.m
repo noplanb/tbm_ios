@@ -99,6 +99,11 @@
     }];
 }
 
+- (void)attachAdditionalPanGestureToMenu:(UIPanGestureRecognizer*)pan
+{
+    [self.menuWireFrame attachAdditionalPanGestureToMenu:pan];
+}
+
 
 #pragma mark - Private
 

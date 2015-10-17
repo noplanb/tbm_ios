@@ -61,10 +61,7 @@
 {
     ZZGridWireframe* gridWireframe = [ZZGridWireframe new];
     gridWireframe.menuWireFrame = self;
-
-    UIPanGestureRecognizer* recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self.drawerController action:@selector(_moveDrawer:)];
     [gridWireframe presentGridControllerFromNavigationController:self.drawerController];
-    [gridWireframe.presenter.userInterface.view addGestureRecognizer:recognizer];
     self.presenter.menuModuleDelegate = gridWireframe.presenter;
 }
 
@@ -96,6 +93,11 @@
     ANDispatchBlockToMainQueue(^{
        [self.drawerController updateStateToOpened:NO]; 
     });
+}
+
+- (void)attachAdditionalPanGestureToMenu:(UIPanGestureRecognizer*)pan
+{
+    [self.drawerController attachPanRecognizer:pan];
 }
 
 @end

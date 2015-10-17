@@ -34,5 +34,6 @@ typedef NS_ENUM(NSInteger, ANDrawerTopPin)
 //update state
 - (void)toggle;
 - (void)updateStateToOpened:(BOOL)isOpen;
+- (void)attachPanRecognizer:(UIPanGestureRecognizer*)recognizer;
 
 @end

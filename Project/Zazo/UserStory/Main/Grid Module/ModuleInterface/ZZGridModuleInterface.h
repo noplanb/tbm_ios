@@ -16,5 +16,6 @@
 - (void)stopPlaying;
 
 - (BOOL)isRecordingInProgress;
+- (void)attachToMenuPanGesture:(UIPanGestureRecognizer*)pan;
 
 @end

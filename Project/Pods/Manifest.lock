@@ -110,9 +110,9 @@ DEPENDENCIES:
   - ANHelperFunctions (~> 1.0.3)
   - ANLogger (~> 1.0.2)
   - ANProgressButton (~> 1.0.2)
-  - ANStorage (~> 1.1.3)
+  - ANStorage
   - ANTableController (~> 1.1.5)
-  - ANTableViews (~> 1.0.10)
+  - ANTableViews
   - APAddressBook (~> 0.1.11)
   - CocoaLumberjack (~> 2.0.1)
   - Crashlytics

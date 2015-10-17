@@ -69,6 +69,11 @@
     [[ZZVideoRecorder shared] addDelegate:self];
 }
 
+- (void)attachToMenuPanGesture:(UIPanGestureRecognizer*)pan
+{
+    [self.wireframe attachAdditionalPanGestureToMenu:pan];
+}
+
 - (void)_setupNotifications
 {
     [[NSNotificationCenter defaultCenter] addObserver:self

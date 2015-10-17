@@ -12,4 +12,6 @@
 - (void)toggleMenu;
 - (void)closeMenu;
 
+- (void)attachAdditionalPanGestureToMenu:(UIPanGestureRecognizer*)pan;
+
 @end
