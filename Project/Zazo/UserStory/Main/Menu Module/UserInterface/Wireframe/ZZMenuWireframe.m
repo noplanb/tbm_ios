@@ -13,6 +13,7 @@
 #import "ANDrawerNC.h"
 #import "ZZGridWireframe.h"
 #import "ZZGridPresenter.h"
+#import "ZZGridUIConstants.h"
 
 @interface ZZMenuWireframe ()
 
@@ -62,9 +63,8 @@
     gridWireframe.menuWireFrame = self;
 
     UIPanGestureRecognizer* recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self.drawerController action:@selector(_moveDrawer:)];
-    [gridWireframe.presenter.userInterface.view addGestureRecognizer:recognizer];
-
     [gridWireframe presentGridControllerFromNavigationController:self.drawerController];
+    [gridWireframe.presenter.userInterface.view addGestureRecognizer:recognizer];
     self.presenter.menuModuleDelegate = gridWireframe.presenter;
 }
 
@@ -76,7 +76,8 @@
     ANDrawerNC* drawerController = [ANDrawerNC drawerWithView:view width:menuWidth direction:ANDrawerOpenDirectionFromRight];
     drawerController.useBackground = YES;
     drawerController.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
-    drawerController.topPin = ANDrawerTopPinNone;
+    drawerController.customTopPadding = kGridHeaderViewHeight;
+    drawerController.topPin = ANDrawerTopPinCustomOffset;
     drawerController.avoidKeyboard = YES;
     return drawerController;
 }

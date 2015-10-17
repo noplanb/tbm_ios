@@ -10,9 +10,6 @@
 #import "FrameAccessor.h"
 #import "ReactiveCocoa.h"
 
-#define MCANIMATE_SHORTHAND
-#import "POP+MCAnimate.h"
-
 static CGFloat const kDefaultDrawerVelocityTrigger = 350;
 static CGFloat const kStatusBarHeight = 20;
 
@@ -99,6 +96,10 @@ static CGFloat const kStatusBarHeight = 20;
         CGFloat navigationBarHeight = self.navigationBarHidden ? 0 : self.navigationBar.height;
         topOffset = kStatusBarHeight + navigationBarHeight;
     }
+    else if (pinType == ANDrawerTopPinCustomOffset)
+    {
+        topOffset = self.customTopPadding;
+    }
     return topOffset;
 }
 
@@ -180,14 +181,20 @@ static CGFloat const kStatusBarHeight = 20;
     leftSideAnimation.springBounciness = 4;
     [self.animatedConstraint pop_addAnimation:leftSideAnimation forKey:@"offset"];
     
-    self.drawerView.spring.alpha = isOpen;
+    POPSpringAnimation *alphaAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewAlpha];
+    alphaAnimation.toValue = isOpen ? @(1) : @(0); //HACK: for POP
+    alphaAnimation.springBounciness = 4;
+    alphaAnimation.completionBlock = ^(POPAnimation* animation, BOOL isCompleted) {
+        if (!isOpen && isCompleted) self.backgroundView.hidden = YES;
+    };
+    [self.backgroundView pop_addAnimation:alphaAnimation forKey:@"alpha"];
     
-    [NSObject animate:^{
-        self.backgroundView.spring.alpha = isOpen;
-    } completion:^(BOOL finished) {
-        if (!isOpen) self.backgroundView.hidden = YES;
-    }];
-    
+    POPSpringAnimation *drawerAlphaAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewAlpha];
+    drawerAlphaAnimation.toValue = isOpen ? @(1) : @(0); //HACK: for POP
+    drawerAlphaAnimation.springBounciness = 4;
+
+    [self.drawerView pop_addAnimation:drawerAlphaAnimation forKey:@"drawerAlphaAnimation"];
+
     self.isOpen = isOpen;
 }
 
@@ -231,7 +238,14 @@ static CGFloat const kStatusBarHeight = 20;
         
         self.animatedConstraint.offset(newOffset);
         self.backgroundView.hidden = NO;
-        self.backgroundView.alpha = 1 / self.drawerWidth * newOffset + 0.5;
+        if (self.openDirection == ANDrawerOpenDirectionFromLeft)
+        {
+            self.backgroundView.alpha =  1 / self.drawerWidth * newOffset + 0.5;
+        }
+        else
+        {
+            self.backgroundView.alpha = 1 - (1 / self.drawerWidth * newOffset + 0.5);
+        }
     }
     else if (recognizer.state == UIGestureRecognizerStateEnded)
     {

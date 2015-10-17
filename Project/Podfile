@@ -33,7 +33,6 @@ target 'Zazo' do
     #UI
     pod 'Masonry', '~> 0.6.2'
     pod 'MSSPopMasonry', '~> 0.0.1'
-    pod 'POP+MCAnimate', '~> 2.0'
     pod 'TPKeyboardAvoiding'
     
     #Testing

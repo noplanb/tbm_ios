@@ -15,7 +15,8 @@ typedef NS_ENUM(NSInteger, ANDrawerTopPin)
 {
     ANDrawerTopPinNone,
     ANDrawerTopPinStatusBar,
-    ANDrawerTopPinNavigationBar
+    ANDrawerTopPinNavigationBar,
+    ANDrawerTopPinCustomOffset,
 };
 
 @interface ANDrawerNC : UINavigationController
@@ -25,6 +26,7 @@ typedef NS_ENUM(NSInteger, ANDrawerTopPin)
 @property (nonatomic, assign) BOOL closeOnPushNewController;
 @property (nonatomic, assign) BOOL avoidKeyboard;
 @property (nonatomic, assign) ANDrawerTopPin topPin;
+@property (nonatomic, assign) CGFloat customTopPadding;
 
 //initialization
 + (instancetype)drawerWithView:(UIView*)view width:(CGFloat)width direction:(ANDrawerOpenDirection)direction;
