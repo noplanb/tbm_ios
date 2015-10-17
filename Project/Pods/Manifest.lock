@@ -25,9 +25,6 @@ PODS:
   - ANCategories (1.0.6):
     - ANHelperFunctions (~> 1.0)
     - ReactiveCocoa (~> 2.4.2)
-  - ANCollectonController (1.0):
-    - ANLogger (~> 1.0)
-    - ANStorage (~> 1.0)
   - ANColorTheme (1.0.4):
     - ANCategories (~> 1.0)
     - ANHelperFunctions (~> 1.0)
@@ -72,12 +69,10 @@ PODS:
   - Fabric/Base (1.5.1)
   - FastEasyMapping (0.5.1)
   - FrameAccessor (1.3.2)
-  - HexColors (2.3.0)
   - iToast (0.0.1)
   - KIF (3.2.3):
     - KIF/XCTest (= 3.2.3)
   - KIF/XCTest (3.2.3)
-  - KVOController (1.0.3)
   - libPhoneNumber-iOS (0.8.7)
   - MagicalRecord (2.3.0)
   - Masonry (0.6.2)
@@ -120,14 +115,10 @@ PODS:
     - ReactiveCocoa/Core
   - Reveal-iOS-SDK (1.6.0)
   - Rollbar (0.1.5)
-  - SCRecorder (2.5.3)
   - SDCAlertView (2.5.3):
     - RBBAnimation (~> 0.3)
     - SDCAutoLayout (~> 2.0)
   - SDCAutoLayout (2.0.3)
-  - SDWebImage (3.7.3):
-    - SDWebImage/Core (= 3.7.3)
-  - SDWebImage/Core (3.7.3)
   - Specta (1.0.3)
   - SVProgressHUD (1.1.3)
   - TPKeyboardAvoiding (1.2.9)
@@ -137,10 +128,8 @@ DEPENDENCIES:
   - AFNetworking (~> 2.6.0)
   - ANBaseDomainModel (~> 1.0)
   - ANCategories (~> 1.0.6)
-  - ANCollectonController (~> 1.0)
   - ANColorTheme (~> 1.0.4)
   - ANHelperFunctions (~> 1.0.3)
-  - ANKeyboardHandler (~> 1.0.2)
   - ANLogger (~> 1.0.2)
   - ANProgressButton (~> 1.0.2)
   - ANStorage (~> 1.1.3)
@@ -148,16 +137,14 @@ DEPENDENCIES:
   - ANTableViews (~> 1.0.10)
   - APAddressBook (~> 0.1.11)
   - CocoaLumberjack (~> 2.0.1)
-  - Crashlytics (~> 3.3.4)
+  - Crashlytics
   - DeviceUtil (~> 1.2.0)
   - Expecta (~> 1.0.2)
-  - Fabric (~> 1.5)
+  - Fabric
   - FastEasyMapping (~> 0.5.1)
   - FrameAccessor (~> 1.3.2)
-  - HexColors (~> 2.3.0)
   - iToast (~> 0.0.1)
   - KIF (~> 3.2.3)
-  - KVOController (~> 1.0.3)
   - libPhoneNumber-iOS (~> 0.8.7)
   - MagicalRecord (~> 2.3.0)
   - Masonry (~> 0.6.2)
@@ -167,10 +154,8 @@ DEPENDENCIES:
   - POP+MCAnimate (~> 2.0)
   - Reveal-iOS-SDK (~> 1.6)
   - Rollbar (~> 0.1.5)
-  - SCRecorder
   - SDCAlertView (~> 2.5.2)
   - SDCAutoLayout (~> 2.0.3)
-  - SDWebImage (~> 3.7.3)
   - Specta (~> 1.0.3)
   - SVProgressHUD (~> 1.1.3)
   - TPKeyboardAvoiding
@@ -180,7 +165,6 @@ SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   ANBaseDomainModel: ed24258ecfad8c4829e13c032c07caee7baaf575
   ANCategories: e27e6963e30875ff0e46352179b06aecaefe4037
-  ANCollectonController: c4b028707a2a922b03903a835b94b8126f6a5503
   ANColorTheme: 5fcbfba22ba047c68a9f4b92c5012fc9d02c1dc8
   ANHelperFunctions: 39cbb913f8af9b52fc8921ba4051583a7bfc13ab
   ANKeyboardHandler: 800b1f318d59cd7746be449286ebbd78ee81465a
@@ -197,10 +181,8 @@ SPEC CHECKSUMS:
   Fabric: 03c3b3fe77e11a2bc31421b989a9c7adaa4779a5
   FastEasyMapping: 03a3fbe3af1005e67974358a4ec2b4764f8aa3b4
   FrameAccessor: 0f7ba6ce37be9a5d0302a27c731dca70af8d438b
-  HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
   iToast: df147188215cc3293bd4366822833f2862fec451
   KIF: a94bffe9c97e449e44f8fa481c53243d21309e1e
-  KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
   libPhoneNumber-iOS: 1bccd3288375d954b0b904e26061cecaa0fb83d6
   MagicalRecord: 89eb7d7ead39fb37f01c3d010665ee94d17f8dba
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
@@ -213,13 +195,11 @@ SPEC CHECKSUMS:
   ReactiveCocoa: eb38dee0a0e698f73a9b25e5c1faea2bb4c79240
   Reveal-iOS-SDK: 6afacafd60f66f2822c09c43ae60562881bfab6e
   Rollbar: 6b4be007d57f434cd48f7cce52862013c6bd64cb
-  SCRecorder: a8b1deff74c4e03f4f3cfbfceb8fbc4877d166e4
   SDCAlertView: 7554e4e7ce1adbefbcc7374e7bae237dad32a8d8
   SDCAutoLayout: e6885bb39ab8e2ec2ff84d158f38035f025f7420
-  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   Specta: cf3e4188cf35375c3ee2cd03f8db8f1f4ef98234
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TPKeyboardAvoiding: ff1ee4e5a5a0c119b965552af8f183868ea20207
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0

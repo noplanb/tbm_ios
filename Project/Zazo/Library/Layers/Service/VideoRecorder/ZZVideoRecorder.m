@@ -83,6 +83,41 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     [self.recorder setupCaptureSessionView:_recordingView];
 }
 
+//TODO: review this code, to handle all exising cases
+////-----------------------------------
+//// VideoRecorder setup and callbacks
+////-----------------------------------
+//- (void)videoRecorderDidStartRunning {
+//}
+//
+//- (void)videoRecorderRuntimeErrorWithRetryCount:(int)videoRecorderRetryCount {
+//    OB_ERROR(@"videoRecorderRuntimeErrorWithRetryCount %d", videoRecorderRetryCount);
+//    [self setupVideoRecorder:videoRecorderRetryCount];
+//}
+//
+//// We call setupVideoRecorder on multiple events so the first qualifying event takes effect. All later events are ignored.
+//- (void)setupVideoRecorder:(int)retryCount {
+//    // Note that when we get retryCount != 0 we are being called because of a videoRecorderRuntimeError and we need reinstantiate
+//    // even if videoRecorder != nil
+//    // Also if we still have a videoRecorder but the OS killed our view from under us trying to save memory while we were in the
+//    // background we want to reinstantiate.
+//    if (self.videoRecorder != nil && retryCount == 0 && [self isViewLoaded] && self.view.window) {
+//        OB_WARN(@"TBMHomeViewController: setupVideoRecorder: already setup. Ignoring");
+//    }
+//    else if (![self appDelegate].isForeground) {
+//        OB_WARN(@"HomeViewController: not initializing the VideoRecorder because ! isForeground");
+//    }
+//    else
+//    {
+//        OB_WARN(@"HomeviewController: setupVideoRecorder: setting up. vr=%@, rc=%d, isViewLoaded=%d, view.window=%d", self.videoRecorder, retryCount, [self isViewLoaded], [self isViewLoaded] && self.view.window);
+//        
+//        //        self.videoRecorder = [[TBMVideoRecorder alloc] initWithPreviewView:nil//[self centerView]
+//        //                                                                  delegate:self];
+//    }
+//    [self.videoRecorder startRunning];
+//}
+
+
 //TODO:
 - (void)videoRecorderRuntimeErrorWithRetryCount:(int)videoRecorderRetryCount {
     OB_ERROR(@"videoRecorderRuntimeErrorWithRetryCount %d", videoRecorderRetryCount);

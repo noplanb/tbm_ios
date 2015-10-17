@@ -23,7 +23,6 @@
 #import "ZZFriendDataProvider.h"
 #import "TBMUser.h"
 #import "TBMFriend.h"
-#import "TBMPhoneUtils.h"
 #import "TBMAppDelegate+Boot.h"
 #import "ZZCommonNetworkTransportService.h"
 #import "ZZVideoRecorder.h"

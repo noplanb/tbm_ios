@@ -5,7 +5,6 @@
 
 
 #import "TBMFeatureUnlockDialogView.h"
-#import "HexColors.h"
 #import "TBMSoundEffect.h"
 
 NSString *const kTBMFeatureUnlockDialogHeaderFontName = @"AppleSDGothicNeo-Regular";
@@ -187,7 +186,7 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
         _dialogView = [[UIView alloc] initWithFrame:CGRectZero];
         _dialogView.clipsToBounds = NO;
         _dialogView.layer.cornerRadius = 19.f;
-        _dialogView.backgroundColor = [UIColor colorWithHexString:@"#1C1C19"];
+        _dialogView.backgroundColor = [UIColor an_colorWithHexString:@"#1C1C19"];
         [self addSubview:_dialogView];
     }
     return _dialogView;
@@ -226,7 +225,7 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
     {
         _subHeaderLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _subHeaderLabel.font = [UIFont fontWithName:kTBMFeatureUnlockDialogSubHeaderFontName size:18];
-        _subHeaderLabel.textColor = [UIColor colorWithHexString:@"#A8A294"];
+        _subHeaderLabel.textColor = [UIColor an_colorWithHexString:@"#A8A294"];
         _subHeaderLabel.text = @"You unlocked a new feature!";
         _subHeaderLabel.textAlignment = NSTextAlignmentCenter;
         _subHeaderLabel.minimumScaleFactor = .7f;
@@ -242,7 +241,7 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
     {
         _featureNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _featureNameLabel.font = [UIFont fontWithName:kTBMFeatureUnlockDialogFeatureFontName size:16];
-        _featureNameLabel.textColor = [UIColor colorWithHexString:@"#F68B1F"];
+        _featureNameLabel.textColor = [UIColor an_colorWithHexString:@"#F68B1F"];
         _featureNameLabel.textAlignment = NSTextAlignmentCenter;
         _featureNameLabel.minimumScaleFactor = .7f;
         _featureNameLabel.numberOfLines = 0;
@@ -291,7 +290,7 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
     {
         _showMeButtonLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _showMeButtonLabel.font = [UIFont fontWithName:kTBMFeatureUnlockDialogButtonFontName size:18];
-        _showMeButtonLabel.textColor = [UIColor colorWithHexString:@"#A8A294"];
+        _showMeButtonLabel.textColor = [UIColor an_colorWithHexString:@"#A8A294"];
         _showMeButtonLabel.text = @"Show me!";
         _showMeButtonLabel.textAlignment = NSTextAlignmentCenter;
         _showMeButtonLabel.minimumScaleFactor = .7f;

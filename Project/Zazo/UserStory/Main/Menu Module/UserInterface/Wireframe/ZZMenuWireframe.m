@@ -76,7 +76,7 @@
     ANDrawerNC* drawerController = [ANDrawerNC drawerWithView:view width:menuWidth direction:ANDrawerOpenDirectionFromRight];
     drawerController.useBackground = YES;
     drawerController.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
-    drawerController.topPin = ANDrawerTopPinNavigationBar;
+    drawerController.topPin = ANDrawerTopPinNone;
     drawerController.avoidKeyboard = YES;
     return drawerController;
 }

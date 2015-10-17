@@ -8,7 +8,6 @@
 
 #import "TBMVideoPlayer.h"
 #import "MediaPlayer/MediaPlayer.h"
-#import "TBMSoundEffect.h"
 #import "TBMGridElement.h"
 #import "TBMVideo.h"
 #import "TBMFriend.h"

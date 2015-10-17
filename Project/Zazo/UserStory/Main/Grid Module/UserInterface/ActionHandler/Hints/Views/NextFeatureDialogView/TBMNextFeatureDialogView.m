@@ -3,7 +3,6 @@
 // Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import <HexColors/HexColors.h>
 #import "TBMNextFeatureDialogView.h"
 #import "NSArray+TBMArrayHelpers.h"
 
@@ -205,7 +204,7 @@ CGFloat const kElementsHorizontalMargin = 15.f;
     {
         _subHeaderLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _subHeaderLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16];
-        _subHeaderLabel.textColor = [UIColor colorWithHexString:@"#F68B1F"];
+        _subHeaderLabel.textColor = [UIColor an_colorWithHexString:@"#F68B1F"];
         _subHeaderLabel.text = @"Just Zazo Someone new!";
         _subHeaderLabel.adjustsFontSizeToFitWidth = YES;
         _subHeaderLabel.textAlignment = NSTextAlignmentLeft;

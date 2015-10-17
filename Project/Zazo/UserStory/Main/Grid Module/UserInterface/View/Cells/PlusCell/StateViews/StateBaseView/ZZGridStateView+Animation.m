@@ -51,7 +51,6 @@
 - (void)_showUploadViews
 {
     self.leftUploadIndicatorConstraint.offset = 0;
-//    self.uploadingIndicator.image = [UIImage imageNamed:@"icon-uploading-1x"];
     self.uploadBarView.hidden = NO;
     self.uploadingIndicator.hidden = NO;
 }

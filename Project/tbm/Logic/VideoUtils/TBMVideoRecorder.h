@@ -7,7 +7,6 @@
 //
 
 #import "AVFoundation/AVFoundation.h"
-#import "TBMPreviewView.h"
 #import "AVAudioSession+TBMAudioSession.h"
 
 //extern NSString* const TBMVideoRecorderDidFinishRecording;
