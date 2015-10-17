@@ -48,13 +48,9 @@
         self.rotationRecognizer.delegate = self;
         [self.gridView addGestureRecognizer:self.rotationRecognizer];
         
-//        [RACObserve([ZZGridActionStoredSettings shared], spinHintWasShown) subscribeNext:^(id x) {
-//            self.rotationRecognizer.enabled = [x boolValue];
-//            if ([x boolValue])
-//            {
-                [self.delegate spinRecognizerWasInstalled:self.rotationRecognizer];
-//            }
-//        }];
+        [RACObserve([ZZGridActionStoredSettings shared], spinHintWasShown) subscribeNext:^(id x) {
+            self.rotationRecognizer.enabled = [x boolValue];
+        }];
         
         self.rotator = [[ZZRotator alloc] initWithAnimationCompletionBlock:^{
             self.isMoving = NO;

@@ -13,7 +13,7 @@
 #import "ZZGridRotationTouchObserver.h"
 #import "ZZActionSheetController.h"
 
-@interface ZZGridVC () <ZZTouchObserverDelegate, ZZGridCollectionControllerDelegate, UIGestureRecognizerDelegate>
+@interface ZZGridVC () <ZZGridRotationTouchObserverDelegate, ZZGridCollectionControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) ZZGridView* gridView;
 @property (nonatomic, strong) ZZGridCollectionController* controller;
@@ -132,10 +132,6 @@
     self.gridView.isRotationEnabled = isEnabled;
 }
 
-- (void)spinRecognizerWasInstalled:(UIGestureRecognizer *)recognizer
-{
-//    [recognizer requireGestureRecognizerToFail:self.menuPanRecognizer];
-}
 
 #pragma mark - Action Hadler User Interface Delegate
 
