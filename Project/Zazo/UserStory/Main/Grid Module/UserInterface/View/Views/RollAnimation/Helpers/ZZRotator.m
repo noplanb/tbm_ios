@@ -85,7 +85,7 @@
             angle = [ZZGeometryHelper normalizedAngle:angle withMaxCellOffset:[grid maxCellsOffset]];
             
             if ((angle - grid.calculatedCellsOffset) < M_PI_4)
-            {
+            {      //TODO: add better determining direction
                 ZZSpinDirection direction = velocity > 0 ? ZZSpinDirectionClockwise : ZZSpinDirectionCounterClockwise;
                 
                 angle = [ZZGeometryHelper nextFixedPositionFrom:angle withDirection:direction];
