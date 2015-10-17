@@ -50,7 +50,9 @@
     firstName = [NSObject an_safeString:firstName];
     fullName = [NSObject an_safeString:fullName];
     NSString *title = @"No Mobile Number";
-    NSString *msg = [NSString stringWithFormat:@"I could not find a valid mobile number for %@.\n\nPlease add a mobile number for %@ in your device contacts, kill %@, then try again.", fullName, firstName, [self _appName]];
+//    NSString *msg = [NSString stringWithFormat:@"I could not find a valid mobile number for %@.\n\nPlease add a mobile number for %@ in your device contacts, kill %@, then try again.", fullName, firstName, [self _appName]];
+    
+    NSString *msg = [NSString stringWithFormat:@"I could not find a valid mobile number for %@.\n\nPlease add a mobile number for %@ in your device contacts and try again.", fullName, firstName];
     
     [ZZAlertBuilder presentAlertWithTitle:title details:msg cancelButtonTitle:@"OK"];
 }

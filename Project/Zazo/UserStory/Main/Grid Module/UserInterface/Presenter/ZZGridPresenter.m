@@ -237,7 +237,7 @@
 
 - (void)_showRecordWelcomeIfNeeded
 {
-    CGFloat kDelayAfterViewLoaded = 0.8f;
+    CGFloat kDelayAfterViewLoaded = 1.0f;
     ANDispatchBlockAfter(kDelayAfterViewLoaded, ^{
         NSInteger indexWhenOneFriendOnGrid = 5;
         [self.actionHandler handleEvent:ZZGridActionEventTypeGridLoaded withIndex:indexWhenOneFriendOnGrid];
@@ -340,7 +340,9 @@
 
 - (void)videoPlayerURLWasFinishedPlaying:(NSURL *)videoURL withPlayedUserModel:(ZZFriendDomainModel*)playedFriendModel
 {
+    
     [self.interactor updateFriendAfterVideoStopped:playedFriendModel];
+    
     [self _handleRecordHintWithCellViewModel:playedFriendModel];
 }
 

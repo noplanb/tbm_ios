@@ -35,23 +35,23 @@ static inline CGFloat const kGridItemSpacing()
 {
     if (IS_IPHONE_4)
     {
-        return 4;
+        return 7;
     }
     else if (IS_IPHONE_5)
     {
-        return 4;
+        return 7;
     }
     else if (IS_IPHONE_6)
     {
-        return 4.5;
+        return 7.5;
     }
     else if (IS_IPHONE_6_PLUS)
     {
-        return 4.5;
+        return 7.5;
     }
     else if (IS_IPAD)
     {
-        return 4.5;
+        return 7.5;
     }
     return 0;
 }
@@ -83,6 +83,8 @@ static inline CGFloat const kGridHeight()
     return height;
 }
 
+
+static CGFloat const kLayoutConstNameLabelHeight = 22;
 
 static UIEdgeInsets const kGridSectionInsets = {12, 12, 12, 12};
 static CGFloat const kGridHeaderViewHeight = 55;

@@ -77,7 +77,7 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys) {
     else
     {
         isUnlock = [userIdsArray containsObject:vieModel.item.relatedUser.mKey];
-        if (!isUnlock)
+        if (!isUnlock && !ANIsEmpty(vieModel.item.relatedUser.mKey))
         {
             NSMutableArray* userIdsArrayCopy = [userIdsArray mutableCopy];
             [userIdsArrayCopy addObject:vieModel.item.relatedUser.mKey];

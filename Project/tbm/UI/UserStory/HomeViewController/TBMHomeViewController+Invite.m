@@ -148,9 +148,9 @@
 //--------
 - (void)noValidPhonesDialog{
     NSString *title = @"No Mobile Number";
-    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
-    NSString *msg = [NSString stringWithFormat:@"I could not find a valid mobile number for %@.\n\nPlease add a mobile number for %@ in your device contacts, kill %@, then try again.", [self fullname], [self firstName], appName];
-    
+//    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+//    NSString *msg = [NSString stringWithFormat:@"I could not find a valid mobile number for %@.\n\nPlease add a mobile number for %@ in your device contacts, kill %@, then try again.", [self fullname], [self firstName], appName];
+    NSString *msg = [NSString stringWithFormat:@"I could not find a valid mobile number for %@.\n\nPlease add a mobile number for %@ in your device contacts and try again.", [self fullname], [self firstName]];
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:title message:msg];
     [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleDefault handler:nil]];
     [alert presentWithCompletion:nil];

@@ -75,9 +75,10 @@
         [_nudgeButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.equalTo(self).offset(kSidePadding);
             make.right.equalTo(self).offset(-kSidePadding);
-            make.height.equalTo(self).dividedBy(kUserNameScaleValue/2).offset(-kSidePadding);
+            make.height.equalTo(@((kGridItemSize().height - kLayoutConstNameLabelHeight)/2));
         }];
     }
+    
     return _nudgeButton;
 }
 

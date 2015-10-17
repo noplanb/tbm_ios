@@ -31,7 +31,7 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
         [self.delegate frinedsNumberOnGrid] == 1 &&
         ![ZZGridActionStoredSettings shared].spinHintWasShown)
     {
-        self.isLastAcitionDone = YES;
+//        self.isLastAcitionDone = YES;
         [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = YES;
         [ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown = YES;
         
@@ -46,7 +46,7 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
               model.item.relatedUser.unviewedCount == 0 &&
               ![ZZGridActionStoredSettings shared].spinHintWasShown)
     {
-        self.isLastAcitionDone = YES;
+//        self.isLastAcitionDone = YES;
         [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = YES;
         if (completionBlock)
         {
@@ -57,7 +57,7 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
               ![ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown &&
               [self.delegate frinedsNumberOnGrid] > 1)
     {
-        self.isLastAcitionDone = YES;
+//        self.isLastAcitionDone = YES;
         [ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown = YES;
         [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = YES;
         if (completionBlock)

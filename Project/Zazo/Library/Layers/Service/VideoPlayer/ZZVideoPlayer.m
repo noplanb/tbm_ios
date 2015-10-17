@@ -292,10 +292,13 @@
     ZZVideoDomainModel* lastVideoModel = [acutalVideos lastObject];
     TBMVideo* lastVideo = [TBMVideo findWithVideoId:lastVideoModel.videoID];
     
-    [self.playedVideoUrls addObject:lastVideo.videoUrl];
-    
-    [videoModelsCopy addObject:lastVideoModel];
-    self.videoModelsArray = videoModelsCopy;
+    if (!ANIsEmpty(lastVideo))
+    {
+        [self.playedVideoUrls addObject:lastVideo.videoUrl];
+        
+        [videoModelsCopy addObject:lastVideoModel];
+        self.videoModelsArray = videoModelsCopy;
+    }
 }
 
 - (void)_playerStateWasUpdated

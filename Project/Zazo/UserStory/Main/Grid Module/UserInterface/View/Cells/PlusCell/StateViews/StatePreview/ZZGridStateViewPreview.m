@@ -55,10 +55,10 @@ static CGFloat const kThumbnailBorderWidth = 2;
     if (!thumbImage)
     {
         self.thumbnailImageView.contentMode = UIViewContentModeCenter;
-        self.thumbnailImageView.backgroundColor = [UIColor blackColor];
-        CGSize size = CGSizeMake(30, 30);
-        thumbImage = [[UIImage imageWithPDFNamed:@"contacts-placeholder-withoutborder2" atSize:size]
-                      an_imageByTintingWithColor:[ZZColorTheme shared].menuTextColor];
+        self.thumbnailImageView.backgroundColor = [ZZColorTheme shared].gridStatusViewThumbnailDefaultColor;
+        CGSize size = CGSizeMake(40, 40);
+        thumbImage = [[UIImage imageWithPDFNamed:@"contacts-placeholder" atSize:size]
+                      an_imageByTintingWithColor:[ZZColorTheme shared].gridStatusViewThumnailZColor];
     }
     else
     {
@@ -77,6 +77,7 @@ static CGFloat const kThumbnailBorderWidth = 2;
     {
         [self _hideThumbnailGreenBorder];
     }
+    
     
 }
 
