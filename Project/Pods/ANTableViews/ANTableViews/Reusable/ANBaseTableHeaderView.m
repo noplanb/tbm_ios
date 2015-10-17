@@ -11,6 +11,7 @@
 #import "UILabel+ANAdditions.h"
 
 static CGFloat const kANLabelSmallOffset = 10.0f;
+static CGFloat const kAdjustmentPadding = 5.0f;
 
 @interface ANBaseTableHeaderView ()
 
@@ -18,14 +19,10 @@ static CGFloat const kANLabelSmallOffset = 10.0f;
 
 @implementation ANBaseTableHeaderView
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (void)setup
 {
-    self = [super initWithFrame:frame];
-    if (self)
-    {
-        self.yLabelOffset = 15;
-    }
-    return self;
+    self.leftLabelInset = 15;
+    self.bottomLabelInset = 15;
 }
 
 - (void)layoutSubviews
@@ -35,8 +32,8 @@ static CGFloat const kANLabelSmallOffset = 10.0f;
     CGSize size = self.bounds.size;
     
     CGFloat height = [self.titleLabel an_textContentSizeConstrainedToWidth:size.width].height;
-    CGFloat yOffset = size.height - kANLabelSmallOffset - height + 5.0f;
-    self.titleLabel.frame = CGRectMake(self.yLabelOffset, yOffset, size.width - kANLabelSmallOffset * 2.0f, height);
+    CGFloat yOffset = size.height - self.bottomLabelInset - height + kAdjustmentPadding;
+    self.titleLabel.frame = CGRectMake(self.leftLabelInset, yOffset, size.width - self.leftLabelInset * 2.0f, height);
 }
 
 - (void)updateWithModel:(NSString*)model

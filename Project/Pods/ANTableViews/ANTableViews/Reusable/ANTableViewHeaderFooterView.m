@@ -9,6 +9,41 @@
 
 @implementation ANTableViewHeaderFooterView
 
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self)
+    {
+        [self setup];
+    }
+    return self;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        [self setup];
+    }
+    return self;
+}
+
+- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithReuseIdentifier:reuseIdentifier];
+    if (self)
+    {
+        [self setup];
+    }
+    return self;
+}
+
+- (void)setup
+{
+    
+}
+
 - (void)updateWithModel:(id)model
 {
     NSString * reason = [NSString stringWithFormat:@"view %@ should implement %@: method\n",
