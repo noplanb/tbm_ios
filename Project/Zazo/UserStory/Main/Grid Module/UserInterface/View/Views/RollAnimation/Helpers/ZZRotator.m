@@ -76,7 +76,6 @@
 
 - (void)stopDecayAnimationIfNeeded:(POPAnimation*)anim onGrid:(ZZGridView*)grid
 {
-//    NSLog(@"SPIN: %@", NSStringFromSelector(_cmd));
     if ([[anim class] isSubclassOfClass:[POPDecayAnimation class]])
     {
         CGFloat velocity = [((POPDecayAnimation *) anim).velocity floatValue];
@@ -85,17 +84,16 @@
             CGFloat angle = [((POPDecayAnimation *) anim).toValue floatValue];
             angle = [ZZGeometryHelper normalizedAngle:angle withMaxCellOffset:[grid maxCellsOffset]];
             
-            if (angle - grid.calculatedCellsOffset < M_PI_4)
+            if ((angle - grid.calculatedCellsOffset) < M_PI_4)
             {
-                
-                ZZSpinDirection direction = velocity >= 0 ? ZZSpinDirectionClockwise : ZZSpinDirectionCounterClockwise;
+                ZZSpinDirection direction = velocity > 0 ? ZZSpinDirectionClockwise : ZZSpinDirectionCounterClockwise;
                 
                 angle = [ZZGeometryHelper nextFixedPositionFrom:angle withDirection:direction];
 
                 if ((angle >= (grid.calculatedCellsOffset - 0.09f)) || (angle <= (grid.calculatedCellsOffset +0.09f)))
                 {
                     [self stopAnimationsOnGrid:grid];
-//                    [self bounceAnimationToAngle:angle onCarouselView:grid withVelocity:velocity]; //TODO: uncomment
+                    [self bounceAnimationToAngle:angle onCarouselView:grid withVelocity:velocity];
                 }
             }
         }

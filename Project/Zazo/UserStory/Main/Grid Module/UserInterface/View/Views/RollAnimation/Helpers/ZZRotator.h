@@ -71,18 +71,6 @@
 - (void)stopDecayAnimationIfNeeded:(POPAnimation *)anim onGrid:(ZZGridView*)grid;
 
 /**
-* stopping decay animation
-* @param grid Grid on which animation should be stopped
-*/
-- (void)stopDecayAnimationOnGrid:(UIView *)grid;
-
-/**
-* stopping bounce animation
-* @param grid Grid view on which animation should be stopped
-*/
-- (void)stopBounceAnimationOnGrid:(UIView *)grid;
-
-/**
 * Stop all animations on grid
 * @param grid Grid to be un animated
 */

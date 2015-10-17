@@ -38,17 +38,15 @@
 
 - (void)setCalculatedCellsOffset:(CGFloat)calculatedCellsOffset
 {
-//    NSLog(@"SPIN: original celloffset - %f", _calculatedCellsOffset);
-    _calculatedCellsOffset = calculatedCellsOffset; //TODO: uncomment it and check
-//    while (_calculatedCellsOffset >= self.maxCellsOffset)
-//    {
-//        _calculatedCellsOffset -= self.maxCellsOffset;
-//    }
-//    while (_calculatedCellsOffset <= 0)
-//    {
-//        _calculatedCellsOffset += self.maxCellsOffset;
-//    }
-//    NSLog(@"SPIN: new celloffset - %f", _calculatedCellsOffset);
+    _calculatedCellsOffset = calculatedCellsOffset;
+    while (_calculatedCellsOffset >= self.maxCellsOffset)
+    {
+        _calculatedCellsOffset -= self.maxCellsOffset;
+    }
+    while (_calculatedCellsOffset <= 0)
+    {
+        _calculatedCellsOffset += self.maxCellsOffset;
+    }
     [self.delegate placeCells];
 }
 

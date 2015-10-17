@@ -10,7 +10,6 @@ typedef NS_ENUM(NSInteger, ZZSpinDirection) {
     ZZSpinDirectionCounterClockwise
 };
 
-
 @interface ZZGeometryHelper : NSObject
 
 /**
@@ -43,12 +42,6 @@ typedef NS_ENUM(NSInteger, ZZSpinDirection) {
 * get direction from linear velocity and angle
 */
 + (ZZSpinDirection)directionWithVelocity:(CGPoint)velocity fromAngle:(CGFloat)angle gridFrame:(CGRect)frame;
-
-
-/**
-* get nearest fixed position from offset
-*/
-+ (CGFloat)nearestFixedPositionFrom:(CGFloat)currentPosition;
 
 + (CGFloat)nextFixedPositionFrom:(CGFloat)currentPosition withDirection:(ZZSpinDirection)direction;
 
