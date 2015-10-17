@@ -46,6 +46,7 @@
         self.rotationRecognizer = [[ZZRotationGestureRecognizer alloc] initWithTarget:self
                                                                                action:@selector(handleRotationGesture:)];
         self.rotationRecognizer.delegate = self;
+        
         [self.gridView addGestureRecognizer:self.rotationRecognizer];
         
         self.rotator = [[ZZRotator alloc] initWithAnimationCompletionBlock:^{
@@ -58,29 +59,31 @@
 
 - (void)handleRotationGesture:(ZZRotationGestureRecognizer*)recognizer
 {
-    switch (recognizer.state)
+    if ([ZZGridActionStoredSettings shared].spinHintWasShown)
     {
-        case UIGestureRecognizerStateBegan:
+        switch (recognizer.state)
         {
-            self.startOffset = self.gridView.calculatedCellsOffset;
-            [self.rotator stopAnimationsOnGrid:self.gridView];
-            
-        } break;
-        case UIGestureRecognizerStateChanged:
-        {
-            CGFloat currentAngle = [recognizer currentAngleInView:self.gridView];
-            CGFloat startAngle = [recognizer startAngleInView:self.gridView];
-            CGFloat deltaAngle = currentAngle - startAngle;
-            self.gridView.calculatedCellsOffset = self.startOffset + deltaAngle;
+            case UIGestureRecognizerStateBegan:
+            {
+                self.startOffset = self.gridView.calculatedCellsOffset;
+                [self.rotator stopAnimationsOnGrid:self.gridView];
+            } break;
+           
+            case UIGestureRecognizerStateChanged:
+            {
+                CGFloat currentAngle = [recognizer currentAngleInView:self.gridView];
+                CGFloat startAngle = [recognizer startAngleInView:self.gridView];
+                CGFloat deltaAngle = currentAngle - startAngle;
+                self.gridView.calculatedCellsOffset = self.startOffset + deltaAngle;
+            } break;
+           
+            case UIGestureRecognizerStateCancelled:
+            case UIGestureRecognizerStateEnded:
+            {
+                [self.rotator decayAnimationWithVelocity:[recognizer angleVelocityInView:self.gridView] onCarouselView:self.gridView];
+            } break;
+            default: break;
         }
-            break;
-        case UIGestureRecognizerStateCancelled:
-        case UIGestureRecognizerStateEnded:
-        {
-            [self.rotator decayAnimationWithVelocity:[recognizer angleVelocityInView:self.gridView] onCarouselView:self.gridView];
-        }
-            break;
-        default: break;
     }
 }
 

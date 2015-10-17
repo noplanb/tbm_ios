@@ -131,9 +131,10 @@
     model.serverIndex = manager.serverEndpointState;
     NSString* version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     NSString* buildNumber = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-    model.version = [NSString stringWithFormat:@"%@(%@)",
+    model.version = [NSString stringWithFormat:@"%@(%@) - %@",
                      [NSObject an_safeString:version],
-                     [NSObject an_safeString:buildNumber]];
+                     [NSObject an_safeString:buildNumber],
+                     kGlobalApplicationVersion];
     
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
     model.firstName = user.firstName;

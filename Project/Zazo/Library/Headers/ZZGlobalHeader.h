@@ -46,6 +46,13 @@
 #import "UIImage+ANAdditions.h"
 #import "OBLogger.h"
 
+#ifdef RELEASE
+#warning Don't forget update this number
+#endif
+static NSString* const kGlobalApplicationVersion = @"37";
+
+
+
 
 //TODO: cleanup this
 

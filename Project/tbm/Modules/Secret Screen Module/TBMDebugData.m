@@ -25,8 +25,7 @@
     NSString* version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     NSString* buildNumber = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     
-    NSArray *versionParts = @[version, @"(", buildNumber, @")"];
-    self.version = [versionParts componentsJoinedByString:@" "];
+    self.version = [NSString stringWithFormat:@"%@ (%@) - %@", version, buildNumber, kGlobalApplicationVersion];
     
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
     self.firstName = user.firstName;
