@@ -43,6 +43,9 @@ static inline NSString* const apiBaseURL()
     {
         apiURLString = ZZApiBaseURLsList.production;
     }
+#ifdef STAGESERVER
+    apiURLString = ZZApiBaseURLsList.staging;
+#endif
     return apiURLString;
 }
 

@@ -17,4 +17,7 @@
 
 - (void)updateUserFullName:(NSString*)fullName phone:(NSString*)phone itemID:(NSString*)itemID;
 
+- (void)logMessage:(NSString*)message;
+- (void)logMessage:(NSString*)message level:(ZZDispatchLevel)level;
+
 @end

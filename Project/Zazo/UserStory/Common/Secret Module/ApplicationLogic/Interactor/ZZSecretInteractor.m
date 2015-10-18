@@ -10,7 +10,6 @@
 #import "ZZSettingsModel.h"
 #import "ZZStoredSettingsManager.h"
 #import "TBMUser.h"
-#import "TBMDispatch.h"
 #import "ZZAPIRoutes.h"
 #import "ZZNetworkTransport.h"
 #import "ZZUserDataProvider.h"
@@ -21,6 +20,8 @@
 #import "MagicalRecord.h"
 #import "ZZVideoRecorder.h"
 #import "ZZGridInteractor.h"
+#import "ZZRollbarAdapter.h"
+#import "ZZContentDataAcessor.h"
 
 @implementation ZZSecretInteractor
 
@@ -32,13 +33,13 @@
 
 - (void)dispatchData
 {
-    [TBMDispatch dispatch:[self _generateCurrentStateMessage]];
+    [[ZZRollbarAdapter shared] logMessage:[self _generateCurrentStateMessage]];
 }
 
 - (void)forceCrash
 {
     NSString* message = [NSString stringWithFormat:@"CRASH BUTTON EXCEPTION: %@", [self _generateCurrentStateMessage]];
-    [TBMDispatch dispatch:message]; // TODO: check it in previous versions
+    [[ZZRollbarAdapter shared] logMessage:message level:ZZDispatchLevelError];// TODO: check it in previous versions
     //BADABOOOOOOM!
     [[NSArray array] objectAtIndex:2];
 }
@@ -87,8 +88,12 @@
 
 - (void)removeAllUserData
 {
-    [TBMFriend MR_truncateAll];
-    [TBMVideo MR_truncateAll];
+    //TODO: move it to data updaters
+    NSManagedObjectContext* context = [ZZContentDataAcessor contextForCurrentThread];
+    [TBMFriend MR_truncateAllInContext:context];
+    [TBMVideo MR_truncateAllInContext:context];
+    [context MR_saveToPersistentStoreAndWait];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:kResetAllUserDataNotificationKey object:nil];
 }
 
@@ -159,7 +164,7 @@
     [message appendFormat:@"Debug mode:     %@\n", model.isDebugEnabled ? @"ON" : @"OFF"];
     [message appendFormat:@"Server State:   %@\n", [self _serverFormattedStringFromState:model.serverIndex]];
     [message appendFormat:@"Server address: %@\n", [NSObject an_safeString:model.serverURLString]];
-    [message appendFormat:@"Dispatch Type:  %@\n", ([TBMDispatch dispatchType] == TBMDispatchTypeSDK) ? @"RollBar SDK" : @"Server"];
+    [message appendFormat:@"Dispatch Type:  %@\n", ([ZZStoredSettingsManager shared].shouldUseRollBarSDK) ? @"RollBar SDK" : @"Server"];
     
     [message appendString:@"\n * * * * * * * * * * * * * * * * * * * * * * * * \n"];
     

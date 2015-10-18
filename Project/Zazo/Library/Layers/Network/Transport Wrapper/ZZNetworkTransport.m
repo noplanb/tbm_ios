@@ -20,9 +20,6 @@
     if (self)
     {
         [self setBaseURL:apiBaseURL() andAPIVersion:@""];
-#ifdef STAGESERVER
-        [self setBaseURL:ZZApiBaseURLsList.staging andAPIVersion:@""];
-#endif
         
         RACSignal* authSignal = RACObserve([ZZStoredSettingsManager shared], authToken);
         RACSignal* itemIDSignal = RACObserve([ZZStoredSettingsManager shared], userID);

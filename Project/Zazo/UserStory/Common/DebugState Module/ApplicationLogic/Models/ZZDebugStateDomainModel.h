@@ -16,7 +16,4 @@
 @property (nonatomic, strong) NSArray* incomingVideoItems;
 @property (nonatomic, strong) NSArray* outgoingVideoItems;
 
-//@property (nonatomic, strong) NSArray* incomingDanglingVideoItems;
-//@property (nonatomic, strong) NSArray* outgoingDanglingVideoItems;
-
 @end
