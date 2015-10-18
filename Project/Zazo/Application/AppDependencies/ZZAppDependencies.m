@@ -16,9 +16,9 @@
 #import "ZZVideoRecorder.h"
 #import "ANLogger.h"
 #import "MagicalRecord.h"
-#import "ZZCoreTelephonyConstants.h"
 #import "ZZUserDataProvider.h"
 #import "ZZUserDomainModel.h"
+#import "ZZRollbarAdapter.h"
 
 @interface ZZAppDependencies ()
 
@@ -36,6 +36,7 @@
 
 - (void)initialApplicationSetup:(UIApplication *)application launchOptions:(NSDictionary *)options
 {
+    [ZZRollbarAdapter shared];
     [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelInfo];
     [ZZContentDataAcessor start];
     

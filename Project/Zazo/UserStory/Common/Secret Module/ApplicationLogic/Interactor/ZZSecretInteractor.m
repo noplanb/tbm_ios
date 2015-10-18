@@ -19,7 +19,6 @@
 #import "TBMFriend.h"
 #import "TBMVideo.h"
 #import "MagicalRecord.h"
-#import "ZZSecretConstants.h"
 #import "ZZVideoRecorder.h"
 #import "ZZGridInteractor.h"
 

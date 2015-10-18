@@ -39,7 +39,6 @@
 		07636DED1BA49A0100925671 /* TBMStateStringGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A861BA49A0100925671 /* TBMStateStringGenerator.m */; };
 		07636DEE1BA49A0100925671 /* TBMVideo+StateProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A881BA49A0100925671 /* TBMVideo+StateProtocol.m */; };
 		07636DEF1BA49A0100925671 /* TBMVideoObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A8A1BA49A0100925671 /* TBMVideoObject.m */; };
-		07636DF31BA49A0100925671 /* TBMDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A951BA49A0100925671 /* TBMDispatch.m */; };
 		07636DF41BA49A0100925671 /* TBMFriendGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A981BA49A0100925671 /* TBMFriendGetter.m */; };
 		07636DF51BA49A0100925671 /* TBMHttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A9B1BA49A0100925671 /* TBMHttpManager.m */; };
 		07636DF61BA49A0100925671 /* TBMRemoteStorageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A9E1BA49A0100925671 /* TBMRemoteStorageHandler.m */; };
@@ -283,6 +282,8 @@
 		07829D641BB2A9A80000D5D9 /* ZZCommonModelsGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07829D631BB2A9A80000D5D9 /* ZZCommonModelsGenerator.m */; settings = {ASSET_TAGS = (); }; };
 		07829D681BB2AA840000D5D9 /* ZZGridTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07829D671BB2AA840000D5D9 /* ZZGridTransportService.m */; settings = {ASSET_TAGS = (); }; };
 		079280A41BA8544800E22553 /* ZZGridActionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 079280A31BA8544800E22553 /* ZZGridActionHandler.m */; };
+		079E90131BD43CEB001A4718 /* ZZRollbarAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E90121BD43CEB001A4718 /* ZZRollbarAdapter.m */; settings = {ASSET_TAGS = (); }; };
+		079E90171BD44695001A4718 /* ZZRollbarConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E90161BD44695001A4718 /* ZZRollbarConstants.m */; settings = {ASSET_TAGS = (); }; };
 		07BAA7051BB18DD2009878B9 /* NSArray+TBMArrayHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA7041BB18DD2009878B9 /* NSArray+TBMArrayHelpers.m */; settings = {ASSET_TAGS = (); }; };
 		07BAA7081BB1B488009878B9 /* ZZUserPresentationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA7071BB1B488009878B9 /* ZZUserPresentationHelper.m */; settings = {ASSET_TAGS = (); }; };
 		07BAA7101BB1C346009878B9 /* ZZFileHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA70F1BB1C346009878B9 /* ZZFileHelper.m */; settings = {ASSET_TAGS = (); }; };
@@ -299,7 +300,6 @@
 		07F0E7F71B8CD7A900036AB2 /* ZZLoadFriendListTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EC1B8CD7A900036AB2 /* ZZLoadFriendListTest.m */; };
 		07F0E7F81B8CD7A900036AB2 /* ZZStartScreenTestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */; };
 		180254A31BB2C5A400138A52 /* ZZVideoStatuses.m in Sources */ = {isa = PBXBuildFile; fileRef = 180254A21BB2C5A400138A52 /* ZZVideoStatuses.m */; settings = {ASSET_TAGS = (); }; };
-		18084AAE1BD0E49C00CB4623 /* ZZSecretConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 18084AAD1BD0E49C00CB4623 /* ZZSecretConstants.m */; settings = {ASSET_TAGS = (); }; };
 		181D1C9E1BC51A4600044F83 /* ZZBaseEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1C9D1BC51A4600044F83 /* ZZBaseEventHandler.m */; settings = {ASSET_TAGS = (); }; };
 		181D1CA41BC51B2000044F83 /* ZZInviteEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CA31BC51B2000044F83 /* ZZInviteEventHandler.m */; settings = {ASSET_TAGS = (); }; };
 		181D1CA71BC51B7100044F83 /* ZZPlayEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CA61BC51B7100044F83 /* ZZPlayEventHandler.m */; settings = {ASSET_TAGS = (); }; };
@@ -466,8 +466,6 @@
 		07636A881BA49A0100925671 /* TBMVideo+StateProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMVideo+StateProtocol.m"; sourceTree = "<group>"; };
 		07636A891BA49A0100925671 /* TBMVideoObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoObject.h; sourceTree = "<group>"; };
 		07636A8A1BA49A0100925671 /* TBMVideoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoObject.m; sourceTree = "<group>"; };
-		07636A941BA49A0100925671 /* TBMDispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDispatch.h; sourceTree = "<group>"; };
-		07636A951BA49A0100925671 /* TBMDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDispatch.m; sourceTree = "<group>"; };
 		07636A971BA49A0100925671 /* TBMFriendGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFriendGetter.h; sourceTree = "<group>"; };
 		07636A981BA49A0100925671 /* TBMFriendGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFriendGetter.m; sourceTree = "<group>"; };
 		07636A9A1BA49A0100925671 /* TBMHttpManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHttpManager.h; sourceTree = "<group>"; };
@@ -933,6 +931,11 @@
 		07829D671BB2AA840000D5D9 /* ZZGridTransportService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZGridTransportService.m; path = TransportService/ZZGridTransportService.m; sourceTree = "<group>"; };
 		079280A21BA8544800E22553 /* ZZGridActionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZGridActionHandler.h; path = ActionHandler/ZZGridActionHandler.h; sourceTree = "<group>"; };
 		079280A31BA8544800E22553 /* ZZGridActionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZGridActionHandler.m; path = ActionHandler/ZZGridActionHandler.m; sourceTree = "<group>"; };
+		079E90111BD43CEB001A4718 /* ZZRollbarAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZRollbarAdapter.h; path = RollbarAdapter/ZZRollbarAdapter.h; sourceTree = "<group>"; };
+		079E90121BD43CEB001A4718 /* ZZRollbarAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZRollbarAdapter.m; path = RollbarAdapter/ZZRollbarAdapter.m; sourceTree = "<group>"; };
+		079E90151BD44695001A4718 /* ZZRollbarConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZRollbarConstants.h; path = RollbarAdapter/ZZRollbarConstants.h; sourceTree = "<group>"; };
+		079E90161BD44695001A4718 /* ZZRollbarConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZRollbarConstants.m; path = RollbarAdapter/ZZRollbarConstants.m; sourceTree = "<group>"; };
+		079E90181BD45616001A4718 /* ZZConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZConstants.h; sourceTree = "<group>"; };
 		07BAA7031BB18DD2009878B9 /* NSArray+TBMArrayHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+TBMArrayHelpers.h"; path = "NSArray/NSArray+TBMArrayHelpers.h"; sourceTree = "<group>"; };
 		07BAA7041BB18DD2009878B9 /* NSArray+TBMArrayHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+TBMArrayHelpers.m"; path = "NSArray/NSArray+TBMArrayHelpers.m"; sourceTree = "<group>"; };
 		07BAA7061BB1B488009878B9 /* ZZUserPresentationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZUserPresentationHelper.h; path = UserPresentationHelper/ZZUserPresentationHelper.h; sourceTree = "<group>"; };
@@ -957,8 +960,6 @@
 		07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZStartScreenTestSpec.m; sourceTree = "<group>"; };
 		180254A11BB2C5A400138A52 /* ZZVideoStatuses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoStatuses.h; sourceTree = "<group>"; };
 		180254A21BB2C5A400138A52 /* ZZVideoStatuses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoStatuses.m; sourceTree = "<group>"; };
-		18084AAC1BD0E49C00CB4623 /* ZZSecretConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretConstants.h; sourceTree = "<group>"; };
-		18084AAD1BD0E49C00CB4623 /* ZZSecretConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretConstants.m; sourceTree = "<group>"; };
 		181D1C9C1BC51A4600044F83 /* ZZBaseEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZBaseEventHandler.h; sourceTree = "<group>"; };
 		181D1C9D1BC51A4600044F83 /* ZZBaseEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZBaseEventHandler.m; sourceTree = "<group>"; };
 		181D1CA21BC51B2000044F83 /* ZZInviteEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZInviteEventHandler.h; sourceTree = "<group>"; };
@@ -994,7 +995,6 @@
 		182BCF651BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "contacts-placeholder_withoutborder.pdf"; sourceTree = "<group>"; };
 		182BCF671BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "contacts-placeholder-withoutborder2.pdf"; sourceTree = "<group>"; };
 		182D8D971BB5D45E0080E100 /* icon_camera_switch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_camera_switch.png; sourceTree = "<group>"; };
-		183710481BB3CA6800A22FB3 /* ZZCoreTelephonyConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZCoreTelephonyConstants.h; sourceTree = "<group>"; };
 		186BD4B81BC40EF900B47C6B /* ZZHintArrowConfigurationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintArrowConfigurationModel.h; sourceTree = "<group>"; };
 		186BD4B91BC40EF900B47C6B /* ZZHintArrowConfigurationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintArrowConfigurationModel.m; sourceTree = "<group>"; };
 		1872F4371BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactsPermissionAlertBuilder.h; sourceTree = "<group>"; };
@@ -1326,8 +1326,6 @@
 			isa = PBXGroup;
 			children = (
 				07636A7C1BA49A0100925671 /* Dispatch Data */,
-				07636A941BA49A0100925671 /* TBMDispatch.h */,
-				07636A951BA49A0100925671 /* TBMDispatch.m */,
 			);
 			path = Dispatch;
 			sourceTree = "<group>";
@@ -1487,9 +1485,9 @@
 		07636AFE1BA49A0100925671 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				079E90181BD45616001A4718 /* ZZConstants.h */,
 				07636AFF1BA49A0100925671 /* ZZAPIRoutes.h */,
 				07636B001BA49A0100925671 /* ZZGlobalHeader.h */,
-				183710481BB3CA6800A22FB3 /* ZZCoreTelephonyConstants.h */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -1844,6 +1842,7 @@
 		07636B7D1BA49A0100925671 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				079E90141BD43CEF001A4718 /* RollbarAdapter */,
 				07829D651BB2A9AE0000D5D9 /* CommonModelsGenerator */,
 				79EBFD3D1BA8554100A26684 /* ToastBuilder */,
 				07636B7E1BA49A0100925671 /* AdressBookProvider */,
@@ -2533,7 +2532,6 @@
 		07636C561BA49A0100925671 /* UserInterface */ = {
 			isa = PBXGroup;
 			children = (
-				18084AAB1BD0E48600CB4623 /* Constants */,
 				07636C571BA49A0100925671 /* DataSource */,
 				07636C5A1BA49A0100925671 /* Presenter */,
 				07636C5D1BA49A0100925671 /* View */,
@@ -3476,6 +3474,17 @@
 			name = ActionHandler;
 			sourceTree = "<group>";
 		};
+		079E90141BD43CEF001A4718 /* RollbarAdapter */ = {
+			isa = PBXGroup;
+			children = (
+				079E90151BD44695001A4718 /* ZZRollbarConstants.h */,
+				079E90161BD44695001A4718 /* ZZRollbarConstants.m */,
+				079E90111BD43CEB001A4718 /* ZZRollbarAdapter.h */,
+				079E90121BD43CEB001A4718 /* ZZRollbarAdapter.m */,
+			);
+			name = RollbarAdapter;
+			sourceTree = "<group>";
+		};
 		07BAA7091BB1B48F009878B9 /* UserPresentationHelper */ = {
 			isa = PBXGroup;
 			children = (
@@ -3555,15 +3564,6 @@
 				07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */,
 			);
 			path = StartScreenTests;
-			sourceTree = "<group>";
-		};
-		18084AAB1BD0E48600CB4623 /* Constants */ = {
-			isa = PBXGroup;
-			children = (
-				18084AAC1BD0E49C00CB4623 /* ZZSecretConstants.h */,
-				18084AAD1BD0E49C00CB4623 /* ZZSecretConstants.m */,
-			);
-			path = Constants;
 			sourceTree = "<group>";
 		};
 		181D1C8E1BC51A2800044F83 /* EventHandlers */ = {
@@ -4373,6 +4373,7 @@
 				181D1CBC1BC5246C00044F83 /* ZZAbortRecordingFeatureEventHandler.m in Sources */,
 				07636E9F1BA49A0100925671 /* ZZDebugStateController.m in Sources */,
 				07636E1C1BA49A0100925671 /* ZZRootWireframe.m in Sources */,
+				079E90131BD43CEB001A4718 /* ZZRollbarAdapter.m in Sources */,
 				07636EDB1BA49A0100925671 /* ZZMenuVC.m in Sources */,
 				07636EC41BA49A0100925671 /* ZZGridStateViewPreview.m in Sources */,
 				181D1CB61BC5236E00044F83 /* ZZSentWelcomeEventHandler.m in Sources */,
@@ -4425,7 +4426,7 @@
 				07636EBC1BA49A0100925671 /* ZZGridDataSource.m in Sources */,
 				07636EA51BA49A0100925671 /* ZZSecretScreenTextEditCell.m in Sources */,
 				07636EE51BA49A0100925671 /* ANBaseVC.m in Sources */,
-				07636DF31BA49A0100925671 /* TBMDispatch.m in Sources */,
+				079E90171BD44695001A4718 /* ZZRollbarConstants.m in Sources */,
 				07738E6C1BBC25C500CD3E7C /* ZZFriendDataUpdater.m in Sources */,
 				07636ECC1BA49A0100925671 /* ZZGeometryHelper.m in Sources */,
 				181D1CBF1BC524E100044F83 /* ZZDeleteFriendsFeatureEventHandler.m in Sources */,
@@ -4442,7 +4443,6 @@
 				07636E951BA49A0100925671 /* ANDebugController.m in Sources */,
 				07636E5F1BA49A0100925671 /* ZZVideoUtils.m in Sources */,
 				07636EAC1BA49A0100925671 /* ZZSecretValueCellViewModel.m in Sources */,
-				18084AAE1BD0E49C00CB4623 /* ZZSecretConstants.m in Sources */,
 				07636E011BA49A0100925671 /* TBMContentViewModal.m in Sources */,
 				07636E9C1BA49A0100925671 /* ZZDebugStatePresenter.m in Sources */,
 				07636E311BA49A0100925671 /* ZZVideoDomainModel.m in Sources */,

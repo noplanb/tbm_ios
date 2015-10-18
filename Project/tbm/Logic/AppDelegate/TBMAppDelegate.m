@@ -43,11 +43,8 @@
 {
     [self.appDependencies initialApplicationSetup:application launchOptions:launchOptions];
     
-#ifndef DEBUG
-    [TBMDispatch startRollBar];
-#endif
+
     self.pushAlreadyFailed = NO;
-    [self setupLogger];
     [self addObservers];
     
     OB_INFO(@"didFinishLaunchingWithOptions:");
@@ -129,14 +126,6 @@
 
 - (void)removeObservers{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-
-#pragma mark - Logger
-- (void)setupLogger{
-    [OBLogger instance].writeToConsole = YES;
-    if ([[OBLogger instance] logLines].count > 3000)
-        [[OBLogger instance] reset];
 }
 
 //------------------------------------------------------

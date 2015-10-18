@@ -8,6 +8,3 @@
 
 #import "ZZGridActionHandlerEnums.h"
 
-@implementation ZZGridActionHandlerEnums
-
-@end
