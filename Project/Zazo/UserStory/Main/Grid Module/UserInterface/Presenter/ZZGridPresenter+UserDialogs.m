@@ -45,17 +45,24 @@
     }];
 }
 
-- (void)_showSmsDialogForModel:(ZZFriendDomainModel*)friendModel //TODO:isNudgeAction:(BOOL)isNudge
+- (void)_showSmsDialogForModel:(ZZFriendDomainModel*)friendModel isNudgeAction:(BOOL)isNudge
 {
     ANMessageDomainModel* model = [ANMessageDomainModel new];
     NSString* formattedNumber = [TBMPhoneUtils phone:friendModel.mobileNumber withFormat:NBEPhoneNumberFormatE164];
     model.recipients = @[[NSObject an_safeString:formattedNumber]];
     
     NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
-    model.message = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", appName, kInviteFriendBaseURL, [ZZUserDataProvider authenticatedUser].idTbm];
+    model.message = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", appName, kInviteFriendBaseURL, friendModel.cKey];
     
     [self.wireframe presentSMSDialogWithModel:model success:^{
-        [self _showConnectedDialogForModel:friendModel];
+        if (!isNudge)
+        {
+            [self _showConnectedDialogForModel:friendModel];
+        }
+        else
+        {
+            [self _handleSentWelcomeHintWithFriendDomainModel:friendModel];
+        }
     } fail:^{
         [self _showCantSendSmsErrorForModel:friendModel];
     }];
@@ -71,7 +78,7 @@
 - (void)_nudgeUser:(ZZFriendDomainModel*)userModel
 {
     [ZZGridAlertBuilder showPreNudgeAlertWithFriendFirstName:userModel.firstName completion:^{
-        [self _showSmsDialogForModel:userModel];
+        [self _showSmsDialogForModel:userModel isNudgeAction:YES];
     }];
 }
 

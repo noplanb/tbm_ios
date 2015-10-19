@@ -288,10 +288,9 @@
     }
     else
     {
-        [self _showSmsDialogForModel:friendModel];
+        [self _showSmsDialogForModel:friendModel isNudgeAction:NO];
     }
 }
-
 
 - (void)loadedStateUpdatedTo:(BOOL)isLoading
 {

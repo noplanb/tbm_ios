@@ -225,10 +225,6 @@ static NSInteger const kGridFriendsCellCount = 8;
         {
             [self.output updateGridWithModel:gridModel isNewFriend:!isUserAlreadyOnGrid];
         }
-        else
-        {
-            [self.output gridAlreadyContainsFriend:gridModel];
-        }
     }
 }
 

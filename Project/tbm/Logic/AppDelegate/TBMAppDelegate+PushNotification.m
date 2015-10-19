@@ -179,7 +179,11 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     OB_INFO(@"didReceiveRemoteNotification:fetchCompletionHandler %@", userInfo);
     self.pushVideoId = [userInfo objectForKey:@"video_id"];
     [self requestBackground];
-    [self handleNotificationPayload:userInfo];
+    
+    if ([ZZUserDataProvider authenticatedUser].isRegistered)
+    {
+        [self handleNotificationPayload:userInfo];
+    }
     
     // See doc/notification.txt for why we call the completion handler with sucess immediately here.
 //    _completionHandler = [completionHandler copy];
@@ -242,13 +246,12 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     NSString *mkey = userInfo[NOTIFICATION_FROM_MKEY_KEY];
     TBMFriend *friend = [TBMFriend findWithMkey:mkey];
 
-    if (friend == nil) {
+    if (friend == nil)
+    {
         OB_INFO(@"handleVideoReceivedNotification: got notification for non existant friend. calling getAndPollAllFriends");
         [self getAndPollAllFriends];
         return;
     }
-    //TODO: DEBUG
-    NSLog(@"OKS- %@ - %@", NSStringFromSelector(_cmd), videoId);
     [self queueDownloadWithFriendID:friend.idTbm videoId:videoId];
 }
 

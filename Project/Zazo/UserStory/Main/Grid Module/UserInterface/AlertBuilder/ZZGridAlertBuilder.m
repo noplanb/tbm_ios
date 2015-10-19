@@ -60,7 +60,7 @@
 + (void)showPreNudgeAlertWithFriendFirstName:(NSString*)firstName completion:(ANCodeBlock)completion
 {
     firstName = [NSObject an_safeString:firstName];
-    NSString *msg = [NSString stringWithFormat:@"%@ still hasn't installed %@. Send them the link again.", firstName,  [self _appName]];
+    NSString *msg = [NSString stringWithFormat:@"%@ still hasn't installed %@.\n Send them the link again.", firstName,  [self _appName]];
     NSString *title = [NSString stringWithFormat:@"Nudge %@", firstName];
     
     [ZZAlertBuilder presentAlertWithTitle:title details:msg cancelButtonTitle:@"Cancel" actionButtonTitle:@"Send" action:completion];
