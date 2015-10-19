@@ -9,7 +9,6 @@
 #import <objc/runtime.h>
 #import "TBMAppDelegate+PushNotification.h"
 #import "TBMVideoRecorder.h"
-#import "TBMRemoteStorageHandler.h"
 #import "TBMVideoIdUtils.h"
 #import "TBMVideoProcessor.h"
 #import "ZZVideoRecorder.h"

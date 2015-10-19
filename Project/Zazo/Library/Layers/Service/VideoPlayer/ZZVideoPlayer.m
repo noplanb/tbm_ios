@@ -15,7 +15,6 @@
 #import "MagicalRecord.h"
 #import "ZZFriendDataProvider.h"
 #import "TBMFriend.h"
-#import "TBMRemoteStorageHandler.h"
 #import "iToast.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZGridActionStoredSettings.h"

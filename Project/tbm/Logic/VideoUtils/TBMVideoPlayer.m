@@ -12,7 +12,6 @@
 #import "TBMVideo.h"
 #import "TBMFriend.h"
 #import "OBLogger.h"
-#import "TBMRemoteStorageHandler.h"
 #import "UIAlertView+Blocks.h"
 #import "TBMAlertController.h"
 #import "TBMAlertControllerVisualStyle.h"

@@ -26,7 +26,6 @@
 		07636DBD1BA49A0100925671 /* TBMVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A031BA49A0000925671 /* TBMVideoPlayer.m */; };
 		07636DBE1BA49A0100925671 /* TBMVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A051BA49A0000925671 /* TBMVideoProcessor.m */; };
 		07636DBF1BA49A0100925671 /* TBMVideoRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A071BA49A0000925671 /* TBMVideoRecorder.m */; };
-		07636DF61BA49A0100925671 /* TBMRemoteStorageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A9E1BA49A0100925671 /* TBMRemoteStorageHandler.m */; };
 		07636DF91BA49A0100925671 /* BeepSin30.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA61BA49A0100925671 /* BeepSin30.wav */; };
 		07636DFA1BA49A0100925671 /* DK Crayon Crumble.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA71BA49A0100925671 /* DK Crayon Crumble.ttf */; };
 		07636DFB1BA49A0100925671 /* FeatureUnlock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA81BA49A0100925671 /* FeatureUnlock.wav */; };
@@ -274,7 +273,6 @@
 		07BAA7141BB1C55E009878B9 /* ZZThumbnailGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA7131BB1C55E009878B9 /* ZZThumbnailGenerator.m */; settings = {ASSET_TAGS = (); }; };
 		07BAA7191BB1DE4E009878B9 /* ZZDebugSettingsStateDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA7181BB1DE4E009878B9 /* ZZDebugSettingsStateDomainModel.m */; settings = {ASSET_TAGS = (); }; };
 		07C94DD01BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C94DCF1BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m */; };
-		07E09E0F1BD5769900A59389 /* ZZValueGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E0E1BD5769900A59389 /* ZZValueGenerator.m */; settings = {ASSET_TAGS = (); }; };
 		07E09E131BD5770500A59389 /* ZZRemoteStorageValueGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E121BD5770500A59389 /* ZZRemoteStorageValueGenerator.m */; settings = {ASSET_TAGS = (); }; };
 		07E09E171BD5953D00A59389 /* ZZRemoteStorageConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E161BD5953D00A59389 /* ZZRemoteStorageConstants.m */; settings = {ASSET_TAGS = (); }; };
 		07E9593E1BCD74CE009C8F97 /* ZZContentDataAcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E9593D1BCD74CE009C8F97 /* ZZContentDataAcessor.m */; settings = {ASSET_TAGS = (); }; };
@@ -424,8 +422,6 @@
 		07636A051BA49A0000925671 /* TBMVideoProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoProcessor.m; sourceTree = "<group>"; };
 		07636A061BA49A0000925671 /* TBMVideoRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoRecorder.h; sourceTree = "<group>"; };
 		07636A071BA49A0000925671 /* TBMVideoRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoRecorder.m; sourceTree = "<group>"; };
-		07636A9D1BA49A0100925671 /* TBMRemoteStorageHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMRemoteStorageHandler.h; sourceTree = "<group>"; };
-		07636A9E1BA49A0100925671 /* TBMRemoteStorageHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMRemoteStorageHandler.m; sourceTree = "<group>"; };
 		07636AA61BA49A0100925671 /* BeepSin30.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = BeepSin30.wav; sourceTree = "<group>"; };
 		07636AA71BA49A0100925671 /* DK Crayon Crumble.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DK Crayon Crumble.ttf"; sourceTree = "<group>"; };
 		07636AA81BA49A0100925671 /* FeatureUnlock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = FeatureUnlock.wav; sourceTree = "<group>"; };
@@ -900,8 +896,6 @@
 		07BAA7181BB1DE4E009878B9 /* ZZDebugSettingsStateDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZDebugSettingsStateDomainModel.m; path = ../Settings/ZZDebugSettingsStateDomainModel.m; sourceTree = "<group>"; };
 		07C94DCE1BA7246A009338B1 /* ZZUserFriendshipStatusHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZUserFriendshipStatusHandler.h; path = FriendshipStatusHandler/ZZUserFriendshipStatusHandler.h; sourceTree = "<group>"; };
 		07C94DCF1BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZUserFriendshipStatusHandler.m; path = FriendshipStatusHandler/ZZUserFriendshipStatusHandler.m; sourceTree = "<group>"; };
-		07E09E0D1BD5769900A59389 /* ZZValueGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZValueGenerator.h; path = ValueGenerator/ZZValueGenerator.h; sourceTree = "<group>"; };
-		07E09E0E1BD5769900A59389 /* ZZValueGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZValueGenerator.m; path = ValueGenerator/ZZValueGenerator.m; sourceTree = "<group>"; };
 		07E09E111BD5770500A59389 /* ZZRemoteStorageValueGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZRemoteStorageValueGenerator.h; path = RemoteStorageValueGenerator/ZZRemoteStorageValueGenerator.h; sourceTree = "<group>"; };
 		07E09E121BD5770500A59389 /* ZZRemoteStorageValueGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZRemoteStorageValueGenerator.m; path = RemoteStorageValueGenerator/ZZRemoteStorageValueGenerator.m; sourceTree = "<group>"; };
 		07E09E151BD5953D00A59389 /* ZZRemoteStorageConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZRemoteStorageConstants.h; path = RemoteStorageValueGenerator/ZZRemoteStorageConstants.h; sourceTree = "<group>"; };
@@ -1122,7 +1116,6 @@
 			isa = PBXGroup;
 			children = (
 				076369C51BA49A0000925671 /* Logic */,
-				07636A921BA49A0100925671 /* Network */,
 				07636AA51BA49A0100925671 /* Resources */,
 				07636AAE1BA49A0100925671 /* UI */,
 			);
@@ -1195,23 +1188,6 @@
 				07636A071BA49A0000925671 /* TBMVideoRecorder.m */,
 			);
 			path = VideoUtils;
-			sourceTree = "<group>";
-		};
-		07636A921BA49A0100925671 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				07636A9C1BA49A0100925671 /* RemoteStorageHandler */,
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
-		07636A9C1BA49A0100925671 /* RemoteStorageHandler */ = {
-			isa = PBXGroup;
-			children = (
-				07636A9D1BA49A0100925671 /* TBMRemoteStorageHandler.h */,
-				07636A9E1BA49A0100925671 /* TBMRemoteStorageHandler.m */,
-			);
-			path = RemoteStorageHandler;
 			sourceTree = "<group>";
 		};
 		07636AA51BA49A0100925671 /* Resources */ = {
@@ -1722,8 +1698,7 @@
 				07BAA7091BB1B48F009878B9 /* UserPresentationHelper */,
 				07BAA7111BB1C349009878B9 /* FileHelper */,
 				07BAA7151BB1C561009878B9 /* ThumbnailGenerator */,
-				07E09E101BD576A400A59389 /* ValueGenerator */,
-				07E09E141BD5770A00A59389 /* RemoteStorageValue */,
+				07E09E141BD5770A00A59389 /* RemoteStorage */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -3373,16 +3348,7 @@
 			name = UserFriendshipStatusHandler;
 			sourceTree = "<group>";
 		};
-		07E09E101BD576A400A59389 /* ValueGenerator */ = {
-			isa = PBXGroup;
-			children = (
-				07E09E0D1BD5769900A59389 /* ZZValueGenerator.h */,
-				07E09E0E1BD5769900A59389 /* ZZValueGenerator.m */,
-			);
-			name = ValueGenerator;
-			sourceTree = "<group>";
-		};
-		07E09E141BD5770A00A59389 /* RemoteStorageValue */ = {
+		07E09E141BD5770A00A59389 /* RemoteStorage */ = {
 			isa = PBXGroup;
 			children = (
 				07E09E111BD5770500A59389 /* ZZRemoteStorageValueGenerator.h */,
@@ -3390,7 +3356,7 @@
 				07E09E151BD5953D00A59389 /* ZZRemoteStorageConstants.h */,
 				07E09E161BD5953D00A59389 /* ZZRemoteStorageConstants.m */,
 			);
-			name = RemoteStorageValue;
+			name = RemoteStorage;
 			sourceTree = "<group>";
 		};
 		07F0E7E71B8CD7A900036AB2 /* AuthNetworkTest */ = {
@@ -4110,7 +4076,6 @@
 				07636E921BA49A0100925671 /* ZZAuthTextField.m in Sources */,
 				07E09E131BD5770500A59389 /* ZZRemoteStorageValueGenerator.m in Sources */,
 				072B6A481BD52F94000B824E /* NSError+ZZAdditions.m in Sources */,
-				07E09E0F1BD5769900A59389 /* ZZValueGenerator.m in Sources */,
 				07636E2D1BA49A0100925671 /* ZZGridDomainModel.m in Sources */,
 				07636EBE1BA49A0100925671 /* ZZGridCenterCell.m in Sources */,
 				07636ED71BA49A0100925671 /* ZZMenuView.m in Sources */,
@@ -4332,7 +4297,6 @@
 				18C947E61BB566A500D31B99 /* _TBMUser.m in Sources */,
 				07636E971BA49A0100925671 /* ZZDebugStateEnumHelper.m in Sources */,
 				07636DA81BA49A0100925671 /* TBMAppDelegate+AppSync.m in Sources */,
-				07636DF61BA49A0100925671 /* TBMRemoteStorageHandler.m in Sources */,
 				07636E411BA49A0100925671 /* TBMUser.m in Sources */,
 				07636E9D1BA49A0100925671 /* ZZDebugStateCell.m in Sources */,
 				07636ECA1BA49A0100925671 /* ZZGridViewHeader.m in Sources */,

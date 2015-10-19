@@ -6,9 +6,6 @@
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
-@class TBMFriend;
-@class TBMVideo;
-
 @interface ZZRemoteStorageValueGenerator : NSObject
 
 
