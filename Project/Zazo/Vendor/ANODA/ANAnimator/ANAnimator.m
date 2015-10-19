@@ -32,7 +32,12 @@
     [self animateConstraint:constraint newOffset:offset key:key delay:0 bouncingRate:8];
 }
 
-+ (void)animateConstraint:(MASConstraint *)constraint newOffset:(CGFloat)offset key:(NSString *)key delay:(CFTimeInterval)delay bouncingRate:(NSUInteger)bounce completion:(ANCodeBlock)completion
++ (void)animateConstraint:(MASConstraint *)constraint
+                newOffset:(CGFloat)offset
+                      key:(NSString *)key
+                    delay:(CFTimeInterval)delay
+             bouncingRate:(NSUInteger)bounce
+               completion:(ANCodeBlock)completion
 {
     POPSpringAnimation *animation = [constraint pop_animationForKey:key];
     if (!animation)
@@ -52,28 +57,28 @@
     [constraint pop_addAnimation:animation forKey:key];
 }
 
-+ (void)animateConstraint:(MASConstraint *)constraint newOffset:(CGFloat)offset key:(NSString *)key delay:(CFTimeInterval)delay bouncingRate:(NSUInteger)bounce animationSpeed:(CGFloat)speed completion:(ANCodeBlock)completion
++ (void)animateXTransitionConstraint:(MASConstraint*)constraint
+                           newOffset:(CGFloat)offset
+                            duration:(CGFloat)duration
+                                 key:(NSString*)key
+                          completion:(ANCodeBlock)completion
 {
-    POPSpringAnimation *animation = [constraint pop_animationForKey:key];
+    
+    POPBasicAnimation* animation = [constraint pop_animationForKey:key];
     if (!animation)
     {
-        animation = [POPSpringAnimation new];
+        animation = [POPBasicAnimation linearAnimation];
         animation.property = [POPAnimatableProperty mas_offsetProperty];
     }
     animation.toValue = @(offset);
-    animation.springBounciness = 0;
-    animation.beginTime = delay;
-    animation.dynamicsFriction = 1.0;
-    animation.dynamicsMass = 1.0;
-    animation.dynamicsTension = 40.0;
-    animation.springSpeed = 10;
+    animation.duration = duration;
     
-    animation.completionBlock = ^(POPAnimation* animation, BOOL isFinished) {
-        if (isFinished && completion)
-        {
-            completion();
-        }
-    };
+    
+    if (completion)
+    {
+        completion();
+    }
+    
     [constraint pop_addAnimation:animation forKey:key];
 }
 

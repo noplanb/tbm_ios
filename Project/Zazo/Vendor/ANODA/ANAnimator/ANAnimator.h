@@ -33,13 +33,11 @@
 
 
 
-+ (void)animateConstraint:(MASConstraint *)constraint
-                newOffset:(CGFloat)offset
-                      key:(NSString *)key
-                    delay:(CFTimeInterval)delay
-             bouncingRate:(NSUInteger)bounce
-           animationSpeed:(CGFloat)speed
-               completion:(ANCodeBlock)completion;
++ (void)animateXTransitionConstraint:(MASConstraint*)constraint
+                           newOffset:(CGFloat)offset
+                            duration:(CGFloat)duration
+                                 key:(NSString*)key
+                          completion:(ANCodeBlock)completion;
 
 
 #pragma mark - Scale

@@ -173,12 +173,17 @@
         //        [self.soundPlayer play]; // TODO: check
         //    }
         
-        if (isNewFriend)
-        {
-            NSInteger index = [self.dataSource viewModelIndexWithModelIndex:model.index];
-            [self.userInterface showFriendAnimationWithIndex:index];
-        }
+//        if (isNewFriend)
+//        {
+//            NSInteger index = [self.dataSource viewModelIndexWithModelIndex:model.index];
+//            [self.userInterface showFriendAnimationWithIndex:index];
+//        }
     }
+}
+
+- (void)showFriendAnimationWithIndex:(NSInteger)index
+{
+    [self.userInterface showFriendAnimationWithIndex:index];
 }
 
 - (BOOL)_isAbleToUpdateWithModel:(ZZGridDomainModel*)model
@@ -284,7 +289,9 @@
 {
     if (friendModel.hasApp)
     {
-        [self _showConnectedDialogForModel:friendModel];
+//        [self _showConnectedDialogForModel:friendModel];
+        [self _handleSentWelcomeHintWithFriendDomainModel:friendModel];
+        
     }
     else
     {

@@ -21,7 +21,7 @@
     [self _updateUploadViewsToDefaultState];
     
     CGFloat animValue = CGRectGetWidth(self.frame) - [self _indicatorCalculatedWidth];
-    CGFloat animationDuration = 0.4;
+    CGFloat animationDuration = 1.4;
     
     ANDispatchBlockToMainQueue(^{
         [UIView animateWithDuration:animationDuration animations:^{
@@ -37,6 +37,19 @@
             }
         }];
     });
+    
+//    [ANAnimator animateXTransitionConstraint:self.leftUploadIndicatorConstraint
+//                                   newOffset:animValue
+//                                    duration:animationDuration
+//                                         key:@"xtransition"
+//                                  completion:^{
+//                                      self.uploadBarView.hidden = YES;
+//        [self.model reloadDebugVideoStatus];
+//        if (completionBlock)
+//        {
+//            completionBlock();
+//        }
+//    }];
 }
 
 

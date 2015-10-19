@@ -64,6 +64,7 @@
             [self _handleSentWelcomeHintWithFriendDomainModel:friendModel];
         }
     } fail:^{
+        
         [self _showCantSendSmsErrorForModel:friendModel];
     }];
 }
@@ -71,7 +72,7 @@
 - (void)_showCantSendSmsErrorForModel:(ZZFriendDomainModel*)friendModel
 {
     [ZZGridAlertBuilder showCannotSendSmsErrorToUser:[friendModel fullName] completion:^{
-        [self _showConnectedDialogForModel:friendModel];
+        [self _handleSentWelcomeHintWithFriendDomainModel:friendModel];
     }];
 }
 

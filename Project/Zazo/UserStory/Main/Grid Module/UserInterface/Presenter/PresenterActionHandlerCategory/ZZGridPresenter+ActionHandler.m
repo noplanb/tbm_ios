@@ -74,6 +74,7 @@
         if (index != NSNotFound)
         {
             [[self actionHandler] handleEvent:ZZGridActionEventTypeFriendDidInvited withIndex:index];
+            [self showFriendAnimationWithIndex:index];
         }
     });
 }
