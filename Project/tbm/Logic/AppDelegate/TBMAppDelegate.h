@@ -46,6 +46,5 @@ static NSString* const kNotificationSendMessage = @"sendMessageNotification";
 
 - (NSURL*)applicationDocumentsDirectory;
 - (void) requestBackground;
-- (void)setLifeCycleEventNotificationDelegate:(id)delegate;
 
 @end

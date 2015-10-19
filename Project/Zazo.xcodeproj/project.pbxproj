@@ -12,18 +12,17 @@
 		070561001BA8824F00C130E0 /* ZZGridActionHandlerEnums.m in Sources */ = {isa = PBXBuildFile; fileRef = 070560FF1BA8824F00C130E0 /* ZZGridActionHandlerEnums.m */; };
 		070D84791BBDAD8900196527 /* ZZGridContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 070D84781BBDAD8900196527 /* ZZGridContainerView.m */; settings = {ASSET_TAGS = (); }; };
 		071F18E91BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.m in Sources */ = {isa = PBXBuildFile; fileRef = 071F18E81BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.m */; settings = {ASSET_TAGS = (); }; };
+		072B6A471BD52F94000B824E /* NSArray+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B6A401BD52F94000B824E /* NSArray+ZZAdditions.m */; settings = {ASSET_TAGS = (); }; };
+		072B6A481BD52F94000B824E /* NSError+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B6A431BD52F94000B824E /* NSError+ZZAdditions.m */; settings = {ASSET_TAGS = (); }; };
+		072B6A491BD52F94000B824E /* NSString+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B6A461BD52F94000B824E /* NSString+ZZAdditions.m */; settings = {ASSET_TAGS = (); }; };
 		0732F50C1B8B93D3004FD3AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0732F5041B8B93D3004FD3AF /* InfoPlist.strings */; };
 		0732F5121B8B93D3004FD3AF /* ZazoTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */; };
-		073D556A1BD2D82B0014E83E /* TBMSoundEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 073D55691BD2D82B0014E83E /* TBMSoundEffect.m */; settings = {ASSET_TAGS = (); }; };
+		073D556A1BD2D82B0014E83E /* ZZSoundEffectPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 073D55691BD2D82B0014E83E /* ZZSoundEffectPlayer.m */; settings = {ASSET_TAGS = (); }; };
 		07636DA81BA49A0100925671 /* TBMAppDelegate+AppSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369C81BA49A0000925671 /* TBMAppDelegate+AppSync.m */; };
 		07636DA91BA49A0100925671 /* TBMAppDelegate+Boot.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369CA1BA49A0000925671 /* TBMAppDelegate+Boot.m */; };
 		07636DAA1BA49A0100925671 /* TBMAppDelegate+PushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369CC1BA49A0000925671 /* TBMAppDelegate+PushNotification.m */; };
 		07636DAB1BA49A0100925671 /* TBMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369CE1BA49A0000925671 /* TBMAppDelegate.m */; };
 		07636DAC1BA49A0100925671 /* AVAudioSession+TBMAudioSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369D21BA49A0000925671 /* AVAudioSession+TBMAudioSession.m */; };
-		07636DAF1BA49A0100925671 /* NSError+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369DA1BA49A0000925671 /* NSError+Extensions.m */; };
-		07636DB11BA49A0100925671 /* NSString+NSStringExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369E01BA49A0000925671 /* NSString+NSStringExtensions.m */; };
-		07636DB31BA49A0100925671 /* UILabel+TBMUILabelDynamicHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369E61BA49A0000925671 /* UILabel+TBMUILabelDynamicHeight.m */; };
-		07636DB61BA49A0100925671 /* TBMDeviceHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369EF1BA49A0000925671 /* TBMDeviceHandler.m */; };
 		07636DB71BA49A0100925671 /* TBMFileUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369F21BA49A0000925671 /* TBMFileUtils.m */; };
 		07636DB91BA49A0100925671 /* TBMPhoneUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369F81BA49A0000925671 /* TBMPhoneUtils.m */; };
 		07636DBB1BA49A0100925671 /* TBMStringUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369FE1BA49A0000925671 /* TBMStringUtils.m */; };
@@ -277,7 +276,6 @@
 		079E901F1BD47073001A4718 /* ZZApplicationStateInfoConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E901E1BD47073001A4718 /* ZZApplicationStateInfoConstants.m */; settings = {ASSET_TAGS = (); }; };
 		079E90251BD48C57001A4718 /* ZZDebugFriendStateDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E90221BD48C57001A4718 /* ZZDebugFriendStateDomainModel.m */; settings = {ASSET_TAGS = (); }; };
 		079E90261BD48C57001A4718 /* ZZDebugVideoStateDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E90241BD48C57001A4718 /* ZZDebugVideoStateDomainModel.m */; settings = {ASSET_TAGS = (); }; };
-		07BAA7051BB18DD2009878B9 /* NSArray+TBMArrayHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA7041BB18DD2009878B9 /* NSArray+TBMArrayHelpers.m */; settings = {ASSET_TAGS = (); }; };
 		07BAA7081BB1B488009878B9 /* ZZUserPresentationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA7071BB1B488009878B9 /* ZZUserPresentationHelper.m */; settings = {ASSET_TAGS = (); }; };
 		07BAA7101BB1C346009878B9 /* ZZFileHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA70F1BB1C346009878B9 /* ZZFileHelper.m */; settings = {ASSET_TAGS = (); }; };
 		07BAA7141BB1C55E009878B9 /* ZZThumbnailGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA7131BB1C55E009878B9 /* ZZThumbnailGenerator.m */; settings = {ASSET_TAGS = (); }; };
@@ -404,10 +402,16 @@
 		070D847D1BBE670700196527 /* ZZGridDataSourceInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZGridDataSourceInterface.h; sourceTree = "<group>"; };
 		071F18E71BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZZGridPresenter+UserDialogs.h"; sourceTree = "<group>"; };
 		071F18E81BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZZGridPresenter+UserDialogs.m"; sourceTree = "<group>"; };
+		072B6A3F1BD52F94000B824E /* NSArray+ZZAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+ZZAdditions.h"; sourceTree = "<group>"; };
+		072B6A401BD52F94000B824E /* NSArray+ZZAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+ZZAdditions.m"; sourceTree = "<group>"; };
+		072B6A421BD52F94000B824E /* NSError+ZZAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+ZZAdditions.h"; sourceTree = "<group>"; };
+		072B6A431BD52F94000B824E /* NSError+ZZAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+ZZAdditions.m"; sourceTree = "<group>"; };
+		072B6A451BD52F94000B824E /* NSString+ZZAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ZZAdditions.h"; sourceTree = "<group>"; };
+		072B6A461BD52F94000B824E /* NSString+ZZAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZZAdditions.m"; sourceTree = "<group>"; };
 		0732F5051B8B93D3004FD3AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ZazoTests-Info.plist"; sourceTree = "<group>"; };
-		073D55681BD2D82B0014E83E /* TBMSoundEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMSoundEffect.h; sourceTree = "<group>"; };
-		073D55691BD2D82B0014E83E /* TBMSoundEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMSoundEffect.m; sourceTree = "<group>"; };
+		073D55681BD2D82B0014E83E /* ZZSoundEffectPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSoundEffectPlayer.h; sourceTree = "<group>"; };
+		073D55691BD2D82B0014E83E /* ZZSoundEffectPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSoundEffectPlayer.m; sourceTree = "<group>"; };
 		076369C71BA49A0000925671 /* TBMAppDelegate+AppSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMAppDelegate+AppSync.h"; sourceTree = "<group>"; };
 		076369C81BA49A0000925671 /* TBMAppDelegate+AppSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMAppDelegate+AppSync.m"; sourceTree = "<group>"; };
 		076369C91BA49A0000925671 /* TBMAppDelegate+Boot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMAppDelegate+Boot.h"; sourceTree = "<group>"; };
@@ -418,14 +422,6 @@
 		076369CE1BA49A0000925671 /* TBMAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAppDelegate.m; sourceTree = "<group>"; };
 		076369D11BA49A0000925671 /* AVAudioSession+TBMAudioSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVAudioSession+TBMAudioSession.h"; sourceTree = "<group>"; };
 		076369D21BA49A0000925671 /* AVAudioSession+TBMAudioSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVAudioSession+TBMAudioSession.m"; sourceTree = "<group>"; };
-		076369D91BA49A0000925671 /* NSError+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+Extensions.h"; sourceTree = "<group>"; };
-		076369DA1BA49A0000925671 /* NSError+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+Extensions.m"; sourceTree = "<group>"; };
-		076369DF1BA49A0000925671 /* NSString+NSStringExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NSStringExtensions.h"; sourceTree = "<group>"; };
-		076369E01BA49A0000925671 /* NSString+NSStringExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NSStringExtensions.m"; sourceTree = "<group>"; };
-		076369E51BA49A0000925671 /* UILabel+TBMUILabelDynamicHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+TBMUILabelDynamicHeight.h"; sourceTree = "<group>"; };
-		076369E61BA49A0000925671 /* UILabel+TBMUILabelDynamicHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+TBMUILabelDynamicHeight.m"; sourceTree = "<group>"; };
-		076369EE1BA49A0000925671 /* TBMDeviceHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMDeviceHandler.h; sourceTree = "<group>"; };
-		076369EF1BA49A0000925671 /* TBMDeviceHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDeviceHandler.m; sourceTree = "<group>"; };
 		076369F11BA49A0000925671 /* TBMFileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFileUtils.h; sourceTree = "<group>"; };
 		076369F21BA49A0000925671 /* TBMFileUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFileUtils.m; sourceTree = "<group>"; };
 		076369F71BA49A0000925671 /* TBMPhoneUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMPhoneUtils.h; sourceTree = "<group>"; };
@@ -912,8 +908,6 @@
 		079E90221BD48C57001A4718 /* ZZDebugFriendStateDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDebugFriendStateDomainModel.m; sourceTree = "<group>"; };
 		079E90231BD48C57001A4718 /* ZZDebugVideoStateDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDebugVideoStateDomainModel.h; sourceTree = "<group>"; };
 		079E90241BD48C57001A4718 /* ZZDebugVideoStateDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDebugVideoStateDomainModel.m; sourceTree = "<group>"; };
-		07BAA7031BB18DD2009878B9 /* NSArray+TBMArrayHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+TBMArrayHelpers.h"; path = "NSArray/NSArray+TBMArrayHelpers.h"; sourceTree = "<group>"; };
-		07BAA7041BB18DD2009878B9 /* NSArray+TBMArrayHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+TBMArrayHelpers.m"; path = "NSArray/NSArray+TBMArrayHelpers.m"; sourceTree = "<group>"; };
 		07BAA7061BB1B488009878B9 /* ZZUserPresentationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZUserPresentationHelper.h; path = UserPresentationHelper/ZZUserPresentationHelper.h; sourceTree = "<group>"; };
 		07BAA7071BB1B488009878B9 /* ZZUserPresentationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZUserPresentationHelper.m; path = UserPresentationHelper/ZZUserPresentationHelper.m; sourceTree = "<group>"; };
 		07BAA70E1BB1C346009878B9 /* ZZFileHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZFileHelper.h; path = FileHelper/ZZFileHelper.h; sourceTree = "<group>"; };
@@ -1097,6 +1091,33 @@
 			name = EnumHelper;
 			sourceTree = "<group>";
 		};
+		072B6A3E1BD52F94000B824E /* NSArray */ = {
+			isa = PBXGroup;
+			children = (
+				072B6A3F1BD52F94000B824E /* NSArray+ZZAdditions.h */,
+				072B6A401BD52F94000B824E /* NSArray+ZZAdditions.m */,
+			);
+			path = NSArray;
+			sourceTree = "<group>";
+		};
+		072B6A411BD52F94000B824E /* NSError */ = {
+			isa = PBXGroup;
+			children = (
+				072B6A421BD52F94000B824E /* NSError+ZZAdditions.h */,
+				072B6A431BD52F94000B824E /* NSError+ZZAdditions.m */,
+			);
+			path = NSError;
+			sourceTree = "<group>";
+		};
+		072B6A441BD52F94000B824E /* NSString */ = {
+			isa = PBXGroup;
+			children = (
+				072B6A451BD52F94000B824E /* NSString+ZZAdditions.h */,
+				072B6A461BD52F94000B824E /* NSString+ZZAdditions.m */,
+			);
+			path = NSString;
+			sourceTree = "<group>";
+		};
 		0732F5031B8B93D3004FD3AF /* ZazoTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1112,8 +1133,8 @@
 		073D55671BD2D82B0014E83E /* SoundEffect */ = {
 			isa = PBXGroup;
 			children = (
-				073D55681BD2D82B0014E83E /* TBMSoundEffect.h */,
-				073D55691BD2D82B0014E83E /* TBMSoundEffect.m */,
+				073D55681BD2D82B0014E83E /* ZZSoundEffectPlayer.h */,
+				073D55691BD2D82B0014E83E /* ZZSoundEffectPlayer.m */,
 			);
 			path = SoundEffect;
 			sourceTree = "<group>";
@@ -1135,7 +1156,6 @@
 				073D55671BD2D82B0014E83E /* SoundEffect */,
 				076369C61BA49A0000925671 /* AppDelegate */,
 				076369CF1BA49A0000925671 /* Categories */,
-				076369ED1BA49A0000925671 /* DeviceHandler */,
 				076369F01BA49A0000925671 /* FileUtils */,
 				076369F61BA49A0000925671 /* PhoneUtils */,
 				076369FC1BA49A0000925671 /* StringUtils */,
@@ -1162,12 +1182,7 @@
 		076369CF1BA49A0000925671 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				07BAA7031BB18DD2009878B9 /* NSArray+TBMArrayHelpers.h */,
-				07BAA7041BB18DD2009878B9 /* NSArray+TBMArrayHelpers.m */,
 				076369D01BA49A0000925671 /* AVAudioSession */,
-				076369D81BA49A0000925671 /* NSError */,
-				076369DE1BA49A0000925671 /* NSString */,
-				076369E41BA49A0000925671 /* UILabel */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1179,42 +1194,6 @@
 				076369D21BA49A0000925671 /* AVAudioSession+TBMAudioSession.m */,
 			);
 			path = AVAudioSession;
-			sourceTree = "<group>";
-		};
-		076369D81BA49A0000925671 /* NSError */ = {
-			isa = PBXGroup;
-			children = (
-				076369D91BA49A0000925671 /* NSError+Extensions.h */,
-				076369DA1BA49A0000925671 /* NSError+Extensions.m */,
-			);
-			path = NSError;
-			sourceTree = "<group>";
-		};
-		076369DE1BA49A0000925671 /* NSString */ = {
-			isa = PBXGroup;
-			children = (
-				076369DF1BA49A0000925671 /* NSString+NSStringExtensions.h */,
-				076369E01BA49A0000925671 /* NSString+NSStringExtensions.m */,
-			);
-			path = NSString;
-			sourceTree = "<group>";
-		};
-		076369E41BA49A0000925671 /* UILabel */ = {
-			isa = PBXGroup;
-			children = (
-				076369E51BA49A0000925671 /* UILabel+TBMUILabelDynamicHeight.h */,
-				076369E61BA49A0000925671 /* UILabel+TBMUILabelDynamicHeight.m */,
-			);
-			path = UILabel;
-			sourceTree = "<group>";
-		};
-		076369ED1BA49A0000925671 /* DeviceHandler */ = {
-			isa = PBXGroup;
-			children = (
-				076369EE1BA49A0000925671 /* TBMDeviceHandler.h */,
-				076369EF1BA49A0000925671 /* TBMDeviceHandler.m */,
-			);
-			path = DeviceHandler;
 			sourceTree = "<group>";
 		};
 		076369F01BA49A0000925671 /* FileUtils */ = {
@@ -1397,6 +1376,9 @@
 		07636AFA1BA49A0100925671 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				072B6A3E1BD52F94000B824E /* NSArray */,
+				072B6A411BD52F94000B824E /* NSError */,
+				072B6A441BD52F94000B824E /* NSString */,
 				07636AFB1BA49A0100925671 /* UIImage */,
 			);
 			path = Categories;
@@ -4176,9 +4158,9 @@
 			files = (
 				07636EAB1BA49A0100925671 /* ZZSecretValueCell.m in Sources */,
 				07636EDF1BA49A0100925671 /* ZZStartVC.m in Sources */,
-				07636DB61BA49A0100925671 /* TBMDeviceHandler.m in Sources */,
 				07636E171BA49A0100925671 /* ZZAppDelegate.m in Sources */,
 				07636E921BA49A0100925671 /* ZZAuthTextField.m in Sources */,
+				072B6A481BD52F94000B824E /* NSError+ZZAdditions.m in Sources */,
 				07636E2D1BA49A0100925671 /* ZZGridDomainModel.m in Sources */,
 				07636DF51BA49A0100925671 /* TBMHttpManager.m in Sources */,
 				07636EBE1BA49A0100925671 /* ZZGridCenterCell.m in Sources */,
@@ -4204,7 +4186,6 @@
 				07636E941BA49A0100925671 /* ZZAuthWireframe.m in Sources */,
 				070560FA1BA8736600C130E0 /* ZZGridActionDataProvider.m in Sources */,
 				07636EFD1BA49A0100925671 /* ANNetworkActivityManager.m in Sources */,
-				07636DB31BA49A0100925671 /* UILabel+TBMUILabelDynamicHeight.m in Sources */,
 				07636E911BA49A0100925671 /* ZZAuthRegistrationView.m in Sources */,
 				07636DAA1BA49A0100925671 /* TBMAppDelegate+PushNotification.m in Sources */,
 				07636ED31BA49A0100925671 /* ZZGridWireframe.m in Sources */,
@@ -4231,7 +4212,6 @@
 				07636ED11BA49A0100925671 /* ZZGridRotationTouchObserver.m in Sources */,
 				07636EC71BA49A0100925671 /* ZZGridCellViewModel.m in Sources */,
 				181D1C9E1BC51A4600044F83 /* ZZBaseEventHandler.m in Sources */,
-				07BAA7051BB18DD2009878B9 /* NSArray+TBMArrayHelpers.m in Sources */,
 				07636EB51BA49A0100925671 /* ZZEditFriendCellViewModel.m in Sources */,
 				7952764B1BA6B4AB00E506D5 /* ZZMenuCellViewModel.m in Sources */,
 				07636E401BA49A0100925671 /* TBMGridElement.m in Sources */,
@@ -4243,7 +4223,7 @@
 				07636E931BA49A0100925671 /* ZZAuthVC.m in Sources */,
 				07636EB71BA49A0100925671 /* ZZEditFriendListController.m in Sources */,
 				07636EBF1BA49A0100925671 /* ZZGridCenterCellViewModel.m in Sources */,
-				073D556A1BD2D82B0014E83E /* TBMSoundEffect.m in Sources */,
+				073D556A1BD2D82B0014E83E /* ZZSoundEffectPlayer.m in Sources */,
 				07636EE81BA49A0100925671 /* NSObject+ANSafeValues.m in Sources */,
 				07636E3D1BA49A0100925671 /* ZZVideoNetworkTransport.m in Sources */,
 				79EBFD401BA8554100A26684 /* ZZToastMessageBuilder.m in Sources */,
@@ -4294,9 +4274,8 @@
 				07636EDB1BA49A0100925671 /* ZZMenuVC.m in Sources */,
 				07636EC41BA49A0100925671 /* ZZGridStateViewPreview.m in Sources */,
 				181D1CB61BC5236E00044F83 /* ZZSentWelcomeEventHandler.m in Sources */,
+				072B6A471BD52F94000B824E /* NSArray+ZZAdditions.m in Sources */,
 				07636EBB1BA49A0100925671 /* ZZGridAlertBuilder.m in Sources */,
-				07636DB11BA49A0100925671 /* NSString+NSStringExtensions.m in Sources */,
-				07636DAF1BA49A0100925671 /* NSError+Extensions.m in Sources */,
 				07636E981BA49A0100925671 /* ZZDebugStateInteractor.m in Sources */,
 				07636DBF1BA49A0100925671 /* TBMVideoRecorder.m in Sources */,
 				07636E3E1BA49A0100925671 /* ZZVideoNetworkTransportService.m in Sources */,
@@ -4376,6 +4355,7 @@
 				07636E481BA49A0100925671 /* ZZBaseVC.m in Sources */,
 				07636EAA1BA49A0100925671 /* ZZSecretSwitchCellViewModel.m in Sources */,
 				07636EED1BA49A0100925671 /* ANDrawerNC.m in Sources */,
+				072B6A491BD52F94000B824E /* NSString+ZZAdditions.m in Sources */,
 				07636E581BA49A0100925671 /* ZZKeychainDataProvider.m in Sources */,
 				07636F061BA49A0100925671 /* TBMAlertController.m in Sources */,
 				07636E5D1BA49A0100925671 /* ZZVideoProcessor.m in Sources */,

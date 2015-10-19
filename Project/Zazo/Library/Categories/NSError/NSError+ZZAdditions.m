@@ -6,17 +6,15 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "NSError+Extensions.h"
+#import "NSError+ZZAdditions.h"
 
 @implementation NSError (Extensions)
 
-+ (NSError *)errorWithError:(NSError *)error reason:(NSString *)reason
++ (NSError*)errorWithError:(NSError*)error reason:(NSString*)reason
 {
-    NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] init];
-
-    [userInfo addEntriesFromDictionary:error.userInfo];
-    
-    userInfo[NSLocalizedFailureReasonErrorKey] = reason;
+    NSMutableDictionary *userInfo = [NSMutableDictionary new];
+    [userInfo addEntriesFromDictionary:error.userInfo ? : @{}];
+    userInfo[NSLocalizedFailureReasonErrorKey] = [NSObject an_safeString:reason];
     
     return [[NSError alloc] initWithDomain:error.domain
                                       code:error.code

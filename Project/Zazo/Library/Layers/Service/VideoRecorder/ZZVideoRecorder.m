@@ -22,7 +22,7 @@
 #import "AVAudioSession+TBMAudioSession.h"
 #import "TBMVideoRecorder.h"
 #import "TBMVideoIdUtils.h"
-#import "NSError+Extensions.h"
+#import "NSError+ZZAdditions.h"
 
 NSString* const kVideoProcessorDidFinishProcessing = @"TBMVideoProcessorDidFinishProcessing";
 NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing";
@@ -244,7 +244,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 - (void)_switchToBackCamera
 {
     NSError *error;
-    self.recorder.videoInput = [ZZDeviceHandler getAvailableBackVideoInputWithError:&error];
+    self.recorder.videoInput = [ZZDeviceHandler loadAvailableBackVideoInputWithError:&error];
     if (error)
     {
         // TODO:
@@ -266,7 +266,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 //    [self.recorder initVideoInput];
     
     NSError *error;
-    self.recorder.videoInput = [ZZDeviceHandler getAvailableFrontVideoInputWithError:&error];
+    self.recorder.videoInput = [ZZDeviceHandler loadAvailableFrontVideoInputWithError:&error];
     if (error)
     {
         // TODO:
@@ -283,11 +283,10 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     [self _initAudioInput];
 }
 
-
 - (void)_initAudioInput
 {
     NSError *error;
-    self.recorder.audioInput = [ZZDeviceHandler getAudioInputWithError:&error];
+    self.recorder.audioInput = [ZZDeviceHandler loadAudioInputWithError:&error];
     if (error)
     {
         //TODO:

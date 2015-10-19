@@ -13,7 +13,6 @@
 #import "TBMVideoIdUtils.h"
 #import "OBLogger.h"
 #import "TBMPhoneUtils.h"
-#import "NSString+NSStringExtensions.h"
 #import "TBMUser.h"
 #import "MagicalRecord.h"
 #import "TBMGridElement.h"
@@ -603,11 +602,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (BOOL)hasOutgoingVideo
 {
-    if (self.outgoingVideoId && ![self.outgoingVideoId isEmpty])
-    {
-        return YES;
-    }
-    return NO;
+    return !ANIsEmpty(self.outgoingVideoId);
 }
 
 + (NSArray*)everSentMkeys

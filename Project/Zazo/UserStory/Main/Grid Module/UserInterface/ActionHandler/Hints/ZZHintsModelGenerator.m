@@ -8,7 +8,7 @@
 
 #import "ZZHintsModelGenerator.h"
 #import "ZZHintsDomainModel.h"
-#import "NSArray+TBMArrayHelpers.h"
+#import "NSArray+ZZAdditions.h"
 
 @implementation ZZHintsModelGenerator
 
@@ -135,7 +135,7 @@
 + (ZZHintsDomainModel*)_inviteSomeoneElseHint
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
-    model.title = [self _possiblePhrases].randomObject;
+    model.title = [self _possiblePhrases].zz_randomObject;
     model.type = ZZHintsTypeInviteSomeElseHint;
     model.hidesArrow = NO;
     model.imageType = ZZHintsBottomImageTypeNone;
@@ -207,7 +207,7 @@
 + (ZZHintsDomainModel*)_giftIsWaiting
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
-    model.title = [self _possiblePhrases].randomObject;
+    model.title = [self _possiblePhrases].zz_randomObject;
     model.angle = -95.f;
     model.type = ZZHintsTypeGiftIsWaiting;
     model.hidesArrow = NO;

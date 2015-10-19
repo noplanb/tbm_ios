@@ -18,12 +18,10 @@
 #import "ZZContentDataAcessor.h"
 #import "ZZVideoRecorder.h"
 #import "ZZSoundPlayer.h"
-#import "ZZGlobalHeader.h"
 #import "ZZGridActionStoredSettings.h"
 
 @interface TBMAppDelegate()
 
-@property id <TBMAppDelegateEventNotificationProtocol> eventNotificationDelegate;
 @property (nonatomic, copy) void (^registredToNotifications)(void);
 
 @end
@@ -36,7 +34,6 @@
 {
     [self.appDependencies initialApplicationSetup:application launchOptions:launchOptions];
     
-
     self.pushAlreadyFailed = NO;
     [self addObservers];
     
@@ -82,9 +79,6 @@
     
     OB_INFO(@"applicationWillEnterForeground");
     self.isForeground = YES;
-
-    if (self.eventNotificationDelegate != nil)
-        [self.eventNotificationDelegate appWillEnterForeground];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application{
@@ -92,8 +86,6 @@
     [self.appDependencies handleApplicationDidBecomeActive];
     self.isForeground = YES;
     
-    if (self.eventNotificationDelegate !=  nil)
-        [self.eventNotificationDelegate appDidBecomeActive];
     ANDispatchBlockToBackgroundQueue(^{
        [self performDidBecomeActiveActions];
     });
@@ -116,18 +108,9 @@
     
 }
 
-
 - (void)removeObservers{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
-//------------------------------------------------------
-// Allow other object to register for event notification
-//------------------------------------------------------
-- (void)setLifeCycleEventNotificationDelegate:(id)delegate{
-    self.eventNotificationDelegate = delegate;
-}
-
 
 
 #pragma mark - Application's Documents directory

@@ -12,12 +12,13 @@
 #import "TBMStringUtils.h"
 #import "TBMHttpManager.h"
 #import "OBLogger.h"
-#import "NSString+NSStringExtensions.h"
+
 #import "ZZAPIRoutes.h"
 #import "ZZUserDomainModel.h"
 #import "ZZUserDataProvider.h"
 #import "ZZKeychainDataProvider.h"
 #import "ZZS3CredentialsDomainModel.h"
+#import "NSString+ZZAdditions.h"
 
 static NSString *const kArraySeparator = @",";
 
@@ -36,14 +37,14 @@ static NSString *const kArraySeparator = @",";
 {
     return [NSString stringWithFormat:@"%@-%@",
                                       [self incomingPrefix:friend],
-                                      [[friend.ckey stringByAppendingString:videoId] md5]];
+                                      [[friend.ckey stringByAppendingString:videoId] zz_md5]];
 }
 
 + (NSString *)outgoingVideoRemoteFilename:(TBMFriend *)friend videoId:(NSString *)videoId
 {
     return [NSString stringWithFormat:@"%@-%@",
                                       [self outgoingPrefix:friend],
-                                      [[friend.ckey stringByAppendingString:videoId] md5]];
+                                      [[friend.ckey stringByAppendingString:videoId] zz_md5]];
 }
 
 + (NSString *)incomingVideoIDRemoteKVKey:(TBMFriend *)friend
@@ -91,14 +92,14 @@ static NSString *const kArraySeparator = @",";
 + (NSString *)incomingSuffix:(TBMFriend *)friend withTypeSuffix:(NSString *)typeSuffix
 {
      ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
-    NSString *md5 = [[[friend.mkey stringByAppendingString:model.mkey] stringByAppendingString:friend.ckey] md5];
+    NSString *md5 = [[[friend.mkey stringByAppendingString:model.mkey] stringByAppendingString:friend.ckey] zz_md5];
     return [md5 stringByAppendingString:typeSuffix];
 }
 
 + (NSString *)outgoingSuffix:(TBMFriend *)friend withTypeSuffix:(NSString *)typeSuffix
 {
      ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
-    NSString *md5 = [[[model.mkey stringByAppendingString:friend.mkey] stringByAppendingString:friend.ckey] md5];
+    NSString *md5 = [[[model.mkey stringByAppendingString:friend.mkey] stringByAppendingString:friend.ckey] zz_md5];
     return [md5 stringByAppendingString:typeSuffix];
 }
 

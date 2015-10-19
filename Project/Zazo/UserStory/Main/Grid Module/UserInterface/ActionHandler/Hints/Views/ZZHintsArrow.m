@@ -4,7 +4,6 @@
 //
 
 #import "ZZHintsArrow.h"
-#import "UILabel+TBMUILabelDynamicHeight.h"
 #import "ZZHintsConstants.h"
 
 CGFloat const kImageScale = 0.75f;
@@ -121,9 +120,15 @@ CGFloat degreesToRadians(CGFloat x)
     
     
     self.arrowLabel.preferredMaxLayoutWidth = width;
-    self.arrowLabel.frame = CGRectMake(x, y, width, height);
-    CGSize newSize = self.arrowLabel.sizeOfMultiLineLabel;
-    self.arrowLabel.frame = CGRectMake(x, y, width, newSize.height);
+    CGRect frame = CGRectMake(x, y, width, height);
+    
+    CGFloat aLabelSizeWidth = CGRectGetWidth(frame);
+    NSDictionary *attributes = @{NSFontAttributeName : self.arrowLabel.font};
+    CGRect labelRect = [self.arrowLabel.text boundingRectWithSize:CGSizeMake(aLabelSizeWidth, MAXFLOAT)
+                                                          options:NSStringDrawingUsesLineFragmentOrigin
+                                                       attributes:attributes
+                                                          context:nil];
+    self.arrowLabel.frame = CGRectMake(frame.origin.x, frame.origin.y, labelRect.size.width, labelRect.size.height);
 }
 
 - (void)layoutArrow

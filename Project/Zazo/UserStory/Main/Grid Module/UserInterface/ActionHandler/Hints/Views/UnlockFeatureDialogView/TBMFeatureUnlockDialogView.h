@@ -9,7 +9,7 @@
 
 
 @class TBMFeatureUnlockModulePresenter;
-@class TBMSoundEffect;
+@class ZZSoundEffectPlayer;
 
 @interface TBMFeatureUnlockDialogView : UIView
 
