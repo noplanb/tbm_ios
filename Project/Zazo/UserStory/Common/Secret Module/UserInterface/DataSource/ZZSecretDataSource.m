@@ -76,15 +76,15 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
     {
         case ZZSecretSectionTutorial:
         {
-            if (indexPath.row == ZZSecretSectionTutorialIndexResetHints) // reset tutorial hints
+            if (indexPath.row == 0) // reset tutorial hints
             {
                 [self.delegate actionWithType:ZZSecrectScreenActionsTypeResetTutorialHints];
             }
-            else if (indexPath.row == ZZSecretSectionTutorialIndexFeatureOptions) // feature options
+            else if (indexPath.row == 1) // feature options
             {
                 [self.delegate actionWithType:ZZSecrectScreenActionsTypeFeatureOptions];
             }
-            else if (indexPath.row == ZZSecretSectionTutorialIndexEnableAllFeatures)
+            else if (indexPath.row == 2)
             {
                 [self.delegate actionWithType:ZZSecretScreenActionsTypeEnableAllFeatures];
             }
@@ -116,15 +116,15 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
             
         case ZZSecretSectionResetData:
         {
-            if (indexPath.row == ZZSecretSectionResetDataIndexClearUserData)
+            if (indexPath.row == 0)
             {
                 [self.delegate actionWithType:ZZSecrectScreenActionsTypeClearUserData];
             }
-            else if (indexPath.row == ZZSecretSectionResetDataIndexDeleteAllDanglingFiles)
+            else if (indexPath.row == 1)
             {
                 [self.delegate actionWithType:ZZSecrectScreenActionsTypeDeleteAllDanglingFiles];
             }
-            else if (indexPath.row == ZZSecrectScreenActionsTypeCrashApplication)
+            else if (indexPath.row == 2)
             {
                 [self.delegate actionWithType:ZZSecrectScreenActionsTypeCrashApplication];
             }
@@ -234,6 +234,7 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
                        NSLocalizedString(@"secret-controller.rollbar.segment-control.title", nil)];
     
     ZZSecretSegmentCellViewModel* rollBar = [ZZSecretSegmentCellViewModel viewModelWithTitles:items];
+    rollBar.selectedIndex = model.useRollbarSDK;
     rollBar.delegate = self;
     
     ZZSecretValueCellViewModel* dispatch = [ZZSecretValueCellViewModel viewModelWithTitle:@"Send dispatch message" details:nil];

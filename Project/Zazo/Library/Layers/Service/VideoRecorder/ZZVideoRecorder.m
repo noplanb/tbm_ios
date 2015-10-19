@@ -236,8 +236,6 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         {
             [self _switchToFrontCamera];
         }
-//        AVCaptureDevicePosition camera = isFrontCamera ? AVCaptureDevicePositionBack : AVCaptureDevicePositionFront;
-//        self.recorder.device = camera;
     }
 }
 
@@ -263,8 +261,6 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 - (void)_switchToFrontCamera
 {
-//    [self.recorder initVideoInput];
-    
     NSError *error;
     self.recorder.videoInput = [ZZDeviceHandler loadAvailableFrontVideoInputWithError:&error];
     if (error)
@@ -303,7 +299,6 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     [self.recorder setupCaptureSessionView:recordView];
 }
 
-//- (void)startRecordingWithVideoURL:(NSURL*)url
 - (void)startRecordingWithVideoURL:(NSURL*)url completionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
     self.completionBlock = completionBlock;

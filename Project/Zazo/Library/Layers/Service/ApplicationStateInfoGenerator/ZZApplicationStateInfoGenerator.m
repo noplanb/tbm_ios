@@ -30,6 +30,7 @@ static NSInteger const kStateStringColumnWidth = 14;
     model.isDebugEnabled = manager.debugModeEnabled;
     model.serverURLString = apiBaseURL();
     model.serverIndex = manager.serverEndpointState;
+    model.useRollbarSDK = manager.shouldUseRollBarSDK;
     NSString* version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     NSString* buildNumber = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     model.version = [NSString stringWithFormat:@"%@(%@) - %@",
@@ -147,7 +148,7 @@ static NSInteger const kStateStringColumnWidth = 14;
     [items addObject:ZZIncomingVideoInfoStringFromEnumValue(friendModel.lastIncomingVideoStatus)];
     [items addObject:[NSObject an_safeString:friendModel.outgoingVideoItemID]];
     [items addObject:ZZOutgoingVideoInfoStringFromEnumValue(friendModel.outgoingVideoStatusValue)];
-   
+    
     BOOL isOutgoing = (friendModel.lastVideoStatusEventType == ZZVideoStatusEventTypeOutgoing);
     [items addObject:isOutgoing ? @"OUT" : @"IN"];
     
@@ -174,22 +175,25 @@ static NSInteger const kStateStringColumnWidth = 14;
     
     for (ZZDebugFriendStateDomainModel* friendModel in friends)
     {
-        NSArray* rowFriendItems = @[[NSObject an_safeString:friendModel.username]];
-        NSString* stateString = [self _stateRowForItems:rowFriendItems];
-        [result appendFormat:@"%@\n", stateString];
-        
-        for (ZZDebugVideoStateDomainModel* videoModel in friendModel.incomingVideoItems)
+        if ((friendModel.outgoingVideoItems.count + friendModel.incomingVideoItems.count) > 0)
         {
-            [result appendString:[self _stateForVideo:videoModel]];
-        }
-        for (ZZDebugVideoStateDomainModel* videoModel in friendModel.outgoingVideoItems)
-        {
-            [result appendString:[self _stateForVideo:videoModel]];
+            NSArray* rowFriendItems = @[[NSObject an_safeString:friendModel.username]];
+            NSString* stateString = [self _stateRowForItems:rowFriendItems];
+            [result appendFormat:@"%@\n", stateString];
+            
+            for (ZZDebugVideoStateDomainModel* videoModel in friendModel.incomingVideoItems)
+            {
+                [result appendFormat:@"%@", [self _stateForVideo:videoModel]];
+            }
+            for (ZZDebugVideoStateDomainModel* videoModel in friendModel.outgoingVideoItems)
+            {
+                [result appendFormat:@"%@", [self _stateForVideo:videoModel]];
+            }
         }
     }
     
     //dangling files
-    [result appendString:@"Dangling files\n"];
+    [result appendString:@"\n\nDangling files\n"];
     
     NSArray* incomingDangling = [self loadIncomingDandlingItemsFromData:friends];
     [result appendFormat:@"Incoming (%ld)\n", (long)incomingDangling.count];
@@ -235,10 +239,13 @@ static NSInteger const kStateStringColumnWidth = 14;
         
     }] array];
     
-    NSString* status = ZZVideoOutgoingStatusStringFromEnumValue(value.outgoingVideoStatusValue);
-    ZZDebugVideoStateDomainModel* outgoing = [ZZDebugVideoStateDomainModel itemWithItemID:value.outgoingVideoItemID
-                                                                                 status:status];
-    model.outgoingVideoItems = @[outgoing];
+    if (!ANIsEmpty(value.outgoingVideoItemID))
+    {
+        NSString* status = ZZVideoOutgoingStatusStringFromEnumValue(value.outgoingVideoStatusValue);
+        ZZDebugVideoStateDomainModel* outgoing = [ZZDebugVideoStateDomainModel itemWithItemID:value.outgoingVideoItemID
+                                                                                       status:status];
+        model.outgoingVideoItems = @[outgoing];
+    }
     
     return model;
 }

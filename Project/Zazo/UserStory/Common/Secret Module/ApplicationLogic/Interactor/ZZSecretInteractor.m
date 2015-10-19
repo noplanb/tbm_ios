@@ -41,9 +41,9 @@
 {
     NSString* message = [NSString stringWithFormat:@"CRASH BUTTON EXCEPTION: %@",
                          [ZZApplicationStateInfoGenerator generateSettingsStateMessage]];
-    [[ZZRollbarAdapter shared] logMessage:message level:ZZDispatchLevelError];// TODO: check it in previous versions
+    [[ZZRollbarAdapter shared] logMessage:message level:ZZDispatchLevelError];
     //BADABOOOOOOM!
-    exit(0);
+    [[NSArray new] objectAtIndex:2];
 }
 
 - (void)resetHints
@@ -52,7 +52,7 @@
 }
 
 - (void)updateAllFeaturesToEnabled
-{
+{//TODO: move to action storage handler
     BOOL isEnabled = YES;
     [ZZGridActionStoredSettings shared].frontCameraHintWasShown = isEnabled;
     [ZZGridActionStoredSettings shared].abortRecordHintWasShown = isEnabled;

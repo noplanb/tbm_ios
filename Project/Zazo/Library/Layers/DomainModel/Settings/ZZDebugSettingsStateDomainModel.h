@@ -32,5 +32,6 @@ extern const struct ZZDebugSettingsStateDomainModelAttributes {
 @property (nonatomic, strong) NSString* phoneNumber;
 @property (nonatomic, assign) BOOL useRearCamera;
 @property (nonatomic, assign) BOOL enableAllFeatures;
+@property (nonatomic, assign) BOOL useRollbarSDK;
 
 @end

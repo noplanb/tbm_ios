@@ -108,11 +108,16 @@
 {
     NSArray *devices = [AVCaptureDevice devicesWithMediaType:mediaType];
     __block AVCaptureDevice *captureDevice = [devices firstObject];
-    [devices enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    
+    [devices enumerateObjectsUsingBlock:^(AVCaptureDevice*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
-        captureDevice = obj;
-        *stop = YES;
+        if (obj.position == position)
+        {
+            captureDevice = obj;
+            *stop = YES;
+        }
     }];
+    
     return captureDevice;
 }
 
