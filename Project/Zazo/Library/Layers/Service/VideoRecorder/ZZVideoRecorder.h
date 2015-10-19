@@ -46,5 +46,6 @@ extern NSString* const TBMVideoRecorderDidFail;
 - (void)startAudioSession;
 
 - (BOOL)isRecording;
+- (void)showVideoToShoortToast;
 
 @end

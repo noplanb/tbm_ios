@@ -608,6 +608,14 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 }
 
 
+- (void)showVideoToShoortToast
+{
+    [self showMessage:NSLocalizedString(@"record-video-too-short", nil)];
+    ANDispatchBlockAfter(kDelayBeforeNextMessage, ^{
+        [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
+    });
+}
+
 #pragma mark Util
 
 - (BOOL)videoTooShort:(NSURL *)videoUrl

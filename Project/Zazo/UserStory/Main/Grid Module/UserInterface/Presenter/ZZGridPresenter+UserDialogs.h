@@ -12,7 +12,7 @@
 
 - (void)_showSendInvitationDialogForUser:(ZZContactDomainModel*)user;
 - (void)_showConnectedDialogForModel:(ZZFriendDomainModel*)friendModel;
-- (void)_showSmsDialogForModel:(ZZFriendDomainModel*)friendModel;
+- (void)_showSmsDialogForModel:(ZZFriendDomainModel*)friendModel isNudgeAction:(BOOL)isNudge;
 - (void)_showCantSendSmsErrorForModel:(ZZFriendDomainModel*)friendModel;
 - (void)_nudgeUser:(ZZFriendDomainModel*)userModel;
 - (void)_showNoValidPhonesDialogFromModel:(ZZContactDomainModel*)model;

@@ -151,7 +151,7 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys) {
     
     NSDictionary* configurationDictionary = [self _unlockFeaturesConfigurationDictionary];
     
-    if (mkeys.count <= configurationDictionary.allKeys.count)
+    if (mkeys.count <= ZZFeatureUnlockSpinWheelKey)
     {
         NSArray* unlockFeaturesKeys = [configurationDictionary objectForKey:@(mkeys.count)];
         
@@ -167,7 +167,9 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys) {
 
 - (NSDictionary*)_unlockFeaturesConfigurationDictionary
 {
-    return @{ @(ZZFeatureUnlockBothCameraKey) : @[@"frontCameraHintWasShown"],
+    return @{
+             
+             @(ZZFeatureUnlockBothCameraKey) : @[@"frontCameraHintWasShown"],
               
               @(ZZFeatureUnlockAbortRecordingKey) : @[@"frontCameraHintWasShown",
                                                       @"abortRecordHintWasShown"],

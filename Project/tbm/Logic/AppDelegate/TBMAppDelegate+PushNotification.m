@@ -152,7 +152,7 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
     [self onFailPushAccess];
 }
 
-- (void)sendPushTokenToServer:(NSString*)token
+- (void)sendPushTokenToServer:(NSString *)token
 {
     OB_INFO(@"sendPushTokenToServer");
     NSString *myMkey = [ZZUserDataProvider authenticatedUser].mkey;
@@ -179,7 +179,11 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     OB_INFO(@"didReceiveRemoteNotification:fetchCompletionHandler %@", userInfo);
     self.pushVideoId = [userInfo objectForKey:@"video_id"];
     [self requestBackground];
-    [self handleNotificationPayload:userInfo];
+    
+    if ([ZZUserDataProvider authenticatedUser].isRegistered)
+    {
+        [self handleNotificationPayload:userInfo];
+    }
     
     // See doc/notification.txt for why we call the completion handler with sucess immediately here.
 //    _completionHandler = [completionHandler copy];
@@ -242,12 +246,12 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     NSString *mkey = userInfo[NOTIFICATION_FROM_MKEY_KEY];
     TBMFriend *friend = [TBMFriend findWithMkey:mkey];
 
-    if (friend == nil) {
+    if (friend == nil)
+    {
         OB_INFO(@"handleVideoReceivedNotification: got notification for non existant friend. calling getAndPollAllFriends");
         [self getAndPollAllFriends];
         return;
     }
-
     [self queueDownloadWithFriendID:friend.idTbm videoId:videoId];
 }
 
@@ -315,7 +319,9 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
     [[ZZNotificationTransportService sendVideoReceivedNotificationTo:friendModel
                                                          videoItemID:videoId
-                                                                from:me] subscribeNext:^(id x) {}];
+                                                                from:me] subscribeNext:^(id x) {
+        
+    }];
 }
 
 - (void)sendNotificationForVideoStatusUpdate:(TBMFriend *)friend videoId:(NSString *)videoId status:(NSString *)status
@@ -326,7 +332,9 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     
     [[ZZNotificationTransportService sendVideoStatusUpdateNotificationTo:friendModel
                                                              videoItemID:videoId
-                                                                  status:status from:me] subscribeNext:^(id x) {}];
+                                                                  status:status from:me] subscribeNext:^(id x) {
+        
+    }];
 }
 
 @end

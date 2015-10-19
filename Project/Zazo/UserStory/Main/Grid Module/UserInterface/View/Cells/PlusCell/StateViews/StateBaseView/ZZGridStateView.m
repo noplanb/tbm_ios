@@ -17,6 +17,7 @@
 #import "TBMFriend.h"
 #import "ZZGridActionStoredSettings.h"
 
+
 @interface ZZGridStateView ()
 
 @end
@@ -40,6 +41,7 @@
         self.model = model;
         
         // upload video animation
+        
         if (self.model.hasUploadedVideo &&
             !self.model.isUploadedVideoViewed &&
             self.model.item.relatedUser.lastVideoStatusEventType != ZZVideoStatusEventTypeIncoming)
@@ -71,7 +73,8 @@
 - (void)_setupDownloadAnimationsWithModel:(ZZGridCellViewModel*)model
 {
     if (self.model.item.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
-        self.model.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING)
+        self.model.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING &&
+        self.model.item.relatedUser.unviewedCount > 0)
     {
         [self _setupBadgeWithModel:model];
         [self _setupDownloadingState];
@@ -383,21 +386,19 @@
     return _videoViewedView;
 }
 
-- (UILabel*)userNameLabel
+- (ZZUserNameLabel*)userNameLabel
 {
     if (!_userNameLabel)
     {
-        _userNameLabel = [UILabel new];
+        _userNameLabel = [ZZUserNameLabel new];
         _userNameLabel.textAlignment = NSTextAlignmentCenter;
         _userNameLabel.textColor = [ZZColorTheme shared].gridStatusViewUserNameLabelColor;
         _userNameLabel.font = [UIFont an_regularFontWithSize:kUserNameFontSize];
         _userNameLabel.backgroundColor = [[ZZColorTheme shared].gridCellGrayColor colorWithAlphaComponent:0.8];
         [self addSubview:_userNameLabel];
 
-        UIEdgeInsets padding = UIEdgeInsetsMake(0, 2, 0, 2);
         [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self);
-            make.left.right.equalTo(self).with.insets(padding);
+            make.bottom.left.right.equalTo(self);
             make.height.equalTo(@(kLayoutConstNameLabelHeight));
         }];
     }

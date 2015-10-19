@@ -8,40 +8,30 @@
 
 #import "ZZSentWelcomeEventHandler.h"
 
-static NSString* kLaunchTimeCounterKey = @"LaunchTimeCounterKey";
-
 @implementation ZZSentWelcomeEventHandler
 
 - (void)handleEvent:(ZZGridActionEventType)event
               model:(ZZGridCellViewModel *)model
 withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBlock
 {
-    if (event == ZZGridActionEventTypeFriendDidInvited &&
-        ![ZZGridActionStoredSettings shared].welcomeHintWasShown)
+    if (event == ZZGridActionEventTypeFriendDidInvited)// &&
+//        ![ZZGridActionStoredSettings shared].welcomeHintWasShown)
     {
         
-        NSInteger launchCounter = [[NSUserDefaults standardUserDefaults] integerForKey:kLaunchTimeCounterKey];
+         ZZHintsType type = ZZHintsTypeSendWelcomeHint;
         
-        ZZHintsType type = ZZHintsTypeNoHint;
-        
-        if (launchCounter < 6)
+        type = ZZHintsTypeSendWelcomeHint;
+        if (![model.item.relatedUser hasApp])
         {
-            launchCounter++;
-            [[NSUserDefaults standardUserDefaults] setInteger:launchCounter forKey:kLaunchTimeCounterKey];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            
-            type = ZZHintsTypeSendWelcomeHint;
-            if (![model.item.relatedUser hasApp])
-            {
-                type = ZZHintsTypeSendWelcomeHintForFriendWithoutApp;
-            }
-            
+            type = ZZHintsTypeSendWelcomeHintForFriendWithoutApp;
         }
-        else if (launchCounter == 6)
-        {
-            [ZZGridActionStoredSettings shared].welcomeHintWasShown = YES;
-        }
-        
+            
+//        }
+//        else if (launchCounter == 6)
+//        {
+//            [ZZGridActionStoredSettings shared].welcomeHintWasShown = YES;
+//        }
+    
         if (completionBlock)
         {
             completionBlock(type, model);

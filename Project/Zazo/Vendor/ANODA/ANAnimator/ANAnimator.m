@@ -32,7 +32,12 @@
     [self animateConstraint:constraint newOffset:offset key:key delay:0 bouncingRate:8];
 }
 
-+ (void)animateConstraint:(MASConstraint *)constraint newOffset:(CGFloat)offset key:(NSString *)key delay:(CFTimeInterval)delay bouncingRate:(NSUInteger)bounce completion:(ANCodeBlock)completion
++ (void)animateConstraint:(MASConstraint *)constraint
+                newOffset:(CGFloat)offset
+                      key:(NSString *)key
+                    delay:(CFTimeInterval)delay
+             bouncingRate:(NSUInteger)bounce
+               completion:(ANCodeBlock)completion
 {
     POPSpringAnimation *animation = [constraint pop_animationForKey:key];
     if (!animation)
@@ -49,6 +54,31 @@
             completion();
         }
     };
+    [constraint pop_addAnimation:animation forKey:key];
+}
+
++ (void)animateXTransitionConstraint:(MASConstraint*)constraint
+                           newOffset:(CGFloat)offset
+                            duration:(CGFloat)duration
+                                 key:(NSString*)key
+                          completion:(ANCodeBlock)completion
+{
+    
+    POPBasicAnimation* animation = [constraint pop_animationForKey:key];
+    if (!animation)
+    {
+        animation = [POPBasicAnimation linearAnimation];
+        animation.property = [POPAnimatableProperty mas_offsetProperty];
+    }
+    animation.toValue = @(offset);
+    animation.duration = duration;
+    
+    
+    if (completion)
+    {
+        completion();
+    }
+    
     [constraint pop_addAnimation:animation forKey:key];
 }
 
