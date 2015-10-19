@@ -21,7 +21,6 @@
 		07636DAA1BA49A0100925671 /* TBMAppDelegate+PushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369CC1BA49A0000925671 /* TBMAppDelegate+PushNotification.m */; };
 		07636DAB1BA49A0100925671 /* TBMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369CE1BA49A0000925671 /* TBMAppDelegate.m */; };
 		07636DAC1BA49A0100925671 /* AVAudioSession+TBMAudioSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369D21BA49A0000925671 /* AVAudioSession+TBMAudioSession.m */; };
-		07636DB71BA49A0100925671 /* TBMFileUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369F21BA49A0000925671 /* TBMFileUtils.m */; };
 		07636DBC1BA49A0100925671 /* TBMVideoIdUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A011BA49A0000925671 /* TBMVideoIdUtils.m */; };
 		07636DBD1BA49A0100925671 /* TBMVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A031BA49A0000925671 /* TBMVideoPlayer.m */; };
 		07636DBE1BA49A0100925671 /* TBMVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A051BA49A0000925671 /* TBMVideoProcessor.m */; };
@@ -412,12 +411,10 @@
 		076369CE1BA49A0000925671 /* TBMAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMAppDelegate.m; sourceTree = "<group>"; };
 		076369D11BA49A0000925671 /* AVAudioSession+TBMAudioSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVAudioSession+TBMAudioSession.h"; sourceTree = "<group>"; };
 		076369D21BA49A0000925671 /* AVAudioSession+TBMAudioSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVAudioSession+TBMAudioSession.m"; sourceTree = "<group>"; };
-		076369F11BA49A0000925671 /* TBMFileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFileUtils.h; sourceTree = "<group>"; };
-		076369F21BA49A0000925671 /* TBMFileUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFileUtils.m; sourceTree = "<group>"; };
 		07636A001BA49A0000925671 /* TBMVideoIdUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoIdUtils.h; sourceTree = "<group>"; };
 		07636A011BA49A0000925671 /* TBMVideoIdUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoIdUtils.m; sourceTree = "<group>"; };
-		07636A021BA49A0000925671 /* TBMVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoPlayer.h; sourceTree = "<group>"; };
-		07636A031BA49A0000925671 /* TBMVideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoPlayer.m; sourceTree = "<group>"; };
+		07636A021BA49A0000925671 /* TBMVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBMVideoPlayer.h; path = ../../../Logic/VideoUtils/TBMVideoPlayer.h; sourceTree = "<group>"; };
+		07636A031BA49A0000925671 /* TBMVideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBMVideoPlayer.m; path = ../../../Logic/VideoUtils/TBMVideoPlayer.m; sourceTree = "<group>"; };
 		07636A041BA49A0000925671 /* TBMVideoProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoProcessor.h; sourceTree = "<group>"; };
 		07636A051BA49A0000925671 /* TBMVideoProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoProcessor.m; sourceTree = "<group>"; };
 		07636A061BA49A0000925671 /* TBMVideoRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoRecorder.h; sourceTree = "<group>"; };
@@ -1117,6 +1114,7 @@
 			children = (
 				076369C51BA49A0000925671 /* Logic */,
 				07636AA51BA49A0100925671 /* Resources */,
+				07636AC81BA49A0100925671 /* !KEEP TO CHECK ALL STATUSES GridController  */,
 				07636AAE1BA49A0100925671 /* UI */,
 			);
 			path = tbm;
@@ -1128,7 +1126,6 @@
 				073D55671BD2D82B0014E83E /* SoundEffect */,
 				076369C61BA49A0000925671 /* AppDelegate */,
 				076369CF1BA49A0000925671 /* Categories */,
-				076369F01BA49A0000925671 /* FileUtils */,
 				076369FF1BA49A0000925671 /* VideoUtils */,
 			);
 			path = Logic;
@@ -1166,22 +1163,11 @@
 			path = AVAudioSession;
 			sourceTree = "<group>";
 		};
-		076369F01BA49A0000925671 /* FileUtils */ = {
-			isa = PBXGroup;
-			children = (
-				076369F11BA49A0000925671 /* TBMFileUtils.h */,
-				076369F21BA49A0000925671 /* TBMFileUtils.m */,
-			);
-			path = FileUtils;
-			sourceTree = "<group>";
-		};
 		076369FF1BA49A0000925671 /* VideoUtils */ = {
 			isa = PBXGroup;
 			children = (
 				07636A001BA49A0000925671 /* TBMVideoIdUtils.h */,
 				07636A011BA49A0000925671 /* TBMVideoIdUtils.m */,
-				07636A021BA49A0000925671 /* TBMVideoPlayer.h */,
-				07636A031BA49A0000925671 /* TBMVideoPlayer.m */,
 				07636A041BA49A0000925671 /* TBMVideoProcessor.h */,
 				07636A051BA49A0000925671 /* TBMVideoProcessor.m */,
 				07636A061BA49A0000925671 /* TBMVideoRecorder.h */,
@@ -1208,7 +1194,6 @@
 		07636AAE1BA49A0100925671 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				07636AC81BA49A0100925671 /* !KEEP TO CHECK ALL STATUSES GridController  */,
 				07636AAF1BA49A0100925671 /* TBMContentViewModal.h */,
 				07636AB01BA49A0100925671 /* TBMContentViewModal.m */,
 				07636ABB1BA49A0100925671 /* TBMTableModal.h */,
@@ -1220,11 +1205,13 @@
 		07636AC81BA49A0100925671 /* !KEEP TO CHECK ALL STATUSES GridController  */ = {
 			isa = PBXGroup;
 			children = (
+				07636A021BA49A0000925671 /* TBMVideoPlayer.h */,
+				07636A031BA49A0000925671 /* TBMVideoPlayer.m */,
 				07636ACB1BA49A0100925671 /* TBMGridElementViewController.h */,
 				07636ACC1BA49A0100925671 /* TBMGridElementViewController.m */,
 			);
 			name = "!KEEP TO CHECK ALL STATUSES GridController ";
-			path = UserStory/GridController;
+			path = UI/UserStory/GridController;
 			sourceTree = "<group>";
 		};
 		07636AE71BA49A0100925671 /* Zazo */ = {
@@ -4220,7 +4207,6 @@
 				07636E5A1BA49A0100925671 /* ZZStoredSettingsManager.m in Sources */,
 				070238D81BB430B200B8197E /* ZZApplicationVersionEnumHelper.m in Sources */,
 				07636EC11BA49A0100925671 /* ZZGridStateView+Animation.m in Sources */,
-				07636DB71BA49A0100925671 /* TBMFileUtils.m in Sources */,
 				07636EC61BA49A0100925671 /* ZZGridCell.m in Sources */,
 				181D1CA41BC51B2000044F83 /* ZZInviteEventHandler.m in Sources */,
 				18E1F2FA1BC6AC780070ECF1 /* ZZFeatureEventStrategyBase.m in Sources */,

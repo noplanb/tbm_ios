@@ -26,4 +26,9 @@
 
 + (BOOL)isMediaFileCorruptedWithFileUrl:(NSURL*)fileUrl;
 
+
+#pragma mark - Free Space 
+
++ (uint64_t)loadFreeDiskspaceValue;
+
 @end

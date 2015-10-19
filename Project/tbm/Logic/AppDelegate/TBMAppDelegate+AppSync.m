@@ -10,7 +10,6 @@
 #import "TBMAppDelegate+PushNotification.h"
 #import "TBMVideoRecorder.h"
 #import "TBMVideoIdUtils.h"
-#import "TBMVideoProcessor.h"
 #import "ZZVideoRecorder.h"
 #import "MagicalRecord.h"
 #import "ZZVideoNetworkTransportService.h"

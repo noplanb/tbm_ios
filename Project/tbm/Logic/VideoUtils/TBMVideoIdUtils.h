@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "TBMFriend.h"
 #import "TBMVideo.h"
 

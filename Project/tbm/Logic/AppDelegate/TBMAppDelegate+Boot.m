@@ -12,10 +12,11 @@
 #import "TBMAppDelegate+AppSync.h"
 #import "TBMUser.h"
 #import "AVFoundation/AVFoundation.h"
-#import "TBMFileUtils.h"
+
 #import "AVAudioSession+TBMAudioSession.h"
 #import "ZZUserDataProvider.h"
 #import "ZZUserDomainModel.h"
+#import "ZZFileHelper.h"
 
 @implementation TBMAppDelegate (Boot)
 
@@ -56,7 +57,7 @@
 - (void)ensureFreeStorage
 {
     OB_INFO(@"Boot: ensureFreeStorage:");
-    if ([TBMFileUtils getFreeDiskspace] < 250LL * 1024 * 1024)
+    if ([ZZFileHelper loadFreeDiskspaceValue] < 250LL * 1024 * 1024)
         [self requestStorage];
     else
         [self ensureAllMediaAccess];
