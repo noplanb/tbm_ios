@@ -11,8 +11,7 @@
 #import "Rollbar.h"
 #import "ZZCommonNetworkTransportService.h"
 #import "ZZRollbarConstants.h"
-
-#import "TBMStateStringGenerator.h"
+#import "ZZApplicationStateInfoGenerator.h"
 
 @implementation ZZRollbarAdapter
 
@@ -38,7 +37,6 @@
         RollbarConfiguration *config = [RollbarConfiguration configuration];
         config.crashLevel = @"critical";
         [Rollbar initWithAccessToken:kRollBarToken configuration:config];
-        
         
         [RACObserve([ZZStoredSettingsManager shared], serverEndpointState) subscribeNext:^(NSNumber* x) {
             
@@ -80,7 +78,7 @@
     {
         message = [NSString stringWithFormat:@"%@\n\n\n%@", [NSObject an_safeString:message], [self _logString]];
     }
-    message = [message stringByAppendingFormat:@"\n%@", [TBMStateStringGenerator stateString]];
+    message = [message stringByAppendingFormat:@"\n%@", [ZZApplicationStateInfoGenerator globalStateString]];
 #ifndef DEBUG
     if (self.endpointType == ZZDispatchEndpointServer)
     {

@@ -38,7 +38,7 @@
 
 #pragma mark - Output
 
-- (void)dataLoaded:(ZZSettingsModel *)model;
+- (void)dataLoaded:(ZZDebugSettingsStateDomainModel *)model;
 {
     [self.tableDataSource setupStorageWithViewModel:model];
 }

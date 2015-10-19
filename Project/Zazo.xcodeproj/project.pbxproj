@@ -31,14 +31,6 @@
 		07636DBD1BA49A0100925671 /* TBMVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A031BA49A0000925671 /* TBMVideoPlayer.m */; };
 		07636DBE1BA49A0100925671 /* TBMVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A051BA49A0000925671 /* TBMVideoProcessor.m */; };
 		07636DBF1BA49A0100925671 /* TBMVideoRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A071BA49A0000925671 /* TBMVideoRecorder.m */; };
-		07636DE41BA49A0100925671 /* TBMDebugData.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A721BA49A0100925671 /* TBMDebugData.m */; };
-		07636DE91BA49A0100925671 /* TBMFriend+StateProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A7E1BA49A0100925671 /* TBMFriend+StateProtocol.m */; };
-		07636DEA1BA49A0100925671 /* TBMFriendVideosInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A801BA49A0100925671 /* TBMFriendVideosInformation.m */; };
-		07636DEB1BA49A0100925671 /* TBMStateDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A821BA49A0100925671 /* TBMStateDataSource.m */; };
-		07636DEC1BA49A0100925671 /* TBMStateProtocolHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A841BA49A0100925671 /* TBMStateProtocolHelper.m */; };
-		07636DED1BA49A0100925671 /* TBMStateStringGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A861BA49A0100925671 /* TBMStateStringGenerator.m */; };
-		07636DEE1BA49A0100925671 /* TBMVideo+StateProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A881BA49A0100925671 /* TBMVideo+StateProtocol.m */; };
-		07636DEF1BA49A0100925671 /* TBMVideoObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A8A1BA49A0100925671 /* TBMVideoObject.m */; };
 		07636DF41BA49A0100925671 /* TBMFriendGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A981BA49A0100925671 /* TBMFriendGetter.m */; };
 		07636DF51BA49A0100925671 /* TBMHttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A9B1BA49A0100925671 /* TBMHttpManager.m */; };
 		07636DF61BA49A0100925671 /* TBMRemoteStorageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A9E1BA49A0100925671 /* TBMRemoteStorageHandler.m */; };
@@ -171,8 +163,6 @@
 		07636E961BA49A0100925671 /* ANDebugVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C271BA49A0100925671 /* ANDebugVC.m */; };
 		07636E971BA49A0100925671 /* ZZDebugStateEnumHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C2C1BA49A0100925671 /* ZZDebugStateEnumHelper.m */; };
 		07636E981BA49A0100925671 /* ZZDebugStateInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C2F1BA49A0100925671 /* ZZDebugStateInteractor.m */; };
-		07636E991BA49A0100925671 /* ZZDebugStateDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C331BA49A0100925671 /* ZZDebugStateDomainModel.m */; };
-		07636E9A1BA49A0100925671 /* ZZDebugStateItemDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C351BA49A0100925671 /* ZZDebugStateItemDomainModel.m */; };
 		07636E9B1BA49A0100925671 /* ZZDebugStateDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C3C1BA49A0100925671 /* ZZDebugStateDataSource.m */; };
 		07636E9C1BA49A0100925671 /* ZZDebugStatePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C3F1BA49A0100925671 /* ZZDebugStatePresenter.m */; };
 		07636E9D1BA49A0100925671 /* ZZDebugStateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C421BA49A0100925671 /* ZZDebugStateCell.m */; };
@@ -284,16 +274,17 @@
 		079280A41BA8544800E22553 /* ZZGridActionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 079280A31BA8544800E22553 /* ZZGridActionHandler.m */; };
 		079E90131BD43CEB001A4718 /* ZZRollbarAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E90121BD43CEB001A4718 /* ZZRollbarAdapter.m */; settings = {ASSET_TAGS = (); }; };
 		079E90171BD44695001A4718 /* ZZRollbarConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E90161BD44695001A4718 /* ZZRollbarConstants.m */; settings = {ASSET_TAGS = (); }; };
+		079E901B1BD465CF001A4718 /* ZZApplicationStateInfoGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E901A1BD465CF001A4718 /* ZZApplicationStateInfoGenerator.m */; settings = {ASSET_TAGS = (); }; };
+		079E901F1BD47073001A4718 /* ZZApplicationStateInfoConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E901E1BD47073001A4718 /* ZZApplicationStateInfoConstants.m */; settings = {ASSET_TAGS = (); }; };
+		079E90251BD48C57001A4718 /* ZZDebugFriendStateDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E90221BD48C57001A4718 /* ZZDebugFriendStateDomainModel.m */; settings = {ASSET_TAGS = (); }; };
+		079E90261BD48C57001A4718 /* ZZDebugVideoStateDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E90241BD48C57001A4718 /* ZZDebugVideoStateDomainModel.m */; settings = {ASSET_TAGS = (); }; };
 		07BAA7051BB18DD2009878B9 /* NSArray+TBMArrayHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA7041BB18DD2009878B9 /* NSArray+TBMArrayHelpers.m */; settings = {ASSET_TAGS = (); }; };
 		07BAA7081BB1B488009878B9 /* ZZUserPresentationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA7071BB1B488009878B9 /* ZZUserPresentationHelper.m */; settings = {ASSET_TAGS = (); }; };
 		07BAA7101BB1C346009878B9 /* ZZFileHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA70F1BB1C346009878B9 /* ZZFileHelper.m */; settings = {ASSET_TAGS = (); }; };
 		07BAA7141BB1C55E009878B9 /* ZZThumbnailGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA7131BB1C55E009878B9 /* ZZThumbnailGenerator.m */; settings = {ASSET_TAGS = (); }; };
-		07BAA7191BB1DE4E009878B9 /* ZZSettingsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA7181BB1DE4E009878B9 /* ZZSettingsModel.m */; settings = {ASSET_TAGS = (); }; };
+		07BAA7191BB1DE4E009878B9 /* ZZDebugSettingsStateDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA7181BB1DE4E009878B9 /* ZZDebugSettingsStateDomainModel.m */; settings = {ASSET_TAGS = (); }; };
 		07C94DD01BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C94DCF1BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m */; };
 		07E9593E1BCD74CE009C8F97 /* ZZContentDataAcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E9593D1BCD74CE009C8F97 /* ZZContentDataAcessor.m */; settings = {ASSET_TAGS = (); }; };
-		07F0E7F11B8CD7A900036AB2 /* StringUtilsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E41B8CD7A900036AB2 /* StringUtilsTest.m */; };
-		07F0E7F21B8CD7A900036AB2 /* TBMDispatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E51B8CD7A900036AB2 /* TBMDispatchTests.m */; };
-		07F0E7F31B8CD7A900036AB2 /* TBMVideoIdUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E61B8CD7A900036AB2 /* TBMVideoIdUtilsTests.m */; };
 		07F0E7F41B8CD7A900036AB2 /* ZZAccountTransportServiceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E81B8CD7A900036AB2 /* ZZAccountTransportServiceSpec.m */; };
 		07F0E7F51B8CD7A900036AB2 /* ZZRegistrationWithSMSTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E91B8CD7A900036AB2 /* ZZRegistrationWithSMSTest.m */; };
 		07F0E7F61B8CD7A900036AB2 /* ZZLoadFriendListSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EB1B8CD7A900036AB2 /* ZZLoadFriendListSpec.m */; };
@@ -450,22 +441,6 @@
 		07636A051BA49A0000925671 /* TBMVideoProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoProcessor.m; sourceTree = "<group>"; };
 		07636A061BA49A0000925671 /* TBMVideoRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoRecorder.h; sourceTree = "<group>"; };
 		07636A071BA49A0000925671 /* TBMVideoRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoRecorder.m; sourceTree = "<group>"; };
-		07636A711BA49A0100925671 /* TBMDebugData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBMDebugData.h; path = "../../Secret Screen Module/TBMDebugData.h"; sourceTree = "<group>"; };
-		07636A721BA49A0100925671 /* TBMDebugData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBMDebugData.m; path = "../../Secret Screen Module/TBMDebugData.m"; sourceTree = "<group>"; };
-		07636A7D1BA49A0100925671 /* TBMFriend+StateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMFriend+StateProtocol.h"; sourceTree = "<group>"; };
-		07636A7E1BA49A0100925671 /* TBMFriend+StateProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMFriend+StateProtocol.m"; sourceTree = "<group>"; };
-		07636A7F1BA49A0100925671 /* TBMFriendVideosInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFriendVideosInformation.h; sourceTree = "<group>"; };
-		07636A801BA49A0100925671 /* TBMFriendVideosInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFriendVideosInformation.m; sourceTree = "<group>"; };
-		07636A811BA49A0100925671 /* TBMStateDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMStateDataSource.h; sourceTree = "<group>"; };
-		07636A821BA49A0100925671 /* TBMStateDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMStateDataSource.m; sourceTree = "<group>"; };
-		07636A831BA49A0100925671 /* TBMStateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMStateProtocol.h; sourceTree = "<group>"; };
-		07636A841BA49A0100925671 /* TBMStateProtocolHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMStateProtocolHelper.m; sourceTree = "<group>"; };
-		07636A851BA49A0100925671 /* TBMStateStringGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMStateStringGenerator.h; sourceTree = "<group>"; };
-		07636A861BA49A0100925671 /* TBMStateStringGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMStateStringGenerator.m; sourceTree = "<group>"; };
-		07636A871BA49A0100925671 /* TBMVideo+StateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMVideo+StateProtocol.h"; sourceTree = "<group>"; };
-		07636A881BA49A0100925671 /* TBMVideo+StateProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMVideo+StateProtocol.m"; sourceTree = "<group>"; };
-		07636A891BA49A0100925671 /* TBMVideoObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoObject.h; sourceTree = "<group>"; };
-		07636A8A1BA49A0100925671 /* TBMVideoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoObject.m; sourceTree = "<group>"; };
 		07636A971BA49A0100925671 /* TBMFriendGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFriendGetter.h; sourceTree = "<group>"; };
 		07636A981BA49A0100925671 /* TBMFriendGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFriendGetter.m; sourceTree = "<group>"; };
 		07636A9A1BA49A0100925671 /* TBMHttpManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHttpManager.h; sourceTree = "<group>"; };
@@ -690,10 +665,6 @@
 		07636C2E1BA49A0100925671 /* ZZDebugStateInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDebugStateInteractor.h; sourceTree = "<group>"; };
 		07636C2F1BA49A0100925671 /* ZZDebugStateInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDebugStateInteractor.m; sourceTree = "<group>"; };
 		07636C301BA49A0100925671 /* ZZDebugStateInteractorIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDebugStateInteractorIO.h; sourceTree = "<group>"; };
-		07636C321BA49A0100925671 /* ZZDebugStateDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDebugStateDomainModel.h; sourceTree = "<group>"; };
-		07636C331BA49A0100925671 /* ZZDebugStateDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDebugStateDomainModel.m; sourceTree = "<group>"; };
-		07636C341BA49A0100925671 /* ZZDebugStateItemDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDebugStateItemDomainModel.h; sourceTree = "<group>"; };
-		07636C351BA49A0100925671 /* ZZDebugStateItemDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDebugStateItemDomainModel.m; sourceTree = "<group>"; };
 		07636C371BA49A0100925671 /* ZZDebugStateModuleDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDebugStateModuleDelegate.h; sourceTree = "<group>"; };
 		07636C381BA49A0100925671 /* ZZDebugStateModuleInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDebugStateModuleInterface.h; sourceTree = "<group>"; };
 		07636C3B1BA49A0100925671 /* ZZDebugStateDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDebugStateDataSource.h; sourceTree = "<group>"; };
@@ -936,6 +907,14 @@
 		079E90151BD44695001A4718 /* ZZRollbarConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZRollbarConstants.h; path = RollbarAdapter/ZZRollbarConstants.h; sourceTree = "<group>"; };
 		079E90161BD44695001A4718 /* ZZRollbarConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZRollbarConstants.m; path = RollbarAdapter/ZZRollbarConstants.m; sourceTree = "<group>"; };
 		079E90181BD45616001A4718 /* ZZConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZConstants.h; sourceTree = "<group>"; };
+		079E90191BD465CF001A4718 /* ZZApplicationStateInfoGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZApplicationStateInfoGenerator.h; path = ApplicationStateInfoGenerator/ZZApplicationStateInfoGenerator.h; sourceTree = "<group>"; };
+		079E901A1BD465CF001A4718 /* ZZApplicationStateInfoGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZApplicationStateInfoGenerator.m; path = ApplicationStateInfoGenerator/ZZApplicationStateInfoGenerator.m; sourceTree = "<group>"; };
+		079E901D1BD47073001A4718 /* ZZApplicationStateInfoConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZApplicationStateInfoConstants.h; path = ApplicationStateInfoGenerator/ZZApplicationStateInfoConstants.h; sourceTree = "<group>"; };
+		079E901E1BD47073001A4718 /* ZZApplicationStateInfoConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZApplicationStateInfoConstants.m; path = ApplicationStateInfoGenerator/ZZApplicationStateInfoConstants.m; sourceTree = "<group>"; };
+		079E90211BD48C57001A4718 /* ZZDebugFriendStateDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDebugFriendStateDomainModel.h; sourceTree = "<group>"; };
+		079E90221BD48C57001A4718 /* ZZDebugFriendStateDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDebugFriendStateDomainModel.m; sourceTree = "<group>"; };
+		079E90231BD48C57001A4718 /* ZZDebugVideoStateDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDebugVideoStateDomainModel.h; sourceTree = "<group>"; };
+		079E90241BD48C57001A4718 /* ZZDebugVideoStateDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDebugVideoStateDomainModel.m; sourceTree = "<group>"; };
 		07BAA7031BB18DD2009878B9 /* NSArray+TBMArrayHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+TBMArrayHelpers.h"; path = "NSArray/NSArray+TBMArrayHelpers.h"; sourceTree = "<group>"; };
 		07BAA7041BB18DD2009878B9 /* NSArray+TBMArrayHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+TBMArrayHelpers.m"; path = "NSArray/NSArray+TBMArrayHelpers.m"; sourceTree = "<group>"; };
 		07BAA7061BB1B488009878B9 /* ZZUserPresentationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZUserPresentationHelper.h; path = UserPresentationHelper/ZZUserPresentationHelper.h; sourceTree = "<group>"; };
@@ -944,15 +923,12 @@
 		07BAA70F1BB1C346009878B9 /* ZZFileHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZFileHelper.m; path = FileHelper/ZZFileHelper.m; sourceTree = "<group>"; };
 		07BAA7121BB1C55E009878B9 /* ZZThumbnailGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZThumbnailGenerator.h; path = ThumbnailGenerator/ZZThumbnailGenerator.h; sourceTree = "<group>"; };
 		07BAA7131BB1C55E009878B9 /* ZZThumbnailGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZThumbnailGenerator.m; path = ThumbnailGenerator/ZZThumbnailGenerator.m; sourceTree = "<group>"; };
-		07BAA7171BB1DE4E009878B9 /* ZZSettingsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSettingsModel.h; sourceTree = "<group>"; };
-		07BAA7181BB1DE4E009878B9 /* ZZSettingsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSettingsModel.m; sourceTree = "<group>"; };
+		07BAA7171BB1DE4E009878B9 /* ZZDebugSettingsStateDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZDebugSettingsStateDomainModel.h; path = ../Settings/ZZDebugSettingsStateDomainModel.h; sourceTree = "<group>"; };
+		07BAA7181BB1DE4E009878B9 /* ZZDebugSettingsStateDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZDebugSettingsStateDomainModel.m; path = ../Settings/ZZDebugSettingsStateDomainModel.m; sourceTree = "<group>"; };
 		07C94DCE1BA7246A009338B1 /* ZZUserFriendshipStatusHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZUserFriendshipStatusHandler.h; path = FriendshipStatusHandler/ZZUserFriendshipStatusHandler.h; sourceTree = "<group>"; };
 		07C94DCF1BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZUserFriendshipStatusHandler.m; path = FriendshipStatusHandler/ZZUserFriendshipStatusHandler.m; sourceTree = "<group>"; };
 		07E9593C1BCD74CE009C8F97 /* ZZContentDataAcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContentDataAcessor.h; sourceTree = "<group>"; };
 		07E9593D1BCD74CE009C8F97 /* ZZContentDataAcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContentDataAcessor.m; sourceTree = "<group>"; };
-		07F0E7E41B8CD7A900036AB2 /* StringUtilsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringUtilsTest.m; sourceTree = "<group>"; };
-		07F0E7E51B8CD7A900036AB2 /* TBMDispatchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMDispatchTests.m; sourceTree = "<group>"; };
-		07F0E7E61B8CD7A900036AB2 /* TBMVideoIdUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoIdUtilsTests.m; sourceTree = "<group>"; };
 		07F0E7E81B8CD7A900036AB2 /* ZZAccountTransportServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAccountTransportServiceSpec.m; sourceTree = "<group>"; };
 		07F0E7E91B8CD7A900036AB2 /* ZZRegistrationWithSMSTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRegistrationWithSMSTest.m; sourceTree = "<group>"; };
 		07F0E7EB1B8CD7A900036AB2 /* ZZLoadFriendListSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZLoadFriendListSpec.m; sourceTree = "<group>"; };
@@ -1127,7 +1103,6 @@
 		0732F5031B8B93D3004FD3AF /* ZazoTests */ = {
 			isa = PBXGroup;
 			children = (
-				07F0E7E11B8CD7A900036AB2 /* tbm */,
 				07F0E7E71B8CD7A900036AB2 /* AuthNetworkTest */,
 				07F0E7EA1B8CD7A900036AB2 /* FriendNetworkTests */,
 				07F0E7ED1B8CD7A900036AB2 /* StartScreenTests */,
@@ -1287,47 +1262,14 @@
 			path = VideoUtils;
 			sourceTree = "<group>";
 		};
-		07636A7C1BA49A0100925671 /* Dispatch Data */ = {
-			isa = PBXGroup;
-			children = (
-				07636A711BA49A0100925671 /* TBMDebugData.h */,
-				07636A721BA49A0100925671 /* TBMDebugData.m */,
-				07636A7D1BA49A0100925671 /* TBMFriend+StateProtocol.h */,
-				07636A7E1BA49A0100925671 /* TBMFriend+StateProtocol.m */,
-				07636A7F1BA49A0100925671 /* TBMFriendVideosInformation.h */,
-				07636A801BA49A0100925671 /* TBMFriendVideosInformation.m */,
-				07636A811BA49A0100925671 /* TBMStateDataSource.h */,
-				07636A821BA49A0100925671 /* TBMStateDataSource.m */,
-				07636A831BA49A0100925671 /* TBMStateProtocol.h */,
-				07636A841BA49A0100925671 /* TBMStateProtocolHelper.m */,
-				07636A851BA49A0100925671 /* TBMStateStringGenerator.h */,
-				07636A861BA49A0100925671 /* TBMStateStringGenerator.m */,
-				07636A871BA49A0100925671 /* TBMVideo+StateProtocol.h */,
-				07636A881BA49A0100925671 /* TBMVideo+StateProtocol.m */,
-				07636A891BA49A0100925671 /* TBMVideoObject.h */,
-				07636A8A1BA49A0100925671 /* TBMVideoObject.m */,
-			);
-			name = "Dispatch Data";
-			path = "../../Modules/State module/Data";
-			sourceTree = "<group>";
-		};
 		07636A921BA49A0100925671 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				07636A931BA49A0100925671 /* Dispatch */,
 				07636A961BA49A0100925671 /* FriendGetter */,
 				07636A991BA49A0100925671 /* HttpManager */,
 				07636A9C1BA49A0100925671 /* RemoteStorageHandler */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		07636A931BA49A0100925671 /* Dispatch */ = {
-			isa = PBXGroup;
-			children = (
-				07636A7C1BA49A0100925671 /* Dispatch Data */,
-			);
-			path = Dispatch;
 			sourceTree = "<group>";
 		};
 		07636A961BA49A0100925671 /* FriendGetter */ = {
@@ -1606,7 +1548,7 @@
 		07636B281BA49A0100925671 /* DomainModel */ = {
 			isa = PBXGroup;
 			children = (
-				07BAA7161BB1DE4E009878B9 /* Settings */,
+				079E90201BD48C57001A4718 /* DebugState */,
 				07636B291BA49A0100925671 /* Base */,
 				07636B2C1BA49A0100925671 /* Contact */,
 				07636B2F1BA49A0100925671 /* Grid */,
@@ -1842,6 +1784,7 @@
 		07636B7D1BA49A0100925671 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				079E901C1BD465D5001A4718 /* ApplicationStateInfoGenerator */,
 				079E90141BD43CEF001A4718 /* RollbarAdapter */,
 				07829D651BB2A9AE0000D5D9 /* CommonModelsGenerator */,
 				79EBFD3D1BA8554100A26684 /* ToastBuilder */,
@@ -2394,7 +2337,6 @@
 			children = (
 				07636C2A1BA49A0100925671 /* EnumHelper */,
 				07636C2D1BA49A0100925671 /* Interactor */,
-				07636C311BA49A0100925671 /* Models */,
 			);
 			path = ApplicationLogic;
 			sourceTree = "<group>";
@@ -2416,17 +2358,6 @@
 				07636C301BA49A0100925671 /* ZZDebugStateInteractorIO.h */,
 			);
 			path = Interactor;
-			sourceTree = "<group>";
-		};
-		07636C311BA49A0100925671 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				07636C321BA49A0100925671 /* ZZDebugStateDomainModel.h */,
-				07636C331BA49A0100925671 /* ZZDebugStateDomainModel.m */,
-				07636C341BA49A0100925671 /* ZZDebugStateItemDomainModel.h */,
-				07636C351BA49A0100925671 /* ZZDebugStateItemDomainModel.m */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		07636C361BA49A0100925671 /* ModuleInterface */ = {
@@ -3485,6 +3416,30 @@
 			name = RollbarAdapter;
 			sourceTree = "<group>";
 		};
+		079E901C1BD465D5001A4718 /* ApplicationStateInfoGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				079E901D1BD47073001A4718 /* ZZApplicationStateInfoConstants.h */,
+				079E901E1BD47073001A4718 /* ZZApplicationStateInfoConstants.m */,
+				079E90191BD465CF001A4718 /* ZZApplicationStateInfoGenerator.h */,
+				079E901A1BD465CF001A4718 /* ZZApplicationStateInfoGenerator.m */,
+			);
+			name = ApplicationStateInfoGenerator;
+			sourceTree = "<group>";
+		};
+		079E90201BD48C57001A4718 /* DebugState */ = {
+			isa = PBXGroup;
+			children = (
+				07BAA7171BB1DE4E009878B9 /* ZZDebugSettingsStateDomainModel.h */,
+				07BAA7181BB1DE4E009878B9 /* ZZDebugSettingsStateDomainModel.m */,
+				079E90211BD48C57001A4718 /* ZZDebugFriendStateDomainModel.h */,
+				079E90221BD48C57001A4718 /* ZZDebugFriendStateDomainModel.m */,
+				079E90231BD48C57001A4718 /* ZZDebugVideoStateDomainModel.h */,
+				079E90241BD48C57001A4718 /* ZZDebugVideoStateDomainModel.m */,
+			);
+			path = DebugState;
+			sourceTree = "<group>";
+		};
 		07BAA7091BB1B48F009878B9 /* UserPresentationHelper */ = {
 			isa = PBXGroup;
 			children = (
@@ -3512,15 +3467,6 @@
 			name = ThumbnailGenerator;
 			sourceTree = "<group>";
 		};
-		07BAA7161BB1DE4E009878B9 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				07BAA7171BB1DE4E009878B9 /* ZZSettingsModel.h */,
-				07BAA7181BB1DE4E009878B9 /* ZZSettingsModel.m */,
-			);
-			path = Settings;
-			sourceTree = "<group>";
-		};
 		07C94DD11BA7246D009338B1 /* UserFriendshipStatusHandler */ = {
 			isa = PBXGroup;
 			children = (
@@ -3528,16 +3474,6 @@
 				07C94DCF1BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m */,
 			);
 			name = UserFriendshipStatusHandler;
-			sourceTree = "<group>";
-		};
-		07F0E7E11B8CD7A900036AB2 /* tbm */ = {
-			isa = PBXGroup;
-			children = (
-				07F0E7E41B8CD7A900036AB2 /* StringUtilsTest.m */,
-				07F0E7E51B8CD7A900036AB2 /* TBMDispatchTests.m */,
-				07F0E7E61B8CD7A900036AB2 /* TBMVideoIdUtilsTests.m */,
-			);
-			path = tbm;
 			sourceTree = "<group>";
 		};
 		07F0E7E71B8CD7A900036AB2 /* AuthNetworkTest */ = {
@@ -4253,7 +4189,6 @@
 			files = (
 				07636EAB1BA49A0100925671 /* ZZSecretValueCell.m in Sources */,
 				07636EDF1BA49A0100925671 /* ZZStartVC.m in Sources */,
-				07636DEA1BA49A0100925671 /* TBMFriendVideosInformation.m in Sources */,
 				07636DB61BA49A0100925671 /* TBMDeviceHandler.m in Sources */,
 				07636E171BA49A0100925671 /* ZZAppDelegate.m in Sources */,
 				07636E921BA49A0100925671 /* ZZAuthTextField.m in Sources */,
@@ -4272,7 +4207,6 @@
 				07C94DD01BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m in Sources */,
 				07636EE31BA49A0100925671 /* ANAnimator.m in Sources */,
 				07636EE01BA49A0100925671 /* ZZStartView.m in Sources */,
-				07636DE91BA49A0100925671 /* TBMFriend+StateProtocol.m in Sources */,
 				FE7D832A1BBE580C00445108 /* ZZHintsView.m in Sources */,
 				07636ECF1BA49A0100925671 /* ZZRotationGestureRecognizer.m in Sources */,
 				07636E361BA49A0100925671 /* ZZFriendsTransport.m in Sources */,
@@ -4302,13 +4236,11 @@
 				07636E381BA49A0100925671 /* ZZKeyStoreTransport.m in Sources */,
 				07636ECD1BA49A0100925671 /* ZZGridHelper.m in Sources */,
 				07636EB01BA49A0100925671 /* ZZEditFriendListInteractor.m in Sources */,
-				07636DE41BA49A0100925671 /* TBMDebugData.m in Sources */,
 				181D1CAA1BC5209000044F83 /* ZZRecordEventHandler.m in Sources */,
 				07636E2B1BA49A0100925671 /* ZZBaseDomainModel.m in Sources */,
 				07636EA41BA49A0100925671 /* ZZSecretPresenter.m in Sources */,
 				07636E8E1BA49A0100925671 /* ZZAuthInteractor.m in Sources */,
 				07636E421BA49A0100925671 /* TBMVideo.m in Sources */,
-				07636E9A1BA49A0100925671 /* ZZDebugStateItemDomainModel.m in Sources */,
 				07636ED11BA49A0100925671 /* ZZGridRotationTouchObserver.m in Sources */,
 				07636EC71BA49A0100925671 /* ZZGridCellViewModel.m in Sources */,
 				181D1C9E1BC51A4600044F83 /* ZZBaseEventHandler.m in Sources */,
@@ -4316,7 +4248,6 @@
 				07636EB51BA49A0100925671 /* ZZEditFriendCellViewModel.m in Sources */,
 				7952764B1BA6B4AB00E506D5 /* ZZMenuCellViewModel.m in Sources */,
 				07636E401BA49A0100925671 /* TBMGridElement.m in Sources */,
-				07636E991BA49A0100925671 /* ZZDebugStateDomainModel.m in Sources */,
 				07636DAC1BA49A0100925671 /* AVAudioSession+TBMAudioSession.m in Sources */,
 				07636EA21BA49A0100925671 /* ZZSecretInteractor.m in Sources */,
 				07636E321BA49A0100925671 /* ZZAccountTransport.m in Sources */,
@@ -4342,7 +4273,6 @@
 				07636EEC1BA49A0100925671 /* ANCrashlyticsAdapter.m in Sources */,
 				07636EC51BA49A0100925671 /* ZZGridStateViewRecord.m in Sources */,
 				071F18E91BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.m in Sources */,
-				07636DEB1BA49A0100925671 /* TBMStateDataSource.m in Sources */,
 				07636DA91BA49A0100925671 /* TBMAppDelegate+Boot.m in Sources */,
 				07636EBD1BA49A0100925671 /* ZZGridPresenter.m in Sources */,
 				07829D641BB2A9A80000D5D9 /* ZZCommonModelsGenerator.m in Sources */,
@@ -4403,9 +4333,7 @@
 				07636E471BA49A0100925671 /* tbm.xcdatamodeld in Sources */,
 				07636E4D1BA49A0100925671 /* ZZColorTheme.m in Sources */,
 				07BAA7101BB1C346009878B9 /* ZZFileHelper.m in Sources */,
-				07636DEE1BA49A0100925671 /* TBMVideo+StateProtocol.m in Sources */,
 				18C947E71BB566A500D31B99 /* _TBMVideo.m in Sources */,
-				07636DED1BA49A0100925671 /* TBMStateStringGenerator.m in Sources */,
 				FE7D83281BBE580C00445108 /* ZZHintsArrow.m in Sources */,
 				07636F0B1BA49A0100925671 /* TOActivityChrome.m in Sources */,
 				07636E371BA49A0100925671 /* ZZFriendsTransportService.m in Sources */,
@@ -4418,7 +4346,6 @@
 				07636DB71BA49A0100925671 /* TBMFileUtils.m in Sources */,
 				07636EC61BA49A0100925671 /* ZZGridCell.m in Sources */,
 				181D1CA41BC51B2000044F83 /* ZZInviteEventHandler.m in Sources */,
-				07636DEC1BA49A0100925671 /* TBMStateProtocolHelper.m in Sources */,
 				18E1F2FA1BC6AC780070ECF1 /* ZZFeatureEventStrategyBase.m in Sources */,
 				07636E2C1BA49A0100925671 /* ZZContactDomainModel.m in Sources */,
 				7997E4F91BAABE85001697D5 /* NSInvocation+Constructors.m in Sources */,
@@ -4444,6 +4371,7 @@
 				07636E5F1BA49A0100925671 /* ZZVideoUtils.m in Sources */,
 				07636EAC1BA49A0100925671 /* ZZSecretValueCellViewModel.m in Sources */,
 				07636E011BA49A0100925671 /* TBMContentViewModal.m in Sources */,
+				079E901F1BD47073001A4718 /* ZZApplicationStateInfoConstants.m in Sources */,
 				07636E9C1BA49A0100925671 /* ZZDebugStatePresenter.m in Sources */,
 				07636E311BA49A0100925671 /* ZZVideoDomainModel.m in Sources */,
 				07636EB61BA49A0100925671 /* ZZEditFriendView.m in Sources */,
@@ -4465,11 +4393,11 @@
 				07636E581BA49A0100925671 /* ZZKeychainDataProvider.m in Sources */,
 				07636F061BA49A0100925671 /* TBMAlertController.m in Sources */,
 				07636E5D1BA49A0100925671 /* ZZVideoProcessor.m in Sources */,
+				079E901B1BD465CF001A4718 /* ZZApplicationStateInfoGenerator.m in Sources */,
 				07636F071BA49A0100925671 /* TBMAlertControllerView.m in Sources */,
 				07636E4F1BA49A0100925671 /* ZZDeviceHandler.m in Sources */,
 				07636EA31BA49A0100925671 /* ZZSecretDataSource.m in Sources */,
 				07636E391BA49A0100925671 /* ZZKeyStoreTransportService.m in Sources */,
-				07636DEF1BA49A0100925671 /* TBMVideoObject.m in Sources */,
 				07636DBC1BA49A0100925671 /* TBMVideoIdUtils.m in Sources */,
 				7952764A1BA6B4AB00E506D5 /* ZZMenuCell.m in Sources */,
 				07636E351BA49A0100925671 /* ZZCommonNetworkTransportService.m in Sources */,
@@ -4505,15 +4433,17 @@
 				07636EE11BA49A0100925671 /* ZZStartWireframe.m in Sources */,
 				07636EDA1BA49A0100925671 /* ZZMenuController.m in Sources */,
 				07636EFE1BA49A0100925671 /* ANError.m in Sources */,
-				07BAA7191BB1DE4E009878B9 /* ZZSettingsModel.m in Sources */,
+				07BAA7191BB1DE4E009878B9 /* ZZDebugSettingsStateDomainModel.m in Sources */,
 				07636E281BA49A0100925671 /* ZZUserModelsMapper.m in Sources */,
 				07636E521BA49A0100925671 /* ZZSecretBaseStrategy.m in Sources */,
+				079E90251BD48C57001A4718 /* ZZDebugFriendStateDomainModel.m in Sources */,
 				07636EB11BA49A0100925671 /* ZZEditFriendEnumsAdditions.m in Sources */,
 				07636EE41BA49A0100925671 /* ANBaseListTableCell.m in Sources */,
 				07636F081BA49A0100925671 /* TBMAlertControllerVisualStyle.m in Sources */,
 				07636EC81BA49A0100925671 /* ZZGridCollectionController.m in Sources */,
 				070561001BA8824F00C130E0 /* ZZGridActionHandlerEnums.m in Sources */,
 				07636F021BA49A0100925671 /* ANNetworkSessionManager.m in Sources */,
+				079E90261BD48C57001A4718 /* ZZDebugVideoStateDomainModel.m in Sources */,
 				07636EAD1BA49A0100925671 /* ZZSecretController.m in Sources */,
 				07636EB21BA49A0100925671 /* ZZEditFriendListDataSource.m in Sources */,
 				07636E541BA49A0100925671 /* ZZStrategyNavigationLeftRight.m in Sources */,
@@ -4527,14 +4457,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07F0E7F31B8CD7A900036AB2 /* TBMVideoIdUtilsTests.m in Sources */,
-				07F0E7F11B8CD7A900036AB2 /* StringUtilsTest.m in Sources */,
 				07F0E7F71B8CD7A900036AB2 /* ZZLoadFriendListTest.m in Sources */,
 				07F0E7F41B8CD7A900036AB2 /* ZZAccountTransportServiceSpec.m in Sources */,
 				07F0E7F61B8CD7A900036AB2 /* ZZLoadFriendListSpec.m in Sources */,
 				07F0E7F81B8CD7A900036AB2 /* ZZStartScreenTestSpec.m in Sources */,
 				07F0E7F51B8CD7A900036AB2 /* ZZRegistrationWithSMSTest.m in Sources */,
-				07F0E7F21B8CD7A900036AB2 /* TBMDispatchTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

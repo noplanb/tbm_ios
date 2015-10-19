@@ -1,5 +1,5 @@
 //
-//  ZZDebugStateItemDomainModel.h
+//  ZZDebugVideoStateDomainModel.h
 //  Zazo
 //
 //  Created by Oksana Kovalchuk on 8/27/15.
@@ -8,7 +8,12 @@
 
 #import "ANBaseDomainModel.h"
 
-@interface ZZDebugStateItemDomainModel : ANBaseDomainModel
+extern const struct ZZDebugVideoStateDomainModelAttributes {
+    __unsafe_unretained NSString *itemID;
+    __unsafe_unretained NSString *status;
+} ZZDebugVideoStateDomainModelAttributes;
+
+@interface ZZDebugVideoStateDomainModel : ANBaseDomainModel
 
 @property (nonatomic, copy) NSString* itemID;
 @property (nonatomic, copy) NSString* status;

@@ -6,11 +6,11 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-@class ZZDebugStateItemDomainModel;
+@class ZZDebugVideoStateDomainModel;
 
 @interface ZZDebugStateCellViewModel : NSObject
 
-+ (instancetype)viewModelWithItem:(ZZDebugStateItemDomainModel*)item;
++ (instancetype)viewModelWithItem:(ZZDebugVideoStateDomainModel*)item;
 
 - (NSString*)title;
 - (NSString*)status;

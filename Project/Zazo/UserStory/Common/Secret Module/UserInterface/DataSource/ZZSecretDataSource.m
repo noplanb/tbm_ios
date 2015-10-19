@@ -8,7 +8,7 @@
 
 #import "ZZSecretDataSource.h"
 #import "ANMemoryStorage.h"
-#import "ZZSettingsModel.h"
+#import "ZZDebugSettingsStateDomainModel.h"
 #import "ZZSecretSwitchCellViewModel.h"
 #import "ZZSecretSegmentCellViewModel.h"
 #import "NSObject+ANSafeValues.h"
@@ -47,7 +47,7 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
     return self;
 }
 
-- (void)setupStorageWithViewModel:(ZZSettingsModel*)model;
+- (void)setupStorageWithViewModel:(ZZDebugSettingsStateDomainModel*)model;
 {
     [self _addUserInfoSectionWithData:model];
     [self _addDetailScreensSection];
@@ -181,7 +181,7 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
 
 #pragma mark - Private
 
-- (void)_addUserInfoSectionWithData:(ZZSettingsModel*)model
+- (void)_addUserInfoSectionWithData:(ZZDebugSettingsStateDomainModel*)model
 {
      NSArray* items = @[[ZZSecretValueCellViewModel viewModelWithTitle:@"Version"
                                                                details:[NSObject an_safeString:model.version]],
@@ -207,7 +207,7 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
     [self.storage setSectionHeaderModel:@"Debug Screens" forSectionIndex:ZZSecretSectionDetailScreens];
 }
 
-- (void)_addCustomModesSectionWithData:(ZZSettingsModel*)model
+- (void)_addCustomModesSectionWithData:(ZZDebugSettingsStateDomainModel*)model
 {
     NSArray* models = @[[self _switchModelWithTitle:@"Debug Mode" state:model.isDebugEnabled]];
 
@@ -216,7 +216,7 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
                         forSectionIndex:ZZSecretSectionCustomAppModes];
 }
 
-- (void)_addTutorialSectionWithData:(ZZSettingsModel*)model
+- (void)_addTutorialSectionWithData:(ZZDebugSettingsStateDomainModel*)model
 {
     NSArray* items = @[[ZZSecretValueCellViewModel viewModelWithTitle:@"Reset tutorial hints" details:nil],
                        [ZZSecretValueCellViewModel viewModelWithTitle:@"Feature options" details:nil],
@@ -228,7 +228,7 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
                         forSectionIndex:ZZSecretSectionTutorial];
 }
 
-- (void)_addLoggingSectionsWithData:(ZZSettingsModel*)model
+- (void)_addLoggingSectionsWithData:(ZZDebugSettingsStateDomainModel*)model
 {
     NSArray* items = @[NSLocalizedString(@"secret-controller.server.segment-control.title", nil),
                        NSLocalizedString(@"secret-controller.rollbar.segment-control.title", nil)];
@@ -243,7 +243,7 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
                         forSectionIndex:ZZSecretSectionLoggingOptions];
 }
 
-- (void)_addServerInfoSectionWithData:(ZZSettingsModel*)model
+- (void)_addServerInfoSectionWithData:(ZZDebugSettingsStateDomainModel*)model
 {
     NSArray* serverItems = @[NSLocalizedString(@"secret-controller.prodserver.title", nil),
                              NSLocalizedString(@"secret-controller.stageserver.title", nil),

@@ -25,7 +25,7 @@ describe(@"ZZLoadFriendList", ^{
         userModel.firstName = @"Dima";
         userModel.lastName = @"Frolow";
         userModel.mobileNumber = @"380974720070";
-        actualSmsCode = @"9980"; //for success test use only valid sms code!!!
+        actualSmsCode = @"0000"; //for success test use only valid sms code!!!
     });
     
     beforeEach(^{

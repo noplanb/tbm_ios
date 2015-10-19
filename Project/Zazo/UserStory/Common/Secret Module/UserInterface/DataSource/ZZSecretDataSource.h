@@ -11,7 +11,7 @@
 #import "ZZSecretScreenTextEditCell.h"
 
 @class ANMemoryStorage;
-@class ZZSettingsModel;
+@class ZZDebugSettingsStateDomainModel;
 
 typedef NS_ENUM(NSInteger, ZZSecretSection)
 {
@@ -61,7 +61,7 @@ typedef NS_ENUM(NSInteger, ZZSecrectScreenActionsType)
 @property (nonatomic, strong) ANMemoryStorage* storage;
 @property (nonatomic, weak) id<ZZSecretDataSourceDelegate> delegate;
 
-- (void)setupStorageWithViewModel:(ZZSettingsModel*)model;
+- (void)setupStorageWithViewModel:(ZZDebugSettingsStateDomainModel*)model;
 - (void)updateServerCustomURLValue:(NSString*)value;
 
 - (void)itemSelectedAtIndexPath:(NSIndexPath*)indexPath;

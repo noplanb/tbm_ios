@@ -14,7 +14,6 @@
 #import "OBFileTransferManager.h"
 #import "TBMUser.h"
 #import "AVAudioSession+TBMAudioSession.h"
-#import "TBMDispatch.h"
 #import "ZZAppDependencies.h"
 #import "ZZContentDataAcessor.h"
 #import "ZZVideoRecorder.h"
