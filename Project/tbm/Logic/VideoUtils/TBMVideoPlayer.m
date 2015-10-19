@@ -18,7 +18,7 @@
 #import "iToast.h"
 #import "OBFileTransferManager.h"
 #import "ZZRemoteStorageValueGenerator.h"
-#import "ZZKeyStoreTransportService.h"
+#import "ZZRemoteStoageTransportService.h"
 
 @interface TBMVideoPlayer()
 
@@ -247,7 +247,7 @@
     
     // Set viewed even if the video is not playable so that it gets deleted eventually.
     [self.gridElement.friend setViewedWithIncomingVideo:self.video];
-    [[ZZKeyStoreTransportService updateRemoteStatusForVideoWithItemID:self.video.videoId
+    [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:self.video.videoId
                                                             toStatus:ZZRemoteStorageVideoStatusViewed
                                                               friend:self.gridElement.friend] subscribeNext:^(id x) {}];
     

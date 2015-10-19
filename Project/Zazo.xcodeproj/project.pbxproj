@@ -64,8 +64,8 @@
 		07636E351BA49A0100925671 /* ZZCommonNetworkTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B4A1BA49A0100925671 /* ZZCommonNetworkTransportService.m */; };
 		07636E361BA49A0100925671 /* ZZFriendsTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B4D1BA49A0100925671 /* ZZFriendsTransport.m */; };
 		07636E371BA49A0100925671 /* ZZFriendsTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B4F1BA49A0100925671 /* ZZFriendsTransportService.m */; };
-		07636E381BA49A0100925671 /* ZZKeyStoreTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B521BA49A0100925671 /* ZZKeyStoreTransport.m */; };
-		07636E391BA49A0100925671 /* ZZKeyStoreTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B541BA49A0100925671 /* ZZKeyStoreTransportService.m */; };
+		07636E381BA49A0100925671 /* ZZRemoteStorageTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B521BA49A0100925671 /* ZZRemoteStorageTransport.m */; };
+		07636E391BA49A0100925671 /* ZZRemoteStoageTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B541BA49A0100925671 /* ZZRemoteStoageTransportService.m */; };
 		07636E3A1BA49A0100925671 /* ZZNotificationsTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B571BA49A0100925671 /* ZZNotificationsTransport.m */; };
 		07636E3B1BA49A0100925671 /* ZZNotificationTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B591BA49A0100925671 /* ZZNotificationTransportService.m */; };
 		07636E3C1BA49A0100925671 /* ZZNetworkTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B5C1BA49A0100925671 /* ZZNetworkTransport.m */; };
@@ -496,10 +496,10 @@
 		07636B4D1BA49A0100925671 /* ZZFriendsTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFriendsTransport.m; sourceTree = "<group>"; };
 		07636B4E1BA49A0100925671 /* ZZFriendsTransportService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFriendsTransportService.h; sourceTree = "<group>"; };
 		07636B4F1BA49A0100925671 /* ZZFriendsTransportService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFriendsTransportService.m; sourceTree = "<group>"; };
-		07636B511BA49A0100925671 /* ZZKeyStoreTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZKeyStoreTransport.h; sourceTree = "<group>"; };
-		07636B521BA49A0100925671 /* ZZKeyStoreTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZKeyStoreTransport.m; sourceTree = "<group>"; };
-		07636B531BA49A0100925671 /* ZZKeyStoreTransportService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZKeyStoreTransportService.h; sourceTree = "<group>"; };
-		07636B541BA49A0100925671 /* ZZKeyStoreTransportService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZKeyStoreTransportService.m; sourceTree = "<group>"; };
+		07636B511BA49A0100925671 /* ZZRemoteStorageTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZRemoteStorageTransport.h; sourceTree = "<group>"; };
+		07636B521BA49A0100925671 /* ZZRemoteStorageTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRemoteStorageTransport.m; sourceTree = "<group>"; };
+		07636B531BA49A0100925671 /* ZZRemoteStoageTransportService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZRemoteStoageTransportService.h; sourceTree = "<group>"; };
+		07636B541BA49A0100925671 /* ZZRemoteStoageTransportService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRemoteStoageTransportService.m; sourceTree = "<group>"; };
 		07636B561BA49A0100925671 /* ZZNotificationsTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZNotificationsTransport.h; sourceTree = "<group>"; };
 		07636B571BA49A0100925671 /* ZZNotificationsTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZNotificationsTransport.m; sourceTree = "<group>"; };
 		07636B581BA49A0100925671 /* ZZNotificationTransportService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZNotificationTransportService.h; sourceTree = "<group>"; };
@@ -1577,10 +1577,10 @@
 		07636B501BA49A0100925671 /* KeyStore */ = {
 			isa = PBXGroup;
 			children = (
-				07636B511BA49A0100925671 /* ZZKeyStoreTransport.h */,
-				07636B521BA49A0100925671 /* ZZKeyStoreTransport.m */,
-				07636B531BA49A0100925671 /* ZZKeyStoreTransportService.h */,
-				07636B541BA49A0100925671 /* ZZKeyStoreTransportService.m */,
+				07636B511BA49A0100925671 /* ZZRemoteStorageTransport.h */,
+				07636B521BA49A0100925671 /* ZZRemoteStorageTransport.m */,
+				07636B531BA49A0100925671 /* ZZRemoteStoageTransportService.h */,
+				07636B541BA49A0100925671 /* ZZRemoteStoageTransportService.m */,
 			);
 			path = KeyStore;
 			sourceTree = "<group>";
@@ -4114,7 +4114,7 @@
 				07636EA11BA49A0100925671 /* ZZDebugStateWireframe.m in Sources */,
 				07636E9E1BA49A0100925671 /* ZZDebugStateCellViewModel.m in Sources */,
 				07636EE71BA49A0100925671 /* NSObject+ANRACAdditions.m in Sources */,
-				07636E381BA49A0100925671 /* ZZKeyStoreTransport.m in Sources */,
+				07636E381BA49A0100925671 /* ZZRemoteStorageTransport.m in Sources */,
 				07636ECD1BA49A0100925671 /* ZZGridHelper.m in Sources */,
 				07636EB01BA49A0100925671 /* ZZEditFriendListInteractor.m in Sources */,
 				181D1CAA1BC5209000044F83 /* ZZRecordEventHandler.m in Sources */,
@@ -4272,7 +4272,7 @@
 				07636F071BA49A0100925671 /* TBMAlertControllerView.m in Sources */,
 				07636E4F1BA49A0100925671 /* ZZDeviceHandler.m in Sources */,
 				07636EA31BA49A0100925671 /* ZZSecretDataSource.m in Sources */,
-				07636E391BA49A0100925671 /* ZZKeyStoreTransportService.m in Sources */,
+				07636E391BA49A0100925671 /* ZZRemoteStoageTransportService.m in Sources */,
 				07636DBC1BA49A0100925671 /* TBMVideoIdUtils.m in Sources */,
 				7952764A1BA6B4AB00E506D5 /* ZZMenuCell.m in Sources */,
 				07636E351BA49A0100925671 /* ZZCommonNetworkTransportService.m in Sources */,

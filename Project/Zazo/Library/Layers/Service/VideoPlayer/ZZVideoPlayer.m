@@ -19,7 +19,7 @@
 #import "ZZFriendDomainModel.h"
 #import "ZZGridActionStoredSettings.h"
 #import "ZZRemoteStorageValueGenerator.h"
-#import "ZZKeyStoreTransportService.h"
+#import "ZZRemoteStoageTransportService.h"
 
 @interface ZZVideoPlayer ()
 
@@ -122,7 +122,7 @@
         TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:playedVideoModel.relatedUser.idTbm];
         [friend setViewedWithIncomingVideo:viewedVideo];
         
-        [[ZZKeyStoreTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoId
+        [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoId
                                                                  toStatus:ZZRemoteStorageVideoStatusViewed
                                                                    friend:friend] subscribeNext:^(id x) {}];
     }
@@ -275,7 +275,7 @@
         TBMFriend* friend = [ZZFriendDataProvider entityFromModel:playedVideoModel.relatedUser];
         [friend setViewedWithIncomingVideo:viewedVideo];
         
-        [[ZZKeyStoreTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoId
+        [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoId
                                                                  toStatus:ZZRemoteStorageVideoStatusViewed
                                                                    friend:friend] subscribeNext:^(id x) {}];
         

@@ -1,20 +1,20 @@
 //
-//  ZZKeyStoreTransportService.m
+//  ZZRemoteStoageTransportService.m
 //  Zazo
 //
 //  Created by Oksana Kovalchuk on 9/2/15.
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZKeyStoreTransportService.h"
-#import "ZZKeyStoreTransport.h"
+#import "ZZRemoteStoageTransportService.h"
+#import "ZZRemoteStorageTransport.h"
 #import "ZZStringUtils.h"
 
 #import "TBMFriend.h"
 #import "ZZRemoteStorageValueGenerator.h"
 #import "ZZRemoteStorageConstants.h"
 
-@implementation ZZKeyStoreTransportService
+@implementation ZZRemoteStoageTransportService
 
 
 #pragma mark - Update / Create
@@ -142,7 +142,7 @@
         {
             parameters[ZZRemoteStorageParameters.key2] = key2;
         }
-        return [ZZKeyStoreTransport updateKeyValueWithParameters:parameters];
+        return [ZZRemoteStorageTransport updateKeyValueWithParameters:parameters];
     }
     return [RACSignal error:nil];
 }
@@ -157,7 +157,7 @@
         {
             parameters[ZZRemoteStorageParameters.key2] = key2;
         }
-        return [ZZKeyStoreTransport deleteKeyValueWithParameters:parameters];
+        return [ZZRemoteStorageTransport deleteKeyValueWithParameters:parameters];
     }
     return [RACSignal error:nil];
 }
@@ -166,7 +166,7 @@
 {
     if (!ANIsEmpty(key1))
     {
-        return [ZZKeyStoreTransport loadKeyValueWithParameters:@{ZZRemoteStorageParameters.key1 : key1}];
+        return [ZZRemoteStorageTransport loadKeyValueWithParameters:@{ZZRemoteStorageParameters.key1 : key1}];
     }
     return [RACSignal error:nil];
 }

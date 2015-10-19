@@ -1,5 +1,5 @@
 //
-//  ZZKeyStoreTransportService.h
+//  ZZRemoteStoageTransportService.h
 //  Zazo
 //
 //  Created by Oksana Kovalchuk on 9/2/15.
@@ -10,7 +10,7 @@
 
 @class TBMFriend;
 
-@interface ZZKeyStoreTransportService : NSObject
+@interface ZZRemoteStoageTransportService : NSObject
 
 
 #pragma mark - Videos

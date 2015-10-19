@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-@interface ZZKeyStoreTransport : NSObject
+@interface ZZRemoteStorageTransport : NSObject
 
 + (RACSignal*)updateKeyValueWithParameters:(NSDictionary*)parameters;
 + (RACSignal*)deleteKeyValueWithParameters:(NSDictionary*)parameters;

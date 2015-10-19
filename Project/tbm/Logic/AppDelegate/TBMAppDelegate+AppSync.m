@@ -25,7 +25,7 @@
 #import "ZZContentDataAcessor.h"
 #import "ZZFriendsTransportService.h"
 #import "ZZRemoteStorageValueGenerator.h"
-#import "ZZKeyStoreTransportService.h"
+#import "ZZRemoteStoageTransportService.h"
 #import "ZZUserDataProvider.h"
 #import "ZZUserDomainModel.h"
 #import "ZZRemoteStorageConstants.h"
@@ -206,7 +206,7 @@
     // GARF: TODO: We should delete the remoteVideoId from remoteVideoIds only if file deletion is successful so we dont leave hanging
     // files. This is not a problem on s3 as old videos are automatically deleted by the server.
     [self deleteRemoteVideoFile:(TBMVideo *) video];
-    [[ZZKeyStoreTransportService deleteRemoteIncomingVideoWithItemID:video.videoId
+    [[ZZRemoteStoageTransportService deleteRemoteIncomingVideoWithItemID:video.videoId
                                                               friend:video.friend] subscribeNext:^(id x) {}];
 }
 
@@ -247,7 +247,7 @@
 {
     ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
     
-    [[ZZKeyStoreTransportService loadRemoteEverSentFriendsIDsForUserMkey:me.mkey] subscribeNext:^(id x) {
+    [[ZZRemoteStoageTransportService loadRemoteEverSentFriendsIDsForUserMkey:me.mkey] subscribeNext:^(id x) {
        
         ANDispatchBlockToBackgroundQueue(^{
             [TBMFriend setEverSentForMkeys:x];
@@ -278,7 +278,7 @@
         __block NSString* friendID = friend.idTbm;
         __block NSString* firstName = friend.firstName;
         
-        [[ZZKeyStoreTransportService loadRemoteIncomingVideoIDsWithFriend:friend] subscribeNext:^(NSArray* videoIds) {
+        [[ZZRemoteStoageTransportService loadRemoteIncomingVideoIDsWithFriend:friend] subscribeNext:^(NSArray* videoIds) {
             OB_INFO(@"pollWithFriend: %@  vids = %@", firstName, videoIds);
             for (NSString *videoId in videoIds)
             {
@@ -302,7 +302,7 @@
         return;
     }
 
-    [[ZZKeyStoreTransportService loadRemoteOutgoingVideoStatusForFriend:friend] subscribeNext:^(NSDictionary *response) {
+    [[ZZRemoteStoageTransportService loadRemoteOutgoingVideoStatusForFriend:friend] subscribeNext:^(NSDictionary *response) {
        
         NSString *status = response[ZZRemoteStorageParameters.status];
         ZZRemoteStorageVideoStatus ovsts = ZZRemoteStorageVideoStatusEnumValueFromSrting(status);
@@ -417,10 +417,10 @@
     {
         OB_INFO(@"uploadCompletedWithFriend");
         [friend handleOutgoingVideoUploadedWithVideoId:videoId];
-        [[ZZKeyStoreTransportService addRemoteOutgoingVideoWithItemID:videoId friend:friend] subscribeNext:^(id x) {}];
+        [[ZZRemoteStoageTransportService addRemoteOutgoingVideoWithItemID:videoId friend:friend] subscribeNext:^(id x) {}];
         
         ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
-        [[ZZKeyStoreTransportService updateRemoteEverSentKVForFriendMkeys:[TBMFriend everSentMkeys]
+        [[ZZRemoteStoageTransportService updateRemoteEverSentKVForFriendMkeys:[TBMFriend everSentMkeys]
                                                               forUserMkey:me.mkey] subscribeNext:^(id x) {}];
         
         [self sendNotificationForVideoReceived:friend videoId:videoId];
@@ -481,7 +481,7 @@
     
     [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_DOWNLOADED video:video];
     
-    [[ZZKeyStoreTransportService updateRemoteStatusForVideoWithItemID:videoId
+    [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:videoId
                                                              toStatus:ZZRemoteStorageVideoStatusDownloaded
                                                                friend:friend] subscribeNext:^(id x) {}];
     

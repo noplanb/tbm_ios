@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZKeyStoreTransport.h"
+#import "ZZRemoteStorageTransport.h"
 #import "ZZNetworkTransport.h"
 
-@implementation ZZKeyStoreTransport
+@implementation ZZRemoteStorageTransport
 
 + (RACSignal*)updateKeyValueWithParameters:(NSDictionary*)parameters
 {
