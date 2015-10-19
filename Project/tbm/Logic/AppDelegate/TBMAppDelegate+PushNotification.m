@@ -152,7 +152,7 @@ static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
     [self onFailPushAccess];
 }
 
-- (void)sendPushTokenToServer:(NSString *)token
+- (void)sendPushTokenToServer:(NSString*)token
 {
     OB_INFO(@"sendPushTokenToServer");
     NSString *myMkey = [ZZUserDataProvider authenticatedUser].mkey;
@@ -247,8 +247,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
         [self getAndPollAllFriends];
         return;
     }
-    //TODO: DEBUG
-    NSLog(@"OKS- %@ - %@", NSStringFromSelector(_cmd), videoId);
+
     [self queueDownloadWithFriendID:friend.idTbm videoId:videoId];
 }
 
@@ -316,9 +315,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
     [[ZZNotificationTransportService sendVideoReceivedNotificationTo:friendModel
                                                          videoItemID:videoId
-                                                                from:me] subscribeNext:^(id x) {
-        
-    }];
+                                                                from:me] subscribeNext:^(id x) {}];
 }
 
 - (void)sendNotificationForVideoStatusUpdate:(TBMFriend *)friend videoId:(NSString *)videoId status:(NSString *)status
@@ -329,9 +326,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     
     [[ZZNotificationTransportService sendVideoStatusUpdateNotificationTo:friendModel
                                                              videoItemID:videoId
-                                                                  status:status from:me] subscribeNext:^(id x) {
-        
-    }];
+                                                                  status:status from:me] subscribeNext:^(id x) {}];
 }
 
 @end

@@ -31,7 +31,6 @@
 		07636DBD1BA49A0100925671 /* TBMVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A031BA49A0000925671 /* TBMVideoPlayer.m */; };
 		07636DBE1BA49A0100925671 /* TBMVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A051BA49A0000925671 /* TBMVideoProcessor.m */; };
 		07636DBF1BA49A0100925671 /* TBMVideoRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A071BA49A0000925671 /* TBMVideoRecorder.m */; };
-		07636DF41BA49A0100925671 /* TBMFriendGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A981BA49A0100925671 /* TBMFriendGetter.m */; };
 		07636DF51BA49A0100925671 /* TBMHttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A9B1BA49A0100925671 /* TBMHttpManager.m */; };
 		07636DF61BA49A0100925671 /* TBMRemoteStorageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A9E1BA49A0100925671 /* TBMRemoteStorageHandler.m */; };
 		07636DF91BA49A0100925671 /* BeepSin30.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA61BA49A0100925671 /* BeepSin30.wav */; };
@@ -441,8 +440,6 @@
 		07636A051BA49A0000925671 /* TBMVideoProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoProcessor.m; sourceTree = "<group>"; };
 		07636A061BA49A0000925671 /* TBMVideoRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoRecorder.h; sourceTree = "<group>"; };
 		07636A071BA49A0000925671 /* TBMVideoRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoRecorder.m; sourceTree = "<group>"; };
-		07636A971BA49A0100925671 /* TBMFriendGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFriendGetter.h; sourceTree = "<group>"; };
-		07636A981BA49A0100925671 /* TBMFriendGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFriendGetter.m; sourceTree = "<group>"; };
 		07636A9A1BA49A0100925671 /* TBMHttpManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMHttpManager.h; sourceTree = "<group>"; };
 		07636A9B1BA49A0100925671 /* TBMHttpManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMHttpManager.m; sourceTree = "<group>"; };
 		07636A9D1BA49A0100925671 /* TBMRemoteStorageHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMRemoteStorageHandler.h; sourceTree = "<group>"; };
@@ -1265,20 +1262,10 @@
 		07636A921BA49A0100925671 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				07636A961BA49A0100925671 /* FriendGetter */,
 				07636A991BA49A0100925671 /* HttpManager */,
 				07636A9C1BA49A0100925671 /* RemoteStorageHandler */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		07636A961BA49A0100925671 /* FriendGetter */ = {
-			isa = PBXGroup;
-			children = (
-				07636A971BA49A0100925671 /* TBMFriendGetter.h */,
-				07636A981BA49A0100925671 /* TBMFriendGetter.m */,
-			);
-			path = FriendGetter;
 			sourceTree = "<group>";
 		};
 		07636A991BA49A0100925671 /* HttpManager */ = {
@@ -4340,7 +4327,6 @@
 				18C947E51BB566A500D31B99 /* _TBMGridElement.m in Sources */,
 				07636E301BA49A0100925671 /* ZZUserDomainModel.m in Sources */,
 				07636E5A1BA49A0100925671 /* ZZStoredSettingsManager.m in Sources */,
-				07636DF41BA49A0100925671 /* TBMFriendGetter.m in Sources */,
 				070238D81BB430B200B8197E /* ZZApplicationVersionEnumHelper.m in Sources */,
 				07636EC11BA49A0100925671 /* ZZGridStateView+Animation.m in Sources */,
 				07636DB71BA49A0100925671 /* TBMFileUtils.m in Sources */,

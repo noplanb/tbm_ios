@@ -11,6 +11,8 @@
 #import "NSObject+ANSafeValues.h"
 #import "ZZEditFriendEnumsAdditions.h"
 #import "ZZPhoneHelper.h"
+#import "FEMObjectDeserializer.h"
+#import "ZZFriendDataUpdater.h"
 
 static const struct
 {
@@ -54,7 +56,37 @@ static const struct
 
 + (RACSignal*)loadFriendList
 {
-    return [ZZFriendsTransport loadFriendList];
+    return [[ZZFriendsTransport loadFriendList] map:^id(NSArray* friendsData) {
+        
+        friendsData = [[friendsData.rac_sequence map:^id(id obj) {
+            
+            if ([obj isKindOfClass:[NSDictionary class]])
+            {
+                FEMObjectMapping* mapping = [ZZFriendDomainModel mapping];
+                ZZFriendDomainModel* model = [FEMObjectDeserializer deserializeObjectExternalRepresentation:obj
+                                                                                               usingMapping:mapping];
+                obj = [ZZFriendDataUpdater upsertFriend:model];
+                return obj;
+            }
+            return nil;
+        }] array];
+//        
+//        
+//        NSArray *sorted = [self sortedFriendsByCreatedOn:friendsdat];
+//        if (sorted)
+//        {
+//            NSDictionary *firstFriend = sorted.firstObject;
+//            NSString *firstFriendCreatorMkey = firstFriend[@"connection_creator_mkey"];
+//            ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
+//            NSString *myMkey = user.mkey;
+//            user.isInvitee = ![firstFriendCreatorMkey isEqualToString:myMkey];
+//            ANDispatchBlockToBackgroundQueue(^{
+//                [ZZUserDataProvider upsertUserWithModel:user];
+//            });
+//        }
+//        
+        return friendsData;
+    }];
 }
 
 + (RACSignal*)loadFriendProfileWithPhone:(NSString*)phone firstName:(NSString*)firstName lastName:(NSString*)lastName
@@ -125,6 +157,40 @@ static const struct
     
     return [ZZFriendsTransport inviteUserWithParameters:parameters];
 }
+
+
+//TODO: figure out for what we need invitee field in User Class
+
+//- (NSArray *)sortedFriendsByCreatedOn:(NSArray *)friends
+//{
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+//    [dateFormatter setLocale:enUSPOSIXLocale];
+//    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
+//
+//    return [friends sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2)
+//            {
+//
+//                NSComparisonResult result = NSOrderedSame;
+//                NSDictionary *dict1 = (NSDictionary *) obj1;
+//                NSDictionary *dict2 = (NSDictionary *) obj2;
+//                NSDate *date1;
+//                NSDate *date2;
+//
+//                if ([dict1 isKindOfClass:[NSDictionary class]] && [dict2 isKindOfClass:[NSDictionary class]])
+//                {
+//
+//                    date1 = [dateFormatter dateFromString:dict1[@"connection_created_on"]];
+//                    date2 = [dateFormatter dateFromString:dict2[@"connection_created_on"]];
+//                }
+//
+//                if (date1 && date2)
+//                {
+//                    result = [date1 timeIntervalSinceDate:date2] > 0 ? NSOrderedDescending : NSOrderedAscending;
+//                }
+//                return result;
+//            }];
+//}
 
 
 @end

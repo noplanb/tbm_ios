@@ -7,8 +7,7 @@
 //
 
 #import "ZZEditFriendEnumsAdditions.h"
-
-@class ZZFriendDomainModel;
+#import "ZZFriendDomainModel.h"
 
 @interface ZZFriendDataUpdater : NSObject
 

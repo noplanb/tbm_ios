@@ -22,7 +22,7 @@
 - (void)boot
 {
     OB_INFO(@"Boot");
-//    [self ensurePushNotification]; // TODO: find correct place for calling this method, only for test
+    [self ensurePushNotification]; // TODO: find correct place for calling this method, only for test
 }
 
 - (void)performDidBecomeActiveActions

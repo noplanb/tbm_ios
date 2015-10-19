@@ -32,12 +32,6 @@
 
 #pragma mark - Lifecycle callbacks
 
-- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
-    OB_INFO(@"willFinishLaunchingWithOptions:");
-    // See doc/notification.txt for why we dont use this in our app for processing notifications.
-    return YES;
-}
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [self.appDependencies initialApplicationSetup:application launchOptions:launchOptions];
