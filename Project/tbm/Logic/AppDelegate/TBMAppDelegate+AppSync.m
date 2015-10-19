@@ -26,6 +26,9 @@
 #import "ZZContentDataAcessor.h"
 #import "ZZFriendsTransportService.h"
 #import "ZZRemoteStorageValueGenerator.h"
+#import "ZZKeyStoreTransportService.h"
+#import "ZZUserDataProvider.h"
+#import "ZZUserDomainModel.h"
 
 @implementation TBMAppDelegate (AppSync)
 
@@ -196,7 +199,8 @@
     // GARF: TODO: We should delete the remoteVideoId from remoteVideoIds only if file deletion is successful so we dont leave hanging
     // files. This is not a problem on s3 as old videos are automatically deleted by the server.
     [self deleteRemoteVideoFile:(TBMVideo *) video];
-    [TBMRemoteStorageHandler deleteRemoteIncomingVideoId:video.videoId friend:video.friend];
+    [[ZZKeyStoreTransportService deleteRemoteIncomingVideoWithItemID:video.videoId
+                                                              friend:video.friend] subscribeNext:^(id x) {}];
 }
 
 //--------
@@ -234,11 +238,14 @@
 
 - (void)pollEverSentStatusForAllFriends
 {
-    [TBMRemoteStorageHandler getRemoteEverSentFriendsWithSuccess:^(NSArray *response) {
+    ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
+    
+    [[ZZKeyStoreTransportService loadRemoteEverSentFriendsIDsForUserMkey:me.mkey] subscribeNext:^(id x) {
+       
         ANDispatchBlockToBackgroundQueue(^{
-            [TBMFriend setEverSentForMkeys:response];
+            [TBMFriend setEverSentForMkeys:x];
         });
-    } failure:nil];
+    }];
 }
 
 - (void)pollVideosWithFriend:(TBMFriend *)friend
@@ -263,20 +270,20 @@
     {
         __block NSString* friendID = friend.idTbm;
         __block NSString* firstName = friend.firstName;
-        [TBMRemoteStorageHandler getRemoteIncomingVideoIdsWithFriend:friend
-                                                         gotVideoIds:^(NSArray *videoIds) {
-                                                             OB_INFO(@"pollWithFriend: %@  vids = %@", firstName, videoIds);
-                                                             for (NSString *videoId in videoIds)
-                                                             {
-                                                                 //            Removed because IOS sends the vidoes out in parallel a later short one may arrive before an earlier long one.
-                                                                 //            if ([TBMVideoIdUtils isvid1:videoId olderThanVid2:[friend oldestIncomingVideoId]]) {
-                                                                 //                OB_WARN(@"pollWithFriend: Deleting remote video and videoId kv older than local oldest.");
-                                                                 //                [TBMRemoteStorageHandler deleteRemoteFileAndVideoIdWithFriend:friend videoId:videoId];
-                                                                 //            }
-                                                                 NSLog(@"OKS- %@ - %@", NSStringFromSelector(_cmd), videoId);
-                                                                 [self queueDownloadWithFriendID:friendID videoId:videoId];
-                                                             }
-                                                         }];
+        
+        [[ZZKeyStoreTransportService loadRemoteIncomingVideoIDsWithFriend:friend] subscribeNext:^(NSArray* videoIds) {
+            OB_INFO(@"pollWithFriend: %@  vids = %@", firstName, videoIds);
+            for (NSString *videoId in videoIds)
+            {
+                //            Removed because IOS sends the vidoes out in parallel a later short one may arrive before an earlier long one.
+                //            if ([TBMVideoIdUtils isvid1:videoId olderThanVid2:[friend oldestIncomingVideoId]]) {
+                //                OB_WARN(@"pollWithFriend: Deleting remote video and videoId kv older than local oldest.");
+                //                [TBMRemoteStorageHandler deleteRemoteFileAndVideoIdWithFriend:friend videoId:videoId];
+                //            }
+                NSLog(@"OKS- %@ - %@", NSStringFromSelector(_cmd), videoId);
+                [self queueDownloadWithFriendID:friendID videoId:videoId];
+            }
+        }];
     }
 }
 
@@ -288,25 +295,22 @@
         return;
     }
 
-    [TBMRemoteStorageHandler getRemoteOutgoingVideoStatus:friend
-                                                  success:^(NSDictionary *response)
-                                                  {
-                                                      NSString *status = response[REMOTE_STORAGE_STATUS_KEY];
-                                                      int ovsts = [TBMRemoteStorageHandler outgoingVideoStatusWithRemoteStatus:status];
-                                                      if (ovsts == -1)
-                                                      {
-                                                          OB_ERROR(@"pollVideoStatusWithFriend: got unknown outgoing video status: %@", status);
-                                                          return;
-                                                      }
-                                                      // This call handles making sure that videoId == outgoingVideoId etc.
-                                                      [friend setAndNotifyOutgoingVideoStatus:ovsts
-                                                                                      videoId:response[REMOTE_STORAGE_VIDEO_ID_KEY]];
-                                                  }
-                                                  failure:^(NSError *error)
-                                                  {
-                                                      // This can happen on startup when there is nothing in the remoteVideoStatusKV
-                                                      OB_WARN(@"pollVideoStatusWithFriend: Error polling outgoingVideoStatus for %@ - %@", friend.firstName, error);
-                                                  }];
+    [[ZZKeyStoreTransportService loadRemoteOutgoingVideoStatusForFriend:friend] subscribeNext:^(NSDictionary *response) {
+       
+        NSString *status = response[REMOTE_STORAGE_STATUS_KEY];
+        int ovsts = [TBMRemoteStorageHandler outgoingVideoStatusWithRemoteStatus:status];
+        if (ovsts == -1)
+        {
+            OB_ERROR(@"pollVideoStatusWithFriend: got unknown outgoing video status: %@", status);
+            return;
+        }
+        // This call handles making sure that videoId == outgoingVideoId etc.
+        [friend setAndNotifyOutgoingVideoStatus:ovsts
+                                        videoId:response[REMOTE_STORAGE_VIDEO_ID_KEY]];
+    } error:^(NSError *error) {
+        // This can happen on startup when there is nothing in the remoteVideoStatusKV
+        OB_WARN(@"pollVideoStatusWithFriend: Error polling outgoingVideoStatus for %@ - %@", friend.firstName, error);
+    }];
 }
 
 //-------------------------------
@@ -394,11 +398,15 @@
     {
         OB_INFO(@"uploadCompletedWithFriend");
         [friend handleOutgoingVideoUploadedWithVideoId:videoId];
-        [TBMRemoteStorageHandler addRemoteOutgoingVideoId:videoId friend:friend];
-        [TBMRemoteStorageHandler setRemoteEverSentKVForFriendMkeys:[TBMFriend everSentMkeys]];
-
+        [[ZZKeyStoreTransportService addRemoteOutgoingVideoWithItemID:videoId friend:friend] subscribeNext:^(id x) {}];
+        
+        ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
+        [[ZZKeyStoreTransportService updateRemoteEverSentKVForFriendMkeys:[TBMFriend everSentMkeys]
+                                                              forUserMkey:me.mkey] subscribeNext:^(id x) {}];
+        
         [self sendNotificationForVideoReceived:friend videoId:videoId];
-    } else
+    }
+    else
     {
         OB_ERROR(@"uploadCompletedWithVideoId: upload error. FailedPermanently");
         [friend handleOutgoingVideoFailedPermanentlyWithVideoId:videoId];
@@ -452,12 +460,12 @@
     [ZZThumbnailGenerator generateThumbVideo:videoModel];
     [friend deleteAllViewedOrFailedVideos];
     
-//    ANDispatchBlockToMainQueue(^{
-//        
-//    });
     [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_DOWNLOADED video:video];
     
-    [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_DOWNLOADED videoId:videoId friend:friend];
+    [[ZZKeyStoreTransportService updateRemoteStatusForVideoWithItemID:videoId
+                                                             toStatus:REMOTE_STORAGE_STATUS_DOWNLOADED
+                                                               friend:friend] subscribeNext:^(id x) {}];
+    
     [self sendNotificationForVideoStatusUpdate:friend videoId:videoId status:NOTIFICATION_STATUS_DOWNLOADED];
   
     OB_INFO(@"downloadCompletedWithFriend: Video count = %ld", (unsigned long) [TBMVideo count]);

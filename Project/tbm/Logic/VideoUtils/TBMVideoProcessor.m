@@ -16,10 +16,12 @@ NSString* const TBMVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing"
 NSString* const TBMVideoProcessorErrorReason = @"Problem processing video";
 
 @interface TBMVideoProcessor ()
-@property (nonatomic) NSURL *videoUrl;
-@property (nonatomic) NSURL *tempVideoUrl;
-@property (nonatomic) NSString *marker;
-@property (nonatomic) AVAssetExportSession *exportSession;
+
+@property (nonatomic, strong) NSURL *videoUrl;
+@property (nonatomic, strong) NSURL *tempVideoUrl;
+@property (nonatomic, copy) NSString *marker;
+@property (nonatomic, strong) AVAssetExportSession *exportSession;
+
 @end
 
 @implementation TBMVideoProcessor

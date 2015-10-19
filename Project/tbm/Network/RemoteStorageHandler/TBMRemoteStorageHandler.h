@@ -13,17 +13,20 @@
 
 @interface TBMRemoteStorageHandler : NSObject
 
-// Convenience setters
-+ (void) addRemoteOutgoingVideoId:(NSString *)videoId friend:(TBMFriend *)friend;
-+ (void) deleteRemoteIncomingVideoId:(NSString *)videoId friend:(TBMFriend *)friend;
-+ (void) setRemoteIncomingVideoStatus:(NSString *)status videoId:(NSString *)videoId friend:(TBMFriend *)friend;
+//// Convenience setters
+//+ (void) addRemoteOutgoingVideoId:(NSString *)videoId friend:(TBMFriend *)friend;
+//+ (void) deleteRemoteIncomingVideoId:(NSString *)videoId friend:(TBMFriend *)friend;
+//+ (void) setRemoteIncomingVideoStatus:(NSString *)status videoId:(NSString *)videoId friend:(TBMFriend *)friend;
 
 // Convenience getters
-+ (void)getRemoteIncomingVideoIdsWithFriend:(TBMFriend *)friend gotVideoIds:(void (^)(NSArray *videoIds))gotVideoIds;
-+ (void) getRemoteOutgoingVideoStatus:(TBMFriend *)friend success:(void(^)(NSDictionary *response))success failure:(void(^)(NSError *error))failure;
+//+ (void)getRemoteIncomingVideoIdsWithFriend:(TBMFriend *)friend gotVideoIds:(void (^)(NSArray *videoIds))gotVideoIds;
+//+ (void) getRemoteOutgoingVideoStatus:(TBMFriend *)friend success:(void(^)(NSDictionary *response))success failure:(void(^)(NSError *error))failure;
+//
+//+ (void)getRemoteEverSentFriendsWithSuccess:(void (^)(NSArray *response))success failure:(void (^)(NSError *error))failure;
 
-+ (void)getRemoteEverSentFriendsWithSuccess:(void (^)(NSArray *response))success failure:(void (^)(NSError *error))failure;
-+ (void)setRemoteEverSentKVForFriendMkeys:(NSArray *)mkeys;
+
+//+ (void)setRemoteEverSentKVForFriendMkeys:(NSArray *)mkeys;
 // Conversion of status
 + (int)outgoingVideoStatusWithRemoteStatus:(NSString *)remoteStatus;
+
 @end

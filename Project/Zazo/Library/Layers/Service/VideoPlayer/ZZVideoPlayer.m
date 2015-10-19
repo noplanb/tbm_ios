@@ -20,6 +20,7 @@
 #import "ZZFriendDomainModel.h"
 #import "ZZGridActionStoredSettings.h"
 #import "ZZRemoteStorageValueGenerator.h"
+#import "ZZKeyStoreTransportService.h"
 
 @interface ZZVideoPlayer ()
 
@@ -121,9 +122,10 @@
         //TODO:coredata
         TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:playedVideoModel.relatedUser.idTbm];
         [friend setViewedWithIncomingVideo:viewedVideo];
-        [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
-                                                      videoId:viewedVideo.videoId
-                                                       friend:friend];
+        
+        [[ZZKeyStoreTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoId
+                                                                 toStatus:REMOTE_STORAGE_STATUS_VIEWED
+                                                                   friend:friend] subscribeNext:^(id x) {}];
     }
 }
 
@@ -273,10 +275,10 @@
 
         TBMFriend* friend = [ZZFriendDataProvider entityFromModel:playedVideoModel.relatedUser];
         [friend setViewedWithIncomingVideo:viewedVideo];
-//        [self.playedVideoUrls removeObject:nextUrl];
-        [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
-                                                      videoId:viewedVideo.videoId
-                                                       friend:friend];
+        
+        [[ZZKeyStoreTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoId
+                                                                 toStatus:REMOTE_STORAGE_STATUS_VIEWED
+                                                                   friend:friend] subscribeNext:^(id x) {}];
         
         [self.delegate videoPlayerURLWasStartPlaying:nextUrl]; //TODO: this causes blinking. reload only after full stop
         

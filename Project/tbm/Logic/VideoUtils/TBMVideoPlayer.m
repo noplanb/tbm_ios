@@ -19,6 +19,7 @@
 #import "iToast.h"
 #import "OBFileTransferManager.h"
 #import "ZZRemoteStorageValueGenerator.h"
+#import "ZZKeyStoreTransportService.h"
 
 @interface TBMVideoPlayer()
 
@@ -247,9 +248,11 @@
     
     // Set viewed even if the video is not playable so that it gets deleted eventually.
     [self.gridElement.friend setViewedWithIncomingVideo:self.video];
-    [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
-                                                  videoId:self.video.videoId
-                                                   friend:self.gridElement.friend];
+    [[ZZKeyStoreTransportService updateRemoteStatusForVideoWithItemID:self.video.videoId
+                                                            toStatus:REMOTE_STORAGE_STATUS_VIEWED
+                                                              friend:self.gridElement.friend] subscribeNext:^(id x) {}];
+    
+    
     if ([self.video hasValidVideoFile]){
         self.moviePlayerController.contentURL = [self.video videoUrl];
         [self showPlayerView];
