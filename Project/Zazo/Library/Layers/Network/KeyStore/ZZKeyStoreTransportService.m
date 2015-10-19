@@ -24,7 +24,8 @@
     if (!ANIsEmpty(itemID) && !ANIsEmpty(friend))
     {
         NSDictionary *value = @{ZZRemoteStorageParameters.videoID : itemID};
-        NSString *key1 = [ZZRemoteStorageValueGenerator outgoingVideoIDRemoteKVKey:friend];
+        NSString *key1 = [ZZRemoteStorageValueGenerator outgoingVideoIDRemoteKVWithFriendMKey:friend.mkey
+                                                                                   friendCKey:friend.ckey];
         
         return [self updateKey1:key1
                            key2:itemID
@@ -35,7 +36,8 @@
 
 + (RACSignal*)deleteRemoteIncomingVideoWithItemID:(NSString*)itemID friend:(TBMFriend*)friend
 {
-    NSString *key1 = [ZZRemoteStorageValueGenerator incomingVideoIDRemoteKVKey:friend];
+    NSString *key1 = [ZZRemoteStorageValueGenerator outgoingVideoIDRemoteKVWithFriendMKey:friend.mkey
+                                                                               friendCKey:friend.ckey];
     return [self deleteValueWithKey1:key1 key2:itemID];
 }
 
@@ -47,7 +49,8 @@
         NSDictionary *value = @{ZZRemoteStorageParameters.videoID : itemID,
                                 ZZRemoteStorageParameters.status  : statusString};
         
-        NSString *key = [ZZRemoteStorageValueGenerator incomingVideoStatusRemoteKVKey:friend];
+        NSString *key = [ZZRemoteStorageValueGenerator incomingVideoStatusRemoteKVKeyWithFriendMKey:friend.mkey
+                                                                                         friendCKey:friend.ckey];
         return [self updateKey1:key
                            key2:NULL
                           value:[ZZStringUtils jsonWithDictionary:value]];
@@ -60,8 +63,9 @@
 
 + (RACSignal*)loadRemoteIncomingVideoIDsWithFriend:(TBMFriend*)friend
 {
-    NSString *key1 = [ZZRemoteStorageValueGenerator incomingVideoIDRemoteKVKey:friend];
-    
+    NSString *key1 = [ZZRemoteStorageValueGenerator outgoingVideoIDRemoteKVWithFriendMKey:friend.mkey
+                                                                               friendCKey:friend.ckey];
+
     return [[[self loadValueWithKey1:key1] map:^id(NSArray* value) {
         
         return [[value.rac_sequence map:^id(NSDictionary* object) { //TODO: additional checks and safety
@@ -78,7 +82,8 @@
 
 + (RACSignal*)loadRemoteOutgoingVideoStatusForFriend:(TBMFriend*)friend
 {
-    NSString *key = [ZZRemoteStorageValueGenerator outgoingVideoStatusRemoteKVKey:friend];
+    NSString *key = [ZZRemoteStorageValueGenerator outgoingVideoStatusRemoteKVKeyWithFriendMKey:friend.mkey
+                                                                                     friendCKey:friend.ckey];
     
     return [[self loadValueWithKey1:key] map:^id(id value) {
         

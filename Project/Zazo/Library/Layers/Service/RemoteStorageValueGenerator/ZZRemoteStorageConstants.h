@@ -30,8 +30,9 @@ static NSString* const kRemoteStorageApiVideoDownloadPath = @"videos/get";
 
 static NSString *const kRemoteStorageArraySeparator = @",";
 
-static NSString * REMOTE_STORAGE_STATUS_SUFFIX = @"-VideoStatusKVKey";
-static NSString * REMOTE_STORAGE_VIDEO_ID_SUFFIX = @"-VideoIdKVKey";
+//DO NOT CHANGE WITHOUT PERMISSION! I will found you and kill.
+static NSString * kRemoteStorageVideoStatusSuffix = @"-VideoStatusKVKey";
+static NSString * kRemoteStorageVideoIDSuffix = @"-VideoIdKVKey";
 
 
 #pragma mark - Remote Video Statuses

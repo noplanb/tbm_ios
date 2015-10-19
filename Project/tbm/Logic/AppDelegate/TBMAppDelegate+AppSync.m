@@ -85,7 +85,9 @@
     NSString *videoId = [TBMVideoIdUtils videoIdWithOutgoingVideoUrl:videoUrl];
     TBMFriend *friend = [TBMVideoIdUtils friendWithOutgoingVideoUrl:videoUrl];
 
-    NSString *remoteFilename = [ZZRemoteStorageValueGenerator outgoingVideoRemoteFilename:friend videoId:videoId];
+    NSString *remoteFilename = [ZZRemoteStorageValueGenerator outgoingVideoRemoteFilenameWithFriendMkey:friend.mkey
+                                                                                             friendCKey:friend.ckey
+                                                                                                videoId:videoId];
     [[self fileTransferManager] uploadFile:videoUrl.path
                                         to:remoteStorageFileTransferUploadPath()
                                 withMarker:marker
@@ -144,7 +146,10 @@
     [self setBadgeNumberUnviewed];
 
     NSString *marker = [TBMVideoIdUtils markerWithFriend:friend videoId:videoId isUpload:NO];
-    NSString *remoteFilename = [ZZRemoteStorageValueGenerator incomingVideoRemoteFilename:video];
+    
+    NSString *remoteFilename = [ZZRemoteStorageValueGenerator incomingVideoRemoteFilenameWithFriendMkey:video.friend.mkey
+                                                                                             friendCKey:video.friend.ckey
+                                                                                                videoId:video.videoId];
     
     [[self fileTransferManager] downloadFile:remoteStorageFileTransferDownloadPath()
                                           to:[video videoPath]
@@ -191,7 +196,9 @@
 // Convenience
 - (void)deleteRemoteVideoFile:(TBMVideo *)video
 {
-    NSString *filename = [ZZRemoteStorageValueGenerator incomingVideoRemoteFilename:video];
+    NSString *filename = [ZZRemoteStorageValueGenerator incomingVideoRemoteFilenameWithFriendMkey:video.friend.mkey
+                                                                                       friendCKey:video.friend.ckey
+                                                                                          videoId:video.videoId];
     [self deleteRemoteFile:filename];
 }
 

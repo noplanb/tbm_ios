@@ -11,14 +11,33 @@
 
 @interface ZZRemoteStorageValueGenerator : NSObject
 
-+ (NSString*)outgoingVideoRemoteFilename:(TBMFriend *)friend videoId:(NSString *)videoId;
-+ (NSString*)incomingVideoRemoteFilename:(TBMVideo *)video;
+
+#pragma mark - Filename
+
++ (NSString*)incomingVideoRemoteFilenameWithFriendMkey:(NSString*)friendMkey
+                                            friendCKey:(NSString*)friendCkey
+                                               videoId:(NSString *)videoId;
+
++ (NSString*)outgoingVideoRemoteFilenameWithFriendMkey:(NSString*)friendMkey
+                                            friendCKey:(NSString*)friendCkey
+                                               videoId:(NSString *)videoId;
 
 
-+ (NSString *)outgoingVideoIDRemoteKVKey:(TBMFriend *)friend;
-+ (NSString *)incomingVideoIDRemoteKVKey:(TBMFriend *)friend;
-+ (NSString *)incomingVideoStatusRemoteKVKey:(TBMFriend *)friend;
-+ (NSString *)outgoingVideoStatusRemoteKVKey:(TBMFriend *)friend;
+#pragma mark - Video ID
 
++ (NSString*)incomingVideoIDRemoteKVKeyWithFriendMKey:(NSString*)friendMKey
+                                           friendCKey:(NSString*)friendCKey;
+
++ (NSString*)outgoingVideoIDRemoteKVWithFriendMKey:(NSString*)friendMKey
+                                        friendCKey:(NSString*)friendCKey;
+
+
+#pragma mark - Video Status
+
++ (NSString*)incomingVideoStatusRemoteKVKeyWithFriendMKey:(NSString*)friendMKey
+                                               friendCKey:(NSString*)friendCKey;
+
++ (NSString*)outgoingVideoStatusRemoteKVKeyWithFriendMKey:(NSString*)friendMKey
+                                               friendCKey:(NSString*)friendCKey;
 
 @end

@@ -7,91 +7,102 @@
 //
 
 #import "ZZRemoteStorageValueGenerator.h"
-#import "TBMFriend.h"
-#import "ZZUserDataProvider.h"
 #import "NSString+ZZAdditions.h"
-#import "ZZKeychainDataProvider.h"
-#import "ZZAPIRoutes.h"
 #import "ZZRemoteStorageConstants.h"
 
 @implementation ZZRemoteStorageValueGenerator
 
-//------------------------
-// Keys for remote storage
-//------------------------
-+ (NSString *)incomingVideoRemoteFilename:(TBMVideo *)video
-{
-    return [self incomingVideoRemoteFilenameWithFriend:video.friend videoId:video.videoId];
-}
 
-+ (NSString *)incomingVideoRemoteFilenameWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId
+#pragma mark - Filename
+
++ (NSString*)incomingVideoRemoteFilenameWithFriendMkey:(NSString*)friendMkey
+                                            friendCKey:(NSString*)friendCkey
+                                               videoId:(NSString *)videoId
 {
     return [NSString stringWithFormat:@"%@-%@",
-            [self incomingPrefix:friend],
-            [[friend.ckey stringByAppendingString:videoId] an_md5]];
+            [self _incomingPrefixWithFriendMKey:friendMkey],
+            [[friendCkey stringByAppendingString:videoId] an_md5]];
 }
 
-+ (NSString *)outgoingVideoRemoteFilename:(TBMFriend *)friend videoId:(NSString *)videoId
++ (NSString*)outgoingVideoRemoteFilenameWithFriendMkey:(NSString*)friendMkey
+                                            friendCKey:(NSString*)friendCkey
+                                               videoId:(NSString *)videoId
 {
     return [NSString stringWithFormat:@"%@-%@",
-            [self outgoingPrefix:friend],
-            [[friend.ckey stringByAppendingString:videoId] an_md5]];
+            [self _outgoingPrefixWithFrinedMKey:friendMkey],
+            [[friendCkey stringByAppendingString:videoId] an_md5]];
 }
 
-+ (NSString *)incomingVideoIDRemoteKVKey:(TBMFriend *)friend
+
+#pragma mark - Video ID
+
++ (NSString*)incomingVideoIDRemoteKVKeyWithFriendMKey:(NSString*)friendMKey friendCKey:(NSString*)friendCKey
 {
     return [NSString stringWithFormat:@"%@-%@",
-            [self incomingPrefix:friend],
-            [self incomingSuffix:friend withTypeSuffix:REMOTE_STORAGE_VIDEO_ID_SUFFIX]];
+            [self _incomingPrefixWithFriendMKey:friendMKey],
+            [self _incomingSuffixWithFriendMKey:friendMKey
+                                     friendCKey:friendCKey
+                                         suffix:kRemoteStorageVideoIDSuffix]];
 }
 
-+ (NSString *)outgoingVideoIDRemoteKVKey:(TBMFriend *)friend
++ (NSString*)outgoingVideoIDRemoteKVWithFriendMKey:(NSString*)friendMKey friendCKey:(NSString*)friendCKey
 {
     return [NSString stringWithFormat:@"%@-%@",
-            [self outgoingPrefix:friend],
-            [self outgoingSuffix:friend withTypeSuffix:REMOTE_STORAGE_VIDEO_ID_SUFFIX]];
+            [self _outgoingPrefixWithFrinedMKey:friendMKey],
+            [self _outgoingSuffixWithFriendMKey:friendMKey
+                                     friendCKey:friendCKey
+                                         suffix:kRemoteStorageVideoIDSuffix]];
 }
 
-+ (NSString *)incomingVideoStatusRemoteKVKey:(TBMFriend *)friend
+
+#pragma mark - Video Status
+
++ (NSString*)incomingVideoStatusRemoteKVKeyWithFriendMKey:(NSString*)friendMKey friendCKey:(NSString*)friendCKey
 {
     return [NSString stringWithFormat:@"%@-%@",
-            [self incomingPrefix:friend],
-            [self incomingSuffix:friend withTypeSuffix:REMOTE_STORAGE_STATUS_SUFFIX]];
+            [self _incomingPrefixWithFriendMKey:friendMKey],
+            [self _incomingSuffixWithFriendMKey:friendMKey
+                                     friendCKey:friendCKey
+                                         suffix:kRemoteStorageVideoStatusSuffix]];
 }
 
-+ (NSString *)outgoingVideoStatusRemoteKVKey:(TBMFriend *)friend
++ (NSString*)outgoingVideoStatusRemoteKVKeyWithFriendMKey:(NSString*)friendMKey friendCKey:(NSString*)friendCKey
 {
     return [NSString stringWithFormat:@"%@-%@",
-            [self outgoingPrefix:friend],
-            [self outgoingSuffix:friend withTypeSuffix:REMOTE_STORAGE_STATUS_SUFFIX]];
+            [self _outgoingPrefixWithFrinedMKey:friendMKey],
+            [self _outgoingSuffixWithFriendMKey:friendMKey
+                                     friendCKey:friendCKey
+                                         suffix:kRemoteStorageVideoStatusSuffix]];
 }
 
-// Helpers
 
-+ (NSString *)incomingPrefix:(TBMFriend *)friend
+#pragma mark - Private
+
++ (NSString*)_incomingPrefixWithFriendMKey:(NSString*)friendMkey
 {
-    ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
-    return [NSString stringWithFormat:@"%@-%@", friend.mkey, model.mkey];
+     return [NSString stringWithFormat:@"%@-%@", friendMkey, [self _myMkey]];
 }
 
-+ (NSString *)outgoingPrefix:(TBMFriend *)friend
++ (NSString*)_outgoingPrefixWithFrinedMKey:(NSString*)friendMKey
 {
-    ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
-    return [NSString stringWithFormat:@"%@-%@", model.mkey, friend.mkey];
+    return [NSString stringWithFormat:@"%@-%@", [self _myMkey], friendMKey];
 }
 
-+ (NSString *)incomingSuffix:(TBMFriend *)friend withTypeSuffix:(NSString *)typeSuffix
++ (NSString*)_myMkey
 {
-    ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
-    NSString *md5 = [[[friend.mkey stringByAppendingString:model.mkey] stringByAppendingString:friend.ckey] an_md5];
-    return [md5 stringByAppendingString:typeSuffix];
+    return [ZZStoredSettingsManager shared].userID;
 }
 
-+ (NSString *)outgoingSuffix:(TBMFriend *)friend withTypeSuffix:(NSString *)typeSuffix
++ (NSString*)_incomingSuffixWithFriendMKey:(NSString*)friendMKey friendCKey:(NSString*)friendCKey suffix:(NSString*)suffix
 {
-    ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
-    NSString *md5 = [[[model.mkey stringByAppendingString:friend.mkey] stringByAppendingString:friend.ckey] an_md5];
-    return [md5 stringByAppendingString:typeSuffix];
+    NSString *md5 = [[[friendMKey stringByAppendingString:[self _myMkey]] stringByAppendingString:friendCKey] an_md5];
+    return [md5 stringByAppendingString:suffix];
+}
+
++ (NSString*)_outgoingSuffixWithFriendMKey:(NSString*)friendMKey friendCKey:(NSString*)friendCKey suffix:(NSString*)suffix
+{
+    NSString *md5 = [[[[self _myMkey] stringByAppendingString:friendMKey] stringByAppendingString:friendCKey] an_md5];
+    return [md5 stringByAppendingString:suffix];
 }
 
 
