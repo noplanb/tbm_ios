@@ -9,7 +9,6 @@
 #import "TBMRemoteStorageHandler.h"
 #import "TBMFriend.h"
 #import "TBMUser.h"
-#import "TBMHttpManager.h"
 #import "OBLogger.h"
 
 #import "ZZAPIRoutes.h"
