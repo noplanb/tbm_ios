@@ -12,7 +12,6 @@
 #import "TBMAppDelegate+PushNotification.h"
 #import "TBMVideoIdUtils.h"
 #import "OBLogger.h"
-#import "TBMPhoneUtils.h"
 #import "TBMUser.h"
 #import "MagicalRecord.h"
 #import "TBMGridElement.h"
@@ -24,6 +23,7 @@
 #import "ZZContentDataAcessor.h"
 #import "FEMObjectDeserializer.h"
 #import "ZZFriendDataUpdater.h"
+#import "ZZPhoneHelper.h"
 
 @implementation TBMFriend
 
@@ -85,7 +85,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 {
     for (TBMFriend *f in [TBMFriend all])
     {
-        if ([TBMPhoneUtils isNumberMatch:phone secondNumber:f.mobileNumber])
+        if ([ZZPhoneHelper isNumberMatch:phone secondNumber:f.mobileNumber])
             return f;
     }
     return nil;

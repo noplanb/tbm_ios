@@ -10,18 +10,6 @@
 
 @implementation ZZStringUtils
 
-+ (NSString *)randomStringofLength:(NSInteger)length
-{
-    NSMutableString *r = [[NSMutableString alloc] init];
-    for (int i=0; i<length; i++)
-    {
-        char c = [ZZStringUtils azAZFromInt:arc4random_uniform(52)];
-        [r appendString:[NSString stringWithFormat:@"%c", c]];
-    }
-    
-    return r;
-}
-
 + (NSString *)jsonWithDictionary:(NSDictionary *)dict
 {
     NSString *jsonString;
@@ -55,24 +43,6 @@
     }
     
     return result;
-}
-
-+ (char)azAZFromInt:(int)num
-{
-    int lowerStart = (int)'a';
-    int upperStart = (int)'A';
-    int numLetters = (int)'z' - (int)'a' + 1;
-    
-    int offset = num % numLetters;
-    int start;
-    
-    if (num / numLetters > 0){
-        start = upperStart;
-    } else {
-        start = lowerStart;
-    }
-    
-    return (char)(start + offset);
 }
 
 @end

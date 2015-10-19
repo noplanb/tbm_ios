@@ -7,9 +7,9 @@
 //
 
 #import "TBMVerificationAlertHandler.h"
-#import "TBMPhoneUtils.h"
 #import "TBMAlertControllerVisualStyle.h"
 //#import "OBLogger.h"
+#import "ZZPhoneHelper.h"
 
 @interface TBMVerificationAlertHandler()
 @property (nonatomic) TBMAlertController *alertController;
@@ -127,7 +127,8 @@ static NSString *MESSAGE = @"We sent a code";
 
 - (UILabel *)enterCodeLabel
 {
-    NSString *text = [NSString stringWithFormat:@"We sent a code via text\nto %@.", [TBMPhoneUtils phone:self.phoneNumber withFormat:NBEPhoneNumberFormatINTERNATIONAL]];
+    NSString *text = [NSString stringWithFormat:@"We sent a code via text\nto %@.",
+                      [ZZPhoneHelper phone:self.phoneNumber withFormat:ZZPhoneFormatTypeInternational]];
     return [self labelWithText:text frame:[self enterCodeLabelFrame]];
 }
 
@@ -217,7 +218,7 @@ static NSString *MESSAGE = @"We sent a code";
 
 - (NSString *)formattedPhoneNumber
 {
-    return [TBMPhoneUtils phone:self.phoneNumber withFormat:NBEPhoneNumberFormatINTERNATIONAL];
+    return [ZZPhoneHelper phone:self.phoneNumber withFormat:ZZPhoneFormatTypeInternational];
 }
 
 - (UILabel *)labelWithText:(NSString *)text frame:(CGRect)frame

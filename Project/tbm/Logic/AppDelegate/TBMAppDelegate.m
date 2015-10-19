@@ -10,7 +10,6 @@
 #import "TBMAppDelegate+Boot.h"
 #import "TBMAppDelegate+PushNotification.h"
 #import "TBMAppDelegate+AppSync.h"
-#import "TBMStringUtils.h"
 #import "OBFileTransferManager.h"
 #import "TBMUser.h"
 #import "AVAudioSession+TBMAudioSession.h"

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		070238D81BB430B200B8197E /* ZZApplicationVersionEnumHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 070238D71BB430B100B8197E /* ZZApplicationVersionEnumHelper.m */; settings = {ASSET_TAGS = (); }; };
-		070560FA1BA8736600C130E0 /* ZZGridActionDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 070560F91BA8736600C130E0 /* ZZGridActionDataProvider.m */; };
 		070561001BA8824F00C130E0 /* ZZGridActionHandlerEnums.m in Sources */ = {isa = PBXBuildFile; fileRef = 070560FF1BA8824F00C130E0 /* ZZGridActionHandlerEnums.m */; };
 		070D84791BBDAD8900196527 /* ZZGridContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 070D84781BBDAD8900196527 /* ZZGridContainerView.m */; settings = {ASSET_TAGS = (); }; };
 		071F18E91BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.m in Sources */ = {isa = PBXBuildFile; fileRef = 071F18E81BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.m */; settings = {ASSET_TAGS = (); }; };
@@ -24,8 +23,6 @@
 		07636DAB1BA49A0100925671 /* TBMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369CE1BA49A0000925671 /* TBMAppDelegate.m */; };
 		07636DAC1BA49A0100925671 /* AVAudioSession+TBMAudioSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369D21BA49A0000925671 /* AVAudioSession+TBMAudioSession.m */; };
 		07636DB71BA49A0100925671 /* TBMFileUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369F21BA49A0000925671 /* TBMFileUtils.m */; };
-		07636DB91BA49A0100925671 /* TBMPhoneUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369F81BA49A0000925671 /* TBMPhoneUtils.m */; };
-		07636DBB1BA49A0100925671 /* TBMStringUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369FE1BA49A0000925671 /* TBMStringUtils.m */; };
 		07636DBC1BA49A0100925671 /* TBMVideoIdUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A011BA49A0000925671 /* TBMVideoIdUtils.m */; };
 		07636DBD1BA49A0100925671 /* TBMVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A031BA49A0000925671 /* TBMVideoPlayer.m */; };
 		07636DBE1BA49A0100925671 /* TBMVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A051BA49A0000925671 /* TBMVideoProcessor.m */; };
@@ -393,8 +390,6 @@
 		06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Zazo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		070238D61BB430B100B8197E /* ZZApplicationVersionEnumHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZApplicationVersionEnumHelper.h; path = EnumHelpers/ZZApplicationVersionEnumHelper.h; sourceTree = "<group>"; };
 		070238D71BB430B100B8197E /* ZZApplicationVersionEnumHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZApplicationVersionEnumHelper.m; path = EnumHelpers/ZZApplicationVersionEnumHelper.m; sourceTree = "<group>"; };
-		070560F81BA8736600C130E0 /* ZZGridActionDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZGridActionDataProvider.h; path = ActionHandler/ZZGridActionDataProvider.h; sourceTree = "<group>"; };
-		070560F91BA8736600C130E0 /* ZZGridActionDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZGridActionDataProvider.m; path = ActionHandler/ZZGridActionDataProvider.m; sourceTree = "<group>"; };
 		070560FE1BA8824F00C130E0 /* ZZGridActionHandlerEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZGridActionHandlerEnums.h; path = ActionHandler/ZZGridActionHandlerEnums.h; sourceTree = "<group>"; };
 		070560FF1BA8824F00C130E0 /* ZZGridActionHandlerEnums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZGridActionHandlerEnums.m; path = ActionHandler/ZZGridActionHandlerEnums.m; sourceTree = "<group>"; };
 		070D84771BBDAD8900196527 /* ZZGridContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridContainerView.h; sourceTree = "<group>"; };
@@ -424,10 +419,6 @@
 		076369D21BA49A0000925671 /* AVAudioSession+TBMAudioSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVAudioSession+TBMAudioSession.m"; sourceTree = "<group>"; };
 		076369F11BA49A0000925671 /* TBMFileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFileUtils.h; sourceTree = "<group>"; };
 		076369F21BA49A0000925671 /* TBMFileUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFileUtils.m; sourceTree = "<group>"; };
-		076369F71BA49A0000925671 /* TBMPhoneUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMPhoneUtils.h; sourceTree = "<group>"; };
-		076369F81BA49A0000925671 /* TBMPhoneUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMPhoneUtils.m; sourceTree = "<group>"; };
-		076369FD1BA49A0000925671 /* TBMStringUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMStringUtils.h; sourceTree = "<group>"; };
-		076369FE1BA49A0000925671 /* TBMStringUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMStringUtils.m; sourceTree = "<group>"; };
 		07636A001BA49A0000925671 /* TBMVideoIdUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoIdUtils.h; sourceTree = "<group>"; };
 		07636A011BA49A0000925671 /* TBMVideoIdUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoIdUtils.m; sourceTree = "<group>"; };
 		07636A021BA49A0000925671 /* TBMVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoPlayer.h; sourceTree = "<group>"; };
@@ -1157,8 +1148,6 @@
 				076369C61BA49A0000925671 /* AppDelegate */,
 				076369CF1BA49A0000925671 /* Categories */,
 				076369F01BA49A0000925671 /* FileUtils */,
-				076369F61BA49A0000925671 /* PhoneUtils */,
-				076369FC1BA49A0000925671 /* StringUtils */,
 				076369FF1BA49A0000925671 /* VideoUtils */,
 			);
 			path = Logic;
@@ -1203,24 +1192,6 @@
 				076369F21BA49A0000925671 /* TBMFileUtils.m */,
 			);
 			path = FileUtils;
-			sourceTree = "<group>";
-		};
-		076369F61BA49A0000925671 /* PhoneUtils */ = {
-			isa = PBXGroup;
-			children = (
-				076369F71BA49A0000925671 /* TBMPhoneUtils.h */,
-				076369F81BA49A0000925671 /* TBMPhoneUtils.m */,
-			);
-			path = PhoneUtils;
-			sourceTree = "<group>";
-		};
-		076369FC1BA49A0000925671 /* StringUtils */ = {
-			isa = PBXGroup;
-			children = (
-				076369FD1BA49A0000925671 /* TBMStringUtils.h */,
-				076369FE1BA49A0000925671 /* TBMStringUtils.m */,
-			);
-			path = StringUtils;
 			sourceTree = "<group>";
 		};
 		076369FF1BA49A0000925671 /* VideoUtils */ = {
@@ -3367,8 +3338,6 @@
 				079280A21BA8544800E22553 /* ZZGridActionHandler.h */,
 				079280A31BA8544800E22553 /* ZZGridActionHandler.m */,
 				1878422E1BB2D4960007CDE2 /* ZZGridActionHandlerUserInterfaceDelegate.h */,
-				070560F81BA8736600C130E0 /* ZZGridActionDataProvider.h */,
-				070560F91BA8736600C130E0 /* ZZGridActionDataProvider.m */,
 				79123D701BB032B7007E1CBF /* Hints */,
 			);
 			name = ActionHandler;
@@ -4184,7 +4153,6 @@
 				18E1F2F31BC6AA990070ECF1 /* ZZFeatureEventObserver.m in Sources */,
 				07636F121BA49A0100925671 /* UIImage+PDF.m in Sources */,
 				07636E941BA49A0100925671 /* ZZAuthWireframe.m in Sources */,
-				070560FA1BA8736600C130E0 /* ZZGridActionDataProvider.m in Sources */,
 				07636EFD1BA49A0100925671 /* ANNetworkActivityManager.m in Sources */,
 				07636E911BA49A0100925671 /* ZZAuthRegistrationView.m in Sources */,
 				07636DAA1BA49A0100925671 /* TBMAppDelegate+PushNotification.m in Sources */,
@@ -4327,7 +4295,6 @@
 				07636EC91BA49A0100925671 /* ZZGridView.m in Sources */,
 				181D1CB01BC5222600044F83 /* ZZViewedMessageEventHandler.m in Sources */,
 				07BAA7141BB1C55E009878B9 /* ZZThumbnailGenerator.m in Sources */,
-				07636DB91BA49A0100925671 /* TBMPhoneUtils.m in Sources */,
 				07636E961BA49A0100925671 /* ANDebugVC.m in Sources */,
 				181D1CAD1BC5219300044F83 /* ZZSentMessgeEventHandler.m in Sources */,
 				07636E231BA49A0100925671 /* ZZFriendDataProvider.m in Sources */,
@@ -4348,7 +4315,6 @@
 				181D1CB91BC523FA00044F83 /* ZZFronCameraFeatureEventHandler.m in Sources */,
 				07636E241BA49A0100925671 /* ZZFriendModelsMapper.m in Sources */,
 				07636E251BA49A0100925671 /* ZZGridDataProvider.m in Sources */,
-				07636DBB1BA49A0100925671 /* TBMStringUtils.m in Sources */,
 				07636EAF1BA49A0100925671 /* ZZSecretWireframe.m in Sources */,
 				181D1CCB1BC54E6F00044F83 /* ZZGridPresenter+ActionHandler.m in Sources */,
 				07636E201BA49A0100925671 /* ZZPhoneHelper.m in Sources */,

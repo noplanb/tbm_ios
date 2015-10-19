@@ -7,7 +7,6 @@
 //
 
 #import "ZZGridActionHandler.h"
-#import "ZZGridActionDataProvider.h"
 #import "ZZHintsController.h"
 #import "ZZHintsModelGenerator.h"
 #import "ZZHintsDomainModel.h"
