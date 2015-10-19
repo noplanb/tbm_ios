@@ -73,7 +73,6 @@
 
 + (BOOL)isMediaFileCorruptedWithFileUrl:(NSURL*)fileUrl
 {
-    
     BOOL isFileCorrupted = YES;
     MPMoviePlayerViewController* playerController = [[MPMoviePlayerViewController alloc] initWithContentURL:fileUrl];
     MPMoviePlayerController* player = [playerController moviePlayer];

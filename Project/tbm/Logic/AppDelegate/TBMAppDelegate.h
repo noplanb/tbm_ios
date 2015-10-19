@@ -11,7 +11,6 @@
 static NSString* const kNotificationSendMessage = @"sendMessageNotification";
 
 @class TBMHomeViewController;
-@class ZZSoundPlayer;
 
 @protocol TBMAppDelegateEventNotificationProtocol <NSObject>
 

@@ -19,176 +19,30 @@
 #import "ZZS3CredentialsDomainModel.h"
 #import "NSString+ZZAdditions.h"
 #import "ZZStringUtils.h"
+#import "ZZKeyStoreTransportService.h"
+#import "ZZRemoteStorageValueGenerator.h"
 
 static NSString *const kArraySeparator = @",";
 
 @implementation TBMRemoteStorageHandler
 
-
-//------------------------
-// Keys for remote storage
-//------------------------
-+ (NSString *)incomingVideoRemoteFilename:(TBMVideo *)video
-{
-    return [self incomingVideoRemoteFilenameWithFriend:video.friend videoId:video.videoId];
-}
-
-+ (NSString *)incomingVideoRemoteFilenameWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId
-{
-    return [NSString stringWithFormat:@"%@-%@",
-                                      [self incomingPrefix:friend],
-                                      [[friend.ckey stringByAppendingString:videoId] zz_md5]];
-}
-
-+ (NSString *)outgoingVideoRemoteFilename:(TBMFriend *)friend videoId:(NSString *)videoId
-{
-    return [NSString stringWithFormat:@"%@-%@",
-                                      [self outgoingPrefix:friend],
-                                      [[friend.ckey stringByAppendingString:videoId] zz_md5]];
-}
-
-+ (NSString *)incomingVideoIDRemoteKVKey:(TBMFriend *)friend
-{
-    return [NSString stringWithFormat:@"%@-%@",
-                                      [self incomingPrefix:friend],
-                                      [self incomingSuffix:friend withTypeSuffix:REMOTE_STORAGE_VIDEO_ID_SUFFIX]];
-}
-
-+ (NSString *)outgoingVideoIDRemoteKVKey:(TBMFriend *)friend
-{
-    return [NSString stringWithFormat:@"%@-%@",
-                                      [self outgoingPrefix:friend],
-                                      [self outgoingSuffix:friend withTypeSuffix:REMOTE_STORAGE_VIDEO_ID_SUFFIX]];
-}
-
-+ (NSString *)incomingVideoStatusRemoteKVKey:(TBMFriend *)friend
-{
-    return [NSString stringWithFormat:@"%@-%@",
-                                      [self incomingPrefix:friend],
-                                      [self incomingSuffix:friend withTypeSuffix:REMOTE_STORAGE_STATUS_SUFFIX]];
-}
-
-+ (NSString *)outgoingVideoStatusRemoteKVKey:(TBMFriend *)friend
-{
-    return [NSString stringWithFormat:@"%@-%@",
-                                      [self outgoingPrefix:friend],
-                                      [self outgoingSuffix:friend withTypeSuffix:REMOTE_STORAGE_STATUS_SUFFIX]];
-}
-
-// Helpers
-
-+ (NSString *)incomingPrefix:(TBMFriend *)friend
-{
-    ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
-    return [NSString stringWithFormat:@"%@-%@", friend.mkey, model.mkey];
-}
-
-+ (NSString *)outgoingPrefix:(TBMFriend *)friend
-{
-     ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
-    return [NSString stringWithFormat:@"%@-%@", model.mkey, friend.mkey];
-}
-
-+ (NSString *)incomingSuffix:(TBMFriend *)friend withTypeSuffix:(NSString *)typeSuffix
-{
-     ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
-    NSString *md5 = [[[friend.mkey stringByAppendingString:model.mkey] stringByAppendingString:friend.ckey] zz_md5];
-    return [md5 stringByAppendingString:typeSuffix];
-}
-
-+ (NSString *)outgoingSuffix:(TBMFriend *)friend withTypeSuffix:(NSString *)typeSuffix
-{
-     ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
-    NSString *md5 = [[[model.mkey stringByAppendingString:friend.mkey] stringByAppendingString:friend.ckey] zz_md5];
-    return [md5 stringByAppendingString:typeSuffix];
-}
-
-
-//-----------------------
-// URLs for file transfer
-//-----------------------
-+ (NSString *)fileTransferRemoteUrlBase
-{
-    return REMOTE_STORAGE_USE_S3 ? REMOTE_STORAGE_S3_BASE_URL_STRING : apiBaseURL();
-}
-
-+ (NSString *)fileTransferUploadPath
-{
-    return REMOTE_STORAGE_USE_S3 ? [self s3Bucket] : REMOTE_STORAGE_SERVER_VIDEO_UPLOAD_PATH;
-}
-
-+ (NSString *)fileTransferDownloadPath
-{
-    return REMOTE_STORAGE_USE_S3 ? [self s3Bucket] : REMOTE_STORAGE_SERVER_VIDEO_DOWNLOAD_PATH;
-}
-
-+ (NSString *)fileTransferDeletePath
-{
-    return [self s3Bucket];
-}
-
-+ (NSString *)s3Bucket
-{
-    return [ZZKeychainDataProvider loadCredentials].bucket;
-}
-
-//-------------------------
-// Simple http get and post
-//-------------------------
-
-+ (void)simpleGet:(NSString *)path params:(NSDictionary *)params
-{
-    [[TBMHttpManager manager]
-            GET:path
-     parameters:params
-        success:nil
-        failure:nil];
-}
-
-+ (void)simplePost:(NSString *)path params:(NSDictionary *)params
-{
-    [[TBMHttpManager manager]
-            POST:path
-      parameters:params
-         success:nil
-         failure:nil];
-}
-
-
-//------------------
-// set and delete kv
-//------------------
-+ (void)setRemoteKVWithKey1:(NSString *)key1 key2:(NSString *)key2 value:(NSDictionary *)value
-{
-    NSString *jsonValue = [ZZStringUtils jsonWithDictionary:value];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:@{@"key1" : key1, @"value" : jsonValue}];
-    if (key2 != nil)
-        [params setObject:key2 forKey:@"key2"];
-    [TBMRemoteStorageHandler simplePost:@"kvstore/set" params:params];
-}
-
-+ (void)deleteRemoteKVWithKey1:(NSString *)key1 key2:(NSString *)key2
-{
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:@{@"key1" : key1}];
-    if (key2 != nil)
-        [params setObject:key2 forKey:@"key2"];
-    [TBMRemoteStorageHandler simpleGet:@"kvstore/delete" params:params];
-}
-
 // Convenience setters
-+ (void)addRemoteOutgoingVideoId:(NSString *)videoId friend:(TBMFriend *)friend
++ (void)addRemoteOutgoingVideoId:(NSString*)videoId friend:(TBMFriend*)friend
 {
     OB_INFO(@"addRemoteOutgoingVideoId");
     NSDictionary *value = @{REMOTE_STORAGE_VIDEO_ID_KEY : videoId};
-    NSString *key1 = [TBMRemoteStorageHandler outgoingVideoIDRemoteKVKey:friend];
-    [TBMRemoteStorageHandler setRemoteKVWithKey1:key1 key2:videoId value:value];
+    NSString *key1 = [ZZRemoteStorageValueGenerator outgoingVideoIDRemoteKVKey:friend];
+    
+    [[ZZKeyStoreTransportService updateKey1:key1
+                                       key2:videoId
+                                      value:[ZZStringUtils jsonWithDictionary:value]] subscribeNext:^(id x) {}];
 }
 
 + (void)deleteRemoteIncomingVideoId:(NSString *)videoId friend:(TBMFriend *)friend
 {
     OB_INFO(@"deleteRemoteIncomingVideoId");
-    NSString *key1 = [TBMRemoteStorageHandler incomingVideoIDRemoteKVKey:friend];
-    [TBMRemoteStorageHandler deleteRemoteKVWithKey1:key1 key2:videoId];
+    NSString *key1 = [ZZRemoteStorageValueGenerator incomingVideoIDRemoteKVKey:friend];
+    [[ZZKeyStoreTransportService deleteValueWithKey1:key1 key2:videoId] subscribeNext:^(id x) {}];
 }
 
 + (void)setRemoteIncomingVideoStatus:(NSString *)status videoId:(NSString *)videoId friend:(TBMFriend *)friend
@@ -197,10 +51,11 @@ static NSString *const kArraySeparator = @",";
     if (!ANIsEmpty(videoId) && !ANIsEmpty(friend))
     {
         NSDictionary *value = @{REMOTE_STORAGE_VIDEO_ID_KEY : videoId, REMOTE_STORAGE_STATUS_KEY : status};
-        NSString *key = [TBMRemoteStorageHandler incomingVideoStatusRemoteKVKey:friend];
-        [TBMRemoteStorageHandler setRemoteKVWithKey1:key key2:NULL value:value];
+        NSString *key = [ZZRemoteStorageValueGenerator incomingVideoStatusRemoteKVKey:friend];
+        [[ZZKeyStoreTransportService updateKey1:key
+                                           key2:NULL
+                                          value:[ZZStringUtils jsonWithDictionary:value]] subscribeNext:^(id x) {}];
     }
-    
 }
 
 
@@ -209,14 +64,14 @@ static NSString *const kArraySeparator = @",";
 {
 //    __block TBMFriend* someFriend = friend;
     OB_INFO(@"getRemoteIncomingVideoIdsWithFriend:");
-    NSString *key1 = [TBMRemoteStorageHandler incomingVideoIDRemoteKVKey:friend];
+    NSString *key1 = [ZZRemoteStorageValueGenerator incomingVideoIDRemoteKVKey:friend];
     
-    [TBMRemoteStorageHandler getRemoteKVsWithKey:key1 success:^(NSArray *response) {
-    
-        NSArray *vIds = [TBMRemoteStorageHandler getVideoIdsWithResponseObjects:response];
+    [[ZZKeyStoreTransportService loadValueWithKey1:key1] subscribeNext:^(id x) {
+        
+        NSArray *vIds = [self getVideoIdsWithResponseObjects:x];
         gotVideoIds(vIds);
-    
-    } failure:^(NSError *error) {
+        
+    } error:^(NSError *error) {
         OB_WARN(@"getRemoteIncomingVideoIdsWithFriend: failure: %@", error);
     }];
 }
@@ -238,17 +93,13 @@ static NSString *const kArraySeparator = @",";
                              failure:(void (^)(NSError *error))failure
 {
     OB_INFO(@"getRemoteOutgoingVideoStatus");
-    NSString *key = [TBMRemoteStorageHandler outgoingVideoStatusRemoteKVKey:friend];
-    [[TBMHttpManager manager] GET:@"kvstore/get"
-                       parameters:@{@"key1" : key}
-                          success:^(AFHTTPRequestOperation *operation, id responseObject)
-                          {
-                              success([self getStatusWithResponseObject:responseObject]);
-                          }
-                          failure:^(AFHTTPRequestOperation *operation, NSError *error)
-                          {
-                              failure(error);
-                          }];
+    NSString *key = [ZZRemoteStorageValueGenerator outgoingVideoStatusRemoteKVKey:friend];
+    
+    [[ZZKeyStoreTransportService loadValueWithKey1:key] subscribeNext:^(id x) {
+        success([self getStatusWithResponseObject:x]);
+    } error:^(NSError *error) {
+        failure(error);
+    }];
 }
 
 + (NSDictionary *)getStatusWithResponseObject:(NSDictionary *)response
@@ -263,23 +114,20 @@ static NSString *const kArraySeparator = @",";
     OB_INFO(@"getRemoteEverSentVideoStatus");
 
     NSString *key = [self _welcomedFriendsKey];
-    [[TBMHttpManager manager] GET:@"kvstore/get"
-                       parameters:@{@"key1" : key}
-                          success:^(AFHTTPRequestOperation *operation, id responseObject)
-                          {
-                              NSArray *parsedArray = [self _parseEverSentFriendsResponse:responseObject];
-                              if (success && parsedArray)
-                              {
-                                  success(parsedArray);
-                              }
-                          }
-                          failure:^(AFHTTPRequestOperation *operation, NSError *error)
-                          {
-                              if (failure)
-                              {
-                                  failure(error);
-                              }
-                          }];
+    [[ZZKeyStoreTransportService loadValueWithKey1:key] subscribeNext:^(id x) {
+        
+        NSArray *parsedArray = [self _parseEverSentFriendsResponse:x];
+        if (success && parsedArray)
+        {
+            success(parsedArray);
+        }
+        
+    } error:^(NSError *error) {
+        if (failure)
+        {
+            failure(error);
+        }
+    }];
 }
 
 #pragma mark - KV Store set values
@@ -287,43 +135,17 @@ static NSString *const kArraySeparator = @",";
 + (void)setRemoteEverSentKVForFriendMkeys:(NSArray *)mkeys
 {
     NSString *mkeyArrayString = [mkeys componentsJoinedByString:kArraySeparator];
-    NSDictionary *parameters = @{
-            @"key1" : [self _welcomedFriendsKey],
-            @"value" : mkeyArrayString
-    };
-    [[TBMHttpManager manager] POST:@"kvstore/set"
-                        parameters:parameters
-                           success:^(AFHTTPRequestOperation *operation, id responseObject)
-                           {
-
-                               OB_INFO(@"setRemoteEverSentKVForFriendMkey - success for friends %@", mkeys);
-                           }
-                           failure:^(AFHTTPRequestOperation *operation, NSError *error)
-                           {
-                               OB_ERROR(@"setRemoteEverSentKVForFriendMkey - error for friends %@ : %@", mkeys, error);
-                           }];
-
+    
+    [[ZZKeyStoreTransportService updateKey1:[self _welcomedFriendsKey] key2:nil value:mkeyArrayString] subscribeNext:^(id x) {
+        
+        OB_INFO(@"setRemoteEverSentKVForFriendMkey - success for friends %@", mkeys);
+        
+    } error:^(NSError *error) {
+        
+        OB_ERROR(@"setRemoteEverSentKVForFriendMkey - error for friends %@ : %@", mkeys, error);
+    }];
 }
 
-//------------
-// GetRemoteKV
-//------------
-+ (void)getRemoteKVsWithKey:(NSString *)key1
-                    success:(void (^)(NSArray *response))success
-                    failure:(void (^)(NSError *error))failure
-{
-    [[TBMHttpManager manager] GET:@"kvstore/get_all"
-                       parameters:@{@"key1" : key1}
-                          success:^(AFHTTPRequestOperation *operation, id responseObject)
-                          {
-                              success(responseObject);
-                          }
-                          failure:^(AFHTTPRequestOperation *operation, NSError *error)
-                          {
-                              OB_WARN(@"ERROR: getRemoteKVWithKey: %@", [error localizedDescription]);
-                              failure(error);
-                          }];
-}
 
 
 //----------------------------

@@ -8,4 +8,8 @@
 
 @interface ZZKeyStoreTransport : NSObject
 
++ (RACSignal*)updateKeyValueWithParameters:(NSDictionary*)parameters;
++ (RACSignal*)deleteKeyValueWithParameters:(NSDictionary*)parameters;
++ (RACSignal*)loadKeyValueWithParameters:(NSDictionary*)parameters;
+
 @end

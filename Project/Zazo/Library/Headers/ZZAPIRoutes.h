@@ -84,6 +84,13 @@ static NSString* const kApiCheckApplicationVersion = @"version/check_compatibili
 static NSString* const kApiS3Credentials = @"s3_credentials/info";
 
 
+#pragma mark - Key Store
+
+static NSString* const kApiKeyLoad = @"kvstore/get_all";
+static NSString* const kApiKeyDelete = @"kvstore/delete";
+static NSString* const kApiKeyUpdate = @"kvstore/set";
+
+
 #pragma mark - Static
 
 static NSString* const kInviteFriendBaseURL = @"zazoapp.com/l/";

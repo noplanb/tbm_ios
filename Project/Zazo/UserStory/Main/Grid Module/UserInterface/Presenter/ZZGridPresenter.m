@@ -10,7 +10,6 @@
 #import "ZZGridDataSource.h"
 #import "ZZVideoRecorder.h"
 #import "ZZVideoUtils.h"
-#import "ZZSoundPlayer.h"
 #import "ZZVideoPlayer.h"
 #import "TBMFriend.h"
 #import "iToast.h"
@@ -26,6 +25,7 @@
 #import "ZZGridPresenter+UserDialogs.h"
 #import "ZZGridPresenter+ActionHandler.h"
 #import "ZZGridActionStoredSettings.h"
+#import "ZZSoundEffectPlayer.h"
 
 @interface ZZGridPresenter ()
 <
@@ -37,7 +37,7 @@
 >
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
-@property (nonatomic, strong) ZZSoundPlayer* soundPlayer;
+@property (nonatomic, strong) ZZSoundEffectPlayer* soundPlayer;
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
 @property (nonatomic, strong) ZZGridActionHandler* actionHandler;
 
@@ -514,11 +514,11 @@
     [self.userInterface updateRecordViewStateTo:NO];
 }
 
-- (ZZSoundPlayer*)soundPlayer
+- (ZZSoundEffectPlayer*)soundPlayer
 {
     if (!_soundPlayer)
     {
-        _soundPlayer = [[ZZSoundPlayer alloc] initWithSoundNamed:kMessageSoundEffectFileName];
+        _soundPlayer = [[ZZSoundEffectPlayer alloc] initWithSoundNamed:kMessageSoundEffectFileName];
     }
     return _soundPlayer;
 }

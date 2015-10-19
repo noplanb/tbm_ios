@@ -6,8 +6,10 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface ZZKeyStoreTransportService : NSObject
+
++ (RACSignal*)updateKey1:(NSString*)key1 key2:(NSString*)key2 value:(NSString*)value;
++ (RACSignal*)deleteValueWithKey1:(NSString*)key1 key2:(NSString*)key2;
++ (RACSignal*)loadValueWithKey1:(NSString*)key1;
 
 @end

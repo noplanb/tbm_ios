@@ -6,12 +6,11 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-@class ZZS3CredentialsDomainModel;
+#import "ZZS3CredentialsDomainModel.h"
 
 @interface ZZKeychainDataProvider : NSObject
 
 + (void)updateWithCredentials:(ZZS3CredentialsDomainModel*)model;
-
 + (ZZS3CredentialsDomainModel*)loadCredentials;
 
 @end

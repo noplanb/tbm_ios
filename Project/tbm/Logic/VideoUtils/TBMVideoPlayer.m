@@ -18,6 +18,7 @@
 #import "TBMAlertControllerVisualStyle.h"
 #import "iToast.h"
 #import "OBFileTransferManager.h"
+#import "ZZRemoteStorageValueGenerator.h"
 
 @interface TBMVideoPlayer()
 

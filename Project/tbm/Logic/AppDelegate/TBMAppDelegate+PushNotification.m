@@ -16,7 +16,6 @@
 #import "ZZNotificationTransportService.h"
 #import "ZZAPIRoutes.h"
 #import "ZZFriendDataProvider.h"
-#import "ZZSoundPlayer.h"
 #import "ZZGlobalHeader.h"
 
 static NSString *NOTIFICATION_TARGET_MKEY_KEY = @"target_mkey";

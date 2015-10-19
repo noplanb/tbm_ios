@@ -19,6 +19,7 @@
 #import "iToast.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZGridActionStoredSettings.h"
+#import "ZZRemoteStorageValueGenerator.h"
 
 @interface ZZVideoPlayer ()
 

@@ -152,12 +152,13 @@
     CMTime actual;
     NSError *err = nil;
     CGImageRef imageRef = [imageGenerator copyCGImageAtTime:thumbTime actualTime:&actual error:&err];
-    if (err != nil){
+    if (err != nil)
+    {
         OB_ERROR(@"generateThumb: %@", err);
         return NO;
     }
     UIImage *thumbnail = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationUp];
-    CGImageRelease(imageRef);  // CGImageRef won't be released by ARC
+    CGImageRelease(imageRef);
     [UIImagePNGRepresentation(thumbnail) writeToURL:[self thumbUrlForVideo:video] atomically:YES];
     return YES;
 }

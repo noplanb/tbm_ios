@@ -16,7 +16,6 @@
 #import "ZZAppDependencies.h"
 #import "ZZContentDataAcessor.h"
 #import "ZZVideoRecorder.h"
-#import "ZZSoundPlayer.h"
 #import "ZZGridActionStoredSettings.h"
 
 @interface TBMAppDelegate()

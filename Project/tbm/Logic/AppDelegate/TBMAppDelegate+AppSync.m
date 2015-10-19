@@ -25,6 +25,7 @@
 #import "ZZVideoDomainModel.h"
 #import "ZZContentDataAcessor.h"
 #import "ZZFriendsTransportService.h"
+#import "ZZRemoteStorageValueGenerator.h"
 
 @implementation TBMAppDelegate (AppSync)
 
@@ -40,7 +41,7 @@
         ftm.delegate = self;
          NSURL* videosURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
         ftm.downloadDirectory = videosURL.path;
-        ftm.remoteUrlBase = [TBMRemoteStorageHandler fileTransferRemoteUrlBase];
+        ftm.remoteUrlBase = [ZZRemoteStorageValueGenerator fileTransferRemoteUrlBase];
         NSDictionary *cparams;
         ZZS3CredentialsDomainModel* credentials = [ZZKeychainDataProvider loadCredentials];
         cparams = @{
@@ -80,9 +81,9 @@
     NSString *videoId = [TBMVideoIdUtils videoIdWithOutgoingVideoUrl:videoUrl];
     TBMFriend *friend = [TBMVideoIdUtils friendWithOutgoingVideoUrl:videoUrl];
 
-    NSString *remoteFilename = [TBMRemoteStorageHandler outgoingVideoRemoteFilename:friend videoId:videoId];
+    NSString *remoteFilename = [ZZRemoteStorageValueGenerator outgoingVideoRemoteFilename:friend videoId:videoId];
     [[self fileTransferManager] uploadFile:videoUrl.path
-                                        to:[TBMRemoteStorageHandler fileTransferUploadPath]
+                                        to:[ZZRemoteStorageValueGenerator fileTransferUploadPath]
                                 withMarker:marker
                                 withParams:[self fileTransferParams:remoteFilename]];
 
@@ -139,9 +140,9 @@
     [self setBadgeNumberUnviewed];
 
     NSString *marker = [TBMVideoIdUtils markerWithFriend:friend videoId:videoId isUpload:NO];
-    NSString *remoteFilename = [TBMRemoteStorageHandler incomingVideoRemoteFilename:video];
+    NSString *remoteFilename = [ZZRemoteStorageValueGenerator incomingVideoRemoteFilename:video];
     
-    [[self fileTransferManager] downloadFile:[TBMRemoteStorageHandler fileTransferDownloadPath]
+    [[self fileTransferManager] downloadFile:[ZZRemoteStorageValueGenerator fileTransferDownloadPath]
                                           to:[video videoPath]
                                   withMarker:marker
                                   withParams:[self fileTransferParams:remoteFilename]];
@@ -167,14 +168,12 @@
     OB_INFO(@"deleteRemoteFile: deleting: %@", filename);
     if (REMOTE_STORAGE_USE_S3)
     {
-        NSString *full = [NSString stringWithFormat:@"%@/%@", [TBMRemoteStorageHandler fileTransferDeletePath], filename];
+        NSString *full = [NSString stringWithFormat:@"%@/%@", [ZZRemoteStorageValueGenerator fileTransferDeletePath], filename];
         [self performSelectorInBackground:@selector(ftmDelete:) withObject:full];
     }
     else
     {
-        [[ZZVideoNetworkTransportService deleteVideoFileWithName:filename] subscribeNext:^(id x) {
-            
-        }];
+        [[ZZVideoNetworkTransportService deleteVideoFileWithName:filename] subscribeNext:^(id x) {}];
     }
 }
 
@@ -188,7 +187,7 @@
 // Convenience
 - (void)deleteRemoteVideoFile:(TBMVideo *)video
 {
-    NSString *filename = [TBMRemoteStorageHandler incomingVideoRemoteFilename:video];
+    NSString *filename = [ZZRemoteStorageValueGenerator incomingVideoRemoteFilename:video];
     [self deleteRemoteFile:filename];
 }
 

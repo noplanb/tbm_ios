@@ -10,4 +10,6 @@
 
 + (NSString*)an_concatenateString:(NSString*)firstString withString:(NSString*)endString delimenter:(NSString*)string;
 
+- (NSString*)an_md5;
+
 @end
