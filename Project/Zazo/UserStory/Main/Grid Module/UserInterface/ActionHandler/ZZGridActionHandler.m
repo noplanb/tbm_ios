@@ -166,10 +166,10 @@
 - (void)_configureHintControllerWithHintType:(ZZHintsType)hintType withModel:(ZZGridCellViewModel*)model index:(NSInteger)index
 {
     NSString* formatParametr = model.item.relatedUser.fullName;
-    
+  
     [self.hintsController showHintWithType:hintType
                                 focusFrame:[self.userInterface focusFrameForIndex:index]
-                                 withIndex:index
+                                 withIndex:index withModel:model
                            formatParameter:formatParametr];
 }
 

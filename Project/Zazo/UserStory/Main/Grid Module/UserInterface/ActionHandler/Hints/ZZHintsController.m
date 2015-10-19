@@ -26,12 +26,17 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
 
 @implementation ZZHintsController
 
-- (void)showHintWithType:(ZZHintsType)type focusFrame:(CGRect)focusFrame withIndex:(NSInteger)index formatParameter:(NSString*)parameter
+- (void)showHintWithType:(ZZHintsType)type
+              focusFrame:(CGRect)focusFrame
+               withIndex:(NSInteger)index
+               withModel:(ZZGridCellViewModel*)cellModel
+         formatParameter:(NSString*)parameter
 {
     
     if (self.hintsView &&
         [self.hintsView hintModel].hintType == ZZHintsTypeRecrodWelcomeHint &&
-        ![ZZGridActionStoredSettings shared].holdToRecordAndTapToPlayWasShown)
+        ![ZZGridActionStoredSettings shared].holdToRecordAndTapToPlayWasShown &&
+        cellModel.item.relatedUser.unviewedCount > 0)
     {
         [self hideHintView];
         [ZZGridActionStoredSettings shared].holdToRecordAndTapToPlayWasShown = YES;

@@ -176,10 +176,15 @@
         OB_ERROR(@"VideoPlayer#playbackDidFinishNotification: %@", error);
         ANDispatchBlockToMainQueue(^{
             [[iToast makeText:NSLocalizedString(@"video-player-not-playable", nil)] show];
+            
+            self.isPlayingVideo = NO;
+            [self.moviePlayerController stop];
+            [UIDevice currentDevice].proximityMonitoringEnabled = NO;
+            CGFloat delayAfterToastRemoved = 0.4;
+            ANDispatchBlockAfter(delayAfterToastRemoved, ^{
+                [self _playNext];
+            });
         });
-        self.isPlayingVideo = NO;
-        [UIDevice currentDevice].proximityMonitoringEnabled = NO;
-        [self _playNext];
     }
     else
     {
@@ -267,7 +272,7 @@
 
         TBMFriend* friend = [ZZFriendDataProvider entityFromModel:playedVideoModel.relatedUser];
         [friend setViewedWithIncomingVideo:viewedVideo];
-        [self.playedVideoUrls removeObject:nextUrl];
+//        [self.playedVideoUrls removeObject:nextUrl];
         [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
                                                       videoId:viewedVideo.videoId
                                                        friend:friend];

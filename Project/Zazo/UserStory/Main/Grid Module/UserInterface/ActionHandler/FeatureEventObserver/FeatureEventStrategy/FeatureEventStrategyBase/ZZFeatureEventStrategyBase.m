@@ -10,6 +10,7 @@
 
 
 typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys) {
+    ZZZZFeatureUnlockNone = 1,
     ZZFeatureUnlockBothCameraKey = 2,
     ZZFeatureUnlockAbortRecordingKey,
     ZZFeatureUnlockDeleteFriendskey,
@@ -167,7 +168,11 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys) {
 
 - (NSDictionary*)_unlockFeaturesConfigurationDictionary
 {
-    return @{ @(ZZFeatureUnlockBothCameraKey) : @[@"frontCameraHintWasShown"],
+    return @{
+             
+             @(ZZZZFeatureUnlockNone):@[],
+             
+             @(ZZFeatureUnlockBothCameraKey) : @[@"frontCameraHintWasShown"],
               
               @(ZZFeatureUnlockAbortRecordingKey) : @[@"frontCameraHintWasShown",
                                                       @"abortRecordHintWasShown"],
