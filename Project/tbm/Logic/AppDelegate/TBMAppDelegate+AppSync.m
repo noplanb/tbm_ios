@@ -45,7 +45,7 @@
         ftm.delegate = self;
          NSURL* videosURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
         ftm.downloadDirectory = videosURL.path;
-        ftm.remoteUrlBase = [ZZRemoteStorageValueGenerator fileTransferRemoteUrlBase];
+        ftm.remoteUrlBase = remoteStorageBaseURL();
         NSDictionary *cparams;
         ZZS3CredentialsDomainModel* credentials = [ZZKeychainDataProvider loadCredentials];
         cparams = @{
@@ -87,7 +87,7 @@
 
     NSString *remoteFilename = [ZZRemoteStorageValueGenerator outgoingVideoRemoteFilename:friend videoId:videoId];
     [[self fileTransferManager] uploadFile:videoUrl.path
-                                        to:[ZZRemoteStorageValueGenerator fileTransferUploadPath]
+                                        to:remoteStorageFileTransferUploadPath()
                                 withMarker:marker
                                 withParams:[self fileTransferParams:remoteFilename]];
 
@@ -146,7 +146,7 @@
     NSString *marker = [TBMVideoIdUtils markerWithFriend:friend videoId:videoId isUpload:NO];
     NSString *remoteFilename = [ZZRemoteStorageValueGenerator incomingVideoRemoteFilename:video];
     
-    [[self fileTransferManager] downloadFile:[ZZRemoteStorageValueGenerator fileTransferDownloadPath]
+    [[self fileTransferManager] downloadFile:remoteStorageFileTransferDownloadPath()
                                           to:[video videoPath]
                                   withMarker:marker
                                   withParams:[self fileTransferParams:remoteFilename]];
@@ -172,7 +172,7 @@
     OB_INFO(@"deleteRemoteFile: deleting: %@", filename);
     if (kRemoteStorageShouldUseS3)
     {
-        NSString *full = [NSString stringWithFormat:@"%@/%@", [ZZRemoteStorageValueGenerator fileTransferDeletePath], filename];
+        NSString *full = [NSString stringWithFormat:@"%@/%@", remoteStorageFileTransferDeletePath(), filename];
         [self performSelectorInBackground:@selector(ftmDelete:) withObject:full];
     }
     else

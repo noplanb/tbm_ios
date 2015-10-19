@@ -11,11 +11,6 @@
 
 @interface ZZRemoteStorageValueGenerator : NSObject
 
-+ (NSString*)fileTransferRemoteUrlBase;
-+ (NSString*)fileTransferUploadPath;
-+ (NSString*)fileTransferDownloadPath;
-+ (NSString*)fileTransferDeletePath;
-
 + (NSString*)outgoingVideoRemoteFilename:(TBMFriend *)friend videoId:(NSString *)videoId;
 + (NSString*)incomingVideoRemoteFilename:(TBMVideo *)video;
 
