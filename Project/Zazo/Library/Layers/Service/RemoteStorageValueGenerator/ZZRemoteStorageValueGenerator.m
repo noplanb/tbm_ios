@@ -12,34 +12,9 @@
 #import "NSString+ZZAdditions.h"
 #import "ZZKeychainDataProvider.h"
 #import "ZZAPIRoutes.h"
+#import "ZZRemoteStorageConstants.h"
 
 @implementation ZZRemoteStorageValueGenerator
-
-+ (NSString *)fileTransferRemoteUrlBase
-{
-    return REMOTE_STORAGE_USE_S3 ? REMOTE_STORAGE_S3_BASE_URL_STRING : apiBaseURL();
-}
-
-+ (NSString *)fileTransferUploadPath
-{
-    return REMOTE_STORAGE_USE_S3 ? [self s3Bucket] : REMOTE_STORAGE_SERVER_VIDEO_UPLOAD_PATH;
-}
-
-+ (NSString *)fileTransferDownloadPath
-{
-    return REMOTE_STORAGE_USE_S3 ? [self s3Bucket] : REMOTE_STORAGE_SERVER_VIDEO_DOWNLOAD_PATH;
-}
-
-+ (NSString *)fileTransferDeletePath
-{
-    return [self s3Bucket];
-}
-
-+ (NSString *)s3Bucket
-{
-    return [ZZKeychainDataProvider loadCredentials].bucket;
-}
-
 
 //------------------------
 // Keys for remote storage

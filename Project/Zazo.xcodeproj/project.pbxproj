@@ -276,6 +276,7 @@
 		07C94DD01BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C94DCF1BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m */; };
 		07E09E0F1BD5769900A59389 /* ZZValueGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E0E1BD5769900A59389 /* ZZValueGenerator.m */; settings = {ASSET_TAGS = (); }; };
 		07E09E131BD5770500A59389 /* ZZRemoteStorageValueGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E121BD5770500A59389 /* ZZRemoteStorageValueGenerator.m */; settings = {ASSET_TAGS = (); }; };
+		07E09E171BD5953D00A59389 /* ZZRemoteStorageConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E161BD5953D00A59389 /* ZZRemoteStorageConstants.m */; settings = {ASSET_TAGS = (); }; };
 		07E9593E1BCD74CE009C8F97 /* ZZContentDataAcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E9593D1BCD74CE009C8F97 /* ZZContentDataAcessor.m */; settings = {ASSET_TAGS = (); }; };
 		07F0E7F41B8CD7A900036AB2 /* ZZAccountTransportServiceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E81B8CD7A900036AB2 /* ZZAccountTransportServiceSpec.m */; };
 		07F0E7F51B8CD7A900036AB2 /* ZZRegistrationWithSMSTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E91B8CD7A900036AB2 /* ZZRegistrationWithSMSTest.m */; };
@@ -903,6 +904,8 @@
 		07E09E0E1BD5769900A59389 /* ZZValueGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZValueGenerator.m; path = ValueGenerator/ZZValueGenerator.m; sourceTree = "<group>"; };
 		07E09E111BD5770500A59389 /* ZZRemoteStorageValueGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZRemoteStorageValueGenerator.h; path = RemoteStorageValueGenerator/ZZRemoteStorageValueGenerator.h; sourceTree = "<group>"; };
 		07E09E121BD5770500A59389 /* ZZRemoteStorageValueGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZRemoteStorageValueGenerator.m; path = RemoteStorageValueGenerator/ZZRemoteStorageValueGenerator.m; sourceTree = "<group>"; };
+		07E09E151BD5953D00A59389 /* ZZRemoteStorageConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZRemoteStorageConstants.h; path = RemoteStorageValueGenerator/ZZRemoteStorageConstants.h; sourceTree = "<group>"; };
+		07E09E161BD5953D00A59389 /* ZZRemoteStorageConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZRemoteStorageConstants.m; path = RemoteStorageValueGenerator/ZZRemoteStorageConstants.m; sourceTree = "<group>"; };
 		07E9593C1BCD74CE009C8F97 /* ZZContentDataAcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContentDataAcessor.h; sourceTree = "<group>"; };
 		07E9593D1BCD74CE009C8F97 /* ZZContentDataAcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContentDataAcessor.m; sourceTree = "<group>"; };
 		07F0E7E81B8CD7A900036AB2 /* ZZAccountTransportServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAccountTransportServiceSpec.m; sourceTree = "<group>"; };
@@ -3384,6 +3387,8 @@
 			children = (
 				07E09E111BD5770500A59389 /* ZZRemoteStorageValueGenerator.h */,
 				07E09E121BD5770500A59389 /* ZZRemoteStorageValueGenerator.m */,
+				07E09E151BD5953D00A59389 /* ZZRemoteStorageConstants.h */,
+				07E09E161BD5953D00A59389 /* ZZRemoteStorageConstants.m */,
 			);
 			name = RemoteStorageValue;
 			sourceTree = "<group>";
@@ -4202,6 +4207,7 @@
 				07636EC31BA49A0100925671 /* ZZGridStateViewNudge.m in Sources */,
 				18E1F2FD1BC6AEEA0070ECF1 /* ZZFeatureEventStrategyInviteeUser.m in Sources */,
 				07636E3A1BA49A0100925671 /* ZZNotificationsTransport.m in Sources */,
+				07E09E171BD5953D00A59389 /* ZZRemoteStorageConstants.m in Sources */,
 				07636E571BA49A0100925671 /* ZZTouchControllerWithoutDelay.m in Sources */,
 				07636F091BA49A0100925671 /* TBMVerfiicationAlertHandler.m in Sources */,
 				79123D731BB032C3007E1CBF /* ZZHintsController.m in Sources */,

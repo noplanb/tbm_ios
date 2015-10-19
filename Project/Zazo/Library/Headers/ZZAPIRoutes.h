@@ -19,7 +19,6 @@ static const struct {
 };
 
 
-//TODO: not a good place for it
 static inline NSString* const apiBaseURL()
 {
     ZZConfigServerState state = [ZZStoredSettingsManager shared].serverEndpointState;

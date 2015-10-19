@@ -29,6 +29,7 @@
 #import "ZZKeyStoreTransportService.h"
 #import "ZZUserDataProvider.h"
 #import "ZZUserDomainModel.h"
+#import "ZZRemoteStorageConstants.h"
 
 @implementation TBMAppDelegate (AppSync)
 
@@ -169,7 +170,7 @@
 - (void)deleteRemoteFile:(NSString *)filename
 {
     OB_INFO(@"deleteRemoteFile: deleting: %@", filename);
-    if (REMOTE_STORAGE_USE_S3)
+    if (kRemoteStorageShouldUseS3)
     {
         NSString *full = [NSString stringWithFormat:@"%@/%@", [ZZRemoteStorageValueGenerator fileTransferDeletePath], filename];
         [self performSelectorInBackground:@selector(ftmDelete:) withObject:full];
@@ -297,16 +298,28 @@
 
     [[ZZKeyStoreTransportService loadRemoteOutgoingVideoStatusForFriend:friend] subscribeNext:^(NSDictionary *response) {
        
-        NSString *status = response[REMOTE_STORAGE_STATUS_KEY];
-        int ovsts = [TBMRemoteStorageHandler outgoingVideoStatusWithRemoteStatus:status];
-        if (ovsts == -1)
+        NSString *status = response[ZZRemoteStorageParameters.status];
+        ZZRemoteStorageVideoStatus ovsts = ZZRemoteStorageVideoStatusEnumValueFromSrting(status);
+        if (ovsts == ZZRemoteStorageVideoStatusNone)
         {
             OB_ERROR(@"pollVideoStatusWithFriend: got unknown outgoing video status: %@", status);
             return;
         }
         // This call handles making sure that videoId == outgoingVideoId etc.
-        [friend setAndNotifyOutgoingVideoStatus:ovsts
-                                        videoId:response[REMOTE_STORAGE_VIDEO_ID_KEY]];
+        
+        
+        TBMOutgoingVideoStatus videoStatus;
+        if (ovsts == ZZRemoteStorageVideoStatusDownloaded)
+        {
+            videoStatus = OUTGOING_VIDEO_STATUS_DOWNLOADED;
+        }
+        else
+        {
+            videoStatus = OUTGOING_VIDEO_STATUS_VIEWED;
+        }
+        
+        [friend setAndNotifyOutgoingVideoStatus:videoStatus
+                                        videoId:response[ZZRemoteStorageParameters.videoID]];
     } error:^(NSError *error) {
         // This can happen on startup when there is nothing in the remoteVideoStatusKV
         OB_WARN(@"pollVideoStatusWithFriend: Error polling outgoingVideoStatus for %@ - %@", friend.firstName, error);
@@ -463,7 +476,7 @@
     [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_DOWNLOADED video:video];
     
     [[ZZKeyStoreTransportService updateRemoteStatusForVideoWithItemID:videoId
-                                                             toStatus:REMOTE_STORAGE_STATUS_DOWNLOADED
+                                                             toStatus:ZZRemoteStorageVideoStatusDownloaded
                                                                friend:friend] subscribeNext:^(id x) {}];
     
     [self sendNotificationForVideoStatusUpdate:friend videoId:videoId status:NOTIFICATION_STATUS_DOWNLOADED];

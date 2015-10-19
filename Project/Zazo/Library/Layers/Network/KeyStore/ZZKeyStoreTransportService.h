@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
+#import "ZZRemoteStorageConstants.h"
+
 @class TBMFriend;
 
 @interface ZZKeyStoreTransportService : NSObject
@@ -15,7 +17,10 @@
 
 + (RACSignal*)addRemoteOutgoingVideoWithItemID:(NSString*)itemID friend:(TBMFriend*)friend;
 + (RACSignal*)deleteRemoteIncomingVideoWithItemID:(NSString*)itemID friend:(TBMFriend*)friend;
-+ (RACSignal*)updateRemoteStatusForVideoWithItemID:(NSString*)itemID toStatus:(NSString*)status friend:(TBMFriend*)friend;
+
++ (RACSignal*)updateRemoteStatusForVideoWithItemID:(NSString*)itemID
+                                          toStatus:(ZZRemoteStorageVideoStatus)status
+                                            friend:(TBMFriend*)friend;
 
 
 #pragma mark - Load

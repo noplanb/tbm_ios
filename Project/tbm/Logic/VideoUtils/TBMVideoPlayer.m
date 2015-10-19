@@ -249,7 +249,7 @@
     // Set viewed even if the video is not playable so that it gets deleted eventually.
     [self.gridElement.friend setViewedWithIncomingVideo:self.video];
     [[ZZKeyStoreTransportService updateRemoteStatusForVideoWithItemID:self.video.videoId
-                                                            toStatus:REMOTE_STORAGE_STATUS_VIEWED
+                                                            toStatus:ZZRemoteStorageVideoStatusViewed
                                                               friend:self.gridElement.friend] subscribeNext:^(id x) {}];
     
     

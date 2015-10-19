@@ -124,7 +124,7 @@
         [friend setViewedWithIncomingVideo:viewedVideo];
         
         [[ZZKeyStoreTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoId
-                                                                 toStatus:REMOTE_STORAGE_STATUS_VIEWED
+                                                                 toStatus:ZZRemoteStorageVideoStatusViewed
                                                                    friend:friend] subscribeNext:^(id x) {}];
     }
 }
@@ -277,7 +277,7 @@
         [friend setViewedWithIncomingVideo:viewedVideo];
         
         [[ZZKeyStoreTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoId
-                                                                 toStatus:REMOTE_STORAGE_STATUS_VIEWED
+                                                                 toStatus:ZZRemoteStorageVideoStatusViewed
                                                                    friend:friend] subscribeNext:^(id x) {}];
         
         [self.delegate videoPlayerURLWasStartPlaying:nextUrl]; //TODO: this causes blinking. reload only after full stop

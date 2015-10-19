@@ -12,25 +12,7 @@
 
 #import "TBMFriend.h"
 #import "ZZRemoteStorageValueGenerator.h"
-
-static const struct
-{
-    __unsafe_unretained NSString *key1;
-    __unsafe_unretained NSString *key2;
-    __unsafe_unretained NSString *value;
-    __unsafe_unretained NSString *videoID;
-    __unsafe_unretained NSString *status;
-    
-} ZZKeyStoreParameters =
-{
-    .key1 = @"key1",
-    .key2 = @"key2",
-    .value = @"value",
-    .videoID = @"videoID",
-    .status = @"status",
-};
-
-static NSString *const kArraySeparator = @",";
+#import "ZZRemoteStorageConstants.h"
 
 @implementation ZZKeyStoreTransportService
 
@@ -41,7 +23,7 @@ static NSString *const kArraySeparator = @",";
 {
     if (!ANIsEmpty(itemID) && !ANIsEmpty(friend))
     {
-        NSDictionary *value = @{ZZKeyStoreParameters.videoID : itemID};
+        NSDictionary *value = @{ZZRemoteStorageParameters.videoID : itemID};
         NSString *key1 = [ZZRemoteStorageValueGenerator outgoingVideoIDRemoteKVKey:friend];
         
         return [self updateKey1:key1
@@ -57,12 +39,13 @@ static NSString *const kArraySeparator = @",";
     return [self deleteValueWithKey1:key1 key2:itemID];
 }
 
-+ (RACSignal*)updateRemoteStatusForVideoWithItemID:(NSString*)itemID toStatus:(NSString*)status friend:(TBMFriend*)friend
++ (RACSignal*)updateRemoteStatusForVideoWithItemID:(NSString*)itemID toStatus:(ZZRemoteStorageVideoStatus)status friend:(TBMFriend*)friend
 {
     if (!ANIsEmpty(itemID) && !ANIsEmpty(friend))
     {
-        NSDictionary *value = @{ZZKeyStoreParameters.videoID : itemID,
-                                ZZKeyStoreParameters.status  : status};
+        NSString* statusString = ZZRemoteStorageVideoStatusStringFromEnumValue(status);
+        NSDictionary *value = @{ZZRemoteStorageParameters.videoID : itemID,
+                                ZZRemoteStorageParameters.status  : statusString};
         
         NSString *key = [ZZRemoteStorageValueGenerator incomingVideoStatusRemoteKVKey:friend];
         return [self updateKey1:key
@@ -83,9 +66,9 @@ static NSString *const kArraySeparator = @",";
         
         return [[value.rac_sequence map:^id(NSDictionary* object) { //TODO: additional checks and safety
             
-            NSString *valueJson = object[ZZKeyStoreParameters.value];
+            NSString *valueJson = object[ZZRemoteStorageParameters.value];
             NSDictionary *valueObj = [ZZStringUtils dictionaryWithJson:valueJson];
-            return valueObj[ZZKeyStoreParameters.videoID];
+            return valueObj[ZZRemoteStorageParameters.videoID];
             
         }] array];
     }] doError:^(NSError *error) {
@@ -99,7 +82,7 @@ static NSString *const kArraySeparator = @",";
     
     return [[self loadValueWithKey1:key] map:^id(id value) {
         
-        NSString *valueJson = value[ZZKeyStoreParameters.value];
+        NSString *valueJson = value[ZZRemoteStorageParameters.value];
         return [ZZStringUtils dictionaryWithJson:valueJson];
     }];
 }
@@ -111,8 +94,8 @@ static NSString *const kArraySeparator = @",";
         
         if ([object isKindOfClass:[NSDictionary class]])
         {
-            id value = object[ZZKeyStoreParameters.value];
-            return [value componentsSeparatedByString:kArraySeparator];
+            id value = object[ZZRemoteStorageParameters.value];
+            return [value componentsSeparatedByString:kRemoteStorageArraySeparator];
         }
         else
         {
@@ -127,7 +110,7 @@ static NSString *const kArraySeparator = @",";
 
 + (RACSignal*)updateRemoteEverSentKVForFriendMkeys:(NSArray *)mkeys forUserMkey:(NSString*)mKey
 {
-    NSString *mkeyArrayString = [mkeys componentsJoinedByString:kArraySeparator];
+    NSString *mkeyArrayString = [mkeys componentsJoinedByString:kRemoteStorageArraySeparator];
     NSString *key = [NSString stringWithFormat:@"%@-WelcomedFriends", mKey];
     
     return [[[self updateKey1:key key2:nil value:mkeyArrayString] doNext:^(id x) {
@@ -148,11 +131,11 @@ static NSString *const kArraySeparator = @",";
     if (!ANIsEmpty(key1))
     {
         NSMutableDictionary* parameters = [NSMutableDictionary new];
-        parameters[ZZKeyStoreParameters.key1] = key1;
-        parameters[ZZKeyStoreParameters.value] = [NSObject an_safeString:value];
+        parameters[ZZRemoteStorageParameters.key1] = key1;
+        parameters[ZZRemoteStorageParameters.value] = [NSObject an_safeString:value];
         if (key2)
         {
-            parameters[ZZKeyStoreParameters.key2] = key2;
+            parameters[ZZRemoteStorageParameters.key2] = key2;
         }
         return [ZZKeyStoreTransport updateKeyValueWithParameters:parameters];
     }
@@ -164,10 +147,10 @@ static NSString *const kArraySeparator = @",";
     if (!ANIsEmpty(key1))
     {
         NSMutableDictionary* parameters = [NSMutableDictionary new];
-        parameters[ZZKeyStoreParameters.key1] = key1;
+        parameters[ZZRemoteStorageParameters.key1] = key1;
         if (key2)
         {
-            parameters[ZZKeyStoreParameters.key2] = key2;
+            parameters[ZZRemoteStorageParameters.key2] = key2;
         }
         return [ZZKeyStoreTransport deleteKeyValueWithParameters:parameters];
     }
@@ -178,7 +161,7 @@ static NSString *const kArraySeparator = @",";
 {
     if (!ANIsEmpty(key1))
     {
-        return [ZZKeyStoreTransport loadKeyValueWithParameters:@{ZZKeyStoreParameters.key1 : key1}];
+        return [ZZKeyStoreTransport loadKeyValueWithParameters:@{ZZRemoteStorageParameters.key1 : key1}];
     }
     return [RACSignal error:nil];
 }
