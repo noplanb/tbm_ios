@@ -31,7 +31,7 @@ ZZRemoteStorageVideoStatus ZZRemoteStorageVideoStatusEnumValueFromSrting(NSStrin
 {
     NSArray* array = [NSArray arrayWithObjects:remoteStorageVideoStatusesString count:3];
     NSInteger index = [array indexOfObject:string];
-    if (index != NSNotFound)
+    if (index == NSNotFound)
     {
         return ZZRemoteStorageVideoStatusNone;
     }

@@ -274,6 +274,9 @@
 		07C94DD01BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C94DCF1BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m */; };
 		07E09E131BD5770500A59389 /* ZZRemoteStorageValueGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E121BD5770500A59389 /* ZZRemoteStorageValueGenerator.m */; settings = {ASSET_TAGS = (); }; };
 		07E09E171BD5953D00A59389 /* ZZRemoteStorageConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E161BD5953D00A59389 /* ZZRemoteStorageConstants.m */; settings = {ASSET_TAGS = (); }; };
+		07E09E1A1BD5A69500A59389 /* ZZNotificationsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E191BD5A69500A59389 /* ZZNotificationsHandler.m */; settings = {ASSET_TAGS = (); }; };
+		07E09E1E1BD5A6D000A59389 /* ZZNotificationsConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E1D1BD5A6D000A59389 /* ZZNotificationsConstants.m */; settings = {ASSET_TAGS = (); }; };
+		07E09E211BD5AB6200A59389 /* ZZNotificationDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E201BD5AB6200A59389 /* ZZNotificationDomainModel.m */; settings = {ASSET_TAGS = (); }; };
 		07E9593E1BCD74CE009C8F97 /* ZZContentDataAcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E9593D1BCD74CE009C8F97 /* ZZContentDataAcessor.m */; settings = {ASSET_TAGS = (); }; };
 		07F0E7F41B8CD7A900036AB2 /* ZZAccountTransportServiceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E81B8CD7A900036AB2 /* ZZAccountTransportServiceSpec.m */; };
 		07F0E7F51B8CD7A900036AB2 /* ZZRegistrationWithSMSTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E91B8CD7A900036AB2 /* ZZRegistrationWithSMSTest.m */; };
@@ -897,6 +900,12 @@
 		07E09E121BD5770500A59389 /* ZZRemoteStorageValueGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZRemoteStorageValueGenerator.m; path = RemoteStorageValueGenerator/ZZRemoteStorageValueGenerator.m; sourceTree = "<group>"; };
 		07E09E151BD5953D00A59389 /* ZZRemoteStorageConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZRemoteStorageConstants.h; path = RemoteStorageValueGenerator/ZZRemoteStorageConstants.h; sourceTree = "<group>"; };
 		07E09E161BD5953D00A59389 /* ZZRemoteStorageConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZRemoteStorageConstants.m; path = RemoteStorageValueGenerator/ZZRemoteStorageConstants.m; sourceTree = "<group>"; };
+		07E09E181BD5A69500A59389 /* ZZNotificationsHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZNotificationsHandler.h; path = NotificationsHandler/ZZNotificationsHandler.h; sourceTree = "<group>"; };
+		07E09E191BD5A69500A59389 /* ZZNotificationsHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZNotificationsHandler.m; path = NotificationsHandler/ZZNotificationsHandler.m; sourceTree = "<group>"; };
+		07E09E1C1BD5A6D000A59389 /* ZZNotificationsConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZNotificationsConstants.h; path = NotificationsHandler/ZZNotificationsConstants.h; sourceTree = "<group>"; };
+		07E09E1D1BD5A6D000A59389 /* ZZNotificationsConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZNotificationsConstants.m; path = NotificationsHandler/ZZNotificationsConstants.m; sourceTree = "<group>"; };
+		07E09E1F1BD5AB6200A59389 /* ZZNotificationDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZNotificationDomainModel.h; path = Notification/ZZNotificationDomainModel.h; sourceTree = "<group>"; };
+		07E09E201BD5AB6200A59389 /* ZZNotificationDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZNotificationDomainModel.m; path = Notification/ZZNotificationDomainModel.m; sourceTree = "<group>"; };
 		07E9593C1BCD74CE009C8F97 /* ZZContentDataAcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContentDataAcessor.h; sourceTree = "<group>"; };
 		07E9593D1BCD74CE009C8F97 /* ZZContentDataAcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContentDataAcessor.m; sourceTree = "<group>"; };
 		07F0E7E81B8CD7A900036AB2 /* ZZAccountTransportServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAccountTransportServiceSpec.m; sourceTree = "<group>"; };
@@ -1435,6 +1444,7 @@
 				07636B321BA49A0100925671 /* S3Credentials */,
 				07636B351BA49A0100925671 /* Users */,
 				07636B3D1BA49A0100925671 /* Video */,
+				07E09E221BD5AB6600A59389 /* Notification */,
 			);
 			path = DomainModel;
 			sourceTree = "<group>";
@@ -1664,6 +1674,7 @@
 		07636B7D1BA49A0100925671 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				07E09E1B1BD5A69900A59389 /* NotificationsHandler */,
 				079E901C1BD465D5001A4718 /* ApplicationStateInfoGenerator */,
 				079E90141BD43CEF001A4718 /* RollbarAdapter */,
 				07829D651BB2A9AE0000D5D9 /* CommonModelsGenerator */,
@@ -3346,6 +3357,26 @@
 			name = RemoteStorage;
 			sourceTree = "<group>";
 		};
+		07E09E1B1BD5A69900A59389 /* NotificationsHandler */ = {
+			isa = PBXGroup;
+			children = (
+				07E09E181BD5A69500A59389 /* ZZNotificationsHandler.h */,
+				07E09E191BD5A69500A59389 /* ZZNotificationsHandler.m */,
+				07E09E1C1BD5A6D000A59389 /* ZZNotificationsConstants.h */,
+				07E09E1D1BD5A6D000A59389 /* ZZNotificationsConstants.m */,
+			);
+			name = NotificationsHandler;
+			sourceTree = "<group>";
+		};
+		07E09E221BD5AB6600A59389 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				07E09E1F1BD5AB6200A59389 /* ZZNotificationDomainModel.h */,
+				07E09E201BD5AB6200A59389 /* ZZNotificationDomainModel.m */,
+			);
+			name = Notification;
+			sourceTree = "<group>";
+		};
 		07F0E7E71B8CD7A900036AB2 /* AuthNetworkTest */ = {
 			isa = PBXGroup;
 			children = (
@@ -4074,6 +4105,7 @@
 				7997E4FA1BAABE85001697D5 /* UIColor+JFMinimalNotificationColors.m in Sources */,
 				07636EF61BA49A0100925671 /* ANMessageDomainModel.m in Sources */,
 				07636E291BA49A0100925671 /* ZZVideoDataProvider.m in Sources */,
+				07E09E1A1BD5A69500A59389 /* ZZNotificationsHandler.m in Sources */,
 				07C94DD01BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m in Sources */,
 				07636EE31BA49A0100925671 /* ANAnimator.m in Sources */,
 				07636EE01BA49A0100925671 /* ZZStartView.m in Sources */,
@@ -4202,6 +4234,7 @@
 				FE7D83281BBE580C00445108 /* ZZHintsArrow.m in Sources */,
 				07636F0B1BA49A0100925671 /* TOActivityChrome.m in Sources */,
 				07636E371BA49A0100925671 /* ZZFriendsTransportService.m in Sources */,
+				07E09E1E1BD5A6D000A59389 /* ZZNotificationsConstants.m in Sources */,
 				18C947E51BB566A500D31B99 /* _TBMGridElement.m in Sources */,
 				07636E301BA49A0100925671 /* ZZUserDomainModel.m in Sources */,
 				07636E5A1BA49A0100925671 /* ZZStoredSettingsManager.m in Sources */,
@@ -4209,6 +4242,7 @@
 				07636EC11BA49A0100925671 /* ZZGridStateView+Animation.m in Sources */,
 				07636EC61BA49A0100925671 /* ZZGridCell.m in Sources */,
 				181D1CA41BC51B2000044F83 /* ZZInviteEventHandler.m in Sources */,
+				07E09E211BD5AB6200A59389 /* ZZNotificationDomainModel.m in Sources */,
 				18E1F2FA1BC6AC780070ECF1 /* ZZFeatureEventStrategyBase.m in Sources */,
 				07636E2C1BA49A0100925671 /* ZZContactDomainModel.m in Sources */,
 				7997E4F91BAABE85001697D5 /* NSInvocation+Constructors.m in Sources */,
