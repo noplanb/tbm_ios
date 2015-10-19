@@ -31,6 +31,17 @@
              bouncingRate:(NSUInteger)bounce
                completion:(ANCodeBlock)completion;
 
+
+
++ (void)animateConstraint:(MASConstraint *)constraint
+                newOffset:(CGFloat)offset
+                      key:(NSString *)key
+                    delay:(CFTimeInterval)delay
+             bouncingRate:(NSUInteger)bounce
+           animationSpeed:(CGFloat)speed
+               completion:(ANCodeBlock)completion;
+
+
 #pragma mark - Scale
 
 + (void)animateScaleOnView:(UIView*)view key:(NSString*)key;

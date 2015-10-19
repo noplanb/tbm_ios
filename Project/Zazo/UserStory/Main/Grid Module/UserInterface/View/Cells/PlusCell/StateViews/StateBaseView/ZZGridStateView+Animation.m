@@ -21,19 +21,22 @@
     [self _updateUploadViewsToDefaultState];
     
     CGFloat animValue = CGRectGetWidth(self.frame) - [self _indicatorCalculatedWidth];
+    CGFloat animationDuration = 0.4;
     
-    [ANAnimator animateConstraint:self.leftUploadIndicatorConstraint
-                        newOffset:animValue
-                              key:@"upload"
-                            delay:0.4 bouncingRate:0
-                       completion:^{
-        self.uploadBarView.hidden = YES;
-        [self.model reloadDebugVideoStatus];
-        if (completionBlock)
-        {
-            completionBlock();
-        }
-    }];
+    ANDispatchBlockToMainQueue(^{
+        [UIView animateWithDuration:animationDuration animations:^{
+            
+            self.leftUploadIndicatorConstraint.offset = animValue;
+            [self layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            self.uploadBarView.hidden = YES;
+            [self.model reloadDebugVideoStatus];
+            if (completionBlock)
+            {
+                completionBlock();
+            }
+        }];
+    });
 }
 
 

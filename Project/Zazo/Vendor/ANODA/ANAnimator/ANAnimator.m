@@ -52,6 +52,31 @@
     [constraint pop_addAnimation:animation forKey:key];
 }
 
++ (void)animateConstraint:(MASConstraint *)constraint newOffset:(CGFloat)offset key:(NSString *)key delay:(CFTimeInterval)delay bouncingRate:(NSUInteger)bounce animationSpeed:(CGFloat)speed completion:(ANCodeBlock)completion
+{
+    POPSpringAnimation *animation = [constraint pop_animationForKey:key];
+    if (!animation)
+    {
+        animation = [POPSpringAnimation new];
+        animation.property = [POPAnimatableProperty mas_offsetProperty];
+    }
+    animation.toValue = @(offset);
+    animation.springBounciness = 0;
+    animation.beginTime = delay;
+    animation.dynamicsFriction = 1.0;
+    animation.dynamicsMass = 1.0;
+    animation.dynamicsTension = 40.0;
+    animation.springSpeed = 10;
+    
+    animation.completionBlock = ^(POPAnimation* animation, BOOL isFinished) {
+        if (isFinished && completion)
+        {
+            completion();
+        }
+    };
+    [constraint pop_addAnimation:animation forKey:key];
+}
+
 + (void)animateConstraint:(MASConstraint*)constraint
                 newOffset:(CGFloat)offset
                       key:(NSString*)key
