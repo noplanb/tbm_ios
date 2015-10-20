@@ -310,15 +310,13 @@
     
     if ([ZZGridActionStoredSettings shared].abortRecordHintWasShown)
     {
-        
         UIView* recordView = recognizer.view;
-//        CGRect observeFrame = CGRectMake((recognizer.view.frame.origin.x - kAddedPadding),
-//                                         (recognizer.view.frame.origin.y - kAddedPadding),
-//                                         (CGRectGetWidth(recognizer.view.frame) + kAddedPadding),
-//                                         (CGRectGetHeight(recognizer.view.frame)+ kAddedPadding));
 
+        CGRect observeFrame = CGRectMake(CGRectGetMinX(recognizer.view.bounds),
+                                         (CGRectGetMinY(recognizer.view.bounds) - CGRectGetHeight(recognizer.view.bounds)),
+                                         CGRectGetWidth(recognizer.view.bounds),
+                                         (CGRectGetHeight(recognizer.view.bounds)*2));
         
-        CGRect observeFrame = recognizer.view.superview.frame;
         
         CGPoint location = [recognizer locationInView:recordView];
         if (!CGRectContainsPoint(observeFrame,location))
