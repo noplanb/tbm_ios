@@ -95,7 +95,6 @@
 {
     [self addVideoProcessorObservers];
     [self addVideoRecordingObservers];
-    
 }
 
 - (void)removeObservers
