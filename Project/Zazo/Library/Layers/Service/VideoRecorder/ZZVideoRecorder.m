@@ -151,18 +151,24 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 - (void)updateRecorder
 {
-    if (!self.recorder)
+    
+    if (!self.recordingView)
     {
+        self.recordingView = [self.interfaceDelegate recordingView];
+        [self updateRecordView:self.recordingView];
+    }
+    
+    if (!self.recorder)
+    {   self.recorder = [TBMVideoRecorder new];
         self.videoProcessor = [TBMVideoProcessor new];
         self.recorder.delegate = self;
         [self.recorder setupCaptureSessionView:self.recordingView];
-       
-//        [self setupNotifications];
         [self.recorder startRunning];
     }
     else
     {
         [self.recorder startRunning];
+        [self.recorder setupCaptureSessionView:self.recordingView];
         if (self.didCancelRecording)
         {
             self.didCancelRecording = NO;
@@ -295,8 +301,11 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 - (void)updateRecordView:(UIView*)recordView
 {
-    recordView.frame = CGRectMake(0, 0, kGridItemSize().width, kGridItemSize().height);
-    [self.recorder setupCaptureSessionView:recordView];
+    if (recordView)
+    {
+        recordView.frame = CGRectMake(0, 0, kGridItemSize().width, kGridItemSize().height);
+        [self.recorder setupCaptureSessionView:recordView];
+    }
 }
 
 - (void)startRecordingWithVideoURL:(NSURL*)url completionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock

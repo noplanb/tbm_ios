@@ -26,6 +26,7 @@
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
 @property (nonatomic, strong) UILongPressGestureRecognizer* recordRecognizer;
 @property (nonatomic, strong) NSMutableSet* recognizers;
+@property (nonatomic, assign) CGPoint initialRecordPoint;
 
 @end
 
@@ -276,6 +277,8 @@
         
         if (recognizer.state == UIGestureRecognizerStateBegan)
         {
+            self.initialRecordPoint = [recognizer locationInView:recognizer.view];
+            
             [self updateRecordingStateTo:YES withCompletionBlock:^(BOOL isRecordingSuccess) {
                 if (isRecordingSuccess)
                 {
@@ -287,6 +290,7 @@
         }
         else if (recognizer.state == UIGestureRecognizerStateEnded)
         {
+            self.initialRecordPoint = CGPointZero;
             [self _stopVideoRecording];
         }
 }
@@ -308,15 +312,17 @@
     
     if ([ZZGridActionStoredSettings shared].abortRecordHintWasShown)
     {
-        UIView* recordView = recognizer.view;
-
-        CGRect observeFrame = CGRectMake(CGRectGetMinX(recognizer.view.bounds),
-                                         (CGRectGetMinY(recognizer.view.bounds) - CGRectGetHeight(recognizer.view.bounds)),
-                                         CGRectGetWidth(recognizer.view.bounds),
-                                         (CGRectGetHeight(recognizer.view.bounds)*2));
         
+        CGFloat addTouchBounds = 80;
+        UIView* recordView = recognizer.view;
         
         CGPoint location = [recognizer locationInView:recordView];
+        
+        CGRect observeFrame = CGRectMake(self.initialRecordPoint.x - addTouchBounds,
+                                         self.initialRecordPoint.y - addTouchBounds,
+                                         (addTouchBounds * 2),
+                                         (addTouchBounds * 2));
+        
         if (!CGRectContainsPoint(observeFrame,location))
         {
             [[ZZVideoRecorder shared] cancelRecordingWithReason:NSLocalizedString(@"record-dragged-finger-away", nil)];

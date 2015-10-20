@@ -218,7 +218,7 @@ static int videoRecorderRetryCount = 0;
 - (void)setupCaptureSessionView:(UIView *)view
 {
     OB_DEBUG(@"VideoRecorder#:setupPreviewView:");
-    
+
     view.layer.sublayers = nil;
     AVCaptureVideoPreviewLayer *previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.captureSession];
     previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;

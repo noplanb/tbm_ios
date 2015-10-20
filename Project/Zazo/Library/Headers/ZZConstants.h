@@ -27,3 +27,4 @@ static NSString* const kMessageSoundZazoFileName = @"NotificationTone.wav";
 
 static NSString* const kResetAllUserDataNotificationKey = @"resetAllUserDataNotificationKey";
 static NSString* const kNotificationIncomingCall = @"incomingCall";
+static NSString* const kNotificationCallDicline = @"callDicline";

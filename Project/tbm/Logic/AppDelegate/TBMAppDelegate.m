@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
+@import CoreTelephony;
+
 #import "TBMAppDelegate.h"
 #import "TBMAppDelegate+Boot.h"
 #import "TBMAppDelegate+PushNotification.h"
@@ -22,6 +24,7 @@
 @interface TBMAppDelegate()
 
 @property (nonatomic, copy) void (^registredToNotifications)(void);
+@property (nonatomic, strong) CTCallCenter* callCenter;
 
 @end
 
@@ -35,7 +38,7 @@
     
     self.pushAlreadyFailed = NO;
     [self addObservers];
-    
+    [self _handleIncomingCall];
     OB_INFO(@"didFinishLaunchingWithOptions:");
     
     
@@ -194,6 +197,24 @@
         _appDependencies = [ZZAppDependencies new];
     }
     return _appDependencies;
+}
+
+- (void)_handleIncomingCall
+{
+    self.callCenter = [[CTCallCenter alloc] init];
+    [self.callCenter setCallEventHandler:^(CTCall * call) {
+        if ([call.callState isEqualToString:CTCallStateIncoming])
+        {
+            ANDispatchBlockToMainQueue(^{
+                [[ZZVideoRecorder shared] cancelRecordingWithReason:NSLocalizedString(@"record-canceled-reason-incoming-call", nil)];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationIncomingCall object:nil];
+            });
+        }
+//        if ([call.callState isEqualToString:CTCallStateDisconnected])
+//        {
+//            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationCallDicline object:nil];
+//        }
+    }];
 }
 
 @end
