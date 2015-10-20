@@ -169,7 +169,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
             [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
         }
     }
-//    [self startAudioSession];
+    [self startAudioSession];
     
 }
 

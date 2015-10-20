@@ -181,10 +181,7 @@ static int videoRecorderRetryCount = 0;
 }
 
 - (void)addAudioInput
-{
-    
-//    if (!self.audioInput)
-//    {
+{   
         NSError *error;
         self.audioInput = [ZZDeviceHandler loadAudioInputWithError:&error];
         if (error)
@@ -193,13 +190,10 @@ static int videoRecorderRetryCount = 0;
             return;
         }
         
-        [self.captureSession addInput:self.audioInput];
-//    }
-//    else
-//    {
-//        [self.captureSession removeInput:self.audioInput];
-//        [self.captureSession addInput:self.audioInput];
-//    }
+        if ([self.captureSession canAddInput:self.audioInput])
+        {
+            [self.captureSession addInput:self.audioInput];
+        }
 }
 
 - (void)removeAudioInput
