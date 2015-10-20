@@ -44,7 +44,7 @@
 #ifdef DEBUG_LOGIN_USER
     user.firstName = @"Dkkk";
     user.lastName = @"kkk";
-    user.mobileNumber = @"+380974720070";
+    user.mobileNumber = @"+380974720094";
 #endif
     
     if (!ANIsEmpty(user.mobileNumber))
@@ -106,6 +106,11 @@
         ZZUserDomainModel *user = [FEMObjectDeserializer deserializeObjectExternalRepresentation:x
                                                                                     usingMapping:[ZZUserDomainModel mapping]];
         user.isRegistered = YES;
+        
+        NSString* mobilePhone = [x objectForKey:@"mobile_number"];
+        [ZZStoredSettingsManager shared].mobileNumber = mobilePhone;
+        
+        
         [ZZUserDataProvider upsertUserWithModel:user];
         
         [[ZZRollbarAdapter shared] updateUserFullName:[user fullName] phone:user.mobileNumber itemID:user.idTbm];
@@ -182,7 +187,7 @@
         
         NSString *auth = [authKeys objectForKey:@"auth"];
         NSString *mkey = [authKeys objectForKey:@"mkey"];
-        
+
         [ZZStoredSettingsManager shared].userID = mkey;
         [ZZStoredSettingsManager shared].authToken = auth;
         
