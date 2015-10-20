@@ -356,7 +356,7 @@
 
 - (BOOL)isVideoPlaying
 {
-    return [self.videoPlayer isPlaying];
+    return self.videoPlayer.isPlayingVideo;
 }
 
 - (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel*)userModel

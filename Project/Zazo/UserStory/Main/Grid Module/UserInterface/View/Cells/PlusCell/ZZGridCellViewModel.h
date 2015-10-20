@@ -87,4 +87,5 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 - (NSString*)videoStatus;
 - (void)reloadDebugVideoStatus;
 - (BOOL)isEnablePlayingVideo;
+- (BOOL)isVideoPlayed;
 @end

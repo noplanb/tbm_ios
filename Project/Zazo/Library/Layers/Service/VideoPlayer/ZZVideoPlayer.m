@@ -299,10 +299,13 @@
     
     if (!ANIsEmpty(lastVideo))
     {
-        [self.playedVideoUrls addObject:lastVideo.videoUrl];
-        
-        [videoModelsCopy addObject:lastVideoModel];
-        self.videoModelsArray = videoModelsCopy;
+        if (![self.playedVideoUrls containsObject:lastVideo.videoUrl])
+        {
+            [self.playedVideoUrls addObject:lastVideo.videoUrl];
+            
+            [videoModelsCopy addObject:lastVideoModel];
+            self.videoModelsArray = videoModelsCopy;
+        }
     }
 }
 

@@ -130,17 +130,21 @@
     }
     else if (self.item.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
              self.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING &&
-             self.item.relatedUser.unviewedCount > 0)
+             self.item.relatedUser.unviewedCount > 0  &&
+             ![self.delegate isVideoPlaying])
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoDownloading);
     }
     else if (self.item.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
              self.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED &&
-             !self.item.isDownloadAnimationViewed)
+             !self.item.isDownloadAnimationViewed &&
+             ![self.delegate isVideoPlaying])
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoDownloaded);
     }
-    else if ([self.badgeNumber integerValue] > 0
+    
+    // green border state
+    if ([self.badgeNumber integerValue] > 0
              && self.item.relatedUser.lastIncomingVideoStatus != INCOMING_VIDEO_STATUS_DOWNLOADING)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateNeedToShowGreenBorder);
@@ -350,7 +354,7 @@
 {
     BOOL isEnbaled = YES;
     
-    if (([self.item.relatedUser.videos count] == 1) &&
+    if ((self.item.relatedUser.unviewedCount == 1) &&
         self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
     {
         isEnbaled = NO;
@@ -358,6 +362,11 @@
     }
     
     return isEnbaled;
+}
+
+- (BOOL)isVideoPlayed
+{
+    return [self.delegate isVideoPlaying];;
 }
 
 - (void)_showMessage:(NSString*)message

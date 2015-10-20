@@ -42,9 +42,9 @@
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
     
 #ifdef DEBUG_LOGIN_USER
-    user.firstName = @"Dmmm - mmm";
-    user.lastName = @"mmm";
-    user.mobileNumber = @"+380950472372";
+    user.firstName = @"Dkkk";
+    user.lastName = @"kkk";
+    user.mobileNumber = @"+380974720070";
 #endif
     
     if (!ANIsEmpty(user.mobileNumber))
@@ -308,11 +308,9 @@
 - (void)gotFriends:(NSArray *)friends
 {
     ANDispatchBlockToBackgroundQueue(^{
-        for (NSDictionary *fParams in friends)
+        for (ZZFriendDomainModel *friend in friends)
         {
-            ZZFriendDomainModel* model = [FEMObjectDeserializer deserializeObjectExternalRepresentation:fParams
-                                                                                           usingMapping:[ZZFriendDomainModel mapping]];
-            [ZZFriendDataUpdater upsertFriend:model];
+            [ZZFriendDataUpdater upsertFriend:friend];
         }
     });
 }
@@ -322,8 +320,8 @@
     NSArray *sorted = [self sortedFriendsByCreatedOn:friends];
     if (sorted)
     {
-        NSDictionary *firstFriend = sorted.firstObject;
-        NSString *firstFriendCreatorMkey = firstFriend[@"connection_creator_mkey"];
+        ZZFriendDomainModel *firstFriend = sorted.firstObject;
+        NSString *firstFriendCreatorMkey = firstFriend.friendshipCreatorMkey;
         ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
         NSString *myMkey = user.mkey;
         user.isInvitee = ![firstFriendCreatorMkey isEqualToString:myMkey];
