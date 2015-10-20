@@ -8,7 +8,6 @@
 
 #import "AVAudioSession+TBMAudioSession.h"
 #import "OBLogger.h"
-@import UIKit;
 
 static NSMutableSet *TBMDelegates;
 
@@ -16,7 +15,8 @@ static NSMutableSet *TBMDelegates;
 
 #pragma mark Interface methods
 
--(void)setupApplicationAudioSession {
+-(void)setupApplicationAudioSession
+{
     OB_INFO(@"TBMAudioSession: setupApplicationAudioSession");
     [self setApplicationCategory];
     [self addObservers];
@@ -27,7 +27,8 @@ static NSMutableSet *TBMDelegates;
     [TBMDelegates addObject: delegate];
 }
 
--(NSError *)activate{
+-(NSError *)activate
+{
     OB_INFO(@"TBMAudioSession#activate:");
     NSError *error = nil;
     [self removeRouteChangeObserver];
@@ -255,7 +256,5 @@ static NSMutableSet *TBMDelegates;
 - (BOOL)nearTheEar{
     return [UIDevice currentDevice].proximityState;
 }
-
-
 
 @end

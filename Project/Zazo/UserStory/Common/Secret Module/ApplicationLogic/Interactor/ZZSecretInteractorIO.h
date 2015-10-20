@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-@class ZZSettingsModel;
+@class ZZDebugSettingsStateDomainModel;
 
 @protocol ZZSecretInteractorInput <NSObject>
 
@@ -30,7 +30,7 @@
 
 @protocol ZZSecretInteractorOutput <NSObject>
 
-- (void)dataLoaded:(ZZSettingsModel*)model;
+- (void)dataLoaded:(ZZDebugSettingsStateDomainModel*)model;
 - (void)serverEndpointValueUpdatedTo:(NSString*)value;
 
 @end

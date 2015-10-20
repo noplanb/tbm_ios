@@ -9,9 +9,8 @@
 #import "TBMAppDelegate.h"
 #import "OBFileTransferManager.h"
 #import "TBMFriend.h"
-#import "TBMFriendGetter.h"
 
-@interface TBMAppDelegate (AppSync) <OBFileTransferDelegate, TBMFriendGetterCallback>
+@interface TBMAppDelegate (AppSync) <OBFileTransferDelegate>
 
 @property (strong, nonatomic) OBFileTransferManager *fileTransferManager;
 

@@ -7,9 +7,9 @@
 //
 
 #import "TBMVideoRecorder.h"
-#import "TBMDeviceHandler.h"
 #import "TBMVideoIdUtils.h"
 #import "ZZVideoRecorder.h" // TODO: for constants
+#import "ZZDeviceHandler.h"
 
 //NSString* const TBMVideoRecorderDidFinishRecording = @"TBMVideoRecorderDidFinishRecording";
 //NSString* const TBMVideoRecorderShouldStartRecording = @"TBMVideoRecorderShouldStartRecording";
@@ -139,7 +139,7 @@ static int videoRecorderRetryCount = 0;
 - (void)initVideoInput
 {
     NSError *error;
-    self.videoInput = [TBMDeviceHandler getAvailableFrontVideoInputWithError:&error];
+    self.videoInput = [ZZDeviceHandler loadAvailableFrontVideoInputWithError:&error];
     if (error)
     {
         OB_ERROR(@"VideoRecorder#initVideoInput: Unable to get camera (%@)", error);
@@ -186,7 +186,7 @@ static int videoRecorderRetryCount = 0;
 //    if (!self.audioInput)
 //    {
         NSError *error;
-        self.audioInput = [TBMDeviceHandler getAudioInputWithError:&error];
+        self.audioInput = [ZZDeviceHandler loadAudioInputWithError:&error];
         if (error)
         {
             OB_ERROR(@"VideoRecorder#addAudioInput Unable to get microphone: %@", error);

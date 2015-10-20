@@ -8,7 +8,7 @@
 
 #import "TBMVideoIdUtils.h"
 #import "TBMUser.h"
-#import "TBMStringUtils.h"
+#import "ZZStringUtils.h"
 
 @implementation TBMVideoIdUtils
 
@@ -41,7 +41,7 @@
 #pragma mark - VideoFile Markers
 
 + (NSString *)markerWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId isUpload:(BOOL)isUpload{
-    return [TBMStringUtils jsonWithDictionary: @{
+    return [ZZStringUtils jsonWithDictionary: @{
                                                  VIDEO_ID_UTILS_FRIEND_ID_KEY: friend.idTbm,
                                                  VIDEO_ID_UTILS_VIDEO_ID_KEY: videoId,
                                                  IS_UPLOAD_KEY: [NSNumber numberWithBool:isUpload]
@@ -53,7 +53,7 @@
 }
 
 + (NSDictionary *)friendIdAndVideoIdWithMarker:(NSString *)marker{
-    return [TBMStringUtils dictionaryWithJson:marker];
+    return [ZZStringUtils dictionaryWithJson:marker];
 }
 
 + (TBMFriend *)friendWithMarker:(NSString *)marker{
@@ -70,7 +70,7 @@
 }
 
 + (BOOL)isUploadWithMarker:(NSString *)marker{
-    return [[TBMStringUtils dictionaryWithJson:marker][IS_UPLOAD_KEY] boolValue];
+    return [[ZZStringUtils dictionaryWithJson:marker][IS_UPLOAD_KEY] boolValue];
 }
 
 #pragma mark - VideoFile URLS

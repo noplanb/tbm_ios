@@ -7,18 +7,18 @@
 //
 
 #import "ZZDebugStateCellViewModel.h"
-#import "ZZDebugStateItemDomainModel.h"
+#import "ZZDebugVideoStateDomainModel.h"
 #import "NSObject+ANSafeValues.h"
 
 @interface ZZDebugStateCellViewModel ()
 
-@property (nonatomic, strong) ZZDebugStateItemDomainModel* item;
+@property (nonatomic, strong) ZZDebugVideoStateDomainModel* item;
 
 @end
 
 @implementation ZZDebugStateCellViewModel
 
-+ (instancetype)viewModelWithItem:(ZZDebugStateItemDomainModel*)item
++ (instancetype)viewModelWithItem:(ZZDebugVideoStateDomainModel*)item
 {
     ZZDebugStateCellViewModel* model = [self new];
     model.item = item;

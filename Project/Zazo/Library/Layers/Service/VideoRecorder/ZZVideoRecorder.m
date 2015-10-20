@@ -22,7 +22,7 @@
 #import "AVAudioSession+TBMAudioSession.h"
 #import "TBMVideoRecorder.h"
 #import "TBMVideoIdUtils.h"
-#import "NSError+Extensions.h"
+#import "NSError+ZZAdditions.h"
 
 NSString* const kVideoProcessorDidFinishProcessing = @"TBMVideoProcessorDidFinishProcessing";
 NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing";
@@ -236,15 +236,13 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         {
             [self _switchToFrontCamera];
         }
-//        AVCaptureDevicePosition camera = isFrontCamera ? AVCaptureDevicePositionBack : AVCaptureDevicePositionFront;
-//        self.recorder.device = camera;
     }
 }
 
 - (void)_switchToBackCamera
 {
     NSError *error;
-    self.recorder.videoInput = [ZZDeviceHandler getAvailableBackVideoInputWithError:&error];
+    self.recorder.videoInput = [ZZDeviceHandler loadAvailableBackVideoInputWithError:&error];
     if (error)
     {
         // TODO:
@@ -263,10 +261,8 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 - (void)_switchToFrontCamera
 {
-//    [self.recorder initVideoInput];
-    
     NSError *error;
-    self.recorder.videoInput = [ZZDeviceHandler getAvailableFrontVideoInputWithError:&error];
+    self.recorder.videoInput = [ZZDeviceHandler loadAvailableFrontVideoInputWithError:&error];
     if (error)
     {
         // TODO:
@@ -283,11 +279,10 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     [self _initAudioInput];
 }
 
-
 - (void)_initAudioInput
 {
     NSError *error;
-    self.recorder.audioInput = [ZZDeviceHandler getAudioInputWithError:&error];
+    self.recorder.audioInput = [ZZDeviceHandler loadAudioInputWithError:&error];
     if (error)
     {
         //TODO:
@@ -304,7 +299,6 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     [self.recorder setupCaptureSessionView:recordView];
 }
 
-//- (void)startRecordingWithVideoURL:(NSURL*)url
 - (void)startRecordingWithVideoURL:(NSURL*)url completionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
     self.completionBlock = completionBlock;

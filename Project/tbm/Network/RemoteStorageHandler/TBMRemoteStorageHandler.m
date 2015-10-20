@@ -9,15 +9,16 @@
 #import "TBMRemoteStorageHandler.h"
 #import "TBMFriend.h"
 #import "TBMUser.h"
-#import "TBMStringUtils.h"
 #import "TBMHttpManager.h"
 #import "OBLogger.h"
-#import "NSString+NSStringExtensions.h"
+
 #import "ZZAPIRoutes.h"
 #import "ZZUserDomainModel.h"
 #import "ZZUserDataProvider.h"
 #import "ZZKeychainDataProvider.h"
 #import "ZZS3CredentialsDomainModel.h"
+#import "NSString+ZZAdditions.h"
+#import "ZZStringUtils.h"
 
 static NSString *const kArraySeparator = @",";
 
@@ -36,14 +37,14 @@ static NSString *const kArraySeparator = @",";
 {
     return [NSString stringWithFormat:@"%@-%@",
                                       [self incomingPrefix:friend],
-                                      [[friend.ckey stringByAppendingString:videoId] md5]];
+                                      [[friend.ckey stringByAppendingString:videoId] zz_md5]];
 }
 
 + (NSString *)outgoingVideoRemoteFilename:(TBMFriend *)friend videoId:(NSString *)videoId
 {
     return [NSString stringWithFormat:@"%@-%@",
                                       [self outgoingPrefix:friend],
-                                      [[friend.ckey stringByAppendingString:videoId] md5]];
+                                      [[friend.ckey stringByAppendingString:videoId] zz_md5]];
 }
 
 + (NSString *)incomingVideoIDRemoteKVKey:(TBMFriend *)friend
@@ -91,14 +92,14 @@ static NSString *const kArraySeparator = @",";
 + (NSString *)incomingSuffix:(TBMFriend *)friend withTypeSuffix:(NSString *)typeSuffix
 {
      ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
-    NSString *md5 = [[[friend.mkey stringByAppendingString:model.mkey] stringByAppendingString:friend.ckey] md5];
+    NSString *md5 = [[[friend.mkey stringByAppendingString:model.mkey] stringByAppendingString:friend.ckey] zz_md5];
     return [md5 stringByAppendingString:typeSuffix];
 }
 
 + (NSString *)outgoingSuffix:(TBMFriend *)friend withTypeSuffix:(NSString *)typeSuffix
 {
      ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
-    NSString *md5 = [[[model.mkey stringByAppendingString:friend.mkey] stringByAppendingString:friend.ckey] md5];
+    NSString *md5 = [[[model.mkey stringByAppendingString:friend.mkey] stringByAppendingString:friend.ckey] zz_md5];
     return [md5 stringByAppendingString:typeSuffix];
 }
 
@@ -159,7 +160,7 @@ static NSString *const kArraySeparator = @",";
 //------------------
 + (void)setRemoteKVWithKey1:(NSString *)key1 key2:(NSString *)key2 value:(NSDictionary *)value
 {
-    NSString *jsonValue = [TBMStringUtils jsonWithDictionary:value];
+    NSString *jsonValue = [ZZStringUtils jsonWithDictionary:value];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:@{@"key1" : key1, @"value" : jsonValue}];
     if (key2 != nil)
         [params setObject:key2 forKey:@"key2"];
@@ -226,7 +227,7 @@ static NSString *const kArraySeparator = @",";
     for (NSDictionary *r in responseObjects)
     {
         NSString *valueJson = [r objectForKey:@"value"];
-        NSDictionary *valueObj = [TBMStringUtils dictionaryWithJson:valueJson];
+        NSDictionary *valueObj = [ZZStringUtils dictionaryWithJson:valueJson];
         [vIds addObject:[valueObj objectForKey:REMOTE_STORAGE_VIDEO_ID_KEY]];
     }
     return vIds;
@@ -253,7 +254,7 @@ static NSString *const kArraySeparator = @",";
 + (NSDictionary *)getStatusWithResponseObject:(NSDictionary *)response
 {
     NSString *valueJson = response[@"value"];
-    return [TBMStringUtils dictionaryWithJson:valueJson];
+    return [ZZStringUtils dictionaryWithJson:valueJson];
 }
 
 + (void)getRemoteEverSentFriendsWithSuccess:(void (^)(NSArray *response))success

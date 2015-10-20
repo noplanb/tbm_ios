@@ -10,11 +10,18 @@
 
 @interface ZZDeviceHandler : NSObject
 
-+ (AVCaptureDeviceInput *)getAudioInputWithError:(NSError * __autoreleasing *)error;
-+ (AVCaptureDeviceInput *)getAvailableFrontVideoInputWithError:(NSError * __autoreleasing *)error;
-+ (AVCaptureDeviceInput *)getAvailableBackVideoInputWithError:(NSError * __autoreleasing *)error;
+#pragma mark - Video
+
++ (AVCaptureDeviceInput*)loadAvailableFrontVideoInputWithError:(NSError* __autoreleasing *)error;
++ (AVCaptureDeviceInput*)loadAvailableBackVideoInputWithError:(NSError* __autoreleasing *)error;
 + (BOOL)isCameraConnected;
-+ (BOOL)isMiccrophoneConnected;
 + (BOOL)areBothCamerasAvailable;
+
+
+#pragma mark - Audio
+
++ (AVCaptureDeviceInput*)loadAudioInputWithError:(NSError* __autoreleasing *)error;
+
++ (BOOL)isMicrophoneConnected;
 
 @end

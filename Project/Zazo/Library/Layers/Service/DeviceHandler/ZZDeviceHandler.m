@@ -13,106 +13,110 @@
 
 #pragma mark - Video
 
-+ (AVCaptureDeviceInput *) getAvailableFrontVideoInputWithError:(NSError * __autoreleasing *)error
++ (AVCaptureDeviceInput*)loadAvailableFrontVideoInputWithError:(NSError * __autoreleasing *)error
 {
-    
-    AVCaptureDevice *device = [ZZDeviceHandler deviceWithMediaType:AVMediaTypeVideo preferringPosition:AVCaptureDevicePositionFront];
-    if (!device)
-    {
-        *error = [[NSError alloc] initWithDomain:@"ZZ" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Device has no camera"}];
-        return nil;
-    }
-    
-    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&*error];
-    return input;
+    return [self _loadAvailableVideoInputWithType:AVCaptureDevicePositionFront error:error];
 }
 
-+ (AVCaptureDeviceInput *)getAvailableBackVideoInputWithError:(NSError * __autoreleasing *)error
++ (AVCaptureDeviceInput*)loadAvailableBackVideoInputWithError:(NSError * __autoreleasing *)error
 {
-    AVCaptureDevice *device = [ZZDeviceHandler deviceWithMediaType:AVMediaTypeVideo preferringPosition:AVCaptureDevicePositionBack];
-    if (!device)
-    {
-        *error = [[NSError alloc] initWithDomain:@"ZZ" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Device has no camera"}];
-        return nil;
-    }
-    
-    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&*error];
-    return input;
-}
-
-
-+ (BOOL) isCameraConnected
-{
-    AVCaptureDevice *device = [self deviceWithMediaType:AVMediaTypeVideo preferringPosition:AVCaptureDevicePositionFront];
-    if (!device)
-    {
-         return NO;
-    }
-    
-    if (!device.connected)
-    {
-        return NO;
-    }
-    
-    return YES;
+    return [self _loadAvailableVideoInputWithType:AVCaptureDevicePositionBack error:error];
 }
 
 + (BOOL)areBothCamerasAvailable
 {
+    AVCaptureDevice* frondCamera = [self _deviceWithMediaType:AVMediaTypeVideo
+                                           preferringPosition:AVCaptureDevicePositionFront];
     
-    AVCaptureDevice* frondCamera = [ZZDeviceHandler deviceWithMediaType:AVMediaTypeVideo preferringPosition:AVCaptureDevicePositionFront];
-    AVCaptureDevice* backCamera = [ZZDeviceHandler deviceWithMediaType:AVMediaTypeVideo preferringPosition:AVCaptureDevicePositionBack];
-
+    AVCaptureDevice* backCamera = [self _deviceWithMediaType:AVMediaTypeVideo
+                                          preferringPosition:AVCaptureDevicePositionBack];
+    
     return (frondCamera && backCamera);
 }
 
++ (BOOL)isCameraConnected
+{
+    AVCaptureDevice *device = [self _deviceWithMediaType:AVMediaTypeVideo
+                                      preferringPosition:AVCaptureDevicePositionFront];
+    if (device == nil)
+    {
+        OB_WARN(@"TBMDeviceHandler#isCameraConnected isCameraAvailable: got no camera");
+        return NO;
+    }
+    if (device.connected == NO)
+    {
+        OB_WARN(@"TBMDeviceHandler#isCameraConnected isCameraAvailable: camera not Connected");
+        return NO;
+    }
+    return YES;
+}
+
+
 #pragma mark - Audio
 
-+ (AVCaptureDeviceInput *)getAudioInputWithError:(NSError * __autoreleasing *)error
++ (AVCaptureDeviceInput*)loadAudioInputWithError:(NSError * __autoreleasing *)error
 {
-    
-    AVCaptureDevice *mic = [self getMicrophone];
-    if (!mic)
+    AVCaptureDevice *mic = [self _loadMicrophone];
+    if (mic == nil)
     {
-        *error = [[NSError alloc] initWithDomain:@"ZZ" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Device has no microphone"}];
+        //TODO: error generator
+        *error = [[NSError alloc] initWithDomain:@"Zazo" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Device has no microphone"}];
         return nil;
     }
-    
     AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:mic error:&*error];
     return input;
 }
 
-+ (BOOL) isMiccrophoneConnected
++ (BOOL)isMicrophoneConnected
 {
-    AVCaptureDevice *mic = [self getMicrophone];
-    if (!mic || !mic.connected)
+    AVCaptureDevice *mic = [self _loadMicrophone];
+    if (mic == nil)
     {
+        OB_WARN(@"TBMDeviceHandler#isMiccrophoneConnected isMicrophoneAvailable: got no mic");
         return NO;
     }
-    
+    if (mic.connected == NO)
+    {
+        OB_WARN(@"TBMDeviceHandler#isMiccrophoneConnected isMiccrophoneAvailable: camera not Connected");
+        return NO;
+    }
     return YES;
 }
 
-+ (AVCaptureDevice *) getMicrophone
+
+#pragma mark - Private
+
++ (AVCaptureDeviceInput*)_loadAvailableVideoInputWithType:(AVCaptureDevicePosition)type error:(NSError * __autoreleasing *)error
+{
+    AVCaptureDevice *device = [self _deviceWithMediaType:AVMediaTypeVideo preferringPosition:type];
+    if (!device)
+    {
+        //TODO: error generator
+        *error = [[NSError alloc] initWithDomain:@"Zazo" code:0 userInfo:@{NSLocalizedDescriptionKey:@"Device has no camera"}];
+        return nil;
+    }
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&*error];
+    return input;
+}
+
++ (AVCaptureDevice*)_loadMicrophone
 {
     return [[AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio] firstObject];
 }
 
-#pragma mark - Private
-
-+ (AVCaptureDevice *)deviceWithMediaType:(NSString *)mediaType preferringPosition:(AVCaptureDevicePosition)position
++ (AVCaptureDevice*)_deviceWithMediaType:(NSString*)mediaType preferringPosition:(AVCaptureDevicePosition)position
 {
     NSArray *devices = [AVCaptureDevice devicesWithMediaType:mediaType];
-    AVCaptureDevice *captureDevice = [devices firstObject];
+    __block AVCaptureDevice *captureDevice = [devices firstObject];
     
-    for (AVCaptureDevice *device in devices)
-    {
-        if ([device position] == position)
+    [devices enumerateObjectsUsingBlock:^(AVCaptureDevice*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if (obj.position == position)
         {
-            captureDevice = device;
-            break;
+            captureDevice = obj;
+            *stop = YES;
         }
-    }
+    }];
     
     return captureDevice;
 }

@@ -24,7 +24,7 @@
 #import "ZZFileHelper.h"
 #import "ZZVideoDomainModel.h"
 #import "ZZContentDataAcessor.h"
-
+#import "ZZFriendsTransportService.h"
 
 @implementation TBMAppDelegate (AppSync)
 
@@ -206,18 +206,17 @@
 - (void)getAndPollAllFriends
 {
     OB_INFO(@"getAndPollAllFriends");
-    [[[TBMFriendGetter alloc] initWithDelegate:self] getFriends];
-}
+    
+    [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray* friends) {
+        
+        OB_INFO(@"gotFriends");
+        [self pollAllFriends];
+    } error:^(NSError *error) {
+        
+        [self pollAllFriends];
+    }];
 
-- (void)gotFriends
-{
-    OB_INFO(@"gotFriends");
-    [self pollAllFriends];
-}
-
-- (void)friendGetterServerError
-{
-    [self pollAllFriends];
+    
 }
 
 - (void)pollAllFriends

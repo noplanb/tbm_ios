@@ -8,6 +8,12 @@
 
 #import "ZZGridActionHandlerEnums.h"
 
+//TODO: make extern constants or incapsulate it here later
+
+static NSString* const kFriendIdDefaultKey = @"userIdDefaultKey";
+static NSString* const kSendMessageCounterKey = @"sendMessageCounterKey";
+static NSString* const kUsersIdsArrayKey = @"usersIdsArrayKey";
+
 @interface ZZGridActionStoredSettings : NSObject
 
 @property (nonatomic, assign) ZZGridActionFeatureType lastUnlockedFeature;
@@ -37,5 +43,7 @@
 @property (nonatomic, assign) BOOL hintsDidStartRecord;
 
 + (instancetype)shared;
+
+- (void)reset;
 
 @end

@@ -9,7 +9,6 @@
 #import "ZZUserDataProvider.h"
 #import "ZZUserModelsMapper.h"
 #import "MagicalRecord.h"
-#import "TBMDispatch.h"
 #import "ZZContentDataAcessor.h"
 
 @implementation ZZUserDataProvider

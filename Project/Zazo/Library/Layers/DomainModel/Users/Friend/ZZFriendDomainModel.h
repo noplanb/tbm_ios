@@ -48,7 +48,8 @@ extern const struct ZZFriendDomainModelAttributes {
 
 @property (nonatomic, assign) ZZVideoStatusEventType lastVideoStatusEventType;
 @property (nonatomic, assign) ZZVideoIncomingStatus lastIncomingVideoStatus;
-@property (nonatomic, assign) ZZVideoOutgoingStatus outgoingVideoStatus;
+@property (nonatomic, assign) ZZVideoOutgoingStatus outgoingVideoStatus; //TODO: cleanup here
+
 
 @property (nonatomic, copy) NSString* outgoingVideoItemID;
 

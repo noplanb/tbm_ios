@@ -62,7 +62,29 @@ static NSString* const kIncomingVideoWasPlayedKey = @"incomingVideoWasPlayed";
 
 - (void)reset
 {
-
+    [ZZGridActionStoredSettings shared].inviteHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].playHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].recordHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].sentHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].viewedHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].welcomeHintWasShown = NO;
+    
+    [ZZGridActionStoredSettings shared].frontCameraHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].abortRecordHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].deleteFriendHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].earpieceHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].spinHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].recordWelcomeHintWasShown = NO;
+    [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = NO;
+    [ZZGridActionStoredSettings shared].holdToRecordAndTapToPlayWasShown = NO;
+    [ZZGridActionStoredSettings shared].hintsDidStartPlay = NO;
+    [ZZGridActionStoredSettings shared].hintsDidStartRecord = NO;
+    [ZZGridActionStoredSettings shared].incomingVideoWasPlayed = NO;
+    
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:kSendMessageCounterKey];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSArray array] forKey:kUsersIdsArrayKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - Hints

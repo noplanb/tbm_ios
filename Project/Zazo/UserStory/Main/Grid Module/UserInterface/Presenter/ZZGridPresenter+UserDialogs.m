@@ -11,12 +11,12 @@
 #import "ZZUserDataProvider.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZContactDomainModel.h"
-#import "TBMPhoneUtils.h"
 #import "ZZAPIRoutes.h"
 #import "TBMAlertController.h"
 #import "TBMTableModal.h"
 #import "ZZGridPresenter+ActionHandler.h"
 #import "ZZGridDataSource.h"
+#import "ZZPhoneHelper.h"
 
 @implementation ZZGridPresenter (UserDialogs)
 
@@ -48,7 +48,7 @@
 - (void)_showSmsDialogForModel:(ZZFriendDomainModel*)friendModel isNudgeAction:(BOOL)isNudge
 {
     ANMessageDomainModel* model = [ANMessageDomainModel new];
-    NSString* formattedNumber = [TBMPhoneUtils phone:friendModel.mobileNumber withFormat:NBEPhoneNumberFormatE164];
+    NSString* formattedNumber = [ZZPhoneHelper phone:friendModel.mobileNumber withFormat:ZZPhoneFormatTypeE164];
     model.recipients = @[[NSObject an_safeString:formattedNumber]];
     
     NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];

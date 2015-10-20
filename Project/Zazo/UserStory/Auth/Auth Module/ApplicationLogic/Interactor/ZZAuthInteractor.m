@@ -19,7 +19,6 @@
 #import "NSObject+ANSafeValues.h"
 #import "ZZStoredSettingsManager.h"
 #import "NBPhoneNumber.h"
-#import "TBMDispatch.h"
 #import "ZZFriendDataProvider.h"
 #import "TBMUser.h"
 #import "TBMFriend.h"
@@ -28,6 +27,7 @@
 #import "ZZVideoRecorder.h"
 #import "ZZFriendDataUpdater.h"
 #import "ZZFriendDomainModel.h"
+#import "ZZRollbarAdapter.h"
 
 @interface ZZAuthInteractor ()
 
@@ -108,7 +108,8 @@
         user.isRegistered = YES;
         [ZZUserDataProvider upsertUserWithModel:user];
         
-        [TBMDispatch updateRollBarUserWithItemID:user.idTbm username:[user fullName] phoneNumber:user.mobileNumber];
+        [[ZZRollbarAdapter shared] updateUserFullName:[user fullName] phone:user.mobileNumber itemID:user.idTbm];
+    
         [self.output smsCodeValidationCompletedSuccessfully];
         
         [self loadFriends];

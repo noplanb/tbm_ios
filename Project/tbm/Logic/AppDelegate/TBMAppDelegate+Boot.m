@@ -11,7 +11,6 @@
 #import "TBMAppDelegate+PushNotification.h"
 #import "TBMAppDelegate+AppSync.h"
 #import "TBMUser.h"
-#import "TBMDispatch.h"
 #import "AVFoundation/AVFoundation.h"
 #import "TBMFileUtils.h"
 #import "AVAudioSession+TBMAudioSession.h"
@@ -23,8 +22,7 @@
 - (void)boot
 {
     OB_INFO(@"Boot");
-    [TBMDispatch enable];
-//    [self ensurePushNotification]; // TODO: find correct place for calling this method, only for test
+    [self ensurePushNotification]; // TODO: find correct place for calling this method, only for test
 }
 
 - (void)performDidBecomeActiveActions

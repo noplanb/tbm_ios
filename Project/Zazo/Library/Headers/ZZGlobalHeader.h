@@ -5,6 +5,12 @@
 //  Copyright (c) 2014 ANODA. All rights reserved.
 //
 
+#ifdef RELEASE
+#warning Don't forget update this number
+#endif
+static NSString* const kGlobalApplicationVersion = @"37";
+
+
 //#define DEBUG_CONTROLLER
 
 #ifdef DEBUG
@@ -45,28 +51,8 @@
 #import "NSDate+ANUIAdditions.h"
 #import "UIImage+ANAdditions.h"
 #import "OBLogger.h"
+#import "ZZConstants.h"
 
-#ifdef RELEASE
-#warning Don't forget update this number
-#endif
-static NSString* const kGlobalApplicationVersion = @"37";
-
-
-
-
-//TODO: cleanup this
-
-//email constants
-
-static NSString* kApplicationFeedbackEmailSubject = @"Feedback";
-static NSString* kApplicationFeedbackEmailAddress = @"feedback@zazoapp.com";
-//ios, app version, user mkey, iphone 5s.
-
-static NSString* const kContentDBName = @"tbm";
-
-static NSString* const kAppstoreURLString = @"https://itunes.apple.com/us/app/zazo/id922294638";
-static NSString* const kMessageSoundEffectFileName = @"BeepSin30.wav";
-static NSString* const kMessageSoundZazoFileName = @"NotificationTone.wav";
 
 
 #define DEBUG_MODE

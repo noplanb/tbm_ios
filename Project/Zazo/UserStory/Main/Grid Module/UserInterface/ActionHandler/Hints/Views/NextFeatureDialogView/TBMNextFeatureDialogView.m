@@ -4,7 +4,7 @@
 //
 
 #import "TBMNextFeatureDialogView.h"
-#import "NSArray+TBMArrayHelpers.h"
+#import "NSArray+ZZAdditions.h"
 
 CGFloat const kDialogHeight = 50.f;
 CGFloat const kHeaderHeight = 30.f;
@@ -101,7 +101,7 @@ CGFloat const kElementsHorizontalMargin = 15.f;
 
 - (void)setupRandomHeaders
 {
-    NSString *header = [self.posibbleHeaders.allKeys randomObject];
+    NSString *header = [self.posibbleHeaders.allKeys zz_randomObject];
     self.headerLabel.text= header;
     self.subHeaderLabel.text= self.posibbleHeaders[header];
 }

@@ -8,7 +8,7 @@
 
 #import "ZZSecretDataSource.h"
 #import "ANMemoryStorage.h"
-#import "ZZSettingsModel.h"
+#import "ZZDebugSettingsStateDomainModel.h"
 #import "ZZSecretSwitchCellViewModel.h"
 #import "ZZSecretSegmentCellViewModel.h"
 #import "NSObject+ANSafeValues.h"
@@ -47,7 +47,7 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
     return self;
 }
 
-- (void)setupStorageWithViewModel:(ZZSettingsModel*)model;
+- (void)setupStorageWithViewModel:(ZZDebugSettingsStateDomainModel*)model;
 {
     [self _addUserInfoSectionWithData:model];
     [self _addDetailScreensSection];
@@ -76,15 +76,15 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
     {
         case ZZSecretSectionTutorial:
         {
-            if (indexPath.row == ZZSecretSectionTutorialIndexResetHints) // reset tutorial hints
+            if (indexPath.row == 0) // reset tutorial hints
             {
                 [self.delegate actionWithType:ZZSecrectScreenActionsTypeResetTutorialHints];
             }
-            else if (indexPath.row == ZZSecretSectionTutorialIndexFeatureOptions) // feature options
+            else if (indexPath.row == 1) // feature options
             {
                 [self.delegate actionWithType:ZZSecrectScreenActionsTypeFeatureOptions];
             }
-            else if (indexPath.row == ZZSecretSectionTutorialIndexEnableAllFeatures)
+            else if (indexPath.row == 2)
             {
                 [self.delegate actionWithType:ZZSecretScreenActionsTypeEnableAllFeatures];
             }
@@ -116,15 +116,15 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
             
         case ZZSecretSectionResetData:
         {
-            if (indexPath.row == ZZSecretSectionResetDataIndexClearUserData)
+            if (indexPath.row == 0)
             {
                 [self.delegate actionWithType:ZZSecrectScreenActionsTypeClearUserData];
             }
-            else if (indexPath.row == ZZSecretSectionResetDataIndexDeleteAllDanglingFiles)
+            else if (indexPath.row == 1)
             {
                 [self.delegate actionWithType:ZZSecrectScreenActionsTypeDeleteAllDanglingFiles];
             }
-            else if (indexPath.row == ZZSecrectScreenActionsTypeCrashApplication)
+            else if (indexPath.row == 2)
             {
                 [self.delegate actionWithType:ZZSecrectScreenActionsTypeCrashApplication];
             }
@@ -181,7 +181,7 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
 
 #pragma mark - Private
 
-- (void)_addUserInfoSectionWithData:(ZZSettingsModel*)model
+- (void)_addUserInfoSectionWithData:(ZZDebugSettingsStateDomainModel*)model
 {
      NSArray* items = @[[ZZSecretValueCellViewModel viewModelWithTitle:@"Version"
                                                                details:[NSObject an_safeString:model.version]],
@@ -207,7 +207,7 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
     [self.storage setSectionHeaderModel:@"Debug Screens" forSectionIndex:ZZSecretSectionDetailScreens];
 }
 
-- (void)_addCustomModesSectionWithData:(ZZSettingsModel*)model
+- (void)_addCustomModesSectionWithData:(ZZDebugSettingsStateDomainModel*)model
 {
     NSArray* models = @[[self _switchModelWithTitle:@"Debug Mode" state:model.isDebugEnabled]];
 
@@ -216,7 +216,7 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
                         forSectionIndex:ZZSecretSectionCustomAppModes];
 }
 
-- (void)_addTutorialSectionWithData:(ZZSettingsModel*)model
+- (void)_addTutorialSectionWithData:(ZZDebugSettingsStateDomainModel*)model
 {
     NSArray* items = @[[ZZSecretValueCellViewModel viewModelWithTitle:@"Reset tutorial hints" details:nil],
                        [ZZSecretValueCellViewModel viewModelWithTitle:@"Feature options" details:nil],
@@ -228,12 +228,13 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
                         forSectionIndex:ZZSecretSectionTutorial];
 }
 
-- (void)_addLoggingSectionsWithData:(ZZSettingsModel*)model
+- (void)_addLoggingSectionsWithData:(ZZDebugSettingsStateDomainModel*)model
 {
     NSArray* items = @[NSLocalizedString(@"secret-controller.server.segment-control.title", nil),
                        NSLocalizedString(@"secret-controller.rollbar.segment-control.title", nil)];
     
     ZZSecretSegmentCellViewModel* rollBar = [ZZSecretSegmentCellViewModel viewModelWithTitles:items];
+    rollBar.selectedIndex = model.useRollbarSDK;
     rollBar.delegate = self;
     
     ZZSecretValueCellViewModel* dispatch = [ZZSecretValueCellViewModel viewModelWithTitle:@"Send dispatch message" details:nil];
@@ -243,7 +244,7 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
                         forSectionIndex:ZZSecretSectionLoggingOptions];
 }
 
-- (void)_addServerInfoSectionWithData:(ZZSettingsModel*)model
+- (void)_addServerInfoSectionWithData:(ZZDebugSettingsStateDomainModel*)model
 {
     NSArray* serverItems = @[NSLocalizedString(@"secret-controller.prodserver.title", nil),
                              NSLocalizedString(@"secret-controller.stageserver.title", nil),

@@ -10,21 +10,17 @@
 #import "TBMAppDelegate+Boot.h"
 #import "TBMAppDelegate+PushNotification.h"
 #import "TBMAppDelegate+AppSync.h"
-#import "TBMStringUtils.h"
 #import "OBFileTransferManager.h"
 #import "TBMUser.h"
 #import "AVAudioSession+TBMAudioSession.h"
-#import "TBMDispatch.h"
 #import "ZZAppDependencies.h"
 #import "ZZContentDataAcessor.h"
 #import "ZZVideoRecorder.h"
 #import "ZZSoundPlayer.h"
-#import "ZZGlobalHeader.h"
 #import "ZZGridActionStoredSettings.h"
 
 @interface TBMAppDelegate()
 
-@property id <TBMAppDelegateEventNotificationProtocol> eventNotificationDelegate;
 @property (nonatomic, copy) void (^registredToNotifications)(void);
 
 @end
@@ -33,21 +29,11 @@
 
 #pragma mark - Lifecycle callbacks
 
-- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
-    OB_INFO(@"willFinishLaunchingWithOptions:");
-    // See doc/notification.txt for why we dont use this in our app for processing notifications.
-    return YES;
-}
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [self.appDependencies initialApplicationSetup:application launchOptions:launchOptions];
     
-#ifndef DEBUG
-    [TBMDispatch startRollBar];
-#endif
     self.pushAlreadyFailed = NO;
-    [self setupLogger];
     [self addObservers];
     
     OB_INFO(@"didFinishLaunchingWithOptions:");
@@ -92,9 +78,6 @@
     
     OB_INFO(@"applicationWillEnterForeground");
     self.isForeground = YES;
-
-    if (self.eventNotificationDelegate != nil)
-        [self.eventNotificationDelegate appWillEnterForeground];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application{
@@ -102,8 +85,6 @@
     [self.appDependencies handleApplicationDidBecomeActive];
     self.isForeground = YES;
     
-    if (self.eventNotificationDelegate !=  nil)
-        [self.eventNotificationDelegate appDidBecomeActive];
     ANDispatchBlockToBackgroundQueue(^{
        [self performDidBecomeActiveActions];
     });
@@ -126,26 +107,9 @@
     
 }
 
-
 - (void)removeObservers{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
-
-#pragma mark - Logger
-- (void)setupLogger{
-    [OBLogger instance].writeToConsole = YES;
-    if ([[OBLogger instance] logLines].count > 3000)
-        [[OBLogger instance] reset];
-}
-
-//------------------------------------------------------
-// Allow other object to register for event notification
-//------------------------------------------------------
-- (void)setLifeCycleEventNotificationDelegate:(id)delegate{
-    self.eventNotificationDelegate = delegate;
-}
-
 
 
 #pragma mark - Application's Documents directory

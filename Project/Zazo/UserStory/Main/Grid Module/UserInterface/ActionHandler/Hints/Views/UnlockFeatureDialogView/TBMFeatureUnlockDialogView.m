@@ -5,7 +5,7 @@
 
 
 #import "TBMFeatureUnlockDialogView.h"
-#import "TBMSoundEffect.h"
+#import "ZZSoundEffectPlayer.h"
 
 NSString *const kTBMFeatureUnlockDialogHeaderFontName = @"AppleSDGothicNeo-Regular";
 NSString *const kTBMFeatureUnlockDialogSubHeaderFontName = @"HelveticaNeue-LightItalic";
@@ -24,7 +24,7 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
 @property (nonatomic, strong) UIView *showMeButtonRoundedRectangle;
 @property (nonatomic, strong) UIView *showMeButtonSquare;
 @property (nonatomic, strong) UILabel *showMeButtonLabel;
-@property (nonatomic, strong) TBMSoundEffect *featureUnlockSound;
+@property (nonatomic, strong) ZZSoundEffectPlayer *featureUnlockSound;
 @property (nonatomic, strong) NSString *featureDescription;
 @property (nonatomic, copy) void (^completionBlock)();
 
@@ -301,11 +301,11 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
     return _showMeButtonLabel;
 }
 
-- (TBMSoundEffect *)featureUnlockSound
+- (ZZSoundEffectPlayer *)featureUnlockSound
 {
     if (!_featureUnlockSound)
     {
-        _featureUnlockSound = [[TBMSoundEffect alloc] initWithSoundNamed:@"FeatureUnlock.wav"];
+        _featureUnlockSound = [[ZZSoundEffectPlayer alloc] initWithSoundNamed:@"FeatureUnlock.wav"];
     }
     return _featureUnlockSound;
 }

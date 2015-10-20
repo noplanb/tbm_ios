@@ -8,9 +8,7 @@
 
 @interface ZZStringUtils : NSObject
 
-+ (NSString *)randomStringofLength:(NSInteger)length;
-
-+ (NSString *)jsonWithDictionary:(NSDictionary *)dict;
-+ (NSDictionary *)dictionaryWithJson:(NSString *)jsonString;
++ (NSString*)jsonWithDictionary:(NSDictionary*)dict;
++ (NSDictionary*)dictionaryWithJson:(NSString*)jsonString;
 
 @end

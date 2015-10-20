@@ -16,7 +16,7 @@
 {
     entity.videoId = model.videoID;
     entity.downloadRetryCount = @(model.downloadRetryCount);
-    entity.status = @(model.status);
+    entity.status = @(model.incomingStatusValue);
     
     return entity;
 }
@@ -27,7 +27,7 @@
     {
         model.videoID = entity.videoId;
         model.downloadRetryCount = [entity.downloadRetryCount integerValue];
-        model.status = [entity.status integerValue];
+        model.incomingStatusValue = [entity.status integerValue];
         model.videoURL = entity.videoUrl;
     }
     @catch (NSException *exception)

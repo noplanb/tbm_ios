@@ -8,8 +8,8 @@
 
 #import "ZZDebugStateDataSource.h"
 #import "ANMemoryStorage.h"
-#import "ZZDebugStateItemDomainModel.h"
-#import "ZZDebugStateDomainModel.h"
+#import "ZZDebugVideoStateDomainModel.h"
+#import "ZZDebugFriendStateDomainModel.h"
 #import "NSObject+ANSafeValues.h"
 
 @implementation ZZDebugStateDataSource
@@ -28,7 +28,7 @@
 {
     [self.storage updateStorageWithBlock:^{
        
-        [allVideos enumerateObjectsUsingBlock:^(ZZDebugStateDomainModel* obj, NSUInteger idx, BOOL *stop) {
+        [allVideos enumerateObjectsUsingBlock:^(ZZDebugFriendStateDomainModel* obj, NSUInteger idx, BOOL *stop) {
             
             NSInteger section = [self.storage.sections count];
             
@@ -60,7 +60,7 @@
 
 #pragma mark - Private
 
-- (NSString*)_sectionTitleWithStatusString:(NSString*)status model:(ZZDebugStateDomainModel*)model
+- (NSString*)_sectionTitleWithStatusString:(NSString*)status model:(ZZDebugFriendStateDomainModel*)model
 {
     return [NSString stringWithFormat:@"%@: %@ - %@",
                                     status,

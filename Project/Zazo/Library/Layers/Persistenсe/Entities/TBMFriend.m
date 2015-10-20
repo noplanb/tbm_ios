@@ -12,8 +12,6 @@
 #import "TBMAppDelegate+PushNotification.h"
 #import "TBMVideoIdUtils.h"
 #import "OBLogger.h"
-#import "TBMPhoneUtils.h"
-#import "NSString+NSStringExtensions.h"
 #import "TBMUser.h"
 #import "MagicalRecord.h"
 #import "TBMGridElement.h"
@@ -25,6 +23,7 @@
 #import "ZZContentDataAcessor.h"
 #import "FEMObjectDeserializer.h"
 #import "ZZFriendDataUpdater.h"
+#import "ZZPhoneHelper.h"
 
 @implementation TBMFriend
 
@@ -86,7 +85,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 {
     for (TBMFriend *f in [TBMFriend all])
     {
-        if ([TBMPhoneUtils isNumberMatch:phone secondNumber:f.mobileNumber])
+        if ([ZZPhoneHelper isNumberMatch:phone secondNumber:f.mobileNumber])
             return f;
     }
     return nil;
@@ -603,49 +602,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (BOOL)hasOutgoingVideo
 {
-    if (self.outgoingVideoId && ![self.outgoingVideoId isEmpty])
-    {
-        return YES;
-    }
-    return NO;
-}
-
-- (NSString *)OVStatusName
-{
-    return [TBMFriend nameForOVStatus:self.outgoingVideoStatusValue];
-}
-
-+ (NSString *)nameForOVStatus:(TBMOutgoingVideoStatus)status
-{
-    NSString *s = @"UNKNOWN";
-    switch (status)
-    {
-        case OUTGOING_VIDEO_STATUS_NONE:
-            s = @"NONE";
-            break;
-        case OUTGOING_VIDEO_STATUS_NEW:
-            s = @"NEW";
-            break;
-        case OUTGOING_VIDEO_STATUS_QUEUED:
-            s = @"QUEUED";
-            break;
-        case OUTGOING_VIDEO_STATUS_UPLOADING:
-            s = @"UPLOADING";
-            break;
-        case OUTGOING_VIDEO_STATUS_UPLOADED:
-            s = @"UPLOADED";
-            break;
-        case OUTGOING_VIDEO_STATUS_DOWNLOADED:
-            s = @"DOWNLOADED";
-            break;
-        case OUTGOING_VIDEO_STATUS_VIEWED:
-            s = @"VIEWED";
-            break;
-        case OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY:
-            s = @"FAILED";
-            break;
-    }
-    return s;
+    return !ANIsEmpty(self.outgoingVideoId);
 }
 
 + (NSArray*)everSentMkeys
