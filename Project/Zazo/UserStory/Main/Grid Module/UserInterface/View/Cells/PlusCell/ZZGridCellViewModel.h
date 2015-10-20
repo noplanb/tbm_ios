@@ -32,14 +32,23 @@
 
 @end
 
-typedef NS_ENUM(NSInteger, ZZGridCellViewModelState)
+typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 {
-    ZZGridCellViewModelStateAdd,
-    ZZGridCellViewModelStateFriendHasApp,
-    ZZGridCellViewModelStateFriendHasNoApp,
-    ZZGridCellViewModelStateIncomingVideoNotViewed,
-    ZZGridCellViewModelStateIncomingVideoViewed,
-    ZZGridCellViewModelStateOutgoingVideo
+    //base state
+    ZZGridCellViewModelStateNone = 0,
+    ZZGridCellViewModelStateAdd = 1 << 1,
+    ZZGridCellViewModelStateFriendHasApp = 1 << 2,
+    ZZGridCellViewModelStateFriendHasNoApp = 1 << 3,
+    ZZGridCellViewModelStatePreview = 1 << 4,
+    //additional state
+    ZZGridCellViewModelStateVideoWasUploaded = 1 << 5,
+    ZZGridCellViewModelStateVideoWasViewed = 1 << 6,
+    ZZGridCellViewModelStateVideoDownloading = 1 << 7,
+    ZZGridCellViewModelStateVideoDownloaded = 1 << 8,
+    ZZGridCellViewModelStateNeedToShowGreenBorder = 1 << 9,
+    //badge state
+    ZZGridCellViewModelStateVideoDownloadedAndVideoCountOne = 1 << 10,
+    ZZGridCellViewModelStateVideoCountMoreThatOne = 1 << 11
 };
 
 @interface ZZGridCellViewModel : NSObject
@@ -67,6 +76,7 @@ typedef NS_ENUM(NSInteger, ZZGridCellViewModelState)
 - (NSString*)firstName;
 
 - (UIImage*)videoThumbnailImage;
+- (UIImage*)thumbnailPlaceholderImage;
 
 - (void)updateVideoPlayingStateTo:(BOOL)isPlaying;
 - (ZZGridCellViewModelState)state;

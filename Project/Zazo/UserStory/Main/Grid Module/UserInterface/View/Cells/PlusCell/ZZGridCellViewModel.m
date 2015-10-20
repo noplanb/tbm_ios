@@ -86,33 +86,80 @@
 
 - (ZZGridCellViewModelState)state
 {
-    if (self.item.relatedUser.hasApp && self.hasDownloadedVideo)
+    ZZGridCellViewModelState modelState = ZZGridCellViewModelStateNone;
+    
+    if (!self.item.relatedUser)
     {
-        return ZZGridCellViewModelStateIncomingVideoNotViewed;
+        modelState = ZZGridCellViewModelStateAdd;
     }
-    else if (!self.item.relatedUser)
+    else if ((self.item.relatedUser.hasApp && self.hasDownloadedVideo) ||
+             self.item.relatedUser.videos.count > 0)
     {
-        return ZZGridCellViewModelStateAdd;
-    }
-    else if (self.item.relatedUser.videos.count > 0)
-    {
-        return ZZGridCellViewModelStateIncomingVideoNotViewed;
+        modelState = ZZGridCellViewModelStatePreview;
     }
     else if (self.item.relatedUser.hasApp)
     {
-        return ZZGridCellViewModelStateFriendHasApp;
+        modelState = ZZGridCellViewModelStateFriendHasApp;
     }
-    else if (!self.item.relatedUser.hasApp)
+    else if (!ANIsEmpty(self.item.relatedUser) && !self.item.relatedUser.hasApp)
     {
-        return ZZGridCellViewModelStateFriendHasNoApp;
+        modelState = ZZGridCellViewModelStateFriendHasNoApp;
     }
     
-    if ((self.item.relatedUser.videos.count == 0) && self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
-    {
-        return ZZGridCellViewModelStateFriendHasApp;
-    }
-    return 0;
+    
+    modelState = [self _additionalModelStateWithState:modelState];
+    
+    
+    return modelState;
 }
+
+- (ZZGridCellViewModelState)_additionalModelStateWithState:(ZZGridCellViewModelState)state
+{
+    ZZGridCellViewModelState stateWithAdditionalState = state;
+    
+    if (self.hasUploadedVideo &&
+        !self.isUploadedVideoViewed &&
+        self.item.relatedUser.lastVideoStatusEventType != ZZVideoStatusEventTypeIncoming)
+    {
+        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoWasUploaded);
+    }
+    else if (self.isUploadedVideoViewed &&
+        self.item.relatedUser.lastVideoStatusEventType != INCOMING_VIDEO_STATUS_EVENT_TYPE)
+    {
+        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoWasViewed);
+    }
+    else if (self.item.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
+             self.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING &&
+             self.item.relatedUser.unviewedCount > 0)
+    {
+        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoDownloading);
+    }
+    else if (self.item.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
+             self.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED &&
+             !self.item.isDownloadAnimationViewed)
+    {
+        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoDownloaded);
+    }
+    else if ([self.badgeNumber integerValue] > 0
+             && self.item.relatedUser.lastIncomingVideoStatus != INCOMING_VIDEO_STATUS_DOWNLOADING)
+    {
+        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateNeedToShowGreenBorder);
+    }
+    
+    // badge state
+    if ([self.badgeNumber integerValue] == 1
+        && self.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED)
+    {
+        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoDownloadedAndVideoCountOne);
+    }
+    else if ([self.badgeNumber integerValue] > 1)
+    {
+        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoCountMoreThatOne);
+    }
+    
+    return stateWithAdditionalState;
+}
+
 
 - (void)updateVideoPlayingStateTo:(BOOL)isPlaying
 {
@@ -153,9 +200,20 @@
     return [self _videoThumbnail];
 }
 
+
+#pragma mark - Video Thumbnail
+
 - (UIImage *)videoThumbnailImage
 {
     return [self _videoThumbnail];
+}
+
+- (UIImage*)thumbnailPlaceholderImage
+{
+    CGSize size = CGSizeMake(40, 40);
+    UIImage* image = [[UIImage imageWithPDFNamed:@"contacts-placeholder" atSize:size]
+                      an_imageByTintingWithColor:[ZZColorTheme shared].gridStatusViewThumnailZColor];
+    return image;
 }
 
 - (void)setBadgeNumber:(NSNumber *)badgeNumber

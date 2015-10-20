@@ -53,36 +53,36 @@
 - (void)updateStateViewWithModel:(ZZGridCellViewModel*)model
 {
     ANDispatchBlockToMainQueue(^{
-        switch (model.state)
+        
+        if (model.state & ZZGridCellViewModelStateAdd)
         {
-            case ZZGridCellViewModelStateFriendHasApp:
-            {
-                self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self];
-                
-            } break;
-            case ZZGridCellViewModelStateFriendHasNoApp:
-            {
-                self.stateView = [[ZZGridStateViewNudge alloc] initWithPresentedView:self];
-                
-            } break;
-            case ZZGridCellViewModelStateIncomingVideoViewed:
-            case ZZGridCellViewModelStateIncomingVideoNotViewed:
-            case ZZGridCellViewModelStateOutgoingVideo:
-            {
-                self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self];
-                
-            } break;
-            default:
+            if (self.stateView)
             {
                 [self.stateView removeFromSuperview];
-                
-            } break;
+            }
+        }
+        else if (model.state & ZZGridCellViewModelStateFriendHasApp)
+        {
+            self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self];
+        }
+        else if (model.state & ZZGridCellViewModelStateFriendHasNoApp)
+        {
+            self.stateView = [[ZZGridStateViewNudge alloc] initWithPresentedView:self];
+        }
+        else if (model.state & ZZGridCellViewModelStatePreview)
+        {
+            self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self];
+        }
+        else
+        {
+            [self.stateView removeFromSuperview];
         }
         
         if (self.stateView)
         {
             [self.stateView updateWithModel:self.model];
         }
+        
     });
 }
 
