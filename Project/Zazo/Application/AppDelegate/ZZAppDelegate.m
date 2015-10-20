@@ -29,15 +29,32 @@
     return YES;
 }
 
-- (void)application:(UIApplication*)application
-didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)newDeviceToken
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
 {
-    [self.appDependencies handleApplicationDidRegisterForPushWithToken:newDeviceToken];
+    [self.appDependencies handleApplication:application didRegisterUserNotificationSettings:notificationSettings];
 }
+
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
-    ANLogError(error);
+    [self.appDependencies handleApplicationDidFailToRegisterForRemoteNotifications];
+}
+
+#pragma mark -  Handle Incoming Notifications
+
+void (^_completionHandler)(UIBackgroundFetchResult);
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+                                                       fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    
+    [self.appDependencies handleApplication:application didRecievePushNotification:userInfo];
+    completionHandler(UIBackgroundFetchResultNewData);
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    [self.appDependencies handleApplicationDidRegisterForPushWithToken:deviceToken];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
@@ -62,6 +79,14 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)newDeviceToken
 {
     [self.appDependencies handleApplicationWillTerminate];
 }
+
+
+
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    [self.appDependencies handleApplicationDidEnterInBackground];
+}
+
 
 
 #pragma mark - Private

@@ -22,6 +22,8 @@
 - (void)handleApplication:(UIApplication *)application
 didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings;
 
+- (void)handleApplicationDidFailToRegisterForRemoteNotifications;
+
 - (void)installRootViewControllerIntoWindow:(UIWindow *)window;
 - (void)installAppDependences;
 

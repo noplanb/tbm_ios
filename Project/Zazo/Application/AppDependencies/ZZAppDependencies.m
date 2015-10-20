@@ -19,11 +19,13 @@
 #import "ZZUserDataProvider.h"
 #import "ZZUserDomainModel.h"
 #import "ZZRollbarAdapter.h"
+#import "ZZNotificationsHandler.h"
 
 @interface ZZAppDependencies ()
 
 @property (nonatomic, strong) ZZRootWireframe* rootWireframe;
 @property (nonatomic, strong) CTCallCenter* callCenter;
+@property (nonatomic, strong) ZZNotificationsHandler* notificationsHandler;
 
 @end
 
@@ -45,12 +47,15 @@
         [ANLogger initializeLogger];
         [ZZColorTheme shared];
         [self _handleIncomingCall];
+        
+        self.notificationsHandler = [ZZNotificationsHandler new];
     });
 }
 
 - (void)handleWillResignActive
 {
     ANDispatchBlockToBackgroundQueue(^{
+       
         ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
         if (user.isRegistered)
         {
@@ -77,6 +82,8 @@
             });
         }
     });
+    
+    [[OBLogger instance] logEvent:OBLogEventAppForeground];
 }
 
 - (void)handleApplicationWillTerminate
@@ -91,25 +98,32 @@
 
 - (void)handleApplicationDidEnterInBackground
 {
+    OB_INFO(@"applicationDidEnterBackground: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
     [ZZContentDataAcessor saveDataBase];
+    [[OBLogger instance] logEvent:OBLogEventAppBackground];
 }
 
 
 #pragma mark - Push
 
-- (void)handleApplicationDidRegisterForPushWithToken:(NSData *)token
+- (void)handleApplicationDidRegisterForPushWithToken:(NSData*)token
 {
-
+    [self.notificationsHandler receivedPushNotificationsToken:token];
 }
 
 - (void)handleApplication:(UIApplication *)application didRecievePushNotification:(NSDictionary *)userInfo
 {
-
+    [self.notificationsHandler handlePushNotification:userInfo];
 }
 
 - (void)handleApplication:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
 {
+    [self.notificationsHandler applicationRegisteredWithSettings:notificationSettings];
+}
 
+- (void)handleApplicationDidFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+    [self.notificationsHandler applicationDidFailToRegisterWithError:error];
 }
 
 

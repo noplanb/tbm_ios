@@ -9,6 +9,7 @@
 @protocol ZZNotificationsHandlerUserInterfaceDelegate <NSObject>
 
 - (void)showNotificationsPermissionDeclinedAlert;
+- (void)requestBackground;
 
 @end
 
@@ -16,11 +17,11 @@
 
 @property (nonatomic, weak) id<ZZNotificationsHandlerUserInterfaceDelegate> delegate;
 
-
-- (BOOL)usesIos8PushRegistration;
 - (void)registerForPushNotification;
 - (void)receivedPushNotificationsToken:(NSData*)token;
 
-
+- (void)handlePushNotification:(NSDictionary*)notification;
+- (void)applicationRegisteredWithSettings:(UIUserNotificationSettings*)settings;
+- (void)applicationDidFailToRegisterWithError:(NSError*)error;
 
 @end

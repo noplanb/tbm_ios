@@ -8,7 +8,6 @@
 
 #import "TBMAlertController.h"
 #import "TBMAppDelegate+Boot.h"
-#import "TBMAppDelegate+PushNotification.h"
 #import "TBMAppDelegate+AppSync.h"
 #import "TBMUser.h"
 #import "AVFoundation/AVFoundation.h"
@@ -251,4 +250,5 @@
 
     [alert presentWithCompletion:nil];
 }
+
 @end

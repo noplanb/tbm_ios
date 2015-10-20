@@ -8,7 +8,6 @@
 
 #import "TBMAppDelegate.h"
 #import "TBMAppDelegate+Boot.h"
-#import "TBMAppDelegate+PushNotification.h"
 #import "TBMAppDelegate+AppSync.h"
 #import "OBFileTransferManager.h"
 #import "TBMUser.h"
@@ -21,11 +20,10 @@
 
 @interface TBMAppDelegate()
 
-@property (nonatomic, copy) void (^registredToNotifications)(void);
-
 @end
 
 @implementation TBMAppDelegate
+
 
 #pragma mark - Lifecycle callbacks
 
@@ -47,10 +45,10 @@
     // See doc/notification.txt for why we handle the payload here as well as in didReceiveRemoteNotification:fetchCompletionHandler
     // for the case where app is launching from a terminated state due to user clicking on notification. Even though both this method
     // and the didReceiveRemoteNotification:fetchCompletionHandler are called in that case.
-    NSDictionary *remoteNotificationUserInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (remoteNotificationUserInfo){
-        [self requestBackground];
-        [self handleNotificationPayload:remoteNotificationUserInfo];
+    NSDictionary *remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (remoteNotification)
+    {
+        [self.appDependencies handleApplication:application didRecievePushNotification:remoteNotification];
     }
     
     return YES;
@@ -63,32 +61,24 @@
     [self setBadgeNumberDownloadedUnviewed];
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application{
-    OB_INFO(@"applicationDidEnterBackground: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
-    self.isForeground = NO;
-    [self.appDependencies handleApplicationDidEnterInBackground];
-    [[OBLogger instance] logEvent:OBLogEventAppBackground];
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
 
-- (void)applicationWillEnterForeground:(UIApplication *)application{
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
     
     [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = NO;
     
     OB_INFO(@"applicationWillEnterForeground");
-    self.isForeground = YES;
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application{
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
     OB_INFO(@"applicationDidBecomeActive");
     [self.appDependencies handleApplicationDidBecomeActive];
-    self.isForeground = YES;
     
     ANDispatchBlockToBackgroundQueue(^{
        [self performDidBecomeActiveActions];
     });
-    [[OBLogger instance] logEvent:OBLogEventAppForeground];
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application{
@@ -101,13 +91,15 @@
 
 #pragma mark - Notification Observers
 
-- (void)addObservers{
+- (void)addObservers
+{
     [self addVideoProcessorObservers];
     [self addVideoRecordingObservers];
     
 }
 
-- (void)removeObservers{
+- (void)removeObservers
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -115,7 +107,8 @@
 #pragma mark - Application's Documents directory
 
 // Returns the URL to the application's Documents directory.
-- (NSURL *)applicationDocumentsDirectory{
+- (NSURL *)applicationDocumentsDirectory
+{
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
@@ -123,7 +116,10 @@
 //----------------------------------
 // Background URL Session Completion
 //----------------------------------
-- (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler{
+- (void)application:(UIApplication *)application
+handleEventsForBackgroundURLSession:(NSString *)identifier
+  completionHandler:(void (^)())completionHandler
+{
     OB_INFO(@"handleEventsForBackgroundURLSession: for sessionId=%@",identifier);
     OBFileTransferManager *tm = [OBFileTransferManager instance];
     if ([[tm session].configuration.identifier isEqual:identifier]){
@@ -174,6 +170,67 @@
 {
     [self _onFailPushAccess];
 }
+
+
+#pragma mark - VideoProcessorObservers
+
+- (void)addVideoProcessorObservers
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(videoProcessorDidFinishProcessingNotification:)
+                                                 name:TBMVideoProcessorDidFinishProcessing
+                                               object:nil];
+}
+
+- (void)addVideoRecordingObservers
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(videoDidStartRecording:)
+                                                 name:TBMVideoRecorderShouldStartRecording
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(videoDidFinishRecording:)
+                                                 name:TBMVideoRecorderDidCancelRecording
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(videoDidFinishRecording:)
+                                                 name:TBMVideoRecorderDidFail
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(videoDidFinishRecording:)
+                                                 name:TBMVideoRecorderDidFinishRecording
+                                               object:nil];
+}
+
+- (void)videoDidStartRecording:(id)sender
+{
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
+}
+
+- (void)videoDidFinishRecording:(id)sender
+{
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
+}
+
+- (void)removeObservers
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)videoProcessorDidFinishProcessingNotification:(NSNotification *)notification
+{
+    NSURL *videoUrl = [notification.userInfo objectForKey:@"videoUrl"];
+    
+    TBMFriend *friend = [TBMVideoIdUtils friendWithOutgoingVideoUrl:videoUrl];
+    NSString *videoId = [TBMVideoIdUtils videoIdWithOutgoingVideoUrl:videoUrl];
+    [friend handleOutgoingVideoCreatedWithVideoId:videoId];
+    [self uploadWithVideoUrl:videoUrl];
+}
+
+
 
 
 #pragma mark - Lazy Load

@@ -17,6 +17,17 @@ static NSString *NOTIFICATION_TYPE_KEY = @"type";
 static NSString *NOTIFICATION_TYPE_VIDEO_RECEIVED = @"video_received";
 static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
 
+
+
+
+
+//local notifs
+
+static NSString *NOTIFICATION_STATUS_DOWNLOADED = @"downloaded";
+static NSString *NOTIFICATION_STATUS_VIEWED = @"viewed";
+
+
+
 typedef NS_ENUM(NSInteger, ZZNotificationType)
 {
     ZZNotificationTypeNone,

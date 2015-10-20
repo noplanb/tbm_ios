@@ -11,7 +11,6 @@
 
 @class TBMGridElement;
 
-static NSString* const kFriendChangeNotification = @"friendChangeNotification";
 static NSString* const kFriendVideoViewedNotification = @"videoViewedNotification";
 static NSString* const kVideoStartDownloadingNotification = @"videoStartDownloadingNotification";
 

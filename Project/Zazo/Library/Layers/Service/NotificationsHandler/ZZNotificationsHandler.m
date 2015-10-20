@@ -11,11 +11,13 @@
 #import "ZZNotificationTransportService.h"
 #import "ZZNotificationDomainModel.h"
 #import "FEMObjectDeserializer.h"
+#import "ZZUserDataProvider.h"
 
 @interface ZZNotificationsHandler ()
 
 @property (nonatomic, assign) BOOL isPushAlreadyFailed;
 @property (nonatomic, assign) UIUserNotificationType notificationAllowedTypes; //TODO: ???
+@property (nonatomic, copy) NSString* pushVideoID;
 
 @end
 
@@ -83,6 +85,19 @@
     }
 }
 
+- (void)applicationRegisteredWithSettings:(UIUserNotificationSettings *)settings
+{
+    UIUserNotificationType allowedTypes = [settings types];
+    OB_INFO(@"didRegisterUserNotificationSettings: allowedTypes = %lu", (unsigned long)allowedTypes);
+    self.notificationAllowedTypes = allowedTypes;
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+}
+
+- (void)applicationDidFailToRegisterWithError:(NSError *)error
+{
+    OB_ERROR(@"ERROR: didFailToRegisterForRemoteNotificationsWithError: %@", error);
+    [self _onFailPushAccess];
+}
 
 #pragma mark - Private
 
@@ -172,25 +187,30 @@
     }
 }
 
-
-
-- (void)handleNotificationPayload:(NSDictionary *)userInfo
+- (void)handlePushNotification:(NSDictionary *)userInfo
 {
-    ZZNotificationDomainModel* notification;
-    notification = [FEMObjectDeserializer deserializeObjectExternalRepresentation:userInfo
-                                                                     usingMapping:[ZZNotificationDomainModel mapping]];
+    OB_INFO(@"didReceiveRemoteNotification:fetchCompletionHandler %@", userInfo);
+//    self.pushVideoID = [userInfo objectForKey:@"video_id"]; // TODO: it's unused
+    [self.delegate requestBackground];
     
-    if ([self isVideoReceivedType:userInfo])
+    if ([ZZUserDataProvider authenticatedUser].isRegistered)
     {
-        [self handleVideoReceivedNotification:userInfo];
-    }
-    else if ([self isVideoStatusUpdateType:userInfo])
-    {
-        [self handleVideoStatusUpdateNotification:userInfo];
-    }
-    else
-    {
-        OB_ERROR(@"handleNotificationPayload: ERROR unknown notification type received");
+        ZZNotificationDomainModel* notification;
+        notification = [FEMObjectDeserializer deserializeObjectExternalRepresentation:userInfo
+                                                                         usingMapping:[ZZNotificationDomainModel mapping]];
+        
+        if ([self isVideoReceivedType:userInfo])
+        {
+            [self handleVideoReceivedNotification:userInfo];
+        }
+        else if ([self isVideoStatusUpdateType:userInfo])
+        {
+            [self handleVideoStatusUpdateNotification:userInfo];
+        }
+        else
+        {
+            OB_ERROR(@"handleNotificationPayload: ERROR unknown notification type received");
+        }
     }
 }
 
@@ -287,6 +307,7 @@
 
 
 #pragma mark -  Send outgoing Notifications
+
 - (void)sendNotificationForVideoReceived:(TBMFriend*)friend videoId:(NSString *)videoId
 {
     ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
