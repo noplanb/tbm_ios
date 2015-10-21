@@ -28,7 +28,7 @@
 - (void)_handleInviteEvent
 {
     ANDispatchBlockToMainQueue(^{
-        CGFloat delayAfterViewDownloaded = 1.0f;
+        CGFloat delayAfterViewDownloaded = 1.2f;
         ANDispatchBlockAfter(delayAfterViewDownloaded, ^{
             if ([[self dataSource] frindsOnGridNumber] == 0)
             {

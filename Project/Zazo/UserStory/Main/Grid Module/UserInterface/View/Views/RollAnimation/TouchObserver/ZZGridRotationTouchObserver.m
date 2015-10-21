@@ -58,6 +58,11 @@
     return self;
 }
 
+- (BOOL)isGridRotate
+{
+    return self.isMoving;
+}
+
 - (void)handleRotationGesture:(ZZRotationGestureRecognizer*)recognizer
 {
     switch (recognizer.state)
@@ -74,6 +79,7 @@
             CGFloat startAngle = [recognizer startAngleInView:self.gridView];
             CGFloat deltaAngle = currentAngle - startAngle;
             self.gridView.calculatedCellsOffset = self.startOffset + deltaAngle;
+            self.isMoving = YES;
         } break;
             
         case UIGestureRecognizerStateCancelled:

@@ -67,7 +67,10 @@
 
 - (void)itemSelected
 {
-    [self.delegate addUserToItem:self];
+    if (![self.delegate isGridRotate])
+    {
+        [self.delegate addUserToItem:self];
+    }
 }
 
 - (void)reloadDebugVideoStatus
@@ -171,15 +174,18 @@
 //        self.prevBadgeNumber = nil;
 //        self.badgeNumber = nil;
 //    }
-    
+
     [self.delegate playingStateUpdatedToState:isPlaying viewModel:self];
     [self reloadDebugVideoStatus];
 }
 
 - (void)nudgeSelected
 {
-    [self reloadDebugVideoStatus];
-    [self.delegate nudgeSelectedWithUserModel:self.item.relatedUser];
+    if (![self.delegate isGridRotate])
+    {
+        [self reloadDebugVideoStatus];
+        [self.delegate nudgeSelectedWithUserModel:self.item.relatedUser];
+    }
 }
 
 - (void)togglePlayer
@@ -256,7 +262,7 @@
     {
         _recordRecognizer =
         [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_recordPressed:)];
-        _recordRecognizer.minimumPressDuration = 0.5;
+        _recordRecognizer.minimumPressDuration = 0.2;
         [self.recognizers addObject:_recordRecognizer];
     }
     return _recordRecognizer;
@@ -272,7 +278,9 @@
 
 - (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer
 {
-
+    
+    if (![self.delegate isGridRotate])
+    {
         [self _checkIsCancelRecordingWithRecognizer:recognizer];
         
         if (recognizer.state == UIGestureRecognizerStateBegan)
@@ -293,6 +301,8 @@
             self.initialRecordPoint = CGPointZero;
             [self _stopVideoRecording];
         }
+    }
+
 }
 
 - (void)_stopVideoRecording

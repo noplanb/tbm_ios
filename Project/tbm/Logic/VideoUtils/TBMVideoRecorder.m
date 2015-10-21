@@ -22,6 +22,7 @@ static int videoRecorderRetryCount = 0;
 
 @property (nonatomic) dispatch_queue_t sessionQueue;
 @property (nonatomic, assign) BOOL didCancelRecording;
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer* previewLayer;
 
 @end
 
@@ -189,11 +190,18 @@ static int videoRecorderRetryCount = 0;
             OB_ERROR(@"VideoRecorder#addAudioInput Unable to get microphone: %@", error);
             return;
         }
-        
+    
+    dispatch_barrier_async(dispatch_get_main_queue(), ^{
         if ([self.captureSession canAddInput:self.audioInput])
         {
+            [self.captureSession removeInput:self.audioInput];
             [self.captureSession addInput:self.audioInput];
         }
+    });
+    
+//   ANDispatchBlockToMainQueue(^{
+//   });
+    
 }
 
 - (void)removeAudioInput
@@ -220,10 +228,13 @@ static int videoRecorderRetryCount = 0;
     OB_DEBUG(@"VideoRecorder#:setupPreviewView:");
 
     view.layer.sublayers = nil;
-    AVCaptureVideoPreviewLayer *previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.captureSession];
-    previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    previewLayer.frame = view.layer.bounds;
-    [view.layer addSublayer:previewLayer];
+    if (!self.previewLayer)
+    {
+        self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.captureSession];
+        self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    }
+    self.previewLayer.frame = view.layer.bounds;
+    [view.layer addSublayer:self.previewLayer];
 }
 
 
@@ -250,9 +261,9 @@ static int videoRecorderRetryCount = 0;
     if (!self.captureOutput.isRecording)
     {
         // note that in some error cases when audiosession was connected stop recording would be called and isRecording == NO.  We will not get a didFinsishRecording in this case. AudioSession needs to observe videoRecorderDidFail for these condtitions although we should ensure they never occur.
-        
         [self.delegate videoRecorderDidStopButDidNotStartRecording];
     }
+    
     [self.captureOutput stopRecording];
     [self.delegate videoRecorderDidStopRecording];
 }
@@ -333,6 +344,7 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
     OB_INFO(@"VideoRecorder#AVCaptureSessionRuntimeErrorNotification: %@", notification.userInfo[AVCaptureSessionErrorKey]);
     videoRecorderRetryCount += 1;
     [self.delegate videoRecorderRuntimeErrorWithRetryCount:videoRecorderRetryCount];
+    
 }
 
 - (void)AVCaptureSessionDidStartRunningNotification:(NSNotification *)notification

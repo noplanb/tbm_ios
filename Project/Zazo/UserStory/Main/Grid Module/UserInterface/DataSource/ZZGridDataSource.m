@@ -126,7 +126,8 @@ ZZGridCenterCellViewModelDelegate
 
 - (void)updateCenterCellWithModel:(ZZGridCenterCellViewModel*)model
 {
-    [self updateCellWithModel:(id)model];
+//    [self updateCellWithModel:(id)model];
+    [self _reloadModelAtIndex:4];
 }
 
 - (id)viewModelAtIndex:(NSInteger)index
@@ -205,6 +206,11 @@ ZZGridCenterCellViewModelDelegate
 }
 
 #pragma mark - ViewModel Delegate
+
+- (BOOL)isGridRotate
+{
+    return [self.delegate isGridRotate];
+}
 
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled
                            viewModel:(ZZGridCellViewModel*)viewModel

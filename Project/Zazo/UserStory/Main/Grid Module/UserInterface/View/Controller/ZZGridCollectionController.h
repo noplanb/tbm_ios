@@ -7,6 +7,8 @@
 //
 
 @class ZZGridDataSource;
+@class ZZGridCellViewModel;
+@class ZZFriendDomainModel;
 
 @protocol ZZGridCollectionControllerDelegate <NSObject>
 

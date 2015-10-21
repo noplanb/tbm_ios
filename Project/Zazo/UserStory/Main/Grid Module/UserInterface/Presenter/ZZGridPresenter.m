@@ -90,12 +90,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_reloadDataAfterResetAllUserDataNotification)
                                                  name:kResetAllUserDataNotificationKey object:nil];
-    
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(_updateRecorderAfterCall)
-                                                 name:kNotificationCallDicline object:nil];
-    
+
 }
 
 - (void)dealloc
@@ -106,14 +101,6 @@
 
 
 #pragma mark - Notifications
-
-- (void)_updateRecorderAfterCall
-{
-    ANDispatchBlockToMainQueue(^{
-        [[ZZVideoRecorder shared] updateRecordView:[self.dataSource centerViewModel].recordView];
-        [[ZZVideoRecorder shared] updateRecorder];
-    });
-}
 
 - (void)_reloadDataAfterResetAllUserDataNotification
 {
@@ -231,6 +218,8 @@
 }
 
 
+
+
 #pragma makr - EVENT InviteHint
 
 - (void)dataLoadedWithArray:(NSArray*)data
@@ -332,6 +321,11 @@
 
 
 #pragma mark - DataSource Delegate
+
+- (BOOL)isGridRotate
+{
+    return [self.userInterface isGridRotating];
+}
 
 - (void)addUser
 {

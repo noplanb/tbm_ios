@@ -125,10 +125,17 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 // We call setupVideoRecorder on multiple events so the first qualifying event takes effect. All later events are ignored.
 - (void)setupVideoRecorder:(int)retryCount
 {
-//    self.recorder = [TBMVideoRecorder new]; //TODO: uncomment it later
-//    self.recorder.delegate = self;
-//    
-//    [self.recorder startRunning];
+    self.recorder = [TBMVideoRecorder new];
+    self.recorder.delegate = self;
+    
+    if (!self.recordingView)
+    {
+        self.recordingView = [self.interfaceDelegate recordingView];
+        [self updateRecordView:self.recordingView];
+    }
+    
+    [self.recorder setupCaptureSessionView:self.recordingView];
+    [self.recorder startRunning];
 }
 
 
@@ -149,15 +156,13 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 - (void)updateRecorder
 {
-    
     if (!self.recordingView)
     {
+        // update reocroding view
         self.recordingView = [self.interfaceDelegate recordingView];
         [self updateRecordView:self.recordingView];
-    }
-    
-    if (!self.recorder)
-    {   self.recorder = [TBMVideoRecorder new];
+        
+        // update recorder
         self.videoProcessor = [TBMVideoProcessor new];
         self.recorder.delegate = self;
         [self.recorder setupCaptureSessionView:self.recordingView];
@@ -165,16 +170,18 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     }
     else
     {
+        //update recorder session and audio input
         [self.recorder startRunning];
-        [self.recorder setupCaptureSessionView:self.recordingView];
-        if (self.didCancelRecording)
-        {
-            self.didCancelRecording = NO;
-            [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
-        }
     }
+    
     [self startAudioSession];
     
+    // alert message after recording
+    if (self.didCancelRecording)
+    {
+        self.didCancelRecording = NO;
+        [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
+    }
 }
 
 - (void)dealloc
@@ -377,7 +384,10 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 {
     self.isRecorderActive = NO;
     self.completionBlock = completionBlock;
-    [self.recorder stopRecording];
+    if ([self.recorder.captureOutput isRecording])
+    {
+        [self.recorder stopRecording];
+    }
     [self _recordingProgressStopped];
 }
 

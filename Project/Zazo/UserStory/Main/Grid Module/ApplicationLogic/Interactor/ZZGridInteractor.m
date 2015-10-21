@@ -256,6 +256,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (void)videoStatusDidChange:(TBMFriend*)model
 {
     ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithRelatedUserID:model.idTbm];
+  
     if (!gridModel)
     {
         ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:model];
@@ -287,12 +288,13 @@ static NSInteger const kGridFriendsCellCount = 8;
             [self _addUserAsFriendToGrid:friendModel fromNotification:YES];
         }
     }
-    else
+    else if (gridModel && !ANIsEmpty(gridModel.relatedUser))
     {
         [self.output reloadAfterVideoUpdateGridModel:gridModel];
     }
     
     [self _handleModel:gridModel];
+    
 }
 
 

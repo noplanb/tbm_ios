@@ -10,6 +10,7 @@
 
 @class ZZGridDataSource;
 @class ZZFriendDomainModel;
+@class ZZGridCellViewModel;
 
 @protocol ZZGridViewInterface <ZZGridActionHanlderUserInterfaceDelegate>
 
@@ -20,5 +21,6 @@
 - (void)menuWasOpened;
 - (void)updateLoadingStateTo:(BOOL)isLoading;
 - (void)updateRecordViewStateTo:(BOOL)isRecording;
+- (BOOL)isGridRotating;
 
 @end

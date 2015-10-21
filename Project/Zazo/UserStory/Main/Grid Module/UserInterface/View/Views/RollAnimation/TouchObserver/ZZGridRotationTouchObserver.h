@@ -23,5 +23,6 @@
 @property (nonatomic, weak) id <ZZGridRotationTouchObserverDelegate> delegate;
 
 - (instancetype)initWithGridView:(ZZGridView*)gridView;
+- (BOOL)isGridRotate;
 
 @end

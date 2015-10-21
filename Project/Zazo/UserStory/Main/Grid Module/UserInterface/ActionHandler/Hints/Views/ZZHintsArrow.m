@@ -128,7 +128,8 @@ CGFloat degreesToRadians(CGFloat x)
                                                           options:NSStringDrawingUsesLineFragmentOrigin
                                                        attributes:attributes
                                                           context:nil];
-    self.arrowLabel.frame = CGRectMake(frame.origin.x, frame.origin.y, labelRect.size.width, labelRect.size.height);
+    x = CGRectGetMidX(self.bounds) - (CGRectGetWidth(labelRect)/2);
+    self.arrowLabel.frame = CGRectMake(x, frame.origin.y, labelRect.size.width, labelRect.size.height);
 }
 
 - (void)layoutArrow
