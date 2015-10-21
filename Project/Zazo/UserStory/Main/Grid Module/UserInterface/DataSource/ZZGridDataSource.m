@@ -126,7 +126,8 @@ ZZGridCenterCellViewModelDelegate
 
 - (void)updateCenterCellWithModel:(ZZGridCenterCellViewModel*)model
 {
-    [self updateCellWithModel:(id)model];
+//    [self updateCellWithModel:(id)model];
+    [self _reloadModelAtIndex:4];
 }
 
 - (id)viewModelAtIndex:(NSInteger)index

@@ -110,10 +110,10 @@
 
 - (void)_updateRecorderAfterCall
 {
-    ANDispatchBlockToMainQueue(^{
-        [[ZZVideoRecorder shared] updateRecordView:[self.dataSource centerViewModel].recordView];
-        [[ZZVideoRecorder shared] updateRecorder];
-    });
+//    ANDispatchBlockToMainQueue(^{
+//        [[ZZVideoRecorder shared] updateRecordView:[self.dataSource centerViewModel].recordView];
+//        [[ZZVideoRecorder shared] updateRecorder];
+//    });
 }
 
 - (void)_reloadDataAfterResetAllUserDataNotification
