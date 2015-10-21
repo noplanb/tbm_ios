@@ -187,9 +187,9 @@
                                                                   status:status from:me] subscribeNext:^(id x) {}];
 }
 
-- (void)setBadgeNumberUnviewed
+- (void)updateBadgeCounter
 {
-    
+    [self.dataUpdater updateApplicationBadge];
 }
 
 

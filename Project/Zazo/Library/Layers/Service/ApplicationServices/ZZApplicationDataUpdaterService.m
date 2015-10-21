@@ -101,16 +101,19 @@
         
         [[ZZRemoteStoageTransportService loadRemoteIncomingVideoIDsWithFriendMkey:friend.mkey
                                                                        friendCKey:friend.ckey] subscribeNext:^(NSArray* videoIds) {
-            OB_INFO(@"pollWithFriend: %@  vids = %@", firstName, videoIds);
-            for (NSString *videoId in videoIds)
+            OB_INFO(@"pollWithFriend: %@  vids = %@", firstName, ANIsEmpty(videoIds) ? @"no videos" : videoIds);
+            if (!ANIsEmpty(videoIds))
             {
-                [self.delegate freshVideoDetectedWithVideoID:videoId friendID:friendID];
+                for (NSString *videoId in videoIds)
+                {
+                    [self.delegate freshVideoDetectedWithVideoID:videoId friendID:friendID];
+                }
             }
         }];
     }
 }
 
-- (void)_pollVideoStatusWithFriend:(TBMFriend *)friend
+- (void)_pollVideoStatusWithFriend:(TBMFriend*)friend
 {
     if (friend.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED)
     {
@@ -121,28 +124,31 @@
     [[ZZRemoteStoageTransportService loadRemoteOutgoingVideoStatusForFriendMkey:friend.mkey
                                                                      friendCKey:friend.ckey] subscribeNext:^(NSDictionary *response) {
         
-        NSString *status = response[ZZRemoteStorageParameters.status];
-        ZZRemoteStorageVideoStatus ovsts = ZZRemoteStorageVideoStatusEnumValueFromSrting(status);
-        if (ovsts == ZZRemoteStorageVideoStatusNone)
+        if (!ANIsEmpty(response))
         {
-            OB_ERROR(@"pollVideoStatusWithFriend: got unknown outgoing video status: %@", status);
-            return;
+            NSString *status = response[ZZRemoteStorageParameters.status];
+            ZZRemoteStorageVideoStatus ovsts = ZZRemoteStorageVideoStatusEnumValueFromSrting(status);
+            if (ovsts == ZZRemoteStorageVideoStatusNone)
+            {
+                OB_ERROR(@"pollVideoStatusWithFriend: got unknown outgoing video status: %@", status);
+                return;
+            }
+            // This call handles making sure that videoId == outgoingVideoId etc.
+            
+            
+            TBMOutgoingVideoStatus videoStatus;
+            if (ovsts == ZZRemoteStorageVideoStatusDownloaded)
+            {
+                videoStatus = OUTGOING_VIDEO_STATUS_DOWNLOADED;
+            }
+            else
+            {
+                videoStatus = OUTGOING_VIDEO_STATUS_VIEWED;
+            }
+            
+            [friend setAndNotifyOutgoingVideoStatus:videoStatus
+                                            videoId:response[ZZRemoteStorageParameters.videoID]];
         }
-        // This call handles making sure that videoId == outgoingVideoId etc.
-        
-        
-        TBMOutgoingVideoStatus videoStatus;
-        if (ovsts == ZZRemoteStorageVideoStatusDownloaded)
-        {
-            videoStatus = OUTGOING_VIDEO_STATUS_DOWNLOADED;
-        }
-        else
-        {
-            videoStatus = OUTGOING_VIDEO_STATUS_VIEWED;
-        }
-        
-        [friend setAndNotifyOutgoingVideoStatus:videoStatus
-                                        videoId:response[ZZRemoteStorageParameters.videoID]];
     } error:^(NSError *error) {
         // This can happen on startup when there is nothing in the remoteVideoStatusKV
         OB_WARN(@"pollVideoStatusWithFriend: Error polling outgoingVideoStatus for %@ - %@", friend.firstName, error);

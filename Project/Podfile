@@ -36,7 +36,7 @@ target 'Zazo' do
     pod 'TPKeyboardAvoiding'
     
     #Testing
-    pod 'Reveal-iOS-SDK', '~> 1.6', :configurations => ['Debug']
+    pod 'Reveal-iOS-SDK', '~> 1.6.1', :configurations => ['Debug']
     pod 'Fabric', '~> 1.5.5'
     pod 'Crashlytics', '~> 3.3.4'
     

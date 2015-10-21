@@ -1555,7 +1555,6 @@
 		230485EFA47BAF0E400BBEC3BF9599EF /* UIImage+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+AFNetworking.h"; path = "UIKit+AFNetworking/UIImage+AFNetworking.h"; sourceTree = "<group>"; };
 		237687DF9E84F4B69F99FCD77DFF9C5D /* APAddressBook.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = APAddressBook.xcconfig; sourceTree = "<group>"; };
 		23879D65346457146DC75417A55ED617 /* Pods-ZazoTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ZazoTests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		23B10353675BCA203A8D4E511106E8C6 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reveal.framework; path = "Reveal-Framework-1.6.0/Reveal.framework"; sourceTree = "<group>"; };
 		2485EC232B20FED09538DBE1262ECD70 /* NSNumber+MagicalDataImport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSNumber+MagicalDataImport.m"; path = "MagicalRecord/Categories/DataImport/NSNumber+MagicalDataImport.m"; sourceTree = "<group>"; };
 		24CAF0DBE0D5FB0B85B8C3B8657812B6 /* EXPMatchers+beLessThanOrEqualTo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "EXPMatchers+beLessThanOrEqualTo.h"; path = "Expecta/Matchers/EXPMatchers+beLessThanOrEqualTo.h"; sourceTree = "<group>"; };
 		25133BA7DF6A9A332AEA934EBC0EFE75 /* POPDecayAnimation.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPDecayAnimation.mm; path = pop/POPDecayAnimation.mm; sourceTree = "<group>"; };
@@ -1696,6 +1695,7 @@
 		4878A00EC9B9B3CAA4323C7AB0E94C07 /* MASLayoutConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASLayoutConstraint.m; path = Masonry/MASLayoutConstraint.m; sourceTree = "<group>"; };
 		489904DF3B1BEF8D8EE6D54B5C46BCC7 /* FEMAttributeMapping.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FEMAttributeMapping.h; path = FastEasyMapping/Source/Core/Mapping/Attribute/FEMAttributeMapping.h; sourceTree = "<group>"; };
 		48AA868EA5B0D215F9E6DDF31E0D1481 /* UISlider+RACSignalSupport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UISlider+RACSignalSupport.m"; path = "ReactiveCocoa/UISlider+RACSignalSupport.m"; sourceTree = "<group>"; };
+		49D7B210F329188ACF543F6791DFABB5 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reveal.framework; path = "Reveal-Framework-1.6.1/Reveal.framework"; sourceTree = "<group>"; };
 		49FEFB83E6F94413CD02C5650F6690CF /* NSException-KIFAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSException-KIFAdditions.m"; path = "Additions/NSException-KIFAdditions.m"; sourceTree = "<group>"; };
 		4A5E66582D20A33EB7DE7D259AF70C1B /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFNetworkReachabilityManager.m; path = AFNetworking/AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
 		4A7138F700BC4785C6EDFDD9BBF12C46 /* RACEmptySignal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RACEmptySignal.h; path = ReactiveCocoa/RACEmptySignal.h; sourceTree = "<group>"; };
@@ -3093,14 +3093,6 @@
 			path = ReactiveCocoa;
 			sourceTree = "<group>";
 		};
-		1CBCC8393A467BE2E6C770DA6716E8E5 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				23B10353675BCA203A8D4E511106E8C6 /* Reveal.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		1F09A815D46DBAE49EFA4A602FA3918E /* ANBaseDomainModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -3207,6 +3199,14 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/SVProgressHUD";
+			sourceTree = "<group>";
+		};
+		2A7B8EAA3A4C61505A3733C387377A09 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				49D7B210F329188ACF543F6791DFABB5 /* Reveal.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		2D876EF25CC7E54132357F3B180EB250 /* Support Files */ = {
@@ -3319,7 +3319,7 @@
 		3B9CA195C4D3FE09CBF7745EDC87C172 /* Reveal-iOS-SDK */ = {
 			isa = PBXGroup;
 			children = (
-				1CBCC8393A467BE2E6C770DA6716E8E5 /* Frameworks */,
+				2A7B8EAA3A4C61505A3733C387377A09 /* Frameworks */,
 			);
 			path = "Reveal-iOS-SDK";
 			sourceTree = "<group>";

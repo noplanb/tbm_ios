@@ -91,7 +91,7 @@ PODS:
   - ReactiveCocoa/no-arc (2.4.7)
   - ReactiveCocoa/UI (2.4.7):
     - ReactiveCocoa/Core
-  - Reveal-iOS-SDK (1.6.0)
+  - Reveal-iOS-SDK (1.6.1)
   - Rollbar (0.1.5)
   - SDCAlertView (2.5.3):
     - RBBAnimation (~> 0.3)
@@ -129,7 +129,7 @@ DEPENDENCIES:
   - MSSPopMasonry (~> 0.0.1)
   - OBFileTransfer (~> 0.5.8)
   - OBLogger (~> 0.2.2)
-  - Reveal-iOS-SDK (~> 1.6)
+  - Reveal-iOS-SDK (~> 1.6.1)
   - Rollbar (~> 0.1.5)
   - SDCAlertView (~> 2.5.2)
   - SDCAutoLayout (~> 2.0.3)
@@ -169,7 +169,7 @@ SPEC CHECKSUMS:
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
   RBBAnimation: 4b2d66f6d993febce63cd564da934985313b9c59
   ReactiveCocoa: eb38dee0a0e698f73a9b25e5c1faea2bb4c79240
-  Reveal-iOS-SDK: 6afacafd60f66f2822c09c43ae60562881bfab6e
+  Reveal-iOS-SDK: ceae964076cebe3efe63e5e9abe3152efce46aa8
   Rollbar: 6b4be007d57f434cd48f7cce52862013c6bd64cb
   SDCAlertView: 7554e4e7ce1adbefbcc7374e7bae237dad32a8d8
   SDCAutoLayout: e6885bb39ab8e2ec2ff84d158f38035f025f7420

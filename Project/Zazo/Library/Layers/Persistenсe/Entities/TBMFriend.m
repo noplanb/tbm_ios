@@ -626,6 +626,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
     [[self _context] MR_saveToPersistentStoreAndWait];
 }
 
+
 #pragma mark - Update Friends Mkeys For Unlock Features
 
 + (void)updateUnlockFeatureWithMkeys:(NSArray*)mkeys

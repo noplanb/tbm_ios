@@ -95,8 +95,12 @@
     
     return [[self loadValueWithKey1:key] map:^id(id value) {
         
-        NSString *valueJson = value[ZZRemoteStorageParameters.value];
-        return [ZZStringUtils dictionaryWithJson:valueJson];
+        if ([value isKindOfClass:[NSDictionary class]])
+        {
+            NSString *valueJson = value[ZZRemoteStorageParameters.value];
+            return [ZZStringUtils dictionaryWithJson:valueJson];
+        }
+        return nil;
     }];
 }
 
@@ -109,10 +113,6 @@
         {
             id value = object[ZZRemoteStorageParameters.value];
             return [value componentsSeparatedByString:kRemoteStorageArraySeparator];
-        }
-        else
-        {
-            NSAssert(NO, @"something wrong with result type");
         }
         return nil;
     }];
@@ -174,7 +174,9 @@
 {
     if (!ANIsEmpty(key1))
     {
-        return [ZZRemoteStorageTransport loadKeyValueWithParameters:@{ZZRemoteStorageParameters.key1 : key1}];
+        return [[ZZRemoteStorageTransport loadKeyValueWithParameters:@{ZZRemoteStorageParameters.key1 : key1}] map:^id(NSArray* value) {
+            return [value firstObject];
+        }];
     }
     return [RACSignal error:nil];
 }
