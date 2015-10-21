@@ -41,6 +41,7 @@ static CGFloat const kThumbnailBorderWidth = 2;
     ANDispatchBlockToMainQueue(^{
         [super updateWithModel:model];
         [self _setupThumbnailWithModel:model];
+        [self _configureGreenBorderIfNeededWithModel:model];
         self.userNameLabel.hidden = NO;
     });
 }
@@ -56,9 +57,7 @@ static CGFloat const kThumbnailBorderWidth = 2;
     {
         self.thumbnailImageView.contentMode = UIViewContentModeCenter;
         self.thumbnailImageView.backgroundColor = [ZZColorTheme shared].gridStatusViewThumbnailDefaultColor;
-        CGSize size = CGSizeMake(40, 40);
-        thumbImage = [[UIImage imageWithPDFNamed:@"contacts-placeholder" atSize:size]
-                      an_imageByTintingWithColor:[ZZColorTheme shared].gridStatusViewThumnailZColor];
+        thumbImage = [model thumbnailPlaceholderImage];
     }
     else
     {
@@ -67,9 +66,11 @@ static CGFloat const kThumbnailBorderWidth = 2;
     }
     
     self.thumbnailImageView.image = thumbImage;
-    
-    if ([model.badgeNumber integerValue] > 0
-        && self.model.item.relatedUser.lastIncomingVideoStatus != INCOMING_VIDEO_STATUS_DOWNLOADING)
+}
+
+- (void)_configureGreenBorderIfNeededWithModel:(ZZGridCellViewModel*)model
+{
+    if (model.state & ZZGridCellViewModelStateNeedToShowGreenBorder)
     {
         [self _showThumbnailGreenBorder];
     }
@@ -77,8 +78,6 @@ static CGFloat const kThumbnailBorderWidth = 2;
     {
         [self _hideThumbnailGreenBorder];
     }
-    
-    
 }
 
 - (void)_showThumbnailGreenBorder

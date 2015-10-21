@@ -33,17 +33,14 @@
         [self downloadBarView];
         [self videoCountLabel];
         [self videoViewedView];
-
     }
     
     return self;
 }
 
-
 - (void)updateWithModel:(ZZGridCellViewModel*)model
 {
     [super updateWithModel:model];
-    
 }
 
 

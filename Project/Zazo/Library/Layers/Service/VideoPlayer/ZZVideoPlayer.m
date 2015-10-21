@@ -149,7 +149,7 @@
         self.playedFriend.isVideoStopped = YES;
         [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL
                                     withPlayedUserModel:self.playedFriend];
-        
+        self.playedFriend = nil;
         [UIDevice currentDevice].proximityMonitoringEnabled = NO;
     }
 }
@@ -259,8 +259,9 @@
         self.isPlayingVideo = NO;
         [self.delegate videoPlayerURLWasFinishedPlaying:lastVideo.videoUrl withPlayedUserModel:self.playedFriend];
         [self.moviePlayerController.view removeFromSuperview];
-        
+        self.playedFriend = nil;
         [UIDevice currentDevice].proximityMonitoringEnabled = NO;
+        
     }
     
     if (nextUrl)
@@ -303,10 +304,13 @@
     
     if (!ANIsEmpty(lastVideo))
     {
-        [self.playedVideoUrls addObject:lastVideo.videoUrl];
-        
-        [videoModelsCopy addObject:lastVideoModel];
-        self.videoModelsArray = videoModelsCopy;
+        if (![self.playedVideoUrls containsObject:lastVideo.videoUrl])
+        {
+            [self.playedVideoUrls addObject:lastVideo.videoUrl];
+            
+            [videoModelsCopy addObject:lastVideoModel];
+            self.videoModelsArray = videoModelsCopy;
+        }
     }
 }
 

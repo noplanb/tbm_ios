@@ -10,6 +10,7 @@
 
 
 typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys) {
+    ZZFeatureUnlockNone = 0,
     ZZFeatureUnlockBothCameraKey = 2,
     ZZFeatureUnlockAbortRecordingKey,
     ZZFeatureUnlockDeleteFriendskey,
@@ -91,7 +92,7 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys) {
 - (void)updateFeatureUnlockIdsWithModel:(ZZGridCellViewModel*)model
 {
     NSArray* userIdsArray = [[NSUserDefaults standardUserDefaults] objectForKey:kUsersIdsArrayKey];
-    if (!userIdsArray)
+    if (!userIdsArray && !ANIsEmpty(model.item.relatedUser))
     {
         userIdsArray = @[model.item.relatedUser.mKey];
         [[NSUserDefaults standardUserDefaults] setObject:userIdsArray forKey:kUsersIdsArrayKey];
@@ -151,16 +152,18 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys) {
     
     NSDictionary* configurationDictionary = [self _unlockFeaturesConfigurationDictionary];
     
-    if (mkeys.count <= ZZFeatureUnlockSpinWheelKey)
+    NSInteger unlockType = mkeys.count <= ZZFeatureUnlockSpinWheelKey ? mkeys.count : ZZFeatureUnlockSpinWheelKey;
+    
+    if (unlockType != ZZFeatureUnlockNone)
     {
-        NSArray* unlockFeaturesKeys = [configurationDictionary objectForKey:@(mkeys.count)];
+        NSArray* unlockFeaturesKeys = [configurationDictionary objectForKey:@(unlockType)];
         
         if (!ANIsEmpty(unlockFeaturesKeys))
         {
             [unlockFeaturesKeys enumerateObjectsUsingBlock:^(NSString*  _Nonnull propertyKey, NSUInteger idx, BOOL * _Nonnull stop) {
                 [[ZZGridActionStoredSettings shared] setValue:@(YES) forKey:propertyKey];
             }];
-            [self _showLastUnlockFeatureDialogAfterRemoteUpdateWithMkeys:mkeys withLastUnlockFeatureKey:[unlockFeaturesKeys lastObject]];
+//            [self _showLastUnlockFeatureDialogAfterRemoteUpdateWithMkeys:mkeys withLastUnlockFeatureKey:[unlockFeaturesKeys lastObject]];
         }
     }
 }
@@ -191,6 +194,8 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys) {
               };
 }
 
+
+// if needed to show last unlock feature after remote update, now turn off.
 - (void)_showLastUnlockFeatureDialogAfterRemoteUpdateWithMkeys:(NSArray*)mkeys
                                       withLastUnlockFeatureKey:(NSString*)lastFeaturekey
 {

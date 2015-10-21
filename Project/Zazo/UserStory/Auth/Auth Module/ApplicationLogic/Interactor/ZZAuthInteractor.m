@@ -41,9 +41,9 @@
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
     
 #ifdef DEBUG_LOGIN_USER
-    user.firstName = @"Dfff-fff";
-    user.lastName = @"fff-fff";
-    user.mobileNumber = @"+380974730080";
+    user.firstName = @"Dmmm";
+    user.lastName = @"mmm";
+    user.mobileNumber = @"+380950472355";
 #endif
     
     if (!ANIsEmpty(user.mobileNumber))
@@ -105,6 +105,11 @@
         ZZUserDomainModel *user = [FEMObjectDeserializer deserializeObjectExternalRepresentation:x
                                                                                     usingMapping:[ZZUserDomainModel mapping]];
         user.isRegistered = YES;
+        
+        NSString* mobilePhone = [x objectForKey:@"mobile_number"];
+        [ZZStoredSettingsManager shared].mobileNumber = mobilePhone;
+        
+        
         [ZZUserDataProvider upsertUserWithModel:user];
         
         [[ZZRollbarAdapter shared] updateUserFullName:[user fullName] phone:user.mobileNumber itemID:user.idTbm];
@@ -181,7 +186,7 @@
         
         NSString *auth = [authKeys objectForKey:@"auth"];
         NSString *mkey = [authKeys objectForKey:@"mkey"];
-        
+
         [ZZStoredSettingsManager shared].userID = mkey;
         [ZZStoredSettingsManager shared].authToken = auth;
         
@@ -307,11 +312,9 @@
 - (void)gotFriends:(NSArray *)friends
 {
     ANDispatchBlockToBackgroundQueue(^{
-        for (NSDictionary *fParams in friends)
+        for (ZZFriendDomainModel *friend in friends)
         {
-            ZZFriendDomainModel* model = [FEMObjectDeserializer deserializeObjectExternalRepresentation:fParams
-                                                                                           usingMapping:[ZZFriendDomainModel mapping]];
-            [ZZFriendDataUpdater upsertFriend:model];
+            [ZZFriendDataUpdater upsertFriend:friend];
         }
     });
 }
@@ -321,8 +324,8 @@
     NSArray *sorted = [self sortedFriendsByCreatedOn:friends];
     if (sorted)
     {
-        NSDictionary *firstFriend = sorted.firstObject;
-        NSString *firstFriendCreatorMkey = firstFriend[@"connection_creator_mkey"];
+        ZZFriendDomainModel *firstFriend = sorted.firstObject;
+        NSString *firstFriendCreatorMkey = firstFriend.friendshipCreatorMkey;
         ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
         NSString *myMkey = user.mkey;
         user.isInvitee = ![firstFriendCreatorMkey isEqualToString:myMkey];

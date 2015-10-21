@@ -32,7 +32,8 @@
     ZZVideoPlayerDelegate,
     ZZVideoRecorderDelegate,
     ZZGridActionHanlderDelegate,
-    TBMTableModalDelegate
+    TBMTableModalDelegate,
+    ZZVideoRecorderInterfaceDelegate
 >
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
@@ -62,6 +63,7 @@
     [self.interactor loadData];
     
     [[ZZVideoRecorder shared] addDelegate:self];
+    [ZZVideoRecorder shared].interfaceDelegate = self;
 }
 
 - (void)attachToMenuPanGesture:(UIPanGestureRecognizer*)pan
@@ -88,6 +90,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_reloadDataAfterResetAllUserDataNotification)
                                                  name:kResetAllUserDataNotificationKey object:nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_updateRecorderAfterCall)
+                                                 name:kNotificationCallDicline object:nil];
+    
 }
 
 - (void)dealloc
@@ -98,6 +106,14 @@
 
 
 #pragma mark - Notifications
+
+- (void)_updateRecorderAfterCall
+{
+    ANDispatchBlockToMainQueue(^{
+        [[ZZVideoRecorder shared] updateRecordView:[self.dataSource centerViewModel].recordView];
+        [[ZZVideoRecorder shared] updateRecorder];
+    });
+}
 
 - (void)_reloadDataAfterResetAllUserDataNotification
 {
@@ -150,7 +166,10 @@
         {
             CGFloat delayAfterDownloadAnimationCompleted = 1.6f;
             ANDispatchBlockAfter(delayAfterDownloadAnimationCompleted, ^{
-                [self.soundPlayer play];
+                if (!self.videoPlayer.isPlayingVideo)
+                {
+                    [self.soundPlayer play];
+                }
             });
         }
     }
@@ -185,8 +204,7 @@
 {
     BOOL isAbleUpdte = YES;
     
-    if (self.videoPlayer.isPlayingVideo &&
-        [[self.videoPlayer playedFriendModel].idTbm isEqualToString:model.relatedUser.idTbm])
+    if ([[self.videoPlayer playedFriendModel].idTbm isEqualToString:model.relatedUser.idTbm])
     {
         if (model.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED)
         {
@@ -355,7 +373,7 @@
 
 - (BOOL)isVideoPlaying
 {
-    return [self.videoPlayer isPlaying];
+    return self.videoPlayer.isPlayingVideo;
 }
 
 - (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel*)userModel
@@ -522,6 +540,10 @@
     return _soundPlayer;
 }
 
+- (UIView *)recordingView
+{
+    return [self.dataSource centerViewModel].recordView;
+}
 
 #pragma mark - Action Handler Delegate
 

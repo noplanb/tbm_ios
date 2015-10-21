@@ -26,6 +26,7 @@
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
 @property (nonatomic, strong) UILongPressGestureRecognizer* recordRecognizer;
 @property (nonatomic, strong) NSMutableSet* recognizers;
+@property (nonatomic, assign) CGPoint initialRecordPoint;
 
 @end
 
@@ -86,33 +87,82 @@
 
 - (ZZGridCellViewModelState)state
 {
-    if (self.item.relatedUser.hasApp && self.hasDownloadedVideo)
+    ZZGridCellViewModelState modelState = ZZGridCellViewModelStateNone;
+    
+    if (!self.item.relatedUser)
     {
-        return ZZGridCellViewModelStateIncomingVideoNotViewed;
+        modelState = ZZGridCellViewModelStateAdd;
     }
-    else if (!self.item.relatedUser)
+    else if ((self.item.relatedUser.hasApp && self.hasDownloadedVideo) ||
+             self.item.relatedUser.videos.count > 0)
     {
-        return ZZGridCellViewModelStateAdd;
-    }
-    else if (self.item.relatedUser.videos.count > 0)
-    {
-        return ZZGridCellViewModelStateIncomingVideoNotViewed;
+        modelState = ZZGridCellViewModelStatePreview;
     }
     else if (self.item.relatedUser.hasApp)
     {
-        return ZZGridCellViewModelStateFriendHasApp;
+        modelState = ZZGridCellViewModelStateFriendHasApp;
     }
-    else if (!self.item.relatedUser.hasApp)
+    else if (!ANIsEmpty(self.item.relatedUser) && !self.item.relatedUser.hasApp)
     {
-        return ZZGridCellViewModelStateFriendHasNoApp;
+        modelState = ZZGridCellViewModelStateFriendHasNoApp;
     }
     
-    if ((self.item.relatedUser.videos.count == 0) && self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
-    {
-        return ZZGridCellViewModelStateFriendHasApp;
-    }
-    return 0;
+    
+    modelState = [self _additionalModelStateWithState:modelState];
+    
+    
+    return modelState;
 }
+
+- (ZZGridCellViewModelState)_additionalModelStateWithState:(ZZGridCellViewModelState)state
+{
+    ZZGridCellViewModelState stateWithAdditionalState = state;
+    
+    if (self.hasUploadedVideo &&
+        !self.isUploadedVideoViewed &&
+        self.item.relatedUser.lastVideoStatusEventType != ZZVideoStatusEventTypeIncoming)
+    {
+        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoWasUploaded);
+    }
+    else if (self.isUploadedVideoViewed &&
+        self.item.relatedUser.lastVideoStatusEventType != INCOMING_VIDEO_STATUS_EVENT_TYPE)
+    {
+        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoWasViewed);
+    }
+    else if (self.item.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
+             self.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING &&
+             self.item.relatedUser.unviewedCount > 0)
+    {
+        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoDownloading);
+    }
+    else if (self.item.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
+             self.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED &&
+             !self.item.isDownloadAnimationViewed)
+    {
+        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoDownloaded);
+    }
+    
+    // green border state
+    if ([self.badgeNumber integerValue] > 0
+             && self.item.relatedUser.lastIncomingVideoStatus != INCOMING_VIDEO_STATUS_DOWNLOADING)
+    {
+        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateNeedToShowGreenBorder);
+    }
+    
+    // badge state
+    if ([self.badgeNumber integerValue] == 1
+        && self.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED)
+    {
+        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoDownloadedAndVideoCountOne);
+    }
+    else if ([self.badgeNumber integerValue] > 1)
+    {
+        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoCountMoreThatOne);
+    }
+    
+    return stateWithAdditionalState;
+}
+
 
 - (void)updateVideoPlayingStateTo:(BOOL)isPlaying
 {
@@ -153,9 +203,20 @@
     return [self _videoThumbnail];
 }
 
+
+#pragma mark - Video Thumbnail
+
 - (UIImage *)videoThumbnailImage
 {
     return [self _videoThumbnail];
+}
+
+- (UIImage*)thumbnailPlaceholderImage
+{
+    CGSize size = CGSizeMake(40, 40);
+    UIImage* image = [[UIImage imageWithPDFNamed:@"contacts-placeholder" atSize:size]
+                      an_imageByTintingWithColor:[ZZColorTheme shared].gridStatusViewThumnailZColor];
+    return image;
 }
 
 - (void)setBadgeNumber:(NSNumber *)badgeNumber
@@ -216,6 +277,8 @@
         
         if (recognizer.state == UIGestureRecognizerStateBegan)
         {
+            self.initialRecordPoint = [recognizer locationInView:recognizer.view];
+            
             [self updateRecordingStateTo:YES withCompletionBlock:^(BOOL isRecordingSuccess) {
                 if (isRecordingSuccess)
                 {
@@ -227,6 +290,7 @@
         }
         else if (recognizer.state == UIGestureRecognizerStateEnded)
         {
+            self.initialRecordPoint = CGPointZero;
             [self _stopVideoRecording];
         }
 }
@@ -249,14 +313,16 @@
     if ([ZZGridActionStoredSettings shared].abortRecordHintWasShown)
     {
         
-        CGFloat kAddedPadding = 50;
+        CGFloat addTouchBounds = 80;
         UIView* recordView = recognizer.view;
-        CGRect observeFrame = CGRectMake((recognizer.view.frame.origin.x - kAddedPadding),
-                                         (recognizer.view.frame.origin.y - kAddedPadding),
-                                         (CGRectGetWidth(recognizer.view.frame) + kAddedPadding),
-                                         (CGRectGetHeight(recognizer.view.frame)+ kAddedPadding));
         
         CGPoint location = [recognizer locationInView:recordView];
+        
+        CGRect observeFrame = CGRectMake(self.initialRecordPoint.x - addTouchBounds,
+                                         self.initialRecordPoint.y - addTouchBounds,
+                                         (addTouchBounds * 2),
+                                         (addTouchBounds * 2));
+        
         if (!CGRectContainsPoint(observeFrame,location))
         {
             [[ZZVideoRecorder shared] cancelRecordingWithReason:NSLocalizedString(@"record-dragged-finger-away", nil)];
@@ -292,7 +358,7 @@
 {
     BOOL isEnbaled = YES;
     
-    if (([self.item.relatedUser.videos count] == 1) &&
+    if ((self.item.relatedUser.unviewedCount == 1) &&
         self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
     {
         isEnbaled = NO;
@@ -300,6 +366,11 @@
     }
     
     return isEnbaled;
+}
+
+- (BOOL)isVideoPlayed
+{
+    return [self.delegate isVideoPlaying];;
 }
 
 - (void)_showMessage:(NSString*)message

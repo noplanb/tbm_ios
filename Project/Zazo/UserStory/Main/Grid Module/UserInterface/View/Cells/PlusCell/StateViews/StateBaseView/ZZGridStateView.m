@@ -41,10 +41,7 @@
         self.model = model;
         
         // upload video animation
-        
-        if (self.model.hasUploadedVideo &&
-            !self.model.isUploadedVideoViewed &&
-            self.model.item.relatedUser.lastVideoStatusEventType != ZZVideoStatusEventTypeIncoming)
+        if (self.model.state & ZZGridCellViewModelStateVideoWasUploaded)
         {
             [self showUploadIconWithoutAnimation];
         }
@@ -52,8 +49,7 @@
         model.playerContainerView = self;
         
         // Upload video was viewed
-        if (self.model.isUploadedVideoViewed &&
-            self.model.item.relatedUser.lastVideoStatusEventType != INCOMING_VIDEO_STATUS_EVENT_TYPE)
+        if (self.model.state & ZZGridCellViewModelStateVideoWasViewed)
         {
             [self hideAllAnimationViews];
             self.videoViewedView.hidden = NO;
@@ -72,18 +68,13 @@
 
 - (void)_setupDownloadAnimationsWithModel:(ZZGridCellViewModel*)model
 {
-    if (self.model.item.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
-        self.model.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADING &&
-        self.model.item.relatedUser.unviewedCount > 0)
+    if (self.model.state & ZZGridCellViewModelStateVideoDownloading)
     {
         [self _setupBadgeWithModel:model];
         [self _setupDownloadingState];
     }
-    else if (self.model.item.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
-             self.model.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED &&
-             !self.model.item.isDownloadAnimationViewed)
+    else if (self.model.state & ZZGridCellViewModelStateVideoDownloaded)
     {
-        
         [self _setupDownloadedStateWithModel:model];
     }
     else
@@ -113,14 +104,14 @@
 - (void)_setupBadgeWithModel:(ZZGridCellViewModel*)model
 {
     [self hideDownloadViews];
-    if ([model.badgeNumber integerValue] == 1
-        && model.item.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED)
+    
+    if (model.state & ZZGridCellViewModelStateVideoDownloadedAndVideoCountOne)
     {
         self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
         self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
         [self updateBadgeWithNumber:model.badgeNumber];
     }
-    else if ([model.badgeNumber integerValue] > 1)
+    else if (model.state & ZZGridCellViewModelStateVideoCountMoreThatOne)
     {
         self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
         self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;

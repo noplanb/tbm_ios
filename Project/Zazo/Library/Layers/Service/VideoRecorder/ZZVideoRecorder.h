@@ -6,6 +6,13 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
+@protocol ZZVideoRecorderInterfaceDelegate <NSObject>
+
+- (UIView*)recordingView;
+
+@end
+
+
 @protocol ZZVideoRecorderDelegate <NSObject>
 
 - (void)videoRecordingCanceled;
@@ -25,6 +32,7 @@ extern NSString* const TBMVideoRecorderDidFail;
 @property (nonatomic, assign) BOOL isRecorderActive;
 @property (nonatomic, assign) BOOL isRecordingInProgress;
 @property (nonatomic, assign) BOOL wasRecordingStopped;
+@property (nonatomic, weak) id <ZZVideoRecorderInterfaceDelegate> interfaceDelegate;
 
 + (instancetype)shared;
 
