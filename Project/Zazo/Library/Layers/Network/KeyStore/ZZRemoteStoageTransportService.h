@@ -8,25 +8,33 @@
 
 #import "ZZRemoteStorageConstants.h"
 
-@class TBMFriend;
-
 @interface ZZRemoteStoageTransportService : NSObject
 
 
 #pragma mark - Videos
 
-+ (RACSignal*)addRemoteOutgoingVideoWithItemID:(NSString*)itemID friend:(TBMFriend*)friend;
-+ (RACSignal*)deleteRemoteIncomingVideoWithItemID:(NSString*)itemID friend:(TBMFriend*)friend;
++ (RACSignal*)addRemoteOutgoingVideoWithItemID:(NSString*)itemID
+                                    friendMkey:(NSString*)friendMkey
+                                    friendCKey:(NSString*)friendCKey;
+
++ (RACSignal*)deleteRemoteIncomingVideoWithItemID:(NSString*)itemID
+                                       friendMkey:(NSString*)friendMkey
+                                       friendCKey:(NSString*)friendCKey;
 
 + (RACSignal*)updateRemoteStatusForVideoWithItemID:(NSString*)itemID
                                           toStatus:(ZZRemoteStorageVideoStatus)status
-                                            friend:(TBMFriend*)friend;
+                                        friendMkey:(NSString*)friendMkey
+                                        friendCKey:(NSString*)friendCKey;
 
 
 #pragma mark - Load
 
-+ (RACSignal*)loadRemoteIncomingVideoIDsWithFriend:(TBMFriend*)friend;
-+ (RACSignal*)loadRemoteOutgoingVideoStatusForFriend:(TBMFriend*)friend;
++ (RACSignal*)loadRemoteIncomingVideoIDsWithFriendMkey:(NSString*)friendMkey
+                                            friendCKey:(NSString*)friendCKey;
+
++ (RACSignal*)loadRemoteOutgoingVideoStatusForFriendMkey:(NSString*)friendMkey
+                                              friendCKey:(NSString*)friendCKey;
+
 + (RACSignal*)loadRemoteEverSentFriendsIDsForUserMkey:(NSString*)mKey;
 
 

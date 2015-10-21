@@ -9,7 +9,6 @@
 
 #import "TBMFriend.h"
 #import "TBMAppDelegate.h"
-#import "TBMAppDelegate+PushNotification.h"
 #import "TBMVideoIdUtils.h"
 #import "OBLogger.h"
 #import "TBMUser.h"
@@ -592,7 +591,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (void)handleUploadRetryCount:(NSInteger)retryCount videoId:(NSString *)videoId
 {
-    [self setAndNotifyUploadRetryCount:retryCount videoId:(NSString *) videoId];
+    [self setAndNotifyUploadRetryCount:retryCount videoId:videoId];
 }
 
 - (NSString *)fullName

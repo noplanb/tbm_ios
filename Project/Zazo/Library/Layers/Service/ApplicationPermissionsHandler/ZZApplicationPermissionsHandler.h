@@ -6,8 +6,10 @@
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface ZZApplicationPermissionsHandler : NSObject
+
++ (RACSignal*)checkApplicationPermissions;
+
++ (void)showUserDeclinedPushAccessAlert;
 
 @end

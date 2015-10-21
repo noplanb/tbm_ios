@@ -17,39 +17,79 @@
 
 @implementation ZZAppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+void (^_completionHandler)(UIBackgroundFetchResult);
+
+- (BOOL)application:(UIApplication*)app didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    [self.appDependencies initialApplicationSetup:application launchOptions:launchOptions];
+    [self.appDependencies initialApplicationSetup:app launchOptions:launchOptions];
     [self.appDependencies installRootViewControllerIntoWindow:self.window];
-    [self.appDependencies installAppDependences];
     
     [self.window makeKeyAndVisible];
-
+    OB_INFO(@"didFinishLaunchingWithOptions:");
     return YES;
 }
 
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+- (void)applicationWillResignActive:(UIApplication*)app
 {
-    [self.appDependencies handleApplication:application didRegisterUserNotificationSettings:notificationSettings];
+    [self.appDependencies handleWillResignActive];
+    OB_INFO(@"applicationWillResignActive");
+}
+
+- (void)applicationWillEnterForeground:(UIApplication*)app
+{
+    [self.appDependencies handleApplicationWillEnterForeground];
+    OB_INFO(@"applicationWillEnterForeground");
+}
+
+- (void)applicationDidBecomeActive:(UIApplication*)app
+{
+    OB_INFO(@"applicationDidBecomeActive");
+    [self.appDependencies handleApplicationDidBecomeActive];
+}
+
+- (void)applicationWillTerminate:(UIApplication*)app
+{
+    OB_INFO(@"applicationWillTerminate: backgroundTimeRemaining = %f",
+            [[UIApplication sharedApplication] backgroundTimeRemaining]);
+
+    [self.appDependencies handleApplicationWillTerminate];
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    [self.appDependencies handleApplicationDidEnterInBackground];
 }
 
 
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+#pragma mark - Background
+
+- (void)application:(UIApplication*)app handleEventsForBackgroundURLSession:(NSString*)identifier
+                                                completionHandler:(void (^)())completionHandler
 {
-    [self.appDependencies handleApplicationDidFailToRegisterForRemoteNotifications];
+    [self.appDependencies handleBackgroundSessionWithIdentifier:identifier completionHandler:completionHandler];
 }
 
-#pragma mark -  Handle Incoming Notifications
 
-void (^_completionHandler)(UIBackgroundFetchResult);
+#pragma mark - Notifications
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
                                                        fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     
-    [self.appDependencies handleApplication:application didRecievePushNotification:userInfo];
+    [self.appDependencies handlePushNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
+}
+
+- (void)application:(UIApplication *)app didRegisterUserNotificationSettings:(UIUserNotificationSettings *)settings
+{
+    [self.appDependencies handleNotificationSettings:settings];
+}
+
+
+- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    [self.appDependencies handleApplicationDidFailToRegisterForRemoteNotifications];
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
@@ -57,10 +97,13 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     [self.appDependencies handleApplicationDidRegisterForPushWithToken:deviceToken];
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+- (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
 {
-    [self.appDependencies handleApplication:application didRecievePushNotification:userInfo];
+    [self.appDependencies handlePushNotification:userInfo];
 }
+
+
+#pragma mark - External
 
 - (BOOL)application:(UIApplication*)application
             openURL:(NSURL*)url
@@ -69,24 +112,6 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 {
     return [self.appDependencies handleOpenURL:url inApplication:sourceApplication];
 }
-
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    [self.appDependencies handleApplicationDidBecomeActive];
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-    [self.appDependencies handleApplicationWillTerminate];
-}
-
-
-
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-    [self.appDependencies handleApplicationDidEnterInBackground];
-}
-
 
 
 #pragma mark - Private

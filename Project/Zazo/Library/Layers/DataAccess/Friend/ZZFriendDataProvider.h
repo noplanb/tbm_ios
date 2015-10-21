@@ -30,7 +30,7 @@
 #pragma mark - Entities
 
 + (TBMFriend*)friendEntityWithItemID:(NSString*)itemID;
-
++ (BOOL)isFriendExistsWithItemID:(NSString*)itemID;
 
 #pragma mark - CRUD
 

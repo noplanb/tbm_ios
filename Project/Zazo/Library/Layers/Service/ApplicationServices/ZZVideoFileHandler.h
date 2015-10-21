@@ -23,4 +23,16 @@
 
 @property (nonatomic, weak) id<ZZVideoFileHandlerDelegate> delegate;
 
+
+- (void)handleBackgroundSessionWithIdentifier:(NSString*)identifier completionHandler:(ANCodeBlock)completionHandler;
+- (void)queueDownloadWithFriendID:(NSString*)friendID videoId:(NSString *)videoId;
+
+
+
+#pragma mark - Upload
+
+- (void)uploadWithVideoUrl:(NSURL*)videoUrl friendCKey:(NSString*)friendCKey;
+
+
+
 @end

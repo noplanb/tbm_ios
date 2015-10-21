@@ -110,7 +110,7 @@
         
         self.moviePlayerController.view.frame = view.bounds;
         [view addSubview:self.moviePlayerController.view];
-       
+        
         [self.moviePlayerController play]; // TODO: cleanup this.Have only one entry point to play video and update this flags
         [ZZGridActionStoredSettings shared].incomingVideoWasPlayed = YES;
         [self.delegate videoPlayerURLWasStartPlaying:viewedVideo.videoUrl];
@@ -123,8 +123,9 @@
         [friend setViewedWithIncomingVideo:viewedVideo];
         
         [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoId
-                                                                 toStatus:ZZRemoteStorageVideoStatusViewed
-                                                                   friend:friend] subscribeNext:^(id x) {}];
+                                                                     toStatus:ZZRemoteStorageVideoStatusViewed
+                                                                   friendMkey:friend.mkey
+                                                                   friendCKey:friend.ckey] subscribeNext:^(id x) {}];
     }
 }
 
@@ -276,8 +277,9 @@
         [friend setViewedWithIncomingVideo:viewedVideo];
         
         [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoId
-                                                                 toStatus:ZZRemoteStorageVideoStatusViewed
-                                                                   friend:friend] subscribeNext:^(id x) {}];
+                                                                     toStatus:ZZRemoteStorageVideoStatusViewed
+                                                                   friendMkey:friend.mkey
+                                                                   friendCKey:friend.ckey] subscribeNext:^(id x) {}];
         
         [self.delegate videoPlayerURLWasStartPlaying:nextUrl]; //TODO: this causes blinking. reload only after full stop
         

@@ -13,7 +13,6 @@
 #import "ZZFriendDomainModel.h"
 #import "ZZVideoProcessor.h"
 #import "ZZGridCellViewModel.h"
-#import "TBMAppDelegate+AppSync.h"
 #import "ZZGridCenterCell.h"
 #import "ZZGridUIConstants.h"
 #import "TBMVideoProcessor.h"

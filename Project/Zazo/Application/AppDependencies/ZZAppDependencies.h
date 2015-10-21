@@ -10,21 +10,36 @@
 
 - (void)initialApplicationSetup:(UIApplication *)application launchOptions:(NSDictionary*)options;
 
+
+#pragma mark - Application States
+
 - (void)handleWillResignActive;
-- (BOOL)handleOpenURL:(NSURL*)url inApplication:(NSString*)application;
 - (void)handleApplicationDidBecomeActive;
 - (void)handleApplicationWillTerminate;
 - (void)handleApplicationDidEnterInBackground;
+- (void)handleApplicationWillEnterForeground;
+
+#pragma mark - Open External URL
+
+- (BOOL)handleOpenURL:(NSURL*)url inApplication:(NSString*)application;
+
+
+#pragma mark - Notifications
 
 - (void)handleApplicationDidRegisterForPushWithToken:(NSData*)token;
-- (void)handleApplication:(UIApplication*)application didRecievePushNotification:(NSDictionary*)userInfo;
-
-- (void)handleApplication:(UIApplication *)application
-didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings;
+- (void)handlePushNotification:(NSDictionary*)userInfo;
+- (void)handleNotificationSettings:(UIUserNotificationSettings*)settings;
 
 - (void)handleApplicationDidFailToRegisterForRemoteNotifications;
 
+
+#pragma mark - UI
+
 - (void)installRootViewControllerIntoWindow:(UIWindow *)window;
-- (void)installAppDependences;
+
+
+#pragma mark - Background
+
+- (void)handleBackgroundSessionWithIdentifier:(NSString*)identifier completionHandler:(ANCodeBlock)completionHandler;
 
 @end

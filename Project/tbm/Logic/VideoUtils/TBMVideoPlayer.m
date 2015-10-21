@@ -248,8 +248,9 @@
     // Set viewed even if the video is not playable so that it gets deleted eventually.
     [self.gridElement.friend setViewedWithIncomingVideo:self.video];
     [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:self.video.videoId
-                                                            toStatus:ZZRemoteStorageVideoStatusViewed
-                                                              friend:self.gridElement.friend] subscribeNext:^(id x) {}];
+                                                                 toStatus:ZZRemoteStorageVideoStatusViewed
+                                                               friendMkey:self.gridElement.friend.mkey
+                                                               friendCKey:self.gridElement.friend.ckey] subscribeNext:^(id x) {}];
     
     
     if ([self.video hasValidVideoFile]){

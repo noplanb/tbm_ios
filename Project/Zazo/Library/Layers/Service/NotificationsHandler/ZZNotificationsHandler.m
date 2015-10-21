@@ -12,6 +12,9 @@
 #import "ZZNotificationDomainModel.h"
 #import "FEMObjectDeserializer.h"
 #import "ZZUserDataProvider.h"
+#import "TBMVideo.h"
+#import "ZZFriendDataProvider.h"
+#import "ZZApplicationPermissionsHandler.h"
 
 @interface ZZNotificationsHandler ()
 
@@ -81,7 +84,7 @@
     }
     else
     {
-        [self _onFailPushAccess];
+        [ZZApplicationPermissionsHandler showUserDeclinedPushAccessAlert];
     }
 }
 
@@ -89,6 +92,7 @@
 {
     UIUserNotificationType allowedTypes = [settings types];
     OB_INFO(@"didRegisterUserNotificationSettings: allowedTypes = %lu", (unsigned long)allowedTypes);
+    
     self.notificationAllowedTypes = allowedTypes;
     [[UIApplication sharedApplication] registerForRemoteNotifications];
 }
@@ -96,7 +100,7 @@
 - (void)applicationDidFailToRegisterWithError:(NSError *)error
 {
     OB_ERROR(@"ERROR: didFailToRegisterForRemoteNotificationsWithError: %@", error);
-    [self _onFailPushAccess];
+    [ZZApplicationPermissionsHandler showUserDeclinedPushAccessAlert];
 }
 
 #pragma mark - Private
@@ -112,36 +116,6 @@
     } error:^(NSError *error) {
         OB_WARN(@"notification/push_token: %@", error);
     }];
-}
-
-
-- (void)_onFailPushAccess
-{
-    OB_INFO(@"BOOT: Push access not granted");
-    if (self.isPushAlreadyFailed)
-    {
-        return;
-    }
-    self.isPushAlreadyFailed = YES;
-    OB_INFO(@"onFailPushAccess");
-    
-    //TODO: more to user interface delegate
-    
-//    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
-//    NSString *closeBtn = [NSString stringWithFormat:@"Close %@", appName];
-//    NSString *msg = @"You must grant permission for NOTIFICATIONS."
-//    " Go your device home screen. "
-//    "Click Settings/Zazo and allow notifications for Zazo. "
-//    "Zazo is a messaging app and requires notifications to operate.";
-//    
-//    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"Need Permission" message:msg];
-//    
-//    [alert addAction:[SDCAlertAction actionWithTitle:closeBtn style:SDCAlertActionStyleDefault
-//                                             handler:^(SDCAlertAction *action) {
-//                                                 exit(0);
-//                                             }]];
-//    
-//    [alert presentWithCompletion:nil];
 }
 
 - (BOOL)_isIOS8OrHigher
@@ -187,10 +161,9 @@
     }
 }
 
-- (void)handlePushNotification:(NSDictionary *)userInfo
+- (void)handlePushNotification:(NSDictionary*)userInfo
 {
     OB_INFO(@"didReceiveRemoteNotification:fetchCompletionHandler %@", userInfo);
-//    self.pushVideoID = [userInfo objectForKey:@"video_id"]; // TODO: it's unused
     [self.delegate requestBackground];
     
     if ([ZZUserDataProvider authenticatedUser].isRegistered)
@@ -229,107 +202,25 @@
     return [userInfo[NOTIFICATION_TYPE_KEY] isEqualToString:NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE];
 }
 
-- (void)handleVideoReceivedNotification:(NSDictionary *)userInfo {
+- (void)handleVideoReceivedNotification:(NSDictionary*)userInfo
+{
     OB_INFO(@"handleVideoReceivedNotification:");
-    NSString *videoId = [self videoIdWithUserInfo:userInfo];
-    NSString *mkey = userInfo[NOTIFICATION_FROM_MKEY_KEY];
-    TBMFriend *friend = [TBMFriend findWithMkey:mkey];
     
-    if (friend == nil)
-    {
-        OB_INFO(@"handleVideoReceivedNotification: got notification for non existant friend. calling getAndPollAllFriends");
-        [self getAndPollAllFriends];
-        return;
-    }
-    [self queueDownloadWithFriendID:friend.idTbm videoId:videoId];
+    ZZNotificationDomainModel* model = [self _modelFromNotificationData:userInfo];
+    [self.delegate handleVideoReceivedNotification:model];
 }
 
-- (void)handleVideoStatusUpdateNotification:(NSDictionary *)userInfo {
+- (void)handleVideoStatusUpdateNotification:(NSDictionary*)userInfo
+{
     OB_INFO(@"handleVideoStatusUPdateNotification:");
-    NSString *nstatus = userInfo[NOTIFICATION_STATUS_KEY];
-    NSString *mkey = userInfo[NOTIFICATION_TO_MKEY_KEY];
-    TBMFriend *friend = [TBMFriend findWithMkey:mkey];
-    
-    if (friend == nil) {
-        OB_INFO(@"handleVideoStatusUPdateNotification: got notification for non existant friend. calling getAndPollAllFriends");
-        [self getAndPollAllFriends];
-        return;
-    }
-    
-    NSString *videoId = [userInfo objectForKey:NOTIFICATION_VIDEO_ID_KEY];
-    
-    TBMOutgoingVideoStatus outgoingStatus;
-    if ([nstatus isEqual:NOTIFICATION_STATUS_DOWNLOADED])
-    {
-        outgoingStatus = OUTGOING_VIDEO_STATUS_DOWNLOADED;
-    }
-    else if ([nstatus isEqual:NOTIFICATION_STATUS_VIEWED])
-    {
-        outgoingStatus = OUTGOING_VIDEO_STATUS_VIEWED;
-    }
-    else
-    {
-        OB_ERROR(@"unknown status received in notification");
-        return;
-    }
-    
-    [friend setAndNotifyOutgoingVideoStatus:outgoingStatus videoId:videoId];
+    ZZNotificationDomainModel* model = [self _modelFromNotificationData:userInfo];
+    [self.delegate handleVideoStatusUpdateNotification:model];
 }
 
-#pragma mark -  Notification center and badge control
-
-- (void)clearBadgeCount {
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-}
-
-- (void)setBadgeNumberUnviewed {
-    OB_INFO(@"setBadgeNumberUnviewed = %lu", (unsigned long) [TBMVideo unviewedCount]);
-    [self setBadgeCount:[TBMVideo unviewedCount]];
-}
-
-- (void)setBadgeNumberDownloadedUnviewed {
-    OB_INFO(@"setBadgeNumberDownloadedUnviewed = %lu", (unsigned long) [TBMVideo downloadedUnviewedCount]);
-    [self setBadgeCount:[TBMVideo downloadedUnviewedCount]];
-}
-
-- (void)setBadgeCount:(NSInteger)count
+- (ZZNotificationDomainModel*)_modelFromNotificationData:(NSDictionary*)data
 {
-    if (count == 0)
-    {
-        [self clearBadgeCount];
-    }
-    else
-    {
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:count];
-    }
-}
-
-
-#pragma mark -  Send outgoing Notifications
-
-- (void)sendNotificationForVideoReceived:(TBMFriend*)friend videoId:(NSString *)videoId
-{
-    ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
-    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
-    [[ZZNotificationTransportService sendVideoReceivedNotificationTo:friendModel
-                                                         videoItemID:videoId
-                                                                from:me] subscribeNext:^(id x) {
-        
-    }];
-}
-
-- (void)sendNotificationForVideoStatusUpdate:(TBMFriend *)friend videoId:(NSString *)videoId status:(NSString *)status
-{
-    
-    ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
-    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
-    
-    [[ZZNotificationTransportService sendVideoStatusUpdateNotificationTo:friendModel
-                                                             videoItemID:videoId
-                                                                  status:status from:me] subscribeNext:^(id x) {
-        
-    }];
+    return [FEMObjectDeserializer deserializeObjectExternalRepresentation:data
+                                                             usingMapping:[ZZNotificationDomainModel mapping]];
 }
 
 @end

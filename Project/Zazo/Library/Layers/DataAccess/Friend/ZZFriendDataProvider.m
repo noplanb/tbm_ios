@@ -73,6 +73,18 @@
     return nextFriend;
 }
 
++ (BOOL)isFriendExistsWithItemID:(NSString*)itemID
+{
+    NSInteger count = 0;
+    if (itemID)
+    {
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.idTbm, itemID];
+        count = [TBMFriend MR_countOfEntitiesWithPredicate:predicate inContext:[self _context]];
+    }
+    return (count != 0);
+}
+
+
 #pragma mark - Entities
 
 + (TBMFriend*)friendEntityWithItemID:(NSString*)itemID
@@ -123,6 +135,7 @@
         return value.relatedUser;
     }] array];
 }
+
 
 #pragma mark - CRUD
 
