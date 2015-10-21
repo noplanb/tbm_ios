@@ -8,7 +8,6 @@
 //
 
 #import "TBMFriend.h"
-#import "TBMAppDelegate.h"
 #import "TBMVideoIdUtils.h"
 #import "OBLogger.h"
 #import "TBMUser.h"
@@ -323,9 +322,9 @@ static NSMutableSet *videoStatusNotificationDelegates;
 - (void)setViewedWithIncomingVideo:(TBMVideo *)video
 {
     [self setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_VIEWED video:video];
-    
-    TBMAppDelegate* delegate = (TBMAppDelegate*)[UIApplication sharedApplication].delegate;
-    [delegate sendNotificationForVideoStatusUpdate:self videoId:video.videoId status:NOTIFICATION_STATUS_VIEWED];
+    //TODO: TODO: IMPORTANT!!! ADD THIS!!!! IMPORTANT!!!! FUCKING IMPORTANT!!!!
+//    TBMAppDelegate* delegate = (TBMAppDelegate*)[UIApplication sharedApplication].delegate;
+//    [delegate sendNotificationForVideoStatusUpdate:self videoId:video.videoId status:NOTIFICATION_STATUS_VIEWED];
 }
 
 //-------------------------------------

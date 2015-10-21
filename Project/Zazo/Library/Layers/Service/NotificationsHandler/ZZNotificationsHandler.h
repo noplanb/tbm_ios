@@ -17,16 +17,9 @@
 
 @end
 
-@protocol ZZNotificationsHandlerUserInterfaceDelegate <NSObject>
-
-- (void)userDeclinedAccessToNotifications;
-
-@end
-
 @interface ZZNotificationsHandler : NSObject
 
 @property (nonatomic, weak) id<ZZNotificationsHandlerDelegate> delegate;
-@property (nonatomic, weak) id<ZZNotificationsHandlerUserInterfaceDelegate> userInterface;
 
 - (void)registerForPushNotification;
 - (void)receivedPushNotificationsToken:(NSData*)token;

@@ -161,7 +161,7 @@
 
 - (void)handleApplicationDidFailToRegisterForRemoteNotifications
 {
-    [self.rootService appDidFailToRegiterRemotenotifications];
+    [self.rootService appDidFailToRegiterRemoteNotifications];
 }
 
 

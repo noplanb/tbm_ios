@@ -48,6 +48,14 @@
     return self;
 }
 
+- (void)startService
+{
+    [self handleStuckDownloadsWithCompletionHandler:^{
+        [self.fileTransferManager retryPending];
+        [self.delegate updateDataRequired];
+    }];
+}
+
 - (void)_updateCredentials
 {
     ZZS3CredentialsDomainModel* credentials = [ZZKeychainDataProvider loadCredentials];

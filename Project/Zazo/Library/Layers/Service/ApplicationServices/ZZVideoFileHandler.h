@@ -16,6 +16,7 @@
 - (void)sendNotificationForVideoReceived:(TBMFriend *)friend videoId:(NSString *)videoId;
 - (void)sendNotificationForVideoStatusUpdate:(TBMFriend *)friend videoId:(NSString *)videoId status:(NSString *)status;
 - (void)setBadgeNumberUnviewed;
+- (void)updateDataRequired;
 
 @end
 
@@ -23,6 +24,7 @@
 
 @property (nonatomic, weak) id<ZZVideoFileHandlerDelegate> delegate;
 
+- (void)startService;
 
 - (void)handleBackgroundSessionWithIdentifier:(NSString*)identifier completionHandler:(ANCodeBlock)completionHandler;
 - (void)queueDownloadWithFriendID:(NSString*)friendID videoId:(NSString *)videoId;

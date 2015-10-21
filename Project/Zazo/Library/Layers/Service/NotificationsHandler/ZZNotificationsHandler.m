@@ -79,8 +79,6 @@
     if ([self _userHasGrantedPushAccess])
     {
         OB_INFO(@"BOOT: Push access granted");
-        // Note we do not call onResourcesAvailable here since it is called prior to ensuring push notification. This is because
-        // on io7 we do not get a callback from the os if the user declines notifications.
     }
     else
     {

@@ -10,7 +10,6 @@
 
 #import "TBMVideo.h"
 #import "TBMFriend.h"
-#import "TBMAppDelegate.h"
 #import "OBLogger.h"
 #import "MagicalRecord.h"
 #import "ZZVideoDataProvider.h"

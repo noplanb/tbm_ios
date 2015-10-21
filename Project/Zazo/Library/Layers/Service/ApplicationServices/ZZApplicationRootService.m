@@ -19,6 +19,7 @@
 #import "ZZUserDataProvider.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZContentDataAcessor.h"
+#import "ZZApplicationPermissionsHandler.h"
 
 @interface ZZApplicationRootService () <ZZVideoFileHandlerDelegate, ZZApplicationDataUpdaterServiceDelegate>
 
@@ -75,6 +76,11 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)updateDataRequired
+{
+    [self.dataUpdater updateAllData];
+}
+
 - (void)applicationBecameActive
 {
     [self.dataUpdater updateAllData];
@@ -108,10 +114,20 @@
     
     if ([ZZUserDataProvider authenticatedUser].isRegistered)
     {
-        [self ensureResources];
+        [[ZZApplicationPermissionsHandler checkApplicationPermissions] subscribeNext:^(id x) {
+            
+            [self.notificationDelegate registerToPushNotifications]; //TODO: we will send serveral times token on a server.
+            [TBMVideo printAll];
+            [self.videoFileHandler startService];
+        }];
     }
 }
 
+
+- (void)handleBackgroundSessionWithIdentifier:(NSString *)identifier completionHandler:(ANCodeBlock)completionHandler
+{
+    
+}
 
 #pragma mark - File Handler Delegate
 
