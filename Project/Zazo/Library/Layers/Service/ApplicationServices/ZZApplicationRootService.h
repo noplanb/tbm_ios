@@ -22,6 +22,4 @@
 - (void)updateBadgeCounter;
 - (void)checkApplicationPermissionsAndResources;
 
-- (void)appDidFailToRegiterRemoteNotifications;
-
 @end

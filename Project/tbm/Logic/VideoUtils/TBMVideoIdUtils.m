@@ -40,12 +40,11 @@
 
 #pragma mark - VideoFile Markers
 
-+ (NSString *)markerWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId isUpload:(BOOL)isUpload{
-    return [ZZStringUtils jsonWithDictionary: @{
-                                                 VIDEO_ID_UTILS_FRIEND_ID_KEY: friend.idTbm,
-                                                 VIDEO_ID_UTILS_VIDEO_ID_KEY: videoId,
-                                                 IS_UPLOAD_KEY: [NSNumber numberWithBool:isUpload]
-                                                 }];
++ (NSString *)markerWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId isUpload:(BOOL)isUpload
+{
+    return [ZZStringUtils jsonWithDictionary: @{VIDEO_ID_UTILS_FRIEND_ID_KEY: [NSObject an_safeString:friend.idTbm],
+                                                VIDEO_ID_UTILS_VIDEO_ID_KEY: [NSObject an_safeString:videoId],
+                                                IS_UPLOAD_KEY: [NSNumber numberWithBool:isUpload]}];
 }
 
 + (NSString *) markerWithVideo:(TBMVideo *)video isUpload:(BOOL)isUpload{

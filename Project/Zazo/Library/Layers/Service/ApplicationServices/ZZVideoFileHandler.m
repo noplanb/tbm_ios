@@ -441,44 +441,47 @@
 
 - (void)_queueDownloadWithFriendID:(NSString*)friendID videoId:(NSString*)videoId force:(BOOL)force
 {
-    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
-    
-    if ([friend hasIncomingVideoId:videoId] && !force)
+    if (!ANIsEmpty(videoId) && !ANIsEmpty(friendID))
     {
-        OB_WARN(@"queueVideoDownloadWithFriend: Ignoring incoming videoId already processed.");
-        return;
+        TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
+        
+        if ([friend hasIncomingVideoId:videoId] && !force)
+        {
+            OB_WARN(@"queueVideoDownloadWithFriend: Ignoring incoming videoId already processed.");
+            return;
+        }
+        
+        TBMVideo *video;
+        if ([friend hasIncomingVideoId:videoId] && force)
+        {
+            OB_INFO(@"queueVideoDownloadWithFriend: Forcing new transfer of existing video: %@", videoId);
+            video = [TBMVideo findWithVideoId:videoId];
+        } else
+        {
+            OB_INFO(@"queueVideoDownloadWithFriend: Creating new video for download: %@", videoId);
+            video = [friend createIncomingVideoWithVideoId:videoId];
+        }
+        
+        if (video == nil)
+        {
+            OB_ERROR(@"queueVideoDownloadWithFriend: Video is nil. This should never happen.");
+            return;
+        }
+        
+        [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_DOWNLOADING video:video];
+        [self.delegate updateBadgeCounter];
+        
+        NSString *marker = [TBMVideoIdUtils markerWithFriend:friend videoId:videoId isUpload:NO];
+        
+        NSString *remoteFilename = [ZZRemoteStorageValueGenerator incomingVideoRemoteFilenameWithFriendMkey:video.friend.mkey
+                                                                                                 friendCKey:video.friend.ckey
+                                                                                                    videoId:video.videoId];
+        
+        [[self fileTransferManager] downloadFile:remoteStorageFileTransferDownloadPath()
+                                              to:[video videoPath]
+                                      withMarker:marker
+                                      withParams:[self fileTransferParams:remoteFilename]];
     }
-    
-    TBMVideo *video;
-    if ([friend hasIncomingVideoId:videoId] && force)
-    {
-        OB_INFO(@"queueVideoDownloadWithFriend: Forcing new transfer of existing video: %@", videoId);
-        video = [TBMVideo findWithVideoId:videoId];
-    } else
-    {
-        OB_INFO(@"queueVideoDownloadWithFriend: Creating new video for download: %@", videoId);
-        video = [friend createIncomingVideoWithVideoId:videoId];
-    }
-    
-    if (video == nil)
-    {
-        OB_ERROR(@"queueVideoDownloadWithFriend: Video is nil. This should never happen.");
-        return;
-    }
-    
-    [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_DOWNLOADING video:video];
-    [self.delegate setBadgeNumberUnviewed];
-    
-    NSString *marker = [TBMVideoIdUtils markerWithFriend:friend videoId:videoId isUpload:NO];
-    
-    NSString *remoteFilename = [ZZRemoteStorageValueGenerator incomingVideoRemoteFilenameWithFriendMkey:video.friend.mkey
-                                                                                             friendCKey:video.friend.ckey
-                                                                                                videoId:video.videoId];
-    
-    [[self fileTransferManager] downloadFile:remoteStorageFileTransferDownloadPath()
-                                          to:[video videoPath]
-                                  withMarker:marker
-                                  withParams:[self fileTransferParams:remoteFilename]];
 }
 
 - (NSDictionary *)fileTransferParams:(NSString *)remoteFilename

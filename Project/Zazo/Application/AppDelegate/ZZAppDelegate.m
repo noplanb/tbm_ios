@@ -87,12 +87,12 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 }
 
 
-- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+- (void)application:(UIApplication*)app didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
-    [self.appDependencies handleApplicationDidFailToRegisterForRemoteNotifications];
+    [self.appDependencies handleApplicationDidFailToRegisterForRemoteNotificationsWithError:error];
 }
 
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
     [self.appDependencies handleApplicationDidRegisterForPushWithToken:deviceToken];
 }

@@ -34,6 +34,20 @@
 
 @implementation ZZAppDependencies
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        self.notificationsHandler = [ZZNotificationsHandler new];
+        self.rootService = [ZZApplicationRootService new];
+        
+        self.notificationsHandler.delegate = self.rootService;
+        self.rootService.notificationDelegate = self.notificationsHandler;
+    }
+    return self;
+}
+
 - (void)initialApplicationSetup:(UIApplication *)application launchOptions:(NSDictionary *)options
 {
     [ZZRollbarAdapter shared];
@@ -51,9 +65,6 @@
         [ANLogger initializeLogger];
         [ZZColorTheme shared];
         [self _handleIncomingCall];
-        
-        self.notificationsHandler = [ZZNotificationsHandler new];
-        self.notificationsHandler.delegate = self.rootService;
     });
 }
 
@@ -85,7 +96,8 @@
         if (user.isRegistered)
         {
             ANDispatchBlockToMainQueue(^{
-                [[ZZVideoRecorder shared] updateRecorder];
+//                [[ZZVideoRecorder shared] updateRecorder];
+//TODO: uncomment
             });
         }
     });
@@ -159,11 +171,6 @@
     [self.notificationsHandler applicationDidFailToRegisterWithError:error];
 }
 
-- (void)handleApplicationDidFailToRegisterForRemoteNotifications
-{
-    [self.rootService appDidFailToRegiterRemoteNotifications];
-}
-
 
 #pragma mark - Private
 
@@ -179,15 +186,6 @@
             });
         }
     }];
-}
-
-- (ZZApplicationRootService*)rootService
-{
-    if (!_rootService)
-    {
-        _rootService = [ZZApplicationRootService new];
-    }
-    return _rootService;
 }
 
 - (ZZRootWireframe*)rootWireframe

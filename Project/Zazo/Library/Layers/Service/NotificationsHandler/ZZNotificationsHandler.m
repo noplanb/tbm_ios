@@ -26,7 +26,7 @@
 
 @implementation ZZNotificationsHandler
 
-- (void)registerForPushNotification
+- (void)registerToPushNotifications
 {
     OB_INFO(@"registerForPushNotification");
     if ([self _isIOS8OrHigher])

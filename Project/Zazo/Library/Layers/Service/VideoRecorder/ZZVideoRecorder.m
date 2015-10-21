@@ -44,11 +44,6 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 @implementation ZZVideoRecorder
 
-- (BOOL)isRecording
-{
-    return self.recorder.isRecording;
-}
-
 + (instancetype)shared
 {
     static id _sharedClient = nil;
@@ -73,6 +68,11 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         [[AVAudioSession sharedInstance] addTBMAudioSessionDelegate:self];
     }
     return self;
+}
+
+- (BOOL)isRecording
+{
+    return self.recorder.isRecording;
 }
 
 - (void)setRecordingView:(UIView *)recordingView
@@ -125,10 +125,10 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 // We call setupVideoRecorder on multiple events so the first qualifying event takes effect. All later events are ignored.
 - (void)setupVideoRecorder:(int)retryCount
 {
-    self.recorder = [TBMVideoRecorder new];
-    self.recorder.delegate = self;
-    
-    [self.recorder startRunning];
+//    self.recorder = [TBMVideoRecorder new]; //TODO: uncomment it later
+//    self.recorder.delegate = self;
+//    
+//    [self.recorder startRunning];
 }
 
 

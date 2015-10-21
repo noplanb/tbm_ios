@@ -30,7 +30,7 @@
 - (void)handlePushNotification:(NSDictionary*)userInfo;
 - (void)handleNotificationSettings:(UIUserNotificationSettings*)settings;
 
-- (void)handleApplicationDidFailToRegisterForRemoteNotifications;
+- (void)handleApplicationDidFailToRegisterForRemoteNotificationsWithError:(NSError*)error;
 
 
 #pragma mark - UI

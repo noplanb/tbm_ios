@@ -15,7 +15,7 @@
 
 - (void)sendNotificationForVideoReceived:(TBMFriend *)friend videoId:(NSString *)videoId;
 - (void)sendNotificationForVideoStatusUpdate:(TBMFriend *)friend videoId:(NSString *)videoId status:(NSString *)status;
-- (void)setBadgeNumberUnviewed;
+- (void)updateBadgeCounter;
 - (void)updateDataRequired;
 
 @end
@@ -30,11 +30,8 @@
 - (void)queueDownloadWithFriendID:(NSString*)friendID videoId:(NSString *)videoId;
 
 
-
 #pragma mark - Upload
 
 - (void)uploadWithVideoUrl:(NSURL*)videoUrl friendCKey:(NSString*)friendCKey;
-
-
 
 @end
