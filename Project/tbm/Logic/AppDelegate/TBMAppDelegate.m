@@ -210,10 +210,6 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationIncomingCall object:nil];
             });
         }
-        if ([call.callState isEqualToString:CTCallStateDisconnected])
-        {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationCallDicline object:nil];
-        }
     }];
 }
 

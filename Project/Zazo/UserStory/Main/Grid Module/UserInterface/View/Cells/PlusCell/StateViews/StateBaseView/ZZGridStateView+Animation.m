@@ -21,7 +21,7 @@
     [self _updateUploadViewsToDefaultState];
     
     CGFloat animValue = CGRectGetWidth(self.frame) - [self _indicatorCalculatedWidth];
-    CGFloat animationDuration = 1.4;
+    CGFloat animationDuration = 0.5;
     
     ANDispatchBlockToMainQueue(^{
         [UIView animateWithDuration:animationDuration animations:^{

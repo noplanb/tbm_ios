@@ -261,9 +261,9 @@ static int videoRecorderRetryCount = 0;
     if (!self.captureOutput.isRecording)
     {
         // note that in some error cases when audiosession was connected stop recording would be called and isRecording == NO.  We will not get a didFinsishRecording in this case. AudioSession needs to observe videoRecorderDidFail for these condtitions although we should ensure they never occur.
-        
         [self.delegate videoRecorderDidStopButDidNotStartRecording];
     }
+    
     [self.captureOutput stopRecording];
     [self.delegate videoRecorderDidStopRecording];
 }

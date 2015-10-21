@@ -86,6 +86,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
 
 - (void)_showRecordingOverlay
 {
+    [self.recordingOverlay removeFromSuperlayer];
     self.recordingOverlay = nil;
     self.recordingOverlay.hidden = NO;
     self.recordingLabel.hidden = NO;

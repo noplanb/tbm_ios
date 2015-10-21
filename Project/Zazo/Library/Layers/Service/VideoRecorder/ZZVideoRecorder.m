@@ -178,41 +178,12 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     
     [self startAudioSession];
     
-    
     // alert message after recording
     if (self.didCancelRecording)
     {
         self.didCancelRecording = NO;
         [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
     }
-    
-    //*****
-//    
-//    if (!self.recordingView)
-//    {
-//        self.recordingView = [self.interfaceDelegate recordingView];
-//        [self updateRecordView:self.recordingView];
-//    }
-//    
-//    if (!self.recorder)
-//    {   self.recorder = [TBMVideoRecorder new];
-//        self.videoProcessor = [TBMVideoProcessor new];
-//        self.recorder.delegate = self;
-//        [self.recorder setupCaptureSessionView:self.recordingView];
-//        [self.recorder startRunning];
-//    }
-//    else
-//    {
-//        [self.recorder startRunning];
-//        [self.recorder setupCaptureSessionView:self.recordingView];
-//        if (self.didCancelRecording)
-//        {
-//            self.didCancelRecording = NO;
-//            [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
-//        }
-//    }
-//    [self startAudioSession];
-    
 }
 
 - (void)dealloc
@@ -415,7 +386,10 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 {
     self.isRecorderActive = NO;
     self.completionBlock = completionBlock;
-    [self.recorder stopRecording];
+    if ([self.recorder.captureOutput isRecording])
+    {
+        [self.recorder stopRecording];
+    }
     [self _recordingProgressStopped];
 }
 

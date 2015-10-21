@@ -25,7 +25,7 @@
 @property (nonatomic, strong) UIButton* plusButton;
 @property (nonatomic, strong) UIGestureRecognizer* plusRecognizer;
 @property (nonatomic, strong) ZZGridStateView* stateView;
-
+@property (nonatomic, assign) ZZGridCellViewModelState currentViewState;
 @end
 
 @implementation ZZGridCell
@@ -36,6 +36,7 @@
     {
         self.backgroundColor = [ZZColorTheme shared].gridCellOrangeColor;
         self.clipsToBounds = NO;
+        self.currentViewState = ZZGridCellViewModelStateNone;
         [self plusButton];
     }
     return self;
@@ -54,38 +55,58 @@
 {
     ANDispatchBlockToMainQueue(^{
         
-        if (model.state & ZZGridCellViewModelStateAdd)
+        if ([self _isNeedToChangeStateViewWithModel:model])
         {
-            if (self.stateView)
+            if (model.state & ZZGridCellViewModelStateAdd)
+            {
+                if (self.stateView)
+                {
+                    self.currentViewState = ZZGridCellViewModelStateNone;
+                    [self.stateView removeFromSuperview];
+                }
+            }
+            else if (model.state & ZZGridCellViewModelStateFriendHasApp)
+            {
+                self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self];
+            }
+            else if (model.state & ZZGridCellViewModelStateFriendHasNoApp)
+            {
+                self.stateView = [[ZZGridStateViewNudge alloc] initWithPresentedView:self];
+            }
+            else if (model.state & ZZGridCellViewModelStatePreview)
+            {
+                self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self];
+            }
+            else
             {
                 [self.stateView removeFromSuperview];
             }
         }
-        else if (model.state & ZZGridCellViewModelStateFriendHasApp)
-        {
-            self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self];
-        }
-        else if (model.state & ZZGridCellViewModelStateFriendHasNoApp)
-        {
-            self.stateView = [[ZZGridStateViewNudge alloc] initWithPresentedView:self];
-        }
-        else if (model.state & ZZGridCellViewModelStatePreview)
-        {
-            self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self];
-        }
-        else
-        {
-            [self.stateView removeFromSuperview];
-        }
+        
         
         if (self.stateView)
         {
+            self.currentViewState = model.state;
             [self.stateView updateWithModel:self.model];
         }
         
     });
 }
 
+- (BOOL)_isNeedToChangeStateViewWithModel:(ZZGridCellViewModel*)model
+{
+    BOOL isNeedChange = YES;
+    if (self.currentViewState != ZZGridCellViewModelStateNone && model.state & self.currentViewState)
+    {
+        NSLog(@"%li",(long)self.currentViewState)
+        NSLog(@"NOOOOO");
+        isNeedChange = NO;
+    }
+    NSLog(@"%li",(long)self.currentViewState);
+    NSLog(@"%li",(long)model.state);
+    
+    return isNeedChange;
+}
 
 #pragma mark - Record recognizer;
 

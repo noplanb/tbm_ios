@@ -256,7 +256,7 @@
     {
         _recordRecognizer =
         [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_recordPressed:)];
-        _recordRecognizer.minimumPressDuration = 0.5;
+        _recordRecognizer.minimumPressDuration = 0.2;
         [self.recognizers addObject:_recordRecognizer];
     }
     return _recordRecognizer;
