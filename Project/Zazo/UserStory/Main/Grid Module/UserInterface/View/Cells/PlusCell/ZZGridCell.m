@@ -98,12 +98,8 @@
     BOOL isNeedChange = YES;
     if (self.currentViewState != ZZGridCellViewModelStateNone && model.state & self.currentViewState)
     {
-        NSLog(@"%li",(long)self.currentViewState)
-        NSLog(@"NOOOOO");
         isNeedChange = NO;
     }
-    NSLog(@"%li",(long)self.currentViewState);
-    NSLog(@"%li",(long)model.state);
     
     return isNeedChange;
 }

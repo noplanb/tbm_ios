@@ -207,6 +207,11 @@ ZZGridCenterCellViewModelDelegate
 
 #pragma mark - ViewModel Delegate
 
+- (BOOL)isGridRotate
+{
+    return [self.delegate isGridRotate];
+}
+
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled
                            viewModel:(ZZGridCellViewModel*)viewModel
                  withCompletionBlock:(ZZBoolBlock)completionBlock

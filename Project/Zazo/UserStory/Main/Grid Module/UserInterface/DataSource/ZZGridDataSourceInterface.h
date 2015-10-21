@@ -29,5 +29,6 @@
 - (void)switchCamera;
 - (BOOL)isVideoPlaying;
 - (void)addUser;
+- (BOOL)isGridRotate;
 
 @end

@@ -14,5 +14,6 @@
 - (ZZGridDataSource*)dataSource;
 - (ZZGridActionHandler*)actionHandler;
 - (void)showFriendAnimationWithIndex:(NSInteger)index;
+- (id <ZZGridViewInterface>)userInterface;
 
 @end

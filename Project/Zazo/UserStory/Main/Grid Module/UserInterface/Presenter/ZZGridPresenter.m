@@ -219,6 +219,8 @@
 }
 
 
+
+
 #pragma makr - EVENT InviteHint
 
 - (void)dataLoadedWithArray:(NSArray*)data
@@ -320,6 +322,11 @@
 
 
 #pragma mark - DataSource Delegate
+
+- (BOOL)isGridRotate
+{
+    return [self.userInterface isGridRotating];
+}
 
 - (void)addUser
 {

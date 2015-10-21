@@ -93,6 +93,10 @@
     [view showContainFriendAnimation];
 }
 
+- (BOOL)isGridRotating
+{
+    return [self.touchObserver isGridRotate];
+}
 
 #pragma mark - GridView Event Delgate
 
