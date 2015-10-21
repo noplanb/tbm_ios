@@ -265,7 +265,6 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (TBMVideo *)nextPlayableVideoAfterVideoId:(NSString *)videoId
 {
-    // DebugLog(@"nextPlayableVideoAfterVideo");
     for (TBMVideo *v in [self sortedIncomingVideos])
     {
         if ([TBMVideoIdUtils isvid1:v.videoId newerThanVid2:videoId] && [v videoFileExists])
