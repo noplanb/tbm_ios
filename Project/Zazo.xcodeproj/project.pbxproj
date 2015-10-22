@@ -919,6 +919,7 @@
 		07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZStartScreenTestSpec.m; sourceTree = "<group>"; };
 		180254A11BB2C5A400138A52 /* ZZVideoStatuses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoStatuses.h; sourceTree = "<group>"; };
 		180254A21BB2C5A400138A52 /* ZZVideoStatuses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoStatuses.m; sourceTree = "<group>"; };
+		181724CF1BD8CCE600F4821C /* ZZAuthInteractorConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZAuthInteractorConstants.h; sourceTree = "<group>"; };
 		181D1C9C1BC51A4600044F83 /* ZZBaseEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZBaseEventHandler.h; sourceTree = "<group>"; };
 		181D1C9D1BC51A4600044F83 /* ZZBaseEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZBaseEventHandler.m; sourceTree = "<group>"; };
 		181D1CA21BC51B2000044F83 /* ZZInviteEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZInviteEventHandler.h; sourceTree = "<group>"; };
@@ -2155,6 +2156,7 @@
 				07636C071BA49A0100925671 /* ZZAuthInteractor.h */,
 				07636C081BA49A0100925671 /* ZZAuthInteractor.m */,
 				07636C091BA49A0100925671 /* ZZAuthInteractorIO.h */,
+				181724CF1BD8CCE600F4821C /* ZZAuthInteractorConstants.h */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";

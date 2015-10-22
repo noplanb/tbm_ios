@@ -77,9 +77,9 @@ static int videoRecorderRetryCount = 0;
 
 - (void)startRunning
 {
-    dispatch_async(self.sessionQueue, ^{
+//    dispatch_async(self.sessionQueue, ^{
         if (self.captureSession != nil) [self.captureSession startRunning];
-    });
+//    });
 }
 
 - (void)switchCameraTo:(AVCaptureDevicePosition)device

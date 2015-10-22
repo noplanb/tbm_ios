@@ -7,6 +7,7 @@
 //
 
 #import "ZZGridCenterCellViewModel.h"
+#import "ZZGridActionStoredSettings.h"
 
 @interface ZZGridCenterCellViewModel ()
 
@@ -18,7 +19,10 @@
 
 - (void)switchCamera
 {
-    [self.delegate switchCamera];
+    if ([ZZGridActionStoredSettings shared].frontCameraHintWasShown)
+    {
+        [self.delegate switchCamera];
+    }
 }
 
 - (BOOL)shouldShowSwitchCameraButton

@@ -51,6 +51,7 @@
     ANDispatchBlockToMainQueue(^{
         ANSectionModel* section = [self.storage sectionAtIndex:sectionIndex createIfNeeded:YES];
         [section.objects removeAllObjects];
+        section = [self.storage sectionAtIndex:sectionIndex createIfNeeded:YES];
         [section.objects addObjectsFromArray:items];
         [self.storage.delegate storageNeedsReload];
     });

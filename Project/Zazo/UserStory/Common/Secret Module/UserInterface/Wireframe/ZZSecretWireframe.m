@@ -58,6 +58,11 @@
 - (void)presentLogsController
 {
     OBLogViewController* vc = [OBLogViewController instance];
+
+    [[[vc rac_signalForSelector:@selector(done:)] take:1] subscribeNext:^(id x) {
+        [self.presentedController popViewControllerAnimated:YES];
+    }];
+    
     [self.presentedController pushViewController:vc animated:YES];
 }
 

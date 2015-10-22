@@ -65,6 +65,13 @@
 "auth-controller.bad-code.alert.title" = "Bad Code";
 "auth-controller.bad-code.alert.text" = "The code you enterred is wrong. Please try again";
 
+// Auth Error
+
+"auth-error.try.again.title" = "Try Again";
+"auth-error.bad.connection.message" = "Bad Connection";
+"auth-error.bad.mobile.number.title" = "Bad Mobile Number";
+"auth-error.bad.phone.number.type.message" = "Enter a valid country code and mobile number";
+
 /**
  *  Grid Controller
  */

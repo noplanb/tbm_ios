@@ -52,7 +52,7 @@
     model.recipients = @[[NSObject an_safeString:formattedNumber]];
     
     NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
-    model.message = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%@", appName, kInviteFriendBaseURL, friendModel.cKey];
+    model.message = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%i", appName, kInviteFriendBaseURL, friendModel.cid];
     
     [self.wireframe presentSMSDialogWithModel:model success:^{
         if (!isNudge)

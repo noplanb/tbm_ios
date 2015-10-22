@@ -28,6 +28,7 @@
 #import "ZZFriendDataUpdater.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZRollbarAdapter.h"
+#import "ZZAuthInteractorConstants.h"
 
 @interface ZZAuthInteractor ()
 
@@ -42,9 +43,9 @@
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
     
 #ifdef DEBUG_LOGIN_USER
-    user.firstName = @"Dkkk";
+    user.firstName = @"Dkkk - ff";
     user.lastName = @"kkk";
-    user.mobileNumber = @"+380974720070";
+    user.mobileNumber = @"+380964720089";
 #endif
     
     if (!ANIsEmpty(user.mobileNumber))
@@ -108,9 +109,9 @@
         user.isRegistered = YES;
         
         NSString* mobilePhone = [x objectForKey:@"mobile_number"];
+        
+        
         [ZZStoredSettingsManager shared].mobileNumber = mobilePhone;
-        
-        
         [ZZUserDataProvider upsertUserWithModel:user];
         
         [[ZZRollbarAdapter shared] updateUserFullName:[user fullName] phone:user.mobileNumber itemID:user.idTbm];
@@ -201,10 +202,24 @@
         }
         
     } error:^(NSError *error) {
-        [self.output registrationDidFailWithError:error];
+        [self _handleErrorNumberValidationWithError:error];
     }];
 }
 
+
+- (void)_handleErrorNumberValidationWithError:(NSError*)error
+{
+    if (!ANIsEmpty([ZZStoredSettingsManager shared].mobileNumber))
+    {
+        
+        NSError* mobilePhoneError = [NSError errorWithDomain:kErrorDomainWrongMobileType code:kErrorWrongMobileErrorCode userInfo:nil];
+        [self.output registrationDidFailWithError:mobilePhoneError];
+    }
+    else
+    {
+        [self.output registrationDidFailWithError:error];
+    }
+}
 
 #pragma mark - Validation Part
 
@@ -367,6 +382,7 @@
 - (void)_saveAuthenticatedUserMobileNumberToDefauts:(NSString*)number
 {
     NSString* numberWithPlus = [NSString stringWithFormat:@"+%@", number];
+    [ZZStoredSettingsManager shared].mobileNumber = numberWithPlus;
     [[NSUserDefaults standardUserDefaults] setObject:numberWithPlus forKey:@"authenticatedMobileNumber"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

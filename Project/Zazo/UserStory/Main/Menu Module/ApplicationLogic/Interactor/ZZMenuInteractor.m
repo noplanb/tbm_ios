@@ -85,36 +85,38 @@
 
 - (void)_sortFriendsFromArray:(NSArray *)array
 {
-    NSMutableArray* friendsHasAppArray = [NSMutableArray new];
-    NSMutableArray* otherFriendsArray = [NSMutableArray new];
-    
-    NSArray* gridUsers = [ZZFriendDataProvider friendsOnGrid];
-    if (!gridUsers)
-    {
-        gridUsers = @[];
-    }
-    
-    [array enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friend, NSUInteger idx, BOOL *stop) {
+    ANDispatchBlockToMainQueue(^{
+        NSMutableArray* friendsHasAppArray = [NSMutableArray new];
+//        NSMutableArray* otherFriendsArray = [NSMutableArray new];
         
-        //check if user is on grid - do not add him
-        if (![gridUsers containsObject:friend])
+        NSArray* gridUsers = [ZZFriendDataProvider friendsOnGrid];
+        if (!gridUsers)
         {
-            if (friend.hasApp)
-            {
-                [friendsHasAppArray addObject:friend];
-            }
-            else
-            {
-                [otherFriendsArray addObject:friend];
-            }
+            gridUsers = @[];
         }
-    }];
-    
-    NSArray *filteredFriendsHasAppArray = [self _filterFriendByConnectionStatus:friendsHasAppArray];
-    NSArray *filteredOtherFriendsArray = [self _filterFriendByConnectionStatus:otherFriendsArray];
-    
-    [self.output friendsThatHasAppLoaded:[self _sortByFirstName:filteredFriendsHasAppArray]];
-    [self.output friendsDataLoaded:[self _sortByFirstName:filteredOtherFriendsArray]];
+        
+        [array enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friend, NSUInteger idx, BOOL *stop) {
+            
+            //check if user is on grid - do not add him
+            if (![gridUsers containsObject:friend])
+            {
+//                if (friend.hasApp)
+//                {
+                    [friendsHasAppArray addObject:friend];
+//                }
+//                else
+//                {
+//                    [otherFriendsArray addObject:friend];
+//                }
+            }
+        }];
+        
+        NSArray *filteredFriendsHasAppArray = [self _filterFriendByConnectionStatus:friendsHasAppArray];
+//        NSArray *filteredOtherFriendsArray = [self _filterFriendByConnectionStatus:otherFriendsArray];
+        
+        [self.output friendsThatHasAppLoaded:[self _sortByFirstName:filteredFriendsHasAppArray]];
+//        [self.output friendsDataLoaded:[self _sortByFirstName:filteredOtherFriendsArray]];
+    });
 }
 
 
