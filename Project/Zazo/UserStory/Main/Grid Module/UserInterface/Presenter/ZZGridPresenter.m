@@ -307,6 +307,10 @@
     [self.userInterface updateLoadingStateTo:isLoading];
 }
 
+- (NSInteger)indexOnGridViewForFriendModel:(ZZFriendDomainModel *)model
+{
+    return [self.userInterface indexOfFriendModelOnGridView:model];
+}
 
 #pragma mark - Module Interface
 

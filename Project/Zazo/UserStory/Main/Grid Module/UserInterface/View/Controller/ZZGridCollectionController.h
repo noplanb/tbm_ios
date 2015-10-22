@@ -9,6 +9,7 @@
 @class ZZGridDataSource;
 @class ZZGridCellViewModel;
 @class ZZFriendDomainModel;
+@class ZZGridCell;
 
 @protocol ZZGridCollectionControllerDelegate <NSObject>
 
@@ -21,5 +22,6 @@
 @property (nonatomic, weak) id<ZZGridCollectionControllerDelegate> delegate;
 
 - (void)updateDataSource:(ZZGridDataSource*)dataSource;
+- (NSInteger)indexOfFriendModelOnGrid:(ZZFriendDomainModel*)friendModel;
 
 @end

@@ -98,6 +98,11 @@
     return [self.touchObserver isGridRotate];
 }
 
+- (NSInteger)indexOfFriendModelOnGridView:(ZZFriendDomainModel *)frindModel
+{
+    return [self.controller indexOfFriendModelOnGrid:frindModel];
+}
+
 #pragma mark - GridView Event Delgate
 
 - (void)menuSelected

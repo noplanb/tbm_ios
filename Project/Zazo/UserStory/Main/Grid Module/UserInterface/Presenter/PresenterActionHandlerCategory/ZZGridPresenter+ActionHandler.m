@@ -70,7 +70,8 @@
 - (void)_handleSentWelcomeHintWithFriendDomainModel:(ZZFriendDomainModel*)model
 {
     ANDispatchBlockToMainQueue(^{
-        NSInteger index = [[self dataSource] indexForFriendDomainModel:model];
+//        NSInteger index = [[self dataSource] indexForFriendDomainModel:model];
+        NSInteger index = [self indexOnGridViewForFriendModel:model];
         if (index != NSNotFound)
         {
             [[self actionHandler] handleEvent:ZZGridActionEventTypeFriendDidInvited withIndex:index];
