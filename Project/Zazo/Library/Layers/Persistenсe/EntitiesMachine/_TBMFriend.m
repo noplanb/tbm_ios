@@ -11,6 +11,7 @@
 #import "_TBMFriend.h"
 
 const struct TBMFriendAttributes TBMFriendAttributes = {
+	.cid = @"cid",
 	.ckey = @"ckey",
 	.everSent = @"everSent",
 	.firstName = @"firstName",
@@ -61,6 +62,11 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
+	if ([key isEqualToString:@"cidValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"cid"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"everSentValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"everSent"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -98,6 +104,26 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
 	}
 
 	return keyPaths;
+}
+
+@dynamic cid;
+
+- (int32_t)cidValue {
+	NSNumber *result = [self cid];
+	return [result intValue];
+}
+
+- (void)setCidValue:(int32_t)value_ {
+	[self setCid:@(value_)];
+}
+
+- (int32_t)primitiveCidValue {
+	NSNumber *result = [self primitiveCid];
+	return [result intValue];
+}
+
+- (void)setPrimitiveCidValue:(int32_t)value_ {
+	[self setPrimitiveCid:@(value_)];
 }
 
 @dynamic ckey;
