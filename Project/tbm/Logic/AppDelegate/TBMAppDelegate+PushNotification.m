@@ -176,6 +176,11 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
+#ifdef DISABLE_INCOMING_NOTIFICATIONS
+    OB_INFO(@"didReceiveRemoteNotification:fetchCompletionHandler: DISABLED");
+    return;
+#endif
+
     OB_INFO(@"didReceiveRemoteNotification:fetchCompletionHandler %@", userInfo);
     self.pushVideoId = [userInfo objectForKey:@"video_id"];
     [self requestBackground];

@@ -25,6 +25,10 @@
 #import "ZZVideoDomainModel.h"
 #import "ZZContentDataAcessor.h"
 #import "ZZFriendsTransportService.h"
+#import "ZZKeyStoreTransportService.h"
+#import "ZZKeyStoreIncomingVideoIdsDomainModel.h"
+#import "ZZKeyStoreOutgoingVideoStatusDomainModel.h"
+#import "ZZFriendDomainModel.h"
 
 @implementation TBMAppDelegate (AppSync)
 
@@ -97,6 +101,13 @@
 //---------
 // Download
 //---------
+- (void)queueDownloadWithFriendID:(NSString *)friendID videoIds:(NSSet *)videoIds{
+    for (NSString *videoId in videoIds)
+    {
+        [self queueDownloadWithFriendID:friendID videoId:videoId];
+    }
+}
+
 - (void)queueDownloadWithFriendID:(NSString*)friendID videoId:(NSString *)videoId
 {
     [self queueDownloadWithFriendID:friendID videoId:videoId force:NO];
@@ -208,29 +219,29 @@
     OB_INFO(@"getAndPollAllFriends");
     
     [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray* friends) {
-        
         OB_INFO(@"gotFriends");
         [self pollAllFriends];
     } error:^(NSError *error) {
         
         [self pollAllFriends];
     }];
-
-    
 }
 
 - (void)pollAllFriends
 {
     ANDispatchBlockToBackgroundQueue(^{
         OB_INFO(@"pollAllFriends");
-        self.myFriends = [TBMFriend all];
-        for (TBMFriend *f in self.myFriends)
-        {
-            [self pollVideosWithFriend:f];
-            [self pollVideoStatusWithFriend:f];
-        }
+//        self.myFriends = [TBMFriend all];
+//        for (TBMFriend *f in self.myFriends)
+//        {
+//            [self pollVideosWithFriend:f];
+//            [self pollVideoStatusWithFriend:f];
+//        }
         [self pollEverSentStatusForAllFriends];
+        [self pollAllIncomingVideos];
+        [self pollAllOutgoingVideoStatus];
     });
+    
 }
 
 - (void)pollEverSentStatusForAllFriends
@@ -242,10 +253,49 @@
     } failure:nil];
 }
 
+
+- (void)pollAllIncomingVideos{
+    [[ZZKeyStoreTransportService getAllIncomingVideoIds] subscribeNext:^(NSArray *models) {
+        for (ZZKeyStoreIncomingVideoIdsDomainModel *model in models) {
+            
+            // TODO: This is a back ass way of getting a friendModel from Mkey. What is the correct way?
+            TBMFriend *friend = [TBMFriend findWithMkey:model.friendMkey];
+            if (friend.idTbm)
+            {
+                ZZFriendDomainModel *friendModel = [ZZFriendDataProvider modelFromEntity:friend];
+                
+                if ([model.videoIds count] != 0)
+                {
+                    OB_INFO(@"%@  vids = %@", [friendModel fullName], model.videoIds);
+                    [self queueDownloadWithFriendID:friendModel.idTbm videoIds:model.videoIds];
+                }
+            }
+        }
+    }];
+}
+
+- (void)pollAllOutgoingVideoStatus{
+    [[ZZKeyStoreTransportService getAllOutgoingVideoStatus] subscribeNext:^(NSArray *models) {
+        for (ZZKeyStoreOutgoingVideoStatusDomainModel *model in models){
+            
+            // TODO: Use friendModel rather than friendEntity.
+            TBMFriend *friend = [TBMFriend findWithMkey:model.friendMkey];
+            if (friend)
+            {
+                if ([model status] == ZZVideoOutgoingStatusUnknown)
+                {
+                    OB_ERROR(@"pollVideoStatusWithFriend: got unknown outgoing video status. This should never happen");
+                    return;
+                }
+                [friend setAndNotifyOutgoingVideoStatus:[model status] videoId:model.videoId];
+            }
+        }
+    }];
+}
+
+// Not used
 - (void)pollVideosWithFriend:(TBMFriend *)friend
 {
-    NSLog(@"before");
-    
 //    [TBMRemoteStorageHandler getRemoteIncomingVideoIdsWithFriend:friend gotVideoIds:^(NSArray *videoIds)
 //    {
 //        OB_INFO(@"pollWithFriend: %@  vids = %@", friend.firstName, videoIds);
@@ -274,13 +324,13 @@
                                                                  //                OB_WARN(@"pollWithFriend: Deleting remote video and videoId kv older than local oldest.");
                                                                  //                [TBMRemoteStorageHandler deleteRemoteFileAndVideoIdWithFriend:friend videoId:videoId];
                                                                  //            }
-                                                                 NSLog(@"OKS- %@ - %@", NSStringFromSelector(_cmd), videoId);
                                                                  [self queueDownloadWithFriendID:friendID videoId:videoId];
                                                              }
                                                          }];
     }
 }
 
+// Not used
 - (void)pollVideoStatusWithFriend:(TBMFriend *)friend
 {
     if (friend.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED)

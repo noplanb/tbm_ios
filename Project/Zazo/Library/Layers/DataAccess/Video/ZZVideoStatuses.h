@@ -12,7 +12,7 @@ typedef NS_ENUM (NSInteger, ZZVideoIncomingStatus) {
     ZZVideoIncomingStatusDownloading,
     ZZVideoIncomingStatusDownloaded,
     ZZVideoIncomingStatusViewed,
-    ZZVideoIncomingStatusFailedPermanently
+    ZZVideoIncomingStatusFailedPermanently,
 };
 
 typedef NS_ENUM (NSInteger, ZZVideoOutgoingStatus) {
@@ -23,7 +23,8 @@ typedef NS_ENUM (NSInteger, ZZVideoOutgoingStatus) {
     ZZVideoOutgoingStatusUploaded,
     ZZVideoOutgoingStatusDownloaded,
     ZZVideoOutgoingStatusViewed,
-    ZZVideoOutgoingStatusFailedPermanently
+    ZZVideoOutgoingStatusFailedPermanently,
+    ZZVideoOutgoingStatusUnknown,
 };
 
 typedef NS_ENUM(NSInteger, ZZVideoStatusEventType) {

@@ -48,6 +48,8 @@ static NSString * REMOTE_STORAGE_VIDEO_ID_SUFFIX = @"-VideoIdKVKey";
 // Convenience getters
 + (void)getRemoteIncomingVideoIdsWithFriend:(TBMFriend *)friend gotVideoIds:(void (^)(NSArray *videoIds))gotVideoIds;
 + (void) getRemoteOutgoingVideoStatus:(TBMFriend *)friend success:(void(^)(NSDictionary *response))success failure:(void(^)(NSError *error))failure;
++ (void)getAllRemoteIncomingVideoIds;
++ (void)getAllRemoteOutgoingVideoStatus;
 
 + (void)getRemoteEverSentFriendsWithSuccess:(void (^)(NSArray *response))success failure:(void (^)(NSError *error))failure;
 + (void)setRemoteEverSentKVForFriendMkeys:(NSArray *)mkeys;

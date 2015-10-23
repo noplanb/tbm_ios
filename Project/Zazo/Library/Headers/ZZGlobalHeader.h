@@ -14,10 +14,10 @@ static NSString* const kGlobalApplicationVersion = @"37";
 //#define DEBUG_CONTROLLER
 
 #ifdef DEBUG
-
-//#define HTTPLog
-//#define DEBUG_LOGIN_USER
-//#define STAGESERVER
+#define DISABLE_INCOMING_NOTIFICATIONS
+#define HTTPLog
+#define DEBUG_LOGIN_USER
+#define STAGESERVER
 //#define HINTS
 
 #endif
