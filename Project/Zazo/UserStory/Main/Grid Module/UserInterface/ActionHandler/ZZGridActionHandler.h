@@ -11,6 +11,7 @@
 
 @class ZZHintsDomainModel;
 @class ZZGridCellViewModel;
+@class ZZFriendDomainModel;
 
 @protocol ZZGridActionHanlderDelegate <NSObject>
 
@@ -26,7 +27,10 @@
 @property (nonatomic, weak) id<ZZGridActionHanlderDelegate> delegate;
 @property (nonatomic, weak) id<ZZGridActionHanlderUserInterfaceDelegate> userInterface;
 
-- (void)handleEvent:(ZZGridActionEventType)event withIndex:(NSInteger)index;
+- (void)handleEvent:(ZZGridActionEventType)event
+          withIndex:(NSInteger)index
+        friendModel:(ZZFriendDomainModel*)friendModel;
+
 - (void)resetLastHintAndShowIfNeeded;
 - (void)hideHint;
 - (void)updateFeaturesWithFriendsMkeys:(NSArray*)friendsMkeys;

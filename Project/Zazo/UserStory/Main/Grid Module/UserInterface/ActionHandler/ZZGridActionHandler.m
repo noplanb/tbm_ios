@@ -121,20 +121,22 @@
 }
 
 
-- (void)handleEvent:(ZZGridActionEventType)event withIndex:(NSInteger)index
+- (void)handleEvent:(ZZGridActionEventType)event
+          withIndex:(NSInteger)index
+        friendModel:(ZZFriendDomainModel*)friendModel
 {
     __block NSInteger actionIndex = index;
     if ([self _isAbleToShowHints])
     {
         
-        id model = [self.delegate modelAtIndex:actionIndex];
-        if (model)
-        {
-            model = [model isKindOfClass:[ZZGridCellViewModel class]] ? model : nil;
-            
-        }
+//        id model = [self.delegate modelAtIndex:actionIndex];
+//        if (model)
+//        {
+//            model = [model isKindOfClass:[ZZGridCellViewModel class]] ? model : nil;
+//            
+//        }
         
-        [self.startEventHandler handleEvent:event model:model withCompletionBlock:^(ZZHintsType type, ZZGridCellViewModel *model) {
+        [self.startEventHandler handleEvent:event model:friendModel withCompletionBlock:^(ZZHintsType type, ZZFriendDomainModel *model) {
             if (type != ZZHintsTypeNoHint)
             {
                 if (type == ZZHintsTypeInviteSomeElseHint)
@@ -162,13 +164,14 @@
     [self.featureEventObserver updateFeaturesWithRemoteFriendMkeys:friendsMkeys];
 }
 
-- (void)_configureHintControllerWithHintType:(ZZHintsType)hintType withModel:(ZZGridCellViewModel*)model index:(NSInteger)index
+- (void)_configureHintControllerWithHintType:(ZZHintsType)hintType withModel:(ZZFriendDomainModel*)model index:(NSInteger)index
 {
-    NSString* formatParametr = model.item.relatedUser.fullName;
+    NSString* formatParametr = model.fullName;
   
     [self.hintsController showHintWithType:hintType
                                 focusFrame:[self.userInterface focusFrameForIndex:index]
-                                 withIndex:index withModel:model
+                                 withIndex:index
+                                 withModel:model
                            formatParameter:formatParametr];
 }
 
@@ -179,7 +182,8 @@
 {
     if (type == ZZHintsTypeSentHint)
     {
-        [self handleEvent:ZZGridActionEventTypeSentZazo withIndex:2];
+//        [self handleEvent:ZZGridActionEventTypeSentZazo withIndex:2];
+        [self handleEvent:ZZGridActionEventTypeSentZazo withIndex:2 friendModel:nil];
         
     }
     
@@ -224,7 +228,7 @@
     [self _showNextFeatureHintIfNeeded];
 }
 
-- (void)handleUnlockFeatureWithType:(ZZGridActionFeatureType)type withIndex:(NSInteger)index
+- (void)handleUnlockFeatureWithType:(ZZGridActionFeatureType)type withIndex:(NSInteger)index friendModel:(ZZFriendDomainModel *)model
 {
     switch (type)
     {
@@ -232,7 +236,7 @@
         {
             NSInteger centerViewIndex = 4;
             [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.use-both-cameras", nil) withPresentedView:[self.userInterface presentedView] completionBlock:^{
-                [self handleEvent:ZZGridActionEventTypeFrontCameraFeatureUnlocked withIndex:centerViewIndex];
+                [self handleEvent:ZZGridActionEventTypeFrontCameraFeatureUnlocked withIndex:centerViewIndex friendModel:model];
                 [self.delegate unlockedFeature:ZZGridActionFeatureTypeSwitchCamera];
             }];
             
@@ -241,7 +245,7 @@
         {
             NSInteger middleRightIndex = 5;
             [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.abort-recording", nil) withPresentedView:[self.userInterface presentedView] completionBlock:^{
-                [self handleEvent:ZZGridActionEventTypeAbortRecordingFeatureUnlocked withIndex:middleRightIndex];
+                [self handleEvent:ZZGridActionEventTypeAbortRecordingFeatureUnlocked withIndex:middleRightIndex friendModel:model];
                 [self.delegate unlockedFeature:ZZGridActionFeatureTypeAbortRec];
             }];
             
@@ -249,7 +253,7 @@
         case ZZGridActionFeatureTypeDeleteFriend:
         {
             [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.delete-friend", nil) withPresentedView:[self.userInterface presentedView] completionBlock:^{
-                [self handleEvent:ZZGridActionEventTypeDeleteFriendsFeatureUnlocked withIndex:0];
+                [self handleEvent:ZZGridActionEventTypeDeleteFriendsFeatureUnlocked withIndex:0 friendModel:model];
                 [self.delegate unlockedFeature:ZZGridActionFeatureTypeDeleteFriend];
             }];
             
@@ -257,7 +261,7 @@
         case ZZGridActionFeatureTypeEarpiece:
         {
             [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.listen-from-earpiece", nil) withPresentedView:[self.userInterface presentedView] completionBlock:^{
-                [self handleEvent:ZZGridActionEventTypeEarpieceFeatureUnlocked withIndex:5];
+                [self handleEvent:ZZGridActionEventTypeEarpieceFeatureUnlocked withIndex:5 friendModel:model];
                 [self.delegate unlockedFeature:ZZGridActionFeatureTypeEarpiece];
             }];
             
@@ -265,7 +269,7 @@
         case ZZGridActionFeatureTypeSpinWheel:
         {
             [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.spin-your-friends", nil) withPresentedView:[self.userInterface presentedView] completionBlock:^{
-                [self handleEvent:ZZGridActionEventTypeSpinUsageFeatureUnlocked withIndex:6];
+                [self handleEvent:ZZGridActionEventTypeSpinUsageFeatureUnlocked withIndex:6 friendModel:model];
                 [self.delegate unlockedFeature:ZZGridActionFeatureTypeSpinWheel];
             }];
             
@@ -311,8 +315,8 @@
     if (![ZZGridActionStoredSettings shared].spinHintWasShown)
     {
         [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = NO;
-        [self.startEventHandler handleResetLastActionWithCompletionBlock:^(ZZGridActionEventType event, ZZGridCellViewModel *model) {
-            [self handleEvent:event withIndex:self.lastActionIndex];
+        [self.startEventHandler handleResetLastActionWithCompletionBlock:^(ZZGridActionEventType event, ZZFriendDomainModel *model) {
+            [self handleEvent:event withIndex:self.lastActionIndex friendModel:model];
         }];
     }
 }

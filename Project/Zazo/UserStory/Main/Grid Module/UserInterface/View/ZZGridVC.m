@@ -34,6 +34,12 @@
         
         self.touchObserver = [[ZZGridRotationTouchObserver alloc] initWithGridView:self.gridView];
         self.touchObserver.delegate = self;
+
+        [[RACObserve(self.touchObserver, isMoving) filter:^BOOL(NSNumber* value) {
+            return [value boolValue];
+        }] subscribeNext:^(id x) {
+            [self.eventHandler hideHintIfNeeded];
+        }];
     }
     return self;
 }
@@ -69,6 +75,12 @@
     [self.eventHandler attachToMenuPanGesture:self.menuPanRecognizer];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.controller updateInitialViewFramesIfNeeded];
+}
+
 - (void)updateWithDataSource:(ZZGridDataSource *)dataSource
 {
     [self.controller updateDataSource:dataSource];
@@ -89,7 +101,8 @@
 
 - (void)showFriendAnimationWithIndex:(NSInteger)index
 {
-    ZZGridCell* view = [self.gridView items][index];
+//    ZZGridCell* view = [self.gridView items][index];
+    ZZGridCell* view = (ZZGridCell*)[self _cellAdapterWithDependsOnIndex:index];
     [view showContainFriendAnimation];
 }
 
@@ -159,10 +172,29 @@
 
 - (CGRect)_frameForIndex:(NSInteger)index
 {
-    UIView* cell = [self.items objectAtIndex:index];
+    UIView* cell = [self _cellAdapterWithDependsOnIndex:index];
     CGRect position = [cell convertRect:cell.bounds toView:self.view];
     return position;
 }
+
+- (UIView*)_cellAdapterWithDependsOnIndex:(NSInteger)index
+{
+    __block UIView* cell = nil;;
+    
+    NSValue* indexRectValue = self.controller.initalFrames[index];
+    CGRect indexRect = [indexRectValue CGRectValue];
+    
+    [self.items enumerateObjectsUsingBlock:^(UIView*  _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (CGRectIntersectsRect(indexRect, view.frame))
+        {
+            cell = view;
+            *stop = YES;
+        }
+    }];
+    
+    return cell;
+}
+
 
 #pragma mark - Touch Observer Delegate
 

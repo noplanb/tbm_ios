@@ -20,7 +20,7 @@
         NSInteger index = [[self dataSource] indexForUpdatedDomainModel:model];
         if (index != NSNotFound)
         {
-            [[self actionHandler] handleEvent:event withIndex:index];
+            [[self actionHandler] handleEvent:event withIndex:index friendModel:model.relatedUser];
         }
     });
 }
@@ -33,7 +33,7 @@
             if ([[self dataSource] frindsOnGridNumber] == 0)
             {
                 NSInteger indexForInviteEvent = 5;
-                [[self actionHandler] handleEvent:ZZGridActionEventTypeDontHaveFriends withIndex:indexForInviteEvent];
+                [[self actionHandler] handleEvent:ZZGridActionEventTypeDontHaveFriends withIndex:indexForInviteEvent friendModel:nil];
             }
         });
     });
@@ -45,7 +45,7 @@
         NSInteger index = [[self dataSource] indexForFriendDomainModel:model];
         if (index != NSNotFound)
         {
-            [[self actionHandler] handleEvent:ZZGridActionEventTypeMessageDidPlayed withIndex:index];
+            [[self actionHandler] handleEvent:ZZGridActionEventTypeMessageDidPlayed withIndex:index friendModel:model];
         }
     });
 }
@@ -60,7 +60,7 @@
                 NSInteger index = [[self dataSource] indexForViewModel:cellViewModel];
                 if (index != NSNotFound)
                 {
-                    [[self actionHandler] handleEvent:ZZGridActionEventTypeMessageDidSent withIndex:index];
+                    [[self actionHandler] handleEvent:ZZGridActionEventTypeMessageDidSent withIndex:index friendModel:cellViewModel.item.relatedUser];
                 }
             });
 //        }
@@ -74,7 +74,7 @@
         NSInteger index = [self indexOnGridViewForFriendModel:model];
         if (index != NSNotFound)
         {
-            [[self actionHandler] handleEvent:ZZGridActionEventTypeFriendDidInvited withIndex:index];
+            [[self actionHandler] handleEvent:ZZGridActionEventTypeFriendDidInvited withIndex:index friendModel:model];
             [self showFriendAnimationWithIndex:index];
         }
     });

@@ -253,7 +253,7 @@
     CGFloat kDelayAfterViewLoaded = 1.0f;
     ANDispatchBlockAfter(kDelayAfterViewLoaded, ^{
         NSInteger indexWhenOneFriendOnGrid = 5;
-        [self.actionHandler handleEvent:ZZGridActionEventTypeGridLoaded withIndex:indexWhenOneFriendOnGrid];
+        [self.actionHandler handleEvent:ZZGridActionEventTypeGridLoaded withIndex:indexWhenOneFriendOnGrid friendModel:nil];
     });
 }
 
@@ -292,7 +292,6 @@
 {
     if (friendModel.hasApp)
     {
-//        [self _showConnectedDialogForModel:friendModel];
         [self _handleSentWelcomeHintWithFriendDomainModel:friendModel];
         
     }
@@ -324,6 +323,10 @@
     }
 }
 
+- (void)hideHintIfNeeded
+{
+    [self.actionHandler hideHint];
+}
 
 #pragma mark - DataSource Delegate
 
@@ -570,6 +573,7 @@
 {
     return [self.dataSource frindsOnGridNumber];
 }
+
 
 #pragma mark - Interactor Action Handler
 

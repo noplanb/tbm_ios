@@ -14,7 +14,6 @@
 @interface ZZGridRotationTouchObserver () <ZZRotatorDelegate, UIGestureRecognizerDelegate, ZZGridViewDelegate>
 
 @property (nonatomic, assign) CGPoint initialLocation;
-@property (nonatomic, assign) BOOL isMoving;
 @property (nonatomic, strong) ZZGridView* gridView;
 @property (nonatomic, assign) CGFloat startOffset;
 

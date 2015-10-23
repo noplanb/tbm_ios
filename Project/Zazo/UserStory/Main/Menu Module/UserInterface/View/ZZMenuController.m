@@ -44,6 +44,7 @@
     ANDispatchBlockToMainQueue(^{
         self.searchBar.text = @"";
         [self filterTableItemsForSearchString:self.searchBar.text];
+        [self.delegate needToUpdateDataSource];
         [self.tableView setContentOffset:CGPointZero];
     });
 }

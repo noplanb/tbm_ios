@@ -54,7 +54,10 @@
     [self.strategy updateFeaturesWithRemoteFriendsMkeys:friendMkeys];
 }
 
-- (void)handleEvent:(ZZGridActionEventType)event withModel:(ZZGridCellViewModel*)model withIndex:(NSInteger)index withCompletionBlock:(void(^)(BOOL isFeatureShowed))completionBlock;
+- (void)handleEvent:(ZZGridActionEventType)event
+          withModel:(ZZFriendDomainModel*)model
+          withIndex:(NSInteger)index
+withCompletionBlock:(void(^)(BOOL isFeatureShowed))completionBlock;
 {
     if (event == ZZGridActionEventTypeMessageDidSent)
     {
@@ -75,28 +78,28 @@
 
 #pragma mark - Event Strategy Delegate
 
-- (void)showLastUnlockFeatureWithFeatureType:(ZZGridActionFeatureType)type
+- (void)showLastUnlockFeatureWithFeatureType:(ZZGridActionFeatureType)type friendModel:(ZZFriendDomainModel *)model
 {
     switch (type) {
         case ZZGridActionFeatureTypeSwitchCamera:
         {
-            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeSwitchCamera withIndex:0];
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeSwitchCamera withIndex:0 friendModel:model];
         } break;
         case ZZGridActionFeatureTypeAbortRec:
         {
-            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeAbortRec withIndex:0];
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeAbortRec withIndex:0 friendModel:model];
         } break;
         case ZZGridActionFeatureTypeDeleteFriend:
         {
-            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeDeleteFriend withIndex:0];
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeDeleteFriend withIndex:0 friendModel:model];
         } break;
         case ZZGridActionFeatureTypeEarpiece:
         {
-            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeEarpiece withIndex:0];
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeEarpiece withIndex:0 friendModel:model];
         } break;
         case ZZGridActionFeatureTypeSpinWheel:
         {
-             [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeSpinWheel withIndex:0];
+             [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeSpinWheel withIndex:0 friendModel:model];
         } break;
         default:
         {
@@ -106,16 +109,16 @@
 
 #pragma mark - Both Camera handel event
 
-- (void)_handleBothCameraFeatureWithViewModel:(ZZGridCellViewModel*)viewModel withIndex:(NSInteger)index
+- (void)_handleBothCameraFeatureWithViewModel:(ZZFriendDomainModel*)model withIndex:(NSInteger)index
 {
-    [self.strategy handleBothCameraFeatureWithModel:viewModel withCompletionBlock:^(BOOL isFeatureEnabled) {
+    [self.strategy handleBothCameraFeatureWithModel:model withCompletionBlock:^(BOOL isFeatureEnabled) {
         if (isFeatureEnabled)
         {
-            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeSwitchCamera withIndex:index];
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeSwitchCamera withIndex:index friendModel:model];
         }
         else
         {
-            [self.delegate handleUnlockFeatureWithType:ZZGridActionEventTypeNone withIndex:index];
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionEventTypeNone withIndex:index friendModel:model];
         }
     }];
 }
@@ -123,16 +126,16 @@
 
 #pragma mark - Abort Recording Handle event
 
-- (void)_handleAbortRecordingWithDragWithViewModel:(ZZGridCellViewModel*)model withIndex:(NSInteger)index
+- (void)_handleAbortRecordingWithDragWithViewModel:(ZZFriendDomainModel*)model withIndex:(NSInteger)index
 {
     [self.strategy handleAbortRecordingFeatureWithModel:model withCompletionBlock:^(BOOL isFeatureEnabled) {
         if (isFeatureEnabled)
         {
-            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeAbortRec withIndex:index];
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeAbortRec withIndex:index friendModel:model];
         }
         else
         {
-            [self.delegate handleUnlockFeatureWithType:ZZGridActionEventTypeNone withIndex:index];
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionEventTypeNone withIndex:index friendModel:model];
         }
     }];
 }
@@ -140,16 +143,16 @@
 
 #pragma mark - Delete Friend handle event
 
-- (void)_handleDeleteFriendWithViewModel:(ZZGridCellViewModel*)model withIndex:(NSInteger)index
+- (void)_handleDeleteFriendWithViewModel:(ZZFriendDomainModel*)model withIndex:(NSInteger)index
 {
     [self.strategy handleDeleteFriendFeatureWithModel:model withCompletionBlock:^(BOOL isFeatureEnabled) {
        if (isFeatureEnabled)
        {
-           [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeDeleteFriend withIndex:index];
+           [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeDeleteFriend withIndex:index friendModel:model];
        }
        else
        {
-           [self.delegate handleUnlockFeatureWithType:ZZGridActionEventTypeNone withIndex:index];
+           [self.delegate handleUnlockFeatureWithType:ZZGridActionEventTypeNone withIndex:index friendModel:model];
        }
     }];
 }
@@ -157,31 +160,31 @@
 
 #pragma mark - Handle Earpice event
 
-- (void)_handleEventEarpieceWithViewModel:(ZZGridCellViewModel*)model withIndex:(NSInteger)index
+- (void)_handleEventEarpieceWithViewModel:(ZZFriendDomainModel*)model withIndex:(NSInteger)index
 {
     [self.strategy handleEarpieceFeatureWithModel:model withCompletionBlock:^(BOOL isFeatureEnabled) {
         if (isFeatureEnabled)
         {
-            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeEarpiece withIndex:index];
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeEarpiece withIndex:index friendModel:model];
         }
         else
         {
-            [self.delegate handleUnlockFeatureWithType:ZZGridActionEventTypeNone withIndex:index];
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionEventTypeNone withIndex:index friendModel:model];
         }
     }];
 }
 
 
-- (void)_handelSpinWheelEventWithModel:(ZZGridCellViewModel*)model withIndex:(NSInteger)index
+- (void)_handelSpinWheelEventWithModel:(ZZFriendDomainModel*)model withIndex:(NSInteger)index
 {
     [self.strategy handleSpinWheelFeatureWithModel:model withCompletionBlock:^(BOOL isFeatureEnabled) {
         if (isFeatureEnabled)
         {
-            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeSpinWheel withIndex:index];
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeSpinWheel withIndex:index friendModel:model];
         }
         else
         {
-            [self.delegate handleUnlockFeatureWithType:ZZGridActionEventTypeNone withIndex:index];
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionEventTypeNone withIndex:index friendModel:model];
         }
     }];
 }

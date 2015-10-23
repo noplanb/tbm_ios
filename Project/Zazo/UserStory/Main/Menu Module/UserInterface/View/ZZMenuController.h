@@ -14,6 +14,7 @@
 @protocol ZZMenuControllerDelegate <NSObject>
 
 - (void)itemSelected:(ZZMenuCellViewModel*)model;
+- (void)needToUpdateDataSource;
 
 @end
 

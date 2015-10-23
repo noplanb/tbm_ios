@@ -26,16 +26,16 @@
 @property (nonatomic, strong) ZZBaseEventHandler* eventHandler;
 @property (nonatomic, weak) id <ZZEventHandlerDelegate> delegate;
 @property (nonatomic, assign) BOOL isLastAcitionDone;
-@property (nonatomic, strong) ZZGridCellViewModel* hintModel;
+@property (nonatomic, strong) ZZFriendDomainModel* hintModel;
 
 - (void)handleEvent:(ZZGridActionEventType)event
-              model:(ZZGridCellViewModel*)model
-withCompletionBlock:(void(^)(ZZHintsType type, ZZGridCellViewModel* model))completionBlock;
+              model:(ZZFriendDomainModel*)model
+withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))completionBlock;
 
 - (void)nextHandlerHandleEvent:(ZZGridActionEventType)event
-                         model:(ZZGridCellViewModel*)model
-           withCompletionBlock:(void(^)(ZZHintsType handledEvent, ZZGridCellViewModel* model))completionBlock;
+                         model:(ZZFriendDomainModel*)model
+           withCompletionBlock:(void(^)(ZZHintsType handledEvent, ZZFriendDomainModel* model))completionBlock;
 
-- (void)handleResetLastActionWithCompletionBlock:(void(^)(ZZGridActionEventType event, ZZGridCellViewModel* model))completionBlock;
+- (void)handleResetLastActionWithCompletionBlock:(void(^)(ZZGridActionEventType event, ZZFriendDomainModel* model))completionBlock;
 
 @end

@@ -29,14 +29,14 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
 - (void)showHintWithType:(ZZHintsType)type
               focusFrame:(CGRect)focusFrame
                withIndex:(NSInteger)index
-               withModel:(ZZGridCellViewModel*)cellModel
+               withModel:(ZZFriendDomainModel*)friendModel
          formatParameter:(NSString*)parameter
 {
     
     if (self.hintsView &&
         [self.hintsView hintModel].hintType == ZZHintsTypeRecrodWelcomeHint &&
         ![ZZGridActionStoredSettings shared].holdToRecordAndTapToPlayWasShown &&
-        cellModel.item.relatedUser.unviewedCount > 0)
+        friendModel.unviewedCount > 0)
     {
         [self hideHintView];
         [ZZGridActionStoredSettings shared].holdToRecordAndTapToPlayWasShown = YES;
@@ -71,8 +71,11 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
 
 - (void)hideHintView
 {
-    [self.hintsView removeFromSuperview];
-    self.hintsView = nil;
+    if (!ANIsEmpty(self.hintsView))
+    {
+        [self.hintsView removeFromSuperview];
+        self.hintsView = nil;
+    }
 }
 
 

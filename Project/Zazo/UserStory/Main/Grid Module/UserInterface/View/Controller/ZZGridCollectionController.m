@@ -12,7 +12,6 @@
 @interface ZZGridCollectionController () <ZZGridDataSourceControllerDelegate>
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
-@property (nonatomic, strong) NSMutableArray* initalFrames;
 
 @end
 
@@ -59,6 +58,11 @@
 
 #pragma mark - Index view on grid after rotate
 
+- (void)updateInitialViewFramesIfNeeded
+{
+    [self _setupFramesIfNeeded];
+}
+
 - (void)_setupFramesIfNeeded
 {
     
@@ -73,7 +77,6 @@
 
 - (NSInteger)indexOfFriendModelOnGrid:(ZZFriendDomainModel*)friendModel;
 {
-    [self _setupFramesIfNeeded];
     __block NSInteger index = NSNotFound;
     __block ZZGridCell* gridCell = nil;
     
@@ -101,7 +104,6 @@
             }
         }];
     }
-    
     
     return index;
 }

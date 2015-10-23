@@ -21,32 +21,32 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys) {
 
 @implementation ZZFeatureEventStrategyBase
 
-- (void)handleBothCameraFeatureWithModel:(ZZGridCellViewModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock
+- (void)handleBothCameraFeatureWithModel:(ZZFriendDomainModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock
 {
     //TODO: make assert this is base class!
 }
 
-- (void)handleAbortRecordingFeatureWithModel:(ZZGridCellViewModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock
+- (void)handleAbortRecordingFeatureWithModel:(ZZFriendDomainModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock
 {
     NSLog(@"base class");
 }
 
-- (void)handleDeleteFriendFeatureWithModel:(ZZGridCellViewModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock
+- (void)handleDeleteFriendFeatureWithModel:(ZZFriendDomainModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock
 {
     NSLog(@"base class");
 }
 
-- (void)handleEarpieceFeatureWithModel:(ZZGridCellViewModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock
+- (void)handleEarpieceFeatureWithModel:(ZZFriendDomainModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock
 {
     NSLog(@"base class");
 }
 
-- (void)handleSpinWheelFeatureWithModel:(ZZGridCellViewModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock
+- (void)handleSpinWheelFeatureWithModel:(ZZFriendDomainModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock
 {
     NSLog(@"base class");
 }
 
-- (BOOL)isFeatureEnabledWithModel:(ZZGridCellViewModel*)model beforeUnlockFeatureSentCount:(NSInteger)sentCount
+- (BOOL)isFeatureEnabledWithModel:(ZZFriendDomainModel*)model beforeUnlockFeatureSentCount:(NSInteger)sentCount
 {
     BOOL isFeatureEnabled = NO;
     
@@ -64,24 +64,24 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys) {
     return isFeatureEnabled;
 }
 
-- (BOOL)_isFeatureUnlockWithModel:(ZZGridCellViewModel*)vieModel
+- (BOOL)_isFeatureUnlockWithModel:(ZZFriendDomainModel*)vieModel
 {
     BOOL isUnlock = NO;
     NSArray* userIdsArray = [[NSUserDefaults standardUserDefaults] objectForKey:kUsersIdsArrayKey];
     if (!userIdsArray)
     {
-        userIdsArray = @[vieModel.item.relatedUser.mKey];
+        userIdsArray = @[vieModel.mKey];
         [[NSUserDefaults standardUserDefaults] setObject:userIdsArray forKey:kUsersIdsArrayKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
         isUnlock = NO;
     }
     else
     {
-        isUnlock = [userIdsArray containsObject:vieModel.item.relatedUser.mKey];
-        if (!isUnlock && !ANIsEmpty(vieModel.item.relatedUser.mKey))
+        isUnlock = [userIdsArray containsObject:vieModel.mKey];
+        if (!isUnlock && !ANIsEmpty(vieModel.mKey))
         {
             NSMutableArray* userIdsArrayCopy = [userIdsArray mutableCopy];
-            [userIdsArrayCopy addObject:vieModel.item.relatedUser.mKey];
+            [userIdsArrayCopy addObject:vieModel.mKey];
             [[NSUserDefaults standardUserDefaults] setObject:userIdsArrayCopy forKey:kUsersIdsArrayKey];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
@@ -89,19 +89,19 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys) {
     return isUnlock;
 }
 
-- (void)updateFeatureUnlockIdsWithModel:(ZZGridCellViewModel*)model
+- (void)updateFeatureUnlockIdsWithModel:(ZZFriendDomainModel*)model
 {
     NSArray* userIdsArray = [[NSUserDefaults standardUserDefaults] objectForKey:kUsersIdsArrayKey];
-    if (!userIdsArray && !ANIsEmpty(model.item.relatedUser))
+    if (!userIdsArray && !ANIsEmpty(model))
     {
-        userIdsArray = @[model.item.relatedUser.mKey];
+        userIdsArray = @[model.mKey];
         [[NSUserDefaults standardUserDefaults] setObject:userIdsArray forKey:kUsersIdsArrayKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    else if (![userIdsArray containsObject:model.item.relatedUser.mKey] && userIdsArray)
+    else if (![userIdsArray containsObject:model.mKey] && userIdsArray)
     {
         NSMutableArray* userIdsArrayCopy = [userIdsArray mutableCopy];
-        [userIdsArrayCopy addObject:model.item.relatedUser.mKey];
+        [userIdsArrayCopy addObject:model.mKey];
         [[NSUserDefaults standardUserDefaults] setObject:userIdsArrayCopy forKey:kUsersIdsArrayKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
@@ -198,10 +198,11 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys) {
 // if needed to show last unlock feature after remote update, now turn off.
 - (void)_showLastUnlockFeatureDialogAfterRemoteUpdateWithMkeys:(NSArray*)mkeys
                                       withLastUnlockFeatureKey:(NSString*)lastFeaturekey
+                                                   friendModel:(ZZFriendDomainModel*)model
 {
     [[ZZGridActionStoredSettings shared] setValue:@(NO) forKey:lastFeaturekey];
     ANDispatchBlockToMainQueue(^{
-        [self.delegate showLastUnlockFeatureWithFeatureType:[self _unlockFeatureTypesWithKey:mkeys.count]];
+        [self.delegate showLastUnlockFeatureWithFeatureType:[self _unlockFeatureTypesWithKey:mkeys.count] friendModel:model];
     });
 }
 

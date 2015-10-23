@@ -17,5 +17,6 @@
 
 - (BOOL)isRecordingInProgress;
 - (void)attachToMenuPanGesture:(UIPanGestureRecognizer*)pan;
+- (void)hideHintIfNeeded;
 
 @end

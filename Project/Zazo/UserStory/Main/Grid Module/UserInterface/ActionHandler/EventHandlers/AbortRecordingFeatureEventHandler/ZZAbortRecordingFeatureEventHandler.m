@@ -11,7 +11,9 @@
 @implementation ZZAbortRecordingFeatureEventHandler
 
 
-- (void)handleEvent:(ZZGridActionEventType)event model:(ZZGridCellViewModel *)model withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBlock
+- (void)handleEvent:(ZZGridActionEventType)event
+              model:(ZZFriendDomainModel*)model
+withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))completionBlock
 {
     if (event == ZZGridActionEventTypeAbortRecordingFeatureUnlocked && ![ZZGridActionStoredSettings shared].abortRecordHintWasShown)
     {
@@ -37,7 +39,7 @@
     }
 }
 
-- (void)handleResetLastActionWithCompletionBlock:(void (^)(ZZGridActionEventType, ZZGridCellViewModel *))completionBlock
+- (void)handleResetLastActionWithCompletionBlock:(void(^)(ZZGridActionEventType event, ZZFriendDomainModel* model))completionBlock
 {
     if (self.eventHandler)
     {

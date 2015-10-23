@@ -11,8 +11,8 @@
 @implementation ZZInviteEventHandler
 
 - (void)handleEvent:(ZZGridActionEventType)event
-              model:(ZZGridCellViewModel *)model
-withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBlock
+              model:(ZZFriendDomainModel*)model
+withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))completionBlock
 {
     self.hintModel = model;
 
@@ -56,7 +56,7 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
     }
 }
 
-- (void)handleResetLastActionWithCompletionBlock:(void (^)(ZZGridActionEventType, ZZGridCellViewModel *))completionBlock
+- (void)handleResetLastActionWithCompletionBlock:(void(^)(ZZGridActionEventType event, ZZFriendDomainModel* model))completionBlock
 {
     if (self.isLastAcitionDone)
     {

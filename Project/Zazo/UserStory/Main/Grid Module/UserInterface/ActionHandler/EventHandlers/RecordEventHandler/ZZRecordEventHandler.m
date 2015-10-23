@@ -11,11 +11,13 @@
 @implementation ZZRecordEventHandler
 
 
-- (void)handleEvent:(ZZGridActionEventType)event model:(ZZGridCellViewModel *)model withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBlock
+- (void)handleEvent:(ZZGridActionEventType)event
+              model:(ZZFriendDomainModel*)model
+withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))completionBlock
 {
     if (event == ZZGridActionEventTypeGridLoaded &&
         [self.delegate frinedsNumberOnGrid] == 1 &&
-        model.item.relatedUser.unviewedCount == 0 &&
+        model.unviewedCount == 0 &&
         ![ZZGridActionStoredSettings shared].sentHintWasShown)
     {
         self.isLastAcitionDone = YES;
@@ -105,7 +107,7 @@
 }
 
 
-- (void)handleResetLastActionWithCompletionBlock:(void (^)(ZZGridActionEventType, ZZGridCellViewModel *))completionBlock
+- (void)handleResetLastActionWithCompletionBlock:(void(^)(ZZGridActionEventType event, ZZFriendDomainModel* model))completionBlock
 {
     if (self.isLastAcitionDone)
     {
