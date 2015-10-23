@@ -116,7 +116,6 @@
         
         self.isPlayingVideo = YES;
         [UIDevice currentDevice].proximityMonitoringEnabled = [ZZGridActionStoredSettings shared].earpieceHintWasShown;
-        
         //TODO:coredata
         TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:playedVideoModel.relatedUser.idTbm];
         [friend setViewedWithIncomingVideo:viewedVideo];

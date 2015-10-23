@@ -17,15 +17,42 @@
 #import "ZZGridPresenter+ActionHandler.h"
 #import "ZZGridDataSource.h"
 #import "ZZPhoneHelper.h"
+#import "ZZContentDataAcessor.h"
+#import "ZZFriendDataProvider.h"
+#import "ZZCommunicationDomainModel.h"
 
 @implementation ZZGridPresenter (UserDialogs)
 
 - (void)_showSendInvitationDialogForUser:(ZZContactDomainModel*)user
 {
-    [ZZGridAlertBuilder showSendInvitationDialogForUser:user.firstName completion:^ {
+    if ([self _isNeedToShowDialogForUser:user])
+    {
+        [ZZGridAlertBuilder showSendInvitationDialogForUser:user.firstName completion:^ {
+            [self.interactor inviteUserInApplication:user];
+        }];
+    }
+    else
+    {
         [self.interactor inviteUserInApplication:user];
-    }];
+    }
 }
+
+- (BOOL)_isNeedToShowDialogForUser:(ZZContactDomainModel*)user
+{
+    __block BOOL isNeedShow = YES;
+    NSArray* friends =  [ZZFriendDataProvider loadAllFriends];
+    NSString* userPhoneNumber = [user.primaryPhone.contact stringByReplacingOccurrencesOfString:@" " withString:@""];
+    [friends enumerateObjectsUsingBlock:^(ZZFriendDomainModel* _Nonnull friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
+       if ([userPhoneNumber isEqualToString:friendModel.mobileNumber])
+       {
+           isNeedShow = NO;
+           *stop = YES;
+       }
+    }];
+    
+    return isNeedShow;
+}
+
 
 - (void)_showConnectedDialogForModel:(ZZFriendDomainModel*)friendModel
 {

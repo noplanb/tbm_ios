@@ -492,7 +492,10 @@ static NSMutableSet *videoStatusNotificationDelegates;
         return;
     }
 
+   
     video.statusValue = status;
+
+    
     [video.managedObjectContext MR_saveToPersistentStoreAndWait];
     self.lastIncomingVideoStatusValue = status;
 

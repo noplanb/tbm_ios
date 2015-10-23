@@ -101,7 +101,6 @@
 
 - (void)showFriendAnimationWithIndex:(NSInteger)index
 {
-//    ZZGridCell* view = [self.gridView items][index];
     ZZGridCell* view = (ZZGridCell*)[self _cellAdapterWithDependsOnIndex:index];
     [view showContainFriendAnimation];
 }
@@ -180,17 +179,20 @@
 - (UIView*)_cellAdapterWithDependsOnIndex:(NSInteger)index
 {
     __block UIView* cell = nil;;
-    
-    NSValue* indexRectValue = self.controller.initalFrames[index];
-    CGRect indexRect = [indexRectValue CGRectValue];
-    
-    [self.items enumerateObjectsUsingBlock:^(UIView*  _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (CGRectIntersectsRect(indexRect, view.frame))
-        {
-            cell = view;
-            *stop = YES;
-        }
-    }];
+ 
+    if (index != NSNotFound)
+    {
+        NSValue* indexRectValue = self.controller.initalFrames[index];
+        CGRect indexRect = [indexRectValue CGRectValue];
+        
+        [self.items enumerateObjectsUsingBlock:^(UIView*  _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (CGRectIntersectsRect(indexRect, view.frame))
+            {
+                cell = view;
+                *stop = YES;
+            }
+        }];
+    }
     
     return cell;
 }

@@ -129,7 +129,7 @@
     NSMutableArray* filteredFriends = [NSMutableArray new];
     
     [allfriends enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
-        
+    
         if ([ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel])
         {
             [filteredFriends addObject:friendModel];

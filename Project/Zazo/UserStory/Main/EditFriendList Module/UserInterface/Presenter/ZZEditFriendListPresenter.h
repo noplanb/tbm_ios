@@ -11,8 +11,13 @@
 #import "ZZEditFriendListViewInterface.h"
 #import "ZZEditFriendListModuleDelegate.h"
 #import "ZZEditFriendListModuleInterface.h"
+#import "ZZGridModuleDelegate.h"
 
-@interface ZZEditFriendListPresenter : NSObject <ZZEditFriendListInteractorOutput, ZZEditFriendListModuleInterface>
+@interface ZZEditFriendListPresenter : NSObject
+<
+    ZZEditFriendListInteractorOutput,
+    ZZEditFriendListModuleInterface
+>
 
 @property (nonatomic, strong) id<ZZEditFriendListInteractorInput> interactor;
 @property (nonatomic, strong) ZZEditFriendListWireframe* wireframe;

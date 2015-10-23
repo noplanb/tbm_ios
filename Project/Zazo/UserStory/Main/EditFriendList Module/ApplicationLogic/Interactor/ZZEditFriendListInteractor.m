@@ -15,6 +15,9 @@
 #import "ZZUserDataProvider.h"
 #import "ZZFriendDataUpdater.h"
 #import "ZZUserFriendshipStatusHandler.h"
+#import "ZZGridDataProvider.h"
+#import "ZZGridDomainModel.h"
+
 
 @interface ZZEditFriendListInteractor ()
 
@@ -25,6 +28,19 @@
 - (void)loadData
 {
     NSArray* friends = [ZZFriendDataProvider loadAllFriends];
+    
+    
+    NSArray* gridModels = [ZZGridDataProvider loadAllGridsSortByIndex:NO];
+    
+    [gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel*  _Nonnull gridModel, NSUInteger idx, BOOL * _Nonnull stop) {
+       [friends enumerateObjectsUsingBlock:^(ZZFriendDomainModel*  _Nonnull friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
+           if ([friendModel.mKey isEqualToString:gridModel.relatedUser.mKey])
+           {
+               friendModel.friendshipStatusValue = ZZFriendshipStatusTypeEstablished;
+           }
+       }];
+    }];
+    
 //    [friends enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friendObject, NSUInteger idx, BOOL * _Nonnull stop) {
 //        
 //        friendObject.isFriendshipCreator = ![[ZZUserDataProvider authenticatedUser].mkey isEqualToString:friendObject.friendshipCreatorMkey];

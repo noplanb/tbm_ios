@@ -63,6 +63,7 @@
     gridWireframe.menuWireFrame = self;
     [gridWireframe presentGridControllerFromNavigationController:self.drawerController];
     self.presenter.menuModuleDelegate = gridWireframe.presenter;
+    
 }
 
 #pragma mark - Drawer Controller
