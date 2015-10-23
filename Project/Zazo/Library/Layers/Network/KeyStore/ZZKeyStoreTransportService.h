@@ -10,4 +10,7 @@
 
 @interface ZZKeyStoreTransportService : NSObject
 
++ (RACSignal*)getAllIncomingVideoIds;
++ (RACSignal*)getAllOutgoingVideoStatus;
+
 @end

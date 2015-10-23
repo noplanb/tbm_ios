@@ -7,8 +7,19 @@
 //
 
 #import "ZZKeyStoreTransport.h"
+#import "ZZNetworkTransport.h"
 
 @implementation ZZKeyStoreTransport
+
++ (RACSignal*)getAllIncomingVideoIds
+{
+    return [[ZZNetworkTransport shared] requestWithPath:kApiGetAllIncomingVideoIds httpMethod:ANHttpMethodTypeGET];
+}
+
++ (RACSignal*)getAllOutgoingVideoStatus
+{
+    return [[ZZNetworkTransport shared] requestWithPath:kApiGetAllOutgoingVideoStatus httpMethod:ANHttpMethodTypeGET];
+}
 
 //+ (RACSignal*)updateValueOnFirstKey:(NSString*)firstKey secondKey:(NSString*)secondKey updatedValue:(NSDictionary*)updatedValue
 //{

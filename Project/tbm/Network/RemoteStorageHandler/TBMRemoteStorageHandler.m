@@ -257,6 +257,42 @@ static NSString *const kArraySeparator = @",";
     return [ZZStringUtils dictionaryWithJson:valueJson];
 }
 
+
+#pragma mark - Single Request Polling
++ (void)getAllRemoteIncomingVideoIds
+{
+    [[TBMHttpManager manager] GET:@"kvstore/received_videos"
+                       parameters:nil
+                          success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject)
+                          {
+                              OB_INFO(@"Success");
+                          }
+                          failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error)
+                          {
+                                OB_INFO(@"Success");
+                          }
+     ];
+}
+
++ (void)getAllRemoteOutgoingVideoStatus
+{
+    [[TBMHttpManager manager] GET:@"kvstore/video_status"
+                       parameters:nil
+                          success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject)
+                          {
+                              OB_INFO(@"Success");
+                          }
+                          failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error)
+                          {
+                              OB_INFO(@"Success");
+
+                          }
+     ];
+
+}
+
+#pragma mark - EverSentFriends
+
 + (void)getRemoteEverSentFriendsWithSuccess:(void (^)(NSArray *response))success
                                     failure:(void (^)(NSError *error))failure
 {
