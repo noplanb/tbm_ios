@@ -222,26 +222,20 @@
         OB_INFO(@"gotFriends");
         [self pollAllFriends];
     } error:^(NSError *error) {
-        
         [self pollAllFriends];
     }];
 }
 
 - (void)pollAllFriends
 {
-    ANDispatchBlockToBackgroundQueue(^{
-        OB_INFO(@"pollAllFriends");
-//        self.myFriends = [TBMFriend all];
-//        for (TBMFriend *f in self.myFriends)
-//        {
-//            [self pollVideosWithFriend:f];
-//            [self pollVideoStatusWithFriend:f];
-//        }
-        [self pollEverSentStatusForAllFriends];
-        [self pollAllIncomingVideos];
-        [self pollAllOutgoingVideoStatus];
-    });
-    
+    // Note I intentionally do not put these on a background queue.
+    // The http requests and responses will run on a background thread by themselves. The actions
+    // prior to calling the http requests are light. I dont wish to incur the delay of a background queue
+    // to start the requests. The user must see some results from polling within a second or two of opening the
+    // app or he will think there is nothing new and close.
+    [self pollEverSentStatusForAllFriends];
+    [self pollAllIncomingVideos];
+    [self pollAllOutgoingVideoStatus];
 }
 
 - (void)pollEverSentStatusForAllFriends
@@ -296,20 +290,6 @@
 // Not used
 - (void)pollVideosWithFriend:(TBMFriend *)friend
 {
-//    [TBMRemoteStorageHandler getRemoteIncomingVideoIdsWithFriend:friend gotVideoIds:^(NSArray *videoIds)
-//    {
-//        OB_INFO(@"pollWithFriend: %@  vids = %@", friend.firstName, videoIds);
-//        for (NSString *videoId in videoIds)
-//        {
-////            Removed because IOS sends the vidoes out in parallel a later short one may arrive before an earlier long one.
-////            if ([TBMVideoIdUtils isvid1:videoId olderThanVid2:[friend oldestIncomingVideoId]]) {
-////                OB_WARN(@"pollWithFriend: Deleting remote video and videoId kv older than local oldest.");
-////                [TBMRemoteStorageHandler deleteRemoteFileAndVideoIdWithFriend:friend videoId:videoId];
-////            }
-//            [self queueDownloadWithFriend:friend videoId:videoId];
-//        }
-//    }];
-    
     if (friend.idTbm)
     {
         __block NSString* friendID = friend.idTbm;
@@ -319,11 +299,6 @@
                                                              OB_INFO(@"pollWithFriend: %@  vids = %@", firstName, videoIds);
                                                              for (NSString *videoId in videoIds)
                                                              {
-                                                                 //            Removed because IOS sends the vidoes out in parallel a later short one may arrive before an earlier long one.
-                                                                 //            if ([TBMVideoIdUtils isvid1:videoId olderThanVid2:[friend oldestIncomingVideoId]]) {
-                                                                 //                OB_WARN(@"pollWithFriend: Deleting remote video and videoId kv older than local oldest.");
-                                                                 //                [TBMRemoteStorageHandler deleteRemoteFileAndVideoIdWithFriend:friend videoId:videoId];
-                                                                 //            }
                                                                  [self queueDownloadWithFriendID:friendID videoId:videoId];
                                                              }
                                                          }];
