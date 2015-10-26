@@ -21,6 +21,8 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
 @interface ZZHintsController () <ZZHintsViewDelegate>
 
 @property (nonatomic, strong) ZZHintsView* hintsView;
+@property (nonatomic, assign) ZZHintsType showedHintType;
+
 
 @end
 
@@ -32,6 +34,8 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
                withModel:(ZZFriendDomainModel*)friendModel
          formatParameter:(NSString*)parameter
 {
+    
+    self.showedHintType = type;
     
     if (self.hintsView &&
         [self.hintsView hintModel].hintType == ZZHintsTypeRecrodWelcomeHint &&
@@ -96,7 +100,7 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
     if (type == ZZHintsTypeSentHint)
     {
         ANDispatchBlockAfter(kDelayBeforHintHidden, ^{
-            if (self.hintsView)
+            if (self.hintsView && self.showedHintType == ZZHintsTypeSentHint)
             {
                 [self.hintsView removeFromSuperview];
                 self.hintsView = nil;

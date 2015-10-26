@@ -7,6 +7,7 @@
 //
 
 #import "ZZSecretScreenStrategy.h"
+#import "ZZSecretScreenObserveTypes.h"
 
 @interface ZZBaseTouchController : NSObject
 
@@ -27,5 +28,6 @@
 - (void)observeEndTouchBeforeBeginObservingWithTouch:(UITouch*)touch withEvent:(UIEvent*)event;
 - (void)observeMovingWithTouch:(UITouch *)touch;
 - (void)resetObserving;
+
 
 @end

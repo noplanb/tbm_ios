@@ -75,9 +75,10 @@
     if (!_nameLabel)
     {
         _nameLabel = [UILabel new];
-        _nameLabel.font = [UIFont an_meduimFontWithSize:18];
+        _nameLabel.font = [UIFont an_meduimFontWithSize:17];
         _nameLabel.highlightedTextColor = [UIColor whiteColor];
         _nameLabel.textColor = [UIColor an_colorWithHexString:@"202020"];
+        _nameLabel.adjustsFontSizeToFitWidth = YES;
         [self addSubview:_nameLabel];
         
         [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {

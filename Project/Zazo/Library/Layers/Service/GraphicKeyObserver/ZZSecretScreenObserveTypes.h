@@ -11,3 +11,11 @@ typedef NS_ENUM(NSUInteger, ZZSecretScreenObserveType)
     ZZNavigationBarLeftRightObserveType,
     ZZEnvelopObserveType
 };
+
+
+typedef NS_ENUM(NSInteger, ZZSecretScreenTouchType)
+{
+    ZZSecretScreenTouchTypeNone,
+    ZZSecretScreenTouchTypeWithDelay,
+    ZZSecretScreenTouchTypeWithoutDelay
+};

@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UIGestureRecognizer* plusRecognizer;
 @property (nonatomic, strong) ZZGridStateView* stateView;
 @property (nonatomic, assign) ZZGridCellViewModelState currentViewState;
+@property (nonatomic, strong) ZZFriendDomainModel* cellFriendModel;
 @end
 
 @implementation ZZGridCell
@@ -96,10 +97,13 @@
 - (BOOL)_isNeedToChangeStateViewWithModel:(ZZGridCellViewModel*)model
 {
     BOOL isNeedChange = YES;
-    if (self.currentViewState != ZZGridCellViewModelStateNone && model.state & self.currentViewState)
+    if ([self.cellFriendModel isEqual:model.item.relatedUser] &&
+        self.currentViewState != ZZGridCellViewModelStateNone
+        && (model.state & self.currentViewState))
     {
         isNeedChange = NO;
     }
+    self.cellFriendModel = model.item.relatedUser;
     
     return isNeedChange;
 }

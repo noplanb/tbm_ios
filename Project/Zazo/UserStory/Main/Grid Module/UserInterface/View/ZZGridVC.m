@@ -91,7 +91,6 @@
     [self updateStateToLoading:isLoading message:nil];
 }
 
-
 #pragma mark VC Interface
 
 - (void)menuWasOpened
