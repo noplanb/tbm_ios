@@ -107,18 +107,35 @@
     
     if (model.state & ZZGridCellViewModelStateVideoDownloadedAndVideoCountOne)
     {
-        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-        self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-        [self updateBadgeWithNumber:model.badgeNumber];
+        if ([model.badgeNumber integerValue] > 0 &&
+            ![self.model isVideoPlayed])
+        {
+            [self _setupGreenColorsWithModel:model];
+        }
     }
     else if (model.state & ZZGridCellViewModelStateVideoCountMoreThatOne)
     {
-        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-        self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-        [self updateBadgeWithNumber:model.badgeNumber];
+        [self _setupGreenColorsWithModel:model];
+    }
+    else
+    {
+        [self _setupGrayColorsWithModel:model];
     }
 }
 
+- (void)_setupGreenColorsWithModel:(ZZGridCellViewModel*)model
+{
+    self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+    self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+    [self updateBadgeWithNumber:model.badgeNumber];
+}
+
+- (void)_setupGrayColorsWithModel:(ZZGridCellViewModel*)model
+{
+    self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
+    self.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
+    [self updateBadgeWithNumber:@(0)];
+}
 
 #pragma mark - Setup Recognizer
 

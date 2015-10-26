@@ -86,6 +86,6 @@ static NSString* const kApiS3Credentials = @"s3_credentials/info";
 
 #pragma mark - Static
 
-static NSString* const kInviteFriendBaseURL = @"zazoapp.com/l/";
+static NSString* const kInviteFriendBaseURL = @"zazoapp.com/c/";
 
 

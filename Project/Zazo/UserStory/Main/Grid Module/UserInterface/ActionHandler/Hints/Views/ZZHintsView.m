@@ -101,12 +101,20 @@
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
+    // dismiss self
+    if (CGRectEqualToRect([self.hintViewModel focusFrame], CGRectZero))
+    {
+        return self;
+    }
+    
+    
+    //send event to next responder
     if (CGRectContainsPoint([self.hintViewModel focusFrame], point))
     {
         [self removeFromSuperview];
         return nil;
     }
-    else
+    else // dismiss self
     {
         return self;
     }

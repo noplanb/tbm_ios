@@ -99,29 +99,37 @@
     if (!ANIsEmpty(URLs))//&& ![self.currentPlayQueue isEqualToArray:URLs]) //TODO: if current playback state is equal to user's play list
     {
         ZZVideoDomainModel* playedVideoModel = [self.videoModelsArray firstObject];
-       
         TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
-        self.playedFriend = playedVideoModel.relatedUser;
-        self.moviePlayerController.contentURL = playedVideoModel.videoURL;//firstVideoUrl;
         
-        //save video state
-        [self _updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
-        
-        self.moviePlayerController.view.frame = view.bounds;
-        [view addSubview:self.moviePlayerController.view];
-       
-        [self.moviePlayerController play]; // TODO: cleanup this.Have only one entry point to play video and update this flags
-        [ZZGridActionStoredSettings shared].incomingVideoWasPlayed = YES;
-        [self.delegate videoPlayerURLWasStartPlaying:viewedVideo.videoUrl];
-        
-        self.isPlayingVideo = YES;
-        [UIDevice currentDevice].proximityMonitoringEnabled = [ZZGridActionStoredSettings shared].earpieceHintWasShown;
-        //TODO:coredata
-        TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:playedVideoModel.relatedUser.idTbm];
-        [friend setViewedWithIncomingVideo:viewedVideo];
-        [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
-                                                      videoId:viewedVideo.videoId
-                                                       friend:friend];
+        if ([viewedVideo.status isEqualToNumber:@(INCOMING_VIDEO_STATUS_DOWNLOADED)] ||
+            [viewedVideo.status isEqualToNumber:@(INCOMING_VIDEO_STATUS_VIEWED)])
+        {
+            self.playedFriend = playedVideoModel.relatedUser;
+            self.moviePlayerController.contentURL = playedVideoModel.videoURL;//firstVideoUrl;
+            
+            //save video state
+            [self _updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
+            
+            self.moviePlayerController.view.frame = view.bounds;
+            [view addSubview:self.moviePlayerController.view];
+            
+            [self.moviePlayerController play]; // TODO: cleanup this.Have only one entry point to play video and update this flags
+            [ZZGridActionStoredSettings shared].incomingVideoWasPlayed = YES;
+            [self.delegate videoPlayerURLWasStartPlaying:viewedVideo.videoUrl];
+            
+            self.isPlayingVideo = YES;
+            [UIDevice currentDevice].proximityMonitoringEnabled = [ZZGridActionStoredSettings shared].earpieceHintWasShown;
+            //TODO:coredata
+            TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:playedVideoModel.relatedUser.idTbm];
+            [friend setViewedWithIncomingVideo:viewedVideo];
+            [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
+                                                          videoId:viewedVideo.videoId
+                                                           friend:friend];
+        }
+        else
+        {
+            [self _stopWithPlayChecking:NO];
+        }
     }
 }
 
@@ -137,17 +145,32 @@
 
 - (void)stop
 {
-    if (self.isPlayingVideo)
+    [self _stopWithPlayChecking:YES];
+}
+
+- (void)_stopWithPlayChecking:(BOOL)isCheckPlaying
+{
+    if (isCheckPlaying && self.isPlayingVideo)
     {
-        self.isPlayingVideo = NO;
-        [self.moviePlayerController.view removeFromSuperview];
-        [self.moviePlayerController stop];
-        self.playedFriend.isVideoStopped = YES;
-        [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL
-                                    withPlayedUserModel:self.playedFriend];
-        self.playedFriend = nil;
-        [UIDevice currentDevice].proximityMonitoringEnabled = NO;
+        [self _stopPlaying];
     }
+    else if (!isCheckPlaying)
+    {
+        [self _stopPlaying];
+    }
+        
+}
+
+- (void)_stopPlaying
+{
+    self.isPlayingVideo = NO;
+    [self.moviePlayerController.view removeFromSuperview];
+    [self.moviePlayerController stop];
+    self.playedFriend.isVideoStopped = YES;
+    [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL
+                                withPlayedUserModel:self.playedFriend];
+    self.playedFriend = nil;
+    [UIDevice currentDevice].proximityMonitoringEnabled = NO;
 }
 
 - (void)toggle
@@ -264,27 +287,34 @@
     {
         ZZVideoDomainModel* playedVideoModel = self.videoModelsArray[index];
         TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
-        self.playedFriend = playedVideoModel.relatedUser;
-        //save video state
-        [self _updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
         
-        self.moviePlayerController.contentURL = nextUrl;
-
-        TBMFriend* friend = [ZZFriendDataProvider entityFromModel:playedVideoModel.relatedUser];
-        [friend setViewedWithIncomingVideo:viewedVideo];
-//        [self.playedVideoUrls removeObject:nextUrl];
-        [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
-                                                      videoId:viewedVideo.videoId
-                                                       friend:friend];
-        
-        [self.delegate videoPlayerURLWasStartPlaying:nextUrl]; //TODO: this causes blinking. reload only after full stop
-        
-        self.isPlayingVideo = YES;
-        [UIDevice currentDevice].proximityMonitoringEnabled = [ZZGridActionStoredSettings shared].earpieceHintWasShown;
-        
-        
-        [self.moviePlayerController play];
-        
+        if ([viewedVideo.status isEqualToNumber:@(INCOMING_VIDEO_STATUS_DOWNLOADED)])
+        {
+            self.playedFriend = playedVideoModel.relatedUser;
+            //save video state
+            [self _updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
+            
+            self.moviePlayerController.contentURL = nextUrl;
+            
+            TBMFriend* friend = [ZZFriendDataProvider entityFromModel:playedVideoModel.relatedUser];
+            [friend setViewedWithIncomingVideo:viewedVideo];
+            //        [self.playedVideoUrls removeObject:nextUrl];
+            [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
+                                                          videoId:viewedVideo.videoId
+                                                           friend:friend];
+            
+            [self.delegate videoPlayerURLWasStartPlaying:nextUrl]; //TODO: this causes blinking. reload only after full stop
+            
+            self.isPlayingVideo = YES;
+            [UIDevice currentDevice].proximityMonitoringEnabled = [ZZGridActionStoredSettings shared].earpieceHintWasShown;
+            
+            
+            [self.moviePlayerController play];
+        }
+        else
+        {
+            [self _stopWithPlayChecking:NO];
+        }
     }
 }
 
