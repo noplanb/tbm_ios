@@ -285,6 +285,8 @@
 		07F0E7F71B8CD7A900036AB2 /* ZZLoadFriendListTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EC1B8CD7A900036AB2 /* ZZLoadFriendListTest.m */; };
 		07F0E7F81B8CD7A900036AB2 /* ZZStartScreenTestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */; };
 		180254A31BB2C5A400138A52 /* ZZVideoStatuses.m in Sources */ = {isa = PBXBuildFile; fileRef = 180254A21BB2C5A400138A52 /* ZZVideoStatuses.m */; settings = {ASSET_TAGS = (); }; };
+		18061C051BDFBF050079641D /* NSString+NSStringExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18061C031BDFBF050079641D /* NSString+NSStringExtensions.m */; settings = {ASSET_TAGS = (); }; };
+		18061C091BDFBFB50079641D /* TBMStringUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 18061C081BDFBFB50079641D /* TBMStringUtils.m */; settings = {ASSET_TAGS = (); }; };
 		181D1C9E1BC51A4600044F83 /* ZZBaseEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1C9D1BC51A4600044F83 /* ZZBaseEventHandler.m */; settings = {ASSET_TAGS = (); }; };
 		181D1CA41BC51B2000044F83 /* ZZInviteEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CA31BC51B2000044F83 /* ZZInviteEventHandler.m */; settings = {ASSET_TAGS = (); }; };
 		181D1CA71BC51B7100044F83 /* ZZPlayEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CA61BC51B7100044F83 /* ZZPlayEventHandler.m */; settings = {ASSET_TAGS = (); }; };
@@ -307,6 +309,8 @@
 		184E53E91BD4CB510007CF6F /* ZZUserNameLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 184E53E81BD4CB510007CF6F /* ZZUserNameLabel.m */; settings = {ASSET_TAGS = (); }; };
 		185DE9071BDE6F5000106F83 /* ZZSecretScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185DE9061BDE6F5000106F83 /* ZZSecretScreenController.m */; settings = {ASSET_TAGS = (); }; };
 		185DE9091BDE757900106F83 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 185DE9081BDE757900106F83 /* CoreMotion.framework */; };
+		185DE90C1BDFB8D500106F83 /* ZZRemoteStorageGeneratorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 185DE90B1BDFB8D500106F83 /* ZZRemoteStorageGeneratorTest.m */; settings = {ASSET_TAGS = (); }; };
+		185DE9101BDFBA2400106F83 /* TBMRemoteStorageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 185DE90F1BDFBA2400106F83 /* TBMRemoteStorageHandler.m */; settings = {ASSET_TAGS = (); }; };
 		186BD4BA1BC40EF900B47C6B /* ZZHintArrowConfigurationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186BD4B91BC40EF900B47C6B /* ZZHintArrowConfigurationModel.m */; settings = {ASSET_TAGS = (); }; };
 		1872F4391BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1872F4381BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.m */; settings = {ASSET_TAGS = (); }; };
 		187842311BB2F2760007CDE2 /* ZZCommunicationDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187842301BB2F2760007CDE2 /* ZZCommunicationDomainModel.m */; settings = {ASSET_TAGS = (); }; };
@@ -920,6 +924,10 @@
 		07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZStartScreenTestSpec.m; sourceTree = "<group>"; };
 		180254A11BB2C5A400138A52 /* ZZVideoStatuses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoStatuses.h; sourceTree = "<group>"; };
 		180254A21BB2C5A400138A52 /* ZZVideoStatuses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoStatuses.m; sourceTree = "<group>"; };
+		18061C021BDFBF050079641D /* NSString+NSStringExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NSStringExtensions.h"; sourceTree = "<group>"; };
+		18061C031BDFBF050079641D /* NSString+NSStringExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NSStringExtensions.m"; sourceTree = "<group>"; };
+		18061C071BDFBFB50079641D /* TBMStringUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMStringUtils.h; sourceTree = "<group>"; };
+		18061C081BDFBFB50079641D /* TBMStringUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMStringUtils.m; sourceTree = "<group>"; };
 		181724CF1BD8CCE600F4821C /* ZZAuthInteractorConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZAuthInteractorConstants.h; sourceTree = "<group>"; };
 		181D1C9C1BC51A4600044F83 /* ZZBaseEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZBaseEventHandler.h; sourceTree = "<group>"; };
 		181D1C9D1BC51A4600044F83 /* ZZBaseEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZBaseEventHandler.m; sourceTree = "<group>"; };
@@ -961,6 +969,9 @@
 		185DE9051BDE6F5000106F83 /* ZZSecretScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenController.h; sourceTree = "<group>"; };
 		185DE9061BDE6F5000106F83 /* ZZSecretScreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretScreenController.m; sourceTree = "<group>"; };
 		185DE9081BDE757900106F83 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		185DE90B1BDFB8D500106F83 /* ZZRemoteStorageGeneratorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRemoteStorageGeneratorTest.m; sourceTree = "<group>"; };
+		185DE90E1BDFBA2400106F83 /* TBMRemoteStorageHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMRemoteStorageHandler.h; sourceTree = "<group>"; };
+		185DE90F1BDFBA2400106F83 /* TBMRemoteStorageHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMRemoteStorageHandler.m; sourceTree = "<group>"; };
 		186BD4B81BC40EF900B47C6B /* ZZHintArrowConfigurationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintArrowConfigurationModel.h; sourceTree = "<group>"; };
 		186BD4B91BC40EF900B47C6B /* ZZHintArrowConfigurationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintArrowConfigurationModel.m; sourceTree = "<group>"; };
 		1872F4371BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactsPermissionAlertBuilder.h; sourceTree = "<group>"; };
@@ -1112,6 +1123,7 @@
 			children = (
 				07F0E7E71B8CD7A900036AB2 /* AuthNetworkTest */,
 				07F0E7EA1B8CD7A900036AB2 /* FriendNetworkTests */,
+				185DE90A1BDFB81300106F83 /* RemoteStorageGeneratorTests */,
 				07F0E7ED1B8CD7A900036AB2 /* StartScreenTests */,
 				0732F5041B8B93D3004FD3AF /* InfoPlist.strings */,
 				0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */,
@@ -3441,6 +3453,24 @@
 			path = StartScreenTests;
 			sourceTree = "<group>";
 		};
+		18061C011BDFBF050079641D /* NSString */ = {
+			isa = PBXGroup;
+			children = (
+				18061C021BDFBF050079641D /* NSString+NSStringExtensions.h */,
+				18061C031BDFBF050079641D /* NSString+NSStringExtensions.m */,
+			);
+			path = NSString;
+			sourceTree = "<group>";
+		};
+		18061C061BDFBFB50079641D /* StringUtils */ = {
+			isa = PBXGroup;
+			children = (
+				18061C071BDFBFB50079641D /* TBMStringUtils.h */,
+				18061C081BDFBFB50079641D /* TBMStringUtils.m */,
+			);
+			path = StringUtils;
+			sourceTree = "<group>";
+		};
 		181D1C8E1BC51A2800044F83 /* EventHandlers */ = {
 			isa = PBXGroup;
 			children = (
@@ -3621,6 +3651,26 @@
 				185DE9061BDE6F5000106F83 /* ZZSecretScreenController.m */,
 			);
 			path = SecretScreenController;
+			sourceTree = "<group>";
+		};
+		185DE90A1BDFB81300106F83 /* RemoteStorageGeneratorTests */ = {
+			isa = PBXGroup;
+			children = (
+				18061C061BDFBFB50079641D /* StringUtils */,
+				18061C011BDFBF050079641D /* NSString */,
+				185DE90D1BDFBA2400106F83 /* RemoteStorageHandler */,
+				185DE90B1BDFB8D500106F83 /* ZZRemoteStorageGeneratorTest.m */,
+			);
+			path = RemoteStorageGeneratorTests;
+			sourceTree = "<group>";
+		};
+		185DE90D1BDFBA2400106F83 /* RemoteStorageHandler */ = {
+			isa = PBXGroup;
+			children = (
+				185DE90E1BDFBA2400106F83 /* TBMRemoteStorageHandler.h */,
+				185DE90F1BDFBA2400106F83 /* TBMRemoteStorageHandler.m */,
+			);
+			path = RemoteStorageHandler;
 			sourceTree = "<group>";
 		};
 		186BD4B71BC40EDE00B47C6B /* ZZHintArrowConfigurationModel */ = {
@@ -4401,9 +4451,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18061C091BDFBFB50079641D /* TBMStringUtils.m in Sources */,
+				185DE9101BDFBA2400106F83 /* TBMRemoteStorageHandler.m in Sources */,
 				07F0E7F71B8CD7A900036AB2 /* ZZLoadFriendListTest.m in Sources */,
 				07F0E7F41B8CD7A900036AB2 /* ZZAccountTransportServiceSpec.m in Sources */,
+				18061C051BDFBF050079641D /* NSString+NSStringExtensions.m in Sources */,
 				07F0E7F61B8CD7A900036AB2 /* ZZLoadFriendListSpec.m in Sources */,
+				185DE90C1BDFB8D500106F83 /* ZZRemoteStorageGeneratorTest.m in Sources */,
 				07F0E7F81B8CD7A900036AB2 /* ZZStartScreenTestSpec.m in Sources */,
 				07F0E7F51B8CD7A900036AB2 /* ZZRegistrationWithSMSTest.m in Sources */,
 			);
