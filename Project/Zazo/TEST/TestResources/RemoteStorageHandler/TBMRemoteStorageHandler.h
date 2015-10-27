@@ -53,4 +53,13 @@ static NSString * REMOTE_STORAGE_VIDEO_ID_SUFFIX = @"-VideoIdKVKey";
 + (void)setRemoteEverSentKVForFriendMkeys:(NSArray *)mkeys;
 // Conversion of status
 + (int)outgoingVideoStatusWithRemoteStatus:(NSString *)remoteStatus;
+
+
+//*****************
+
++ (NSString *)incomingVideoIDRemoteKVKey:(TBMFriend *)friend;
++ (NSString *)outgoingVideoIDRemoteKVKey:(TBMFriend *)friend;
++ (NSString *)incomingVideoStatusRemoteKVKey:(TBMFriend *)friend;
++ (NSString *)outgoingVideoStatusRemoteKVKey:(TBMFriend *)friend;
+
 @end
