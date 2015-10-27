@@ -52,6 +52,26 @@
     [self.presentedController popViewControllerAnimated:YES];
 }
 
+- (void)presentOrDismissSecretControllerFromNavigationController:(UINavigationController*)nc
+{
+    if (ANIsEmpty(self.secretController))
+    {
+        [self presentSecretControllerFromNavigationController:nc];
+    }
+    else
+    {
+        if ([nc.topViewController isEqual:self.secretController])
+        {
+            [self dismissSecretController];
+        }
+        else
+        {
+            ANDispatchBlockToMainQueue(^{
+                [nc pushViewController:self.secretController animated:NO];
+            });
+        }
+    }
+}
 
 #pragma mark - Detail Controllers
 

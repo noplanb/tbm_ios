@@ -17,6 +17,13 @@
 #import "ZZSecretScreenController.h"
 
 
+@interface ZZRootWireframe ()
+
+@property (nonatomic, strong) ZZSecretWireframe* secretWireframe;
+@property (nonatomic, strong) ZZSecretScreenController* secretController;
+
+@end
+
 @implementation ZZRootWireframe
 
 - (void)showStartViewControllerInWindow:(UIWindow*)window
@@ -32,15 +39,14 @@
     [wireframe presentStartControllerFromWindow:window];
     
 #endif
-    
-[ZZSecretScreenController startObserveWithType:ZZEnvelopObserveType
-                                     touchType:ZZSecretScreenTouchTypeWithoutDelay
-                                        window:window completionBlock:^{
-                                            
-            [self _presentSecretScreenFromNavigationController:(UINavigationController*)window.rootViewController];
-                                            
-}];
-    
+
+    self.secretWireframe = [ZZSecretWireframe new];
+    self.secretController = [ZZSecretScreenController startObserveWithType:ZZEnvelopObserveType
+                                         touchType:ZZSecretScreenTouchTypeWithoutDelay
+                                            window:window completionBlock:^{
+                [self _presentSecretScreenFromNavigationController:(UINavigationController*)window.rootViewController];
+                                                
+    }];
 }
 
 - (void)showRootController:(UIViewController*)vc inWindow:(UIWindow *)window
@@ -50,9 +56,9 @@
 }
 
 - (void)_presentSecretScreenFromNavigationController:(UINavigationController*)nc
-{
-    ZZSecretWireframe* wireframe = [ZZSecretWireframe new];
-    [wireframe presentSecretControllerFromNavigationController:nc];
+{   
+//    [wireframe presentSecretControllerFromNavigationController:nc];
+    [self.secretWireframe presentOrDismissSecretControllerFromNavigationController:nc];
 }
 
 @end

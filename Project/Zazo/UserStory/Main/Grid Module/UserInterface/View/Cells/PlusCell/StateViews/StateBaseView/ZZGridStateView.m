@@ -132,7 +132,7 @@
 
 - (void)_setupGrayColorsWithModel:(ZZGridCellViewModel*)model
 {
-    self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
+    self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellUserNameGrayColor;
     self.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
     [self updateBadgeWithNumber:@(0)];
 }
@@ -402,7 +402,7 @@
         _userNameLabel.textAlignment = NSTextAlignmentCenter;
         _userNameLabel.textColor = [ZZColorTheme shared].gridStatusViewUserNameLabelColor;
         _userNameLabel.font = [UIFont an_regularFontWithSize:kUserNameFontSize];
-        _userNameLabel.backgroundColor = [[ZZColorTheme shared].gridCellGrayColor colorWithAlphaComponent:0.8];
+        _userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellUserNameGrayColor;;
         [self addSubview:_userNameLabel];
 
         [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {

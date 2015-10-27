@@ -26,7 +26,7 @@ static CGFloat const kDefaultTouchDelay = 0.2;
 
 @implementation ZZSecretScreenController
 
-+ (void)startObserveWithType:(ZZSecretScreenObserveType)observeType
++ (instancetype)startObserveWithType:(ZZSecretScreenObserveType)observeType
                    touchType:(ZZSecretScreenTouchType)touchType
                       window:(UIWindow*)window
              completionBlock:(void(^)())completionBlock
@@ -37,31 +37,35 @@ static CGFloat const kDefaultTouchDelay = 0.2;
                                                                       observeType:observeType
                                                                   completionBlock:completionBlock];
     
-//    secretController.motionManager = [[CMMotionManager alloc] init];
-//    secretController.motionManager.deviceMotionUpdateInterval = .1;
-//    [secretController.motionManager startDeviceMotionUpdatesToQueue:[[NSOperationQueue alloc] init] withHandler:^(CMDeviceMotion * _Nullable motion, NSError * _Nullable error) {
-//        CGFloat accelerationValue = 5;
-//        CMAcceleration userAcceleration = motion.userAcceleration;
-//        if (fabs(userAcceleration.x) > accelerationValue)
-//        {
-//            ANDispatchBlockToMainQueue(^{
-//                if (completionBlock)
-//                {
-//                    completionBlock();
-//                }
-//            });
-//        }
-//    }];
-    
-//#ifdef AD-HOC
-//
-//#else
-    
-    [secretController _startObserveWithWindow:window];
-    
-//#endif
-    
 
+#ifdef RELEASE
+    [secretController _startObserveWithWindow:window];
+#else
+    [secretController _startObserveWithWindow:window];
+    [secretController _setupMotionControllerWithCompletionBlock:completionBlock];
+#endif
+    
+    return secretController;
+}
+
+- (void)_setupMotionControllerWithCompletionBlock:(void(^)())completionBlock
+{
+    self.motionManager = [[CMMotionManager alloc] init];
+    self.motionManager.deviceMotionUpdateInterval = .17;
+    [self.motionManager startDeviceMotionUpdatesToQueue:[[NSOperationQueue alloc] init] withHandler:^(CMDeviceMotion * _Nullable motion, NSError * _Nullable error) {
+        CGFloat accelerationValue = 2.3;
+        CMAcceleration userAcceleration = motion.userAcceleration;
+        if (fabs(userAcceleration.x) > accelerationValue ||
+            fabs(userAcceleration.y) > accelerationValue )
+        {
+            ANDispatchBlockToMainQueue(^{
+                if (completionBlock)
+                {
+                    completionBlock();
+                }
+            });
+        }
+    }];
 }
 
 - (ZZBaseTouchController*)_touchControllerWithType:(ZZSecretScreenTouchType)touchType
