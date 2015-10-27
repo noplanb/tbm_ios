@@ -15,7 +15,6 @@
 #import "MagicalRecord.h"
 #import "ZZFriendDataProvider.h"
 #import "TBMFriend.h"
-#import "TBMRemoteStorageHandler.h"
 #import "iToast.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZGridActionStoredSettings.h"
@@ -124,9 +123,11 @@
             //TODO:coredata
             TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:playedVideoModel.relatedUser.idTbm];
             [friend setViewedWithIncomingVideo:viewedVideo];
-            [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
-                                                          videoId:viewedVideo.videoId
-                                                           friend:friend];
+            
+            [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoId
+                                                                        toStatus:ZZRemoteStorageVideoStatusViewed
+                                                                      friendMkey:friend.mkey
+                                                                      friendCKey:friend.ckey] subscribeNext:^(id x) {}];
         }
         else
         {
@@ -301,9 +302,10 @@
             TBMFriend* friend = [ZZFriendDataProvider entityFromModel:playedVideoModel.relatedUser];
             [friend setViewedWithIncomingVideo:viewedVideo];
             //        [self.playedVideoUrls removeObject:nextUrl];
-            [TBMRemoteStorageHandler setRemoteIncomingVideoStatus:REMOTE_STORAGE_STATUS_VIEWED
-                                                          videoId:viewedVideo.videoId
-                                                           friend:friend];
+            [ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoId
+                                                                        toStatus:ZZRemoteStorageVideoStatusViewed
+                                                                      friendMkey:friend.mkey
+                                                                      friendCKey:friend.ckey];
             
             [self.delegate videoPlayerURLWasStartPlaying:nextUrl]; //TODO: this causes blinking. reload only after full stop
             

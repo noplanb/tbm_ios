@@ -43,7 +43,7 @@
         self.rootService = [ZZApplicationRootService new];
         
         self.notificationsHandler.delegate = self.rootService;
-        self.rootService.notificationDelegate = self.notificationsHandler;
+        self.rootService.notificationDelegate = (id)self.notificationsHandler;
     }
     return self;
 }

@@ -17,7 +17,7 @@
 
 + (NSString*)incomingVideoRemoteFilenameWithFriendMkey:(NSString*)friendMkey
                                             friendCKey:(NSString*)friendCkey
-                                               videoId:(NSString *)videoId
+                                               videoId:(NSString*)videoId
 {
     return [NSString stringWithFormat:@"%@-%@",
             [self _incomingPrefixWithFriendMKey:friendMkey],
@@ -26,7 +26,7 @@
 
 + (NSString*)outgoingVideoRemoteFilenameWithFriendMkey:(NSString*)friendMkey
                                             friendCKey:(NSString*)friendCkey
-                                               videoId:(NSString *)videoId
+                                               videoId:(NSString*)videoId
 {
     return [NSString stringWithFormat:@"%@-%@",
             [self _outgoingPrefixWithFrinedMKey:friendMkey],
