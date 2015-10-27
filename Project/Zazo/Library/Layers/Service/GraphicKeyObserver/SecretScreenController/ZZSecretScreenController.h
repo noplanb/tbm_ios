@@ -11,6 +11,9 @@
 
 @interface ZZSecretScreenController : NSObject
 
-+ (instancetype)startObserveWithType:(ZZSecretScreenObserveType)observeType touchType:(ZZSecretScreenTouchType)touchType window:(UIWindow*)window completionBlock:(void(^)())completionBlock;
++ (instancetype)startObserveWithType:(ZZSecretScreenObserveType)observeType
+                           touchType:(ZZSecretScreenTouchType)touchType
+                              window:(UIWindow*)window
+                     completionBlock:(ANCodeBlock)completionBlock;
 
 @end

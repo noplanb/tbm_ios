@@ -12,6 +12,7 @@
 #import "ZZGridDataSource.h"
 #import "ZZGridRotationTouchObserver.h"
 #import "ZZActionSheetController.h"
+#import "ZZTestGenerator.h"
 
 @interface ZZGridVC () <ZZGridRotationTouchObserverDelegate, ZZGridCollectionControllerDelegate, UIGestureRecognizerDelegate>
 
@@ -79,6 +80,10 @@
 {
     [super viewDidAppear:animated];
     [self.controller updateInitialViewFramesIfNeeded];
+    
+    ZZTestGenerator* testGenerator = [ZZTestGenerator new];
+    BOOL testResult = [testGenerator startTest];
+    NSLog(@"stop test with resutl %d",testResult);
 }
 
 - (void)updateWithDataSource:(ZZGridDataSource *)dataSource

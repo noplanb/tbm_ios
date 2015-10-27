@@ -276,9 +276,7 @@ static CGFloat const kStatusBarHeight = 20;
         {
             padding = self.view.center.x;
         }
-//        BOOL newState = ((self.drawerView.center.x - padding) < ((self.drawerWidth - 10) / 2));
-//        NSLog(@"direction velocity x = %f",[recognizer velocityInView:recognizer.view]);
-        
+
         BOOL newState = ([recognizer velocityInView:recognizer.view].x < 0);
         
         if (newState == NO)

@@ -9,6 +9,7 @@
 #import "ZZAppDelegate.h"
 #import "ZZAppDependencies.h"
 
+
 @interface ZZAppDelegate ()
 
 @property (nonatomic, strong) ZZAppDependencies* appDependencies;
@@ -27,6 +28,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     
     [self.window makeKeyAndVisible];
     OB_INFO(@"didFinishLaunchingWithOptions:");
+    
     return YES;
 }
 

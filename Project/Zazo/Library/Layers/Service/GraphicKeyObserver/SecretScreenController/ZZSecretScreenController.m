@@ -27,9 +27,9 @@ static CGFloat const kDefaultTouchDelay = 0.2;
 @implementation ZZSecretScreenController
 
 + (instancetype)startObserveWithType:(ZZSecretScreenObserveType)observeType
-                   touchType:(ZZSecretScreenTouchType)touchType
-                      window:(UIWindow*)window
-             completionBlock:(void(^)())completionBlock
+                           touchType:(ZZSecretScreenTouchType)touchType
+                              window:(UIWindow*)window
+                     completionBlock:(ANCodeBlock)completionBlock
 {
     ZZSecretScreenController* secretController = [ZZSecretScreenController new];
     
@@ -37,7 +37,7 @@ static CGFloat const kDefaultTouchDelay = 0.2;
                                                                       observeType:observeType
                                                                   completionBlock:completionBlock];
     
-
+    
 #ifdef RELEASE
     [secretController _startObserveWithWindow:window];
 #else
@@ -48,11 +48,17 @@ static CGFloat const kDefaultTouchDelay = 0.2;
     return secretController;
 }
 
-- (void)_setupMotionControllerWithCompletionBlock:(void(^)())completionBlock
+
+#pragma mark - Private
+
+- (void)_setupMotionControllerWithCompletionBlock:(ANCodeBlock)completionBlock
 {
     self.motionManager = [[CMMotionManager alloc] init];
     self.motionManager.deviceMotionUpdateInterval = .17;
-    [self.motionManager startDeviceMotionUpdatesToQueue:[[NSOperationQueue alloc] init] withHandler:^(CMDeviceMotion * _Nullable motion, NSError * _Nullable error) {
+    NSOperationQueue* opQueue = [NSOperationQueue new];
+    
+    [self.motionManager startDeviceMotionUpdatesToQueue:opQueue
+                                            withHandler:^(CMDeviceMotion * _Nullable motion, NSError * _Nullable error) {
         CGFloat accelerationValue = 2.3;
         CMAcceleration userAcceleration = motion.userAcceleration;
         if (fabs(userAcceleration.x) > accelerationValue ||
@@ -79,20 +85,19 @@ static CGFloat const kDefaultTouchDelay = 0.2;
         {
             touchController = [[ZZTouchControllerWithoutDelay alloc] initWithStrategy:[self _strategyWithType:observeType]
                                                                   withCompletionBlock:completionBlock];
-        }break;
+        } break;
         case ZZSecretScreenTouchTypeWithoutDelay:
         {
             touchController = [[ZZTouchControllerWithoutDelay alloc] initWithStrategy:[self _strategyWithType:observeType]
                                                                   withCompletionBlock:completionBlock];
-        
-        }break;
+            
+        } break;
         case ZZSecretScreenTouchTypeWithDelay:
         {
             touchController = [[ZZTouchControllerWithTouchDelay alloc] initWithDelay:kDefaultTouchDelay
                                                                         withStrategy:[self _strategyWithType:observeType]
                                                                  withCompletionBlock:completionBlock];
-        }break;
- 
+        } break;
     }
     
     return touchController;
@@ -101,6 +106,7 @@ static CGFloat const kDefaultTouchDelay = 0.2;
 - (id<ZZSecretScreenStrategy>)_strategyWithType:(ZZSecretScreenObserveType)type
 {
     id <ZZSecretScreenStrategy> strategy;
+    
     switch (type)
     {
         case ZZNavigationBarLeftRightObserveType:
@@ -112,9 +118,8 @@ static CGFloat const kDefaultTouchDelay = 0.2;
         {
             strategy = [ZZEnvelopStrategy new];
         } break;
-            
-        default: break;
     }
+    
     return strategy;
 }
 
