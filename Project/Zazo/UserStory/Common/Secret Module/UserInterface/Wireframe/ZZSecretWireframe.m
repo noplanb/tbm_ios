@@ -60,15 +60,13 @@
     }
     else
     {
-        if ([nc.topViewController isEqual:self.secretController])
+        if ([nc.topViewController isKindOfClass:[ZZSecretVC class]])
         {
             [self dismissSecretController];
         }
         else
         {
-            ANDispatchBlockToMainQueue(^{
-                [nc pushViewController:self.secretController animated:NO];
-            });
+            [self presentSecretControllerFromNavigationController:nc];
         }
     }
 }
