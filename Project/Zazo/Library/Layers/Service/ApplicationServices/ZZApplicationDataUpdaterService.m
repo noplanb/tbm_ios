@@ -16,7 +16,16 @@
 
 - (void)updateAllData
 {
-    [self _updateFriendsData];
+    OB_INFO(@"getAndPollAllFriends");
+    
+    [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray* friends) {
+        
+        OB_INFO(@"gotFriends");
+        [self _pollAllFriends];
+    } error:^(NSError *error) {
+        
+        [self _pollAllFriends];
+    }];
 }
 
 - (void)updateApplicationBadge
@@ -24,6 +33,7 @@
     OB_INFO(@"setBadgeNumberDownloadedUnviewed = %lu", (unsigned long) [TBMVideo downloadedUnviewedCount]);
     [self setBadgeCount:[TBMVideo downloadedUnviewedCount]];
 }
+
 
 #pragma mark -  Notification center and badge control
 
@@ -49,20 +59,6 @@
     {
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:count];
     }
-}
-
-- (void)_updateFriendsData
-{
-    OB_INFO(@"getAndPollAllFriends");
-    
-    [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray* friends) {
-        
-        OB_INFO(@"gotFriends");
-        [self _pollAllFriends];
-    } error:^(NSError *error) {
-        
-        [self _pollAllFriends];
-    }];
 }
 
 - (void)_pollAllFriends
@@ -154,7 +150,5 @@
         OB_WARN(@"pollVideoStatusWithFriend: Error polling outgoingVideoStatus for %@ - %@", friend.firstName, error);
     }];
 }
-
-
 
 @end

@@ -25,7 +25,6 @@
 
 @property (nonatomic, strong) ZZVideoFileHandler* videoFileHandler;
 @property (nonatomic, strong) ZZApplicationDataUpdaterService* dataUpdater;
-
 @property (nonatomic, assign) UIBackgroundTaskIdentifier backgroundTaskID;
 
 @end
@@ -126,7 +125,7 @@
 
 - (void)handleBackgroundSessionWithIdentifier:(NSString *)identifier completionHandler:(ANCodeBlock)completionHandler
 {
-    
+    [self.videoFileHandler handleBackgroundSessionWithIdentifier:identifier completionHandler:completionHandler];
 }
 
 #pragma mark - File Handler Delegate
@@ -138,21 +137,6 @@
         OB_INFO(@"AppDelegate: requestBackground: requesting background.");
         self.backgroundTaskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
             OB_INFO(@"AppDelegate: Ending background");
-            // The apple docs say you must terminate the background task you requested when they call the expiration handler
-            // or before or they will terminate your app. I have found however that if I dont terminate and if
-            // the usage of the phone is low by other apps they will let us run in the background indefinitely
-            // even after the backgroundTimeRemaining has long gone to 0. This is good for our users as it allows us
-            // to continue retries in the background for a long time in the case of poor coverage.
-            
-            // Actually on iphone4s 7.0 I encountered this:
-            // Feb 18 20:34:28 Sanis-iPhone backboardd[28] <Warning>: Zazo[272] has active assertions beyond permitted time:
-            //            {(
-            //              <BKProcessAssertion: 0x15ebf2a0> identifier: Called by Zazo, from -[TBMAppDelegate requestBackground] process: Zazo[272] permittedBackgroundDuration: 40.000000 reason: finishTaskAfterBackgroundContentFetching owner pid:272 preventSuspend  preventIdleSleep  preventSuspendOnSleep
-            //              )}
-            //            Feb 18 20:34:28 Sanis-iPhone backboardd[28] <Warning>: Forcing crash report of Zazo[272]...
-            
-            
-            // So as of 2/19/2005 I have uncommented the line below.
             [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTaskID];
             [ZZContentDataAcessor saveDataBase];
             self.backgroundTaskID = UIBackgroundTaskInvalid;
@@ -161,11 +145,6 @@
     OB_INFO(@"AppDelegate: RequestBackground: exiting: refresh status = %ld, time Remaining = %f",
             (long)[UIApplication sharedApplication].backgroundRefreshStatus,
             [UIApplication sharedApplication].backgroundTimeRemaining);
-}
-
-- (void)videoReceivedFromFriendWithItemID:(NSString*)friendItemID videoID:(NSString*)videoID
-{
-    //TODO: ?
 }
 
 - (void)sendNotificationForVideoReceived:(TBMFriend*)friend videoId:(NSString *)videoId
