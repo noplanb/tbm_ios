@@ -456,7 +456,8 @@
         {
             OB_INFO(@"queueVideoDownloadWithFriend: Forcing new transfer of existing video: %@", videoId);
             video = [TBMVideo findWithVideoId:videoId];
-        } else
+        }
+        else
         {
             OB_INFO(@"queueVideoDownloadWithFriend: Creating new video for download: %@", videoId);
             video = [friend createIncomingVideoWithVideoId:videoId];

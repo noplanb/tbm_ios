@@ -26,7 +26,7 @@ const struct ZZNotificationDomainModelAttributes ZZNotificationDomainModelAttrib
         [mapping addAttributesFromDictionary:
          @{ZZNotificationDomainModelAttributes.fromUserMKey : @"from_mkey",
            ZZNotificationDomainModelAttributes.type         : @"type",
-           ZZNotificationDomainModelAttributes.videoID      : @"video_received",
+           ZZNotificationDomainModelAttributes.videoID      : @"video_id",
            ZZNotificationDomainModelAttributes.status       : @"status",
            ZZNotificationDomainModelAttributes.toUserMKey   : @"to_mkey"}];
     }];
