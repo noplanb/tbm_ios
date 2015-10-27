@@ -9,6 +9,7 @@
 @class ZZGridDataSource;
 @class ZZGridCellViewModel;
 @class ZZFriendDomainModel;
+@class ZZGridCell;
 
 @protocol ZZGridCollectionControllerDelegate <NSObject>
 
@@ -19,7 +20,11 @@
 @interface ZZGridCollectionController : NSObject
 
 @property (nonatomic, weak) id<ZZGridCollectionControllerDelegate> delegate;
+@property (nonatomic, strong) NSMutableArray* initalFrames;
 
 - (void)updateDataSource:(ZZGridDataSource*)dataSource;
+- (NSInteger)indexOfFriendModelOnGrid:(ZZFriendDomainModel*)friendModel;
+- (void)updateInitialViewFramesIfNeeded;
+
 
 @end

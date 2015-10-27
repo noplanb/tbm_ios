@@ -31,10 +31,12 @@ extern const struct ZZFriendDomainModelAttributes {
     __unsafe_unretained NSString *friendshipStatus;
     __unsafe_unretained NSString *isFriendshipCreator;
     __unsafe_unretained NSString *friendshipCreatorMkey;
+    __unsafe_unretained NSString *cid;
 } ZZFriendDomainModelAttributes;
 
 @interface ZZFriendDomainModel : ZZBaseDomainModel <ZZUserInterface>
 
+@property (nonatomic,assign) NSInteger cid;
 @property (nonatomic, copy) NSString* idTbm;
 @property (nonatomic, copy) NSString* firstName;
 @property (nonatomic, copy) NSString* lastName;

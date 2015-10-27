@@ -115,6 +115,7 @@ static CGFloat const kNavigationBarIconHeight = 20;
         self.gridCellTextColor = [UIColor an_colorWithHexString:@"#E1E0DF"];
         self.gridCellOrangeColor = [UIColor an_colorWithHexString:@"#F48A31"];
         self.gridCellPlusWhiteColor = [UIColor an_colorWithHexString:@"#FFFFFF"];
+        self.gridCellUserNameGrayColor = [[UIColor an_colorWithHexString:@"#4D4C40"] colorWithAlphaComponent:0.8];
         
         self.gridStatusViewNudgeColor = [UIColor an_colorWithHexString:@"#F58A31"];
         self.gridStatusViewBlackColor = [UIColor an_colorWithHexString:@"#1C1C19"];

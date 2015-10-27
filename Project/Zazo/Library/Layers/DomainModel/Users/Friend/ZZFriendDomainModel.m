@@ -28,7 +28,8 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     .friendshipStatus = @"friendshipStatus",
     .isFriendshipCreator = @"isFriendshipCreator",
     .friendshipCreatorMkey = @"friendshipCreatorMkey",
-};
+    .cid = @"cid",
+ };
 
 @implementation ZZFriendDomainModel
 
@@ -54,7 +55,9 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
            ZZFriendDomainModelAttributes.mKey                   : @"mkey",
            ZZFriendDomainModelAttributes.cKey                   : @"ckey",
            ZZFriendDomainModelAttributes.friendshipStatus       : @"connection_status",
-           ZZFriendDomainModelAttributes.friendshipCreatorMkey  : @"connection_creator_mkey"}];
+           ZZFriendDomainModelAttributes.friendshipCreatorMkey  : @"connection_creator_mkey",
+           ZZFriendDomainModelAttributes.cid                    : @"cid"
+           }];
         
         FEMAttribute* attribute = [FEMAttribute mappingOfProperty:ZZFriendDomainModelAttributes.hasApp
                                                         toKeyPath:@"has_app"

@@ -52,12 +52,35 @@
     [self.presentedController popViewControllerAnimated:YES];
 }
 
+- (void)presentOrDismissSecretControllerFromNavigationController:(UINavigationController*)nc
+{
+    if (ANIsEmpty(self.secretController))
+    {
+        [self presentSecretControllerFromNavigationController:nc];
+    }
+    else
+    {
+        if ([nc.topViewController isKindOfClass:[ZZSecretVC class]])
+        {
+            [self dismissSecretController];
+        }
+        else
+        {
+            [self presentSecretControllerFromNavigationController:nc];
+        }
+    }
+}
 
 #pragma mark - Detail Controllers
 
 - (void)presentLogsController
 {
     OBLogViewController* vc = [OBLogViewController instance];
+
+    [[[vc rac_signalForSelector:@selector(done:)] take:1] subscribeNext:^(id x) {
+        [self.presentedController popViewControllerAnimated:YES];
+    }];
+    
     [self.presentedController pushViewController:vc animated:YES];
 }
 

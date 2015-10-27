@@ -9,6 +9,7 @@
 // Make changes to TBMFriend.h instead.
 
 extern const struct TBMFriendAttributes {
+	__unsafe_unretained NSString *cid;
 	__unsafe_unretained NSString *ckey;
 	__unsafe_unretained NSString *everSent;
 	__unsafe_unretained NSString *firstName;
@@ -44,6 +45,14 @@ extern const struct TBMFriendRelationships {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 @property (nonatomic, readonly, strong) TBMFriendID* objectID;
+
+@property (nonatomic, strong) NSNumber* cid;
+
+@property (atomic) int32_t cidValue;
+- (int32_t)cidValue;
+- (void)setCidValue:(int32_t)value_;
+
+//- (BOOL)validateCid:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSString* ckey;
 
@@ -159,6 +168,12 @@ extern const struct TBMFriendRelationships {
 @end
 
 @interface _TBMFriend (CoreDataGeneratedPrimitiveAccessors)
+
+- (NSNumber*)primitiveCid;
+- (void)setPrimitiveCid:(NSNumber*)value;
+
+- (int32_t)primitiveCidValue;
+- (void)setPrimitiveCidValue:(int32_t)value_;
 
 - (NSString*)primitiveCkey;
 - (void)setPrimitiveCkey:(NSString*)value;

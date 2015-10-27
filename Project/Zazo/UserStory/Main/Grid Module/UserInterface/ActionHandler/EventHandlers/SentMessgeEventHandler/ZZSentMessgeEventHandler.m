@@ -12,13 +12,13 @@
 
 
 - (void)handleEvent:(ZZGridActionEventType)event
-              model:(ZZGridCellViewModel *)model
-withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBlock
+              model:(ZZFriendDomainModel*)model
+withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))completionBlock
 {
     if (event == ZZGridActionEventTypeMessageDidSent &&
         ![ZZGridActionStoredSettings shared].incomingVideoWasPlayed &&
         [self.delegate frinedsNumberOnGrid] == 1 &&
-        model.item.relatedUser.unviewedCount > 0)
+        model.unviewedCount > 0)
     {
         [ZZGridActionStoredSettings shared].playHintWasShown = YES;
         if (completionBlock)
@@ -30,7 +30,7 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
     else if (event == ZZGridActionEventTypeMessageDidSent &&
         ![ZZGridActionStoredSettings shared].sentHintWasShown &&
         [self.delegate frinedsNumberOnGrid] == 1 &&
-        model.item.relatedUser.unviewedCount == 0)
+        model.unviewedCount == 0)
     {
         [ZZGridActionStoredSettings shared].sentHintWasShown = YES;
         
@@ -67,7 +67,7 @@ withCompletionBlock:(void (^)(ZZHintsType, ZZGridCellViewModel *))completionBloc
 
 }
 
-- (void)handleResetLastActionWithCompletionBlock:(void (^)(ZZGridActionEventType, ZZGridCellViewModel *))completionBlock
+- (void)handleResetLastActionWithCompletionBlock:(void(^)(ZZGridActionEventType event, ZZFriendDomainModel* model))completionBlock
 {
     if (self.eventHandler)
     {

@@ -92,6 +92,6 @@ static NSString* const kApiKeyUpdate = @"kvstore/set";
 
 #pragma mark - Static
 
-static NSString* const kInviteFriendBaseURL = @"zazoapp.com/l/";
+static NSString* const kInviteFriendBaseURL = @"zazoapp.com/c/";
 
 

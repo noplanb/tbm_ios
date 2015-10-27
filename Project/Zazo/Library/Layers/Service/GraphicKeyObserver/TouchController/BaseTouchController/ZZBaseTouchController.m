@@ -7,9 +7,11 @@
 //
 
 #import "ZZBaseTouchController.h"
+#import "ZZStrategyNavigationLeftRight.h"
+#import "ZZEnvelopStrategy.h"
+
 
 @implementation ZZBaseTouchController
-
 
 - (void)observeTouch:(UITouch *)touch withEvent:(id)event
 {

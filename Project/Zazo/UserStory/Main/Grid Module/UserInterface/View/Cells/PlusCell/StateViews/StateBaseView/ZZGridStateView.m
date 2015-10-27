@@ -107,18 +107,35 @@
     
     if (model.state & ZZGridCellViewModelStateVideoDownloadedAndVideoCountOne)
     {
-        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-        self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-        [self updateBadgeWithNumber:model.badgeNumber];
+        if ([model.badgeNumber integerValue] > 0 &&
+            ![self.model isVideoPlayed])
+        {
+            [self _setupGreenColorsWithModel:model];
+        }
     }
     else if (model.state & ZZGridCellViewModelStateVideoCountMoreThatOne)
     {
-        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-        self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-        [self updateBadgeWithNumber:model.badgeNumber];
+        [self _setupGreenColorsWithModel:model];
+    }
+    else
+    {
+        [self _setupGrayColorsWithModel:model];
     }
 }
 
+- (void)_setupGreenColorsWithModel:(ZZGridCellViewModel*)model
+{
+    self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+    self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+    [self updateBadgeWithNumber:model.badgeNumber];
+}
+
+- (void)_setupGrayColorsWithModel:(ZZGridCellViewModel*)model
+{
+    self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellUserNameGrayColor;
+    self.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
+    [self updateBadgeWithNumber:@(0)];
+}
 
 #pragma mark - Setup Recognizer
 
@@ -385,7 +402,7 @@
         _userNameLabel.textAlignment = NSTextAlignmentCenter;
         _userNameLabel.textColor = [ZZColorTheme shared].gridStatusViewUserNameLabelColor;
         _userNameLabel.font = [UIFont an_regularFontWithSize:kUserNameFontSize];
-        _userNameLabel.backgroundColor = [[ZZColorTheme shared].gridCellGrayColor colorWithAlphaComponent:0.8];
+        _userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellUserNameGrayColor;;
         [self addSubview:_userNameLabel];
 
         [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -62,6 +62,7 @@ static NSString* const kDefaultRegion = @"US";
     NSString *r;
     
     NSString* region = [self _phoneRegionFromNumber:[self _savedMobileNumber]]; //TODO: authenticated user have no mobile number
+   
     if (ANIsEmpty(region))
     {
         region = @"US";

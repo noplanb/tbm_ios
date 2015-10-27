@@ -52,6 +52,7 @@
         [item.managedObjectContext MR_saveToPersistentStoreAndWait];
         [item notifyVideoStatusChange];
     }
+ 
     return [ZZFriendDataProvider modelFromEntity:item];
 }
 

@@ -323,7 +323,13 @@
     if ([ZZGridActionStoredSettings shared].abortRecordHintWasShown)
     {
         
+        
         CGFloat addTouchBounds = 80;
+        if (IS_IPAD)
+        {
+            addTouchBounds *= 2;
+        }
+        
         UIView* recordView = recognizer.view;
         
         CGPoint location = [recognizer locationInView:recordView];

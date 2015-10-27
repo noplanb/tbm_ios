@@ -10,7 +10,7 @@
 
 @implementation ZZFeatureEventStrategyRegisteredUser
 
-- (void)handleBothCameraFeatureWithModel:(ZZGridCellViewModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
+- (void)handleBothCameraFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
 {
     NSInteger kUnlockFeatureCounterValue = 1;
    
@@ -41,7 +41,7 @@
     }
 }
 
-- (void)handleAbortRecordingFeatureWithModel:(ZZGridCellViewModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
+- (void)handleAbortRecordingFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
 {
     BOOL isFeatureEnabled = NO;
     
@@ -52,11 +52,11 @@
         NSInteger sendMessageCounter = [[NSUserDefaults standardUserDefaults] integerForKey:kSendMessageCounterKey];
         NSString* lastAddedUserId = [[NSUserDefaults standardUserDefaults] objectForKey:kFriendIdDefaultKey];
        
-        if (![model.item.relatedUser.idTbm isEqualToString:lastAddedUserId] && sendMessageCounter == kBeforeUnlockAbortFeatureMessagesCount)
+        if (![model.idTbm isEqualToString:lastAddedUserId] && sendMessageCounter == kBeforeUnlockAbortFeatureMessagesCount)
         {
             sendMessageCounter++;
             [[NSUserDefaults standardUserDefaults] setInteger:sendMessageCounter forKey:kSendMessageCounterKey];
-            [[NSUserDefaults standardUserDefaults] setObject:model.item.relatedUser.idTbm forKey:kFriendIdDefaultKey];
+            [[NSUserDefaults standardUserDefaults] setObject:model.idTbm forKey:kFriendIdDefaultKey];
             isFeatureEnabled = YES;
         }
         

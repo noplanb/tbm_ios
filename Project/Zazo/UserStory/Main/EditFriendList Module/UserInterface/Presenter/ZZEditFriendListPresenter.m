@@ -76,6 +76,7 @@
     [self.wireframe dismissEditFriendListController];
 }
 
+
 #pragma mark - ZZEditFriendListDataSourceDelegate
 
 - (void)changeContactStatusTypeForModel:(ZZEditFriendCellViewModel *)model

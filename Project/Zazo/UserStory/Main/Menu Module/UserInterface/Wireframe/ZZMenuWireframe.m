@@ -14,6 +14,7 @@
 #import "ZZGridWireframe.h"
 #import "ZZGridPresenter.h"
 #import "ZZGridUIConstants.h"
+#import "ZZAddressBookDataProvider.h"
 
 @interface ZZMenuWireframe ()
 
@@ -63,6 +64,7 @@
     gridWireframe.menuWireFrame = self;
     [gridWireframe presentGridControllerFromNavigationController:self.drawerController];
     self.presenter.menuModuleDelegate = gridWireframe.presenter;
+    
 }
 
 #pragma mark - Drawer Controller
@@ -82,10 +84,13 @@
 - (void)toggleMenu
 {
     [self.presenter menuToggled];
-    ANDispatchBlockToMainQueue(^{
-        [self.menuController reset];
-        [self.drawerController toggle];
-    });
+    if ([ZZAddressBookDataProvider isAccessGranted])
+    {
+        ANDispatchBlockToMainQueue(^{
+            [self.menuController reset];
+            [self.drawerController toggle];
+        });
+    }
 }
 
 - (void)closeMenu

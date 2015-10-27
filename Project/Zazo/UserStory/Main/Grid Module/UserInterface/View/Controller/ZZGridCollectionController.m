@@ -55,4 +55,57 @@
     self.dataSource.controllerDelegate = self;
 }
 
+
+#pragma mark - Index view on grid after rotate
+
+- (void)updateInitialViewFramesIfNeeded
+{
+    [self _setupFramesIfNeeded];
+}
+
+- (void)_setupFramesIfNeeded
+{
+    
+    if (ANIsEmpty(self.initalFrames))
+    {
+        self.initalFrames = [NSMutableArray new];
+        [[self.delegate items] enumerateObjectsUsingBlock:^(UIView*  _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
+            [self.initalFrames addObject:[NSValue valueWithCGRect:view.frame]];
+        }];
+    }
+}
+
+- (NSInteger)indexOfFriendModelOnGrid:(ZZFriendDomainModel*)friendModel;
+{
+    __block NSInteger index = NSNotFound;
+    __block ZZGridCell* gridCell = nil;
+    
+    [[self.delegate items] enumerateObjectsUsingBlock:^(id <ANModelTransfer> _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        id model = [obj model];
+        if ([model isKindOfClass:[ZZGridCellViewModel class]])
+        {
+            ZZGridCellViewModel* viewModel = model;
+            if ([viewModel.item.relatedUser isEqual:friendModel])
+            {
+                gridCell =(ZZGridCell*)obj;
+                *stop = YES;
+            }
+        }
+    }];
+    
+    if (!ANIsEmpty(gridCell))
+    {
+        [self.initalFrames enumerateObjectsUsingBlock:^(NSValue*  _Nonnull value, NSUInteger idx, BOOL * _Nonnull stop) {
+            CGRect frame = [value CGRectValue];
+            if (CGRectContainsPoint(frame, gridCell.center))
+            {
+                index = idx;
+                *stop = YES;
+            }
+        }];
+    }
+    
+    return index;
+}
+
 @end

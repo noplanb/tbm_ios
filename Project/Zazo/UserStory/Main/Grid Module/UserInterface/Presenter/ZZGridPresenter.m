@@ -168,6 +168,8 @@
     {
         model.isDownloadAnimationViewed = YES;
         [self.dataSource updateCellWithModel:model];
+        NSInteger index = [self indexOnGridViewForFriendModel:model.relatedUser];
+        [self showFriendAnimationWithIndex:index];
         //TODO:
         //    if (model.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED)
         //    {
@@ -217,7 +219,10 @@
     [self.actionHandler updateFeaturesWithFriendsMkeys:friendsMkeys];
 }
 
-
+- (void)updateFriendThatPrevouslyWasOnGridWithModel:(ZZFriendDomainModel *)model
+{
+     [self _handleSentWelcomeHintWithFriendDomainModel:model];
+}
 
 
 #pragma makr - EVENT InviteHint
@@ -237,7 +242,7 @@
         
         [[ZZVideoRecorder shared] updateRecorder];
         [[ZZVideoRecorder shared] updateRecordView:[self.dataSource centerViewModel].recordView];
-        [self _showRecordWelcomeIfNeeded];
+        [self _showRecordWelcomeIfNeededWithData:data];
     });
 }
 
@@ -247,13 +252,20 @@
     [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:(isTwoCamerasAvailable && isEnabled)];
 }
 
-- (void)_showRecordWelcomeIfNeeded
+- (void)_showRecordWelcomeIfNeededWithData:(NSArray*)data
 {
-    CGFloat kDelayAfterViewLoaded = 1.0f;
-    ANDispatchBlockAfter(kDelayAfterViewLoaded, ^{
-        NSInteger indexWhenOneFriendOnGrid = 5;
-        [self.actionHandler handleEvent:ZZGridActionEventTypeGridLoaded withIndex:indexWhenOneFriendOnGrid];
-    });
+    
+    if ([self.dataSource frindsOnGridNumber] == 1)
+    {
+        CGFloat kDelayAfterViewLoaded = 1.0f;
+        ANDispatchBlockAfter(kDelayAfterViewLoaded, ^{
+            NSInteger indexWhenOneFriendOnGrid = 5;
+            NSArray* friends = [data valueForKeyPath:@"@unionOfObjects.relatedUser"];
+            ZZFriendDomainModel* model = [friends firstObject];;
+            [self.actionHandler handleEvent:ZZGridActionEventTypeGridLoaded withIndex:indexWhenOneFriendOnGrid friendModel:model];
+        });
+        
+    }
 }
 
 - (void)dataLoadingDidFailWithError:(NSError*)error
@@ -291,7 +303,6 @@
 {
     if (friendModel.hasApp)
     {
-//        [self _showConnectedDialogForModel:friendModel];
         [self _handleSentWelcomeHintWithFriendDomainModel:friendModel];
         
     }
@@ -306,6 +317,10 @@
     [self.userInterface updateLoadingStateTo:isLoading];
 }
 
+- (NSInteger)indexOnGridViewForFriendModel:(ZZFriendDomainModel *)model
+{
+    return [self.userInterface indexOfFriendModelOnGridView:model];
+}
 
 #pragma mark - Module Interface
 
@@ -319,6 +334,10 @@
     }
 }
 
+- (void)hideHintIfNeeded
+{
+    [self.actionHandler hideHint];
+}
 
 #pragma mark - DataSource Delegate
 
@@ -358,6 +377,7 @@
 
 - (void)videoPlayerURLWasFinishedPlaying:(NSURL *)videoURL withPlayedUserModel:(ZZFriendDomainModel*)playedFriendModel
 {
+    
     [self.interactor updateFriendAfterVideoStopped:playedFriendModel];
     [self _handleRecordHintWithCellViewModel:playedFriendModel];
 }
@@ -565,6 +585,7 @@
 {
     return [self.dataSource frindsOnGridNumber];
 }
+
 
 #pragma mark - Interactor Action Handler
 

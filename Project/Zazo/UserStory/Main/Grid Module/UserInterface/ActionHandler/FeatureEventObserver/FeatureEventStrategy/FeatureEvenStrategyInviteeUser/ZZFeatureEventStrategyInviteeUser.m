@@ -13,7 +13,7 @@
 
 #pragma mark - Use Both Cameras
 
-- (void)handleBothCameraFeatureWithModel:(ZZGridCellViewModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
+- (void)handleBothCameraFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
 {
     BOOL isFeatureEnabled = NO;
     
@@ -46,7 +46,7 @@
 
 #pragma mark - Abort Recording
 
-- (void)handleAbortRecordingFeatureWithModel:(ZZGridCellViewModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
+- (void)handleAbortRecordingFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
 {
     BOOL isFeatureEnabled = NO;
     
@@ -67,7 +67,7 @@
 
 #pragma mark - Delete Friend
 
-- (void)handleDeleteFriendFeatureWithModel:(ZZGridCellViewModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
+- (void)handleDeleteFriendFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
 {
     BOOL isFeatureEnabled = NO;
     
@@ -86,7 +86,7 @@
 
 #pragma mark - Earpiece
 
-- (void)handleEarpieceFeatureWithModel:(ZZGridCellViewModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
+- (void)handleEarpieceFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
 {
     
     BOOL isFeatureEnabled = NO;
@@ -106,7 +106,7 @@
 
 #pragma mark - Speen Wheel
 
-- (void)handleSpinWheelFeatureWithModel:(ZZGridCellViewModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
+- (void)handleSpinWheelFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
 {
     BOOL isFeatureEnabled = NO;
     

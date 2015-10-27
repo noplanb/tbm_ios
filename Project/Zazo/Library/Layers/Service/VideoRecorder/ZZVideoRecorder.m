@@ -61,7 +61,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         self.videoProcessor = [TBMVideoProcessor new];
         self.recorder = [[TBMVideoRecorder alloc] init];
         self.recorder.delegate = self;
-        [self.recorder startRunning];
+//        [self.recorder startRunning];
         
         self.delegatesArray = [NSMutableArray array];
         
@@ -79,6 +79,36 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 {
     _recordingView = recordingView;
     [self.recorder setupCaptureSessionView:_recordingView];
+}
+
+- (void)updateRecorder
+{
+    if (!self.recordingView)
+    {
+        // update reocroding view
+        self.recordingView = [self.interfaceDelegate recordingView];
+        [self updateRecordView:self.recordingView];
+        
+        // update recorder
+        self.videoProcessor = [TBMVideoProcessor new];
+        self.recorder.delegate = self;
+        [self.recorder setupCaptureSessionView:self.recordingView];
+        [self.recorder startRunning];
+    }
+    else
+    {
+        //update recorder session and audio input
+        [self.recorder startRunning];
+    }
+    
+    [self startAudioSession];
+    
+    // alert message after recording
+    if (self.didCancelRecording)
+    {
+        self.didCancelRecording = NO;
+        [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
+    }
 }
 
 //TODO: review this code, to handle all exising cases
@@ -152,36 +182,6 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     ANDispatchBlockToMainQueue(^{
         [self cancelRecordingWithReason:nil];
     });
-}
-
-- (void)updateRecorder
-{
-    if (!self.recordingView)
-    {
-        // update reocroding view
-        self.recordingView = [self.interfaceDelegate recordingView];
-        [self updateRecordView:self.recordingView];
-        
-        // update recorder
-        self.videoProcessor = [TBMVideoProcessor new];
-        self.recorder.delegate = self;
-        [self.recorder setupCaptureSessionView:self.recordingView];
-        [self.recorder startRunning];
-    }
-    else
-    {
-        //update recorder session and audio input
-        [self.recorder startRunning];
-    }
-    
-    [self startAudioSession];
-    
-    // alert message after recording
-    if (self.didCancelRecording)
-    {
-        self.didCancelRecording = NO;
-        [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
-    }
 }
 
 - (void)dealloc

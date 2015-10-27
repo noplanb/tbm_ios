@@ -25,7 +25,7 @@
 - (void)showHintWithType:(ZZHintsType)type
               focusFrame:(CGRect)focusFrame
                withIndex:(NSInteger)index
-               withModel:(ZZGridCellViewModel*)cellModel
+               withModel:(ZZFriendDomainModel*)friendModel
          formatParameter:(NSString*)parameter;
 
 - (void)hideHintView;

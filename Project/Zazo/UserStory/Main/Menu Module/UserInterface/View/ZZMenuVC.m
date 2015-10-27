@@ -56,6 +56,10 @@
     [self.controller reset];
 }
 
+- (void)needToUpdateDataSource
+{
+    [self.controller updateDataSource:[self.eventHandler dataSource]];
+}
 
 #pragma mark - Controller Delegate
 

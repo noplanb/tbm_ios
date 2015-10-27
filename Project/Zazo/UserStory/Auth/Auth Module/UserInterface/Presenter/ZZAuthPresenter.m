@@ -10,6 +10,7 @@
 #import "ZZErrorHandler.h"
 #import "ZZUserDomainModel.h"
 #import "TBMAlertController.h"
+#import "ZZAuthInteractorConstants.h"
 
 @interface ZZAuthPresenter ()
 
@@ -80,8 +81,17 @@
 - (void)registrationDidFailWithError:(NSError *)error
 {
     [self.userInterface updateStateToLoading:NO message:nil];
-    [ZZErrorHandler showErrorAlertWithLocalizedTitle:@"Try Again" // TODO: localization
-                                             message:@"Bad Connection"];
+    
+    if (error.code == kErrorWrongMobileErrorCode)
+    {
+        [ZZErrorHandler showErrorAlertWithLocalizedTitle:NSLocalizedString(@"auth-error.bad.mobile.number.title", nil)
+                                                 message:NSLocalizedString(@"auth-error.bad.phone.number.type.message", nil)];
+    }
+    else
+    {
+        [ZZErrorHandler showErrorAlertWithLocalizedTitle:NSLocalizedString(@"auth-error.try.again.title", nil)
+                                             message:NSLocalizedString(@"auth-error.bad.connection.message", nil)];
+    }
 }
 
 - (void)smsCodeValidationCompletedWithError:(NSError*)error

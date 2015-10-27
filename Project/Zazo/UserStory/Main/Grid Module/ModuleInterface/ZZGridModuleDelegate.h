@@ -6,6 +6,9 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
+@class ZZFriendDomainModel;
+
 @protocol ZZGridModuleDelegate <NSObject>
+
 
 @end

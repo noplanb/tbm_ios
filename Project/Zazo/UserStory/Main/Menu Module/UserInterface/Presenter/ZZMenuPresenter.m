@@ -86,7 +86,6 @@
     [self.wireframe closeMenu];
 }
 
-
 #pragma mark - Private
 
 - (void)_applicationWillEnterInBackground

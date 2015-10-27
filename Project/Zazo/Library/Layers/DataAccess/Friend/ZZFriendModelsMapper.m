@@ -22,7 +22,7 @@
     entity.lastName = model.lastName;
     entity.hasApp = @(model.isHasApp);
     entity.mobileNumber = model.mobileNumber;
-    
+    entity.cid = @(model.cid);
     entity.ckey = model.cKey;
     entity.mkey = model.mKey;
     
@@ -54,7 +54,7 @@
         model.lastName = entity.lastName;
         model.hasApp = [entity.hasApp boolValue];
         model.mobileNumber = entity.mobileNumber;
-        
+        model.cid = [entity.cid integerValue];
         model.cKey = entity.ckey;
         model.mKey = entity.mkey;
         

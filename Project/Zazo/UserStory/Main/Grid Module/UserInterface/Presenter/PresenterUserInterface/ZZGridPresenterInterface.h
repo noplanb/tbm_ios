@@ -8,6 +8,7 @@
 
 @class ZZGridDataSource;
 @class ZZGridActionHandler;
+@class ZZFriendDomainModel;
 
 @protocol ZZGridPresenterInterface <NSObject>
 
@@ -15,5 +16,5 @@
 - (ZZGridActionHandler*)actionHandler;
 - (void)showFriendAnimationWithIndex:(NSInteger)index;
 - (id <ZZGridViewInterface>)userInterface;
-
+- (NSInteger)indexOnGridViewForFriendModel:(ZZFriendDomainModel*)model;
 @end

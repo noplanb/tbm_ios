@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="2" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="15A284" minimumToolsVersion="Automatic">
+<model userDefinedModelVersionIdentifier="2" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="15B42" minimumToolsVersion="Automatic">
     <entity name="TBMFriend" representedClassName="TBMFriend" syncable="YES">
+        <attribute name="cid" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="ckey" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="everSent" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
@@ -42,7 +43,7 @@
         <relationship name="friend" maxCount="1" deletionRule="Nullify" destinationEntity="TBMFriend" inverseName="videos" inverseEntity="TBMFriend" syncable="YES"/>
     </entity>
     <elements>
-        <element name="TBMFriend" positionX="-18" positionY="2" width="128" height="330"/>
+        <element name="TBMFriend" positionX="-18" positionY="2" width="128" height="345"/>
         <element name="TBMGridElement" positionX="-218" positionY="153" width="128" height="75"/>
         <element name="TBMUser" positionX="-218" positionY="-0" width="128" height="165"/>
         <element name="TBMVideo" positionX="171" positionY="-0" width="128" height="103"/>

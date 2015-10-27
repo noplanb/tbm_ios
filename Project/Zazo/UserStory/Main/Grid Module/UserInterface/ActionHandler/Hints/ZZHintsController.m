@@ -21,6 +21,8 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
 @interface ZZHintsController () <ZZHintsViewDelegate>
 
 @property (nonatomic, strong) ZZHintsView* hintsView;
+@property (nonatomic, assign) ZZHintsType showedHintType;
+
 
 @end
 
@@ -29,14 +31,16 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
 - (void)showHintWithType:(ZZHintsType)type
               focusFrame:(CGRect)focusFrame
                withIndex:(NSInteger)index
-               withModel:(ZZGridCellViewModel*)cellModel
+               withModel:(ZZFriendDomainModel*)friendModel
          formatParameter:(NSString*)parameter
 {
+    
+    self.showedHintType = type;
     
     if (self.hintsView &&
         [self.hintsView hintModel].hintType == ZZHintsTypeRecrodWelcomeHint &&
         ![ZZGridActionStoredSettings shared].holdToRecordAndTapToPlayWasShown &&
-        cellModel.item.relatedUser.unviewedCount > 0)
+        friendModel.unviewedCount > 0)
     {
         [self hideHintView];
         [ZZGridActionStoredSettings shared].holdToRecordAndTapToPlayWasShown = YES;
@@ -71,8 +75,11 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
 
 - (void)hideHintView
 {
-    [self.hintsView removeFromSuperview];
-    self.hintsView = nil;
+    if (!ANIsEmpty(self.hintsView))
+    {
+        [self.hintsView removeFromSuperview];
+        self.hintsView = nil;
+    }
 }
 
 
@@ -93,7 +100,7 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
     if (type == ZZHintsTypeSentHint)
     {
         ANDispatchBlockAfter(kDelayBeforHintHidden, ^{
-            if (self.hintsView)
+            if (self.hintsView && self.showedHintType == ZZHintsTypeSentHint)
             {
                 [self.hintsView removeFromSuperview];
                 self.hintsView = nil;

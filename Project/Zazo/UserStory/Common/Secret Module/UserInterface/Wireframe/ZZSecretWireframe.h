@@ -14,5 +14,5 @@
 - (void)presentLogsController;
 - (void)presentStateController;
 - (void)presentDebugController;
-
+- (void)presentOrDismissSecretControllerFromNavigationController:(UINavigationController*)nc;
 @end

@@ -13,7 +13,7 @@
 
 @protocol ZZFeatureEventStrategyDelegate <NSObject>
 
-- (void)showLastUnlockFeatureWithFeatureType:(ZZGridActionFeatureType)type;
+- (void)showLastUnlockFeatureWithFeatureType:(ZZGridActionFeatureType)type friendModel:(ZZFriendDomainModel*)model;
 
 @end
 
@@ -24,14 +24,14 @@
 @property (nonatomic, weak) id <ZZFeatureEventStrategyDelegate> delegate;
 
 
-- (void)handleBothCameraFeatureWithModel:(ZZGridCellViewModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock;
-- (void)handleAbortRecordingFeatureWithModel:(ZZGridCellViewModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock;
-- (void)handleDeleteFriendFeatureWithModel:(ZZGridCellViewModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock;
-- (void)handleEarpieceFeatureWithModel:(ZZGridCellViewModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock;
-- (void)handleSpinWheelFeatureWithModel:(ZZGridCellViewModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock;
+- (void)handleBothCameraFeatureWithModel:(ZZFriendDomainModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock;
+- (void)handleAbortRecordingFeatureWithModel:(ZZFriendDomainModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock;
+- (void)handleDeleteFriendFeatureWithModel:(ZZFriendDomainModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock;
+- (void)handleEarpieceFeatureWithModel:(ZZFriendDomainModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock;
+- (void)handleSpinWheelFeatureWithModel:(ZZFriendDomainModel*)model withCompletionBlock:(void(^)(BOOL isFeatureEnabled))completionBlock;
 
-- (BOOL)isFeatureEnabledWithModel:(ZZGridCellViewModel*)model beforeUnlockFeatureSentCount:(NSInteger)sentCount;
-- (void)updateFeatureUnlockIdsWithModel:(ZZGridCellViewModel*)model;
+- (BOOL)isFeatureEnabledWithModel:(ZZFriendDomainModel*)model beforeUnlockFeatureSentCount:(NSInteger)sentCount;
+- (void)updateFeatureUnlockIdsWithModel:(ZZFriendDomainModel*)model;
 - (void)updateFeaturesWithRemoteFriendsMkeys:(NSArray*)friendMkeys;
 
 @end

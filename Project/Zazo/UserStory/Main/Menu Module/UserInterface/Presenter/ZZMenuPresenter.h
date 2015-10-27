@@ -11,8 +11,13 @@
 #import "ZZMenuViewInterface.h"
 #import "ZZMenuModuleDelegate.h"
 #import "ZZMenuModuleInterface.h"
+#import "ZZGridModuleDelegate.h"
 
-@interface ZZMenuPresenter : NSObject <ZZMenuInteractorOutput, ZZMenuModuleInterface>
+
+@interface ZZMenuPresenter : NSObject
+<   ZZMenuInteractorOutput,
+    ZZMenuModuleInterface
+>
 
 @property (nonatomic, strong) id<ZZMenuInteractorInput> interactor;
 @property (nonatomic, strong) ZZMenuWireframe* wireframe;
