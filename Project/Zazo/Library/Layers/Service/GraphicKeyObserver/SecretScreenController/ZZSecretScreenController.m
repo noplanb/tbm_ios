@@ -54,7 +54,7 @@ static CGFloat const kDefaultTouchDelay = 0.2;
 //    }];
     
 //#ifdef AD-HOC
-//    
+//
 //#else
     
     [secretController _startObserveWithWindow:window];

@@ -64,6 +64,41 @@ typedef NS_ENUM(NSInteger,ZZHintArrowFocusPosition)
     ZZHintArrowFocusPositionMiddleRight
 };
 
+static inline NSInteger kHintArrowLabelFontSize()
+{
+    NSInteger fontSize = 30;
+    
+    if (IS_IPAD)
+    {
+        fontSize = 70;
+    }
+    
+    return  fontSize;
+}
+
+static inline ZZHintArrowFocusPosition kMiddleTopArrowFocusPositionDependsOnDevice()
+{
+    ZZHintArrowFocusPosition focusPosition = ZZHintArrowFocusPositionMiddleRight;
+    
+    if (IS_IPAD)
+    {
+        focusPosition = ZZHintArrowFocusPositionBottomRight;
+    }
+    
+    return focusPosition;
+}
+
+static inline ZZHintArrowFocusPosition kMiddleBottomArrowFocusPositionDopendsOnDevice()
+{
+    ZZHintArrowFocusPosition focusPosition = ZZHintArrowFocusPositionMiddleRight;
+    
+    if (IS_IPAD)
+    {
+        focusPosition = ZZHintArrowFocusPositionTopRight;
+    }
+    
+    return focusPosition;
+}
 
 
 @interface ZZHintsConstants : NSObject

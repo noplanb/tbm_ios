@@ -100,10 +100,11 @@ CGFloat degreesToRadians(CGFloat x)
         offset = 60;
     }
     
-    
+    y = 0;
     // hint label position top or bottom
     switch (self.focusViewIndex)
     {
+        // top line indexes
         case 0:
         case 1:
         case 2:
@@ -111,13 +112,39 @@ CGFloat degreesToRadians(CGFloat x)
             y =  CGRectGetMaxY(arrow) + offset;
             
         }break;
-        default:
-        {
-            y = CGRectGetMinY(arrow) - CGRectGetHeight(self.arrowLabel.bounds) - offset * 2;
             
-        } break;
+        // middle line indexes
+        case 3:
+        case 4:
+        case 5:
+        {
+            if (IS_IPAD)
+            {
+                y = CGRectGetMinY(arrow) - CGRectGetHeight(self.arrowLabel.bounds) - offset * 3;
+            }
+            else
+            {
+                y = CGRectGetMinY(arrow) - CGRectGetHeight(self.arrowLabel.bounds) - offset * 2;
+            }
+            
+        }break;
+            
+        // bottom line indexes
+        case 6:
+        case 7:
+        case 8:
+        {
+            if (IS_IPAD)
+            {
+                y = CGRectGetMinY(arrow) - CGRectGetHeight(self.arrowLabel.bounds) - (offset * 3);
+            }
+            else
+            {
+                y = CGRectGetMinY(arrow) - CGRectGetHeight(self.arrowLabel.bounds) - offset * 2;
+            }
+            
+        }break;
     }
-    
     
     self.arrowLabel.preferredMaxLayoutWidth = width;
     CGRect frame = CGRectMake(x, y, width, height);
@@ -186,7 +213,7 @@ CGFloat degreesToRadians(CGFloat x)
     {
         _arrowLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _arrowLabel.textColor = [UIColor whiteColor];
-        _arrowLabel.font = [UIFont fontWithName:kZZHintsFontName size:30];
+        _arrowLabel.font = [UIFont fontWithName:kZZHintsFontName size:kHintArrowLabelFontSize()];
         _arrowLabel.textAlignment = NSTextAlignmentCenter;
         _arrowLabel.lineBreakMode = NSLineBreakByWordWrapping;
         _arrowLabel.numberOfLines = 0;
