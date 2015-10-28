@@ -343,6 +343,13 @@
 		79123D861BB14F8E007E1CBF /* ZZHintsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D851BB14F8E007E1CBF /* ZZHintsViewModel.m */; };
 		79123D891BB14F9E007E1CBF /* ZZHintsDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D881BB14F9E007E1CBF /* ZZHintsDomainModel.m */; };
 		79123D8C1BB15002007E1CBF /* ZZHintsModelGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D8B1BB15002007E1CBF /* ZZHintsModelGenerator.m */; };
+		22D3EC5F1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3EC5E1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m */; settings = {ASSET_TAGS = (); }; };
+		22D7D2B51BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m */; settings = {ASSET_TAGS = (); }; };
+		79123D731BB032C3007E1CBF /* ZZHintsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D721BB032C3007E1CBF /* ZZHintsController.m */; settings = {ASSET_TAGS = (); }; };
+		79123D791BB03359007E1CBF /* ZZHintsConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D781BB03359007E1CBF /* ZZHintsConstants.m */; settings = {ASSET_TAGS = (); }; };
+		79123D861BB14F8E007E1CBF /* ZZHintsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D851BB14F8E007E1CBF /* ZZHintsViewModel.m */; settings = {ASSET_TAGS = (); }; };
+		79123D891BB14F9E007E1CBF /* ZZHintsDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D881BB14F9E007E1CBF /* ZZHintsDomainModel.m */; settings = {ASSET_TAGS = (); }; };
+		79123D8C1BB15002007E1CBF /* ZZHintsModelGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D8B1BB15002007E1CBF /* ZZHintsModelGenerator.m */; settings = {ASSET_TAGS = (); }; };
 		7952764A1BA6B4AB00E506D5 /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276471BA6B4AB00E506D5 /* ZZMenuCell.m */; };
 		7952764B1BA6B4AB00E506D5 /* ZZMenuCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276491BA6B4AB00E506D5 /* ZZMenuCellViewModel.m */; };
 		7952764E1BA71F2700E506D5 /* camera-icon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7952764D1BA71F2700E506D5 /* camera-icon.pdf */; };
@@ -1015,6 +1022,10 @@
 		220E90451909A18B003C4F82 /* ZazoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZazoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22403C2A19D5E63400FC36E3 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		224101D3190D4180005128F9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		22D3EC5D1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZKeyStoreOutgoingVideoStatusDomainModel.h; path = KeyStore/ZZKeyStoreOutgoingVideoStatusDomainModel.h; sourceTree = "<group>"; };
+		22D3EC5E1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZKeyStoreOutgoingVideoStatusDomainModel.m; path = KeyStore/ZZKeyStoreOutgoingVideoStatusDomainModel.m; sourceTree = "<group>"; };
+		22D7D2B31BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZKeyStoreIncomingVideoIdsDomainModel.h; path = KeyStore/ZZKeyStoreIncomingVideoIdsDomainModel.h; sourceTree = "<group>"; };
+		22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZKeyStoreIncomingVideoIdsDomainModel.m; path = KeyStore/ZZKeyStoreIncomingVideoIdsDomainModel.m; sourceTree = "<group>"; };
 		2EE3EC5660312AC490BD17BA /* Pods-ZazoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
@@ -1453,6 +1464,7 @@
 		07636B281BA49A0100925671 /* DomainModel */ = {
 			isa = PBXGroup;
 			children = (
+				22D7D2B21BD9807600FF52AA /* KeyStore */,
 				079E90201BD48C57001A4718 /* DebugState */,
 				07636B291BA49A0100925671 /* Base */,
 				07636B2C1BA49A0100925671 /* Contact */,
@@ -3843,6 +3855,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		22D7D2B21BD9807600FF52AA /* KeyStore */ = {
+			isa = PBXGroup;
+			children = (
+				22D7D2B31BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.h */,
+				22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m */,
+				22D3EC5D1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.h */,
+				22D3EC5E1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m */,
+			);
+			name = KeyStore;
+			sourceTree = "<group>";
+		};
 		79123D701BB032B7007E1CBF /* Hints */ = {
 			isa = PBXGroup;
 			children = (
@@ -4359,6 +4382,7 @@
 				07636E3F1BA49A0100925671 /* TBMFriend.m in Sources */,
 				18E1F3041BC6C7180070ECF1 /* TBMFeatureUnlockDialogView.m in Sources */,
 				07636E2F1BA49A0100925671 /* ZZFriendDomainModel.m in Sources */,
+				22D7D2B51BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m in Sources */,
 				07636EEA1BA49A0100925671 /* NSString+ZZAdditions.m in Sources */,
 				79123D861BB14F8E007E1CBF /* ZZHintsViewModel.m in Sources */,
 				07636E471BA49A0100925671 /* tbm.xcdatamodeld in Sources */,
@@ -4466,6 +4490,7 @@
 				07636EDA1BA49A0100925671 /* ZZMenuController.m in Sources */,
 				07636EFE1BA49A0100925671 /* ANError.m in Sources */,
 				07BAA7191BB1DE4E009878B9 /* ZZDebugSettingsStateDomainModel.m in Sources */,
+				22D3EC5F1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m in Sources */,
 				07636E281BA49A0100925671 /* ZZUserModelsMapper.m in Sources */,
 				07636E521BA49A0100925671 /* ZZSecretBaseStrategy.m in Sources */,
 				079E90251BD48C57001A4718 /* ZZDebugFriendStateDomainModel.m in Sources */,
@@ -4562,7 +4587,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "bfce75df-b4b0-42ee-8769-871866246081";
+				PROVISIONING_PROFILE = "47c2aacd-552e-4684-83bd-99b03d1841f1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4594,7 +4619,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "bfce75df-b4b0-42ee-8769-871866246081";
+				PROVISIONING_PROFILE = "47c2aacd-552e-4684-83bd-99b03d1841f1";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -4618,7 +4643,7 @@
 				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.noplanbees.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "bfce75df-b4b0-42ee-8769-871866246081";
+				PROVISIONING_PROFILE = "47c2aacd-552e-4684-83bd-99b03d1841f1";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -4640,8 +4665,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
 				COPY_PHASE_STRIP = NO;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_TESTABILITY = YES;
@@ -4665,7 +4690,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "c3eab556-ac77-4a0e-88c9-16313d654f6f";
+				PROVISIONING_PROFILE = "a3075692-af92-4425-ae7e-9ce28fade170";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -4716,8 +4741,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4730,7 +4755,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "c3eab556-ac77-4a0e-88c9-16313d654f6f";
+				PROVISIONING_PROFILE = "a3075692-af92-4425-ae7e-9ce28fade170";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -4777,8 +4802,8 @@
 			baseConfigurationReference = 2EE3EC5660312AC490BD17BA /* Pods-ZazoTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
