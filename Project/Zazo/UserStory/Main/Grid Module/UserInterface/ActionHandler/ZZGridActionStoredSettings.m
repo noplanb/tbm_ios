@@ -87,6 +87,17 @@ static NSString* const kIncomingVideoWasPlayedKey = @"incomingVideoWasPlayed";
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+- (void)enableAllFeatures
+{
+    BOOL isEnabled = YES;
+    [ZZGridActionStoredSettings shared].frontCameraHintWasShown = isEnabled;
+    [ZZGridActionStoredSettings shared].abortRecordHintWasShown = isEnabled;
+    [ZZGridActionStoredSettings shared].deleteFriendHintWasShown = isEnabled;
+    [ZZGridActionStoredSettings shared].earpieceHintWasShown = isEnabled;
+    [ZZGridActionStoredSettings shared].spinHintWasShown = isEnabled;
+}
+
+
 #pragma mark - Hints
 
 - (void)setIncomingVideoWasPlayed:(BOOL)incomingVideoWasPlayed
