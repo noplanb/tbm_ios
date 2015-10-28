@@ -161,6 +161,12 @@
 
 - (void)handlePushNotification:(NSDictionary*)userInfo
 {
+    //TODO: remove this return
+#ifdef DISABLE_INCOMING_NOTIFICATIONS
+    OB_INFO(@"didReceiveRemoteNotification:fetchCompletionHandler: DISABLED");
+    return;
+#endif
+    
     OB_INFO(@"didReceiveRemoteNotification:fetchCompletionHandler %@", userInfo);
     [self.delegate requestBackground];
     

@@ -11,6 +11,7 @@
 #import "TBMFriend.h"
 #import "ZZUserDataProvider.h"
 #import "ZZRemoteStoageTransportService.h"
+#import "ZZFriendDataProvider.h"
 
 @implementation ZZApplicationDataUpdaterService
 
@@ -61,19 +62,46 @@
     }
 }
 
+
+- (void)queueDownloadWithFriendID:(NSString *)friendID videoIds:(NSSet *)videoIds
+{
+    for (NSString *videoId in videoIds)
+    {
+        [self.delegate freshVideoDetectedWithVideoID:videoId friendID:friendID];
+    }
+}
+
+
+
+
+
+
+
 - (void)_pollAllFriends
 {
-    ANDispatchBlockToBackgroundQueue(^{
-        OB_INFO(@"pollAllFriends");
-        
-        NSArray* friends = [TBMFriend all];
-        for (TBMFriend *f in friends)
-        {
-            [self _pollVideosWithFriend:f];
-            [self _pollVideoStatusWithFriend:f];
-        }
-        [self _pollEverSentStatusForAllFriends];
-    });
+//    ANDispatchBlockToBackgroundQueue(^{
+//        OB_INFO(@"pollAllFriends");
+//        
+//        NSArray* friends = [TBMFriend all];
+//        for (TBMFriend *f in friends)
+//        {
+//            [self _pollVideosWithFriend:f];
+//            [self _pollVideoStatusWithFriend:f];
+//        }
+//        [self _pollEverSentStatusForAllFriends];
+//    });
+//
+    //    +    // Note I intentionally do not put these on a background queue.
+    //    +    // The http requests and responses will run on a background thread by themselves. The actions
+    //    +    // prior to calling the http requests are light. I dont wish to incur the delay of a background queue
+    //    +    // to start the requests. The user must see some results from polling within a second or two of opening the
+    //    +    // app or he will think there is nothing new and close.
+    
+    
+    
+    [self _pollEverSentStatusForAllFriends];
+    [self _pollAllIncomingVideos];
+    [self _pollAllOutgoingVideoStatus];
 }
 
 - (void)_pollEverSentStatusForAllFriends
@@ -87,6 +115,53 @@
         });
     }];
 }
+
+
+- (void)_pollAllIncomingVideos
+{
+    [[ZZRemoteStoageTransportService getAllIncomingVideoIds] subscribeNext:^(NSArray *models) {
+        for (ZZKeyStoreIncomingVideoIdsDomainModel *model in models) {
+            
+            // TODO: This is a back ass way of getting a friendModel from Mkey. What is the correct way?
+            TBMFriend *friend = [TBMFriend findWithMkey:model.friendMkey];
+            if (friend.idTbm)
+            {
+                ZZFriendDomainModel *friendModel = [ZZFriendDataProvider modelFromEntity:friend];
+                if ([model.videoIds count] != 0)
+                {
+                    OB_INFO(@"%@  vids = %@", [friendModel fullName], model.videoIds);
+                    [self queueDownloadWithFriendID:friendModel.idTbm videoIds:model.videoIds];
+                }
+            }
+        }
+    }];
+}
+
+
+- (void)pollAllOutgoingVideoStatus
+{
+    [[ZZKeyStoreTransportService getAllOutgoingVideoStatus] subscribeNext:^(NSArray *models) {
+        for (ZZKeyStoreOutgoingVideoStatusDomainModel *model in models){
+            
+            // TODO: Use friendModel rather than friendEntity.
+            TBMFriend *friend = [TBMFriend findWithMkey:model.friendMkey];
+            if (friend)
+            {
+                if ([model status] == ZZVideoOutgoingStatusUnknown)
+                {
+                    OB_ERROR(@"pollVideoStatusWithFriend: got unknown outgoing video status. This should never happen");
+                    return;
+                }
+                [friend setAndNotifyOutgoingVideoStatus:[model status] videoId:model.videoId];
+            }
+        }
+    }];
+}
+
+
+
+
+//TODO: UNUSED!
 
 - (void)_pollVideosWithFriend:(TBMFriend*)friend
 {

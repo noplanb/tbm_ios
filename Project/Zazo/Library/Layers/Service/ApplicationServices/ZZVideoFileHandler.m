@@ -485,7 +485,7 @@
     }
 }
 
-- (NSDictionary *)fileTransferParams:(NSString *)remoteFilename
+- (NSDictionary*)fileTransferParams:(NSString *)remoteFilename
 {
     return @{@"filename"         : remoteFilename,
              FilenameParamKey    : remoteFilename,
