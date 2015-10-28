@@ -16,6 +16,7 @@
 #import "ZZFriendModelsMapper.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZKeyStoreOutgoingVideoStatusDomainModel.h"
+#import "ZZVideoDataProvider.h"
 
 @implementation ZZApplicationDataUpdaterService
 
@@ -68,7 +69,7 @@
 }
 
 
-- (void)queueDownloadWithFriendID:(NSString *)friendID videoIds:(NSSet *)videoIds
+- (void)queueDownloadWithFriendID:(NSString*)friendID videoIds:(NSSet*)videoIds
 {
     for (NSString *videoId in videoIds)
     {
@@ -78,29 +79,11 @@
 
 - (void)_pollAllFriends
 {
-//    ANDispatchBlockToBackgroundQueue(^{
-//        OB_INFO(@"pollAllFriends");
-//        
-//        NSArray* friends = [TBMFriend all];
-//        for (TBMFriend *f in friends)
-//        {
-//            [self _pollVideosWithFriend:f];
-//            [self _pollVideoStatusWithFriend:f];
-//        }
-//        [self _pollEverSentStatusForAllFriends];
-//    });
-//
-    //    +    // Note I intentionally do not put these on a background queue.
-    //    +    // The http requests and responses will run on a background thread by themselves. The actions
-    //    +    // prior to calling the http requests are light. I dont wish to incur the delay of a background queue
-    //    +    // to start the requests. The user must see some results from polling within a second or two of opening the
-    //    +    // app or he will think there is nothing new and close.
-    
-    
-    
-    [self _pollEverSentStatusForAllFriends];
-    [self _pollAllIncomingVideos];
-    [self _pollAllOutgoingVideoStatus];
+    ANDispatchBlockToBackgroundQueue(^{
+        [self _pollEverSentStatusForAllFriends];
+        [self _pollAllIncomingVideos];
+        [self _pollAllOutgoingVideoStatus];
+    });
 }
 
 - (void)_pollEverSentStatusForAllFriends

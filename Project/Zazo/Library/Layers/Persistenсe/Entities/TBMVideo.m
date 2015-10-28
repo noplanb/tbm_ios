@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
-#import "AVFoundation/AVFoundation.h"
-
 #import "TBMVideo.h"
 
 @implementation TBMVideo

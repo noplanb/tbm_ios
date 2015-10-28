@@ -39,7 +39,6 @@
 
 - (void)decayAnimationWithVelocity:(CGFloat)velocity onCarouselView:(UIView*)grid
 {
-    NSLog(@"velocity - %f", velocity);
     self.decayAnimation = [POPDecayAnimation animation];
     
     self.decayAnimation.property = [self animatableProperty];

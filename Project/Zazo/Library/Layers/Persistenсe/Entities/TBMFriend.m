@@ -180,7 +180,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
     NSArray* videos = [self.videos.allObjects copy];
     for (TBMVideo *v in videos)
     {
-        if ([v.videoId isEqual:videoId])
+        if ([v.videoId isEqualToString:videoId])
             return true;
     }
     return false;
@@ -463,7 +463,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 - (void)setAndNotifyOutgoingVideoStatus:(TBMOutgoingVideoStatus)status videoId:(NSString *)videoId
 {
     [ZZContentDataAcessor refreshContext:self.managedObjectContext];
-    if (![videoId isEqual:self.outgoingVideoId])
+    if (![videoId isEqualToString:self.outgoingVideoId])
     {
         OB_WARN(@"setAndNotifyOutgoingVideoStatus: Unrecognized vidoeId:%@. != ougtoingVid:%@. friendId:%@ Ignoring.", videoId, self.outgoingVideoId, self.idTbm);
         return;
@@ -522,7 +522,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 - (void)setAndNotifyUploadRetryCount:(NSInteger)retryCount videoId:(NSString *)videoId
 {
     [ZZContentDataAcessor refreshContext:self.managedObjectContext];
-    if (![videoId isEqual:self.outgoingVideoId])
+    if (![videoId isEqualToString:self.outgoingVideoId])
     {
         OB_WARN(@"setAndNotifyUploadRetryCount: Unrecognized vidoeId. Ignoring.");
         return;
