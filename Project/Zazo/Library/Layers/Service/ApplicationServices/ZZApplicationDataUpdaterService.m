@@ -12,6 +12,10 @@
 #import "ZZUserDataProvider.h"
 #import "ZZRemoteStoageTransportService.h"
 #import "ZZFriendDataProvider.h"
+#import "ZZKeyStoreIncomingVideoIdsDomainModel.h"
+#import "ZZFriendModelsMapper.h"
+#import "ZZFriendDomainModel.h"
+#import "ZZKeyStoreOutgoingVideoStatusDomainModel.h"
 
 @implementation ZZApplicationDataUpdaterService
 
@@ -71,12 +75,6 @@
     }
 }
 
-
-
-
-
-
-
 - (void)_pollAllFriends
 {
 //    ANDispatchBlockToBackgroundQueue(^{
@@ -119,17 +117,16 @@
 
 - (void)_pollAllIncomingVideos
 {
-    [[ZZRemoteStoageTransportService getAllIncomingVideoIds] subscribeNext:^(NSArray *models) {
-        for (ZZKeyStoreIncomingVideoIdsDomainModel *model in models) {
-            
-            // TODO: This is a back ass way of getting a friendModel from Mkey. What is the correct way?
-            TBMFriend *friend = [TBMFriend findWithMkey:model.friendMkey];
-            if (friend.idTbm)
+    [[ZZRemoteStoageTransportService loadAllIncomingVideoIds] subscribeNext:^(NSArray *models) {
+        
+        for (ZZKeyStoreIncomingVideoIdsDomainModel *model in models)
+        {
+            ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.friendMkey];
+            if (friendModel.idTbm)
             {
-                ZZFriendDomainModel *friendModel = [ZZFriendDataProvider modelFromEntity:friend];
-                if ([model.videoIds count] != 0)
+                if (friendModel.videos.count)
                 {
-                    OB_INFO(@"%@  vids = %@", [friendModel fullName], model.videoIds);
+                    OB_INFO(@"%@  vids = %@", [NSObject an_safeString:[friendModel fullName]], model.videoIds ? : @[]);
                     [self queueDownloadWithFriendID:friendModel.idTbm videoIds:model.videoIds];
                 }
             }
@@ -138,91 +135,25 @@
 }
 
 
-- (void)pollAllOutgoingVideoStatus
+- (void)_pollAllOutgoingVideoStatus
 {
-    [[ZZKeyStoreTransportService getAllOutgoingVideoStatus] subscribeNext:^(NSArray *models) {
-        for (ZZKeyStoreOutgoingVideoStatusDomainModel *model in models){
-            
-            // TODO: Use friendModel rather than friendEntity.
-            TBMFriend *friend = [TBMFriend findWithMkey:model.friendMkey];
-            if (friend)
+    [[ZZRemoteStoageTransportService loadAllOutgoingVideoStatuses] subscribeNext:^(NSArray *models) {
+        
+        for (ZZKeyStoreOutgoingVideoStatusDomainModel *model in models)
+        {
+            ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.friendMkey];
+            if (friendModel)
             {
                 if ([model status] == ZZVideoOutgoingStatusUnknown)
                 {
                     OB_ERROR(@"pollVideoStatusWithFriend: got unknown outgoing video status. This should never happen");
                     return;
                 }
-                [friend setAndNotifyOutgoingVideoStatus:[model status] videoId:model.videoId];
+                //TODO:
+                TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
+                [friendEntity setAndNotifyOutgoingVideoStatus:[model status] videoId:model.videoId];
             }
         }
-    }];
-}
-
-
-
-
-//TODO: UNUSED!
-
-- (void)_pollVideosWithFriend:(TBMFriend*)friend
-{
-    if (friend.idTbm)
-    {
-        __block NSString* friendID = friend.idTbm;
-        __block NSString* firstName = friend.firstName;
-        
-        [[ZZRemoteStoageTransportService loadRemoteIncomingVideoIDsWithFriendMkey:friend.mkey
-                                                                       friendCKey:friend.ckey] subscribeNext:^(NSArray* videoIds) {
-            OB_INFO(@"pollWithFriend: %@  vids = %@", firstName, ANIsEmpty(videoIds) ? @"no videos" : videoIds);
-            if (!ANIsEmpty(videoIds))
-            {
-                for (NSString *videoId in videoIds)
-                {
-                    [self.delegate freshVideoDetectedWithVideoID:videoId friendID:friendID];
-                }
-            }
-        }];
-    }
-}
-
-- (void)_pollVideoStatusWithFriend:(TBMFriend*)friend
-{
-    if (friend.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED)
-    {
-        OB_INFO(@"pollVideoStatusWithFriend: skipping %@ becuase outgoing status is viewed.", friend.firstName);
-        return;
-    }
-    
-    [[ZZRemoteStoageTransportService loadRemoteOutgoingVideoStatusForFriendMkey:friend.mkey
-                                                                     friendCKey:friend.ckey] subscribeNext:^(NSDictionary *response) {
-        
-        if (!ANIsEmpty(response))
-        {
-            NSString *status = response[ZZRemoteStorageParameters.status];
-            ZZRemoteStorageVideoStatus ovsts = ZZRemoteStorageVideoStatusEnumValueFromSrting(status);
-            if (ovsts == ZZRemoteStorageVideoStatusNone)
-            {
-                OB_ERROR(@"pollVideoStatusWithFriend: got unknown outgoing video status: %@", status);
-                return;
-            }
-            // This call handles making sure that videoId == outgoingVideoId etc.
-            
-            
-            TBMOutgoingVideoStatus videoStatus;
-            if (ovsts == ZZRemoteStorageVideoStatusDownloaded)
-            {
-                videoStatus = OUTGOING_VIDEO_STATUS_DOWNLOADED;
-            }
-            else
-            {
-                videoStatus = OUTGOING_VIDEO_STATUS_VIEWED;
-            }
-            
-            [friend setAndNotifyOutgoingVideoStatus:videoStatus
-                                            videoId:response[ZZRemoteStorageParameters.videoID]];
-        }
-    } error:^(NSError *error) {
-        // This can happen on startup when there is nothing in the remoteVideoStatusKV
-        OB_WARN(@"pollVideoStatusWithFriend: Error polling outgoingVideoStatus for %@ - %@", friend.firstName, error);
     }];
 }
 

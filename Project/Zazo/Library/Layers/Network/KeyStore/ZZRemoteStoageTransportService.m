@@ -12,6 +12,10 @@
 
 #import "ZZRemoteStorageValueGenerator.h"
 #import "ZZRemoteStorageConstants.h"
+#import "FEMObjectMapping.h"
+#import "FEMObjectDeserializer.h"
+#import "ZZKeyStoreIncomingVideoIdsDomainModel.h"
+#import "ZZKeyStoreOutgoingVideoStatusDomainModel.h"
 
 @implementation ZZRemoteStoageTransportService
 
@@ -67,43 +71,6 @@
 
 #pragma mark - Load
 
-+ (RACSignal*)loadRemoteIncomingVideoIDsWithFriendMkey:(NSString*)friendMkey
-                                            friendCKey:(NSString*)friendCKey
-{
-    NSString *key1 = [ZZRemoteStorageValueGenerator outgoingVideoIDRemoteKVWithFriendMKey:friendMkey
-                                                                               friendCKey:friendCKey];
-
-    return [[[self loadValueWithKey1:key1] map:^id(NSArray* value) {
-        
-        return [[value.rac_sequence map:^id(NSDictionary* object) { //TODO: additional checks and safety
-            
-            NSString *valueJson = object[ZZRemoteStorageParameters.value];
-            NSDictionary *valueObj = [ZZStringUtils dictionaryWithJson:valueJson];
-            return valueObj[ZZRemoteStorageParameters.videoID];
-            
-        }] array];
-    }] doError:^(NSError *error) {
-        OB_WARN(@"getRemoteIncomingVideoIdsWithFriend: failure: %@", error);
-    }];
-}
-
-+ (RACSignal*)loadRemoteOutgoingVideoStatusForFriendMkey:(NSString*)friendMkey
-                                              friendCKey:(NSString*)friendCKey
-{
-    NSString *key = [ZZRemoteStorageValueGenerator outgoingVideoStatusRemoteKVKeyWithFriendMKey:friendMkey
-                                                                                     friendCKey:friendCKey];
-    
-    return [[self loadValueWithKey1:key] map:^id(id value) {
-        
-        if ([value isKindOfClass:[NSDictionary class]])
-        {
-            NSString *valueJson = value[ZZRemoteStorageParameters.value];
-            return [ZZStringUtils dictionaryWithJson:valueJson];
-        }
-        return nil;
-    }];
-}
-
 + (RACSignal*)loadRemoteEverSentFriendsIDsForUserMkey:(NSString*)mKey
 {
     NSString *key = [NSString stringWithFormat:@"%@-WelcomedFriends", mKey];
@@ -115,6 +82,45 @@
             return [value componentsSeparatedByString:kRemoteStorageArraySeparator];
         }
         return nil;
+    }];
+}
+
++ (RACSignal*)loadAllIncomingVideoIds
+{
+    return [[ZZRemoteStorageTransport loadAllIncomingVideoIds] map:^id(NSArray* videoIdData) {
+        
+        videoIdData = [[videoIdData.rac_sequence map:^id(id obj) {
+            if ([obj isKindOfClass:[NSDictionary class]])
+            {
+                FEMObjectMapping* mapping = [ZZKeyStoreIncomingVideoIdsDomainModel mapping];
+                ZZKeyStoreIncomingVideoIdsDomainModel* model =
+                [FEMObjectDeserializer deserializeObjectExternalRepresentation:obj
+                                                                  usingMapping:mapping];
+                return model;
+            }
+            return nil;
+        }] array];
+        return videoIdData;
+    }];
+}
+
+
++ (RACSignal*)loadAllOutgoingVideoStatuses
+{
+    return [[ZZRemoteStorageTransport loadAllOutgoingVideoStatuses] map:^id(NSArray* videoStatusData) {
+        
+        videoStatusData = [[videoStatusData.rac_sequence map:^id(id obj) {
+            if ([obj isKindOfClass:[NSDictionary class]])
+            {
+                FEMObjectMapping* mapping = [ZZKeyStoreOutgoingVideoStatusDomainModel mapping];
+                ZZKeyStoreOutgoingVideoStatusDomainModel* model =
+                [FEMObjectDeserializer deserializeObjectExternalRepresentation:obj
+                                                                  usingMapping:mapping];
+                return model;
+            }
+            return nil;
+        }] array];
+        return videoStatusData;
     }];
 }
 
