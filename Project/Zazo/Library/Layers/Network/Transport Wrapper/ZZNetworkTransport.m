@@ -46,7 +46,7 @@
 #ifdef HTTPLog
     if (params)
     {
-        ANLogHTTP(@"Parameters : \n%@", params);
+        OB_INFO(@"Parameters : \n%@", params);
     }
 #endif
     return [super requestWithPath:path parameters:params httpMethod:httpMethod];
@@ -56,7 +56,7 @@
 {
 #ifdef HTTPLog
     NSString* logString = [NSString stringWithFormat:@"%@\n%@\n%@\n", description, httpResponse, json];
-    ANLogHTTP(@"%@", logString);
+    OB_INFO(@"%@", logString);
 #endif
 
 }

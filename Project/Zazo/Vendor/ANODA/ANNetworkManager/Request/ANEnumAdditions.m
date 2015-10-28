@@ -8,6 +8,7 @@
 #import "ANEnumAdditions.h"
 
 static NSString *httpMethodTypeString[] = {
+    @"none",
     @"GET",
     @"POST",
     @"DELETE"
@@ -15,11 +16,14 @@ static NSString *httpMethodTypeString[] = {
 
 NSString* ANHttpMethodTypeStringFromEnumValue(ANHttpMethodType type)
 {
-    return httpMethodTypeString[type];
+    int count = sizeof(httpMethodTypeString) / sizeof(httpMethodTypeString[0]);
+    return (type < count) ? httpMethodTypeString[type] : nil;
 }
 
-ANHttpMethodType ANHttpMethodTypeEnumValueFromSrting(NSString* string)
+ANHttpMethodType ANHttpMethodTypeEnumValueFromString(NSString* string)
 {
-    NSArray* array = [NSArray arrayWithObjects:httpMethodTypeString count:3];
-    return [array indexOfObject:string];
+    int count = sizeof(httpMethodTypeString) / sizeof(httpMethodTypeString[0]);
+    NSArray* array = [NSArray arrayWithObjects:httpMethodTypeString count:count];
+    NSInteger index = [array indexOfObject:[NSObject an_safeString:string]];
+    return (index == NSNotFound) ? 0 : index;
 }

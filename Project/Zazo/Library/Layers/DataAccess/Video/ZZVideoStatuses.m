@@ -63,7 +63,8 @@ NSString* ZZVideoOutgoingStatusStringFromEnumValue(ZZVideoOutgoingStatus type)
 
 ZZVideoOutgoingStatus ZZVideoOutgoingStatusEnumValueFromString(NSString* string)
 {
-    NSArray* array = [NSArray arrayWithObjects:outgoingTypeString count:8];
+    int count = sizeof(outgoingTypeString) / sizeof(outgoingTypeString[0]);
+    NSArray* array = [NSArray arrayWithObjects:outgoingTypeString count:count];
     return [array indexOfObject:string];
 }
 

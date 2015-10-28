@@ -23,13 +23,16 @@ static NSString *outgoingTypesString[] = {
 
 NSString* ZZOutgoingVideoInfoStringFromEnumValue(ZZVideoOutgoingStatus type)
 {
-    return outgoingTypesString[type];
+    int count = sizeof(outgoingTypesString) / sizeof(outgoingTypesString[0]);
+    return (type < count) ? outgoingTypesString[type] : nil;
 }
 
-ZZVideoOutgoingStatus ZZOutgoingVideoInfoEnumValueFromSrting(NSString* string)
+ZZVideoOutgoingStatus ZZOutgoingVideoInfoEnumValueFromString(NSString* string)
 {
-    NSArray* array = [NSArray arrayWithObjects:outgoingTypesString count:8];
-    return [array indexOfObject:[NSObject an_safeString:string]];
+    int count = sizeof(outgoingTypesString) / sizeof(outgoingTypesString[0]);
+    NSArray* array = [NSArray arrayWithObjects:outgoingTypesString count:count];
+    NSInteger index = [array indexOfObject:[NSObject an_safeString:string]];
+    return (index == NSNotFound) ? 0 : index;
 }
 
 
@@ -53,6 +56,8 @@ ZZVideoIncomingStatus ZZIncomingVideoInfoEnumValueFromSrting(NSString* string)
     NSArray* array = [NSArray arrayWithObjects:incomingTypesString count:5];
     return [array indexOfObject:[NSObject an_safeString:string]];
 }
+
+
 
 
 #pragma mark - Server

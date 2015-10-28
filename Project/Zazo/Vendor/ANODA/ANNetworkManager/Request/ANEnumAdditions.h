@@ -7,9 +7,10 @@
 
 typedef NS_ENUM(NSInteger, ANHttpMethodType)
 {
-    ANHttpMethodTypeGET = 0,
-    ANHttpMethodTypePOST = 1,
-    ANHttpMethodTypeDELETE = 2,
+    ANHttpMethodTypeNone,
+    ANHttpMethodTypeGET,
+    ANHttpMethodTypePOST,
+    ANHttpMethodTypeDELETE,
     ANHttpMethodTypePOSTJSON
 };
 
