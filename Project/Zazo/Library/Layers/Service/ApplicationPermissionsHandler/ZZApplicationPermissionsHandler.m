@@ -63,7 +63,7 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
 
 
 #pragma mark - Access Checks
-//TODO: Threads!
+
 + (RACSignal*)_checkFreeSpace
 {
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {

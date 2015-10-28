@@ -38,7 +38,7 @@ static inline NSString* const apiBaseURL()
             apiURLString = ZZApiBaseURLsList.production;
         } break;
     }
-    if (ANIsEmpty(apiURLString)) // TODO: check is URL valid
+    if (ANIsEmpty(apiURLString))
     {
         apiURLString = ZZApiBaseURLsList.production;
     }

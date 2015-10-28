@@ -133,7 +133,7 @@
                     OB_ERROR(@"pollVideoStatusWithFriend: got unknown outgoing video status. This should never happen");
                     return;
                 }
-                //TODO:
+                //TODO: remove this core data stuff
                 TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
                 [friendEntity setAndNotifyOutgoingVideoStatus:[model status] videoId:model.videoId];
             }

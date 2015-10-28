@@ -20,8 +20,6 @@
 #import "ZZStoredSettingsManager.h"
 #import "NBPhoneNumber.h"
 #import "ZZFriendDataProvider.h"
-#import "TBMUser.h"
-#import "TBMFriend.h"
 #import "ZZCommonNetworkTransportService.h"
 #import "ZZVideoRecorder.h"
 #import "ZZFriendDataUpdater.h"
@@ -45,7 +43,7 @@
 #ifdef DEBUG_LOGIN_USER
     user.firstName = @"DDDD";
     user.lastName = @"DDDD";
-    user.mobileNumber = @"+380951231212";
+    user.mobileNumber = @"+380912233445";
 #endif
     
     if (!ANIsEmpty(user.mobileNumber))
@@ -110,7 +108,6 @@
         
         NSString* mobilePhone = [x objectForKey:@"mobile_number"];
         
-        
         [ZZStoredSettingsManager shared].mobileNumber = mobilePhone;
         [ZZUserDataProvider upsertUserWithModel:user];
         
@@ -126,7 +123,6 @@
     } error:^(NSError *error) {
         //TODO: separate errors
         [self.output smsCodeValidationCompletedWithError:error];
-        
     }];
 }
 
@@ -136,10 +132,8 @@
     
     [[ZZFriendsTransportService loadFriendList] subscribeNext:^(id x) {
         
+        [self.output loadedFriendsSuccessfully];
         ANDispatchBlockToBackgroundQueue(^{
-            [self gotFriends:x];
-            [self detectInvitee:x];
-            [self.output loadedFriendsSuccessfully];
             [self loadS3Credentials];
         });
         
@@ -156,7 +150,7 @@
             
             self.currentUser.isRegistered = YES;
             [ZZUserDataProvider upsertUserWithModel:self.currentUser];
-//   TODO:         [(TBMAppDelegate*)[UIApplication sharedApplication].delegate performDidBecomeActiveActions]; //TODO: call this with new controller
+//   TODO:         [(TBMAppDelegate*)[UIApplication sharedApplication].delegate performDidBecomeActiveActions]; //TODO: call this with new controller // ensure resourses
             [self.output registrationFlowCompletedSuccessfully];
             
         } error:^(NSError *error) {
@@ -189,8 +183,8 @@
     
     [[ZZAccountTransportService registerUserWithModel:user shouldForceCall:forceCall] subscribeNext:^(NSDictionary *authKeys) {
         
-        NSString *auth = [authKeys objectForKey:@"auth"];
-        NSString *mkey = [authKeys objectForKey:@"mkey"];
+        NSString *auth = authKeys[@"auth"];
+        NSString *mkey = authKeys[@"mkey"];
 
         [ZZStoredSettingsManager shared].userID = mkey;
         [ZZStoredSettingsManager shared].authToken = auth;
@@ -328,65 +322,11 @@
     return [regex stringByReplacingMatchesInString:phone options:0 range:NSMakeRange(0, [phone length]) withTemplate:@""];
 }
 
-- (void)gotFriends:(NSArray *)friends
-{
-    ANDispatchBlockToBackgroundQueue(^{
-        for (ZZFriendDomainModel *friend in friends)
-        {
-            [ZZFriendDataUpdater upsertFriend:friend];
-        }
-    });
-}
-
-- (void)detectInvitee:(NSArray *)friends
-{
-    NSArray *sorted = [self sortedFriendsByCreatedOn:friends];
-    if (sorted)
-    {
-        ZZFriendDomainModel *firstFriend = sorted.firstObject;
-        NSString *firstFriendCreatorMkey = firstFriend.friendshipCreatorMkey;
-        ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
-        NSString *myMkey = user.mkey;
-        user.isInvitee = ![firstFriendCreatorMkey isEqualToString:myMkey];
-        self.currentUser = [ZZUserDataProvider upsertUserWithModel:user];
-    }
-}
-
-- (NSArray *)sortedFriendsByCreatedOn:(NSArray *)friends
-{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-    [dateFormatter setLocale:enUSPOSIXLocale];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
-    
-    return [friends sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        
-        NSComparisonResult result = NSOrderedSame;
-        NSDictionary *dict1 = (NSDictionary *) obj1;
-        NSDictionary *dict2 = (NSDictionary *) obj2;
-        NSDate *date1;
-        NSDate *date2;
-        
-        if ([dict1 isKindOfClass:[NSDictionary class]] && [dict2 isKindOfClass:[NSDictionary class]])
-        {
-            
-            date1 = [dateFormatter dateFromString:dict1[@"connection_created_on"]];
-            date2 = [dateFormatter dateFromString:dict2[@"connection_created_on"]];
-        }
-        
-        if (date1 && date2)
-        {
-            result = [date1 timeIntervalSinceDate:date2] > 0 ? NSOrderedDescending : NSOrderedAscending;
-        }
-        return result;
-    }];
-}
-
 - (void)_saveAuthenticatedUserMobileNumberToDefauts:(NSString*)number
 {
     NSString* numberWithPlus = [NSString stringWithFormat:@"+%@", number];
     [ZZStoredSettingsManager shared].mobileNumber = numberWithPlus;
-    [[NSUserDefaults standardUserDefaults] setObject:numberWithPlus forKey:@"authenticatedMobileNumber"];
+    [[NSUserDefaults standardUserDefaults] setObject:numberWithPlus forKey:@"authenticatedMobileNumber"]; //TODO: stored manager
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

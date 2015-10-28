@@ -34,11 +34,9 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)loadData
 {
-    ANDispatchBlockToBackgroundQueue(^{
-        [self.output dataLoadedWithArray:[self _gridModels]];
-        [TBMFriend addVideoStatusNotificationDelegate:self];
-        [self _configureFeatureObserver];
-    });
+    [self.output dataLoadedWithArray:[self _gridModels]];
+    [TBMFriend addVideoStatusNotificationDelegate:self];
+    [self _configureFeatureObserver];
 }
 
 - (void)reloadDataAfterResetUserData
