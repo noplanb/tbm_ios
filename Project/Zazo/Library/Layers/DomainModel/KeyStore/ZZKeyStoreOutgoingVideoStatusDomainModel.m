@@ -53,7 +53,10 @@ const struct ZZKeyStoreOutgoingVideoStatusValues ZZKeyStoreOutgoingVideoStatusVa
     {
         return [NSNumber numberWithInteger:OUTGOING_VIDEO_STATUS_VIEWED];
     }
-    
+    if (ANIsEmpty(remoteStatus))
+    {
+        return [NSNumber numberWithInt:OUTGOING_VIDEO_STATUS_NONE];
+    }
     return [NSNumber numberWithInt:OUTGOING_VIDEO_STATUS_UNKNOWN];
 }
 

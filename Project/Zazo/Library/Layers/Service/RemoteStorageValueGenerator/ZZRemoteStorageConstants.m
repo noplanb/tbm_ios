@@ -17,7 +17,7 @@ const struct ZZRemoteStorageParameters ZZRemoteStorageParameters = {
 };
 
 static NSString *remoteStorageVideoStatusesString[] = {
-    @"none",
+    @"",
     @"downloaded",
     @"viewed"
 };
