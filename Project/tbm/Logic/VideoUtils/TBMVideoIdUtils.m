@@ -9,6 +9,7 @@
 #import "TBMVideoIdUtils.h"
 #import "TBMUser.h"
 #import "ZZStringUtils.h"
+#import "ZZVideoDataProvider.h"
 
 @implementation TBMVideoIdUtils
 
@@ -61,7 +62,8 @@
 }
 
 + (TBMVideo *)videoWithMarker:(NSString *)marker{
-    return [TBMVideo findWithVideoId:[TBMVideoIdUtils videoIdWithMarker:marker]];
+    
+    return [ZZVideoDataProvider findWithVideoId:[TBMVideoIdUtils videoIdWithMarker:marker]];
 }
 
 + (NSString *)videoIdWithMarker:(NSString *)marker{

@@ -11,6 +11,7 @@
 #import "TBMFriend.h"
 #import "ZZUserDataProvider.h"
 #import "ZZRemoteStoageTransportService.h"
+#import "ZZVideoDataProvider.h"
 
 @implementation ZZApplicationDataUpdaterService
 
@@ -21,8 +22,8 @@
 
 - (void)updateApplicationBadge
 {
-    OB_INFO(@"setBadgeNumberDownloadedUnviewed = %lu", (unsigned long) [TBMVideo downloadedUnviewedCount]);
-    [self setBadgeCount:[TBMVideo downloadedUnviewedCount]];
+    OB_INFO(@"setBadgeNumberDownloadedUnviewed = %lu", (unsigned long)[ZZVideoDataProvider countDownloadedUnviewedVideos]);
+    [self setBadgeCount:[ZZVideoDataProvider countDownloadedUnviewedVideos]];
 }
 
 #pragma mark -  Notification center and badge control
@@ -35,8 +36,9 @@
 
 - (void)setBadgeNumberUnviewed
 {
-    OB_INFO(@"setBadgeNumberUnviewed = %lu", (unsigned long) [TBMVideo unviewedCount]);
-    [self setBadgeCount:[TBMVideo unviewedCount]];
+    
+    OB_INFO(@"setBadgeNumberUnviewed = %lu", (unsigned long) [ZZVideoDataProvider countTotalUnviewedVideos]);
+    [self setBadgeCount:[ZZVideoDataProvider countTotalUnviewedVideos]];
 }
 
 - (void)setBadgeCount:(NSInteger)count

@@ -22,6 +22,9 @@
 #import "FEMObjectDeserializer.h"
 #import "ZZFriendDataUpdater.h"
 #import "ZZPhoneHelper.h"
+#import "ZZVideoDataProvider.h"
+#import "ZZVideoDataUpdater.h"
+
 
 @implementation TBMFriend
 
@@ -188,7 +191,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
     NSArray* videos = [self.videos.allObjects copy];
     for (TBMVideo *v in videos)
     {
-        if (v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADING)
+        if (v.statusValue == ZZVideoIncomingStatusDownloading)
             return YES;
     }
     return NO;
@@ -212,7 +215,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (TBMVideo *)createIncomingVideoWithVideoId:(NSString *)videoId   
 {
-    TBMVideo *video = [TBMVideo newWithVideoId:videoId onContext:self.managedObjectContext];
+    TBMVideo *video = [ZZVideoDataProvider newWithVideoId:videoId onContext:self.managedObjectContext];;
     [self addVideosObject:video];
     [self.managedObjectContext MR_saveToPersistentStoreAndWait];
     return video;
@@ -233,8 +236,8 @@ static NSMutableSet *videoStatusNotificationDelegates;
     NSArray *all = [self sortedIncomingVideos];
     for (TBMVideo *v in all)
     {
-        if (v.statusValue == INCOMING_VIDEO_STATUS_VIEWED ||
-            v.statusValue == INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY)
+        if (v.statusValue == ZZVideoIncomingStatusViewed ||
+            v.statusValue == ZZVideoIncomingStatusFailedPermanently)
         {
             [self deleteVideo:v];
         }
@@ -243,9 +246,9 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (void)deleteVideo:(TBMVideo*)video
 {
-    [video deleteFiles];
+    [ZZVideoDataUpdater deleteFilesForVideo:video];
     [self removeVideosObject:video];
-    [TBMVideo destroy:video];
+    [ZZVideoDataUpdater destroy:video];
     [self.managedObjectContext MR_saveToPersistentStoreAndWait];
 }
 
@@ -254,7 +257,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
     TBMVideo *video = nil;
     for (TBMVideo *v in [self sortedIncomingVideos])
     {
-        if ([v videoFileExists])
+        if ([ZZVideoDataProvider videoFileExistsForVideo:v])
         {
             video = v;
             break;
@@ -267,7 +270,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 {
     for (TBMVideo *v in [self sortedIncomingVideos])
     {
-        if ([TBMVideoIdUtils isvid1:v.videoId newerThanVid2:videoId] && [v videoFileExists])
+        if ([TBMVideoIdUtils isvid1:v.videoId newerThanVid2:videoId] && [ZZVideoDataProvider videoFileExistsForVideo:v])
             return v;
     }
     return nil;
@@ -278,7 +281,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
     TBMVideo *video = nil;
     for (TBMVideo *v in [self sortedIncomingVideos])
     {
-        if (v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADED && [v videoFileExists])
+        if (v.statusValue == ZZVideoIncomingStatusDownloaded && [ZZVideoDataProvider videoFileExistsForVideo:v])
         {
             video = v;
             break;
@@ -292,7 +295,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
     DebugLog(@"nextUnviewedVideoAfterVideoId");
     for (TBMVideo *v in [self sortedIncomingVideos])
     {
-        if ([TBMVideoIdUtils isvid1:v.videoId newerThanVid2:videoId] && [v videoFileExists] && v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADED)
+        if ([TBMVideoIdUtils isvid1:v.videoId newerThanVid2:videoId] && [ZZVideoDataProvider videoFileExistsForVideo:v] && v.statusValue == ZZVideoIncomingStatusDownloaded)
             return v;
     }
     return nil;
@@ -309,8 +312,8 @@ static NSMutableSet *videoStatusNotificationDelegates;
     NSInteger i = 0;
     for (TBMVideo *v in [self videos])
     {
-        if (v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADED ||
-            v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADING)
+        if (v.statusValue == ZZVideoIncomingStatusDownloaded ||
+            v.statusValue == ZZVideoIncomingStatusDownloading)
         {
              i++;
         }
@@ -320,7 +323,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (void)setViewedWithIncomingVideo:(TBMVideo *)video
 {
-    [self setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_VIEWED video:video];
+    [self setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusViewed video:video];
     //TODO: TODO: IMPORTANT!!! ADD THIS!!!! IMPORTANT!!!! FUCKING IMPORTANT!!!!
 //    TBMAppDelegate* delegate = (TBMAppDelegate*)[UIApplication sharedApplication].delegate;
 //    [delegate sendNotificationForVideoStatusUpdate:self videoId:video.videoId status:NOTIFICATION_STATUS_VIEWED];
@@ -393,7 +396,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
     if (v == NULL)
         return [self displayName];
 
-    if (v.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADING)
+    if (v.statusValue == ZZVideoIncomingStatusDownloading)
     {
         if (v.downloadRetryCountValue == 0)
         {
@@ -403,7 +406,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
         {
             return [NSString stringWithFormat:@"Dwnld r%@", v.downloadRetryCount];
         }
-    } else if (v.statusValue == INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY)
+    } else if (v.statusValue == ZZVideoIncomingStatusFailedPermanently)
     {
         return @"Downloading e!";
     } else
@@ -480,7 +483,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
     [self notifyVideoStatusChangeOnMainThread];
 }
 
-- (void)setAndNotifyIncomingVideoStatus:(TBMIncomingVideoStatus)status video:(TBMVideo *)video
+- (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)status video:(TBMVideo *)video
 {
     [ZZContentDataAcessor refreshContext:self.managedObjectContext];
     if (video.statusValue == status)
@@ -503,7 +506,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
     // video (recording on a person with unviewed indicator showing) then later viewed the incoming videos
     // he gets to see the status of the last outgoing video he sent after play is complete and the unviewed count
     // indicator goes away.
-    if (status != INCOMING_VIDEO_STATUS_VIEWED)
+    if (status != ZZVideoIncomingStatusViewed)
     {
         self.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
     }

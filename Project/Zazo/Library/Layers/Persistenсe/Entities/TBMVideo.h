@@ -12,40 +12,4 @@
 
 @interface TBMVideo : _TBMVideo
 
-// Note order matters. The first enum is chosen intentionally since that is what the
-// property initializes to.
-typedef NS_ENUM (NSInteger, TBMIncomingVideoStatus) {
-    INCOMING_VIDEO_STATUS_NEW,
-    INCOMING_VIDEO_STATUS_DOWNLOADING,
-    INCOMING_VIDEO_STATUS_DOWNLOADED,
-    INCOMING_VIDEO_STATUS_VIEWED,
-    INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY
-};
-
-// Class methods
-+ (instancetype)newWithVideoId:(NSString *)videoId onContext:(NSManagedObjectContext*)context;
-+ (instancetype)findWithVideoId:(NSString *)videoId;
-+ (NSArray *)downloadedUnviewed;
-+ (NSUInteger)downloadedUnviewedCount;
-+ (NSArray *)downloading;
-+ (NSUInteger)downloadingCount;
-+ (NSUInteger)unviewedCount;
-+ (NSArray *)all;
-+ (void)printAll;
-+ (NSUInteger)count;
-+ (void) destroy:(TBMVideo *)video;
-
-// Instance methods
-
-// Video file
-- (NSURL *)videoUrl;
-- (NSString *)videoPath;
-- (BOOL)videoFileExists;
-- (unsigned long long)videoFileSize;
-- (BOOL) hasValidVideoFile;
-- (void)deleteVideoFile;
-- (void)deleteFiles;
-
-- (BOOL)isStatusDownloading;
-
 @end

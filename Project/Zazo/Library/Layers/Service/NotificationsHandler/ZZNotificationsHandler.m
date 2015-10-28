@@ -26,7 +26,7 @@
 
 @implementation ZZNotificationsHandler
 
-- (void)registerToPushNotifications
++ (void)registerToPushNotifications
 {
     OB_INFO(@"registerForPushNotification");
     if ([self _isIOS8OrHigher])
@@ -46,6 +46,11 @@
                                                                                UIRemoteNotificationTypeSound |
                                                                                UIRemoteNotificationTypeBadge)];
     }
+}
+
++ (void)disablePushNotifications
+{
+    [[UIApplication sharedApplication] unregisterForRemoteNotifications];
 }
 
 - (void)receivedPushNotificationsToken:(NSData*)deviceToken
@@ -116,7 +121,7 @@
     }];
 }
 
-- (BOOL)_isIOS8OrHigher
++ (BOOL)_isIOS8OrHigher
 {
     return [[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)];
 }

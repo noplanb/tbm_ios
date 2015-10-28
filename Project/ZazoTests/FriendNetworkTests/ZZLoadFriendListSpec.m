@@ -22,8 +22,8 @@ describe(@"ZZLoadFriendList", ^{
     
     beforeAll(^{
         userModel = [ZZUserDomainModel new];
-        userModel.firstName = @"Dima";
-        userModel.lastName = @"Frolow";
+        userModel.firstName = @"DDD";
+        userModel.lastName = @"FFF";
         userModel.mobileNumber = @"380974720070";
         actualSmsCode = @"0000"; //for success test use only valid sms code!!!
     });

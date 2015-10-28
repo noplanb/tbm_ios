@@ -155,6 +155,10 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
             [self _customAppModeRowWithIndex:indexPath.row updatedTo:isEnabled];
         }
         break;
+        case ZZSecretSectionServerOptions:
+        {
+            [self _handlePushNotificationWithState:isEnabled];
+        }break;
             
         default: break;
     }
@@ -257,7 +261,10 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
     textEdit.text = model.serverURLString;
     textEdit.isEnabled = (model.serverIndex == 2);
     
-    [self.storage addItems:@[server, textEdit] toSection:ZZSecretSectionServerOptions];
+    BOOL pushNotificationStatus = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
+    ZZSecretSwitchCellViewModel* pushNotificationSwitch = [self _switchModelWithTitle:@"Push notification" state:pushNotificationStatus];
+    
+    [self.storage addItems:@[server, textEdit, pushNotificationSwitch] toSection:ZZSecretSectionServerOptions];
     [self.storage setSectionHeaderModel:@"Server options" // TODO:
                         forSectionIndex:ZZSecretSectionServerOptions];
 }
@@ -272,6 +279,9 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
     [self.storage setSectionHeaderModel:@"Reset Data" // TODO:
                         forSectionIndex:ZZSecretSectionResetData];
 }
+
+
+#pragma mark - View model with swith
 
 - (ZZSecretSwitchCellViewModel*)_switchModelWithTitle:(NSString*)title state:(BOOL)isEnabled
 {
@@ -295,4 +305,8 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
     }
 }
 
+- (void)_handlePushNotificationWithState:(BOOL)state
+{
+    [self.delegate updatePushNotificationState:state];
+}
 @end

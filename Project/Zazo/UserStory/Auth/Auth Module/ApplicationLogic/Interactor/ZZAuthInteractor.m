@@ -28,6 +28,7 @@
 #import "ZZFriendDomainModel.h"
 #import "ZZRollbarAdapter.h"
 #import "ZZAuthInteractorConstants.h"
+#import "ZZNotificationsHandler.h"
 
 @interface ZZAuthInteractor ()
 
@@ -42,9 +43,9 @@
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
     
 #ifdef DEBUG_LOGIN_USER
-    user.firstName = @"DkkkTest";
-    user.lastName = @"kkk";
-    user.mobileNumber = @"+380950987654";
+    user.firstName = @"DDDD";
+    user.lastName = @"DDDD";
+    user.mobileNumber = @"+380951231212";
 #endif
     
     if (!ANIsEmpty(user.mobileNumber))
@@ -118,6 +119,9 @@
         [self.output smsCodeValidationCompletedSuccessfully];
         
         [self loadFriends];
+        
+        
+        [ZZNotificationsHandler registerToPushNotifications];
         
     } error:^(NSError *error) {
         //TODO: separate errors

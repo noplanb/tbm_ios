@@ -19,6 +19,8 @@
 #import "OBFileTransferManager.h"
 #import "ZZRemoteStorageValueGenerator.h"
 #import "ZZRemoteStoageTransportService.h"
+#import "ZZGridDataProvider.h"
+#import "ZZVideoDataProvider.h"
 
 @interface TBMVideoPlayer()
 
@@ -184,7 +186,7 @@
 #pragma mark - Control Playback
 - (void)togglePlayWithIndex:(NSInteger)index frame:(CGRect)frame{
     self.playerFrame = frame;
-    self.gridElement = [TBMGridElement findWithIntIndex:index];
+    self.gridElement = [ZZGridDataProvider findWithIntIndex:index];
     
     // Always stop first so that the notification goes out to reset the view we were on in case it was still playing.
     BOOL wasPlaying = [self isPlaying];
@@ -253,8 +255,8 @@
                                                                friendCKey:self.gridElement.friend.ckey] subscribeNext:^(id x) {}];
     
     
-    if ([self.video hasValidVideoFile]){
-        self.moviePlayerController.contentURL = [self.video videoUrl];
+    if ([ZZVideoDataProvider hasValidVideoFileWithVideo:self.video]){
+        self.moviePlayerController.contentURL = [ZZVideoDataProvider videoUrlWithVideo:self.video];
         [self showPlayerView];
         [self.moviePlayerController play];
     } else {

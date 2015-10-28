@@ -56,7 +56,7 @@
     self = [super init];
     if (self)
     {
-        [self _configureEventHandlers];
+        [self _initializeEventHandlers];
         [self _setupFeatureEventObserver];
     }
     return self;
@@ -68,58 +68,66 @@
     self.featureEventObserver.delegate = self;
 }
 
-- (void)_configureEventHandlers
+
+#pragma mark - Initilize event handlers
+
+- (void)_initializeEventHandlers
 {
-    //TODO: made initialization in enum [string from class]
+    NSInteger startEventIndex = 0;
+    __block NSMutableArray* eventHandlers = [NSMutableArray array];
     
-    self.startEventHandler = [ZZInviteEventHandler new];
-    self.startEventHandler.delegate = self;
-    ZZPlayEventHandler* playEventHandler = [ZZPlayEventHandler new];
-    playEventHandler.delegate = self;
+    [[self _eventHandlers] enumerateObjectsUsingBlock:^(NSString*  _Nonnull className, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (idx == startEventIndex)
+        {
+            self.startEventHandler = [NSClassFromString(className) new];
+            [eventHandlers addObject:self.startEventHandler];
+        }
+        else
+        {
+            ZZBaseEventHandler* eventHandler = [NSClassFromString(className) new];
+            [eventHandlers addObject:eventHandler];
+        }
+    }];
     
-    ZZRecordEventHandler* recordEventHandler = [ZZRecordEventHandler new];
-    recordEventHandler.delegate = self;
-   
-    ZZSentMessgeEventHandler* sentMessageEventHandler = [ZZSentMessgeEventHandler new];
-    sentMessageEventHandler.delegate = self;
-   
-    ZZViewedMessageEventHandler* viewedmessageEventHandler = [ZZViewedMessageEventHandler new];
-    viewedmessageEventHandler.delegate = self;
-    
-    ZZInviteSomeoneElseEventHandler* inviteSomeoneElseEventHandler = [ZZInviteSomeoneElseEventHandler new];
-    inviteSomeoneElseEventHandler.delegate = self;
-    
-    ZZSentWelcomeEventHandler* sentWelcomeEventHandler = [ZZSentWelcomeEventHandler new];
-    sentWelcomeEventHandler.delegate = self;
-    
-    ZZFronCameraFeatureEventHandler* frontCameraEventHandler = [ZZFronCameraFeatureEventHandler new];
-    frontCameraEventHandler.delegate = self;
-    
-    ZZAbortRecordingFeatureEventHandler* abortRecordingEventHandler = [ZZAbortRecordingFeatureEventHandler new];
-    abortRecordingEventHandler.delegate = self;
-    
-    ZZDeleteFriendsFeatureEventHandler* deleteFriendEventHandler = [ZZDeleteFriendsFeatureEventHandler new];
-    deleteFriendEventHandler.delegate = self;
-    
-    ZZEarpieceFeatureEventHandler* earpieceEventHandler = [ZZEarpieceFeatureEventHandler new];
-    earpieceEventHandler.delegate = self;
-    
-    ZZSpinFeatureEventHandler* spinFeatureEventHandler = [ZZSpinFeatureEventHandler new];
-    spinFeatureEventHandler.delegate = self;
-    
-    self.startEventHandler.eventHandler = playEventHandler;
-    playEventHandler.eventHandler = recordEventHandler;
-    recordEventHandler.eventHandler = sentMessageEventHandler;
-    sentMessageEventHandler.eventHandler = viewedmessageEventHandler;
-    viewedmessageEventHandler.eventHandler = inviteSomeoneElseEventHandler;
-    inviteSomeoneElseEventHandler.eventHandler = sentWelcomeEventHandler;
-    sentWelcomeEventHandler.eventHandler = frontCameraEventHandler;
-    frontCameraEventHandler.eventHandler = abortRecordingEventHandler;
-    abortRecordingEventHandler.eventHandler = deleteFriendEventHandler;
-    deleteFriendEventHandler.eventHandler = earpieceEventHandler;
-    earpieceEventHandler.eventHandler = spinFeatureEventHandler;
+    [self _configureDelegatesAndNextHandlerForHandlers:eventHandlers];
 }
 
+- (void)_configureDelegatesAndNextHandlerForHandlers:(NSArray*)handlers
+{
+    NSInteger nextEventHandlerIndex = 1;
+    
+    for (NSInteger i = 0; i < handlers.count; i++)
+    {
+        ZZBaseEventHandler* eventHandler = handlers[i];
+        eventHandler.delegate = self;
+        if ((i + nextEventHandlerIndex ) < handlers.count )
+        {
+            eventHandler.eventHandler = handlers[i+nextEventHandlerIndex];
+        }
+    }
+}
+
+
+- (NSArray*)_eventHandlers
+{
+    return @[
+             NSStringFromClass([ZZInviteEventHandler class]),
+             NSStringFromClass([ZZPlayEventHandler class]),
+             NSStringFromClass([ZZRecordEventHandler class]),
+             NSStringFromClass([ZZSentMessgeEventHandler class]),
+             NSStringFromClass([ZZViewedMessageEventHandler class]),
+             NSStringFromClass([ZZInviteSomeoneElseEventHandler class]),
+             NSStringFromClass([ZZSentWelcomeEventHandler class]),
+             NSStringFromClass([ZZFronCameraFeatureEventHandler class]),
+             NSStringFromClass([ZZAbortRecordingFeatureEventHandler class]),
+             NSStringFromClass([ZZDeleteFriendsFeatureEventHandler class]),
+             NSStringFromClass([ZZEarpieceFeatureEventHandler class]),
+             NSStringFromClass([ZZSpinFeatureEventHandler class])
+             ];
+}
+
+
+#pragma mark - Handle Events
 
 - (void)handleEvent:(ZZGridActionEventType)event
           withIndex:(NSInteger)index
@@ -128,14 +136,6 @@
     __block NSInteger actionIndex = index;
     if ([self _isAbleToShowHints])
     {
-        
-//        id model = [self.delegate modelAtIndex:actionIndex];
-//        if (model)
-//        {
-//            model = [model isKindOfClass:[ZZGridCellViewModel class]] ? model : nil;
-//            
-//        }
-        
         [self.startEventHandler handleEvent:event model:friendModel withCompletionBlock:^(ZZHintsType type, ZZFriendDomainModel *model) {
             if (type != ZZHintsTypeNoHint)
             {

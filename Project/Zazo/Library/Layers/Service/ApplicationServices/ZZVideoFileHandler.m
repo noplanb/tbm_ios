@@ -23,6 +23,7 @@
 #import "ZZRemoteStorageValueGenerator.h"
 #import "ZZVideoNetworkTransportService.h"
 #import "ZZFileTransferMarkerDomainModel.h"
+#import "ZZVideoStatuses.h"
 
 @interface ZZVideoFileHandler () <OBFileTransferDelegate>
 
@@ -259,7 +260,7 @@
 - (void)_downloadCompletedWithFriendID:(NSString*)friendID videoId:(NSString *)videoId error:(NSError *)error
 {
     TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
-    TBMVideo *video = [TBMVideo findWithVideoId:videoId];
+    TBMVideo *video = [ZZVideoDataProvider findWithVideoId:videoId];
     if (video == nil)
     {
         OB_ERROR(@"downloadCompletedWithFriend: ERROR: unrecognized videoId");
@@ -271,7 +272,7 @@
     if (error != nil)
     {
         OB_ERROR(@"downloadCompletedWithFriend %@", error);
-        [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY video:video];
+        [friend setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusFailedPermanently video:video];
         return;
     }
     
@@ -287,7 +288,7 @@
     [ZZThumbnailGenerator generateThumbVideo:videoModel];
     [friend deleteAllViewedOrFailedVideos];
     
-    [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_DOWNLOADED video:video];
+    [friend setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloaded video:video];
     
     [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:videoId
                                                                  toStatus:ZZRemoteStorageVideoStatusDownloaded
@@ -296,13 +297,14 @@
     
     [self.delegate sendNotificationForVideoStatusUpdate:friend videoId:videoId status:NOTIFICATION_STATUS_DOWNLOADED];
     
-    OB_INFO(@"downloadCompletedWithFriend: Video count = %ld", (unsigned long) [TBMVideo count]);
+    OB_INFO(@"downloadCompletedWithFriend: Video count = %ld", (unsigned long) [ZZVideoDataProvider countAllVideos]);
 }
 
 
 - (void)downloadRetryingWithFriendID:(NSString*)friendID videoId:(NSString *)videoId retryCount:(NSInteger)retryCount
 {
-    TBMVideo *video = [TBMVideo findWithVideoId:videoId];
+    
+    TBMVideo *video = [ZZVideoDataProvider findWithVideoId:videoId];
     
     if (video == nil)
     {
@@ -331,10 +333,13 @@
 {
     [[self fileTransferManager] currentTransferStateWithCompletionHandler:^(NSArray *allTransferInfo) {
 
-        OB_INFO(@"handleStuckDownloads: (%lu)", (unsigned long) [TBMVideo downloadingCount]);
+        
+        OB_INFO(@"handleStuckDownloads: (%lu)", (unsigned long) [ZZVideoDataProvider countDownloadingVideos]);
          NSArray *allObInfo = [[self fileTransferManager] currentState];
         
-         for (TBMVideo *video in [TBMVideo downloading])
+        
+        
+         for (TBMVideo *video in [ZZVideoDataProvider loadDownloadingVideos])
          {
              NSDictionary *obInfo = [self infoWithVideo:video isUpload:NO allInfo:allObInfo];
              NSDictionary *transferInfo = [self infoWithVideo:video isUpload:NO allInfo:allTransferInfo];
@@ -342,7 +347,8 @@
              if (obInfo == nil)
              {
                  OB_WARN(@"AppSync.handleStuckDownloads: Got no obInfo for vid:%@ double checking to make sure hasnt completed.", video.videoId);
-                 if ([video isStatusDownloading])
+                 
+                 if ([ZZVideoDataProvider isStatusDownloadingWithVideo:video])
                  {
                      OB_ERROR(@"AppSync.handleStuckDownloads: Got no obInfo for vid:%@ this should not happen. Force requeue the video.", video.videoId);
                      [self _queueDownloadWithFriendID:video.friend.idTbm videoId:video.videoId force:YES];
@@ -455,7 +461,7 @@
         if ([friend hasIncomingVideoId:videoId] && force)
         {
             OB_INFO(@"queueVideoDownloadWithFriend: Forcing new transfer of existing video: %@", videoId);
-            video = [TBMVideo findWithVideoId:videoId];
+            video = [ZZVideoDataProvider findWithVideoId:videoId];
         }
         else
         {
@@ -469,7 +475,7 @@
             return;
         }
         
-        [friend setAndNotifyIncomingVideoStatus:INCOMING_VIDEO_STATUS_DOWNLOADING video:video];
+        [friend setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloading video:video];
         [self.delegate updateBadgeCounter];
         
         NSString *marker = [TBMVideoIdUtils markerWithFriend:friend videoId:videoId isUpload:NO];
@@ -478,8 +484,10 @@
                                                                                                  friendCKey:video.friend.ckey
                                                                                                     videoId:video.videoId];
         
+        
+        
         [[self fileTransferManager] downloadFile:remoteStorageFileTransferDownloadPath()
-                                              to:[video videoPath]
+                                              to:[ZZVideoDataProvider videoUrlWithVideo:video].path
                                       withMarker:marker
                                       withParams:[self fileTransferParams:remoteFilename]];
     }

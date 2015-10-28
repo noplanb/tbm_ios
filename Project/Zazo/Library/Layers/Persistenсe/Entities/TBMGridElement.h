@@ -11,11 +11,4 @@
 
 @interface TBMGridElement : _TBMGridElement
 
-// Finders
-+ (TBMGridElement*)findWithIntIndex:(NSInteger)i;
-+ (TBMGridElement*)findWithFriend:(TBMFriend *)item;
-
-+ (BOOL)friendIsOnGrid:(TBMFriend *)item;
-+ (BOOL)hasSentVideos:(NSUInteger)index;
-
 @end
