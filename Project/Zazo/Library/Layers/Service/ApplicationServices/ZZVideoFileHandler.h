@@ -11,7 +11,6 @@
 @protocol ZZVideoFileHandlerDelegate <NSObject>
 
 - (void)requestBackground;
-- (void)videoReceivedFromFriendWithItemID:(NSString*)friendItemID videoID:(NSString*)videoID;
 
 - (void)sendNotificationForVideoReceived:(TBMFriend *)friend videoId:(NSString *)videoId;
 - (void)sendNotificationForVideoStatusUpdate:(TBMFriend *)friend videoId:(NSString *)videoId status:(NSString *)status;

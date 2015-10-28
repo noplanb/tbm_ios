@@ -12,4 +12,10 @@
 + (RACSignal*)deleteKeyValueWithParameters:(NSDictionary*)parameters;
 + (RACSignal*)loadKeyValueWithParameters:(NSDictionary*)parameters;
 
+
+#pragma mark - Video State
+
++ (RACSignal*)loadAllIncomingVideoIds;
++ (RACSignal*)loadAllOutgoingVideoStatuses;
+
 @end

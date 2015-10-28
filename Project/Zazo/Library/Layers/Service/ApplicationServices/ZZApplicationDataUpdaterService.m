@@ -11,13 +11,26 @@
 #import "TBMFriend.h"
 #import "ZZUserDataProvider.h"
 #import "ZZRemoteStoageTransportService.h"
-#import "ZZVideoDataProvider.h"
+#import "ZZFriendDataProvider.h"
+#import "ZZKeyStoreIncomingVideoIdsDomainModel.h"
+#import "ZZFriendModelsMapper.h"
+#import "ZZFriendDomainModel.h"
+#import "ZZKeyStoreOutgoingVideoStatusDomainModel.h"
 
 @implementation ZZApplicationDataUpdaterService
 
 - (void)updateAllData
 {
-    [self _updateFriendsData];
+    OB_INFO(@"getAndPollAllFriends");
+    
+    [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray* friends) {
+        
+        OB_INFO(@"gotFriends");
+        [self _pollAllFriends];
+    } error:^(NSError *error) {
+        
+        [self _pollAllFriends];
+    }];
 }
 
 - (void)updateApplicationBadge
@@ -25,6 +38,7 @@
     OB_INFO(@"setBadgeNumberDownloadedUnviewed = %lu", (unsigned long)[ZZVideoDataProvider countDownloadedUnviewedVideos]);
     [self setBadgeCount:[ZZVideoDataProvider countDownloadedUnviewedVideos]];
 }
+
 
 #pragma mark -  Notification center and badge control
 
@@ -53,33 +67,40 @@
     }
 }
 
-- (void)_updateFriendsData
+
+- (void)queueDownloadWithFriendID:(NSString *)friendID videoIds:(NSSet *)videoIds
 {
-    OB_INFO(@"getAndPollAllFriends");
-    
-    [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray* friends) {
-        
-        OB_INFO(@"gotFriends");
-        [self _pollAllFriends];
-    } error:^(NSError *error) {
-        
-        [self _pollAllFriends];
-    }];
+    for (NSString *videoId in videoIds)
+    {
+        [self.delegate freshVideoDetectedWithVideoID:videoId friendID:friendID];
+    }
 }
 
 - (void)_pollAllFriends
 {
-    ANDispatchBlockToBackgroundQueue(^{
-        OB_INFO(@"pollAllFriends");
-        
-        NSArray* friends = [TBMFriend all];
-        for (TBMFriend *f in friends)
-        {
-            [self _pollVideosWithFriend:f];
-            [self _pollVideoStatusWithFriend:f];
-        }
-        [self _pollEverSentStatusForAllFriends];
-    });
+//    ANDispatchBlockToBackgroundQueue(^{
+//        OB_INFO(@"pollAllFriends");
+//        
+//        NSArray* friends = [TBMFriend all];
+//        for (TBMFriend *f in friends)
+//        {
+//            [self _pollVideosWithFriend:f];
+//            [self _pollVideoStatusWithFriend:f];
+//        }
+//        [self _pollEverSentStatusForAllFriends];
+//    });
+//
+    //    +    // Note I intentionally do not put these on a background queue.
+    //    +    // The http requests and responses will run on a background thread by themselves. The actions
+    //    +    // prior to calling the http requests are light. I dont wish to incur the delay of a background queue
+    //    +    // to start the requests. The user must see some results from polling within a second or two of opening the
+    //    +    // app or he will think there is nothing new and close.
+    
+    
+    
+    [self _pollEverSentStatusForAllFriends];
+    [self _pollAllIncomingVideos];
+    [self _pollAllOutgoingVideoStatus];
 }
 
 - (void)_pollEverSentStatusForAllFriends
@@ -94,69 +115,47 @@
     }];
 }
 
-- (void)_pollVideosWithFriend:(TBMFriend*)friend
+
+- (void)_pollAllIncomingVideos
 {
-    if (friend.idTbm)
-    {
-        __block NSString* friendID = friend.idTbm;
-        __block NSString* firstName = friend.firstName;
+    [[ZZRemoteStoageTransportService loadAllIncomingVideoIds] subscribeNext:^(NSArray *models) {
         
-        [[ZZRemoteStoageTransportService loadRemoteIncomingVideoIDsWithFriendMkey:friend.mkey
-                                                                       friendCKey:friend.ckey] subscribeNext:^(NSArray* videoIds) {
-            OB_INFO(@"pollWithFriend: %@  vids = %@", firstName, ANIsEmpty(videoIds) ? @"no videos" : videoIds);
-            if (!ANIsEmpty(videoIds))
+        for (ZZKeyStoreIncomingVideoIdsDomainModel *model in models)
+        {
+            ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.friendMkey];
+            if (friendModel.idTbm)
             {
-                for (NSString *videoId in videoIds)
+                if (friendModel.videos.count)
                 {
-                    [self.delegate freshVideoDetectedWithVideoID:videoId friendID:friendID];
+                    OB_INFO(@"%@  vids = %@", [NSObject an_safeString:[friendModel fullName]], model.videoIds ? : @[]);
+                    [self queueDownloadWithFriendID:friendModel.idTbm videoIds:model.videoIds];
                 }
             }
-        }];
-    }
-}
-
-- (void)_pollVideoStatusWithFriend:(TBMFriend*)friend
-{
-    if (friend.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED)
-    {
-        OB_INFO(@"pollVideoStatusWithFriend: skipping %@ becuase outgoing status is viewed.", friend.firstName);
-        return;
-    }
-    
-    [[ZZRemoteStoageTransportService loadRemoteOutgoingVideoStatusForFriendMkey:friend.mkey
-                                                                     friendCKey:friend.ckey] subscribeNext:^(NSDictionary *response) {
-        
-        if (!ANIsEmpty(response))
-        {
-            NSString *status = response[ZZRemoteStorageParameters.status];
-            ZZRemoteStorageVideoStatus ovsts = ZZRemoteStorageVideoStatusEnumValueFromSrting(status);
-            if (ovsts == ZZRemoteStorageVideoStatusNone)
-            {
-                OB_ERROR(@"pollVideoStatusWithFriend: got unknown outgoing video status: %@", status);
-                return;
-            }
-            // This call handles making sure that videoId == outgoingVideoId etc.
-            
-            
-            TBMOutgoingVideoStatus videoStatus;
-            if (ovsts == ZZRemoteStorageVideoStatusDownloaded)
-            {
-                videoStatus = OUTGOING_VIDEO_STATUS_DOWNLOADED;
-            }
-            else
-            {
-                videoStatus = OUTGOING_VIDEO_STATUS_VIEWED;
-            }
-            
-            [friend setAndNotifyOutgoingVideoStatus:videoStatus
-                                            videoId:response[ZZRemoteStorageParameters.videoID]];
         }
-    } error:^(NSError *error) {
-        // This can happen on startup when there is nothing in the remoteVideoStatusKV
-        OB_WARN(@"pollVideoStatusWithFriend: Error polling outgoingVideoStatus for %@ - %@", friend.firstName, error);
     }];
 }
 
 
+- (void)_pollAllOutgoingVideoStatus
+{
+    [[ZZRemoteStoageTransportService loadAllOutgoingVideoStatuses] subscribeNext:^(NSArray *models) {
+        
+        for (ZZKeyStoreOutgoingVideoStatusDomainModel *model in models)
+        {
+            ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.friendMkey];
+            if (friendModel)
+            {
+                if ([model status] == ZZVideoOutgoingStatusUnknown)
+                {
+                    OB_ERROR(@"pollVideoStatusWithFriend: got unknown outgoing video status. This should never happen");
+                    return;
+                }
+                //TODO:
+                TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
+                [friendEntity setAndNotifyOutgoingVideoStatus:[model status] videoId:model.videoId];
+            }
+        }
+    }];
+}
 
 @end

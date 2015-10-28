@@ -245,7 +245,7 @@
         [[ZZRemoteStoageTransportService updateRemoteEverSentKVForFriendMkeys:[TBMFriend everSentMkeys]
                                                                   forUserMkey:myMkey] subscribeNext:^(id x) {}];
         
-        [self.delegate videoReceivedFromFriendWithItemID:friendID videoID:videoId];
+        [self.delegate sendNotificationForVideoReceived:friend videoId:videoId];
     }
     else
     {
@@ -493,7 +493,7 @@
     }
 }
 
-- (NSDictionary *)fileTransferParams:(NSString *)remoteFilename
+- (NSDictionary*)fileTransferParams:(NSString *)remoteFilename
 {
     return @{@"filename"         : remoteFilename,
              FilenameParamKey    : remoteFilename,
