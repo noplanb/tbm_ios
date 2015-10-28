@@ -24,8 +24,7 @@
     NSArray* users = [TBMUser MR_findAllInContext:[self _context]];
     if (users.count > 1)
     {
-        // TODO: dispatch message with dupples
-        OB_INFO(@"Model dupples founded %@ %@", NSStringFromSelector(_cmd), [users debugDescription]);
+        OB_ERROR(@"Model dupples founded %@ %@", NSStringFromSelector(_cmd), [users debugDescription]);
     }
     TBMUser* user = [users lastObject];
     return user;

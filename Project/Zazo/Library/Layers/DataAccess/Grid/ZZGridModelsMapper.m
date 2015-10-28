@@ -33,7 +33,8 @@
     }
     @catch (NSException *exception)
     {
-        ANLogWarning(@"Execption: %@", exception);
+        model = nil;
+        OB_ERROR(@"Exception: %@", exception);
     }
     @finally
     {
