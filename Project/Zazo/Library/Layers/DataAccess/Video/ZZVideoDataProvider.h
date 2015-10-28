@@ -12,10 +12,15 @@
 
 @interface ZZVideoDataProvider : NSObject
 
-#pragma mark - CRUD
 
-+ (void)deleteItem:(ZZVideoDomainModel*)model;
+#pragma mark - Fetches
+
++ (TBMVideo*)newWithVideoId:(NSString *)videoId onContext:(NSManagedObjectContext*)context;
++ (TBMVideo*)findWithVideoId:(NSString *)videoId;
++ (NSArray *)all;
 + (ZZVideoDomainModel*)itemWithID:(NSString*)itemID;
++ (TBMVideo*)entityWithID:(NSString*)itemID;
+
 
 #pragma mark - Count
 
@@ -34,9 +39,20 @@
 
 + (NSArray*)sortedIncomingVideosForUser:(ZZFriendDomainModel*)friendModel;
 
+
 #pragma mark - Mapping
 
 + (TBMVideo*)entityFromModel:(ZZVideoDomainModel*)model;
 + (ZZVideoDomainModel*)modelFromEntity:(TBMVideo*)entity;
+
+
+#pragma mark - Helpers
+
++ (void)printAll;
++ (NSURL *)videoUrlWithVideo:(TBMVideo*)video;
++ (BOOL)videoFileExistsForVideo:(TBMVideo*)video;
++ (unsigned long long)videoFileSizeForVideo:(TBMVideo*)video;
++ (BOOL)hasValidVideoFileWithVideo:(TBMVideo*)video;
++ (BOOL)isStatusDownloadingWithVideo:(TBMVideo*)video;
 
 @end

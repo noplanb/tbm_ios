@@ -9,6 +9,7 @@
 #import "ZZVideoModelsMapper.h"
 #import "ZZVideoDomainModel.h"
 #import "TBMVideo.h"
+#import "ZZVideoDataProvider.h"
 
 @implementation ZZVideoModelsMapper
 
@@ -28,7 +29,7 @@
         model.videoID = entity.videoId;
         model.downloadRetryCount = [entity.downloadRetryCount integerValue];
         model.incomingStatusValue = [entity.status integerValue];
-        model.videoURL = entity.videoUrl;
+        model.videoURL = [ZZVideoDataProvider videoUrlWithVideo:entity];
     }
     @catch (NSException *exception)
     {

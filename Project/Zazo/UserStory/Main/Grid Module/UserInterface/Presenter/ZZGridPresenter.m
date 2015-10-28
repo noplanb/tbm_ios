@@ -25,6 +25,8 @@
 #import "ZZGridPresenter+ActionHandler.h"
 #import "ZZGridActionStoredSettings.h"
 #import "ZZSoundEffectPlayer.h"
+#import "ZZVideoStatuses.h"
+#import "ZZVideoDataProvider.h"
 
 @interface ZZGridPresenter ()
 <
@@ -149,7 +151,7 @@
         [self.dataSource updateCellWithModel:model];
         
         if (model.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
-            model.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED )
+            model.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded )
         {
             CGFloat delayAfterDownloadAnimationCompleted = 1.6f;
             ANDispatchBlockAfter(delayAfterDownloadAnimationCompleted, ^{
@@ -195,7 +197,7 @@
     
     if ([[self.videoPlayer playedFriendModel].idTbm isEqualToString:model.relatedUser.idTbm])
     {
-        if (model.relatedUser.lastIncomingVideoStatus == INCOMING_VIDEO_STATUS_DOWNLOADED)
+        if (model.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
         {
             [self.videoPlayer updateWithFriendModel:model.relatedUser];
         }
@@ -359,7 +361,8 @@
     }
     
     NSString* msg;
-    if ([TBMVideo downloadedUnviewedCount] > 0)
+    
+    if ([ZZVideoDataProvider countDownloadedUnviewedVideos] > 0)
     {
         msg = NSLocalizedString(@"hint.center.cell.tap.friend.to.play", nil);
     }

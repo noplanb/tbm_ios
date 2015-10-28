@@ -21,8 +21,9 @@
 
 @property (nonatomic, weak) id<ZZNotificationsHandlerDelegate> delegate;
 
-- (void)registerToPushNotifications;
++ (void)registerToPushNotifications;
 - (void)receivedPushNotificationsToken:(NSData*)token;
++ (void)disablePushNotifications;
 
 - (void)handlePushNotification:(NSDictionary*)notification;
 - (void)applicationRegisteredWithSettings:(UIUserNotificationSettings*)settings;

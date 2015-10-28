@@ -177,6 +177,32 @@
     return [ZZGridModelsMapper fillModel:[ZZGridDomainModel new] fromEntity:entity];
 }
 
++ (TBMGridElement *)findWithIntIndex:(NSInteger)i
+{
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementAttributes.index, @(i)];
+    return [[TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]] firstObject];
+}
+
++ (TBMGridElement *)findWithFriend:(TBMFriend*)item
+{
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, item];
+    return [[TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]] firstObject];
+}
+
+
+#pragma mark - Entities
+
++ (BOOL)friendIsOnGrid:(TBMFriend *)friend
+{
+    return [self findWithFriend:friend] != nil;
+}
+
++ (BOOL)hasSentVideos:(NSUInteger)index
+{
+    TBMFriend *friend = [self findWithIntIndex:index].friend;
+    return [friend hasOutgoingVideo];
+}
+
 
 #pragma mark - Private
 

@@ -12,7 +12,7 @@ const struct ZZRemoteStorageParameters ZZRemoteStorageParameters = {
     .key1 = @"key1",
     .key2 = @"key2",
     .value = @"value",
-    .videoID = @"videoID",
+    .videoID = @"videoId",
     .status = @"status",
 };
 

@@ -20,6 +20,7 @@
 #import "ZZFriendDataProvider.h"
 #import "ZZContentDataAcessor.h"
 #import "ZZApplicationPermissionsHandler.h"
+#import "ZZVideoDataProvider.h"
 
 @interface ZZApplicationRootService () <ZZVideoFileHandlerDelegate, ZZApplicationDataUpdaterServiceDelegate>
 
@@ -114,14 +115,13 @@
     if ([ZZUserDataProvider authenticatedUser].isRegistered)
     {
         [[ZZApplicationPermissionsHandler checkApplicationPermissions] subscribeNext:^(id x) {
+            [ZZNotificationsHandler registerToPushNotifications];
             
-            [self.notificationDelegate registerToPushNotifications]; //TODO: we will send serveral times token on a server.
-            [TBMVideo printAll];
+            [ZZVideoDataProvider printAll];
             [self.videoFileHandler startService];
         }];
     }
 }
-
 
 - (void)handleBackgroundSessionWithIdentifier:(NSString *)identifier completionHandler:(ANCodeBlock)completionHandler
 {

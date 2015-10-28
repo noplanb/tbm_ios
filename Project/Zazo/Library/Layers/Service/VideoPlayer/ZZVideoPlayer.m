@@ -20,6 +20,8 @@
 #import "ZZGridActionStoredSettings.h"
 #import "ZZRemoteStorageValueGenerator.h"
 #import "ZZRemoteStoageTransportService.h"
+#import "ZZVideoStatuses.h"
+#import "ZZVideoDataProvider.h"
 
 @interface ZZVideoPlayer ()
 
@@ -100,10 +102,11 @@
     if (!ANIsEmpty(URLs))//&& ![self.currentPlayQueue isEqualToArray:URLs]) //TODO: if current playback state is equal to user's play list
     {
         ZZVideoDomainModel* playedVideoModel = [self.videoModelsArray firstObject];
-        TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
         
-        if ([viewedVideo.status isEqualToNumber:@(INCOMING_VIDEO_STATUS_DOWNLOADED)] || //TODO: integer values
-            [viewedVideo.status isEqualToNumber:@(INCOMING_VIDEO_STATUS_VIEWED)])
+        TBMVideo* viewedVideo = [ZZVideoDataProvider findWithVideoId:playedVideoModel.videoID];
+        
+        if (viewedVideo.statusValue == ZZVideoIncomingStatusDownloaded ||
+            viewedVideo.statusValue == ZZVideoIncomingStatusViewed)
         {
             self.playedFriend = playedVideoModel.relatedUser;
             self.moviePlayerController.contentURL = playedVideoModel.videoURL;//firstVideoUrl;
@@ -116,7 +119,9 @@
             
             [self.moviePlayerController play]; // TODO: cleanup this.Have only one entry point to play video and update this flags
             [ZZGridActionStoredSettings shared].incomingVideoWasPlayed = YES;
-            [self.delegate videoPlayerURLWasStartPlaying:viewedVideo.videoUrl];
+            
+            
+            [self.delegate videoPlayerURLWasStartPlaying:[ZZVideoDataProvider videoUrlWithVideo:viewedVideo]];
             
             self.isPlayingVideo = YES;
             [UIDevice currentDevice].proximityMonitoringEnabled = [ZZGridActionStoredSettings shared].earpieceHintWasShown;
@@ -141,8 +146,10 @@
     [self.playedVideoUrls removeAllObjects];
     
     [self.playedVideoUrls addObjectsFromArray:[[self.videoModelsArray.rac_sequence map:^id(ZZVideoDomainModel* value) {
-        TBMVideo* video = [TBMVideo findWithVideoId:value.videoID];
-        return video.videoUrl;
+        
+        TBMVideo* video = [ZZVideoDataProvider findWithVideoId:value.videoID];
+        return [ZZVideoDataProvider videoUrlWithVideo:video];
+        
     }] array]];
 }
 
@@ -222,12 +229,14 @@
 
 - (void)_updateViewedVideoCounterWithVideoDomainModel:(ZZVideoDomainModel*)playedVideoModel
 {
-    TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
+    
+    
+    TBMVideo* viewedVideo = [ZZVideoDataProvider findWithVideoId:playedVideoModel.videoID];
     if (!ANIsEmpty(viewedVideo))
     {
-        if (viewedVideo.statusValue == INCOMING_VIDEO_STATUS_DOWNLOADED)
+        if (viewedVideo.statusValue == ZZVideoIncomingStatusDownloaded)
         {
-            viewedVideo.status = @(INCOMING_VIDEO_STATUS_VIEWED);
+            viewedVideo.status = @(ZZVideoIncomingStatusViewed);
             if (playedVideoModel.relatedUser.unviewedCount > 0)
             {
                 playedVideoModel.relatedUser.unviewedCount--;
@@ -277,9 +286,11 @@
     else
     {
         ZZVideoDomainModel* lastModel = [self.videoModelsArray lastObject];
-        TBMVideo* lastVideo = [TBMVideo findWithVideoId:lastModel.videoID];
+        
+        
+        TBMVideo* lastVideo = [ZZVideoDataProvider findWithVideoId:lastModel.videoID];
         self.isPlayingVideo = NO;
-        [self.delegate videoPlayerURLWasFinishedPlaying:lastVideo.videoUrl withPlayedUserModel:self.playedFriend];
+        [self.delegate videoPlayerURLWasFinishedPlaying:[ZZVideoDataProvider videoUrlWithVideo:lastVideo] withPlayedUserModel:self.playedFriend];
         [self.moviePlayerController.view removeFromSuperview];
         self.playedFriend = nil;
         [UIDevice currentDevice].proximityMonitoringEnabled = NO;
@@ -289,9 +300,9 @@
     if (nextUrl)
     {
         ZZVideoDomainModel* playedVideoModel = self.videoModelsArray[index];
-        TBMVideo* viewedVideo = [TBMVideo findWithVideoId:playedVideoModel.videoID];
         
-        if ([viewedVideo.status isEqualToNumber:@(INCOMING_VIDEO_STATUS_DOWNLOADED)]) //TODO: integer value
+        TBMVideo* viewedVideo = [ZZVideoDataProvider findWithVideoId:playedVideoModel.videoID];
+        if (viewedVideo.statusValue == ZZVideoIncomingStatusDownloaded)
         {
             self.playedFriend = playedVideoModel.relatedUser;
             //save video state
@@ -329,14 +340,17 @@
     
     NSMutableArray* videoModelsCopy = [self.videoModelsArray mutableCopy];
     ZZVideoDomainModel* lastVideoModel = [acutalVideos lastObject];
-    TBMVideo* lastVideo = [TBMVideo findWithVideoId:lastVideoModel.videoID];
+    
+    TBMVideo* lastVideo = [ZZVideoDataProvider findWithVideoId:lastVideoModel.videoID];
+    
+    
     
     if (!ANIsEmpty(lastVideo))
     {
-        if (![self.playedVideoUrls containsObject:lastVideo.videoUrl])
+        NSURL* lastVideoUrl = [ZZVideoDataProvider videoUrlWithVideo:lastVideo];
+        if (![self.playedVideoUrls containsObject:lastVideoUrl])
         {
-            [self.playedVideoUrls addObject:lastVideo.videoUrl];
-            
+            [self.playedVideoUrls addObject:lastVideoUrl];
             [videoModelsCopy addObject:lastVideoModel];
             self.videoModelsArray = videoModelsCopy;
         }

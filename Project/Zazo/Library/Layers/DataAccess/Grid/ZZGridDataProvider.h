@@ -10,6 +10,7 @@
 @class ZZFriendDomainModel;
 @class TBMGridElement;
 @class ZZContactDomainModel;
+@class TBMFriend;
 
 @interface ZZGridDataProvider : NSObject
 
@@ -32,5 +33,14 @@
 
 + (ZZGridDomainModel*)modelFromEntity:(TBMGridElement*)entity;
 + (TBMGridElement*)entityWithItemID:(NSString*)itemID;
+
++ (TBMGridElement*)findWithIntIndex:(NSInteger)i;
++ (TBMGridElement*)findWithFriend:(TBMFriend *)item;
+
+
+#pragma mark - Entities
+
++ (BOOL)friendIsOnGrid:(TBMFriend *)item;
++ (BOOL)hasSentVideos:(NSUInteger)index;
 
 @end

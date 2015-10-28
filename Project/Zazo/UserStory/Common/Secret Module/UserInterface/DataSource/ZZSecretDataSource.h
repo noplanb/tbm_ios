@@ -52,7 +52,7 @@ typedef NS_ENUM(NSInteger, ZZSecrectScreenActionsType)
 
 - (void)updateServerEndpointTypeValueTo:(NSInteger)value;
 - (void)updateCustomServerURLValueTo:(NSString*)value;
-
+- (void)updatePushNotificationState:(BOOL)state;
 
 @end
 

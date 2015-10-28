@@ -8,6 +8,7 @@
 
 #import "TBMVideo.h"
 #import "_TBMFriend.h"
+#import "ZZVideoStatuses.h"
 
 @class TBMGridElement;
 
@@ -93,12 +94,12 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 - (NSString *)outgoingVideoStatusString;
 
 // Probably should not expose this and rather have setters for various states.
-- (void)setAndNotifyIncomingVideoStatus:(TBMIncomingVideoStatus)status video:(TBMVideo *)video;
+//- (void)setAndNotifyIncomingVideoStatus:(TBMIncomingVideoStatus)status video:(TBMVideo *)video;
 - (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount video:(TBMVideo *)video;
 
 - (void)setViewedWithIncomingVideo:(TBMVideo *)video;
 - (BOOL)incomingVideoNotViewed;
-
+- (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)status video:(TBMVideo *)video;
 - (void)setAndNotifyOutgoingVideoStatus:(TBMOutgoingVideoStatus)status videoId:(NSString *)videoId;
 - (void)handleOutgoingVideoCreatedWithVideoId:(NSString *)videoId;
 - (void)handleOutgoingVideoUploadingWithVideoId:(NSString *)videoId;

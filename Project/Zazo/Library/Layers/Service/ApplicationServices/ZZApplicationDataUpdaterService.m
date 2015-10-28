@@ -35,8 +35,8 @@
 
 - (void)updateApplicationBadge
 {
-    OB_INFO(@"setBadgeNumberDownloadedUnviewed = %lu", (unsigned long) [TBMVideo downloadedUnviewedCount]);
-    [self setBadgeCount:[TBMVideo downloadedUnviewedCount]];
+    OB_INFO(@"setBadgeNumberDownloadedUnviewed = %lu", (unsigned long)[ZZVideoDataProvider countDownloadedUnviewedVideos]);
+    [self setBadgeCount:[ZZVideoDataProvider countDownloadedUnviewedVideos]];
 }
 
 
@@ -50,8 +50,9 @@
 
 - (void)setBadgeNumberUnviewed
 {
-    OB_INFO(@"setBadgeNumberUnviewed = %lu", (unsigned long) [TBMVideo unviewedCount]);
-    [self setBadgeCount:[TBMVideo unviewedCount]];
+    
+    OB_INFO(@"setBadgeNumberUnviewed = %lu", (unsigned long) [ZZVideoDataProvider countTotalUnviewedVideos]);
+    [self setBadgeCount:[ZZVideoDataProvider countTotalUnviewedVideos]];
 }
 
 - (void)setBadgeCount:(NSInteger)count

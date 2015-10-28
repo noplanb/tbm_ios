@@ -8,6 +8,7 @@
 
 #import "ZZSecretPresenter.h"
 #import "ZZSecretDataSource.h"
+#import "ZZNotificationsHandler.h"
 
 @interface ZZSecretPresenter ()<ZZSecretDataSourceDelegate>
 
@@ -126,6 +127,18 @@
 - (void)updateCustomServerURLValueTo:(NSString*)value
 {
     [self.interactor updateCustomServerEnpointValueTo:value];
+}
+
+- (void)updatePushNotificationState:(BOOL)state
+{
+    if (state)
+    {
+        [ZZNotificationsHandler registerToPushNotifications];
+    }
+    else
+    {
+        [ZZNotificationsHandler disablePushNotifications];
+    }
 }
 
 @end
