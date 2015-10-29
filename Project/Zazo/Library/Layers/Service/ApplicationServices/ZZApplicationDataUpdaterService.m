@@ -25,7 +25,6 @@
     OB_INFO(@"getAndPollAllFriends");
     
     [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray* friends) {
-        
         OB_INFO(@"gotFriends");
         [self _pollAllFriends];
     } error:^(NSError *error) {

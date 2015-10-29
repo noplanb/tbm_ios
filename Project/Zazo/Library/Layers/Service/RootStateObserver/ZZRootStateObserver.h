@@ -6,11 +6,10 @@
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 typedef NS_ENUM(NSInteger, ZZRootStateObserverEvents) {
     ZZRootStateObserverEventsNone,
     ZZRootStateObserverEventsUserAuthorized,
+    ZZRootStateObserverEventsFriendsAfterAuthorizationLoaded,
 };
 
 @protocol ZZRootStateObserverDelegate <NSObject>

@@ -248,6 +248,10 @@
     {
         [self.videoFileHandler updateS3CredentialsWithRequest];
     }
+    else if (event == ZZRootStateObserverEventsFriendsAfterAuthorizationLoaded)
+    {
+        [self.dataUpdater updateAllData];
+    }
 }
 
 @end

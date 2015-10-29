@@ -155,7 +155,29 @@
 {
     [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {
         [self _updateCredentials];
+    } error:^(NSError *error) {
+        [self _loadS3CredentialsDidFailWithError:error];
     }];
+}
+
+- (void)_loadS3CredentialsDidFailWithError:(NSError *)error
+{
+    ANDispatchBlockToMainQueue(^{
+        NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+        NSString* badConnectiontitle = [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", [NSObject an_safeString:appName]];
+        
+        UIAlertView *av = [[UIAlertView alloc]
+                           initWithTitle:@"Bad Connection"
+                           message:badConnectiontitle
+                           delegate:nil
+                           cancelButtonTitle:@"Try Again"
+                           otherButtonTitles:nil];
+        
+        [av.rac_buttonClickedSignal subscribeNext:^(id x) {
+            [self updateS3CredentialsWithRequest];
+        }];
+        [av show];
+    });
 }
 
 #pragma mark - Private
