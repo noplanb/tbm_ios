@@ -176,7 +176,6 @@
 
 + (NSURL *)videoUrlWithVideo:(TBMVideo*)video
 {
-    
     NSString *filename = [NSString stringWithFormat:@"incomingVidFromFriend_%@-VideoId_%@", video.friend.idTbm, video.videoId];
     NSURL* videosURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
     return [videosURL URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"mp4"]];

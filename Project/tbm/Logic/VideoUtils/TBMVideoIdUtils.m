@@ -15,16 +15,19 @@
 
 #pragma mark - VideoIds
 
-+ (NSString *)generateId{
++ (NSString *)generateId
+{
     double seconds = [[NSDate date] timeIntervalSince1970];
     return [NSString stringWithFormat:@"%.0f", seconds * 1000.0];
 }
 
-+ (double) timeStampWithVideoId:(NSString *)videoId{
++ (double)timeStampWithVideoId:(NSString *)videoId
+{
     return [videoId doubleValue];
 }
 
-+ (NSString *) newerVideoId:(NSString *)vid1 otherVideoId:(NSString *)vid2{
++ (NSString *) newerVideoId:(NSString *)vid1 otherVideoId:(NSString *)vid2
+{
     if ([TBMVideoIdUtils timeStampWithVideoId:vid1] > [TBMVideoIdUtils timeStampWithVideoId:vid2])
         return vid1;
     else

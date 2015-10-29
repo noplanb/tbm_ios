@@ -1162,18 +1162,10 @@
 			isa = PBXGroup;
 			children = (
 				073D55671BD2D82B0014E83E /* SoundEffect */,
-				076369C61BA49A0000925671 /* AppDelegate */,
 				076369CF1BA49A0000925671 /* Categories */,
 				076369FF1BA49A0000925671 /* VideoUtils */,
 			);
 			path = Logic;
-			sourceTree = "<group>";
-		};
-		076369C61BA49A0000925671 /* AppDelegate */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AppDelegate;
 			sourceTree = "<group>";
 		};
 		076369CF1BA49A0000925671 /* Categories */ = {

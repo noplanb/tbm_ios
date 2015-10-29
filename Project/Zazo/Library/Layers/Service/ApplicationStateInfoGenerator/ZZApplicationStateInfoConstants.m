@@ -58,8 +58,6 @@ ZZVideoIncomingStatus ZZIncomingVideoInfoEnumValueFromSrting(NSString* string)
 }
 
 
-
-
 #pragma mark - Server
 
 static NSString *serverTypesString[] = {
