@@ -13,7 +13,6 @@
 #import "ZZRemoteStoageTransportService.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZKeyStoreIncomingVideoIdsDomainModel.h"
-#import "ZZFriendModelsMapper.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZKeyStoreOutgoingVideoStatusDomainModel.h"
 #import "ZZVideoDataProvider.h"
@@ -22,10 +21,10 @@
 
 - (void)updateAllData
 {
-    OB_INFO(@"getAndPollAllFriends");
+    ZZLogInfo(@"getAndPollAllFriends");
     
     [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray* friends) {
-        OB_INFO(@"gotFriends");
+        ZZLogInfo(@"gotFriends");
         [self _pollAllFriends];
     } error:^(NSError *error) {
         [self _pollAllFriends];
@@ -34,7 +33,7 @@
 
 - (void)updateApplicationBadge
 {
-    OB_INFO(@"setBadgeNumberDownloadedUnviewed = %li", (long)[ZZVideoDataProvider countTotalUnviewedVideos]);
+    ZZLogInfo(@"setBadgeNumberDownloadedUnviewed = %li", (long)[ZZVideoDataProvider countTotalUnviewedVideos]);
     [self setBadgeCount:[ZZVideoDataProvider countTotalUnviewedVideos]];
 }
 
@@ -49,7 +48,7 @@
 
 - (void)setBadgeNumberUnviewed
 {
-    OB_INFO(@"setBadgeNumberUnviewed = %li", (long) [ZZVideoDataProvider countTotalUnviewedVideos]);
+    ZZLogInfo(@"setBadgeNumberUnviewed = %li", (long) [ZZVideoDataProvider countTotalUnviewedVideos]);
     [self setBadgeCount:[ZZVideoDataProvider countTotalUnviewedVideos]];
 }
 
@@ -107,7 +106,7 @@
             {
                 if (friendModel.videos.count)
                 {
-                    OB_INFO(@"%@  vids = %@", [NSObject an_safeString:[friendModel fullName]], model.videoIds ? : @[]);
+                    ZZLogInfo(@"%@  vids = %@", [NSObject an_safeString:[friendModel fullName]], model.videoIds ? : @[]);
                     [self queueDownloadWithFriendID:friendModel.idTbm videoIds:model.videoIds];
                 }
             }
@@ -127,7 +126,7 @@
             {
                 if ([model status] == ZZVideoOutgoingStatusUnknown)
                 {
-                    OB_ERROR(@"pollVideoStatusWithFriend: got unknown outgoing video status. This should never happen");
+                    ZZLogError(@"pollVideoStatusWithFriend: got unknown outgoing video status. This should never happen");
                     return;
                 }
                 //TODO: remove this core data stuff

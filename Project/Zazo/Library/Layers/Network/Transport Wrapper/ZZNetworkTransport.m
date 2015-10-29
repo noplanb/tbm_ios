@@ -43,7 +43,7 @@
 #ifdef HTTPLog
     if (params)
     {
-        OB_INFO(@"Parameters : \n%@", params);
+        ZZLogInfo(@"Parameters : \n%@", params);
     }
 #endif
     return [super requestWithPath:path parameters:params httpMethod:httpMethod];
@@ -56,7 +56,7 @@
                            [NSObject an_safeString:description],
                            httpResponse ? : @"",
                            json ? : @""];
-    OB_INFO(@"%@", logString);
+    ZZLogInfo(@"%@", logString);
 #endif
 }
 

@@ -133,11 +133,11 @@
     
     return [[[self updateKey1:key key2:nil value:mkeyArrayString] doNext:^(id x) {
         
-        OB_INFO(@"setRemoteEverSentKVForFriendMkey - success for friends %@", mkeys);
+        ZZLogInfo(@"setRemoteEverSentKVForFriendMkey - success for friends %@", mkeys);
         
     }] doError:^(NSError *error) {
         
-        OB_ERROR(@"setRemoteEverSentKVForFriendMkey - error for friends %@ : %@", mkeys, error);
+        ZZLogError(@"setRemoteEverSentKVForFriendMkey - error for friends %@ : %@", mkeys, error);
     }];
 }
 
