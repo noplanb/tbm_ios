@@ -109,7 +109,7 @@
             viewedVideo.statusValue == ZZVideoIncomingStatusViewed)
         {
             self.playedFriend = playedVideoModel.relatedUser;
-            self.moviePlayerController.contentURL = playedVideoModel.videoURL;//firstVideoUrl;
+            self.moviePlayerController.contentURL = playedVideoModel.videoURL;
             
             //save video state
             [self _updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
@@ -196,16 +196,15 @@
 }
 
 
-
 #pragma mark - Private
 
 - (void)_playNext:(NSNotification*)notification
 {
-    OB_DEBUG(@"VideoPlayer#playbackDidFinishNotification: %@", notification.userInfo);
+    ZZLogDebug(@"VideoPlayer#playbackDidFinishNotification: %@", notification.userInfo);
     NSError *error = (NSError *) notification.userInfo[@"error"];
     if (error != nil)
     {
-        OB_ERROR(@"VideoPlayer#playbackDidFinishNotification: %@", error);
+        ZZLogError(@"VideoPlayer#playbackDidFinishNotification: %@", error);
         ANDispatchBlockToMainQueue(^{
             [[iToast makeText:NSLocalizedString(@"video-player-not-playable", nil)] show];
             
@@ -319,7 +318,7 @@
                                                                       friendMkey:friend.mkey
                                                                       friendCKey:friend.ckey];
             
-            [self.delegate videoPlayerURLWasStartPlaying:nextUrl]; //TODO: this causes blinking. reload only after full stop
+            [self.delegate videoPlayerURLWasStartPlaying:nextUrl];
             
             self.isPlayingVideo = YES;
             [UIDevice currentDevice].proximityMonitoringEnabled = [ZZGridActionStoredSettings shared].earpieceHintWasShown;

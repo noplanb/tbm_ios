@@ -40,12 +40,12 @@
                                       preferringPosition:AVCaptureDevicePositionFront];
     if (device == nil)
     {
-        OB_WARN(@"TBMDeviceHandler#isCameraConnected isCameraAvailable: got no camera");
+        ZZLogWarning(@"TBMDeviceHandler#isCameraConnected isCameraAvailable: got no camera");
         return NO;
     }
     if (device.connected == NO)
     {
-        OB_WARN(@"TBMDeviceHandler#isCameraConnected isCameraAvailable: camera not Connected");
+        ZZLogWarning(@"TBMDeviceHandler#isCameraConnected isCameraAvailable: camera not Connected");
         return NO;
     }
     return YES;
@@ -72,12 +72,12 @@
     AVCaptureDevice *mic = [self _loadMicrophone];
     if (mic == nil)
     {
-        OB_WARN(@"TBMDeviceHandler#isMiccrophoneConnected isMicrophoneAvailable: got no mic");
+        ZZLogWarning(@"TBMDeviceHandler#isMiccrophoneConnected isMicrophoneAvailable: got no mic");
         return NO;
     }
     if (mic.connected == NO)
     {
-        OB_WARN(@"TBMDeviceHandler#isMiccrophoneConnected isMiccrophoneAvailable: camera not Connected");
+        ZZLogWarning(@"TBMDeviceHandler#isMiccrophoneConnected isMiccrophoneAvailable: camera not Connected");
         return NO;
     }
     return YES;

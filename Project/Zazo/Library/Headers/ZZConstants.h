@@ -18,7 +18,7 @@ static NSString* const kAppstoreURLString = @"https://itunes.apple.com/us/app/za
 static NSString* const kMessageSoundEffectFileName = @"BeepSin30.wav";
 
 
-#pragma- mark - Notifications Keys
+#pragma mark - Notifications Keys
 
 static NSString* const kResetAllUserDataNotificationKey = @"resetAllUserDataNotificationKey";
 static NSString* const kNotificationIncomingCall = @"incomingCall";

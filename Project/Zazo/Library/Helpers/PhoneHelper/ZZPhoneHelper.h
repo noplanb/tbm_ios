@@ -12,8 +12,6 @@ typedef NS_ENUM(NSInteger, ZZPhoneFormatType)
 {
     ZZPhoneFormatTypeE164,
     ZZPhoneFormatTypeInternational,
-    ZZPhoneFormatTypeNational,
-    ZZPhoneFormatTypeRFC3966
 };
 
 @interface ZZPhoneHelper : NSObject
@@ -23,6 +21,5 @@ typedef NS_ENUM(NSInteger, ZZPhoneFormatType)
 + (NSString*)clearPhone:(NSString*)phone;
 
 + (NSString*)phone:(NSString *)phone withFormat:(ZZPhoneFormatType)format;
-+ (BOOL)isNumberMatch:(NSString*)firstNumber secondNumber:(NSString*)secondNumber;
 
 @end

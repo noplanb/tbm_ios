@@ -9,7 +9,6 @@
 #import "ZZAppDelegate.h"
 #import "ZZAppDependencies.h"
 
-
 @interface ZZAppDelegate ()
 
 @property (nonatomic, strong) ZZAppDependencies* appDependencies;

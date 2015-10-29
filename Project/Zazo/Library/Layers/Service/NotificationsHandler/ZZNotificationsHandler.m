@@ -28,10 +28,10 @@
 
 + (void)registerToPushNotifications
 {
-    OB_INFO(@"registerForPushNotification");
+    ZZLogInfo(@"registerForPushNotification");
     if ([self _isIOS8OrHigher])
     {
-        OB_INFO(@"registerForPushNotification: ios8+");
+        ZZLogInfo(@"registerForPushNotification: ios8+");
         UIUserNotificationType types = UIUserNotificationTypeBadge |
         UIUserNotificationTypeSound |
         UIUserNotificationTypeAlert;
@@ -41,7 +41,7 @@
     }
     else
     {
-        OB_INFO(@"registerForPushNotification: < ios8");
+        ZZLogInfo(@"registerForPushNotification: < ios8");
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert |
                                                                                UIRemoteNotificationTypeSound |
                                                                                UIRemoteNotificationTypeBadge)];
@@ -65,16 +65,16 @@
         [hexString appendFormat:@"%02lx", (unsigned long)dataBuffer[i]];
     }
     
-    OB_INFO(@"didRegisterForRemoteNotificationsWithDeviceToken");
+    ZZLogInfo(@"didRegisterForRemoteNotificationsWithDeviceToken");
     NSString *pushToken = [deviceToken description];
     pushToken = [pushToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     pushToken = [pushToken stringByReplacingOccurrencesOfString:@" " withString:@""];
     pushToken = [pushToken stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-    DebugLog(@"Push token: %@", pushToken);
+    ZZLogInfo(@"Push token: %@", pushToken);
     
     if (![hexString isEqualToString:pushToken])
     {
-        OB_ERROR(@"Token was wrong");
+        ZZLogError(@"Token was wrong");
     }
     
     ANDispatchBlockToBackgroundQueue(^{
@@ -83,7 +83,7 @@
     
     if ([self _userHasGrantedPushAccess])
     {
-        OB_INFO(@"BOOT: Push access granted");
+        ZZLogInfo(@"BOOT: Push access granted");
     }
     else
     {
@@ -94,7 +94,7 @@
 - (void)applicationRegisteredWithSettings:(UIUserNotificationSettings *)settings
 {
     UIUserNotificationType allowedTypes = [settings types];
-    OB_INFO(@"didRegisterUserNotificationSettings: allowedTypes = %lu", (unsigned long)allowedTypes);
+    ZZLogInfo(@"didRegisterUserNotificationSettings: allowedTypes = %lu", (unsigned long)allowedTypes);
     
     self.notificationAllowedTypes = allowedTypes;
     [[UIApplication sharedApplication] registerForRemoteNotifications];
@@ -102,7 +102,7 @@
 
 - (void)applicationDidFailToRegisterWithError:(NSError *)error
 {
-    OB_ERROR(@"ERROR: didFailToRegisterForRemoteNotificationsWithError: %@", error);
+    ZZLogError(@"ERROR: didFailToRegisterForRemoteNotificationsWithError: %@", error);
     [ZZApplicationPermissionsHandler showUserDeclinedPushAccessAlert];
 }
 
@@ -111,13 +111,13 @@
 
 - (void)_sendPushTokenToServer:(NSString *)token
 {
-    OB_INFO(@"sendPushTokenToServer");
+    ZZLogInfo(@"sendPushTokenToServer");
     NSString *myMkey = [ZZStoredSettingsManager shared].userID;
     
     [[ZZNotificationTransportService uploadToken:token userMKey:myMkey] subscribeNext:^(id x) {
-        OB_INFO(@"notification/push_token: SUCCESS %@", x);
+        ZZLogInfo(@"notification/push_token: SUCCESS %@", x);
     } error:^(NSError *error) {
-        OB_WARN(@"notification/push_token: %@", error);
+        ZZLogWarning(@"notification/push_token: %@", error);
     }];
 }
 
@@ -168,11 +168,11 @@
 {
     //TODO: remove this return
 #ifdef DISABLE_INCOMING_NOTIFICATIONS
-    OB_INFO(@"didReceiveRemoteNotification:fetchCompletionHandler: DISABLED");
+    ZZLogInfo(@"didReceiveRemoteNotification:fetchCompletionHandler: DISABLED");
     return;
 #endif
     
-    OB_INFO(@"didReceiveRemoteNotification:fetchCompletionHandler %@", userInfo);
+    ZZLogInfo(@"didReceiveRemoteNotification:fetchCompletionHandler %@", userInfo);
     [self.delegate requestBackground];
     
     if ([ZZUserDataProvider authenticatedUser].isRegistered)
@@ -191,7 +191,7 @@
         }
         else
         {
-            OB_ERROR(@"handleNotificationPayload: ERROR unknown notification type received");
+            ZZLogError(@"handleNotificationPayload: ERROR unknown notification type received");
         }
     }
 }
@@ -213,7 +213,7 @@
 
 - (void)handleVideoReceivedNotification:(NSDictionary*)userInfo
 {
-    OB_INFO(@"handleVideoReceivedNotification:");
+    ZZLogInfo(@"handleVideoReceivedNotification:");
     
     ZZNotificationDomainModel* model = [self _modelFromNotificationData:userInfo];
     [self.delegate handleVideoReceivedNotification:model];
@@ -221,7 +221,7 @@
 
 - (void)handleVideoStatusUpdateNotification:(NSDictionary*)userInfo
 {
-    OB_INFO(@"handleVideoStatusUPdateNotification:");
+    ZZLogInfo(@"handleVideoStatusUPdateNotification:");
     ZZNotificationDomainModel* model = [self _modelFromNotificationData:userInfo];
     [self.delegate handleVideoStatusUpdateNotification:model];
 }

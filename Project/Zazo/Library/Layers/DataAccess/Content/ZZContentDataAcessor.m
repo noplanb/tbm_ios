@@ -16,7 +16,7 @@
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:kContentDBName];
     if ([NSManagedObjectContext MR_rootSavingContext])
     {
-        OB_INFO(@"Successfull Core Data migration. Trying to fill new fields"); // TODO: cleanup
+        ZZLogInfo(@"Successfull Core Data migration. Trying to fill new fields"); // TODO: cleanup
         ANDispatchBlockToBackgroundQueue(^{
            [TBMFriend fillAfterMigration];
         });
