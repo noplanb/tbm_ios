@@ -261,7 +261,8 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
     textEdit.text = model.serverURLString;
     textEdit.isEnabled = (model.serverIndex == 2);
     
-    BOOL pushNotificationStatus = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
+    BOOL pushNotificationStatus = [self _isPushNotificationEnabled];
+    
     ZZSecretSwitchCellViewModel* pushNotificationSwitch = [self _switchModelWithTitle:@"Push notification" state:pushNotificationStatus];
     
     [self.storage addItems:@[server, textEdit, pushNotificationSwitch] toSection:ZZSecretSectionServerOptions];
@@ -280,6 +281,15 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
                         forSectionIndex:ZZSecretSectionResetData];
 }
 
+- (BOOL)_isPushNotificationEnabled
+{
+    if ([UIApplication instancesRespondToSelector:@selector(isRegisteredForRemoteNotifications)]) {
+        return ([[UIApplication sharedApplication] isRegisteredForRemoteNotifications]);
+    } else {
+        UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+        return (types & UIRemoteNotificationTypeAlert);
+    }
+}
 
 #pragma mark - View model with swith
 

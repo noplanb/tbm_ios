@@ -29,7 +29,6 @@
         OB_INFO(@"gotFriends");
         [self _pollAllFriends];
     } error:^(NSError *error) {
-        
         [self _pollAllFriends];
     }];
 }
