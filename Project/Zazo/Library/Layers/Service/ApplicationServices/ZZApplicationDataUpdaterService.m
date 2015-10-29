@@ -16,6 +16,7 @@
 #import "ZZFriendModelsMapper.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZKeyStoreOutgoingVideoStatusDomainModel.h"
+#import "ZZVideoDataProvider.h"
 
 @implementation ZZApplicationDataUpdaterService
 
