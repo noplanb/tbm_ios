@@ -21,8 +21,14 @@
 #import "ZZContentDataAcessor.h"
 #import "ZZApplicationPermissionsHandler.h"
 #import "ZZVideoDataProvider.h"
+#import "ZZRootStateObserver.h"
 
-@interface ZZApplicationRootService () <ZZVideoFileHandlerDelegate, ZZApplicationDataUpdaterServiceDelegate>
+@interface ZZApplicationRootService ()
+<
+    ZZVideoFileHandlerDelegate,
+    ZZApplicationDataUpdaterServiceDelegate,
+    ZZRootStateObserverDelegate
+>
 
 @property (nonatomic, strong) ZZVideoFileHandler* videoFileHandler;
 @property (nonatomic, strong) ZZApplicationDataUpdaterService* dataUpdater;
@@ -42,6 +48,8 @@
         
         self.dataUpdater = [ZZApplicationDataUpdaterService new];
         self.dataUpdater.delegate = self;
+        
+        [[ZZRootStateObserver sharedInstance] addRootStateObserver:self];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(_videoProcessorDidFinishProcessingNotification:)
@@ -74,6 +82,7 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[ZZRootStateObserver sharedInstance] removeRootStateObserver:self];
 }
 
 - (void)updateDataRequired
@@ -228,6 +237,21 @@
 - (void)freshVideoDetectedWithVideoID:(NSString*)videoID friendID:(NSString*)friendID
 {
     [self.videoFileHandler queueDownloadWithFriendID:friendID videoId:videoID];
+}
+
+
+#pragma mark - Root Observer Delegate
+
+- (void)handleEvent:(ZZRootStateObserverEvents)event
+{
+    if (event == ZZRootStateObserverEventsUserAuthorized)
+    {
+        [self.videoFileHandler updateS3CredentialsWithRequest];
+    }
+    else if (event == ZZRootStateObserverEventsFriendsAfterAuthorizationLoaded)
+    {
+        [self.dataUpdater updateAllData];
+    }
 }
 
 @end

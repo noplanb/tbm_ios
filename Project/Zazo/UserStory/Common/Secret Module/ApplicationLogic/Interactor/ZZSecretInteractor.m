@@ -23,6 +23,7 @@
 #import "ZZRollbarAdapter.h"
 #import "ZZContentDataAcessor.h"
 #import "ZZApplicationStateInfoGenerator.h"
+#import "ZZNotificationsHandler.h"
 
 @implementation ZZSecretInteractor
 
@@ -96,6 +97,18 @@
 - (void)updateShouldUserSDKForLogging:(BOOL)isEnabled
 {
     [ZZStoredSettingsManager shared].shouldUseRollBarSDK = isEnabled;
+}
+
+- (void)updatePushNotificationStateTo:(BOOL)isEnabled
+{
+    if (isEnabled)
+    {
+        [ZZNotificationsHandler registerToPushNotifications];
+    }
+    else
+    {
+        [ZZNotificationsHandler disablePushNotifications];
+    }
 }
 
 @end

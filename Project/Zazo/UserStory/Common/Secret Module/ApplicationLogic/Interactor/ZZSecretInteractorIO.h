@@ -23,7 +23,7 @@
 
 - (void)updateServerStateTo:(NSInteger)state;
 - (void)updateCustomServerEnpointValueTo:(NSString *)value;
-
+- (void)updatePushNotificationStateTo:(BOOL)isEnabled;
 
 @end
 

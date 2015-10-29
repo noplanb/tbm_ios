@@ -34,8 +34,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 
 - (void)applicationWillResignActive:(UIApplication*)app
 {
-    [self.appDependencies handleWillResignActive];
-    OB_INFO(@"applicationWillResignActive");
+    [self.appDependencies handleWillResignActive];    OB_INFO(@"applicationWillResignActive");
 }
 
 - (void)applicationWillEnterForeground:(UIApplication*)app

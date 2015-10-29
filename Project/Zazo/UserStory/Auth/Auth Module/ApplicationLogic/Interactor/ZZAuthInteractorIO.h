@@ -40,7 +40,6 @@
 - (void)loadFriendsDidFailWithError:(NSError*)error;
 
 - (void)loadedS3CredentialsSuccessfully;
-- (void)loadS3CredentialsDidFailWithError:(NSError*)error;
 
 - (void)registrationFlowCompletedSuccessfully;
 

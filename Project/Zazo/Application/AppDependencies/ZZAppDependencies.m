@@ -96,8 +96,7 @@
         if (user.isRegistered)
         {
             ANDispatchBlockToMainQueue(^{
-//                [[ZZVideoRecorder shared] updateRecorder];
-//TODO: uncomment
+                [[ZZVideoRecorder shared] updateRecorder];
             });
         }
     });

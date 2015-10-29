@@ -27,6 +27,7 @@
 #import "ZZRollbarAdapter.h"
 #import "ZZAuthInteractorConstants.h"
 #import "ZZNotificationsHandler.h"
+#import "ZZRootStateObserver.h"
 
 @interface ZZAuthInteractor ()
 
@@ -117,8 +118,9 @@
         
         [self loadFriends];
         
-        
         [ZZNotificationsHandler registerToPushNotifications];
+        
+        [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventsUserAuthorized];
         
     } error:^(NSError *error) {
         //TODO: separate errors
@@ -131,33 +133,14 @@
     [ZZFriendDataProvider deleteAllFriendsModels];
     
     [[ZZFriendsTransportService loadFriendList] subscribeNext:^(id x) {
-        
         [self.output loadedFriendsSuccessfully];
-        ANDispatchBlockToBackgroundQueue(^{
-            [self loadS3Credentials];
-        });
+        [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventsFriendsAfterAuthorizationLoaded];
+        [self.output registrationFlowCompletedSuccessfully];
         
     } error:^(NSError *error) {
         
         [self.output loadFriendsDidFailWithError:error];
     }];
-}
-
-- (void)loadS3Credentials
-{
-    ANDispatchBlockToBackgroundQueue(^{
-        [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {
-            
-            self.currentUser.isRegistered = YES;
-            [ZZUserDataProvider upsertUserWithModel:self.currentUser];
-//   TODO:         [(TBMAppDelegate*)[UIApplication sharedApplication].delegate performDidBecomeActiveActions]; //TODO: call this with new controller // ensure resourses
-            [self.output registrationFlowCompletedSuccessfully];
-            
-        } error:^(NSError *error) {
-            
-            [self.output loadS3CredentialsDidFailWithError:nil]; // TODO: create an error here
-        }];
-    });
 }
 
 - (NSString*)countryCodeFromPhoneSettings

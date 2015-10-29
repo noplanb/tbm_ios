@@ -20,7 +20,7 @@
 + (NSArray *)all;
 + (ZZVideoDomainModel*)itemWithID:(NSString*)itemID;
 + (TBMVideo*)entityWithID:(NSString*)itemID;
-
++ (NSArray*)downloadingEntities;
 
 #pragma mark - Count
 

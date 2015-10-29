@@ -25,19 +25,17 @@
     OB_INFO(@"getAndPollAllFriends");
     
     [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray* friends) {
-        
         OB_INFO(@"gotFriends");
         [self _pollAllFriends];
     } error:^(NSError *error) {
-        
         [self _pollAllFriends];
     }];
 }
 
 - (void)updateApplicationBadge
 {
-    OB_INFO(@"setBadgeNumberDownloadedUnviewed = %lu", (unsigned long)[ZZVideoDataProvider countDownloadedUnviewedVideos]);
-    [self setBadgeCount:[ZZVideoDataProvider countDownloadedUnviewedVideos]];
+    OB_INFO(@"setBadgeNumberDownloadedUnviewed = %li", (long)[ZZVideoDataProvider countTotalUnviewedVideos]);
+    [self setBadgeCount:[ZZVideoDataProvider countTotalUnviewedVideos]];
 }
 
 
@@ -51,8 +49,7 @@
 
 - (void)setBadgeNumberUnviewed
 {
-    
-    OB_INFO(@"setBadgeNumberUnviewed = %lu", (unsigned long) [ZZVideoDataProvider countTotalUnviewedVideos]);
+    OB_INFO(@"setBadgeNumberUnviewed = %li", (long) [ZZVideoDataProvider countTotalUnviewedVideos]);
     [self setBadgeCount:[ZZVideoDataProvider countTotalUnviewedVideos]];
 }
 
