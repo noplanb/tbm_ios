@@ -302,7 +302,8 @@
         ZZVideoDomainModel* playedVideoModel = self.videoModelsArray[index];
         
         TBMVideo* viewedVideo = [ZZVideoDataProvider findWithVideoId:playedVideoModel.videoID];
-        if (viewedVideo.statusValue == ZZVideoIncomingStatusDownloaded)
+        if (viewedVideo.statusValue == ZZVideoIncomingStatusDownloaded ||
+            viewedVideo.statusValue == ZZVideoIncomingStatusViewed)
         {
             self.playedFriend = playedVideoModel.relatedUser;
             //save video state

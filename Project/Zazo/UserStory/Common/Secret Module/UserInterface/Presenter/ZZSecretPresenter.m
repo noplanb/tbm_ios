@@ -8,7 +8,6 @@
 
 #import "ZZSecretPresenter.h"
 #import "ZZSecretDataSource.h"
-#import "ZZNotificationsHandler.h"
 
 @interface ZZSecretPresenter ()<ZZSecretDataSourceDelegate>
 
@@ -131,14 +130,7 @@
 
 - (void)updatePushNotificationState:(BOOL)state
 {
-    if (state)
-    {
-        [ZZNotificationsHandler registerToPushNotifications];
-    }
-    else
-    {
-        [ZZNotificationsHandler disablePushNotifications];
-    }
+    [self.interactor updatePushNotificationStateTo:state];
 }
 
 @end

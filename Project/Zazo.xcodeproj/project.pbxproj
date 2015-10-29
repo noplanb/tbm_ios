@@ -312,6 +312,7 @@
 		184E53E91BD4CB510007CF6F /* ZZUserNameLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 184E53E81BD4CB510007CF6F /* ZZUserNameLabel.m */; };
 		185DE9071BDE6F5000106F83 /* ZZSecretScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185DE9061BDE6F5000106F83 /* ZZSecretScreenController.m */; };
 		185DE9091BDE757900106F83 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 185DE9081BDE757900106F83 /* CoreMotion.framework */; };
+		1868E1BA1BE26C72000B80D3 /* ZZRootStateObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 1868E1B91BE26C72000B80D3 /* ZZRootStateObserver.m */; settings = {ASSET_TAGS = (); }; };
 		186BD4BA1BC40EF900B47C6B /* ZZHintArrowConfigurationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186BD4B91BC40EF900B47C6B /* ZZHintArrowConfigurationModel.m */; };
 		1872F4391BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1872F4381BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.m */; };
 		187842311BB2F2760007CDE2 /* ZZCommunicationDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187842301BB2F2760007CDE2 /* ZZCommunicationDomainModel.m */; };
@@ -975,6 +976,8 @@
 		185DE9051BDE6F5000106F83 /* ZZSecretScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretScreenController.h; sourceTree = "<group>"; };
 		185DE9061BDE6F5000106F83 /* ZZSecretScreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSecretScreenController.m; sourceTree = "<group>"; };
 		185DE9081BDE757900106F83 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		1868E1B81BE26C72000B80D3 /* ZZRootStateObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZRootStateObserver.h; sourceTree = "<group>"; };
+		1868E1B91BE26C72000B80D3 /* ZZRootStateObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRootStateObserver.m; sourceTree = "<group>"; };
 		186BD4B81BC40EF900B47C6B /* ZZHintArrowConfigurationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintArrowConfigurationModel.h; sourceTree = "<group>"; };
 		186BD4B91BC40EF900B47C6B /* ZZHintArrowConfigurationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintArrowConfigurationModel.m; sourceTree = "<group>"; };
 		1872F4371BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactsPermissionAlertBuilder.h; sourceTree = "<group>"; };
@@ -1690,6 +1693,7 @@
 			children = (
 				07E09E2E1BD69A7200A59389 /* ZZApplicationRootService.h */,
 				07E09E2F1BD69A7200A59389 /* ZZApplicationRootService.m */,
+				1868E1B71BE26C5E000B80D3 /* RootStateObserver */,
 				07E09E2D1BD5B39C00A59389 /* ApplicationPermissionsHandler */,
 				07E09E261BD5B16200A59389 /* ApplicationServices */,
 				07E09E1B1BD5A69900A59389 /* NotificationsHandler */,
@@ -3705,6 +3709,15 @@
 			path = SecretScreenController;
 			sourceTree = "<group>";
 		};
+		1868E1B71BE26C5E000B80D3 /* RootStateObserver */ = {
+			isa = PBXGroup;
+			children = (
+				1868E1B81BE26C72000B80D3 /* ZZRootStateObserver.h */,
+				1868E1B91BE26C72000B80D3 /* ZZRootStateObserver.m */,
+			);
+			path = RootStateObserver;
+			sourceTree = "<group>";
+		};
 		186BD4B71BC40EDE00B47C6B /* ZZHintArrowConfigurationModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -4280,6 +4293,7 @@
 				180254A31BB2C5A400138A52 /* ZZVideoStatuses.m in Sources */,
 				07636E531BA49A0100925671 /* ZZEnvelopStrategy.m in Sources */,
 				181D1CC21BC5255D00044F83 /* ZZEarpieceFeatureEventHandler.m in Sources */,
+				1868E1BA1BE26C72000B80D3 /* ZZRootStateObserver.m in Sources */,
 				07636EA11BA49A0100925671 /* ZZDebugStateWireframe.m in Sources */,
 				07636E9E1BA49A0100925671 /* ZZDebugStateCellViewModel.m in Sources */,
 				07636EE71BA49A0100925671 /* NSObject+ANRACAdditions.m in Sources */,

@@ -79,6 +79,12 @@
     return item;
 }
 
++ (NSArray*)downloadingEntities
+{
+    return [self _findAllWithAttributeKey:@"status" value:[NSNumber numberWithInt:ZZVideoIncomingStatusDownloading]];
+}
+
+
 #pragma mark - Mapping
 
 + (TBMVideo*)entityFromModel:(ZZVideoDomainModel*)model
@@ -133,7 +139,7 @@
 
 + (NSUInteger)countTotalUnviewedVideos
 {
-    return [self countDownloadingVideos] + [self countDownloadedUnviewedVideos];
+    return ([self countDownloadingVideos] + [self countDownloadedUnviewedVideos]);
 }
 
 + (NSArray*)loadAllVideos

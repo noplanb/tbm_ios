@@ -27,6 +27,7 @@
 #import "ZZRollbarAdapter.h"
 #import "ZZAuthInteractorConstants.h"
 #import "ZZNotificationsHandler.h"
+#import "ZZRootStateObserver.h"
 
 @interface ZZAuthInteractor ()
 
@@ -117,8 +118,9 @@
         
         [self loadFriends];
         
-        
         [ZZNotificationsHandler registerToPushNotifications];
+        
+        [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventsUserAuthorized];
         
     } error:^(NSError *error) {
         //TODO: separate errors
@@ -135,6 +137,7 @@
         [self.output loadedFriendsSuccessfully];
         ANDispatchBlockToBackgroundQueue(^{
             [self loadS3Credentials];
+            
         });
         
     } error:^(NSError *error) {

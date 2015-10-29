@@ -27,7 +27,7 @@
 
 - (void)handleBackgroundSessionWithIdentifier:(NSString*)identifier completionHandler:(ANCodeBlock)completionHandler;
 - (void)queueDownloadWithFriendID:(NSString*)friendID videoId:(NSString *)videoId;
-
+- (void)updateS3CredentialsWithRequest;
 
 #pragma mark - Upload
 

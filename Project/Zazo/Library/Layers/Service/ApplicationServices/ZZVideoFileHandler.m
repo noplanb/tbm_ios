@@ -24,6 +24,7 @@
 #import "ZZVideoNetworkTransportService.h"
 #import "ZZFileTransferMarkerDomainModel.h"
 #import "ZZVideoStatuses.h"
+#import "ZZVideoUtils.h"
 
 @interface ZZVideoFileHandler () <OBFileTransferDelegate>
 
@@ -103,6 +104,7 @@
 
 - (void)fileTransferCompleted:(NSString *)marker withError:(NSError *)error
 {
+    
     OB_INFO(@"fileTransferCompleted marker = %@", marker);
     
     [self.delegate requestBackground];
@@ -149,7 +151,12 @@
     }
 }
 
-
+- (void)updateS3CredentialsWithRequest
+{
+    [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {
+        [self _updateCredentials];
+    }];
+}
 
 #pragma mark - Private
 
@@ -167,9 +174,10 @@
         OB_ERROR(@"AppSync: Permanent failure in %@ due to error: %@", type, error);
         // Refresh the credentials from the server and set ftm to nil so that it uses new credentials
         // if they have arrived by the next time we need it.
-        [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {
-            [self _updateCredentials];
-        }];
+//        [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {
+//            [self _updateCredentials];
+//        }];
+        [self updateS3CredentialsWithRequest];
     });
 }
 
@@ -339,7 +347,7 @@
         
         
         
-         for (TBMVideo *video in [ZZVideoDataProvider loadDownloadingVideos])
+         for (TBMVideo *video in [ZZVideoDataProvider downloadingEntities])
          {
              NSDictionary *obInfo = [self infoWithVideo:video isUpload:NO allInfo:allObInfo];
              NSDictionary *transferInfo = [self infoWithVideo:video isUpload:NO allInfo:allTransferInfo];
