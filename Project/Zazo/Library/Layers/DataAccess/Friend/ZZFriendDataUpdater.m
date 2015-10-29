@@ -10,9 +10,7 @@
 #import "MagicalRecord.h"
 #import "TBMFriend.h"
 #import "ZZFriendModelsMapper.h"
-#import "ZZFriendDomainModel.h"
 #import "ZZFriendDataProvider.h"
-#import "ZZGridDataProvider.h"
 #import "ZZContentDataAcessor.h"
 
 @implementation ZZFriendDataUpdater
@@ -39,7 +37,7 @@
     {
         if ([item.hasApp boolValue] ^ model.hasApp)
         {
-            OB_INFO(@"createWithServerParams: Friend exists updating hasApp only since it is different.");
+            ZZLogInfo(@"createWithServerParams: Friend exists updating hasApp only since it is different.");
             item.hasApp = @(model.hasApp);
             [item.managedObjectContext MR_saveToPersistentStoreAndWait];
             [item notifyVideoStatusChange];

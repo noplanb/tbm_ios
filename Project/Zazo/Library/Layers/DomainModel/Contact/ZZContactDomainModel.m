@@ -26,11 +26,6 @@
     return model;
 }
 
-- (NSString*)photoURLString
-{
-    return nil;
-}
-
 - (BOOL)hasApp
 {
     return NO;

@@ -8,7 +8,6 @@
 
 #import "ZZRootWireframe.h"
 #import "ANDebugVC.h"
-#import "ZZAuthWireframe.h"
 #import "ZZSecretWireframe.h"
 #import "ZZSecretScreenObserveTypes.h"
 
@@ -28,7 +27,6 @@
 
 - (void)showStartViewControllerInWindow:(UIWindow*)window
 {
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     window.backgroundColor = [UIColor whiteColor];
     
 #ifdef DEBUG_CONTROLLER
@@ -57,7 +55,6 @@
 
 - (void)_presentSecretScreenFromNavigationController:(UINavigationController*)nc
 {   
-//    [wireframe presentSecretControllerFromNavigationController:nc];
     [self.secretWireframe presentOrDismissSecretControllerFromNavigationController:nc];
 }
 

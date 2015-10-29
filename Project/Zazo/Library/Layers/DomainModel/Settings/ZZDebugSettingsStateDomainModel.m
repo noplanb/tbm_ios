@@ -16,9 +16,7 @@ const struct ZZDebugSettingsStateDomainModelAttributes ZZDebugSettingsStateDomai
     .firstName = @"firstName",
     .lastName = @"lastName",
     .phoneNumber = @"phoneNumber",
-    .useRearCamera = @"useRearCamera",
     .sendBrokenVideo = @"sendBrokenVideo",
-    .enableAllFeatures = @"enableAllFeatures",
 };
 
 @implementation ZZDebugSettingsStateDomainModel

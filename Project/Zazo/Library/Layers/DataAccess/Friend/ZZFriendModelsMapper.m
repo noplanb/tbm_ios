@@ -83,7 +83,7 @@
     @catch (NSException *exception)
     {
         model = nil;
-        OB_ERROR(@"Exception: %@", exception);
+        ZZLogError(@"Exception: %@", exception);
     }
     @finally
     {

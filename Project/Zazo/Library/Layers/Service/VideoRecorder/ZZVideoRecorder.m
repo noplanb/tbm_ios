@@ -119,7 +119,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 //}
 //
 //- (void)videoRecorderRuntimeErrorWithRetryCount:(int)videoRecorderRetryCount {
-//    OB_ERROR(@"videoRecorderRuntimeErrorWithRetryCount %d", videoRecorderRetryCount);
+//    ZZLogError(@"videoRecorderRuntimeErrorWithRetryCount %d", videoRecorderRetryCount);
 //    [self setupVideoRecorder:videoRecorderRetryCount];
 //}
 //
@@ -130,14 +130,14 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 //    // Also if we still have a videoRecorder but the OS killed our view from under us trying to save memory while we were in the
 //    // background we want to reinstantiate.
 //    if (self.videoRecorder != nil && retryCount == 0 && [self isViewLoaded] && self.view.window) {
-//        OB_WARN(@"TBMHomeViewController: setupVideoRecorder: already setup. Ignoring");
+//        ZZLogWarning(@"TBMHomeViewController: setupVideoRecorder: already setup. Ignoring");
 //    }
 //    else if (![self appDelegate].isForeground) {
-//        OB_WARN(@"HomeViewController: not initializing the VideoRecorder because ! isForeground");
+//        ZZLogWarning(@"HomeViewController: not initializing the VideoRecorder because ! isForeground");
 //    }
 //    else
 //    {
-//        OB_WARN(@"HomeviewController: setupVideoRecorder: setting up. vr=%@, rc=%d, isViewLoaded=%d, view.window=%d", self.videoRecorder, retryCount, [self isViewLoaded], [self isViewLoaded] && self.view.window);
+//        ZZLogWarning(@"HomeviewController: setupVideoRecorder: setting up. vr=%@, rc=%d, isViewLoaded=%d, view.window=%d", self.videoRecorder, retryCount, [self isViewLoaded], [self isViewLoaded] && self.view.window);
 //        
 //        //        self.videoRecorder = [[TBMVideoRecorder alloc] initWithPreviewView:nil//[self centerView]
 //        //                                                                  delegate:self];
@@ -148,7 +148,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 //TODO:
 - (void)videoRecorderRuntimeErrorWithRetryCount:(int)videoRecorderRetryCount {
-    OB_ERROR(@"videoRecorderRuntimeErrorWithRetryCount %d", videoRecorderRetryCount);
+    ZZLogError(@"videoRecorderRuntimeErrorWithRetryCount %d", videoRecorderRetryCount);
     [self setupVideoRecorder:videoRecorderRetryCount];
 }
 
@@ -419,7 +419,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     
     if (self.didCancelRecording)
     {
-        OB_INFO(@"didCancelRecordingToOutputFileAtURL:%@ error:%@", outputFileURL, error);
+        ZZLogInfo(@"didCancelRecordingToOutputFileAtURL:%@ error:%@", outputFileURL, error);
         [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidCancelRecording
                                                             object:self
                                                           userInfo:@{@"videoUrl": outputFileURL}];
@@ -437,7 +437,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     }
     else if ([self videoTooShort:outputFileURL])
     {
-        OB_INFO(@"VideoRecorder#videoTooShort aborting");
+        ZZLogInfo(@"VideoRecorder#videoTooShort aborting");
         NSError *error = [self videoRecorderError:@"Video too short" reason:@"Too short"];
         [self handleError:error dispatch:NO];
         
@@ -466,7 +466,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         return;
     }
     
-    OB_INFO(@"didFinishRecording success friend:%@ videoId:%@",
+    ZZLogInfo(@"didFinishRecording success friend:%@ videoId:%@",
             [TBMVideoIdUtils friendWithOutgoingVideoUrl:outputFileURL].firstName,
             [TBMVideoIdUtils videoIdWithOutgoingVideoUrl:outputFileURL]);
     
@@ -490,7 +490,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 {
     if (dispatch)
     {
-        OB_ERROR(@"VideoRecorder: %@", error);
+        ZZLogError(@"VideoRecorder: %@", error);
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFail
@@ -641,11 +641,11 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:videoUrl.path error:&error];
     if (error != nil)
     {
-        OB_ERROR(@"VideoRecorder#videoTooShort: Can't set attributes for file: %@. Error: %@", videoUrl.path, error);
+        ZZLogError(@"VideoRecorder#videoTooShort: Can't set attributes for file: %@. Error: %@", videoUrl.path, error);
         return NO;
     }
     
-    OB_INFO(@"VideoRecorder: filesize %llu", fileAttributes.fileSize);
+    ZZLogInfo(@"VideoRecorder: filesize %llu", fileAttributes.fileSize);
     if (fileAttributes.fileSize < 28000)
     {
         return YES;

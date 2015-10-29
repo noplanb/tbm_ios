@@ -146,7 +146,7 @@ static int videoRecorderRetryCount = 0;
     self.videoInput = [ZZDeviceHandler loadAvailableFrontVideoInputWithError:&error];
     if (error)
     {
-        OB_ERROR(@"VideoRecorder#initVideoInput: Unable to get camera (%@)", error);
+        ZZLogError(@"VideoRecorder#initVideoInput: Unable to get camera (%@)", error);
     }
     else
     {
@@ -157,9 +157,9 @@ static int videoRecorderRetryCount = 0;
 - (void)initCaptureOutput
 {
     self.captureOutput = [[AVCaptureMovieFileOutput alloc] init];
-    OB_INFO(@"VideoRecorder:maxRecordedDuration: %lld", self.captureOutput.maxRecordedDuration.value);
-    OB_INFO(@"VideoRecorder:maxRecordedFileSize: %lld", self.captureOutput.maxRecordedFileSize);
-    OB_INFO(@"VideoRecorder:minFreeDiskSpaceLimit: %lld", self.captureOutput.minFreeDiskSpaceLimit);
+    ZZLogInfo(@"VideoRecorder:maxRecordedDuration: %lld", self.captureOutput.maxRecordedDuration.value);
+    ZZLogInfo(@"VideoRecorder:maxRecordedFileSize: %lld", self.captureOutput.maxRecordedFileSize);
+    ZZLogInfo(@"VideoRecorder:minFreeDiskSpaceLimit: %lld", self.captureOutput.minFreeDiskSpaceLimit);
     
     if ([self.captureSession canAddOutput:self.captureOutput])
     {
@@ -167,7 +167,7 @@ static int videoRecorderRetryCount = 0;
     }
     else
     {
-        OB_ERROR(@"VideoRecorder#addCaptureOutputWithError: Could not add captureOutput");
+        ZZLogError(@"VideoRecorder#addCaptureOutputWithError: Could not add captureOutput");
     }
 }
 
@@ -180,7 +180,7 @@ static int videoRecorderRetryCount = 0;
     }
     else
     {
-        OB_ERROR(@"VideoRecorder#initCaptureSession: Cannot set AVCaptureSessionPresetLow");
+        ZZLogError(@"VideoRecorder#initCaptureSession: Cannot set AVCaptureSessionPresetLow");
     }
 }
 
@@ -190,7 +190,7 @@ static int videoRecorderRetryCount = 0;
         self.audioInput = [ZZDeviceHandler loadAudioInputWithError:&error];
         if (error)
         {
-            OB_ERROR(@"VideoRecorder#addAudioInput Unable to get microphone: %@", error);
+            ZZLogError(@"VideoRecorder#addAudioInput Unable to get microphone: %@", error);
             return;
         }
     
@@ -228,7 +228,7 @@ static int videoRecorderRetryCount = 0;
 
 - (void)setupCaptureSessionView:(UIView *)view
 {
-    OB_DEBUG(@"VideoRecorder#:setupPreviewView:");
+    ZZLogDebug(@"VideoRecorder#:setupPreviewView:");
 
     view.layer.sublayers = nil;
     if (!self.previewLayer)
@@ -248,7 +248,7 @@ static int videoRecorderRetryCount = 0;
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
     self.didCancelRecording = NO;
     
-    OB_INFO(@"VideoRecorder#Start recording to %@ videoId:%@",
+    ZZLogInfo(@"VideoRecorder#Start recording to %@ videoId:%@",
             [TBMVideoIdUtils friendWithOutgoingVideoUrl:videoUrl].firstName,
             [TBMVideoIdUtils videoIdWithOutgoingVideoUrl:videoUrl]);
     
@@ -259,7 +259,7 @@ static int videoRecorderRetryCount = 0;
 
 - (void)stopRecording
 {
-    OB_INFO(@"VideoRecorder#stopRecording: isRecording:%d", self.captureOutput.isRecording);
+    ZZLogInfo(@"VideoRecorder#stopRecording: isRecording:%d", self.captureOutput.isRecording);
     
     if (!self.captureOutput.isRecording)
     {
@@ -286,8 +286,8 @@ static int videoRecorderRetryCount = 0;
 didStartRecordingToOutputFileAtURL:(NSURL*)fileURL
       fromConnections:(NSArray*)connections
 {
-    OB_INFO(@"VideoRecorder# captureOutput:didStartRecording");
-    OB_INFO(@"VideoRecorder# captureOutput:didStartRecording %@", connections);
+    ZZLogInfo(@"VideoRecorder# captureOutput:didStartRecording");
+    ZZLogInfo(@"VideoRecorder# captureOutput:didStartRecording %@", connections);
 }
 
 - (void)captureOutput:(AVCaptureFileOutput*)captureOutput
@@ -295,16 +295,16 @@ willFinishRecordingToOutputFileAtURL:(NSURL*)outputFileURL
       fromConnections:(NSArray*)connections
                 error:(NSError*)error
 {
-    OB_INFO(@"VideoRecorder#willFinishRecordingToOutputFileAtURL %@", error);
-    OB_INFO(@"VideoRecorder#willFinishRecordingToOutputFileAtURL %@", connections);
+    ZZLogInfo(@"VideoRecorder#willFinishRecordingToOutputFileAtURL %@", error);
+    ZZLogInfo(@"VideoRecorder#willFinishRecordingToOutputFileAtURL %@", connections);
 }
 
 - (void)captureOutput:(AVCaptureFileOutput*)captureOutput
 didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
       fromConnections:(NSArray *)connections
                 error:(NSError *)error{
-    OB_INFO(@"VideoRecorder#didFinishRecordingToOutputFileAtURL %@", error);
-    OB_INFO(@"VideoRecorder#didFinishRecordingToOutputFileAtURL %@", connections);
+    ZZLogInfo(@"VideoRecorder#didFinishRecordingToOutputFileAtURL %@", error);
+    ZZLogInfo(@"VideoRecorder#didFinishRecordingToOutputFileAtURL %@", connections);
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFinishRecording
                                                         object:self
@@ -319,7 +319,7 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
 
 - (void)addObservers
 {
-    OB_INFO(@"VideoRecorder#: addObservers");
+    ZZLogInfo(@"VideoRecorder#: addObservers");
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_sessionInterrupted:)
                                                  name:AVAudioSessionInterruptionNotification
@@ -344,7 +344,7 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
 
 - (void)AVCaptureSessionRuntimeErrorNotification:(NSNotification *)notification
 {
-    OB_INFO(@"VideoRecorder#AVCaptureSessionRuntimeErrorNotification: %@", notification.userInfo[AVCaptureSessionErrorKey]);
+    ZZLogInfo(@"VideoRecorder#AVCaptureSessionRuntimeErrorNotification: %@", notification.userInfo[AVCaptureSessionErrorKey]);
     videoRecorderRetryCount += 1;
     [self.delegate videoRecorderRuntimeErrorWithRetryCount:videoRecorderRetryCount];
     
@@ -352,7 +352,7 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
 
 - (void)AVCaptureSessionDidStartRunningNotification:(NSNotification *)notification
 {
-    OB_INFO(@"VideoRecorder#AVCaptureSessionDidStartRunningNotification");
+    ZZLogInfo(@"VideoRecorder#AVCaptureSessionDidStartRunningNotification");
     [self.delegate videoRecorderDidStartRunning];
 }
 
@@ -361,7 +361,7 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
 
 - (void)willDeactivateAudioSession
 {
-    OB_INFO(@"VideoRecorder#VideoRecorder: willDeactivateAudioSession");
+    ZZLogInfo(@"VideoRecorder#VideoRecorder: willDeactivateAudioSession");
     [self.captureSession stopRunning];
 }
 
@@ -377,13 +377,13 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
         AVAudioSessionInterruptionOptions options = (AVAudioSessionInterruptionOptions) interruption.unsignedIntValue;
         if (options == AVAudioSessionInterruptionOptionShouldResume)
         {
-            OB_INFO(@"VideoRecorder#AVAudioSessionInterruptionNotification: should resume");
+            ZZLogInfo(@"VideoRecorder#AVAudioSessionInterruptionNotification: should resume");
             [self.delegate videoRecorderRuntimeErrorWithRetryCount:videoRecorderRetryCount];
         }
     }
     else
     {
-        OB_INFO(@"VideoRecorder#AVAudioSessionInterruptionNotification: interrupted");
+        ZZLogInfo(@"VideoRecorder#AVAudioSessionInterruptionNotification: interrupted");
     }
 }
 

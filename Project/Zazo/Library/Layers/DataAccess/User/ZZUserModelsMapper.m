@@ -7,8 +7,6 @@
 //
 
 #import "ZZUserModelsMapper.h"
-#import "TBMUser.h"
-#import "ZZUserDomainModel.h"
 
 @implementation ZZUserModelsMapper
 

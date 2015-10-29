@@ -5,7 +5,7 @@
 
 #import "NSArray+ZZAdditions.h"
 
-@implementation NSArray (TBMArrayHelpers)
+@implementation NSArray (ZZAdditions)
 
 - (id)zz_randomObject
 {

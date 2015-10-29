@@ -9,7 +9,6 @@
 #import "ZZApplicationPermissionsHandler.h"
 #import "ZZFileHelper.h"
 #import "TBMAlertController.h"
-#import "SDCAlertController.h"
 
 @import AVFoundation;
 #import "AVAudioSession+TBMAudioSession.h"
