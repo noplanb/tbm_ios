@@ -158,6 +158,12 @@
 
 - (void)sendNotificationForVideoStatusUpdate:(TBMFriend *)friend videoId:(NSString *)videoId status:(NSString *)status
 {
+    [ZZApplicationRootService sendNotificationForVideoStatusUpdate:friend videoId:videoId status:status];
+}
+
+//TODO: it's for legacy with TBMFriend
++ (void)sendNotificationForVideoStatusUpdate:(TBMFriend *)friend videoId:(NSString *)videoId status:(NSString *)status
+{
     ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
     ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
     
@@ -176,46 +182,44 @@
 
 - (void)handleVideoReceivedNotification:(ZZNotificationDomainModel *)model
 {
-//    TODO: map notification to notification mode, and pass to rootservice as delegate to handle and trigger proccesses
-        TBMFriend *friend = [TBMFriend findWithMkey:model.fromUserMKey];
+    TBMFriend *friend = [TBMFriend findWithMkey:model.fromUserMKey];
     
-        if (friend == nil)
-        {
-            OB_INFO(@"handleVideoReceivedNotification: got notification for non existant friend. calling getAndPollAllFriends");
-            [self.dataUpdater updateAllData];
-            return;
-        }
-        [self.videoFileHandler queueDownloadWithFriendID:friend.idTbm videoId:model.videoID];
+    if (friend == nil)
+    {
+        OB_INFO(@"handleVideoReceivedNotification: got notification for non existant friend. calling getAndPollAllFriends");
+        [self.dataUpdater updateAllData];
+        return;
+    }
+    [self.videoFileHandler queueDownloadWithFriendID:friend.idTbm videoId:model.videoID];
 }
 
 - (void)handleVideoStatusUpdateNotification:(ZZNotificationDomainModel *)model
 {
-//    TODO: the same as for video received notification
-        TBMFriend *friend = [TBMFriend findWithMkey:model.toUserMKey];
+    TBMFriend *friend = [TBMFriend findWithMkey:model.toUserMKey];
     
-        if (friend == nil)
-        {
-            OB_INFO(@"handleVideoStatusUPdateNotification: got notification for non existant friend. calling getAndPollAllFriends");
-            [self.dataUpdater updateAllData];
-            return;
-        }
+    if (friend == nil)
+    {
+        OB_INFO(@"handleVideoStatusUPdateNotification: got notification for non existant friend. calling getAndPollAllFriends");
+        [self.dataUpdater updateAllData];
+        return;
+    }
     
-        TBMOutgoingVideoStatus outgoingStatus;
-        if ([model.status isEqualToString:NOTIFICATION_STATUS_DOWNLOADED])
-        {
-            outgoingStatus = OUTGOING_VIDEO_STATUS_DOWNLOADED;
-        }
-        else if ([model.status isEqualToString:NOTIFICATION_STATUS_VIEWED])
-        {
-            outgoingStatus = OUTGOING_VIDEO_STATUS_VIEWED;
-        }
-        else
-        {
-            OB_ERROR(@"unknown status received in notification");
-            return;
-        }
-        
-        [friend setAndNotifyOutgoingVideoStatus:outgoingStatus videoId:model.videoID];
+    TBMOutgoingVideoStatus outgoingStatus;
+    if ([model.status isEqualToString:NOTIFICATION_STATUS_DOWNLOADED])
+    {
+        outgoingStatus = OUTGOING_VIDEO_STATUS_DOWNLOADED;
+    }
+    else if ([model.status isEqualToString:NOTIFICATION_STATUS_VIEWED])
+    {
+        outgoingStatus = OUTGOING_VIDEO_STATUS_VIEWED;
+    }
+    else
+    {
+        OB_ERROR(@"unknown status received in notification");
+        return;
+    }
+    
+    [friend setAndNotifyOutgoingVideoStatus:outgoingStatus videoId:model.videoID];
 }
 
 

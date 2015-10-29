@@ -47,13 +47,6 @@
 {
     [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray *array) {
         
-        NSArray *friendsArray = [FEMObjectDeserializer deserializeCollectionExternalRepresentation:array
-                                                                                      usingMapping:[ZZFriendDomainModel mapping]];
-        
-        [friendsArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [ZZFriendDataProvider upsertFriendWithModel:obj];
-        }];
-        
         [self loadDataIncludeAddressBookRequest:NO];
         
     } error:^(NSError *error) {

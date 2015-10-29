@@ -9,6 +9,7 @@
 #import "ZZApplicationVersionEnumHelper.h"
 
 static NSString *versionString[] = {
+    @"none",
     @"current",
     @"update_optional",
     @"update_schema_required",
@@ -18,11 +19,14 @@ static NSString *versionString[] = {
 
 NSString* ZZApplicationVersionStateStringFromEnumValue(ZZApplicationVersionState type)
 {
-    return versionString[type];
+    int count = sizeof(versionString) / sizeof(versionString[0]);
+    return (type < count) ? versionString[type] : nil;
 }
 
 ZZApplicationVersionState ZZApplicationVersionStateEnumValueFromString(NSString* string)
 {
-    NSArray* array = [NSArray arrayWithObjects:versionString count:4];
-    return [array indexOfObject:string];
+    int count = sizeof(versionString) / sizeof(versionString[0]);
+    NSArray* array = [NSArray arrayWithObjects:versionString count:count];
+    NSInteger index = [array indexOfObject:[NSObject an_safeString:string]];
+    return (index == NSNotFound) ? 0 : index;
 }

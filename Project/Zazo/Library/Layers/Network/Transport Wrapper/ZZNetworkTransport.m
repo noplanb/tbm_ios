@@ -11,6 +11,7 @@
 #import "TBMUser.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "ZZStoredSettingsManager.h"
+#import "NSObject+ANSafeValues.h"
 
 @implementation ZZNetworkTransport
 
@@ -46,7 +47,7 @@
 #ifdef HTTPLog
     if (params)
     {
-        ANLogHTTP(@"Parameters : \n%@", params);
+        OB_INFO(@"Parameters : \n%@", params);
     }
 #endif
     return [super requestWithPath:path parameters:params httpMethod:httpMethod];
@@ -55,10 +56,12 @@
 - (void)logResponse:(NSHTTPURLResponse*)httpResponse description:(NSString*)description json:(NSDictionary*)json
 {
 #ifdef HTTPLog
-    NSString* logString = [NSString stringWithFormat:@"%@\n%@\n%@\n", description, httpResponse, json];
-    ANLogHTTP(@"%@", logString);
+    NSString* logString = [NSString stringWithFormat:@"%@\n%@\n%@\n",
+                           [NSObject an_safeString:description],
+                           httpResponse ? : @"",
+                           json ? : @""];
+    OB_INFO(@"%@", logString);
 #endif
-
 }
 
 - (void)handleResponse:(NSDictionary*)json subscriber:(id<RACSubscriber>)subscriber

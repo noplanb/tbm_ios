@@ -70,7 +70,7 @@
 - (void)handleBackgroundSessionWithIdentifier:(NSString*)identifier completionHandler:(ANCodeBlock)completionHandler
 {
     OB_INFO(@"handleEventsForBackgroundURLSession: for sessionId=%@",identifier);
-    if ([[self.fileTransferManager session].configuration.identifier isEqual:identifier])
+    if ([[self.fileTransferManager session].configuration.identifier isEqualToString:identifier])
     {
         self.fileTransferManager.backgroundSessionCompletionHandler = completionHandler;
     }
@@ -392,7 +392,7 @@
     NSNumber *bytesReceived = transferInfo[CountOfBytesReceivedKey];
     NSTimeInterval age = -[createdOn timeIntervalSinceNow];
     OB_DEBUG(@"isStuckWithVideo: age=%f, bytesReceived=%@", age, bytesReceived);
-    if (age > 0.25 && [bytesReceived isEqualToNumber:[NSNumber numberWithInt:0]])
+    if (age > 0.25 && ([bytesReceived integerValue] == 0))
     {
         OB_INFO(@"isStuckWithVideo: YES");
         return YES;

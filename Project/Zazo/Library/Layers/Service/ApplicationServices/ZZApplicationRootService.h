@@ -8,6 +8,8 @@
 
 #import "ZZNotificationsHandler.h"
 
+@class TBMFriend; // TODO: legacy
+
 @protocol ZZApplicationRootServiceNotificationDelegate <NSObject>
 
 - (void)registerToPushNotifications;
@@ -17,6 +19,10 @@
 @interface ZZApplicationRootService : NSObject <ZZNotificationsHandlerDelegate>
 
 @property (nonatomic, weak) id<ZZApplicationRootServiceNotificationDelegate> notificationDelegate;
+
++ (void)sendNotificationForVideoStatusUpdate:(TBMFriend *)friendEntity
+                                     videoId:(NSString *)videoId
+                                      status:(NSString *)status;
 
 - (void)handleBackgroundSessionWithIdentifier:(NSString*)identifier completionHandler:(ANCodeBlock)completionHandler;
 - (void)updateBadgeCounter;

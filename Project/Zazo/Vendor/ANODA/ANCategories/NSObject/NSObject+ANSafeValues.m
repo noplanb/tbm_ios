@@ -27,7 +27,7 @@
 + (NSDictionary*)an_safeDictionary:(NSDictionary*)dict
 {
     dict = dict ? : @{};
-    return dict; // TODO:
+    return dict;
 }
 
 @end

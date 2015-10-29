@@ -8,6 +8,7 @@
 
 typedef NS_ENUM(NSInteger, ZZApplicationVersionState)
 {
+    ZZApplicationVersionStateNone,
     ZZApplicationVersionStateCurrent,
     ZZApplicationVersionStateUpdateOptional,
     ZZApplicationVersionStateUpdateSchemaRequired,
@@ -17,3 +18,8 @@ typedef NS_ENUM(NSInteger, ZZApplicationVersionState)
 
 NSString* ZZApplicationVersionStateStringFromEnumValue(ZZApplicationVersionState);
 ZZApplicationVersionState ZZApplicationVersionStateEnumValueFromString(NSString*);
+
+
+
+NSString* ANStateStringFromEnumValue(ZZApplicationVersionState, __unsafe_unretained NSString* []);
+NSInteger ANStateEnumValueFromString(NSString*, __unsafe_unretained NSString* []);

@@ -78,6 +78,7 @@
             NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithDictionary:error.userInfo];
             userInfo[@"requestDescription"] = requestDescription;
             NSError* taskError = [NSError errorWithDomain:error.domain code:error.code userInfo:userInfo];
+            [self logResponse:nil description:requestDescription json:userInfo];
             [self handleError:taskError subscriber:subscriber];
         }];
         

@@ -52,13 +52,8 @@
 }
 
 - (void)updateAllFeaturesToEnabled
-{//TODO: move to action storage handler
-    BOOL isEnabled = YES;
-    [ZZGridActionStoredSettings shared].frontCameraHintWasShown = isEnabled;
-    [ZZGridActionStoredSettings shared].abortRecordHintWasShown = isEnabled;
-    [ZZGridActionStoredSettings shared].deleteFriendHintWasShown = isEnabled;
-    [ZZGridActionStoredSettings shared].earpieceHintWasShown = isEnabled;
-    [ZZGridActionStoredSettings shared].spinHintWasShown = isEnabled;
+{
+    [[ZZGridActionStoredSettings shared] enableAllFeatures];
 }
 
 - (void)removeAllDanglingFiles
@@ -101,26 +96,6 @@
 - (void)updateShouldUserSDKForLogging:(BOOL)isEnabled
 {
     [ZZStoredSettingsManager shared].shouldUseRollBarSDK = isEnabled;
-}
-
-
-#pragma mark - Private
-
-- (ZZDebugSettingsStateDomainModel*)_generateDebugSettingsModel
-{
-    ZZDebugSettingsStateDomainModel* model = [ZZDebugSettingsStateDomainModel new];
-    model.isDebugEnabled = YES;
-    model.serverURLString = @"staging.zazoapp.com";
-    model.serverIndex = 1;
-    model.version = @"1.01";
-
-    model.firstName = @"Anoda";
-    model.lastName = @"Mobi";
-    model.phoneNumber = @"0 800 777 77 77";
-    
-    model.useRearCamera = YES;
-    
-    return model;
 }
 
 @end

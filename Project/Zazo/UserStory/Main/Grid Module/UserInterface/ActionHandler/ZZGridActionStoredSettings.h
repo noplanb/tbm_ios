@@ -45,5 +45,6 @@ static NSString* const kUsersIdsArrayKey = @"usersIdsArrayKey";
 + (instancetype)shared;
 
 - (void)reset;
+- (void)enableAllFeatures;
 
 @end

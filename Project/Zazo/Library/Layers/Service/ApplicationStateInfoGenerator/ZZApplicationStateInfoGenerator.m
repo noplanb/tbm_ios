@@ -93,7 +93,7 @@ static NSInteger const kStateStringColumnWidth = 14;
 
 + (NSArray*)loadIncomingDandlingItemsFromData:(NSArray*)stateModels
 {
-    NSPredicate* incomingPredicate = [NSPredicate predicateWithFormat:@"pathExtension == 'mp4'"]; // TODO: constant
+    NSPredicate* incomingPredicate = [NSPredicate predicateWithFormat:@"pathExtension == 'mp4'"];
     NSArray* diskFileNamesIncoming = [self _loadVideoFilesWithPredicate:incomingPredicate];
     NSMutableSet* diskFileNamesIncomingSet = [NSMutableSet setWithArray:diskFileNamesIncoming];
     
