@@ -17,28 +17,28 @@
 
 @implementation ZZVideoDataUpdater
 
-+ (void)deleteItem:(ZZVideoDomainModel*)model
-{
-    TBMVideo* entity = [self entityFromModel:model];
-    [entity MR_deleteEntityInContext:[self _context]];
-    
-    [[self _context] MR_saveToPersistentStoreAndWait];
-}
+//+ (void)deleteItem:(ZZVideoDomainModel*)model
+//{
+//    TBMVideo* entity = [self entityFromModel:model];
+//    [entity MR_deleteEntityInContext:[self _context]];
+//
+//    [[self _context] MR_saveToPersistentStoreAndWait];
+//}
 
-+ (TBMVideo*)entityWithID:(NSString*)itemID
-{
-    TBMVideo* item = nil;
-    if (!ANIsEmpty(itemID))
-    {
-        NSArray* items = [TBMVideo MR_findByAttribute:TBMVideoAttributes.videoId withValue:itemID inContext:[self _context]];
-        if (items.count > 1)
-        {
-            ANLogWarning(@"TBMVideo contains dupples for %@", itemID);
-        }
-        item = [items firstObject];
-    }
-    return item;
-}
+//+ (TBMVideo*)entityWithID:(NSString*)itemID
+//{
+//    TBMVideo* item = nil;
+//    if (!ANIsEmpty(itemID))
+//    {
+//        NSArray* items = [TBMVideo MR_findByAttribute:TBMVideoAttributes.videoId withValue:itemID inContext:[self _context]];
+//        if (items.count > 1)
+//        {
+//            ANLogWarning(@"TBMVideo contains dupples for %@", itemID);
+//        }
+//        item = [items firstObject];
+//    }
+//    return item;
+//}
 
 + (void)destroy:(TBMVideo *)video
 {
@@ -50,7 +50,7 @@
 
 + (void)deleteVideoFileWithVideo:(TBMVideo*)video
 {
-    DebugLog(@"deleteVideoFile");
+    ZZLogInfo(@"deleteVideoFile");
     NSFileManager *fm = [NSFileManager defaultManager];
     NSError *error = nil;
     [fm removeItemAtURL:[ZZVideoDataProvider videoUrlWithVideo:video] error:&error];
@@ -63,15 +63,15 @@
     [ZZThumbnailGenerator deleteThumbFileForVideo:videoModel];
 }
 
-+ (TBMVideo*)entityFromModel:(ZZVideoDomainModel*)model
-{
-    TBMVideo* entity = [ZZVideoDataProvider entityWithID:model.videoID];
-    if (!entity)
-    {
-        entity = [TBMVideo MR_createEntityInContext:[self _context]];
-    }
-    return [ZZVideoModelsMapper fillEntity:entity fromModel:model];
-}
+//+ (TBMVideo*)entityFromModel:(ZZVideoDomainModel*)model
+//{
+//    TBMVideo* entity = [ZZVideoDataProvider entityWithID:model.videoID];
+//    if (!entity)
+//    {
+//        entity = [TBMVideo MR_createEntityInContext:[self _context]];
+//    }
+//    return [ZZVideoModelsMapper fillEntity:entity fromModel:model];
+//}
 
 
 #pragma mark - Private

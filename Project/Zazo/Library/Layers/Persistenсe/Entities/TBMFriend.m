@@ -9,24 +9,15 @@
 
 #import "TBMFriend.h"
 #import "TBMVideoIdUtils.h"
-#import "OBLogger.h"
-#import "TBMUser.h"
 #import "MagicalRecord.h"
 #import "TBMGridElement.h"
-#import "ZZUserDataProvider.h"
-#import "ZZFriendDataProvider.h"
-#import "ZZUserFriendshipStatusHandler.h"
-#import "ZZFriendDomainModel.h"
 #import "ZZUserPresentationHelper.h"
 #import "ZZContentDataAcessor.h"
-#import "FEMObjectDeserializer.h"
-#import "ZZFriendDataUpdater.h"
 #import "ZZPhoneHelper.h"
 #import "ZZVideoDataProvider.h"
 #import "ZZVideoDataUpdater.h"
 #import "ZZApplicationRootService.h"
 #import "ZZNotificationsConstants.h"
-
 
 @implementation TBMFriend
 
@@ -41,27 +32,16 @@ static NSMutableSet *videoStatusNotificationDelegates;
 {
     return [self MR_findAllInContext:[self _context]];
 }
-
-+ (NSUInteger)allUnviewedCount
-{
-    NSUInteger result = 0;
-    for (TBMFriend *friend in [self all])
-    {
-        result += friend.unviewedCount;
-    }
-    return result;
-}
-
-+ (NSUInteger)unviewedCountForGridCellAtIndex:(NSUInteger)index
-{
-    NSUInteger result = 0;
-    for (TBMFriend *friend in [self all])
-    {
-        if ([friend.gridElement.index integerValue] == index)
-            result = (NSUInteger) friend.unviewedCount;
-    }
-    return result;
-}
+//
+//+ (NSUInteger)allUnviewedCount
+//{
+//    NSUInteger result = 0;
+//    for (TBMFriend *friend in [self all])
+//    {
+//        result += friend.unviewedCount;
+//    }
+//    return result;
+//}
 
 
 + (instancetype)findWithId:(NSString *)idTbm
@@ -84,25 +64,9 @@ static NSMutableSet *videoStatusNotificationDelegates;
     return [self MR_findByAttribute:key withValue:value inContext:[self _context]];
 }
 
-+ (instancetype)findWithMatchingPhoneNumber:(NSString *)phone
-{
-    for (TBMFriend *f in [TBMFriend all])
-    {
-        if ([ZZPhoneHelper isNumberMatch:phone secondNumber:f.mobileNumber])
-            return f;
-    }
-    return nil;
-}
-
 + (NSUInteger)count
 {
     return [self MR_countOfEntitiesWithContext:[self _context]];
-}
-
-+ (NSUInteger)everSentNonInviteeFriendsCount
-{
-    NSArray *result = [self _allEverSentFriends];
-    return [result count];
 }
 
 
@@ -146,30 +110,10 @@ static NSMutableSet *videoStatusNotificationDelegates;
 //----------------
 #pragma mark Incoming Videos
 
-- (NSSet *)incomingVideos
-{
-    return self.videos;
-}
-
-- (BOOL)hasIncomingVideo
-{
-    return [self.videos count] > 0;
-}
-
 - (NSArray *)sortedIncomingVideos
 {
     NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"videoId" ascending:YES];
     return [self.videos sortedArrayUsingDescriptors:@[d]];
-}
-
-- (TBMVideo *)oldestIncomingVideo
-{
-    return [[self sortedIncomingVideos] firstObject];
-}
-
-- (NSString *)oldestIncomingVideoId
-{
-    return [self oldestIncomingVideo].videoId;
 }
 
 - (TBMVideo *)newestIncomingVideo
@@ -188,28 +132,6 @@ static NSMutableSet *videoStatusNotificationDelegates;
     return false;
 }
 
-- (BOOL)hasDownloadingVideo
-{
-    NSArray* videos = [self.videos.allObjects copy];
-    for (TBMVideo *v in videos)
-    {
-        if (v.statusValue == ZZVideoIncomingStatusDownloading)
-            return YES;
-    }
-    return NO;
-}
-
-- (BOOL)hasRetryingDownload
-{
-    NSArray* videos = [self.videos.allObjects copy];
-    for (TBMVideo *v in videos)
-    {
-        if ([v.downloadRetryCount intValue] > 0)
-            return YES;
-    }
-    return NO;
-}
-
 - (BOOL)isNewestIncomingVideo:(TBMVideo *)video
 {
     return [video isEqual:[self newestIncomingVideo]];
@@ -223,18 +145,9 @@ static NSMutableSet *videoStatusNotificationDelegates;
     return video;
 }
 
-- (void)deleteAllVideos
-{
-    NSArray* videos = [self.videos.allObjects copy];
-    for (TBMVideo *v in videos)
-    {
-        [self deleteVideo:v];
-    }
-}
-
 - (void)deleteAllViewedOrFailedVideos
 {
-    OB_INFO(@"deleteAllViewedVideos");
+    ZZLogInfo(@"deleteAllViewedVideos");
     NSArray *all = [self sortedIncomingVideos];
     for (TBMVideo *v in all)
     {
@@ -254,59 +167,52 @@ static NSMutableSet *videoStatusNotificationDelegates;
     [self.managedObjectContext MR_saveToPersistentStoreAndWait];
 }
 
-- (TBMVideo *)firstPlayableVideo
-{
-    TBMVideo *video = nil;
-    for (TBMVideo *v in [self sortedIncomingVideos])
-    {
-        if ([ZZVideoDataProvider videoFileExistsForVideo:v])
-        {
-            video = v;
-            break;
-        }
-    }
-    return video;
-}
+//- (TBMVideo *)firstPlayableVideo
+//{
+//    TBMVideo *video = nil;
+//    for (TBMVideo *v in [self sortedIncomingVideos])
+//    {
+//        if ([ZZVideoDataProvider videoFileExistsForVideo:v])
+//        {
+//            video = v;
+//            break;
+//        }
+//    }
+//    return video;
+//}
+//
+//- (TBMVideo *)nextPlayableVideoAfterVideoId:(NSString *)videoId
+//{
+//    for (TBMVideo *v in [self sortedIncomingVideos])
+//    {
+//        if ([TBMVideoIdUtils isvid1:v.videoId newerThanVid2:videoId] && [ZZVideoDataProvider videoFileExistsForVideo:v])
+//            return v;
+//    }
+//    return nil;
+//}
 
-- (TBMVideo *)nextPlayableVideoAfterVideoId:(NSString *)videoId
-{
-    for (TBMVideo *v in [self sortedIncomingVideos])
-    {
-        if ([TBMVideoIdUtils isvid1:v.videoId newerThanVid2:videoId] && [ZZVideoDataProvider videoFileExistsForVideo:v])
-            return v;
-    }
-    return nil;
-}
-
-- (TBMVideo *)firstUnviewedVideo
-{
-    TBMVideo *video = nil;
-    for (TBMVideo *v in [self sortedIncomingVideos])
-    {
-        if (v.statusValue == ZZVideoIncomingStatusDownloaded && [ZZVideoDataProvider videoFileExistsForVideo:v])
-        {
-            video = v;
-            break;
-        }
-    }
-    return video;
-}
+//- (TBMVideo *)firstUnviewedVideo
+//{
+//    TBMVideo *video = nil;
+//    for (TBMVideo *v in [self sortedIncomingVideos])
+//    {
+//        if (v.statusValue == ZZVideoIncomingStatusDownloaded && [ZZVideoDataProvider videoFileExistsForVideo:v])
+//        {
+//            video = v;
+//            break;
+//        }
+//    }
+//    return video;
+//}
 
 - (TBMVideo *)nextUnviewedVideoAfterVideoId:(NSString *)videoId
 {
-    DebugLog(@"nextUnviewedVideoAfterVideoId");
     for (TBMVideo *v in [self sortedIncomingVideos])
     {
         if ([TBMVideoIdUtils isvid1:v.videoId newerThanVid2:videoId] && [ZZVideoDataProvider videoFileExistsForVideo:v] && v.statusValue == ZZVideoIncomingStatusDownloaded)
             return v;
     }
     return nil;
-}
-
-
-- (BOOL)incomingVideoNotViewed
-{
-    return [self unviewedCount] > 0;
 }
 
 - (NSInteger)unviewedCount
@@ -373,14 +279,14 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (void)notifyVideoStatusChange
 {
-    DebugLog(@"notifyVideoStatusChange for %@ on %lu delegates", self.firstName, (unsigned long) [videoStatusNotificationDelegates count]);
+    ZZLogInfo(@"notifyVideoStatusChange for %@ on %lu delegates", self.firstName, (unsigned long) [videoStatusNotificationDelegates count]);
     for (id <TBMVideoStatusNotificationProtocol> delegate in videoStatusNotificationDelegates)
     {
         [delegate videoStatusDidChange:self];
     }
 }
 
-- (NSString *)videoStatusString
+- (NSString*)videoStatusString
 {
     if (self.lastVideoStatusEventTypeValue == OUTGOING_VIDEO_STATUS_EVENT_TYPE)
     {
@@ -392,7 +298,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
     }
 }
 
-- (NSString *)incomingVideoStatusString
+- (NSString*)incomingVideoStatusString
 {
     TBMVideo *v = [self newestIncomingVideo];
     if (v == NULL)
@@ -408,16 +314,18 @@ static NSMutableSet *videoStatusNotificationDelegates;
         {
             return [NSString stringWithFormat:@"Dwnld r%@", v.downloadRetryCount];
         }
-    } else if (v.statusValue == ZZVideoIncomingStatusFailedPermanently)
+    }
+    else if (v.statusValue == ZZVideoIncomingStatusFailedPermanently)
     {
         return @"Downloading e!";
-    } else
+    }
+    else
     {
         return [self displayName];
     }
 }
 
-- (NSString *)outgoingVideoStatusString
+- (NSString*)outgoingVideoStatusString
 {
     NSString *statusString;
     switch (self.outgoingVideoStatusValue)
@@ -429,7 +337,8 @@ static NSMutableSet *videoStatusNotificationDelegates;
             if (self.uploadRetryCountValue == 0)
             {
                 statusString = @"p...";
-            } else
+            }
+            else
             {
                 statusString = [NSString stringWithFormat:@"r%ld...", (long) [self.uploadRetryCount integerValue]];
             }
@@ -467,13 +376,13 @@ static NSMutableSet *videoStatusNotificationDelegates;
     [ZZContentDataAcessor refreshContext:self.managedObjectContext];
     if (![videoId isEqualToString:self.outgoingVideoId])
     {
-        OB_WARN(@"setAndNotifyOutgoingVideoStatus: Unrecognized vidoeId:%@. != ougtoingVid:%@. friendId:%@ Ignoring.", videoId, self.outgoingVideoId, self.idTbm);
+        ZZLogWarning(@"setAndNotifyOutgoingVideoStatus: Unrecognized vidoeId:%@. != ougtoingVid:%@. friendId:%@ Ignoring.", videoId, self.outgoingVideoId, self.idTbm);
         return;
     }
 
     if (status == self.outgoingVideoStatusValue)
     {
-        OB_WARN(@"setAndNotifyOutgoingVideoStatusWithVideo: Identical status. Ignoring.");
+        ZZLogWarning(@"setAndNotifyOutgoingVideoStatusWithVideo: Identical status. Ignoring.");
         return;
     }
 
@@ -490,7 +399,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
     [ZZContentDataAcessor refreshContext:self.managedObjectContext];
     if (video.statusValue == status)
     {
-        OB_WARN(@"setAndNotifyIncomingVideoStatusWithVideo: Identical status. Ignoring.");
+        ZZLogWarning(@"setAndNotifyIncomingVideoStatusWithVideo: Identical status. Ignoring.");
         return;
     }
 
@@ -526,7 +435,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
     [ZZContentDataAcessor refreshContext:self.managedObjectContext];
     if (![videoId isEqualToString:self.outgoingVideoId])
     {
-        OB_WARN(@"setAndNotifyUploadRetryCount: Unrecognized vidoeId. Ignoring.");
+        ZZLogWarning(@"setAndNotifyUploadRetryCount: Unrecognized vidoeId. Ignoring.");
         return;
     }
 
@@ -539,7 +448,7 @@ static NSMutableSet *videoStatusNotificationDelegates;
     }
     else
     {
-        OB_WARN(@"retryCount:%ld equals self.retryCount:%@. Ignoring.", (long)retryCount, self.uploadRetryCount);
+        ZZLogWarning(@"retryCount:%ld equals self.retryCount:%@. Ignoring.", (long)retryCount, self.uploadRetryCount);
     }
 }
 

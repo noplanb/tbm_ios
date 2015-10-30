@@ -21,6 +21,7 @@
 #import "TBMVideoRecorder.h"
 #import "TBMVideoIdUtils.h"
 #import "NSError+ZZAdditions.h"
+#import "ZZFriendDataProvider.h"
 
 NSString* const kVideoProcessorDidFinishProcessing = @"TBMVideoProcessorDidFinishProcessing";
 NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing";
@@ -466,12 +467,12 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         return;
     }
     
-    ZZLogInfo(@"didFinishRecording success friend:%@ videoId:%@",
-            [TBMVideoIdUtils friendWithOutgoingVideoUrl:outputFileURL].firstName,
-            [TBMVideoIdUtils videoIdWithOutgoingVideoUrl:outputFileURL]);
+    ZZFileTransferMarkerDomainModel* marker = [TBMVideoIdUtils markerModelWithOutgoingVideoURL:outputFileURL];
+    TBMFriend *friend = [ZZFriendDataProvider friendEntityWithItemID:marker.friendID];
     
+    ZZLogInfo(@"didFinishRecording success friend:%@ videoId:%@", friend.firstName, marker.videoID);
     
-     [self _recordingResultSuccess:YES];
+    [self _recordingResultSuccess:YES];
     
     [[[TBMVideoProcessor alloc] init] processVideoWithUrl:outputFileURL];
 }

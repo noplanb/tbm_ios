@@ -19,7 +19,7 @@
 #pragma mark - Fetches
 
 + (NSArray*)loadAllGridsSortByIndex:(BOOL)shouldSortByIndex;
-+ (ZZGridDomainModel*)modelWithIndex:(NSInteger)index;
+//+ (ZZGridDomainModel*)modelWithIndex:(NSInteger)index;
 
 + (ZZGridDomainModel*)modelWithRelatedUserID:(NSString*)userID;
 + (BOOL)isRelatedUserOnGridWithID:(NSString*)userID;
@@ -38,9 +38,9 @@
 + (TBMGridElement*)findWithFriend:(TBMFriend *)item;
 
 
-#pragma mark - Entities
-
-+ (BOOL)friendIsOnGrid:(TBMFriend *)item;
-+ (BOOL)hasSentVideos:(NSUInteger)index;
+//#pragma mark - Entities
+//
+//+ (BOOL)friendIsOnGrid:(TBMFriend *)item;
+//+ (BOOL)hasSentVideos:(NSUInteger)index;
 
 @end

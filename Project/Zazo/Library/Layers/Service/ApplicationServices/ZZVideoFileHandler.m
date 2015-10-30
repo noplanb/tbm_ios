@@ -24,7 +24,6 @@
 #import "ZZVideoNetworkTransportService.h"
 #import "ZZFileTransferMarkerDomainModel.h"
 #import "ZZVideoStatuses.h"
-#import "ZZVideoUtils.h"
 
 @interface ZZVideoFileHandler () <OBFileTransferDelegate>
 
@@ -70,7 +69,7 @@
 
 - (void)handleBackgroundSessionWithIdentifier:(NSString*)identifier completionHandler:(ANCodeBlock)completionHandler
 {
-    ZZLogInfo(@"handleEventsForBackgroundURLSession: for sessionId=%@",identifier);
+    ZZLogInfo(@"handleEventsForBackgroundURLSession: for sessionId=%@", [NSObject an_safeString:identifier]);
     if ([[self.fileTransferManager session].configuration.identifier isEqualToString:identifier])
     {
         self.fileTransferManager.backgroundSessionCompletionHandler = completionHandler;
@@ -137,17 +136,15 @@
     ZZLogInfo(@"fileTransferRetrying");
     [self.delegate requestBackground];
     
-    TBMFriend *friend = [TBMVideoIdUtils friendWithMarker:marker];
-    NSString *videoId = [TBMVideoIdUtils videoIdWithMarker:marker];
+    ZZFileTransferMarkerDomainModel* markerModel = [ZZFileTransferMarkerDomainModel modelWithEncodedMarker:marker];
     
-    BOOL isUpload = [TBMVideoIdUtils isUploadWithMarker:marker];
-    if (isUpload)
+    if (markerModel.isUpload)
     {
-        [self uploadRetryingWithFriendID:friend.idTbm videoId:videoId retryCount:attemptCount];
+        [self uploadRetryingWithFriendID:markerModel.friendID videoId:markerModel.videoID retryCount:attemptCount];
     }
     else
     {
-        [self downloadRetryingWithFriendID:friend.idTbm videoId:videoId retryCount:attemptCount];
+        [self downloadRetryingWithFriendID:markerModel.friendID videoId:markerModel.videoID retryCount:attemptCount];
     }
 }
 
@@ -213,7 +210,7 @@
 {
     ZZLogInfo(@"uploadWithVideoUrl %@", videoUrl);
     
-    NSString *marker = [TBMVideoIdUtils markerWithOutgoingVideoUrl:videoUrl];
+    NSString *marker = [videoUrl URLByDeletingPathExtension].lastPathComponent;
     ZZFileTransferMarkerDomainModel* markerModel = [ZZFileTransferMarkerDomainModel modelWithEncodedMarker:marker];
     
     
@@ -449,13 +446,13 @@
 
 - (void)restartDownloadWithVideo:(TBMVideo *)video
 {
-    NSString *marker = [TBMVideoIdUtils markerWithVideo:video isUpload:NO];
+    NSString *marker = [TBMVideoIdUtils markerWithFriendID:[video friend].idTbm videoID:video.videoId isUpload:NO];
     [[self fileTransferManager] restartTransfer:marker onComplete:nil];
 }
 
 - (NSDictionary *)infoWithVideo:(TBMVideo *)video isUpload:(BOOL)isUpload allInfo:(NSArray *)allInfo
 {
-    NSString* marker = [TBMVideoIdUtils markerWithVideo:video isUpload:isUpload];
+    NSString* marker = [TBMVideoIdUtils markerWithFriendID:[video friend].idTbm videoID:video.videoId isUpload:isUpload];
     for (NSDictionary* object in allInfo)
     {
         NSString* dMarker = [object objectForKey:MarkerKey];
@@ -508,7 +505,7 @@
         [friend setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloading video:video];
         [self.delegate updateBadgeCounter];
         
-        NSString *marker = [TBMVideoIdUtils markerWithFriend:friend videoId:videoId isUpload:NO];
+        NSString *marker = [TBMVideoIdUtils markerWithFriendID:friend.idTbm videoID:videoId isUpload:NO];
         
         NSString *remoteFilename = [ZZRemoteStorageValueGenerator incomingVideoRemoteFilenameWithFriendMkey:video.friend.mkey
                                                                                                  friendCKey:video.friend.ckey

@@ -20,11 +20,8 @@ const struct ZZKeyStoreIncomingVideoIdsDomainModelAttributes ZZKeyStoreIncomingV
 {
     return [FEMObjectMapping mappingForClass:[self class] configuration:^(FEMObjectMapping *mapping) {
         
-        [mapping addAttributesFromDictionary:
-            @{
-              ZZKeyStoreIncomingVideoIdsDomainModelAttributes.friendMkey    : @"mkey",
-              ZZKeyStoreIncomingVideoIdsDomainModelAttributes.videoIds      : @"video_ids",
-              }
+        [mapping addAttributesFromDictionary:@{ZZKeyStoreIncomingVideoIdsDomainModelAttributes.friendMkey    : @"mkey",
+              ZZKeyStoreIncomingVideoIdsDomainModelAttributes.videoIds      : @"video_ids"}
          ];
     }];
 }

@@ -9,13 +9,10 @@
 #import "ZZGridDataProvider.h"
 #import "ZZGridModelsMapper.h"
 #import "MagicalRecord.h"
-#import "ZZUserDataProvider.h"
-#import "ZZGridUIConstants.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZGridDataUpdater.h"
 #import "ZZUserFriendshipStatusHandler.h"
 #import "ZZContactDomainModel.h"
-#import "ZZPhoneHelper.h"
 #import "ZZContentDataAcessor.h"
 
 @implementation ZZGridDataProvider
@@ -49,13 +46,13 @@
     return (TBMGridElement*)object;
 }
 
-+ (ZZGridDomainModel*)modelWithIndex:(NSInteger)index
-{
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementAttributes.index, @(index)];
-    TBMGridElement* entity = [[TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]] firstObject];
-    
-    return [self modelFromEntity:entity];
-}
+//+ (ZZGridDomainModel*)modelWithIndex:(NSInteger)index
+//{
+//    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementAttributes.index, @(index)];
+//    TBMGridElement* entity = [[TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]] firstObject];
+//
+//    return [self modelFromEntity:entity];
+//}
 
 + (ZZGridDomainModel*)modelWithRelatedUserID:(NSString*)userID
 {
@@ -191,17 +188,17 @@
 
 
 #pragma mark - Entities
-
-+ (BOOL)friendIsOnGrid:(TBMFriend *)friend
-{
-    return [self findWithFriend:friend] != nil;
-}
-
-+ (BOOL)hasSentVideos:(NSUInteger)index
-{
-    TBMFriend *friend = [self findWithIntIndex:index].friend;
-    return [friend hasOutgoingVideo];
-}
+//
+//+ (BOOL)friendIsOnGrid:(TBMFriend *)friend
+//{
+//    return [self findWithFriend:friend] != nil;
+//}
+//
+//+ (BOOL)hasSentVideos:(NSUInteger)index
+//{
+//    TBMFriend *friend = [self findWithIntIndex:index].friend;
+//    return [friend hasOutgoingVideo];
+//}
 
 
 #pragma mark - Private

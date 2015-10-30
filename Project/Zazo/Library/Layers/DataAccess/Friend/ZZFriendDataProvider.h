@@ -15,7 +15,7 @@
 #pragma mark - Fetches
 
 + (NSArray*)loadAllFriends;
-+ (ZZFriendDomainModel*)friendWithOutgoingVideoItemID:(NSString*)videoItemID;
+//+ (ZZFriendDomainModel*)friendWithOutgoingVideoItemID:(NSString*)videoItemID;
 + (ZZFriendDomainModel*)friendWithItemID:(NSString*)itemID;
 + (ZZFriendDomainModel*)friendWithMKeyValue:(NSString*)mKeyValue;
 + (ZZFriendDomainModel*)lastActionFriendWihoutGrid;
@@ -24,7 +24,7 @@
 
 #pragma mark - Count
 
-+ (NSInteger)friendsCount;
+//+ (NSInteger)friendsCount;
 
 
 #pragma mark - Entities
@@ -34,8 +34,8 @@
 
 #pragma mark - CRUD
 
-+ (void)upsertFriendWithModel:(ZZFriendDomainModel*)model;
-+ (void)deleteFriendWithID:(NSString*)itemID;
+//+ (void)upsertFriendWithModel:(ZZFriendDomainModel*)model;
+//+ (void)deleteFriendWithID:(NSString*)itemID;
 
 + (void)deleteAllFriendsModels;
 

@@ -10,6 +10,7 @@
 #import "TBMVideoIdUtils.h"
 #import "ZZVideoRecorder.h" // TODO: for constants
 #import "ZZDeviceHandler.h"
+#import "ZZFriendDataProvider.h"
 
 //NSString* const TBMVideoRecorderDidFinishRecording = @"TBMVideoRecorderDidFinishRecording";
 //NSString* const TBMVideoRecorderShouldStartRecording = @"TBMVideoRecorderShouldStartRecording";
@@ -248,10 +249,10 @@ static int videoRecorderRetryCount = 0;
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
     self.didCancelRecording = NO;
     
-    ZZLogInfo(@"VideoRecorder#Start recording to %@ videoId:%@",
-            [TBMVideoIdUtils friendWithOutgoingVideoUrl:videoUrl].firstName,
-            [TBMVideoIdUtils videoIdWithOutgoingVideoUrl:videoUrl]);
+    ZZFileTransferMarkerDomainModel* marker = [TBMVideoIdUtils markerModelWithOutgoingVideoURL:videoUrl];
+    TBMFriend *friend = [ZZFriendDataProvider friendEntityWithItemID:marker.friendID];
     
+    ZZLogInfo(@"VideoRecorder#Start recording to %@ videoId:%@", friend.firstName, marker.videoID);
     
     [self.delegate videoRecorderDidStartRecording];
     [self.captureOutput startRecordingToOutputFileURL:videoUrl recordingDelegate:self];

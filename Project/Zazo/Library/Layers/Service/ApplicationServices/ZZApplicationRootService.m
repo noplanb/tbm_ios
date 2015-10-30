@@ -108,11 +108,10 @@
 - (void)_videoProcessorDidFinishProcessingNotification:(NSNotification *)notification
 {
     NSURL *videoUrl = [notification.userInfo objectForKey:@"videoUrl"];
-    
-    TBMFriend *friend = [TBMVideoIdUtils friendWithOutgoingVideoUrl:videoUrl];
-    NSString *videoId = [TBMVideoIdUtils videoIdWithOutgoingVideoUrl:videoUrl];
-    
-    [friend handleOutgoingVideoCreatedWithVideoId:videoId];
+    ZZFileTransferMarkerDomainModel* marker = [TBMVideoIdUtils markerModelWithOutgoingVideoURL:videoUrl];
+
+    TBMFriend *friend = [ZZFriendDataProvider friendEntityWithItemID:marker.friendID];
+    [friend handleOutgoingVideoCreatedWithVideoId:marker.videoID];
     
     [self.videoFileHandler uploadWithVideoUrl:videoUrl friendCKey:friend.ckey];
 }
@@ -124,6 +123,7 @@
     if ([ZZUserDataProvider authenticatedUser].isRegistered)
     {
         [[ZZApplicationPermissionsHandler checkApplicationPermissions] subscribeNext:^(id x) {
+          
             [ZZNotificationsHandler registerToPushNotifications];
             
             [ZZVideoDataProvider printAll];

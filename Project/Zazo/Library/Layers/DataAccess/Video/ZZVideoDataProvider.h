@@ -22,6 +22,7 @@
 + (TBMVideo*)entityWithID:(NSString*)itemID;
 + (NSArray*)downloadingEntities;
 
+
 #pragma mark - Count
 
 + (NSUInteger)countDownloadedUnviewedVideos;
@@ -32,9 +33,9 @@
 
 #pragma mark - Load
 
-+ (NSArray*)loadUnviewedVideos; // TODO: load with status ?
-+ (NSArray*)loadDownloadingVideos;
-+ (NSArray*)loadAllVideos;
+//+ (NSArray*)loadUnviewedVideos; // TODO: load with status ?
+//+ (NSArray*)loadDownloadingVideos;
+//+ (NSArray*)loadAllVideos;
 
 
 + (NSArray*)sortedIncomingVideosForUser:(ZZFriendDomainModel*)friendModel;
@@ -42,7 +43,7 @@
 
 #pragma mark - Mapping
 
-+ (TBMVideo*)entityFromModel:(ZZVideoDomainModel*)model;
+//+ (TBMVideo*)entityFromModel:(ZZVideoDomainModel*)model;
 + (ZZVideoDomainModel*)modelFromEntity:(TBMVideo*)entity;
 
 
@@ -51,8 +52,8 @@
 + (void)printAll;
 + (NSURL *)videoUrlWithVideo:(TBMVideo*)video;
 + (BOOL)videoFileExistsForVideo:(TBMVideo*)video;
-+ (unsigned long long)videoFileSizeForVideo:(TBMVideo*)video;
-+ (BOOL)hasValidVideoFileWithVideo:(TBMVideo*)video;
+//+ (unsigned long long)videoFileSizeForVideo:(TBMVideo*)video;
+//+ (BOOL)hasValidVideoFileWithVideo:(TBMVideo*)video;
 + (BOOL)isStatusDownloadingWithVideo:(TBMVideo*)video;
 
 @end
