@@ -295,15 +295,15 @@
         return;
     }
     
-    [self deleteRemoteFileAndVideoId:video];
-    
     if (error != nil)
     {
         ZZLogError(@"downloadCompletedWithFriend %@", error);
         [friend setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusFailedPermanently video:video];
+        [self deleteRemoteFileAndVideoId:video];
         return;
     }
     
+    [self deleteRemoteFileAndVideoId:video];
     ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:video];
     //    NSURL* videoUrl = videoModel.videoURL;
     

@@ -102,13 +102,13 @@ ZZGridCenterCellViewModelDelegate
     
     if (model.relatedUser.unviewedCount > 0)
     {
-        viewModel.prevBadgeNumber = @(model.relatedUser.unviewedCount);
-        viewModel.badgeNumber = @(model.relatedUser.unviewedCount);
+        viewModel.prevBadgeNumber = model.relatedUser.unviewedCount;
+        viewModel.badgeNumber = model.relatedUser.unviewedCount;
     }
     else
     {
-        viewModel.prevBadgeNumber = @(0);
-        viewModel.badgeNumber = @(0);
+        viewModel.prevBadgeNumber = 0;
+        viewModel.badgeNumber = 0;
     }
 }
 

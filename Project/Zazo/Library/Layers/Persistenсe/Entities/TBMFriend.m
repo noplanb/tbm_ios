@@ -220,8 +220,8 @@ static NSMutableSet *videoStatusNotificationDelegates;
     NSInteger i = 0;
     for (TBMVideo *v in [self videos])
     {
-        if (v.statusValue == ZZVideoIncomingStatusDownloaded ||
-            v.statusValue == ZZVideoIncomingStatusDownloading)
+        if (v.statusValue == ZZVideoIncomingStatusDownloaded) //||
+           // v.statusValue == ZZVideoIncomingStatusDownloading)
         {
              i++;
         }

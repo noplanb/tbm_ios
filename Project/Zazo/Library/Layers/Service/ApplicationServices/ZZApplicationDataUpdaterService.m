@@ -109,11 +109,11 @@
             ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.friendMkey];
             if (friendModel.idTbm)
             {
-                if (friendModel.videos.count)
-                {
+//                if (friendModel.videos.count)
+//                {
                     ZZLogInfo(@"%@  vids = %@", [NSObject an_safeString:[friendModel fullName]], model.videoIds ? : @[]);
                     [self queueDownloadWithFriendID:friendModel.idTbm videoIds:model.videoIds];
-                }
+//                }
             }
         }
     }];
