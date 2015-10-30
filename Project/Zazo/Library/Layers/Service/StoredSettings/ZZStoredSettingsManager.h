@@ -22,6 +22,7 @@ typedef NS_ENUM(NSUInteger, ZZConfigServerState) {
 
 @property (nonatomic, strong) NSString* serverURLString;
 @property (nonatomic, assign) ZZConfigServerState serverEndpointState;
+@property (nonatomic, assign) BOOL isPushNotificatonEnabled;
 
 
 #pragma mark - Messages

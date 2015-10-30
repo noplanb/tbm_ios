@@ -32,6 +32,11 @@
     }];
 }
 
+- (void)updateAllDataWithoutRequest
+{
+    [self _pollAllFriends];
+}
+
 - (void)updateApplicationBadge
 {
     OB_INFO(@"setBadgeNumberDownloadedUnviewed = %li", (long)[ZZVideoDataProvider countTotalUnviewedVideos]);

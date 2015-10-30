@@ -250,7 +250,7 @@
     }
     else if (event == ZZRootStateObserverEventsFriendsAfterAuthorizationLoaded)
     {
-        [self.dataUpdater updateAllData];
+        [self.dataUpdater updateAllDataWithoutRequest];
     }
 }
 

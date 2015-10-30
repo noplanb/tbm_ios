@@ -28,23 +28,27 @@
 
 + (void)registerToPushNotifications
 {
-    OB_INFO(@"registerForPushNotification");
-    if ([self _isIOS8OrHigher])
+    
+    if ([ZZStoredSettingsManager shared].isPushNotificatonEnabled)
     {
-        OB_INFO(@"registerForPushNotification: ios8+");
-        UIUserNotificationType types = UIUserNotificationTypeBadge |
-        UIUserNotificationTypeSound |
-        UIUserNotificationTypeAlert;
-        
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-    }
-    else
-    {
-        OB_INFO(@"registerForPushNotification: < ios8");
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert |
-                                                                               UIRemoteNotificationTypeSound |
-                                                                               UIRemoteNotificationTypeBadge)];
+        OB_INFO(@"registerForPushNotification");
+        if ([self _isIOS8OrHigher])
+        {
+            OB_INFO(@"registerForPushNotification: ios8+");
+            UIUserNotificationType types = UIUserNotificationTypeBadge |
+            UIUserNotificationTypeSound |
+            UIUserNotificationTypeAlert;
+            
+            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        }
+        else
+        {
+            OB_INFO(@"registerForPushNotification: < ios8");
+            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert |
+                                                                                   UIRemoteNotificationTypeSound |
+                                                                                   UIRemoteNotificationTypeBadge)];
+        }
     }
 }
 

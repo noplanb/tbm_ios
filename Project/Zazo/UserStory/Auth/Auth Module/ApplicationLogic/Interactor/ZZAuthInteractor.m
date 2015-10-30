@@ -44,7 +44,7 @@
 #ifdef DEBUG_LOGIN_USER
     user.firstName = @"DDDD";
     user.lastName = @"DDDD";
-    user.mobileNumber = @"+380912233445";
+    user.mobileNumber = @"+380912233450";
 #endif
     
     if (!ANIsEmpty(user.mobileNumber))
@@ -118,6 +118,7 @@
         
         [self loadFriends];
         
+        [ZZStoredSettingsManager shared].isPushNotificatonEnabled = YES;
         [ZZNotificationsHandler registerToPushNotifications];
         
         [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventsUserAuthorized];
