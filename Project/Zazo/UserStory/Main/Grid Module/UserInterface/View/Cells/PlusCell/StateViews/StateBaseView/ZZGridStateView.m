@@ -117,6 +117,10 @@
     {
         [self _setupGreenColorsWithModel:model];
     }
+    else if (model.state & ZZGridCellViewModelStateNeedToShowGreenBorder)
+    {
+        [self _setupGreenColorsWithModel:model];
+    }
     else
     {
         [self _setupGrayColorsWithModel:model];

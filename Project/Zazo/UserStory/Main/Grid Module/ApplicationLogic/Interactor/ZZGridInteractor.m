@@ -294,7 +294,8 @@ static NSInteger const kGridFriendsCellCount = 8;
     }
     else if (gridModel &&
              !ANIsEmpty(gridModel.relatedUser) &&
-             !gridModel.isDownloadAnimationViewed)
+             !gridModel.isDownloadAnimationViewed &&
+             gridModel.relatedUser.lastIncomingVideoStatus != ZZVideoIncomingStatusFailedPermanently)
     {
         [self.output reloadAfterVideoUpdateGridModel:gridModel];
     }
