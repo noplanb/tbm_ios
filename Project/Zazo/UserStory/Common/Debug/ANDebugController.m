@@ -43,13 +43,13 @@ typedef NS_ENUM(NSInteger, ANSections)
 
 
 - (void)ensureAudioSession {
-    OB_INFO(@"ensureAudioSession");
+    ZZLogInfo(@"ensureAudioSession");
     [[AVAudioSession sharedInstance] setupApplicationAudioSession];
     if ([[AVAudioSession sharedInstance] activate] != nil){
-        OB_INFO(@"Boot: No Audio Session");
+        ZZLogInfo(@"Boot: No Audio Session");
 //        [self alertEndProbablePhoneCall];
     } else {
-        OB_INFO(@"Boot: Audio Session Granted");
+        ZZLogInfo(@"Boot: Audio Session Granted");
         /**
          * Note that we call onResources available BEFORE we ensurePushNotification because on IOS7
          * we do not get any callback if user declines notifications.

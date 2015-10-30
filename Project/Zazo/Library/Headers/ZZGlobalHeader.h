@@ -54,12 +54,15 @@ static NSString* const kGlobalApplicationVersion = @"37";
 #import "ZZConstants.h"
 
 
-#define DEBUG_MODE
-#ifdef DEBUG_MODE
-#define DebugLog( s, ... ) NSLog( @"<%@:(%d)> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
-#else
-#define DebugLog( s, ... )
-#endif
+#define ZZLogInfo(s, ... ) OB_INFO(@"<%@:(%d)> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+
+#define ZZLogWarning(s, ... ) OB_WARN(@"<%@:(%d)> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+
+#define ZZLogError(s, ... ) OB_ERROR(@"<%@:(%d)> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+
+#define ZZLogDebug(s, ... ) OB_DEBUG(@"<%@:(%d)> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+
+#define ZZLogEvent(s, ... ) OB_EVENT(@"<%@:(%d)> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
 
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 
@@ -67,3 +70,8 @@ static NSString* const kGlobalApplicationVersion = @"37";
 
 
 typedef void(^ZZBoolBlock)(BOOL isSuccess);
+
+
+
+
+

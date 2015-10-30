@@ -175,7 +175,7 @@ static NSString *const kArraySeparator = @",";
 // Convenience setters
 //+ (void)addRemoteOutgoingVideoId:(NSString *)videoId friend:(TBMFriend *)friend
 //{
-//    OB_INFO(@"addRemoteOutgoingVideoId");
+//    ZZLogInfo(@"addRemoteOutgoingVideoId");
 //    NSDictionary *value = @{REMOTE_STORAGE_VIDEO_ID_KEY : videoId};
 //    NSString *key1 = [TBMRemoteStorageHandler outgoingVideoIDRemoteKVKey:friend];
 //    [TBMRemoteStorageHandler setRemoteKVWithKey1:key1 key2:videoId value:value];
@@ -183,14 +183,14 @@ static NSString *const kArraySeparator = @",";
 
 //+ (void)deleteRemoteIncomingVideoId:(NSString *)videoId friend:(TBMFriend *)friend
 //{
-//    OB_INFO(@"deleteRemoteIncomingVideoId");
+//    ZZLogInfo(@"deleteRemoteIncomingVideoId");
 //    NSString *key1 = [TBMRemoteStorageHandler incomingVideoIDRemoteKVKey:friend];
 //    [TBMRemoteStorageHandler deleteRemoteKVWithKey1:key1 key2:videoId];
 //}
 
 //+ (void)setRemoteIncomingVideoStatus:(NSString *)status videoId:(NSString *)videoId friend:(TBMFriend *)friend
 //{
-//    OB_INFO(@"setRemoteIncomingVideoStatus");
+//    ZZLogInfo(@"setRemoteIncomingVideoStatus");
 //    NSDictionary *value = @{REMOTE_STORAGE_VIDEO_ID_KEY : videoId, REMOTE_STORAGE_STATUS_KEY : status};
 //    NSString *key = [TBMRemoteStorageHandler incomingVideoStatusRemoteKVKey:friend];
 //    [TBMRemoteStorageHandler setRemoteKVWithKey1:key key2:NULL value:value];
@@ -201,7 +201,7 @@ static NSString *const kArraySeparator = @",";
 //+ (void)getRemoteIncomingVideoIdsWithFriend:(TBMFriend *)friend gotVideoIds:(void (^)(NSArray *videoIds))gotVideoIds
 //{
 ////    __block TBMFriend* someFriend = friend;
-//    OB_INFO(@"getRemoteIncomingVideoIdsWithFriend:");
+//    ZZLogInfo(@"getRemoteIncomingVideoIdsWithFriend:");
 //    NSString *key1 = [TBMRemoteStorageHandler incomingVideoIDRemoteKVKey:friend];
 //    
 //    [TBMRemoteStorageHandler getRemoteKVsWithKey:key1 success:^(NSArray *response) {
@@ -210,7 +210,7 @@ static NSString *const kArraySeparator = @",";
 //        gotVideoIds(vIds);
 //    
 //    } failure:^(NSError *error) {
-//        OB_WARN(@"getRemoteIncomingVideoIdsWithFriend: failure: %@", error);
+//        ZZLogWarning(@"getRemoteIncomingVideoIdsWithFriend: failure: %@", error);
 //    }];
 //}
 
@@ -231,7 +231,7 @@ static NSString *const kArraySeparator = @",";
 //                             success:(void (^)(NSDictionary *response))success
 //                             failure:(void (^)(NSError *error))failure
 //{
-//    OB_INFO(@"getRemoteOutgoingVideoStatus");
+//    ZZLogInfo(@"getRemoteOutgoingVideoStatus");
 //    NSString *key = [TBMRemoteStorageHandler outgoingVideoStatusRemoteKVKey:friend];
 //    [[TBMHttpManager manager] GET:@"kvstore/get"
 //                       parameters:@{@"key1" : key}
@@ -254,7 +254,7 @@ static NSString *const kArraySeparator = @",";
 //+ (void)getRemoteEverSentFriendsWithSuccess:(void (^)(NSArray *response))success
 //                                    failure:(void (^)(NSError *error))failure
 //{
-//    OB_INFO(@"getRemoteEverSentVideoStatus");
+//    ZZLogInfo(@"getRemoteEverSentVideoStatus");
 //
 //    NSString *key = [self _welcomedFriendsKey];
 //    [[TBMHttpManager manager] GET:@"kvstore/get"
@@ -290,11 +290,11 @@ static NSString *const kArraySeparator = @",";
 //                           success:^(AFHTTPRequestOperation *operation, id responseObject)
 //                           {
 //
-//                               OB_INFO(@"setRemoteEverSentKVForFriendMkey - success for friends %@", mkeys);
+//                               ZZLogInfo(@"setRemoteEverSentKVForFriendMkey - success for friends %@", mkeys);
 //                           }
 //                           failure:^(AFHTTPRequestOperation *operation, NSError *error)
 //                           {
-//                               OB_ERROR(@"setRemoteEverSentKVForFriendMkey - error for friends %@ : %@", mkeys, error);
+//                               ZZLogError(@"setRemoteEverSentKVForFriendMkey - error for friends %@ : %@", mkeys, error);
 //                           }];
 //
 //}
@@ -314,7 +314,7 @@ static NSString *const kArraySeparator = @",";
 //                          }
 //                          failure:^(AFHTTPRequestOperation *operation, NSError *error)
 //                          {
-//                              OB_WARN(@"ERROR: getRemoteKVWithKey: %@", [error localizedDescription]);
+//                              ZZLogWarning(@"ERROR: getRemoteKVWithKey: %@", [error localizedDescription]);
 //                              failure(error);
 //                          }];
 //}

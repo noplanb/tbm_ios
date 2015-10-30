@@ -9,7 +9,6 @@
 #import "ZZApplicationPermissionsHandler.h"
 #import "ZZFileHelper.h"
 #import "TBMAlertController.h"
-#import "SDCAlertController.h"
 
 @import AVFoundation;
 #import "AVAudioSession+TBMAudioSession.h"
@@ -105,7 +104,7 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
 {
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
        
-        OB_INFO(@"ensureAudioSession");
+        ZZLogInfo(@"ensureAudioSession");
         [[AVAudioSession sharedInstance] setupApplicationAudioSession];
         
         BOOL isReady = ([[AVAudioSession sharedInstance] activate] == nil);
@@ -158,11 +157,11 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
 
 + (void)showUserDeclinedPushAccessAlert
 {
-    OB_INFO(@"BOOT: Push access not granted");
+    ZZLogInfo(@"BOOT: Push access not granted");
     if (!hasDeclinedNotifications)
     {
         hasDeclinedNotifications = YES;
-        OB_INFO(@"onFailPushAccess");
+        ZZLogInfo(@"onFailPushAccess");
         NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
         NSString *closeBtn = [NSString stringWithFormat:@"Close %@", appName];
         NSString *msg = @"You must grant permission for NOTIFICATIONS."
@@ -183,7 +182,7 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
 
 + (void)_showNotEnoughFreeStorageAlert
 {
-    OB_INFO(@"Boot: requestStorage");
+    ZZLogInfo(@"Boot: requestStorage");
     NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
     NSString *msg = [NSString stringWithFormat:@"No available storage on device. Close %@. Delete some videos and photos. Be sure to delete permanently from recently deleted folder. Then try again.", appName];
     NSString *closeBtn = [NSString stringWithFormat:@"Close %@", appName];
@@ -202,14 +201,16 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
 
 + (void)_showAudioAccessDeclinedAlert
 {
-    OB_INFO(@"Boot: onAudioAccessNotGranted");
+    ZZLogInfo(@"Boot: onAudioAccessNotGranted");
     NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
     NSString *msg;
     
     if (SYSTEM_VERSION_LESS_THAN(@"8.0"))
     {
         msg = [NSString stringWithFormat:@"You must grant access to MICROPHONE for %@. Please close %@. Go your device home screen. Click Settings/privacy/microphone and grant access for %@.", appName, appName, appName];
-    } else {
+    }
+    else
+    {
         msg = [NSString stringWithFormat:@"You must grant access to MICROPHONE for %@. Please close %@. Go your device home screen. Click Settings/%@ and grant access for MICROPHONE.", appName, appName, appName];
     }
     
@@ -224,7 +225,7 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
 
 + (void)_showVideoAccessDeclinedAlert
 {
-    OB_INFO(@"Boot: onVideoAccessNotGranted");
+    ZZLogInfo(@"Boot: onVideoAccessNotGranted");
     
     NSString *msg;
     NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
@@ -248,7 +249,7 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
 
 + (void)_showUserProbableOnCallAlert
 {
-    OB_INFO(@"alertProbablePhoneCall");
+    ZZLogInfo(@"alertProbablePhoneCall");
     NSString *msg = @"Unable to acquire audio. Perhaps you are on a phone call?";
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"On a Call?" message:msg];
     [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again"

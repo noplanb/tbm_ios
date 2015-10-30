@@ -12,9 +12,6 @@
 
 @class TBMGridElement;
 
-static NSString* const kFriendVideoViewedNotification = @"videoViewedNotification";
-static NSString* const kVideoStartDownloadingNotification = @"videoStartDownloadingNotification";
-
 @protocol TBMVideoStatusNotificationProtocol <NSObject>
 
 - (void)videoStatusDidChange:(TBMFriend *)model;
@@ -45,31 +42,31 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 
 // Finders
 + (NSArray *)all;
-+ (NSUInteger)allUnviewedCount;
-+ (NSUInteger)unviewedCountForGridCellAtIndex:(NSUInteger)index;
+//+ (NSUInteger)allUnviewedCount;
+//+ (NSUInteger)unviewedCountForGridCellAtIndex:(NSUInteger)index;
 + (instancetype)findWithId:(NSString *)idTbm;
 + (instancetype)findWithMkey:(NSString *)mkey;
-+ (instancetype)findWithMatchingPhoneNumber:(NSString *)phone;
+//+ (instancetype)findWithMatchingPhoneNumber:(NSString *)phone;
 + (NSUInteger)count;
-+ (NSUInteger)everSentNonInviteeFriendsCount;
+//+ (NSUInteger)everSentNonInviteeFriendsCount;
 
 // UI
 - (NSString *)displayName;
 
 // Incoming videos
-- (BOOL) hasIncomingVideo;
+//- (BOOL) hasIncomingVideo;
 - (NSArray *) sortedIncomingVideos;
-- (TBMVideo *) oldestIncomingVideo;
-- (NSString *) oldestIncomingVideoId;
+//- (TBMVideo *) oldestIncomingVideo;
+//- (NSString *) oldestIncomingVideoId;
 - (TBMVideo *) newestIncomingVideo;
 - (BOOL) hasIncomingVideoId:(NSString *)videoId;
 - (BOOL) isNewestIncomingVideo:(TBMVideo *)video;
-- (BOOL) hasDownloadingVideo;
-- (BOOL) hasRetryingDownload;
+//- (BOOL) hasDownloadingVideo;
+//- (BOOL) hasRetryingDownload;
 - (TBMVideo *) createIncomingVideoWithVideoId:(NSString *)videoId;
-- (TBMVideo *) firstPlayableVideo;
-- (TBMVideo *) firstUnviewedVideo;
-- (TBMVideo *) nextPlayableVideoAfterVideoId:(NSString *)videoId;
+//- (TBMVideo *) firstPlayableVideo;
+//- (TBMVideo *) firstUnviewedVideo;
+//- (TBMVideo *) nextPlayableVideoAfterVideoId:(NSString *)videoId;
 - (TBMVideo *) nextUnviewedVideoAfterVideoId:(NSString *)videoId;
 - (NSInteger) unviewedCount;
 - (void) deleteAllViewedOrFailedVideos;
@@ -98,7 +95,7 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 - (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount video:(TBMVideo *)video;
 
 - (void)setViewedWithIncomingVideo:(TBMVideo *)video;
-- (BOOL)incomingVideoNotViewed;
+//- (BOOL)incomingVideoNotViewed;
 - (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)status video:(TBMVideo *)video;
 - (void)setAndNotifyOutgoingVideoStatus:(TBMOutgoingVideoStatus)status videoId:(NSString *)videoId;
 - (void)handleOutgoingVideoCreatedWithVideoId:(NSString *)videoId;

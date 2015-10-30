@@ -9,7 +9,6 @@
 #import "ZZAppDelegate.h"
 #import "ZZAppDependencies.h"
 
-
 @interface ZZAppDelegate ()
 
 @property (nonatomic, strong) ZZAppDependencies* appDependencies;
@@ -18,41 +17,38 @@
 
 @implementation ZZAppDelegate
 
-void (^_completionHandler)(UIBackgroundFetchResult);
-
 - (BOOL)application:(UIApplication*)app didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.appDependencies initialApplicationSetup:app launchOptions:launchOptions];
     [self.appDependencies installRootViewControllerIntoWindow:self.window];
-    
     [self.window makeKeyAndVisible];
-    OB_INFO(@"didFinishLaunchingWithOptions:");
     
     return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication*)app
 {
-    [self.appDependencies handleWillResignActive];    OB_INFO(@"applicationWillResignActive");
+    [self.appDependencies handleWillResignActive];
+    ZZLogInfo(@"applicationWillResignActive");
 }
 
 - (void)applicationWillEnterForeground:(UIApplication*)app
 {
     [self.appDependencies handleApplicationWillEnterForeground];
-    OB_INFO(@"applicationWillEnterForeground");
+    ZZLogInfo(@"applicationWillEnterForeground");
 }
 
 - (void)applicationDidBecomeActive:(UIApplication*)app
 {
-    OB_INFO(@"applicationDidBecomeActive");
+    ZZLogInfo(@"applicationDidBecomeActive");
     [self.appDependencies handleApplicationDidBecomeActive];
 }
 
 - (void)applicationWillTerminate:(UIApplication*)app
 {
-    OB_INFO(@"applicationWillTerminate: backgroundTimeRemaining = %f",
-            [[UIApplication sharedApplication] backgroundTimeRemaining]);
+    ZZLogInfo(@"applicationWillTerminate: backgroundTimeRemaining = %f",
+    [[UIApplication sharedApplication] backgroundTimeRemaining]);
 
     [self.appDependencies handleApplicationWillTerminate];
 }

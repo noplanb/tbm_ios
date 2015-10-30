@@ -9,8 +9,6 @@
 @interface ZZFriendsTransportService : NSObject
 
 + (RACSignal*)loadFriendList;
-+ (RACSignal*)loadFriendProfileWithPhone:(NSString*)phone firstName:(NSString*)firstName lastName:(NSString*)lastName;
-
 + (RACSignal*)changeModelContactStatusForUser:(NSString *)userKey toVisible:(BOOL)visible;
 
 

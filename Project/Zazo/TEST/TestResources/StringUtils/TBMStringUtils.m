@@ -42,7 +42,7 @@
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:kNilOptions error:&error];
     if (!jsonData){
-        DebugLog(@"ERROR: setRemoteKVWithKey: %@", error);
+        ZZLogError(@"ERROR: jsonWithDictionary: %@", error);
         jsonString = @"";
     } else {
         jsonString =  [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
@@ -56,7 +56,7 @@
     NSError *error;
     try = [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
     if (error){
-        DebugLog(@"ERROR: jsonToDictionary: %@", [error localizedDescription]);
+        ZZLogError(@"ERROR: jsonToDictionary: %@", [error localizedDescription]);
         result = @{@"error": [error localizedDescription]};
     } else {
         result = try;

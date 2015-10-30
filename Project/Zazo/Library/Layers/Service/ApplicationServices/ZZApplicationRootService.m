@@ -108,22 +108,22 @@
 - (void)_videoProcessorDidFinishProcessingNotification:(NSNotification *)notification
 {
     NSURL *videoUrl = [notification.userInfo objectForKey:@"videoUrl"];
-    
-    TBMFriend *friend = [TBMVideoIdUtils friendWithOutgoingVideoUrl:videoUrl];
-    NSString *videoId = [TBMVideoIdUtils videoIdWithOutgoingVideoUrl:videoUrl];
-    
-    [friend handleOutgoingVideoCreatedWithVideoId:videoId];
+    ZZFileTransferMarkerDomainModel* marker = [TBMVideoIdUtils markerModelWithOutgoingVideoURL:videoUrl];
+
+    TBMFriend *friend = [ZZFriendDataProvider friendEntityWithItemID:marker.friendID];
+    [friend handleOutgoingVideoCreatedWithVideoId:marker.videoID];
     
     [self.videoFileHandler uploadWithVideoUrl:videoUrl friendCKey:friend.ckey];
 }
 
 - (void)checkApplicationPermissionsAndResources
 {
-    OB_INFO(@"performDidBecomeActiveActions: registered: %d", [ZZUserDataProvider authenticatedUser].isRegistered);
+    ZZLogInfo(@"performDidBecomeActiveActions: registered: %d", [ZZUserDataProvider authenticatedUser].isRegistered);
     
     if ([ZZUserDataProvider authenticatedUser].isRegistered)
     {
         [[ZZApplicationPermissionsHandler checkApplicationPermissions] subscribeNext:^(id x) {
+          
             [ZZNotificationsHandler registerToPushNotifications];
             
             [ZZVideoDataProvider printAll];
@@ -141,17 +141,17 @@
 
 - (void)requestBackground
 {
-    OB_INFO(@"AppDelegate: requestBackground: called:");
+    ZZLogInfo(@"AppDelegate: requestBackground: called:");
     if (self.backgroundTaskID == UIBackgroundTaskInvalid ) {
-        OB_INFO(@"AppDelegate: requestBackground: requesting background.");
+        ZZLogInfo(@"AppDelegate: requestBackground: requesting background.");
         self.backgroundTaskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-            OB_INFO(@"AppDelegate: Ending background");
+            ZZLogInfo(@"AppDelegate: Ending background");
             [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTaskID];
             [ZZContentDataAcessor saveDataBase];
             self.backgroundTaskID = UIBackgroundTaskInvalid;
         }];
     }
-    OB_INFO(@"AppDelegate: RequestBackground: exiting: refresh status = %ld, time Remaining = %f",
+    ZZLogInfo(@"AppDelegate: RequestBackground: exiting: refresh status = %ld, time Remaining = %f",
             (long)[UIApplication sharedApplication].backgroundRefreshStatus,
             [UIApplication sharedApplication].backgroundTimeRemaining);
 }
@@ -195,7 +195,7 @@
     
     if (friend == nil)
     {
-        OB_INFO(@"handleVideoReceivedNotification: got notification for non existant friend. calling getAndPollAllFriends");
+        ZZLogInfo(@"handleVideoReceivedNotification: got notification for non existant friend. calling getAndPollAllFriends");
         [self.dataUpdater updateAllData];
         return;
     }
@@ -208,7 +208,7 @@
     
     if (friend == nil)
     {
-        OB_INFO(@"handleVideoStatusUPdateNotification: got notification for non existant friend. calling getAndPollAllFriends");
+        ZZLogInfo(@"handleVideoStatusUPdateNotification: got notification for non existant friend. calling getAndPollAllFriends");
         [self.dataUpdater updateAllData];
         return;
     }
@@ -224,7 +224,7 @@
     }
     else
     {
-        OB_ERROR(@"unknown status received in notification");
+        ZZLogError(@"unknown status received in notification");
         return;
     }
     

@@ -12,7 +12,7 @@
 
 @interface ZZVideoDataUpdater : NSObject
 
-+ (void)deleteItem:(ZZVideoDomainModel*)model;
+//+ (void)deleteItem:(ZZVideoDomainModel*)model;
 + (void)destroy:(TBMVideo *)video;
 
 + (void)deleteVideoFileWithVideo:(TBMVideo*)video;

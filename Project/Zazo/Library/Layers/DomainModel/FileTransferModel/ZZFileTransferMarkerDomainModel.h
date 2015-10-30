@@ -6,6 +6,8 @@
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
+@class FEMObjectMapping;
+
 extern const struct ZZFileTransferMarkerDomainModelAttributes {
     __unsafe_unretained NSString *friendID;
     __unsafe_unretained NSString *videoID;
@@ -19,6 +21,8 @@ extern const struct ZZFileTransferMarkerDomainModelAttributes {
 @property (nonatomic, assign) BOOL isUpload;
 
 + (instancetype)modelWithEncodedMarker:(NSString*)marker;
+
++ (FEMObjectMapping*)mapping;
 
 - (NSString*)markerValue;
 

@@ -14,6 +14,6 @@
 + (ZZGridDomainModel*)upsertModel:(ZZGridDomainModel*)model;
 + (ZZGridDomainModel*)updateRelatedUserOnItemID:(NSString*)itemID toValue:(ZZFriendDomainModel*)model;
 
-+ (void)deleteModel:(ZZGridDomainModel*)model;
+//+ (void)deleteModel:(ZZGridDomainModel*)model;
 
 @end

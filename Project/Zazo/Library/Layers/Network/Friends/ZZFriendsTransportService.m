@@ -89,19 +89,6 @@ static const struct
     }];
 }
 
-+ (RACSignal*)loadFriendProfileWithPhone:(NSString*)phone firstName:(NSString*)firstName lastName:(NSString*)lastName
-{
-    NSParameterAssert(phone);
-    NSParameterAssert(firstName);
-    NSParameterAssert(lastName);
-    
-    NSDictionary* parameters = @{ZZFriendsServerParameters.phoneNumber : [NSObject an_safeString:phone],
-                                 ZZFriendsServerParameters.firstName   : [NSObject an_safeString:firstName],
-                                 ZZFriendsServerParameters.lastName    : [NSObject an_safeString:lastName]};
-    
-    return [ZZFriendsTransport loadFriendProfileWithParameters:parameters];
-}
-
 + (RACSignal*)changeModelContactStatusForUser:(NSString *)userKey toVisible:(BOOL)visible
 {
     NSParameterAssert(userKey);

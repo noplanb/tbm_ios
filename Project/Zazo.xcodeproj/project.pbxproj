@@ -90,18 +90,6 @@
 		07636E5D1BA49A0100925671 /* ZZVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BC21BA49A0100925671 /* ZZVideoProcessor.m */; };
 		07636E5E1BA49A0100925671 /* ZZVideoRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BC51BA49A0100925671 /* ZZVideoRecorder.m */; };
 		07636E5F1BA49A0100925671 /* ZZVideoUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BC81BA49A0100925671 /* ZZVideoUtils.m */; };
-		07636E601BA49A0100925671 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BCB1BA49A0100925671 /* Roboto-Black.ttf */; };
-		07636E611BA49A0100925671 /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BCC1BA49A0100925671 /* Roboto-BlackItalic.ttf */; };
-		07636E621BA49A0100925671 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BCD1BA49A0100925671 /* Roboto-Bold.ttf */; };
-		07636E631BA49A0100925671 /* Roboto-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BCE1BA49A0100925671 /* Roboto-BoldItalic.ttf */; };
-		07636E641BA49A0100925671 /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BCF1BA49A0100925671 /* Roboto-Italic.ttf */; };
-		07636E651BA49A0100925671 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD01BA49A0100925671 /* Roboto-Light.ttf */; };
-		07636E661BA49A0100925671 /* Roboto-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD11BA49A0100925671 /* Roboto-LightItalic.ttf */; };
-		07636E671BA49A0100925671 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD21BA49A0100925671 /* Roboto-Medium.ttf */; };
-		07636E681BA49A0100925671 /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD31BA49A0100925671 /* Roboto-MediumItalic.ttf */; };
-		07636E691BA49A0100925671 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD41BA49A0100925671 /* Roboto-Regular.ttf */; };
-		07636E6A1BA49A0100925671 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD51BA49A0100925671 /* Roboto-Thin.ttf */; };
-		07636E6B1BA49A0100925671 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD61BA49A0100925671 /* Roboto-ThinItalic.ttf */; };
 		07636E6C1BA49A0100925671 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD81BA49A0100925671 /* Assets.xcassets */; };
 		07636E6D1BA49A0100925671 /* logo.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BDA1BA49A0100925671 /* logo.pdf */; };
 		07636E6E1BA49A0100925671 /* contacts-placeholder.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BDC1BA49A0100925671 /* contacts-placeholder.pdf */; };
@@ -285,10 +273,6 @@
 		07F0E7F81B8CD7A900036AB2 /* ZZStartScreenTestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */; };
 		180254A31BB2C5A400138A52 /* ZZVideoStatuses.m in Sources */ = {isa = PBXBuildFile; fileRef = 180254A21BB2C5A400138A52 /* ZZVideoStatuses.m */; };
 		18061C171BDFCA6F0079641D /* ZZRemoteStorageValueGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E121BD5770500A59389 /* ZZRemoteStorageValueGenerator.m */; };
-		18061C291BDFD5920079641D /* NSString+NSStringExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18061C1F1BDFD5920079641D /* NSString+NSStringExtensions.m */; };
-		18061C2A1BDFD5920079641D /* TBMRemoteStorageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 18061C221BDFD5920079641D /* TBMRemoteStorageHandler.m */; };
-		18061C2B1BDFD5920079641D /* TBMStringUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 18061C251BDFD5920079641D /* TBMStringUtils.m */; };
-		18061C2E1BDFD5C40079641D /* ZZTestGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 18061C2D1BDFD5C40079641D /* ZZTestGenerator.m */; };
 		181D1C9E1BC51A4600044F83 /* ZZBaseEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1C9D1BC51A4600044F83 /* ZZBaseEventHandler.m */; };
 		181D1CA41BC51B2000044F83 /* ZZInviteEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CA31BC51B2000044F83 /* ZZInviteEventHandler.m */; };
 		181D1CA71BC51B7100044F83 /* ZZPlayEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CA61BC51B7100044F83 /* ZZPlayEventHandler.m */; };
@@ -312,7 +296,7 @@
 		184E53E91BD4CB510007CF6F /* ZZUserNameLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 184E53E81BD4CB510007CF6F /* ZZUserNameLabel.m */; };
 		185DE9071BDE6F5000106F83 /* ZZSecretScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185DE9061BDE6F5000106F83 /* ZZSecretScreenController.m */; };
 		185DE9091BDE757900106F83 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 185DE9081BDE757900106F83 /* CoreMotion.framework */; };
-		1868E1BA1BE26C72000B80D3 /* ZZRootStateObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 1868E1B91BE26C72000B80D3 /* ZZRootStateObserver.m */; settings = {ASSET_TAGS = (); }; };
+		1868E1BA1BE26C72000B80D3 /* ZZRootStateObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 1868E1B91BE26C72000B80D3 /* ZZRootStateObserver.m */; };
 		186BD4BA1BC40EF900B47C6B /* ZZHintArrowConfigurationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186BD4B91BC40EF900B47C6B /* ZZHintArrowConfigurationModel.m */; };
 		1872F4391BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1872F4381BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.m */; };
 		187842311BB2F2760007CDE2 /* ZZCommunicationDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187842301BB2F2760007CDE2 /* ZZCommunicationDomainModel.m */; };
@@ -563,18 +547,6 @@
 		07636BC51BA49A0100925671 /* ZZVideoRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoRecorder.m; sourceTree = "<group>"; };
 		07636BC71BA49A0100925671 /* ZZVideoUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoUtils.h; sourceTree = "<group>"; };
 		07636BC81BA49A0100925671 /* ZZVideoUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoUtils.m; sourceTree = "<group>"; };
-		07636BCB1BA49A0100925671 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
-		07636BCC1BA49A0100925671 /* Roboto-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BlackItalic.ttf"; sourceTree = "<group>"; };
-		07636BCD1BA49A0100925671 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
-		07636BCE1BA49A0100925671 /* Roboto-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BoldItalic.ttf"; sourceTree = "<group>"; };
-		07636BCF1BA49A0100925671 /* Roboto-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Italic.ttf"; sourceTree = "<group>"; };
-		07636BD01BA49A0100925671 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
-		07636BD11BA49A0100925671 /* Roboto-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-LightItalic.ttf"; sourceTree = "<group>"; };
-		07636BD21BA49A0100925671 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
-		07636BD31BA49A0100925671 /* Roboto-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-MediumItalic.ttf"; sourceTree = "<group>"; };
-		07636BD41BA49A0100925671 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
-		07636BD51BA49A0100925671 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
-		07636BD61BA49A0100925671 /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
 		07636BD81BA49A0100925671 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		07636BDA1BA49A0100925671 /* logo.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = logo.pdf; sourceTree = "<group>"; };
 		07636BDC1BA49A0100925671 /* contacts-placeholder.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "contacts-placeholder.pdf"; sourceTree = "<group>"; };
@@ -1165,18 +1137,10 @@
 			isa = PBXGroup;
 			children = (
 				073D55671BD2D82B0014E83E /* SoundEffect */,
-				076369C61BA49A0000925671 /* AppDelegate */,
 				076369CF1BA49A0000925671 /* Categories */,
 				076369FF1BA49A0000925671 /* VideoUtils */,
 			);
 			path = Logic;
-			sourceTree = "<group>";
-		};
-		076369C61BA49A0000925671 /* AppDelegate */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AppDelegate;
 			sourceTree = "<group>";
 		};
 		076369CF1BA49A0000925671 /* Categories */ = {
@@ -1929,30 +1893,10 @@
 		07636BC91BA49A0100925671 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				07636BCA1BA49A0100925671 /* Font */,
 				07636BD71BA49A0100925671 /* Images */,
 				07636BFE1BA49A0100925671 /* Localizations */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		07636BCA1BA49A0100925671 /* Font */ = {
-			isa = PBXGroup;
-			children = (
-				07636BCB1BA49A0100925671 /* Roboto-Black.ttf */,
-				07636BCC1BA49A0100925671 /* Roboto-BlackItalic.ttf */,
-				07636BCD1BA49A0100925671 /* Roboto-Bold.ttf */,
-				07636BCE1BA49A0100925671 /* Roboto-BoldItalic.ttf */,
-				07636BCF1BA49A0100925671 /* Roboto-Italic.ttf */,
-				07636BD01BA49A0100925671 /* Roboto-Light.ttf */,
-				07636BD11BA49A0100925671 /* Roboto-LightItalic.ttf */,
-				07636BD21BA49A0100925671 /* Roboto-Medium.ttf */,
-				07636BD31BA49A0100925671 /* Roboto-MediumItalic.ttf */,
-				07636BD41BA49A0100925671 /* Roboto-Regular.ttf */,
-				07636BD51BA49A0100925671 /* Roboto-Thin.ttf */,
-				07636BD61BA49A0100925671 /* Roboto-ThinItalic.ttf */,
-			);
-			path = Font;
 			sourceTree = "<group>";
 		};
 		07636BD71BA49A0100925671 /* Images */ = {
@@ -3507,24 +3451,8 @@
 		18061C261BDFD5920079641D /* TestModels */ = {
 			isa = PBXGroup;
 			children = (
-				18061C271BDFD5920079641D /* FriendTestModel */,
-				18061C281BDFD5920079641D /* VideoTestModel */,
 			);
 			path = TestModels;
-			sourceTree = "<group>";
-		};
-		18061C271BDFD5920079641D /* FriendTestModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = FriendTestModel;
-			sourceTree = "<group>";
-		};
-		18061C281BDFD5920079641D /* VideoTestModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = VideoTestModel;
 			sourceTree = "<group>";
 		};
 		181D1C8E1BC51A2800044F83 /* EventHandlers */ = {
@@ -4059,17 +3987,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07636E621BA49A0100925671 /* Roboto-Bold.ttf in Resources */,
 				7952764E1BA71F2700E506D5 /* camera-icon.pdf in Resources */,
 				0732F5121B8B93D3004FD3AF /* ZazoTests-Info.plist in Resources */,
 				07636E851BA49A0100925671 /* navbar_btn_add.pdf in Resources */,
 				07636EF31BA49A0100925671 /* mogen.sh in Resources */,
 				07636E6E1BA49A0100925671 /* contacts-placeholder.pdf in Resources */,
-				07636E631BA49A0100925671 /* Roboto-BoldItalic.ttf in Resources */,
 				07636E861BA49A0100925671 /* navbar_btn_back.pdf in Resources */,
-				07636E6A1BA49A0100925671 /* Roboto-Thin.ttf in Resources */,
 				0732F50C1B8B93D3004FD3AF /* InfoPlist.strings in Resources */,
-				07636E641BA49A0100925671 /* Roboto-Italic.ttf in Resources */,
 				07636E871BA49A0100925671 /* navbar_btn_close.pdf in Resources */,
 				07636EF41BA49A0100925671 /* mogend.sh in Resources */,
 				07636E8B1BA49A0100925671 /* ANGeneralErrorLocalizable.strings in Resources */,
@@ -4086,9 +4010,7 @@
 				07636E781BA49A0100925671 /* icon_dots.pdf in Resources */,
 				07636DFA1BA49A0100925671 /* DK Crayon Crumble.ttf in Resources */,
 				07636E721BA49A0100925671 /* home-page-add-icon.pdf in Resources */,
-				07636E671BA49A0100925671 /* Roboto-Medium.ttf in Resources */,
 				07636E831BA49A0100925671 /* icon_menu_dots.png in Resources */,
-				07636E611BA49A0100925671 /* Roboto-BlackItalic.ttf in Resources */,
 				07636E891BA49A0100925671 /* navbar_btn_edit.pdf in Resources */,
 				07636DFE1BA49A0100925671 /* NotificationTone.wav in Resources */,
 				07636E7E1BA49A0100925671 /* icon_search.pdf in Resources */,
@@ -4100,17 +4022,13 @@
 				07636E821BA49A0100925671 /* Search-icon.pdf in Resources */,
 				07636E001BA49A0100925671 /* single_ding_chimes2.wav in Resources */,
 				07636E7A1BA49A0100925671 /* icon_man.pdf in Resources */,
-				07636E651BA49A0100925671 /* Roboto-Light.ttf in Resources */,
 				07636F0A1BA49A0100925671 /* TOWebViewControllerLocalizable.strings in Resources */,
 				07636DFF1BA49A0100925671 /* single_ding_chimes.wav in Resources */,
 				07636E7B1BA49A0100925671 /* icon_people.pdf in Resources */,
 				07636EF11BA49A0100925671 /* machine.h.motemplate in Resources */,
 				07636EF21BA49A0100925671 /* machine.m.motemplate in Resources */,
-				07636E691BA49A0100925671 /* Roboto-Regular.ttf in Resources */,
 				182D8D981BB5D45E0080E100 /* icon_camera_switch.png in Resources */,
-				07636E661BA49A0100925671 /* Roboto-LightItalic.ttf in Resources */,
 				07636E741BA49A0100925671 /* home-page-view.pdf in Resources */,
-				07636E681BA49A0100925671 /* Roboto-MediumItalic.ttf in Resources */,
 				07636E711BA49A0100925671 /* home-camera-w-fill.pdf in Resources */,
 				07636E6D1BA49A0100925671 /* logo.pdf in Resources */,
 				07636E761BA49A0100925671 /* home-page-arrow-left.pdf in Resources */,
@@ -4118,10 +4036,8 @@
 				07636DF91BA49A0100925671 /* BeepSin30.wav in Resources */,
 				07636DFC1BA49A0100925671 /* head.png in Resources */,
 				07636E7F1BA49A0100925671 /* icon_zazo.pdf in Resources */,
-				07636E6B1BA49A0100925671 /* Roboto-ThinItalic.ttf in Resources */,
 				07636E6C1BA49A0100925671 /* Assets.xcassets in Resources */,
 				07636E701BA49A0100925671 /* edit-friends-user-has-app.pdf in Resources */,
-				07636E601BA49A0100925671 /* Roboto-Black.ttf in Resources */,
 				07636E8C1BA49A0100925671 /* ANServerErrorLocalizable.strings in Resources */,
 				07636E731BA49A0100925671 /* home-page-arrow.pdf in Resources */,
 				07636E801BA49A0100925671 /* contacts-icon.pdf in Resources */,
@@ -4268,7 +4184,6 @@
 				07636EF61BA49A0100925671 /* ANMessageDomainModel.m in Sources */,
 				07636E291BA49A0100925671 /* ZZVideoDataProvider.m in Sources */,
 				07E09E1A1BD5A69500A59389 /* ZZNotificationsHandler.m in Sources */,
-				18061C2B1BDFD5920079641D /* TBMStringUtils.m in Sources */,
 				07C94DD01BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m in Sources */,
 				07636EE31BA49A0100925671 /* ANAnimator.m in Sources */,
 				07636EE01BA49A0100925671 /* ZZStartView.m in Sources */,
@@ -4289,7 +4204,6 @@
 				181D1CC51BC525CC00044F83 /* ZZSpinFeatureEventHandler.m in Sources */,
 				079280A41BA8544800E22553 /* ZZGridActionHandler.m in Sources */,
 				07636EB91BA49A0100925671 /* ZZEditFriendListWireframe.m in Sources */,
-				18061C2A1BDFD5920079641D /* TBMRemoteStorageHandler.m in Sources */,
 				180254A31BB2C5A400138A52 /* ZZVideoStatuses.m in Sources */,
 				07636E531BA49A0100925671 /* ZZEnvelopStrategy.m in Sources */,
 				181D1CC21BC5255D00044F83 /* ZZEarpieceFeatureEventHandler.m in Sources */,
@@ -4445,7 +4359,6 @@
 				181D1CB91BC523FA00044F83 /* ZZFronCameraFeatureEventHandler.m in Sources */,
 				07636E241BA49A0100925671 /* ZZFriendModelsMapper.m in Sources */,
 				07636E251BA49A0100925671 /* ZZGridDataProvider.m in Sources */,
-				18061C291BDFD5920079641D /* NSString+NSStringExtensions.m in Sources */,
 				07636EAF1BA49A0100925671 /* ZZSecretWireframe.m in Sources */,
 				181D1CCB1BC54E6F00044F83 /* ZZGridPresenter+ActionHandler.m in Sources */,
 				07636E201BA49A0100925671 /* ZZPhoneHelper.m in Sources */,
@@ -4514,7 +4427,6 @@
 				07636E331BA49A0100925671 /* ZZAccountTransportService.m in Sources */,
 				07636EC21BA49A0100925671 /* ZZGridStateView.m in Sources */,
 				07636EB31BA49A0100925671 /* ZZEditFriendListPresenter.m in Sources */,
-				18061C2E1BDFD5C40079641D /* ZZTestGenerator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

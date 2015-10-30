@@ -38,13 +38,13 @@
     return [ZZGridDataProvider modelFromEntity:entity];
 }
 
-+ (void)deleteModel:(ZZGridDomainModel*)model
-{
-    TBMGridElement* entity = [ZZGridDataProvider entityWithItemID:model.itemID];
-    NSManagedObjectContext* context = entity.managedObjectContext;
-    [entity MR_deleteEntityInContext:context];
-    [context MR_saveToPersistentStoreAndWait];
-}
+//+ (void)deleteModel:(ZZGridDomainModel*)model
+//{
+//    TBMGridElement* entity = [ZZGridDataProvider entityWithItemID:model.itemID];
+//    NSManagedObjectContext* context = entity.managedObjectContext;
+//    [entity MR_deleteEntityInContext:context];
+//    [context MR_saveToPersistentStoreAndWait];
+//}
 
 
 #pragma mark - Private

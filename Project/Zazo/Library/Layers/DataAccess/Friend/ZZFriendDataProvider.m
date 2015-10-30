@@ -32,10 +32,10 @@
     }] array];
 }
 
-+ (ZZFriendDomainModel*)friendWithOutgoingVideoItemID:(NSString*)videoItemID
-{
-    return [self _findFirstWithAttribute:TBMFriendAttributes.outgoingVideoId value:videoItemID];
-}
+//+ (ZZFriendDomainModel*)friendWithOutgoingVideoItemID:(NSString*)videoItemID
+//{
+//    return [self _findFirstWithAttribute:TBMFriendAttributes.outgoingVideoId value:videoItemID];
+//}
 
 + (ZZFriendDomainModel*)friendWithItemID:(NSString*)itemID
 {
@@ -97,10 +97,10 @@
 
 #pragma mark - Count
 
-+ (NSInteger)friendsCount
-{
-    return [TBMFriend MR_countOfEntitiesWithContext:[self _context]];
-}
+//+ (NSInteger)friendsCount
+//{
+//    return [TBMFriend MR_countOfEntitiesWithContext:[self _context]];
+//}
 
 
 #pragma mark - Mapping
@@ -139,19 +139,19 @@
 
 #pragma mark - CRUD
 
-+ (void)upsertFriendWithModel:(ZZFriendDomainModel*)model
-{
-    TBMFriend* entity = [self entityFromModel:model];
-    [ZZFriendModelsMapper fillEntity:entity fromModel:model];
-    [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
-}
-
-+ (void)deleteFriendWithID:(NSString*)itemID
-{
-    TBMFriend* entity = [[TBMFriend MR_findByAttribute:TBMFriendAttributes.idTbm withValue:itemID inContext:[self _context]] firstObject];
-    [entity MR_deleteEntityInContext:[self _context]];
-    [[self _context] MR_saveToPersistentStoreAndWait];
-}
+//+ (void)upsertFriendWithModel:(ZZFriendDomainModel*)model
+//{
+//    TBMFriend* entity = [self entityFromModel:model];
+//    [ZZFriendModelsMapper fillEntity:entity fromModel:model];
+//    [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
+//}
+//
+//+ (void)deleteFriendWithID:(NSString*)itemID
+//{
+//    TBMFriend* entity = [[TBMFriend MR_findByAttribute:TBMFriendAttributes.idTbm withValue:itemID inContext:[self _context]] firstObject];
+//    [entity MR_deleteEntityInContext:[self _context]];
+//    [[self _context] MR_saveToPersistentStoreAndWait];
+//}
 
 + (void)deleteAllFriendsModels
 {

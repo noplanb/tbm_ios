@@ -27,6 +27,7 @@
 #import "ZZSoundEffectPlayer.h"
 #import "ZZVideoStatuses.h"
 #import "ZZVideoDataProvider.h"
+#import "TBMVideoIdUtils.h"
 
 @interface ZZGridPresenter ()
 <
@@ -425,7 +426,7 @@
                 if (![ZZVideoRecorder shared].wasRecordingStopped)
                 {
                     [self.videoPlayer stop];
-                    NSURL* url = [ZZVideoUtils generateOutgoingVideoUrlWithFriend:viewModel.item.relatedUser];
+                    NSURL* url = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriendID:viewModel.item.relatedUser.idTbm];
                     [self.userInterface updateRecordViewStateTo:isEnabled];
                     
                     [[ZZVideoRecorder shared] startRecordingWithVideoURL:url completionBlock:^(BOOL isRecordingSuccess) {

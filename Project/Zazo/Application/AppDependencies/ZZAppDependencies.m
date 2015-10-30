@@ -10,14 +10,10 @@
 
 #import "ZZAppDependencies.h"
 #import "ZZRootWireframe.h"
-#import "ZZColorTheme.h"
 #import "ANCrashlyticsAdapter.h"
 #import "ZZContentDataAcessor.h"
 #import "ZZVideoRecorder.h"
-#import "ANLogger.h"
-#import "MagicalRecord.h"
 #import "ZZUserDataProvider.h"
-#import "ZZUserDomainModel.h"
 #import "ZZRollbarAdapter.h"
 #import "ZZNotificationsHandler.h"
 #import "ZZApplicationRootService.h"
@@ -117,11 +113,10 @@
 
 - (void)handleApplicationDidEnterInBackground
 {
-    OB_INFO(@"applicationDidEnterBackground: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
+    ZZLogInfo(@"applicationDidEnterBackground: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
     [ZZContentDataAcessor saveDataBase];
     [[OBLogger instance] logEvent:OBLogEventAppBackground];
 }
-
 
 
 #pragma mark - UI 

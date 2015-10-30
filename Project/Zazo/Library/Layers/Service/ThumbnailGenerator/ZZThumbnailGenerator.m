@@ -40,7 +40,7 @@
 
 + (void)generateThumbVideo:(ZZVideoDomainModel*)video
 {
-    OB_INFO(@"generateThumbWithVideo: %@ vid:%@", video.relatedUser.firstName, video.videoID);
+    ZZLogInfo(@"generateThumbWithVideo: %@ vid:%@", video.relatedUser.firstName, video.videoID);
     if ([self _generateThumbForVideo:video])
     {
         [self _copyToLastThumbWithVideo:video];
@@ -60,7 +60,7 @@
         [[NSFileManager defaultManager] copyItemAtURL:[self thumbUrlForVideo:video] toURL:[self lastThumbUrlForForUser:video.relatedUser] error:&error];
         if (error != nil)
         {
-            OB_ERROR(@"copyToLastThumbWithVideo: %@ vid:%@ %@", video.relatedUser.firstName, video.videoID, error);
+            ZZLogError(@"copyToLastThumbWithVideo: %@ vid:%@ %@", video.relatedUser.firstName, video.videoID, error);
         }
     }
 }
@@ -136,10 +136,10 @@
 
 + (BOOL)_generateThumbForVideo:(ZZVideoDomainModel*)video
 {
-    DebugLog(@"generateThumb vid: %@ for %@", video.videoID, video.relatedUser.firstName);
+    ZZLogInfo(@"generateThumb vid: %@ for %@", video.videoID, video.relatedUser.firstName);
     if (![ZZFileHelper isFileValidWithFileURL:video.videoURL])
     {
-        OB_ERROR(@"generateThumb: vid: %@ !hasValidVideoFile", video.videoID);
+        ZZLogError(@"generateThumb: vid: %@ !hasValidVideoFile", video.videoID);
         return NO;
     }
     
@@ -154,7 +154,7 @@
     CGImageRef imageRef = [imageGenerator copyCGImageAtTime:thumbTime actualTime:&actual error:&err];
     if (err != nil)
     {
-        OB_ERROR(@"generateThumb: %@", err);
+        ZZLogError(@"generateThumb: %@", err);
         return NO;
     }
     UIImage *thumbnail = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationUp];
@@ -165,7 +165,7 @@
 
 + (void)deleteThumbFileForVideo:(ZZVideoDomainModel*)video
 {
-    DebugLog(@"deleteThumbFile");
+    ZZLogInfo(@"deleteThumbFile");
     [ZZFileHelper deleteFileWithURL:[self thumbUrlForVideo:video]];
 }
 

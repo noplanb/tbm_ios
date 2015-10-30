@@ -8,8 +8,6 @@
 
 #import "ZZPhoneHelper.h"
 #import "ZZContactDomainModel.h"
-#import "ZZCommunicationDomainModel.h"
-#import "ZZUserDataProvider.h"
 #import "ZZStoredSettingsManager.h"
 #import "NBPhoneNumberUtil.h"
 #import "NBPhoneNumber.h"
@@ -72,7 +70,7 @@ static NSString* const kDefaultRegion = @"US";
     
     if (err != nil)
     {
-        OB_ERROR(@"TBMPhoneUtils: phoneWithFormat: %@", [err localizedDescription]);
+        ZZLogError(@"%@", [NSObject an_safeString:[err localizedDescription]]);
         return nil;
     }
     r = [pu format:pn numberFormat:(NBEPhoneNumberFormat)format error:&err];
@@ -82,39 +80,9 @@ static NSString* const kDefaultRegion = @"US";
     }
     else
     {
-        OB_ERROR(@"TBMPhoneUtils: phoneWithFormat: %@", [err localizedDescription]);
+        ZZLogError(@"%@", [NSObject an_safeString:[err localizedDescription]]);
         return nil;
     }
-}
-
-
-+ (BOOL)isNumberMatch:(NSString*)firstNumber secondNumber:(NSString*)secondNumber
-{
-    NBPhoneNumberUtil *pu = [[NBPhoneNumberUtil alloc] init];
-    NSError *error;
-    
-    NBPhoneNumber *pn1 = [pu parse:firstNumber defaultRegion:[self _phoneRegion] error:&error];
-    if (error != nil)
-    {
-        return NO;
-    }
-    
-    NBPhoneNumber *pn2 = [pu parse:secondNumber defaultRegion:[self _phoneRegion] error:&error];
-    if (error != nil)
-    {
-        return NO;
-    }
-    
-    NBEMatchType match = [pu isNumberMatch:pn1 second:pn2 error:&error];
-    if (error != nil)
-    {
-        return NO;
-    }
-    if (match == NBEMatchTypeEXACT_MATCH)
-    {
-        return YES;
-    }
-    return NO;
 }
 
 
@@ -130,7 +98,7 @@ static NSString* const kDefaultRegion = @"US";
         region = kDefaultRegion;
     }
     
-    OB_DEBUG(@"User region: %@", region);
+    ZZLogDebug(@"User region: %@", region);
     
     NSError *error;
     NBPhoneNumber *phoneNumber = [phoneUtil parse:phone defaultRegion:region error:&error];
@@ -138,18 +106,18 @@ static NSString* const kDefaultRegion = @"US";
     {
         if ([phoneUtil isValidNumber:phoneNumber])
         {
-            OB_DEBUG(@"valid number");
+            ZZLogDebug(@"valid number");
             return true;
         }
         else
         {
-            OB_DEBUG(@"error was nil but invalid phone");
+            ZZLogDebug(@"error was nil but invalid phone");
             return false;
         }
     }
     else
     {
-        OB_ERROR(@"TBMPhoneUtils: isValidPhone: %@", [error localizedDescription]);
+        ZZLogError(@"TBMPhoneUtils: isValidPhone: %@", [error localizedDescription]);
         return false;
     }
 }
@@ -171,25 +139,6 @@ static NSString* const kDefaultRegion = @"US";
 + (NSString*)_savedMobileNumber
 {
     return [ZZStoredSettingsManager shared].mobileNumber;
-}
-
-+ (NSString*)_phoneRegion
-{
-    NBPhoneNumberUtil *pu = [NBPhoneNumberUtil sharedInstance];
-
-    ZZUserDomainModel *user = [ZZUserDataProvider authenticatedUser]; //TODO: ????
-    if (user == nil)
-    {
-        return @"US";
-    }
-    
-    NSError *err = nil;
-    NBPhoneNumber *pn = [pu parse:user.mobileNumber defaultRegion:@"US" error:&err];
-    
-    if (err != nil)
-        return @"US";
-    
-    return [pu getRegionCodeForNumber:pn];
 }
 
 @end

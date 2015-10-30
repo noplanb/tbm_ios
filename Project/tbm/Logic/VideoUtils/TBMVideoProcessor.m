@@ -42,7 +42,7 @@ NSString* const TBMVideoProcessorErrorReason = @"Problem processing video";
 #pragma mark - Conversion
 
 - (void)convertToMpeg4 {
-    OB_INFO(@"TBMVideoProcessor: start conversion");
+    ZZLogInfo(@"TBMVideoProcessor: start conversion");
     [self logFileSize:self.tempVideoUrl];
     
     AVAsset *asset = [AVAsset assetWithURL:self.tempVideoUrl];
@@ -59,7 +59,7 @@ NSString* const TBMVideoProcessorErrorReason = @"Problem processing video";
         [self handleError:error];
         return;
     }
-    OB_INFO(@"TBMVideoProcessor: Successful conversion");
+    ZZLogInfo(@"TBMVideoProcessor: Successful conversion");
     [self logFileSize:self.videoUrl];
     [self removeTempFile];
     [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoProcessorDidFinishProcessing
@@ -91,9 +91,9 @@ NSString* const TBMVideoProcessorErrorReason = @"Problem processing video";
     NSError *dontCareError = nil;
     NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:url.path error:&dontCareError];
     if (dontCareError)
-        OB_WARN(@"Can't set attributes for file: %@. Error: %@", self.videoUrl.path, dontCareError);
+        ZZLogWarning(@"Can't set attributes for file: %@. Error: %@", self.videoUrl.path, dontCareError);
     
-    OB_INFO(@"TBMVideoProcessor: filesize %llu", fileAttributes.fileSize);
+    ZZLogInfo(@"TBMVideoProcessor: filesize %llu", fileAttributes.fileSize);
 }
 
 - (NSURL *)generateTempVideoUrl{
@@ -113,7 +113,7 @@ NSString* const TBMVideoProcessorErrorReason = @"Problem processing video";
 
 - (void)handleError:(NSError *)error dispatch:(BOOL)dispatch{
     if (dispatch)
-        OB_ERROR(@"VideoProcessor: %@", error);
+        ZZLogError(@"VideoProcessor: %@", error);
     
     [self removeTempFile];
     [[NSFileManager defaultManager] removeItemAtURL:self.videoUrl error:nil];

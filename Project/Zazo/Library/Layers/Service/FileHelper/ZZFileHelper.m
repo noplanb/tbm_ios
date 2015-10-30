@@ -63,7 +63,7 @@
 {
     if ([self isFileExistsAtURL:fileURL])
     {
-        DebugLog(@"deleteVideoFile");
+        ZZLogInfo(@"deleteVideoFile");
         NSFileManager *fm = [NSFileManager defaultManager];
         NSError *error;
         [fm removeItemAtURL:fileURL error:&error];

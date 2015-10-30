@@ -24,22 +24,22 @@
     NSArray* users = [TBMUser MR_findAllInContext:[self _context]];
     if (users.count > 1)
     {
-        OB_ERROR(@"Model dupples founded %@ %@", NSStringFromSelector(_cmd), [users debugDescription]);
+        ZZLogError(@"Model dupples founded %@ %@", NSStringFromSelector(_cmd), [users debugDescription]);
     }
     TBMUser* user = [users lastObject];
     return user;
 }
 
-+ (TBMUser*)entityFromModel:(ZZUserDomainModel*)model
-{
-    TBMUser* entity = [self _authenticatedEntity];
-    if (!entity)
-    {
-        entity = [TBMUser MR_createEntityInContext:[self _context]];
-        [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
-    }
-    return [ZZUserModelsMapper fillEntity:entity fromModel:model];
-}
+//+ (TBMUser*)entityFromModel:(ZZUserDomainModel*)model
+//{
+//    TBMUser* entity = [self _authenticatedEntity];
+//    if (!entity)
+//    {
+//        entity = [TBMUser MR_createEntityInContext:[self _context]];
+//        [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
+//    }
+//    return [ZZUserModelsMapper fillEntity:entity fromModel:model];
+//}
 
 + (ZZUserDomainModel*)modelFromEntity:(TBMUser*)entity
 {

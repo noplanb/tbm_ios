@@ -51,17 +51,17 @@
 
             if (state < ZZApplicationVersionStateTotalCount)
             {
-                OB_INFO(@"checkVersionCompatibility: success: %@", [NSObject an_safeString:result]);
+                ZZLogInfo(@"checkVersionCompatibility: success: %@", [NSObject an_safeString:result]);
                 [self _userVersionStateLoadedSuccessfully:state logged:loggedIn];
             }
             else
             {
-                OB_ERROR(@"versionCheckCallback: unknown version check result: %@", [NSObject an_safeString:result]);
+                ZZLogError(@"versionCheckCallback: unknown version check result: %@", [NSObject an_safeString:result]);
             }
         }
     } error:^(NSError *error) {
 
-        OB_WARN(@"checkVersionCompatibility: %@", error);
+        ZZLogWarning(@"checkVersionCompatibility: %@", error);
         if (loggedIn)
         {
             [self _userVersionStateLoadedSuccessfully:ZZApplicationVersionStateCurrent logged:loggedIn];

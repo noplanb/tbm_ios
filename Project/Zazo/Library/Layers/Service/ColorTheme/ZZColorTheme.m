@@ -47,44 +47,6 @@ static CGFloat const kNavigationBarIconHeight = 20;
     self = [super init];
     if (self)
     {
-        
-        //static NSString *BENCH_BACKGROUND_COLOR = @"#2F2E28";
-        //static NSString *BENCH_TEXT_COLOR = @"#A8A295";
-        //static NSString *BENCH_CELL_REUSE_ID = @"benchCell";
-        //static float BENCH_CELL_HEIGHT = 56.0;
-        
-//        Grid
-        
-        //static const float kLayoutHeaderheight = 55;
-        //static const float kLayoutLogoHeight = kLayoutHeaderheight * 0.4;
-        //static const float kLayoutGutter = 10;
-        //static const float kLayoutBenchIconHeight = kLayoutHeaderheight * 0.4;
-        
-        
-        //Registration
-        
-        
-        //static const float TBMRegisterLogoTopMargin = 106.0;
-        //static const float TBMRegisterFieldsTopMargin = 60.0;
-        //static const float TBMRegisterFieldsVerticalMargin = 10.0;
-        //static const float TBMRegisterCountryCodeRightMargin = 8.0;
-        //static const float TBMRegisterSubmitTopMargin = 60.0;
-        //static const float TBMRegisterSpinnerTopMargin = 10.0;
-        //
-        //static const float TBMRegisterTextFieldHeight = 38.0;
-        //static const float TBMRegisterTextFieldFontSize = 21.0;
-//        static const float TBMRegisterTextFieldMaxWidth = 360.0;
-//        static const float TBMRegisterTextFieldWidthMultiplier = 0.1;
-        
-//        - (float)textFieldLargeWidth {
-//            float width = self.contentView.frame.size.width - (2 * self.contentView.frame.size.width * TBMRegisterTextFieldWidthMultiplier);
-//            return (width < TBMRegisterTextFieldMaxWidth ? width : TBMRegisterTextFieldMaxWidth);
-//        }
-        
-        
-        
-        
-        
         //TODO: convert in HEX
 //        self.authBackgroundColor = [UIColor colorWithRed:0.61f green:0.75f blue:0.27f alpha:1.0f];
         self.authBackgroundColor = [UIColor an_colorWithHexString:@"#9CBE45"];

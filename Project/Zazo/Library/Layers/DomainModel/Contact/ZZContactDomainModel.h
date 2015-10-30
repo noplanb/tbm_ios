@@ -19,7 +19,6 @@
 @property (nonatomic, strong) NSArray* emails;
 
 @property (nonatomic, strong) ZZCommunicationDomainModel* primaryPhone;
-@property (nonatomic, assign) ZZMenuContactType contactType;
 
 - (NSString*)fullName;
 - (ZZMenuContactType)contactType;
