@@ -9,4 +9,6 @@ fix/camera
  x Test existing
  - Review interface with existing camera
    x Remove unnecessary includes of ZZvideorecorder
+   -
+ - Remove handle incoming call.
  -

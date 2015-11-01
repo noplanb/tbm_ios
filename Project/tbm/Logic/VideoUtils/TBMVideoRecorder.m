@@ -12,11 +12,6 @@
 #import "ZZDeviceHandler.h"
 #import "ZZFriendDataProvider.h"
 
-//NSString* const TBMVideoRecorderDidFinishRecording = @"TBMVideoRecorderDidFinishRecording";
-//NSString* const TBMVideoRecorderShouldStartRecording = @"TBMVideoRecorderShouldStartRecording";
-//NSString* const TBMVideoRecorderDidCancelRecording = @"TBMVideoRecorderDidCancelRecording";
-//NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
-
 static int videoRecorderRetryCount = 0;
 
 @interface TBMVideoRecorder () <AVCaptureFileOutputRecordingDelegate>
