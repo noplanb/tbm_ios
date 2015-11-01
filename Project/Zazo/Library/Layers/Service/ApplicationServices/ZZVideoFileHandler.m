@@ -51,6 +51,7 @@
 
 - (void)startService
 {
+//    [self updateS3CredentialsWithRequest];
     [self handleStuckDownloadsWithCompletionHandler:^{
         [self.fileTransferManager retryPending];
         [self.delegate updateDataRequired];
@@ -294,15 +295,15 @@
         return;
     }
     
-    [self deleteRemoteFileAndVideoId:video];
-    
     if (error != nil)
     {
         ZZLogError(@"downloadCompletedWithFriend %@", error);
         [friend setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusFailedPermanently video:video];
+        [self deleteRemoteFileAndVideoId:video];
         return;
     }
     
+    [self deleteRemoteFileAndVideoId:video];
     ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:video];
     //    NSURL* videoUrl = videoModel.videoURL;
     
@@ -477,6 +478,15 @@
     if (!ANIsEmpty(videoId) && !ANIsEmpty(friendID))
     {
         TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
+        
+        
+        // Try to download failed videos
+//        TBMVideo* videoFromId = [ZZVideoDataProvider findWithVideoId:videoId];//
+//        if (!force && videoFromId.statusValue == ZZVideoIncomingStatusFailedPermanently)
+//        {
+//            force = YES;
+//        }
+//        
         
         if ([friend hasIncomingVideoId:videoId] && !force)
         {

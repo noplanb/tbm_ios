@@ -16,6 +16,8 @@ static NSString* const kZZUserAuthToken = @"kZZUserAuthToken";
 static NSString* const kZZUserItemID = @"kZZUserItemID";
 static NSString* const kZZUserMobileNumber = @"kZZUserMobileNumber";
 
+static NSString* const kZZServerIsPushNotificationEnabled = @"kIsPushNotificationEnabled";
+
 #import "ZZStoredSettingsManager.h"
 #import "NSObject+ANUserDefaults.h"
 
@@ -96,6 +98,16 @@ static NSString* const kZZUserMobileNumber = @"kZZUserMobileNumber";
     return [NSObject an_integerForKey:kZZServerEndpointStateKey];
 }
 
+// push notification
+- (void)setIsPushNotificatonEnabled:(BOOL)isPushNotificatonEnabled
+{
+    [NSObject an_updateBool:isPushNotificatonEnabled forKey:kZZServerIsPushNotificationEnabled];
+}
+
+- (BOOL)isPushNotificatonEnabled
+{
+    return [NSObject an_boolForKey:kZZServerIsPushNotificationEnabled];
+}
 
 #pragma mark - User
 

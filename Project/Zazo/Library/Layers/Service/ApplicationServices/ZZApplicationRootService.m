@@ -123,9 +123,7 @@
     if ([ZZUserDataProvider authenticatedUser].isRegistered)
     {
         [[ZZApplicationPermissionsHandler checkApplicationPermissions] subscribeNext:^(id x) {
-          
             [ZZNotificationsHandler registerToPushNotifications];
-            
             [ZZVideoDataProvider printAll];
             [self.videoFileHandler startService];
         }];
@@ -250,7 +248,7 @@
     }
     else if (event == ZZRootStateObserverEventsFriendsAfterAuthorizationLoaded)
     {
-        [self.dataUpdater updateAllData];
+        [self.dataUpdater updateAllDataWithoutRequest];
     }
 }
 

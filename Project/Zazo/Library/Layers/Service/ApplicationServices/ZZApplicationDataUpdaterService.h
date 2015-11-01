@@ -18,5 +18,6 @@
 
 - (void)updateAllData;
 - (void)updateApplicationBadge;
+- (void)updateAllDataWithoutRequest;
 
 @end

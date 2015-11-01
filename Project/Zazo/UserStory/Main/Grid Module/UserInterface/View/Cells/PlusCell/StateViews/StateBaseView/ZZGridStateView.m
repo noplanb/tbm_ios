@@ -60,6 +60,7 @@
         
         model.usernameLabel = self.userNameLabel;
         [self.model reloadDebugVideoStatus];
+
     });
 }
 
@@ -92,8 +93,9 @@
 - (void)_setupDownloadedStateWithModel:(ZZGridCellViewModel*)model
 {
     self.userNameLabel.backgroundColor =
-    [model.badgeNumber  integerValue] > 0 ? [ZZColorTheme shared].gridCellLayoutGreenColor : [ZZColorTheme shared].gridCellGrayColor;
+    model.badgeNumber > 0 ? [ZZColorTheme shared].gridCellLayoutGreenColor : [ZZColorTheme shared].gridCellGrayColor;
     self.model.isDownloadAnimationPlayed = YES;
+   
     [self showDownloadAnimationWithCompletionBlock:^{
         self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
         self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
@@ -107,8 +109,7 @@
     
     if (model.state & ZZGridCellViewModelStateVideoDownloadedAndVideoCountOne)
     {
-        if ([model.badgeNumber integerValue] > 0 &&
-            ![self.model isVideoPlayed])
+        if (model.badgeNumber > 0 && ![self.model isVideoPlayed])
         {
             [self _setupGreenColorsWithModel:model];
         }
@@ -117,7 +118,11 @@
     {
         [self _setupGreenColorsWithModel:model];
     }
-    else
+    else if (model.state & ZZGridCellViewModelStateNeedToShowGreenBorder)
+    {
+        [self _setupGreenColorsWithModel:model];
+    }
+    else // 10010000 preview and downloading resets this state.
     {
         [self _setupGrayColorsWithModel:model];
     }
@@ -134,7 +139,7 @@
 {
     self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellUserNameGrayColor;
     self.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
-    [self updateBadgeWithNumber:@(0)];
+    [self updateBadgeWithNumber:0];
 }
 
 #pragma mark - Setup Recognizer
@@ -180,11 +185,11 @@
     [self _showDownloadAnimationWithCompletionBlock:completionBlock];
 }
 
-- (void)updateBadgeWithNumber:(NSNumber*)badgeNumber
+- (void)updateBadgeWithNumber:(NSInteger)badgeNumber
 {
-    if ([badgeNumber integerValue] > 0)
+    if (badgeNumber > 0)
     {
-        [self _showVideoCountLabelWithCount:[badgeNumber integerValue]];
+        [self _showVideoCountLabelWithCount:badgeNumber];
     }
     else
     {
