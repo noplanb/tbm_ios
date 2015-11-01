@@ -7,6 +7,6 @@ fix/camera
  x Pull
  x Create branch
  x Test existing
- -
  - Review interface with existing camera
+   x Remove unnecessary includes of ZZvideorecorder
  -

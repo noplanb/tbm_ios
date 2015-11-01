@@ -21,7 +21,6 @@
 #import "NBPhoneNumber.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZCommonNetworkTransportService.h"
-#import "ZZVideoRecorder.h"
 #import "ZZFriendDataUpdater.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZRollbarAdapter.h"

@@ -8,7 +8,6 @@
 
 #import "ZZGridStateViewPreview.h"
 #import "ZZGridUIConstants.h"
-#import "ZZVideoRecorder.h"
 #import "TBMFriend.h"
 
 static CGFloat const kThumbnailBorderWidth = 2;
