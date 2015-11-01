@@ -62,6 +62,8 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "OBFileTransfer/Pod/Assets/mimeTypes.txt"
   install_resource "OBFileTransfer/Pod/Assets/OBFTMErrors.strings"
   install_resource "OBLogger/Pod/Assets/OBLogViewController.xib"
+  install_resource "PBJVision/Source/Shaders/Shader.fsh"
+  install_resource "PBJVision/Source/Shaders/Shader.vsh"
   install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
   install_resource "libPhoneNumber-iOS/libPhoneNumber/NBPhoneNumberMetadata.plist"
 fi
@@ -70,6 +72,8 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "OBFileTransfer/Pod/Assets/mimeTypes.txt"
   install_resource "OBFileTransfer/Pod/Assets/OBFTMErrors.strings"
   install_resource "OBLogger/Pod/Assets/OBLogViewController.xib"
+  install_resource "PBJVision/Source/Shaders/Shader.fsh"
+  install_resource "PBJVision/Source/Shaders/Shader.vsh"
   install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
   install_resource "libPhoneNumber-iOS/libPhoneNumber/NBPhoneNumberMetadata.plist"
 fi
@@ -78,6 +82,8 @@ if [[ "$CONFIGURATION" == "Ad-hoc" ]]; then
   install_resource "OBFileTransfer/Pod/Assets/mimeTypes.txt"
   install_resource "OBFileTransfer/Pod/Assets/OBFTMErrors.strings"
   install_resource "OBLogger/Pod/Assets/OBLogViewController.xib"
+  install_resource "PBJVision/Source/Shaders/Shader.fsh"
+  install_resource "PBJVision/Source/Shaders/Shader.vsh"
   install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
   install_resource "libPhoneNumber-iOS/libPhoneNumber/NBPhoneNumberMetadata.plist"
 fi

@@ -82,6 +82,7 @@ PODS:
   - OBFileTransfer (0.5.8):
     - OBLogger
   - OBLogger (0.2.2)
+  - PBJVision (0.3.5)
   - pop (1.0.8)
   - RBBAnimation (0.4.0)
   - ReactiveCocoa (2.4.7):
@@ -129,6 +130,7 @@ DEPENDENCIES:
   - MSSPopMasonry (~> 0.0.1)
   - OBFileTransfer (~> 0.5.8)
   - OBLogger (~> 0.2.2)
+  - PBJVision (~> 0.3.4)
   - Reveal-iOS-SDK (~> 1.6.1)
   - Rollbar (~> 0.1.5)
   - SDCAlertView (~> 2.5.2)
@@ -166,6 +168,7 @@ SPEC CHECKSUMS:
   MSSPopMasonry: 6700cb03db3f2e7c16ecc96f53c0bd1a2a73fc4f
   OBFileTransfer: 34529a3d506e3b518265a3efdd88712d05a4a358
   OBLogger: 52dc3733c54460c3a80d635e47be8556ce6a1312
+  PBJVision: 4a446910960a50ffdce139089b746255d206dc76
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
   RBBAnimation: 4b2d66f6d993febce63cd564da934985313b9c59
   ReactiveCocoa: eb38dee0a0e698f73a9b25e5c1faea2bb4c79240

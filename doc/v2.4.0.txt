@@ -9,6 +9,11 @@ fix/camera
  x Test existing
  - Review interface with existing camera
    x Remove unnecessary includes of ZZvideorecorder
-   -
+ - Review pbvision usage
+ - Add pbjVision pod
+ - Rename ZZVideoRecorder ZZVideoRecorderDeprecated
+ - Add new ZZVideoRecorder
+ - Remove any ties to TBMVideoRecorder use PBJVision instead.
+   - ZZ Presenter should add the preview layer from ZZVideoRecorder
  - Remove handle incoming call.
  -
