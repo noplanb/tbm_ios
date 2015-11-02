@@ -24,13 +24,15 @@
 
 #pragma mark - Count
 
-//+ (NSInteger)friendsCount;
++ (NSInteger)friendsCount;
 
 
 #pragma mark - Entities
 
 + (TBMFriend*)friendEntityWithItemID:(NSString*)itemID;
+
 + (BOOL)isFriendExistsWithItemID:(NSString*)itemID;
++ (BOOL)isFriendExistsWithMKey:(NSString*)mKey;
 
 #pragma mark - CRUD
 

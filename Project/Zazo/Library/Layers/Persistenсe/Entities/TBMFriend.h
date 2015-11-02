@@ -45,9 +45,9 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 //+ (NSUInteger)allUnviewedCount;
 //+ (NSUInteger)unviewedCountForGridCellAtIndex:(NSUInteger)index;
 + (instancetype)findWithId:(NSString *)idTbm;
-+ (instancetype)findWithMkey:(NSString *)mkey;
+//+ (instancetype)findWithMkey:(NSString *)mkey;
 //+ (instancetype)findWithMatchingPhoneNumber:(NSString *)phone;
-+ (NSUInteger)count;
+//+ (NSUInteger)count;
 //+ (NSUInteger)everSentNonInviteeFriendsCount;
 
 // UI

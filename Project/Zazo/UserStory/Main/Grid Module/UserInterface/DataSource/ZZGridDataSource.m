@@ -36,7 +36,6 @@ ZZGridCenterCellViewModelDelegate
     [self.controllerDelegate reload];
 }
 
-
 - (NSInteger)frindsOnGridNumber
 {
     ZZGridCenterCellViewModel* centerCell = [self centerViewModel];
@@ -140,8 +139,6 @@ ZZGridCenterCellViewModelDelegate
     return model;
 }
 
-
-
 - (NSInteger)indexForUpdatedDomainModel:(ZZGridDomainModel*)domainModel
 {
     return [self viewModelIndexWithModelIndex:domainModel.index];
@@ -149,7 +146,6 @@ ZZGridCenterCellViewModelDelegate
 
 - (NSInteger)indexForFriendDomainModel:(ZZFriendDomainModel*)friendModel
 {
-    
     __block id item;
     
     [self.models enumerateObjectsUsingBlock:^(ZZGridCellViewModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

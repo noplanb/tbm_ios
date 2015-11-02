@@ -146,7 +146,6 @@
 
 - (void)checkIsCancelRecordingWithRecognizer:(UILongPressGestureRecognizer*)recognizer
 {
-   
     if ([ZZGridActionStoredSettings shared].abortRecordHintWasShown)
     {
         UIView* recordView = recognizer.view;

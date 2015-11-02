@@ -28,6 +28,7 @@
 #import "ZZVideoStatuses.h"
 #import "ZZVideoDataProvider.h"
 #import "TBMVideoIdUtils.h"
+#import "ZZFriendDataProvider.h"
 
 @interface ZZGridPresenter ()
 <
@@ -356,7 +357,7 @@
 
 - (void)showHint
 {
-    if ([TBMFriend count] == 0)
+    if ([ZZFriendDataProvider friendsCount] == 0)
     {
         return;
     }
