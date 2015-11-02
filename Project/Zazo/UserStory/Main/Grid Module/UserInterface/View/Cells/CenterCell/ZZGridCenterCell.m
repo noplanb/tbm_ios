@@ -46,6 +46,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
     [super layoutSubviews];
     
     self.recordingOverlay.frame = self.bounds;
+    self.previewLayer.frame = self.bounds;
 }
 
 - (void)updateWithModel:(ZZGridCenterCellViewModel*)model
@@ -58,28 +59,13 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
         {
             self.videoView = model.recordView;
             self.previewLayer = model.previewLayer;
-            self.previewLayer.frame = self.videoView.bounds;
-            self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-            
-            for (CALayer *layer in [self.videoView.layer.sublayers copy]) {
-                [layer removeFromSuperlayer];
-            }
-            
-            if (self.previewLayer != nil)
-            {
-                [self.videoView.layer addSublayer:self.previewLayer];
-            }
-            else
-            {
-                OB_ERROR(@"nil previewLayer. This should never happen");
-            }
-            
             UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_switchCamera)];
             [self.videoView addGestureRecognizer:tapRecognizer];
             [self bringSubviewToFront:self.switchCameraButton];
         }
     });
 }
+
 
 - (void)updataeRecordStateTo:(BOOL)isRecording
 {
@@ -131,6 +117,27 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
     }];
 }
 
+- (void)setPreviewLayer:(AVCaptureVideoPreviewLayer *)previewLayer
+{
+    if (previewLayer == nil)
+    {
+        ZZLogError(@"attempting to set nil previewLayer. This should never happen.");
+        return;
+    }
+    if (self.videoView == nil)
+    {
+        ZZLogError(@"attempting to set previewLayer while videoView is nil. This should never happen.");
+        return;
+    }
+    if (previewLayer != nil){
+        _previewLayer = previewLayer;
+        for (CALayer *layer in [self.videoView.layer.sublayers copy]) {
+            [layer removeFromSuperlayer];
+        }
+        self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+        [self.videoView.layer addSublayer:_previewLayer];
+    }
+}
 
 #pragma mark - Lazy Load
 

@@ -231,7 +231,7 @@
 }
 
 
-#pragma makr - EVENT InviteHint
+#pragma mark - EVENT InviteHint
 
 - (void)dataLoadedWithArray:(NSArray*)data
 {
