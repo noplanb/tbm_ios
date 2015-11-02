@@ -321,11 +321,11 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 - (void)vision:(PBJVision *)vision capturedVideo:(NSDictionary *)videoDict error:(NSError *)error{
     BOOL abort = NO;
-    NSURL *outputFileURL = videoDict[PBJVisionVideoPathKey];
+    NSString *outputFilePath = videoDict[PBJVisionVideoPathKey];
     
     if (self.didCancelRecording)
     {
-        ZZLogInfo(@"didCancelRecordingToOutputFileAtURL:%@ error:%@", outputFileURL, error);
+        ZZLogInfo(@"didCancelRecordingToOutputFileAtPath:%@ error:%@", outputFilePath, error);
         [self _sendCompletionWithResult:NO];
         abort = YES;
     }
@@ -336,7 +336,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         [self _sendCompletionWithResult:NO];
         abort = YES;
     }
-    else if ([self _videoTooShort:outputFileURL])
+    else if ([self _videoTooShort:outputFilePath])
     {
         ZZLogInfo(@"VideoRecorder#videoTooShort aborting");
         NSError *error = [self _videoRecorderError:@"Video too short" reason:@"Too short"];
@@ -368,6 +368,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     [[NSFileManager defaultManager] removeItemAtURL:self.recordVideoUrl error:nil];
     
     NSError *copyError = nil;
+    NSURL *outputFileURL = [NSURL fileURLWithPath:outputFilePath isDirectory:NO];
     [[NSFileManager defaultManager] copyItemAtURL:outputFileURL toURL:self.recordVideoUrl error:&copyError];
     [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
     if (copyError)
@@ -421,13 +422,13 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
                                                       userInfo:@{@"error":error}];
 }
 
-- (BOOL)_videoTooShort:(NSURL *)videoUrl
+- (BOOL)_videoTooShort:(NSString *)videoPath
 {
     NSError *error = nil;
-    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:videoUrl.path error:&error];
+    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:videoPath error:&error];
     if (error != nil)
     {
-        ZZLogError(@"VideoRecorder#videoTooShort: Can't set attributes for file: %@. Error: %@", videoUrl.path, error);
+        ZZLogError(@"VideoRecorder#videoTooShort: Can't set attributes for file: %@. Error: %@", videoPath, error);
         return NO;
     }
     
