@@ -16,6 +16,8 @@
 #import "ZZFriendDomainModel.h"
 #import "ZZKeyStoreOutgoingVideoStatusDomainModel.h"
 #import "ZZVideoDataProvider.h"
+#import "ZZVideoStatusHandler.h"
+
 
 @implementation ZZApplicationDataUpdaterService
 
@@ -136,7 +138,10 @@
                 }
                 //TODO: remove this core data stuff
                 TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
-                [friendEntity setAndNotifyOutgoingVideoStatus:[model status] videoId:model.videoId];
+//                [friendEntity setAndNotifyOutgoingVideoStatus:[model status] videoId:model.videoId];
+                TBMVideo* video = [ZZVideoDataProvider entityWithID:model.videoId];
+                [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)[model status] withFriend:friendEntity withVideo:video];
+                
             }
         }
     }];

@@ -6,7 +6,10 @@
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
+#import "ZZVideoStatuses.h"
+
 @class TBMFriend;
+@class TBMVideo;
 
 @protocol ZZVideoFileHandlerDelegate <NSObject>
 
@@ -16,6 +19,13 @@
 - (void)sendNotificationForVideoStatusUpdate:(TBMFriend *)friend videoId:(NSString *)videoId status:(NSString *)status;
 - (void)updateBadgeCounter;
 - (void)updateDataRequired;
+
+
+- (void)notifyOutgoinVideoWithStatus:(ZZVideoOutgoingStatus)status withFriend:(TBMFriend*)friend video:(TBMVideo*)video;
+- (void)setAndNotifyUploadRetryCount:(NSInteger)count withFriend:(TBMFriend*)friend video:(TBMVideo*)video;
+- (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)status withFriend:(TBMFriend*)friend video:(TBMVideo*)video;
+- (void)deleteAllViewedOrFailedVideosForFriend:(TBMFriend*)friend;
+- (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount withFriend:(TBMFriend*)friend video:(TBMVideo*)video;
 
 @end
 

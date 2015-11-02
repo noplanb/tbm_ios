@@ -62,7 +62,7 @@
     }
     else
     {
-        return friendEntity.displayName;
+        return [friendModel displayName];
     }
 }
 
@@ -156,6 +156,10 @@
              && self.item.relatedUser.lastIncomingVideoStatus != ZZVideoIncomingStatusDownloading)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateNeedToShowGreenBorder);
+    }
+    else if (self.badgeNumber == 0 && self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
+    {
+        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoFirstVideoDownloading);
     }
     
     // badge state

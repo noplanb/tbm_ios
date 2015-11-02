@@ -69,7 +69,12 @@
 
 - (void)_setupDownloadAnimationsWithModel:(ZZGridCellViewModel*)model
 {
-    if (self.model.state & ZZGridCellViewModelStateVideoDownloading)
+    if (self.model.state & ZZGridCellViewModelStateVideoFirstVideoDownloading)
+    {
+        [self _setupBadgeWithModel:model];
+        [self _setupDownloadingState];
+    }
+    else if (self.model.state & ZZGridCellViewModelStateVideoDownloading)
     {
         [self _setupBadgeWithModel:model];
         [self _setupDownloadingState];
@@ -122,7 +127,12 @@
     {
         [self _setupGreenColorsWithModel:model];
     }
-    else // 10010000 preview and downloading resets this state.
+    else if (model.state & ZZGridCellViewModelStateVideoFirstVideoDownloading)
+    {
+    
+    }
+    else if ((model.state | ZZGridCellViewModelStatePreview) &&
+             (model.state | ZZGridCellViewModelStateVideoDownloading))  // 10010000 preview and downloading resets this state.
     {
         [self _setupGrayColorsWithModel:model];
     }

@@ -77,5 +77,6 @@ extern const struct ZZFriendDomainModelAttributes {
 - (BOOL)isCreator;
 - (ZZMenuContactType)contactType;
 - (BOOL)hasIncomingVideo;
+- (NSString *)displayName;
 
 @end

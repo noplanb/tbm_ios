@@ -23,14 +23,29 @@
 #import "ZZFriendDataUpdater.h"
 #import "ZZGridInteractor+ActionHandler.h"
 #import "ZZGridActionStoredSettings.h"
+#import "ZZVideoStatusHandler.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
-@interface ZZGridInteractor () <TBMVideoStatusNotificationProtocol>
+@interface ZZGridInteractor ()
+<
+    TBMVideoStatusNotificationProtocol,
+    ZZVideoStatusHandlerDelegate
+>
 
 @end
 
 @implementation ZZGridInteractor
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        [[ZZVideoStatusHandler sharedInstance] addVideoStatusHandlerObserver:self];
+    }
+    return self;
+}
 
 - (void)loadData
 {
@@ -251,25 +266,28 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 
 
-#pragma mark - TBMFriend Delegate 
+//#pragma mark - TBMFriend Delegate 
+//- (void)videoStatusDidChange:(TBMFriend*)model
 
-- (void)videoStatusDidChange:(TBMFriend*)model
+#pragma mark - Video Status Handler delegate
+
+- (void)videoStatusChangedForFriend:(TBMFriend*)friend
 {
-    ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithRelatedUserID:model.idTbm];
+    ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithRelatedUserID:friend.idTbm];
   
     if (!gridModel)
     {
-        ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:model];
+        ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
         //TODO:
         BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
         
         if (!shouldBeVisible)
         {
-            BOOL isUserSendsUsAVideo = ((model.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeIncoming) &&
-                                        (model.lastIncomingVideoStatusValue  == ZZVideoIncomingStatusDownloading));
+            BOOL isUserSendsUsAVideo = ((friend.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeIncoming) &&
+                                        (friend.lastIncomingVideoStatusValue  == ZZVideoIncomingStatusDownloading));
             
-            BOOL isUserViewedOurVideo = ((model.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeOutgoing) &&
-                                         (model.outgoingVideoStatusValue  == ZZVideoOutgoingStatusViewed));
+            BOOL isUserViewedOurVideo = ((friend.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeOutgoing) &&
+                                         (friend.outgoingVideoStatusValue  == ZZVideoOutgoingStatusViewed));
             
             if (isUserSendsUsAVideo | isUserViewedOurVideo)
             {

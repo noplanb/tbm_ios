@@ -12,6 +12,7 @@
 #import "ZZFriendModelsMapper.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZContentDataAcessor.h"
+#import "ZZVideoStatusHandler.h"
 
 @implementation ZZFriendDataUpdater
 
@@ -40,7 +41,7 @@
             ZZLogInfo(@"createWithServerParams: Friend exists updating hasApp only since it is different.");
             item.hasApp = @(model.hasApp);
             [item.managedObjectContext MR_saveToPersistentStoreAndWait];
-            [item notifyVideoStatusChange];
+            [[ZZVideoStatusHandler sharedInstance] notifyFriendChanged:item];
         }
     }
     else
@@ -48,7 +49,7 @@
         item = [TBMFriend MR_createEntityInContext:[self _context]];
         item = [ZZFriendModelsMapper fillEntity:item fromModel:model];
         [item.managedObjectContext MR_saveToPersistentStoreAndWait];
-        [item notifyVideoStatusChange];
+        [[ZZVideoStatusHandler sharedInstance] notifyFriendChanged:item];
     }
  
     return [ZZFriendDataProvider modelFromEntity:item];

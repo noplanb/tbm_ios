@@ -10,6 +10,8 @@
 #import "FEMObjectMapping.h"
 #import "ZZUserPresentationHelper.h"
 #import "ZZStoredSettingsManager.h"
+#import "MagicalRecord.h"
+#import "TBMFriend.h"
 
 const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     .idTbm = @"idTbm",
@@ -154,6 +156,41 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
 - (ZZMenuContactType)contactType
 {
     return ZZFriendshipStatusTypeZazoFriend;
+}
+
+#pragma mark - Friend Name
+
+- (NSString* )displayName
+{
+    NSInteger maxLength = 100;
+    NSString *name;
+    
+    if ([self firstNameIsUnique])
+        name = self.firstName;
+    else
+        name = [NSString stringWithFormat:@"%@. %@", [self firstInitial], self.lastName];
+    
+    // Limit to 12 characgters
+    if (name.length > maxLength)
+        name = [name substringWithRange:NSMakeRange(0, maxLength - 1)];
+    
+    return name;
+}
+
+- (BOOL)firstNameIsUnique
+{
+    NSArray* friends = [TBMFriend MR_findAll];
+    for (TBMFriend *f in friends)
+    {
+        if (![self isEqual:f] && [self.firstName isEqualToString:f.firstName])
+            return NO;
+    }
+    return YES;
+}
+
+- (NSString *)firstInitial
+{
+    return [self.firstName substringToIndex:1];
 }
 
 @end

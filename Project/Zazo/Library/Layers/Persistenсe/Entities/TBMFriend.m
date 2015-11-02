@@ -229,13 +229,6 @@ static NSMutableSet *videoStatusNotificationDelegates;
     return i;
 }
 
-- (void)setViewedWithIncomingVideo:(TBMVideo *)video
-{
-    [self setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusViewed video:video];
-    [ZZApplicationRootService sendNotificationForVideoStatusUpdate:self
-                                                           videoId:video.videoId
-                                                            status:NOTIFICATION_STATUS_VIEWED];
-}
 
 //-------------------------------------
 // VideoStatus Delegates and UI Strings
@@ -279,11 +272,11 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (void)notifyVideoStatusChange
 {
-    ZZLogInfo(@"notifyVideoStatusChange for %@ on %lu delegates", self.firstName, (unsigned long) [videoStatusNotificationDelegates count]);
-    for (id <TBMVideoStatusNotificationProtocol> delegate in videoStatusNotificationDelegates)
-    {
-        [delegate videoStatusDidChange:self];
-    }
+//    ZZLogInfo(@"notifyVideoStatusChange for %@ on %lu delegates", self.firstName, (unsigned long) [videoStatusNotificationDelegates count]);
+//    for (id <TBMVideoStatusNotificationProtocol> delegate in videoStatusNotificationDelegates)
+//    {
+//        [delegate videoStatusDidChange:self];
+//    }
 }
 //
 //- (NSString*)videoStatusString
@@ -368,65 +361,6 @@ static NSMutableSet *videoStatusNotificationDelegates;
     return [[self displayName] substringWithRange:NSMakeRange(0, MIN(6, [[self displayName] length]))];
 }
 
-//---------------
-// Setting status
-//---------------
-- (void)setAndNotifyOutgoingVideoStatus:(TBMOutgoingVideoStatus)status videoId:(NSString *)videoId
-{
-    [ZZContentDataAcessor refreshContext:self.managedObjectContext];
-    if (![videoId isEqualToString:self.outgoingVideoId])
-    {
-        ZZLogWarning(@"setAndNotifyOutgoingVideoStatus: Unrecognized vidoeId:%@. != ougtoingVid:%@. friendId:%@ Ignoring.", videoId, self.outgoingVideoId, self.idTbm);
-        return;
-    }
-
-    if (status == self.outgoingVideoStatusValue)
-    {
-        ZZLogWarning(@"setAndNotifyOutgoingVideoStatusWithVideo: Identical status. Ignoring.");
-        return;
-    }
-
-    self.lastVideoStatusEventTypeValue = OUTGOING_VIDEO_STATUS_EVENT_TYPE;
-    self.outgoingVideoStatusValue = status;
-
-    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
-    
-    [self notifyVideoStatusChangeOnMainThread];
-}
-
-- (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)status video:(TBMVideo *)video
-{
-    [ZZContentDataAcessor refreshContext:self.managedObjectContext];
-    if (video.statusValue == status)
-    {
-        ZZLogWarning(@"setAndNotifyIncomingVideoStatusWithVideo: Identical status. Ignoring.");
-        return;
-    }
-
-   
-    video.statusValue = status;
-
-    
-    [video.managedObjectContext MR_saveToPersistentStoreAndWait];
-    self.lastIncomingVideoStatusValue = status;
-
-    // Serhii says: We want to preserve previous status if last event type is incoming and status is VIEWED
-    // Sani complicates it by saying: This is a bit subtle. We don't want an action by this user of
-    // viewing his incoming video to count
-    // as cause a change in lastVideoStatusEventType. That way if the last action by the user was sending a
-    // video (recording on a person with unviewed indicator showing) then later viewed the incoming videos
-    // he gets to see the status of the last outgoing video he sent after play is complete and the unviewed count
-    // indicator goes away.
-    if (status != ZZVideoIncomingStatusViewed)
-    {
-        self.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
-    }
-    
-    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
-    [self notifyVideoStatusChangeOnMainThread];
-    
-}
-
 // --------------------
 // Setting Retry Counts
 // --------------------
@@ -452,62 +386,8 @@ static NSMutableSet *videoStatusNotificationDelegates;
     }
 }
 
-- (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount video:(TBMVideo *)video
-{
-    [ZZContentDataAcessor refreshContext:self.managedObjectContext];
-    [ZZContentDataAcessor refreshContext:video.managedObjectContext];
-    
-    if (video.downloadRetryCountValue == retryCount)
-        return;
 
-    video.downloadRetryCount = @(retryCount);
-    [video.managedObjectContext MR_saveToPersistentStoreAndWait];
-    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
-
-    if ([self isNewestIncomingVideo:video])
-    {
-        self.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
-        [self.managedObjectContext MR_saveToPersistentStoreAndWait];
-        [self notifyVideoStatusChangeOnMainThread];
-    }
-}
-
-//--------------------
-// Init outgoing video
-//--------------------
 #pragma mark - Ougtoing Video Status Handling
-
-- (void)handleOutgoingVideoCreatedWithVideoId:(NSString *)videoId
-{
-    self.uploadRetryCount = 0;
-    self.outgoingVideoId = videoId;
-   [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_NEW videoId:self.outgoingVideoId];
-}
-
-- (void)handleOutgoingVideoUploadingWithVideoId:(NSString *)videoId
-{
-    [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_UPLOADING videoId:videoId];
-}
-
-- (void)handleOutgoingVideoUploadedWithVideoId:(NSString *)videoId
-{
-    [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_UPLOADED videoId:videoId];
-}
-
-- (void)handleOutgoingVideoViewedWithVideoId:(NSString *)videoId
-{
-    [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_VIEWED videoId:videoId];
-}
-
-- (void)handleOutgoingVideoFailedPermanentlyWithVideoId:(NSString *)videoId
-{
-    [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY videoId:videoId];
-}
-
-- (void)handleUploadRetryCount:(NSInteger)retryCount videoId:(NSString *)videoId
-{
-    [self setAndNotifyUploadRetryCount:retryCount videoId:videoId];
-}
 
 - (NSString *)fullName
 {
