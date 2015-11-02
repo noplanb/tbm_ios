@@ -23,6 +23,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
 @property (nonatomic, strong) ZZGridCenterCellViewModel* model;
 @property (nonatomic, strong) UIView* recordingContainer;
 @property (nonatomic, strong) UIView* videoView;
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer* previewLayer;
 @property (nonatomic, strong) CALayer* recordingOverlay;
 @property (nonatomic, strong) UILabel* recordingLabel;
 
@@ -56,6 +57,23 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
         if (!self.videoView)
         {
             self.videoView = model.recordView;
+            self.previewLayer = model.previewLayer;
+            self.previewLayer.frame = self.videoView.bounds;
+            self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+            
+            for (CALayer *layer in [self.videoView.layer.sublayers copy]) {
+                [layer removeFromSuperlayer];
+            }
+            
+            if (self.previewLayer != nil)
+            {
+                [self.videoView.layer addSublayer:self.previewLayer];
+            }
+            else
+            {
+                OB_ERROR(@"nil previewLayer. This should never happen");
+            }
+            
             UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_switchCamera)];
             [self.videoView addGestureRecognizer:tapRecognizer];
             [self bringSubviewToFront:self.switchCameraButton];

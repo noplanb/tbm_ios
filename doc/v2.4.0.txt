@@ -9,11 +9,38 @@ fix/camera
  x Test existing
  - Review interface with existing camera
    x Remove unnecessary includes of ZZvideorecorder
- - Review pbvision usage
- - Add pbjVision pod
- - Rename ZZVideoRecorder ZZVideoRecorderDeprecated
- - Add new ZZVideoRecorder
+ x Review pbvision usage
+ x Add pbjVision pod
+ x Rename ZZVideoRecorder ZZVideoRecorderDeprecated
+ x Add new ZZVideoRecorder
  - Remove any ties to TBMVideoRecorder use PBJVision instead.
-   - ZZ Presenter should add the preview layer from ZZVideoRecorder
+   x ZZ Presenter should add the preview layer from ZZVideoRecorder
+ - VideoRecorderNotifications
+   x Change names to kVideoRecorder...
+   x What does presenter do with did cancel recording?
+     x Updates view state to now for center view.
+
+   x Make sure did cancel recording is called.
+   x Make grid presenter register for did cancel recording and use that rather than delegate
+   - Add methods back into zzVideoRecorder
+     - switchCamera
+
+
  - Remove handle incoming call.
+ - Remove unused from zzdevicehandler
  -
+
+
+
+Questions:
+  - Why does ZZVideoRecorder handleTouches? It seems like a hack to cancel on 2 finger touch. Should I remove this and handle elsewhere? In ZZGridCellViewModel?
+
+  - The ZZVideoRecorder should really not update any UI including toasts. Correct? I think at most it should notify of events that may require toasts such as videoTooShort and something else should cause these toasts. Correct? Which object should properly present these toasts?
+
+  - Why is ZZGridPresenter setting ZZVideoRecorder.isRecorderActive. Shouldn't ZZVideo recorder know and handle its own state?
+
+  - Why does ZZGridCellViewModel._checkIsCancelRecordingWithRecognizer call ZZVideoRecorder cancelRecording. Shouldnt it call its dataSourceDelegate for this which should then call the presenter?
+
+  - Should I delete ZZGridStateView.checkIsCancelRecordingWithRecognizer? It seems that this is handled by ZZGridCelViewModel now and is not correct in ZZGridStateView?
+
+  - The ZZGridDataSource sitting between the views and the presenter seems like a bit of a pain. Is it really necessary?

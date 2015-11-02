@@ -88,7 +88,7 @@
 		07636E5B1BA49A0100925671 /* ZZStringUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BBC1BA49A0100925671 /* ZZStringUtils.m */; };
 		07636E5C1BA49A0100925671 /* ZZVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BBF1BA49A0100925671 /* ZZVideoPlayer.m */; };
 		07636E5D1BA49A0100925671 /* ZZVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BC21BA49A0100925671 /* ZZVideoProcessor.m */; };
-		07636E5E1BA49A0100925671 /* ZZVideoRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BC51BA49A0100925671 /* ZZVideoRecorder.m */; };
+		07636E5E1BA49A0100925671 /* ZZVideoRecorderDeprecated.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BC51BA49A0100925671 /* ZZVideoRecorderDeprecated.m */; };
 		07636E5F1BA49A0100925671 /* ZZVideoUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BC81BA49A0100925671 /* ZZVideoUtils.m */; };
 		07636E6C1BA49A0100925671 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD81BA49A0100925671 /* Assets.xcassets */; };
 		07636E6D1BA49A0100925671 /* logo.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BDA1BA49A0100925671 /* logo.pdf */; };
@@ -322,6 +322,7 @@
 		220E90481909A18C003C4F82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E90281909A18B003C4F82 /* Foundation.framework */; };
 		220E90491909A18C003C4F82 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902C1909A18B003C4F82 /* UIKit.framework */; };
 		220E904A1909A18C003C4F82 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902E1909A18B003C4F82 /* CoreData.framework */; };
+		221058371BE6C4EF00E18A38 /* ZZVideoRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 221058361BE6C4EF00E18A38 /* ZZVideoRecorder.m */; };
 		22403C2B19D5E63400FC36E3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22403C2A19D5E63400FC36E3 /* MessageUI.framework */; };
 		224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
 		22D3EC5F1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3EC5E1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m */; };
@@ -543,8 +544,8 @@
 		07636BBF1BA49A0100925671 /* ZZVideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoPlayer.m; sourceTree = "<group>"; };
 		07636BC11BA49A0100925671 /* ZZVideoProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoProcessor.h; sourceTree = "<group>"; };
 		07636BC21BA49A0100925671 /* ZZVideoProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoProcessor.m; sourceTree = "<group>"; };
-		07636BC41BA49A0100925671 /* ZZVideoRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoRecorder.h; sourceTree = "<group>"; };
-		07636BC51BA49A0100925671 /* ZZVideoRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoRecorder.m; sourceTree = "<group>"; };
+		07636BC41BA49A0100925671 /* ZZVideoRecorderDeprecated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoRecorderDeprecated.h; sourceTree = "<group>"; };
+		07636BC51BA49A0100925671 /* ZZVideoRecorderDeprecated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoRecorderDeprecated.m; sourceTree = "<group>"; };
 		07636BC71BA49A0100925671 /* ZZVideoUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoUtils.h; sourceTree = "<group>"; };
 		07636BC81BA49A0100925671 /* ZZVideoUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoUtils.m; sourceTree = "<group>"; };
 		07636BD81BA49A0100925671 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -990,6 +991,8 @@
 		220E902C1909A18B003C4F82 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		220E902E1909A18B003C4F82 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		220E90451909A18B003C4F82 /* ZazoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZazoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		221058351BE6C4EF00E18A38 /* ZZVideoRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoRecorder.h; sourceTree = "<group>"; };
+		221058361BE6C4EF00E18A38 /* ZZVideoRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoRecorder.m; sourceTree = "<group>"; };
 		22403C2A19D5E63400FC36E3 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		224101D3190D4180005128F9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		22D3EC5D1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZKeyStoreOutgoingVideoStatusDomainModel.h; path = KeyStore/ZZKeyStoreOutgoingVideoStatusDomainModel.h; sourceTree = "<group>"; };
@@ -1875,8 +1878,10 @@
 		07636BC31BA49A0100925671 /* VideoRecorder */ = {
 			isa = PBXGroup;
 			children = (
-				07636BC41BA49A0100925671 /* ZZVideoRecorder.h */,
-				07636BC51BA49A0100925671 /* ZZVideoRecorder.m */,
+				07636BC41BA49A0100925671 /* ZZVideoRecorderDeprecated.h */,
+				07636BC51BA49A0100925671 /* ZZVideoRecorderDeprecated.m */,
+				221058351BE6C4EF00E18A38 /* ZZVideoRecorder.h */,
+				221058361BE6C4EF00E18A38 /* ZZVideoRecorder.m */,
 			);
 			path = VideoRecorder;
 			sourceTree = "<group>";
@@ -4279,6 +4284,7 @@
 				181D1CBC1BC5246C00044F83 /* ZZAbortRecordingFeatureEventHandler.m in Sources */,
 				07636E9F1BA49A0100925671 /* ZZDebugStateController.m in Sources */,
 				07636E1C1BA49A0100925671 /* ZZRootWireframe.m in Sources */,
+				221058371BE6C4EF00E18A38 /* ZZVideoRecorder.m in Sources */,
 				079E90131BD43CEB001A4718 /* ZZRollbarAdapter.m in Sources */,
 				07636EDB1BA49A0100925671 /* ZZMenuVC.m in Sources */,
 				07636EC41BA49A0100925671 /* ZZGridStateViewPreview.m in Sources */,
@@ -4378,7 +4384,7 @@
 				7952764A1BA6B4AB00E506D5 /* ZZMenuCell.m in Sources */,
 				07636E351BA49A0100925671 /* ZZCommonNetworkTransportService.m in Sources */,
 				79123D891BB14F9E007E1CBF /* ZZHintsDomainModel.m in Sources */,
-				07636E5E1BA49A0100925671 /* ZZVideoRecorder.m in Sources */,
+				07636E5E1BA49A0100925671 /* ZZVideoRecorderDeprecated.m in Sources */,
 				07636E2A1BA49A0100925671 /* ZZVideoModelsMapper.m in Sources */,
 				07BAA7081BB1B488009878B9 /* ZZUserPresentationHelper.m in Sources */,
 				07636E5B1BA49A0100925671 /* ZZStringUtils.m in Sources */,

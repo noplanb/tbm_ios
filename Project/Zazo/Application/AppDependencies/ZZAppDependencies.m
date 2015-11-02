@@ -86,16 +86,17 @@
 
 - (void)handleApplicationDidBecomeActive
 {
-    ANDispatchBlockToBackgroundQueue(^{
-        
-        ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
-        if (user.isRegistered)
-        {
-            ANDispatchBlockToMainQueue(^{
-                [[ZZVideoRecorder shared] updateRecorder];
-            });
-        }
-    });
+//    TODO: Sani This should no longer be necessary remove this code after ZZVideoRecorder has been tested in all cases.
+//    ANDispatchBlockToBackgroundQueue(^{
+//        
+//        ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
+//        if (user.isRegistered)
+//        {
+//            ANDispatchBlockToMainQueue(^{
+//                [[ZZVideoRecorder shared] updateRecorder];
+//            });
+//        }
+//    });
     
     [self.rootService checkApplicationPermissionsAndResources];
     [[OBLogger instance] logEvent:OBLogEventAppForeground];

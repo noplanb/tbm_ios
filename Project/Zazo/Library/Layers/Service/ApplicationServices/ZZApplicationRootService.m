@@ -9,7 +9,6 @@
 #import "ZZApplicationRootService.h"
 #import "ZZVideoFileHandler.h"
 #import "TBMVideoProcessor.h"
-#import "TBMVideoRecorder.h"
 #import "ZZVideoRecorder.h"
 #import "TBMVideoIdUtils.h"
 #import "ZZApplicationDataUpdaterService.h"
@@ -58,22 +57,22 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(_videoDidStartRecording:)
-                                                     name:TBMVideoRecorderShouldStartRecording
+                                                     name:kZZVideoRecorderShouldStartRecording
                                                    object:nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(_videoDidFinishRecording:)
-                                                     name:TBMVideoRecorderDidCancelRecording
+                                                     name:kZZVideoRecorderDidCancelRecording
                                                    object:nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(_videoDidFinishRecording:)
-                                                     name:TBMVideoRecorderDidFail
+                                                     name:kZZVideoRecorderDidFail
                                                    object:nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(_videoDidFinishRecording:)
-                                                     name:TBMVideoRecorderDidFinishRecording
+                                                     name:kZZVideoRecorderDidFinishRecording
                                                    object:nil];
     }
     return self;

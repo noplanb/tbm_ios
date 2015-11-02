@@ -241,7 +241,7 @@ static int videoRecorderRetryCount = 0;
 
 - (void)startRecordingWithVideoUrl:(NSURL*)videoUrl
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kZZVideoRecorderShouldStartRecording object:self];
     self.didCancelRecording = NO;
     
     ZZFileTransferMarkerDomainModel* marker = [TBMVideoIdUtils markerModelWithOutgoingVideoURL:videoUrl];
@@ -302,7 +302,7 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
     ZZLogInfo(@"VideoRecorder#didFinishRecordingToOutputFileAtURL %@", error);
     ZZLogInfo(@"VideoRecorder#didFinishRecordingToOutputFileAtURL %@", connections);
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFinishRecording
+    [[NSNotificationCenter defaultCenter] postNotificationName:kZZVideoRecorderDidFinishRecording
                                                         object:self
                                                       userInfo:@{@"videoUrl": outputFileURL}];
     

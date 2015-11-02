@@ -33,10 +33,8 @@
 <
     ZZGridDataSourceDelegate,
     ZZVideoPlayerDelegate,
-    ZZVideoRecorderDelegate,
     ZZGridActionHanlderDelegate,
-    TBMTableModalDelegate,
-    ZZVideoRecorderInterfaceDelegate
+    TBMTableModalDelegate
 >
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
@@ -64,9 +62,6 @@
     self.videoPlayer.delegate = self;
     [self _setupNotifications];
     [self.interactor loadData];
-    
-    [[ZZVideoRecorder shared] addDelegate:self];
-    [ZZVideoRecorder shared].interfaceDelegate = self;
 }
 
 - (void)attachToMenuPanGesture:(UIPanGestureRecognizer*)pan
@@ -94,16 +89,24 @@
                                              selector:@selector(_reloadDataAfterResetAllUserDataNotification)
                                                  name:kResetAllUserDataNotificationKey object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_videoRecorderDidCancelRecording)
+                                                 name:kZZVideoRecorderDidCancelRecording
+                                               object:nil];
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [[ZZVideoRecorder shared] removeDelegate:self];
 }
 
 
 #pragma mark - Notifications
+- (void)_videoRecorderDidCancelRecording
+{
+    [self.userInterface updateRecordViewStateTo:NO];
+}
+
 
 - (void)_reloadDataAfterResetAllUserDataNotification
 {
@@ -243,8 +246,7 @@
                                                                           isSwitchCameraAvailable &&
                                                                           [ZZGridActionStoredSettings shared].frontCameraHintWasShown)];
         
-        [[ZZVideoRecorder shared] updateRecorder];
-        [[ZZVideoRecorder shared] updateRecordView:[self.dataSource centerViewModel].recordView];
+        [[ZZVideoRecorder shared] startPreview];
         [self _showRecordWelcomeIfNeededWithData:data];
     });
 }
@@ -542,12 +544,6 @@
     return [ZZVideoRecorder shared].isRecordingInProgress;
 }
 
-#pragma mark - Video Recorder Delegate
-
-- (void)videoRecordingCanceled
-{
-    [self.userInterface updateRecordViewStateTo:NO];
-}
 
 - (ZZSoundEffectPlayer*)soundPlayer
 {

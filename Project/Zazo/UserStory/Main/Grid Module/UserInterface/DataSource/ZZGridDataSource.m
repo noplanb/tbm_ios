@@ -15,6 +15,7 @@
 #import "TBMFriend.h"
 #import "ZZFriendDataProvider.h"
 #import "ANMemoryStorage+UpdateWithoutAnimations.h"
+#import "ZZVideoRecorder.h"
 
 static NSInteger const kGridCenterCellIndex = 4;
 
@@ -66,6 +67,7 @@ ZZGridCenterCellViewModelDelegate
     
     ZZGridCenterCellViewModel* center = [ZZGridCenterCellViewModel new];
     center.delegate = self;
+    center.previewLayer = [[ZZVideoRecorder shared] previewLayer];
     [updatedSection insertObject:center atIndex:kGridCenterCellIndex];
     
     self.models = [updatedSection copy];
