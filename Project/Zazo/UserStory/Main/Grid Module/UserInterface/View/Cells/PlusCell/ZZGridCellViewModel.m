@@ -323,11 +323,8 @@
 
 - (void)_checkIsCancelRecordingWithRecognizer:(UILongPressGestureRecognizer*)recognizer
 {
-    
     if ([ZZGridActionStoredSettings shared].abortRecordHintWasShown)
     {
-        
-        
         CGFloat addTouchBounds = 80;
         if (IS_IPAD)
         {

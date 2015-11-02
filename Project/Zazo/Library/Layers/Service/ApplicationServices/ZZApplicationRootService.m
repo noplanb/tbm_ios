@@ -22,6 +22,7 @@
 #import "ZZApplicationPermissionsHandler.h"
 #import "ZZVideoDataProvider.h"
 #import "ZZRootStateObserver.h"
+#import "ZZFriendDomainModel.h"
 
 @interface ZZApplicationRootService ()
 <
@@ -189,22 +190,25 @@
 
 - (void)handleVideoReceivedNotification:(ZZNotificationDomainModel *)model
 {
-    TBMFriend *friend = [TBMFriend findWithMkey:model.fromUserMKey];
+    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.fromUserMKey];
     
-    if (friend == nil)
+    if (friendModel)
+    {
+        [self.videoFileHandler queueDownloadWithFriendID:friendModel.idTbm videoId:model.videoID];
+    }
+    else
     {
         ZZLogInfo(@"handleVideoReceivedNotification: got notification for non existant friend. calling getAndPollAllFriends");
         [self.dataUpdater updateAllData];
-        return;
     }
-    [self.videoFileHandler queueDownloadWithFriendID:friend.idTbm videoId:model.videoID];
 }
 
-- (void)handleVideoStatusUpdateNotification:(ZZNotificationDomainModel *)model
+- (void)handleVideoStatusUpdateNotification:(ZZNotificationDomainModel*)model
 {
-    TBMFriend *friend = [TBMFriend findWithMkey:model.toUserMKey];
+    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.fromUserMKey];
     
-    if (friend == nil)
+    
+    if (friendModel == nil)
     {
         ZZLogInfo(@"handleVideoStatusUPdateNotification: got notification for non existant friend. calling getAndPollAllFriends");
         [self.dataUpdater updateAllData];
@@ -225,6 +229,9 @@
         ZZLogError(@"unknown status received in notification");
         return;
     }
+    
+    
+    ZZFriendDomainModel* friend = [ZZFriendDataProvider friendWithMKeyValue:model.toUserMKey];
     
     [friend setAndNotifyOutgoingVideoStatus:outgoingStatus videoId:model.videoID];
 }

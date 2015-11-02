@@ -55,7 +55,6 @@ static CGFloat const kNavigationBarIconHeight = 20;
         self.gridMenuColor = [UIColor colorWithRed:0.18 green:0.18 blue:0.16 alpha:1];
         self.gridMenuTextColor = [UIColor colorWithRed:0.64 green:0.62 blue:0.57 alpha:1];
         
-        
         self.secretScreenHeaderColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1];
         self.secretScreenAddressBGGrayColor = [UIColor colorWithRed:0.98 green:0.98 blue:0.98 alpha:1];
         self.secretScreenAddressBorderGrayColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];

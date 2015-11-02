@@ -68,3 +68,81 @@ ZZVideoOutgoingStatus ZZVideoOutgoingStatusEnumValueFromString(NSString* string)
     return [array indexOfObject:string];
 }
 
+
+- (NSString*)videoStatusString
+{
+    if (self.lastVideoStatusEventTypeValue == OUTGOING_VIDEO_STATUS_EVENT_TYPE)
+    {
+        return [self outgoingVideoStatusString];
+    }
+    else
+    {
+        return [self incomingVideoStatusString];
+    }
+}
+
+- (NSString*)incomingVideoStatusString
+{
+    TBMVideo *v = [self newestIncomingVideo];
+    if (v == NULL)
+        return [self displayName];
+    
+    if (v.statusValue == ZZVideoIncomingStatusDownloading)
+    {
+        if (v.downloadRetryCountValue == 0)
+        {
+            return @"Downloading...";
+        }
+        else
+        {
+            return [NSString stringWithFormat:@"Dwnld r%@", v.downloadRetryCount];
+        }
+    }
+    else if (v.statusValue == ZZVideoIncomingStatusFailedPermanently)
+    {
+        return @"Downloading e!";
+    }
+    else
+    {
+        return [self displayName];
+    }
+}
+
+- (NSString*)outgoingVideoStatusString
+{
+    NSString *statusString;
+    switch (self.outgoingVideoStatusValue)
+    {
+        case OUTGOING_VIDEO_STATUS_NEW:
+            statusString = @"q...";
+            break;
+        case OUTGOING_VIDEO_STATUS_UPLOADING:
+            if (self.uploadRetryCountValue == 0)
+            {
+                statusString = @"p...";
+            }
+            else
+            {
+                statusString = [NSString stringWithFormat:@"r%ld...", (long) [self.uploadRetryCount integerValue]];
+            }
+            break;
+        case OUTGOING_VIDEO_STATUS_UPLOADED:
+            statusString = @".s..";
+            break;
+        case OUTGOING_VIDEO_STATUS_DOWNLOADED:
+            statusString = @"..p.";
+            break;
+        case OUTGOING_VIDEO_STATUS_VIEWED:
+            statusString = @"v!";
+            break;
+        case OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY:
+            statusString = @"e!";
+            break;
+        default:
+            statusString = nil;
+    }
+    
+    NSString *fn = (statusString == nil || self.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED) ? [self displayName] : [self shortFirstName];
+    return [NSString stringWithFormat:@"%@ %@", fn, statusString];
+}
+
