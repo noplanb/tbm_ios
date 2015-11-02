@@ -137,21 +137,6 @@
     [self updateBadgeWithNumber:@(0)];
 }
 
-#pragma mark - Setup Recognizer
-
-- (void)checkIsCancelRecordingWithRecognizer:(UILongPressGestureRecognizer*)recognizer
-{
-   
-    if ([ZZGridActionStoredSettings shared].abortRecordHintWasShown)
-    {
-        UIView* recordView = recognizer.view;
-        CGPoint location = [recognizer locationInView:recordView];
-        if (!CGRectContainsPoint(recordView.frame,location))
-        {
-            [[ZZVideoRecorder shared] cancelRecordingWithReason:NSLocalizedString(@"record-dragged-finger-away", nil)];
-        }
-    }
-}
 
 
 #pragma mark - Animation Views
