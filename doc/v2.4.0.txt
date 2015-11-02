@@ -25,6 +25,7 @@ fix/camera
    - Add methods back into zzVideoRecorder
      - switchCamera
    - Add the pbj delegate methods.
+   - Pass previewLayer to dataSource
 
 
  - Remove handle incoming call.

@@ -246,7 +246,9 @@
                                                                           isSwitchCameraAvailable &&
                                                                           [ZZGridActionStoredSettings shared].frontCameraHintWasShown)];
         
+        [self.dataSource updateValueOnCenterCellWithPreviewLayer:[ZZVideoRecorder shared].previewLayer];
         [[ZZVideoRecorder shared] startPreview];
+        
         [self _showRecordWelcomeIfNeededWithData:data];
     });
 }

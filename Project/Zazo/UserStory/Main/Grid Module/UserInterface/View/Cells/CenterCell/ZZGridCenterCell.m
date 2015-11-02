@@ -58,10 +58,13 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
         if (!self.videoView)
         {
             self.videoView = model.recordView;
-            self.previewLayer = model.previewLayer;
             UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_switchCamera)];
             [self.videoView addGestureRecognizer:tapRecognizer];
             [self bringSubviewToFront:self.switchCameraButton];
+        }
+        if (!self.previewLayer)
+        {
+            self.previewLayer = model.previewLayer;
         }
     });
 }
@@ -121,7 +124,6 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
 {
     if (previewLayer == nil)
     {
-        ZZLogError(@"attempting to set nil previewLayer. This should never happen.");
         return;
     }
     if (self.videoView == nil)
