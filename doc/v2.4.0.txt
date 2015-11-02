@@ -24,23 +24,39 @@ fix/camera
    x Make grid presenter register for did cancel recording and use that rather than delegate
    - Add methods back into zzVideoRecorder
      - switchCamera
+   - Add the pbj delegate methods.
 
 
  - Remove handle incoming call.
  - Remove unused from zzdevicehandler
- -
+ - Remove NSMutableSet recognizers from ZZGridCellViewModel
+ - Remove ZZGridStateView.checkIsCancelRecordingWithRecognizer?
 
 
 
 Questions:
   - Why does ZZVideoRecorder handleTouches? It seems like a hack to cancel on 2 finger touch. Should I remove this and handle elsewhere? In ZZGridCellViewModel?
+   - If we move it would better in presenter. In a separate category.
 
   - The ZZVideoRecorder should really not update any UI including toasts. Correct? I think at most it should notify of events that may require toasts such as videoTooShort and something else should cause these toasts. Correct? Which object should properly present these toasts?
+    - Prestenter UserDialogsCategory.
 
   - Why is ZZGridPresenter setting ZZVideoRecorder.isRecorderActive. Shouldn't ZZVideo recorder know and handle its own state?
+     - Oksana will check.
 
-  - Why does ZZGridCellViewModel._checkIsCancelRecordingWithRecognizer call ZZVideoRecorder cancelRecording. Shouldnt it call its dataSourceDelegate for this which should then call the presenter?
+  - Why does ZZGridCellViewModel._checkIsCancelRecordingWithRecognizer call ZZVideoRecorder.cancelRecording. Shouldnt it call its dataSourceDelegate for this which should then call the presenter?
+     - Add a category on presenter to handle video recorder stuff.
 
   - Should I delete ZZGridStateView.checkIsCancelRecordingWithRecognizer? It seems that this is handled by ZZGridCelViewModel now and is not correct in ZZGridStateView?
+     - Remove
 
   - The ZZGridDataSource sitting between the views and the presenter seems like a bit of a pain. Is it really necessary?
+
+  - What is the  purpose of NSMutableSet* recognizers in ZZGridCellViewModel? Can I remove it?
+    - Ok to remove
+
+  - Why does ZZGridVC have updateRecordViewStateTo: shouldn't this be handled by the ZZGridPresenter? Shall I handle there instead?
+   This is correct.
+
+  - VideoRecorder unit test.
+

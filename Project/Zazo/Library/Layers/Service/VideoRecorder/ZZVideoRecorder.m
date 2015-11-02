@@ -99,4 +99,70 @@ NSString* const kZZVideoRecorderDidFail = @"kZZVideoRecorderDidFail";
 }
 
 
+#pragma mark - PBJVisionDelegate
+// session
+
+- (void)visionSessionWillStart:(PBJVision *)vision{}
+- (void)visionSessionDidStart:(PBJVision *)vision{}
+- (void)visionSessionDidStop:(PBJVision *)vision{}
+
+- (void)visionSessionWasInterrupted:(PBJVision *)vision{}
+- (void)visionSessionInterruptionEnded:(PBJVision *)vision{}
+
+// device / mode / format
+
+- (void)visionCameraDeviceWillChange:(PBJVision *)vision{}
+- (void)visionCameraDeviceDidChange:(PBJVision *)vision{}
+
+- (void)visionCameraModeWillChange:(PBJVision *)vision{}
+- (void)visionCameraModeDidChange:(PBJVision *)vision{}
+
+- (void)visionOutputFormatWillChange:(PBJVision *)vision{}
+- (void)visionOutputFormatDidChange:(PBJVision *)vision{}
+
+- (void)vision:(PBJVision *)vision didChangeCleanAperture:(CGRect)cleanAperture{}
+
+- (void)visionDidChangeVideoFormatAndFrameRate:(PBJVision *)vision{}
+
+// focus / exposure
+
+- (void)visionWillStartFocus:(PBJVision *)vision{}
+- (void)visionDidStopFocus:(PBJVision *)vision{}
+
+- (void)visionWillChangeExposure:(PBJVision *)vision{}
+- (void)visionDidChangeExposure:(PBJVision *)vision{}
+
+- (void)visionDidChangeFlashMode:(PBJVision *)vision{} // flash or torch was changed
+
+// authorization / availability
+
+- (void)visionDidChangeAuthorizationStatus:(PBJAuthorizationStatus)status{}
+- (void)visionDidChangeFlashAvailablility:(PBJVision *)vision{} // flash or torch is available
+
+// preview
+
+- (void)visionSessionDidStartPreview:(PBJVision *)vision{}
+- (void)visionSessionDidStopPreview:(PBJVision *)vision{}
+
+// photo
+
+- (void)visionWillCapturePhoto:(PBJVision *)vision{}
+- (void)visionDidCapturePhoto:(PBJVision *)vision{}
+- (void)vision:(PBJVision *)vision capturedPhoto:(NSDictionary *)photoDict error:(NSError *)error{}
+
+// video
+
+//- (NSString *)vision:(PBJVision *)vision willStartVideoCaptureToFile:(NSString *)fileName{}
+- (void)visionDidStartVideoCapture:(PBJVision *)vision{}
+- (void)visionDidPauseVideoCapture:(PBJVision *)vision{} // stopped but not ended
+- (void)visionDidResumeVideoCapture:(PBJVision *)vision{}
+- (void)visionDidEndVideoCapture:(PBJVision *)vision{}
+- (void)vision:(PBJVision *)vision capturedVideo:(NSDictionary *)videoDict error:(NSError *)error{}
+
+// video capture progress
+
+- (void)vision:(PBJVision *)vision didCaptureVideoSampleBuffer:(CMSampleBufferRef)sampleBuffer{}
+- (void)vision:(PBJVision *)vision didCaptureAudioSample:(CMSampleBufferRef)sampleBuffer{}
+
+
 @end
