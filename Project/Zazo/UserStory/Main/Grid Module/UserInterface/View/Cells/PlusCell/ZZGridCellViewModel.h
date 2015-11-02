@@ -49,7 +49,8 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
     //badge state
     ZZGridCellViewModelStateVideoDownloadedAndVideoCountOne = 1 << 10,
     ZZGridCellViewModelStateVideoCountMoreThatOne = 1 << 11,
-    ZZGridCellViewModelStateVideoFailedPermanently = 1 << 12
+    ZZGridCellViewModelStateVideoFailedPermanently = 1 << 12,
+    ZZGridCellViewModelStateVideoFirstVideoDownloading = 1 << 13
 };
 
 @interface ZZGridCellViewModel : NSObject
