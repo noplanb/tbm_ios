@@ -25,7 +25,6 @@
 
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
 @property (nonatomic, strong) UILongPressGestureRecognizer* recordRecognizer;
-@property (nonatomic, strong) NSMutableSet* recognizers;
 @property (nonatomic, assign) CGPoint initialRecordPoint;
 
 @end
@@ -37,7 +36,7 @@
     self = [super init];
     if (self)
     {
-        self.recognizers = [NSMutableSet set];
+
     }
     return self;
 }
@@ -236,14 +235,7 @@
 {
     self.animationDelegate = animationDelegate;
     [self _removeLongPressRecognizerFromView:view];
-    if ([[self.recognizers allObjects] count] > 0){
-        UILongPressGestureRecognizer* recognizer = [[self.recognizers allObjects] firstObject];
-        [view addGestureRecognizer:recognizer];
-    }
-    else
-    {
-        [view addGestureRecognizer:self.recordRecognizer];
-    }
+    [view addGestureRecognizer:self.recordRecognizer];
 }
 
 - (void)_removeLongPressRecognizerFromView:(UIView*)view
@@ -263,7 +255,6 @@
         _recordRecognizer =
         [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_recordPressed:)];
         _recordRecognizer.minimumPressDuration = 0.2;
-        [self.recognizers addObject:_recordRecognizer];
     }
     return _recordRecognizer;
 }
