@@ -23,6 +23,7 @@
 #import "ZZVideoStatuses.h"
 #import "ZZVideoDataProvider.h"
 #import "ZZFileHelper.h"
+#import "ZZVideoStatusHandler.h"
 
 @interface ZZVideoPlayer ()
 
@@ -132,7 +133,8 @@
             [UIDevice currentDevice].proximityMonitoringEnabled = [ZZGridActionStoredSettings shared].earpieceHintWasShown;
             //TODO:coredata
             TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:playedVideoModel.relatedUser.idTbm];
-            [friend setViewedWithIncomingVideo:viewedVideo];
+//            [friend setViewedWithIncomingVideo:viewedVideo];
+            [[ZZVideoStatusHandler sharedInstance] setAndNotityViewedIncomingVideoWithFriend:friend video:viewedVideo];
             
             [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoId
                                                                         toStatus:ZZRemoteStorageVideoStatusViewed
@@ -335,8 +337,10 @@
             self.moviePlayerController.contentURL = nextUrl;
             
             TBMFriend* friend = [ZZFriendDataProvider entityFromModel:playedVideoModel.relatedUser];
-            [friend setViewedWithIncomingVideo:viewedVideo];
+//            [friend setViewedWithIncomingVideo:viewedVideo];
             //        [self.playedVideoUrls removeObject:nextUrl];
+            [[ZZVideoStatusHandler sharedInstance] setAndNotityViewedIncomingVideoWithFriend:friend video:viewedVideo];
+            
             [ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoId
                                                                         toStatus:ZZRemoteStorageVideoStatusViewed
                                                                       friendMkey:friend.mkey

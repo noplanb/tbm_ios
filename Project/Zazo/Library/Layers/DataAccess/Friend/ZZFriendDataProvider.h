@@ -8,6 +8,7 @@
 
 @class ZZFriendDomainModel;
 @class TBMFriend;
+@class TBMVideo;
 
 @interface ZZFriendDataProvider : NSObject
 
@@ -45,5 +46,9 @@
 
 + (ZZFriendDomainModel*)modelFromEntity:(TBMFriend*)entity;
 + (TBMFriend*)entityFromModel:(ZZFriendDomainModel*)model;
+
+#pragma mark - Helpers
+
++ (BOOL)isFriend:(TBMFriend*)friend hasIncomingVideoWithId:(NSString*)videoId;
 
 @end

@@ -62,7 +62,7 @@
     }
     else
     {
-        return friendEntity.displayName;
+        return [friendModel displayName];
     }
 }
 

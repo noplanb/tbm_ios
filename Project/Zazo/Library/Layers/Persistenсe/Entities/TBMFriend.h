@@ -14,7 +14,7 @@
 
 @protocol TBMVideoStatusNotificationProtocol <NSObject>
 
-- (void)videoStatusDidChange:(TBMFriend *)model;
+//- (void)videoStatusDidChange:(TBMFriend *)model;
 - (void)unlockFeaturesUpdateWithMkeysArray:(NSArray*)mkeysArray;
 
 @end
@@ -41,25 +41,29 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 };
 
 // Finders
-+ (NSArray *)all;
+//+ (NSArray *)all;
+
 //+ (NSUInteger)allUnviewedCount;
 //+ (NSUInteger)unviewedCountForGridCellAtIndex:(NSUInteger)index;
-+ (instancetype)findWithId:(NSString *)idTbm;
+//+ (instancetype)findWithId:(NSString *)idTbm;
 //+ (instancetype)findWithMkey:(NSString *)mkey;
 //+ (instancetype)findWithMatchingPhoneNumber:(NSString *)phone;
 //+ (NSUInteger)count;
 //+ (NSUInteger)everSentNonInviteeFriendsCount;
 
 // UI
-- (NSString *)displayName;
+//- (NSString *)displayName;
 
 // Incoming videos
 //- (BOOL) hasIncomingVideo;
-- (NSArray *) sortedIncomingVideos;
+
+//- (NSArray *) sortedIncomingVideos;
+
 //- (TBMVideo *) oldestIncomingVideo;
 //- (NSString *) oldestIncomingVideoId;
-- (TBMVideo *) newestIncomingVideo;
-- (BOOL) hasIncomingVideoId:(NSString *)videoId;
+//- (TBMVideo *) newestIncomingVideo;
+//- (BOOL) hasIncomingVideoId:(NSString *)videoId;
+
 - (BOOL) isNewestIncomingVideo:(TBMVideo *)video;
 //- (BOOL) hasDownloadingVideo;
 //- (BOOL) hasRetryingDownload;
@@ -77,8 +81,6 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 
 
 
-
-
 + (void)fillAfterMigration;
 
 
@@ -90,25 +92,8 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 
 - (NSString *)outgoingVideoStatusString;
 
-// Probably should not expose this and rather have setters for various states.
-//- (void)setAndNotifyIncomingVideoStatus:(TBMIncomingVideoStatus)status video:(TBMVideo *)video;
-- (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount video:(TBMVideo *)video;
-
-- (void)setViewedWithIncomingVideo:(TBMVideo *)video;
-//- (BOOL)incomingVideoNotViewed;
-- (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)status video:(TBMVideo *)video;
-- (void)setAndNotifyOutgoingVideoStatus:(TBMOutgoingVideoStatus)status videoId:(NSString *)videoId;
-- (void)handleOutgoingVideoCreatedWithVideoId:(NSString *)videoId;
-- (void)handleOutgoingVideoUploadingWithVideoId:(NSString *)videoId;
-- (void)handleOutgoingVideoUploadedWithVideoId:(NSString *)videoId;
-- (void)handleOutgoingVideoViewedWithVideoId:(NSString *)videoId;
-- (void)handleOutgoingVideoFailedPermanentlyWithVideoId:(NSString *)videoId;
-
-- (void)handleUploadRetryCount:(NSInteger)retryCount videoId:(NSString *)videoId;
-
 - (NSString *)fullName;
-
+- (NSString *)shortFirstName;
 - (BOOL)hasOutgoingVideo;
-- (void)notifyVideoStatusChange;
 
 @end

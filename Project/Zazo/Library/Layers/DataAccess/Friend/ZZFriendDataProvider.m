@@ -16,6 +16,7 @@
 #import "ZZGridDomainModel.h"
 #import "ZZContentDataAcessor.h"
 #import "ZZUserFriendshipStatusHandler.h"
+#import "TBMVideo.h"
 
 @implementation ZZFriendDataProvider
 
@@ -185,5 +186,22 @@
     return [ZZContentDataAcessor contextForCurrentThread];
 }
 
+
+#pragma mark - Helpers
+
++ (BOOL)isFriend:(TBMFriend*)friend hasIncomingVideoWithId:(NSString*)videoId
+{
+    BOOL hasVideo = NO;
+    NSArray* videos = [friend.videos.allObjects copy];
+    for (TBMVideo* video in videos)
+    {
+        if ([video.videoId isEqualToString:videoId])
+        {
+            hasVideo = YES;
+        }
+    }
+    
+    return hasVideo;
+}
 
 @end
