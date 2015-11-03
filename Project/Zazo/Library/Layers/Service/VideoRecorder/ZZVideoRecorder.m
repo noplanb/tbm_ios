@@ -11,8 +11,6 @@
 #import "PBJVision.h"
 #import "iToast.h"
 #import "NSError+ZZAdditions.h"
-#import "TBMVideoIdUtils.h"
-#import "ZZFriendDataProvider.h"
 
 NSString* const kVideoProcessorDidFinishProcessing = @"kZZVideoProcessorDidFinishProcessing";
 NSString* const kVideoProcessorDidFail = @"kZZVideoProcessorDidFailProcessing";
@@ -106,7 +104,6 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     {
         [self.recorder endVideoCapture];
     }
-    [self _recordingProgressStopped];
 }
 
 
@@ -138,17 +135,10 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         {
             [self _notifyCancelRecording];
             self.didCancelRecording = YES;
-            if (!ANIsEmpty(reason))
-            {
-                [self _showMessage:reason];
-                ANDispatchBlockAfter(kDelayBeforeNextMessage, ^{
-                    [self _showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
-                });
-            }
-            [self.recorder endVideoCapture];
+            [self showCancelMessageWithReason:reason];
         }
+        [self.recorder endVideoCapture];
     }
-    [self _recordingProgressStopped];
 }
 
 - (void)_notifyCancelRecording
@@ -245,7 +235,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     [[iToast makeText:message]show];
 }
 
-- (void)showVideoToShoortToast
+- (void)showVideoToShortToast
 {
     [self _showMessage:NSLocalizedString(@"record-video-too-short", nil)];
     ANDispatchBlockAfter(kDelayBeforeNextMessage, ^{
@@ -253,6 +243,15 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     });
 }
 
+- (void)showCancelMessageWithReason:(NSString *)reason{
+    if (!ANIsEmpty(reason))
+    {
+        [self _showMessage:reason];
+        ANDispatchBlockAfter(kDelayBeforeNextMessage, ^{
+            [self _showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
+        });
+    }
+}
 
 #pragma mark - PBJVisionDelegate
 // session
@@ -319,66 +318,59 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     
     if (self.didCancelRecording)
     {
-        ZZLogInfo(@"didCancelRecordingToOutputFileAtPath:%@ error:%@", outputFilePath, error);
-        [self _sendCompletionWithResult:NO];
+        ZZLogInfo(@"didCancelRecording");
         abort = YES;
     }
-    else if (error != nil)
+    else if (error)
     {
         NSError *newError = [NSError errorWithError:error reason:@"Problem recording video"];
         [self _handleError:newError];
-        [self _sendCompletionWithResult:NO];
+        abort = YES;
+    }
+    else if (ANIsEmpty(outputFilePath))
+    {
+        NSError *error = [self _videoRecorderError:@"Nil outputFilePath" reason:@"Nil outputFilePath"];
+        [self _handleError:error dispatch:YES];
         abort = YES;
     }
     else if ([self _videoTooShort:outputFilePath])
     {
-        ZZLogInfo(@"VideoRecorder#videoTooShort aborting");
+        ZZLogInfo(@"videoTooShort aborting");
         NSError *error = [self _videoRecorderError:@"Video too short" reason:@"Too short"];
         [self _handleError:error dispatch:NO];
-        
-        
-        [self _sendCompletionWithResult:NO];
-        
-        if (self.didCancelRecording)
-        {
-            ANDispatchBlockAfter((kDelayBeforeNextMessage * 2), ^{
-                [self _showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
-            });
-        }
-        else
-        {
-            [self _showMessage:NSLocalizedString(@"record-video-too-short", nil)];
-            ANDispatchBlockAfter(kDelayBeforeNextMessage, ^{
-                [self _showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
-            });
-        }
+        [self showCancelMessageWithReason:NSLocalizedString(@"record-video-too-short", nil)];
         abort = YES;
     }
     
-    
-    ZZFileTransferMarkerDomainModel* marker = [TBMVideoIdUtils markerModelWithOutgoingVideoURL:self.recordVideoUrl];
-    TBMFriend *friend = [ZZFriendDataProvider friendEntityWithItemID:marker.friendID];
-    
-    [[NSFileManager defaultManager] removeItemAtURL:self.recordVideoUrl error:nil];
-    
-    NSError *copyError = nil;
-    NSURL *outputFileURL = [NSURL fileURLWithPath:outputFilePath isDirectory:NO];
-    [[NSFileManager defaultManager] copyItemAtURL:outputFileURL toURL:self.recordVideoUrl error:&copyError];
-    [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
-    if (copyError)
+    if (!abort)
     {
-        ZZLogError(@"copyError %@ - This should never happen", copyError);
-        [self _handleError:error dispatch:YES];
-        abort = YES;
+        [[NSFileManager defaultManager] removeItemAtURL:self.recordVideoUrl error:nil];
+        
+        NSURL *outputFileURL = [NSURL fileURLWithPath:outputFilePath isDirectory:NO];
+        NSError *copyError = nil;
+        [[NSFileManager defaultManager] copyItemAtURL:outputFileURL toURL:self.recordVideoUrl error:&copyError];
+        [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
+            
+        if (copyError)
+        {
+            [self _handleError:error dispatch:YES];
+            abort = YES;
+        }
     }
     
     if (abort)
     {
+        if (!ANIsEmpty(outputFilePath))
+        {
+            [[NSFileManager defaultManager] removeItemAtPath:outputFilePath error:nil];
+        }
         [[NSFileManager defaultManager] removeItemAtURL:self.recordVideoUrl error:nil];
+        [self _sendCompletionWithResult:NO];
         return;
     }
+
     
-    ZZLogInfo(@"didFinishRecording success friend:%@ videoId:%@", friend.firstName, marker.videoID);
+    ZZLogInfo(@"didFinishRecording success %@", self.recordVideoUrl);
     [self _sendCompletionWithResult:YES];
     [[[TBMVideoProcessor alloc] init] processVideoWithUrl:self.recordVideoUrl];
 }

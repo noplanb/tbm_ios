@@ -442,7 +442,7 @@
                 }
                 else
                 {
-                    [[ZZVideoRecorder shared] showVideoToShoortToast];
+                    [[ZZVideoRecorder shared] showVideoToShortToast];
                 }
             });
         }

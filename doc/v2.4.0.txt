@@ -4,11 +4,11 @@ v2.4.0
 fix/camera
 ----------
 
-- Remove isRecorderActive
-  - Check where it is used outside the model
-  - Change usage to a method instead.
-  - Provide the method.
-
+- remove cancelRecording flag
+  - call recorder cancelVideoCapture
+  - check for cancel in error and handle
+  - Test
+  - Remove flags
 
  - Remove handle incoming call.
  - Remove unused from zzdevicehandler

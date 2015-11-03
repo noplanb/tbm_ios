@@ -39,6 +39,6 @@ extern NSString* const kZZVideoRecorderDidFail;
 - (void)startAudioSession;
 
 - (BOOL)isRecording;
-- (void)showVideoToShoortToast;
+- (void)showVideoToShortToast;
 
 @end
