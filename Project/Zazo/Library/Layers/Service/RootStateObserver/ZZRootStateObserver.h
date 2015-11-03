@@ -10,11 +10,12 @@ typedef NS_ENUM(NSInteger, ZZRootStateObserverEvents) {
     ZZRootStateObserverEventsNone,
     ZZRootStateObserverEventsUserAuthorized,
     ZZRootStateObserverEventsFriendsAfterAuthorizationLoaded,
+    ZZRootStateObserverEventDonwloadedMkeys
 };
 
 @protocol ZZRootStateObserverDelegate <NSObject>
 
-- (void)handleEvent:(ZZRootStateObserverEvents)event;
+- (void)handleEvent:(ZZRootStateObserverEvents)event notificationObject:(id)notificationObject;
 
 @end
 
@@ -24,6 +25,6 @@ typedef NS_ENUM(NSInteger, ZZRootStateObserverEvents) {
 - (void)addRootStateObserver:(id<ZZRootStateObserverDelegate>)observer;
 - (void)removeRootStateObserver:(id<ZZRootStateObserverDelegate>)observer;
 
-- (void)notifyWithEvent:(ZZRootStateObserverEvents)event;
+- (void)notifyWithEvent:(ZZRootStateObserverEvents)event notificationObject:(id)notificationObject;
 
 @end

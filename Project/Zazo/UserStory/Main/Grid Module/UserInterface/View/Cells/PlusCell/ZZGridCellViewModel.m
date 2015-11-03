@@ -58,7 +58,7 @@
     
     if ([ZZStoredSettingsManager shared].debugModeEnabled)
     {
-        return friendEntity.videoStatusString;
+        return ZZVideoStatusStringWithFriend(friendEntity);
     }
     else
     {
@@ -134,17 +134,17 @@
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoWasUploaded);
     }
     else if (self.isUploadedVideoViewed &&
-        self.item.relatedUser.lastVideoStatusEventType != INCOMING_VIDEO_STATUS_EVENT_TYPE)
+        self.item.relatedUser.lastVideoStatusEventType != ZZVideoStatusEventTypeIncoming)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoWasViewed);
     }
-    else if (self.item.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
+    else if (self.item.relatedUser.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
              self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading &&
              self.item.relatedUser.unviewedCount > 0)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoDownloading);
     }
-    else if (self.item.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
+    else if (self.item.relatedUser.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
              self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded &&
              !self.item.isDownloadAnimationViewed)
     {

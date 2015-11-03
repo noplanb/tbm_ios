@@ -106,6 +106,14 @@
     return entity;
 }
 
++ (TBMFriend*)friendEnityWithMkey:(NSString*)mKey
+{
+    NSArray* result = [TBMFriend MR_findByAttribute:TBMFriendAttributes.mkey withValue:mKey];
+    TBMFriend* entifiy = [result firstObject];
+    
+    return entifiy;
+}
+
 
 #pragma mark - Count
 
@@ -122,6 +130,7 @@
     if (!ANIsEmpty(model))
     {
         TBMFriend* entity = [self friendEntityWithItemID:model.idTbm];
+    
         if (!entity)
         {
             entity = [TBMFriend MR_createEntityInContext:[self _context]];
@@ -184,24 +193,6 @@
 + (NSManagedObjectContext*)_context
 {
     return [ZZContentDataAcessor contextForCurrentThread];
-}
-
-
-#pragma mark - Helpers
-
-+ (BOOL)isFriend:(TBMFriend*)friend hasIncomingVideoWithId:(NSString*)videoId
-{
-    BOOL hasVideo = NO;
-    NSArray* videos = [friend.videos.allObjects copy];
-    for (TBMVideo* video in videos)
-    {
-        if ([video.videoId isEqualToString:videoId])
-        {
-            hasVideo = YES;
-        }
-    }
-    
-    return hasVideo;
 }
 
 @end

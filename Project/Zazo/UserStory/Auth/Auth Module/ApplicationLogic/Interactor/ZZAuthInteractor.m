@@ -44,7 +44,7 @@
 #ifdef DEBUG_LOGIN_USER
     user.firstName = @"DDDD";
     user.lastName = @"DDDD";
-    user.mobileNumber = @"+380912233456";
+    user.mobileNumber = @"+380912233463";
 #endif
     
     if (!ANIsEmpty(user.mobileNumber))
@@ -121,7 +121,8 @@
         [ZZStoredSettingsManager shared].isPushNotificatonEnabled = YES;
         [ZZNotificationsHandler registerToPushNotifications];
         
-        [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventsUserAuthorized];
+        [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventsUserAuthorized
+                                           notificationObject:nil];
         
     } error:^(NSError *error) {
         //TODO: separate errors
@@ -135,7 +136,8 @@
     
     [[ZZFriendsTransportService loadFriendList] subscribeNext:^(id x) {
         [self.output loadedFriendsSuccessfully];
-        [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventsFriendsAfterAuthorizationLoaded];
+        [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventsFriendsAfterAuthorizationLoaded
+                                           notificationObject:nil];
         [self.output registrationFlowCompletedSuccessfully];
         
     } error:^(NSError *error) {

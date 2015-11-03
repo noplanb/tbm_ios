@@ -113,9 +113,8 @@
     ZZFileTransferMarkerDomainModel* marker = [TBMVideoIdUtils markerModelWithOutgoingVideoURL:videoUrl];
 
     TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:marker.friendID];
-    TBMVideo* video = [ZZVideoDataProvider findWithVideoId:marker.videoID];
-//    [friend handleOutgoingVideoCreatedWithVideoId:marker.videoID];
-    [[ZZVideoStatusHandler sharedInstance] handleOutgoingVideoCreatedWithVideo:video withFriend:friend];
+    [[ZZVideoStatusHandler sharedInstance] handleOutgoingVideoCreatedWithVideoId:marker.videoID withFriend:friend];
+    
     [self.videoFileHandler uploadWithVideoUrl:videoUrl friendCKey:friend.ckey];
 }
 
@@ -190,9 +189,9 @@
 
 #pragma mark - Video status handler
 
-- (void)notifyOutgoinVideoWithStatus:(ZZVideoOutgoingStatus)status withFriend:(TBMFriend *)friend video:(TBMVideo *)video
+- (void)notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)status withFriend:(TBMFriend*)friend videoId:(NSString*)videoId;
 {
-    [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:status withFriend:friend withVideo:video];
+    [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:status withFriend:friend withVideoId:videoId];
 }
 
 - (void)setAndNotifyUploadRetryCount:(NSInteger)count withFriend:(TBMFriend *)friend video:(TBMVideo *)video
@@ -263,8 +262,9 @@
     ZZFriendDomainModel* updatedFriendModel = [ZZFriendDataProvider friendWithMKeyValue:model.toUserMKey];
     
     TBMFriend* friend = [ZZFriendDataProvider entityFromModel:updatedFriendModel];
-    TBMVideo* video = [ZZVideoDataProvider entityWithID:model.videoID];
-    [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:outgoingStatus withFriend:friend withVideo:video];
+    [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:outgoingStatus
+                                                              withFriend:friend
+                                                             withVideoId:model.videoID];
 }
 
 
@@ -278,7 +278,7 @@
 
 #pragma mark - Root Observer Delegate
 
-- (void)handleEvent:(ZZRootStateObserverEvents)event
+- (void)handleEvent:(ZZRootStateObserverEvents)event notificationObject:(id)notificationObject
 {
     if (event == ZZRootStateObserverEventsUserAuthorized)
     {

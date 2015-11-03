@@ -29,7 +29,6 @@
     return video;
 }
 
-
 + (TBMVideo*)findWithVideoId:(NSString *)videoId
 {
     return [self _findWithAttributeKey:@"videoId" value:videoId];
@@ -81,6 +80,13 @@
     return [self _findAllWithAttributeKey:@"status" value:@(ZZVideoIncomingStatusDownloading)];
 }
 
++ (TBMVideo*)createIncomingVideoForFriend:(TBMFriend*)friend withVideoId:(NSString*)videoId
+{
+    TBMVideo *video = [ZZVideoDataProvider newWithVideoId:videoId onContext:friend.managedObjectContext];;
+    [friend addVideosObject:video];
+    [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
+    return video;
+}
 
 #pragma mark - Mapping
 

@@ -10,7 +10,7 @@
 
 @interface ZZRootStateObserver ()
 
-@property (nonatomic, strong) NSMutableArray* obeservers;
+@property (nonatomic, strong) NSMutableArray* observers;
 
 @end
 
@@ -30,7 +30,7 @@
     self = [super init];
     if (self)
     {
-        self.obeservers = [NSMutableArray array];
+        self.observers = [NSMutableArray array];
     }
     return self;
 }
@@ -40,22 +40,23 @@
 
 - (void)addRootStateObserver:(id<ZZRootStateObserverDelegate>)observer
 {
-    [self.obeservers addObject:observer];
+    [self.observers addObject:observer];
 }
 
 - (void)removeRootStateObserver:(id<ZZRootStateObserverDelegate>)observer
 {
-    [self.obeservers removeObject:observer];
+    [self.observers removeObject:observer];
 }
 
 
 #pragma mark - Notify observers
 
 - (void)notifyWithEvent:(ZZRootStateObserverEvents)event
+     notificationObject:(id)notificationObject;
 {
-    for (id <ZZRootStateObserverDelegate> observer in self.obeservers)
+    for (id <ZZRootStateObserverDelegate> observer in self.observers)
     {
-        [observer handleEvent:event];
+        [observer handleEvent:event notificationObject:notificationObject];
     }
 }
 

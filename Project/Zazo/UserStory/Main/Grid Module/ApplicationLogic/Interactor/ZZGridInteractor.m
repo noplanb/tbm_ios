@@ -24,13 +24,14 @@
 #import "ZZGridInteractor+ActionHandler.h"
 #import "ZZGridActionStoredSettings.h"
 #import "ZZVideoStatusHandler.h"
+#import "ZZRootStateObserver.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
 @interface ZZGridInteractor ()
 <
-    TBMVideoStatusNotificationProtocol,
-    ZZVideoStatusHandlerDelegate
+    ZZVideoStatusHandlerDelegate,
+    ZZRootStateObserverDelegate
 >
 
 @end
@@ -43,14 +44,21 @@ static NSInteger const kGridFriendsCellCount = 8;
     if (self)
     {
         [[ZZVideoStatusHandler sharedInstance] addVideoStatusHandlerObserver:self];
+        [[ZZRootStateObserver sharedInstance] addRootStateObserver:self];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[ZZVideoStatusHandler sharedInstance] removeVideoStatusHandlerObserver:self];
+    [[ZZRootStateObserver sharedInstance] removeRootStateObserver:self];
 }
 
 - (void)loadData
 {
     [self.output dataLoadedWithArray:[self _gridModels]];
-    [TBMFriend addVideoStatusNotificationDelegate:self];
+//    [TBMFriend addVideoStatusNotificationDelegate:self];
     [self _configureFeatureObserver];
 }
 
@@ -265,10 +273,6 @@ static NSInteger const kGridFriendsCellCount = 8;
 }
 
 
-
-//#pragma mark - TBMFriend Delegate 
-//- (void)videoStatusDidChange:(TBMFriend*)model
-
 #pragma mark - Video Status Handler delegate
 
 - (void)videoStatusChangedForFriend:(TBMFriend*)friend
@@ -328,11 +332,6 @@ static NSInteger const kGridFriendsCellCount = 8;
     
 }
 
-
-- (void)unlockFeaturesUpdateWithMkeysArray:(NSArray *)mkeysArray
-{
-    [self.output updatedFeatureWithFriendMkeys:mkeysArray];
-}
 
 #pragma mark - Transport
 
@@ -402,6 +401,20 @@ static NSInteger const kGridFriendsCellCount = 8;
         //TODO: revert status?
         [self.output loadedStateUpdatedTo:NO];
     }];
+}
+
+
+#pragma mark - Root State Observer Delegate
+
+- (void)handleEvent:(ZZRootStateObserverEvents)event notificationObject:(id)notificationObject
+{
+    if (event == ZZRootStateObserverEventDonwloadedMkeys)
+    {
+        if (!ANIsEmpty(notificationObject))
+        {
+            [self.output updatedFeatureWithFriendMkeys:notificationObject];
+        }
+    }
 }
 
 @end

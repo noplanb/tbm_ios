@@ -74,9 +74,12 @@ extern const struct ZZFriendDomainModelAttributes {
 + (FEMObjectMapping*)mapping;
 
 - (NSString *)fullName;
-- (BOOL)isCreator;
-- (ZZMenuContactType)contactType;
-- (BOOL)hasIncomingVideo;
 - (NSString *)displayName;
+- (NSString *)shortFirstName;
+
+- (ZZMenuContactType)contactType;
+
+- (BOOL)isCreator;
+- (BOOL)hasIncomingVideo;
 
 @end

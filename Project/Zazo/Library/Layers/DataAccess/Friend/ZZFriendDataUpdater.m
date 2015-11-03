@@ -55,6 +55,18 @@
     return [ZZFriendDataProvider modelFromEntity:item];
 }
 
++ (void)updateEverSentFreindsWithMkeys:(NSArray*)mKeys
+{
+    [mKeys enumerateObjectsUsingBlock:^(NSString*  _Nonnull mKey, NSUInteger idx, BOOL * _Nonnull stop) {
+        TBMFriend* friend = [ZZFriendDataProvider friendEnityWithMkey:mKey];
+        friend.everSent = @(YES);
+        friend.isFriendshipCreator = @([friend.friendshipCreatorMKey isEqualToString:friend.mkey]);
+    }];
+    
+    [[self _context] MR_saveToPersistentStoreAndWait];
+}
+
+
 #pragma mark - Private
 
 + (TBMFriend*)_userWithID:(NSString*)itemID
@@ -71,6 +83,15 @@
         item = [items firstObject];
     }
     return item;
+}
+
++ (void)fillEntitiesAfterMigration
+{
+    for (TBMFriend *friend in [TBMFriend MR_findAllInContext:[self _context]])
+    {
+        friend.everSent = @([friend.outgoingVideoStatus integerValue] > ZZVideoOutgoingStatusNone);
+    }
+    [[self _context] MR_saveToPersistentStoreAndWait];
 }
 
 + (NSManagedObjectContext*)_context

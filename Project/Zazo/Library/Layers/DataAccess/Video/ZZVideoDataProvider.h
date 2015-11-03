@@ -9,6 +9,7 @@
 @class ZZVideoDomainModel;
 @class TBMVideo;
 @class ZZFriendDomainModel;
+@class TBMFriend;
 
 @interface ZZVideoDataProvider : NSObject
 
@@ -22,6 +23,8 @@
 + (TBMVideo*)entityWithID:(NSString*)itemID;
 + (NSArray*)downloadingEntities;
 
+
++ (TBMVideo*)createIncomingVideoForFriend:(TBMFriend*)friend withVideoId:(NSString*)videoId;
 
 #pragma mark - Count
 

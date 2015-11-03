@@ -12,6 +12,7 @@
 #import "TBMVideo.h"
 #import "ZZVideoDataProvider.h"
 #import "ZZVideoDomainModel.h"
+#import "ZZFriendDataHelper.h"
 
 @implementation ZZFriendModelsMapper
 
@@ -75,9 +76,9 @@
             return videoModel;
         }] array];
         
-        model.unviewedCount = [entity unviewedCount];
+        model.unviewedCount = [ZZFriendDataHelper unviewedVideoCountWithFriend:entity];
         model.outgoingVideoStatusValue = entity.outgoingVideoStatusValue;
-        model.hasOutgoingVideo = entity.hasOutgoingVideo;
+        model.hasOutgoingVideo = [ZZFriendDataHelper hasOutgoingVideoWithFriend:entity];
         model.friendshipCreatorMkey = entity.friendshipCreatorMKey;
     }
     @catch (NSException *exception)

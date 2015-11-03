@@ -86,7 +86,7 @@ NSString* ZZVideoStatusStringWithFriend(TBMFriend* friend)
 
 TBMVideo* ZZNewestIncomingVideoFromFriend(TBMFriend* friend)
 {
-    NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"videoId" ascending:YES];
+    NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:TBMVideoAttributes.videoId ascending:YES];
     NSArray* videos = [friend.videos sortedArrayUsingDescriptors:@[d]];
     return [videos lastObject];
 }
@@ -127,10 +127,10 @@ NSString* ZZVideoOutgoingStatusWithFriend(TBMFriend* friend)
     NSString *statusString;
     switch (friend.outgoingVideoStatusValue)
     {
-        case OUTGOING_VIDEO_STATUS_NEW:
+        case ZZVideoOutgoingStatusNew:
             statusString = @"q...";
             break;
-        case OUTGOING_VIDEO_STATUS_UPLOADING:
+        case ZZVideoOutgoingStatusUploading:
             if (friend.uploadRetryCountValue == 0)
             {
                 statusString = @"p...";
@@ -140,16 +140,16 @@ NSString* ZZVideoOutgoingStatusWithFriend(TBMFriend* friend)
                 statusString = [NSString stringWithFormat:@"r%ld...", (long) [friend.uploadRetryCount integerValue]];
             }
             break;
-        case OUTGOING_VIDEO_STATUS_UPLOADED:
+        case ZZVideoOutgoingStatusUploaded:
             statusString = @".s..";
             break;
-        case OUTGOING_VIDEO_STATUS_DOWNLOADED:
+        case ZZVideoOutgoingStatusDownloaded:
             statusString = @"..p.";
             break;
-        case OUTGOING_VIDEO_STATUS_VIEWED:
+        case ZZVideoOutgoingStatusViewed:
             statusString = @"v!";
             break;
-        case OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY:
+        case ZZVideoOutgoingStatusFailedPermanently:
             statusString = @"e!";
             break;
         default:
@@ -158,7 +158,7 @@ NSString* ZZVideoOutgoingStatusWithFriend(TBMFriend* friend)
     
     ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
     
-    NSString *fn = (statusString == nil || friend.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED) ? [friendModel displayName] : [friend shortFirstName];
+    NSString *fn = (statusString == nil || friend.outgoingVideoStatusValue == ZZVideoOutgoingStatusViewed) ? [friendModel displayName] : [friendModel shortFirstName];
     
     return [NSString stringWithFormat:@"%@ %@", fn, statusString];
 }
