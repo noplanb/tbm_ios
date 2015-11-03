@@ -11,6 +11,7 @@
 #import "PBJVision.h"
 #import "iToast.h"
 #import "NSError+ZZAdditions.h"
+#import "TBMAlertController.h"
 
 NSString* const kVideoProcessorDidFinishProcessing = @"kZZVideoProcessorDidFinishProcessing";
 NSString* const kVideoProcessorDidFail = @"kZZVideoProcessorDidFailProcessing";
@@ -60,7 +61,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         self.recorder.cameraOrientation = PBJCameraOrientationPortrait;
         self.recorder.focusMode = PBJFocusModeContinuousAutoFocus;
         self.recorder.outputFormat = PBJOutputFormatPreset;
-        self.recorder.videoBitRate = PBJVideoBitRate480x360;
+        self.recorder.videoBitRate = PBJVideoBitRate640x480;
         self.recorder.captureSessionPreset = AVCaptureSessionPresetLow;
     }
     return self;
@@ -158,7 +159,6 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
                                                       userInfo:@{@"videoUrl": self.recordVideoUrl}];
 }
 
-
 #pragma mark - Two Finger Touch
 
 // TODO: Sani - This should be moved to GridPresenter
@@ -238,8 +238,8 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 
 #pragma mark - UI messages
+// TODO: Sani - These UI Methods should be moved to GridPresenter+UserDialogs
 
-// TODO: Sani - This should be moved to GridPresenter+UserDialogs
 - (void)_showMessage:(NSString*)message
 {
     [[iToast makeText:message]show];
@@ -263,6 +263,19 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     }
 }
 
+- (void)_showProbableOnCallAlert
+{
+    ZZLogInfo(@"alertProbablePhoneCall");
+    NSString *msg = @"Mic or camera are busy. Are you on a phone call? Hangup and try again.";
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"On a Call?" message:msg];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again"
+                                               style:SDCAlertActionStyleDefault
+                                             handler:^(SDCAlertAction *action) {
+                                                 [self.recorder startPreview];
+                                             }]];
+    [alert presentWithCompletion:nil];
+}
+
 #pragma mark - PBJVisionDelegate
 // session
 
@@ -270,8 +283,26 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 - (void)visionSessionDidStart:(PBJVision *)vision{}
 - (void)visionSessionDidStop:(PBJVision *)vision{}
 
-- (void)visionSessionWasInterrupted:(PBJVision *)vision{}
+- (void)visionSessionWasInterrupted:(PBJVision *)vision
+{
+    ZZLogInfo(@"visionSessionWasInterrupted");
+}
 - (void)visionSessionInterruptionEnded:(PBJVision *)vision{}
+- (BOOL)visionSessionRuntimeErrorShouldRetry:(PBJVision *)vision error:(NSError*)error
+{
+    if ([error code] == AVErrorDeviceIsNotAvailableInBackground ||
+        [error code] == AVErrorDeviceIsNotAvailableInBackground)
+    {
+        return YES;
+    }
+    
+    ZZLogInfo(@"visionSessionRuntimeErrored");
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self _showProbableOnCallAlert];
+    });
+    return NO;
+}
+
 
 // device / mode / format
 

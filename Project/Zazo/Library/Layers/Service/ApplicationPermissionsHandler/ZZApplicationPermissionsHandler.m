@@ -145,7 +145,7 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
         } break;
         case ZZApplicationPermissionTypeAudioSessionState:
         {
-            [self _showUserProbableOnCallAlert];
+            //[self _showUserProbableOnCallAlert];
         } break;
         default: break;
     }

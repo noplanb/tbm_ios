@@ -5,13 +5,19 @@ fix/camera
 ----------
 
 Video Recorder TODO:
-- Must fix
-  - Interruption corner cases
-    - Start Zazo when mic or camera is taken by another app (phone call)
-    - Phone call while Zazo running return to Zazo while in call
-    - Phone call while recording.
-  - Video size, resolution, bit rate etc.
-    - Probably requires fork of PBJVision
+x Must fix
+  x Interruption corner cases
+    x Start Zazo when mic or camera is taken by another app (phone call)
+    x Phone call while Zazo running return to Zazo while in call
+    x Phone call while recording video is sent anyway.
+
+  x Video size, resolution, bit rate etc.
+    x Probably requires fork of PBJVision
+
+  - PBJVision
+    - Update mine
+    - Push
+    - Install pods
 
 - Nice to fix
   - Delegate rather than blocks for callbacks
@@ -19,7 +25,12 @@ Video Recorder TODO:
   - Move 2 finger touch recognizer out of VideoRecorder
   - No direct calls of VideoRecorder from ZZGridCellViewModel
   - Create a GridPresenter+VideoRecorder category
+  - Clean up notifications.
+  - Move switch camera icon up.
 
+- Testcases
+  - List testcases in this doc
+  - Create a testplan for all of the above
 
 
  - Remove wasRecordingStopped

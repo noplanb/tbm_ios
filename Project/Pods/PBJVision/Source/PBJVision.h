@@ -242,6 +242,9 @@ static CGFloat const PBJVideoBitRate1280x750 = 5000000 * 8;
 - (void)visionSessionWasInterrupted:(PBJVision *)vision;
 - (void)visionSessionInterruptionEnded:(PBJVision *)vision;
 
+- (BOOL)visionSessionRuntimeErrorShouldRetry:(PBJVision *)vision error:(NSError*)error;
+
+
 // device / mode / format
 
 - (void)visionCameraDeviceWillChange:(PBJVision *)vision;
