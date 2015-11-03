@@ -3,6 +3,25 @@ v2.4.0
 
 fix/camera
 ----------
+
+Video Recorder TODO:
+- Must fix
+  - Interruption corner cases
+    - Start Zazo when mic or camera is taken by another app (phone call)
+    - Phone call while Zazo running return to Zazo while in call
+    - Phone call while recording.
+  - Video size, resolution, bit rate etc.
+    - Probably requires fork of PBJVision
+
+- Nice to fix
+  - Delegate rather than blocks for callbacks
+  - Move UI messages out of VideoRecorder
+  - Move 2 finger touch recognizer out of VideoRecorder
+  - No direct calls of VideoRecorder from ZZGridCellViewModel
+  - Create a GridPresenter+VideoRecorder category
+
+
+
  - Remove wasRecordingStopped
    - Change resolution
    - Change front camera
@@ -24,8 +43,6 @@ Questions:
   - The ZZVideoRecorder should really not update any UI including toasts. Correct? I think at most it should notify of events that may require toasts such as videoTooShort and something else should cause these toasts. Correct? Which object should properly present these toasts?
     - Prestenter UserDialogsCategory.
 
-  - Why is ZZGridPresenter setting ZZVideoRecorder.isRecorderActive. Shouldn't ZZVideo recorder know and handle its own state?
-     - Oksana will check.
 
   - Why does ZZGridCellViewModel._checkIsCancelRecordingWithRecognizer call ZZVideoRecorder.cancelRecording. Shouldnt it call its dataSourceDelegate for this which should then call the presenter?
      - Add a category on presenter to handle video recorder stuff.

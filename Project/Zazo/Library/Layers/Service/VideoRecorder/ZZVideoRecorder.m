@@ -56,11 +56,12 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         
         // TODO Sani: make sure all settings are complete
         self.recorder.cameraMode = PBJCameraModeVideo;
-        [self.recorder setCameraDevice:PBJCameraDeviceBack];
+        [self.recorder setCameraDevice:PBJCameraDeviceFront];
         self.recorder.cameraOrientation = PBJCameraOrientationPortrait;
         self.recorder.focusMode = PBJFocusModeContinuousAutoFocus;
         self.recorder.outputFormat = PBJOutputFormatPreset;
         self.recorder.videoBitRate = PBJVideoBitRate480x360;
+        self.recorder.captureSessionPreset = AVCaptureSessionPresetLow;
     }
     return self;
 }
@@ -109,7 +110,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     // starting can cause problems.
     NSTimeInterval kMinimumRecordTime = 0.4;
     NSTimeInterval recordTime = [[NSDate date] timeIntervalSinceDate:self.recordStartDate];
-    NSTimeInterval delayStop = (recordTime < kMinimumRecordTime) ? 0.4 - kMinimumRecordTime : 0.0;
+    NSTimeInterval delayStop = (recordTime < kMinimumRecordTime) ? kMinimumRecordTime - recordTime : 0.0;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayStop * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.recorder endVideoCapture];
     });
@@ -436,7 +437,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     }
     
     ZZLogInfo(@"VideoRecorder: filesize %llu", fileAttributes.fileSize);
-    if (fileAttributes.fileSize < 828000)
+    if (fileAttributes.fileSize < 28000)
     {
         return YES;
     }
