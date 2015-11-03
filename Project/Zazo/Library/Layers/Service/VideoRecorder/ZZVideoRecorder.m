@@ -88,10 +88,6 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 {
     self.completionBlock = completionBlock;
     
-    //TODO: Sani remove flag for isRecorderActive and isRecordingInProgres and just use state from PBJ
-    self.isRecorderActive = YES;
-    self.isRecordingInProgress = YES;
-    
     self.didCancelRecording = NO;
     [self _startTouchObserve];
     
@@ -105,7 +101,6 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 - (void)stopRecordingWithCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
-    self.isRecorderActive = NO;
     self.completionBlock = completionBlock;
     if ([self isRecording])
     {
@@ -120,7 +115,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 {
     CGFloat kDelayAfterRecordingStopped = 0.5f;
     ANDispatchBlockAfter(kDelayAfterRecordingStopped, ^{
-        self.isRecordingInProgress = NO;
+//        self.isRecordingInProgress = NO;
     });
 }
 
@@ -137,7 +132,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 // TODO: Sani Try using cancelVideoCapture and getting rid of cancelFlag.
 - (void)cancelRecordingWithReason:(NSString*)reason
 {
-    if (self.isRecorderActive)
+    if ([self isRecording])
     {
         if (!self.didCancelRecording)
         {
@@ -153,7 +148,6 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
             [self.recorder endVideoCapture];
         }
     }
-    self.isRecorderActive = NO;
     [self _recordingProgressStopped];
 }
 
@@ -185,15 +179,15 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     ANDispatchBlockToMainQueue(^{
         UITouch* touch = [[touches allObjects] firstObject];
         
-        if ((touch.phase == UITouchPhaseBegan && self.isRecorderActive) ||
-            (touch.phase == UITouchPhaseStationary && self.isRecorderActive))
+        if ((touch.phase == UITouchPhaseBegan && [self isRecording]) ||
+            (touch.phase == UITouchPhaseStationary && [self isRecording]))
         {
             //            CGFloat kDelayAfterTouch = 0.5;
             //            ANDispatchBlockAfter(kDelayAfterTouch, ^{
             [self _cancelRecordingWithDoubleTap];
             //            });
         }
-        else if (touch.phase == UITouchPhaseEnded && self.isRecorderActive)
+        else if (touch.phase == UITouchPhaseEnded && [self isRecording])
         {
             [self stopRecordingWithCompletionBlock:self.completionBlock];
         }

@@ -4,11 +4,14 @@ v2.4.0
 fix/camera
 ----------
 
+- Remove isRecorderActive
+  - Check where it is used outside the model
+  - Change usage to a method instead.
+  - Provide the method.
+
 
  - Remove handle incoming call.
  - Remove unused from zzdevicehandler
- - Remove NSMutableSet recognizers from ZZGridCellViewModel
- - Remove ZZGridStateView.checkIsCancelRecordingWithRecognizer?
 
 
 
@@ -25,16 +28,10 @@ Questions:
   - Why does ZZGridCellViewModel._checkIsCancelRecordingWithRecognizer call ZZVideoRecorder.cancelRecording. Shouldnt it call its dataSourceDelegate for this which should then call the presenter?
      - Add a category on presenter to handle video recorder stuff.
 
-  - Should I delete ZZGridStateView.checkIsCancelRecordingWithRecognizer? It seems that this is handled by ZZGridCelViewModel now and is not correct in ZZGridStateView?
-     - Remove
 
-  - The ZZGridDataSource sitting between the views and the presenter seems like a bit of a pain. Is it really necessary?
 
-  - What is the  purpose of NSMutableSet* recognizers in ZZGridCellViewModel? Can I remove it?
-    - Ok to remove
 
-  - Why does ZZGridVC have updateRecordViewStateTo: shouldn't this be handled by the ZZGridPresenter? Shall I handle there instead?
-   This is correct.
+
 
   - VideoRecorder unit test.
 

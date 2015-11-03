@@ -120,7 +120,7 @@
 
 - (void)reloadGridWithData:(NSArray*)data
 {
-    if (![ZZVideoRecorder shared].isRecorderActive && !self.videoPlayer.isPlayingVideo)
+    if (![[ZZVideoRecorder shared] isRecording] && !self.videoPlayer.isPlayingVideo)
     {
         [self.dataSource setupWithModels:data];
     }
@@ -333,7 +333,7 @@
 
 - (void)presentMenu
 {
-    if (![ZZVideoRecorder shared].isRecordingInProgress)
+    if (![[ZZVideoRecorder shared] isRecording])
     {
         [self.actionHandler hideHint];
         [self.wireframe toggleMenu];
@@ -400,7 +400,7 @@
 
 - (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel*)userModel
 {
-    if (![ZZVideoRecorder shared].isRecordingInProgress)
+    if (![[ZZVideoRecorder shared] isRecording])
     {
         [self.interactor updateLastActionForFriend:userModel];
         [self _nudgeUser:userModel];
@@ -411,7 +411,7 @@
                            viewModel:(ZZGridCellViewModel*)viewModel
                  withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
-    [ZZVideoRecorder shared].isRecorderActive = isEnabled;
+
     [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
     if (!ANIsEmpty(viewModel.item.relatedUser.idTbm))
     {
@@ -543,7 +543,7 @@
 
 - (BOOL)isRecordingInProgress
 {
-    return [ZZVideoRecorder shared].isRecordingInProgress;
+    return [[ZZVideoRecorder shared] isRecording];
 }
 
 
