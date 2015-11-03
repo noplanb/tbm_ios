@@ -269,11 +269,8 @@
 
 - (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer
 {
-    
     if (![self.delegate isGridRotate])
-    {
-        [self _checkIsCancelRecordingWithRecognizer:recognizer];
-        
+    {        
         if (recognizer.state == UIGestureRecognizerStateBegan)
         {
             self.initialRecordPoint = [recognizer locationInView:recognizer.view];
@@ -291,6 +288,10 @@
         {
             self.initialRecordPoint = CGPointZero;
             [self _stopVideoRecording];
+        }
+        else
+        {
+            [self _checkIsCancelRecordingWithRecognizer:recognizer];
         }
     }
 
@@ -329,10 +330,9 @@
                                          self.initialRecordPoint.y - addTouchBounds,
                                          (addTouchBounds * 2),
                                          (addTouchBounds * 2));
-        
         if (!CGRectContainsPoint(observeFrame,location))
         {
-            [[ZZVideoRecorder shared] cancelRecordingWithReason:NSLocalizedString(@"record-dragged-finger-away", nil)];
+            [self.delegate cancelRecordingWithReason:NSLocalizedString(@"record-dragged-finger-away", nil)];
         }
     }
 }

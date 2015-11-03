@@ -246,6 +246,11 @@ ZZGridCenterCellViewModelDelegate
     [self.delegate switchCamera];
 }
 
+- (void)cancelRecordingWithReason:(NSString *)reason
+{
+    [self.delegate cancelRecordingWithReason:reason];
+}
+
 - (void)showHint
 {
     [self.delegate showHint];

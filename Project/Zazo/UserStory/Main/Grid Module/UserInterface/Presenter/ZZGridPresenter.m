@@ -88,11 +88,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_reloadDataAfterResetAllUserDataNotification)
                                                  name:kResetAllUserDataNotificationKey object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(_videoRecorderDidCancelRecording)
-                                                 name:kZZVideoRecorderDidCancelRecording
-                                               object:nil];
 }
 
 - (void)dealloc
@@ -102,11 +97,6 @@
 
 
 #pragma mark - Notifications
-- (void)_videoRecorderDidCancelRecording
-{
-    [self.userInterface updateRecordViewStateTo:NO];
-}
-
 
 - (void)_reloadDataAfterResetAllUserDataNotification
 {
@@ -458,6 +448,12 @@
 
         [self.userInterface updateRollingStateTo:!isEnabled];
     }
+}
+
+- (void)cancelRecordingWithReason:(NSString *)reason
+{
+    [[ZZVideoRecorder shared] cancelRecordingWithReason:reason];
+    [self.userInterface updateRecordViewStateTo:NO];
 }
 
 - (void)toggleVideoWithViewModel:(ZZGridCellViewModel*)model toState:(BOOL)state

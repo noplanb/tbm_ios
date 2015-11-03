@@ -16,10 +16,8 @@
 NSString* const kVideoProcessorDidFinishProcessing = @"kZZVideoProcessorDidFinishProcessing";
 NSString* const kVideoProcessorDidFail = @"kZZVideoProcessorDidFailProcessing";
 
-NSString* const kZZVideoRecorderDidFinishRecording = @"kZZVideoRecorderDidFinishRecording";
-NSString* const kZZVideoRecorderShouldStartRecording = @"kZZVideoRecorderShouldStartRecording";
-NSString* const kZZVideoRecorderDidCancelRecording = @"kZZVideoRecorderDidCancelRecording";
-NSString* const kZZVideoRecorderDidFail = @"kZZVideoRecorderDidFail";
+NSString* const kZZVideoRecorderDidStartVideoCapture = @"kZZVideoRecorderDidStartVideoCapture";
+NSString* const kZZVideoRecorderDidEndVideoCapture = @"kZZVideoRecorderDidEndVideoCapture";
 
 static CGFloat const kDelayBeforeNextMessage = 1.1;
 
@@ -55,7 +53,6 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         self.recorder = [PBJVision sharedInstance];
         self.recorder.delegate = self;
         
-        // TODO Sani: make sure all settings are complete
         self.recorder.cameraMode = PBJCameraModeVideo;
         [self.recorder setCameraDevice:PBJCameraDeviceFront];
         self.recorder.cameraOrientation = PBJCameraOrientationPortrait;
@@ -95,8 +92,6 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     self.didCancelRecording = NO;
     [self _startTouchObserve];
     
-    //TODO: Sani change the name of notification. Call it from PBJDelegate call.
-    [[NSNotificationCenter defaultCenter] postNotificationName:kZZVideoRecorderShouldStartRecording object:self];
     self.recordVideoUrl = url;
     [self.recorder startVideoCapture];
 }
@@ -137,14 +132,12 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     });
 }
 
-// TODO: Sani Try using cancelVideoCapture and getting rid of cancelFlag.
 - (void)cancelRecordingWithReason:(NSString*)reason
 {
     if ([self isRecording])
     {
         if (!self.didCancelRecording)
         {
-            [self _notifyCancelRecording];
             self.didCancelRecording = YES;
             [self showCancelMessageWithReason:reason];
         }
@@ -152,16 +145,11 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     }
 }
 
-- (void)_notifyCancelRecording
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:kZZVideoRecorderDidCancelRecording
-                                                        object:self
-                                                      userInfo:@{@"videoUrl": self.recordVideoUrl}];
-}
 
 #pragma mark - Two Finger Touch
 
-// TODO: Sani - This should be moved to GridPresenter
+// TODO: Sani - These methods should be moved to GridPresenter
+
 - (void)_startTouchObserve
 {
     UIWindow* window = [UIApplication sharedApplication].keyWindow;
@@ -348,9 +336,14 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 // video
 
 //- (NSString *)vision:(PBJVision *)vision willStartVideoCaptureToFile:(NSString *)fileName{}
+
 - (void)visionDidStartVideoCapture:(PBJVision *)vision
 {
     ZZLogInfo(@"didStartVideoCapture");
+    [[NSNotificationCenter defaultCenter] postNotificationName:kZZVideoRecorderDidStartVideoCapture
+                                                        object:self
+                                                      userInfo:@{@"videoUrl": self.recordVideoUrl}];
+
 }
 
 - (void)visionDidPauseVideoCapture:(PBJVision *)vision{} // stopped but not ended
@@ -358,6 +351,9 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 - (void)visionDidEndVideoCapture:(PBJVision *)vision
 {
     ZZLogInfo(@"didEndVideoCapture");
+    [[NSNotificationCenter defaultCenter] postNotificationName:kZZVideoRecorderDidEndVideoCapture
+                                                        object:self
+                                                      userInfo:@{@"videoUrl": self.recordVideoUrl}];
 }
 
 - (void)vision:(PBJVision *)vision capturedVideo:(NSDictionary *)videoDict error:(NSError *)error{
@@ -451,10 +447,6 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     {
         ZZLogError(@"VideoRecorder: %@", error);
     }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:kZZVideoRecorderDidFail
-                                                        object:self
-                                                      userInfo:@{@"error":error}];
 }
 
 - (BOOL)_videoTooShort:(NSString *)videoPath

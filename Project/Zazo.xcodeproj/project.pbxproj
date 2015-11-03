@@ -19,7 +19,7 @@
 		07636DAC1BA49A0100925671 /* AVAudioSession+TBMAudioSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369D21BA49A0000925671 /* AVAudioSession+TBMAudioSession.m */; };
 		07636DBC1BA49A0100925671 /* TBMVideoIdUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A011BA49A0000925671 /* TBMVideoIdUtils.m */; };
 		07636DBE1BA49A0100925671 /* TBMVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A051BA49A0000925671 /* TBMVideoProcessor.m */; };
-		07636DBF1BA49A0100925671 /* TBMVideoRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A071BA49A0000925671 /* TBMVideoRecorder.m */; };
+		07636DBF1BA49A0100925671 /* TBMVideoRecorderDeprecated.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A071BA49A0000925671 /* TBMVideoRecorderDeprecated.m */; };
 		07636DF91BA49A0100925671 /* BeepSin30.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA61BA49A0100925671 /* BeepSin30.wav */; };
 		07636DFA1BA49A0100925671 /* DK Crayon Crumble.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA71BA49A0100925671 /* DK Crayon Crumble.ttf */; };
 		07636DFB1BA49A0100925671 /* FeatureUnlock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA81BA49A0100925671 /* FeatureUnlock.wav */; };
@@ -75,7 +75,7 @@
 		07636E4A1BA49A0100925671 /* ZZAlertBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B831BA49A0100925671 /* ZZAlertBuilder.m */; };
 		07636E4D1BA49A0100925671 /* ZZColorTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B8D1BA49A0100925671 /* ZZColorTheme.m */; };
 		07636E4E1BA49A0100925671 /* ZZConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B901BA49A0100925671 /* ZZConfig.m */; };
-		07636E4F1BA49A0100925671 /* ZZDeviceHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B931BA49A0100925671 /* ZZDeviceHandler.m */; };
+		07636E4F1BA49A0100925671 /* ZZDeviceHandlerDeprecated.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B931BA49A0100925671 /* ZZDeviceHandlerDeprecated.m */; };
 		07636E501BA49A0100925671 /* ZZErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B961BA49A0100925671 /* ZZErrorHandler.m */; };
 		07636E521BA49A0100925671 /* ZZSecretBaseStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B9E1BA49A0100925671 /* ZZSecretBaseStrategy.m */; };
 		07636E531BA49A0100925671 /* ZZEnvelopStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BA11BA49A0100925671 /* ZZEnvelopStrategy.m */; };
@@ -407,8 +407,8 @@
 		07636A011BA49A0000925671 /* TBMVideoIdUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoIdUtils.m; sourceTree = "<group>"; };
 		07636A041BA49A0000925671 /* TBMVideoProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoProcessor.h; sourceTree = "<group>"; };
 		07636A051BA49A0000925671 /* TBMVideoProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoProcessor.m; sourceTree = "<group>"; };
-		07636A061BA49A0000925671 /* TBMVideoRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoRecorder.h; sourceTree = "<group>"; };
-		07636A071BA49A0000925671 /* TBMVideoRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoRecorder.m; sourceTree = "<group>"; };
+		07636A061BA49A0000925671 /* TBMVideoRecorderDeprecated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoRecorderDeprecated.h; sourceTree = "<group>"; };
+		07636A071BA49A0000925671 /* TBMVideoRecorderDeprecated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoRecorderDeprecated.m; sourceTree = "<group>"; };
 		07636AA61BA49A0100925671 /* BeepSin30.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = BeepSin30.wav; sourceTree = "<group>"; };
 		07636AA71BA49A0100925671 /* DK Crayon Crumble.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DK Crayon Crumble.ttf"; sourceTree = "<group>"; };
 		07636AA81BA49A0100925671 /* FeatureUnlock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = FeatureUnlock.wav; sourceTree = "<group>"; };
@@ -516,8 +516,8 @@
 		07636B8D1BA49A0100925671 /* ZZColorTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZColorTheme.m; sourceTree = "<group>"; };
 		07636B8F1BA49A0100925671 /* ZZConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZConfig.h; sourceTree = "<group>"; };
 		07636B901BA49A0100925671 /* ZZConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZConfig.m; sourceTree = "<group>"; };
-		07636B921BA49A0100925671 /* ZZDeviceHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDeviceHandler.h; sourceTree = "<group>"; };
-		07636B931BA49A0100925671 /* ZZDeviceHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDeviceHandler.m; sourceTree = "<group>"; };
+		07636B921BA49A0100925671 /* ZZDeviceHandlerDeprecated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDeviceHandlerDeprecated.h; sourceTree = "<group>"; };
+		07636B931BA49A0100925671 /* ZZDeviceHandlerDeprecated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDeviceHandlerDeprecated.m; sourceTree = "<group>"; };
 		07636B951BA49A0100925671 /* ZZErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZErrorHandler.h; sourceTree = "<group>"; };
 		07636B961BA49A0100925671 /* ZZErrorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZErrorHandler.m; sourceTree = "<group>"; };
 		07636B9D1BA49A0100925671 /* ZZSecretBaseStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSecretBaseStrategy.h; sourceTree = "<group>"; };
@@ -1170,8 +1170,8 @@
 				07636A011BA49A0000925671 /* TBMVideoIdUtils.m */,
 				07636A041BA49A0000925671 /* TBMVideoProcessor.h */,
 				07636A051BA49A0000925671 /* TBMVideoProcessor.m */,
-				07636A061BA49A0000925671 /* TBMVideoRecorder.h */,
-				07636A071BA49A0000925671 /* TBMVideoRecorder.m */,
+				07636A061BA49A0000925671 /* TBMVideoRecorderDeprecated.h */,
+				07636A071BA49A0000925671 /* TBMVideoRecorderDeprecated.m */,
 			);
 			path = VideoUtils;
 			sourceTree = "<group>";
@@ -1729,8 +1729,8 @@
 		07636B911BA49A0100925671 /* DeviceHandler */ = {
 			isa = PBXGroup;
 			children = (
-				07636B921BA49A0100925671 /* ZZDeviceHandler.h */,
-				07636B931BA49A0100925671 /* ZZDeviceHandler.m */,
+				07636B921BA49A0100925671 /* ZZDeviceHandlerDeprecated.h */,
+				07636B931BA49A0100925671 /* ZZDeviceHandlerDeprecated.m */,
 			);
 			path = DeviceHandler;
 			sourceTree = "<group>";
@@ -4292,7 +4292,7 @@
 				072B6A471BD52F94000B824E /* NSArray+ZZAdditions.m in Sources */,
 				07636EBB1BA49A0100925671 /* ZZGridAlertBuilder.m in Sources */,
 				07636E981BA49A0100925671 /* ZZDebugStateInteractor.m in Sources */,
-				07636DBF1BA49A0100925671 /* TBMVideoRecorder.m in Sources */,
+				07636DBF1BA49A0100925671 /* TBMVideoRecorderDeprecated.m in Sources */,
 				07636E3E1BA49A0100925671 /* ZZVideoNetworkTransportService.m in Sources */,
 				07636E551BA49A0100925671 /* ZZBaseTouchController.m in Sources */,
 				181D1CCF1BC550DE00044F83 /* ZZGridInteractor+ActionHandler.m in Sources */,
@@ -4376,7 +4376,7 @@
 				07636E5D1BA49A0100925671 /* ZZVideoProcessor.m in Sources */,
 				079E901B1BD465CF001A4718 /* ZZApplicationStateInfoGenerator.m in Sources */,
 				07636F071BA49A0100925671 /* TBMAlertControllerView.m in Sources */,
-				07636E4F1BA49A0100925671 /* ZZDeviceHandler.m in Sources */,
+				07636E4F1BA49A0100925671 /* ZZDeviceHandlerDeprecated.m in Sources */,
 				07E09E291BD5B17F00A59389 /* ZZVideoFileHandler.m in Sources */,
 				07636EA31BA49A0100925671 /* ZZSecretDataSource.m in Sources */,
 				07636E391BA49A0100925671 /* ZZRemoteStoageTransportService.m in Sources */,

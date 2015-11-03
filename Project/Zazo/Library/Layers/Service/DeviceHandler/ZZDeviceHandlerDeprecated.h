@@ -8,7 +8,7 @@
 
 @import AVFoundation;
 
-@interface ZZDeviceHandler : NSObject
+@interface ZZDeviceHandlerDeprecated : NSObject
 
 #pragma mark - Video
 

@@ -21,6 +21,7 @@
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled
                            viewModel:(ZZGridCellViewModel*)viewModel
                  withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock;
+- (void)cancelRecordingWithReason:(NSString *)reason;
 
 - (void)playingStateUpdatedToState:(BOOL)isEnabled
                          viewModel:(ZZGridCellViewModel*)viewModel;

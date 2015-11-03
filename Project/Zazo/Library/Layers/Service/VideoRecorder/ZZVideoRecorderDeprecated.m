@@ -7,7 +7,7 @@
 //
 
 #import "ZZVideoRecorderDeprecated.h"
-#import "ZZDeviceHandler.h"
+#import "ZZDeviceHandlerDeprecated.h"
 #import "ZZGridCell.h"
 #import "ZZGridDomainModel.h"
 #import "ZZFriendDomainModel.h"
@@ -18,7 +18,7 @@
 #import "TBMVideoProcessor.h"
 #import "iToast.h"
 #import "AVAudioSession+TBMAudioSession.h"
-#import "TBMVideoRecorder.h"
+#import "TBMVideoRecorderDeprecated.h"
 #import "TBMVideoIdUtils.h"
 #import "NSError+ZZAdditions.h"
 #import "ZZFriendDataProvider.h"
@@ -34,7 +34,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 @interface ZZVideoRecorderDeprecated () <TBMAudioSessionDelegate, TBMVideoRecorderDelegate>
 
-@property (nonatomic, strong) TBMVideoRecorder *recorder;
+@property (nonatomic, strong) TBMVideoRecorderDeprecated *recorder;
 @property (nonatomic, strong) NSURL* recordVideoUrl;
 @property (nonatomic, strong) TBMVideoProcessor* videoProcessor;
 @property (nonatomic, strong) NSMutableArray* delegatesArray;
@@ -60,7 +60,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     if (self = [super init])
     {
         self.videoProcessor = [TBMVideoProcessor new];
-        self.recorder = [[TBMVideoRecorder alloc] init];
+        self.recorder = [[TBMVideoRecorderDeprecated alloc] init];
         self.recorder.delegate = self;
 //        [self.recorder startRunning];
         
@@ -156,7 +156,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 // We call setupVideoRecorder on multiple events so the first qualifying event takes effect. All later events are ignored.
 - (void)setupVideoRecorder:(int)retryCount
 {
-    self.recorder = [TBMVideoRecorder new];
+    self.recorder = [TBMVideoRecorderDeprecated new];
     self.recorder.delegate = self;
     
     if (!self.recordingView)
@@ -232,7 +232,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 - (BOOL)areBothCamerasAvailable
 {
-    return [ZZDeviceHandler areBothCamerasAvailable];
+    return [ZZDeviceHandlerDeprecated areBothCamerasAvailable];
 }
 
 - (void)switchCamera
@@ -254,7 +254,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 - (void)_switchToBackCamera
 {
     NSError *error;
-    self.recorder.videoInput = [ZZDeviceHandler loadAvailableBackVideoInputWithError:&error];
+    self.recorder.videoInput = [ZZDeviceHandlerDeprecated loadAvailableBackVideoInputWithError:&error];
     if (error)
     {
         // TODO:
@@ -274,7 +274,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 - (void)_switchToFrontCamera
 {
     NSError *error;
-    self.recorder.videoInput = [ZZDeviceHandler loadAvailableFrontVideoInputWithError:&error];
+    self.recorder.videoInput = [ZZDeviceHandlerDeprecated loadAvailableFrontVideoInputWithError:&error];
     if (error)
     {
         // TODO:
@@ -294,7 +294,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 - (void)_initAudioInput
 {
     NSError *error;
-    self.recorder.audioInput = [ZZDeviceHandler loadAudioInputWithError:&error];
+    self.recorder.audioInput = [ZZDeviceHandlerDeprecated loadAudioInputWithError:&error];
     if (error)
     {
         //TODO:

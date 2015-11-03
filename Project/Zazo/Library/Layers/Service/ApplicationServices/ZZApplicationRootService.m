@@ -57,22 +57,12 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(_videoDidStartRecording:)
-                                                     name:kZZVideoRecorderShouldStartRecording
+                                                     name:kZZVideoRecorderDidStartVideoCapture
                                                    object:nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(_videoDidFinishRecording:)
-                                                     name:kZZVideoRecorderDidCancelRecording
-                                                   object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(_videoDidFinishRecording:)
-                                                     name:kZZVideoRecorderDidFail
-                                                   object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(_videoDidFinishRecording:)
-                                                     name:kZZVideoRecorderDidFinishRecording
+                                                 selector:@selector(_videoDidEndRecording:)
+                                                     name:kZZVideoRecorderDidEndVideoCapture
                                                    object:nil];
     }
     return self;
@@ -99,7 +89,7 @@
     [UIApplication sharedApplication].idleTimerDisabled = YES;
 }
 
-- (void)_videoDidFinishRecording:(id)sender
+- (void)_videoDidEndRecording:(id)sender
 {
     [UIApplication sharedApplication].idleTimerDisabled = NO;
 }

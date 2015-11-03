@@ -176,7 +176,6 @@
         if ([call.callState isEqualToString:CTCallStateIncoming])
         {
             ANDispatchBlockToMainQueue(^{
-                [[ZZVideoRecorder shared] cancelRecordingWithReason:NSLocalizedString(@"record-canceled-reason-incoming-call", nil)];
                 [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationIncomingCall object:nil];
             });
         }

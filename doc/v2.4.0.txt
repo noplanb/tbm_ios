@@ -1,6 +1,8 @@
 v2.4.0
 
 
+
+
 fix/camera
 ----------
 
@@ -14,18 +16,25 @@ x Must fix
   x Video size, resolution, bit rate etc.
     x Probably requires fork of PBJVision
 
-  - PBJVision
-    - Update mine
-    - Push
-    - Install pods
+  x PBJVision
+    x Update npb fork of the pod
+    x Push
+    x Install pods
 
 - Nice to fix
+  x Clean up notifications.
+    x Remove existing notifications
+    x Add one for didStartVideoCapture and didStopVideoCapture
+
+  x No direct calls of VideoRecorder from ZZGridCellViewModel
+
+  x Remove handle incoming call.
+  - Remove unused from zzdevicehandler
+
   - Delegate rather than blocks for callbacks
   - Move UI messages out of VideoRecorder
   - Move 2 finger touch recognizer out of VideoRecorder
-  - No direct calls of VideoRecorder from ZZGridCellViewModel
   - Create a GridPresenter+VideoRecorder category
-  - Clean up notifications.
   - Move switch camera icon up.
 
 - Testcases
@@ -33,14 +42,7 @@ x Must fix
   - Create a testplan for all of the above
 
 
- - Remove wasRecordingStopped
-   - Change resolution
-   - Change front camera
 
- - Remove callbacks and use delegate instead
-   - What are callbacks used for now?
-
-   - Decide what is the minimum delegate methods.
 
  - Remove handle incoming call.
  - Remove unused from zzdevicehandler

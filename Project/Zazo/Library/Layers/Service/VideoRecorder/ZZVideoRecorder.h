@@ -13,10 +13,9 @@
 
 extern NSString* const kVideoProcessorDidFinishProcessing;
 extern NSString* const kVideoProcessorDidFail;
-extern NSString* const kZZVideoRecorderDidFinishRecording;
-extern NSString* const kZZVideoRecorderShouldStartRecording;
-extern NSString* const kZZVideoRecorderDidCancelRecording;
-extern NSString* const kZZVideoRecorderDidFail;
+
+extern NSString* const kZZVideoRecorderDidStartVideoCapture;
+extern NSString* const kZZVideoRecorderDidEndVideoCapture;
 
 
 + (instancetype)shared;

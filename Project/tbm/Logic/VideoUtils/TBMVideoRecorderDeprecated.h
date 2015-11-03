@@ -25,7 +25,7 @@
 
 @end
 
-@interface TBMVideoRecorder : NSObject <TBMAudioSessionDelegate>
+@interface TBMVideoRecorderDeprecated : NSObject <TBMAudioSessionDelegate>
 
 @property (nonatomic) id <TBMVideoRecorderDelegate> delegate;
 @property (nonatomic, assign) AVCaptureDevicePosition device;
