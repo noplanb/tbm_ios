@@ -3,6 +3,9 @@ v2.4.0
 
 fix/camera
 ----------
+ - Remove wasRecordingStopped
+   - Change resolution
+   - Change front camera
 
  - Remove callbacks and use delegate instead
    - What are callbacks used for now?

@@ -18,8 +18,6 @@ extern NSString* const kZZVideoRecorderShouldStartRecording;
 extern NSString* const kZZVideoRecorderDidCancelRecording;
 extern NSString* const kZZVideoRecorderDidFail;
 
-@property (nonatomic, assign) BOOL didCancelRecording;
-@property (nonatomic, assign) BOOL wasRecordingStopped;
 
 + (instancetype)shared;
 

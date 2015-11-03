@@ -426,10 +426,7 @@
             }
             
             [self.soundPlayer play];
-            [ZZVideoRecorder shared].wasRecordingStopped = NO;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                if (![ZZVideoRecorder shared].wasRecordingStopped)
-                {
+            ANDispatchBlockToMainQueue(^{
                     [self.videoPlayer stop];
                     NSURL* url = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriendID:viewModel.item.relatedUser.idTbm];
                     [self.userInterface updateRecordViewStateTo:isEnabled];
@@ -440,25 +437,23 @@
                         
                         completionBlock(isRecordingSuccess);
                     }];
-                }
-                else
-                {
-                    [[ZZVideoRecorder shared] showVideoToShortToast];
-                }
+
             });
         }
         else
         {
-            [ZZVideoRecorder shared].wasRecordingStopped = YES;
-            [[ZZVideoRecorder shared] stopRecordingWithCompletionBlock:^(BOOL isRecordingSuccess) {
-                [self.userInterface updateRecordViewStateTo:isEnabled];
-                [self.soundPlayer play];
-                if (isRecordingSuccess)
-                {
-                    [self _handleSentMessageEventWithCellViewModel:viewModel];
-                }
-                completionBlock(isRecordingSuccess);
-            }];
+            ANDispatchBlockToMainQueue(^{
+                [[ZZVideoRecorder shared] stopRecordingWithCompletionBlock:^(BOOL isRecordingSuccess) {
+                    [self.userInterface updateRecordViewStateTo:isEnabled];
+                    [self.soundPlayer play];
+                    if (isRecordingSuccess)
+                    {
+                        [self _handleSentMessageEventWithCellViewModel:viewModel];
+                    }
+                    completionBlock(isRecordingSuccess);
+                }];
+
+            });
         }
 
         [self.userInterface updateRollingStateTo:!isEnabled];

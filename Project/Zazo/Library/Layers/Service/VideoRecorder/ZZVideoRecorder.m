@@ -27,7 +27,9 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 @property (nonatomic, strong) PBJVision* recorder;
 @property (nonatomic, strong) NSURL* recordVideoUrl;
 @property (nonatomic, strong) TBMVideoProcessor* videoProcessor;
+@property (nonatomic, strong) NSDate* recordStartDate;
 @property (nonatomic, copy) void (^completionBlock)(BOOL isRecordingSuccess);
+@property (nonatomic, assign) BOOL didCancelRecording;
 
 @end
 
@@ -57,7 +59,8 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         [self.recorder setCameraDevice:PBJCameraDeviceBack];
         self.recorder.cameraOrientation = PBJCameraOrientationPortrait;
         self.recorder.focusMode = PBJFocusModeContinuousAutoFocus;
-        self.recorder.outputFormat = PBJOutputFormatStandard;
+        self.recorder.outputFormat = PBJOutputFormatPreset;
+        self.recorder.videoBitRate = PBJVideoBitRate480x360;
     }
     return self;
 }
@@ -84,6 +87,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 - (void)startRecordingWithVideoURL:(NSURL*)url completionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
+    self.recordStartDate = [NSDate date];
     self.completionBlock = completionBlock;
     
     self.didCancelRecording = NO;
@@ -100,10 +104,15 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 - (void)stopRecordingWithCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
     self.completionBlock = completionBlock;
-    if ([self isRecording])
-    {
+    
+    // Ensure a minimum record time because there are delays to get recording started and stopping before
+    // starting can cause problems.
+    NSTimeInterval kMinimumRecordTime = 0.4;
+    NSTimeInterval recordTime = [[NSDate date] timeIntervalSinceDate:self.recordStartDate];
+    NSTimeInterval delayStop = (recordTime < kMinimumRecordTime) ? 0.4 - kMinimumRecordTime : 0.0;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayStop * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.recorder endVideoCapture];
-    }
+    });
 }
 
 
@@ -179,7 +188,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         }
         else if (touch.phase == UITouchPhaseEnded && [self isRecording])
         {
-            [self stopRecordingWithCompletionBlock:self.completionBlock];
+//            [self stopRecordingWithCompletionBlock:self.completionBlock];
         }
     });
 }
@@ -322,6 +331,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 - (void)vision:(PBJVision *)vision capturedVideo:(NSDictionary *)videoDict error:(NSError *)error{
     BOOL abort = NO;
     NSString *outputFilePath = videoDict[PBJVisionVideoPathKey];
+    ZZLogInfo(@"didCaptureVideo");
     
     if (self.didCancelRecording)
     {
@@ -377,7 +387,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     }
 
     
-    ZZLogInfo(@"didFinishRecording success %@", self.recordVideoUrl);
+    ZZLogInfo(@"didFinishRecording success");
     [self _sendCompletionWithResult:YES];
     [[[TBMVideoProcessor alloc] init] processVideoWithUrl:self.recordVideoUrl];
 }
@@ -426,7 +436,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     }
     
     ZZLogInfo(@"VideoRecorder: filesize %llu", fileAttributes.fileSize);
-    if (fileAttributes.fileSize < 528000)
+    if (fileAttributes.fileSize < 828000)
     {
         return YES;
     }
