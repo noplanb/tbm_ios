@@ -20,16 +20,16 @@
 @interface ZZVideoStatusHandler : NSObject
 
 + (instancetype)sharedInstance;
+
 - (void)addVideoStatusHandlerObserver:(id <ZZVideoStatusHandlerDelegate>)observer;
 - (void)removeVideoStatusHandlerObserver:(id <ZZVideoStatusHandlerDelegate>)observer;
-
 
 
 - (void)deleteAllViewedOrFailedVideoForFriend:(TBMFriend*)friend;
 
 - (void)notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)status
                            withFriend:(TBMFriend*)friend
-                            withVideo:(TBMVideo*)video;
+                          withVideoId:(NSString*)videoId;
 
 
 - (void)setAndNotifyUploadRetryCount:(NSInteger)retryCount
@@ -52,6 +52,6 @@
 //TODO:
 
 - (void)setAndNotityViewedIncomingVideoWithFriend:(TBMFriend*)friend video:(TBMVideo*)video;
-- (void)handleOutgoingVideoCreatedWithVideo:(TBMVideo*)video withFriend:(TBMFriend*)friend;
+- (void)handleOutgoingVideoCreatedWithVideoId:(NSString*)videoId withFriend:(TBMFriend*)friend;
 
 @end

@@ -11,10 +11,11 @@
 #import "ZZVideoDataUpdater.h"
 #import "ZZApplicationRootService.h"
 #import "ZZNotificationsConstants.h"
+#import "ZZVideoStatuses.h"
 
 @interface ZZVideoStatusHandler ()
 
-@property (nonatomic, strong) NSMutableArray* obeservers;
+@property (nonatomic, strong) NSMutableArray* observers;
 
 @end
 
@@ -34,7 +35,7 @@
     self = [super init];
     if (self)
     {
-        self.obeservers = [NSMutableArray array];
+        self.observers = [NSMutableArray array];
     }
     return self;
 }
@@ -44,17 +45,17 @@
 
 - (void)addVideoStatusHandlerObserver:(id <ZZVideoStatusHandlerDelegate>)observer
 {
-    [self.obeservers addObject:observer];
+    [self.observers addObject:observer];
 }
 
 - (void)removeVideoStatusHandlerObserver:(id <ZZVideoStatusHandlerDelegate>)observer
 {
-    [self.obeservers removeObject:observer];
+    [self.observers removeObject:observer];
 }
 
 - (void)_notifyObserversVideoStatusChangeForFriend:(TBMFriend*)friend
 {
-    for (id <ZZVideoStatusHandlerDelegate> delegate in self.obeservers)
+    for (id <ZZVideoStatusHandlerDelegate> delegate in self.observers)
     {
         [delegate videoStatusChangedForFriend:friend];
     }
@@ -106,7 +107,7 @@
     if (retryCount != friend.uploadRetryCountValue)
     {
         friend.uploadRetryCount = @(retryCount);
-        friend.lastVideoStatusEventTypeValue = OUTGOING_VIDEO_STATUS_EVENT_TYPE;
+        friend.lastVideoStatusEventTypeValue = ZZVideoStatusEventTypeOutgoing;
         [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
         [self _notifyObserversVideoStatusChangeForFriend:friend];
     }
@@ -132,7 +133,7 @@
     
     if ([self _isNewestIncomingVideo:video withFriend:friend])
     {
-        friend.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
+        friend.lastVideoStatusEventType = ZZVideoStatusEventTypeIncoming;
         [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
         [self _notifyObserversVideoStatusChangeForFriend:friend];
     }
@@ -156,12 +157,12 @@
 
 - (void)notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)status
                            withFriend:(TBMFriend*)friend
-                            withVideo:(TBMVideo*)video
+                          withVideoId:(NSString*)videoId
 {
     [ZZContentDataAcessor refreshContext:friend.managedObjectContext];
-    if (![video.videoId isEqualToString:friend.outgoingVideoId])
+    if (![videoId isEqualToString:friend.outgoingVideoId])
     {
-        ZZLogWarning(@"setAndNotifyOutgoingVideoStatus: Unrecognized vidoeId:%@. != ougtoingVid:%@. friendId:%@ Ignoring.", video.videoId, friend.outgoingVideoId, friend.idTbm);
+        ZZLogWarning(@"setAndNotifyOutgoingVideoStatus: Unrecognized vidoeId:%@. != ougtoingVid:%@. friendId:%@ Ignoring.", videoId, friend.outgoingVideoId, friend.idTbm);
         return;
     }
     
@@ -171,7 +172,7 @@
         return;
     }
     
-    friend.lastVideoStatusEventTypeValue = OUTGOING_VIDEO_STATUS_EVENT_TYPE;
+    friend.lastVideoStatusEventTypeValue = ZZVideoStatusEventTypeOutgoing;
     friend.outgoingVideoStatusValue = status;
     [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
     
@@ -206,7 +207,7 @@
     // indicator goes away.
     if (videoStatus != ZZVideoIncomingStatusViewed)
     {
-        friend.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
+        friend.lastVideoStatusEventType = ZZVideoStatusEventTypeIncoming;
     }
     
     [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
@@ -224,11 +225,11 @@
     
 }
 
-- (void)handleOutgoingVideoCreatedWithVideo:(TBMVideo*)video withFriend:(TBMFriend*)friend
+- (void)handleOutgoingVideoCreatedWithVideoId:(NSString*)videoId withFriend:(TBMFriend*)friend
 {
     friend.uploadRetryCount = 0;
-    friend.outgoingVideoId = video.videoId;
-    [self notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusNew withFriend:friend withVideo:video];
+    friend.outgoingVideoId = videoId;
+    [self notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusNew withFriend:friend withVideoId:videoId];
 }
 
 

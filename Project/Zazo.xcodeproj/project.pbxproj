@@ -303,6 +303,7 @@
 		187842311BB2F2760007CDE2 /* ZZCommunicationDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187842301BB2F2760007CDE2 /* ZZCommunicationDomainModel.m */; };
 		18965CAC1BAC5D2A009AC8A4 /* ZZActionSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18965CAB1BAC5D29009AC8A4 /* ZZActionSheetController.m */; };
 		18BD07AC1BE0B4E2005CB177 /* ZZRemoteStorageValueGeneratorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BD07AB1BE0B4E2005CB177 /* ZZRemoteStorageValueGeneratorTest.m */; };
+		18BDA6DB1BE8A328008D3619 /* ZZFriendDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDA6DA1BE8A328008D3619 /* ZZFriendDataHelper.m */; settings = {ASSET_TAGS = (); }; };
 		18C947E41BB566A500D31B99 /* _TBMFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C947DD1BB566A500D31B99 /* _TBMFriend.m */; };
 		18C947E51BB566A500D31B99 /* _TBMGridElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C947DF1BB566A500D31B99 /* _TBMGridElement.m */; };
 		18C947E61BB566A500D31B99 /* _TBMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C947E11BB566A500D31B99 /* _TBMUser.m */; };
@@ -963,6 +964,8 @@
 		18965CAA1BAC5D29009AC8A4 /* ZZActionSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZActionSheetController.h; sourceTree = "<group>"; };
 		18965CAB1BAC5D29009AC8A4 /* ZZActionSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZActionSheetController.m; sourceTree = "<group>"; };
 		18BD07AB1BE0B4E2005CB177 /* ZZRemoteStorageValueGeneratorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRemoteStorageValueGeneratorTest.m; sourceTree = "<group>"; };
+		18BDA6D91BE8A328008D3619 /* ZZFriendDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFriendDataHelper.h; sourceTree = "<group>"; };
+		18BDA6DA1BE8A328008D3619 /* ZZFriendDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFriendDataHelper.m; sourceTree = "<group>"; };
 		18C947DC1BB566A500D31B99 /* _TBMFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _TBMFriend.h; sourceTree = "<group>"; };
 		18C947DD1BB566A500D31B99 /* _TBMFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _TBMFriend.m; sourceTree = "<group>"; };
 		18C947DE1BB566A500D31B99 /* _TBMGridElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _TBMGridElement.h; sourceTree = "<group>"; };
@@ -1382,6 +1385,8 @@
 				07636B151BA49A0100925671 /* ZZFriendDataProvider.m */,
 				07636B161BA49A0100925671 /* ZZFriendModelsMapper.h */,
 				07636B171BA49A0100925671 /* ZZFriendModelsMapper.m */,
+				18BDA6D91BE8A328008D3619 /* ZZFriendDataHelper.h */,
+				18BDA6DA1BE8A328008D3619 /* ZZFriendDataHelper.m */,
 			);
 			path = Friend;
 			sourceTree = "<group>";
@@ -4383,6 +4388,7 @@
 				07636F061BA49A0100925671 /* TBMAlertController.m in Sources */,
 				07636E5D1BA49A0100925671 /* ZZVideoProcessor.m in Sources */,
 				079E901B1BD465CF001A4718 /* ZZApplicationStateInfoGenerator.m in Sources */,
+				18BDA6DB1BE8A328008D3619 /* ZZFriendDataHelper.m in Sources */,
 				07636F071BA49A0100925671 /* TBMAlertControllerView.m in Sources */,
 				07636E4F1BA49A0100925671 /* ZZDeviceHandler.m in Sources */,
 				07E09E291BD5B17F00A59389 /* ZZVideoFileHandler.m in Sources */,

@@ -152,7 +152,7 @@
     {
         [self.dataSource updateCellWithModel:model];
         
-        if (model.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
+        if (model.relatedUser.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
             model.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded )
         {
             CGFloat delayAfterDownloadAnimationCompleted = 1.6f;

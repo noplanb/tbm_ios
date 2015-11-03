@@ -12,6 +12,7 @@
 #import "ZZStoredSettingsManager.h"
 #import "MagicalRecord.h"
 #import "TBMFriend.h"
+#import "ZZFriendDataHelper.h"
 
 const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     .idTbm = @"idTbm",
@@ -165,10 +166,14 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     NSInteger maxLength = 100;
     NSString *name;
     
-    if ([self firstNameIsUnique])
+    if ([ZZFriendDataHelper isUniqueFirstName:self.firstName])
+    {
         name = self.firstName;
+    }
     else
+    {
         name = [NSString stringWithFormat:@"%@. %@", [self firstInitial], self.lastName];
+    }
     
     // Limit to 12 characgters
     if (name.length > maxLength)
@@ -177,15 +182,9 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     return name;
 }
 
-- (BOOL)firstNameIsUnique
+- (NSString *)shortFirstName
 {
-    NSArray* friends = [TBMFriend MR_findAll];
-    for (TBMFriend *f in friends)
-    {
-        if (![self isEqual:f] && [self.firstName isEqualToString:f.firstName])
-            return NO;
-    }
-    return YES;
+    return [[self displayName] substringWithRange:NSMakeRange(0, MIN(6, [[self displayName] length]))];
 }
 
 - (NSString *)firstInitial

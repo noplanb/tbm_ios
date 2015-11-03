@@ -46,21 +46,21 @@ const struct ZZKeyStoreOutgoingVideoStatusValues ZZKeyStoreOutgoingVideoStatusVa
 {
     if ([remoteStatus isEqualToString:ZZKeyStoreOutgoingVideoStatusValues.outgoingVideoStatusDownloaded])
     {
-        return [NSNumber numberWithInteger:OUTGOING_VIDEO_STATUS_DOWNLOADED];
+        return [NSNumber numberWithInteger:ZZVideoOutgoingStatusDownloaded];
     }
     
     if ([remoteStatus isEqualToString:ZZKeyStoreOutgoingVideoStatusValues.outgoingVideoStatusViewed])
     {
-        return [NSNumber numberWithInteger:OUTGOING_VIDEO_STATUS_VIEWED];
+        return [NSNumber numberWithInteger:ZZVideoOutgoingStatusViewed];
     }
     if (ANIsEmpty(remoteStatus))
     {
-        return [NSNumber numberWithInt:OUTGOING_VIDEO_STATUS_NONE];
+        return [NSNumber numberWithInt:ZZVideoOutgoingStatusNone];
     }
-    return [NSNumber numberWithInt:OUTGOING_VIDEO_STATUS_UNKNOWN];
+    return [NSNumber numberWithInt:ZZVideoOutgoingStatusUnknown];
 }
 
-- (TBMOutgoingVideoStatus) status{
+- (ZZVideoOutgoingStatus) status{
     return [self.statusNumber integerValue];
 }
 

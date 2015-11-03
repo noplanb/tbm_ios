@@ -16,13 +16,13 @@
 - (void)_handleModel:(ZZGridDomainModel*)model
 {
     
-        if (model.relatedUser.lastVideoStatusEventType == INCOMING_VIDEO_STATUS_EVENT_TYPE &&
+        if (model.relatedUser.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
             model.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded &&
             [self.output friendsNumberOnGrid] == 1)
         {
             [self.output handleModel:model withEvent:ZZGridActionEventTypeBecomeMessage];
         }
-        else if (model.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED)
+        else if (model.relatedUser.outgoingVideoStatusValue == ZZVideoOutgoingStatusViewed)
         {
             [self.output handleModel:model withEvent:ZZGridActionEventTypeMessageViewed];
         }

@@ -17,6 +17,8 @@
 #import "ZZKeyStoreOutgoingVideoStatusDomainModel.h"
 #import "ZZVideoDataProvider.h"
 #import "ZZVideoStatusHandler.h"
+#import "ZZRootStateObserver.h"
+#import "ZZFriendDataUpdater.h"
 
 
 @implementation ZZApplicationDataUpdaterService
@@ -96,7 +98,10 @@
     [[ZZRemoteStoageTransportService loadRemoteEverSentFriendsIDsForUserMkey:me.mkey] subscribeNext:^(id x) {
         
         ANDispatchBlockToBackgroundQueue(^{
-            [TBMFriend setEverSentForMkeys:x];
+            
+            [ZZFriendDataUpdater updateEverSentFreindsWithMkeys:x];
+            [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventDonwloadedMkeys
+                                               notificationObject:x];
         });
     }];
 }
@@ -138,9 +143,10 @@
                 }
                 //TODO: remove this core data stuff
                 TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
-//                [friendEntity setAndNotifyOutgoingVideoStatus:[model status] videoId:model.videoId];
-                TBMVideo* video = [ZZVideoDataProvider entityWithID:model.videoId];
-                [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)[model status] withFriend:friendEntity withVideo:video];
+                
+                [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)[model status]
+                                                                          withFriend:friendEntity
+                                                                         withVideoId:model.videoId];
                 
             }
         }

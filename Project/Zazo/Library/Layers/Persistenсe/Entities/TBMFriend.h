@@ -12,38 +12,31 @@
 
 @class TBMGridElement;
 
-@protocol TBMVideoStatusNotificationProtocol <NSObject>
-
-//- (void)videoStatusDidChange:(TBMFriend *)model;
-- (void)unlockFeaturesUpdateWithMkeysArray:(NSArray*)mkeysArray;
-
-@end
-
 @interface TBMFriend : _TBMFriend
 // Note order matters. The first enum is chosen intentionally since that is what the
 // property initializes to.
-typedef NS_ENUM (NSInteger, TBMOutgoingVideoStatus) {
-    OUTGOING_VIDEO_STATUS_NONE,
-    OUTGOING_VIDEO_STATUS_NEW,
-    OUTGOING_VIDEO_STATUS_QUEUED,
-    OUTGOING_VIDEO_STATUS_UPLOADING,
-    OUTGOING_VIDEO_STATUS_UPLOADED,
-    OUTGOING_VIDEO_STATUS_DOWNLOADED,
-    OUTGOING_VIDEO_STATUS_VIEWED,
-    OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY,
-    OUTGOING_VIDEO_STATUS_UNKNOWN
-};
+//typedef NS_ENUM (NSInteger, TBMOutgoingVideoStatus) {
+//    OUTGOING_VIDEO_STATUS_NONE,
+//    OUTGOING_VIDEO_STATUS_NEW,
+//    OUTGOING_VIDEO_STATUS_QUEUED,
+//    OUTGOING_VIDEO_STATUS_UPLOADING,
+//    OUTGOING_VIDEO_STATUS_UPLOADED,
+//    OUTGOING_VIDEO_STATUS_DOWNLOADED,
+//    OUTGOING_VIDEO_STATUS_VIEWED,
+//    OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY,
+//    OUTGOING_VIDEO_STATUS_UNKNOWN
+//};
 
 
-typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
-    INCOMING_VIDEO_STATUS_EVENT_TYPE,
-    OUTGOING_VIDEO_STATUS_EVENT_TYPE
-};
+//typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
+//    INCOMING_VIDEO_STATUS_EVENT_TYPE,
+//    OUTGOING_VIDEO_STATUS_EVENT_TYPE
+//};
 
 // Finders
 //+ (NSArray *)all;
 
-//+ (NSUInteger)allUnviewedCount;
+//+ (NSUInteger)allUnviewedCount;notificationObject
 //+ (NSUInteger)unviewedCountForGridCellAtIndex:(NSUInteger)index;
 //+ (instancetype)findWithId:(NSString *)idTbm;
 //+ (instancetype)findWithMkey:(NSString *)mkey;
@@ -64,36 +57,43 @@ typedef NS_ENUM(NSInteger, TBMVideoStatusEventType){
 //- (TBMVideo *) newestIncomingVideo;
 //- (BOOL) hasIncomingVideoId:(NSString *)videoId;
 
-- (BOOL) isNewestIncomingVideo:(TBMVideo *)video;
+//- (BOOL) isNewestIncomingVideo:(TBMVideo *)video;
+
 //- (BOOL) hasDownloadingVideo;
 //- (BOOL) hasRetryingDownload;
-- (TBMVideo *) createIncomingVideoWithVideoId:(NSString *)videoId;
+
+//- (TBMVideo *) createIncomingVideoWithVideoId:(NSString *)videoId;
+
 //- (TBMVideo *) firstPlayableVideo;
 //- (TBMVideo *) firstUnviewedVideo;
 //- (TBMVideo *) nextPlayableVideoAfterVideoId:(NSString *)videoId;
-- (TBMVideo *) nextUnviewedVideoAfterVideoId:(NSString *)videoId;
-- (NSInteger) unviewedCount;
-- (void) deleteAllViewedOrFailedVideos;
+
+//- (TBMVideo *) nextUnviewedVideoAfterVideoId:(NSString *)videoId;
+
+//- (NSInteger) unviewedCount;
+
+//- (void) deleteAllViewedOrFailedVideos;
 
 
 // VideoStatusNotification
-+ (void)addVideoStatusNotificationDelegate:(id)delegate;
+
+//+ (void)addVideoStatusNotificationDelegate:(id)delegate;
 
 
 
-+ (void)fillAfterMigration;
+//+ (void)fillAfterMigration;
 
+//+ (NSArray *)everSentMkeys;
 
-+ (NSArray *)everSentMkeys;
+//+ (void)setEverSentForMkeys:(NSArray *)mkeys;
 
-+ (void)setEverSentForMkeys:(NSArray *)mkeys;
+//- (NSString *)videoStatusString;
+//- (NSString *)outgoingVideoStatusString;
 
-- (NSString *)videoStatusString;
+//- (NSString *)fullName;
 
-- (NSString *)outgoingVideoStatusString;
+//- (NSString *)shortFirstName;
 
-- (NSString *)fullName;
-- (NSString *)shortFirstName;
-- (BOOL)hasOutgoingVideo;
+//- (BOOL)hasOutgoingVideo;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "ANBaseDomainModel.h"
 #import "TBMFriend.h"
+#import "ZZVideoStatuses.h"
 
 @class FEMObjectMapping;
 
@@ -30,6 +31,6 @@ extern const struct ZZKeyStoreOutgoingVideoStatusValues{
 @property (nonatomic, copy) NSString *videoId;
 
 + (FEMObjectMapping*)mapping;
+- (ZZVideoOutgoingStatus)status;
 
-- (TBMOutgoingVideoStatus)status;
 @end

@@ -31,9 +31,9 @@
 #pragma mark - Entities
 
 + (TBMFriend*)friendEntityWithItemID:(NSString*)itemID;
-
 + (BOOL)isFriendExistsWithItemID:(NSString*)itemID;
 + (BOOL)isFriendExistsWithMKey:(NSString*)mKey;
++ (TBMFriend*)friendEnityWithMkey:(NSString*)mKey;
 
 #pragma mark - CRUD
 
@@ -46,9 +46,5 @@
 
 + (ZZFriendDomainModel*)modelFromEntity:(TBMFriend*)entity;
 + (TBMFriend*)entityFromModel:(ZZFriendDomainModel*)model;
-
-#pragma mark - Helpers
-
-+ (BOOL)isFriend:(TBMFriend*)friend hasIncomingVideoWithId:(NSString*)videoId;
 
 @end

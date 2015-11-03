@@ -8,6 +8,7 @@
 
 #import "ZZContentDataAcessor.h"
 #import "TBMFriend.h"
+#import "ZZFriendDataUpdater.h"
 
 @implementation ZZContentDataAcessor
 
@@ -18,7 +19,7 @@
     {
         ZZLogInfo(@"Successfull Core Data migration. Trying to fill new fields"); // TODO: cleanup
         ANDispatchBlockToBackgroundQueue(^{
-           [TBMFriend fillAfterMigration];
+            [ZZFriendDataUpdater fillEntitiesAfterMigration];
         });
     }
 }
