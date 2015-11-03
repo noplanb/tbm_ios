@@ -45,7 +45,7 @@ target 'Zazo' do
     pod 'MagicalRecord', '~> 2.3.0'
 
     #Video
-    pod 'PBJVision', '~> 0.3.4'
+    pod 'PBJVision', git: 'https://github.com/noplanb/PBJVision'
 
     #Helpers
     pod 'DeviceUtil', '~> 1.2.0'
