@@ -307,10 +307,17 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 // video
 
 //- (NSString *)vision:(PBJVision *)vision willStartVideoCaptureToFile:(NSString *)fileName{}
-- (void)visionDidStartVideoCapture:(PBJVision *)vision{}
+- (void)visionDidStartVideoCapture:(PBJVision *)vision
+{
+    ZZLogInfo(@"didStartVideoCapture");
+}
+
 - (void)visionDidPauseVideoCapture:(PBJVision *)vision{} // stopped but not ended
 - (void)visionDidResumeVideoCapture:(PBJVision *)vision{}
-- (void)visionDidEndVideoCapture:(PBJVision *)vision{}
+- (void)visionDidEndVideoCapture:(PBJVision *)vision
+{
+    ZZLogInfo(@"didEndVideoCapture");
+}
 
 - (void)vision:(PBJVision *)vision capturedVideo:(NSDictionary *)videoDict error:(NSError *)error{
     BOOL abort = NO;
@@ -419,7 +426,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     }
     
     ZZLogInfo(@"VideoRecorder: filesize %llu", fileAttributes.fileSize);
-    if (fileAttributes.fileSize < 28000)
+    if (fileAttributes.fileSize < 528000)
     {
         return YES;
     }

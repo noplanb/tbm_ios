@@ -411,6 +411,7 @@
                            viewModel:(ZZGridCellViewModel*)viewModel
                  withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
+    ZZLogInfo(@"recordingStateUpdatedToState:%d", isEnabled);
 
     [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
     if (!ANIsEmpty(viewModel.item.relatedUser.idTbm))

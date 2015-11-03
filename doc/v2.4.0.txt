@@ -4,11 +4,10 @@ v2.4.0
 fix/camera
 ----------
 
-- remove cancelRecording flag
-  - call recorder cancelVideoCapture
-  - check for cancel in error and handle
-  - Test
-  - Remove flags
+ - Remove callbacks and use delegate instead
+   - What are callbacks used for now?
+
+   - Decide what is the minimum delegate methods.
 
  - Remove handle incoming call.
  - Remove unused from zzdevicehandler
