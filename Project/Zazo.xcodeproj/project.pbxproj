@@ -4398,12 +4398,8 @@
 				7952764A1BA6B4AB00E506D5 /* ZZMenuCell.m in Sources */,
 				07636E351BA49A0100925671 /* ZZCommonNetworkTransportService.m in Sources */,
 				79123D891BB14F9E007E1CBF /* ZZHintsDomainModel.m in Sources */,
-<<<<<<< HEAD
 				07636E5E1BA49A0100925671 /* ZZVideoRecorderDeprecated.m in Sources */,
-=======
 				071828E71BE5777A00CFF0A5 /* ZZVideoStatusHandler.m in Sources */,
-				07636E5E1BA49A0100925671 /* ZZVideoRecorder.m in Sources */,
->>>>>>> develop
 				07636E2A1BA49A0100925671 /* ZZVideoModelsMapper.m in Sources */,
 				07BAA7081BB1B488009878B9 /* ZZUserPresentationHelper.m in Sources */,
 				07636E5B1BA49A0100925671 /* ZZStringUtils.m in Sources */,
@@ -4566,12 +4562,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
 				PRODUCT_NAME = Zazo;
-<<<<<<< HEAD
 				PROVISIONING_PROFILE = "47c2aacd-552e-4684-83bd-99b03d1841f1";
-=======
-				PROVISIONING_PROFILE = "bfce75df-b4b0-42ee-8769-871866246081";
-				SWIFT_OBJC_BRIDGING_HEADER = "Zazo/Library/Layers/Service/Zazo-Bridging-Header.h";
->>>>>>> develop
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -4709,13 +4700,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
 				PRODUCT_NAME = Zazo;
-<<<<<<< HEAD
 				PROVISIONING_PROFILE = "a3075692-af92-4425-ae7e-9ce28fade170";
-=======
-				PROVISIONING_PROFILE = "c3eab556-ac77-4a0e-88c9-16313d654f6f";
-				SWIFT_OBJC_BRIDGING_HEADER = "Zazo/Library/Layers/Service/Zazo-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
->>>>>>> develop
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
