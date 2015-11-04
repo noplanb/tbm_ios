@@ -1,11 +1,7 @@
 v2.4.0
 
-
-
-
 fix/camera
 ----------
-
 Video Recorder TODO:
 x Must fix
   x Interruption corner cases
@@ -29,7 +25,7 @@ x Must fix
   x No direct calls of VideoRecorder from ZZGridCellViewModel
 
   x Remove handle incoming call.
-  - Remove unused from zzdevicehandler
+  x Remove unused from zzdevicehandler
 
   - Delegate rather than blocks for callbacks
   - Move UI messages out of VideoRecorder
@@ -40,30 +36,3 @@ x Must fix
 - Testcases
   - List testcases in this doc
   - Create a testplan for all of the above
-
-
-
-
- - Remove handle incoming call.
- - Remove unused from zzdevicehandler
-
-
-
-Questions:
-  - Why does ZZVideoRecorder handleTouches? It seems like a hack to cancel on 2 finger touch. Should I remove this and handle elsewhere? In ZZGridCellViewModel?
-   - If we move it would better in presenter. In a separate category.
-
-  - The ZZVideoRecorder should really not update any UI including toasts. Correct? I think at most it should notify of events that may require toasts such as videoTooShort and something else should cause these toasts. Correct? Which object should properly present these toasts?
-    - Prestenter UserDialogsCategory.
-
-
-  - Why does ZZGridCellViewModel._checkIsCancelRecordingWithRecognizer call ZZVideoRecorder.cancelRecording. Shouldnt it call its dataSourceDelegate for this which should then call the presenter?
-     - Add a category on presenter to handle video recorder stuff.
-
-
-
-
-
-
-  - VideoRecorder unit test.
-

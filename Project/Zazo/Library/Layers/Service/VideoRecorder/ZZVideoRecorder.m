@@ -113,16 +113,6 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 }
 
 
-// TODO: Sani - Remove this after I find out what the hack is for.
-- (void)_recordingProgressStopped
-{
-    CGFloat kDelayAfterRecordingStopped = 0.5f;
-    ANDispatchBlockAfter(kDelayAfterRecordingStopped, ^{
-//        self.isRecordingInProgress = NO;
-    });
-}
-
-
 #pragma mark - Cancel Recording
 
 - (void)cancelRecording
