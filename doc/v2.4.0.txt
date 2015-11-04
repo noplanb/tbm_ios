@@ -27,12 +27,12 @@ x Must fix
   x Remove handle incoming call.
   x Remove unused from zzdevicehandler
 
-  - Delegate rather than blocks for callbacks
   - Move UI messages out of VideoRecorder
   - Move 2 finger touch recognizer out of VideoRecorder
   - Create a GridPresenter+VideoRecorder category
-  - Move switch camera icon up.
 
 - Testcases
   - List testcases in this doc
   - Create a testplan for all of the above
+
+

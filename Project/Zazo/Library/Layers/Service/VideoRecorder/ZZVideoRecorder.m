@@ -449,8 +449,8 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         return NO;
     }
     
-    ZZLogInfo(@"VideoRecorder: filesize %llu", fileAttributes.fileSize);
-    if (fileAttributes.fileSize < 28000)
+    ZZLogInfo(@"******* ******* ******* filesize %llu", fileAttributes.fileSize);
+    if (fileAttributes.fileSize < 32000)
     {
         return YES;
     }
