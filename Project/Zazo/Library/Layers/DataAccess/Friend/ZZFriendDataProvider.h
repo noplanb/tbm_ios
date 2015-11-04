@@ -8,6 +8,7 @@
 
 @class ZZFriendDomainModel;
 @class TBMFriend;
+@class TBMVideo;
 
 @interface ZZFriendDataProvider : NSObject
 
@@ -24,13 +25,15 @@
 
 #pragma mark - Count
 
-//+ (NSInteger)friendsCount;
++ (NSInteger)friendsCount;
 
 
 #pragma mark - Entities
 
 + (TBMFriend*)friendEntityWithItemID:(NSString*)itemID;
+
 + (BOOL)isFriendExistsWithItemID:(NSString*)itemID;
++ (BOOL)isFriendExistsWithMKey:(NSString*)mKey;
 
 #pragma mark - CRUD
 
@@ -43,5 +46,9 @@
 
 + (ZZFriendDomainModel*)modelFromEntity:(TBMFriend*)entity;
 + (TBMFriend*)entityFromModel:(ZZFriendDomainModel*)model;
+
+#pragma mark - Helpers
+
++ (BOOL)isFriend:(TBMFriend*)friend hasIncomingVideoWithId:(NSString*)videoId;
 
 @end

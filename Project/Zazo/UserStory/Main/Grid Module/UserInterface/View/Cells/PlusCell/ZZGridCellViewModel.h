@@ -49,7 +49,9 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
     ZZGridCellViewModelStateNeedToShowGreenBorder = 1 << 9,
     //badge state
     ZZGridCellViewModelStateVideoDownloadedAndVideoCountOne = 1 << 10,
-    ZZGridCellViewModelStateVideoCountMoreThatOne = 1 << 11
+    ZZGridCellViewModelStateVideoCountMoreThatOne = 1 << 11,
+    ZZGridCellViewModelStateVideoFailedPermanently = 1 << 12,
+    ZZGridCellViewModelStateVideoFirstVideoDownloading = 1 << 13
 };
 
 @interface ZZGridCellViewModel : NSObject
@@ -57,8 +59,8 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 @property (nonatomic, strong) ZZGridDomainModel* item;
 @property (nonatomic, weak) id <ZZGridCellViewModelDelegate> delegate;
 @property (nonatomic, weak) id <ZZGridCellVeiwModelAnimationDelegate> animationDelegate;
-@property (nonatomic, strong) NSNumber* badgeNumber;
-@property (nonatomic, strong) NSNumber* prevBadgeNumber;
+@property (nonatomic, assign) NSInteger badgeNumber;
+@property (nonatomic, assign) NSInteger prevBadgeNumber;
 @property (nonatomic, strong) UIView* playerContainerView;
 @property (nonatomic, assign) BOOL hasUploadedVideo;
 @property (nonatomic, assign) BOOL isUploadedVideoViewed;

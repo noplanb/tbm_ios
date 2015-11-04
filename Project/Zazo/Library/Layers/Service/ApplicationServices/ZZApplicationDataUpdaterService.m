@@ -16,6 +16,8 @@
 #import "ZZFriendDomainModel.h"
 #import "ZZKeyStoreOutgoingVideoStatusDomainModel.h"
 #import "ZZVideoDataProvider.h"
+#import "ZZVideoStatusHandler.h"
+
 
 @implementation ZZApplicationDataUpdaterService
 
@@ -29,6 +31,11 @@
     } error:^(NSError *error) {
         [self _pollAllFriends];
     }];
+}
+
+- (void)updateAllDataWithoutRequest
+{
+    [self _pollAllFriends];
 }
 
 - (void)updateApplicationBadge
@@ -104,11 +111,11 @@
             ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.friendMkey];
             if (friendModel.idTbm)
             {
-                if (friendModel.videos.count)
-                {
+//                if (friendModel.videos.count)
+//                {
                     ZZLogInfo(@"%@  vids = %@", [NSObject an_safeString:[friendModel fullName]], model.videoIds ? : @[]);
                     [self queueDownloadWithFriendID:friendModel.idTbm videoIds:model.videoIds];
-                }
+//                }
             }
         }
     }];
@@ -131,7 +138,10 @@
                 }
                 //TODO: remove this core data stuff
                 TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
-                [friendEntity setAndNotifyOutgoingVideoStatus:[model status] videoId:model.videoId];
+//                [friendEntity setAndNotifyOutgoingVideoStatus:[model status] videoId:model.videoId];
+                TBMVideo* video = [ZZVideoDataProvider entityWithID:model.videoId];
+                [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)[model status] withFriend:friendEntity withVideo:video];
+                
             }
         }
     }];

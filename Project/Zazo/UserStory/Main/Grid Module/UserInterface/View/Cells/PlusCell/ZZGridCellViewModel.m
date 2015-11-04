@@ -21,6 +21,7 @@
 #import "iToast.h"
 #import "ZZGridActionStoredSettings.h"
 
+
 @interface ZZGridCellViewModel ()
 
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
@@ -60,7 +61,7 @@
     }
     else
     {
-        return friendEntity.displayName;
+        return [friendModel displayName];
     }
 }
 
@@ -94,6 +95,11 @@
     if (!self.item.relatedUser)
     {
         modelState = ZZGridCellViewModelStateAdd;
+    }
+    else if (!ANIsEmpty(self.item.relatedUser) &&
+             self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently)
+    {
+        modelState = ZZGridCellViewModelStatePreview | ZZGridCellViewModelStateVideoFailedPermanently;
     }
     else if ((self.item.relatedUser.hasApp && self.hasDownloadedVideo) ||
              self.item.relatedUser.videos.count > 0)
@@ -145,19 +151,23 @@
     }
     
     // green border state
-    if ([self.badgeNumber integerValue] > 0
+    if (self.badgeNumber > 0
              && self.item.relatedUser.lastIncomingVideoStatus != ZZVideoIncomingStatusDownloading)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateNeedToShowGreenBorder);
     }
+    else if (self.badgeNumber == 0 && self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
+    {
+        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoFirstVideoDownloading);
+    }
     
     // badge state
-    if ([self.badgeNumber integerValue] == 1
+    if (self.badgeNumber == 1
         && self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoDownloadedAndVideoCountOne);
     }
-    else if ([self.badgeNumber integerValue] > 1)
+    else if (self.badgeNumber > 1)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoCountMoreThatOne);
     }
@@ -223,12 +233,6 @@
                       an_imageByTintingWithColor:[ZZColorTheme shared].gridStatusViewThumnailZColor];
     return image;
 }
-
-- (void)setBadgeNumber:(NSNumber *)badgeNumber
-{
-    _badgeNumber = badgeNumber;
-}
-
 
 - (void)setupRecorderRecognizerOnView:(UIView*)view
                 withAnimationDelegate:(id <ZZGridCellVeiwModelAnimationDelegate>)animationDelegate
@@ -311,11 +315,8 @@
 
 - (void)_checkIsCancelRecordingWithRecognizer:(UILongPressGestureRecognizer*)recognizer
 {
-    
     if ([ZZGridActionStoredSettings shared].abortRecordHintWasShown)
     {
-        
-        
         CGFloat addTouchBounds = 80;
         if (IS_IPAD)
         {

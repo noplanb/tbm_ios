@@ -64,10 +64,10 @@ static NSMutableSet *videoStatusNotificationDelegates;
     return [self MR_findByAttribute:key withValue:value inContext:[self _context]];
 }
 
-+ (NSUInteger)count
-{
-    return [self MR_countOfEntitiesWithContext:[self _context]];
-}
+//+ (NSUInteger)count
+//{
+//    return [self MR_countOfEntitiesWithContext:[self _context]];
+//}
 
 
 //-----------
@@ -220,8 +220,8 @@ static NSMutableSet *videoStatusNotificationDelegates;
     NSInteger i = 0;
     for (TBMVideo *v in [self videos])
     {
-        if (v.statusValue == ZZVideoIncomingStatusDownloaded ||
-            v.statusValue == ZZVideoIncomingStatusDownloading)
+        if (v.statusValue == ZZVideoIncomingStatusDownloaded) //||
+           // v.statusValue == ZZVideoIncomingStatusDownloading)
         {
              i++;
         }
@@ -229,13 +229,6 @@ static NSMutableSet *videoStatusNotificationDelegates;
     return i;
 }
 
-- (void)setViewedWithIncomingVideo:(TBMVideo *)video
-{
-    [self setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusViewed video:video];
-    [ZZApplicationRootService sendNotificationForVideoStatusUpdate:self
-                                                           videoId:video.videoId
-                                                            status:NOTIFICATION_STATUS_VIEWED];
-}
 
 //-------------------------------------
 // VideoStatus Delegates and UI Strings
@@ -279,152 +272,93 @@ static NSMutableSet *videoStatusNotificationDelegates;
 
 - (void)notifyVideoStatusChange
 {
-    ZZLogInfo(@"notifyVideoStatusChange for %@ on %lu delegates", self.firstName, (unsigned long) [videoStatusNotificationDelegates count]);
-    for (id <TBMVideoStatusNotificationProtocol> delegate in videoStatusNotificationDelegates)
-    {
-        [delegate videoStatusDidChange:self];
-    }
+//    ZZLogInfo(@"notifyVideoStatusChange for %@ on %lu delegates", self.firstName, (unsigned long) [videoStatusNotificationDelegates count]);
+//    for (id <TBMVideoStatusNotificationProtocol> delegate in videoStatusNotificationDelegates)
+//    {
+//        [delegate videoStatusDidChange:self];
+//    }
 }
-
-- (NSString*)videoStatusString
-{
-    if (self.lastVideoStatusEventTypeValue == OUTGOING_VIDEO_STATUS_EVENT_TYPE)
-    {
-        return [self outgoingVideoStatusString];
-    }
-    else
-    {
-        return [self incomingVideoStatusString];
-    }
-}
-
-- (NSString*)incomingVideoStatusString
-{
-    TBMVideo *v = [self newestIncomingVideo];
-    if (v == NULL)
-        return [self displayName];
-
-    if (v.statusValue == ZZVideoIncomingStatusDownloading)
-    {
-        if (v.downloadRetryCountValue == 0)
-        {
-            return @"Downloading...";
-        }
-        else
-        {
-            return [NSString stringWithFormat:@"Dwnld r%@", v.downloadRetryCount];
-        }
-    }
-    else if (v.statusValue == ZZVideoIncomingStatusFailedPermanently)
-    {
-        return @"Downloading e!";
-    }
-    else
-    {
-        return [self displayName];
-    }
-}
-
-- (NSString*)outgoingVideoStatusString
-{
-    NSString *statusString;
-    switch (self.outgoingVideoStatusValue)
-    {
-        case OUTGOING_VIDEO_STATUS_NEW:
-            statusString = @"q...";
-            break;
-        case OUTGOING_VIDEO_STATUS_UPLOADING:
-            if (self.uploadRetryCountValue == 0)
-            {
-                statusString = @"p...";
-            }
-            else
-            {
-                statusString = [NSString stringWithFormat:@"r%ld...", (long) [self.uploadRetryCount integerValue]];
-            }
-            break;
-        case OUTGOING_VIDEO_STATUS_UPLOADED:
-            statusString = @".s..";
-            break;
-        case OUTGOING_VIDEO_STATUS_DOWNLOADED:
-            statusString = @"..p.";
-            break;
-        case OUTGOING_VIDEO_STATUS_VIEWED:
-            statusString = @"v!";
-            break;
-        case OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY:
-            statusString = @"e!";
-            break;
-        default:
-            statusString = nil;
-    }
-
-    NSString *fn = (statusString == nil || self.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED) ? [self displayName] : [self shortFirstName];
-    return [NSString stringWithFormat:@"%@ %@", fn, statusString];
-}
+//
+//- (NSString*)videoStatusString
+//{
+//    if (self.lastVideoStatusEventTypeValue == OUTGOING_VIDEO_STATUS_EVENT_TYPE)
+//    {
+//        return [self outgoingVideoStatusString];
+//    }
+//    else
+//    {
+//        return [self incomingVideoStatusString];
+//    }
+//}
+//
+//- (NSString*)incomingVideoStatusString
+//{
+//    TBMVideo *v = [self newestIncomingVideo];
+//    if (v == NULL)
+//        return [self displayName];
+//
+//    if (v.statusValue == ZZVideoIncomingStatusDownloading)
+//    {
+//        if (v.downloadRetryCountValue == 0)
+//        {
+//            return @"Downloading...";
+//        }
+//        else
+//        {
+//            return [NSString stringWithFormat:@"Dwnld r%@", v.downloadRetryCount];
+//        }
+//    }
+//    else if (v.statusValue == ZZVideoIncomingStatusFailedPermanently)
+//    {
+//        return @"Downloading e!";
+//    }
+//    else
+//    {
+//        return [self displayName];
+//    }
+//}
+//
+//- (NSString*)outgoingVideoStatusString
+//{
+//    NSString *statusString;
+//    switch (self.outgoingVideoStatusValue)
+//    {
+//        case OUTGOING_VIDEO_STATUS_NEW:
+//            statusString = @"q...";
+//            break;
+//        case OUTGOING_VIDEO_STATUS_UPLOADING:
+//            if (self.uploadRetryCountValue == 0)
+//            {
+//                statusString = @"p...";
+//            }
+//            else
+//            {
+//                statusString = [NSString stringWithFormat:@"r%ld...", (long) [self.uploadRetryCount integerValue]];
+//            }
+//            break;
+//        case OUTGOING_VIDEO_STATUS_UPLOADED:
+//            statusString = @".s..";
+//            break;
+//        case OUTGOING_VIDEO_STATUS_DOWNLOADED:
+//            statusString = @"..p.";
+//            break;
+//        case OUTGOING_VIDEO_STATUS_VIEWED:
+//            statusString = @"v!";
+//            break;
+//        case OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY:
+//            statusString = @"e!";
+//            break;
+//        default:
+//            statusString = nil;
+//    }
+//
+//    NSString *fn = (statusString == nil || self.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED) ? [self displayName] : [self shortFirstName];
+//    return [NSString stringWithFormat:@"%@ %@", fn, statusString];
+//}
 
 - (NSString *)shortFirstName
 {
     return [[self displayName] substringWithRange:NSMakeRange(0, MIN(6, [[self displayName] length]))];
-}
-
-//---------------
-// Setting status
-//---------------
-- (void)setAndNotifyOutgoingVideoStatus:(TBMOutgoingVideoStatus)status videoId:(NSString *)videoId
-{
-    [ZZContentDataAcessor refreshContext:self.managedObjectContext];
-    if (![videoId isEqualToString:self.outgoingVideoId])
-    {
-        ZZLogWarning(@"setAndNotifyOutgoingVideoStatus: Unrecognized vidoeId:%@. != ougtoingVid:%@. friendId:%@ Ignoring.", videoId, self.outgoingVideoId, self.idTbm);
-        return;
-    }
-
-    if (status == self.outgoingVideoStatusValue)
-    {
-        ZZLogWarning(@"setAndNotifyOutgoingVideoStatusWithVideo: Identical status. Ignoring.");
-        return;
-    }
-
-    self.lastVideoStatusEventTypeValue = OUTGOING_VIDEO_STATUS_EVENT_TYPE;
-    self.outgoingVideoStatusValue = status;
-
-    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
-    
-    [self notifyVideoStatusChangeOnMainThread];
-}
-
-- (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)status video:(TBMVideo *)video
-{
-    [ZZContentDataAcessor refreshContext:self.managedObjectContext];
-    if (video.statusValue == status)
-    {
-        ZZLogWarning(@"setAndNotifyIncomingVideoStatusWithVideo: Identical status. Ignoring.");
-        return;
-    }
-
-   
-    video.statusValue = status;
-
-    
-    [video.managedObjectContext MR_saveToPersistentStoreAndWait];
-    self.lastIncomingVideoStatusValue = status;
-
-    // Serhii says: We want to preserve previous status if last event type is incoming and status is VIEWED
-    // Sani complicates it by saying: This is a bit subtle. We don't want an action by this user of
-    // viewing his incoming video to count
-    // as cause a change in lastVideoStatusEventType. That way if the last action by the user was sending a
-    // video (recording on a person with unviewed indicator showing) then later viewed the incoming videos
-    // he gets to see the status of the last outgoing video he sent after play is complete and the unviewed count
-    // indicator goes away.
-    if (status != ZZVideoIncomingStatusViewed)
-    {
-        self.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
-    }
-    
-    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
-    [self notifyVideoStatusChangeOnMainThread];
-    
 }
 
 // --------------------
@@ -452,62 +386,8 @@ static NSMutableSet *videoStatusNotificationDelegates;
     }
 }
 
-- (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount video:(TBMVideo *)video
-{
-    [ZZContentDataAcessor refreshContext:self.managedObjectContext];
-    [ZZContentDataAcessor refreshContext:video.managedObjectContext];
-    
-    if (video.downloadRetryCountValue == retryCount)
-        return;
 
-    video.downloadRetryCount = @(retryCount);
-    [video.managedObjectContext MR_saveToPersistentStoreAndWait];
-    [self.managedObjectContext MR_saveToPersistentStoreAndWait];
-
-    if ([self isNewestIncomingVideo:video])
-    {
-        self.lastVideoStatusEventType = INCOMING_VIDEO_STATUS_EVENT_TYPE;
-        [self.managedObjectContext MR_saveToPersistentStoreAndWait];
-        [self notifyVideoStatusChangeOnMainThread];
-    }
-}
-
-//--------------------
-// Init outgoing video
-//--------------------
 #pragma mark - Ougtoing Video Status Handling
-
-- (void)handleOutgoingVideoCreatedWithVideoId:(NSString *)videoId
-{
-    self.uploadRetryCount = 0;
-    self.outgoingVideoId = videoId;
-   [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_NEW videoId:self.outgoingVideoId];
-}
-
-- (void)handleOutgoingVideoUploadingWithVideoId:(NSString *)videoId
-{
-    [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_UPLOADING videoId:videoId];
-}
-
-- (void)handleOutgoingVideoUploadedWithVideoId:(NSString *)videoId
-{
-    [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_UPLOADED videoId:videoId];
-}
-
-- (void)handleOutgoingVideoViewedWithVideoId:(NSString *)videoId
-{
-    [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_VIEWED videoId:videoId];
-}
-
-- (void)handleOutgoingVideoFailedPermanentlyWithVideoId:(NSString *)videoId
-{
-    [self setAndNotifyOutgoingVideoStatus:OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY videoId:videoId];
-}
-
-- (void)handleUploadRetryCount:(NSInteger)retryCount videoId:(NSString *)videoId
-{
-    [self setAndNotifyUploadRetryCount:retryCount videoId:videoId];
-}
 
 - (NSString *)fullName
 {

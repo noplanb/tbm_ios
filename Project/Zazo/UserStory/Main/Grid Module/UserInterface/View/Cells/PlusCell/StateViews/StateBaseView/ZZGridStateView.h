@@ -35,7 +35,7 @@ static CGFloat const kUserNameFontSize = 13;
 
 - (instancetype)initWithPresentedView:(UIView*)presentedView;
 
-- (void)updateBadgeWithNumber:(NSNumber*)badgeNumber;
+- (void)updateBadgeWithNumber:(NSInteger)badgeNumber;
 - (void)showUploadAnimationWithCompletionBlock:(void(^)())completionBlock;
 - (void)showContainFriendAnimation;
 - (void)showUploadIconWithoutAnimation;

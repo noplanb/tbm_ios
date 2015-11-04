@@ -22,6 +22,8 @@
 #import "ZZRemoteStoageTransportService.h"
 #import "ZZVideoStatuses.h"
 #import "ZZVideoDataProvider.h"
+#import "ZZFileHelper.h"
+#import "ZZVideoStatusHandler.h"
 
 @interface ZZVideoPlayer ()
 
@@ -30,6 +32,7 @@
 @property (nonatomic, strong) NSArray* videoModelsArray;
 @property (nonatomic, strong) ZZFriendDomainModel* playedFriend;
 @property (nonatomic, strong) NSMutableArray* playedVideoUrls;
+@property (nonatomic, strong) NSURL* currentPlayedUrl;
 
 @end
 
@@ -102,14 +105,17 @@
     if (!ANIsEmpty(URLs))//&& ![self.currentPlayQueue isEqualToArray:URLs]) //TODO: if current playback state is equal to user's play list
     {
         ZZVideoDomainModel* playedVideoModel = [self.videoModelsArray firstObject];
+        self.playedFriend = playedVideoModel.relatedUser;
+        self.currentPlayedUrl = playedVideoModel.videoURL;
         
         TBMVideo* viewedVideo = [ZZVideoDataProvider findWithVideoId:playedVideoModel.videoID];
         
-        if (viewedVideo.statusValue == ZZVideoIncomingStatusDownloaded ||
-            viewedVideo.statusValue == ZZVideoIncomingStatusViewed)
+        if ((viewedVideo.statusValue == ZZVideoIncomingStatusDownloaded ||
+            viewedVideo.statusValue == ZZVideoIncomingStatusViewed) &&
+            [ZZFileHelper isFileExistsAtURL:self.currentPlayedUrl])
         {
-            self.playedFriend = playedVideoModel.relatedUser;
-            self.moviePlayerController.contentURL = playedVideoModel.videoURL;
+            
+            self.moviePlayerController.contentURL = self.currentPlayedUrl;
             
             //save video state
             [self _updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
@@ -127,7 +133,8 @@
             [UIDevice currentDevice].proximityMonitoringEnabled = [ZZGridActionStoredSettings shared].earpieceHintWasShown;
             //TODO:coredata
             TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:playedVideoModel.relatedUser.idTbm];
-            [friend setViewedWithIncomingVideo:viewedVideo];
+//            [friend setViewedWithIncomingVideo:viewedVideo];
+            [[ZZVideoStatusHandler sharedInstance] setAndNotityViewedIncomingVideoWithFriend:friend video:viewedVideo];
             
             [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoId
                                                                         toStatus:ZZRemoteStorageVideoStatusViewed
@@ -136,7 +143,7 @@
         }
         else
         {
-            [self _stopWithPlayChecking:NO];
+            [self _playNextOrStop];
         }
     }
 }
@@ -256,7 +263,7 @@
 {
     __block NSInteger index = NSNotFound;
     [self.playedVideoUrls enumerateObjectsUsingBlock:^(NSURL*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj.path isEqualToString:self.moviePlayerController.contentURL.path])
+        if ([obj.path isEqualToString:self.currentPlayedUrl.path])
         {
             index = idx;
             *stop = YES;
@@ -272,6 +279,23 @@
 }
 
 
+- (void)_playNextOrStop
+{
+    if ([self _isAblePlayNext])
+    {
+        [self _playNext];
+    }
+    else
+    {
+        [self _stopWithPlayChecking:NO];
+    }
+}
+
+- (BOOL)_isAblePlayNext
+{
+    return ([self _nextVideoIndex] != NSNotFound);
+}
+
 - (void)_playNext
 {
     NSInteger index = [self _nextVideoIndex];
@@ -286,7 +310,6 @@
     {
         ZZVideoDomainModel* lastModel = [self.videoModelsArray lastObject];
         
-        
         TBMVideo* lastVideo = [ZZVideoDataProvider findWithVideoId:lastModel.videoID];
         self.isPlayingVideo = NO;
         [self.delegate videoPlayerURLWasFinishedPlaying:[ZZVideoDataProvider videoUrlWithVideo:lastVideo] withPlayedUserModel:self.playedFriend];
@@ -299,20 +322,25 @@
     if (nextUrl)
     {
         ZZVideoDomainModel* playedVideoModel = self.videoModelsArray[index];
+        self.playedFriend = playedVideoModel.relatedUser;
+        self.currentPlayedUrl = nextUrl;
         
         TBMVideo* viewedVideo = [ZZVideoDataProvider findWithVideoId:playedVideoModel.videoID];
-        if (viewedVideo.statusValue == ZZVideoIncomingStatusDownloaded ||
-            viewedVideo.statusValue == ZZVideoIncomingStatusViewed)
+        
+        if ((viewedVideo.statusValue == ZZVideoIncomingStatusDownloaded ||
+            viewedVideo.statusValue == ZZVideoIncomingStatusViewed) &&
+            [ZZFileHelper isFileExistsAtURL:self.currentPlayedUrl])
         {
-            self.playedFriend = playedVideoModel.relatedUser;
             //save video state
             [self _updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
             
             self.moviePlayerController.contentURL = nextUrl;
             
             TBMFriend* friend = [ZZFriendDataProvider entityFromModel:playedVideoModel.relatedUser];
-            [friend setViewedWithIncomingVideo:viewedVideo];
+//            [friend setViewedWithIncomingVideo:viewedVideo];
             //        [self.playedVideoUrls removeObject:nextUrl];
+            [[ZZVideoStatusHandler sharedInstance] setAndNotityViewedIncomingVideoWithFriend:friend video:viewedVideo];
+            
             [ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoId
                                                                         toStatus:ZZRemoteStorageVideoStatusViewed
                                                                       friendMkey:friend.mkey
@@ -328,7 +356,7 @@
         }
         else
         {
-            [self _stopWithPlayChecking:NO];
+            [self _playNextOrStop];
         }
     }
 }

@@ -15,7 +15,6 @@
 - (void)validateSMSCode:(NSString*)code;
 - (void)userRequestCallInsteadSmsCode;
 - (void)loadFriends;
-- (void)loadS3Credentials;
 
 @end
 

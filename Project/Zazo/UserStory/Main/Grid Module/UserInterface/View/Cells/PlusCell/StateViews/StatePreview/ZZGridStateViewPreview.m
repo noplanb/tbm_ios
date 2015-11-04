@@ -42,11 +42,20 @@ static CGFloat const kThumbnailBorderWidth = 2;
         [self _setupThumbnailWithModel:model];
         [self _configureGreenBorderIfNeededWithModel:model];
         self.userNameLabel.hidden = NO;
+        [self _handleFailedVideoDownloadWithModel:model];
     });
 }
 
 
 #pragma mark - Private
+
+- (void)_handleFailedVideoDownloadWithModel:(ZZGridCellViewModel*)model
+{
+    if (model.badgeNumber == 0 && (model.state & ZZGridCellViewModelStateVideoFailedPermanently))
+    {
+        [self _hideThumbnailGreenBorder];
+    }
+}
 
 - (void)_setupThumbnailWithModel:(ZZGridCellViewModel*)model
 {

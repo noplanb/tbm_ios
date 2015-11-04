@@ -21,6 +21,8 @@
 #import "ZZApplicationPermissionsHandler.h"
 #import "ZZVideoDataProvider.h"
 #import "ZZRootStateObserver.h"
+#import "ZZFriendDomainModel.h"
+#import "ZZVideoStatusHandler.h"
 
 @interface ZZApplicationRootService ()
 <
@@ -99,9 +101,10 @@
     NSURL *videoUrl = [notification.userInfo objectForKey:@"videoUrl"];
     ZZFileTransferMarkerDomainModel* marker = [TBMVideoIdUtils markerModelWithOutgoingVideoURL:videoUrl];
 
-    TBMFriend *friend = [ZZFriendDataProvider friendEntityWithItemID:marker.friendID];
-    [friend handleOutgoingVideoCreatedWithVideoId:marker.videoID];
-    
+    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:marker.friendID];
+    TBMVideo* video = [ZZVideoDataProvider findWithVideoId:marker.videoID];
+//    [friend handleOutgoingVideoCreatedWithVideoId:marker.videoID];
+    [[ZZVideoStatusHandler sharedInstance] handleOutgoingVideoCreatedWithVideo:video withFriend:friend];
     [self.videoFileHandler uploadWithVideoUrl:videoUrl friendCKey:friend.ckey];
 }
 
@@ -112,9 +115,7 @@
     if ([ZZUserDataProvider authenticatedUser].isRegistered)
     {
         [[ZZApplicationPermissionsHandler checkApplicationPermissions] subscribeNext:^(id x) {
-          
             [ZZNotificationsHandler registerToPushNotifications];
-            
             [ZZVideoDataProvider printAll];
             [self.videoFileHandler startService];
         }];
@@ -176,40 +177,71 @@
 }
 
 
+#pragma mark - Video status handler
+
+- (void)notifyOutgoinVideoWithStatus:(ZZVideoOutgoingStatus)status withFriend:(TBMFriend *)friend video:(TBMVideo *)video
+{
+    [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:status withFriend:friend withVideo:video];
+}
+
+- (void)setAndNotifyUploadRetryCount:(NSInteger)count withFriend:(TBMFriend *)friend video:(TBMVideo *)video
+{
+    [[ZZVideoStatusHandler sharedInstance] setAndNotifyUploadRetryCount:count withFriend:friend video:video];
+}
+
+- (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)status withFriend:(TBMFriend *)friend video:(TBMVideo *)video
+{
+    [[ZZVideoStatusHandler sharedInstance] setAndNotifyIncomingVideoStatus:status withFriend:friend withVideo:video];
+}
+
+- (void)deleteAllViewedOrFailedVideosForFriend:(TBMFriend *)friend
+{
+    [[ZZVideoStatusHandler sharedInstance] deleteAllViewedOrFailedVideoForFriend:friend]; //TODO: change delete method implementation?
+}
+
+- (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount withFriend:(TBMFriend *)friend video:(TBMVideo *)video
+{
+    [[ZZVideoStatusHandler sharedInstance] setAndNotifyDownloadRetryCount:retryCount withFriend:friend video:video];
+}
+
+
 #pragma mark - Notification Delegate
 
 - (void)handleVideoReceivedNotification:(ZZNotificationDomainModel *)model
 {
-    TBMFriend *friend = [TBMFriend findWithMkey:model.fromUserMKey];
+    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.fromUserMKey];
     
-    if (friend == nil)
+    if (friendModel)
+    {
+        [self.videoFileHandler queueDownloadWithFriendID:friendModel.idTbm videoId:model.videoID];
+    }
+    else
     {
         ZZLogInfo(@"handleVideoReceivedNotification: got notification for non existant friend. calling getAndPollAllFriends");
         [self.dataUpdater updateAllData];
-        return;
     }
-    [self.videoFileHandler queueDownloadWithFriendID:friend.idTbm videoId:model.videoID];
 }
 
-- (void)handleVideoStatusUpdateNotification:(ZZNotificationDomainModel *)model
+- (void)handleVideoStatusUpdateNotification:(ZZNotificationDomainModel*)model
 {
-    TBMFriend *friend = [TBMFriend findWithMkey:model.toUserMKey];
+    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.fromUserMKey];
     
-    if (friend == nil)
+    
+    if (friendModel == nil)
     {
         ZZLogInfo(@"handleVideoStatusUPdateNotification: got notification for non existant friend. calling getAndPollAllFriends");
         [self.dataUpdater updateAllData];
         return;
     }
     
-    TBMOutgoingVideoStatus outgoingStatus;
+    ZZVideoOutgoingStatus outgoingStatus;
     if ([model.status isEqualToString:NOTIFICATION_STATUS_DOWNLOADED])
     {
-        outgoingStatus = OUTGOING_VIDEO_STATUS_DOWNLOADED;
+        outgoingStatus = ZZVideoOutgoingStatusDownloaded;
     }
     else if ([model.status isEqualToString:NOTIFICATION_STATUS_VIEWED])
     {
-        outgoingStatus = OUTGOING_VIDEO_STATUS_VIEWED;
+        outgoingStatus = ZZVideoOutgoingStatusViewed;
     }
     else
     {
@@ -217,7 +249,11 @@
         return;
     }
     
-    [friend setAndNotifyOutgoingVideoStatus:outgoingStatus videoId:model.videoID];
+    ZZFriendDomainModel* updatedFriendModel = [ZZFriendDataProvider friendWithMKeyValue:model.toUserMKey];
+    
+    TBMFriend* friend = [ZZFriendDataProvider entityFromModel:updatedFriendModel];
+    TBMVideo* video = [ZZVideoDataProvider entityWithID:model.videoID];
+    [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:outgoingStatus withFriend:friend withVideo:video];
 }
 
 
@@ -239,7 +275,7 @@
     }
     else if (event == ZZRootStateObserverEventsFriendsAfterAuthorizationLoaded)
     {
-        [self.dataUpdater updateAllData];
+        [self.dataUpdater updateAllDataWithoutRequest];
     }
 }
 

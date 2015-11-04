@@ -39,27 +39,28 @@
 {
     ANDispatchBlockToMainQueue(^{
         self.model = model;
-        
+
         // upload video animation
         if (self.model.state & ZZGridCellViewModelStateVideoWasUploaded)
         {
             [self showUploadIconWithoutAnimation];
         }
-        
+
         model.playerContainerView = self;
-        
+
         // Upload video was viewed
         if (self.model.state & ZZGridCellViewModelStateVideoWasViewed)
         {
             [self hideAllAnimationViews];
             self.videoViewedView.hidden = NO;
         }
-        
+
         //download video animation
         [self _setupDownloadAnimationsWithModel:model];
-        
+
         model.usernameLabel = self.userNameLabel;
         [self.model reloadDebugVideoStatus];
+
     });
 }
 
@@ -68,7 +69,12 @@
 
 - (void)_setupDownloadAnimationsWithModel:(ZZGridCellViewModel*)model
 {
-    if (self.model.state & ZZGridCellViewModelStateVideoDownloading)
+    if (self.model.state & ZZGridCellViewModelStateVideoFirstVideoDownloading)
+    {
+        [self _setupBadgeWithModel:model];
+        [self _setupDownloadingState];
+    }
+    else if (self.model.state & ZZGridCellViewModelStateVideoDownloading)
     {
         [self _setupBadgeWithModel:model];
         [self _setupDownloadingState];
@@ -92,8 +98,9 @@
 - (void)_setupDownloadedStateWithModel:(ZZGridCellViewModel*)model
 {
     self.userNameLabel.backgroundColor =
-    [model.badgeNumber  integerValue] > 0 ? [ZZColorTheme shared].gridCellLayoutGreenColor : [ZZColorTheme shared].gridCellGrayColor;
+    model.badgeNumber > 0 ? [ZZColorTheme shared].gridCellLayoutGreenColor : [ZZColorTheme shared].gridCellGrayColor;
     self.model.isDownloadAnimationPlayed = YES;
+
     [self showDownloadAnimationWithCompletionBlock:^{
         self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
         self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
@@ -104,11 +111,10 @@
 - (void)_setupBadgeWithModel:(ZZGridCellViewModel*)model
 {
     [self hideDownloadViews];
-    
+
     if (model.state & ZZGridCellViewModelStateVideoDownloadedAndVideoCountOne)
     {
-        if ([model.badgeNumber integerValue] > 0 &&
-            ![self.model isVideoPlayed])
+        if (model.badgeNumber > 0 && ![self.model isVideoPlayed])
         {
             [self _setupGreenColorsWithModel:model];
         }
@@ -117,7 +123,16 @@
     {
         [self _setupGreenColorsWithModel:model];
     }
-    else
+    else if (model.state & ZZGridCellViewModelStateNeedToShowGreenBorder)
+    {
+        [self _setupGreenColorsWithModel:model];
+    }
+    else if (model.state & ZZGridCellViewModelStateVideoFirstVideoDownloading)
+    {
+
+    }
+    else if ((model.state | ZZGridCellViewModelStatePreview) &&
+             (model.state | ZZGridCellViewModelStateVideoDownloading))  // 10010000 preview and downloading resets this state.
     {
         [self _setupGrayColorsWithModel:model];
     }
@@ -134,10 +149,8 @@
 {
     self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellUserNameGrayColor;
     self.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
-    [self updateBadgeWithNumber:@(0)];
+    [self updateBadgeWithNumber:0];
 }
-
-
 
 #pragma mark - Animation Views
 
@@ -165,11 +178,11 @@
     [self _showDownloadAnimationWithCompletionBlock:completionBlock];
 }
 
-- (void)updateBadgeWithNumber:(NSNumber*)badgeNumber
+- (void)updateBadgeWithNumber:(NSInteger)badgeNumber
 {
-    if ([badgeNumber integerValue] > 0)
+    if (badgeNumber > 0)
     {
-        [self _showVideoCountLabelWithCount:[badgeNumber integerValue]];
+        [self _showVideoCountLabelWithCount:badgeNumber];
     }
     else
     {
@@ -185,16 +198,16 @@
 - (void)showContainFriendAnimation
 {
     ANDispatchBlockToMainQueue(^{
-        
+
         [self bringSubviewToFront:self.containFriendView];
-        
+
         [UIView animateWithDuration:kContainFriendAnimationDuration
                               delay:kContainFreindDelayDuration
                             options:UIViewAnimationOptionLayoutSubviews animations:^{
                                 self.containFriendView.alpha = 1;
-                                
+
                             } completion:^(BOOL finished) {
-                                
+
                                 [self _hideContainFriendAnimation];
                             }];
     });
@@ -228,7 +241,7 @@
     if (!_uploadingIndicator)
     {
         _uploadingIndicator = [UIImageView new];
-        
+
         CGFloat width = [self _indicatorCalculatedWidth];
         CGFloat height = [self _indicatorCalculatedWidth];
         UIImage* image = [UIImage imageWithPDFNamed:@"icon_arrow" atHeight:(height/1.5)];
@@ -238,7 +251,7 @@
         _uploadingIndicator.hidden = YES;
         [self addSubview:_uploadingIndicator];
         CGFloat aspect = width/height;
-        
+
         [_uploadingIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self);
             self.leftUploadIndicatorConstraint = make.left.equalTo(self);
@@ -257,14 +270,14 @@
         _uploadBarView.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
         _uploadBarView.hidden = YES;
         [self addSubview:_uploadBarView];
-        
+
         [_uploadBarView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.equalTo(self);
             make.height.equalTo(@(kDownloadBarHeight));
             make.right.equalTo(self.uploadingIndicator.mas_left);
         }];
     }
-    
+
     return _uploadBarView;
 }
 
@@ -273,7 +286,7 @@
     if (!_downloadIndicator)
     {
         _downloadIndicator = [UIImageView new];
-        
+
         CGFloat width = [self _indicatorCalculatedWidth];
         CGFloat height = [self _indicatorCalculatedWidth];
         UIImage* image = [UIImage imageWithPDFNamed:@"home-page-arrow-left" atHeight:(height/1.5)];
@@ -283,7 +296,7 @@
         _downloadIndicator.hidden = YES;
         [self addSubview:_downloadIndicator];
         CGFloat aspect = width/height;
-        
+
         [_downloadIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self);
             self.rightDownloadIndicatorConstraint = make.right.equalTo(self).offset(0);
@@ -302,7 +315,7 @@
         _downloadBarView.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
         _downloadBarView.hidden = YES;
         [self addSubview:_downloadBarView];
-        
+
         [_downloadBarView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.top.equalTo(self);
             make.height.equalTo(@(kDownloadBarHeight));
@@ -325,7 +338,7 @@
         _videoCountLabel.textAlignment = NSTextAlignmentCenter;
         _videoCountLabel.font = [UIFont an_regularFontWithSize:11];
         [self addSubview:_videoCountLabel];
-        
+
         [_videoCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self).offset(3);
             make.top.equalTo(self).offset(-4);
@@ -344,7 +357,7 @@
         _containFriendView.alpha = 0;
         _containFriendView.backgroundColor = [UIColor yellowColor];
         [self addSubview:_containFriendView];
-        
+
         [_containFriendView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         }];
@@ -359,7 +372,7 @@
         _videoViewedView = [UIImageView new];
         CGFloat width = [self _indicatorCalculatedWidth];
         CGFloat height = [self _indicatorCalculatedWidth];
-        
+
         UIImage* image = [UIImage imageWithPDFNamed:@"home-page-view" atHeight:(height/2)];
         _videoViewedView.contentMode = UIViewContentModeCenter;
         _videoViewedView.image = image;
@@ -367,7 +380,7 @@
         _videoViewedView.hidden = YES;
         [self addSubview:_videoViewedView];
         CGFloat aspect = width/height;
-       
+
         [_videoViewedView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self);
             self.rightDownloadIndicatorConstraint = make.right.equalTo(self);

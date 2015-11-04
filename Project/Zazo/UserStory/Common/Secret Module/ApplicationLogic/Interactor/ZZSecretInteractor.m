@@ -100,6 +100,8 @@
 
 - (void)updatePushNotificationStateTo:(BOOL)isEnabled
 {
+    [ZZStoredSettingsManager shared].isPushNotificatonEnabled = isEnabled;
+    
     if (isEnabled)
     {
         [ZZNotificationsHandler registerToPushNotifications];
@@ -108,6 +110,7 @@
     {
         [ZZNotificationsHandler disablePushNotifications];
     }
+    
 }
 
 @end

@@ -24,6 +24,8 @@
 #import "ZZVideoNetworkTransportService.h"
 #import "ZZFileTransferMarkerDomainModel.h"
 #import "ZZVideoStatuses.h"
+#import "ZZVideoStatusHandler.h"
+
 
 @interface ZZVideoFileHandler () <OBFileTransferDelegate>
 
@@ -51,6 +53,7 @@
 
 - (void)startService
 {
+//    [self updateS3CredentialsWithRequest];
     [self handleStuckDownloadsWithCompletionHandler:^{
         [self.fileTransferManager retryPending];
         [self.delegate updateDataRequired];
@@ -229,7 +232,11 @@
     // prior to returning from the above call so should be safe to delete video file here.
     [[NSFileManager defaultManager] removeItemAtURL:videoUrl error:nil];
     
-    [friend handleOutgoingVideoUploadingWithVideoId:markerModel.videoID];
+//    [friend handleOutgoingVideoUploadingWithVideoId:markerModel.videoID];
+    
+    TBMVideo* video = [ZZVideoDataProvider entityWithID:markerModel.videoID];
+    
+    [self.delegate notifyOutgoinVideoWithStatus:ZZVideoOutgoingStatusUploading withFriend:friend video:video];
 }
 
 //--------------
@@ -243,7 +250,8 @@
     if (isExist)
     {
         TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
-        [friend handleUploadRetryCount:retryCount videoId:videoId];
+        TBMVideo* video = [ZZVideoDataProvider entityWithID:videoId];
+        [self.delegate setAndNotifyUploadRetryCount:retryCount withFriend:friend video:video];
     }
     else
     {
@@ -263,7 +271,13 @@
     if (error == nil)
     {
         ZZLogInfo(@"uploadCompletedWithFriend");
-        [friend handleOutgoingVideoUploadedWithVideoId:videoId];
+//        [friend handleOutgoingVideoUploadedWithVideoId:videoId];
+        
+        TBMVideo* video = [ZZVideoDataProvider entityWithID:videoId];
+        [self.delegate notifyOutgoinVideoWithStatus:ZZVideoOutgoingStatusUploaded withFriend:friend video:video];
+        
+        
+        
         [[ZZRemoteStoageTransportService addRemoteOutgoingVideoWithItemID:videoId
                                                                friendMkey:friend.mkey
                                                                friendCKey:friend.ckey] subscribeNext:^(id x) {}];
@@ -277,7 +291,9 @@
     else
     {
         ZZLogError(@"uploadCompletedWithVideoId: upload error. FailedPermanently");
-        [friend handleOutgoingVideoFailedPermanentlyWithVideoId:videoId];
+//        [friend handleOutgoingVideoFailedPermanentlyWithVideoId:videoId];
+        TBMVideo* video = [ZZVideoDataProvider entityWithID:videoId];
+        [self.delegate notifyOutgoinVideoWithStatus:ZZVideoOutgoingStatusFailedPermanently withFriend:friend video:video];
     }
 }
 
@@ -294,15 +310,18 @@
         return;
     }
     
-    [self deleteRemoteFileAndVideoId:video];
-    
     if (error != nil)
     {
         ZZLogError(@"downloadCompletedWithFriend %@", error);
-        [friend setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusFailedPermanently video:video];
+//        [friend setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusFailedPermanently video:video];
+        [[ZZVideoStatusHandler sharedInstance] setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusFailedPermanently
+                                                                    withFriend:friend
+                                                                     withVideo:video];
+        [self deleteRemoteFileAndVideoId:video];
         return;
     }
     
+    [self deleteRemoteFileAndVideoId:video];
     ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:video];
     //    NSURL* videoUrl = videoModel.videoURL;
     
@@ -313,9 +332,13 @@
     //    }
     
     [ZZThumbnailGenerator generateThumbVideo:videoModel];
-    [friend deleteAllViewedOrFailedVideos];
     
-    [friend setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloaded video:video];
+//    [friend deleteAllViewedOrFailedVideos];
+    [self.delegate deleteAllViewedOrFailedVideosForFriend:friend];
+    
+//    [friend setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloaded video:video];
+    [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloaded withFriend:friend video:video];
+    
     
     [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:videoId
                                                                  toStatus:ZZRemoteStorageVideoStatusDownloaded
@@ -340,7 +363,8 @@
     }
     TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
     ZZLogInfo(@"downloadRetryingWithFriend %@ retryCount= %@", friend.firstName, @(retryCount));
-    [friend setAndNotifyDownloadRetryCount:retryCount video:video];
+//    [friend setAndNotifyDownloadRetryCount:retryCount video:video];
+    [self.delegate setAndNotifyDownloadRetryCount:retryCount withFriend:friend video:video];
 }
 
 
@@ -478,14 +502,24 @@
     {
         TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
         
-        if ([friend hasIncomingVideoId:videoId] && !force)
+        
+        // Try to download failed videos
+//        TBMVideo* videoFromId = [ZZVideoDataProvider findWithVideoId:videoId];//
+//        if (!force && videoFromId.statusValue == ZZVideoIncomingStatusFailedPermanently)
+//        {
+//            force = YES;
+//        }
+//
+        
+        
+        if ([ZZFriendDataProvider isFriend:friend hasIncomingVideoWithId:videoId] && !force)
         {
             ZZLogWarning(@"queueVideoDownloadWithFriend: Ignoring incoming videoId already processed.");
             return;
         }
         
         TBMVideo *video;
-        if ([friend hasIncomingVideoId:videoId] && force)
+        if ([ZZFriendDataProvider isFriend:friend hasIncomingVideoWithId:videoId] && force)
         {
             ZZLogInfo(@"queueVideoDownloadWithFriend: Forcing new transfer of existing video: %@", videoId);
             video = [ZZVideoDataProvider findWithVideoId:videoId];
@@ -502,7 +536,9 @@
             return;
         }
         
-        [friend setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloading video:video];
+//        [friend setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloading video:video];
+        [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloading withFriend:friend video:video];
+        
         [self.delegate updateBadgeCounter];
         
         NSString *marker = [TBMVideoIdUtils markerWithFriendID:friend.idTbm videoID:videoId isUpload:NO];

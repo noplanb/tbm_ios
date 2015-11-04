@@ -39,17 +39,17 @@
 - (void)loadUserData
 {
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
-    
+
 #ifdef DEBUG_LOGIN_USER
     user.firstName = @"Isixp";
     user.lastName = @"Sani";
     user.mobileNumber = @"+16507800160";
 #endif
-    
+
     if (!ANIsEmpty(user.mobileNumber))
     {
         NSError* error;
-        
+
         NSString *nationalNumber = nil;
         NSNumber *countryCode = [[NBPhoneNumberUtil new] extractCountryCode:user.mobileNumber nationalNumber:&nationalNumber];
         if (!error)
@@ -71,16 +71,16 @@
 {
     model.firstName = [self _cleanText:model.firstName];
     model.lastName = [self _cleanText:model.lastName];
-    
+
     model.countryCode = [NSObject an_safeString:model.countryCode];
     model.countryCode = [self _cleanNumber:model.countryCode];
-    
+
     model.plainPhoneNumber = [NSObject an_safeString:model.plainPhoneNumber];
     model.plainPhoneNumber = [self _cleanNumber:model.plainPhoneNumber];
-    
+
     model.mobileNumber = [model.countryCode stringByAppendingString:model.plainPhoneNumber];
     NSError* validationError = [self _validateUserModel:model];
-    
+
     if (!validationError)
     {
         [self.output validationCompletedSuccessfully];
@@ -101,26 +101,27 @@
 - (void)validateSMSCode:(NSString*)code
 {
     [[ZZAccountTransportService verifySMSCodeWithUserModel:self.currentUser code:code] subscribeNext:^(id x) {
-       
+
         ZZUserDomainModel *user = [FEMObjectDeserializer deserializeObjectExternalRepresentation:x
                                                                                     usingMapping:[ZZUserDomainModel mapping]];
         user.isRegistered = YES;
-        
+
         NSString* mobilePhone = [x objectForKey:@"mobile_number"];
-        
+
         [ZZStoredSettingsManager shared].mobileNumber = mobilePhone;
         [ZZUserDataProvider upsertUserWithModel:user];
-        
+
         [[ZZRollbarAdapter shared] updateUserFullName:[user fullName] phone:user.mobileNumber itemID:user.idTbm];
-    
+
         [self.output smsCodeValidationCompletedSuccessfully];
-        
+
         [self loadFriends];
-        
+
+        [ZZStoredSettingsManager shared].isPushNotificatonEnabled = YES;
         [ZZNotificationsHandler registerToPushNotifications];
-        
+
         [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventsUserAuthorized];
-        
+
     } error:^(NSError *error) {
         //TODO: separate errors
         [self.output smsCodeValidationCompletedWithError:error];
@@ -130,14 +131,14 @@
 - (void)loadFriends
 {
     [ZZFriendDataProvider deleteAllFriendsModels];
-    
+
     [[ZZFriendsTransportService loadFriendList] subscribeNext:^(id x) {
         [self.output loadedFriendsSuccessfully];
         [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventsFriendsAfterAuthorizationLoaded];
         [self.output registrationFlowCompletedSuccessfully];
-        
+
     } error:^(NSError *error) {
-        
+
         [self.output loadFriendsDidFailWithError:error];
     }];
 }
@@ -162,24 +163,24 @@
 - (void)registerUserWithModel:(ZZUserDomainModel*)user forceCall:(BOOL)forceCall
 {
     [self _saveAuthenticatedUserMobileNumberToDefauts:user.mobileNumber]; //TODO: temp
-    
+
     [[ZZAccountTransportService registerUserWithModel:user shouldForceCall:forceCall] subscribeNext:^(NSDictionary *authKeys) {
-        
+
         NSString *auth = authKeys[@"auth"];
         NSString *mkey = authKeys[@"mkey"];
 
         [ZZStoredSettingsManager shared].userID = mkey;
         [ZZStoredSettingsManager shared].authToken = auth;
-        
+
         self.currentUser.mkey = mkey;
         self.currentUser.auth = auth;
         self.currentUser = [ZZUserDataProvider upsertUserWithModel:self.currentUser];
-        
+
         if (!forceCall)
         {
             [self.output registrationCompletedSuccessfullyWithPhoneNumber:user.mobileNumber];
         }
-        
+
     } error:^(NSError *error) {
         [self _handleErrorNumberValidationWithError:error];
     }];
@@ -190,7 +191,7 @@
 {
     if (!ANIsEmpty([ZZStoredSettingsManager shared].mobileNumber))
     {
-        
+
         NSError* mobilePhoneError = [NSError errorWithDomain:kErrorDomainWrongMobileType code:kErrorWrongMobileErrorCode userInfo:nil];
         [self.output registrationDidFailWithError:mobilePhoneError];
     }
@@ -220,12 +221,12 @@
     {
         return [ANErrorBuilder errorWithType:ANErrorTypeGeneral code:kFormEmptyRequiredFieldCountryCode];
     }
-    
+
     if (ANIsEmpty(model.plainPhoneNumber))
     {
         return [ANErrorBuilder errorWithType:ANErrorTypeGeneral code:kFormEmptyRequiredFieldMobilePhoneNumber];
     }
-    
+
     if (![self _isValidPhone:model.mobileNumber code:model.countryCode])
     {
         return [ANErrorBuilder errorWithType:ANErrorTypeGeneral code:kFormInvalidModilePhone];
@@ -245,7 +246,7 @@
     {
         region = [self countryCodeFromPhoneSettings];
     }
-    
+
     NSError *error;
     NBPhoneNumber* phoneNumber = [numberUtils parse:phone defaultRegion:region error:&error];
     if (!error)

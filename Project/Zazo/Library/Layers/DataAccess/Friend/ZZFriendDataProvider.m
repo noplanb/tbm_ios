@@ -16,6 +16,7 @@
 #import "ZZGridDomainModel.h"
 #import "ZZContentDataAcessor.h"
 #import "ZZUserFriendshipStatusHandler.h"
+#import "TBMVideo.h"
 
 @implementation ZZFriendDataProvider
 
@@ -84,6 +85,17 @@
     return (count != 0);
 }
 
++ (BOOL)isFriendExistsWithMKey:(NSString*)mKey
+{
+    NSInteger count = 0;
+    if (mKey)
+    {
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.mkey, mKey];
+        count = [TBMFriend MR_countOfEntitiesWithPredicate:predicate inContext:[self _context]];
+    }
+    return (count != 0);
+}
+
 
 #pragma mark - Entities
 
@@ -97,10 +109,10 @@
 
 #pragma mark - Count
 
-//+ (NSInteger)friendsCount
-//{
-//    return [TBMFriend MR_countOfEntitiesWithContext:[self _context]];
-//}
++ (NSInteger)friendsCount
+{
+    return [TBMFriend MR_countOfEntitiesWithContext:[self _context]];
+}
 
 
 #pragma mark - Mapping
@@ -174,5 +186,22 @@
     return [ZZContentDataAcessor contextForCurrentThread];
 }
 
+
+#pragma mark - Helpers
+
++ (BOOL)isFriend:(TBMFriend*)friend hasIncomingVideoWithId:(NSString*)videoId
+{
+    BOOL hasVideo = NO;
+    NSArray* videos = [friend.videos.allObjects copy];
+    for (TBMVideo* video in videos)
+    {
+        if ([video.videoId isEqualToString:videoId])
+        {
+            hasVideo = YES;
+        }
+    }
+    
+    return hasVideo;
+}
 
 @end

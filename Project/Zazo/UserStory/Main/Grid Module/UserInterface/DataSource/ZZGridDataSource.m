@@ -36,7 +36,6 @@ ZZGridCenterCellViewModelDelegate
     [self.controllerDelegate reload];
 }
 
-
 - (NSInteger)frindsOnGridNumber
 {
     ZZGridCenterCellViewModel* centerCell = [self centerViewModel];
@@ -102,13 +101,13 @@ ZZGridCenterCellViewModelDelegate
     
     if (model.relatedUser.unviewedCount > 0)
     {
-        viewModel.prevBadgeNumber = @(model.relatedUser.unviewedCount);
-        viewModel.badgeNumber = @(model.relatedUser.unviewedCount);
+        viewModel.prevBadgeNumber = model.relatedUser.unviewedCount;
+        viewModel.badgeNumber = model.relatedUser.unviewedCount;
     }
     else
     {
-        viewModel.prevBadgeNumber = @(0);
-        viewModel.badgeNumber = @(0);
+        viewModel.prevBadgeNumber = 0;
+        viewModel.badgeNumber = 0;
     }
 }
 
@@ -144,8 +143,6 @@ ZZGridCenterCellViewModelDelegate
     return model;
 }
 
-
-
 - (NSInteger)indexForUpdatedDomainModel:(ZZGridDomainModel*)domainModel
 {
     return [self viewModelIndexWithModelIndex:domainModel.index];
@@ -153,7 +150,6 @@ ZZGridCenterCellViewModelDelegate
 
 - (NSInteger)indexForFriendDomainModel:(ZZFriendDomainModel*)friendModel
 {
-    
     __block id item;
     
     [self.models enumerateObjectsUsingBlock:^(ZZGridCellViewModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
