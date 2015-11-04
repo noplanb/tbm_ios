@@ -301,7 +301,7 @@
 {
     BOOL isAble = NO;
     
-    if (![ZZVideoRecorder shared].isRecorderActive &&
+    if (![[ZZVideoRecorder shared] isRecording] &&
         ![self.delegate isVideoPlayingNow])
     {
         isAble = YES;

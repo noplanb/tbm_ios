@@ -25,7 +25,7 @@
 - (void)removeVideoStatusHandlerObserver:(id <ZZVideoStatusHandlerDelegate>)observer;
 
 
-- (void)deleteAllViewedOrFailedVideoForFriend:(TBMFriend*)friend;
+- (void)deleteAllViewedOrFailedVideoWithFriendId:(NSString*)friendId;
 
 - (void)notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)status
                            withFriend:(TBMFriend*)friend
@@ -38,8 +38,8 @@
 
 
 - (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)videoStatus
-                             withFriend:(TBMFriend*)friend
-                              withVideo:(TBMVideo*) video;
+                               friendId:(NSString*)friendId
+                                videoId:(NSString*)videoId;
 
 
 - (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount

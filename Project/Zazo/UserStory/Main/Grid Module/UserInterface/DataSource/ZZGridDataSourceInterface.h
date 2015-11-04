@@ -22,6 +22,7 @@
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled
                            viewModel:(ZZGridCellViewModel*)viewModel
                  withCompletionBlock:(ZZBoolBlock)completionBlock;
+- (void)cancelRecordingWithReason:(NSString *)reason;
 
 - (void)toggleVideoWithViewModel:(ZZGridCellViewModel*)model toState:(BOOL)state;
 - (void)nudgeSelectedWithUserModel:(id)userModel;

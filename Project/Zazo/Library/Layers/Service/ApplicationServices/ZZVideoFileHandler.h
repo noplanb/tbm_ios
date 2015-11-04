@@ -15,17 +15,17 @@
 
 - (void)requestBackground;
 
-- (void)sendNotificationForVideoReceived:(TBMFriend *)friend videoId:(NSString *)videoId;
-- (void)sendNotificationForVideoStatusUpdate:(TBMFriend *)friend videoId:(NSString *)videoId status:(NSString *)status;
+- (void)sendNotificationForVideoReceived:(TBMFriend *)friendModel videoId:(NSString *)videoId;
+- (void)sendNotificationForVideoStatusUpdate:(TBMFriend *)friendModel videoId:(NSString *)videoId status:(NSString *)status;
 - (void)updateBadgeCounter;
 - (void)updateDataRequired;
 
 
-- (void)notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)status withFriend:(TBMFriend*)friend videoId:(NSString*)videoId;
-- (void)setAndNotifyUploadRetryCount:(NSInteger)count withFriend:(TBMFriend*)friend video:(TBMVideo*)video;
-- (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)status withFriend:(TBMFriend*)friend video:(TBMVideo*)video;
-- (void)deleteAllViewedOrFailedVideosForFriend:(TBMFriend*)friend;
-- (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount withFriend:(TBMFriend*)friend video:(TBMVideo*)video;
+- (void)notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)status withFriend:(TBMFriend*)friendModel videoId:(NSString*)videoId;
+- (void)setAndNotifyUploadRetryCount:(NSInteger)count withFriend:(TBMFriend*)friendModel video:(TBMVideo*)video;
+- (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)status friendId:(NSString*)friendId videoId:(NSString*)videoId;
+- (void)deleteAllViewedOrFailedVideosWithFriendId:(NSString*)friendId;
+- (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount withFriend:(TBMFriend*)friendModel video:(TBMVideo*)video;
 
 @end
 

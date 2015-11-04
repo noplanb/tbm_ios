@@ -8,7 +8,6 @@
 
 #import "ZZGridStateViewNudge.h"
 #import "ZZGridUIConstants.h"
-#import "ZZVideoRecorder.h"
 
 @interface ZZGridStateViewNudge ()
 

@@ -68,6 +68,21 @@
     return nil;
 }
 
++ (ZZGridDomainModel*)modelWithFriend:(TBMFriend *)item
+{
+    ZZGridDomainModel *gridModel = nil;
+    
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, item];
+    TBMGridElement* entity = [[TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]] firstObject];
+    
+    if (entity)
+    {
+        gridModel = [self modelFromEntity:entity];
+    }
+    
+    return gridModel;
+}
+
 + (BOOL)isRelatedUserOnGridWithID:(NSString*)userID
 {
     ZZGridDomainModel* model = [self modelWithRelatedUserID:userID];
