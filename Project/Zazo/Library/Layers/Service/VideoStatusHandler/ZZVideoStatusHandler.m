@@ -12,6 +12,8 @@
 #import "ZZApplicationRootService.h"
 #import "ZZNotificationsConstants.h"
 #import "ZZVideoStatuses.h"
+#import "ZZVideoDataProvider.h"
+#import "ZZFriendDataProvider.h"
 
 @interface ZZVideoStatusHandler ()
 
@@ -24,9 +26,11 @@
 + (id)sharedInstance {
     static ZZVideoStatusHandler *sharedMyManager = nil;
     static dispatch_once_t onceToken;
+    
     dispatch_once(&onceToken, ^{
         sharedMyManager = [[self alloc] init];
     });
+    
     return sharedMyManager;
 }
 
@@ -55,10 +59,12 @@
 
 - (void)_notifyObserversVideoStatusChangeForFriend:(TBMFriend*)friend
 {
-    for (id <ZZVideoStatusHandlerDelegate> delegate in self.observers)
-    {
-        [delegate videoStatusChangedForFriend:friend];
-    }
+    ANDispatchBlockToMainQueue(^{
+        for (id <ZZVideoStatusHandlerDelegate> delegate in self.observers)
+        {
+            [delegate videoStatusChangedForFriend:friend];
+        }
+    });
 }
 
 
@@ -69,18 +75,21 @@
     [self _notifyObserversVideoStatusChangeForFriend:friend];
 }
 
-- (void)deleteAllViewedOrFailedVideoForFriend:(TBMFriend*)friend
+- (void)deleteAllViewedOrFailedVideoWithFriendId:(NSString*)friendId
 {
     ZZLogInfo(@"deleteAllViewedVideos");
+    
+    TBMFriend* friendModel = [ZZFriendDataProvider friendEntityWithItemID:friendId];
+    
     NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"videoId" ascending:YES];
-    NSArray* sortedVidoes = [friend.videos sortedArrayUsingDescriptors:@[d]];
+    NSArray* sortedVidoes = [friendModel.videos sortedArrayUsingDescriptors:@[d]];
    
     for (TBMVideo *v in sortedVidoes)
     {
         if (v.statusValue == ZZVideoIncomingStatusViewed ||
             v.statusValue == ZZVideoIncomingStatusFailedPermanently)
         {
-            [self deleteVideo:v withFriend:friend];
+            [self deleteVideo:v withFriend:friendModel];
         }
     }
 }
@@ -180,45 +189,49 @@
 }
 
 - (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)videoStatus
-                             withFriend:(TBMFriend*) friend
-                              withVideo:(TBMVideo*) video
+                               friendId:(NSString*)friendId
+                                videoId:(NSString*)videoId;
 {
     
-    [ZZContentDataAcessor refreshContext:friend.managedObjectContext];
-    if (video.statusValue == videoStatus)
-    {
-        ZZLogWarning(@"setAndNotifyIncomingVideoStatusWithVideo: Identical status. Ignoring.");
-        return;
-    }
-    
-    
-    video.statusValue = videoStatus;
-    
-    
-    [video.managedObjectContext MR_saveToPersistentStoreAndWait];
-    friend.lastIncomingVideoStatusValue = videoStatus;
-    
-    // Serhii says: We want to preserve previous status if last event type is incoming and status is VIEWED
-    // Sani complicates it by saying: This is a bit subtle. We don't want an action by this user of
-    // viewing his incoming video to count
-    // as cause a change in lastVideoStatusEventType. That way if the last action by the user was sending a
-    // video (recording on a person with unviewed indicator showing) then later viewed the incoming videos
-    // he gets to see the status of the last outgoing video he sent after play is complete and the unviewed count
-    // indicator goes away.
-    if (videoStatus != ZZVideoIncomingStatusViewed)
-    {
-        friend.lastVideoStatusEventType = ZZVideoStatusEventTypeIncoming;
-    }
-    
-    [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
-    
-    [self _notifyObserversVideoStatusChangeForFriend:friend];
-    
+    ANDispatchBlockToMainQueue(^{
+        
+        TBMVideo* video = [ZZVideoDataProvider entityWithID:videoId];
+        
+        if (video.statusValue != videoStatus)
+        {
+            video.statusValue = videoStatus;
+            [video.managedObjectContext MR_saveToPersistentStoreAndWait];
+            
+            TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendId];
+            friend.lastIncomingVideoStatusValue = videoStatus;
+            
+            // Serhii says: We want to preserve previous status if last event type is incoming and status is VIEWED
+            // Sani complicates it by saying: This is a bit subtle. We don't want an action by this user of
+            // viewing his incoming video to count
+            // as cause a change in lastVideoStatusEventType. That way if the last action by the user was sending a
+            // video (recording on a person with unviewed indicator showing) then later viewed the incoming videos
+            // he gets to see the status of the last outgoing video he sent after play is complete and the unviewed count
+            // indicator goes away.
+            if (videoStatus != ZZVideoIncomingStatusViewed)
+            {
+                friend.lastVideoStatusEventType = ZZVideoStatusEventTypeIncoming;
+            }
+            
+            [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
+            
+            [self _notifyObserversVideoStatusChangeForFriend:friend];
+        }
+        else
+        {
+            ZZLogWarning(@"setAndNotifyIncomingVideoStatusWithVideo: Identical status. Ignoring.");
+        }
+        
+    });
 }
 
 - (void)setAndNotityViewedIncomingVideoWithFriend:(TBMFriend*)friend video:(TBMVideo*)video
 {
-    [self setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusViewed withFriend:friend withVideo:video];
+    [self setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusViewed friendId:friend.idTbm videoId:video.videoId];
     [ZZApplicationRootService sendNotificationForVideoStatusUpdate:friend
                                                            videoId:video.videoId
                                                             status:NOTIFICATION_STATUS_VIEWED];

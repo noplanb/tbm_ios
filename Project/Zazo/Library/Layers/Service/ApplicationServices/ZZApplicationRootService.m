@@ -189,29 +189,29 @@
 
 #pragma mark - Video status handler
 
-- (void)notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)status withFriend:(TBMFriend*)friend videoId:(NSString*)videoId;
+- (void)notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)status withFriend:(TBMFriend *)friendModel videoId:(NSString *)videoId
 {
-    [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:status withFriend:friend withVideoId:videoId];
+    [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:status withFriend:friendModel withVideoId:videoId];
 }
 
-- (void)setAndNotifyUploadRetryCount:(NSInteger)count withFriend:(TBMFriend *)friend video:(TBMVideo *)video
+- (void)setAndNotifyUploadRetryCount:(NSInteger)count withFriend:(TBMFriend *)friendModel video:(TBMVideo *)video
 {
-    [[ZZVideoStatusHandler sharedInstance] setAndNotifyUploadRetryCount:count withFriend:friend video:video];
+    [[ZZVideoStatusHandler sharedInstance] setAndNotifyUploadRetryCount:count withFriend:friendModel video:video];
 }
 
-- (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)status withFriend:(TBMFriend *)friend video:(TBMVideo *)video
+- (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)status friendId:(NSString *)friendId videoId:(NSString *)videoId
 {
-    [[ZZVideoStatusHandler sharedInstance] setAndNotifyIncomingVideoStatus:status withFriend:friend withVideo:video];
+    [[ZZVideoStatusHandler sharedInstance] setAndNotifyIncomingVideoStatus:status friendId:friendId videoId:videoId];
 }
 
-- (void)deleteAllViewedOrFailedVideosForFriend:(TBMFriend *)friend
+- (void)deleteAllViewedOrFailedVideosWithFriendId:(NSString *)friendId
 {
-    [[ZZVideoStatusHandler sharedInstance] deleteAllViewedOrFailedVideoForFriend:friend]; //TODO: change delete method implementation?
+    [[ZZVideoStatusHandler sharedInstance] deleteAllViewedOrFailedVideoWithFriendId:friendId];
 }
 
-- (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount withFriend:(TBMFriend *)friend video:(TBMVideo *)video
+- (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount withFriend:(TBMFriend *)friendModel video:(TBMVideo *)video
 {
-    [[ZZVideoStatusHandler sharedInstance] setAndNotifyDownloadRetryCount:retryCount withFriend:friend video:video];
+    [[ZZVideoStatusHandler sharedInstance] setAndNotifyDownloadRetryCount:retryCount withFriend:friendModel video:video];
 }
 
 

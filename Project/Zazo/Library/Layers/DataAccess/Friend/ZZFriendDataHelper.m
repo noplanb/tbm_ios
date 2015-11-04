@@ -12,6 +12,7 @@
 #import "MagicalRecord.h"
 #import "ZZVideoDataUpdater.h"
 #import "ZZContentDataAcessor.h"
+#import "ZZVideoStatuses.h"
 
 @implementation ZZFriendDataHelper
 
@@ -49,8 +50,7 @@
     NSInteger i = 0;
     for (TBMVideo *v in [friend videos])
     {
-        if (v.statusValue == ZZVideoIncomingStatusDownloaded) //||
-            // v.statusValue == ZZVideoIncomingStatusDownloading)
+        if (v.statusValue == ZZVideoIncomingStatusDownloaded)
         {
             i++;
         }

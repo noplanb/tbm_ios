@@ -22,6 +22,7 @@
 //+ (ZZGridDomainModel*)modelWithIndex:(NSInteger)index;
 
 + (ZZGridDomainModel*)modelWithRelatedUserID:(NSString*)userID;
++ (ZZGridDomainModel*)modelWithFriend:(TBMFriend *)item;
 + (BOOL)isRelatedUserOnGridWithID:(NSString*)userID;
 
 + (ZZGridDomainModel*)loadFirstEmptyGridElement;

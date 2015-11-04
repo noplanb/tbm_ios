@@ -278,7 +278,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (void)videoStatusChangedForFriend:(TBMFriend*)friend
 {
     ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithRelatedUserID:friend.idTbm];
-  
+
     if (!gridModel)
     {
         ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];

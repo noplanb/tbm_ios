@@ -152,8 +152,7 @@
     }
     
     // green border state
-    if (self.badgeNumber > 0
-             && self.item.relatedUser.lastIncomingVideoStatus != ZZVideoIncomingStatusDownloading)
+    if (self.badgeNumber > 0)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateNeedToShowGreenBorder);
     }
