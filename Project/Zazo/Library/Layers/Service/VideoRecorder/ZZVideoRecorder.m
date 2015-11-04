@@ -449,7 +449,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         return NO;
     }
     
-    ZZLogInfo(@"******* ******* ******* filesize %llu", fileAttributes.fileSize);
+    ZZLogInfo(@"filesize %llu", fileAttributes.fileSize);
     if (fileAttributes.fileSize < 32000)
     {
         return YES;
