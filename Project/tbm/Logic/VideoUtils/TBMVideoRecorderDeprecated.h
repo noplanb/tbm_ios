@@ -9,10 +9,6 @@
 #import "AVFoundation/AVFoundation.h"
 #import "AVAudioSession+TBMAudioSession.h"
 
-//extern NSString* const TBMVideoRecorderDidFinishRecording;
-//extern NSString* const TBMVideoRecorderShouldStartRecording;
-//extern NSString* const TBMVideoRecorderDidCancelRecording;
-//extern NSString* const TBMVideoRecorderDidFail;
 
 @protocol TBMVideoRecorderDelegate <NSObject>
 
@@ -29,7 +25,7 @@
 
 @end
 
-@interface TBMVideoRecorder : NSObject <TBMAudioSessionDelegate>
+@interface TBMVideoRecorderDeprecated : NSObject <TBMAudioSessionDelegate>
 
 @property (nonatomic) id <TBMVideoRecorderDelegate> delegate;
 @property (nonatomic, assign) AVCaptureDevicePosition device;

@@ -2,46 +2,36 @@
 //  ZZVideoRecorder.m
 //  Zazo
 //
-//  Created by ANODA on 13/08/15.
-//  Copyright (c) 2015 ANODA. All rights reserved.
+//  Created by Sani Elfishawy on 11/1/15.
+//  Copyright © 2015 No Plan B. All rights reserved.
 //
 
 #import "ZZVideoRecorder.h"
-#import "ZZDeviceHandler.h"
-#import "ZZGridCell.h"
-#import "ZZGridDomainModel.h"
-#import "ZZFriendDomainModel.h"
-#import "ZZVideoProcessor.h"
-#import "ZZGridCellViewModel.h"
-#import "ZZGridCenterCell.h"
-#import "ZZGridUIConstants.h"
 #import "TBMVideoProcessor.h"
+#import "PBJVision.h"
 #import "iToast.h"
-#import "AVAudioSession+TBMAudioSession.h"
-#import "TBMVideoRecorder.h"
-#import "TBMVideoIdUtils.h"
 #import "NSError+ZZAdditions.h"
-#import "ZZFriendDataProvider.h"
+#import "TBMAlertController.h"
 
-NSString* const kVideoProcessorDidFinishProcessing = @"TBMVideoProcessorDidFinishProcessing";
-NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing";
-NSString* const TBMVideoRecorderDidFinishRecording = @"TBMVideoRecorderDidFinishRecording";
-NSString* const TBMVideoRecorderShouldStartRecording = @"TBMVideoRecorderShouldStartRecording";
-NSString* const TBMVideoRecorderDidCancelRecording = @"TBMVideoRecorderDidCancelRecording";
-NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
+NSString* const kVideoProcessorDidFinishProcessing = @"kZZVideoProcessorDidFinishProcessing";
+NSString* const kVideoProcessorDidFail = @"kZZVideoProcessorDidFailProcessing";
+
+NSString* const kZZVideoRecorderDidStartVideoCapture = @"kZZVideoRecorderDidStartVideoCapture";
+NSString* const kZZVideoRecorderDidEndVideoCapture = @"kZZVideoRecorderDidEndVideoCapture";
 
 static CGFloat const kDelayBeforeNextMessage = 1.1;
 
-@interface ZZVideoRecorder () <TBMAudioSessionDelegate, TBMVideoRecorderDelegate>
+@interface ZZVideoRecorder () <PBJVisionDelegate>
 
-@property (nonatomic, strong) TBMVideoRecorder *recorder;
+@property (nonatomic, strong) PBJVision* recorder;
 @property (nonatomic, strong) NSURL* recordVideoUrl;
 @property (nonatomic, strong) TBMVideoProcessor* videoProcessor;
-@property (nonatomic, strong) NSMutableArray* delegatesArray;
+@property (nonatomic, strong) NSDate* recordStartDate;
 @property (nonatomic, copy) void (^completionBlock)(BOOL isRecordingSuccess);
-@property (nonatomic, strong) UIView* recordingView;
+@property (nonatomic, assign) BOOL didCancelRecording;
 
 @end
+
 
 @implementation ZZVideoRecorder
 
@@ -55,128 +45,75 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     return _sharedClient;
 }
 
-- (instancetype)init 
+- (instancetype)init
 {
     if (self = [super init])
     {
         self.videoProcessor = [TBMVideoProcessor new];
-        self.recorder = [[TBMVideoRecorder alloc] init];
+        self.recorder = [PBJVision sharedInstance];
         self.recorder.delegate = self;
-//        [self.recorder startRunning];
         
-        self.delegatesArray = [NSMutableArray array];
-        
-        [[AVAudioSession sharedInstance] addTBMAudioSessionDelegate:self];
+        self.recorder.cameraMode = PBJCameraModeVideo;
+        [self.recorder setCameraDevice:PBJCameraDeviceFront];
+        self.recorder.cameraOrientation = PBJCameraOrientationPortrait;
+        self.recorder.focusMode = PBJFocusModeContinuousAutoFocus;
+        self.recorder.outputFormat = PBJOutputFormatPreset;
+        self.recorder.videoBitRate = PBJVideoBitRate640x480;
+        self.recorder.captureSessionPreset = AVCaptureSessionPresetLow;
     }
     return self;
 }
+
+#pragma mark - Preview
+
+- (AVCaptureVideoPreviewLayer *)previewLayer
+{
+    return self.recorder.previewLayer;
+}
+
+- (void)startPreview{
+    [self.recorder startPreview];
+}
+
+#pragma mark - Recording indication
 
 - (BOOL)isRecording
 {
     return self.recorder.isRecording;
 }
 
-- (void)setRecordingView:(UIView *)recordingView
+#pragma mark - Start Recording
+
+- (void)startRecordingWithVideoURL:(NSURL*)url completionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
-    _recordingView = recordingView;
-    [self.recorder setupCaptureSessionView:_recordingView];
+    self.recordStartDate = [NSDate date];
+    self.completionBlock = completionBlock;
+    
+    self.didCancelRecording = NO;
+    [self _startTouchObserve];
+    
+    self.recordVideoUrl = url;
+    [self.recorder startVideoCapture];
 }
 
-- (void)updateRecorder
+#pragma mark - Stop Recording
+
+- (void)stopRecordingWithCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
-    if (!self.recordingView)
-    {
-        // update reocroding view
-        self.recordingView = [self.interfaceDelegate recordingView];
-        [self updateRecordView:self.recordingView];
-        
-        // update recorder
-        self.videoProcessor = [TBMVideoProcessor new];
-        self.recorder.delegate = self;
-        [self.recorder setupCaptureSessionView:self.recordingView];
-        [self.recorder startRunning];
-    }
-    else
-    {
-        //update recorder session and audio input
-        [self.recorder startRunning];
-    }
+    self.completionBlock = completionBlock;
     
-    [self startAudioSession];
-    
-    // alert message after recording
-    if (self.didCancelRecording)
-    {
-        self.didCancelRecording = NO;
-        [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
-    }
-}
-
-//TODO: review this code, to handle all exising cases
-////-----------------------------------
-//// VideoRecorder setup and callbacks
-////-----------------------------------
-//- (void)videoRecorderDidStartRunning {
-//}
-//
-//- (void)videoRecorderRuntimeErrorWithRetryCount:(int)videoRecorderRetryCount {
-//    ZZLogError(@"videoRecorderRuntimeErrorWithRetryCount %d", videoRecorderRetryCount);
-//    [self setupVideoRecorder:videoRecorderRetryCount];
-//}
-//
-//// We call setupVideoRecorder on multiple events so the first qualifying event takes effect. All later events are ignored.
-//- (void)setupVideoRecorder:(int)retryCount {
-//    // Note that when we get retryCount != 0 we are being called because of a videoRecorderRuntimeError and we need reinstantiate
-//    // even if videoRecorder != nil
-//    // Also if we still have a videoRecorder but the OS killed our view from under us trying to save memory while we were in the
-//    // background we want to reinstantiate.
-//    if (self.videoRecorder != nil && retryCount == 0 && [self isViewLoaded] && self.view.window) {
-//        ZZLogWarning(@"TBMHomeViewController: setupVideoRecorder: already setup. Ignoring");
-//    }
-//    else if (![self appDelegate].isForeground) {
-//        ZZLogWarning(@"HomeViewController: not initializing the VideoRecorder because ! isForeground");
-//    }
-//    else
-//    {
-//        ZZLogWarning(@"HomeviewController: setupVideoRecorder: setting up. vr=%@, rc=%d, isViewLoaded=%d, view.window=%d", self.videoRecorder, retryCount, [self isViewLoaded], [self isViewLoaded] && self.view.window);
-//        
-//        //        self.videoRecorder = [[TBMVideoRecorder alloc] initWithPreviewView:nil//[self centerView]
-//        //                                                                  delegate:self];
-//    }
-//    [self.videoRecorder startRunning];
-//}
-
-
-//TODO:
-- (void)videoRecorderRuntimeErrorWithRetryCount:(int)videoRecorderRetryCount {
-    ZZLogError(@"videoRecorderRuntimeErrorWithRetryCount %d", videoRecorderRetryCount);
-    [self setupVideoRecorder:videoRecorderRetryCount];
-}
-
-// We call setupVideoRecorder on multiple events so the first qualifying event takes effect. All later events are ignored.
-- (void)setupVideoRecorder:(int)retryCount
-{
-    self.recorder = [TBMVideoRecorder new];
-    self.recorder.delegate = self;
-    
-    if (!self.recordingView)
-    {
-        self.recordingView = [self.interfaceDelegate recordingView];
-        [self updateRecordView:self.recordingView];
-    }
-    
-    [self.recorder setupCaptureSessionView:self.recordingView];
-    [self.recorder startRunning];
+    // Ensure a minimum record time because there are delays to get recording started and stopping before
+    // starting can cause problems.
+    NSTimeInterval kMinimumRecordTime = 0.4;
+    NSTimeInterval recordTime = [[NSDate date] timeIntervalSinceDate:self.recordStartDate];
+    NSTimeInterval delayStop = (recordTime < kMinimumRecordTime) ? kMinimumRecordTime - recordTime : 0.0;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayStop * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.recorder endVideoCapture];
+    });
 }
 
 
-#pragma mark - TBMAudioDelegate
-
-- (void)willDeactivateAudioSession
-{
-//    [self.recorder stopRunning]; //TODO:
-    [self cancelRecording];
-}
+#pragma mark - Cancel Recording
 
 - (void)cancelRecording
 {
@@ -185,414 +122,303 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     });
 }
 
-- (void)dealloc
+- (void)cancelRecordingWithReason:(NSString*)reason
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    if ([self isRecording])
+    {
+        if (!self.didCancelRecording)
+        {
+            self.didCancelRecording = YES;
+            [self showCancelMessageWithReason:reason];
+        }
+        [self.recorder endVideoCapture];
+    }
 }
 
-- (void)startTouchObserve
+
+#pragma mark - Two Finger Touch
+
+// TODO: Sani - These methods should be moved to GridPresenter
+
+- (void)_startTouchObserve
 {
     UIWindow* window = [UIApplication sharedApplication].keyWindow;
     [[window rac_signalForSelector:@selector(sendEvent:)] subscribeNext:^(RACTuple *touches) {
         for (id event in touches)
         {
             NSSet* touches = [event allTouches];
-            [self handleTouches:touches];
+            [self _handleTouches:touches];
         };
     }];
 }
 
-- (void)handleTouches:(NSSet*)touches
+- (void)_handleTouches:(NSSet*)touches
 {
     ANDispatchBlockToMainQueue(^{
         UITouch* touch = [[touches allObjects] firstObject];
         
-        if ((touch.phase == UITouchPhaseBegan && self.isRecorderActive) ||
-            (touch.phase == UITouchPhaseStationary && self.isRecorderActive))
+        if ((touch.phase == UITouchPhaseBegan && [self isRecording]) ||
+            (touch.phase == UITouchPhaseStationary && [self isRecording]))
         {
-//            CGFloat kDelayAfterTouch = 0.5;
-//            ANDispatchBlockAfter(kDelayAfterTouch, ^{
-                [self cancelRecordingWithDoubleTap];
-//            });
+            //            CGFloat kDelayAfterTouch = 0.5;
+            //            ANDispatchBlockAfter(kDelayAfterTouch, ^{
+            [self _cancelRecordingWithDoubleTap];
+            //            });
         }
-        else if (touch.phase == UITouchPhaseEnded && self.isRecorderActive)
+        else if (touch.phase == UITouchPhaseEnded && [self isRecording])
         {
-            [self stopRecordingWithCompletionBlock:self.completionBlock];
+//            [self stopRecordingWithCompletionBlock:self.completionBlock];
         }
     });
 }
 
-- (void)cancelRecordingWithDoubleTap
+- (void)_cancelRecordingWithDoubleTap
 {
     [self cancelRecordingWithReason:NSLocalizedString(@"record-two-fingers-touch", nil)];
     ANDispatchBlockAfter(kDelayBeforeNextMessage, ^{
-      [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
+        [self _showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
     });
 }
 
+
+#pragma mark - Camera
+
 - (BOOL)areBothCamerasAvailable
 {
-    return [ZZDeviceHandler areBothCamerasAvailable];
+    return [self.recorder isCameraDeviceAvailable:PBJCameraDeviceBack] &&
+    [self.recorder isCameraDeviceAvailable:PBJCameraDeviceFront];
 }
 
 - (void)switchCamera
 {
-    if ([self areBothCamerasAvailable])
+    if (self.recorder.cameraDevice == PBJCameraDeviceFront)
     {
-        BOOL isFrontCamera = (self.recorder.device == AVCaptureDevicePositionFront);
-        if (isFrontCamera)
-        {
-            [self _switchToBackCamera];
-        }
-        else
-        {
-            [self _switchToFrontCamera];
-        }
+        [self.recorder setCameraDevice:PBJCameraDeviceBack];
+    }
+    else
+    {
+        [self.recorder setCameraDevice:PBJCameraDeviceFront];
     }
 }
 
-- (void)_switchToBackCamera
-{
-    NSError *error;
-    self.recorder.videoInput = [ZZDeviceHandler loadAvailableBackVideoInputWithError:&error];
-    if (error)
-    {
-        // TODO:
-    }
-    [self.recorder.captureSession beginConfiguration];
-    for (AVCaptureInput* input in self.recorder.captureSession.inputs)
-    {
-        [self.recorder.captureSession removeInput:input];
-    }
-    
-    [self.recorder.captureSession addInput:self.recorder.videoInput];
-    
-    [self.recorder.captureSession commitConfiguration];
-    [self _initAudioInput];
-}
+#pragma mark - Audio Session
 
-- (void)_switchToFrontCamera
-{
-    NSError *error;
-    self.recorder.videoInput = [ZZDeviceHandler loadAvailableFrontVideoInputWithError:&error];
-    if (error)
-    {
-        // TODO:
-    }
-    [self.recorder.captureSession beginConfiguration];
-    for (AVCaptureInput* input in self.recorder.captureSession.inputs)
-    {
-        [self.recorder.captureSession removeInput:input];
-    }
-    
-    [self.recorder.captureSession addInput:self.recorder.videoInput];
-    
-    [self.recorder.captureSession commitConfiguration];
-    [self _initAudioInput];
-}
-
-- (void)_initAudioInput
-{
-    NSError *error;
-    self.recorder.audioInput = [ZZDeviceHandler loadAudioInputWithError:&error];
-    if (error)
-    {
-        //TODO:
-    }
-    [self.recorder.captureSession addInput:self.recorder.audioInput];
-}
-
-
-#pragma mark - Public Methods
-
-- (void)updateRecordView:(UIView*)recordView
-{
-    if (recordView)
-    {
-        recordView.frame = CGRectMake(0, 0, kGridItemSize().width, kGridItemSize().height);
-        [self.recorder setupCaptureSessionView:recordView];
-    }
-}
-
-- (void)startRecordingWithVideoURL:(NSURL*)url completionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
-{
-    self.completionBlock = completionBlock;
-    self.isRecorderActive = YES;
-    self.isRecordingInProgress = YES;
-    
-    self.didCancelRecording = NO;
-    [self startTouchObserve];
-    [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
-    [self _startRecordingWithVideoUrl:url];
-    [self.recorder startRecordingWithVideoUrl:url];
-}
-
-
-#pragma mark - Start Recording
-
-- (void)_startRecordingWithVideoUrl:(NSURL *)videoUrl
-{
-    self.recordVideoUrl = videoUrl;
-    [[NSFileManager defaultManager] removeItemAtURL:videoUrl error:nil];
-}
-
-
-#pragma mark - Cancel Recording
-
-- (void)cancelRecordingWithReason:(NSString*)reason
-{
-    if (self.isRecorderActive)
-    {
-        if (!self.didCancelRecording)
-        {
-            [self _notifyCancelRecording];
-            self.didCancelRecording = YES;
-            if (!ANIsEmpty(reason))
-            {
-                [self showMessage:reason];
-                ANDispatchBlockAfter(kDelayBeforeNextMessage, ^{
-                    [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
-                });
-            }
-            [self.recorder cancelRecording];
-        }
-    }
-    self.isRecorderActive = NO;
-    [self _recordingProgressStopped];
-}
-
-- (void)_recordingProgressStopped
-{
-    CGFloat kDelayAfterRecordingStopped = 0.5f;
-    ANDispatchBlockAfter(kDelayAfterRecordingStopped, ^{
-        self.isRecordingInProgress = NO;
-    });
-}
-
-#pragma mark - Stop Recording
-
+// TODO: Sani - Find out why these are necessary and remove if not needed.
 - (void)stopAudioSession
 {
-    [self.recorder removeAudioInput];
+    //[self.recorder removeAudioInput];
 }
 
 - (void)startAudioSession
 {
-    [self.recorder addAudioInput];
+    //[self.recorder addAudioInput];
 }
 
-- (void)stopRecordingWithCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
+
+#pragma mark - UI messages
+// TODO: Sani - These UI Methods should be moved to GridPresenter+UserDialogs
+
+- (void)_showMessage:(NSString*)message
 {
-    self.isRecorderActive = NO;
-    self.completionBlock = completionBlock;
-    if ([self.recorder.captureOutput isRecording])
+    [[iToast makeText:message]show];
+}
+
+- (void)showVideoToShortToast
+{
+    [self _showMessage:NSLocalizedString(@"record-video-too-short", nil)];
+    ANDispatchBlockAfter(kDelayBeforeNextMessage, ^{
+        [self _showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
+    });
+}
+
+- (void)showCancelMessageWithReason:(NSString *)reason{
+    if (!ANIsEmpty(reason))
     {
-        [self.recorder stopRecording];
+        [self _showMessage:reason];
+        ANDispatchBlockAfter(kDelayBeforeNextMessage, ^{
+            [self _showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
+        });
     }
-    [self _recordingProgressStopped];
 }
 
-- (void)videoRecorderDidStartRecording
+- (void)_showProbableOnCallAlert
 {
+    ZZLogInfo(@"alertProbablePhoneCall");
+    NSString *msg = @"Mic or camera are busy. Are you on a phone call? Hangup and try again.";
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"On a Call?" message:msg];
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again"
+                                               style:SDCAlertActionStyleDefault
+                                             handler:^(SDCAlertAction *action) {
+                                                 [self.recorder startPreview];
+                                             }]];
+    [alert presentWithCompletion:nil];
+}
+
+#pragma mark - PBJVisionDelegate
+// session
+
+- (void)visionSessionWillStart:(PBJVision *)vision{}
+- (void)visionSessionDidStart:(PBJVision *)vision{}
+- (void)visionSessionDidStop:(PBJVision *)vision{}
+
+- (void)visionSessionWasInterrupted:(PBJVision *)vision
+{
+    ZZLogInfo(@"visionSessionWasInterrupted");
+}
+- (void)visionSessionInterruptionEnded:(PBJVision *)vision{}
+- (BOOL)visionSessionRuntimeErrorShouldRetry:(PBJVision *)vision error:(NSError*)error
+{
+    if ([error code] == AVErrorDeviceIsNotAvailableInBackground ||
+        [error code] == AVErrorDeviceIsNotAvailableInBackground)
+    {
+        return YES;
+    }
     
+    ZZLogInfo(@"visionSessionRuntimeErrored");
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self _showProbableOnCallAlert];
+    });
+    return NO;
 }
 
-- (void)videoRecorderDidStopRecording
+
+// device / mode / format
+
+- (void)visionCameraDeviceWillChange:(PBJVision *)vision{}
+- (void)visionCameraDeviceDidChange:(PBJVision *)vision{}
+
+- (void)visionCameraModeWillChange:(PBJVision *)vision{}
+- (void)visionCameraModeDidChange:(PBJVision *)vision{}
+
+- (void)visionOutputFormatWillChange:(PBJVision *)vision{}
+- (void)visionOutputFormatDidChange:(PBJVision *)vision{}
+
+- (void)vision:(PBJVision *)vision didChangeCleanAperture:(CGRect)cleanAperture{}
+
+- (void)visionDidChangeVideoFormatAndFrameRate:(PBJVision *)vision{}
+
+// focus / exposure
+
+- (void)visionWillStartFocus:(PBJVision *)vision{}
+- (void)visionDidStopFocus:(PBJVision *)vision{}
+
+- (void)visionWillChangeExposure:(PBJVision *)vision{}
+- (void)visionDidChangeExposure:(PBJVision *)vision{}
+
+- (void)visionDidChangeFlashMode:(PBJVision *)vision{} // flash or torch was changed
+
+// authorization / availability
+
+- (void)visionDidChangeAuthorizationStatus:(PBJAuthorizationStatus)status{}
+- (void)visionDidChangeFlashAvailablility:(PBJVision *)vision{} // flash or torch is available
+
+// preview
+
+- (void)visionSessionDidStartPreview:(PBJVision *)vision{}
+- (void)visionSessionDidStopPreview:(PBJVision *)vision{}
+
+// photo
+
+- (void)visionWillCapturePhoto:(PBJVision *)vision{}
+- (void)visionDidCapturePhoto:(PBJVision *)vision{}
+- (void)vision:(PBJVision *)vision capturedPhoto:(NSDictionary *)photoDict error:(NSError *)error{}
+
+// video
+
+//- (NSString *)vision:(PBJVision *)vision willStartVideoCaptureToFile:(NSString *)fileName{}
+
+- (void)visionDidStartVideoCapture:(PBJVision *)vision
 {
+    ZZLogInfo(@"didStartVideoCapture");
+    [[NSNotificationCenter defaultCenter] postNotificationName:kZZVideoRecorderDidStartVideoCapture
+                                                        object:self
+                                                      userInfo:@{@"videoUrl": self.recordVideoUrl}];
 
 }
 
-- (void)videoRecorderDidStartRunning
+- (void)visionDidPauseVideoCapture:(PBJVision *)vision{} // stopped but not ended
+- (void)visionDidResumeVideoCapture:(PBJVision *)vision{}
+- (void)visionDidEndVideoCapture:(PBJVision *)vision
 {
-    
+    ZZLogInfo(@"didEndVideoCapture");
+    [[NSNotificationCenter defaultCenter] postNotificationName:kZZVideoRecorderDidEndVideoCapture
+                                                        object:self
+                                                      userInfo:@{@"videoUrl": self.recordVideoUrl}];
 }
 
-- (void)videoRecorderDidStopButDidNotStartRecording
-{
-    NSString* details = @"VideoRecorder@stopRecording called but not recording. This should never happen";
-    NSError* error = [self videoRecorderError:details reason:@"Problem recording video"];
-    [self handleError:error];
-}
-
-- (void)videoRecorderDidFinishRecordingWithURL:(NSURL *)outputFileURL error:(NSError *)error
-{
+- (void)vision:(PBJVision *)vision capturedVideo:(NSDictionary *)videoDict error:(NSError *)error{
     BOOL abort = NO;
+    NSString *outputFilePath = videoDict[PBJVisionVideoPathKey];
+    ZZLogInfo(@"didCaptureVideo");
     
     if (self.didCancelRecording)
     {
-        ZZLogInfo(@"didCancelRecordingToOutputFileAtURL:%@ error:%@", outputFileURL, error);
-        [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidCancelRecording
-                                                            object:self
-                                                          userInfo:@{@"videoUrl": outputFileURL}];
-        
-        [self _recordingResultSuccess:NO];
-  
+        ZZLogInfo(@"didCancelRecording");
         abort = YES;
     }
-    else if (error != nil)
+    else if (error)
     {
         NSError *newError = [NSError errorWithError:error reason:@"Problem recording video"];
-        [self handleError:newError];
-         [self _recordingResultSuccess:NO];
+        [self _handleError:newError];
         abort = YES;
     }
-    else if ([self videoTooShort:outputFileURL])
+    else if (ANIsEmpty(outputFilePath))
     {
-        ZZLogInfo(@"VideoRecorder#videoTooShort aborting");
-        NSError *error = [self videoRecorderError:@"Video too short" reason:@"Too short"];
-        [self handleError:error dispatch:NO];
-        
-        
-        [self _recordingResultSuccess:NO];
-        
-        if (self.didCancelRecording)
-        {
-            ANDispatchBlockAfter((kDelayBeforeNextMessage * 2), ^{
-                [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
-            });
-        }
-        else
-        {
-            [self showMessage:NSLocalizedString(@"record-video-too-short", nil)];
-            ANDispatchBlockAfter(kDelayBeforeNextMessage, ^{
-                [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
-            });
-        }
+        NSError *error = [self _videoRecorderError:@"Nil outputFilePath" reason:@"Nil outputFilePath"];
+        [self _handleError:error dispatch:YES];
         abort = YES;
+    }
+    else if ([self _videoTooShort:outputFilePath])
+    {
+        ZZLogInfo(@"videoTooShort aborting");
+        NSError *error = [self _videoRecorderError:@"Video too short" reason:@"Too short"];
+        [self _handleError:error dispatch:NO];
+        [self showCancelMessageWithReason:NSLocalizedString(@"record-video-too-short", nil)];
+        abort = YES;
+    }
+    
+    if (!abort)
+    {
+        [[NSFileManager defaultManager] removeItemAtURL:self.recordVideoUrl error:nil];
+        
+        NSURL *outputFileURL = [NSURL fileURLWithPath:outputFilePath isDirectory:NO];
+        NSError *copyError = nil;
+        [[NSFileManager defaultManager] copyItemAtURL:outputFileURL toURL:self.recordVideoUrl error:&copyError];
+        [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
+            
+        if (copyError)
+        {
+            [self _handleError:error dispatch:YES];
+            abort = YES;
+        }
     }
     
     if (abort)
     {
-        [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
+        if (!ANIsEmpty(outputFilePath))
+        {
+            [[NSFileManager defaultManager] removeItemAtPath:outputFilePath error:nil];
+        }
+        [[NSFileManager defaultManager] removeItemAtURL:self.recordVideoUrl error:nil];
+        [self _sendCompletionWithResult:NO];
         return;
     }
+
     
-    ZZFileTransferMarkerDomainModel* marker = [TBMVideoIdUtils markerModelWithOutgoingVideoURL:outputFileURL];
-    TBMFriend *friend = [ZZFriendDataProvider friendEntityWithItemID:marker.friendID];
-    
-    ZZLogInfo(@"didFinishRecording success friend:%@ videoId:%@", friend.firstName, marker.videoID);
-    
-    [self _recordingResultSuccess:YES];
-    
-    [[[TBMVideoProcessor alloc] init] processVideoWithUrl:outputFileURL];
+    ZZLogInfo(@"didFinishRecording success");
+    [self _sendCompletionWithResult:YES];
+    [[[TBMVideoProcessor alloc] init] processVideoWithUrl:self.recordVideoUrl];
 }
 
+// video capture progress
+
+- (void)vision:(PBJVision *)vision didCaptureVideoSampleBuffer:(CMSampleBufferRef)sampleBuffer{}
+- (void)vision:(PBJVision *)vision didCaptureAudioSample:(CMSampleBufferRef)sampleBuffer{}
 
 
+#pragma mark - Helper Methods
 
-#pragma mark - Recording Error Handling.
-
-- (void)handleError:(NSError *)error
-{
-    [self handleError:error dispatch:YES];
-}
-
-- (void)handleError:(NSError *)error dispatch:(BOOL)dispatch
-{
-    if (dispatch)
-    {
-        ZZLogError(@"VideoRecorder: %@", error);
-    }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFail
-                                                        object:self
-                                                      userInfo:@{@"error":error}];
-}
-
-- (void)videoRecordDidFailNotification:(NSNotification *)notification
-{
-    NSError *error = (NSError *) notification.userInfo[@"error"];
-    NSString *reason = error.userInfo[NSLocalizedFailureReasonErrorKey];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (reason != nil)
-            [[iToast makeText:reason] show];
-        
-                [self performSelector:@selector(toastNotSent) withObject:nil afterDelay:1.2];
-    });
-}
-
-//TODO:
-- (void)toastNotSent
-{
-    [[iToast makeText:@"Not sent"] show];
-}
-
-
-//
-//- (void)recorder:(SCRecorder*)recorder didCompleteSegment:(SCRecordSessionSegment*)segment
-//       inSession:(SCRecordSession*)recordSession error:(NSError*)error
-//{
-//    if (error)
-//    {
-//        [self showMessage:NSLocalizedString(@"record-problem-recording", nil)];
-//    }
-//    else
-//    {
-//        [self recordVideoToFileWithRecordSession:recordSession];
-//    }
-//}
-
-//- (void)recordVideoToFileWithRecordSession:(SCRecordSession*)recordSession
-//{
-//    
-//    [recordSession mergeSegmentsUsingPreset:AVAssetExportPresetHighestQuality completionHandler:^(NSURL *url, NSError *error) {
-//        if (error == nil)
-//        {
-//            if ([self isVideoShort:url])
-//            {
-//                [self _recordingResultSuccess:NO];
-//
-//                if (self.didCancelRecording)
-//                {
-//                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kDelayBeforeNextMessage * 2)  * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                        [self showMessage:NSLocalizedString(@"record-video-too-short", nil)];
-//                    });
-//                }
-//                else
-//                {
-//                    [self showMessage:NSLocalizedString(@"record-video-too-short", nil)];
-//                }
-//                
-//                [[NSFileManager defaultManager] removeItemAtPath:[url path] error:nil];
-//            }
-//            else if (self.didCancelRecording)
-//            {
-//                [self _recordingResultSuccess:NO];
-//                [[NSFileManager defaultManager] removeItemAtPath:[url path] error:nil];
-//                
-//            }
-//            else
-//            {
-//                if ([[NSFileManager defaultManager] fileExistsAtPath:[url path]])
-//                {
-//                    NSError* error;
-//                    if ([[NSFileManager defaultManager] copyItemAtURL:url toURL:self.recordVideoUrl error:&error])
-//                    {
-//                        NSError* removeError;
-//                        [[NSFileManager defaultManager] removeItemAtPath:[url path] error:&removeError];
-//                        [self.videoProcessor processVideoWithUrl:self.recordVideoUrl];
-//                        [self _recordingResultSuccess:YES];
-//                    }
-//                    else
-//                    {
-//                        NSLog(@"copy error");
-//                        [self _recordingResultSuccess:NO];
-//                    }
-//                }
-//                else
-//                {
-//                    NSLog(@"wrong");
-//                    [self _recordingResultSuccess:NO];
-//                }
-//            }
-//        } else {
-//            
-//        }
-//    }];
-//}
-
-- (void)_recordingResultSuccess:(BOOL)result
+- (void)_sendCompletionWithResult:(BOOL)result
 {
     if (self.completionBlock)
     {
@@ -600,54 +426,31 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     }
 }
 
-//- (void)handleError:(NSError*)error dispatch:(BOOL)dispatch
-//{
-//    [[NSFileManager defaultManager] removeItemAtURL:self.recordVideoUrl error:nil];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:kVideoProcessorDidFail
-//                                                        object:self
-//                                                      userInfo:[self notificationUserInfoWithError:error]];
-//}
-//
-//- (NSDictionary*)notificationUserInfoWithError:(NSError *)error
-//{
-//    if (error == nil)
-//    {
-//        return @{@"videoUrl" : self.recordVideoUrl};
-//    }
-//    else
-//    {
-//        return @{@"videoUrl" : self.recordVideoUrl, @"error": error};
-//    }
-//}
-
-- (void)showMessage:(NSString*)message
+- (void)_handleError:(NSError *)error
 {
-    [[iToast makeText:message]show];
+    [self _handleError:error dispatch:YES];
 }
 
-
-- (void)showVideoToShoortToast
+- (void)_handleError:(NSError *)error dispatch:(BOOL)dispatch
 {
-    [self showMessage:NSLocalizedString(@"record-video-too-short", nil)];
-    ANDispatchBlockAfter(kDelayBeforeNextMessage, ^{
-        [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
-    });
+    if (dispatch)
+    {
+        ZZLogError(@"VideoRecorder: %@", error);
+    }
 }
 
-#pragma mark Util
-
-- (BOOL)videoTooShort:(NSURL *)videoUrl
+- (BOOL)_videoTooShort:(NSString *)videoPath
 {
     NSError *error = nil;
-    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:videoUrl.path error:&error];
+    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:videoPath error:&error];
     if (error != nil)
     {
-        ZZLogError(@"VideoRecorder#videoTooShort: Can't set attributes for file: %@. Error: %@", videoUrl.path, error);
+        ZZLogError(@"VideoRecorder#videoTooShort: Can't set attributes for file: %@. Error: %@", videoPath, error);
         return NO;
     }
     
-    ZZLogInfo(@"VideoRecorder: filesize %llu", fileAttributes.fileSize);
-    if (fileAttributes.fileSize < 28000)
+    ZZLogInfo(@"filesize %llu", fileAttributes.fileSize);
+    if (fileAttributes.fileSize < 32000)
     {
         return YES;
     }
@@ -657,7 +460,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     }
 }
 
-- (NSError *)videoRecorderError:(NSString *)description reason:(NSString *)reason
+- (NSError *)_videoRecorderError:(NSString *)description reason:(NSString *)reason
 {
     return [NSError errorWithDomain:@"TBMVideoRecorder"
                                code:1
@@ -666,26 +469,5 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 }
 
 
-
-
-
-#pragma mark - Video Recorder Observer Methods
-
-- (void)addDelegate:(id<ZZVideoRecorderDelegate>)delegate
-{
-    [self.delegatesArray addObject:delegate];
-}
-
-- (void)removeDelegate:(id<ZZVideoRecorderDelegate>)delegate
-{
-    [self.delegatesArray removeObject:delegate];
-}
-
-- (void)_notifyCancelRecording
-{
-    [self.delegatesArray enumerateObjectsUsingBlock:^(id<ZZVideoRecorderDelegate> delegate, NSUInteger idx, BOOL * _Nonnull stop) {
-        [delegate videoRecordingCanceled];
-    }];
-}
 
 @end

@@ -34,10 +34,8 @@
 <
     ZZGridDataSourceDelegate,
     ZZVideoPlayerDelegate,
-    ZZVideoRecorderDelegate,
     ZZGridActionHanlderDelegate,
-    TBMTableModalDelegate,
-    ZZVideoRecorderInterfaceDelegate
+    TBMTableModalDelegate
 >
 
 @property (nonatomic, strong) ZZGridDataSource* dataSource;
@@ -65,9 +63,6 @@
     self.videoPlayer.delegate = self;
     [self _setupNotifications];
     [self.interactor loadData];
-    
-    [[ZZVideoRecorder shared] addDelegate:self];
-    [ZZVideoRecorder shared].interfaceDelegate = self;
 }
 
 - (void)attachToMenuPanGesture:(UIPanGestureRecognizer*)pan
@@ -94,13 +89,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_reloadDataAfterResetAllUserDataNotification)
                                                  name:kResetAllUserDataNotificationKey object:nil];
-
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [[ZZVideoRecorder shared] removeDelegate:self];
 }
 
 
@@ -118,7 +111,7 @@
 
 - (void)reloadGridWithData:(NSArray*)data
 {
-    if (![ZZVideoRecorder shared].isRecorderActive && !self.videoPlayer.isPlayingVideo)
+    if (![[ZZVideoRecorder shared] isRecording] && !self.videoPlayer.isPlayingVideo)
     {
         [self.dataSource setupWithModels:data];
     }
@@ -229,7 +222,7 @@
 }
 
 
-#pragma makr - EVENT InviteHint
+#pragma mark - EVENT InviteHint
 
 - (void)dataLoadedWithArray:(NSArray*)data
 {
@@ -244,8 +237,9 @@
                                                                           isSwitchCameraAvailable &&
                                                                           [ZZGridActionStoredSettings shared].frontCameraHintWasShown)];
         
-        [[ZZVideoRecorder shared] updateRecorder];
-        [[ZZVideoRecorder shared] updateRecordView:[self.dataSource centerViewModel].recordView];
+        [self.dataSource updateValueOnCenterCellWithPreviewLayer:[ZZVideoRecorder shared].previewLayer];
+        [[ZZVideoRecorder shared] startPreview];
+        
         [self _showRecordWelcomeIfNeededWithData:data];
     });
 }
@@ -330,7 +324,7 @@
 
 - (void)presentMenu
 {
-    if (![ZZVideoRecorder shared].isRecordingInProgress)
+    if (![[ZZVideoRecorder shared] isRecording])
     {
         [self.actionHandler hideHint];
         [self.wireframe toggleMenu];
@@ -396,7 +390,7 @@
 
 - (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel*)userModel
 {
-    if (![ZZVideoRecorder shared].isRecordingInProgress)
+    if (![[ZZVideoRecorder shared] isRecording])
     {
         [self.interactor updateLastActionForFriend:userModel];
         [self _nudgeUser:userModel];
@@ -407,7 +401,8 @@
                            viewModel:(ZZGridCellViewModel*)viewModel
                  withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
-    [ZZVideoRecorder shared].isRecorderActive = isEnabled;
+    ZZLogInfo(@"recordingStateUpdatedToState:%d", isEnabled);
+
     [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
     if (!ANIsEmpty(viewModel.item.relatedUser.idTbm))
     {
@@ -421,10 +416,7 @@
             }
             
             [self.soundPlayer play];
-            [ZZVideoRecorder shared].wasRecordingStopped = NO;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                if (![ZZVideoRecorder shared].wasRecordingStopped)
-                {
+            ANDispatchBlockToMainQueue(^{
                     [self.videoPlayer stop];
                     NSURL* url = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriendID:viewModel.item.relatedUser.idTbm];
                     [self.userInterface updateRecordViewStateTo:isEnabled];
@@ -435,29 +427,33 @@
                         
                         completionBlock(isRecordingSuccess);
                     }];
-                }
-                else
-                {
-                    [[ZZVideoRecorder shared] showVideoToShoortToast];
-                }
+
             });
         }
         else
         {
-            [ZZVideoRecorder shared].wasRecordingStopped = YES;
-            [[ZZVideoRecorder shared] stopRecordingWithCompletionBlock:^(BOOL isRecordingSuccess) {
-                [self.userInterface updateRecordViewStateTo:isEnabled];
-                [self.soundPlayer play];
-                if (isRecordingSuccess)
-                {
-                    [self _handleSentMessageEventWithCellViewModel:viewModel];
-                }
-                completionBlock(isRecordingSuccess);
-            }];
+            ANDispatchBlockToMainQueue(^{
+                [[ZZVideoRecorder shared] stopRecordingWithCompletionBlock:^(BOOL isRecordingSuccess) {
+                    [self.userInterface updateRecordViewStateTo:isEnabled];
+                    [self.soundPlayer play];
+                    if (isRecordingSuccess)
+                    {
+                        [self _handleSentMessageEventWithCellViewModel:viewModel];
+                    }
+                    completionBlock(isRecordingSuccess);
+                }];
+
+            });
         }
 
         [self.userInterface updateRollingStateTo:!isEnabled];
     }
+}
+
+- (void)cancelRecordingWithReason:(NSString *)reason
+{
+    [[ZZVideoRecorder shared] cancelRecordingWithReason:reason];
+    [self.userInterface updateRecordViewStateTo:NO];
 }
 
 - (void)toggleVideoWithViewModel:(ZZGridCellViewModel*)model toState:(BOOL)state
@@ -539,15 +535,9 @@
 
 - (BOOL)isRecordingInProgress
 {
-    return [ZZVideoRecorder shared].isRecordingInProgress;
+    return [[ZZVideoRecorder shared] isRecording];
 }
 
-#pragma mark - Video Recorder Delegate
-
-- (void)videoRecordingCanceled
-{
-    [self.userInterface updateRecordViewStateTo:NO];
-}
 
 - (ZZSoundEffectPlayer*)soundPlayer
 {

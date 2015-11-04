@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import "ZZDeviceHandler.h"
+#import "ZZDeviceHandlerDeprecated.h"
 
-@implementation ZZDeviceHandler
+@implementation ZZDeviceHandlerDeprecated
 
 
 #pragma mark - Video

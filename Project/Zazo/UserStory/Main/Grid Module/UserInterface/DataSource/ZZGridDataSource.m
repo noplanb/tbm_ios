@@ -119,6 +119,10 @@ ZZGridCenterCellViewModelDelegate
     [self.controllerDelegate reloadItem:model];
 }
 
+- (void)updateValueOnCenterCellWithPreviewLayer:(AVCaptureVideoPreviewLayer *)previewLayer{
+    [self centerViewModel].previewLayer = previewLayer;
+}
+
 - (ZZGridCenterCellViewModel*)centerViewModel
 {
     return [self.models objectAtIndex:kGridCenterCellIndex];
@@ -237,6 +241,11 @@ ZZGridCenterCellViewModelDelegate
 - (void)switchCamera
 {
     [self.delegate switchCamera];
+}
+
+- (void)cancelRecordingWithReason:(NSString *)reason
+{
+    [self.delegate cancelRecordingWithReason:reason];
 }
 
 - (void)showHint

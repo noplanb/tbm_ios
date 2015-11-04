@@ -8,7 +8,6 @@
 
 #import "ZZGridStateViewRecord.h"
 #import "ZZGridUIConstants.h"
-#import "ZZVideoRecorder.h"
 
 @interface ZZGridStateViewRecord ()
 

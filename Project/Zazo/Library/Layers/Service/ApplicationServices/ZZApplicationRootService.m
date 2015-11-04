@@ -9,7 +9,6 @@
 #import "ZZApplicationRootService.h"
 #import "ZZVideoFileHandler.h"
 #import "TBMVideoProcessor.h"
-#import "TBMVideoRecorder.h"
 #import "ZZVideoRecorder.h"
 #import "TBMVideoIdUtils.h"
 #import "ZZApplicationDataUpdaterService.h"
@@ -60,22 +59,12 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(_videoDidStartRecording:)
-                                                     name:TBMVideoRecorderShouldStartRecording
+                                                     name:kZZVideoRecorderDidStartVideoCapture
                                                    object:nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(_videoDidFinishRecording:)
-                                                     name:TBMVideoRecorderDidCancelRecording
-                                                   object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(_videoDidFinishRecording:)
-                                                     name:TBMVideoRecorderDidFail
-                                                   object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(_videoDidFinishRecording:)
-                                                     name:TBMVideoRecorderDidFinishRecording
+                                                 selector:@selector(_videoDidEndRecording:)
+                                                     name:kZZVideoRecorderDidEndVideoCapture
                                                    object:nil];
     }
     return self;
@@ -102,7 +91,7 @@
     [UIApplication sharedApplication].idleTimerDisabled = YES;
 }
 
-- (void)_videoDidFinishRecording:(id)sender
+- (void)_videoDidEndRecording:(id)sender
 {
     [UIApplication sharedApplication].idleTimerDisabled = NO;
 }

@@ -22,6 +22,7 @@
 
 - (void)setupWithModels:(NSArray*)models;
 - (void)updateValueOnCenterCellWithHandleCameraRotation:(BOOL)shouldHandleRotation;
+- (void)updateValueOnCenterCellWithPreviewLayer:(AVCaptureVideoPreviewLayer *)previewLayer;
 
 - (void)reloadStorage;
 - (void)updateCenterCellWithModel:(ZZGridCenterCellViewModel*)model;

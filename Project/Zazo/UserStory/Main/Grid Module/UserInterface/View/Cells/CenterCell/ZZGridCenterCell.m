@@ -8,7 +8,6 @@
 
 #import "ZZGridCenterCell.h"
 #import "ZZGridCenterCellViewModel.h"
-#import "ZZVideoRecorder.h"
 #import "UIImage+PDF.h"
 #import "ZZGridActionStoredSettings.h"
 
@@ -24,6 +23,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
 @property (nonatomic, strong) ZZGridCenterCellViewModel* model;
 @property (nonatomic, strong) UIView* recordingContainer;
 @property (nonatomic, strong) UIView* videoView;
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer* previewLayer;
 @property (nonatomic, strong) CALayer* recordingOverlay;
 @property (nonatomic, strong) UILabel* recordingLabel;
 
@@ -46,6 +46,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
     [super layoutSubviews];
     
     self.recordingOverlay.frame = self.bounds;
+    self.previewLayer.frame = self.bounds;
 }
 
 - (void)updateWithModel:(ZZGridCenterCellViewModel*)model
@@ -61,8 +62,13 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
             [self.videoView addGestureRecognizer:tapRecognizer];
             [self bringSubviewToFront:self.switchCameraButton];
         }
+        if (!self.previewLayer)
+        {
+            self.previewLayer = model.previewLayer;
+        }
     });
 }
+
 
 - (void)updataeRecordStateTo:(BOOL)isRecording
 {
@@ -114,6 +120,26 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
     }];
 }
 
+- (void)setPreviewLayer:(AVCaptureVideoPreviewLayer *)previewLayer
+{
+    if (previewLayer == nil)
+    {
+        return;
+    }
+    if (self.videoView == nil)
+    {
+        ZZLogError(@"attempting to set previewLayer while videoView is nil. This should never happen.");
+        return;
+    }
+    if (previewLayer != nil){
+        _previewLayer = previewLayer;
+        for (CALayer *layer in [self.videoView.layer.sublayers copy]) {
+            [layer removeFromSuperlayer];
+        }
+        self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+        [self.videoView.layer addSublayer:_previewLayer];
+    }
+}
 
 #pragma mark - Lazy Load
 

@@ -6,20 +6,15 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
-#import "TBMVideoRecorder.h"
+#import "TBMVideoRecorderDeprecated.h"
 #import "TBMVideoIdUtils.h"
 #import "ZZVideoRecorder.h" // TODO: for constants
-#import "ZZDeviceHandler.h"
+#import "ZZDeviceHandlerDeprecated.h"
 #import "ZZFriendDataProvider.h"
-
-//NSString* const TBMVideoRecorderDidFinishRecording = @"TBMVideoRecorderDidFinishRecording";
-//NSString* const TBMVideoRecorderShouldStartRecording = @"TBMVideoRecorderShouldStartRecording";
-//NSString* const TBMVideoRecorderDidCancelRecording = @"TBMVideoRecorderDidCancelRecording";
-//NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 
 static int videoRecorderRetryCount = 0;
 
-@interface TBMVideoRecorder () <AVCaptureFileOutputRecordingDelegate>
+@interface TBMVideoRecorderDeprecated () <AVCaptureFileOutputRecordingDelegate>
 
 @property (nonatomic) dispatch_queue_t sessionQueue;
 @property (nonatomic, assign) BOOL didCancelRecording;
@@ -27,7 +22,7 @@ static int videoRecorderRetryCount = 0;
 
 @end
 
-@implementation TBMVideoRecorder
+@implementation TBMVideoRecorderDeprecated
 
 @dynamic device;
 
@@ -144,7 +139,7 @@ static int videoRecorderRetryCount = 0;
 - (void)initVideoInput
 {
     NSError *error;
-    self.videoInput = [ZZDeviceHandler loadAvailableFrontVideoInputWithError:&error];
+    self.videoInput = [ZZDeviceHandlerDeprecated loadAvailableFrontVideoInputWithError:&error];
     if (error)
     {
         ZZLogError(@"VideoRecorder#initVideoInput: Unable to get camera (%@)", error);
@@ -188,7 +183,7 @@ static int videoRecorderRetryCount = 0;
 - (void)addAudioInput
 {   
         NSError *error;
-        self.audioInput = [ZZDeviceHandler loadAudioInputWithError:&error];
+        self.audioInput = [ZZDeviceHandlerDeprecated loadAudioInputWithError:&error];
         if (error)
         {
             ZZLogError(@"VideoRecorder#addAudioInput Unable to get microphone: %@", error);
@@ -246,7 +241,6 @@ static int videoRecorderRetryCount = 0;
 
 - (void)startRecordingWithVideoUrl:(NSURL*)videoUrl
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderShouldStartRecording object:self];
     self.didCancelRecording = NO;
     
     ZZFileTransferMarkerDomainModel* marker = [TBMVideoIdUtils markerModelWithOutgoingVideoURL:videoUrl];
@@ -307,9 +301,6 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
     ZZLogInfo(@"VideoRecorder#didFinishRecordingToOutputFileAtURL %@", error);
     ZZLogInfo(@"VideoRecorder#didFinishRecordingToOutputFileAtURL %@", connections);
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:TBMVideoRecorderDidFinishRecording
-                                                        object:self
-                                                      userInfo:@{@"videoUrl": outputFileURL}];
     
     [self.delegate videoRecorderDidFinishRecordingWithURL:outputFileURL error:error];
 }

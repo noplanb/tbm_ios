@@ -1,0 +1,17 @@
+v2.4.0
+
+Rewrite VideoRecorder Code
+--------------------------
+ - Done:
+   - Use PBJVision cocoapod
+   - Significant refactoring, simplification, hardening, corner case handling.
+
+ - Remaining TODO
+  - Move UI messages out of VideoRecorder
+  - Move 2 finger touch recognizer out of VideoRecorder
+  - Create a GridPresenter+VideoRecorder category
+  - Remove files tagged for removal. Their names contain the word deprecated.
+
+- Testcases https://zazo.testrail.com/index.php?/plans/view/107
+
+
