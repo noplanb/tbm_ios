@@ -20,3 +20,4 @@ hotfix/848-ding-sound-recorded
 ------------------------------
  - Moved sound playing to ZZVideoRecorder
  - Added the appropriate delay there to prevent recording the sound.
+ - Made sure to add delay to stop recording as well.

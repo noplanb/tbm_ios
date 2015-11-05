@@ -21,7 +21,7 @@ NSString* const kZZVideoRecorderDidStartVideoCapture = @"kZZVideoRecorderDidStar
 NSString* const kZZVideoRecorderDidEndVideoCapture = @"kZZVideoRecorderDidEndVideoCapture";
 
 static CGFloat const kZZVideoRecorderDelayBeforeNextMessage = 1.1;
-static CGFloat const kZZVideoRecorderStartDelayAfterDing = 0.4;
+static CGFloat const kZZVideoRecorderStartDelayAfterDing = 0.3;
 static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 
 @interface ZZVideoRecorder () <PBJVisionDelegate>
@@ -89,22 +89,20 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 
 - (void)startRecordingWithVideoURL:(NSURL*)url completionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
-    self.recordStartDate = [NSDate date];
-    self.completionBlock = completionBlock;
-    
     self.didCancelRecording = NO;
     [self _startTouchObserve];
     
     self.recordVideoUrl = url;
-    
+    self.completionBlock = completionBlock;
+
     ANDispatchBlockToMainQueue(^{
         [self.soundPlayer play];
     });
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kZZVideoRecorderStartDelayAfterDing * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.recordStartDate = [NSDate date];
         [self.recorder startVideoCapture];
     });
-
 }
 
 #pragma mark - Stop Recording
@@ -113,12 +111,15 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 {
     self.completionBlock = completionBlock;
     
-    // Ensure a minimum record time because there are delays to get recording started and stopping before
-    // starting can cause problems.
-    NSTimeInterval recordTime = [[NSDate date] timeIntervalSinceDate:self.recordStartDate];
-    NSTimeInterval delayStop = (recordTime < kZZVideoRecorderMinimumRecordTime) ? kZZVideoRecorderMinimumRecordTime - recordTime : 0.0;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayStop * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.recorder endVideoCapture];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kZZVideoRecorderStartDelayAfterDing * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        // Ensure a minimum record time because there are delays to get recording started and stopping before
+        // starting can cause problems.
+        NSTimeInterval recordTime = [[NSDate date] timeIntervalSinceDate:self.recordStartDate];
+        NSTimeInterval delayStop = (recordTime < kZZVideoRecorderMinimumRecordTime) ? kZZVideoRecorderMinimumRecordTime - recordTime : 0.0;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayStop * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.recorder endVideoCapture];
+        });
     });
 }
 
