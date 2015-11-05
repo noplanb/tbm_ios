@@ -12,6 +12,8 @@
 "common.error" = "Error";
 "common.ok" = "OK";
 
+
+
 // Menu module
 
 "menu.all-contacts.section.header.title.text" = "All Contacts";
@@ -171,4 +173,10 @@
 
 "video-player-not-playable" = "Video is not playable";
 "video-playing-disabled-reason-downloading" = "downloading...";
+
+//Internet connection error
+
+"internet-connection-error-title" = "Bad Connection";
+"internet-connection-error-message" = "Trouble downloading. \n Check your connection";
+"internet-connection-error-button-title" = "Try again";
 

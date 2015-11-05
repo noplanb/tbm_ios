@@ -235,8 +235,6 @@
 
 - (void)_updateViewedVideoCounterWithVideoDomainModel:(ZZVideoDomainModel*)playedVideoModel
 {
-    
-    
     TBMVideo* viewedVideo = [ZZVideoDataProvider findWithVideoId:playedVideoModel.videoID];
     if (!ANIsEmpty(viewedVideo))
     {
@@ -251,6 +249,9 @@
             {
                 playedVideoModel.relatedUser.unviewedCount = 0;
             }
+            
+//            [viewedVideo.managedObjectContext refreshAllObjects];
+            
             [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
         }
     }
@@ -337,8 +338,7 @@
             self.moviePlayerController.contentURL = nextUrl;
             
             TBMFriend* friend = [ZZFriendDataProvider entityFromModel:playedVideoModel.relatedUser];
-//            [friend setViewedWithIncomingVideo:viewedVideo];
-            //        [self.playedVideoUrls removeObject:nextUrl];
+
             [[ZZVideoStatusHandler sharedInstance] setAndNotityViewedIncomingVideoWithFriend:friend video:viewedVideo];
             
             [ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoId
@@ -351,6 +351,7 @@
             self.isPlayingVideo = YES;
             [UIDevice currentDevice].proximityMonitoringEnabled = [ZZGridActionStoredSettings shared].earpieceHintWasShown;
             
+            [self _updateFriendVideoStatusWithFriend:friend video:viewedVideo videoIndex:index];
             
             [self.moviePlayerController play];
         }
@@ -358,6 +359,22 @@
         {
             [self _playNextOrStop];
         }
+    }
+}
+
+
+//TODO: temprorary
+- (void)_updateFriendVideoStatusWithFriend:(TBMFriend*)friend
+                                    video:(TBMVideo*)video
+                               videoIndex:(NSInteger)index
+{
+    NSInteger arrayBoundsIndex = 1;
+    
+    if (index == (self.playedVideoUrls.count - arrayBoundsIndex) &&
+        friend.lastIncomingVideoStatusValue != video.statusValue)
+    {
+        friend.lastIncomingVideoStatusValue = video.statusValue;
+        [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
     }
 }
 

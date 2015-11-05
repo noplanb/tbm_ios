@@ -15,5 +15,10 @@
 + (void)showNoValidPhonesDialogForUserWithFirstName:(NSString*)firstName fullName:(NSString*)fullName;
 + (void)showPreNudgeAlertWithFriendFirstName:(NSString*)firstName completion:(ANCodeBlock)completion;
 + (void)showHintalertWithMessage:(NSString*)message;
++ (void)showAlertWithTitle:(NSString*)title
+                   message:(NSString*)message
+         cancelButtonTitle:(NSString*)cancelButtonTitle
+        actionButtonTitlte:(NSString*)actionButtonTitle
+                    action:(ANCodeBlock)completion;
 
 @end

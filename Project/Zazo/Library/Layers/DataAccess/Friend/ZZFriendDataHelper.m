@@ -13,15 +13,17 @@
 #import "ZZVideoDataUpdater.h"
 #import "ZZContentDataAcessor.h"
 #import "ZZVideoStatuses.h"
+#import "ZZFriendDataProvider.h"
 
 @implementation ZZFriendDataHelper
 
-+ (BOOL)isUniqueFirstName:(NSString*)firstName
++ (BOOL)isUniqueFirstName:(NSString*)firstName friendID:(NSString*)friendID
 {
     NSArray* friends = [TBMFriend MR_findAll];
+    TBMFriend* friendEnitity = [ZZFriendDataProvider friendEntityWithItemID:friendID];
     for (TBMFriend *f in friends)
     {
-        if (![self isEqual:f] && [firstName isEqualToString:f.firstName])
+        if (![friendEnitity isEqual:f] && [firstName isEqualToString:f.firstName])
             return NO;
     }
     return YES;

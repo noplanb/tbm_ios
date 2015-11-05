@@ -55,14 +55,25 @@
     ZZFriendDomainModel* friendModel = self.item.relatedUser;
     TBMFriend* friendEntity = [ZZFriendDataProvider entityFromModel:friendModel];
     
-    if ([ZZStoredSettingsManager shared].debugModeEnabled)
+    NSString* videoStatusString = nil;
+    
+    if ([self.delegate isNetworkEnabled])
     {
-        return ZZVideoStatusStringWithFriend(friendEntity);
+        if ([ZZStoredSettingsManager shared].debugModeEnabled)
+        {
+            videoStatusString = ZZVideoStatusStringWithFriend(friendEntity);
+        }
+        else
+        {
+            videoStatusString = [friendModel displayName];
+        }
     }
     else
     {
-        return [friendModel displayName];
+        videoStatusString = ZZVideoStatusStringWithFriend(friendEntity);
     }
+    
+    return videoStatusString;
 }
 
 - (void)itemSelected
@@ -155,7 +166,8 @@
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateNeedToShowGreenBorder);
     }
-    else if (self.badgeNumber == 0 && self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
+    else if (self.badgeNumber == 0 &&
+             self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoFirstVideoDownloading);
     }
@@ -363,16 +375,7 @@
 
 - (BOOL)isEnablePlayingVideo
 {
-    BOOL isEnbaled = YES;
-    
-    if ((self.item.relatedUser.unviewedCount == 1) &&
-        self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
-    {
-        isEnbaled = NO;
-        [self _showMessage:NSLocalizedString(@"video-playing-disabled-reason-downloading", nil)];
-    }
-    
-    return isEnbaled;
+    return [self.delegate isGridCellEnablePlayingVideo:self];
 }
 
 - (BOOL)isVideoPlayed
