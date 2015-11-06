@@ -26,6 +26,7 @@
 
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
 @property (nonatomic, strong) UILongPressGestureRecognizer* recordRecognizer;
+@property (nonatomic, strong) UITapGestureRecognizer* tapRecognizer;
 @property (nonatomic, assign) CGPoint initialRecordPoint;
 
 @end
@@ -251,6 +252,7 @@
     self.animationDelegate = animationDelegate;
     [self _removeLongPressRecognizerFromView:view];
     [view addGestureRecognizer:self.recordRecognizer];
+    [view addGestureRecognizer:self.tapRecognizer];
 }
 
 - (void)_removeLongPressRecognizerFromView:(UIView*)view
@@ -274,13 +276,27 @@
     return _recordRecognizer;
 }
 
-
+- (UITapGestureRecognizer *)tapRecognizer
+{
+    if (!_tapRecognizer)
+    {
+        _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_showRecorderHing)];
+        
+    }
+    
+    return _tapRecognizer;
+}
 
 #pragma mark - Private
 
 
 
 #pragma mark  - Recording recognizer handle
+
+- (void)_showRecorderHing
+{
+    [self.delegate showRecorderHint];
+}
 
 - (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer
 {

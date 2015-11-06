@@ -342,6 +342,11 @@
 
 #pragma mark - DataSource Delegate
 
+- (void)showRecorderHint
+{
+    [ZZGridAlertBuilder showOneTouchRecordViewHint];
+}
+
 - (BOOL)isGridRotate
 {
     return [self.userInterface isGridRotating];
