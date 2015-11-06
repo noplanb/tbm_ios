@@ -24,7 +24,7 @@
 + (instancetype)videoPlayerWithDelegate:(id<ZZVideoPlayerDelegate>)delegate;
 - (ZZFriendDomainModel*)playedFriendModel;
 - (void)updateWithFriendModel:(ZZFriendDomainModel*)friendModel;
-- (void)playOnView:(UIView*)view withURLs:(NSArray*)URLs;
+- (void)playOnView:(UIView*)view withVideoModels:(NSArray*)videoModels;
 - (void)stop;
 
 - (void)toggle;

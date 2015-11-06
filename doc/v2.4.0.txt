@@ -15,3 +15,9 @@ Rewrite VideoRecorder Code
 - Testcases https://zazo.testrail.com/index.php?/plans/view/107
 
 
+
+hotfix/848-ding-sound-recorded
+------------------------------
+ - Moved sound playing to ZZVideoRecorder
+ - Added the appropriate delay there to prevent recording the sound.
+ - Made sure to add delay to stop recording as well.
