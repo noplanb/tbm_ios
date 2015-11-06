@@ -21,3 +21,10 @@ hotfix/848-ding-sound-recorded
  - Moved sound playing to ZZVideoRecorder
  - Added the appropriate delay there to prevent recording the sound.
  - Made sure to add delay to stop recording as well.
+
+
+feature/auto-notification
+-------------------------
+ x Send the appropriate metadata in params
+ - Have S3 put all params in header
+ -

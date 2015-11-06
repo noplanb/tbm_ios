@@ -227,10 +227,14 @@
     NSString *remoteFilename = [ZZRemoteStorageValueGenerator outgoingVideoRemoteFilenameWithFriendMkey:friend.mkey
                                                                                              friendCKey:friendCKey
                                                                                                 videoId:markerModel.videoID];
+    NSDictionary *params = [self fileTransferParams:remoteFilename
+                                         friendMkey:friend.mkey
+                                            videoId:markerModel.videoID];
+    
     [[self fileTransferManager] uploadFile:videoUrl.path
                                         to:remoteStorageFileTransferUploadPath()
                                 withMarker:marker
-                                withParams:[self fileTransferParams:remoteFilename]];
+                                withParams: params];
     
     // fileTransferManager should create a copy of ougtoing file synchronously
     // prior to returning from the above call so should be safe to delete video file here.
@@ -277,26 +281,26 @@
             
             [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusUploaded withFriend:friend videoId:videoId];
             
-            [[ZZRemoteStoageTransportService addRemoteOutgoingVideoWithItemID:videoId
-                                                                   friendMkey:friend.mkey
-                                                                   friendCKey:friend.ckey] subscribeNext:^(id x) {}];
+//            [[ZZRemoteStoageTransportService addRemoteOutgoingVideoWithItemID:videoId
+//                                                                   friendMkey:friend.mkey
+//                                                                   friendCKey:friend.ckey] subscribeNext:^(id x) {}];
             
             NSString* myMkey = [ZZStoredSettingsManager shared].userID;
             
             [[ZZRemoteStoageTransportService updateRemoteEverSentKVForFriendMkeys:[ZZFriendDataHelper everSentMkeys]
                                                                       forUserMkey:myMkey] subscribeNext:^(id x) {}];
             
-            [self.delegate sendNotificationForVideoReceived:friend videoId:videoId];
+//            [self.delegate sendNotificationForVideoReceived:friend videoId:videoId];
         }
         else
         {
-            ZZLogError(@"uploadCompletedWithVideoId: upload error. FailedPermanently");
+            ZZLogError(@"Upload error. FailedPermanently");
             [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusFailedPermanently withFriend:friend videoId:videoId];
         }
     }
     else
     {
-        ZZLogError(@"uploadCompletedWithFriend - Could not find friend with marker.");
+        ZZLogError(@"Could not find friend with marker.");
     }
 }
 
@@ -552,11 +556,39 @@
     }
 }
 
+#pragma mark - File Transfer Params
+
 - (NSDictionary*)fileTransferParams:(NSString *)remoteFilename
 {
-    return @{@"filename"         : remoteFilename,
-             FilenameParamKey    : remoteFilename,
-             ContentTypeParamKey : @"video/mp4"};
+    return @{@"filename"                   : remoteFilename,
+             FilenameParamKey              : remoteFilename,
+             ContentTypeParamKey           : @"video/mp4",
+             };
+}
+
+
+- (NSDictionary*)fileTransferParams:(NSString *)remoteFilename
+                         friendMkey:(NSString *)friendMkey
+                            videoId:(NSString *)videoId
+{
+    NSMutableDictionary *common = [NSMutableDictionary dictionaryWithDictionary:[self fileTransferParams:remoteFilename]];
+    
+    [common addEntriesFromDictionary:
+           @{
+//             @"x-amz-meta-video-id"        : [NSString stringWithFormat:@"\"%@\"", videoId],
+//             @"x-amz-meta-sender-mkey"     : [ZZStoredSettingsManager shared].userID,
+//             @"x-amz-meta-receiver-mkey"   : friendMkey,
+//             @"x-amz-meta-client-version"  : kGlobalApplicationVersion,
+//             @"x-amz-meta-client-platform" : @"ios",
+              @"video-id"        : videoId,
+              @"sender-mkey"     : [ZZStoredSettingsManager shared].userID,
+              @"receiver-mkey"   : friendMkey,
+              @"client-version"  : kGlobalApplicationVersion,
+              @"client-platform" : @"ios",
+              @"x-amz-meta"  : @"bar",
+
+             }];
+    return [NSDictionary dictionaryWithDictionary:common];
 }
 
 

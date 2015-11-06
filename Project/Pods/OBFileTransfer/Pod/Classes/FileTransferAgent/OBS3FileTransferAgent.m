@@ -109,7 +109,11 @@ NSString * const OBS3NoTvmSecurityTokenParam = @"S3NoTvmSecurityTokenParam";
     // We have to copy over because request is actually a sublass of NSMutableREquest and can cause problems
     NSMutableURLRequest* request2 = [[NSMutableURLRequest alloc]initWithURL:request.URL];
     [request2 setHTTPMethod:request.HTTPMethod];
-    [request2 setAllHTTPHeaderFields:[request allHTTPHeaderFields]];
+    
+    NSDictionary *headerFields = [self headerFieldsWithHeaderFields:[request allHTTPHeaderFields]
+                                                     andAwsMetaData:params];
+    
+    [request2 setAllHTTPHeaderFields:[NSDictionary dictionaryWithDictionary:headerFields]];
     
     return request2;
 }
@@ -192,6 +196,24 @@ NSString * const OBS3NoTvmSecurityTokenParam = @"S3NoTvmSecurityTokenParam";
         awsRegion = US_EAST_1;
     }
     return awsRegion;
+}
+
+-(NSDictionary *)headerFieldsWithHeaderFields:(NSDictionary *)headerFields
+                               andAwsMetaData:(NSDictionary *)params
+{
+    NSMutableDictionary *awsMetaData = [NSMutableDictionary dictionaryWithDictionary:headerFields];
+    for (NSString *key in [params keyEnumerator])
+    {
+        if ([key containsString:@"x-amz-meta"])
+        {
+            [awsMetaData setObject:params[key] forKey:key];
+        }
+    }
+    
+    NSMutableDictionary *allData = [NSMutableDictionary dictionaryWithDictionary:headerFields];
+    [allData addEntriesFromDictionary:params];
+    return [NSDictionary dictionaryWithDictionary:allData];
+    
 }
 
 @end
