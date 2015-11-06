@@ -24,8 +24,6 @@
 - (void)addVideoStatusHandlerObserver:(id <ZZVideoStatusHandlerDelegate>)observer;
 - (void)removeVideoStatusHandlerObserver:(id <ZZVideoStatusHandlerDelegate>)observer;
 
-- (void)deleteViewedVideoIfNeededWithFriendId:(NSString*)friendId;
-
 - (void)deleteAllViewedOrFailedVideoWithFriendId:(NSString*)friendId;
 
 - (void)notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)status

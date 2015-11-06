@@ -88,26 +88,24 @@
     return (self.moviePlayerController.playbackState == MPMoviePlaybackStatePlaying);
 }
 
-//- (ZZVideoDomainModel*)_actualVideoDomainModelWithSortedModels:(NSArray*)models
-//{
-//    ZZVideoDomainModel* actualVideoModel = [models firstObject];
-//    
-//    TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:actualVideoModel.relatedUser.idTbm];
-//    TBMVideo* video = [ZZVideoDataProvider findWithVideoId:friendEntity.videoID];
-//    
-//    NSInteger twoNotViewedVideosCount = 2;
-//    
-//    if ((friendEntity.lastIncomingVideoStatusValue == ZZVideoIncomingStatusDownloading) &&
-//        ([ZZFriendDataHelper unviewedVideoCountWithFriend:friendEntity] == twoNotViewedVideosCount) &&
-//        
-//        )
-//    {
-//       
-//    
-//    }
-//    
-//    return actualVideoModel;
-//}
+- (ZZVideoDomainModel*)_actualVideoDomainModelWithSortedModels:(NSArray*)models
+{
+    ZZVideoDomainModel* actualVideoModel = [models firstObject];
+    
+    TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:actualVideoModel.relatedUser.idTbm];
+    TBMVideo* video = [ZZVideoDataProvider findWithVideoId:actualVideoModel.videoID];
+    NSInteger twoNotViewedVideosCount = 2;
+    NSInteger nextVideoIndex = 1;
+    
+    if ((friendEntity.lastIncomingVideoStatusValue == ZZVideoIncomingStatusDownloading) &&
+        ([ZZFriendDataHelper unviewedVideoCountWithFriend:friendEntity] == twoNotViewedVideosCount) &&
+        video.statusValue == ZZVideoIncomingStatusViewed)
+    {
+        actualVideoModel = models[nextVideoIndex];
+    }
+    
+    return actualVideoModel;
+}
 
 - (void)playOnView:(UIView*)view withVideoModels:(NSArray*)videoModels
 {
@@ -126,7 +124,10 @@
     }
     if (!ANIsEmpty(videoModels))//&& ![self.currentPlayQueue isEqualToArray:URLs]) //TODO: if current playback state is equal to user's play list
     {
-        ZZVideoDomainModel* playedVideoModel = [self.videoModelsArray firstObject];
+//        ZZVideoDomainModel* playedVideoModel = [self.videoModelsArray firstObject];
+        ZZVideoDomainModel* playedVideoModel = [self _actualVideoDomainModelWithSortedModels:self.videoModelsArray];
+        
+        
         self.playedFriend = playedVideoModel.relatedUser;
         self.currentPlayedUrl = playedVideoModel.videoURL;
         

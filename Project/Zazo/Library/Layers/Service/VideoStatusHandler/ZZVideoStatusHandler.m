@@ -105,33 +105,6 @@
     [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
 }
 
-- (void)deleteViewedVideoIfNeededWithFriendId:(NSString *)friendId
-{
-    NSInteger abbleToDeleteNumber = 2;
-    TBMFriend* friendModel = [ZZFriendDataProvider friendEntityWithItemID:friendId];
-    
-    if (friendModel.videos.count >= abbleToDeleteNumber)
-    {
-        NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"videoId" ascending:YES];
-        NSArray* sortedVidoes = [friendModel.videos sortedArrayUsingDescriptors:@[d]];
-        
-        __block TBMVideo* firstViewedVideo = nil;
-        
-        [sortedVidoes enumerateObjectsUsingBlock:^(TBMVideo*  _Nonnull video, NSUInteger idx, BOOL * _Nonnull stop) {
-           if (video.statusValue == ZZVideoIncomingStatusViewed)
-           {
-               firstViewedVideo = video;
-               *stop = YES;
-           }
-        }];
-        
-        if (firstViewedVideo)
-        {
-            [self deleteVideo:firstViewedVideo withFriend:friendModel];
-        }
-    }
-}
-
 
 #pragma mark - Notification part
 

@@ -203,10 +203,6 @@
     [[ZZVideoStatusHandler sharedInstance] setAndNotifyDownloadRetryCount:retryCount withFriend:friendModel video:video];
 }
 
-- (void)deleteViewedVideoIfNeededWithFriendId:(NSString *)friendId
-{
-    [[ZZVideoStatusHandler sharedInstance] deleteViewedVideoIfNeededWithFriendId:friendId];
-}
 
 #pragma mark - Notification Delegate
 
