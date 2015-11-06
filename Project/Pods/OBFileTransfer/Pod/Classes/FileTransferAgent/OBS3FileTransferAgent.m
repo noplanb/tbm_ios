@@ -100,20 +100,18 @@ NSString * const OBS3NoTvmSecurityTokenParam = @"S3NoTvmSecurityTokenParam";
     putRequest.securityToken = [AmazonClientManager securityToken];
     putRequest.contentType = params[ContentTypeParamKey] ? params[ContentTypeParamKey] : [self mimeTypeFromFilename:filePath];
     
+    [self addMetadataToS3PutObjectRequest:putRequest params:params];
+    
     // NOTE - as of ios 8 it seems that I have to supply the content length or else it remains at 0 and nothing is sent
     NSError *error;
     putRequest.contentLength = [[[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error] fileSize];
     
     NSMutableURLRequest *request = [[AmazonClientManager s3] signS3Request:putRequest];
     
-    // We have to copy over because request is actually a sublass of NSMutableREquest and can cause problems
+    // We have to copy over because request is actually a sublass of NSMutableRequest and can cause problems
     NSMutableURLRequest* request2 = [[NSMutableURLRequest alloc]initWithURL:request.URL];
     [request2 setHTTPMethod:request.HTTPMethod];
-    
-    NSDictionary *headerFields = [self headerFieldsWithHeaderFields:[request allHTTPHeaderFields]
-                                                     andAwsMetaData:params];
-    
-    [request2 setAllHTTPHeaderFields:[NSDictionary dictionaryWithDictionary:headerFields]];
+    [request2 setAllHTTPHeaderFields:[request allHTTPHeaderFields]];
     
     return request2;
 }
@@ -198,22 +196,12 @@ NSString * const OBS3NoTvmSecurityTokenParam = @"S3NoTvmSecurityTokenParam";
     return awsRegion;
 }
 
--(NSDictionary *)headerFieldsWithHeaderFields:(NSDictionary *)headerFields
-                               andAwsMetaData:(NSDictionary *)params
-{
-    NSMutableDictionary *awsMetaData = [NSMutableDictionary dictionaryWithDictionary:headerFields];
-    for (NSString *key in [params keyEnumerator])
+- (void)addMetadataToS3PutObjectRequest:(S3PutObjectRequest*)request params:(NSDictionary*)params{
+    NSDictionary *metadataDictionary = params[kOBFileTransferMetadataKey];
+    for (NSString *key in metadataDictionary)
     {
-        if ([key containsString:@"x-amz-meta"])
-        {
-            [awsMetaData setObject:params[key] forKey:key];
-        }
+        [request addMetadataWithValue:metadataDictionary[key] forKey:key];
     }
-    
-    NSMutableDictionary *allData = [NSMutableDictionary dictionaryWithDictionary:headerFields];
-    [allData addEntriesFromDictionary:params];
-    return [NSDictionary dictionaryWithDictionary:allData];
-    
 }
 
 @end

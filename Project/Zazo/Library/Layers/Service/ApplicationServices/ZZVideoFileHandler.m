@@ -227,7 +227,7 @@
     NSString *remoteFilename = [ZZRemoteStorageValueGenerator outgoingVideoRemoteFilenameWithFriendMkey:friend.mkey
                                                                                              friendCKey:friendCKey
                                                                                                 videoId:markerModel.videoID];
-    NSDictionary *params = [self fileTransferParams:remoteFilename
+    NSDictionary *params = [self fileTransferParamsIncludingMetadataWithFilename:remoteFilename
                                          friendMkey:friend.mkey
                                             videoId:markerModel.videoID];
     
@@ -544,7 +544,7 @@
                     [[self fileTransferManager] downloadFile:remoteStorageFileTransferDownloadPath()
                                                           to:[ZZVideoDataProvider videoUrlWithVideo:video].path
                                                   withMarker:marker
-                                                  withParams:[self fileTransferParams:remoteFilename]];
+                                                  withParams:[self fileTransferParamsWithFilename:remoteFilename]];
                 }
                 else
                 {
@@ -558,7 +558,7 @@
 
 #pragma mark - File Transfer Params
 
-- (NSDictionary*)fileTransferParams:(NSString *)remoteFilename
+- (NSDictionary*)fileTransferParamsWithFilename:(NSString *)remoteFilename
 {
     return @{@"filename"                   : remoteFilename,
              FilenameParamKey              : remoteFilename,
@@ -567,27 +567,21 @@
 }
 
 
-- (NSDictionary*)fileTransferParams:(NSString *)remoteFilename
+- (NSDictionary*)fileTransferParamsIncludingMetadataWithFilename:(NSString *)remoteFilename
                          friendMkey:(NSString *)friendMkey
                             videoId:(NSString *)videoId
 {
-    NSMutableDictionary *common = [NSMutableDictionary dictionaryWithDictionary:[self fileTransferParams:remoteFilename]];
+    NSMutableDictionary *common = [NSMutableDictionary dictionaryWithDictionary:[self fileTransferParamsWithFilename:remoteFilename]];
     
-    [common addEntriesFromDictionary:
-           @{
-//             @"x-amz-meta-video-id"        : [NSString stringWithFormat:@"\"%@\"", videoId],
-//             @"x-amz-meta-sender-mkey"     : [ZZStoredSettingsManager shared].userID,
-//             @"x-amz-meta-receiver-mkey"   : friendMkey,
-//             @"x-amz-meta-client-version"  : kGlobalApplicationVersion,
-//             @"x-amz-meta-client-platform" : @"ios",
-              @"video-id"        : videoId,
-              @"sender-mkey"     : [ZZStoredSettingsManager shared].userID,
-              @"receiver-mkey"   : friendMkey,
-              @"client-version"  : kGlobalApplicationVersion,
-              @"client-platform" : @"ios",
-              @"x-amz-meta"  : @"bar",
-
-             }];
+    NSDictionary *metadata = @{
+                               @"video-id"        : videoId,
+                               @"sender-mkey"     : [ZZStoredSettingsManager shared].userID,
+                               @"receiver-mkey"   : friendMkey,
+                               @"client-version"  : kGlobalApplicationVersion,
+                               @"client-platform" : @"ios",
+                               };
+    
+    common[kOBFileTransferMetadataKey] = metadata;
     return [NSDictionary dictionaryWithDictionary:common];
 }
 
