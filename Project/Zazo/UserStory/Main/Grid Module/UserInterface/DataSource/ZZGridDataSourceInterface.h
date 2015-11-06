@@ -32,4 +32,7 @@
 - (void)addUser;
 - (BOOL)isGridRotate;
 
+- (BOOL)isVideoPlayingEnabledWithModel:(ZZGridCellViewModel*)model;
+- (BOOL)isNetworkEnabled;
+
 @end

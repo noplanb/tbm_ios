@@ -33,6 +33,8 @@
 - (void)friendWasUpdatedFromEditContacts:(ZZFriendDomainModel*)model toVisible:(BOOL)isVisible;
 - (void)reloadDataAfterResetUserData;
 
+- (void)updateGridWithModel:(ZZGridDomainModel*)model;
+
 @end
 
 

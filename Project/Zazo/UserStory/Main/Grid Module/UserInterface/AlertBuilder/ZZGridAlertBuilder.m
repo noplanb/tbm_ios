@@ -72,6 +72,18 @@
     [ZZAlertBuilder presentAlertWithTitle:@"Hint" details:message cancelButtonTitle:@"OK"];
 }
 
++ (void)showAlertWithTitle:(NSString*)title
+                   message:(NSString*)message
+         cancelButtonTitle:(NSString*)cancelButtonTitle
+        actionButtonTitlte:(NSString*)actionButtonTitle
+                    action:(ANCodeBlock)completion
+{
+      [ZZAlertBuilder presentAlertWithTitle:title
+                                    details:message
+                          cancelButtonTitle:cancelButtonTitle
+                          actionButtonTitle:actionButtonTitle
+                                     action:completion];
+}
 
 #pragma mark - Private
 

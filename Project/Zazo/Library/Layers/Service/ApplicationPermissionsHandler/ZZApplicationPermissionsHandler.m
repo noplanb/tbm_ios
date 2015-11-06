@@ -56,6 +56,13 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
         
     }] doError:^(NSError *error) {
         
+//        [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+//            [self an]
+//            
+//        }];
+//        
+//        return error;
+        
         [self _handlePermissionError:error];
     }];
 }

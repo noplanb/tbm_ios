@@ -11,7 +11,7 @@
 
 @interface ZZFriendDataHelper : NSObject
 
-+ (BOOL)isUniqueFirstName:(NSString*)firstName;
++ (BOOL)isUniqueFirstName:(NSString*)firstName friendID:(NSString*)friendID;
 
 
 #pragma mark - Friend video helpers

@@ -15,12 +15,14 @@
 
 - (void)_handleModel:(ZZGridDomainModel*)model
 {
-    
         if (model.relatedUser.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
             model.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded &&
             [self.output friendsNumberOnGrid] == 1)
         {
-            [self.output handleModel:model withEvent:ZZGridActionEventTypeBecomeMessage];
+            CGFloat downloadAnimationDuration = 1.6;
+            ANDispatchBlockAfter(downloadAnimationDuration, ^{
+                [self.output handleModel:model withEvent:ZZGridActionEventTypeBecomeMessage];
+            });
         }
         else if (model.relatedUser.outgoingVideoStatusValue == ZZVideoOutgoingStatusViewed)
         {

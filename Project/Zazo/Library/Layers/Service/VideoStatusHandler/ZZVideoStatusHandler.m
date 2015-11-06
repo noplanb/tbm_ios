@@ -75,6 +75,9 @@
     [self _notifyObserversVideoStatusChangeForFriend:friend];
 }
 
+
+#pragma mark - Delete Video Methods
+
 - (void)deleteAllViewedOrFailedVideoWithFriendId:(NSString*)friendId
 {
     ZZLogInfo(@"deleteAllViewedVideos");
@@ -101,6 +104,36 @@
     [ZZVideoDataUpdater destroy:video];
     [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
 }
+
+- (void)deleteViewedVideoIfNeededWithFriendId:(NSString *)friendId
+{
+    NSInteger abbleToDeleteNumber = 2;
+    TBMFriend* friendModel = [ZZFriendDataProvider friendEntityWithItemID:friendId];
+    
+    if (friendModel.videos.count >= abbleToDeleteNumber)
+    {
+        NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"videoId" ascending:YES];
+        NSArray* sortedVidoes = [friendModel.videos sortedArrayUsingDescriptors:@[d]];
+        
+        __block TBMVideo* firstViewedVideo = nil;
+        
+        [sortedVidoes enumerateObjectsUsingBlock:^(TBMVideo*  _Nonnull video, NSUInteger idx, BOOL * _Nonnull stop) {
+           if (video.statusValue == ZZVideoIncomingStatusViewed)
+           {
+               firstViewedVideo = video;
+               *stop = YES;
+           }
+        }];
+        
+        if (firstViewedVideo)
+        {
+            [self deleteVideo:firstViewedVideo withFriend:friendModel];
+        }
+    }
+}
+
+
+#pragma mark - Notification part
 
 - (void)setAndNotifyUploadRetryCount:(NSInteger)retryCount
                           withFriend:(TBMFriend*)friend
@@ -194,17 +227,16 @@
 {
     
     ANDispatchBlockToMainQueue(^{
-        
+    
         TBMVideo* video = [ZZVideoDataProvider entityWithID:videoId];
+        TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendId];
         
         if (video.statusValue != videoStatus)
         {
             video.statusValue = videoStatus;
             [video.managedObjectContext MR_saveToPersistentStoreAndWait];
             
-            TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendId];
             friend.lastIncomingVideoStatusValue = videoStatus;
-            
             // Serhii says: We want to preserve previous status if last event type is incoming and status is VIEWED
             // Sani complicates it by saying: This is a bit subtle. We don't want an action by this user of
             // viewing his incoming video to count
