@@ -12,6 +12,7 @@
 #import "iToast.h"
 #import "NSError+ZZAdditions.h"
 #import "TBMAlertController.h"
+#import "ZZSoundEffectPlayer.h"
 
 NSString* const kVideoProcessorDidFinishProcessing = @"kZZVideoProcessorDidFinishProcessing";
 NSString* const kVideoProcessorDidFail = @"kZZVideoProcessorDidFailProcessing";
@@ -19,7 +20,9 @@ NSString* const kVideoProcessorDidFail = @"kZZVideoProcessorDidFailProcessing";
 NSString* const kZZVideoRecorderDidStartVideoCapture = @"kZZVideoRecorderDidStartVideoCapture";
 NSString* const kZZVideoRecorderDidEndVideoCapture = @"kZZVideoRecorderDidEndVideoCapture";
 
-static CGFloat const kDelayBeforeNextMessage = 1.1;
+static CGFloat const kZZVideoRecorderDelayBeforeNextMessage = 1.1;
+static CGFloat const kZZVideoRecorderStartDelayAfterDing = 0.3;
+static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 
 @interface ZZVideoRecorder () <PBJVisionDelegate>
 
@@ -29,7 +32,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 @property (nonatomic, strong) NSDate* recordStartDate;
 @property (nonatomic, copy) void (^completionBlock)(BOOL isRecordingSuccess);
 @property (nonatomic, assign) BOOL didCancelRecording;
-
+@property (nonatomic, strong) ZZSoundEffectPlayer *soundPlayer;
 @end
 
 
@@ -86,14 +89,20 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 
 - (void)startRecordingWithVideoURL:(NSURL*)url completionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
-    self.recordStartDate = [NSDate date];
-    self.completionBlock = completionBlock;
-    
     self.didCancelRecording = NO;
     [self _startTouchObserve];
     
     self.recordVideoUrl = url;
-    [self.recorder startVideoCapture];
+    self.completionBlock = completionBlock;
+
+    ANDispatchBlockToMainQueue(^{
+        [self.soundPlayer play];
+    });
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kZZVideoRecorderStartDelayAfterDing * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.recordStartDate = [NSDate date];
+        [self.recorder startVideoCapture];
+    });
 }
 
 #pragma mark - Stop Recording
@@ -102,13 +111,15 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 {
     self.completionBlock = completionBlock;
     
-    // Ensure a minimum record time because there are delays to get recording started and stopping before
-    // starting can cause problems.
-    NSTimeInterval kMinimumRecordTime = 0.4;
-    NSTimeInterval recordTime = [[NSDate date] timeIntervalSinceDate:self.recordStartDate];
-    NSTimeInterval delayStop = (recordTime < kMinimumRecordTime) ? kMinimumRecordTime - recordTime : 0.0;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayStop * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.recorder endVideoCapture];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kZZVideoRecorderStartDelayAfterDing * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        // Ensure a minimum record time because there are delays to get recording started and stopping before
+        // starting can cause problems.
+        NSTimeInterval recordTime = [[NSDate date] timeIntervalSinceDate:self.recordStartDate];
+        NSTimeInterval delayStop = (recordTime < kZZVideoRecorderMinimumRecordTime) ? kZZVideoRecorderMinimumRecordTime - recordTime : 0.0;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayStop * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.recorder endVideoCapture];
+        });
     });
 }
 
@@ -175,7 +186,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 - (void)_cancelRecordingWithDoubleTap
 {
     [self cancelRecordingWithReason:NSLocalizedString(@"record-two-fingers-touch", nil)];
-    ANDispatchBlockAfter(kDelayBeforeNextMessage, ^{
+    ANDispatchBlockAfter(kZZVideoRecorderDelayBeforeNextMessage, ^{
         [self _showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
     });
 }
@@ -226,7 +237,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 - (void)showVideoToShortToast
 {
     [self _showMessage:NSLocalizedString(@"record-video-too-short", nil)];
-    ANDispatchBlockAfter(kDelayBeforeNextMessage, ^{
+    ANDispatchBlockAfter(kZZVideoRecorderDelayBeforeNextMessage, ^{
         [self _showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
     });
 }
@@ -235,7 +246,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     if (!ANIsEmpty(reason))
     {
         [self _showMessage:reason];
-        ANDispatchBlockAfter(kDelayBeforeNextMessage, ^{
+        ANDispatchBlockAfter(kZZVideoRecorderDelayBeforeNextMessage, ^{
             [self _showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
         });
     }
@@ -252,6 +263,16 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
                                                  [self.recorder startPreview];
                                              }]];
     [alert presentWithCompletion:nil];
+}
+
+#pragma mark - Sound effects
+- (ZZSoundEffectPlayer*)soundPlayer
+{
+    if (!_soundPlayer)
+    {
+        _soundPlayer = [[ZZSoundEffectPlayer alloc] initWithSoundNamed:kMessageSoundEffectFileName];
+    }
+    return _soundPlayer;
 }
 
 #pragma mark - PBJVisionDelegate
@@ -344,6 +365,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
     [[NSNotificationCenter defaultCenter] postNotificationName:kZZVideoRecorderDidEndVideoCapture
                                                         object:self
                                                       userInfo:@{@"videoUrl": self.recordVideoUrl}];
+    [self.soundPlayer play];
 }
 
 - (void)vision:(PBJVision *)vision capturedVideo:(NSDictionary *)videoDict error:(NSError *)error{

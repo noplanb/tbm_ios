@@ -477,19 +477,16 @@
                 [self.videoPlayer stop];
             }
             
-            [self.soundPlayer play];
             ANDispatchBlockToMainQueue(^{
-                    [self.videoPlayer stop];
-                    NSURL* url = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriendID:viewModel.item.relatedUser.idTbm];
-                    [self.userInterface updateRecordViewStateTo:isEnabled];
+                [self.videoPlayer stop];
+                NSURL* url = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriendID:viewModel.item.relatedUser.idTbm];
+                [self.userInterface updateRecordViewStateTo:isEnabled];
+                
+                [[ZZVideoRecorder shared] startRecordingWithVideoURL:url completionBlock:^(BOOL isRecordingSuccess) {
+                    [self.userInterface updateRecordViewStateTo:NO];
                     
-                    [[ZZVideoRecorder shared] startRecordingWithVideoURL:url completionBlock:^(BOOL isRecordingSuccess) {
-                        [self.userInterface updateRecordViewStateTo:NO];
-                        [self.soundPlayer play];
-                        
-                        completionBlock(isRecordingSuccess);
-                    }];
-
+                    completionBlock(isRecordingSuccess);
+                }];
             });
         }
         else
@@ -497,7 +494,7 @@
             ANDispatchBlockToMainQueue(^{
                 [[ZZVideoRecorder shared] stopRecordingWithCompletionBlock:^(BOOL isRecordingSuccess) {
                     [self.userInterface updateRecordViewStateTo:isEnabled];
-                    [self.soundPlayer play];
+//                    [self.soundPlayer play];
                     if (isRecordingSuccess)
                     {
                         [self _handleSentMessageEventWithCellViewModel:viewModel];

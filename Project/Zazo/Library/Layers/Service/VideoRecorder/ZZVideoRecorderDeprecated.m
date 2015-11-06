@@ -30,7 +30,7 @@ NSString* const TBMVideoRecorderShouldStartRecording = @"TBMVideoRecorderShouldS
 NSString* const TBMVideoRecorderDidCancelRecording = @"TBMVideoRecorderDidCancelRecording";
 NSString* const TBMVideoRecorderDidFail = @"TBMVideoRecorderDidFail";
 
-static CGFloat const kDelayBeforeNextMessage = 1.1;
+static CGFloat const kZZVideoRecorderDelayBeforeNextMessage = 1.1;
 
 @interface ZZVideoRecorderDeprecated () <TBMAudioSessionDelegate, TBMVideoRecorderDelegate>
 
@@ -225,7 +225,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 - (void)cancelRecordingWithDoubleTap
 {
     [self cancelRecordingWithReason:NSLocalizedString(@"record-two-fingers-touch", nil)];
-    ANDispatchBlockAfter(kDelayBeforeNextMessage, ^{
+    ANDispatchBlockAfter(kZZVideoRecorderDelayBeforeNextMessage, ^{
       [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
     });
 }
@@ -350,7 +350,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
             if (!ANIsEmpty(reason))
             {
                 [self showMessage:reason];
-                ANDispatchBlockAfter(kDelayBeforeNextMessage, ^{
+                ANDispatchBlockAfter(kZZVideoRecorderDelayBeforeNextMessage, ^{
                     [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
                 });
             }
@@ -447,14 +447,14 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
         
         if (self.didCancelRecording)
         {
-            ANDispatchBlockAfter((kDelayBeforeNextMessage * 2), ^{
+            ANDispatchBlockAfter((kZZVideoRecorderDelayBeforeNextMessage * 2), ^{
                 [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
             });
         }
         else
         {
             [self showMessage:NSLocalizedString(@"record-video-too-short", nil)];
-            ANDispatchBlockAfter(kDelayBeforeNextMessage, ^{
+            ANDispatchBlockAfter(kZZVideoRecorderDelayBeforeNextMessage, ^{
                 [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
             });
         }
@@ -629,7 +629,7 @@ static CGFloat const kDelayBeforeNextMessage = 1.1;
 - (void)showVideoToShoortToast
 {
     [self showMessage:NSLocalizedString(@"record-video-too-short", nil)];
-    ANDispatchBlockAfter(kDelayBeforeNextMessage, ^{
+    ANDispatchBlockAfter(kZZVideoRecorderDelayBeforeNextMessage, ^{
         [self showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
     });
 }
