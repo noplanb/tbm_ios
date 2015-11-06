@@ -98,7 +98,6 @@
 //        }
 //    });
     
-    [self.rootService checkApplicationPermissionsAndResources];
     [[OBLogger instance] logEvent:OBLogEventAppForeground];
 }
 
@@ -124,7 +123,9 @@
 
 - (void)installRootViewControllerIntoWindow:(UIWindow *)window
 {
-    [self.rootWireframe showStartViewControllerInWindow:window];
+    [self.rootWireframe showStartViewControllerInWindow:window completionBlock:^{
+        [self.rootService checkApplicationPermissionsAndResources];
+    }];
 }
 
 

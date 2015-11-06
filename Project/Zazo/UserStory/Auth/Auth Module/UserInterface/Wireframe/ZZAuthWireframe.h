@@ -8,7 +8,7 @@
 
 @interface ZZAuthWireframe : NSObject
 
-- (void)presentAuthControllerFromWindow:(UIWindow*)window;
+- (void)presentAuthControllerFromWindow:(UIWindow*)window completion:(ANCodeBlock)completionBlock;
 - (void)presentAuthControllerFromNavigationController:(UINavigationController*)nc;
 - (void)dismissAuthController;
 - (void)presentGridController;

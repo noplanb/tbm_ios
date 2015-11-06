@@ -73,7 +73,6 @@
     [self.view addGestureRecognizer:self.menuPanRecognizer];
     
     [self.eventHandler attachToMenuPanGesture:self.menuPanRecognizer];
-
 }
 
 - (void)viewDidAppear:(BOOL)animated

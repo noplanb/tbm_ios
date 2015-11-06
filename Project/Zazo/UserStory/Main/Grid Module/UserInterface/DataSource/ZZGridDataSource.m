@@ -245,6 +245,11 @@ ZZGridCenterCellViewModelDelegate
     return [self.delegate isNetworkEnabled];
 }
 
+- (void)showRecorderHint
+{
+    [self.delegate showRecorderHint];
+}
+
 #pragma mark - Center Cell Delegate
 
 - (void)switchCamera

@@ -23,13 +23,15 @@
 @property (nonatomic, strong) ANDrawerNC* drawerController;
 
 @property (nonatomic, strong) UIViewController* previousController;
+@property (nonatomic, copy) ANCodeBlock completionBlock;
 
 @end
 
 @implementation ZZMenuWireframe
 
-- (void)presentMenuControllerFromWindow:(UIWindow *)window
+- (void)presentMenuControllerFromWindow:(UIWindow *)window completion:(ANCodeBlock)completionBlock
 {
+    self.completionBlock = completionBlock;
     ZZMenuVC* menuController = [ZZMenuVC new];
     ANDrawerNC* drawerController = [self drawerControllerWithView:menuController.view];
     drawerController.navigationBarHidden = YES;
@@ -62,7 +64,7 @@
 {
     ZZGridWireframe* gridWireframe = [ZZGridWireframe new];
     gridWireframe.menuWireFrame = self;
-    [gridWireframe presentGridControllerFromNavigationController:self.drawerController];
+    [gridWireframe presentGridControllerFromNavigationController:self.drawerController completion:self.completionBlock];
     self.presenter.menuModuleDelegate = gridWireframe.presenter;
     
 }

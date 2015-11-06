@@ -34,5 +34,6 @@
 
 - (BOOL)isVideoPlayingEnabledWithModel:(ZZGridCellViewModel*)model;
 - (BOOL)isNetworkEnabled;
+- (void)showRecorderHint;
 
 @end

@@ -21,8 +21,7 @@ describe(@"ZZStartScreenTest", ^{
     beforeAll(^{
         UIWindow* window = [UIApplication sharedApplication].keyWindow;
         wireframe  = [ZZAuthWireframe new];
-        [wireframe presentAuthControllerFromWindow:window];
-        
+        [wireframe presentAuthControllerFromWindow:window completion:nil];
     });
     
     

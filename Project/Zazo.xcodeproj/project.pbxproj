@@ -1916,6 +1916,7 @@
 		07636BC91BA49A0100925671 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				18C83C091BECC0A000E488D1 /* Fonts */,
 				07636BD71BA49A0100925671 /* Images */,
 				07636BFE1BA49A0100925671 /* Localizations */,
 			);
@@ -3702,6 +3703,13 @@
 				18BD07AB1BE0B4E2005CB177 /* ZZRemoteStorageValueGeneratorTest.m */,
 			);
 			path = RemoteStorageValueGeneratorTests;
+			sourceTree = "<group>";
+		};
+		18C83C091BECC0A000E488D1 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		18CA1BA61BC7F01B008A7A93 /* NextFeatureDialogView */ = {

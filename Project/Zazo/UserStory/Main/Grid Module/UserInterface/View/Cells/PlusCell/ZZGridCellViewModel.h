@@ -34,6 +34,7 @@
 - (void)addUserToItem:(ZZGridCellViewModel*)model;
 - (BOOL)isGridCellEnablePlayingVideo:(ZZGridCellViewModel*)model;
 - (BOOL)isNetworkEnabled;
+- (void)showRecorderHint;
 
 @end
 

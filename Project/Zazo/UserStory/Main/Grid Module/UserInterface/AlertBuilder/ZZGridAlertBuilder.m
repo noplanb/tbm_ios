@@ -85,6 +85,20 @@
                                      action:completion];
 }
 
++ (void)showOneTouchRecordViewHint
+{
+    NSString* title = NSLocalizedString(@"hint.record.view.one.touch.title", nil);
+    NSString* message = NSLocalizedString(@"hint.record.view.one.touch.message", nil);
+    NSString* activeButtonTitle = NSLocalizedString(@"hint.record.view.one.touch.button.title", nil);
+    
+    [ZZAlertBuilder presentAlertWithTitle:title
+                                  details:message
+                        cancelButtonTitle:nil
+                        actionButtonTitle:activeButtonTitle
+                                   action:nil];
+
+}
+
 #pragma mark - Private
 
 + (NSString*)_appName

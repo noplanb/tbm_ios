@@ -19,13 +19,15 @@
 @property (nonatomic, strong) ZZStartVC* startController;
 @property (nonatomic, strong) UINavigationController* presentedController;
 @property (nonatomic, strong) UIWindow* presentedWindow;
+@property (nonatomic, copy) ANCodeBlock completionBlock;
 
 @end
 
 @implementation ZZStartWireframe
 
-- (void)presentStartControllerFromWindow:(UIWindow *)window
+- (void)presentStartControllerFromWindow:(UIWindow*)window completion:(ANCodeBlock)completionBlock
 {
+    self.completionBlock = completionBlock;
     ZZStartVC* startController = [ZZStartVC new];
     ZZStartInteractor* interactor = [ZZStartInteractor new];
     ZZStartPresenter* presenter = [ZZStartPresenter new];
@@ -60,13 +62,13 @@
 - (void)presentMenuControllerWithGrid
 {
     ZZMenuWireframe* wireframe = [ZZMenuWireframe new];
-    [wireframe presentMenuControllerFromWindow:self.presentedWindow];
+    [wireframe presentMenuControllerFromWindow:self.presentedWindow completion:self.completionBlock];
 }
 
 - (void)presentRegistrationController
 {
     ZZAuthWireframe* wireframe = [ZZAuthWireframe new];
-    [wireframe presentAuthControllerFromWindow:self.presentedWindow];
+    [wireframe presentAuthControllerFromWindow:self.presentedWindow completion:self.completionBlock];
 }
 
 @end

@@ -342,6 +342,11 @@
 
 #pragma mark - DataSource Delegate
 
+- (void)showRecorderHint
+{
+    [ZZGridAlertBuilder showOneTouchRecordViewHint];
+}
+
 - (BOOL)isGridRotate
 {
     return [self.userInterface isGridRotating];
@@ -387,7 +392,8 @@
     
     BOOL isEnbaled = YES;
     
-    if (model.item.relatedUser.lastIncomingVideoStatus != ZZVideoIncomingStatusDownloaded)
+    if (model.item.relatedUser.lastIncomingVideoStatus != ZZVideoIncomingStatusDownloaded ||
+        model.item.relatedUser.lastIncomingVideoStatus != ZZVideoIncomingStatusViewed)
     {
         if ([self _isNetworkEnabled])
         {

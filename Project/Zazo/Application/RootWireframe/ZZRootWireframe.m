@@ -20,21 +20,24 @@
 
 @property (nonatomic, strong) ZZSecretWireframe* secretWireframe;
 @property (nonatomic, strong) ZZSecretScreenController* secretController;
+@property (nonatomic, copy) ANCodeBlock completionBlock;
 
 @end
 
 @implementation ZZRootWireframe
 
-- (void)showStartViewControllerInWindow:(UIWindow*)window
+- (void)showStartViewControllerInWindow:(UIWindow*)window completionBlock:(ANCodeBlock)completionBlock
 {
     window.backgroundColor = [UIColor whiteColor];
+    self.completionBlock = completionBlock;
     
 #ifdef DEBUG_CONTROLLER
     UIViewController* vc = [ANDebugVC new];
     [self showRootController:vc inWindow:window];
+    
 #else
     ZZStartWireframe* wireframe = [ZZStartWireframe new];
-    [wireframe presentStartControllerFromWindow:window];
+    [wireframe presentStartControllerFromWindow:window completion:completionBlock];
     
 #endif
 
@@ -43,7 +46,6 @@
                                          touchType:ZZSecretScreenTouchTypeWithoutDelay
                                             window:window completionBlock:^{
                 [self _presentSecretScreenFromNavigationController:(UINavigationController*)window.rootViewController];
-                                                
     }];
 }
 
@@ -51,11 +53,20 @@
 {
     UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:vc];
     window.rootViewController = nc;
+    [self _executeCompletionBlock];
 }
 
 - (void)_presentSecretScreenFromNavigationController:(UINavigationController*)nc
 {   
     [self.secretWireframe presentOrDismissSecretControllerFromNavigationController:nc];
+}
+
+- (void)_executeCompletionBlock
+{
+    if (self.completionBlock)
+    {
+        self.completionBlock();
+    }
 }
 
 @end

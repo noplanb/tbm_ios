@@ -8,7 +8,7 @@
 
 @interface ZZStartWireframe : NSObject
 
-- (void)presentStartControllerFromWindow:(UIWindow*)window;
+- (void)presentStartControllerFromWindow:(UIWindow*)window completion:(ANCodeBlock)completionBlock;
 - (void)dismissStartController;
 
 

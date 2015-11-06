@@ -64,7 +64,7 @@ typedef NS_ENUM(NSInteger, ANSections)
         case ZZGridController:
         {
             ZZMenuWireframe* menuwireframe = [ZZMenuWireframe new];
-            [menuwireframe presentMenuControllerFromWindow:self.rootController.view.window];
+            [menuwireframe presentMenuControllerFromWindow:self.rootController.view.window completion:nil];
         } break;
             
         case ZZStateController:
