@@ -526,7 +526,7 @@
                 
                 if (!ANIsEmpty(video))
                 {
-                    [self.delegate deleteViewedVideoIfNeededWithFriendId:friendID];
+//                    [self.delegate deleteViewedVideoIfNeededWithFriendId:friendID];
                     [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloading friendId:friendID videoId:videoId];
                     [self.delegate updateBadgeCounter];
                     

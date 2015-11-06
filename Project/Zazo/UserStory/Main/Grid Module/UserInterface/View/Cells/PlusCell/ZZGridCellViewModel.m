@@ -250,12 +250,11 @@
                 withAnimationDelegate:(id <ZZGridCellVeiwModelAnimationDelegate>)animationDelegate
 {
     self.animationDelegate = animationDelegate;
-    [self _removeLongPressRecognizerFromView:view];
+    [self _removeActionRecognizerFromView:view];
     [view addGestureRecognizer:self.recordRecognizer];
-    [view addGestureRecognizer:self.tapRecognizer];
 }
 
-- (void)_removeLongPressRecognizerFromView:(UIView*)view
+- (void)_removeActionRecognizerFromView:(UIView*)view
 {
     [view.gestureRecognizers enumerateObjectsUsingBlock:^(__kindof UIGestureRecognizer * _Nonnull recognizer, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([recognizer isKindOfClass:[UILongPressGestureRecognizer class]])
@@ -263,6 +262,16 @@
             [view removeGestureRecognizer:recognizer];
         }
     }];
+}
+
+- (void)setupRecrodHintRecognizerOnView:(UIView*)view
+{
+    [view addGestureRecognizer:self.tapRecognizer];
+}
+
+- (void)removeRecordHintRecognizerFromView:(UIView*)view
+{
+    [view removeGestureRecognizer:self.tapRecognizer];
 }
 
 - (UILongPressGestureRecognizer *)recordRecognizer

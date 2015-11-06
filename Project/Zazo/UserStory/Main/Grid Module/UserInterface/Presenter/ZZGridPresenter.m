@@ -521,7 +521,7 @@
     
     if (state)
     {
-        [self.videoPlayer playOnView:model.playerContainerView withURLs:model.playerVideoURLs];
+        [self.videoPlayer playOnView:model.playerContainerView withVideoModels:model.playerVideoURLs];
     }
     else
     {
