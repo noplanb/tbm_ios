@@ -8,6 +8,6 @@
 
 @interface ZZRootWireframe : NSObject
 
-- (void)showStartViewControllerInWindow:(UIWindow*)window;
+- (void)showStartViewControllerInWindow:(UIWindow*)window completionBlock:(ANCodeBlock)completionBlock;
 
 @end

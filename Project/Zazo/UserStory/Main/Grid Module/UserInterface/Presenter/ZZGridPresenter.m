@@ -387,7 +387,8 @@
     
     BOOL isEnbaled = YES;
     
-    if (model.item.relatedUser.lastIncomingVideoStatus != ZZVideoIncomingStatusDownloaded)
+    if (model.item.relatedUser.lastIncomingVideoStatus != ZZVideoIncomingStatusDownloaded ||
+        model.item.relatedUser.lastIncomingVideoStatus != ZZVideoIncomingStatusViewed)
     {
         if ([self _isNetworkEnabled])
         {

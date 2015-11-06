@@ -28,21 +28,17 @@
 
 @implementation ZZGridWireframe
 
-- (void)presentGridControllerFromWindow:(UIWindow*)window
-{
-    [self _setup];
-    ANDispatchBlockToMainQueue(^{
-        UINavigationController* nc = [UINavigationController new];
-        window.rootViewController = nc;
-        [self presentGridControllerFromNavigationController:nc];
-    });
-}
-
-- (void)presentGridControllerFromNavigationController:(UINavigationController *)nc
+- (void)presentGridControllerFromNavigationController:(UINavigationController*)nc completion:(ANCodeBlock)completionBlock
 {
     [self _setup];
     ANDispatchBlockToMainQueue(^{
         [nc pushViewController:self.gridController animated:YES];
+        
+        if (completionBlock)
+        {
+            completionBlock();
+        }
+        
     });
     
     self.presentedController = nc;
