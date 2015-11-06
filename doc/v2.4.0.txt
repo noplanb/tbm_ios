@@ -25,6 +25,20 @@ hotfix/848-ding-sound-recorded
 
 feature/auto-notification
 -------------------------
- x Send the appropriate metadata in params
- - Have S3 put all params in header
- -
+ x Updated VideoFileHandler to add metadata
+ x Updated local copy of FTM to put metadata in request
+ x Diff local FTM with FTM
+ x Branch FTM
+ x Update FTM
+ x Diff to make sure all is the same
+ - Update major version
+ - Push
+ - Push pod to repo
+ - Branch zazo temp
+ - Pod Update
+ - Diff with current branch
+ - Delete temp
+ - Pod update on feature branch
+ - Test
+ - Push
+
