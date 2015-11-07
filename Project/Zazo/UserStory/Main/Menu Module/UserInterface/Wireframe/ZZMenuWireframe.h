@@ -8,7 +8,7 @@
 
 @interface ZZMenuWireframe : NSObject
 
-- (void)presentMenuControllerFromWindow:(UIWindow *)window;
+- (void)presentMenuControllerFromWindow:(UIWindow *)window completion:(ANCodeBlock)completionBlock;
 - (void)toggleMenu;
 - (void)closeMenu;
 

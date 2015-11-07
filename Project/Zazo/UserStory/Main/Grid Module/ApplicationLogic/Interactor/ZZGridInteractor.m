@@ -151,6 +151,11 @@ static NSInteger const kGridFriendsCellCount = 8;
     [self updateLastActionForFriend:model];
 }
 
+- (void)updateGridWithModel:(ZZGridDomainModel *)model
+{
+    [self.output reloadGridModel:model];
+}
+
 - (NSArray*)gridModelsWithoutDownloadAnimation
 {
     NSArray* gridModels = [[[self _gridModels].rac_sequence map:^id(ZZGridDomainModel* value) {

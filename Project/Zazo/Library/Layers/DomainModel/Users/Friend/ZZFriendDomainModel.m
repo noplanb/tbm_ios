@@ -166,7 +166,7 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     NSInteger maxLength = 100;
     NSString *name;
     
-    if ([ZZFriendDataHelper isUniqueFirstName:self.firstName])
+    if ([ZZFriendDataHelper isUniqueFirstName:self.firstName friendID:self.idTbm])
     {
         name = self.firstName;
     }

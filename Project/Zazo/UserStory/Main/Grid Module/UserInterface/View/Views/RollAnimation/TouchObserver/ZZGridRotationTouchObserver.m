@@ -43,7 +43,7 @@
         self.rotationRecognizer = [[ZZRotationGestureRecognizer alloc] initWithTarget:self
                                                                                action:@selector(handleRotationGesture:)];
         self.rotationRecognizer.delegate = self;
-        [self.gridView addGestureRecognizer:self.rotationRecognizer];
+        [self.gridView.itemsContainerView addGestureRecognizer:self.rotationRecognizer];
         
         [RACObserve([ZZGridActionStoredSettings shared], spinHintWasShown) subscribeNext:^(id x) {
             self.rotationRecognizer.enabled = [x boolValue];

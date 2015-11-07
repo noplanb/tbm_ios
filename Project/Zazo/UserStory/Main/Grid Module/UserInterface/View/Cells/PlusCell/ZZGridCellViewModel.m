@@ -26,6 +26,7 @@
 
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
 @property (nonatomic, strong) UILongPressGestureRecognizer* recordRecognizer;
+@property (nonatomic, strong) UITapGestureRecognizer* tapRecognizer;
 @property (nonatomic, assign) CGPoint initialRecordPoint;
 
 @end
@@ -55,14 +56,25 @@
     ZZFriendDomainModel* friendModel = self.item.relatedUser;
     TBMFriend* friendEntity = [ZZFriendDataProvider entityFromModel:friendModel];
     
-    if ([ZZStoredSettingsManager shared].debugModeEnabled)
+    NSString* videoStatusString = nil;
+    
+    if ([self.delegate isNetworkEnabled])
     {
-        return ZZVideoStatusStringWithFriend(friendEntity);
+        if ([ZZStoredSettingsManager shared].debugModeEnabled)
+        {
+            videoStatusString = ZZVideoStatusStringWithFriend(friendEntity);
+        }
+        else
+        {
+            videoStatusString = [friendModel displayName];
+        }
     }
     else
     {
-        return [friendModel displayName];
+        videoStatusString = ZZVideoStatusStringWithFriend(friendEntity);
     }
+    
+    return videoStatusString;
 }
 
 - (void)itemSelected
@@ -155,7 +167,8 @@
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateNeedToShowGreenBorder);
     }
-    else if (self.badgeNumber == 0 && self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
+    else if (self.badgeNumber == 0 &&
+             self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoFirstVideoDownloading);
     }
@@ -237,11 +250,11 @@
                 withAnimationDelegate:(id <ZZGridCellVeiwModelAnimationDelegate>)animationDelegate
 {
     self.animationDelegate = animationDelegate;
-    [self _removeLongPressRecognizerFromView:view];
+    [self _removeActionRecognizerFromView:view];
     [view addGestureRecognizer:self.recordRecognizer];
 }
 
-- (void)_removeLongPressRecognizerFromView:(UIView*)view
+- (void)_removeActionRecognizerFromView:(UIView*)view
 {
     [view.gestureRecognizers enumerateObjectsUsingBlock:^(__kindof UIGestureRecognizer * _Nonnull recognizer, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([recognizer isKindOfClass:[UILongPressGestureRecognizer class]])
@@ -249,6 +262,16 @@
             [view removeGestureRecognizer:recognizer];
         }
     }];
+}
+
+- (void)setupRecrodHintRecognizerOnView:(UIView*)view
+{
+    [view addGestureRecognizer:self.tapRecognizer];
+}
+
+- (void)removeRecordHintRecognizerFromView:(UIView*)view
+{
+    [view removeGestureRecognizer:self.tapRecognizer];
 }
 
 - (UILongPressGestureRecognizer *)recordRecognizer
@@ -262,13 +285,27 @@
     return _recordRecognizer;
 }
 
-
+- (UITapGestureRecognizer *)tapRecognizer
+{
+    if (!_tapRecognizer)
+    {
+        _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_showRecorderHing)];
+        
+    }
+    
+    return _tapRecognizer;
+}
 
 #pragma mark - Private
 
 
 
 #pragma mark  - Recording recognizer handle
+
+- (void)_showRecorderHing
+{
+    [self.delegate showRecorderHint];
+}
 
 - (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer
 {
@@ -363,16 +400,7 @@
 
 - (BOOL)isEnablePlayingVideo
 {
-    BOOL isEnbaled = YES;
-    
-    if ((self.item.relatedUser.unviewedCount == 1) &&
-        self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
-    {
-        isEnbaled = NO;
-        [self _showMessage:NSLocalizedString(@"video-playing-disabled-reason-downloading", nil)];
-    }
-    
-    return isEnbaled;
+    return [self.delegate isGridCellEnablePlayingVideo:self];
 }
 
 - (BOOL)isVideoPlayed

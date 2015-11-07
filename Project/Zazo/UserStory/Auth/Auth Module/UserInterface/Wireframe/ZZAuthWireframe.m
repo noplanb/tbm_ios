@@ -17,13 +17,15 @@
 @property (nonatomic, strong) ZZAuthPresenter* presenter;
 @property (nonatomic, strong) ZZAuthVC* authController;
 @property (nonatomic, strong) UINavigationController* presentedController;
+@property (nonatomic, copy) ANCodeBlock completionBlock;
 
 @end
 
 @implementation ZZAuthWireframe
 
-- (void)presentAuthControllerFromWindow:(UIWindow*)window
+- (void)presentAuthControllerFromWindow:(UIWindow*)window completion:(ANCodeBlock)completionBlock
 {
+    self.completionBlock = completionBlock;
     ANDispatchBlockToMainQueue(^{
         UINavigationController* navigationController = [UINavigationController new];
         navigationController.navigationBarHidden = YES;
@@ -63,7 +65,7 @@
 - (void)presentGridController
 {
     ZZMenuWireframe* menuwireframe = [ZZMenuWireframe new];
-    [menuwireframe presentMenuControllerFromWindow:self.authController.view.window];
+    [menuwireframe presentMenuControllerFromWindow:self.authController.view.window completion:self.completionBlock];
 }
 
 @end

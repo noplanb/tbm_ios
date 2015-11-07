@@ -142,7 +142,7 @@
 
 + (NSUInteger)countTotalUnviewedVideos
 {
-    return ([self countDownloadingVideos] + [self countDownloadedUnviewedVideos]);
+    return [self countDownloadedUnviewedVideos];
 }
 
 //+ (NSArray*)loadAllVideos

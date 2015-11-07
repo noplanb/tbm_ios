@@ -125,6 +125,7 @@
     {
         ZZGridStateViewPreview* previewStateView = (ZZGridStateViewPreview*)self.stateView;
         [model setupRecorderRecognizerOnView:previewStateView.thumbnailImageView withAnimationDelegate:self];
+        [model removeRecordHintRecognizerFromView:self];
     }
 }
 

@@ -29,6 +29,7 @@
 #import "ZZVideoDataProvider.h"
 #import "TBMVideoIdUtils.h"
 #import "ZZFriendDataProvider.h"
+#import "RollbarReachability.h"
 
 @interface ZZGridPresenter ()
 <
@@ -42,6 +43,7 @@
 @property (nonatomic, strong) ZZSoundEffectPlayer* soundPlayer;
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
 @property (nonatomic, strong) ZZGridActionHandler* actionHandler;
+@property (nonatomic, strong) RollbarReachability* reachability;
 
 @end
 
@@ -63,6 +65,7 @@
     self.videoPlayer.delegate = self;
     [self _setupNotifications];
     [self.interactor loadData];
+    self.reachability = [RollbarReachability reachabilityForInternetConnection];
 }
 
 - (void)attachToMenuPanGesture:(UIPanGestureRecognizer*)pan
@@ -339,6 +342,11 @@
 
 #pragma mark - DataSource Delegate
 
+- (void)showRecorderHint
+{
+    [ZZGridAlertBuilder showOneTouchRecordViewHint];
+}
+
 - (BOOL)isGridRotate
 {
     return [self.userInterface isGridRotating];
@@ -367,6 +375,60 @@
         msg = NSLocalizedString(@"hint.center.cell.press.to.record", nil);
     }
     [ZZGridAlertBuilder showHintalertWithMessage:msg];
+}
+
+- (BOOL)isNetworkEnabled
+{
+    return [self _isNetworkEnabled];
+}
+
+- (void)_showToastWithMessage:(NSString*)message
+{
+    [[iToast makeText:message]show];
+}
+
+- (BOOL)isVideoPlayingEnabledWithModel:(ZZGridCellViewModel *)model
+{
+    
+    BOOL isEnbaled = YES;
+    
+    if (model.item.relatedUser.lastIncomingVideoStatus != ZZVideoIncomingStatusDownloaded ||
+        model.item.relatedUser.lastIncomingVideoStatus != ZZVideoIncomingStatusViewed)
+    {
+        if ([self _isNetworkEnabled])
+        {
+            if ((model.item.relatedUser.unviewedCount == 1) &&
+                model.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
+            {
+                isEnbaled = NO;
+                [self _showToastWithMessage:NSLocalizedString(@"video-playing-disabled-reason-downloading", nil)];
+            }
+        }
+        else
+        {
+            isEnbaled = NO;
+            
+            NSString* badConnectionTitle = NSLocalizedString(@"internet-connection-error-title", nil);
+            NSString* message = NSLocalizedString(@"internet-connection-error-message", nil);
+            NSString* actionButtonTitle = NSLocalizedString(@"internet-connection-error-button-title", nil);
+            [ZZGridAlertBuilder showAlertWithTitle:badConnectionTitle
+                                           message:message
+                                 cancelButtonTitle:nil
+                                actionButtonTitlte:actionButtonTitle action:^{
+                                    
+                                    //                                [self.interactor updateGridWithModel:model.item];
+                                }];
+            
+        }
+    }
+
+    return isEnbaled;
+}
+
+
+- (BOOL)_isNetworkEnabled
+{
+    return [self.reachability isReachable];
 }
 
 
@@ -459,7 +521,7 @@
     
     if (state)
     {
-        [self.videoPlayer playOnView:model.playerContainerView withURLs:model.playerVideoURLs];
+        [self.videoPlayer playOnView:model.playerContainerView withVideoModels:model.playerVideoURLs];
     }
     else
     {

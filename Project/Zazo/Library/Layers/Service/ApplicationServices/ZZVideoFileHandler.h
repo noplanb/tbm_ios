@@ -26,6 +26,7 @@
 - (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)status friendId:(NSString*)friendId videoId:(NSString*)videoId;
 - (void)deleteAllViewedOrFailedVideosWithFriendId:(NSString*)friendId;
 - (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount withFriend:(TBMFriend*)friendModel video:(TBMVideo*)video;
+- (void)deleteViewedVideoIfNeededWithFriendId:(NSString*)friendId;
 
 @end
 

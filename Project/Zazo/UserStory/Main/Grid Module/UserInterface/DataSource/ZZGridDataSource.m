@@ -235,6 +235,20 @@ ZZGridCenterCellViewModelDelegate
     [self.delegate addUser];
 }
 
+- (BOOL)isGridCellEnablePlayingVideo:(ZZGridCellViewModel *)model
+{
+    return [self.delegate isVideoPlayingEnabledWithModel:model];
+}
+
+- (BOOL)isNetworkEnabled
+{
+    return [self.delegate isNetworkEnabled];
+}
+
+- (void)showRecorderHint
+{
+    [self.delegate showRecorderHint];
+}
 
 #pragma mark - Center Cell Delegate
 

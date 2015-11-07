@@ -72,6 +72,32 @@
     [ZZAlertBuilder presentAlertWithTitle:@"Hint" details:message cancelButtonTitle:@"OK"];
 }
 
++ (void)showAlertWithTitle:(NSString*)title
+                   message:(NSString*)message
+         cancelButtonTitle:(NSString*)cancelButtonTitle
+        actionButtonTitlte:(NSString*)actionButtonTitle
+                    action:(ANCodeBlock)completion
+{
+      [ZZAlertBuilder presentAlertWithTitle:title
+                                    details:message
+                          cancelButtonTitle:cancelButtonTitle
+                          actionButtonTitle:actionButtonTitle
+                                     action:completion];
+}
+
++ (void)showOneTouchRecordViewHint
+{
+    NSString* title = NSLocalizedString(@"hint.record.view.one.touch.title", nil);
+    NSString* message = NSLocalizedString(@"hint.record.view.one.touch.message", nil);
+    NSString* activeButtonTitle = NSLocalizedString(@"hint.record.view.one.touch.button.title", nil);
+    
+    [ZZAlertBuilder presentAlertWithTitle:title
+                                  details:message
+                        cancelButtonTitle:nil
+                        actionButtonTitle:activeButtonTitle
+                                   action:nil];
+
+}
 
 #pragma mark - Private
 

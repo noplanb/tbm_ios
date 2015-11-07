@@ -192,7 +192,8 @@
 //    // 404s can happen in normal operation do not dispatch or refresh credentials.
 //    if (error.code == 404)
 //        return;
-    if (!ANIsEmpty(error) && error.code != 404)
+    if ((!ANIsEmpty(error) && error.code != 404) ||
+        (!ANIsEmpty(error) && error.code != 403))
     {
         ANDispatchBlockToBackgroundQueue(^{
             NSString *type = marker.isUpload ? @"upload" : @"download";
@@ -309,42 +310,43 @@
 //----------------
 - (void)_downloadCompletedWithFriendID:(NSString*)friendID videoId:(NSString *)videoId error:(NSError *)error
 {
-    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
-    TBMVideo *video = [ZZVideoDataProvider findWithVideoId:videoId];
-    
-    if (!ANIsEmpty(video))
-    {
-        if (ANIsEmpty(error))
+        TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
+        TBMVideo *video = [ZZVideoDataProvider findWithVideoId:videoId];
+        
+        if (!ANIsEmpty(video))
         {
-            [self deleteRemoteFileAndVideoId:video];
-            ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:video];
-            [ZZThumbnailGenerator generateThumbVideo:videoModel];
-            [self.delegate deleteAllViewedOrFailedVideosWithFriendId:friendID];
-            
-            [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloaded friendId:friendID videoId:videoId];
-            
-            [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:videoId
-                                                                         toStatus:ZZRemoteStorageVideoStatusDownloaded
-                                                                       friendMkey:friend.mkey
-                                                                       friendCKey:friend.ckey] subscribeNext:^(id x) {}];
-            
-            [self.delegate sendNotificationForVideoStatusUpdate:friend videoId:videoId status:NOTIFICATION_STATUS_DOWNLOADED];
-            
-            ZZLogInfo(@"downloadCompletedWithFriend: Video count = %ld", (unsigned long) [ZZVideoDataProvider countAllVideos]);
+            if (ANIsEmpty(error))
+            {
+                [self deleteRemoteFileAndVideoId:video];
+                ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:video];
+                [ZZThumbnailGenerator generateThumbVideo:videoModel];
+                [self.delegate deleteAllViewedOrFailedVideosWithFriendId:friendID];
+                
+                [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloaded friendId:friendID videoId:videoId];
+                
+                [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:videoId
+                                                                             toStatus:ZZRemoteStorageVideoStatusDownloaded
+                                                                           friendMkey:friend.mkey
+                                                                           friendCKey:friend.ckey] subscribeNext:^(id x) {}];
+                
+                [self.delegate sendNotificationForVideoStatusUpdate:friend videoId:videoId status:NOTIFICATION_STATUS_DOWNLOADED];
+                
+                ZZLogInfo(@"downloadCompletedWithFriend: Video count = %ld", (unsigned long) [ZZVideoDataProvider countAllVideos]);
+            }
+            else
+            {
+                ZZLogError(@"downloadCompletedWithFriend %@", error);
+                [[ZZVideoStatusHandler sharedInstance] setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusFailedPermanently
+                                                                              friendId:friendID
+                                                                               videoId:videoId];
+                [self deleteRemoteFileAndVideoId:video];
+            }
         }
         else
         {
-            ZZLogError(@"downloadCompletedWithFriend %@", error);
-            [[ZZVideoStatusHandler sharedInstance] setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusFailedPermanently
-                                                                          friendId:friendID
-                                                                           videoId:videoId];
-            [self deleteRemoteFileAndVideoId:video];
+            ZZLogError(@"downloadCompletedWithFriend: ERROR: unrecognized videoId");
         }
-    }
-    else
-    {
-        ZZLogError(@"downloadCompletedWithFriend: ERROR: unrecognized videoId");
-    }
+    
 }
 
 
@@ -528,9 +530,8 @@
                 
                 if (!ANIsEmpty(video))
                 {
-                    
+//                    [self.delegate deleteViewedVideoIfNeededWithFriendId:friendID];
                     [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloading friendId:friendID videoId:videoId];
-                    
                     [self.delegate updateBadgeCounter];
                     
                     NSString *marker = [TBMVideoIdUtils markerWithFriendID:friend.idTbm videoID:videoId isUpload:NO];
@@ -538,8 +539,6 @@
                     NSString *remoteFilename = [ZZRemoteStorageValueGenerator incomingVideoRemoteFilenameWithFriendMkey:video.friend.mkey
                                                                                                              friendCKey:video.friend.ckey
                                                                                                                 videoId:video.videoId];
-                    
-                    
                     
                     [[self fileTransferManager] downloadFile:remoteStorageFileTransferDownloadPath()
                                                           to:[ZZVideoDataProvider videoUrlWithVideo:video].path
@@ -552,7 +551,6 @@
                 }
             
         }
-        
     }
 }
 

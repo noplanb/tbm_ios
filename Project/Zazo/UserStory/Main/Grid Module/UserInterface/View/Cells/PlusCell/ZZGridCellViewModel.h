@@ -16,6 +16,8 @@
 
 @end
 
+
+
 @protocol ZZGridCellViewModelDelegate <NSObject>
 
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled
@@ -30,8 +32,13 @@
 - (BOOL)isVideoPlaying;
 - (BOOL)isGridRotate;
 - (void)addUserToItem:(ZZGridCellViewModel*)model;
+- (BOOL)isGridCellEnablePlayingVideo:(ZZGridCellViewModel*)model;
+- (BOOL)isNetworkEnabled;
+- (void)showRecorderHint;
 
 @end
+
+
 
 typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 {
@@ -91,4 +98,7 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 - (void)reloadDebugVideoStatus;
 - (BOOL)isEnablePlayingVideo;
 - (BOOL)isVideoPlayed;
+
+- (void)setupRecrodHintRecognizerOnView:(UIView*)view;
+- (void)removeRecordHintRecognizerFromView:(UIView*)view;
 @end

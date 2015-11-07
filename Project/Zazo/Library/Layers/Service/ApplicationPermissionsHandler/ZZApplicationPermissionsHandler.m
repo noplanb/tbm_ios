@@ -56,7 +56,8 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
         
     }] doError:^(NSError *error) {
         
-        [self _handlePermissionError:error];
+       [self _handlePermissionError:error];
+        
     }];
 }
 
@@ -142,6 +143,7 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
         case ZZApplicationPermissionTypePush:
         {
             [self showUserDeclinedPushAccessAlert];
+            
         } break;
         case ZZApplicationPermissionTypeAudioSessionState:
         {
@@ -176,7 +178,7 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
                                                      exit(0);
                                                  }]];
         
-        [alert presentWithCompletion:nil];
+        [self _presentAlertController:alert];
     }
 }
 
@@ -196,7 +198,8 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
         // But this is a pain when supporting both ios7 and ios8 type alerts.
         exit(0);
     }]];
-    [alert presentWithCompletion:nil];
+    
+    [self _presentAlertController:alert];
 }
 
 + (void)_showAudioAccessDeclinedAlert
@@ -220,7 +223,8 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
     [alert addAction:[SDCAlertAction actionWithTitle:closeBtn style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
         exit(0);
     }]];
-    [alert presentWithCompletion:nil];
+    
+    [self _presentAlertController:alert];
 }
 
 + (void)_showVideoAccessDeclinedAlert
@@ -244,7 +248,8 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
     [alert addAction:[SDCAlertAction actionWithTitle:closeBtn style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
         exit(0);
     }]];
-    [alert presentWithCompletion:nil];
+    
+    [self _presentAlertController:alert];
 }
 
 + (void)_showUserProbableOnCallAlert
@@ -262,6 +267,13 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
                                                  exit(0);
                                              }]];
     [alert presentWithCompletion:nil];
+}
+
++ (void)_presentAlertController:(TBMAlertController*)alert
+{
+    ANDispatchBlockToMainQueue(^{
+        [alert presentWithCompletion:nil];
+    });
 }
 
 + (NSError*)_errorWithPermissionType:(ZZApplicationPermissionType)type

@@ -40,6 +40,8 @@
 - (void)updateWithModel:(ZZGridCellViewModel*)model
 {
     [super updateWithModel:model];
+    [model removeRecordHintRecognizerFromView:self.recordView];
+    [model setupRecrodHintRecognizerOnView:self.recordView];
 }
 
 

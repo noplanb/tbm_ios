@@ -16,8 +16,7 @@
 @property (nonatomic, strong) ZZGridPresenter* presenter;
 @property (nonatomic, strong) ZZMenuWireframe* menuWireFrame;
 
-- (void)presentGridControllerFromWindow:(UIWindow*)window;
-- (void)presentGridControllerFromNavigationController:(UINavigationController*)nc;
+- (void)presentGridControllerFromNavigationController:(UINavigationController*)nc completion:(ANCodeBlock)completionBlock;
 - (void)dismissGridController;
 
 

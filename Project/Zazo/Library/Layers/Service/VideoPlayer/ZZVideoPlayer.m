@@ -24,6 +24,7 @@
 #import "ZZVideoDataProvider.h"
 #import "ZZFileHelper.h"
 #import "ZZVideoStatusHandler.h"
+#import "ZZFriendDataHelper.h"
 
 @interface ZZVideoPlayer ()
 
@@ -87,12 +88,33 @@
     return (self.moviePlayerController.playbackState == MPMoviePlaybackStatePlaying);
 }
 
-- (void)playOnView:(UIView*)view withURLs:(NSArray*)URLs
+//- (ZZVideoDomainModel*)_actualVideoDomainModelWithSortedModels:(NSArray*)models
+//{
+//    ZZVideoDomainModel* actualVideoModel = [models firstObject];
+//    
+//    TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:actualVideoModel.relatedUser.idTbm];
+//    TBMVideo* video = [ZZVideoDataProvider findWithVideoId:friendEntity.videoID];
+//    
+//    NSInteger twoNotViewedVideosCount = 2;
+//    
+//    if ((friendEntity.lastIncomingVideoStatusValue == ZZVideoIncomingStatusDownloading) &&
+//        ([ZZFriendDataHelper unviewedVideoCountWithFriend:friendEntity] == twoNotViewedVideosCount) &&
+//        
+//        )
+//    {
+//       
+//    
+//    }
+//    
+//    return actualVideoModel;
+//}
+
+- (void)playOnView:(UIView*)view withVideoModels:(NSArray*)videoModels
 {
     self.moviePlayerController.contentURL = nil;
     
     NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
-    self.videoModelsArray = [URLs sortedArrayUsingDescriptors:@[sortDescriptor]];
+    self.videoModelsArray = [videoModels sortedArrayUsingDescriptors:@[sortDescriptor]];
     
     [self _configurePlayedUrlsWithModels:self.videoModelsArray];
     
@@ -102,7 +124,7 @@
         [view addSubview:self.moviePlayerController.view];
         [view bringSubviewToFront:self.moviePlayerController.view];
     }
-    if (!ANIsEmpty(URLs))//&& ![self.currentPlayQueue isEqualToArray:URLs]) //TODO: if current playback state is equal to user's play list
+    if (!ANIsEmpty(videoModels))//&& ![self.currentPlayQueue isEqualToArray:URLs]) //TODO: if current playback state is equal to user's play list
     {
         ZZVideoDomainModel* playedVideoModel = [self.videoModelsArray firstObject];
         self.playedFriend = playedVideoModel.relatedUser;
@@ -198,7 +220,7 @@
     }
     else
     {
-        [self playOnView:nil withURLs:self.videoModelsArray];
+        [self playOnView:nil withVideoModels:self.videoModelsArray];
     }
 }
 
@@ -235,8 +257,6 @@
 
 - (void)_updateViewedVideoCounterWithVideoDomainModel:(ZZVideoDomainModel*)playedVideoModel
 {
-    
-    
     TBMVideo* viewedVideo = [ZZVideoDataProvider findWithVideoId:playedVideoModel.videoID];
     if (!ANIsEmpty(viewedVideo))
     {
@@ -251,6 +271,9 @@
             {
                 playedVideoModel.relatedUser.unviewedCount = 0;
             }
+            
+//            [viewedVideo.managedObjectContext refreshAllObjects];
+            
             [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
         }
     }
@@ -337,8 +360,7 @@
             self.moviePlayerController.contentURL = nextUrl;
             
             TBMFriend* friend = [ZZFriendDataProvider entityFromModel:playedVideoModel.relatedUser];
-//            [friend setViewedWithIncomingVideo:viewedVideo];
-            //        [self.playedVideoUrls removeObject:nextUrl];
+
             [[ZZVideoStatusHandler sharedInstance] setAndNotityViewedIncomingVideoWithFriend:friend video:viewedVideo];
             
             [ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoId
@@ -351,6 +373,7 @@
             self.isPlayingVideo = YES;
             [UIDevice currentDevice].proximityMonitoringEnabled = [ZZGridActionStoredSettings shared].earpieceHintWasShown;
             
+            [self _updateFriendVideoStatusWithFriend:friend video:viewedVideo videoIndex:index];
             
             [self.moviePlayerController play];
         }
@@ -358,6 +381,22 @@
         {
             [self _playNextOrStop];
         }
+    }
+}
+
+
+//TODO: temprorary
+- (void)_updateFriendVideoStatusWithFriend:(TBMFriend*)friend
+                                    video:(TBMVideo*)video
+                               videoIndex:(NSInteger)index
+{
+    NSInteger arrayBoundsIndex = 1;
+    
+    if (index == (self.playedVideoUrls.count - arrayBoundsIndex) &&
+        friend.lastIncomingVideoStatusValue != video.statusValue)
+    {
+        friend.lastIncomingVideoStatusValue = video.statusValue;
+        [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
     }
 }
 
