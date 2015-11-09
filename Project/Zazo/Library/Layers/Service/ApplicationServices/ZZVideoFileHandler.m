@@ -327,6 +327,8 @@
                 
                 [self.delegate sendNotificationForVideoStatusUpdate:friend videoId:videoId status:NOTIFICATION_STATUS_DOWNLOADED];
                 
+                [self.delegate updateBadgeCounter];
+                
                 ZZLogInfo(@"downloadCompletedWithFriend: Video count = %ld", (unsigned long) [ZZVideoDataProvider countAllVideos]);
             }
             else
@@ -527,7 +529,7 @@
                 if (!ANIsEmpty(video))
                 {
                     [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloading friendId:friendID videoId:videoId];
-                    [self.delegate updateBadgeCounter];
+                    
                     
                     NSString *marker = [TBMVideoIdUtils markerWithFriendID:friend.idTbm videoID:videoId isUpload:NO];
                     

@@ -45,6 +45,9 @@ static const CGFloat cancelButtonHeight = 45.f;
     _rowData = nil;
     _delegate = nil;
     _currentContact = nil;
+    _modalView = nil;
+    _tableView = nil;
+    _cancelButton = nil;
     
     _parentView = parentView;
     _title = title;
