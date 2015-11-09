@@ -21,3 +21,13 @@ hotfix/848-ding-sound-recorded
  - Moved sound playing to ZZVideoRecorder
  - Added the appropriate delay there to prevent recording the sound.
  - Made sure to add delay to stop recording as well.
+
+
+feature/auto-notification
+-------------------------
+ x Updated VideoFileHandler to add metadata
+ x Updated local copy of FTM to put metadata in request
+ x Push pod
+ x Install pod
+ x Test
+

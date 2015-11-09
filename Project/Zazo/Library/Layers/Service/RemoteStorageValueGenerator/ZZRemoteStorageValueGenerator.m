@@ -29,7 +29,7 @@
                                                videoId:(NSString*)videoId
 {
     return [NSString stringWithFormat:@"%@-%@",
-            [self _outgoingPrefixWithFrinedMKey:friendMkey],
+            [self _outgoingPrefixWithFriendMKey:friendMkey],
             [[friendCkey stringByAppendingString:videoId] an_md5]];
 }
 
@@ -48,7 +48,7 @@
 + (NSString*)outgoingVideoIDRemoteKVWithFriendMKey:(NSString*)friendMKey friendCKey:(NSString*)friendCKey
 {
     return [NSString stringWithFormat:@"%@-%@",
-            [self _outgoingPrefixWithFrinedMKey:friendMKey],
+            [self _outgoingPrefixWithFriendMKey:friendMKey],
             [self _outgoingSuffixWithFriendMKey:friendMKey
                                      friendCKey:friendCKey
                                          suffix:kRemoteStorageVideoIDSuffix]];
@@ -69,7 +69,7 @@
 + (NSString*)outgoingVideoStatusRemoteKVKeyWithFriendMKey:(NSString*)friendMKey friendCKey:(NSString*)friendCKey
 {
     return [NSString stringWithFormat:@"%@-%@",
-            [self _outgoingPrefixWithFrinedMKey:friendMKey],
+            [self _outgoingPrefixWithFriendMKey:friendMKey],
             [self _outgoingSuffixWithFriendMKey:friendMKey
                                      friendCKey:friendCKey
                                          suffix:kRemoteStorageVideoStatusSuffix]];
@@ -83,7 +83,7 @@
      return [NSString stringWithFormat:@"%@-%@", friendMkey, [self _myMkey]];
 }
 
-+ (NSString*)_outgoingPrefixWithFrinedMKey:(NSString*)friendMKey
++ (NSString*)_outgoingPrefixWithFriendMKey:(NSString*)friendMKey
 {
     return [NSString stringWithFormat:@"%@-%@", [self _myMkey], friendMKey];
 }
