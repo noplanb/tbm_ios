@@ -40,6 +40,8 @@
 - (void)queueDownloadWithFriendID:(NSString*)friendID videoId:(NSString *)videoId;
 - (void)updateS3CredentialsWithRequest;
 
+- (void)handleStuckDownloadsWithCompletionHandler:(void (^)())handler;
+
 #pragma mark - Upload
 
 - (void)uploadWithVideoUrl:(NSURL*)videoUrl friendCKey:(NSString*)friendCKey;

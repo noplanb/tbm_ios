@@ -319,7 +319,11 @@
                 [self deleteRemoteFileAndVideoId:video];
                 ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:video];
                 [ZZThumbnailGenerator generateThumbVideo:videoModel];
-                [self.delegate deleteAllViewedOrFailedVideosWithFriendId:friendID];
+                
+                if (![ZZThumbnailGenerator isVideoCorruptedWithModel:videoModel])
+                {
+                    [self.delegate deleteAllViewedOrFailedVideosWithFriendId:friendID];
+                }
                 
                 [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloaded friendId:friendID videoId:videoId];
                 

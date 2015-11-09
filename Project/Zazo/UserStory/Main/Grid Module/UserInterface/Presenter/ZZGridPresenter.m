@@ -391,8 +391,12 @@
     
     BOOL isEnbaled = YES;
     
-    if (model.item.relatedUser.lastIncomingVideoStatus != ZZVideoIncomingStatusDownloaded ||
-        model.item.relatedUser.lastIncomingVideoStatus != ZZVideoIncomingStatusViewed)
+    if ((model.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded) ||
+        (model.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusViewed))
+    {
+        isEnbaled = YES;
+    }
+    else
     {
         if ([self _isNetworkEnabled])
         {
@@ -417,7 +421,6 @@
                                     
                                     //                                [self.interactor updateGridWithModel:model.item];
                                 }];
-            
         }
     }
 

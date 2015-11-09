@@ -20,7 +20,7 @@
 + (void)deleteLastThumbForUser:(ZZFriendDomainModel*)friendModel;
 + (UIImage*)legacyThumbImageForFriend:(ZZFriendDomainModel*)friendModel;
 + (BOOL)hasLegacyThumbForUser:(ZZFriendDomainModel*)friendModel;
-
++ (BOOL)isVideoCorruptedWithModel:(ZZVideoDomainModel*)videoModel;
 
 #pragma mark - Video
 

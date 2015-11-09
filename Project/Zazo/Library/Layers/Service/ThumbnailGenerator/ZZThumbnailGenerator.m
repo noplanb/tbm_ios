@@ -169,5 +169,9 @@
     [ZZFileHelper deleteFileWithURL:[self thumbUrlForVideo:video]];
 }
 
++ (BOOL)isVideoCorruptedWithModel:(ZZVideoDomainModel*)videoModel
+{
+    return ![self _generateThumbForVideo:videoModel];
+}
 
 @end
