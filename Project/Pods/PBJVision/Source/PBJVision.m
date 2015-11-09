@@ -671,11 +671,16 @@ typedef NS_ENUM(GLint, PBJVisionUniformLocationTypes)
     if (self) {
         
         // setup GLES
-        _context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-        if (!_context) {
+        // _context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+        _context = nil;
+        if (!_context)
+        {
             DLog(@"failed to create GL context");
         }
-        [self _setupGL];
+        else
+        {
+            [self _setupGL];
+        }
         
         _captureSessionPreset = AVCaptureSessionPresetMedium;
         _captureDirectory = nil;
