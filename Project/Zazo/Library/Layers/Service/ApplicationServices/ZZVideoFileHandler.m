@@ -192,8 +192,7 @@
 //    // 404s can happen in normal operation do not dispatch or refresh credentials.
 //    if (error.code == 404)
 //        return;
-    if ((!ANIsEmpty(error) && error.code != 404) ||
-        (!ANIsEmpty(error) && error.code != 403))
+    if (!ANIsEmpty(error) && error.code != 404)
     {
         ANDispatchBlockToBackgroundQueue(^{
             NSString *type = marker.isUpload ? @"upload" : @"download";
