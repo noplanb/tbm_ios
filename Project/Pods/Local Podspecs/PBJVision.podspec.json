@@ -1,6 +1,6 @@
 {
   "name": "PBJVision",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "summary": "iOS camera engine, supports touch-to-record video, slow motion video, and photo capture.",
   "homepage": "https://github.com/noplanb/PBJVision",
   "social_media_url": "http://twitter.com/piemonte",
@@ -10,7 +10,7 @@
   },
   "source": {
     "git": "https://github.com/noplanb/PBJVision.git",
-    "tag": "v0.4.4"
+    "tag": "v0.4.5"
   },
   "frameworks": [
     "Foundation",
