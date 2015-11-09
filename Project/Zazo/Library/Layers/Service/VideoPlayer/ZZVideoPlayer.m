@@ -332,6 +332,7 @@
     }
     else
     {
+        
         ZZVideoDomainModel* lastModel = [self.videoModelsArray lastObject];
         
         TBMVideo* lastVideo = [ZZVideoDataProvider findWithVideoId:lastModel.videoID];
