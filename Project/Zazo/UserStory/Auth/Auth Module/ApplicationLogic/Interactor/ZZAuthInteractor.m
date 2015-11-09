@@ -41,9 +41,9 @@
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
 
 #ifdef DEBUG_LOGIN_USER
-    user.firstName = @"Dkkk";
-    user.lastName = @"kkk";
-    user.mobileNumber = @"+380974720070";
+    user.firstName = @"DKDKD";
+    user.lastName = @"SSSS";
+    user.mobileNumber = @"+380974727070";
 #endif
 
     if (!ANIsEmpty(user.mobileNumber))
@@ -119,10 +119,10 @@
 
         [ZZStoredSettingsManager shared].isPushNotificatonEnabled = YES;
         [ZZNotificationsHandler registerToPushNotifications];
-        
+
         [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventsUserAuthorized
                                            notificationObject:nil];
-        
+
     } error:^(NSError *error) {
         //TODO: separate errors
         [self.output smsCodeValidationCompletedWithError:error];
