@@ -26,13 +26,13 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 
 @interface ZZVideoRecorder () <PBJVisionDelegate>
 
-@property (nonatomic, strong) PBJVision* recorder;
 @property (nonatomic, strong) NSURL* recordVideoUrl;
 @property (nonatomic, strong) TBMVideoProcessor* videoProcessor;
 @property (nonatomic, strong) NSDate* recordStartDate;
 @property (nonatomic, copy) void (^completionBlock)(BOOL isRecordingSuccess);
 @property (nonatomic, assign) BOOL didCancelRecording;
 @property (nonatomic, strong) ZZSoundEffectPlayer *soundPlayer;
+
 @end
 
 
@@ -53,7 +53,6 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
     if (self = [super init])
     {
         self.videoProcessor = [TBMVideoProcessor new];
-        self.recorder = [PBJVision sharedInstance];
         self.recorder.delegate = self;
         
         self.recorder.cameraMode = PBJCameraModeVideo;
@@ -67,6 +66,11 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
     return self;
 }
 
+- (PBJVision*)recorder
+{
+    return [PBJVision sharedInstance];
+}
+
 #pragma mark - Preview
 
 - (AVCaptureVideoPreviewLayer *)previewLayer
@@ -74,7 +78,8 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
     return self.recorder.previewLayer;
 }
 
-- (void)startPreview{
+- (void)startPreview
+{
     [self.recorder startPreview];
 }
 

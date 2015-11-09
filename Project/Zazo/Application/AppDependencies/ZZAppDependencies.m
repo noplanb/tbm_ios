@@ -99,6 +99,7 @@
 //    });
     
     [[OBLogger instance] logEvent:OBLogEventAppForeground];
+    [self.rootService checkApplicationPermissionsAndResources];
 }
 
 - (void)handleApplicationWillEnterForeground

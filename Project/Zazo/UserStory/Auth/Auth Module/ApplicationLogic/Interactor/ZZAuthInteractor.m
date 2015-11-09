@@ -32,7 +32,7 @@
 
 @property (nonatomic, strong) ZZUserDomainModel *currentUser;
 
-@end
+@end 
 
 @implementation ZZAuthInteractor
 
@@ -41,9 +41,9 @@
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
 
 #ifdef DEBUG_LOGIN_USER
-    user.firstName = @"DKDKD";
-    user.lastName = @"SSSS";
-    user.mobileNumber = @"+380974727070";
+    user.firstName = @"CCC";
+    user.lastName = @"ccc";
+    user.mobileNumber = @"+380661111124";
 #endif
 
     if (!ANIsEmpty(user.mobileNumber))
