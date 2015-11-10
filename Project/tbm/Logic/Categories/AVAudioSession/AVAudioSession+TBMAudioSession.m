@@ -10,6 +10,7 @@
 #import "OBLogger.h"
 
 static NSMutableSet *TBMDelegates;
+static BOOL tbmAudioSessionIsSetup = NO;
 
 @implementation AVAudioSession (TBMAudioSession)
 
@@ -17,9 +18,12 @@ static NSMutableSet *TBMDelegates;
 
 -(void)setupApplicationAudioSession
 {
-    ZZLogInfo(@"TBMAudioSession: setupApplicationAudioSession");
-    [self setApplicationCategory];
-    [self addObservers];
+    if (!tbmAudioSessionIsSetup) {
+        ZZLogInfo(@"TBMAudioSession: setupApplicationAudioSession");
+        [self setApplicationCategory];
+        [self addObservers];
+        tbmAudioSessionIsSetup = YES;
+    }
 }
 
 -(void)addTBMAudioSessionDelegate:(id <TBMAudioSessionDelegate>)delegate{
