@@ -8,7 +8,6 @@
 
 #import "AVAudioSession+TBMAudioSession.h"
 #import "OBLogger.h"
-#import "ZZVideoRecorder.h"
 
 static NSMutableSet *TBMDelegates;
 static BOOL tbmAudioSessionIsSetup = NO;
