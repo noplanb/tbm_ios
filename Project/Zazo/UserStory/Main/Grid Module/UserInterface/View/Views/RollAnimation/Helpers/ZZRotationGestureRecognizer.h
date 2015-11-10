@@ -12,6 +12,7 @@
 #import "POPDecayAnimation.h"
 #import "POPSpringAnimation.h"
 #import "ZZGeometryHelper.h"
+#import <UIKit/UIGestureRecognizerSubclass.h>
 
 @interface ZZRotationGestureRecognizer : UIPanGestureRecognizer
 
@@ -34,5 +35,6 @@
 * get angle velocity from linear velocity on pan
 */
 - (CGFloat)angleVelocityInView:(UIView *)view;
+- (void)stateChanged;
 
 @end

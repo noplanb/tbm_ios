@@ -99,12 +99,13 @@
 //    });
     
     [[OBLogger instance] logEvent:OBLogEventAppForeground];
-    [self.rootService checkApplicationPermissionsAndResources];
+//    [self.rootService checkApplicationPermissionsAndResources];
+    [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = NO;
 }
 
 - (void)handleApplicationWillEnterForeground
 {
-    [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = NO;
+  
 }
 
 - (void)handleApplicationWillTerminate

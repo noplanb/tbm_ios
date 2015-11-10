@@ -22,6 +22,9 @@
 
 @property (nonatomic, strong) ZZRotationGestureRecognizer *rotationRecognizer;
 
+//@property (nonatomic, strong) UITapGestureRecognizer* tapRecognizer;
+//@property (nonatomic, strong) UIView* stopView;
+
 @end
 
 @implementation ZZGridRotationTouchObserver
@@ -52,6 +55,9 @@
         self.rotator = [[ZZRotator alloc] initWithAnimationCompletionBlock:^{
             self.isMoving = NO;
         }];
+        
+        [self _setupStopRotationHandler];
+        
         self.rotator.delegate = self;
     }
     return self;
@@ -68,12 +74,14 @@
     {
         case UIGestureRecognizerStateBegan:
         {
+            NSLog(@"spin touch began")
             self.startOffset = self.gridView.calculatedCellsOffset;
             [self.rotator stopAnimationsOnGrid:self.gridView];
         } break;
             
         case UIGestureRecognizerStateChanged:
         {
+            NSLog(@"Touch changed");
             CGFloat currentAngle = [recognizer currentAngleInView:self.gridView];
             CGFloat startAngle = [recognizer startAngleInView:self.gridView];
             CGFloat deltaAngle = currentAngle - startAngle;
@@ -101,6 +109,29 @@
 - (void)pop_animationDidApply:(POPAnimation *)anim
 {
     [self.rotator stopDecayAnimationIfNeeded:anim onGrid:self.gridView];
+}
+
+
+#pragma mark - Stop Rotation methods
+
+- (void)_setupStopRotationHandler
+{
+    UIWindow* stopWindow = [UIApplication sharedApplication].keyWindow;
+    [[[stopWindow rac_signalForSelector:@selector(sendEvent:)] filter:^BOOL(RACTuple *touches) {
+        
+        BOOL isTouchEnabled = NO;
+        for (id event in touches)
+        {
+            NSSet* touches = [event allTouches];
+            UITouch* touch = [touches anyObject];
+            isTouchEnabled = (touch.phase == UITouchPhaseBegan);
+        };
+
+        return (self.isMoving && isTouchEnabled);
+
+    }] subscribeNext:^(RACTuple *touches) {
+        [self.rotationRecognizer stateChanged];
+    }];
 }
 
 @end

@@ -405,7 +405,7 @@
 
 - (BOOL)isVideoPlayed
 {
-    return [self.delegate isVideoPlaying];;
+    return [self.delegate isVideoPlayingWithModel:self];
 }
 
 - (void)_showMessage:(NSString*)message
