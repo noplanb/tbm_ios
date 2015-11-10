@@ -32,7 +32,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 @property (nonatomic, copy) void (^completionBlock)(BOOL isRecordingSuccess);
 @property (nonatomic, assign) BOOL didCancelRecording;
 @property (nonatomic, strong) ZZSoundEffectPlayer *soundPlayer;
-
+@property (nonatomic, assign) BOOL isSetup;
 @end
 
 
@@ -52,6 +52,16 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 {
     if (self = [super init])
     {
+        [self _addObservers];
+        self.isSetup = NO;
+    }
+    return self;
+}
+
+- (void)setup
+{
+    if (!self.isSetup)
+    {
         self.videoProcessor = [TBMVideoProcessor new];
         self.recorder.delegate = self;
         
@@ -62,8 +72,9 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
         self.recorder.outputFormat = PBJOutputFormatPreset;
         self.recorder.videoBitRate = PBJVideoBitRate640x480;
         self.recorder.captureSessionPreset = AVCaptureSessionPresetLow;
+        self.recorder.usesApplicationAudioSession = YES;
+        self.isSetup = YES;
     }
-    return self;
 }
 
 - (PBJVision*)recorder
@@ -81,6 +92,11 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 - (void)startPreview
 {
     [self.recorder startPreview];
+}
+
+- (void)stopPreview
+{
+    [self.recorder stopPreview];
 }
 
 #pragma mark - Recording indication
@@ -268,6 +284,35 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
                                                  [self.recorder startPreview];
                                              }]];
     [alert presentWithCompletion:nil];
+}
+
+#pragma mark - Lifecycle observers
+- (void)_addObservers
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_didBecomeActive)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_willResignActive)
+                                                 name:UIApplicationWillResignActiveNotification
+                                               object:nil];
+}
+
+- (void)_didBecomeActive
+{
+    ANDispatchBlockToMainQueue(^{
+        [self.recorder startPreview];
+    });
+}
+
+- (void)_willResignActive
+{
+    // We stop the preview so that TBMaudioSession can deactivate without error.
+    ANDispatchBlockToMainQueue(^{
+        [self.recorder stopPreview];
+    });
 }
 
 #pragma mark - Sound effects

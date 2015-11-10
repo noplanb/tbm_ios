@@ -671,8 +671,8 @@ typedef NS_ENUM(GLint, PBJVisionUniformLocationTypes)
     if (self) {
         
         // setup GLES
-         _context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-//        _context = nil;
+        // _context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+        _context = nil;
         if (!_context)
         {
             DLog(@"failed to create GL context");

@@ -8,6 +8,7 @@
 
 #import "AVAudioSession+TBMAudioSession.h"
 #import "OBLogger.h"
+#import "ZZVideoRecorder.h"
 
 static NSMutableSet *TBMDelegates;
 static BOOL tbmAudioSessionIsSetup = NO;
@@ -193,8 +194,10 @@ static BOOL tbmAudioSessionIsSetup = NO;
 }
 
 -(void)appWillResignActive{
-    [self deactivate];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 50 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+    // We wait here to give the video recorder time to stop preview before we deactivate audio session
+    // so we dont get an error.
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 200 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+        [self deactivate];
     });
 }
 

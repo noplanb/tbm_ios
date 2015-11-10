@@ -19,9 +19,11 @@ extern NSString* const kZZVideoRecorderDidEndVideoCapture;
 
 
 + (instancetype)shared;
+- (void)setup;
 
 - (AVCaptureVideoPreviewLayer *)previewLayer;
 - (void)startPreview;
+- (void)stopPreview;
 
 - (void)startRecordingWithVideoURL:(NSURL*)url completionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock;
 - (void)stopRecordingWithCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock;
