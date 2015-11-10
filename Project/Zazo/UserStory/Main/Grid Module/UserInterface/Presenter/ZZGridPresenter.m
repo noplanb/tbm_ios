@@ -496,7 +496,6 @@
             ANDispatchBlockToMainQueue(^{
                 [[ZZVideoRecorder shared] stopRecordingWithCompletionBlock:^(BOOL isRecordingSuccess) {
                     [self.userInterface updateRecordViewStateTo:isEnabled];
-//                    [self.soundPlayer play];
                     if (isRecordingSuccess)
                     {
                         [self _handleSentMessageEventWithCellViewModel:viewModel];
