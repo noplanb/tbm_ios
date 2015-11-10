@@ -267,9 +267,9 @@ ZZGridCenterCellViewModelDelegate
     [self.delegate showHint];
 }
 
-- (BOOL)isVideoPlaying
+- (BOOL)isVideoPlayingWithModel:(ZZGridCellViewModel *)model
 {
-    return [self.delegate isVideoPlaying];
+    return [self.delegate isVideoPlayingWithFriendModel:model.item.relatedUser];
 }
 
 

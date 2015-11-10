@@ -29,5 +29,6 @@
 
 - (void)toggle;
 - (BOOL)isPlaying;
+- (BOOL)isVideoPlayingWithFriendModel:(ZZFriendDomainModel*)friendModel;
 
 @end

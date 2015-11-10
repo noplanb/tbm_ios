@@ -434,6 +434,9 @@
     }
 }
 
+
+#pragma mark - Helpers
+
 - (BOOL)isDeviceNearEar
 {
     return [UIDevice currentDevice].proximityState;
@@ -442,6 +445,12 @@
 - (ZZFriendDomainModel*)playedFriendModel
 {
     return self.playedFriend;
+}
+
+- (BOOL)isVideoPlayingWithFriendModel:(ZZFriendDomainModel*)friendModel
+{
+    return (self.isPlayingVideo &&
+            [friendModel.idTbm isEqualToString:self.playedFriend.idTbm]);
 }
 
 #pragma mark - Lazy Load
