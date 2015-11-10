@@ -73,7 +73,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
         self.recorder.outputFormat = PBJOutputFormatPreset;
         self.recorder.videoBitRate = PBJVideoBitRate640x480;
         self.recorder.captureSessionPreset = AVCaptureSessionPresetLow;
-        self.recorder.usesApplicationAudioSession = YES;
+        self.recorder.usesApplicationAudioSession = NO;
         self.isSetup = YES;
     }
 }
