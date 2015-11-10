@@ -9,7 +9,6 @@
 #import "ZZGridPresenter.h"
 #import "ZZGridDataSource.h"
 #import "ZZVideoRecorder.h"
-#import "ZZVideoUtils.h"
 #import "ZZVideoPlayer.h"
 #import "TBMFriend.h"
 #import "iToast.h"
@@ -240,6 +239,7 @@
                                                                           isSwitchCameraAvailable &&
                                                                           [ZZGridActionStoredSettings shared].frontCameraHintWasShown)];
         
+        [[ZZVideoRecorder shared] setup];
         [self.dataSource updateValueOnCenterCellWithPreviewLayer:[ZZVideoRecorder shared].previewLayer];
         [[ZZVideoRecorder shared] startPreview];
         
@@ -495,9 +495,11 @@
         else
         {
             ANDispatchBlockToMainQueue(^{
+                // Don't rely on completion by videoRecorder to reset the view in case
+                // for some reason it does not complete.
+                [self.userInterface updateRecordViewStateTo:isEnabled];
+                
                 [[ZZVideoRecorder shared] stopRecordingWithCompletionBlock:^(BOOL isRecordingSuccess) {
-                    [self.userInterface updateRecordViewStateTo:isEnabled];
-//                    [self.soundPlayer play];
                     if (isRecordingSuccess)
                     {
                         [self _handleSentMessageEventWithCellViewModel:viewModel];

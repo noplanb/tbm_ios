@@ -95,11 +95,27 @@ static NSInteger const kStateStringColumnWidth = 14;
 {
     NSPredicate* incomingPredicate = [NSPredicate predicateWithFormat:@"pathExtension == 'mp4'"];
     NSArray* diskFileNamesIncoming = [self _loadVideoFilesWithPredicate:incomingPredicate];
+    
+    diskFileNamesIncoming = [[diskFileNamesIncoming.rac_sequence map:^id(NSString* value) {
+        NSString* lastComponent = [[value componentsSeparatedByString:@"_"] lastObject];
+        return [[lastComponent componentsSeparatedByString:@"."] firstObject];
+    }] array];
+    
     NSMutableSet* diskFileNamesIncomingSet = [NSMutableSet setWithArray:diskFileNamesIncoming];
     
     NSArray* dataBaseFileNamesIncoming = [stateModels valueForKeyPath:ZZDebugFriendStateDomainModelAttributes.incomingVideoItems];
-    NSSet* databaseFileNamesIncomingSet = [NSSet setWithArray:dataBaseFileNamesIncoming];
     
+    __block NSMutableArray* videoIDs = [NSMutableArray array];
+    
+    [dataBaseFileNamesIncoming enumerateObjectsUsingBlock:^(NSArray*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        [obj enumerateObjectsUsingBlock:^(ZZDebugVideoStateDomainModel*  _Nonnull modelVideo, NSUInteger idx, BOOL * _Nonnull stop) {
+            [videoIDs addObject:modelVideo.itemID];
+        }];
+    }];
+    
+    
+    NSSet* databaseFileNamesIncomingSet = [NSSet setWithArray:videoIDs];
     [diskFileNamesIncomingSet minusSet:databaseFileNamesIncomingSet];
     
     return [diskFileNamesIncomingSet allObjects];
@@ -108,15 +124,15 @@ static NSInteger const kStateStringColumnWidth = 14;
 + (NSArray*)loadOutgoingDandlingItemsFromData:(NSArray*)stateModels
 {
     NSPredicate* incomingPredicate = [NSPredicate predicateWithFormat:@"pathExtension == 'mov'"];
-    NSArray* diskFileNamesIncoming = [self _loadVideoFilesWithPredicate:incomingPredicate];
-    NSMutableSet* diskFileNamesIncomingSet = [NSMutableSet setWithArray:diskFileNamesIncoming];
+    NSArray* diskFileNamesOutgoing = [self _loadVideoFilesWithPredicate:incomingPredicate];
+    NSMutableSet* diskFileNamesOutgoingSet = [NSMutableSet setWithArray:diskFileNamesOutgoing];
     
     NSArray* dataBaseFileNamesIncoming = [stateModels valueForKeyPath:ZZDebugFriendStateDomainModelAttributes.outgoingVideoItems];
-    NSSet* databaseFileNamesIncomingSet = [NSSet setWithArray:dataBaseFileNamesIncoming];
+    NSSet* databaseFileNamesOutgoingSet = [NSSet setWithArray:dataBaseFileNamesIncoming];
     
-    [diskFileNamesIncomingSet minusSet:databaseFileNamesIncomingSet];
+    [diskFileNamesOutgoingSet minusSet:databaseFileNamesOutgoingSet];
     
-    return [diskFileNamesIncomingSet allObjects];
+    return [diskFileNamesOutgoingSet allObjects];
 }
 
 #pragma mark - Friends
