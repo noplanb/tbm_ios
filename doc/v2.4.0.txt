@@ -57,3 +57,14 @@ SOLUTION:
   Start preview on applicationDidBecomeActive
   Give stop preview some time to complete before deactivating audio session.
 
+
+hotfix/859-downloading-e-after-reg
+----------------------------------
+Symptoms:
+  Delete and reinstall app with same user
+  Notice that it attempts to download old videos that should have been deleted in kvstore
+
+CAUSES:
+  1) We were not deleting remote in case of failedPermanently, unrecoginzed Video
+  2) We were using the wrong key to delete from remote.
+

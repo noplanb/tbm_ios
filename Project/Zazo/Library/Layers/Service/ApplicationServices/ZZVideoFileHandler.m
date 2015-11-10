@@ -127,7 +127,7 @@
         }
         else
         {
-            [self _downloadCompletedWithFriendID:markerModel.friendID videoId:markerModel.videoID error:error];
+            [self _downloadCompletedWithFriendId:markerModel.friendID videoId:markerModel.videoID error:error];
         }
     }
     else
@@ -307,51 +307,53 @@
 //----------------
 // Download events
 //----------------
-- (void)_downloadCompletedWithFriendID:(NSString*)friendID videoId:(NSString *)videoId error:(NSError *)error
+- (void)_downloadCompletedWithFriendId:(NSString*)friendId videoId:(NSString *)videoId error:(NSError *)error
 {
-        TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
-        TBMVideo *video = [ZZVideoDataProvider findWithVideoId:videoId];
-    
-        // Whether successful, failed permanently, or unrecognized videoId we always want to
-        // delete the remote video and video id as we don't ever want to try again.
-        [self deleteRemoteFileAndVideoId:video];
+    // Whether successful, failed permanently, or unrecognized video we always want to try to
+    // delete the remote video and received kv as we don't ever want to try again.
+    [self _deleteRemoteWithFriendId:friendId videoId:videoId];
 
-        if (!ANIsEmpty(video))
-        {
-            ZZLogError(@"unrecognized videoId");
-            return;
-        }
+    TBMFriend *friendModel = [ZZFriendDataProvider friendEntityWithItemID:friendId];
+    TBMVideo *video = [ZZVideoDataProvider findWithVideoId:videoId];
     
-        if (ANIsEmpty(error))
+
+    if (ANIsEmpty(video))
+    {
+        ZZLogError(@"unrecognized videoId");
+        return;
+    }
+
+
+    if (ANIsEmpty(error))
+    {
+        ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:video];
+        BOOL validThumb = [ZZThumbnailGenerator generateThumbVideo:videoModel];
+        
+        if (validThumb)
         {
-            ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:video];
-            BOOL validThumb = [ZZThumbnailGenerator generateThumbVideo:videoModel];
-            
-            if (validThumb)
-            {
-                [self.delegate deleteAllViewedOrFailedVideosWithFriendId:friendID];
-            }
-            
-            [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloaded friendId:friendID videoId:videoId];
-            
-            [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:videoId
-                                                                         toStatus:ZZRemoteStorageVideoStatusDownloaded
-                                                                       friendMkey:friend.mkey
-                                                                       friendCKey:friend.ckey] subscribeNext:^(id x) {}];
-            
-            [self.delegate sendNotificationForVideoStatusUpdate:friend videoId:videoId status:NOTIFICATION_STATUS_DOWNLOADED];
-            
-            [self.delegate updateBadgeCounter];
-            
-            ZZLogInfo(@"Video count = %ld", (unsigned long) [ZZVideoDataProvider countAllVideos]);
+            [self.delegate deleteAllViewedOrFailedVideosWithFriendId:friendId];
         }
-        else  // error
-        {
-            ZZLogError(@"%@", error);
-            [[ZZVideoStatusHandler sharedInstance] setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusFailedPermanently
-                                                                          friendId:friendID
-                                                                           videoId:videoId];
-        }
+        
+        [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloaded friendId:friendId videoId:videoId];
+        
+        [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:videoId
+                                                                     toStatus:ZZRemoteStorageVideoStatusDownloaded
+                                                                   friendMkey:friendModel.mkey
+                                                                   friendCKey:friendModel.ckey] subscribeNext:^(id x) {}];
+        
+        [self.delegate sendNotificationForVideoStatusUpdate:friendModel videoId:videoId status:NOTIFICATION_STATUS_DOWNLOADED];
+        
+        [self.delegate updateBadgeCounter];
+//
+        ZZLogInfo(@"Video count = %ld", (unsigned long) [ZZVideoDataProvider countAllVideos]);
+    }
+    else  // error
+    {
+        ZZLogError(@"%@", error);
+        [[ZZVideoStatusHandler sharedInstance] setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusFailedPermanently
+                                                                      friendId:friendId
+                                                                       videoId:videoId];
+    }
     
 }
 
@@ -594,32 +596,30 @@
 // Delete
 //-------
 
-- (void)deleteRemoteFileAndVideoId:(TBMVideo *)video
+- (void)_deleteRemoteWithFriendId:(NSString *)friendId videoId:(NSString *)videoId
 {
-    // GARF: TODO: We should delete the remoteVideoId from remoteVideoIds only if file deletion is successful so we dont leave hanging
-    // files. This is not a problem on s3 as old videos are automatically deleted by the server.
+    TBMFriend* friendModel = [ZZFriendDataProvider friendEntityWithItemID:friendId];
     
-    NSString *filename = [ZZRemoteStorageValueGenerator incomingVideoRemoteFilenameWithFriendMkey:video.friend.mkey
-                                                                                       friendCKey:video.friend.ckey
-                                                                                          videoId:video.videoId];
+    if (ANIsEmpty(friendModel))
+    {
+        ZZLogWarning(@"Unrecognized friendId. Unable to delete remote. This could happen if you are testing and delete a user using the admin console");
+        return;
+    }
+    
+    NSString *filename = [ZZRemoteStorageValueGenerator incomingVideoRemoteFilenameWithFriendMkey:friendModel.mkey
+                                                                                       friendCKey:friendModel.ckey
+                                                                                          videoId:videoId];
     ZZLogInfo(@"deleteRemoteFile: deleting: %@", filename);
-    if (kRemoteStorageShouldUseS3)
+    NSString *full = [NSString stringWithFormat:@"%@/%@", remoteStorageFileTransferDeletePath(), filename];
+    NSError *e = [[self fileTransferManager] deleteFile:full];
+    if (e != nil)
     {
-        NSString *full = [NSString stringWithFormat:@"%@/%@", remoteStorageFileTransferDeletePath(), filename];
-        NSError *e = [[self fileTransferManager] deleteFile:full];
-        if (e != nil)
-        {
-            ZZLogError(@"ftmDelete: Error trying to delete remote file. This should never happen. %@", e);
-        }
-    }
-    else
-    {
-        [[ZZVideoNetworkTransportService deleteVideoFileWithName:filename] subscribeNext:^(id x) {}];
+        ZZLogError(@"ftmDelete: Error trying to delete remote file. This should never happen. %@", e);
     }
     
-    [[ZZRemoteStoageTransportService deleteRemoteIncomingVideoWithItemID:video.videoId
-                                                              friendMkey:video.friend.mkey
-                                                              friendCKey:video.friend.ckey] subscribeNext:^(id x) {}];
+    [[ZZRemoteStoageTransportService deleteRemoteIncomingVideoWithItemID:videoId
+                                                              friendMkey:friendModel.mkey
+                                                              friendCKey:friendModel.ckey] subscribeNext:^(id x) {}];
 }
 
 

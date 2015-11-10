@@ -42,7 +42,7 @@
                                        friendMkey:(NSString*)friendMkey
                                        friendCKey:(NSString*)friendCKey
 {
-    NSString *key1 = [ZZRemoteStorageValueGenerator outgoingVideoIDRemoteKVWithFriendMKey:friendMkey
+    NSString *key1 = [ZZRemoteStorageValueGenerator incomingVideoIDRemoteKVKeyWithFriendMKey:friendMkey
                                                                                friendCKey:friendCKey];
     return [self deleteValueWithKey1:key1 key2:itemID];
 }

@@ -293,7 +293,8 @@ static NSInteger const kGridFriendsCellCount = 8;
         if (!shouldBeVisible)
         {
             BOOL isUserSendsUsAVideo = ((friend.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeIncoming) &&
-                                        (friend.lastIncomingVideoStatusValue  == ZZVideoIncomingStatusDownloading));
+                                        (friend.lastIncomingVideoStatusValue  == ZZVideoIncomingStatusDownloading ||
+                                         friend.lastIncomingVideoStatusValue == ZZVideoIncomingStatusFailedPermanently));
             
             BOOL isUserViewedOurVideo = ((friend.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeOutgoing) &&
                                          (friend.outgoingVideoStatusValue  == ZZVideoOutgoingStatusViewed));
