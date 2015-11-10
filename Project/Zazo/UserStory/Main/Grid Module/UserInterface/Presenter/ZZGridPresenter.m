@@ -494,8 +494,11 @@
         else
         {
             ANDispatchBlockToMainQueue(^{
+                // Don't rely on completion by videoRecorder to reset the view in case
+                // for some reason it does not complete.
+                [self.userInterface updateRecordViewStateTo:isEnabled];
+                
                 [[ZZVideoRecorder shared] stopRecordingWithCompletionBlock:^(BOOL isRecordingSuccess) {
-                    [self.userInterface updateRecordViewStateTo:isEnabled];
                     if (isRecordingSuccess)
                     {
                         [self _handleSentMessageEventWithCellViewModel:viewModel];
