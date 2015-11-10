@@ -132,7 +132,8 @@
 - (void)requestBackground
 {
     ZZLogInfo(@"AppDelegate: requestBackground: called:");
-    if (self.backgroundTaskID == UIBackgroundTaskInvalid ) {
+    if (self.backgroundTaskID == UIBackgroundTaskInvalid )
+    {
         ZZLogInfo(@"AppDelegate: requestBackground: requesting background.");
         self.backgroundTaskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
             ZZLogInfo(@"AppDelegate: Ending background");

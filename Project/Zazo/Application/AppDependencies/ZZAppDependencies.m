@@ -30,38 +30,31 @@
 
 @implementation ZZAppDependencies
 
-- (instancetype)init
+- (void)initialApplicationSetup:(UIApplication*)application launchOptions:(NSDictionary*)options
 {
-    self = [super init];
-    if (self)
-    {
-        self.notificationsHandler = [ZZNotificationsHandler new];
-        self.rootService = [ZZApplicationRootService new];
-        
-        self.notificationsHandler.delegate = self.rootService;
-        self.rootService.notificationDelegate = (id)self.notificationsHandler;
-    }
-    return self;
-}
-
-- (void)initialApplicationSetup:(UIApplication *)application launchOptions:(NSDictionary *)options
-{
+    [ANCrashlyticsAdapter start];
     [ZZRollbarAdapter shared];
-    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelInfo];
     [ZZContentDataAcessor start];
+   
+    ANDispatchBlockToBackgroundQueue(^{
+        [ANLogger initializeLogger];
+        [ZZColorTheme shared];
+        [self _handleIncomingCall];
+    });
+    
+    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelInfo];
+    
+    self.notificationsHandler = [ZZNotificationsHandler new];
+    self.rootService = [ZZApplicationRootService new];
+    
+    self.notificationsHandler.delegate = self.rootService;
+    self.rootService.notificationDelegate = (id)self.notificationsHandler;
     
     NSDictionary *remoteNotification = [options objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (remoteNotification)
     {
         [self handlePushNotification:remoteNotification];
     }
-    
-    ANDispatchBlockToBackgroundQueue(^{
-        [ANCrashlyticsAdapter start];
-        [ANLogger initializeLogger];
-        [ZZColorTheme shared];
-        [self _handleIncomingCall];
-    });
 }
 
 
@@ -99,7 +92,7 @@
 //    });
     
     [[OBLogger instance] logEvent:OBLogEventAppForeground];
-//    [self.rootService checkApplicationPermissionsAndResources];
+    [self.rootService checkApplicationPermissionsAndResources];
     [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = NO;
 }
 
