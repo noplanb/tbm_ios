@@ -31,3 +31,28 @@ feature/auto-notification
  x Install pod
  x Test
 
+hotfix/863-pbjvision_gl_crash
+-----------------------------
+ x Crash was due to PBJVision making GL calls while app is in background
+ x Solution remove instantiation of GL in our version of PBJVision
+
+
+hotfix/874-first-recording-after-reg
+------------------------------------
+Symptoms:
+  1 Invite a user
+  2 Send invite sms but no sim
+  3 Notification from OS that no sim causes app to resign active
+  4 Send welcome message
+  ERROR: Video recorder never completes recording.
+
+CAUSE:
+  We deactivate audio session when we resign active to allow other apps to use the audio
+  When we deactivate the audio session while preview is still showing we get an error
+  Attempting to record when we become active again after this error fails
+
+SOLUTION:
+  Stop preview on applicationWillResignActive
+  Start preview on applicationDidBecomeActive
+  Give stop preview some time to complete before deactivating audio session.
+
