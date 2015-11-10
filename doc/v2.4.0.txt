@@ -68,3 +68,21 @@ CAUSES:
   1) We were not deleting remote in case of failedPermanently, unrecoginzed Video
   2) We were using the wrong key to delete from remote.
 
+
+hotfix/849-oncall-dialog
+------------------------
+Symptoms:
+ - Call the phone answer the call
+ - While on the call launch Zazo
+ ER:
+  - On a call dialog.
+AR:
+  - No dialog appears.
+  - Camera preview hangs
+  - Other interface elements remain active and operable
+
+CAUSE:
+On ios9 we do not get _sessionRuntimeErrored in case of trying to start preview while another app has mic or camera. We get interrupted again.
+
+SOLUTION:
+Show dialog on interrupted as well as errored.

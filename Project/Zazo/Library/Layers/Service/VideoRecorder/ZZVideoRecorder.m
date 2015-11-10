@@ -33,6 +33,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 @property (nonatomic, assign) BOOL didCancelRecording;
 @property (nonatomic, strong) ZZSoundEffectPlayer *soundPlayer;
 @property (nonatomic, assign) BOOL isSetup;
+@property (nonatomic, assign) BOOL onCallDialogShowing;
 @end
 
 
@@ -276,12 +277,19 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 - (void)_showProbableOnCallAlert
 {
     ZZLogInfo(@"alertProbablePhoneCall");
+    if (self.onCallDialogShowing == YES)
+    {
+        return;
+    }
+    
+    self.onCallDialogShowing = YES;
     NSString *msg = @"Mic or camera are busy. Are you on a phone call? Hangup and try again.";
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"On a Call?" message:msg];
     [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again"
                                                style:SDCAlertActionStyleDefault
                                              handler:^(SDCAlertAction *action) {
                                                  [self.recorder startPreview];
+                                                 self.onCallDialogShowing = NO;
                                              }]];
     [alert presentWithCompletion:nil];
 }
@@ -335,6 +343,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 - (void)visionSessionWasInterrupted:(PBJVision *)vision
 {
     ZZLogInfo(@"visionSessionWasInterrupted");
+    [self _showProbableOnCallAlert];
 }
 - (void)visionSessionInterruptionEnded:(PBJVision *)vision{}
 - (BOOL)visionSessionRuntimeErrorShouldRetry:(PBJVision *)vision error:(NSError*)error
