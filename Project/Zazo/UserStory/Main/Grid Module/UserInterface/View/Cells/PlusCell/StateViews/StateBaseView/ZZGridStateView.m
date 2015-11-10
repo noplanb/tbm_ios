@@ -132,7 +132,7 @@
 
     }
     else if ((model.state & ZZGridCellViewModelStatePreview) &&
-             (model.state & ZZGridCellViewModelStateVideoDownloading))  // 10010000 preview and downloading resets this state.
+             (model.state & ZZGridCellViewModelStateVideoDownloading))
     {
         [self _setupGreenColorsWithModel:model];
     }

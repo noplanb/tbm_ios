@@ -81,7 +81,7 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
         
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
             
-            NSError* error = granted ? nil : [self _errorWithPermissionType:ZZApplicationPermissionTypeAudio];
+            NSError* error = granted ? nil : [self _errorWithPermissionType:ZZApplicationPermissionTypeVideo];
             [NSObject an_handleSubcriber:subscriber withObject:@(granted) error:error];
         }];
         return [RACDisposable disposableWithBlock:^{}];

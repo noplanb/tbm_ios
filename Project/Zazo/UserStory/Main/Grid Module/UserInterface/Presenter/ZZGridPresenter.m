@@ -401,7 +401,7 @@
     {
         if ([self _isNetworkEnabled])
         {
-            if ((model.item.relatedUser.unviewedCount == 1) &&
+            if ((model.item.relatedUser.videos.count == 1) &&
                 model.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
             {
                 isEnbaled = NO;
@@ -448,9 +448,9 @@
 
 #pragma mark - Data source delegate
 
-- (BOOL)isVideoPlaying
+- (BOOL)isVideoPlayingWithFriendModel:(ZZFriendDomainModel *)friendModel
 {
-    return self.videoPlayer.isPlayingVideo;
+    return  [self.videoPlayer isVideoPlayingWithFriendModel:friendModel];
 }
 
 - (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel*)userModel

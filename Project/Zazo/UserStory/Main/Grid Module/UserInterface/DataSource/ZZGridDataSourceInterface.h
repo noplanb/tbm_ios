@@ -28,7 +28,7 @@
 - (void)nudgeSelectedWithUserModel:(id)userModel;
 - (void)showHint;
 - (void)switchCamera;
-- (BOOL)isVideoPlaying;
+- (BOOL)isVideoPlayingWithFriendModel:(ZZFriendDomainModel*)friendModel;
 - (void)addUser;
 - (BOOL)isGridRotate;
 
