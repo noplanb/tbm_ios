@@ -13,14 +13,13 @@
 
 + (UIImage*)thumbImageForUser:(ZZFriendDomainModel*)friendModel;
 + (BOOL)isThumbNoPicForUser:(ZZFriendDomainModel*)friendModel;
-+ (void)generateThumbVideo:(ZZVideoDomainModel*)video;
++ (BOOL)generateThumbVideo:(ZZVideoDomainModel*)video;
 + (NSURL*)lastThumbUrlForForUser:(ZZFriendDomainModel*)friendModel;
 + (UIImage*)lastThumbImageForUser:(ZZFriendDomainModel*)friendModel;
 + (BOOL)hasLastThumbForUser:(ZZFriendDomainModel*)friendModel;
 + (void)deleteLastThumbForUser:(ZZFriendDomainModel*)friendModel;
 + (UIImage*)legacyThumbImageForFriend:(ZZFriendDomainModel*)friendModel;
 + (BOOL)hasLegacyThumbForUser:(ZZFriendDomainModel*)friendModel;
-+ (BOOL)isVideoCorruptedWithModel:(ZZVideoDomainModel*)videoModel;
 
 #pragma mark - Video
 

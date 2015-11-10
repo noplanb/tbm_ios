@@ -32,8 +32,9 @@ feature/auto-notification
  x Test
 
 
- hotfix/863-pbjvision_gl_crash
- -----------------------------
-  x Crash was due to PBJVision making GL calls while app is in background
-  x Solution remove instantiation of GL in our version of PBJVision
+hotfix/863-pbjvision_gl_crash
+-----------------------------
+x Crash was due to PBJVision making GL calls while app is in background
+x Solution remove instantiation of GL in our version of PBJVision
+
 

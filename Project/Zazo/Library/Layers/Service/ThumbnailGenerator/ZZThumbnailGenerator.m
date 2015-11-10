@@ -38,16 +38,17 @@
     return ![self hasLastThumbForUser:friend] && ![self hasLegacyThumbForUser:friend];
 }
 
-+ (void)generateThumbVideo:(ZZVideoDomainModel*)video
++ (BOOL)generateThumbVideo:(ZZVideoDomainModel*)video
 {
     ZZLogInfo(@"generateThumbWithVideo: %@ vid:%@", video.relatedUser.firstName, video.videoID);
     if ([self _generateThumbForVideo:video])
     {
         [self _copyToLastThumbWithVideo:video];
+        return YES;
     }
     else
     {
-    
+        return NO;
     }
 }
 
@@ -169,9 +170,5 @@
     [ZZFileHelper deleteFileWithURL:[self thumbUrlForVideo:video]];
 }
 
-+ (BOOL)isVideoCorruptedWithModel:(ZZVideoDomainModel*)videoModel
-{
-    return ![self _generateThumbForVideo:videoModel];
-}
 
 @end

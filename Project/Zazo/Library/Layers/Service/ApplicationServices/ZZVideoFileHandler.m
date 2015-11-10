@@ -311,45 +311,46 @@
 {
         TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
         TBMVideo *video = [ZZVideoDataProvider findWithVideoId:videoId];
-        
+    
+        // Whether successful, failed permanently, or unrecognized videoId we always want to
+        // delete the remote video and video id as we don't ever want to try again.
+        [self deleteRemoteFileAndVideoId:video];
+
         if (!ANIsEmpty(video))
         {
-            if (ANIsEmpty(error))
-            {
-                [self deleteRemoteFileAndVideoId:video];
-                ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:video];
-                [ZZThumbnailGenerator generateThumbVideo:videoModel];
-                
-                if (![ZZThumbnailGenerator isVideoCorruptedWithModel:videoModel])
-                {
-                    [self.delegate deleteAllViewedOrFailedVideosWithFriendId:friendID];
-                }
-                
-                [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloaded friendId:friendID videoId:videoId];
-                
-                [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:videoId
-                                                                             toStatus:ZZRemoteStorageVideoStatusDownloaded
-                                                                           friendMkey:friend.mkey
-                                                                           friendCKey:friend.ckey] subscribeNext:^(id x) {}];
-                
-                [self.delegate sendNotificationForVideoStatusUpdate:friend videoId:videoId status:NOTIFICATION_STATUS_DOWNLOADED];
-                
-                [self.delegate updateBadgeCounter];
-                
-                ZZLogInfo(@"downloadCompletedWithFriend: Video count = %ld", (unsigned long) [ZZVideoDataProvider countAllVideos]);
-            }
-            else
-            {
-                ZZLogError(@"downloadCompletedWithFriend %@", error);
-                [[ZZVideoStatusHandler sharedInstance] setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusFailedPermanently
-                                                                              friendId:friendID
-                                                                               videoId:videoId];
-                [self deleteRemoteFileAndVideoId:video];
-            }
+            ZZLogError(@"unrecognized videoId");
+            return;
         }
-        else
+    
+        if (ANIsEmpty(error))
         {
-            ZZLogError(@"downloadCompletedWithFriend: ERROR: unrecognized videoId");
+            ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:video];
+            BOOL validThumb = [ZZThumbnailGenerator generateThumbVideo:videoModel];
+            
+            if (validThumb)
+            {
+                [self.delegate deleteAllViewedOrFailedVideosWithFriendId:friendID];
+            }
+            
+            [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloaded friendId:friendID videoId:videoId];
+            
+            [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:videoId
+                                                                         toStatus:ZZRemoteStorageVideoStatusDownloaded
+                                                                       friendMkey:friend.mkey
+                                                                       friendCKey:friend.ckey] subscribeNext:^(id x) {}];
+            
+            [self.delegate sendNotificationForVideoStatusUpdate:friend videoId:videoId status:NOTIFICATION_STATUS_DOWNLOADED];
+            
+            [self.delegate updateBadgeCounter];
+            
+            ZZLogInfo(@"Video count = %ld", (unsigned long) [ZZVideoDataProvider countAllVideos]);
+        }
+        else  // error
+        {
+            ZZLogError(@"%@", error);
+            [[ZZVideoStatusHandler sharedInstance] setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusFailedPermanently
+                                                                          friendId:friendID
+                                                                           videoId:videoId];
         }
     
 }
