@@ -73,7 +73,8 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
         self.recorder.outputFormat = PBJOutputFormatPreset;
         self.recorder.videoBitRate = PBJVideoBitRate640x480;
         self.recorder.captureSessionPreset = AVCaptureSessionPresetLow;
-        self.recorder.usesApplicationAudioSession = NO;
+        self.recorder.usesApplicationAudioSession = YES;
+        self.recorder.automaticallyConfiguresApplicationAudioSession = NO;
         self.isSetup = YES;
     }
 }
@@ -233,20 +234,6 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
         [self.recorder setCameraDevice:PBJCameraDeviceFront];
     }
 }
-
-#pragma mark - Audio Session
-
-// TODO: Sani - Find out why these are necessary and remove if not needed.
-- (void)stopAudioSession
-{
-    //[self.recorder removeAudioInput];
-}
-
-- (void)startAudioSession
-{
-    //[self.recorder addAudioInput];
-}
-
 
 #pragma mark - UI messages
 // TODO: Sani - These UI Methods should be moved to GridPresenter+UserDialogs

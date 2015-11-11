@@ -34,9 +34,6 @@ extern NSString* const kZZVideoRecorderDidEndVideoCapture;
 
 - (void)cancelRecording;
 
-- (void)stopAudioSession;
-- (void)startAudioSession;
-
 - (BOOL)isRecording;
 - (void)showVideoToShortToast;
 

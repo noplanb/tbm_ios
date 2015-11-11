@@ -86,3 +86,17 @@ On ios9 we do not get _sessionRuntimeErrored in case of trying to start preview 
 
 SOLUTION:
 Show dialog on interrupted as well as errored.
+
+
+hotfix/651-proximity-sensor
+---------------------------
+BUG:
+ - Was not playing from earpiece when moved to ear
+
+CAUSE:
+ - Video recorder was configuring the audio session from under audioSession category.
+
+SOLUTION:
+ - Update PBJVision to allow setting automaticallyConfiguresApplicationAudioSession = NO
+ - Release pod version 0.4.6
+ - Update Zazo pod
