@@ -113,3 +113,12 @@ SOLUTION:
   Remove from code.
 
 
+handle-stuck-downloads
+----------------------
+HandleStuckDownloads should be called on each active on before
+It was not the cause of download e! problems.
+Those were fixed in hotfix/859-downloading-e-after-reg
+
+Tested handle stuck downloads for background notification with cellular coverage only on IOS 7 and it appears to be workig well.
+
+Cleaned up unnecessary dispatch error in generateThumb

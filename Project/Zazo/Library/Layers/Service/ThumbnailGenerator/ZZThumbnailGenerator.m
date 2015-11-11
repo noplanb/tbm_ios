@@ -140,7 +140,7 @@
     ZZLogInfo(@"generateThumb vid: %@ for %@", video.videoID, video.relatedUser.firstName);
     if (![ZZFileHelper isFileValidWithFileURL:video.videoURL])
     {
-        ZZLogError(@"generateThumb: vid: %@ !hasValidVideoFile", video.videoID);
+        ZZLogInfo(@"generateThumb: vid: %@ !hasValidVideoFile", video.videoID);
         return NO;
     }
     
