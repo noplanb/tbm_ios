@@ -61,16 +61,6 @@
 
 - (void)handleWillResignActive
 {
-    ANDispatchBlockToBackgroundQueue(^{
-       
-        ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
-        if (user.isRegistered)
-        {
-            ANDispatchBlockToMainQueue(^{
-            });
-        }
-    });
-    
     [self.rootService updateBadgeCounter];
 }
 
