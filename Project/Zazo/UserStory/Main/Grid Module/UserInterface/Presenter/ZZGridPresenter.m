@@ -73,12 +73,7 @@
 }
 
 - (void)_setupNotifications
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(stopPlaying)
-                                                 name:kNotificationIncomingCall
-                                               object:nil];
-    
+{    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_handleAppBeomeActive)
                                                  name:UIApplicationDidBecomeActiveNotification

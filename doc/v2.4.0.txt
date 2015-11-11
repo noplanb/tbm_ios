@@ -100,3 +100,16 @@ SOLUTION:
  - Update PBJVision to allow setting automaticallyConfiguresApplicationAudioSession = NO
  - Release pod version 0.4.6
  - Update Zazo pod
+
+
+remove-handle-incoming-call
+---------------------------
+PROBLEM:
+  Explicit incoming call handling is not needed.
+  Interruption while recording is handled automatically by ZZVideoRecorder.
+  Playback is automomatically stopped by OS.
+
+SOLUTION:
+  Remove from code.
+
+

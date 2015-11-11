@@ -60,7 +60,6 @@
         [ANCrashlyticsAdapter start];
         [ANLogger initializeLogger];
         [ZZColorTheme shared];
-        [self _handleIncomingCall];
     });
 }
 
@@ -157,20 +156,6 @@
 
 
 #pragma mark - Private
-
-- (void)_handleIncomingCall
-{
-    self.callCenter = [[CTCallCenter alloc] init];
-    [self.callCenter setCallEventHandler:^(CTCall * call) {
-        if ([call.callState isEqualToString:CTCallStateIncoming])
-        {
-            ANDispatchBlockToMainQueue(^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationIncomingCall object:nil];
-            });
-        }
-    }];
-}
-
 - (ZZRootWireframe*)rootWireframe
 {
     if (!_rootWireframe)
