@@ -81,11 +81,18 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_handleResignActive)
-                                                 name:UIApplicationWillResignActiveNotification object:nil];
+                                                 name:UIApplicationWillResignActiveNotification
+                                               object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_reloadDataAfterResetAllUserDataNotification)
-                                                 name:kResetAllUserDataNotificationKey object:nil];
+                                                 name:kResetAllUserDataNotificationKey
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_updateViewPositions)
+                                                 name:UIApplicationWillResignActiveNotification //UIApplicationWillTerminateNotification
+                                               object:nil];
 }
 
 - (void)dealloc
@@ -127,6 +134,11 @@
 - (void)_handleResignActive
 {
     [self.actionHandler hideHint];
+}
+
+- (void)_updateViewPositions
+{
+    [self.userInterface configureViewPositions];
 }
 
 #pragma mark - Update User
@@ -200,6 +212,10 @@
     return isAbleUpdte;
 }
 
+- (void)updatePositionsForGirdModels:(NSArray *)models
+{
+    [self.userInterface configureViewPositions];
+}
 
 #pragma mark - Output
 
@@ -334,6 +350,12 @@
 {
     [self.actionHandler hideHint];
 }
+
+- (void)updatePositionForViewModels:(NSArray *)models
+{
+    [self.interactor updateGridViewModels:models];
+}
+
 
 #pragma mark - DataSource Delegate
 

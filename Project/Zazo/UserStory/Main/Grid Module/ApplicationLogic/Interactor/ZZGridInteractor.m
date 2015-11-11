@@ -57,8 +57,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)loadData
 {
-    [self.output dataLoadedWithArray:[self _gridModels]];
-//    [TBMFriend addVideoStatusNotificationDelegate:self];
+    [self.output dataLoadedWithArray:[self _sotedGridModels]];
     [self _configureFeatureObserver];
 }
 
@@ -106,6 +105,11 @@ static NSInteger const kGridFriendsCellCount = 8;
             [self addUserToGrid:fillHoleOnGrid];
         }
     }
+}
+
+- (void)updateGridViewModels:(NSArray *)models
+{
+    [ZZGridDataUpdater upsertGridModels:models];
 }
 
 
@@ -203,11 +207,34 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (NSArray*)_gridModels
 {
-    NSArray* gridModels = [ZZGridDataProvider loadAllGridsSortByIndex:NO];
-    gridModels = [ZZGridDataProvider loadOrCreateGridModelsWithCount:kGridFriendsCellCount];
-    NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:@"indexPathIndexForItem" ascending:YES];
-    return [gridModels sortedArrayUsingDescriptors:@[sort]];
+    return [self _gridModelsSorted:NO];
 }
+
+- (NSArray*)_sotedGridModels
+{
+    return [self _gridModelsSorted:YES];
+}
+
+- (NSArray*)_gridModelsSorted:(BOOL)shouldSorted
+{
+    NSArray* models = nil;
+    
+    NSArray* gridModels = [ZZGridDataProvider loadAllGridsSortByIndex:shouldSorted];
+    gridModels = [ZZGridDataProvider loadOrCreateGridModelsWithCount:kGridFriendsCellCount];
+    
+    if (!shouldSorted)
+    {
+        NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:@"indexPathIndexForItem" ascending:YES];
+        models = [gridModels sortedArrayUsingDescriptors:@[sort]];
+    }
+    else
+    {
+        models = gridModels;
+    }
+    
+    return models;
+}
+
 
 - (ZZFriendDomainModel*)_loadFirstFriendFromMenu:(NSArray*)array
 {

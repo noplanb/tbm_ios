@@ -85,7 +85,6 @@ ZZGridCenterCellViewModelDelegate
         ZZGridCellViewModel* viewModel = [self.models objectAtIndex:index];
         [self _configureCellViewModel:viewModel withDomainModel:model];
         [self _reloadModelAtIndex:index];
-//        [self.controllerDelegate reloadItem:viewModel];
     }
 }
 

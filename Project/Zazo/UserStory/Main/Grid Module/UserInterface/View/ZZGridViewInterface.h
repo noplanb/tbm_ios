@@ -23,5 +23,6 @@
 - (void)updateRecordViewStateTo:(BOOL)isRecording;
 - (BOOL)isGridRotating;
 - (NSInteger)indexOfFriendModelOnGridView:(ZZFriendDomainModel*)friendModel;
+- (void)configureViewPositions;
 
 @end

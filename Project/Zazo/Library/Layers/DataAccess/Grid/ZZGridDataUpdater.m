@@ -47,6 +47,16 @@
 //}
 
 
+#pragma mark - Update Grid models
+
++ (void)upsertGridModels:(NSArray*)models
+{
+    [models enumerateObjectsUsingBlock:^(ZZGridDomainModel*  _Nonnull domainModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self upsertModel:domainModel];
+    }];
+}
+
+
 #pragma mark - Private
 
 + (NSManagedObjectContext*)_context

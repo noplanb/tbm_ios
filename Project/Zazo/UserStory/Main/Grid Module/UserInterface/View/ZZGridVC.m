@@ -114,6 +114,32 @@
     return [self.controller indexOfFriendModelOnGrid:frindModel];
 }
 
+- (void)configureViewPositions
+{
+    
+    __block  NSMutableArray* filledGridModels = [NSMutableArray new];
+    
+    [[self items] enumerateObjectsUsingBlock:^(ZZGridCell*  _Nonnull gridCell, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self.controller.initalFrames enumerateObjectsUsingBlock:^(NSValue*  _Nonnull rectValue, NSUInteger index, BOOL * _Nonnull stop) {
+            CGRect rect = [rectValue CGRectValue];
+            if (CGRectIntersectsRect(rect, gridCell.frame))
+            {
+                id model = [gridCell model];
+                if ([model isKindOfClass:[ZZGridCellViewModel class]])
+                {
+                    ZZGridCellViewModel* cellModel = (ZZGridCellViewModel*)model;
+                    cellModel.item.index = index;
+                    [filledGridModels addObject:cellModel.item];
+                }
+                
+            }
+        }];
+    }];
+    
+    [self.eventHandler updatePositionForViewModels:filledGridModels];
+}
+
+
 #pragma mark - GridView Event Delgate
 
 - (void)menuSelected

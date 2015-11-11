@@ -35,6 +35,8 @@
 
 - (void)updateGridWithModel:(ZZGridDomainModel*)model;
 
+- (void)updateGridViewModels:(NSArray*)models;
+
 @end
 
 
