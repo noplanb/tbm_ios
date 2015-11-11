@@ -82,7 +82,7 @@ PODS:
   - OBFileTransfer (0.6.2):
     - OBLogger
   - OBLogger (0.2.2)
-  - PBJVision (0.4.5)
+  - PBJVision (0.4.6)
   - pop (1.0.8)
   - RBBAnimation (0.4.0)
   - ReactiveCocoa (2.4.7):
@@ -130,7 +130,7 @@ DEPENDENCIES:
   - MSSPopMasonry (~> 0.0.1)
   - OBFileTransfer (= 0.6.2)
   - OBLogger (~> 0.2.2)
-  - PBJVision (from `https://github.com/noplanb/PBJVision`, tag `v0.4.5`)
+  - PBJVision (from `https://github.com/noplanb/PBJVision`, tag `v0.4.6`)
   - Reveal-iOS-SDK (~> 1.6.1)
   - Rollbar (~> 0.1.5)
   - SDCAlertView (~> 2.5.2)
@@ -143,12 +143,12 @@ DEPENDENCIES:
 EXTERNAL SOURCES:
   PBJVision:
     :git: https://github.com/noplanb/PBJVision
-    :tag: v0.4.5
+    :tag: v0.4.6
 
 CHECKOUT OPTIONS:
   PBJVision:
     :git: https://github.com/noplanb/PBJVision
-    :tag: v0.4.5
+    :tag: v0.4.6
 
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
@@ -178,7 +178,7 @@ SPEC CHECKSUMS:
   MSSPopMasonry: 6700cb03db3f2e7c16ecc96f53c0bd1a2a73fc4f
   OBFileTransfer: 89c20779ce368a83e410a2a7f94082279b42b6b3
   OBLogger: 52dc3733c54460c3a80d635e47be8556ce6a1312
-  PBJVision: 3f9680263e3f63f2cbb83260807692fddf026f8f
+  PBJVision: 1309d424eb458e0f3f19d496187699bd1f0aa186
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
   RBBAnimation: 4b2d66f6d993febce63cd564da934985313b9c59
   ReactiveCocoa: eb38dee0a0e698f73a9b25e5c1faea2bb4c79240

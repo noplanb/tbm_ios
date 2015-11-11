@@ -68,3 +68,57 @@ CAUSES:
   1) We were not deleting remote in case of failedPermanently, unrecoginzed Video
   2) We were using the wrong key to delete from remote.
 
+
+hotfix/849-oncall-dialog
+------------------------
+Symptoms:
+ - Call the phone answer the call
+ - While on the call launch Zazo
+ ER:
+  - On a call dialog.
+AR:
+  - No dialog appears.
+  - Camera preview hangs
+  - Other interface elements remain active and operable
+
+CAUSE:
+On ios9 we do not get _sessionRuntimeErrored in case of trying to start preview while another app has mic or camera. We get interrupted again.
+
+SOLUTION:
+Show dialog on interrupted as well as errored.
+
+
+hotfix/651-proximity-sensor
+---------------------------
+BUG:
+ - Was not playing from earpiece when moved to ear
+
+CAUSE:
+ - Video recorder was configuring the audio session from under audioSession category.
+
+SOLUTION:
+ - Update PBJVision to allow setting automaticallyConfiguresApplicationAudioSession = NO
+ - Release pod version 0.4.6
+ - Update Zazo pod
+
+
+remove-handle-incoming-call
+---------------------------
+PROBLEM:
+  Explicit incoming call handling is not needed.
+  Interruption while recording is handled automatically by ZZVideoRecorder.
+  Playback is automomatically stopped by OS.
+
+SOLUTION:
+  Remove from code.
+
+
+handle-stuck-downloads
+----------------------
+HandleStuckDownloads should be called on each active on before
+It was not the cause of download e! problems.
+Those were fixed in hotfix/859-downloading-e-after-reg
+
+Tested handle stuck downloads for background notification with cellular coverage only on IOS 7 and it appears to be workig well.
+
+Cleaned up unnecessary dispatch error in generateThumb

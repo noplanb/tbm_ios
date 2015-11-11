@@ -21,4 +21,3 @@ static NSString* const kMessageSoundEffectFileName = @"BeepSin30.wav";
 #pragma mark - Notifications Keys
 
 static NSString* const kResetAllUserDataNotificationKey = @"resetAllUserDataNotificationKey";
-static NSString* const kNotificationIncomingCall = @"incomingCall";

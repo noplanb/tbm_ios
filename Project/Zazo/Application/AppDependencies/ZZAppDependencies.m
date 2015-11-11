@@ -39,7 +39,6 @@
     ANDispatchBlockToBackgroundQueue(^{
         [ANLogger initializeLogger];
         [ZZColorTheme shared];
-        [self _handleIncomingCall];
     });
     
     [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelInfo];
@@ -68,8 +67,6 @@
         if (user.isRegistered)
         {
             ANDispatchBlockToMainQueue(^{
-                [[ZZVideoRecorder shared] stopAudioSession];
-                [[ZZVideoRecorder shared] cancelRecording];
             });
         }
     });
@@ -79,18 +76,6 @@
 
 - (void)handleApplicationDidBecomeActive
 {
-//    TODO: Sani This should no longer be necessary remove this code after ZZVideoRecorder has been tested in all cases.
-//    ANDispatchBlockToBackgroundQueue(^{
-//        
-//        ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
-//        if (user.isRegistered)
-//        {
-//            ANDispatchBlockToMainQueue(^{
-//                [[ZZVideoRecorder shared] updateRecorder];
-//            });
-//        }
-//    });
-    
     [[OBLogger instance] logEvent:OBLogEventAppForeground];
     [self.rootService checkApplicationPermissionsAndResources];
     [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = NO;
@@ -164,20 +149,6 @@
 
 
 #pragma mark - Private
-
-- (void)_handleIncomingCall
-{
-    self.callCenter = [[CTCallCenter alloc] init];
-    [self.callCenter setCallEventHandler:^(CTCall * call) {
-        if ([call.callState isEqualToString:CTCallStateIncoming])
-        {
-            ANDispatchBlockToMainQueue(^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationIncomingCall object:nil];
-            });
-        }
-    }];
-}
-
 - (ZZRootWireframe*)rootWireframe
 {
     if (!_rootWireframe)

@@ -19,7 +19,7 @@ static BOOL tbmAudioSessionIsSetup = NO;
 -(void)setupApplicationAudioSession
 {
     if (!tbmAudioSessionIsSetup) {
-        ZZLogInfo(@"TBMAudioSession: setupApplicationAudioSession");
+        ZZLogInfo(@"setupApplicationAudioSession");
         [self setApplicationCategory];
         [self addObservers];
         tbmAudioSessionIsSetup = YES;
@@ -40,8 +40,14 @@ static BOOL tbmAudioSessionIsSetup = NO;
     [self setPortOverride];
     [self setActive:YES error:&error];
     
-    if (error !=nil) ZZLogWarning(@"TBMAudioSession#activate: %@", error);
-    else [self addRouteChangeObserver];
+    if (!ANIsEmpty(error))
+    {
+        ZZLogWarning(@"TBMAudioSession#activate: %@", error);
+    }
+    else
+    {
+        [self addRouteChangeObserver];
+    }
     
     return error;
 }
@@ -49,7 +55,7 @@ static BOOL tbmAudioSessionIsSetup = NO;
 #pragma mark Audio Session Control
 
 -(void)resetAudioSession {
-    ZZLogInfo(@"TBMAudioSession: resetAudioSession");
+    ZZLogInfo(@"resetAudioSession");
     dispatch_async(dispatch_get_main_queue(), ^{
         [self removeRouteChangeObserver];
         [self setApplicationCategory];
@@ -59,25 +65,25 @@ static BOOL tbmAudioSessionIsSetup = NO;
 }
 
 - (void)setApplicationCategory{
-    ZZLogDebug(@"TBMAudioSession: setApplicationCategory");
+    ZZLogDebug(@"setApplicationCategory");
     NSError *error = nil;
     [self setCategory:AVAudioSessionCategoryPlayAndRecord
 //   Eliminate play from bluetooth see v2.2.1 release notes
 //          withOptions:AVAudioSessionCategoryOptionAllowBluetooth
             withOptions:0
                 error:&error];
-    if (error != nil) ZZLogError(@"TBMAudioSession#setApplicationCategory: Error setting category: %@", error);
+    if (error != nil) ZZLogError(@"Error setting category: %@", error);
 }
 
 -(void)deactivate {
-    ZZLogInfo(@"TBMAudioSession#deactivate:");
+    ZZLogInfo(@"deactivate:");
     [self notifyDelegatesOfDeactivation];
     [self removeRouteChangeObserver];
     NSError *error = nil;
     [self setActive:NO
         withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation
               error:&error];
-    if (error != nil) ZZLogError(@"TBMAudioSession#deactivate: %@", error);
+    if (error != nil) ZZLogError(@"%@", error);
 }
 
 -(void)notifyDelegatesOfDeactivation{
@@ -87,36 +93,27 @@ static BOOL tbmAudioSessionIsSetup = NO;
 }
 
 - (void)setPortOverride {
-    
-    
-    ANDispatchBlockToBackgroundQueue(^{
         if ([self hasNoExternalOutputs]) {
-            ZZLogInfo(@"TBMAudioSession: setPortOverride: no external outputs");
+            ZZLogInfo(@"setPortOverride: no external outputs");
             NSError *error = nil;
             if ([self nearTheEar])
             {
-                //            [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideNone
-                //                                                               error: &error];
-                
                 AVAudioSession* session = [AVAudioSession sharedInstance];
-                [session overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:nil];
-                [session setActive:YES error:nil];
-                [session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDuckOthers error:nil];
+                [session overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:&error];
+//                [session setActive:YES error:nil];
+//                [session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDuckOthers error:nil];
                 
             } else {
-                //            [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker
-                //                                                               error: &error];
                 AVAudioSession* session = [AVAudioSession sharedInstance];
-                [session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
-                [session setActive:YES error:nil];
-                [session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDuckOthers error:nil];
+                [session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:&error];
+//                [session setActive:YES error:nil];
+//                [session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDuckOthers error:nil];
                 
             }
-            if (error!=nil) ZZLogError(@"TBMAudioSession#setPortOverride: %@", error);
+            if (error!=nil) ZZLogError(@"%@", error);
         } else {
-            ZZLogInfo(@"TBMAudioSession: setPortOverride: Yes external outputs");
+            ZZLogInfo(@"Yes external outputs");
         }
-    });
 }
 
 
@@ -164,8 +161,7 @@ static BOOL tbmAudioSessionIsSetup = NO;
 
 -(void)handleRouteChange:(NSNotification *)notification
 {
-    ANDispatchBlockToMainQueue(^{
-        ZZLogInfo(@"TBMAudioSession: handleRouteChange: %@", notification.userInfo[AVAudioSessionRouteChangeReasonKey]);
+        ZZLogInfo(@"handleRouteChange: %@", notification.userInfo[AVAudioSessionRouteChangeReasonKey]);
         AVAudioSessionRouteDescription *previousRoute = (AVAudioSessionRouteDescription *) notification.userInfo[AVAudioSessionRouteChangePreviousRouteKey];
         
         [self printOutputsWithPrefix:@"previousRoute:" Route:previousRoute];
@@ -179,11 +175,10 @@ static BOOL tbmAudioSessionIsSetup = NO;
         {
             [self resetAudioSession];
         }
-    });
 }
 
 -(void)handleProximityChange:(NSNotification *)notification{
-    ZZLogInfo(@"TBMAudioSession: handleProximityChange");
+    ZZLogInfo(@"handleProximityChange");
     [self setPortOverride];
 }
 
@@ -201,7 +196,7 @@ static BOOL tbmAudioSessionIsSetup = NO;
 }
 
 -(void)handleAudioSessionInteruption{
-    ZZLogInfo(@"TBMAudioSession: AudioSessionInteruption");
+    ZZLogInfo(@"AudioSessionInteruption");
 }
 
 
@@ -220,7 +215,7 @@ static BOOL tbmAudioSessionIsSetup = NO;
 
 - (void)printOutputsWithPrefix:(NSString *)prefix Route: (AVAudioSessionRouteDescription *)route{
     for ( AVAudioSessionPortDescription *port in route.outputs ) {
-        ZZLogInfo(@"TBMAudioSession: %@ portType: %@", prefix, port.portType);
+        ZZLogInfo(@"%@ portType: %@", prefix, port.portType);
     }
 }
 
