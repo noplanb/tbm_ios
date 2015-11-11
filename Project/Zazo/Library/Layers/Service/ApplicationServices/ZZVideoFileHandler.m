@@ -186,12 +186,6 @@
 
 - (void)_handleError:(NSError *)error marker:(ZZFileTransferMarkerDomainModel*)marker
 {
-//    if (error == nil)
-//        return;
-//    
-//    // 404s can happen in normal operation do not dispatch or refresh credentials.
-//    if (error.code == 404)
-//        return;
     if (!ANIsEmpty(error) && error.code != 404)
     {
         ANDispatchBlockToBackgroundQueue(^{

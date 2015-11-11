@@ -12,6 +12,7 @@
 #import "ZZGridDataSource.h"
 #import "ZZGridRotationTouchObserver.h"
 #import "ZZActionSheetController.h"
+#import "ZZGridUIConstants.h"
 
 @interface ZZGridVC () <ZZGridRotationTouchObserverDelegate, ZZGridCollectionControllerDelegate, UIGestureRecognizerDelegate>
 
@@ -128,13 +129,15 @@
                 if ([model isKindOfClass:[ZZGridCellViewModel class]])
                 {
                     ZZGridCellViewModel* cellModel = (ZZGridCellViewModel*)model;
-                    cellModel.item.index = index;
+//                    cellModel.item.index = index;
+                    cellModel.item.index = kReverseIndexConvertation(index);
                     [filledGridModels addObject:cellModel.item];
                 }
                 
             }
         }];
     }];
+    
     
     [self.eventHandler updatePositionForViewModels:filledGridModels];
 }

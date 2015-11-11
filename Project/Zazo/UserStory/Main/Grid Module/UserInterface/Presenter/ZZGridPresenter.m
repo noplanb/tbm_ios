@@ -408,17 +408,10 @@
 {
     
     BOOL isEnbaled = YES;
-    
-    if ((model.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded) ||
-        (model.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusViewed))
-    {
-        isEnbaled = YES;
-    }
-    else
-    {
+
         if ([self _isNetworkEnabled])
         {
-            if ((model.item.relatedUser.videos.count == 1) &&
+            if ((model.badgeNumber == 0) &&
                 model.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
             {
                 isEnbaled = NO;
@@ -435,12 +428,8 @@
             [ZZGridAlertBuilder showAlertWithTitle:badConnectionTitle
                                            message:message
                                  cancelButtonTitle:nil
-                                actionButtonTitlte:actionButtonTitle action:^{
-                                    
-                                    //                                [self.interactor updateGridWithModel:model.item];
-                                }];
+                                actionButtonTitlte:actionButtonTitle action:^{}];
         }
-    }
 
     return isEnbaled;
 }

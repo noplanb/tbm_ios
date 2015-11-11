@@ -57,7 +57,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)loadData
 {
-    [self.output dataLoadedWithArray:[self _sotedGridModels]];
+    [self.output dataLoadedWithArray:[self _gridModels]];
     [self _configureFeatureObserver];
 }
 
@@ -207,34 +207,13 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (NSArray*)_gridModels
 {
-    return [self _gridModelsSorted:NO];
-}
-
-- (NSArray*)_sotedGridModels
-{
-    return [self _gridModelsSorted:YES];
-}
-
-- (NSArray*)_gridModelsSorted:(BOOL)shouldSorted
-{
-    NSArray* models = nil;
-    
-    NSArray* gridModels = [ZZGridDataProvider loadAllGridsSortByIndex:shouldSorted];
+    NSArray* gridModels = [ZZGridDataProvider loadAllGridsSortByIndex:NO];
     gridModels = [ZZGridDataProvider loadOrCreateGridModelsWithCount:kGridFriendsCellCount];
+    NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:@"indexPathIndexForItem" ascending:YES];
+    NSArray* sortedArray = [gridModels sortedArrayUsingDescriptors:@[sort]];
     
-    if (!shouldSorted)
-    {
-        NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:@"indexPathIndexForItem" ascending:YES];
-        models = [gridModels sortedArrayUsingDescriptors:@[sort]];
-    }
-    else
-    {
-        models = gridModels;
-    }
-    
-    return models;
+    return sortedArray;
 }
-
 
 - (ZZFriendDomainModel*)_loadFirstFriendFromMenu:(NSArray*)array
 {
@@ -289,7 +268,8 @@ static NSInteger const kGridFriendsCellCount = 8;
     
     if (!ANIsEmpty(model.phones))
     {
-        if (ANIsEmpty(model.primaryPhone))
+        if (ANIsEmpty(model.primaryPhone) ||
+            (!ANIsEmpty(model.primaryPhone) && model.phones.count > 1))
         {
             [self.output userNeedsToPickPrimaryPhone:model];
         }

@@ -151,3 +151,18 @@ static inline NSInteger const kHintGridIndexFromFlowIndex(NSInteger count)
 }
 
 
+#pragma mark - Reverse convertation
+
+static inline NSArray* const kReverseGridIndexes()
+{
+    return @[@(5), @(7), @(8), @(6), @(2), @(3), @(1), @(0)];
+}
+
+static inline NSInteger const kReverseIndexConvertation(NSInteger index)
+{
+    NSArray* array = kReverseGridIndexes();
+    return [array indexOfObject:@(index)];
+}
+
+
+

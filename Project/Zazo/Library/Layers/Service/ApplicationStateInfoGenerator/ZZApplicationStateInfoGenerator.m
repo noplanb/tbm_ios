@@ -125,9 +125,25 @@ static NSInteger const kStateStringColumnWidth = 14;
 {
     NSPredicate* incomingPredicate = [NSPredicate predicateWithFormat:@"pathExtension == 'mov'"];
     NSArray* diskFileNamesOutgoing = [self _loadVideoFilesWithPredicate:incomingPredicate];
+    
+    diskFileNamesOutgoing = [[diskFileNamesOutgoing.rac_sequence map:^id(NSString* value) {
+        NSString* lastComponent = [[value componentsSeparatedByString:@"_"] lastObject];
+        return [[lastComponent componentsSeparatedByString:@"."] firstObject];
+    }] array];
+    
     NSMutableSet* diskFileNamesOutgoingSet = [NSMutableSet setWithArray:diskFileNamesOutgoing];
     
     NSArray* dataBaseFileNamesIncoming = [stateModels valueForKeyPath:ZZDebugFriendStateDomainModelAttributes.outgoingVideoItems];
+    
+    __block NSMutableArray* videoIDs = [NSMutableArray array];
+    
+    [dataBaseFileNamesIncoming enumerateObjectsUsingBlock:^(NSArray*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        [obj enumerateObjectsUsingBlock:^(ZZDebugVideoStateDomainModel*  _Nonnull modelVideo, NSUInteger idx, BOOL * _Nonnull stop) {
+            [videoIDs addObject:modelVideo.itemID];
+        }];
+    }];
+    
     NSSet* databaseFileNamesOutgoingSet = [NSSet setWithArray:dataBaseFileNamesIncoming];
     
     [diskFileNamesOutgoingSet minusSet:databaseFileNamesOutgoingSet];
