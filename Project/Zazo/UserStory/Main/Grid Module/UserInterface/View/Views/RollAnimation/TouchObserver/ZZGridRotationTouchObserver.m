@@ -22,9 +22,6 @@
 
 @property (nonatomic, strong) ZZRotationGestureRecognizer *rotationRecognizer;
 
-//@property (nonatomic, strong) UITapGestureRecognizer* tapRecognizer;
-//@property (nonatomic, strong) UIView* stopView;
-
 @end
 
 @implementation ZZGridRotationTouchObserver
@@ -74,14 +71,12 @@
     {
         case UIGestureRecognizerStateBegan:
         {
-            NSLog(@"spin touch began")
             self.startOffset = self.gridView.calculatedCellsOffset;
             [self.rotator stopAnimationsOnGrid:self.gridView];
         } break;
             
         case UIGestureRecognizerStateChanged:
         {
-            NSLog(@"Touch changed");
             CGFloat currentAngle = [recognizer currentAngleInView:self.gridView];
             CGFloat startAngle = [recognizer startAngleInView:self.gridView];
             CGFloat deltaAngle = currentAngle - startAngle;
