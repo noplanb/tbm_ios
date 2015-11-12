@@ -122,3 +122,33 @@ Those were fixed in hotfix/859-downloading-e-after-reg
 Tested handle stuck downloads for background notification with cellular coverage only on IOS 7 and it appears to be workig well.
 
 Cleaned up unnecessary dispatch error in generateThumb
+
+
+hotfix/878-upload-retry-after-kill
+----------------------------------
+STEPS:
+ - IOS8+
+ - Record a 30sec to 1min zazo
+ - While uploading is in progress kill app
+ - Note it is easier especially on an iphone6 to set network to very bad in order to have time to kill app while uploading.
+ - Restart
+
+CAUSE and ERROR EFFECTS:
+ - On restart there was a bug in the file transfer manager which would set contentLength = 0 for retried requests
+   - This would cause the upload request to fail and be retried continually
+ - Autonotifcation 2.9.6 would trigger a notification for all requests even the error retires where no file was uploaded.
+   - This would cause receiver to download e!
+   - This would also cause multiple notifications to the receivers phone.
+
+ASSOCIATED BUGS:
+  - 878 - Uploading doesn't continue after Zazo was killed
+  - 876 - Notification about new message appears twice when Zazo in background
+  - 877 - Download e! after kill during downloading process
+  - 832 - iOS 7. Random incoming message disappears
+
+
+SOLUTION:
+ - Fixed CLIENT filetransferManager v0.6.3
+   - Always have contentLength for initial request as well as retried requests.
+ - Fixed SERVER autonotification v2.9.7
+   - Do not notify or update kv except for requests that successfully upload a file.

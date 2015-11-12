@@ -56,7 +56,7 @@ target 'Zazo' do
 
     pod 'AFNetworking', '~> 2.6.0'
     pod 'OBLogger', '~> 0.2.2'
-    pod 'OBFileTransfer', '0.6.2'
+    pod 'OBFileTransfer', '0.6.3'
     #:path => '~/Development/OBFileTransfer/' #'~> 0.5.7'
     pod 'UIAlertView+Blocks', '~> 0.9'
     pod 'SDCAlertView', '~> 2.5.2'
