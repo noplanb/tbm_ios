@@ -99,7 +99,6 @@
 
 }
 
-
 #pragma mark - Private
 
 + (NSString*)_appName

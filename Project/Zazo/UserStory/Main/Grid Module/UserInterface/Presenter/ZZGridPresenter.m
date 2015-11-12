@@ -251,7 +251,6 @@
                                                                           [ZZGridActionStoredSettings shared].frontCameraHintWasShown)];
         
         [[ZZVideoRecorder shared] setup];
-    
         [self.dataSource updateValueOnCenterCellWithPreviewLayer:[ZZVideoRecorder shared].previewLayer];
         [[ZZVideoRecorder shared] startPreview];
         
