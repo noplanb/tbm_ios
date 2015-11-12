@@ -57,21 +57,14 @@
     TBMFriend* friendEntity = [ZZFriendDataProvider entityFromModel:friendModel];
     
     NSString* videoStatusString = nil;
-    
-    if ([self.delegate isNetworkEnabled])
+
+    if ([ZZStoredSettingsManager shared].debugModeEnabled)
     {
-        if ([ZZStoredSettingsManager shared].debugModeEnabled)
-        {
-            videoStatusString = ZZVideoStatusStringWithFriend(friendEntity);
-        }
-        else
-        {
-            videoStatusString = [friendModel displayName];
-        }
+        videoStatusString = ZZVideoStatusStringWithFriend(friendEntity);
     }
     else
     {
-        videoStatusString = ZZVideoStatusStringWithFriend(friendEntity);
+        videoStatusString = [friendModel displayName];
     }
     
     return videoStatusString;

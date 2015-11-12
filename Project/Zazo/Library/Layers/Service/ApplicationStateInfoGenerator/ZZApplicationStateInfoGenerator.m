@@ -108,10 +108,12 @@ static NSInteger const kStateStringColumnWidth = 14;
     __block NSMutableArray* videoIDs = [NSMutableArray array];
     
     [dataBaseFileNamesIncoming enumerateObjectsUsingBlock:^(NSArray*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        [obj enumerateObjectsUsingBlock:^(ZZDebugVideoStateDomainModel*  _Nonnull modelVideo, NSUInteger idx, BOOL * _Nonnull stop) {
-            [videoIDs addObject:modelVideo.itemID];
-        }];
+        if (!ANIsEmpty(obj) && ![obj isKindOfClass:[NSNull class]])
+        {
+            [obj enumerateObjectsUsingBlock:^(ZZDebugVideoStateDomainModel*  _Nonnull modelVideo, NSUInteger idx, BOOL * _Nonnull stop) {
+                [videoIDs addObject:modelVideo.itemID];
+            }];
+        }
     }];
     
     
@@ -138,10 +140,12 @@ static NSInteger const kStateStringColumnWidth = 14;
     __block NSMutableArray* videoIDs = [NSMutableArray array];
     
     [dataBaseFileNamesIncoming enumerateObjectsUsingBlock:^(NSArray*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        [obj enumerateObjectsUsingBlock:^(ZZDebugVideoStateDomainModel*  _Nonnull modelVideo, NSUInteger idx, BOOL * _Nonnull stop) {
-            [videoIDs addObject:modelVideo.itemID];
-        }];
+        if (!ANIsEmpty(obj) && ![obj isKindOfClass:[NSNull class]])
+        {
+            [obj enumerateObjectsUsingBlock:^(ZZDebugVideoStateDomainModel*  _Nonnull modelVideo, NSUInteger idx, BOOL * _Nonnull stop) {
+                [videoIDs addObject:modelVideo.itemID];
+            }];
+        }
     }];
     
     NSSet* databaseFileNamesOutgoingSet = [NSSet setWithArray:dataBaseFileNamesIncoming];
