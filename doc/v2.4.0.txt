@@ -157,13 +157,16 @@ SOLUTION:
 on-a-call-2
 -----------
 PROBLEM:
-  - On a call alert needs to trigger on capture session interrupted for IOS9. But this trigger occurs in other situations.
+  - On a call alert needs to trigger on capture session interrupted for IOS9. But this trigger also occurs when we go into background due to lock screen button.
 
 SOLUTION:
-  - Dismiss the alert when we go into the background.
+  - Gate trigger with background status.
+
+OTHER:
+  - Small clean up in VideoRecorder
 
 TESTS
-  - IOS7, 8, 9x
+  - ios7, 8, 9
     - Background
     - Kill
     - Power button lock

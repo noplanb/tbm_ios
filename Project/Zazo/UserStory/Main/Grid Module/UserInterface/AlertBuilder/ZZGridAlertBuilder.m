@@ -99,19 +99,6 @@
 
 }
 
-+ (void)showOnCallAction:(ANCodeBlock)action
-{
-    NSString* title = NSLocalizedString(@"on.call.title", nil);
-    NSString* message = NSLocalizedString(@"on.call.message", nil);
-    NSString* activeButtonTitle = NSLocalizedString(@"on.call.button.title", nil);
-    
-    [ZZAlertBuilder presentAlertWithTitle:title
-                                  details:message
-                        cancelButtonTitle:nil
-                        actionButtonTitle:activeButtonTitle
-                                   action:action];
-    
-}
 
 #pragma mark - Private
 

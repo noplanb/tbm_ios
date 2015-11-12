@@ -13,7 +13,7 @@
 #import "NSError+ZZAdditions.h"
 #import "TBMAlertController.h"
 #import "ZZSoundEffectPlayer.h"
-#import "ZZGridAlertBuilder.h"
+#import "ZZAlertBuilder.h"
 
 NSString* const kVideoProcessorDidFinishProcessing = @"kZZVideoProcessorDidFinishProcessing";
 NSString* const kVideoProcessorDidFail = @"kZZVideoProcessorDidFailProcessing";
@@ -35,13 +35,11 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 @property (nonatomic, strong) ZZSoundEffectPlayer *soundPlayer;
 @property (nonatomic, assign) BOOL isSetup;
 @property (nonatomic, assign) BOOL onCallAlertShowing;
-@property (nonatomic, strong, readonly) TBMAlertController *onCallAlert;
 @end
 
 
 @implementation ZZVideoRecorder
 
-@synthesize onCallAlert = _onCallAlert;
 
 + (instancetype)shared
 {
@@ -198,14 +196,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
         if ((touch.phase == UITouchPhaseBegan && [self isRecording]) ||
             (touch.phase == UITouchPhaseStationary && [self isRecording]))
         {
-            //            CGFloat kDelayAfterTouch = 0.5;
-            //            ANDispatchBlockAfter(kDelayAfterTouch, ^{
             [self _cancelRecordingWithDoubleTap];
-            //            });
-        }
-        else if (touch.phase == UITouchPhaseEnded && [self isRecording])
-        {
-//            [self stopRecordingWithCompletionBlock:self.completionBlock];
         }
     });
 }
@@ -277,10 +268,22 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
     
     ZZLogInfo(@"presentOnCallAlert");
     self.onCallAlertShowing = YES;
-    [ZZGridAlertBuilder showOnCallAction:^{
-        [self.recorder startPreview];
-        self.onCallAlertShowing = NO;
-    }];
+    [self _showOnCallAlert];
+
+}
+
+- (void)_showOnCallAlert
+{
+    NSString* title = NSLocalizedString(@"on.call.title", nil);
+    NSString* details = NSLocalizedString(@"on.call.message", nil);
+    NSString* buttonTitle = NSLocalizedString(@"on.call.button.title", nil);
+    
+    [ZZAlertBuilder presentAlertWithTitle:title
+                                  details:details
+                        cancelButtonTitle:buttonTitle
+                       cancelButtonAction:^{ [self.recorder startPreview]; self.onCallAlertShowing = NO; }
+                        actionButtonTitle:nil
+                                   action:nil];
 }
 
 
@@ -296,12 +299,9 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
                                              selector:@selector(_willResignActive)
                                                  name:UIApplicationWillResignActiveNotification
                                                object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(_didEnterBackground)
-                                                 name:UIApplicationDidEnterBackgroundNotification
-                                               object:nil];
 }
+
+#pragma mark - Lifecycle handlers
 
 - (void)_didBecomeActive
 {
@@ -318,12 +318,6 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
     });
 }
 
-- (void)_didEnterBackground
-{
-    ZZLogInfo(@"didEnterBackground dismissOnCallAlert");
-    self.onCallAlertShowing = NO;
-    [self.onCallAlert dismissViewControllerAnimated:YES completion:nil];
-}
 
 #pragma mark - Sound effects
 - (ZZSoundEffectPlayer*)soundPlayer
