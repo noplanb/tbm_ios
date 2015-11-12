@@ -174,8 +174,7 @@
     {
         model.isDownloadAnimationViewed = YES;
         [self.dataSource updateCellWithModel:model];
-        NSInteger index = [self indexOnGridViewForFriendModel:model.relatedUser];
-        [self showFriendAnimationWithIndex:index];
+        [self showFriendAnimationWithFriend:model.relatedUser];
         //TODO:
         //    if (model.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED)
         //    {
@@ -190,9 +189,9 @@
     }
 }
 
-- (void)showFriendAnimationWithIndex:(NSInteger)index
+- (void)showFriendAnimationWithFriend:(ZZFriendDomainModel *)friendModel
 {
-    [self.userInterface showFriendAnimationWithIndex:index];
+    [self.userInterface showFriendAnimationWithFriendModel:friendModel];
 }
 
 - (BOOL)_isAbleToUpdateWithModel:(ZZGridDomainModel*)model
@@ -292,7 +291,7 @@
     [ZZGridAlertBuilder showAlreadyConnectedDialogForUser:model.relatedUser.firstName completion:^{
         model.isDownloadAnimationViewed = YES;
         [self.dataSource updateCellWithModel:model];
-        [self.userInterface showFriendAnimationWithIndex:[self.dataSource viewModelIndexWithModelIndex:model.index]];
+        [self.userInterface showFriendAnimationWithFriendModel:model.relatedUser];
     }];
 }
 
@@ -549,6 +548,7 @@
 {
     [self.videoPlayer stop];
 }
+
 
 #pragma mark - Menu Delegate
 

@@ -13,6 +13,7 @@
 #import "ZZGridRotationTouchObserver.h"
 #import "ZZActionSheetController.h"
 #import "ZZGridUIConstants.h"
+#import "ZZGridDomainModel.h"
 
 @interface ZZGridVC () <ZZGridRotationTouchObserverDelegate, ZZGridCollectionControllerDelegate, UIGestureRecognizerDelegate>
 
@@ -99,10 +100,10 @@
     
 }
 
-- (void)showFriendAnimationWithIndex:(NSInteger)index
+- (void)showFriendAnimationWithFriendModel:(ZZFriendDomainModel *)friendModel
 {
-    ZZGridCell* view = (ZZGridCell*)[self _cellAdapterWithDependsOnIndex:index];
-    [view showContainFriendAnimation];
+     ZZGridCell* animationCell = [self.controller gridCellWithFriendModel:friendModel];
+    [animationCell showContainFriendAnimation];
 }
 
 - (BOOL)isGridRotating
@@ -117,7 +118,6 @@
 
 - (void)configureViewPositions
 {
-    
     __block  NSMutableArray* filledGridModels = [NSMutableArray new];
     
     [[self items] enumerateObjectsUsingBlock:^(ZZGridCell*  _Nonnull gridCell, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -125,19 +125,19 @@
             CGRect rect = [rectValue CGRectValue];
             if (CGRectIntersectsRect(rect, gridCell.frame))
             {
-                id model = [gridCell model];
-                if ([model isKindOfClass:[ZZGridCellViewModel class]])
+                if([gridCell respondsToSelector:@selector(model)])
                 {
-                    ZZGridCellViewModel* cellModel = (ZZGridCellViewModel*)model;
-//                    cellModel.item.index = index;
-                    cellModel.item.index = kReverseIndexConvertation(index);
-                    [filledGridModels addObject:cellModel.item];
+                    id model = [gridCell model];
+                    if ([model isKindOfClass:[ZZGridCellViewModel class]])
+                    {
+                        ZZGridCellViewModel* cellModel = (ZZGridCellViewModel*)model;
+                        cellModel.item.index = kReverseIndexConvertation(index);
+                        [filledGridModels addObject:cellModel.item];
+                    }
                 }
-                
             }
         }];
     }];
-    
     
     [self.eventHandler updatePositionForViewModels:filledGridModels];
 }

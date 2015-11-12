@@ -85,7 +85,6 @@
     });
 }
 
-
 - (void)updateRecordingStateTo:(BOOL)isRecording
            withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {

@@ -53,8 +53,7 @@
 - (void)_handleSentMessageEventWithCellViewModel:(ZZGridCellViewModel*)cellViewModel
 {
     ANDispatchBlockToMainQueue(^{
-//        if ([[self dataSource] frindsOnGridNumber] == 1)
-//        {
+
             CGFloat delayAfterUploadAnimationStopped = 0.5f;
             ANDispatchBlockAfter(delayAfterUploadAnimationStopped, ^{
                 NSInteger index = [[self dataSource] indexForViewModel:cellViewModel];
@@ -63,19 +62,18 @@
                     [[self actionHandler] handleEvent:ZZGridActionEventTypeMessageDidSent withIndex:index friendModel:cellViewModel.item.relatedUser];
                 }
             });
-//        }
     });
 }
 
 - (void)_handleSentWelcomeHintWithFriendDomainModel:(ZZFriendDomainModel*)model
 {
     ANDispatchBlockToMainQueue(^{
-//        NSInteger index = [[self dataSource] indexForFriendDomainModel:model];
+        
         NSInteger index = [self indexOnGridViewForFriendModel:model];
         if (index != NSNotFound)
         {
             [[self actionHandler] handleEvent:ZZGridActionEventTypeFriendDidInvited withIndex:index friendModel:model];
-            [self showFriendAnimationWithIndex:index];
+            [self showFriendAnimationWithFriend:model];
         }
     });
 }

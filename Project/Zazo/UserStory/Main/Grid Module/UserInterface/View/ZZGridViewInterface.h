@@ -11,11 +11,12 @@
 @class ZZGridDataSource;
 @class ZZFriendDomainModel;
 @class ZZGridCellViewModel;
+@class ZZGridDomainModel;
 
 @protocol ZZGridViewInterface <ZZGridActionHanlderUserInterfaceDelegate>
 
 - (void)updateWithDataSource:(ZZGridDataSource*)dataSource;
-- (void)showFriendAnimationWithIndex:(NSInteger)index;
+- (void)showFriendAnimationWithFriendModel:(ZZFriendDomainModel*)friendModel;
 
 - (void)updateRollingStateTo:(BOOL)isEnabled;
 - (void)menuWasOpened;

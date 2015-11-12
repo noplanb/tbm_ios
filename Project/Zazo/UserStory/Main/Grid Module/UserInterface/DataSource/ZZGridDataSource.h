@@ -31,7 +31,7 @@
 
 - (id)viewModelAtIndex:(NSInteger)index;
 - (NSInteger)indexForViewModel:(ZZGridCellViewModel*)model;
-
+- (NSInteger)viewModelindexWithGridModel:(ZZGridDomainModel*)model;
 - (NSInteger)viewModelIndexWithModelIndex:(NSInteger)index;
 
 - (void)updateCellWithModel:(ZZGridDomainModel*)model;

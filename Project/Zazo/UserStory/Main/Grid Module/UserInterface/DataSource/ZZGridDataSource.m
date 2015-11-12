@@ -145,7 +145,8 @@ ZZGridCenterCellViewModelDelegate
 
 - (NSInteger)indexForUpdatedDomainModel:(ZZGridDomainModel*)domainModel
 {
-    return [self viewModelIndexWithModelIndex:domainModel.index];
+    NSInteger index = [self viewModelindexWithGridModel:domainModel];
+    return index;
 }
 
 - (NSInteger)indexForFriendDomainModel:(ZZFriendDomainModel*)friendModel
@@ -172,13 +173,39 @@ ZZGridCenterCellViewModelDelegate
 
 - (NSInteger)indexForViewModel:(ZZGridCellViewModel*)model
 {
+    
+    NSInteger index = NSNotFound;
+    
     if ([model isKindOfClass:[ZZGridCellViewModel class]])
     {
-         return [self viewModelIndexWithModelIndex:model.item.index];
+        index = [self viewModelindexWithGridModel:model.item];
     }
     else if ([model isKindOfClass:[ZZGridCenterCellViewModel class]])
     {
-        return kGridCenterCellIndex;
+        index = kGridCenterCellIndex;
+    }
+    return index;
+}
+
+- (NSInteger)viewModelindexWithGridModel:(ZZGridDomainModel*)model
+{
+    __block id item = nil;
+   
+    [self.models enumerateObjectsUsingBlock:^(ZZGridCellViewModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[ZZGridCellViewModel class]])
+        {
+            if ([obj.item.relatedUser.idTbm isEqualToString:model.relatedUser.idTbm])
+            {
+                item = obj;
+                *stop = YES;
+            }
+        }
+    }];
+    
+    
+    if (item)
+    {
+        return [self.models indexOfObject:item];
     }
     return NSNotFound;
 }
@@ -204,6 +231,7 @@ ZZGridCenterCellViewModelDelegate
     }
     return NSNotFound;
 }
+
 
 #pragma mark - ViewModel Delegate
 

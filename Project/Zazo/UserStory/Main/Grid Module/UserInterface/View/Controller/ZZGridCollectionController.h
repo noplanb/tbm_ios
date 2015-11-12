@@ -25,6 +25,6 @@
 - (void)updateDataSource:(ZZGridDataSource*)dataSource;
 - (NSInteger)indexOfFriendModelOnGrid:(ZZFriendDomainModel*)friendModel;
 - (void)updateInitialViewFramesIfNeeded;
-
+- (ZZGridCell*)gridCellWithFriendModel:(ZZFriendDomainModel*)friendModel;
 
 @end

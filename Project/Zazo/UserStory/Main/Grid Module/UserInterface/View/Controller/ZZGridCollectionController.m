@@ -78,6 +78,25 @@
 - (NSInteger)indexOfFriendModelOnGrid:(ZZFriendDomainModel*)friendModel;
 {
     __block NSInteger index = NSNotFound;
+    ZZGridCell* gridCell = [self gridCellWithFriendModel:friendModel];
+    
+    if (!ANIsEmpty(gridCell))
+    {
+        [self.initalFrames enumerateObjectsUsingBlock:^(NSValue*  _Nonnull value, NSUInteger idx, BOOL * _Nonnull stop) {
+            CGRect frame = [value CGRectValue];
+            if (CGRectContainsPoint(frame, gridCell.center))
+            {
+                index = idx;
+                *stop = YES;
+            }
+        }];
+    }
+    
+    return index;
+}
+
+- (ZZGridCell*)gridCellWithFriendModel:(ZZFriendDomainModel*)friendModel
+{
     __block ZZGridCell* gridCell = nil;
     
     [[self.delegate items] enumerateObjectsUsingBlock:^(id <ANModelTransfer> _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -93,19 +112,7 @@
         }
     }];
     
-    if (!ANIsEmpty(gridCell))
-    {
-        [self.initalFrames enumerateObjectsUsingBlock:^(NSValue*  _Nonnull value, NSUInteger idx, BOOL * _Nonnull stop) {
-            CGRect frame = [value CGRectValue];
-            if (CGRectContainsPoint(frame, gridCell.center))
-            {
-                index = idx;
-                *stop = YES;
-            }
-        }];
-    }
-    
-    return index;
+    return gridCell;
 }
 
 @end
