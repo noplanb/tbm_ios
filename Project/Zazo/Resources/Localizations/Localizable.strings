@@ -116,6 +116,9 @@
 "hint.record.view.one.touch.title" = "Hold to Record";
 "hint.record.view.one.touch.message" = "Press and hold the RECORD button to record";
 "hint.record.view.one.touch.button.title" = "Ok";
+"on.call.title" = "On a Call?";
+"on.call.message" = "Mic or camera are busy. Are you on a phone call? Hangup and try again.";
+"on.call.button.title" = "Try Again";
 
 //Toasts Hints
 "toast-hints.zazo-someone-else.title" = "Unlock another feature!";

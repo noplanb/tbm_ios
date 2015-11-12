@@ -9,6 +9,7 @@
 @interface ZZGridAlertBuilder : NSObject
 
 + (void)showOneTouchRecordViewHint;
++ (void)showOnCallAction:(ANCodeBlock)action;
 + (void)showCannotSendSmsErrorToUser:(NSString*)username completion:(ANCodeBlock)completion;
 + (void)showSendInvitationDialogForUser:(NSString*)firsName completion:(ANCodeBlock)completion;
 + (void)showConnectedDialogForUser:(NSString*)userName completion:(ANCodeBlock)completion;

@@ -13,6 +13,7 @@
 #import "NSError+ZZAdditions.h"
 #import "TBMAlertController.h"
 #import "ZZSoundEffectPlayer.h"
+#import "ZZGridAlertBuilder.h"
 
 NSString* const kVideoProcessorDidFinishProcessing = @"kZZVideoProcessorDidFinishProcessing";
 NSString* const kVideoProcessorDidFail = @"kZZVideoProcessorDidFailProcessing";
@@ -33,11 +34,14 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 @property (nonatomic, assign) BOOL didCancelRecording;
 @property (nonatomic, strong) ZZSoundEffectPlayer *soundPlayer;
 @property (nonatomic, assign) BOOL isSetup;
-@property (nonatomic, assign) BOOL onCallDialogShowing;
+@property (nonatomic, assign) BOOL onCallAlertShowing;
+@property (nonatomic, strong, readonly) TBMAlertController *onCallAlert;
 @end
 
 
 @implementation ZZVideoRecorder
+
+@synthesize onCallAlert = _onCallAlert;
 
 + (instancetype)shared
 {
@@ -261,25 +265,24 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
     }
 }
 
-- (void)_showProbableOnCallAlert
+- (void)_alertOnCallIfNeeded
 {
-    ZZLogInfo(@"alertProbablePhoneCall");
-    if (self.onCallDialogShowing == YES)
+    ZZLogInfo(@"_alertOnCallIfNeeded showing=%d background=%d", self.onCallAlertShowing, [[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground);
+    
+    if (self.onCallAlertShowing == YES ||
+        [[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground)
     {
         return;
     }
     
-    self.onCallDialogShowing = YES;
-    NSString *msg = @"Mic or camera are busy. Are you on a phone call? Hangup and try again.";
-    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"On a Call?" message:msg];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again"
-                                               style:SDCAlertActionStyleDefault
-                                             handler:^(SDCAlertAction *action) {
-                                                 [self.recorder startPreview];
-                                                 self.onCallDialogShowing = NO;
-                                             }]];
-    [alert presentWithCompletion:nil];
+    ZZLogInfo(@"presentOnCallAlert");
+    self.onCallAlertShowing = YES;
+    [ZZGridAlertBuilder showOnCallAction:^{
+        [self.recorder startPreview];
+        self.onCallAlertShowing = NO;
+    }];
 }
+
 
 #pragma mark - Lifecycle observers
 - (void)_addObservers
@@ -292,6 +295,11 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_willResignActive)
                                                  name:UIApplicationWillResignActiveNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_didEnterBackground)
+                                                 name:UIApplicationDidEnterBackgroundNotification
                                                object:nil];
 }
 
@@ -308,6 +316,13 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
     ANDispatchBlockToMainQueue(^{
         [self.recorder stopPreview];
     });
+}
+
+- (void)_didEnterBackground
+{
+    ZZLogInfo(@"didEnterBackground dismissOnCallAlert");
+    self.onCallAlertShowing = NO;
+    [self.onCallAlert dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Sound effects
@@ -330,7 +345,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 - (void)visionSessionWasInterrupted:(PBJVision *)vision
 {
     ZZLogInfo(@"visionSessionWasInterrupted");
-    [self _showProbableOnCallAlert];
+    [self _alertOnCallIfNeeded];
 }
 - (void)visionSessionInterruptionEnded:(PBJVision *)vision{}
 - (BOOL)visionSessionRuntimeErrorShouldRetry:(PBJVision *)vision error:(NSError*)error
@@ -343,7 +358,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
     
     ZZLogInfo(@"visionSessionRuntimeErrored");
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self _showProbableOnCallAlert];
+        [self _alertOnCallIfNeeded];
     });
     return NO;
 }
