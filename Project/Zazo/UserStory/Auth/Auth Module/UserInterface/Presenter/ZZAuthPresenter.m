@@ -119,8 +119,17 @@
     
     //TODO: separate errors with server invalid code error + bad connection and other
     
-    [ZZErrorHandler showErrorAlertWithLocalizedTitle:@"auth-controller.bad-code.alert.title"
-                                             message:@"auth-controller.bad-code.alert.text"];
+    if ([self isNetworkEnabled])
+    {
+        [ZZErrorHandler showErrorAlertWithLocalizedTitle:@"auth-controller.bad-code.alert.title"
+                                                 message:@"auth-controller.bad-code.alert.text"];
+    }
+    else
+    {
+        [ZZErrorHandler showErrorAlertWithLocalizedTitle:NSLocalizedString(@"auth-error.try.again.title", nil)
+                                                 message:NSLocalizedString(@"auth-error.bad.connection.message", nil)];
+    }
+    
 }
 
 - (void)smsCodeValidationCompletedSuccessfully

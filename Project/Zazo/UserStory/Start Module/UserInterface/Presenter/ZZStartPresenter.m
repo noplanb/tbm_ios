@@ -9,9 +9,6 @@
 #import "ZZStartPresenter.h"
 #import "ZZAlertBuilder.h"
 
-@interface ZZStartPresenter ()
-
-@end
 
 @implementation ZZStartPresenter
 
@@ -51,15 +48,40 @@
 - (void)_needUpdate:(BOOL)canBeSkipped
 {
     NSString* message = canBeSkipped ? [self _makeMessageWithQualifier:@"out of date"] : [self _makeMessageWithQualifier:@"obsolete"];
-    [ZZAlertBuilder presentAlertWithTitle:@"Update Available"
-                                  details:message
-                        cancelButtonTitle:canBeSkipped ? @"Later" : nil
-                       cancelButtonAction:canBeSkipped ? ^{
-                           [self _showMenuWithGrid];
-                       }: nil
-                        actionButtonTitle:@"Update" action:^{
-                            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kAppstoreURLString]];
-                        }];
+    NSString* cancelButtonTitle = canBeSkipped ? @"Later" : nil;
+    NSString* actionButtonTitle = @"Update";
+    NSString* title = @"Update Available";
+    
+    if (IOS8_OR_HIGHER)
+    {
+        [ZZAlertBuilder presentAlertWithTitle:@"Update Available"
+                                      details:message
+                            cancelButtonTitle:canBeSkipped ? @"Later" : nil
+                           cancelButtonAction:canBeSkipped ? ^{
+                               [self _showMenuWithGrid];
+                           }: nil
+                            actionButtonTitle:@"Update" action:^{
+                                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kAppstoreURLString]];
+                            }];
+    }
+    else
+    {
+        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                   delegate:nil
+                                          cancelButtonTitle:cancelButtonTitle
+                                          otherButtonTitles:actionButtonTitle, nil];
+        [alertView show];
+        
+        @weakify(alertView);
+        [[alertView rac_buttonClickedSignal] subscribeNext:^(NSNumber* buttonIndex) {
+            @strongify(alertView);
+            if ([buttonIndex integerValue] != alertView.cancelButtonIndex)
+            {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kAppstoreURLString]];
+            }
+        }];
+    }
 }
 
 - (void)_showMenuWithGrid
