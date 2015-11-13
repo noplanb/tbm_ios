@@ -133,7 +133,7 @@ DEPENDENCIES:
   - PBJVision (from `https://github.com/noplanb/PBJVision`, tag `v0.4.6`)
   - Reveal-iOS-SDK (~> 1.6.1)
   - Rollbar (~> 0.1.5)
-  - SDCAlertView (~> 2.5.4)
+  - SDCAlertView (~> 2.5.2)
   - SDCAutoLayout (~> 2.0.3)
   - Specta (~> 1.0.3)
   - SVProgressHUD (~> 1.1.3)

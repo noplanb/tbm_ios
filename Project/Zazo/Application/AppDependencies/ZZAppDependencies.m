@@ -25,6 +25,7 @@
 @property (nonatomic, strong) CTCallCenter* callCenter;
 @property (nonatomic, strong) ZZNotificationsHandler* notificationsHandler;
 @property (nonatomic, strong) ZZApplicationRootService* rootService;
+@property (nonatomic, assign) BOOL wasSetuped;
 
 @end
 
@@ -67,7 +68,12 @@
 - (void)handleApplicationDidBecomeActive
 {
     [[OBLogger instance] logEvent:OBLogEventAppForeground];
-    [self.rootService checkApplicationPermissionsAndResources];
+    if (self.wasSetuped)
+    {
+        [self.rootService checkApplicationPermissionsAndResources];
+    }
+    self.wasSetuped = YES;
+    
     [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = NO;
 }
 
@@ -139,6 +145,7 @@
 
 
 #pragma mark - Private
+
 - (ZZRootWireframe*)rootWireframe
 {
     if (!_rootWireframe)

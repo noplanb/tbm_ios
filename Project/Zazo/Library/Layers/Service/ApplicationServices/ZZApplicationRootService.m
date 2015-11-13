@@ -127,6 +127,7 @@
     [self.videoFileHandler handleBackgroundSessionWithIdentifier:identifier completionHandler:completionHandler];
 }
 
+
 #pragma mark - File Handler Delegate
 
 - (void)requestBackground

@@ -115,14 +115,19 @@
     [[[stopWindow rac_signalForSelector:@selector(sendEvent:)] filter:^BOOL(RACTuple *touches) {
         
         BOOL isTouchEnabled = NO;
+        BOOL isTouchInArea = NO;
         for (id event in touches)
         {
             NSSet* touches = [event allTouches];
             UITouch* touch = [touches anyObject];
             isTouchEnabled = (touch.phase == UITouchPhaseBegan);
+            
+            CGPoint location = [touch locationInView:stopWindow];
+            CGRect containerRect = self.gridView.itemsContainerView.frame;
+            isTouchInArea = CGRectContainsPoint(containerRect, location);
         };
 
-        return (self.isMoving && isTouchEnabled);
+        return (self.isMoving && isTouchEnabled && isTouchInArea);
 
     }] subscribeNext:^(RACTuple *touches) {
         [self.rotationRecognizer stateChanged];
