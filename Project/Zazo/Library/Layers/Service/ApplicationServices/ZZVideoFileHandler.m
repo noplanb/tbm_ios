@@ -325,11 +325,9 @@
         
         if (validThumb)
         {
-            [self.delegate deleteAllViewedOrFailedVideosWithFriendId:friendId];
-        }
-        else
-        {
-            NSLog(@"Not deleted videos");
+            ANDispatchBlockToMainQueue(^{
+                [self.delegate deleteAllViewedOrFailedVideosWithFriendId:friendId];
+            });
         }
         
         [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloaded friendId:friendId videoId:videoId];

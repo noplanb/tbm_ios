@@ -29,6 +29,8 @@
 #import "TBMVideoIdUtils.h"
 #import "ZZFriendDataProvider.h"
 #import "RollbarReachability.h"
+#import "ZZFriendDataHelper.h"
+#import "ZZVideoDomainModel.h"
 
 @interface ZZGridPresenter ()
 <
@@ -43,6 +45,7 @@
 @property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
 @property (nonatomic, strong) ZZGridActionHandler* actionHandler;
 @property (nonatomic, strong) RollbarReachability* reachability;
+@property (nonatomic, strong) ZZGridAlertBuilder* alertBuilder;
 
 @end
 
@@ -666,6 +669,16 @@
 - (BOOL)isVideoPlayingNow
 {
     return self.videoPlayer.isPlayingVideo;
+}
+
+- (ZZGridAlertBuilder *)alertBuilder
+{
+    if (!_alertBuilder)
+    {
+        _alertBuilder = [ZZGridAlertBuilder new];
+    }
+    
+    return _alertBuilder;
 }
 
 @end

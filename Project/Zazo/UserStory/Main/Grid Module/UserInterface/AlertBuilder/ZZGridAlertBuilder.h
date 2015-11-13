@@ -22,4 +22,6 @@
         actionButtonTitlte:(NSString*)actionButtonTitle
                     action:(ANCodeBlock)completion;
 
+- (void)showCantSendSmsErrorOldStyleToUser:(NSString*)userName completion:(ANCodeBlock)completion;
+
 @end

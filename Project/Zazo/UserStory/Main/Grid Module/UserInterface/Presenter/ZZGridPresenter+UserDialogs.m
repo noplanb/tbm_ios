@@ -98,9 +98,18 @@
 
 - (void)_showCantSendSmsErrorForModel:(ZZFriendDomainModel*)friendModel
 {
-    [ZZGridAlertBuilder showCannotSendSmsErrorToUser:[friendModel fullName] completion:^{
-        [self _handleSentWelcomeHintWithFriendDomainModel:friendModel];
-    }];
+    if (IOS8_OR_HIGHER)
+    {
+        [ZZGridAlertBuilder showCannotSendSmsErrorToUser:[friendModel fullName] completion:^{
+            [self _handleSentWelcomeHintWithFriendDomainModel:friendModel];
+        }];
+    }
+    else
+    {
+        [self.alertBuilder showCantSendSmsErrorOldStyleToUser:[friendModel fullName] completion:^{
+            [self _handleSentWelcomeHintWithFriendDomainModel:friendModel];
+        }];
+    }
 }
 
 - (void)_nudgeUser:(ZZFriendDomainModel*)userModel

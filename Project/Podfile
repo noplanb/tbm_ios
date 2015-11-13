@@ -59,7 +59,7 @@ target 'Zazo' do
     pod 'OBFileTransfer', '0.6.3'
     #:path => '~/Development/OBFileTransfer/' #'~> 0.5.7'
     pod 'UIAlertView+Blocks', '~> 0.9'
-    pod 'SDCAlertView', '~> 2.5.2'
+    pod 'SDCAlertView', '~> 2.5.4'
     pod 'SDCAutoLayout', '~> 2.0.3'
     pod 'iToast', '~> 0.0.1'
 

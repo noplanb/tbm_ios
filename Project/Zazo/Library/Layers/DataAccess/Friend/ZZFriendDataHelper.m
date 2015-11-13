@@ -47,10 +47,10 @@
     return hasVideo;
 }
 
-+ (NSInteger)unviewedVideoCountWithFriend:(TBMFriend*)friend
++ (NSInteger)unviewedVideoCountWithFriend:(TBMFriend*)friendModel
 {
     NSInteger i = 0;
-    for (TBMVideo *v in [friend videos])
+    for (TBMVideo *v in [friendModel videos])
     {
         if (v.statusValue == ZZVideoIncomingStatusDownloaded)
         {
@@ -60,9 +60,9 @@
     return i;
 }
 
-+ (BOOL)hasOutgoingVideoWithFriend:(TBMFriend*)friend
++ (BOOL)hasOutgoingVideoWithFriend:(TBMFriend*)friendModel
 {
-    return !ANIsEmpty(friend.outgoingVideoId);
+    return !ANIsEmpty(friendModel.outgoingVideoId);
 }
 
 + (NSArray *)_allEverSentFriends
