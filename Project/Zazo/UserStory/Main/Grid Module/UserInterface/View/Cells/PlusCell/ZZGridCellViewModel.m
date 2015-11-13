@@ -182,12 +182,6 @@
 
 - (void)updateVideoPlayingStateTo:(BOOL)isPlaying
 {
-//    if (isPlaying)
-//    {
-//        self.prevBadgeNumber = nil;
-//        self.badgeNumber = nil;
-//    }
-
     [self.delegate playingStateUpdatedToState:isPlaying viewModel:self];
     [self reloadDebugVideoStatus];
 }
@@ -302,7 +296,9 @@
 - (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer
 {
     if (![self.delegate isGridRotate])
-    {        
+    {
+        NSLog(@"Start Recording");
+        
         if (recognizer.state == UIGestureRecognizerStateBegan)
         {
             self.initialRecordPoint = [recognizer locationInView:recognizer.view];

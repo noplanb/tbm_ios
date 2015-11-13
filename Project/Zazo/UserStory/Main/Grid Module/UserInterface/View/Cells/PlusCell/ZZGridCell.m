@@ -47,7 +47,6 @@
     ANDispatchBlockToMainQueue(^{
         self.model = model;
         [self updateStateViewWithModel:model];
-        [self _setupRecordRecognizerWithModel:model];
     });
 }
 
@@ -81,6 +80,8 @@
             {
                 [self.stateView removeFromSuperview];
             }
+            
+            [self _setupRecordRecognizerWithModel:model];
         }
         
         

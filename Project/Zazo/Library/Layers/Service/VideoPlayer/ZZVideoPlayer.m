@@ -109,6 +109,9 @@
 
 - (void)playOnView:(UIView*)view withVideoModels:(NSArray*)videoModels
 {
+    
+    [self _updateVideoPlayerStateIfNeeded];
+    
     self.moviePlayerController.contentURL = nil;
     
     NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
@@ -156,7 +159,6 @@
             [UIDevice currentDevice].proximityMonitoringEnabled = [ZZGridActionStoredSettings shared].earpieceHintWasShown;
             //TODO:coredata
             TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:playedVideoModel.relatedUser.idTbm];
-//            [friend setViewedWithIncomingVideo:viewedVideo];
             [[ZZVideoStatusHandler sharedInstance] setAndNotityViewedIncomingVideoWithFriend:friend video:viewedVideo];
             
             [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoId
@@ -168,6 +170,14 @@
         {
             [self _playNextOrStop];
         }
+    }
+}
+
+- (void)_updateVideoPlayerStateIfNeeded
+{
+    if (self.isPlayingVideo)
+    {
+        [self _stopPlaying];
     }
 }
 
