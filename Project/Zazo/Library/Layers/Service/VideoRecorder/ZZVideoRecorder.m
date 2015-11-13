@@ -13,6 +13,7 @@
 #import "NSError+ZZAdditions.h"
 #import "TBMAlertController.h"
 #import "ZZSoundEffectPlayer.h"
+#import "ZZAlertBuilder.h"
 
 NSString* const kVideoProcessorDidFinishProcessing = @"kZZVideoProcessorDidFinishProcessing";
 NSString* const kVideoProcessorDidFail = @"kZZVideoProcessorDidFailProcessing";
@@ -33,11 +34,12 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 @property (nonatomic, assign) BOOL didCancelRecording;
 @property (nonatomic, strong) ZZSoundEffectPlayer *soundPlayer;
 @property (nonatomic, assign) BOOL isSetup;
-@property (nonatomic, assign) BOOL onCallDialogShowing;
+@property (nonatomic, assign) BOOL onCallAlertShowing;
 @end
 
 
 @implementation ZZVideoRecorder
+
 
 + (instancetype)shared
 {
@@ -194,14 +196,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
         if ((touch.phase == UITouchPhaseBegan && [self isRecording]) ||
             (touch.phase == UITouchPhaseStationary && [self isRecording]))
         {
-            //            CGFloat kDelayAfterTouch = 0.5;
-            //            ANDispatchBlockAfter(kDelayAfterTouch, ^{
             [self _cancelRecordingWithDoubleTap];
-            //            });
-        }
-        else if (touch.phase == UITouchPhaseEnded && [self isRecording])
-        {
-//            [self stopRecordingWithCompletionBlock:self.completionBlock];
         }
     });
 }
@@ -261,25 +256,36 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
     }
 }
 
-- (void)_showProbableOnCallAlert
+- (void)_alertOnCallIfNeeded
 {
-    ZZLogInfo(@"alertProbablePhoneCall");
-    if (self.onCallDialogShowing == YES)
+    ZZLogInfo(@"_alertOnCallIfNeeded showing=%d background=%d", self.onCallAlertShowing, [[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground);
+    
+    if (self.onCallAlertShowing == YES ||
+        [[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground)
     {
         return;
     }
     
-    self.onCallDialogShowing = YES;
-    NSString *msg = @"Mic or camera are busy. Are you on a phone call? Hangup and try again.";
-    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:@"On a Call?" message:msg];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again"
-                                               style:SDCAlertActionStyleDefault
-                                             handler:^(SDCAlertAction *action) {
-                                                 [self.recorder startPreview];
-                                                 self.onCallDialogShowing = NO;
-                                             }]];
-    [alert presentWithCompletion:nil];
+    ZZLogInfo(@"presentOnCallAlert");
+    self.onCallAlertShowing = YES;
+    [self _showOnCallAlert];
+
 }
+
+- (void)_showOnCallAlert
+{
+    NSString* title = NSLocalizedString(@"on.call.title", nil);
+    NSString* details = NSLocalizedString(@"on.call.message", nil);
+    NSString* buttonTitle = NSLocalizedString(@"on.call.button.title", nil);
+    
+    [ZZAlertBuilder presentAlertWithTitle:title
+                                  details:details
+                        cancelButtonTitle:buttonTitle
+                       cancelButtonAction:^{ [self.recorder startPreview]; self.onCallAlertShowing = NO; }
+                        actionButtonTitle:nil
+                                   action:nil];
+}
+
 
 #pragma mark - Lifecycle observers
 - (void)_addObservers
@@ -295,6 +301,8 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
                                                object:nil];
 }
 
+#pragma mark - Lifecycle handlers
+
 - (void)_didBecomeActive
 {
     ANDispatchBlockToMainQueue(^{
@@ -309,6 +317,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
         [self.recorder stopPreview];
     });
 }
+
 
 #pragma mark - Sound effects
 - (ZZSoundEffectPlayer*)soundPlayer
@@ -330,7 +339,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 - (void)visionSessionWasInterrupted:(PBJVision *)vision
 {
     ZZLogInfo(@"visionSessionWasInterrupted");
-    [self _showProbableOnCallAlert];
+    [self _alertOnCallIfNeeded];
 }
 - (void)visionSessionInterruptionEnded:(PBJVision *)vision{}
 - (BOOL)visionSessionRuntimeErrorShouldRetry:(PBJVision *)vision error:(NSError*)error
@@ -343,7 +352,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
     
     ZZLogInfo(@"visionSessionRuntimeErrored");
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self _showProbableOnCallAlert];
+        [self _alertOnCallIfNeeded];
     });
     return NO;
 }

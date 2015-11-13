@@ -5,6 +5,8 @@
 //  Created by Oksana Kovalchuk on 9/11/15.
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
+#import "TBMAlertController.h"
+
 
 @interface ZZAlertBuilder : NSObject
 
@@ -23,4 +25,10 @@
             actionButtonTitle:(NSString*)actionButtonTitle
                        action:(ANCodeBlock)completion;
 
++ (TBMAlertController *)alertWithTitle:(NSString*)title
+                               details:(NSString*)details
+                     cancelButtonTitle:(NSString*)cancelTitle
+                    cancelButtonAction:(ANCodeBlock)cancelAction
+                     actionButtonTitle:(NSString*)actionButtonTitle
+                                action:(ANCodeBlock)completion;
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "ZZAlertBuilder.h"
-#import "TBMAlertController.h"
 
 @implementation ZZAlertBuilder
 
@@ -43,6 +42,23 @@
             actionButtonTitle:(NSString*)actionButtonTitle
                        action:(ANCodeBlock)completion
 {
+    TBMAlertController *alert = [self alertWithTitle:title
+                                             details:details
+                                   cancelButtonTitle:cancelTitle
+                                  cancelButtonAction:cancelAction
+                                   actionButtonTitle:actionButtonTitle
+                                              action:completion];
+    
+    [self presentAlert:(TBMAlertController *)alert];
+}
+
++ (TBMAlertController *)alertWithTitle:(NSString*)title
+                               details:(NSString*)details
+                     cancelButtonTitle:(NSString*)cancelTitle
+                    cancelButtonAction:(ANCodeBlock)cancelAction
+                     actionButtonTitle:(NSString*)actionButtonTitle
+                                action:(ANCodeBlock)completion
+{
     TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:[NSObject an_safeString:title]
                                                                      message:[NSObject an_safeString:details]];
     
@@ -53,7 +69,7 @@
                                                  handler:^(SDCAlertAction *action) {
                                                      if (cancelAction)
                                                      {
-                                                        cancelAction();
+                                                         cancelAction();
                                                      }
                                                  }]];
     }
@@ -67,16 +83,21 @@
                                                      {
                                                          completion();
                                                      }
-        }]];
+                                                 }]];
     }
     
     if (ANIsEmpty(cancelTitle) && ANIsEmpty(actionButtonTitle))
     {
         cancelTitle = @"OK";
     }
+    
+    return alert;
+}
 
++ (void)presentAlert:(TBMAlertController *)alert
+{
     ANDispatchBlockToMainQueue(^{
-       [alert presentWithCompletion:nil];
+        [alert presentWithCompletion:nil];
     });
 }
 
