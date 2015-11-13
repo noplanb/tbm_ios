@@ -51,6 +51,11 @@
         [item.managedObjectContext MR_saveToPersistentStoreAndWait];
         [[ZZVideoStatusHandler sharedInstance] notifyFriendChanged:item];
     }
+    
+    if (![item.friendshipStatus isEqualToString:model.friendshipStatus])
+    {
+        item = [ZZFriendModelsMapper fillEntity:item fromModel:model];
+    }
  
     return [ZZFriendDataProvider modelFromEntity:item];
 }

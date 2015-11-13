@@ -327,6 +327,10 @@
         {
             [self.delegate deleteAllViewedOrFailedVideosWithFriendId:friendId];
         }
+        else
+        {
+            NSLog(@"Not deleted videos");
+        }
         
         [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloaded friendId:friendId videoId:videoId];
         

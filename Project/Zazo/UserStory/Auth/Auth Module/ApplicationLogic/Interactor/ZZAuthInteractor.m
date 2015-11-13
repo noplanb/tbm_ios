@@ -209,7 +209,6 @@
     {
         [self.output registrationDidFailWithError:error];
     }
-    
 }
 
 #pragma mark - Validation Part

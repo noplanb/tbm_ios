@@ -371,7 +371,9 @@ static NSInteger const kGridFriendsCellCount = 8;
 {
     [[ZZGridTransportService inviteUserToApp:contact] subscribeNext:^(ZZFriendDomainModel* x) {
         
-        if (x.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByCreator)
+        if (x.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByCreator ||
+            x.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByTarget ||
+            x.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByBoth)
         {
             [self changeContactStatusTypeForFriend:x];
         }
