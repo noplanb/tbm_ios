@@ -76,6 +76,7 @@
     
     if (!ANIsEmpty(actionButtonTitle))
     {
+        
         [alert addAction:[SDCAlertAction actionWithTitle:actionButtonTitle
                                                    style:SDCAlertActionStyleDefault
                                                  handler:^(SDCAlertAction *action) {
@@ -84,6 +85,7 @@
                                                          completion();
                                                      }
                                                  }]];
+    
     }
     
     if (ANIsEmpty(cancelTitle) && ANIsEmpty(actionButtonTitle))

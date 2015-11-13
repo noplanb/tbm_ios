@@ -42,4 +42,6 @@
 
 - (void)registrationFlowCompletedSuccessfully;
 
+- (BOOL)isNetworkEnabled;
+
 @end

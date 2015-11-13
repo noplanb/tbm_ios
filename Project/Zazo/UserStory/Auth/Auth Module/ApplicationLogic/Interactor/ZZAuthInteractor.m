@@ -43,7 +43,7 @@
 #ifdef DEBUG_LOGIN_USER
     user.firstName = @"CCCs";
     user.lastName = @"cccs";
-    user.mobileNumber = @"+380950773393";
+    user.mobileNumber = @"+380950773396";
 #endif
 
     if (!ANIsEmpty(user.mobileNumber))
@@ -191,16 +191,25 @@
 
 - (void)_handleErrorNumberValidationWithError:(NSError*)error
 {
-    if (!ANIsEmpty([ZZStoredSettingsManager shared].mobileNumber))
+    
+    if ([self.output isNetworkEnabled])
     {
-
-        NSError* mobilePhoneError = [NSError errorWithDomain:kErrorDomainWrongMobileType code:kErrorWrongMobileErrorCode userInfo:nil];
-        [self.output registrationDidFailWithError:mobilePhoneError];
+        if (!ANIsEmpty([ZZStoredSettingsManager shared].mobileNumber))
+        {
+            
+            NSError* mobilePhoneError = [NSError errorWithDomain:kErrorDomainWrongMobileType code:kErrorWrongMobileErrorCode userInfo:nil];
+            [self.output registrationDidFailWithError:mobilePhoneError];
+        }
+        else
+        {
+            [self.output registrationDidFailWithError:error];
+        }
     }
     else
     {
         [self.output registrationDidFailWithError:error];
     }
+    
 }
 
 #pragma mark - Validation Part

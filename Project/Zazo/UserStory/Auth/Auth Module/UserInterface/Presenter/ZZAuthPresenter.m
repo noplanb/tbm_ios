@@ -11,12 +11,26 @@
 #import "ZZUserDomainModel.h"
 #import "TBMAlertController.h"
 #import "ZZAuthInteractorConstants.h"
+#import "RollbarReachability.h"
 
 @interface ZZAuthPresenter ()
+
+@property (nonatomic, strong) RollbarReachability* reachability;
 
 @end
 
 @implementation ZZAuthPresenter
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        self.reachability = [RollbarReachability reachabilityForInternetConnection];
+    }
+    
+    return self;
+}
 
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZAuthViewInterface>*)userInterface
 {
@@ -53,6 +67,11 @@
 
 
 #pragma mark - Output
+
+- (BOOL)isNetworkEnabled
+{
+    return [self.reachability isReachable];
+}
 
 - (void)userDataLoadedSuccessfully:(ZZUserDomainModel*)user
 {
