@@ -175,3 +175,23 @@ TESTS
     - Enter app while in call
     - Kill call while in app
 
+
+on-a-call-3
+-----------
+PROBLEM:
+  - In rare cases on ios 8.2 we get spurious on a call dialogs when not supposed to.
+
+SOLUTION:
+  - This is a bit of a hack but let videoRecorder attempt twice before showing a dialog.
+
+TESTS
+  - sx px b f
+    - Background
+    - Kill
+    - Power button lock
+    - Call while in app
+    - Call while recording
+    - Enter app while in call
+    - Kill call while in app
+
+

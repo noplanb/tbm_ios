@@ -35,6 +35,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 @property (nonatomic, strong) ZZSoundEffectPlayer *soundPlayer;
 @property (nonatomic, assign) BOOL isSetup;
 @property (nonatomic, assign) BOOL onCallAlertShowing;
+@property (nonatomic, assign) BOOL isFirstLaunchAttempt;
 @end
 
 
@@ -66,6 +67,10 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
     if (!self.isSetup)
     {
         self.videoProcessor = [TBMVideoProcessor new];
+        
+        self.isFirstLaunchAttempt = YES;
+        self.onCallAlertShowing = NO;
+        
         self.recorder.delegate = self;
         
         self.recorder.cameraMode = PBJCameraModeVideo;
@@ -258,7 +263,10 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 
 - (void)_alertOnCallIfNeeded
 {
-    ZZLogInfo(@"_alertOnCallIfNeeded showing=%d background=%d", self.onCallAlertShowing, [[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground);
+    ZZLogInfo(@"_alertOnCallIfNeeded showing=%d background=%d, isFirstLaunchAttempt=%d",
+              self.onCallAlertShowing,
+              [[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground,
+              self.isFirstLaunchAttempt);
     
     if (self.onCallAlertShowing == YES ||
         [[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground)
@@ -286,8 +294,23 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
                                    action:nil];
 }
 
+#pragma mark - First launch attempt
+
+- (void)_handleGotFirstLaunchAttempt
+{
+    self.isFirstLaunchAttempt = NO;
+    [self _setupDelayedResetOfFrirstLaunchAttempt];
+}
+
+- (void)_setupDelayedResetOfFrirstLaunchAttempt
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.isFirstLaunchAttempt = YES;
+    });
+}
 
 #pragma mark - Lifecycle observers
+
 - (void)_addObservers
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -338,25 +361,50 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 
 - (void)visionSessionWasInterrupted:(PBJVision *)vision
 {
-    ZZLogInfo(@"visionSessionWasInterrupted");
-    [self _alertOnCallIfNeeded];
+    ZZLogDebug(@"visionSessionWasInterrupted");
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)
+    {
+        ZZLogDebug(@"background");
+        return;
+    }
+    
+    if (self.isFirstLaunchAttempt)
+    {
+        ZZLogDebug(@"interrupted firstLaunchAttempt");
+        [self.recorder startPreview];
+        [self _handleGotFirstLaunchAttempt];
+    }
+    else
+    {
+        ZZLogDebug(@"interrupted notFirstLaunch");
+        [self _alertOnCallIfNeeded];
+    }
 }
+
 - (void)visionSessionInterruptionEnded:(PBJVision *)vision{}
+
 - (BOOL)visionSessionRuntimeErrorShouldRetry:(PBJVision *)vision error:(NSError*)error
 {
+    ZZLogDebug(@"visionSessionRuntimeErrored");
     if ([error code] == AVErrorDeviceIsNotAvailableInBackground ||
         [error code] == AVErrorDeviceIsNotAvailableInBackground)
     {
         return YES;
     }
     
-    ZZLogInfo(@"visionSessionRuntimeErrored");
+    if (self.isFirstLaunchAttempt)
+    {
+        ZZLogDebug(@"errored firstLaunchAttempt");
+        [self _handleGotFirstLaunchAttempt];
+        return YES;
+    }
+    
+    ZZLogDebug(@"errored notFirstLaunchAttempt");
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self _alertOnCallIfNeeded];
     });
     return NO;
 }
-
 
 // device / mode / format
 
