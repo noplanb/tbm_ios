@@ -1,3 +1,4 @@
+<<<<<<< Local Changes
 v2.4.0
 
 Rewrite VideoRecorder Code
@@ -175,7 +176,6 @@ TESTS
     - Enter app while in call
     - Kill call while in app
 
-
 on-a-call-3
 -----------
 PROBLEM:
@@ -185,6 +185,7 @@ SOLUTION:
   - This is a bit of a hack but let videoRecorder attempt twice before showing a dialog.
 
 TESTS
+  - ios7, 8, 9
   - sx px b f
     - Background
     - Kill
@@ -193,5 +194,4 @@ TESTS
     - Call while recording
     - Enter app while in call
     - Kill call while in app
-
 
