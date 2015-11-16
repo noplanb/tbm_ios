@@ -201,6 +201,6 @@ audio-session
 898 - Stuck playing from earpiece
 
 - Create ZZ version of audio session category and deprecate TBM version
-
+- Remove deprecated videoRecorder
 
 
