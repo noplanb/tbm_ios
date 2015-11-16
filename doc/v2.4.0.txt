@@ -1,4 +1,3 @@
-<<<<<<< Local Changes
 v2.4.0
 
 Rewrite VideoRecorder Code
@@ -195,7 +194,6 @@ TESTS
     - Enter app while in call
     - Kill call while in app
 
-
 audio-session
 -------------
 BUG: 898 - Stuck playing from earpiece
@@ -216,6 +214,10 @@ BUG: 897 - Inaudible recording with 6s (intermittent)
   INVESTIGATE: Is it related to recording while override set to play from ear and hence using mic that is near mouth rather than speakerphone mic?
   TRY:
     - Set to permanently play from earpiece. See if that causes barely audible recording problem on 6s.
+  RESULT:
+    - Could not reproduce the dim sound again in many attempts.
+  SOLUTION:
+    - Set category and mode for recordVideo when recording a video. Continue testing to see if this problem appears again.
 
 BUG: 905 - Does not play from wired headset
   PROBLEM: Was not handling route changed properly.
@@ -266,4 +268,3 @@ x-wp, p-wp, b-wp, f-
   - Duck others when app foreground
   - Resume music when app backgrounds
   - Call
-
