@@ -58,6 +58,7 @@
     return [self modelFromEntity:entity];
 }
 
+
 #pragma mark - Private
 
 + (NSManagedObjectContext*)_context
