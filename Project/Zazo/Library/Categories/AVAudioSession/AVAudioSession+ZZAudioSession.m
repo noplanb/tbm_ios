@@ -103,7 +103,12 @@ static BOOL zzAudioSessionIsSetup = NO;
 {
     ZZLogInfo(@"playBasedOnProximity: nearEar=%d", [self _isNearTheEar]);
     
-    if ([self _currentRouteHasHeadphonesOutput])
+    if ([self _currentRouteHasUSBOutput])
+    {
+        ZZLogDebug(@"playBasedOnProximity: USB:");
+        [self _playFromSpeaker];
+    }
+    else if ([self _currentRouteHasHeadphonesOutput])
     {
         ZZLogDebug(@"playBasedOnProximity: headphones:");
         [self _playFromEar];
@@ -232,6 +237,15 @@ static BOOL zzAudioSessionIsSetup = NO;
     return hasHeadphonesOutput;
 }
 
+-(BOOL)_currentRouteHasUSBOutput {
+    BOOL hasUSBOutput = NO;
+    for (AVAudioSessionPortDescription *port in self.currentRoute.outputs) {
+        if ([port.portType isEqualToString:AVAudioSessionPortUSBAudio]) {
+            hasUSBOutput = YES;
+        }
+    }
+    return hasUSBOutput;
+}
 
 
 #pragma mark Proximity

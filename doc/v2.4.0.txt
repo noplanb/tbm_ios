@@ -221,6 +221,13 @@ BUG: 905 - Does not play from wired headset
   PROBLEM: Was not handling route changed properly.
   SOLUTION: Rework how route change is handled.
 
+BUG: 908 - Does not resume bluetooth play music after use of zazo 6s 9.1
+  TRY: Instead of deactivating try to just change the category and mode when we go into background.
+
+BUG: 909 - Plays from USB speaker when held to ear.
+  PROBLEM: We are not detecting the case
+  SOLUTION: Detect the case and play from speaker.
+
 GENERAL REFACTOR:
   - Create ZZ version of audio session category and deprecate TBM version
   - Remove code related to playing sound through bluetooth since we have eliminated that from the requirements.
