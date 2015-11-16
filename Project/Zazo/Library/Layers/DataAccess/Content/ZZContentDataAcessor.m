@@ -9,12 +9,15 @@
 #import "ZZContentDataAcessor.h"
 #import "TBMFriend.h"
 #import "ZZFriendDataUpdater.h"
+#import "ZZUserDataProvider.h"
+#import "TBMUser.h"
 
 @implementation ZZContentDataAcessor
 
 + (void)start
 {
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:kContentDBName];
+    
     if ([NSManagedObjectContext MR_rootSavingContext])
     {
         ZZLogInfo(@"Successfull Core Data migration. Trying to fill new fields"); // TODO: cleanup

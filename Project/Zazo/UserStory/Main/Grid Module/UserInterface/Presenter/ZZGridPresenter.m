@@ -409,31 +409,39 @@
 - (BOOL)isVideoPlayingEnabledWithModel:(ZZGridCellViewModel *)model
 {
     
-    BOOL isEnbaled = YES;
+    BOOL isEnabled = YES;
 
         if ([self _isNetworkEnabled])
         {
             if ((model.badgeNumber == 0) &&
                 model.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
             {
-                isEnbaled = NO;
+                isEnabled = NO;
                 [self _showToastWithMessage:NSLocalizedString(@"video-playing-disabled-reason-downloading", nil)];
             }
         }
         else
         {
-            isEnbaled = NO;
+            if (model.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading && model.badgeNumber == 0)
+            {
+                isEnabled = NO;
+                
+                NSString* badConnectionTitle = NSLocalizedString(@"internet-connection-error-title", nil);
+                NSString* message = NSLocalizedString(@"internet-connection-error-message", nil);
+                NSString* actionButtonTitle = NSLocalizedString(@"internet-connection-error-button-title", nil);
+                [ZZGridAlertBuilder showAlertWithTitle:badConnectionTitle
+                                               message:message
+                                     cancelButtonTitle:nil
+                                    actionButtonTitlte:actionButtonTitle action:^{}];
             
-            NSString* badConnectionTitle = NSLocalizedString(@"internet-connection-error-title", nil);
-            NSString* message = NSLocalizedString(@"internet-connection-error-message", nil);
-            NSString* actionButtonTitle = NSLocalizedString(@"internet-connection-error-button-title", nil);
-            [ZZGridAlertBuilder showAlertWithTitle:badConnectionTitle
-                                           message:message
-                                 cancelButtonTitle:nil
-                                actionButtonTitlte:actionButtonTitle action:^{}];
+            }
+            else
+            {
+                isEnabled = YES;
+            }
         }
 
-    return isEnbaled;
+    return isEnabled;
 }
 
 

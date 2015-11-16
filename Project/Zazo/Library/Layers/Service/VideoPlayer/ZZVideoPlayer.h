@@ -13,6 +13,7 @@
 
 - (void)videoPlayerURLWasStartPlaying:(NSURL*)videoURL;
 - (void)videoPlayerURLWasFinishedPlaying:(NSURL*)videoURL withPlayedUserModel:(ZZFriendDomainModel*)playedFriendModel;
+- (BOOL)isNetworkEnabled;
 
 @end
 
