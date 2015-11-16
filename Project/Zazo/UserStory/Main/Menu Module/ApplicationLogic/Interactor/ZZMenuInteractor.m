@@ -19,6 +19,12 @@
 
 @property (nonatomic, assign) BOOL isLoading;
 @property (nonatomic, assign) BOOL isLoaded;
+@property (nonatomic, assign) BOOL wasFriendSetuped;
+
+@property (nonatomic, assign) NSTimeInterval startUpdateTime;
+@property (nonatomic, assign) NSTimeInterval endUpdateTime;
+@property (nonatomic, strong) NSArray* sortedFriends;
+
 
 @end
 
@@ -33,11 +39,52 @@
 - (void)loadDataIncludeAddressBookRequest:(BOOL)shouldRequest
 {
     ANDispatchBlockToBackgroundQueue(^{
-        NSArray* friends = [ZZFriendDataProvider loadAllFriends];
-        [self _sortFriendsFromArray:friends];
+        
+        self.startUpdateTime = [[NSDate date] timeIntervalSince1970];
+        
+        if (!self.wasFriendSetuped)
+        {
+            [self _loadFriends];
+            self.wasFriendSetuped = YES;
+        }
+        else
+        {
+        
+            if ([self _isNeedToUpdate])
+            {
+                [self _loadFriends];
+            }
+            else
+            {
+                [self.output friendsThatHasAppLoaded:self.sortedFriends];
+            }
+            
+        }
         
         [self _loadAddressBookContactsWithRequestAccess:shouldRequest];
     });
+}
+
+
+
+- (BOOL)_isNeedToUpdate
+{
+    BOOL isNeedUpdate = NO;
+    
+    NSTimeInterval interval = fabs(self.startUpdateTime - self.endUpdateTime);
+    
+    if (interval > 30)
+    {
+        isNeedUpdate = YES;
+    }
+    
+    return isNeedUpdate;
+}
+
+- (void)_loadFriends
+{
+    NSArray* friends = [ZZFriendDataProvider loadAllFriends];
+    [self _sortFriendsFromArray:friends];
 }
 
 
@@ -90,25 +137,17 @@
         
         [array enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friend, NSUInteger idx, BOOL *stop) {
             
-            //check if user is on grid - do not add him
             if (![gridUsers containsObject:friend])
             {
-//                if (friend.hasApp)
-//                {
                     [friendsHasAppArray addObject:friend];
-//                }
-//                else
-//                {
-//                    [otherFriendsArray addObject:friend];
-//                }
             }
         }];
         
         NSArray *filteredFriendsHasAppArray = [self _filterFriendByConnectionStatus:friendsHasAppArray];
-//        NSArray *filteredOtherFriendsArray = [self _filterFriendByConnectionStatus:otherFriendsArray];
         
-        [self.output friendsThatHasAppLoaded:[self _sortByFirstName:filteredFriendsHasAppArray]];
-//        [self.output friendsDataLoaded:[self _sortByFirstName:filteredOtherFriendsArray]];
+        self.sortedFriends = [self _sortByFirstName:filteredFriendsHasAppArray];
+        [self.output friendsThatHasAppLoaded:self.sortedFriends];
+         self.endUpdateTime = [[NSDate date] timeIntervalSince1970];
     });
 }
 
