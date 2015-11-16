@@ -1,18 +1,18 @@
 //
-//  AVAudioSession+TBMAudioSession.m
+//  AVAudioSession+ZZAudioSession.m
 //  Zazo
 //
 //  Created by Sani Elfishawy on 5/10/15.
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "AVAudioSession+TBMAudioSession.h"
+#import "AVAudioSession+ZZAudioSession.h"
 #import "OBLogger.h"
 
-static NSMutableSet *TBMDelegates;
+static NSMutableSet *ZZDelegates;
 static BOOL zzAudioSessionIsSetup = NO;
 
-@implementation AVAudioSession (TBMAudioSession)
+@implementation AVAudioSession (ZZAudioSession)
 
 #pragma mark Interface methods
 
@@ -26,14 +26,14 @@ static BOOL zzAudioSessionIsSetup = NO;
     }
 }
 
--(void)addTBMAudioSessionDelegate:(id <TBMAudioSessionDelegate>)delegate{
-    if (TBMDelegates == nil) TBMDelegates = [[NSMutableSet alloc] init];
-    [TBMDelegates addObject: delegate];
+-(void)addZZAudioSessionDelegate:(id <ZZAudioSessionDelegate>)delegate{
+    if (ZZDelegates == nil) ZZDelegates = [[NSMutableSet alloc] init];
+    [ZZDelegates addObject: delegate];
 }
 
 -(NSError *)activate
 {
-    ZZLogInfo(@"TBMAudioSession#activate:");
+    ZZLogInfo(@"ZZAudioSession#activate:");
     NSError *error = nil;
     [self removeRouteChangeObserver];
     [self setApplicationCategory];
@@ -42,7 +42,7 @@ static BOOL zzAudioSessionIsSetup = NO;
     
     if (!ANIsEmpty(error))
     {
-        ZZLogWarning(@"TBMAudioSession#activate: %@", error);
+        ZZLogWarning(@"ZZAudioSession#activate: %@", error);
     }
     else
     {
@@ -86,7 +86,7 @@ static BOOL zzAudioSessionIsSetup = NO;
 }
 
 -(void)notifyDelegatesOfDeactivation{
-    for (id <TBMAudioSessionDelegate> delegate in TBMDelegates){
+    for (id <ZZAudioSessionDelegate> delegate in ZZDelegates){
         if ([delegate respondsToSelector:@selector(willDeactivateAudioSession)]) [delegate willDeactivateAudioSession];
     }
 }

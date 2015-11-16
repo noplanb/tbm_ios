@@ -336,7 +336,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 
 - (void)_willResignActive
 {
-    // We stop the preview so that TBMaudioSession can deactivate without error.
+    // We stop the preview so that ZZAudioSession can deactivate without error.
     ANDispatchBlockToMainQueue(^{
         [self.recorder stopPreview];
     });
