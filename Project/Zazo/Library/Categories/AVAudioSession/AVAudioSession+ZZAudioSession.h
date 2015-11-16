@@ -8,17 +8,12 @@
 
 @import AVFoundation;
 
-@protocol ZZAudioSessionDelegate <NSObject>
-
-- (void)willDeactivateAudioSession;
-
-@end
 
 @interface AVAudioSession (ZZAudioSession)
 
 - (void)setupApplicationAudioSession;
 - (NSError*)activate;
-- (void)addZZAudioSessionDelegate:(id <ZZAudioSessionDelegate>)delegate;
+- (void)startPlaying;
 
 @end
 

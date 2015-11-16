@@ -26,43 +26,28 @@ static BOOL zzAudioSessionIsSetup = NO;
     }
 }
 
--(void)addZZAudioSessionDelegate:(id <ZZAudioSessionDelegate>)delegate{
-    if (ZZDelegates == nil) ZZDelegates = [[NSMutableSet alloc] init];
-    [ZZDelegates addObject: delegate];
-}
-
 -(NSError *)activate
 {
     ZZLogInfo(@"activate:");
     NSError *error = nil;
-    [self removeRouteChangeObserver];
     [self setApplicationCategory];
-    [self setPortOverride];
     [self setActive:YES error:&error];
     
     if (!ANIsEmpty(error))
     {
         ZZLogWarning(@"activate: %@", error);
     }
-    else
-    {
-        [self addRouteChangeObserver];
-    }
-    
     return error;
 }
 
-#pragma mark Audio Session Control
-
--(void)resetAudioSession {
-    ZZLogInfo(@"resetAudioSession");
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self removeRouteChangeObserver];
-        [self setApplicationCategory];
-        [self setPortOverride];
-        [self addRouteChangeObserver];
-    });
+- (void)startPlaying
+{
+    // We do not allow external calls to enable or disable proximity sensor. There seems to be a bug with UIDeviceProximityStateDidChangeNotification. 3 out of 10 times or so the first time that the user changes the proximity after enabling proximity monitoring we do not receive the notification. The second change and later ones we always receive the notification. This is a annoying as it makes the hold to ear feature feel like it works only intermittently. The solution is to always enable proximity. The implication is that even if user is not playing a video screen will dim when proximity sensor is covered.
+    [self _playBasedOnProximityAndRoute];
 }
+
+
+#pragma mark Audio Session Control
 
 - (void)setApplicationCategory{
     ZZLogDebug(@"setApplicationCategory");
@@ -71,13 +56,15 @@ static BOOL zzAudioSessionIsSetup = NO;
 //   Eliminate play from bluetooth see v2.2.1 release notes
 //          withOptions:AVAudioSessionCategoryOptionAllowBluetooth
                 error:&error];
-    if (error != nil) ZZLogError(@"Error setting category: %@", error);
+    if (error) ZZLogError(@"Error setting category: %@", error);
+    
+    error = nil;
+//    [self setMode:AVAudioSessionModeVideoRecording error:&error];
+    if (error) ZZLogError(@"Error setting mode: %@", error);
 }
 
 -(void)deactivate {
     ZZLogInfo(@"deactivate:");
-    [self notifyDelegatesOfDeactivation];
-    [self removeRouteChangeObserver];
     NSError *error = nil;
     [self setActive:NO
         withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation
@@ -85,43 +72,61 @@ static BOOL zzAudioSessionIsSetup = NO;
     if (error != nil) ZZLogError(@"%@", error);
 }
 
--(void)notifyDelegatesOfDeactivation{
-    for (id <ZZAudioSessionDelegate> delegate in ZZDelegates){
-        if ([delegate respondsToSelector:@selector(willDeactivateAudioSession)]) [delegate willDeactivateAudioSession];
+- (void)_playBasedOnProximityAndRoute
+{
+    ZZLogInfo(@"playBasedOnProximity: proximityEnabled=%d nearEar=%d",
+              [UIDevice currentDevice].isProximityMonitoringEnabled,
+              [self _isNearTheEar]);
+    
+    if ([self currentRouteHasHeadphonesOutput])
+    {
+        ZZLogDebug(@"handleRoutChange: headphones:");
+        [self _playFromEar];
+    }
+    else
+    {
+        ZZLogDebug(@"handleRoutChange: noHeadphones:");
+        if ([self _isNearTheEar])
+        {
+            [self _playFromEar];
+        } else {
+            [self _playFromSpeaker];
+        }
     }
 }
 
-- (void)setPortOverride {
-        if ([self hasNoExternalOutputs]) {
-            ZZLogInfo(@"setPortOverride: no external outputs");
-            NSError *error = nil;
-            if ([self nearTheEar])
-            {
-                ZZLogInfo(@"setPortOverride: nearEar");
-                AVAudioSession* session = [AVAudioSession sharedInstance];
-                [session overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:&error];
-            } else {
-                ZZLogInfo(@"setPortOverride: farFromEar");
-                AVAudioSession* session = [AVAudioSession sharedInstance];
-                [session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:&error];
-            }
-            if (error!=nil) ZZLogError(@"%@", error);
-        } else {
-            ZZLogInfo(@"Yes external outputs");
-        }
+- (void)_playFromEar
+{
+    ZZLogInfo(@"playFromEar");
+    NSError *error = nil;
+    AVAudioSession* session = [AVAudioSession sharedInstance];
+    [session overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:&error];
+    if (error!=nil) ZZLogError(@"%@", error);
 }
 
+- (void)_playFromSpeaker
+{
+    ZZLogInfo(@"playFromSpeaker");
+    NSError *error = nil;
+    AVAudioSession* session = [AVAudioSession sharedInstance];
+    [session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:&error];
+    if (error!=nil) ZZLogError(@"%@", error);
+}
 
 #pragma mark Observers
 
 -(void)addObservers {
     
-    [self addRouteChangeObserver];
+    [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleProximityChange:)
+                                             selector:@selector(_handleRouteChange:)
+                                                 name:AVAudioSessionRouteChangeNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_handleProximityChange:)
                                                  name:UIDeviceProximityStateDidChangeNotification
                                                object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleAudioSessionInteruption)
                                                  name:AVAudioSessionInterruptionNotification
@@ -141,40 +146,35 @@ static BOOL zzAudioSessionIsSetup = NO;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
--(void)removeRouteChangeObserver{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionRouteChangeNotification object:nil];
-}
 
--(void)addRouteChangeObserver{
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleRouteChange:)
-                                                 name:AVAudioSessionRouteChangeNotification
-                                               object:nil];
-}
+
 
 #pragma mark Event Handlers
 
--(void)handleRouteChange:(NSNotification *)notification
+-(void)_handleRouteChange:(NSNotification *)notification
 {
-        ZZLogInfo(@"handleRouteChange: %@", notification.userInfo[AVAudioSessionRouteChangeReasonKey]);
-        AVAudioSessionRouteDescription *previousRoute = (AVAudioSessionRouteDescription *) notification.userInfo[AVAudioSessionRouteChangePreviousRouteKey];
-        
-        [self printOutputsWithPrefix:@"previousRoute:" Route:previousRoute];
-        [self printOutputsWithPrefix:@"currentRoute:" Route:[self currentRoute]];
-        
+    ZZLogInfo(@"handleRouteChange: %@", notification.userInfo[AVAudioSessionRouteChangeReasonKey]);
+    AVAudioSessionRouteDescription *previousRoute = (AVAudioSessionRouteDescription *) notification.userInfo[AVAudioSessionRouteChangePreviousRouteKey];
+    
+    [self printOutputsWithPrefix:@"previousRoute:" Route:previousRoute];
+    [self printOutputsWithPrefix:@"currentRoute:" Route:[self currentRoute]];
+    
+    [self _playBasedOnProximityAndRoute];
+    
         // GARF: This is a hack. For some reason when changing route from bluetooth back to the built in spearker for
         // example when bluetooth is turned off it will play through earpiece and ignore the override unless I set the category
         // again. resetAudioSession does this.
-        if (![self isOutputBuiltInWithRoute:previousRoute] &&
-            [self isOutputBuiltInWithRoute:[self currentRoute]])
-        {
-            [self resetAudioSession];
-        }
+//        if (![self isOutputBuiltInWithRoute:previousRoute] &&
+//            [self isOutputBuiltInWithRoute:[self currentRoute]])
+//        {
+//            [self resetAudioSession];
+//        }
+    
 }
 
--(void)handleProximityChange:(NSNotification *)notification{
+-(void)_handleProximityChange:(NSNotification *)notification{
     ZZLogInfo(@"handleProximityChange");
-    [self setPortOverride];
+    [self _playBasedOnProximityAndRoute];
 }
 
 -(void)appDidBecomeActive{
@@ -197,42 +197,10 @@ static BOOL zzAudioSessionIsSetup = NO;
 
 #pragma mark Route characteristics methods
 
-- (BOOL)isOutputBuiltInWithRoute: (AVAudioSessionRouteDescription *)route{
-    BOOL r = NO;
-    for ( AVAudioSessionPortDescription *port in route.outputs ) {
-        if ([port.portType isEqualToString:AVAudioSessionPortBuiltInSpeaker] ||
-            [port.portType isEqualToString:AVAudioSessionPortBuiltInReceiver]){
-            r = YES;
-        }
-    }
-    return r;
-}
-
 - (void)printOutputsWithPrefix:(NSString *)prefix Route: (AVAudioSessionRouteDescription *)route{
     for ( AVAudioSessionPortDescription *port in route.outputs ) {
         ZZLogInfo(@"%@ portType: %@", prefix, port.portType);
     }
-}
-
--(BOOL)hasExternalOutputs {
-    return [self currentRouteHasBluetoothOutput] || [self currentRouteHasHeadphonesOutput];
-}
-
-- (BOOL)hasNoExternalOutputs {
-    return ![self hasExternalOutputs];
-}
-
-
--(BOOL)currentRouteHasBluetoothOutput {
-    BOOL hasBluetoothOutput = NO;
-    for (AVAudioSessionPortDescription *port in self.currentRoute.outputs) {
-        if ([port.portType isEqualToString:AVAudioSessionPortBluetoothHFP] ||
-            [port.portType isEqualToString:AVAudioSessionPortBluetoothA2DP])
-        {
-            hasBluetoothOutput = YES;
-        }
-    }
-    return hasBluetoothOutput;
 }
 
 -(BOOL)currentRouteHasHeadphonesOutput {
@@ -249,7 +217,7 @@ static BOOL zzAudioSessionIsSetup = NO;
 
 #pragma mark Proximity
 
-- (BOOL)nearTheEar{
+- (BOOL)_isNearTheEar{
     return [UIDevice currentDevice].proximityState;
 }
 

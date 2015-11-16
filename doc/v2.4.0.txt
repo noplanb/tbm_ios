@@ -197,10 +197,22 @@ TESTS
 
 
 audio-session
--------------
-898 - Stuck playing from earpiece
+=============
+BUG: 898 - Stuck playing from earpiece
+CAUSE: Player was setting UIDevice.setProximityMonitoringEnabled and it was not interacting properly with  audioSession.
+
+Bug with UIDeviceProximityStateDidChangeNotification:
+  PROBLEM: There seems to be a bug with UIDeviceProximityStateDidChangeNotification. 3 out of 10 times or so the first time that the user changes the proximity after enabling proximity monitoring we do not receive the notification. The second change and later ones we always receive the notification. This is a annoying as it makes the hold to ear feature feel like it works only intermittently.
+
+  SOLUTION: For now +ZZAudioSession will not ever disable proximity.
+
+  IMPLICATIONS: If you cover proximity even when not playing it will dim the screen.
+
+
+
 
 - Create ZZ version of audio session category and deprecate TBM version
 - Remove deprecated videoRecorder
+-
 
 
