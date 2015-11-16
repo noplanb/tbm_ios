@@ -223,10 +223,12 @@ BUG: 905 - Does not play from wired headset
 
 BUG: 908 - Does not resume bluetooth play music after use of zazo 6s 9.1
   TRY: Instead of deactivating try to just change the category and mode when we go into background.
+  RESULT: Did not work.
+  ULTIMATE_SOLUTION: Do not fix. This seems to be a problem with os or other music apps with os. Deactivate with notify others seems to work for all other os and devices.
 
 BUG: 909 - Plays from USB speaker when held to ear.
   PROBLEM: We are not detecting the case
-  SOLUTION: Detect the case and play from speaker.
+  SOLUTION: Do not fix. Treat this as behavior by design.
 
 GENERAL REFACTOR:
   - Create ZZ version of audio session category and deprecate TBM version

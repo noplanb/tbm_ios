@@ -12,6 +12,7 @@
 static NSMutableSet *ZZDelegates;
 static BOOL zzAudioSessionIsSetup = NO;
 
+
 @implementation AVAudioSession (ZZAudioSession)
 
 #pragma mark Interface methods
@@ -19,8 +20,8 @@ static BOOL zzAudioSessionIsSetup = NO;
 -(void)setupApplicationAudioSession
 {
     if (!zzAudioSessionIsSetup) {
-        ZZLogInfo(@"setupApplicationAudioSession");
-        [self _setApplicationCategory];
+        ZZLogDebug(@"setupApplicationAudioSession");
+        [self _setupCategoryAndModeForForeground];
         [self _addObservers];
         zzAudioSessionIsSetup = YES;
     }
@@ -28,9 +29,9 @@ static BOOL zzAudioSessionIsSetup = NO;
 
 -(NSError *)activate
 {
-    ZZLogInfo(@"activate:");
+    ZZLogDebug(@"activate:");
     NSError *error = nil;
-    [self _setApplicationCategory];
+    [self _setupCategoryAndModeForForeground];
     [self setActive:YES error:&error];
     
     if (error)
@@ -45,7 +46,7 @@ static BOOL zzAudioSessionIsSetup = NO;
     if (zzAudioSessionIsSetup)
     {
         ZZLogDebug(@"startPlaying");
-        [self _setModePlay];
+        [self _setupModePlay];
         [self _playBasedOnProximityAndRoute];
     }
 }
@@ -55,43 +56,56 @@ static BOOL zzAudioSessionIsSetup = NO;
     if (zzAudioSessionIsSetup)
     {
         ZZLogDebug(@"startRecording");
-        [self _setModeRecord];
+        [self _setupModeRecord];
         [self _playFromSpeaker];
     }
 }
 
 #pragma mark Audio Session Control
 
-- (void)_setApplicationCategory{
+- (void)_setupCategoryAndModeForForeground{
     ZZLogDebug(@"setApplicationCategory");
     NSError *error = nil;
     [self setCategory:AVAudioSessionCategoryPlayAndRecord
 //   Eliminate play from bluetooth see v2.2.1 release notes
 //          withOptions:AVAudioSessionCategoryOptionAllowBluetooth
                 error:&error];
-    if (error) ZZLogError(@"_setApplicationCategory: Error setting category: %@", error);
+    if (error) ZZLogError(@"_setupCategoryAndModeForForeground: Error setting category: %@", error);
 }
 
-- (void)_setModeRecord
+// This was created in an attempt to fix #908 - does not resume music on 6s 9.2. It did not work and so this is not used.
+- (void)_setupCategoryAndModeForBackground
 {
-    [self _setApplicationCategory];
-    ZZLogDebug(@"_setModeRecord");
+    NSError *error = nil;
+    [self setCategory:AVAudioSessionCategoryAmbient withOptions:AVAudioSessionCategoryOptionMixWithOthers error:&error];
+    if (error) ZZLogError(@"_setupModePlay: Error setting mode: %@", error);
+    
+    error = nil;
+    [self setMode:AVAudioSessionModeDefault error:&error];
+    if (error) ZZLogError(@"_setupModePlay: Error setting mode: %@", error);
+}
+
+
+- (void)_setupModeRecord
+{
+    [self _setupCategoryAndModeForForeground];
+    ZZLogDebug(@"_setupModeRecord");
     NSError *error = nil;
     [self setMode:AVAudioSessionModeVideoRecording error:&error];
-    if (error) ZZLogError(@"_setModeRecord: Error setting mode: %@", error);
+    if (error) ZZLogError(@"_setupModeRecord: Error setting mode: %@", error);
 }
 
-- (void)_setModePlay
+- (void)_setupModePlay
 {
-    [self _setApplicationCategory];
-    ZZLogDebug(@"_setModePlay");
+    [self _setupCategoryAndModeForForeground];
+    ZZLogDebug(@"_setupModePlay");
     NSError *error = nil;
     [self setMode:AVAudioSessionModeDefault error:&error];
-    if (error) ZZLogError(@"_setModePlay: Error setting mode: %@", error);
+    if (error) ZZLogError(@"_setupModePlay: Error setting mode: %@", error);
 }
 
 -(void)_deactivate {
-    ZZLogInfo(@"deactivate:");
+    ZZLogDebug(@"deactivate:");
     NSError *error = nil;
     [self setActive:NO
         withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation
@@ -101,14 +115,9 @@ static BOOL zzAudioSessionIsSetup = NO;
 
 - (void)_playBasedOnProximityAndRoute
 {
-    ZZLogInfo(@"playBasedOnProximity: nearEar=%d", [self _isNearTheEar]);
+    ZZLogDebug(@"playBasedOnProximity: nearEar=%d", [self _isNearTheEar]);
     
-    if ([self _currentRouteHasUSBOutput])
-    {
-        ZZLogDebug(@"playBasedOnProximity: USB:");
-        [self _playFromSpeaker];
-    }
-    else if ([self _currentRouteHasHeadphonesOutput])
+    if ([self _currentRouteHasHeadphonesOutput])
     {
         ZZLogDebug(@"playBasedOnProximity: headphones:");
         [self _playFromEar];
@@ -127,7 +136,7 @@ static BOOL zzAudioSessionIsSetup = NO;
 
 - (void)_playFromEar
 {
-    ZZLogInfo(@"playFromEar");
+    ZZLogDebug(@"playFromEar");
     NSError *error = nil;
     AVAudioSession* session = [AVAudioSession sharedInstance];
     [session overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:&error];
@@ -136,11 +145,14 @@ static BOOL zzAudioSessionIsSetup = NO;
 
 - (void)_playFromSpeaker
 {
-    ZZLogInfo(@"playFromSpeaker");
+    ZZLogDebug(@"playFromSpeaker");
     NSError *error = nil;
     AVAudioSession* session = [AVAudioSession sharedInstance];
     [session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:&error];
-    if (error!=nil) ZZLogError(@"%@", error);
+    if (error!=nil)
+    {
+        ZZLogError(@"%@", error);
+    }
 }
 
 #pragma mark Observers
@@ -158,10 +170,6 @@ static BOOL zzAudioSessionIsSetup = NO;
                                                  name:UIDeviceProximityStateDidChangeNotification
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(_handleAudioSessionInteruption)
-                                                 name:AVAudioSessionInterruptionNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_handleAppDidBecomeActive)
                                                  name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
@@ -177,7 +185,7 @@ static BOOL zzAudioSessionIsSetup = NO;
 
 -(void)_handleRouteChange:(NSNotification *)notification
 {
-    ZZLogInfo(@"handleRouteChange: %@", notification.userInfo[AVAudioSessionRouteChangeReasonKey]);
+    ZZLogDebug(@"handleRouteChange: %@", notification.userInfo[AVAudioSessionRouteChangeReasonKey]);
     AVAudioSessionRouteDescription *previousRoute = (AVAudioSessionRouteDescription *) notification.userInfo[AVAudioSessionRouteChangePreviousRouteKey];
     
     [self _printOutputsWithPrefix:@"previousRoute:" Route:previousRoute];
@@ -197,7 +205,7 @@ static BOOL zzAudioSessionIsSetup = NO;
 }
 
 -(void)_handleProximityChange:(NSNotification *)notification{
-    ZZLogInfo(@"handleProximityChange");
+    ZZLogDebug(@"handleProximityChange");
     [self _playBasedOnProximityAndRoute];
 }
 
@@ -210,20 +218,19 @@ static BOOL zzAudioSessionIsSetup = NO;
     // We wait here to give the video recorder time to stop preview before we deactivate audio session
     // so we dont get an error.
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 200 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+        // _setupCategoryAndModeForBackground was attempt to fix #908 - does not resume music on 6s 9.2. It did not work. 908 appears to be a bug with os as deactivate with notify others works for all other phones and os.
+        // [self _setupCategoryAndModeForBackground];
         [self _deactivate];
     });
 }
 
--(void)_handleAudioSessionInteruption{
-    ZZLogInfo(@"AudioSessionInteruption");
-}
 
 
 #pragma mark Route characteristics methods
 
 - (void)_printOutputsWithPrefix:(NSString *)prefix Route: (AVAudioSessionRouteDescription *)route{
     for ( AVAudioSessionPortDescription *port in route.outputs ) {
-        ZZLogInfo(@"%@ portType: %@", prefix, port.portType);
+        ZZLogDebug(@"%@ portType: %@", prefix, port.portType);
     }
 }
 

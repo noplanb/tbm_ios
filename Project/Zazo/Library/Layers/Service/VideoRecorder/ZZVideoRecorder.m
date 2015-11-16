@@ -301,6 +301,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 
 - (void)_handleGotFirstLaunchAttempt
 {
+    [[AVAudioSession sharedInstance] activate];
     self.isFirstLaunchAttempt = NO;
     [self _setupDelayedResetOfFrirstLaunchAttempt];
 }
@@ -375,8 +376,8 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
     if (self.isFirstLaunchAttempt)
     {
         ZZLogDebug(@"interrupted firstLaunchAttempt");
-        [self.recorder startPreview];
         [self _handleGotFirstLaunchAttempt];
+        [self.recorder startPreview];
     }
     else
     {
