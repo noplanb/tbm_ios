@@ -14,6 +14,7 @@
 - (void)setupApplicationAudioSession;
 - (NSError*)activate;
 - (void)startPlaying;
+- (void)startRecording;
 
 @end
 

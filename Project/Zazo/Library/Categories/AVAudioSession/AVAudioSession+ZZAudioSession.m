@@ -20,8 +20,8 @@ static BOOL zzAudioSessionIsSetup = NO;
 {
     if (!zzAudioSessionIsSetup) {
         ZZLogInfo(@"setupApplicationAudioSession");
-        [self setApplicationCategory];
-        [self addObservers];
+        [self _setApplicationCategory];
+        [self _addObservers];
         zzAudioSessionIsSetup = YES;
     }
 }
@@ -30,10 +30,10 @@ static BOOL zzAudioSessionIsSetup = NO;
 {
     ZZLogInfo(@"activate:");
     NSError *error = nil;
-    [self setApplicationCategory];
+    [self _setApplicationCategory];
     [self setActive:YES error:&error];
     
-    if (!ANIsEmpty(error))
+    if (error)
     {
         ZZLogWarning(@"activate: %@", error);
     }
@@ -42,28 +42,55 @@ static BOOL zzAudioSessionIsSetup = NO;
 
 - (void)startPlaying
 {
-    // We do not allow external calls to enable or disable proximity sensor. There seems to be a bug with UIDeviceProximityStateDidChangeNotification. 3 out of 10 times or so the first time that the user changes the proximity after enabling proximity monitoring we do not receive the notification. The second change and later ones we always receive the notification. This is a annoying as it makes the hold to ear feature feel like it works only intermittently. The solution is to always enable proximity. The implication is that even if user is not playing a video screen will dim when proximity sensor is covered.
-    [self _playBasedOnProximityAndRoute];
+    if (zzAudioSessionIsSetup)
+    {
+        ZZLogDebug(@"startPlaying");
+        [self _setModePlay];
+        [self _playBasedOnProximityAndRoute];
+    }
 }
 
+- (void)startRecording
+{
+    if (zzAudioSessionIsSetup)
+    {
+        ZZLogDebug(@"startRecording");
+        [self _setModeRecord];
+        [self _playFromSpeaker];
+    }
+}
 
 #pragma mark Audio Session Control
 
-- (void)setApplicationCategory{
+- (void)_setApplicationCategory{
     ZZLogDebug(@"setApplicationCategory");
     NSError *error = nil;
     [self setCategory:AVAudioSessionCategoryPlayAndRecord
 //   Eliminate play from bluetooth see v2.2.1 release notes
 //          withOptions:AVAudioSessionCategoryOptionAllowBluetooth
                 error:&error];
-    if (error) ZZLogError(@"Error setting category: %@", error);
-    
-    error = nil;
-//    [self setMode:AVAudioSessionModeVideoRecording error:&error];
-    if (error) ZZLogError(@"Error setting mode: %@", error);
+    if (error) ZZLogError(@"_setApplicationCategory: Error setting category: %@", error);
 }
 
--(void)deactivate {
+- (void)_setModeRecord
+{
+    [self _setApplicationCategory];
+    ZZLogDebug(@"_setModeRecord");
+    NSError *error = nil;
+    [self setMode:AVAudioSessionModeVideoRecording error:&error];
+    if (error) ZZLogError(@"_setModeRecord: Error setting mode: %@", error);
+}
+
+- (void)_setModePlay
+{
+    [self _setApplicationCategory];
+    ZZLogDebug(@"_setModePlay");
+    NSError *error = nil;
+    [self setMode:AVAudioSessionModeDefault error:&error];
+    if (error) ZZLogError(@"_setModePlay: Error setting mode: %@", error);
+}
+
+-(void)_deactivate {
     ZZLogInfo(@"deactivate:");
     NSError *error = nil;
     [self setActive:NO
@@ -74,18 +101,16 @@ static BOOL zzAudioSessionIsSetup = NO;
 
 - (void)_playBasedOnProximityAndRoute
 {
-    ZZLogInfo(@"playBasedOnProximity: proximityEnabled=%d nearEar=%d",
-              [UIDevice currentDevice].isProximityMonitoringEnabled,
-              [self _isNearTheEar]);
+    ZZLogInfo(@"playBasedOnProximity: nearEar=%d", [self _isNearTheEar]);
     
-    if ([self currentRouteHasHeadphonesOutput])
+    if ([self _currentRouteHasHeadphonesOutput])
     {
-        ZZLogDebug(@"handleRoutChange: headphones:");
+        ZZLogDebug(@"playBasedOnProximity: headphones:");
         [self _playFromEar];
     }
     else
     {
-        ZZLogDebug(@"handleRoutChange: noHeadphones:");
+        ZZLogDebug(@"playBasedOnProximity: noHeadphones:");
         if ([self _isNearTheEar])
         {
             [self _playFromEar];
@@ -115,8 +140,8 @@ static BOOL zzAudioSessionIsSetup = NO;
 
 #pragma mark Observers
 
--(void)addObservers {
-    
+-(void)_addObservers {
+    // We do not allow external calls to enable or disable proximity sensor. There seems to be a bug with UIDeviceProximityStateDidChangeNotification. 3 out of 10 times or so the first time that the user changes the proximity after enabling proximity monitoring we do not receive the notification. The second change and later ones we always receive the notification. This is a annoying as it makes the hold to ear feature feel like it works only intermittently. The current solution is to always enable proximity. The implication is that even if user is not playing a video screen will dim when proximity sensor is covered. This is better than an feature that feels like it works intermittently.
     [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -128,25 +153,19 @@ static BOOL zzAudioSessionIsSetup = NO;
                                                  name:UIDeviceProximityStateDidChangeNotification
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleAudioSessionInteruption)
+                                             selector:@selector(_handleAudioSessionInteruption)
                                                  name:AVAudioSessionInterruptionNotification
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(appDidBecomeActive)
+                                             selector:@selector(_handleAppDidBecomeActive)
                                                  name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(appWillResignActive)
+                                             selector:@selector(_handleAppWillResignActive)
                                                  name:UIApplicationWillResignActiveNotification
                                                object:nil];
     
 }
-
-- (void)removeObservers{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-
 
 
 #pragma mark Event Handlers
@@ -156,8 +175,8 @@ static BOOL zzAudioSessionIsSetup = NO;
     ZZLogInfo(@"handleRouteChange: %@", notification.userInfo[AVAudioSessionRouteChangeReasonKey]);
     AVAudioSessionRouteDescription *previousRoute = (AVAudioSessionRouteDescription *) notification.userInfo[AVAudioSessionRouteChangePreviousRouteKey];
     
-    [self printOutputsWithPrefix:@"previousRoute:" Route:previousRoute];
-    [self printOutputsWithPrefix:@"currentRoute:" Route:[self currentRoute]];
+    [self _printOutputsWithPrefix:@"previousRoute:" Route:previousRoute];
+    [self _printOutputsWithPrefix:@"currentRoute:" Route:[self currentRoute]];
     
     [self _playBasedOnProximityAndRoute];
     
@@ -177,33 +196,33 @@ static BOOL zzAudioSessionIsSetup = NO;
     [self _playBasedOnProximityAndRoute];
 }
 
--(void)appDidBecomeActive{
+-(void)_handleAppDidBecomeActive{
     // This is handled explicitly in boot preflight so user is forced to ensure an audio session before using the app.
     //    [self activate];
 }
 
--(void)appWillResignActive{
+-(void)_handleAppWillResignActive{
     // We wait here to give the video recorder time to stop preview before we deactivate audio session
     // so we dont get an error.
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 200 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
-        [self deactivate];
+        [self _deactivate];
     });
 }
 
--(void)handleAudioSessionInteruption{
+-(void)_handleAudioSessionInteruption{
     ZZLogInfo(@"AudioSessionInteruption");
 }
 
 
 #pragma mark Route characteristics methods
 
-- (void)printOutputsWithPrefix:(NSString *)prefix Route: (AVAudioSessionRouteDescription *)route{
+- (void)_printOutputsWithPrefix:(NSString *)prefix Route: (AVAudioSessionRouteDescription *)route{
     for ( AVAudioSessionPortDescription *port in route.outputs ) {
         ZZLogInfo(@"%@ portType: %@", prefix, port.portType);
     }
 }
 
--(BOOL)currentRouteHasHeadphonesOutput {
+-(BOOL)_currentRouteHasHeadphonesOutput {
     BOOL hasHeadphonesOutput = NO;
     for (AVAudioSessionPortDescription *port in self.currentRoute.outputs) {
         if ([port.portType isEqualToString:AVAudioSessionPortHeadphones]) {

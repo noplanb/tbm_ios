@@ -14,6 +14,7 @@
 #import "TBMAlertController.h"
 #import "ZZSoundEffectPlayer.h"
 #import "ZZAlertBuilder.h"
+#import "AVAudioSession+ZZAudioSession.h"
 
 NSString* const kVideoProcessorDidFinishProcessing = @"kZZVideoProcessorDidFinishProcessing";
 NSString* const kVideoProcessorDidFail = @"kZZVideoProcessorDidFailProcessing";
@@ -119,6 +120,8 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 
 - (void)startRecordingWithVideoURL:(NSURL*)url completionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
+    [[AVAudioSession sharedInstance] startRecording];
+    
     self.didCancelRecording = NO;
     [self _startTouchObserve];
     
