@@ -33,7 +33,7 @@ static BOOL zzAudioSessionIsSetup = NO;
 
 -(NSError *)activate
 {
-    ZZLogInfo(@"ZZAudioSession#activate:");
+    ZZLogInfo(@"activate:");
     NSError *error = nil;
     [self removeRouteChangeObserver];
     [self setApplicationCategory];
@@ -42,7 +42,7 @@ static BOOL zzAudioSessionIsSetup = NO;
     
     if (!ANIsEmpty(error))
     {
-        ZZLogWarning(@"ZZAudioSession#activate: %@", error);
+        ZZLogWarning(@"activate: %@", error);
     }
     else
     {
