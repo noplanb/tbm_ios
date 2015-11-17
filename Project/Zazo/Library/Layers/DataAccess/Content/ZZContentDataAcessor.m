@@ -12,11 +12,13 @@
 #import "ZZUserDataProvider.h"
 #import "TBMUser.h"
 
+
+
 @implementation ZZContentDataAcessor
 
 + (void)start
 {
-    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:kContentDBName];
+   [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:kContentDBName];
     
     if ([NSManagedObjectContext MR_rootSavingContext])
     {

@@ -49,6 +49,17 @@
     });
 }
 
+
+#pragma mark - Update storage
+
+- (void)storageDidPerformUpdate:(ANStorageUpdate *)update
+{
+    ANDispatchBlockToMainQueue(^{
+        [self.tableView reloadData];
+    });
+}
+
+
 #pragma mark - Table Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
