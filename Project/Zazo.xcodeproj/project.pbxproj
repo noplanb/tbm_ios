@@ -17,10 +17,8 @@
 		0732F50C1B8B93D3004FD3AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0732F5041B8B93D3004FD3AF /* InfoPlist.strings */; };
 		0732F5121B8B93D3004FD3AF /* ZazoTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */; };
 		073D556A1BD2D82B0014E83E /* ZZSoundEffectPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 073D55691BD2D82B0014E83E /* ZZSoundEffectPlayer.m */; };
-		07636DAC1BA49A0100925671 /* AVAudioSession+TBMAudioSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 076369D21BA49A0000925671 /* AVAudioSession+TBMAudioSession.m */; };
 		07636DBC1BA49A0100925671 /* TBMVideoIdUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A011BA49A0000925671 /* TBMVideoIdUtils.m */; };
 		07636DBE1BA49A0100925671 /* TBMVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A051BA49A0000925671 /* TBMVideoProcessor.m */; };
-		07636DBF1BA49A0100925671 /* TBMVideoRecorderDeprecated.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A071BA49A0000925671 /* TBMVideoRecorderDeprecated.m */; };
 		07636DF91BA49A0100925671 /* BeepSin30.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA61BA49A0100925671 /* BeepSin30.wav */; };
 		07636DFA1BA49A0100925671 /* DK Crayon Crumble.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA71BA49A0100925671 /* DK Crayon Crumble.ttf */; };
 		07636DFB1BA49A0100925671 /* FeatureUnlock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA81BA49A0100925671 /* FeatureUnlock.wav */; };
@@ -89,7 +87,6 @@
 		07636E5B1BA49A0100925671 /* ZZStringUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BBC1BA49A0100925671 /* ZZStringUtils.m */; };
 		07636E5C1BA49A0100925671 /* ZZVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BBF1BA49A0100925671 /* ZZVideoPlayer.m */; };
 		07636E5D1BA49A0100925671 /* ZZVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BC21BA49A0100925671 /* ZZVideoProcessor.m */; };
-		07636E5E1BA49A0100925671 /* ZZVideoRecorderDeprecated.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BC51BA49A0100925671 /* ZZVideoRecorderDeprecated.m */; };
 		07636E6C1BA49A0100925671 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD81BA49A0100925671 /* Assets.xcassets */; };
 		07636E6D1BA49A0100925671 /* logo.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BDA1BA49A0100925671 /* logo.pdf */; };
 		07636E6E1BA49A0100925671 /* contacts-placeholder.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BDC1BA49A0100925671 /* contacts-placeholder.pdf */; };
@@ -324,6 +321,7 @@
 		220E90491909A18C003C4F82 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902C1909A18B003C4F82 /* UIKit.framework */; };
 		220E904A1909A18C003C4F82 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902E1909A18B003C4F82 /* CoreData.framework */; };
 		221058371BE6C4EF00E18A38 /* ZZVideoRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 221058361BE6C4EF00E18A38 /* ZZVideoRecorder.m */; };
+		223A1F5A1BF97D9D00FA4EA7 /* AVAudioSession+ZZAudioSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 223A1F591BF97D9D00FA4EA7 /* AVAudioSession+ZZAudioSession.m */; };
 		22403C2B19D5E63400FC36E3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22403C2A19D5E63400FC36E3 /* MessageUI.framework */; };
 		224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
 		22D3EC5F1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3EC5E1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m */; };
@@ -404,14 +402,10 @@
 		0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ZazoTests-Info.plist"; sourceTree = "<group>"; };
 		073D55681BD2D82B0014E83E /* ZZSoundEffectPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSoundEffectPlayer.h; sourceTree = "<group>"; };
 		073D55691BD2D82B0014E83E /* ZZSoundEffectPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSoundEffectPlayer.m; sourceTree = "<group>"; };
-		076369D11BA49A0000925671 /* AVAudioSession+TBMAudioSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVAudioSession+TBMAudioSession.h"; sourceTree = "<group>"; };
-		076369D21BA49A0000925671 /* AVAudioSession+TBMAudioSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVAudioSession+TBMAudioSession.m"; sourceTree = "<group>"; };
 		07636A001BA49A0000925671 /* TBMVideoIdUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoIdUtils.h; sourceTree = "<group>"; };
 		07636A011BA49A0000925671 /* TBMVideoIdUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoIdUtils.m; sourceTree = "<group>"; };
 		07636A041BA49A0000925671 /* TBMVideoProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoProcessor.h; sourceTree = "<group>"; };
 		07636A051BA49A0000925671 /* TBMVideoProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoProcessor.m; sourceTree = "<group>"; };
-		07636A061BA49A0000925671 /* TBMVideoRecorderDeprecated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoRecorderDeprecated.h; sourceTree = "<group>"; };
-		07636A071BA49A0000925671 /* TBMVideoRecorderDeprecated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoRecorderDeprecated.m; sourceTree = "<group>"; };
 		07636AA61BA49A0100925671 /* BeepSin30.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = BeepSin30.wav; sourceTree = "<group>"; };
 		07636AA71BA49A0100925671 /* DK Crayon Crumble.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DK Crayon Crumble.ttf"; sourceTree = "<group>"; };
 		07636AA81BA49A0100925671 /* FeatureUnlock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = FeatureUnlock.wav; sourceTree = "<group>"; };
@@ -547,8 +541,6 @@
 		07636BBF1BA49A0100925671 /* ZZVideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoPlayer.m; sourceTree = "<group>"; };
 		07636BC11BA49A0100925671 /* ZZVideoProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoProcessor.h; sourceTree = "<group>"; };
 		07636BC21BA49A0100925671 /* ZZVideoProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoProcessor.m; sourceTree = "<group>"; };
-		07636BC41BA49A0100925671 /* ZZVideoRecorderDeprecated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoRecorderDeprecated.h; sourceTree = "<group>"; };
-		07636BC51BA49A0100925671 /* ZZVideoRecorderDeprecated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoRecorderDeprecated.m; sourceTree = "<group>"; };
 		07636BD81BA49A0100925671 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		07636BDA1BA49A0100925671 /* logo.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = logo.pdf; sourceTree = "<group>"; };
 		07636BDC1BA49A0100925671 /* contacts-placeholder.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "contacts-placeholder.pdf"; sourceTree = "<group>"; };
@@ -996,6 +988,8 @@
 		220E90451909A18B003C4F82 /* ZazoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZazoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		221058351BE6C4EF00E18A38 /* ZZVideoRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoRecorder.h; sourceTree = "<group>"; };
 		221058361BE6C4EF00E18A38 /* ZZVideoRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoRecorder.m; sourceTree = "<group>"; };
+		223A1F581BF97D9D00FA4EA7 /* AVAudioSession+ZZAudioSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AVAudioSession+ZZAudioSession.h"; path = "AVAudioSession/AVAudioSession+ZZAudioSession.h"; sourceTree = "<group>"; };
+		223A1F591BF97D9D00FA4EA7 /* AVAudioSession+ZZAudioSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AVAudioSession+ZZAudioSession.m"; path = "AVAudioSession/AVAudioSession+ZZAudioSession.m"; sourceTree = "<group>"; };
 		22403C2A19D5E63400FC36E3 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		224101D3190D4180005128F9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		22D3EC5D1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZKeyStoreOutgoingVideoStatusDomainModel.h; path = KeyStore/ZZKeyStoreOutgoingVideoStatusDomainModel.h; sourceTree = "<group>"; };
@@ -1169,8 +1163,6 @@
 		076369D01BA49A0000925671 /* AVAudioSession */ = {
 			isa = PBXGroup;
 			children = (
-				076369D11BA49A0000925671 /* AVAudioSession+TBMAudioSession.h */,
-				076369D21BA49A0000925671 /* AVAudioSession+TBMAudioSession.m */,
 			);
 			path = AVAudioSession;
 			sourceTree = "<group>";
@@ -1182,8 +1174,6 @@
 				07636A011BA49A0000925671 /* TBMVideoIdUtils.m */,
 				07636A041BA49A0000925671 /* TBMVideoProcessor.h */,
 				07636A051BA49A0000925671 /* TBMVideoProcessor.m */,
-				07636A061BA49A0000925671 /* TBMVideoRecorderDeprecated.h */,
-				07636A071BA49A0000925671 /* TBMVideoRecorderDeprecated.m */,
 			);
 			path = VideoUtils;
 			sourceTree = "<group>";
@@ -1289,6 +1279,7 @@
 		07636AFA1BA49A0100925671 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				223A1F4C1BF9792700FA4EA7 /* AVAudioSession */,
 				072B6A3E1BD52F94000B824E /* NSArray */,
 				072B6A411BD52F94000B824E /* NSError */,
 				07636AFB1BA49A0100925671 /* UIImage */,
@@ -1883,8 +1874,6 @@
 		07636BC31BA49A0100925671 /* VideoRecorder */ = {
 			isa = PBXGroup;
 			children = (
-				07636BC41BA49A0100925671 /* ZZVideoRecorderDeprecated.h */,
-				07636BC51BA49A0100925671 /* ZZVideoRecorderDeprecated.m */,
 				221058351BE6C4EF00E18A38 /* ZZVideoRecorder.h */,
 				221058361BE6C4EF00E18A38 /* ZZVideoRecorder.m */,
 			);
@@ -3807,6 +3796,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		223A1F4C1BF9792700FA4EA7 /* AVAudioSession */ = {
+			isa = PBXGroup;
+			children = (
+				223A1F581BF97D9D00FA4EA7 /* AVAudioSession+ZZAudioSession.h */,
+				223A1F591BF97D9D00FA4EA7 /* AVAudioSession+ZZAudioSession.m */,
+			);
+			name = AVAudioSession;
+			sourceTree = "<group>";
+		};
 		22D7D2B21BD9807600FF52AA /* KeyStore */ = {
 			isa = PBXGroup;
 			children = (
@@ -4229,6 +4227,7 @@
 				1868E1BA1BE26C72000B80D3 /* ZZRootStateObserver.m in Sources */,
 				07636EA11BA49A0100925671 /* ZZDebugStateWireframe.m in Sources */,
 				07636E9E1BA49A0100925671 /* ZZDebugStateCellViewModel.m in Sources */,
+				223A1F5A1BF97D9D00FA4EA7 /* AVAudioSession+ZZAudioSession.m in Sources */,
 				07636EE71BA49A0100925671 /* NSObject+ANRACAdditions.m in Sources */,
 				07636E381BA49A0100925671 /* ZZRemoteStorageTransport.m in Sources */,
 				07636ECD1BA49A0100925671 /* ZZGridHelper.m in Sources */,
@@ -4244,7 +4243,6 @@
 				07636EB51BA49A0100925671 /* ZZEditFriendCellViewModel.m in Sources */,
 				7952764B1BA6B4AB00E506D5 /* ZZMenuCellViewModel.m in Sources */,
 				07636E401BA49A0100925671 /* TBMGridElement.m in Sources */,
-				07636DAC1BA49A0100925671 /* AVAudioSession+TBMAudioSession.m in Sources */,
 				07636EA21BA49A0100925671 /* ZZSecretInteractor.m in Sources */,
 				07636E321BA49A0100925671 /* ZZAccountTransport.m in Sources */,
 				07636ED21BA49A0100925671 /* ZZGridVC.m in Sources */,
@@ -4305,7 +4303,6 @@
 				072B6A471BD52F94000B824E /* NSArray+ZZAdditions.m in Sources */,
 				07636EBB1BA49A0100925671 /* ZZGridAlertBuilder.m in Sources */,
 				07636E981BA49A0100925671 /* ZZDebugStateInteractor.m in Sources */,
-				07636DBF1BA49A0100925671 /* TBMVideoRecorderDeprecated.m in Sources */,
 				07636E3E1BA49A0100925671 /* ZZVideoNetworkTransportService.m in Sources */,
 				07636E551BA49A0100925671 /* ZZBaseTouchController.m in Sources */,
 				181D1CCF1BC550DE00044F83 /* ZZGridInteractor+ActionHandler.m in Sources */,
@@ -4398,7 +4395,6 @@
 				07636E351BA49A0100925671 /* ZZCommonNetworkTransportService.m in Sources */,
 				18F52E031BFCAB6100042AAC /* ZZContentDataAcessor.m in Sources */,
 				79123D891BB14F9E007E1CBF /* ZZHintsDomainModel.m in Sources */,
-				07636E5E1BA49A0100925671 /* ZZVideoRecorderDeprecated.m in Sources */,
 				071828E71BE5777A00CFF0A5 /* ZZVideoStatusHandler.m in Sources */,
 				07636E2A1BA49A0100925671 /* ZZVideoModelsMapper.m in Sources */,
 				07BAA7081BB1B488009878B9 /* ZZUserPresentationHelper.m in Sources */,
@@ -4562,7 +4558,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "8780735c-95a5-4c53-843d-3fb4277b185a";
+				PROVISIONING_PROFILE = "a3075692-af92-4425-ae7e-9ce28fade170";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -4586,7 +4582,7 @@
 				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.noplanbees.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "8780735c-95a5-4c53-843d-3fb4277b185a";
+				PROVISIONING_PROFILE = "298a294f-0dbd-4632-861e-c3decc48a6b7";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -4633,7 +4629,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "a3075692-af92-4425-ae7e-9ce28fade170";
+				PROVISIONING_PROFILE = "298a294f-0dbd-4632-861e-c3decc48a6b7";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -4685,8 +4681,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4700,7 +4696,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "5908962a-3b4d-4325-8644-16884793aa3a";
+				PROVISIONING_PROFILE = "a3075692-af92-4425-ae7e-9ce28fade170";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -4750,8 +4746,8 @@
 			baseConfigurationReference = 2EE3EC5660312AC490BD17BA /* Pods-ZazoTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -4765,7 +4761,7 @@
 				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.noplanbees.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "b516d49b-3536-45b4-93c3-d6b4c895d33d";
+				PROVISIONING_PROFILE = "298a294f-0dbd-4632-861e-c3decc48a6b7";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};

@@ -297,8 +297,6 @@
 {
     if (![self.delegate isGridRotate])
     {
-        NSLog(@"Start Recording");
-        
         if (recognizer.state == UIGestureRecognizerStateBegan)
         {
             self.initialRecordPoint = [recognizer locationInView:recognizer.view];

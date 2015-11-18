@@ -11,7 +11,7 @@
 #import "TBMAlertController.h"
 
 @import AVFoundation;
-#import "AVAudioSession+TBMAudioSession.h"
+#import "AVAudioSession+ZZAudioSession.h"
 #import "NSObject+ANRACAdditions.h"
 
 static BOOL hasDeclinedNotifications = NO; // TODO: remp solution, removed property
