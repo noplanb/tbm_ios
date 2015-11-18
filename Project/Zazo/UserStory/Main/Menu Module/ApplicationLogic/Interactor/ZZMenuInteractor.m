@@ -15,6 +15,9 @@
 #import "ZZFriendDataProvider.h"
 #import "ZZUserDataProvider.h"
 
+
+static const NSInteger kDelayBetweenFriendUpdate = 30;
+
 @interface ZZMenuInteractor ()
 
 @property (nonatomic, assign) BOOL isLoading;
@@ -73,7 +76,7 @@
     
     NSTimeInterval interval = fabs(self.startUpdateTime - self.endUpdateTime);
     
-    if (interval > 30)
+    if (interval > kDelayBetweenFriendUpdate)
     {
         isNeedUpdate = YES;
     }
