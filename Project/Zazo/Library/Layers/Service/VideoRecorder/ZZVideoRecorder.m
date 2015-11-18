@@ -14,6 +14,7 @@
 #import "TBMAlertController.h"
 #import "ZZSoundEffectPlayer.h"
 #import "ZZAlertBuilder.h"
+#import "AVAudioSession+ZZAudioSession.h"
 
 NSString* const kVideoProcessorDidFinishProcessing = @"kZZVideoProcessorDidFinishProcessing";
 NSString* const kVideoProcessorDidFail = @"kZZVideoProcessorDidFailProcessing";
@@ -119,6 +120,8 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 
 - (void)startRecordingWithVideoURL:(NSURL*)url completionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
+    [[AVAudioSession sharedInstance] startRecording];
+    
     self.didCancelRecording = NO;
     [self _startTouchObserve];
     
@@ -298,6 +301,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 
 - (void)_handleGotFirstLaunchAttempt
 {
+    [[AVAudioSession sharedInstance] activate];
     self.isFirstLaunchAttempt = NO;
     [self _setupDelayedResetOfFrirstLaunchAttempt];
 }
@@ -336,7 +340,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 
 - (void)_willResignActive
 {
-    // We stop the preview so that TBMaudioSession can deactivate without error.
+    // We stop the preview so that ZZAudioSession can deactivate without error.
     ANDispatchBlockToMainQueue(^{
         [self.recorder stopPreview];
     });
@@ -372,8 +376,8 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
     if (self.isFirstLaunchAttempt)
     {
         ZZLogDebug(@"interrupted firstLaunchAttempt");
-        [self.recorder startPreview];
         [self _handleGotFirstLaunchAttempt];
+        [self.recorder startPreview];
     }
     else
     {

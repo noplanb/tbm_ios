@@ -25,6 +25,7 @@
 #import "ZZFileHelper.h"
 #import "ZZVideoStatusHandler.h"
 #import "ZZFriendDataHelper.h"
+#import "AVAudioSession+ZZAudioSession.h"
 
 @interface ZZVideoPlayer ()
 
@@ -156,7 +157,10 @@
             [self.delegate videoPlayerURLWasStartPlaying:[ZZVideoDataProvider videoUrlWithVideo:viewedVideo]];
             
             self.isPlayingVideo = YES;
-            [UIDevice currentDevice].proximityMonitoringEnabled = [ZZGridActionStoredSettings shared].earpieceHintWasShown;
+            
+            // Allow whether locked or unlocked. Users wont know about it till we tell them it is unlocked.
+            [[AVAudioSession sharedInstance] startPlaying];
+
             //TODO:coredata
             TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:playedVideoModel.relatedUser.idTbm];
             [[ZZVideoStatusHandler sharedInstance] setAndNotityViewedIncomingVideoWithFriend:friend video:viewedVideo];
@@ -220,7 +224,6 @@
     [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL
                                 withPlayedUserModel:self.playedFriend];
     self.playedFriend = nil;
-    [UIDevice currentDevice].proximityMonitoringEnabled = NO;
 }
 
 - (void)toggle
@@ -250,7 +253,6 @@
             
             self.isPlayingVideo = NO;
             [self.moviePlayerController stop];
-            [UIDevice currentDevice].proximityMonitoringEnabled = NO;
             CGFloat delayAfterToastRemoved = 0.4;
             ANDispatchBlockAfter(delayAfterToastRemoved, ^{
                 [self _playNext];
@@ -350,8 +352,6 @@
         [self.delegate videoPlayerURLWasFinishedPlaying:[ZZVideoDataProvider videoUrlWithVideo:lastVideo] withPlayedUserModel:self.playedFriend];
         [self.moviePlayerController.view removeFromSuperview];
         self.playedFriend = nil;
-        [UIDevice currentDevice].proximityMonitoringEnabled = NO;
-        
     }
     
     if (nextUrl)
@@ -383,7 +383,9 @@
             [self.delegate videoPlayerURLWasStartPlaying:nextUrl];
             
             self.isPlayingVideo = YES;
-            [UIDevice currentDevice].proximityMonitoringEnabled = [ZZGridActionStoredSettings shared].earpieceHintWasShown;
+            
+            // Allow play from ear even if locked. User wont know its available till he unlocks it.
+            [[AVAudioSession sharedInstance] startPlaying];
             
             [self _updateFriendVideoStatusWithFriend:friend video:viewedVideo videoIndex:index];
             
@@ -447,10 +449,6 @@
 
 #pragma mark - Helpers
 
-- (BOOL)isDeviceNearEar
-{
-    return [UIDevice currentDevice].proximityState;
-}
 
 - (ZZFriendDomainModel*)playedFriendModel
 {

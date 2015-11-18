@@ -1,4 +1,3 @@
-<<<<<<< Local Changes
 v2.4.0
 
 Rewrite VideoRecorder Code
@@ -195,3 +194,77 @@ TESTS
     - Enter app while in call
     - Kill call while in app
 
+audio-session
+-------------
+BUG: 898 - Stuck playing from earpiece
+ CAUSE: Player was setting UIDevice.setProximityMonitoringEnabled and it was not interacting properly with audioSession.
+
+ SOLUTION: Refactor +ZZAudioSession so that it handles enable and disable of proximity monitoring.
+
+
+BUG: 804 - Play from earpiece fails on first try (intermittent)
+  PROBLEM: There seems to be a bug with UIDeviceProximityStateDidChangeNotification. 3 out of 10 times or so the first time that the user changes the proximity after enabling proximity monitoring we do not receive the notification. The second change and later ones we always receive the notification. This is a annoying as it makes the hold to ear feature feel like it works only intermittently.
+
+  SOLUTION: For now +ZZAudioSession will not ever disable proximity.
+
+  IMPLICATIONS: If you cover proximity even when not playing it will dim the screen.
+
+
+BUG: 897 - Inaudible recording with 6s (intermittent)
+  INVESTIGATE: Is it related to recording while override set to play from ear and hence using mic that is near mouth rather than speakerphone mic?
+  TRY:
+    - Set to permanently play from earpiece. See if that causes barely audible recording problem on 6s.
+  RESULT:
+    - Could not reproduce the dim sound again in many attempts.
+  SOLUTION:
+    - Set category and mode for recordVideo when recording a video. Continue testing to see if this problem appears again.
+
+BUG: 905 - Does not play from wired headset
+  PROBLEM: Was not handling route changed properly.
+  SOLUTION: Rework how route change is handled.
+
+BUG: 908 - Does not resume bluetooth play music after use of zazo 6s 9.1
+  TRY: Instead of deactivating try to just change the category and mode when we go into background.
+  RESULT: Did not work.
+  ULTIMATE_SOLUTION: Do not fix. This seems to be a problem with os or other music apps with os. Deactivate with notify others seems to work for all other os and devices.
+
+BUG: 909 - Plays from USB speaker when held to ear.
+  PROBLEM: We are not detecting the case
+  SOLUTION: Do not fix. Treat this as behavior by design.
+
+GENERAL REFACTOR:
+  - Create ZZ version of audio session category and deprecate TBM version
+  - Remove code related to playing sound through bluetooth since we have eliminated that from the requirements.
+  - Remove deprecated ZZVideoRecorder and TBMVideoRecorder
+
+TESTS RUN:
+x-wp, p-wp, b-wp, f-
+- Wired headphones
+  - In and out while playing
+  - In and out while recording
+  - Kill
+    - In prior to kill
+    - Out prior to kill
+  - Background
+    - In prior to background
+    - Out prior to background
+
+- Proximity
+  - Many tries to make sure no intermittent on first proximity transition.
+  - Far and near while playing.
+  - End with far
+  - End with near
+
+- Bluetooth
+  - Connected and not while playing
+  - Connected and not while recording
+  - Duck others when app foreground
+  - Resume music when app backgrounds
+  - Call
+
+- USB
+  - Connected and not while playing
+  - Connected and not while recording
+  - Duck others when app foreground
+  - Resume music when app backgrounds
+  - Call
