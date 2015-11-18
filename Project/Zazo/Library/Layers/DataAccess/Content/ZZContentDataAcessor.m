@@ -13,12 +13,11 @@
 #import "TBMUser.h"
 
 
-
 @implementation ZZContentDataAcessor
 
 + (void)start
 {
-   [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:kContentDBName];
+    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreAtURL:[self sourceUrl]];
     
     if ([NSManagedObjectContext MR_rootSavingContext])
     {
@@ -28,6 +27,20 @@
         });
     }
 }
+
++ (NSURL*)sourceUrl
+{
+    return [NSURL fileURLWithPath:[[self applicationDocumentsDirectory].path
+                                   stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.sqlite", kContentDBName]]];
+}
+
++ (NSURL*)applicationDocumentsDirectory
+{
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+
+#pragma mark - Data Base part
 
 + (void)saveDataBase
 {

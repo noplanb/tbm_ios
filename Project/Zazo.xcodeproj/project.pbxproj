@@ -265,7 +265,6 @@
 		07E09E2C1BD5B39000A59389 /* ZZApplicationPermissionsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E2B1BD5B39000A59389 /* ZZApplicationPermissionsHandler.m */; };
 		07E09E301BD69A7200A59389 /* ZZApplicationRootService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E2F1BD69A7200A59389 /* ZZApplicationRootService.m */; };
 		07E09E361BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E351BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m */; };
-		07E9593E1BCD74CE009C8F97 /* ZZContentDataAcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E9593D1BCD74CE009C8F97 /* ZZContentDataAcessor.m */; };
 		07F0E7F41B8CD7A900036AB2 /* ZZAccountTransportServiceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E81B8CD7A900036AB2 /* ZZAccountTransportServiceSpec.m */; };
 		07F0E7F51B8CD7A900036AB2 /* ZZRegistrationWithSMSTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E91B8CD7A900036AB2 /* ZZRegistrationWithSMSTest.m */; };
 		07F0E7F61B8CD7A900036AB2 /* ZZLoadFriendListSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EB1B8CD7A900036AB2 /* ZZLoadFriendListSpec.m */; };
@@ -314,6 +313,7 @@
 		18E1F2FD1BC6AEEA0070ECF1 /* ZZFeatureEventStrategyInviteeUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1F2FC1BC6AEEA0070ECF1 /* ZZFeatureEventStrategyInviteeUser.m */; };
 		18E1F3001BC6AF180070ECF1 /* ZZFeatureEventStrategyRegisteredUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1F2FF1BC6AF180070ECF1 /* ZZFeatureEventStrategyRegisteredUser.m */; };
 		18E1F3041BC6C7180070ECF1 /* TBMFeatureUnlockDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1F3031BC6C7180070ECF1 /* TBMFeatureUnlockDialogView.m */; };
+		18F52E031BFCAB6100042AAC /* ZZContentDataAcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F52E021BFCAB6100042AAC /* ZZContentDataAcessor.m */; };
 		2208E8A81A1419D400150C35 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208E8A61A1419D400150C35 /* AddressBook.framework */; };
 		2208E8A91A1419D400150C35 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208E8A71A1419D400150C35 /* AddressBookUI.framework */; };
 		220E90291909A18B003C4F82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E90281909A18B003C4F82 /* Foundation.framework */; };
@@ -890,8 +890,6 @@
 		07E09E2F1BD69A7200A59389 /* ZZApplicationRootService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZApplicationRootService.m; path = ApplicationServices/ZZApplicationRootService.m; sourceTree = "<group>"; };
 		07E09E341BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZFileTransferMarkerDomainModel.h; path = FileTransferModel/ZZFileTransferMarkerDomainModel.h; sourceTree = "<group>"; };
 		07E09E351BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZFileTransferMarkerDomainModel.m; path = FileTransferModel/ZZFileTransferMarkerDomainModel.m; sourceTree = "<group>"; };
-		07E9593C1BCD74CE009C8F97 /* ZZContentDataAcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContentDataAcessor.h; sourceTree = "<group>"; };
-		07E9593D1BCD74CE009C8F97 /* ZZContentDataAcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContentDataAcessor.m; sourceTree = "<group>"; };
 		07F0E7E81B8CD7A900036AB2 /* ZZAccountTransportServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAccountTransportServiceSpec.m; sourceTree = "<group>"; };
 		07F0E7E91B8CD7A900036AB2 /* ZZRegistrationWithSMSTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRegistrationWithSMSTest.m; sourceTree = "<group>"; };
 		07F0E7EB1B8CD7A900036AB2 /* ZZLoadFriendListSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZLoadFriendListSpec.m; sourceTree = "<group>"; };
@@ -986,6 +984,8 @@
 		18E1F2FF1BC6AF180070ECF1 /* ZZFeatureEventStrategyRegisteredUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFeatureEventStrategyRegisteredUser.m; sourceTree = "<group>"; };
 		18E1F3021BC6C7180070ECF1 /* TBMFeatureUnlockDialogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFeatureUnlockDialogView.h; sourceTree = "<group>"; };
 		18E1F3031BC6C7180070ECF1 /* TBMFeatureUnlockDialogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFeatureUnlockDialogView.m; sourceTree = "<group>"; };
+		18F52E011BFCAB6100042AAC /* ZZContentDataAcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContentDataAcessor.h; sourceTree = "<group>"; };
+		18F52E021BFCAB6100042AAC /* ZZContentDataAcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContentDataAcessor.m; sourceTree = "<group>"; };
 		2208E8A61A1419D400150C35 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		2208E8A71A1419D400150C35 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		220E90251909A18B003C4F82 /* Zazo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zazo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1358,22 +1358,13 @@
 		07636B0F1BA49A0100925671 /* DataAccess */ = {
 			isa = PBXGroup;
 			children = (
-				07636B101BA49A0100925671 /* Content */,
+				18F52E001BFCAB6100042AAC /* Content */,
 				07636B131BA49A0100925671 /* Friend */,
 				07636B181BA49A0100925671 /* Grid */,
 				07636B1D1BA49A0100925671 /* User */,
 				07636B221BA49A0100925671 /* Video */,
 			);
 			path = DataAccess;
-			sourceTree = "<group>";
-		};
-		07636B101BA49A0100925671 /* Content */ = {
-			isa = PBXGroup;
-			children = (
-				07E9593C1BCD74CE009C8F97 /* ZZContentDataAcessor.h */,
-				07E9593D1BCD74CE009C8F97 /* ZZContentDataAcessor.m */,
-			);
-			path = Content;
 			sourceTree = "<group>";
 		};
 		07636B131BA49A0100925671 /* Friend */ = {
@@ -3765,6 +3756,15 @@
 			path = UnlockFeatureDialogView;
 			sourceTree = "<group>";
 		};
+		18F52E001BFCAB6100042AAC /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				18F52E011BFCAB6100042AAC /* ZZContentDataAcessor.h */,
+				18F52E021BFCAB6100042AAC /* ZZContentDataAcessor.m */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
 		220E901C1909A18B003C4F82 = {
 			isa = PBXGroup;
 			children = (
@@ -4281,7 +4281,6 @@
 				07636F011BA49A0100925671 /* ANNetworkRequest.m in Sources */,
 				07636EE91BA49A0100925671 /* NSObject+ANUserDefaults.m in Sources */,
 				07636E4E1BA49A0100925671 /* ZZConfig.m in Sources */,
-				07E9593E1BCD74CE009C8F97 /* ZZContentDataAcessor.m in Sources */,
 				07636EEE1BA49A0100925671 /* ANErrorBuilder.m in Sources */,
 				07636F111BA49A0100925671 /* PDFView.m in Sources */,
 				07636E8F1BA49A0100925671 /* ZZAuthPresenter.m in Sources */,
@@ -4397,6 +4396,7 @@
 				07636DBC1BA49A0100925671 /* TBMVideoIdUtils.m in Sources */,
 				7952764A1BA6B4AB00E506D5 /* ZZMenuCell.m in Sources */,
 				07636E351BA49A0100925671 /* ZZCommonNetworkTransportService.m in Sources */,
+				18F52E031BFCAB6100042AAC /* ZZContentDataAcessor.m in Sources */,
 				79123D891BB14F9E007E1CBF /* ZZHintsDomainModel.m in Sources */,
 				07636E5E1BA49A0100925671 /* ZZVideoRecorderDeprecated.m in Sources */,
 				071828E71BE5777A00CFF0A5 /* ZZVideoStatusHandler.m in Sources */,
