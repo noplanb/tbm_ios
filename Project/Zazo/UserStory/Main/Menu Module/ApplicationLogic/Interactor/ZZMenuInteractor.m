@@ -61,14 +61,11 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
             {
                 [self.output friendsThatHasAppLoaded:self.sortedFriends];
             }
-            
         }
         
         [self _loadAddressBookContactsWithRequestAccess:shouldRequest];
     });
 }
-
-
 
 - (BOOL)_isNeedToUpdate
 {
@@ -90,6 +87,10 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
     [self _sortFriendsFromArray:friends];
 }
 
+- (void)enableContactData
+{
+    self.endUpdateTime -= kDelayBetweenFriendUpdate;
+}
 
 #pragma mark - Private
 

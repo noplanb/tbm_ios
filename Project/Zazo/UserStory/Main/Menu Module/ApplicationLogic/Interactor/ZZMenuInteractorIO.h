@@ -10,6 +10,7 @@
 
 - (void)loadDataIncludeAddressBookRequest:(BOOL)shouldRequest;
 - (void)resetAddressBookData;
+- (void)enableContactData;
 
 @end
 

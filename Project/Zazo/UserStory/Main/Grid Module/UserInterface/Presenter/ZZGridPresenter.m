@@ -291,6 +291,7 @@
 - (void)gridAlreadyContainsFriend:(ZZGridDomainModel*)model
 {
     [self.wireframe closeMenu];
+    
     [ZZGridAlertBuilder showAlreadyConnectedDialogForUser:model.relatedUser.firstName completion:^{
         model.isDownloadAnimationViewed = YES;
         [self.dataSource updateCellWithModel:model];

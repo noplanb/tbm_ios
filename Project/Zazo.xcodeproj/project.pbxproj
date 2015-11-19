@@ -25,8 +25,6 @@
 		07636DFC1BA49A0100925671 /* head.png in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA91BA49A0100925671 /* head.png */; };
 		07636DFD1BA49A0100925671 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636AAA1BA49A0100925671 /* Images.xcassets */; };
 		07636DFE1BA49A0100925671 /* NotificationTone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07636AAB1BA49A0100925671 /* NotificationTone.wav */; };
-		07636DFF1BA49A0100925671 /* single_ding_chimes.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07636AAC1BA49A0100925671 /* single_ding_chimes.wav */; };
-		07636E001BA49A0100925671 /* single_ding_chimes2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07636AAD1BA49A0100925671 /* single_ding_chimes2.wav */; };
 		07636E011BA49A0100925671 /* TBMContentViewModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AB01BA49A0100925671 /* TBMContentViewModal.m */; };
 		07636E071BA49A0100925671 /* TBMTableModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636ABC1BA49A0100925671 /* TBMTableModal.m */; };
 		07636E171BA49A0100925671 /* ZZAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AEB1BA49A0100925671 /* ZZAppDelegate.m */; };
@@ -412,8 +410,6 @@
 		07636AA91BA49A0100925671 /* head.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head.png; sourceTree = "<group>"; };
 		07636AAA1BA49A0100925671 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		07636AAB1BA49A0100925671 /* NotificationTone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = NotificationTone.wav; sourceTree = "<group>"; };
-		07636AAC1BA49A0100925671 /* single_ding_chimes.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = single_ding_chimes.wav; sourceTree = "<group>"; };
-		07636AAD1BA49A0100925671 /* single_ding_chimes2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = single_ding_chimes2.wav; sourceTree = "<group>"; };
 		07636AAF1BA49A0100925671 /* TBMContentViewModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMContentViewModal.h; sourceTree = "<group>"; };
 		07636AB01BA49A0100925671 /* TBMContentViewModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMContentViewModal.m; sourceTree = "<group>"; };
 		07636ABB1BA49A0100925671 /* TBMTableModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMTableModal.h; sourceTree = "<group>"; };
@@ -1182,13 +1178,11 @@
 			isa = PBXGroup;
 			children = (
 				07636AA61BA49A0100925671 /* BeepSin30.wav */,
-				07636AA71BA49A0100925671 /* DK Crayon Crumble.ttf */,
 				07636AA81BA49A0100925671 /* FeatureUnlock.wav */,
+				07636AAB1BA49A0100925671 /* NotificationTone.wav */,
+				07636AA71BA49A0100925671 /* DK Crayon Crumble.ttf */,
 				07636AA91BA49A0100925671 /* head.png */,
 				07636AAA1BA49A0100925671 /* Images.xcassets */,
-				07636AAB1BA49A0100925671 /* NotificationTone.wav */,
-				07636AAC1BA49A0100925671 /* single_ding_chimes.wav */,
-				07636AAD1BA49A0100925671 /* single_ding_chimes2.wav */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -4037,10 +4031,8 @@
 				07636E7D1BA49A0100925671 /* icon_rounded_man.pdf in Resources */,
 				07636E841BA49A0100925671 /* icon_menu_dots@2x.png in Resources */,
 				07636E821BA49A0100925671 /* Search-icon.pdf in Resources */,
-				07636E001BA49A0100925671 /* single_ding_chimes2.wav in Resources */,
 				07636E7A1BA49A0100925671 /* icon_man.pdf in Resources */,
 				07636F0A1BA49A0100925671 /* TOWebViewControllerLocalizable.strings in Resources */,
-				07636DFF1BA49A0100925671 /* single_ding_chimes.wav in Resources */,
 				07636E7B1BA49A0100925671 /* icon_people.pdf in Resources */,
 				07636EF11BA49A0100925671 /* machine.h.motemplate in Resources */,
 				07636EF21BA49A0100925671 /* machine.m.motemplate in Resources */,

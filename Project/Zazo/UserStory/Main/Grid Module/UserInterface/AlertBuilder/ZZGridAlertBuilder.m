@@ -54,9 +54,33 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
 {
     userName = [NSObject an_safeString:userName];
     
-    NSString *msg = [NSString stringWithFormat:@"It seems that %@ is already connected with you.\n\nRecord Zazo to %@ now.", userName, userName];
-    
-    [ZZAlertBuilder presentAlertWithTitle:@"Send a Zazo" details:msg cancelButtonTitle:nil actionButtonTitle:@"OK" action:completion];
+    NSString* msg = [NSString stringWithFormat:@"It seems that %@ is already connected with you.\n\nRecord Zazo to %@ now.", userName, userName];
+    NSString* title = @"Send a Zazo";
+    NSString* actionButtonTitle = @"Ok";
+    if (IOS8_OR_HIGHER)
+    {
+        [ZZAlertBuilder presentAlertWithTitle:title details:msg cancelButtonTitle:nil actionButtonTitle:actionButtonTitle action:completion];
+    }
+    else
+    {
+        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:title
+                                                            message:msg
+                                                           delegate:nil
+                                                  cancelButtonTitle:nil
+                                                  otherButtonTitles:actionButtonTitle, nil];
+        [alertView show];
+        @weakify(alertView);
+        [[alertView rac_buttonClickedSignal] subscribeNext:^(NSNumber* buttonIndex) {
+            @strongify(alertView);
+            if (buttonIndex.integerValue != alertView.cancelButtonIndex)
+            {
+                if (completion)
+                {
+                    completion();
+                }
+            }
+        }];
+    }
 }
 
 + (void)showNoValidPhonesDialogForUserWithFirstName:(NSString*)firstName fullName:(NSString*)fullName

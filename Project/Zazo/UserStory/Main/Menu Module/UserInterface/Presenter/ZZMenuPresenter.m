@@ -84,6 +84,7 @@
     ZZMenuCellViewModel* model = (ZZMenuCellViewModel*)item;
     [self.menuModuleDelegate userSelectedOnMenu:model.item];
     [self.wireframe closeMenu];
+    [self.interactor enableContactData];
 }
 
 #pragma mark - Private
