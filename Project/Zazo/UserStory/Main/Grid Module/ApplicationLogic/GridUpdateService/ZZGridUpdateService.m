@@ -13,8 +13,6 @@
 #import "ZZGridDataUpdater.h"
 #import "TBMFriend.h"
 
-
-
 @implementation ZZGridUpdateService
 
 - (void)updateFriendsIfNeeded
