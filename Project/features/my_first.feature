@@ -6,5 +6,5 @@ Feature: Login.
     When I enter "Kovalchuk" into input field number 2
     When I enter "380" into input field number 3
     When I touch the "SignIn" button
-    Then I should see "Error"
+    And I wait until I don't see "Enter a valid country code and mobile number"
 
