@@ -310,9 +310,12 @@ shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRec
 {
     if ([self.additionalPans containsObject:gestureRecognizer])
     {
-        CGPoint point = [gestureRecognizer locationInView:gestureRecognizer.view];
-        BOOL isInBounds = point.x > (self.view.bounds.size.width - 40); //TODO: this only for rifht side
-        return isInBounds;
+        if (gestureRecognizer.state == UIGestureRecognizerStateChanged)
+        {
+            CGPoint point = [gestureRecognizer locationInView:gestureRecognizer.view];
+            BOOL isInBounds = point.x > (self.view.bounds.size.width - 40); //TODO: this only for rifht side
+            return isInBounds;
+        }
     }
     return NO;
 }
