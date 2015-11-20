@@ -14,6 +14,7 @@
 #import "ZZVideoStatuses.h"
 #import "ZZVideoDataProvider.h"
 #import "ZZFriendDataProvider.h"
+#import "ZZFriendDomainModel.h"
 
 @interface ZZVideoStatusHandler ()
 
@@ -210,6 +211,7 @@
             [video.managedObjectContext MR_saveToPersistentStoreAndWait];
             
             friend.lastIncomingVideoStatusValue = videoStatus;
+            
             // Serhii says: We want to preserve previous status if last event type is incoming and status is VIEWED
             // Sani complicates it by saying: This is a bit subtle. We don't want an action by this user of
             // viewing his incoming video to count

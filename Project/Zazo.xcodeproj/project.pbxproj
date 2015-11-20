@@ -286,6 +286,7 @@
 		182BCF661BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 182BCF651BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf */; };
 		182BCF681BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 182BCF671BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf */; };
 		182D8D981BB5D45E0080E100 /* icon_camera_switch.png in Resources */ = {isa = PBXBuildFile; fileRef = 182D8D971BB5D45E0080E100 /* icon_camera_switch.png */; };
+		183774A51BFF440D00CE390D /* ZZGridUpdateService.m in Sources */ = {isa = PBXBuildFile; fileRef = 183774A41BFF440D00CE390D /* ZZGridUpdateService.m */; };
 		184504FA1BE12CC800C9C89B /* ZZVideoDataUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 184504F91BE12CC800C9C89B /* ZZVideoDataUpdater.m */; };
 		184E53E91BD4CB510007CF6F /* ZZUserNameLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 184E53E81BD4CB510007CF6F /* ZZUserNameLabel.m */; };
 		185DE9071BDE6F5000106F83 /* ZZSecretScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185DE9061BDE6F5000106F83 /* ZZSecretScreenController.m */; };
@@ -929,6 +930,8 @@
 		182BCF651BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "contacts-placeholder_withoutborder.pdf"; sourceTree = "<group>"; };
 		182BCF671BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "contacts-placeholder-withoutborder2.pdf"; sourceTree = "<group>"; };
 		182D8D971BB5D45E0080E100 /* icon_camera_switch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_camera_switch.png; sourceTree = "<group>"; };
+		183774A31BFF440D00CE390D /* ZZGridUpdateService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridUpdateService.h; sourceTree = "<group>"; };
+		183774A41BFF440D00CE390D /* ZZGridUpdateService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridUpdateService.m; sourceTree = "<group>"; };
 		184504F81BE12CC800C9C89B /* ZZVideoDataUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoDataUpdater.h; sourceTree = "<group>"; };
 		184504F91BE12CC800C9C89B /* ZZVideoDataUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoDataUpdater.m; sourceTree = "<group>"; };
 		184E53E71BD4CB510007CF6F /* ZZUserNameLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZUserNameLabel.h; sourceTree = "<group>"; };
@@ -2500,6 +2503,7 @@
 		07636C9D1BA49A0100925671 /* ApplicationLogic */ = {
 			isa = PBXGroup;
 			children = (
+				183774A21BFF43F600CE390D /* GridUpdateService */,
 				07636C9E1BA49A0100925671 /* Interactor */,
 				07829D691BB2AA8C0000D5D9 /* TransportService */,
 			);
@@ -3604,6 +3608,15 @@
 			path = InteractorActionHandlerExtension;
 			sourceTree = "<group>";
 		};
+		183774A21BFF43F600CE390D /* GridUpdateService */ = {
+			isa = PBXGroup;
+			children = (
+				183774A31BFF440D00CE390D /* ZZGridUpdateService.h */,
+				183774A41BFF440D00CE390D /* ZZGridUpdateService.m */,
+			);
+			path = GridUpdateService;
+			sourceTree = "<group>";
+		};
 		184E53E61BD4CB390007CF6F /* UserNameLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -4317,6 +4330,7 @@
 				07636E4D1BA49A0100925671 /* ZZColorTheme.m in Sources */,
 				07BAA7101BB1C346009878B9 /* ZZFileHelper.m in Sources */,
 				18C947E71BB566A500D31B99 /* _TBMVideo.m in Sources */,
+				183774A51BFF440D00CE390D /* ZZGridUpdateService.m in Sources */,
 				FE7D83281BBE580C00445108 /* ZZHintsArrow.m in Sources */,
 				07636F0B1BA49A0100925671 /* TOActivityChrome.m in Sources */,
 				07636E371BA49A0100925671 /* ZZFriendsTransportService.m in Sources */,

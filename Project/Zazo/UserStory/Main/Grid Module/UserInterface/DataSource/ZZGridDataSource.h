@@ -41,4 +41,6 @@
 - (NSInteger)indexForFriendDomainModel:(ZZFriendDomainModel*)friendModel;
 - (void)updateGridPositions;
 
+- (NSArray*)gridModels;
+
 @end
