@@ -275,7 +275,7 @@
     {
         if (viewedVideo.statusValue == ZZVideoIncomingStatusDownloaded)
         {
-            viewedVideo.status = @(ZZVideoIncomingStatusViewed);
+//            viewedVideo.status = @(ZZVideoIncomingStatusViewed);
             if (playedVideoModel.relatedUser.unviewedCount > 0)
             {
                 playedVideoModel.relatedUser.unviewedCount--;
@@ -285,9 +285,7 @@
                 playedVideoModel.relatedUser.unviewedCount = 0;
             }
             
-//            [viewedVideo.managedObjectContext refreshAllObjects];
-            
-            [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
+//            [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
         }
     }
 }

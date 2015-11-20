@@ -37,6 +37,8 @@
 
 - (void)updateGridViewModels:(NSArray*)models;
 
+- (void)updateGridIfNeeded;
+
 @end
 
 
