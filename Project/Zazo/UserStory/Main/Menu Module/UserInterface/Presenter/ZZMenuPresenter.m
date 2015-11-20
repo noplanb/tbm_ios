@@ -54,7 +54,7 @@
 
 - (void)friendsDataLoaded:(NSArray*)friendsData
 {
-        [self.dataSource setupFriendsItems:friendsData];
+    [self.dataSource setupFriendsItems:friendsData];
 }
 
 - (void)friendsDataLoadingDidFailWithError:(NSError *)error
