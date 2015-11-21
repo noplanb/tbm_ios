@@ -18,6 +18,8 @@
 
 + (void)start
 {
+    [MagicalRecord setShouldDeleteStoreOnModelMismatch:NO];
+    
     ZZMigrationManager* migrationManager = [ZZMigrationManager new];
     if ([migrationManager isMigrationNecessary])
     {
