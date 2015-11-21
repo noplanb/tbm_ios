@@ -11,32 +11,36 @@
 #import "ZZFriendDataUpdater.h"
 #import "ZZUserDataProvider.h"
 #import "TBMUser.h"
-
+#import "ZZMigrationManager.h"
+#import "ZZStoredSettingsManager.h"
 
 @implementation ZZContentDataAcessor
 
 + (void)start
 {
-    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreAtURL:[self sourceUrl]];
-    
-    if ([NSManagedObjectContext MR_rootSavingContext])
+    ZZMigrationManager* migrationManager = [ZZMigrationManager new];
+    if ([migrationManager isMigrationNecessary])
     {
-        ZZLogInfo(@"Successfull Core Data migration. Trying to fill new fields"); // TODO: cleanup
-        ANDispatchBlockToBackgroundQueue(^{
-            [ZZFriendDataUpdater fillEntitiesAfterMigration];
-        });
+        [migrationManager migrate];
+        
+        [MagicalRecord setupCoreDataStackWithStoreAtURL:[migrationManager destinationUrl]];
+        
+        ZZUserDomainModel* authUser = [ZZUserDataProvider authenticatedUser];
+        [ZZStoredSettingsManager shared].userID = authUser.idTbm;
+        [ZZStoredSettingsManager shared].authToken = authUser.auth;
+        
+        if ([NSManagedObjectContext MR_rootSavingContext])
+        {
+            ZZLogInfo(@"Successfull Core Data migration. Trying to fill new fields"); // TODO: cleanup
+            ANDispatchBlockToBackgroundQueue(^{
+                [ZZFriendDataUpdater fillEntitiesAfterMigration];
+            });
+        }
     }
-}
-
-+ (NSURL*)sourceUrl
-{
-    return [NSURL fileURLWithPath:[[self applicationDocumentsDirectory].path
-                                   stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.sqlite", kContentDBName]]];
-}
-
-+ (NSURL*)applicationDocumentsDirectory
-{
-    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    else
+    {
+        [MagicalRecord setupCoreDataStackWithStoreAtURL:[migrationManager destinationUrl]];
+    }
 }
 
 
