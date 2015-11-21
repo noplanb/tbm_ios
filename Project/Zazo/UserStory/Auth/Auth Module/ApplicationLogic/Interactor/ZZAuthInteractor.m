@@ -32,7 +32,7 @@
 
 @property (nonatomic, strong) ZZUserDomainModel *currentUser;
 
-@end 
+@end
 
 @implementation ZZAuthInteractor
 
@@ -191,12 +191,12 @@
 
 - (void)_handleErrorNumberValidationWithError:(NSError*)error
 {
-    
+
     if ([self.output isNetworkEnabled])
     {
         if (!ANIsEmpty([ZZStoredSettingsManager shared].mobileNumber))
         {
-            
+
             NSError* mobilePhoneError = [NSError errorWithDomain:kErrorDomainWrongMobileType code:kErrorWrongMobileErrorCode userInfo:nil];
             [self.output registrationDidFailWithError:mobilePhoneError];
         }

@@ -78,7 +78,7 @@
 - (void)_setupNotifications
 {    
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(_handleAppBeomeActive)
+                                             selector:@selector(_handleAppBecomeActive)
                                                  name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
     
@@ -129,9 +129,10 @@
     [self.dataSource updateCellWithModel:model];
 }
 
-- (void)_handleAppBeomeActive
+- (void)_handleAppBecomeActive
 {
     [self.actionHandler resetLastHintAndShowIfNeeded];
+    [self.interactor updateGridIfNeeded];
 }
 
 - (void)_handleResignActive
@@ -291,6 +292,7 @@
 - (void)gridAlreadyContainsFriend:(ZZGridDomainModel*)model
 {
     [self.wireframe closeMenu];
+    
     [ZZGridAlertBuilder showAlreadyConnectedDialogForUser:model.relatedUser.firstName completion:^{
         model.isDownloadAnimationViewed = YES;
         [self.dataSource updateCellWithModel:model];

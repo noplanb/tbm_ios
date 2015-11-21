@@ -89,7 +89,7 @@
                 
                 angle = [ZZGeometryHelper nextFixedPositionFrom:angle withDirection:direction];
 
-                if ((angle >= (grid.calculatedCellsOffset - 0.09f)) || (angle <= (grid.calculatedCellsOffset +0.09f)))
+                if ((angle >= (grid.calculatedCellsOffset - 0.09f)) || (angle <= (grid.calculatedCellsOffset + 0.09f)))
                 {
                     [self stopAnimationsOnGrid:grid];
                     [self bounceAnimationToAngle:angle onCarouselView:grid withVelocity:velocity];

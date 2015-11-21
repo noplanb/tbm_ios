@@ -54,7 +54,7 @@
 
 - (void)friendsDataLoaded:(NSArray*)friendsData
 {
-        [self.dataSource setupFriendsItems:friendsData];
+    [self.dataSource setupFriendsItems:friendsData];
 }
 
 - (void)friendsDataLoadingDidFailWithError:(NSError *)error
@@ -84,6 +84,7 @@
     ZZMenuCellViewModel* model = (ZZMenuCellViewModel*)item;
     [self.menuModuleDelegate userSelectedOnMenu:model.item];
     [self.wireframe closeMenu];
+    [self.interactor enableContactData];
 }
 
 #pragma mark - Private

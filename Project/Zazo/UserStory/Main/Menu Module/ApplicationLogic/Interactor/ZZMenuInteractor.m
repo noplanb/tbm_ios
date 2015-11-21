@@ -15,6 +15,9 @@
 #import "ZZFriendDataProvider.h"
 #import "ZZUserDataProvider.h"
 
+
+static const NSInteger kDelayBetweenFriendUpdate = 30;
+
 @interface ZZMenuInteractor ()
 
 @property (nonatomic, assign) BOOL isLoading;
@@ -58,14 +61,11 @@
             {
                 [self.output friendsThatHasAppLoaded:self.sortedFriends];
             }
-            
         }
         
         [self _loadAddressBookContactsWithRequestAccess:shouldRequest];
     });
 }
-
-
 
 - (BOOL)_isNeedToUpdate
 {
@@ -73,7 +73,7 @@
     
     NSTimeInterval interval = fabs(self.startUpdateTime - self.endUpdateTime);
     
-    if (interval > 30)
+    if (interval > kDelayBetweenFriendUpdate)
     {
         isNeedUpdate = YES;
     }
@@ -87,6 +87,10 @@
     [self _sortFriendsFromArray:friends];
 }
 
+- (void)enableContactData
+{
+    self.endUpdateTime -= kDelayBetweenFriendUpdate;
+}
 
 #pragma mark - Private
 

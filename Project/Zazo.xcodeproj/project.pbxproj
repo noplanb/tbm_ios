@@ -25,8 +25,6 @@
 		07636DFC1BA49A0100925671 /* head.png in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA91BA49A0100925671 /* head.png */; };
 		07636DFD1BA49A0100925671 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636AAA1BA49A0100925671 /* Images.xcassets */; };
 		07636DFE1BA49A0100925671 /* NotificationTone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07636AAB1BA49A0100925671 /* NotificationTone.wav */; };
-		07636DFF1BA49A0100925671 /* single_ding_chimes.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07636AAC1BA49A0100925671 /* single_ding_chimes.wav */; };
-		07636E001BA49A0100925671 /* single_ding_chimes2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07636AAD1BA49A0100925671 /* single_ding_chimes2.wav */; };
 		07636E011BA49A0100925671 /* TBMContentViewModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AB01BA49A0100925671 /* TBMContentViewModal.m */; };
 		07636E071BA49A0100925671 /* TBMTableModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636ABC1BA49A0100925671 /* TBMTableModal.m */; };
 		07636E171BA49A0100925671 /* ZZAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AEB1BA49A0100925671 /* ZZAppDelegate.m */; };
@@ -262,7 +260,6 @@
 		07E09E2C1BD5B39000A59389 /* ZZApplicationPermissionsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E2B1BD5B39000A59389 /* ZZApplicationPermissionsHandler.m */; };
 		07E09E301BD69A7200A59389 /* ZZApplicationRootService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E2F1BD69A7200A59389 /* ZZApplicationRootService.m */; };
 		07E09E361BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E351BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m */; };
-		07E9593E1BCD74CE009C8F97 /* ZZContentDataAcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E9593D1BCD74CE009C8F97 /* ZZContentDataAcessor.m */; };
 		07F0E7F41B8CD7A900036AB2 /* ZZAccountTransportServiceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E81B8CD7A900036AB2 /* ZZAccountTransportServiceSpec.m */; };
 		07F0E7F51B8CD7A900036AB2 /* ZZRegistrationWithSMSTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E91B8CD7A900036AB2 /* ZZRegistrationWithSMSTest.m */; };
 		07F0E7F61B8CD7A900036AB2 /* ZZLoadFriendListSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EB1B8CD7A900036AB2 /* ZZLoadFriendListSpec.m */; };
@@ -289,6 +286,7 @@
 		182BCF661BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 182BCF651BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf */; };
 		182BCF681BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 182BCF671BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf */; };
 		182D8D981BB5D45E0080E100 /* icon_camera_switch.png in Resources */ = {isa = PBXBuildFile; fileRef = 182D8D971BB5D45E0080E100 /* icon_camera_switch.png */; };
+		183774A51BFF440D00CE390D /* ZZGridUpdateService.m in Sources */ = {isa = PBXBuildFile; fileRef = 183774A41BFF440D00CE390D /* ZZGridUpdateService.m */; };
 		184504FA1BE12CC800C9C89B /* ZZVideoDataUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 184504F91BE12CC800C9C89B /* ZZVideoDataUpdater.m */; };
 		184E53E91BD4CB510007CF6F /* ZZUserNameLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 184E53E81BD4CB510007CF6F /* ZZUserNameLabel.m */; };
 		185DE9071BDE6F5000106F83 /* ZZSecretScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185DE9061BDE6F5000106F83 /* ZZSecretScreenController.m */; };
@@ -311,6 +309,8 @@
 		18E1F2FD1BC6AEEA0070ECF1 /* ZZFeatureEventStrategyInviteeUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1F2FC1BC6AEEA0070ECF1 /* ZZFeatureEventStrategyInviteeUser.m */; };
 		18E1F3001BC6AF180070ECF1 /* ZZFeatureEventStrategyRegisteredUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1F2FF1BC6AF180070ECF1 /* ZZFeatureEventStrategyRegisteredUser.m */; };
 		18E1F3041BC6C7180070ECF1 /* TBMFeatureUnlockDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1F3031BC6C7180070ECF1 /* TBMFeatureUnlockDialogView.m */; };
+		18EE04111BFF8A1400D57966 /* ZZMigrationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE04101BFF8A1400D57966 /* ZZMigrationManager.m */; };
+		18F52E031BFCAB6100042AAC /* ZZContentDataAcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F52E021BFCAB6100042AAC /* ZZContentDataAcessor.m */; };
 		2208E8A81A1419D400150C35 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208E8A61A1419D400150C35 /* AddressBook.framework */; };
 		2208E8A91A1419D400150C35 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208E8A71A1419D400150C35 /* AddressBookUI.framework */; };
 		220E90291909A18B003C4F82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E90281909A18B003C4F82 /* Foundation.framework */; };
@@ -412,8 +412,6 @@
 		07636AA91BA49A0100925671 /* head.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head.png; sourceTree = "<group>"; };
 		07636AAA1BA49A0100925671 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		07636AAB1BA49A0100925671 /* NotificationTone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = NotificationTone.wav; sourceTree = "<group>"; };
-		07636AAC1BA49A0100925671 /* single_ding_chimes.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = single_ding_chimes.wav; sourceTree = "<group>"; };
-		07636AAD1BA49A0100925671 /* single_ding_chimes2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = single_ding_chimes2.wav; sourceTree = "<group>"; };
 		07636AAF1BA49A0100925671 /* TBMContentViewModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMContentViewModal.h; sourceTree = "<group>"; };
 		07636AB01BA49A0100925671 /* TBMContentViewModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMContentViewModal.m; sourceTree = "<group>"; };
 		07636ABB1BA49A0100925671 /* TBMTableModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMTableModal.h; sourceTree = "<group>"; };
@@ -882,8 +880,6 @@
 		07E09E2F1BD69A7200A59389 /* ZZApplicationRootService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZApplicationRootService.m; path = ApplicationServices/ZZApplicationRootService.m; sourceTree = "<group>"; };
 		07E09E341BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZFileTransferMarkerDomainModel.h; path = FileTransferModel/ZZFileTransferMarkerDomainModel.h; sourceTree = "<group>"; };
 		07E09E351BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZFileTransferMarkerDomainModel.m; path = FileTransferModel/ZZFileTransferMarkerDomainModel.m; sourceTree = "<group>"; };
-		07E9593C1BCD74CE009C8F97 /* ZZContentDataAcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContentDataAcessor.h; sourceTree = "<group>"; };
-		07E9593D1BCD74CE009C8F97 /* ZZContentDataAcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContentDataAcessor.m; sourceTree = "<group>"; };
 		07F0E7E81B8CD7A900036AB2 /* ZZAccountTransportServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAccountTransportServiceSpec.m; sourceTree = "<group>"; };
 		07F0E7E91B8CD7A900036AB2 /* ZZRegistrationWithSMSTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRegistrationWithSMSTest.m; sourceTree = "<group>"; };
 		07F0E7EB1B8CD7A900036AB2 /* ZZLoadFriendListSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZLoadFriendListSpec.m; sourceTree = "<group>"; };
@@ -935,6 +931,8 @@
 		182BCF651BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "contacts-placeholder_withoutborder.pdf"; sourceTree = "<group>"; };
 		182BCF671BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "contacts-placeholder-withoutborder2.pdf"; sourceTree = "<group>"; };
 		182D8D971BB5D45E0080E100 /* icon_camera_switch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_camera_switch.png; sourceTree = "<group>"; };
+		183774A31BFF440D00CE390D /* ZZGridUpdateService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridUpdateService.h; sourceTree = "<group>"; };
+		183774A41BFF440D00CE390D /* ZZGridUpdateService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridUpdateService.m; sourceTree = "<group>"; };
 		184504F81BE12CC800C9C89B /* ZZVideoDataUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoDataUpdater.h; sourceTree = "<group>"; };
 		184504F91BE12CC800C9C89B /* ZZVideoDataUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoDataUpdater.m; sourceTree = "<group>"; };
 		184E53E71BD4CB510007CF6F /* ZZUserNameLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZUserNameLabel.h; sourceTree = "<group>"; };
@@ -978,6 +976,10 @@
 		18E1F2FF1BC6AF180070ECF1 /* ZZFeatureEventStrategyRegisteredUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFeatureEventStrategyRegisteredUser.m; sourceTree = "<group>"; };
 		18E1F3021BC6C7180070ECF1 /* TBMFeatureUnlockDialogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFeatureUnlockDialogView.h; sourceTree = "<group>"; };
 		18E1F3031BC6C7180070ECF1 /* TBMFeatureUnlockDialogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFeatureUnlockDialogView.m; sourceTree = "<group>"; };
+		18EE040F1BFF8A1400D57966 /* ZZMigrationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMigrationManager.h; sourceTree = "<group>"; };
+		18EE04101BFF8A1400D57966 /* ZZMigrationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMigrationManager.m; sourceTree = "<group>"; };
+		18F52E011BFCAB6100042AAC /* ZZContentDataAcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContentDataAcessor.h; sourceTree = "<group>"; };
+		18F52E021BFCAB6100042AAC /* ZZContentDataAcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContentDataAcessor.m; sourceTree = "<group>"; };
 		2208E8A61A1419D400150C35 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		2208E8A71A1419D400150C35 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		220E90251909A18B003C4F82 /* Zazo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zazo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1182,13 +1184,11 @@
 			isa = PBXGroup;
 			children = (
 				07636AA61BA49A0100925671 /* BeepSin30.wav */,
-				07636AA71BA49A0100925671 /* DK Crayon Crumble.ttf */,
 				07636AA81BA49A0100925671 /* FeatureUnlock.wav */,
+				07636AAB1BA49A0100925671 /* NotificationTone.wav */,
+				07636AA71BA49A0100925671 /* DK Crayon Crumble.ttf */,
 				07636AA91BA49A0100925671 /* head.png */,
 				07636AAA1BA49A0100925671 /* Images.xcassets */,
-				07636AAB1BA49A0100925671 /* NotificationTone.wav */,
-				07636AAC1BA49A0100925671 /* single_ding_chimes.wav */,
-				07636AAD1BA49A0100925671 /* single_ding_chimes2.wav */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1349,22 +1349,13 @@
 		07636B0F1BA49A0100925671 /* DataAccess */ = {
 			isa = PBXGroup;
 			children = (
-				07636B101BA49A0100925671 /* Content */,
+				18F52E001BFCAB6100042AAC /* Content */,
 				07636B131BA49A0100925671 /* Friend */,
 				07636B181BA49A0100925671 /* Grid */,
 				07636B1D1BA49A0100925671 /* User */,
 				07636B221BA49A0100925671 /* Video */,
 			);
 			path = DataAccess;
-			sourceTree = "<group>";
-		};
-		07636B101BA49A0100925671 /* Content */ = {
-			isa = PBXGroup;
-			children = (
-				07E9593C1BCD74CE009C8F97 /* ZZContentDataAcessor.h */,
-				07E9593D1BCD74CE009C8F97 /* ZZContentDataAcessor.m */,
-			);
-			path = Content;
 			sourceTree = "<group>";
 		};
 		07636B131BA49A0100925671 /* Friend */ = {
@@ -1665,6 +1656,7 @@
 			children = (
 				07E09E2E1BD69A7200A59389 /* ZZApplicationRootService.h */,
 				07E09E2F1BD69A7200A59389 /* ZZApplicationRootService.m */,
+				18EE040E1BFF8A1400D57966 /* CoreDataMigrationManager */,
 				1868E1B71BE26C5E000B80D3 /* RootStateObserver */,
 				07E09E2D1BD5B39C00A59389 /* ApplicationPermissionsHandler */,
 				07E09E261BD5B16200A59389 /* ApplicationServices */,
@@ -2515,6 +2507,7 @@
 		07636C9D1BA49A0100925671 /* ApplicationLogic */ = {
 			isa = PBXGroup;
 			children = (
+				183774A21BFF43F600CE390D /* GridUpdateService */,
 				07636C9E1BA49A0100925671 /* Interactor */,
 				07829D691BB2AA8C0000D5D9 /* TransportService */,
 			);
@@ -3619,6 +3612,15 @@
 			path = InteractorActionHandlerExtension;
 			sourceTree = "<group>";
 		};
+		183774A21BFF43F600CE390D /* GridUpdateService */ = {
+			isa = PBXGroup;
+			children = (
+				183774A31BFF440D00CE390D /* ZZGridUpdateService.h */,
+				183774A41BFF440D00CE390D /* ZZGridUpdateService.m */,
+			);
+			path = GridUpdateService;
+			sourceTree = "<group>";
+		};
 		184E53E61BD4CB390007CF6F /* UserNameLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -3752,6 +3754,24 @@
 				18E1F3031BC6C7180070ECF1 /* TBMFeatureUnlockDialogView.m */,
 			);
 			path = UnlockFeatureDialogView;
+			sourceTree = "<group>";
+		};
+		18EE040E1BFF8A1400D57966 /* CoreDataMigrationManager */ = {
+			isa = PBXGroup;
+			children = (
+				18EE040F1BFF8A1400D57966 /* ZZMigrationManager.h */,
+				18EE04101BFF8A1400D57966 /* ZZMigrationManager.m */,
+			);
+			path = CoreDataMigrationManager;
+			sourceTree = "<group>";
+		};
+		18F52E001BFCAB6100042AAC /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				18F52E011BFCAB6100042AAC /* ZZContentDataAcessor.h */,
+				18F52E021BFCAB6100042AAC /* ZZContentDataAcessor.m */,
+			);
+			path = Content;
 			sourceTree = "<group>";
 		};
 		220E901C1909A18B003C4F82 = {
@@ -4037,10 +4057,8 @@
 				07636E7D1BA49A0100925671 /* icon_rounded_man.pdf in Resources */,
 				07636E841BA49A0100925671 /* icon_menu_dots@2x.png in Resources */,
 				07636E821BA49A0100925671 /* Search-icon.pdf in Resources */,
-				07636E001BA49A0100925671 /* single_ding_chimes2.wav in Resources */,
 				07636E7A1BA49A0100925671 /* icon_man.pdf in Resources */,
 				07636F0A1BA49A0100925671 /* TOWebViewControllerLocalizable.strings in Resources */,
-				07636DFF1BA49A0100925671 /* single_ding_chimes.wav in Resources */,
 				07636E7B1BA49A0100925671 /* icon_people.pdf in Resources */,
 				07636EF11BA49A0100925671 /* machine.h.motemplate in Resources */,
 				07636EF21BA49A0100925671 /* machine.m.motemplate in Resources */,
@@ -4279,7 +4297,6 @@
 				07636F011BA49A0100925671 /* ANNetworkRequest.m in Sources */,
 				07636EE91BA49A0100925671 /* NSObject+ANUserDefaults.m in Sources */,
 				07636E4E1BA49A0100925671 /* ZZConfig.m in Sources */,
-				07E9593E1BCD74CE009C8F97 /* ZZContentDataAcessor.m in Sources */,
 				07636EEE1BA49A0100925671 /* ANErrorBuilder.m in Sources */,
 				07636F111BA49A0100925671 /* PDFView.m in Sources */,
 				07636E8F1BA49A0100925671 /* ZZAuthPresenter.m in Sources */,
@@ -4326,6 +4343,7 @@
 				07636E4D1BA49A0100925671 /* ZZColorTheme.m in Sources */,
 				07BAA7101BB1C346009878B9 /* ZZFileHelper.m in Sources */,
 				18C947E71BB566A500D31B99 /* _TBMVideo.m in Sources */,
+				183774A51BFF440D00CE390D /* ZZGridUpdateService.m in Sources */,
 				FE7D83281BBE580C00445108 /* ZZHintsArrow.m in Sources */,
 				07636F0B1BA49A0100925671 /* TOActivityChrome.m in Sources */,
 				07636E371BA49A0100925671 /* ZZFriendsTransportService.m in Sources */,
@@ -4378,6 +4396,7 @@
 				07636EAF1BA49A0100925671 /* ZZSecretWireframe.m in Sources */,
 				181D1CCB1BC54E6F00044F83 /* ZZGridPresenter+ActionHandler.m in Sources */,
 				07636E201BA49A0100925671 /* ZZPhoneHelper.m in Sources */,
+				18EE04111BFF8A1400D57966 /* ZZMigrationManager.m in Sources */,
 				07636E481BA49A0100925671 /* ZZBaseVC.m in Sources */,
 				07636EAA1BA49A0100925671 /* ZZSecretSwitchCellViewModel.m in Sources */,
 				07636EED1BA49A0100925671 /* ANDrawerNC.m in Sources */,
@@ -4394,6 +4413,7 @@
 				07636DBC1BA49A0100925671 /* TBMVideoIdUtils.m in Sources */,
 				7952764A1BA6B4AB00E506D5 /* ZZMenuCell.m in Sources */,
 				07636E351BA49A0100925671 /* ZZCommonNetworkTransportService.m in Sources */,
+				18F52E031BFCAB6100042AAC /* ZZContentDataAcessor.m in Sources */,
 				79123D891BB14F9E007E1CBF /* ZZHintsDomainModel.m in Sources */,
 				071828E71BE5777A00CFF0A5 /* ZZVideoStatusHandler.m in Sources */,
 				07636E2A1BA49A0100925671 /* ZZVideoModelsMapper.m in Sources */,
@@ -4524,7 +4544,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "47c2aacd-552e-4684-83bd-99b03d1841f1";
+				PROVISIONING_PROFILE = "a93e215f-f722-4339-a824-d7a146ad5fb6";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4538,7 +4558,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4604,8 +4624,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
 				COPY_PHASE_STRIP = NO;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_TESTABILITY = YES;
@@ -4681,8 +4701,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4712,7 +4732,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4746,8 +4766,8 @@
 			baseConfigurationReference = 2EE3EC5660312AC490BD17BA /* Pods-ZazoTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",

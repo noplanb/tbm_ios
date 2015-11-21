@@ -110,7 +110,6 @@
 - (void)_pollAllIncomingVideos
 {
     [[ZZRemoteStoageTransportService loadAllIncomingVideoIds] subscribeNext:^(NSArray *models) {
-        
         for (ZZKeyStoreIncomingVideoIdsDomainModel *model in models)
         {
             ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.friendMkey];
@@ -130,7 +129,6 @@
 - (void)_pollAllOutgoingVideoStatus
 {
     [[ZZRemoteStoageTransportService loadAllOutgoingVideoStatuses] subscribeNext:^(NSArray *models) {
-        
         for (ZZKeyStoreOutgoingVideoStatusDomainModel *model in models)
         {
             ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.friendMkey];

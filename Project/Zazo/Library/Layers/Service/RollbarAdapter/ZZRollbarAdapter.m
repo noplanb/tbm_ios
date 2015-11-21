@@ -49,8 +49,9 @@
             BOOL shouldUSerSDK = [x boolValue];
             self.endpointType = shouldUSerSDK ? ZZDispatchEndpointRollbar : ZZDispatchEndpointServer;
         }];
-        
+#ifdef DEBUG
         [OBLogger instance].writeToConsole = YES;
+#endif
         if ([[OBLogger instance] logLines].count > 3000)
         {
             [[OBLogger instance] reset];
