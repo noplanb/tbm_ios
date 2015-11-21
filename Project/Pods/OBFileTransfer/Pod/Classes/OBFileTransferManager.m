@@ -571,6 +571,7 @@ static NSString * const OBFileTransferSessionIdentifier = @"com.onebeat.fileTran
     NSString *transferType = obtask.typeUpload ? @"Upload" : @"Download";
     
     // No error.
+//    if (NO && serverError == nil && clientError == nil){
     if (serverError == nil && clientError == nil){
         if (obtask.typeUpload){
             [self uploadCompleted: obtask];
@@ -583,8 +584,9 @@ static NSString * const OBFileTransferSessionIdentifier = @"com.onebeat.fileTran
     }
     
     // Error. (More readable than nested else statments.)
+//    if (YES || serverError != nil || clientError != nil) {
     if (serverError != nil || clientError != nil) {
-        if (clientError != nil){
+       if (clientError != nil){
             OB_WARN(@"%@ File Transfer for %@ received client error: %@", transferType, marker, clientError);
             error = clientError;
         }
@@ -595,8 +597,10 @@ static NSString * const OBFileTransferSessionIdentifier = @"com.onebeat.fileTran
             error = serverError;
         }
         
-        BOOL shouldRetry =  ( [self isRetryableClientError:clientError] && [self isRetryableServerError:serverError] ) &&
+        BOOL shouldRetry = ( [self isRetryableClientError:clientError] && [self isRetryableServerError:serverError] ) &&
         ( self.maxAttempts == 0 ||  obtask.attemptCount < self.maxAttempts);
+        
+//        shouldRetry = YES;
         
         if ( shouldRetry ) {
             [[self transferTaskManager] queueForRetry:obtask];
