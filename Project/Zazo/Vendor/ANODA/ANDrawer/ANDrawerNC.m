@@ -299,7 +299,7 @@ static CGFloat const kStatusBarHeight = 20;
     if (panGestureRecognizer != self.panGesure)
     {
         CGPoint point = [panGestureRecognizer locationInView:panGestureRecognizer.view];
-        BOOL isInBounds = point.x > (self.view.bounds.size.width - 40); //TODO: this only for rifht side
+        BOOL isInBounds = point.x > (self.view.bounds.size.width - 25); //TODO: this only for rifht side
         return isInBounds;
     }
     return YES;
@@ -310,12 +310,10 @@ shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRec
 {
     if ([self.additionalPans containsObject:gestureRecognizer])
     {
-        if (gestureRecognizer.state == UIGestureRecognizerStateChanged)
-        {
-            CGPoint point = [gestureRecognizer locationInView:gestureRecognizer.view];
-            BOOL isInBounds = point.x > (self.view.bounds.size.width - 40); //TODO: this only for rifht side
-            return isInBounds;
-        }
+        CGPoint point = [gestureRecognizer locationInView:gestureRecognizer.view];
+        BOOL isInBounds = point.x > (self.view.bounds.size.width - 25); //TODO: this only for rifht side
+    
+        return isInBounds;
     }
     return NO;
 }
