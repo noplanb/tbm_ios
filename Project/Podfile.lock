@@ -61,12 +61,11 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.0.3):
     - CocoaLumberjack/Default
-  - Crashlytics (3.3.4)
+  - Crashlytics (3.4.1):
+    - Fabric (~> 1.6.0)
   - DeviceUtil (1.2.0)
   - Expecta (1.0.3)
-  - Fabric (1.5.5):
-    - Fabric/Base (= 1.5.5)
-  - Fabric/Base (1.5.5)
+  - Fabric (1.6.1)
   - FastEasyMapping (0.5.1)
   - FrameAccessor (1.3.2)
   - iToast (0.0.1)
@@ -116,10 +115,10 @@ DEPENDENCIES:
   - ANTableViews (~> 1.0.13)
   - APAddressBook (~> 0.1.11)
   - CocoaLumberjack (~> 2.0.1)
-  - Crashlytics (~> 3.3.4)
+  - Crashlytics (~> 3.4.1)
   - DeviceUtil (~> 1.2.0)
   - Expecta (~> 1.0.2)
-  - Fabric (~> 1.5.5)
+  - Fabric (~> 1.6.0)
   - FastEasyMapping (~> 0.5.1)
   - FrameAccessor (~> 1.3.2)
   - iToast (~> 0.0.1)
@@ -164,10 +163,10 @@ SPEC CHECKSUMS:
   ANTableViews: 5d1e4e4dfb581ed47ab75f1952f111f91dd00586
   APAddressBook: 2c949367b190a993d2cce769a3b20bce8bcf000c
   CocoaLumberjack: f58d8a19629f4d8379ae14bb3534def24161430e
-  Crashlytics: 41c082440d2e14da444186fff65e79c0b4b35d4c
+  Crashlytics: 41574a245bc6ae10c55d57f385ebd2004e5bee05
   DeviceUtil: 818812d4d2413e145a05d502cd1378e484d0c293
   Expecta: 9d1bff6c8b0eeee73a166a2ee898892478927a15
-  Fabric: 190bf1a6eb65f7500de1347d027d2e59a7e53db1
+  Fabric: bf0ceb04e7c924090efc5f8c55e4fbcca189e0a0
   FastEasyMapping: 03a3fbe3af1005e67974358a4ec2b4764f8aa3b4
   FrameAccessor: 0f7ba6ce37be9a5d0302a27c731dca70af8d438b
   iToast: df147188215cc3293bd4366822833f2862fec451
@@ -191,4 +190,4 @@ SPEC CHECKSUMS:
   TPKeyboardAvoiding: ff1ee4e5a5a0c119b965552af8f183868ea20207
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
 
-COCOAPODS: 0.39.0
+COCOAPODS: 0.38.2
