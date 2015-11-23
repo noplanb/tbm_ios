@@ -376,7 +376,10 @@
     NSArray* sortedVideoArray = [self.item.relatedUser.videos sortedArrayUsingDescriptors:@[sortDescriptor]];
     ZZVideoDomainModel* lastModel = [sortedVideoArray lastObject];
     
-    [ZZThumbnailGenerator generateThumbVideo:lastModel];
+    if (![ZZThumbnailGenerator hasThumbForVideo:lastModel])
+    {
+        [ZZThumbnailGenerator generateThumbVideo:lastModel];
+    }
     
     return [ZZThumbnailGenerator lastThumbImageForUser:self.item.relatedUser];
 }
