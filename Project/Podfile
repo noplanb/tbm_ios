@@ -37,8 +37,8 @@ target 'Zazo' do
 
     #Testing
     pod 'Reveal-iOS-SDK', '~> 1.6.1', :configurations => ['Debug']
-    pod 'Fabric', '~> 1.5.5'
-    pod 'Crashlytics', '~> 3.3.4'
+    pod 'Fabric', '~> 1.6.1'
+    pod 'Crashlytics', '~> 3.4.1'
 
     #Core Data
     pod 'FastEasyMapping', '~> 0.5.1'
