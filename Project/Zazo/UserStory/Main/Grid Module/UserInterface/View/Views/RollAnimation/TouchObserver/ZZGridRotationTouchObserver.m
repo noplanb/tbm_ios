@@ -129,7 +129,7 @@ static CGFloat const kStartGridRotationOffset = 10;
 {
     BOOL isEnable = NO;
     CGPoint location = [recognizer locationInView:recognizer.view];
-    CGFloat kAccessOffset = 70;
+    CGFloat kAccessOffset = 50;
     CGFloat viewWidth = CGRectGetWidth(recognizer.view.frame);
     isEnable = (viewWidth - kAccessOffset) > location.x;
     
