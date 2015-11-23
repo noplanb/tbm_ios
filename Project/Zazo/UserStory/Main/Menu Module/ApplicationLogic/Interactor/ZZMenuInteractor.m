@@ -40,7 +40,7 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
     self.isLoaded = NO;
 }
 
-- (void)loadDataIncludeAddressBookRequest:(BOOL)shouldRequest
+- (void)loadDataIncludeAddressBookRequest:(BOOL)shouldRequest shouldOpenDrawer:(BOOL)shouldOpen
 {
     ANDispatchBlockToBackgroundQueue(^{
         
@@ -64,7 +64,7 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
             }
         }
         
-        [self _loadAddressBookContactsWithRequestAccess:shouldRequest];
+        [self _loadAddressBookContactsWithRequestAccess:shouldRequest shouldOpenDrawer:shouldOpen];
     });
 }
 
@@ -99,14 +99,14 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 {
     [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray *array) {
         
-        [self loadDataIncludeAddressBookRequest:NO];
+        [self loadDataIncludeAddressBookRequest:NO shouldOpenDrawer:NO];
         
     } error:^(NSError *error) {
         
     }];
 }
 
-- (void)_loadAddressBookContactsWithRequestAccess:(BOOL)shouldRequest
+- (void)_loadAddressBookContactsWithRequestAccess:(BOOL)shouldRequest shouldOpenDrawer:(BOOL)shouldOpen
 {
     if (!self.isLoading && !self.isLoaded)
     {
@@ -115,9 +115,10 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
         [[ZZAddressBookDataProvider loadContactsWithContactsRequest:shouldRequest] subscribeNext:^(NSArray *addressBookContactsArray) {
             
             [self.output addressBookDataLoaded:addressBookContactsArray];
+            [self.output openDrawerIfEnabled:shouldOpen];
+            
             self.isLoading = NO;
             self.isLoaded = YES;
-            
             
         } error:^(NSError *error) {
             

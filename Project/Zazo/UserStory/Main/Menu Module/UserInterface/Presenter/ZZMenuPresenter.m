@@ -26,7 +26,7 @@
     self.dataSource = [ZZMenuDataSource new];
     [self.userInterface updateDataSource:self.dataSource];
     
-    [self.interactor loadDataIncludeAddressBookRequest:NO];
+    [self.interactor loadDataIncludeAddressBookRequest:NO shouldOpenDrawer:NO];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_applicationWillEnterInBackground)
@@ -44,10 +44,7 @@
 
 - (void)addressBookDataLoaded:(NSArray*)data
 {
-    ANDispatchBlockToMainQueue(^{
-        [self.dataSource setupAddressbookItems:data];
-        [self.wireframe toggleMenu];
-    });
+    [self.dataSource setupAddressbookItems:data];
 }
 
 - (void)friendsThatHasAppLoaded:(NSArray*)friendsData
@@ -72,12 +69,22 @@
 
 - (void)menuToggled
 {
-    [self.interactor loadDataIncludeAddressBookRequest:YES];
+    [self.interactor loadDataIncludeAddressBookRequest:YES shouldOpenDrawer:YES];
 }
 
 - (void)needsPermissionForAddressBook
 {
     [ZZContactsPermissionAlertBuilder showNeedAccessForAddressBookAlert];
+}
+
+- (void)openDrawerIfEnabled:(BOOL)isEnabled
+{
+    if (isEnabled)
+    {
+        ANDispatchBlockToMainQueue(^{
+            [self.wireframe toggleMenu];
+        });
+    }
 }
 
 #pragma mark - Module Interface

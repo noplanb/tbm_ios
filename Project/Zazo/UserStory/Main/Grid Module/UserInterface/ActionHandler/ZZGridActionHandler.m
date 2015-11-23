@@ -134,7 +134,9 @@
           withIndex:(NSInteger)index
         friendModel:(ZZFriendDomainModel*)friendModel
 {
+      self.lastActionIndex = index;
     __block NSInteger actionIndex = index;
+    
     if ([self _isAbleToShowHints])
     {
         [self.startEventHandler handleEvent:event model:friendModel withCompletionBlock:^(ZZHintsType type, ZZFriendDomainModel *model) {
@@ -145,7 +147,7 @@
                     actionIndex = 2;
                 }
                 
-                self.lastActionIndex = actionIndex;
+                
                 [self _configureHintControllerWithHintType:type withModel:model index:actionIndex];
             }
             

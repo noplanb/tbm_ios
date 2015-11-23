@@ -114,12 +114,10 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
         self.isLastAcitionDone = NO;
         [ZZGridActionStoredSettings shared].recordWelcomeHintWasShown = NO;
         
-        
         if (completionBlock)
         {
             completionBlock(ZZGridActionEventTypeGridLoaded,self.hintModel);
         }
-        
     }
     else
     {
