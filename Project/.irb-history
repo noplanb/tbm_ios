@@ -1,0 +1,5 @@
+query(view)
+query("view")
+query("drawerView").first["frame"]
+query("drawerView")
+exit

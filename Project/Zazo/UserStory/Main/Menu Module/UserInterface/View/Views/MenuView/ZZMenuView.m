@@ -17,6 +17,7 @@ static CGFloat const kSearchBarHeight = 80;
 {
     if (self = [super init])
     {
+        self.accessibilityLabel = @"drawerView";
         self.backgroundColor = [ZZColorTheme shared].gridMenuColor;
         [self searchBar];
         [self tableView];

@@ -20,6 +20,7 @@
 {
     if (self = [super init])
     {
+        self.accessibilityLabel = @"gridView";
         [self headerView];
         [self itemsContainerView];
         

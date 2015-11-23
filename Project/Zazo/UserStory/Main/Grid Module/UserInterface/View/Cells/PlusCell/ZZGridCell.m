@@ -177,12 +177,13 @@
         _plusButton = [UIButton buttonWithType:UIButtonTypeCustom];
         UIImage* image = [[UIImage imageWithPDFNamed:@"icon_plus" atHeight:50]
                                 an_imageByTintingWithColor:[ZZColorTheme shared].gridCellPlusWhiteColor];
-        
+        _plusButton.accessibilityLabel = @"plusButton";
         [_plusButton setImage:image forState:UIControlStateNormal];
         _plusButton.showsTouchWhenHighlighted = NO;
         _plusButton.reversesTitleShadowWhenHighlighted = NO;
         [_plusButton addTarget:self action:@selector(_itemSelected) forControlEvents:UIControlEventTouchUpInside];
-        UILongPressGestureRecognizer* longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_itemSelectedWithRecognizer:)];
+        UILongPressGestureRecognizer* longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                                                                          action:@selector(_itemSelectedWithRecognizer:)];
         longPressRecognizer.minimumPressDuration = 0.8;
         [_plusButton addGestureRecognizer:longPressRecognizer];
         [self addSubview:_plusButton];

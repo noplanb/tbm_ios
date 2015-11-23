@@ -48,6 +48,7 @@
                     view = [ZZGridCell new];
                 }
                 [self addSubview:view];
+                view.accessibilityLabel = [NSString stringWithFormat:@"gridCell-%ld-%ld", (long)line, (long)row];
 
                 [view mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.width.equalTo(@(itemSize.width));
