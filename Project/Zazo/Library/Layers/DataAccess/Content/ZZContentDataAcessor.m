@@ -13,11 +13,15 @@
 #import "TBMUser.h"
 #import "ZZMigrationManager.h"
 #import "ZZStoredSettingsManager.h"
+#import "ZZAccountTransportService.h"
+#import "ANCrashlyticsAdapter.h"
 
 @implementation ZZContentDataAcessor
 
 + (void)start
 {
+    [MagicalRecord setShouldDeleteStoreOnModelMismatch:NO];
+    
     ZZMigrationManager* migrationManager = [ZZMigrationManager new];
     if ([migrationManager isMigrationNecessary])
     {
@@ -25,9 +29,23 @@
         
         [MagicalRecord setupCoreDataStackWithStoreAtURL:[migrationManager destinationUrl]];
         
-        ZZUserDomainModel* authUser = [ZZUserDataProvider authenticatedUser];
+        __block ZZUserDomainModel* authUser = [ZZUserDataProvider authenticatedUser];
         [ZZStoredSettingsManager shared].userID = authUser.idTbm;
         [ZZStoredSettingsManager shared].authToken = authUser.auth;
+        
+        [[ZZAccountTransportService registerUserWithModel:authUser shouldForceCall:NO] subscribeNext:^(NSDictionary *authKeys) {
+            
+            NSString *auth = authKeys[@"auth"];
+            NSString *mkey = authKeys[@"mkey"];
+            
+            [ZZStoredSettingsManager shared].userID = mkey;
+            [ZZStoredSettingsManager shared].authToken = auth;
+            
+            authUser.mkey = mkey;
+            authUser.auth = auth;
+            authUser = [ZZUserDataProvider upsertUserWithModel:authUser];
+            [ANCrashlyticsAdapter updateUserDataWithID:mkey username:authUser.fullName email:authUser.mobileNumber];
+        }];
         
         if ([NSManagedObjectContext MR_rootSavingContext])
         {
@@ -36,6 +54,8 @@
                 [ZZFriendDataUpdater fillEntitiesAfterMigration];
             });
         }
+        
+        
     }
     else
     {

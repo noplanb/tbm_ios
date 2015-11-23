@@ -37,6 +37,8 @@ typedef NS_ENUM(NSUInteger, ZZConfigServerState) {
 @property (nonatomic, copy) NSString* authToken;
 @property (nonatomic, copy) NSString* mobileNumber;
 
+@property (nonatomic, assign) BOOL wasPermissionAccess;
+
 + (instancetype)shared;
 
 @end

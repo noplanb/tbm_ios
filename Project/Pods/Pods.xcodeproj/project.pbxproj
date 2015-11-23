@@ -1995,7 +1995,6 @@
 		7FB0776CA3E1B9E1F4B6565398384E50 /* NBPhoneNumberDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NBPhoneNumberDefines.h; path = libPhoneNumber/NBPhoneNumberDefines.h; sourceTree = "<group>"; };
 		7FD4C3FEF8F786CDA258C19981E8F112 /* FEMAttribute+Extension.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FEMAttribute+Extension.h"; path = "FastEasyMapping/Source/Core/Mapping/Attribute/FEMAttribute+Extension.h"; sourceTree = "<group>"; };
 		7FE74F2BF4436F419065D2E4BEA2E5B5 /* RACGroupedSignal.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RACGroupedSignal.m; path = ReactiveCocoa/RACGroupedSignal.m; sourceTree = "<group>"; };
-		800DADD0CE0179E9452BA1CE1C90F94C /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		80831A8B78D37E02DD279327158AECAD /* MSSPopMasonry.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MSSPopMasonry.xcconfig; sourceTree = "<group>"; };
 		810B71F6866886F0F359BAB80EF07FFF /* UIView+SDCAutoLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+SDCAutoLayout.m"; path = "AutoLayout/UIView+SDCAutoLayout.m"; sourceTree = "<group>"; };
 		810CDCF84E063BEADD6ADFAC43E11BE9 /* NSDictionary+RACSequenceAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+RACSequenceAdditions.m"; path = "ReactiveCocoa/NSDictionary+RACSequenceAdditions.m"; sourceTree = "<group>"; };
@@ -2078,6 +2077,7 @@
 		96871F95AD7E6C0EDCDDAD5B6CD77954 /* RACEXTRuntimeExtensions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RACEXTRuntimeExtensions.h; path = ReactiveCocoa/extobjc/RACEXTRuntimeExtensions.h; sourceTree = "<group>"; };
 		96C514392FF5C1FA218EF38FDDC07645 /* POPCGUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPCGUtils.h; path = pop/POPCGUtils.h; sourceTree = "<group>"; };
 		96F7C277FA52CEBD2DDAD9548C105234 /* POPBasicAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPBasicAnimation.h; path = pop/POPBasicAnimation.h; sourceTree = "<group>"; };
+		9727CC8418541485CDB75E740487D776 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = iOS/Crashlytics.framework; sourceTree = "<group>"; };
 		975920ABEF1043773FB46611F5150567 /* ANBaseTableHeaderView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ANBaseTableHeaderView.h; path = ANTableViews/Reusable/ANBaseTableHeaderView.h; sourceTree = "<group>"; };
 		97F0F8AE3A198BDA412A980D43E4B563 /* NSManagedObject+MagicalFinders.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+MagicalFinders.h"; path = "MagicalRecord/Categories/NSManagedObject/NSManagedObject+MagicalFinders.h"; sourceTree = "<group>"; };
 		9808B7757426433988D8A4AAB111C595 /* NSNotificationCenter+RACSupport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSNotificationCenter+RACSupport.h"; path = "ReactiveCocoa/NSNotificationCenter+RACSupport.h"; sourceTree = "<group>"; };
@@ -2166,7 +2166,6 @@
 		ACD4F50B2B45BF7B4DFF4F312CC905CF /* AFSecurityPolicy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFSecurityPolicy.m; path = AFNetworking/AFSecurityPolicy.m; sourceTree = "<group>"; };
 		AD41335CAA28DC0ECA5BE5DD3B386C53 /* SDCAlertViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDCAlertViewController.h; path = SDCAlertView/Source/SDCAlertViewController.h; sourceTree = "<group>"; };
 		AD69920A80A8CF95EA19BDE5554B9DF8 /* OBFTMError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OBFTMError.h; path = Pod/Classes/MIsc/OBFTMError.h; sourceTree = "<group>"; };
-		AD78E892CE96CE6AFC093B3F3BE53F36 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		AD9521D6D949B6FF372D5A59E515A93C /* UIAlertView+RACSignalSupport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIAlertView+RACSignalSupport.m"; path = "ReactiveCocoa/UIAlertView+RACSignalSupport.m"; sourceTree = "<group>"; };
 		ADA5D668E786B42C6E06D4F850CF7D79 /* RACSubscriber+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "RACSubscriber+Private.h"; path = "ReactiveCocoa/RACSubscriber+Private.h"; sourceTree = "<group>"; };
 		ADF626809E26CABFAB3810574E1A0148 /* EXPMatchers+beginWith.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "EXPMatchers+beginWith.m"; path = "Expecta/Matchers/EXPMatchers+beginWith.m"; sourceTree = "<group>"; };
@@ -2400,6 +2399,7 @@
 		E21E7AD78CD8CCF844BF790AF6CDA8C7 /* EXPMatchers+beGreaterThan.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "EXPMatchers+beGreaterThan.m"; path = "Expecta/Matchers/EXPMatchers+beGreaterThan.m"; sourceTree = "<group>"; };
 		E27CEC6B42A7749CC52718DC0EB58C45 /* FastEasyMapping-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FastEasyMapping-prefix.pch"; sourceTree = "<group>"; };
 		E2C043BF3E251B67D2D4BEF7B4CE54CE /* MagicalRecord+Setup.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MagicalRecord+Setup.m"; path = "MagicalRecord/Core/MagicalRecord+Setup.m"; sourceTree = "<group>"; };
+		E2D52050DD47316751976377BAEEF452 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = iOS/Fabric.framework; sourceTree = "<group>"; };
 		E309654FCB803074B255751F47E8439A /* ANKeyboardHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ANKeyboardHandler.h; path = ANKeyboardHandler/ANKeyboardHandler.h; sourceTree = "<group>"; };
 		E328404C829834763A4706D02040C0D8 /* SDCAlertControllerDefaultVisualStyle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDCAlertControllerDefaultVisualStyle.h; path = SDCAlertView/Source/SDCAlertControllerDefaultVisualStyle.h; sourceTree = "<group>"; };
 		E33DF0431FD7B37FC00D04DEE80F8A50 /* AmazonTVMClient.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AmazonTVMClient.m; path = Pod/Classes/AWS/TVMClient/AmazonTVMClient.m; sourceTree = "<group>"; };
@@ -2935,18 +2935,10 @@
 			path = "../Target Support Files/libPhoneNumber-iOS";
 			sourceTree = "<group>";
 		};
-		0D7D78DA0A7C5A88C558DE00BBDA0A36 /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				95EECC061AE5487EED036C6BA3126201 /* Frameworks */,
-			);
-			name = Base;
-			sourceTree = "<group>";
-		};
 		0F7D1080F67222D3C895FC4D99BCA38C /* Crashlytics */ = {
 			isa = PBXGroup;
 			children = (
-				85616B253C3FEFDCC92DA32EE5D926CA /* Frameworks */,
+				DF90458C2C8CA12911D3C1BE13EAEA20 /* Frameworks */,
 			);
 			path = Crashlytics;
 			sourceTree = "<group>";
@@ -3316,7 +3308,7 @@
 				0F7D1080F67222D3C895FC4D99BCA38C /* Crashlytics */,
 				20085B887FDAF46021C60B089914F36D /* DeviceUtil */,
 				954C8AA11E234F9EC804A46F6844D6E6 /* Expecta */,
-				E10F22C9D2D45529CFC3780FD5BE3035 /* Fabric */,
+				874A46E12702C0CD566BE4D60F079595 /* Fabric */,
 				B42197F364D104BC17F9B420A5EED0E5 /* FastEasyMapping */,
 				D895CABF85CEF4518B4AA1D3337328E8 /* FrameAccessor */,
 				C6111D47E1E20752EB3D01BE99BEDDA5 /* iToast */,
@@ -3920,14 +3912,6 @@
 			);
 			sourceTree = "<group>";
 		};
-		85616B253C3FEFDCC92DA32EE5D926CA /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				800DADD0CE0179E9452BA1CE1C90F94C /* Crashlytics.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		86556873780936E0CCBBEFA7C2DA7A5A /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -3947,6 +3931,14 @@
 				24CBF06027C00FEF3B3474A01C433BE6 /* Support Files */,
 			);
 			path = ANKeyboardHandler;
+			sourceTree = "<group>";
+		};
+		874A46E12702C0CD566BE4D60F079595 /* Fabric */ = {
+			isa = PBXGroup;
+			children = (
+				9F9C9B513F3CC2CE6284382B954478D1 /* Frameworks */,
+			);
+			path = Fabric;
 			sourceTree = "<group>";
 		};
 		88030FE71236FB202790753209384A8D /* Support Files */ = {
@@ -4159,14 +4151,6 @@
 			path = Expecta;
 			sourceTree = "<group>";
 		};
-		95EECC061AE5487EED036C6BA3126201 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				AD78E892CE96CE6AFC093B3F3BE53F36 /* Fabric.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		95F8478E87CC818CF6CE5AD4A0D8D183 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -4192,6 +4176,14 @@
 			);
 			name = "Pods-ZazoTests";
 			path = "Target Support Files/Pods-ZazoTests";
+			sourceTree = "<group>";
+		};
+		9F9C9B513F3CC2CE6284382B954478D1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E2D52050DD47316751976377BAEEF452 /* Fabric.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		A2C6BE1A833F835A5815CA0230018836 /* NSURLConnection */ = {
@@ -4691,12 +4683,12 @@
 			path = ANBaseDomainModel;
 			sourceTree = "<group>";
 		};
-		E10F22C9D2D45529CFC3780FD5BE3035 /* Fabric */ = {
+		DF90458C2C8CA12911D3C1BE13EAEA20 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0D7D78DA0A7C5A88C558DE00BBDA0A36 /* Base */,
+				9727CC8418541485CDB75E740487D776 /* Crashlytics.framework */,
 			);
-			path = Fabric;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		E314D008C7E6ED02DDC8E33370A6B225 /* Support Files */ = {

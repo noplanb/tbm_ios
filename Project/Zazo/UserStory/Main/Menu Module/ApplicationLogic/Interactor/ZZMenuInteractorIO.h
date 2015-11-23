@@ -8,7 +8,7 @@
 
 @protocol ZZMenuInteractorInput <NSObject>
 
-- (void)loadDataIncludeAddressBookRequest:(BOOL)shouldRequest;
+- (void)loadDataIncludeAddressBookRequest:(BOOL)shouldRequest shouldOpenDrawer:(BOOL)shouldOpen;
 - (void)resetAddressBookData;
 - (void)enableContactData;
 
@@ -23,5 +23,6 @@
 - (void)friendsDataLoaded:(NSArray *)friendsData;
 - (void)friendsDataLoadingDidFailWithError:(NSError *)error;
 - (void)needsPermissionForAddressBook;
+- (void)openDrawerIfEnabled:(BOOL)isEnabled;
 
 @end

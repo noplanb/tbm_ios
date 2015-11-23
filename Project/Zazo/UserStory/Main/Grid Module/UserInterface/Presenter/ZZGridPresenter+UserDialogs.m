@@ -126,17 +126,30 @@
 
 - (void)_addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel*)contact
 {
-    TBMAlertController *alert = [TBMAlertController badConnectionAlert];
+    TBMAlertController *alert;
     
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleRecommended handler:^(SDCAlertAction *action) {
-        [alert dismissWithCompletion:nil];
-    }]];
-    
-    
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
-        [self.interactor addUserToGrid:contact];
-    }]];
-    
+    if ([error.userInfo objectForKey:@"msg"])
+    {
+        alert = [TBMAlertController alertControllerWithTitle:@"Error" message:[error.userInfo objectForKey:@"msg"]];
+        
+        [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleRecommended handler:^(SDCAlertAction *action) {
+            [alert dismissWithCompletion:nil];
+        }]];
+    }
+    else
+    {
+        alert = [TBMAlertController badConnectionAlert];
+        
+        [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleRecommended handler:^(SDCAlertAction *action) {
+            [alert dismissWithCompletion:nil];
+        }]];
+        
+        
+        [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+            [self.interactor addUserToGrid:contact];
+        }]];
+    }
+
     [alert presentWithCompletion:nil];
 }
 

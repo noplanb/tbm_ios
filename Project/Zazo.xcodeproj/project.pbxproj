@@ -3933,7 +3933,7 @@
 				220E90231909A18B003C4F82 /* Resources */,
 				F150BE2BD20343D6AD66EF07 /* Copy Pods Resources */,
 				07243CC31B8E4517008E4203 /* Fabric */,
-				E049FA888BA7A0DAB7317D81 /* Embed Pods Frameworks */,
+				D787EBC8E80CDA954202F300 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 				07F0ED831B8CE79300036AB2 /* PBXBuildRule */,
@@ -3955,7 +3955,7 @@
 				220E90421909A18B003C4F82 /* Frameworks */,
 				220E90431909A18B003C4F82 /* Resources */,
 				D9E56C582902C6E9D84AF1D0 /* Copy Pods Resources */,
-				EC6E226DF2B19498EE098246 /* Embed Pods Frameworks */,
+				1BA3A35D9DA1BD52514FB6D3 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -4102,7 +4102,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" 614db54f91c11edf6117193953fc20467d62cd05 06786661ab10c149ccf35734a13a2efd732d9dd1cb481ab620fc97be50a9ef38";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 614db54f91c11edf6117193953fc20467d62cd05 06786661ab10c149ccf35734a13a2efd732d9dd1cb481ab620fc97be50a9ef38";
+		};
+		1BA3A35D9DA1BD52514FB6D3 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		90DCA26FC9A448EB9C5E5879 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4134,22 +4149,7 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		D9E56C582902C6E9D84AF1D0 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E049FA888BA7A0DAB7317D81 /* Embed Pods Frameworks */ = {
+		D787EBC8E80CDA954202F300 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -4164,19 +4164,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zazo/Pods-Zazo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EC6E226DF2B19498EE098246 /* Embed Pods Frameworks */ = {
+		D9E56C582902C6E9D84AF1D0 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F150BE2BD20343D6AD66EF07 /* Copy Pods Resources */ = {
@@ -4558,7 +4558,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4649,7 +4649,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "cf7f6cf5-7c17-4c20-9fb2-08ef57729b19";
+				PROVISIONING_PROFILE = "fc7574ca-cf0d-4be6-b54d-a8b41e232a40";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -4701,7 +4701,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4716,7 +4716,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "cf7f6cf5-7c17-4c20-9fb2-08ef57729b19";
+				PROVISIONING_PROFILE = "fc7574ca-cf0d-4be6-b54d-a8b41e232a40";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -4732,7 +4732,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4781,7 +4781,7 @@
 				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.noplanbees.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "b7e20d4f-5729-4553-9d7b-e42b6ade47b5";
+				PROVISIONING_PROFILE = "2c9dd33b-41d2-424c-a1e0-e744a60236e5";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};

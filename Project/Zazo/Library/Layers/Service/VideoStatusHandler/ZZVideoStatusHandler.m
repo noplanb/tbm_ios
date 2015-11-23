@@ -190,6 +190,15 @@
     
     friend.lastVideoStatusEventTypeValue = ZZVideoStatusEventTypeOutgoing;
     friend.outgoingVideoStatusValue = status;
+    
+    
+    if (status == ZZVideoOutgoingStatusUploaded ||
+        status == ZZVideoOutgoingStatusDownloaded ||
+        status == ZZVideoOutgoingStatusViewed)
+    {
+        friend.timeOfLastAction = [NSDate date];
+    }
+    
     [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
     
     [self _notifyObserversVideoStatusChangeForFriend:friend];
@@ -222,6 +231,12 @@
             if (videoStatus != ZZVideoIncomingStatusViewed)
             {
                 friend.lastVideoStatusEventType = ZZVideoStatusEventTypeIncoming;
+            }
+            
+            
+            if (videoStatus == ZZVideoIncomingStatusDownloaded || videoStatus == ZZVideoIncomingStatusViewed)
+            {
+                friend.timeOfLastAction = [NSDate date];
             }
             
             [friend.managedObjectContext MR_saveToPersistentStoreAndWait];

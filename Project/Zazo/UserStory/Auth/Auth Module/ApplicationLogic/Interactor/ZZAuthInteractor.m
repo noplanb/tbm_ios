@@ -27,6 +27,7 @@
 #import "ZZAuthInteractorConstants.h"
 #import "ZZNotificationsHandler.h"
 #import "ZZRootStateObserver.h"
+#import "ANCrashlyticsAdapter.h"
 
 @interface ZZAuthInteractor ()
 
@@ -177,7 +178,9 @@
         self.currentUser.mkey = mkey;
         self.currentUser.auth = auth;
         self.currentUser = [ZZUserDataProvider upsertUserWithModel:self.currentUser];
-
+        
+        [ANCrashlyticsAdapter updateUserDataWithID:mkey username:self.currentUser.fullName email:user.mobileNumber];
+        
         if (!forceCall)
         {
             [self.output registrationCompletedSuccessfullyWithPhoneNumber:user.mobileNumber];
