@@ -269,17 +269,14 @@
 
 - (void)_showRecordWelcomeIfNeededWithData:(NSArray*)data
 {
-    
-    if ([self.dataSource frindsOnGridNumber] == 1)
+    if([ZZFriendDataProvider friendsOnGrid].count == 1)
     {
-        CGFloat kDelayAfterViewLoaded = 1.0f;
+        CGFloat kDelayAfterViewLoaded = 1.5f;
         ANDispatchBlockAfter(kDelayAfterViewLoaded, ^{
             NSInteger indexWhenOneFriendOnGrid = 5;
-            NSArray* friends = [data valueForKeyPath:@"@unionOfObjects.relatedUser"];
-            ZZFriendDomainModel* model = [friends firstObject];;
+            ZZFriendDomainModel* model = [[ZZFriendDataProvider friendsOnGrid] firstObject];
             [self.actionHandler handleEvent:ZZGridActionEventTypeGridLoaded withIndex:indexWhenOneFriendOnGrid friendModel:model];
         });
-        
     }
 }
 

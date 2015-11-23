@@ -34,8 +34,8 @@
 - (void)initialApplicationSetup:(UIApplication*)application launchOptions:(NSDictionary*)options
 {
     [ANCrashlyticsAdapter start];
-    [ZZRollbarAdapter shared];
     [ZZContentDataAcessor start];
+    [ZZRollbarAdapter shared];
    
     ANDispatchBlockToBackgroundQueue(^{
         [ANLogger initializeLogger];
