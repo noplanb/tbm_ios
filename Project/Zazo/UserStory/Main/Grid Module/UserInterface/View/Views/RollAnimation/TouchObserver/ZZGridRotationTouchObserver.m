@@ -11,7 +11,7 @@
 #import "ZZGridActionStoredSettings.h"
 #import "ZZGridHelper.h"
 
-static CGFloat const kStartGridRotationOffset = 30;
+static CGFloat const kStartGridRotationOffset = 10;
 
 @interface ZZGridRotationTouchObserver () <ZZRotatorDelegate, UIGestureRecognizerDelegate, ZZGridViewDelegate>
 
@@ -76,16 +76,22 @@ static CGFloat const kStartGridRotationOffset = 30;
         {
             case UIGestureRecognizerStateBegan:
             {
-                self.startOffset = self.gridView.calculatedCellsOffset;
-                [self.rotator stopAnimationsOnGrid:self.gridView];
+                CGPoint rotationOffset = [recognizer translationInView:self.gridView];
+                
+                if ((rotationOffset.x > kStartGridRotationOffset || rotationOffset.x < -kStartGridRotationOffset) ||
+                    (rotationOffset.y > kStartGridRotationOffset || rotationOffset.y < -kStartGridRotationOffset))
+                {
+                    self.startOffset = self.gridView.calculatedCellsOffset;
+                    [self.rotator stopAnimationsOnGrid:self.gridView];
+                }
             } break;
                 
             case UIGestureRecognizerStateChanged:
             {
                 CGPoint rotationOffset = [recognizer translationInView:self.gridView];
                 
-                if ((rotationOffset.x < kStartGridRotationOffset || rotationOffset.x > -kStartGridRotationOffset) ||
-                    (rotationOffset.y < kStartGridRotationOffset || rotationOffset.y > -kStartGridRotationOffset))
+                if ((rotationOffset.x > kStartGridRotationOffset || rotationOffset.x < -kStartGridRotationOffset) ||
+                    (rotationOffset.y > kStartGridRotationOffset || rotationOffset.y < -kStartGridRotationOffset))
                 {
                     CGFloat currentAngle = [recognizer currentAngleInView:self.gridView];
                     CGFloat startAngle = [recognizer startAngleInView:self.gridView];
