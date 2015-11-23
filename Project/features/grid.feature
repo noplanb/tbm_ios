@@ -4,5 +4,5 @@ Feature: Grid.
 
 @empty-grid
   Scenario: New user installs application and opens grid 
-    Given fresh registration
-    And I wait until I see "gridView"
+    Given I have fresh registration
+    Then I wait to see "gridView"

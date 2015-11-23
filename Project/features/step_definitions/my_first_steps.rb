@@ -3,16 +3,15 @@ Given /^I am on the Welcome Screen$/ do
   sleep(STEP_PAUSE)
 end
 
-
-Given /^fresh registration$/ do
-   macro "Then I enter \"Oksana\" into input field number 1"
-   macro "Then I enter \"Kovalchuk\" into input field number 2"
-   macro "Then I enter \"380\" into input field number 3"
-
-   phone = "091" + ('1'..'9').to_a.shuffle[0,7].join
-   macro "Then I enter phone into input field number 4"
-   macro "Then I touch the \"SignIn\" button"
-   macro "And I wait until I see \"gridView\""
+Given /^I have fresh registration$/ do
+	phone = "091" + ('1'..'9').to_a.shuffle[0,7].join
+	steps %Q{
+    	Then I enter "Oksana" into input field number 1
+   		Then I enter "Kovalchuk" into input field number 2
+   		Then I enter "380" into input field number 3
+   		Then I enter "#{phone}" into input field number 4
+   	 	Then I touch the "SignIn" button
+  	}
 end
 
 # #---------------------------- Scroll down untill find SomeLabel or timeout---------------------
@@ -57,33 +56,6 @@ end
 #         screenshot_and_raise "Expected keyboard to not be visible."
 #     end
 
-# #---------------------------------------------------------------------------------
-Given /^I am on the Welcome Screen$/ do
-  element_exists("view")
-  sleep(STEP_PAUSE)
-end
-
-
-Given /^I have fresh registration$/ do
-   # macro "Then I enter \"Oksana\" into input field number 1"
-   # macro "Then I enter \"Kovalchuk\" into input field number 2"
-   # macro "Then I enter \"380\" into input field number 3"
-
-   # phone = "091" + ('1'..'9').to_a.shuffle[0,7].join
-   # macro "Then I enter phone into input field number 4"
-   # macro "Then I touch the \"SignIn\" button"
-   # macro "And I wait until I see \"gridView\""
-
-	phone = "091" + ('1'..'9').to_a.shuffle[0,7].join
-	steps %Q{
-    	Then I enter "Oksana" into input field number 1
-   		Then I enter "Kovalchuk" into input field number 2
-   		Then I enter "380" into input field number 3"
-   		Then I enter #{phone} into input field number 4"
-   	 	Then I touch the "SignIn" button
-   		And I wait until I see "gridView"
-  	}
-end
 
 When(/^I pan left on the screen$/) do
   top_view = query().first
