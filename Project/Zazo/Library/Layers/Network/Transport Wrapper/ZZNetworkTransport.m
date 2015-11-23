@@ -73,6 +73,10 @@
         else if ([status isEqualToString:@"failure"])
         {
             NSDictionary* errorObject = @{@"status" : status};
+            if ([[json objectForKey:@"title"] isEqualToString:@"Bad Phone"])
+            {
+                errorObject = json;
+            }
             NSError* error = [[NSError alloc] initWithDomain:@"" code:1 userInfo:errorObject];
             [self handleError:error subscriber:subscriber];
         }
