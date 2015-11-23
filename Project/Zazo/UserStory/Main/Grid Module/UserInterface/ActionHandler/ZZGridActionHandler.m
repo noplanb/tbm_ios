@@ -29,6 +29,7 @@
 #import "ZZFeatureEventObserver.h"
 #import "TBMFeatureUnlockDialogView.h"
 #import "TBMNextFeatureDialogView.h"
+#import "ZZStoredSettingsManager.h"
 
 
 @interface ZZGridActionHandler ()
@@ -312,7 +313,11 @@
 
 - (void)resetLastHintAndShowIfNeeded
 {
-    if (![ZZGridActionStoredSettings shared].spinHintWasShown)
+    if ([ZZStoredSettingsManager shared].wasPermissionAccess)
+    {
+        [ZZStoredSettingsManager shared].wasPermissionAccess = NO;
+    }
+    else if (![ZZGridActionStoredSettings shared].spinHintWasShown)
     {
         [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = NO;
         [self.startEventHandler handleResetLastActionWithCompletionBlock:^(ZZGridActionEventType event, ZZFriendDomainModel *model) {

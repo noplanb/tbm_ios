@@ -14,6 +14,7 @@
 #import "ZZGridDataProvider.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZUserDataProvider.h"
+#import "ZZStoredSettingsManager.h"
 
 
 static const NSInteger kDelayBetweenFriendUpdate = 30;
@@ -110,11 +111,13 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
     if (!self.isLoading && !self.isLoaded)
     {
         self.isLoading = YES;
+        [ZZStoredSettingsManager shared].wasPermissionAccess = shouldRequest;
         [[ZZAddressBookDataProvider loadContactsWithContactsRequest:shouldRequest] subscribeNext:^(NSArray *addressBookContactsArray) {
             
             [self.output addressBookDataLoaded:addressBookContactsArray];
             self.isLoading = NO;
             self.isLoaded = YES;
+            
             
         } error:^(NSError *error) {
             

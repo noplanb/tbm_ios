@@ -44,7 +44,10 @@
 
 - (void)addressBookDataLoaded:(NSArray*)data
 {
-    [self.dataSource setupAddressbookItems:data];
+    ANDispatchBlockToMainQueue(^{
+        [self.dataSource setupAddressbookItems:data];
+        [self.wireframe toggleMenu];
+    });
 }
 
 - (void)friendsThatHasAppLoaded:(NSArray*)friendsData
