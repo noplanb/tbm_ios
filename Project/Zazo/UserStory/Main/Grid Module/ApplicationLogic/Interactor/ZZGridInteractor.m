@@ -25,14 +25,18 @@
 #import "ZZGridActionStoredSettings.h"
 #import "ZZVideoStatusHandler.h"
 #import "ZZRootStateObserver.h"
+#import "ZZGridUpdateService.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
 @interface ZZGridInteractor ()
 <
     ZZVideoStatusHandlerDelegate,
-    ZZRootStateObserverDelegate
+    ZZRootStateObserverDelegate,
+    ZZGridUpdateServiceDelegate
 >
+
+@property (nonatomic, strong) ZZGridUpdateService* gridUpdateService;
 
 @end
 
@@ -45,7 +49,10 @@ static NSInteger const kGridFriendsCellCount = 8;
     {
         [[ZZVideoStatusHandler sharedInstance] addVideoStatusHandlerObserver:self];
         [[ZZRootStateObserver sharedInstance] addRootStateObserver:self];
+        self.gridUpdateService = [ZZGridUpdateService new];
+        self.gridUpdateService.delegate = self;
     }
+    
     return self;
 }
 
@@ -415,6 +422,21 @@ static NSInteger const kGridFriendsCellCount = 8;
     } error:^(NSError *error) {
         //TODO: revert status?
         [self.output loadedStateUpdatedTo:NO];
+    }];
+}
+
+
+#pragma mark - Update grid 
+
+- (void)updateGridIfNeeded
+{
+    [self.gridUpdateService updateFriendsIfNeeded];
+}
+
+- (void)updateGridDataWithModels:(NSArray *)models
+{
+    [models enumerateObjectsUsingBlock:^(ZZGridDomainModel*  _Nonnull gridModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self.output updateGridWithModel:gridModel isNewFriend:NO];
     }];
 }
 

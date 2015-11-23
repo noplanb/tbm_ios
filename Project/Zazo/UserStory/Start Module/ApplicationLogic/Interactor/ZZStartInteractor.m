@@ -9,7 +9,8 @@
 #import "ZZStartInteractor.h"
 #import "ZZCommonNetworkTransportService.h"
 #import "ZZUserDataProvider.h"
-
+#import "RollbarReachability.h"
+#import "AFNetworkReachabilityManager.h"
 
 @implementation ZZStartInteractor
 
@@ -27,11 +28,21 @@
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
     if (user.isRegistered)
     {
-        [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {
-            [self _checkVersionStateForUserLoggedInState:YES];
-        } error:^(NSError *error) {
-            [self _checkVersionStateForUserLoggedInState:YES];
-        }];
+        if ([[AFNetworkReachabilityManager sharedManager] isReachable])
+        {
+            [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {
+                [self _checkVersionStateForUserLoggedInState:YES];
+            } error:^(NSError *error) {
+                [self _checkVersionStateForUserLoggedInState:YES];
+            }];
+        }
+        else
+        {
+            //Open main screen if internet connection has 100% loss
+            ANDispatchBlockToMainQueue(^{
+                [self.output applicationIsUpToDateAndUserLogged:YES];
+            });
+        }
     }
     else
     {
@@ -82,7 +93,6 @@
         case ZZApplicationVersionStateUpdateOptional:
         {
             [self.output needUpdateAndCanSkip:YES logged:logged];
-
         }
             break;
         case ZZApplicationVersionStateUpdateSchemaRequired:

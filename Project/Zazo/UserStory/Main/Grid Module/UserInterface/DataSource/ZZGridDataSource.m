@@ -277,6 +277,11 @@ ZZGridCenterCellViewModelDelegate
     [self.delegate showRecorderHint];
 }
 
+- (NSArray *)gridModels
+{
+    return self.models;
+}
+
 #pragma mark - Center Cell Delegate
 
 - (void)switchCamera

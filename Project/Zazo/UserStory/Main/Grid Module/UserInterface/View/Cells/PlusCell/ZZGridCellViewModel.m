@@ -54,8 +54,8 @@
 - (NSString*)videoStatusString
 {
     ZZFriendDomainModel* friendModel = self.item.relatedUser;
-    TBMFriend* friendEntity = [ZZFriendDataProvider entityFromModel:friendModel];
-    
+//    TBMFriend* friendEntity = [ZZFriendDataProvider entityFromModel:friendModel];
+    TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
     NSString* videoStatusString = nil;
 
     if ([ZZStoredSettingsManager shared].debugModeEnabled)
@@ -376,7 +376,10 @@
     NSArray* sortedVideoArray = [self.item.relatedUser.videos sortedArrayUsingDescriptors:@[sortDescriptor]];
     ZZVideoDomainModel* lastModel = [sortedVideoArray lastObject];
     
-    [ZZThumbnailGenerator generateThumbVideo:lastModel];
+    if (![ZZThumbnailGenerator hasThumbForVideo:lastModel])
+    {
+        [ZZThumbnailGenerator generateThumbVideo:lastModel];
+    }
     
     return [ZZThumbnailGenerator lastThumbImageForUser:self.item.relatedUser];
 }

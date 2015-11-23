@@ -14,6 +14,7 @@
 #import "ZZVideoStatuses.h"
 #import "ZZVideoDataProvider.h"
 #import "ZZFriendDataProvider.h"
+#import "ZZFriendDomainModel.h"
 
 @interface ZZVideoStatusHandler ()
 
@@ -189,6 +190,15 @@
     
     friend.lastVideoStatusEventTypeValue = ZZVideoStatusEventTypeOutgoing;
     friend.outgoingVideoStatusValue = status;
+    
+    
+    if (status == ZZVideoOutgoingStatusUploaded ||
+        status == ZZVideoOutgoingStatusDownloaded ||
+        status == ZZVideoOutgoingStatusViewed)
+    {
+        friend.timeOfLastAction = [NSDate date];
+    }
+    
     [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
     
     [self _notifyObserversVideoStatusChangeForFriend:friend];
@@ -210,6 +220,7 @@
             [video.managedObjectContext MR_saveToPersistentStoreAndWait];
             
             friend.lastIncomingVideoStatusValue = videoStatus;
+            
             // Serhii says: We want to preserve previous status if last event type is incoming and status is VIEWED
             // Sani complicates it by saying: This is a bit subtle. We don't want an action by this user of
             // viewing his incoming video to count
@@ -220,6 +231,12 @@
             if (videoStatus != ZZVideoIncomingStatusViewed)
             {
                 friend.lastVideoStatusEventType = ZZVideoStatusEventTypeIncoming;
+            }
+            
+            
+            if (videoStatus == ZZVideoIncomingStatusDownloaded || videoStatus == ZZVideoIncomingStatusViewed)
+            {
+                friend.timeOfLastAction = [NSDate date];
             }
             
             [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
