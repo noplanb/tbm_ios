@@ -95,17 +95,6 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 
 #pragma mark - Private
 
-- (void)_updateFriends
-{
-    [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray *array) {
-        
-        [self loadDataIncludeAddressBookRequest:NO shouldOpenDrawer:NO];
-        
-    } error:^(NSError *error) {
-        
-    }];
-}
-
 - (void)_loadAddressBookContactsWithRequestAccess:(BOOL)shouldRequest shouldOpenDrawer:(BOOL)shouldOpen
 {
     if (!self.isLoading && !self.isLoaded)
