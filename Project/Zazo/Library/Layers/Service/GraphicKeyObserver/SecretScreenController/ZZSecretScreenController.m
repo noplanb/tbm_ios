@@ -65,7 +65,8 @@ static CGFloat const kDefaultTouchDelay = 0.2;
             fabs(userAcceleration.y) > accelerationValue )
         {
             ANDispatchBlockToMainQueue(^{
-                if (completionBlock)
+                if (completionBlock &&
+                    [UIApplication sharedApplication].applicationState == UIApplicationStateActive)
                 {
                     completionBlock();
                 }

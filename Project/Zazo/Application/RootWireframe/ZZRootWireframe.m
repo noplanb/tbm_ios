@@ -45,7 +45,7 @@
     self.secretController = [ZZSecretScreenController startObserveWithType:ZZEnvelopObserveType
                                          touchType:ZZSecretScreenTouchTypeWithoutDelay
                                             window:window completionBlock:^{
-                [self _presentSecretScreenFromNavigationController:(UINavigationController*)window.rootViewController];
+            [self _presentSecretScreenFromNavigationController:(UINavigationController*)window.rootViewController];
     }];
 }
 
