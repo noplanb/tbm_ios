@@ -109,6 +109,14 @@ static CGFloat const kStartGridRotationOffset = 10;
             default: break;
         }
     }
+    else
+    {
+        if (self.isMoving)
+        {
+            self.isMoving = NO;
+            [self.rotator decayAnimationWithVelocity:[recognizer angleVelocityInView:self.gridView] onCarouselView:self.gridView];
+        }
+    }
     
 }
 
