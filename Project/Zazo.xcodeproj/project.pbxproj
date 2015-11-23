@@ -260,6 +260,334 @@
 		07E09E2C1BD5B39000A59389 /* ZZApplicationPermissionsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E2B1BD5B39000A59389 /* ZZApplicationPermissionsHandler.m */; };
 		07E09E301BD69A7200A59389 /* ZZApplicationRootService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E2F1BD69A7200A59389 /* ZZApplicationRootService.m */; };
 		07E09E361BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E351BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m */; };
+		07EF61641C03B0FA0003B71F /* ZZSecretValueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C6D1BA49A0100925671 /* ZZSecretValueCell.m */; };
+		07EF61651C03B0FA0003B71F /* ZZStartVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D1D1BA49A0100925671 /* ZZStartVC.m */; };
+		07EF61661C03B0FA0003B71F /* ZZAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AEB1BA49A0100925671 /* ZZAppDelegate.m */; };
+		07EF61671C03B0FA0003B71F /* ZZAuthTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C1B1BA49A0100925671 /* ZZAuthTextField.m */; };
+		07EF61681C03B0FA0003B71F /* ZZRemoteStorageValueGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E121BD5770500A59389 /* ZZRemoteStorageValueGenerator.m */; };
+		07EF61691C03B0FA0003B71F /* NSError+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B6A431BD52F94000B824E /* NSError+ZZAdditions.m */; };
+		07EF616A1C03B0FA0003B71F /* ZZGridDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B311BA49A0100925671 /* ZZGridDomainModel.m */; };
+		07EF616B1C03B0FA0003B71F /* ZZGridCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CB31BA49A0100925671 /* ZZGridCenterCell.m */; };
+		07EF616C1C03B0FA0003B71F /* ZZMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D011BA49A0100925671 /* ZZMenuView.m */; };
+		07EF616D1C03B0FA0003B71F /* ZZGridInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CA01BA49A0100925671 /* ZZGridInteractor.m */; };
+		07EF616E1C03B0FA0003B71F /* ZZRotator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CE21BA49A0100925671 /* ZZRotator.m */; };
+		07EF616F1C03B0FA0003B71F /* ZZS3CredentialsDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B341BA49A0100925671 /* ZZS3CredentialsDomainModel.m */; };
+		07EF61701C03B0FA0003B71F /* ZZAuthContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C151BA49A0100925671 /* ZZAuthContentView.m */; };
+		07EF61711C03B0FA0003B71F /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA01BA49A0100925671 /* NSString+MD5.m */; };
+		07EF61721C03B0FA0003B71F /* UIColor+JFMinimalNotificationColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4F41BAABE85001697D5 /* UIColor+JFMinimalNotificationColors.m */; };
+		07EF61731C03B0FA0003B71F /* ANMessageDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D5B1BA49A0100925671 /* ANMessageDomainModel.m */; };
+		07EF61741C03B0FA0003B71F /* ZZVideoDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B241BA49A0100925671 /* ZZVideoDataProvider.m */; };
+		07EF61751C03B0FA0003B71F /* ZZNotificationsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E191BD5A69500A59389 /* ZZNotificationsHandler.m */; };
+		07EF61761C03B0FA0003B71F /* ZZUserFriendshipStatusHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C94DCF1BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m */; };
+		07EF61771C03B0FA0003B71F /* ANAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D2B1BA49A0100925671 /* ANAnimator.m */; };
+		07EF61781C03B0FA0003B71F /* ZZStartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D1F1BA49A0100925671 /* ZZStartView.m */; };
+		07EF61791C03B0FA0003B71F /* ZZHintsView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7D83271BBE580C00445108 /* ZZHintsView.m */; };
+		07EF617A1C03B0FA0003B71F /* ZZRotationGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CE01BA49A0100925671 /* ZZRotationGestureRecognizer.m */; };
+		07EF617B1C03B0FA0003B71F /* ZZFriendsTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B4D1BA49A0100925671 /* ZZFriendsTransport.m */; };
+		07EF617C1C03B0FA0003B71F /* ZZGridActionStoredSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4EA1BAABE2F001697D5 /* ZZGridActionStoredSettings.m */; };
+		07EF617D1C03B0FA0003B71F /* JFMinimalNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4EE1BAABE85001697D5 /* JFMinimalNotification.m */; };
+		07EF617E1C03B0FA0003B71F /* ZZFeatureEventObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1F2F21BC6AA990070ECF1 /* ZZFeatureEventObserver.m */; };
+		07EF617F1C03B0FA0003B71F /* ZZFileTransferMarkerDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E351BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m */; };
+		07EF61801C03B0FA0003B71F /* UIImage+PDF.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA41BA49A0100925671 /* UIImage+PDF.m */; };
+		07EF61811C03B0FA0003B71F /* ZZAuthWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C211BA49A0100925671 /* ZZAuthWireframe.m */; };
+		07EF61821C03B0FA0003B71F /* ANNetworkActivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D711BA49A0100925671 /* ANNetworkActivityManager.m */; };
+		07EF61831C03B0FA0003B71F /* ZZAuthRegistrationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C181BA49A0100925671 /* ZZAuthRegistrationView.m */; };
+		07EF61841C03B0FA0003B71F /* ZZUserNameLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 184E53E81BD4CB510007CF6F /* ZZUserNameLabel.m */; };
+		07EF61851C03B0FA0003B71F /* ZZGridWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CEC1BA49A0100925671 /* ZZGridWireframe.m */; };
+		07EF61861C03B0FA0003B71F /* ZZHintArrowConfigurationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186BD4B91BC40EF900B47C6B /* ZZHintArrowConfigurationModel.m */; };
+		07EF61871C03B0FA0003B71F /* ZZSpinFeatureEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CC41BC525CC00044F83 /* ZZSpinFeatureEventHandler.m */; };
+		07EF61881C03B0FA0003B71F /* ZZGridActionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 079280A31BA8544800E22553 /* ZZGridActionHandler.m */; };
+		07EF61891C03B0FA0003B71F /* ZZEditFriendListWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C9B1BA49A0100925671 /* ZZEditFriendListWireframe.m */; };
+		07EF618A1C03B0FA0003B71F /* ZZVideoStatuses.m in Sources */ = {isa = PBXBuildFile; fileRef = 180254A21BB2C5A400138A52 /* ZZVideoStatuses.m */; };
+		07EF618B1C03B0FA0003B71F /* ZZEnvelopStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BA11BA49A0100925671 /* ZZEnvelopStrategy.m */; };
+		07EF618C1C03B0FA0003B71F /* ZZEarpieceFeatureEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CC11BC5255D00044F83 /* ZZEarpieceFeatureEventHandler.m */; };
+		07EF618D1C03B0FA0003B71F /* ZZRootStateObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 1868E1B91BE26C72000B80D3 /* ZZRootStateObserver.m */; };
+		07EF618E1C03B0FA0003B71F /* ZZDebugStateWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C4C1BA49A0100925671 /* ZZDebugStateWireframe.m */; };
+		07EF618F1C03B0FA0003B71F /* ZZDebugStateCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C441BA49A0100925671 /* ZZDebugStateCellViewModel.m */; };
+		07EF61901C03B0FA0003B71F /* AVAudioSession+ZZAudioSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 223A1F591BF97D9D00FA4EA7 /* AVAudioSession+ZZAudioSession.m */; };
+		07EF61911C03B0FA0003B71F /* NSObject+ANRACAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D381BA49A0100925671 /* NSObject+ANRACAdditions.m */; };
+		07EF61921C03B0FA0003B71F /* ZZRemoteStorageTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B521BA49A0100925671 /* ZZRemoteStorageTransport.m */; };
+		07EF61931C03B0FA0003B71F /* ZZGridHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CDC1BA49A0100925671 /* ZZGridHelper.m */; };
+		07EF61941C03B0FA0003B71F /* ZZEditFriendListInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C7D1BA49A0100925671 /* ZZEditFriendListInteractor.m */; };
+		07EF61951C03B0FA0003B71F /* ZZRecordEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CA91BC5209000044F83 /* ZZRecordEventHandler.m */; };
+		07EF61961C03B0FA0003B71F /* ZZBaseDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B2B1BA49A0100925671 /* ZZBaseDomainModel.m */; };
+		07EF61971C03B0FA0003B71F /* ZZSecretPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C5C1BA49A0100925671 /* ZZSecretPresenter.m */; };
+		07EF61981C03B0FA0003B71F /* ZZAuthInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C081BA49A0100925671 /* ZZAuthInteractor.m */; };
+		07EF61991C03B0FA0003B71F /* TBMVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B6B1BA49A0100925671 /* TBMVideo.m */; };
+		07EF619A1C03B0FA0003B71F /* ZZGridRotationTouchObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CE51BA49A0100925671 /* ZZGridRotationTouchObserver.m */; };
+		07EF619B1C03B0FA0003B71F /* ZZGridCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CCA1BA49A0100925671 /* ZZGridCellViewModel.m */; };
+		07EF619C1C03B0FA0003B71F /* ZZBaseEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1C9D1BC51A4600044F83 /* ZZBaseEventHandler.m */; };
+		07EF619D1C03B0FA0003B71F /* ZZEditFriendCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C911BA49A0100925671 /* ZZEditFriendCellViewModel.m */; };
+		07EF619E1C03B0FA0003B71F /* ZZMenuCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276491BA6B4AB00E506D5 /* ZZMenuCellViewModel.m */; };
+		07EF619F1C03B0FA0003B71F /* TBMGridElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B671BA49A0100925671 /* TBMGridElement.m */; };
+		07EF61A01C03B0FA0003B71F /* ZZSecretInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C511BA49A0100925671 /* ZZSecretInteractor.m */; };
+		07EF61A11C03B0FA0003B71F /* ZZAccountTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B431BA49A0100925671 /* ZZAccountTransport.m */; };
+		07EF61A21C03B0FA0003B71F /* ZZGridVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CE81BA49A0100925671 /* ZZGridVC.m */; };
+		07EF61A31C03B0FA0003B71F /* TOActivitySafari.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D971BA49A0100925671 /* TOActivitySafari.m */; };
+		07EF61A41C03B0FA0003B71F /* ZZAuthVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C1D1BA49A0100925671 /* ZZAuthVC.m */; };
+		07EF61A51C03B0FA0003B71F /* ZZEditFriendListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C951BA49A0100925671 /* ZZEditFriendListController.m */; };
+		07EF61A61C03B0FA0003B71F /* ZZGridCenterCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CB51BA49A0100925671 /* ZZGridCenterCellViewModel.m */; };
+		07EF61A71C03B0FA0003B71F /* ZZSoundEffectPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 073D55691BD2D82B0014E83E /* ZZSoundEffectPlayer.m */; };
+		07EF61A81C03B0FA0003B71F /* NSObject+ANSafeValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D3A1BA49A0100925671 /* NSObject+ANSafeValues.m */; };
+		07EF61A91C03B0FA0003B71F /* ZZVideoNetworkTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B5F1BA49A0100925671 /* ZZVideoNetworkTransport.m */; };
+		07EF61AA1C03B0FA0003B71F /* ZZSecretSegmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C651BA49A0100925671 /* ZZSecretSegmentCell.m */; };
+		07EF61AB1C03B0FA0003B71F /* ZZSecretSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C691BA49A0100925671 /* ZZSecretSwitchCell.m */; };
+		07EF61AC1C03B0FA0003B71F /* TBMTableModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636ABC1BA49A0100925671 /* TBMTableModal.m */; };
+		07EF61AD1C03B0FA0003B71F /* TBMNextFeatureDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CA1BA81BC7F01B008A7A93 /* TBMNextFeatureDialogView.m */; };
+		07EF61AE1C03B0FA0003B71F /* ZZTextFieldsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B0D1BA49A0100925671 /* ZZTextFieldsDelegate.m */; };
+		07EF61AF1C03B0FA0003B71F /* ZZCommunicationDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187842301BB2F2760007CDE2 /* ZZCommunicationDomainModel.m */; };
+		07EF61B01C03B0FA0003B71F /* ZZContactsPermissionAlertBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1872F4381BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.m */; };
+		07EF61B11C03B0FA0003B71F /* UIImage+TOWebViewControllerIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D9B1BA49A0100925671 /* UIImage+TOWebViewControllerIcons.m */; };
+		07EF61B21C03B0FA0003B71F /* ZZNotificationTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B591BA49A0100925671 /* ZZNotificationTransportService.m */; };
+		07EF61B31C03B0FA0003B71F /* ZZMenuInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CF11BA49A0100925671 /* ZZMenuInteractor.m */; };
+		07EF61B41C03B0FA0003B71F /* ANCrashlyticsAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D451BA49A0100925671 /* ANCrashlyticsAdapter.m */; };
+		07EF61B51C03B0FA0003B71F /* ZZGridStateViewRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CC61BA49A0100925671 /* ZZGridStateViewRecord.m */; };
+		07EF61B61C03B0FA0003B71F /* ZZGridPresenter+UserDialogs.m in Sources */ = {isa = PBXBuildFile; fileRef = 071F18E81BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.m */; };
+		07EF61B71C03B0FA0003B71F /* ZZGridPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CAE1BA49A0100925671 /* ZZGridPresenter.m */; };
+		07EF61B81C03B0FA0003B71F /* ZZCommonModelsGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07829D631BB2A9A80000D5D9 /* ZZCommonModelsGenerator.m */; };
+		07EF61B91C03B0FA0003B71F /* _TBMFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C947DD1BB566A500D31B99 /* _TBMFriend.m */; };
+		07EF61BA1C03B0FA0003B71F /* ZZNetworkTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B5C1BA49A0100925671 /* ZZNetworkTransport.m */; };
+		07EF61BB1C03B0FA0003B71F /* ZZDebugStateDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C3C1BA49A0100925671 /* ZZDebugStateDataSource.m */; };
+		07EF61BC1C03B0FA0003B71F /* ZZDebugStateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C481BA49A0100925671 /* ZZDebugStateVC.m */; };
+		07EF61BD1C03B0FA0003B71F /* ZZApplicationDataUpdaterService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E241BD5B15D00A59389 /* ZZApplicationDataUpdaterService.m */; };
+		07EF61BE1C03B0FA0003B71F /* ZZSecretSegmentCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C671BA49A0100925671 /* ZZSecretSegmentCellViewModel.m */; };
+		07EF61BF1C03B0FA0003B71F /* ZZEditFriendListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C971BA49A0100925671 /* ZZEditFriendListVC.m */; };
+		07EF61C01C03B0FA0003B71F /* ZZInviteSomeoneElseEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CB21BC522C600044F83 /* ZZInviteSomeoneElseEventHandler.m */; };
+		07EF61C11C03B0FA0003B71F /* ANNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D7B1BA49A0100925671 /* ANNetworkRequest.m */; };
+		07EF61C21C03B0FA0003B71F /* NSObject+ANUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D3C1BA49A0100925671 /* NSObject+ANUserDefaults.m */; };
+		07EF61C31C03B0FA0003B71F /* ZZConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B901BA49A0100925671 /* ZZConfig.m */; };
+		07EF61C41C03B0FA0003B71F /* ANErrorBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D4E1BA49A0100925671 /* ANErrorBuilder.m */; };
+		07EF61C51C03B0FA0003B71F /* PDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA21BA49A0100925671 /* PDFView.m */; };
+		07EF61C61C03B0FA0003B71F /* ZZAuthPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C101BA49A0100925671 /* ZZAuthPresenter.m */; };
+		07EF61C71C03B0FA0003B71F /* ZZGridStateViewNudge.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CC01BA49A0100925671 /* ZZGridStateViewNudge.m */; };
+		07EF61C81C03B0FA0003B71F /* ZZFeatureEventStrategyInviteeUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1F2FC1BC6AEEA0070ECF1 /* ZZFeatureEventStrategyInviteeUser.m */; };
+		07EF61C91C03B0FA0003B71F /* ZZNotificationsTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B571BA49A0100925671 /* ZZNotificationsTransport.m */; };
+		07EF61CA1C03B0FA0003B71F /* ZZRemoteStorageConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E161BD5953D00A59389 /* ZZRemoteStorageConstants.m */; };
+		07EF61CB1C03B0FA0003B71F /* ZZTouchControllerWithoutDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BAE1BA49A0100925671 /* ZZTouchControllerWithoutDelay.m */; };
+		07EF61CC1C03B0FA0003B71F /* TBMVerfiicationAlertHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D8F1BA49A0100925671 /* TBMVerfiicationAlertHandler.m */; };
+		07EF61CD1C03B0FA0003B71F /* ZZHintsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D721BB032C3007E1CBF /* ZZHintsController.m */; };
+		07EF61CE1C03B0FA0003B71F /* ANMessagesWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D5D1BA49A0100925671 /* ANMessagesWireframe.m */; };
+		07EF61CF1C03B0FA0003B71F /* ZZGridTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07829D671BB2AA840000D5D9 /* ZZGridTransportService.m */; };
+		07EF61D01C03B0FA0003B71F /* ZZEditFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C8F1BA49A0100925671 /* ZZEditFriendCell.m */; };
+		07EF61D11C03B0FA0003B71F /* ZZAbortRecordingFeatureEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CBB1BC5246C00044F83 /* ZZAbortRecordingFeatureEventHandler.m */; };
+		07EF61D21C03B0FA0003B71F /* ZZDebugStateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C461BA49A0100925671 /* ZZDebugStateController.m */; };
+		07EF61D31C03B0FA0003B71F /* ZZRootWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AF81BA49A0100925671 /* ZZRootWireframe.m */; };
+		07EF61D41C03B0FA0003B71F /* ZZVideoRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 221058361BE6C4EF00E18A38 /* ZZVideoRecorder.m */; };
+		07EF61D51C03B0FA0003B71F /* ZZRollbarAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E90121BD43CEB001A4718 /* ZZRollbarAdapter.m */; };
+		07EF61D61C03B0FA0003B71F /* ZZMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D091BA49A0100925671 /* ZZMenuVC.m */; };
+		07EF61D71C03B0FA0003B71F /* ZZGridStateViewPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CC31BA49A0100925671 /* ZZGridStateViewPreview.m */; };
+		07EF61D81C03B0FA0003B71F /* ZZSentWelcomeEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CB51BC5236E00044F83 /* ZZSentWelcomeEventHandler.m */; };
+		07EF61D91C03B0FA0003B71F /* NSArray+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B6A401BD52F94000B824E /* NSArray+ZZAdditions.m */; };
+		07EF61DA1C03B0FA0003B71F /* ZZGridAlertBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CA81BA49A0100925671 /* ZZGridAlertBuilder.m */; };
+		07EF61DB1C03B0FA0003B71F /* ZZDebugStateInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C2F1BA49A0100925671 /* ZZDebugStateInteractor.m */; };
+		07EF61DC1C03B0FA0003B71F /* ZZVideoNetworkTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B611BA49A0100925671 /* ZZVideoNetworkTransportService.m */; };
+		07EF61DD1C03B0FA0003B71F /* ZZBaseTouchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BA81BA49A0100925671 /* ZZBaseTouchController.m */; };
+		07EF61DE1C03B0FA0003B71F /* ZZGridInteractor+ActionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CCE1BC550DE00044F83 /* ZZGridInteractor+ActionHandler.m */; };
+		07EF61DF1C03B0FA0003B71F /* ZZAppDependencies.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AF11BA49A0100925671 /* ZZAppDependencies.m */; };
+		07EF61E01C03B0FA0003B71F /* ZZGridModelsMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B1C1BA49A0100925671 /* ZZGridModelsMapper.m */; };
+		07EF61E11C03B0FA0003B71F /* ANEnumAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D791BA49A0100925671 /* ANEnumAdditions.m */; };
+		07EF61E21C03B0FA0003B71F /* ZZTouchControllerWithTouchDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BAB1BA49A0100925671 /* ZZTouchControllerWithTouchDelay.m */; };
+		07EF61E31C03B0FA0003B71F /* ZZMenuPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CFC1BA49A0100925671 /* ZZMenuPresenter.m */; };
+		07EF61E41C03B0FA0003B71F /* ZZVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BBF1BA49A0100925671 /* ZZVideoPlayer.m */; };
+		07EF61E51C03B0FA0003B71F /* ZZHintsGotItView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7D83251BBE580C00445108 /* ZZHintsGotItView.m */; };
+		07EF61E61C03B0FA0003B71F /* UIView+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA61BA49A0100925671 /* UIView+Image.m */; };
+		07EF61E71C03B0FA0003B71F /* ZZPlayEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CA61BC51B7100044F83 /* ZZPlayEventHandler.m */; };
+		07EF61E81C03B0FA0003B71F /* TBMFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B651BA49A0100925671 /* TBMFriend.m */; };
+		07EF61E91C03B0FA0003B71F /* TBMFeatureUnlockDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1F3031BC6C7180070ECF1 /* TBMFeatureUnlockDialogView.m */; };
+		07EF61EA1C03B0FA0003B71F /* ZZFriendDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B381BA49A0100925671 /* ZZFriendDomainModel.m */; };
+		07EF61EB1C03B0FA0003B71F /* ZZKeyStoreIncomingVideoIdsDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m */; };
+		07EF61EC1C03B0FA0003B71F /* NSString+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D3F1BA49A0100925671 /* NSString+ZZAdditions.m */; };
+		07EF61ED1C03B0FA0003B71F /* ZZHintsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D851BB14F8E007E1CBF /* ZZHintsViewModel.m */; };
+		07EF61EE1C03B0FA0003B71F /* tbm.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07636B751BA49A0100925671 /* tbm.xcdatamodeld */; };
+		07EF61EF1C03B0FA0003B71F /* ZZColorTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B8D1BA49A0100925671 /* ZZColorTheme.m */; };
+		07EF61F01C03B0FA0003B71F /* ZZFileHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA70F1BB1C346009878B9 /* ZZFileHelper.m */; };
+		07EF61F11C03B0FA0003B71F /* _TBMVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C947E31BB566A500D31B99 /* _TBMVideo.m */; };
+		07EF61F21C03B0FA0003B71F /* ZZGridUpdateService.m in Sources */ = {isa = PBXBuildFile; fileRef = 183774A41BFF440D00CE390D /* ZZGridUpdateService.m */; };
+		07EF61F31C03B0FA0003B71F /* ZZHintsArrow.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7D83231BBE580C00445108 /* ZZHintsArrow.m */; };
+		07EF61F41C03B0FA0003B71F /* TOActivityChrome.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D951BA49A0100925671 /* TOActivityChrome.m */; };
+		07EF61F51C03B0FA0003B71F /* ZZFriendsTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B4F1BA49A0100925671 /* ZZFriendsTransportService.m */; };
+		07EF61F61C03B0FA0003B71F /* ZZNotificationsConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E1D1BD5A6D000A59389 /* ZZNotificationsConstants.m */; };
+		07EF61F71C03B0FA0003B71F /* _TBMGridElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C947DF1BB566A500D31B99 /* _TBMGridElement.m */; };
+		07EF61F81C03B0FA0003B71F /* ZZUserDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B3B1BA49A0100925671 /* ZZUserDomainModel.m */; };
+		07EF61F91C03B0FA0003B71F /* ZZStoredSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BB91BA49A0100925671 /* ZZStoredSettingsManager.m */; };
+		07EF61FA1C03B0FA0003B71F /* ZZApplicationVersionEnumHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 070238D71BB430B100B8197E /* ZZApplicationVersionEnumHelper.m */; };
+		07EF61FB1C03B0FA0003B71F /* ZZGridStateView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CBB1BA49A0100925671 /* ZZGridStateView+Animation.m */; };
+		07EF61FC1C03B0FA0003B71F /* ZZGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CC81BA49A0100925671 /* ZZGridCell.m */; };
+		07EF61FD1C03B0FA0003B71F /* ZZInviteEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CA31BC51B2000044F83 /* ZZInviteEventHandler.m */; };
+		07EF61FE1C03B0FA0003B71F /* ZZNotificationDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E201BD5AB6200A59389 /* ZZNotificationDomainModel.m */; };
+		07EF61FF1C03B0FA0003B71F /* ZZFeatureEventStrategyBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1F2F91BC6AC780070ECF1 /* ZZFeatureEventStrategyBase.m */; };
+		07EF62001C03B0FA0003B71F /* ZZContactDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B2E1BA49A0100925671 /* ZZContactDomainModel.m */; };
+		07EF62011C03B0FA0003B71F /* NSInvocation+Constructors.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4F21BAABE85001697D5 /* NSInvocation+Constructors.m */; };
+		07EF62021C03B0FA0003B71F /* TOWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D991BA49A0100925671 /* TOWebViewController.m */; };
+		07EF62031C03B0FA0003B71F /* ZZGridDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CAB1BA49A0100925671 /* ZZGridDataSource.m */; };
+		07EF62041C03B0FA0003B71F /* ZZSecretScreenTextEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C611BA49A0100925671 /* ZZSecretScreenTextEditCell.m */; };
+		07EF62051C03B0FA0003B71F /* ANBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D311BA49A0100925671 /* ANBaseVC.m */; };
+		07EF62061C03B0FA0003B71F /* ZZRollbarConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E90161BD44695001A4718 /* ZZRollbarConstants.m */; };
+		07EF62071C03B0FA0003B71F /* ZZSecretScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185DE9061BDE6F5000106F83 /* ZZSecretScreenController.m */; };
+		07EF62081C03B0FA0003B71F /* ZZFriendDataUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 07738E6B1BBC25C500CD3E7C /* ZZFriendDataUpdater.m */; };
+		07EF62091C03B0FA0003B71F /* ZZGeometryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CDA1BA49A0100925671 /* ZZGeometryHelper.m */; };
+		07EF620A1C03B0FA0003B71F /* ZZDeleteFriendsFeatureEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CBE1BC524E100044F83 /* ZZDeleteFriendsFeatureEventHandler.m */; };
+		07EF620B1C03B0FA0003B71F /* ZZSecretVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C731BA49A0100925671 /* ZZSecretVC.m */; };
+		07EF620C1C03B0FA0003B71F /* ZZMenuWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D0D1BA49A0100925671 /* ZZMenuWireframe.m */; };
+		07EF620D1C03B0FA0003B71F /* ZZVideoDataUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 184504F91BE12CC800C9C89B /* ZZVideoDataUpdater.m */; };
+		07EF620E1C03B0FA0003B71F /* ZZGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CD11BA49A0100925671 /* ZZGridView.m */; };
+		07EF620F1C03B0FA0003B71F /* ZZViewedMessageEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CAF1BC5222600044F83 /* ZZViewedMessageEventHandler.m */; };
+		07EF62101C03B0FA0003B71F /* ZZThumbnailGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA7131BB1C55E009878B9 /* ZZThumbnailGenerator.m */; };
+		07EF62111C03B0FA0003B71F /* ANDebugVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C271BA49A0100925671 /* ANDebugVC.m */; };
+		07EF62121C03B0FA0003B71F /* ZZSentMessgeEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CAC1BC5219300044F83 /* ZZSentMessgeEventHandler.m */; };
+		07EF62131C03B0FA0003B71F /* ZZFriendDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B151BA49A0100925671 /* ZZFriendDataProvider.m */; };
+		07EF62141C03B0FA0003B71F /* ANErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D761BA49A0100925671 /* ANErrorHandler.m */; };
+		07EF62151C03B0FA0003B71F /* ANDebugController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C251BA49A0100925671 /* ANDebugController.m */; };
+		07EF62161C03B0FA0003B71F /* ZZSecretValueCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C6F1BA49A0100925671 /* ZZSecretValueCellViewModel.m */; };
+		07EF62171C03B0FA0003B71F /* TBMContentViewModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AB01BA49A0100925671 /* TBMContentViewModal.m */; };
+		07EF62181C03B0FA0003B71F /* ZZApplicationStateInfoConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E901E1BD47073001A4718 /* ZZApplicationStateInfoConstants.m */; };
+		07EF62191C03B0FA0003B71F /* ZZDebugStatePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C3F1BA49A0100925671 /* ZZDebugStatePresenter.m */; };
+		07EF621A1C03B0FA0003B71F /* ZZVideoDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B3F1BA49A0100925671 /* ZZVideoDomainModel.m */; };
+		07EF621B1C03B0FA0003B71F /* ZZEditFriendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C931BA49A0100925671 /* ZZEditFriendView.m */; };
+		07EF621C1C03B0FA0003B71F /* ZZStartPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D1A1BA49A0100925671 /* ZZStartPresenter.m */; };
+		07EF621D1C03B0FA0003B71F /* ZZSecretScreenTextEditCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C631BA49A0100925671 /* ZZSecretScreenTextEditCellViewModel.m */; };
+		07EF621E1C03B0FA0003B71F /* JFMinimalNotificationArt.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4F01BAABE85001697D5 /* JFMinimalNotificationArt.m */; };
+		07EF621F1C03B0FA0003B71F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AF31BA49A0100925671 /* main.m */; };
+		07EF62201C03B0FA0003B71F /* ZZAddressBookDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B801BA49A0100925671 /* ZZAddressBookDataProvider.m */; };
+		07EF62211C03B0FA0003B71F /* ZZFronCameraFeatureEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CB81BC523FA00044F83 /* ZZFronCameraFeatureEventHandler.m */; };
+		07EF62221C03B0FA0003B71F /* ZZFriendModelsMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B171BA49A0100925671 /* ZZFriendModelsMapper.m */; };
+		07EF62231C03B0FA0003B71F /* ZZGridDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B1A1BA49A0100925671 /* ZZGridDataProvider.m */; };
+		07EF62241C03B0FA0003B71F /* ZZSecretWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C771BA49A0100925671 /* ZZSecretWireframe.m */; };
+		07EF62251C03B0FA0003B71F /* ZZGridPresenter+ActionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CCA1BC54E6F00044F83 /* ZZGridPresenter+ActionHandler.m */; };
+		07EF62261C03B0FA0003B71F /* ZZPhoneHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B0A1BA49A0100925671 /* ZZPhoneHelper.m */; };
+		07EF62271C03B0FA0003B71F /* ZZMigrationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE04101BFF8A1400D57966 /* ZZMigrationManager.m */; };
+		07EF62281C03B0FA0003B71F /* ZZBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B7C1BA49A0100925671 /* ZZBaseVC.m */; };
+		07EF62291C03B0FA0003B71F /* ZZSecretSwitchCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C6B1BA49A0100925671 /* ZZSecretSwitchCellViewModel.m */; };
+		07EF622A1C03B0FA0003B71F /* ANDrawerNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D481BA49A0100925671 /* ANDrawerNC.m */; };
+		07EF622B1C03B0FA0003B71F /* ZZKeychainDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BB31BA49A0100925671 /* ZZKeychainDataProvider.m */; };
+		07EF622C1C03B0FA0003B71F /* TBMAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D8A1BA49A0100925671 /* TBMAlertController.m */; };
+		07EF622D1C03B0FA0003B71F /* ZZVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BC21BA49A0100925671 /* ZZVideoProcessor.m */; };
+		07EF622E1C03B0FA0003B71F /* ZZApplicationStateInfoGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E901A1BD465CF001A4718 /* ZZApplicationStateInfoGenerator.m */; };
+		07EF622F1C03B0FA0003B71F /* ZZFriendDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDA6DA1BE8A328008D3619 /* ZZFriendDataHelper.m */; };
+		07EF62301C03B0FA0003B71F /* TBMAlertControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D8C1BA49A0100925671 /* TBMAlertControllerView.m */; };
+		07EF62311C03B0FA0003B71F /* ZZDeviceHandlerDeprecated.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B931BA49A0100925671 /* ZZDeviceHandlerDeprecated.m */; };
+		07EF62321C03B0FA0003B71F /* ZZVideoFileHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E281BD5B17F00A59389 /* ZZVideoFileHandler.m */; };
+		07EF62331C03B0FA0003B71F /* ZZSecretDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C591BA49A0100925671 /* ZZSecretDataSource.m */; };
+		07EF62341C03B0FA0003B71F /* ZZRemoteStoageTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B541BA49A0100925671 /* ZZRemoteStoageTransportService.m */; };
+		07EF62351C03B0FA0003B71F /* TBMVideoIdUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A011BA49A0000925671 /* TBMVideoIdUtils.m */; };
+		07EF62361C03B0FA0003B71F /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276471BA6B4AB00E506D5 /* ZZMenuCell.m */; };
+		07EF62371C03B0FA0003B71F /* ZZCommonNetworkTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B4A1BA49A0100925671 /* ZZCommonNetworkTransportService.m */; };
+		07EF62381C03B0FA0003B71F /* ZZContentDataAcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F52E021BFCAB6100042AAC /* ZZContentDataAcessor.m */; };
+		07EF62391C03B0FA0003B71F /* ZZHintsDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D881BB14F9E007E1CBF /* ZZHintsDomainModel.m */; };
+		07EF623A1C03B0FA0003B71F /* ZZVideoStatusHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 071828E61BE5777A00CFF0A5 /* ZZVideoStatusHandler.m */; };
+		07EF623B1C03B0FA0003B71F /* ZZVideoModelsMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B261BA49A0100925671 /* ZZVideoModelsMapper.m */; };
+		07EF623C1C03B0FA0003B71F /* ZZUserPresentationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA7071BB1B488009878B9 /* ZZUserPresentationHelper.m */; };
+		07EF623D1C03B0FA0003B71F /* ZZStringUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BBC1BA49A0100925671 /* ZZStringUtils.m */; };
+		07EF623E1C03B0FA0003B71F /* ZZGridContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 070D84781BBDAD8900196527 /* ZZGridContainerView.m */; };
+		07EF623F1C03B0FA0003B71F /* ZZFeatureEventStrategyRegisteredUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1F2FF1BC6AF180070ECF1 /* ZZFeatureEventStrategyRegisteredUser.m */; };
+		07EF62401C03B0FA0003B71F /* ZZErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B961BA49A0100925671 /* ZZErrorHandler.m */; };
+		07EF62411C03B0FA0003B71F /* ANTableContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D841BA49A0100925671 /* ANTableContainerView.m */; };
+		07EF62421C03B0FA0003B71F /* NSData+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D9E1BA49A0100925671 /* NSData+MD5.m */; };
+		07EF62431C03B0FA0003B71F /* ZZHintsModelGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D8B1BB15002007E1CBF /* ZZHintsModelGenerator.m */; };
+		07EF62441C03B0FA0003B71F /* ZZAlertBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B831BA49A0100925671 /* ZZAlertBuilder.m */; };
+		07EF62451C03B0FA0003B71F /* ZZGridDataUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E042AE1BBC2A3300318C6F /* ZZGridDataUpdater.m */; };
+		07EF62461C03B0FA0003B71F /* UIImage+ANDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AFD1BA49A0100925671 /* UIImage+ANDefault.m */; };
+		07EF62471C03B0FA0003B71F /* ZZMenuDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CF91BA49A0100925671 /* ZZMenuDataSource.m */; };
+		07EF62481C03B0FA0003B71F /* UIView+Round.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4F61BAABE85001697D5 /* UIView+Round.m */; };
+		07EF62491C03B0FA0003B71F /* ZZHintsConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D781BB03359007E1CBF /* ZZHintsConstants.m */; };
+		07EF624A1C03B0FA0003B71F /* TBMVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A051BA49A0000925671 /* TBMVideoProcessor.m */; };
+		07EF624B1C03B0FA0003B71F /* _TBMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C947E11BB566A500D31B99 /* _TBMUser.m */; };
+		07EF624C1C03B0FA0003B71F /* ZZDebugStateEnumHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C2C1BA49A0100925671 /* ZZDebugStateEnumHelper.m */; };
+		07EF624D1C03B0FA0003B71F /* TBMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B691BA49A0100925671 /* TBMUser.m */; };
+		07EF624E1C03B0FA0003B71F /* ZZDebugStateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C421BA49A0100925671 /* ZZDebugStateCell.m */; };
+		07EF624F1C03B0FA0003B71F /* ZZApplicationPermissionsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E2B1BD5B39000A59389 /* ZZApplicationPermissionsHandler.m */; };
+		07EF62501C03B0FA0003B71F /* ZZApplicationRootService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E2F1BD69A7200A59389 /* ZZApplicationRootService.m */; };
+		07EF62511C03B0FA0003B71F /* ZZGridViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CD41BA49A0100925671 /* ZZGridViewHeader.m */; };
+		07EF62521C03B0FA0003B71F /* ZZUserDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B1F1BA49A0100925671 /* ZZUserDataProvider.m */; };
+		07EF62531C03B0FA0003B71F /* ZZActionSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18965CAB1BAC5D29009AC8A4 /* ZZActionSheetController.m */; };
+		07EF62541C03B0FA0003B71F /* ZZStartInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D121BA49A0100925671 /* ZZStartInteractor.m */; };
+		07EF62551C03B0FA0003B71F /* ZZCommonNetworkTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B481BA49A0100925671 /* ZZCommonNetworkTransport.m */; };
+		07EF62561C03B0FA0003B71F /* ZZStartWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D231BA49A0100925671 /* ZZStartWireframe.m */; };
+		07EF62571C03B0FA0003B71F /* ZZMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D071BA49A0100925671 /* ZZMenuController.m */; };
+		07EF62581C03B0FA0003B71F /* ANError.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D741BA49A0100925671 /* ANError.m */; };
+		07EF62591C03B0FA0003B71F /* ZZDebugSettingsStateDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA7181BB1DE4E009878B9 /* ZZDebugSettingsStateDomainModel.m */; };
+		07EF625A1C03B0FA0003B71F /* ZZKeyStoreOutgoingVideoStatusDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3EC5E1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m */; };
+		07EF625B1C03B0FA0003B71F /* ZZUserModelsMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B211BA49A0100925671 /* ZZUserModelsMapper.m */; };
+		07EF625C1C03B0FA0003B71F /* ZZSecretBaseStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B9E1BA49A0100925671 /* ZZSecretBaseStrategy.m */; };
+		07EF625D1C03B0FA0003B71F /* ZZDebugFriendStateDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E90221BD48C57001A4718 /* ZZDebugFriendStateDomainModel.m */; };
+		07EF625E1C03B0FA0003B71F /* ZZEditFriendEnumsAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C801BA49A0100925671 /* ZZEditFriendEnumsAdditions.m */; };
+		07EF625F1C03B0FA0003B71F /* ANBaseListTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D2E1BA49A0100925671 /* ANBaseListTableCell.m */; };
+		07EF62601C03B0FA0003B71F /* TBMAlertControllerVisualStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D8E1BA49A0100925671 /* TBMAlertControllerVisualStyle.m */; };
+		07EF62611C03B0FA0003B71F /* ZZGridCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CCD1BA49A0100925671 /* ZZGridCollectionController.m */; };
+		07EF62621C03B0FA0003B71F /* ZZGridActionHandlerEnums.m in Sources */ = {isa = PBXBuildFile; fileRef = 070560FF1BA8824F00C130E0 /* ZZGridActionHandlerEnums.m */; };
+		07EF62631C03B0FA0003B71F /* ANNetworkSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D7E1BA49A0100925671 /* ANNetworkSessionManager.m */; };
+		07EF62641C03B0FA0003B71F /* ZZDebugVideoStateDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E90241BD48C57001A4718 /* ZZDebugVideoStateDomainModel.m */; };
+		07EF62651C03B0FA0003B71F /* ZZSecretController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C711BA49A0100925671 /* ZZSecretController.m */; };
+		07EF62661C03B0FA0003B71F /* ZZEditFriendListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C871BA49A0100925671 /* ZZEditFriendListDataSource.m */; };
+		07EF62671C03B0FA0003B71F /* ZZStrategyNavigationLeftRight.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BA41BA49A0100925671 /* ZZStrategyNavigationLeftRight.m */; };
+		07EF62681C03B0FA0003B71F /* ZZAccountTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B451BA49A0100925671 /* ZZAccountTransportService.m */; };
+		07EF62691C03B0FA0003B71F /* ZZGridStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CBD1BA49A0100925671 /* ZZGridStateView.m */; };
+		07EF626A1C03B0FA0003B71F /* ZZEditFriendListPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C8A1BA49A0100925671 /* ZZEditFriendListPresenter.m */; };
+		07EF626C1C03B0FA0003B71F /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 185DE9081BDE757900106F83 /* CoreMotion.framework */; };
+		07EF626D1C03B0FA0003B71F /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182398D21BB27B36008D1324 /* CoreTelephony.framework */; };
+		07EF626E1C03B0FA0003B71F /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208E8A61A1419D400150C35 /* AddressBook.framework */; };
+		07EF626F1C03B0FA0003B71F /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208E8A71A1419D400150C35 /* AddressBookUI.framework */; };
+		07EF62701C03B0FA0003B71F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22403C2A19D5E63400FC36E3 /* MessageUI.framework */; };
+		07EF62711C03B0FA0003B71F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
+		07EF62721C03B0FA0003B71F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902A1909A18B003C4F82 /* CoreGraphics.framework */; };
+		07EF62731C03B0FA0003B71F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902E1909A18B003C4F82 /* CoreData.framework */; };
+		07EF62741C03B0FA0003B71F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902C1909A18B003C4F82 /* UIKit.framework */; };
+		07EF62751C03B0FA0003B71F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E90281909A18B003C4F82 /* Foundation.framework */; };
+		07EF62761C03B0FA0003B71F /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */; };
+		07EF62781C03B0FA0003B71F /* camera-icon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7952764D1BA71F2700E506D5 /* camera-icon.pdf */; };
+		07EF62791C03B0FA0003B71F /* ZazoTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */; };
+		07EF627A1C03B0FA0003B71F /* navbar_btn_add.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BF81BA49A0100925671 /* navbar_btn_add.pdf */; };
+		07EF627B1C03B0FA0003B71F /* mogen.sh in Resources */ = {isa = PBXBuildFile; fileRef = 07636D541BA49A0100925671 /* mogen.sh */; };
+		07EF627C1C03B0FA0003B71F /* contacts-placeholder.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BDC1BA49A0100925671 /* contacts-placeholder.pdf */; };
+		07EF627D1C03B0FA0003B71F /* navbar_btn_back.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BF91BA49A0100925671 /* navbar_btn_back.pdf */; };
+		07EF627E1C03B0FA0003B71F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0732F5041B8B93D3004FD3AF /* InfoPlist.strings */; };
+		07EF627F1C03B0FA0003B71F /* navbar_btn_close.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BFA1BA49A0100925671 /* navbar_btn_close.pdf */; };
+		07EF62801C03B0FA0003B71F /* mogend.sh in Resources */ = {isa = PBXBuildFile; fileRef = 07636D551BA49A0100925671 /* mogend.sh */; };
+		07EF62811C03B0FA0003B71F /* ANGeneralErrorLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07636BFF1BA49A0100925671 /* ANGeneralErrorLocalizable.strings */; };
+		07EF62821C03B0FA0003B71F /* human.m.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = 07636D511BA49A0100925671 /* human.m.motemplate */; };
+		07EF62831C03B0FA0003B71F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636AAA1BA49A0100925671 /* Images.xcassets */; };
+		07EF62841C03B0FA0003B71F /* navbar_btn_more.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BFD1BA49A0100925671 /* navbar_btn_more.pdf */; };
+		07EF62851C03B0FA0003B71F /* FeatureUnlock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA81BA49A0100925671 /* FeatureUnlock.wav */; };
+		07EF62861C03B0FA0003B71F /* icon_arrow.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BE81BA49A0100925671 /* icon_arrow.pdf */; };
+		07EF62871C03B0FA0003B71F /* human.h.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = 07636D501BA49A0100925671 /* human.h.motemplate */; };
+		07EF62881C03B0FA0003B71F /* contacts-placeholder_withoutborder.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 182BCF651BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf */; };
+		07EF62891C03B0FA0003B71F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07636C011BA49A0100925671 /* Localizable.strings */; };
+		07EF628A1C03B0FA0003B71F /* edit-friends-icon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BF31BA49A0100925671 /* edit-friends-icon.pdf */; };
+		07EF628B1C03B0FA0003B71F /* contacts-placeholder-withoutborder2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 182BCF671BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf */; };
+		07EF628C1C03B0FA0003B71F /* icon_dots.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BE91BA49A0100925671 /* icon_dots.pdf */; };
+		07EF628D1C03B0FA0003B71F /* DK Crayon Crumble.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA71BA49A0100925671 /* DK Crayon Crumble.ttf */; };
+		07EF628E1C03B0FA0003B71F /* home-page-add-icon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BE21BA49A0100925671 /* home-page-add-icon.pdf */; };
+		07EF628F1C03B0FA0003B71F /* icon_menu_dots.png in Resources */ = {isa = PBXBuildFile; fileRef = 07636BF61BA49A0100925671 /* icon_menu_dots.png */; };
+		07EF62901C03B0FA0003B71F /* navbar_btn_edit.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BFC1BA49A0100925671 /* navbar_btn_edit.pdf */; };
+		07EF62911C03B0FA0003B71F /* NotificationTone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07636AAB1BA49A0100925671 /* NotificationTone.wav */; };
+		07EF62921C03B0FA0003B71F /* icon_search.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BEF1BA49A0100925671 /* icon_search.pdf */; };
+		07EF62931C03B0FA0003B71F /* icon_plus.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BED1BA49A0100925671 /* icon_plus.pdf */; };
+		07EF62941C03B0FA0003B71F /* icon_eye.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BEA1BA49A0100925671 /* icon_eye.pdf */; };
+		07EF62951C03B0FA0003B71F /* Contacts-plaiceholder-men.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BDD1BA49A0100925671 /* Contacts-plaiceholder-men.pdf */; };
+		07EF62961C03B0FA0003B71F /* icon_rounded_man.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BEE1BA49A0100925671 /* icon_rounded_man.pdf */; };
+		07EF62971C03B0FA0003B71F /* icon_menu_dots@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07636BF71BA49A0100925671 /* icon_menu_dots@2x.png */; };
+		07EF62981C03B0FA0003B71F /* Search-icon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BF41BA49A0100925671 /* Search-icon.pdf */; };
+		07EF62991C03B0FA0003B71F /* icon_man.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BEB1BA49A0100925671 /* icon_man.pdf */; };
+		07EF629A1C03B0FA0003B71F /* TOWebViewControllerLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07636D921BA49A0100925671 /* TOWebViewControllerLocalizable.strings */; };
+		07EF629B1C03B0FA0003B71F /* icon_people.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BEC1BA49A0100925671 /* icon_people.pdf */; };
+		07EF629C1C03B0FA0003B71F /* machine.h.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = 07636D521BA49A0100925671 /* machine.h.motemplate */; };
+		07EF629D1C03B0FA0003B71F /* machine.m.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = 07636D531BA49A0100925671 /* machine.m.motemplate */; };
+		07EF629E1C03B0FA0003B71F /* icon_camera_switch.png in Resources */ = {isa = PBXBuildFile; fileRef = 182D8D971BB5D45E0080E100 /* icon_camera_switch.png */; };
+		07EF629F1C03B0FA0003B71F /* home-page-view.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BE41BA49A0100925671 /* home-page-view.pdf */; };
+		07EF62A01C03B0FA0003B71F /* home-camera-w-fill.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BE11BA49A0100925671 /* home-camera-w-fill.pdf */; };
+		07EF62A11C03B0FA0003B71F /* logo.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BDA1BA49A0100925671 /* logo.pdf */; };
+		07EF62A21C03B0FA0003B71F /* home-page-arrow-left.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BE71BA49A0100925671 /* home-page-arrow-left.pdf */; };
+		07EF62A31C03B0FA0003B71F /* navbar_btn_done.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BFB1BA49A0100925671 /* navbar_btn_done.pdf */; };
+		07EF62A41C03B0FA0003B71F /* BeepSin30.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA61BA49A0100925671 /* BeepSin30.wav */; };
+		07EF62A51C03B0FA0003B71F /* head.png in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA91BA49A0100925671 /* head.png */; };
+		07EF62A61C03B0FA0003B71F /* icon_zazo.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BF01BA49A0100925671 /* icon_zazo.pdf */; };
+		07EF62A71C03B0FA0003B71F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD81BA49A0100925671 /* Assets.xcassets */; };
+		07EF62A81C03B0FA0003B71F /* edit-friends-user-has-app.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BDF1BA49A0100925671 /* edit-friends-user-has-app.pdf */; };
+		07EF62A91C03B0FA0003B71F /* ANServerErrorLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07636C001BA49A0100925671 /* ANServerErrorLocalizable.strings */; };
+		07EF62AA1C03B0FA0003B71F /* home-page-arrow.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BE31BA49A0100925671 /* home-page-arrow.pdf */; };
+		07EF62AB1C03B0FA0003B71F /* contacts-icon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BF21BA49A0100925671 /* contacts-icon.pdf */; };
+		07EF62AC1C03B0FA0003B71F /* app_logo.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BE61BA49A0100925671 /* app_logo.pdf */; };
+		07EF62B91C03B15A0003B71F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07EF62B81C03B15A0003B71F /* CFNetwork.framework */; };
 		07F0E7F41B8CD7A900036AB2 /* ZZAccountTransportServiceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E81B8CD7A900036AB2 /* ZZAccountTransportServiceSpec.m */; };
 		07F0E7F51B8CD7A900036AB2 /* ZZRegistrationWithSMSTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7E91B8CD7A900036AB2 /* ZZRegistrationWithSMSTest.m */; };
 		07F0E7F61B8CD7A900036AB2 /* ZZLoadFriendListSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EB1B8CD7A900036AB2 /* ZZLoadFriendListSpec.m */; };
@@ -348,6 +676,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
+		07EF62B01C03B0FA0003B71F /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = wrapper.xcdatamodel;
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILE_DIR)/$(INPUT_FILE_BASE).mom",
+			);
+			script = "echo \"Running mogen\"\n\"${PROJECT_DIR}/Zazo/Vendor/ANODA/ANHandyMogenerator/mogen.sh\"";
+		};
+		07EF62B11C03B0FA0003B71F /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = wrapper.xcdatamodeld;
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILE_DIR)/$(INPUT_FILE_BASE).mom",
+			);
+			script = "echo \"Running mogend\"\n\"${PROJECT_DIR}/Zazo/Vendor/ANODA/ANHandyMogenerator/mogend.sh\"";
+		};
 		07F0ED821B8CE78F00036AB2 /* PBXBuildRule */ = {
 			isa = PBXBuildRule;
 			compilerSpec = com.apple.compilers.proxy.script;
@@ -880,6 +1228,9 @@
 		07E09E2F1BD69A7200A59389 /* ZZApplicationRootService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZApplicationRootService.m; path = ApplicationServices/ZZApplicationRootService.m; sourceTree = "<group>"; };
 		07E09E341BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZFileTransferMarkerDomainModel.h; path = FileTransferModel/ZZFileTransferMarkerDomainModel.h; sourceTree = "<group>"; };
 		07E09E351BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZFileTransferMarkerDomainModel.m; path = FileTransferModel/ZZFileTransferMarkerDomainModel.m; sourceTree = "<group>"; };
+		07EF62B61C03B0FA0003B71F /* Zazo-cal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Zazo-cal.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		07EF62B81C03B15A0003B71F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		07EF62BA1C03B1770003B71F /* calabash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = calabash.framework; sourceTree = "<group>"; };
 		07F0E7E81B8CD7A900036AB2 /* ZZAccountTransportServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAccountTransportServiceSpec.m; sourceTree = "<group>"; };
 		07F0E7E91B8CD7A900036AB2 /* ZZRegistrationWithSMSTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRegistrationWithSMSTest.m; sourceTree = "<group>"; };
 		07F0E7EB1B8CD7A900036AB2 /* ZZLoadFriendListSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZLoadFriendListSpec.m; sourceTree = "<group>"; };
@@ -1044,6 +1395,25 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		07EF626B1C03B0FA0003B71F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07EF62B91C03B15A0003B71F /* CFNetwork.framework in Frameworks */,
+				07EF626C1C03B0FA0003B71F /* CoreMotion.framework in Frameworks */,
+				07EF626D1C03B0FA0003B71F /* CoreTelephony.framework in Frameworks */,
+				07EF626E1C03B0FA0003B71F /* AddressBook.framework in Frameworks */,
+				07EF626F1C03B0FA0003B71F /* AddressBookUI.framework in Frameworks */,
+				07EF62701C03B0FA0003B71F /* MessageUI.framework in Frameworks */,
+				07EF62711C03B0FA0003B71F /* AVFoundation.framework in Frameworks */,
+				07EF62721C03B0FA0003B71F /* CoreGraphics.framework in Frameworks */,
+				07EF62731C03B0FA0003B71F /* CoreData.framework in Frameworks */,
+				07EF62741C03B0FA0003B71F /* UIKit.framework in Frameworks */,
+				07EF62751C03B0FA0003B71F /* Foundation.framework in Frameworks */,
+				07EF62761C03B0FA0003B71F /* libPods-Zazo.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		220E90221909A18B003C4F82 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -3791,6 +4161,7 @@
 			children = (
 				220E90251909A18B003C4F82 /* Zazo.app */,
 				220E90451909A18B003C4F82 /* ZazoTests.xctest */,
+				07EF62B61C03B0FA0003B71F /* Zazo-cal.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3798,6 +4169,8 @@
 		220E90271909A18B003C4F82 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				07EF62BA1C03B1770003B71F /* calabash.framework */,
+				07EF62B81C03B15A0003B71F /* CFNetwork.framework */,
 				185DE9081BDE757900106F83 /* CoreMotion.framework */,
 				182398D21BB27B36008D1324 /* CoreTelephony.framework */,
 				41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */,
@@ -3923,6 +4296,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		07EF61611C03B0FA0003B71F /* Zazo-cal */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 07EF62B21C03B0FA0003B71F /* Build configuration list for PBXNativeTarget "Zazo-cal" */;
+			buildPhases = (
+				07EF61621C03B0FA0003B71F /* Check Pods Manifest.lock */,
+				07EF61631C03B0FA0003B71F /* Sources */,
+				07EF626B1C03B0FA0003B71F /* Frameworks */,
+				07EF62771C03B0FA0003B71F /* Resources */,
+				07EF62AD1C03B0FA0003B71F /* Copy Pods Resources */,
+				07EF62AE1C03B0FA0003B71F /* Fabric */,
+				07EF62AF1C03B0FA0003B71F /* Embed Pods Frameworks */,
+			);
+			buildRules = (
+				07EF62B01C03B0FA0003B71F /* PBXBuildRule */,
+				07EF62B11C03B0FA0003B71F /* PBXBuildRule */,
+			);
+			dependencies = (
+			);
+			name = "Zazo-cal";
+			productName = tbm;
+			productReference = 07EF62B61C03B0FA0003B71F /* Zazo-cal.app */;
+			productType = "com.apple.product-type.application";
+		};
 		220E90241909A18B003C4F82 /* Zazo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 220E90571909A18C003C4F82 /* Build configuration list for PBXNativeTarget "Zazo" */;
@@ -4015,11 +4411,72 @@
 			targets = (
 				220E90241909A18B003C4F82 /* Zazo */,
 				220E90441909A18B003C4F82 /* ZazoTests */,
+				07EF61611C03B0FA0003B71F /* Zazo-cal */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		07EF62771C03B0FA0003B71F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07EF62781C03B0FA0003B71F /* camera-icon.pdf in Resources */,
+				07EF62791C03B0FA0003B71F /* ZazoTests-Info.plist in Resources */,
+				07EF627A1C03B0FA0003B71F /* navbar_btn_add.pdf in Resources */,
+				07EF627B1C03B0FA0003B71F /* mogen.sh in Resources */,
+				07EF627C1C03B0FA0003B71F /* contacts-placeholder.pdf in Resources */,
+				07EF627D1C03B0FA0003B71F /* navbar_btn_back.pdf in Resources */,
+				07EF627E1C03B0FA0003B71F /* InfoPlist.strings in Resources */,
+				07EF627F1C03B0FA0003B71F /* navbar_btn_close.pdf in Resources */,
+				07EF62801C03B0FA0003B71F /* mogend.sh in Resources */,
+				07EF62811C03B0FA0003B71F /* ANGeneralErrorLocalizable.strings in Resources */,
+				07EF62821C03B0FA0003B71F /* human.m.motemplate in Resources */,
+				07EF62831C03B0FA0003B71F /* Images.xcassets in Resources */,
+				07EF62841C03B0FA0003B71F /* navbar_btn_more.pdf in Resources */,
+				07EF62851C03B0FA0003B71F /* FeatureUnlock.wav in Resources */,
+				07EF62861C03B0FA0003B71F /* icon_arrow.pdf in Resources */,
+				07EF62871C03B0FA0003B71F /* human.h.motemplate in Resources */,
+				07EF62881C03B0FA0003B71F /* contacts-placeholder_withoutborder.pdf in Resources */,
+				07EF62891C03B0FA0003B71F /* Localizable.strings in Resources */,
+				07EF628A1C03B0FA0003B71F /* edit-friends-icon.pdf in Resources */,
+				07EF628B1C03B0FA0003B71F /* contacts-placeholder-withoutborder2.pdf in Resources */,
+				07EF628C1C03B0FA0003B71F /* icon_dots.pdf in Resources */,
+				07EF628D1C03B0FA0003B71F /* DK Crayon Crumble.ttf in Resources */,
+				07EF628E1C03B0FA0003B71F /* home-page-add-icon.pdf in Resources */,
+				07EF628F1C03B0FA0003B71F /* icon_menu_dots.png in Resources */,
+				07EF62901C03B0FA0003B71F /* navbar_btn_edit.pdf in Resources */,
+				07EF62911C03B0FA0003B71F /* NotificationTone.wav in Resources */,
+				07EF62921C03B0FA0003B71F /* icon_search.pdf in Resources */,
+				07EF62931C03B0FA0003B71F /* icon_plus.pdf in Resources */,
+				07EF62941C03B0FA0003B71F /* icon_eye.pdf in Resources */,
+				07EF62951C03B0FA0003B71F /* Contacts-plaiceholder-men.pdf in Resources */,
+				07EF62961C03B0FA0003B71F /* icon_rounded_man.pdf in Resources */,
+				07EF62971C03B0FA0003B71F /* icon_menu_dots@2x.png in Resources */,
+				07EF62981C03B0FA0003B71F /* Search-icon.pdf in Resources */,
+				07EF62991C03B0FA0003B71F /* icon_man.pdf in Resources */,
+				07EF629A1C03B0FA0003B71F /* TOWebViewControllerLocalizable.strings in Resources */,
+				07EF629B1C03B0FA0003B71F /* icon_people.pdf in Resources */,
+				07EF629C1C03B0FA0003B71F /* machine.h.motemplate in Resources */,
+				07EF629D1C03B0FA0003B71F /* machine.m.motemplate in Resources */,
+				07EF629E1C03B0FA0003B71F /* icon_camera_switch.png in Resources */,
+				07EF629F1C03B0FA0003B71F /* home-page-view.pdf in Resources */,
+				07EF62A01C03B0FA0003B71F /* home-camera-w-fill.pdf in Resources */,
+				07EF62A11C03B0FA0003B71F /* logo.pdf in Resources */,
+				07EF62A21C03B0FA0003B71F /* home-page-arrow-left.pdf in Resources */,
+				07EF62A31C03B0FA0003B71F /* navbar_btn_done.pdf in Resources */,
+				07EF62A41C03B0FA0003B71F /* BeepSin30.wav in Resources */,
+				07EF62A51C03B0FA0003B71F /* head.png in Resources */,
+				07EF62A61C03B0FA0003B71F /* icon_zazo.pdf in Resources */,
+				07EF62A71C03B0FA0003B71F /* Assets.xcassets in Resources */,
+				07EF62A81C03B0FA0003B71F /* edit-friends-user-has-app.pdf in Resources */,
+				07EF62A91C03B0FA0003B71F /* ANServerErrorLocalizable.strings in Resources */,
+				07EF62AA1C03B0FA0003B71F /* home-page-arrow.pdf in Resources */,
+				07EF62AB1C03B0FA0003B71F /* contacts-icon.pdf in Resources */,
+				07EF62AC1C03B0FA0003B71F /* app_logo.pdf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		220E90231909A18B003C4F82 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4103,6 +4560,65 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 614db54f91c11edf6117193953fc20467d62cd05 06786661ab10c149ccf35734a13a2efd732d9dd1cb481ab620fc97be50a9ef38";
+		};
+		07EF61621C03B0FA0003B71F /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		07EF62AD1C03B0FA0003B71F /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zazo/Pods-Zazo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		07EF62AE1C03B0FA0003B71F /* Fabric */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Fabric;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 614db54f91c11edf6117193953fc20467d62cd05 06786661ab10c149ccf35734a13a2efd732d9dd1cb481ab620fc97be50a9ef38";
+		};
+		07EF62AF1C03B0FA0003B71F /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zazo/Pods-Zazo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		1BA3A35D9DA1BD52514FB6D3 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4197,6 +4713,276 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		07EF61631C03B0FA0003B71F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07EF61641C03B0FA0003B71F /* ZZSecretValueCell.m in Sources */,
+				07EF61651C03B0FA0003B71F /* ZZStartVC.m in Sources */,
+				07EF61661C03B0FA0003B71F /* ZZAppDelegate.m in Sources */,
+				07EF61671C03B0FA0003B71F /* ZZAuthTextField.m in Sources */,
+				07EF61681C03B0FA0003B71F /* ZZRemoteStorageValueGenerator.m in Sources */,
+				07EF61691C03B0FA0003B71F /* NSError+ZZAdditions.m in Sources */,
+				07EF616A1C03B0FA0003B71F /* ZZGridDomainModel.m in Sources */,
+				07EF616B1C03B0FA0003B71F /* ZZGridCenterCell.m in Sources */,
+				07EF616C1C03B0FA0003B71F /* ZZMenuView.m in Sources */,
+				07EF616D1C03B0FA0003B71F /* ZZGridInteractor.m in Sources */,
+				07EF616E1C03B0FA0003B71F /* ZZRotator.m in Sources */,
+				07EF616F1C03B0FA0003B71F /* ZZS3CredentialsDomainModel.m in Sources */,
+				07EF61701C03B0FA0003B71F /* ZZAuthContentView.m in Sources */,
+				07EF61711C03B0FA0003B71F /* NSString+MD5.m in Sources */,
+				07EF61721C03B0FA0003B71F /* UIColor+JFMinimalNotificationColors.m in Sources */,
+				07EF61731C03B0FA0003B71F /* ANMessageDomainModel.m in Sources */,
+				07EF61741C03B0FA0003B71F /* ZZVideoDataProvider.m in Sources */,
+				07EF61751C03B0FA0003B71F /* ZZNotificationsHandler.m in Sources */,
+				07EF61761C03B0FA0003B71F /* ZZUserFriendshipStatusHandler.m in Sources */,
+				07EF61771C03B0FA0003B71F /* ANAnimator.m in Sources */,
+				07EF61781C03B0FA0003B71F /* ZZStartView.m in Sources */,
+				07EF61791C03B0FA0003B71F /* ZZHintsView.m in Sources */,
+				07EF617A1C03B0FA0003B71F /* ZZRotationGestureRecognizer.m in Sources */,
+				07EF617B1C03B0FA0003B71F /* ZZFriendsTransport.m in Sources */,
+				07EF617C1C03B0FA0003B71F /* ZZGridActionStoredSettings.m in Sources */,
+				07EF617D1C03B0FA0003B71F /* JFMinimalNotification.m in Sources */,
+				07EF617E1C03B0FA0003B71F /* ZZFeatureEventObserver.m in Sources */,
+				07EF617F1C03B0FA0003B71F /* ZZFileTransferMarkerDomainModel.m in Sources */,
+				07EF61801C03B0FA0003B71F /* UIImage+PDF.m in Sources */,
+				07EF61811C03B0FA0003B71F /* ZZAuthWireframe.m in Sources */,
+				07EF61821C03B0FA0003B71F /* ANNetworkActivityManager.m in Sources */,
+				07EF61831C03B0FA0003B71F /* ZZAuthRegistrationView.m in Sources */,
+				07EF61841C03B0FA0003B71F /* ZZUserNameLabel.m in Sources */,
+				07EF61851C03B0FA0003B71F /* ZZGridWireframe.m in Sources */,
+				07EF61861C03B0FA0003B71F /* ZZHintArrowConfigurationModel.m in Sources */,
+				07EF61871C03B0FA0003B71F /* ZZSpinFeatureEventHandler.m in Sources */,
+				07EF61881C03B0FA0003B71F /* ZZGridActionHandler.m in Sources */,
+				07EF61891C03B0FA0003B71F /* ZZEditFriendListWireframe.m in Sources */,
+				07EF618A1C03B0FA0003B71F /* ZZVideoStatuses.m in Sources */,
+				07EF618B1C03B0FA0003B71F /* ZZEnvelopStrategy.m in Sources */,
+				07EF618C1C03B0FA0003B71F /* ZZEarpieceFeatureEventHandler.m in Sources */,
+				07EF618D1C03B0FA0003B71F /* ZZRootStateObserver.m in Sources */,
+				07EF618E1C03B0FA0003B71F /* ZZDebugStateWireframe.m in Sources */,
+				07EF618F1C03B0FA0003B71F /* ZZDebugStateCellViewModel.m in Sources */,
+				07EF61901C03B0FA0003B71F /* AVAudioSession+ZZAudioSession.m in Sources */,
+				07EF61911C03B0FA0003B71F /* NSObject+ANRACAdditions.m in Sources */,
+				07EF61921C03B0FA0003B71F /* ZZRemoteStorageTransport.m in Sources */,
+				07EF61931C03B0FA0003B71F /* ZZGridHelper.m in Sources */,
+				07EF61941C03B0FA0003B71F /* ZZEditFriendListInteractor.m in Sources */,
+				07EF61951C03B0FA0003B71F /* ZZRecordEventHandler.m in Sources */,
+				07EF61961C03B0FA0003B71F /* ZZBaseDomainModel.m in Sources */,
+				07EF61971C03B0FA0003B71F /* ZZSecretPresenter.m in Sources */,
+				07EF61981C03B0FA0003B71F /* ZZAuthInteractor.m in Sources */,
+				07EF61991C03B0FA0003B71F /* TBMVideo.m in Sources */,
+				07EF619A1C03B0FA0003B71F /* ZZGridRotationTouchObserver.m in Sources */,
+				07EF619B1C03B0FA0003B71F /* ZZGridCellViewModel.m in Sources */,
+				07EF619C1C03B0FA0003B71F /* ZZBaseEventHandler.m in Sources */,
+				07EF619D1C03B0FA0003B71F /* ZZEditFriendCellViewModel.m in Sources */,
+				07EF619E1C03B0FA0003B71F /* ZZMenuCellViewModel.m in Sources */,
+				07EF619F1C03B0FA0003B71F /* TBMGridElement.m in Sources */,
+				07EF61A01C03B0FA0003B71F /* ZZSecretInteractor.m in Sources */,
+				07EF61A11C03B0FA0003B71F /* ZZAccountTransport.m in Sources */,
+				07EF61A21C03B0FA0003B71F /* ZZGridVC.m in Sources */,
+				07EF61A31C03B0FA0003B71F /* TOActivitySafari.m in Sources */,
+				07EF61A41C03B0FA0003B71F /* ZZAuthVC.m in Sources */,
+				07EF61A51C03B0FA0003B71F /* ZZEditFriendListController.m in Sources */,
+				07EF61A61C03B0FA0003B71F /* ZZGridCenterCellViewModel.m in Sources */,
+				07EF61A71C03B0FA0003B71F /* ZZSoundEffectPlayer.m in Sources */,
+				07EF61A81C03B0FA0003B71F /* NSObject+ANSafeValues.m in Sources */,
+				07EF61A91C03B0FA0003B71F /* ZZVideoNetworkTransport.m in Sources */,
+				07EF61AA1C03B0FA0003B71F /* ZZSecretSegmentCell.m in Sources */,
+				07EF61AB1C03B0FA0003B71F /* ZZSecretSwitchCell.m in Sources */,
+				07EF61AC1C03B0FA0003B71F /* TBMTableModal.m in Sources */,
+				07EF61AD1C03B0FA0003B71F /* TBMNextFeatureDialogView.m in Sources */,
+				07EF61AE1C03B0FA0003B71F /* ZZTextFieldsDelegate.m in Sources */,
+				07EF61AF1C03B0FA0003B71F /* ZZCommunicationDomainModel.m in Sources */,
+				07EF61B01C03B0FA0003B71F /* ZZContactsPermissionAlertBuilder.m in Sources */,
+				07EF61B11C03B0FA0003B71F /* UIImage+TOWebViewControllerIcons.m in Sources */,
+				07EF61B21C03B0FA0003B71F /* ZZNotificationTransportService.m in Sources */,
+				07EF61B31C03B0FA0003B71F /* ZZMenuInteractor.m in Sources */,
+				07EF61B41C03B0FA0003B71F /* ANCrashlyticsAdapter.m in Sources */,
+				07EF61B51C03B0FA0003B71F /* ZZGridStateViewRecord.m in Sources */,
+				07EF61B61C03B0FA0003B71F /* ZZGridPresenter+UserDialogs.m in Sources */,
+				07EF61B71C03B0FA0003B71F /* ZZGridPresenter.m in Sources */,
+				07EF61B81C03B0FA0003B71F /* ZZCommonModelsGenerator.m in Sources */,
+				07EF61B91C03B0FA0003B71F /* _TBMFriend.m in Sources */,
+				07EF61BA1C03B0FA0003B71F /* ZZNetworkTransport.m in Sources */,
+				07EF61BB1C03B0FA0003B71F /* ZZDebugStateDataSource.m in Sources */,
+				07EF61BC1C03B0FA0003B71F /* ZZDebugStateVC.m in Sources */,
+				07EF61BD1C03B0FA0003B71F /* ZZApplicationDataUpdaterService.m in Sources */,
+				07EF61BE1C03B0FA0003B71F /* ZZSecretSegmentCellViewModel.m in Sources */,
+				07EF61BF1C03B0FA0003B71F /* ZZEditFriendListVC.m in Sources */,
+				07EF61C01C03B0FA0003B71F /* ZZInviteSomeoneElseEventHandler.m in Sources */,
+				07EF61C11C03B0FA0003B71F /* ANNetworkRequest.m in Sources */,
+				07EF61C21C03B0FA0003B71F /* NSObject+ANUserDefaults.m in Sources */,
+				07EF61C31C03B0FA0003B71F /* ZZConfig.m in Sources */,
+				07EF61C41C03B0FA0003B71F /* ANErrorBuilder.m in Sources */,
+				07EF61C51C03B0FA0003B71F /* PDFView.m in Sources */,
+				07EF61C61C03B0FA0003B71F /* ZZAuthPresenter.m in Sources */,
+				07EF61C71C03B0FA0003B71F /* ZZGridStateViewNudge.m in Sources */,
+				07EF61C81C03B0FA0003B71F /* ZZFeatureEventStrategyInviteeUser.m in Sources */,
+				07EF61C91C03B0FA0003B71F /* ZZNotificationsTransport.m in Sources */,
+				07EF61CA1C03B0FA0003B71F /* ZZRemoteStorageConstants.m in Sources */,
+				07EF61CB1C03B0FA0003B71F /* ZZTouchControllerWithoutDelay.m in Sources */,
+				07EF61CC1C03B0FA0003B71F /* TBMVerfiicationAlertHandler.m in Sources */,
+				07EF61CD1C03B0FA0003B71F /* ZZHintsController.m in Sources */,
+				07EF61CE1C03B0FA0003B71F /* ANMessagesWireframe.m in Sources */,
+				07EF61CF1C03B0FA0003B71F /* ZZGridTransportService.m in Sources */,
+				07EF61D01C03B0FA0003B71F /* ZZEditFriendCell.m in Sources */,
+				07EF61D11C03B0FA0003B71F /* ZZAbortRecordingFeatureEventHandler.m in Sources */,
+				07EF61D21C03B0FA0003B71F /* ZZDebugStateController.m in Sources */,
+				07EF61D31C03B0FA0003B71F /* ZZRootWireframe.m in Sources */,
+				07EF61D41C03B0FA0003B71F /* ZZVideoRecorder.m in Sources */,
+				07EF61D51C03B0FA0003B71F /* ZZRollbarAdapter.m in Sources */,
+				07EF61D61C03B0FA0003B71F /* ZZMenuVC.m in Sources */,
+				07EF61D71C03B0FA0003B71F /* ZZGridStateViewPreview.m in Sources */,
+				07EF61D81C03B0FA0003B71F /* ZZSentWelcomeEventHandler.m in Sources */,
+				07EF61D91C03B0FA0003B71F /* NSArray+ZZAdditions.m in Sources */,
+				07EF61DA1C03B0FA0003B71F /* ZZGridAlertBuilder.m in Sources */,
+				07EF61DB1C03B0FA0003B71F /* ZZDebugStateInteractor.m in Sources */,
+				07EF61DC1C03B0FA0003B71F /* ZZVideoNetworkTransportService.m in Sources */,
+				07EF61DD1C03B0FA0003B71F /* ZZBaseTouchController.m in Sources */,
+				07EF61DE1C03B0FA0003B71F /* ZZGridInteractor+ActionHandler.m in Sources */,
+				07EF61DF1C03B0FA0003B71F /* ZZAppDependencies.m in Sources */,
+				07EF61E01C03B0FA0003B71F /* ZZGridModelsMapper.m in Sources */,
+				07EF61E11C03B0FA0003B71F /* ANEnumAdditions.m in Sources */,
+				07EF61E21C03B0FA0003B71F /* ZZTouchControllerWithTouchDelay.m in Sources */,
+				07EF61E31C03B0FA0003B71F /* ZZMenuPresenter.m in Sources */,
+				07EF61E41C03B0FA0003B71F /* ZZVideoPlayer.m in Sources */,
+				07EF61E51C03B0FA0003B71F /* ZZHintsGotItView.m in Sources */,
+				07EF61E61C03B0FA0003B71F /* UIView+Image.m in Sources */,
+				07EF61E71C03B0FA0003B71F /* ZZPlayEventHandler.m in Sources */,
+				07EF61E81C03B0FA0003B71F /* TBMFriend.m in Sources */,
+				07EF61E91C03B0FA0003B71F /* TBMFeatureUnlockDialogView.m in Sources */,
+				07EF61EA1C03B0FA0003B71F /* ZZFriendDomainModel.m in Sources */,
+				07EF61EB1C03B0FA0003B71F /* ZZKeyStoreIncomingVideoIdsDomainModel.m in Sources */,
+				07EF61EC1C03B0FA0003B71F /* NSString+ZZAdditions.m in Sources */,
+				07EF61ED1C03B0FA0003B71F /* ZZHintsViewModel.m in Sources */,
+				07EF61EE1C03B0FA0003B71F /* tbm.xcdatamodeld in Sources */,
+				07EF61EF1C03B0FA0003B71F /* ZZColorTheme.m in Sources */,
+				07EF61F01C03B0FA0003B71F /* ZZFileHelper.m in Sources */,
+				07EF61F11C03B0FA0003B71F /* _TBMVideo.m in Sources */,
+				07EF61F21C03B0FA0003B71F /* ZZGridUpdateService.m in Sources */,
+				07EF61F31C03B0FA0003B71F /* ZZHintsArrow.m in Sources */,
+				07EF61F41C03B0FA0003B71F /* TOActivityChrome.m in Sources */,
+				07EF61F51C03B0FA0003B71F /* ZZFriendsTransportService.m in Sources */,
+				07EF61F61C03B0FA0003B71F /* ZZNotificationsConstants.m in Sources */,
+				07EF61F71C03B0FA0003B71F /* _TBMGridElement.m in Sources */,
+				07EF61F81C03B0FA0003B71F /* ZZUserDomainModel.m in Sources */,
+				07EF61F91C03B0FA0003B71F /* ZZStoredSettingsManager.m in Sources */,
+				07EF61FA1C03B0FA0003B71F /* ZZApplicationVersionEnumHelper.m in Sources */,
+				07EF61FB1C03B0FA0003B71F /* ZZGridStateView+Animation.m in Sources */,
+				07EF61FC1C03B0FA0003B71F /* ZZGridCell.m in Sources */,
+				07EF61FD1C03B0FA0003B71F /* ZZInviteEventHandler.m in Sources */,
+				07EF61FE1C03B0FA0003B71F /* ZZNotificationDomainModel.m in Sources */,
+				07EF61FF1C03B0FA0003B71F /* ZZFeatureEventStrategyBase.m in Sources */,
+				07EF62001C03B0FA0003B71F /* ZZContactDomainModel.m in Sources */,
+				07EF62011C03B0FA0003B71F /* NSInvocation+Constructors.m in Sources */,
+				07EF62021C03B0FA0003B71F /* TOWebViewController.m in Sources */,
+				07EF62031C03B0FA0003B71F /* ZZGridDataSource.m in Sources */,
+				07EF62041C03B0FA0003B71F /* ZZSecretScreenTextEditCell.m in Sources */,
+				07EF62051C03B0FA0003B71F /* ANBaseVC.m in Sources */,
+				07EF62061C03B0FA0003B71F /* ZZRollbarConstants.m in Sources */,
+				07EF62071C03B0FA0003B71F /* ZZSecretScreenController.m in Sources */,
+				07EF62081C03B0FA0003B71F /* ZZFriendDataUpdater.m in Sources */,
+				07EF62091C03B0FA0003B71F /* ZZGeometryHelper.m in Sources */,
+				07EF620A1C03B0FA0003B71F /* ZZDeleteFriendsFeatureEventHandler.m in Sources */,
+				07EF620B1C03B0FA0003B71F /* ZZSecretVC.m in Sources */,
+				07EF620C1C03B0FA0003B71F /* ZZMenuWireframe.m in Sources */,
+				07EF620D1C03B0FA0003B71F /* ZZVideoDataUpdater.m in Sources */,
+				07EF620E1C03B0FA0003B71F /* ZZGridView.m in Sources */,
+				07EF620F1C03B0FA0003B71F /* ZZViewedMessageEventHandler.m in Sources */,
+				07EF62101C03B0FA0003B71F /* ZZThumbnailGenerator.m in Sources */,
+				07EF62111C03B0FA0003B71F /* ANDebugVC.m in Sources */,
+				07EF62121C03B0FA0003B71F /* ZZSentMessgeEventHandler.m in Sources */,
+				07EF62131C03B0FA0003B71F /* ZZFriendDataProvider.m in Sources */,
+				07EF62141C03B0FA0003B71F /* ANErrorHandler.m in Sources */,
+				07EF62151C03B0FA0003B71F /* ANDebugController.m in Sources */,
+				07EF62161C03B0FA0003B71F /* ZZSecretValueCellViewModel.m in Sources */,
+				07EF62171C03B0FA0003B71F /* TBMContentViewModal.m in Sources */,
+				07EF62181C03B0FA0003B71F /* ZZApplicationStateInfoConstants.m in Sources */,
+				07EF62191C03B0FA0003B71F /* ZZDebugStatePresenter.m in Sources */,
+				07EF621A1C03B0FA0003B71F /* ZZVideoDomainModel.m in Sources */,
+				07EF621B1C03B0FA0003B71F /* ZZEditFriendView.m in Sources */,
+				07EF621C1C03B0FA0003B71F /* ZZStartPresenter.m in Sources */,
+				07EF621D1C03B0FA0003B71F /* ZZSecretScreenTextEditCellViewModel.m in Sources */,
+				07EF621E1C03B0FA0003B71F /* JFMinimalNotificationArt.m in Sources */,
+				07EF621F1C03B0FA0003B71F /* main.m in Sources */,
+				07EF62201C03B0FA0003B71F /* ZZAddressBookDataProvider.m in Sources */,
+				07EF62211C03B0FA0003B71F /* ZZFronCameraFeatureEventHandler.m in Sources */,
+				07EF62221C03B0FA0003B71F /* ZZFriendModelsMapper.m in Sources */,
+				07EF62231C03B0FA0003B71F /* ZZGridDataProvider.m in Sources */,
+				07EF62241C03B0FA0003B71F /* ZZSecretWireframe.m in Sources */,
+				07EF62251C03B0FA0003B71F /* ZZGridPresenter+ActionHandler.m in Sources */,
+				07EF62261C03B0FA0003B71F /* ZZPhoneHelper.m in Sources */,
+				07EF62271C03B0FA0003B71F /* ZZMigrationManager.m in Sources */,
+				07EF62281C03B0FA0003B71F /* ZZBaseVC.m in Sources */,
+				07EF62291C03B0FA0003B71F /* ZZSecretSwitchCellViewModel.m in Sources */,
+				07EF622A1C03B0FA0003B71F /* ANDrawerNC.m in Sources */,
+				07EF622B1C03B0FA0003B71F /* ZZKeychainDataProvider.m in Sources */,
+				07EF622C1C03B0FA0003B71F /* TBMAlertController.m in Sources */,
+				07EF622D1C03B0FA0003B71F /* ZZVideoProcessor.m in Sources */,
+				07EF622E1C03B0FA0003B71F /* ZZApplicationStateInfoGenerator.m in Sources */,
+				07EF622F1C03B0FA0003B71F /* ZZFriendDataHelper.m in Sources */,
+				07EF62301C03B0FA0003B71F /* TBMAlertControllerView.m in Sources */,
+				07EF62311C03B0FA0003B71F /* ZZDeviceHandlerDeprecated.m in Sources */,
+				07EF62321C03B0FA0003B71F /* ZZVideoFileHandler.m in Sources */,
+				07EF62331C03B0FA0003B71F /* ZZSecretDataSource.m in Sources */,
+				07EF62341C03B0FA0003B71F /* ZZRemoteStoageTransportService.m in Sources */,
+				07EF62351C03B0FA0003B71F /* TBMVideoIdUtils.m in Sources */,
+				07EF62361C03B0FA0003B71F /* ZZMenuCell.m in Sources */,
+				07EF62371C03B0FA0003B71F /* ZZCommonNetworkTransportService.m in Sources */,
+				07EF62381C03B0FA0003B71F /* ZZContentDataAcessor.m in Sources */,
+				07EF62391C03B0FA0003B71F /* ZZHintsDomainModel.m in Sources */,
+				07EF623A1C03B0FA0003B71F /* ZZVideoStatusHandler.m in Sources */,
+				07EF623B1C03B0FA0003B71F /* ZZVideoModelsMapper.m in Sources */,
+				07EF623C1C03B0FA0003B71F /* ZZUserPresentationHelper.m in Sources */,
+				07EF623D1C03B0FA0003B71F /* ZZStringUtils.m in Sources */,
+				07EF623E1C03B0FA0003B71F /* ZZGridContainerView.m in Sources */,
+				07EF623F1C03B0FA0003B71F /* ZZFeatureEventStrategyRegisteredUser.m in Sources */,
+				07EF62401C03B0FA0003B71F /* ZZErrorHandler.m in Sources */,
+				07EF62411C03B0FA0003B71F /* ANTableContainerView.m in Sources */,
+				07EF62421C03B0FA0003B71F /* NSData+MD5.m in Sources */,
+				07EF62431C03B0FA0003B71F /* ZZHintsModelGenerator.m in Sources */,
+				07EF62441C03B0FA0003B71F /* ZZAlertBuilder.m in Sources */,
+				07EF62451C03B0FA0003B71F /* ZZGridDataUpdater.m in Sources */,
+				07EF62461C03B0FA0003B71F /* UIImage+ANDefault.m in Sources */,
+				07EF62471C03B0FA0003B71F /* ZZMenuDataSource.m in Sources */,
+				07EF62481C03B0FA0003B71F /* UIView+Round.m in Sources */,
+				07EF62491C03B0FA0003B71F /* ZZHintsConstants.m in Sources */,
+				07EF624A1C03B0FA0003B71F /* TBMVideoProcessor.m in Sources */,
+				07EF624B1C03B0FA0003B71F /* _TBMUser.m in Sources */,
+				07EF624C1C03B0FA0003B71F /* ZZDebugStateEnumHelper.m in Sources */,
+				07EF624D1C03B0FA0003B71F /* TBMUser.m in Sources */,
+				07EF624E1C03B0FA0003B71F /* ZZDebugStateCell.m in Sources */,
+				07EF624F1C03B0FA0003B71F /* ZZApplicationPermissionsHandler.m in Sources */,
+				07EF62501C03B0FA0003B71F /* ZZApplicationRootService.m in Sources */,
+				07EF62511C03B0FA0003B71F /* ZZGridViewHeader.m in Sources */,
+				07EF62521C03B0FA0003B71F /* ZZUserDataProvider.m in Sources */,
+				07EF62531C03B0FA0003B71F /* ZZActionSheetController.m in Sources */,
+				07EF62541C03B0FA0003B71F /* ZZStartInteractor.m in Sources */,
+				07EF62551C03B0FA0003B71F /* ZZCommonNetworkTransport.m in Sources */,
+				07EF62561C03B0FA0003B71F /* ZZStartWireframe.m in Sources */,
+				07EF62571C03B0FA0003B71F /* ZZMenuController.m in Sources */,
+				07EF62581C03B0FA0003B71F /* ANError.m in Sources */,
+				07EF62591C03B0FA0003B71F /* ZZDebugSettingsStateDomainModel.m in Sources */,
+				07EF625A1C03B0FA0003B71F /* ZZKeyStoreOutgoingVideoStatusDomainModel.m in Sources */,
+				07EF625B1C03B0FA0003B71F /* ZZUserModelsMapper.m in Sources */,
+				07EF625C1C03B0FA0003B71F /* ZZSecretBaseStrategy.m in Sources */,
+				07EF625D1C03B0FA0003B71F /* ZZDebugFriendStateDomainModel.m in Sources */,
+				07EF625E1C03B0FA0003B71F /* ZZEditFriendEnumsAdditions.m in Sources */,
+				07EF625F1C03B0FA0003B71F /* ANBaseListTableCell.m in Sources */,
+				07EF62601C03B0FA0003B71F /* TBMAlertControllerVisualStyle.m in Sources */,
+				07EF62611C03B0FA0003B71F /* ZZGridCollectionController.m in Sources */,
+				07EF62621C03B0FA0003B71F /* ZZGridActionHandlerEnums.m in Sources */,
+				07EF62631C03B0FA0003B71F /* ANNetworkSessionManager.m in Sources */,
+				07EF62641C03B0FA0003B71F /* ZZDebugVideoStateDomainModel.m in Sources */,
+				07EF62651C03B0FA0003B71F /* ZZSecretController.m in Sources */,
+				07EF62661C03B0FA0003B71F /* ZZEditFriendListDataSource.m in Sources */,
+				07EF62671C03B0FA0003B71F /* ZZStrategyNavigationLeftRight.m in Sources */,
+				07EF62681C03B0FA0003B71F /* ZZAccountTransportService.m in Sources */,
+				07EF62691C03B0FA0003B71F /* ZZGridStateView.m in Sources */,
+				07EF626A1C03B0FA0003B71F /* ZZEditFriendListPresenter.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		220E90211909A18B003C4F82 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4564,6 +5350,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Zazo/Vendor",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
@@ -4605,6 +5392,198 @@
 				PROVISIONING_PROFILE = "a93e215f-f722-4339-a824-d7a146ad5fb6";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
+			};
+			name = "Ad-hoc";
+		};
+		07EF62B31C03B0FA0003B71F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5988C69CC62CF4472CA2040A /* Pods-Zazo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Oksana Kovalchuk (JDS665XU6E)";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Zazo/Vendor",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
+				INFOPLIST_FILE = "$(SRCROOT)/Zazo/Application/BundleFiles/Zazo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"ANBaseDomainModel\"",
+					"-l\"ANCategories\"",
+					"-l\"ANColorTheme\"",
+					"-l\"ANHelperFunctions\"",
+					"-l\"ANKeyboardHandler\"",
+					"-l\"ANLogger\"",
+					"-l\"ANProgressButton\"",
+					"-l\"ANStorage\"",
+					"-l\"ANTableController\"",
+					"-l\"ANTableViews\"",
+					"-l\"APAddressBook\"",
+					"-l\"CocoaLumberjack\"",
+					"-l\"DeviceUtil\"",
+					"-l\"FastEasyMapping\"",
+					"-l\"FrameAccessor\"",
+					"-l\"MSSPopMasonry\"",
+					"-l\"MagicalRecord\"",
+					"-l\"Masonry\"",
+					"-l\"OBFileTransfer\"",
+					"-l\"OBLogger\"",
+					"-l\"PBJVision\"",
+					"-l\"RBBAnimation\"",
+					"-l\"ReactiveCocoa\"",
+					"-l\"Rollbar\"",
+					"-l\"SDCAlertView\"",
+					"-l\"SDCAutoLayout\"",
+					"-l\"SVProgressHUD\"",
+					"-l\"TPKeyboardAvoiding\"",
+					"-l\"UIAlertView+Blocks\"",
+					"-l\"c++\"",
+					"-l\"iToast\"",
+					"-l\"libPhoneNumber-iOS\"",
+					"-l\"pop\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"AWSRuntime\"",
+					"-framework",
+					"\"AWSS3\"",
+					"-framework",
+					"\"AddressBook\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreImage\"",
+					"-framework",
+					"\"CoreMedia\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"CoreVideo\"",
+					"-framework",
+					"\"CrashReporter\"",
+					"-framework",
+					"\"Crashlytics\"",
+					"-framework",
+					"\"Fabric\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Reveal\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-force_load",
+					"\"$(SOURCE_ROOT)/calabash.framework/calabash\"",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "fc7574ca-cf0d-4be6-b54d-a8b41e232a40";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				VERSIONING_SYSTEM = "apple-generic";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		07EF62B41C03B0FA0003B71F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B1860DB43B6E70D5AEF73EF4 /* Pods-Zazo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Zazo/Vendor",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"RELEASE=1",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/Zazo/Application/BundleFiles/Zazo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Zazo/Library/Layers/Service/Zazo-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				VERSIONING_SYSTEM = "apple-generic";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		07EF62B51C03B0FA0003B71F /* Ad-hoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C4392BF41AD48118C492A226 /* Pods-Zazo.ad-hoc.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Zazo/Vendor",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"AD-HOC=1",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/Zazo/Application/BundleFiles/Zazo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "a93e215f-f722-4339-a824-d7a146ad5fb6";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				VERSIONING_SYSTEM = "apple-generic";
+				WRAPPER_EXTENSION = app;
 			};
 			name = "Ad-hoc";
 		};
@@ -4707,6 +5686,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Zazo/Vendor",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
@@ -4738,6 +5718,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Zazo/Vendor",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
@@ -4812,6 +5793,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		07EF62B21C03B0FA0003B71F /* Build configuration list for PBXNativeTarget "Zazo-cal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				07EF62B31C03B0FA0003B71F /* Debug */,
+				07EF62B41C03B0FA0003B71F /* Release */,
+				07EF62B51C03B0FA0003B71F /* Ad-hoc */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		220E90201909A18B003C4F82 /* Build configuration list for PBXProject "Zazo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "07EF5F671BFF8D240003B71F"
+            BlueprintIdentifier = "07EF61611C03B0FA0003B71F"
             BuildableName = "Zazo-cal.app"
             BlueprintName = "Zazo-cal"
             ReferencedContainer = "container:Zazo.xcodeproj">
@@ -55,7 +55,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "07EF5F671BFF8D240003B71F"
+            BlueprintIdentifier = "07EF61611C03B0FA0003B71F"
             BuildableName = "Zazo-cal.app"
             BlueprintName = "Zazo-cal"
             ReferencedContainer = "container:Zazo.xcodeproj">

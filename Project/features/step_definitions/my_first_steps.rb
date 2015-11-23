@@ -3,9 +3,14 @@ Given /^I am on the Welcome Screen$/ do
   sleep(STEP_PAUSE)
 end
 
+if scenario.source_tags_names.include? "@reinstall"
+	reinstall_apps()
+end
+
 Given /^I have fresh registration$/ do
 	phone = "091" + ('1'..'9').to_a.shuffle[0,7].join
 	steps %Q{
+		@reinstall
     	Then I enter "Oksana" into input field number 1
    		Then I enter "Kovalchuk" into input field number 2
    		Then I enter "380" into input field number 3
@@ -13,6 +18,8 @@ Given /^I have fresh registration$/ do
    	 	Then I touch the "SignIn" button
   	}
 end
+
+
 
 # #---------------------------- Scroll down untill find SomeLabel or timeout---------------------
 
