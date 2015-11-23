@@ -14,6 +14,7 @@
 #import "ZZMigrationManager.h"
 #import "ZZStoredSettingsManager.h"
 #import "ZZAccountTransportService.h"
+#import "ANCrashlyticsAdapter.h"
 
 @implementation ZZContentDataAcessor
 
@@ -43,6 +44,7 @@
             authUser.mkey = mkey;
             authUser.auth = auth;
             authUser = [ZZUserDataProvider upsertUserWithModel:authUser];
+            [ANCrashlyticsAdapter updateUserDataWithID:mkey username:authUser.fullName email:authUser.mobileNumber];
         }];
         
         if ([NSManagedObjectContext MR_rootSavingContext])
@@ -52,6 +54,8 @@
                 [ZZFriendDataUpdater fillEntitiesAfterMigration];
             });
         }
+        
+        
     }
     else
     {

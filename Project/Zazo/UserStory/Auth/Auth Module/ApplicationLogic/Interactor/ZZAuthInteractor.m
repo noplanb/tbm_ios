@@ -27,6 +27,7 @@
 #import "ZZAuthInteractorConstants.h"
 #import "ZZNotificationsHandler.h"
 #import "ZZRootStateObserver.h"
+#import "ANCrashlyticsAdapter.h"
 
 @interface ZZAuthInteractor ()
 
@@ -41,9 +42,9 @@
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
 
 #ifdef DEBUG_LOGIN_USER
-    user.firstName = @"ZZTest10";
+    user.firstName = @"ZZZZ";
     user.lastName = @"test";
-    user.mobileNumber = @"+380950991210";
+    user.mobileNumber = @"+380950991515";
 #endif
 
     if (!ANIsEmpty(user.mobileNumber))
@@ -177,7 +178,9 @@
         self.currentUser.mkey = mkey;
         self.currentUser.auth = auth;
         self.currentUser = [ZZUserDataProvider upsertUserWithModel:self.currentUser];
-
+        
+        [ANCrashlyticsAdapter updateUserDataWithID:mkey username:self.currentUser.fullName email:user.mobileNumber];
+        
         if (!forceCall)
         {
             [self.output registrationCompletedSuccessfullyWithPhoneNumber:user.mobileNumber];
