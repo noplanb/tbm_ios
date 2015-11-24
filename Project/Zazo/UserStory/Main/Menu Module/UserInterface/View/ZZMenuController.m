@@ -54,11 +54,20 @@
 
 - (void)storageDidPerformUpdate:(ANStorageUpdate *)update
 {
+    [self _reloadContactData];
+}
+
+- (void)reloadContactData
+{
+    [self _reloadContactData];
+}
+
+- (void)_reloadContactData
+{
     ANDispatchBlockToMainQueue(^{
         [self.tableView reloadData];
     });
 }
-
 
 #pragma mark - Table Delegate
 

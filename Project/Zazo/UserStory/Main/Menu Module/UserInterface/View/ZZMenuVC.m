@@ -61,6 +61,11 @@
     [self.controller updateDataSource:[self.eventHandler dataSource]];
 }
 
+- (void)reloadContactView
+{
+    [self.controller reloadContactData];
+}
+
 #pragma mark - Controller Delegate
 
 - (void)itemSelected:(ZZMenuCellViewModel*)model

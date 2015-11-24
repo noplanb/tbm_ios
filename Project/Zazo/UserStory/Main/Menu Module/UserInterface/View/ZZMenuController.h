@@ -24,5 +24,6 @@
 
 - (void)updateDataSource:(ZZMenuDataSource *)dataSource;
 - (void)reset;
+- (void)reloadContactData;
 
 @end
