@@ -31,6 +31,7 @@
 #import "RollbarReachability.h"
 #import "ZZFriendDataHelper.h"
 #import "ZZVideoDomainModel.h"
+#import "ZZRootStateObserver.h"
 
 @interface ZZGridPresenter ()
 <
@@ -179,6 +180,8 @@
         model.isDownloadAnimationViewed = YES;
         [self.dataSource updateCellWithModel:model];
         [self showFriendAnimationWithFriend:model.relatedUser];
+        [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventFriendWasAddedToGridWithVideo
+                                           notificationObject:nil];
         //TODO:
         //    if (model.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED)
         //    {

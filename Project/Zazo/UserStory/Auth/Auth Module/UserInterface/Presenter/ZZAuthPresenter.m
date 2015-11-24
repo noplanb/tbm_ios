@@ -119,7 +119,7 @@
     
     //TODO: separate errors with server invalid code error + bad connection and other
     
-    if ([self isNetworkEnabled])
+    if ([self isNetworkEnabled] && ![self _isServerConnectionError:error])
     {
         [ZZErrorHandler showErrorAlertWithLocalizedTitle:@"auth-controller.bad-code.alert.title"
                                                  message:@"auth-controller.bad-code.alert.text"];
@@ -130,6 +130,11 @@
                                                  message:NSLocalizedString(@"auth-error.bad.connection.message", nil)];
     }
     
+}
+
+- (BOOL)_isServerConnectionError:(NSError*)error
+{
+    return (error.code == kErrorServerConnectionErrorCode);
 }
 
 - (void)smsCodeValidationCompletedSuccessfully

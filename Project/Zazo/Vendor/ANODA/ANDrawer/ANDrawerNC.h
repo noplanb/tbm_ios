@@ -21,6 +21,7 @@ typedef NS_ENUM(NSInteger, ANDrawerTopPin)
 
 @interface ANDrawerNC : UINavigationController
 
+@property (nonatomic, assign) BOOL isOpen;
 @property (nonatomic, assign) BOOL useBackground;
 @property (nonatomic, assign) UIColor* backgroundColor;
 @property (nonatomic, assign) BOOL closeOnPushNewController;

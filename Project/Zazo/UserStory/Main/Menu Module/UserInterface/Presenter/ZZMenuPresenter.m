@@ -11,8 +11,9 @@
 #import "ZZMenuPresenter.h"
 #import "ZZMenuDataSource.h"
 #import "ZZContactsPermissionAlertBuilder.h"
+#import "ZZRootStateObserver.h"
 
-@interface ZZMenuPresenter ()
+@interface ZZMenuPresenter () <ZZRootStateObserverDelegate>
 
 @property (nonatomic, strong) ZZMenuDataSource* dataSource;
 
@@ -32,11 +33,19 @@
                                              selector:@selector(_applicationWillEnterInBackground)
                                                  name:UIApplicationWillResignActiveNotification
                                                object:nil];
+    
+    [[ZZRootStateObserver sharedInstance] addRootStateObserver:self];
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+- (void)reloadContactMenuData
+{
+    [self.userInterface reloadContactView];
 }
 
 
@@ -82,10 +91,22 @@
     if (isEnabled)
     {
         ANDispatchBlockToMainQueue(^{
-            [self.wireframe toggleMenu];
+            [self.wireframe openMenu];
         });
     }
 }
+
+
+#pragma mark - Root state observer delegate
+
+- (void)handleEvent:(ZZRootStateObserverEvents)event notificationObject:(id)notificationObject
+{
+    if (event == ZZRootStateObserverEventFriendWasAddedToGridWithVideo)
+    {
+        [self.interactor enableUpdateContactData];
+    }
+}
+
 
 #pragma mark - Module Interface
 
@@ -94,7 +115,7 @@
     ZZMenuCellViewModel* model = (ZZMenuCellViewModel*)item;
     [self.menuModuleDelegate userSelectedOnMenu:model.item];
     [self.wireframe closeMenu];
-    [self.interactor enableContactData];
+    [self.interactor enableUpdateContactData];
 }
 
 #pragma mark - Private
