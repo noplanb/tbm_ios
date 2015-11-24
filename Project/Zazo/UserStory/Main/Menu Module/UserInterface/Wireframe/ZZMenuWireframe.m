@@ -108,6 +108,14 @@
     [self.drawerController attachPanRecognizer:pan];
 }
 
+- (void)openMenu
+{
+    if (!self.drawerController.isOpen)
+    {
+        [self.drawerController toggle];
+    }
+}
+
 
 #pragma mark - Private
 

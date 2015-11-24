@@ -91,7 +91,7 @@
     if (isEnabled)
     {
         ANDispatchBlockToMainQueue(^{
-            [self.wireframe toggleMenu];
+            [self.wireframe openMenu];
         });
     }
 }
