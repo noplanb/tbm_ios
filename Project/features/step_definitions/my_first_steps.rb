@@ -3,9 +3,9 @@ Given /^I am on the Welcome Screen$/ do
   sleep(STEP_PAUSE)
 end
 
-if scenario.source_tags_names.include? "@reinstall"
-	reinstall_apps()
-end
+# if scenario.source_tags_names.include? "@reinstall"
+# 	reinstall_apps()
+# end
 
 Given /^I have fresh registration$/ do
 	phone = "091" + ('1'..'9').to_a.shuffle[0,7].join
@@ -130,26 +130,26 @@ Given /^I am on the Welcome Screen$/ do
 end
 
 
-Given /^I have fresh registration$/ do
-   # macro "Then I enter \"Oksana\" into input field number 1"
-   # macro "Then I enter \"Kovalchuk\" into input field number 2"
-   # macro "Then I enter \"380\" into input field number 3"
+# Given /^I have fresh registration$/ do
+#    # macro "Then I enter \"Oksana\" into input field number 1"
+#    # macro "Then I enter \"Kovalchuk\" into input field number 2"
+#    # macro "Then I enter \"380\" into input field number 3"
 
-   # phone = "091" + ('1'..'9').to_a.shuffle[0,7].join
-   # macro "Then I enter phone into input field number 4"
-   # macro "Then I touch the \"SignIn\" button"
-   # macro "And I wait until I see \"gridView\""
+#    # phone = "091" + ('1'..'9').to_a.shuffle[0,7].join
+#    # macro "Then I enter phone into input field number 4"
+#    # macro "Then I touch the \"SignIn\" button"
+#    # macro "And I wait until I see \"gridView\""
 
-	phone = "091" + ('1'..'9').to_a.shuffle[0,7].join
-	steps %Q{
-    	Then I enter "Oksana" into input field number 1
-   		Then I enter "Kovalchuk" into input field number 2
-   		Then I enter "380" into input field number 3"
-   		Then I enter #{phone} into input field number 4"
-   	 	Then I touch the "SignIn" button
-   		And I wait until I see "gridView"
-  	}
-end
+# 	phone = "091" + ('1'..'9').to_a.shuffle[0,7].join
+# 	steps %Q{
+#     	Then I enter "Oksana" into input field number 1
+#    		Then I enter "Kovalchuk" into input field number 2
+#    		Then I enter "380" into input field number 3"
+#    		Then I enter #{phone} into input field number 4"
+#    	 	Then I touch the "SignIn" button
+#    		And I wait until I see "gridView"
+#   	}
+# end
 
 When(/^I pan left on the screen$/) do
   top_view = query().first
