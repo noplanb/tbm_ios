@@ -148,4 +148,9 @@
     return CGRectContainsPoint([[self.originalFrames objectAtIndex:ZZGridSpinPositionTypeCamera] CGRectValue], point);
 }
 
+- (void)updateOriginalFramesWithActualFrames:(NSArray*)frames
+{
+    self.originalFrames = [frames copy];
+}
+
 @end

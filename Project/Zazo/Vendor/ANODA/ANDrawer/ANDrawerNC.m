@@ -15,7 +15,6 @@ static CGFloat const kStatusBarHeight = 20;
 
 @interface ANDrawerNC () <UIGestureRecognizerDelegate>
 
-@property (nonatomic, assign) BOOL isOpen;
 @property (nonatomic, strong) UIView *backgroundView;
 @property (nonatomic, strong) MASConstraint* animatedConstraint;
 @property (nonatomic, strong) MASConstraint* topConstraint;

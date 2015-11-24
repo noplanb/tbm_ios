@@ -10,9 +10,6 @@
 #import "ZZGridUIConstants.h"
 #import "ZZGridCenterCell.h"
 
-@interface ZZGridView ()
-
-@end
 
 @implementation ZZGridView
 
@@ -47,6 +44,7 @@
     {
         _calculatedCellsOffset += self.maxCellsOffset;
     }
+    
     [self.delegate placeCells];
 }
 
