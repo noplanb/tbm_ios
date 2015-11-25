@@ -10,7 +10,7 @@
 
 - (void)loadDataIncludeAddressBookRequest:(BOOL)shouldRequest shouldOpenDrawer:(BOOL)shouldOpen;
 - (void)resetAddressBookData;
-- (void)enableContactData;
+- (void)enableUpdateContactData;
 
 @end
 

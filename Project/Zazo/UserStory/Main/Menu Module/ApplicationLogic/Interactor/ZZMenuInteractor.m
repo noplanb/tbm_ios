@@ -88,7 +88,7 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
     [self _sortFriendsFromArray:friends];
 }
 
-- (void)enableContactData
+- (void)enableUpdateContactData
 {
     self.endUpdateTime -= kDelayBetweenFriendUpdate;
 }

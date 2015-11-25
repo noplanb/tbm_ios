@@ -53,6 +53,7 @@ static CGFloat const kStartGridRotationOffset = 10;
         
         self.rotator = [[ZZRotator alloc] initWithAnimationCompletionBlock:^{
             self.isMoving = NO;
+            [self _updateOriginalFramesAfterRotationStoped];
         }];
         
         [self _setupStopRotationHandler];
@@ -141,6 +142,18 @@ static CGFloat const kStartGridRotationOffset = 10;
 - (void)pop_animationDidApply:(POPAnimation *)anim
 {
     [self.rotator stopDecayAnimationIfNeeded:anim onGrid:self.gridView];
+}
+
+
+#pragma mark - Update original frames
+
+- (void)_updateOriginalFramesAfterRotationStoped
+{
+    NSArray* actualFrames = [[self.gridView.items.rac_sequence map:^id(UIView* obj) {
+        return [NSValue valueWithCGRect:obj.frame];
+    }] array];
+    
+    [self.gridHelper updateOriginalFramesWithActualFrames:actualFrames];
 }
 
 

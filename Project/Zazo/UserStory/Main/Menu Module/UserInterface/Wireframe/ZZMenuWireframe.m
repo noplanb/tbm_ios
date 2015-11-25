@@ -55,6 +55,7 @@
     self.menuController = menuController;
     self.drawerController = drawerController;
     [self presentGridController];
+    [self _setupDrawerObserver];
 }
 
 
@@ -105,6 +106,26 @@
 - (void)attachAdditionalPanGestureToMenu:(UIPanGestureRecognizer*)pan
 {
     [self.drawerController attachPanRecognizer:pan];
+}
+
+- (void)openMenu
+{
+    if (!self.drawerController.isOpen)
+    {
+        [self.drawerController toggle];
+    }
+}
+
+
+#pragma mark - Private
+
+- (void)_setupDrawerObserver
+{
+    [[RACObserve(self.drawerController, isOpen) filter:^BOOL(NSNumber* value) {
+        return [value boolValue];
+    }] subscribeNext:^(id x) {
+        [self.presenter reloadContactMenuData];
+    }];
 }
 
 @end

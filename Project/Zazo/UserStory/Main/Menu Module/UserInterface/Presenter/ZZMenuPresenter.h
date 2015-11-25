@@ -26,5 +26,6 @@
 @property (nonatomic, weak) id<ZZMenuModuleDelegate> menuModuleDelegate;
 
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZMenuViewInterface>*)userInterface;
+- (void)reloadContactMenuData;
 
 @end
