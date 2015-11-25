@@ -76,7 +76,12 @@
         @weakify(alertView);
         [[alertView rac_buttonClickedSignal] subscribeNext:^(NSNumber* buttonIndex) {
             @strongify(alertView);
-            if ([buttonIndex integerValue] != alertView.cancelButtonIndex)
+            
+            if ([buttonIndex integerValue] == alertView.cancelButtonIndex)
+            {
+                [self _showMenuWithGrid];
+            }
+            else
             {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kAppstoreURLString]];
             }
