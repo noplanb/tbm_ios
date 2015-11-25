@@ -62,6 +62,10 @@
                            }: nil
                             actionButtonTitle:@"Update" action:^{
                                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kAppstoreURLString]];
+                                if (canBeSkipped)
+                                {
+                                    [self _showMenuWithGrid];
+                                }
                             }];
     }
     else
@@ -84,6 +88,10 @@
             else
             {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kAppstoreURLString]];
+                if (canBeSkipped)
+                {
+                    [self _showMenuWithGrid];
+                }
             }
         }];
     }

@@ -42,9 +42,9 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-
 - (void)reloadContactMenuData
 {
+    [self.interactor loadDataIncludeAddressBookRequest:YES shouldOpenDrawer:NO];
     [self.userInterface reloadContactView];
 }
 
