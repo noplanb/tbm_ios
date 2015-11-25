@@ -18,6 +18,7 @@
 #import "ZZNotificationsHandler.h"
 #import "ZZApplicationRootService.h"
 #import "ZZGridActionStoredSettings.h"
+#import "AFNetworkReachabilityManager.h"
 
 @interface ZZAppDependencies ()
 
@@ -68,6 +69,7 @@
 - (void)handleApplicationDidBecomeActive
 {
     [[OBLogger instance] logEvent:OBLogEventAppForeground];
+    
     if (self.wasSetuped)
     {
         [self.rootService checkApplicationPermissionsAndResources];

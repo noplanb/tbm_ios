@@ -15,6 +15,7 @@
 #import "ZZStoredSettingsManager.h"
 #import "ZZAccountTransportService.h"
 #import "ANCrashlyticsAdapter.h"
+#import "ZZAddressBookDataProvider.h"
 
 @implementation ZZContentDataAcessor
 
@@ -55,7 +56,10 @@
             });
         }
         
+//        [ZZAddressBookDataProvider resetAddressBook];
+//        [[ZZAddressBookDataProvider loadContactsWithContactsRequest:YES] subscribeNext:^(id x) {
         
+//        }];
     }
     else
     {
