@@ -15,7 +15,7 @@
 #import "ZZStoredSettingsManager.h"
 #import "ZZAccountTransportService.h"
 #import "ANCrashlyticsAdapter.h"
-#import "ZZAddressBookDataProvider.h"
+
 
 @implementation ZZContentDataAcessor
 
@@ -31,20 +31,22 @@
         [MagicalRecord setupCoreDataStackWithStoreAtURL:[migrationManager destinationUrl]];
         
         __block ZZUserDomainModel* authUser = [ZZUserDataProvider authenticatedUser];
+        
         [ZZStoredSettingsManager shared].userID = authUser.idTbm;
         [ZZStoredSettingsManager shared].authToken = authUser.auth;
+        [ZZStoredSettingsManager shared].mobileNumber = authUser.mobileNumber;
         
         [[ZZAccountTransportService registerUserWithModel:authUser shouldForceCall:NO] subscribeNext:^(NSDictionary *authKeys) {
             
             NSString *auth = authKeys[@"auth"];
             NSString *mkey = authKeys[@"mkey"];
-            
             [ZZStoredSettingsManager shared].userID = mkey;
             [ZZStoredSettingsManager shared].authToken = auth;
             
             authUser.mkey = mkey;
             authUser.auth = auth;
             authUser = [ZZUserDataProvider upsertUserWithModel:authUser];
+            
             [ANCrashlyticsAdapter updateUserDataWithID:mkey username:authUser.fullName email:authUser.mobileNumber];
         }];
         
@@ -55,11 +57,6 @@
                 [ZZFriendDataUpdater fillEntitiesAfterMigration];
             });
         }
-        
-//        [ZZAddressBookDataProvider resetAddressBook];
-//        [[ZZAddressBookDataProvider loadContactsWithContactsRequest:YES] subscribeNext:^(id x) {
-        
-//        }];
     }
     else
     {
