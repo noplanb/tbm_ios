@@ -226,7 +226,7 @@
 
 - (void)handleVideoStatusUpdateNotification:(ZZNotificationDomainModel*)model
 {
-    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.fromUserMKey];
+    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.toUserMKey];
     
     
     if (friendModel == nil)

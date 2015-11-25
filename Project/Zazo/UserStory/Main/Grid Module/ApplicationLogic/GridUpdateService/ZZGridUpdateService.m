@@ -65,8 +65,8 @@
 
 - (NSArray*)friendsAbbleToUpdate
 {
-    NSMutableSet* allFriendsSet = [NSMutableSet setWithArray:[ZZFriendDataProvider loadAllFriends]];
-    NSMutableSet* gridFriendSet = [NSMutableSet setWithArray:[ZZFriendDataProvider friendsOnGrid]];
+    NSMutableSet* allFriendsSet = [NSMutableSet setWithArray:[ZZFriendDataProvider loadAllFriends]?:@[]];
+    NSMutableSet* gridFriendSet = [NSMutableSet setWithArray:[ZZFriendDataProvider friendsOnGrid]?:@[]];
     [allFriendsSet minusSet:gridFriendSet];
     
     __block NSMutableArray* friendsToUpdate = [NSMutableArray new];

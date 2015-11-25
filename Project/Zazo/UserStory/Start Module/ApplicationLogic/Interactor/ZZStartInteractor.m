@@ -17,7 +17,9 @@
 - (void)checkVersionStateAndSession
 {
     ANDispatchBlockToBackgroundQueue(^{
+        [[AFNetworkReachabilityManager sharedManager] startMonitoring];
         [self _checkSession];
+        [[AFNetworkReachabilityManager sharedManager] stopMonitoring];
     });
 }
 
