@@ -294,9 +294,10 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 #pragma mark - Video Status Handler delegate
 
-- (void)videoStatusChangedForFriend:(TBMFriend*)friend
+- (void)videoStatusChangedWithFriendID:(NSString *)friendID
 {
-    ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithRelatedUserID:friend.idTbm];
+    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
+    ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendID];
 
     if (!gridModel)
     {

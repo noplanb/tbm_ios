@@ -234,7 +234,8 @@
     // prior to returning from the above call so should be safe to delete video file here.
     [[NSFileManager defaultManager] removeItemAtURL:videoUrl error:nil];
     
-    [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusUploading withFriend:friend videoId:markerModel.videoID];
+    
+    [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusUploading withFriendID:friend.idTbm videoId:markerModel.videoID];
 }
 
 //--------------
@@ -247,9 +248,7 @@
     ZZLogInfo(@"uploadRetryingWithFriend retryCount=%ld", (long) retryCount);
     if (isExist)
     {
-        TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
-        TBMVideo* video = [ZZVideoDataProvider entityWithID:videoId];
-        [self.delegate setAndNotifyUploadRetryCount:retryCount withFriend:friend video:video];
+        [self.delegate setAndNotifyUploadRetryCount:retryCount withFriendID:friendID videoID:videoId];
     }
     else
     {
@@ -273,7 +272,7 @@
                 [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
             }
             
-            [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusUploaded withFriend:friend videoId:videoId];
+            [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusUploaded withFriendID:friendID videoId:videoId];
             
 //            [[ZZRemoteStoageTransportService addRemoteOutgoingVideoWithItemID:videoId
 //                                                                   friendMkey:friend.mkey
@@ -283,13 +282,12 @@
             
             [[ZZRemoteStoageTransportService updateRemoteEverSentKVForFriendMkeys:[ZZFriendDataHelper everSentMkeys]
                                                                       forUserMkey:myMkey] subscribeNext:^(id x) {}];
-            
-//            [self.delegate sendNotificationForVideoReceived:friend videoId:videoId];
+
         }
         else
         {
             ZZLogError(@"Upload error. FailedPermanently");
-            [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusFailedPermanently withFriend:friend videoId:videoId];
+            [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusFailedPermanently withFriendID:friendID videoId:videoId];
         }
     }
     else
@@ -362,7 +360,7 @@
     {
         TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
         ZZLogInfo(@"downloadRetryingWithFriend %@ retryCount= %@", friend.firstName, @(retryCount));
-        [self.delegate setAndNotifyDownloadRetryCount:retryCount withFriend:friend video:video];
+        [self.delegate setAndNotifyDownloadRetryCount:retryCount withFriendID:friendID videoID:videoId];
     }
     else
     {
