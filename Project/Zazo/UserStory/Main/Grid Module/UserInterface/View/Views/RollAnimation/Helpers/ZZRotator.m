@@ -47,6 +47,7 @@
     
     self.decayAnimation.name = self.decayAnimationName;
     self.decayAnimation.delegate = self.delegate;
+    
     [grid pop_addAnimation:self.decayAnimation forKey:self.decayAnimationName];
 }
 
@@ -77,7 +78,9 @@
 {
     if ([[anim class] isSubclassOfClass:[POPDecayAnimation class]])
     {
+        
         CGFloat velocity = [((POPDecayAnimation *) anim).velocity floatValue];
+        
         if (fabs(velocity) < self.velocityOfBounce * 7.5f)
         {
             CGFloat angle = [((POPDecayAnimation *) anim).toValue floatValue];
@@ -86,14 +89,14 @@
             if ((angle - grid.calculatedCellsOffset) < M_PI_4)
             {      //TODO: add better determining direction
                 ZZSpinDirection direction = velocity > 0 ? ZZSpinDirectionClockwise : ZZSpinDirectionCounterClockwise;
-                
                 angle = [ZZGeometryHelper nextFixedPositionFrom:angle withDirection:direction];
-
+                
                 if ((angle >= (grid.calculatedCellsOffset - 0.09f)) || (angle <= (grid.calculatedCellsOffset + 0.09f)))
                 {
                     [self stopAnimationsOnGrid:grid];
                     [self bounceAnimationToAngle:angle onCarouselView:grid withVelocity:velocity];
                 }
+                
             }
         }
     }

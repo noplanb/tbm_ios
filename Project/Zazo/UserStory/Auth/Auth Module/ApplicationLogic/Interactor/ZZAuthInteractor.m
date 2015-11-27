@@ -42,9 +42,9 @@
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
 
 #ifdef DEBUG_LOGIN_USER
-    user.firstName = @"Alex";
-    user.lastName = @"KD";
-    user.mobileNumber = @"+380630472345";
+    user.firstName = @"Test";
+    user.lastName = @"Test";
+    user.mobileNumber = @"+380633559891";
 #endif
 
     if (!ANIsEmpty(user.mobileNumber))
