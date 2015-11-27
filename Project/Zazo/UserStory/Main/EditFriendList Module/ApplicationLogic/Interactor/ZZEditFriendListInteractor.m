@@ -17,6 +17,7 @@
 #import "ZZUserFriendshipStatusHandler.h"
 #import "ZZGridDataProvider.h"
 #import "ZZGridDomainModel.h"
+#import "ZZRootStateObserver.h"
 
 
 @interface ZZEditFriendListInteractor ()
@@ -36,6 +37,7 @@
        [friends enumerateObjectsUsingBlock:^(ZZFriendDomainModel*  _Nonnull friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
            if ([friendModel.mKey isEqualToString:gridModel.relatedUser.mKey])
            {
+               NSLog(@"fiend with name:%@ updated to status establishment",friendModel.fullName);
                friendModel.friendshipStatusValue = ZZFriendshipStatusTypeEstablished;
            }
        }];
@@ -56,11 +58,14 @@
     
     [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey
                                                       toVisible:shouldBeVisible] subscribeNext:^(NSDictionary* response) {
-        
-        [ZZFriendDataUpdater updateConnectionStatusForUserWithID:friendModel.idTbm
-                                                         toValue:friendModel.friendshipStatusValue];
-        
-        [self.output contactSuccessfullyUpdated:friendModel toVisibleState:shouldBeVisible];
+        ANDispatchBlockToMainQueue(^{
+            ZZFriendDomainModel* updatedModel = [ZZFriendDataUpdater updateConnectionStatusForUserWithID:friendModel.idTbm
+                                                                                                 toValue:friendModel.friendshipStatusValue];
+            
+//            [self _updateContactDrawerIdNeededWithFriend:updatedModel];
+            [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventFriendInContactChangeStauts notificationObject:nil];
+            [self.output contactSuccessfullyUpdated:updatedModel toVisibleState:shouldBeVisible];
+        });
         
     } error:^(NSError *error) {
         //TODO: revert status?
@@ -76,5 +81,17 @@
     return sortedArray;
 }
 
+//- (void)_updateContactDrawerIdNeededWithFriend:(ZZFriendDomainModel*)friendModel
+//{
+//    NSMutableSet* allFriends = [NSMutableSet setWithArray:[ZZFriendDataProvider loadAllFriends]?:@[]];
+//    NSMutableSet* friendsOnGrid = [NSMutableSet setWithArray:[ZZFriendDataProvider friendsOnGrid]?:@[]];
+//    [allFriends minusSet:friendsOnGrid];
+//    NSArray* ableToUpdateFriends = [allFriends allObjects];
+//    if ([ableToUpdateFriends containsObject:friendModel])
+//    {
+//        NSLog(@"Enable update Drawer after friend change status");
+//        [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventFriendInContactChangeStauts notificationObject:nil];
+//    }
+//}
 
 @end

@@ -85,6 +85,7 @@ static CGFloat const kStartGridRotationOffset = 10;
                     self.startOffset = self.gridView.calculatedCellsOffset;
                     [self.rotator stopAnimationsOnGrid:self.gridView];
                 }
+                
             } break;
                 
             case UIGestureRecognizerStateChanged:

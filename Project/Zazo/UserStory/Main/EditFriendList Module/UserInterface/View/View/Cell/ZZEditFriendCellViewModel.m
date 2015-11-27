@@ -34,30 +34,40 @@ static UIImage* kImagePlaceholder = nil;
 
 - (void)updateDeleteButton:(UIButton *)button
 {
-    if ([self.item isCreator])
+//    if ([self.item isCreator])
+//    {
+//        if (self.item.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
+//            self.item.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByCreator)
+//        {
+//            [self _updateButton:button toState:ZZContactActionButtonStateDelete];
+//        }
+//        else
+//        {
+//            [self _updateButton:button toState:ZZContactActionButtonStateRestore];
+//        }
+//    }
+//    else
+//    {
+//        if (self.item.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
+//            self.item.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByTarget)
+//        {
+//            [self _updateButton:button toState:ZZContactActionButtonStateDelete];
+//        }
+//        else
+//        {
+//            [self _updateButton:button toState:ZZContactActionButtonStateRestore];
+//        }
+//    }
+    
+    if (self.item.friendshipStatusValue == ZZFriendshipStatusTypeEstablished)
     {
-        if (self.item.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
-            self.item.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByCreator)
-        {
-            [self _updateButton:button toState:ZZContactActionButtonStateDelete];
-        }
-        else
-        {
-            [self _updateButton:button toState:ZZContactActionButtonStateRestore];
-        }
+        [self _updateButton:button toState:ZZContactActionButtonStateDelete];
     }
     else
     {
-        if (self.item.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
-            self.item.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByTarget)
-        {
-            [self _updateButton:button toState:ZZContactActionButtonStateDelete];
-        }
-        else
-        {
-            [self _updateButton:button toState:ZZContactActionButtonStateRestore];
-        }
+        [self _updateButton:button toState:ZZContactActionButtonStateRestore];
     }
+    
 }
 
 - (void)_updateButton:(UIButton *)button toState:(ZZContactActionButtonState)state
