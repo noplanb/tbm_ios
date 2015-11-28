@@ -8,7 +8,9 @@
 
 @interface ZZAppDependencies : NSObject
 
-- (void)initialApplicationSetup:(UIApplication *)application launchOptions:(NSDictionary*)options;
+- (void)initialApplicationSetup:(UIApplication *)application
+                  launchOptions:(NSDictionary*)options
+                         window:(UIWindow*)window;
 
 
 #pragma mark - Application States

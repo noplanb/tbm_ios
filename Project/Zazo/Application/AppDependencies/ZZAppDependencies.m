@@ -20,6 +20,7 @@
 #import "ZZGridActionStoredSettings.h"
 #import "AFNetworkReachabilityManager.h"
 
+
 @interface ZZAppDependencies ()
 
 @property (nonatomic, strong) ZZRootWireframe* rootWireframe;
@@ -32,30 +33,34 @@
 
 @implementation ZZAppDependencies
 
-- (void)initialApplicationSetup:(UIApplication*)application launchOptions:(NSDictionary*)options
+- (void)initialApplicationSetup:(UIApplication *)application
+                  launchOptions:(NSDictionary*)options
+                         window:(UIWindow*)window
 {
     [ANCrashlyticsAdapter start];
-    [ZZContentDataAcessor start];
-    [ZZRollbarAdapter shared];
-   
-    ANDispatchBlockToBackgroundQueue(^{
-        [ANLogger initializeLogger];
-        [ZZColorTheme shared];
-    });
-    
-    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelInfo];
-    
-    self.notificationsHandler = [ZZNotificationsHandler new];
-    self.rootService = [ZZApplicationRootService new];
-    
-    self.notificationsHandler.delegate = self.rootService;
-    self.rootService.notificationDelegate = (id)self.notificationsHandler;
-    
-    NSDictionary *remoteNotification = [options objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (remoteNotification)
-    {
-        [self handlePushNotification:remoteNotification];
-    }
+    [ZZContentDataAcessor startWithCompletionBlock:^{
+        [ZZRollbarAdapter shared];
+        
+        ANDispatchBlockToBackgroundQueue(^{
+            [ANLogger initializeLogger];
+            [ZZColorTheme shared];
+        });
+        
+        [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelInfo];
+        
+        self.notificationsHandler = [ZZNotificationsHandler new];
+        self.rootService = [ZZApplicationRootService new];
+        
+        self.notificationsHandler.delegate = self.rootService;
+        self.rootService.notificationDelegate = (id)self.notificationsHandler;
+        
+        NSDictionary *remoteNotification = [options objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        if (remoteNotification)
+        {
+            [self handlePushNotification:remoteNotification];
+        }
+        [self installRootViewControllerIntoWindow:window];
+    }];
 }
 
 

@@ -42,9 +42,9 @@
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
 
 #ifdef DEBUG_LOGIN_USER
-    user.firstName = @"Test";
-    user.lastName = @"Test";
-    user.mobileNumber = @"+380633559891";
+    user.firstName = @"Mmmm";
+    user.lastName = @"Mmmm";
+    user.mobileNumber = @"+380950473333";
 #endif
 
     if (!ANIsEmpty(user.mobileNumber))
@@ -185,7 +185,7 @@
         {
             [self.output registrationCompletedSuccessfullyWithPhoneNumber:user.mobileNumber];
         }
-
+        
     } error:^(NSError *error) {
         [self _handleErrorNumberValidationWithError:error];
     }];
