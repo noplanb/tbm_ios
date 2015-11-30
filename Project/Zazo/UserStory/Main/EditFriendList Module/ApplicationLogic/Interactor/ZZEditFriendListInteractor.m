@@ -52,7 +52,7 @@
     [self.output dataLoaded:[self sortArrayByFirstName:friends]];
 }
 
-- (void)changeContactStatusTypeForFriend:(ZZFriendDomainModel *)friendModel
+- (void)changeContactStatusTypeForFriend:(ZZFriendDomainModel*)friendModel
 {
     friendModel.friendshipStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
     BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
@@ -66,7 +66,9 @@
             [self.output contactSuccessfullyUpdated:updatedModel toVisibleState:shouldBeVisible];
         });
     } error:^(NSError *error) {
-        //TODO: revert status?
+        
+//        friendModel.friendshipStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
+        [self.output updatedWithError:error friend:friendModel];
     }];
 }
 

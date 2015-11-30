@@ -28,6 +28,8 @@ typedef NS_ENUM(NSInteger, ZZEditFriendButtonType)
 @property (nonatomic, weak) id<ZZEditFriendCellViewModelDelegate> delegate;
 @property (nonatomic, strong) ZZFriendDomainModel* item;
 
+@property (nonatomic, assign) BOOL isUpdating;
+
 - (void)updatePhotoImageView:(UIImageView *)imageView;
 - (void)updateDeleteButton:(UIButton *)button;
 

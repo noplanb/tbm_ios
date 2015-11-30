@@ -158,7 +158,7 @@
         [ZZActionSheetController actionSheetWithPresentedView:self.view
                                                         frame:self.gridView.headerView.editFriendsButton.frame
                                               completionBlock:^(ZZEditMenuButtonType selectedType) {
-                                                  
+                                               
                                                   switch (selectedType)
                                                   {
                                                       case ZZEditMenuButtonTypeEditFriends:

@@ -29,9 +29,14 @@
         });
     }
     
+    @weakify(actionSheet);
     [[actionSheet.rac_buttonClickedSignal take:1] subscribeNext:^(NSNumber* x) {
+        @strongify(actionSheet);
+        
         if (x.integerValue != actionSheet.cancelButtonIndex)
         {
+            
+            
             if (completionBlock)
             {
                 NSInteger buttonType;

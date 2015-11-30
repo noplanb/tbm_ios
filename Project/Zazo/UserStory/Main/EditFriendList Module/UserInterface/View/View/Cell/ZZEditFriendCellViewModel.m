@@ -29,10 +29,11 @@ static UIImage* kImagePlaceholder = nil;
 
 - (void)deleteAndRestoreButtonSelected
 {
+    self.isUpdating = YES;
     [self.delegate deleteAndRestoreButtonSelectedWithModel:self];
 }
 
-- (void)updateDeleteButton:(UIButton *)button
+- (void)updateDeleteButton:(UIButton*)button
 {
     if ([self.item isCreator])
     {
