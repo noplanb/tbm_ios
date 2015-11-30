@@ -69,6 +69,8 @@
     if (!ANIsEmpty(result))
     {
         ZZEditFriendCellViewModel* updatedModel = [result firstObject];
+        updatedModel.isUpdating = NO;
+        updatedModel.item = model;
         [self updateViewModel:updatedModel];
     }
 }

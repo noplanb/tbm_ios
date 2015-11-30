@@ -19,6 +19,6 @@
 
 - (void)dataLoaded:(NSArray *)friends;
 - (void)contactSuccessfullyUpdated:(ZZFriendDomainModel *)model toVisibleState:(BOOL)isVisible;
-- (void)updatedWithError:(NSError *)error;
+- (void)updatedWithError:(NSError *)error friend:(ZZFriendDomainModel*)model;
 
 @end

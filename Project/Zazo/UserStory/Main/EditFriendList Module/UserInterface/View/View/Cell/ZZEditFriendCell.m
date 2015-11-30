@@ -27,11 +27,6 @@
     if (self)
     {
         [self separator];
-        
-        self.deleteAndRestoreButton.rac_command = [RACCommand commandWithBlock:^{
-            [self deleteButtonSelected];
-        }];
-        
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
@@ -43,13 +38,16 @@
     self.phoneNumberLabel.text = [model phoneNumber];
     [model updatePhotoImageView:self.photoImageView];
     [model updateDeleteButton:self.deleteAndRestoreButton];
+    self.deleteAndRestoreButton.isLoading = [model isUpdating];
+    
     self.backgroundColor = [model cellBackgroundColor];
     
     self.currentModel = model;
 }
 
-- (void)deleteButtonSelected
+- (void)_deleteButtonSelected
 {
+    self.deleteAndRestoreButton.isLoading = YES;
     [self.currentModel deleteAndRestoreButtonSelected];
 }
 
@@ -120,9 +118,9 @@
     {
         _deleteAndRestoreButton = [ANProgressButton buttonWithTheme:[ZZColorTheme shared].editFriendsTheme];
       
-        _deleteAndRestoreButton.indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         [_deleteAndRestoreButton setTitleColor:[UIColor an_colorWithHexString:@"202020"] forState:UIControlStateNormal];
         _deleteAndRestoreButton.titleLabel.font = [UIFont an_regularFontWithSize:15];
+        [_deleteAndRestoreButton addTarget:self action:@selector(_deleteButtonSelected) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_deleteAndRestoreButton];
         
         [_deleteAndRestoreButton mas_makeConstraints:^(MASConstraintMaker *make) {
