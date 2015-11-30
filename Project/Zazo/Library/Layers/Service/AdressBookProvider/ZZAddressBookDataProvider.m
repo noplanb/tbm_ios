@@ -142,7 +142,7 @@ static APAddressBook* _addressBook = nil;
         
         NSArray* phones = [[contact.phonesWithLabels.rac_sequence map:^id(APPhoneWithLabel* value) {
             ZZCommunicationDomainModel* communication = [ZZCommunicationDomainModel new];
-            communication.contact = [value.phone an_stripAllNonNumericCharacters];
+            communication.contact = [self stripNonPhoneNumberCharacters:value.phone];
             communication.label = value.localizedLabel;
             return communication;
         }] array];
@@ -154,6 +154,15 @@ static APAddressBook* _addressBook = nil;
         model.emails = [contact.emails copy];
     }
     return model;
+}
+
++ (NSString *)stripNonPhoneNumberCharacters:(NSString *)phoneNumber
+{
+    return [phoneNumber stringByReplacingOccurrencesOfString:@"[^+0-9]"
+                                           withString:@""
+                                              options:NSRegularExpressionSearch
+                                                range:NSMakeRange(0, [phoneNumber length])];
+    
 }
 
 @end
