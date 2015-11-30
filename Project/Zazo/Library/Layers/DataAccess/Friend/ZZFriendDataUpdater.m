@@ -34,6 +34,7 @@
 + (ZZFriendDomainModel*)upsertFriend:(ZZFriendDomainModel*)model
 {
     TBMFriend* item = [self _userWithID:model.idTbm];
+    
     if (item)
     {
         if ([item.hasApp boolValue] ^ model.hasApp)
@@ -41,7 +42,11 @@
             ZZLogInfo(@"createWithServerParams: Friend exists updating hasApp only since it is different.");
             item.hasApp = @(model.hasApp);
             [item.managedObjectContext MR_saveToPersistentStoreAndWait];
-            [[ZZVideoStatusHandler sharedInstance] notifyFriendChanged:item];
+            [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:model.idTbm];
+        }
+        else
+        {
+            [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:model.idTbm];
         }
     }
     else
@@ -49,7 +54,7 @@
         item = [TBMFriend MR_createEntityInContext:[self _context]];
         item = [ZZFriendModelsMapper fillEntity:item fromModel:model];
         [item.managedObjectContext MR_saveToPersistentStoreAndWait];
-        [[ZZVideoStatusHandler sharedInstance] notifyFriendChanged:item];
+        [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:model.idTbm];
     }
     
     if (![item.friendshipStatus isEqualToString:model.friendshipStatus])

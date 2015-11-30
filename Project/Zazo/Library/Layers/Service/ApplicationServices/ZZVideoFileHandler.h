@@ -21,11 +21,11 @@
 - (void)updateDataRequired;
 
 
-- (void)notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)status withFriend:(TBMFriend*)friendModel videoId:(NSString*)videoId;
-- (void)setAndNotifyUploadRetryCount:(NSInteger)count withFriend:(TBMFriend*)friendModel video:(TBMVideo*)video;
+- (void)notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)status withFriendID:(NSString*)friendID videoId:(NSString*)videoId;
+- (void)setAndNotifyUploadRetryCount:(NSInteger)count withFriendID:(NSString*)friendID videoID:(NSString*)videoID;
 - (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)status friendId:(NSString*)friendId videoId:(NSString*)videoId;
 - (void)deleteAllViewedOrFailedVideosWithFriendId:(NSString*)friendId;
-- (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount withFriend:(TBMFriend*)friendModel video:(TBMVideo*)video;
+- (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount withFriendID:(NSString*)friendID videoID:(NSString*)videoID;
 
 
 @end

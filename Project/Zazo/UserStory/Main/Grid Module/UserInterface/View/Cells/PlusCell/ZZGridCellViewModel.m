@@ -54,7 +54,6 @@
 - (NSString*)videoStatusString
 {
     ZZFriendDomainModel* friendModel = self.item.relatedUser;
-//    TBMFriend* friendEntity = [ZZFriendDataProvider entityFromModel:friendModel];
     TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
     NSString* videoStatusString = nil;
 

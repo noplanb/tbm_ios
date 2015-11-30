@@ -185,7 +185,7 @@
         {
             [self.output registrationCompletedSuccessfullyWithPhoneNumber:user.mobileNumber];
         }
-
+        
     } error:^(NSError *error) {
         [self _handleErrorNumberValidationWithError:error];
     }];

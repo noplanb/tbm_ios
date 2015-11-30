@@ -8,6 +8,7 @@
 
 @class ANMemoryStorage;
 @class ZZEditFriendCellViewModel;
+@class ZZFriendDomainModel;
 
 @protocol ZZEditFriendListDataSourceDelegate <NSObject>
 
@@ -22,5 +23,6 @@
 
 - (void)setupStorageWithModels:(NSArray*)list;
 - (void)updateViewModel:(ZZEditFriendCellViewModel *)model;
+- (void)updateModelWithFriend:(ZZFriendDomainModel*)model;
 
 @end

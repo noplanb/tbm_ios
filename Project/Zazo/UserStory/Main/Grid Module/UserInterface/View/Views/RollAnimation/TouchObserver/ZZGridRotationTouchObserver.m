@@ -83,8 +83,8 @@ static CGFloat const kStartGridRotationOffset = 10;
                     (rotationOffset.y > kStartGridRotationOffset || rotationOffset.y < -kStartGridRotationOffset))
                 {
                     self.startOffset = self.gridView.calculatedCellsOffset;
-                    [self.rotator stopAnimationsOnGrid:self.gridView];
                 }
+                
             } break;
                 
             case UIGestureRecognizerStateChanged:
@@ -94,11 +94,13 @@ static CGFloat const kStartGridRotationOffset = 10;
                 if ((rotationOffset.x > kStartGridRotationOffset || rotationOffset.x < -kStartGridRotationOffset) ||
                     (rotationOffset.y > kStartGridRotationOffset || rotationOffset.y < -kStartGridRotationOffset))
                 {
+                    
                     CGFloat currentAngle = [recognizer currentAngleInView:self.gridView];
                     CGFloat startAngle = [recognizer startAngleInView:self.gridView];
                     CGFloat deltaAngle = currentAngle - startAngle;
                     self.gridView.calculatedCellsOffset = self.startOffset + deltaAngle;
-                    self.isMoving = YES;;
+                    self.isMoving = YES;
+                    
                 }
             } break;
                 
@@ -106,6 +108,7 @@ static CGFloat const kStartGridRotationOffset = 10;
             case UIGestureRecognizerStateEnded:
             {
                 [self.rotator decayAnimationWithVelocity:[recognizer angleVelocityInView:self.gridView] onCarouselView:self.gridView];
+          
             } break;
             default: break;
         }

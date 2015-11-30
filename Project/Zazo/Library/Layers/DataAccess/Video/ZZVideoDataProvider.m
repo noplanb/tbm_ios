@@ -14,6 +14,7 @@
 #import "ZZFriendDataProvider.h"
 #import "ZZContentDataAcessor.h"
 #import "TBMFriend.h"
+#import "ZZFriendDomainModel.h"
 
 @implementation ZZVideoDataProvider
 
@@ -161,7 +162,7 @@
 
 + (NSArray*)sortedIncomingVideosForUser:(ZZFriendDomainModel*)friendModel
 {
-    TBMFriend* friendEntity = [ZZFriendDataProvider entityFromModel:friendModel];
+    TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
     NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMVideoRelationships.friend, friendEntity];
     NSArray* videos = [TBMVideo MR_findAllSortedBy:TBMVideoAttributes.videoId ascending:YES withPredicate:predicate inContext:[self _context]];
     
