@@ -40,7 +40,7 @@
 
 - (void)updateGridIfNeededWithElement:(NSArray*)update
 {
-    NSArray* gridFriendAbbleToUpdate = [self friendsAbbleToUpdate];
+    NSArray* gridFriendAbbleToUpdate = [self _friendsAbleToUpdate];
     __block NSMutableArray* updatedGridModels = [NSMutableArray array];
     
     if (update.count > 0 && gridFriendAbbleToUpdate.count > 0)
@@ -63,7 +63,10 @@
     }
 }
 
-- (NSArray*)friendsAbbleToUpdate
+
+#pragma mark - Private
+
+- (NSArray*)_friendsAbleToUpdate
 {
     NSMutableSet* allFriendsSet = [NSMutableSet setWithArray:[ZZFriendDataProvider loadAllFriends]?:@[]];
     NSMutableSet* gridFriendSet = [NSMutableSet setWithArray:[ZZFriendDataProvider friendsOnGrid]?:@[]];

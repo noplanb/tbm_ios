@@ -44,10 +44,6 @@
             [item.managedObjectContext MR_saveToPersistentStoreAndWait];
             [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:model.idTbm];
         }
-        else
-        {
-            [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:model.idTbm];
-        }
     }
     else
     {

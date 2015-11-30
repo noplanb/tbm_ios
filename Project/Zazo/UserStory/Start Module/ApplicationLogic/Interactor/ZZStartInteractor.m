@@ -76,11 +76,6 @@
 {
     switch (state)
     {
-        case ZZApplicationVersionStateCurrent:
-        {
-            [self.output applicationIsUpToDateAndUserLogged:logged];
-        }
-            break;
         case ZZApplicationVersionStateUpdateOptional:
         {
             [self.output needUpdateAndCanSkip:YES logged:logged];

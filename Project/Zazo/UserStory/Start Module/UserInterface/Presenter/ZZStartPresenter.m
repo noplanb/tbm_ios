@@ -18,6 +18,7 @@
     [self.interactor checkVersionStateAndSession];
 }
 
+
 #pragma mark - Output
 
 - (void)userRequiresAuthentication
@@ -43,6 +44,7 @@
 
 }
 
+
 #pragma mark Private
 
 - (void)_needUpdate:(BOOL)canBeSkipped
@@ -58,14 +60,10 @@
                                       details:message
                             cancelButtonTitle:canBeSkipped ? @"Later" : nil
                            cancelButtonAction:canBeSkipped ? ^{
-                               [self _showMenuWithGrid];
+
                            }: nil
                             actionButtonTitle:@"Update" action:^{
                                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kAppstoreURLString]];
-                                if (canBeSkipped)
-                                {
-                                    [self _showMenuWithGrid];
-                                }
                             }];
     }
     else
@@ -81,17 +79,9 @@
         [[alertView rac_buttonClickedSignal] subscribeNext:^(NSNumber* buttonIndex) {
             @strongify(alertView);
             
-            if ([buttonIndex integerValue] == alertView.cancelButtonIndex)
-            {
-                [self _showMenuWithGrid];
-            }
-            else
+            if ([buttonIndex integerValue] != alertView.cancelButtonIndex)
             {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kAppstoreURLString]];
-                if (canBeSkipped)
-                {
-                    [self _showMenuWithGrid];
-                }
             }
         }];
     }
