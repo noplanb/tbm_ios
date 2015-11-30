@@ -68,7 +68,18 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
     });
 }
 
+- (void)reloadFriends
+{
+    ANDispatchBlockToBackgroundQueue(^{
 
+        if (!self.wasFriendSetuped)
+        {
+            return;
+        }
+        
+        [self _loadFriends];
+    });        
+}
 
 - (BOOL)_isNeedToUpdate
 {

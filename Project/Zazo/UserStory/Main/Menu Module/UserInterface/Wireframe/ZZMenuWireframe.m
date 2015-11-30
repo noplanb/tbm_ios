@@ -89,6 +89,7 @@
     if ([ZZAddressBookDataProvider isAccessGranted])
     {
         ANDispatchBlockToMainQueue(^{
+            [self.presenter.interactor reloadFriends];
             [self.menuController reset];
             [self.drawerController toggle];
         });
