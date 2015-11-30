@@ -23,7 +23,9 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 
 @property (nonatomic, assign) BOOL isLoading;
 @property (nonatomic, assign) BOOL isLoaded;
-@property (nonatomic, assign) BOOL wasFriendSetuped;
+@property (nonatomic, assign) BOOL wasSetuped;
+@property (nonatomic, assign) BOOL isNeedUpdate;
+@property (nonatomic, assign) BOOL isForceUpdate;
 
 @property (nonatomic, assign) NSTimeInterval startUpdateTime;
 @property (nonatomic, assign) NSTimeInterval endUpdateTime;
@@ -42,18 +44,45 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 
 - (void)loadDataIncludeAddressBookRequest:(BOOL)shouldRequest shouldOpenDrawer:(BOOL)shouldOpen
 {
+    self.startUpdateTime = [[NSDate date] timeIntervalSince1970];
+    
+    if (!self.wasSetuped)
+    {
+        [self _setupDataAfterFirstLaunchWithAddressBookRequest:shouldRequest shouldOpenDrawer:shouldOpen];
+    }
+    else
+    {
+        [self _setupDataWithAddressBookRequest:shouldRequest shouldOpenDrawer:shouldOpen];
+    }
+}
+
+- (void)enableUpdateContactData
+{
+    self.isForceUpdate = YES;
+}
+
+
+#pragma mark - Private
+
+- (void)_setupDataAfterFirstLaunchWithAddressBookRequest:(BOOL)shouldRequest shouldOpenDrawer:(BOOL)shouldOpen
+{
+    self.wasSetuped = YES;
     ANDispatchBlockToBackgroundQueue(^{
-        
-        self.startUpdateTime = [[NSDate date] timeIntervalSince1970];
-        
-        if (!self.wasFriendSetuped)
+        [self _loadFriends];
+        [self _loadAddressBookContactsWithRequestAccess:shouldRequest shouldOpenDrawer:shouldOpen];
+    });
+}
+
+- (void)_setupDataWithAddressBookRequest:(BOOL)shouldRequest shouldOpenDrawer:(BOOL)shouldOpen
+{
+    ANDispatchBlockToMainQueue(^{
+        if (self.isForceUpdate)
         {
             [self _loadFriends];
-            self.wasFriendSetuped = YES;
+            self.isForceUpdate = NO;
         }
         else
         {
-        
             if ([self _isNeedToUpdate])
             {
                 [self _loadFriends];
@@ -66,6 +95,7 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
         
         [self _loadAddressBookContactsWithRequestAccess:shouldRequest shouldOpenDrawer:shouldOpen];
     });
+    
 }
 
 - (BOOL)_isNeedToUpdate
@@ -87,13 +117,6 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
     NSArray* friends = [ZZFriendDataProvider loadAllFriends];
     [self _sortFriendsFromArray:friends];
 }
-
-- (void)enableUpdateContactData
-{
-    self.endUpdateTime -= kDelayBetweenFriendUpdate;
-}
-
-#pragma mark - Private
 
 - (void)_loadAddressBookContactsWithRequestAccess:(BOOL)shouldRequest shouldOpenDrawer:(BOOL)shouldOpen
 {

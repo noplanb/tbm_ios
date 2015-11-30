@@ -29,7 +29,8 @@ static NSString* const kDestinationBaseName = @"tbm-v2";
                                                                                               URL:storeUrl
                                                                                             error:&error];
     NSManagedObjectModel* destinationModel = [self coordinator].managedObjectModel;
-    if ([destinationModel isConfiguration:nil compatibleWithStoreMetadata:sourceMetadata])
+    if (ANIsEmpty(sourceMetadata) ||
+        [destinationModel isConfiguration:nil compatibleWithStoreMetadata:sourceMetadata])
     {
         isMigrationNeeded = NO;
     }

@@ -10,7 +10,7 @@
 
 @interface ZZContentDataAcessor : NSObject
 
-+ (void)start;
++ (void)startWithCompletionBlock:(ANCodeBlock)completionBlock;
 + (void)saveDataBase;
 
 + (NSManagedObjectContext*)contextForCurrentThread;

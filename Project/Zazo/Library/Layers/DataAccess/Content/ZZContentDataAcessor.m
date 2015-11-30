@@ -19,7 +19,7 @@
 
 @implementation ZZContentDataAcessor
 
-+ (void)start
++ (void)startWithCompletionBlock:(ANCodeBlock)completionBlock
 {
     [MagicalRecord setShouldDeleteStoreOnModelMismatch:NO];
     
@@ -36,19 +36,16 @@
         [ZZStoredSettingsManager shared].authToken = authUser.auth;
         [ZZStoredSettingsManager shared].mobileNumber = authUser.mobileNumber;
         
-        [[ZZAccountTransportService registerUserWithModel:authUser shouldForceCall:NO] subscribeNext:^(NSDictionary *authKeys) {
-            
-            NSString *auth = authKeys[@"auth"];
-            NSString *mkey = authKeys[@"mkey"];
-            [ZZStoredSettingsManager shared].userID = mkey;
-            [ZZStoredSettingsManager shared].authToken = auth;
-            
-            authUser.mkey = mkey;
-            authUser.auth = auth;
-            authUser = [ZZUserDataProvider upsertUserWithModel:authUser];
-            
-            [ANCrashlyticsAdapter updateUserDataWithID:mkey username:authUser.fullName email:authUser.mobileNumber];
-        }];
+        [ZZStoredSettingsManager shared].userID = authUser.mkey;
+        [ZZStoredSettingsManager shared].authToken = authUser.auth;
+        
+        
+        [ZZUserDataProvider upsertUserWithModel:authUser];
+
+        if (completionBlock)
+        {
+            completionBlock();
+        }
         
         if ([NSManagedObjectContext MR_rootSavingContext])
         {
@@ -61,6 +58,10 @@
     else
     {
         [MagicalRecord setupCoreDataStackWithStoreAtURL:[migrationManager destinationUrl]];
+        if (completionBlock)
+        {
+            completionBlock();
+        }
     }
 }
 

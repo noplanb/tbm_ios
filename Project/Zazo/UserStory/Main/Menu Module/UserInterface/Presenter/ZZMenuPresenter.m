@@ -101,7 +101,8 @@
 
 - (void)handleEvent:(ZZRootStateObserverEvents)event notificationObject:(id)notificationObject
 {
-    if (event == ZZRootStateObserverEventFriendWasAddedToGridWithVideo)
+    if (event == ZZRootStateObserverEventFriendWasAddedToGridWithVideo ||
+        event == ZZRootStateObserverEventFriendInContactChangeStauts)
     {
         [self.interactor enableUpdateContactData];
     }

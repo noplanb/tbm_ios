@@ -13,6 +13,7 @@
 #import "ZZPhoneHelper.h"
 #import "FEMObjectDeserializer.h"
 #import "ZZFriendDataUpdater.h"
+#import "ZZFriendDataProvider.h"
 
 static const struct
 {
@@ -57,7 +58,6 @@ static const struct
 + (RACSignal*)loadFriendList
 {
     return [[ZZFriendsTransport loadFriendList] map:^id(NSArray* friendsData) {
-        
         friendsData = [[friendsData.rac_sequence map:^id(id obj) {
             
             if ([obj isKindOfClass:[NSDictionary class]])

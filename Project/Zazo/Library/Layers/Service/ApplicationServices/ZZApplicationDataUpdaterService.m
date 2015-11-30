@@ -26,13 +26,14 @@
 - (void)updateAllData
 {
     ZZLogInfo(@"getAndPollAllFriends");
-    
-    [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray* friends) {
-        ZZLogInfo(@"gotFriends");
-        [self _pollAllFriends];
-    } error:^(NSError *error) {
-        [self _pollAllFriends];
-    }];
+    ANDispatchBlockToBackgroundQueue(^{
+        [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray* friends) {
+            ZZLogInfo(@"gotFriends");
+            [self _pollAllFriends];
+        } error:^(NSError *error) {
+            [self _pollAllFriends];
+        }];
+    });
 }
 
 - (void)updateAllDataWithoutRequest
@@ -142,10 +143,10 @@
                 //TODO: remove this core data stuff
                 TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
                 
-                [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)[model status]
-                                                                          withFriend:friendEntity
-                                                                         withVideoId:model.videoId];
                 
+                [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)[model status]
+                                                                        withFriendID:friendEntity.idTbm
+                                                                         withVideoId:model.videoId];
             }
         }
     }];

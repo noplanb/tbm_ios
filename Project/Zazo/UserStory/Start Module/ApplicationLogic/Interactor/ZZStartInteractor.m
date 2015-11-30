@@ -27,10 +27,13 @@
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
     if (user.isRegistered)
     {
-        ANDispatchBlockToBackgroundQueue(^{
-            [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {}];
+        
+        ANDispatchBlockToMainQueue(^{
+            [self.output applicationIsUpToDateAndUserLogged:YES];
         });
+        
         [self _checkVersionStateForUserLoggedInState:YES];
+        [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {}];
     }
     else
     {

@@ -29,8 +29,7 @@
         });
     }
     
-    [actionSheet.rac_buttonClickedSignal subscribeNext:^(NSNumber* x) {
-        
+    [[actionSheet.rac_buttonClickedSignal take:1] subscribeNext:^(NSNumber* x) {
         if (x.integerValue != actionSheet.cancelButtonIndex)
         {
             if (completionBlock)
@@ -48,6 +47,7 @@
                 completionBlock(buttonType);
             }
         }
+
     }];
 }
 
