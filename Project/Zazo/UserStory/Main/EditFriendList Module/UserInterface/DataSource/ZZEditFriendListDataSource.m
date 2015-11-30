@@ -56,8 +56,21 @@
     if (!ANIsEmpty(items))
     {
         [self.storage addItems:items toSection:0];
+    
     }
 }
 
+- (void)updateModelWithFriend:(ZZFriendDomainModel*)model
+{
+    NSArray* items = [self.storage itemsInSection:0];
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"item == %@",model];
+    NSArray* result = [items filteredArrayUsingPredicate:predicate];
+    
+    if (!ANIsEmpty(result))
+    {
+        ZZEditFriendCellViewModel* updatedModel = [result firstObject];
+        [self updateViewModel:updatedModel];
+    }
+}
 
 @end

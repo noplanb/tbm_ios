@@ -27,7 +27,11 @@
     if (self)
     {
         [self separator];
-        [self.deleteAndRestoreButton addTarget:self action:@selector(deleteButtonSelected) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.deleteAndRestoreButton.rac_command = [RACCommand commandWithBlock:^{
+            [self deleteButtonSelected];
+        }];
+        
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
@@ -110,11 +114,13 @@
     return _phoneNumberLabel;
 }
 
-- (UIButton *)deleteAndRestoreButton
+- (ANProgressButton *)deleteAndRestoreButton
 {
     if (!_deleteAndRestoreButton)
     {
-        _deleteAndRestoreButton = [UIButton new];
+        _deleteAndRestoreButton = [ANProgressButton buttonWithTheme:[ZZColorTheme shared].editFriendsTheme];
+      
+        _deleteAndRestoreButton.indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         [_deleteAndRestoreButton setTitleColor:[UIColor an_colorWithHexString:@"202020"] forState:UIControlStateNormal];
         _deleteAndRestoreButton.titleLabel.font = [UIFont an_regularFontWithSize:15];
         [self.contentView addSubview:_deleteAndRestoreButton];

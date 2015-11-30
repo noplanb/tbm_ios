@@ -43,6 +43,8 @@
 @property (nonatomic, strong) UIColor* secretScreenAddressBorderGrayColor;
 @property (nonatomic, strong) UIColor* secretScreenBlueColor;
 
+@property (nonatomic, strong) id <ANColorThemeButtonInterface> editFriendsTheme;
+
 + (instancetype)shared;
 
 @end

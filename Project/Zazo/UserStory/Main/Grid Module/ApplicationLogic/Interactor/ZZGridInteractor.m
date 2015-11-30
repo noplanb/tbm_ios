@@ -125,6 +125,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (void)userSelectedPrimaryPhoneNumber:(ZZContactDomainModel*)phoneNumber
 {
     ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithContact:phoneNumber];
+    
     if (!ANIsEmpty(gridModel))
     {
         [self.output gridAlreadyContainsFriend:gridModel];

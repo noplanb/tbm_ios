@@ -253,7 +253,6 @@
     }
     
     ZZFriendDomainModel* updatedFriendModel = [ZZFriendDataProvider friendWithMKeyValue:model.toUserMKey];
-    
     TBMFriend* friend = [ZZFriendDataProvider entityFromModel:updatedFriendModel];
     
     [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:outgoingStatus

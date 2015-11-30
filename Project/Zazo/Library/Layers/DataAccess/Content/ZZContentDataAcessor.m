@@ -35,29 +35,17 @@
         [ZZStoredSettingsManager shared].userID = authUser.idTbm;
         [ZZStoredSettingsManager shared].authToken = authUser.auth;
         [ZZStoredSettingsManager shared].mobileNumber = authUser.mobileNumber;
+        
+        [ZZStoredSettingsManager shared].userID = authUser.mkey;
+        [ZZStoredSettingsManager shared].authToken = authUser.auth;
+        
+        
         [ZZUserDataProvider upsertUserWithModel:authUser];
-        [[ZZAccountTransportService registerUserWithModel:authUser shouldForceCall:NO] subscribeNext:^(NSDictionary *authKeys) {
-            
-            NSString *auth = authKeys[@"auth"];
-            NSString *mkey = authKeys[@"mkey"];
-            [ZZStoredSettingsManager shared].userID = mkey;
-            [ZZStoredSettingsManager shared].authToken = auth;
-            
-            authUser.mkey = mkey;
-            authUser.auth = auth;
-            authUser = [ZZUserDataProvider upsertUserWithModel:authUser];
-            
-            [ANCrashlyticsAdapter updateUserDataWithID:mkey username:authUser.fullName email:authUser.mobileNumber];
-           if (completionBlock)
-           {
-               completionBlock();
-           }
-        } error:^(NSError *error) {
-            if (completionBlock)
-            {
-                completionBlock();
-            }
-        }];
+
+        if (completionBlock)
+        {
+            completionBlock();
+        }
         
         if ([NSManagedObjectContext MR_rootSavingContext])
         {

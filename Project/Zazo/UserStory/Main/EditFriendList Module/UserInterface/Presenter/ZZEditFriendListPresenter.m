@@ -13,7 +13,6 @@
 @interface ZZEditFriendListPresenter () <ZZEditFriendListDataSourceDelegate>
 
 @property (nonatomic, strong) ZZEditFriendListDataSource* tableDataSource;
-@property (nonatomic, strong) ZZEditFriendCellViewModel* selectedViewModel;
 
 @end
 
@@ -49,8 +48,7 @@
 
 - (void)contactSuccessfullyUpdated:(ZZFriendDomainModel *)model toVisibleState:(BOOL)isVisible
 {
-    self.selectedViewModel.item = model;
-    [self.tableDataSource updateViewModel:self.selectedViewModel];
+    [self.tableDataSource updateModelWithFriend:model];
     [self.editFriendListModuleDelegate friendStateWasUpdated:model toVisible:isVisible];
 }
 
@@ -81,7 +79,6 @@
 
 - (void)changeContactStatusTypeForModel:(ZZEditFriendCellViewModel *)model
 {
-    self.selectedViewModel = model;
     [self.interactor changeContactStatusTypeForFriend:model.item];
 }
 

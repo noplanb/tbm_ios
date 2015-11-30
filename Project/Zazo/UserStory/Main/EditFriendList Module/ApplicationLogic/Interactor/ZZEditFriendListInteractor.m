@@ -18,6 +18,7 @@
 #import "ZZGridDataProvider.h"
 #import "ZZGridDomainModel.h"
 #import "ZZRootStateObserver.h"
+#import "SVProgressHUD.h"
 
 
 @interface ZZEditFriendListInteractor ()
@@ -55,18 +56,15 @@
 {
     friendModel.friendshipStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
     BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
-    
     [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey
                                                       toVisible:shouldBeVisible] subscribeNext:^(NSDictionary* response) {
         ANDispatchBlockToMainQueue(^{
             ZZFriendDomainModel* updatedModel = [ZZFriendDataUpdater updateConnectionStatusForUserWithID:friendModel.idTbm
                                                                                                  toValue:friendModel.friendshipStatusValue];
             
-//            [self _updateContactDrawerIdNeededWithFriend:updatedModel];
             [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventFriendInContactChangeStauts notificationObject:nil];
             [self.output contactSuccessfullyUpdated:updatedModel toVisibleState:shouldBeVisible];
         });
-        
     } error:^(NSError *error) {
         //TODO: revert status?
     }];
