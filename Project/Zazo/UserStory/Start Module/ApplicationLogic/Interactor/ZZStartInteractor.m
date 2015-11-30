@@ -54,6 +54,7 @@
             if (state < ZZApplicationVersionStateTotalCount)
             {
                 ZZLogInfo(@"checkVersionCompatibility: success: %@", [NSObject an_safeString:result]);
+                [self _userVersionStateLoadedSuccessfully:state logged:loggedIn];
             }
             else
             {
@@ -63,6 +64,10 @@
     } error:^(NSError *error) {
 
         ZZLogWarning(@"checkVersionCompatibility: %@", error);
+        if (loggedIn)
+        {
+            [self _userVersionStateLoadedSuccessfully:ZZApplicationVersionStateCurrent logged:loggedIn];
+        }
         [self.output userVersionStateLoadingDidFailWithError:error];
     }];
 }
