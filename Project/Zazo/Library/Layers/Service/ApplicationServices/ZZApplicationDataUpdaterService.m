@@ -140,13 +140,16 @@
                     ZZLogError(@"pollVideoStatusWithFriend: got unknown outgoing video status. This should never happen");
                     return;
                 }
+                
                 //TODO: remove this core data stuff
-                TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
                 
-                
-                [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)[model status]
-                                                                        withFriendID:friendEntity.idTbm
-                                                                         withVideoId:model.videoId];
+                if ([model status] != ZZVideoOutgoingStatusNone)
+                {
+                    TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
+                    [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)[model status]
+                                                                            withFriendID:friendEntity.idTbm
+                                                                             withVideoId:model.videoId];
+                }
             }
         }
     }];

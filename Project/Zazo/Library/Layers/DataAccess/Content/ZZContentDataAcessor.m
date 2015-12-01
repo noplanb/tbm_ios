@@ -15,6 +15,7 @@
 #import "ZZStoredSettingsManager.h"
 #import "ZZAccountTransportService.h"
 #import "ANCrashlyticsAdapter.h"
+#import "ZZCommonNetworkTransport.h"
 
 
 @implementation ZZContentDataAcessor
@@ -38,10 +39,10 @@
         
         [ZZStoredSettingsManager shared].userID = authUser.mkey;
         [ZZStoredSettingsManager shared].authToken = authUser.auth;
-        
-        
         [ZZUserDataProvider upsertUserWithModel:authUser];
-
+        
+        [ZZCommonNetworkTransport setupNetworkCredentials];
+        
         if (completionBlock)
         {
             completionBlock();
@@ -58,6 +59,12 @@
     else
     {
         [MagicalRecord setupCoreDataStackWithStoreAtURL:[migrationManager destinationUrl]];
+        ZZUserDomainModel* authUser = [ZZUserDataProvider authenticatedUser];
+        if (!ANIsEmpty(authUser.idTbm)) // it is not authorization.
+        {
+            [ZZCommonNetworkTransport setupNetworkCredentials];
+        }
+        
         if (completionBlock)
         {
             completionBlock();

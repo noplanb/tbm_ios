@@ -252,8 +252,10 @@
         return;
     }
     
-    ZZFriendDomainModel* updatedFriendModel = [ZZFriendDataProvider friendWithMKeyValue:model.toUserMKey];
-    TBMFriend* friend = [ZZFriendDataProvider entityFromModel:updatedFriendModel];
+//    ZZFriendDomainModel* updatedFriendModel = [ZZFriendDataProvider friendWithMKeyValue:model.toUserMKey];
+//    TBMFriend* friend = [ZZFriendDataProvider entityFromModel:updatedFriendModel];
+    
+    TBMFriend* friend = [ZZFriendDataProvider friendEnityWithMkey:model.toUserMKey];
     
     [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:outgoingStatus
                                                             withFriendID:friend.idTbm

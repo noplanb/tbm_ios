@@ -30,4 +30,9 @@
     return [[ZZNetworkTransport shared] requestWithPath:kApiS3Credentials httpMethod:ANHttpMethodTypeGET];
 }
 
++ (void)setupNetworkCredentials
+{
+    [ZZNetworkTransport shared];
+}
+
 @end
