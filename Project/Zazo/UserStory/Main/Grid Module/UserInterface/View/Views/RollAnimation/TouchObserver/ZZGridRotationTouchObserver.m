@@ -53,7 +53,7 @@ static CGFloat const kStartGridRotationOffset = 10;
         
         self.rotator = [[ZZRotator alloc] initWithAnimationCompletionBlock:^{
             self.isMoving = NO;
-            [self _updateOriginalFramesAfterRotationStoped];
+//            [self _updateOriginalFramesAfterRotationStoped];
         }];
         
         [self _setupStopRotationHandler];
@@ -185,6 +185,11 @@ static CGFloat const kStartGridRotationOffset = 10;
     }] subscribeNext:^(RACTuple *touches) {
         [self.rotationRecognizer stateChanged];
     }];
+}
+
+- (BOOL)_isAbleToUpdate
+{
+    
 }
 
 @end
