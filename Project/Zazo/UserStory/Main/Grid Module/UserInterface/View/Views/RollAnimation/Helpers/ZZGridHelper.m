@@ -153,4 +153,9 @@
     self.originalFrames = [frames copy];
 }
 
+- (NSArray*)initialFrames
+{
+    return [self.originalFrames copy];
+}
+
 @end

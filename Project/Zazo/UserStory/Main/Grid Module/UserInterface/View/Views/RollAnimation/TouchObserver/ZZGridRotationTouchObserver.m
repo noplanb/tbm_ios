@@ -23,6 +23,7 @@ static CGFloat const kStartGridRotationOffset = 10;
 @property (nonatomic, strong) ZZGridHelper* gridHelper;
 
 @property (nonatomic, strong) ZZRotationGestureRecognizer *rotationRecognizer;
+//@property (nonatomic, assign) BOOL isNeedUpdateFrames;
 
 @end
 
@@ -53,6 +54,8 @@ static CGFloat const kStartGridRotationOffset = 10;
         
         self.rotator = [[ZZRotator alloc] initWithAnimationCompletionBlock:^{
             self.isMoving = NO;
+//            self.isNeedUpdateFrames = YES;
+//            [self _updateOriginalFrames];
 //            [self _updateOriginalFramesAfterRotationStoped];
         }];
         
@@ -187,9 +190,41 @@ static CGFloat const kStartGridRotationOffset = 10;
     }];
 }
 
-- (BOOL)_isAbleToUpdate
-{
-    
-}
+
+//#pragma mark - Update frames
+//
+//- (BOOL)_isAbleToUpdate
+//{
+//    __block BOOL isAbleUpdate = NO;
+//    
+//    NSArray* originalFrames = [self.gridHelper initialFrames];
+//    UIView* firstCell = [self.gridView.items firstObject];
+//    
+//    [originalFrames enumerateObjectsUsingBlock:^(NSValue*  _Nonnull frameValue, NSUInteger idx, BOOL * _Nonnull stop) {
+//        CGRect rect = [frameValue CGRectValue];
+//        NSLog(@"frame point: %@",NSStringFromCGPoint(rect.origin));
+//        NSLog(@"cell point: %@", NSStringFromCGPoint(firstCell.origin));
+//        if (CGPointEqualToPoint(rect.origin, firstCell.frame.origin))
+//        {
+//            isAbleUpdate = YES;
+//            *stop = YES;
+//        }
+//    }];
+//    
+//    return isAbleUpdate;
+//}
+//
+//- (void)_updateOriginalFrames
+//{
+//    while (self.isNeedUpdateFrames)
+//    {
+//        if ([self _isAbleToUpdate])
+//        {
+//            self.isNeedUpdateFrames = NO;
+//            [self _updateOriginalFramesAfterRotationStoped];
+//        }
+//    }
+//
+//}
 
 @end
