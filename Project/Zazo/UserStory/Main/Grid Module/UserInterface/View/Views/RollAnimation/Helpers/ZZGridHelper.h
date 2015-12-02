@@ -29,7 +29,4 @@ typedef NS_ENUM(NSInteger, ZZGridSpinPositionType)
 
 - (BOOL)isCameraCellInPoint:(CGPoint)point;
 
-//- (void)updateOriginalFramesWithActualFrames:(NSArray*)frames;
-- (NSArray*)initialFrames;
-
 @end
