@@ -35,6 +35,7 @@
         CGRect frame = [self _frameForCellAtPosition:idx withOffset:angle withGrid:grid];
         obj.frame = frame;
     }];
+
 }
 
 - (void)decayAnimationWithVelocity:(CGFloat)velocity onCarouselView:(UIView*)grid
@@ -78,7 +79,6 @@
 {
     if ([[anim class] isSubclassOfClass:[POPDecayAnimation class]])
     {
-        
         CGFloat velocity = [((POPDecayAnimation *) anim).velocity floatValue];
         
         if (fabs(velocity) < self.velocityOfBounce * 7.5f)
@@ -93,10 +93,10 @@
                 
                 if ((angle >= (grid.calculatedCellsOffset - 0.09f)) || (angle <= (grid.calculatedCellsOffset + 0.09f)))
                 {
+                    NSLog(@"Bounce");
                     [self stopAnimationsOnGrid:grid];
                     [self bounceAnimationToAngle:angle onCarouselView:grid withVelocity:velocity];
                 }
-                
             }
         }
     }
@@ -146,10 +146,12 @@
     CGRect frame = (CGRect){CGPointZero, [grid cellSize]};
     
     CGPoint center = [grid centerCellPointWithNormalIndex:position];
+   
     if (position != ZZGridSpinPositionTypeCamera)
     {
         [grid moveCellCenter:&center byAngle:offset];
     }
+    
     frame.origin = CGPointMake(center.x - frame.size.width / 2, center.y - frame.size.height / 2);
     return frame;
 }

@@ -18,6 +18,7 @@
 @property(assign, nonatomic, readonly) CGFloat decelerationValue;
 @property(assign, nonatomic, readonly) CGFloat velocityOfBounce;
 @property (nonatomic, strong) POPDecayAnimation *decayAnimation;
+@property (nonatomic, strong) ZZGridView* gridView;
 
 @property (nonatomic, weak) id<ZZRotatorDelegate> delegate;
 
