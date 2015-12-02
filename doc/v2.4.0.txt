@@ -274,3 +274,76 @@ ftm-retry-count
 ---------------
 
 TRY: Force ftm to fail with client error. Check to see if we get retry callback.
+
+
+hotfix:894 Debug stat in name label not transitioning to ..s after upload
+-------------------------------------------------------------------------
+- This bug happens only on my 5c running 8.0
+
+INVESTIGATION:
+
+This bug and probably others appear to be related to concurrency problems with MR and coreData.
+Here are my experiments that show that threading and coredata are the culprit.
+
+Here are the methods I care about:
+
+ZZVideoStatusHandler.handleOutgoingVideoCreatedWithVideo
+ZZVideoFileHandler._uploadCompletedWithFriendID
+ZZVideoStatusHandler.notifyOutgoingVideoWithStatus
+
+CASE 1:
+All three methods execute on the thread they were called on.
+MR_SaveToPersistantStoreAndWait is used.
+Phone gets stuck in p... 4 out of 5 times: See video: https://goo.gl/photos/79sGRNArDEVnFafq5
+
+
+CASE 2:
+ZZVideoStatusHandler.handleOutgoingVideoCreatedWithVideo - Wrapped with ANDispatchBlockToMainQueue
+ZZVideoFileHandler._uploadCompletedWithFriendID  - Wrapped with ANDispatchBlockToMainQueue
+ZZVideoStatusHandler.notifyOutgoingVideoWithStatus - Runs on the thread it is called on.
+MR_SaveToPersistantStoreWithCompletion:nil was used.
+Phone always shows .s.. after upload completes.
+
+However it misses the transition to p... from q... : It simply jumps from q... to .s..
+
+See video: https://goo.gl/photos/fcG5zuDn2pKchqRU6
+
+
+CASE 3:
+In order to solve the problem of missing the p... state I also put notifyOutgoingVideoWithStatus on the main thread.
+
+ZZVideoStatusHandler.handleOutgoingVideoCreatedWithVideo - Wrapped with ANDispatchBlockToMainQueue
+ZZVideoFileHandler._uploadCompletedWithFriendID  - Wrapped with ANDispatchBlockToMainQueue
+ZZVideoStatusHandler.notifyOutgoingVideoWithStatus - Wrapped with ANDispatchBlockToMainQueue.
+MR_SaveToPersistantStoreWithCompletion:nil was used.
+It always shows all states during upload: q..., p..., .s..
+
+See video: https://goo.gl/photos/9EXdHphFNE55TDkaA
+
+After taking video I tried it 100 times in a row and it never failed.
+
+AND HERE IS THE PROOF THAT IT IS RELATED TO THREADS AND COREDATA:
+
+Here is a signature of a randomly passing test. (.s..) Notice all of the setAndNotifyOutgoing video status happen to occur on the same thread (19):
+
+19:34:44 ZZVideoStatusHandler.m:(282) handleOutgoingVideoCreatedWithVid: saving outgoingVid:1449027282564 context: 0x166d69d0 thread:19
+19:34:44 ZZVideoStatusHandler.m:(186) notifyOutgoingVideoStatus:4 outgoingVid:1449027282564 context: 0x166d69d0 thread:19
+19:34:44 ZZVideoStatusHandler.m:(211) notifyOutgoingVideoStatus:1 outgoingVid:1449027282564 context: 0x166d69d0 thread:19
+19:34:44 ZZVideoStatusHandler.m:(186) notifyOutgoingVideoStatus:1 outgoingVid:1449027282564 context: 0x166d69d0 thread:19
+19:34:44 ZZVideoStatusHandler.m:(211) notifyOutgoingVideoStatus:3 outgoingVid:1449027282564 context: 0x166d69d0 thread:19
+19:34:46 ZZVideoStatusHandler.m:(186) notifyOutgoingVideoStatus:3 outgoingVid:1449027282564 context: 0x166d69d0 thread:19
+19:34:46 ZZVideoStatusHandler.m:(211) notifyOutgoingVideoStatus:4 outgoingVid:1449027282564 context: 0x166d69d0 thread:19
+
+
+Here is a signature of a randomly failed test (stuck in p...). Notice the last set and notify happens to occur on a different thread (16) and it pulls a stale version of friend (old friend.outgoingVidoeId) and saves it prior to the comparison where it fails.
+
+19:34:49 ZZVideoStatusHandler.m:(282) handleOutgoingVideoCreatedWithVid: saving outgoingVid:1449027287400 context: 0x166d69d0 thread:19
+19:34:49 ZZVideoStatusHandler.m:(186) notifyOutgoingVideoStatus:4 outgoingVid:1449027287400 context: 0x166d69d0 thread:19
+19:34:49 ZZVideoStatusHandler.m:(211) notifyOutgoingVideoStatus:1 outgoingVid:1449027287400 context: 0x166d69d0 thread:19
+19:34:49 ZZVideoStatusHandler.m:(186) notifyOutgoingVideoStatus:1 outgoingVid:1449027287400 context: 0x166d69d0 thread:19
+19:34:49 ZZVideoStatusHandler.m:(211) notifyOutgoingVideoStatus:3 outgoingVid:1449027287400 context: 0x166d69d0 thread:19
+19:34:50 ZZVideoStatusHandler.m:(186) notifyOutgoingVideoStatus:4 outgoingVid:1449026991910 context: 0x1794a370 thread:16
+19:34:50 Sanis-iPhone Zazo[309] <Warning>: ## WARN: <ZZVideoStatusHandler.m:(190) setAndNotifyOutgoingVideoStatus: Unrecognized vidoeId:1449027287400. != ougtoingVid:1449026991910. friendId:121 Ignoring.
+
+SOLUTION:
+- Dispatch setAndNotifyVideoStatus updates run on the main queue

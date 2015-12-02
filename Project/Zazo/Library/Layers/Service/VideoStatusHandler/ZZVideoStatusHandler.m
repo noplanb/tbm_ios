@@ -114,49 +114,51 @@
                         withFriendID:(NSString*)friendID
                              videoID:(NSString*)videoID
 {
-    
-    TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendID];
-    [ZZContentDataAcessor refreshContext:friendEntity.managedObjectContext];
-    if (![videoID isEqualToString:friendEntity.outgoingVideoId])
-    {
-        ZZLogWarning(@"setAndNotifyUploadRetryCount: Unrecognized vidoeId. Ignoring.");
-        return;
-    }
-    
-    if (retryCount != friendEntity.uploadRetryCountValue)
-    {
-        friendEntity.uploadRetryCount = @(retryCount);
-        friendEntity.lastVideoStatusEventTypeValue = ZZVideoStatusEventTypeOutgoing;
-        [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
-        [self _notifyObserversVideoStatusChangeWithFriendID:friendID];
-    }
-    else
-    {
-        ZZLogWarning(@"retryCount:%ld equals self.retryCount:%@. Ignoring.", (long)retryCount, friendEntity.uploadRetryCount);
-    }
+    ANDispatchBlockToMainQueue(^{
+        TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendID];
+        [ZZContentDataAcessor refreshContext:friendEntity.managedObjectContext];
+        if (![videoID isEqualToString:friendEntity.outgoingVideoId])
+        {
+            ZZLogWarning(@"setAndNotifyUploadRetryCount: Unrecognized vidoeId. Ignoring.");
+            return;
+        }
+        
+        if (retryCount != friendEntity.uploadRetryCountValue)
+        {
+            friendEntity.uploadRetryCount = @(retryCount);
+            friendEntity.lastVideoStatusEventTypeValue = ZZVideoStatusEventTypeOutgoing;
+            [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+            [self _notifyObserversVideoStatusChangeWithFriendID:friendID];
+        }
+        else
+        {
+            ZZLogWarning(@"retryCount:%ld equals self.retryCount:%@. Ignoring.", (long)retryCount, friendEntity.uploadRetryCount);
+        }
+    });
 }
 
 - (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount
                           withFriendID:(NSString*)friendID
                                videoID:(NSString*)videoID
 {
-    
-    TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendID];
-    TBMVideo* videoEntity = [ZZVideoDataProvider entityWithID:videoID];
-    
-    if (videoEntity.downloadRetryCountValue == retryCount)
-        return;
-    
-    videoEntity.downloadRetryCount = @(retryCount);
-    [videoEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
-    [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
-    
-    if ([self _isNewestIncomingVideo:videoEntity withFriend:friendEntity])
-    {
-        friendEntity.lastVideoStatusEventType = ZZVideoStatusEventTypeIncoming;
+    ANDispatchBlockToMainQueue(^{
+        TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendID];
+        TBMVideo* videoEntity = [ZZVideoDataProvider entityWithID:videoID];
+        
+        if (videoEntity.downloadRetryCountValue == retryCount)
+            return;
+        
+        videoEntity.downloadRetryCount = @(retryCount);
+        [videoEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
         [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
-        [self _notifyObserversVideoStatusChangeWithFriendID:friendID];
-    }
+        
+        if ([self _isNewestIncomingVideo:videoEntity withFriend:friendEntity])
+        {
+            friendEntity.lastVideoStatusEventType = ZZVideoStatusEventTypeIncoming;
+            [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+            [self _notifyObserversVideoStatusChangeWithFriendID:friendID];
+        }
+    });
 }
 
 - (BOOL)_isNewestIncomingVideo:(TBMVideo *)video withFriend:(TBMFriend*)friend
@@ -180,37 +182,39 @@
                          withFriendID:(NSString*)friendID
                           withVideoId:(NSString*)videoId;
 {
-    [ZZContentDataAcessor refreshContext:[ZZContentDataAcessor contextForCurrentThread]];
-    TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendID];
-    
-    NSLog(@"OKS- videoID - %@, friendID - %@, friend.lastVideoID - %@ videoStatus: %li", videoId, friendEntity.idTbm, friendEntity.outgoingVideoId,(long)status);
-    NSLog(@"THREAD: %@",[NSThread currentThread]);
-    if (![videoId isEqualToString:friendEntity.outgoingVideoId])
-    {
-        ZZLogWarning(@"setAndNotifyOutgoingVideoStatus: Unrecognized vidoeId:%@. != ougtoingVid:%@. friendId:%@ Ignoring.", videoId, friendEntity.outgoingVideoId, friendID);
-        return;
-    }
-    
-    if (status == friendEntity.outgoingVideoStatusValue)
-    {
-        ZZLogWarning(@"setAndNotifyOutgoingVideoStatusWithVideo: Identical status. Ignoring.");
-        return;
-    }
-    
-    friendEntity.lastVideoStatusEventTypeValue = ZZVideoStatusEventTypeOutgoing;
-    friendEntity.outgoingVideoStatusValue = status;
-    
-    
-    if (status == ZZVideoOutgoingStatusUploaded ||
-        status == ZZVideoOutgoingStatusDownloaded ||
-        status == ZZVideoOutgoingStatusViewed)
-    {
-        friendEntity.timeOfLastAction = [NSDate date];
-    }
-    
-    [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
-    
-    [self _notifyObserversVideoStatusChangeWithFriendID:friendID];
+    ANDispatchBlockToMainQueue(^{
+        [ZZContentDataAcessor refreshContext:[ZZContentDataAcessor contextForCurrentThread]];
+        TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendID];
+        
+        NSLog(@"OKS- videoID - %@, friendID - %@, friend.lastVideoID - %@ videoStatus: %li", videoId, friendEntity.idTbm, friendEntity.outgoingVideoId,(long)status);
+        NSLog(@"THREAD: %@",[NSThread currentThread]);
+        if (![videoId isEqualToString:friendEntity.outgoingVideoId])
+        {
+            ZZLogWarning(@"setAndNotifyOutgoingVideoStatus: Unrecognized vidoeId:%@. != ougtoingVid:%@. friendId:%@ Ignoring.", videoId, friendEntity.outgoingVideoId, friendID);
+            return;
+        }
+        
+        if (status == friendEntity.outgoingVideoStatusValue)
+        {
+            ZZLogWarning(@"setAndNotifyOutgoingVideoStatusWithVideo: Identical status. Ignoring.");
+            return;
+        }
+        
+        friendEntity.lastVideoStatusEventTypeValue = ZZVideoStatusEventTypeOutgoing;
+        friendEntity.outgoingVideoStatusValue = status;
+        
+        
+        if (status == ZZVideoOutgoingStatusUploaded ||
+            status == ZZVideoOutgoingStatusDownloaded ||
+            status == ZZVideoOutgoingStatusViewed)
+        {
+            friendEntity.timeOfLastAction = [NSDate date];
+        }
+        
+        [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+        
+        [self _notifyObserversVideoStatusChangeWithFriendID:friendID];
+    });
 }
 
 - (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)videoStatus
@@ -273,13 +277,15 @@
 
 - (void)handleOutgoingVideoCreatedWithVideoId:(NSString*)videoId withFriend:(NSString*)friendID
 {
-    TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendID];
-    
-    friendEntity.uploadRetryCount = 0;
-    friendEntity.outgoingVideoId = videoId;
-    [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
-    
-    [self notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusNew withFriendID:friendEntity.idTbm withVideoId:videoId];
+    ANDispatchBlockToMainQueue(^{
+        TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendID];
+        
+        friendEntity.uploadRetryCount = 0;
+        friendEntity.outgoingVideoId = videoId;
+        [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+        
+        [self notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusNew withFriendID:friendEntity.idTbm withVideoId:videoId];
+    });
 }
 
 @end
