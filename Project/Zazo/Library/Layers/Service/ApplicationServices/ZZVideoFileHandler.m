@@ -603,14 +603,17 @@
     NSString *filename = [ZZRemoteStorageValueGenerator incomingVideoRemoteFilenameWithFriendMkey:friendModel.mkey
                                                                                        friendCKey:friendModel.ckey
                                                                                           videoId:videoId];
-    ZZLogInfo(@"deleteRemoteFile: deleting: %@", filename);
-    NSString *full = [NSString stringWithFormat:@"%@/%@", remoteStorageFileTransferDeletePath(), filename];
-    NSError *e = [[self fileTransferManager] deleteFile:full];
-    if (e != nil)
-    {
-        ZZLogError(@"ftmDelete: Error trying to delete remote file. This should never happen. %@", e);
-    }
+    ANDispatchBlockToBackgroundQueue(^{
+        ZZLogInfo(@"deleteRemoteS3VideoFile: deleting: %@", filename);
+        NSString *full = [NSString stringWithFormat:@"%@/%@", remoteStorageFileTransferDeletePath(), filename];
+        NSError *e = [[self fileTransferManager] deleteFile:full];
+        if (e != nil)
+        {
+            ZZLogError(@"ftmDelete: Error trying to delete remote file. This should never happen. %@", e);
+        }
+    });
     
+    // Transport service should handle making this http request in a non blocking way.
     [[ZZRemoteStoageTransportService deleteRemoteIncomingVideoWithItemID:videoId
                                                               friendMkey:friendModel.mkey
                                                               friendCKey:friendModel.ckey] subscribeNext:^(id x) {}];

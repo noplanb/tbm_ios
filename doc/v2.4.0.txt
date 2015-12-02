@@ -347,3 +347,19 @@ Here is a signature of a randomly failed test (stuck in p...). Notice the last s
 
 SOLUTION:
 - Dispatch setAndNotifyVideoStatus updates run on the main queue
+
+
+
+hotfix: 948 - Delete file from S3 blocks download UI
+----------------------------------------------------
+
+TEST:
+ - Send a long video to phone
+ - Using  iosConsole notice when download starts happening.
+ - Pull plug from router as soon as download completes.
+
+ERROR: Video is downloaded but UI is stuck in downloading state until S3 delete file request times out.
+
+Also even if there is no network error there is an unecessary delay after download is complete due to this blocking request to S3.
+
+SOLUTION: Make this request on a background thread.
