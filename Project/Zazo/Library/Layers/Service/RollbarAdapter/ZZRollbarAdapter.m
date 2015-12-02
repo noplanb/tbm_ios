@@ -49,9 +49,9 @@
             BOOL shouldUSerSDK = [x boolValue];
             self.endpointType = shouldUSerSDK ? ZZDispatchEndpointRollbar : ZZDispatchEndpointServer;
         }];
-#ifdef DEBUG
+//#ifdef DEBUG
         [OBLogger instance].writeToConsole = YES;
-#endif
+//#endif
         if ([[OBLogger instance] logLines].count > 3000)
         {
             [[OBLogger instance] reset];
@@ -80,7 +80,7 @@
         message = [NSString stringWithFormat:@"%@\n\n\n%@", [NSObject an_safeString:message], [self _logString]];
     }
     message = [message stringByAppendingFormat:@"\n%@", [ZZApplicationStateInfoGenerator globalStateString]];
-#ifndef DEBUG
+//#ifndef DEBUG
     if (self.endpointType == ZZDispatchEndpointServer)
     {
         [[ZZCommonNetworkTransportService logMessage:message] subscribeNext:^(id x) {}];
@@ -90,7 +90,7 @@
         NSString *levelString = ZZDispatchLevelStringFromEnumValue(level);
         [Rollbar logWithLevel:levelString message:message];
     }
-#endif
+//#endif
 }
 
 
