@@ -142,7 +142,7 @@ static APAddressBook* _addressBook = nil;
         
         NSArray* phones = [[contact.phonesWithLabels.rac_sequence map:^id(APPhoneWithLabel* value) {
             ZZCommunicationDomainModel* communication = [ZZCommunicationDomainModel new];
-            communication.contact = [value.phone an_stripAllNonNumericCharacters];
+            communication.contact = value.phone;
             communication.label = value.localizedLabel;
             return communication;
         }] array];
