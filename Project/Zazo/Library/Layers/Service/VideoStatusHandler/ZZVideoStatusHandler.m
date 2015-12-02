@@ -150,7 +150,6 @@
         
         videoEntity.downloadRetryCount = @(retryCount);
         [videoEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
-        [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
         
         if ([self _isNewestIncomingVideo:videoEntity withFriend:friendEntity])
         {
