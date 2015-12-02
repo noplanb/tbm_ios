@@ -33,7 +33,7 @@
 
 @property (nonatomic, strong) ZZUserDomainModel *currentUser;
 
-@end 
+@end
 
 @implementation ZZAuthInteractor
 
@@ -42,9 +42,9 @@
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
 
 #ifdef DEBUG_LOGIN_USER
-    user.firstName = @"Robert";
-    user.lastName = @"Downey Jr";
-    user.mobileNumber = @"+380953737737";
+    user.firstName = @"Isixp";
+    user.lastName = @"Sani";
+    user.mobileNumber = @"+16507800160";
 #endif
 
     if (!ANIsEmpty(user.mobileNumber))
@@ -194,12 +194,12 @@
 
 - (void)_handleErrorNumberValidationWithError:(NSError*)error
 {
-    
+
     if ([self.output isNetworkEnabled])
     {
         if (!ANIsEmpty([ZZStoredSettingsManager shared].mobileNumber))
         {
-            
+
             NSError* mobilePhoneError = [NSError errorWithDomain:kErrorDomainWrongMobileType code:kErrorWrongMobileErrorCode userInfo:nil];
             [self.output registrationDidFailWithError:mobilePhoneError];
         }
