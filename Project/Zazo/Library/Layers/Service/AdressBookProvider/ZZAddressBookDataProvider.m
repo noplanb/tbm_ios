@@ -113,7 +113,6 @@ static APAddressBook* _addressBook = nil;
                     {
                         item = existingItem;
                     }
-                    
                     item = [self _fillUserModel:item fromContact:obj];
                     result[[item.fullName lowercaseString]] = item;
                 }];

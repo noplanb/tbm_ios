@@ -101,24 +101,24 @@ static NSString* const kDefaultRegion = @"US";
     ZZLogDebug(@"User region: %@", region);
     
     NSError *error;
-    NBPhoneNumber *phoneNumber = [phoneUtil parse:phone defaultRegion:region error:&error];
+    NBPhoneNumber* phoneNumber = [phoneUtil parse:phone defaultRegion:region error:&error];
     if (error == nil)
     {
         if ([phoneUtil isValidNumber:phoneNumber])
         {
             ZZLogDebug(@"valid number");
-            return true;
+            return YES;
         }
         else
         {
             ZZLogDebug(@"error was nil but invalid phone");
-            return false;
+            return NO;
         }
     }
     else
     {
         ZZLogError(@"TBMPhoneUtils: isValidPhone: %@", [error localizedDescription]);
-        return false;
+        return NO;
     }
 }
 
