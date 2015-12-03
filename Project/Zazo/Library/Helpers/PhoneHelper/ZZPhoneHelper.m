@@ -59,14 +59,14 @@ static NSString* const kDefaultRegion = @"US";
     NSError *err = nil;
     NSString *r;
     
-    NSString* region = [self _phoneRegionFromNumber:phone];
+    NSString* region = [self _phoneRegionFromNumber:phone]; //TODO: authenticated user have no mobile number
     if (ANIsEmpty(region))
     {
         region = [self _phoneRegionFromNumber:[self _savedMobileNumber]];
     }
     if (ANIsEmpty(region))
     {
-        region = @"US";
+        region = kDefaultRegion;
     }
     
     NBPhoneNumber *pn = [pu parse:phone defaultRegion:region error:&err];
