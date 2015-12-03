@@ -31,7 +31,6 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 @property (nonatomic, assign) NSTimeInterval endUpdateTime;
 @property (nonatomic, strong) NSArray* sortedFriends;
 
-
 @end
 
 @implementation ZZMenuInteractor
@@ -95,7 +94,6 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
         
         [self _loadAddressBookContactsWithRequestAccess:shouldRequest shouldOpenDrawer:shouldOpen];
     });
-    
 }
 
 - (BOOL)_isNeedToUpdate
@@ -147,7 +145,6 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 {
     ANDispatchBlockToMainQueue(^{
         NSMutableArray* friendsHasAppArray = [NSMutableArray new];
-//        NSMutableArray* otherFriendsArray = [NSMutableArray new];
         
         NSArray* gridUsers = [ZZFriendDataProvider friendsOnGrid];
         if (!gridUsers)

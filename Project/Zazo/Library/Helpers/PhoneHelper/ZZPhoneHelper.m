@@ -59,8 +59,11 @@ static NSString* const kDefaultRegion = @"US";
     NSError *err = nil;
     NSString *r;
     
-    NSString* region = [self _phoneRegionFromNumber:[self _savedMobileNumber]]; //TODO: authenticated user have no mobile number
-   
+    NSString* region = [self _phoneRegionFromNumber:phone];
+    if (ANIsEmpty(region))
+    {
+        region = [self _phoneRegionFromNumber:[self _savedMobileNumber]];
+    }
     if (ANIsEmpty(region))
     {
         region = @"US";
@@ -88,11 +91,15 @@ static NSString* const kDefaultRegion = @"US";
 
 #pragma mark - Private
 
-+ (BOOL)_isValidPhone:(NSString *)phone
++ (BOOL)_isValidPhone:(NSString*)phone
 {
     NBPhoneNumberUtil* phoneUtil = [[NBPhoneNumberUtil alloc] init];
     
-    NSString* region = [self _phoneRegionFromNumber:[self _savedMobileNumber]];
+    NSString* region = [self _phoneRegionFromNumber:phone];
+    if (ANIsEmpty(region))
+    {
+        region = [self _phoneRegionFromNumber:[self _savedMobileNumber]];
+    }
     if (ANIsEmpty(region))
     {
         region = kDefaultRegion;
