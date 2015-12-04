@@ -67,7 +67,7 @@
         });
     } error:^(NSError *error) {
         
-//        friendModel.friendshipStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
+        friendModel.friendshipStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
         [self.output updatedWithError:error friend:friendModel];
     }];
 }
