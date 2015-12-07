@@ -611,12 +611,12 @@
         {
             ZZLogError(@"ftmDelete: Error trying to delete remote file. This should never happen. %@", e);
         }
+        
+        [[ZZRemoteStoageTransportService deleteRemoteIncomingVideoWithItemID:videoId
+                                                                  friendMkey:friendModel.mkey
+                                                                  friendCKey:friendModel.ckey] subscribeNext:^(id x) {}];
+
     });
-    
-    // Transport service should handle making this http request in a non blocking way.
-    [[ZZRemoteStoageTransportService deleteRemoteIncomingVideoWithItemID:videoId
-                                                              friendMkey:friendModel.mkey
-                                                              friendCKey:friendModel.ckey] subscribeNext:^(id x) {}];
 }
 
 
