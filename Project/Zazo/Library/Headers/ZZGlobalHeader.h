@@ -8,16 +8,16 @@
 #ifdef RELEASE
 #warning Don't forget update this number
 #endif
-static NSString* const kGlobalApplicationVersion = @"38";
+static NSString* const kGlobalApplicationVersion = @"40";
 
 
 //#define DEBUG_CONTROLLER
 
 #ifdef DEBUG
-#define HTTPLog
-#define DEBUG_LOGIN_USER
-#define STAGESERVER
-#define HINTS
+//#define HTTPLog
+//#define DEBUG_LOGIN_USER
+//#define STAGESERVER
+//#define HINTS
 #endif
 
 //helpers
