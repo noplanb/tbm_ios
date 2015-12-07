@@ -69,6 +69,10 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 }
 
 
+- (void)setNeedToUpdate
+{
+    self.endUpdateTime -= kDelayBetweenFriendUpdate;
+}
 
 - (BOOL)_isNeedToUpdate
 {

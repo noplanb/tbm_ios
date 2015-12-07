@@ -32,6 +32,11 @@
                                              selector:@selector(_applicationWillEnterInBackground)
                                                  name:UIApplicationWillResignActiveNotification
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_userAddedToGrid)
+                                                 name:kUserAddedToGridNotificationKey
+                                               object:nil];
 }
 
 - (void)dealloc
@@ -92,6 +97,11 @@
 {
     [self.interactor resetAddressBookData];
     [self.wireframe closeMenu];
+}
+
+- (void)_userAddedToGrid
+{
+    [self.interactor setNeedToUpdate];
 }
 
 @end

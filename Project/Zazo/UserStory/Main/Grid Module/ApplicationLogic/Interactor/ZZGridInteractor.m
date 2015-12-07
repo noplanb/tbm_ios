@@ -86,6 +86,8 @@ static NSInteger const kGridFriendsCellCount = 8;
         {
             [self _addUserAsContactToGrid:(ZZContactDomainModel*)friendModel];
         }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kUserAddedToGridNotificationKey object:nil];
     }
 }
 
