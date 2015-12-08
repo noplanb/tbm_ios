@@ -14,6 +14,7 @@
 //TODO: to remove
 #import "ZZStartWireframe.h"
 #import "ZZSecretScreenController.h"
+#import "ZZNetworkTestWireframe.h"
 
 
 @interface ZZRootWireframe ()
@@ -36,8 +37,15 @@
     [self showRootController:vc inWindow:window];
     
 #else
-    ZZStartWireframe* wireframe = [ZZStartWireframe new];
-    [wireframe presentStartControllerFromWindow:window completion:completionBlock];
+  
+    #ifdef NETTEST
+        ZZNetworkTestWireframe* testWireframe = [ZZNetworkTestWireframe new];
+        [testWireframe presentNetworkTestControllerFromWindow:window];
+    
+    #else
+        ZZStartWireframe* wireframe = [ZZStartWireframe new];
+        [wireframe presentStartControllerFromWindow:window completion:completionBlock];
+    #endif
     
 #endif
 
