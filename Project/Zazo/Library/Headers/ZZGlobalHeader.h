@@ -8,7 +8,7 @@
 #ifdef RELEASE
 #warning Don't forget update this number
 #endif
-static NSString* const kGlobalApplicationVersion = @"40";
+static NSString* const kGlobalApplicationVersion = @"43";
 
 
 //#define DEBUG_CONTROLLER
