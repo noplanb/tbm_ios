@@ -9,8 +9,11 @@
 #import "ZZNetworkTestInteractor.h"
 #import "ZZUpdateCredentialsManager.h"
 #import "ZZSendVideoManager.h"
+#import "ZZVideoStatusHandler.h"
+#import "ZZFriendDataProvider.h"
+#import "ZZVideoDataProvider.h"
 
-@interface ZZNetworkTestInteractor ()
+@interface ZZNetworkTestInteractor () <ZZVideoStatusHandlerDelegate>
 
 @property (nonatomic, strong) ZZUpdateCredentialsManager* updateCredentialsManager;
 @property (nonatomic, strong) ZZSendVideoManager* sendVideoManger;
@@ -27,10 +30,15 @@
     {
         self.updateCredentialsManager = [ZZUpdateCredentialsManager new];
         self.sendVideoManger = [ZZSendVideoManager new];
+        [[ZZVideoStatusHandler sharedInstance] addVideoStatusHandlerObserver:self];
     }
     return self;
 }
 
+- (void)dealloc
+{
+    [[ZZVideoStatusHandler sharedInstance] removeVideoStatusHandlerObserver:self];
+}
 
 #pragma mark - Updte credentials part
 
@@ -50,6 +58,15 @@
 - (void)stopSendingVideo
 {
     [self.sendVideoManger stop];
+}
+
+
+#pragma mark - Video status handler delegate method
+
+- (void)videoStatusChangedWithFriendID:(NSString*)friendID
+{
+    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
+    [self.output videosatusChangedWithFriend:friend];
 }
 
 @end

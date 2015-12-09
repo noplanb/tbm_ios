@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
+@class TBMFriend;
+
 @protocol ZZNetworkTestInteractorInput <NSObject>
 
 - (void)updateCredentials:(ANCodeBlock)completion;
@@ -17,5 +19,6 @@
 
 @protocol ZZNetworkTestInteractorOutput <NSObject>
 
+- (void)videosatusChangedWithFriend:(TBMFriend*)friendEntity;
 
 @end

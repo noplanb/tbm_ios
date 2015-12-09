@@ -8,6 +8,11 @@
 
 @protocol ZZNetworkTestViewInterface <NSObject>
 
+- (void)outgoingVideoChangeWithCount:(NSInteger)count;
+- (void)completedVideoChangeWithCounter:(NSInteger)count;
 
+- (void)failedOutgoingVideoWithCounter:(NSInteger)count;
+
+- (void)updateCurrentStatus:(NSString*)status;
 
 @end

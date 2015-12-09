@@ -14,6 +14,10 @@
 #import "TBMVideoProcessor.h"
 #import "ZZFileHelper.h"
 
+static CGFloat const kUploadFileInterval = 3.0f;
+static NSString* const kUploadFileName = @"IMG_0762";
+static NSString* const kUploadFileType = @"MOV";
+
 @interface ZZSendVideoManager ()
 
 @property (nonatomic, strong) NSTimer* timer;
@@ -26,7 +30,7 @@
 {
     if (!self.timer)
     {
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:kUploadFileInterval
                                                       target:self
                                                     selector:@selector(_sendVideo)
                                                     userInfo:nil repeats:YES];
@@ -47,18 +51,17 @@
     TBMFriend* friend = [[TBMFriend MR_findAll] firstObject];
     if (!ANIsEmpty(friend))
     {
-        NSURL* fromUrl = [ZZFileHelper fileURlWithFileName:@"IMG_0762" withType:@"MOV"];
+        NSURL* fromUrl = [ZZFileHelper fileURlWithFileName:kUploadFileName withType:kUploadFileType];
         NSURL* toUrl = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriendID:friend.idTbm];
         
         NSError* copyError = nil;
         if([ZZFileHelper copyFileWithUrl:fromUrl toUrl:toUrl error:&copyError])
         {
-            NSLog(@"copy file success!!!");
             [[[TBMVideoProcessor alloc] init] processVideoWithUrl:toUrl];
         }
         else
         {
-            NSLog(@"copy error!!!");
+            NSLog(@"Copy error!!!");
         }
     }
 }

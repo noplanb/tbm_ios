@@ -7,8 +7,12 @@
 //
 
 #import "ZZNetworkTestPresenter.h"
+#import "TBMFriend.h"
+#import "ZZNetworkTestVideoStatusesController.h"
 
-@interface ZZNetworkTestPresenter ()
+@interface ZZNetworkTestPresenter () <ZZNetworkTestVideoStatusesControllerDelegate>
+
+@property (nonatomic, strong) ZZNetworkTestVideoStatusesController* videoStatusesConteoller;
 
 @end
 
@@ -17,16 +21,51 @@
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZNetworkTestViewInterface>*)userInterface
 {
     self.userInterface = userInterface;
-    ANDispatchBlockAfter(2.5, ^{
-        [self startSending];
-    });
+    self.videoStatusesConteoller = [[ZZNetworkTestVideoStatusesController alloc] initWithDelegate:self];
 }
 
-- (void)startSending
+
+#pragma makr - Output
+
+- (void)videosatusChangedWithFriend:(TBMFriend *)friendEntity
 {
-    [self.interactor updateCredentials:^{
-        [self.interactor startSendingVideo];
-    }];
+    [self.videoStatusesConteoller videoStatusChangedWithFriend:friendEntity];
+}
+
+
+#pragma mark - Event handler
+
+- (void)startNetworkTest
+{
+    [self.interactor startSendingVideo];
+}
+
+- (void)stopNetworkTest
+{
+    [self.interactor stopSendingVideo];
+}
+
+
+#pragma mark - VideoStatuses controller delegate
+
+- (void)outgoingVideoChangeWithCounter:(NSInteger)counter
+{
+    [self.userInterface outgoingVideoChangeWithCount:counter];
+}
+
+- (void)currentStatusChangedWithStatusString:(NSString *)statusString
+{
+    [self.userInterface updateCurrentStatus:statusString];
+}
+
+- (void)completedVideoChangeWithCounter:(NSInteger)counter
+{
+    [self.userInterface completedVideoChangeWithCounter:counter];
+}
+
+- (void)failedOutgoingVideoWithCounter:(NSInteger)counter
+{
+    [self.userInterface failedOutgoingVideoWithCounter:counter];
 }
 
 @end

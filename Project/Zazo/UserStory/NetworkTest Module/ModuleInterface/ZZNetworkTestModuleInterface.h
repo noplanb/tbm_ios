@@ -8,6 +8,7 @@
 
 @protocol ZZNetworkTestModuleInterface <NSObject>
 
-
+- (void)startNetworkTest;
+- (void)stopNetworkTest;
 
 @end

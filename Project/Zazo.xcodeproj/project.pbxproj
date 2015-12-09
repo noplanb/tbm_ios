@@ -625,6 +625,8 @@
 		182256051C172B80003885A3 /* ZZSendVideoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 182256031C172B80003885A3 /* ZZSendVideoManager.m */; };
 		1822560C1C172C22003885A3 /* ZZUpdateCredentialsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1822560B1C172C22003885A3 /* ZZUpdateCredentialsManager.m */; };
 		1822560D1C172C22003885A3 /* ZZUpdateCredentialsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1822560B1C172C22003885A3 /* ZZUpdateCredentialsManager.m */; };
+		182256121C182450003885A3 /* ZZNetworkTestHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182256111C182450003885A3 /* ZZNetworkTestHeaderView.m */; };
+		182256131C182450003885A3 /* ZZNetworkTestHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182256111C182450003885A3 /* ZZNetworkTestHeaderView.m */; };
 		182398D31BB27B36008D1324 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182398D21BB27B36008D1324 /* CoreTelephony.framework */; };
 		182BCF661BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 182BCF651BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf */; };
 		182BCF681BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 182BCF671BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf */; };
@@ -637,6 +639,8 @@
 		1868E1BA1BE26C72000B80D3 /* ZZRootStateObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 1868E1B91BE26C72000B80D3 /* ZZRootStateObserver.m */; };
 		186BD4BA1BC40EF900B47C6B /* ZZHintArrowConfigurationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186BD4B91BC40EF900B47C6B /* ZZHintArrowConfigurationModel.m */; };
 		1872F4391BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1872F4381BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.m */; };
+		187634A31C1858BF00C518BD /* ZZNetworkTestVideoStatusesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187634A21C1858BF00C518BD /* ZZNetworkTestVideoStatusesController.m */; };
+		187634A41C1858BF00C518BD /* ZZNetworkTestVideoStatusesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187634A21C1858BF00C518BD /* ZZNetworkTestVideoStatusesController.m */; };
 		187842311BB2F2760007CDE2 /* ZZCommunicationDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187842301BB2F2760007CDE2 /* ZZCommunicationDomainModel.m */; };
 		18965CAC1BAC5D2A009AC8A4 /* ZZActionSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18965CAB1BAC5D29009AC8A4 /* ZZActionSheetController.m */; };
 		18BD07AC1BE0B4E2005CB177 /* ZZRemoteStorageValueGeneratorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BD07AB1BE0B4E2005CB177 /* ZZRemoteStorageValueGeneratorTest.m */; };
@@ -1311,6 +1315,9 @@
 		182256031C172B80003885A3 /* ZZSendVideoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSendVideoManager.m; sourceTree = "<group>"; };
 		1822560A1C172C22003885A3 /* ZZUpdateCredentialsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZUpdateCredentialsManager.h; sourceTree = "<group>"; };
 		1822560B1C172C22003885A3 /* ZZUpdateCredentialsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZUpdateCredentialsManager.m; sourceTree = "<group>"; };
+		1822560E1C181A48003885A3 /* ZZNetworkTestViewUiConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZNetworkTestViewUiConstants.h; sourceTree = "<group>"; };
+		182256101C182450003885A3 /* ZZNetworkTestHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZNetworkTestHeaderView.h; sourceTree = "<group>"; };
+		182256111C182450003885A3 /* ZZNetworkTestHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZNetworkTestHeaderView.m; sourceTree = "<group>"; };
 		182398D21BB27B36008D1324 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		182BCF651BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "contacts-placeholder_withoutborder.pdf"; sourceTree = "<group>"; };
 		182BCF671BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "contacts-placeholder-withoutborder2.pdf"; sourceTree = "<group>"; };
@@ -1330,6 +1337,8 @@
 		186BD4B91BC40EF900B47C6B /* ZZHintArrowConfigurationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintArrowConfigurationModel.m; sourceTree = "<group>"; };
 		1872F4371BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactsPermissionAlertBuilder.h; sourceTree = "<group>"; };
 		1872F4381BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContactsPermissionAlertBuilder.m; sourceTree = "<group>"; };
+		187634A11C1858BF00C518BD /* ZZNetworkTestVideoStatusesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZNetworkTestVideoStatusesController.h; sourceTree = "<group>"; };
+		187634A21C1858BF00C518BD /* ZZNetworkTestVideoStatusesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZNetworkTestVideoStatusesController.m; sourceTree = "<group>"; };
 		1878422E1BB2D4960007CDE2 /* ZZGridActionHandlerUserInterfaceDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZGridActionHandlerUserInterfaceDelegate.h; sourceTree = "<group>"; };
 		1878422F1BB2F2760007CDE2 /* ZZCommunicationDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZCommunicationDomainModel.h; sourceTree = "<group>"; };
 		187842301BB2F2760007CDE2 /* ZZCommunicationDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZCommunicationDomainModel.m; sourceTree = "<group>"; };
@@ -4029,6 +4038,7 @@
 		182255DB1C16E08A003885A3 /* ApplicationLogic */ = {
 			isa = PBXGroup;
 			children = (
+				187634A01C1858A000C518BD /* VideoStatusesController */,
 				182256001C172B6B003885A3 /* SendVideoManger */,
 				182256011C172B6B003885A3 /* UpdateCredentialsManager */,
 				182255DC1C16E08A003885A3 /* Interactor */,
@@ -4105,8 +4115,10 @@
 		182255F71C16E6D0003885A3 /* NetworkTestView */ = {
 			isa = PBXGroup;
 			children = (
+				1822560F1C18242C003885A3 /* NetworkTestHeaderView */,
 				182255F81C16E6E5003885A3 /* ZZNetworkTestView.h */,
 				182255F91C16E6E5003885A3 /* ZZNetworkTestView.m */,
+				1822560E1C181A48003885A3 /* ZZNetworkTestViewUiConstants.h */,
 			);
 			path = NetworkTestView;
 			sourceTree = "<group>";
@@ -4135,6 +4147,15 @@
 				1822560B1C172C22003885A3 /* ZZUpdateCredentialsManager.m */,
 			);
 			path = UpdateCredentialsManager;
+			sourceTree = "<group>";
+		};
+		1822560F1C18242C003885A3 /* NetworkTestHeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				182256101C182450003885A3 /* ZZNetworkTestHeaderView.h */,
+				182256111C182450003885A3 /* ZZNetworkTestHeaderView.m */,
+			);
+			path = NetworkTestHeaderView;
 			sourceTree = "<group>";
 		};
 		183774A21BFF43F600CE390D /* GridUpdateService */ = {
@@ -4189,6 +4210,15 @@
 				1872F4381BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.m */,
 			);
 			path = AlertBuilder;
+			sourceTree = "<group>";
+		};
+		187634A01C1858A000C518BD /* VideoStatusesController */ = {
+			isa = PBXGroup;
+			children = (
+				187634A11C1858BF00C518BD /* ZZNetworkTestVideoStatusesController.h */,
+				187634A21C1858BF00C518BD /* ZZNetworkTestVideoStatusesController.m */,
+			);
+			path = VideoStatusesController;
 			sourceTree = "<group>";
 		};
 		18965CA91BAC5D14009AC8A4 /* ActionSheetController */ = {
@@ -4911,6 +4941,7 @@
 				182254791C16CA06003885A3 /* ZZSpinFeatureEventHandler.m in Sources */,
 				1822547A1C16CA06003885A3 /* ZZGridActionHandler.m in Sources */,
 				1822547B1C16CA06003885A3 /* ZZEditFriendListWireframe.m in Sources */,
+				187634A41C1858BF00C518BD /* ZZNetworkTestVideoStatusesController.m in Sources */,
 				1822547C1C16CA06003885A3 /* ZZVideoStatuses.m in Sources */,
 				1822547D1C16CA06003885A3 /* ZZEnvelopStrategy.m in Sources */,
 				1822547E1C16CA06003885A3 /* ZZEarpieceFeatureEventHandler.m in Sources */,
@@ -5036,6 +5067,7 @@
 				182254F21C16CA06003885A3 /* ZZContactDomainModel.m in Sources */,
 				182254F31C16CA06003885A3 /* NSInvocation+Constructors.m in Sources */,
 				182254F41C16CA06003885A3 /* TOWebViewController.m in Sources */,
+				182256131C182450003885A3 /* ZZNetworkTestHeaderView.m in Sources */,
 				182254F51C16CA06003885A3 /* ZZGridDataSource.m in Sources */,
 				182254F61C16CA06003885A3 /* ZZSecretScreenTextEditCell.m in Sources */,
 				182254F71C16CA06003885A3 /* ANBaseVC.m in Sources */,
@@ -5188,6 +5220,7 @@
 				181D1CC51BC525CC00044F83 /* ZZSpinFeatureEventHandler.m in Sources */,
 				079280A41BA8544800E22553 /* ZZGridActionHandler.m in Sources */,
 				07636EB91BA49A0100925671 /* ZZEditFriendListWireframe.m in Sources */,
+				187634A31C1858BF00C518BD /* ZZNetworkTestVideoStatusesController.m in Sources */,
 				180254A31BB2C5A400138A52 /* ZZVideoStatuses.m in Sources */,
 				07636E531BA49A0100925671 /* ZZEnvelopStrategy.m in Sources */,
 				181D1CC21BC5255D00044F83 /* ZZEarpieceFeatureEventHandler.m in Sources */,
@@ -5313,6 +5346,7 @@
 				07636E2C1BA49A0100925671 /* ZZContactDomainModel.m in Sources */,
 				7997E4F91BAABE85001697D5 /* NSInvocation+Constructors.m in Sources */,
 				07636F0D1BA49A0100925671 /* TOWebViewController.m in Sources */,
+				182256121C182450003885A3 /* ZZNetworkTestHeaderView.m in Sources */,
 				07636EBC1BA49A0100925671 /* ZZGridDataSource.m in Sources */,
 				07636EA51BA49A0100925671 /* ZZSecretScreenTextEditCell.m in Sources */,
 				07636EE51BA49A0100925671 /* ANBaseVC.m in Sources */,
