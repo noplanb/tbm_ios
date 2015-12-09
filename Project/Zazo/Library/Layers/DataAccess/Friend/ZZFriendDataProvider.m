@@ -25,12 +25,16 @@
 
 + (NSArray*)loadAllFriends
 {
-    [ZZContentDataAcessor refreshContext:[self _context]];
-    
-    NSArray* result = [TBMFriend MR_findAllInContext:[self _context]];
-    return [[result.rac_sequence map:^id(id value) {
-        return [self modelFromEntity:value];
-    }] array];
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        
+        [ZZContentDataAcessor refreshContext:[self _context]];
+        
+        NSArray* result = [TBMFriend MR_findAllInContext:[self _context]];
+        return [[result.rac_sequence map:^id(id value) {
+            return [self modelFromEntity:value];
+        }] array];
+        
+    });
 }
 
 //+ (ZZFriendDomainModel*)friendWithOutgoingVideoItemID:(NSString*)videoItemID
@@ -40,60 +44,78 @@
 
 + (ZZFriendDomainModel*)friendWithItemID:(NSString*)itemID
 {
-    return [self _findFirstWithAttribute:TBMFriendAttributes.idTbm value:itemID];
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        return [self _findFirstWithAttribute:TBMFriendAttributes.idTbm value:itemID];
+    });
 }
 
 + (ZZFriendDomainModel*)friendWithMKeyValue:(NSString*)mKeyValue
 {
-    return [self _findFirstWithAttribute:TBMFriendAttributes.mkey value:mKeyValue];
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        return [self _findFirstWithAttribute:TBMFriendAttributes.mkey value:mKeyValue];
+    });
 }
 
 + (ZZFriendDomainModel*)lastActionFriendWihoutGrid
 {
-    NSArray* friendsOnGrid = [self friendsOnGrid];
-    NSArray* friendsIDs = [friendsOnGrid valueForKeyPath:ZZFriendDomainModelAttributes.idTbm];
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"NOT (%K IN %@)", TBMFriendAttributes.idTbm, friendsIDs ? : @[]];
-    
-    NSArray* items = [TBMFriend MR_findAllSortedBy:TBMFriendAttributes.timeOfLastAction
-                                         ascending:YES
-                                     withPredicate:predicate
-                                         inContext:[self _context]];
-    
-    __block ZZFriendDomainModel* nextFriend = nil;
-    
-    [items enumerateObjectsUsingBlock:^(TBMFriend*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    return ZZDispatchOnMainThreadAndReturn(^id{
         
-        ZZFriendDomainModel* model = [ZZFriendDataProvider modelFromEntity:obj];
-        if ([ZZUserFriendshipStatusHandler shouldFriendBeVisible:model])
-        {
-            nextFriend = model;
-            *stop = YES;
-        }
-    }];
-
-    return nextFriend;
+        NSArray* friendsOnGrid = [self friendsOnGrid];
+        NSArray* friendsIDs = [friendsOnGrid valueForKeyPath:ZZFriendDomainModelAttributes.idTbm];
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"NOT (%K IN %@)", TBMFriendAttributes.idTbm, friendsIDs ? : @[]];
+        
+        NSArray* items = [TBMFriend MR_findAllSortedBy:TBMFriendAttributes.timeOfLastAction
+                                             ascending:YES
+                                         withPredicate:predicate
+                                             inContext:[self _context]];
+        
+        __block ZZFriendDomainModel* nextFriend = nil;
+        
+        [items enumerateObjectsUsingBlock:^(TBMFriend*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            ZZFriendDomainModel* model = [ZZFriendDataProvider modelFromEntity:obj];
+            if ([ZZUserFriendshipStatusHandler shouldFriendBeVisible:model])
+            {
+                nextFriend = model;
+                *stop = YES;
+            }
+        }];
+        
+        return nextFriend;
+    });
 }
 
 + (BOOL)isFriendExistsWithItemID:(NSString*)itemID
 {
-    NSInteger count = 0;
-    if (itemID)
-    {
-        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.idTbm, itemID];
-        count = [TBMFriend MR_countOfEntitiesWithPredicate:predicate inContext:[self _context]];
-    }
-    return (count != 0);
+    NSNumber *result = ZZDispatchOnMainThreadAndReturn(^id{
+        
+        NSInteger count = 0;
+        if (itemID)
+        {
+            NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.idTbm, itemID];
+            count = [TBMFriend MR_countOfEntitiesWithPredicate:predicate inContext:[self _context]];
+        }
+        
+        return @(count != 0);
+    });
+    
+    return result.boolValue;
 }
 
 + (BOOL)isFriendExistsWithMKey:(NSString*)mKey
 {
-    NSInteger count = 0;
-    if (mKey)
-    {
-        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.mkey, mKey];
-        count = [TBMFriend MR_countOfEntitiesWithPredicate:predicate inContext:[self _context]];
-    }
-    return (count != 0);
+    NSNumber *result = ZZDispatchOnMainThreadAndReturn(^id{
+
+        NSInteger count = 0;
+        if (mKey)
+        {
+            NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.mkey, mKey];
+            count = [TBMFriend MR_countOfEntitiesWithPredicate:predicate inContext:[self _context]];
+        }
+        return @(count != 0);
+    });
+           
+    return result.boolValue;
 }
 
 
@@ -101,17 +123,22 @@
 
 + (TBMFriend*)friendEntityWithItemID:(NSString*)itemID
 {
-    NSArray* result = [TBMFriend MR_findByAttribute:TBMFriendAttributes.idTbm withValue:itemID inContext:[self _context]];
-    TBMFriend* entity = [result firstObject];
-    return entity;
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        NSArray* result = [TBMFriend MR_findByAttribute:TBMFriendAttributes.idTbm withValue:itemID inContext:[self _context]];
+        TBMFriend* entity = [result firstObject];
+        return entity;
+    });
 }
 
 + (TBMFriend*)friendEnityWithMkey:(NSString*)mKey
 {
-    NSArray* result = [TBMFriend MR_findByAttribute:TBMFriendAttributes.mkey withValue:mKey];
-    TBMFriend* entifiy = [result firstObject];
-    
-    return entifiy;
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        NSArray* result = [TBMFriend MR_findByAttribute:TBMFriendAttributes.mkey withValue:mKey];
+        TBMFriend* entifiy = [result firstObject];
+        
+        return entifiy;
+
+    });
 }
 
 
@@ -119,7 +146,11 @@
 
 + (NSInteger)friendsCount
 {
-    return [TBMFriend MR_countOfEntitiesWithContext:[self _context]];
+    NSNumber *count = ZZDispatchOnMainThreadAndReturn(^id{
+        return @([TBMFriend MR_countOfEntitiesWithContext:[self _context]]);
+    });
+    
+    return count.integerValue;
 }
 
 
@@ -127,26 +158,32 @@
 
 + (TBMFriend*)entityFromModel:(ZZFriendDomainModel*)model
 {
-    if (!ANIsEmpty(model))
-    {
-        TBMFriend* entity = [self friendEntityWithItemID:model.idTbm];
-    
-        if (!entity)
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        if (!ANIsEmpty(model))
         {
-            entity = [TBMFriend MR_createEntityInContext:[self _context]];
+            TBMFriend* entity = [self friendEntityWithItemID:model.idTbm];
+            
+            if (!entity)
+            {
+                entity = [TBMFriend MR_createEntityInContext:[self _context]];
+            }
+            return [ZZFriendModelsMapper fillEntity:entity fromModel:model];
         }
-        return [ZZFriendModelsMapper fillEntity:entity fromModel:model];
-    }
-    return nil;
+        return nil;
+
+    });
 }
 
 + (ZZFriendDomainModel*)modelFromEntity:(TBMFriend*)entity
 {
-    if (!ANIsEmpty(entity))
-    {
-        return [ZZFriendModelsMapper fillModel:[ZZFriendDomainModel new] fromEntity:entity];
-    }
-    return nil;
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        if (!ANIsEmpty(entity))
+        {
+            return [ZZFriendModelsMapper fillModel:[ZZFriendDomainModel new] fromEntity:entity];
+        }
+        return nil;
+
+    });
 }
 
 + (NSArray*)friendsOnGrid
@@ -176,8 +213,10 @@
 
 + (void)deleteAllFriendsModels
 {
-    [TBMFriend MR_truncateAllInContext:[self _context]];
-    [[self _context] MR_saveToPersistentStoreAndWait];
+    ANDispatchBlockToMainQueue(^{        
+        [TBMFriend MR_truncateAllInContext:[self _context]];
+        [[self _context] MR_saveToPersistentStoreAndWait];
+    });
 }
 
 
@@ -192,7 +231,7 @@
 
 + (NSManagedObjectContext*)_context
 {
-    return [ZZContentDataAcessor contextForCurrentThread];
+    return [ZZContentDataAcessor mainThreadContext];
 }
 
 @end

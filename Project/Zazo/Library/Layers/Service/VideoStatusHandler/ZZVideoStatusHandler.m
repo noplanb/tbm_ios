@@ -182,7 +182,7 @@
                           withVideoId:(NSString*)videoId;
 {
     ANDispatchBlockToMainQueue(^{
-        [ZZContentDataAcessor refreshContext:[ZZContentDataAcessor contextForCurrentThread]];
+        [ZZContentDataAcessor refreshContext:[ZZContentDataAcessor mainThreadContext]];
         TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendID];
         
         NSLog(@"OKS- videoID - %@, friendID - %@, friend.lastVideoID - %@ videoStatus: %li", videoId, friendEntity.idTbm, friendEntity.outgoingVideoId,(long)status);

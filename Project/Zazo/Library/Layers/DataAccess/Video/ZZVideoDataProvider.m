@@ -23,16 +23,20 @@
 
 + (TBMVideo*)newWithVideoId:(NSString *)videoId onContext:(NSManagedObjectContext *)context
 {
-    TBMVideo *video = [TBMVideo MR_createEntityInContext:context];
-    video.downloadRetryCount = @(0);
-    video.status = ZZVideoIncomingStatusNew;
-    video.videoId = videoId;
-    return video;
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        TBMVideo *video = [TBMVideo MR_createEntityInContext:context];
+        video.downloadRetryCount = @(0);
+        video.status = ZZVideoIncomingStatusNew;
+        video.videoId = videoId;
+        return video;
+    });
 }
 
 + (TBMVideo*)findWithVideoId:(NSString *)videoId
 {
-    return [self _findWithAttributeKey:@"videoId" value:videoId];
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        return [self _findWithAttributeKey:@"videoId" value:videoId];
+    });
 }
 
 + (TBMVideo*)_findWithAttributeKey:(NSString *)key value:(id)value
@@ -47,46 +51,59 @@
 
 + (NSArray *)all
 {
-    return [TBMVideo MR_findAllInContext:[self _context]];
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        return [TBMVideo MR_findAllInContext:[self _context]];
+    });
 }
 
 + (ZZVideoDomainModel*)itemWithID:(NSString*)itemID
 {
-    ZZVideoDomainModel* model;
-    if (!ANIsEmpty(itemID))
-    {
-        TBMVideo* entity = [[TBMVideo MR_findByAttribute:TBMVideoAttributes.videoId withValue:itemID inContext:[self _context]] firstObject];
-        model = [self modelFromEntity:entity];
-    }
-    return model;
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        ZZVideoDomainModel* model;
+        if (!ANIsEmpty(itemID))
+        {
+            TBMVideo* entity = [[TBMVideo MR_findByAttribute:TBMVideoAttributes.videoId withValue:itemID inContext:[self _context]] firstObject];
+            model = [self modelFromEntity:entity];
+        }
+        return model;
+
+    });
 }
 
 + (TBMVideo*)entityWithID:(NSString*)itemID
 {
-    TBMVideo* item = nil;
-    if (!ANIsEmpty(itemID))
-    {
-        NSArray* items = [TBMVideo MR_findByAttribute:TBMVideoAttributes.videoId withValue:itemID inContext:[self _context]];
-        if (items.count > 1)
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        TBMVideo* item = nil;
+        if (!ANIsEmpty(itemID))
         {
-            ANLogWarning(@"TBMVideo contains dupples for %@", itemID);
+            NSArray* items = [TBMVideo MR_findByAttribute:TBMVideoAttributes.videoId withValue:itemID inContext:[self _context]];
+            if (items.count > 1)
+            {
+                ANLogWarning(@"TBMVideo contains dupples for %@", itemID);
+            }
+            item = [items firstObject];
         }
-        item = [items firstObject];
-    }
-    return item;
+        return item;
+
+    });
 }
 
 + (NSArray*)downloadingEntities
 {
-    return [self _findAllWithAttributeKey:@"status" value:@(ZZVideoIncomingStatusDownloading)];
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        return [self _findAllWithAttributeKey:@"status" value:@(ZZVideoIncomingStatusDownloading)];
+    });
 }
 
 + (TBMVideo*)createIncomingVideoForFriend:(TBMFriend*)friend withVideoId:(NSString*)videoId
 {
-    TBMVideo *video = [ZZVideoDataProvider newWithVideoId:videoId onContext:friend.managedObjectContext];;
-    [friend addVideosObject:video];
-    [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
-    return video;
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        TBMVideo *video = [ZZVideoDataProvider newWithVideoId:videoId onContext:friend.managedObjectContext];;
+        [friend addVideosObject:video];
+        [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
+        return video;
+
+    });
 }
 
 #pragma mark - Mapping
@@ -103,7 +120,9 @@
 
 + (ZZVideoDomainModel*)modelFromEntity:(TBMVideo*)entity
 {
-    return [ZZVideoModelsMapper fillModel:[ZZVideoDomainModel new] fromEntity:entity];
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        return [ZZVideoModelsMapper fillModel:[ZZVideoDomainModel new] fromEntity:entity];
+    });
 }
 
 
@@ -121,8 +140,14 @@
 
 + (NSUInteger)countDownloadedUnviewedVideos
 {
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMVideoAttributes.status, @(ZZVideoIncomingStatusDownloaded)];
-    return [TBMVideo MR_countOfEntitiesWithPredicate:predicate inContext:[self _context]];
+    NSNumber *count =
+    ZZDispatchOnMainThreadAndReturn(^id{
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMVideoAttributes.status, @(ZZVideoIncomingStatusDownloaded)];
+        return @([TBMVideo MR_countOfEntitiesWithPredicate:predicate inContext:[self _context]]);
+
+    });
+    
+    return count.unsignedIntegerValue;
 }
 
 //+ (NSArray*)loadDownloadingVideos
@@ -137,13 +162,22 @@
 
 + (NSUInteger)countDownloadingVideos
 {
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMVideoAttributes.status, @(ZZVideoIncomingStatusDownloading)];
-    return [TBMVideo MR_countOfEntitiesWithPredicate:predicate inContext:[self _context]];
+    NSNumber *count =
+    ZZDispatchOnMainThreadAndReturn(^id{
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMVideoAttributes.status, @(ZZVideoIncomingStatusDownloading)];
+        return @([TBMVideo MR_countOfEntitiesWithPredicate:predicate inContext:[self _context]]);
+    });
+    
+    return count.unsignedIntegerValue;
 }
 
 + (NSUInteger)countTotalUnviewedVideos
 {
-    return [self countDownloadedUnviewedVideos];
+    NSNumber *count = ZZDispatchOnMainThreadAndReturn(^id{
+        return @([self countDownloadedUnviewedVideos]);
+    });
+    
+    return count.unsignedIntegerValue;
 }
 
 //+ (NSArray*)loadAllVideos
@@ -157,18 +191,25 @@
 
 + (NSUInteger)countAllVideos
 {
-    return [TBMVideo MR_countOfEntitiesWithContext:[self _context]];
+    NSNumber *count =
+    ZZDispatchOnMainThreadAndReturn(^id{
+        return @([TBMVideo MR_countOfEntitiesWithContext:[self _context]]);
+    });
+    
+    return count.unsignedIntegerValue;
 }
 
 + (NSArray*)sortedIncomingVideosForUser:(ZZFriendDomainModel*)friendModel
 {
-    TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMVideoRelationships.friend, friendEntity];
-    NSArray* videos = [TBMVideo MR_findAllSortedBy:TBMVideoAttributes.videoId ascending:YES withPredicate:predicate inContext:[self _context]];
-    
-    return [[videos.rac_sequence map:^id(id value) {
-        return [self modelFromEntity:value];
-    }] array];
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMVideoRelationships.friend, friendEntity];
+        NSArray* videos = [TBMVideo MR_findAllSortedBy:TBMVideoAttributes.videoId ascending:YES withPredicate:predicate inContext:[self _context]];
+        
+        return [[videos.rac_sequence map:^id(id value) {
+            return [self modelFromEntity:value];
+        }] array];
+    });
 }
 
 
@@ -176,18 +217,24 @@
 
 + (void)printAll
 {
-    ZZLogInfo(@"All Videos (%lu)", (unsigned long)[self countAllVideos]);
-    for (TBMVideo * v in [self all])
-    {
-        ZZLogInfo(@"%@ %@ status=%@", v.friend.firstName, v.videoId, v.status);
-    }
+    ANDispatchBlockToMainQueue(^{
+        ZZLogInfo(@"All Videos (%lu)", (unsigned long)[self countAllVideos]);
+        for (TBMVideo * v in [self all])
+        {
+            ZZLogInfo(@"%@ %@ status=%@", v.friend.firstName, v.videoId, v.status);
+        }
+
+    });
 }
 
 + (NSURL *)videoUrlWithVideo:(TBMVideo*)video
 {
-    NSString *filename = [NSString stringWithFormat:@"incomingVidFromFriend_%@-VideoId_%@", video.friend.idTbm, video.videoId];
-    NSURL* videosURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
-    return [videosURL URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"mp4"]];
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        
+        NSString *filename = [NSString stringWithFormat:@"incomingVidFromFriend_%@-VideoId_%@", video.friend.idTbm, video.videoId];
+        NSURL* videosURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
+        return [videosURL URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"mp4"]];
+    });
 }
 
 + (BOOL)videoFileExistsForVideo:(TBMVideo*)video
@@ -198,14 +245,18 @@
 
 + (BOOL)isStatusDownloadingWithVideo:(TBMVideo*)video
 {
-    return (video.statusValue == ZZVideoIncomingStatusDownloading);
+    NSNumber *result = ZZDispatchOnMainThreadAndReturn(^id{
+        return @(video.statusValue == ZZVideoIncomingStatusDownloading);
+    });
+    
+    return result.boolValue;
 }
 
 #pragma mark - Private
 
 + (NSManagedObjectContext*)_context
 {
-    return [ZZContentDataAcessor contextForCurrentThread];
-}
+    return [ZZContentDataAcessor mainThreadContext];
 
+}
 @end
