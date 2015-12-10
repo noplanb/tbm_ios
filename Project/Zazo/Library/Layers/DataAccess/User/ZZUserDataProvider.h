@@ -15,7 +15,7 @@
 + (ZZUserDomainModel*)authenticatedUser;
 
 //+ (TBMUser*)entityFromModel:(ZZUserDomainModel*)model;
-+ (ZZUserDomainModel*)modelFromEntity:(TBMUser*)entity;
-+ (ZZUserDomainModel*)upsertUserWithModel:(ZZUserDomainModel*)model;
+//+ (ZZUserDomainModel*)modelFromEntity:(TBMUser*)entity;
+//+ (ZZUserDomainModel*)upsertUserWithModel:(ZZUserDomainModel*)model;
 
 @end

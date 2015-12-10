@@ -12,6 +12,7 @@
 const struct ZZGridDomainModelAttributes ZZGridDomainModelAttributes = {
     .itemID = @"itemID",
     .relatedUser = @"relatedUser",
+    .relatedUserID = @"relatedUserID",
     .index = @"index",
 };
 

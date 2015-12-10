@@ -175,7 +175,12 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
         
         [alert addAction:[SDCAlertAction actionWithTitle:closeBtn style:SDCAlertActionStyleDefault
                                                  handler:^(SDCAlertAction *action) {
+
+//enable testing on simulator
+#if !(TARGET_IPHONE_SIMULATOR)
+                                                     
                                                      exit(0);
+#endif
                                                  }]];
         
         [self _presentAlertController:alert];

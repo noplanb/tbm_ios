@@ -11,7 +11,6 @@
 #import "ZZFriendDataProvider.h"
 #import "ZZGridDataProvider.h"
 #import "ZZGridDataUpdater.h"
-#import "TBMFriend.h"
 
 @implementation ZZGridUpdateService
 
@@ -20,16 +19,15 @@
     NSMutableSet* gridElementToUpdate = [NSMutableSet set];
     
     [[ZZFriendDataProvider friendsOnGrid] enumerateObjectsUsingBlock:^(ZZFriendDomainModel*  _Nonnull friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
+
+        ZZFriendDomainModel* friendModelSaved = [ZZFriendDataProvider friendWithItemID:friendModel.idTbm];
         
-        TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
-        
-        if (friend.lastIncomingVideoStatusValue == ZZVideoIncomingStatusViewed ||
-            friend.lastIncomingVideoStatusValue == ZZVideoIncomingStatusFailedPermanently ||
-            friend.lastIncomingVideoStatusValue == ZZVideoIncomingStatusNew)
+        if (friendModelSaved.lastIncomingVideoStatus == ZZVideoIncomingStatusViewed ||
+            friendModelSaved.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently ||
+            friendModelSaved.lastIncomingVideoStatus == ZZVideoIncomingStatusNew)
         {
             [gridElementToUpdate addObject:friendModel];
         }
-        
     }];
     
     if ([gridElementToUpdate allObjects].count > 0)
@@ -51,6 +49,8 @@
                 ZZFriendDomainModel* updatedFriendModel = gridFriendAbbleToUpdate[idx];
                 ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendModel.idTbm];
                 gridModel.relatedUser = updatedFriendModel;
+                gridModel.relatedUserID = updatedFriendModel.idTbm;
+
                 [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:updatedFriendModel];
                 [updatedGridModels addObject:gridModel];
             }
@@ -86,7 +86,7 @@
 
 - (NSArray *)_sortByFirstName:(NSArray *)array
 {
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES]; // TODO: constant
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:ZZFriendDomainModelAttributes.firstName ascending:YES]; // TODO: constant
     NSArray* sortedArray = [array sortedArrayUsingDescriptors:@[sort]];
     
     return sortedArray;

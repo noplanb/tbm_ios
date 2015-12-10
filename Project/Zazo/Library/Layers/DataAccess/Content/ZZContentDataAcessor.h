@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "MagicalRecord.h"
-
 @interface ZZContentDataAcessor : NSObject
 
 + (void)startWithCompletionBlock:(ANCodeBlock)completionBlock;
@@ -16,5 +14,7 @@
 + (NSManagedObjectContext*)contextForCurrentThread;
 
 + (void)refreshContext:(NSManagedObjectContext*)context;
+
++ (void)removeAllUserData;
 
 @end

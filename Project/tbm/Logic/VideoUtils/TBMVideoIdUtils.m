@@ -7,7 +7,6 @@
 //
 
 #import "TBMVideoIdUtils.h"
-#import "TBMUser.h"
 #import "ZZStringUtils.h"
 #import "ZZVideoDataProvider.h"
 #import "ZZFileTransferMarkerDomainModel.h"

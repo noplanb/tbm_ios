@@ -104,7 +104,7 @@
         if ([model isKindOfClass:[ZZGridCellViewModel class]])
         {
             ZZGridCellViewModel* viewModel = model;
-            if ([viewModel.item.relatedUser isEqual:friendModel])
+            if ([viewModel.item.relatedUserID isEqualToString:friendModel.idTbm])
             {
                 gridCell =(ZZGridCell*)obj;
                 *stop = YES;

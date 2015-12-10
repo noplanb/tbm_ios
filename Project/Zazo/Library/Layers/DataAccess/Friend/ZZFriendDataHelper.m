@@ -7,13 +7,17 @@
 //
 
 #import "ZZFriendDataHelper.h"
-#import "TBMFriend.h"
-#import "TBMVideo.h"
-#import "MagicalRecord.h"
 #import "ZZVideoDataUpdater.h"
 #import "ZZContentDataAcessor.h"
 #import "ZZVideoStatuses.h"
+
 #import "ZZFriendDataProvider.h"
+#import "ZZFriendDataProvider+Private.h"
+
+#import "TBMFriend.h"
+#import "TBMVideo.h"
+
+#import "MagicalRecord.h"
 
 @implementation ZZFriendDataHelper
 
@@ -47,6 +51,12 @@
     return hasVideo;
 }
 
++ (BOOL)isFriendWithId:(NSString*)friendId hasIncomingVideoWithId:(NSString*)videoId
+{
+    TBMFriend* friendEnitity = [ZZFriendDataProvider friendEntityWithItemID:friendId];
+    return [self isFriend:friendEnitity hasIncomingVideoWithId:videoId];
+}
+
 + (NSInteger)unviewedVideoCountWithFriend:(TBMFriend*)friendModel
 {
     NSInteger i = 0;
@@ -60,9 +70,21 @@
     return i;
 }
 
++ (NSInteger)unviewedVideoCountWithFriendId:(NSString*)friendId
+{
+    TBMFriend* friendEnitity = [ZZFriendDataProvider friendEntityWithItemID:friendId];
+    return [self unviewedVideoCountWithFriend:friendEnitity];
+}
+
 + (BOOL)hasOutgoingVideoWithFriend:(TBMFriend*)friendModel
 {
     return !ANIsEmpty(friendModel.outgoingVideoId);
+}
+
++ (BOOL)hasOutgoingVideoWithFriendId:(NSString*)friendId
+{
+    TBMFriend* friendEnitity = [ZZFriendDataProvider friendEntityWithItemID:friendId];
+    return [self hasOutgoingVideoWithFriend:friendEnitity];
 }
 
 + (NSArray *)_allEverSentFriends

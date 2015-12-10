@@ -8,18 +8,19 @@
 
 #import "ZZUserDataProvider.h"
 #import "ZZUserModelsMapper.h"
-#import "MagicalRecord.h"
 #import "ZZContentDataAcessor.h"
+
+#import "MagicalRecord.h"
 
 @implementation ZZUserDataProvider
 
 + (ZZUserDomainModel*)authenticatedUser
 {
-    TBMUser* user = [self _authenticatedEntity];
+    TBMUser* user = [self authenticatedEntity];
     return [self modelFromEntity:user];
 }
 
-+ (TBMUser*)_authenticatedEntity
++ (TBMUser*)authenticatedEntity
 {
     NSArray* users = [TBMUser MR_findAllInContext:[self _context]];
     if (users.count > 1)
@@ -46,17 +47,17 @@
     return [ZZUserModelsMapper fillModel:[ZZUserDomainModel new] fromEntity:entity];
 }
 
-+ (ZZUserDomainModel*)upsertUserWithModel:(ZZUserDomainModel*)model
-{
-    TBMUser* entity = [self _authenticatedEntity];
-    if (!entity)
-    {
-        entity = [TBMUser MR_createEntityInContext:[self _context]];
-    }
-    [ZZUserModelsMapper fillEntity:entity fromModel:model];
-    [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
-    return [self modelFromEntity:entity];
-}
+//+ (ZZUserDomainModel*)upsertUserWithModel:(ZZUserDomainModel*)model
+//{
+//    TBMUser* entity = [self _authenticatedEntity];
+//    if (!entity)
+//    {
+//        entity = [TBMUser MR_createEntityInContext:[self _context]];
+//    }
+//    [ZZUserModelsMapper fillEntity:entity fromModel:model];
+//    [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
+//    return [self modelFromEntity:entity];
+//}
 
 
 #pragma mark - Private

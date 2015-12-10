@@ -7,8 +7,6 @@
 //
 
 #import "ZZVideoStatuses.h"
-#import "TBMFriend.h"
-#import "TBMVideo.h"
 
 @protocol ZZVideoStatusHandlerDelegate <NSObject>
 
@@ -51,6 +49,6 @@
 //TODO:
 
 - (void)setAndNotityViewedIncomingVideoWithFriendID:(NSString*)friendID videoID:(NSString*)videoID;
-- (void)handleOutgoingVideoCreatedWithVideoId:(NSString*)videoId withFriend:(NSString*)friendID;
+- (void)handleOutgoingVideoCreatedWithVideoId:(NSString*)videoId withFriendId:(NSString*)friendID;
 
 @end

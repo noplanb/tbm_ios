@@ -8,9 +8,7 @@
 
 @class ZZGridDomainModel;
 @class ZZFriendDomainModel;
-@class TBMGridElement;
 @class ZZContactDomainModel;
-@class TBMFriend;
 
 @interface ZZGridDataProvider : NSObject
 
@@ -19,29 +17,11 @@
 #pragma mark - Fetches
 
 + (NSArray*)loadAllGridsSortByIndex:(BOOL)shouldSortByIndex;
-//+ (ZZGridDomainModel*)modelWithIndex:(NSInteger)index;
-
 + (ZZGridDomainModel*)modelWithRelatedUserID:(NSString*)userID;
-+ (ZZGridDomainModel*)modelWithFriend:(TBMFriend *)item;
 + (BOOL)isRelatedUserOnGridWithID:(NSString*)userID;
 
 + (ZZGridDomainModel*)loadFirstEmptyGridElement;
 + (ZZGridDomainModel*)modelWithEarlierLastActionFriend;
 + (ZZGridDomainModel*)modelWithContact:(ZZContactDomainModel*)contactModel;
-
-
-#pragma mark - Mapping
-
-+ (ZZGridDomainModel*)modelFromEntity:(TBMGridElement*)entity;
-+ (TBMGridElement*)entityWithItemID:(NSString*)itemID;
-
-+ (TBMGridElement*)findWithIntIndex:(NSInteger)i;
-+ (TBMGridElement*)findWithFriend:(TBMFriend *)item;
-
-
-//#pragma mark - Entities
-//
-//+ (BOOL)friendIsOnGrid:(TBMFriend *)item;
-//+ (BOOL)hasSentVideos:(NSUInteger)index;
 
 @end

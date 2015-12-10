@@ -9,15 +9,11 @@
 #import "ZZSecretInteractor.h"
 #import "ZZDebugSettingsStateDomainModel.h"
 #import "ZZStoredSettingsManager.h"
-#import "TBMUser.h"
 #import "ZZAPIRoutes.h"
 #import "ZZNetworkTransport.h"
 #import "ZZUserDataProvider.h"
 #import "ZZGridActionStoredSettings.h"
 #import "ZZFeatureEventStrategyBase.h"
-#import "TBMFriend.h"
-#import "TBMVideo.h"
-#import "MagicalRecord.h"
 #import "ZZGridInteractor.h"
 #import "ZZRollbarAdapter.h"
 #import "ZZContentDataAcessor.h"
@@ -63,13 +59,7 @@
 
 - (void)removeAllUserData
 {
-    //TODO: move it to data updaters
-    NSManagedObjectContext* context = [ZZContentDataAcessor contextForCurrentThread];
-    [TBMFriend MR_truncateAllInContext:context];
-    [TBMVideo MR_truncateAllInContext:context];
-    [context MR_saveToPersistentStoreAndWait];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:kResetAllUserDataNotificationKey object:nil];
+    [ZZContentDataAcessor removeAllUserData];
 }
 
 

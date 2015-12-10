@@ -10,16 +10,17 @@
 
 #import "ZZGridCellViewModel.h"
 #import "ZZVideoPlayer.h"
-#import "NSObject+ANSafeValues.h"
 #import "ZZVideoDomainModel.h"
 #import "ZZVideoRecorder.h"
 #import "ZZThumbnailGenerator.h"
 #import "ZZVideoStatuses.h"
 #import "ZZStoredSettingsManager.h"
-#import "TBMFriend.h"
 #import "ZZFriendDataProvider.h"
-#import "iToast.h"
 #import "ZZGridActionStoredSettings.h"
+#import "ZZVideoDataProvider.h"
+
+#import "NSObject+ANSafeValues.h"
+#import "iToast.h"
 
 
 @interface ZZGridCellViewModel ()
@@ -54,12 +55,12 @@
 - (NSString*)videoStatusString
 {
     ZZFriendDomainModel* friendModel = self.item.relatedUser;
-    TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
+    ZZFriendDomainModel* friendModelSaved = [ZZFriendDataProvider friendWithItemID:friendModel.idTbm];
     NSString* videoStatusString = nil;
-
+    
     if ([ZZStoredSettingsManager shared].debugModeEnabled)
     {
-        videoStatusString = ZZVideoStatusStringWithFriend(friendEntity);
+        videoStatusString = ZZVideoStatusStringWithFriend(friendModelSaved);
     }
     else
     {
@@ -371,16 +372,19 @@
 
 - (UIImage*)_videoThumbnail
 {
-    NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
-    NSArray* sortedVideoArray = [self.item.relatedUser.videos sortedArrayUsingDescriptors:@[sortDescriptor]];
-    ZZVideoDomainModel* lastModel = [sortedVideoArray lastObject];
+    NSArray *sortedVideoArray = [ZZVideoDataProvider sortedIncomingVideosForUserID:self.item.relatedUserID];
     
+    ZZVideoDomainModel* lastModel = [sortedVideoArray lastObject];
+
     if (![ZZThumbnailGenerator hasThumbForVideo:lastModel])
     {
         [ZZThumbnailGenerator generateThumbVideo:lastModel];
     }
     
-    return [ZZThumbnailGenerator lastThumbImageForUser:self.item.relatedUser];
+    //TODO: figure out what to do with last thumb image
+    //[ZZThumbnailGenerator lastThumbImageForUser:self.item.relatedUser];
+    UIImage *image = [ZZThumbnailGenerator thumbImageForVideo:lastModel];
+    return image;
 }
 
 

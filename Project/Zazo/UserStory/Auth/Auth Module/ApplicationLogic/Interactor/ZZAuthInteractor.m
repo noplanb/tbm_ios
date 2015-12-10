@@ -10,15 +10,12 @@
 
 #import "ZZAuthInteractor.h"
 #import "ZZUserDomainModel.h"
-#import "ANErrorBuilder.h"
-#import <NBPhoneNumberUtil.h>
 #import "ZZAccountTransportService.h"
-#import "FEMObjectDeserializer.h"
 #import "ZZUserDataProvider.h"
+#import "ZZUserDataUpdater.h"
+
 #import "ZZFriendsTransportService.h"
-#import "NSObject+ANSafeValues.h"
 #import "ZZStoredSettingsManager.h"
-#import "NBPhoneNumber.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZCommonNetworkTransportService.h"
 #import "ZZFriendDataUpdater.h"
@@ -27,7 +24,15 @@
 #import "ZZAuthInteractorConstants.h"
 #import "ZZNotificationsHandler.h"
 #import "ZZRootStateObserver.h"
+
 #import "ANCrashlyticsAdapter.h"
+#import "ANErrorBuilder.h"
+#import "NSObject+ANSafeValues.h"
+
+#import "NBPhoneNumberUtil.h"
+#import "NBPhoneNumber.h"
+
+#import "FEMObjectDeserializer.h"
 
 @interface ZZAuthInteractor ()
 
@@ -42,9 +47,13 @@
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
 
 #ifdef DEBUG_LOGIN_USER
-    user.firstName = @"Isixp";
-    user.lastName = @"Sani";
-    user.mobileNumber = @"+16507800160";
+//    user.firstName = @"Isixp";
+//    user.lastName = @"Sani";
+//    user.mobileNumber = @"+16507800160";
+
+    user.firstName = @"Vitaly_iPod";
+    user.lastName = @"Vitaly";
+    user.mobileNumber = @"+380676122118";
 #endif
 
     if (!ANIsEmpty(user.mobileNumber))
@@ -85,7 +94,7 @@
     if (!validationError)
     {
         [self.output validationCompletedSuccessfully];
-        self.currentUser = [ZZUserDataProvider upsertUserWithModel:model];
+        self.currentUser = [ZZUserDataUpdater upsertUserWithModel:model];
         [self registerUserWithModel:self.currentUser forceCall:NO];
     }
     else
@@ -110,7 +119,8 @@
         NSString* mobilePhone = [x objectForKey:@"mobile_number"];
 
         [ZZStoredSettingsManager shared].mobileNumber = mobilePhone;
-        [ZZUserDataProvider upsertUserWithModel:user];
+
+        [ZZUserDataUpdater upsertUserWithModel:user];
 
         [[ZZRollbarAdapter shared] updateUserFullName:[user fullName] phone:user.mobileNumber itemID:user.idTbm];
 
@@ -177,7 +187,8 @@
 
         self.currentUser.mkey = mkey;
         self.currentUser.auth = auth;
-        self.currentUser = [ZZUserDataProvider upsertUserWithModel:self.currentUser];
+  
+        self.currentUser = [ZZUserDataUpdater upsertUserWithModel:self.currentUser];
         
         [ANCrashlyticsAdapter updateUserDataWithID:mkey username:self.currentUser.fullName email:user.mobileNumber];
         

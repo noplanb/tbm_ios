@@ -10,12 +10,12 @@
 #import "ZZAddressBookDataProvider.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZFriendsTransportService.h"
-#import "FEMObjectDeserializer.h"
 #import "ZZGridDataProvider.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZUserDataProvider.h"
 #import "ZZStoredSettingsManager.h"
 
+#import "FEMObjectDeserializer.h"
 
 static const NSInteger kDelayBetweenFriendUpdate = 30;
 
@@ -202,7 +202,7 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 
 - (NSArray *)_sortByFirstName:(NSArray *)array
 {
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES]; // TODO: constant
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:ZZFriendDomainModelAttributes.firstName ascending:YES];
     NSArray* sortedArray = [array sortedArrayUsingDescriptors:@[sort]];
     
     return sortedArray;

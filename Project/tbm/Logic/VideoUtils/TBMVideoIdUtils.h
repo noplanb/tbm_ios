@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
-#import "TBMFriend.h"
-#import "TBMVideo.h"
 #import "ZZFileTransferMarkerDomainModel.h"
 
 static NSString *VIDEO_ID_UTILS_VIDEO_ID_KEY = @"videoId";

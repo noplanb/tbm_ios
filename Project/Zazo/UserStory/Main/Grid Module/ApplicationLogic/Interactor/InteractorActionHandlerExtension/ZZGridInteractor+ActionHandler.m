@@ -8,8 +8,6 @@
 
 #import "ZZGridInteractor+ActionHandler.h"
 #import "ZZFriendDomainModel.h"
-#import "TBMFriend.h"
-
 
 @implementation ZZGridInteractor (ActionHandler)
 

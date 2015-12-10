@@ -13,7 +13,6 @@
 @class ANMemoryStorage;
 @class ZZGridDomainModel;
 @class ZZGridCellViewModel;
-@class TBMFriend;
 
 @interface ZZGridDataSource : NSObject
 

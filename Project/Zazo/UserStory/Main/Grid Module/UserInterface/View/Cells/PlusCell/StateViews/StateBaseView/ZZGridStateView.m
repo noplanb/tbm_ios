@@ -14,7 +14,6 @@
 #import "ZZVideoRecorder.h"
 #import "ZZStoredSettingsManager.h"
 #import "ZZFriendDataProvider.h"
-#import "TBMFriend.h"
 #import "ZZGridActionStoredSettings.h"
 
 

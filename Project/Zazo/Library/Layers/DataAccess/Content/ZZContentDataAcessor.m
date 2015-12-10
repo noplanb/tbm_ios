@@ -7,16 +7,20 @@
 //
 
 #import "ZZContentDataAcessor.h"
-#import "TBMFriend.h"
 #import "ZZFriendDataUpdater.h"
 #import "ZZUserDataProvider.h"
-#import "TBMUser.h"
+#import "ZZUserDataUpdater.h"
+
 #import "ZZMigrationManager.h"
 #import "ZZStoredSettingsManager.h"
 #import "ZZAccountTransportService.h"
-#import "ANCrashlyticsAdapter.h"
 #import "ZZCommonNetworkTransport.h"
 
+#import "TBMFriend.h"
+#import "TBMVideo.h"
+
+#import "ANCrashlyticsAdapter.h"
+#import "MagicalRecord.h"
 
 @implementation ZZContentDataAcessor
 
@@ -39,7 +43,7 @@
         
         [ZZStoredSettingsManager shared].userID = authUser.mkey;
         [ZZStoredSettingsManager shared].authToken = authUser.auth;
-        [ZZUserDataProvider upsertUserWithModel:authUser];
+        [ZZUserDataUpdater upsertUserWithModel:authUser];
         
         [ZZCommonNetworkTransport setupNetworkCredentials];
         
@@ -70,6 +74,8 @@
             completionBlock();
         }
     }
+    
+    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelInfo];
 }
 
 
@@ -108,6 +114,18 @@
             [context refreshObject:obj mergeChanges:YES];
         }];
     }
+}
+
+#pragma mark - App Data
++ (void)removeAllUserData
+{
+    //TODO: move it to data updaters
+    NSManagedObjectContext* context = [ZZContentDataAcessor contextForCurrentThread];
+    [TBMFriend MR_truncateAllInContext:context];
+    [TBMVideo MR_truncateAllInContext:context];
+    [context MR_saveToPersistentStoreAndWait];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kResetAllUserDataNotificationKey object:nil];
 }
 
 @end

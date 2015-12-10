@@ -7,15 +7,11 @@
 //
 
 @class ZZVideoDomainModel;
-@class TBMVideo;
 @class ZZFriendDomainModel;
 
 @interface ZZVideoDataUpdater : NSObject
 
-//+ (void)deleteItem:(ZZVideoDomainModel*)model;
-+ (void)destroy:(TBMVideo *)video;
-
-+ (void)deleteVideoFileWithVideo:(TBMVideo*)video;
-+ (void)deleteFilesForVideo:(TBMVideo*)video;
++ (void)deleteAllViewedOrFailedVideoWithFriendId:(NSString*)friendId;
++ (ZZVideoDomainModel*)upsertVideo:(ZZVideoDomainModel*)model;
 
 @end

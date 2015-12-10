@@ -11,11 +11,10 @@
 #import "ZZGridVC.h"
 #import "ZZGridPresenter.h"
 #import "ZZEditFriendListWireframe.h"
-
-#import "DeviceUtil.h"
-#import "TBMUser.h"
-#import "ANMessagesWireframe.h"
 #import "ZZEditFriendListPresenter.h"
+
+#import "ANMessagesWireframe.h"
+#import "DeviceUtil.h"
 
 
 @interface ZZGridWireframe ()

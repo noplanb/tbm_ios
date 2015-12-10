@@ -16,7 +16,6 @@
 #import "ZZUserDataProvider.h"
 #import "ZZFriendsTransportService.h"
 #import "ZZUserFriendshipStatusHandler.h"
-#import "TBMFriend.h"
 #import "ZZCommonModelsGenerator.h"
 #import "ZZGridTransportService.h"
 #import "ZZGridDataUpdater.h"
@@ -237,7 +236,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         }
     }];
     
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:ZZFriendDomainModelAttributes.firstName ascending:YES];
     NSArray* sortedByFirstNameArray = [friendsArray sortedArrayUsingDescriptors:@[sort]];
     
     return [sortedByFirstNameArray firstObject];
@@ -297,23 +296,22 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)videoStatusChangedWithFriendID:(NSString *)friendID
 {
-    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
+    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
     ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendID];
-
+    
     if (!gridModel)
     {
-        ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
         //TODO:
         BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
         
         if (!shouldBeVisible)
         {
-            BOOL isUserSendsUsAVideo = ((friend.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeIncoming) &&
-                                        (friend.lastIncomingVideoStatusValue  == ZZVideoIncomingStatusDownloading ||
-                                         friend.lastIncomingVideoStatusValue == ZZVideoIncomingStatusFailedPermanently));
+            BOOL isUserSendsUsAVideo = ((friendModel.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming) &&
+                                        (friendModel.lastIncomingVideoStatus  == ZZVideoIncomingStatusDownloading ||
+                                         friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently));
             
-            BOOL isUserViewedOurVideo = ((friend.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeOutgoing) &&
-                                         (friend.outgoingVideoStatusValue  == ZZVideoOutgoingStatusViewed));
+            BOOL isUserViewedOurVideo = ((friendModel.lastVideoStatusEventType == ZZVideoStatusEventTypeOutgoing) &&
+                                         (friendModel.outgoingVideoStatus  == ZZVideoOutgoingStatusViewed));
             
             if (isUserSendsUsAVideo | isUserViewedOurVideo)
             {
@@ -342,18 +340,17 @@ static NSInteger const kGridFriendsCellCount = 8;
     {
         [self.output reloadAfterVideoUpdateGridModel:gridModel];
     }
-//    else
-//    {
-//        // if friend addded after delete from grid
-//        ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:model];
-//        [self friendWasUpdatedFromEditContacts:friendModel toVisible:YES];
-//    }
+    //    else
+    //    {
+    //        // if friend addded after delete from grid
+    //        ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:model];
+    //        [self friendWasUpdatedFromEditContacts:friendModel toVisible:YES];
+    //    }
     
     
     [self _handleModel:gridModel];
     
 }
-
 
 #pragma mark - Transport
 

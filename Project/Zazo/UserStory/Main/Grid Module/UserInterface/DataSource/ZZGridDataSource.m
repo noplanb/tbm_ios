@@ -8,14 +8,14 @@
 //
 
 #import "ZZGridDataSource.h"
-#import "ANMemoryStorage.h"
 #import "ZZGridCellViewModel.h"
 #import "ZZGridCenterCellViewModel.h"
 #import "ZZFriendDomainModel.h"
-#import "TBMFriend.h"
 #import "ZZFriendDataProvider.h"
-#import "ANMemoryStorage+UpdateWithoutAnimations.h"
 #import "ZZVideoStatuses.h"
+
+#import "ANMemoryStorage.h"
+#import "ANMemoryStorage+UpdateWithoutAnimations.h"
 
 static NSInteger const kGridCenterCellIndex = 4;
 
@@ -156,7 +156,7 @@ ZZGridCenterCellViewModelDelegate
     [self.models enumerateObjectsUsingBlock:^(ZZGridCellViewModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[ZZGridCellViewModel class]])
         {
-            if ([obj.item.relatedUser isEqual:friendModel])
+            if ([obj.item.relatedUserID isEqualToString:friendModel.idTbm])
             {
                 item = obj;
             }
@@ -194,7 +194,7 @@ ZZGridCenterCellViewModelDelegate
     [self.models enumerateObjectsUsingBlock:^(ZZGridCellViewModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[ZZGridCellViewModel class]])
         {
-            if ([obj.item.relatedUser.idTbm isEqualToString:model.relatedUser.idTbm])
+            if ([obj.item.relatedUserID isEqualToString:model.relatedUserID])
             {
                 item = obj;
                 *stop = YES;

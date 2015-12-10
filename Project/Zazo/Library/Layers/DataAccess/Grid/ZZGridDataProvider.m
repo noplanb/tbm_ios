@@ -8,12 +8,15 @@
 
 #import "ZZGridDataProvider.h"
 #import "ZZGridModelsMapper.h"
-#import "MagicalRecord.h"
 #import "ZZFriendDataProvider.h"
+#import "ZZFriendDataProvider+Private.h"
+
 #import "ZZGridDataUpdater.h"
 #import "ZZUserFriendshipStatusHandler.h"
 #import "ZZContactDomainModel.h"
 #import "ZZContentDataAcessor.h"
+
+#import "MagicalRecord.h"
 
 @implementation ZZGridDataProvider
 
@@ -173,6 +176,7 @@
             if (ANIsEmpty(model.relatedUser))
             {
                 model.relatedUser = [ZZFriendDataProvider lastActionFriendWihoutGrid];
+                model.relatedUserID = model.relatedUser.idTbm;
             }
         }
         model = [ZZGridDataUpdater upsertModel:model];

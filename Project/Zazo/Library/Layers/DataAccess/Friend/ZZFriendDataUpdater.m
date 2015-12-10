@@ -7,12 +7,16 @@
 //
 
 #import "ZZFriendDataUpdater.h"
-#import "MagicalRecord.h"
-#import "TBMFriend.h"
 #import "ZZFriendModelsMapper.h"
+
 #import "ZZFriendDataProvider.h"
+#import "ZZFriendDataProvider+Private.h"
+
 #import "ZZContentDataAcessor.h"
 #import "ZZVideoStatusHandler.h"
+
+#import "TBMFriend.h"
+#import "MagicalRecord.h"
 
 @implementation ZZFriendDataUpdater
 
