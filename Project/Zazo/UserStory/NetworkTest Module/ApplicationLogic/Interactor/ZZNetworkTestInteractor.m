@@ -7,16 +7,14 @@
 //
 
 #import "ZZNetworkTestInteractor.h"
-#import "ZZUpdateCredentialsManager.h"
-#import "ZZSendVideoManager.h"
+#import "ZZSendVideoService.h"
 #import "ZZVideoStatusHandler.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZVideoDataProvider.h"
 
 @interface ZZNetworkTestInteractor () <ZZVideoStatusHandlerDelegate>
 
-@property (nonatomic, strong) ZZUpdateCredentialsManager* updateCredentialsManager;
-@property (nonatomic, strong) ZZSendVideoManager* sendVideoManger;
+@property (nonatomic, strong) ZZSendVideoService* sendVideoService;
 
 @end
 
@@ -28,8 +26,7 @@
     self = [super init];
     if (self)
     {
-        self.updateCredentialsManager = [ZZUpdateCredentialsManager new];
-        self.sendVideoManger = [ZZSendVideoManager new];
+        self.sendVideoService = [ZZSendVideoService new];
         [[ZZVideoStatusHandler sharedInstance] addVideoStatusHandlerObserver:self];
     }
     return self;
@@ -40,24 +37,17 @@
     [[ZZVideoStatusHandler sharedInstance] removeVideoStatusHandlerObserver:self];
 }
 
-#pragma mark - Updte credentials part
 
-- (void)updateCredentials:(ANCodeBlock)completion
-{
-    [self.updateCredentialsManager updateCredentialsWithCompletion:completion];
-}
-
-
-#pragma mark - Send test video
+#pragma mark - Send Video
 
 - (void)startSendingVideo
 {
-    [self.sendVideoManger start];
+    [self.sendVideoService start];
 }
 
 - (void)stopSendingVideo
 {
-    [self.sendVideoManger stop];
+    [self.sendVideoService stop];
 }
 
 

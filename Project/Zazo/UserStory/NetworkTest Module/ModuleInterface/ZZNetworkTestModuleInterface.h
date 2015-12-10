@@ -10,5 +10,6 @@
 
 - (void)startNetworkTest;
 - (void)stopNetworkTest;
+- (void)resetStats;
 
 @end

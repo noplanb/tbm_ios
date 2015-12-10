@@ -38,14 +38,14 @@
     
 #else
   
-    #ifdef NETTEST
-        ZZNetworkTestWireframe* testWireframe = [ZZNetworkTestWireframe new];
-        [testWireframe presentNetworkTestControllerFromWindow:window];
-    
-    #else
+//    #ifdef NETTEST
+//        ZZNetworkTestWireframe* testWireframe = [ZZNetworkTestWireframe new];
+//        [testWireframe presentNetworkTestControllerFromWindow:window];
+//    
+//    #else
         ZZStartWireframe* wireframe = [ZZStartWireframe new];
         [wireframe presentStartControllerFromWindow:window completion:completionBlock];
-    #endif
+//    #endif
     
 #endif
 

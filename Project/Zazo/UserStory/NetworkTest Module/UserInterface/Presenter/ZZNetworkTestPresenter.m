@@ -8,11 +8,11 @@
 
 #import "ZZNetworkTestPresenter.h"
 #import "TBMFriend.h"
-#import "ZZNetworkTestVideoStatusesController.h"
+#import "ZZTestVideoStateController.h"
 
-@interface ZZNetworkTestPresenter () <ZZNetworkTestVideoStatusesControllerDelegate>
+@interface ZZNetworkTestPresenter () <ZZTestVideoStateControllerDelegate>
 
-@property (nonatomic, strong) ZZNetworkTestVideoStatusesController* videoStatusesConteoller;
+@property (nonatomic, strong) ZZTestVideoStateController* videoStateController;
 
 @end
 
@@ -21,7 +21,7 @@
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZNetworkTestViewInterface>*)userInterface
 {
     self.userInterface = userInterface;
-    self.videoStatusesConteoller = [[ZZNetworkTestVideoStatusesController alloc] initWithDelegate:self];
+    self.videoStateController = [[ZZTestVideoStateController alloc] initWithDelegate:self];
 }
 
 
@@ -29,7 +29,7 @@
 
 - (void)videosatusChangedWithFriend:(TBMFriend *)friendEntity
 {
-    [self.videoStatusesConteoller videoStatusChangedWithFriend:friendEntity];
+    [self.videoStateController videoStatusChangedWithFriend:friendEntity];
 }
 
 
@@ -45,6 +45,11 @@
     [self.interactor stopSendingVideo];
 }
 
+- (void)resetStats
+{
+    [self.videoStateController resetStats];
+}
+
 
 #pragma mark - VideoStatuses controller delegate
 
@@ -58,6 +63,11 @@
     [self.userInterface updateCurrentStatus:statusString];
 }
 
+- (void)incomingVideoChangeWithCounter:(NSInteger)counter
+{
+    [self.userInterface incomingVideoChangeWithCount:counter];
+}
+
 - (void)completedVideoChangeWithCounter:(NSInteger)counter
 {
     [self.userInterface completedVideoChangeWithCounter:counter];
@@ -66,6 +76,21 @@
 - (void)failedOutgoingVideoWithCounter:(NSInteger)counter
 {
     [self.userInterface failedOutgoingVideoWithCounter:counter];
+}
+
+- (void)failedIncomingVideoWithCounter:(NSInteger)counter
+{
+    [self.userInterface failedIncomingVideoWithCounter:counter];
+}
+
+- (void)updateTries:(NSInteger)coutner
+{
+    [self.userInterface updateTriesCount:coutner];
+}
+
+- (void)videoStatusChagnedWith:(NSString *)statusString
+{
+    [self.userInterface updateVideoSatus:statusString];
 }
 
 @end

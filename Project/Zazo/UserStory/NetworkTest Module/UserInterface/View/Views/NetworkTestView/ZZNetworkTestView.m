@@ -112,7 +112,7 @@
         _statusLabel = [UILabel new];
         _statusLabel.textColor = [UIColor whiteColor];
         [_statusLabel setFont:[UIFont systemFontOfSize:16 weight:UIFontWeightRegular]];
-        _statusLabel.text = @"0";
+        _statusLabel.text = NSLocalizedString(@"network-test-view.status.stopped", nil);;
         [self addSubview:_statusLabel];
         
         [_statusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -322,7 +322,7 @@
     {
         _currentLabel = [UILabel new];
         _currentLabel.textColor = [UIColor whiteColor];
-        _currentLabel.text = @"0";
+        _currentLabel.text = NSLocalizedString(@"network-test-view.current.status.waiting", nil);
         [_currentLabel setFont:[UIFont systemFontOfSize:16 weight:UIFontWeightRegular]];
         [self addSubview:_currentLabel];
         
@@ -366,7 +366,7 @@
         _statusVideoLabel = [UILabel new];
         _statusVideoLabel.textColor = [UIColor whiteColor];
         [_statusVideoLabel setFont:[UIFont systemFontOfSize:16 weight:UIFontWeightRegular]];
-        _statusVideoLabel.text = @"0";
+        _statusVideoLabel.text = NSLocalizedString(@"network-test-view.videostatus.new", nil);
         [self addSubview:_statusVideoLabel];
         
         [_statusVideoLabel mas_makeConstraints:^(MASConstraintMaker *make) {

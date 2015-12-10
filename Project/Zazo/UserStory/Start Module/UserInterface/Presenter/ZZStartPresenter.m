@@ -98,4 +98,9 @@
     return [NSString stringWithFormat:@"Your %@ app is %@. Please update", appName, q];
 }
 
+- (void)presentNetworkTestController
+{
+    [self.wireframe presentNetworkTestController];
+}
+
 @end

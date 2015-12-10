@@ -201,5 +201,12 @@
 "network-test-view.current.status.uploading" = "UPLOADING";
 "network-test-view.current.status.downloading" = "DOWNLOADING";
 "network-test-view.current.status.deleging" = "DELETING";
+"network-test-view.current.status.waiting" = "WAITING";
+"network-test-view.status.started" = "Started";
+"network-test-view.status.stopped" = "Stopped";
+"network-test-view.videostatus.progress" = "progress";
+"network-test-view.videostatus.finished" = "finished";
+"network-test-view.videostatus.new" = "new";
+
 
 

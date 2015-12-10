@@ -10,7 +10,6 @@
 
 @protocol ZZNetworkTestInteractorInput <NSObject>
 
-- (void)updateCredentials:(ANCodeBlock)completion;
 - (void)startSendingVideo;
 - (void)stopSendingVideo;
 

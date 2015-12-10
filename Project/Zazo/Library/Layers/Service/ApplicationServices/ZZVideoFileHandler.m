@@ -62,6 +62,11 @@
     }];
 }
 
+- (void)updateCredentials
+{
+    [self _updateCredentials];
+}
+
 - (void)_updateCredentials
 {
     ZZS3CredentialsDomainModel* credentials = [ZZKeychainDataProvider loadCredentials];

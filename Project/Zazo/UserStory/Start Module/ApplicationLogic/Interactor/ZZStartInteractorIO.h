@@ -22,5 +22,6 @@
 - (void)userVersionStateLoadingDidFailWithError:(NSError*)error;
 - (void)needUpdateAndCanSkip:(BOOL)canBeSkipped logged:(BOOL)isLoggedIn;
 - (void)applicationIsUpToDateAndUserLogged:(BOOL)isUserLoggedIn;
+- (void)presentNetworkTestController;
 
 @end

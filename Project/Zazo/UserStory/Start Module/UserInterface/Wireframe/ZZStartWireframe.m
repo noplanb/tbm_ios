@@ -12,6 +12,7 @@
 #import "ZZStartPresenter.h"
 #import "ZZAuthWireframe.h"
 #import "ZZMenuWireframe.h"
+#import "ZZNetworkTestWireframe.h"
 
 @interface ZZStartWireframe ()
 
@@ -69,6 +70,12 @@
 {
     ZZAuthWireframe* wireframe = [ZZAuthWireframe new];
     [wireframe presentAuthControllerFromWindow:self.presentedWindow completion:self.completionBlock];
+}
+
+- (void)presentNetworkTestController
+{
+     ZZNetworkTestWireframe* testWireframe = [ZZNetworkTestWireframe new];
+    [testWireframe presentNetworkTestControllerFromWindow:self.presentedWindow];
 }
 
 @end
