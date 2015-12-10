@@ -10,7 +10,6 @@
 #import "ZZGridDataSource.h"
 #import "ZZVideoRecorder.h"
 #import "ZZVideoPlayer.h"
-#import "TBMFriend.h"
 #import "iToast.h"
 #import "ZZContactDomainModel.h"
 #import "ZZAPIRoutes.h"

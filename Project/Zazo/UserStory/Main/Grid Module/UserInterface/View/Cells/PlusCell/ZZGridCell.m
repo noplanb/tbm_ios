@@ -15,7 +15,6 @@
 #import "ZZGridStateViewNudge.h"
 #import "ZZGridStateViewRecord.h"
 #import "ZZGridStateViewPreview.h"
-#import "TBMFriend.h"
 
 @interface ZZGridCell () <ZZGridCellVeiwModelAnimationDelegate>
 

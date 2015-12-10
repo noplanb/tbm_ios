@@ -15,6 +15,7 @@
 #import "ZZVideoDataProvider.h"
 #import "ZZFriendDataProvider+Entities.h"
 #import "ZZFriendDomainModel.h"
+#import "TBMFriend.h"
 
 @interface ZZVideoStatusHandler ()
 

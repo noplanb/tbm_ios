@@ -16,7 +16,6 @@
 #import "ZZThumbnailGenerator.h"
 #import "ZZVideoStatuses.h"
 #import "ZZStoredSettingsManager.h"
-#import "TBMFriend.h"
 #import "ZZFriendDataProvider.h"
 #import "iToast.h"
 #import "ZZGridActionStoredSettings.h"

@@ -16,7 +16,6 @@
 #import "ZZUserDataProvider.h"
 #import "ZZFriendsTransportService.h"
 #import "ZZUserFriendshipStatusHandler.h"
-#import "TBMFriend.h"
 #import "ZZCommonModelsGenerator.h"
 #import "ZZGridTransportService.h"
 #import "ZZGridDataUpdater.h"

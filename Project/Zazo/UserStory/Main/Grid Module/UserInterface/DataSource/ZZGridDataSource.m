@@ -12,7 +12,6 @@
 #import "ZZGridCellViewModel.h"
 #import "ZZGridCenterCellViewModel.h"
 #import "ZZFriendDomainModel.h"
-#import "TBMFriend.h"
 #import "ZZFriendDataProvider.h"
 #import "ANMemoryStorage+UpdateWithoutAnimations.h"
 #import "ZZVideoStatuses.h"

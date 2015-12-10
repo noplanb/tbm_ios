@@ -7,7 +7,6 @@
 //
 
 #import "ZZVideoStatuses.h"
-#import "TBMFriend.h"
 #import "TBMVideo.h"
 
 @protocol ZZVideoStatusHandlerDelegate <NSObject>
