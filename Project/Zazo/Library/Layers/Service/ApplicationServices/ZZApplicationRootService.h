@@ -8,7 +8,7 @@
 
 #import "ZZNotificationsHandler.h"
 
-@class TBMFriend; // TODO: legacy
+@class ZZFriendDomainModel;
 
 @protocol ZZApplicationRootServiceNotificationDelegate <NSObject>
 
@@ -20,7 +20,7 @@
 
 @property (nonatomic, weak) id<ZZApplicationRootServiceNotificationDelegate> notificationDelegate;
 
-+ (void)sendNotificationForVideoStatusUpdate:(TBMFriend *)friendEntity
++ (void)sendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friendModel
                                      videoId:(NSString *)videoId
                                       status:(NSString *)status;
 

@@ -32,6 +32,8 @@ extern const struct ZZFriendDomainModelAttributes {
     __unsafe_unretained NSString *isFriendshipCreator;
     __unsafe_unretained NSString *friendshipCreatorMkey;
     __unsafe_unretained NSString *cid;
+    __unsafe_unretained NSString *everSent;
+
 } ZZFriendDomainModelAttributes;
 
 @interface ZZFriendDomainModel : ZZBaseDomainModel <ZZUserInterface>
@@ -70,6 +72,8 @@ extern const struct ZZFriendDomainModelAttributes {
 
 @property (nonatomic, strong) NSArray* videos;
 @property (nonatomic, assign) BOOL isVideoStopped;
+
+@property (nonatomic, assign) BOOL everSent;
 
 + (FEMObjectMapping*)mapping;
 

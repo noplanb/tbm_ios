@@ -45,9 +45,7 @@
             [ANLogger initializeLogger];
             [ZZColorTheme shared];
         });
-        
-        [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelInfo];
-        
+  
         self.notificationsHandler = [ZZNotificationsHandler new];
         self.rootService = [ZZApplicationRootService new];
         

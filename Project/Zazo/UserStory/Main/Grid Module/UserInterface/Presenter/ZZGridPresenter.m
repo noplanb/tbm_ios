@@ -10,28 +10,30 @@
 #import "ZZGridDataSource.h"
 #import "ZZVideoRecorder.h"
 #import "ZZVideoPlayer.h"
-#import "TBMFriend.h"
-#import "iToast.h"
 #import "ZZContactDomainModel.h"
 #import "ZZAPIRoutes.h"
 #import "ZZGridAlertBuilder.h"
 #import "ZZUserDataProvider.h"
-#import "TBMAlertController.h"
 #import "ZZGridCenterCellViewModel.h"
 #import "ZZGridActionHandler.h"
-#import "TBMTableModal.h"
 #import "ZZGridPresenter+UserDialogs.h"
 #import "ZZGridPresenter+ActionHandler.h"
 #import "ZZGridActionStoredSettings.h"
 #import "ZZSoundEffectPlayer.h"
 #import "ZZVideoStatuses.h"
 #import "ZZVideoDataProvider.h"
-#import "TBMVideoIdUtils.h"
 #import "ZZFriendDataProvider.h"
-#import "RollbarReachability.h"
 #import "ZZFriendDataHelper.h"
 #import "ZZVideoDomainModel.h"
 #import "ZZRootStateObserver.h"
+
+#import "TBMAlertController.h"
+#import "TBMTableModal.h"
+#import "TBMVideoIdUtils.h"
+
+#import "RollbarReachability.h"
+#import "iToast.h"
+
 
 @interface ZZGridPresenter ()
 <
@@ -204,8 +206,8 @@
 - (BOOL)_isAbleToUpdateWithModel:(ZZGridDomainModel*)model
 {
     BOOL isAbleUpdte = YES;
-    
-    if ([[self.videoPlayer playedFriendModel].idTbm isEqualToString:model.relatedUser.idTbm])
+  
+    if ([[self.videoPlayer playedFriendModel].idTbm isEqualToString:model.relatedUserID])
     {
         if (model.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
         {
@@ -487,7 +489,8 @@
     ZZLogInfo(@"recordingStateUpdatedToState:%d", isEnabled);
 
     [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
-    if (!ANIsEmpty(viewModel.item.relatedUser.idTbm))
+
+    if (!ANIsEmpty(viewModel.item.relatedUserID))
     {
         
         if (isEnabled)
@@ -500,7 +503,8 @@
             
             ANDispatchBlockToMainQueue(^{
                 [self.videoPlayer stop];
-                NSURL* url = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriendID:viewModel.item.relatedUser.idTbm];
+                NSURL* url = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriendID:viewModel.item.relatedUserID];
+
                 [self.userInterface updateRecordViewStateTo:isEnabled];
                 
                 [[ZZVideoRecorder shared] startRecordingWithVideoURL:url completionBlock:^(BOOL isRecordingSuccess) {

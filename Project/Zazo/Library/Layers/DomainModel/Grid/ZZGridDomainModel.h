@@ -12,6 +12,7 @@
 extern const struct ZZGridDomainModelAttributes {
     __unsafe_unretained NSString *itemID;
     __unsafe_unretained NSString *relatedUser;
+    __unsafe_unretained NSString*  relatedUserID;
     __unsafe_unretained NSString *index;
 } ZZGridDomainModelAttributes;
 
@@ -19,6 +20,8 @@ extern const struct ZZGridDomainModelAttributes {
 
 @property (nonatomic, copy) NSString* itemID;
 @property (nonatomic, strong) ZZFriendDomainModel* relatedUser;
+@property (nonatomic, copy) NSString*  relatedUserID;
+
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, assign) BOOL isDownloadAnimationViewed;
 - (NSInteger)indexPathIndexForItem;

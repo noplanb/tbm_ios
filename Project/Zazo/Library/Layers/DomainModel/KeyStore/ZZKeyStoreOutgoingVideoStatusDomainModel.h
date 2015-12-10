@@ -6,9 +6,8 @@
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
-#import "ANBaseDomainModel.h"
-#import "TBMFriend.h"
 #import "ZZVideoStatuses.h"
+#import "ANBaseDomainModel.h"
 
 @class FEMObjectMapping;
 

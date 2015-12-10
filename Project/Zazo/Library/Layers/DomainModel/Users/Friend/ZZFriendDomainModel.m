@@ -7,12 +7,10 @@
 //
 
 #import "ZZFriendDomainModel.h"
-#import "FEMObjectMapping.h"
 #import "ZZUserPresentationHelper.h"
-#import "ZZStoredSettingsManager.h"
-#import "MagicalRecord.h"
-#import "TBMFriend.h"
 #import "ZZFriendDataHelper.h"
+
+#import "FEMObjectMapping.h"
 
 const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     .idTbm = @"idTbm",
@@ -32,6 +30,7 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     .isFriendshipCreator = @"isFriendshipCreator",
     .friendshipCreatorMkey = @"friendshipCreatorMkey",
     .cid = @"cid",
+    .everSent = @"everSent",
  };
 
 @implementation ZZFriendDomainModel

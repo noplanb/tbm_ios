@@ -8,7 +8,6 @@
 
 #import "ZZApplicationDataUpdaterService.h"
 #import "ZZFriendsTransportService.h"
-#import "TBMFriend.h"
 #import "ZZUserDataProvider.h"
 #import "ZZRemoteStoageTransportService.h"
 #import "ZZFriendDataProvider.h"
@@ -140,14 +139,12 @@
                     ZZLogError(@"pollVideoStatusWithFriend: got unknown outgoing video status. This should never happen");
                     return;
                 }
-                
-                //TODO: remove this core data stuff
-                
+
                 if ([model status] != ZZVideoOutgoingStatusNone)
                 {
-                    TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
+                    ZZFriendDomainModel* friendModelAnother = [ZZFriendDataProvider friendWithItemID:friendModel.idTbm];
                     [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)[model status]
-                                                                            withFriendID:friendEntity.idTbm
+                                                                            withFriendID:friendModelAnother.idTbm
                                                                              withVideoId:model.videoId];
                 }
             }

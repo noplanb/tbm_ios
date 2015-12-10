@@ -8,8 +8,12 @@
 
 #import "ZZVideoModelsMapper.h"
 #import "ZZVideoDomainModel.h"
-#import "TBMVideo.h"
 #import "ZZVideoDataProvider.h"
+#import "ZZFriendDataProvider.h"
+#import "ZZFriendDataProvider+Private.h"
+
+#import "TBMVideo.h"
+#import "TBMFriend.h"
 
 @implementation ZZVideoModelsMapper
 
@@ -29,7 +33,9 @@
         model.videoID = entity.videoId;
         model.downloadRetryCount = [entity.downloadRetryCount integerValue];
         model.incomingStatusValue = [entity.status integerValue];
-        model.videoURL = [ZZVideoDataProvider videoUrlWithVideo:entity];
+        model.relatedUserID = entity.friend.idTbm;
+        model.videoURL = [ZZVideoDataProvider videoUrlWithVideo:model];
+        
     }
     @catch (NSException *exception)
     {

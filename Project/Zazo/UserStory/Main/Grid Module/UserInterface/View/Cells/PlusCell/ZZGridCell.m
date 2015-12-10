@@ -9,13 +9,13 @@
 #import "ZZGridCell.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZGridCellViewModel.h"
-#import "UIImage+PDF.h"
 #import "ZZGridStateView.h"
 
 #import "ZZGridStateViewNudge.h"
 #import "ZZGridStateViewRecord.h"
 #import "ZZGridStateViewPreview.h"
-#import "TBMFriend.h"
+
+#import "UIImage+PDF.h"
 
 @interface ZZGridCell () <ZZGridCellVeiwModelAnimationDelegate>
 

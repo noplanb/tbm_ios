@@ -9,10 +9,15 @@
 #import "ZZGridDataUpdater.h"
 #import "ZZGridDomainModel.h"
 #import "ZZGridDataProvider.h"
-#import "MagicalRecord.h"
+#import "ZZGridDataProvider+Private.h"
+
 #import "ZZGridModelsMapper.h"
 #import "ZZFriendDataProvider.h"
+#import "ZZFriendDataProvider+Private.h"
+
 #import "ZZContentDataAcessor.h"
+
+#import "MagicalRecord.h"
 
 @implementation ZZGridDataUpdater
 

@@ -7,12 +7,16 @@
 //
 
 #import "ZZFriendModelsMapper.h"
-#import "TBMFriend.h"
 #import "ZZFriendDomainModel.h"
-#import "TBMVideo.h"
 #import "ZZVideoDataProvider.h"
+#import "ZZVideoDataProvider+Private.h"
+
 #import "ZZVideoDomainModel.h"
 #import "ZZFriendDataHelper.h"
+#import "ZZFriendDataHelper+Private.h"
+
+#import "TBMFriend.h"
+#import "TBMVideo.h"
 
 @implementation ZZFriendModelsMapper
 
@@ -42,6 +46,8 @@
     entity.friendshipCreatorMKey = model.friendshipCreatorMkey;
     
     entity.isFriendshipCreator = @([model isCreator]);
+
+    entity.everSent = @(model.everSent);
     
     return entity;
 }
@@ -73,6 +79,7 @@
         model.videos = [[entity.videos.allObjects.rac_sequence map:^id(TBMVideo* value) {
             ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:value];
             videoModel.relatedUser = model;
+            videoModel.relatedUserID = model.idTbm;
             return videoModel;
         }] array];
         
@@ -80,6 +87,8 @@
         model.outgoingVideoStatusValue = entity.outgoingVideoStatusValue;
         model.hasOutgoingVideo = [ZZFriendDataHelper hasOutgoingVideoWithFriend:entity];
         model.friendshipCreatorMkey = entity.friendshipCreatorMKey;
+        model.everSent = [entity.everSent boolValue];
+        
     }
     @catch (NSException *exception)
     {

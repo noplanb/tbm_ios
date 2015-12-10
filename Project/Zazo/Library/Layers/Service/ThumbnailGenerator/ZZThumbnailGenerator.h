@@ -12,14 +12,12 @@
 @interface ZZThumbnailGenerator : NSObject
 
 + (UIImage*)thumbImageForUser:(ZZFriendDomainModel*)friendModel;
+
 + (BOOL)isThumbNoPicForUser:(ZZFriendDomainModel*)friendModel;
 + (BOOL)generateThumbVideo:(ZZVideoDomainModel*)video;
 + (NSURL*)lastThumbUrlForForUser:(ZZFriendDomainModel*)friendModel;
 + (UIImage*)lastThumbImageForUser:(ZZFriendDomainModel*)friendModel;
 + (BOOL)hasLastThumbForUser:(ZZFriendDomainModel*)friendModel;
-+ (void)deleteLastThumbForUser:(ZZFriendDomainModel*)friendModel;
-+ (UIImage*)legacyThumbImageForFriend:(ZZFriendDomainModel*)friendModel;
-+ (BOOL)hasLegacyThumbForUser:(ZZFriendDomainModel*)friendModel;
 
 #pragma mark - Video
 
@@ -27,5 +25,6 @@
 + (NSString*)thumbPathForVideo:(ZZVideoDomainModel*)video;
 + (BOOL)hasThumbForVideo:(ZZVideoDomainModel*)video;
 + (void)deleteThumbFileForVideo:(ZZVideoDomainModel*)video;
++ (UIImage*)thumbImageForVideo:(ZZVideoDomainModel*)video;
 
 @end

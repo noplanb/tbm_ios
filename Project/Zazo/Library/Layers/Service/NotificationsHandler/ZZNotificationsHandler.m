@@ -10,11 +10,11 @@
 #import "ZZStoredSettingsManager.h"
 #import "ZZNotificationTransportService.h"
 #import "ZZNotificationDomainModel.h"
-#import "FEMObjectDeserializer.h"
 #import "ZZUserDataProvider.h"
-#import "TBMVideo.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZApplicationPermissionsHandler.h"
+
+#import "FEMObjectDeserializer.h"
 
 @interface ZZNotificationsHandler ()
 

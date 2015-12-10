@@ -7,16 +7,12 @@
 //
 
 @class ZZFriendDomainModel;
-@class TBMFriend;
-@class TBMVideo;
 
 @interface ZZFriendDataProvider : NSObject
-
 
 #pragma mark - Fetches
 
 + (NSArray*)loadAllFriends;
-//+ (ZZFriendDomainModel*)friendWithOutgoingVideoItemID:(NSString*)videoItemID;
 + (ZZFriendDomainModel*)friendWithItemID:(NSString*)itemID;
 + (ZZFriendDomainModel*)friendWithMKeyValue:(NSString*)mKeyValue;
 + (ZZFriendDomainModel*)lastActionFriendWihoutGrid;
@@ -30,21 +26,11 @@
 
 #pragma mark - Entities
 
-+ (TBMFriend*)friendEntityWithItemID:(NSString*)itemID;
 + (BOOL)isFriendExistsWithItemID:(NSString*)itemID;
 + (BOOL)isFriendExistsWithMKey:(NSString*)mKey;
-+ (TBMFriend*)friendEnityWithMkey:(NSString*)mKey;
 
 #pragma mark - CRUD
 
-//+ (void)upsertFriendWithModel:(ZZFriendDomainModel*)model;
-//+ (void)deleteFriendWithID:(NSString*)itemID;
-
 + (void)deleteAllFriendsModels;
-
-#pragma mark - Mapping
-
-+ (ZZFriendDomainModel*)modelFromEntity:(TBMFriend*)entity;
-+ (TBMFriend*)entityFromModel:(ZZFriendDomainModel*)model;
 
 @end

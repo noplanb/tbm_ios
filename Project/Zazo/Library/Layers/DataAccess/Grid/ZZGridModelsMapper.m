@@ -9,9 +9,10 @@
 #import "ZZGridModelsMapper.h"
 #import "ZZUserDataProvider.h"
 #import "ZZFriendDataProvider.h"
-#import "TBMGridElement.h"
+#import "ZZFriendDataProvider+Private.h"
 #import "ZZGridDomainModel.h"
 
+#import "TBMGridElement.h"
 
 @implementation ZZGridModelsMapper
 
@@ -30,6 +31,7 @@
         model.index = [entity.index integerValue];
         model.itemID = entity.objectID.URIRepresentation.absoluteString;
         model.relatedUser = [ZZFriendDataProvider modelFromEntity:entity.friend];
+        model.relatedUserID = entity.friend.idTbm;
     }
     @catch (NSException *exception)
     {

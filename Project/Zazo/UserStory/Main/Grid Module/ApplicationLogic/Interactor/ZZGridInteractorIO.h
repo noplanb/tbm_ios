@@ -13,7 +13,6 @@
 @class ANMessageDomainModel;
 @class ZZGridDomainModel;
 @class ZZContactDomainModel;
-@class TBMFriend;
 @class ZZGridDomainModel;
 
 @protocol ZZGridInteractorInput <NSObject>

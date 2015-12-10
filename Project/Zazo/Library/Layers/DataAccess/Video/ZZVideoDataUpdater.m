@@ -7,48 +7,64 @@
 //
 
 #import "ZZVideoDataUpdater.h"
-#import "TBMVideo.h"
-#import "MagicalRecord.h"
 #import "ZZVideoDataProvider.h"
+#import "ZZVideoDataProvider+Private.h"
 #import "ZZThumbnailGenerator.h"
 #import "ZZVideoDomainModel.h"
 #import "ZZVideoModelsMapper.h"
 #import "ZZContentDataAcessor.h"
+#import "ZZFriendDataProvider.h"
+#import "ZZFriendDataProvider+Private.h"
+
+#import "TBMVideo.h"
+#import "TBMFriend.h"
+
+#import "MagicalRecord.h"
+
 
 @implementation ZZVideoDataUpdater
 
-//+ (void)deleteItem:(ZZVideoDomainModel*)model
-//{
-//    TBMVideo* entity = [self entityFromModel:model];
-//    [entity MR_deleteEntityInContext:[self _context]];
-//
-//    [[self _context] MR_saveToPersistentStoreAndWait];
-//}
-
-//+ (TBMVideo*)entityWithID:(NSString*)itemID
-//{
-//    TBMVideo* item = nil;
-//    if (!ANIsEmpty(itemID))
-//    {
-//        NSArray* items = [TBMVideo MR_findByAttribute:TBMVideoAttributes.videoId withValue:itemID inContext:[self _context]];
-//        if (items.count > 1)
-//        {
-//            ANLogWarning(@"TBMVideo contains dupples for %@", itemID);
-//        }
-//        item = [items firstObject];
-//    }
-//    return item;
-//}
-
-+ (void)destroy:(TBMVideo *)video
++ (void)deleteVideo:(ZZVideoDomainModel*)videoModel withFriend:(ZZFriendDomainModel*)friendModel
 {
-    NSManagedObjectContext* context = video.managedObjectContext;
-    [video MR_deleteEntity];
+    TBMVideo* videoEntity = [ZZVideoDataProvider entityWithID:videoModel.videoID];
+    NSManagedObjectContext* context = videoEntity.managedObjectContext;
+    
+    [videoEntity MR_deleteEntity];
+    
+    [self _deleteFilesForVideo:videoModel];
+
+    TBMFriend* friendEntity = [ZZFriendDataProvider entityFromModel:friendModel];
+    [friendEntity removeVideosObject:videoEntity];
+
     [context MR_saveToPersistentStoreAndWait];
 }
 
 
-+ (void)deleteVideoFileWithVideo:(TBMVideo*)video
++ (void)deleteAllViewedOrFailedVideoWithFriendId:(NSString*)friendId
+{
+    TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendId];
+    NSManagedObjectContext* context = friendEntity.managedObjectContext;
+    
+    NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"videoId" ascending:YES];
+    NSArray* sortedVidoes = [friendEntity.videos sortedArrayUsingDescriptors:@[d]];
+    
+    for (TBMVideo *videoEntity in sortedVidoes)
+    {
+        if (videoEntity.statusValue == ZZVideoIncomingStatusViewed ||
+            videoEntity.statusValue == ZZVideoIncomingStatusFailedPermanently)
+        {
+            ZZVideoDomainModel *videoModel = [ZZVideoDataProvider modelFromEntity:videoEntity];
+            [self _deleteFilesForVideo:videoModel];
+            [videoEntity MR_deleteEntity];
+            
+            [friendEntity removeVideosObject:videoEntity];
+        }
+    }
+    
+    [context MR_saveToPersistentStoreAndWait];
+}
+
++ (void)_deleteVideoFileWithVideo:(ZZVideoDomainModel*)video
 {
     ZZLogInfo(@"deleteVideoFile");
     NSFileManager *fm = [NSFileManager defaultManager];
@@ -56,23 +72,28 @@
     [fm removeItemAtURL:[ZZVideoDataProvider videoUrlWithVideo:video] error:&error];
 }
 
-+ (void)deleteFilesForVideo:(TBMVideo*)video
++ (void)_deleteFilesForVideo:(ZZVideoDomainModel*)video
 {
-    [self deleteVideoFileWithVideo:video];
-    ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:video];
-    [ZZThumbnailGenerator deleteThumbFileForVideo:videoModel];
+    [self _deleteVideoFileWithVideo:video];
+    [ZZThumbnailGenerator deleteThumbFileForVideo:video];
 }
 
-//+ (TBMVideo*)entityFromModel:(ZZVideoDomainModel*)model
-//{
-//    TBMVideo* entity = [ZZVideoDataProvider entityWithID:model.videoID];
-//    if (!entity)
-//    {
-//        entity = [TBMVideo MR_createEntityInContext:[self _context]];
-//    }
-//    return [ZZVideoModelsMapper fillEntity:entity fromModel:model];
-//}
++ (ZZVideoDomainModel*)upsertVideo:(ZZVideoDomainModel*)model
+{
+    NSManagedObjectContext *context = [self _context];
+    
+    TBMVideo* item = [ZZVideoDataProvider entityWithID:model.videoID];
+    
+    if (!item)
+    {
+        item = [TBMVideo MR_createEntityInContext:context];
+    }
 
+    item = [ZZVideoModelsMapper fillEntity:item fromModel:model];
+    [item.managedObjectContext MR_saveToPersistentStoreAndWait];
+
+    return [ZZVideoDataProvider modelFromEntity:item];
+}
 
 #pragma mark - Private
 
