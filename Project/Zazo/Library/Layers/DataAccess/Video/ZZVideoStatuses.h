@@ -7,6 +7,7 @@
 //
 @class TBMFriend;
 @class TBMVideo;
+@class ZZFriendDomainModel;
 
 typedef NS_ENUM (NSInteger, ZZVideoIncomingStatus) {
     ZZVideoIncomingStatusNew,
@@ -42,6 +43,7 @@ NSString* ZZVideoOutgoingStatusStringFromEnumValue(ZZVideoOutgoingStatus);
 ZZVideoOutgoingStatus ZZVideoOutgoingStatusEnumValueFromString(NSString*);
 
 NSString* ZZVideoStatusStringWithFriend(TBMFriend* friend);
+NSString* ZZVideoStatusStringWithFriendModel(ZZFriendDomainModel* friend);
 TBMVideo* ZZNewestIncomingVideoFromFriend(TBMFriend* friend);
 NSString* ZZVideoIncomingStatusStringWithFriend(TBMFriend* friend);
 NSString* ZZVideoOutgoingStatusWithFriend(TBMFriend* friend);

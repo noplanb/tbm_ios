@@ -13,7 +13,7 @@
 #import "ZZVideoDataUpdater.h"
 #import "ZZContentDataAcessor.h"
 #import "ZZVideoStatuses.h"
-#import "ZZFriendDataProvider.h"
+#import "ZZFriendDataProvider+Entities.h"
 
 @implementation ZZFriendDataHelper
 

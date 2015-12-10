@@ -11,7 +11,7 @@
 #import "ZZGridDataProvider.h"
 #import "MagicalRecord.h"
 #import "ZZGridModelsMapper.h"
-#import "ZZFriendDataProvider.h"
+#import "ZZFriendDataProvider+Entities.h"
 #import "ZZContentDataAcessor.h"
 
 @implementation ZZGridDataUpdater

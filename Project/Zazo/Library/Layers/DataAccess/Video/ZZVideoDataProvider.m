@@ -11,7 +11,7 @@
 #import "ZZVideoDomainModel.h"
 #import "TBMVideo.h"
 #import "MagicalRecord.h"
-#import "ZZFriendDataProvider.h"
+#import "ZZFriendDataProvider+Entities.h"
 #import "ZZContentDataAcessor.h"
 #import "TBMFriend.h"
 #import "ZZFriendDomainModel.h"

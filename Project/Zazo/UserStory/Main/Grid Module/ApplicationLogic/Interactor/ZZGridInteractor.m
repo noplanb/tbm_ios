@@ -297,23 +297,23 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)videoStatusChangedWithFriendID:(NSString *)friendID
 {
-    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
     ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendID];
 
     if (!gridModel)
     {
-        ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
+        ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
+
         //TODO:
         BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
         
         if (!shouldBeVisible)
         {
-            BOOL isUserSendsUsAVideo = ((friend.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeIncoming) &&
-                                        (friend.lastIncomingVideoStatusValue  == ZZVideoIncomingStatusDownloading ||
-                                         friend.lastIncomingVideoStatusValue == ZZVideoIncomingStatusFailedPermanently));
+            BOOL isUserSendsUsAVideo = ((friendModel.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming) &&
+                                        (friendModel.lastIncomingVideoStatus  == ZZVideoIncomingStatusDownloading ||
+                                         friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently));
             
-            BOOL isUserViewedOurVideo = ((friend.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeOutgoing) &&
-                                         (friend.outgoingVideoStatusValue  == ZZVideoOutgoingStatusViewed));
+            BOOL isUserViewedOurVideo = ((friendModel.lastVideoStatusEventType == ZZVideoStatusEventTypeOutgoing) &&
+                                         (friendModel.outgoingVideoStatusValue  == ZZVideoOutgoingStatusViewed));
             
             if (isUserSendsUsAVideo | isUserViewedOurVideo)
             {

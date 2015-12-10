@@ -10,7 +10,7 @@
 #import "MagicalRecord.h"
 #import "TBMFriend.h"
 #import "ZZFriendModelsMapper.h"
-#import "ZZFriendDataProvider.h"
+#import "ZZFriendDataProvider+Entities.h"
 #import "ZZContentDataAcessor.h"
 #import "ZZVideoStatusHandler.h"
 
