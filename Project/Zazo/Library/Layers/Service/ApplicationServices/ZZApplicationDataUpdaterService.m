@@ -11,7 +11,7 @@
 #import "TBMFriend.h"
 #import "ZZUserDataProvider.h"
 #import "ZZRemoteStoageTransportService.h"
-#import "ZZFriendDataProvider.h"
+#import "ZZFriendDataProvider+Entities.h"
 #import "ZZKeyStoreIncomingVideoIdsDomainModel.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZKeyStoreOutgoingVideoStatusDomainModel.h"

@@ -42,25 +42,32 @@
 
 + (void)destroy:(TBMVideo *)video
 {
-    NSManagedObjectContext* context = video.managedObjectContext;
-    [video MR_deleteEntity];
-    [context MR_saveToPersistentStoreAndWait];
+    ANDispatchBlockToMainQueue(^{
+        NSManagedObjectContext* context = video.managedObjectContext;
+        [video MR_deleteEntity];
+        [context MR_saveToPersistentStoreAndWait];
+    });
 }
 
 
 + (void)deleteVideoFileWithVideo:(TBMVideo*)video
 {
-    ZZLogInfo(@"deleteVideoFile");
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NSError *error = nil;
-    [fm removeItemAtURL:[ZZVideoDataProvider videoUrlWithVideo:video] error:&error];
+    ANDispatchBlockToMainQueue(^{
+        ZZLogInfo(@"deleteVideoFile");
+        NSFileManager *fm = [NSFileManager defaultManager];
+        NSError *error = nil;
+        [fm removeItemAtURL:[ZZVideoDataProvider videoUrlWithVideo:video] error:&error];
+    });
 }
 
 + (void)deleteFilesForVideo:(TBMVideo*)video
 {
-    [self deleteVideoFileWithVideo:video];
-    ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:video];
-    [ZZThumbnailGenerator deleteThumbFileForVideo:videoModel];
+    ANDispatchBlockToMainQueue(^{
+        [self deleteVideoFileWithVideo:video];
+        ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:video];
+        [ZZThumbnailGenerator deleteThumbFileForVideo:videoModel];
+        
+    });
 }
 
 //+ (TBMVideo*)entityFromModel:(ZZVideoDomainModel*)model
@@ -78,7 +85,7 @@
 
 + (NSManagedObjectContext*)_context
 {
-    return [ZZContentDataAcessor contextForCurrentThread];
+    return [ZZContentDataAcessor mainThreadContext];
 }
 
 

@@ -37,6 +37,7 @@
     }
     else
     {
+#warning  Possible bug. Should it be called from the main queue?
         [self.output userRequiresAuthentication];
     }
 }

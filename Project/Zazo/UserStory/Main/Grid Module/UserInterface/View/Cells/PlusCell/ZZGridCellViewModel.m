@@ -16,7 +16,6 @@
 #import "ZZThumbnailGenerator.h"
 #import "ZZVideoStatuses.h"
 #import "ZZStoredSettingsManager.h"
-#import "TBMFriend.h"
 #import "ZZFriendDataProvider.h"
 #import "iToast.h"
 #import "ZZGridActionStoredSettings.h"
@@ -54,18 +53,18 @@
 - (NSString*)videoStatusString
 {
     ZZFriendDomainModel* friendModel = self.item.relatedUser;
-    TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
+
     NSString* videoStatusString = nil;
 
     if ([ZZStoredSettingsManager shared].debugModeEnabled)
     {
-        videoStatusString = ZZVideoStatusStringWithFriend(friendEntity);
+        videoStatusString = ZZVideoStatusStringWithFriendModel(friendModel);
     }
     else
     {
         videoStatusString = [friendModel displayName];
     }
-    
+  
     return videoStatusString;
 }
 

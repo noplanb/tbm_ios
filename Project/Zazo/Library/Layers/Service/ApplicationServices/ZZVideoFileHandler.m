@@ -13,7 +13,7 @@
 #import "TBMVideo.h"
 #import "ZZThumbnailGenerator.h"
 #import "ZZVideoDomainModel.h"
-#import "ZZFriendDataProvider.h"
+#import "ZZFriendDataProvider+Entities.h"
 #import "ZZRemoteStoageTransportService.h"
 #import "ZZCommonNetworkTransportService.h"
 #import "TBMVideoIdUtils.h"
@@ -260,40 +260,44 @@
 {
     TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
 
-    if (!ANIsEmpty(friend))
-    {
-        if (ANIsEmpty(error))
+    ANDispatchBlockToMainQueue(^{
+        if (!ANIsEmpty(friend))
         {
-            ZZLogInfo(@"uploadCompletedWithFriend");
-            
-            if (![friend.everSent boolValue])
+            if (ANIsEmpty(error))
             {
-                friend.everSent = @(YES);
-                [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
+                ZZLogInfo(@"uploadCompletedWithFriend");
+                
+                if (![friend.everSent boolValue])
+                {
+                    friend.everSent = @(YES);
+                    [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
+                }
+                
+                [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusUploaded withFriendID:friendID videoId:videoId];
+                
+                //            [[ZZRemoteStoageTransportService addRemoteOutgoingVideoWithItemID:videoId
+                //                                                                   friendMkey:friend.mkey
+                //                                                                   friendCKey:friend.ckey] subscribeNext:^(id x) {}];
+                
+                NSString* myMkey = [ZZStoredSettingsManager shared].userID;
+                
+                [[ZZRemoteStoageTransportService updateRemoteEverSentKVForFriendMkeys:[ZZFriendDataHelper everSentMkeys]
+                                                                          forUserMkey:myMkey] subscribeNext:^(id x) {}];
+                
             }
-            
-            [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusUploaded withFriendID:friendID videoId:videoId];
-            
-//            [[ZZRemoteStoageTransportService addRemoteOutgoingVideoWithItemID:videoId
-//                                                                   friendMkey:friend.mkey
-//                                                                   friendCKey:friend.ckey] subscribeNext:^(id x) {}];
-            
-            NSString* myMkey = [ZZStoredSettingsManager shared].userID;
-            
-            [[ZZRemoteStoageTransportService updateRemoteEverSentKVForFriendMkeys:[ZZFriendDataHelper everSentMkeys]
-                                                                      forUserMkey:myMkey] subscribeNext:^(id x) {}];
-
+            else
+            {
+                ZZLogError(@"Upload error. FailedPermanently");
+                [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusFailedPermanently withFriendID:friendID videoId:videoId];
+            }
         }
         else
         {
-            ZZLogError(@"Upload error. FailedPermanently");
-            [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusFailedPermanently withFriendID:friendID videoId:videoId];
+            ZZLogError(@"Could not find friend with marker.");
         }
-    }
-    else
-    {
-        ZZLogError(@"Could not find friend with marker.");
-    }
+
+    });
+    
 }
 
 //----------------
@@ -305,7 +309,7 @@
     // delete the remote video and received kv as we don't ever want to try again.
     [self _deleteRemoteWithFriendId:friendId videoId:videoId];
 
-    TBMFriend *friendModel = [ZZFriendDataProvider friendEntityWithItemID:friendId];
+    TBMFriend *friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendId];
     TBMVideo *video = [ZZVideoDataProvider findWithVideoId:videoId];
     
 
@@ -332,9 +336,10 @@
         
         [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:videoId
                                                                      toStatus:ZZRemoteStorageVideoStatusDownloaded
-                                                                   friendMkey:friendModel.mkey
-                                                                   friendCKey:friendModel.ckey] subscribeNext:^(id x) {}];
+                                                                   friendMkey:friendEntity.mkey
+                                                                   friendCKey:friendEntity.ckey] subscribeNext:^(id x) {}];
         
+        ZZFriendDomainModel *friendModel = [ZZFriendDataProvider modelFromEntity:friendEntity];
         [self.delegate sendNotificationForVideoStatusUpdate:friendModel videoId:videoId status:NOTIFICATION_STATUS_DOWNLOADED];
         
         [self.delegate updateBadgeCounter];

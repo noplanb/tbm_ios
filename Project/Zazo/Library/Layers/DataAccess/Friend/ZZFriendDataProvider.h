@@ -27,14 +27,6 @@
 
 + (NSInteger)friendsCount;
 
-
-#pragma mark - Entities
-
-+ (TBMFriend*)friendEntityWithItemID:(NSString*)itemID;
-+ (BOOL)isFriendExistsWithItemID:(NSString*)itemID;
-+ (BOOL)isFriendExistsWithMKey:(NSString*)mKey;
-+ (TBMFriend*)friendEnityWithMkey:(NSString*)mKey;
-
 #pragma mark - CRUD
 
 //+ (void)upsertFriendWithModel:(ZZFriendDomainModel*)model;
@@ -42,9 +34,5 @@
 
 + (void)deleteAllFriendsModels;
 
-#pragma mark - Mapping
-
-+ (ZZFriendDomainModel*)modelFromEntity:(TBMFriend*)entity;
-+ (TBMFriend*)entityFromModel:(ZZFriendDomainModel*)model;
 
 @end

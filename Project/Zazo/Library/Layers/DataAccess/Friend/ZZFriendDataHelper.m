@@ -13,7 +13,7 @@
 #import "ZZVideoDataUpdater.h"
 #import "ZZContentDataAcessor.h"
 #import "ZZVideoStatuses.h"
-#import "ZZFriendDataProvider.h"
+#import "ZZFriendDataProvider+Entities.h"
 
 @implementation ZZFriendDataHelper
 
@@ -70,7 +70,7 @@
     NSPredicate *everSent = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.everSent, @(YES)];
     NSPredicate *creator = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.isFriendshipCreator, @(NO)];
     NSPredicate *filter = [NSCompoundPredicate andPredicateWithSubpredicates:@[everSent, creator]];
-    return [TBMFriend MR_findAllWithPredicate:filter inContext:[ZZContentDataAcessor contextForCurrentThread]];
+    return [TBMFriend MR_findAllWithPredicate:filter inContext:[ZZContentDataAcessor mainThreadContext]];
 }
 
 + (NSArray*)everSentMkeys

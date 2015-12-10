@@ -7,12 +7,14 @@
 //
 
 #import "ZZVideoStatuses.h"
-#import "TBMFriend.h"
 #import "TBMVideo.h"
 
 @protocol ZZVideoStatusHandlerDelegate <NSObject>
 
+@optional
+
 - (void)videoStatusChangedWithFriendID:(NSString*)friendID;
+- (void)sendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friend videoId:(NSString *)videoId status:(NSString *)status;
 
 @end
 

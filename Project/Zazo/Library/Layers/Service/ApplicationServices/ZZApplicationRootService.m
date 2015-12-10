@@ -28,7 +28,8 @@
 <
     ZZVideoFileHandlerDelegate,
     ZZApplicationDataUpdaterServiceDelegate,
-    ZZRootStateObserverDelegate
+    ZZRootStateObserverDelegate,
+    ZZVideoStatusHandlerDelegate
 >
 
 @property (nonatomic, strong) ZZVideoFileHandler* videoFileHandler;
@@ -51,6 +52,7 @@
         self.dataUpdater.delegate = self;
         
         [[ZZRootStateObserver sharedInstance] addRootStateObserver:self];
+        [[ZZVideoStatusHandler sharedInstance] addVideoStatusHandlerObserver:self];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(_videoProcessorDidFinishProcessingNotification:)
@@ -101,9 +103,9 @@
     NSURL *videoUrl = [notification.userInfo objectForKey:@"videoUrl"];
     ZZFileTransferMarkerDomainModel* marker = [TBMVideoIdUtils markerModelWithOutgoingVideoURL:videoUrl];
 
-    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:marker.friendID];
+    ZZFriendDomainModel *friend = [ZZFriendDataProvider friendWithItemID:marker.friendID];
     [[ZZVideoStatusHandler sharedInstance] handleOutgoingVideoCreatedWithVideoId:marker.videoID withFriend:friend.idTbm];
-    [self.videoFileHandler uploadWithVideoUrl:videoUrl friendCKey:friend.ckey];
+    [self.videoFileHandler uploadWithVideoUrl:videoUrl friendCKey:friend.cKey];
 }
 
 - (void)checkApplicationPermissionsAndResources
@@ -147,30 +149,30 @@
             [UIApplication sharedApplication].backgroundTimeRemaining);
 }
 
-- (void)sendNotificationForVideoReceived:(TBMFriend*)friend videoId:(NSString *)videoId
+- (void)sendNotificationForVideoReceived:(ZZFriendDomainModel *)friendModel videoId:(NSString *)videoId
 {
     ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
-    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
+
     [[ZZNotificationTransportService sendVideoReceivedNotificationTo:friendModel
                                                          videoItemID:videoId
                                                                 from:me] subscribeNext:^(id x) {}];
+    
 }
 
-- (void)sendNotificationForVideoStatusUpdate:(TBMFriend *)friend videoId:(NSString *)videoId status:(NSString *)status
-{
-    [ZZApplicationRootService sendNotificationForVideoStatusUpdate:friend videoId:videoId status:status];
-}
-
-//TODO: it's for legacy with TBMFriend
-+ (void)sendNotificationForVideoStatusUpdate:(TBMFriend *)friend videoId:(NSString *)videoId status:(NSString *)status
+- (void)sendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friend videoId:(NSString *)videoId status:(NSString *)status
 {
     ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
-    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
-    
-    [[ZZNotificationTransportService sendVideoStatusUpdateNotificationTo:friendModel
+    [[ZZNotificationTransportService sendVideoStatusUpdateNotificationTo:friend
                                                              videoItemID:videoId
                                                                   status:status from:me] subscribeNext:^(id x) {}];
 }
+
+//TODO: it's for legacy with TBMFriend
+//+ (void)sendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friend videoId:(NSString *)videoId status:(NSString *)status
+//{
+
+//    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
+//}
 
 - (void)updateBadgeCounter
 {
@@ -252,13 +254,10 @@
         return;
     }
     
-//    ZZFriendDomainModel* updatedFriendModel = [ZZFriendDataProvider friendWithMKeyValue:model.toUserMKey];
-//    TBMFriend* friend = [ZZFriendDataProvider entityFromModel:updatedFriendModel];
-    
-    TBMFriend* friend = [ZZFriendDataProvider friendEnityWithMkey:model.toUserMKey];
+    ZZFriendDomainModel* updatedFriendModel = [ZZFriendDataProvider friendWithMKeyValue:model.toUserMKey];
     
     [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:outgoingStatus
-                                                            withFriendID:friend.idTbm
+                                                            withFriendID:updatedFriendModel.idTbm
                                                              withVideoId:model.videoID];
 }
 

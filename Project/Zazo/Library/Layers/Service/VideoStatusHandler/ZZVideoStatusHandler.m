@@ -13,8 +13,9 @@
 #import "ZZNotificationsConstants.h"
 #import "ZZVideoStatuses.h"
 #import "ZZVideoDataProvider.h"
-#import "ZZFriendDataProvider.h"
+#import "ZZFriendDataProvider+Entities.h"
 #import "ZZFriendDomainModel.h"
+#import "TBMFriend.h"
 
 @interface ZZVideoStatusHandler ()
 
@@ -63,7 +64,21 @@
     ANDispatchBlockToMainQueue(^{
         for (id <ZZVideoStatusHandlerDelegate> delegate in self.observers)
         {
-            [delegate videoStatusChangedWithFriendID:friendID];
+            if ([delegate respondsToSelector:@selector(videoStatusChangedWithFriendID:)]) {
+                [delegate videoStatusChangedWithFriendID:friendID];
+            }
+        }
+    });
+}
+
+- (void)_notifyObserveresSendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friend videoId:(NSString *)videoID status:(NSString *)status
+{
+    ANDispatchBlockToMainQueue(^{
+        for (id <ZZVideoStatusHandlerDelegate> delegate in self.observers)
+        {
+            if ([delegate respondsToSelector:@selector(sendNotificationForVideoStatusUpdate: videoId: status:)]) {
+                [delegate sendNotificationForVideoStatusUpdate:friend videoId:videoID status:status];
+            }
         }
     });
 }
@@ -182,7 +197,7 @@
                           withVideoId:(NSString*)videoId;
 {
     ANDispatchBlockToMainQueue(^{
-        [ZZContentDataAcessor refreshContext:[ZZContentDataAcessor contextForCurrentThread]];
+        [ZZContentDataAcessor refreshContext:[ZZContentDataAcessor mainThreadContext]];
         TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendID];
         
         NSLog(@"OKS- videoID - %@, friendID - %@, friend.lastVideoID - %@ videoStatus: %li", videoId, friendEntity.idTbm, friendEntity.outgoingVideoId,(long)status);
@@ -267,11 +282,10 @@
 - (void)setAndNotityViewedIncomingVideoWithFriendID:(NSString *)friendID videoID:(NSString *)videoID
 {
     [self setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusViewed friendId:friendID videoId:videoID];
-    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
-    [ZZApplicationRootService sendNotificationForVideoStatusUpdate:friend
-                                                           videoId:videoID
-                                                            status:NOTIFICATION_STATUS_VIEWED];
     
+    ZZFriendDomainModel* friend = [ZZFriendDataProvider friendWithItemID:friendID];
+    [self _notifyObserveresSendNotificationForVideoStatusUpdate:friend videoId:videoID status:NOTIFICATION_STATUS_VIEWED];
+
 }
 
 - (void)handleOutgoingVideoCreatedWithVideoId:(NSString*)videoId withFriend:(NSString*)friendID
