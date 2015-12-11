@@ -19,12 +19,12 @@
 
 @interface ZZGridCell () <ZZGridCellVeiwModelAnimationDelegate>
 
-@property (nonatomic, strong) ZZGridCellViewModel* model;
+@property (nonatomic, strong) ZZGridCellViewModel* model; //TODO: domain models should be short lived
 @property (nonatomic, strong) UIButton* plusButton;
 @property (nonatomic, strong) UIGestureRecognizer* plusRecognizer;
 @property (nonatomic, strong) ZZGridStateView* stateView;
 @property (nonatomic, assign) ZZGridCellViewModelState currentViewState;
-@property (nonatomic, strong) ZZFriendDomainModel* cellFriendModel;
+@property (nonatomic, strong) ZZFriendDomainModel* cellFriendModel; //TODO: domain models should be short lived
 @end
 
 @implementation ZZGridCell

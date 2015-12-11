@@ -63,7 +63,7 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 
 @interface ZZGridCellViewModel : NSObject
 
-@property (nonatomic, strong) ZZGridDomainModel* item;
+@property (nonatomic, strong) ZZGridDomainModel* item; //TODO: domain models should be short lived
 @property (nonatomic, weak) id <ZZGridCellViewModelDelegate> delegate;
 @property (nonatomic, weak) id <ZZGridCellVeiwModelAnimationDelegate> animationDelegate;
 @property (nonatomic, assign) NSInteger badgeNumber;

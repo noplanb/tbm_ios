@@ -112,8 +112,10 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 
 - (void)_loadFriends
 {
-    NSArray* friends = [ZZFriendDataProvider loadAllFriends];
-    [self _sortFriendsFromArray:friends];
+    ANDispatchBlockToMainQueue(^{
+        NSArray* friends = [ZZFriendDataProvider loadAllFriends];
+        [self _sortFriendsFromArray:friends];
+    });
 }
 
 - (void)_loadAddressBookContactsWithRequestAccess:(BOOL)shouldRequest shouldOpenDrawer:(BOOL)shouldOpen
@@ -143,29 +145,27 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 
 - (void)_sortFriendsFromArray:(NSArray *)array
 {
-    ANDispatchBlockToMainQueue(^{
-        NSMutableArray* friendsHasAppArray = [NSMutableArray new];
+    NSMutableArray* friendsHasAppArray = [NSMutableArray new];
+    
+    NSArray* gridUsers = [ZZFriendDataProvider friendsOnGrid];
+    if (!gridUsers)
+    {
+        gridUsers = @[];
+    }
+    
+    [array enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friend, NSUInteger idx, BOOL *stop) {
         
-        NSArray* gridUsers = [ZZFriendDataProvider friendsOnGrid];
-        if (!gridUsers)
+        if (![gridUsers containsObject:friend])
         {
-            gridUsers = @[];
+                [friendsHasAppArray addObject:friend];
         }
-        
-        [array enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friend, NSUInteger idx, BOOL *stop) {
-            
-            if (![gridUsers containsObject:friend])
-            {
-                    [friendsHasAppArray addObject:friend];
-            }
-        }];
-        
-        NSArray *filteredFriendsHasAppArray = [self _filterFriendByConnectionStatus:friendsHasAppArray];
-        
-        self.sortedFriends = [self _sortByFirstName:filteredFriendsHasAppArray];
-        [self.output friendsThatHasAppLoaded:self.sortedFriends];
-         self.endUpdateTime = [[NSDate date] timeIntervalSince1970];
-    });
+    }];
+    
+    NSArray *filteredFriendsHasAppArray = [self _filterFriendByConnectionStatus:friendsHasAppArray];
+    
+    self.sortedFriends = [self _sortByFirstName:filteredFriendsHasAppArray];
+    [self.output friendsThatHasAppLoaded:self.sortedFriends];
+     self.endUpdateTime = [[NSDate date] timeIntervalSince1970];
 }
 
 

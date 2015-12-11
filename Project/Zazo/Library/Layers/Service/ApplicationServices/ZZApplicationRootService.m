@@ -98,12 +98,14 @@
 
 - (void)_videoProcessorDidFinishProcessingNotification:(NSNotification *)notification
 {
-    NSURL *videoUrl = [notification.userInfo objectForKey:@"videoUrl"];
-    ZZFileTransferMarkerDomainModel* marker = [TBMVideoIdUtils markerModelWithOutgoingVideoURL:videoUrl];
+    ANDispatchBlockToMainQueue(^{
+        NSURL *videoUrl = [notification.userInfo objectForKey:@"videoUrl"];
+        ZZFileTransferMarkerDomainModel* marker = [TBMVideoIdUtils markerModelWithOutgoingVideoURL:videoUrl];
 
-    ZZFriendDomainModel* friend = [ZZFriendDataProvider friendWithItemID:marker.friendID];
-    [[ZZVideoStatusHandler sharedInstance] handleOutgoingVideoCreatedWithVideoId:marker.videoID withFriendId:friend.idTbm];
-    [self.videoFileHandler uploadWithVideoUrl:videoUrl friendCKey:friend.cKey];
+        ZZFriendDomainModel* friend = [ZZFriendDataProvider friendWithItemID:marker.friendID];
+        [[ZZVideoStatusHandler sharedInstance] handleOutgoingVideoCreatedWithVideoId:marker.videoID withFriendId:friend.idTbm];
+        [self.videoFileHandler uploadWithVideoUrl:videoUrl friendCKey:friend.cKey];
+    });
 }
 
 - (void)checkApplicationPermissionsAndResources
@@ -115,7 +117,10 @@
         [[ZZApplicationPermissionsHandler checkApplicationPermissions] subscribeNext:^(id x) {
             
             [ZZNotificationsHandler registerToPushNotifications];
-            [ZZVideoDataProvider printAll];
+            ANDispatchBlockToMainQueue(^{
+                [ZZVideoDataProvider printAll];
+            });
+            
             [self.videoFileHandler startService];
         }];
     }

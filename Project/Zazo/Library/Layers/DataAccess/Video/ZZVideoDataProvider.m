@@ -179,9 +179,9 @@
     return [[NSFileManager defaultManager] fileExistsAtPath:videoUrl.path];
 }
 
-+ (BOOL)isStatusDownloadingWithVideo:(TBMVideo*)video
++ (BOOL)isStatusDownloadingWithVideo:(ZZVideoDomainModel*)video
 {
-    return (video.statusValue == ZZVideoIncomingStatusDownloading);
+    return (video.incomingStatusValue == ZZVideoIncomingStatusDownloading);
 }
 
 #pragma mark - Private

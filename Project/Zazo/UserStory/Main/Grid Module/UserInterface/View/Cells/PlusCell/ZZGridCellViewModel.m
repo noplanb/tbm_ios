@@ -54,13 +54,12 @@
 
 - (NSString*)videoStatusString
 {
-    ZZFriendDomainModel* friendModel = self.item.relatedUser;
-    ZZFriendDomainModel* friendModelSaved = [ZZFriendDataProvider friendWithItemID:friendModel.idTbm];
+    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithItemID:self.item.relatedUserID];
     NSString* videoStatusString = nil;
     
     if ([ZZStoredSettingsManager shared].debugModeEnabled)
     {
-        videoStatusString = ZZVideoStatusStringWithFriend(friendModelSaved);
+        videoStatusString = ZZVideoStatusStringWithFriend(friendModel);
     }
     else
     {

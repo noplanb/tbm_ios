@@ -22,14 +22,14 @@
 
 + (void)updateLastTimeActionFriendWithID:(NSString*)itemID
 {
-    TBMFriend* item = [self _userWithID:itemID];
+    TBMFriend* item = [self _friendWithID:itemID];
     item.timeOfLastAction = [NSDate date];
     [item.managedObjectContext MR_saveToPersistentStoreAndWait];
 }
 
 + (ZZFriendDomainModel*)updateConnectionStatusForUserWithID:(NSString *)itemID toValue:(ZZFriendshipStatusType)value
 {
-    TBMFriend* item = [self _userWithID:itemID];
+    TBMFriend* item = [self _friendWithID:itemID];
     item.friendshipStatus = ZZFriendshipStatusTypeStringFromValue(value);
     [item.managedObjectContext MR_saveToPersistentStoreAndWait];
     return [ZZFriendModelsMapper fillModel:[ZZFriendDomainModel new] fromEntity:item];
@@ -37,35 +37,57 @@
 
 + (ZZFriendDomainModel*)upsertFriend:(ZZFriendDomainModel*)model
 {
-    TBMFriend* item = [self _userWithID:model.idTbm];
+    TBMFriend* item = [self _friendWithID:model.idTbm];
+
+//TODO: check how it should work
+//    if (item)
+//    {
+//        if ([item.hasApp boolValue] ^ model.hasApp)
+//        {
+//            ZZLogInfo(@"createWithServerParams: Friend exists updating hasApp only since it is different.");
+//            item.hasApp = @(model.hasApp);
+//            [item.managedObjectContext MR_saveToPersistentStoreAndWait];
+//            [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:model.idTbm];
+//        }
+//    }
+//    else
+//    {
+//        item = [TBMFriend MR_createEntityInContext:[self _context]];
+//        item = [ZZFriendModelsMapper fillEntity:item fromModel:model];
+//        [item.managedObjectContext MR_saveToPersistentStoreAndWait];
+//        [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:model.idTbm];
+//    }
+//    
+//    if (![item.friendshipStatus isEqualToString:model.friendshipStatus])
+//    {
+//        item = [ZZFriendModelsMapper fillEntity:item fromModel:model];
+//    }
     
-    if (item)
-    {
-        if ([item.hasApp boolValue] ^ model.hasApp)
-        {
-            ZZLogInfo(@"createWithServerParams: Friend exists updating hasApp only since it is different.");
-            item.hasApp = @(model.hasApp);
-            [item.managedObjectContext MR_saveToPersistentStoreAndWait];
-            [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:model.idTbm];
-        }
-    }
-    else
-    {
+    BOOL shouldNotify = NO;
+    
+    if (!item) {
         item = [TBMFriend MR_createEntityInContext:[self _context]];
-        item = [ZZFriendModelsMapper fillEntity:item fromModel:model];
-        [item.managedObjectContext MR_saveToPersistentStoreAndWait];
-        [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:model.idTbm];
+        shouldNotify = YES;
+    }
+
+    if ([item.hasApp boolValue] ^ model.hasApp)
+    {
+        ZZLogInfo(@"createWithServerParams: Friend exists updating hasApp only since it is different.");
+        shouldNotify = YES;
     }
     
-    if (![item.friendshipStatus isEqualToString:model.friendshipStatus])
+    [ZZFriendModelsMapper fillEntity:item fromModel:model];
+    [item.managedObjectContext MR_saveToPersistentStoreAndWait];
+    
+    if(shouldNotify)
     {
-        item = [ZZFriendModelsMapper fillEntity:item fromModel:model];
+        [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:model.idTbm];
     }
  
     return [ZZFriendDataProvider modelFromEntity:item];
 }
 
-+ (void)updateEverSentFreindsWithMkeys:(NSArray*)mKeys
++ (void)updateEverSentFriendsWithMkeys:(NSArray*)mKeys
 {
     [mKeys enumerateObjectsUsingBlock:^(NSString*  _Nonnull mKey, NSUInteger idx, BOOL * _Nonnull stop) {
         TBMFriend* friend = [ZZFriendDataProvider friendEnityWithMkey:mKey];
@@ -79,7 +101,7 @@
 
 #pragma mark - Private
 
-+ (TBMFriend*)_userWithID:(NSString*)itemID
++ (TBMFriend*)_friendWithID:(NSString*)itemID
 {
     TBMFriend* item = nil;
     if (!ANIsEmpty(itemID))

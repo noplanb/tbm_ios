@@ -172,7 +172,7 @@
         NSLog(@"THREAD: %@",[NSThread currentThread]);
         if (![videoId isEqualToString:friend.outgoingVideoItemID])
         {
-            ZZLogWarning(@"setAndNotifyOutgoingVideoStatus: Unrecognized vidoeId:%@. != ougtoingVid:%@. friendId:%@ Ignoring.", videoId, friend.outgoingVideoItemID, friendID);
+            ZZLogWarning(@"setAndNotifyOutgoingVideoStatus: Unrecognized videoId:%@. != ougtoingVid:%@. friendId:%@ Ignoring.", videoId, friend.outgoingVideoItemID, friendID);
             return;
         }
         

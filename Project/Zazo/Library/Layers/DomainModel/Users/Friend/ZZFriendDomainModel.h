@@ -70,7 +70,8 @@ extern const struct ZZFriendDomainModelAttributes {
 @property (nonatomic, assign) NSInteger unviewedCount;
 @property (nonatomic, assign) NSInteger outgoingVideoStatusValue;
 
-@property (nonatomic, strong) NSArray* videos;
+@property (nonatomic, strong) NSArray* videos; //Array of ZZVideoDomainModel
+                                               //TODO: domain models should be short lived
 @property (nonatomic, assign) BOOL isVideoStopped;
 
 @property (nonatomic, assign) BOOL everSent;

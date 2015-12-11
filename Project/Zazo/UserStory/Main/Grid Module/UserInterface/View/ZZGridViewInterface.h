@@ -10,8 +10,8 @@
 
 @class ZZGridDataSource;
 @class ZZFriendDomainModel;
-@class ZZGridCellViewModel;
-@class ZZGridDomainModel;
+//@class ZZGridCellViewModel;
+//@class ZZGridDomainModel;
 
 @protocol ZZGridViewInterface <ZZGridActionHanlderUserInterfaceDelegate>
 

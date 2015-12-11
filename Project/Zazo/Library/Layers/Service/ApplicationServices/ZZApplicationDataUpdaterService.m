@@ -18,6 +18,7 @@
 #import "ZZVideoStatusHandler.h"
 #import "ZZRootStateObserver.h"
 #import "ZZFriendDataUpdater.h"
+#import "ZZHelperFunctions.h"
 
 
 @implementation ZZApplicationDataUpdaterService
@@ -93,16 +94,15 @@
 
 - (void)_pollEverSentStatusForAllFriends
 {
-    ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
+    ZZUserDomainModel* me = ZZDispatchBlockToMainQueueAndReturnValue(^id{
+        return [ZZUserDataProvider authenticatedUser];
+    });
     
     [[ZZRemoteStoageTransportService loadRemoteEverSentFriendsIDsForUserMkey:me.mkey] subscribeNext:^(id x) {
-        
-        ANDispatchBlockToBackgroundQueue(^{
-            
-            [ZZFriendDataUpdater updateEverSentFreindsWithMkeys:x];
+  
+            [ZZFriendDataUpdater updateEverSentFriendsWithMkeys:x];
             [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventDonwloadedMkeys
                                                notificationObject:x];
-        });
     }];
 }
 

@@ -55,9 +55,7 @@
         if ([NSManagedObjectContext MR_rootSavingContext])
         {
             ZZLogInfo(@"Successfull Core Data migration. Trying to fill new fields"); // TODO: cleanup
-            ANDispatchBlockToBackgroundQueue(^{
-                [ZZFriendDataUpdater fillEntitiesAfterMigration];
-            });
+            [ZZFriendDataUpdater fillEntitiesAfterMigration];
         }
     }
     else
@@ -90,6 +88,8 @@
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 + (NSManagedObjectContext *)contextForCurrentThread
 {
+    NSAssert([NSThread isMainThread], @"This method should only be called from main thread", __func__);
+    
     return [NSManagedObjectContext MR_contextForCurrentThread];
 }
 #pragma GCC diagnostic pop

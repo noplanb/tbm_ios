@@ -33,7 +33,7 @@
 @property (nonatomic, strong) MPMoviePlayerController* moviePlayerController;
 @property (nonatomic, strong) UIButton* tapButton;
 @property (nonatomic, strong) NSArray* videoModelsArray;
-@property (nonatomic, strong) ZZFriendDomainModel* playedFriend;
+@property (nonatomic, strong) ZZFriendDomainModel* playedFriend; //TODO: domain models should be short lived
 @property (nonatomic, strong) NSMutableArray* playedVideoUrls;
 @property (nonatomic, strong) NSURL* currentPlayedUrl;
 
@@ -130,8 +130,8 @@
     {
         ZZVideoDomainModel* playedVideoModel = [self _actualVideoDomainModelWithSortedModels:self.videoModelsArray];
         
-        
         self.playedFriend = playedVideoModel.relatedUser;
+        
         self.currentPlayedUrl = playedVideoModel.videoURL;
 
         ZZVideoDomainModel* viewedVideo = [ZZVideoDataProvider findWithVideoId:playedVideoModel.videoID];

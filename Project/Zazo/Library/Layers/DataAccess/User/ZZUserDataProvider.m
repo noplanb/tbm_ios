@@ -31,34 +31,10 @@
     return user;
 }
 
-//+ (TBMUser*)entityFromModel:(ZZUserDomainModel*)model
-//{
-//    TBMUser* entity = [self _authenticatedEntity];
-//    if (!entity)
-//    {
-//        entity = [TBMUser MR_createEntityInContext:[self _context]];
-//        [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
-//    }
-//    return [ZZUserModelsMapper fillEntity:entity fromModel:model];
-//}
-
 + (ZZUserDomainModel*)modelFromEntity:(TBMUser*)entity
 {
     return [ZZUserModelsMapper fillModel:[ZZUserDomainModel new] fromEntity:entity];
 }
-
-//+ (ZZUserDomainModel*)upsertUserWithModel:(ZZUserDomainModel*)model
-//{
-//    TBMUser* entity = [self _authenticatedEntity];
-//    if (!entity)
-//    {
-//        entity = [TBMUser MR_createEntityInContext:[self _context]];
-//    }
-//    [ZZUserModelsMapper fillEntity:entity fromModel:model];
-//    [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
-//    return [self modelFromEntity:entity];
-//}
-
 
 #pragma mark - Private
 

@@ -24,6 +24,7 @@
 #import "ZZVideoStatuses.h"
 #import "ZZVideoStatusHandler.h"
 #import "ZZFriendDataHelper.h"
+#import "ZZHelperFunctions.h"
 
 #import "TBMVideoIdUtils.h"
 #import "OBFileTransferManager.h"
@@ -115,8 +116,10 @@
     [self.delegate requestBackground];
     
     ZZFileTransferMarkerDomainModel* markerModel = [ZZFileTransferMarkerDomainModel modelWithEncodedMarker:marker];
-    
-    BOOL isFriendExist = [ZZFriendDataProvider isFriendExistsWithItemID:markerModel.friendID];
+  
+    BOOL isFriendExist =  [ZZDispatchBlockToMainQueueAndReturnValue(^id{
+        return @([ZZFriendDataProvider isFriendExistsWithItemID:markerModel.friendID]);
+    }) boolValue];
     
     if (isFriendExist)
     {
@@ -244,56 +247,50 @@
 
 - (void)uploadRetryingWithFriendID:(NSString*)friendID videoId:(NSString *)videoId retryCount:(NSInteger)retryCount
 {
-    BOOL isExist = [ZZFriendDataProvider isFriendExistsWithItemID:friendID];
-    ZZLogInfo(@"uploadRetryingWithFriend retryCount=%ld", (long) retryCount);
-    if (isExist)
-    {
-        [self.delegate setAndNotifyUploadRetryCount:retryCount withFriendID:friendID videoID:videoId];
-    }
-    else
-    {
-        ZZLogError(@"uploadRetryingWithFriend - Could not find friend with marker");
-    }
+    ANDispatchBlockToMainQueue(^{
+        BOOL isExist = [ZZFriendDataProvider isFriendExistsWithItemID:friendID];
+        ZZLogInfo(@"uploadRetryingWithFriend retryCount=%ld", (long) retryCount);
+        if (isExist)
+        {
+            [self.delegate setAndNotifyUploadRetryCount:retryCount withFriendID:friendID videoID:videoId];
+        }
+        else
+        {
+            ZZLogError(@"uploadRetryingWithFriend - Could not find friend with marker");
+        }
+    });
 }
 
 - (void)_uploadCompletedWithFriendID:(NSString*)friendID videoId:(NSString *)videoId error:(NSError *)error
 {
-    ZZFriendDomainModel* friend = [ZZFriendDataProvider friendWithItemID:friendID];
-
-    if (!ANIsEmpty(friend))
-    {
-        if (ANIsEmpty(error))
-        {
-            ZZLogInfo(@"uploadCompletedWithFriend");
-
-            if (!friend.everSent)
-            {
-                friend.everSent = YES;
-                [ZZFriendDataUpdater upsertFriend:friend];
-            }
-            
-            [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusUploaded withFriendID:friendID videoId:videoId];
-            
-//            [[ZZRemoteStoageTransportService addRemoteOutgoingVideoWithItemID:videoId
-//                                                                   friendMkey:friend.mkey
-//                                                                   friendCKey:friend.ckey] subscribeNext:^(id x) {}];
-            
-            NSString* myMkey = [ZZStoredSettingsManager shared].userID;
-            
-            [[ZZRemoteStoageTransportService updateRemoteEverSentKVForFriendMkeys:[ZZFriendDataHelper everSentMkeys]
-                                                                      forUserMkey:myMkey] subscribeNext:^(id x) {}];
-
-        }
-        else
-        {
-            ZZLogError(@"Upload error. FailedPermanently");
-            [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusFailedPermanently withFriendID:friendID videoId:videoId];
-        }
+    if(error){
+        ZZLogError(@"Upload error. FailedPermanently");
+        [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusFailedPermanently withFriendID:friendID videoId:videoId];
+        return;
     }
-    else
-    {
-        ZZLogError(@"Could not find friend with marker.");
-    }
+    
+    
+    ANDispatchBlockToMainQueue(^{
+        ZZFriendDomainModel* friend = [ZZFriendDataProvider friendWithItemID:friendID];
+        
+        if(!friend){
+            ZZLogError(@"Could not find friend with marker.");
+            return;
+        }
+        
+        ZZLogInfo(@"uploadCompletedWithFriend");
+        
+        if (!friend.everSent)
+        {
+            friend.everSent = YES;
+            [ZZFriendDataUpdater upsertFriend:friend];
+        }
+        
+        [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusUploaded withFriendID:friendID videoId:videoId];
+        NSString* myMkey = [ZZStoredSettingsManager shared].userID;
+        [[ZZRemoteStoageTransportService updateRemoteEverSentKVForFriendMkeys:[ZZFriendDataHelper everSentMkeys]
+                                                                  forUserMkey:myMkey] subscribeNext:^(id x) {}];
+    });
 }
 
 //----------------
@@ -301,21 +298,27 @@
 //----------------
 - (void)_downloadCompletedWithFriendId:(NSString*)friendId videoId:(NSString *)videoId error:(NSError *)error
 {
-    // Whether successful, failed permanently, or unrecognized video we always want to try to
-    // delete the remote video and received kv as we don't ever want to try again.
-    [self _deleteRemoteWithFriendId:friendId videoId:videoId];
-
-    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendId];
-    ZZVideoDomainModel *videoModel = [ZZVideoDataProvider findWithVideoId:videoId];
-
-    if (!videoModel)
-    {
-        ZZLogError(@"unrecognized videoId");
-        return;
-    }
-
-    if (!error)
-    {
+    ANDispatchBlockToMainQueue(^{
+        // Whether successful, failed permanently, or unrecognized video we always want to try to
+        // delete the remote video and received kv as we don't ever want to try again.
+        [self _deleteRemoteWithFriendId:friendId videoId:videoId];
+        
+        if (error)
+        {
+            ZZLogError(@"%@", error);
+            [[ZZVideoStatusHandler sharedInstance] setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusFailedPermanently
+                                                                          friendId:friendId
+                                                                           videoId:videoId];
+            return;
+        }
+        
+        ZZVideoDomainModel *videoModel = [ZZVideoDataProvider findWithVideoId:videoId];
+        if (!videoModel)
+        {
+            ZZLogError(@"unrecognized videoId");
+            return;
+        }
+        
         BOOL validThumb = [ZZThumbnailGenerator generateThumbVideo:videoModel];
         
         if (validThumb)
@@ -324,46 +327,41 @@
                 [self.delegate deleteAllViewedOrFailedVideosWithFriendId:friendId];
             });
         }
-        
-        [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloaded friendId:friendId videoId:videoId];
 
+        ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendId];
+
+        [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloaded friendId:friendId videoId:videoId];
+        
         [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:videoId
                                                                      toStatus:ZZRemoteStorageVideoStatusDownloaded
                                                                    friendMkey:friendModel.mKey
                                                                    friendCKey:friendModel.cKey] subscribeNext:^(id x) {}];
         
         [self.delegate sendNotificationForVideoStatusUpdate:friendModel videoId:videoId status:NOTIFICATION_STATUS_DOWNLOADED];
-        
         [self.delegate updateBadgeCounter];
-//
+
         ZZLogInfo(@"Video count = %ld", (unsigned long) [ZZVideoDataProvider countAllVideos]);
-    }
-    else  // error
-    {
-        ZZLogError(@"%@", error);
-        [[ZZVideoStatusHandler sharedInstance] setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusFailedPermanently
-                                                                      friendId:friendId
-                                                                       videoId:videoId];
-    }
-    
+    });
 }
 
 
 - (void)downloadRetryingWithFriendID:(NSString*)friendID videoId:(NSString *)videoId retryCount:(NSInteger)retryCount
 {
-    ZZVideoDomainModel *video = [ZZVideoDataProvider findWithVideoId:videoId];
+    ANDispatchBlockToMainQueue(^{
+        ZZVideoDomainModel *video = [ZZVideoDataProvider findWithVideoId:videoId];
 
-    if (video)
-    {
-        ZZFriendDomainModel* friend = [ZZFriendDataProvider friendWithItemID:friendID];
-        
-        ZZLogInfo(@"downloadRetryingWithFriend %@ retryCount= %@", friend.firstName, @(retryCount));
-        [self.delegate setAndNotifyDownloadRetryCount:retryCount withFriendID:friendID videoID:videoId];
-    }
-    else
-    {
-        ZZLogError(@"downloadRetryingWithFriend: ERROR: unrecognized videoId");
-    }
+        if (video)
+        {
+            ZZFriendDomainModel* friend = [ZZFriendDataProvider friendWithItemID:friendID];
+            
+            ZZLogInfo(@"downloadRetryingWithFriend %@ retryCount= %@", friend.firstName, @(retryCount));
+            [self.delegate setAndNotifyDownloadRetryCount:retryCount withFriendID:friendID videoID:videoId];
+        }
+        else
+        {
+            ZZLogError(@"downloadRetryingWithFriend: ERROR: unrecognized videoId");
+        }
+    });
 }
 
 
@@ -383,10 +381,17 @@
 {
     [[self fileTransferManager] currentTransferStateWithCompletionHandler:^(NSArray *allTransferInfo) {
 
-        ZZLogInfo(@"handleStuckDownloads: (%lu)", (unsigned long) [ZZVideoDataProvider countDownloadingVideos]);
-         NSArray *allObInfo = [[self fileTransferManager] currentState];
+        __block NSArray* downloadingItems;
+        __block NSUInteger countOfDownloadingVideos = 0;
+        ZZDispatchBlockToMainQueueAndWait(^{
+            countOfDownloadingVideos = [ZZVideoDataProvider countDownloadingVideos];
+            downloadingItems = [ZZVideoDataProvider downloadingItems];
+        });
+        
+        ZZLogInfo(@"handleStuckDownloads: (%lu)", (unsigned long) countOfDownloadingVideos);
+        NSArray *allObInfo = [[self fileTransferManager] currentState];
 
-        for (ZZVideoDomainModel *video in [ZZVideoDataProvider downloadingItems])
+        for (ZZVideoDomainModel *video in downloadingItems)
         {
             NSDictionary *obInfo = [self _infoWithVideo:video isUpload:NO allInfo:allObInfo];
             NSDictionary *transferInfo = [self _infoWithVideo:video isUpload:NO allInfo:allTransferInfo];
@@ -507,52 +512,58 @@
 
 - (void)_queueDownloadWithFriendID:(NSString*)friendID videoId:(NSString*)videoId force:(BOOL)force
 {
-    if (!ANIsEmpty(videoId) && !ANIsEmpty(friendID))
+    if (ANIsEmpty(videoId) || ANIsEmpty(friendID))
     {
+        return;
+    }
+    
+    ANDispatchBlockToMainQueue(^{
+
         BOOL hasIncomingVideo = [ZZFriendDataHelper isFriendWithId:friendID hasIncomingVideoWithId:videoId];
         if (hasIncomingVideo && !force)
         {
             ZZLogWarning(@"queueVideoDownloadWithFriend: Ignoring incoming videoId already processed.");
+            return;
+        }
+        
+        
+        ZZVideoDomainModel *video;
+        if (hasIncomingVideo && force)
+        {
+            ZZLogInfo(@"queueVideoDownloadWithFriend: Forcing new transfer of existing video: %@", videoId);
+            video = [ZZVideoDataProvider findWithVideoId:videoId];
         }
         else
         {
-            ZZVideoDomainModel *video;
-            if (hasIncomingVideo && force)
-            {
-                ZZLogInfo(@"queueVideoDownloadWithFriend: Forcing new transfer of existing video: %@", videoId);
-                video = [ZZVideoDataProvider findWithVideoId:videoId];
-            }
-            else
-            {
-                ZZLogInfo(@"queueVideoDownloadWithFriend: Creating new video for download: %@", videoId);
-                video = [ZZVideoDataProvider createIncomingVideoForFriendId:friendID withVideoId:videoId];
-            }
-            
-            if (!ANIsEmpty(video))
-            {
-                [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloading friendId:friendID videoId:videoId];
-                
-                
-                NSString *marker = [TBMVideoIdUtils markerWithFriendID:friendID videoID:videoId isUpload:NO];
-                
-                ZZFriendDomainModel* friend = [ZZFriendDataProvider friendWithItemID:friendID];
-                
-                NSString *remoteFilename = [ZZRemoteStorageValueGenerator incomingVideoRemoteFilenameWithFriendMkey:friend.mKey
-                                                                                                         friendCKey:friend.cKey
-                                                                                                            videoId:video.videoID];
-                
-                [[self fileTransferManager] downloadFile:remoteStorageFileTransferDownloadPath()
-                                                      to:[ZZVideoDataProvider videoUrlWithVideo:video].path
-                                              withMarker:marker
-                                              withParams:[self fileTransferParamsWithFilename:remoteFilename]];
-            }
-            else
-            {
-                ZZLogWarning(@"queueVideoDownloadWithFriend: Ignoring incoming videoId already processed.");
-            }
-            
+            ZZLogInfo(@"queueVideoDownloadWithFriend: Creating new video for download: %@", videoId);
+            video = [ZZVideoDataProvider createIncomingVideoForFriendId:friendID withVideoId:videoId];
         }
-    }
+        
+        if (video)
+        {
+            [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloading friendId:friendID videoId:videoId];
+            
+            
+            NSString *marker = [TBMVideoIdUtils markerWithFriendID:friendID videoID:videoId isUpload:NO];
+            
+            ZZFriendDomainModel* friend = [ZZFriendDataProvider friendWithItemID:friendID];
+            
+            NSString *remoteFilename = [ZZRemoteStorageValueGenerator incomingVideoRemoteFilenameWithFriendMkey:friend.mKey
+                                                                                                     friendCKey:friend.cKey
+                                                                                                        videoId:video.videoID];
+            NSString *remoteFileUrl = [ZZVideoDataProvider videoUrlWithVideo:video].path;
+            NSDictionary *params = [self fileTransferParamsWithFilename:remoteFilename];
+            
+            [[self fileTransferManager] downloadFile:remoteStorageFileTransferDownloadPath()
+                                                  to:remoteFileUrl
+                                          withMarker:marker
+                                          withParams:params];
+        }
+        else
+        {
+            ZZLogWarning(@"queueVideoDownloadWithFriend: Ignoring incoming videoId already processed.");
+        }
+    });
 }
 
 #pragma mark - File Transfer Params
@@ -592,9 +603,11 @@
 
 - (void)_deleteRemoteWithFriendId:(NSString *)friendId videoId:(NSString *)videoId
 {
-    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithItemID:friendId];
-    
-    if (ANIsEmpty(friendModel))
+    ZZFriendDomainModel* friendModel = ZZDispatchBlockToMainQueueAndReturnValue(^id{
+        return [ZZFriendDataProvider friendWithItemID:friendId];
+    });
+  
+    if (!friendModel)
     {
         ZZLogWarning(@"Unrecognized friendId. Unable to delete remote. This could happen if you are testing and delete a user using the admin console");
         return;

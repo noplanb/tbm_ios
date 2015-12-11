@@ -9,6 +9,8 @@
 #import "ZZStartInteractor.h"
 #import "ZZCommonNetworkTransportService.h"
 #import "ZZUserDataProvider.h"
+#import "ZZHelperFunctions.h"
+
 #import "RollbarReachability.h"
 
 @implementation ZZStartInteractor
@@ -24,7 +26,10 @@
 
 - (void)_checkSession
 {
-    ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
+    ZZUserDomainModel* user = ZZDispatchBlockToMainQueueAndReturnValue(^id{
+        return [ZZUserDataProvider authenticatedUser];
+    });
+    
     if (user.isRegistered)
     {
         

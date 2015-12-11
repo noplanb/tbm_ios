@@ -7,14 +7,16 @@
 //
 
 #import "ZZAddressBookDataProvider.h"
-#import "APAddressBook.h"
-#import "APContact.h"
-#import "NSObject+ANRACAdditions.h"
-#import "APPhoneWithLabel.h"
-#import "NSString+ANAdditions.h"
-#import "ZZFriendDomainModel.h"
+//#import "ZZFriendDomainModel.h"
 #import "ZZContactDomainModel.h"
 #import "ZZUserPresentationHelper.h"
+
+#import "APAddressBook.h"
+#import "APContact.h"
+#import "APPhoneWithLabel.h"
+
+#import "NSObject+ANRACAdditions.h"
+#import "NSString+ANAdditions.h"
 
 static APAddressBook* _addressBook = nil;
 

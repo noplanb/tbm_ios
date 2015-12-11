@@ -146,9 +146,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)updateLastActionForFriend:(ZZFriendDomainModel*)friendModel
 {
-    ANDispatchBlockToBackgroundQueue(^{
-       [ZZFriendDataUpdater updateLastTimeActionFriendWithID:friendModel.idTbm];
-    });
+   [ZZFriendDataUpdater updateLastTimeActionFriendWithID:friendModel.idTbm];
 }
 
 
