@@ -34,6 +34,7 @@
 + (BOOL)isFriendExistsWithItemID:(NSString*)itemID;
 + (BOOL)isFriendExistsWithMKey:(NSString*)mKey;
 + (TBMFriend*)friendEnityWithMkey:(NSString*)mKey;
++ (TBMFriend*)friendWithMobileNumber:(NSString*)mobileNumber;
 
 #pragma mark - CRUD
 

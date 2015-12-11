@@ -10,8 +10,10 @@
 
 @protocol ZZNetworkTestInteractorInput <NSObject>
 
+- (void)updateWithActualFriendID:(NSString*)friendID;
 - (void)startSendingVideo;
 - (void)stopSendingVideo;
+- (void)resetRetriesForActiveFriend;
 
 @end
 

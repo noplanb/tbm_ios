@@ -9,10 +9,11 @@
 #import "ZZTestVideoStateController.h"
 #import "TBMFriend.h"
 #import "ZZVideoStatuses.h"
+#import "ZZFriendDataProvider.h"
 
 @interface ZZTestVideoStateController ()
 
-@property (nonatomic, strong) id <ZZTestVideoStateControllerDelegate> delegate;
+@property (nonatomic, weak) id <ZZTestVideoStateControllerDelegate> delegate;
 @property (nonatomic, assign) NSInteger outgoingVideoCounter;
 @property (nonatomic, assign) NSInteger completedVideoCounter;
 @property (nonatomic, assign) NSInteger incomingVideoCounter;
@@ -21,6 +22,9 @@
 
 @property (nonatomic, assign) NSInteger failedOutgoingVideoCounter;
 @property (nonatomic, assign) NSInteger failedIncomingVideoCounter;
+@property (nonatomic, assign) NSInteger prevRetryCount;
+
+@property (nonatomic, assign) BOOL isNotificationEnabled;
 
 @end
 
@@ -33,19 +37,28 @@
     {
         self.delegate = delegate;
         self.outgoingVideoCounter = 0;
+        [self _setupNotifications];
     }
     return self;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)videoStatusChangedWithFriend:(TBMFriend*)friendEntity
 {
-    if (friendEntity.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeOutgoing )
+    if (self.isNotificationEnabled)
     {
-        [self _handleOutgoingVideoWithFriend:friendEntity];
-    }
-    else
-    {
-        [self _handleDownloadVideoWithFriend:friendEntity];
+        if (friendEntity.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeOutgoing )
+        {
+            [self _handleOutgoingVideoWithFriend:friendEntity];
+        }
+        else
+        {
+            [self _handleDownloadVideoWithFriend:friendEntity];
+        }
     }
 }
 
@@ -65,6 +78,21 @@
     [self.delegate failedIncomingVideoWithCounter:self.failedIncomingVideoCounter];
 }
 
+- (void)stopNotify
+{
+    self.isNotificationEnabled = NO;
+}
+
+- (void)startNotify
+{
+    self.isNotificationEnabled = YES;
+}
+
+- (void)resetRetries
+{
+    self.prevRetryCount = 0;
+    [self.delegate updateRetryCount:self.prevRetryCount];
+}
 
 #pragma mark - Private
 
@@ -82,17 +110,17 @@
     }
     else if (friend.outgoingVideoStatusValue == ZZVideoOutgoingStatusUploaded)
     {
-//        self.completedVideoCounter++;
-//        [self.delegate completedVideoChangeWithCounter:self.completedVideoCounter];
         self.outgoingVideoCounter++;
         [self.delegate outgoingVideoChangeWithCounter:self.outgoingVideoCounter];
         [self _videoStatusFinished];
+        
     }
     else if (friend.outgoingVideoStatusValue == ZZVideoOutgoingStatusFailedPermanently &&
              friend.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeOutgoing)
     {
         self.failedOutgoingVideoCounter++;
         [self.delegate failedOutgoingVideoWithCounter:self.failedOutgoingVideoCounter];
+        [self.delegate sendVideo];
     }
 }
 
@@ -113,6 +141,7 @@
     {
         self.failedIncomingVideoCounter++;
         [self.delegate failedIncomingVideoWithCounter:self.failedIncomingVideoCounter];
+        [self.delegate sendVideo];
     }
 }
 
@@ -124,6 +153,30 @@
 - (void)_videoStatusFinished
 {
     [self.delegate videoStatusChagnedWith:NSLocalizedString(@"network-test-view.videostatus.finished", nil)];
+}
+
+- (void)_setupNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_updateDeleteStatus)
+                                                 name:kDeleteFileNotification object:nil];
+}
+
+- (void)_updateDeleteStatus
+{
+    [self.delegate currentStatusChangedWithStatusString:NSLocalizedString(@"network-test-view.current.status.deleging", nil)];
+    self.completedVideoCounter++;
+    [self.delegate completedVideoChangeWithCounter:self.completedVideoCounter];
+    [self.delegate sendVideo];
+}
+
+- (void)_updateRetryCountWithFriend:(TBMFriend*)friend
+{
+    if (friend.uploadRetryCountValue != self.prevRetryCount)
+    {
+        self.prevRetryCount = friend.uploadRetryCountValue;
+        [self.delegate updateRetryCount:friend.uploadRetryCountValue];
+    }
 }
 
 @end

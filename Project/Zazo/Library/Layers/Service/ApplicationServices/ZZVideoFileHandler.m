@@ -62,6 +62,11 @@
     }];
 }
 
+- (void)resetAllTasksCompletion:(void(^)())completion
+{
+    [self.fileTransferManager reset:completion];
+}
+
 - (void)updateCredentials
 {
     [self _updateCredentials];
@@ -616,12 +621,16 @@
         {
             ZZLogError(@"ftmDelete: Error trying to delete remote file. This should never happen. %@", e);
         }
+        
+        
     });
     
     // Transport service should handle making this http request in a non blocking way.
     [[ZZRemoteStoageTransportService deleteRemoteIncomingVideoWithItemID:videoId
                                                               friendMkey:friendModel.mkey
-                                                              friendCKey:friendModel.ckey] subscribeNext:^(id x) {}];
+                                                              friendCKey:friendModel.ckey] subscribeNext:^(id x) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kDeleteFileNotification object:nil];
+    }];
 }
 
 

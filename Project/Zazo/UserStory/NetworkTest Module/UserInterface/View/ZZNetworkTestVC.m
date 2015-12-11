@@ -12,6 +12,7 @@
 @interface ZZNetworkTestVC ()
 
 @property (nonatomic, strong) ZZNetworkTestView* networkTestView;
+@property (nonatomic, assign) BOOL isLoadingSate;
 
 @end
 
@@ -82,13 +83,19 @@
     });
 }
 
--(void)updateVideoSatus:(NSString *)status
+- (void)updateVideoSatus:(NSString *)status
 {
     ANDispatchBlockToMainQueue(^{
         self.networkTestView.statusVideoLabel.text = status;
     });
 }
 
+- (void)updateRetryCount:(NSInteger)count
+{
+    ANDispatchBlockToMainQueue(^{
+        self.networkTestView.retryLabel.text = [NSString stringWithFormat:@"%i",count];
+    });
+}
 
 #pragma mark - Setup Buttons
 
@@ -120,6 +127,12 @@
     }];
 }
 
+- (void)_setupResetRetriesButton
+{
+    self.networkTestView.resetRetriesButton.rac_command = [RACCommand commandWithBlock:^{
+        [self.eventHandler resetRetries];
+    }];
+}
 
 #pragma mark - Private
 

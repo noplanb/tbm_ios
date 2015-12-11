@@ -641,6 +641,8 @@
 		18965CAC1BAC5D2A009AC8A4 /* ZZActionSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18965CAB1BAC5D29009AC8A4 /* ZZActionSheetController.m */; };
 		18BD07AC1BE0B4E2005CB177 /* ZZRemoteStorageValueGeneratorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BD07AB1BE0B4E2005CB177 /* ZZRemoteStorageValueGeneratorTest.m */; };
 		18BDA6DB1BE8A328008D3619 /* ZZFriendDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDA6DA1BE8A328008D3619 /* ZZFriendDataHelper.m */; };
+		18C893C81C1AB9CE00A47611 /* ZZNetworkTestFriendshipController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C893C71C1AB9CE00A47611 /* ZZNetworkTestFriendshipController.m */; };
+		18C893C91C1AB9CE00A47611 /* ZZNetworkTestFriendshipController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C893C71C1AB9CE00A47611 /* ZZNetworkTestFriendshipController.m */; };
 		18C947E41BB566A500D31B99 /* _TBMFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C947DD1BB566A500D31B99 /* _TBMFriend.m */; };
 		18C947E51BB566A500D31B99 /* _TBMGridElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C947DF1BB566A500D31B99 /* _TBMGridElement.m */; };
 		18C947E61BB566A500D31B99 /* _TBMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C947E11BB566A500D31B99 /* _TBMUser.m */; };
@@ -1342,6 +1344,8 @@
 		18BD07AB1BE0B4E2005CB177 /* ZZRemoteStorageValueGeneratorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRemoteStorageValueGeneratorTest.m; sourceTree = "<group>"; };
 		18BDA6D91BE8A328008D3619 /* ZZFriendDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFriendDataHelper.h; sourceTree = "<group>"; };
 		18BDA6DA1BE8A328008D3619 /* ZZFriendDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFriendDataHelper.m; sourceTree = "<group>"; };
+		18C893C61C1AB9CE00A47611 /* ZZNetworkTestFriendshipController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZNetworkTestFriendshipController.h; sourceTree = "<group>"; };
+		18C893C71C1AB9CE00A47611 /* ZZNetworkTestFriendshipController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZNetworkTestFriendshipController.m; sourceTree = "<group>"; };
 		18C947DC1BB566A500D31B99 /* _TBMFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _TBMFriend.h; sourceTree = "<group>"; };
 		18C947DD1BB566A500D31B99 /* _TBMFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _TBMFriend.m; sourceTree = "<group>"; };
 		18C947DE1BB566A500D31B99 /* _TBMGridElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _TBMGridElement.h; sourceTree = "<group>"; };
@@ -4063,6 +4067,7 @@
 		182255E31C16E08A003885A3 /* UserInterface */ = {
 			isa = PBXGroup;
 			children = (
+				18C893C51C1AB9BA00A47611 /* FriendshipController */,
 				182255E41C16E08A003885A3 /* Presenter */,
 				182255E71C16E08A003885A3 /* View */,
 				182255EB1C16E08A003885A3 /* Wireframe */,
@@ -4229,6 +4234,15 @@
 			children = (
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		18C893C51C1AB9BA00A47611 /* FriendshipController */ = {
+			isa = PBXGroup;
+			children = (
+				18C893C61C1AB9CE00A47611 /* ZZNetworkTestFriendshipController.h */,
+				18C893C71C1AB9CE00A47611 /* ZZNetworkTestFriendshipController.m */,
+			);
+			path = FriendshipController;
 			sourceTree = "<group>";
 		};
 		18CA1BA61BC7F01B008A7A93 /* NextFeatureDialogView */ = {
@@ -5024,6 +5038,7 @@
 				182254D51C16CA06003885A3 /* ZZMenuPresenter.m in Sources */,
 				182254D61C16CA06003885A3 /* ZZVideoPlayer.m in Sources */,
 				182254D71C16CA06003885A3 /* ZZHintsGotItView.m in Sources */,
+				18C893C91C1AB9CE00A47611 /* ZZNetworkTestFriendshipController.m in Sources */,
 				182254D81C16CA06003885A3 /* UIView+Image.m in Sources */,
 				182254D91C16CA06003885A3 /* ZZPlayEventHandler.m in Sources */,
 				182254DA1C16CA06003885A3 /* TBMFriend.m in Sources */,
@@ -5302,6 +5317,7 @@
 				07636ED61BA49A0100925671 /* ZZMenuPresenter.m in Sources */,
 				07636E5C1BA49A0100925671 /* ZZVideoPlayer.m in Sources */,
 				FE7D83291BBE580C00445108 /* ZZHintsGotItView.m in Sources */,
+				18C893C81C1AB9CE00A47611 /* ZZNetworkTestFriendshipController.m in Sources */,
 				07636F131BA49A0100925671 /* UIView+Image.m in Sources */,
 				181D1CA71BC51B7100044F83 /* ZZPlayEventHandler.m in Sources */,
 				07636E3F1BA49A0100925671 /* TBMFriend.m in Sources */,

@@ -41,6 +41,7 @@
 
 - (void)handleStuckDownloadsWithCompletionHandler:(void (^)())handler;
 - (void)updateCredentials;
+- (void)resetAllTasksCompletion:(void(^)())completion;
 
 #pragma mark - Upload
 

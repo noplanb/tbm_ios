@@ -6,11 +6,10 @@
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface ZZSendVideoService : NSObject
 
-- (void)start;
-- (void)stop;
+- (void)configureActionFriendID:(NSString*)friendID;
+- (void)sendVideo;
+- (void)resetRetries;
 
 @end

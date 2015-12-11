@@ -13,50 +13,34 @@
 #import "TBMVideoIdUtils.h"
 #import "TBMVideoProcessor.h"
 #import "ZZFileHelper.h"
+#import "ZZFriendDataProvider.h"
 
-static CGFloat const kSendVideoInterval = 3.0;
 static NSString* const kUploadFileName = @"IMG_0764";
 static NSString* const kUploadFileType = @"MOV";
 
 @interface ZZSendVideoService ()
 
-@property (nonatomic, strong) NSTimer* timer;
+@property (nonatomic, strong) NSString* actualFriendID;
 
 @end
 
 
 @implementation ZZSendVideoService
 
-- (void)start
+- (void)configureActionFriendID:(NSString *)friendID
 {
-    if (!self.timer)
-    {
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:kSendVideoInterval
-                                                      target:self
-                                                    selector:@selector(_sendVideo)
-                                                    userInfo:nil repeats:YES];
-    }
+    self.actualFriendID = friendID;
 }
 
-- (void)stop
+- (void)sendVideo
 {
-    if ([self.timer isValid])
-    {
-        [self.timer invalidate];
-    }
-    self.timer = nil;
-}
-
-
-- (void)_sendVideo
-{
-    TBMFriend* friend = [[TBMFriend MR_findAll] firstObject];
-    if (!ANIsEmpty(friend))
+    if (!ANIsEmpty(self.actualFriendID))
     {
         NSURL* fromUrl = [ZZFileHelper fileURlWithFileName:kUploadFileName withType:kUploadFileType];
-        NSURL* toUrl = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriendID:friend.idTbm];
+        NSURL* toUrl = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriendID:self.actualFriendID];
         
         NSError* copyError = nil;
+        
         if([ZZFileHelper copyFileWithUrl:fromUrl toUrl:toUrl error:&copyError])
         {
             [[[TBMVideoProcessor alloc] init] processVideoWithUrl:toUrl];
@@ -68,11 +52,11 @@ static NSString* const kUploadFileType = @"MOV";
     }
 }
 
-- (void)dealloc
+- (void)resetRetries
 {
-    [self stop];
+    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:self.actualFriendID];
+    friend.uploadRetryCount = @(0);
+    [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
 }
-
-
 
 @end

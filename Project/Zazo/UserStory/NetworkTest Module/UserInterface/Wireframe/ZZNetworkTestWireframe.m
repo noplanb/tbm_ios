@@ -32,6 +32,7 @@
     
     presenter.interactor = interactor;
     presenter.wireframe = self;
+    
     [presenter configurePresenterWithUserInterface:networkTestController];
     
     ANDispatchBlockToMainQueue(^{

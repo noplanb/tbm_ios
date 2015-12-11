@@ -12,6 +12,7 @@
 - (void)incomingVideoChangeWithCount:(NSInteger)count;
 - (void)completedVideoChangeWithCounter:(NSInteger)count;
 - (void)updateTriesCount:(NSInteger)count;
+- (void)updateRetryCount:(NSInteger)count;
 
 - (void)failedOutgoingVideoWithCounter:(NSInteger)count;
 - (void)failedIncomingVideoWithCounter:(NSInteger)count;

@@ -37,19 +37,28 @@
     [[ZZVideoStatusHandler sharedInstance] removeVideoStatusHandlerObserver:self];
 }
 
+- (void)updateWithActualFriendID:(NSString *)friendID
+{
+    [self.sendVideoService configureActionFriendID:friendID];
+}
+
 
 #pragma mark - Send Video
 
 - (void)startSendingVideo
 {
-    [self.sendVideoService start];
+    [self.sendVideoService sendVideo];
 }
 
 - (void)stopSendingVideo
 {
-    [self.sendVideoService stop];
+    
 }
 
+- (void)resetRetriesForActiveFriend
+{
+    [self.sendVideoService resetRetries];
+}
 
 #pragma mark - Video status handler delegate method
 

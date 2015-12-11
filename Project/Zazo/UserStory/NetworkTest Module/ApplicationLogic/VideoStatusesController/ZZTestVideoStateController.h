@@ -10,10 +10,13 @@
 
 @protocol ZZTestVideoStateControllerDelegate <NSObject>
 
+- (void)sendVideo;
+
 - (void)outgoingVideoChangeWithCounter:(NSInteger)counter;
 - (void)incomingVideoChangeWithCounter:(NSInteger)counter;
 - (void)completedVideoChangeWithCounter:(NSInteger)counter;
 - (void)updateTries:(NSInteger)coutner;
+- (void)updateRetryCount:(NSInteger)count;
 
 - (void)failedOutgoingVideoWithCounter:(NSInteger)counter;
 - (void)failedIncomingVideoWithCounter:(NSInteger)counter;
@@ -28,5 +31,9 @@
 - (instancetype)initWithDelegate:(id <ZZTestVideoStateControllerDelegate>)delegate;
 - (void)videoStatusChangedWithFriend:(TBMFriend*)friendEntity;
 - (void)resetStats;
+- (void)resetRetries;
+
+- (void)stopNotify;
+- (void)startNotify;
 
 @end

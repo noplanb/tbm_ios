@@ -9,6 +9,8 @@
 #import "ZZNetworkTestPresenter.h"
 #import "TBMFriend.h"
 #import "ZZTestVideoStateController.h"
+#import "ZZNetworkTestFriendshipController.h"
+#import "ZZRootStateObserver.h"
 
 @interface ZZNetworkTestPresenter () <ZZTestVideoStateControllerDelegate>
 
@@ -21,7 +23,12 @@
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZNetworkTestViewInterface>*)userInterface
 {
     self.userInterface = userInterface;
+    
     self.videoStateController = [[ZZTestVideoStateController alloc] initWithDelegate:self];
+    
+    [ZZNetworkTestFriendshipController updateFriendShipIfNeededWithCompletion:^(NSString *actualFriendID) {
+        [self.interactor updateWithActualFriendID:actualFriendID];
+    }];
 }
 
 
@@ -37,11 +44,14 @@
 
 - (void)startNetworkTest
 {
+    [self.videoStateController startNotify];
     [self.interactor startSendingVideo];
 }
 
 - (void)stopNetworkTest
 {
+    [self.videoStateController stopNotify];
+    [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventResetAllLoaderTask notificationObject:nil];
     [self.interactor stopSendingVideo];
 }
 
@@ -50,8 +60,18 @@
     [self.videoStateController resetStats];
 }
 
+- (void)resetRetries
+{
+    [self.videoStateController resetRetries];
+    
+}
 
 #pragma mark - VideoStatuses controller delegate
+
+- (void)sendVideo
+{
+    [self.interactor startSendingVideo];
+}
 
 - (void)outgoingVideoChangeWithCounter:(NSInteger)counter
 {
@@ -91,6 +111,11 @@
 - (void)videoStatusChagnedWith:(NSString *)statusString
 {
     [self.userInterface updateVideoSatus:statusString];
+}
+
+- (void)updateRetryCount:(NSInteger)count
+{
+    [self.userInterface updateRetryCount:count];
 }
 
 @end
