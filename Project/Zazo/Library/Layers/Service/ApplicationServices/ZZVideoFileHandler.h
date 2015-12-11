@@ -9,7 +9,6 @@
 #import "ZZVideoStatuses.h"
 
 @class ZZFriendDomainModel;
-@class TBMVideo;
 
 @protocol ZZVideoFileHandlerDelegate <NSObject>
 

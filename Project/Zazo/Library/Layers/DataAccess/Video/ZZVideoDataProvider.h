@@ -7,24 +7,11 @@
 //
 
 @class ZZVideoDomainModel;
-@class TBMVideo;
 @class ZZFriendDomainModel;
-@class TBMFriend;
 
 @interface ZZVideoDataProvider : NSObject
 
-
-#pragma mark - Fetches
-
-+ (TBMVideo*)newWithVideoId:(NSString *)videoId onContext:(NSManagedObjectContext*)context;
-+ (TBMVideo*)findWithVideoId:(NSString *)videoId;
-+ (NSArray *)all;
 + (ZZVideoDomainModel*)itemWithID:(NSString*)itemID;
-+ (TBMVideo*)entityWithID:(NSString*)itemID;
-+ (NSArray*)downloadingEntities;
-
-
-+ (TBMVideo*)createIncomingVideoForFriend:(TBMFriend*)friend withVideoId:(NSString*)videoId;
 
 #pragma mark - Count
 
@@ -44,19 +31,8 @@
 + (NSArray*)sortedIncomingVideosForUser:(ZZFriendDomainModel*)friendModel;
 
 
-#pragma mark - Mapping
-
-//+ (TBMVideo*)entityFromModel:(ZZVideoDomainModel*)model;
-+ (ZZVideoDomainModel*)modelFromEntity:(TBMVideo*)entity;
-
-
 #pragma mark - Helpers
 
 + (void)printAll;
-+ (NSURL *)videoUrlWithVideo:(TBMVideo*)video;
-+ (BOOL)videoFileExistsForVideo:(TBMVideo*)video;
-//+ (unsigned long long)videoFileSizeForVideo:(TBMVideo*)video;
-//+ (BOOL)hasValidVideoFileWithVideo:(TBMVideo*)video;
-+ (BOOL)isStatusDownloadingWithVideo:(TBMVideo*)video;
 
 @end

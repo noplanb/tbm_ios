@@ -9,7 +9,7 @@
 #import "ZZVideoDataUpdater.h"
 #import "TBMVideo.h"
 #import "MagicalRecord.h"
-#import "ZZVideoDataProvider.h"
+#import "ZZVideoDataProvider+Entities.h"
 #import "ZZThumbnailGenerator.h"
 #import "ZZVideoDomainModel.h"
 #import "ZZVideoModelsMapper.h"

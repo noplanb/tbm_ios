@@ -886,8 +886,11 @@
 		07F0E7EB1B8CD7A900036AB2 /* ZZLoadFriendListSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZLoadFriendListSpec.m; sourceTree = "<group>"; };
 		07F0E7EC1B8CD7A900036AB2 /* ZZLoadFriendListTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZLoadFriendListTest.m; sourceTree = "<group>"; };
 		07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZStartScreenTestSpec.m; sourceTree = "<group>"; };
-		15FC5BC61C18166B005296C7 /* ZZDispatchHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDispatchHelper.h; sourceTree = "<group>"; };
 		1549F9E91C1953E8005AFC95 /* ZZFriendDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZFriendDataProvider+Entities.h"; sourceTree = "<group>"; };
+		15A1777F1C1AA9240031480F /* ZZGridDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZGridDataProvider+Entities.h"; sourceTree = "<group>"; };
+		15A177801C1AAA5F0031480F /* ZZUserDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZUserDataProvider+Entities.h"; sourceTree = "<group>"; };
+		15A177811C1AAB090031480F /* ZZVideoDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZVideoDataProvider+Entities.h"; sourceTree = "<group>"; };
+		15FC5BC61C18166B005296C7 /* ZZDispatchHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDispatchHelper.h; sourceTree = "<group>"; };
 		15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDispatchHelper.m; sourceTree = "<group>"; };
 		180254A11BB2C5A400138A52 /* ZZVideoStatuses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoStatuses.h; sourceTree = "<group>"; };
 		180254A21BB2C5A400138A52 /* ZZVideoStatuses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoStatuses.m; sourceTree = "<group>"; };
@@ -1315,8 +1318,7 @@
 			children = (
 				07636B081BA49A0100925671 /* PhoneHelper */,
 				07636B0B1BA49A0100925671 /* TextFieldsDelegate */,
-				15FC5BC61C18166B005296C7 /* ZZDispatchHelper.h */,
-				15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */,
+				15A177821C1AB6FD0031480F /* ZZDispatchHelper */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1386,6 +1388,7 @@
 				18E042AD1BBC2A3300318C6F /* ZZGridDataUpdater.h */,
 				18E042AE1BBC2A3300318C6F /* ZZGridDataUpdater.m */,
 				07636B191BA49A0100925671 /* ZZGridDataProvider.h */,
+				15A1777F1C1AA9240031480F /* ZZGridDataProvider+Entities.h */,
 				07636B1A1BA49A0100925671 /* ZZGridDataProvider.m */,
 				07636B1B1BA49A0100925671 /* ZZGridModelsMapper.h */,
 				07636B1C1BA49A0100925671 /* ZZGridModelsMapper.m */,
@@ -1397,6 +1400,7 @@
 			isa = PBXGroup;
 			children = (
 				07636B1E1BA49A0100925671 /* ZZUserDataProvider.h */,
+				15A177801C1AAA5F0031480F /* ZZUserDataProvider+Entities.h */,
 				07636B1F1BA49A0100925671 /* ZZUserDataProvider.m */,
 				07636B201BA49A0100925671 /* ZZUserModelsMapper.h */,
 				07636B211BA49A0100925671 /* ZZUserModelsMapper.m */,
@@ -1408,6 +1412,7 @@
 			isa = PBXGroup;
 			children = (
 				07636B231BA49A0100925671 /* ZZVideoDataProvider.h */,
+				15A177811C1AAB090031480F /* ZZVideoDataProvider+Entities.h */,
 				07636B241BA49A0100925671 /* ZZVideoDataProvider.m */,
 				07636B251BA49A0100925671 /* ZZVideoModelsMapper.h */,
 				07636B261BA49A0100925671 /* ZZVideoModelsMapper.m */,
@@ -3398,6 +3403,15 @@
 				07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */,
 			);
 			path = StartScreenTests;
+			sourceTree = "<group>";
+		};
+		15A177821C1AB6FD0031480F /* ZZDispatchHelper */ = {
+			isa = PBXGroup;
+			children = (
+				15FC5BC61C18166B005296C7 /* ZZDispatchHelper.h */,
+				15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */,
+			);
+			name = ZZDispatchHelper;
 			sourceTree = "<group>";
 		};
 		18061C1B1BDFD5920079641D /* TEST */ = {

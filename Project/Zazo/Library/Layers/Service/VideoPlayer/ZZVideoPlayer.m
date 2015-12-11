@@ -21,7 +21,7 @@
 #import "ZZRemoteStorageValueGenerator.h"
 #import "ZZRemoteStoageTransportService.h"
 #import "ZZVideoStatuses.h"
-#import "ZZVideoDataProvider.h"
+#import "ZZVideoDataProvider+Entities.h"
 #import "ZZFileHelper.h"
 #import "ZZVideoStatusHandler.h"
 #import "ZZFriendDataHelper.h"

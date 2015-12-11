@@ -12,7 +12,7 @@
 #import "ZZApplicationRootService.h"
 #import "ZZNotificationsConstants.h"
 #import "ZZVideoStatuses.h"
-#import "ZZVideoDataProvider.h"
+#import "ZZVideoDataProvider+Entities.h"
 #import "ZZFriendDataProvider+Entities.h"
 #import "ZZFriendDomainModel.h"
 #import "TBMFriend.h"

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import "ZZUserDataProvider.h"
+#import "ZZUserDataProvider+Entities.h"
 #import "ZZUserModelsMapper.h"
 #import "MagicalRecord.h"
 #import "ZZContentDataAcessor.h"

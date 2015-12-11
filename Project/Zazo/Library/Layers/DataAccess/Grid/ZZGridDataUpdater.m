@@ -8,7 +8,7 @@
 
 #import "ZZGridDataUpdater.h"
 #import "ZZGridDomainModel.h"
-#import "ZZGridDataProvider.h"
+#import "ZZGridDataProvider+Entities.h"
 #import "MagicalRecord.h"
 #import "ZZGridModelsMapper.h"
 #import "ZZFriendDataProvider+Entities.h"

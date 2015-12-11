@@ -18,7 +18,7 @@
 #import "ZZCommonNetworkTransportService.h"
 #import "TBMVideoIdUtils.h"
 #import "ZZStoredSettingsManager.h"
-#import "ZZVideoDataProvider.h"
+#import "ZZVideoDataProvider+Entities.h"
 #import "ZZNotificationsConstants.h"
 #import "ZZRemoteStorageValueGenerator.h"
 #import "ZZVideoNetworkTransportService.h"

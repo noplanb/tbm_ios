@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import "ZZVideoDataProvider.h"
+#import "ZZVideoDataProvider+Entities.h"
 #import "ZZVideoModelsMapper.h"
 #import "ZZVideoDomainModel.h"
 #import "TBMVideo.h"

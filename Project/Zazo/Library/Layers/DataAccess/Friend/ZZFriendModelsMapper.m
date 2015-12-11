@@ -10,7 +10,7 @@
 #import "TBMFriend.h"
 #import "ZZFriendDomainModel.h"
 #import "TBMVideo.h"
-#import "ZZVideoDataProvider.h"
+#import "ZZVideoDataProvider+Entities.h"
 #import "ZZVideoDomainModel.h"
 #import "ZZFriendDataHelper.h"
 
