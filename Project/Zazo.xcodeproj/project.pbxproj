@@ -657,6 +657,8 @@
 		18EE04111BFF8A1400D57966 /* ZZMigrationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE04101BFF8A1400D57966 /* ZZMigrationManager.m */; };
 		18F195A31C1961620084FB34 /* IMG_0764.MOV in Resources */ = {isa = PBXBuildFile; fileRef = 18F195A21C1961620084FB34 /* IMG_0764.MOV */; };
 		18F195A41C1961620084FB34 /* IMG_0764.MOV in Resources */ = {isa = PBXBuildFile; fileRef = 18F195A21C1961620084FB34 /* IMG_0764.MOV */; };
+		18F235261C1B0D1E0078F3BF /* ZZNetworkTestStoredManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F235251C1B0D1E0078F3BF /* ZZNetworkTestStoredManger.m */; };
+		18F235271C1B0D1E0078F3BF /* ZZNetworkTestStoredManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F235251C1B0D1E0078F3BF /* ZZNetworkTestStoredManger.m */; };
 		18F52E031BFCAB6100042AAC /* ZZContentDataAcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F52E021BFCAB6100042AAC /* ZZContentDataAcessor.m */; };
 		2208E8A81A1419D400150C35 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208E8A61A1419D400150C35 /* AddressBook.framework */; };
 		2208E8A91A1419D400150C35 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208E8A71A1419D400150C35 /* AddressBookUI.framework */; };
@@ -1371,6 +1373,8 @@
 		18EE040F1BFF8A1400D57966 /* ZZMigrationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMigrationManager.h; sourceTree = "<group>"; };
 		18EE04101BFF8A1400D57966 /* ZZMigrationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMigrationManager.m; sourceTree = "<group>"; };
 		18F195A21C1961620084FB34 /* IMG_0764.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = IMG_0764.MOV; sourceTree = "<group>"; };
+		18F235241C1B0D1E0078F3BF /* ZZNetworkTestStoredManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZNetworkTestStoredManger.h; sourceTree = "<group>"; };
+		18F235251C1B0D1E0078F3BF /* ZZNetworkTestStoredManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZNetworkTestStoredManger.m; sourceTree = "<group>"; };
 		18F52E011BFCAB6100042AAC /* ZZContentDataAcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContentDataAcessor.h; sourceTree = "<group>"; };
 		18F52E021BFCAB6100042AAC /* ZZContentDataAcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContentDataAcessor.m; sourceTree = "<group>"; };
 		2208E8A61A1419D400150C35 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -4067,6 +4071,7 @@
 		182255E31C16E08A003885A3 /* UserInterface */ = {
 			isa = PBXGroup;
 			children = (
+				18F235231C1B0D080078F3BF /* NetworkTestStoredManager */,
 				18C893C51C1AB9BA00A47611 /* FriendshipController */,
 				182255E41C16E08A003885A3 /* Presenter */,
 				182255E71C16E08A003885A3 /* View */,
@@ -4318,6 +4323,15 @@
 				18EE04101BFF8A1400D57966 /* ZZMigrationManager.m */,
 			);
 			path = CoreDataMigrationManager;
+			sourceTree = "<group>";
+		};
+		18F235231C1B0D080078F3BF /* NetworkTestStoredManager */ = {
+			isa = PBXGroup;
+			children = (
+				18F235241C1B0D1E0078F3BF /* ZZNetworkTestStoredManger.h */,
+				18F235251C1B0D1E0078F3BF /* ZZNetworkTestStoredManger.m */,
+			);
+			path = NetworkTestStoredManager;
 			sourceTree = "<group>";
 		};
 		18F52E001BFCAB6100042AAC /* Content */ = {
@@ -4994,6 +5008,7 @@
 				182254AB1C16CA06003885A3 /* _TBMFriend.m in Sources */,
 				182254AC1C16CA06003885A3 /* ZZNetworkTransport.m in Sources */,
 				182254AD1C16CA06003885A3 /* ZZDebugStateDataSource.m in Sources */,
+				18F235271C1B0D1E0078F3BF /* ZZNetworkTestStoredManger.m in Sources */,
 				182254AE1C16CA06003885A3 /* ZZDebugStateVC.m in Sources */,
 				182254AF1C16CA06003885A3 /* ZZApplicationDataUpdaterService.m in Sources */,
 				182254B01C16CA06003885A3 /* ZZSecretSegmentCellViewModel.m in Sources */,
@@ -5273,6 +5288,7 @@
 				18C947E41BB566A500D31B99 /* _TBMFriend.m in Sources */,
 				07636E3C1BA49A0100925671 /* ZZNetworkTransport.m in Sources */,
 				07636E9B1BA49A0100925671 /* ZZDebugStateDataSource.m in Sources */,
+				18F235261C1B0D1E0078F3BF /* ZZNetworkTestStoredManger.m in Sources */,
 				07636EA01BA49A0100925671 /* ZZDebugStateVC.m in Sources */,
 				07E09E251BD5B15D00A59389 /* ZZApplicationDataUpdaterService.m in Sources */,
 				07636EA81BA49A0100925671 /* ZZSecretSegmentCellViewModel.m in Sources */,

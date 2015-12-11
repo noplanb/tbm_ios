@@ -23,6 +23,7 @@
 
 - (void)currentStatusChangedWithStatusString:(NSString*)statusString;
 - (void)videoStatusChagnedWith:(NSString*)statusString;
+- (NSString*)testedFriendID;
 
 @end
 
@@ -35,5 +36,7 @@
 
 - (void)stopNotify;
 - (void)startNotify;
+
+- (void)saveCounterState;
 
 @end

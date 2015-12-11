@@ -10,6 +10,8 @@
 #import "TBMFriend.h"
 #import "ZZVideoStatuses.h"
 #import "ZZFriendDataProvider.h"
+#import "MagicalRecord.h"
+#import "ZZNetworkTestStoredManger.h"
 
 @interface ZZTestVideoStateController ()
 
@@ -25,6 +27,7 @@
 @property (nonatomic, assign) NSInteger prevRetryCount;
 
 @property (nonatomic, assign) BOOL isNotificationEnabled;
+@property (nonatomic, strong) ZZNetworkTestStoredManger* storedManager;
 
 @end
 
@@ -38,6 +41,8 @@
         self.delegate = delegate;
         self.outgoingVideoCounter = 0;
         [self _setupNotifications];
+        self.storedManager = [ZZNetworkTestStoredManger new];
+        [self _updateStateCounterWithStorredValue];
     }
     return self;
 }
@@ -59,6 +64,8 @@
         {
             [self _handleDownloadVideoWithFriend:friendEntity];
         }
+        
+        [self _updateRetryCountWithFriend:friendEntity];
     }
 }
 
@@ -76,6 +83,18 @@
     [self.delegate updateTries:self.triesCounter];
     [self.delegate failedOutgoingVideoWithCounter:self.failedOutgoingVideoCounter];
     [self.delegate failedIncomingVideoWithCounter:self.failedIncomingVideoCounter];
+    [self.storedManager cleanAllCounters];
+}
+
+- (void)saveCounterState
+{
+    self.storedManager.outgoingVideoCounter = self.outgoingVideoCounter;
+    self.storedManager.completedVideoCounter = self.completedVideoCounter;
+    self.storedManager.incomingVideoCounter = self.incomingVideoCounter;
+    self.storedManager.triesCounter = self.triesCounter;
+    self.storedManager.failedIncomingVideoCounter = self.failedIncomingVideoCounter;
+    self.storedManager.failedOutgoingVideoCounter = self.failedOutgoingVideoCounter;
+    self.storedManager.prevRetryCount = self.prevRetryCount;
 }
 
 - (void)stopNotify
@@ -92,6 +111,11 @@
 {
     self.prevRetryCount = 0;
     [self.delegate updateRetryCount:self.prevRetryCount];
+    NSString* testedFriendID = [self.delegate testedFriendID];
+    
+    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:testedFriendID];
+    friend.uploadRetryCount = @(0);
+    [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
 }
 
 #pragma mark - Private
@@ -164,10 +188,15 @@
 
 - (void)_updateDeleteStatus
 {
-    [self.delegate currentStatusChangedWithStatusString:NSLocalizedString(@"network-test-view.current.status.deleging", nil)];
-    self.completedVideoCounter++;
-    [self.delegate completedVideoChangeWithCounter:self.completedVideoCounter];
-    [self.delegate sendVideo];
+    if (self.isNotificationEnabled)
+    {
+        ANDispatchBlockToMainQueue(^{
+            [self.delegate currentStatusChangedWithStatusString:NSLocalizedString(@"network-test-view.current.status.deleging", nil)];
+            self.completedVideoCounter++;
+            [self.delegate completedVideoChangeWithCounter:self.completedVideoCounter];
+            [self.delegate sendVideo];
+        });
+    }
 }
 
 - (void)_updateRetryCountWithFriend:(TBMFriend*)friend
@@ -177,6 +206,25 @@
         self.prevRetryCount = friend.uploadRetryCountValue;
         [self.delegate updateRetryCount:friend.uploadRetryCountValue];
     }
+}
+
+- (void)_updateStateCounterWithStorredValue
+{
+    self.outgoingVideoCounter = self.storedManager.outgoingVideoCounter;
+    self.completedVideoCounter = self.storedManager.completedVideoCounter;
+    self.incomingVideoCounter = self.storedManager.incomingVideoCounter;
+    self.triesCounter = self.storedManager.triesCounter;
+    self.failedIncomingVideoCounter = self.storedManager.failedIncomingVideoCounter;
+    self.failedOutgoingVideoCounter = self.storedManager.failedOutgoingVideoCounter;
+    self.prevRetryCount = self.storedManager.prevRetryCount;
+    
+    [self.delegate outgoingVideoChangeWithCounter:self.outgoingVideoCounter];
+    [self.delegate completedVideoChangeWithCounter:self.completedVideoCounter];
+    [self.delegate incomingVideoChangeWithCounter:self.incomingVideoCounter];
+    [self.delegate updateTries:self.triesCounter];
+    [self.delegate failedIncomingVideoWithCounter:self.failedIncomingVideoCounter];
+    [self.delegate failedOutgoingVideoWithCounter:self.failedOutgoingVideoCounter];
+    [self.delegate updateRetryCount:self.prevRetryCount];
 }
 
 @end

@@ -10,6 +10,6 @@
 
 - (void)configureActionFriendID:(NSString*)friendID;
 - (void)sendVideo;
-- (void)resetRetries;
+- (NSString*)sendedFriendID;
 
 @end

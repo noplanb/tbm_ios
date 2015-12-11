@@ -20,6 +20,21 @@
 
 @implementation ZZNetworkTestPresenter
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        [self _configureNotifications];
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZNetworkTestViewInterface>*)userInterface
 {
     self.userInterface = userInterface;
@@ -28,7 +43,16 @@
     
     [ZZNetworkTestFriendshipController updateFriendShipIfNeededWithCompletion:^(NSString *actualFriendID) {
         [self.interactor updateWithActualFriendID:actualFriendID];
+        [self startNetworkTest];
     }];
+}
+
+- (void)_configureNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_saveCountersState)
+                                                 name:UIApplicationWillTerminateNotification
+                                               object:nil];
 }
 
 
@@ -63,7 +87,7 @@
 - (void)resetRetries
 {
     [self.videoStateController resetRetries];
-    
+
 }
 
 #pragma mark - VideoStatuses controller delegate
@@ -116,6 +140,19 @@
 - (void)updateRetryCount:(NSInteger)count
 {
     [self.userInterface updateRetryCount:count];
+}
+
+- (NSString *)testedFriendID
+{
+    return [self.interactor testedFriendID];
+}
+
+
+#pragma mark - Private
+
+- (void)_saveCountersState
+{
+    [self.videoStateController saveCounterState];
 }
 
 @end

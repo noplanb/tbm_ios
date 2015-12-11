@@ -52,11 +52,9 @@ static NSString* const kUploadFileType = @"MOV";
     }
 }
 
-- (void)resetRetries
+- (NSString *)sendedFriendID
 {
-    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:self.actualFriendID];
-    friend.uploadRetryCount = @(0);
-    [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
+    return self.actualFriendID;
 }
 
 @end

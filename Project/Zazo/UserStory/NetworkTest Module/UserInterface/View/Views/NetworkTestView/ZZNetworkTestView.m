@@ -57,6 +57,7 @@
         [self resetRetriesButton];
         [self resetStatsButton];
         
+        self.startButton.selected = YES;
     }
     return self;
 }

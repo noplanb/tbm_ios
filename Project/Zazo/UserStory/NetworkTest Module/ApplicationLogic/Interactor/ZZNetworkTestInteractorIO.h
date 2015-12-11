@@ -13,7 +13,7 @@
 - (void)updateWithActualFriendID:(NSString*)friendID;
 - (void)startSendingVideo;
 - (void)stopSendingVideo;
-- (void)resetRetriesForActiveFriend;
+- (NSString*)testedFriendID;
 
 @end
 

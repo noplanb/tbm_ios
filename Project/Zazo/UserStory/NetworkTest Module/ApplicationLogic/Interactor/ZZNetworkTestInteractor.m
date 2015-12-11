@@ -42,6 +42,10 @@
     [self.sendVideoService configureActionFriendID:friendID];
 }
 
+- (NSString *)testedFriendID
+{
+    return [self.sendVideoService sendedFriendID];
+}
 
 #pragma mark - Send Video
 
@@ -55,10 +59,6 @@
     
 }
 
-- (void)resetRetriesForActiveFriend
-{
-    [self.sendVideoService resetRetries];
-}
 
 #pragma mark - Video status handler delegate method
 
