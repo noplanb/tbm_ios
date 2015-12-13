@@ -19,7 +19,6 @@
 + (TBMVideo*)findWithVideoId:(NSString *)videoId;
 + (NSArray *)all;
 + (TBMVideo*)entityWithID:(NSString*)itemID;
-+ (NSArray*)downloadingEntities;
 + (TBMVideo*)createIncomingVideoForFriend:(TBMFriend*)friend withVideoId:(NSString*)videoId;
 
 
@@ -30,10 +29,8 @@
 
 #pragma mark - Helpers
 
-+ (NSURL *)videoUrlWithVideo:(TBMVideo*)video;
-+ (BOOL)videoFileExistsForVideo:(TBMVideo*)video;
 //+ (unsigned long long)videoFileSizeForVideo:(TBMVideo*)video;
 //+ (BOOL)hasValidVideoFileWithVideo:(TBMVideo*)video;
-+ (BOOL)isStatusDownloadingWithVideo:(TBMVideo*)video;
++ (NSURL *)videoUrlWithVideo:(TBMVideo*)video;
 
 @end

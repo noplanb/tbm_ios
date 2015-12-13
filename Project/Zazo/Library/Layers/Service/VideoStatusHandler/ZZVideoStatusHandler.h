@@ -7,7 +7,6 @@
 //
 
 #import "ZZVideoStatuses.h"
-#import "TBMVideo.h"
 
 @protocol ZZVideoStatusHandlerDelegate <NSObject>
 
@@ -25,8 +24,6 @@
 
 - (void)addVideoStatusHandlerObserver:(id <ZZVideoStatusHandlerDelegate>)observer;
 - (void)removeVideoStatusHandlerObserver:(id <ZZVideoStatusHandlerDelegate>)observer;
-
-- (void)deleteAllViewedOrFailedVideoWithFriendId:(NSString*)friendId;
 
 - (void)notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)status
                          withFriendID:(NSString*)friendID

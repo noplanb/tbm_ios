@@ -8,14 +8,34 @@
 
 #import "ZZVideoDataUpdater.h"
 #import "TBMVideo.h"
+#import "TBMFriend.h"
 #import "MagicalRecord.h"
 #import "ZZVideoDataProvider+Entities.h"
+#import "ZZFriendDataProvider+Entities.h"
 #import "ZZThumbnailGenerator.h"
 #import "ZZVideoDomainModel.h"
 #import "ZZVideoModelsMapper.h"
 #import "ZZContentDataAcessor.h"
+#import "ZZFriendDomainModel.h"
 
 @implementation ZZVideoDataUpdater
+
++ (ZZVideoDomainModel*)upsertVideo:(ZZVideoDomainModel*)model
+{
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        TBMVideo* item = [ZZVideoDataProvider entityWithID:model.videoID];
+        
+        if (!item)
+        {
+            item = [TBMVideo MR_createEntityInContext:[self _context]];
+        }
+        
+        item = [ZZVideoModelsMapper fillEntity:item fromModel:model];
+        [item.managedObjectContext MR_saveToPersistentStoreAndWait];
+        
+        return [ZZVideoDataProvider modelFromEntity:item];
+    });
+}
 
 //+ (void)deleteItem:(ZZVideoDomainModel*)model
 //{
@@ -49,6 +69,34 @@
     });
 }
 
+#pragma mark - Delete Video Methods
+
++ (void)deleteAllViewedOrFailedVideoWithFriendId:(NSString*)friendId
+{
+    ZZLogInfo(@"deleteAllViewedVideos");
+    
+    TBMFriend* friendModel = [ZZFriendDataProvider friendEntityWithItemID:friendId];
+    
+    NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"videoId" ascending:YES];
+    NSArray* sortedVidoes = [friendModel.videos sortedArrayUsingDescriptors:@[d]];
+    
+    for (TBMVideo *v in sortedVidoes)
+    {
+        if (v.statusValue == ZZVideoIncomingStatusViewed ||
+            v.statusValue == ZZVideoIncomingStatusFailedPermanently)
+        {
+            [self deleteVideo:v withFriend:friendModel];
+        }
+    }
+}
+
++ (void)deleteVideo:(TBMVideo*)video withFriend:(TBMFriend*)friend
+{
+    [ZZVideoDataUpdater deleteFilesForVideo:video];
+    [friend removeVideosObject:video];
+    [ZZVideoDataUpdater destroy:video];
+    [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
+}
 
 + (void)deleteVideoFileWithVideo:(TBMVideo*)video
 {
@@ -67,6 +115,31 @@
         ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:video];
         [ZZThumbnailGenerator deleteThumbFileForVideo:videoModel];
         
+    });
+}
+
++ (void)updateViewedVideoCounterWithVideoDomainModel:(ZZVideoDomainModel*)playedVideoModel
+{
+    ANDispatchBlockToMainQueue(^{
+        TBMVideo* viewedVideo = [ZZVideoDataProvider entityWithID:playedVideoModel.videoID];
+        if (!ANIsEmpty(viewedVideo))
+        {
+            if (viewedVideo.statusValue == ZZVideoIncomingStatusDownloaded)
+            {
+                //            viewedVideo.status = @(ZZVideoIncomingStatusViewed);
+                if (playedVideoModel.relatedUser.unviewedCount > 0)
+                {
+                    playedVideoModel.relatedUser.unviewedCount--;
+                }
+                else
+                {
+                    playedVideoModel.relatedUser.unviewedCount = 0;
+                }
+                
+                //            [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
+            }
+        }
+
     });
 }
 

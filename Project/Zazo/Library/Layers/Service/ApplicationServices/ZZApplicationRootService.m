@@ -23,6 +23,7 @@
 #import "ZZRootStateObserver.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZVideoStatusHandler.h"
+#import "ZZVideoDataUpdater.h"
 
 @interface ZZApplicationRootService ()
 <
@@ -200,7 +201,7 @@
 
 - (void)deleteAllViewedOrFailedVideosWithFriendId:(NSString *)friendId
 {
-    [[ZZVideoStatusHandler sharedInstance] deleteAllViewedOrFailedVideoWithFriendId:friendId];
+    [ZZVideoDataUpdater deleteAllViewedOrFailedVideoWithFriendId:friendId];
 }
 
 

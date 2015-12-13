@@ -7,8 +7,10 @@
 //
 
 #import "ZZFriendDataHelper.h"
-#import "TBMFriend.h"
+#import "ZZFriendDomainModel.h"
 #import "TBMVideo.h"
+#import "TBMFriend.h"
+#import "ZZVideoDomainModel.h"
 #import "MagicalRecord.h"
 #import "ZZVideoDataUpdater.h"
 #import "ZZContentDataAcessor.h"
@@ -19,11 +21,11 @@
 
 + (BOOL)isUniqueFirstName:(NSString*)firstName friendID:(NSString*)friendID
 {
-    NSArray* friends = [TBMFriend MR_findAll];
-    TBMFriend* friendEnitity = [ZZFriendDataProvider friendEntityWithItemID:friendID];
-    for (TBMFriend *f in friends)
+    NSArray* friends = [ZZFriendDataProvider loadAllFriends];
+    ZZFriendDomainModel* friend = [ZZFriendDataProvider friendWithItemID: friendID];
+    for (ZZFriendDomainModel *f in friends)
     {
-        if (![friendEnitity isEqual:f] && [firstName isEqualToString:f.firstName])
+        if (![friend isEqual:f] && [firstName isEqualToString:f.firstName])
             return NO;
     }
     return YES;
@@ -32,19 +34,34 @@
 
 #pragma mark - Friend video helpers
 
-+ (BOOL)isFriend:(TBMFriend*)friend hasIncomingVideoWithId:(NSString*)videoId
++ (BOOL)isFriend:(ZZFriendDomainModel*)friend hasIncomingVideoWithId:(NSString*)videoId
 {
     BOOL hasVideo = NO;
-    NSArray* videos = [friend.videos.allObjects copy];
-    for (TBMVideo* video in videos)
+    NSArray* videos = [friend.videos copy];
+    for (ZZVideoDomainModel* video in videos)
     {
-        if ([video.videoId isEqualToString:videoId])
+        if ([video.videoID isEqualToString:videoId])
         {
             hasVideo = YES;
         }
     }
     
     return hasVideo;
+}
+
++ (NSInteger)unviewedVideoCountWithFriendModel:(ZZFriendDomainModel*)friendModel
+{
+    TBMFriend *entity = [ZZFriendDataProvider entityFromModel:friendModel];
+    NSNumber *count = ZZDispatchOnMainThreadAndReturn(^id{
+        return @([self unviewedVideoCountWithFriend:entity]);
+    });
+    
+    return count.integerValue;
+}
+
++ (BOOL)hasOutgoingVideoWithFriendModel:(ZZFriendDomainModel*)friendModel
+{
+    return friendModel.hasOutgoingVideo;
 }
 
 + (NSInteger)unviewedVideoCountWithFriend:(TBMFriend*)friendModel

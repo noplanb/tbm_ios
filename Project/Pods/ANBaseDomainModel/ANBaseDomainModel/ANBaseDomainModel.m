@@ -20,7 +20,7 @@ static void *ANBaseModelCachedPropertyKeysKey = &ANBaseModelCachedPropertyKeysKe
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@: %p> %@", self.class, self, self.dictionaryValue];
+    return [NSString stringWithFormat:@"<%@: %p> %@", self.class, [super description], self.dictionaryValue];
 }
 
 #pragma mark Reflection

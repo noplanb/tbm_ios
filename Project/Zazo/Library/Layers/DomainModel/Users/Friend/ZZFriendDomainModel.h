@@ -51,7 +51,7 @@ extern const struct ZZFriendDomainModelAttributes {
 @property (nonatomic, assign) ZZVideoStatusEventType lastVideoStatusEventType;
 @property (nonatomic, assign) ZZVideoIncomingStatus lastIncomingVideoStatus;
 @property (nonatomic, assign) ZZVideoOutgoingStatus outgoingVideoStatus; //TODO: cleanup here
-
+@property (nonatomic, assign) BOOL everSent; 
 
 @property (nonatomic, copy) NSString* outgoingVideoItemID;
 
@@ -64,7 +64,7 @@ extern const struct ZZFriendDomainModelAttributes {
 
 @property (nonatomic, assign) ZZFriendshipStatusType friendshipStatusValue;
 @property (nonatomic, assign) ZZMenuContactType contactType;
-
+    
 @property (nonatomic, assign) NSInteger unviewedCount;
 @property (nonatomic, assign) NSInteger outgoingVideoStatusValue;
 

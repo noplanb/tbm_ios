@@ -9,6 +9,7 @@
 #import "ZZVideoModelsMapper.h"
 #import "ZZVideoDomainModel.h"
 #import "TBMVideo.h"
+#import "TBMFriend.h"
 #import "ZZVideoDataProvider+Entities.h"
 
 @implementation ZZVideoModelsMapper

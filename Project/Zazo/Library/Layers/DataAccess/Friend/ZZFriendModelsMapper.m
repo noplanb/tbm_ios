@@ -31,13 +31,13 @@
     entity.lastVideoStatusEventType = @(model.lastVideoStatusEventType);
 
     entity.outgoingVideoId = model.outgoingVideoItemID;
-    entity.outgoingVideoStatus = @(model.outgoingVideoStatus);
+    entity.outgoingVideoStatusValue = model.outgoingVideoStatus;
+    entity.everSent = @(model.everSent);
     
     entity.timeOfLastAction = model.lastActionTimestamp;
     entity.uploadRetryCount = @(model.uploadRetryCount);
     
     entity.friendshipStatus = model.friendshipStatus;
-    entity.outgoingVideoStatusValue = (int)model.outgoingVideoStatusValue;
     
     entity.friendshipCreatorMKey = model.friendshipCreatorMkey;
     
@@ -64,6 +64,7 @@
         
         model.outgoingVideoItemID = entity.outgoingVideoId;
         model.outgoingVideoStatus = [entity.outgoingVideoStatus integerValue];
+        model.everSent = entity.everSent.boolValue;
         
         model.lastActionTimestamp = entity.timeOfLastAction;
         model.uploadRetryCount = [entity.uploadRetryCount integerValue];
@@ -77,7 +78,6 @@
         }] array];
         
         model.unviewedCount = [ZZFriendDataHelper unviewedVideoCountWithFriend:entity];
-        model.outgoingVideoStatusValue = entity.outgoingVideoStatusValue;
         model.hasOutgoingVideo = [ZZFriendDataHelper hasOutgoingVideoWithFriend:entity];
         model.friendshipCreatorMkey = entity.friendshipCreatorMKey;
     }

@@ -88,10 +88,29 @@
     });
 }
 
-+ (NSArray*)downloadingEntities
++ (NSArray *)downloadingVideos
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
-        return [self _findAllWithAttributeKey:@"status" value:@(ZZVideoIncomingStatusDownloading)];
+        return [[[self downloadingEntities].rac_sequence map:^id(id value) {
+            return [self modelFromEntity:value];
+        }] array];
+    });
+}
+
++ (NSArray*)downloadingEntities
+{
+    return [self _findAllWithAttributeKey:@"status" value:@(ZZVideoIncomingStatusDownloading)];
+}
+
++ (ZZVideoDomainModel*)createIncomingVideoModelForFriend:(ZZFriendDomainModel*)friend withVideoId:(NSString*)videoId
+{
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        
+        TBMFriend *friendEntity = [ZZFriendDataProvider entityFromModel:friend];
+        TBMVideo *video = [self createIncomingVideoForFriend:friendEntity withVideoId:videoId];
+        ZZVideoDomainModel *model = [self modelFromEntity:video];
+        model.relatedUser = friend;
+        return model;
     });
 }
 
@@ -227,6 +246,14 @@
     });
 }
 
++ (NSURL *)videoUrlWithVideoModel:(ZZVideoDomainModel*)video
+{
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        TBMVideo *entity = [self entityWithID:video.videoID];
+        return [self videoUrlWithVideo:entity];
+    });
+}
+
 + (NSURL *)videoUrlWithVideo:(TBMVideo*)video
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
@@ -243,10 +270,10 @@
     return [[NSFileManager defaultManager] fileExistsAtPath:videoUrl.path];
 }
 
-+ (BOOL)isStatusDownloadingWithVideo:(TBMVideo*)video
++ (BOOL)isStatusDownloadingWithVideo:(ZZVideoDomainModel *)video
 {
     NSNumber *result = ZZDispatchOnMainThreadAndReturn(^id{
-        return @(video.statusValue == ZZVideoIncomingStatusDownloading);
+        return @(video.incomingStatusValue == ZZVideoIncomingStatusDownloading);
     });
     
     return result.boolValue;

@@ -28,7 +28,6 @@
 #import "TBMVideoIdUtils.h"
 #import "ZZFriendDataProvider.h"
 #import "RollbarReachability.h"
-#import "ZZFriendDataHelper.h"
 #import "ZZVideoDomainModel.h"
 #import "ZZRootStateObserver.h"
 
