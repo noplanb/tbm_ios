@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="2" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="15B42" minimumToolsVersion="Automatic">
+<model userDefinedModelVersionIdentifier="2" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15B42" minimumToolsVersion="Automatic">
     <entity name="TBMFriend" representedClassName="TBMFriend" syncable="YES">
         <attribute name="cid" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="ckey" optional="YES" attributeType="String" syncable="YES"/>
@@ -20,6 +20,7 @@
         <attribute name="timeOfLastAction" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="uploadRetryCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="gridElement" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TBMGridElement" inverseName="friend" inverseEntity="TBMGridElement" syncable="YES"/>
+        <relationship name="sendVideos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TBMVideo" inverseName="uploaders" inverseEntity="TBMVideo" syncable="YES"/>
         <relationship name="videos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TBMVideo" inverseName="friend" inverseEntity="TBMVideo" syncable="YES"/>
     </entity>
     <entity name="TBMGridElement" representedClassName="TBMGridElement" syncable="YES">
@@ -41,11 +42,12 @@
         <attribute name="status" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="videoId" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="friend" maxCount="1" deletionRule="Nullify" destinationEntity="TBMFriend" inverseName="videos" inverseEntity="TBMFriend" syncable="YES"/>
+        <relationship name="uploaders" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TBMFriend" inverseName="sendVideos" inverseEntity="TBMFriend" syncable="YES"/>
     </entity>
     <elements>
-        <element name="TBMFriend" positionX="-18" positionY="2" width="128" height="345"/>
-        <element name="TBMGridElement" positionX="-218" positionY="153" width="128" height="75"/>
-        <element name="TBMUser" positionX="-218" positionY="-0" width="128" height="165"/>
-        <element name="TBMVideo" positionX="171" positionY="-0" width="128" height="103"/>
+        <element name="TBMFriend" positionX="-18" positionY="2" width="128" height="358"/>
+        <element name="TBMGridElement" positionX="-209" positionY="153" width="128" height="75"/>
+        <element name="TBMUser" positionX="-216" positionY="-117" width="128" height="165"/>
+        <element name="TBMVideo" positionX="234" positionY="260" width="128" height="118"/>
     </elements>
 </model>
