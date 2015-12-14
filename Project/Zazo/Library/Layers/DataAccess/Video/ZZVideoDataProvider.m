@@ -30,6 +30,15 @@
     return video;
 }
 
++ (TBMVideo*)newOutgoingVideoWithId:(NSString*)videoId onContext:(NSManagedObjectContext*)context
+{
+    TBMVideo* video = [TBMVideo MR_createEntityInContext:context];
+    video.status = @(ZZVideoOutgoingStatusNew);
+    video.videoId = videoId;
+    
+    return video;
+}
+
 + (TBMVideo*)findWithVideoId:(NSString *)videoId
 {
     return [self _findWithAttributeKey:@"videoId" value:videoId];
@@ -88,6 +97,24 @@
     [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
     return video;
 }
+
++ (TBMVideo*)createOutgoingVideoForFriendID:(NSString*)friendID videoID:(NSString*)videoID context:(NSManagedObjectContext*)context
+{
+    TBMVideo* video = [ZZVideoDataProvider newOutgoingVideoWithId:videoID onContext:context];
+    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
+    [friend addSendVideosObject:video];
+    [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
+    
+    return video;
+}
+
++ (void)deleteVideoWithID:(NSString*)videoID context:(NSManagedObjectContext*)context
+{
+    TBMVideo* video = [ZZVideoDataProvider findWithVideoId:videoID];
+    [video MR_deleteEntity];
+    [context MR_saveToPersistentStoreAndWait];
+}
+
 
 #pragma mark - Mapping
 

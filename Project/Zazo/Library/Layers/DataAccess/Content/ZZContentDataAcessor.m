@@ -78,6 +78,9 @@
 + (void)saveDataBase
 {
     [[self contextForCurrentThread] MR_saveToPersistentStoreAndWait];
+    NSManagedObjectContext* context = [NSManagedObjectContext MR_context];
+    
+    
 }
 
 #pragma GCC diagnostic push

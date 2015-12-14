@@ -16,5 +16,6 @@
 
 - (void)presentMenuControllerWithGrid;
 - (void)presentRegistrationController;
+- (void)presentNetworkTestController;
 
 @end

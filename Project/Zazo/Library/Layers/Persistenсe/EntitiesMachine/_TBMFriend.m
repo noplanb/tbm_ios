@@ -33,6 +33,7 @@ const struct TBMFriendAttributes TBMFriendAttributes = {
 
 const struct TBMFriendRelationships TBMFriendRelationships = {
 	.gridElement = @"gridElement",
+	.sendVideos = @"sendVideos",
 	.videos = @"videos",
 };
 
@@ -287,6 +288,17 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
 }
 
 @dynamic gridElement;
+
+@dynamic sendVideos;
+
+- (NSMutableSet*)sendVideosSet {
+	[self willAccessValueForKey:@"sendVideos"];
+
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"sendVideos"];
+
+	[self didAccessValueForKey:@"sendVideos"];
+	return result;
+}
 
 @dynamic videos;
 

@@ -115,6 +115,15 @@
 }
 
 
++ (TBMFriend*)friendWithMobileNumber:(NSString*)mobileNumber
+{
+    NSArray* result = [TBMFriend MR_findByAttribute:TBMFriendAttributes.mobileNumber withValue:mobileNumber];
+    TBMFriend* entifiy = [result firstObject];
+    
+    return entifiy;
+}
+
+
 #pragma mark - Count
 
 + (NSInteger)friendsCount

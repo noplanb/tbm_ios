@@ -62,6 +62,16 @@
     }];
 }
 
+- (void)resetAllTasksCompletion:(void(^)())completion
+{
+    [self.fileTransferManager reset:completion];
+}
+
+- (void)updateCredentials
+{
+    [self _updateCredentials];
+}
+
 - (void)_updateCredentials
 {
     ZZS3CredentialsDomainModel* credentials = [ZZKeychainDataProvider loadCredentials];
@@ -615,7 +625,8 @@
         [[ZZRemoteStoageTransportService deleteRemoteIncomingVideoWithItemID:videoId
                                                                   friendMkey:friendModel.mkey
                                                                   friendCKey:friendModel.ckey] subscribeNext:^(id x) {}];
-
+         
+         [[NSNotificationCenter defaultCenter] postNotificationName:kDeleteFileNotification object:nil];
     });
 }
 

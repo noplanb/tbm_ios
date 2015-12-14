@@ -186,3 +186,27 @@
 "internet-connection-error-message" = "Trouble downloading. \n Check your connection";
 "internet-connection-error-button-title" = "Try again";
 
+//NetworkTest View
+"network-test-view.status.title" = "Status: ";
+"network-test-view.failed.title" = "Failed: ";
+"network-test-view.current.title" = "current: ";
+"network-test-view.status.video.title" = "status: ";
+"network-test-view.retry.title" = "retry: ";
+"network-test-view.app.title" = "ZazoS3NetworkTest";
+"network-test-view.tries.title" = "Tries: ";
+"network-test-view.start.button.title" = "Start";
+"network-test-view.stop.button.titile" = "Stop";
+"network-test-view.reset.retries.button.title" = "Reset Retries";
+"network-test-view.reset.stats.button.title" = "Reset Stats";
+"network-test-view.current.status.uploading" = "UPLOADING";
+"network-test-view.current.status.downloading" = "DOWNLOADING";
+"network-test-view.current.status.deleging" = "DELETING";
+"network-test-view.current.status.waiting" = "WAITING";
+"network-test-view.status.started" = "Started";
+"network-test-view.status.stopped" = "Stopped";
+"network-test-view.videostatus.progress" = "progress";
+"network-test-view.videostatus.finished" = "finished";
+"network-test-view.videostatus.new" = "new";
+
+
+

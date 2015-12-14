@@ -27,7 +27,6 @@
 - (void)deleteAllViewedOrFailedVideosWithFriendId:(NSString*)friendId;
 - (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount withFriendID:(NSString*)friendID videoID:(NSString*)videoID;
 
-
 @end
 
 @interface ZZVideoFileHandler : NSObject
@@ -41,6 +40,8 @@
 - (void)updateS3CredentialsWithRequest;
 
 - (void)handleStuckDownloadsWithCompletionHandler:(void (^)())handler;
+- (void)updateCredentials;
+- (void)resetAllTasksCompletion:(void(^)())completion;
 
 #pragma mark - Upload
 

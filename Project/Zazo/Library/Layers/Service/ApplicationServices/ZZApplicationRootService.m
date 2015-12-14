@@ -24,6 +24,7 @@
 #import "ZZFriendDomainModel.h"
 #import "ZZVideoStatusHandler.h"
 
+
 @interface ZZApplicationRootService ()
 <
     ZZVideoFileHandlerDelegate,
@@ -283,6 +284,20 @@
     {
         [self.dataUpdater updateAllDataWithoutRequest];
     }
+    else if (event == ZZRootStateObserverEventResetAllLoaderTask)
+    {
+        [self _resetAllLoaderTasks];
+    }
+}
+
+
+#pragma mark - Private
+
+- (void)_resetAllLoaderTasks
+{
+    [self.videoFileHandler resetAllTasksCompletion:^{
+        NSLog(@"stopped");
+    }];
 }
 
 @end
