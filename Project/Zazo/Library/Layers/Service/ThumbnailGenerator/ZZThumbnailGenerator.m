@@ -196,4 +196,21 @@
 }
 
 
++(UIImage *)lastThumbImageForFriendWithID:(NSString *)friendID
+{
+    NSArray *sortedVideoArray = [ZZVideoDataProvider sortedIncomingVideosForUserID:friendID];
+
+    ZZVideoDomainModel* lastModel = [sortedVideoArray lastObject];
+
+    if (![self hasThumbForVideo:lastModel])
+    {
+        [self generateThumbVideo:lastModel];
+    }
+
+    //TODO: figure out what to do with last thumb image
+    //[ZZThumbnailGenerator lastThumbImageForUser:self.item.relatedUser];
+    UIImage *image = [self thumbImageForVideo:lastModel];
+    return image;
+}
+
 @end

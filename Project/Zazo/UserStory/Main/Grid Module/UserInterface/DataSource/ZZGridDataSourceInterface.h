@@ -8,6 +8,7 @@
 
 @class ZZGridDomainModel;
 @class ZZGridCellViewModel;
+@class ZZFriendDomainModel;
 
 @protocol ZZGridDataSourceControllerDelegate <NSObject>
 
@@ -25,7 +26,9 @@
 - (void)cancelRecordingWithReason:(NSString *)reason;
 
 - (void)toggleVideoWithViewModel:(ZZGridCellViewModel*)model toState:(BOOL)state;
-- (void)nudgeSelectedWithUserModel:(id)userModel;
+
+- (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel*)userModel;
+
 - (void)showHint;
 - (void)switchCamera;
 - (BOOL)isVideoPlayingWithFriendModel:(ZZFriendDomainModel*)friendModel;

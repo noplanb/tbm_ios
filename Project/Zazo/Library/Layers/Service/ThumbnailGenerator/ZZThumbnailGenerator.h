@@ -27,4 +27,6 @@
 + (void)deleteThumbFileForVideo:(ZZVideoDomainModel*)video;
 + (UIImage*)thumbImageForVideo:(ZZVideoDomainModel*)video;
 
++(UIImage *)lastThumbImageForFriendWithID:(NSString *)friendID;
+
 @end

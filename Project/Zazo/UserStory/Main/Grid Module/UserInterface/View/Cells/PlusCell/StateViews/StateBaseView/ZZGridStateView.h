@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZGridCellViewModel.h"
 #import "ANModelTransfer.h"
 #import "ZZUserNameLabel.h"
 

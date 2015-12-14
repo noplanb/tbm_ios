@@ -8,6 +8,7 @@
 
 #import "ZZGridStateView+Animation.h"
 #import "ZZGridUIConstants.h"
+#import "ZZGridCellViewModel.h"
 #import "ANAnimator.h"
 
 @implementation ZZGridStateView (Animation)

@@ -7,7 +7,8 @@
 //
 
 #import "ZZGridUpdateService.h"
-#import "ZZGridCellViewModel.h"
+#import "ZZFriendDomainModel.h"
+#import "ZZGridDomainModel.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZGridDataProvider.h"
 #import "ZZGridDataUpdater.h"

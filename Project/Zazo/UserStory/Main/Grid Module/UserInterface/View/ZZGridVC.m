@@ -14,6 +14,7 @@
 #import "ZZActionSheetController.h"
 #import "ZZGridUIConstants.h"
 #import "ZZGridDomainModel.h"
+#import "ZZGridCellViewModel.h"
 
 @interface ZZGridVC () <ZZGridRotationTouchObserverDelegate, ZZGridCollectionControllerDelegate, UIGestureRecognizerDelegate>
 

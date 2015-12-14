@@ -8,6 +8,7 @@
 
 #import "ZZGridStateViewNudge.h"
 #import "ZZGridUIConstants.h"
+#import "ZZGridCellViewModel.h"
 
 @interface ZZGridStateViewNudge ()
 

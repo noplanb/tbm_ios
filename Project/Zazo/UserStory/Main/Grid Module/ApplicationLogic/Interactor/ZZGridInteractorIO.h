@@ -8,7 +8,6 @@
 
 #import "ZZGridActionHandlerEnums.h"
 
-@class ZZGridCellViewModel;
 @class ZZFriendDomainModel;
 @class ANMessageDomainModel;
 @class ZZGridDomainModel;

@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-@class ZZGridCellViewModel;
-
 @protocol ZZGridModuleInterface <NSObject>
 
 - (void)presentMenu;

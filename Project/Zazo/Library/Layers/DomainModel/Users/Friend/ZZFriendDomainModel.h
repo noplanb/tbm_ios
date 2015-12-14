@@ -87,4 +87,6 @@ extern const struct ZZFriendDomainModelAttributes {
 - (BOOL)isCreator;
 - (BOOL)hasIncomingVideo;
 
+- (NSString*)videoStatusString;
+
 @end

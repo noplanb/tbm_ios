@@ -6,8 +6,9 @@
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZGridCellViewModel.h"
 #import "ZZGridActionStoredSettings.h"
+
+@class ZZFriendDomainModel;
 
 #pragma mark - Use both camera keys
 

@@ -11,6 +11,7 @@
 #import "ZZUserDataProvider.h"
 #import "ZZFeatureEventStrategyInviteeUser.h"
 #import "ZZFeatureEventStrategyRegisteredUser.h"
+#import "ZZFriendDomainModel.h"
 
 @interface ZZFeatureEventObserver () <ZZFeatureEventStrategyDelegate>
 

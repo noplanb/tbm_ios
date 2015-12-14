@@ -9,8 +9,6 @@
 #import "ZZGridActionHandlerEnums.h"
 #import "ZZGridActionHandlerUserInterfaceDelegate.h"
 
-@class ZZHintsDomainModel;
-@class ZZGridCellViewModel;
 @class ZZFriendDomainModel;
 
 @protocol ZZGridActionHanlderDelegate <NSObject>

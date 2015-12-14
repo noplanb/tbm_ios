@@ -25,11 +25,11 @@
 #import "ZZDeleteFriendsFeatureEventHandler.h"
 #import "ZZEarpieceFeatureEventHandler.h"
 #import "ZZSpinFeatureEventHandler.h"
-#import "ZZGridCellViewModel.h"
 #import "ZZFeatureEventObserver.h"
+#import "ZZStoredSettingsManager.h"
+
 #import "TBMFeatureUnlockDialogView.h"
 #import "TBMNextFeatureDialogView.h"
-#import "ZZStoredSettingsManager.h"
 
 
 @interface ZZGridActionHandler ()

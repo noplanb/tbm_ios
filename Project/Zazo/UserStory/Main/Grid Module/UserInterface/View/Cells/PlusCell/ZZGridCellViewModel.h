@@ -9,6 +9,7 @@
 #import "ZZGridDomainModel.h"
 
 @class ZZGridCellViewModel;
+@class ZZFriendDomainModel;
 
 @protocol ZZGridCellVeiwModelAnimationDelegate <NSObject>
 
@@ -28,7 +29,8 @@
 - (void)playingStateUpdatedToState:(BOOL)isEnabled
                          viewModel:(ZZGridCellViewModel*)viewModel;
 
-- (void)nudgeSelectedWithUserModel:(id)userModel;
+- (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel*)userModel;
+
 - (BOOL)isVideoPlayingWithModel:(ZZGridCellViewModel*)model;
 - (BOOL)isGridRotate;
 - (void)addUserToItem:(ZZGridCellViewModel*)model;
@@ -82,9 +84,6 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 - (void)nudgeSelected;
 - (void)itemSelected;
 
-- (NSArray*)playerVideoURLs;
-- (NSString*)firstName;
-
 - (UIImage*)videoThumbnailImage;
 - (UIImage*)thumbnailPlaceholderImage;
 
@@ -94,7 +93,6 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 - (void)setupRecorderRecognizerOnView:(UIView*)view
                 withAnimationDelegate:(id <ZZGridCellVeiwModelAnimationDelegate>)animationDelegate;
 
-- (NSString*)videoStatus;
 - (void)reloadDebugVideoStatus;
 - (BOOL)isEnablePlayingVideo;
 - (BOOL)isVideoPlayed;

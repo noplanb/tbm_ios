@@ -8,6 +8,7 @@
 
 #import "ZZGridPresenter.h"
 #import "ZZGridDomainModel.h"
+#import "ZZGridCellViewModel.h"
 
 @interface ZZGridPresenter (ActionHandler)
 

@@ -7,7 +7,7 @@
 //
 
 #import "ZZFeatureEventStrategyBase.h"
-
+#import "ZZFriendDomainModel.h"
 
 typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys) {
     ZZFeatureUnlockNone = 0,

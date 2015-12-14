@@ -7,6 +7,7 @@
 //
 
 #import "ZZFeatureEventStrategyRegisteredUser.h"
+#import "ZZFriendDomainModel.h"
 
 @implementation ZZFeatureEventStrategyRegisteredUser
 

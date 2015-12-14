@@ -7,7 +7,6 @@
 //
 
 @class ZZGridDataSource;
-@class ZZGridCellViewModel;
 @class ZZFriendDomainModel;
 @class ZZGridCell;
 

@@ -247,7 +247,7 @@ ZZGridCenterCellViewModelDelegate
     [self.delegate recordingStateUpdatedToState:isEnabled viewModel:viewModel withCompletionBlock:completionBlock];
 }
 
-- (void)nudgeSelectedWithUserModel:(id)userModel
+- (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel*)userModel
 {
     [self.delegate nudgeSelectedWithUserModel:userModel];
 }

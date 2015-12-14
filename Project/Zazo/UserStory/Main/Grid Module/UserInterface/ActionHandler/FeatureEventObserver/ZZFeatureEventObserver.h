@@ -7,7 +7,7 @@
 //
 
 #import "ZZGridActionHandlerEnums.h"
-#import "ZZGridCellViewModel.h"
+@class ZZFriendDomainModel;
 
 typedef NS_ENUM(NSInteger, ZZUnlockFeatureType) {
     ZZUnlockFeatureTypeNone,

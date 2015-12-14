@@ -10,9 +10,7 @@
 #import "ZZGridActionHandlerEnums.h"
 #import "ZZGridActionStoredSettings.h"
 #import "ZZHintsConstants.h"
-#import "ZZGridCellViewModel.h"
 #import "ZZGridDomainModel.h"
-
 
 @protocol ZZEventHandlerDelegate <NSObject>
 

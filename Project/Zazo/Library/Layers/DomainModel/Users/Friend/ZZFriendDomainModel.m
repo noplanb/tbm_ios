@@ -9,6 +9,7 @@
 #import "ZZFriendDomainModel.h"
 #import "ZZUserPresentationHelper.h"
 #import "ZZFriendDataHelper.h"
+#import "ZZStoredSettingsManager.h"
 
 #import "FEMObjectMapping.h"
 
@@ -189,6 +190,22 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
 - (NSString *)firstInitial
 {
     return [self.firstName substringToIndex:1];
+}
+
+- (NSString*)videoStatusString
+{
+    NSString* videoStatusString = nil;
+    
+    if ([ZZStoredSettingsManager shared].debugModeEnabled)
+    {
+        videoStatusString = ZZVideoStatusStringWithFriend(self);
+    }
+    else
+    {
+        videoStatusString = [self displayName];
+    }
+    
+    return videoStatusString;
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import "ZZGridCollectionController.h"
 #import "ZZGridDataSource.h"
+#import "ZZGridCellViewModel.h"
 
 @interface ZZGridCollectionController () <ZZGridDataSourceControllerDelegate>
 

@@ -10,12 +10,13 @@
 #import "ZZGridStateView+Animation.h"
 #import "ZZVideoPlayer.h"
 #import "ZZGridUIConstants.h"
-#import "UIImage+PDF.h"
 #import "ZZVideoRecorder.h"
 #import "ZZStoredSettingsManager.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZGridActionStoredSettings.h"
+#import "ZZGridCellViewModel.h"
 
+#import "UIImage+PDF.h"
 
 @interface ZZGridStateView ()
 

@@ -7,9 +7,9 @@
 //
 
 #import "ZZHintsConstants.h"
-#import "ZZGridCellViewModel.h"
 
 @class ZZHintsDomainModel;
+@class ZZFriendDomainModel;
 
 @protocol ZZHintsControllerDelegate <NSObject>
 

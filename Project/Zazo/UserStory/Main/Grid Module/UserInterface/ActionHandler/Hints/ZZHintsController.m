@@ -14,7 +14,7 @@
 #import "ZZHintsDomainModel.h"
 #import "ZZGridUIConstants.h"
 #import "ZZGridActionStoredSettings.h"
-
+#import "ZZFriendDomainModel.h"
 
 static CGFloat const kDelayBeforHintHidden = 3.5;
 

@@ -55,18 +55,7 @@
 - (NSString*)videoStatusString
 {
     ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithItemID:self.item.relatedUserID];
-    NSString* videoStatusString = nil;
-    
-    if ([ZZStoredSettingsManager shared].debugModeEnabled)
-    {
-        videoStatusString = ZZVideoStatusStringWithFriend(friendModel);
-    }
-    else
-    {
-        videoStatusString = [friendModel displayName];
-    }
-    
-    return videoStatusString;
+    return [friendModel videoStatusString];
 }
 
 - (void)itemSelected
@@ -95,32 +84,31 @@
 {
     ZZGridCellViewModelState modelState = ZZGridCellViewModelStateNone;
     
-    if (!self.item.relatedUser)
+    ZZFriendDomainModel *friend = self.item.relatedUser;
+    
+    if (!friend)
     {
         modelState = ZZGridCellViewModelStateAdd;
+    } else {
+        if (friend.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently)
+        {
+            modelState = ZZGridCellViewModelStatePreview | ZZGridCellViewModelStateVideoFailedPermanently;
+        }
+        else if ((friend.hasApp && self.hasDownloadedVideo) || friend.videos.count > 0)
+        {
+            modelState = ZZGridCellViewModelStatePreview;
+        }
+        else
+        {
+            if (friend.hasApp) {
+                modelState = ZZGridCellViewModelStateFriendHasApp;
+            } else {
+                modelState = ZZGridCellViewModelStateFriendHasNoApp;
+            }
+        }
     }
-    else if (!ANIsEmpty(self.item.relatedUser) &&
-             self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently)
-    {
-        modelState = ZZGridCellViewModelStatePreview | ZZGridCellViewModelStateVideoFailedPermanently;
-    }
-    else if ((self.item.relatedUser.hasApp && self.hasDownloadedVideo) ||
-             self.item.relatedUser.videos.count > 0)
-    {
-        modelState = ZZGridCellViewModelStatePreview;
-    }
-    else if (self.item.relatedUser.hasApp)
-    {
-        modelState = ZZGridCellViewModelStateFriendHasApp;
-    }
-    else if (!ANIsEmpty(self.item.relatedUser) && !self.item.relatedUser.hasApp)
-    {
-        modelState = ZZGridCellViewModelStateFriendHasNoApp;
-    }
-    
-    
+
     modelState = [self _additionalModelStateWithState:modelState];
-    
     
     return modelState;
 }
@@ -128,30 +116,33 @@
 - (ZZGridCellViewModelState)_additionalModelStateWithState:(ZZGridCellViewModelState)state
 {
     ZZGridCellViewModelState stateWithAdditionalState = state;
+
+    ZZFriendDomainModel *friend = self.item.relatedUser;
     
     if (self.hasUploadedVideo &&
         !self.isUploadedVideoViewed &&
-        self.item.relatedUser.lastVideoStatusEventType != ZZVideoStatusEventTypeIncoming)
+        friend.lastVideoStatusEventType != ZZVideoStatusEventTypeIncoming)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoWasUploaded);
     }
     else if (self.isUploadedVideoViewed &&
-        self.item.relatedUser.lastVideoStatusEventType != ZZVideoStatusEventTypeIncoming)
+             friend.lastVideoStatusEventType != ZZVideoStatusEventTypeIncoming)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoWasViewed);
     }
-    else if (self.item.relatedUser.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
-             self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading &&
-             self.item.relatedUser.unviewedCount > 0)
+    else if (friend.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
+             friend.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading &&
+             friend.unviewedCount > 0)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoDownloading);
     }
-    else if (self.item.relatedUser.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
-             self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded &&
+    else if (friend.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
+             friend.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded &&
              !self.item.isDownloadAnimationViewed)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoDownloaded);
     }
+
     
     // green border state
     if (self.badgeNumber > 0)
@@ -159,14 +150,14 @@
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateNeedToShowGreenBorder);
     }
     else if (self.badgeNumber == 0 &&
-             self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
+             friend.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoFirstVideoDownloading);
     }
     
     // badge state
     if (self.badgeNumber == 1
-        && self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
+        && friend.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoDownloadedAndVideoCountOne);
     }
@@ -199,22 +190,6 @@
     [self.videoPlayer toggle];
     self.usernameLabel.text = [self videoStatusString];
 }
-
-- (NSString*)firstName
-{
-    return [NSObject an_safeString:self.item.relatedUser.firstName];
-}
-
-- (NSArray*)playerVideoURLs
-{
-    return self.item.relatedUser.videos;
-}
-
-- (UIImage*)thumbSnapshot
-{
-    return [self _videoThumbnail];
-}
-
 
 #pragma mark - Video Thumbnail
 
@@ -359,30 +334,11 @@
     }
 }
 
-
-- (NSString*)videoStatus
-{
-    NSInteger status = self.item.relatedUser.lastIncomingVideoStatus;
-    return ZZVideoIncomingStatusShortStringFromEnumValue(status);
-}
-
-
 #pragma mark - Generate Thumbnail
 
 - (UIImage*)_videoThumbnail
 {
-    NSArray *sortedVideoArray = [ZZVideoDataProvider sortedIncomingVideosForUserID:self.item.relatedUserID];
-    
-    ZZVideoDomainModel* lastModel = [sortedVideoArray lastObject];
-
-    if (![ZZThumbnailGenerator hasThumbForVideo:lastModel])
-    {
-        [ZZThumbnailGenerator generateThumbVideo:lastModel];
-    }
-    
-    //TODO: figure out what to do with last thumb image
-    //[ZZThumbnailGenerator lastThumbImageForUser:self.item.relatedUser];
-    UIImage *image = [ZZThumbnailGenerator thumbImageForVideo:lastModel];
+    UIImage *image = [ZZThumbnailGenerator lastThumbImageForFriendWithID:self.item.relatedUserID];
     return image;
 }
 

@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import "ZZGridCellViewModel.h"
 #import "ANModelTransfer.h"
 
 @interface ZZGridCell : UIView <ANModelTransfer>

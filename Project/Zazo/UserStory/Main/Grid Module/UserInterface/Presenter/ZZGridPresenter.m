@@ -544,11 +544,14 @@
 
 - (void)toggleVideoWithViewModel:(ZZGridCellViewModel*)model toState:(BOOL)state
 {
-    [self.interactor updateLastActionForFriend:model.item.relatedUser];
+    ZZFriendDomainModel *friend = model.item.relatedUser;
+    [self.interactor updateLastActionForFriend:friend];
+    
+    NSArray *videos = friend.videos;
     
     if (state)
     {
-        [self.videoPlayer playOnView:model.playerContainerView withVideoModels:model.playerVideoURLs];
+        [self.videoPlayer playOnView:model.playerContainerView withVideoModels:videos];
     }
     else
     {
