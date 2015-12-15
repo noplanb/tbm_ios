@@ -300,6 +300,18 @@
     }];
 }
 
+- (void)showAlreadyContainFriend:(ZZFriendDomainModel *)friendModel compeltion:(ANCodeBlock)completion
+{
+    [self.wireframe closeMenu];
+    
+    [ZZGridAlertBuilder showAlreadyConnectedDialogForUser:friendModel.firstName completion:^{
+       if (completion)
+       {
+           completion();
+       }
+    }];
+}
+
 - (void)userHasNoValidNumbers:(ZZContactDomainModel*)model;
 {
     [self showNoValidPhonesDialogFromModel:model];

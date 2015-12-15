@@ -288,7 +288,9 @@ static NSInteger const kGridFriendsCellCount = 8;
         {
             TBMFriend* friend = [self _friendFromContact:model];
             ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithItemID:friend.idTbm];
-            [self addUserToGrid:friendModel];
+            [self.output showAlreadyContainFriend:friendModel compeltion:^{
+                [self addUserToGrid:friendModel];
+            }];
         }
         else
         {

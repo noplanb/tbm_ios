@@ -166,6 +166,7 @@
 - (void)updateS3CredentialsWithRequest
 {
     [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {
+        
         [self _updateCredentials];
     } error:^(NSError *error) {
         [self _loadS3CredentialsDidFailWithError:error];

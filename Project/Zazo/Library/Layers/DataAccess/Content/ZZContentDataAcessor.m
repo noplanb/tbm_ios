@@ -79,8 +79,7 @@
 {
     [[self contextForCurrentThread] MR_saveToPersistentStoreAndWait];
     NSManagedObjectContext* context = [NSManagedObjectContext MR_context];
-    
-    
+    [context MR_saveToPersistentStoreAndWait];
 }
 
 #pragma GCC diagnostic push
