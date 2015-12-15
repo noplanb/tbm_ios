@@ -23,7 +23,8 @@
         NSInteger kOnceUnlockCounterValue = 1;
         
         NSInteger sendMessageCounter = [[NSUserDefaults standardUserDefaults] integerForKey:kSendMessageCounterKey];
-        if (sendMessageCounter == 0)
+        if (sendMessageCounter == 0 &&
+            !model.isCreator)
         {
             sendMessageCounter++;
             [[NSUserDefaults standardUserDefaults] setInteger:sendMessageCounter forKey:kSendMessageCounterKey];
