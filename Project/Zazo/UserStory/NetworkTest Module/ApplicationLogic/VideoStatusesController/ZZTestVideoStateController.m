@@ -1,4 +1,4 @@
-//
+  //
 //  ZZTestVideoStateController.m
 //  Zazo
 //
@@ -12,6 +12,8 @@
 #import "ZZFriendDataProvider.h"
 #import "MagicalRecord.h"
 #import "ZZNetworkTestStoredManger.h"
+#import "ZZVideoDataProvider.h"
+#import "ZZVideoDomainModel.h"
 
 @interface ZZTestVideoStateController ()
 
@@ -159,6 +161,7 @@
     {
         self.incomingVideoCounter++;
         [self.delegate incomingVideoChangeWithCounter:self.incomingVideoCounter];
+        [self _updateLastDownloadedVideoToViewedStatusForFriend:friend];
         [self _videoStatusFinished];
     }
     else if (friend.lastIncomingVideoStatusValue == ZZVideoIncomingStatusFailedPermanently)
@@ -225,6 +228,19 @@
     [self.delegate failedIncomingVideoWithCounter:self.failedIncomingVideoCounter];
     [self.delegate failedOutgoingVideoWithCounter:self.failedOutgoingVideoCounter];
     [self.delegate updateRetryCount:self.prevRetryCount];
+}
+
+- (void)_updateLastDownloadedVideoToViewedStatusForFriend:(TBMFriend*)friend
+{
+        NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"videoId" ascending:YES];
+        NSArray* sortedVidoes = [friend.videos sortedArrayUsingDescriptors:@[d]];
+        TBMVideo* downloadedVideo = [sortedVidoes lastObject];
+    
+        if (downloadedVideo.statusValue == ZZVideoIncomingStatusDownloaded)
+        {
+            downloadedVideo.statusValue = ZZVideoIncomingStatusViewed;
+            [downloadedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
+        }
 }
 
 @end

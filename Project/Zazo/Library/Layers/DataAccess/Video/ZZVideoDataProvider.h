@@ -29,6 +29,7 @@
                                     videoID:(NSString*)videoID
                                     context:(NSManagedObjectContext*)context;
 
+
 #pragma mark - Count
 
 + (NSUInteger)countDownloadedUnviewedVideos;
@@ -45,6 +46,7 @@
 
 
 + (NSArray*)sortedIncomingVideosForUser:(ZZFriendDomainModel*)friendModel;
++ (NSArray*)sortedIncomingVideosForFriendEntity:(TBMFriend*)friendEntity;
 + (void)deleteVideoWithID:(NSString*)videoID context:(NSManagedObjectContext*)context;
 
 

@@ -190,6 +190,12 @@
 + (NSArray*)sortedIncomingVideosForUser:(ZZFriendDomainModel*)friendModel
 {
     TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
+    
+    return [self sortedIncomingVideosForFriendEntity:friendEntity];
+}
+
++ (NSArray*)sortedIncomingVideosForFriendEntity:(TBMFriend*)friendEntity
+{
     NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMVideoRelationships.friend, friendEntity];
     NSArray* videos = [TBMVideo MR_findAllSortedBy:TBMVideoAttributes.videoId ascending:YES withPredicate:predicate inContext:[self _context]];
     
