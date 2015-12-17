@@ -12,6 +12,7 @@
 @interface ZZVideoDataProvider : NSObject
 
 + (ZZVideoDomainModel*)itemWithID:(NSString*)itemID;
+
 + (ZZVideoDomainModel*)createIncomingVideoModelForFriend:(ZZFriendDomainModel*)friend withVideoId:(NSString*)videoId;
 + (NSArray *)downloadingVideos;
 
@@ -31,6 +32,7 @@
 
 
 + (NSArray*)sortedIncomingVideosForUser:(ZZFriendDomainModel*)friendModel;
++ (void)deleteVideoWithID:(NSString*)videoID context:(NSManagedObjectContext*)context;
 
 
 #pragma mark - Helpers

@@ -25,6 +25,8 @@
 #import "ZZVideoStatusHandler.h"
 #import "ZZRootStateObserver.h"
 #import "ZZGridUpdateService.h"
+#import <NSString+ANAdditions.h>
+
 
 static NSInteger const kGridFriendsCellCount = 8;
 
@@ -280,6 +282,15 @@ static NSInteger const kGridFriendsCellCount = 8;
         {
             [self.output userNeedsToPickPrimaryPhone:model];
         }
+        else if ([self _isFriendExistWithContact:model] &&
+                 ![self _isContactOnGrid:model])
+        {
+            TBMFriend* friend = [self _friendFromContact:model];
+            ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithItemID:friend.idTbm];
+            [self.output showAlreadyContainFriend:friendModel compeltion:^{
+                [self addUserToGrid:friendModel];
+            }];
+        }
         else
         {
             [self userSelectedPrimaryPhoneNumber:model];
@@ -289,6 +300,36 @@ static NSInteger const kGridFriendsCellCount = 8;
     {
         [self.output userHasNoValidNumbers:model];
     }
+}
+
+- (BOOL)_isContactOnGrid:(ZZContactDomainModel*)model
+{
+    BOOL isOnGrid = NO;
+    TBMFriend* friend = [self _friendFromContact:model];
+    TBMGridElement* gridElement = [ZZGridDataProvider findWithFriend:friend];
+    isOnGrid = !(gridElement == nil);
+    
+    return isOnGrid;
+}
+
+- (BOOL)_isFriendExistWithContact:(ZZContactDomainModel*)model
+{
+    BOOL friendExist = NO;
+    TBMFriend* friend = [self _friendFromContact:model];
+    friendExist = !(friend == nil);
+    
+    return friendExist;
+}
+
+- (TBMFriend*)_friendFromContact:(ZZContactDomainModel*)model
+{
+    NSString* mobilePhone =
+    [[[model primaryPhone] contact] stringByReplacingOccurrencesOfString:@" "
+                                                              withString:@""];
+
+    TBMFriend* friend = [ZZFriendDataProvider friendWithMobileNumber:mobilePhone];
+    
+    return friend;
 }
 
 

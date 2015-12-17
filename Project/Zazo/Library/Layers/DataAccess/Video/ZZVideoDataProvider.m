@@ -32,6 +32,15 @@
     });
 }
 
++ (TBMVideo*)newOutgoingVideoWithId:(NSString*)videoId onContext:(NSManagedObjectContext*)context
+{
+    TBMVideo* video = [TBMVideo MR_createEntityInContext:context];
+    video.status = @(ZZVideoOutgoingStatusNew);
+    video.videoId = videoId;
+    
+    return video;
+}
+
 + (TBMVideo*)findWithVideoId:(NSString *)videoId
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
@@ -124,6 +133,24 @@
 
     });
 }
+
++ (TBMVideo*)createOutgoingVideoForFriendID:(NSString*)friendID videoID:(NSString*)videoID context:(NSManagedObjectContext*)context
+{
+    TBMVideo* video = [ZZVideoDataProvider newOutgoingVideoWithId:videoID onContext:context];
+    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
+    [friend addSendVideosObject:video];
+    [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
+    
+    return video;
+}
+
++ (void)deleteVideoWithID:(NSString*)videoID context:(NSManagedObjectContext*)context
+{
+    TBMVideo* video = [ZZVideoDataProvider findWithVideoId:videoID];
+    [video MR_deleteEntity];
+    [context MR_saveToPersistentStoreAndWait];
+}
+
 
 #pragma mark - Mapping
 
@@ -222,13 +249,19 @@
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
         TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
-        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMVideoRelationships.friend, friendEntity];
-        NSArray* videos = [TBMVideo MR_findAllSortedBy:TBMVideoAttributes.videoId ascending:YES withPredicate:predicate inContext:[self _context]];
         
-        return [[videos.rac_sequence map:^id(id value) {
-            return [self modelFromEntity:value];
-        }] array];
+        return [self sortedIncomingVideosForFriendEntity:friendEntity];
     });
+}
+
++ (NSArray*)sortedIncomingVideosForFriendEntity:(TBMFriend*)friendEntity
+{
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMVideoRelationships.friend, friendEntity];
+    NSArray* videos = [TBMVideo MR_findAllSortedBy:TBMVideoAttributes.videoId ascending:YES withPredicate:predicate inContext:[self _context]];
+    
+    return [[videos.rac_sequence map:^id(id value) {
+        return [self modelFromEntity:value];
+    }] array];
 }
 
 

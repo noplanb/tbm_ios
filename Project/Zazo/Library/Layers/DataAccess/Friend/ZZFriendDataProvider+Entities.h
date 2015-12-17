@@ -7,6 +7,7 @@
 //
 
 #import "ZZFriendDataProvider.h"
+@class TBMFriend;
 
 @interface ZZFriendDataProvider (Entities)
 

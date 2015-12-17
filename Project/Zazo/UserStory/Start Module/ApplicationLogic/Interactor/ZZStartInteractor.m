@@ -25,21 +25,34 @@
 - (void)_checkSession
 {
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
-    if (user.isRegistered)
-    {
+    
+    #ifdef NETTEST
+        if (user.isRegistered)
+        {
+            [self.output presentNetworkTestController];
+        }
+        else
+        {
+            [self.output userRequiresAuthentication];
+        }
+    #else
+        if (user.isRegistered)
+        {
+            
+            ANDispatchBlockToMainQueue(^{
+                [self.output applicationIsUpToDateAndUserLogged:YES];
+            });
+            
+            [self _checkVersionStateForUserLoggedInState:YES];
+            [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {}];
+        }
+        else
+        {
+            [self.output userRequiresAuthentication];
+        }
         
-        ANDispatchBlockToMainQueue(^{
-            [self.output applicationIsUpToDateAndUserLogged:YES];
-        });
-        
-        [self _checkVersionStateForUserLoggedInState:YES];
-        [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {}];
-    }
-    else
-    {
-#warning  Possible bug. Should it be called from the main queue?
-        [self.output userRequiresAuthentication];
-    }
+    #endif
+  
 }
 
 - (void)_checkVersionStateForUserLoggedInState:(BOOL)loggedIn

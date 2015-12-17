@@ -46,9 +46,9 @@
 //        XCTAssertNotNil(x);
 //        [expectation fulfill];
 //    }];
-    [self waitForExpectationsWithTimeout:8 handler:^(NSError *error) {
-        XCTAssertNil(error); 
-    }];
+//    [self waitForExpectationsWithTimeout:8 handler:^(NSError *error) {
+//        XCTAssertNil(error); 
+//    }];
 }
 
 @end

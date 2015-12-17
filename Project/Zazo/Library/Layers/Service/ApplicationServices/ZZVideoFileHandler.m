@@ -61,6 +61,16 @@
     }];
 }
 
+- (void)resetAllTasksCompletion:(void(^)())completion
+{
+    [self.fileTransferManager reset:completion];
+}
+
+- (void)updateCredentials
+{
+    [self _updateCredentials];
+}
+
 - (void)_updateCredentials
 {
     ZZS3CredentialsDomainModel* credentials = [ZZKeychainDataProvider loadCredentials];
@@ -155,6 +165,7 @@
 - (void)updateS3CredentialsWithRequest
 {
     [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {
+        
         [self _updateCredentials];
     } error:^(NSError *error) {
         [self _loadS3CredentialsDidFailWithError:error];
@@ -615,9 +626,10 @@
         }
         
         [[ZZRemoteStoageTransportService deleteRemoteIncomingVideoWithItemID:videoId
-                                                                  friendMkey:friendModel.mKey
-                                                                  friendCKey:friendModel.cKey] subscribeNext:^(id x) {}];
-
+                                                                  friendMkey:friendModel.mkey
+                                                                  friendCKey:friendModel.ckey] subscribeNext:^(id x) {}];
+         
+         [[NSNotificationCenter defaultCenter] postNotificationName:kDeleteFileNotification object:nil];
     });
 }
 

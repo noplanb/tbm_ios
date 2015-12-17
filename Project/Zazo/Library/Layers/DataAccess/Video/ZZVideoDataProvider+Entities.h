@@ -20,6 +20,9 @@
 + (NSArray *)all;
 + (TBMVideo*)entityWithID:(NSString*)itemID;
 + (TBMVideo*)createIncomingVideoForFriend:(TBMFriend*)friend withVideoId:(NSString*)videoId;
++ (TBMVideo*)createOutgoingVideoForFriendID:(NSString*)friendID
+                                    videoID:(NSString*)videoID
+                                    context:(NSManagedObjectContext*)context;
 
 
 #pragma mark - Mapping

@@ -47,3 +47,5 @@ NSString* ZZVideoStatusStringWithFriendModel(ZZFriendDomainModel* friend);
 TBMVideo* ZZNewestIncomingVideoFromFriend(TBMFriend* friend);
 NSString* ZZVideoIncomingStatusStringWithFriend(TBMFriend* friend);
 NSString* ZZVideoOutgoingStatusWithFriend(TBMFriend* friend);
+
+static NSString* const kDeleteFileNotification = @"fileDeletedNotification";

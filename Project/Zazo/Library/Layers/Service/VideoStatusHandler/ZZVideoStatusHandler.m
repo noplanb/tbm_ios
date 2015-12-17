@@ -175,6 +175,7 @@
         
         NSLog(@"OKS- videoID - %@, friendID - %@, friend.lastVideoID - %@ videoStatus: %li", videoId, friend.idTbm, friend.outgoingVideoItemID,(long)status);
         NSLog(@"THREAD: %@",[NSThread currentThread]);
+
         if (![videoId isEqualToString:friend.outgoingVideoItemID])
         {
             ZZLogWarning(@"setAndNotifyOutgoingVideoStatus: Unrecognized vidoeId:%@. != ougtoingVid:%@. friendId:%@ Ignoring.", videoId, friend.outgoingVideoItemID, friendID);

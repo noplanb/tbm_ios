@@ -180,7 +180,11 @@
 
 - (void)registrationFlowCompletedSuccessfully
 {
-    [self.wireframe presentGridController];
+    #ifdef NETTEST
+        [self.wireframe presentNetworkTestController];
+    #else
+        [self.wireframe presentGridController];
+    #endif
 }
 
 @end
