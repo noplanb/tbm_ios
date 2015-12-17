@@ -25,7 +25,7 @@
     ZZFriendDomainModel* friend = [ZZFriendDataProvider friendWithItemID: friendID];
     for (ZZFriendDomainModel *f in friends)
     {
-        if (![friend isEqual:f] && [firstName isEqualToString:f.firstName])
+        if (![friend.idTbm isEqual:f.idTbm] && [firstName isEqualToString:f.firstName])
             return NO;
     }
     return YES;

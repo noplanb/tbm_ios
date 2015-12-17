@@ -268,7 +268,7 @@
                 
                 if (!friend.everSent)
                 {
-                    [ZZFriendDataUpdater updateEverSentFreindsWithMkeys:@[friend]];
+                    [ZZFriendDataUpdater updateEverSentFreindsWithMkeys:@[friend.mKey]];
                 }
                 
                 [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusUploaded withFriendID:friendID videoId:videoId];

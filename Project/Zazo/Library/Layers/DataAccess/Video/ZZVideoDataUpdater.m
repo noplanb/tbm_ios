@@ -20,23 +20,6 @@
 
 @implementation ZZVideoDataUpdater
 
-+ (ZZVideoDomainModel*)upsertVideo:(ZZVideoDomainModel*)model
-{
-    return ZZDispatchOnMainThreadAndReturn(^id{
-        TBMVideo* item = [ZZVideoDataProvider entityWithID:model.videoID];
-        
-        if (!item)
-        {
-            item = [TBMVideo MR_createEntityInContext:[self _context]];
-        }
-        
-        item = [ZZVideoModelsMapper fillEntity:item fromModel:model];
-        [item.managedObjectContext MR_saveToPersistentStoreAndWait];
-        
-        return [ZZVideoDataProvider modelFromEntity:item];
-    });
-}
-
 //+ (void)deleteItem:(ZZVideoDomainModel*)model
 //{
 //    TBMVideo* entity = [self entityFromModel:model];
@@ -67,6 +50,58 @@
         [video MR_deleteEntity];
         [context MR_saveToPersistentStoreAndWait];
     });
+}
+
+#pragma mark Update methods
+
++ (void)updateVideoWithID:(NSString *)videoID usingBlock:(void (^)(TBMVideo *video))updateBlock
+{
+    ANDispatchBlockToMainQueue(^{
+        TBMVideo* video = [ZZVideoDataProvider entityWithID:videoID];
+        updateBlock(video);
+        [video.managedObjectContext MR_saveToPersistentStoreAndWait];
+    });
+}
+
++ (void)updateViewedVideoCounterWithVideoDomainModel:(ZZVideoDomainModel*)playedVideoModel
+{
+    //TODO: (rinat) I left this method as is because I didn't understand why MR_saveToPersistentStoreAndWait is commented out
+    
+    ANDispatchBlockToMainQueue(^{
+        TBMVideo* viewedVideo = [ZZVideoDataProvider entityWithID:playedVideoModel.videoID];
+        if (!ANIsEmpty(viewedVideo))
+        {
+            if (viewedVideo.statusValue == ZZVideoIncomingStatusDownloaded)
+            {
+                //            viewedVideo.status = @(ZZVideoIncomingStatusViewed);
+                if (playedVideoModel.relatedUser.unviewedCount > 0)
+                {
+                    playedVideoModel.relatedUser.unviewedCount--;
+                }
+                else
+                {
+                    playedVideoModel.relatedUser.unviewedCount = 0;
+                }
+                
+                //            [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
+            }
+        }
+        
+    });
+}
+
++ (void)updateVideoWithID:(NSString *)videoID setIncomingStatus:(ZZVideoIncomingStatus)videoStatus
+{
+    [self updateVideoWithID:videoID usingBlock:^(TBMVideo *video) {
+        video.statusValue = videoStatus;
+    }];
+}
+
++ (void)updateVideoWithID:(NSString *)videoID setDownloadRetryCount:(NSUInteger)count
+{
+    [self updateVideoWithID:videoID usingBlock:^(TBMVideo *video) {
+        video.downloadRetryCount = @(count);
+    }];
 }
 
 #pragma mark - Delete Video Methods
@@ -115,31 +150,6 @@
         ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:video];
         [ZZThumbnailGenerator deleteThumbFileForVideo:videoModel];
         
-    });
-}
-
-+ (void)updateViewedVideoCounterWithVideoDomainModel:(ZZVideoDomainModel*)playedVideoModel
-{
-    ANDispatchBlockToMainQueue(^{
-        TBMVideo* viewedVideo = [ZZVideoDataProvider entityWithID:playedVideoModel.videoID];
-        if (!ANIsEmpty(viewedVideo))
-        {
-            if (viewedVideo.statusValue == ZZVideoIncomingStatusDownloaded)
-            {
-                //            viewedVideo.status = @(ZZVideoIncomingStatusViewed);
-                if (playedVideoModel.relatedUser.unviewedCount > 0)
-                {
-                    playedVideoModel.relatedUser.unviewedCount--;
-                }
-                else
-                {
-                    playedVideoModel.relatedUser.unviewedCount = 0;
-                }
-                
-                //            [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
-            }
-        }
-
     });
 }
 

@@ -390,7 +390,8 @@
     {
         friendModel.lastIncomingVideoStatus = videoModel.incomingStatusValue;
 //        [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
-        [ZZFriendDataUpdater upsertFriend:friendModel];
+
+        [ZZFriendDataUpdater updateFriendWithID:friendModel.idTbm setLastIncomingVideoStatus: videoModel.incomingStatusValue];
     }
 }
 

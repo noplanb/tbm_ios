@@ -112,9 +112,9 @@
         
         if (retryCount != friend.uploadRetryCount)
         {
-            friend.uploadRetryCount = retryCount;
-            friend.lastVideoStatusEventType = ZZVideoStatusEventTypeOutgoing;
-            [ZZFriendDataUpdater upsertFriend:friend];
+            [ZZFriendDataUpdater updateFriendWithID:friendID setUploadRetryCount:retryCount];
+            [ZZFriendDataUpdater updateFriendWithID:friendID setLastVideoStatusEventType:ZZVideoStatusEventTypeOutgoing];
+            
             [self _notifyObserversVideoStatusChangeWithFriendID:friendID];
         }
         else
@@ -136,14 +136,12 @@
         if (video.downloadRetryCount == retryCount)
             return;
         
-        video.downloadRetryCount = retryCount;
-        
-        [ZZVideoDataUpdater upsertVideo:video];
+        [ZZVideoDataUpdater updateVideoWithID:videoID setDownloadRetryCount:retryCount];
         
         if ([self _isNewestIncomingVideo:video withFriend:friend])
         {
-            friend.lastVideoStatusEventType = ZZVideoStatusEventTypeIncoming;
-            [ZZFriendDataUpdater upsertFriend:friend];
+            [ZZFriendDataUpdater updateFriendWithID:friendID setLastVideoStatusEventType:ZZVideoStatusEventTypeIncoming];
+
             [self _notifyObserversVideoStatusChangeWithFriendID:friendID];
         }
     });
@@ -188,43 +186,35 @@
             ZZLogWarning(@"setAndNotifyOutgoingVideoStatusWithVideo: Identical status. Ignoring.");
             return;
         }
-        
-        friend.lastVideoStatusEventType = ZZVideoStatusEventTypeOutgoing;
-        friend.outgoingVideoStatus = status;
-        
+               
+        [ZZFriendDataUpdater updateFriendWithID:friendID setLastVideoStatusEventType:ZZVideoStatusEventTypeOutgoing];
+        [ZZFriendDataUpdater updateFriendWithID:friendID setOutgoingVideoStatus:status];
         
         if (status == ZZVideoOutgoingStatusUploaded ||
             status == ZZVideoOutgoingStatusDownloaded ||
             status == ZZVideoOutgoingStatusViewed)
         {
-            friend.lastActionTimestamp = [NSDate date];
+            [ZZFriendDataUpdater updateLastTimeActionFriendWithID:friendID];
         }
-        
-        [ZZFriendDataUpdater upsertFriend:friend];
         
         [self _notifyObserversVideoStatusChangeWithFriendID:friendID];
     });
 }
 
 - (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)videoStatus
-                               friendId:(NSString*)friendId
-                                videoId:(NSString*)videoId;
+                               friendId:(NSString*)friendID
+                                videoId:(NSString*)videoID;
 {
     
     ANDispatchBlockToMainQueue(^{
-    
-//        TBMVideo* video = [ZZVideoDataProvider entityWithID:videoId];
-//        TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendId];
         
-        ZZFriendDomainModel *friend = [ZZFriendDataProvider friendWithItemID:friendId];
-        ZZVideoDomainModel *video = [ZZVideoDataProvider itemWithID:videoId];
+        ZZVideoDomainModel *video = [ZZVideoDataProvider itemWithID:videoID];
         
         if (video.incomingStatusValue != videoStatus)
         {
-            video.incomingStatusValue = videoStatus;
-            [ZZVideoDataUpdater upsertVideo:video];
+            [ZZVideoDataUpdater updateVideoWithID:videoID setIncomingStatus:videoStatus];
             
-            friend.lastIncomingVideoStatus = videoStatus;
+            [ZZFriendDataUpdater updateFriendWithID:friendID setLastIncomingVideoStatus:videoStatus];
             
             // Serhii says: We want to preserve previous status if last event type is incoming and status is VIEWED
             // Sani complicates it by saying: This is a bit subtle. We don't want an action by this user of
@@ -233,20 +223,18 @@
             // video (recording on a person with unviewed indicator showing) then later viewed the incoming videos
             // he gets to see the status of the last outgoing video he sent after play is complete and the unviewed count
             // indicator goes away.
+            
             if (videoStatus != ZZVideoIncomingStatusViewed)
             {
-                friend.lastVideoStatusEventType = ZZVideoStatusEventTypeIncoming;
+                [ZZFriendDataUpdater updateFriendWithID:friendID setLastVideoStatusEventType:ZZVideoStatusEventTypeIncoming];
             }
-            
             
             if (videoStatus == ZZVideoIncomingStatusDownloaded || videoStatus == ZZVideoIncomingStatusViewed)
             {
-                friend.lastActionTimestamp = [NSDate date];
+                [ZZFriendDataUpdater updateLastTimeActionFriendWithID:friendID];
             }
             
-            [ZZFriendDataUpdater upsertFriend:friend];
-            
-            [self _notifyObserversVideoStatusChangeWithFriendID:friendId];
+            [self _notifyObserversVideoStatusChangeWithFriendID:friendID];
         }
         else
         {
@@ -266,19 +254,18 @@
 
 }
 
-- (void)handleOutgoingVideoCreatedWithVideoId:(NSString*)videoId withFriend:(NSString*)friendID
+- (void)handleOutgoingVideoCreatedWithVideoId:(NSString*)videoID withFriend:(NSString*)friendID
 {
     ANDispatchBlockToMainQueue(^{
-        [ZZContentDataAcessor refreshContext:[ZZContentDataAcessor mainThreadContext]];
 
         ZZFriendDomainModel* friend = [ZZFriendDataProvider friendWithItemID:friendID];
         
-        friend.uploadRetryCount = 0;
-        friend.outgoingVideoItemID = videoId;
+        friend.outgoingVideoItemID = videoID;
         
-        [ZZFriendDataUpdater upsertFriend:friend];
+        [ZZFriendDataUpdater updateFriendWithID:friendID setUploadRetryCount:0];
+        [ZZFriendDataUpdater updateFriendWithID:friendID setOutgoingVideoItemID:videoID];
         
-        [self notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusNew withFriendID:friend.idTbm withVideoId:videoId];
+        [self notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusNew withFriendID:friendID withVideoId:videoID];
     });
 }
 
