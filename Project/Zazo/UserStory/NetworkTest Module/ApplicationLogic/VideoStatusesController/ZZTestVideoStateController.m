@@ -14,6 +14,7 @@
 #import "ZZNetworkTestStoredManger.h"
 #import "ZZVideoDataProvider.h"
 #import "ZZVideoDomainModel.h"
+#import "OBLogger.h"
 
 @interface ZZTestVideoStateController ()
 
@@ -30,6 +31,7 @@
 
 @property (nonatomic, assign) BOOL isNotificationEnabled;
 @property (nonatomic, strong) ZZNetworkTestStoredManger* storedManager;
+
 
 @end
 
@@ -139,7 +141,6 @@
         self.outgoingVideoCounter++;
         [self.delegate outgoingVideoChangeWithCounter:self.outgoingVideoCounter];
         [self _videoStatusFinished];
-        
     }
     else if (friend.outgoingVideoStatusValue == ZZVideoOutgoingStatusFailedPermanently &&
              friend.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeOutgoing)

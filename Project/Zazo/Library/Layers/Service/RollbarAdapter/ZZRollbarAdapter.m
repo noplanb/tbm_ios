@@ -56,6 +56,7 @@
         {
             [[OBLogger instance] reset];
         }
+        self.enabled = YES;
     }
     return self;
 }
