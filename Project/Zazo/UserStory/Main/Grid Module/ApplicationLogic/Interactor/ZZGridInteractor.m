@@ -285,10 +285,9 @@ static NSInteger const kGridFriendsCellCount = 8;
         else if ([self _isFriendExistWithContact:model] &&
                  ![self _isContactOnGrid:model])
         {
-            TBMFriend* friend = [self _friendFromContact:model];
-            ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithItemID:friend.idTbm];
-            [self.output showAlreadyContainFriend:friendModel compeltion:^{
-                [self addUserToGrid:friendModel];
+            ZZFriendDomainModel* friend = [self _friendFromContact:model];
+            [self.output showAlreadyContainFriend:friend compeltion:^{
+                [self addUserToGrid:friend];
             }];
         }
         else
@@ -305,8 +304,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (BOOL)_isContactOnGrid:(ZZContactDomainModel*)model
 {
     BOOL isOnGrid = NO;
-    TBMFriend* friend = [self _friendFromContact:model];
-    TBMGridElement* gridElement = [ZZGridDataProvider findWithFriend:friend];
+    ZZGridDomainModel* gridElement = [ZZGridDataProvider modelWithContact:model];
     isOnGrid = !(gridElement == nil);
     
     return isOnGrid;
@@ -315,19 +313,19 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (BOOL)_isFriendExistWithContact:(ZZContactDomainModel*)model
 {
     BOOL friendExist = NO;
-    TBMFriend* friend = [self _friendFromContact:model];
+    ZZFriendDomainModel* friend = [self _friendFromContact:model];
     friendExist = !(friend == nil);
     
     return friendExist;
 }
 
-- (TBMFriend*)_friendFromContact:(ZZContactDomainModel*)model
+- (ZZFriendDomainModel*)_friendFromContact:(ZZContactDomainModel*)model
 {
     NSString* mobilePhone =
     [[[model primaryPhone] contact] stringByReplacingOccurrencesOfString:@" "
                                                               withString:@""];
 
-    TBMFriend* friend = [ZZFriendDataProvider friendWithMobileNumber:mobilePhone];
+    ZZFriendDomainModel* friend = [ZZFriendDataProvider friendModelWithMobileNumber:mobilePhone];
     
     return friend;
 }
