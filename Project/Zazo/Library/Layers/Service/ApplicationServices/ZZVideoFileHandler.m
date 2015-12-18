@@ -394,8 +394,6 @@
 
 - (void)handleStuckDownloadsWithCompletionHandler:(void (^)())handler
 {
-    #warning stucked video doesn't complete
-
     [[self fileTransferManager] currentTransferStateWithCompletionHandler:^(NSArray *allTransferInfo) {
 
         ZZLogInfo(@"handleStuckDownloads: (%lu)", (unsigned long) [ZZVideoDataProvider countDownloadingVideos]);
@@ -626,8 +624,8 @@
         }
         
         [[ZZRemoteStoageTransportService deleteRemoteIncomingVideoWithItemID:videoId
-                                                                  friendMkey:friendModel.mkey
-                                                                  friendCKey:friendModel.ckey] subscribeNext:^(id x) {}];
+                                                                  friendMkey:friendModel.mKey
+                                                                  friendCKey:friendModel.cKey] subscribeNext:^(id x) {}];
          
          [[NSNotificationCenter defaultCenter] postNotificationName:kDeleteFileNotification object:nil];
     });

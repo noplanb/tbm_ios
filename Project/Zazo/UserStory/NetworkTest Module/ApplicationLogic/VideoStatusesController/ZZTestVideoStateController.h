@@ -6,7 +6,7 @@
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
-@class TBMFriend;
+@class ZZFriendDomainModel;
 
 @protocol ZZTestVideoStateControllerDelegate <NSObject>
 
@@ -30,7 +30,7 @@
 @interface ZZTestVideoStateController : NSObject
 
 - (instancetype)initWithDelegate:(id <ZZTestVideoStateControllerDelegate>)delegate;
-- (void)videoStatusChangedWithFriend:(TBMFriend*)friendEntity;
+- (void)videoStatusChangedWithFriend:(ZZFriendDomainModel*)friend;
 - (void)resetStats;
 - (void)resetRetries;
 

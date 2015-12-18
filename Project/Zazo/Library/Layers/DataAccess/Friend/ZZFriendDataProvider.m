@@ -141,6 +141,12 @@
     });
 }
 
++ (TBMFriend*)friendModelWithMobileNumber:(NSString*)mobileNumber
+{
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        return [self modelFromEntity:[self friendWithMobileNumber:mobileNumber]];
+    });
+}
 
 + (TBMFriend*)friendWithMobileNumber:(NSString*)mobileNumber
 {

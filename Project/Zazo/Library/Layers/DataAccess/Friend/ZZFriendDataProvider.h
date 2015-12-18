@@ -20,6 +20,7 @@
 + (ZZFriendDomainModel*)friendWithItemID:(NSString*)itemID;
 + (ZZFriendDomainModel*)friendWithMKeyValue:(NSString*)mKeyValue;
 + (ZZFriendDomainModel*)lastActionFriendWihoutGrid;
++ (ZZFriendDomainModel*)friendModelWithMobileNumber:(NSString*)mobileNumber;
 
 + (NSArray*)friendsOnGrid;
 

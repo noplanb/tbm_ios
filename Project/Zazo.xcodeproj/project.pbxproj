@@ -265,6 +265,7 @@
 		07F0E7F61B8CD7A900036AB2 /* ZZLoadFriendListSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EB1B8CD7A900036AB2 /* ZZLoadFriendListSpec.m */; };
 		07F0E7F71B8CD7A900036AB2 /* ZZLoadFriendListTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EC1B8CD7A900036AB2 /* ZZLoadFriendListTest.m */; };
 		07F0E7F81B8CD7A900036AB2 /* ZZStartScreenTestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */; };
+		15B6F2F61C24011600148E0F /* ZZDispatchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */; };
 		15FC5BC81C18166B005296C7 /* ZZDispatchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */; };
 		180254A31BB2C5A400138A52 /* ZZVideoStatuses.m in Sources */ = {isa = PBXBuildFile; fileRef = 180254A21BB2C5A400138A52 /* ZZVideoStatuses.m */; };
 		18061C171BDFCA6F0079641D /* ZZRemoteStorageValueGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E121BD5770500A59389 /* ZZRemoteStorageValueGenerator.m */; };
@@ -5042,6 +5043,7 @@
 				182254B31C16CA06003885A3 /* ANNetworkRequest.m in Sources */,
 				182254B41C16CA06003885A3 /* NSObject+ANUserDefaults.m in Sources */,
 				182256051C172B80003885A3 /* ZZSendVideoService.m in Sources */,
+				15B6F2F61C24011600148E0F /* ZZDispatchHelper.m in Sources */,
 				182254B51C16CA06003885A3 /* ZZConfig.m in Sources */,
 				182254B61C16CA06003885A3 /* ANErrorBuilder.m in Sources */,
 				182254B71C16CA06003885A3 /* PDFView.m in Sources */,
