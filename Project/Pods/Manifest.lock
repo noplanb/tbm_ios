@@ -50,9 +50,9 @@ PODS:
     - ANCategories (~> 1.0)
     - ANHelperFunctions (~> 1.0)
     - ANStorage (~> 1.0)
-  - APAddressBook (0.1.11):
-    - APAddressBook/Core (= 0.1.11)
-  - APAddressBook/Core (0.1.11)
+  - APAddressBook (0.2.1):
+    - APAddressBook/Core (= 0.2.1)
+  - APAddressBook/Core (0.2.1)
   - CocoaLumberjack (2.0.3):
     - CocoaLumberjack/Default (= 2.0.3)
     - CocoaLumberjack/Extensions (= 2.0.3)
@@ -113,7 +113,7 @@ DEPENDENCIES:
   - ANStorage (~> 1.1.4)
   - ANTableController (~> 1.1.5)
   - ANTableViews (~> 1.0.13)
-  - APAddressBook (~> 0.1.11)
+  - APAddressBook (~> 0.2.1)
   - CocoaLumberjack (~> 2.0.1)
   - Crashlytics (~> 3.4.1)
   - DeviceUtil (~> 1.2.0)
@@ -161,7 +161,7 @@ SPEC CHECKSUMS:
   ANStorage: 5bd2a8f7e9f22fb626373c3bc9726eec6735d05d
   ANTableController: 94f423ba5c2ac44ea8cb060aa1ae99a5b2ac3893
   ANTableViews: 5d1e4e4dfb581ed47ab75f1952f111f91dd00586
-  APAddressBook: 2c949367b190a993d2cce769a3b20bce8bcf000c
+  APAddressBook: 90c0fb07579a47e10ef1a2344e23cfd35f388bec
   CocoaLumberjack: f58d8a19629f4d8379ae14bb3534def24161430e
   Crashlytics: 41574a245bc6ae10c55d57f385ebd2004e5bee05
   DeviceUtil: 818812d4d2413e145a05d502cd1378e484d0c293

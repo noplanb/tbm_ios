@@ -46,12 +46,16 @@
         
         [RACObserve([ZZStoredSettingsManager shared], shouldUseRollBarSDK) subscribeNext:^(NSNumber* x) {
             
-            BOOL shouldUSerSDK = [x boolValue];
-            self.endpointType = shouldUSerSDK ? ZZDispatchEndpointRollbar : ZZDispatchEndpointServer;
+            #ifdef NETTEST
+            self.endpointType = ZZDispatchEndpointRollbar;
+            #else
+                BOOL shouldUSerSDK = [x boolValue];
+                self.endpointType = shouldUSerSDK ? ZZDispatchEndpointRollbar : ZZDispatchEndpointServer;
+            #endif
         }];
-//#ifdef DEBUG
+
         [OBLogger instance].writeToConsole = YES;
-//#endif
+
         if ([[OBLogger instance] logLines].count > 3000)
         {
             [[OBLogger instance] reset];
@@ -81,7 +85,7 @@
         message = [NSString stringWithFormat:@"%@\n\n\n%@", [NSObject an_safeString:message], [self _logString]];
     }
     message = [message stringByAppendingFormat:@"\n%@", [ZZApplicationStateInfoGenerator globalStateString]];
-//#ifndef DEBUG
+
     if (self.endpointType == ZZDispatchEndpointServer)
     {
         [[ZZCommonNetworkTransportService logMessage:message] subscribeNext:^(id x) {}];
@@ -91,7 +95,6 @@
         NSString *levelString = ZZDispatchLevelStringFromEnumValue(level);
         [Rollbar logWithLevel:levelString message:message];
     }
-//#endif
 }
 
 

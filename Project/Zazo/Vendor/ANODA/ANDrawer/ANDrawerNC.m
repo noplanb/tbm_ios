@@ -190,6 +190,13 @@ static CGFloat const kStatusBarHeight = 20;
     leftSideAnimation.toValue = @(newOffset);
     leftSideAnimation.property = [POPAnimatableProperty mas_offsetProperty];
     leftSideAnimation.springBounciness = 4;
+    leftSideAnimation.completionBlock =   ^(POPAnimation *anim, BOOL finished) {
+        if (finished)
+        {
+            self.isOpen = isOpen;
+        }
+    };
+    
     [self.animatedConstraint pop_addAnimation:leftSideAnimation forKey:@"offset"];
     
     POPSpringAnimation *alphaAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewAlpha];
