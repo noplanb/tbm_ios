@@ -128,7 +128,11 @@ static NSInteger const kGridFriendsCellCount = 8;
 {
     ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithContact:phoneNumber];
     
-    if (!ANIsEmpty(gridModel))
+    if ([self _isContactExistAsFriendAndAbleAddToGrid:phoneNumber])
+    {
+        [self _addFriendFromDrawerToGirdWithContact:phoneNumber];
+    }
+    else if (!ANIsEmpty(gridModel))
     {
         [self.output gridAlreadyContainsFriend:gridModel];
     }
@@ -283,14 +287,9 @@ static NSInteger const kGridFriendsCellCount = 8;
         {
             [self.output userNeedsToPickPrimaryPhone:model];
         }
-        else if ([self _isFriendExistWithContact:model] &&
-                 ![self _isContactOnGrid:model])
+        else if ([self _isContactExistAsFriendAndAbleAddToGrid:model])
         {
-            TBMFriend* friend = [self _friendFromContact:model];
-            ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithItemID:friend.idTbm];
-            [self.output showAlreadyContainFriend:friendModel compeltion:^{
-                [self addUserToGrid:friendModel];
-            }];
+            [self _addFriendFromDrawerToGirdWithContact:model];
         }
         else
         {
@@ -331,6 +330,23 @@ static NSInteger const kGridFriendsCellCount = 8;
     TBMFriend* friend = [ZZFriendDataProvider friendWithMobileNumber:mobilePhone];
     
     return friend;
+}
+
+
+#pragma mark - Add friend from drawer to grid if contact is already friend
+
+- (BOOL)_isContactExistAsFriendAndAbleAddToGrid:(ZZContactDomainModel*)model
+{
+    return ([self _isFriendExistWithContact:model] && ![self _isContactOnGrid:model]);
+}
+
+- (void)_addFriendFromDrawerToGirdWithContact:(ZZContactDomainModel*)model
+{
+    TBMFriend* friend = [self _friendFromContact:model];
+    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithItemID:friend.idTbm];
+    [self.output showAlreadyContainFriend:friendModel compeltion:^{
+        [self addUserToGrid:friendModel];
+    }];
 }
 
 
