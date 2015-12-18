@@ -29,9 +29,11 @@
 
 + (void)updateLastTimeActionFriendWithID:(NSString*)itemID
 {
-    [self updateFriendWithID:itemID usingBlock:^(TBMFriend *friend) {
-        friend.timeOfLastAction = [NSDate date];
-    }];
+    ANDispatchBlockToMainQueue(^{
+        [self updateFriendWithID:itemID usingBlock:^(TBMFriend *friend) {
+            friend.timeOfLastAction = [NSDate date];
+        }];
+    });
 }
 
 + (ZZFriendDomainModel*)updateConnectionStatusForUserWithID:(NSString *)itemID toValue:(ZZFriendshipStatusType)value
