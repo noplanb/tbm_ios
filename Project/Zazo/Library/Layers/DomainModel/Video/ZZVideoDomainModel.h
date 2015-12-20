@@ -23,7 +23,8 @@ extern const struct ZZVideoDomainModelAttributes {
 @property (nonatomic, copy) NSString* videoID;
 @property (nonatomic, assign) ZZVideoIncomingStatus incomingStatusValue; //TODO: found better name 
 @property (nonatomic, assign) NSInteger downloadRetryCount;
-@property (nonatomic, strong) ZZFriendDomainModel* relatedUser;
+
+@property (nonatomic, weak) ZZFriendDomainModel* relatedUser; //TODO: (Rinat) Ask Oksana if it's Ok. A memory leak if it strong.
 @property (nonatomic, strong) NSURL* videoURL;
 
 @end

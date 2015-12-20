@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import "ZZUserDataProvider.h"
+#import "ZZUserDataProvider+Entities.h"
 #import "ZZUserModelsMapper.h"
 #import "MagicalRecord.h"
 #import "ZZContentDataAcessor.h"
@@ -15,8 +15,10 @@
 
 + (ZZUserDomainModel*)authenticatedUser
 {
-    TBMUser* user = [self _authenticatedEntity];
-    return [self modelFromEntity:user];
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        TBMUser* user = [self _authenticatedEntity];
+        return [self modelFromEntity:user];
+    });
 }
 
 + (TBMUser*)_authenticatedEntity
@@ -43,19 +45,24 @@
 
 + (ZZUserDomainModel*)modelFromEntity:(TBMUser*)entity
 {
-    return [ZZUserModelsMapper fillModel:[ZZUserDomainModel new] fromEntity:entity];
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        return [ZZUserModelsMapper fillModel:[ZZUserDomainModel new] fromEntity:entity];
+    });
 }
 
 + (ZZUserDomainModel*)upsertUserWithModel:(ZZUserDomainModel*)model
 {
-    TBMUser* entity = [self _authenticatedEntity];
-    if (!entity)
-    {
-        entity = [TBMUser MR_createEntityInContext:[self _context]];
-    }
-    [ZZUserModelsMapper fillEntity:entity fromModel:model];
-    [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
-    return [self modelFromEntity:entity];
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        TBMUser* entity = [self _authenticatedEntity];
+        if (!entity)
+        {
+            entity = [TBMUser MR_createEntityInContext:[self _context]];
+        }
+        [ZZUserModelsMapper fillEntity:entity fromModel:model];
+        [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
+        return [self modelFromEntity:entity];
+
+    });
 }
 
 
@@ -63,7 +70,8 @@
 
 + (NSManagedObjectContext*)_context
 {
-    return [ZZContentDataAcessor contextForCurrentThread];
+    return [ZZContentDataAcessor mainThreadContext];
+
 }
 
 @end

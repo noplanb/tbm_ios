@@ -11,7 +11,7 @@
 #import "ZZFriendDataProvider.h"
 #import "ZZGridDataProvider.h"
 #import "ZZGridDataUpdater.h"
-#import "TBMFriend.h"
+#import "ZZFriendDomainModel.h"
 
 @implementation ZZGridUpdateService
 
@@ -21,11 +21,9 @@
     
     [[ZZFriendDataProvider friendsOnGrid] enumerateObjectsUsingBlock:^(ZZFriendDomainModel*  _Nonnull friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
         
-        TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
-        
-        if (friend.lastIncomingVideoStatusValue == ZZVideoIncomingStatusViewed ||
-            friend.lastIncomingVideoStatusValue == ZZVideoIncomingStatusFailedPermanently ||
-            friend.lastIncomingVideoStatusValue == ZZVideoIncomingStatusNew)
+        if (friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusViewed ||
+            friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently ||
+            friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusNew)
         {
             [gridElementToUpdate addObject:friendModel];
         }

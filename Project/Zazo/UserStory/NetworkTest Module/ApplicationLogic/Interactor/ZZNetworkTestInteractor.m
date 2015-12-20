@@ -64,7 +64,7 @@
 
 - (void)videoStatusChangedWithFriendID:(NSString*)friendID
 {
-    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
+    ZZFriendDomainModel* friend = [ZZFriendDataProvider friendWithItemID:friendID];
     [self.output videosatusChangedWithFriend:friend];
 }
 

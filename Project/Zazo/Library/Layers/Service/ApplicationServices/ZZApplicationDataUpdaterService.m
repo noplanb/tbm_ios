@@ -8,7 +8,6 @@
 
 #import "ZZApplicationDataUpdaterService.h"
 #import "ZZFriendsTransportService.h"
-#import "TBMFriend.h"
 #import "ZZUserDataProvider.h"
 #import "ZZRemoteStoageTransportService.h"
 #import "ZZFriendDataProvider.h"
@@ -145,9 +144,8 @@
                 
                 if ([model status] != ZZVideoOutgoingStatusNone)
                 {
-                    TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
                     [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)[model status]
-                                                                            withFriendID:friendEntity.idTbm
+                                                                            withFriendID:friendModel.idTbm
                                                                              withVideoId:model.videoId];
                 }
             }

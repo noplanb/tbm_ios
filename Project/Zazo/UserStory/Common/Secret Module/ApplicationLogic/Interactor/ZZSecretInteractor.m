@@ -63,13 +63,15 @@
 
 - (void)removeAllUserData
 {
-    //TODO: move it to data updaters
-    NSManagedObjectContext* context = [ZZContentDataAcessor contextForCurrentThread];
-    [TBMFriend MR_truncateAllInContext:context];
-    [TBMVideo MR_truncateAllInContext:context];
-    [context MR_saveToPersistentStoreAndWait];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:kResetAllUserDataNotificationKey object:nil];
+    ANDispatchBlockToMainQueue(^{        
+        //TODO: move it to data updaters
+        NSManagedObjectContext* context = [ZZContentDataAcessor mainThreadContext];
+        [TBMFriend MR_truncateAllInContext:context];
+        [TBMVideo MR_truncateAllInContext:context];
+        [context MR_saveToPersistentStoreAndWait];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kResetAllUserDataNotificationKey object:nil];
+    });
 }
 
 

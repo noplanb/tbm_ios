@@ -8,14 +8,9 @@
 
 #import "ZZUserDomainModel.h"
 
-@class TBMUser;
-
 @interface ZZUserDataProvider : NSObject
 
 + (ZZUserDomainModel*)authenticatedUser;
-
-//+ (TBMUser*)entityFromModel:(ZZUserDomainModel*)model;
-+ (ZZUserDomainModel*)modelFromEntity:(TBMUser*)entity;
 + (ZZUserDomainModel*)upsertUserWithModel:(ZZUserDomainModel*)model;
 
 @end

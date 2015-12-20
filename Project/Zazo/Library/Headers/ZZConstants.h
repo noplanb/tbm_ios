@@ -7,6 +7,7 @@
 //
 
 static NSString *kRollBarToken = @"0ac2aee23dc449309b0c0bf6a46b4d59";
+static NSString *kZazoErrorDomain = @"ZZErrorDomain";
 
 //email constants
 static NSString* kApplicationFeedbackEmailSubject = @"Feedback";

@@ -24,6 +24,7 @@
 {
     [MagicalRecord setShouldDeleteStoreOnModelMismatch:NO];
     
+   
     ZZMigrationManager* migrationManager = [ZZMigrationManager new];
     if ([migrationManager isMigrationNecessary])
     {
@@ -77,16 +78,20 @@
 
 + (void)saveDataBase
 {
-    [[self contextForCurrentThread] MR_saveToPersistentStoreAndWait];
+    [[self mainThreadContext] MR_saveToPersistentStoreAndWait];
     NSManagedObjectContext* context = [NSManagedObjectContext MR_context];
     [context MR_saveToPersistentStoreAndWait];
 }
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-+ (NSManagedObjectContext *)contextForCurrentThread
++ (NSManagedObjectContext *)mainThreadContext
 {
-    return [NSManagedObjectContext MR_contextForCurrentThread];
+    if (![NSThread isMainThread]) {
+        [NSException raise:kZazoErrorDomain format:@"This Core Data context should be used in main thread only"];
+    }
+    
+    return [NSManagedObjectContext MR_defaultContext];
 }
 #pragma GCC diagnostic pop
 

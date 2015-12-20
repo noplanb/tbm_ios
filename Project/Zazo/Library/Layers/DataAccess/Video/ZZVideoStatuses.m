@@ -9,7 +9,7 @@
 #import "ZZVideoStatuses.h"
 #import "TBMFriend.h"
 #import "ZZFriendDomainModel.h"
-#import "ZZFriendDataProvider.h"
+#import "ZZFriendDataProvider+Entities.h"
 
 
 #pragma mark - Incoming Status
@@ -82,6 +82,12 @@ NSString* ZZVideoStatusStringWithFriend(TBMFriend* friend)
     {
         return ZZVideoIncomingStatusStringWithFriend(friend);
     }
+}
+
+NSString* ZZVideoStatusStringWithFriendModel(ZZFriendDomainModel* friend)
+{
+    TBMFriend *friendEntity = [ZZFriendDataProvider entityFromModel:friend];
+    return ZZVideoStatusStringWithFriend(friendEntity);
 }
 
 TBMVideo* ZZNewestIncomingVideoFromFriend(TBMFriend* friend)

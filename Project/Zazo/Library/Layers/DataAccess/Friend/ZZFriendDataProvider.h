@@ -7,11 +7,11 @@
 //
 
 @class ZZFriendDomainModel;
-@class TBMFriend;
-@class TBMVideo;
 
 @interface ZZFriendDataProvider : NSObject
 
++ (BOOL)isFriendExistsWithItemID:(NSString*)itemID;
++ (BOOL)isFriendExistsWithMKey:(NSString*)mKey;
 
 #pragma mark - Fetches
 
@@ -20,21 +20,13 @@
 + (ZZFriendDomainModel*)friendWithItemID:(NSString*)itemID;
 + (ZZFriendDomainModel*)friendWithMKeyValue:(NSString*)mKeyValue;
 + (ZZFriendDomainModel*)lastActionFriendWihoutGrid;
++ (ZZFriendDomainModel*)friendModelWithMobileNumber:(NSString*)mobileNumber;
 
 + (NSArray*)friendsOnGrid;
 
 #pragma mark - Count
 
 + (NSInteger)friendsCount;
-
-
-#pragma mark - Entities
-
-+ (TBMFriend*)friendEntityWithItemID:(NSString*)itemID;
-+ (BOOL)isFriendExistsWithItemID:(NSString*)itemID;
-+ (BOOL)isFriendExistsWithMKey:(NSString*)mKey;
-+ (TBMFriend*)friendEnityWithMkey:(NSString*)mKey;
-+ (TBMFriend*)friendWithMobileNumber:(NSString*)mobileNumber;
 
 #pragma mark - CRUD
 
@@ -43,9 +35,5 @@
 
 + (void)deleteAllFriendsModels;
 
-#pragma mark - Mapping
-
-+ (ZZFriendDomainModel*)modelFromEntity:(TBMFriend*)entity;
-+ (TBMFriend*)entityFromModel:(ZZFriendDomainModel*)model;
 
 @end

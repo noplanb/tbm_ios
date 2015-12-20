@@ -7,9 +7,7 @@
 //
 
 #import "ZZNetworkTestFriendshipController.h"
-#import "TBMUser.h"
 #import "ZZUserDataProvider.h"
-#import "TBMFriend.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZContactDomainModel.h"
 #import "ZZCommunicationDomainModel.h"
@@ -23,7 +21,7 @@
     ZZUserDomainModel* authUser = [ZZUserDataProvider authenticatedUser];
     if (!ANIsEmpty(authUser))
     {
-        TBMFriend* activeTestFriend = [ZZFriendDataProvider friendWithMobileNumber:authUser.mobileNumber];
+        ZZFriendDomainModel* activeTestFriend = [ZZFriendDataProvider friendModelWithMobileNumber:authUser.mobileNumber];
         if (activeTestFriend)
         {
             if (completion)
@@ -62,7 +60,7 @@
         NSString* friendID = nil;
 
         [ZZFriendDataUpdater upsertFriend:x];
-        TBMFriend* activeTestFriend = [ZZFriendDataProvider friendWithMobileNumber:userModel.mobileNumber];
+        ZZFriendDomainModel* activeTestFriend = [ZZFriendDataProvider friendModelWithMobileNumber:userModel.mobileNumber];
         
         if (!ANIsEmpty(activeTestFriend))
         {

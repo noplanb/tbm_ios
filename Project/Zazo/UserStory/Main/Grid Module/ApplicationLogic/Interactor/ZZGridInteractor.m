@@ -16,7 +16,6 @@
 #import "ZZUserDataProvider.h"
 #import "ZZFriendsTransportService.h"
 #import "ZZUserFriendshipStatusHandler.h"
-#import "TBMFriend.h"
 #import "ZZCommonModelsGenerator.h"
 #import "ZZGridTransportService.h"
 #import "ZZGridDataUpdater.h"
@@ -290,6 +289,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         else if ([self _isContactExistAsFriendAndAbleAddToGrid:model])
         {
             [self _addFriendFromDrawerToGirdWithContact:model];
+
         }
         else
         {
@@ -305,8 +305,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (BOOL)_isContactOnGrid:(ZZContactDomainModel*)model
 {
     BOOL isOnGrid = NO;
-    TBMFriend* friend = [self _friendFromContact:model];
-    TBMGridElement* gridElement = [ZZGridDataProvider findWithFriend:friend];
+    ZZGridDomainModel* gridElement = [ZZGridDataProvider modelWithContact:model];
     isOnGrid = !(gridElement == nil);
     
     return isOnGrid;
@@ -315,19 +314,19 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (BOOL)_isFriendExistWithContact:(ZZContactDomainModel*)model
 {
     BOOL friendExist = NO;
-    TBMFriend* friend = [self _friendFromContact:model];
+    ZZFriendDomainModel* friend = [self _friendFromContact:model];
     friendExist = !(friend == nil);
     
     return friendExist;
 }
 
-- (TBMFriend*)_friendFromContact:(ZZContactDomainModel*)model
+- (ZZFriendDomainModel*)_friendFromContact:(ZZContactDomainModel*)model
 {
     NSString* mobilePhone =
     [[[model primaryPhone] contact] stringByReplacingOccurrencesOfString:@" "
                                                               withString:@""];
 
-    TBMFriend* friend = [ZZFriendDataProvider friendWithMobileNumber:mobilePhone];
+    ZZFriendDomainModel* friend = [ZZFriendDataProvider friendModelWithMobileNumber:mobilePhone];
     
     return friend;
 }
@@ -342,10 +341,9 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)_addFriendFromDrawerToGirdWithContact:(ZZContactDomainModel*)model
 {
-    TBMFriend* friend = [self _friendFromContact:model];
-    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithItemID:friend.idTbm];
-    [self.output showAlreadyContainFriend:friendModel compeltion:^{
-        [self addUserToGrid:friendModel];
+    ZZFriendDomainModel* friend = [self _friendFromContact:model];
+    [self.output showAlreadyContainFriend:friend compeltion:^{
+        [self addUserToGrid:friend];
     }];
 }
 
@@ -354,23 +352,23 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)videoStatusChangedWithFriendID:(NSString *)friendID
 {
-    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
     ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendID];
 
     if (!gridModel)
     {
-        ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
+        ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
+
         //TODO:
         BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
         
         if (!shouldBeVisible)
         {
-            BOOL isUserSendsUsAVideo = ((friend.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeIncoming) &&
-                                        (friend.lastIncomingVideoStatusValue  == ZZVideoIncomingStatusDownloading ||
-                                         friend.lastIncomingVideoStatusValue == ZZVideoIncomingStatusFailedPermanently));
+            BOOL isUserSendsUsAVideo = ((friendModel.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming) &&
+                                        (friendModel.lastIncomingVideoStatus  == ZZVideoIncomingStatusDownloading ||
+                                         friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently));
             
-            BOOL isUserViewedOurVideo = ((friend.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeOutgoing) &&
-                                         (friend.outgoingVideoStatusValue  == ZZVideoOutgoingStatusViewed));
+            BOOL isUserViewedOurVideo = ((friendModel.lastVideoStatusEventType == ZZVideoStatusEventTypeOutgoing) &&
+                                         (friendModel.outgoingVideoStatusValue  == ZZVideoOutgoingStatusViewed));
             
             if (isUserSendsUsAVideo | isUserViewedOurVideo)
             {

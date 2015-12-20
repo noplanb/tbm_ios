@@ -7,14 +7,13 @@
 //
 
 #import "ZZTestVideoStateController.h"
-#import "TBMFriend.h"
 #import "ZZVideoStatuses.h"
 #import "ZZFriendDataProvider.h"
-#import "MagicalRecord.h"
 #import "ZZNetworkTestStoredManger.h"
 #import "ZZVideoDataProvider.h"
 #import "ZZVideoDomainModel.h"
 #import "OBLogger.h"
+#import "ZZFriendDataUpdater.h"
 
 @interface ZZTestVideoStateController ()
 
@@ -56,20 +55,20 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)videoStatusChangedWithFriend:(TBMFriend*)friendEntity
+- (void)videoStatusChangedWithFriend:(ZZFriendDomainModel*)friend
 {
     if (self.isNotificationEnabled)
     {
-        if (friendEntity.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeOutgoing )
+        if (friend.lastVideoStatusEventType == ZZVideoStatusEventTypeOutgoing )
         {
-            [self _handleOutgoingVideoWithFriend:friendEntity];
+            [self _handleOutgoingVideoWithFriend:friend];
         }
         else
         {
-            [self _handleDownloadVideoWithFriend:friendEntity];
+            [self _handleDownloadVideoWithFriend:friend];
         }
         
-        [self _updateRetryCountWithFriend:friendEntity];
+        [self _updateRetryCountWithFriend:friend];
     }
 }
 
@@ -117,14 +116,12 @@
     [self.delegate updateRetryCount:self.prevRetryCount];
     NSString* testedFriendID = [self.delegate testedFriendID];
     
-    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:testedFriendID];
-    friend.uploadRetryCount = @(0);
-    [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
+    [ZZFriendDataUpdater updateFriendWithID:testedFriendID setUploadRetryCount:0];
 }
 
 #pragma mark - Private
 
-- (void)_handleOutgoingVideoWithFriend:(TBMFriend*)friend
+- (void)_handleOutgoingVideoWithFriend:(ZZFriendDomainModel*)friend
 {
     if (friend.outgoingVideoStatusValue == ZZVideoOutgoingStatusNew)
     {
@@ -143,7 +140,7 @@
         [self _videoStatusFinished];
     }
     else if (friend.outgoingVideoStatusValue == ZZVideoOutgoingStatusFailedPermanently &&
-             friend.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeOutgoing)
+             friend.lastVideoStatusEventType == ZZVideoStatusEventTypeOutgoing)
     {
         self.failedOutgoingVideoCounter++;
         [self.delegate failedOutgoingVideoWithCounter:self.failedOutgoingVideoCounter];
@@ -151,14 +148,14 @@
     }
 }
 
-- (void)_handleDownloadVideoWithFriend:(TBMFriend*)friend
+- (void)_handleDownloadVideoWithFriend:(ZZFriendDomainModel*)friend
 {
-    if (friend.lastIncomingVideoStatusValue == ZZVideoIncomingStatusDownloading)
+    if (friend.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
     {
         [self _videoStatusProgress];
         [self.delegate currentStatusChangedWithStatusString:NSLocalizedString(@"network-test-view.current.status.downloading", nil)];
     }
-    else if (friend.lastIncomingVideoStatusValue == ZZVideoIncomingStatusDownloaded)
+    else if (friend.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
     {
         self.incomingVideoCounter++;
         [self.delegate incomingVideoChangeWithCounter:self.incomingVideoCounter];
@@ -168,7 +165,7 @@
         [[OBLogger instance] error:@"Video DOWNLOADED!!!"];
         
     }
-    else if (friend.lastIncomingVideoStatusValue == ZZVideoIncomingStatusFailedPermanently)
+    else if (friend.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently)
     {
         self.failedIncomingVideoCounter++;
         [self.delegate failedIncomingVideoWithCounter:self.failedIncomingVideoCounter];
@@ -206,12 +203,12 @@
     }
 }
 
-- (void)_updateRetryCountWithFriend:(TBMFriend*)friend
+- (void)_updateRetryCountWithFriend:(ZZFriendDomainModel*)friend
 {
-    if (friend.uploadRetryCountValue != self.prevRetryCount)
+    if (friend.uploadRetryCount != self.prevRetryCount)
     {
-        self.prevRetryCount = friend.uploadRetryCountValue;
-        [self.delegate updateRetryCount:friend.uploadRetryCountValue];
+        self.prevRetryCount = friend.uploadRetryCount;
+        [self.delegate updateRetryCount:friend.uploadRetryCount];
     }
 }
 
@@ -234,16 +231,17 @@
     [self.delegate updateRetryCount:self.prevRetryCount];
 }
 
-- (void)_updateLastDownloadedVideoToViewedStatusForFriend:(TBMFriend*)friend
+- (void)_updateLastDownloadedVideoToViewedStatusForFriend:(ZZFriendDomainModel*)friend
 {
-        NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"videoId" ascending:YES];
+        NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
         NSArray* sortedVidoes = [friend.videos sortedArrayUsingDescriptors:@[d]];
-        TBMVideo* downloadedVideo = [sortedVidoes lastObject];
+        ZZVideoDomainModel* downloadedVideo = [sortedVidoes lastObject];
     
-        if (downloadedVideo.statusValue == ZZVideoIncomingStatusDownloaded)
+        if (downloadedVideo.incomingStatusValue == ZZVideoIncomingStatusDownloaded)
         {
-            downloadedVideo.statusValue = ZZVideoIncomingStatusViewed;
-            [downloadedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
+            downloadedVideo.incomingStatusValue = ZZVideoIncomingStatusViewed;
+            [ZZFriendDataUpdater updateFriendWithID:friend.idTbm setLastIncomingVideoStatus:ZZVideoIncomingStatusViewed];
+
         }
 }
 

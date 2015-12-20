@@ -7,28 +7,14 @@
 //
 
 @class ZZVideoDomainModel;
-@class TBMVideo;
 @class ZZFriendDomainModel;
-@class TBMFriend;
 
 @interface ZZVideoDataProvider : NSObject
 
-
-#pragma mark - Fetches
-
-+ (TBMVideo*)newWithVideoId:(NSString *)videoId onContext:(NSManagedObjectContext*)context;
-+ (TBMVideo*)findWithVideoId:(NSString *)videoId;
-+ (NSArray *)all;
 + (ZZVideoDomainModel*)itemWithID:(NSString*)itemID;
-+ (TBMVideo*)entityWithID:(NSString*)itemID;
-+ (NSArray*)downloadingEntities;
 
-
-+ (TBMVideo*)createIncomingVideoForFriend:(TBMFriend*)friend withVideoId:(NSString*)videoId;
-+ (TBMVideo*)createOutgoingVideoForFriendID:(NSString*)friendID
-                                    videoID:(NSString*)videoID
-                                    context:(NSManagedObjectContext*)context;
-
++ (ZZVideoDomainModel*)createIncomingVideoModelForFriend:(ZZFriendDomainModel*)friend withVideoId:(NSString*)videoId;
++ (NSArray *)downloadingVideos;
 
 #pragma mark - Count
 
@@ -46,23 +32,14 @@
 
 
 + (NSArray*)sortedIncomingVideosForUser:(ZZFriendDomainModel*)friendModel;
-+ (NSArray*)sortedIncomingVideosForFriendEntity:(TBMFriend*)friendEntity;
 + (void)deleteVideoWithID:(NSString*)videoID context:(NSManagedObjectContext*)context;
-
-
-#pragma mark - Mapping
-
-//+ (TBMVideo*)entityFromModel:(ZZVideoDomainModel*)model;
-+ (ZZVideoDomainModel*)modelFromEntity:(TBMVideo*)entity;
 
 
 #pragma mark - Helpers
 
++ (BOOL)isStatusDownloadingWithVideo:(ZZVideoDomainModel*)video;
 + (void)printAll;
-+ (NSURL *)videoUrlWithVideo:(TBMVideo*)video;
-+ (BOOL)videoFileExistsForVideo:(TBMVideo*)video;
-//+ (unsigned long long)videoFileSizeForVideo:(TBMVideo*)video;
-//+ (BOOL)hasValidVideoFileWithVideo:(TBMVideo*)video;
-+ (BOOL)isStatusDownloadingWithVideo:(TBMVideo*)video;
++ (NSURL *)videoUrlWithVideoModel:(ZZVideoDomainModel*)video;
++ (BOOL)videoFileExistsForVideoModel:(ZZVideoDomainModel*)video;
 
 @end
