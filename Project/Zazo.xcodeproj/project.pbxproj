@@ -549,7 +549,6 @@
 		1822555C1C16CA06003885A3 /* ZZEditFriendListPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C8A1BA49A0100925671 /* ZZEditFriendListPresenter.m */; };
 		1822555E1C16CA06003885A3 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 185DE9081BDE757900106F83 /* CoreMotion.framework */; };
 		1822555F1C16CA06003885A3 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182398D21BB27B36008D1324 /* CoreTelephony.framework */; };
-		182255601C16CA06003885A3 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208E8A61A1419D400150C35 /* AddressBook.framework */; };
 		182255611C16CA06003885A3 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208E8A71A1419D400150C35 /* AddressBookUI.framework */; };
 		182255621C16CA06003885A3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22403C2A19D5E63400FC36E3 /* MessageUI.framework */; };
 		182255631C16CA06003885A3 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
@@ -662,7 +661,6 @@
 		18F235261C1B0D1E0078F3BF /* ZZNetworkTestStoredManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F235251C1B0D1E0078F3BF /* ZZNetworkTestStoredManger.m */; };
 		18F235271C1B0D1E0078F3BF /* ZZNetworkTestStoredManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F235251C1B0D1E0078F3BF /* ZZNetworkTestStoredManger.m */; };
 		18F52E031BFCAB6100042AAC /* ZZContentDataAcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F52E021BFCAB6100042AAC /* ZZContentDataAcessor.m */; };
-		2208E8A81A1419D400150C35 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208E8A61A1419D400150C35 /* AddressBook.framework */; };
 		2208E8A91A1419D400150C35 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208E8A71A1419D400150C35 /* AddressBookUI.framework */; };
 		220E90291909A18B003C4F82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E90281909A18B003C4F82 /* Foundation.framework */; };
 		220E902B1909A18B003C4F82 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902A1909A18B003C4F82 /* CoreGraphics.framework */; };
@@ -1385,7 +1383,6 @@
 		18F235251C1B0D1E0078F3BF /* ZZNetworkTestStoredManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZNetworkTestStoredManger.m; sourceTree = "<group>"; };
 		18F52E011BFCAB6100042AAC /* ZZContentDataAcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContentDataAcessor.h; sourceTree = "<group>"; };
 		18F52E021BFCAB6100042AAC /* ZZContentDataAcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContentDataAcessor.m; sourceTree = "<group>"; };
-		2208E8A61A1419D400150C35 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		2208E8A71A1419D400150C35 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		220E90251909A18B003C4F82 /* Zazo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zazo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		220E90281909A18B003C4F82 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1455,7 +1452,6 @@
 			files = (
 				1822555E1C16CA06003885A3 /* CoreMotion.framework in Frameworks */,
 				1822555F1C16CA06003885A3 /* CoreTelephony.framework in Frameworks */,
-				182255601C16CA06003885A3 /* AddressBook.framework in Frameworks */,
 				182255611C16CA06003885A3 /* AddressBookUI.framework in Frameworks */,
 				182255621C16CA06003885A3 /* MessageUI.framework in Frameworks */,
 				182255631C16CA06003885A3 /* AVFoundation.framework in Frameworks */,
@@ -1473,7 +1469,6 @@
 			files = (
 				185DE9091BDE757900106F83 /* CoreMotion.framework in Frameworks */,
 				182398D31BB27B36008D1324 /* CoreTelephony.framework in Frameworks */,
-				2208E8A81A1419D400150C35 /* AddressBook.framework in Frameworks */,
 				2208E8A91A1419D400150C35 /* AddressBookUI.framework in Frameworks */,
 				22403C2B19D5E63400FC36E3 /* MessageUI.framework in Frameworks */,
 				224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */,
@@ -4395,7 +4390,6 @@
 				182398D21BB27B36008D1324 /* CoreTelephony.framework */,
 				41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */,
 				41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */,
-				2208E8A61A1419D400150C35 /* AddressBook.framework */,
 				2208E8A71A1419D400150C35 /* AddressBookUI.framework */,
 				22403C2A19D5E63400FC36E3 /* MessageUI.framework */,
 				224101D3190D4180005128F9 /* AVFoundation.framework */,

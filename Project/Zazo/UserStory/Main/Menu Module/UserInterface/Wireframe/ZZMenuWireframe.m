@@ -123,8 +123,10 @@
     [[RACObserve(self.drawerController, isOpen) filter:^BOOL(NSNumber* value) {
         return [value boolValue];
     }] subscribeNext:^(id x) {
-        [self.menuController reset];
-        [self.presenter reloadContactMenuData];
+        ANDispatchBlockToMainQueue(^{
+            [self.menuController reset];
+            [self.presenter reloadContacts];
+        });
     }];
 }
 

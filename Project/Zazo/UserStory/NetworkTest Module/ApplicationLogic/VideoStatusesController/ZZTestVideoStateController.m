@@ -161,6 +161,9 @@
         [self.delegate incomingVideoChangeWithCounter:self.incomingVideoCounter];
         [self _updateLastDownloadedVideoToViewedStatusForFriend:friend];
         [self _videoStatusFinished];
+        
+        [[OBLogger instance] error:@"Video DOWNLOADED!!!"];
+        
     }
     else if (friend.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently)
     {

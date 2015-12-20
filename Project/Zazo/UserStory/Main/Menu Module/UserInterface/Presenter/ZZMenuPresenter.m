@@ -13,7 +13,10 @@
 #import "ZZContactsPermissionAlertBuilder.h"
 #import "ZZRootStateObserver.h"
 
-@interface ZZMenuPresenter () <ZZRootStateObserverDelegate>
+@interface ZZMenuPresenter ()
+<
+    ZZRootStateObserverDelegate
+>
 
 @property (nonatomic, strong) ZZMenuDataSource* dataSource;
 
@@ -45,6 +48,11 @@
 - (void)reloadContactMenuData
 {
     [self.interactor loadDataIncludeAddressBookRequest:YES shouldOpenDrawer:NO];
+    [self.userInterface reloadContactView];
+}
+
+- (void)reloadContacts
+{
     [self.userInterface reloadContactView];
 }
 
@@ -125,6 +133,14 @@
 {
     [self.interactor resetAddressBookData];
     [self.wireframe closeMenu];
+}
+
+
+#pragma mark - DataSource delegate
+
+- (void)reloadView
+{
+    [self reloadContactMenuData];
 }
 
 @end

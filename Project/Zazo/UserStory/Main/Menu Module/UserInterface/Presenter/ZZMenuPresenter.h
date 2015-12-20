@@ -27,5 +27,6 @@
 
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZMenuViewInterface>*)userInterface;
 - (void)reloadContactMenuData;
+- (void)reloadContacts;
 
 @end
