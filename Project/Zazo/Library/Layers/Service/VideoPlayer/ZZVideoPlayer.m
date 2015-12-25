@@ -94,15 +94,15 @@
 {
     ZZVideoDomainModel* actualVideoModel = [models firstObject];
     
-    ZZFriendDomainModel *friend = [ZZFriendDataProvider friendWithItemID:actualVideoModel.relatedUserID];
-    ZZVideoDomainModel *video = [ZZVideoDataProvider itemWithID:actualVideoModel.videoID];
+    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:actualVideoModel.relatedUserID];
+    ZZVideoDomainModel *videoModel = [ZZVideoDataProvider itemWithID:actualVideoModel.videoID];
     
     NSInteger twoNotViewedVideosCount = 2;
     NSInteger nextVideoIndex = 1;
     
-    if ((friend.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading) &&
-        ([ZZFriendDataHelper unviewedVideoCountWithFriendModel: friend] == twoNotViewedVideosCount) &&
-        video.incomingStatusValue == ZZVideoIncomingStatusViewed)
+    if ((friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading) &&
+        ([ZZFriendDataHelper unviewedVideoCountWithFriendModel: friendModel] == twoNotViewedVideosCount) &&
+        videoModel.incomingStatusValue == ZZVideoIncomingStatusViewed)
     {
         actualVideoModel = models[nextVideoIndex];
     }
@@ -193,8 +193,8 @@
     
     [self.playedVideoUrls addObjectsFromArray:[[self.videoModelsArray.rac_sequence map:^id(ZZVideoDomainModel* value) {
         
-        ZZVideoDomainModel *video = [ZZVideoDataProvider itemWithID:value.videoID];
-        return [ZZVideoDataProvider videoUrlWithVideoModel:video];
+        ZZVideoDomainModel *videoModel = [ZZVideoDataProvider itemWithID:value.videoID];
+        return [ZZVideoDataProvider videoUrlWithVideoModel:videoModel];
         
     }] array]];
 }
@@ -363,9 +363,9 @@
     {
         ZZVideoDomainModel* playedVideoModel = self.videoModelsArray[index];
         
-        ZZFriendDomainModel *relatedUser = [ZZFriendDataProvider friendWithItemID:playedVideoModel.relatedUserID];
+        ZZFriendDomainModel *relatedUserModel = [ZZFriendDataProvider friendWithItemID:playedVideoModel.relatedUserID];
         
-        self.playedFriend = relatedUser;
+        self.playedFriend = relatedUserModel;
         self.currentPlayedUrl = nextUrl;
         
         if ((playedVideoModel.incomingStatusValue == ZZVideoIncomingStatusDownloaded ||
@@ -381,8 +381,8 @@
             
             [ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:playedVideoModel.videoID
                                                                         toStatus:ZZRemoteStorageVideoStatusViewed
-                                                                      friendMkey:relatedUser.mKey
-                                                                      friendCKey:relatedUser.cKey];
+                                                                      friendMkey:relatedUserModel.mKey
+                                                                      friendCKey:relatedUserModel.cKey];
             
             [self.delegate videoPlayerURLWasStartPlaying:nextUrl];
             
@@ -391,7 +391,7 @@
             // Allow play from ear even if locked. User wont know its available till he unlocks it.
             [[AVAudioSession sharedInstance] startPlaying];
             
-            [self _updateFriendVideoStatusWithFriend:relatedUser video:playedVideoModel videoIndex:index];
+            [self _updateFriendVideoStatusWithFriend:relatedUserModel video:playedVideoModel videoIndex:index];
             
             [self.moviePlayerController play];
         }

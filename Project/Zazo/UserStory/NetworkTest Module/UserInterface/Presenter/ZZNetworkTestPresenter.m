@@ -58,9 +58,9 @@
 
 #pragma makr - Output
 
-- (void)videosatusChangedWithFriend:(ZZFriendDomainModel *)friend
+- (void)videosatusChangedWithFriend:(ZZFriendDomainModel *)friendModel
 {
-    [self.videoStateController videoStatusChangedWithFriend:friend];
+    [self.videoStateController videoStatusChangedWithFriend:friendModel];
 }
 
 

@@ -43,46 +43,46 @@
 //    return item;
 //}
 
-+ (void)_destroy:(TBMVideo *)video
++ (void)_destroy:(TBMVideo *)videoEntity
 {
-    NSManagedObjectContext* context = video.managedObjectContext;
-    [video MR_deleteEntity];
+    NSManagedObjectContext* context = videoEntity.managedObjectContext;
+    [videoEntity MR_deleteEntity];
     [context MR_saveToPersistentStoreAndWait];
 }
 
 #pragma mark Update methods
 
-+ (void)updateVideoWithID:(NSString *)videoID usingBlock:(void (^)(TBMVideo *video))updateBlock
++ (void)updateVideoWithID:(NSString *)videoID usingBlock:(void (^)(TBMVideo *videoEntity))updateBlock
 {
     ANDispatchBlockToMainQueue(^{
-        TBMVideo* video = [ZZVideoDataProvider entityWithID:videoID];
-        updateBlock(video);
-        [video.managedObjectContext MR_saveToPersistentStoreAndWait];
+        TBMVideo* videoEntity = [ZZVideoDataProvider entityWithID:videoID];
+        updateBlock(videoEntity);
+        [videoEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
     });
 }
 
 + (void)updateVideoWithID:(NSString *)videoID setIncomingStatus:(ZZVideoIncomingStatus)videoStatus
 {
-    [self updateVideoWithID:videoID usingBlock:^(TBMVideo *video) {
-        video.statusValue = videoStatus;
+    [self updateVideoWithID:videoID usingBlock:^(TBMVideo *videoEntity) {
+        videoEntity.statusValue = videoStatus;
     }];
 }
 
 + (void)updateVideoWithID:(NSString *)videoID setDownloadRetryCount:(NSUInteger)count
 {
-    [self updateVideoWithID:videoID usingBlock:^(TBMVideo *video) {
-        video.downloadRetryCount = @(count);
+    [self updateVideoWithID:videoID usingBlock:^(TBMVideo *videoEntity) {
+        videoEntity.downloadRetryCount = @(count);
     }];
 }
 
 #pragma mark - Delete Video Methods
 
-+ (void)deleteAllViewedOrFailedVideoWithFriendId:(NSString*)friendId
++ (void)deleteAllViewedOrFailedVideoWithFriendId:(NSString*)friendID
 {
     ANDispatchBlockToMainQueue(^{
         ZZLogInfo(@"deleteAllViewedVideos");
         
-        TBMFriend* friendModel = [ZZFriendDataProvider friendEntityWithItemID:friendId];
+        TBMFriend* friendModel = [ZZFriendDataProvider friendEntityWithItemID:friendID];
         
         NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"videoId" ascending:YES];
         NSArray* sortedVidoes = [friendModel.videos sortedArrayUsingDescriptors:@[d]];
@@ -98,14 +98,14 @@
     });
 }
 
-+ (void)_deleteVideo:(TBMVideo*)videoEntity withFriend:(TBMFriend*)friend
++ (void)_deleteVideo:(TBMVideo*)videoEntity withFriend:(TBMFriend*)friendEntity
 {
     ZZVideoDomainModel *videoModel = [ZZVideoDataProvider modelFromEntity:videoEntity];
     [ZZVideoDataUpdater _deleteFilesForVideo:videoModel];
     
-    [friend removeVideosObject:videoEntity];
+    [friendEntity removeVideosObject:videoEntity];
     [ZZVideoDataUpdater _destroy:videoEntity];
-    [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
+    [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
 }
 
 + (void)_deleteVideoFileWithVideo:(ZZVideoDomainModel*)videoModel

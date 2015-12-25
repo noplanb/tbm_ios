@@ -33,14 +33,14 @@
     });
 }
 
-+ (ZZGridDomainModel*)updateRelatedUserOnItemID:(NSString *)itemID toValue:(ZZFriendDomainModel*)model
++ (ZZGridDomainModel*)updateRelatedUserOnItemID:(NSString *)itemID toValue:(ZZFriendDomainModel*)friendModel
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
         
-        TBMGridElement* entity = [ZZGridDataProvider entityWithItemID:itemID];
-        entity.friend = [ZZFriendDataProvider friendEntityWithItemID:model.idTbm];
-        [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
-        return [ZZGridDataProvider modelFromEntity:entity];
+        TBMGridElement* gridElementEntity = [ZZGridDataProvider entityWithItemID:itemID];
+        gridElementEntity.friend = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
+        [gridElementEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+        return [ZZGridDataProvider modelFromEntity:gridElementEntity];
     });
 }
 

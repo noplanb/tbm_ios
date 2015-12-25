@@ -22,10 +22,11 @@
 + (BOOL)isUniqueFirstName:(NSString*)firstName friendID:(NSString*)friendID
 {
     NSArray* friends = [ZZFriendDataProvider loadAllFriends];
-    ZZFriendDomainModel* friend = [ZZFriendDataProvider friendWithItemID: friendID];
-    for (ZZFriendDomainModel *f in friends)
+    ZZFriendDomainModel* aFriendModel = [ZZFriendDataProvider friendWithItemID: friendID];
+    
+    for (ZZFriendDomainModel *friendModel in friends)
     {
-        if (![friend.idTbm isEqual:f.idTbm] && [firstName isEqualToString:f.firstName])
+        if (![aFriendModel.idTbm isEqual:friendModel.idTbm] && [firstName isEqualToString:friendModel.firstName])
             return NO;
     }
     return YES;
@@ -34,13 +35,13 @@
 
 #pragma mark - Friend video helpers
 
-+ (BOOL)isFriend:(ZZFriendDomainModel*)friend hasIncomingVideoWithId:(NSString*)videoId
++ (BOOL)isFriend:(ZZFriendDomainModel*)friendModel hasIncomingVideoWithId:(NSString*)videoID
 {
     BOOL hasVideo = NO;
-    NSArray* videos = [friend.videos copy];
-    for (ZZVideoDomainModel* video in videos)
+    NSArray* videos = [friendModel.videos copy];
+    for (ZZVideoDomainModel* videoModel in videos)
     {
-        if ([video.videoID isEqualToString:videoId])
+        if ([videoModel.videoID isEqualToString:videoID])
         {
             hasVideo = YES;
         }
@@ -51,9 +52,10 @@
 
 + (NSInteger)unviewedVideoCountWithFriendModel:(ZZFriendDomainModel*)friendModel
 {
-    TBMFriend *entity = [ZZFriendDataProvider entityFromModel:friendModel];
+    TBMFriend *friendEntity = [ZZFriendDataProvider entityFromModel:friendModel];
+    
     NSNumber *count = ZZDispatchOnMainThreadAndReturn(^id{
-        return @([self unviewedVideoCountWithFriend:entity]);
+        return @([self unviewedVideoCountWithFriend:friendEntity]);
     });
     
     return count.integerValue;
@@ -64,12 +66,12 @@
     return friendModel.hasOutgoingVideo;
 }
 
-+ (NSInteger)unviewedVideoCountWithFriend:(TBMFriend*)friendModel
++ (NSInteger)unviewedVideoCountWithFriend:(TBMFriend*)friendEntity
 {
     NSInteger i = 0;
-    for (TBMVideo *v in [friendModel videos])
+    for (TBMVideo *videoEntity in [friendEntity videos])
     {
-        if (v.statusValue == ZZVideoIncomingStatusDownloaded)
+        if (videoEntity.statusValue == ZZVideoIncomingStatusDownloaded)
         {
             i++;
         }
@@ -93,9 +95,9 @@
 + (NSArray*)everSentMkeys
 {
     NSMutableArray *result = [NSMutableArray array];
-    for (TBMFriend *friend in [self _allEverSentFriends])
+    for (TBMFriend *friendEntity in [self _allEverSentFriends])
     {
-        [result addObject:friend.mkey];
+        [result addObject:friendEntity.mkey];
     }
     return result;
 }
