@@ -61,33 +61,6 @@
     });
 }
 
-+ (void)updateViewedVideoCounterWithVideoDomainModel:(ZZVideoDomainModel*)playedVideoModel
-{
-    //TODO: (rinat) I left this method as is because I didn't understand why MR_saveToPersistentStoreAndWait is commented out
-    
-    ANDispatchBlockToMainQueue(^{
-        TBMVideo* viewedVideo = [ZZVideoDataProvider entityWithID:playedVideoModel.videoID];
-        if (!ANIsEmpty(viewedVideo))
-        {
-            if (viewedVideo.statusValue == ZZVideoIncomingStatusDownloaded)
-            {
-                //            viewedVideo.status = @(ZZVideoIncomingStatusViewed);
-                if (playedVideoModel.relatedUser.unviewedCount > 0)
-                {
-                    playedVideoModel.relatedUser.unviewedCount--;
-                }
-                else
-                {
-                    playedVideoModel.relatedUser.unviewedCount = 0;
-                }
-                
-                //            [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
-            }
-        }
-        
-    });
-}
-
 + (void)updateVideoWithID:(NSString *)videoID setIncomingStatus:(ZZVideoIncomingStatus)videoStatus
 {
     [self updateVideoWithID:videoID usingBlock:^(TBMVideo *video) {

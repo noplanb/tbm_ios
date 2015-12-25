@@ -271,8 +271,28 @@
 }
 
 - (void)_updateViewedVideoCounterWithVideoDomainModel:(ZZVideoDomainModel*)playedVideoModel
-{
-    [ZZVideoDataUpdater updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
+{    
+    ZZVideoDomainModel *updatedVideoModel = [ZZVideoDataProvider itemWithID:playedVideoModel.videoID];
+    
+    if (!ANIsEmpty(updatedVideoModel))
+    {
+        if (updatedVideoModel.incomingStatusValue == ZZVideoIncomingStatusDownloaded)
+        {
+            //            viewedVideo.status = @(ZZVideoIncomingStatusViewed);
+            if (playedVideoModel.relatedUser.unviewedCount > 0)
+            {
+                playedVideoModel.relatedUser.unviewedCount--;
+            }
+            else
+            {
+                playedVideoModel.relatedUser.unviewedCount = 0;
+            }
+            
+            //            [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
+        }
+    }
+    
+    
 }
 
 
