@@ -118,7 +118,7 @@
         TBMFriend *friendEntity = [ZZFriendDataProvider entityFromModel:friend];
         TBMVideo *video = [self createIncomingVideoForFriend:friendEntity withVideoId:videoId];
         ZZVideoDomainModel *model = [self modelFromEntity:video];
-        model.relatedUser = friend;
+        model.relatedUserID = friend.idTbm;
         return model;
     });
 }

@@ -410,7 +410,7 @@
                  if ([ZZVideoDataProvider isStatusDownloadingWithVideo:video])
                  {
                      ZZLogError(@"AppSync.handleStuckDownloads: Got no obInfo for vid:%@ this should not happen. Force requeue the video.", video.videoID);
-                     [self _queueDownloadWithFriendID:video.relatedUser.idTbm videoId:video.videoID force:YES];
+                     [self _queueDownloadWithFriendID:video.relatedUserID videoId:video.videoID force:YES];
                  }
                  
              }
@@ -487,7 +487,7 @@
 
 - (void)restartDownloadWithVideo:(ZZVideoDomainModel *)video
 {
-    NSString *marker = [TBMVideoIdUtils markerWithFriendID:[video relatedUser].idTbm videoID:video.videoID isUpload:NO];
+    NSString *marker = [TBMVideoIdUtils markerWithFriendID:video.relatedUserID videoID:video.videoID isUpload:NO];
     [[self fileTransferManager] restartTransfer:marker onComplete:nil];
 }
 
@@ -495,7 +495,7 @@
 {
     __block NSDictionary* videoInfo = nil;
 
-    NSString* marker = [TBMVideoIdUtils markerWithFriendID:[video relatedUser].idTbm videoID:video.videoID isUpload:isUpload];
+    NSString* marker = [TBMVideoIdUtils markerWithFriendID:video.relatedUserID videoID:video.videoID isUpload:isUpload];
     [allInfo enumerateObjectsUsingBlock:^(NSDictionary*  _Nonnull object, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString* dMarker = [object objectForKey:MarkerKey];
         if ([dMarker isEqualToString:marker])
@@ -547,9 +547,12 @@
                     
                     NSString *marker = [TBMVideoIdUtils markerWithFriendID:friend.idTbm videoID:videoId isUpload:NO];
                     
-                    NSString *remoteFilename = [ZZRemoteStorageValueGenerator incomingVideoRemoteFilenameWithFriendMkey:video.relatedUser.mKey
-                                                                                                             friendCKey:video.relatedUser.cKey
-                                                                                                                videoId:video.videoID];
+                    ZZFriendDomainModel *relatedUser = [ZZFriendDataProvider friendWithItemID:video.relatedUserID];
+                    
+                    NSString *remoteFilename =
+                    [ZZRemoteStorageValueGenerator incomingVideoRemoteFilenameWithFriendMkey:relatedUser.mKey
+                                                                                  friendCKey:relatedUser.cKey
+                                                                                     videoId:video.videoID];
                     
                     [[self fileTransferManager] downloadFile:remoteStorageFileTransferDownloadPath()
                                                           to:[ZZVideoDataProvider videoUrlWithVideoModel:video].path

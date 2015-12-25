@@ -94,7 +94,7 @@
 {
     ZZVideoDomainModel* actualVideoModel = [models firstObject];
     
-   ZZFriendDomainModel *friend = [ZZFriendDataProvider friendWithItemID:actualVideoModel.relatedUser.idTbm];
+    ZZFriendDomainModel *friend = [ZZFriendDataProvider friendWithItemID:actualVideoModel.relatedUserID];
     ZZVideoDomainModel *video = [ZZVideoDataProvider itemWithID:actualVideoModel.videoID];
     
     NSInteger twoNotViewedVideosCount = 2;
@@ -134,7 +134,7 @@
         ZZVideoDomainModel* playedVideoModel = [self _actualVideoDomainModelWithSortedModels:self.videoModelsArray];
         
         
-        self.playedFriend = playedVideoModel.relatedUser;
+        self.playedFriend = [ZZFriendDataProvider friendWithItemID:playedVideoModel.relatedUserID];
         self.currentPlayedUrl = playedVideoModel.videoURL;
         
         ZZVideoDomainModel *viewedVideo = [ZZVideoDataProvider itemWithID:playedVideoModel.videoID];
@@ -147,7 +147,7 @@
             self.moviePlayerController.contentURL = self.currentPlayedUrl;
             
             //save video state
-            [self _updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
+//            [self _updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
             
             self.moviePlayerController.view.frame = view.bounds;
             [view addSubview:self.moviePlayerController.view];
@@ -163,14 +163,14 @@
             // Allow whether locked or unlocked. Users wont know about it till we tell them it is unlocked.
             [[AVAudioSession sharedInstance] startPlaying];
 
-            ZZFriendDomainModel *friend = [ZZFriendDataProvider friendWithItemID:playedVideoModel.relatedUser.idTbm];
             
-            [[ZZVideoStatusHandler sharedInstance] setAndNotityViewedIncomingVideoWithFriendID:friend.idTbm videoID:viewedVideo.videoID];
+            [[ZZVideoStatusHandler sharedInstance]
+             setAndNotityViewedIncomingVideoWithFriendID:self.playedFriend.idTbm videoID:viewedVideo.videoID];
             
             [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoID
                                                                         toStatus:ZZRemoteStorageVideoStatusViewed
-                                                                      friendMkey:friend.mKey
-                                                                      friendCKey:friend.cKey] subscribeNext:^(id x) {}];
+                                                                      friendMkey:self.playedFriend.mKey
+                                                                      friendCKey:self.playedFriend.cKey] subscribeNext:^(id x) {}];
         }
         else
         {
@@ -270,30 +270,33 @@
     }
 }
 
-- (void)_updateViewedVideoCounterWithVideoDomainModel:(ZZVideoDomainModel*)playedVideoModel
-{    
-    ZZVideoDomainModel *updatedVideoModel = [ZZVideoDataProvider itemWithID:playedVideoModel.videoID];
-    
-    if (!ANIsEmpty(updatedVideoModel))
-    {
-        if (updatedVideoModel.incomingStatusValue == ZZVideoIncomingStatusDownloaded)
-        {
-            //            viewedVideo.status = @(ZZVideoIncomingStatusViewed);
-            if (playedVideoModel.relatedUser.unviewedCount > 0)
-            {
-                playedVideoModel.relatedUser.unviewedCount--;
-            }
-            else
-            {
-                playedVideoModel.relatedUser.unviewedCount = 0;
-            }
-            
-            //            [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
-        }
-    }
-    
-    
-}
+//- (void)_updateViewedVideoCounterWithVideoDomainModel:(ZZVideoDomainModel*)playedVideoModel
+//{
+//    ZZLogEvent(@"RNT _updateViewedVideoCounterWithVideoDomainModel: %@", playedVideoModel)
+//    ZZVideoDomainModel *updatedVideoModel = [ZZVideoDataProvider itemWithID:playedVideoModel.videoID];
+//    
+//    if (!ANIsEmpty(updatedVideoModel))
+//    {
+//        if (updatedVideoModel.incomingStatusValue == ZZVideoIncomingStatusDownloaded)
+//        {
+//            //            viewedVideo.status = @(ZZVideoIncomingStatusViewed);
+////            if (playedVideoModel.relatedUser.unviewedCount > 0)
+////            {
+////                playedVideoModel.relatedUser.unviewedCount--;
+////            }
+////            else
+////            {
+////                playedVideoModel.relatedUser.unviewedCount = 0;
+////            }
+//
+//#warning message
+//            
+//            //            [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
+//        }
+//    }
+//    
+//    
+//}
 
 
 #pragma mark - Configure Next played index
@@ -360,7 +363,9 @@
     {
         ZZVideoDomainModel* playedVideoModel = self.videoModelsArray[index];
         
-        self.playedFriend = playedVideoModel.relatedUser;
+        ZZFriendDomainModel *relatedUser = [ZZFriendDataProvider friendWithItemID:playedVideoModel.relatedUserID];
+        
+        self.playedFriend = relatedUser;
         self.currentPlayedUrl = nextUrl;
         
         if ((playedVideoModel.incomingStatusValue == ZZVideoIncomingStatusDownloaded ||
@@ -368,16 +373,16 @@
             [ZZFileHelper isFileExistsAtURL:self.currentPlayedUrl])
         {
             //save video state
-            [self _updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
+//            [self _updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
             
             self.moviePlayerController.contentURL = nextUrl;
             
-            [[ZZVideoStatusHandler sharedInstance] setAndNotityViewedIncomingVideoWithFriendID:playedVideoModel.relatedUser.idTbm videoID:playedVideoModel.videoID];
+            [[ZZVideoStatusHandler sharedInstance] setAndNotityViewedIncomingVideoWithFriendID:playedVideoModel.relatedUserID videoID:playedVideoModel.videoID];
             
             [ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:playedVideoModel.videoID
                                                                         toStatus:ZZRemoteStorageVideoStatusViewed
-                                                                      friendMkey:playedVideoModel.relatedUser.mKey
-                                                                      friendCKey:playedVideoModel.relatedUser.cKey];
+                                                                      friendMkey:relatedUser.mKey
+                                                                      friendCKey:relatedUser.cKey];
             
             [self.delegate videoPlayerURLWasStartPlaying:nextUrl];
             
@@ -386,7 +391,7 @@
             // Allow play from ear even if locked. User wont know its available till he unlocks it.
             [[AVAudioSession sharedInstance] startPlaying];
             
-            [self _updateFriendVideoStatusWithFriend:playedVideoModel.relatedUser video:playedVideoModel videoIndex:index];
+            [self _updateFriendVideoStatusWithFriend:relatedUser video:playedVideoModel videoIndex:index];
             
             [self.moviePlayerController play];
         }
@@ -409,8 +414,6 @@
         friendModel.lastIncomingVideoStatus != videoModel.incomingStatusValue)
     {
         friendModel.lastIncomingVideoStatus = videoModel.incomingStatusValue;
-//        [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
-
         [ZZFriendDataUpdater updateFriendWithID:friendModel.idTbm setLastIncomingVideoStatus: videoModel.incomingStatusValue];
     }
 }
