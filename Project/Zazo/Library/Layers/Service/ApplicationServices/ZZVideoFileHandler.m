@@ -27,6 +27,7 @@
 #import "ZZFriendDataHelper.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZFriendDataUpdater.h"
+#import "ZZVideoDataUpdater.h"
 
 @interface ZZVideoFileHandler () <OBFileTransferDelegate>
 
@@ -334,9 +335,7 @@
         
         if (validThumb)
         {
-            ANDispatchBlockToMainQueue(^{
-                [self.delegate deleteAllViewedOrFailedVideosWithFriendId:friendId];
-            });
+            [ZZVideoDataUpdater deleteAllViewedOrFailedVideoWithFriendId:friendId];
         }
         
         [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloaded friendId:friendId videoId:videoId];

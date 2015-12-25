@@ -200,11 +200,6 @@
     [[ZZVideoStatusHandler sharedInstance] setAndNotifyIncomingVideoStatus:status friendId:friendId videoId:videoId];
 }
 
-- (void)deleteAllViewedOrFailedVideosWithFriendId:(NSString *)friendId
-{
-    [ZZVideoDataUpdater deleteAllViewedOrFailedVideoWithFriendId:friendId];
-}
-
 
 - (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount withFriendID:(NSString *)friendID videoID:(NSString *)videoID
 {
