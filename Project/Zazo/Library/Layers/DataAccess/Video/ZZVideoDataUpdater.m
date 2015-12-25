@@ -43,13 +43,11 @@
 //    return item;
 //}
 
-+ (void)destroy:(TBMVideo *)video
++ (void)_destroy:(TBMVideo *)video
 {
-    ANDispatchBlockToMainQueue(^{
-        NSManagedObjectContext* context = video.managedObjectContext;
-        [video MR_deleteEntity];
-        [context MR_saveToPersistentStoreAndWait];
-    });
+    NSManagedObjectContext* context = video.managedObjectContext;
+    [video MR_deleteEntity];
+    [context MR_saveToPersistentStoreAndWait];
 }
 
 #pragma mark Update methods
@@ -108,61 +106,48 @@
 
 + (void)deleteAllViewedOrFailedVideoWithFriendId:(NSString*)friendId
 {
-    ZZLogInfo(@"deleteAllViewedVideos");
-    
-    TBMFriend* friendModel = [ZZFriendDataProvider friendEntityWithItemID:friendId];
-    
-    NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"videoId" ascending:YES];
-    NSArray* sortedVidoes = [friendModel.videos sortedArrayUsingDescriptors:@[d]];
-    
-    for (TBMVideo *v in sortedVidoes)
-    {
-        if (v.statusValue == ZZVideoIncomingStatusViewed ||
-            v.statusValue == ZZVideoIncomingStatusFailedPermanently)
+    ANDispatchBlockToMainQueue(^{
+        ZZLogInfo(@"deleteAllViewedVideos");
+        
+        TBMFriend* friendModel = [ZZFriendDataProvider friendEntityWithItemID:friendId];
+        
+        NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"videoId" ascending:YES];
+        NSArray* sortedVidoes = [friendModel.videos sortedArrayUsingDescriptors:@[d]];
+        
+        for (TBMVideo *v in sortedVidoes)
         {
-            [self deleteVideo:v withFriend:friendModel];
+            if (v.statusValue == ZZVideoIncomingStatusViewed ||
+                v.statusValue == ZZVideoIncomingStatusFailedPermanently)
+            {
+                [self _deleteVideo:v withFriend:friendModel];
+            }
         }
-    }
+    });
 }
 
-+ (void)deleteVideo:(TBMVideo*)video withFriend:(TBMFriend*)friend
++ (void)_deleteVideo:(TBMVideo*)videoEntity withFriend:(TBMFriend*)friend
 {
-    [ZZVideoDataUpdater deleteFilesForVideo:video];
-    [friend removeVideosObject:video];
-    [ZZVideoDataUpdater destroy:video];
+    ZZVideoDomainModel *videoModel = [ZZVideoDataProvider modelFromEntity:videoEntity];
+    [ZZVideoDataUpdater _deleteFilesForVideo:videoModel];
+    
+    [friend removeVideosObject:videoEntity];
+    [ZZVideoDataUpdater _destroy:videoEntity];
     [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
 }
 
-+ (void)deleteVideoFileWithVideo:(TBMVideo*)video
++ (void)_deleteVideoFileWithVideo:(ZZVideoDomainModel*)videoModel
 {
-    ANDispatchBlockToMainQueue(^{
-        ZZLogInfo(@"deleteVideoFile");
-        NSFileManager *fm = [NSFileManager defaultManager];
-        NSError *error = nil;
-        [fm removeItemAtURL:[ZZVideoDataProvider videoUrlWithVideo:video] error:&error];
-    });
+    ZZLogInfo(@"deleteVideoFile");
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSError *error = nil;
+    [fm removeItemAtURL:[ZZVideoDataProvider videoUrlWithVideoModel:videoModel] error:&error];
 }
 
-+ (void)deleteFilesForVideo:(TBMVideo*)video
++ (void)_deleteFilesForVideo:(ZZVideoDomainModel*)videoModel
 {
-    ANDispatchBlockToMainQueue(^{
-        [self deleteVideoFileWithVideo:video];
-        ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:video];
-        [ZZThumbnailGenerator deleteThumbFileForVideo:videoModel];
-        
-    });
+    [self _deleteVideoFileWithVideo:videoModel];
+    [ZZThumbnailGenerator deleteThumbFileForVideo:videoModel];
 }
-
-//+ (TBMVideo*)entityFromModel:(ZZVideoDomainModel*)model
-//{
-//    TBMVideo* entity = [ZZVideoDataProvider entityWithID:model.videoID];
-//    if (!entity)
-//    {
-//        entity = [TBMVideo MR_createEntityInContext:[self _context]];
-//    }
-//    return [ZZVideoModelsMapper fillEntity:entity fromModel:model];
-//}
-
 
 #pragma mark - Private
 

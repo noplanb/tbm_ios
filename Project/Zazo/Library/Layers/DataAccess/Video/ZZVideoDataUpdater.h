@@ -14,12 +14,7 @@
 
 @interface ZZVideoDataUpdater : NSObject
 
-//+ (void)deleteItem:(ZZVideoDomainModel*)model;
-+ (void)destroy:(TBMVideo *)video;
-
 + (void)deleteAllViewedOrFailedVideoWithFriendId:(NSString*)friendId;
-+ (void)deleteVideoFileWithVideo:(TBMVideo*)video;
-+ (void)deleteFilesForVideo:(TBMVideo*)video;
 
 + (void)updateViewedVideoCounterWithVideoDomainModel:(ZZVideoDomainModel*)playedVideoModel;
 
