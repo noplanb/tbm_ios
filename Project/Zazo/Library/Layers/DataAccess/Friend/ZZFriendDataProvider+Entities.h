@@ -14,7 +14,7 @@
 #pragma mark - Entities
 
 + (TBMFriend*)friendEntityWithItemID:(NSString*)itemID;
-+ (TBMFriend*)friendEnityWithMkey:(NSString*)mKey;
++ (TBMFriend*)friendEntityWithMkey:(NSString*)mKey;
 
 #pragma mark - Mapping
 

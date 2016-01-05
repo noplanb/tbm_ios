@@ -20,36 +20,6 @@
 
 @implementation ZZVideoDataUpdater
 
-//+ (void)deleteItem:(ZZVideoDomainModel*)model
-//{
-//    TBMVideo* entity = [self entityFromModel:model];
-//    [entity MR_deleteEntityInContext:[self _context]];
-//
-//    [[self _context] MR_saveToPersistentStoreAndWait];
-//}
-
-//+ (TBMVideo*)entityWithID:(NSString*)itemID
-//{
-//    TBMVideo* item = nil;
-//    if (!ANIsEmpty(itemID))
-//    {
-//        NSArray* items = [TBMVideo MR_findByAttribute:TBMVideoAttributes.videoId withValue:itemID inContext:[self _context]];
-//        if (items.count > 1)
-//        {
-//            ANLogWarning(@"TBMVideo contains dupples for %@", itemID);
-//        }
-//        item = [items firstObject];
-//    }
-//    return item;
-//}
-
-+ (void)_destroy:(TBMVideo *)videoEntity
-{
-    NSManagedObjectContext* context = videoEntity.managedObjectContext;
-    [videoEntity MR_deleteEntity];
-    [context MR_saveToPersistentStoreAndWait];
-}
-
 #pragma mark Update methods
 
 + (void)updateVideoWithID:(NSString *)videoID usingBlock:(void (^)(TBMVideo *videoEntity))updateBlock
@@ -77,7 +47,7 @@
 
 #pragma mark - Delete Video Methods
 
-+ (void)deleteAllViewedOrFailedVideoWithFriendId:(NSString*)friendID
++ (void)deleteAllViewedOrFailedVideoWithFriendID:(NSString*)friendID
 {
     ANDispatchBlockToMainQueue(^{
         ZZLogInfo(@"deleteAllViewedVideos");
@@ -85,9 +55,9 @@
         TBMFriend* friendModel = [ZZFriendDataProvider friendEntityWithItemID:friendID];
         
         NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"videoId" ascending:YES];
-        NSArray* sortedVidoes = [friendModel.videos sortedArrayUsingDescriptors:@[d]];
+        NSArray* sortedVideos = [friendModel.videos sortedArrayUsingDescriptors:@[d]];
         
-        for (TBMVideo *v in sortedVidoes)
+        for (TBMVideo *v in sortedVideos)
         {
             if (v.statusValue == ZZVideoIncomingStatusViewed ||
                 v.statusValue == ZZVideoIncomingStatusFailedPermanently)
@@ -120,6 +90,13 @@
 {
     [self _deleteVideoFileWithVideo:videoModel];
     [ZZThumbnailGenerator deleteThumbFileForVideo:videoModel];
+}
+
++ (void)_destroy:(TBMVideo *)videoEntity
+{
+    NSManagedObjectContext* context = videoEntity.managedObjectContext;
+    [videoEntity MR_deleteEntity];
+    [context MR_saveToPersistentStoreAndWait];
 }
 
 #pragma mark - Private

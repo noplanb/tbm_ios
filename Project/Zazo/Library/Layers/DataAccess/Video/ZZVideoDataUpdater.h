@@ -10,7 +10,7 @@
 
 @interface ZZVideoDataUpdater : NSObject
 
-+ (void)deleteAllViewedOrFailedVideoWithFriendId:(NSString*)friendId;
++ (void)deleteAllViewedOrFailedVideoWithFriendID:(NSString*)friendId;
 
 + (void)updateVideoWithID:(NSString *)videoID setIncomingStatus:(ZZVideoIncomingStatus)videoStatus;
 + (void)updateVideoWithID:(NSString *)videoID setDownloadRetryCount:(NSUInteger)count;

@@ -280,7 +280,7 @@
                 
                 if (!friendModel.everSent)
                 {
-                    [ZZFriendDataUpdater updateEverSentFreindsWithMkeys:@[friendModel.mKey]];
+                    [ZZFriendDataUpdater updateEverSentFriendsWithMkeys:@[friendModel.mKey]];
                 }
                 
                 [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusUploaded withFriendID:friendID videoId:videoId];
@@ -335,7 +335,7 @@
         
         if (validThumb)
         {
-            [ZZVideoDataUpdater deleteAllViewedOrFailedVideoWithFriendId:friendId];
+            [ZZVideoDataUpdater deleteAllViewedOrFailedVideoWithFriendID:friendId];
         }
         
         [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloaded friendId:friendId videoId:videoId];
@@ -537,7 +537,7 @@
                 else
                 {
                     ZZLogInfo(@"queueVideoDownloadWithFriend: Creating new video for download: %@", videoID);
-                    videoModel = [ZZVideoDataProvider createIncomingVideoModelForFriend:friendModel withVideoId:videoID];
+                    videoModel = [ZZVideoDataProvider createIncomingVideoModelForFriend:friendModel withVideoID:videoID];
                 }
                 
                 if (!ANIsEmpty(videoModel))

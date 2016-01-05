@@ -37,11 +37,6 @@
     });
 }
 
-//+ (ZZFriendDomainModel*)friendWithOutgoingVideoItemID:(NSString*)videoItemID
-//{
-//    return [self _findFirstWithAttribute:TBMFriendAttributes.outgoingVideoId value:videoItemID];
-//}
-
 + (ZZFriendDomainModel*)friendWithItemID:(NSString*)itemID
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
@@ -102,7 +97,7 @@
     return result.boolValue;
 }
 
-+ (BOOL)isFriendExistsWithMKey:(NSString*)mKey
++ (BOOL)_isFriendExistsWithMKey:(NSString*)mKey
 {
     NSNumber *result = ZZDispatchOnMainThreadAndReturn(^id{
 
@@ -130,7 +125,7 @@
     });
 }
 
-+ (TBMFriend*)friendEnityWithMkey:(NSString*)mKey
++ (TBMFriend*)friendEntityWithMkey:(NSString*)mKey
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
         NSArray* result = [TBMFriend MR_findByAttribute:TBMFriendAttributes.mkey withValue:mKey];
@@ -144,18 +139,13 @@
 + (TBMFriend*)friendModelWithMobileNumber:(NSString*)mobileNumber
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
-        return [self modelFromEntity:[self friendWithMobileNumber:mobileNumber]];
+        
+        NSArray* result =
+        [TBMFriend MR_findByAttribute:TBMFriendAttributes.mobileNumber withValue:mobileNumber];
+        
+        return [self modelFromEntity:[result firstObject]];
     });
 }
-
-+ (TBMFriend*)friendWithMobileNumber:(NSString*)mobileNumber
-{
-    NSArray* result = [TBMFriend MR_findByAttribute:TBMFriendAttributes.mobileNumber withValue:mobileNumber];
-    TBMFriend* entifiy = [result firstObject];
-    
-    return entifiy;
-}
-
 
 #pragma mark - Count
 

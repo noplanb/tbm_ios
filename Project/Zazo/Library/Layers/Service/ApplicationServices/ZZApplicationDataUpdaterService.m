@@ -99,7 +99,7 @@
         
         ANDispatchBlockToBackgroundQueue(^{
             
-            [ZZFriendDataUpdater updateEverSentFreindsWithMkeys:x];
+            [ZZFriendDataUpdater updateEverSentFriendsWithMkeys:x];
             [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventDonwloadedMkeys
                                                notificationObject:x];
         });

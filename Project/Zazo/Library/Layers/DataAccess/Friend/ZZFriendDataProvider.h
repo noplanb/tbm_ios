@@ -11,7 +11,6 @@
 @interface ZZFriendDataProvider : NSObject
 
 + (BOOL)isFriendExistsWithItemID:(NSString*)itemID;
-+ (BOOL)isFriendExistsWithMKey:(NSString*)mKey;
 
 #pragma mark - Fetches
 

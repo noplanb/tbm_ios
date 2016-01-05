@@ -82,11 +82,11 @@
 }
 
 
-+ (void)updateEverSentFreindsWithMkeys:(NSArray*)mKeys
++ (void)updateEverSentFriendsWithMkeys:(NSArray*)mKeys
 {
     ANDispatchBlockToMainQueue(^{
         [mKeys enumerateObjectsUsingBlock:^(NSString*  _Nonnull mKey, NSUInteger idx, BOOL * _Nonnull stop) {
-            TBMFriend* friendEntity = [ZZFriendDataProvider friendEnityWithMkey:mKey];
+            TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithMkey:mKey];
             friendEntity.everSent = @(YES);
             friendEntity.isFriendshipCreator = @([friendEntity.friendshipCreatorMKey isEqualToString:friendEntity.mkey]);
         }];

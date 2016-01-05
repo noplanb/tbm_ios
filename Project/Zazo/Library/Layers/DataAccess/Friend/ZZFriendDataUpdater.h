@@ -21,7 +21,7 @@
 + (ZZFriendDomainModel*)updateConnectionStatusForUserWithID:(NSString*)itemID toValue:(ZZFriendshipStatusType)value;
 + (ZZFriendDomainModel*)upsertFriend:(ZZFriendDomainModel*)model;
 
-+ (void)updateEverSentFreindsWithMkeys:(NSArray*)mKeys;
++ (void)updateEverSentFriendsWithMkeys:(NSArray*)mKeys;
 + (void)fillEntitiesAfterMigration;
 
 + (void)deleteAllFriendsModels;
