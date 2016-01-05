@@ -22,7 +22,7 @@
 
 #pragma mark Update methods
 
-+ (void)updateVideoWithID:(NSString *)videoID usingBlock:(void (^)(TBMVideo *videoEntity))updateBlock
++ (void)_updateVideoWithID:(NSString *)videoID usingBlock:(void (^)(TBMVideo *videoEntity))updateBlock
 {
     ANDispatchBlockToMainQueue(^{
         TBMVideo* videoEntity = [ZZVideoDataProvider entityWithID:videoID];
@@ -33,14 +33,14 @@
 
 + (void)updateVideoWithID:(NSString *)videoID setIncomingStatus:(ZZVideoIncomingStatus)videoStatus
 {
-    [self updateVideoWithID:videoID usingBlock:^(TBMVideo *videoEntity) {
+    [self _updateVideoWithID:videoID usingBlock:^(TBMVideo *videoEntity) {
         videoEntity.statusValue = videoStatus;
     }];
 }
 
 + (void)updateVideoWithID:(NSString *)videoID setDownloadRetryCount:(NSUInteger)count
 {
-    [self updateVideoWithID:videoID usingBlock:^(TBMVideo *videoEntity) {
+    [self _updateVideoWithID:videoID usingBlock:^(TBMVideo *videoEntity) {
         videoEntity.downloadRetryCount = @(count);
     }];
 }

@@ -44,15 +44,6 @@
     });
 }
 
-//+ (void)deleteModel:(ZZGridDomainModel*)model
-//{
-//    TBMGridElement* entity = [ZZGridDataProvider entityWithItemID:model.itemID];
-//    NSManagedObjectContext* context = entity.managedObjectContext;
-//    [entity MR_deleteEntityInContext:context];
-//    [context MR_saveToPersistentStoreAndWait];
-//}
-
-
 #pragma mark - Update Grid models
 
 + (void)upsertGridModels:(NSArray*)models

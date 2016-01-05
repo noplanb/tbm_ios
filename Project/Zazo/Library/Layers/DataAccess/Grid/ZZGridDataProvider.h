@@ -26,6 +26,4 @@
 + (ZZGridDomainModel*)modelWithEarlierLastActionFriend;
 + (ZZGridDomainModel*)modelWithContact:(ZZContactDomainModel*)contactModel;
 
-
-
 @end

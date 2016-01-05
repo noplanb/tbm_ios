@@ -43,29 +43,23 @@
 - (void)updateApplicationBadge
 {
     ZZLogInfo(@"setBadgeNumberDownloadedUnviewed = %li", (long)[ZZVideoDataProvider countTotalUnviewedVideos]);
-    [self setBadgeCount:[ZZVideoDataProvider countTotalUnviewedVideos]];
+    [self _setBadgeCount:[ZZVideoDataProvider countTotalUnviewedVideos]];
 }
 
 
 #pragma mark -  Notification center and badge control
 
-- (void)clearBadgeCount
+- (void)_clearBadgeCount
 {
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 }
 
-- (void)setBadgeNumberUnviewed
-{
-    ZZLogInfo(@"setBadgeNumberUnviewed = %li", (long) [ZZVideoDataProvider countTotalUnviewedVideos]);
-    [self setBadgeCount:[ZZVideoDataProvider countTotalUnviewedVideos]];
-}
-
-- (void)setBadgeCount:(NSInteger)count
+- (void)_setBadgeCount:(NSInteger)count
 {
     if (count == 0)
     {
-        [self clearBadgeCount];
+        [self _clearBadgeCount];
     }
     else
     {
@@ -74,7 +68,7 @@
 }
 
 
-- (void)queueDownloadWithFriendID:(NSString*)friendID videoIds:(NSSet*)videoIds
+- (void)_queueDownloadWithFriendID:(NSString*)friendID videoIds:(NSSet*)videoIds
 {
     for (NSString *videoId in videoIds)
     {
@@ -118,7 +112,7 @@
 //                if (friendModel.videos.count)
 //                {
                     ZZLogInfo(@"%@  vids = %@", [NSObject an_safeString:[friendModel fullName]], model.videoIds ? : @[]);
-                    [self queueDownloadWithFriendID:friendModel.idTbm videoIds:model.videoIds];
+                    [self _queueDownloadWithFriendID:friendModel.idTbm videoIds:model.videoIds];
 //                }
             }
         }
@@ -139,8 +133,6 @@
                     ZZLogError(@"pollVideoStatusWithFriend: got unknown outgoing video status. This should never happen");
                     return;
                 }
-                
-                //TODO: remove this core data stuff
                 
                 if ([model status] != ZZVideoOutgoingStatusNone)
                 {

@@ -71,22 +71,19 @@
     return ZZDispatchOnMainThreadAndReturn(^id{
         
         TBMFriend *friendEntity = [ZZFriendDataProvider entityFromModel:friendModel];
-        TBMVideo *videoEntity = [self createIncomingVideoForFriend:friendEntity withVideoId:videoID];
+        TBMVideo *videoEntity = [self _createIncomingVideoForFriend:friendEntity withVideoId:videoID];
         ZZVideoDomainModel *modelModel = [self modelFromEntity:videoEntity];
         modelModel.relatedUserID = friendModel.idTbm;
         return modelModel;
     });
 }
 
-+ (TBMVideo*)createIncomingVideoForFriend:(TBMFriend*)friendEntity withVideoId:(NSString*)videoID
++ (TBMVideo*)_createIncomingVideoForFriend:(TBMFriend*)friendEntity withVideoId:(NSString*)videoID
 {
-    return ZZDispatchOnMainThreadAndReturn(^id{
-        TBMVideo *videoEntity = [ZZVideoDataProvider _newWithVideoID:videoID onContext:friendEntity.managedObjectContext];;
-        [friendEntity addVideosObject:videoEntity];
-        [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
-        return videoEntity;
-
-    });
+    TBMVideo *videoEntity = [ZZVideoDataProvider _newWithVideoID:videoID onContext:friendEntity.managedObjectContext];;
+    [friendEntity addVideosObject:videoEntity];
+    [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+    return videoEntity;
 }
 
 #pragma mark - Mapping

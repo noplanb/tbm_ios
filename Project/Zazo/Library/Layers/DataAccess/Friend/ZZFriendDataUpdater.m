@@ -18,7 +18,7 @@
 
 #pragma mark Update methods
 
-+ (void)updateFriendWithID:(NSString *)friendID usingBlock:(void (^)(TBMFriend *friendEntity))updateBlock
++ (void)_updateFriendWithID:(NSString *)friendID usingBlock:(void (^)(TBMFriend *friendEntity))updateBlock
 {
     ANDispatchBlockToMainQueue(^{
         TBMFriend* friendEntity = [self _userWithID:friendID];
@@ -30,7 +30,7 @@
 + (void)updateLastTimeActionFriendWithID:(NSString*)itemID
 {
     ANDispatchBlockToMainQueue(^{
-        [self updateFriendWithID:itemID usingBlock:^(TBMFriend *friendEntity) {
+        [self _updateFriendWithID:itemID usingBlock:^(TBMFriend *friendEntity) {
             friendEntity.timeOfLastAction = [NSDate date];
         }];
     });
@@ -48,35 +48,35 @@
 
 + (void)updateFriendWithID:(NSString *)friendID setLastIncomingVideoStatus:(ZZVideoIncomingStatus)status
 {
-    [self updateFriendWithID:friendID usingBlock:^(TBMFriend *friendEntity) {
+    [self _updateFriendWithID:friendID usingBlock:^(TBMFriend *friendEntity) {
         friendEntity.lastIncomingVideoStatus = @(status);
     }];
 }
 
 + (void)updateFriendWithID:(NSString *)friendID setOutgoingVideoStatus:(ZZVideoOutgoingStatus)status
 {
-    [self updateFriendWithID:friendID usingBlock:^(TBMFriend *friendEntity) {
+    [self _updateFriendWithID:friendID usingBlock:^(TBMFriend *friendEntity) {
         friendEntity.outgoingVideoStatus = @(status);
     }];
 }
 
 + (void)updateFriendWithID:(NSString *)friendID setUploadRetryCount:(NSUInteger)count
 {
-    [self updateFriendWithID:friendID usingBlock:^(TBMFriend *friendEntity) {
+    [self _updateFriendWithID:friendID usingBlock:^(TBMFriend *friendEntity) {
         friendEntity.uploadRetryCount = @(count);
     }];
 }
 
 + (void)updateFriendWithID:(NSString *)friendID setLastVideoStatusEventType:(ZZVideoStatusEventType)eventType
 {
-    [self updateFriendWithID:friendID usingBlock:^(TBMFriend *friendEntity) {
+    [self _updateFriendWithID:friendID usingBlock:^(TBMFriend *friendEntity) {
         friendEntity.lastVideoStatusEventType = @(eventType);
     }];
 }
 
 + (void)updateFriendWithID:(NSString *)friendID setOutgoingVideoItemID:(NSString *)videoID
 {
-    [self updateFriendWithID:friendID usingBlock:^(TBMFriend *friendEntity) {
+    [self _updateFriendWithID:friendID usingBlock:^(TBMFriend *friendEntity) {
         friendEntity.outgoingVideoId = videoID;
     }];
 }
