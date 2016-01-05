@@ -9,26 +9,12 @@
 #import "ZZGridDataProvider.h"
 
 @class TBMGridElement;
-@class TBMFriend;
 
 @interface ZZGridDataProvider (Entities)
-
-#pragma mark - Fetches
-
-+ (ZZGridDomainModel*)modelWithFriend:(TBMFriend *)item;
 
 #pragma mark - Mapping
 
 + (ZZGridDomainModel*)modelFromEntity:(TBMGridElement*)entity;
 + (TBMGridElement*)entityWithItemID:(NSString*)itemID;
-
-+ (TBMGridElement*)findWithIntIndex:(NSInteger)i;
-+ (TBMGridElement*)findWithFriend:(TBMFriend *)item;
-
-
-//#pragma mark - Entities
-//
-//+ (BOOL)friendIsOnGrid:(TBMFriend *)item;
-//+ (BOOL)hasSentVideos:(NSUInteger)index;
 
 @end

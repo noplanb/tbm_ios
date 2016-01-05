@@ -12,7 +12,6 @@
 
 @interface ZZUserDataProvider (Entities)
 
-//+ (TBMUser*)entityFromModel:(ZZUserDomainModel*)model;
 + (ZZUserDomainModel*)modelFromEntity:(TBMUser*)entity;
 
 @end
