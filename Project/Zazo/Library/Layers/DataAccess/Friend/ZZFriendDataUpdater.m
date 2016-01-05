@@ -95,6 +95,14 @@
     });
 }
 
++ (void)deleteAllFriendsModels
+{
+    ANDispatchBlockToMainQueue(^{
+        [TBMFriend MR_truncateAllInContext:[self _context]];
+        [[self _context] MR_saveToPersistentStoreAndWait];
+    });
+}
+
 #pragma mark Upsert
 
 + (ZZFriendDomainModel*)upsertFriend:(ZZFriendDomainModel*)friendModel

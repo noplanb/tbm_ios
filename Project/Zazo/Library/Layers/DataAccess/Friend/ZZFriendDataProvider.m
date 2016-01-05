@@ -209,32 +209,6 @@
     }] array];
 }
 
-
-#pragma mark - CRUD
-
-//+ (void)upsertFriendWithModel:(ZZFriendDomainModel*)model
-//{
-//    TBMFriend* entity = [self entityFromModel:model];
-//    [ZZFriendModelsMapper fillEntity:entity fromModel:model];
-//    [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
-//}
-//
-//+ (void)deleteFriendWithID:(NSString*)itemID
-//{
-//    TBMFriend* entity = [[TBMFriend MR_findByAttribute:TBMFriendAttributes.idTbm withValue:itemID inContext:[self _context]] firstObject];
-//    [entity MR_deleteEntityInContext:[self _context]];
-//    [[self _context] MR_saveToPersistentStoreAndWait];
-//}
-
-+ (void)deleteAllFriendsModels
-{
-    ANDispatchBlockToMainQueue(^{        
-        [TBMFriend MR_truncateAllInContext:[self _context]];
-        [[self _context] MR_saveToPersistentStoreAndWait];
-    });
-}
-
-
 #pragma mark - Private
 
 + (ZZFriendDomainModel*)_findFirstWithAttribute:(NSString*)attribute value:(NSString*)value
