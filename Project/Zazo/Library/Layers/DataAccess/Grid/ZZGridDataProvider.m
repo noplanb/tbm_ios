@@ -13,7 +13,7 @@
 #import "ZZGridDataUpdater.h"
 #import "ZZUserFriendshipStatusHandler.h"
 #import "ZZContactDomainModel.h"
-#import "ZZContentDataAcessor.h"
+#import "ZZContentDataAccessor.h"
 
 @implementation ZZGridDataProvider
 
@@ -256,7 +256,7 @@
 
 + (NSManagedObjectContext*)_context
 {
-    return [ZZContentDataAcessor mainThreadContext];
+    return [ZZContentDataAccessor mainThreadContext];
 }
 
 @end

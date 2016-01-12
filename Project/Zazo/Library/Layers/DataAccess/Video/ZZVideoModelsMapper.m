@@ -31,6 +31,7 @@
         model.downloadRetryCount = [entity.downloadRetryCount integerValue];
         model.incomingStatusValue = [entity.status integerValue];
         model.videoURL = [ZZVideoDataProvider videoUrlWithVideo:entity];
+        model.relatedUserID = entity.friend.idTbm;
     }
     @catch (NSException *exception)
     {

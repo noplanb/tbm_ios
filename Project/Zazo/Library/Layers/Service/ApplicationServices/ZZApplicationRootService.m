@@ -17,7 +17,7 @@
 #import "ZZNotificationTransportService.h"
 #import "ZZUserDataProvider.h"
 #import "ZZFriendDataProvider.h"
-#import "ZZContentDataAcessor.h"
+#import "ZZContentDataAccessor.h"
 #import "ZZApplicationPermissionsHandler.h"
 #import "ZZVideoDataProvider.h"
 #import "ZZRootStateObserver.h"
@@ -142,7 +142,7 @@
         self.backgroundTaskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
             ZZLogInfo(@"AppDelegate: Ending background");
             [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTaskID];
-            [ZZContentDataAcessor saveDataBase];
+            [ZZContentDataAccessor saveDataBase];
             self.backgroundTaskID = UIBackgroundTaskInvalid;
         }];
     }

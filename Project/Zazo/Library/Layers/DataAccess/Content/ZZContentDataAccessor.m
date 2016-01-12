@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZContentDataAcessor.h"
+#import "ZZContentDataAccessor.h"
 #import "TBMFriend.h"
 #import "ZZFriendDataUpdater.h"
 #import "ZZUserDataProvider.h"
@@ -18,7 +18,7 @@
 #import "ZZCommonNetworkTransport.h"
 
 
-@implementation ZZContentDataAcessor
+@implementation ZZContentDataAccessor
 
 + (void)startWithCompletionBlock:(ANCodeBlock)completionBlock
 {

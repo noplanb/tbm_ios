@@ -14,7 +14,7 @@
 #import "ZZFriendModelsMapper.h"
 #import "ZZGridDataProvider.h"
 #import "ZZGridDomainModel.h"
-#import "ZZContentDataAcessor.h"
+#import "ZZContentDataAccessor.h"
 #import "ZZUserFriendshipStatusHandler.h"
 #import "TBMVideo.h"
 
@@ -27,7 +27,7 @@
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
         
-        [ZZContentDataAcessor refreshContext:[self _context]];
+        [ZZContentDataAccessor refreshContext:[self _context]];
         
         NSArray* result = [TBMFriend MR_findAllInContext:[self _context]];
         return [[result.rac_sequence map:^id(id value) {
@@ -210,7 +210,7 @@
 
 + (NSManagedObjectContext*)_context
 {
-    return [ZZContentDataAcessor mainThreadContext];
+    return [ZZContentDataAccessor mainThreadContext];
 }
 
 @end

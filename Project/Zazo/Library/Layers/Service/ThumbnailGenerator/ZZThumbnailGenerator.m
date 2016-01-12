@@ -93,7 +93,7 @@
     UIImage *thumbImage = nil;
     NSURL *thumbUrl = nil;
     
-    NSArray* videos = [ZZVideoDataProvider sortedIncomingVideosForUser:friendModel];
+    NSArray* videos = [ZZVideoDataProvider sortedIncomingVideosForUserWithID:friendModel.idTbm];
     
     for (ZZVideoDomainModel *video in videos)
     {

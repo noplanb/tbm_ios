@@ -22,7 +22,7 @@
 + (NSUInteger)countTotalUnviewedVideos;
 + (NSUInteger)countAllVideos;
 
-+ (NSArray*)sortedIncomingVideosForUser:(ZZFriendDomainModel*)friendModel;
++ (NSArray*)sortedIncomingVideosForUserWithID:(NSString *)friendID;
 
 #pragma mark - Helpers
 

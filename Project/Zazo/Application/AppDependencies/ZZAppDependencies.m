@@ -11,7 +11,7 @@
 #import "ZZAppDependencies.h"
 #import "ZZRootWireframe.h"
 #import "ANCrashlyticsAdapter.h"
-#import "ZZContentDataAcessor.h"
+#import "ZZContentDataAccessor.h"
 #import "ZZVideoRecorder.h"
 #import "ZZUserDataProvider.h"
 #import "ZZRollbarAdapter.h"
@@ -38,7 +38,7 @@
                          window:(UIWindow*)window
 {
     [ANCrashlyticsAdapter start];
-    [ZZContentDataAcessor startWithCompletionBlock:^{
+    [ZZContentDataAccessor startWithCompletionBlock:^{
         [ZZRollbarAdapter shared];
         
         ANDispatchBlockToBackgroundQueue(^{
@@ -91,13 +91,13 @@
 
 - (void)handleApplicationWillTerminate
 {
-    [ZZContentDataAcessor saveDataBase];
+    [ZZContentDataAccessor saveDataBase];
 }
 
 - (void)handleApplicationDidEnterInBackground
 {
     ZZLogInfo(@"applicationDidEnterBackground: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
-    [ZZContentDataAcessor saveDataBase];
+    [ZZContentDataAccessor saveDataBase];
     [[OBLogger instance] logEvent:OBLogEventAppBackground];
 }
 

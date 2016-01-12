@@ -11,7 +11,7 @@
 #import "TBMFriend.h"
 #import "ZZFriendModelsMapper.h"
 #import "ZZFriendDataProvider+Entities.h"
-#import "ZZContentDataAcessor.h"
+#import "ZZContentDataAccessor.h"
 #import "ZZVideoStatusHandler.h"
 
 @implementation ZZFriendDataUpdater
@@ -170,7 +170,7 @@
 
 + (NSManagedObjectContext*)_context
 {
-    return [ZZContentDataAcessor mainThreadContext];
+    return [ZZContentDataAccessor mainThreadContext];
 }
 
 @end

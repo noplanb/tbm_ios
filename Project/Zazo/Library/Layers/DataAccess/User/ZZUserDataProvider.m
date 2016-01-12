@@ -9,7 +9,7 @@
 #import "ZZUserDataProvider+Entities.h"
 #import "ZZUserModelsMapper.h"
 #import "MagicalRecord.h"
-#import "ZZContentDataAcessor.h"
+#import "ZZContentDataAccessor.h"
 
 @implementation ZZUserDataProvider
 
@@ -70,7 +70,7 @@
 
 + (NSManagedObjectContext*)_context
 {
-    return [ZZContentDataAcessor mainThreadContext];
+    return [ZZContentDataAccessor mainThreadContext];
 
 }
 

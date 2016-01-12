@@ -13,7 +13,7 @@
 #import "ZZVideoDomainModel.h"
 #import "MagicalRecord.h"
 #import "ZZVideoDataUpdater.h"
-#import "ZZContentDataAcessor.h"
+#import "ZZContentDataAccessor.h"
 #import "ZZVideoStatuses.h"
 #import "ZZFriendDataProvider+Entities.h"
 
@@ -89,7 +89,7 @@
     NSPredicate *everSent = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.everSent, @(YES)];
     NSPredicate *creator = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.isFriendshipCreator, @(NO)];
     NSPredicate *filter = [NSCompoundPredicate andPredicateWithSubpredicates:@[everSent, creator]];
-    return [TBMFriend MR_findAllWithPredicate:filter inContext:[ZZContentDataAcessor mainThreadContext]];
+    return [TBMFriend MR_findAllWithPredicate:filter inContext:[ZZContentDataAccessor mainThreadContext]];
 }
 
 + (NSArray*)everSentMkeys

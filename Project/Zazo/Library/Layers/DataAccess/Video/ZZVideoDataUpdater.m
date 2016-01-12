@@ -15,7 +15,7 @@
 #import "ZZThumbnailGenerator.h"
 #import "ZZVideoDomainModel.h"
 #import "ZZVideoModelsMapper.h"
-#import "ZZContentDataAcessor.h"
+#import "ZZContentDataAccessor.h"
 #import "ZZFriendDomainModel.h"
 
 @implementation ZZVideoDataUpdater
@@ -49,28 +49,25 @@
 
 + (void)deleteAllViewedOrFailedVideoWithFriendID:(NSString*)friendID
 {
-    ANDispatchBlockToMainQueue(^{
-        ZZLogInfo(@"deleteAllViewedVideos");
-        
-        TBMFriend* friendModel = [ZZFriendDataProvider friendEntityWithItemID:friendID];
-        
-        NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"videoId" ascending:YES];
-        NSArray* sortedVideos = [friendModel.videos sortedArrayUsingDescriptors:@[d]];
-        
-        for (TBMVideo *v in sortedVideos)
+    ZZLogInfo(@"deleteAllViewedVideos");
+    
+    NSArray* sortedVideos = [ZZVideoDataProvider sortedIncomingVideosForUserWithID:friendID];
+    
+    for (ZZVideoDomainModel *videoModel in sortedVideos)
+    {
+        if (videoModel.incomingStatusValue == ZZVideoIncomingStatusViewed ||
+            videoModel.incomingStatusValue == ZZVideoIncomingStatusFailedPermanently)
         {
-            if (v.statusValue == ZZVideoIncomingStatusViewed ||
-                v.statusValue == ZZVideoIncomingStatusFailedPermanently)
-            {
-                [self _deleteVideo:v withFriend:friendModel];
-            }
+            TBMFriend *friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendID];
+            [self _deleteVideo:videoModel withFriend:friendEntity];
         }
-    });
+    }
 }
 
-+ (void)_deleteVideo:(TBMVideo*)videoEntity withFriend:(TBMFriend*)friendEntity
++ (void)_deleteVideo:(ZZVideoDomainModel*)videoModel withFriend:(TBMFriend*)friendEntity
 {
-    ZZVideoDomainModel *videoModel = [ZZVideoDataProvider modelFromEntity:videoEntity];
+    TBMVideo *videoEntity = [ZZVideoDataProvider entityWithID:videoModel.videoID];
+    
     [ZZVideoDataUpdater _deleteFilesForVideo:videoModel];
     
     [friendEntity removeVideosObject:videoEntity];
@@ -103,7 +100,7 @@
 
 + (NSManagedObjectContext*)_context
 {
-    return [ZZContentDataAcessor mainThreadContext];
+    return [ZZContentDataAccessor mainThreadContext];
 }
 
 

@@ -20,7 +20,7 @@
 #import "MagicalRecord.h"
 #import "ZZGridInteractor.h"
 #import "ZZRollbarAdapter.h"
-#import "ZZContentDataAcessor.h"
+#import "ZZContentDataAccessor.h"
 #import "ZZApplicationStateInfoGenerator.h"
 #import "ZZNotificationsHandler.h"
 
@@ -65,7 +65,7 @@
 {
     ANDispatchBlockToMainQueue(^{        
         //TODO: move it to data updaters
-        NSManagedObjectContext* context = [ZZContentDataAcessor mainThreadContext];
+        NSManagedObjectContext* context = [ZZContentDataAccessor mainThreadContext];
         [TBMFriend MR_truncateAllInContext:context];
         [TBMVideo MR_truncateAllInContext:context];
         [context MR_saveToPersistentStoreAndWait];

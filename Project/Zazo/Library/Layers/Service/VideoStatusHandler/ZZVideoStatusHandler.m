@@ -7,7 +7,7 @@
 //
 
 #import "ZZVideoStatusHandler.h"
-#import "ZZContentDataAcessor.h"
+#import "ZZContentDataAccessor.h"
 #import "ZZVideoDataUpdater.h"
 #import "ZZApplicationRootService.h"
 #import "ZZNotificationsConstants.h"
@@ -103,7 +103,7 @@
         
 
         ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
-        [ZZContentDataAcessor refreshContext:[ZZContentDataAcessor mainThreadContext]];
+        [ZZContentDataAccessor refreshContext:[ZZContentDataAccessor mainThreadContext]];
         if (![videoID isEqualToString:friendModel.outgoingVideoItemID])
         {
             ZZLogWarning(@"setAndNotifyUploadRetryCount: Unrecognized vidoeId. Ignoring.");
@@ -169,7 +169,7 @@
                           withVideoId:(NSString*)videoID;
 {
     ANDispatchBlockToMainQueue(^{
-        [ZZContentDataAcessor refreshContext:[ZZContentDataAcessor mainThreadContext]];
+        [ZZContentDataAccessor refreshContext:[ZZContentDataAccessor mainThreadContext]];
         
         ZZFriendDomainModel * friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
         

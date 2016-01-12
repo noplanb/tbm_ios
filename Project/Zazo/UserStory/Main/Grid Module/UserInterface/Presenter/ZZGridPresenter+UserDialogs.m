@@ -17,7 +17,7 @@
 #import "ZZGridPresenter+ActionHandler.h"
 #import "ZZGridDataSource.h"
 #import "ZZPhoneHelper.h"
-#import "ZZContentDataAcessor.h"
+#import "ZZContentDataAccessor.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZCommunicationDomainModel.h"
 
