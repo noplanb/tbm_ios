@@ -79,18 +79,18 @@
     });
 }
 
-+ (ZZGridDomainModel*)modelWithFriend:(TBMFriend *)item
++ (ZZGridDomainModel*)modelWithFriend:(TBMFriend *)friendEntity
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
         
         ZZGridDomainModel *gridModel = nil;
         
-        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, item];
-        TBMGridElement* entity = [[TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]] firstObject];
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, friendEntity];
+        TBMGridElement* gridElementEntity = [[TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]] firstObject];
         
-        if (entity)
+        if (gridElementEntity)
         {
-            gridModel = [self modelFromEntity:entity];
+            gridModel = [self modelFromEntity:gridElementEntity];
         }
         
         return gridModel;
@@ -100,8 +100,8 @@
 
 + (BOOL)isRelatedUserOnGridWithID:(NSString*)userID
 {
-    ZZGridDomainModel* model = [self modelWithRelatedUserID:userID];
-    return (model != nil);
+    ZZGridDomainModel* gridModel = [self modelWithRelatedUserID:userID];
+    return (gridModel != nil);
 }
 
 + (ZZGridDomainModel*)loadFirstEmptyGridElement
@@ -132,8 +132,8 @@
         
         NSString* keypath = [NSString stringWithFormat:@"%@.%@", TBMGridElementRelationships.friend, TBMFriendAttributes.timeOfLastAction];
         NSArray* items = [TBMGridElement MR_findAllSortedBy:keypath ascending:YES inContext:[self _context]];
-        ZZGridDomainModel* model = [self modelFromEntity:[items firstObject]];
-        return model;
+        ZZGridDomainModel* gridModel = [self modelFromEntity:[items firstObject]];
+        return gridModel;
     });
 }
 
@@ -141,18 +141,18 @@
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
         
-        TBMGridElement* entity = nil;
+        TBMGridElement* gridElementEntity = nil;
         if (!ANIsEmpty(contactModel.primaryPhone.contact))
         {
             NSString* phone = [contactModel.primaryPhone.contact stringByReplacingOccurrencesOfString:@" " withString:@""];
             NSString* keypath = [NSString stringWithFormat:@"%@.%@", TBMGridElementRelationships.friend, TBMFriendAttributes.mobileNumber];
             NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", keypath, phone];
             NSArray* items = [TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]];
-            entity = [items firstObject];
+            gridElementEntity = [items firstObject];
         }
-        if (entity)
+        if (gridElementEntity)
         {
-            return [self modelFromEntity:entity];
+            return [self modelFromEntity:gridElementEntity];
         }
         return nil;
     });
@@ -183,26 +183,26 @@
         
         for (NSInteger count = 0; count < gridModelsCount; count++)
         {
-            ZZGridDomainModel* model;
+            ZZGridDomainModel* gridModel;
             if (gridStoredModels.count > count)
             {
-                model = gridStoredModels[count];
+                gridModel = gridStoredModels[count];
             }
             else
             {
-                model = [ZZGridDomainModel new];
-                model.index = count;
+                gridModel = [ZZGridDomainModel new];
+                gridModel.index = count;
             }
             
             if (filteredFriends.count > count)
             {
-                if (ANIsEmpty(model.relatedUser))
+                if (ANIsEmpty(gridModel.relatedUser))
                 {
-                    model.relatedUser = [ZZFriendDataProvider lastActionFriendWihoutGrid];
+                    gridModel.relatedUser = [ZZFriendDataProvider lastActionFriendWihoutGrid];
                 }
             }
-            model = [ZZGridDataUpdater upsertModel:model];
-            [gridModels addObject:model];
+            gridModel = [ZZGridDataUpdater upsertModel:gridModel];
+            [gridModels addObject:gridModel];
         }
         return gridModels;
     });
@@ -211,11 +211,11 @@
 
 #pragma mark - Mapping
 
-+ (ZZGridDomainModel*)modelFromEntity:(TBMGridElement*)entity
++ (ZZGridDomainModel*)modelFromEntity:(TBMGridElement*)gridElementEntity
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
         
-        return [ZZGridModelsMapper fillModel:[ZZGridDomainModel new] fromEntity:entity];
+        return [ZZGridModelsMapper fillModel:[ZZGridDomainModel new] fromEntity:gridElementEntity];
     });
 }
 
@@ -228,11 +228,11 @@
     });
 }
 
-+ (TBMGridElement *)findWithFriend:(TBMFriend*)item
++ (TBMGridElement *)findWithFriend:(TBMFriend*)friendEntity
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
         
-        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, item];
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, friendEntity];
         return [[TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]] firstObject];
     });
 }

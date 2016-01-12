@@ -43,24 +43,24 @@
 //    return [ZZUserModelsMapper fillEntity:entity fromModel:model];
 //}
 
-+ (ZZUserDomainModel*)modelFromEntity:(TBMUser*)entity
++ (ZZUserDomainModel*)modelFromEntity:(TBMUser*)userEntity
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
-        return [ZZUserModelsMapper fillModel:[ZZUserDomainModel new] fromEntity:entity];
+        return [ZZUserModelsMapper fillModel:[ZZUserDomainModel new] fromEntity:userEntity];
     });
 }
 
-+ (ZZUserDomainModel*)upsertUserWithModel:(ZZUserDomainModel*)model
++ (ZZUserDomainModel*)upsertUserWithModel:(ZZUserDomainModel*)userModel
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
-        TBMUser* entity = [self _authenticatedEntity];
-        if (!entity)
+        TBMUser* userEntity = [self _authenticatedEntity];
+        if (!userEntity)
         {
-            entity = [TBMUser MR_createEntityInContext:[self _context]];
+            userEntity = [TBMUser MR_createEntityInContext:[self _context]];
         }
-        [ZZUserModelsMapper fillEntity:entity fromModel:model];
-        [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
-        return [self modelFromEntity:entity];
+        [ZZUserModelsMapper fillEntity:userEntity fromModel:userModel];
+        [userEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+        return [self modelFromEntity:userEntity];
 
     });
 }

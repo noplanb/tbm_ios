@@ -64,19 +64,19 @@
                                          withPredicate:predicate
                                              inContext:[self _context]];
         
-        __block ZZFriendDomainModel* nextFriend = nil;
+        __block ZZFriendDomainModel* nextFriendModel = nil;
         
-        [items enumerateObjectsUsingBlock:^(TBMFriend*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [items enumerateObjectsUsingBlock:^(TBMFriend*  _Nonnull friendEntity, NSUInteger idx, BOOL * _Nonnull stop) {
             
-            ZZFriendDomainModel* model = [ZZFriendDataProvider modelFromEntity:obj];
-            if ([ZZUserFriendshipStatusHandler shouldFriendBeVisible:model])
+            ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friendEntity];
+            if ([ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel])
             {
-                nextFriend = model;
+                nextFriendModel = friendModel;
                 *stop = YES;
             }
         }];
         
-        return nextFriend;
+        return nextFriendModel;
     });
 }
 
@@ -129,9 +129,9 @@
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
         NSArray* result = [TBMFriend MR_findByAttribute:TBMFriendAttributes.mkey withValue:mKey];
-        TBMFriend* entifiy = [result firstObject];
+        TBMFriend* friendEntity = [result firstObject];
         
-        return entifiy;
+        return friendEntity;
 
     });
 }
@@ -161,30 +161,30 @@
 
 #pragma mark - Mapping
 
-+ (TBMFriend*)entityFromModel:(ZZFriendDomainModel*)model
++ (TBMFriend*)entityFromModel:(ZZFriendDomainModel*)friendModel
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
-        if (!ANIsEmpty(model))
+        if (!ANIsEmpty(friendModel))
         {
-            TBMFriend* entity = [self friendEntityWithItemID:model.idTbm];
+            TBMFriend* friendEntity = [self friendEntityWithItemID:friendModel.idTbm];
             
-            if (!entity)
+            if (!friendEntity)
             {
-                entity = [TBMFriend MR_createEntityInContext:[self _context]];
+                friendEntity = [TBMFriend MR_createEntityInContext:[self _context]];
             }
-            return [ZZFriendModelsMapper fillEntity:entity fromModel:model];
+            return [ZZFriendModelsMapper fillEntity:friendEntity fromModel:friendModel];
         }
         return nil;
 
     });
 }
 
-+ (ZZFriendDomainModel*)modelFromEntity:(TBMFriend*)entity
++ (ZZFriendDomainModel*)modelFromEntity:(TBMFriend*)friendEntity
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
-        if (!ANIsEmpty(entity))
+        if (!ANIsEmpty(friendEntity))
         {
-            return [ZZFriendModelsMapper fillModel:[ZZFriendDomainModel new] fromEntity:entity];
+            return [ZZFriendModelsMapper fillModel:[ZZFriendDomainModel new] fromEntity:friendEntity];
         }
         return nil;
 
@@ -204,8 +204,8 @@
 + (ZZFriendDomainModel*)_findFirstWithAttribute:(NSString*)attribute value:(NSString*)value
 {
     NSArray* result = [TBMFriend MR_findByAttribute:attribute withValue:value inContext:[self _context]];
-    TBMFriend* entity = [result firstObject];
-    return [self modelFromEntity:entity];
+    TBMFriend* friendEntity = [result firstObject];
+    return [self modelFromEntity:friendEntity];
 }
 
 + (NSManagedObjectContext*)_context

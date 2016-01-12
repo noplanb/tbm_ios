@@ -16,20 +16,20 @@
 
 @implementation ZZGridDataUpdater
 
-+ (ZZGridDomainModel*)upsertModel:(ZZGridDomainModel *)model
++ (ZZGridDomainModel*)upsertModel:(ZZGridDomainModel *)gridModel
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
         
-        TBMGridElement* entity = nil;
-        entity =  [ZZGridDataProvider entityWithItemID:model.itemID];
-        if (!entity)
+        TBMGridElement* gridEntity = nil;
+        gridEntity =  [ZZGridDataProvider entityWithItemID:gridModel.itemID];
+        if (!gridEntity)
         {
-            entity = [TBMGridElement MR_createEntityInContext:[self _context]];
+            gridEntity = [TBMGridElement MR_createEntityInContext:[self _context]];
         }
-        [ZZGridModelsMapper fillEntity:entity fromModel:model];
-        [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
+        [ZZGridModelsMapper fillEntity:gridEntity fromModel:gridModel];
+        [gridEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
         
-        return [ZZGridDataProvider modelFromEntity:entity];
+        return [ZZGridDataProvider modelFromEntity:gridEntity];
     });
 }
 
@@ -49,8 +49,8 @@
 + (void)upsertGridModels:(NSArray*)models
 {
     ANDispatchBlockToMainQueue(^{        
-        [models enumerateObjectsUsingBlock:^(ZZGridDomainModel*  _Nonnull domainModel, NSUInteger idx, BOOL * _Nonnull stop) {
-            [self upsertModel:domainModel];
+        [models enumerateObjectsUsingBlock:^(ZZGridDomainModel*  _Nonnull gridModel, NSUInteger idx, BOOL * _Nonnull stop) {
+            [self upsertModel:gridModel];
         }];
     });
 }
