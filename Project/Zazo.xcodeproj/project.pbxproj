@@ -4544,6 +4544,7 @@
 				F150BE2BD20343D6AD66EF07 /* Copy Pods Resources */,
 				07243CC31B8E4517008E4203 /* Fabric */,
 				D787EBC8E80CDA954202F300 /* Embed Pods Frameworks */,
+				150820E11C457F2F0032EC29 /* Set Build Number */,
 			);
 			buildRules = (
 				07F0ED831B8CE79300036AB2 /* PBXBuildRule */,
@@ -4779,6 +4780,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 614db54f91c11edf6117193953fc20467d62cd05 06786661ab10c149ccf35734a13a2efd732d9dd1cb481ab620fc97be50a9ef38";
+		};
+		150820E11C457F2F0032EC29 /* Set Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Set Build Number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "git=`sh /etc/profile; which git`\nappBuild=`\"$git\" rev-list --all |wc -l`\nappBranch=`\"$git\" name-rev --name-only HEAD`\n\nif [ \"${CONFIGURATION}\" = \"Ad-hoc\" ]; then\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild' | '$appBranch\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nfi";
 		};
 		182254541C16CA06003885A3 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
