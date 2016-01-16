@@ -191,11 +191,6 @@
     return [videosURL URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"mp4"]];
 }
 
-+ (BOOL)isStatusDownloadingWithVideo:(ZZVideoDomainModel *)videoModel
-{
-    return videoModel.incomingStatusValue == ZZVideoIncomingStatusDownloading;
-}
-
 #pragma mark - Private
 
 + (NSArray *)_all

@@ -6,6 +6,7 @@
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
+#import "ZZVideoDataProvider+Entities.h"
 #import "OBFileTransferManager.h"
 #import "ZZS3CredentialsDomainModel.h"
 #import "ZZRemoteStorageConstants.h"
@@ -407,12 +408,11 @@
              {
                  ZZLogWarning(@"AppSync.handleStuckDownloads: Got no obInfo for vid:%@ double checking to make sure hasnt completed.", videoModel.videoID);
                  
-                 if ([ZZVideoDataProvider isStatusDownloadingWithVideo:videoModel])
+                 if (videoModel.incomingStatusValue == ZZVideoIncomingStatusDownloading)
                  {
                      ZZLogError(@"AppSync.handleStuckDownloads: Got no obInfo for vid:%@ this should not happen. Force requeue the video.", videoModel.videoID);
                      [self _queueDownloadWithFriendID:videoModel.relatedUserID videoId:videoModel.videoID force:YES];
                  }
-                 
              }
              else if ([self isPendingRetryWithObInfo:obInfo])
              {

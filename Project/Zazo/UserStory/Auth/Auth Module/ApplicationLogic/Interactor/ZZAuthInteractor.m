@@ -132,7 +132,7 @@
 
 - (void)loadFriends
 {
-    [ZZFriendDataUpdater deleteAllFriendsModels];
+    [ZZFriendDataUpdater deleteAllFriends];
 
     [[ZZFriendsTransportService loadFriendList] subscribeNext:^(id x) {
         [self.output loadedFriendsSuccessfully];

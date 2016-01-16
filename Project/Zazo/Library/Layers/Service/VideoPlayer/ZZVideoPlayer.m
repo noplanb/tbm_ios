@@ -48,19 +48,6 @@
     return player;
 }
 
-+ (NSInteger)unviewedVideoCountWithFriendModel:(ZZFriendDomainModel*)friendModel
-{
-    NSInteger i = 0;
-    for (ZZVideoDomainModel *videoModel in friendModel.videos)
-    {
-        if (videoModel.incomingStatusValue == ZZVideoIncomingStatusDownloaded)
-        {
-            i++;
-        }
-    }
-    return i;
-}
-
 - (instancetype)init
 {
     self = [super init];
@@ -114,7 +101,7 @@
     NSInteger nextVideoIndex = 1;
     
     if ((friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading) &&
-        ([ZZVideoPlayer unviewedVideoCountWithFriendModel:friendModel] == twoNotViewedVideosCount) &&
+        ([ZZVideoPlayer _unviewedVideoCountWithFriendModel:friendModel] == twoNotViewedVideosCount) &&
         videoModel.incomingStatusValue == ZZVideoIncomingStatusViewed)
     {
         actualVideoModel = models[nextVideoIndex];
@@ -255,6 +242,19 @@
 
 
 #pragma mark - Private
+
++ (NSInteger)_unviewedVideoCountWithFriendModel:(ZZFriendDomainModel*)friendModel
+{
+    NSInteger i = 0;
+    for (ZZVideoDomainModel *videoModel in friendModel.videos)
+    {
+        if (videoModel.incomingStatusValue == ZZVideoIncomingStatusDownloaded)
+        {
+            i++;
+        }
+    }
+    return i;
+}
 
 - (void)_playNext:(NSNotification*)notification
 {

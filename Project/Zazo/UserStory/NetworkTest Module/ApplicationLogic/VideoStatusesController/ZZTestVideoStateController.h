@@ -30,7 +30,7 @@
 @interface ZZTestVideoStateController : NSObject
 
 - (instancetype)initWithDelegate:(id <ZZTestVideoStateControllerDelegate>)delegate;
-- (void)videoStatusChangedWithFriend:(ZZFriendDomainModel*)friend;
+- (void)videoStatusChangedWithFriend:(ZZFriendDomainModel*)friendModel;
 - (void)resetStats;
 - (void)resetRetries;
 

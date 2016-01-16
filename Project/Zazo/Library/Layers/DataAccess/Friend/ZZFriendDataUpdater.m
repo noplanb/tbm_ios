@@ -29,11 +29,9 @@
 
 + (void)updateLastTimeActionFriendWithID:(NSString*)itemID
 {
-    ANDispatchBlockToMainQueue(^{
-        [self _updateFriendWithID:itemID usingBlock:^(TBMFriend *friendEntity) {
-            friendEntity.timeOfLastAction = [NSDate date];
-        }];
-    });
+    [self _updateFriendWithID:itemID usingBlock:^(TBMFriend *friendEntity) {
+        friendEntity.timeOfLastAction = [NSDate date];
+    }];
 }
 
 + (ZZFriendDomainModel*)updateConnectionStatusForUserWithID:(NSString *)itemID toValue:(ZZFriendshipStatusType)value
@@ -95,7 +93,7 @@
     });
 }
 
-+ (void)deleteAllFriendsModels
++ (void)deleteAllFriends
 {
     ANDispatchBlockToMainQueue(^{
         [TBMFriend MR_truncateAllInContext:[self _context]];
@@ -108,6 +106,7 @@
 + (ZZFriendDomainModel*)upsertFriend:(ZZFriendDomainModel*)friendModel
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
+        
         TBMFriend* friendEntity = [self _userWithID:friendModel.idTbm];
         
         if (friendEntity)

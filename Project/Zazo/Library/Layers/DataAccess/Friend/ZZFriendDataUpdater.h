@@ -24,6 +24,6 @@
 + (void)updateEverSentFriendsWithMkeys:(NSArray*)mKeys;
 + (void)fillEntitiesAfterMigration;
 
-+ (void)deleteAllFriendsModels;
++ (void)deleteAllFriends;
 
 @end

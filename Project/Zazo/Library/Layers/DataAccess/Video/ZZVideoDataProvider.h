@@ -26,7 +26,6 @@
 
 #pragma mark - Helpers
 
-+ (BOOL)isStatusDownloadingWithVideo:(ZZVideoDomainModel*)video;
 + (void)printAll;
 + (NSURL *)videoUrlWithVideoModel:(ZZVideoDomainModel*)video;
 

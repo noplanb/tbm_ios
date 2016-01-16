@@ -68,10 +68,12 @@
 
     ANDispatchBlockToMainQueue(^{
         TBMVideo *videoEntity = [ZZVideoDataProvider entityWithID:videoModel.videoID];
-
-        [videoEntity.friend removeVideosObject:videoEntity];
-        [ZZVideoDataUpdater _destroy:videoEntity];
-        [videoEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+        TBMFriend *friendEntity = videoEntity.friend;
+        
+        [friendEntity removeVideosObject:videoEntity];
+        [videoEntity MR_deleteEntity];
+        
+        [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
     });
 }
 
@@ -87,13 +89,6 @@
 {
     [self _deleteVideoFileWithVideo:videoModel];
     [ZZThumbnailGenerator deleteThumbFileForVideo:videoModel];
-}
-
-+ (void)_destroy:(TBMVideo *)videoEntity
-{
-    NSManagedObjectContext* context = videoEntity.managedObjectContext;
-    [videoEntity MR_deleteEntity];
-    [context MR_saveToPersistentStoreAndWait];
 }
 
 #pragma mark - Private

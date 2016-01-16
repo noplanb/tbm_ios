@@ -7,10 +7,12 @@
 //
 
 #import "ZZVideoStatuses.h"
-#import "TBMFriend.h"
 #import "ZZFriendDomainModel.h"
+#import "ZZVideoDomainModel.h"
 #import "ZZFriendDataProvider+Entities.h"
 
+NSString* ZZVideoOutgoingStatusWithFriend(ZZFriendDomainModel* friendModel);
+NSString* ZZVideoIncomingStatusStringWithFriend(ZZFriendDomainModel*friendModel);
 
 #pragma mark - Incoming Status
 
@@ -40,13 +42,6 @@ NSString* ZZVideoIncomingStatusStringFromEnumValue(ZZVideoIncomingStatus type)
     return incomeTypeString[type];
 }
 
-ZZVideoIncomingStatus ZZVideoIncomingStatusEnumValueFromString(NSString* string)
-{
-    NSArray* array = [NSArray arrayWithObjects:incomeTypeString count:5];
-    return [array indexOfObject:string];
-}
-
-
 #pragma mark - Outgoing status
 
 static NSString *outgoingTypeString[] = {
@@ -72,53 +67,46 @@ ZZVideoOutgoingStatus ZZVideoOutgoingStatusEnumValueFromString(NSString* string)
     return [array indexOfObject:string];
 }
 
-NSString* ZZVideoStatusStringWithFriend(TBMFriend* friend)
+NSString* ZZVideoStatusStringWithFriendModel(ZZFriendDomainModel* friendModel)
 {
-    if (friend.lastVideoStatusEventTypeValue == ZZVideoStatusEventTypeOutgoing)
+    if (friendModel.lastVideoStatusEventType == ZZVideoStatusEventTypeOutgoing)
     {
-        return ZZVideoOutgoingStatusWithFriend(friend);
+        return ZZVideoOutgoingStatusWithFriend(friendModel);
     }
     else
     {
-        return ZZVideoIncomingStatusStringWithFriend(friend);
+        return ZZVideoIncomingStatusStringWithFriend(friendModel);
     }
 }
 
-NSString* ZZVideoStatusStringWithFriendModel(ZZFriendDomainModel* friend)
+ZZVideoDomainModel* ZZNewestIncomingVideoFromFriend(ZZFriendDomainModel* friendModel)
 {
-    TBMFriend *friendEntity = [ZZFriendDataProvider entityFromModel:friend];
-    return ZZVideoStatusStringWithFriend(friendEntity);
-}
-
-TBMVideo* ZZNewestIncomingVideoFromFriend(TBMFriend* friend)
-{
-    NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:TBMVideoAttributes.videoId ascending:YES];
-    NSArray* videos = [friend.videos sortedArrayUsingDescriptors:@[d]];
+    NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:ZZVideoDomainModelAttributes.videoID ascending:YES];
+    NSArray* videos = [friendModel.videos sortedArrayUsingDescriptors:@[d]];
     return [videos lastObject];
 }
 
-NSString* ZZVideoIncomingStatusStringWithFriend(TBMFriend* friend)
+NSString* ZZVideoIncomingStatusStringWithFriend(ZZFriendDomainModel*friendModel)
 {
-    TBMVideo* video = ZZNewestIncomingVideoFromFriend(friend);
-     ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
-    
-    if (ANIsEmpty(video))
+    ZZVideoDomainModel *videoModel = ZZNewestIncomingVideoFromFriend(friendModel);
+
+    if (ANIsEmpty(videoModel))
     {
         return [friendModel displayName];
     }
     
-    if (video.statusValue == ZZVideoIncomingStatusDownloading)
+    if (videoModel.incomingStatusValue == ZZVideoIncomingStatusDownloading)
     {
-        if (video.downloadRetryCountValue == 0)
+        if (videoModel.downloadRetryCount == 0)
         {
             return @"Downloading...";
         }
         else
         {
-            return [NSString stringWithFormat:@"Dwnld r%@", video.downloadRetryCount];
+            return [NSString stringWithFormat:@"Dwnld r%ld", (long)videoModel.downloadRetryCount];
         }
     }
-    else if (video.statusValue == ZZVideoIncomingStatusFailedPermanently)
+    else if (videoModel.incomingStatusValue == ZZVideoIncomingStatusFailedPermanently)
     {
         return @"Downloading e!";
     }
@@ -128,22 +116,22 @@ NSString* ZZVideoIncomingStatusStringWithFriend(TBMFriend* friend)
     }
 }
 
-NSString* ZZVideoOutgoingStatusWithFriend(TBMFriend* friend)
+NSString* ZZVideoOutgoingStatusWithFriend(ZZFriendDomainModel* friendModel)
 {
     NSString *statusString;
-    switch (friend.outgoingVideoStatusValue)
+    switch (friendModel.outgoingVideoStatusValue)
     {
         case ZZVideoOutgoingStatusNew:
             statusString = @"q...";
             break;
         case ZZVideoOutgoingStatusUploading:
-            if (friend.uploadRetryCountValue == 0)
+            if (friendModel.uploadRetryCount == 0)
             {
                 statusString = @"p...";
             }
             else
             {
-                statusString = [NSString stringWithFormat:@"r%ld...", (long) [friend.uploadRetryCount integerValue]];
+                statusString = [NSString stringWithFormat:@"r%ld...", friendModel.uploadRetryCount];
             }
             break;
         case ZZVideoOutgoingStatusUploaded:
@@ -162,10 +150,7 @@ NSString* ZZVideoOutgoingStatusWithFriend(TBMFriend* friend)
             statusString = nil;
     }
     
-    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
-    
-    NSString *fn = (statusString == nil || friend.outgoingVideoStatusValue == ZZVideoOutgoingStatusViewed) ? [friendModel displayName] : [friendModel shortFirstName];
+    NSString *fn = (statusString == nil || friendModel.outgoingVideoStatusValue == ZZVideoOutgoingStatusViewed) ? [friendModel displayName] : [friendModel shortFirstName];
     
     return [NSString stringWithFormat:@"%@ %@", fn, statusString];
 }
-

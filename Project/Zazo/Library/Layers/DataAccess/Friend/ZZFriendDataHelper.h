@@ -7,7 +7,6 @@
 //
 
 @class ZZFriendDomainModel;
-@class TBMVideo, TBMFriend;
 
 @interface ZZFriendDataHelper : NSObject
 
