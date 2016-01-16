@@ -58,21 +58,21 @@
         if (videoModel.incomingStatusValue == ZZVideoIncomingStatusViewed ||
             videoModel.incomingStatusValue == ZZVideoIncomingStatusFailedPermanently)
         {
-            TBMFriend *friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendID];
-            [self _deleteVideo:videoModel withFriend:friendEntity];
+            [self _deleteVideo:videoModel];
         }
     }
 }
 
-+ (void)_deleteVideo:(ZZVideoDomainModel*)videoModel withFriend:(TBMFriend*)friendEntity
-{
-    TBMVideo *videoEntity = [ZZVideoDataProvider entityWithID:videoModel.videoID];
-    
++ (void)_deleteVideo:(ZZVideoDomainModel *)videoModel {
     [ZZVideoDataUpdater _deleteFilesForVideo:videoModel];
-    
-    [friendEntity removeVideosObject:videoEntity];
-    [ZZVideoDataUpdater _destroy:videoEntity];
-    [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+
+    ANDispatchBlockToMainQueue(^{
+        TBMVideo *videoEntity = [ZZVideoDataProvider entityWithID:videoModel.videoID];
+
+        [videoEntity.friend removeVideosObject:videoEntity];
+        [ZZVideoDataUpdater _destroy:videoEntity];
+        [videoEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+    });
 }
 
 + (void)_deleteVideoFileWithVideo:(ZZVideoDomainModel*)videoModel

@@ -10,21 +10,19 @@
 
 @interface ZZFriendDataProvider : NSObject
 
-+ (BOOL)isFriendExistsWithItemID:(NSString*)itemID;
-
-#pragma mark - Fetches
+#pragma mark - Model fetching
 
 + (NSArray*)loadAllFriends;
-+ (ZZFriendDomainModel*)friendWithItemID:(NSString*)itemID;
-+ (ZZFriendDomainModel*)friendWithMKeyValue:(NSString*)mKeyValue;
-+ (ZZFriendDomainModel*)lastActionFriendWihoutGrid;
-+ (ZZFriendDomainModel*)friendModelWithMobileNumber:(NSString*)mobileNumber;
-
 + (NSArray*)friendsOnGrid;
 
-#pragma mark - Count
++ (ZZFriendDomainModel*)friendWithItemID:(NSString*)itemID;
++ (ZZFriendDomainModel*)friendWithMKeyValue:(NSString*)mKeyValue;
++ (ZZFriendDomainModel*)friendWithMobileNumber:(NSString*)mobileNumber;
+
+#pragma mark - Other
 
 + (NSInteger)friendsCount;
-
++ (BOOL)isFriendExistsWithItemID:(NSString*)itemID;
++ (ZZFriendDomainModel*)lastActionFriendWithoutGrid;
 
 @end

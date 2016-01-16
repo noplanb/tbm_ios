@@ -20,54 +20,73 @@
 
 @implementation ZZFriendDataProvider
 
-
-#pragma mark - Load
+#pragma mark - Model fetching
 
 + (NSArray*)loadAllFriends
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
-        
+
         [ZZContentDataAccessor refreshContext:[self _context]];
-        
+
         NSArray* result = [TBMFriend MR_findAllInContext:[self _context]];
         return [[result.rac_sequence map:^id(id value) {
             return [self modelFromEntity:value];
         }] array];
-        
+
     });
+}
+
++ (NSArray*)friendsOnGrid
+{
+    NSArray* gridModels = [ZZGridDataProvider loadAllGridsSortByIndex:NO];
+    return [[gridModels.rac_sequence map:^id(ZZGridDomainModel* value) {
+        return value.relatedUser;
+    }] array];
 }
 
 + (ZZFriendDomainModel*)friendWithItemID:(NSString*)itemID
 {
-    return ZZDispatchOnMainThreadAndReturn(^id{
-        return [self _findFirstWithAttribute:TBMFriendAttributes.idTbm value:itemID];
-    });
+    return [self _findFirstWithAttribute:TBMFriendAttributes.idTbm value:itemID];
 }
 
 + (ZZFriendDomainModel*)friendWithMKeyValue:(NSString*)mKeyValue
 {
-    return ZZDispatchOnMainThreadAndReturn(^id{
-        return [self _findFirstWithAttribute:TBMFriendAttributes.mkey value:mKeyValue];
+    return [self _findFirstWithAttribute:TBMFriendAttributes.mkey value:mKeyValue];
+}
+
++ (ZZFriendDomainModel*)friendWithMobileNumber:(NSString*)mobileNumber
+{
+    return [self _findFirstWithAttribute:TBMFriendAttributes.mobileNumber value:mobileNumber];
+}
+
++ (ZZFriendDomainModel*)_findFirstWithAttribute:(NSString*)attribute value:(NSString*)value
+{
+    return ZZDispatchOnMainThreadAndReturn(^id {
+        NSArray* result = [TBMFriend MR_findByAttribute:attribute withValue:value inContext:[self _context]];
+        TBMFriend* friendEntity = [result firstObject];
+        return [self modelFromEntity:friendEntity];
     });
 }
 
-+ (ZZFriendDomainModel*)lastActionFriendWihoutGrid
+#pragma mark - Other
+
++ (ZZFriendDomainModel*)lastActionFriendWithoutGrid
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
-        
+
         NSArray* friendsOnGrid = [self friendsOnGrid];
         NSArray* friendsIDs = [friendsOnGrid valueForKeyPath:ZZFriendDomainModelAttributes.idTbm];
         NSPredicate* predicate = [NSPredicate predicateWithFormat:@"NOT (%K IN %@)", TBMFriendAttributes.idTbm, friendsIDs ? : @[]];
-        
+
         NSArray* items = [TBMFriend MR_findAllSortedBy:TBMFriendAttributes.timeOfLastAction
                                              ascending:YES
                                          withPredicate:predicate
                                              inContext:[self _context]];
-        
+
         __block ZZFriendDomainModel* nextFriendModel = nil;
-        
+
         [items enumerateObjectsUsingBlock:^(TBMFriend*  _Nonnull friendEntity, NSUInteger idx, BOOL * _Nonnull stop) {
-            
+
             ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friendEntity];
             if ([ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel])
             {
@@ -75,7 +94,7 @@
                 *stop = YES;
             }
         }];
-        
+
         return nextFriendModel;
     });
 }
@@ -83,36 +102,19 @@
 + (BOOL)isFriendExistsWithItemID:(NSString*)itemID
 {
     NSNumber *result = ZZDispatchOnMainThreadAndReturn(^id{
-        
+
         NSInteger count = 0;
         if (itemID)
         {
             NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.idTbm, itemID];
             count = [TBMFriend MR_countOfEntitiesWithPredicate:predicate inContext:[self _context]];
         }
-        
+
         return @(count != 0);
     });
     
     return result.boolValue;
 }
-
-+ (BOOL)_isFriendExistsWithMKey:(NSString*)mKey
-{
-    NSNumber *result = ZZDispatchOnMainThreadAndReturn(^id{
-
-        NSInteger count = 0;
-        if (mKey)
-        {
-            NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.mkey, mKey];
-            count = [TBMFriend MR_countOfEntitiesWithPredicate:predicate inContext:[self _context]];
-        }
-        return @(count != 0);
-    });
-           
-    return result.boolValue;
-}
-
 
 #pragma mark - Entities
 
@@ -130,34 +132,20 @@
     return ZZDispatchOnMainThreadAndReturn(^id{
         NSArray* result = [TBMFriend MR_findByAttribute:TBMFriendAttributes.mkey withValue:mKey];
         TBMFriend* friendEntity = [result firstObject];
-        
+
         return friendEntity;
 
     });
 }
-
-+ (TBMFriend*)friendModelWithMobileNumber:(NSString*)mobileNumber
-{
-    return ZZDispatchOnMainThreadAndReturn(^id{
-        
-        NSArray* result =
-        [TBMFriend MR_findByAttribute:TBMFriendAttributes.mobileNumber withValue:mobileNumber];
-        
-        return [self modelFromEntity:[result firstObject]];
-    });
-}
-
-#pragma mark - Count
 
 + (NSInteger)friendsCount
 {
     NSNumber *count = ZZDispatchOnMainThreadAndReturn(^id{
         return @([TBMFriend MR_countOfEntitiesWithContext:[self _context]]);
     });
-    
+
     return count.integerValue;
 }
-
 
 #pragma mark - Mapping
 
@@ -167,7 +155,7 @@
         if (!ANIsEmpty(friendModel))
         {
             TBMFriend* friendEntity = [self friendEntityWithItemID:friendModel.idTbm];
-            
+
             if (!friendEntity)
             {
                 friendEntity = [TBMFriend MR_createEntityInContext:[self _context]];
@@ -191,22 +179,7 @@
     });
 }
 
-+ (NSArray*)friendsOnGrid
-{
-    NSArray* gridModels = [ZZGridDataProvider loadAllGridsSortByIndex:NO];
-    return [[gridModels.rac_sequence map:^id(ZZGridDomainModel* value) {
-        return value.relatedUser;
-    }] array];
-}
-
 #pragma mark - Private
-
-+ (ZZFriendDomainModel*)_findFirstWithAttribute:(NSString*)attribute value:(NSString*)value
-{
-    NSArray* result = [TBMFriend MR_findByAttribute:attribute withValue:value inContext:[self _context]];
-    TBMFriend* friendEntity = [result firstObject];
-    return [self modelFromEntity:friendEntity];
-}
 
 + (NSManagedObjectContext*)_context
 {

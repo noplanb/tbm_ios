@@ -48,6 +48,19 @@
     return player;
 }
 
++ (NSInteger)unviewedVideoCountWithFriendModel:(ZZFriendDomainModel*)friendModel
+{
+    NSInteger i = 0;
+    for (ZZVideoDomainModel *videoModel in friendModel.videos)
+    {
+        if (videoModel.incomingStatusValue == ZZVideoIncomingStatusDownloaded)
+        {
+            i++;
+        }
+    }
+    return i;
+}
+
 - (instancetype)init
 {
     self = [super init];
@@ -101,7 +114,7 @@
     NSInteger nextVideoIndex = 1;
     
     if ((friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading) &&
-        ([ZZFriendDataHelper unviewedVideoCountWithFriendModel: friendModel] == twoNotViewedVideosCount) &&
+        ([ZZVideoPlayer unviewedVideoCountWithFriendModel:friendModel] == twoNotViewedVideosCount) &&
         videoModel.incomingStatusValue == ZZVideoIncomingStatusViewed)
     {
         actualVideoModel = models[nextVideoIndex];

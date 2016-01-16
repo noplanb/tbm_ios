@@ -21,7 +21,7 @@
     ZZUserDomainModel* authUser = [ZZUserDataProvider authenticatedUser];
     if (!ANIsEmpty(authUser))
     {
-        ZZFriendDomainModel* activeTestFriend = [ZZFriendDataProvider friendModelWithMobileNumber:authUser.mobileNumber];
+        ZZFriendDomainModel* activeTestFriend = [ZZFriendDataProvider friendWithMobileNumber:authUser.mobileNumber];
         if (activeTestFriend)
         {
             if (completion)
@@ -60,7 +60,7 @@
         NSString* friendID = nil;
 
         [ZZFriendDataUpdater upsertFriend:x];
-        ZZFriendDomainModel* activeTestFriend = [ZZFriendDataProvider friendModelWithMobileNumber:userModel.mobileNumber];
+        ZZFriendDomainModel* activeTestFriend = [ZZFriendDataProvider friendWithMobileNumber:userModel.mobileNumber];
         
         if (!ANIsEmpty(activeTestFriend))
         {

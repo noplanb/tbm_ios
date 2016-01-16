@@ -13,6 +13,7 @@
 #import "ZZVideoDataProvider+Entities.h"
 #import "ZZVideoDomainModel.h"
 #import "ZZFriendDataHelper.h"
+#import "ZZFriendDataHelper+Entities.h"
 
 @implementation ZZFriendModelsMapper
 
@@ -78,7 +79,7 @@
         }] array];
         
         model.unviewedCount = [ZZFriendDataHelper unviewedVideoCountWithFriend:entity];
-        model.hasOutgoingVideo = [ZZFriendDataHelper hasOutgoingVideoWithFriend:entity];
+        model.hasOutgoingVideo = !ANIsEmpty(entity.outgoingVideoId);
         model.friendshipCreatorMkey = entity.friendshipCreatorMKey;
     }
     @catch (NSException *exception)

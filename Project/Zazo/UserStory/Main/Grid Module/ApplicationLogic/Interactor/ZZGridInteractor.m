@@ -326,7 +326,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     [[[contactModel primaryPhone] contact] stringByReplacingOccurrencesOfString:@" "
                                                               withString:@""];
 
-    ZZFriendDomainModel* friend = [ZZFriendDataProvider friendModelWithMobileNumber:mobilePhone];
+    ZZFriendDomainModel* friend = [ZZFriendDataProvider friendWithMobileNumber:mobilePhone];
     
     return friend;
 }

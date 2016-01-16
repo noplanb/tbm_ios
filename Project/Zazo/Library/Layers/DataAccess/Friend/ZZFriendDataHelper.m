@@ -50,25 +50,10 @@
     return hasVideo;
 }
 
-+ (NSInteger)unviewedVideoCountWithFriendModel:(ZZFriendDomainModel*)friendModel
-{
-    TBMFriend *friendEntity = [ZZFriendDataProvider entityFromModel:friendModel];
-    
-    NSNumber *count = ZZDispatchOnMainThreadAndReturn(^id{
-        return @([self unviewedVideoCountWithFriend:friendEntity]);
-    });
-    
-    return count.integerValue;
-}
-
-+ (BOOL)hasOutgoingVideoWithFriendModel:(ZZFriendDomainModel*)friendModel
-{
-    return friendModel.hasOutgoingVideo;
-}
-
 + (NSInteger)unviewedVideoCountWithFriend:(TBMFriend*)friendEntity
 {
     NSInteger i = 0;
+
     for (TBMVideo *videoEntity in [friendEntity videos])
     {
         if (videoEntity.statusValue == ZZVideoIncomingStatusDownloaded)
@@ -79,10 +64,6 @@
     return i;
 }
 
-+ (BOOL)hasOutgoingVideoWithFriend:(TBMFriend*)friendModel
-{
-    return !ANIsEmpty(friendModel.outgoingVideoId);
-}
 
 + (NSArray *)_allEverSentFriends
 {
