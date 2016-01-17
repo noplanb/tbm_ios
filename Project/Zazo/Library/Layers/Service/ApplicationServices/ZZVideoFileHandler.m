@@ -12,7 +12,7 @@
 #import "ZZRemoteStorageConstants.h"
 #import "ZZThumbnailGenerator.h"
 #import "ZZVideoDomainModel.h"
-#import "ZZRemoteStoageTransportService.h"
+#import "ZZRemoteStorageTransportService.h"
 #import "ZZCommonNetworkTransportService.h"
 #import "TBMVideoIdUtils.h"
 #import "ZZStoredSettingsManager.h"
@@ -285,14 +285,14 @@
             
             [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusUploaded withFriendID:friendID videoId:videoId];
             
-            //            [[ZZRemoteStoageTransportService addRemoteOutgoingVideoWithItemID:videoId
+            //            [[ZZRemoteStorageTransportService addRemoteOutgoingVideoWithItemID:videoId
             //                                                                   friendMkey:friend.mkey
             //                                                                   friendCKey:friend.ckey] subscribeNext:^(id x) {}];
             
             NSString* myMkey = [ZZStoredSettingsManager shared].userID;
             
-            [[ZZRemoteStoageTransportService updateRemoteEverSentKVForFriendMkeys:[ZZFriendDataHelper everSentMkeys]
-                                                                      forUserMkey:myMkey] subscribeNext:^(id x) {}];
+            [[ZZRemoteStorageTransportService updateRemoteEverSentKVForFriendMkeys:[ZZFriendDataHelper everSentMkeys]
+                                                                       forUserMkey:myMkey] subscribeNext:^(id x) {}];
             
             
         }
@@ -339,10 +339,10 @@
         
         [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloaded friendId:friendId videoId:videoId];
         
-        [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:videoId
-                                                                     toStatus:ZZRemoteStorageVideoStatusDownloaded
-                                                                   friendMkey:friendModel.mKey
-                                                                   friendCKey:friendModel.cKey] subscribeNext:^(id x) {}];
+        [[ZZRemoteStorageTransportService updateRemoteStatusForVideoWithItemID:videoId
+                                                                      toStatus:ZZRemoteStorageVideoStatusDownloaded
+                                                                    friendMkey:friendModel.mKey
+                                                                    friendCKey:friendModel.cKey] subscribeNext:^(id x) {}];
         
         [self.delegate sendNotificationForVideoStatusUpdate:friendModel videoId:videoId status:NOTIFICATION_STATUS_DOWNLOADED];
         
@@ -623,9 +623,9 @@
             ZZLogError(@"ftmDelete: Error trying to delete remote file. This should never happen. %@", e);
         }
         
-        [[ZZRemoteStoageTransportService deleteRemoteIncomingVideoWithItemID:videoID
-                                                                  friendMkey:friendModel.mKey
-                                                                  friendCKey:friendModel.cKey] subscribeNext:^(id x) {}];
+        [[ZZRemoteStorageTransportService deleteRemoteIncomingVideoWithItemID:videoID
+                                                                   friendMkey:friendModel.mKey
+                                                                   friendCKey:friendModel.cKey] subscribeNext:^(id x) {}];
          
          [[NSNotificationCenter defaultCenter] postNotificationName:kDeleteFileNotification object:nil];
     });

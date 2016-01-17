@@ -17,7 +17,7 @@
 #import "ZZFriendDomainModel.h"
 #import "ZZGridActionStoredSettings.h"
 #import "ZZRemoteStorageValueGenerator.h"
-#import "ZZRemoteStoageTransportService.h"
+#import "ZZRemoteStorageTransportService.h"
 #import "ZZVideoStatuses.h"
 #import "ZZVideoDataProvider.h"
 #import "ZZVideoDataUpdater.h"
@@ -167,10 +167,10 @@
             [[ZZVideoStatusHandler sharedInstance]
              setAndNotityViewedIncomingVideoWithFriendID:self.playedFriend.idTbm videoID:viewedVideo.videoID];
             
-            [[ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoID
-                                                                        toStatus:ZZRemoteStorageVideoStatusViewed
-                                                                      friendMkey:self.playedFriend.mKey
-                                                                      friendCKey:self.playedFriend.cKey] subscribeNext:^(id x) {}];
+            [[ZZRemoteStorageTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoID
+                                                                          toStatus:ZZRemoteStorageVideoStatusViewed
+                                                                        friendMkey:self.playedFriend.mKey
+                                                                        friendCKey:self.playedFriend.cKey] subscribeNext:^(id x) {}];
         }
         else
         {
@@ -392,10 +392,10 @@
             
             [[ZZVideoStatusHandler sharedInstance] setAndNotityViewedIncomingVideoWithFriendID:playedVideoModel.relatedUserID videoID:playedVideoModel.videoID];
             
-            [ZZRemoteStoageTransportService updateRemoteStatusForVideoWithItemID:playedVideoModel.videoID
-                                                                        toStatus:ZZRemoteStorageVideoStatusViewed
-                                                                      friendMkey:relatedUserModel.mKey
-                                                                      friendCKey:relatedUserModel.cKey];
+            [ZZRemoteStorageTransportService updateRemoteStatusForVideoWithItemID:playedVideoModel.videoID
+                                                                         toStatus:ZZRemoteStorageVideoStatusViewed
+                                                                       friendMkey:relatedUserModel.mKey
+                                                                       friendCKey:relatedUserModel.cKey];
             
             [self.delegate videoPlayerURLWasStartPlaying:nextUrl];
             

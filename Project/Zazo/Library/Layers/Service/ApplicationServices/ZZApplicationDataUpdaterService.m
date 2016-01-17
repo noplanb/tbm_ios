@@ -9,7 +9,7 @@
 #import "ZZApplicationDataUpdaterService.h"
 #import "ZZFriendsTransportService.h"
 #import "ZZUserDataProvider.h"
-#import "ZZRemoteStoageTransportService.h"
+#import "ZZRemoteStorageTransportService.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZKeyStoreIncomingVideoIdsDomainModel.h"
 #import "ZZFriendDomainModel.h"
@@ -89,7 +89,7 @@
 {
     ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
     
-    [[ZZRemoteStoageTransportService loadRemoteEverSentFriendsIDsForUserMkey:me.mkey] subscribeNext:^(id x) {
+    [[ZZRemoteStorageTransportService loadRemoteEverSentFriendsIDsForUserMkey:me.mkey] subscribeNext:^(id x) {
         
         ANDispatchBlockToBackgroundQueue(^{
             
@@ -103,7 +103,7 @@
 
 - (void)_pollAllIncomingVideos
 {
-    [[ZZRemoteStoageTransportService loadAllIncomingVideoIds] subscribeNext:^(NSArray *models) {
+    [[ZZRemoteStorageTransportService loadAllIncomingVideoIds] subscribeNext:^(NSArray *models) {
         for (ZZKeyStoreIncomingVideoIdsDomainModel *model in models)
         {
             ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.friendMkey];
@@ -122,7 +122,7 @@
 
 - (void)_pollAllOutgoingVideoStatus
 {
-    [[ZZRemoteStoageTransportService loadAllOutgoingVideoStatuses] subscribeNext:^(NSArray *models) {
+    [[ZZRemoteStorageTransportService loadAllOutgoingVideoStatuses] subscribeNext:^(NSArray *models) {
         for (ZZKeyStoreOutgoingVideoStatusDomainModel *model in models)
         {
             ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.friendMkey];
