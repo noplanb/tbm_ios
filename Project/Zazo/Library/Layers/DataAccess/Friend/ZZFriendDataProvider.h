@@ -14,6 +14,7 @@
 
 + (NSArray*)allFriendsModels;
 + (NSArray*)allVisibleFriendModels;
++ (NSArray*)allEverSentFriends;
 + (NSArray*)friendsOnGrid;
 
 + (ZZFriendDomainModel*)friendWithItemID:(NSString*)itemID;
@@ -23,6 +24,7 @@
 #pragma mark - Other
 
 + (NSInteger)friendsCount;
+
 
 + (BOOL)isFriendExistsWithItemID:(NSString*)itemID;
 + (ZZFriendDomainModel*)lastActionFriendWithoutGrid;

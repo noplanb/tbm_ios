@@ -38,6 +38,20 @@
     });
 }
 
++ (NSArray *)allEverSentFriends
+{
+    return ZZDispatchOnMainThreadAndReturn(^id(){
+        NSPredicate *everSent = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.everSent, @(YES)];
+        NSPredicate *creator = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.isFriendshipCreator, @(NO)];
+        NSPredicate *filter = [NSCompoundPredicate andPredicateWithSubpredicates:@[everSent, creator]];
+        NSArray *entities = [TBMFriend MR_findAllWithPredicate:filter inContext:[ZZContentDataAccessor mainThreadContext]];
+
+        return [entities.rac_sequence map:^id(id value) {
+            return [self modelFromEntity:value];
+        }];
+    });
+}
+
 + (NSArray *)allVisibleFriendModels
 {
     NSArray* allfriends = [ZZFriendDataProvider allFriendsModels];
@@ -50,13 +64,8 @@
         }
     }];
 
-    [filteredFriends sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastActionTimestamp" ascending:NO]]];
-#warning TODO: (rinat) Check direction, debug
-
-//    [filteredFriends sortedArrayUsingComparator:^NSComparisonResult(ZZFriendDomainModel* obj1, ZZFriendDomainModel* obj2) {
-//        return [obj1.lastActionTimestamp compare:obj2.lastActionTimestamp];
-//    }];
-
+    [filteredFriends sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastActionTimestamp" ascending:YES]]];
+    
     return [filteredFriends copy];
 }
 

@@ -109,7 +109,7 @@
                                                    ascending:YES
                                                withPredicate:excludeCreator
                                                    inContext:[self _context]];
-#warning TODO: debug
+
         return [self modelFromEntity:result.firstObject];
     });
 }

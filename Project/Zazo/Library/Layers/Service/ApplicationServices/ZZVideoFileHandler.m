@@ -294,6 +294,7 @@
             [[ZZRemoteStoageTransportService updateRemoteEverSentKVForFriendMkeys:[ZZFriendDataHelper everSentMkeys]
                                                                       forUserMkey:myMkey] subscribeNext:^(id x) {}];
             
+            
         }
         else
         {
@@ -305,7 +306,7 @@
     {
         ZZLogError(@"Could not find friend with marker.");
     }
-    
+
 }
 
 //----------------

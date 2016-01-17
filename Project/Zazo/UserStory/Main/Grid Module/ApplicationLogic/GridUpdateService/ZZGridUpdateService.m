@@ -71,8 +71,7 @@
 {
     NSMutableSet* allFriendsSet = [NSMutableSet setWithArray:[ZZFriendDataProvider allFriendsModels]?:@[]];
     NSMutableSet* gridFriendSet = [NSMutableSet setWithArray:[ZZFriendDataProvider friendsOnGrid]?:@[]];
-
-#warning TODO: minusSet doesn't work with models
+ 
     [allFriendsSet minusSet:gridFriendSet];
 
     __block NSMutableArray* friendsToUpdate = [NSMutableArray new];

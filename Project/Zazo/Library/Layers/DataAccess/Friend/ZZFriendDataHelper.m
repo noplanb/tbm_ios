@@ -12,10 +12,7 @@
 #import "TBMFriend.h"
 #import "ZZVideoDomainModel.h"
 #import "MagicalRecord.h"
-#import "ZZVideoDataUpdater.h"
-#import "ZZContentDataAccessor.h"
-#import "ZZVideoStatuses.h"
-#import "ZZFriendDataProvider+Entities.h"
+#import "ZZFriendDataProvider.h"
 
 @implementation ZZFriendDataHelper
 
@@ -64,21 +61,12 @@
     return i;
 }
 
-
-+ (NSArray *)_allEverSentFriends
-{
-    NSPredicate *everSent = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.everSent, @(YES)];
-    NSPredicate *creator = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.isFriendshipCreator, @(NO)];
-    NSPredicate *filter = [NSCompoundPredicate andPredicateWithSubpredicates:@[everSent, creator]];
-    return [TBMFriend MR_findAllWithPredicate:filter inContext:[ZZContentDataAccessor mainThreadContext]];
-}
-
 + (NSArray*)everSentMkeys
 {
     NSMutableArray *result = [NSMutableArray array];
-    for (TBMFriend *friendEntity in [self _allEverSentFriends])
+    for (ZZFriendDomainModel *friendEntity in [ZZFriendDataProvider allEverSentFriends])
     {
-        [result addObject:friendEntity.mkey];
+        [result addObject:friendEntity.mKey];
     }
     return result;
 }
