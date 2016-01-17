@@ -23,6 +23,8 @@
 #import "ZZContentDataAccessor.h"
 #import "ZZApplicationStateInfoGenerator.h"
 #import "ZZNotificationsHandler.h"
+#import "ZZFriendDataUpdater.h"
+#import "ZZVideoDataUpdater.h"
 
 @implementation ZZSecretInteractor
 
@@ -63,15 +65,9 @@
 
 - (void)removeAllUserData
 {
-    ANDispatchBlockToMainQueue(^{        
-        //TODO: move it to data updaters
-        NSManagedObjectContext* context = [ZZContentDataAccessor mainThreadContext];
-        [TBMFriend MR_truncateAllInContext:context];
-        [TBMVideo MR_truncateAllInContext:context];
-        [context MR_saveToPersistentStoreAndWait];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:kResetAllUserDataNotificationKey object:nil];
-    });
+    [ZZFriendDataUpdater deleteAllFriends];
+    [ZZVideoDataUpdater deleteAllVideos];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kResetAllUserDataNotificationKey object:nil];
 }
 
 

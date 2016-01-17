@@ -31,6 +31,14 @@
     });
 }
 
++ (void)deleteAllVideos {
+    ANDispatchBlockToMainQueue(^{
+        NSManagedObjectContext* context = [ZZContentDataAccessor mainThreadContext];
+        [TBMVideo MR_truncateAllInContext:context];
+        [context MR_saveToPersistentStoreAndWait];
+    });
+}
+
 + (void)updateVideoWithID:(NSString *)videoID setIncomingStatus:(ZZVideoIncomingStatus)videoStatus
 {
     [self _updateVideoWithID:videoID usingBlock:^(TBMVideo *videoEntity) {
