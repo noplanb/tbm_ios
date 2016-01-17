@@ -183,7 +183,7 @@ static NSInteger const kStateStringColumnWidth = 14;
     [items addObject:(friendModel.hasApp) ? @"true" : @"false"];
     [items addObject:ZZIncomingVideoInfoStringFromEnumValue(friendModel.lastIncomingVideoStatus)];
     [items addObject:[NSObject an_safeString:friendModel.outgoingVideoItemID]];
-    [items addObject:ZZOutgoingVideoInfoStringFromEnumValue(friendModel.outgoingVideoStatusValue)];
+    [items addObject:ZZOutgoingVideoInfoStringFromEnumValue(friendModel.lastOutgoingVideoStatus)];
     
     BOOL isOutgoing = (friendModel.lastVideoStatusEventType == ZZVideoStatusEventTypeOutgoing);
     [items addObject:isOutgoing ? @"OUT" : @"IN"];
@@ -277,7 +277,7 @@ static NSInteger const kStateStringColumnWidth = 14;
     
     if (!ANIsEmpty(value.outgoingVideoItemID))
     {
-        NSString* status = ZZVideoOutgoingStatusStringFromEnumValue(value.outgoingVideoStatusValue);
+        NSString* status = ZZVideoOutgoingStatusStringFromEnumValue(value.lastOutgoingVideoStatus);
         ZZDebugVideoStateDomainModel* outgoing = [ZZDebugVideoStateDomainModel itemWithItemID:value.outgoingVideoItemID
                                                                                        status:status];
         model.outgoingVideoItems = @[outgoing];

@@ -119,7 +119,7 @@ NSString* ZZVideoIncomingStatusStringWithFriend(ZZFriendDomainModel*friendModel)
 NSString* ZZVideoOutgoingStatusWithFriend(ZZFriendDomainModel* friendModel)
 {
     NSString *statusString;
-    switch (friendModel.outgoingVideoStatusValue)
+    switch (friendModel.lastOutgoingVideoStatus)
     {
         case ZZVideoOutgoingStatusNew:
             statusString = @"q...";
@@ -150,7 +150,7 @@ NSString* ZZVideoOutgoingStatusWithFriend(ZZFriendDomainModel* friendModel)
             statusString = nil;
     }
     
-    NSString *fn = (statusString == nil || friendModel.outgoingVideoStatusValue == ZZVideoOutgoingStatusViewed) ? [friendModel displayName] : [friendModel shortFirstName];
+    NSString *fn = (statusString == nil || friendModel.lastOutgoingVideoStatus == ZZVideoOutgoingStatusViewed) ? [friendModel displayName] : [friendModel shortFirstName];
     
     return [NSString stringWithFormat:@"%@ %@", fn, statusString];
 }

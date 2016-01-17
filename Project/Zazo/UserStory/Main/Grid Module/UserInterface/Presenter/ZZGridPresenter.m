@@ -181,7 +181,7 @@
         [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventFriendWasAddedToGridWithVideo
                                            notificationObject:nil];
         //TODO:
-        //    if (model.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED)
+        //    if (model.relatedUser.lastOutgoingVideoStatus == OUTGOING_VIDEO_STATUS_VIEWED)
         //    {
         //        [self.soundPlayer play]; // TODO: check
         //    }

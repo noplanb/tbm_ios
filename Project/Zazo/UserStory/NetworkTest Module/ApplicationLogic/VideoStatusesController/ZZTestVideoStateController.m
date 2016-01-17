@@ -123,23 +123,23 @@
 
 - (void)_handleOutgoingVideoWithFriend:(ZZFriendDomainModel*)friendModel
 {
-    if (friendModel.outgoingVideoStatusValue == ZZVideoOutgoingStatusNew)
+    if (friendModel.lastOutgoingVideoStatus == ZZVideoOutgoingStatusNew)
     {
         [self.delegate currentStatusChangedWithStatusString:NSLocalizedString(@"network-test-view.current.status.uploading", nil)];
     }
-    else if (friendModel.outgoingVideoStatusValue == ZZVideoOutgoingStatusUploading)
+    else if (friendModel.lastOutgoingVideoStatus == ZZVideoOutgoingStatusUploading)
     {
         self.triesCounter++;
         [self.delegate updateTries:self.triesCounter];
         [self _videoStatusProgress];
     }
-    else if (friendModel.outgoingVideoStatusValue == ZZVideoOutgoingStatusUploaded)
+    else if (friendModel.lastOutgoingVideoStatus == ZZVideoOutgoingStatusUploaded)
     {
         self.outgoingVideoCounter++;
         [self.delegate outgoingVideoChangeWithCounter:self.outgoingVideoCounter];
         [self _videoStatusFinished];
     }
-    else if (friendModel.outgoingVideoStatusValue == ZZVideoOutgoingStatusFailedPermanently &&
+    else if (friendModel.lastOutgoingVideoStatus == ZZVideoOutgoingStatusFailedPermanently &&
              friendModel.lastVideoStatusEventType == ZZVideoStatusEventTypeOutgoing)
     {
         self.failedOutgoingVideoCounter++;

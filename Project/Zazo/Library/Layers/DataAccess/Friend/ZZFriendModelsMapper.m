@@ -32,7 +32,7 @@
     entity.lastVideoStatusEventType = @(model.lastVideoStatusEventType);
 
     entity.outgoingVideoId = model.outgoingVideoItemID;
-    entity.outgoingVideoStatusValue = model.outgoingVideoStatusValue;
+    entity.outgoingVideoStatusValue = model.lastOutgoingVideoStatus;
     entity.everSent = @(model.everSent);
     
     entity.timeOfLastAction = model.lastActionTimestamp;
@@ -64,7 +64,7 @@
         model.lastVideoStatusEventType = [entity.lastVideoStatusEventType integerValue];
         
         model.outgoingVideoItemID = entity.outgoingVideoId;
-        model.outgoingVideoStatusValue = [entity.outgoingVideoStatus integerValue];
+        model.lastOutgoingVideoStatus = [entity.outgoingVideoStatus integerValue];
         model.everSent = entity.everSent.boolValue;
         
         model.lastActionTimestamp = entity.timeOfLastAction;

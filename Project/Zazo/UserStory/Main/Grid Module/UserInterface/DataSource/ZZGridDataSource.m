@@ -96,7 +96,7 @@ ZZGridCenterCellViewModelDelegate
     viewModel.delegate = self;
     viewModel.hasDownloadedVideo = [model.relatedUser hasIncomingVideo];
     viewModel.hasUploadedVideo = [model.relatedUser hasOutgoingVideo];//[value.relatedUser hasIncomingVideo];
-    viewModel.isUploadedVideoViewed = (model.relatedUser.outgoingVideoStatusValue == ZZVideoOutgoingStatusViewed);
+    viewModel.isUploadedVideoViewed = (model.relatedUser.lastOutgoingVideoStatus == ZZVideoOutgoingStatusViewed);
     
     if (model.relatedUser.unviewedCount > 0)
     {

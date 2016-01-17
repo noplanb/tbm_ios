@@ -182,7 +182,7 @@
             return;
         }
         
-        if (status == friendModel.outgoingVideoStatusValue)
+        if (status == friendModel.lastOutgoingVideoStatus)
         {
             ZZLogWarning(@"setAndNotifyOutgoingVideoStatusWithVideo: Identical status. Ignoring.");
             return;
