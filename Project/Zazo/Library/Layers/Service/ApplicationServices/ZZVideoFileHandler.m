@@ -272,42 +272,39 @@
 {
     ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
 
-    ANDispatchBlockToMainQueue(^{
-        if (!ANIsEmpty(friendModel))
+    if (!ANIsEmpty(friendModel))
+    {
+        if (ANIsEmpty(error))
         {
-            if (ANIsEmpty(error))
+            ZZLogInfo(@"uploadCompletedWithFriend");
+            
+            if (!friendModel.everSent)
             {
-                ZZLogInfo(@"uploadCompletedWithFriend");
-                
-                if (!friendModel.everSent)
-                {
-                    [ZZFriendDataUpdater updateEverSentFriendsWithMkeys:@[friendModel.mKey]];
-                }
-                
-                [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusUploaded withFriendID:friendID videoId:videoId];
-                
-                //            [[ZZRemoteStoageTransportService addRemoteOutgoingVideoWithItemID:videoId
-                //                                                                   friendMkey:friend.mkey
-                //                                                                   friendCKey:friend.ckey] subscribeNext:^(id x) {}];
-                
-                NSString* myMkey = [ZZStoredSettingsManager shared].userID;
-                
-                [[ZZRemoteStoageTransportService updateRemoteEverSentKVForFriendMkeys:[ZZFriendDataHelper everSentMkeys]
-                                                                          forUserMkey:myMkey] subscribeNext:^(id x) {}];
-                
+                [ZZFriendDataUpdater updateEverSentFriendsWithMkeys:@[friendModel.mKey]];
             }
-            else
-            {
-                ZZLogError(@"Upload error. FailedPermanently");
-                [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusFailedPermanently withFriendID:friendID videoId:videoId];
-            }
+            
+            [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusUploaded withFriendID:friendID videoId:videoId];
+            
+            //            [[ZZRemoteStoageTransportService addRemoteOutgoingVideoWithItemID:videoId
+            //                                                                   friendMkey:friend.mkey
+            //                                                                   friendCKey:friend.ckey] subscribeNext:^(id x) {}];
+            
+            NSString* myMkey = [ZZStoredSettingsManager shared].userID;
+            
+            [[ZZRemoteStoageTransportService updateRemoteEverSentKVForFriendMkeys:[ZZFriendDataHelper everSentMkeys]
+                                                                      forUserMkey:myMkey] subscribeNext:^(id x) {}];
+            
         }
         else
         {
-            ZZLogError(@"Could not find friend with marker.");
+            ZZLogError(@"Upload error. FailedPermanently");
+            [self.delegate notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusFailedPermanently withFriendID:friendID videoId:videoId];
         }
-
-    });
+    }
+    else
+    {
+        ZZLogError(@"Could not find friend with marker.");
+    }
     
 }
 

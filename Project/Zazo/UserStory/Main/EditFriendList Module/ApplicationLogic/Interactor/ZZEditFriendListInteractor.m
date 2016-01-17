@@ -29,7 +29,7 @@
 
 - (void)loadData
 {
-    NSArray* friends = [ZZFriendDataProvider loadAllFriends];
+    NSArray* friends = [ZZFriendDataProvider allFriendsModels];
     
     
     NSArray* gridModels = [ZZGridDataProvider loadAllGridsSortByIndex:NO];
@@ -83,10 +83,10 @@
 
 //- (void)_updateContactDrawerIdNeededWithFriend:(ZZFriendDomainModel*)friendModel
 //{
-//    NSMutableSet* allFriends = [NSMutableSet setWithArray:[ZZFriendDataProvider loadAllFriends]?:@[]];
+//    NSMutableSet* allFriends = [NSMutableSet setWithArray:[ZZFriendDataProvider allFriendsModels]?:@[]];
 //    NSMutableSet* friendsOnGrid = [NSMutableSet setWithArray:[ZZFriendDataProvider friendsOnGrid]?:@[]];
-//    [allFriends minusSet:friendsOnGrid];
-//    NSArray* ableToUpdateFriends = [allFriends allObjects];
+//    [allFriendsModels minusSet:friendsOnGrid];
+//    NSArray* ableToUpdateFriends = [allFriendsModels allObjects];
 //    if ([ableToUpdateFriends containsObject:friendModel])
 //    {
 //        NSLog(@"Enable update Drawer after friend change status");

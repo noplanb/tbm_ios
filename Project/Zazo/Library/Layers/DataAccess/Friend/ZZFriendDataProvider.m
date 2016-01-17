@@ -7,6 +7,8 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
+#import "ZZFriendDataProvider+Entities.h"
+#import "ZZGridModelsMapper.h"
 #import "ZZFriendDataProvider.h"
 #import "TBMFriend.h"
 #import "MagicalRecord.h"
@@ -22,7 +24,7 @@
 
 #pragma mark - Model fetching
 
-+ (NSArray*)loadAllFriends
++ (NSArray*)allFriendsModels
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
 
@@ -34,6 +36,28 @@
         }] array];
 
     });
+}
+
++ (NSArray *)allVisibleFriendModels
+{
+    NSArray* allfriends = [ZZFriendDataProvider allFriendsModels];
+    NSMutableArray* filteredFriends = [NSMutableArray new];
+
+    [allfriends enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel])
+        {
+            [filteredFriends addObject:friendModel];
+        }
+    }];
+
+    [filteredFriends sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastActionTimestamp" ascending:NO]]];
+#warning TODO: (rinat) Check direction, debug
+
+//    [filteredFriends sortedArrayUsingComparator:^NSComparisonResult(ZZFriendDomainModel* obj1, ZZFriendDomainModel* obj2) {
+//        return [obj1.lastActionTimestamp compare:obj2.lastActionTimestamp];
+//    }];
+
+    return [filteredFriends copy];
 }
 
 + (NSArray*)friendsOnGrid

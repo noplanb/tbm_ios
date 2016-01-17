@@ -9,7 +9,6 @@
 #import "ZZVideoStatuses.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZVideoDomainModel.h"
-#import "ZZFriendDataProvider+Entities.h"
 
 NSString* ZZVideoOutgoingStatusWithFriend(ZZFriendDomainModel* friendModel);
 NSString* ZZVideoIncomingStatusStringWithFriend(ZZFriendDomainModel*friendModel);

@@ -21,7 +21,7 @@
 
 + (BOOL)isUniqueFirstName:(NSString*)firstName friendID:(NSString*)friendID
 {
-    NSArray* friends = [ZZFriendDataProvider loadAllFriends];
+    NSArray* friends = [ZZFriendDataProvider allFriendsModels];
     ZZFriendDomainModel* aFriendModel = [ZZFriendDataProvider friendWithItemID: friendID];
     
     for (ZZFriendDomainModel *friendModel in friends)

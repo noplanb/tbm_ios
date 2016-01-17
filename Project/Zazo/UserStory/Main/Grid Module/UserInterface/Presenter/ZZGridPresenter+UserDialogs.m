@@ -40,7 +40,7 @@
 - (BOOL)_isNeedToShowDialogForUser:(ZZContactDomainModel*)user
 {
     __block BOOL isNeedShow = YES;
-    NSArray* friends =  [ZZFriendDataProvider loadAllFriends];
+    NSArray* friends = [ZZFriendDataProvider allFriendsModels];
     NSString* userPhoneNumber = [user.primaryPhone.contact stringByReplacingOccurrencesOfString:@" " withString:@""];
     [friends enumerateObjectsUsingBlock:^(ZZFriendDomainModel* _Nonnull friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
        if ([userPhoneNumber isEqualToString:friendModel.mobileNumber])

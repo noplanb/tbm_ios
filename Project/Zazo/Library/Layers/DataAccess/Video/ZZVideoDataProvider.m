@@ -166,7 +166,7 @@
 + (void)printAll
 {
     ZZLogInfo(@"All Videos (%lu)", (unsigned long)[self countAllVideos]);
-    for (ZZVideoDomainModel *videoModel in [[self _all] copy])
+    for (ZZVideoDomainModel *videoModel in [self _all])
     {
         ZZLogInfo(@"%@ %@ status=%ld", [ZZFriendDataProvider friendWithItemID:videoModel.relatedUserID].firstName, videoModel.videoID, (long)videoModel.incomingStatusValue);
     }

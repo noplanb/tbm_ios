@@ -107,7 +107,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         [self updateLastActionForFriend:model];
         [self.output updateGridWithModel:gridModel isNewFriend:NO];
         
-        ZZFriendDomainModel *fillHoleOnGrid = [self _loadFirstFriendFromMenu:[ZZFriendDataProvider loadAllFriends]];
+        ZZFriendDomainModel *fillHoleOnGrid = [self _loadFirstFriendFromMenu:[ZZFriendDataProvider allFriendsModels]];
         if (!ANIsEmpty(fillHoleOnGrid))
         {
             [self addUserToGrid:fillHoleOnGrid];

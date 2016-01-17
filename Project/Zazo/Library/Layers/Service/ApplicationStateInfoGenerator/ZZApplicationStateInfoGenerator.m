@@ -71,7 +71,7 @@ static NSInteger const kStateStringColumnWidth = 14;
 
 + (NSString*)globalStateString
 {
-    NSArray *friends = [ZZFriendDataProvider loadAllFriends];
+    NSArray *friends = [ZZFriendDataProvider allFriendsModels];
     
     NSMutableString *stateString = [NSMutableString new];
     [stateString appendString:[self _friendsStateStringWithModels:friends]];

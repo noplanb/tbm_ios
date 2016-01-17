@@ -11,7 +11,6 @@
 #import "MagicalRecord.h"
 #import "ZZFriendDataProvider+Entities.h"
 #import "ZZGridDataUpdater.h"
-#import "ZZUserFriendshipStatusHandler.h"
 #import "ZZContactDomainModel.h"
 #import "ZZContentDataAccessor.h"
 
@@ -54,13 +53,6 @@
     
 }
 
-//+ (ZZGridDomainModel*)modelWithIndex:(NSInteger)index
-//{
-//    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementAttributes.index, @(index)];
-//    TBMGridElement* entity = [[TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]] firstObject];
-//
-//    return [self modelFromEntity:entity];
-//}
 
 + (ZZGridDomainModel*)modelWithRelatedUserID:(NSString*)userID
 {
@@ -117,12 +109,8 @@
                                                    ascending:YES
                                                withPredicate:excludeCreator
                                                    inContext:[self _context]];
-
-        NSArray* models = [[result.rac_sequence map:^id(id value) {
-            return [self modelFromEntity:value];
-        }] array];
-
-        return [models firstObject];
+#warning TODO: debug
+        return [self modelFromEntity:result.firstObject];
     });
 }
 
@@ -163,20 +151,7 @@
     return ZZDispatchOnMainThreadAndReturn(^id{
 
 
-        NSArray* allfriends = [ZZFriendDataProvider loadAllFriends];
-        NSMutableArray* filteredFriends = [NSMutableArray new];
-
-        [allfriends enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
-
-            if ([ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel])
-            {
-                [filteredFriends addObject:friendModel];
-            }
-        }];
-        //TODO: sort descriptor
-        [filteredFriends sortedArrayUsingComparator:^NSComparisonResult(ZZFriendDomainModel* obj1, ZZFriendDomainModel* obj2) {
-            return [obj1.lastActionTimestamp compare:obj2.lastActionTimestamp];
-        }];
+        NSArray *filteredFriends = [ZZFriendDataProvider allVisibleFriendModels];
 
         NSArray* gridStoredModels = [ZZGridDataProvider loadAllGridsSortByIndex:YES];
         NSMutableArray* gridModels = [NSMutableArray array];
@@ -218,39 +193,6 @@
         return [ZZGridModelsMapper fillModel:[ZZGridDomainModel new] fromEntity:gridElementEntity];
     });
 }
-
-+ (TBMGridElement *)findWithIntIndex:(NSInteger)i
-{
-    return ZZDispatchOnMainThreadAndReturn(^id{
-
-        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementAttributes.index, @(i)];
-        return [[TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]] firstObject];
-    });
-}
-
-+ (TBMGridElement *)findWithFriend:(TBMFriend*)friendEntity
-{
-    return ZZDispatchOnMainThreadAndReturn(^id{
-
-        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, friendEntity];
-        return [[TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]] firstObject];
-    });
-}
-
-
-#pragma mark - Entities
-//
-//+ (BOOL)friendIsOnGrid:(TBMFriend *)friend
-//{
-//    return [self findWithFriend:friend] != nil;
-//}
-//
-//+ (BOOL)hasSentVideos:(NSUInteger)index
-//{
-//    TBMFriend *friend = [self findWithIntIndex:index].friend;
-//    return [friend hasOutgoingVideo];
-//}
-
 
 #pragma mark - Private
 
