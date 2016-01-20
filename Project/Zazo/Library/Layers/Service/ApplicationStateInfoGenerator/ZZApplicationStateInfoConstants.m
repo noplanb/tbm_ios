@@ -40,7 +40,7 @@ ZZVideoOutgoingStatus ZZOutgoingVideoInfoEnumValueFromString(NSString* string)
 
 static NSString *incomingTypesString[] = {
     @"NEW",
-    @"DOWNLOADING"
+    @"DOWNLOADING",
     @"DOWNLOADED",
     @"VIEWED",
     @"PERMANENTLY"
