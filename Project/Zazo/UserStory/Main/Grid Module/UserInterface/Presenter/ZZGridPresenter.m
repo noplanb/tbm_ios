@@ -162,7 +162,7 @@
         {
             CGFloat delayAfterDownloadAnimationCompleted = 1.6f;
             ANDispatchBlockAfter(delayAfterDownloadAnimationCompleted, ^{
-                if (!self.videoPlayer.isPlayingVideo)
+                if (!self.videoPlayer.isPlayingVideo && ![ZZVideoRecorder shared].isRecording)
                 {
                     [self.soundPlayer play];
                 }
