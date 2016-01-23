@@ -25,6 +25,11 @@
 
 + (ZZGridDomainModel*)fillModel:(ZZGridDomainModel*)model fromEntity:(TBMGridElement*)entity
 {
+    if (!entity)
+    {
+        return nil;
+    }
+    
     @try
     {
         model.index = [entity.index integerValue];

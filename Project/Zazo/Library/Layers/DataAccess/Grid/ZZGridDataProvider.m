@@ -110,6 +110,11 @@
                                                withPredicate:excludeCreator
                                                    inContext:[self _context]];
 
+        if (ANIsEmpty(result))
+        {
+            return nil;
+        }
+        
         return [self modelFromEntity:result.firstObject];
     });
 }
