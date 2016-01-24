@@ -30,7 +30,7 @@ static NSInteger const kStateStringColumnWidth = 14;
     model.isDebugEnabled = manager.debugModeEnabled;
     model.serverURLString = apiBaseURL();
     model.serverIndex = manager.serverEndpointState;
-    model.useRollbarSDK = manager.shouldUseRollBarSDK;
+    model.useRollbarSDK = !manager.shouldUseServerLogging;
     NSString* version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     NSString* buildNumber = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     model.version = [NSString stringWithFormat:@"%@(%@) - %@",
@@ -59,7 +59,7 @@ static NSInteger const kStateStringColumnWidth = 14;
     [message appendFormat:@"Debug mode:     %@\n", model.isDebugEnabled ? @"ON" : @"OFF"];
     [message appendFormat:@"Server State:   %@\n", ZZServerFormattedStringFromEnumValue(model.serverIndex)];
     [message appendFormat:@"Server address: %@\n", [NSObject an_safeString:model.serverURLString]];
-    [message appendFormat:@"Dispatch Type:  %@\n", ([ZZStoredSettingsManager shared].shouldUseRollBarSDK) ? @"RollBar SDK" : @"Server"];
+    [message appendFormat:@"Dispatch Type:  %@\n", ([ZZStoredSettingsManager shared].shouldUseServerLogging) ? @"Server" : @"RollBar SDK"];
     
     [message appendString:@"\n * * * * * * * * * * * * * * * * * * * * * * * * \n"];
     

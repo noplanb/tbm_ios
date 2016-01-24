@@ -36,11 +36,13 @@
 
 - (void)dispatchData
 {
-    [[ZZRollbarAdapter shared] logMessage:[ZZApplicationStateInfoGenerator generateSettingsStateMessage]];
+    [[ZZRollbarAdapter shared] logMessage:[ZZApplicationStateInfoGenerator generateSettingsStateMessage] level:ZZDispatchLevelError];
 }
 
 - (void)forceCrash
 {
+    
+    //TODO: the message should be dispatched automatically
     NSString* message = [NSString stringWithFormat:@"CRASH BUTTON EXCEPTION: %@",
                          [ZZApplicationStateInfoGenerator generateSettingsStateMessage]];
     [[ZZRollbarAdapter shared] logMessage:message level:ZZDispatchLevelError];
@@ -93,7 +95,7 @@
 
 - (void)updateShouldUserSDKForLogging:(BOOL)isEnabled
 {
-    [ZZStoredSettingsManager shared].shouldUseRollBarSDK = isEnabled;
+    [ZZStoredSettingsManager shared].shouldUseServerLogging = !isEnabled;
 }
 
 - (void)updatePushNotificationStateTo:(BOOL)isEnabled

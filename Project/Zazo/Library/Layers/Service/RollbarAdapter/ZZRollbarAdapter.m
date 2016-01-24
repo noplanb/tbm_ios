@@ -44,13 +44,13 @@
             config.environment = ZZDispatchServerStateStringFromEnumValue(serverState);
         }];
         
-        [RACObserve([ZZStoredSettingsManager shared], shouldUseRollBarSDK) subscribeNext:^(NSNumber* x) {
+        [RACObserve([ZZStoredSettingsManager shared], shouldUseServerLogging) subscribeNext:^(NSNumber* x) {
             
             #ifdef NETTEST
             self.endpointType = ZZDispatchEndpointRollbar;
             #else
-                BOOL shouldUSerSDK = [x boolValue];
-                self.endpointType = shouldUSerSDK ? ZZDispatchEndpointRollbar : ZZDispatchEndpointServer;
+                BOOL shouldUseServerLogging = [x boolValue];
+                self.endpointType = shouldUseServerLogging ? ZZDispatchEndpointServer : ZZDispatchEndpointRollbar;
             #endif
         }];
 
