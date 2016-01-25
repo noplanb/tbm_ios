@@ -113,16 +113,7 @@
 
 - (NSString*)_logString
 {
-    NSArray* logLines = [[OBLogger instance] logLines];
-    NSString* line;
-    NSString* r = @"";
-    
-    for (line in logLines)
-    {
-        r = [r stringByAppendingString:line];
-        r = [r stringByAppendingString:@"\n"];
-    }
-    return r;
+    return [[[OBLogger instance] logLines] componentsJoinedByString:@"\n"];
 }
 
 @end
