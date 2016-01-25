@@ -19,7 +19,7 @@
 #import "ZZApplicationRootService.h"
 #import "ZZGridActionStoredSettings.h"
 #import "AFNetworkReachabilityManager.h"
-
+#import "OBLogger+ZZAdditions.h"
 
 @interface ZZAppDependencies ()
 
@@ -92,6 +92,7 @@
 - (void)handleApplicationWillTerminate
 {
     [ZZContentDataAccessor saveDataBase];
+    [[OBLogger instance] dropOldLines:3000];
 }
 
 - (void)handleApplicationDidEnterInBackground

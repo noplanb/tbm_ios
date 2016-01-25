@@ -56,10 +56,6 @@
 
         [OBLogger instance].writeToConsole = YES;
 
-        if ([[OBLogger instance] logLines].count > 3000)
-        {
-            [[OBLogger instance] reset];
-        }
         self.enabled = YES;
     }
     return self;
