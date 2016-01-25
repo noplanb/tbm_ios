@@ -78,9 +78,9 @@
 
 + (void)saveDataBase
 {
-    [[self mainThreadContext] MR_saveToPersistentStoreAndWait];
-    NSManagedObjectContext* context = [NSManagedObjectContext MR_context];
-    [context MR_saveToPersistentStoreAndWait];
+    ANDispatchBlockToMainQueue(^{
+        [[self mainThreadContext] MR_saveToPersistentStoreAndWait];
+    });
 }
 
 #pragma GCC diagnostic push
