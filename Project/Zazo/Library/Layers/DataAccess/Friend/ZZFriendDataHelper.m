@@ -32,7 +32,7 @@
 
 #pragma mark - Friend video helpers
 
-+ (BOOL)isFriend:(ZZFriendDomainModel*)friendModel hasIncomingVideoWithId:(NSString*)videoID
++ (BOOL)isFriend:(ZZFriendDomainModel *)friendModel hasIncomingVideoWithID:(NSString*)videoID
 {
     BOOL hasVideo = NO;
     NSArray* videos = [friendModel.videos copy];

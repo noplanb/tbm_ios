@@ -1,5 +1,5 @@
 //
-//  TBMVideoIdUtils.h
+//  TBMVideoIDUtils.h
 //  tbm
 //
 //  Created by Sani Elfishawy on 5/27/14.
@@ -14,7 +14,7 @@ static NSString *VIDEO_ID_UTILS_VIDEO_ID_KEY = @"videoId";
 static NSString *VIDEO_ID_UTILS_FRIEND_ID_KEY = @"friendId";
 static NSString *IS_UPLOAD_KEY = @"isUpload";
 
-@interface TBMVideoIdUtils : NSObject
+@interface TBMVideoIDUtils : NSObject
 
 + (NSString*)markerWithFriendID:(NSString*)friendID videoID:(NSString *)videoID isUpload:(BOOL)isUpload;
 + (NSURL*)generateOutgoingVideoUrlWithFriendID:(NSString*)friendID;
@@ -22,7 +22,7 @@ static NSString *IS_UPLOAD_KEY = @"isUpload";
 
 
 + (NSString *)generateId;
-+ (double) timeStampWithVideoId:(NSString *)videoId;
++ (double)timeStampWithVideoID:(NSString *)videoID;
 + (BOOL) isvid1:(NSString *)vid1 newerThanVid2:(NSString *)vid2;
 
 + (NSURL*)outgoingVideoUrlWithMarker:(NSString *)marker;

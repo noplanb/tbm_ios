@@ -11,13 +11,13 @@
 
 #pragma mark - Filename
 
-+ (NSString*)incomingVideoRemoteFilenameWithFriendMkey:(NSString*)friendMkey
-                                            friendCKey:(NSString*)friendCkey
-                                               videoId:(NSString *)videoId;
++ (NSString*)incomingVideoRemoteFilenameWithFriendMkey:(NSString *)friendMkey
+                                            friendCKey:(NSString *)friendCkey
+                                               videoID:(NSString *)videoID;
 
-+ (NSString*)outgoingVideoRemoteFilenameWithFriendMkey:(NSString*)friendMkey
-                                            friendCKey:(NSString*)friendCkey
-                                               videoId:(NSString *)videoId;
++ (NSString*)outgoingVideoRemoteFilenameWithFriendMkey:(NSString *)friendMkey
+                                            friendCKey:(NSString *)friendCkey
+                                               videoID:(NSString *)videoID;
 
 
 #pragma mark - Video ID

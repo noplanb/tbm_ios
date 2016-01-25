@@ -37,13 +37,13 @@ static NSString * REMOTE_STORAGE_VIDEO_ID_SUFFIX = @"-VideoIdKVKey";
 + (NSString *) fileTransferDownloadPath;
 + (NSString *) fileTransferDeletePath;
 
-+ (NSString *) outgoingVideoRemoteFilename:(TBMFriend *)friend videoId:(NSString *)videoId;
++ (NSString *)outgoingVideoRemoteFilename:(TBMFriend *)friend videoID:(NSString *)videoID;
 + (NSString *) incomingVideoRemoteFilename:(TBMVideo *)video;
 
 // Convenience setters
-+ (void) addRemoteOutgoingVideoId:(NSString *)videoId friend:(TBMFriend *)friend;
-+ (void) deleteRemoteIncomingVideoId:(NSString *)videoId friend:(TBMFriend *)friend;
-+ (void) setRemoteIncomingVideoStatus:(NSString *)status videoId:(NSString *)videoId friend:(TBMFriend *)friend;
++ (void)addRemoteOutgoingVideoID:(NSString *)videoID friend:(TBMFriend *)friend;
++ (void)deleteRemoteIncomingVideoID:(NSString *)videoID friend:(TBMFriend *)friend;
++ (void)setRemoteIncomingVideoStatus:(NSString *)status videoID:(NSString *)videoID friend:(TBMFriend *)friend;
 
 // Convenience getters
 + (void)getRemoteIncomingVideoIdsWithFriend:(TBMFriend *)friend gotVideoIds:(void (^)(NSArray *videoIds))gotVideoIds;

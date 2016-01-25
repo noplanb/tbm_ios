@@ -38,7 +38,7 @@
 {
      BOOL isEqual = NO;
     
-    NSString* zIncomingVideoFileName = [ZZRemoteStorageValueGenerator incomingVideoRemoteFilenameWithFriendMkey:video.friend.mkey friendCKey:video.friend.ckey videoId:video.videoId];
+    NSString* zIncomingVideoFileName = [ZZRemoteStorageValueGenerator incomingVideoRemoteFilenameWithFriendMkey:video.friend.mkey friendCKey:video.friend.ckey videoID:video.videoId];
     
     NSString* tbmIncomingVideoFileName = [TBMRemoteStorageHandler incomingVideoRemoteFilename:video];
     
@@ -51,8 +51,8 @@
 {
     BOOL isEqual = NO;
     
-    NSString* zOutgoinFileName = [ZZRemoteStorageValueGenerator outgoingVideoRemoteFilenameWithFriendMkey:video.friend.mkey friendCKey:video.friend.ckey videoId:video.videoId];
-    NSString* tbmOutgointFileName = [TBMRemoteStorageHandler outgoingVideoRemoteFilename:video.friend videoId:video.videoId];
+    NSString* zOutgoinFileName = [ZZRemoteStorageValueGenerator outgoingVideoRemoteFilenameWithFriendMkey:video.friend.mkey friendCKey:video.friend.ckey videoID:video.videoId];
+    NSString* tbmOutgointFileName = [TBMRemoteStorageHandler outgoingVideoRemoteFilename:video.friend videoID:video.videoId];
     
     isEqual = [zOutgoinFileName isEqualToString:tbmOutgointFileName];
     

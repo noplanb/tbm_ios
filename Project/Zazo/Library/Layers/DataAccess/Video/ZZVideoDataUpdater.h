@@ -10,7 +10,7 @@
 
 @interface ZZVideoDataUpdater : NSObject
 
-+ (void)deleteAllViewedOrFailedVideoWithFriendID:(NSString*)friendId;
++ (void)deleteAllViewedOrFailedVideoWithFriendID:(NSString*)friendID;
 + (void)deleteAllVideos;
 
 + (void)updateVideoWithID:(NSString *)videoID setIncomingStatus:(ZZVideoIncomingStatus)videoStatus;

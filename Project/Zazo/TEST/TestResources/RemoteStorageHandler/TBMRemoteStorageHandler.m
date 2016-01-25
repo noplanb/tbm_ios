@@ -27,21 +27,21 @@ static NSString *const kArraySeparator = @",";
 //------------------------
 + (NSString *)incomingVideoRemoteFilename:(TBMVideo *)video
 {
-    return [self incomingVideoRemoteFilenameWithFriend:video.friend videoId:video.videoId];
+    return [self incomingVideoRemoteFilenameWithFriend:video.friend videoID:video.videoId];
 }
 
-+ (NSString *)incomingVideoRemoteFilenameWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId
++ (NSString *)incomingVideoRemoteFilenameWithFriend:(TBMFriend *)friend videoID:(NSString *)videoID
 {
     return [NSString stringWithFormat:@"%@-%@",
                                       [self incomingPrefix:friend],
-                                      [[friend.ckey stringByAppendingString:videoId] md5]];
+                                      [[friend.ckey stringByAppendingString:videoID] md5]];
 }
 
-+ (NSString *)outgoingVideoRemoteFilename:(TBMFriend *)friend videoId:(NSString *)videoId
++ (NSString *)outgoingVideoRemoteFilename:(TBMFriend *)friend videoID:(NSString *)videoID
 {
     return [NSString stringWithFormat:@"%@-%@",
                                       [self outgoingPrefix:friend],
-                                      [[friend.ckey stringByAppendingString:videoId] md5]];
+                                      [[friend.ckey stringByAppendingString:videoID] md5]];
 }
 
 + (NSString *)incomingVideoIDRemoteKVKey:(TBMFriend *)friend
@@ -198,7 +198,7 @@ static NSString *const kArraySeparator = @",";
 
 
 // Convenience getters
-//+ (void)getRemoteIncomingVideoIdsWithFriend:(TBMFriend *)friend gotVideoIds:(void (^)(NSArray *videoIds))gotVideoIds
+//+ (void)getRemoteIncomingVideoIdsWithFriend:(TBMFriend *)friend gotVideoIds:(void (^)(NSArray *videoIDs))gotVideoIds
 //{
 ////    __block TBMFriend* someFriend = friend;
 //    ZZLogInfo(@"getRemoteIncomingVideoIdsWithFriend:");

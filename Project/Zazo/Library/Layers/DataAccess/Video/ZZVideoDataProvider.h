@@ -12,7 +12,7 @@
 @interface ZZVideoDataProvider : NSObject
 
 + (ZZVideoDomainModel*)itemWithID:(NSString*)itemID;
-+ (ZZVideoDomainModel*)createIncomingVideoModelForFriend:(ZZFriendDomainModel*)friendModel withVideoID:(NSString*)videoId;
++ (ZZVideoDomainModel*)createIncomingVideoModelForFriend:(ZZFriendDomainModel*)friendModel withVideoID:(NSString*)videoID;
 + (NSArray *)downloadingVideos;
 
 #pragma mark - Count

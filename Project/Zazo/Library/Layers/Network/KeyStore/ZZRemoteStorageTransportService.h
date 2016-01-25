@@ -29,7 +29,7 @@
 
 #pragma mark - Load
 
-+ (RACSignal*)loadAllIncomingVideoIds;
++ (RACSignal*)loadAllIncomingVideoIDs;
 + (RACSignal*)loadAllOutgoingVideoStatuses;
 + (RACSignal*)loadRemoteEverSentFriendsIDsForUserMkey:(NSString*)mKey;
 

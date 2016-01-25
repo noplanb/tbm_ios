@@ -17,7 +17,7 @@
 		0732F50C1B8B93D3004FD3AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0732F5041B8B93D3004FD3AF /* InfoPlist.strings */; };
 		0732F5121B8B93D3004FD3AF /* ZazoTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */; };
 		073D556A1BD2D82B0014E83E /* ZZSoundEffectPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 073D55691BD2D82B0014E83E /* ZZSoundEffectPlayer.m */; };
-		07636DBC1BA49A0100925671 /* TBMVideoIdUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A011BA49A0000925671 /* TBMVideoIdUtils.m */; };
+		07636DBC1BA49A0100925671 /* TBMVideoIDUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A011BA49A0000925671 /* TBMVideoIDUtils.m */; };
 		07636DBE1BA49A0100925671 /* TBMVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A051BA49A0000925671 /* TBMVideoProcessor.m */; };
 		07636DF91BA49A0100925671 /* BeepSin30.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA61BA49A0100925671 /* BeepSin30.wav */; };
 		07636DFA1BA49A0100925671 /* DK Crayon Crumble.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA71BA49A0100925671 /* DK Crayon Crumble.ttf */; };
@@ -419,7 +419,7 @@
 		182254DA1C16CA06003885A3 /* TBMFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B651BA49A0100925671 /* TBMFriend.m */; };
 		182254DB1C16CA06003885A3 /* TBMFeatureUnlockDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1F3031BC6C7180070ECF1 /* TBMFeatureUnlockDialogView.m */; };
 		182254DC1C16CA06003885A3 /* ZZFriendDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B381BA49A0100925671 /* ZZFriendDomainModel.m */; };
-		182254DD1C16CA06003885A3 /* ZZKeyStoreIncomingVideoIdsDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m */; };
+		182254DD1C16CA06003885A3 /* ZZKeyStoreIncomingVideoIDsDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIDsDomainModel.m */; };
 		182254DE1C16CA06003885A3 /* NSString+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D3F1BA49A0100925671 /* NSString+ZZAdditions.m */; };
 		182254DF1C16CA06003885A3 /* ZZHintsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D851BB14F8E007E1CBF /* ZZHintsViewModel.m */; };
 		182254E01C16CA06003885A3 /* tbm.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07636B751BA49A0100925671 /* tbm.xcdatamodeld */; };
@@ -493,7 +493,7 @@
 		182255241C16CA06003885A3 /* ZZVideoFileHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E281BD5B17F00A59389 /* ZZVideoFileHandler.m */; };
 		182255251C16CA06003885A3 /* ZZSecretDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C591BA49A0100925671 /* ZZSecretDataSource.m */; };
 		182255261C16CA06003885A3 /* ZZRemoteStorageTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B541BA49A0100925671 /* ZZRemoteStorageTransportService.m */; };
-		182255271C16CA06003885A3 /* TBMVideoIdUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A011BA49A0000925671 /* TBMVideoIdUtils.m */; };
+		182255271C16CA06003885A3 /* TBMVideoIDUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A011BA49A0000925671 /* TBMVideoIDUtils.m */; };
 		182255281C16CA06003885A3 /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276471BA6B4AB00E506D5 /* ZZMenuCell.m */; };
 		182255291C16CA06003885A3 /* ZZCommonNetworkTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B4A1BA49A0100925671 /* ZZCommonNetworkTransportService.m */; };
 		1822552A1C16CA06003885A3 /* ZZContentDataAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F52E021BFCAB6100042AAC /* ZZContentDataAccessor.m */; };
@@ -674,7 +674,7 @@
 		22403C2B19D5E63400FC36E3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22403C2A19D5E63400FC36E3 /* MessageUI.framework */; };
 		224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
 		22D3EC5F1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3EC5E1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m */; };
-		22D7D2B51BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m */; };
+		22D7D2B51BD9819600FF52AA /* ZZKeyStoreIncomingVideoIDsDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIDsDomainModel.m */; };
 		79123D731BB032C3007E1CBF /* ZZHintsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D721BB032C3007E1CBF /* ZZHintsController.m */; };
 		79123D791BB03359007E1CBF /* ZZHintsConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D781BB03359007E1CBF /* ZZHintsConstants.m */; };
 		79123D861BB14F8E007E1CBF /* ZZHintsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D851BB14F8E007E1CBF /* ZZHintsViewModel.m */; };
@@ -771,8 +771,8 @@
 		0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ZazoTests-Info.plist"; sourceTree = "<group>"; };
 		073D55681BD2D82B0014E83E /* ZZSoundEffectPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSoundEffectPlayer.h; sourceTree = "<group>"; };
 		073D55691BD2D82B0014E83E /* ZZSoundEffectPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSoundEffectPlayer.m; sourceTree = "<group>"; };
-		07636A001BA49A0000925671 /* TBMVideoIdUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoIdUtils.h; sourceTree = "<group>"; };
-		07636A011BA49A0000925671 /* TBMVideoIdUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoIdUtils.m; sourceTree = "<group>"; };
+		07636A001BA49A0000925671 /* TBMVideoIDUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoIDUtils.h; sourceTree = "<group>"; };
+		07636A011BA49A0000925671 /* TBMVideoIDUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoIDUtils.m; sourceTree = "<group>"; };
 		07636A041BA49A0000925671 /* TBMVideoProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoProcessor.h; sourceTree = "<group>"; };
 		07636A051BA49A0000925671 /* TBMVideoProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMVideoProcessor.m; sourceTree = "<group>"; };
 		07636AA61BA49A0100925671 /* BeepSin30.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = BeepSin30.wav; sourceTree = "<group>"; };
@@ -1398,8 +1398,8 @@
 		224101D3190D4180005128F9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		22D3EC5D1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZKeyStoreOutgoingVideoStatusDomainModel.h; path = KeyStore/ZZKeyStoreOutgoingVideoStatusDomainModel.h; sourceTree = "<group>"; };
 		22D3EC5E1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZKeyStoreOutgoingVideoStatusDomainModel.m; path = KeyStore/ZZKeyStoreOutgoingVideoStatusDomainModel.m; sourceTree = "<group>"; };
-		22D7D2B31BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZKeyStoreIncomingVideoIdsDomainModel.h; path = KeyStore/ZZKeyStoreIncomingVideoIdsDomainModel.h; sourceTree = "<group>"; };
-		22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZKeyStoreIncomingVideoIdsDomainModel.m; path = KeyStore/ZZKeyStoreIncomingVideoIdsDomainModel.m; sourceTree = "<group>"; };
+		22D7D2B31BD9819600FF52AA /* ZZKeyStoreIncomingVideoIDsDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZKeyStoreIncomingVideoIDsDomainModel.h; path = KeyStore/ZZKeyStoreIncomingVideoIDsDomainModel.h; sourceTree = "<group>"; };
+		22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIDsDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZKeyStoreIncomingVideoIDsDomainModel.m; path = KeyStore/ZZKeyStoreIncomingVideoIDsDomainModel.m; sourceTree = "<group>"; };
 		2EE3EC5660312AC490BD17BA /* Pods-ZazoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
@@ -1591,8 +1591,8 @@
 		076369FF1BA49A0000925671 /* VideoUtils */ = {
 			isa = PBXGroup;
 			children = (
-				07636A001BA49A0000925671 /* TBMVideoIdUtils.h */,
-				07636A011BA49A0000925671 /* TBMVideoIdUtils.m */,
+				07636A001BA49A0000925671 /* TBMVideoIDUtils.h */,
+				07636A011BA49A0000925671 /* TBMVideoIDUtils.m */,
 				07636A041BA49A0000925671 /* TBMVideoProcessor.h */,
 				07636A051BA49A0000925671 /* TBMVideoProcessor.m */,
 			);
@@ -4417,8 +4417,8 @@
 		22D7D2B21BD9807600FF52AA /* KeyStore */ = {
 			isa = PBXGroup;
 			children = (
-				22D7D2B31BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.h */,
-				22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m */,
+				22D7D2B31BD9819600FF52AA /* ZZKeyStoreIncomingVideoIDsDomainModel.h */,
+				22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIDsDomainModel.m */,
 				22D3EC5D1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.h */,
 				22D3EC5E1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m */,
 			);
@@ -5096,7 +5096,7 @@
 				182254DA1C16CA06003885A3 /* TBMFriend.m in Sources */,
 				182254DB1C16CA06003885A3 /* TBMFeatureUnlockDialogView.m in Sources */,
 				182254DC1C16CA06003885A3 /* ZZFriendDomainModel.m in Sources */,
-				182254DD1C16CA06003885A3 /* ZZKeyStoreIncomingVideoIdsDomainModel.m in Sources */,
+				182254DD1C16CA06003885A3 /* ZZKeyStoreIncomingVideoIDsDomainModel.m in Sources */,
 				182254DE1C16CA06003885A3 /* NSString+ZZAdditions.m in Sources */,
 				182254DF1C16CA06003885A3 /* ZZHintsViewModel.m in Sources */,
 				182254E01C16CA06003885A3 /* tbm.xcdatamodeld in Sources */,
@@ -5173,7 +5173,7 @@
 				182255241C16CA06003885A3 /* ZZVideoFileHandler.m in Sources */,
 				182255251C16CA06003885A3 /* ZZSecretDataSource.m in Sources */,
 				182255261C16CA06003885A3 /* ZZRemoteStorageTransportService.m in Sources */,
-				182255271C16CA06003885A3 /* TBMVideoIdUtils.m in Sources */,
+				182255271C16CA06003885A3 /* TBMVideoIDUtils.m in Sources */,
 				182255281C16CA06003885A3 /* ZZMenuCell.m in Sources */,
 				182255291C16CA06003885A3 /* ZZCommonNetworkTransportService.m in Sources */,
 				1822552A1C16CA06003885A3 /* ZZContentDataAccessor.m in Sources */,
@@ -5377,7 +5377,7 @@
 				07636E3F1BA49A0100925671 /* TBMFriend.m in Sources */,
 				18E1F3041BC6C7180070ECF1 /* TBMFeatureUnlockDialogView.m in Sources */,
 				07636E2F1BA49A0100925671 /* ZZFriendDomainModel.m in Sources */,
-				22D7D2B51BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m in Sources */,
+				22D7D2B51BD9819600FF52AA /* ZZKeyStoreIncomingVideoIDsDomainModel.m in Sources */,
 				07636EEA1BA49A0100925671 /* NSString+ZZAdditions.m in Sources */,
 				79123D861BB14F8E007E1CBF /* ZZHintsViewModel.m in Sources */,
 				07636E471BA49A0100925671 /* tbm.xcdatamodeld in Sources */,
@@ -5454,7 +5454,7 @@
 				07E09E291BD5B17F00A59389 /* ZZVideoFileHandler.m in Sources */,
 				07636EA31BA49A0100925671 /* ZZSecretDataSource.m in Sources */,
 				07636E391BA49A0100925671 /* ZZRemoteStorageTransportService.m in Sources */,
-				07636DBC1BA49A0100925671 /* TBMVideoIdUtils.m in Sources */,
+				07636DBC1BA49A0100925671 /* TBMVideoIDUtils.m in Sources */,
 				7952764A1BA6B4AB00E506D5 /* ZZMenuCell.m in Sources */,
 				07636E351BA49A0100925671 /* ZZCommonNetworkTransportService.m in Sources */,
 				18F52E031BFCAB6100042AAC /* ZZContentDataAccessor.m in Sources */,

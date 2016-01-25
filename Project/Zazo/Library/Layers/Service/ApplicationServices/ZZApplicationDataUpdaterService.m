@@ -11,7 +11,7 @@
 #import "ZZUserDataProvider.h"
 #import "ZZRemoteStorageTransportService.h"
 #import "ZZFriendDataProvider.h"
-#import "ZZKeyStoreIncomingVideoIdsDomainModel.h"
+#import "ZZKeyStoreIncomingVideoIDsDomainModel.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZKeyStoreOutgoingVideoStatusDomainModel.h"
 #import "ZZVideoDataProvider.h"
@@ -68,11 +68,11 @@
 }
 
 
-- (void)_queueDownloadWithFriendID:(NSString*)friendID videoIds:(NSSet*)videoIds
+- (void)_queueDownloadWithFriendID:(NSString *)friendID videoIDs:(NSSet*)videoIDs
 {
-    for (NSString *videoId in videoIds)
+    for (NSString *videoID in videoIDs)
     {
-        [self.delegate freshVideoDetectedWithVideoID:videoId friendID:friendID];
+        [self.delegate freshVideoDetectedWithVideoID:videoID friendID:friendID];
     }
 }
 
@@ -103,16 +103,16 @@
 
 - (void)_pollAllIncomingVideos
 {
-    [[ZZRemoteStorageTransportService loadAllIncomingVideoIds] subscribeNext:^(NSArray *models) {
-        for (ZZKeyStoreIncomingVideoIdsDomainModel *model in models)
+    [[ZZRemoteStorageTransportService loadAllIncomingVideoIDs] subscribeNext:^(NSArray *models) {
+        for (ZZKeyStoreIncomingVideoIDsDomainModel *model in models)
         {
             ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.friendMkey];
             if (friendModel.idTbm)
             {
 //                if (friendModel.videos.count)
 //                {
-                    ZZLogInfo(@"%@  vids = %@", [NSObject an_safeString:[friendModel fullName]], model.videoIds ? : @[]);
-                    [self _queueDownloadWithFriendID:friendModel.idTbm videoIds:model.videoIds];
+                    ZZLogInfo(@"%@  vids = %@", [NSObject an_safeString:[friendModel fullName]], model.videoIDs ? : @[]);
+                [self _queueDownloadWithFriendID:friendModel.idTbm videoIDs:model.videoIDs];
 //                }
             }
         }
@@ -136,9 +136,9 @@
                 
                 if ([model status] != ZZVideoOutgoingStatusNone)
                 {
-                    [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)[model status]
+                    [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus) [model status]
                                                                             withFriendID:friendModel.idTbm
-                                                                             withVideoId:model.videoId];
+                                                                             withVideoID:model.videoId];
                 }
             }
         }

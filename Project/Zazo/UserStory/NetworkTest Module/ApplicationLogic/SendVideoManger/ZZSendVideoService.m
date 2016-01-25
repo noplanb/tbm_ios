@@ -8,7 +8,7 @@
 
 #import "ZZSendVideoService.h"
 
-#import "TBMVideoIdUtils.h"
+#import "TBMVideoIDUtils.h"
 #import "TBMVideoProcessor.h"
 #import "ZZFileHelper.h"
 #import "ZZFriendDataProvider.h"
@@ -35,7 +35,7 @@ static NSString* const kUploadFileType = @"MOV";
     if (!ANIsEmpty(self.actualFriendID))
     {
         NSURL* fromUrl = [ZZFileHelper fileURlWithFileName:kUploadFileName withType:kUploadFileType];
-        NSURL* toUrl = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriendID:self.actualFriendID];
+        NSURL* toUrl = [TBMVideoIDUtils generateOutgoingVideoUrlWithFriendID:self.actualFriendID];
         
         NSError* copyError = nil;
         

@@ -58,7 +58,7 @@
 {
     NSString* incomingVideoFileName = [ZZRemoteStorageValueGenerator incomingVideoRemoteFilenameWithFriendMkey:self.friendMkey
                                                                                                     friendCKey:self.friendCkey
-                                                                                                       videoId:self.videoId];
+                                                                                                       videoID:self.videoId];
     
     XCTAssertEqualObjects(incomingVideoFileName, self.expectedIncomingVideoFileName,
                           @"remote icoming video file name:%@ not equal expected: %@",
@@ -70,7 +70,7 @@
 {
     NSString* outgoingVideoFilename = [ZZRemoteStorageValueGenerator outgoingVideoRemoteFilenameWithFriendMkey:self.friendMkey
                                                                                                     friendCKey:self.friendCkey
-                                                                                                       videoId:self.videoId];
+                                                                                                       videoID:self.videoId];
     XCTAssertEqualObjects(outgoingVideoFilename, self.expectedOutgoingVideoFileName,
                           @"remote outgoing video file name:%@ not equal expected: %@",
                           outgoingVideoFilename, self.expectedOutgoingVideoFileName);

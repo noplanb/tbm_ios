@@ -10,7 +10,7 @@
 #import "ZZVideoFileHandler.h"
 #import "TBMVideoProcessor.h"
 #import "ZZVideoRecorder.h"
-#import "TBMVideoIdUtils.h"
+#import "TBMVideoIDUtils.h"
 #import "ZZApplicationDataUpdaterService.h"
 #import "ZZNotificationDomainModel.h"
 #import "ZZUserDomainModel.h"
@@ -103,10 +103,10 @@
 - (void)_videoProcessorDidFinishProcessingNotification:(NSNotification *)notification
 {
     NSURL *videoUrl = [notification.userInfo objectForKey:@"videoUrl"];
-    ZZFileTransferMarkerDomainModel* marker = [TBMVideoIdUtils markerModelWithOutgoingVideoURL:videoUrl];
+    ZZFileTransferMarkerDomainModel* marker = [TBMVideoIDUtils markerModelWithOutgoingVideoURL:videoUrl];
 
     ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:marker.friendID];
-    [[ZZVideoStatusHandler sharedInstance] handleOutgoingVideoCreatedWithVideoId:marker.videoID withFriend:friendModel.idTbm];
+    [[ZZVideoStatusHandler sharedInstance] handleOutgoingVideoCreatedWithVideoID:marker.videoID withFriend:friendModel.idTbm];
     [self.videoFileHandler uploadWithVideoUrl:videoUrl friendCKey:friendModel.cKey];
 }
 
@@ -151,7 +151,7 @@
             [UIApplication sharedApplication].backgroundTimeRemaining);
 }
 
-- (void)sendNotificationForVideoReceived:(ZZFriendDomainModel *)friendModel videoId:(NSString *)videoID
+- (void)sendNotificationForVideoReceived:(ZZFriendDomainModel *)friendModel videoID:(NSString *)videoID
 {
     ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
 
@@ -161,7 +161,7 @@
     
 }
 
-- (void)sendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friendModel videoId:(NSString *)videoID status:(NSString *)status
+- (void)sendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friendModel videoID:(NSString *)videoID status:(NSString *)status
 {
     ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
     [[ZZNotificationTransportService sendVideoStatusUpdateNotificationTo:friendModel
@@ -184,9 +184,9 @@
 
 #pragma mark - Video status handlerfriendID
 
-- (void)notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)status withFriendID:(NSString *)friendID videoId:(NSString *)videoID
+- (void)notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)status withFriendID:(NSString *)friendID videoID:(NSString *)videoID
 {
-    [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:status withFriendID:friendID withVideoId:videoID];
+    [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:status withFriendID:friendID withVideoID:videoID];
 }
 
 
@@ -195,9 +195,9 @@
     [[ZZVideoStatusHandler sharedInstance] setAndNotifyUploadRetryCount:count withFriendID:friendID videoID:videoID];
 }
 
-- (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)status friendId:(NSString *)friendID videoId:(NSString *)videoId
+- (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)status friendID:(NSString *)friendID videoID:(NSString *)videoID
 {
-    [[ZZVideoStatusHandler sharedInstance] setAndNotifyIncomingVideoStatus:status friendId:friendID videoId:videoId];
+    [[ZZVideoStatusHandler sharedInstance] setAndNotifyIncomingVideoStatus:status friendID:friendID videoID:videoID];
 }
 
 
@@ -215,7 +215,7 @@
     
     if (friendModel)
     {
-        [self.videoFileHandler queueDownloadWithFriendID:friendModel.idTbm videoId:notificationModel.videoID];
+        [self.videoFileHandler queueDownloadWithFriendID:friendModel.idTbm videoID:notificationModel.videoID];
     }
     else
     {
@@ -252,10 +252,10 @@
     }
     
     ZZFriendDomainModel* updatedFriendModel = [ZZFriendDataProvider friendWithMKeyValue:notificationModel.toUserMKey];
-    
+
     [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:outgoingStatus
                                                             withFriendID:updatedFriendModel.idTbm
-                                                             withVideoId:notificationModel.videoID];
+                                                             withVideoID:notificationModel.videoID];
 }
 
 
@@ -263,7 +263,7 @@
 
 - (void)freshVideoDetectedWithVideoID:(NSString*)videoID friendID:(NSString*)friendID
 {
-    [self.videoFileHandler queueDownloadWithFriendID:friendID videoId:videoID];
+    [self.videoFileHandler queueDownloadWithFriendID:friendID videoID:videoID];
 }
 
 

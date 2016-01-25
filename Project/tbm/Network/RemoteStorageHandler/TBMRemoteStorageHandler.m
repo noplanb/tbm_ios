@@ -33,18 +33,18 @@ static NSString *const kArraySeparator = @",";
     return [self incomingVideoRemoteFilenameWithFriend:video.friend videoId:video.videoId];
 }
 
-+ (NSString *)incomingVideoRemoteFilenameWithFriend:(TBMFriend *)friend videoId:(NSString *)videoId
++ (NSString *)incomingVideoRemoteFilenameWithFriend:(TBMFriend *)friend videoID:(NSString *)videoID
 {
     return [NSString stringWithFormat:@"%@-%@",
                                       [self incomingPrefix:friend],
-                                      [[friend.ckey stringByAppendingString:videoId] zz_md5]];
+                                      [[friend.ckey stringByAppendingString:videoID] zz_md5]];
 }
 
-+ (NSString *)outgoingVideoRemoteFilename:(TBMFriend *)friend videoId:(NSString *)videoId
++ (NSString *)outgoingVideoRemoteFilename:(TBMFriend *)friend videoID:(NSString *)videoID
 {
     return [NSString stringWithFormat:@"%@-%@",
                                       [self outgoingPrefix:friend],
-                                      [[friend.ckey stringByAppendingString:videoId] zz_md5]];
+                                      [[friend.ckey stringByAppendingString:videoID] zz_md5]];
 }
 
 + (NSString *)incomingVideoIDRemoteKVKey:(TBMFriend *)friend
@@ -176,27 +176,27 @@ static NSString *const kArraySeparator = @",";
 }
 
 // Convenience setters
-+ (void)addRemoteOutgoingVideoId:(NSString *)videoId friend:(TBMFriend *)friend
++ (void)addRemoteOutgoingVideoID:(NSString *)videoID friend:(TBMFriend *)friend
 {
     OB_INFO(@"addRemoteOutgoingVideoId");
-    NSDictionary *value = @{REMOTE_STORAGE_VIDEO_ID_KEY : videoId};
+    NSDictionary *value = @{REMOTE_STORAGE_VIDEO_ID_KEY : videoID};
     NSString *key1 = [TBMRemoteStorageHandler outgoingVideoIDRemoteKVKey:friend];
-    [TBMRemoteStorageHandler setRemoteKVWithKey1:key1 key2:videoId value:value];
+    [TBMRemoteStorageHandler setRemoteKVWithKey1:key1 key2:videoID value:value];
 }
 
-+ (void)deleteRemoteIncomingVideoId:(NSString *)videoId friend:(TBMFriend *)friend
++ (void)deleteRemoteIncomingVideoID:(NSString *)videoID friend:(TBMFriend *)friend
 {
     OB_INFO(@"deleteRemoteIncomingVideoId");
     NSString *key1 = [TBMRemoteStorageHandler incomingVideoIDRemoteKVKey:friend];
-    [TBMRemoteStorageHandler deleteRemoteKVWithKey1:key1 key2:videoId];
+    [TBMRemoteStorageHandler deleteRemoteKVWithKey1:key1 key2:videoID];
 }
 
-+ (void)setRemoteIncomingVideoStatus:(NSString *)status videoId:(NSString *)videoId friend:(TBMFriend *)friend
++ (void)setRemoteIncomingVideoStatus:(NSString *)status videoID:(NSString *)videoID friend:(TBMFriend *)friend
 {
     OB_INFO(@"setRemoteIncomingVideoStatus");
-    if (!ANIsEmpty(videoId) && !ANIsEmpty(friend))
+    if (!ANIsEmpty(videoID) && !ANIsEmpty(friend))
     {
-        NSDictionary *value = @{REMOTE_STORAGE_VIDEO_ID_KEY : videoId, REMOTE_STORAGE_STATUS_KEY : status};
+        NSDictionary *value = @{REMOTE_STORAGE_VIDEO_ID_KEY : videoID, REMOTE_STORAGE_STATUS_KEY : status};
         NSString *key = [TBMRemoteStorageHandler incomingVideoStatusRemoteKVKey:friend];
         [TBMRemoteStorageHandler setRemoteKVWithKey1:key key2:NULL value:value];
     }

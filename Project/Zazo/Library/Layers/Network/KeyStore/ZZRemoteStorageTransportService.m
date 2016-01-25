@@ -13,7 +13,7 @@
 #import "ZZRemoteStorageValueGenerator.h"
 #import "FEMObjectMapping.h"
 #import "FEMObjectDeserializer.h"
-#import "ZZKeyStoreIncomingVideoIdsDomainModel.h"
+#import "ZZKeyStoreIncomingVideoIDsDomainModel.h"
 #import "ZZKeyStoreOutgoingVideoStatusDomainModel.h"
 
 @implementation ZZRemoteStorageTransportService
@@ -84,22 +84,22 @@
     }];
 }
 
-+ (RACSignal*)loadAllIncomingVideoIds
++ (RACSignal*)loadAllIncomingVideoIDs
 {
-    return [[ZZRemoteStorageTransport loadAllIncomingVideoIds] map:^id(NSArray* videoIdData) {
+    return [[ZZRemoteStorageTransport loadAllIncomingVideoIDs] map:^id(NSArray*videoIDData) {
         
-        videoIdData = [[videoIdData.rac_sequence map:^id(id obj) {
+        videoIDData = [[videoIDData.rac_sequence map:^id(id obj) {
             if ([obj isKindOfClass:[NSDictionary class]])
             {
-                FEMObjectMapping* mapping = [ZZKeyStoreIncomingVideoIdsDomainModel mapping];
-                ZZKeyStoreIncomingVideoIdsDomainModel* model =
+                FEMObjectMapping* mapping = [ZZKeyStoreIncomingVideoIDsDomainModel mapping];
+                ZZKeyStoreIncomingVideoIDsDomainModel * model =
                 [FEMObjectDeserializer deserializeObjectExternalRepresentation:obj
                                                                   usingMapping:mapping];
                 return model;
             }
             return nil;
         }] array];
-        return videoIdData;
+        return videoIDData;
     }];
 }
 

@@ -25,7 +25,7 @@
 #import "ZZSoundEffectPlayer.h"
 #import "ZZVideoStatuses.h"
 #import "ZZVideoDataProvider.h"
-#import "TBMVideoIdUtils.h"
+#import "TBMVideoIDUtils.h"
 #import "ZZFriendDataProvider.h"
 #import "RollbarReachability.h"
 #import "ZZVideoDomainModel.h"
@@ -510,7 +510,7 @@
             
             ANDispatchBlockToMainQueue(^{
                 [self.videoPlayer stop];
-                NSURL* url = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriendID:viewModel.item.relatedUser.idTbm];
+                NSURL* url = [TBMVideoIDUtils generateOutgoingVideoUrlWithFriendID:viewModel.item.relatedUser.idTbm];
                 [self.userInterface updateRecordViewStateTo:isEnabled];
                 
                 [[ZZVideoRecorder shared] startRecordingWithVideoURL:url completionBlock:^(BOOL isRecordingSuccess) {
