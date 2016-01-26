@@ -72,7 +72,7 @@
     });
 }
 
-- (void)_notifyObserveresSendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friendModel videoID:(NSString *)videoID status:(NSString *)status
+- (void)_notifyObserversSendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friendModel videoID:(NSString *)videoID status:(NSString *)status
 {
     ANDispatchBlockToMainQueue(^{
         for (id <ZZVideoStatusHandlerDelegate> delegate in self.observers)
@@ -246,12 +246,12 @@
 }
 
 
-- (void)setAndNotityViewedIncomingVideoWithFriendID:(NSString *)friendID videoID:(NSString *)videoID
+- (void)setAndNotifyViewedIncomingVideoWithFriendID:(NSString *)friendID videoID:(NSString *)videoID
 {
     [self setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusViewed friendID:friendID videoID:videoID];
     
     ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
-    [self _notifyObserveresSendNotificationForVideoStatusUpdate:friendModel videoID:videoID status:NOTIFICATION_STATUS_VIEWED];
+    [self _notifyObserversSendNotificationForVideoStatusUpdate:friendModel videoID:videoID status:NOTIFICATION_STATUS_VIEWED];
 
 }
 

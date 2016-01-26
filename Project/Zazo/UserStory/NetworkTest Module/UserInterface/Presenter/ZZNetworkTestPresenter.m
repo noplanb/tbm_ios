@@ -58,7 +58,7 @@
 
 #pragma makr - Output
 
-- (void)videosatusChangedWithFriend:(ZZFriendDomainModel *)friendModel
+- (void)videoStatusChangedWithFriend:(ZZFriendDomainModel *)friendModel
 {
     [self.videoStateController videoStatusChangedWithFriend:friendModel];
 }
@@ -132,9 +132,9 @@
     [self.userInterface updateTriesCount:coutner];
 }
 
-- (void)videoStatusChagnedWith:(NSString *)statusString
+- (void)videoStatusChangedWith:(NSString *)statusString
 {
-    [self.userInterface updateVideoSatus:statusString];
+    [self.userInterface updateVideoStatus:statusString];
 }
 
 - (void)updateRetryCount:(NSInteger)count

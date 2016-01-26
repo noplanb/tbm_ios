@@ -21,7 +21,7 @@ static CGFloat const kNextFeatureAnimationDuration = 0.35f;
 @property(nonatomic, strong) UILabel *headerLabel;
 @property(nonatomic, strong) UILabel *subHeaderLabel;
 @property(nonatomic, strong) UIImageView *presentIconImage;
-@property(nonatomic, strong) NSDictionary *posibbleHeaders;
+@property(nonatomic, strong) NSDictionary *possibleHeaders;
 @property (nonatomic, copy) void (^completionBlock)();
 
 @end
@@ -106,9 +106,9 @@ static CGFloat const kNextFeatureAnimationDuration = 0.35f;
 
 - (void)setupRandomHeaders
 {
-    NSString *header = [self.posibbleHeaders.allKeys zz_randomObject];
+    NSString *header = [self.possibleHeaders.allKeys zz_randomObject];
     self.headerLabel.text= header;
-    self.subHeaderLabel.text= self.posibbleHeaders[header];
+    self.subHeaderLabel.text= self.possibleHeaders[header];
 }
 
 - (void)hideAnimated
@@ -233,11 +233,11 @@ static CGFloat const kNextFeatureAnimationDuration = 0.35f;
     return _presentIconImage;
 }
 
-- (NSDictionary*)posibbleHeaders
+- (NSDictionary*)possibleHeaders
 {
-    if (!_posibbleHeaders)
+    if (!_possibleHeaders)
     {
-        _posibbleHeaders = @{@"What is in the box?" : @"Find out. Just Zazo someone new.",
+        _possibleHeaders = @{@"What is in the box?" : @"Find out. Just Zazo someone new.",
                              @"A gift is waiting!" : @"Find out. Just Zazo someone new.",
                              @"Unlock a another feature!" : @"Just Zazo someone new.",
                              @"Surprise feature waiting" : @"Zazo someone new to unlock.",
@@ -245,7 +245,7 @@ static CGFloat const kNextFeatureAnimationDuration = 0.35f;
                              @"Unlock a surprise!" : @"Just Zazo someone new.",
                              @"What did you win?" : @"Find out. Zazo someone new."};
     }
-    return _posibbleHeaders;
+    return _possibleHeaders;
 }
 
 - (void)dismiss

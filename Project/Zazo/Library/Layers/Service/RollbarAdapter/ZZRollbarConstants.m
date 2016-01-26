@@ -21,7 +21,7 @@ NSString* ZZDispatchLevelStringFromEnumValue(ZZDispatchLevel type)
     return logLevelString[type];
 }
 
-ZZDispatchLevel ZZDispatchLevelEnumValueFromSrting(NSString* string)
+ZZDispatchLevel ZZDispatchLevelEnumValueFromString(NSString *string)
 {
     NSArray* array = [NSArray arrayWithObjects:logLevelString count:5];
     return [array indexOfObject:[NSObject an_safeString:string]];
@@ -41,7 +41,7 @@ NSString* ZZDispatchServerStateStringFromEnumValue(ZZConfigServerState type)
     return logLevelString[type];
 }
 
-ZZConfigServerState ZZDispatchServerStateEnumValueFromSrting(NSString* string)
+ZZConfigServerState ZZDispatchServerStateEnumValueFromString(NSString *string)
 {
     NSArray* array = [NSArray arrayWithObjects:serverTypeString count:3];
     return [array indexOfObject:[NSObject an_safeString:string]];

@@ -13,6 +13,6 @@
 
 @property (nonatomic, strong) UIButton* switchCameraButton;
 
-- (void)updataeRecordStateTo:(BOOL)isRecording;
+- (void)updateRecordStateTo:(BOOL)isRecording;
 
 @end

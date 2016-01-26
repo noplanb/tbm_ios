@@ -13,7 +13,7 @@
 @interface ZZNetworkTestView ()
 
 @property (nonatomic, strong) UILabel* statusTitleLabel;
-@property (nonatomic, strong) UILabel* triesTitileLabel;
+@property (nonatomic, strong) UILabel* triesTitleLabel;
 @property (nonatomic, strong) UILabel* failedTitleLabel;
 @property (nonatomic, strong) UILabel* currentTitleLabel;
 @property (nonatomic, strong) UILabel* statusVideoTitleLabel;
@@ -33,7 +33,7 @@
         [self headerView];
         [self statusTitleLabel];
         [self statusLabel];
-        [self triesTitileLabel];
+        [self triesTitleLabel];
         [self triesLabel];
         
         [self uploadVideoCountLabel];
@@ -129,25 +129,25 @@
 
 #pragma mark - Tries
 
-- (UILabel*)triesTitileLabel
+- (UILabel*)triesTitleLabel
 {
-    if (!_triesTitileLabel)
+    if (!_triesTitleLabel)
     {
-        _triesTitileLabel = [UILabel new];
-        _triesTitileLabel.textColor = [UIColor whiteColor];
-        _triesTitileLabel.text = NSLocalizedString(@"network-test-view.tries.title", nil);
-        [_triesTitileLabel setFont:[UIFont systemFontOfSize:16 weight:UIFontWeightRegular]];
-        _triesTitileLabel.textAlignment = NSTextAlignmentLeft;
-        [self addSubview:_triesTitileLabel];
+        _triesTitleLabel = [UILabel new];
+        _triesTitleLabel.textColor = [UIColor whiteColor];
+        _triesTitleLabel.text = NSLocalizedString(@"network-test-view.tries.title", nil);
+        [_triesTitleLabel setFont:[UIFont systemFontOfSize:16 weight:UIFontWeightRegular]];
+        _triesTitleLabel.textAlignment = NSTextAlignmentLeft;
+        [self addSubview:_triesTitleLabel];
         
-        [_triesTitileLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        [_triesTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(kInfoLeftOffset());
             make.top.equalTo(self.statusTitleLabel.mas_bottom).offset(kBetweenInfoLabelOffset());
             make.height.equalTo(@(kNetworkTestLabelSize().height));
         }];
     }
     
-    return _triesTitileLabel;
+    return _triesTitleLabel;
 }
 
 - (UILabel*)triesLabel
@@ -161,7 +161,7 @@
         [self addSubview:_triesLabel];
         
         [_triesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.triesTitileLabel.mas_right).offset(kBetweenInfoLabelOffset());
+            make.left.equalTo(self.triesTitleLabel.mas_right).offset(kBetweenInfoLabelOffset());
             make.top.equalTo(self.statusTitleLabel.mas_bottom).offset(kBetweenInfoLabelOffset());
             make.height.equalTo(@(kNetworkTestLabelSize().height));
         }];
@@ -185,7 +185,7 @@
         
         [_uploadVideoCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(kInfoLeftOffset());
-            make.top.equalTo(self.triesTitileLabel.mas_bottom).offset(kBetweenInfoLabelOffset());
+            make.top.equalTo(self.triesTitleLabel.mas_bottom).offset(kBetweenInfoLabelOffset());
         }];
     }
     
@@ -204,7 +204,7 @@
         
         [_downloadVideoCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.uploadVideoCountLabel.mas_right).offset(kBetweenInfoLabelOffset());
-            make.top.equalTo(self.triesTitileLabel.mas_bottom).offset(kBetweenInfoLabelOffset());
+            make.top.equalTo(self.triesTitleLabel.mas_bottom).offset(kBetweenInfoLabelOffset());
         }];
     }
     
@@ -223,7 +223,7 @@
         
         [_completedCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.downloadVideoCountLabel.mas_right).offset(kBetweenInfoLabelOffset());
-            make.top.equalTo(self.triesTitileLabel.mas_bottom).offset(kBetweenInfoLabelOffset());
+            make.top.equalTo(self.triesTitleLabel.mas_bottom).offset(kBetweenInfoLabelOffset());
         }];
     }
     

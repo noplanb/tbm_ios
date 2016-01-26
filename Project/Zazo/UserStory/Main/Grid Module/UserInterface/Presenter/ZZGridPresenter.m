@@ -35,7 +35,7 @@
 <
     ZZGridDataSourceDelegate,
     ZZVideoPlayerDelegate,
-    ZZGridActionHanlderDelegate,
+        ZZGridActionHandlerDelegate,
     TBMTableModalDelegate
 >
 
@@ -405,7 +405,7 @@
     {
         msg = NSLocalizedString(@"hint.center.cell.press.to.record", nil);
     }
-    [ZZGridAlertBuilder showHintalertWithMessage:msg];
+    [ZZGridAlertBuilder showHintAlertWithMessage:msg];
 }
 
 - (BOOL)isNetworkEnabled
@@ -670,7 +670,7 @@
 
 - (NSInteger)friendsCountOnGrid
 {
-    return [self.dataSource frindsOnGridNumber];
+    return [self.dataSource friendsOnGridNumber];
 }
 
 
@@ -683,7 +683,7 @@
 
 - (NSInteger)friendsNumberOnGrid
 {
-    return [self.dataSource frindsOnGridNumber];
+    return [self.dataSource friendsOnGridNumber];
 }
 
 - (BOOL)isVideoPlayingNow

@@ -22,7 +22,7 @@ static CGFloat const kStatusBarHeight = 20;
 @property (nonatomic, strong) UIView *drawerView;
 @property (nonatomic, assign) CGFloat drawerWidth;
 @property (nonatomic, assign) ANDrawerOpenDirection openDirection;
-@property (nonatomic, strong) UIPanGestureRecognizer* panGesure;
+@property (nonatomic, strong) UIPanGestureRecognizer* panGesture;
 @property (nonatomic, assign) CGPoint startPoint;
 
 @property (nonatomic, strong) NSArray* additionalPans;
@@ -58,8 +58,8 @@ static CGFloat const kStatusBarHeight = 20;
     
     [self.view addSubview:_drawerView];
     [self.view bringSubviewToFront:self.navigationBar];
-    
-    [_drawerView addGestureRecognizer:self.panGesure];
+
+    [_drawerView addGestureRecognizer:self.panGesture];
     
     [_drawerView mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -136,8 +136,8 @@ static CGFloat const kStatusBarHeight = 20;
         [_backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);
         }];
-        
-        [_backgroundView addGestureRecognizer:self.panGesure];
+
+        [_backgroundView addGestureRecognizer:self.panGesture];
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
         [[tap.rac_gestureSignal deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(id x) {
@@ -148,14 +148,14 @@ static CGFloat const kStatusBarHeight = 20;
     return _backgroundView;
 }
 
-- (UIPanGestureRecognizer *)panGesure
+- (UIPanGestureRecognizer *)panGesture
 {
-    if (!_panGesure)
+    if (!_panGesture)
     {
-        _panGesure = [UIPanGestureRecognizer new];
-        [self attachPanRecognizer:_panGesure];
+        _panGesture = [UIPanGestureRecognizer new];
+        [self attachPanRecognizer:_panGesture];
     }
-    return _panGesure;
+    return _panGesture;
 }
 
 - (void)attachPanRecognizer:(UIPanGestureRecognizer*)recognizer
@@ -233,7 +233,7 @@ static CGFloat const kStatusBarHeight = 20;
     {
         self.startPoint = [recognizer locationInView:self.view];
         
-        if (recognizer != self.panGesure)
+        if (recognizer != self.panGesture)
         {
             if (velocity.x > kDefaultDrawerVelocityTrigger && !self.isOpen)
             {
@@ -289,7 +289,7 @@ static CGFloat const kStatusBarHeight = 20;
         {
             [self updateStateToOpened:newState];
         }
-        else if (recognizer == self.panGesure)
+        else if (recognizer == self.panGesture)
         {
             [self updateStateToOpened:newState];
         }
@@ -302,7 +302,7 @@ static CGFloat const kStatusBarHeight = 20;
 
 - (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)panGestureRecognizer
 {
-    if (panGestureRecognizer != self.panGesure)
+    if (panGestureRecognizer != self.panGesture)
     {
         CGPoint point = [panGestureRecognizer locationInView:panGestureRecognizer.view];
         BOOL isInBounds = point.x > (self.view.bounds.size.width - 25); //TODO: this only for rifht side

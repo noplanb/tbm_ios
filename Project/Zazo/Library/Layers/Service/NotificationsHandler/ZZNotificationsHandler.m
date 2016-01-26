@@ -28,7 +28,7 @@
 + (void)registerToPushNotifications
 {
     
-    if ([ZZStoredSettingsManager shared].isPushNotificatonEnabled)
+    if ([ZZStoredSettingsManager shared].isPushNotificationEnabled)
     {
         OB_INFO(@"registerForPushNotification");
         if ([self _isIOS8OrHigher])

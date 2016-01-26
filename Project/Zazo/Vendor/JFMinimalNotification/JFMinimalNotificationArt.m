@@ -283,7 +283,7 @@ static UIImage *imageOfEdit = nil;
     return imageOfNotice;
 }
 
-+ (UIImage*)imageOfWarningWithBGColor:(UIColor*)backgroundColor forgroundColor:(UIColor*)forgroundColor
++ (UIImage*)imageOfWarningWithBGColor:(UIColor*)backgroundColor forgroundColor:(UIColor*)foregroundColor
 {
     if (imageOfWarning && [imageOfWarningColor isEqual:backgroundColor])
     {
@@ -292,7 +292,7 @@ static UIImage *imageOfEdit = nil;
     
     imageOfWarningColor = backgroundColor;
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(108, 92), NO, 0);
-    [JFMinimalNotificationArt drawWarningWithBGColor:backgroundColor forgroundColor:forgroundColor];
+    [JFMinimalNotificationArt drawWarningWithBGColor:backgroundColor forgroundColor:foregroundColor];
     imageOfWarning = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     

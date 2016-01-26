@@ -274,11 +274,11 @@
 		181D1CA41BC51B2000044F83 /* ZZInviteEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CA31BC51B2000044F83 /* ZZInviteEventHandler.m */; };
 		181D1CA71BC51B7100044F83 /* ZZPlayEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CA61BC51B7100044F83 /* ZZPlayEventHandler.m */; };
 		181D1CAA1BC5209000044F83 /* ZZRecordEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CA91BC5209000044F83 /* ZZRecordEventHandler.m */; };
-		181D1CAD1BC5219300044F83 /* ZZSentMessgeEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CAC1BC5219300044F83 /* ZZSentMessgeEventHandler.m */; };
+		181D1CAD1BC5219300044F83 /* ZZSentMessageEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CAC1BC5219300044F83 /* ZZSentMessageEventHandler.m */; };
 		181D1CB01BC5222600044F83 /* ZZViewedMessageEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CAF1BC5222600044F83 /* ZZViewedMessageEventHandler.m */; };
 		181D1CB31BC522C600044F83 /* ZZInviteSomeoneElseEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CB21BC522C600044F83 /* ZZInviteSomeoneElseEventHandler.m */; };
 		181D1CB61BC5236E00044F83 /* ZZSentWelcomeEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CB51BC5236E00044F83 /* ZZSentWelcomeEventHandler.m */; };
-		181D1CB91BC523FA00044F83 /* ZZFronCameraFeatureEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CB81BC523FA00044F83 /* ZZFronCameraFeatureEventHandler.m */; };
+		181D1CB91BC523FA00044F83 /* ZZFrontCameraFeatureEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CB81BC523FA00044F83 /* ZZFrontCameraFeatureEventHandler.m */; };
 		181D1CBC1BC5246C00044F83 /* ZZAbortRecordingFeatureEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CBB1BC5246C00044F83 /* ZZAbortRecordingFeatureEventHandler.m */; };
 		181D1CBF1BC524E100044F83 /* ZZDeleteFriendsFeatureEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CBE1BC524E100044F83 /* ZZDeleteFriendsFeatureEventHandler.m */; };
 		181D1CC21BC5255D00044F83 /* ZZEarpieceFeatureEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CC11BC5255D00044F83 /* ZZEarpieceFeatureEventHandler.m */; };
@@ -459,7 +459,7 @@
 		182255011C16CA06003885A3 /* ZZViewedMessageEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CAF1BC5222600044F83 /* ZZViewedMessageEventHandler.m */; };
 		182255021C16CA06003885A3 /* ZZThumbnailGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA7131BB1C55E009878B9 /* ZZThumbnailGenerator.m */; };
 		182255031C16CA06003885A3 /* ANDebugVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C271BA49A0100925671 /* ANDebugVC.m */; };
-		182255041C16CA06003885A3 /* ZZSentMessgeEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CAC1BC5219300044F83 /* ZZSentMessgeEventHandler.m */; };
+		182255041C16CA06003885A3 /* ZZSentMessageEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CAC1BC5219300044F83 /* ZZSentMessageEventHandler.m */; };
 		182255051C16CA06003885A3 /* ZZFriendDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B151BA49A0100925671 /* ZZFriendDataProvider.m */; };
 		182255061C16CA06003885A3 /* ANErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D761BA49A0100925671 /* ANErrorHandler.m */; };
 		182255071C16CA06003885A3 /* ANDebugController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C251BA49A0100925671 /* ANDebugController.m */; };
@@ -474,7 +474,7 @@
 		182255101C16CA06003885A3 /* JFMinimalNotificationArt.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4F01BAABE85001697D5 /* JFMinimalNotificationArt.m */; };
 		182255111C16CA06003885A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AF31BA49A0100925671 /* main.m */; };
 		182255121C16CA06003885A3 /* ZZAddressBookDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B801BA49A0100925671 /* ZZAddressBookDataProvider.m */; };
-		182255131C16CA06003885A3 /* ZZFronCameraFeatureEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CB81BC523FA00044F83 /* ZZFronCameraFeatureEventHandler.m */; };
+		182255131C16CA06003885A3 /* ZZFrontCameraFeatureEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CB81BC523FA00044F83 /* ZZFrontCameraFeatureEventHandler.m */; };
 		182255141C16CA06003885A3 /* ZZFriendModelsMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B171BA49A0100925671 /* ZZFriendModelsMapper.m */; };
 		182255151C16CA06003885A3 /* ZZGridDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B1A1BA49A0100925671 /* ZZGridDataProvider.m */; };
 		182255161C16CA06003885A3 /* ZZSecretWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C771BA49A0100925671 /* ZZSecretWireframe.m */; };
@@ -1282,16 +1282,16 @@
 		181D1CA61BC51B7100044F83 /* ZZPlayEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZPlayEventHandler.m; sourceTree = "<group>"; };
 		181D1CA81BC5209000044F83 /* ZZRecordEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZRecordEventHandler.h; sourceTree = "<group>"; };
 		181D1CA91BC5209000044F83 /* ZZRecordEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRecordEventHandler.m; sourceTree = "<group>"; };
-		181D1CAB1BC5219300044F83 /* ZZSentMessgeEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSentMessgeEventHandler.h; sourceTree = "<group>"; };
-		181D1CAC1BC5219300044F83 /* ZZSentMessgeEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSentMessgeEventHandler.m; sourceTree = "<group>"; };
+		181D1CAB1BC5219300044F83 /* ZZSentMessageEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSentMessageEventHandler.h; sourceTree = "<group>"; };
+		181D1CAC1BC5219300044F83 /* ZZSentMessageEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSentMessageEventHandler.m; sourceTree = "<group>"; };
 		181D1CAE1BC5222600044F83 /* ZZViewedMessageEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZViewedMessageEventHandler.h; sourceTree = "<group>"; };
 		181D1CAF1BC5222600044F83 /* ZZViewedMessageEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZViewedMessageEventHandler.m; sourceTree = "<group>"; };
 		181D1CB11BC522C600044F83 /* ZZInviteSomeoneElseEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZInviteSomeoneElseEventHandler.h; sourceTree = "<group>"; };
 		181D1CB21BC522C600044F83 /* ZZInviteSomeoneElseEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZInviteSomeoneElseEventHandler.m; sourceTree = "<group>"; };
 		181D1CB41BC5236E00044F83 /* ZZSentWelcomeEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSentWelcomeEventHandler.h; sourceTree = "<group>"; };
 		181D1CB51BC5236E00044F83 /* ZZSentWelcomeEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSentWelcomeEventHandler.m; sourceTree = "<group>"; };
-		181D1CB71BC523FA00044F83 /* ZZFronCameraFeatureEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFronCameraFeatureEventHandler.h; sourceTree = "<group>"; };
-		181D1CB81BC523FA00044F83 /* ZZFronCameraFeatureEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFronCameraFeatureEventHandler.m; sourceTree = "<group>"; };
+		181D1CB71BC523FA00044F83 /* ZZFrontCameraFeatureEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFrontCameraFeatureEventHandler.h; sourceTree = "<group>"; };
+		181D1CB81BC523FA00044F83 /* ZZFrontCameraFeatureEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFrontCameraFeatureEventHandler.m; sourceTree = "<group>"; };
 		181D1CBA1BC5246C00044F83 /* ZZAbortRecordingFeatureEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAbortRecordingFeatureEventHandler.h; sourceTree = "<group>"; };
 		181D1CBB1BC5246C00044F83 /* ZZAbortRecordingFeatureEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAbortRecordingFeatureEventHandler.m; sourceTree = "<group>"; };
 		181D1CBD1BC524E100044F83 /* ZZDeleteFriendsFeatureEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDeleteFriendsFeatureEventHandler.h; sourceTree = "<group>"; };
@@ -3957,8 +3957,8 @@
 		181D1C931BC51A2800044F83 /* FrontCameraFeatureEventHandler */ = {
 			isa = PBXGroup;
 			children = (
-				181D1CB71BC523FA00044F83 /* ZZFronCameraFeatureEventHandler.h */,
-				181D1CB81BC523FA00044F83 /* ZZFronCameraFeatureEventHandler.m */,
+				181D1CB71BC523FA00044F83 /* ZZFrontCameraFeatureEventHandler.h */,
+				181D1CB81BC523FA00044F83 /* ZZFrontCameraFeatureEventHandler.m */,
 			);
 			path = FrontCameraFeatureEventHandler;
 			sourceTree = "<group>";
@@ -4002,8 +4002,8 @@
 		181D1C981BC51A2800044F83 /* SentMessgeEventHandler */ = {
 			isa = PBXGroup;
 			children = (
-				181D1CAB1BC5219300044F83 /* ZZSentMessgeEventHandler.h */,
-				181D1CAC1BC5219300044F83 /* ZZSentMessgeEventHandler.m */,
+				181D1CAB1BC5219300044F83 /* ZZSentMessageEventHandler.h */,
+				181D1CAC1BC5219300044F83 /* ZZSentMessageEventHandler.m */,
 			);
 			path = SentMessgeEventHandler;
 			sourceTree = "<group>";
@@ -5150,7 +5150,7 @@
 				182255FB1C16E6E5003885A3 /* ZZNetworkTestView.m in Sources */,
 				182255021C16CA06003885A3 /* ZZThumbnailGenerator.m in Sources */,
 				182255031C16CA06003885A3 /* ANDebugVC.m in Sources */,
-				182255041C16CA06003885A3 /* ZZSentMessgeEventHandler.m in Sources */,
+				182255041C16CA06003885A3 /* ZZSentMessageEventHandler.m in Sources */,
 				182255051C16CA06003885A3 /* ZZFriendDataProvider.m in Sources */,
 				182255061C16CA06003885A3 /* ANErrorHandler.m in Sources */,
 				182255071C16CA06003885A3 /* ANDebugController.m in Sources */,
@@ -5166,7 +5166,7 @@
 				182255101C16CA06003885A3 /* JFMinimalNotificationArt.m in Sources */,
 				182255111C16CA06003885A3 /* main.m in Sources */,
 				182255121C16CA06003885A3 /* ZZAddressBookDataProvider.m in Sources */,
-				182255131C16CA06003885A3 /* ZZFronCameraFeatureEventHandler.m in Sources */,
+				182255131C16CA06003885A3 /* ZZFrontCameraFeatureEventHandler.m in Sources */,
 				182255141C16CA06003885A3 /* ZZFriendModelsMapper.m in Sources */,
 				182255151C16CA06003885A3 /* ZZGridDataProvider.m in Sources */,
 				182255161C16CA06003885A3 /* ZZSecretWireframe.m in Sources */,
@@ -5431,7 +5431,7 @@
 				182255FA1C16E6E5003885A3 /* ZZNetworkTestView.m in Sources */,
 				07BAA7141BB1C55E009878B9 /* ZZThumbnailGenerator.m in Sources */,
 				07636E961BA49A0100925671 /* ANDebugVC.m in Sources */,
-				181D1CAD1BC5219300044F83 /* ZZSentMessgeEventHandler.m in Sources */,
+				181D1CAD1BC5219300044F83 /* ZZSentMessageEventHandler.m in Sources */,
 				07636E231BA49A0100925671 /* ZZFriendDataProvider.m in Sources */,
 				07636EFF1BA49A0100925671 /* ANErrorHandler.m in Sources */,
 				07636E951BA49A0100925671 /* ANDebugController.m in Sources */,
@@ -5447,7 +5447,7 @@
 				7997E4F81BAABE85001697D5 /* JFMinimalNotificationArt.m in Sources */,
 				07636E1A1BA49A0100925671 /* main.m in Sources */,
 				07636E491BA49A0100925671 /* ZZAddressBookDataProvider.m in Sources */,
-				181D1CB91BC523FA00044F83 /* ZZFronCameraFeatureEventHandler.m in Sources */,
+				181D1CB91BC523FA00044F83 /* ZZFrontCameraFeatureEventHandler.m in Sources */,
 				07636E241BA49A0100925671 /* ZZFriendModelsMapper.m in Sources */,
 				07636E251BA49A0100925671 /* ZZGridDataProvider.m in Sources */,
 				07636EAF1BA49A0100925671 /* ZZSecretWireframe.m in Sources */,

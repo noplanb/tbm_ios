@@ -17,7 +17,7 @@
 #import "ZZFriendDataHelper.h"
 
 
-static CGFloat const kDelayBeforHintHidden = 3.5;
+static CGFloat const kDelayBeforeHintHidden = 3.5;
 
 @interface ZZHintsController () <ZZHintsViewDelegate>
 
@@ -69,7 +69,7 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
     
     [self.hintsView updateWithHintsViewModel:viewModel andIndex:index];
     
-    [[self.delegate hintPresetedView] addSubview:self.hintsView];
+    [[self.delegate hintPresentedView] addSubview:self.hintsView];
     [self _removeViewAfterDelayIfNeededWithType:type];
     
 }
@@ -90,7 +90,7 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
 {
     if (type == ZZHintsTypeViewedHint)
     {
-        ANDispatchBlockAfter(kDelayBeforHintHidden, ^{
+        ANDispatchBlockAfter(kDelayBeforeHintHidden, ^{
             if (self.hintsView)
             {
                 [self.hintsView removeFromSuperview];
@@ -100,14 +100,14 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
     }
     if (type == ZZHintsTypeSentHint)
     {
-        ANDispatchBlockAfter(kDelayBeforHintHidden, ^{
+        ANDispatchBlockAfter(kDelayBeforeHintHidden, ^{
             if (self.hintsView && self.showedHintType == ZZHintsTypeSentHint)
             {
                 [self.hintsView removeFromSuperview];
                 self.hintsView = nil;
                 CGFloat kDelayAfterViewRemoved = 0.3;
                 ANDispatchBlockAfter(kDelayAfterViewRemoved, ^{
-                    [self.delegate hintWasDissmissedWithType:ZZHintsTypeSentHint];
+                    [self.delegate hintWasDismissedWithType:ZZHintsTypeSentHint];
                 });
             }
         });
@@ -132,7 +132,7 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
 - (void)hintViewHiddenWithType:(ZZHintsType)type
 {
     self.hintsView = nil;
-    [self.delegate hintWasDissmissedWithType:type];
+    [self.delegate hintWasDismissedWithType:type];
 }
 
 //

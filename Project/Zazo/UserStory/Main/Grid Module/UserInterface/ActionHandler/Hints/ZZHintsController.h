@@ -13,8 +13,8 @@
 
 @protocol ZZHintsControllerDelegate <NSObject>
 
-- (void)hintWasDissmissedWithType:(ZZHintsType)type;
-- (UIView*)hintPresetedView;
+- (void)hintWasDismissedWithType:(ZZHintsType)type;
+- (UIView*)hintPresentedView;
 
 @end
 

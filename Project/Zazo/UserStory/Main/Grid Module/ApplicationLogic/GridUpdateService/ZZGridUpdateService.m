@@ -38,15 +38,15 @@
 
 - (void)_updateGridIfNeededWithElement:(NSArray*)update
 {
-    NSArray* gridFriendAbbleToUpdate = [self _friendsAbleToUpdate];
+    NSArray*gridFriendAbleToUpdate = [self _friendsAbleToUpdate];
     __block NSMutableArray* updatedGridModels = [NSMutableArray array];
     
-    if (update.count > 0 && gridFriendAbbleToUpdate.count > 0)
+    if (update.count > 0 && gridFriendAbleToUpdate.count > 0)
     {
         [update enumerateObjectsUsingBlock:^(ZZFriendDomainModel*  _Nonnull friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (idx < gridFriendAbbleToUpdate.count)
+            if (idx < gridFriendAbleToUpdate.count)
             {
-                ZZFriendDomainModel* updatedFriendModel = gridFriendAbbleToUpdate[idx];
+                ZZFriendDomainModel* updatedFriendModel = gridFriendAbleToUpdate[idx];
                 ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendModel.idTbm];
 
                 #warning TODO: (rinat) check if setting .relatedUser is needed now

@@ -45,7 +45,7 @@ typedef NS_ENUM(NSInteger, ZZRemoteStorageVideoStatus)
 };
 
 NSString* ZZRemoteStorageVideoStatusStringFromEnumValue(ZZRemoteStorageVideoStatus);
-ZZRemoteStorageVideoStatus ZZRemoteStorageVideoStatusEnumValueFromSrting(NSString*);
+ZZRemoteStorageVideoStatus ZZRemoteStorageVideoStatusEnumValueFromString(NSString *);
 
 
 

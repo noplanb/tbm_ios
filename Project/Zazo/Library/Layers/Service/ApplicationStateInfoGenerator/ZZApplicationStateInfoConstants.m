@@ -51,7 +51,7 @@ NSString* ZZIncomingVideoInfoStringFromEnumValue(ZZVideoIncomingStatus type)
     return incomingTypesString[type];
 }
 
-ZZVideoIncomingStatus ZZIncomingVideoInfoEnumValueFromSrting(NSString* string)
+ZZVideoIncomingStatus ZZIncomingVideoInfoEnumValueFromString(NSString *string)
 {
     NSArray* array = [NSArray arrayWithObjects:incomingTypesString count:5];
     return [array indexOfObject:[NSObject an_safeString:string]];

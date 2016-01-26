@@ -38,7 +38,7 @@ const struct ZZNotificationDomainModelAttributes ZZNotificationDomainModelAttrib
 
 - (ZZNotificationType)typeValue
 {
-    return ZZNotificationTypeEnumValueFromSrting(self.type);
+    return ZZNotificationTypeEnumValueFromString(self.type);
 }
 
 - (void)setTypeValue:(ZZNotificationType)typeValue

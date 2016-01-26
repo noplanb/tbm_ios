@@ -1,5 +1,5 @@
 //
-//  ZZSentMessgeEventHandler.h
+//  ZZFrontCameraFeatureEventHandler.h
 //  Zazo
 //
 //  Created by ANODA on 10/7/15.
@@ -8,6 +8,6 @@
 
 #import "ZZBaseEventHandler.h"
 
-@interface ZZSentMessgeEventHandler : ZZBaseEventHandler
+@interface ZZFrontCameraFeatureEventHandler : ZZBaseEventHandler
 
 @end

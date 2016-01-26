@@ -54,12 +54,11 @@
 
 + (NSArray *)allVisibleFriendModels
 {
-    NSArray* allfriends = [ZZFriendDataProvider allFriendsModels];
+    NSArray* allFriendsModels = [ZZFriendDataProvider allFriendsModels];
     NSMutableArray* filteredFriends = [NSMutableArray new];
 
-    [allfriends enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel])
-        {
+    [allFriendsModels enumerateObjectsUsingBlock:^(ZZFriendDomainModel *friendModel, NSUInteger idx, BOOL *_Nonnull stop) {
+        if ([ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel]) {
             [filteredFriends addObject:friendModel];
         }
     }];

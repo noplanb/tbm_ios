@@ -100,7 +100,7 @@
 
 - (void)updatePushNotificationStateTo:(BOOL)isEnabled
 {
-    [ZZStoredSettingsManager shared].isPushNotificatonEnabled = isEnabled;
+    [ZZStoredSettingsManager shared].isPushNotificationEnabled = isEnabled;
     
     if (isEnabled)
     {

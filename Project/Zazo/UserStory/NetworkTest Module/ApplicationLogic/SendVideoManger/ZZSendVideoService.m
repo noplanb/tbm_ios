@@ -50,7 +50,7 @@ static NSString* const kUploadFileType = @"MOV";
     }
 }
 
-- (NSString *)sendedFriendID
+- (NSString *)sentFriendID
 {
     return self.actualFriendID;
 }

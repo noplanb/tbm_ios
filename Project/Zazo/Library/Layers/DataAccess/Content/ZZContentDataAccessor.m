@@ -1,5 +1,5 @@
 //
-//  ZZContentDataAcessor.m
+//  ZZContentDataAccessor.m
 //  Zazo
 //
 //  Created by Oksana Kovalchuk on 9/1/15.
@@ -51,7 +51,7 @@
         
         if ([NSManagedObjectContext MR_rootSavingContext])
         {
-            ZZLogInfo(@"Successfull Core Data migration. Trying to fill new fields"); // TODO: cleanup
+            ZZLogInfo(@"Successful Core Data migration. Trying to fill new fields"); // TODO: cleanup
             ANDispatchBlockToBackgroundQueue(^{
                 [ZZFriendDataUpdater fillEntitiesAfterMigration];
             });

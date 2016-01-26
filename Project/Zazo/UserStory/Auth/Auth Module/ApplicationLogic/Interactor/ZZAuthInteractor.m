@@ -118,7 +118,7 @@
 
         [self loadFriends];
 
-        [ZZStoredSettingsManager shared].isPushNotificatonEnabled = YES;
+        [ZZStoredSettingsManager shared].isPushNotificationEnabled = YES;
         [ZZNotificationsHandler registerToPushNotifications];
 
         [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventsUserAuthorized
@@ -242,7 +242,7 @@
 
     if (![self _isValidPhone:model.mobileNumber code:model.countryCode])
     {
-        return [ANErrorBuilder errorWithType:ANErrorTypeGeneral code:kFormInvalidModilePhone];
+        return [ANErrorBuilder errorWithType:ANErrorTypeGeneral code:kFormInvalidMobilePhone];
     }
     return error;
 }

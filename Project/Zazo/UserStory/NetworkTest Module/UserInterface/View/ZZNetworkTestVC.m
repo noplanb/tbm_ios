@@ -21,7 +21,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [ZZColorTheme shared].gridBackgourndColor;
+    self.view.backgroundColor = [ZZColorTheme shared].gridBackgroundColor;
     [self _setupStartStopButton];
     [self _setupResetStatsButton];
     [self _setupResetRetriesButton];
@@ -84,7 +84,7 @@
     });
 }
 
-- (void)updateVideoSatus:(NSString *)status
+- (void)updateVideoStatus:(NSString *)status
 {
     ANDispatchBlockToMainQueue(^{
         self.networkTestView.statusVideoLabel.text = status;

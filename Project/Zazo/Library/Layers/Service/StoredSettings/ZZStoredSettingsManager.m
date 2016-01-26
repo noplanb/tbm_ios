@@ -99,12 +99,12 @@ static NSString* const kZZServerIsPushNotificationEnabled = @"kIsPushNotificatio
 }
 
 // push notification
-- (void)setIsPushNotificatonEnabled:(BOOL)isPushNotificatonEnabled
+- (void)setIsPushNotificationEnabled:(BOOL)isPushNotificationEnabled
 {
-    [NSObject an_updateBool:isPushNotificatonEnabled forKey:kZZServerIsPushNotificationEnabled];
+    [NSObject an_updateBool:isPushNotificationEnabled forKey:kZZServerIsPushNotificationEnabled];
 }
 
-- (BOOL)isPushNotificatonEnabled
+- (BOOL)isPushNotificationEnabled
 {
     return [NSObject an_boolForKey:kZZServerIsPushNotificationEnabled];
 }

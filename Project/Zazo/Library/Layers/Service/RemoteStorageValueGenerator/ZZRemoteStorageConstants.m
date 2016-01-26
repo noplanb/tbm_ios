@@ -27,7 +27,7 @@ NSString* ZZRemoteStorageVideoStatusStringFromEnumValue(ZZRemoteStorageVideoStat
     return remoteStorageVideoStatusesString[type];
 }
 
-ZZRemoteStorageVideoStatus ZZRemoteStorageVideoStatusEnumValueFromSrting(NSString* string)
+ZZRemoteStorageVideoStatus ZZRemoteStorageVideoStatusEnumValueFromString(NSString *string)
 {
     NSArray* array = [NSArray arrayWithObjects:remoteStorageVideoStatusesString count:3];
     NSInteger index = [array indexOfObject:string];

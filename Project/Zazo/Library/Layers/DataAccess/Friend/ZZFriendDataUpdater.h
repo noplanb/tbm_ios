@@ -11,7 +11,7 @@
 
 @interface ZZFriendDataUpdater : NSObject
 
-#pragma mark Updation
+#pragma mark Update
 
 + (void)updateLastTimeActionFriendWithID:(NSString*)itemID;
 + (void)updateFriendWithID:(NSString *)friendID setLastIncomingVideoStatus:(ZZVideoIncomingStatus)status;
@@ -21,7 +21,7 @@
 + (void)updateFriendWithID:(NSString *)friendID setOutgoingVideoItemID:(NSString *)videoID;
 + (void)updateFriendWithID:(NSString *)friendID setConnectionStatus:(ZZFriendshipStatusType)status;
 
-#pragma mark Batch updation
+#pragma mark Batch update
 
 + (void)updateEverSentFriendsWithMkeys:(NSArray*)mKeys;
 

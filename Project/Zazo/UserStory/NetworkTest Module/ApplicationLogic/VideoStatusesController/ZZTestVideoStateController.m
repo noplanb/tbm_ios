@@ -175,12 +175,12 @@
 
 - (void)_videoStatusProgress
 {
-    [self.delegate videoStatusChagnedWith:NSLocalizedString(@"network-test-view.videostatus.progress", nil)];
+    [self.delegate videoStatusChangedWith:NSLocalizedString(@"network-test-view.videostatus.progress", nil)];
 }
 
 - (void)_videoStatusFinished
 {
-    [self.delegate videoStatusChagnedWith:NSLocalizedString(@"network-test-view.videostatus.finished", nil)];
+    [self.delegate videoStatusChangedWith:NSLocalizedString(@"network-test-view.videostatus.finished", nil)];
 }
 
 - (void)_setupNotifications

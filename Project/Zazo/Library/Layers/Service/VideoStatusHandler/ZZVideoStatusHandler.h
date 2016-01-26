@@ -49,7 +49,7 @@
 
 //TODO:
 
-- (void)setAndNotityViewedIncomingVideoWithFriendID:(NSString*)friendID videoID:(NSString*)videoID;
+- (void)setAndNotifyViewedIncomingVideoWithFriendID:(NSString *)friendID videoID:(NSString*)videoID;
 - (void)handleOutgoingVideoCreatedWithVideoID:(NSString *)videoID withFriend:(NSString*)friendID;
 
 @end

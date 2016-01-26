@@ -61,7 +61,7 @@
     [super viewDidLoad];
     [UIApplication sharedApplication].statusBarHidden = YES;
     
-    self.view.backgroundColor = [ZZColorTheme shared].gridBackgourndColor;
+    self.view.backgroundColor = [ZZColorTheme shared].gridBackgroundColor;
     
     self.gridView.headerView.menuButton.rac_command = [RACCommand commandWithBlock:^{
         [self menuSelected];
@@ -240,7 +240,7 @@
 {
     NSInteger centerCellIndex = 4;
     ZZGridCenterCell* centerCell = self.gridView.items[centerCellIndex];
-    [centerCell updataeRecordStateTo:isRecording];
+    [centerCell updateRecordStateTo:isRecording];
 }
 
 @end

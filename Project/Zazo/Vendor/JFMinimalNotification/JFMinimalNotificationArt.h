@@ -33,7 +33,7 @@
 
 + (UIImage*)imageOfNoticeWithColor:(UIColor*)color;
 
-+ (UIImage*)imageOfWarningWithBGColor:(UIColor*)backgroundColor forgroundColor:(UIColor*)forgroundColor;
++ (UIImage*)imageOfWarningWithBGColor:(UIColor*)backgroundColor forgroundColor:(UIColor*)foregroundColor;
 
 + (UIImage*)imageOfInfoWithColor:(UIColor*)color;
 

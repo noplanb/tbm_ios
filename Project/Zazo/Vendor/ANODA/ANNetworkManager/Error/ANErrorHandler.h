@@ -17,7 +17,7 @@ typedef NS_ENUM (NSInteger, ANServerErrorCode)
 /**
  *  Handles only errors that come from api
  *
- *  @param error ANError object initialized from server respose
+ *  @param error ANError object initialized from server response
  */
 + (void)handleNetworkServerError:(ANError*)error;
 

@@ -61,11 +61,11 @@
     [ZZGridAlertBuilder showConnectedDialogForUser:friendModel.firstName completion:^{
         [self.interactor addUserToGrid:friendModel];
         
-        if ([[self dataSource] frindsOnGridNumber] == 1)
+        if ([[self dataSource] friendsOnGridNumber] == 1)
         {
             [self _handleRecordHintWithCellViewModel:friendModel];
         }
-        else //if ([[self dataSource] frindsOnGridNumber] == 2)
+        else //if ([[self dataSource] friendsOnGridNumber] == 2)
         {
             [self _handleSentWelcomeHintWithFriendDomainModel:friendModel];
         }

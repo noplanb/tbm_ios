@@ -15,12 +15,12 @@
 #import "ZZBaseEventHandler.h"
 #import "ZZInviteEventHandler.h"
 #import "ZZPlayEventHandler.h"
-#import "ZZSentMessgeEventHandler.h"
+#import "ZZSentMessageEventHandler.h"
 #import "ZZViewedMessageEventHandler.h"
 #import "ZZRecordEventHandler.h"
 #import "ZZInviteSomeoneElseEventHandler.h"
 #import "ZZSentWelcomeEventHandler.h"
-#import "ZZFronCameraFeatureEventHandler.h"
+#import "ZZFrontCameraFeatureEventHandler.h"
 #import "ZZAbortRecordingFeatureEventHandler.h"
 #import "ZZDeleteFriendsFeatureEventHandler.h"
 #import "ZZEarpieceFeatureEventHandler.h"
@@ -115,11 +115,11 @@
              NSStringFromClass([ZZInviteEventHandler class]),
              NSStringFromClass([ZZPlayEventHandler class]),
              NSStringFromClass([ZZRecordEventHandler class]),
-             NSStringFromClass([ZZSentMessgeEventHandler class]),
+             NSStringFromClass([ZZSentMessageEventHandler class]),
              NSStringFromClass([ZZViewedMessageEventHandler class]),
              NSStringFromClass([ZZInviteSomeoneElseEventHandler class]),
              NSStringFromClass([ZZSentWelcomeEventHandler class]),
-             NSStringFromClass([ZZFronCameraFeatureEventHandler class]),
+             NSStringFromClass([ZZFrontCameraFeatureEventHandler class]),
              NSStringFromClass([ZZAbortRecordingFeatureEventHandler class]),
              NSStringFromClass([ZZDeleteFriendsFeatureEventHandler class]),
              NSStringFromClass([ZZEarpieceFeatureEventHandler class]),
@@ -181,7 +181,7 @@
 
 #pragma mark - Hints Controller Delegate methods
 
-- (void)hintWasDissmissedWithType:(ZZHintsType)type
+- (void)hintWasDismissedWithType:(ZZHintsType)type
 {
     if (type == ZZHintsTypeSentHint)
     {
@@ -218,7 +218,7 @@
     }
 }
 
-- (UIView *)hintPresetedView
+- (UIView *)hintPresentedView
 {
    return [self.userInterface presentedView];
 }
@@ -292,7 +292,7 @@
 
 #pragma mark - Event Handler Delegate
 
-- (NSInteger)frinedsNumberOnGrid
+- (NSInteger)friendsNumberOnGrid
 {
     return [self.delegate friendsCountOnGrid];
 }

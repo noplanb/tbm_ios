@@ -20,6 +20,6 @@
 
 @protocol ZZNetworkTestInteractorOutput <NSObject>
 
-- (void)videosatusChangedWithFriend:(ZZFriendDomainModel*)friendEntity;
+- (void)videoStatusChangedWithFriend:(ZZFriendDomainModel*)friendEntity;
 
 @end

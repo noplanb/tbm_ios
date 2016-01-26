@@ -13,7 +13,7 @@
 @class ZZGridCellViewModel;
 @class ZZFriendDomainModel;
 
-@protocol ZZGridActionHanlderDelegate <NSObject>
+@protocol ZZGridActionHandlerDelegate <NSObject>
 
 - (void)unlockedFeature:(ZZGridActionFeatureType)feature;
 - (id)modelAtIndex:(NSInteger)index;
@@ -24,7 +24,7 @@
 
 @interface ZZGridActionHandler : NSObject
 
-@property (nonatomic, weak) id<ZZGridActionHanlderDelegate> delegate;
+@property (nonatomic, weak) id<ZZGridActionHandlerDelegate> delegate;
 @property (nonatomic, weak) id<ZZGridActionHanlderUserInterfaceDelegate> userInterface;
 
 - (void)handleEvent:(ZZGridActionEventType)event

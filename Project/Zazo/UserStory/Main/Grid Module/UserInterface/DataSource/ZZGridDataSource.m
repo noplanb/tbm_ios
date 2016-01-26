@@ -37,7 +37,7 @@ ZZGridCenterCellViewModelDelegate
     [self.controllerDelegate reload];
 }
 
-- (NSInteger)frindsOnGridNumber
+- (NSInteger)friendsOnGridNumber
 {
     ZZGridCenterCellViewModel* centerCell = [self centerViewModel];
     NSMutableArray* modelsCopy = [self.models mutableCopy];

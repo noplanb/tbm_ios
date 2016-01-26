@@ -76,7 +76,7 @@
     });
 }
 
-#pragma mark Batch updation
+#pragma mark Batch update
 
 + (void)updateEverSentFriendsWithMkeys:(NSArray*)mKeys
 {

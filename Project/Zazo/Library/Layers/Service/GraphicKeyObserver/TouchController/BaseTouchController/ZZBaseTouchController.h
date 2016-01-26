@@ -19,8 +19,8 @@
 @property (nonatomic, copy) void(^completionBlock)();
 @property (nonatomic, assign) CGFloat touchDelay;
 
-@property (nonatomic, assign) BOOL isAbbleToMoving;
-@property (nonatomic, assign) BOOL isStrartObserving;
+@property (nonatomic, assign) BOOL isAbleToMoving;
+@property (nonatomic, assign) BOOL isStartObserving;
 
 - (void)observeTouch:(UITouch*)touch withEvent:(id)event;
 

@@ -95,7 +95,7 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
 
 - (ZZFriendshipStatusType)friendshipStatusValue
 {
-    return ZZFriendshipStatusTypeValueFromSrting(self.friendshipStatus);
+    return ZZFriendshipStatusTypeValueFromString(self.friendshipStatus);
 }
 
 - (void)setFriendshipStatusValue:(ZZFriendshipStatusType)friendshipStatusValue

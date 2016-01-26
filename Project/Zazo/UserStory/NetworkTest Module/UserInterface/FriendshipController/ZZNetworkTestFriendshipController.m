@@ -28,8 +28,8 @@
             {
                 completion(activeTestFriend.idTbm);
             }
-            
-            [self _executeCompeltionWithId:activeTestFriend.idTbm completion:completion];
+
+            [self _executeCompletionWithId:activeTestFriend.idTbm completion:completion];
             
         }
         else
@@ -66,15 +66,15 @@
         {
             friendID = activeTestFriend.idTbm;
         }
-        
-        [self _executeCompeltionWithId:friendID completion:completion];
+
+        [self _executeCompletionWithId:friendID completion:completion];
         
     } error:^(NSError *error) {
-        [self _executeCompeltionWithId:nil completion:completion];
+        [self _executeCompletionWithId:nil completion:completion];
     }];
 }
 
-+ (void)_executeCompeltionWithId:(NSString*)friendID completion:(void(^)(NSString* actualFriendID))completion
++ (void)_executeCompletionWithId:(NSString *)friendID completion:(void(^)(NSString* actualFriendID))completion
 {
     if (completion)
     {

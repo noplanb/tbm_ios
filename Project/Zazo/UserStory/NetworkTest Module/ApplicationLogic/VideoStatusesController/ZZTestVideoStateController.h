@@ -15,14 +15,14 @@
 - (void)outgoingVideoChangeWithCounter:(NSInteger)counter;
 - (void)incomingVideoChangeWithCounter:(NSInteger)counter;
 - (void)completedVideoChangeWithCounter:(NSInteger)counter;
-- (void)updateTries:(NSInteger)coutner;
+- (void)updateTries:(NSInteger)counter;
 - (void)updateRetryCount:(NSInteger)count;
 
 - (void)failedOutgoingVideoWithCounter:(NSInteger)counter;
 - (void)failedIncomingVideoWithCounter:(NSInteger)counter;
 
 - (void)currentStatusChangedWithStatusString:(NSString*)statusString;
-- (void)videoStatusChagnedWith:(NSString*)statusString;
+- (void)videoStatusChangedWith:(NSString*)statusString;
 - (NSString*)testedFriendID;
 
 @end

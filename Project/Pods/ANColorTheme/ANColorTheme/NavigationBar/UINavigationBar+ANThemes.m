@@ -39,7 +39,7 @@
         [appearance setShadowImage:[UIImage new]]; // TODO:
     }
  
-//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:[CDColorTheme shared].navBarbackgroundColor] forBarMetrics:UIBarMetricsDefault];
+//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:[CDColorTheme shared].navBarBackgroundColor] forBarMetrics:UIBarMetricsDefault];
 //    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
 //    NSDictionary* titleAttributes = @{NSForegroundColorAttributeName : [CDColorTheme shared].navBarFontColor,
 //                                      NSFontAttributeName            : [UIFont an_regularFontWithSize:17],

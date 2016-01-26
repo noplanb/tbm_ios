@@ -17,7 +17,7 @@ typedef NS_ENUM(NSInteger, ZZFriendshipStatusType)
 
 
 NSString* ZZFriendshipStatusTypeStringFromValue(ZZFriendshipStatusType);
-ZZFriendshipStatusType ZZFriendshipStatusTypeValueFromSrting(NSString*);
+ZZFriendshipStatusType ZZFriendshipStatusTypeValueFromString(NSString *);
 
 
 @interface ZZEditFriendEnumsAdditions : NSObject

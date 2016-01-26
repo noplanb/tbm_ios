@@ -79,11 +79,11 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
         {
             if (indexPath.row == 0) // reset tutorial hints
             {
-                [self.delegate actionWithType:ZZSecrectScreenActionsTypeResetTutorialHints];
+                [self.delegate actionWithType:ZZSecretScreenActionsTypeResetTutorialHints];
             }
             else if (indexPath.row == 1) // feature options
             {
-                [self.delegate actionWithType:ZZSecrectScreenActionsTypeFeatureOptions];
+                [self.delegate actionWithType:ZZSecretScreenActionsTypeFeatureOptions];
             }
             else if (indexPath.row == 2)
             {
@@ -95,15 +95,15 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
         {
             if (indexPath.row == 0)
             {
-                [self.delegate actionWithType:ZZSecrectScreenActionsTypeLogsScreen];
+                [self.delegate actionWithType:ZZSecretScreenActionsTypeLogsScreen];
             }
             else if (indexPath.row == 1)
             {
-                [self.delegate actionWithType:ZZSecrectScreenActionsTypeStateScreen];
+                [self.delegate actionWithType:ZZSecretScreenActionsTypeStateScreen];
             }
             else if (indexPath.row == 2)
             {
-                [self.delegate actionWithType:ZZSecrectScreenActionsTypeDebugUIScreen];
+                [self.delegate actionWithType:ZZSecretScreenActionsTypeDebugUIScreen];
             }
         } break;
             
@@ -111,7 +111,7 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
         {
             if (indexPath.row == 1) // dispatch message
             {
-                [self.delegate actionWithType:ZZSecrectScreenActionsTypeDispatchMessage];
+                [self.delegate actionWithType:ZZSecretScreenActionsTypeDispatchMessage];
             }
         } break;
             
@@ -119,15 +119,15 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
         {
             if (indexPath.row == 0)
             {
-                [self.delegate actionWithType:ZZSecrectScreenActionsTypeClearUserData];
+                [self.delegate actionWithType:ZZSecretScreenActionsTypeClearUserData];
             }
             else if (indexPath.row == 1)
             {
-                [self.delegate actionWithType:ZZSecrectScreenActionsTypeDeleteAllDanglingFiles];
+                [self.delegate actionWithType:ZZSecretScreenActionsTypeDeleteAllDanglingFiles];
             }
             else if (indexPath.row == 2)
             {
-                [self.delegate actionWithType:ZZSecrectScreenActionsTypeCrashApplication];
+                [self.delegate actionWithType:ZZSecretScreenActionsTypeCrashApplication];
             }
         } break;
             
@@ -262,7 +262,7 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
     textEdit.text = model.serverURLString;
     textEdit.isEnabled = (model.serverIndex == 2);
     
-    BOOL pushNotificationStatus = [ZZStoredSettingsManager shared].isPushNotificatonEnabled;
+    BOOL pushNotificationStatus = [ZZStoredSettingsManager shared].isPushNotificationEnabled;
     ZZSecretSwitchCellViewModel* pushNotificationSwitch = [self _switchModelWithTitle:@"Push notification" state:pushNotificationStatus];
     
     [self.storage addItems:@[server, textEdit, pushNotificationSwitch] toSection:ZZSecretSectionServerOptions];

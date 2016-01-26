@@ -162,9 +162,9 @@
             // Allow whether locked or unlocked. Users wont know about it till we tell them it is unlocked.
             [[AVAudioSession sharedInstance] startPlaying];
 
-            
+
             [[ZZVideoStatusHandler sharedInstance]
-             setAndNotityViewedIncomingVideoWithFriendID:self.playedFriend.idTbm videoID:viewedVideo.videoID];
+                    setAndNotifyViewedIncomingVideoWithFriendID:self.playedFriend.idTbm videoID:viewedVideo.videoID];
             
             [[ZZRemoteStorageTransportService updateRemoteStatusForVideoWithItemID:viewedVideo.videoID
                                                                           toStatus:ZZRemoteStorageVideoStatusViewed
@@ -345,8 +345,8 @@
             //save video state
             
             self.moviePlayerController.contentURL = nextUrl;
-            
-            [[ZZVideoStatusHandler sharedInstance] setAndNotityViewedIncomingVideoWithFriendID:playedVideoModel.relatedUserID videoID:playedVideoModel.videoID];
+
+            [[ZZVideoStatusHandler sharedInstance] setAndNotifyViewedIncomingVideoWithFriendID:playedVideoModel.relatedUserID videoID:playedVideoModel.videoID];
             
             [ZZRemoteStorageTransportService updateRemoteStatusForVideoWithItemID:playedVideoModel.videoID
                                                                          toStatus:ZZRemoteStorageVideoStatusViewed
