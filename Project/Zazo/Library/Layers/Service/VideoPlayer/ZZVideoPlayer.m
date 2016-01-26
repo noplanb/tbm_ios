@@ -101,7 +101,7 @@
     NSInteger nextVideoIndex = 1;
     
     if ((friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading) &&
-        ([ZZVideoPlayer _unviewedVideoCountWithFriendModel:friendModel] == twoNotViewedVideosCount) &&
+        ([ZZFriendDataHelper unviewedVideoCountWithFriendID:friendModel.idTbm] == twoNotViewedVideosCount) &&
         videoModel.incomingStatusValue == ZZVideoIncomingStatusViewed)
     {
         actualVideoModel = models[nextVideoIndex];
@@ -243,19 +243,6 @@
 
 #pragma mark - Private
 
-+ (NSInteger)_unviewedVideoCountWithFriendModel:(ZZFriendDomainModel*)friendModel
-{
-    NSInteger i = 0;
-    for (ZZVideoDomainModel *videoModel in friendModel.videos)
-    {
-        if (videoModel.incomingStatusValue == ZZVideoIncomingStatusDownloaded)
-        {
-            i++;
-        }
-    }
-    return i;
-}
-
 - (void)_playNext:(NSNotification*)notification
 {
     ZZLogDebug(@"VideoPlayer#playbackDidFinishNotification: %@", notification.userInfo);
@@ -287,28 +274,25 @@
 //{
 //    ZZLogEvent(@"RNT _updateViewedVideoCounterWithVideoDomainModel: %@", playedVideoModel)
 //    ZZVideoDomainModel *updatedVideoModel = [ZZVideoDataProvider itemWithID:playedVideoModel.videoID];
-//    
+//
 //    if (!ANIsEmpty(updatedVideoModel))
 //    {
 //        if (updatedVideoModel.incomingStatusValue == ZZVideoIncomingStatusDownloaded)
 //        {
-//            //            viewedVideo.status = @(ZZVideoIncomingStatusViewed);
-////            if (playedVideoModel.relatedUser.unviewedCount > 0)
-////            {
-////                playedVideoModel.relatedUser.unviewedCount--;
-////            }
-////            else
-////            {
-////                playedVideoModel.relatedUser.unviewedCount = 0;
-////            }
+//            if (playedVideoModel.relatedUser.unviewedCount > 0)
+//            {
+//                playedVideoModel.relatedUser.unviewedCount--;
+//            }
+//            else
+//            {
+//                playedVideoModel.relatedUser.unviewedCount = 0;
+//            }
 //
-//#warning message
-//            
-//            //            [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
+//
 //        }
 //    }
-//    
-//    
+//
+//
 //}
 
 
@@ -430,6 +414,7 @@
         [ZZFriendDataUpdater updateFriendWithID:friendModel.idTbm setLastIncomingVideoStatus: videoModel.incomingStatusValue];
     }
 }
+
 
 - (void)updateWithFriendModel:(ZZFriendDomainModel *)friendModel
 {

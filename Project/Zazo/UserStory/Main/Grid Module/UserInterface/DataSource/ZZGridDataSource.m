@@ -15,6 +15,7 @@
 #import "ZZFriendDataProvider.h"
 #import "ANMemoryStorage+UpdateWithoutAnimations.h"
 #import "ZZVideoStatuses.h"
+#import "ZZFriendDataHelper.h"
 
 static NSInteger const kGridCenterCellIndex = 4;
 
@@ -97,11 +98,13 @@ ZZGridCenterCellViewModelDelegate
     viewModel.hasDownloadedVideo = [model.relatedUser hasIncomingVideo];
     viewModel.hasUploadedVideo = [model.relatedUser hasOutgoingVideo];//[value.relatedUser hasIncomingVideo];
     viewModel.isUploadedVideoViewed = (model.relatedUser.lastOutgoingVideoStatus == ZZVideoOutgoingStatusViewed);
-    
-    if (model.relatedUser.unviewedCount > 0)
+
+    NSUInteger count = [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.relatedUser.idTbm];
+
+    if (count > 0)
     {
-        viewModel.prevBadgeNumber = model.relatedUser.unviewedCount;
-        viewModel.badgeNumber = model.relatedUser.unviewedCount;
+        viewModel.prevBadgeNumber = count;
+        viewModel.badgeNumber = count;
     }
     else
     {
