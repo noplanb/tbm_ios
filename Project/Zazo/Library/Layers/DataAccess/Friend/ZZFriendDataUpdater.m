@@ -34,14 +34,11 @@
     }];
 }
 
-+ (ZZFriendDomainModel*)updateConnectionStatusForUserWithID:(NSString *)itemID toValue:(ZZFriendshipStatusType)value
++ (void)updateFriendWithID:(NSString *)friendID setConnectionStatus:(ZZFriendshipStatusType)status
 {
-    return ZZDispatchOnMainThreadAndReturn(^id{
-        TBMFriend* friendEntity = [self _userWithID:itemID];
-        friendEntity.friendshipStatus = ZZFriendshipStatusTypeStringFromValue(value);
-        [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
-        return [ZZFriendModelsMapper fillModel:[ZZFriendDomainModel new] fromEntity:friendEntity];
-    });
+    [self _updateFriendWithID:friendID usingBlock:^(TBMFriend *friendEntity) {
+        friendEntity.friendshipStatus = ZZFriendshipStatusTypeStringFromValue(status);
+    }];
 }
 
 + (void)updateFriendWithID:(NSString *)friendID setLastIncomingVideoStatus:(ZZVideoIncomingStatus)status

@@ -59,11 +59,9 @@
     [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey
                                                       toVisible:shouldBeVisible] subscribeNext:^(NSDictionary* response) {
         ANDispatchBlockToMainQueue(^{
-            ZZFriendDomainModel* updatedModel = [ZZFriendDataUpdater updateConnectionStatusForUserWithID:friendModel.idTbm
-                                                                                                 toValue:friendModel.friendshipStatusValue];
-            
+            [ZZFriendDataUpdater updateFriendWithID:friendModel.idTbm setConnectionStatus:friendModel.friendshipStatusValue];
             [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventFriendInContactChangeStauts notificationObject:nil];
-            [self.output contactSuccessfullyUpdated:updatedModel toVisibleState:shouldBeVisible];
+            [self.output contactSuccessfullyUpdated:friendModel toVisibleState:shouldBeVisible];
         });
     } error:^(NSError *error) {
         

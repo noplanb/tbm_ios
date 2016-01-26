@@ -373,7 +373,8 @@ static NSInteger const kGridFriendsCellCount = 8;
             if (isUserSendsUsAVideo | isUserViewedOurVideo)
             {
                 ZZFriendshipStatusType status = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
-                friendModel = [ZZFriendDataUpdater updateConnectionStatusForUserWithID:friendModel.idTbm toValue:status];
+                [ZZFriendDataUpdater updateFriendWithID:friendModel.idTbm setConnectionStatus:status];
+                friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
                 
                 [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey
                                                                   toVisible:!shouldBeVisible] subscribeNext:^(NSDictionary* response) {
@@ -469,9 +470,9 @@ static NSInteger const kGridFriendsCellCount = 8;
     
     [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey
                                                       toVisible:shouldBeVisible] subscribeNext:^(NSDictionary* response) {
-        
-        [ZZFriendDataUpdater updateConnectionStatusForUserWithID:friendModel.idTbm
-                                                         toValue:friendModel.friendshipStatusValue];
+
+        [ZZFriendDataUpdater updateFriendWithID:friendModel.idTbm
+                            setConnectionStatus:friendModel.friendshipStatusValue];
         
         [self friendWasUpdatedFromEditContacts:friendModel toVisible:YES];
         [self.output updateFriendThatPrevouslyWasOnGridWithModel:friendModel];
