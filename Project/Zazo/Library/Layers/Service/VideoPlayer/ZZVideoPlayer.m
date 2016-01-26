@@ -147,7 +147,6 @@
             self.moviePlayerController.contentURL = self.currentPlayedUrl;
             
             //save video state
-//            [self _updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
             
             self.moviePlayerController.view.frame = view.bounds;
             [view addSubview:self.moviePlayerController.view];
@@ -270,32 +269,6 @@
     }
 }
 
-//- (void)_updateViewedVideoCounterWithVideoDomainModel:(ZZVideoDomainModel*)playedVideoModel
-//{
-//    ZZLogEvent(@"RNT _updateViewedVideoCounterWithVideoDomainModel: %@", playedVideoModel)
-//    ZZVideoDomainModel *updatedVideoModel = [ZZVideoDataProvider itemWithID:playedVideoModel.videoID];
-//
-//    if (!ANIsEmpty(updatedVideoModel))
-//    {
-//        if (updatedVideoModel.incomingStatusValue == ZZVideoIncomingStatusDownloaded)
-//        {
-//            if (playedVideoModel.relatedUser.unviewedCount > 0)
-//            {
-//                playedVideoModel.relatedUser.unviewedCount--;
-//            }
-//            else
-//            {
-//                playedVideoModel.relatedUser.unviewedCount = 0;
-//            }
-//
-//
-//        }
-//    }
-//
-//
-//}
-
-
 #pragma mark - Configure Next played index
 
 - (NSInteger)_nextVideoIndex
@@ -370,7 +343,6 @@
             [ZZFileHelper isFileExistsAtURL:self.currentPlayedUrl])
         {
             //save video state
-//            [self _updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
             
             self.moviePlayerController.contentURL = nextUrl;
             
