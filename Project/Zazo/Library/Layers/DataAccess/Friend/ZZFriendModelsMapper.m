@@ -78,7 +78,6 @@
             return videoModel;
         }] array];
         
-        model.unviewedCount = [ZZFriendDataHelper unviewedVideoCountWithFriend:entity];
         model.hasOutgoingVideo = !ANIsEmpty(entity.outgoingVideoId);
         model.friendshipCreatorMkey = entity.friendshipCreatorMKey;
     }

@@ -19,6 +19,7 @@
 #import "ZZFriendDataProvider.h"
 #import "iToast.h"
 #import "ZZGridActionStoredSettings.h"
+#import "ZZFriendDataHelper.h"
 
 
 @interface ZZGridCellViewModel ()
@@ -141,7 +142,7 @@
     }
     else if (self.item.relatedUser.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
              self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading &&
-             self.item.relatedUser.unviewedCount > 0)
+            [ZZFriendDataHelper unviewedVideoCountWithFriendID:self.item.relatedUser.idTbm] > 0)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoDownloading);
     }

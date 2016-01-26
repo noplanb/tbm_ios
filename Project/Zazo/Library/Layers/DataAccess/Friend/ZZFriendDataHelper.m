@@ -47,18 +47,18 @@
     return hasVideo;
 }
 
-+ (NSInteger)unviewedVideoCountWithFriend:(TBMFriend*)friendEntity
++ (NSUInteger)unviewedVideoCountWithFriendID:(NSString *)friendID
 {
-    NSInteger i = 0;
-
-    for (TBMVideo *videoEntity in [friendEntity videos])
+    if (!friendID)
     {
-        if (videoEntity.statusValue == ZZVideoIncomingStatusDownloaded)
-        {
-            i++;
-        }
+        return 0;
     }
-    return i;
+    
+    NSNumber *count = ZZDispatchOnMainThreadAndReturn(^id{
+        return @([TBMVideo MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"friend.idTbm == %@ && status == %d", friendID, ZZVideoIncomingStatusDownloaded]]);
+    });
+    
+    return count.unsignedIntegerValue;
 }
 
 + (NSArray*)everSentMkeys

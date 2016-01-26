@@ -18,15 +18,6 @@
 
 #pragma mark Update methods
 
-+ (void)_updateFriendWithID:(NSString *)friendID usingBlock:(void (^)(TBMFriend *friendEntity))updateBlock
-{
-    ANDispatchBlockToMainQueue(^{
-        TBMFriend* friendEntity = [self _userWithID:friendID];
-        updateBlock(friendEntity);
-        [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
-    });
-}
-
 + (void)updateLastTimeActionFriendWithID:(NSString*)itemID
 {
     [self _updateFriendWithID:itemID usingBlock:^(TBMFriend *friendEntity) {
@@ -34,14 +25,11 @@
     }];
 }
 
-+ (ZZFriendDomainModel*)updateConnectionStatusForUserWithID:(NSString *)itemID toValue:(ZZFriendshipStatusType)value
++ (void)updateFriendWithID:(NSString *)friendID setConnectionStatus:(ZZFriendshipStatusType)status
 {
-    return ZZDispatchOnMainThreadAndReturn(^id{
-        TBMFriend* friendEntity = [self _userWithID:itemID];
-        friendEntity.friendshipStatus = ZZFriendshipStatusTypeStringFromValue(value);
-        [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
-        return [ZZFriendModelsMapper fillModel:[ZZFriendDomainModel new] fromEntity:friendEntity];
-    });
+    [self _updateFriendWithID:friendID usingBlock:^(TBMFriend *friendEntity) {
+        friendEntity.friendshipStatus = ZZFriendshipStatusTypeStringFromValue(status);
+    }];
 }
 
 + (void)updateFriendWithID:(NSString *)friendID setLastIncomingVideoStatus:(ZZVideoIncomingStatus)status
@@ -79,6 +67,16 @@
     }];
 }
 
++ (void)_updateFriendWithID:(NSString *)friendID usingBlock:(void (^)(TBMFriend *friendEntity))updateBlock
+{
+    ANDispatchBlockToMainQueue(^{
+        TBMFriend* friendEntity = [self _userWithID:friendID];
+        updateBlock(friendEntity);
+        [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+    });
+}
+
+#pragma mark Batch updation
 
 + (void)updateEverSentFriendsWithMkeys:(NSArray*)mKeys
 {
@@ -89,14 +87,6 @@
             friendEntity.isFriendshipCreator = @([friendEntity.friendshipCreatorMKey isEqualToString:friendEntity.mkey]);
         }];
         
-        [[self _context] MR_saveToPersistentStoreAndWait];
-    });
-}
-
-+ (void)deleteAllFriends
-{
-    ANDispatchBlockToMainQueue(^{
-        [TBMFriend MR_truncateAllInContext:[self _context]];
         [[self _context] MR_saveToPersistentStoreAndWait];
     });
 }
@@ -137,6 +127,30 @@
     });
 }
 
+#pragma mark Deletion
+
++ (void)deleteAllFriends
+{
+    ANDispatchBlockToMainQueue(^{
+        [TBMFriend MR_truncateAllInContext:[self _context]];
+        [[self _context] MR_saveToPersistentStoreAndWait];
+    });
+}
+
+
+#pragma mark Migration
+
++ (void)fillEntitiesAfterMigration
+{
+    ANDispatchBlockToMainQueue(^{
+        for (TBMFriend *friendEntity in [TBMFriend MR_findAllInContext:[self _context]])
+        {
+            friendEntity.everSent = @([friendEntity.outgoingVideoStatus integerValue] > ZZVideoOutgoingStatusNone);
+        }
+        [[self _context] MR_saveToPersistentStoreAndWait];
+    });
+}
+
 
 #pragma mark - Private
 
@@ -154,17 +168,6 @@
         item = [items firstObject];
     }
     return item;
-}
-
-+ (void)fillEntitiesAfterMigration
-{
-    ANDispatchBlockToMainQueue(^{
-        for (TBMFriend *friendEntity in [TBMFriend MR_findAllInContext:[self _context]])
-        {
-            friendEntity.everSent = @([friendEntity.outgoingVideoStatus integerValue] > ZZVideoOutgoingStatusNone);
-        }
-        [[self _context] MR_saveToPersistentStoreAndWait];
-    });
 }
 
 + (NSManagedObjectContext*)_context

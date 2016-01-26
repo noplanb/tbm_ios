@@ -64,7 +64,6 @@ extern const struct ZZFriendDomainModelAttributes {
 @property (nonatomic, assign) ZZFriendshipStatusType friendshipStatusValue;
 @property (nonatomic, assign) ZZMenuContactType contactType;
     
-@property (nonatomic, assign) NSInteger unviewedCount;
 @property (nonatomic, assign) ZZVideoOutgoingStatus lastOutgoingVideoStatus;
 
 @property (nonatomic, strong) NSArray* videos;

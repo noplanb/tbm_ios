@@ -101,7 +101,7 @@
     NSInteger nextVideoIndex = 1;
     
     if ((friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading) &&
-        ([ZZVideoPlayer _unviewedVideoCountWithFriendModel:friendModel] == twoNotViewedVideosCount) &&
+        ([ZZFriendDataHelper unviewedVideoCountWithFriendID:friendModel.idTbm] == twoNotViewedVideosCount) &&
         videoModel.incomingStatusValue == ZZVideoIncomingStatusViewed)
     {
         actualVideoModel = models[nextVideoIndex];
@@ -147,7 +147,6 @@
             self.moviePlayerController.contentURL = self.currentPlayedUrl;
             
             //save video state
-//            [self _updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
             
             self.moviePlayerController.view.frame = view.bounds;
             [view addSubview:self.moviePlayerController.view];
@@ -243,19 +242,6 @@
 
 #pragma mark - Private
 
-+ (NSInteger)_unviewedVideoCountWithFriendModel:(ZZFriendDomainModel*)friendModel
-{
-    NSInteger i = 0;
-    for (ZZVideoDomainModel *videoModel in friendModel.videos)
-    {
-        if (videoModel.incomingStatusValue == ZZVideoIncomingStatusDownloaded)
-        {
-            i++;
-        }
-    }
-    return i;
-}
-
 - (void)_playNext:(NSNotification*)notification
 {
     ZZLogDebug(@"VideoPlayer#playbackDidFinishNotification: %@", notification.userInfo);
@@ -282,35 +268,6 @@
         }
     }
 }
-
-//- (void)_updateViewedVideoCounterWithVideoDomainModel:(ZZVideoDomainModel*)playedVideoModel
-//{
-//    ZZLogEvent(@"RNT _updateViewedVideoCounterWithVideoDomainModel: %@", playedVideoModel)
-//    ZZVideoDomainModel *updatedVideoModel = [ZZVideoDataProvider itemWithID:playedVideoModel.videoID];
-//    
-//    if (!ANIsEmpty(updatedVideoModel))
-//    {
-//        if (updatedVideoModel.incomingStatusValue == ZZVideoIncomingStatusDownloaded)
-//        {
-//            //            viewedVideo.status = @(ZZVideoIncomingStatusViewed);
-////            if (playedVideoModel.relatedUser.unviewedCount > 0)
-////            {
-////                playedVideoModel.relatedUser.unviewedCount--;
-////            }
-////            else
-////            {
-////                playedVideoModel.relatedUser.unviewedCount = 0;
-////            }
-//
-//#warning message
-//            
-//            //            [viewedVideo.managedObjectContext MR_saveToPersistentStoreAndWait];
-//        }
-//    }
-//    
-//    
-//}
-
 
 #pragma mark - Configure Next played index
 
@@ -386,7 +343,6 @@
             [ZZFileHelper isFileExistsAtURL:self.currentPlayedUrl])
         {
             //save video state
-//            [self _updateViewedVideoCounterWithVideoDomainModel:playedVideoModel];
             
             self.moviePlayerController.contentURL = nextUrl;
             
@@ -430,6 +386,7 @@
         [ZZFriendDataUpdater updateFriendWithID:friendModel.idTbm setLastIncomingVideoStatus: videoModel.incomingStatusValue];
     }
 }
+
 
 - (void)updateWithFriendModel:(ZZFriendDomainModel *)friendModel
 {
