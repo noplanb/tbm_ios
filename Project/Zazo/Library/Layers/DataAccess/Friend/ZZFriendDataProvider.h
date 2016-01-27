@@ -24,8 +24,6 @@
 #pragma mark - Other
 
 + (NSInteger)friendsCount;
-
-
 + (BOOL)isFriendExistsWithItemID:(NSString*)itemID;
 + (ZZFriendDomainModel*)lastActionFriendWithoutGrid;
 

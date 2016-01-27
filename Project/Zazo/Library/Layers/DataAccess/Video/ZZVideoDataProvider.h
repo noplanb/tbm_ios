@@ -11,20 +11,21 @@
 
 @interface ZZVideoDataProvider : NSObject
 
+#pragma mark Fetch
+
 + (ZZVideoDomainModel*)itemWithID:(NSString*)itemID;
 + (ZZVideoDomainModel*)createIncomingVideoModelForFriend:(ZZFriendDomainModel*)friendModel withVideoID:(NSString*)videoID;
++ (NSArray*)sortedIncomingVideosForUserWithID:(NSString *)friendID;
 + (NSArray *)downloadingVideos;
 
-#pragma mark - Count
+#pragma mark Count
 
 + (NSUInteger)countDownloadedUnviewedVideos;
 + (NSUInteger)countDownloadingVideos;
 + (NSUInteger)countTotalUnviewedVideos;
 + (NSUInteger)countAllVideos;
 
-+ (NSArray*)sortedIncomingVideosForUserWithID:(NSString *)friendID;
-
-#pragma mark - Helpers
+#pragma mark Helpers
 
 + (void)printAll;
 + (NSURL *)videoUrlWithVideoModel:(ZZVideoDomainModel*)video;

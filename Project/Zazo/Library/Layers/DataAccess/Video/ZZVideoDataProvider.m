@@ -35,24 +35,6 @@
     });
 }
 
-+ (TBMVideo*)entityWithID:(NSString*)itemID
-{
-    return ZZDispatchOnMainThreadAndReturn(^id{
-        TBMVideo* itemEntity = nil;
-        if (!ANIsEmpty(itemID))
-        {
-            NSArray* items = [TBMVideo MR_findByAttribute:TBMVideoAttributes.videoId withValue:itemID inContext:[self _context]];
-            if (items.count > 1)
-            {
-                ANLogWarning(@"TBMVideo contains dupples for %@", itemID);
-            }
-            itemEntity = [items firstObject];
-        }
-        return itemEntity;
-
-    });
-}
-
 + (NSArray *)downloadingVideos
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
@@ -78,6 +60,27 @@
     });
 }
 
++ (NSArray*)sortedIncomingVideosForUserWithID:(NSString *)friendID
+{
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K.idTbm = %@", TBMVideoRelationships.friend, friendID];
+        
+        NSArray* videos =
+        [TBMVideo MR_findAllSortedBy:TBMVideoAttributes.videoId
+                           ascending:YES
+                       withPredicate:predicate
+                           inContext:[self _context]];
+        
+        NSArray* videoModels = [[videos.rac_sequence map:^id(id value) {
+            return [self modelFromEntity:value];
+        }] array];
+        
+        return videoModels;
+        
+    });
+}
+
 + (TBMVideo*)_createIncomingVideoForFriend:(TBMFriend *)friendEntity withVideoID:(NSString*)videoID
 {
     TBMVideo *videoEntity = [ZZVideoDataProvider _newWithVideoID:videoID onContext:friendEntity.managedObjectContext];;
@@ -86,7 +89,34 @@
     return videoEntity;
 }
 
-#pragma mark - Mapping
++ (TBMVideo*)_newWithVideoID:(NSString *)videoID onContext:(NSManagedObjectContext *)context
+{
+    TBMVideo *videoEntity = [TBMVideo MR_createEntityInContext:context];
+    videoEntity.downloadRetryCount = @(0);
+    videoEntity.status = ZZVideoIncomingStatusNew;
+    videoEntity.videoId = videoID;
+    return videoEntity;
+}
+
+#pragma mark - Entities
+
++ (TBMVideo*)entityWithID:(NSString*)itemID
+{
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        TBMVideo* itemEntity = nil;
+        if (!ANIsEmpty(itemID))
+        {
+            NSArray* items = [TBMVideo MR_findByAttribute:TBMVideoAttributes.videoId withValue:itemID inContext:[self _context]];
+            if (items.count > 1)
+            {
+                ANLogWarning(@"TBMVideo contains dupples for %@", itemID);
+            }
+            itemEntity = [items firstObject];
+        }
+        return itemEntity;
+        
+    });
+}
 
 + (ZZVideoDomainModel*)modelFromEntity:(TBMVideo*)videoEntity
 {
@@ -95,8 +125,14 @@
     });
 }
 
++ (NSURL *)videoUrlWithVideo:(TBMVideo*)videoEntity
+{
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        return [self _videoUrlWithFriendID:videoEntity.friend.idTbm videoID:videoEntity.videoId];
+    });
+}
 
-#pragma mark - Load
+#pragma mark - Count
 
 + (NSUInteger)countDownloadedUnviewedVideos
 {
@@ -140,27 +176,6 @@
     return count.unsignedIntegerValue;
 }
 
-+ (NSArray*)sortedIncomingVideosForUserWithID:(NSString *)friendID
-{
-    return ZZDispatchOnMainThreadAndReturn(^id{
-        
-        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K.idTbm = %@", TBMVideoRelationships.friend, friendID];
-        
-        NSArray* videos =
-        [TBMVideo MR_findAllSortedBy:TBMVideoAttributes.videoId
-                           ascending:YES
-                       withPredicate:predicate
-                           inContext:[self _context]];
-        
-        NSArray* videoModels = [[videos.rac_sequence map:^id(id value) {
-            return [self modelFromEntity:value];
-        }] array];
-        
-        return videoModels;
-        
-    });
-}
-
 #pragma mark - Helpers
 
 + (void)printAll
@@ -175,13 +190,6 @@
 + (NSURL *)videoUrlWithVideoModel:(ZZVideoDomainModel*)videoModel
 {
     return [self _videoUrlWithFriendID:videoModel.relatedUserID videoID:videoModel.videoID];
-}
-
-+ (NSURL *)videoUrlWithVideo:(TBMVideo*)videoEntity
-{
-    return ZZDispatchOnMainThreadAndReturn(^id{
-        return [self _videoUrlWithFriendID:videoEntity.friend.idTbm videoID:videoEntity.videoId];
-    });
 }
 
 + (NSURL *)_videoUrlWithFriendID:(NSString *)friendID videoID:(NSString *)videoID
@@ -200,15 +208,6 @@
             return [self modelFromEntity:value];
         }] array];
     });
-}
-
-+ (TBMVideo*)_newWithVideoID:(NSString *)videoID onContext:(NSManagedObjectContext *)context
-{
-    TBMVideo *videoEntity = [TBMVideo MR_createEntityInContext:context];
-    videoEntity.downloadRetryCount = @(0);
-    videoEntity.status = ZZVideoIncomingStatusNew;
-    videoEntity.videoId = videoID;
-    return videoEntity;
 }
 
 + (NSManagedObjectContext*)_context

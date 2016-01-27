@@ -12,16 +12,10 @@
 
 @interface ZZVideoDataProvider (Entities)
 
-#pragma mark - Fetches
+#pragma mark - Entities
 
 + (TBMVideo*)entityWithID:(NSString*)itemID;
-
-#pragma mark - Mapping
-
 + (ZZVideoDomainModel*)modelFromEntity:(TBMVideo*)entity;
-
-#pragma mark - Helpers
-
 + (NSURL *)videoUrlWithVideo:(TBMVideo*)video;
 
 @end

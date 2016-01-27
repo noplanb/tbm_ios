@@ -170,15 +170,6 @@
     });
 }
 
-+ (NSInteger)friendsCount
-{
-    NSNumber *count = ZZDispatchOnMainThreadAndReturn(^id{
-        return @([TBMFriend MR_countOfEntitiesWithContext:[self _context]]);
-    });
-
-    return count.integerValue;
-}
-
 #pragma mark - Mapping
 
 + (TBMFriend*)entityFromModel:(ZZFriendDomainModel*)friendModel
