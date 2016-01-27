@@ -1,5 +1,5 @@
 //
-//  ZZVideoFileHandler.m
+//  ZZLegacyVideoFileHandler.m
 //  Zazo
 //
 //  Created by Oksana Kovalchuk on 10/20/15.
@@ -22,7 +22,7 @@
 #import "ZZFileTransferMarkerDomainModel.h"
 #import "ZZVideoStatuses.h"
 #import "ZZVideoStatusHandler.h"
-#import "ZZVideoFileHandler.h"
+#import "ZZLegacyVideoFileHandler.h"
 #import "ZZVideoDataProvider.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZFriendDataHelper.h"
@@ -30,13 +30,15 @@
 #import "ZZFriendDataUpdater.h"
 #import "ZZVideoDataUpdater.h"
 
-@interface ZZVideoFileHandler () <OBFileTransferDelegate>
+@interface ZZLegacyVideoFileHandler () <OBFileTransferDelegate>
 
 @property (nonatomic, strong, readonly) OBFileTransferManager* fileTransferManager;
 
 @end
 
-@implementation ZZVideoFileHandler
+@implementation ZZLegacyVideoFileHandler
+
+@synthesize delegate = _delegate;
 
 - (instancetype)init
 {

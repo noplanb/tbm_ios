@@ -7,7 +7,7 @@
 //
 
 #import "ZZApplicationRootService.h"
-#import "ZZVideoFileHandler.h"
+#import "ZZLegacyVideoFileHandler.h"
 #import "TBMVideoProcessor.h"
 #import "ZZVideoRecorder.h"
 #import "TBMVideoIDUtils.h"
@@ -34,7 +34,7 @@
     ZZVideoStatusHandlerDelegate
 >
 
-@property (nonatomic, strong) ZZVideoFileHandler* videoFileHandler;
+@property (nonatomic, strong) ZZLegacyVideoFileHandler * videoFileHandler;
 @property (nonatomic, strong) ZZApplicationDataUpdaterService* dataUpdater;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier backgroundTaskID;
 
@@ -47,7 +47,7 @@
     self = [super init];
     if (self)
     {
-        self.videoFileHandler = [ZZVideoFileHandler new];
+        self.videoFileHandler = [ZZLegacyVideoFileHandler new];
         self.videoFileHandler.delegate = self;
         
         self.dataUpdater = [ZZApplicationDataUpdaterService new];

@@ -256,7 +256,7 @@
 		07E09E1E1BD5A6D000A59389 /* ZZNotificationsConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E1D1BD5A6D000A59389 /* ZZNotificationsConstants.m */; };
 		07E09E211BD5AB6200A59389 /* ZZNotificationDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E201BD5AB6200A59389 /* ZZNotificationDomainModel.m */; };
 		07E09E251BD5B15D00A59389 /* ZZApplicationDataUpdaterService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E241BD5B15D00A59389 /* ZZApplicationDataUpdaterService.m */; };
-		07E09E291BD5B17F00A59389 /* ZZVideoFileHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E281BD5B17F00A59389 /* ZZVideoFileHandler.m */; };
+		07E09E291BD5B17F00A59389 /* ZZLegacyVideoFileHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E281BD5B17F00A59389 /* ZZLegacyVideoFileHandler.m */; };
 		07E09E2C1BD5B39000A59389 /* ZZApplicationPermissionsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E2B1BD5B39000A59389 /* ZZApplicationPermissionsHandler.m */; };
 		07E09E301BD69A7200A59389 /* ZZApplicationRootService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E2F1BD69A7200A59389 /* ZZApplicationRootService.m */; };
 		07E09E361BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E351BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m */; };
@@ -491,7 +491,7 @@
 		182255211C16CA06003885A3 /* ZZFriendDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDA6DA1BE8A328008D3619 /* ZZFriendDataHelper.m */; };
 		182255221C16CA06003885A3 /* TBMAlertControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D8C1BA49A0100925671 /* TBMAlertControllerView.m */; };
 		182255231C16CA06003885A3 /* ZZDeviceHandlerDeprecated.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B931BA49A0100925671 /* ZZDeviceHandlerDeprecated.m */; };
-		182255241C16CA06003885A3 /* ZZVideoFileHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E281BD5B17F00A59389 /* ZZVideoFileHandler.m */; };
+		182255241C16CA06003885A3 /* ZZLegacyVideoFileHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E281BD5B17F00A59389 /* ZZLegacyVideoFileHandler.m */; };
 		182255251C16CA06003885A3 /* ZZSecretDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C591BA49A0100925671 /* ZZSecretDataSource.m */; };
 		182255261C16CA06003885A3 /* ZZRemoteStorageTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B541BA49A0100925671 /* ZZRemoteStorageTransportService.m */; };
 		182255271C16CA06003885A3 /* TBMVideoIDUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A011BA49A0000925671 /* TBMVideoIDUtils.m */; };
@@ -1242,8 +1242,8 @@
 		07E09E201BD5AB6200A59389 /* ZZNotificationDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZNotificationDomainModel.m; path = Notification/ZZNotificationDomainModel.m; sourceTree = "<group>"; };
 		07E09E231BD5B15D00A59389 /* ZZApplicationDataUpdaterService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZApplicationDataUpdaterService.h; path = ApplicationServices/ZZApplicationDataUpdaterService.h; sourceTree = "<group>"; };
 		07E09E241BD5B15D00A59389 /* ZZApplicationDataUpdaterService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZApplicationDataUpdaterService.m; path = ApplicationServices/ZZApplicationDataUpdaterService.m; sourceTree = "<group>"; };
-		07E09E271BD5B17F00A59389 /* ZZVideoFileHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZVideoFileHandler.h; path = ApplicationServices/ZZVideoFileHandler.h; sourceTree = "<group>"; };
-		07E09E281BD5B17F00A59389 /* ZZVideoFileHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZVideoFileHandler.m; path = ApplicationServices/ZZVideoFileHandler.m; sourceTree = "<group>"; };
+		07E09E271BD5B17F00A59389 /* ZZLegacyVideoFileHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZLegacyVideoFileHandler.h; path = ApplicationServices/ZZLegacyVideoFileHandler.h; sourceTree = "<group>"; };
+		07E09E281BD5B17F00A59389 /* ZZLegacyVideoFileHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZLegacyVideoFileHandler.m; path = ApplicationServices/ZZLegacyVideoFileHandler.m; sourceTree = "<group>"; };
 		07E09E2A1BD5B39000A59389 /* ZZApplicationPermissionsHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZApplicationPermissionsHandler.h; path = ApplicationPermissionsHandler/ZZApplicationPermissionsHandler.h; sourceTree = "<group>"; };
 		07E09E2B1BD5B39000A59389 /* ZZApplicationPermissionsHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZApplicationPermissionsHandler.m; path = ApplicationPermissionsHandler/ZZApplicationPermissionsHandler.m; sourceTree = "<group>"; };
 		07E09E2E1BD69A7200A59389 /* ZZApplicationRootService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZApplicationRootService.h; path = ApplicationServices/ZZApplicationRootService.h; sourceTree = "<group>"; };
@@ -1408,6 +1408,7 @@
 		41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		5988C69CC62CF4472CA2040A /* Pods-Zazo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.debug.xcconfig"; sourceTree = "<group>"; };
 		677DB03F566F3F9818E6E44A /* ZZFriendDataHelper+Entities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZZFriendDataHelper+Entities.h"; sourceTree = "<group>"; };
+		677DB6B4DB4620DE2AF4A576 /* ZZVideoFileHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZVideoFileHandler.h; path = ApplicationServices/ZZVideoFileHandler.h; sourceTree = "<group>"; };
 		79123D711BB032C3007E1CBF /* ZZHintsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsController.h; sourceTree = "<group>"; };
 		79123D721BB032C3007E1CBF /* ZZHintsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsController.m; sourceTree = "<group>"; };
 		79123D771BB03359007E1CBF /* ZZHintsConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsConstants.h; sourceTree = "<group>"; };
@@ -3781,10 +3782,11 @@
 		07E09E261BD5B16200A59389 /* ApplicationServices */ = {
 			isa = PBXGroup;
 			children = (
-				07E09E271BD5B17F00A59389 /* ZZVideoFileHandler.h */,
-				07E09E281BD5B17F00A59389 /* ZZVideoFileHandler.m */,
+				07E09E271BD5B17F00A59389 /* ZZLegacyVideoFileHandler.h */,
+				07E09E281BD5B17F00A59389 /* ZZLegacyVideoFileHandler.m */,
 				07E09E231BD5B15D00A59389 /* ZZApplicationDataUpdaterService.h */,
 				07E09E241BD5B15D00A59389 /* ZZApplicationDataUpdaterService.m */,
+				677DB6B4DB4620DE2AF4A576 /* ZZVideoFileHandler.h */,
 			);
 			name = ApplicationServices;
 			sourceTree = "<group>";
@@ -5183,7 +5185,7 @@
 				182255211C16CA06003885A3 /* ZZFriendDataHelper.m in Sources */,
 				182255221C16CA06003885A3 /* TBMAlertControllerView.m in Sources */,
 				182255231C16CA06003885A3 /* ZZDeviceHandlerDeprecated.m in Sources */,
-				182255241C16CA06003885A3 /* ZZVideoFileHandler.m in Sources */,
+				182255241C16CA06003885A3 /* ZZLegacyVideoFileHandler.m in Sources */,
 				182255251C16CA06003885A3 /* ZZSecretDataSource.m in Sources */,
 				182255261C16CA06003885A3 /* ZZRemoteStorageTransportService.m in Sources */,
 				182255271C16CA06003885A3 /* TBMVideoIDUtils.m in Sources */,
@@ -5464,7 +5466,7 @@
 				18BDA6DB1BE8A328008D3619 /* ZZFriendDataHelper.m in Sources */,
 				07636F071BA49A0100925671 /* TBMAlertControllerView.m in Sources */,
 				07636E4F1BA49A0100925671 /* ZZDeviceHandlerDeprecated.m in Sources */,
-				07E09E291BD5B17F00A59389 /* ZZVideoFileHandler.m in Sources */,
+				07E09E291BD5B17F00A59389 /* ZZLegacyVideoFileHandler.m in Sources */,
 				07636EA31BA49A0100925671 /* ZZSecretDataSource.m in Sources */,
 				07636E391BA49A0100925671 /* ZZRemoteStorageTransportService.m in Sources */,
 				07636DBC1BA49A0100925671 /* TBMVideoIDUtils.m in Sources */,

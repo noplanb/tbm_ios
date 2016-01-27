@@ -1,11 +1,9 @@
 //
-//  ZZVideoFileHandler.h
-//  Zazo
-//
-//  Created by Oksana Kovalchuk on 10/20/15.
-//  Copyright © 2015 No Plan B. All rights reserved.
+// Created by Rinat on 27.01.16.
+// Copyright (c) 2016 No Plan B. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import "ZZVideoStatuses.h"
 
 @class ZZFriendDomainModel;
@@ -27,7 +25,7 @@
 
 @end
 
-@interface ZZVideoFileHandler : NSObject
+@protocol ZZVideoFileHandler <NSObject>
 
 @property (nonatomic, weak) id<ZZVideoFileHandlerDelegate> delegate;
 
