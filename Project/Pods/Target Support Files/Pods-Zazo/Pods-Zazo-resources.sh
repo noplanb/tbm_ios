@@ -58,9 +58,6 @@ install_resource()
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_resource "OBFileTransfer/Pod/Assets/FileTransferAgents.plist"
-  install_resource "OBFileTransfer/Pod/Assets/mimeTypes.txt"
-  install_resource "OBFileTransfer/Pod/Assets/OBFTMErrors.strings"
   install_resource "OBLogger/Pod/Assets/OBLogViewController.xib"
   install_resource "PBJVision/Source/Shaders/Shader.fsh"
   install_resource "PBJVision/Source/Shaders/Shader.vsh"
@@ -68,9 +65,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "libPhoneNumber-iOS/libPhoneNumber/NBPhoneNumberMetadata.plist"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_resource "OBFileTransfer/Pod/Assets/FileTransferAgents.plist"
-  install_resource "OBFileTransfer/Pod/Assets/mimeTypes.txt"
-  install_resource "OBFileTransfer/Pod/Assets/OBFTMErrors.strings"
   install_resource "OBLogger/Pod/Assets/OBLogViewController.xib"
   install_resource "PBJVision/Source/Shaders/Shader.fsh"
   install_resource "PBJVision/Source/Shaders/Shader.vsh"
@@ -78,9 +72,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "libPhoneNumber-iOS/libPhoneNumber/NBPhoneNumberMetadata.plist"
 fi
 if [[ "$CONFIGURATION" == "Ad-hoc" ]]; then
-  install_resource "OBFileTransfer/Pod/Assets/FileTransferAgents.plist"
-  install_resource "OBFileTransfer/Pod/Assets/mimeTypes.txt"
-  install_resource "OBFileTransfer/Pod/Assets/OBFTMErrors.strings"
   install_resource "OBLogger/Pod/Assets/OBLogViewController.xib"
   install_resource "PBJVision/Source/Shaders/Shader.fsh"
   install_resource "PBJVision/Source/Shaders/Shader.vsh"
@@ -90,7 +81,7 @@ fi
 
 mkdir -p "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
-if [[ "${ACTION}" == "install" ]] && [[ "${SKIP_INSTALL}" == "NO" ]]; then
+if [[ "${ACTION}" == "install" ]]; then
   mkdir -p "${INSTALL_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
   rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${INSTALL_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 fi
