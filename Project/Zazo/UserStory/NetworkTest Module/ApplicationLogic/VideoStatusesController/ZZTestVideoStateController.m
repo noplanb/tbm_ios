@@ -162,7 +162,7 @@
         [self _updateLastDownloadedVideoToViewedStatusForFriend:friendModel];
         [self _videoStatusFinished];
         
-        [[OBLogger instance] error:@"Video DOWNLOADED!!!"];
+//        [[OBLogger instance] error:@"Video DOWNLOADED!!!"];
         
     }
     else if (friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently)

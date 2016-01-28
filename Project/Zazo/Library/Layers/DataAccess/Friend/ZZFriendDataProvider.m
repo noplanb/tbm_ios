@@ -148,6 +148,15 @@
     return result.boolValue;
 }
 
++ (NSInteger)friendsCount
+{
+    NSNumber *count = ZZDispatchOnMainThreadAndReturn(^id{
+        return @([TBMFriend MR_countOfEntitiesWithContext:[self _context]]);
+    });
+    
+    return count.integerValue;
+}
+
 #pragma mark - Entities
 
 + (TBMFriend*)friendEntityWithItemID:(NSString*)itemID

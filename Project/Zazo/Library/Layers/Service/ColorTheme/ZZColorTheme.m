@@ -36,10 +36,18 @@ static CGFloat const kNavigationBarIconHeight = 20;
 
 + (void)setupFonts
 {
-    [UIFont an_addFontName:@"Helvetica-Light" forType:ANFontTypeLight];
-    [UIFont an_addFontName:@"Helvetica" forType:ANFontTypeRegular];
-    [UIFont an_addFontName:@"HelveticaNeue-Medium" forType:ANFontTypeMedium];
-    [UIFont an_addFontName:@"Helvetica-Bold" forType:ANFontTypeBold];
+    @try {
+        [UIFont an_addFontName:@"Helvetica-Light" forType:ANFontTypeLight];
+        [UIFont an_addFontName:@"Helvetica" forType:ANFontTypeRegular];
+        [UIFont an_addFontName:@"HelveticaNeue-Medium" forType:ANFontTypeMedium];
+        [UIFont an_addFontName:@"Helvetica-Bold" forType:ANFontTypeBold];
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
 }
 
 - (instancetype)init

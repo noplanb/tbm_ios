@@ -256,7 +256,6 @@
 		07E09E1E1BD5A6D000A59389 /* ZZNotificationsConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E1D1BD5A6D000A59389 /* ZZNotificationsConstants.m */; };
 		07E09E211BD5AB6200A59389 /* ZZNotificationDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E201BD5AB6200A59389 /* ZZNotificationDomainModel.m */; };
 		07E09E251BD5B15D00A59389 /* ZZApplicationDataUpdaterService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E241BD5B15D00A59389 /* ZZApplicationDataUpdaterService.m */; };
-		07E09E291BD5B17F00A59389 /* ZZLegacyVideoFileHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E281BD5B17F00A59389 /* ZZLegacyVideoFileHandler.m */; };
 		07E09E2C1BD5B39000A59389 /* ZZApplicationPermissionsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E2B1BD5B39000A59389 /* ZZApplicationPermissionsHandler.m */; };
 		07E09E301BD69A7200A59389 /* ZZApplicationRootService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E2F1BD69A7200A59389 /* ZZApplicationRootService.m */; };
 		07E09E361BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E351BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m */; };
@@ -266,6 +265,8 @@
 		07F0E7F71B8CD7A900036AB2 /* ZZLoadFriendListTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EC1B8CD7A900036AB2 /* ZZLoadFriendListTest.m */; };
 		07F0E7F81B8CD7A900036AB2 /* ZZStartScreenTestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */; };
 		154C7F4D1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
+		15A4895D1C58F79000374F1C /* ZZVideoFileHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB9BB4B95FA72D32C8E3A /* ZZVideoFileHandler.m */; };
+		15A4895E1C5A44C500374F1C /* ZZFileTransferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBC826367578C8C9F63F6 /* ZZFileTransferManager.m */; };
 		15B6F2F61C24011600148E0F /* ZZDispatchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */; };
 		15FC5BC81C18166B005296C7 /* ZZDispatchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */; };
 		180254A31BB2C5A400138A52 /* ZZVideoStatuses.m in Sources */ = {isa = PBXBuildFile; fileRef = 180254A21BB2C5A400138A52 /* ZZVideoStatuses.m */; };
@@ -491,7 +492,6 @@
 		182255211C16CA06003885A3 /* ZZFriendDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDA6DA1BE8A328008D3619 /* ZZFriendDataHelper.m */; };
 		182255221C16CA06003885A3 /* TBMAlertControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D8C1BA49A0100925671 /* TBMAlertControllerView.m */; };
 		182255231C16CA06003885A3 /* ZZDeviceHandlerDeprecated.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B931BA49A0100925671 /* ZZDeviceHandlerDeprecated.m */; };
-		182255241C16CA06003885A3 /* ZZLegacyVideoFileHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E281BD5B17F00A59389 /* ZZLegacyVideoFileHandler.m */; };
 		182255251C16CA06003885A3 /* ZZSecretDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C591BA49A0100925671 /* ZZSecretDataSource.m */; };
 		182255261C16CA06003885A3 /* ZZRemoteStorageTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B541BA49A0100925671 /* ZZRemoteStorageTransportService.m */; };
 		182255271C16CA06003885A3 /* TBMVideoIDUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A011BA49A0000925671 /* TBMVideoIDUtils.m */; };
@@ -676,6 +676,10 @@
 		224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
 		22D3EC5F1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3EC5E1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m */; };
 		22D7D2B51BD9819600FF52AA /* ZZKeyStoreIncomingVideoIDsDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIDsDomainModel.m */; };
+		677DB0E091A1603FDB3D96E0 /* ZZVideoFileHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB9BB4B95FA72D32C8E3A /* ZZVideoFileHandler.m */; };
+		677DB2D902CFDC387EB02ECD /* ZZVideoFileHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB9BB4B95FA72D32C8E3A /* ZZVideoFileHandler.m */; };
+		677DB62F0C4E9716548840C2 /* ZZFileTransferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBC826367578C8C9F63F6 /* ZZFileTransferManager.m */; };
+		677DB956C2A9072AC5C13B17 /* ZZFileTransferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBC826367578C8C9F63F6 /* ZZFileTransferManager.m */; };
 		79123D731BB032C3007E1CBF /* ZZHintsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D721BB032C3007E1CBF /* ZZHintsController.m */; };
 		79123D791BB03359007E1CBF /* ZZHintsConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D781BB03359007E1CBF /* ZZHintsConstants.m */; };
 		79123D861BB14F8E007E1CBF /* ZZHintsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D851BB14F8E007E1CBF /* ZZHintsViewModel.m */; };
@@ -1255,6 +1259,7 @@
 		07F0E7EB1B8CD7A900036AB2 /* ZZLoadFriendListSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZLoadFriendListSpec.m; sourceTree = "<group>"; };
 		07F0E7EC1B8CD7A900036AB2 /* ZZLoadFriendListTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZLoadFriendListTest.m; sourceTree = "<group>"; };
 		07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZStartScreenTestSpec.m; sourceTree = "<group>"; };
+		151DAA031C58F4A2000BCD81 /* ZZFileTransferInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZFileTransferInterface.h; path = VideoStatusHandler/ZZFileTransferInterface.h; sourceTree = "<group>"; };
 		1549F9E91C1953E8005AFC95 /* ZZFriendDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZFriendDataProvider+Entities.h"; sourceTree = "<group>"; };
 		154C7F4B1C567EDD00DFA0FD /* OBLogger+ZZAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OBLogger+ZZAdditions.h"; sourceTree = "<group>"; };
 		154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OBLogger+ZZAdditions.m"; sourceTree = "<group>"; };
@@ -1408,7 +1413,11 @@
 		41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		5988C69CC62CF4472CA2040A /* Pods-Zazo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.debug.xcconfig"; sourceTree = "<group>"; };
 		677DB03F566F3F9818E6E44A /* ZZFriendDataHelper+Entities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZZFriendDataHelper+Entities.h"; sourceTree = "<group>"; };
-		677DB6B4DB4620DE2AF4A576 /* ZZVideoFileHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZVideoFileHandler.h; path = ApplicationServices/ZZVideoFileHandler.h; sourceTree = "<group>"; };
+		677DB6B4DB4620DE2AF4A576 /* ZZVideoFileHandlerInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZVideoFileHandlerInterface.h; path = ApplicationServices/ZZVideoFileHandlerInterface.h; sourceTree = "<group>"; };
+		677DB9BB4B95FA72D32C8E3A /* ZZVideoFileHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZVideoFileHandler.m; path = ApplicationServices/ZZVideoFileHandler.m; sourceTree = "<group>"; };
+		677DBAF084216EBF5565BB88 /* ZZVideoFileHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZVideoFileHandler.h; path = ApplicationServices/ZZVideoFileHandler.h; sourceTree = "<group>"; };
+		677DBC826367578C8C9F63F6 /* ZZFileTransferManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZFileTransferManager.m; path = ApplicationServices/ZZFileTransferManager.m; sourceTree = "<group>"; };
+		677DBFA4BD4D6097A239B947 /* ZZFileTransferManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZFileTransferManager.h; path = ApplicationServices/ZZFileTransferManager.h; sourceTree = "<group>"; };
 		79123D711BB032C3007E1CBF /* ZZHintsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsController.h; sourceTree = "<group>"; };
 		79123D721BB032C3007E1CBF /* ZZHintsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsController.m; sourceTree = "<group>"; };
 		79123D771BB03359007E1CBF /* ZZHintsConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsConstants.h; sourceTree = "<group>"; };
@@ -3786,7 +3795,12 @@
 				07E09E281BD5B17F00A59389 /* ZZLegacyVideoFileHandler.m */,
 				07E09E231BD5B15D00A59389 /* ZZApplicationDataUpdaterService.h */,
 				07E09E241BD5B15D00A59389 /* ZZApplicationDataUpdaterService.m */,
-				677DB6B4DB4620DE2AF4A576 /* ZZVideoFileHandler.h */,
+				677DB6B4DB4620DE2AF4A576 /* ZZVideoFileHandlerInterface.h */,
+				677DB9BB4B95FA72D32C8E3A /* ZZVideoFileHandler.m */,
+				677DBAF084216EBF5565BB88 /* ZZVideoFileHandler.h */,
+				677DBC826367578C8C9F63F6 /* ZZFileTransferManager.m */,
+				677DBFA4BD4D6097A239B947 /* ZZFileTransferManager.h */,
+				151DAA031C58F4A2000BCD81 /* ZZFileTransferInterface.h */,
 			);
 			name = ApplicationServices;
 			sourceTree = "<group>";
@@ -4537,7 +4551,6 @@
 				182255691C16CA06003885A3 /* Resources */,
 				1822559F1C16CA06003885A3 /* Copy Pods Resources */,
 				182255A01C16CA06003885A3 /* Fabric */,
-				182255A11C16CA06003885A3 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 				182255A21C16CA06003885A3 /* PBXBuildRule */,
@@ -4560,7 +4573,6 @@
 				220E90231909A18B003C4F82 /* Resources */,
 				F150BE2BD20343D6AD66EF07 /* Copy Pods Resources */,
 				07243CC31B8E4517008E4203 /* Fabric */,
-				D787EBC8E80CDA954202F300 /* Embed Pods Frameworks */,
 				150820E11C457F2F0032EC29 /* Set Build Number */,
 			);
 			buildRules = (
@@ -4583,7 +4595,6 @@
 				220E90421909A18B003C4F82 /* Frameworks */,
 				220E90431909A18B003C4F82 /* Resources */,
 				D9E56C582902C6E9D84AF1D0 /* Copy Pods Resources */,
-				1BA3A35D9DA1BD52514FB6D3 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -4856,36 +4867,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 614db54f91c11edf6117193953fc20467d62cd05 06786661ab10c149ccf35734a13a2efd732d9dd1cb481ab620fc97be50a9ef38";
 		};
-		182255A11C16CA06003885A3 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zazo/Pods-Zazo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		1BA3A35D9DA1BD52514FB6D3 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		90DCA26FC9A448EB9C5E5879 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4914,21 +4895,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		D787EBC8E80CDA954202F300 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zazo/Pods-Zazo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D9E56C582902C6E9D84AF1D0 /* Copy Pods Resources */ = {
@@ -4986,6 +4952,7 @@
 				182254651C16CA06003885A3 /* ANMessageDomainModel.m in Sources */,
 				182254661C16CA06003885A3 /* ZZVideoDataProvider.m in Sources */,
 				182254671C16CA06003885A3 /* ZZNotificationsHandler.m in Sources */,
+				15A4895E1C5A44C500374F1C /* ZZFileTransferManager.m in Sources */,
 				182254681C16CA06003885A3 /* ZZUserFriendshipStatusHandler.m in Sources */,
 				182254691C16CA06003885A3 /* ANAnimator.m in Sources */,
 				1822546A1C16CA06003885A3 /* ZZStartView.m in Sources */,
@@ -5185,7 +5152,6 @@
 				182255211C16CA06003885A3 /* ZZFriendDataHelper.m in Sources */,
 				182255221C16CA06003885A3 /* TBMAlertControllerView.m in Sources */,
 				182255231C16CA06003885A3 /* ZZDeviceHandlerDeprecated.m in Sources */,
-				182255241C16CA06003885A3 /* ZZLegacyVideoFileHandler.m in Sources */,
 				182255251C16CA06003885A3 /* ZZSecretDataSource.m in Sources */,
 				182255261C16CA06003885A3 /* ZZRemoteStorageTransportService.m in Sources */,
 				182255271C16CA06003885A3 /* TBMVideoIDUtils.m in Sources */,
@@ -5197,6 +5163,7 @@
 				1822552D1C16CA06003885A3 /* ZZVideoModelsMapper.m in Sources */,
 				1822552E1C16CA06003885A3 /* ZZUserPresentationHelper.m in Sources */,
 				1822552F1C16CA06003885A3 /* ZZStringUtils.m in Sources */,
+				15A4895D1C58F79000374F1C /* ZZVideoFileHandler.m in Sources */,
 				182255301C16CA06003885A3 /* ZZGridContainerView.m in Sources */,
 				182255311C16CA06003885A3 /* ZZFeatureEventStrategyRegisteredUser.m in Sources */,
 				182255321C16CA06003885A3 /* ZZErrorHandler.m in Sources */,
@@ -5466,7 +5433,6 @@
 				18BDA6DB1BE8A328008D3619 /* ZZFriendDataHelper.m in Sources */,
 				07636F071BA49A0100925671 /* TBMAlertControllerView.m in Sources */,
 				07636E4F1BA49A0100925671 /* ZZDeviceHandlerDeprecated.m in Sources */,
-				07E09E291BD5B17F00A59389 /* ZZLegacyVideoFileHandler.m in Sources */,
 				07636EA31BA49A0100925671 /* ZZSecretDataSource.m in Sources */,
 				07636E391BA49A0100925671 /* ZZRemoteStorageTransportService.m in Sources */,
 				07636DBC1BA49A0100925671 /* TBMVideoIDUtils.m in Sources */,
@@ -5524,6 +5490,8 @@
 				07636E331BA49A0100925671 /* ZZAccountTransportService.m in Sources */,
 				07636EC21BA49A0100925671 /* ZZGridStateView.m in Sources */,
 				07636EB31BA49A0100925671 /* ZZEditFriendListPresenter.m in Sources */,
+				677DB0E091A1603FDB3D96E0 /* ZZVideoFileHandler.m in Sources */,
+				677DB956C2A9072AC5C13B17 /* ZZFileTransferManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5538,6 +5506,8 @@
 				07F0E7F61B8CD7A900036AB2 /* ZZLoadFriendListSpec.m in Sources */,
 				07F0E7F81B8CD7A900036AB2 /* ZZStartScreenTestSpec.m in Sources */,
 				07F0E7F51B8CD7A900036AB2 /* ZZRegistrationWithSMSTest.m in Sources */,
+				677DB2D902CFDC387EB02ECD /* ZZVideoFileHandler.m in Sources */,
+				677DB62F0C4E9716548840C2 /* ZZFileTransferManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5640,7 +5610,7 @@
 				PRODUCT_NAME = Zazo;
 				PROVISIONING_PROFILE = "a50746b7-d75c-4f57-8cce-38709e930b47";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
 			};
@@ -5888,7 +5858,7 @@
 				PRODUCT_NAME = Zazo;
 				PROVISIONING_PROFILE = "32180b08-f511-4d8f-911e-4e4de5b84e79";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
 			};
@@ -5925,7 +5895,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Zazo/Library/Layers/Service/Zazo-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
 			};

@@ -13,7 +13,7 @@
 @optional
 
 - (void)videoStatusChangedWithFriendID:(NSString*)friendID;
-- (void)sendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friend videoID:(NSString *)videoID status:(NSString *)status;
+- (void)sendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friendModel videoID:(NSString *)videoID status:(NSString *)status;
 
 @end
 

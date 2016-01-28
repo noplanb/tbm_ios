@@ -7,8 +7,8 @@
 //
 
 #import "ZZVideoStatuses.h"
-#import "ZZVideoFileHandler.h"
+#import "ZZVideoFileHandlerInterface.h"
 
-@interface ZZLegacyVideoFileHandler : NSObject <ZZVideoFileHandler>
+@interface ZZLegacyVideoFileHandler : NSObject <ZZVideoFileHandlerInterface>
 
 @end

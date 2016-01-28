@@ -7,7 +7,6 @@
 //
 
 #import "ZZApplicationRootService.h"
-#import "ZZLegacyVideoFileHandler.h"
 #import "TBMVideoProcessor.h"
 #import "ZZVideoRecorder.h"
 #import "TBMVideoIDUtils.h"
@@ -24,7 +23,9 @@
 #import "ZZFriendDomainModel.h"
 #import "ZZVideoStatusHandler.h"
 #import "ZZVideoDataUpdater.h"
-
+#import "ZZVideoFileHandler.h"
+#import "ZZFileTransferManager.h"
+#import "AWSS3TransferUtility.h"
 
 @interface ZZApplicationRootService ()
 <
@@ -34,9 +35,10 @@
     ZZVideoStatusHandlerDelegate
 >
 
-@property (nonatomic, strong) ZZLegacyVideoFileHandler * videoFileHandler;
+@property (nonatomic, strong) ZZVideoFileHandler *videoFileHandler;
 @property (nonatomic, strong) ZZApplicationDataUpdaterService* dataUpdater;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier backgroundTaskID;
+@property (nonatomic, strong) ZZFileTransferManager *transferManager;
 
 @end
 
@@ -47,8 +49,11 @@
     self = [super init];
     if (self)
     {
-        self.videoFileHandler = [ZZLegacyVideoFileHandler new];
+        _transferManager = [ZZFileTransferManager new];
+        
+        self.videoFileHandler = [ZZVideoFileHandler new];
         self.videoFileHandler.delegate = self;
+        self.videoFileHandler.fileTransfer = _transferManager;
         
         self.dataUpdater = [ZZApplicationDataUpdaterService new];
         self.dataUpdater.delegate = self;
@@ -104,10 +109,9 @@
 {
     NSURL *videoUrl = [notification.userInfo objectForKey:@"videoUrl"];
     ZZFileTransferMarkerDomainModel* marker = [TBMVideoIDUtils markerModelWithOutgoingVideoURL:videoUrl];
-
     ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:marker.friendID];
     [[ZZVideoStatusHandler sharedInstance] handleOutgoingVideoCreatedWithVideoID:marker.videoID withFriend:friendModel.idTbm];
-    [self.videoFileHandler uploadWithVideoUrl:videoUrl friendCKey:friendModel.cKey];
+    [self.videoFileHandler uploadVideoAtUrl:videoUrl videoID:marker.videoID friendID:marker.friendID];
 }
 
 - (void)checkApplicationPermissionsAndResources
@@ -127,7 +131,9 @@
 
 - (void)handleBackgroundSessionWithIdentifier:(NSString *)identifier completionHandler:(ANCodeBlock)completionHandler
 {
-    [self.videoFileHandler handleBackgroundSessionWithIdentifier:identifier completionHandler:completionHandler];
+    [AWSS3TransferUtility interceptApplication:[UIApplication sharedApplication]
+           handleEventsForBackgroundURLSession:identifier
+                             completionHandler:completionHandler];
 }
 
 
@@ -215,7 +221,7 @@
     
     if (friendModel)
     {
-        [self.videoFileHandler queueDownloadWithFriendID:friendModel.idTbm videoID:notificationModel.videoID];
+        [self.videoFileHandler downloadVideoWithFriendID:friendModel.idTbm videoID:notificationModel.videoID];
     }
     else
     {
@@ -263,7 +269,7 @@
 
 - (void)freshVideoDetectedWithVideoID:(NSString*)videoID friendID:(NSString*)friendID
 {
-    [self.videoFileHandler queueDownloadWithFriendID:friendID videoID:videoID];
+    [self.videoFileHandler downloadVideoWithFriendID:friendID videoID:videoID];
 }
 
 
@@ -273,7 +279,7 @@
 {
     if (event == ZZRootStateObserverEventsUserAuthorized)
     {
-        [self.videoFileHandler updateS3CredentialsWithRequest];
+        [self.transferManager updateCredentials];
     }
     else if (event == ZZRootStateObserverEventsFriendsAfterAuthorizationLoaded)
     {
