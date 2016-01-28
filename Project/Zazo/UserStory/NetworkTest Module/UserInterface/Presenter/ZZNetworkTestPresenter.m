@@ -7,10 +7,10 @@
 //
 
 #import "ZZNetworkTestPresenter.h"
-#import "TBMFriend.h"
 #import "ZZTestVideoStateController.h"
 #import "ZZNetworkTestFriendshipController.h"
 #import "ZZRootStateObserver.h"
+#import "ZZFriendDomainModel.h"
 
 @interface ZZNetworkTestPresenter () <ZZTestVideoStateControllerDelegate>
 
@@ -58,9 +58,9 @@
 
 #pragma makr - Output
 
-- (void)videosatusChangedWithFriend:(TBMFriend *)friendEntity
+- (void)videoStatusChangedWithFriend:(ZZFriendDomainModel *)friendModel
 {
-    [self.videoStateController videoStatusChangedWithFriend:friendEntity];
+    [self.videoStateController videoStatusChangedWithFriend:friendModel];
 }
 
 
@@ -132,9 +132,9 @@
     [self.userInterface updateTriesCount:coutner];
 }
 
-- (void)videoStatusChagnedWith:(NSString *)statusString
+- (void)videoStatusChangedWith:(NSString *)statusString
 {
-    [self.userInterface updateVideoSatus:statusString];
+    [self.userInterface updateVideoStatus:statusString];
 }
 
 - (void)updateRetryCount:(NSInteger)count

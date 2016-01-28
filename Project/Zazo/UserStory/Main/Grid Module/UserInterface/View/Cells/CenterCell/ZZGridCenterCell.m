@@ -70,7 +70,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
 }
 
 
-- (void)updataeRecordStateTo:(BOOL)isRecording
+- (void)updateRecordStateTo:(BOOL)isRecording
 {
     if (isRecording)
     {

@@ -27,19 +27,19 @@ typedef NS_ENUM(NSInteger, ZZSecretSection)
 
 typedef NS_ENUM(NSInteger, ZZSecrectScreenActionsType)
 {
-    ZZSecrectScreenActionsTypeLogsScreen,
-    ZZSecrectScreenActionsTypeStateScreen,
-    ZZSecrectScreenActionsTypeDebugUIScreen,
-    
-    ZZSecrectScreenActionsTypeResetTutorialHints,
-    ZZSecrectScreenActionsTypeFeatureOptions,
+    ZZSecretScreenActionsTypeLogsScreen,
+    ZZSecretScreenActionsTypeStateScreen,
+    ZZSecretScreenActionsTypeDebugUIScreen,
+
+    ZZSecretScreenActionsTypeResetTutorialHints,
+    ZZSecretScreenActionsTypeFeatureOptions,
     ZZSecretScreenActionsTypeEnableAllFeatures,
-    
-    ZZSecrectScreenActionsTypeDispatchMessage,
-    
-    ZZSecrectScreenActionsTypeClearUserData,
-    ZZSecrectScreenActionsTypeDeleteAllDanglingFiles,
-    ZZSecrectScreenActionsTypeCrashApplication
+
+    ZZSecretScreenActionsTypeDispatchMessage,
+
+    ZZSecretScreenActionsTypeClearUserData,
+    ZZSecretScreenActionsTypeDeleteAllDanglingFiles,
+    ZZSecretScreenActionsTypeCrashApplication
 };
 
 @protocol ZZSecretDataSourceDelegate <NSObject>

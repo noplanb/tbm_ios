@@ -19,7 +19,7 @@ NSString* ZZNotificationTypeStringFromEnumValue(ZZNotificationType type)
     return notificationsTypeString[type];
 }
 
-ZZNotificationType ZZNotificationTypeEnumValueFromSrting(NSString* string)
+ZZNotificationType ZZNotificationTypeEnumValueFromString(NSString *string)
 {
     NSArray* array = [NSArray arrayWithObjects:notificationsTypeString count:3];
     NSInteger index = [array indexOfObject:string];

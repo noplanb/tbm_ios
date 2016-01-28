@@ -30,7 +30,7 @@
     ANDispatchBlockToMainQueue(^{
         CGFloat delayAfterViewDownloaded = 1.2f;
         ANDispatchBlockAfter(delayAfterViewDownloaded, ^{
-            if ([[self dataSource] frindsOnGridNumber] == 0)
+            if ([[self dataSource] friendsOnGridNumber] == 0)
             {
                 NSInteger indexForInviteEvent = 5;
                 [[self actionHandler] handleEvent:ZZGridActionEventTypeDontHaveFriends withIndex:indexForInviteEvent friendModel:nil];

@@ -15,22 +15,22 @@
 
 #pragma mark - Filename
 
-+ (NSString*)incomingVideoRemoteFilenameWithFriendMkey:(NSString*)friendMkey
-                                            friendCKey:(NSString*)friendCkey
-                                               videoId:(NSString*)videoId
++ (NSString*)incomingVideoRemoteFilenameWithFriendMkey:(NSString *)friendMkey
+                                            friendCKey:(NSString *)friendCkey
+                                               videoID:(NSString*)videoID
 {
     return [NSString stringWithFormat:@"%@-%@",
             [self _incomingPrefixWithFriendMKey:friendMkey],
-            [[friendCkey stringByAppendingString:videoId] an_md5]];
+            [[friendCkey stringByAppendingString:videoID] an_md5]];
 }
 
-+ (NSString*)outgoingVideoRemoteFilenameWithFriendMkey:(NSString*)friendMkey
-                                            friendCKey:(NSString*)friendCkey
-                                               videoId:(NSString*)videoId
++ (NSString*)outgoingVideoRemoteFilenameWithFriendMkey:(NSString *)friendMkey
+                                            friendCKey:(NSString *)friendCkey
+                                               videoID:(NSString*)videoID
 {
     return [NSString stringWithFormat:@"%@-%@",
             [self _outgoingPrefixWithFriendMKey:friendMkey],
-            [[friendCkey stringByAppendingString:videoId] an_md5]];
+            [[friendCkey stringByAppendingString:videoID] an_md5]];
 }
 
 

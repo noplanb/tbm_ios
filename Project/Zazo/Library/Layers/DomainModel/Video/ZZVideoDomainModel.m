@@ -13,7 +13,7 @@ const struct ZZVideoDomainModelAttributes ZZVideoDomainModelAttributes = {
     .videoID = @"videoID",
     .status = @"status",
     .downloadRetryCount = @"downloadRetryCount",
-    .relatedUser = @"relatedUser",
+    .relatedUserID = @"relatedUserID",
 };
 
 @implementation ZZVideoDomainModel

@@ -37,6 +37,6 @@ typedef NS_ENUM(NSInteger, ZZNotificationType)
 
 
 NSString* ZZNotificationTypeStringFromEnumValue(ZZNotificationType);
-ZZNotificationType ZZNotificationTypeEnumValueFromSrting(NSString*);
+ZZNotificationType ZZNotificationTypeEnumValueFromString(NSString *);
 
 

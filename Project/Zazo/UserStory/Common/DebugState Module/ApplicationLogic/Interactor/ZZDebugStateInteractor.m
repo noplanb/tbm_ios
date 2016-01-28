@@ -14,7 +14,7 @@
 
 - (void)loadData
 {
-    NSArray* friends = [ZZFriendDataProvider loadAllFriends];
+    NSArray* friends = [ZZFriendDataProvider allFriendsModels];
     
     NSArray* stateModels = [ZZApplicationStateInfoGenerator loadVideoDataWithFriendsModels:friends];
     NSArray* incomeDandling = [ZZApplicationStateInfoGenerator loadIncomingDandlingItemsFromData:stateModels];

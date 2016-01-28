@@ -42,9 +42,9 @@
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
 
 #ifdef DEBUG_LOGIN_USER
-    user.firstName = @"ZZZMMM";
-    user.lastName = @"ZZZMMM";
-    user.mobileNumber = @"+380634219845";
+    user.firstName = @"iPad";
+    user.lastName = @"Rinat";
+    user.mobileNumber = @"+79990000002";
 #endif
 
     if (!ANIsEmpty(user.mobileNumber))
@@ -118,7 +118,7 @@
 
         [self loadFriends];
 
-        [ZZStoredSettingsManager shared].isPushNotificatonEnabled = YES;
+        [ZZStoredSettingsManager shared].isPushNotificationEnabled = YES;
         [ZZNotificationsHandler registerToPushNotifications];
 
         [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventsUserAuthorized
@@ -132,7 +132,7 @@
 
 - (void)loadFriends
 {
-    [ZZFriendDataProvider deleteAllFriendsModels];
+    [ZZFriendDataUpdater deleteAllFriends];
 
     [[ZZFriendsTransportService loadFriendList] subscribeNext:^(id x) {
         [self.output loadedFriendsSuccessfully];
@@ -242,7 +242,7 @@
 
     if (![self _isValidPhone:model.mobileNumber code:model.countryCode])
     {
-        return [ANErrorBuilder errorWithType:ANErrorTypeGeneral code:kFormInvalidModilePhone];
+        return [ANErrorBuilder errorWithType:ANErrorTypeGeneral code:kFormInvalidMobilePhone];
     }
     return error;
 }

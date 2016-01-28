@@ -7,6 +7,7 @@
 //
 
 #import "ANBaseDomainModel.h"
+#import "AWSS3.h"
 
 @class FEMObjectMapping;
 
@@ -23,6 +24,8 @@ extern const struct ZZS3CredentialsDomainModelAttributes {
 @property (nonatomic, copy) NSString* bucket;
 @property (nonatomic, copy) NSString* accessKey;
 @property (nonatomic, copy) NSString* secretKey;
+
+@property (nonatomic, assign, readonly) AWSRegionType regionType;
 
 + (FEMObjectMapping*)mapping;
 

@@ -8,11 +8,10 @@
 
 #import "ZZApplicationDataUpdaterService.h"
 #import "ZZFriendsTransportService.h"
-#import "TBMFriend.h"
 #import "ZZUserDataProvider.h"
-#import "ZZRemoteStoageTransportService.h"
+#import "ZZRemoteStorageTransportService.h"
 #import "ZZFriendDataProvider.h"
-#import "ZZKeyStoreIncomingVideoIdsDomainModel.h"
+#import "ZZKeyStoreIncomingVideoIDsDomainModel.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZKeyStoreOutgoingVideoStatusDomainModel.h"
 #import "ZZVideoDataProvider.h"
@@ -44,29 +43,23 @@
 - (void)updateApplicationBadge
 {
     ZZLogInfo(@"setBadgeNumberDownloadedUnviewed = %li", (long)[ZZVideoDataProvider countTotalUnviewedVideos]);
-    [self setBadgeCount:[ZZVideoDataProvider countTotalUnviewedVideos]];
+    [self _setBadgeCount:[ZZVideoDataProvider countTotalUnviewedVideos]];
 }
 
 
 #pragma mark -  Notification center and badge control
 
-- (void)clearBadgeCount
+- (void)_clearBadgeCount
 {
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 }
 
-- (void)setBadgeNumberUnviewed
-{
-    ZZLogInfo(@"setBadgeNumberUnviewed = %li", (long) [ZZVideoDataProvider countTotalUnviewedVideos]);
-    [self setBadgeCount:[ZZVideoDataProvider countTotalUnviewedVideos]];
-}
-
-- (void)setBadgeCount:(NSInteger)count
+- (void)_setBadgeCount:(NSInteger)count
 {
     if (count == 0)
     {
-        [self clearBadgeCount];
+        [self _clearBadgeCount];
     }
     else
     {
@@ -75,11 +68,11 @@
 }
 
 
-- (void)queueDownloadWithFriendID:(NSString*)friendID videoIds:(NSSet*)videoIds
+- (void)_queueDownloadWithFriendID:(NSString *)friendID videoIDs:(NSSet*)videoIDs
 {
-    for (NSString *videoId in videoIds)
+    for (NSString *videoID in videoIDs)
     {
-        [self.delegate freshVideoDetectedWithVideoID:videoId friendID:friendID];
+        [self.delegate freshVideoDetectedWithVideoID:videoID friendID:friendID];
     }
 }
 
@@ -96,11 +89,11 @@
 {
     ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
     
-    [[ZZRemoteStoageTransportService loadRemoteEverSentFriendsIDsForUserMkey:me.mkey] subscribeNext:^(id x) {
+    [[ZZRemoteStorageTransportService loadRemoteEverSentFriendsIDsForUserMkey:me.mkey] subscribeNext:^(id x) {
         
         ANDispatchBlockToBackgroundQueue(^{
             
-            [ZZFriendDataUpdater updateEverSentFreindsWithMkeys:x];
+            [ZZFriendDataUpdater updateEverSentFriendsWithMkeys:x];
             [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventDonwloadedMkeys
                                                notificationObject:x];
         });
@@ -110,16 +103,16 @@
 
 - (void)_pollAllIncomingVideos
 {
-    [[ZZRemoteStoageTransportService loadAllIncomingVideoIds] subscribeNext:^(NSArray *models) {
-        for (ZZKeyStoreIncomingVideoIdsDomainModel *model in models)
+    [[ZZRemoteStorageTransportService loadAllIncomingVideoIDs] subscribeNext:^(NSArray *models) {
+        for (ZZKeyStoreIncomingVideoIDsDomainModel *model in models)
         {
             ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.friendMkey];
             if (friendModel.idTbm)
             {
 //                if (friendModel.videos.count)
 //                {
-                    ZZLogInfo(@"%@  vids = %@", [NSObject an_safeString:[friendModel fullName]], model.videoIds ? : @[]);
-                    [self queueDownloadWithFriendID:friendModel.idTbm videoIds:model.videoIds];
+                    ZZLogInfo(@"%@  vids = %@", [NSObject an_safeString:[friendModel fullName]], model.videoIDs ? : @[]);
+                [self _queueDownloadWithFriendID:friendModel.idTbm videoIDs:model.videoIDs];
 //                }
             }
         }
@@ -129,7 +122,7 @@
 
 - (void)_pollAllOutgoingVideoStatus
 {
-    [[ZZRemoteStoageTransportService loadAllOutgoingVideoStatuses] subscribeNext:^(NSArray *models) {
+    [[ZZRemoteStorageTransportService loadAllOutgoingVideoStatuses] subscribeNext:^(NSArray *models) {
         for (ZZKeyStoreOutgoingVideoStatusDomainModel *model in models)
         {
             ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.friendMkey];
@@ -141,14 +134,11 @@
                     return;
                 }
                 
-                //TODO: remove this core data stuff
-                
                 if ([model status] != ZZVideoOutgoingStatusNone)
                 {
-                    TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
-                    [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)[model status]
-                                                                            withFriendID:friendEntity.idTbm
-                                                                             withVideoId:model.videoId];
+                    [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus) [model status]
+                                                                            withFriendID:friendModel.idTbm
+                                                                             withVideoID:model.videoId];
                 }
             }
         }

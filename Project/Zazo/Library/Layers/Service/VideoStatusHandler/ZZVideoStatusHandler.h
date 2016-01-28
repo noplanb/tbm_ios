@@ -7,12 +7,13 @@
 //
 
 #import "ZZVideoStatuses.h"
-#import "TBMFriend.h"
-#import "TBMVideo.h"
 
 @protocol ZZVideoStatusHandlerDelegate <NSObject>
 
+@optional
+
 - (void)videoStatusChangedWithFriendID:(NSString*)friendID;
+- (void)sendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friendModel videoID:(NSString *)videoID status:(NSString *)status;
 
 @end
 
@@ -24,11 +25,9 @@
 - (void)addVideoStatusHandlerObserver:(id <ZZVideoStatusHandlerDelegate>)observer;
 - (void)removeVideoStatusHandlerObserver:(id <ZZVideoStatusHandlerDelegate>)observer;
 
-- (void)deleteAllViewedOrFailedVideoWithFriendId:(NSString*)friendId;
-
 - (void)notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)status
-                         withFriendID:(NSString*)friendID
-                          withVideoId:(NSString*)videoId;
+                         withFriendID:(NSString *)friendID
+                          withVideoID:(NSString*)videoID;
 
 
 - (void)setAndNotifyUploadRetryCount:(NSInteger)retryCount
@@ -37,8 +36,8 @@
 
 
 - (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)videoStatus
-                               friendId:(NSString*)friendId
-                                videoId:(NSString*)videoId;
+                               friendID:(NSString *)friendID
+                                videoID:(NSString*)videoID;
 
 
 - (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount
@@ -50,7 +49,7 @@
 
 //TODO:
 
-- (void)setAndNotityViewedIncomingVideoWithFriendID:(NSString*)friendID videoID:(NSString*)videoID;
-- (void)handleOutgoingVideoCreatedWithVideoId:(NSString*)videoId withFriend:(NSString*)friendID;
+- (void)setAndNotifyViewedIncomingVideoWithFriendID:(NSString *)friendID videoID:(NSString*)videoID;
+- (void)handleOutgoingVideoCreatedWithVideoID:(NSString *)videoID withFriend:(NSString*)friendID;
 
 @end

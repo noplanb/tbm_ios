@@ -31,13 +31,13 @@
 
 - (void)observeTouch:(UITouch*)touch withEvent:(id)event
 {
-    if (!self.isStrartObserving)
+    if (!self.isStartObserving)
     {
         [self startObservingIfNeededWithTouch:touch withEvent:event];
     }
     else
     {
-        if (!self.isAbbleToMoving)
+        if (!self.isAbleToMoving)
         {
             [self observeEndTouchBeforeBeginObservingWithTouch:touch withEvent:event];
         }

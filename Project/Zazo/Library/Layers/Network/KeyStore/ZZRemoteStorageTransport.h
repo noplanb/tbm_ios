@@ -15,7 +15,7 @@
 
 #pragma mark - Video State
 
-+ (RACSignal*)loadAllIncomingVideoIds;
++ (RACSignal*)loadAllIncomingVideoIDs;
 + (RACSignal*)loadAllOutgoingVideoStatuses;
 
 @end

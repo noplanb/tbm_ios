@@ -17,7 +17,7 @@
 #import "ZZGridPresenter+ActionHandler.h"
 #import "ZZGridDataSource.h"
 #import "ZZPhoneHelper.h"
-#import "ZZContentDataAcessor.h"
+#import "ZZContentDataAccessor.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZCommunicationDomainModel.h"
 
@@ -40,7 +40,7 @@
 - (BOOL)_isNeedToShowDialogForUser:(ZZContactDomainModel*)user
 {
     __block BOOL isNeedShow = YES;
-    NSArray* friends =  [ZZFriendDataProvider loadAllFriends];
+    NSArray* friends = [ZZFriendDataProvider allFriendsModels];
     NSString* userPhoneNumber = [user.primaryPhone.contact stringByReplacingOccurrencesOfString:@" " withString:@""];
     [friends enumerateObjectsUsingBlock:^(ZZFriendDomainModel* _Nonnull friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
        if ([userPhoneNumber isEqualToString:friendModel.mobileNumber])
@@ -61,11 +61,11 @@
     [ZZGridAlertBuilder showConnectedDialogForUser:friendModel.firstName completion:^{
         [self.interactor addUserToGrid:friendModel];
         
-        if ([[self dataSource] frindsOnGridNumber] == 1)
+        if ([[self dataSource] friendsOnGridNumber] == 1)
         {
             [self _handleRecordHintWithCellViewModel:friendModel];
         }
-        else //if ([[self dataSource] frindsOnGridNumber] == 2)
+        else //if ([[self dataSource] friendsOnGridNumber] == 2)
         {
             [self _handleSentWelcomeHintWithFriendDomainModel:friendModel];
         }

@@ -53,6 +53,9 @@ PODS:
   - APAddressBook (0.2.1):
     - APAddressBook/Core (= 0.2.1)
   - APAddressBook/Core (0.2.1)
+  - AWSCore (2.3.3)
+  - AWSS3 (2.3.3):
+    - AWSCore (= 2.3.3)
   - CocoaLumberjack (2.0.3):
     - CocoaLumberjack/Default (= 2.0.3)
     - CocoaLumberjack/Extensions (= 2.0.3)
@@ -78,8 +81,6 @@ PODS:
   - MSSPopMasonry (0.0.1):
     - Masonry
     - pop
-  - OBFileTransfer (0.6.3):
-    - OBLogger
   - OBLogger (0.2.2)
   - PBJVision (0.4.6)
   - pop (1.0.8)
@@ -114,6 +115,7 @@ DEPENDENCIES:
   - ANTableController (~> 1.1.5)
   - ANTableViews (~> 1.0.13)
   - APAddressBook (~> 0.2.1)
+  - AWSS3 (~> 2.3.3)
   - CocoaLumberjack (~> 2.0.1)
   - Crashlytics (~> 3.4.1)
   - DeviceUtil (~> 1.2.0)
@@ -127,7 +129,6 @@ DEPENDENCIES:
   - MagicalRecord (~> 2.3.0)
   - Masonry (~> 0.6.2)
   - MSSPopMasonry (~> 0.0.1)
-  - OBFileTransfer (= 0.6.3)
   - OBLogger (~> 0.2.2)
   - PBJVision (from `https://github.com/noplanb/PBJVision`, tag `v0.4.6`)
   - Reveal-iOS-SDK (~> 1.6.1)
@@ -162,6 +163,8 @@ SPEC CHECKSUMS:
   ANTableController: 94f423ba5c2ac44ea8cb060aa1ae99a5b2ac3893
   ANTableViews: 5d1e4e4dfb581ed47ab75f1952f111f91dd00586
   APAddressBook: 90c0fb07579a47e10ef1a2344e23cfd35f388bec
+  AWSCore: b12704516e21ed34cfe7547e07ab945b079d1f56
+  AWSS3: 675f59e0c338e61441117f03018187b9deb359c4
   CocoaLumberjack: f58d8a19629f4d8379ae14bb3534def24161430e
   Crashlytics: 41574a245bc6ae10c55d57f385ebd2004e5bee05
   DeviceUtil: 818812d4d2413e145a05d502cd1378e484d0c293
@@ -175,7 +178,6 @@ SPEC CHECKSUMS:
   MagicalRecord: 89eb7d7ead39fb37f01c3d010665ee94d17f8dba
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
   MSSPopMasonry: 6700cb03db3f2e7c16ecc96f53c0bd1a2a73fc4f
-  OBFileTransfer: fe00f60e56ba60eab14433a980c72bd4b17c9a55
   OBLogger: 52dc3733c54460c3a80d635e47be8556ce6a1312
   PBJVision: 1309d424eb458e0f3f19d496187699bd1f0aa186
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
@@ -190,4 +192,4 @@ SPEC CHECKSUMS:
   TPKeyboardAvoiding: ff1ee4e5a5a0c119b965552af8f183868ea20207
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
 
-COCOAPODS: 0.39.0
+COCOAPODS: 0.38.2

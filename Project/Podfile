@@ -50,14 +50,19 @@ target 'Zazo' do
     #Helpers
     pod 'DeviceUtil', '~> 1.2.0'
 
-    #! ----- debugging tools --------- !
+
+    #Network
+    pod 'AWSS3', '~> 2.3.3'
+    pod 'AFNetworking', '~> 2.6.0'
+    #pod 'OBFileTransfer', '0.6.3'
+    ##:path => '~/Development/OBFileTransfer/' #'~> 0.5.7'
+
+
+#! ----- debugging tools --------- !
     pod 'CocoaLumberjack', '~> 2.0.1'
     pod 'Rollbar', '~> 0.1.5'
 
-    pod 'AFNetworking', '~> 2.6.0'
     pod 'OBLogger', '~> 0.2.2'
-    pod 'OBFileTransfer', '0.6.3'
-    #:path => '~/Development/OBFileTransfer/' #'~> 0.5.7'
     pod 'UIAlertView+Blocks', '~> 0.9'
     pod 'SDCAlertView', '~> 2.5.2'
     pod 'SDCAutoLayout', '~> 2.0.3'

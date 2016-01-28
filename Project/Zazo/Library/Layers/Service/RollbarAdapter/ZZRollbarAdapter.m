@@ -44,22 +44,18 @@
             config.environment = ZZDispatchServerStateStringFromEnumValue(serverState);
         }];
         
-        [RACObserve([ZZStoredSettingsManager shared], shouldUseRollBarSDK) subscribeNext:^(NSNumber* x) {
+        [RACObserve([ZZStoredSettingsManager shared], shouldUseServerLogging) subscribeNext:^(NSNumber* x) {
             
             #ifdef NETTEST
             self.endpointType = ZZDispatchEndpointRollbar;
             #else
-                BOOL shouldUSerSDK = [x boolValue];
-                self.endpointType = shouldUSerSDK ? ZZDispatchEndpointRollbar : ZZDispatchEndpointServer;
+                BOOL shouldUseServerLogging = [x boolValue];
+                self.endpointType = shouldUseServerLogging ? ZZDispatchEndpointServer : ZZDispatchEndpointRollbar;
             #endif
         }];
 
         [OBLogger instance].writeToConsole = YES;
 
-        if ([[OBLogger instance] logLines].count > 3000)
-        {
-            [[OBLogger instance] reset];
-        }
         self.enabled = YES;
     }
     return self;
@@ -113,16 +109,7 @@
 
 - (NSString*)_logString
 {
-    NSArray* logLines = [[OBLogger instance] logLines];
-    NSString* line;
-    NSString* r = @"";
-    
-    for (line in logLines)
-    {
-        r = [r stringByAppendingString:line];
-        r = [r stringByAppendingString:@"\n"];
-    }
-    return r;
+    return [[[OBLogger instance] logLines] componentsJoinedByString:@"\n"];
 }
 
 @end

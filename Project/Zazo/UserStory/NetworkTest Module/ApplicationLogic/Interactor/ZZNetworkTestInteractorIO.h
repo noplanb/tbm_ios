@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-@class TBMFriend;
+@class ZZFriendDomainModel;
 
 @protocol ZZNetworkTestInteractorInput <NSObject>
 
@@ -20,6 +20,6 @@
 
 @protocol ZZNetworkTestInteractorOutput <NSObject>
 
-- (void)videosatusChangedWithFriend:(TBMFriend*)friendEntity;
+- (void)videoStatusChangedWithFriend:(ZZFriendDomainModel*)friendEntity;
 
 @end

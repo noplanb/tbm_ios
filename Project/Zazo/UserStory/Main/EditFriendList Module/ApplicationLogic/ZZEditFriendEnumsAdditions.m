@@ -23,7 +23,7 @@ NSString* ZZFriendshipStatusTypeStringFromValue(ZZFriendshipStatusType type)
     return contactStatusString[type];
 }
 
-ZZFriendshipStatusType ZZFriendshipStatusTypeValueFromSrting(NSString* string)
+ZZFriendshipStatusType ZZFriendshipStatusTypeValueFromString(NSString *string)
 {
     NSArray* array = [NSArray arrayWithObjects:contactStatusString count:5];
     NSInteger index = [array indexOfObject:string];

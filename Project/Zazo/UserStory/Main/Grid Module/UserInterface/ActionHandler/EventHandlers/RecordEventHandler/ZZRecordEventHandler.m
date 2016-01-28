@@ -7,6 +7,7 @@
 //
 
 #import "ZZRecordEventHandler.h"
+#import "ZZFriendDataHelper.h"
 
 @implementation ZZRecordEventHandler
 
@@ -16,8 +17,8 @@
 withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))completionBlock
 {
     if (event == ZZGridActionEventTypeGridLoaded &&
-        [self.delegate frinedsNumberOnGrid] == 1 &&
-        model.unviewedCount == 0 &&
+            [self.delegate friendsNumberOnGrid] == 1 &&
+        [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.idTbm] == 0 &&
         ![ZZGridActionStoredSettings shared].sentHintWasShown)
     {
         self.isLastAcitionDone = YES;
@@ -34,7 +35,7 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
     }
     else if (event == ZZGridActionEventTypeMessageDidPlayed &&
              ![ZZGridActionStoredSettings shared].sentHintWasShown &&
-             [self.delegate frinedsNumberOnGrid] == 1)
+            [self.delegate friendsNumberOnGrid] == 1)
     {
         self.hintModel = model;
         self.isLastAcitionDone = YES;
@@ -46,7 +47,7 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
         }
     }
     else if (event == ZZGridActionEventTypeMessageDidPlayed &&
-             [self.delegate frinedsNumberOnGrid] > 1)
+            [self.delegate friendsNumberOnGrid] > 1)
     {
         self.isLastAcitionDone = YES;
         self.hintModel = model;
@@ -60,7 +61,7 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
     
     else if (event == ZZGridActionEventTypeMessageDidPlayed &&
              ![ZZGridActionStoredSettings shared].recordHintWasShown &&
-             [self.delegate frinedsNumberOnGrid] == 1 &&
+            [self.delegate friendsNumberOnGrid] == 1 &&
              ![ZZGridActionStoredSettings shared].sentHintWasShown)
     {
         self.isLastAcitionDone = YES;
@@ -76,7 +77,7 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
     }
     else if (event == ZZGridActionEventTypeMessageDidPlayed &&
              ![ZZGridActionStoredSettings shared].recordHintWasShown &&
-             [self.delegate frinedsNumberOnGrid] > 1)
+            [self.delegate friendsNumberOnGrid] > 1)
     {
         self.isLastAcitionDone = YES;
 

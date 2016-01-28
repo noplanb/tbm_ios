@@ -76,7 +76,7 @@
 {
     if (!_itemsContainerView)
     {
-        _itemsContainerView = [[ZZGridContainerView alloc] initWithSegementsCount:9];
+        _itemsContainerView = [[ZZGridContainerView alloc] initWithSegmentsCount:9];
         _itemsContainerView.backgroundColor = [UIColor clearColor];
         [self addSubview:_itemsContainerView];
         CGFloat topPadding;

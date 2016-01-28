@@ -69,7 +69,7 @@
             return [self _inviteSomeoneElseHint];
             break;
         case ZZHintsTypeRecrodWelcomeHint:
-            return [self _recordWelocmeHint];
+            return [self _recordWelcomeHint];
             break;
         case ZZHintsTypeSendWelcomeHintForFriendWithoutApp:
             return [self _welcomeHintForUserWithoutApp];
@@ -120,7 +120,7 @@
 }
 
 
-+ (ZZHintsDomainModel*)_recordWelocmeHint
++ (ZZHintsDomainModel*)_recordWelcomeHint
 {
     ZZHintsDomainModel* model = [ZZHintsDomainModel new];
     model.title = NSLocalizedString(@"hints.press-to-record.label.text", nil);

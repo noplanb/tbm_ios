@@ -6,7 +6,7 @@
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
-@class TBMFriend;
+@class ZZFriendDomainModel;
 
 @protocol ZZTestVideoStateControllerDelegate <NSObject>
 
@@ -15,14 +15,14 @@
 - (void)outgoingVideoChangeWithCounter:(NSInteger)counter;
 - (void)incomingVideoChangeWithCounter:(NSInteger)counter;
 - (void)completedVideoChangeWithCounter:(NSInteger)counter;
-- (void)updateTries:(NSInteger)coutner;
+- (void)updateTries:(NSInteger)counter;
 - (void)updateRetryCount:(NSInteger)count;
 
 - (void)failedOutgoingVideoWithCounter:(NSInteger)counter;
 - (void)failedIncomingVideoWithCounter:(NSInteger)counter;
 
 - (void)currentStatusChangedWithStatusString:(NSString*)statusString;
-- (void)videoStatusChagnedWith:(NSString*)statusString;
+- (void)videoStatusChangedWith:(NSString*)statusString;
 - (NSString*)testedFriendID;
 
 @end
@@ -30,7 +30,7 @@
 @interface ZZTestVideoStateController : NSObject
 
 - (instancetype)initWithDelegate:(id <ZZTestVideoStateControllerDelegate>)delegate;
-- (void)videoStatusChangedWithFriend:(TBMFriend*)friendEntity;
+- (void)videoStatusChangedWithFriend:(ZZFriendDomainModel*)friendModel;
 - (void)resetStats;
 - (void)resetRetries;
 

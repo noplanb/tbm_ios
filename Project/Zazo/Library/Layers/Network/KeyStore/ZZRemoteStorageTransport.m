@@ -32,9 +32,9 @@
                                              httpMethod:ANHttpMethodTypeGET];
 }
 
-+ (RACSignal*)loadAllIncomingVideoIds
++ (RACSignal*)loadAllIncomingVideoIDs
 {
-    return [[ZZNetworkTransport shared] requestWithPath:kApiGetAllIncomingVideoIds
+    return [[ZZNetworkTransport shared] requestWithPath:kApiGetAllIncomingVideoIDs
                                              httpMethod:ANHttpMethodTypeGET];
 }
 

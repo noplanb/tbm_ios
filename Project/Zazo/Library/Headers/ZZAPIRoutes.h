@@ -77,7 +77,7 @@ static NSString* const kApiUserHapApp = @"invitation/has_app";
 static NSString* const kApiChangeFriendVisibilityStatus = @"connection/set_visibility";
 
 #pragma mark - Polling
-static NSString* const kApiGetAllIncomingVideoIds = @"kvstore/received_videos";
+static NSString* const kApiGetAllIncomingVideoIDs = @"kvstore/received_videos";
 static NSString* const kApiGetAllOutgoingVideoStatus = @"kvstore/video_status";
 
 

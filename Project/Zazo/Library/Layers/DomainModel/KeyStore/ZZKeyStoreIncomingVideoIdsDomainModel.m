@@ -6,15 +6,15 @@
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZKeyStoreIncomingVideoIdsDomainModel.h"
+#import "ZZKeyStoreIncomingVideoIDsDomainModel.h"
 #import "FEMObjectMapping.h"
 
 const struct ZZKeyStoreIncomingVideoIdsDomainModelAttributes ZZKeyStoreIncomingVideoIdsDomainModelAttributes = {
     .friendMkey = @"friendMkey",
-    .videoIds = @"videoIds",
+    .videoIds = @"videoIDs",
 };
 
-@implementation ZZKeyStoreIncomingVideoIdsDomainModel
+@implementation ZZKeyStoreIncomingVideoIDsDomainModel
 
 + (FEMObjectMapping*)mapping
 {

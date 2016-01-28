@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, ZZDispatchLevel) {
 
 
 NSString* ZZDispatchLevelStringFromEnumValue(ZZDispatchLevel);
-ZZDispatchLevel ZZDispatchLevelEnumValueFromSrting(NSString*);
+ZZDispatchLevel ZZDispatchLevelEnumValueFromString(NSString *);
 
 
 typedef NS_ENUM(NSInteger, ZZDispatchEndpoint) {
@@ -31,4 +31,4 @@ typedef NS_ENUM(NSInteger, ZZDispatchEndpoint) {
 #pragma mark - Server State
 
 NSString* ZZDispatchServerStateStringFromEnumValue(ZZConfigServerState);
-ZZConfigServerState ZZDispatchServerStateEnumValueFromSrting(NSString*);
+ZZConfigServerState ZZDispatchServerStateEnumValueFromString(NSString *);

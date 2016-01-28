@@ -62,11 +62,11 @@
     //TODO: show message that action done
     switch (type)
     {
-        case ZZSecrectScreenActionsTypeResetTutorialHints:
+        case ZZSecretScreenActionsTypeResetTutorialHints:
         {
             [self.interactor resetHints];
         } break;
-        case ZZSecrectScreenActionsTypeFeatureOptions:
+        case ZZSecretScreenActionsTypeFeatureOptions:
         {
 //            [self.interactor featu] // TODO: check Maxim code
         } break;
@@ -74,31 +74,31 @@
         {
             [self.interactor updateAllFeaturesToEnabled];
         } break;
-        case ZZSecrectScreenActionsTypeDispatchMessage:
+        case ZZSecretScreenActionsTypeDispatchMessage:
         {
             [self.interactor dispatchData];
         } break;
-        case ZZSecrectScreenActionsTypeClearUserData:
+        case ZZSecretScreenActionsTypeClearUserData:
         {
             [self.interactor removeAllUserData];
         } break;
-        case ZZSecrectScreenActionsTypeDeleteAllDanglingFiles:
+        case ZZSecretScreenActionsTypeDeleteAllDanglingFiles:
         {
             [self.interactor removeAllDanglingFiles];
         } break;
-        case ZZSecrectScreenActionsTypeCrashApplication:
+        case ZZSecretScreenActionsTypeCrashApplication:
         {
             [self.interactor forceCrash];
         } break;
-        case ZZSecrectScreenActionsTypeLogsScreen:
+        case ZZSecretScreenActionsTypeLogsScreen:
         {
             [self.wireframe presentLogsController];
         } break;
-        case ZZSecrectScreenActionsTypeStateScreen:
+        case ZZSecretScreenActionsTypeStateScreen:
         {
             [self.wireframe presentStateController];
         } break;
-        case ZZSecrectScreenActionsTypeDebugUIScreen:
+        case ZZSecretScreenActionsTypeDebugUIScreen:
         {
             [self.wireframe presentDebugController];
         } break;

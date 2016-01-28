@@ -104,7 +104,7 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
     [ZZAlertBuilder presentAlertWithTitle:title details:msg cancelButtonTitle:@"Cancel" actionButtonTitle:@"Send" action:completion];
 }
 
-+ (void)showHintalertWithMessage:(NSString*)message
++ (void)showHintAlertWithMessage:(NSString*)message
 {
     message = [NSObject an_safeString:message];
     [ZZAlertBuilder presentAlertWithTitle:@"Hint" details:message cancelButtonTitle:@"OK"];

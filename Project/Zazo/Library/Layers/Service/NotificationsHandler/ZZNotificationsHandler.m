@@ -12,7 +12,6 @@
 #import "ZZNotificationDomainModel.h"
 #import "FEMObjectDeserializer.h"
 #import "ZZUserDataProvider.h"
-#import "TBMVideo.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZApplicationPermissionsHandler.h"
 
@@ -29,7 +28,7 @@
 + (void)registerToPushNotifications
 {
     
-    if ([ZZStoredSettingsManager shared].isPushNotificatonEnabled)
+    if ([ZZStoredSettingsManager shared].isPushNotificationEnabled)
     {
         OB_INFO(@"registerForPushNotification");
         if ([self _isIOS8OrHigher])

@@ -13,13 +13,13 @@
 #pragma mark - Outgoing
 
 NSString* ZZOutgoingVideoInfoStringFromEnumValue(ZZVideoOutgoingStatus);
-ZZVideoOutgoingStatus ZZOutgoingVideoInfoEnumValueFromSrting(NSString*);
+ZZVideoOutgoingStatus ZZOutgoingVideoInfoEnumValueFromString(NSString *);
 
 
 #pragma mark - Incoming
 
 NSString* ZZIncomingVideoInfoStringFromEnumValue(ZZVideoIncomingStatus);
-ZZVideoIncomingStatus ZZIncomingVideoInfoEnumValueFromSrting(NSString*);
+ZZVideoIncomingStatus ZZIncomingVideoInfoEnumValueFromString(NSString *);
 
 
 #pragma mark - Server

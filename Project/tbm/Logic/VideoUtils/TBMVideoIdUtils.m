@@ -1,19 +1,19 @@
 //
-//  TBMVideoIdUtils.m
+//  TBMVideoIDUtils.m
 //  tbm
 //
 //  Created by Sani Elfishawy on 5/27/14.
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
-#import "TBMVideoIdUtils.h"
+#import "TBMVideoIDUtils.h"
 #import "TBMUser.h"
 #import "ZZStringUtils.h"
 #import "ZZVideoDataProvider.h"
 #import "ZZFileTransferMarkerDomainModel.h"
 #import "FEMSerializer.h"
 
-@implementation TBMVideoIdUtils
+@implementation TBMVideoIDUtils
 
 #pragma mark - VideoIds
 
@@ -23,16 +23,16 @@
     return [NSString stringWithFormat:@"%.0f", seconds * 1000.0];
 }
 
-+ (double)timeStampWithVideoId:(NSString *)videoId
++ (double)timeStampWithVideoID:(NSString *)videoID
 {
-    return [videoId doubleValue];
+    return [videoID doubleValue];
 }
 
 + (NSURL*)generateOutgoingVideoUrlWithFriendID:(NSString*)friendID
 {
-    NSString *videoId = [TBMVideoIdUtils generateId];
-    NSString *marker = [TBMVideoIdUtils markerWithFriendID:friendID videoID:videoId isUpload:YES];
-    return [TBMVideoIdUtils outgoingVideoUrlWithMarker:marker];
+    NSString *videoID = [TBMVideoIDUtils generateId];
+    NSString *marker = [TBMVideoIDUtils markerWithFriendID:friendID videoID:videoID isUpload:YES];
+    return [TBMVideoIDUtils outgoingVideoUrlWithMarker:marker];
 }
 
 + (NSString*)markerWithFriendID:(NSString*)friendID videoID:(NSString *)videoID isUpload:(BOOL)isUpload
@@ -49,7 +49,7 @@
 
 + (BOOL)isvid1:(NSString *)vid1 newerThanVid2:(NSString *)vid2
 {
-    return [TBMVideoIdUtils timeStampWithVideoId:vid1] > [TBMVideoIdUtils timeStampWithVideoId:vid2];
+    return [TBMVideoIDUtils timeStampWithVideoID:vid1] > [TBMVideoIDUtils timeStampWithVideoID:vid2];
 }
 
 + (NSURL*)outgoingVideoUrlWithMarker:(NSString*)marker

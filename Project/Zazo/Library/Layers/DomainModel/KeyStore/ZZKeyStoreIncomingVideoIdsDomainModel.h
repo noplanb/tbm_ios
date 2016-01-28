@@ -15,10 +15,10 @@ extern const struct ZZKeyStoreIncomingVideoIdsDomainModelAttributes {
     __unsafe_unretained NSString *videoIds;
 } ZZKeyStoreIncomingVideoIdsDomainModelAttributes;
 
-@interface ZZKeyStoreIncomingVideoIdsDomainModel : ANBaseDomainModel
+@interface ZZKeyStoreIncomingVideoIDsDomainModel : ANBaseDomainModel
 
 @property (nonatomic, copy) NSString* friendMkey;
-@property (nonatomic, copy) NSSet* videoIds;
+@property (nonatomic, copy) NSSet*videoIDs;
 
 + (FEMObjectMapping*)mapping;
 

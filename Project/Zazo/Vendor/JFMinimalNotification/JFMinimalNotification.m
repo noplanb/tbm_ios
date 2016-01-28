@@ -45,7 +45,7 @@ static UIImage* presentImage = nil;
 @property (nonatomic, strong, readwrite) UILabel* titleLabel;
 @property (nonatomic, strong, readwrite) UILabel* subTitleLabel;
 @property (nonatomic, strong, readwrite) UIView* leftAccessoryView;
-@property (nonatomic, strong, readwrite) UIView* righAccessorytView;
+@property (nonatomic, strong, readwrite) UIView* rightAccessorytView;
 @property (nonatomic, strong) UIView* accessoryView;
 
 // Content view constraints
@@ -218,8 +218,8 @@ static UIImage* presentImage = nil;
 
 - (void)dismiss
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(minimalNotificationWillDisimissNotification:)]) {
-        [self.delegate minimalNotificationWillDisimissNotification:self];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(minimalNotificationWillDismissNotification:)]) {
+        [self.delegate minimalNotificationWillDismissNotification:self];
     }
     
     if (self.dismissalTimer) {

@@ -44,7 +44,7 @@
 
 - (NSString *)testedFriendID
 {
-    return [self.sendVideoService sendedFriendID];
+    return [self.sendVideoService sentFriendID];
 }
 
 #pragma mark - Send Video
@@ -64,8 +64,8 @@
 
 - (void)videoStatusChangedWithFriendID:(NSString*)friendID
 {
-    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
-    [self.output videosatusChangedWithFriend:friend];
+    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
+    [self.output videoStatusChangedWithFriend:friendModel];
 }
 
 @end

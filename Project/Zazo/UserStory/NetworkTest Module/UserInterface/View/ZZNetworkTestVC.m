@@ -21,7 +21,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [ZZColorTheme shared].gridBackgourndColor;
+    self.view.backgroundColor = [ZZColorTheme shared].gridBackgroundColor;
     [self _setupStartStopButton];
     [self _setupResetStatsButton];
     [self _setupResetRetriesButton];
@@ -38,7 +38,7 @@
 - (void)outgoingVideoChangeWithCount:(NSInteger)count
 {
     ANDispatchBlockToMainQueue(^{
-        self.networkTestView.uploadVideoCountLabel.text = [NSString stringWithFormat:@"%@%i",@"\u2191",count];
+        self.networkTestView.uploadVideoCountLabel.text = [NSString stringWithFormat:@"%@%li",@"\u2191",(long)count];
     });
 }
 
@@ -52,39 +52,39 @@
 - (void)completedVideoChangeWithCounter:(NSInteger)count
 {
     ANDispatchBlockToMainQueue(^{
-        self.networkTestView.completedCountLabel.text = [NSString stringWithFormat:@"%@ %i",@"\u2297",count];
+        self.networkTestView.completedCountLabel.text = [NSString stringWithFormat:@"%@ %li",@"\u2297",(long)count];
     });
 }
 
 - (void)failedOutgoingVideoWithCounter:(NSInteger)count
 {
     ANDispatchBlockToMainQueue(^{
-        self.networkTestView.failedUploadLabel.text = [NSString stringWithFormat:@"%@%i",@"\u21e1",count];
+        self.networkTestView.failedUploadLabel.text = [NSString stringWithFormat:@"%@%li",@"\u21e1",(long)count];
     });
 }
 
 - (void)incomingVideoChangeWithCount:(NSInteger)count
 {
     ANDispatchBlockToMainQueue(^{
-        self.networkTestView.downloadVideoCountLabel.text = [NSString stringWithFormat:@"%@%i",@"\u2193",count];
+        self.networkTestView.downloadVideoCountLabel.text = [NSString stringWithFormat:@"%@%li",@"\u2193",(long)count];
     });
 }
 
 - (void)failedIncomingVideoWithCounter:(NSInteger)count
 {
     ANDispatchBlockToMainQueue(^{
-       self.networkTestView.failedDownloadLabel.text = [NSString stringWithFormat:@"%@%i",@"\u21e3",count];
+       self.networkTestView.failedDownloadLabel.text = [NSString stringWithFormat:@"%@%li",@"\u21e3",(long)count];
     });
 }
 
 - (void)updateTriesCount:(NSInteger)count
 {
     ANDispatchBlockToMainQueue(^{
-        self.networkTestView.triesLabel.text = [NSString stringWithFormat:@"%i",count];
+        self.networkTestView.triesLabel.text = [NSString stringWithFormat:@"%li",(long)count];
     });
 }
 
-- (void)updateVideoSatus:(NSString *)status
+- (void)updateVideoStatus:(NSString *)status
 {
     ANDispatchBlockToMainQueue(^{
         self.networkTestView.statusVideoLabel.text = status;
@@ -94,7 +94,7 @@
 - (void)updateRetryCount:(NSInteger)count
 {
     ANDispatchBlockToMainQueue(^{
-        self.networkTestView.retryLabel.text = [NSString stringWithFormat:@"%i",count];
+        self.networkTestView.retryLabel.text = [NSString stringWithFormat:@"%li",(long)count];
     });
 }
 

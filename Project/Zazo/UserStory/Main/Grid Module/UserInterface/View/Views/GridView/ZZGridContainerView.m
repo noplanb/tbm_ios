@@ -13,7 +13,7 @@
 
 @implementation ZZGridContainerView
 
-- (instancetype)initWithSegementsCount:(NSInteger)segmentsCount
+- (instancetype)initWithSegmentsCount:(NSInteger)segmentsCount
 {
     self = [super init];
     if (self)

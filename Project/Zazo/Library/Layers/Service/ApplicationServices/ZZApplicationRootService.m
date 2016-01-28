@@ -7,34 +7,38 @@
 //
 
 #import "ZZApplicationRootService.h"
-#import "ZZVideoFileHandler.h"
 #import "TBMVideoProcessor.h"
 #import "ZZVideoRecorder.h"
-#import "TBMVideoIdUtils.h"
+#import "TBMVideoIDUtils.h"
 #import "ZZApplicationDataUpdaterService.h"
 #import "ZZNotificationDomainModel.h"
 #import "ZZUserDomainModel.h"
 #import "ZZNotificationTransportService.h"
 #import "ZZUserDataProvider.h"
 #import "ZZFriendDataProvider.h"
-#import "ZZContentDataAcessor.h"
+#import "ZZContentDataAccessor.h"
 #import "ZZApplicationPermissionsHandler.h"
 #import "ZZVideoDataProvider.h"
 #import "ZZRootStateObserver.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZVideoStatusHandler.h"
-
+#import "ZZVideoDataUpdater.h"
+#import "ZZVideoFileHandler.h"
+#import "ZZFileTransferManager.h"
+#import "AWSS3TransferUtility.h"
 
 @interface ZZApplicationRootService ()
 <
     ZZVideoFileHandlerDelegate,
     ZZApplicationDataUpdaterServiceDelegate,
-    ZZRootStateObserverDelegate
+    ZZRootStateObserverDelegate,
+    ZZVideoStatusHandlerDelegate
 >
 
-@property (nonatomic, strong) ZZVideoFileHandler* videoFileHandler;
+@property (nonatomic, strong) ZZVideoFileHandler *videoFileHandler;
 @property (nonatomic, strong) ZZApplicationDataUpdaterService* dataUpdater;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier backgroundTaskID;
+@property (nonatomic, strong) ZZFileTransferManager *transferManager;
 
 @end
 
@@ -45,13 +49,17 @@
     self = [super init];
     if (self)
     {
+        _transferManager = [ZZFileTransferManager new];
+        
         self.videoFileHandler = [ZZVideoFileHandler new];
         self.videoFileHandler.delegate = self;
+        self.videoFileHandler.fileTransfer = _transferManager;
         
         self.dataUpdater = [ZZApplicationDataUpdaterService new];
         self.dataUpdater.delegate = self;
         
         [[ZZRootStateObserver sharedInstance] addRootStateObserver:self];
+        [[ZZVideoStatusHandler sharedInstance] addVideoStatusHandlerObserver:self];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(_videoProcessorDidFinishProcessingNotification:)
@@ -100,11 +108,10 @@
 - (void)_videoProcessorDidFinishProcessingNotification:(NSNotification *)notification
 {
     NSURL *videoUrl = [notification.userInfo objectForKey:@"videoUrl"];
-    ZZFileTransferMarkerDomainModel* marker = [TBMVideoIdUtils markerModelWithOutgoingVideoURL:videoUrl];
-
-    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:marker.friendID];
-    [[ZZVideoStatusHandler sharedInstance] handleOutgoingVideoCreatedWithVideoId:marker.videoID withFriend:friend.idTbm];
-    [self.videoFileHandler uploadWithVideoUrl:videoUrl friendCKey:friend.ckey];
+    ZZFileTransferMarkerDomainModel* marker = [TBMVideoIDUtils markerModelWithOutgoingVideoURL:videoUrl];
+    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:marker.friendID];
+    [[ZZVideoStatusHandler sharedInstance] handleOutgoingVideoCreatedWithVideoID:marker.videoID withFriend:friendModel.idTbm];
+    [self.videoFileHandler uploadVideoAtUrl:videoUrl videoID:marker.videoID friendID:marker.friendID];
 }
 
 - (void)checkApplicationPermissionsAndResources
@@ -124,7 +131,9 @@
 
 - (void)handleBackgroundSessionWithIdentifier:(NSString *)identifier completionHandler:(ANCodeBlock)completionHandler
 {
-    [self.videoFileHandler handleBackgroundSessionWithIdentifier:identifier completionHandler:completionHandler];
+    [AWSS3TransferUtility interceptApplication:[UIApplication sharedApplication]
+           handleEventsForBackgroundURLSession:identifier
+                             completionHandler:completionHandler];
 }
 
 
@@ -139,7 +148,7 @@
         self.backgroundTaskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
             ZZLogInfo(@"AppDelegate: Ending background");
             [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTaskID];
-            [ZZContentDataAcessor saveDataBase];
+            [ZZContentDataAccessor saveDataBase];
             self.backgroundTaskID = UIBackgroundTaskInvalid;
         }];
     }
@@ -148,30 +157,30 @@
             [UIApplication sharedApplication].backgroundTimeRemaining);
 }
 
-- (void)sendNotificationForVideoReceived:(TBMFriend*)friend videoId:(NSString *)videoId
+- (void)sendNotificationForVideoReceived:(ZZFriendDomainModel *)friendModel videoID:(NSString *)videoID
 {
     ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
-    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
+
     [[ZZNotificationTransportService sendVideoReceivedNotificationTo:friendModel
-                                                         videoItemID:videoId
+                                                         videoItemID:videoID
                                                                 from:me] subscribeNext:^(id x) {}];
+    
 }
 
-- (void)sendNotificationForVideoStatusUpdate:(TBMFriend *)friend videoId:(NSString *)videoId status:(NSString *)status
+- (void)sendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friendModel videoID:(NSString *)videoID status:(NSString *)status
 {
-    [ZZApplicationRootService sendNotificationForVideoStatusUpdate:friend videoId:videoId status:status];
+    ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
+    [[ZZNotificationTransportService sendVideoStatusUpdateNotificationTo:friendModel
+                                                             videoItemID:videoID
+                                                                  status:status from:me] subscribeNext:^(id x) {}];
 }
 
 //TODO: it's for legacy with TBMFriend
-+ (void)sendNotificationForVideoStatusUpdate:(TBMFriend *)friend videoId:(NSString *)videoId status:(NSString *)status
-{
-    ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
-    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
-    
-    [[ZZNotificationTransportService sendVideoStatusUpdateNotificationTo:friendModel
-                                                             videoItemID:videoId
-                                                                  status:status from:me] subscribeNext:^(id x) {}];
-}
+//+ (void)sendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friend videoId:(NSString *)videoId status:(NSString *)status
+//{
+
+//    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
+//}
 
 - (void)updateBadgeCounter
 {
@@ -181,9 +190,9 @@
 
 #pragma mark - Video status handlerfriendID
 
-- (void)notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)status withFriendID:(NSString *)friendID videoId:(NSString *)videoId
+- (void)notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)status withFriendID:(NSString *)friendID videoID:(NSString *)videoID
 {
-    [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:status withFriendID:friendID withVideoId:videoId];
+    [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:status withFriendID:friendID withVideoID:videoID];
 }
 
 
@@ -192,14 +201,9 @@
     [[ZZVideoStatusHandler sharedInstance] setAndNotifyUploadRetryCount:count withFriendID:friendID videoID:videoID];
 }
 
-- (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)status friendId:(NSString *)friendId videoId:(NSString *)videoId
+- (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)status friendID:(NSString *)friendID videoID:(NSString *)videoID
 {
-    [[ZZVideoStatusHandler sharedInstance] setAndNotifyIncomingVideoStatus:status friendId:friendId videoId:videoId];
-}
-
-- (void)deleteAllViewedOrFailedVideosWithFriendId:(NSString *)friendId
-{
-    [[ZZVideoStatusHandler sharedInstance] deleteAllViewedOrFailedVideoWithFriendId:friendId];
+    [[ZZVideoStatusHandler sharedInstance] setAndNotifyIncomingVideoStatus:status friendID:friendID videoID:videoID];
 }
 
 
@@ -211,13 +215,13 @@
 
 #pragma mark - Notification Delegate
 
-- (void)handleVideoReceivedNotification:(ZZNotificationDomainModel *)model
+- (void)handleVideoReceivedNotification:(ZZNotificationDomainModel *)notificationModel
 {
-    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.fromUserMKey];
+    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:notificationModel.fromUserMKey];
     
     if (friendModel)
     {
-        [self.videoFileHandler queueDownloadWithFriendID:friendModel.idTbm videoId:model.videoID];
+        [self.videoFileHandler downloadVideoWithFriendID:friendModel.idTbm videoID:notificationModel.videoID];
     }
     else
     {
@@ -226,9 +230,9 @@
     }
 }
 
-- (void)handleVideoStatusUpdateNotification:(ZZNotificationDomainModel*)model
+- (void)handleVideoStatusUpdateNotification:(ZZNotificationDomainModel*)notificationModel
 {
-    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.toUserMKey];
+    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:notificationModel.toUserMKey];
     
     
     if (friendModel == nil)
@@ -239,11 +243,11 @@
     }
     
     ZZVideoOutgoingStatus outgoingStatus;
-    if ([model.status isEqualToString:NOTIFICATION_STATUS_DOWNLOADED])
+    if ([notificationModel.status isEqualToString:NOTIFICATION_STATUS_DOWNLOADED])
     {
         outgoingStatus = ZZVideoOutgoingStatusDownloaded;
     }
-    else if ([model.status isEqualToString:NOTIFICATION_STATUS_VIEWED])
+    else if ([notificationModel.status isEqualToString:NOTIFICATION_STATUS_VIEWED])
     {
         outgoingStatus = ZZVideoOutgoingStatusViewed;
     }
@@ -253,14 +257,11 @@
         return;
     }
     
-//    ZZFriendDomainModel* updatedFriendModel = [ZZFriendDataProvider friendWithMKeyValue:model.toUserMKey];
-//    TBMFriend* friend = [ZZFriendDataProvider entityFromModel:updatedFriendModel];
-    
-    TBMFriend* friend = [ZZFriendDataProvider friendEnityWithMkey:model.toUserMKey];
-    
+    ZZFriendDomainModel* updatedFriendModel = [ZZFriendDataProvider friendWithMKeyValue:notificationModel.toUserMKey];
+
     [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:outgoingStatus
-                                                            withFriendID:friend.idTbm
-                                                             withVideoId:model.videoID];
+                                                            withFriendID:updatedFriendModel.idTbm
+                                                             withVideoID:notificationModel.videoID];
 }
 
 
@@ -268,7 +269,7 @@
 
 - (void)freshVideoDetectedWithVideoID:(NSString*)videoID friendID:(NSString*)friendID
 {
-    [self.videoFileHandler queueDownloadWithFriendID:friendID videoId:videoID];
+    [self.videoFileHandler downloadVideoWithFriendID:friendID videoID:videoID];
 }
 
 
@@ -278,7 +279,7 @@
 {
     if (event == ZZRootStateObserverEventsUserAuthorized)
     {
-        [self.videoFileHandler updateS3CredentialsWithRequest];
+        [self.transferManager updateCredentials];
     }
     else if (event == ZZRootStateObserverEventsFriendsAfterAuthorizationLoaded)
     {

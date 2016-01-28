@@ -11,7 +11,6 @@
 #import "ZZUserPresentationHelper.h"
 #import "ZZStoredSettingsManager.h"
 #import "MagicalRecord.h"
-#import "TBMFriend.h"
 #import "ZZFriendDataHelper.h"
 
 const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
@@ -96,7 +95,7 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
 
 - (ZZFriendshipStatusType)friendshipStatusValue
 {
-    return ZZFriendshipStatusTypeValueFromSrting(self.friendshipStatus);
+    return ZZFriendshipStatusTypeValueFromString(self.friendshipStatus);
 }
 
 - (void)setFriendshipStatusValue:(ZZFriendshipStatusType)friendshipStatusValue

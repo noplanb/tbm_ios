@@ -10,7 +10,6 @@
 #import "ZZGridDataSource.h"
 #import "ZZVideoRecorder.h"
 #import "ZZVideoPlayer.h"
-#import "TBMFriend.h"
 #import "iToast.h"
 #import "ZZContactDomainModel.h"
 #import "ZZAPIRoutes.h"
@@ -26,10 +25,9 @@
 #import "ZZSoundEffectPlayer.h"
 #import "ZZVideoStatuses.h"
 #import "ZZVideoDataProvider.h"
-#import "TBMVideoIdUtils.h"
+#import "TBMVideoIDUtils.h"
 #import "ZZFriendDataProvider.h"
 #import "RollbarReachability.h"
-#import "ZZFriendDataHelper.h"
 #import "ZZVideoDomainModel.h"
 #import "ZZRootStateObserver.h"
 
@@ -37,7 +35,7 @@
 <
     ZZGridDataSourceDelegate,
     ZZVideoPlayerDelegate,
-    ZZGridActionHanlderDelegate,
+        ZZGridActionHandlerDelegate,
     TBMTableModalDelegate
 >
 
@@ -164,7 +162,7 @@
         {
             CGFloat delayAfterDownloadAnimationCompleted = 1.6f;
             ANDispatchBlockAfter(delayAfterDownloadAnimationCompleted, ^{
-                if (!self.videoPlayer.isPlayingVideo)
+                if (!self.videoPlayer.isPlayingVideo && ![ZZVideoRecorder shared].isRecording)
                 {
                     [self.soundPlayer play];
                 }
@@ -183,7 +181,7 @@
         [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventFriendWasAddedToGridWithVideo
                                            notificationObject:nil];
         //TODO:
-        //    if (model.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED)
+        //    if (model.relatedUser.lastOutgoingVideoStatus == OUTGOING_VIDEO_STATUS_VIEWED)
         //    {
         //        [self.soundPlayer play]; // TODO: check
         //    }
@@ -407,7 +405,7 @@
     {
         msg = NSLocalizedString(@"hint.center.cell.press.to.record", nil);
     }
-    [ZZGridAlertBuilder showHintalertWithMessage:msg];
+    [ZZGridAlertBuilder showHintAlertWithMessage:msg];
 }
 
 - (BOOL)isNetworkEnabled
@@ -512,7 +510,7 @@
             
             ANDispatchBlockToMainQueue(^{
                 [self.videoPlayer stop];
-                NSURL* url = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriendID:viewModel.item.relatedUser.idTbm];
+                NSURL* url = [TBMVideoIDUtils generateOutgoingVideoUrlWithFriendID:viewModel.item.relatedUser.idTbm];
                 [self.userInterface updateRecordViewStateTo:isEnabled];
                 
                 [[ZZVideoRecorder shared] startRecordingWithVideoURL:url completionBlock:^(BOOL isRecordingSuccess) {
@@ -672,7 +670,7 @@
 
 - (NSInteger)friendsCountOnGrid
 {
-    return [self.dataSource frindsOnGridNumber];
+    return [self.dataSource friendsOnGridNumber];
 }
 
 
@@ -685,7 +683,7 @@
 
 - (NSInteger)friendsNumberOnGrid
 {
-    return [self.dataSource frindsOnGridNumber];
+    return [self.dataSource friendsOnGridNumber];
 }
 
 - (BOOL)isVideoPlayingNow

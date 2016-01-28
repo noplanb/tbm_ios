@@ -10,6 +10,6 @@
 
 @property (nonatomic, strong) NSArray* items;
 
-- (instancetype)initWithSegementsCount:(NSInteger)segmentsCount;
+- (instancetype)initWithSegmentsCount:(NSInteger)segmentsCount;
 
 @end

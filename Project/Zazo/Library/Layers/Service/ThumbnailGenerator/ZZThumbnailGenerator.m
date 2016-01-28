@@ -40,7 +40,7 @@
 
 + (BOOL)generateThumbVideo:(ZZVideoDomainModel*)video
 {
-    ZZLogInfo(@"generateThumbWithVideo: %@ vid:%@", video.relatedUser.firstName, video.videoID);
+    ZZLogInfo(@"generateThumbWithVideo: %@ vid:%@", video.relatedUserID, video.videoID);
     if ([self _generateThumbForVideo:video])
     {
         [self _copyToLastThumbWithVideo:video];
@@ -56,36 +56,36 @@
 {
     if ([self hasThumbForVideo:video])
     {
-        [self deleteLastThumbForUser:video.relatedUser];
+        [self deleteLastThumbForUserWithID:video.relatedUserID];
         NSError *error = nil;
-        [[NSFileManager defaultManager] copyItemAtURL:[self thumbUrlForVideo:video] toURL:[self lastThumbUrlForForUser:video.relatedUser] error:&error];
+        [[NSFileManager defaultManager] copyItemAtURL:[self thumbUrlForVideo:video] toURL:[self lastThumbUrlForForUserWithID:video.relatedUserID] error:&error];
         if (error != nil)
         {
-            ZZLogError(@"copyToLastThumbWithVideo: %@ vid:%@ %@", video.relatedUser.firstName, video.videoID, error);
+            ZZLogError(@"copyToLastThumbWithVideo: %@ vid:%@ %@", video.relatedUserID, video.videoID, error);
         }
     }
 }
 
-+ (NSURL*)lastThumbUrlForForUser:(ZZFriendDomainModel*)friend
++ (NSURL*)lastThumbUrlForForUserWithID:(NSString*)friendID
 {
-    NSString *filename = [NSString stringWithFormat:@"lastThumbFromFriend_%@", friend.idTbm];
+    NSString *filename = [NSString stringWithFormat:@"lastThumbFromFriend_%@", friendID];
     return [ZZFileHelper fileURLInDocumentsDirectoryWithName:filename];
 }
 
 + (UIImage*)lastThumbImageForUser:(ZZFriendDomainModel*)friend
 {
-    UIImage* image = [UIImage imageWithContentsOfFile:[self lastThumbUrlForForUser:friend].path];
+    UIImage* image = [UIImage imageWithContentsOfFile:[self lastThumbUrlForForUserWithID:friend.idTbm].path];
     return image;
 }
 
 + (BOOL)hasLastThumbForUser:(ZZFriendDomainModel*)friend
 {
-    return [ZZFileHelper isFileExistsAtURL:[self lastThumbUrlForForUser:friend]];
+    return [ZZFileHelper isFileExistsAtURL:[self lastThumbUrlForForUserWithID:friend.idTbm]];
 }
 
-+ (void)deleteLastThumbForUser:(ZZFriendDomainModel*)friend
++ (void)deleteLastThumbForUserWithID:(NSString*)friendID
 {
-    [ZZFileHelper deleteFileWithURL:[self lastThumbUrlForForUser:friend]];
+    [ZZFileHelper deleteFileWithURL:[self lastThumbUrlForForUserWithID:friendID]];
 }
 
 + (UIImage*)legacyThumbImageForFriend:(ZZFriendDomainModel*)friendModel
@@ -93,7 +93,7 @@
     UIImage *thumbImage = nil;
     NSURL *thumbUrl = nil;
     
-    NSArray* videos = [ZZVideoDataProvider sortedIncomingVideosForUser:friendModel];
+    NSArray* videos = [ZZVideoDataProvider sortedIncomingVideosForUserWithID:friendModel.idTbm];
     
     for (ZZVideoDomainModel *video in videos)
     {
@@ -119,7 +119,7 @@
 
 + (NSURL*)thumbUrlForVideo:(ZZVideoDomainModel*)video
 {
-    NSString *filename = [NSString stringWithFormat:@"thumbFromFriend_%@-VideoId_%@", video.relatedUser.idTbm, video.videoID];
+    NSString *filename = [NSString stringWithFormat:@"thumbFromFriend_%@-VideoId_%@", video.relatedUserID, video.videoID];
     NSURL* videosURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
     return [videosURL URLByAppendingPathComponent:[filename stringByAppendingPathExtension:@"png"]];
 }
@@ -136,7 +136,7 @@
 
 + (BOOL)_generateThumbForVideo:(ZZVideoDomainModel*)video
 {
-    ZZLogInfo(@"generateThumb vid: %@ for %@", video.videoID, video.relatedUser.firstName);
+    ZZLogInfo(@"generateThumb vid: %@ for %@", video.videoID, video.relatedUserID);
     if (![ZZFileHelper isFileValidWithFileURL:video.videoURL])
     {
         ZZLogInfo(@"generateThumb: vid: %@ !hasValidVideoFile", video.videoID);

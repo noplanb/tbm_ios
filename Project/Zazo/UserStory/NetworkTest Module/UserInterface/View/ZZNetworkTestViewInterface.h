@@ -18,6 +18,6 @@
 - (void)failedIncomingVideoWithCounter:(NSInteger)count;
 
 - (void)updateCurrentStatus:(NSString*)status;
-- (void)updateVideoSatus:(NSString*)status;
+- (void)updateVideoStatus:(NSString*)status;
 
 @end

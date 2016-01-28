@@ -7,62 +7,27 @@
 //
 
 @class ZZVideoDomainModel;
-@class TBMVideo;
 @class ZZFriendDomainModel;
-@class TBMFriend;
 
 @interface ZZVideoDataProvider : NSObject
 
+#pragma mark Fetch
 
-#pragma mark - Fetches
-
-+ (TBMVideo*)newWithVideoId:(NSString *)videoId onContext:(NSManagedObjectContext*)context;
-+ (TBMVideo*)findWithVideoId:(NSString *)videoId;
-+ (NSArray *)all;
 + (ZZVideoDomainModel*)itemWithID:(NSString*)itemID;
-+ (TBMVideo*)entityWithID:(NSString*)itemID;
-+ (NSArray*)downloadingEntities;
++ (ZZVideoDomainModel*)createIncomingVideoModelForFriend:(ZZFriendDomainModel*)friendModel withVideoID:(NSString*)videoID;
++ (NSArray*)sortedIncomingVideosForUserWithID:(NSString *)friendID;
++ (NSArray *)downloadingVideos;
 
-
-+ (TBMVideo*)createIncomingVideoForFriend:(TBMFriend*)friend withVideoId:(NSString*)videoId;
-+ (TBMVideo*)createOutgoingVideoForFriendID:(NSString*)friendID
-                                    videoID:(NSString*)videoID
-                                    context:(NSManagedObjectContext*)context;
-
-
-#pragma mark - Count
+#pragma mark Count
 
 + (NSUInteger)countDownloadedUnviewedVideos;
 + (NSUInteger)countDownloadingVideos;
 + (NSUInteger)countTotalUnviewedVideos;
 + (NSUInteger)countAllVideos;
 
-
-#pragma mark - Load
-
-//+ (NSArray*)loadUnviewedVideos; // TODO: load with status ?
-//+ (NSArray*)loadDownloadingVideos;
-//+ (NSArray*)loadAllVideos;
-
-
-+ (NSArray*)sortedIncomingVideosForUser:(ZZFriendDomainModel*)friendModel;
-+ (NSArray*)sortedIncomingVideosForFriendEntity:(TBMFriend*)friendEntity;
-+ (void)deleteVideoWithID:(NSString*)videoID context:(NSManagedObjectContext*)context;
-
-
-#pragma mark - Mapping
-
-//+ (TBMVideo*)entityFromModel:(ZZVideoDomainModel*)model;
-+ (ZZVideoDomainModel*)modelFromEntity:(TBMVideo*)entity;
-
-
-#pragma mark - Helpers
+#pragma mark Helpers
 
 + (void)printAll;
-+ (NSURL *)videoUrlWithVideo:(TBMVideo*)video;
-+ (BOOL)videoFileExistsForVideo:(TBMVideo*)video;
-//+ (unsigned long long)videoFileSizeForVideo:(TBMVideo*)video;
-//+ (BOOL)hasValidVideoFileWithVideo:(TBMVideo*)video;
-+ (BOOL)isStatusDownloadingWithVideo:(TBMVideo*)video;
++ (NSURL *)videoUrlWithVideoModel:(ZZVideoDomainModel*)video;
 
 @end

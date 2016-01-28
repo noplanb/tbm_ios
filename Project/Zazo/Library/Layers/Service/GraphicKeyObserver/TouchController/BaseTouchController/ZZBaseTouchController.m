@@ -34,7 +34,7 @@
         {
             self.startTimeStamp = event.timestamp;
             self.startLocation = location;
-            self.isStrartObserving = YES;
+            self.isStartObserving = YES;
         }
         if (touch.phase == UITouchPhaseEnded)
         {
@@ -59,7 +59,7 @@
             CGFloat diff = event.timestamp - self.startTimeStamp;
             if (diff >= self.touchDelay)
             {
-                self.isAbbleToMoving = YES;
+                self.isAbleToMoving = YES;
                 [self.strategy intersectRectWithIndex:0];
             }
             
@@ -116,8 +116,8 @@
 
 - (void)resetObserving
 {
-    self.isStrartObserving = NO;
-    self.isAbbleToMoving = NO;
+    self.isStartObserving = NO;
+    self.isAbleToMoving = NO;
     [self.strategy resetValidatoinArray];
 }
 

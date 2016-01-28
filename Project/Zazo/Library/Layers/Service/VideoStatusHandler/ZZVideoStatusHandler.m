@@ -7,7 +7,7 @@
 //
 
 #import "ZZVideoStatusHandler.h"
-#import "ZZContentDataAcessor.h"
+#import "ZZContentDataAccessor.h"
 #import "ZZVideoDataUpdater.h"
 #import "ZZApplicationRootService.h"
 #import "ZZNotificationsConstants.h"
@@ -15,6 +15,8 @@
 #import "ZZVideoDataProvider.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZFriendDomainModel.h"
+#import "ZZFriendDataUpdater.h"
+#import "ZZVideoDomainModel.h"
 
 @interface ZZVideoStatusHandler ()
 
@@ -63,7 +65,21 @@
     ANDispatchBlockToMainQueue(^{
         for (id <ZZVideoStatusHandlerDelegate> delegate in self.observers)
         {
-            [delegate videoStatusChangedWithFriendID:friendID];
+            if ([delegate respondsToSelector:@selector(videoStatusChangedWithFriendID:)]) {
+                [delegate videoStatusChangedWithFriendID:friendID];
+            }
+        }
+    });
+}
+
+- (void)_notifyObserversSendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friendModel videoID:(NSString *)videoID status:(NSString *)status
+{
+    ANDispatchBlockToMainQueue(^{
+        for (id <ZZVideoStatusHandlerDelegate> delegate in self.observers)
+        {
+            if ([delegate respondsToSelector:@selector(sendNotificationForVideoStatusUpdate:videoID:status:)]) {
+                [delegate sendNotificationForVideoStatusUpdate:friendModel videoID:videoID status:status];
+            }
         }
     });
 }
@@ -76,37 +92,6 @@
     [self _notifyObserversVideoStatusChangeWithFriendID:friendID];
 }
 
-
-#pragma mark - Delete Video Methods
-
-- (void)deleteAllViewedOrFailedVideoWithFriendId:(NSString*)friendId
-{
-    ZZLogInfo(@"deleteAllViewedVideos");
-    
-    TBMFriend* friendModel = [ZZFriendDataProvider friendEntityWithItemID:friendId];
-    
-    NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"videoId" ascending:YES];
-    NSArray* sortedVidoes = [friendModel.videos sortedArrayUsingDescriptors:@[d]];
-   
-    for (TBMVideo *v in sortedVidoes)
-    {
-        if (v.statusValue == ZZVideoIncomingStatusViewed ||
-            v.statusValue == ZZVideoIncomingStatusFailedPermanently)
-        {
-            [self deleteVideo:v withFriend:friendModel];
-        }
-    }
-}
-
-- (void)deleteVideo:(TBMVideo*)video withFriend:(TBMFriend*)friend
-{
-    [ZZVideoDataUpdater deleteFilesForVideo:video];
-    [friend removeVideosObject:video];
-    [ZZVideoDataUpdater destroy:video];
-    [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
-}
-
-
 #pragma mark - Notification part
 
 
@@ -115,24 +100,26 @@
                              videoID:(NSString*)videoID
 {
     ANDispatchBlockToMainQueue(^{
-        TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendID];
-        [ZZContentDataAcessor refreshContext:friendEntity.managedObjectContext];
-        if (![videoID isEqualToString:friendEntity.outgoingVideoId])
+        
+
+        ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
+        [ZZContentDataAccessor refreshContext:[ZZContentDataAccessor mainThreadContext]];
+        if (![videoID isEqualToString:friendModel.outgoingVideoItemID])
         {
             ZZLogWarning(@"setAndNotifyUploadRetryCount: Unrecognized vidoeId. Ignoring.");
             return;
         }
         
-        if (retryCount != friendEntity.uploadRetryCountValue)
+        if (retryCount != friendModel.uploadRetryCount)
         {
-            friendEntity.uploadRetryCount = @(retryCount);
-            friendEntity.lastVideoStatusEventTypeValue = ZZVideoStatusEventTypeOutgoing;
-            [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+            [ZZFriendDataUpdater updateFriendWithID:friendID setUploadRetryCount:retryCount];
+            [ZZFriendDataUpdater updateFriendWithID:friendID setLastVideoStatusEventType:ZZVideoStatusEventTypeOutgoing];
+            
             [self _notifyObserversVideoStatusChangeWithFriendID:friendID];
         }
         else
         {
-            ZZLogWarning(@"retryCount:%ld equals self.retryCount:%@. Ignoring.", (long)retryCount, friendEntity.uploadRetryCount);
+            ZZLogWarning(@"retryCount:%ld equals self.retryCount:%ld. Ignoring.", (long)retryCount, (long)friendModel.uploadRetryCount);
         }
     });
 }
@@ -142,33 +129,33 @@
                                videoID:(NSString*)videoID
 {
     ANDispatchBlockToMainQueue(^{
-        TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendID];
-        TBMVideo* videoEntity = [ZZVideoDataProvider entityWithID:videoID];
         
-        if (videoEntity.downloadRetryCountValue == retryCount)
+        ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
+        ZZVideoDomainModel *videoModel = [ZZVideoDataProvider itemWithID:videoID];
+        
+        if (videoModel.downloadRetryCount == retryCount)
             return;
         
-        videoEntity.downloadRetryCount = @(retryCount);
-        [videoEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+        [ZZVideoDataUpdater updateVideoWithID:videoID setDownloadRetryCount:retryCount];
         
-        if ([self _isNewestIncomingVideo:videoEntity withFriend:friendEntity])
+        if ([self _isNewestIncomingVideo:videoModel withFriend:friendModel])
         {
-            friendEntity.lastVideoStatusEventType = ZZVideoStatusEventTypeIncoming;
-            [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+            [ZZFriendDataUpdater updateFriendWithID:friendID setLastVideoStatusEventType:ZZVideoStatusEventTypeIncoming];
+
             [self _notifyObserversVideoStatusChangeWithFriendID:friendID];
         }
     });
 }
 
-- (BOOL)_isNewestIncomingVideo:(TBMVideo *)video withFriend:(TBMFriend*)friend
+- (BOOL)_isNewestIncomingVideo:(ZZVideoDomainModel *)videoModel withFriend:(ZZFriendDomainModel*)friendModel
 {
-    return [video isEqual:[self _newestIncomingVideoWithFriend:friend]];
+    return [videoModel.videoID isEqualToString:[self _newestIncomingVideoWithFriend:friendModel].videoID];
 }
 
-- (TBMVideo *)_newestIncomingVideoWithFriend:(TBMFriend*)friend
+- (ZZVideoDomainModel *)_newestIncomingVideoWithFriend:(ZZFriendDomainModel*)friendModel
 {
-    NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"videoId" ascending:YES];
-    NSArray* videos = [friend.videos sortedArrayUsingDescriptors:@[d]];
+    NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
+    NSArray* videos = [friendModel.videos sortedArrayUsingDescriptors:@[d]];
     
     return [videos lastObject];
 }
@@ -178,61 +165,57 @@
 
 
 - (void)notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)status
-                         withFriendID:(NSString*)friendID
-                          withVideoId:(NSString*)videoId;
+                         withFriendID:(NSString *)friendID
+                          withVideoID:(NSString*)videoID;
 {
     ANDispatchBlockToMainQueue(^{
-        [ZZContentDataAcessor refreshContext:[ZZContentDataAcessor contextForCurrentThread]];
-        TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendID];
+        [ZZContentDataAccessor refreshContext:[ZZContentDataAccessor mainThreadContext]];
         
-        NSLog(@"OKS- videoID - %@, friendID - %@, friend.lastVideoID - %@ videoStatus: %li", videoId, friendEntity.idTbm, friendEntity.outgoingVideoId,(long)status);
+        ZZFriendDomainModel * friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
+        
+        NSLog(@"OKS- videoID - %@, friendID - %@, friend.lastVideoID - %@ videoStatus: %li", videoID, friendModel.idTbm, friendModel.outgoingVideoItemID,(long)status);
         NSLog(@"THREAD: %@",[NSThread currentThread]);
-        
-        if (![videoId isEqualToString:friendEntity.outgoingVideoId])
+
+        if (![videoID isEqualToString:friendModel.outgoingVideoItemID])
         {
-            ZZLogWarning(@"setAndNotifyOutgoingVideoStatus: Unrecognized vidoeId:%@. != ougtoingVid:%@. friendId:%@ Ignoring.", videoId, friendEntity.outgoingVideoId, friendID);
+            ZZLogWarning(@"setAndNotifyOutgoingVideoStatus: Unrecognized vidoeId:%@. != ougtoingVid:%@. friendId:%@ Ignoring.", videoID, friendModel.outgoingVideoItemID, friendID);
             return;
         }
         
-        if (status == friendEntity.outgoingVideoStatusValue)
+        if (status == friendModel.lastOutgoingVideoStatus)
         {
             ZZLogWarning(@"setAndNotifyOutgoingVideoStatusWithVideo: Identical status. Ignoring.");
             return;
         }
-        
-        friendEntity.lastVideoStatusEventTypeValue = ZZVideoStatusEventTypeOutgoing;
-        friendEntity.outgoingVideoStatusValue = status;
-        
+               
+        [ZZFriendDataUpdater updateFriendWithID:friendID setLastVideoStatusEventType:ZZVideoStatusEventTypeOutgoing];
+        [ZZFriendDataUpdater updateFriendWithID:friendID setOutgoingVideoStatus:status];
         
         if (status == ZZVideoOutgoingStatusUploaded ||
             status == ZZVideoOutgoingStatusDownloaded ||
             status == ZZVideoOutgoingStatusViewed)
         {
-            friendEntity.timeOfLastAction = [NSDate date];
+            [ZZFriendDataUpdater updateLastTimeActionFriendWithID:friendID];
         }
-        
-        [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
         
         [self _notifyObserversVideoStatusChangeWithFriendID:friendID];
     });
 }
 
 - (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)videoStatus
-                               friendId:(NSString*)friendId
-                                videoId:(NSString*)videoId;
+                               friendID:(NSString *)friendID
+                                videoID:(NSString*)videoID;
 {
     
     ANDispatchBlockToMainQueue(^{
-    
-        TBMVideo* video = [ZZVideoDataProvider entityWithID:videoId];
-        TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendId];
         
-        if (video.statusValue != videoStatus)
+        ZZVideoDomainModel *videoModel = [ZZVideoDataProvider itemWithID:videoID];
+        
+        if (videoModel.incomingStatusValue != videoStatus)
         {
-            video.statusValue = videoStatus;
-            [video.managedObjectContext MR_saveToPersistentStoreAndWait];
+            [ZZVideoDataUpdater updateVideoWithID:videoID setIncomingStatus:videoStatus];
             
-            friend.lastIncomingVideoStatusValue = videoStatus;
+            [ZZFriendDataUpdater updateFriendWithID:friendID setLastIncomingVideoStatus:videoStatus];
             
             // Serhii says: We want to preserve previous status if last event type is incoming and status is VIEWED
             // Sani complicates it by saying: This is a bit subtle. We don't want an action by this user of
@@ -241,20 +224,18 @@
             // video (recording on a person with unviewed indicator showing) then later viewed the incoming videos
             // he gets to see the status of the last outgoing video he sent after play is complete and the unviewed count
             // indicator goes away.
+            
             if (videoStatus != ZZVideoIncomingStatusViewed)
             {
-                friend.lastVideoStatusEventType = ZZVideoStatusEventTypeIncoming;
+                [ZZFriendDataUpdater updateFriendWithID:friendID setLastVideoStatusEventType:ZZVideoStatusEventTypeIncoming];
             }
-            
             
             if (videoStatus == ZZVideoIncomingStatusDownloaded || videoStatus == ZZVideoIncomingStatusViewed)
             {
-                friend.timeOfLastAction = [NSDate date];
+                [ZZFriendDataUpdater updateLastTimeActionFriendWithID:friendID];
             }
             
-            [friend.managedObjectContext MR_saveToPersistentStoreAndWait];
-            
-            [self _notifyObserversVideoStatusChangeWithFriendID:friendId];
+            [self _notifyObserversVideoStatusChangeWithFriendID:friendID];
         }
         else
         {
@@ -265,26 +246,27 @@
 }
 
 
-- (void)setAndNotityViewedIncomingVideoWithFriendID:(NSString *)friendID videoID:(NSString *)videoID
+- (void)setAndNotifyViewedIncomingVideoWithFriendID:(NSString *)friendID videoID:(NSString *)videoID
 {
-    [self setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusViewed friendId:friendID videoId:videoID];
-    TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendID];
-    [ZZApplicationRootService sendNotificationForVideoStatusUpdate:friend
-                                                           videoId:videoID
-                                                            status:NOTIFICATION_STATUS_VIEWED];
+    [self setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusViewed friendID:friendID videoID:videoID];
     
+    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
+    [self _notifyObserversSendNotificationForVideoStatusUpdate:friendModel videoID:videoID status:NOTIFICATION_STATUS_VIEWED];
+
 }
 
-- (void)handleOutgoingVideoCreatedWithVideoId:(NSString*)videoId withFriend:(NSString*)friendID
+- (void)handleOutgoingVideoCreatedWithVideoID:(NSString *)videoID withFriend:(NSString*)friendID
 {
     ANDispatchBlockToMainQueue(^{
-        TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendID];
+
+        ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
         
-        friendEntity.uploadRetryCount = 0;
-        friendEntity.outgoingVideoId = videoId;
-        [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+        friendModel.outgoingVideoItemID = videoID;
         
-        [self notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusNew withFriendID:friendEntity.idTbm withVideoId:videoId];
+        [ZZFriendDataUpdater updateFriendWithID:friendID setUploadRetryCount:0];
+        [ZZFriendDataUpdater updateFriendWithID:friendID setOutgoingVideoItemID:videoID];
+
+        [self notifyOutgoingVideoWithStatus:ZZVideoOutgoingStatusNew withFriendID:friendID withVideoID:videoID];
     });
 }
 
