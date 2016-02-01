@@ -12,6 +12,7 @@
 #import "ZZCommonNetworkTransportService.h"
 #import "ZZRollbarConstants.h"
 #import "ZZApplicationStateInfoGenerator.h"
+#import "OBLogger+ZZAdditions.h"
 
 @implementation ZZRollbarAdapter
 
@@ -109,6 +110,7 @@
 
 - (NSString*)_logString
 {
+    [[OBLogger instance] dropOldLines:1000];
     return [[[OBLogger instance] logLines] componentsJoinedByString:@"\n"];
 }
 

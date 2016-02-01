@@ -92,7 +92,7 @@
 - (void)handleApplicationWillTerminate
 {
     [ZZContentDataAccessor saveDataBase];
-    [[OBLogger instance] dropOldLines:3000];
+    [[OBLogger instance] dropOldLines:1000];
 }
 
 - (void)handleApplicationDidEnterInBackground

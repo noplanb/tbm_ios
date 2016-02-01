@@ -92,9 +92,21 @@
 
 #pragma mark - VideoStatuses controller delegate
 
-- (void)sendVideo
-{
-    [self.interactor startSendingVideo];
+- (void)didCompleteSendVideo:(NSString *)videoID {
+    
+    
+    ANDispatchBlockToMainQueue(^{
+        
+        if ([self.interactor.sentVideoID isEqualToString:videoID] || ANIsEmpty(videoID)) // should not start new cycle if this is not our video
+        {
+            [self.interactor startSendingVideo];
+        }
+        
+        else
+        {
+            ZZLogWarning(@"🛂 ZZNetworkTest: ignoring video: %@ because we waited for: %@", videoID, self.interactor.sentVideoID);
+        }
+    });
 }
 
 - (void)outgoingVideoChangeWithCounter:(NSInteger)counter

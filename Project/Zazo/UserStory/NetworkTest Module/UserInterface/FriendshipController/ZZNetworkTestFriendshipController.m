@@ -23,12 +23,7 @@
     {
         ZZFriendDomainModel* activeTestFriend = [ZZFriendDataProvider friendWithMobileNumber:authUser.mobileNumber];
         if (activeTestFriend)
-        {
-            if (completion)
-            {
-                completion(activeTestFriend.idTbm);
-            }
-            
+        {           
             [self _executeCompeltionWithId:activeTestFriend.idTbm completion:completion];
             
         }

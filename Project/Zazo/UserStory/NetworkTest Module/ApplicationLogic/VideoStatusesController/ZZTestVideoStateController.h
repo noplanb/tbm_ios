@@ -10,7 +10,7 @@
 
 @protocol ZZTestVideoStateControllerDelegate <NSObject>
 
-- (void)sendVideo;
+- (void)didCompleteSendVideo:(NSString *)videoID;
 
 - (void)outgoingVideoChangeWithCounter:(NSInteger)counter;
 - (void)incomingVideoChangeWithCounter:(NSInteger)counter;

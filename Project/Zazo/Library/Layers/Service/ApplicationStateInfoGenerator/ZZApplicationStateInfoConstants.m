@@ -13,7 +13,7 @@
 static NSString *outgoingTypesString[] = {
     @"NONE",
     @"NEW",
-    @"QUEUED"
+    @"QUEUED",
     @"UPLOADING",
     @"UPLOADED",
     @"DOWNLOADED",
