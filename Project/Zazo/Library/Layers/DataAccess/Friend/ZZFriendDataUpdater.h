@@ -11,6 +11,8 @@
 
 @interface ZZFriendDataUpdater : NSObject
 
+#pragma mark Updation
+
 + (void)updateLastTimeActionFriendWithID:(NSString*)itemID;
 + (void)updateFriendWithID:(NSString *)friendID setLastIncomingVideoStatus:(ZZVideoIncomingStatus)status;
 + (void)updateFriendWithID:(NSString *)friendID setOutgoingVideoStatus:(ZZVideoOutgoingStatus)status;
@@ -19,11 +21,21 @@
 + (void)updateFriendWithID:(NSString *)friendID setOutgoingVideoItemID:(NSString *)videoID;
 + (void)updateFriendWithID:(NSString *)friendID setConnectionStatus:(ZZFriendshipStatusType)status;
 
-+ (ZZFriendDomainModel*)upsertFriend:(ZZFriendDomainModel*)model;
+#pragma mark Batch updation
 
 + (void)updateEverSentFriendsWithMkeys:(NSArray*)mKeys;
-+ (void)fillEntitiesAfterMigration;
+
+#pragma mark Upsert
+
++ (ZZFriendDomainModel*)upsertFriend:(ZZFriendDomainModel*)model;
+
+#pragma mark Deletion
 
 + (void)deleteAllFriends;
+
+#pragma mark Migration
+
++ (void)fillEntitiesAfterMigration;
+
 
 @end

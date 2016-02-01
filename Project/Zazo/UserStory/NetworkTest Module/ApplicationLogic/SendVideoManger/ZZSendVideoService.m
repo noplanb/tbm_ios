@@ -30,7 +30,7 @@ static NSString* const kUploadFileType = @"MOV";
     self.actualFriendID = friendID;
 }
 
-- (void)sendVideo
+- (NSString *)sendVideo
 {
     if (!ANIsEmpty(self.actualFriendID))
     {
@@ -41,12 +41,23 @@ static NSString* const kUploadFileType = @"MOV";
         
         if([ZZFileHelper copyFileWithUrl:fromUrl toUrl:toUrl error:&copyError])
         {
+            NSString *marker = [toUrl URLByDeletingPathExtension].lastPathComponent;
+            ZZFileTransferMarkerDomainModel* markerModel = [ZZFileTransferMarkerDomainModel modelWithEncodedMarker:marker];
+
+            
             [[[TBMVideoProcessor alloc] init] processVideoWithUrl:toUrl];
+            
+            return markerModel.videoID;
         }
         else
         {
             NSLog(@"Copy error!!!");
+            return nil;
         }
+    }
+    else
+    {
+        return nil;
     }
 }
 

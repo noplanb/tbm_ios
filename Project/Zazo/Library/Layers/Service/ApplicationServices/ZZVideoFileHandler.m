@@ -626,8 +626,10 @@
         [[ZZRemoteStorageTransportService deleteRemoteIncomingVideoWithItemID:videoID
                                                                    friendMkey:friendModel.mKey
                                                                    friendCKey:friendModel.cKey] subscribeNext:^(id x) {}];
-         
-         [[NSNotificationCenter defaultCenter] postNotificationName:kDeleteFileNotification object:nil];
+        
+
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kDeleteFileNotification object:nil userInfo:@{@"videoID": videoID ?: @""}];
     });
 }
 

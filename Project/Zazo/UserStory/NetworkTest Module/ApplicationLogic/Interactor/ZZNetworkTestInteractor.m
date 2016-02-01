@@ -11,10 +11,13 @@
 #import "ZZVideoStatusHandler.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZVideoDataProvider.h"
+#import "ZZFriendDomainModel.h"
+#import "ZZVideoDomainModel.h"
 
 @interface ZZNetworkTestInteractor () <ZZVideoStatusHandlerDelegate>
 
 @property (nonatomic, strong) ZZSendVideoService* sendVideoService;
+@property (nonatomic, strong, readwrite) NSString *sentVideoID;
 
 @end
 
@@ -51,7 +54,11 @@
 
 - (void)startSendingVideo
 {
+    self.sentVideoID =
     [self.sendVideoService sendVideo];
+    
+    ZZLogInfo(@"🛂 upload started %@", self.sentVideoID);
+
 }
 
 - (void)stopSendingVideo

@@ -10,6 +10,8 @@
 
 @protocol ZZNetworkTestInteractorInput <NSObject>
 
+@property (nonatomic, strong, readonly) NSString *sentVideoID;
+
 - (void)updateWithActualFriendID:(NSString*)friendID;
 - (void)startSendingVideo;
 - (void)stopSendingVideo;
