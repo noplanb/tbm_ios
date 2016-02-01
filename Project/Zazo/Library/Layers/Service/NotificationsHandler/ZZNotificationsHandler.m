@@ -12,7 +12,6 @@
 #import "ZZNotificationDomainModel.h"
 #import "FEMObjectDeserializer.h"
 #import "ZZUserDataProvider.h"
-#import "TBMVideo.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZApplicationPermissionsHandler.h"
 

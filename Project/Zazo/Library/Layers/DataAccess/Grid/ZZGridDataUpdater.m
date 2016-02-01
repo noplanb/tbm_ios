@@ -8,52 +8,51 @@
 
 #import "ZZGridDataUpdater.h"
 #import "ZZGridDomainModel.h"
-#import "ZZGridDataProvider.h"
+#import "ZZGridDataProvider+Entities.h"
 #import "MagicalRecord.h"
 #import "ZZGridModelsMapper.h"
-#import "ZZFriendDataProvider.h"
-#import "ZZContentDataAcessor.h"
+#import "ZZFriendDataProvider+Entities.h"
+#import "ZZContentDataAccessor.h"
 
 @implementation ZZGridDataUpdater
 
-+ (ZZGridDomainModel*)upsertModel:(ZZGridDomainModel *)model
++ (ZZGridDomainModel*)upsertModel:(ZZGridDomainModel *)gridModel
 {
-    TBMGridElement* entity = nil;
-    entity =  [ZZGridDataProvider entityWithItemID:model.itemID];
-    if (!entity)
-    {
-        entity = [TBMGridElement MR_createEntityInContext:[self _context]];
-    }
-    [ZZGridModelsMapper fillEntity:entity fromModel:model];
-    [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
-    
-    return [ZZGridDataProvider modelFromEntity:entity];
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        
+        TBMGridElement* gridEntity = nil;
+        gridEntity =  [ZZGridDataProvider entityWithItemID:gridModel.itemID];
+        if (!gridEntity)
+        {
+            gridEntity = [TBMGridElement MR_createEntityInContext:[self _context]];
+        }
+        [ZZGridModelsMapper fillEntity:gridEntity fromModel:gridModel];
+        [gridEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+        
+        return [ZZGridDataProvider modelFromEntity:gridEntity];
+    });
 }
 
-+ (ZZGridDomainModel*)updateRelatedUserOnItemID:(NSString *)itemID toValue:(ZZFriendDomainModel*)model
++ (ZZGridDomainModel*)updateRelatedUserOnItemID:(NSString *)itemID toValue:(ZZFriendDomainModel*)friendModel
 {
-    TBMGridElement* entity = [ZZGridDataProvider entityWithItemID:itemID];
-    entity.friend = [ZZFriendDataProvider friendEntityWithItemID:model.idTbm];
-    [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
-    return [ZZGridDataProvider modelFromEntity:entity];
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        
+        TBMGridElement* gridElementEntity = [ZZGridDataProvider entityWithItemID:itemID];
+        gridElementEntity.friend = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
+        [gridElementEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+        return [ZZGridDataProvider modelFromEntity:gridElementEntity];
+    });
 }
-
-//+ (void)deleteModel:(ZZGridDomainModel*)model
-//{
-//    TBMGridElement* entity = [ZZGridDataProvider entityWithItemID:model.itemID];
-//    NSManagedObjectContext* context = entity.managedObjectContext;
-//    [entity MR_deleteEntityInContext:context];
-//    [context MR_saveToPersistentStoreAndWait];
-//}
-
 
 #pragma mark - Update Grid models
 
 + (void)upsertGridModels:(NSArray*)models
 {
-    [models enumerateObjectsUsingBlock:^(ZZGridDomainModel*  _Nonnull domainModel, NSUInteger idx, BOOL * _Nonnull stop) {
-        [self upsertModel:domainModel];
-    }];
+    ANDispatchBlockToMainQueue(^{        
+        [models enumerateObjectsUsingBlock:^(ZZGridDomainModel*  _Nonnull gridModel, NSUInteger idx, BOOL * _Nonnull stop) {
+            [self upsertModel:gridModel];
+        }];
+    });
 }
 
 
@@ -61,7 +60,7 @@
 
 + (NSManagedObjectContext*)_context
 {
-    return [ZZContentDataAcessor contextForCurrentThread];
+    return [ZZContentDataAccessor mainThreadContext];
 }
 
 @end

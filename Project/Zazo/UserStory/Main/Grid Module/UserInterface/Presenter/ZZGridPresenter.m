@@ -10,7 +10,6 @@
 #import "ZZGridDataSource.h"
 #import "ZZVideoRecorder.h"
 #import "ZZVideoPlayer.h"
-#import "TBMFriend.h"
 #import "iToast.h"
 #import "ZZContactDomainModel.h"
 #import "ZZAPIRoutes.h"
@@ -29,7 +28,6 @@
 #import "TBMVideoIdUtils.h"
 #import "ZZFriendDataProvider.h"
 #import "RollbarReachability.h"
-#import "ZZFriendDataHelper.h"
 #import "ZZVideoDomainModel.h"
 #import "ZZRootStateObserver.h"
 
@@ -164,7 +162,7 @@
         {
             CGFloat delayAfterDownloadAnimationCompleted = 1.6f;
             ANDispatchBlockAfter(delayAfterDownloadAnimationCompleted, ^{
-                if (!self.videoPlayer.isPlayingVideo)
+                if (!self.videoPlayer.isPlayingVideo && ![ZZVideoRecorder shared].isRecording)
                 {
                     [self.soundPlayer play];
                 }
@@ -183,7 +181,7 @@
         [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventFriendWasAddedToGridWithVideo
                                            notificationObject:nil];
         //TODO:
-        //    if (model.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED)
+        //    if (model.relatedUser.lastOutgoingVideoStatus == OUTGOING_VIDEO_STATUS_VIEWED)
         //    {
         //        [self.soundPlayer play]; // TODO: check
         //    }

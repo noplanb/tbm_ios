@@ -12,10 +12,18 @@
 @interface ZZFriendDataUpdater : NSObject
 
 + (void)updateLastTimeActionFriendWithID:(NSString*)itemID;
-+ (ZZFriendDomainModel*)updateConnectionStatusForUserWithID:(NSString*)itemID toValue:(ZZFriendshipStatusType)value;
++ (void)updateFriendWithID:(NSString *)friendID setLastIncomingVideoStatus:(ZZVideoIncomingStatus)status;
++ (void)updateFriendWithID:(NSString *)friendID setOutgoingVideoStatus:(ZZVideoOutgoingStatus)status;
++ (void)updateFriendWithID:(NSString *)friendID setUploadRetryCount:(NSUInteger)count;
++ (void)updateFriendWithID:(NSString *)friendID setLastVideoStatusEventType:(ZZVideoStatusEventType)eventType;
++ (void)updateFriendWithID:(NSString *)friendID setOutgoingVideoItemID:(NSString *)videoID;
++ (void)updateFriendWithID:(NSString *)friendID setConnectionStatus:(ZZFriendshipStatusType)status;
+
 + (ZZFriendDomainModel*)upsertFriend:(ZZFriendDomainModel*)model;
-+ (void)updateEverSentFreindsWithMkeys:(NSArray*)mKeys;
+
++ (void)updateEverSentFriendsWithMkeys:(NSArray*)mKeys;
 + (void)fillEntitiesAfterMigration;
 
++ (void)deleteAllFriends;
 
 @end

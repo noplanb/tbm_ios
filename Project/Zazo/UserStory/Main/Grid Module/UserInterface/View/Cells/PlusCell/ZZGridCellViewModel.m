@@ -16,10 +16,10 @@
 #import "ZZThumbnailGenerator.h"
 #import "ZZVideoStatuses.h"
 #import "ZZStoredSettingsManager.h"
-#import "TBMFriend.h"
 #import "ZZFriendDataProvider.h"
 #import "iToast.h"
 #import "ZZGridActionStoredSettings.h"
+#import "ZZFriendDataHelper.h"
 
 
 @interface ZZGridCellViewModel ()
@@ -54,18 +54,18 @@
 - (NSString*)videoStatusString
 {
     ZZFriendDomainModel* friendModel = self.item.relatedUser;
-    TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
+
     NSString* videoStatusString = nil;
 
     if ([ZZStoredSettingsManager shared].debugModeEnabled)
     {
-        videoStatusString = ZZVideoStatusStringWithFriend(friendEntity);
+        videoStatusString = ZZVideoStatusStringWithFriendModel(friendModel);
     }
     else
     {
         videoStatusString = [friendModel displayName];
     }
-    
+  
     return videoStatusString;
 }
 
@@ -142,7 +142,7 @@
     }
     else if (self.item.relatedUser.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
              self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading &&
-             self.item.relatedUser.unviewedCount > 0)
+            [ZZFriendDataHelper unviewedVideoCountWithFriendID:self.item.relatedUser.idTbm] > 0)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoDownloading);
     }

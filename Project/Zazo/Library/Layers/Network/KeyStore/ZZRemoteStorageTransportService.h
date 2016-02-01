@@ -1,5 +1,5 @@
 //
-//  ZZRemoteStoageTransportService.h
+//  ZZRemoteStorageTransportService.h
 //  Zazo
 //
 //  Created by Oksana Kovalchuk on 9/2/15.
@@ -8,7 +8,7 @@
 
 #import "ZZRemoteStorageConstants.h"
 
-@interface ZZRemoteStoageTransportService : NSObject
+@interface ZZRemoteStorageTransportService : NSObject
 
 
 #pragma mark - Videos

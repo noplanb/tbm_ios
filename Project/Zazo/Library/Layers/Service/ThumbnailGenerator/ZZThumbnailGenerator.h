@@ -14,10 +14,10 @@
 + (UIImage*)thumbImageForUser:(ZZFriendDomainModel*)friendModel;
 + (BOOL)isThumbNoPicForUser:(ZZFriendDomainModel*)friendModel;
 + (BOOL)generateThumbVideo:(ZZVideoDomainModel*)video;
-+ (NSURL*)lastThumbUrlForForUser:(ZZFriendDomainModel*)friendModel;
++ (NSURL*)lastThumbUrlForForUserWithID:(NSString*)friendID;
 + (UIImage*)lastThumbImageForUser:(ZZFriendDomainModel*)friendModel;
 + (BOOL)hasLastThumbForUser:(ZZFriendDomainModel*)friendModel;
-+ (void)deleteLastThumbForUser:(ZZFriendDomainModel*)friendModel;
++ (void)deleteLastThumbForUserWithID:(NSString*)friendID;
 + (UIImage*)legacyThumbImageForFriend:(ZZFriendDomainModel*)friendModel;
 + (BOOL)hasLegacyThumbForUser:(ZZFriendDomainModel*)friendModel;
 

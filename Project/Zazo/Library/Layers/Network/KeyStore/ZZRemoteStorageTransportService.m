@@ -1,12 +1,12 @@
 //
-//  ZZRemoteStoageTransportService.m
+//  ZZRemoteStorageTransportService.m
 //  Zazo
 //
 //  Created by Oksana Kovalchuk on 9/2/15.
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZRemoteStoageTransportService.h"
+#import "ZZRemoteStorageTransportService.h"
 #import "ZZRemoteStorageTransport.h"
 #import "ZZStringUtils.h"
 
@@ -16,7 +16,7 @@
 #import "ZZKeyStoreIncomingVideoIdsDomainModel.h"
 #import "ZZKeyStoreOutgoingVideoStatusDomainModel.h"
 
-@implementation ZZRemoteStoageTransportService
+@implementation ZZRemoteStorageTransportService
 
 
 #pragma mark - Update / Create

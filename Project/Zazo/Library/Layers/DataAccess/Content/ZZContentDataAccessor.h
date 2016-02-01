@@ -8,12 +8,12 @@
 
 #import "MagicalRecord.h"
 
-@interface ZZContentDataAcessor : NSObject
+@interface ZZContentDataAccessor : NSObject
 
 + (void)startWithCompletionBlock:(ANCodeBlock)completionBlock;
 + (void)saveDataBase;
 
-+ (NSManagedObjectContext*)contextForCurrentThread;
++ (NSManagedObjectContext*)mainThreadContext;
 
 + (void)refreshContext:(NSManagedObjectContext*)context;
 

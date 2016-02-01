@@ -8,8 +8,6 @@
 
 #import "ZZSendVideoService.h"
 
-#import "TBMFriend.h"
-#import "MagicalRecord.h"
 #import "TBMVideoIdUtils.h"
 #import "TBMVideoProcessor.h"
 #import "ZZFileHelper.h"

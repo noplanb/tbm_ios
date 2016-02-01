@@ -11,7 +11,6 @@
 #import "ZZUserPresentationHelper.h"
 #import "ZZStoredSettingsManager.h"
 #import "MagicalRecord.h"
-#import "TBMFriend.h"
 #import "ZZFriendDataHelper.h"
 
 const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {

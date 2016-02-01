@@ -8,7 +8,6 @@
 
 #import "ZZGridInteractor+ActionHandler.h"
 #import "ZZFriendDomainModel.h"
-#import "TBMFriend.h"
 
 
 @implementation ZZGridInteractor (ActionHandler)
@@ -24,7 +23,7 @@
                 [self.output handleModel:model withEvent:ZZGridActionEventTypeBecomeMessage];
             });
         }
-        else if (model.relatedUser.outgoingVideoStatusValue == ZZVideoOutgoingStatusViewed)
+        else if (model.relatedUser.lastOutgoingVideoStatus == ZZVideoOutgoingStatusViewed)
         {
             [self.output handleModel:model withEvent:ZZGridActionEventTypeMessageViewed];
         }

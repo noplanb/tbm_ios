@@ -11,7 +11,7 @@
 #import "ZZFriendDataProvider.h"
 #import "ZZGridDataProvider.h"
 #import "ZZGridDataUpdater.h"
-#import "TBMFriend.h"
+#import "ZZFriendDomainModel.h"
 
 @implementation ZZGridUpdateService
 
@@ -21,11 +21,9 @@
     
     [[ZZFriendDataProvider friendsOnGrid] enumerateObjectsUsingBlock:^(ZZFriendDomainModel*  _Nonnull friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
         
-        TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
-        
-        if (friend.lastIncomingVideoStatusValue == ZZVideoIncomingStatusViewed ||
-            friend.lastIncomingVideoStatusValue == ZZVideoIncomingStatusFailedPermanently ||
-            friend.lastIncomingVideoStatusValue == ZZVideoIncomingStatusNew)
+        if (friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusViewed ||
+            friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently ||
+            friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusNew)
         {
             [gridElementToUpdate addObject:friendModel];
         }
@@ -34,11 +32,11 @@
     
     if ([gridElementToUpdate allObjects].count > 0)
     {
-        [self updateGridIfNeededWithElement:[gridElementToUpdate allObjects]];
+        [self _updateGridIfNeededWithElement:[gridElementToUpdate allObjects]];
     }
 }
 
-- (void)updateGridIfNeededWithElement:(NSArray*)update
+- (void)_updateGridIfNeededWithElement:(NSArray*)update
 {
     NSArray* gridFriendAbbleToUpdate = [self _friendsAbleToUpdate];
     __block NSMutableArray* updatedGridModels = [NSMutableArray array];
@@ -50,7 +48,10 @@
             {
                 ZZFriendDomainModel* updatedFriendModel = gridFriendAbbleToUpdate[idx];
                 ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendModel.idTbm];
+
+                #warning TODO: (rinat) check if setting .relatedUser is needed now
                 gridModel.relatedUser = updatedFriendModel;
+
                 [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:updatedFriendModel];
                 [updatedGridModels addObject:gridModel];
             }
@@ -68,10 +69,11 @@
 
 - (NSArray*)_friendsAbleToUpdate
 {
-    NSMutableSet* allFriendsSet = [NSMutableSet setWithArray:[ZZFriendDataProvider loadAllFriends]?:@[]];
+    NSMutableSet* allFriendsSet = [NSMutableSet setWithArray:[ZZFriendDataProvider allFriendsModels]?:@[]];
     NSMutableSet* gridFriendSet = [NSMutableSet setWithArray:[ZZFriendDataProvider friendsOnGrid]?:@[]];
+ 
     [allFriendsSet minusSet:gridFriendSet];
-    
+
     __block NSMutableArray* friendsToUpdate = [NSMutableArray new];
     
     [[allFriendsSet allObjects] enumerateObjectsUsingBlock:^(ZZFriendDomainModel*  _Nonnull friendModel, NSUInteger idx, BOOL * _Nonnull stop) {

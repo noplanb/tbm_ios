@@ -8,15 +8,14 @@
 
 #import "ZZVideoStatuses.h"
 
-@class TBMFriend;
-@class TBMVideo;
+@class ZZFriendDomainModel;
 
 @protocol ZZVideoFileHandlerDelegate <NSObject>
 
 - (void)requestBackground;
 
-- (void)sendNotificationForVideoReceived:(TBMFriend *)friendModel videoId:(NSString *)videoId;
-- (void)sendNotificationForVideoStatusUpdate:(TBMFriend *)friendModel videoId:(NSString *)videoId status:(NSString *)status;
+- (void)sendNotificationForVideoReceived:(ZZFriendDomainModel *)friendModel videoId:(NSString *)videoId;
+- (void)sendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friendModel videoId:(NSString *)videoId status:(NSString *)status;
 - (void)updateBadgeCounter;
 - (void)updateDataRequired;
 
@@ -24,7 +23,6 @@
 - (void)notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)status withFriendID:(NSString*)friendID videoId:(NSString*)videoId;
 - (void)setAndNotifyUploadRetryCount:(NSInteger)count withFriendID:(NSString*)friendID videoID:(NSString*)videoID;
 - (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)status friendId:(NSString*)friendId videoId:(NSString*)videoId;
-- (void)deleteAllViewedOrFailedVideosWithFriendId:(NSString*)friendId;
 - (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount withFriendID:(NSString*)friendID videoID:(NSString*)videoID;
 
 @end

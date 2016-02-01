@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZContentDataAcessor.h"
+#import "ZZContentDataAccessor.h"
 #import "TBMFriend.h"
 #import "ZZFriendDataUpdater.h"
 #import "ZZUserDataProvider.h"
@@ -18,12 +18,13 @@
 #import "ZZCommonNetworkTransport.h"
 
 
-@implementation ZZContentDataAcessor
+@implementation ZZContentDataAccessor
 
 + (void)startWithCompletionBlock:(ANCodeBlock)completionBlock
 {
     [MagicalRecord setShouldDeleteStoreOnModelMismatch:NO];
     
+   
     ZZMigrationManager* migrationManager = [ZZMigrationManager new];
     if ([migrationManager isMigrationNecessary])
     {
@@ -77,16 +78,20 @@
 
 + (void)saveDataBase
 {
-    [[self contextForCurrentThread] MR_saveToPersistentStoreAndWait];
-    NSManagedObjectContext* context = [NSManagedObjectContext MR_context];
-    [context MR_saveToPersistentStoreAndWait];
+    ANDispatchBlockToMainQueue(^{
+        [[self mainThreadContext] MR_saveToPersistentStoreAndWait];
+    });
 }
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-+ (NSManagedObjectContext *)contextForCurrentThread
++ (NSManagedObjectContext *)mainThreadContext
 {
-    return [NSManagedObjectContext MR_contextForCurrentThread];
+    if (![NSThread isMainThread]) {
+        [NSException raise:kZazoErrorDomain format:@"This Core Data context should be used in main thread only"];
+    }
+    
+    return [NSManagedObjectContext MR_defaultContext];
 }
 #pragma GCC diagnostic pop
 

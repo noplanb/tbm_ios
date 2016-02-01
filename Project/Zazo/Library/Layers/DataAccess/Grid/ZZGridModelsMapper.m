@@ -8,7 +8,7 @@
 
 #import "ZZGridModelsMapper.h"
 #import "ZZUserDataProvider.h"
-#import "ZZFriendDataProvider.h"
+#import "ZZFriendDataProvider+Entities.h"
 #import "TBMGridElement.h"
 #import "ZZGridDomainModel.h"
 
@@ -25,6 +25,11 @@
 
 + (ZZGridDomainModel*)fillModel:(ZZGridDomainModel*)model fromEntity:(TBMGridElement*)entity
 {
+    if (!entity)
+    {
+        return nil;
+    }
+    
     @try
     {
         model.index = [entity.index integerValue];

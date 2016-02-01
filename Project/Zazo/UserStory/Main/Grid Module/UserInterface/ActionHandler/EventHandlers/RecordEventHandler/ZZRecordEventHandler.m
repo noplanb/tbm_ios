@@ -7,6 +7,7 @@
 //
 
 #import "ZZRecordEventHandler.h"
+#import "ZZFriendDataHelper.h"
 
 @implementation ZZRecordEventHandler
 
@@ -17,7 +18,7 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
 {
     if (event == ZZGridActionEventTypeGridLoaded &&
         [self.delegate frinedsNumberOnGrid] == 1 &&
-        model.unviewedCount == 0 &&
+        [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.idTbm] == 0 &&
         ![ZZGridActionStoredSettings shared].sentHintWasShown)
     {
         self.isLastAcitionDone = YES;

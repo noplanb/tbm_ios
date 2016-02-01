@@ -6,8 +6,7 @@
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
-@class TBMFriend;
-@class TBMVideo;
+@class ZZFriendDomainModel;
 
 @interface ZZFriendDataHelper : NSObject
 
@@ -16,9 +15,8 @@
 
 #pragma mark - Friend video helpers
 
-+ (BOOL)isFriend:(TBMFriend*)friendModel hasIncomingVideoWithId:(NSString*)videoId;
-+ (NSInteger)unviewedVideoCountWithFriend:(TBMFriend*)friendModel;
-+ (BOOL)hasOutgoingVideoWithFriend:(TBMFriend*)friendModel;
++ (BOOL)isFriend:(ZZFriendDomainModel*)friendModel hasIncomingVideoWithId:(NSString*)videoId;
++ (NSUInteger)unviewedVideoCountWithFriendID:(NSString *)friendID;
 + (NSArray*)everSentMkeys;
 
 @end
