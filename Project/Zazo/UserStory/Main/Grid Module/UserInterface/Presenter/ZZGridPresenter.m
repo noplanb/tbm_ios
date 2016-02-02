@@ -334,7 +334,7 @@
     }
     else
     {
-        [self _showInvitationFormForModel:friendModel];
+        [self _showInvitationFormForModel:friendModel isNudge:NO];
     }
 }
 

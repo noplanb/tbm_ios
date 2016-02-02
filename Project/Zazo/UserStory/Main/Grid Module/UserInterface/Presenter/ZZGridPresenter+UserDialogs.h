@@ -18,5 +18,6 @@
 - (void)_showNoValidPhonesDialogFromModel:(ZZContactDomainModel*)model;
 - (void)_addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel*)contact;
 - (void)_showChooseNumberDialogForUser:(ZZContactDomainModel*)user;
+- (void)_showInvitationFormForModel:(ZZFriendDomainModel*)friendModel isNudge:(BOOL)isNudge;
 
 @end
