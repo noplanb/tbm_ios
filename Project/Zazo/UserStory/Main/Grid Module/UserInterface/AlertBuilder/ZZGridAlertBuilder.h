@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
+#import "ZZInviteType.h"
+
 @interface ZZGridAlertBuilder : NSObject
 
 + (void)showOneTouchRecordViewHint;
@@ -14,8 +16,11 @@
 + (void)showConnectedDialogForUser:(NSString*)userName completion:(ANCodeBlock)completion;
 + (void)showAlreadyConnectedDialogForUser:(NSString*)userName completion:(ANCodeBlock)completion;
 + (void)showNoValidPhonesDialogForUserWithFirstName:(NSString*)firstName fullName:(NSString*)fullName;
-+ (void)showPreNudgeAlertWithFriendFirstName:(NSString*)firstName completion:(ANCodeBlock)completion;
 + (void)showHintalertWithMessage:(NSString*)message;
++ (void)showPreNudgeAlertWithFriendFirstName:(NSString*)firstName completion:(ANCodeBlock)completion;
+
++ (void)showInvitationMethodDialogWithText:(NSString *)text completion:(void(^)(ZZInviteType selectedType, NSString *text))competion;
+
 + (void)showAlertWithTitle:(NSString*)title
                    message:(NSString*)message
          cancelButtonTitle:(NSString*)cancelButtonTitle
@@ -23,5 +28,4 @@
                     action:(ANCodeBlock)completion;
 
 - (void)showCantSendSmsErrorOldStyleToUser:(NSString*)userName completion:(ANCodeBlock)completion;
-
 @end

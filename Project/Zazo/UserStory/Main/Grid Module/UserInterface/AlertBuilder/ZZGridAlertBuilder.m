@@ -9,7 +9,7 @@
 #import "ZZGridAlertBuilder.h"
 #import "ZZAlertBuilder.h"
 #import "ZZFriendDomainModel.h"
-
+#import "SDCAlertControllerVisualStyle.h"
 
 typedef NS_ENUM(NSInteger, ZZAlertViewType)
 {
@@ -102,6 +102,57 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
     NSString *title = [NSString stringWithFormat:@"Nudge %@", firstName];
     
     [ZZAlertBuilder presentAlertWithTitle:title details:msg cancelButtonTitle:@"Cancel" actionButtonTitle:@"Send" action:completion];
+}
+
++ (void)showInvitationMethodDialogWithText:(NSString *)text completion:(void(^)(ZZInviteType selectedType, NSString *text))aCompetion
+{
+    __block ZZInviteType selectedType = ZZInviteTypeUnknown;
+    
+    UITextView *textView = [UITextView new];
+    textView.text = text;
+    textView.frame = CGRectMake(0, 0, 270, 100);
+    
+    TBMAlertController *alert =
+    [ZZAlertBuilder alertWithTitle:@"Send link"
+                           details:@"Invitation message:"
+                 cancelButtonTitle:@"Cancel"
+                cancelButtonAction:nil
+                           actions:nil];
+
+    textView.font = alert.visualStyle.messageLabelFont;
+    
+    ANCodeBlock completion = ^{
+        NSString *userText = textView.text;
+        
+        aCompetion(selectedType, userText);
+    };
+    
+    SDCAlertAction *smsAction =
+    [SDCAlertAction actionWithTitle:@"Send as SMS"
+                              style:SDCAlertActionStyleDefault
+                            handler:^(SDCAlertAction *action) {
+                                selectedType = ZZInviteTypeSMS;
+                                completion();
+                            }];
+    
+    SDCAlertAction *sharingAction =
+    [SDCAlertAction actionWithTitle:@"Send from another app"
+                              style:SDCAlertActionStyleDefault
+                            handler:^(SDCAlertAction *action) {
+                                selectedType = ZZInviteTypeSharing;
+                                completion();
+                            }];
+    
+    [alert addAction:smsAction];
+    [alert addAction:sharingAction];
+    
+    [alert.contentView addSubview:textView];
+    
+    ANDispatchBlockToMainQueue(^{
+        [alert presentWithCompletion:^{
+            [textView becomeFirstResponder];
+        }];
+    });
 }
 
 + (void)showHintalertWithMessage:(NSString*)message

@@ -96,6 +96,44 @@
     return alert;
 }
 
++ (TBMAlertController *)alertWithTitle:(NSString*)title
+                               details:(NSString*)details
+                     cancelButtonTitle:(NSString*)cancelTitle
+                    cancelButtonAction:(ANCodeBlock)cancelAction
+                               actions:(NSArray <SDCAlertAction *> *)actions
+{
+    TBMAlertController *alert =
+    [self alertWithTitle:title
+                 details:details
+       cancelButtonTitle:cancelTitle
+      cancelButtonAction:cancelAction
+       actionButtonTitle:nil
+                  action:nil];
+    
+    [actions enumerateObjectsUsingBlock:^(SDCAlertAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
+        [alert addAction:action];
+    }];
+    
+    return alert;
+}
+
++ (void)presentAlertWithTitle:(NSString*)title
+                      details:(NSString*)details
+            cancelButtonTitle:(NSString*)cancelTitle
+           cancelButtonAction:(ANCodeBlock)cancelAction
+                      actions:(NSArray <SDCAlertAction *> *)actions
+{
+    TBMAlertController *alert =
+    [self alertWithTitle:title
+                 details:details
+       cancelButtonTitle:cancelTitle
+      cancelButtonAction:cancelAction
+                 actions:actions];
+    
+    [self presentAlert:(TBMAlertController *)alert];
+
+}
+
 + (void)presentAlert:(TBMAlertController *)alert
 {
     ANDispatchBlockToMainQueue(^{

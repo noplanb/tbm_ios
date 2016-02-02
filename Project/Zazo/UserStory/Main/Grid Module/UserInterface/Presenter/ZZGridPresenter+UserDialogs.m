@@ -72,16 +72,57 @@
     }];
 }
 
-- (void)_showSmsDialogForModel:(ZZFriendDomainModel*)friendModel isNudgeAction:(BOOL)isNudge
+- (void)_showInvitationFormForModel:(ZZFriendDomainModel*)friendModel isNudge:(BOOL)isNudge
+{
+    NSString *text = [self _defaultInvitationMessageForModel:friendModel];
+    
+    [ZZGridAlertBuilder showInvitationMethodDialogWithText:text completion:^(ZZInviteType selectedType, NSString *text) {
+        
+        if (ANIsEmpty(text))
+        {
+            text = [self _defaultInvitationMessageForModel:friendModel];
+        }
+        
+        switch (selectedType) {
+            case ZZInviteTypeSharing:
+                [self _showInvitationDialogType:ZZInviteTypeSharing
+                                 forFriendModel:friendModel
+                                  isNudgeAction:isNudge
+                                 invitationText:text];
+                break;
+            
+            case ZZInviteTypeSMS:
+                [self _showInvitationDialogType:ZZInviteTypeSMS
+                                 forFriendModel:friendModel
+                                  isNudgeAction:isNudge
+                                 invitationText:text];
+                break;
+                
+                
+            default:
+                break;
+        }
+    }];
+}
+
+- (NSString *)_defaultInvitationMessageForModel:(ZZFriendDomainModel *)friendModel
+{
+    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    return [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%li", appName, kInviteFriendBaseURL, (long)friendModel.cid];
+}
+
+- (void)_showInvitationDialogType:(ZZInviteType)type
+                   forFriendModel:(ZZFriendDomainModel *)friendModel
+                    isNudgeAction:(BOOL)isNudge
+                   invitationText:(NSString *)text
 {
     ANMessageDomainModel* model = [ANMessageDomainModel new];
     NSString* formattedNumber = [ZZPhoneHelper phone:friendModel.mobileNumber withFormat:ZZPhoneFormatTypeE164];
     model.recipients = @[[NSObject an_safeString:formattedNumber]];
     
-    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
-    model.message = [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%li", appName, kInviteFriendBaseURL, (long)friendModel.cid];
+    model.message = text;
     
-    [self.wireframe presentSMSDialogWithModel:model success:^{
+    ANCodeBlock successBlock = ^{
         if (!isNudge)
         {
             [self _showConnectedDialogForModel:friendModel];
@@ -90,10 +131,27 @@
         {
             [self _handleSentWelcomeHintWithFriendDomainModel:friendModel];
         }
-    } fail:^{
+    };
+    
+    ANCodeBlock failureBlock = ^{
         
         [self _showCantSendSmsErrorForModel:friendModel];
-    }];
+    };
+    
+    switch (type) {
+        case ZZInviteTypeSMS:
+            [self.wireframe presentSMSDialogWithModel:model success:successBlock fail:failureBlock];
+            break;
+            
+        case ZZInviteTypeSharing:
+            [self.wireframe presentSharingDialogWithModel:model success:successBlock fail:failureBlock];
+            break;
+            
+        default:
+            failureBlock();
+            break;
+    }
+
 }
 
 - (void)_showCantSendSmsErrorForModel:(ZZFriendDomainModel*)friendModel
@@ -115,7 +173,7 @@
 - (void)_nudgeUser:(ZZFriendDomainModel*)userModel
 {
     [ZZGridAlertBuilder showPreNudgeAlertWithFriendFirstName:userModel.firstName completion:^{
-        [self _showSmsDialogForModel:userModel isNudgeAction:YES];
+        [self _showInvitationFormForModel:userModel isNudge:YES];
     }];
 }
 

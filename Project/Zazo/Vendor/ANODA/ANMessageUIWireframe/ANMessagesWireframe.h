@@ -13,6 +13,7 @@ static NSInteger const kApplicationCannotSendMessage = -10002;
 
 typedef void(^ANMessageCompletionBlock)(MessageComposeResult result);
 typedef void(^ANEmailCompletionBlock)(MFMailComposeResult result);
+typedef void(^ZZSharingCompletionBlock)(BOOL completed);
 
 @interface ANMessagesWireframe : NSObject
 
@@ -23,5 +24,10 @@ typedef void(^ANEmailCompletionBlock)(MFMailComposeResult result);
 - (void)presentMessageControllerFromViewController:(UIViewController*)vc
                                          withModel:(ANMessageDomainModel*)model
                                         completion:(ANMessageCompletionBlock)completion;
+
+- (void)presentSharingControllerFromViewController:(UIViewController*)vc
+                                         withModel:(ANMessageDomainModel*)model
+                                        completion:(ZZSharingCompletionBlock)completion;
+
 
 @end
