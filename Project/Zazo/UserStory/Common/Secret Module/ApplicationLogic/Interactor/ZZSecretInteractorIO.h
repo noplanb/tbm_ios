@@ -17,6 +17,7 @@
 - (void)resetHints;
 - (void)removeAllUserData;
 - (void)removeAllDanglingFiles;
+- (void)shouldDuplicateNextUpload;
 - (void)updateAllFeaturesToEnabled;
 - (void)updateDebugStateTo:(BOOL)isEnabled;
 - (void)updateShouldUserSDKForLogging:(BOOL)isEnabled;
@@ -24,6 +25,7 @@
 - (void)updateServerStateTo:(NSInteger)state;
 - (void)updateCustomServerEnpointValueTo:(NSString *)value;
 - (void)updatePushNotificationStateTo:(BOOL)isEnabled;
+- (void)updateIncorrectFileSizeStateTo:(BOOL)isEnabled;
 
 @end
 

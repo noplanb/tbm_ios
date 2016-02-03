@@ -29,10 +29,7 @@
     [self _setupResetRetriesButton];
         
     self.networkTestView.headerTitle = [ZZApplicationStateInfoGenerator generateSettingsModel].version;
-<<<<<<< HEAD
     self.navigationItem.title = NSLocalizedString(@"network-test-view.app.title", nil);
-=======
->>>>>>> 088a903... 976 S3NetworkTest put version at the top of the screen
 }
 
 - (void)loadView
