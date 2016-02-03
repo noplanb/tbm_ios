@@ -29,6 +29,7 @@
     [self _setupResetRetriesButton];
         
     self.networkTestView.headerTitle = [ZZApplicationStateInfoGenerator generateSettingsModel].version;
+    self.navigationItem.title = NSLocalizedString(@"network-test-view.app.title", nil);
 }
 
 - (void)loadView

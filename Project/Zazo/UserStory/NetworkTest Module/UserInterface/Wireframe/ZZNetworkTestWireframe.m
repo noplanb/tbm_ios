@@ -35,8 +35,11 @@
     
     [presenter configurePresenterWithUserInterface:networkTestController];
     
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:networkTestController];
+    nc.navigationBarHidden = YES;
+    
     ANDispatchBlockToMainQueue(^{
-        window.rootViewController = networkTestController;
+        window.rootViewController = nc;
     });
     
     self.presenter = presenter;
