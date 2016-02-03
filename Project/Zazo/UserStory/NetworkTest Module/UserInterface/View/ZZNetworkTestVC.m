@@ -8,6 +8,8 @@
 
 #import "ZZNetworkTestVC.h"
 #import "ZZNetworkTestView.h"
+#import "ZZApplicationStateInfoGenerator.h"
+#import "ZZDebugSettingsStateDomainModel.h"
 
 @interface ZZNetworkTestVC ()
 
@@ -25,6 +27,8 @@
     [self _setupStartStopButton];
     [self _setupResetStatsButton];
     [self _setupResetRetriesButton];
+        
+    self.networkTestView.headerTitle = [ZZApplicationStateInfoGenerator generateSettingsModel].version;
 }
 
 - (void)loadView
