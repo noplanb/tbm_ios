@@ -114,8 +114,8 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
     
     TBMAlertController *alert =
     [ZZAlertBuilder alertWithTitle:@"Send link"
-                           details:@"Invitation message:"
-                 cancelButtonTitle:@"Cancel"
+                           details:@"Message"
+                 cancelButtonTitle:nil
                 cancelButtonAction:nil
                            actions:nil];
 
@@ -128,7 +128,7 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
     };
     
     SDCAlertAction *smsAction =
-    [SDCAlertAction actionWithTitle:@"Send as SMS"
+    [SDCAlertAction actionWithAttributedTitle:[self _boldStringWithText:@"Send as SMS"]
                               style:SDCAlertActionStyleDefault
                             handler:^(SDCAlertAction *action) {
                                 selectedType = ZZInviteTypeSMS;
@@ -146,6 +146,10 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
     [alert addAction:smsAction];
     [alert addAction:sharingAction];
     
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel"
+                                               style:SDCAlertActionStyleCancel
+                                             handler:nil]];
+    
     [alert.contentView addSubview:textView];
     
     ANDispatchBlockToMainQueue(^{
@@ -153,6 +157,21 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
             [textView becomeFirstResponder];
         }];
     });
+}
+
++ (NSAttributedString *)_boldStringWithText:(NSString *)text
+{
+    if (ANIsEmpty(text))
+    {
+        return nil;
+    }
+    
+    NSDictionary<NSString *,id> *attributes = @{
+                                                NSFontAttributeName: [UIFont fontWithName:@"Helvetica-Bold" size:20.0f]
+                                                };
+    
+    NSAttributedString *result = [[NSAttributedString alloc] initWithString:text attributes:attributes];
+    return result;
 }
 
 + (void)showHintalertWithMessage:(NSString*)message
