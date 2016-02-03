@@ -12,12 +12,13 @@
 @interface ZZNetworkTestHeaderView ()
 
 @property (nonatomic, strong) UIImageView* zazoImageView;
-@property (nonatomic, strong) UILabel* zazoApplicationTitle;
 @property (nonatomic, strong) UIView* topBorderView;
 
 @end
 
 @implementation ZZNetworkTestHeaderView
+
+@synthesize zazoApplicationTitle = _zazoApplicationTitle;
 
 - (instancetype)init
 {

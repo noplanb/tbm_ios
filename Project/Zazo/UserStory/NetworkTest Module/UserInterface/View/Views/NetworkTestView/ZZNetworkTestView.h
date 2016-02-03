@@ -30,4 +30,6 @@
 @property (nonatomic, strong) UIButton* resetRetriesButton;
 @property (nonatomic, strong) UIButton* resetStatsButton;
 
+@property (nonatomic, strong) NSString *headerTitle;
+
 @end
