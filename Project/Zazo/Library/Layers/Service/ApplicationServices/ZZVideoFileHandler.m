@@ -29,6 +29,7 @@
 #import "ZZFriendDomainModel.h"
 #import "ZZFriendDataUpdater.h"
 #import "ZZVideoDataUpdater.h"
+#import "ZZFileHelper.h"
 
 @interface ZZVideoFileHandler () <OBFileTransferDelegate>
 
@@ -233,9 +234,11 @@
     NSString *remoteFilename = [ZZRemoteStorageValueGenerator outgoingVideoRemoteFilenameWithFriendMkey:friendModel.mKey
                                                                                              friendCKey:friendCKey
                                                                                                 videoId:markerModel.videoID];
-    NSDictionary *params = [self fileTransferParamsIncludingMetadataWithFilename:remoteFilename
-                                         friendMkey:friendModel.mKey
-                                            videoId:markerModel.videoID];
+    NSDictionary *params =
+    [self fileTransferParamsIncludingMetadataWithFilename:remoteFilename
+                                               friendMkey:friendModel.mKey
+                                                  videoId:markerModel.videoID
+                                                 filesize:[ZZFileHelper fileSizeWithURL:videoUrl]];
     
     [[self fileTransferManager] uploadFile:videoUrl.path
                                         to:remoteStorageFileTransferUploadPath()
@@ -578,8 +581,9 @@
 
 
 - (NSDictionary*)fileTransferParamsIncludingMetadataWithFilename:(NSString *)remoteFilename
-                         friendMkey:(NSString *)friendMkey
-                            videoId:(NSString *)videoID
+                                                      friendMkey:(NSString *)friendMkey
+                                                         videoId:(NSString *)videoID
+                                                        filesize:(long)filesize
 {
     NSMutableDictionary *common = [NSMutableDictionary dictionaryWithDictionary:[self fileTransferParamsWithFilename:remoteFilename]];
     
@@ -589,6 +593,7 @@
                                @"receiver-mkey"   : friendMkey,
                                @"client-version"  : kGlobalApplicationVersion,
                                @"client-platform" : @"ios",
+                               @"file-size"       : [NSString stringWithFormat:@"%ld", filesize]
                                };
     
     common[kOBFileTransferMetadataKey] = metadata;
