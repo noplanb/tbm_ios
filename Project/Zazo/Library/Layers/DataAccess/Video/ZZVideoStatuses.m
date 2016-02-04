@@ -130,7 +130,7 @@ NSString* ZZVideoOutgoingStatusWithFriend(ZZFriendDomainModel* friendModel)
             }
             else
             {
-                statusString = [NSString stringWithFormat:@"r%ld...", friendModel.uploadRetryCount];
+                statusString = [NSString stringWithFormat:@"r%ld...", (long)friendModel.uploadRetryCount];
             }
             break;
         case ZZVideoOutgoingStatusUploaded:

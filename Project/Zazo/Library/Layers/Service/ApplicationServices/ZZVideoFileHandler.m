@@ -623,11 +623,15 @@
             ZZLogError(@"ftmDelete: Error trying to delete remote file. This should never happen. %@", e);
         }
         
+        ZZLogInfo(@"deleteRemoteIncomingVideoWithItemID: %@ friendMkey:%@, friendCKey:%@", videoID, friendModel.mKey, friendModel.cKey);
+        
         [[ZZRemoteStorageTransportService deleteRemoteIncomingVideoWithItemID:videoID
                                                                    friendMkey:friendModel.mKey
-                                                                   friendCKey:friendModel.cKey] subscribeNext:^(id x) {}];
-        
-
+                                                                   friendCKey:friendModel.cKey] subscribeNext:^(id x) {
+            ZZLogInfo(@"deleteRemoteIncomingVideoWithItemID: success");
+        } error:^(NSError *error) {
+            ZZLogError(@"deleteRemoteIncomingVideoWithItemID: FAILED");
+        }];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kDeleteFileNotification object:nil userInfo:@{@"videoID": videoID ?: @""}];
     });
