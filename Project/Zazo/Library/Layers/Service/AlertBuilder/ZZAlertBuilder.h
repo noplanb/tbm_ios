@@ -38,6 +38,8 @@
                     cancelButtonAction:(ANCodeBlock)cancelAction
                                actions:(NSArray <SDCAlertAction *> *)actions;
 
++ (TBMAlertController *)alertWithTitle:(NSString*)title;
+
 + (void)presentAlertWithTitle:(NSString*)title
                       details:(NSString*)details
             cancelButtonTitle:(NSString*)cancelTitle

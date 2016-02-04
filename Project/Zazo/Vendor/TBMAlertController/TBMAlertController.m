@@ -24,37 +24,87 @@
 
 + (id)alertControllerWithTitle:(NSString *)title message:(NSString *)message forcePlain:(BOOL)forcePlain
 {
-    // Alert title text
-    NSMutableAttributedString *alertTitle = [[NSMutableAttributedString alloc] initWithString:title];
-    [alertTitle addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, alertTitle.length)];
     
-    // Alert body text
+    TBMAlertController *alert = [self alertControllerWithAttributedTitle:[self _attributedStringForTitle:title]
+                                                        attributedMessage:[self _attributedStringForMessage:message]
+                                                           preferredStyle:SDCAlertControllerStyleAlert];
+    
+    if (alert.legacyAlertView || forcePlain)
+    {
+        // iOS 7 style alerts
+        SDCAlertController *alert = [self alertControllerWithTitle:title
+                                                            message:message
+                                                     preferredStyle:SDCAlertControllerStyleAlert];
+        return alert;
+    }
+    
+    return alert;
+}
+
++ (NSAttributedString *)_attributedStringForTitle:(NSString *)title
+{
+    NSMutableAttributedString *alertTitle =
+    [[NSMutableAttributedString alloc] initWithString:title];
+    
+    [alertTitle addAttribute:NSForegroundColorAttributeName
+                       value:[UIColor whiteColor]
+                       range:NSMakeRange(0, alertTitle.length)];
+    
+    return [alertTitle copy];
+}
+
++ (NSAttributedString *)_attributedStringForMessage:(NSString *)message
+{
+//    if (ANIsEmpty(message))
+//    {
+//        return [self _zeroSizeAttributedString];
+//    }
+    
     NSMutableAttributedString *alertMsg = [[NSMutableAttributedString alloc] initWithString:message];
+    
     [alertMsg addAttribute:NSForegroundColorAttributeName
                      value:[UIColor colorWithRed:0.16f green:0.15f blue:0.13f alpha:1.0f]
                      range:NSMakeRange(0, alertMsg.length)];
     
     NSMutableParagraphStyle *style = NSMutableParagraphStyle.new;
+    
     style.alignment = NSTextAlignmentCenter;
+    
     [style setLineSpacing:6];
+    
     [alertMsg addAttribute:NSParagraphStyleAttributeName
                      value:style
                      range:NSMakeRange(0, alertMsg.length)];
-    
-    TBMAlertController *alert = [super alertControllerWithAttributedTitle:alertTitle
-                                                        attributedMessage:alertMsg
-                                                           preferredStyle:SDCAlertControllerStyleAlert];
+
+    return [alertMsg copy];
+}
+
++ (NSAttributedString *)_zeroSizeAttributedString
+{
+    NSAttributedString *emptyMessage =
+    [[NSAttributedString alloc] initWithString:@"" attributes:@{
+                                                                NSFontAttributeName: [UIFont systemFontOfSize:0.1],
+                                                                NSForegroundColorAttributeName: [UIColor clearColor]
+                                                                }];
+    return emptyMessage;
+}
+
++ (instancetype)alertControllerWithAttributedTitle:(NSAttributedString *)attributedTitle
+                                 attributedMessage:(NSAttributedString *)attributedMessage
+                                    preferredStyle:(SDCAlertControllerStyle)preferredStyle
+{
+    TBMAlertController *alertController = [super alertControllerWithAttributedTitle:attributedTitle
+                                                        attributedMessage:attributedMessage
+                                                           preferredStyle:preferredStyle];
     
     // Set our custom visual style for the alerts
-    alert.visualStyle = [[TBMAlertControllerVisualStyle alloc] init];
+    TBMAlertControllerVisualStyle *visualStyle = [[TBMAlertControllerVisualStyle alloc] init];
+    visualStyle.alertControllerView = alertController.alert;
     
-    if (alert.legacyAlertView || forcePlain) {
-        // iOS 7 style alerts
-        SDCAlertController *alert = [super alertControllerWithTitle:title message:message preferredStyle:SDCAlertControllerStyleAlert];
-        return alert;
-    }
+    alertController.visualStyle = visualStyle;
     
-    return alert;
+    return alertController;
+    
 }
 
 + (id)badConnectionAlert

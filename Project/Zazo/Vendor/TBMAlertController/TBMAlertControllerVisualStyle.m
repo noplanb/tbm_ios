@@ -8,6 +8,7 @@
 
 #import "TBMAlertControllerVisualStyle.h"
 #import "SDCAlertController.h"
+#import "SDCAlertControllerView.h"
 
 @implementation TBMAlertControllerVisualStyle
 
@@ -32,6 +33,12 @@
 }
 
 - (CGFloat)labelSpacing {
+    
+    if (ANIsEmpty(self.alertControllerView.message))
+    {
+        return 14;
+    }
+    
     return 64;
 }
 

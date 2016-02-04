@@ -110,14 +110,10 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
     
     UITextView *textView = [UITextView new];
     textView.text = text;
-    textView.frame = CGRectMake(0, 0, 270, 100);
+    textView.frame = CGRectMake(0, 0, 270, 70);
     
     TBMAlertController *alert =
-    [ZZAlertBuilder alertWithTitle:@"Send link"
-                           details:@"Message"
-                 cancelButtonTitle:nil
-                cancelButtonAction:nil
-                           actions:nil];
+    [ZZAlertBuilder alertWithTitle:@"Send link"];
 
     textView.font = alert.visualStyle.messageLabelFont;
     
@@ -136,7 +132,7 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
                             }];
     
     SDCAlertAction *sharingAction =
-    [SDCAlertAction actionWithTitle:@"Send from another app"
+    [SDCAlertAction actionWithTitle:@"Send via another app"
                               style:SDCAlertActionStyleDefault
                             handler:^(SDCAlertAction *action) {
                                 selectedType = ZZInviteTypeSharing;

@@ -117,6 +117,14 @@
     return alert;
 }
 
++ (TBMAlertController *)alertWithTitle:(NSString*)title
+{
+    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:[NSObject an_safeString:title]
+                                                                     message:@""];
+    
+    return alert;
+}
+
 + (void)presentAlertWithTitle:(NSString*)title
                       details:(NSString*)details
             cancelButtonTitle:(NSString*)cancelTitle
