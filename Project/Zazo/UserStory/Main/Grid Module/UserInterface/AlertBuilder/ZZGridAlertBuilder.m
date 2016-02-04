@@ -108,15 +108,11 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
 {
     __block ZZInviteType selectedType = ZZInviteTypeUnknown;
     
-    UITextView *textView = [UITextView new];
-    textView.text = text;
-    textView.frame = CGRectMake(0, 0, 270, 70);
-    
     TBMAlertController *alert =
     [ZZAlertBuilder alertWithTitle:@"Send link"];
 
-    textView.font = alert.visualStyle.messageLabelFont;
-    
+    UITextView *textView = [UITextView new];
+
     ANCodeBlock completion = ^{
         NSString *userText = textView.text;
         
@@ -146,6 +142,12 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
                                                style:SDCAlertActionStyleCancel
                                              handler:nil]];
     
+    CGFloat textViewHeight = IS_IPHONE_4 ? 50 : 70;
+    
+    textView.text = text;
+    textView.frame = CGRectMake(0, 0, alert.visualStyle.width, textViewHeight);
+    textView.font = alert.visualStyle.messageLabelFont;
+
     [alert.contentView addSubview:textView];
     
     ANDispatchBlockToMainQueue(^{
