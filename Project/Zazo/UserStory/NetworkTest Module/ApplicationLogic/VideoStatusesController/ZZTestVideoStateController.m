@@ -125,7 +125,7 @@
 
 - (void)_handleOutgoingVideoWithFriend:(ZZFriendDomainModel*)friendModel
 {
-    ZZLogInfo(@"🛂 upload video status %@", ZZVideoStatusStringWithFriendModel(friendModel));
+    ZZLogInfo(@"🛂 upload video %@ status = %@", friendModel.outgoingVideoItemID,  ZZVideoStatusStringWithFriendModel(friendModel));
     
     if (friendModel.lastOutgoingVideoStatus == ZZVideoOutgoingStatusNew)
     {
