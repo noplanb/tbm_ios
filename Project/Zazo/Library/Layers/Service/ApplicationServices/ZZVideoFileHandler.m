@@ -520,14 +520,14 @@
     {
         ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
         
-        if ([ZZFriendDataHelper isFriend:friendModel hasIncomingVideoWithId:videoID] && !force)
+        if ([ZZVideoDataProvider videoExists:videoID] && !force)
         {
             ZZLogWarning(@"queueVideoDownloadWithFriend: Ignoring incoming videoId already processed: %@", videoID);
         }
         else
         {
                 ZZVideoDomainModel *videoModel;
-                if ([ZZFriendDataHelper isFriend:friendModel hasIncomingVideoWithId:videoID] && force)
+                if ([ZZVideoDataProvider videoExists:videoID] && force)
                 {
                     ZZLogInfo(@"queueVideoDownloadWithFriend: Forcing new transfer of existing video: %@", videoID);
                     videoModel = [ZZVideoDataProvider itemWithID:videoID];

@@ -26,6 +26,7 @@
 
 #pragma mark - Helpers
 
++ (BOOL)videoExists:(NSString*)videoID;
 + (void)printAll;
 + (NSURL *)videoUrlWithVideoModel:(ZZVideoDomainModel*)video;
 
