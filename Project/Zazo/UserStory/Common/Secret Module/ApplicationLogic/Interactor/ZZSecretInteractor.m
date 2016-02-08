@@ -72,6 +72,10 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kResetAllUserDataNotificationKey object:nil];
 }
 
+- (void)shouldDuplicateNextUpload
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kShouldDuplicateNextUploadNotificationKey object:nil];
+}
 
 #pragma mark - Updating Settings
 
@@ -111,6 +115,11 @@
         [ZZNotificationsHandler disablePushNotifications];
     }
     
+}
+
+- (void)updateIncorrectFileSizeStateTo:(BOOL)isEnabled
+{
+    [ZZStoredSettingsManager shared].shouldSendIncorrectFilesize = isEnabled;
 }
 
 @end

@@ -42,6 +42,7 @@ static NSInteger const kStateStringColumnWidth = 14;
     model.firstName = user.firstName;
     model.lastName = user.lastName;
     model.phoneNumber = user.mobileNumber;
+    model.sendIncorrectFilesize = manager.shouldSendIncorrectFilesize;
     
     return model;
 }

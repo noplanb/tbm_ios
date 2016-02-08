@@ -29,10 +29,12 @@
 #import "ZZFriendDomainModel.h"
 #import "ZZFriendDataUpdater.h"
 #import "ZZVideoDataUpdater.h"
+#import "ZZFileHelper.h"
 
 @interface ZZVideoFileHandler () <OBFileTransferDelegate>
 
 @property (nonatomic, strong, readonly) OBFileTransferManager* fileTransferManager;
+@property (nonatomic, assign) BOOL shouldDuplicateNextUpload; // For duplicate uploads debug
 
 @end
 
@@ -49,6 +51,12 @@
                                                                    inDomains:NSUserDomainMask] firstObject];
         manager.downloadDirectory = videosURL.path;
         manager.remoteUrlBase = remoteStorageBaseURL();
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(shouldDuplicateNextUploadNotification:)
+                                                     name:kShouldDuplicateNextUploadNotificationKey
+                                                   object:nil];
+        
         [self _updateCredentials];
     }
     return self;
@@ -96,7 +104,15 @@
     }
 }
 
+- (void)shouldDuplicateNextUploadNotification:(NSNotification *)notification
+{
+    self.shouldDuplicateNextUpload = YES;
+}
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 #pragma mark - OBFileTransferDelegate
 
@@ -232,14 +248,39 @@
     NSString *remoteFilename = [ZZRemoteStorageValueGenerator outgoingVideoRemoteFilenameWithFriendMkey:friendModel.mKey
                                                                                              friendCKey:friendCKey
                                                                                                 videoId:markerModel.videoID];
-    NSDictionary *params = [self fileTransferParamsIncludingMetadataWithFilename:remoteFilename
-                                         friendMkey:friendModel.mKey
-                                            videoId:markerModel.videoID];
+    NSDictionary *params =
+    [self fileTransferParamsIncludingMetadataWithFilename:remoteFilename
+                                               friendMkey:friendModel.mKey
+                                                  videoId:markerModel.videoID
+                                                 filesize:[ZZFileHelper fileSizeWithURL:videoUrl]];
     
-    [[self fileTransferManager] uploadFile:videoUrl.path
-                                        to:remoteStorageFileTransferUploadPath()
-                                withMarker:marker
-                                withParams: params];
+    if (self.shouldDuplicateNextUpload)
+    {
+        self.shouldDuplicateNextUpload = NO;
+        
+        for (NSUInteger i = 0; i < 3; i++)
+        {
+            params =
+            [self fileTransferParamsIncludingMetadataWithFilename:remoteFilename
+                                                       friendMkey:friendModel.mKey
+                                                          videoId:markerModel.videoID
+                                                         filesize:[ZZFileHelper fileSizeWithURL:videoUrl]];
+
+            [[self fileTransferManager] uploadFile:videoUrl.path
+                                                to:remoteStorageFileTransferUploadPath()
+                                        withMarker:marker
+                                        withParams:params];
+            
+        }
+    }
+    
+    else
+    {
+        [[self fileTransferManager] uploadFile:videoUrl.path
+                                            to:remoteStorageFileTransferUploadPath()
+                                    withMarker:marker
+                                    withParams: params];
+    }
     
     // fileTransferManager should create a copy of ougtoing file synchronously
     // prior to returning from the above call so should be safe to delete video file here.
@@ -577,10 +618,16 @@
 
 
 - (NSDictionary*)fileTransferParamsIncludingMetadataWithFilename:(NSString *)remoteFilename
-                         friendMkey:(NSString *)friendMkey
-                            videoId:(NSString *)videoID
+                                                      friendMkey:(NSString *)friendMkey
+                                                         videoId:(NSString *)videoID
+                                                        filesize:(long)filesize
 {
     NSMutableDictionary *common = [NSMutableDictionary dictionaryWithDictionary:[self fileTransferParamsWithFilename:remoteFilename]];
+    
+    if ([ZZStoredSettingsManager shared].shouldSendIncorrectFilesize) 
+    {
+        filesize = arc4random_uniform(1000000);
+    }
     
     NSDictionary *metadata = @{
                                @"video-id"        : videoID,
@@ -588,6 +635,7 @@
                                @"receiver-mkey"   : friendMkey,
                                @"client-version"  : kGlobalApplicationVersion,
                                @"client-platform" : @"ios",
+                               @"file-size"       : [NSString stringWithFormat:@"%ld", filesize]
                                };
     
     common[kOBFileTransferMetadataKey] = metadata;

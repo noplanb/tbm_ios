@@ -102,6 +102,10 @@
         {
             [self.wireframe presentDebugController];
         } break;
+        case ZZSecretSectionShouldDuplicateNextUpload:
+        {
+            [self.interactor shouldDuplicateNextUpload];
+        } break;
             
         default: break;
     }
@@ -131,6 +135,11 @@
 - (void)updatePushNotificationState:(BOOL)state
 {
     [self.interactor updatePushNotificationStateTo:state];
+}
+
+- (void)updateIncorrectFileSizeState:(BOOL)state
+{
+    [self.interactor updateIncorrectFileSizeStateTo:state];
 }
 
 @end
