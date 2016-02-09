@@ -32,21 +32,6 @@
 
 #pragma mark - Friend video helpers
 
-+ (BOOL)isFriend:(ZZFriendDomainModel*)friendModel hasIncomingVideoWithId:(NSString*)videoID
-{
-    BOOL hasVideo = NO;
-    NSArray* videos = [friendModel.videos copy];
-    for (ZZVideoDomainModel* videoModel in videos)
-    {
-        if ([videoModel.videoID isEqualToString:videoID])
-        {
-            hasVideo = YES;
-        }
-    }
-    
-    return hasVideo;
-}
-
 + (NSUInteger)unviewedVideoCountWithFriendID:(NSString *)friendID
 {
     if (!friendID)

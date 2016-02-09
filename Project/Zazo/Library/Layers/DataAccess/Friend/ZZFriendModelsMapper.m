@@ -72,11 +72,7 @@
         
         model.friendshipStatus = entity.friendshipStatus;
         
-        model.videos = [[entity.videos.allObjects.rac_sequence map:^id(TBMVideo* value) {
-            ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:value];
-            videoModel.relatedUserID = model.idTbm;
-            return videoModel;
-        }] array];
+        model.videos = [ZZVideoDataProvider sortedIncomingVideosForUserWithID:entity.idTbm];
         
         model.hasOutgoingVideo = !ANIsEmpty(entity.outgoingVideoId);
         model.friendshipCreatorMkey = entity.friendshipCreatorMKey;

@@ -22,15 +22,6 @@
 
 #pragma mark Update methods
 
-+ (void)_updateVideoWithID:(NSString *)videoID usingBlock:(void (^)(TBMVideo *videoEntity))updateBlock
-{
-    ANDispatchBlockToMainQueue(^{
-        TBMVideo* videoEntity = [ZZVideoDataProvider entityWithID:videoID];
-        updateBlock(videoEntity);
-        [videoEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
-    });
-}
-
 + (void)deleteAllVideos {
     ANDispatchBlockToMainQueue(^{
         NSManagedObjectContext* context = [ZZContentDataAccessor mainThreadContext];
@@ -53,6 +44,15 @@
     }];
 }
 
++ (void)_updateVideoWithID:(NSString *)videoID usingBlock:(void (^)(TBMVideo *videoEntity))updateBlock
+{
+    ANDispatchBlockToMainQueue(^{
+        TBMVideo* videoEntity = [ZZVideoDataProvider entityWithID:videoID];
+        updateBlock(videoEntity);
+        [videoEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+    });
+}
+
 #pragma mark - Delete Video Methods
 
 + (void)deleteAllViewedOrFailedVideoWithFriendID:(NSString*)friendID
@@ -71,17 +71,55 @@
     }
 }
 
-+ (void)_deleteVideo:(ZZVideoDomainModel *)videoModel {
-    [ZZVideoDataUpdater _deleteFilesForVideo:videoModel];
-
++ (void)_deleteVideo:(ZZVideoDomainModel *)videoModel
+{
     ANDispatchBlockToMainQueue(^{
         TBMVideo *videoEntity = [ZZVideoDataProvider entityWithID:videoModel.videoID];
         TBMFriend *friendEntity = videoEntity.friend;
         
-        [friendEntity removeVideosObject:videoEntity];
-        [videoEntity MR_deleteEntity];
+        videoEntity.statusValue = ZZVideoIncomingStatusGhost;
+        
+        [self _deleteOutdatedVideosInNeeded];
         
         [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+    });
+}
+
++ (void)_deleteOutdatedVideosInNeeded
+{
+    ANDispatchBlockToMainQueue(^{
+        NSPredicate *ghostStatus =
+        [NSPredicate predicateWithFormat:@"%K == %@", TBMVideoAttributes.status, @(ZZVideoIncomingStatusGhost)];
+        
+        NSUInteger ghostCount =
+        [TBMVideo MR_countOfEntitiesWithPredicate:ghostStatus inContext:[self _context]];
+        
+        const NSUInteger MaxGhostCount = 1000;
+        const NSUInteger MaxGhostTolerance = 10;
+        
+        if (ghostCount < MaxGhostCount + MaxGhostTolerance)
+        {
+            return;
+        }
+        
+        ZZLogInfo(@"Deleting outdated videos");
+        
+        NSArray *ghostVideoEntities =
+        [TBMVideo MR_findAllSortedBy:TBMVideoAttributes.videoId
+                           ascending:NO
+                       withPredicate:ghostStatus
+                           inContext:[self _context]];
+        
+        NSUInteger outdatedVideoCount = ghostCount - MaxGhostCount;
+        
+        NSArray *outdatedVideoEntities = [ghostVideoEntities subarrayWithRange:NSMakeRange(MaxGhostCount, outdatedVideoCount)];
+        
+        [outdatedVideoEntities enumerateObjectsUsingBlock:^(TBMVideo *videoEntity, NSUInteger idx, BOOL * _Nonnull stop) {
+            ZZLogDebug(@"Deleting video %@", videoEntity.videoId);
+            [videoEntity.friend removeVideosObject:videoEntity];
+            [videoEntity MR_deleteEntity];
+        }];
+
     });
 }
 

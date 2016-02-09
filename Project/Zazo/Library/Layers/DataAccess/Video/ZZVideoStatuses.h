@@ -15,6 +15,7 @@ typedef NS_ENUM (NSInteger, ZZVideoIncomingStatus) {
     ZZVideoIncomingStatusDownloaded,
     ZZVideoIncomingStatusViewed,
     ZZVideoIncomingStatusFailedPermanently,
+    ZZVideoIncomingStatusGhost,
 };
 
 typedef NS_ENUM (NSInteger, ZZVideoOutgoingStatus) {

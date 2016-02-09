@@ -25,6 +25,8 @@
 
 @implementation ZZNetworkTestView
 
+@dynamic headerTitle;
+
 - (instancetype)init
 {
     self = [super init];
@@ -491,6 +493,16 @@
         }];
     }
     return _resetStatsButton ;
+}
+
+- (void)setHeaderTitle:(NSString *)headerTitle
+{
+    self.headerView.zazoApplicationTitle.text = headerTitle;
+}
+
+- (NSString *)headerTitle
+{
+    return self.headerView.zazoApplicationTitle.text;
 }
 
 @end

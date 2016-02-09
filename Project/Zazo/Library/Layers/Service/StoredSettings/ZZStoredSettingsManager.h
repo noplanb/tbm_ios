@@ -19,6 +19,7 @@ typedef NS_ENUM(NSUInteger, ZZConfigServerState) {
 
 @property (nonatomic, assign) BOOL debugModeEnabled;
 @property (nonatomic, assign) BOOL shouldUseServerLogging;
+@property (nonatomic, assign) BOOL shouldSendIncorrectFilesize; // For duplicate upload debug
 
 @property (nonatomic, strong) NSString* serverURLString;
 @property (nonatomic, assign) ZZConfigServerState serverEndpointState;
@@ -30,7 +31,6 @@ typedef NS_ENUM(NSUInteger, ZZConfigServerState) {
 @property (nonatomic, assign) BOOL messageEverRecorded;
 @property (nonatomic, assign) BOOL messageEverPlayed;
 
-
 #pragma mark - User
 
 @property (nonatomic, copy) NSString* userID;
@@ -38,6 +38,8 @@ typedef NS_ENUM(NSUInteger, ZZConfigServerState) {
 @property (nonatomic, copy) NSString* mobileNumber;
 
 @property (nonatomic, assign) BOOL wasPermissionAccess;
+
+
 
 + (instancetype)shared;
 

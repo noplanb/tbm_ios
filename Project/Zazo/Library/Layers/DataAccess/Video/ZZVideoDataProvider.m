@@ -134,7 +134,8 @@
 {
     NSNumber *count =
     ZZDispatchOnMainThreadAndReturn(^id{
-        return @([TBMVideo MR_countOfEntitiesWithContext:[self _context]]);
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ != %@", TBMVideoAttributes.status, @(ZZVideoIncomingStatusGhost)];
+        return @([TBMVideo MR_countOfEntitiesWithPredicate:predicate inContext:[self _context]]);
     });
     
     return count.unsignedIntegerValue;
@@ -144,12 +145,13 @@
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
         
-        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K.idTbm = %@", TBMVideoRelationships.friend, friendID];
+        NSPredicate *friend = [NSPredicate predicateWithFormat:@"%K.idTbm = %@", TBMVideoRelationships.friend, friendID];
+        NSPredicate *statusNotDeleted = [NSPredicate predicateWithFormat:@"%@ != %@", TBMVideoAttributes.status, @(ZZVideoIncomingStatusGhost)];
         
         NSArray* videos =
         [TBMVideo MR_findAllSortedBy:TBMVideoAttributes.videoId
                            ascending:YES
-                       withPredicate:predicate
+                       withPredicate:[[NSCompoundPredicate alloc] initWithType:NSAndPredicateType subpredicates:@[friend, statusNotDeleted]]
                            inContext:[self _context]];
         
         NSArray* videoModels = [[videos.rac_sequence map:^id(id value) {
@@ -163,10 +165,20 @@
 
 #pragma mark - Helpers
 
+
++ (BOOL)videoExists:(NSString*)videoID
+{
+    return [ZZDispatchOnMainThreadAndReturn(^id{
+        NSPredicate *videoPredicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMVideoAttributes.videoId, videoID];
+        return @([TBMVideo MR_countOfEntitiesWithPredicate:videoPredicate inContext:[self _context]] > 0);
+    }) boolValue];
+    
+}
+
 + (void)printAll
 {
     ZZLogInfo(@"All Videos (%lu)", (unsigned long)[self countAllVideos]);
-    for (ZZVideoDomainModel *videoModel in [self _all])
+    for (ZZVideoDomainModel *videoModel in [self _allNotDeleted])
     {
         ZZLogInfo(@"%@ %@ status=%ld", [ZZFriendDataProvider friendWithItemID:videoModel.relatedUserID].firstName, videoModel.videoID, (long)videoModel.incomingStatusValue);
     }
@@ -193,10 +205,12 @@
 
 #pragma mark - Private
 
-+ (NSArray *)_all
++ (NSArray *)_allNotDeleted
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
-        return [[[TBMVideo MR_findAllInContext:[self _context]].rac_sequence map:^id(id value) {
+        return [[[[TBMVideo MR_findAllInContext:[self _context]].rac_sequence filter:^BOOL(TBMVideo *value) {
+            return value.statusValue != ZZVideoIncomingStatusGhost;
+        }] map:^id(id value) {
             return [self modelFromEntity:value];
         }] array];
     });

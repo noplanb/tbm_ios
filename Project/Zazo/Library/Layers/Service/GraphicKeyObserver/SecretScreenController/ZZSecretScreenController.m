@@ -41,10 +41,9 @@ static CGFloat const kDefaultTouchDelay = 0.2;
 #ifdef RELEASE
     [secretController _startObserveWithWindow:window];
 #else
-    #ifndef NETTEST
         [secretController _startObserveWithWindow:window];
         [secretController _setupMotionControllerWithCompletionBlock:completionBlock];
-    #endif
+
 #endif
     
     return secretController;

@@ -15,7 +15,6 @@
 
 #pragma mark - Friend video helpers
 
-+ (BOOL)isFriend:(ZZFriendDomainModel*)friendModel hasIncomingVideoWithId:(NSString*)videoId;
 + (NSUInteger)unviewedVideoCountWithFriendID:(NSString *)friendID;
 + (NSArray*)everSentMkeys;
 

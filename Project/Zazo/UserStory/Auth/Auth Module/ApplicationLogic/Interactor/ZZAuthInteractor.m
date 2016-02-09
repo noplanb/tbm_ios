@@ -146,21 +146,6 @@
     }];
 }
 
-- (NSString*)countryCodeFromPhoneSettings
-{
-    NSString* code = [self _countryCodeByCarrier];
-    if (!code.length)
-    {
-        code = [self _countryCodeForCurrentLocale];
-    }
-    if (!code.length)
-    {
-        code = @"us";
-    }
-    return code;
-}
-
-
 #pragma mark - ZZAccountTransportService
 
 - (void)registerUserWithModel:(ZZUserDomainModel*)user forceCall:(BOOL)forceCall
@@ -255,9 +240,11 @@
     {
         region = [numberUtils getRegionCodeForCountryCode:@([code integerValue])];
     }
+    
     if (ANIsEmpty(region) || [region isEqualToString:@"ZZ"])
     {
-        region = [self countryCodeFromPhoneSettings];
+        ZZLogError(@"Couldn't determine region from country code. Default is US");
+        region = @"US";
     }
 
     NSError *error;
@@ -271,25 +258,6 @@
 
 
 #pragma mark - Private
-
-- (NSString*)_countryCodeByCarrier
-{
-    CTTelephonyNetworkInfo *networkInfo = [[CTTelephonyNetworkInfo alloc] init];
-    NSString *isoCode = [[networkInfo subscriberCellularProvider] isoCountryCode];
-    if (!isoCode)
-    {
-        isoCode = @"";
-    }
-    return isoCode;
-}
-
-- (NSString*)_countryCodeForCurrentLocale
-{
-    NSLocale *loc = [NSLocale currentLocale];
-    return [[loc objectForKey:NSLocaleCountryCode] lowercaseString];
-}
-
-
 
 /**
  *  CLEANUP!!!!

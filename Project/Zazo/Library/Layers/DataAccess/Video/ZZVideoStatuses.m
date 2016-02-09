@@ -20,7 +20,8 @@ static NSString *incomeTypeString[] = {
     @"INCOMING_VIDEO_STATUS_DOWNLOADING",
     @"INCOMING_VIDEO_STATUS_DOWNLOADED",
     @"INCOMING_VIDEO_STATUS_VIEWED",
-    @"INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY"
+    @"INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY",
+    @"INCOMING_VIDEO_STATUS_GHOST"
 };
 
 static NSString *incomeTypeShortString[] = {
@@ -28,7 +29,8 @@ static NSString *incomeTypeShortString[] = {
     @"Downloading",
     @"Downloaded",
     @"Viewed",
-    @"Failed permanently"
+    @"Failed permanently",
+    @"Ghost"
 };
 
 NSString* ZZVideoIncomingStatusShortStringFromEnumValue(ZZVideoIncomingStatus type)
@@ -130,7 +132,7 @@ NSString* ZZVideoOutgoingStatusWithFriend(ZZFriendDomainModel* friendModel)
             }
             else
             {
-                statusString = [NSString stringWithFormat:@"r%ld...", friendModel.uploadRetryCount];
+                statusString = [NSString stringWithFormat:@"r%ld...", (long)friendModel.uploadRetryCount];
             }
             break;
         case ZZVideoOutgoingStatusUploaded:
