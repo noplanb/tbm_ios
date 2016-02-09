@@ -22,7 +22,7 @@
 
 @property (nonatomic, strong) ZZGridVC* gridController;
 @property (nonatomic, strong) UINavigationController* presentedController;
-@property (nonatomic, strong) ANMessagesWireframe* emailWireframe;
+@property (nonatomic, strong) ANMessagesWireframe* messageWireframe;
 
 @end
 
@@ -73,14 +73,14 @@
 
 - (void)presentSendFeedbackWithModel:(ANMessageDomainModel*)model;
 {
-    self.emailWireframe = [ANMessagesWireframe new];
-    [self.emailWireframe presentEmailControllerFromViewController:self.gridController withModel:model completion:nil];
+    self.messageWireframe = [ANMessagesWireframe new];
+    [self.messageWireframe presentEmailControllerFromViewController:self.gridController withModel:model completion:nil];
 }
 
 - (void)presentSMSDialogWithModel:(ANMessageDomainModel*)model success:(ANCodeBlock)success fail:(ANCodeBlock)fail
 {
-    self.emailWireframe = [ANMessagesWireframe new];
-    [self.emailWireframe presentMessageControllerFromViewController:self.gridController withModel:model completion:^(MessageComposeResult result) {
+    self.messageWireframe = [ANMessagesWireframe new];
+    [self.messageWireframe presentMessageControllerFromViewController:self.gridController withModel:model completion:^(MessageComposeResult result) {
         switch (result)
         {
             case MessageComposeResultSent:
@@ -93,6 +93,23 @@
             } break;
         }
     }];
+}
+
+- (void)presentSharingDialogWithModel:(ANMessageDomainModel*)model success:(ANCodeBlock)success fail:(ANCodeBlock)fail
+{
+    self.messageWireframe = [ANMessagesWireframe new];
+    [self.messageWireframe presentSharingControllerFromViewController:self.gridController
+                                                            withModel:model
+                                                           completion:^(BOOL completed) {
+                                                               
+                                                               ANCodeBlock block = completed ? success : fail;
+                                                               
+                                                               if (block)
+                                                               {
+                                                                   block();
+                                                               }
+                                                               
+                                                           }];
 }
 
 - (void)attachAdditionalPanGestureToMenu:(UIPanGestureRecognizer*)pan

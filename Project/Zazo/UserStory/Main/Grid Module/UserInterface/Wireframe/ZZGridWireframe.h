@@ -34,5 +34,6 @@
 - (void)presentSendFeedbackWithModel:(ANMessageDomainModel*)model;
 
 - (void)presentSMSDialogWithModel:(ANMessageDomainModel*)model success:(ANCodeBlock)success fail:(ANCodeBlock)fail;
+- (void)presentSharingDialogWithModel:(ANMessageDomainModel*)model success:(ANCodeBlock)success fail:(ANCodeBlock)fail;
 
 @end

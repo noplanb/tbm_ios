@@ -14,7 +14,7 @@
 #import "ZZGridWireframe.h"
 #import "ZZEditFriendListModuleDelegate.h"
 #import "ZZGridPresenterInterface.h"
-
+#import "ZZEditFriendEnumsAdditions.h"
 @class ZZGridWireframe;
 
 @interface ZZGridPresenter : NSObject

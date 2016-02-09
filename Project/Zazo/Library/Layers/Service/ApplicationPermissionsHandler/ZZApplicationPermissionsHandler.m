@@ -121,6 +121,7 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
 
 + (void)_handlePermissionError:(NSError*)error
 {
+    
     ZZApplicationPermissionType state = error.code;
     
     switch (state)
@@ -160,6 +161,12 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
 + (void)showUserDeclinedPushAccessAlert
 {
     ZZLogInfo(@"BOOT: Push access not granted");
+    
+#if TARGET_IPHONE_SIMULATOR
+    ZZLogInfo(@"BOOT: TARGET_IPHONE_SIMULATOR -> Ignoring");
+    return;
+#endif
+    
     if (!hasDeclinedNotifications)
     {
         hasDeclinedNotifications = YES;

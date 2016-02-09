@@ -334,7 +334,7 @@
     }
     else
     {
-        [self _showSmsDialogForModel:friendModel isNudgeAction:NO];
+        [self _showInvitationFormForModel:friendModel isNudge:NO];
     }
 }
 

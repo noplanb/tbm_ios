@@ -9,7 +9,7 @@
 #import "ZZGridAlertBuilder.h"
 #import "ZZAlertBuilder.h"
 #import "ZZFriendDomainModel.h"
-
+#import "SDCAlertControllerVisualStyle.h"
 
 typedef NS_ENUM(NSInteger, ZZAlertViewType)
 {
@@ -102,6 +102,74 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
     NSString *title = [NSString stringWithFormat:@"Nudge %@", firstName];
     
     [ZZAlertBuilder presentAlertWithTitle:title details:msg cancelButtonTitle:@"Cancel" actionButtonTitle:@"Send" action:completion];
+}
+
++ (void)showInvitationMethodDialogWithText:(NSString *)text completion:(void(^)(ZZInviteType selectedType, NSString *text))aCompetion
+{
+    __block ZZInviteType selectedType = ZZInviteTypeUnknown;
+    
+    TBMAlertController *alert =
+    [ZZAlertBuilder alertWithTitle:@"Send link"];
+
+    UITextView *textView = [UITextView new];
+
+    ANCodeBlock completion = ^{
+        NSString *userText = textView.text;
+        
+        aCompetion(selectedType, userText);
+    };
+    
+    SDCAlertAction *smsAction =
+    [SDCAlertAction actionWithAttributedTitle:[self _boldStringWithText:@"Send as SMS"]
+                              style:SDCAlertActionStyleDefault
+                            handler:^(SDCAlertAction *action) {
+                                selectedType = ZZInviteTypeSMS;
+                                completion();
+                            }];
+    
+    SDCAlertAction *sharingAction =
+    [SDCAlertAction actionWithTitle:@"Send via another app"
+                              style:SDCAlertActionStyleDefault
+                            handler:^(SDCAlertAction *action) {
+                                selectedType = ZZInviteTypeSharing;
+                                completion();
+                            }];
+    
+    [alert addAction:smsAction];
+    [alert addAction:sharingAction];
+    
+    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel"
+                                               style:SDCAlertActionStyleCancel
+                                             handler:nil]];
+    
+    CGFloat textViewHeight = IS_IPHONE_4 ? 50 : 70;
+    
+    textView.text = text;
+    textView.frame = CGRectMake(0, 0, alert.visualStyle.width, textViewHeight);
+    textView.font = alert.visualStyle.messageLabelFont;
+
+    [alert.contentView addSubview:textView];
+    
+    ANDispatchBlockToMainQueue(^{
+        [alert presentWithCompletion:^{
+            [textView becomeFirstResponder];
+        }];
+    });
+}
+
++ (NSAttributedString *)_boldStringWithText:(NSString *)text
+{
+    if (ANIsEmpty(text))
+    {
+        return nil;
+    }
+    
+    NSDictionary<NSString *,id> *attributes = @{
+                                                NSFontAttributeName: [UIFont fontWithName:@"Helvetica-Bold" size:20.0f]
+                                                };
+    
+    NSAttributedString *result = [[NSAttributedString alloc] initWithString:text attributes:attributes];
+    return result;
 }
 
 + (void)showHintalertWithMessage:(NSString*)message

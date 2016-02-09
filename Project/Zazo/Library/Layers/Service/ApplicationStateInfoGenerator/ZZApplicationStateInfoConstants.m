@@ -62,7 +62,7 @@ ZZVideoIncomingStatus ZZIncomingVideoInfoEnumValueFromSrting(NSString* string)
 
 static NSString *serverTypesString[] = {
     @"Production",
-    @"Development"
+    @"Development",
     @"Custom",
 };
 

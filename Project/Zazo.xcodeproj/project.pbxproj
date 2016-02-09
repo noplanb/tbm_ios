@@ -1259,6 +1259,7 @@
 		1549F9E91C1953E8005AFC95 /* ZZFriendDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZFriendDataProvider+Entities.h"; sourceTree = "<group>"; };
 		154C7F4B1C567EDD00DFA0FD /* OBLogger+ZZAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OBLogger+ZZAdditions.h"; sourceTree = "<group>"; };
 		154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OBLogger+ZZAdditions.m"; sourceTree = "<group>"; };
+		159D544D1C60D55300714DDC /* ZZInviteType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZInviteType.h; sourceTree = "<group>"; };
 		15A1777F1C1AA9240031480F /* ZZGridDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZGridDataProvider+Entities.h"; sourceTree = "<group>"; };
 		15A177801C1AAA5F0031480F /* ZZUserDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZUserDataProvider+Entities.h"; sourceTree = "<group>"; };
 		15A177811C1AAB090031480F /* ZZVideoDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZVideoDataProvider+Entities.h"; sourceTree = "<group>"; };
@@ -3003,6 +3004,7 @@
 			children = (
 				181D1CC81BC54E4700044F83 /* PresenterActionHandlerCategory */,
 				181D1CC61BC54DD800044F83 /* PresenterUserInterface */,
+				159D544D1C60D55300714DDC /* ZZInviteType.h */,
 				07636CAD1BA49A0100925671 /* ZZGridPresenter.h */,
 				07636CAE1BA49A0100925671 /* ZZGridPresenter.m */,
 				071F18E71BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.h */,
