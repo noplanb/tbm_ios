@@ -73,6 +73,8 @@
 
 + (void)_deleteVideo:(ZZVideoDomainModel *)videoModel
 {
+    [self _deleteFilesForVideo:videoModel];
+    
     ANDispatchBlockToMainQueue(^{
         TBMVideo *videoEntity = [ZZVideoDataProvider entityWithID:videoModel.videoID];
         TBMFriend *friendEntity = videoEntity.friend;
