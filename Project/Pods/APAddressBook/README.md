@@ -1,4 +1,5 @@
 <img src="https://dl.dropboxusercontent.com/u/2334198/APAddressBook-git-teaser.png">
+
 [![Build Status](https://api.travis-ci.org/Alterplay/APAddressBook.svg)](https://travis-ci.org/Alterplay/APAddressBook)
 
 APAddressBook is a wrapper on [AddressBook.framework](https://developer.apple.com/library/ios/documentation/AddressBook/Reference/AddressBook_iPhoneOS_Framework/_index.html) that gives easy access to native address book without pain in a head.
@@ -48,7 +49,8 @@ Available fields:
 * APContactFieldPhonesWithLabels - array *phones* with *original and localized labels*
 * APContactFieldEmailsOnly - array of *email addresses* disregarding *email labels*
 * APContactFieldEmailsWithLabels - array of *email addresses* with *original and localized labels*
-* APContactFieldAddresses - array of contact *addresses*
+* APContactFieldAddressesWithLabels - array of contact *addresses* with *original and localized labels*
+* APContactFieldAddressesOnly - array of contact *addresses* disregarding *addresses labels*
 * APContactFieldSocialProfiles - array of contact *profiles in social networks*
 * APContactFieldBirthday - date of *birthday*
 * APContactFieldWebsites - array of strings with *website URLs*
@@ -101,7 +103,7 @@ addressBook.sortDescriptors = @[
 > Callback block will be run on main queue! If you need to run callback block on custom queue use `loadContactByRecordID:onQueue:completion:` method
 
 
-** Load contact photo by address book record ID **
+**Load contact photo by address book record ID**
 ```objective-c
 [addressBook loadPhotoByRecordID:recordID completion:^(UIImage *image)
 {
@@ -172,6 +174,10 @@ self.addressBook.loadContacts(
         }
     })
 ```
+
+#### APContact serialization
+
+Use [APContact-EasyMapping](https://github.com/JeanLebrument/APContact-EasyMapping) by [Jean Lebrument](https://github.com/JeanLebrument)
 
 #### 0.1.x to 0.2.x Migration guide
 [Migration Guide](https://github.com/Alterplay/APAddressBook/wiki/0.1.x-to-0.2.x-migration-guide)

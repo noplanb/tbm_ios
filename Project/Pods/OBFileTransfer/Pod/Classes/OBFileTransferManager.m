@@ -557,7 +557,6 @@ static NSString * const OBFileTransferSessionIdentifier = @"com.onebeat.fileTran
         return;
     }
     
-    
     NSString *marker = obtask.marker;
     NSHTTPURLResponse *response =   (NSHTTPURLResponse *)task.response;
     NSError *serverError = [self createErrorFromHttpResponse:response.statusCode];
@@ -571,7 +570,6 @@ static NSString * const OBFileTransferSessionIdentifier = @"com.onebeat.fileTran
     NSString *transferType = obtask.typeUpload ? @"Upload" : @"Download";
     
     // No error.
-//    if (NO && serverError == nil && clientError == nil){
     if (serverError == nil && clientError == nil){
         if (obtask.typeUpload){
             [self uploadCompleted: obtask];
@@ -584,9 +582,8 @@ static NSString * const OBFileTransferSessionIdentifier = @"com.onebeat.fileTran
     }
     
     // Error. (More readable than nested else statments.)
-//    if (YES || serverError != nil || clientError != nil) {
     if (serverError != nil || clientError != nil) {
-       if (clientError != nil){
+        if (clientError != nil){
             OB_WARN(@"%@ File Transfer for %@ received client error: %@", transferType, marker, clientError);
             error = clientError;
         }
@@ -599,8 +596,6 @@ static NSString * const OBFileTransferSessionIdentifier = @"com.onebeat.fileTran
         
         BOOL shouldRetry = ( [self isRetryableClientError:clientError] && [self isRetryableServerError:serverError] ) &&
         ( self.maxAttempts == 0 ||  obtask.attemptCount < self.maxAttempts);
-        
-//        shouldRetry = YES;
         
         if ( shouldRetry ) {
             [[self transferTaskManager] queueForRetry:obtask];
@@ -742,14 +737,14 @@ static NSString * const OBFileTransferSessionIdentifier = @"com.onebeat.fileTran
         NSError * error;
         NSString *localFilePath = [[[self transferTaskManager] transferTaskForNSTask: downloadTask] localFilePath];
         
-        // If the file already exists, remove it and overwrite it
-        if ( [[NSFileManager defaultManager] fileExistsAtPath:localFilePath] ) {
-            [[NSFileManager defaultManager] removeItemAtPath:localFilePath error:&error];
-        }
+        [[NSFileManager defaultManager] removeItemAtPath:localFilePath error:&error];
         
-        [[NSFileManager defaultManager] copyItemAtPath:location.path toPath:localFilePath  error:&error];
-        if ( error != nil ) {
-            OB_ERROR(@"Unable to copy downloaded file to '%@' due to error: %@",localFilePath,error.localizedDescription);
+        BOOL success = [[NSFileManager defaultManager] moveItemAtPath:location.path
+                                                               toPath:localFilePath
+                                                                error:&error];
+        
+        if (!success) {
+            OB_ERROR(@"Unable to move downloaded file to '%@' due to error: %@",localFilePath,error.localizedDescription);
         } else {
             [self.transferTaskManager update:obtask withStatus: FileTransferDownloadFileReady];
         }

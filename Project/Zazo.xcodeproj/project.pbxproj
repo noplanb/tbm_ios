@@ -4538,7 +4538,6 @@
 				182255691C16CA06003885A3 /* Resources */,
 				1822559F1C16CA06003885A3 /* Copy Pods Resources */,
 				182255A01C16CA06003885A3 /* Fabric */,
-				182255A11C16CA06003885A3 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 				182255A21C16CA06003885A3 /* PBXBuildRule */,
@@ -4561,7 +4560,6 @@
 				220E90231909A18B003C4F82 /* Resources */,
 				F150BE2BD20343D6AD66EF07 /* Copy Pods Resources */,
 				07243CC31B8E4517008E4203 /* Fabric */,
-				D787EBC8E80CDA954202F300 /* Embed Pods Frameworks */,
 				150820E11C457F2F0032EC29 /* Set Build Number */,
 			);
 			buildRules = (
@@ -4584,7 +4582,6 @@
 				220E90421909A18B003C4F82 /* Frameworks */,
 				220E90431909A18B003C4F82 /* Resources */,
 				D9E56C582902C6E9D84AF1D0 /* Copy Pods Resources */,
-				1BA3A35D9DA1BD52514FB6D3 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -4857,36 +4854,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 614db54f91c11edf6117193953fc20467d62cd05 06786661ab10c149ccf35734a13a2efd732d9dd1cb481ab620fc97be50a9ef38";
 		};
-		182255A11C16CA06003885A3 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zazo/Pods-Zazo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		1BA3A35D9DA1BD52514FB6D3 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		90DCA26FC9A448EB9C5E5879 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4915,21 +4882,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		D787EBC8E80CDA954202F300 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zazo/Pods-Zazo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D9E56C582902C6E9D84AF1D0 /* Copy Pods Resources */ = {

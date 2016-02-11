@@ -53,9 +53,9 @@
     {
         contact.emails = [self.extractor emailsWithLabels:(fieldMask & APContactFieldEmailsWithLabels)];
     }
-    if (fieldMask & APContactFieldAddresses)
+    if (fieldMask & APContactFieldAddressesOnly || fieldMask & APContactFieldAddressesWithLabels)
     {
-        contact.addresses = [self.extractor addresses];
+        contact.addresses = [self.extractor addressesWithLabels:(fieldMask & APContactFieldAddressesWithLabels)];
     }
     if (fieldMask & APContactFieldSocialProfiles)
     {
@@ -84,6 +84,10 @@
     if (fieldMask & APContactFieldSource)
     {
         contact.source = [self.extractor source];
+    }
+    if (fieldMask & APContactFieldDates)
+    {
+        contact.dates = [self.extractor dates];
     }
     if (fieldMask & APContactFieldRecordDate)
     {

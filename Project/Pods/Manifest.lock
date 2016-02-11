@@ -1,23 +1,23 @@
 PODS:
-  - AFNetworking (2.6.0):
-    - AFNetworking/NSURLConnection (= 2.6.0)
-    - AFNetworking/NSURLSession (= 2.6.0)
-    - AFNetworking/Reachability (= 2.6.0)
-    - AFNetworking/Security (= 2.6.0)
-    - AFNetworking/Serialization (= 2.6.0)
-    - AFNetworking/UIKit (= 2.6.0)
-  - AFNetworking/NSURLConnection (2.6.0):
+  - AFNetworking (2.6.3):
+    - AFNetworking/NSURLConnection (= 2.6.3)
+    - AFNetworking/NSURLSession (= 2.6.3)
+    - AFNetworking/Reachability (= 2.6.3)
+    - AFNetworking/Security (= 2.6.3)
+    - AFNetworking/Serialization (= 2.6.3)
+    - AFNetworking/UIKit (= 2.6.3)
+  - AFNetworking/NSURLConnection (2.6.3):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.6.0):
+  - AFNetworking/NSURLSession (2.6.3):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.6.0)
-  - AFNetworking/Security (2.6.0)
-  - AFNetworking/Serialization (2.6.0)
-  - AFNetworking/UIKit (2.6.0):
+  - AFNetworking/Reachability (2.6.3)
+  - AFNetworking/Security (2.6.3)
+  - AFNetworking/Serialization (2.6.3)
+  - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - ANBaseDomainModel (1.0):
@@ -50,9 +50,9 @@ PODS:
     - ANCategories (~> 1.0)
     - ANHelperFunctions (~> 1.0)
     - ANStorage (~> 1.0)
-  - APAddressBook (0.2.1):
-    - APAddressBook/Core (= 0.2.1)
-  - APAddressBook/Core (0.2.1)
+  - APAddressBook (0.2.3):
+    - APAddressBook/Core (= 0.2.3)
+  - APAddressBook/Core (0.2.3)
   - CocoaLumberjack (2.0.3):
     - CocoaLumberjack/Default (= 2.0.3)
     - CocoaLumberjack/Extensions (= 2.0.3)
@@ -63,26 +63,28 @@ PODS:
     - CocoaLumberjack/Default
   - Crashlytics (3.4.1):
     - Fabric (~> 1.6.0)
-  - DeviceUtil (1.2.0)
-  - Expecta (1.0.3)
-  - Fabric (1.6.1)
+  - DeviceUtil (1.2.2)
+  - Expecta (1.0.5)
+  - Fabric (1.6.5)
   - FastEasyMapping (0.5.1)
   - FrameAccessor (1.3.2)
   - iToast (0.0.1)
   - KIF (3.2.3):
     - KIF/XCTest (= 3.2.3)
   - KIF/XCTest (3.2.3)
-  - libPhoneNumber-iOS (0.8.7)
-  - MagicalRecord (2.3.0)
-  - Masonry (0.6.2)
-  - MSSPopMasonry (0.0.1):
+  - libPhoneNumber-iOS (0.8.10)
+  - MagicalRecord (2.3.2):
+    - MagicalRecord/Core (= 2.3.2)
+  - MagicalRecord/Core (2.3.2)
+  - Masonry (0.6.4)
+  - MSSPopMasonry (0.0.2):
     - Masonry
     - pop
-  - OBFileTransfer (0.6.3):
+  - OBFileTransfer (0.7.0):
     - OBLogger
   - OBLogger (0.2.2)
   - PBJVision (0.4.6)
-  - pop (1.0.8)
+  - pop (1.0.9)
   - RBBAnimation (0.4.0)
   - ReactiveCocoa (2.4.7):
     - ReactiveCocoa/UI (= 2.4.7)
@@ -91,15 +93,15 @@ PODS:
   - ReactiveCocoa/no-arc (2.4.7)
   - ReactiveCocoa/UI (2.4.7):
     - ReactiveCocoa/Core
-  - Reveal-iOS-SDK (1.6.1)
+  - Reveal-iOS-SDK (1.6.2)
   - Rollbar (0.1.5)
   - SDCAlertView (2.5.4):
     - RBBAnimation (~> 0.3)
     - SDCAutoLayout (~> 2.0)
   - SDCAutoLayout (2.0.3)
-  - Specta (1.0.3)
+  - Specta (1.0.5)
   - SVProgressHUD (1.1.3)
-  - TPKeyboardAvoiding (1.2.9)
+  - TPKeyboardAvoiding (1.2.11)
   - UIAlertView+Blocks (0.9)
 
 DEPENDENCIES:
@@ -127,7 +129,7 @@ DEPENDENCIES:
   - MagicalRecord (~> 2.3.0)
   - Masonry (~> 0.6.2)
   - MSSPopMasonry (~> 0.0.1)
-  - OBFileTransfer (= 0.6.3)
+  - OBFileTransfer (= 0.7.0)
   - OBLogger (~> 0.2.2)
   - PBJVision (from `https://github.com/noplanb/PBJVision`, tag `v0.4.6`)
   - Reveal-iOS-SDK (~> 1.6.1)
@@ -150,7 +152,7 @@ CHECKOUT OPTIONS:
     :tag: v0.4.6
 
 SPEC CHECKSUMS:
-  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
+  AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   ANBaseDomainModel: ed24258ecfad8c4829e13c032c07caee7baaf575
   ANCategories: e27e6963e30875ff0e46352179b06aecaefe4037
   ANColorTheme: 5fcbfba22ba047c68a9f4b92c5012fc9d02c1dc8
@@ -161,33 +163,33 @@ SPEC CHECKSUMS:
   ANStorage: 5bd2a8f7e9f22fb626373c3bc9726eec6735d05d
   ANTableController: 94f423ba5c2ac44ea8cb060aa1ae99a5b2ac3893
   ANTableViews: 5d1e4e4dfb581ed47ab75f1952f111f91dd00586
-  APAddressBook: 90c0fb07579a47e10ef1a2344e23cfd35f388bec
+  APAddressBook: 2a91bf05999548bea210ec9d1a68073f4dc8bfce
   CocoaLumberjack: f58d8a19629f4d8379ae14bb3534def24161430e
   Crashlytics: 41574a245bc6ae10c55d57f385ebd2004e5bee05
-  DeviceUtil: 818812d4d2413e145a05d502cd1378e484d0c293
-  Expecta: 9d1bff6c8b0eeee73a166a2ee898892478927a15
-  Fabric: bf0ceb04e7c924090efc5f8c55e4fbcca189e0a0
+  DeviceUtil: 6781344f19a7684796d3b2684a9cab5b285ebb3a
+  Expecta: e1c022fcd33910b6be89c291d2775b3fe27a89fe
+  Fabric: 338ffd3c2afcab120638907b4251189de9ad17b3
   FastEasyMapping: 03a3fbe3af1005e67974358a4ec2b4764f8aa3b4
   FrameAccessor: 0f7ba6ce37be9a5d0302a27c731dca70af8d438b
   iToast: df147188215cc3293bd4366822833f2862fec451
   KIF: a94bffe9c97e449e44f8fa481c53243d21309e1e
-  libPhoneNumber-iOS: 1bccd3288375d954b0b904e26061cecaa0fb83d6
-  MagicalRecord: 89eb7d7ead39fb37f01c3d010665ee94d17f8dba
-  Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
-  MSSPopMasonry: 6700cb03db3f2e7c16ecc96f53c0bd1a2a73fc4f
-  OBFileTransfer: fe00f60e56ba60eab14433a980c72bd4b17c9a55
+  libPhoneNumber-iOS: 7bfd00f843fdcd82b5182b463e8eb3b27579f41d
+  MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
+  Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
+  MSSPopMasonry: 65d944fe99051e797d8a1311b0a62bc6090807fa
+  OBFileTransfer: 5185717ed80d68a74ca092de6f650ae29cae857c
   OBLogger: 52dc3733c54460c3a80d635e47be8556ce6a1312
   PBJVision: 1309d424eb458e0f3f19d496187699bd1f0aa186
-  pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   RBBAnimation: 4b2d66f6d993febce63cd564da934985313b9c59
   ReactiveCocoa: eb38dee0a0e698f73a9b25e5c1faea2bb4c79240
-  Reveal-iOS-SDK: ceae964076cebe3efe63e5e9abe3152efce46aa8
+  Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
   Rollbar: 6b4be007d57f434cd48f7cce52862013c6bd64cb
   SDCAlertView: 2e2b0ecc5f1ec367e45d83efa2e512688ca7fa55
   SDCAutoLayout: e6885bb39ab8e2ec2ff84d158f38035f025f7420
-  Specta: cf3e4188cf35375c3ee2cd03f8db8f1f4ef98234
+  Specta: ac94d110b865115fe60ff2c6d7281053c6f8e8a2
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
-  TPKeyboardAvoiding: ff1ee4e5a5a0c119b965552af8f183868ea20207
+  TPKeyboardAvoiding: e5ce146b313de063957bfa75a13f1e9b0ff18ab7
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
 
-COCOAPODS: 0.39.0
+COCOAPODS: 0.38.2
