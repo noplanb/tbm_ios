@@ -630,7 +630,7 @@
 - (NSDictionary*)fileTransferParamsIncludingMetadataWithFilename:(NSString *)remoteFilename
                                                       friendMkey:(NSString *)friendMkey
                                                          videoId:(NSString *)videoID
-                                                        filesize:(long)filesize
+                                                        filesize:(unsigned long long)filesize
 {
     NSMutableDictionary *common = [NSMutableDictionary dictionaryWithDictionary:[self fileTransferParamsWithFilename:remoteFilename]];
     
@@ -645,7 +645,7 @@
                                @"receiver-mkey"   : friendMkey,
                                @"client-version"  : kGlobalApplicationVersion,
                                @"client-platform" : @"ios",
-                               @"file-size"       : [NSString stringWithFormat:@"%ld", filesize]
+                               @"file-size"       : [NSString stringWithFormat:@"%llu", filesize]
                                };
     
     common[kOBFileTransferMetadataKey] = metadata;
