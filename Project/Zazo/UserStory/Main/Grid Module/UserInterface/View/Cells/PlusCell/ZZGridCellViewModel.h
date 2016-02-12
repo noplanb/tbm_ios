@@ -74,6 +74,8 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 @property (nonatomic, assign) BOOL isNeedToShowDownloadAnimation;
 @property (nonatomic, assign) BOOL hasDownloadedVideo;
 @property (nonatomic, assign) BOOL isDownloadAnimationPlayed;
+@property (nonatomic, assign) BOOL hasActiveContactIcon;
+
 @property (nonatomic, weak) UILabel* usernameLabel;
 
 - (void)updateRecordingStateTo:(BOOL)isRecording

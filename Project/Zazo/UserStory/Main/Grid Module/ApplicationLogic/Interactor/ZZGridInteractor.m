@@ -222,6 +222,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 {
     NSArray* gridModels = [ZZGridDataProvider loadAllGridsSortByIndex:NO];
     gridModels = [ZZGridDataProvider loadOrCreateGridModelsWithCount:kGridFriendsCellCount];
+    
     NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:@"indexPathIndexForItem" ascending:YES];
     NSArray* sortedArray = [gridModels sortedArrayUsingDescriptors:@[sort]];
     

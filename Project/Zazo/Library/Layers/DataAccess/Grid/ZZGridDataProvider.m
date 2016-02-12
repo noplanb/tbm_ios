@@ -172,6 +172,7 @@
             {
                 gridModel = [ZZGridDomainModel new];
                 gridModel.index = count;
+                
             }
 
             if (filteredFriends.count > count)

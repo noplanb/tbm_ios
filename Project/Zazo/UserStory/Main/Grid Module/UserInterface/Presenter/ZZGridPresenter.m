@@ -180,17 +180,6 @@
         [self showFriendAnimationWithFriend:model.relatedUser];
         [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventFriendWasAddedToGridWithVideo
                                            notificationObject:nil];
-        //TODO:
-        //    if (model.relatedUser.lastOutgoingVideoStatus == OUTGOING_VIDEO_STATUS_VIEWED)
-        //    {
-        //        [self.soundPlayer play]; // TODO: check
-        //    }
-        
-//        if (isNewFriend)
-//        {
-//            NSInteger index = [self.dataSource viewModelIndexWithModelIndex:model.index];
-//            [self.userInterface showFriendAnimationWithIndex:index];
-//        }
     }
 }
 
@@ -214,11 +203,6 @@
     }
     
     return isAbleUpdte;
-}
-
-- (void)updatePositionsForGirdModels:(NSArray *)models
-{
-    [self.userInterface configureViewPositions];
 }
 
 #pragma mark - Output

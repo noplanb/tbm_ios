@@ -30,6 +30,7 @@
     {
         self.backgroundColor = [ZZColorTheme shared].gridCellOrangeColor;
         self.clipsToBounds = NO;
+        self.layer.cornerRadius = 4.0f;
         self.currentViewState = ZZGridCellViewModelStateNone;
         [self plusButton];
     }
@@ -50,6 +51,11 @@
         
         if ([self _isNeedToChangeStateViewWithModel:model])
         {
+            
+            NSString *imageName = model.hasActiveContactIcon ? @"contact-button-pink" : @"contact-button-gray";
+            UIImage *image = [UIImage imageNamed:imageName];
+            [self.plusButton setImage:image forState:UIControlStateNormal];
+            
             if (model.state & ZZGridCellViewModelStateAdd)
             {
                 if (self.stateView)
@@ -170,10 +176,7 @@
     if (!_plusButton)
     {
         _plusButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        UIImage* image = [[UIImage imageWithPDFNamed:@"icon_plus" atHeight:50]
-                                an_imageByTintingWithColor:[ZZColorTheme shared].gridCellPlusWhiteColor];
         
-        [_plusButton setImage:image forState:UIControlStateNormal];
         _plusButton.showsTouchWhenHighlighted = NO;
         _plusButton.reversesTitleShadowWhenHighlighted = NO;
         [_plusButton addTarget:self action:@selector(_itemSelected) forControlEvents:UIControlEventTouchUpInside];

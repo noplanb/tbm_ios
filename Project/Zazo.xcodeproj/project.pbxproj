@@ -85,7 +85,6 @@
 		07636E5B1BA49A0100925671 /* ZZStringUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BBC1BA49A0100925671 /* ZZStringUtils.m */; };
 		07636E5C1BA49A0100925671 /* ZZVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BBF1BA49A0100925671 /* ZZVideoPlayer.m */; };
 		07636E5D1BA49A0100925671 /* ZZVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BC21BA49A0100925671 /* ZZVideoProcessor.m */; };
-		07636E6C1BA49A0100925671 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD81BA49A0100925671 /* Assets.xcassets */; };
 		07636E6D1BA49A0100925671 /* logo.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BDA1BA49A0100925671 /* logo.pdf */; };
 		07636E6E1BA49A0100925671 /* contacts-placeholder.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BDC1BA49A0100925671 /* contacts-placeholder.pdf */; };
 		07636E6F1BA49A0100925671 /* Contacts-plaiceholder-men.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BDD1BA49A0100925671 /* Contacts-plaiceholder-men.pdf */; };
@@ -208,8 +207,6 @@
 		07636EEE1BA49A0100925671 /* ANErrorBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D4E1BA49A0100925671 /* ANErrorBuilder.m */; };
 		07636EEF1BA49A0100925671 /* human.h.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = 07636D501BA49A0100925671 /* human.h.motemplate */; };
 		07636EF01BA49A0100925671 /* human.m.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = 07636D511BA49A0100925671 /* human.m.motemplate */; };
-		07636EF11BA49A0100925671 /* machine.h.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = 07636D521BA49A0100925671 /* machine.h.motemplate */; };
-		07636EF21BA49A0100925671 /* machine.m.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = 07636D531BA49A0100925671 /* machine.m.motemplate */; };
 		07636EF31BA49A0100925671 /* mogen.sh in Resources */ = {isa = PBXBuildFile; fileRef = 07636D541BA49A0100925671 /* mogen.sh */; };
 		07636EF41BA49A0100925671 /* mogend.sh in Resources */ = {isa = PBXBuildFile; fileRef = 07636D551BA49A0100925671 /* mogend.sh */; };
 		07636EF61BA49A0100925671 /* ANMessageDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D5B1BA49A0100925671 /* ANMessageDomainModel.m */; };
@@ -266,6 +263,8 @@
 		07F0E7F71B8CD7A900036AB2 /* ZZLoadFriendListTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EC1B8CD7A900036AB2 /* ZZLoadFriendListTest.m */; };
 		07F0E7F81B8CD7A900036AB2 /* ZZStartScreenTestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */; };
 		154C7F4D1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
+		1557CFC01C6E1EB000FE5C57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD81BA49A0100925671 /* Assets.xcassets */; };
+		1557CFC21C6E1FE900FE5C57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD81BA49A0100925671 /* Assets.xcassets */; };
 		15718DA61C5BC25F00D9A207 /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
 		15B6F2F61C24011600148E0F /* ZZDispatchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */; };
 		15FC5BC81C18166B005296C7 /* ZZDispatchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */; };
@@ -606,7 +605,6 @@
 		182255961C16CA06003885A3 /* BeepSin30.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA61BA49A0100925671 /* BeepSin30.wav */; };
 		182255971C16CA06003885A3 /* head.png in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA91BA49A0100925671 /* head.png */; };
 		182255981C16CA06003885A3 /* icon_zazo.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BF01BA49A0100925671 /* icon_zazo.pdf */; };
-		182255991C16CA06003885A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD81BA49A0100925671 /* Assets.xcassets */; };
 		1822559A1C16CA06003885A3 /* edit-friends-user-has-app.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BDF1BA49A0100925671 /* edit-friends-user-has-app.pdf */; };
 		1822559B1C16CA06003885A3 /* ANServerErrorLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07636C001BA49A0100925671 /* ANServerErrorLocalizable.strings */; };
 		1822559C1C16CA06003885A3 /* home-page-arrow.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BE31BA49A0100925671 /* home-page-arrow.pdf */; };
@@ -4705,11 +4703,11 @@
 				182255961C16CA06003885A3 /* BeepSin30.wav in Resources */,
 				182255971C16CA06003885A3 /* head.png in Resources */,
 				182255981C16CA06003885A3 /* icon_zazo.pdf in Resources */,
-				182255991C16CA06003885A3 /* Assets.xcassets in Resources */,
 				1822559A1C16CA06003885A3 /* edit-friends-user-has-app.pdf in Resources */,
 				1822559B1C16CA06003885A3 /* ANServerErrorLocalizable.strings in Resources */,
 				1822559C1C16CA06003885A3 /* home-page-arrow.pdf in Resources */,
 				1822559D1C16CA06003885A3 /* contacts-icon.pdf in Resources */,
+				1557CFC01C6E1EB000FE5C57 /* Assets.xcassets in Resources */,
 				1822559E1C16CA06003885A3 /* app_logo.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4724,6 +4722,7 @@
 				07636EF31BA49A0100925671 /* mogen.sh in Resources */,
 				07636E6E1BA49A0100925671 /* contacts-placeholder.pdf in Resources */,
 				07636E861BA49A0100925671 /* navbar_btn_back.pdf in Resources */,
+				1557CFC21C6E1FE900FE5C57 /* Assets.xcassets in Resources */,
 				0732F50C1B8B93D3004FD3AF /* InfoPlist.strings in Resources */,
 				07636E871BA49A0100925671 /* navbar_btn_close.pdf in Resources */,
 				18F195A31C1961620084FB34 /* IMG_0764.MOV in Resources */,
@@ -4755,8 +4754,6 @@
 				07636E7A1BA49A0100925671 /* icon_man.pdf in Resources */,
 				07636F0A1BA49A0100925671 /* TOWebViewControllerLocalizable.strings in Resources */,
 				07636E7B1BA49A0100925671 /* icon_people.pdf in Resources */,
-				07636EF11BA49A0100925671 /* machine.h.motemplate in Resources */,
-				07636EF21BA49A0100925671 /* machine.m.motemplate in Resources */,
 				182D8D981BB5D45E0080E100 /* icon_camera_switch.png in Resources */,
 				07636E741BA49A0100925671 /* home-page-view.pdf in Resources */,
 				07636E711BA49A0100925671 /* home-camera-w-fill.pdf in Resources */,
@@ -4766,7 +4763,6 @@
 				07636DF91BA49A0100925671 /* BeepSin30.wav in Resources */,
 				07636DFC1BA49A0100925671 /* head.png in Resources */,
 				07636E7F1BA49A0100925671 /* icon_zazo.pdf in Resources */,
-				07636E6C1BA49A0100925671 /* Assets.xcassets in Resources */,
 				07636E701BA49A0100925671 /* edit-friends-user-has-app.pdf in Resources */,
 				07636E8C1BA49A0100925671 /* ANServerErrorLocalizable.strings in Resources */,
 				07636E731BA49A0100925671 /* home-page-arrow.pdf in Resources */,

@@ -24,6 +24,7 @@
         id model = [self.dataSource viewModelAtIndex:idx];
         [obj updateWithModel:model];
     }];
+    
 }
 
 - (void)reloadItem:(id)item

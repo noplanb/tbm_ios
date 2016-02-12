@@ -16,6 +16,7 @@
 #import "ANMemoryStorage+UpdateWithoutAnimations.h"
 #import "ZZVideoStatuses.h"
 #import "ZZFriendDataHelper.h"
+#import "ZZGridDataProvider.h"
 
 static NSInteger const kGridCenterCellIndex = 4;
 
@@ -64,6 +65,8 @@ ZZGridCenterCellViewModelDelegate
     
     [updatedSection addObjectsFromArray:models];
     
+    [self _updateActiveContactIconInModels:models];
+    
     ZZGridCenterCellViewModel* center = [ZZGridCenterCellViewModel new];
     center.delegate = self;
     [updatedSection insertObject:center atIndex:kGridCenterCellIndex];
@@ -90,6 +93,36 @@ ZZGridCenterCellViewModelDelegate
 
 
 #pragma mark - GridCell Configuration depends on Domain model
+
+- (void)_updateActiveContactIconInModels:(NSArray *)models
+{
+    [models enumerateObjectsUsingBlock:^(ZZGridCellViewModel *obj, NSUInteger idx, BOOL * _Nonnull stop)
+    {
+        if (![obj isKindOfClass:[ZZGridCellViewModel class]])
+        {
+            return;
+        }
+        
+        obj.hasActiveContactIcon = NO;
+    }];
+
+    ZZGridDomainModel *firstEmpty = [ZZGridDataProvider loadFirstEmptyGridElement];
+    
+    [models enumerateObjectsUsingBlock:^(ZZGridCellViewModel *obj, NSUInteger idx, BOOL * _Nonnull stop)
+    {
+        if (![obj isKindOfClass:[ZZGridCellViewModel class]])
+        {
+            return;
+        }
+
+        if (obj.item.index == firstEmpty.index)
+        {
+            *stop = YES;
+            obj.hasActiveContactIcon = YES;
+        }
+    }];
+
+}
 
 - (void)_configureCellViewModel:(ZZGridCellViewModel*)viewModel withDomainModel:(ZZGridDomainModel*)model
 {
