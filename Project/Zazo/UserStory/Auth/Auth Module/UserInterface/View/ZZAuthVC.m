@@ -60,7 +60,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [UIApplication sharedApplication].statusBarHidden = YES;
     
     self.view.backgroundColor = [ZZColorTheme shared].authBackgroundColor;
 }

@@ -17,7 +17,6 @@
 {
     if (self = [super init])
     {
-        [self headerView];
         [self itemsContainerView];
         
         self.isRotationEnabled = YES;
@@ -53,25 +52,6 @@
     return self.itemsContainerView.items;
 }
 
-
-#pragma mark - Header  View
-
-- (ZZGridViewHeader *)headerView
-{
-    if (!_headerView)
-    {
-        _headerView = [ZZGridViewHeader new];
-        _headerView.backgroundColor = [ZZColorTheme shared].gridHeaderBackgroundColor;
-        [self addSubview:_headerView];
-        
-        [_headerView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.right.equalTo(self);
-            make.height.equalTo(@(kGridHeaderViewHeight)).priorityHigh();
-        }];
-    }
-    return _headerView;
-}
-
 - (ZZGridContainerView*)itemsContainerView
 {
     if (!_itemsContainerView)
@@ -89,7 +69,7 @@
             topPadding = (CGRectGetHeight([UIScreen mainScreen].bounds) - kGridHeight());
         }
         [_itemsContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.headerView.mas_bottom).with.offset(topPadding);
+            make.top.equalTo(self).with.offset(topPadding);
             make.left.right.equalTo(self);
             make.height.equalTo(@(kGridHeight()));
         }];

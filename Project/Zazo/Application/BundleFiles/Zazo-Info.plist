@@ -46,10 +46,6 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>DK Crayon Crumble.ttf</string>
-		<string>HelveticaBold.ttf</string>
-		<string>HelveticaLight.ttf</string>
-		<string>HelveticaMedium.ttf</string>
-		<string>HelveticaRegular.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
@@ -63,9 +59,9 @@
 	<key>UIRequiresFullScreen</key>
 	<true/>
 	<key>UIStatusBarHidden</key>
-	<true/>
+	<false/>
 	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleLightContent</string>
+	<string>UIStatusBarStyleDefault</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

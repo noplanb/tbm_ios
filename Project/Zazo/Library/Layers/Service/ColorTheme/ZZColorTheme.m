@@ -36,10 +36,10 @@ static CGFloat const kNavigationBarIconHeight = 20;
 
 + (void)setupFonts
 {
-    [UIFont an_addFontName:@"Helvetica-Light" forType:ANFontTypeLight];
-    [UIFont an_addFontName:@"Helvetica" forType:ANFontTypeRegular];
-    [UIFont an_addFontName:@"HelveticaNeue-Medium" forType:ANFontTypeMedium];
-    [UIFont an_addFontName:@"Helvetica-Bold" forType:ANFontTypeBold];
+    [UIFont an_addFontName:@"SFUIText-Light" forType:ANFontTypeLight];
+    [UIFont an_addFontName:@"SFUIText" forType:ANFontTypeRegular];
+    [UIFont an_addFontName:@"SFUIText-Medium" forType:ANFontTypeMedium];
+    [UIFont an_addFontName:@"SFUIText-Bold" forType:ANFontTypeBold];
 }
 
 - (instancetype)init
@@ -48,9 +48,9 @@ static CGFloat const kNavigationBarIconHeight = 20;
     if (self)
     {
         //TODO: convert in HEX
-//        self.authBackgroundColor = [UIColor colorWithRed:0.61f green:0.75f blue:0.27f alpha:1.0f];
+
         self.authBackgroundColor = [UIColor an_colorWithHexString:@"#9CBE45"];
-        self.gridBackgourndColor = [UIColor an_colorWithHexString:@"#2E2D28"];
+        self.gridBackgourndColor = [UIColor an_colorWithHexString:@"#FFFFFF"];
         self.gridHeaderBackgroundColor = [UIColor colorWithRed:0.11 green:.11 blue:0.1 alpha:1];
         self.gridMenuColor = [UIColor colorWithRed:0.18 green:0.18 blue:0.16 alpha:1];
         self.gridMenuTextColor = [UIColor colorWithRed:0.64 green:0.62 blue:0.57 alpha:1];
@@ -74,7 +74,7 @@ static CGFloat const kNavigationBarIconHeight = 20;
         self.gridCellLayoutGreenColor = [UIColor an_colorWithHexString:@"#9BBF45"];
         self.gridCellGrayColor = [UIColor an_colorWithHexString:@"#4D4C40"];
         self.gridCellTextColor = [UIColor an_colorWithHexString:@"#E1E0DF"];
-        self.gridCellOrangeColor = [UIColor an_colorWithHexString:@"#F48A31"];
+        self.gridCellOrangeColor = [UIColor an_colorWithHexString:@"#f8f8f8"];
         self.gridCellPlusWhiteColor = [UIColor an_colorWithHexString:@"#FFFFFF"];
         self.gridCellUserNameGrayColor = [[UIColor an_colorWithHexString:@"#4D4C40"] colorWithAlphaComponent:0.8];
         
@@ -89,7 +89,7 @@ static CGFloat const kNavigationBarIconHeight = 20;
         self.menuBackgroundColor = [UIColor an_colorWithHexString:@"2F2E28"];
         self.menuTintColor = [UIColor an_colorWithHexString:@"#4E4D42"];
         
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
         
         [self setupAppearance];
     }

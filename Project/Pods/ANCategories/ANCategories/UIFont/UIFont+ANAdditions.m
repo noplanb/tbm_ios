@@ -103,6 +103,7 @@ static NSMutableDictionary* kANFontNames;
     {
         NSLog(@"Font with name: %@, not found!", fontName);
         font = [UIFont systemFontOfSize:fontSize];
+
     }
     return font;
 }

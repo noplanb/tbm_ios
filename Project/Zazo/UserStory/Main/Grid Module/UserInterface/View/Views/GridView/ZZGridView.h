@@ -20,7 +20,6 @@
 @interface ZZGridView : UIView
 
 @property (nonatomic, weak) id <ZZGridViewDelegate> delegate;
-@property (nonatomic, strong) ZZGridViewHeader* headerView;
 @property (nonatomic, assign) BOOL isRotationEnabled;
 @property (nonatomic, strong) ZZGridContainerView* itemsContainerView;
 

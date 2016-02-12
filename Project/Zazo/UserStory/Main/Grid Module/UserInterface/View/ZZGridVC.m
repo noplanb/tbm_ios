@@ -13,7 +13,6 @@
 #import "ZZGridRotationTouchObserver.h"
 #import "ZZActionSheetController.h"
 #import "ZZGridUIConstants.h"
-#import "ZZGridDomainModel.h"
 
 @interface ZZGridVC () <ZZGridRotationTouchObserverDelegate, ZZGridCollectionControllerDelegate, UIGestureRecognizerDelegate>
 
@@ -59,18 +58,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [UIApplication sharedApplication].statusBarHidden = YES;
     
     self.view.backgroundColor = [ZZColorTheme shared].gridBackgourndColor;
     
-    self.gridView.headerView.menuButton.rac_command = [RACCommand commandWithBlock:^{
-        [self menuSelected];
-    }];
-    
-    self.gridView.headerView.editFriendsButton.rac_command = [RACCommand commandWithBlock:^{
-        [self editFriendsSelected];
-    }];
-    
+//    self.gridView.headerView.menuButton.rac_command = [RACCommand commandWithBlock:^{
+//        [self menuSelected];
+//    }];
+//
+//    self.gridView.headerView.editFriendsButton.rac_command = [RACCommand commandWithBlock:^{
+//        [self editFriendsSelected];
+//    }];
+//
     self.menuPanRecognizer = [UIPanGestureRecognizer new];
     [self.view addGestureRecognizer:self.menuPanRecognizer];
     
@@ -150,31 +148,31 @@
     [self.eventHandler presentMenu];
 }
 
-- (void)editFriendsSelected
-{
-    if (![self.eventHandler isRecordingInProgress])
-    {
-        
-        [ZZActionSheetController actionSheetWithPresentedView:self.view
-                                                        frame:self.gridView.headerView.editFriendsButton.frame
-                                              completionBlock:^(ZZEditMenuButtonType selectedType) {
-                                               
-                                                  switch (selectedType)
-                                                  {
-                                                      case ZZEditMenuButtonTypeEditFriends:
-                                                      {
-                                                          [self.eventHandler presentEditFriendsController];
-                                                      } break;
-                                                          
-                                                      case ZZEditMenuButtonTypeSendFeedback:
-                                                      {
-                                                          [self.eventHandler presentSendEmailController];
-                                                      } break;
-                                                      default: break;
-                                                  }
-                                              }];
-    }
-}
+//- (void)editFriendsSelected
+//{
+//    if (![self.eventHandler isRecordingInProgress])
+//    {
+//
+//        [ZZActionSheetController actionSheetWithPresentedView:self.view
+//                                                        frame:self.gridView.headerView.editFriendsButton.frame
+//                                              completionBlock:^(ZZEditMenuButtonType selectedType) {
+//
+//                                                  switch (selectedType)
+//                                                  {
+//                                                      case ZZEditMenuButtonTypeEditFriends:
+//                                                      {
+//                                                          [self.eventHandler presentEditFriendsController];
+//                                                      } break;
+//
+//                                                      case ZZEditMenuButtonTypeSendFeedback:
+//                                                      {
+//                                                          [self.eventHandler presentSendEmailController];
+//                                                      } break;
+//                                                      default: break;
+//                                                  }
+//                                              }];
+//    }
+//}
 
 - (void)updateRollingStateTo:(BOOL)isEnabled
 {
