@@ -48,8 +48,6 @@
             {
                 ZZFriendDomainModel* updatedFriendModel = gridFriendAbbleToUpdate[idx];
                 ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendModel.idTbm];
-
-                #warning TODO: (rinat) check if setting .relatedUser is needed now
                 gridModel.relatedUser = updatedFriendModel;
 
                 [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:updatedFriendModel];
