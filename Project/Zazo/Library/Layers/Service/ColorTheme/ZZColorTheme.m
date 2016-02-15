@@ -50,7 +50,8 @@ static CGFloat const kNavigationBarIconHeight = 20;
         //TODO: convert in HEX
 
         self.authBackgroundColor = [UIColor an_colorWithHexString:@"#9CBE45"];
-        self.gridBackgourndColor = [UIColor an_colorWithHexString:@"#FFFFFF"];
+        self.gridBackgourndColor = [UIColor an_colorWithHexString:@"#eeeeee"];
+        
         self.gridHeaderBackgroundColor = [UIColor colorWithRed:0.11 green:.11 blue:0.1 alpha:1];
         self.gridMenuColor = [UIColor colorWithRed:0.18 green:0.18 blue:0.16 alpha:1];
         self.gridMenuTextColor = [UIColor colorWithRed:0.64 green:0.62 blue:0.57 alpha:1];
@@ -74,7 +75,10 @@ static CGFloat const kNavigationBarIconHeight = 20;
         self.gridCellLayoutGreenColor = [UIColor an_colorWithHexString:@"#9BBF45"];
         self.gridCellGrayColor = [UIColor an_colorWithHexString:@"#4D4C40"];
         self.gridCellTextColor = [UIColor an_colorWithHexString:@"#E1E0DF"];
-        self.gridCellOrangeColor = [UIColor an_colorWithHexString:@"#f8f8f8"];
+        self.gridCellBorderColor = [UIColor an_colorWithHexString:@"#ffffff"];
+        self.gridCellBackgroundColor = [UIColor an_colorWithHexString:@"#f8f8f8"];
+        self.gridCellShadowColor = [UIColor colorWithWhite:0 alpha:0.15];
+        
         self.gridCellPlusWhiteColor = [UIColor an_colorWithHexString:@"#FFFFFF"];
         self.gridCellUserNameGrayColor = [[UIColor an_colorWithHexString:@"#4D4C40"] colorWithAlphaComponent:0.8];
         

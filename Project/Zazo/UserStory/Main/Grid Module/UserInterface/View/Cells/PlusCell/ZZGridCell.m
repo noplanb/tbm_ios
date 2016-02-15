@@ -12,6 +12,8 @@
 #import "ZZGridStateViewRecord.h"
 #import "ZZGridStateViewPreview.h"
 
+static CGFloat ZZCellCornerRadius = 4.0f;
+
 @interface ZZGridCell () <ZZGridCellVeiwModelAnimationDelegate>
 
 @property (nonatomic, strong) ZZGridCellViewModel* model;
@@ -28,9 +30,14 @@
 {
     if (self = [super init])
     {
-        self.backgroundColor = [ZZColorTheme shared].gridCellOrangeColor;
+        self.backgroundColor = [ZZColorTheme shared].gridCellBorderColor;
         self.clipsToBounds = NO;
-        self.layer.cornerRadius = 4.0f;
+        self.layer.cornerRadius = ZZCellCornerRadius;
+        self.layer.shadowColor = [ZZColorTheme shared].gridCellShadowColor.CGColor;
+        self.layer.shadowRadius = 2.0f;
+        self.layer.shadowOffset = CGSizeZero;
+        self.layer.shadowOpacity = 1.0f;
+        
         self.currentViewState = ZZGridCellViewModelStateNone;
         [self plusButton];
     }
@@ -51,13 +58,17 @@
         
         if ([self _isNeedToChangeStateViewWithModel:model])
         {
-            
-            NSString *imageName = model.hasActiveContactIcon ? @"contact-button-pink" : @"contact-button-gray";
-            UIImage *image = [UIImage imageNamed:imageName];
-            [self.plusButton setImage:image forState:UIControlStateNormal];
-            
+
             if (model.state & ZZGridCellViewModelStateAdd)
             {
+                NSString *imageName = model.hasActiveContactIcon ? @"contact-button-pink" : @"contact-button-gray";
+                UIImage *image = [UIImage imageNamed:imageName];
+                
+                [self.plusButton setImage:image forState:UIControlStateNormal];
+                
+                self.plusButton.imageEdgeInsets =     // shadow compensation
+                model.hasActiveContactIcon ? UIEdgeInsetsMake(-8, -8, -16, -8) : UIEdgeInsetsZero;
+
                 if (self.stateView)
                 {
                     self.currentViewState = ZZGridCellViewModelStateNone;
@@ -176,19 +187,45 @@
     if (!_plusButton)
     {
         _plusButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        
+        _plusButton.backgroundColor = [ZZColorTheme shared].gridCellBackgroundColor;
+        _plusButton.adjustsImageWhenHighlighted = NO;
         _plusButton.showsTouchWhenHighlighted = NO;
         _plusButton.reversesTitleShadowWhenHighlighted = NO;
-        [_plusButton addTarget:self action:@selector(_itemSelected) forControlEvents:UIControlEventTouchUpInside];
-        UILongPressGestureRecognizer* longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_itemSelectedWithRecognizer:)];
+        _plusButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        
+        self.plusButton.contentEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15);
+        
+        [_plusButton addTarget:self
+                        action:@selector(_itemSelected)
+              forControlEvents:UIControlEventTouchUpInside];
+        
+        UILongPressGestureRecognizer* longPressRecognizer =
+        [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                      action:@selector(_itemSelectedWithRecognizer:)];
+        
         longPressRecognizer.minimumPressDuration = 0.8;
         [_plusButton addGestureRecognizer:longPressRecognizer];
         [self addSubview:_plusButton];
         [self sendSubviewToBack:_plusButton];
         
         [_plusButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self);
+            make.edges.equalTo(self).with.insets(UIEdgeInsetsMake(4, 4, 4, 4));
         }];
+        
+        [_plusButton layoutIfNeeded];
+        
+        UIView *borderView = [UIView new];
+        borderView.userInteractionEnabled = NO;
+        borderView.layer.borderWidth = 2;
+        borderView.layer.borderColor = [ZZColorTheme shared].gridCellBorderColor.CGColor;
+        
+        [_plusButton addSubview:borderView];
+        
+        [borderView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(_plusButton).with.insets(UIEdgeInsetsMake(3, 3, 3, 3));
+        }];
+        
+        
     }
     return _plusButton;
 }

@@ -17,9 +17,11 @@
 @property (nonatomic, strong) UIColor* gridCellLayoutGreenColor;
 @property (nonatomic, strong) UIColor* gridCellGrayColor;
 @property (nonatomic, strong) UIColor* gridCellTextColor;
-@property (nonatomic, strong) UIColor* gridCellOrangeColor;
+@property (nonatomic, strong) UIColor* gridCellBorderColor;
+@property (nonatomic, strong) UIColor* gridCellBackgroundColor;
 @property (nonatomic, strong) UIColor* gridCellPlusWhiteColor;
 @property (nonatomic, strong) UIColor* gridCellUserNameGrayColor;
+@property (nonatomic, strong) UIColor* gridCellShadowColor;
 
 @property (nonatomic, strong) UIColor* gridStatusViewNudgeColor;
 @property (nonatomic, strong) UIColor* gridStatusViewBlackColor;
