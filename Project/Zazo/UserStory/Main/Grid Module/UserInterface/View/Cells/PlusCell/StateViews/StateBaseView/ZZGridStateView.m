@@ -8,14 +8,8 @@
 
 #import "ZZGridStateView.h"
 #import "ZZGridStateView+Animation.h"
-#import "ZZVideoPlayer.h"
 #import "ZZGridUIConstants.h"
-#import "UIImage+PDF.h"
-#import "ZZVideoRecorder.h"
-#import "ZZStoredSettingsManager.h"
-#import "ZZFriendDataProvider.h"
-#import "ZZGridActionStoredSettings.h"
-
+#import "ZZGridCellGradientView.h"
 
 @interface ZZGridStateView ()
 
@@ -96,13 +90,13 @@
 
 - (void)_setupDownloadedStateWithModel:(ZZGridCellViewModel*)model
 {
-    self.userNameLabel.backgroundColor =
-    model.badgeNumber > 0 ? [ZZColorTheme shared].gridCellLayoutGreenColor : [ZZColorTheme shared].gridCellGrayColor;
+//    self.userNameLabel.backgroundColor =
+//    model.badgeNumber > 0 ? [ZZColorTheme shared].gridCellLayoutGreenColor : [ZZColorTheme shared].gridCellGrayColor;
     self.model.isDownloadAnimationPlayed = YES;
 
     [self showDownloadAnimationWithCompletionBlock:^{
-        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-        self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+//        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+//        self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
         [self _setupBadgeWithModel:model];
     }];
 }
@@ -143,15 +137,15 @@
 
 - (void)_setupGreenColorsWithModel:(ZZGridCellViewModel*)model
 {
-    self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-    self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+//    self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+//    self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
     [self updateBadgeWithNumber:model.badgeNumber];
 }
 
 - (void)_setupGrayColorsWithModel:(ZZGridCellViewModel*)model
 {
-    self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellUserNameGrayColor;
-    self.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
+//    self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellUserNameGrayColor;
+//    self.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
     [self updateBadgeWithNumber:0];
 }
 
@@ -401,9 +395,9 @@
     {
         _userNameLabel = [ZZUserNameLabel new];
         _userNameLabel.textAlignment = NSTextAlignmentCenter;
-        _userNameLabel.textColor = [ZZColorTheme shared].gridStatusViewUserNameLabelColor;
+        _userNameLabel.textColor = [ZZColorTheme shared].gridCellTextColor;
         _userNameLabel.font = [UIFont an_regularFontWithSize:kUserNameFontSize];
-        _userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellUserNameGrayColor;;
+//        _userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellUserNameGrayColor;;
         [self addSubview:_userNameLabel];
 
         [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -412,6 +406,24 @@
         }];
     }
     return _userNameLabel;
+}
+
+- (UIView *)backGradientView
+{
+    if (!_backGradientView)
+    {
+        ZZGridCellGradientView *view = [ZZGridCellGradientView new];
+        
+        _backGradientView = view;
+        
+        [self addSubview:view];
+        
+        [view mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self);
+        }];
+    }
+    
+    return _backGradientView;
 }
 
 @end

@@ -52,15 +52,8 @@ static CGFloat const kNavigationBarIconHeight = 20;
         self.authBackgroundColor = [UIColor an_colorWithHexString:@"#9CBE45"];
         self.gridBackgourndColor = [UIColor an_colorWithHexString:@"#eeeeee"];
         
-        self.gridHeaderBackgroundColor = [UIColor colorWithRed:0.11 green:.11 blue:0.1 alpha:1];
         self.gridMenuColor = [UIColor colorWithRed:0.18 green:0.18 blue:0.16 alpha:1];
-        self.gridMenuTextColor = [UIColor colorWithRed:0.64 green:0.62 blue:0.57 alpha:1];
-        
-        self.secretScreenHeaderColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1];
-        self.secretScreenAddressBGGrayColor = [UIColor colorWithRed:0.98 green:0.98 blue:0.98 alpha:1];
-        self.secretScreenAddressBorderGrayColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
-        self.secretScreenBlueColor = [UIColor colorWithRed:0.02 green:0.47 blue:0.98 alpha:1];
-        
+
         self.baseColor = [UIColor an_colorWithHexString:@"ac1e44"];
         
         self.navBarFontColor = [UIColor whiteColor];
@@ -74,23 +67,17 @@ static CGFloat const kNavigationBarIconHeight = 20;
         
         self.gridCellLayoutGreenColor = [UIColor an_colorWithHexString:@"#9BBF45"];
         self.gridCellGrayColor = [UIColor an_colorWithHexString:@"#4D4C40"];
-        self.gridCellTextColor = [UIColor an_colorWithHexString:@"#E1E0DF"];
+        self.gridCellTextColor = [UIColor an_colorWithHexString:@"#ffffff"];
         self.gridCellBorderColor = [UIColor an_colorWithHexString:@"#ffffff"];
         self.gridCellBackgroundColor = [UIColor an_colorWithHexString:@"#f8f8f8"];
         self.gridCellShadowColor = [UIColor colorWithWhite:0 alpha:0.15];
         
-        self.gridCellPlusWhiteColor = [UIColor an_colorWithHexString:@"#FFFFFF"];
-        self.gridCellUserNameGrayColor = [[UIColor an_colorWithHexString:@"#4D4C40"] colorWithAlphaComponent:0.8];
-        
         self.gridStatusViewNudgeColor = [UIColor an_colorWithHexString:@"#F58A31"];
         self.gridStatusViewBlackColor = [UIColor an_colorWithHexString:@"#1C1C19"];
         self.gridStatusViewRecordColor = [UIColor an_colorWithHexString:@"#DA0D19"];
-        self.gridStatusViewUserNameLabelColor = [UIColor whiteColor];//[UIColor an_colorWithHexString:@"4E4D42"];
         self.gridStatusViewThumbnailDefaultColor = [UIColor an_colorWithHexString:@"#343434"];
         self.gridStatusViewThumnailZColor = [UIColor an_colorWithHexString:@"#625F58"];
         
-        self.menuTextColor = [UIColor an_colorWithHexString:@"A8A295"];
-        self.menuBackgroundColor = [UIColor an_colorWithHexString:@"2F2E28"];
         self.menuTintColor = [UIColor an_colorWithHexString:@"#4E4D42"];
         
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];

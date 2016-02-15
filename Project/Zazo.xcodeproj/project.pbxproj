@@ -265,6 +265,8 @@
 		154C7F4D1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
 		1557CFC01C6E1EB000FE5C57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD81BA49A0100925671 /* Assets.xcassets */; };
 		1557CFC21C6E1FE900FE5C57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD81BA49A0100925671 /* Assets.xcassets */; };
+		1557CFC61C7213DC00FE5C57 /* ZZDateLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1557CFC51C7213DC00FE5C57 /* ZZDateLabel.m */; };
+		1557CFCA1C721E6E00FE5C57 /* ZZGridCellGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1557CFC91C721E6E00FE5C57 /* ZZGridCellGradientView.m */; };
 		15718DA61C5BC25F00D9A207 /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
 		15B6F2F61C24011600148E0F /* ZZDispatchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */; };
 		15FC5BC81C18166B005296C7 /* ZZDispatchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */; };
@@ -1257,6 +1259,10 @@
 		1549F9E91C1953E8005AFC95 /* ZZFriendDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZFriendDataProvider+Entities.h"; sourceTree = "<group>"; };
 		154C7F4B1C567EDD00DFA0FD /* OBLogger+ZZAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OBLogger+ZZAdditions.h"; sourceTree = "<group>"; };
 		154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OBLogger+ZZAdditions.m"; sourceTree = "<group>"; };
+		1557CFC41C7213DC00FE5C57 /* ZZDateLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDateLabel.h; sourceTree = "<group>"; };
+		1557CFC51C7213DC00FE5C57 /* ZZDateLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDateLabel.m; sourceTree = "<group>"; };
+		1557CFC81C721E6E00FE5C57 /* ZZGridCellGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridCellGradientView.h; sourceTree = "<group>"; };
+		1557CFC91C721E6E00FE5C57 /* ZZGridCellGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridCellGradientView.m; sourceTree = "<group>"; };
 		159D544D1C60D55300714DDC /* ZZInviteType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZInviteType.h; sourceTree = "<group>"; };
 		15A1777F1C1AA9240031480F /* ZZGridDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZGridDataProvider+Entities.h"; sourceTree = "<group>"; };
 		15A177801C1AAA5F0031480F /* ZZUserDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZUserDataProvider+Entities.h"; sourceTree = "<group>"; };
@@ -3062,6 +3068,8 @@
 		07636CB81BA49A0100925671 /* StateViews */ = {
 			isa = PBXGroup;
 			children = (
+				1557CFC71C721E3B00FE5C57 /* GradientView */,
+				1557CFC31C7213B800FE5C57 /* DateLabel */,
 				07636CB91BA49A0100925671 /* StateBaseView */,
 				07636CBE1BA49A0100925671 /* StateNudge */,
 				07636CC11BA49A0100925671 /* StatePreview */,
@@ -3832,6 +3840,24 @@
 				154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */,
 			);
 			path = OBLogger;
+			sourceTree = "<group>";
+		};
+		1557CFC31C7213B800FE5C57 /* DateLabel */ = {
+			isa = PBXGroup;
+			children = (
+				1557CFC41C7213DC00FE5C57 /* ZZDateLabel.h */,
+				1557CFC51C7213DC00FE5C57 /* ZZDateLabel.m */,
+			);
+			path = DateLabel;
+			sourceTree = "<group>";
+		};
+		1557CFC71C721E3B00FE5C57 /* GradientView */ = {
+			isa = PBXGroup;
+			children = (
+				1557CFC81C721E6E00FE5C57 /* ZZGridCellGradientView.h */,
+				1557CFC91C721E6E00FE5C57 /* ZZGridCellGradientView.m */,
+			);
+			path = GradientView;
 			sourceTree = "<group>";
 		};
 		15A177821C1AB6FD0031480F /* ZZDispatchHelper */ = {
@@ -5291,6 +5317,7 @@
 				181D1CC21BC5255D00044F83 /* ZZEarpieceFeatureEventHandler.m in Sources */,
 				15FC5BC81C18166B005296C7 /* ZZDispatchHelper.m in Sources */,
 				1868E1BA1BE26C72000B80D3 /* ZZRootStateObserver.m in Sources */,
+				1557CFCA1C721E6E00FE5C57 /* ZZGridCellGradientView.m in Sources */,
 				07636EA11BA49A0100925671 /* ZZDebugStateWireframe.m in Sources */,
 				07636E9E1BA49A0100925671 /* ZZDebugStateCellViewModel.m in Sources */,
 				223A1F5A1BF97D9D00FA4EA7 /* AVAudioSession+ZZAudioSession.m in Sources */,
@@ -5477,6 +5504,7 @@
 				07BAA7081BB1B488009878B9 /* ZZUserPresentationHelper.m in Sources */,
 				07636E5B1BA49A0100925671 /* ZZStringUtils.m in Sources */,
 				070D84791BBDAD8900196527 /* ZZGridContainerView.m in Sources */,
+				1557CFC61C7213DC00FE5C57 /* ZZDateLabel.m in Sources */,
 				18E1F3001BC6AF180070ECF1 /* ZZFeatureEventStrategyRegisteredUser.m in Sources */,
 				07636E501BA49A0100925671 /* ZZErrorHandler.m in Sources */,
 				07636F041BA49A0100925671 /* ANTableContainerView.m in Sources */,

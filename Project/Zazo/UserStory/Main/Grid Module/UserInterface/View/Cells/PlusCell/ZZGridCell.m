@@ -13,6 +13,7 @@
 #import "ZZGridStateViewPreview.h"
 
 static CGFloat ZZCellCornerRadius = 4.0f;
+static CGFloat ZZCellBorderWidth = 4.0f;
 
 @interface ZZGridCell () <ZZGridCellVeiwModelAnimationDelegate>
 
@@ -61,20 +62,15 @@ static CGFloat ZZCellCornerRadius = 4.0f;
 
             if (model.state & ZZGridCellViewModelStateAdd)
             {
-                NSString *imageName = model.hasActiveContactIcon ? @"contact-button-pink" : @"contact-button-gray";
-                UIImage *image = [UIImage imageNamed:imageName];
+                [self _updatePlusButtonImage];
                 
-                [self.plusButton setImage:image forState:UIControlStateNormal];
-                
-                self.plusButton.imageEdgeInsets =     // shadow compensation
-                model.hasActiveContactIcon ? UIEdgeInsetsMake(-8, -8, -16, -8) : UIEdgeInsetsZero;
-
                 if (self.stateView)
                 {
                     self.currentViewState = ZZGridCellViewModelStateNone;
                     [self.stateView removeFromSuperview];
                 }
             }
+            
             else if (model.state & ZZGridCellViewModelStateFriendHasApp)
             {
                 self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self];
@@ -152,7 +148,7 @@ static CGFloat ZZCellCornerRadius = 4.0f;
     }
     [self addSubview:stateView];
     [stateView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self);
+        make.edges.equalTo(self).with.insets([self _defaultInsets]);
     }];
 }
 
@@ -209,10 +205,8 @@ static CGFloat ZZCellCornerRadius = 4.0f;
         [self sendSubviewToBack:_plusButton];
         
         [_plusButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self).with.insets(UIEdgeInsetsMake(4, 4, 4, 4));
+            make.edges.equalTo(self).with.insets([self _defaultInsets]);
         }];
-        
-        [_plusButton layoutIfNeeded];
         
         UIView *borderView = [UIView new];
         borderView.userInteractionEnabled = NO;
@@ -236,6 +230,22 @@ static CGFloat ZZCellCornerRadius = 4.0f;
     [self.model reloadDebugVideoStatus];
 }
 
+- (void)_updatePlusButtonImage
+{
+    NSString *imageName = self.model.hasActiveContactIcon ? @"contact-button-pink" : @"contact-button-gray";
+    UIImage *image = [UIImage imageNamed:imageName];
+    
+    [self.plusButton setImage:image forState:UIControlStateNormal];
+    
+    self.plusButton.imageEdgeInsets =     // shadow compensation
+    self.model.hasActiveContactIcon ? UIEdgeInsetsMake(-8, -8, -16, -8) : UIEdgeInsetsZero;
+
+}
+
+- (UIEdgeInsets)_defaultInsets
+{
+    return UIEdgeInsetsMake(ZZCellBorderWidth, ZZCellBorderWidth, ZZCellBorderWidth, ZZCellBorderWidth);
+}
 
 #pragma mark - Aniamtion Delegate Methods
 

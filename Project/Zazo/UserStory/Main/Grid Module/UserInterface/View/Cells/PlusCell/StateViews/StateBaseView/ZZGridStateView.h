@@ -12,7 +12,7 @@
 
 @class ZZGridCellViewModel;
 
-static CGFloat const kUserNameFontSize = 13;
+static CGFloat const kUserNameFontSize = 18;
 
 @interface ZZGridStateView : UIView <ANModelTransfer>
 
@@ -30,6 +30,7 @@ static CGFloat const kUserNameFontSize = 13;
 @property (nonatomic, strong) UIView* presentedView;
 @property (nonatomic, strong) ZZUserNameLabel* userNameLabel;
 
+@property (nonatomic, strong) UIView *backGradientView;
 
 @property (nonatomic, strong) UIImageView* videoViewedView;
 

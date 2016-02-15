@@ -131,7 +131,8 @@ ZZGridCenterCellViewModelDelegate
     viewModel.hasDownloadedVideo = [model.relatedUser hasIncomingVideo];
     viewModel.hasUploadedVideo = [model.relatedUser hasOutgoingVideo];//[value.relatedUser hasIncomingVideo];
     viewModel.isUploadedVideoViewed = (model.relatedUser.lastOutgoingVideoStatus == ZZVideoOutgoingStatusViewed);
-
+    viewModel.lastMessageDate = [ZZFriendDataHelper lastVideoSentTimeFromFriend:model.relatedUser];
+    
     NSUInteger count = [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.relatedUser.idTbm];
 
     if (count > 0)
@@ -338,7 +339,6 @@ ZZGridCenterCellViewModelDelegate
 {
     return [self.delegate isVideoPlayingWithFriendModel:model.item.relatedUser];
 }
-
 
 #pragma mark - Private
 

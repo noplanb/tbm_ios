@@ -13,6 +13,7 @@
 #import "ZZVideoDomainModel.h"
 #import "MagicalRecord.h"
 #import "ZZFriendDataProvider.h"
+#import "ZZVideoDomainModel.h"
 
 @implementation ZZFriendDataHelper
 
@@ -54,6 +55,13 @@
         [result addObject:friendEntity.mKey];
     }
     return result;
+}
+
++ (NSDate *)lastVideoSentTimeFromFriend:(ZZFriendDomainModel *)friendModel
+{
+    NSString *videoID = friendModel.videos.lastObject.videoID;
+    NSTimeInterval timestamp = videoID.doubleValue/1000;
+    return [NSDate dateWithTimeIntervalSince1970:timestamp];
 }
 
 @end

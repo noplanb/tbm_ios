@@ -8,12 +8,14 @@
 
 #import "ZZGridStateViewPreview.h"
 #import "ZZGridUIConstants.h"
+#import "ZZDateLabel.h"
 
 static CGFloat const kThumbnailBorderWidth = 2;
 
 @interface ZZGridStateViewPreview ()
 
 @property (nonatomic, assign) BOOL isVideoPlaying;
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
 @end
 
@@ -25,10 +27,13 @@ static CGFloat const kThumbnailBorderWidth = 2;
     self = [super initWithPresentedView:presentedView];
     if (self)
     {
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        
         [self thumbnailImageView];
         [self userNameLabel];
         [self containFriendView];
         [self videoViewedView];
+        [self dateLabel];
     }
     
     return self;
@@ -42,11 +47,27 @@ static CGFloat const kThumbnailBorderWidth = 2;
         [self _configureGreenBorderIfNeededWithModel:model];
         self.userNameLabel.hidden = NO;
         [self _handleFailedVideoDownloadWithModel:model];
+        [self _updateVideoSentDate:model.lastMessageDate];
     });
 }
 
 
 #pragma mark - Private
+
+- (void)_updateVideoSentDate:(NSDate *)date
+{
+    self.dateLabel.text = [self _formattedDate:date];
+}
+
+- (NSString *)_formattedDate:(NSDate *)date
+{
+    BOOL isToday = date.an_isToday;
+    
+    self.dateFormatter.dateStyle = isToday ? NSDateFormatterNoStyle : NSDateFormatterShortStyle;
+    self.dateFormatter.timeStyle = isToday ? NSDateFormatterShortStyle : NSDateFormatterNoStyle;
+    
+    return [self.dateFormatter stringFromDate:date];
+}
 
 - (void)_handleFailedVideoDownloadWithModel:(ZZGridCellViewModel*)model
 {
@@ -107,8 +128,7 @@ static CGFloat const kThumbnailBorderWidth = 2;
     {
         [self hideAllAnimationViews];
         [self _hideThumbnailGreenBorder];
-        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
-        self.userNameLabel.hidden = YES;
+//        self.userNameLabel.hidden = YES;
         [self.model updateVideoPlayingStateTo:YES];
     }
 }
@@ -128,13 +148,37 @@ static CGFloat const kThumbnailBorderWidth = 2;
         [[UITapGestureRecognizer alloc] initWithTarget:self
                                                 action:@selector(_startVideo:)];
         [_thumbnailImageView addGestureRecognizer:tap];
-        [self addSubview:_thumbnailImageView];
+        
+        [self insertSubview:_thumbnailImageView belowSubview:self.backGradientView];
         
         [_thumbnailImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.top.bottom.equalTo(self);
         }];
     }
     return _thumbnailImageView;
+}
+
+- (UILabel *)dateLabel
+{
+    if (!_dateLabel)
+    {
+        UILabel *label = [ZZDateLabel new];
+        
+        label.font = [UIFont an_meduimFontWithSize:kLayoutConstDateLabelFontSize];
+        label.text = @"12:30 PM";
+        label.textColor = [ZZColorTheme shared].gridCellTextColor;
+        
+        [self addSubview:label];
+        
+        [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.right.equalTo(self);
+            make.height.equalTo(@(label.font.pointSize * 1.5));
+        }];
+        
+        _dateLabel = label;
+    }
+    
+    return _dateLabel;
 }
 
 @end

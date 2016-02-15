@@ -17,5 +17,6 @@
 
 + (NSUInteger)unviewedVideoCountWithFriendID:(NSString *)friendID;
 + (NSArray*)everSentMkeys;
++ (NSDate *)lastVideoSentTimeFromFriend:(ZZFriendDomainModel *)friendModel;
 
 @end
