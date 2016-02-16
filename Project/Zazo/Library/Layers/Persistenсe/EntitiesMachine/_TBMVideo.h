@@ -16,10 +16,8 @@ extern const struct TBMVideoAttributes {
 
 extern const struct TBMVideoRelationships {
 	__unsafe_unretained NSString *friend;
-	__unsafe_unretained NSString *uploaders;
 } TBMVideoRelationships;
 
-@class TBMFriend;
 @class TBMFriend;
 
 @interface TBMVideoID : NSManagedObjectID {}
@@ -55,10 +53,6 @@ extern const struct TBMVideoRelationships {
 
 //- (BOOL)validateFriend:(id*)value_ error:(NSError**)error_;
 
-@property (nonatomic, strong) TBMFriend *uploaders;
-
-//- (BOOL)validateUploaders:(id*)value_ error:(NSError**)error_;
-
 @end
 
 @interface _TBMVideo (CoreDataGeneratedPrimitiveAccessors)
@@ -80,8 +74,5 @@ extern const struct TBMVideoRelationships {
 
 - (TBMFriend*)primitiveFriend;
 - (void)setPrimitiveFriend:(TBMFriend*)value;
-
-- (TBMFriend*)primitiveUploaders;
-- (void)setPrimitiveUploaders:(TBMFriend*)value;
 
 @end
