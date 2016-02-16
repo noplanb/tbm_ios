@@ -23,11 +23,12 @@
 - (APJob *)job;
 - (NSArray *)phonesWithLabels:(BOOL)needLabels;
 - (NSArray *)emailsWithLabels:(BOOL)needLabels;
-- (NSArray *)addresses;
+- (NSArray *)addressesWithLabels:(BOOL)labels;
 - (NSArray *)socialProfiles;
 - (NSArray *)relatedPersons;
 - (NSArray *)linkedRecordIDs;
 - (APSource *)source;
+- (NSArray *)dates;
 - (APRecordDate *)recordDate;
 - (NSString *)stringProperty:(ABPropertyID)property;
 - (NSArray *)arrayProperty:(ABPropertyID)property;

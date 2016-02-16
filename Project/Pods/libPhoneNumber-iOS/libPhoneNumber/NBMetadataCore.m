@@ -77,57 +77,57 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"1"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(1)(\\d{4})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(1)(\\d{4})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"6[09]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(6[09])(\\d{4})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(6[09])(\\d{4})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[67]2"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([67]2)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([67]2)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"[2-5]"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"([2-5]\\d)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"([2-5]\\d)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"9"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(9\\d)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(9\\d)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"9"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(9\\d)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(9\\d)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
 
         NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
         [numberFormats6_patternArray addObject:@"9"];
-        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(9\\d)(\\d{3,4})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(9\\d)(\\d{3,4})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats6];
 
         NSMutableArray *numberFormats7_patternArray = [[NSMutableArray alloc] init];
         [numberFormats7_patternArray addObject:@"6[0145]|7"];
-        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2,3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2,3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats7];
 
         NSMutableArray *numberFormats8_patternArray = [[NSMutableArray alloc] init];
         [numberFormats8_patternArray addObject:@"6[0145]|7"];
-        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3,4})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3,4})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats8];
 
         NSMutableArray *numberFormats9_patternArray = [[NSMutableArray alloc] init];
         [numberFormats9_patternArray addObject:@"8"];
-        NBNumberFormat *numberFormats9 = [[NBNumberFormat alloc] initWithPattern:@"(80[01])(\\d{2})(\\d{2,3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats9_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats9 = [[NBNumberFormat alloc] initWithPattern:@"(80[01])(\\d{2})(\\d{2,3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats9_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats9];
 
         NSMutableArray *numberFormats10_patternArray = [[NSMutableArray alloc] init];
         [numberFormats10_patternArray addObject:@"8"];
-        NBNumberFormat *numberFormats10 = [[NBNumberFormat alloc] initWithPattern:@"(80[01])(\\d{3,4})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats10_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats10 = [[NBNumberFormat alloc] initWithPattern:@"(80[01])(\\d{3,4})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats10_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats10];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -146,14 +146,14 @@
 {
     self = [super init];
     if (self) {
-        self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[3-79]\\d{6}" withPossibleNumberPattern:@"\\d{7}" withExample:nil];
-        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"3(?:2[0125]|3[1245]|4[12]|5[1-4]|70|9[1-467])\\d{4}" withPossibleNumberPattern:@"\\d{7}" withExample:@"3201234"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:[5-7]\\d|9[012])\\d{5}" withPossibleNumberPattern:@"\\d{7}" withExample:@"5012345"];
+        self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:4(?:0\\d{5}|4\\d{7})|9\\d{8})" withPossibleNumberPattern:@"\\d{7,9}" withExample:nil];
+        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"443(?:2[0125]|3[1245]|4[12]|5[1-4]|70|9[1-467])\\d{4}" withPossibleNumberPattern:@"\\d{7,9}" withExample:@"443201234"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"9(?:55\\d|6(?:6\\d|9[012])|77\\d)\\d{5}" withPossibleNumberPattern:@"\\d{7,9}" withExample:@"955012345"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.personalNumber = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
-        self.voip = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"40\\d{5}" withPossibleNumberPattern:@"\\d{7}" withExample:@"4012345"];
+        self.voip = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"40\\d{5}" withPossibleNumberPattern:@"\\d{7,9}" withExample:@"4012345"];
         self.pager = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.uan = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.emergency = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:nil withPossibleNumberPattern:nil withExample:nil];
@@ -172,8 +172,14 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        [numberFormats0_patternArray addObject:@"44|9[567]"];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
+
+        NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
+        [numberFormats1_patternArray addObject:@"40"];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
+        [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
         NSMutableArray *intlNumberFormats_FormatArray = [[NSMutableArray alloc] init];
@@ -193,7 +199,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"1\\d{7,12}|[2-9]\\d{9,10}" withPossibleNumberPattern:@"\\d{6,13}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:11|2[02]|33|4[04]|79)[2-7]\\d{7}|80[2-467]\\d{7}|(?:1(?:2[0-249]|3[0-25]|4[145]|[59][14]|6[014]|7[1257]|8[01346])|2(?:1[257]|3[013]|4[01]|5[0137]|6[0158]|78|8[1568]|9[14])|3(?:26|4[1-3]|5[34]|6[01489]|7[02-46]|8[159])|4(?:1[36]|2[1-47]|3[15]|5[12]|6[0-26-9]|7[0-24-9]|8[013-57]|9[014-7])|5(?:1[025]|[36][25]|22|4[28]|5[12]|[78]1|9[15])|6(?:12|[2345]1|57|6[13]|7[14]|80)|7(?:12|2[14]|3[134]|4[47]|5[15]|[67]1|88)|8(?:16|2[014]|3[126]|6[136]|7[078]|8[34]|91))[2-7]\\d{6}|(?:(?:1(?:2[35-8]|3[346-9]|4[236-9]|[59][0235-9]|6[235-9]|7[34689]|8[257-9])|2(?:1[134689]|3[24-8]|4[2-8]|5[25689]|6[2-4679]|7[13-79]|8[2-479]|9[235-9])|3(?:01|1[79]|2[1-5]|4[25-8]|5[125689]|6[235-7]|7[157-9]|8[2-467])|4(?:1[14578]|2[5689]|3[2-467]|5[4-7]|6[35]|73|8[2689]|9[2389])|5(?:[16][146-9]|2[14-8]|3[1346]|4[14-69]|5[46]|7[2-4]|8[2-8]|9[246])|6(?:1[1358]|2[2457]|3[2-4]|4[235-7]|[57][2-689]|6[24-578]|8[1-6])|8(?:1[1357-9]|2[235-8]|3[03-57-9]|4[0-24-9]|5\\d|6[2457-9]|7[1-6]|8[1256]|9[2-4]))\\d|7(?:(?:1[013-9]|2[0235-9]|3[2679]|4[1-35689]|5[2-46-9]|[67][02-9]|9\\d)\\d|8(?:2[0-6]|[013-8]\\d)))[2-7]\\d{5}" withPossibleNumberPattern:@"\\d{6,10}" withExample:@"1123456789"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:7(?:0(?:2[2-9]|[3-8]\\d|9[0-8])|2(?:0[024-9]|19|2[012]|5[09]|7[5-8]|9[389])|3(?:0[1-9]|[58]\\d|7[3679]|9[689])|4(?:0[1-9]|1[15-9]|[29][89]|39|8[389])|5(?:[034678]\\d|2[03-9]|5[017-9]|9[7-9])|6(?:0[0127]|1[0-257-9]|2[0-4]|3[19]|5[4589]|[6-9]\\d)|7(?:0[2-9]|[1-79]\\d|8[1-9])|8(?:[0-7]\\d|9[013-9]))|8(?:0(?:[01589]\\d|6[67])|1(?:[02-589]\\d|1[0135-9]|7[0-79])|2(?:[236-9]\\d|5[1-9])|3(?:[0357-9]\\d|4[1-9])|[45]\\d{2}|6[02457-9]\\d|7[1-69]\\d|8(?:[0-26-9]\\d|44|5[2-9])|9(?:[035-9]\\d|2[2-9]|4[0-8]))|9\\d{3})\\d{6}" withPossibleNumberPattern:@"\\d{10}" withExample:@"9123456789"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:7(?:0\\d{2}|2(?:[0235679]\\d|[14][017-9]|8[0-59]|9[389])|3(?:[058]\\d|10|7[3679]|9[689])|4(?:0[1-9]|1[015-9]|[29][89]|39|8[389])|5(?:[034678]\\d|2[03-9]|5[017-9]|9[7-9])|6(?:0[0-47]|1[0-257-9]|2[0-4]|3[19]|5[4589]|[6-9]\\d)|7(?:0[2-9]|[1-79]\\d|8[1-9])|8[0-79]\\d)|8(?:0(?:[01589]\\d|6[67])|1(?:[02-57-9]\\d|1[0135-9])|2(?:[236-9]\\d|5[1-9])|3(?:[0357-9]\\d|4[1-9])|[45]\\d{2}|6[02457-9]\\d|7(?:07|[1-69]\\d)|8(?:[0-26-9]\\d|44|5[2-9])|9(?:[035-9]\\d|2[2-9]|4[0-8]))|9\\d{3})\\d{6}" withPossibleNumberPattern:@"\\d{10}" withExample:@"9123456789"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"1(?:600\\d{6}|80(?:0\\d{4,9}|3\\d{9}))" withPossibleNumberPattern:@"\\d{8,13}" withExample:@"1800123456"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"186[12]\\d{9}" withPossibleNumberPattern:@"\\d{13}" withExample:@"1861123456789"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"1860\\d{7}" withPossibleNumberPattern:@"\\d{11}" withExample:@"18603451234"];
@@ -217,64 +223,64 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        [numberFormats0_patternArray addObject:@"7(?:0[2-9]|2[012579]|3[057-9]|4[0-389]|6[0-35-9]|[57]|8[0-79])|8(?:0[015689]|1[0-57-9]|2[2356-9]|3[0-57-9]|[45]|6[02457-9]|7[1-69]|8[0124-9]|9[02-9])|9"];
-        [numberFormats0_patternArray addObject:@"7(?:0(?:2[2-9]|[3-8]|9[0-8])|2(?:0[024-9]|19|2[012]|5[09]|7[5-8]|9[389])|3(?:0[1-9]|[58]|7[3679]|9[689])|4(?:0[1-9]|1[15-9]|[29][89]|39|8[389])|5(?:[034678]|2[03-9]|5[017-9]|9[7-9])|6(?:0[0-27]|1[0-257-9]|2[0-4]|3[19]|5[4589]|[6-9])|7(?:0[2-9]|[1-79]|8[1-9])|8(?:[0-7]|9[013-9]))|8(?:0(?:[01589]|6[67])|1(?:[02-589]|1[0135-9]|7[0-79])|2(?:[236-9]|5[1-9])|3(?:[0357-9]|4[1-9])|[45]|6[02457-9]|7[1-69]|8(?:[0-26-9]|44|5[2-9])|9(?:[035-9]|2[2-9]|4[0-8]))|9"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{5})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        [numberFormats0_patternArray addObject:@"7(?:[0257]|3[0157-9]|4[0-389]|6[0-35-9]|8[0-79])|8(?:0[015689]|1[0-57-9]|2[2356-9]|3[0-57-9]|[45]|6[02457-9]|7[01-69]|8[0-24-9]|9[02-9])|9"];
+        [numberFormats0_patternArray addObject:@"7(?:0|2(?:[0235679]|[14][017-9]|8[0-59]|9[389])|3(?:[058]|10|7[3679]|9[689])|4(?:0[1-9]|1[015-9]|[29][89]|39|8[389])|5(?:[034678]|2[03-9]|5[017-9]|9[7-9])|6(?:0[0-47]|1[0-257-9]|2[0-4]|3[19]|5[4589]|[6-9])|7(?:0[2-9]|[1-79]|8[1-9])|8[0-79])|8(?:0(?:[01589]|6[67])|1(?:[02-57-9]|1[0135-9])|2(?:[236-9]|5[1-9])|3(?:[0357-9]|4[1-9])|[45]|6[02457-9]|7(?:07|[1-69])|8(?:[0-26-9]|44|5[2-9])|9(?:[035-9]|2[2-9]|4[0-8]))|9"];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{5})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"11|2[02]|33|4[04]|79|80[2-46]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"1(?:2[0-249]|3[0-25]|4[145]|[569][14]|7[1257]|8[1346]|[68][1-9])|2(?:1[257]|3[013]|4[01]|5[0137]|6[0158]|78|8[1568]|9[14])|3(?:26|4[1-3]|5[34]|6[01489]|7[02-46]|8[159])|4(?:1[36]|2[1-47]|3[15]|5[12]|6[0-26-9]|7[0-24-9]|8[013-57]|9[014-7])|5(?:1[025]|[36][25]|22|4[28]|5[12]|[78]1|9[15])|6(?:12|[2345]1|57|6[13]|7[14]|80)"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"7(?:12|2[14]|3[134]|4[47]|5[15]|[67]1|88)"];
         [numberFormats3_patternArray addObject:@"7(?:12|2[14]|3[134]|4[47]|5(?:1|5[2-6])|[67]1|88)"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"8(?:16|2[014]|3[126]|6[136]|7[078]|8[34]|91)"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"1(?:[23579]|[468][1-9])|[2-8]"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
 
         NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
         [numberFormats6_patternArray addObject:@"160"];
         [numberFormats6_patternArray addObject:@"1600"];
-        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(1600)(\\d{2})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(1600)(\\d{2})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats6];
 
         NSMutableArray *numberFormats7_patternArray = [[NSMutableArray alloc] init];
         [numberFormats7_patternArray addObject:@"180"];
         [numberFormats7_patternArray addObject:@"1800"];
-        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(1800)(\\d{4,5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(1800)(\\d{4,5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats7];
 
         NSMutableArray *numberFormats8_patternArray = [[NSMutableArray alloc] init];
         [numberFormats8_patternArray addObject:@"18[06]"];
         [numberFormats8_patternArray addObject:@"18[06]0"];
-        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(18[06]0)(\\d{2,4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(18[06]0)(\\d{2,4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats8];
 
         NSMutableArray *numberFormats9_patternArray = [[NSMutableArray alloc] init];
         [numberFormats9_patternArray addObject:@"140"];
-        NBNumberFormat *numberFormats9 = [[NBNumberFormat alloc] initWithPattern:@"(140)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats9_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats9 = [[NBNumberFormat alloc] initWithPattern:@"(140)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats9_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats9];
 
         NSMutableArray *numberFormats10_patternArray = [[NSMutableArray alloc] init];
         [numberFormats10_patternArray addObject:@"18[06]"];
         [numberFormats10_patternArray addObject:@"18(?:0[03]|6[12])"];
-        NBNumberFormat *numberFormats10 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats10_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats10 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats10_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats10];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -295,7 +301,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"20\\d{6,7}|[4-9]\\d{6,9}" withPossibleNumberPattern:@"\\d{7,10}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"20\\d{6,7}|4(?:[0136]\\d{7}|[245]\\d{5,7})|5(?:[08]\\d{7}|[1-79]\\d{5,7})|6(?:[01457-9]\\d{5,7}|[26]\\d{7})" withPossibleNumberPattern:@"\\d{7,9}" withExample:@"202012345"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"7(?:[0-36]\\d|5[0-6]|7[0-5]|8[0-25-9])\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"712123456"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"7(?:[0-36]\\d|5[0-6]|7[0-5]|8[0-25-9]|9[0-4])\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"712123456"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"800[24-8]\\d{5,6}" withPossibleNumberPattern:@"\\d{9,10}" withExample:@"800223456"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"900[02-9]\\d{5}" withPossibleNumberPattern:@"\\d{9}" withExample:@"900223456"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -320,17 +326,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[24-6]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{5,7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{5,7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"7"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{6,7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[89]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -376,17 +382,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"20"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(20)(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(20)(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"2[13]|3[14]|[4-8]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([2-8]\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([2-8]\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"30"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(30)(\\d{2})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(30)(\\d{2})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -431,7 +437,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -451,8 +457,8 @@
     self = [super init];
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[2-489]\\d{7}" withPossibleNumberPattern:@"\\d{8}" withExample:nil];
-        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"2(?:[24]\\d|5[1-5]|94)\\d{5}" withPossibleNumberPattern:@"\\d{8}" withExample:@"22453300"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:3[1-9]|4\\d)\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"34101234"];
+        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"2(?:[248]\\d|5[1-5]|94)\\d{5}" withPossibleNumberPattern:@"\\d{8}" withExample:@"22453300"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:3[1-9]\\d|4\\d{2}|9(?:8[0-35]|9[5-9]))\\d{5}" withPossibleNumberPattern:@"\\d{8}" withExample:@"34101234"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"8\\d{7}" withPossibleNumberPattern:@"\\d{8}" withExample:@"80012345"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -476,7 +482,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -521,7 +527,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -567,12 +573,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[13-6]|7(?:[2-57]|62|8[0-7]|9[04-9])|8[02-9]|9"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[89][01]|7(?:[01]|6[013-9]|8[89]|9[1-3])"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([7-9]\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([7-9]\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -618,17 +624,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[25-7]|31[25]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"3(?:1[36]|[2-9])"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"8"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d)(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d)(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -674,12 +680,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"1"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(1)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"($1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(1)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"($1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[2-9]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"($1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"($1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -766,17 +772,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"1"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(1)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(1)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[2-6]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([2-6]\\d)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([2-6]\\d)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"7"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(7\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(7\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -822,12 +828,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"1\\d[1-9]|[2-9]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"1[89]0"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(1[89]00)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(1[89]00)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -889,7 +895,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[1-8]\\d{9}|9(?:[0-4]\\d{8}|9\\d{2,8})" withPossibleNumberPattern:@"\\d{4,10}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:1[137]|2[13-68]|3[1458]|4[145]|5[146-8]|6[146]|7[1467]|8[13467])\\d{8}" withPossibleNumberPattern:@"\\d{10}" withExample:@"2123456789"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"9(?:0[12]|[1-3]\\d)\\d{7}" withPossibleNumberPattern:@"\\d{10}" withExample:@"9123456789"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"9(?:0[1-3]|[13]\\d|2[0-2]|90)\\d{7}" withPossibleNumberPattern:@"\\d{10}" withExample:@"9123456789"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -914,27 +920,27 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"21"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(21)(\\d{3,5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(21)(\\d{3,5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[1-8]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"9"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"9"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2,3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2,3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"9"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -1021,12 +1027,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[4-9]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"3"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(3\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(3\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -1072,24 +1078,24 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"5(?:2[015-7]|3[0-4])|6"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([56]\\d{2})(\\d{6})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([56]\\d{2})(\\d{6})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"5(?:2[2-489]|3[5-9])|892"];
         [numberFormats1_patternArray addObject:@"5(?:2(?:[2-48]|90)|3(?:[5-79]|80))|892"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([58]\\d{3})(\\d{5})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([58]\\d{3})(\\d{5})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"5(?:29|38)"];
         [numberFormats2_patternArray addObject:@"5(?:29|38)[89]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(5\\d{4})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(5\\d{4})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"8(?:0|9[013-9])"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(8[09])(\\d{7})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(8[09])(\\d{7})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -1110,7 +1116,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[235-9]\\d{7,8}" withPossibleNumberPattern:@"\\d{8,9}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:2(?:6(?:2[0-35-9]|3[0-57-8]|4[24-7]|5[0-24-8]|[6-8][023]|9[0-3])|7(?:0[1-79]|10|2[014-7]|3[0-689]|4[019]|5[0-3578]))|32(?:0[1-69]|1[1-35-7]|2[024-7]|3\\d|4[0-3]|[57][023]|6[03])|53(?:0[0-3]|[13][023]|2[0-59]|49|5[0-35-9]|6[15]|7[45]|8[1-6]|9[0-36-9])|6(?:2[50]0|3(?:00|33)|4(?:0[0125]|1[2-7]|2[0569]|[38][07-9]|4[025689]|6[0-589]|7\\d|9[0-2])|5(?:[01][056]|2[034]|3[0-57-9]|4[17-8]|5[0-69]|6[0-35-9]|7[1-379]|8[0-68]|9[02-39]))|87(?:[02]0|7[08]|90))\\d{4}" withPossibleNumberPattern:@"\\d{8}" withExample:@"62001234"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"7(?:55|7[025-9]|8[05-9]|9[0-25-9])\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"790123456"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"7(?:55|7[025-9]|8[015-9]|9[0-25-9])\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"790123456"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"80\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"80012345"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"900\\d{5}" withPossibleNumberPattern:@"\\d{8}" withExample:@"90012345"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"85\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"85012345"];
@@ -1135,17 +1141,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[2356]|87"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"7[457-9]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(7)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(7)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"70|8[0158]|9"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{5,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{5,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -1191,55 +1197,55 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"0[26]|55"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3,4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3,4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"0[26]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(0[26])(\\d{4})(\\d{5})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(0[26])(\\d{4})(\\d{5})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"0[26]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(0[26])(\\d{4,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(0[26])(\\d{4,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"0[13-57-9][0159]"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(0\\d{2})(\\d{3,4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(0\\d{2})(\\d{3,4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"0[13-57-9][0159]|8(?:03|4[17]|9[245])"];
         [numberFormats4_patternArray addObject:@"0[13-57-9][0159]|8(?:03|4[17]|9(?:2|[45][0-4]))"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"0[13-57-9][2-46-8]"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(0\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(0\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
 
         NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
         [numberFormats6_patternArray addObject:@"0[13-57-9][2-46-8]"];
-        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(0\\d{3})(\\d{2,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(0\\d{3})(\\d{2,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats6];
 
         NSMutableArray *numberFormats7_patternArray = [[NSMutableArray alloc] init];
         [numberFormats7_patternArray addObject:@"[13]|8(?:00|4[08]|9[59])"];
         [numberFormats7_patternArray addObject:@"[13]|8(?:00|4[08]|9(?:5[5-9]|9))"];
-        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats7];
 
         NSMutableArray *numberFormats8_patternArray = [[NSMutableArray alloc] init];
         [numberFormats8_patternArray addObject:@"894"];
         [numberFormats8_patternArray addObject:@"894[5-9]"];
-        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats8];
 
         NSMutableArray *numberFormats9_patternArray = [[NSMutableArray alloc] init];
         [numberFormats9_patternArray addObject:@"3"];
-        NBNumberFormat *numberFormats9 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats9_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats9 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats9_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats9];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -1285,59 +1291,59 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"(?:12|57|99)0"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"800"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"0077"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"0077"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{2})(\\d{3,4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{2})(\\d{3,4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"0088"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{2})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{2})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"00(?:37|66)"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{3})(\\d{3,4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{3})(\\d{3,4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
 
         NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
         [numberFormats6_patternArray addObject:@"00(?:37|66)"];
-        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})(\\d{4,5})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})(\\d{4,5})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats6];
 
         NSMutableArray *numberFormats7_patternArray = [[NSMutableArray alloc] init];
         [numberFormats7_patternArray addObject:@"00(?:37|66)"];
-        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{5})(\\d{5,6})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{5})(\\d{5,6})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats7];
 
         NSMutableArray *numberFormats8_patternArray = [[NSMutableArray alloc] init];
         [numberFormats8_patternArray addObject:@"00(?:37|66)"];
-        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{6})(\\d{6,7})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{6})(\\d{6,7})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats8];
 
         NSMutableArray *numberFormats9_patternArray = [[NSMutableArray alloc] init];
         [numberFormats9_patternArray addObject:@"[2579]0|80[1-9]"];
-        NBNumberFormat *numberFormats9 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats9_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats9 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats9_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats9];
 
         NSMutableArray *numberFormats10_patternArray = [[NSMutableArray alloc] init];
         [numberFormats10_patternArray addObject:@"1(?:26|3[79]|4[56]|5[4-68]|6[3-5])|5(?:76|97)|499|746|8(?:3[89]|63|47|51)|9(?:49|80|9[16])"];
         [numberFormats10_patternArray addObject:@"1(?:267|3(?:7[247]|9[278])|4(?:5[67]|66)|5(?:47|58|64|8[67])|6(?:3[245]|48|5[4-68]))|5(?:76|97)9|499[2468]|7468|8(?:3(?:8[78]|96)|636|477|51[24])|9(?:496|802|9(?:1[23]|69))"];
         [numberFormats10_patternArray addObject:@"1(?:267|3(?:7[247]|9[278])|4(?:5[67]|66)|5(?:47|58|64|8[67])|6(?:3[245]|48|5[4-68]))|5(?:769|979[2-69])|499[2468]|7468|8(?:3(?:8[78]|96[2457-9])|636[2-57-9]|477|51[24])|9(?:496|802|9(?:1[23]|69))"];
-        NBNumberFormat *numberFormats10 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d)(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats10_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats10 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d)(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats10_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats10];
 
         NSMutableArray *numberFormats11_patternArray = [[NSMutableArray alloc] init];
@@ -1345,29 +1351,29 @@
         [numberFormats11_patternArray addObject:@"1(?:2[3-6]|3[3-9]|4[2-6]|5(?:[236-8]|[45][2-69])|[68][2-7]|7[2-689]|9[1-578])|2(?:2(?:[04-689]|3[23])|3[3-58]|4[0-468]|5(?:5[78]|7[2-4]|[0468][2-9])|6(?:[0135-8]|4[2-5])|7(?:[0679]|8[2-7])|8(?:[024578]|3[25-9]|9[6-9])|9(?:11|3[2-4]))|4(?:2(?:2[2-9]|8[237-9])|3[689]|6[035-7]|7(?:[059][2-8]|[68])|80|9[3-5])|5(?:3[1-36-9]|4[4578]|5[013-8]|6[1-9]|7[2-8]|8[14-7]|9(?:[89][2-8]|[4-7]))|7(?:2[15]|3[5-9]|4[02-9]|6[135-8]|7[0-4689]|9(?:[017-9]|4[6-8]|5[2-478]|6[2-589]))|8(?:2(?:4[4-8]|9[2-8])|3(?:7[2-6]|[3-6][2-9]|8[2-5])|4[5-8]|5[2-9]|6(?:[37]|5[4-7]|6[2-9]|8[2-8]|9[236-9])|7[579]|8[03-579]|9[2-8])|9(?:[23]0|4[02-46-9]|5[024-79]|6[4-9]|7[2-47-9]|8[02-7]|9(?:3[34]|[4-7]))"];
         [numberFormats11_patternArray addObject:@"1(?:2[3-6]|3[3-9]|4[2-6]|5(?:[236-8]|[45][2-69])|[68][2-7]|7[2-689]|9[1-578])|2(?:2(?:[04-689]|3[23])|3[3-58]|4[0-468]|5(?:5[78]|7[2-4]|[0468][2-9])|6(?:[0135-8]|4[2-5])|7(?:[0679]|8[2-7])|8(?:[024578]|3[25-9]|9[6-9])|9(?:11|3[2-4]))|4(?:2(?:2[2-9]|8[237-9])|3[689]|6[035-7]|7(?:[059][2-8]|[68])|80|9[3-5])|5(?:3[1-36-9]|4[4578]|5[013-8]|6[1-9]|7[2-8]|8[14-7]|9(?:[89][2-8]|[4-7]))|7(?:2[15]|3[5-9]|4[02-9]|6[135-8]|7[0-4689]|9(?:[017-9]|4[6-8]|5[2-478]|6[2-589]))|8(?:2(?:4[4-8]|9(?:[3578]|20|4[04-9]|6[56]))|3(?:7(?:[2-5]|6[0-59])|[3-6][2-9]|8[2-5])|4[5-8]|5[2-9]|6(?:[37]|5(?:[467]|5[014-9])|6(?:[2-8]|9[02-69])|8[2-8]|9(?:[236-8]|9[23]))|7[579]|8[03-579]|9[2-8])|9(?:[23]0|4[02-46-9]|5[024-79]|6[4-9]|7[2-47-9]|8[02-7]|9(?:3(?:3[02-9]|4[0-24689])|4[2-69]|[5-7]))"];
         [numberFormats11_patternArray addObject:@"1(?:2[3-6]|3[3-9]|4[2-6]|5(?:[236-8]|[45][2-69])|[68][2-7]|7[2-689]|9[1-578])|2(?:2(?:[04-689]|3[23])|3[3-58]|4[0-468]|5(?:5[78]|7[2-4]|[0468][2-9])|6(?:[0135-8]|4[2-5])|7(?:[0679]|8[2-7])|8(?:[024578]|3[25-9]|9[6-9])|9(?:11|3[2-4]))|4(?:2(?:2[2-9]|8[237-9])|3[689]|6[035-7]|7(?:[059][2-8]|[68])|80|9[3-5])|5(?:3[1-36-9]|4[4578]|5[013-8]|6[1-9]|7[2-8]|8[14-7]|9(?:[89][2-8]|[4-7]))|7(?:2[15]|3[5-9]|4[02-9]|6[135-8]|7[0-4689]|9(?:[017-9]|4[6-8]|5[2-478]|6[2-589]))|8(?:2(?:4[4-8]|9(?:[3578]|20|4[04-9]|6(?:5[25]|60)))|3(?:7(?:[2-5]|6[0-59])|[3-6][2-9]|8[2-5])|4[5-8]|5[2-9]|6(?:[37]|5(?:[467]|5[014-9])|6(?:[2-8]|9[02-69])|8[2-8]|9(?:[236-8]|9[23]))|7[579]|8[03-579]|9[2-8])|9(?:[23]0|4[02-46-9]|5[024-79]|6[4-9]|7[2-47-9]|8[02-7]|9(?:3(?:3[02-9]|4[0-24689])|4[2-69]|[5-7]))"];
-        NBNumberFormat *numberFormats11 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats11_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats11 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats11_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats11];
 
         NSMutableArray *numberFormats12_patternArray = [[NSMutableArray alloc] init];
         [numberFormats12_patternArray addObject:@"1|2(?:2[37]|5[5-9]|64|78|8[39]|91)|4(?:2[2689]|64|7[347])|5(?:[2-589]|39)|60|8(?:[46-9]|3[279]|2[124589])|9(?:[235-8]|93)"];
         [numberFormats12_patternArray addObject:@"1|2(?:2[37]|5(?:[57]|[68]0|9[19])|64|78|8[39]|917)|4(?:2(?:[68]|20|9[178])|64|7[347])|5(?:[2-589]|39[67])|60|8(?:[46-9]|3[279]|2[124589])|9(?:[235-8]|93[34])"];
         [numberFormats12_patternArray addObject:@"1|2(?:2[37]|5(?:[57]|[68]0|9(?:17|99))|64|78|8[39]|917)|4(?:2(?:[68]|20|9[178])|64|7[347])|5(?:[2-589]|39[67])|60|8(?:[46-9]|3[279]|2[124589])|9(?:[235-8]|93(?:31|4))"];
-        NBNumberFormat *numberFormats12 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats12_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats12 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats12_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats12];
 
         NSMutableArray *numberFormats13_patternArray = [[NSMutableArray alloc] init];
         [numberFormats13_patternArray addObject:@"2(?:9[14-79]|74|[34]7|[56]9)|82|993"];
-        NBNumberFormat *numberFormats13 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats13_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats13 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats13_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats13];
 
         NSMutableArray *numberFormats14_patternArray = [[NSMutableArray alloc] init];
         [numberFormats14_patternArray addObject:@"3|4(?:2[09]|7[01])|6[1-9]"];
-        NBNumberFormat *numberFormats14 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{4})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats14_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats14 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{4})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats14_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats14];
 
         NSMutableArray *numberFormats15_patternArray = [[NSMutableArray alloc] init];
         [numberFormats15_patternArray addObject:@"[2479][1-9]"];
-        NBNumberFormat *numberFormats15 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats15_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats15 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats15_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats15];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -1375,24 +1381,24 @@
 
         NSMutableArray *intlNumberFormats0_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats0_patternArray addObject:@"(?:12|57|99)0"];
-        NBNumberFormat *intlNumberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:intlNumberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:intlNumberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats0];
 
         NSMutableArray *intlNumberFormats1_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats1_patternArray addObject:@"800"];
-        NBNumberFormat *intlNumberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:intlNumberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:intlNumberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats1];
 
         NSMutableArray *intlNumberFormats2_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats2_patternArray addObject:@"[2579]0|80[1-9]"];
-        NBNumberFormat *intlNumberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:intlNumberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:intlNumberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats2];
 
         NSMutableArray *intlNumberFormats3_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats3_patternArray addObject:@"1(?:26|3[79]|4[56]|5[4-68]|6[3-5])|5(?:76|97)|499|746|8(?:3[89]|63|47|51)|9(?:49|80|9[16])"];
         [intlNumberFormats3_patternArray addObject:@"1(?:267|3(?:7[247]|9[278])|4(?:5[67]|66)|5(?:47|58|64|8[67])|6(?:3[245]|48|5[4-68]))|5(?:76|97)9|499[2468]|7468|8(?:3(?:8[78]|96)|636|477|51[24])|9(?:496|802|9(?:1[23]|69))"];
         [intlNumberFormats3_patternArray addObject:@"1(?:267|3(?:7[247]|9[278])|4(?:5[67]|66)|5(?:47|58|64|8[67])|6(?:3[245]|48|5[4-68]))|5(?:769|979[2-69])|499[2468]|7468|8(?:3(?:8[78]|96[2457-9])|636[2-57-9]|477|51[24])|9(?:496|802|9(?:1[23]|69))"];
-        NBNumberFormat *intlNumberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d)(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:intlNumberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d)(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:intlNumberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats3];
 
         NSMutableArray *intlNumberFormats4_patternArray = [[NSMutableArray alloc] init];
@@ -1400,29 +1406,29 @@
         [intlNumberFormats4_patternArray addObject:@"1(?:2[3-6]|3[3-9]|4[2-6]|5(?:[236-8]|[45][2-69])|[68][2-7]|7[2-689]|9[1-578])|2(?:2(?:[04-689]|3[23])|3[3-58]|4[0-468]|5(?:5[78]|7[2-4]|[0468][2-9])|6(?:[0135-8]|4[2-5])|7(?:[0679]|8[2-7])|8(?:[024578]|3[25-9]|9[6-9])|9(?:11|3[2-4]))|4(?:2(?:2[2-9]|8[237-9])|3[689]|6[035-7]|7(?:[059][2-8]|[68])|80|9[3-5])|5(?:3[1-36-9]|4[4578]|5[013-8]|6[1-9]|7[2-8]|8[14-7]|9(?:[89][2-8]|[4-7]))|7(?:2[15]|3[5-9]|4[02-9]|6[135-8]|7[0-4689]|9(?:[017-9]|4[6-8]|5[2-478]|6[2-589]))|8(?:2(?:4[4-8]|9[2-8])|3(?:7[2-6]|[3-6][2-9]|8[2-5])|4[5-8]|5[2-9]|6(?:[37]|5[4-7]|6[2-9]|8[2-8]|9[236-9])|7[579]|8[03-579]|9[2-8])|9(?:[23]0|4[02-46-9]|5[024-79]|6[4-9]|7[2-47-9]|8[02-7]|9(?:3[34]|[4-7]))"];
         [intlNumberFormats4_patternArray addObject:@"1(?:2[3-6]|3[3-9]|4[2-6]|5(?:[236-8]|[45][2-69])|[68][2-7]|7[2-689]|9[1-578])|2(?:2(?:[04-689]|3[23])|3[3-58]|4[0-468]|5(?:5[78]|7[2-4]|[0468][2-9])|6(?:[0135-8]|4[2-5])|7(?:[0679]|8[2-7])|8(?:[024578]|3[25-9]|9[6-9])|9(?:11|3[2-4]))|4(?:2(?:2[2-9]|8[237-9])|3[689]|6[035-7]|7(?:[059][2-8]|[68])|80|9[3-5])|5(?:3[1-36-9]|4[4578]|5[013-8]|6[1-9]|7[2-8]|8[14-7]|9(?:[89][2-8]|[4-7]))|7(?:2[15]|3[5-9]|4[02-9]|6[135-8]|7[0-4689]|9(?:[017-9]|4[6-8]|5[2-478]|6[2-589]))|8(?:2(?:4[4-8]|9(?:[3578]|20|4[04-9]|6[56]))|3(?:7(?:[2-5]|6[0-59])|[3-6][2-9]|8[2-5])|4[5-8]|5[2-9]|6(?:[37]|5(?:[467]|5[014-9])|6(?:[2-8]|9[02-69])|8[2-8]|9(?:[236-8]|9[23]))|7[579]|8[03-579]|9[2-8])|9(?:[23]0|4[02-46-9]|5[024-79]|6[4-9]|7[2-47-9]|8[02-7]|9(?:3(?:3[02-9]|4[0-24689])|4[2-69]|[5-7]))"];
         [intlNumberFormats4_patternArray addObject:@"1(?:2[3-6]|3[3-9]|4[2-6]|5(?:[236-8]|[45][2-69])|[68][2-7]|7[2-689]|9[1-578])|2(?:2(?:[04-689]|3[23])|3[3-58]|4[0-468]|5(?:5[78]|7[2-4]|[0468][2-9])|6(?:[0135-8]|4[2-5])|7(?:[0679]|8[2-7])|8(?:[024578]|3[25-9]|9[6-9])|9(?:11|3[2-4]))|4(?:2(?:2[2-9]|8[237-9])|3[689]|6[035-7]|7(?:[059][2-8]|[68])|80|9[3-5])|5(?:3[1-36-9]|4[4578]|5[013-8]|6[1-9]|7[2-8]|8[14-7]|9(?:[89][2-8]|[4-7]))|7(?:2[15]|3[5-9]|4[02-9]|6[135-8]|7[0-4689]|9(?:[017-9]|4[6-8]|5[2-478]|6[2-589]))|8(?:2(?:4[4-8]|9(?:[3578]|20|4[04-9]|6(?:5[25]|60)))|3(?:7(?:[2-5]|6[0-59])|[3-6][2-9]|8[2-5])|4[5-8]|5[2-9]|6(?:[37]|5(?:[467]|5[014-9])|6(?:[2-8]|9[02-69])|8[2-8]|9(?:[236-8]|9[23]))|7[579]|8[03-579]|9[2-8])|9(?:[23]0|4[02-46-9]|5[024-79]|6[4-9]|7[2-47-9]|8[02-7]|9(?:3(?:3[02-9]|4[0-24689])|4[2-69]|[5-7]))"];
-        NBNumberFormat *intlNumberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:intlNumberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:intlNumberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats4];
 
         NSMutableArray *intlNumberFormats5_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats5_patternArray addObject:@"1|2(?:2[37]|5[5-9]|64|78|8[39]|91)|4(?:2[2689]|64|7[347])|5(?:[2-589]|39)|60|8(?:[46-9]|3[279]|2[124589])|9(?:[235-8]|93)"];
         [intlNumberFormats5_patternArray addObject:@"1|2(?:2[37]|5(?:[57]|[68]0|9[19])|64|78|8[39]|917)|4(?:2(?:[68]|20|9[178])|64|7[347])|5(?:[2-589]|39[67])|60|8(?:[46-9]|3[279]|2[124589])|9(?:[235-8]|93[34])"];
         [intlNumberFormats5_patternArray addObject:@"1|2(?:2[37]|5(?:[57]|[68]0|9(?:17|99))|64|78|8[39]|917)|4(?:2(?:[68]|20|9[178])|64|7[347])|5(?:[2-589]|39[67])|60|8(?:[46-9]|3[279]|2[124589])|9(?:[235-8]|93(?:31|4))"];
-        NBNumberFormat *intlNumberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:intlNumberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:intlNumberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats5];
 
         NSMutableArray *intlNumberFormats6_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats6_patternArray addObject:@"2(?:9[14-79]|74|[34]7|[56]9)|82|993"];
-        NBNumberFormat *intlNumberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:intlNumberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:intlNumberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats6];
 
         NSMutableArray *intlNumberFormats7_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats7_patternArray addObject:@"3|4(?:2[09]|7[01])|6[1-9]"];
-        NBNumberFormat *intlNumberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{4})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:intlNumberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{4})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:intlNumberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats7];
 
         NSMutableArray *intlNumberFormats8_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats8_patternArray addObject:@"[2479][1-9]"];
-        NBNumberFormat *intlNumberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:intlNumberFormats8_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:intlNumberFormats8_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats8];
         self.intlNumberFormats = intlNumberFormats_FormatArray;
         self.mainCountryForCode = NO;
@@ -1440,7 +1446,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[4689]\\d{7,8}" withPossibleNumberPattern:@"\\d{8,9}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"870\\d{5}|9[2-47-9]\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"99123456"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"6\\d{8}|4(?:4\\d|5[2-9])\\d{5}" withPossibleNumberPattern:@"\\d{8,9}" withExample:@"612345678"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"6\\d{8}|4(?:4\\d|5[1-9])\\d{5}" withPossibleNumberPattern:@"\\d{8,9}" withExample:@"612345678"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"90\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"90123456"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -1465,22 +1471,22 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"9"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"4"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"6"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(6)(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4 $5" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(6)(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4 $5" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"8"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -1525,7 +1531,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -1546,7 +1552,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[235-9]\\d{7}" withPossibleNumberPattern:@"\\d{8}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:2(?:1[0569]|2\\d|3[015-7]|4[1-46-9]|5[0-24689]|6[2-589]|7[1-37]|9[1347-9])|5(?:33|5[257]))\\d{5}" withPossibleNumberPattern:@"\\d{8}" withExample:@"22212345"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:562\\d|6(?:[089]\\d{2}|1[01]\\d|21\\d|7(?:[1-6]\\d|7[0-4]))|7(?:6[07]|7[457-9]|[89]\\d)\\d)\\d{4}" withPossibleNumberPattern:@"\\d{8}" withExample:@"62112345"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:562\\d|6(?:[089]\\d{2}|[12][01]\\d|7(?:[1-6]\\d|7[0-4]))|7(?:6[07]|7[457-9]|[89]\\d)\\d)\\d{4}" withPossibleNumberPattern:@"\\d{8}" withExample:@"62112345"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"800\\d{5}" withPossibleNumberPattern:@"\\d{8}" withExample:@"80012345"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"90[056]\\d{5}" withPossibleNumberPattern:@"\\d{8}" withExample:@"90012345"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"808\\d{5}" withPossibleNumberPattern:@"\\d{8}" withExample:@"80812345"];
@@ -1571,17 +1577,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"22|3"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"2[13-79]|[5-7]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([25-7]\\d{2})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([25-7]\\d{2})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[89]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([89]\\d{2})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([89]\\d{2})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -1627,17 +1633,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[23789]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"6[56]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"697"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(69)(7\\d{2})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(69)(7\\d{2})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -1671,7 +1677,7 @@
         self.noInternationalDialling = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.codeID = @"001";
         self.countryCode = [NSNumber numberWithInteger:881];
-        self.internationalPrefix = @"";
+        self.internationalPrefix = nil;
         self.preferredInternationalPrefix = nil;
         self.nationalPrefix = nil;
         self.preferredExtnPrefix = nil;
@@ -1683,7 +1689,7 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[67]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{3})(\\d{5})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{3})(\\d{5})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -1771,13 +1777,13 @@
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[2-57-9]|6[036-9]"];
         [numberFormats0_patternArray addObject:@"[2-57-9]|6(?:[03689]|7(?:[0-8]|9[3-9]))"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"679"];
         [numberFormats1_patternArray addObject:@"679[0-2]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(67)(9)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(67)(9)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -1797,7 +1803,7 @@
     self = [super init];
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[68]\\d{7,8}" withPossibleNumberPattern:@"\\d{8,9}" withExample:nil];
-        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"6(?:1(?:17|2(?:[0189]\\d|[2-6]|7\\d?)|3(?:[01378]|2\\d)|4[01]|69|7[014])|2(?:17|5(?:[0-36-8]|4\\d?)|69|70)|3(?:17|2(?:[0237]\\d?|[14-689])|34|6[29]|7[01]|81)|4(?:17|2(?:[012]|7?)|4(?:[06]|1\\d)|5(?:[01357]|[25]\\d?)|69|7[01])|5(?:17|2(?:[0459]|[23678]\\d?)|69|7[01])|6(?:17|2(?:5|6\\d?)|38|42|69|7[01])|7(?:17|2(?:[569]|[234]\\d?)|3(?:0\\d?|[13])|69|7[01]))\\d{4}" withPossibleNumberPattern:@"\\d{8,9}" withExample:@"61221234"];
+        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"6(?:1(?:17|2(?:[0189]\\d|[2-6]|7\\d?)|3(?:[01378]|2\\d)|4[01]|69|7[014])|2(?:17|5(?:[0-36-8]|4\\d?)|69|70)|3(?:17|2(?:[0237]\\d?|[14-689])|34|6[289]|7[01]|81)|4(?:17|2(?:[012]|7?)|4(?:[06]|1\\d)|5(?:[01357]|[25]\\d?)|69|7[01])|5(?:17|2(?:[0459]|[23678]\\d?)|69|7[01])|6(?:17|2(?:5|6\\d?)|38|42|69|7[01])|7(?:17|2(?:[569]|[234]\\d?)|3(?:0\\d?|[13])|69|7[01]))\\d{4}" withPossibleNumberPattern:@"\\d{8,9}" withExample:@"61221234"];
         self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:60|8[125])\\d{7}" withPossibleNumberPattern:@"\\d{9}" withExample:@"811234567"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"8701\\d{5}" withPossibleNumberPattern:@"\\d{9}" withExample:@"870123456"];
@@ -1823,22 +1829,22 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"8[1235]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(8\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(8\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"6"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(6\\d)(\\d{2,3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(6\\d)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"88"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(88)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(88)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"870"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(870)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(870)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -1925,12 +1931,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[1-689]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{1})(\\d{6})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{1})(\\d{6})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"7"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -1964,7 +1970,7 @@
         self.noInternationalDialling = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.codeID = @"001";
         self.countryCode = [NSNumber numberWithInteger:882];
-        self.internationalPrefix = @"";
+        self.internationalPrefix = nil;
         self.preferredInternationalPrefix = nil;
         self.nationalPrefix = nil;
         self.preferredExtnPrefix = nil;
@@ -1976,37 +1982,37 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"3[23]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"16|342"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"34[57]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"348"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"1"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"16"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3,4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3,4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
 
         NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
         [numberFormats6_patternArray addObject:@"16"];
-        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4,5})(\\d{5})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4,5})(\\d{5})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats6];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -2052,17 +2058,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"1"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"2"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"8"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -2107,7 +2113,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([23]\\d)(\\d{2})(\\d{3})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([23]\\d)(\\d{2})(\\d{3})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -2153,7 +2159,7 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[2-46-9]|5[0-4]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1.$2.$3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1.$2.$3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -2198,7 +2204,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -2232,7 +2238,7 @@
         self.noInternationalDialling = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.codeID = @"001";
         self.countryCode = [NSNumber numberWithInteger:883];
-        self.internationalPrefix = @"";
+        self.internationalPrefix = nil;
         self.preferredInternationalPrefix = nil;
         self.nationalPrefix = nil;
         self.preferredExtnPrefix = nil;
@@ -2244,17 +2250,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"510"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"510"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"51[13]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -2372,7 +2378,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[0289]\\d{7}" withPossibleNumberPattern:@"\\d{8}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"2(?:0(?:20|3[1-7]|4[134]|5[14]|6[14578]|7[1-578])|1(?:4[145]|5[14]|6[14-68]|7[169]|88))\\d{4}" withPossibleNumberPattern:@"\\d{8}" withExample:@"20201234"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:8[89]|9\\d)\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"93123456"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:8[089]|9\\d)\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"93123456"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"08\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"08123456"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"09\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"09123456"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -2397,12 +2403,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[289]|09"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"08"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(08)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(08)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -2448,12 +2454,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"1"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"3"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -2499,17 +2505,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"2"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(2)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(2)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[347]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([347]\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([347]\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[58]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([58]\\d{2})(\\d)(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([58]\\d{2})(\\d)(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -2555,32 +2561,32 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[129]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([129])(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([129])(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[3-6]|7(?:[1-79]|0[1-9])|8[2-9]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{2,3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{2,3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"70|8[01]|90[2359]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"[78]00"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"([78]00)(\\d{4})(\\d{4,5})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"([78]00)(\\d{4})(\\d{4,5})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"[78]00"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"([78]00)(\\d{5})(\\d{5,6})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"([78]00)(\\d{5})(\\d{5,6})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"78"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(78)(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(78)(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -2626,12 +2632,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[246-9]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"67|74"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})" withFormat:@"$1" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})" withFormat:@"$1" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -2639,7 +2645,7 @@
 
         NSMutableArray *intlNumberFormats0_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats0_patternArray addObject:@"[246-9]"];
-        NBNumberFormat *intlNumberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:intlNumberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:intlNumberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats0];
         self.intlNumberFormats = intlNumberFormats_FormatArray;
         self.mainCountryForCode = NO;
@@ -2657,7 +2663,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[14578]\\d{5,7}|[26]\\d{5,8}|9(?:2\\d{0,2}|[58]|3\\d|4\\d{1,2}|6\\d?|[79]\\d{0,2})\\d{6}" withPossibleNumberPattern:@"\\d{5,10}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"1(?:2\\d{1,2}|[3-5]\\d|6\\d?|[89][0-6]\\d)\\d{4}|2(?:[236-9]\\d{4}|4(?:0\\d{5}|\\d{4})|5(?:1\\d{3,6}|[02-9]\\d{3,5}))|4(?:2[245-8]|[346][2-6]|5[3-5])\\d{4}|5(?:2(?:20?|[3-8])|3[2-68]|4(?:21?|[4-8])|5[23]|6[2-4]|7[2-8]|8[24-7]|9[2-7])\\d{4}|6(?:0[23]|1[2356]|[24][2-6]|3[24-6]|5[2-4]|6[2-8]|7(?:[2367]|4\\d|5\\d?|8[145]\\d)|8[245]|9[24])\\d{4}|7(?:[04][24-8]|[15][2-7]|22|3[2-4])\\d{4}|8(?:1(?:2\\d?|[3-689])|2[2-8]|3[24]|4[24-7]|5[245]|6[23])\\d{4}" withPossibleNumberPattern:@"\\d{5,9}" withExample:@"1234567"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"17[01]\\d{4}|9(?:2(?:[0-4]|5\\d{2})|3[136]\\d|4(?:0[0-4]\\d|[1379]\\d|[24][0-589]\\d|5\\d{2}|88)|5[0-6]|61?\\d|7(?:3\\d|[89]\\d{2})|8\\d|9(?:1\\d|7\\d{2}|[089]))\\d{5}" withPossibleNumberPattern:@"\\d{7,10}" withExample:@"92123456"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"17[01]\\d{4}|9(?:2(?:[0-4]|5\\d{2}|6[0-5]\\d)|3[0-36]\\d|4(?:0[0-4]\\d|[1379]\\d|2\\d{2}|4[0-589]\\d|5\\d{2}|88)|5[0-6]|61?\\d|7(?:3\\d|[789]\\d{2})|8\\d|9(?:1\\d|[67]\\d{2}|[089]))\\d{5}" withPossibleNumberPattern:@"\\d{7,10}" withExample:@"92123456"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -2682,43 +2688,48 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"1|2[45]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"251"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(2)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(2)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"16|2"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"67|81"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"[4-8]"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
-        [numberFormats5_patternArray addObject:@"9(?:2[0-4]|[35-9]|4[13789])"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(9)(\\d{3})(\\d{4,6})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        [numberFormats5_patternArray addObject:@"9(?:2[0-4]|[35-9]|4[137-9])"];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(9)(\\d{3})(\\d{4,6})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
 
         NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
-        [numberFormats6_patternArray addObject:@"94[0245]"];
-        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(9)(4\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        [numberFormats6_patternArray addObject:@"9(?:3[0-36]|4[0-57-9])"];
+        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(9)([34]\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats6];
 
         NSMutableArray *numberFormats7_patternArray = [[NSMutableArray alloc] init];
-        [numberFormats7_patternArray addObject:@"925"];
-        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(9)(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        [numberFormats7_patternArray addObject:@"92[56]"];
+        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(9)(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats7];
+
+        NSMutableArray *numberFormats8_patternArray = [[NSMutableArray alloc] init];
+        [numberFormats8_patternArray addObject:@"93"];
+        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(9)(\\d{3})(\\d{3})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
+        [numberFormats_FormatArray addObject:numberFormats8];
         self.numberFormats = numberFormats_FormatArray;
 
         NSMutableArray *intlNumberFormats_FormatArray = [[NSMutableArray alloc] init];
@@ -2736,9 +2747,9 @@
 {
     self = [super init];
     if (self) {
-        self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"2\\d{7}|[37-9]\\d{8}|[45]\\d{6}" withPossibleNumberPattern:@"\\d{7,9}" withExample:nil];
+        self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"2\\d{7,8}|[37-9]\\d{8}|4\\d{6}|5\\d{6,8}" withPossibleNumberPattern:@"\\d{7,9}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"2\\d{7}" withPossibleNumberPattern:@"\\d{8}" withExample:@"21234567"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:330\\d|4[67]|5\\d|77\\d{2}|88\\d{2}|994\\d)\\d{5}" withPossibleNumberPattern:@"\\d{7,9}" withExample:@"770123456"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:330\\d|4[67]|5\\d|77\\d{2}|88\\d{2}|994\\d)\\d{5}|(?:20\\d{3}|33(?:0\\d{2}|2(?:02|5\\d))|555\\d{2}|77[0567]\\d{2}|88[068]\\d{2}|994\\d{2})\\d{4}" withPossibleNumberPattern:@"\\d{7,9}" withExample:@"770123456"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"90[03]\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"900123456"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -2763,22 +2774,22 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"2"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(2\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(2\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
-        [numberFormats1_patternArray addObject:@"[79]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([79]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        [numberFormats1_patternArray addObject:@"[2579]"];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[4-6]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([4-6])(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([4-6])(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"[38]"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -2823,7 +2834,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -2844,7 +2855,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[12569]\\d{6,7}" withPossibleNumberPattern:@"\\d{7,8}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:18\\d|2(?:[23]\\d{2}|4(?:[1-35-9]\\d|44)|5(?:0[034]|[2-46]\\d|5[1-3]|7[1-7])))\\d{4}" withPossibleNumberPattern:@"\\d{7,8}" withExample:@"22345678"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:5(?:[05]\\d|1[0-7])|6(?:0[034679]|5[015-9]|6\\d|7[067]|9[0369])|9(?:0[09]|22|4[01479]|55|6[0679]|[79]\\d|8[057-9]))\\d{5}" withPossibleNumberPattern:@"\\d{8}" withExample:@"50012345"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:5(?:[05]\\d{2}|1[0-7]\\d|2(?:22|55))|6(?:0[034679]\\d|5[015-9]\\d|6\\d{2}|7[067]\\d|9[0369]\\d)|9(?:0[09]\\d|22\\d|4[01479]\\d|55\\d|6[0679]\\d|[79]\\d{2}|8[057-9]\\d))\\d{4}" withPossibleNumberPattern:@"\\d{8}" withExample:@"50012345"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -2868,13 +2879,13 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        [numberFormats0_patternArray addObject:@"[126]|9[04-9]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{3,4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        [numberFormats0_patternArray addObject:@"[126]|9[04-9]|52[25]"];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{3,4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"5[015]|92"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -2895,7 +2906,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[12]\\d{7,9}|[57-9]\\d{7}" withPossibleNumberPattern:@"\\d{6,10}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[12](?:1\\d|2(?:[1-3]\\d?|7\\d)|3[2-8]\\d{1,2}|4[2-68]\\d{1,2}|5[1-4689]\\d{1,2})\\d{5}|5[0568]\\d{6}" withPossibleNumberPattern:@"\\d{6,10}" withExample:@"50123456"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:8[689]|9[013-9])\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"88123456"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:8(?:[05689]\\d|3[01])|9[013-9]\\d)\\d{5}" withPossibleNumberPattern:@"\\d{8}" withExample:@"88123456"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -2920,29 +2931,29 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[12]1"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([12]\\d)(\\d{2})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([12]\\d)(\\d{2})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[12]2[1-3]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([12]2\\d)(\\d{5,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([12]2\\d)(\\d{5,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[12](?:27|[3-5])"];
         [numberFormats2_patternArray addObject:@"[12](?:27|[3-5]\\d)2"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([12]\\d{3})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([12]\\d{3})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"[57-9]"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"[12](?:27|[3-5])"];
         [numberFormats4_patternArray addObject:@"[12](?:27|[3-5]\\d)[4-9]"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"([12]\\d{4})(\\d{4,5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"([12]\\d{4})(\\d{4,5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -2987,7 +2998,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -3007,10 +3018,10 @@
     self = [super init];
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[1-9]\\d{6,7}" withPossibleNumberPattern:@"\\d{7,8}" withExample:nil];
-        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:1(?:0[02-579]|19|2[37]|3[03]|4[479]|57|65|7[016-8]|8[58]|9[1349])|2(?:[0235679]\\d|1[0-7]|4[04-9]|8[028])|3(?:[09]\\d|1[14-7]|2[0-3]|3[03]|4[0457]|5[56]|6[068]|7[06-8]|8[089])|4(?:3[013-69]|4\\d|7[0-689])|5(?:[01]\\d|2[0-7]|[56]0|79)|7(?:0[09]|2[0-267]|3[06]|[49]0|5[06-9]|7[0-24-7]|8[89])|8(?:[34]\\d|5[0-4]|8[02])|9(?:0[6-8]|1[016-8]|2[036-8]|3[3679]|40|5[0489]|6[06-9]|7[046-9]|8[36-8]|9[1-9]))\\d{4}" withPossibleNumberPattern:@"\\d{7}" withExample:@"2001234"];
+        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:1(?:0[0-8]|1[49]|2[37]|3[0137]|4[147]|5[05]|6[58]|7[0167]|8[58]|9[139])|2(?:[0235679]\\d|1[0-7]|4[04-9]|8[028])|3(?:[09]\\d|1[014-7]|2[0-3]|3[03]|4[03-57]|55|6[068]|7[06-8]|8[06-9])|4(?:3[013-69]|4\\d|7[0-589])|5(?:[01]\\d|2[0-7]|[56]0|79)|7(?:0[09]|2[0-267]|3[06]|[469]0|5[06-9]|7[0-24-79]|8[7-9])|8(?:09|[34]\\d|5[0134]|8[02])|9(?:0[6-9]|1[016-8]|2[036-8]|3[3679]|40|5[0489]|6[06-9]|7[046-9]|8[36-8]|9[1-9]))\\d{4}" withPossibleNumberPattern:@"\\d{7}" withExample:@"2001234"];
         self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:1[16]1|21[89]|8(?:1[01]|7[23]))\\d{4}|6(?:[024-9]\\d|1[0-5]|3[0-24-9])\\d{5}" withPossibleNumberPattern:@"\\d{7,8}" withExample:@"60012345"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"80[09]\\d{4}" withPossibleNumberPattern:@"\\d{7}" withExample:@"8001234"];
-        self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:779|8(?:2[235]|55|60|7[578]|86|95)|9(?:0[0-2]|81))\\d{4}" withPossibleNumberPattern:@"\\d{7}" withExample:@"8601234"];
+        self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:779|8(?:55|60|7[78])|9(?:00|81))\\d{4}" withPossibleNumberPattern:@"\\d{7}" withExample:@"8601234"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.personalNumber = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.voip = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -3033,12 +3044,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[1-57-9]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"6"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -3059,7 +3070,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[268]\\d{7}" withPossibleNumberPattern:@"\\d{8}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:28[2-57-9]|8[2-57-9]\\d)\\d{5}" withPossibleNumberPattern:@"\\d{8}" withExample:@"28212345"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"6[236]\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"66123456"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"6(?:[2356]\\d|8[18])\\d{5}" withPossibleNumberPattern:@"\\d{8}" withExample:@"66123456"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -3083,7 +3094,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([268]\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([268]\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -3129,22 +3140,22 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"37|4(?:1|5[45]|6[2-4])"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([34]\\d)(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(8-$1)" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([34]\\d)(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(8-$1)" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"3[148]|4(?:[24]|6[09])|528|6"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([3-6]\\d{2})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"(8-$1)" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([3-6]\\d{2})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"(8-$1)" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[7-9]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([7-9]\\d{2})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"8 $1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([7-9]\\d{2})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"8 $1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"52[0-79]"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(5)(2\\d{2})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"(8-$1)" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(5)(2\\d{2})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"(8-$1)" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -3272,47 +3283,47 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[2-5]|7[1-9]|[89](?:[1-9]|0[2-9])"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[2-5]|7[1-9]|[89](?:[1-9]|0[2-9])"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"20"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"2(?:[0367]|4[3-8])"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{1,2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{1,2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"20"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"2(?:[0367]|4[3-8])"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})(\\d{1,2})" withFormat:@"$1 $2 $3 $4 $5" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})(\\d{1,2})" withFormat:@"$1 $2 $3 $4 $5" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
         [numberFormats_FormatArray addObject:numberFormats5];
 
         NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
         [numberFormats6_patternArray addObject:@"2(?:[12589]|4[12])|[3-5]|7[1-9]|8(?:[1-9]|0[2-9])|9(?:[1-9]|0[2-46-9])"];
-        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{1,4})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
+        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{1,4})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
         [numberFormats_FormatArray addObject:numberFormats6];
 
         NSMutableArray *numberFormats7_patternArray = [[NSMutableArray alloc] init];
         [numberFormats7_patternArray addObject:@"70|80[01]|90[015]"];
-        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
+        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
         [numberFormats_FormatArray addObject:numberFormats7];
 
         NSMutableArray *numberFormats8_patternArray = [[NSMutableArray alloc] init];
         [numberFormats8_patternArray addObject:@"6"];
-        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
+        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
         [numberFormats_FormatArray addObject:numberFormats8];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -3358,32 +3369,32 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"1[035]|2[0346]|3[03568]|4[0356]|5[0358]|7|8[4578]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([1-578]\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([1-578]\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"1[16-8]|2[259]|3[124]|4[17-9]|5[124679]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([1-5]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([1-5]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"6[0-57-9]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(6)(\\d{8})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(6)(\\d{8})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"66"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(66)(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(66)(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"14"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(14)(\\d{3,4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(14)(\\d{3,4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"80|9"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"([89]0\\d)(\\d{4,7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"([89]0\\d)(\\d{4,7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -3469,7 +3480,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -3503,7 +3514,7 @@
         self.noInternationalDialling = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.codeID = @"001";
         self.countryCode = [NSNumber numberWithInteger:888];
-        self.internationalPrefix = @"";
+        self.internationalPrefix = nil;
         self.preferredInternationalPrefix = nil;
         self.nationalPrefix = nil;
         self.preferredExtnPrefix = nil;
@@ -3514,7 +3525,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{5})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{5})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -3559,7 +3570,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2689]\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2689]\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -3580,7 +3591,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[2-48]\\d{7}" withPossibleNumberPattern:@"\\d{8}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"25[08]\\d{5}|35\\d{6}|45[1-7]\\d{5}" withPossibleNumberPattern:@"\\d{8}" withExample:@"35123456"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:2(?:2\\d|70)|3(?:3\\d|6[1-36]|7[1-3])|4(?:[49]\\d|6[0457-9]|7[4-9]|8[01346-8]))\\d{5}" withPossibleNumberPattern:@"\\d{8}" withExample:@"22123456"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[234][0-46-9]\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"22123456"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"800\\d{5}" withPossibleNumberPattern:@"\\d{8}" withExample:@"80012345"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -3604,7 +3615,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2-48]\\d)(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2-48]\\d)(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -3650,22 +3661,22 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"1"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(1)(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(1)(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[4-7]|8[2-4]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([4-8]\\d)(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([4-8]\\d)(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"80"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"9"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(9\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(9\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -3752,12 +3763,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[28]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([28]\\d{2})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([28]\\d{2})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[3-7]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([3-7]\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([3-7]\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -3803,12 +3814,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[489]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([489]\\d{2})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([489]\\d{2})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[235-7]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([235-7]\\d)(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([235-7]\\d)(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -3854,12 +3865,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"4[09]|8[79]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"44"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -3904,7 +3915,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -3949,7 +3960,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([25679]\\d)(\\d{7})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([25679]\\d)(\\d{7})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -3995,17 +4006,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"1[2-6]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(1)(\\d{7})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(1)(\\d{7})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"1[01]|[2-8]|9(?:[1-69]|7[15-9])"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{6})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{6})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"9(?:6[013]|7[245]|8)"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(9\\d{2})(\\d{7})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(9\\d{2})(\\d{7})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -4051,12 +4062,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[13-689]|27"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"20|7"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -4077,7 +4088,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[2-9]\\d{6,7}" withPossibleNumberPattern:@"\\d{7,8}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:2(?:[03478]\\d|1[0-7]|6[1-69])|4(?:[013568]\\d|2[4-7])|5(?:44\\d|471)|6\\d{2}|8(?:14|3[129]))\\d{4}" withPossibleNumberPattern:@"\\d{7,8}" withExample:@"2012345"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"5(?:2[59]\\d|4(?:2[1-389]|4\\d|7[1-9]|9\\d)|7\\d{2}|8(?:[2568]\\d|7[15-8])|9[0-8]\\d)\\d{4}" withPossibleNumberPattern:@"\\d{8}" withExample:@"52512345"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"5(?:2[59]\\d|4(?:2[1-389]|4\\d|7[1-9]|9\\d)|7\\d{2}|8(?:[0-2568]\\d|7[15-8])|9[0-8]\\d)\\d{4}" withPossibleNumberPattern:@"\\d{8}" withExample:@"52512345"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"80[012]\\d{4}" withPossibleNumberPattern:@"\\d{7}" withExample:@"8001234"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"30\\d{5}" withPossibleNumberPattern:@"\\d{7}" withExample:@"3012345"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -4102,12 +4113,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[2-46-9]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2-46-9]\\d{2})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2-46-9]\\d{2})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"5"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(5\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(5\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -4153,44 +4164,44 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"2"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(2)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(2)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"2"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(2)(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(2)(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"3(?:23|39|46)|4(?:2[3-6]|[35]9|4[26]|76)|5(?:22|44)|642|8(?:62|8[245])"];
         [numberFormats2_patternArray addObject:@"3(?:230|397|461)|4(?:2(?:35|[46]4|51)|396|4(?:22|63)|59[347]|76[15])|5(?:221|446)|642[23]|8(?:622|8(?:[24]2|5[13]))"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"346|4(?:27|9[35])|883"];
         [numberFormats3_patternArray addObject:@"3469|4(?:279|9(?:30|56))|8834"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{5})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{5})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"[3-8]"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"([3-8]\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"([3-8]\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"81|9"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
 
         NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
         [numberFormats6_patternArray addObject:@"1"];
-        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(1800)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(1800)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats6];
 
         NSMutableArray *numberFormats7_patternArray = [[NSMutableArray alloc] init];
         [numberFormats7_patternArray addObject:@"1"];
-        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(1800)(\\d{1,2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(1800)(\\d{1,2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats7];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -4236,12 +4247,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[3467]|9(?:[1-9]|0[1-9])"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"900"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -4260,11 +4271,11 @@
 {
     self = [super init];
     if (self) {
-        self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:2[2-6]|5|9[1-9])\\d{6}|800\\d{5,6}" withPossibleNumberPattern:@"\\d{7,9}" withExample:nil];
+        self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:2[2-6]|5|9\\d)\\d{6}|800\\d{5,6}" withPossibleNumberPattern:@"\\d{7,9}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"2[2-6]\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"23123456"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"9[1-9]\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"92123456"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"9(?:0[1-9]|[1-9]\\d)\\d{5}" withPossibleNumberPattern:@"\\d{8}" withExample:@"92123456"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"8007\\d{4,5}|500\\d{4}" withPossibleNumberPattern:@"\\d{7,9}" withExample:@"80071234"];
-        self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
+        self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:900)\\d{5}" withPossibleNumberPattern:@"\\d{8}" withExample:@"90012345"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.personalNumber = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.voip = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -4287,17 +4298,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"2"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(2\\d)(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(2\\d)(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"9"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(9\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(9\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[58]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([58]00)(\\d{4,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([58]00)(\\d{4,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -4342,7 +4353,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -4388,17 +4399,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"1"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"2"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(2\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(2\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[1789]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -4418,12 +4429,12 @@
     self = [super init];
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[1-9]\\d{9,10}" withPossibleNumberPattern:@"\\d{7,11}" withExample:nil];
-        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:33|55|81)\\d{8}|(?:2(?:2[2-9]|3[1-35-8]|4[13-9]|7[1-689]|8[1-578]|9[467])|3(?:1[1-79]|[2458][1-9]|7[1-8]|9[1-5])|4(?:1[1-57-9]|[24-6][1-9]|[37][1-8]|8[1-35-9]|9[2-689])|5(?:88|9[1-79])|6(?:1[2-68]|[234][1-9]|5[1-3689]|6[12457-9]|7[1-7]|8[67]|9[4-8])|7(?:[13467][1-9]|2[1-8]|5[13-9]|8[1-69]|9[17])|8(?:2[13-689]|3[1-6]|4[124-6]|6[1246-9]|7[1-378]|9[12479])|9(?:1[346-9]|2[1-4]|3[2-46-8]|5[1348]|[69][1-9]|7[12]|8[1-8]))\\d{7}" withPossibleNumberPattern:@"\\d{7,10}" withExample:@"2221234567"];
+        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:33|55|81)\\d{8}|(?:2(?:0[01]|2[2-9]|3[1-35-8]|4[13-9]|7[1-689]|8[1-578]|9[467])|3(?:1[1-79]|[2458][1-9]|7[1-8]|9[1-5])|4(?:1[1-57-9]|[24-6][1-9]|[37][1-8]|8[1-35-9]|9[2-689])|5(?:88|9[1-79])|6(?:1[2-68]|[234][1-9]|5[1-3689]|6[12457-9]|7[1-7]|8[67]|9[4-8])|7(?:[13467][1-9]|2[1-8]|5[13-9]|8[1-69]|9[17])|8(?:2[13-689]|3[1-6]|4[124-6]|6[1246-9]|7[1-378]|9[12479])|9(?:1[346-9]|2[1-4]|3[2-46-8]|5[1348]|[69][1-9]|7[12]|8[1-8]))\\d{7}" withPossibleNumberPattern:@"\\d{7,10}" withExample:@"2221234567"];
         self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"1(?:(?:33|55|81)\\d{8}|(?:2(?:2[2-9]|3[1-35-8]|4[13-9]|7[1-689]|8[1-578]|9[467])|3(?:1[1-79]|[2458][1-9]|7[1-8]|9[1-5])|4(?:1[1-57-9]|[24-6][1-9]|[37][1-8]|8[1-35-9]|9[2-689])|5(?:88|9[1-79])|6(?:1[2-68]|[2-4][1-9]|5[1-3689]|6[12457-9]|7[1-7]|8[67]|9[4-8])|7(?:[13467][1-9]|2[1-8]|5[13-9]|8[1-69]|9[17])|8(?:2[13-689]|3[1-6]|4[124-6]|6[1246-9]|7[1-378]|9[12479])|9(?:1[346-9]|2[1-4]|3[2-46-8]|5[1348]|[69][1-9]|7[12]|8[1-8]))\\d{7})" withPossibleNumberPattern:@"\\d{11}" withExample:@"12221234567"];
-        self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"800\\d{7}" withPossibleNumberPattern:@"\\d{10}" withExample:@"8001234567"];
+        self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"8(?:00|88)\\d{7}" withPossibleNumberPattern:@"\\d{10}" withExample:@"8001234567"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"900\\d{7}" withPossibleNumberPattern:@"\\d{10}" withExample:@"9001234567"];
-        self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
-        self.personalNumber = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
+        self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"300\\d{7}" withPossibleNumberPattern:@"\\d{10}" withExample:@"3001234567"];
+        self.personalNumber = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"500\\d{7}" withPossibleNumberPattern:@"\\d{10}" withExample:@"5001234567"];
         self.voip = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.pager = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.uan = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -4444,22 +4455,22 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"33|55|81"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([358]\\d)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"01 $1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([358]\\d)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"01 $1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
-        [numberFormats1_patternArray addObject:@"[2467]|3[12457-9]|5[89]|8[02-9]|9[0-35-9]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"01 $1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        [numberFormats1_patternArray addObject:@"[2467]|3[0-2457-9]|5[089]|8[02-9]|9[0-35-9]"];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"01 $1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"1(?:33|55|81)"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(1)([358]\\d)(\\d{4})(\\d{4})" withFormat:@"044 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(1)([358]\\d)(\\d{4})(\\d{4})" withFormat:@"044 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
-        [numberFormats3_patternArray addObject:@"1(?:[2467]|3[12457-9]|5[89]|8[2-9]|9[1-35-9])"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(1)(\\d{3})(\\d{3})(\\d{4})" withFormat:@"044 $2 $3 $4" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        [numberFormats3_patternArray addObject:@"1(?:[2467]|3[0-2457-9]|5[089]|8[2-9]|9[1-35-9])"];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(1)(\\d{3})(\\d{3})(\\d{4})" withFormat:@"044 $2 $3 $4" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -4467,12 +4478,12 @@
 
         NSMutableArray *intlNumberFormats0_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats0_patternArray addObject:@"33|55|81"];
-        NBNumberFormat *intlNumberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([358]\\d)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats0_patternArray withNationalPrefixFormattingRule:@"01 $1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([358]\\d)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats0_patternArray withNationalPrefixFormattingRule:@"01 $1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats0];
 
         NSMutableArray *intlNumberFormats1_patternArray = [[NSMutableArray alloc] init];
-        [intlNumberFormats1_patternArray addObject:@"[2467]|3[12457-9]|5[89]|8[02-9]|9[0-35-9]"];
-        NBNumberFormat *intlNumberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats1_patternArray withNationalPrefixFormattingRule:@"01 $1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        [intlNumberFormats1_patternArray addObject:@"[2467]|3[0-2457-9]|5[089]|8[02-9]|9[0-35-9]"];
+        NBNumberFormat *intlNumberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats1_patternArray withNationalPrefixFormattingRule:@"01 $1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats1];
 
         NSMutableArray *intlNumberFormats2_patternArray = [[NSMutableArray alloc] init];
@@ -4481,7 +4492,7 @@
         [intlNumberFormats_FormatArray addObject:intlNumberFormats2];
 
         NSMutableArray *intlNumberFormats3_patternArray = [[NSMutableArray alloc] init];
-        [intlNumberFormats3_patternArray addObject:@"1(?:[2467]|3[12457-9]|5[89]|8[2-9]|9[1-35-9])"];
+        [intlNumberFormats3_patternArray addObject:@"1(?:[2467]|3[0-2457-9]|5[089]|8[2-9]|9[1-35-9])"];
         NBNumberFormat *intlNumberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(1)(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:intlNumberFormats3_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats3];
         self.intlNumberFormats = intlNumberFormats_FormatArray;
@@ -4527,7 +4538,7 @@
         [numberFormats0_patternArray addObject:@"(?:2[125]|4[0-246-9]|5[1-35-7]|6[1-8]|7[14]|8[16]|91)1"];
         [numberFormats0_patternArray addObject:@"(?:2[125]|4[0-246-9]|5[1-35-7]|6[1-8]|7[14]|8[16]|91)11"];
         [numberFormats0_patternArray addObject:@"(?:2[125]|4[0-246-9]|5[1-35-7]|6[1-8]|7[14]|8[16]|91)111"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(111)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(111)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
@@ -4535,38 +4546,38 @@
         [numberFormats1_patternArray addObject:@"(?:2[349]|45|54|60|72|8[2-5]|9[2-9])\\d1"];
         [numberFormats1_patternArray addObject:@"(?:2[349]|45|54|60|72|8[2-5]|9[2-9])\\d11"];
         [numberFormats1_patternArray addObject:@"(?:2[349]|45|54|60|72|8[2-5]|9[2-9])\\d111"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(111)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(111)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"(?:2[125]|4[0-246-9]|5[1-35-7]|6[1-8]|7[14]|8[16]|91)[2-9]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{7,8})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{7,8})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"2[349]|45|54|60|72|8[2-5]|9[2-9]"];
         [numberFormats3_patternArray addObject:@"(?:2[349]|45|54|60|72|8[2-5]|9[2-9])\\d[2-9]"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{6,7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{6,7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"3"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(3\\d{2})(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(3\\d{2})(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"58[12]|1"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"([15]\\d{3})(\\d{5,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"([15]\\d{3})(\\d{5,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
 
         NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
         [numberFormats6_patternArray addObject:@"586"];
-        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(586\\d{2})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(586\\d{2})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats6];
 
         NSMutableArray *numberFormats7_patternArray = [[NSMutableArray alloc] init];
         [numberFormats7_patternArray addObject:@"[89]00"];
-        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"([89]00)(\\d{3})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"([89]00)(\\d{3})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats7];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -4612,32 +4623,32 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[4-79]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([4-79])(\\d{3})(\\d{4})" withFormat:@"$1-$2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([4-79])(\\d{3})(\\d{4})" withFormat:@"$1-$2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"3"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(3)(\\d{4})(\\d{4})" withFormat:@"$1-$2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(3)(\\d{4})(\\d{4})" withFormat:@"$1-$2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"1[02-46-9][1-9]|8"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([18]\\d)(\\d{3})(\\d{3,4})" withFormat:@"$1-$2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([18]\\d)(\\d{3})(\\d{3,4})" withFormat:@"$1-$2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"1[36-8]0"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(1)([36-8]00)(\\d{2})(\\d{4})" withFormat:@"$1-$2-$3-$4" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(1)([36-8]00)(\\d{2})(\\d{4})" withFormat:@"$1-$2-$3-$4" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"11"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(11)(\\d{4})(\\d{4})" withFormat:@"$1-$2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(11)(\\d{4})(\\d{4})" withFormat:@"$1-$2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"15"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(15[49])(\\d{3})(\\d{4})" withFormat:@"$1-$2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(15[49])(\\d{3})(\\d{4})" withFormat:@"$1-$2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -4698,7 +4709,7 @@
     self = [super init];
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[12]\\d{6,8}|[3-57-9]\\d{8}|6\\d{5,8}" withPossibleNumberPattern:@"\\d{6,9}" withExample:nil];
-        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:1[2-8]|2[2-69]|3[2-4]|4[1-468]|5[24-689]|6[1-3578]|7[14-7]|8[1-79]|9[145])\\d{7}|[12]2\\d{5}|" withPossibleNumberPattern:@"\\d{6,9}" withExample:@"123456789"];
+        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:1[2-8]|2[2-69]|3[2-4]|4[1-468]|5[24-689]|6[1-3578]|7[14-7]|8[1-79]|9[145])\\d{7}|[12]2\\d{5}" withPossibleNumberPattern:@"\\d{6,9}" withExample:@"123456789"];
         self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:5[0137]|6[069]|7[2389]|88)\\d{7}" withPossibleNumberPattern:@"\\d{9}" withExample:@"512345678"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"800\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"800123456"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"70\\d{7}" withPossibleNumberPattern:@"\\d{9}" withExample:@"701234567"];
@@ -4724,27 +4735,27 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[14]|2[0-57-9]|3[2-4]|5[24-689]|6[1-3578]|7[14-7]|8[1-79]|9[145]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[12]2"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{1})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{1})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"26|39|5[0137]|6[0469]|7[02389]|8[08]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"64"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2,3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2,3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"64"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -4790,12 +4801,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"2|8[2-7]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([28]\\d)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([28]\\d)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"80"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(80\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(80\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -4840,7 +4851,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([45]\\d)(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([45]\\d)(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -4885,7 +4896,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([268]\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([268]\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -4931,32 +4942,32 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[1-467]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([1-467])(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([1-467])(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"1[1-467]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(1\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(1\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"5"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(5\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(5\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"92"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(92\\d{2})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(92\\d{2})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"80"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(800)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(800)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"81"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(811)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(811)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -5002,7 +5013,7 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[7-9]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -5048,34 +5059,34 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[346]|7[2-57-9]|9[1-9]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([34679])(\\d{3})(\\d{4})" withFormat:@"$1-$2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([34679])(\\d{3})(\\d{4})" withFormat:@"$1-$2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"240"];
         [numberFormats1_patternArray addObject:@"2409"];
         [numberFormats1_patternArray addObject:@"24099"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(24099)(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(24099)(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"21"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"2(?:1[1-9]|[69]|7[0-35-9])|70|86"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3,5})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3,5})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"2[028]"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(2\\d)(\\d{3,4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(2\\d)(\\d{3,4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"2(?:10|74)|5|[89]0"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -5121,12 +5132,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"8"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[246]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -5171,7 +5182,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -5258,52 +5269,52 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"8"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(8)(\\d{2,3})(\\d{2,3})(\\d{2})" withFormat:@"$1-$2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(8)(\\d{2,3})(\\d{2,3})(\\d{2})" withFormat:@"$1-$2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"1[013689]|2[0136]|3[1356]|4[0246]|54|6[03]|90"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([1-69]\\d)(\\d{2,3})(\\d{2})(\\d{2})" withFormat:@"$1-$2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([1-69]\\d)(\\d{2,3})(\\d{2})(\\d{2})" withFormat:@"$1-$2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"1[13689]|2[136]|3[1356]|4[0246]|54|6[03]|90"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([1-69]\\d)(\\d{3})(\\d{2})" withFormat:@"$1-$2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([1-69]\\d)(\\d{3})(\\d{2})" withFormat:@"$1-$2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"1[2457]|2[2457-9]|3[0247-9]|4[1357-9]|5[0-35-9]|6[124-9]|9(?:[125-8]|3[0-5]|4[0-3])"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1-$2 $3 $4" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1-$2 $3 $4" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"1[2457]|2[2457-9]|3[0247-9]|4[1357-9]|5[0-35-9]|6[124-9]|9(?:[125-8]|3[0-5]|4[0-3])"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2,3})(\\d{2})" withFormat:@"$1-$2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2,3})(\\d{2})" withFormat:@"$1-$2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"7"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(7\\d)(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1-$2 $3 $4" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(7\\d)(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1-$2 $3 $4" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
 
         NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
         [numberFormats6_patternArray addObject:@"7"];
-        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(77)(\\d{2})(\\d{2})" withFormat:@"$1-$2$3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(77)(\\d{2})(\\d{2})" withFormat:@"$1-$2$3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats6];
 
         NSMutableArray *numberFormats7_patternArray = [[NSMutableArray alloc] init];
         [numberFormats7_patternArray addObject:@"20"];
-        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(20)(\\d{2,3})(\\d{2})" withFormat:@"$1-$2 $3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(20)(\\d{2,3})(\\d{2})" withFormat:@"$1-$2 $3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats7];
 
         NSMutableArray *numberFormats8_patternArray = [[NSMutableArray alloc] init];
         [numberFormats8_patternArray addObject:@"9[034]"];
-        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(9[034]\\d)(\\d{2})(\\d{2})(\\d{3})" withFormat:@"$1-$2 $3 $4" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(9[034]\\d)(\\d{2})(\\d{2})(\\d{3})" withFormat:@"$1-$2 $3 $4" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats8];
 
         NSMutableArray *numberFormats9_patternArray = [[NSMutableArray alloc] init];
         [numberFormats9_patternArray addObject:@"9[034]"];
-        NBNumberFormat *numberFormats9 = [[NBNumberFormat alloc] initWithPattern:@"(9[034]\\d)(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats9_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats9 = [[NBNumberFormat alloc] initWithPattern:@"(9[034]\\d)(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats9_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats9];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -5399,17 +5410,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[2489]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2489])(2\\d{2})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2489])(2\\d{2})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"5"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(5[69]\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(5[69]\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"1[78]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(1[78]00)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(1[78]00)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -5471,16 +5482,16 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[2-46-9]\\d{8}" withPossibleNumberPattern:@"\\d{9}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"2(?:[12]\\d|[35][1-689]|4[1-59]|6[1-35689]|7[1-9]|8[1-69]|9[1256])\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"212345678"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"9(?:[136]\\d{2}|2[0-79]\\d|480)\\d{5}" withPossibleNumberPattern:@"\\d{9}" withExample:@"912345678"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"9(?:[1236]\\d{2}|480)\\d{5}" withPossibleNumberPattern:@"\\d{9}" withExample:@"912345678"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"80[02]\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"800123456"];
-        self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"76(?:0[1-57]|1[2-47]|2[237])\\d{5}" withPossibleNumberPattern:@"\\d{9}" withExample:@"760123456"];
+        self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"6(?:0[178]|4[68])\\d{6}|76(?:0[1-57]|1[2-47]|2[237])\\d{5}" withPossibleNumberPattern:@"\\d{9}" withExample:@"760123456"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"80(?:8\\d|9[1579])\\d{5}" withPossibleNumberPattern:@"\\d{9}" withExample:@"808123456"];
-        self.personalNumber = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"884[128]\\d{5}" withPossibleNumberPattern:@"\\d{9}" withExample:@"884123456"];
+        self.personalNumber = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"884[0-4689]\\d{5}" withPossibleNumberPattern:@"\\d{9}" withExample:@"884123456"];
         self.voip = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"30\\d{7}" withPossibleNumberPattern:@"\\d{9}" withExample:@"301234567"];
         self.pager = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
-        self.uan = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"70(?:7\\d|8[17])\\d{5}" withPossibleNumberPattern:@"\\d{9}" withExample:@"707123456"];
+        self.uan = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"7(?:0(?:7\\d|8[17]))\\d{5}" withPossibleNumberPattern:@"\\d{9}" withExample:@"707123456"];
         self.emergency = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:nil withPossibleNumberPattern:nil withExample:nil];
-        self.voicemail = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
+        self.voicemail = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"600\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"600110000"];
         self.noInternationalDialling = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.codeID = @"PT";
         self.countryCode = [NSNumber numberWithInteger:351];
@@ -5496,12 +5507,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"2[12]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(2\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(2\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"2[3-9]|[346-9]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([2-46-9]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([2-46-9]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -5547,22 +5558,22 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[369]|8[1-9]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([3689]\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([3689]\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"1[89]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(1[89]00)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(1[89]00)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"70"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(7000)(\\d{4})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(7000)(\\d{4})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"80"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(800)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(800)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -5665,7 +5676,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[2679]\\d{7}" withPossibleNumberPattern:@"\\d{8}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"22(?:[3789]0|5[0-5]|6[89])\\d{4}" withPossibleNumberPattern:@"\\d{8}" withExample:@"22501234"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:6[02368]\\d|77\\d|9(?:5[0-4]|9\\d))\\d{5}" withPossibleNumberPattern:@"\\d{8}" withExample:@"63012345"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:6[02368]\\d|77\\d|9\\d{2})\\d{5}" withPossibleNumberPattern:@"\\d{8}" withExample:@"63012345"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -5689,7 +5700,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -5735,22 +5746,22 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[12]|3[4-8]|4[24-8]|5[2-8]|7[3-8]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[37][01]|4[0139]|51|6"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([3-7]\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([3-7]\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[89][09]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([89][09])(\\d{3,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([89][09])(\\d{3,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"59|8[1-3]"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"([58]\\d{2})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"([58]\\d{2})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -5795,7 +5806,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -5883,19 +5894,19 @@
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[38]9|4(?:[45][0-5]|87)|5(?:0|6[37]|7[37])|6[36-8]|73|9[1-9]"];
         [numberFormats0_patternArray addObject:@"[38]9|4(?:[45][0-5]|87)|5(?:0|6(?:3[14-7]|7)|7[37])|6[36-8]|73|9[1-9]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([3-9]\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([3-9]\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"3[1-8]2|4[13678]2|5(?:[12457]2|6[24])|6(?:[49]2|[12][29]|5[24])|8[0-8]|90"];
         [numberFormats1_patternArray addObject:@"3(?:[1-46-8]2[013-9]|52)|4(?:[1378]2|62[013-9])|5(?:[12457]2|6[24])|6(?:[49]2|[12][29]|5[24])|8[0-8]|90"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([3-689]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([3-689]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"3(?:5[013-9]|[1-46-8])|4(?:[137][013-9]|6|[45][6-9]|8[4-6])|5(?:[1245][013-9]|6[0135-9]|3|7[4-6])|6(?:[49][013-9]|5[0135-9]|[12][13-8])"];
         [numberFormats2_patternArray addObject:@"3(?:5[013-9]|[1-46-8](?:22|[013-9]))|4(?:[137][013-9]|6(?:[013-9]|22)|[45][6-9]|8[4-6])|5(?:[1245][013-9]|6(?:3[02389]|[015689])|3|7[4-6])|6(?:[49][013-9]|5[0135-9]|[12][13-8])"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([3-6]\\d{3})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([3-6]\\d{3})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -5916,7 +5927,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"2\\d{5,8}|[37-9]\\d{8}" withPossibleNumberPattern:@"\\d{6,9}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"2(?:1(?:\\d{7}|9\\d{3})|[3-6](?:\\d{7}|\\d9\\d{2}))|3[13-6]\\d{7}" withPossibleNumberPattern:@"\\d{6,9}" withExample:@"211234567"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"7(?:000|[1-8]\\d{2}|99\\d)\\d{5}" withPossibleNumberPattern:@"\\d{9}" withExample:@"712345678"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"7(?:[0-8]\\d{2}|99\\d)\\d{5}" withPossibleNumberPattern:@"\\d{9}" withExample:@"712345678"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"800\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"800123456"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"90[036]\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"900123456"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"801\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"801123456"];
@@ -5941,22 +5952,22 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[23]1"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([237]\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"21"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(21)(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(21)(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[23][3-7]|[7-9]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"2[3-6]"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(2\\d{2})(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(2\\d{2})(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -5975,19 +5986,19 @@
 {
     self = [super init];
     if (self) {
-        self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[2-689]\\d{8}" withPossibleNumberPattern:@"\\d{9}" withExample:nil];
+        self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:[2-68]\\d{8}|9\\d{6,8})" withPossibleNumberPattern:@"\\d{7,9}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[2-5]\\d{8}" withPossibleNumberPattern:@"\\d{9}" withExample:@"212345678"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"9(?:0[1-8]|1[0-24-9]|4[0489])\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"912123456"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"9(?:0[1-8]|1[0-24-9]|4[0489]|50)\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"912123456"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"800\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"800123456"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"9(?:[78]\\d{7}|00\\d{6})" withPossibleNumberPattern:@"\\d{9}" withExample:@"900123456"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"8[5-9]\\d{7}" withPossibleNumberPattern:@"\\d{9}" withExample:@"850123456"];
         self.personalNumber = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
-        self.voip = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"6(?:5[0-4]|9[0-6])\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"690123456"];
-        self.pager = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
+        self.voip = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"6(?:02|5[0-4]|9[0-6])\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"690123456"];
+        self.pager = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"9090\\d{3}" withPossibleNumberPattern:@"\\d{7}" withExample:@"9090123"];
         self.uan = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"96\\d{7}" withPossibleNumberPattern:@"\\d{9}" withExample:@"961234567"];
         self.emergency = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:nil withPossibleNumberPattern:nil withExample:nil];
         self.voicemail = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
-        self.noInternationalDialling = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:8(?:00|[5-9]\\d)|9(?:00|[78]\\d))\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"800123456"];
+        self.noInternationalDialling = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:602|8(?:00|[5-9]\\d)|9(?:00|[78]\\d))\\d{6}|9090\\d{3}" withPossibleNumberPattern:@"\\d{7,9}" withExample:@"800123456"];
         self.codeID = @"SK";
         self.countryCode = [NSNumber numberWithInteger:421];
         self.internationalPrefix = @"00";
@@ -6002,18 +6013,23 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"2"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(2)(\\d{3})(\\d{3})(\\d{2})" withFormat:@"$1/$2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(2)(\\d{3})(\\d{3})(\\d{2})" withFormat:@"$1/$2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[3-5]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([3-5]\\d)(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1/$2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([3-5]\\d)(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1/$2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[689]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([689]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([689]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
+
+        NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
+        [numberFormats3_patternArray addObject:@"9090"];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(9090)(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
+        [numberFormats_FormatArray addObject:numberFormats3];
         self.numberFormats = numberFormats_FormatArray;
 
         NSMutableArray *intlNumberFormats_FormatArray = [[NSMutableArray alloc] init];
@@ -6058,27 +6074,27 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"(?:[26]1|3[289]|4[124678]|7[123]|8[1236])"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{5,7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"($1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{5,7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"($1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[2-9]0"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"9[1-9]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"8700"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"[2-8][1-9]"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"($1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"($1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -6123,7 +6139,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -6168,7 +6184,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -6214,17 +6230,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"2"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(2)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(2)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"14|[3-9]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([13-9]\\d)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([13-9]\\d)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"1"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(1[89]00)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(1[89]00)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -6270,17 +6286,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[5-7]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"0"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(0549)(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(0549)(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[89]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{6})" withFormat:@"0549 $1" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{6})" withFormat:@"0549 $1" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -6288,7 +6304,7 @@
 
         NSMutableArray *intlNumberFormats0_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats0_patternArray addObject:@"[5-7]"];
-        NBNumberFormat *intlNumberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:intlNumberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:intlNumberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats0];
 
         NSMutableArray *intlNumberFormats1_patternArray = [[NSMutableArray alloc] init];
@@ -6341,12 +6357,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[379]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"8"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -6392,32 +6408,32 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"(?:2[389]|39)0"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([23]\\d{2})(\\d{4,9})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([23]\\d{2})(\\d{4,9})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"1|2(?:[0-24-7]|[389][1-9])|3(?:[0-8]|9[1-9])"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([1-3]\\d)(\\d{5,10})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([1-3]\\d)(\\d{5,10})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"6"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(6\\d)(\\d{6,8})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(6\\d)(\\d{6,8})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"[89]"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"([89]\\d{2})(\\d{3,9})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"([89]\\d{2})(\\d{3,9})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"7[26]"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(7[26])(\\d{4,9})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(7[26])(\\d{4,9})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"7[08]"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(7[08]\\d)(\\d{4,9})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(7[08]\\d)(\\d{4,9})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -6463,12 +6479,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[34]7|91[78]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([349]\\d{2})(\\d{2})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(8) $1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([349]\\d{2})(\\d{2})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(8) $1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"4[48]|5|9(?:1[59]|[0235-9])"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([459]\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"(8) $1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([459]\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"(8) $1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
@@ -6476,13 +6492,13 @@
         [numberFormats2_patternArray addObject:@"3317"];
         [numberFormats2_patternArray addObject:@"33170"];
         [numberFormats2_patternArray addObject:@"331700"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(331700)(\\d)(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"(8) $1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(331700)(\\d)(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"(8) $1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"3[1-5]"];
         [numberFormats3_patternArray addObject:@"3(?:[1245]|3(?:[02-9]|1[0-589]))"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d)(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"(8) $1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d)(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"(8) $1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -6544,7 +6560,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[1-79]\\d{6,8}" withPossibleNumberPattern:@"\\d{7,9}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:1\\d|2[0-79]|3[0-46-8]|4[0-7]|59)\\d{5}" withPossibleNumberPattern:@"\\d{7}" withExample:@"4012345"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:15\\d|2(?:4\\d|8)|6[137-9]?\\d{2}|7[1-9]\\d|907\\d)\\d{5}" withPossibleNumberPattern:@"\\d{7,9}" withExample:@"71123456"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:15\\d|2(?:4\\d|8)|6[1-35-9]?\\d{2}|7(?:[1-8]\\d|99?\\d)|9(?:07|[2-9])\\d)\\d{5}" withPossibleNumberPattern:@"\\d{7,9}" withExample:@"71123456"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -6569,28 +6585,23 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"2[0-79]|[13-5]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"24|[67]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
-        [numberFormats2_patternArray addObject:@"15|28|6[1378]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{5,7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        [numberFormats2_patternArray addObject:@"15|28|6[1-35-9]|799|9[2-9]"];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{5,7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
-        [numberFormats3_patternArray addObject:@"69"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(69\\d)(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        [numberFormats3_patternArray addObject:@"90"];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(90\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
-
-        NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
-        [numberFormats4_patternArray addObject:@"90"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(90\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
-        [numberFormats_FormatArray addObject:numberFormats4];
         self.numberFormats = numberFormats_FormatArray;
 
         NSMutableArray *intlNumberFormats_FormatArray = [[NSMutableArray alloc] init];
@@ -6676,17 +6687,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[7-9]|20(?:[013-8]|2[5-9])|4(?:6[45]|[7-9])"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"3|4(?:[1-5]|6[0-36-9])"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"2024"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(2024)(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(2024)(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -6706,7 +6717,7 @@
     self = [super init];
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[3489]\\d{9}" withPossibleNumberPattern:@"\\d{10}" withExample:nil];
-        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:3(?:0[12]|4[1-35-79]|5[1-3]|8[1-58]|9[0145])|4(?:01|1[1356]|2[13467]|7[1-5]|8[1-7]|9[1-689])|8(?:1[1-8]|2[01]|3[13-6]|4[0-8]|5[15]|6[1-35-7]|7[1-37-9]))\\d{7}" withPossibleNumberPattern:@"\\d{10}" withExample:@"3011234567"];
+        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:3(?:0[12]|4[1-35-79]|5[1-3]|65|8[1-58]|9[0145])|4(?:01|1[1356]|2[13467]|7[1-5]|8[1-7]|9[1-689])|8(?:1[1-8]|2[01]|3[13-6]|4[0-8]|5[15]|6[1-35-79]|7[1-37-9]))\\d{7}" withPossibleNumberPattern:@"\\d{10}" withExample:@"3011234567"];
         self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"9\\d{9}" withPossibleNumberPattern:@"\\d{10}" withExample:@"9123456789"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"80[04]\\d{7}" withPossibleNumberPattern:@"\\d{10}" withExample:@"8001234567"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"80[39]\\d{7}" withPossibleNumberPattern:@"\\d{10}" withExample:@"8091234567"];
@@ -6732,17 +6743,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[1-79]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[34689]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([3489]\\d{2})(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2-$3-$4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"8 ($1)" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([3489]\\d{2})(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2-$3-$4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"8 ($1)" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"7"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(7\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"8 ($1)" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(7\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"8 ($1)" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -6750,12 +6761,12 @@
 
         NSMutableArray *intlNumberFormats0_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats0_patternArray addObject:@"[34689]"];
-        NBNumberFormat *intlNumberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([3489]\\d{2})(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2-$3-$4" withLeadingDigitsPatterns:intlNumberFormats0_patternArray withNationalPrefixFormattingRule:@"8 ($1)" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([3489]\\d{2})(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2-$3-$4" withLeadingDigitsPatterns:intlNumberFormats0_patternArray withNationalPrefixFormattingRule:@"8 ($1)" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats0];
 
         NSMutableArray *intlNumberFormats1_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats1_patternArray addObject:@"7"];
-        NBNumberFormat *intlNumberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(7\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats1_patternArray withNationalPrefixFormattingRule:@"8 ($1)" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(7\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats1_patternArray withNationalPrefixFormattingRule:@"8 ($1)" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats1];
         self.intlNumberFormats = intlNumberFormats_FormatArray;
         self.mainCountryForCode = YES;
@@ -6798,12 +6809,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[2-489]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"7"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -6878,7 +6889,7 @@
         self.noInternationalDialling = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.codeID = @"001";
         self.countryCode = [NSNumber numberWithInteger:870];
-        self.internationalPrefix = @"";
+        self.internationalPrefix = nil;
         self.preferredInternationalPrefix = nil;
         self.nationalPrefix = nil;
         self.preferredExtnPrefix = nil;
@@ -6889,7 +6900,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -6935,17 +6946,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"12"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2-$3-$4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(8 $1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2-$3-$4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(8 $1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"6"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"8 $1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"8 $1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"13|[2-5]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d)(\\d{2})(\\d{2})" withFormat:@"$1 $2-$3-$4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"(8 $1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d)(\\d{2})(\\d{2})" withFormat:@"$1 $2-$3-$4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"(8 $1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -6991,17 +7002,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[2-4]|5[2-58]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"56"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"59|[6-8]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -7047,17 +7058,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"2"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(2\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(2\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[7-9]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([7-9]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([7-9]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"0"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(0\\d)(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(0\\d)(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -7102,7 +7113,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -7192,7 +7203,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -7238,17 +7249,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[1-6]|7[0-4]|8[05]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"7[5-9]|8[47-9]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"0"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -7269,7 +7280,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[29]\\d{6}" withPossibleNumberPattern:@"\\d{7}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"22\\d{5}" withPossibleNumberPattern:@"\\d{7}" withExample:@"2221234"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"9[89]\\d{5}" withPossibleNumberPattern:@"\\d{7}" withExample:@"9812345"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"9(?:0(?:0[5-9]|[1-9]\\d)|[89]\\d{2})\\d{3}" withPossibleNumberPattern:@"\\d{7}" withExample:@"9812345"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -7293,7 +7304,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -7314,7 +7325,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[2589]\\d{9}" withPossibleNumberPattern:@"\\d{7}(?:\\d{3})?" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"284(?:(?:229|4(?:22|9[45])|774|8(?:52|6[459]))\\d{4}|496[0-5]\\d{3})" withPossibleNumberPattern:@"\\d{7}(?:\\d{3})?" withExample:@"2842291234"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"284(?:(?:3(?:0[0-3]|4[0-367])|4(?:4[0-6]|68|99)|54[0-57])\\d{4}|496[6-9]\\d{3})" withPossibleNumberPattern:@"\\d{10}" withExample:@"2843001234"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"284(?:(?:3(?:0[0-3]|4[0-367]|94)|4(?:4[0-6]|68|99)|54[0-57])\\d{4}|496[6-9]\\d{3})" withPossibleNumberPattern:@"\\d{10}" withExample:@"2843001234"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"8(?:00|44|55|66|77|88)[2-9]\\d{6}" withPossibleNumberPattern:@"\\d{10}" withExample:@"8002345678"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"900[2-9]\\d{6}" withPossibleNumberPattern:@"\\d{10}" withExample:@"9002345678"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -7380,17 +7391,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[267]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[89]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[89]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -7436,17 +7447,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[23]|4(?:[0-35-9]|4[0-35-9])"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[589]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"444"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(444)(\\d{1})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(444)(\\d{1})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -7573,7 +7584,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -7593,7 +7604,7 @@
     self = [super init];
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[589]\\d{9}" withPossibleNumberPattern:@"\\d{7}(?:\\d{3})?" withExample:nil];
-        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"868(?:2(?:[03]1|2[1-5])|6(?:0[79]|1[02-8]|2[1-9]|[3-69]\\d|7[0-79])|82[124])\\d{4}" withPossibleNumberPattern:@"\\d{7}(?:\\d{3})?" withExample:@"8682211234"];
+        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"868(?:2(?:01|2[1-6]|3[1-5])|6(?:0[79]|1[02-8]|2[1-9]|[3-69]\\d|7[0-79])|82[124])\\d{4}" withPossibleNumberPattern:@"\\d{7}(?:\\d{3})?" withExample:@"8682211234"];
         self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"868(?:2(?:[789]\\d)|3(?:0[1-9]|1[02-9]|[2-9]\\d)|4[6-9]\\d|6(?:20|78|8\\d)|7(?:0[1-9]|1[02-9]|[2-9]\\d))\\d{4}" withPossibleNumberPattern:@"\\d{10}" withExample:@"8682911234"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"8(?:00|44|55|66|77|88)[2-9]\\d{6}" withPossibleNumberPattern:@"\\d{10}" withExample:@"8002345678"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"900[2-9]\\d{6}" withPossibleNumberPattern:@"\\d{10}" withExample:@"9002345678"];
@@ -7660,12 +7671,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[1-5]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"9"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(9\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(9\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -7685,7 +7696,7 @@
     self = [super init];
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[027]\\d{7}" withPossibleNumberPattern:@"\\d{8}" withExample:nil];
-        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"2(?:2(?:0[07]|[13]7|2[57])|3(?:0[34]|[1278]3|3[23]|[46][34])|(?:40[4-69]|67)|5(?:0[5-7]|1[6-9]|[23][78]|48|5[01]))\\d{4}" withPossibleNumberPattern:@"\\d{8}" withExample:@"22171234"];
+        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"2[2-5]\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"22171234"];
         self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"7[6-8]\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"76123456"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"0800\\d{4}" withPossibleNumberPattern:@"\\d{8}" withExample:@"08001234"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -7711,7 +7722,7 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[027]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -7798,17 +7809,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[2-6]|[78][1-9]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2-8])(\\d{3,4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2-8])(\\d{3,4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"80|9"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([89]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([89]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"70"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(70)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(70)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -7854,47 +7865,47 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[17]99"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([17]99)(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([17]99)(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[48]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([48])(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([48])(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"2[025-79]|3[0136-9]|5[2-9]|6[0-46-8]|7[02-79]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([235-7]\\d)(\\d{4})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([235-7]\\d)(\\d{4})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"80"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(80)(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(80)(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"69"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(69\\d)(\\d{4,5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(69\\d)(\\d{4,5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"2[1348]|3[25]|5[01]|65|7[18]"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"([235-7]\\d{2})(\\d{4})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"([235-7]\\d{2})(\\d{4})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
 
         NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
         [numberFormats6_patternArray addObject:@"9"];
-        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(9\\d)(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(9\\d)(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats6];
 
         NSMutableArray *numberFormats7_patternArray = [[NSMutableArray alloc] init];
         [numberFormats7_patternArray addObject:@"1(?:[26]|8[68]|99)"];
-        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(1[2689]\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(1[2689]\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats7];
 
         NSMutableArray *numberFormats8_patternArray = [[NSMutableArray alloc] init];
         [numberFormats8_patternArray addObject:@"1[89]0"];
-        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(1[89]00)(\\d{4,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(1[89]00)(\\d{4,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats8];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -7914,8 +7925,8 @@
     self = [super init];
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[2-9]\\d{9}" withPossibleNumberPattern:@"\\d{7}(?:\\d{3})?" withExample:nil];
-        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:2(?:0[1-35-9]|1[02-9]|2[04589]|3[149]|4[08]|5[1-46]|6[0279]|7[026]|8[13])|3(?:0[1-57-9]|1[02-9]|2[0135]|3[014679]|4[67]|5[12]|6[014]|8[56])|4(?:0[124-9]|1[02-579]|2[3-5]|3[0245]|4[0235]|58|69|7[0589]|8[04])|5(?:0[1-57-9]|1[0235-8]|20|3[0149]|4[01]|5[19]|6[1-37]|7[013-5]|8[056])|6(?:0[1-35-9]|1[024-9]|2[03689]|3[016]|4[16]|5[017]|6[0-279]|78|8[12])|7(?:0[1-46-8]|1[02-9]|2[0457]|3[1247]|4[07]|5[47]|6[02359]|7[02-59]|8[156])|8(?:0[1-68]|1[02-8]|28|3[0-25]|4[3578]|5[06-9]|6[02-5]|7[028])|9(?:0[1346-9]|1[02-9]|2[0589]|3[01678]|4[0179]|5[12469]|7[0-3589]|8[0459]))[2-9]\\d{6}" withPossibleNumberPattern:@"\\d{7}(?:\\d{3})?" withExample:@"2015555555"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:2(?:0[1-35-9]|1[02-9]|2[04589]|3[149]|4[08]|5[1-46]|6[0279]|7[026]|8[13])|3(?:0[1-57-9]|1[02-9]|2[0135]|3[014679]|4[67]|5[12]|6[014]|8[56])|4(?:0[124-9]|1[02-579]|2[3-5]|3[0245]|4[0235]|58|69|7[0589]|8[04])|5(?:0[1-57-9]|1[0235-8]|20|3[0149]|4[01]|5[19]|6[1-37]|7[013-5]|8[056])|6(?:0[1-35-9]|1[024-9]|2[03689]|3[016]|4[16]|5[017]|6[0-279]|78|8[12])|7(?:0[1-46-8]|1[02-9]|2[0457]|3[1247]|4[07]|5[47]|6[02359]|7[02-59]|8[156])|8(?:0[1-68]|1[02-8]|28|3[0-25]|4[3578]|5[06-9]|6[02-5]|7[028])|9(?:0[1346-9]|1[02-9]|2[0589]|3[01678]|4[0179]|5[12469]|7[0-3589]|8[0459]))[2-9]\\d{6}" withPossibleNumberPattern:@"\\d{7}(?:\\d{3})?" withExample:@"2015555555"];
+        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:2(?:0[1-35-9]|1[02-9]|2[04589]|3[149]|4[08]|5[1-46]|6[0279]|7[026]|8[13])|3(?:0[1-57-9]|1[02-9]|2[0135]|3[014679]|4[67]|5[12]|6[014]|8[56])|4(?:0[124-9]|1[02-579]|2[3-5]|3[0245]|4[0235]|58|69|7[0589]|8[04])|5(?:0[1-57-9]|1[0235-8]|20|3[0149]|4[01]|5[19]|6[1-37]|7[013-5]|8[056])|6(?:0[1-35-9]|1[024-9]|2[03689]|3[016]|4[16]|5[017]|6[0-279]|78|8[12])|7(?:0[1-46-8]|1[02-9]|2[0457]|3[1247]|4[07]|5[47]|6[02359]|7[02-59]|8[156])|8(?:0[1-68]|1[02-8]|28|3[0-25]|4[3578]|5[046-9]|6[02-5]|7[028])|9(?:0[1346-9]|1[02-9]|2[0589]|3[01678]|4[0179]|5[12469]|7[0-3589]|8[0459]))[2-9]\\d{6}" withPossibleNumberPattern:@"\\d{7}(?:\\d{3})?" withExample:@"2015555555"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:2(?:0[1-35-9]|1[02-9]|2[04589]|3[149]|4[08]|5[1-46]|6[0279]|7[026]|8[13])|3(?:0[1-57-9]|1[02-9]|2[0135]|3[014679]|4[67]|5[12]|6[014]|8[56])|4(?:0[124-9]|1[02-579]|2[3-5]|3[0245]|4[0235]|58|69|7[0589]|8[04])|5(?:0[1-57-9]|1[0235-8]|20|3[0149]|4[01]|5[19]|6[1-37]|7[013-5]|8[056])|6(?:0[1-35-9]|1[024-9]|2[03689]|3[016]|4[16]|5[017]|6[0-279]|78|8[12])|7(?:0[1-46-8]|1[02-9]|2[0457]|3[1247]|4[07]|5[47]|6[02359]|7[02-59]|8[156])|8(?:0[1-68]|1[02-8]|28|3[0-25]|4[3578]|5[046-9]|6[02-5]|7[028])|9(?:0[1346-9]|1[02-9]|2[0589]|3[01678]|4[0179]|5[12469]|7[0-3589]|8[0459]))[2-9]\\d{6}" withPossibleNumberPattern:@"\\d{7}(?:\\d{3})?" withExample:@"2015555555"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"8(?:00|44|55|66|77|88)[2-9]\\d{6}" withPossibleNumberPattern:@"\\d{10}" withExample:@"8002345678"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"900[2-9]\\d{6}" withPossibleNumberPattern:@"\\d{10}" withExample:@"9002345678"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -7939,11 +7950,11 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"($1) $2-$3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"($1) $2-$3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -7968,7 +7979,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"\\d{9}" withPossibleNumberPattern:@"\\d{7,9}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"2[2-8]\\d{7}" withPossibleNumberPattern:@"\\d{7,9}" withExample:@"222345678"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:6[1578]|7[1-9])\\d{7}" withPossibleNumberPattern:@"\\d{9}" withExample:@"612345678"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:6[25-8]|7[13-9])\\d{7}" withPossibleNumberPattern:@"\\d{9}" withExample:@"621234567"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"80[08]\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"800123456"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"90\\d{7}" withPossibleNumberPattern:@"\\d{9}" withExample:@"900123456"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"8(?:40|6[01])\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"840123456"];
@@ -7993,17 +8004,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[24]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([24]\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([24]\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[67]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([67]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([67]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[89]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([89]\\d{2})(\\d{2})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([89]\\d{2})(\\d{2})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -8037,7 +8048,7 @@
         self.noInternationalDialling = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.codeID = @"001";
         self.countryCode = [NSNumber numberWithInteger:878];
-        self.internationalPrefix = @"";
+        self.internationalPrefix = nil;
         self.preferredInternationalPrefix = nil;
         self.nationalPrefix = nil;
         self.preferredExtnPrefix = nil;
@@ -8048,7 +8059,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{5})(\\d{5})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{5})(\\d{5})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -8094,12 +8105,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[1-6]|7[24-68]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([1-7])(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([1-7])(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"7[0137]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(7\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(7\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -8145,22 +8156,22 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"860"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(860)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(860)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[1-79]|8(?:[0-47]|6[1-9])"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"8[1-4]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3,4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3,4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"8[1-4]"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{2,3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{2,3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -8206,17 +8217,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[24]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"9[1-9]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[89]0"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -8237,7 +8248,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[2-57-9]\\d{4,6}" withPossibleNumberPattern:@"\\d{5,7}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:2[02-9]\\d|3(?:[5-7]\\d|8[0-8])|48[4-9]|88\\d)\\d{2}" withPossibleNumberPattern:@"\\d{5}" withExample:@"22123"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:5(?:7[2-5]|[3-69]\\d)|7[013-7]\\d)\\d{4}" withPossibleNumberPattern:@"\\d{7}" withExample:@"5912345"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:5(?:7[2-5]|[0-689]\\d)|7[013-7]\\d)\\d{4}" withPossibleNumberPattern:@"\\d{7}" withExample:@"5912345"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -8262,7 +8273,7 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[579]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -8307,7 +8318,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([679]\\d)(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"8 $1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([679]\\d)(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"8 $1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -8353,17 +8364,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"8"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(8\\d{2})(\\d{3,4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(8\\d{2})(\\d{3,4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"7"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(7\\d)(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(7\\d)(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[2-6]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{5})" withFormat:@"$1" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{5})" withFormat:@"$1" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -8397,7 +8408,7 @@
         self.noInternationalDialling = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.codeID = @"001";
         self.countryCode = [NSNumber numberWithInteger:979];
-        self.internationalPrefix = @"";
+        self.internationalPrefix = nil;
         self.preferredInternationalPrefix = nil;
         self.nationalPrefix = nil;
         self.preferredExtnPrefix = nil;
@@ -8408,7 +8419,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -8454,12 +8465,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[29]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([29]\\d)(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([29]\\d)(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"8"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(800)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(800)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -8546,12 +8557,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[346-9]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"1"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(180[02])(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(180[02])(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -8571,7 +8582,7 @@
     self = [super init];
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[268]\\d{8}" withPossibleNumberPattern:@"\\d{9}" withExample:nil];
-        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"2696[0-4]\\d{4}" withPossibleNumberPattern:@"\\d{9}" withExample:@"269601234"];
+        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"269(?:6[0-4]|50)\\d{4}" withPossibleNumberPattern:@"\\d{9}" withExample:@"269601234"];
         self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"639\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"639123456"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"80\\d{7}" withPossibleNumberPattern:@"\\d{9}" withExample:@"801234567"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -8638,22 +8649,22 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[2-4679][2-8]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2-4679])(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2-4679])(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"5"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(5[0256])(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(5[0256])(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[479]0"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([479]00)(\\d)(\\d{5})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([479]00)(\\d)(\\d{5})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"60|8"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"([68]00)(\\d{2,9})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"([68]00)(\\d{2,9})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -8699,17 +8710,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[3-5]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2-$3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2-$3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"6[1-356]|[7-9]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"6[047]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -8755,7 +8766,7 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[2-7]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2-7]\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2-7]\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -8775,15 +8786,15 @@
     self = [super init];
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[2589]\\d{9}" withPossibleNumberPattern:@"\\d{7}(?:\\d{3})?" withExample:nil];
-        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"246[2-9]\\d{6}" withPossibleNumberPattern:@"\\d{7}(?:\\d{3})?" withExample:@"2462345678"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"246(?:(?:2[346]|45|82)\\d|25[0-46])\\d{4}" withPossibleNumberPattern:@"\\d{10}" withExample:@"2462501234"];
+        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"246(?:2(?:2[78]|7[0-4])|4(?:1[024-6]|2\\d|3[2-9])|5(?:20|[34]\\d|54|7[1-3])|6(?:2\\d|38)|7(?:37|57)|9(?:1[89]|63))\\d{4}" withPossibleNumberPattern:@"\\d{7}(?:\\d{3})?" withExample:@"2464123456"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"246(?:2(?:[356]\\d|4[0-57-9]|8[0-79])|45\\d|8(?:[2-5]\\d|83))\\d{4}" withPossibleNumberPattern:@"\\d{10}" withExample:@"2462501234"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"8(?:00|44|55|66|77|88)[2-9]\\d{6}" withPossibleNumberPattern:@"\\d{10}" withExample:@"8002123456"];
-        self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"900[2-9]\\d{6}" withPossibleNumberPattern:@"\\d{10}" withExample:@"9002123456"];
+        self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"900\\d{7}|246976\\d{4}" withPossibleNumberPattern:@"\\d{10}" withExample:@"9002123456"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
-        self.personalNumber = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"5(?:00|33|44|66|77)[2-9]\\d{6}" withPossibleNumberPattern:@"\\d{10}" withExample:@"5002345678"];
-        self.voip = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
+        self.personalNumber = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"5(?:00|33|44|66|77)[2-9]\\d{3}" withPossibleNumberPattern:@"\\d{10}" withExample:@"5002345678"];
+        self.voip = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"24631\\d{5}" withPossibleNumberPattern:@"\\d{10}" withExample:@"2463101234"];
         self.pager = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
-        self.uan = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
+        self.uan = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"246(?:292|41[7-9]|43[01])\\d{4}" withPossibleNumberPattern:@"\\d{10}" withExample:@"2464301234"];
         self.emergency = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:nil withPossibleNumberPattern:nil withExample:nil];
         self.voicemail = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.noInternationalDialling = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -8883,22 +8894,22 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"2"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(2)(\\d{7})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(2)(\\d{7})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[3-79]1"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4,6})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4,6})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"1|3(?:0|[2-58]2)|4(?:0|[25]2|3[23]|[4689][25])|5(?:[02-578]2|6[25])|6(?:[0347-9]2|[26][25])|7[02-9]2|8(?:[023][23]|[4-7]2)|9(?:[02][23]|[458]2|6[016])"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{3,6})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{3,6})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"[3-79][2-9]|8"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3,7})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3,7})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -8985,22 +8996,22 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"4[6-9]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[23]|4[23]|9[2-4]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[156]|7[018]|8(?:0[1-9]|[1-79])"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"(?:80|9)0"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -9086,7 +9097,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -9132,42 +9143,42 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"29"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(2)(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(2)(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"2"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(2)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(2)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"43[124-7]|70[1-9]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"43[124-7]|70[1-9]"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"[78]00"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"999"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
 
         NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
         [numberFormats6_patternArray addObject:@"[356]|4[124-7]|7[1-9]|8[1-6]|9[1-7]"];
-        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{2,3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{2,3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats6];
 
         NSMutableArray *numberFormats7_patternArray = [[NSMutableArray alloc] init];
         [numberFormats7_patternArray addObject:@"48|8[7-9]|9[08]"];
-        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats7];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -9186,14 +9197,14 @@
 {
     self = [super init];
     if (self) {
-        self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"2(?:[012457-9]\\d{3,8}|6\\d{3,6})|[13-79]\\d{4,8}|8[06]\\d{8}" withPossibleNumberPattern:@"\\d{3,10}" withExample:nil];
-        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:1[3-9]|2(?:0[45]|[16]|2[28]|[49]8?|58[23]|7[246]|8[1346-9])|3(?:08?|17?|3[78]|[2456]|7[1569]|8[379])|5(?:[07-9]|1[78]|483|5(?:7?|8))|6(?:0|28|37?|[45][68][78]|98?)|848)\\d{3,6}|(?:2(?:27|5|7[135789]|8[25])|3[39]|5[1-46]|6[126-8])\\d{4,6}|2(?:(?:0|70)\\d{5,6}|2[05]\\d{7})|(?:4\\d|9[2-8])\\d{4,7}" withPossibleNumberPattern:@"\\d{3,10}" withExample:@"1312345"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"7[1378]\\d{7}|86(?:22|44)\\d{6}" withPossibleNumberPattern:@"\\d{9,10}" withExample:@"711234567"];
+        self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"2(?:[012457-9]\\d{3,8}|6(?:[14]\\d{7}|\\d{4}))|[13-79]\\d{4,9}|8[06]\\d{8}" withPossibleNumberPattern:@"\\d{3,10}" withExample:nil];
+        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:2(?:0(?:4\\d|5\\d{2})|2[278]\\d|48\\d|7(?:[1-7]\\d|[089]\\d{2})|8(?:[2-57-9]|[146]\\d{2})|98)|3(?:08|17|3[78]|7(?:[19]|[56]\\d)|8[37]|98)|5[15][78]|6(?:28\\d{2}|[36]7|75\\d|[69]8|8(?:7\\d|8)))\\d{3}|(?:2(?:1[39]|2[0157]|6[14]|7[35]|84)|329)\\d{7}|(?:1(?:3\\d{2}|9\\d|[4-8])|2(?:0\\d{2}|[569]\\d)|3(?:[26]|[013459]\\d)|5(?:0|5\\d{2}|[689]\\d)|6(?:[39]|[01246]\\d|[78]\\d{2}))\\d{3}|(?:29\\d|39|54)\\d{6}|(?:(?:25|54)83|2582\\d)\\d{3}|(?:4\\d{6,7}|9[2-9]\\d{4,5})" withPossibleNumberPattern:@"\\d{3,10}" withExample:@"1312345"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"7[1378]\\d{7}" withPossibleNumberPattern:@"\\d{9}" withExample:@"711234567"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"800\\d{7}" withPossibleNumberPattern:@"\\d{10}" withExample:@"8001234567"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.personalNumber = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
-        self.voip = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"86(?:1[12]|30|55|77|8[367]|99)\\d{6}" withPossibleNumberPattern:@"\\d{10}" withExample:@"8686123456"];
+        self.voip = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"86(?:1[12]|30|44|55|77|8[367]|99)\\d{6}" withPossibleNumberPattern:@"\\d{10}" withExample:@"8686123456"];
         self.pager = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.uan = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.emergency = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:nil withPossibleNumberPattern:nil withExample:nil];
@@ -9213,54 +9224,53 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"4|9[2-9]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([49])(\\d{3})(\\d{2,5})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([49])(\\d{3})(\\d{2,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
-        [numberFormats1_patternArray addObject:@"[19]1|7"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([179]\\d)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        [numberFormats1_patternArray addObject:@"7"];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(7\\d)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"86[24]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(86\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(86\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
-        [numberFormats3_patternArray addObject:@"2(?:[278]|0[45]|[49]8)|3(?:08|17|3[78]|[78])|5[15][78]|6(?:[29]8|37|[68][78])"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"([2356]\\d{2})(\\d{3,5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        [numberFormats3_patternArray addObject:@"2(?:0[45]|2[278]|[49]8|[78])|3(?:08|17|3[78]|7[1569]|8[37]|98)|5[15][78]|6(?:[29]8|[38]7|6[78]|75|[89]8)"];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"([2356]\\d{2})(\\d{3,5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
-        [numberFormats4_patternArray addObject:@"2(?:[278]|0[45]|48)|3(?:08|17|3[78]|[78])|5[15][78]|6(?:[29]8|37|[68][78])|80"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        [numberFormats4_patternArray addObject:@"2(?:1[39]|2[0157]|6[14]|7[35]|84)|329"];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
-        [numberFormats5_patternArray addObject:@"1[3-9]|2(?:[1-469]|0[0-35-9]|[45][0-79])|3(?:0[0-79]|1[0-689]|[24-69]|3[0-69])|5(?:[02-46-9]|[15][0-69])|6(?:[0145]|[29][0-79]|3[0-689]|[68][0-69])"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"([1-356]\\d)(\\d{3,5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        [numberFormats5_patternArray addObject:@"1[3-9]|2[0569]|3[0-69]|5[05689]|6[0-46-9]"];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"([1-356]\\d)(\\d{3,5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
 
         NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
-        [numberFormats6_patternArray addObject:@"1[3-9]|2(?:[1-469]|0[0-35-9]|[45][0-79])|3(?:0[0-79]|1[0-689]|[24-69]|3[0-69])|5(?:[02-46-9]|[15][0-69])|6(?:[0145]|[29][0-79]|3[0-689]|[68][0-69])"];
-        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"([1-356]\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        [numberFormats6_patternArray addObject:@"[23]9|54"];
+        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"([235]\\d)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats6];
 
         NSMutableArray *numberFormats7_patternArray = [[NSMutableArray alloc] init];
         [numberFormats7_patternArray addObject:@"(?:25|54)8"];
         [numberFormats7_patternArray addObject:@"258[23]|5483"];
-        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"([25]\\d{3})(\\d{3,5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"([25]\\d{3})(\\d{3,5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats7];
 
         NSMutableArray *numberFormats8_patternArray = [[NSMutableArray alloc] init];
-        [numberFormats8_patternArray addObject:@"(?:25|54)8"];
-        [numberFormats8_patternArray addObject:@"258[23]|5483"];
-        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"([25]\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        [numberFormats8_patternArray addObject:@"86"];
+        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(8\\d{3})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats8];
 
         NSMutableArray *numberFormats9_patternArray = [[NSMutableArray alloc] init];
-        [numberFormats9_patternArray addObject:@"86"];
-        NBNumberFormat *numberFormats9 = [[NBNumberFormat alloc] initWithPattern:@"(8\\d{3})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats9_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        [numberFormats9_patternArray addObject:@"80"];
+        NBNumberFormat *numberFormats9 = [[NBNumberFormat alloc] initWithPattern:@"(80\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats9_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats9];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -9306,22 +9316,22 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"4[0-6]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(4)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(4)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"6"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(6[6-9])(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(6[6-9])(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[2358][2-5]|4[7-9]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"[235][16-9]|8[016-9]|[79]"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3,5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3,5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -9407,7 +9417,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -9453,22 +9463,22 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"1|47"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"4[139]|[5-7]|9[1-9]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[23]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"8|90"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0 $1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0 $1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -9514,22 +9524,22 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"12"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"8[0-2459]|9"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([89]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([89]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"88"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"[1-6]"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -9549,8 +9559,8 @@
     self = [super init];
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[267]\\d{7}" withPossibleNumberPattern:@"\\d{8}" withExample:nil];
-        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"22(?:2[0-7]|[3-5]0)\\d{4}" withPossibleNumberPattern:@"\\d{8}" withExample:@"22201234"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:[26]9|7[14-9])\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"79561234"];
+        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"22\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"22201234"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:29|6[189]|7[124-9])\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"79561234"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -9574,7 +9584,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -9619,7 +9629,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -9664,7 +9674,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -9709,7 +9719,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -9755,12 +9765,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[02]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"8"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -9835,7 +9845,7 @@
         self.noInternationalDialling = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.codeID = @"001";
         self.countryCode = [NSNumber numberWithInteger:800];
-        self.internationalPrefix = @"";
+        self.internationalPrefix = nil;
         self.preferredInternationalPrefix = nil;
         self.nationalPrefix = nil;
         self.preferredExtnPrefix = nil;
@@ -9846,7 +9856,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -9892,17 +9902,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[2-7]|[89]1"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2-9]\\d)(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2-9]\\d)(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"8[047]|90"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([89]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([89]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"860"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4 $5" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4 $5" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -9989,60 +9999,62 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[68]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([68]\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([68]\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[2-9]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[2-9]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"[2-9]"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"911"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(9)(11)(\\d{4})(\\d{4})" withFormat:@"$2 15-$3-$4" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(9)(11)(\\d{4})(\\d{4})" withFormat:@"$2 15-$3-$4" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"9(?:2[234689]|3[3-8])"];
         [numberFormats5_patternArray addObject:@"9(?:2(?:2[013]|3[067]|49|6[01346]|80|9[147-9])|3(?:36|4[1-358]|5[138]|6[24]|7[069]|8[013578]))"];
-        [numberFormats5_patternArray addObject:@"9(?:2(?:2(?:0[013-9]|[13])|3(?:0[013-9]|[67])|49|6(?:[0136]|4[0-59])|8|9(?:[19]|44|7[013-9]|8[14]))|3(?:36|4(?:[12]|[358]4)|5(?:1|3[0-24-689]|8[46])|6|7[069]|8(?:[01]|34|[578][45])))"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(9)(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$2 15-$3-$4" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        [numberFormats5_patternArray addObject:@"9(?:2(?:2(?:0[013-9]|[13])|3(?:0[013-9]|[67])|49|6(?:[0136]|4[0-59])|8|9(?:[19]|44|7[013-9]|8[14]))|3(?:36|4(?:[12]|3[456]|[58]4)|5(?:1|3[0-24-689]|8[46])|6|7[069]|8(?:[01]|34|[578][45])))"];
+        [numberFormats5_patternArray addObject:@"9(?:2(?:2(?:0[013-9]|[13])|3(?:0[013-9]|[67])|49|6(?:[0136]|4[0-59])|8|9(?:[19]|44|7[013-9]|8[14]))|3(?:36|4(?:[12]|3(?:4|5[014]|6[1239])|[58]4)|5(?:1|3[0-24-689]|8[46])|6|7[069]|8(?:[01]|34|[578][45])))"];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(9)(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$2 15-$3-$4" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
 
         NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
         [numberFormats6_patternArray addObject:@"9[23]"];
-        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(9)(\\d{4})(\\d{2})(\\d{4})" withFormat:@"$2 15-$3-$4" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(9)(\\d{4})(\\d{2})(\\d{4})" withFormat:@"$2 15-$3-$4" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats6];
 
         NSMutableArray *numberFormats7_patternArray = [[NSMutableArray alloc] init];
         [numberFormats7_patternArray addObject:@"1"];
-        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(11)(\\d{4})(\\d{4})" withFormat:@"$1 $2-$3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(11)(\\d{4})(\\d{4})" withFormat:@"$1 $2-$3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats7];
 
         NSMutableArray *numberFormats8_patternArray = [[NSMutableArray alloc] init];
         [numberFormats8_patternArray addObject:@"2(?:2[013]|3[067]|49|6[01346]|80|9[147-9])|3(?:36|4[1-358]|5[138]|6[24]|7[069]|8[013578])"];
-        [numberFormats8_patternArray addObject:@"2(?:2(?:0[013-9]|[13])|3(?:0[013-9]|[67])|49|6(?:[0136]|4[0-59])|8|9(?:[19]|44|7[013-9]|8[14]))|3(?:36|4(?:[12]|[358]4)|5(?:1|3[0-24-689]|8[46])|6|7[069]|8(?:[01]|34|[578][45]))"];
-        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2-$3" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        [numberFormats8_patternArray addObject:@"2(?:2(?:0[013-9]|[13])|3(?:0[013-9]|[67])|49|6(?:[0136]|4[0-59])|8|9(?:[19]|44|7[013-9]|8[14]))|3(?:36|4(?:[12]|3[456]|[58]4)|5(?:1|3[0-24-689]|8[46])|6|7[069]|8(?:[01]|34|[578][45]))"];
+        [numberFormats8_patternArray addObject:@"2(?:2(?:0[013-9]|[13])|3(?:0[013-9]|[67])|49|6(?:[0136]|4[0-59])|8|9(?:[19]|44|7[013-9]|8[14]))|3(?:36|4(?:[12]|3(?:4|5[014]|6[1239])|[58]4)|5(?:1|3[0-24-689]|8[46])|6|7[069]|8(?:[01]|34|[578][45]))"];
+        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2-$3" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats8];
 
         NSMutableArray *numberFormats9_patternArray = [[NSMutableArray alloc] init];
         [numberFormats9_patternArray addObject:@"[23]"];
-        NBNumberFormat *numberFormats9 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{2})(\\d{4})" withFormat:@"$1 $2-$3" withLeadingDigitsPatterns:numberFormats9_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats9 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{2})(\\d{4})" withFormat:@"$1 $2-$3" withLeadingDigitsPatterns:numberFormats9_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats9];
 
         NSMutableArray *numberFormats10_patternArray = [[NSMutableArray alloc] init];
         [numberFormats10_patternArray addObject:@"1[012]|911"];
-        NBNumberFormat *numberFormats10 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})" withFormat:@"$1" withLeadingDigitsPatterns:numberFormats10_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats10 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})" withFormat:@"$1" withLeadingDigitsPatterns:numberFormats10_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats10];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -10050,7 +10062,7 @@
 
         NSMutableArray *intlNumberFormats0_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats0_patternArray addObject:@"[68]"];
-        NBNumberFormat *intlNumberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([68]\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:intlNumberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([68]\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:intlNumberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats0];
 
         NSMutableArray *intlNumberFormats1_patternArray = [[NSMutableArray alloc] init];
@@ -10061,7 +10073,8 @@
         NSMutableArray *intlNumberFormats2_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats2_patternArray addObject:@"9(?:2[234689]|3[3-8])"];
         [intlNumberFormats2_patternArray addObject:@"9(?:2(?:2[013]|3[067]|49|6[01346]|80|9[147-9])|3(?:36|4[1-358]|5[138]|6[24]|7[069]|8[013578]))"];
-        [intlNumberFormats2_patternArray addObject:@"9(?:2(?:2(?:0[013-9]|[13])|3(?:0[013-9]|[67])|49|6(?:[0136]|4[0-59])|8|9(?:[19]|44|7[013-9]|8[14]))|3(?:36|4(?:[12]|[358]4)|5(?:1|3[0-24-689]|8[46])|6|7[069]|8(?:[01]|34|[578][45])))"];
+        [intlNumberFormats2_patternArray addObject:@"9(?:2(?:2(?:0[013-9]|[13])|3(?:0[013-9]|[67])|49|6(?:[0136]|4[0-59])|8|9(?:[19]|44|7[013-9]|8[14]))|3(?:36|4(?:[12]|3[456]|[58]4)|5(?:1|3[0-24-689]|8[46])|6|7[069]|8(?:[01]|34|[578][45])))"];
+        [intlNumberFormats2_patternArray addObject:@"9(?:2(?:2(?:0[013-9]|[13])|3(?:0[013-9]|[67])|49|6(?:[0136]|4[0-59])|8|9(?:[19]|44|7[013-9]|8[14]))|3(?:36|4(?:[12]|3(?:4|5[014]|6[1239])|[58]4)|5(?:1|3[0-24-689]|8[46])|6|7[069]|8(?:[01]|34|[578][45])))"];
         NBNumberFormat *intlNumberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(9)(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3-$4" withLeadingDigitsPatterns:intlNumberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats2];
 
@@ -10072,18 +10085,19 @@
 
         NSMutableArray *intlNumberFormats4_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats4_patternArray addObject:@"1"];
-        NBNumberFormat *intlNumberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(11)(\\d{4})(\\d{4})" withFormat:@"$1 $2-$3" withLeadingDigitsPatterns:intlNumberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(11)(\\d{4})(\\d{4})" withFormat:@"$1 $2-$3" withLeadingDigitsPatterns:intlNumberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats4];
 
         NSMutableArray *intlNumberFormats5_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats5_patternArray addObject:@"2(?:2[013]|3[067]|49|6[01346]|80|9[147-9])|3(?:36|4[1-358]|5[138]|6[24]|7[069]|8[013578])"];
-        [intlNumberFormats5_patternArray addObject:@"2(?:2(?:0[013-9]|[13])|3(?:0[013-9]|[67])|49|6(?:[0136]|4[0-59])|8|9(?:[19]|44|7[013-9]|8[14]))|3(?:36|4(?:[12]|[358]4)|5(?:1|3[0-24-689]|8[46])|6|7[069]|8(?:[01]|34|[578][45]))"];
-        NBNumberFormat *intlNumberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2-$3" withLeadingDigitsPatterns:intlNumberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        [intlNumberFormats5_patternArray addObject:@"2(?:2(?:0[013-9]|[13])|3(?:0[013-9]|[67])|49|6(?:[0136]|4[0-59])|8|9(?:[19]|44|7[013-9]|8[14]))|3(?:36|4(?:[12]|3[456]|[58]4)|5(?:1|3[0-24-689]|8[46])|6|7[069]|8(?:[01]|34|[578][45]))"];
+        [intlNumberFormats5_patternArray addObject:@"2(?:2(?:0[013-9]|[13])|3(?:0[013-9]|[67])|49|6(?:[0136]|4[0-59])|8|9(?:[19]|44|7[013-9]|8[14]))|3(?:36|4(?:[12]|3(?:4|5[014]|6[1239])|[58]4)|5(?:1|3[0-24-689]|8[46])|6|7[069]|8(?:[01]|34|[578][45]))"];
+        NBNumberFormat *intlNumberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2-$3" withLeadingDigitsPatterns:intlNumberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats5];
 
         NSMutableArray *intlNumberFormats6_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats6_patternArray addObject:@"[23]"];
-        NBNumberFormat *intlNumberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{2})(\\d{4})" withFormat:@"$1 $2-$3" withLeadingDigitsPatterns:intlNumberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{2})(\\d{4})" withFormat:@"$1 $2-$3" withLeadingDigitsPatterns:intlNumberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:YES withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats6];
         self.intlNumberFormats = intlNumberFormats_FormatArray;
         self.mainCountryForCode = NO;
@@ -10125,7 +10139,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -10170,7 +10184,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2-578]\\d{2})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2-578]\\d{2})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -10216,88 +10230,88 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"1[67]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(1\\d{2})(\\d{7,8})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(1\\d{2})(\\d{7,8})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"15[0568]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(15\\d{3})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(15\\d{3})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"15"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(1\\d{3})(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(1\\d{3})(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"3[02]|40|[68]9"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3,11})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3,11})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"2(?:\\d1|0[2389]|1[24]|28|34)|3(?:[3-9][15]|40)|[4-8][1-9]1|9(?:06|[1-9]1)"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3,11})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3,11})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"[24-6]|[7-9](?:\\d[1-9]|[1-9]\\d)|3(?:[3569][02-46-9]|4[2-4679]|7[2-467]|8[2-46-8])"];
         [numberFormats5_patternArray addObject:@"[24-6]|[7-9](?:\\d[1-9]|[1-9]\\d)|3(?:3(?:0[1-467]|2[127-9]|3[124578]|[46][1246]|7[1257-9]|8[1256]|9[145])|4(?:2[135]|3[1357]|4[13578]|6[1246]|7[1356]|9[1346])|5(?:0[14]|2[1-3589]|3[1357]|4[1246]|6[1-4]|7[1346]|8[13568]|9[1246])|6(?:0[356]|2[1-489]|3[124-6]|4[1347]|6[13]|7[12579]|8[1-356]|9[135])|7(?:2[1-7]|3[1357]|4[145]|6[1-5]|7[1-4])|8(?:21|3[1468]|4[1347]|6[0135-9]|7[1467]|8[136])|9(?:0[12479]|2[1358]|3[1357]|4[134679]|6[1-9]|7[136]|8[147]|9[1468]))"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{2,11})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{2,11})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
 
         NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
         [numberFormats6_patternArray addObject:@"3"];
-        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(3\\d{4})(\\d{1,10})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(3\\d{4})(\\d{1,10})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats6];
 
         NSMutableArray *numberFormats7_patternArray = [[NSMutableArray alloc] init];
         [numberFormats7_patternArray addObject:@"800"];
-        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(800)(\\d{7,12})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(800)(\\d{7,12})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats7];
 
         NSMutableArray *numberFormats8_patternArray = [[NSMutableArray alloc] init];
         [numberFormats8_patternArray addObject:@"177"];
         [numberFormats8_patternArray addObject:@"1779"];
         [numberFormats8_patternArray addObject:@"17799"];
-        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(177)(99)(\\d{7,8})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(177)(99)(\\d{7,8})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats8];
 
         NSMutableArray *numberFormats9_patternArray = [[NSMutableArray alloc] init];
         [numberFormats9_patternArray addObject:@"(?:18|90)0|137"];
         [numberFormats9_patternArray addObject:@"1(?:37|80)|900[1359]"];
-        NBNumberFormat *numberFormats9 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d)(\\d{4,10})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats9_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats9 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d)(\\d{4,10})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats9_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats9];
 
         NSMutableArray *numberFormats10_patternArray = [[NSMutableArray alloc] init];
         [numberFormats10_patternArray addObject:@"181"];
-        NBNumberFormat *numberFormats10 = [[NBNumberFormat alloc] initWithPattern:@"(1\\d{2})(\\d{5,11})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats10_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats10 = [[NBNumberFormat alloc] initWithPattern:@"(1\\d{2})(\\d{5,11})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats10_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats10];
 
         NSMutableArray *numberFormats11_patternArray = [[NSMutableArray alloc] init];
         [numberFormats11_patternArray addObject:@"185"];
         [numberFormats11_patternArray addObject:@"1850"];
         [numberFormats11_patternArray addObject:@"18500"];
-        NBNumberFormat *numberFormats11 = [[NBNumberFormat alloc] initWithPattern:@"(18\\d{3})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats11_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats11 = [[NBNumberFormat alloc] initWithPattern:@"(18\\d{3})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats11_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats11];
 
         NSMutableArray *numberFormats12_patternArray = [[NSMutableArray alloc] init];
         [numberFormats12_patternArray addObject:@"18[68]"];
-        NBNumberFormat *numberFormats12 = [[NBNumberFormat alloc] initWithPattern:@"(18\\d{2})(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats12_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats12 = [[NBNumberFormat alloc] initWithPattern:@"(18\\d{2})(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats12_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats12];
 
         NSMutableArray *numberFormats13_patternArray = [[NSMutableArray alloc] init];
         [numberFormats13_patternArray addObject:@"18[2-579]"];
-        NBNumberFormat *numberFormats13 = [[NBNumberFormat alloc] initWithPattern:@"(18\\d)(\\d{8})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats13_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats13 = [[NBNumberFormat alloc] initWithPattern:@"(18\\d)(\\d{8})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats13_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats13];
 
         NSMutableArray *numberFormats14_patternArray = [[NSMutableArray alloc] init];
         [numberFormats14_patternArray addObject:@"700"];
-        NBNumberFormat *numberFormats14 = [[NBNumberFormat alloc] initWithPattern:@"(700)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats14_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats14 = [[NBNumberFormat alloc] initWithPattern:@"(700)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats14_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats14];
 
         NSMutableArray *numberFormats15_patternArray = [[NSMutableArray alloc] init];
         [numberFormats15_patternArray addObject:@"138"];
-        NBNumberFormat *numberFormats15 = [[NBNumberFormat alloc] initWithPattern:@"(138)(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats15_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats15 = [[NBNumberFormat alloc] initWithPattern:@"(138)(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats15_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats15];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -10384,12 +10398,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[234]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([234])(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"0$CC $1"];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([234])(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"0$CC $1"];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[67]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([67]\\d{7})" withFormat:@"$1" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"0$CC $1"];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([67]\\d{7})" withFormat:@"$1" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"0$CC $1"];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -10413,7 +10427,7 @@
         self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"6(?:44|5[0-3579]|6[013-9]|[7-9]\\d)\\d{4,10}" withPossibleNumberPattern:@"\\d{7,13}" withExample:@"644123456"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"80[02]\\d{6,10}" withPossibleNumberPattern:@"\\d{9,13}" withExample:@"800123456"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:711|9(?:0[01]|3[019]))\\d{6,10}" withPossibleNumberPattern:@"\\d{9,13}" withExample:@"900123456"];
-        self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"8(?:10|2[018])\\d{6,10}" withPossibleNumberPattern:@"\\d{9,13}" withExample:@"810123456"];
+        self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"8(?:10\\d|2(?:[01]\\d|8\\d?))\\d{5,9}" withPossibleNumberPattern:@"\\d{8,13}" withExample:@"810123456"];
         self.personalNumber = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.voip = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"780\\d{6,10}" withPossibleNumberPattern:@"\\d{9,13}" withExample:@"780123456"];
         self.pager = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -10435,32 +10449,32 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"1"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(1)(\\d{3,12})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(1)(\\d{3,12})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"5[079]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(5\\d)(\\d{3,5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(5\\d)(\\d{3,5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"5[079]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(5\\d)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(5\\d)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"5[079]"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(5\\d)(\\d{4})(\\d{4,7})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(5\\d)(\\d{4})(\\d{4,7})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"316|46|51|732|6(?:44|5[0-3579]|[6-9])|7(?:1|[28]0)|[89]"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3,10})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3,10})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"2|3(?:1[1-578]|[3-8])|4[2378]|5[2-6]|6(?:[12]|4[1-35-9]|5[468])|7(?:2[1-8]|35|4[1-8]|[5-79])"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{3,9})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{3,9})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -10505,7 +10519,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -10526,7 +10540,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[1-578]\\d{5,9}" withPossibleNumberPattern:@"\\d{6,10}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[237]\\d{8}|8(?:[68]\\d{3}|7[0-69]\\d{2}|9(?:[02-9]\\d{2}|1(?:[0-57-9]\\d|6[0135-9])))\\d{4}" withPossibleNumberPattern:@"\\d{8,9}" withExample:@"212345678"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"14(?:5\\d|71)\\d{5}|4(?:[0-2]\\d|3[0-57-9]|4[47-9]|5[0-25-9]|6[6-9]|7[03-9]|8[17-9]|9[017-9])\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"412345678"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"14(?:5\\d|71)\\d{5}|4(?:[0-2]\\d|3[0-57-9]|4[47-9]|5[0-25-9]|6[6-9]|7[03-9]|8[147-9]|9[017-9])\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"412345678"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"180(?:0\\d{3}|2)\\d{3}" withPossibleNumberPattern:@"\\d{7,10}" withExample:@"1800123456"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"190[0126]\\d{6}" withPossibleNumberPattern:@"\\d{10}" withExample:@"1900123456"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"13(?:00\\d{2})?\\d{4}" withPossibleNumberPattern:@"\\d{6,10}" withExample:@"1300123456"];
@@ -10551,44 +10565,44 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[2378]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2378])(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2378])(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[45]|14"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"16"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(16)(\\d{3})(\\d{2,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(16)(\\d{3})(\\d{2,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"1(?:[38]0|90)"];
         [numberFormats3_patternArray addObject:@"1(?:[38]00|90)"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(1[389]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(1[389]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"180"];
         [numberFormats4_patternArray addObject:@"1802"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(180)(2\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(180)(2\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"19[13]"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(19\\d)(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(19\\d)(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
 
         NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
         [numberFormats6_patternArray addObject:@"19[67]"];
-        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(19\\d{2})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(19\\d{2})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats6];
 
         NSMutableArray *numberFormats7_patternArray = [[NSMutableArray alloc] init];
         [numberFormats7_patternArray addObject:@"13[1-9]"];
-        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(13)(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(13)(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats7];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -10644,27 +10658,27 @@
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"9"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(9)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(9)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"44"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(44)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(44)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"60|8"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"([68]00)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"([68]00)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"60"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(600)(\\d{3})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(600)(\\d{3})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
 
         NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
         [numberFormats6_patternArray addObject:@"1"];
-        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(1230)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(1230)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats6];
 
         NSMutableArray *numberFormats7_patternArray = [[NSMutableArray alloc] init];
@@ -10674,7 +10688,7 @@
 
         NSMutableArray *numberFormats8_patternArray = [[NSMutableArray alloc] init];
         [numberFormats8_patternArray addObject:@"[1-9]"];
-        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4,5})" withFormat:@"$1" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4,5})" withFormat:@"$1" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats8];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -10692,27 +10706,27 @@
 
         NSMutableArray *intlNumberFormats2_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats2_patternArray addObject:@"9"];
-        NBNumberFormat *intlNumberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(9)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(9)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats2];
 
         NSMutableArray *intlNumberFormats3_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats3_patternArray addObject:@"44"];
-        NBNumberFormat *intlNumberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(44)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(44)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats3];
 
         NSMutableArray *intlNumberFormats4_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats4_patternArray addObject:@"60|8"];
-        NBNumberFormat *intlNumberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"([68]00)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats4_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"([68]00)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats4_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats4];
 
         NSMutableArray *intlNumberFormats5_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats5_patternArray addObject:@"60"];
-        NBNumberFormat *intlNumberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(600)(\\d{3})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:intlNumberFormats5_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(600)(\\d{3})(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:intlNumberFormats5_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats5];
 
         NSMutableArray *intlNumberFormats6_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats6_patternArray addObject:@"1"];
-        NBNumberFormat *intlNumberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(1230)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats6_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(1230)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats6_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats6];
 
         NSMutableArray *intlNumberFormats7_patternArray = [[NSMutableArray alloc] init];
@@ -10760,17 +10774,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[247]|[356][2-8]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2-$3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2-$3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"9"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"1"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(1800)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(1800)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -10783,12 +10797,12 @@
 
         NSMutableArray *intlNumberFormats1_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats1_patternArray addObject:@"9"];
-        NBNumberFormat *intlNumberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats1];
 
         NSMutableArray *intlNumberFormats2_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats2_patternArray addObject:@"1"];
-        NBNumberFormat *intlNumberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(1800)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(1800)(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats2];
         self.intlNumberFormats = intlNumberFormats_FormatArray;
         self.mainCountryForCode = NO;
@@ -10872,17 +10886,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[26]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([26])(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4 $5" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([26])(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4 $5" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[23]|88"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"80"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(800)(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(800)(\\d{2})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -10903,7 +10917,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[1-46-9]\\d{7,10}|5\\d{8,9}" withPossibleNumberPattern:@"\\d{8,11}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"1[1-9][2-5]\\d{7}|(?:[4689][1-9]|2[12478]|3[1-578]|5[1-5]|7[13-579])[2-5]\\d{7}" withPossibleNumberPattern:@"\\d{8,11}" withExample:@"1123456789"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"1[1-9](?:7|9\\d)\\d{7}|(?:2[12478]|[89][1-9])9?[6-9]\\d{7}|(?:3[1-578]|[46][1-9]|5[1-5]|7[13-579])[6-9]\\d{7}" withPossibleNumberPattern:@"\\d{10,11}" withExample:@"11961234567"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"1[1-9](?:7|9\\d)\\d{7}|(?:2[12478]|3[1-578]|7[13-579]|[89][1-9])9?[6-9]\\d{7}|(?:[46][1-9]|5[1-5])[6-9]\\d{7}" withPossibleNumberPattern:@"\\d{10,11}" withExample:@"11961234567"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"800\\d{6,7}" withPossibleNumberPattern:@"\\d{8,11}" withExample:@"800123456"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[359]00\\d{6,7}" withPossibleNumberPattern:@"\\d{8,11}" withExample:@"300123456"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[34]00\\d{5}" withPossibleNumberPattern:@"\\d{8}" withExample:@"40041234"];
@@ -10928,21 +10942,21 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[2-9](?:[1-9]|0[1-9])"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"9(?:[1-9]|0[1-9])"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{5})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{5})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"1[125689]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3,5})" withFormat:@"$1" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3,5})" withFormat:@"$1" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
-        [numberFormats3_patternArray addObject:@"(?:[189][1-9]|2[12478])9"];
+        [numberFormats3_patternArray addObject:@"(?:[189][1-9]|2[12478]|3[1-578]|7[13-579])9"];
         NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{5})(\\d{4})" withFormat:@"$1 $2-$3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"($1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"0 $CC ($1)"];
         [numberFormats_FormatArray addObject:numberFormats3];
 
@@ -10953,19 +10967,19 @@
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"[34]00"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"([34]00\\d)(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"([34]00\\d)(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
 
         NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
         [numberFormats6_patternArray addObject:@"[3589]00"];
-        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"([3589]00)(\\d{2,3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"([3589]00)(\\d{2,3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats6];
         self.numberFormats = numberFormats_FormatArray;
 
         NSMutableArray *intlNumberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *intlNumberFormats0_patternArray = [[NSMutableArray alloc] init];
-        [intlNumberFormats0_patternArray addObject:@"(?:[189][1-9]|2[12478])9"];
+        [intlNumberFormats0_patternArray addObject:@"(?:[189][1-9]|2[12478]|3[1-578]|7[13-579])9"];
         NBNumberFormat *intlNumberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{5})(\\d{4})" withFormat:@"$1 $2-$3" withLeadingDigitsPatterns:intlNumberFormats0_patternArray withNationalPrefixFormattingRule:@"($1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"0 $CC ($1)"];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats0];
 
@@ -10976,12 +10990,12 @@
 
         NSMutableArray *intlNumberFormats2_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats2_patternArray addObject:@"[34]00"];
-        NBNumberFormat *intlNumberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([34]00\\d)(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:intlNumberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"([34]00\\d)(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:intlNumberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats2];
 
         NSMutableArray *intlNumberFormats3_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats3_patternArray addObject:@"[3589]00"];
-        NBNumberFormat *intlNumberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"([3589]00)(\\d{2,3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"([3589]00)(\\d{2,3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats3];
         self.intlNumberFormats = intlNumberFormats_FormatArray;
         self.mainCountryForCode = NO;
@@ -11023,7 +11037,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -11074,12 +11088,12 @@
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[48]00"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([48]00)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([48]00)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"100|95"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{5,6})" withFormat:@"$1" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{5,6})" withFormat:@"$1" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
@@ -11098,7 +11112,7 @@
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"[2-9]"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3,4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3,4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
 
         NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
@@ -11125,19 +11139,19 @@
 
         NSMutableArray *numberFormats10_patternArray = [[NSMutableArray alloc] init];
         [numberFormats10_patternArray addObject:@"1[3-578]"];
-        NBNumberFormat *numberFormats10 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats10_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
+        NBNumberFormat *numberFormats10 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats10_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
         [numberFormats_FormatArray addObject:numberFormats10];
 
         NSMutableArray *numberFormats11_patternArray = [[NSMutableArray alloc] init];
         [numberFormats11_patternArray addObject:@"108"];
         [numberFormats11_patternArray addObject:@"1080"];
         [numberFormats11_patternArray addObject:@"10800"];
-        NBNumberFormat *numberFormats11 = [[NBNumberFormat alloc] initWithPattern:@"(10800)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats11_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats11 = [[NBNumberFormat alloc] initWithPattern:@"(10800)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats11_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats11];
 
         NSMutableArray *numberFormats12_patternArray = [[NSMutableArray alloc] init];
         [numberFormats12_patternArray addObject:@"950"];
-        NBNumberFormat *numberFormats12 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{7,8})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats12_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats12 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{7,8})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats12_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats12];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -11150,7 +11164,7 @@
 
         NSMutableArray *intlNumberFormats1_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats1_patternArray addObject:@"[48]00"];
-        NBNumberFormat *intlNumberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([48]00)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([48]00)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats1];
 
         NSMutableArray *intlNumberFormats2_patternArray = [[NSMutableArray alloc] init];
@@ -11191,19 +11205,19 @@
 
         NSMutableArray *intlNumberFormats8_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats8_patternArray addObject:@"1[3-578]"];
-        NBNumberFormat *intlNumberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats8_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
+        NBNumberFormat *intlNumberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats8_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats8];
 
         NSMutableArray *intlNumberFormats9_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats9_patternArray addObject:@"108"];
         [intlNumberFormats9_patternArray addObject:@"1080"];
         [intlNumberFormats9_patternArray addObject:@"10800"];
-        NBNumberFormat *intlNumberFormats9 = [[NBNumberFormat alloc] initWithPattern:@"(10800)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats9_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats9 = [[NBNumberFormat alloc] initWithPattern:@"(10800)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:intlNumberFormats9_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats9];
 
         NSMutableArray *intlNumberFormats10_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats10_patternArray addObject:@"950"];
-        NBNumberFormat *intlNumberFormats10 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{7,8})" withFormat:@"$1 $2" withLeadingDigitsPatterns:intlNumberFormats10_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats10 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{7,8})" withFormat:@"$1 $2" withLeadingDigitsPatterns:intlNumberFormats10_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats10];
         self.intlNumberFormats = intlNumberFormats_FormatArray;
         self.mainCountryForCode = NO;
@@ -11247,24 +11261,24 @@
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[369]|4[3-8]|5(?:[0-2]|5[0-478]|6[45])|7[1-9]"];
         [numberFormats0_patternArray addObject:@"[369]|4[3-8]|5(?:[02]|1(?:[0-8]|95)|5[0-478]|6(?:4[0-4]|5[1-589]))|7[1-9]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([3-79]\\d{2})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([3-79]\\d{2})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"70"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(70)(\\d{2})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(70)(\\d{2})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"800"];
         [numberFormats2_patternArray addObject:@"8000"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(8000)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(8000)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"40|5|8(?:00|[1-5])"];
         [numberFormats3_patternArray addObject:@"40|5|8(?:00[1-9]|[1-5])"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"([458]\\d{3})(\\d{3,4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"([458]\\d{3})(\\d{3,4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -11284,7 +11298,7 @@
     self = [super init];
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[2589]\\d{9}" withPossibleNumberPattern:@"\\d{7}(?:\\d{3})?" withExample:nil];
-        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"242(?:3(?:02|[236][1-9]|4[0-24-9]|5[0-68]|7[3467]|8[0-4]|9[2-467])|461|502|6(?:0[12]|12|7[67]|8[78]|9[89])|7(?:02|88))\\d{4}" withPossibleNumberPattern:@"\\d{7}(?:\\d{3})?" withExample:@"2423456789"];
+        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"242(?:3(?:02|[236][1-9]|4[0-24-9]|5[0-68]|7[3467]|8[0-4]|9[2-467])|461|502|6(?:0[1-3]|12|7[67]|8[78]|9[89])|7(?:02|88))\\d{4}" withPossibleNumberPattern:@"\\d{7}(?:\\d{3})?" withExample:@"2423456789"];
         self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"242(?:3(?:5[79]|[79]5)|4(?:[2-4][1-9]|5[1-8]|6[2-8]|7\\d|81)|5(?:2[45]|3[35]|44|5[1-9]|65|77)|6[34]6|727)\\d{4}" withPossibleNumberPattern:@"\\d{10}" withExample:@"2423591234"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"242300\\d{4}|8(?:00|44|55|66|77|88)[2-9]\\d{6}" withPossibleNumberPattern:@"\\d{10}" withExample:@"8002123456"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"900[2-9]\\d{6}" withPossibleNumberPattern:@"\\d{10}" withExample:@"9002123456"];
@@ -11350,7 +11364,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -11443,13 +11457,13 @@
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"3"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"0$CC $1"];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"0$CC $1"];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"1(?:80|9[04])"];
         [numberFormats2_patternArray addObject:@"1(?:800|9(?:0[01]|4[78]))"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(1)(\\d{3})(\\d{7})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(1)(\\d{3})(\\d{7})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -11463,7 +11477,7 @@
 
         NSMutableArray *intlNumberFormats1_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats1_patternArray addObject:@"3"];
-        NBNumberFormat *intlNumberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:intlNumberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"0$CC $1"];
+        NBNumberFormat *intlNumberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:intlNumberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"0$CC $1"];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats1];
 
         NSMutableArray *intlNumberFormats2_patternArray = [[NSMutableArray alloc] init];
@@ -11487,7 +11501,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[1-8]\\d{6,7}" withPossibleNumberPattern:@"\\d{6,8}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:2[3-6]|[34][5-7]|5[236]|6[2-46]|7[246]|8[2-4])\\d{5}" withPossibleNumberPattern:@"\\d{6,7}" withExample:@"2345678"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[17]7\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"17123456"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:1[67]|77)\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"17123456"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -11512,12 +11526,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"1|77"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([17]7)(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[2-68]|7[246]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([2-8])(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([2-8])(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -11562,7 +11576,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -11608,17 +11622,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[23]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{7,8})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{7,8})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"1[012]|[89]00"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"1[35]|[4-6]|[89][2-9]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{6,7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{6,7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -11664,17 +11678,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"(?:1[28]|2(?:[45]2|[0-36])|365)"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[4-8]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"9"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -11695,7 +11709,7 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[5689]\\d{8}" withPossibleNumberPattern:@"\\d{9}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"528[89]\\d{5}" withPossibleNumberPattern:@"\\d{9}" withExample:@"528812345"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"6(?:0[0-8]|[12-79]\\d|8[01])\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"650123456"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"6(?:0[0-8]|[12-79]\\d|8[017])\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"650123456"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"80\\d{7}" withPossibleNumberPattern:@"\\d{9}" withExample:@"801234567"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"89\\d{7}" withPossibleNumberPattern:@"\\d{9}" withExample:@"891234567"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -11776,7 +11790,7 @@
     self = [super init];
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[24-9]\\d{7,9}" withPossibleNumberPattern:@"\\d{8,10}" withExample:nil];
-        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"2[24-7]\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"22123456"];
+        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"2[0-24-7]\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"22123456"];
         self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"5(?:0[01]|7[0-3])\\d{5}|6(?:[0-2]\\d|30)\\d{5}|7[0-3]\\d{6}|8[3-9]\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"83123456"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"800\\d{7}" withPossibleNumberPattern:@"\\d{10}" withExample:@"8001234567"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"90[059]\\d{7}" withPossibleNumberPattern:@"\\d{10}" withExample:@"9001234567"];
@@ -11802,12 +11816,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[24-7]|8[3-9]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[89]0"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -11853,17 +11867,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[2-6]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"7"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(7\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(7\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"9"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(90)(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(90)(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -11909,12 +11923,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[2-7]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"0"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -11974,10 +11988,10 @@
 {
     self = [super init];
     if (self) {
-        self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[1-4]\\d{8}|[89]\\d{9,10}" withPossibleNumberPattern:@"\\d{7,11}" withExample:nil];
-        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:1(?:5(?:1[1-5]|[24]\\d|6[2-4]|9[1-7])|6(?:[235]\\d|4[1-7])|7\\d{2})|2(?:1(?:[246]\\d|3[0-35-9]|5[1-9])|2(?:[235]\\d|4[0-8])|3(?:[26]\\d|3[02-79]|4[024-7]|5[03-7])))\\d{5}" withPossibleNumberPattern:@"\\d{7,9}" withExample:@"152450911"];
+        self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[1-4]\\d{8}|800\\d{3,7}|[89]\\d{9,10}" withPossibleNumberPattern:@"\\d{6,11}" withExample:nil];
+        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:1(?:5(?:1[1-5]|[24]\\d|6[2-4]|9[1-7])|6(?:[235]\\d|4[1-7])|7\\d{2})|2(?:1(?:[246]\\d|3[0-35-9]|5[1-9])|2(?:[235]\\d|4[0-8])|3(?:[26]\\d|3[02-79]|4[024-7]|5[03-7])))\\d{5}" withPossibleNumberPattern:@"\\d{6,11}" withExample:@"152450911"];
         self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:2(?:5[5679]|9[1-9])|33\\d|44\\d)\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"294911911"];
-        self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"8(?:0[13]|20\\d)\\d{7}" withPossibleNumberPattern:@"\\d{10,11}" withExample:@"8011234567"];
+        self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"8(?:0[13]|20\\d)\\d{7}|800\\d{3,7}" withPossibleNumberPattern:@"\\d{6,11}" withExample:@"8011234567"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:810|902)\\d{7}" withPossibleNumberPattern:@"\\d{10}" withExample:@"9021234567"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.personalNumber = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -11986,7 +12000,7 @@
         self.uan = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.emergency = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:nil withPossibleNumberPattern:nil withExample:nil];
         self.voicemail = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
-        self.noInternationalDialling = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"8(?:[013]|[12]0)\\d{8}|902\\d{7}" withPossibleNumberPattern:@"\\d{10,11}" withExample:@"82012345678"];
+        self.noInternationalDialling = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"8(?:[013]|[12]0)\\d{8}|800\\d{3,7}|902\\d{7}" withPossibleNumberPattern:@"\\d{6,11}" withExample:@"82012345678"];
         self.codeID = @"BY";
         self.countryCode = [NSNumber numberWithInteger:375];
         self.internationalPrefix = @"810";
@@ -12002,30 +12016,40 @@
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"17[0-3589]|2[4-9]|[34]"];
         [numberFormats0_patternArray addObject:@"17(?:[02358]|1[0-2]|9[0189])|2[4-9]|[34]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2-$3-$4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"8 0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2-$3-$4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"8 0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"1(?:5[24]|6[235]|7[467])|2(?:1[246]|2[25]|3[26])"];
         [numberFormats1_patternArray addObject:@"1(?:5[24]|6(?:2|3[04-9]|5[0346-9])|7(?:[46]|7[37-9]))|2(?:1[246]|2[25]|3[26])"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2-$3-$4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"8 0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2-$3-$4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"8 0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"1(?:5[169]|6[3-5]|7[179])|2(?:1[35]|2[34]|3[3-5])"];
         [numberFormats2_patternArray addObject:@"1(?:5[169]|6(?:3[1-3]|4|5[125])|7(?:1[3-9]|7[0-24-6]|9[2-7]))|2(?:1[35]|2[34]|3[3-5])"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{2})(\\d{3})" withFormat:@"$1 $2-$3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"8 0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{2})(\\d{3})" withFormat:@"$1 $2-$3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"8 0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"8[01]|9"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"([89]\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"8 $1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"([89]\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"8 $1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"82"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(8\\d{2})(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"8 $1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(82\\d)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"8 $1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
+
+        NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
+        [numberFormats5_patternArray addObject:@"800"];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(800)(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"8 $1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
+        [numberFormats_FormatArray addObject:numberFormats5];
+
+        NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
+        [numberFormats6_patternArray addObject:@"800"];
+        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(800)(\\d{2})(\\d{2,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"8 $1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
+        [numberFormats_FormatArray addObject:numberFormats6];
         self.numberFormats = numberFormats_FormatArray;
 
         NSMutableArray *intlNumberFormats_FormatArray = [[NSMutableArray alloc] init];
@@ -12071,30 +12095,30 @@
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"2|5[56]|7(?:0|6[013-9])"];
         [numberFormats0_patternArray addObject:@"2|5[56]|7(?:0|6(?:[013-9]|2[0-35-9]))"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"1(?:1|\\d1)|3|9[018]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"1(?:38|5[23]|69|76|94)"];
         [numberFormats2_patternArray addObject:@"1(?:387|5(?:24|39)|697|768|946)"];
         [numberFormats2_patternArray addObject:@"1(?:3873|5(?:242|39[456])|697[347]|768[347]|9467)"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{5})(\\d{4,5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{5})(\\d{4,5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"1"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(1\\d{3})(\\d{5,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(1\\d{3})(\\d{5,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"7(?:[1-5789]|62)"];
         [numberFormats4_patternArray addObject:@"7(?:[1-5789]|624)"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(7\\d{3})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(7\\d{3})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
@@ -12103,7 +12127,7 @@
         [numberFormats5_patternArray addObject:@"80011"];
         [numberFormats5_patternArray addObject:@"800111"];
         [numberFormats5_patternArray addObject:@"8001111"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(800)(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(800)(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
 
         NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
@@ -12111,22 +12135,22 @@
         [numberFormats6_patternArray addObject:@"8454"];
         [numberFormats6_patternArray addObject:@"84546"];
         [numberFormats6_patternArray addObject:@"845464"];
-        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(845)(46)(4\\d)" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(845)(46)(4\\d)" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats6];
 
         NSMutableArray *numberFormats7_patternArray = [[NSMutableArray alloc] init];
         [numberFormats7_patternArray addObject:@"8(?:4[2-5]|7[0-3])"];
-        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(8\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(8\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats7];
 
         NSMutableArray *numberFormats8_patternArray = [[NSMutableArray alloc] init];
         [numberFormats8_patternArray addObject:@"80"];
-        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(80\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(80\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats8];
 
         NSMutableArray *numberFormats9_patternArray = [[NSMutableArray alloc] init];
         [numberFormats9_patternArray addObject:@"[58]00"];
-        NBNumberFormat *numberFormats9 = [[NBNumberFormat alloc] initWithPattern:@"([58]00)(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats9_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats9 = [[NBNumberFormat alloc] initWithPattern:@"([58]00)(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats9_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats9];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -12172,17 +12196,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"7"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{6,7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{6,7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[2-4]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4,6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"5"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -12228,12 +12252,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[2-8]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"0"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(0)(800)(\\d{4})(\\d{3})" withFormat:@"$1-$2-$3-$4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(0)(800)(\\d{4})(\\d{3})" withFormat:@"$1-$2-$3-$4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -12278,7 +12302,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -12312,7 +12336,7 @@
         self.noInternationalDialling = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.codeID = @"001";
         self.countryCode = [NSNumber numberWithInteger:808];
-        self.internationalPrefix = @"";
+        self.internationalPrefix = nil;
         self.preferredInternationalPrefix = nil;
         self.nationalPrefix = nil;
         self.preferredExtnPrefix = nil;
@@ -12323,7 +12347,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -12410,17 +12434,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"(?:[1-3]00|[6-8]0)"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3,7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3,7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[14]|2[09]|50|7[135]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4,10})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{4,10})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"[25689][1-8]|3"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{4,11})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{4,11})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -12466,12 +12490,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[13-7]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"9"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(9)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(9)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -12517,17 +12541,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[348]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"7"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"5"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -12573,12 +12597,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[36-9]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"0"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -12664,7 +12688,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -12750,7 +12774,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -12837,17 +12861,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[2-8]|9[015-7]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2-9]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2-9]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"96"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(96\\d)(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(96\\d)(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"9[36]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(9\\d)(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(9\\d)(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -12893,12 +12917,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[235]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"8"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -12943,7 +12967,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -12988,7 +13012,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -13034,7 +13058,7 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"2"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -13079,9 +13103,14 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        [numberFormats0_patternArray addObject:@"[568]|[79][0-8]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([5-9]\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        [numberFormats0_patternArray addObject:@"[89]00"];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([89]00)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
+
+        NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
+        [numberFormats1_patternArray addObject:@"[568]|[79][0-8]"];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([5-9]\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
+        [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
         NSMutableArray *intlNumberFormats_FormatArray = [[NSMutableArray alloc] init];
@@ -13125,7 +13154,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{6})" withFormat:@"$1" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{6})" withFormat:@"$1" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:@"$CC $1"];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -13170,7 +13199,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([1-59]\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([1-59]\\d)(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -13215,7 +13244,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -13235,7 +13264,7 @@
     self = [super init];
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:[1-4]|[5-9]\\d)\\d{7}" withPossibleNumberPattern:@"\\d{8,9}" withExample:nil];
-        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:1\\d|2[014-79]|3[0-8]|4[0135689])\\d{6}|9619\\d{5}" withPossibleNumberPattern:@"\\d{8,9}" withExample:@"12345678"];
+        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:1\\d|2[013-79]|3[0-8]|4[0135689])\\d{6}|9619\\d{5}" withPossibleNumberPattern:@"\\d{8,9}" withExample:@"12345678"];
         self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:5[4-6]|7[7-9])\\d{7}|6(?:[569]\\d|7[0-6])\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"551234567"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"800\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"800123456"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"80[3-689]1\\d{5}" withPossibleNumberPattern:@"\\d{9}" withExample:@"808123456"];
@@ -13261,17 +13290,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[1-4]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([1-4]\\d)(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([1-4]\\d)(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[5-8]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([5-8]\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([5-8]\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"9"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(9\\d)(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(9\\d)(\\d{3})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -13316,7 +13345,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -13335,9 +13364,9 @@
 {
     self = [super init];
     if (self) {
-        self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[1-9]\\d{6,10}" withPossibleNumberPattern:@"\\d{5,11}" withExample:nil];
+        self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:[1-79]\\d{6,10}|8\\d{7,11})" withPossibleNumberPattern:@"\\d{5,12}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"2(?:1(?:14\\d{3}|[0-8]\\d{6,7}|500\\d{3}|9\\d{6})|2\\d{6,8}|4\\d{7,8})|(?:2(?:[35][1-4]|6[0-8]|7[1-6]|8\\d|9[1-8])|3(?:1|[25][1-8]|3[1-68]|4[1-3]|6[1-3568]|7[0-469]|8\\d)|4(?:0[1-589]|1[01347-9]|2[0-36-8]|3[0-24-68]|43|5[1-378]|6[1-5]|7[134]|8[1245])|5(?:1[1-35-9]|2[25-8]|3[124-9]|4[1-3589]|5[1-46]|6[1-8])|6(?:19?|[25]\\d|3[1-69]|4[1-6])|7(?:02|[125][1-9]|[36]\\d|4[1-8]|7[0-36-9])|9(?:0[12]|1[013-8]|2[0-479]|5[125-8]|6[23679]|7[159]|8[01346]))\\d{5,8}" withPossibleNumberPattern:@"\\d{5,11}" withExample:@"612345678"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:2(?:1(?:3[145]|4[01]|5[1-469]|60|8[0359]|9\\d)|2(?:88|9[1256])|3[1-4]9|4(?:36|91)|5(?:1[349]|[2-4]9)|6[0-7]9|7(?:[1-36]9|4[39])|8[1-5]9|9[1-48]9)|3(?:19[1-3]|2[12]9|3[13]9|4(?:1[69]|39)|5[14]9|6(?:1[69]|2[89])|709)|4[13]19|5(?:1(?:19|8[39])|4[129]9|6[12]9)|6(?:19[12]|2(?:[23]9|77))|7(?:1[13]9|2[15]9|419|5(?:1[89]|29)|6[15]9|7[178]9))\\d{5,6}|8[1-35-9]\\d{7,9}" withPossibleNumberPattern:@"\\d{9,11}" withExample:@"812345678"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:2(?:1(?:3[145]|4[01]|5[1-469]|60|8[0359]|9\\d)|2(?:88|9[1256])|3[1-4]9|4(?:36|91)|5(?:1[349]|[2-4]9)|6[0-7]9|7(?:[1-36]9|4[39])|8[1-5]9|9[1-48]9)|3(?:19[1-3]|2[12]9|3[13]9|4(?:1[69]|39)|5[14]9|6(?:1[69]|2[89])|709)|4[13]19|5(?:1(?:19|8[39])|4[129]9|6[12]9)|6(?:19[12]|2(?:[23]9|77))|7(?:1[13]9|2[15]9|419|5(?:1[89]|29)|6[15]9|7[178]9))\\d{5,6}|8[1-35-9]\\d{7,10}" withPossibleNumberPattern:@"\\d{9,12}" withExample:@"812345678"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"177\\d{6,8}|800\\d{5,7}" withPossibleNumberPattern:@"\\d{8,11}" withExample:@"8001234567"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"809\\d{7}" withPossibleNumberPattern:@"\\d{10}" withExample:@"8091234567"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -13362,32 +13391,32 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"2[124]|[36]1"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{5,8})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{5,8})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[4579]|2[035-9]|[36][02-9]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{5,8})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{5,8})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"8[1-35-9]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(8\\d{2})(\\d{3,4})(\\d{3,4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(8\\d{2})(\\d{3,4})(\\d{3,5})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"1"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(177)(\\d{6,8})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(177)(\\d{6,8})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"800"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(800)(\\d{5,7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(800)(\\d{5,7})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"80[79]"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(80\\d)(\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(80\\d)(\\d)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -13433,17 +13462,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[1-79]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([1-79])(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4 $5" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([1-79])(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4 $5" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"11"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(1\\d{2})(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(1\\d{2})(\\d{3})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"8"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(8\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0 $1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(8\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"0 $1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -13451,12 +13480,12 @@
 
         NSMutableArray *intlNumberFormats0_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats0_patternArray addObject:@"[1-79]"];
-        NBNumberFormat *intlNumberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([1-79])(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4 $5" withLeadingDigitsPatterns:intlNumberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([1-79])(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4 $5" withLeadingDigitsPatterns:intlNumberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats0];
 
         NSMutableArray *intlNumberFormats1_patternArray = [[NSMutableArray alloc] init];
         [intlNumberFormats1_patternArray addObject:@"8"];
-        NBNumberFormat *intlNumberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(8\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:intlNumberFormats1_patternArray withNationalPrefixFormattingRule:@"0 $1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *intlNumberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(8\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:intlNumberFormats1_patternArray withNationalPrefixFormattingRule:@"0 $1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [intlNumberFormats_FormatArray addObject:intlNumberFormats1];
         self.intlNumberFormats = intlNumberFormats_FormatArray;
         self.mainCountryForCode = NO;
@@ -13499,12 +13528,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"3"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[67]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{2})(\\d{2})(\\d{2})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -13550,48 +13579,48 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"1"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(1)(\\d{3,4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(1)(\\d{3,4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"2[24-9]|47|58|6[237-9]|9[35-9]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"40[24]|50[45]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"48"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(48)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(48)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"81"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(818)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(818)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"[24-69]|7[14]"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{2})(\\d{3})(\\d{3,4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"(0$1)" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
 
         NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
         [numberFormats6_patternArray addObject:@"76|8[35-9]"];
-        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"([78]\\d)(\\d{3,4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"([78]\\d)(\\d{3,4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats6];
 
         NSMutableArray *numberFormats7_patternArray = [[NSMutableArray alloc] init];
         [numberFormats7_patternArray addObject:@"70"];
-        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(700)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(700)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats7];
 
         NSMutableArray *numberFormats8_patternArray = [[NSMutableArray alloc] init];
         [numberFormats8_patternArray addObject:@"1(?:8[059]|5)"];
         [numberFormats8_patternArray addObject:@"1(?:8[059]0|5)"];
-        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats8 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats8_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats8];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -13611,8 +13640,8 @@
     self = [super init];
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[235-7]\\d{7}|8\\d{7,8}|9\\d{4,10}" withPossibleNumberPattern:@"\\d{5,11}" withExample:nil];
-        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:[23]\\d|5[78])\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"21234567"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:5[1-69]\\d|6\\d{2}|9(?:0[1-9]|[1-8]\\d))\\d{5}" withPossibleNumberPattern:@"\\d{8}" withExample:@"51234567"];
+        self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:[23]\\d|58)\\d{6}" withPossibleNumberPattern:@"\\d{8}" withExample:@"21234567"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"(?:5[1-79]\\d|6\\d{2}|8[4-79]\\d|9(?:0[1-9]|[1-8]\\d))\\d{5}" withPossibleNumberPattern:@"\\d{8}" withExample:@"51234567"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"800\\d{6}" withPossibleNumberPattern:@"\\d{9}" withExample:@"800123456"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"900(?:[0-24-9]\\d{7}|3\\d{1,4})" withPossibleNumberPattern:@"\\d{5,11}" withExample:@"90012345678"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
@@ -13637,22 +13666,22 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[235-7]|[89](?:0[1-9]|[1-9])"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"800"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(800)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(800)(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"900"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(900)(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(900)(\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3 $4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"900"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(900)(\\d{2,5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(900)(\\d{2,5})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -13697,7 +13726,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([56]90)(\\d{2})(\\d{4})" withFormat:@"$1 $2-$3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([56]90)(\\d{2})(\\d{4})" withFormat:@"$1 $2-$3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -13743,12 +13772,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[235]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{3})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[89]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -13794,17 +13823,17 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"21|7"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([27]\\d)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([27]\\d)(\\d{4})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"2[2-9]1|[689]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{3})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"2[2-9][02-9]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(2\\d{3})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(2\\d{3})(\\d{6})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -13849,7 +13878,7 @@
         NSMutableArray *numberFormats_FormatArray = [[NSMutableArray alloc] init];
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -13936,12 +13965,12 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[2-7]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{4})" withFormat:@"$1 $2" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"1"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})(\\d{3})(\\d{4})" withFormat:@"$1 $2 $3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:nil whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
         self.numberFormats = numberFormats_FormatArray;
 
@@ -14003,12 +14032,12 @@
     if (self) {
         self.generalDesc = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[17]\\d{6,9}|[2-589]\\d{3}(?:\\d{3,6})?|6\\d{3}" withPossibleNumberPattern:@"\\d{4,10}" withExample:nil];
         self.fixedLine = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[2-489]\\d{7}" withPossibleNumberPattern:@"\\d{7,8}" withExample:@"21234567"];
-        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"5(?:[02-47-9]\\d{2}|5(?:01|2[23]|3[34]|4[45]|5[5689]|6[67]|7[0178]|[89][6-9])|6[2-9]\\d)\\d{5}" withPossibleNumberPattern:@"\\d{9}" withExample:@"501234567"];
+        self.mobile = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"5(?:[02-47-9]\\d{2}|5(?:01|2[23]|3[2-4]|4[45]|5[5689]|6[67]|7[0178]|[89][6-9])|6[2-9]\\d)\\d{5}" withPossibleNumberPattern:@"\\d{9}" withExample:@"501234567"];
         self.tollFree = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"1(?:80[019]\\d{3}|255)\\d{3}" withPossibleNumberPattern:@"\\d{7,10}" withExample:@"1800123456"];
         self.premiumRate = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"1(?:212|(?:9(?:0[01]|19)|200)\\d{2})\\d{4}" withPossibleNumberPattern:@"\\d{8,10}" withExample:@"1919123456"];
         self.sharedCost = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"1700\\d{6}" withPossibleNumberPattern:@"\\d{10}" withExample:@"1700123456"];
         self.personalNumber = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
-        self.voip = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"7(?:18\\d|2[23]\\d|3[237]\\d|47\\d|6(?:5\\d|8[0168])|7\\d{2}|8(?:2\\d|33|55|77|81)|99\\d)\\d{5}" withPossibleNumberPattern:@"\\d{9}" withExample:@"771234567"];
+        self.voip = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"7(?:18\\d|2[23]\\d|3[237]\\d|47\\d|6(?:5\\d|8[0168])|7\\d{2}|8(?:2\\d|33|55|77|81)|9[29]\\d)\\d{5}" withPossibleNumberPattern:@"\\d{9}" withExample:@"771234567"];
         self.pager = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"NA" withPossibleNumberPattern:@"NA" withExample:nil];
         self.uan = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:@"[2-689]\\d{3}|1599\\d{6}" withPossibleNumberPattern:@"\\d{4}(?:\\d{6})?" withExample:@"1599123456"];
         self.emergency = [[NBPhoneNumberDesc alloc] initWithNationalNumberPattern:nil withPossibleNumberPattern:nil withExample:nil];
@@ -14028,42 +14057,42 @@
 
         NSMutableArray *numberFormats0_patternArray = [[NSMutableArray alloc] init];
         [numberFormats0_patternArray addObject:@"[2-489]"];
-        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2-489])(\\d{3})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats0 = [[NBNumberFormat alloc] initWithPattern:@"([2-489])(\\d{3})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats0_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats0];
 
         NSMutableArray *numberFormats1_patternArray = [[NSMutableArray alloc] init];
         [numberFormats1_patternArray addObject:@"[57]"];
-        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([57]\\d)(\\d{3})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats1 = [[NBNumberFormat alloc] initWithPattern:@"([57]\\d)(\\d{3})(\\d{4})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats1_patternArray withNationalPrefixFormattingRule:@"0$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats1];
 
         NSMutableArray *numberFormats2_patternArray = [[NSMutableArray alloc] init];
         [numberFormats2_patternArray addObject:@"1[7-9]"];
-        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(1)([7-9]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1-$2-$3-$4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats2 = [[NBNumberFormat alloc] initWithPattern:@"(1)([7-9]\\d{2})(\\d{3})(\\d{3})" withFormat:@"$1-$2-$3-$4" withLeadingDigitsPatterns:numberFormats2_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats2];
 
         NSMutableArray *numberFormats3_patternArray = [[NSMutableArray alloc] init];
         [numberFormats3_patternArray addObject:@"125"];
-        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(1255)(\\d{3})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats3 = [[NBNumberFormat alloc] initWithPattern:@"(1255)(\\d{3})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats3_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats3];
 
         NSMutableArray *numberFormats4_patternArray = [[NSMutableArray alloc] init];
         [numberFormats4_patternArray addObject:@"120"];
-        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(1200)(\\d{3})(\\d{3})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats4 = [[NBNumberFormat alloc] initWithPattern:@"(1200)(\\d{3})(\\d{3})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats4_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats4];
 
         NSMutableArray *numberFormats5_patternArray = [[NSMutableArray alloc] init];
         [numberFormats5_patternArray addObject:@"121"];
-        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(1212)(\\d{2})(\\d{2})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats5 = [[NBNumberFormat alloc] initWithPattern:@"(1212)(\\d{2})(\\d{2})" withFormat:@"$1-$2-$3" withLeadingDigitsPatterns:numberFormats5_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats5];
 
         NSMutableArray *numberFormats6_patternArray = [[NSMutableArray alloc] init];
         [numberFormats6_patternArray addObject:@"15"];
-        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(1599)(\\d{6})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats6 = [[NBNumberFormat alloc] initWithPattern:@"(1599)(\\d{6})" withFormat:@"$1-$2" withLeadingDigitsPatterns:numberFormats6_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats6];
 
         NSMutableArray *numberFormats7_patternArray = [[NSMutableArray alloc] init];
         [numberFormats7_patternArray addObject:@"[2-689]"];
-        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})" withFormat:@"*$1" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:@""];
+        NBNumberFormat *numberFormats7 = [[NBNumberFormat alloc] initWithPattern:@"(\\d{4})" withFormat:@"*$1" withLeadingDigitsPatterns:numberFormats7_patternArray withNationalPrefixFormattingRule:@"$1" whenFormatting:NO withDomesticCarrierCodeFormattingRule:nil];
         [numberFormats_FormatArray addObject:numberFormats7];
         self.numberFormats = numberFormats_FormatArray;
 

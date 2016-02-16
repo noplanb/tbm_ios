@@ -564,6 +564,16 @@
         if ([ZZVideoDataProvider videoExists:videoID] && !force)
         {
             ZZLogWarning(@"queueVideoDownloadWithFriend: Ignoring incoming videoId already processed: %@", videoID);
+
+            // Server may not know that we already have this video, so we need to update remote status
+            
+            ZZVideoDomainModel *videoModel = [ZZVideoDataProvider itemWithID:videoID];
+            
+            if (videoModel.incomingStatusValue == ZZVideoIncomingStatusGhost)
+            {
+                ZZLogWarning(@"Ghost video may exist on remote side. Trying to delete itå just in case.");
+                [self _deleteRemoteWithFriendId:friendID videoId:videoID];
+            }
         }
         else
         {
@@ -620,7 +630,7 @@
 - (NSDictionary*)fileTransferParamsIncludingMetadataWithFilename:(NSString *)remoteFilename
                                                       friendMkey:(NSString *)friendMkey
                                                          videoId:(NSString *)videoID
-                                                        filesize:(long)filesize
+                                                        filesize:(unsigned long long)filesize
 {
     NSMutableDictionary *common = [NSMutableDictionary dictionaryWithDictionary:[self fileTransferParamsWithFilename:remoteFilename]];
     
@@ -635,7 +645,7 @@
                                @"receiver-mkey"   : friendMkey,
                                @"client-version"  : kGlobalApplicationVersion,
                                @"client-platform" : @"ios",
-                               @"file-size"       : [NSString stringWithFormat:@"%ld", filesize]
+                               @"file-size"       : [NSString stringWithFormat:@"%llu", filesize]
                                };
     
     common[kOBFileTransferMetadataKey] = metadata;

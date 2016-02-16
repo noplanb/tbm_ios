@@ -17,6 +17,7 @@
 #import "APSource.h"
 #import "APRelatedPerson.h"
 #import "APRecordDate.h"
+#import "APContactDate.h"
 
 @implementation APContactDataExtractor
 
@@ -80,12 +81,12 @@
     }];
 }
 
-- (NSArray *)addresses
+- (NSArray *)addressesWithLabels:(BOOL)needLabels
 {
-    NSMutableArray *addresses = [[NSMutableArray alloc] init];
-    NSArray *array = [self arrayProperty:kABPersonAddressProperty];
-    for (NSDictionary *dictionary in array)
+    return [self mapMultiValueOfProperty:kABPersonAddressProperty
+                               withBlock:^id(ABMultiValueRef multiValue, CFTypeRef value, CFIndex index)
     {
+        NSDictionary *dictionary = (__bridge NSDictionary *)value;
         APAddress *address = [[APAddress alloc] init];
         address.street = dictionary[(__bridge NSString *)kABPersonAddressStreetKey];
         address.city = dictionary[(__bridge NSString *)kABPersonAddressCityKey];
@@ -93,9 +94,13 @@
         address.zip = dictionary[(__bridge NSString *)kABPersonAddressZIPKey];
         address.country = dictionary[(__bridge NSString *)kABPersonAddressCountryKey];
         address.countryCode = dictionary[(__bridge NSString *)kABPersonAddressCountryCodeKey];
-        [addresses addObject:address];
-    }
-    return addresses.copy;
+        if (needLabels)
+        {
+            address.originalLabel = [self originalLabelFromMultiValue:multiValue index:index];
+            address.localizedLabel = [self localizedLabelFromMultiValue:multiValue index:index];
+        }
+        return address;
+    }];
 }
 
 - (NSArray *)socialProfiles
@@ -163,6 +168,23 @@
         CFRelease(sourceRef);
     }
     return source;
+}
+
+- (NSArray *)dates
+{
+    return [self mapMultiValueOfProperty:kABPersonDateProperty
+                               withBlock:^id(ABMultiValueRef multiValue, CFTypeRef value, CFIndex index)
+    {
+        APContactDate *date;
+        if (value)
+        {
+            date = [[APContactDate alloc] init];
+            date.date = (__bridge NSDate *)value;
+            date.originalLabel = [self originalLabelFromMultiValue:multiValue index:index];
+            date.localizedLabel = [self localizedLabelFromMultiValue:multiValue index:index];
+        }
+        return date;
+    }];
 }
 
 - (APRecordDate *)recordDate
