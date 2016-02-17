@@ -123,13 +123,13 @@
     model.message = text;
     
     ANCodeBlock successBlock = ^{
-        if (!isNudge)
+        if (isNudge)
         {
-            [self _showConnectedDialogForModel:friendModel];
+            [self _handleSentWelcomeHintWithFriendDomainModel:friendModel];
         }
         else
         {
-            [self _handleSentWelcomeHintWithFriendDomainModel:friendModel];
+            [self _showConnectedDialogForModel:friendModel];
         }
     };
     

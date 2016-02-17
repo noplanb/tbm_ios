@@ -23,16 +23,22 @@
         NSInteger kOnceUnlockCounterValue = 1;
         
         NSInteger sendMessageCounter = [[NSUserDefaults standardUserDefaults] integerForKey:kSendMessageCounterKey];
+        
         if (sendMessageCounter == 0 &&
             !model.isCreator)
         {
             sendMessageCounter++;
             [[NSUserDefaults standardUserDefaults] setInteger:sendMessageCounter forKey:kSendMessageCounterKey];
-            [self updateFeatureUnlockIdsWithModel:model];
         }
-        else if (sendMessageCounter == kOnceUnlockCounterValue)
+        
+        if (sendMessageCounter == kOnceUnlockCounterValue)
         {
             isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kUnlockFeatureCounterValue];
+        }
+        
+        if (!isFeatureEnabled)
+        {
+            [self updateFeatureUnlockIdsWithModel:model];
         }
         
         [[NSUserDefaults standardUserDefaults] synchronize];
