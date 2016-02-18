@@ -67,6 +67,8 @@
     [self _setupNotifications];
     [self.interactor loadData];
     self.reachability = [RollbarReachability reachabilityForInternetConnection];
+    
+    [self _startTouchObserve];
 }
 
 - (void)attachToMenuPanGesture:(UIPanGestureRecognizer*)pan
@@ -234,9 +236,8 @@
         BOOL isTwoCamerasAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
         BOOL isSwitchCameraAvailable = [ZZGridActionStoredSettings shared].frontCameraHintWasShown;
         
-        [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:(isTwoCamerasAvailable &&
-                                                                          isSwitchCameraAvailable &&
-                                                                          [ZZGridActionStoredSettings shared].frontCameraHintWasShown)];
+        [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:
+        isTwoCamerasAvailable && isSwitchCameraAvailable];
         
         [[ZZVideoRecorder shared] setup];
         [self.dataSource updateValueOnCenterCellWithPreviewLayer:[ZZVideoRecorder shared].previewLayer];
@@ -637,11 +638,9 @@
     if (feature == ZZGridActionFeatureTypeSwitchCamera)
     {
         BOOL isTwoCamerasAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
-        BOOL isSwitchCameraAvailable = [ZZGridActionStoredSettings shared].frontCameraHintWasShown;
-        [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:(isTwoCamerasAvailable &&
-                                                                          isSwitchCameraAvailable &&
-                                                                          [ZZGridActionStoredSettings shared].frontCameraHintWasShown)];
         
+        [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:
+        (isTwoCamerasAvailable && [ZZGridActionStoredSettings shared].frontCameraHintWasShown)];
     }
 }
 
@@ -684,5 +683,45 @@
     
     return _alertBuilder;
 }
+
+#pragma mark - Two Finger Touch
+
+- (void)_startTouchObserve
+{
+    UIWindow* window = [UIApplication sharedApplication].keyWindow;
+    
+    [[window rac_signalForSelector:@selector(sendEvent:)]
+     subscribeNext:^(RACTuple *touches) {
+         for (id event in touches)
+         {
+             NSSet* touches = [event allTouches];
+             [self _handleTouches:touches];
+         };
+     }];
+}
+
+- (void)_handleTouches:(NSSet*)touches
+{
+    ANDispatchBlockToMainQueue(^{
+        UITouch* touch = [[touches allObjects] firstObject];
+        
+        BOOL recording = [ZZVideoRecorder shared].isRecording && ![ZZVideoRecorder shared].isCompleting;
+        
+        if ((touch.phase == UITouchPhaseBegan && recording) ||
+            (touch.phase == UITouchPhaseStationary && recording))
+        {
+            [self _cancelRecordingWithDoubleTap];
+        }
+    });
+}
+
+- (void)_cancelRecordingWithDoubleTap
+{
+    [self cancelRecordingWithReason:NSLocalizedString(@"record-two-fingers-touch", nil)];
+    ANDispatchBlockAfter(kZZVideoRecorderDelayBeforeNextMessage, ^{
+        [self _showToastWithMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
+    });
+}
+
 
 @end

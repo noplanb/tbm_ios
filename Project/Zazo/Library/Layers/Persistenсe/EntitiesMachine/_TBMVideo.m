@@ -18,7 +18,6 @@ const struct TBMVideoAttributes TBMVideoAttributes = {
 
 const struct TBMVideoRelationships TBMVideoRelationships = {
 	.friend = @"friend",
-	.uploaders = @"uploaders",
 };
 
 @implementation TBMVideoID
@@ -104,8 +103,6 @@ const struct TBMVideoRelationships TBMVideoRelationships = {
 @dynamic videoId;
 
 @dynamic friend;
-
-@dynamic uploaders;
 
 @end
 

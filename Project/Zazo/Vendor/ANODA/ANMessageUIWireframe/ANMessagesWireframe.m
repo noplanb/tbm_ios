@@ -179,7 +179,15 @@ UINavigationControllerDelegate
         };
     }
     
+    if ([controller respondsToSelector:@selector(popoverPresentationController)])
+    {
+        // On iPad the activity view controller will be displayed as a popover using the new UIPopoverPresentationController, it requires that you specify an anchor point for the presentation of the popover using one of the three following properties: barButtonItem, sourceView, sourceRect
+
+        controller.popoverPresentationController.sourceView = vc.view;
+    }
+    
     ANDispatchBlockToMainQueue(^{
+        
         [vc presentViewController:controller animated:YES completion:nil];
     });
 }

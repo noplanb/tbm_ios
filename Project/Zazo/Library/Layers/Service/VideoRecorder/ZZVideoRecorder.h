@@ -17,6 +17,7 @@ extern NSString* const kVideoProcessorDidFail;
 extern NSString* const kZZVideoRecorderDidStartVideoCapture;
 extern NSString* const kZZVideoRecorderDidEndVideoCapture;
 
+extern CGFloat const kZZVideoRecorderDelayBeforeNextMessage;
 
 + (instancetype)shared;
 - (void)setup;
@@ -35,6 +36,9 @@ extern NSString* const kZZVideoRecorderDidEndVideoCapture;
 - (void)cancelRecording;
 
 - (BOOL)isRecording;
+
+@property (nonatomic, assign, readonly) BOOL isCompleting; //stopRecordingWithCompletionBlock started, but havent't dispatched all blocks yet
+
 - (void)showVideoToShortToast;
 
 @end

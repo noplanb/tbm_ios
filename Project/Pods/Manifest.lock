@@ -61,8 +61,8 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.0.3):
     - CocoaLumberjack/Default
-  - Crashlytics (3.4.1):
-    - Fabric (~> 1.6.0)
+  - Crashlytics (3.6.0):
+    - Fabric (~> 1.6.3)
   - DeviceUtil (1.2.2)
   - Expecta (1.0.5)
   - Fabric (1.6.5)
@@ -117,7 +117,7 @@ DEPENDENCIES:
   - ANTableViews (~> 1.0.13)
   - APAddressBook (~> 0.2.1)
   - CocoaLumberjack (~> 2.0.1)
-  - Crashlytics (~> 3.4.1)
+  - Crashlytics (~> 3.6.0)
   - DeviceUtil (~> 1.2.0)
   - Expecta (~> 1.0.2)
   - Fabric (~> 1.6.1)
@@ -165,7 +165,7 @@ SPEC CHECKSUMS:
   ANTableViews: 5d1e4e4dfb581ed47ab75f1952f111f91dd00586
   APAddressBook: 2a91bf05999548bea210ec9d1a68073f4dc8bfce
   CocoaLumberjack: f58d8a19629f4d8379ae14bb3534def24161430e
-  Crashlytics: 41574a245bc6ae10c55d57f385ebd2004e5bee05
+  Crashlytics: e4e8d02914f2608fbc7bf42b1a7af838b0db67a2
   DeviceUtil: 6781344f19a7684796d3b2684a9cab5b285ebb3a
   Expecta: e1c022fcd33910b6be89c291d2775b3fe27a89fe
   Fabric: 338ffd3c2afcab120638907b4251189de9ad17b3
