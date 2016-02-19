@@ -191,10 +191,9 @@
         [ZZFriendDataUpdater updateFriendWithID:friendID setLastVideoStatusEventType:ZZVideoStatusEventTypeOutgoing];
         [ZZFriendDataUpdater updateFriendWithID:friendID setOutgoingVideoStatus:status];
         
-        if (status == ZZVideoOutgoingStatusUploaded ||
-            status == ZZVideoOutgoingStatusDownloaded ||
-            status == ZZVideoOutgoingStatusViewed)
-        {
+        if (status == ZZVideoOutgoingStatusUploaded ||  // ZZVideoOutgoingStatusDownloaded skipped because we use
+            status == ZZVideoOutgoingStatusViewed)      // LastTimeAction in friend cell and
+        {                                               // not want to see where user downloaded our video
             [ZZFriendDataUpdater updateLastTimeActionFriendWithID:friendID];
         }
         
