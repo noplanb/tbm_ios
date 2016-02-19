@@ -69,7 +69,10 @@
 - (void)presentRegistrationController
 {
     ZZAuthWireframe* wireframe = [ZZAuthWireframe new];
-    [wireframe presentAuthControllerFromWindow:self.presentedWindow completion:self.completionBlock];
+    [wireframe presentAuthControllerFromWindow:self.presentedWindow completion:^{
+        self.completionBlock();
+        [self.presenter.interactor checkVersionStateForUserLoggedInState:YES];
+    }];
 }
 
 - (void)presentNetworkTestController

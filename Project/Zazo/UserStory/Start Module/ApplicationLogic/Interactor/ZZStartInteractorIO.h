@@ -11,6 +11,7 @@
 @protocol ZZStartInteractorInput <NSObject>
 
 - (void)checkVersionStateAndSession;
+- (void)checkVersionStateForUserLoggedInState:(BOOL)loggedIn;
 
 @end
 
