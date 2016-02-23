@@ -42,9 +42,13 @@
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
 
 #ifdef DEBUG_LOGIN_USER
-    user.firstName = @"iPad";
-    user.lastName = @"Rinat";
-    user.mobileNumber = @"+79990000002";
+    
+    NSUInteger num = 110;
+    
+    user.firstName = [NSString stringWithFormat:@"%lu", (unsigned long)num];
+    user.lastName = [NSString stringWithFormat:@"%lu", (unsigned long)num];
+    user.mobileNumber = [NSString stringWithFormat:@"79990000%lu", (unsigned long)num];
+    
 #endif
 
     if (!ANIsEmpty(user.mobileNumber))

@@ -72,6 +72,15 @@
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
 }
 
+#ifdef DEBUG_LOGIN_USER
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self.contentView.registrationView.signInButton.rac_command execute:nil];
+}
+
+#endif
+
 - (void)updateFirstName:(NSString*)firstName lastName:(NSString*)lastName
 {
     ZZAuthRegistrationView* view = self.contentView.registrationView;

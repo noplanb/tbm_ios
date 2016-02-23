@@ -94,6 +94,12 @@
     [self.userInterface updateStateToLoading:NO message:nil];
     ANDispatchBlockToMainQueue(^{
         [self.userInterface showVerificationCodeInputViewWithPhoneNumber:phoneNumber];
+        
+        #ifdef DEBUG_LOGIN_USER
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.interactor validateSMSCode:@"0000"];
+        });
+        #endif
     });
 }
 
