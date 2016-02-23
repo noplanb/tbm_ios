@@ -1256,6 +1256,7 @@
 		15A1777F1C1AA9240031480F /* ZZGridDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZGridDataProvider+Entities.h"; sourceTree = "<group>"; };
 		15A177801C1AAA5F0031480F /* ZZUserDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZUserDataProvider+Entities.h"; sourceTree = "<group>"; };
 		15A177811C1AAB090031480F /* ZZVideoDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZVideoDataProvider+Entities.h"; sourceTree = "<group>"; };
+		15DF96331C7C6FE2007B4699 /* empty.xcappdata */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = empty.xcappdata; sourceTree = "<group>"; };
 		15FC5BC61C18166B005296C7 /* ZZDispatchHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDispatchHelper.h; sourceTree = "<group>"; };
 		15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDispatchHelper.m; sourceTree = "<group>"; };
 		180254A11BB2C5A400138A52 /* ZZVideoStatuses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoStatuses.h; sourceTree = "<group>"; };
@@ -4374,6 +4375,7 @@
 		220E901C1909A18B003C4F82 = {
 			isa = PBXGroup;
 			children = (
+				15DF96331C7C6FE2007B4699 /* empty.xcappdata */,
 				076369C41BA49A0000925671 /* tbm */,
 				07636AE71BA49A0100925671 /* Zazo */,
 				220E90271909A18B003C4F82 /* Frameworks */,
