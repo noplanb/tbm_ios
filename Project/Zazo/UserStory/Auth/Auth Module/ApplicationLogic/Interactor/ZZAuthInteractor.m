@@ -42,13 +42,16 @@
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
 
 #ifdef DEBUG_LOGIN_USER
+//    user.firstName = @"";
+//    user.lastName = @"";
+//    user.mobileNumber = @"";
     
     NSUInteger num = 110;
     
     user.firstName = [NSString stringWithFormat:@"%lu", (unsigned long)num];
     user.lastName = [NSString stringWithFormat:@"%lu", (unsigned long)num];
     user.mobileNumber = [NSString stringWithFormat:@"79990000%lu", (unsigned long)num];
-    
+
 #endif
 
     if (!ANIsEmpty(user.mobileNumber))
@@ -74,9 +77,11 @@
 
 - (void)registerUser:(ZZUserDomainModel*)model
 {
+    #ifndef DEBUG_LOGIN_USER
     model.firstName = [self _cleanText:model.firstName];
     model.lastName = [self _cleanText:model.lastName];
-
+    #endif
+    
     model.countryCode = [NSObject an_safeString:model.countryCode];
     model.countryCode = [self _cleanNumber:model.countryCode];
 
