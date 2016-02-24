@@ -233,6 +233,14 @@ static CGFloat const kStatusBarHeight = 20;
     {
         self.startPoint = [recognizer locationInView:self.view];
         
+        if (!self.isOpen)
+        {
+            if ([self.drawerDelegate respondsToSelector:@selector(drawerControllerWillAppearFromPanGesture:)])
+            {
+                [self.drawerDelegate drawerControllerWillAppearFromPanGesture:self];
+            }
+        }
+        
         if (recognizer != self.panGesure)
         {
             if (velocity.x > kDefaultDrawerVelocityTrigger && !self.isOpen)
