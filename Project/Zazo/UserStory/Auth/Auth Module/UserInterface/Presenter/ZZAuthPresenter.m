@@ -160,7 +160,9 @@
 
 - (void)callRequestDidFailWithError:(NSError *)error
 {
-    // TODO: check if we need some UI update here, connect supprt with fails not by internet connection
+    [self.userInterface hideVerificationCodeInputView:^{
+        [self smsCodeValidationCompletedWithError:error];
+    }];
 }
 
 - (void)loadedFriendsSuccessfully

@@ -181,7 +181,14 @@
         }
         
     } error:^(NSError *error) {
-        [self _handleErrorNumberValidationWithError:error];
+        if (forceCall)
+        {
+            [self.output callRequestDidFailWithError:error];
+        }
+        else
+        {   
+            [self _handleErrorNumberValidationWithError:error];
+        }
     }];
 }
 

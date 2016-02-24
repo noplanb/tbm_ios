@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSNumber* animationDuration;
 @property (nonatomic, strong) ZZTextFieldsDelegate* textFieldDelegate;
 @property (nonatomic, assign) BOOL isKeyboardShown;
+@property (nonatomic, strong) TBMVerificationAlertHandler *alertHandler;
 
 @end
 
@@ -103,8 +104,16 @@
 
 - (void)showVerificationCodeInputViewWithPhoneNumber:(NSString*)phoneNumber
 {
-    [[[TBMVerificationAlertHandler alloc] initWithPhoneNumber:phoneNumber
-                                                     delegate:self] presentAlert];
+    self.alertHandler =
+    [[TBMVerificationAlertHandler alloc] initWithPhoneNumber:phoneNumber
+                                                    delegate:self];
+    
+    [self.alertHandler presentAlert];
+}
+
+- (void)hideVerificationCodeInputView:(ANCodeBlock)completion
+{
+    [self.alertHandler dismissAlertWithCompletion:completion];
 }
 
 - (void)didEnterVerificationCode:(NSString*)code

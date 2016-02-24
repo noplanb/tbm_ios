@@ -60,6 +60,10 @@ static NSString *MESSAGE = @"We sent a code";
     [self.alertController presentWithCompletion:nil];
 }
 
+- (void)dismissAlertWithCompletion:(ANCodeBlock)completion
+{
+    [self.alertController dismissWithCompletion:completion];
+}
 
 #pragma mark alert construction
 
