@@ -35,7 +35,7 @@
                                                  selector:@selector(_loggerReceivedError:)
                                                      name:OBLoggerErrorNotification object:nil];
         
-        RollbarConfiguration *config = [RollbarConfiguration configuration];
+        RollbarConfiguration *config = [[RollbarConfiguration alloc] initWithLoadedConfiguration];
         config.crashLevel = @"critical";
         [Rollbar initWithAccessToken:kRollBarToken configuration:config];
         

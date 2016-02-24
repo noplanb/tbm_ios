@@ -12,11 +12,12 @@
 #import "ZZMenuModuleDelegate.h"
 #import "ZZMenuModuleInterface.h"
 #import "ZZGridModuleDelegate.h"
-
+#import "ANDrawerNC.h"
 
 @interface ZZMenuPresenter : NSObject
 <   ZZMenuInteractorOutput,
-    ZZMenuModuleInterface
+    ZZMenuModuleInterface,
+    ANDrawerNCDelegate
 >
 
 @property (nonatomic, strong) id<ZZMenuInteractorInput> interactor;

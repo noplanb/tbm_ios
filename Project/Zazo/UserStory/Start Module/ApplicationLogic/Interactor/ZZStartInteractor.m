@@ -43,7 +43,7 @@
                 [self.output applicationIsUpToDateAndUserLogged:YES];
             });
             
-            [self _checkVersionStateForUserLoggedInState:YES];
+            [self checkVersionStateForUserLoggedInState:YES];
             [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {}];
         }
         else
@@ -55,7 +55,7 @@
   
 }
 
-- (void)_checkVersionStateForUserLoggedInState:(BOOL)loggedIn
+- (void)checkVersionStateForUserLoggedInState:(BOOL)loggedIn
 {
     [[ZZCommonNetworkTransportService checkApplicationVersion] subscribeNext:^(id x) {
 

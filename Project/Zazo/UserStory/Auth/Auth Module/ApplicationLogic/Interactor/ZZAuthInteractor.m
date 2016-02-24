@@ -42,9 +42,16 @@
     ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
 
 #ifdef DEBUG_LOGIN_USER
-    user.firstName = @"iPad";
-    user.lastName = @"Rinat";
-    user.mobileNumber = @"+79990000002";
+//    user.firstName = @"";
+//    user.lastName = @"";
+//    user.mobileNumber = @"";
+    
+    NSUInteger num = 110;
+    
+    user.firstName = [NSString stringWithFormat:@"%lu", (unsigned long)num];
+    user.lastName = [NSString stringWithFormat:@"%lu", (unsigned long)num];
+    user.mobileNumber = [NSString stringWithFormat:@"79990000%lu", (unsigned long)num];
+
 #endif
 
     if (!ANIsEmpty(user.mobileNumber))
@@ -70,9 +77,11 @@
 
 - (void)registerUser:(ZZUserDomainModel*)model
 {
+    #ifndef DEBUG_LOGIN_USER
     model.firstName = [self _cleanText:model.firstName];
     model.lastName = [self _cleanText:model.lastName];
-
+    #endif
+    
     model.countryCode = [NSObject an_safeString:model.countryCode];
     model.countryCode = [self _cleanNumber:model.countryCode];
 
@@ -172,7 +181,14 @@
         }
         
     } error:^(NSError *error) {
-        [self _handleErrorNumberValidationWithError:error];
+        if (forceCall)
+        {
+            [self.output callRequestDidFailWithError:error];
+        }
+        else
+        {   
+            [self _handleErrorNumberValidationWithError:error];
+        }
     }];
 }
 

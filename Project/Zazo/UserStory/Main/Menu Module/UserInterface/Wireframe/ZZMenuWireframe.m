@@ -39,6 +39,7 @@
     ZZMenuPresenter* presenter = [ZZMenuPresenter new];
     
     interactor.output = presenter;
+    drawerController.drawerDelegate = presenter;
     
     menuController.eventHandler = presenter;
     

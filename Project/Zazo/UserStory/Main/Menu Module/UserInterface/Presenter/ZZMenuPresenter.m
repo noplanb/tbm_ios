@@ -104,6 +104,12 @@
     }
 }
 
+#pragma mark ANDrawerNCDelegate
+
+- (void)drawerControllerWillAppearFromPanGesture:(ANDrawerNC *)controller;
+{
+    [self.interactor loadDataIncludeAddressBookRequest:YES shouldOpenDrawer:YES];
+}
 
 #pragma mark - Root state observer delegate
 

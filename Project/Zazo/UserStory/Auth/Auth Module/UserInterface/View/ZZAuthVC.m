@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSNumber* animationDuration;
 @property (nonatomic, strong) ZZTextFieldsDelegate* textFieldDelegate;
 @property (nonatomic, assign) BOOL isKeyboardShown;
+@property (nonatomic, strong) TBMVerificationAlertHandler *alertHandler;
 
 @end
 
@@ -71,6 +72,15 @@
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
 }
 
+#ifdef DEBUG_LOGIN_USER
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self.contentView.registrationView.signInButton.rac_command execute:nil];
+}
+
+#endif
+
 - (void)updateFirstName:(NSString*)firstName lastName:(NSString*)lastName
 {
     ZZAuthRegistrationView* view = self.contentView.registrationView;
@@ -93,8 +103,16 @@
 
 - (void)showVerificationCodeInputViewWithPhoneNumber:(NSString*)phoneNumber
 {
-    [[[TBMVerificationAlertHandler alloc] initWithPhoneNumber:phoneNumber
-                                                     delegate:self] presentAlert];
+    self.alertHandler =
+    [[TBMVerificationAlertHandler alloc] initWithPhoneNumber:phoneNumber
+                                                    delegate:self];
+    
+    [self.alertHandler presentAlert];
+}
+
+- (void)hideVerificationCodeInputView:(ANCodeBlock)completion
+{
+    [self.alertHandler dismissAlertWithCompletion:completion];
 }
 
 - (void)didEnterVerificationCode:(NSString*)code
