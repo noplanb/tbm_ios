@@ -131,7 +131,16 @@ ZZGridCenterCellViewModelDelegate
     viewModel.hasDownloadedVideo = [model.relatedUser hasIncomingVideo];
     viewModel.hasUploadedVideo = [model.relatedUser hasOutgoingVideo];//[value.relatedUser hasIncomingVideo];
     viewModel.isUploadedVideoViewed = (model.relatedUser.lastOutgoingVideoStatus == ZZVideoOutgoingStatusViewed);
-    viewModel.lastMessageDate = [ZZFriendDataHelper lastVideoSentTimeFromFriend:model.relatedUser];
+    
+    if (model.relatedUser.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
+        model.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
+    {
+        viewModel.lastMessageDate = [ZZFriendDataHelper lastVideoSentTimeFromFriend:model.relatedUser];
+    }
+    else
+    {
+        viewModel.lastMessageDate = nil;
+    }
     
     NSUInteger count = [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.relatedUser.idTbm];
 

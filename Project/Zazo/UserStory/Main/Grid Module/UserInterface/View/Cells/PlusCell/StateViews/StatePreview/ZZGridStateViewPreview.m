@@ -10,6 +10,18 @@
 #import "ZZGridUIConstants.h"
 #import "ZZDateLabel.h"
 
+typedef enum : NSUInteger {
+    ZZDateFormatTemplateToday,
+    ZZDateFormatTemplateWeek,
+    ZZDateFormatTemplateYear,
+} ZZDateFormatTemplateName;
+
+static NSString *ZZDateFormatTemplate[] = {
+    @"jjmm",    //ZZDateFormatTemplateToday
+    @"Ejjmm",   //ZZDateFormatTemplateWeek
+    @"MMMd"     //ZZDateFormatTemplateYear
+};
+
 static CGFloat const kThumbnailBorderWidth = 2;
 
 @interface ZZGridStateViewPreview ()
@@ -51,7 +63,6 @@ static CGFloat const kThumbnailBorderWidth = 2;
     });
 }
 
-
 #pragma mark - Private
 
 - (void)_updateVideoSentDate:(NSDate *)date
@@ -61,12 +72,36 @@ static CGFloat const kThumbnailBorderWidth = 2;
 
 - (NSString *)_formattedDate:(NSDate *)date
 {
+    if (ANIsEmpty(date))
+    {
+        return nil;
+    }
+    
     BOOL isToday = date.an_isToday;
+    NSUInteger sevenDays = 7;
     
-    self.dateFormatter.dateStyle = isToday ? NSDateFormatterNoStyle : NSDateFormatterShortStyle;
-    self.dateFormatter.timeStyle = isToday ? NSDateFormatterShortStyle : NSDateFormatterNoStyle;
+    NSString *template;
     
+    if (isToday)
+    {
+        template = ZZDateFormatTemplate[ZZDateFormatTemplateToday];
+    }
+    else if ([date an_daysBetweenDate:[NSDate date]] <= sevenDays)
+    {
+        template = ZZDateFormatTemplate[ZZDateFormatTemplateWeek];
+    }
+    else
+    {
+        template = ZZDateFormatTemplate[ZZDateFormatTemplateYear];
+    }
+
+    self.dateFormatter.dateFormat =
+    [NSDateFormatter dateFormatFromTemplate:template
+                                    options:0
+                                     locale:[NSLocale currentLocale]];
+
     return [self.dateFormatter stringFromDate:date];
+
 }
 
 - (void)_handleFailedVideoDownloadWithModel:(ZZGridCellViewModel*)model
