@@ -25,12 +25,12 @@
 @property (nonatomic, strong) UIColor* gridStatusViewBlackColor;
 @property (nonatomic, strong) UIColor* gridStatusViewRecordColor;
 @property (nonatomic, strong) UIColor* gridStatusViewThumbnailDefaultColor;
-@property (nonatomic, strong) UIColor* gridStatusViewThumnailZColor;
+@property (nonatomic, strong) UIColor* gridStatusViewThumbnailColor;
 
 
 @property (nonatomic, strong) UIColor* menuTintColor;
 
-@property (nonatomic, strong) UIColor* gridBackgourndColor;
+@property (nonatomic, strong) UIColor* gridBackgroundColor;
 @property (nonatomic, strong) UIColor* gridMenuColor;
 
 @property (nonatomic, strong) id <ANColorThemeButtonInterface> editFriendsTheme;

@@ -50,7 +50,7 @@ static CGFloat const kNavigationBarIconHeight = 20;
         //TODO: convert in HEX
 
         self.authBackgroundColor = [UIColor an_colorWithHexString:@"#9CBE45"];
-        self.gridBackgourndColor = [UIColor an_colorWithHexString:@"#eeeeee"];
+        self.gridBackgroundColor = [UIColor an_colorWithHexString:@"#eeeeee"];
         
         self.gridMenuColor = [UIColor colorWithRed:0.18 green:0.18 blue:0.16 alpha:1];
 
@@ -76,7 +76,7 @@ static CGFloat const kNavigationBarIconHeight = 20;
         self.gridStatusViewBlackColor = [UIColor an_colorWithHexString:@"#1C1C19"];
         self.gridStatusViewRecordColor = [UIColor an_colorWithHexString:@"#DA0D19"];
         self.gridStatusViewThumbnailDefaultColor = [UIColor an_colorWithHexString:@"#343434"];
-        self.gridStatusViewThumnailZColor = [UIColor an_colorWithHexString:@"#625F58"];
+        self.gridStatusViewThumbnailColor = [UIColor an_colorWithHexString:@"#625F58"];
         
         self.menuTintColor = [UIColor an_colorWithHexString:@"#4E4D42"];
         

@@ -10,7 +10,7 @@
 
 @class ZZGridCellViewModel;
 
-@protocol ZZGridCellVeiwModelAnimationDelegate <NSObject>
+@protocol ZZGridCellViewModelAnimationDelegate <NSObject>
 
 - (void)showUploadAnimation;
 
@@ -65,15 +65,12 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 
 @property (nonatomic, strong) ZZGridDomainModel* item;
 @property (nonatomic, weak) id <ZZGridCellViewModelDelegate> delegate;
-@property (nonatomic, weak) id <ZZGridCellVeiwModelAnimationDelegate> animationDelegate;
+@property (nonatomic, weak) id <ZZGridCellViewModelAnimationDelegate> animationDelegate;
 @property (nonatomic, assign) NSInteger badgeNumber;
-@property (nonatomic, assign) NSInteger prevBadgeNumber;
 @property (nonatomic, strong) UIView* playerContainerView;
 @property (nonatomic, assign) BOOL hasUploadedVideo;
 @property (nonatomic, assign) BOOL isUploadedVideoViewed;
-@property (nonatomic, assign) BOOL isNeedToShowDownloadAnimation;
 @property (nonatomic, assign) BOOL hasDownloadedVideo;
-@property (nonatomic, assign) BOOL isDownloadAnimationPlayed;
 @property (nonatomic, assign) BOOL hasActiveContactIcon;
 @property (nonatomic, strong) NSDate *lastMessageDate;
 
@@ -95,7 +92,7 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 - (ZZGridCellViewModelState)state;
 
 - (void)setupRecorderRecognizerOnView:(UIView*)view
-                withAnimationDelegate:(id <ZZGridCellVeiwModelAnimationDelegate>)animationDelegate;
+                withAnimationDelegate:(id <ZZGridCellViewModelAnimationDelegate>)animationDelegate;
 
 - (NSString*)videoStatus;
 - (void)reloadDebugVideoStatus;

@@ -23,7 +23,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [ZZColorTheme shared].gridBackgourndColor;
+    self.view.backgroundColor = [ZZColorTheme shared].gridBackgroundColor;
     [self _setupStartStopButton];
     [self _setupResetStatsButton];
     [self _setupResetRetriesButton];

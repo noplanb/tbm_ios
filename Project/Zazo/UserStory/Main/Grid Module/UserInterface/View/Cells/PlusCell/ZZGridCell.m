@@ -15,7 +15,7 @@
 static CGFloat ZZCellCornerRadius = 4.0f;
 static CGFloat ZZCellBorderWidth = 4.0f;
 
-@interface ZZGridCell () <ZZGridCellVeiwModelAnimationDelegate>
+@interface ZZGridCell () <ZZGridCellViewModelAnimationDelegate>
 
 @property (nonatomic, strong) ZZGridCellViewModel* model;
 @property (nonatomic, strong) UIButton* plusButton;

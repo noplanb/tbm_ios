@@ -232,7 +232,7 @@
 }
 
 - (void)setupRecorderRecognizerOnView:(UIView*)view
-                withAnimationDelegate:(id <ZZGridCellVeiwModelAnimationDelegate>)animationDelegate
+                withAnimationDelegate:(id <ZZGridCellViewModelAnimationDelegate>)animationDelegate
 {
     self.animationDelegate = animationDelegate;
     [self _removeActionRecognizerFromView:view];

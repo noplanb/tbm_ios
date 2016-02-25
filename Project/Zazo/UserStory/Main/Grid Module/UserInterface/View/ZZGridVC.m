@@ -59,7 +59,7 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [ZZColorTheme shared].gridBackgourndColor;
+    self.view.backgroundColor = [ZZColorTheme shared].gridBackgroundColor;
     
 //    self.gridView.headerView.menuButton.rac_command = [RACCommand commandWithBlock:^{
 //        [self menuSelected];
