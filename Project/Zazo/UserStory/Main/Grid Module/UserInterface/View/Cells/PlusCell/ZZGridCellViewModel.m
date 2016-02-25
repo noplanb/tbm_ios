@@ -225,9 +225,7 @@
 
 - (UIImage*)thumbnailPlaceholderImage
 {
-    CGSize size = CGSizeMake(40, 40);
-    UIImage* image = [[UIImage imageWithPDFNamed:@"contacts-placeholder" atSize:size]
-                      an_imageByTintingWithColor:[ZZColorTheme shared].gridStatusViewThumnailZColor];
+    UIImage *image = [UIImage imageOrPDFNamed:@"pattern"];
     return image;
 }
 

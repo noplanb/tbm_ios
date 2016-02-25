@@ -10,6 +10,6 @@
 
 @interface ZZGridStateViewRecord : ZZGridStateView
 
-@property (nonatomic, strong) UILabel* recordView;
+@property (nonatomic, strong) UIView* recordView;
 
 @end

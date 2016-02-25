@@ -8,13 +8,6 @@
 //
 
 #import "ZZGridDataSource.h"
-#import "ANMemoryStorage.h"
-#import "ZZGridCellViewModel.h"
-#import "ZZGridCenterCellViewModel.h"
-#import "ZZFriendDomainModel.h"
-#import "ZZFriendDataProvider.h"
-#import "ANMemoryStorage+UpdateWithoutAnimations.h"
-#import "ZZVideoStatuses.h"
 #import "ZZFriendDataHelper.h"
 #import "ZZGridDataProvider.h"
 
@@ -146,12 +139,10 @@ ZZGridCenterCellViewModelDelegate
 
     if (count > 0)
     {
-        viewModel.prevBadgeNumber = count;
         viewModel.badgeNumber = count;
     }
     else
     {
-        viewModel.prevBadgeNumber = 0;
         viewModel.badgeNumber = 0;
     }
 }

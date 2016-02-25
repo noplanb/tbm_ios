@@ -21,6 +21,7 @@
     self = [super initWithPresentedView:presentedView];
     if (self)
     {
+        [self backgroundView];
         [self userNameLabel];
         [self recordView];
         [self containFriendView];
@@ -42,19 +43,17 @@
     [model setupRecrodHintRecognizerOnView:self.recordView];
 }
 
-
 #pragma mark - Private
 
-- (UILabel*)recordView
+- (UIView *)recordView
 {
     if (!_recordView)
     {
         _recordView = [UILabel new];
-        _recordView.text = NSLocalizedString(@"grid-controller.record.title", nil);
-        _recordView.textColor = [UIColor redColor];
-        _recordView.font = [UIFont an_meduimFontWithSize:14];
-        _recordView.textAlignment = NSTextAlignmentCenter;
-        _recordView.backgroundColor = [ZZColorTheme shared].gridStatusViewBlackColor;
+//        _recordView.text = NSLocalizedString(@"grid-controller.record.title", nil);
+//        _recordView.textColor = [UIColor redColor];
+//        _recordView.font = [UIFont an_meduimFontWithSize:14];
+//        _recordView.textAlignment = NSTextAlignmentCenter;
         _recordView.userInteractionEnabled = YES;
         [self addSubview:_recordView];
         

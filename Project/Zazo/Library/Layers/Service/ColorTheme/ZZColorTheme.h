@@ -27,6 +27,15 @@
 @property (nonatomic, strong) UIColor* gridStatusViewThumbnailDefaultColor;
 @property (nonatomic, strong) UIColor* gridStatusViewThumbnailColor;
 
+@property (nonatomic, strong) UIColor* gridCellBackgroundColor1;
+@property (nonatomic, strong) UIColor* gridCellBackgroundColor2;
+@property (nonatomic, strong) UIColor* gridCellBackgroundColor3;
+//@property (nonatomic, strong) UIColor* gridCellBackgroundColor4;
+
+@property (nonatomic, strong) UIColor* gridCellTintColor1;
+@property (nonatomic, strong) UIColor* gridCellTintColor2;
+@property (nonatomic, strong) UIColor* gridCellTintColor3;
+//@property (nonatomic, strong) UIColor* gridCellTintColor4;
 
 @property (nonatomic, strong) UIColor* menuTintColor;
 

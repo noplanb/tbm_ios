@@ -79,7 +79,21 @@ static CGFloat const kNavigationBarIconHeight = 20;
         self.gridStatusViewThumbnailColor = [UIColor an_colorWithHexString:@"#625F58"];
         
         self.menuTintColor = [UIColor an_colorWithHexString:@"#4E4D42"];
+
+//        self.gridCellBackgroundColor1 = [UIColor an_colorWithHexString:@"#3f51b5"];
+//        self.gridCellTintColor1 = [UIColor an_colorWithHexString:@"#1a237e"];
         
+        self.gridCellBackgroundColor1 = [UIColor an_colorWithHexString:@"#1871ca"];
+        self.gridCellTintColor1 = [UIColor an_colorWithHexString:@"#0d46a0"];
+        
+        self.gridCellBackgroundColor2 = [UIColor an_colorWithHexString:@"#4bae4f"];
+        self.gridCellTintColor2 = [UIColor an_colorWithHexString:@"#1b5d20"];
+        
+        self.gridCellBackgroundColor3 = [UIColor an_colorWithHexString:@"#fb9600"];
+        self.gridCellTintColor3 = [UIColor an_colorWithHexString:@"#e45000"];
+        
+        
+
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
         
         [self setupAppearance];

@@ -29,6 +29,7 @@ static CGFloat const kUserNameFontSize = 18;
 @property (nonatomic, strong) UILabel* videoCountLabel;
 @property (nonatomic, strong) UIView* presentedView;
 @property (nonatomic, strong) ZZUserNameLabel* userNameLabel;
+@property (nonatomic, strong) UIView *backgroundView;
 
 @property (nonatomic, strong) UIView *backGradientView;
 

@@ -22,7 +22,7 @@
     self = [super init];
     if (self)
     {
-        self.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
+        self.backgroundColor = [ZZColorTheme shared].gridCellBackgroundColor1;
         self.presentedView = presentedView;
     }
     return self;
@@ -90,10 +90,6 @@
 
 - (void)_setupDownloadedStateWithModel:(ZZGridCellViewModel*)model
 {
-//    self.userNameLabel.backgroundColor =
-//    model.badgeNumber > 0 ? [ZZColorTheme shared].gridCellLayoutGreenColor : [ZZColorTheme shared].gridCellGrayColor;
-    self.model.isDownloadAnimationPlayed = YES;
-
     [self showDownloadAnimationWithCompletionBlock:^{
 //        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
 //        self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
@@ -232,6 +228,70 @@
 
 
 #pragma mark - Lazy Load
+
+- (UIView *)backgroundView
+{
+    if (_backgroundView)
+    {
+        return _backgroundView;
+    }
+    
+    UIImageView *backgroundView = [UIImageView new];
+    backgroundView.image = [UIImage imageNamed:@"pattern"];
+    backgroundView.clipsToBounds = YES;
+    
+    switch (arc4random_uniform(3) ) {
+        case 0:
+            backgroundView.backgroundColor = [ZZColorTheme shared].gridCellBackgroundColor1;
+            backgroundView.tintColor = [ZZColorTheme shared].gridCellTintColor1;
+            break;
+        case 1:
+            backgroundView.backgroundColor = [ZZColorTheme shared].gridCellBackgroundColor2;
+            backgroundView.tintColor = [ZZColorTheme shared].gridCellTintColor2;
+            break;
+        case 2:
+            backgroundView.backgroundColor = [ZZColorTheme shared].gridCellBackgroundColor3;
+            backgroundView.tintColor = [ZZColorTheme shared].gridCellTintColor3;
+            break;
+            
+        default:
+            break;
+    }
+    
+    switch (arc4random_uniform(5)) {
+        case 0:
+            backgroundView.contentMode = UIViewContentModeTopLeft;
+            break;
+        case 1:
+            backgroundView.contentMode = UIViewContentModeTopRight;
+            break;
+        case 2:
+            backgroundView.contentMode = UIViewContentModeBottomLeft;
+            break;
+        case 3:
+            backgroundView.contentMode = UIViewContentModeBottomRight;
+            break;
+        case 4:
+            backgroundView.contentMode = UIViewContentModeCenter;
+            break;
+            
+        default:
+            break;
+    }
+    
+    
+    
+    [self addSubview:backgroundView];
+    [backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
+    }];
+    
+    [self sendSubviewToBack:backgroundView];
+    
+    _backgroundView = backgroundView;
+    return _backgroundView;
+
+}
 
 - (UIImageView*)uploadingIndicator
 {
