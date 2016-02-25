@@ -360,7 +360,7 @@
 
 - (void)showRecorderHint
 {
-    [ZZGridAlertBuilder showOneTouchRecordViewHint];
+//    [ZZGridAlertBuilder showOneTouchRecordViewHint];
 }
 
 - (BOOL)isGridRotate

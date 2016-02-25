@@ -71,13 +71,10 @@ static CGFloat ZZCellBorderWidth = 4.0f;
                 }
             }
             
-            else if (model.state & ZZGridCellViewModelStateFriendHasApp)
+            else if (model.state & ZZGridCellViewModelStateFriendHasApp ||
+                     model.state & ZZGridCellViewModelStateFriendHasNoApp)
             {
                 self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self];
-            }
-            else if (model.state & ZZGridCellViewModelStateFriendHasNoApp)
-            {
-                self.stateView = [[ZZGridStateViewNudge alloc] initWithPresentedView:self];
             }
             else if (model.state & ZZGridCellViewModelStatePreview)
             {

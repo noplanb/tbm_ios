@@ -279,8 +279,6 @@
             break;
     }
     
-    
-    
     [self addSubview:backgroundView];
     [backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);

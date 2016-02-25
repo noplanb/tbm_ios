@@ -8,6 +8,7 @@
 
 #import "ZZGridStateViewRecord.h"
 #import "ZZGridUIConstants.h"
+#import "ZZCircleView.h"
 
 @interface ZZGridStateViewRecord ()
 
@@ -39,31 +40,42 @@
 - (void)updateWithModel:(ZZGridCellViewModel*)model
 {
     [super updateWithModel:model];
-    [model removeRecordHintRecognizerFromView:self.recordView];
-    [model setupRecrodHintRecognizerOnView:self.recordView];
+//    [model removeRecordHintRecognizerFromView:self.recordView];
+//    [model setupRecrodHintRecognizerOnView:self.recordView];
 }
 
 #pragma mark - Private
 
-- (UIView *)recordView
+- (ZZCircleView *)recordView
 {
     if (!_recordView)
     {
-        _recordView = [UILabel new];
-//        _recordView.text = NSLocalizedString(@"grid-controller.record.title", nil);
-//        _recordView.textColor = [UIColor redColor];
-//        _recordView.font = [UIFont an_meduimFontWithSize:14];
-//        _recordView.textAlignment = NSTextAlignmentCenter;
+        _recordView = [ZZCircleView new];
         _recordView.userInteractionEnabled = YES;
         [self addSubview:_recordView];
+        _recordView.tintColor = self.backgroundView.tintColor;
+        
+        UITapGestureRecognizer *recognizer =
+        [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                action:@selector(animate)];
+
+        [_recordView addGestureRecognizer:recognizer];
         
         [_recordView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.userNameLabel.mas_top).with.offset(-kSidePadding);
-            make.left.top.equalTo(self).offset(kSidePadding);
-            make.right.equalTo(self).offset(-kSidePadding);
+//            make.bottom.equalTo(self.userNameLabel.mas_top).with.offset(-kSidePadding);
+//            make.left.top.equalTo(self).offset(kSidePadding);
+//            make.right.equalTo(self).offset(-kSidePadding);
+            make.centerX.equalTo(self);
+            make.centerY.equalTo(self);
+            
         }];
     }
     return _recordView;
+}
+
+- (void)animate
+{
+    [self.recordView animate];
 }
 
 @end

@@ -247,15 +247,15 @@
     }];
 }
 
-- (void)setupRecrodHintRecognizerOnView:(UIView*)view
-{
-    [view addGestureRecognizer:self.tapRecognizer];
-}
+//- (void)setupRecrodHintRecognizerOnView:(UIView*)view
+//{
+//    [view addGestureRecognizer:self.tapRecognizer];
+//}
 
-- (void)removeRecordHintRecognizerFromView:(UIView*)view
-{
-    [view removeGestureRecognizer:self.tapRecognizer];
-}
+//- (void)removeRecordHintRecognizerFromView:(UIView*)view
+//{
+//    [view removeGestureRecognizer:self.tapRecognizer];
+//}
 
 - (UILongPressGestureRecognizer *)recordRecognizer
 {
@@ -268,16 +268,16 @@
     return _recordRecognizer;
 }
 
-- (UITapGestureRecognizer *)tapRecognizer
-{
-    if (!_tapRecognizer)
-    {
-        _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_showRecorderHing)];
-        
-    }
-    
-    return _tapRecognizer;
-}
+//- (UITapGestureRecognizer *)tapRecognizer
+//{
+//    if (!_tapRecognizer)
+//    {
+//        _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_showRecorderHing)];
+//        
+//    }
+//    
+//    return _tapRecognizer;
+//}
 
 #pragma mark - Private
 

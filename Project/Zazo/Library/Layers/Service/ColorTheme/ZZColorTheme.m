@@ -40,6 +40,9 @@ static CGFloat const kNavigationBarIconHeight = 20;
     [UIFont an_addFontName:@"SFUIText" forType:ANFontTypeRegular];
     [UIFont an_addFontName:@"SFUIText-Medium" forType:ANFontTypeMedium];
     [UIFont an_addFontName:@"SFUIText-Bold" forType:ANFontTypeBold];
+    [UIFont an_addFontName:@"HelveticaNeue-CondensedBold" forType:ANFontTypeCondensedBold];
+    
+    
 }
 
 - (instancetype)init
