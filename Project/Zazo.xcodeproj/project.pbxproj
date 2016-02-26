@@ -166,7 +166,6 @@
 		07636EBD1BA49A0100925671 /* ZZGridPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CAE1BA49A0100925671 /* ZZGridPresenter.m */; };
 		07636EBE1BA49A0100925671 /* ZZGridCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CB31BA49A0100925671 /* ZZGridCenterCell.m */; };
 		07636EBF1BA49A0100925671 /* ZZGridCenterCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CB51BA49A0100925671 /* ZZGridCenterCellViewModel.m */; };
-		07636EC11BA49A0100925671 /* ZZGridStateView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CBB1BA49A0100925671 /* ZZGridStateView+Animation.m */; };
 		07636EC21BA49A0100925671 /* ZZGridStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CBD1BA49A0100925671 /* ZZGridStateView.m */; };
 		07636EC31BA49A0100925671 /* ZZGridStateViewNudge.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CC01BA49A0100925671 /* ZZGridStateViewNudge.m */; };
 		07636EC41BA49A0100925671 /* ZZGridStateViewPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CC31BA49A0100925671 /* ZZGridStateViewPreview.m */; };
@@ -264,6 +263,8 @@
 		1557CFC61C7213DC00FE5C57 /* ZZDateLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1557CFC51C7213DC00FE5C57 /* ZZDateLabel.m */; };
 		1557CFCA1C721E6E00FE5C57 /* ZZGridCellGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1557CFC91C721E6E00FE5C57 /* ZZGridCellGradientView.m */; };
 		15718DA61C5BC25F00D9A207 /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
+		15ACCB761C8089220025798A /* Animations.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15ACCB731C8089220025798A /* Animations.xcassets */; };
+		15ACCB771C8089220025798A /* ZZLoadingAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ACCB751C8089220025798A /* ZZLoadingAnimationView.m */; };
 		15B6F2F61C24011600148E0F /* ZZDispatchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */; };
 		15DF963A1C7F4109007B4699 /* ZZCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DF96391C7F4109007B4699 /* ZZCircleView.m */; };
 		15FC5BC81C18166B005296C7 /* ZZDispatchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */; };
@@ -435,7 +436,6 @@
 		182254EA1C16CA06003885A3 /* ZZUserDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B3B1BA49A0100925671 /* ZZUserDomainModel.m */; };
 		182254EB1C16CA06003885A3 /* ZZStoredSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BB91BA49A0100925671 /* ZZStoredSettingsManager.m */; };
 		182254EC1C16CA06003885A3 /* ZZApplicationVersionEnumHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 070238D71BB430B100B8197E /* ZZApplicationVersionEnumHelper.m */; };
-		182254ED1C16CA06003885A3 /* ZZGridStateView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CBB1BA49A0100925671 /* ZZGridStateView+Animation.m */; };
 		182254EE1C16CA06003885A3 /* ZZGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CC81BA49A0100925671 /* ZZGridCell.m */; };
 		182254EF1C16CA06003885A3 /* ZZInviteEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CA31BC51B2000044F83 /* ZZInviteEventHandler.m */; };
 		182254F01C16CA06003885A3 /* ZZNotificationDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E201BD5AB6200A59389 /* ZZNotificationDomainModel.m */; };
@@ -1263,6 +1263,9 @@
 		15A1777F1C1AA9240031480F /* ZZGridDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZGridDataProvider+Entities.h"; sourceTree = "<group>"; };
 		15A177801C1AAA5F0031480F /* ZZUserDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZUserDataProvider+Entities.h"; sourceTree = "<group>"; };
 		15A177811C1AAB090031480F /* ZZVideoDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZVideoDataProvider+Entities.h"; sourceTree = "<group>"; };
+		15ACCB731C8089220025798A /* Animations.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Animations.xcassets; sourceTree = "<group>"; };
+		15ACCB741C8089220025798A /* ZZLoadingAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZLoadingAnimationView.h; sourceTree = "<group>"; };
+		15ACCB751C8089220025798A /* ZZLoadingAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZLoadingAnimationView.m; sourceTree = "<group>"; };
 		15DF96331C7C6FE2007B4699 /* empty.xcappdata */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = empty.xcappdata; sourceTree = "<group>"; };
 		15DF96381C7F4109007B4699 /* ZZCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZCircleView.h; sourceTree = "<group>"; };
 		15DF96391C7F4109007B4699 /* ZZCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZCircleView.m; sourceTree = "<group>"; };
@@ -3129,6 +3132,7 @@
 		07636CCE1BA49A0100925671 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				15ACCB721C8089220025798A /* ZZLoadingAnimationView */,
 				07636CCF1BA49A0100925671 /* GridView */,
 				07636CD21BA49A0100925671 /* GridViewHeader */,
 				07636CD51BA49A0100925671 /* RollAnimation */,
@@ -3867,6 +3871,16 @@
 				15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */,
 			);
 			name = ZZDispatchHelper;
+			sourceTree = "<group>";
+		};
+		15ACCB721C8089220025798A /* ZZLoadingAnimationView */ = {
+			isa = PBXGroup;
+			children = (
+				15ACCB731C8089220025798A /* Animations.xcassets */,
+				15ACCB741C8089220025798A /* ZZLoadingAnimationView.h */,
+				15ACCB751C8089220025798A /* ZZLoadingAnimationView.m */,
+			);
+			path = ZZLoadingAnimationView;
 			sourceTree = "<group>";
 		};
 		15DF96371C7F40DA007B4699 /* CircleView */ = {
@@ -4767,6 +4781,7 @@
 				07636E811BA49A0100925671 /* edit-friends-icon.pdf in Resources */,
 				182BCF681BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf in Resources */,
 				07636E781BA49A0100925671 /* icon_dots.pdf in Resources */,
+				15ACCB761C8089220025798A /* Animations.xcassets in Resources */,
 				07636DFA1BA49A0100925671 /* DK Crayon Crumble.ttf in Resources */,
 				07636E721BA49A0100925671 /* home-page-add-icon.pdf in Resources */,
 				07636E831BA49A0100925671 /* icon_menu_dots.png in Resources */,
@@ -5107,7 +5122,6 @@
 				182254EA1C16CA06003885A3 /* ZZUserDomainModel.m in Sources */,
 				182254EB1C16CA06003885A3 /* ZZStoredSettingsManager.m in Sources */,
 				182254EC1C16CA06003885A3 /* ZZApplicationVersionEnumHelper.m in Sources */,
-				182254ED1C16CA06003885A3 /* ZZGridStateView+Animation.m in Sources */,
 				182254EE1C16CA06003885A3 /* ZZGridCell.m in Sources */,
 				182254EF1C16CA06003885A3 /* ZZInviteEventHandler.m in Sources */,
 				182254F01C16CA06003885A3 /* ZZNotificationDomainModel.m in Sources */,
@@ -5391,7 +5405,6 @@
 				07636E301BA49A0100925671 /* ZZUserDomainModel.m in Sources */,
 				07636E5A1BA49A0100925671 /* ZZStoredSettingsManager.m in Sources */,
 				070238D81BB430B200B8197E /* ZZApplicationVersionEnumHelper.m in Sources */,
-				07636EC11BA49A0100925671 /* ZZGridStateView+Animation.m in Sources */,
 				07636EC61BA49A0100925671 /* ZZGridCell.m in Sources */,
 				181D1CA41BC51B2000044F83 /* ZZInviteEventHandler.m in Sources */,
 				07E09E211BD5AB6200A59389 /* ZZNotificationDomainModel.m in Sources */,
@@ -5405,6 +5418,7 @@
 				07636EE51BA49A0100925671 /* ANBaseVC.m in Sources */,
 				079E90171BD44695001A4718 /* ZZRollbarConstants.m in Sources */,
 				185DE9071BDE6F5000106F83 /* ZZSecretScreenController.m in Sources */,
+				15ACCB771C8089220025798A /* ZZLoadingAnimationView.m in Sources */,
 				07738E6C1BBC25C500CD3E7C /* ZZFriendDataUpdater.m in Sources */,
 				07636ECC1BA49A0100925671 /* ZZGeometryHelper.m in Sources */,
 				181D1CBF1BC524E100044F83 /* ZZDeleteFriendsFeatureEventHandler.m in Sources */,

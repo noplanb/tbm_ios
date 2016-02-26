@@ -8,8 +8,8 @@
 
 #import "ZZCircleView.h"
 
-static CGFloat diameter = 80.0f;
 static CGFloat padding = 6.0f;
+static CGFloat diameter = 76.0f; // 64 + padding *2
 
 @interface ZZCircleView ()
 {

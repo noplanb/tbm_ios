@@ -130,7 +130,7 @@ static CGFloat ZZCellBorderWidth = 4.0f;
     {
         ZZGridStateViewPreview* previewStateView = (ZZGridStateViewPreview*)self.stateView;
         [model setupRecorderRecognizerOnView:previewStateView.thumbnailImageView withAnimationDelegate:self];
-        [model removeRecordHintRecognizerFromView:self];
+//        [model removeRecordHintRecognizerFromView:self];
     }
 }
 

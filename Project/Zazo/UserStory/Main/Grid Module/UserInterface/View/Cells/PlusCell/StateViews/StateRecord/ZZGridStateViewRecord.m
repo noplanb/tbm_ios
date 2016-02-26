@@ -26,9 +26,9 @@
         [self userNameLabel];
         [self recordView];
         [self containFriendView];
-        [self uploadingIndicator];
+//        [self uploadingIndicator];
         [self uploadBarView];
-        [self downloadIndicator];
+//        [self downloadIndicator];
         [self downloadBarView];
         [self videoCountLabel];
         [self videoViewedView];

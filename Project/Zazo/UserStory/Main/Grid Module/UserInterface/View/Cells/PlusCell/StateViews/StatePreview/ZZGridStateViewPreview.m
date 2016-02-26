@@ -130,7 +130,7 @@ static CGFloat const kThumbnailBorderWidth = 2;
     
     self.thumbnailImageView.image = thumbImage;
     
-    [model removeRecordHintRecognizerFromView:self];
+//    [model removeRecordHintRecognizerFromView:self];
 }
 
 - (void)_configureGreenBorderIfNeededWithModel:(ZZGridCellViewModel*)model
