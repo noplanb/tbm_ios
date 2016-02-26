@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AppDelegate.h"
 
 typedef enum : NSUInteger {
     ZZLoadingAnimationTypeDownloading,
