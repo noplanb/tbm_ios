@@ -38,18 +38,31 @@ static CGFloat ZZAnimationDuration = 2.0f;
     [self _setupView];
 }
 
+- (void)_setupView
+{
+    if (!AnimationsFramesCache)
+    {
+        AnimationsFramesCache = [NSMutableDictionary new];
+    }
+    
+    UIImageView *imageView = [UIImageView new];
+    imageView.animationDuration = ZZAnimationDuration;
+    imageView.animationRepeatCount = 1;
+    [self addSubview:imageView];
+    
+    self.imageView = imageView;
+}
+
+#pragma mark Animations
+
 - (void)animateWithType:(ZZLoadingAnimationType)type completion:(ANCodeBlock)completion
 {
     if (self.completion) // this means animation in progress
     {
-        ANCodeBlock currentCompletion = [self.completion copy];
-        
-        self.completion = ^{
-            currentCompletion();
-            completion();
-        };
-        
-        return;
+        [self.layer removeAllAnimations];
+        [self.imageView.layer removeAllAnimations];
+
+        [self _endAnimation];
     }
     
     self.completion = [completion copy];
@@ -57,8 +70,73 @@ static CGFloat ZZAnimationDuration = 2.0f;
     [self.superview bringSubviewToFront:self];
     
     self.imageView.animationImages = [self _framesForAnimationType:type];
-    [self animate];
+    [self _animate];
 }
+
+- (void)_animate
+{
+    [self _prepareBeginState];
+    
+    [self.imageView startAnimating];
+    [self.imageView sizeToFit];
+    
+    [UIView animateWithDuration:0.5f animations:^{
+        self.backgroundColor = [self.tintColor colorWithAlphaComponent:0.75];
+    } completion:^(BOOL finished) {
+        if(finished)
+        {
+            [UIView animateWithDuration:0.4f
+                                  delay:1.3f
+                 usingSpringWithDamping:1.0f
+                  initialSpringVelocity:0.5f
+                                options:0
+                             animations:^{
+                                 
+                                 [self.imageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                                     make.top.equalTo(@0).offset(-32);
+                                     make.right.equalTo(@0).offset(32);
+                                 }];
+                                 
+                                 [self layoutIfNeeded];
+                                 self.backgroundColor = [UIColor clearColor];
+                                 
+                             } completion:^(BOOL finished) {
+                                 
+                                 if (finished)
+                                 {
+                                     [self _endAnimation];
+                                 }
+                             }];
+
+        }
+    }];    
+}
+
+- (void)_prepareBeginState
+{
+    [self.imageView stopAnimating];
+    self.backgroundColor = [UIColor clearColor];
+    
+    [self.imageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self);
+    }];
+
+}
+
+- (void)_endAnimation
+{
+    [self.superview sendSubviewToBack:self];
+    
+    if (self.completion)
+    {
+        ANCodeBlock completion = [self.completion copy];
+        completion = nil;
+        self.completion();
+    }
+
+}
+
+#pragma mark Frame loading and cache
 
 - (NSArray <UIImage *> *)_framesForAnimationType:(ZZLoadingAnimationType)type
 {
@@ -106,62 +184,5 @@ static CGFloat ZZAnimationDuration = 2.0f;
     return nil;
 }
 
-- (void)_setupView
-{
-    if (!AnimationsFramesCache)
-    {
-        AnimationsFramesCache = [NSMutableDictionary new];
-    }
-    
-    UIImageView *imageView = [UIImageView new];
-    imageView.animationDuration = ZZAnimationDuration;
-    imageView.animationRepeatCount = 1;
-    [self addSubview:imageView];
-    
-    self.imageView = imageView;
-}
-
-- (void)animate
-{
-    [self.imageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self);
-    }];
-    
-    [self.imageView startAnimating];
-    [self.imageView sizeToFit];
-    
-    [UIView animateWithDuration:0.5f animations:^{
-        self.backgroundColor = [UIColor colorWithRed:0.16 green:0.4 blue:0.77 alpha:0.75];
-    }];
-    
-    [self performSelector:@selector(moveToCorner) withObject:nil afterDelay:1.8f];
-}
-
-- (void)moveToCorner
-{
-    [self.imageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@0).offset(-32);
-        make.right.equalTo(@0).offset(32);
-    }];
-    
-    [UIView animateWithDuration:0.4f
-                          delay:0
-         usingSpringWithDamping:1.0f
-          initialSpringVelocity:0.5f
-                        options:0
-                     animations:^{
-                         [self layoutIfNeeded];
-                         self.backgroundColor = [UIColor clearColor];
-    } completion:^(BOOL finished) {
-        
-        [self.superview sendSubviewToBack:self];
-        
-        if (self.completion)
-        {
-            self.completion();
-            self.completion = nil;
-        }
-    }];
-}
 
 @end
