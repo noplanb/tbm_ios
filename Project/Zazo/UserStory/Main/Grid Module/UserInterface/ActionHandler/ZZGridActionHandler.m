@@ -176,6 +176,16 @@
                                  withIndex:index
                                  withModel:model
                            formatParameter:formatParametr];
+    
+    UIView *view = [self.userInterface presentedView];
+    
+    [view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[TBMFeatureUnlockDialogView class]])
+        {
+            [view bringSubviewToFront:obj];
+            *stop = YES;
+        }
+    }];
 }
 
 

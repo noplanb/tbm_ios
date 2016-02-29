@@ -11,7 +11,7 @@
 #import "ZZFriendDataProvider.h"
 #import "ZZGridDataProvider.h"
 #import "ZZGridDataUpdater.h"
-#import "TBMFriend.h"
+#import "ZZFriendDomainModel.h"
 
 @implementation ZZGridUpdateService
 
@@ -21,11 +21,9 @@
     
     [[ZZFriendDataProvider friendsOnGrid] enumerateObjectsUsingBlock:^(ZZFriendDomainModel*  _Nonnull friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
         
-        TBMFriend* friend = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
-        
-        if (friend.lastIncomingVideoStatusValue == ZZVideoIncomingStatusViewed ||
-            friend.lastIncomingVideoStatusValue == ZZVideoIncomingStatusFailedPermanently ||
-            friend.lastIncomingVideoStatusValue == ZZVideoIncomingStatusNew)
+        if (friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusViewed ||
+            friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently ||
+            friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusNew)
         {
             [gridElementToUpdate addObject:friendModel];
         }
@@ -34,24 +32,47 @@
     
     if ([gridElementToUpdate allObjects].count > 0)
     {
-        [self updateGridIfNeededWithElement:[gridElementToUpdate allObjects]];
+        [self _updateGridIfNeededWithElement:[gridElementToUpdate allObjects]];
     }
 }
 
-- (void)updateGridIfNeededWithElement:(NSArray*)update
+/**
+ *  Adds to grid friends with unviewed messages on empty cells or instead of passed
+ *
+ *  @param friendsForReplacement friends that can be removed from grid if needed
+ */
+
+- (void)_updateGridIfNeededWithElement:(NSArray *)friendsForReplacement
 {
-    NSArray* gridFriendAbbleToUpdate = [self _friendsAbleToUpdate];
+    NSMutableArray* friendsToAdding = [[self _friendsAbleToUpdate] mutableCopy];
     __block NSMutableArray* updatedGridModels = [NSMutableArray array];
     
-    if (update.count > 0 && gridFriendAbbleToUpdate.count > 0)
+    
+    // 1. Use empty cells if exist
+    
+    ZZGridDomainModel *gridModel = [ZZGridDataProvider loadFirstEmptyGridElement];
+    
+    while (gridModel && !ANIsEmpty(friendsToAdding))
     {
-        [update enumerateObjectsUsingBlock:^(ZZFriendDomainModel*  _Nonnull friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (idx < gridFriendAbbleToUpdate.count)
+        ZZFriendDomainModel *friendModel = friendsToAdding.firstObject;
+        [friendsToAdding removeObject:friendModel];
+        
+        [self _putFriend:friendModel toGridModel:gridModel];
+        [updatedGridModels addObject:gridModel];
+        
+        gridModel = [ZZGridDataProvider loadFirstEmptyGridElement];
+    }
+    
+    // 2. Use cells of passed friends
+    
+    if (friendsForReplacement.count > 0 && friendsToAdding.count > 0)
+    {
+        [friendsForReplacement enumerateObjectsUsingBlock:^(ZZFriendDomainModel*  _Nonnull friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (idx < friendsToAdding.count)
             {
-                ZZFriendDomainModel* updatedFriendModel = gridFriendAbbleToUpdate[idx];
-                ZZGridDomainModel* gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendModel.idTbm];
-                gridModel.relatedUser = updatedFriendModel;
-                [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:updatedFriendModel];
+                ZZFriendDomainModel *updatedFriendModel = friendsToAdding[idx];
+                ZZGridDomainModel *gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendModel.idTbm];
+                [self _putFriend:updatedFriendModel toGridModel:gridModel];
                 [updatedGridModels addObject:gridModel];
             }
         }];
@@ -63,15 +84,30 @@
     }
 }
 
+- (void)_putFriend:(ZZFriendDomainModel *)friendModel toGridModel:(ZZGridDomainModel *)gridModel
+{
+    gridModel.relatedUser = friendModel;
+    
+    [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID
+                                         toValue:friendModel];
+
+}
 
 #pragma mark - Private
 
+/**
+ *  _friendsAbleToUpdate
+ *
+ *  @return Array of friends with unviewed messages
+ */
+
 - (NSArray*)_friendsAbleToUpdate
 {
-    NSMutableSet* allFriendsSet = [NSMutableSet setWithArray:[ZZFriendDataProvider loadAllFriends]?:@[]];
+    NSMutableSet* allFriendsSet = [NSMutableSet setWithArray:[ZZFriendDataProvider allFriendsModels]?:@[]];
     NSMutableSet* gridFriendSet = [NSMutableSet setWithArray:[ZZFriendDataProvider friendsOnGrid]?:@[]];
+ 
     [allFriendsSet minusSet:gridFriendSet];
-    
+
     __block NSMutableArray* friendsToUpdate = [NSMutableArray new];
     
     [[allFriendsSet allObjects] enumerateObjectsUsingBlock:^(ZZFriendDomainModel*  _Nonnull friendModel, NSUInteger idx, BOOL * _Nonnull stop) {

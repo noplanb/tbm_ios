@@ -9,36 +9,38 @@
 #import "ZZVideoModelsMapper.h"
 #import "ZZVideoDomainModel.h"
 #import "TBMVideo.h"
-#import "ZZVideoDataProvider.h"
+#import "TBMFriend.h"
+#import "ZZVideoDataProvider+Entities.h"
 
 @implementation ZZVideoModelsMapper
 
-+ (TBMVideo*)fillEntity:(TBMVideo*)entity fromModel:(ZZVideoDomainModel*)model
++ (TBMVideo*)fillEntity:(TBMVideo*)videoEntity fromModel:(ZZVideoDomainModel*)videoModel
 {
-    entity.videoId = model.videoID;
-    entity.downloadRetryCount = @(model.downloadRetryCount);
-    entity.status = @(model.incomingStatusValue);
+    videoEntity.videoId = videoModel.videoID;
+    videoEntity.downloadRetryCount = @(videoModel.downloadRetryCount);
+    videoEntity.status = @(videoModel.incomingStatusValue);
     
-    return entity;
+    return videoEntity;
 }
 
-+ (ZZVideoDomainModel*)fillModel:(ZZVideoDomainModel*)model fromEntity:(TBMVideo*)entity
++ (ZZVideoDomainModel*)fillModel:(ZZVideoDomainModel*)videoModel fromEntity:(TBMVideo*)videoEntity
 {
     @try
     {
-        model.videoID = entity.videoId;
-        model.downloadRetryCount = [entity.downloadRetryCount integerValue];
-        model.incomingStatusValue = [entity.status integerValue];
-        model.videoURL = [ZZVideoDataProvider videoUrlWithVideo:entity];
+        videoModel.videoID = videoEntity.videoId;
+        videoModel.downloadRetryCount = [videoEntity.downloadRetryCount integerValue];
+        videoModel.incomingStatusValue = [videoEntity.status integerValue];
+        videoModel.videoURL = [ZZVideoDataProvider videoUrlWithVideo:videoEntity];
+        videoModel.relatedUserID = videoEntity.friend.idTbm;
     }
     @catch (NSException *exception)
     {
-        model = nil;
+        videoModel = nil;
         ZZLogError(@"Exception: %@", exception);
     }
     @finally
     {
-        return model;
+        return videoModel;
     }
 }
 

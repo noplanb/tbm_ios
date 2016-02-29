@@ -30,7 +30,7 @@ static NSInteger const kStateStringColumnWidth = 14;
     model.isDebugEnabled = manager.debugModeEnabled;
     model.serverURLString = apiBaseURL();
     model.serverIndex = manager.serverEndpointState;
-    model.useRollbarSDK = manager.shouldUseRollBarSDK;
+    model.useRollbarSDK = !manager.shouldUseServerLogging;
     NSString* version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     NSString* buildNumber = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     model.version = [NSString stringWithFormat:@"%@(%@) - %@",
@@ -42,6 +42,7 @@ static NSInteger const kStateStringColumnWidth = 14;
     model.firstName = user.firstName;
     model.lastName = user.lastName;
     model.phoneNumber = user.mobileNumber;
+    model.sendIncorrectFilesize = manager.shouldSendIncorrectFilesize;
     
     return model;
 }
@@ -59,7 +60,7 @@ static NSInteger const kStateStringColumnWidth = 14;
     [message appendFormat:@"Debug mode:     %@\n", model.isDebugEnabled ? @"ON" : @"OFF"];
     [message appendFormat:@"Server State:   %@\n", ZZServerFormattedStringFromEnumValue(model.serverIndex)];
     [message appendFormat:@"Server address: %@\n", [NSObject an_safeString:model.serverURLString]];
-    [message appendFormat:@"Dispatch Type:  %@\n", ([ZZStoredSettingsManager shared].shouldUseRollBarSDK) ? @"RollBar SDK" : @"Server"];
+    [message appendFormat:@"Dispatch Type:  %@\n", ([ZZStoredSettingsManager shared].shouldUseServerLogging) ? @"Server" : @"RollBar SDK"];
     
     [message appendString:@"\n * * * * * * * * * * * * * * * * * * * * * * * * \n"];
     
@@ -71,7 +72,7 @@ static NSInteger const kStateStringColumnWidth = 14;
 
 + (NSString*)globalStateString
 {
-    NSArray *friends = [ZZFriendDataProvider loadAllFriends];
+    NSArray *friends = [ZZFriendDataProvider allFriendsModels];
     
     NSMutableString *stateString = [NSMutableString new];
     [stateString appendString:[self _friendsStateStringWithModels:friends]];
@@ -183,7 +184,7 @@ static NSInteger const kStateStringColumnWidth = 14;
     [items addObject:(friendModel.hasApp) ? @"true" : @"false"];
     [items addObject:ZZIncomingVideoInfoStringFromEnumValue(friendModel.lastIncomingVideoStatus)];
     [items addObject:[NSObject an_safeString:friendModel.outgoingVideoItemID]];
-    [items addObject:ZZOutgoingVideoInfoStringFromEnumValue(friendModel.outgoingVideoStatusValue)];
+    [items addObject:ZZOutgoingVideoInfoStringFromEnumValue(friendModel.lastOutgoingVideoStatus)];
     
     BOOL isOutgoing = (friendModel.lastVideoStatusEventType == ZZVideoStatusEventTypeOutgoing);
     [items addObject:isOutgoing ? @"OUT" : @"IN"];
@@ -277,7 +278,7 @@ static NSInteger const kStateStringColumnWidth = 14;
     
     if (!ANIsEmpty(value.outgoingVideoItemID))
     {
-        NSString* status = ZZVideoOutgoingStatusStringFromEnumValue(value.outgoingVideoStatusValue);
+        NSString* status = ZZVideoOutgoingStatusStringFromEnumValue(value.lastOutgoingVideoStatus);
         ZZDebugVideoStateDomainModel* outgoing = [ZZDebugVideoStateDomainModel itemWithItemID:value.outgoingVideoItemID
                                                                                        status:status];
         model.outgoingVideoItems = @[outgoing];

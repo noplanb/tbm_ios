@@ -6,16 +6,14 @@
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
-@class ZZVideoDomainModel;
-@class TBMVideo;
-@class ZZFriendDomainModel;
+#import "ZZVideoStatuses.h"
 
 @interface ZZVideoDataUpdater : NSObject
 
-//+ (void)deleteItem:(ZZVideoDomainModel*)model;
-+ (void)destroy:(TBMVideo *)video;
++ (void)updateVideoWithID:(NSString *)videoID setIncomingStatus:(ZZVideoIncomingStatus)videoStatus;
++ (void)updateVideoWithID:(NSString *)videoID setDownloadRetryCount:(NSUInteger)count;
 
-+ (void)deleteVideoFileWithVideo:(TBMVideo*)video;
-+ (void)deleteFilesForVideo:(TBMVideo*)video;
++ (void)deleteAllViewedOrFailedVideoWithFriendID:(NSString*)friendId;
++ (void)deleteAllVideos;
 
 @end

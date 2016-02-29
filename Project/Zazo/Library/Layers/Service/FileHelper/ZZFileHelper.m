@@ -70,6 +70,24 @@
     }
 }
 
++ (NSURL*)fileURlWithFileName:(NSString*)fileName withType:(NSString*)type
+{
+    NSString* path = [[NSBundle mainBundle] pathForResource:fileName ofType:type];
+    NSURL* url = [NSURL fileURLWithPath:path];
+    
+    return url;
+}
+
++ (BOOL)copyFileWithUrl:(NSURL*)fromUrl toUrl:(NSURL*)toUrl error:(NSError**)error;
+{
+    BOOL copyResult = [[NSFileManager defaultManager] copyItemAtPath:fromUrl.path
+                                                              toPath:toUrl.path
+                                                               error:error];
+    return copyResult;
+}
+
+
+#pragma mark - Media File
 
 + (BOOL)isMediaFileCorruptedWithFileUrl:(NSURL*)fileUrl
 {

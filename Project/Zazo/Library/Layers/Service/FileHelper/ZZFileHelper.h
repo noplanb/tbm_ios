@@ -20,7 +20,8 @@
 
 + (NSURL*)fileURLInDocumentsDirectoryWithName:(NSString*)fileName;
 + (void)deleteFileWithURL:(NSURL*)fileURL;
-
++ (NSURL*)fileURlWithFileName:(NSString*)fileName withType:(NSString*)type;
++ (BOOL)copyFileWithUrl:(NSURL*)fromUrl toUrl:(NSURL*)toUrl error:(NSError**)error;
 
 #pragma mark - Media File
 

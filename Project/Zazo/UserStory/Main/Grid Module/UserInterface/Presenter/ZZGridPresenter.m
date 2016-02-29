@@ -10,7 +10,6 @@
 #import "ZZGridDataSource.h"
 #import "ZZVideoRecorder.h"
 #import "ZZVideoPlayer.h"
-#import "TBMFriend.h"
 #import "iToast.h"
 #import "ZZContactDomainModel.h"
 #import "ZZAPIRoutes.h"
@@ -29,7 +28,6 @@
 #import "TBMVideoIdUtils.h"
 #import "ZZFriendDataProvider.h"
 #import "RollbarReachability.h"
-#import "ZZFriendDataHelper.h"
 #import "ZZVideoDomainModel.h"
 #import "ZZRootStateObserver.h"
 
@@ -69,6 +67,8 @@
     [self _setupNotifications];
     [self.interactor loadData];
     self.reachability = [RollbarReachability reachabilityForInternetConnection];
+    
+    [self _startTouchObserve];
 }
 
 - (void)attachToMenuPanGesture:(UIPanGestureRecognizer*)pan
@@ -164,7 +164,7 @@
         {
             CGFloat delayAfterDownloadAnimationCompleted = 1.6f;
             ANDispatchBlockAfter(delayAfterDownloadAnimationCompleted, ^{
-                if (!self.videoPlayer.isPlayingVideo)
+                if (!self.videoPlayer.isPlayingVideo && ![ZZVideoRecorder shared].isRecording)
                 {
                     [self.soundPlayer play];
                 }
@@ -183,7 +183,7 @@
         [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventFriendWasAddedToGridWithVideo
                                            notificationObject:nil];
         //TODO:
-        //    if (model.relatedUser.outgoingVideoStatusValue == OUTGOING_VIDEO_STATUS_VIEWED)
+        //    if (model.relatedUser.lastOutgoingVideoStatus == OUTGOING_VIDEO_STATUS_VIEWED)
         //    {
         //        [self.soundPlayer play]; // TODO: check
         //    }
@@ -252,9 +252,8 @@
         BOOL isTwoCamerasAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
         BOOL isSwitchCameraAvailable = [ZZGridActionStoredSettings shared].frontCameraHintWasShown;
         
-        [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:(isTwoCamerasAvailable &&
-                                                                          isSwitchCameraAvailable &&
-                                                                          [ZZGridActionStoredSettings shared].frontCameraHintWasShown)];
+        [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:
+        isTwoCamerasAvailable && isSwitchCameraAvailable];
         
         [[ZZVideoRecorder shared] setup];
         [self.dataSource updateValueOnCenterCellWithPreviewLayer:[ZZVideoRecorder shared].previewLayer];
@@ -300,6 +299,18 @@
     }];
 }
 
+- (void)showAlreadyContainFriend:(ZZFriendDomainModel *)friendModel compeltion:(ANCodeBlock)completion
+{
+    [self.wireframe closeMenu];
+    
+    [ZZGridAlertBuilder showAlreadyConnectedDialogForUser:friendModel.firstName completion:^{
+       if (completion)
+       {
+           completion();
+       }
+    }];
+}
+
 - (void)userHasNoValidNumbers:(ZZContactDomainModel*)model;
 {
     [self showNoValidPhonesDialogFromModel:model];
@@ -324,7 +335,7 @@
     }
     else
     {
-        [self _showSmsDialogForModel:friendModel isNudgeAction:NO];
+        [self _showInvitationFormForModel:friendModel isNudge:NO];
     }
 }
 
@@ -643,11 +654,9 @@
     if (feature == ZZGridActionFeatureTypeSwitchCamera)
     {
         BOOL isTwoCamerasAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
-        BOOL isSwitchCameraAvailable = [ZZGridActionStoredSettings shared].frontCameraHintWasShown;
-        [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:(isTwoCamerasAvailable &&
-                                                                          isSwitchCameraAvailable &&
-                                                                          [ZZGridActionStoredSettings shared].frontCameraHintWasShown)];
         
+        [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:
+        (isTwoCamerasAvailable && [ZZGridActionStoredSettings shared].frontCameraHintWasShown)];
     }
 }
 
@@ -690,5 +699,45 @@
     
     return _alertBuilder;
 }
+
+#pragma mark - Two Finger Touch
+
+- (void)_startTouchObserve
+{
+    UIWindow* window = [UIApplication sharedApplication].keyWindow;
+    
+    [[window rac_signalForSelector:@selector(sendEvent:)]
+     subscribeNext:^(RACTuple *touches) {
+         for (id event in touches)
+         {
+             NSSet* touches = [event allTouches];
+             [self _handleTouches:touches];
+         };
+     }];
+}
+
+- (void)_handleTouches:(NSSet*)touches
+{
+    ANDispatchBlockToMainQueue(^{
+        UITouch* touch = [[touches allObjects] firstObject];
+        
+        BOOL recording = [ZZVideoRecorder shared].isRecording && ![ZZVideoRecorder shared].isCompleting;
+        
+        if ((touch.phase == UITouchPhaseBegan && recording) ||
+            (touch.phase == UITouchPhaseStationary && recording))
+        {
+            [self _cancelRecordingWithDoubleTap];
+        }
+    });
+}
+
+- (void)_cancelRecordingWithDoubleTap
+{
+    [self cancelRecordingWithReason:NSLocalizedString(@"record-two-fingers-touch", nil)];
+    ANDispatchBlockAfter(kZZVideoRecorderDelayBeforeNextMessage, ^{
+        [self _showToastWithMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
+    });
+}
+
 
 @end

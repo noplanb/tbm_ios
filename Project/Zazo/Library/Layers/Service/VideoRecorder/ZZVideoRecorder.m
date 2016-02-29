@@ -22,7 +22,7 @@ NSString* const kVideoProcessorDidFail = @"kZZVideoProcessorDidFailProcessing";
 NSString* const kZZVideoRecorderDidStartVideoCapture = @"kZZVideoRecorderDidStartVideoCapture";
 NSString* const kZZVideoRecorderDidEndVideoCapture = @"kZZVideoRecorderDidEndVideoCapture";
 
-static CGFloat const kZZVideoRecorderDelayBeforeNextMessage = 1.1;
+CGFloat const kZZVideoRecorderDelayBeforeNextMessage = 1.1;
 static CGFloat const kZZVideoRecorderStartDelayAfterDing = 0.3;
 static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 
@@ -122,17 +122,16 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 {
     [[AVAudioSession sharedInstance] startRecording];
     
-    self.didCancelRecording = NO;
-    [self _startTouchObserve];
-    
-    self.recordVideoUrl = url;
-    self.completionBlock = completionBlock;
-
     ANDispatchBlockToMainQueue(^{
         [self.soundPlayer play];
     });
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kZZVideoRecorderStartDelayAfterDing * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        self.didCancelRecording = NO;
+        self.recordVideoUrl = url;
+        self.completionBlock = completionBlock;
+        
         self.recordStartDate = [NSDate date];
         [self.recorder startVideoCapture];
     });
@@ -142,9 +141,10 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 
 - (void)stopRecordingWithCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
-    self.completionBlock = completionBlock;
+    _isCompleting = YES;
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kZZVideoRecorderStartDelayAfterDing * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.completionBlock = completionBlock;
         
         // Ensure a minimum record time because there are delays to get recording started and stopping before
         // starting can cause problems.
@@ -152,6 +152,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
         NSTimeInterval delayStop = (recordTime < kZZVideoRecorderMinimumRecordTime) ? kZZVideoRecorderMinimumRecordTime - recordTime : 0.0;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayStop * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.recorder endVideoCapture];
+            _isCompleting = NO;
         });
     });
 }
@@ -180,42 +181,6 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 }
 
 
-#pragma mark - Two Finger Touch
-
-// TODO: Sani - These methods should be moved to GridPresenter
-
-- (void)_startTouchObserve
-{
-    UIWindow* window = [UIApplication sharedApplication].keyWindow;
-    [[window rac_signalForSelector:@selector(sendEvent:)] subscribeNext:^(RACTuple *touches) {
-        for (id event in touches)
-        {
-            NSSet* touches = [event allTouches];
-            [self _handleTouches:touches];
-        };
-    }];
-}
-
-- (void)_handleTouches:(NSSet*)touches
-{
-    ANDispatchBlockToMainQueue(^{
-        UITouch* touch = [[touches allObjects] firstObject];
-        
-        if ((touch.phase == UITouchPhaseBegan && [self isRecording]) ||
-            (touch.phase == UITouchPhaseStationary && [self isRecording]))
-        {
-            [self _cancelRecordingWithDoubleTap];
-        }
-    });
-}
-
-- (void)_cancelRecordingWithDoubleTap
-{
-    [self cancelRecordingWithReason:NSLocalizedString(@"record-two-fingers-touch", nil)];
-    ANDispatchBlockAfter(kZZVideoRecorderDelayBeforeNextMessage, ^{
-        [self _showMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
-    });
-}
 
 
 #pragma mark - Camera

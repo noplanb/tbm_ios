@@ -112,7 +112,7 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 
 - (void)_loadFriends
 {
-    NSArray* friends = [ZZFriendDataProvider loadAllFriends];
+    NSArray* friends = [ZZFriendDataProvider allFriendsModels];
     [self _sortFriendsFromArray:friends];
 }
 

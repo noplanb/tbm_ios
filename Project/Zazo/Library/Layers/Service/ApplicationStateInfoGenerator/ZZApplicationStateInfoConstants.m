@@ -13,7 +13,7 @@
 static NSString *outgoingTypesString[] = {
     @"NONE",
     @"NEW",
-    @"QUEUED"
+    @"QUEUED",
     @"UPLOADING",
     @"UPLOADED",
     @"DOWNLOADED",
@@ -40,7 +40,7 @@ ZZVideoOutgoingStatus ZZOutgoingVideoInfoEnumValueFromString(NSString* string)
 
 static NSString *incomingTypesString[] = {
     @"NEW",
-    @"DOWNLOADING"
+    @"DOWNLOADING",
     @"DOWNLOADED",
     @"VIEWED",
     @"PERMANENTLY"
@@ -62,7 +62,7 @@ ZZVideoIncomingStatus ZZIncomingVideoInfoEnumValueFromSrting(NSString* string)
 
 static NSString *serverTypesString[] = {
     @"Production",
-    @"Development"
+    @"Development",
     @"Custom",
 };
 

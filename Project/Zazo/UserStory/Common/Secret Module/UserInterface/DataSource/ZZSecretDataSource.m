@@ -56,6 +56,7 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
     [self _addTutorialSectionWithData:model];
     [self _addLoggingSectionsWithData:model];
     [self _addServerInfoSectionWithData:model];
+    [self _addDuplicateUploadsSectionWithData:model];
     [self _addResetDataSection];
 }
 
@@ -131,6 +132,17 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
             }
         } break;
             
+        case ZZSecretSectionDuplicateUploads:
+        {
+            if (indexPath.row == 0)
+            {
+                [self.delegate actionWithType:ZZSecretSectionShouldDuplicateNextUpload];
+            }
+            
+        } break;
+            
+            
+            
         default: break;
     }
 }
@@ -159,6 +171,10 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
         case ZZSecretSectionServerOptions:
         {
             [self _handlePushNotificationWithState:isEnabled];
+        }break;
+        case ZZSecretSectionDuplicateUploads:
+        {
+            [self _handleIncorrectFileSizeOptionWithState:isEnabled];
         }break;
             
         default: break;
@@ -270,6 +286,16 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
                         forSectionIndex:ZZSecretSectionServerOptions];
 }
 
+- (void)_addDuplicateUploadsSectionWithData:(ZZDebugSettingsStateDomainModel*)model
+{
+    NSArray* items = @[[ZZSecretValueCellViewModel viewModelWithTitle:@"Duplicate next upload 3 times" details:nil],
+                       [self _switchModelWithTitle:@"Should send incorrect filesize" state:model.sendIncorrectFilesize]];
+    
+    [self.storage addItems:items toSection:ZZSecretSectionDuplicateUploads];
+    [self.storage setSectionHeaderModel:@"Duplicate uploads"
+                        forSectionIndex:ZZSecretSectionDuplicateUploads];
+}
+
 - (void)_addResetDataSection
 {
     NSArray* items = @[[ZZSecretValueCellViewModel viewModelWithTitle:@"Clear user data (friends, videos)" details:nil],
@@ -310,4 +336,12 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
 {
     [self.delegate updatePushNotificationState:state];
 }
+
+
+- (void)_handleIncorrectFileSizeOptionWithState:(BOOL)state
+{
+    [self.delegate updateIncorrectFileSizeState:state];
+}
+
+
 @end

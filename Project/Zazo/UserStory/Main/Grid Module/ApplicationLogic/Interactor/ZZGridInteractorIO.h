@@ -71,6 +71,8 @@
 - (void)updateSwithCameraFeatureIsEnabled:(BOOL)isEnabled;
 - (void)updateFriendThatPrevouslyWasOnGridWithModel:(ZZFriendDomainModel*)model;
 
+- (void)showAlreadyContainFriend:(ZZFriendDomainModel*)friendModel compeltion:(ANCodeBlock)completion;
+
 @end
 
 @protocol ZZGridInteractorOutputActionHandler <NSObject>

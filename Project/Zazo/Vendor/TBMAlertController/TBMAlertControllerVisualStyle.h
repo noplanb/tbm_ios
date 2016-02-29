@@ -10,6 +10,10 @@
 #import "SDCAlertControllerVisualStyle.h"
 #import "SDCAlertControllerDefaultVisualStyle.h"
 
+@class SDCAlertControllerView;
+
 @interface TBMAlertControllerVisualStyle : SDCAlertControllerDefaultVisualStyle <SDCAlertControllerVisualStyle>
+
+@property (nonatomic, weak) SDCAlertControllerView *alertControllerView;
 
 @end

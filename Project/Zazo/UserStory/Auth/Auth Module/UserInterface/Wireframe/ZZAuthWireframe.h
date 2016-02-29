@@ -12,5 +12,6 @@
 - (void)presentAuthControllerFromNavigationController:(UINavigationController*)nc;
 - (void)dismissAuthController;
 - (void)presentGridController;
+- (void)presentNetworkTestController;
 
 @end

@@ -21,6 +21,7 @@
 
 - (instancetype)initWithPhoneNumber:(NSString *)phoneNumber delegate:(id <TBMVerificationAlertDelegate>)delegate;
 - (void)presentAlert;
+- (void)dismissAlertWithCompletion:(ANCodeBlock)completion;
 
 @end
 

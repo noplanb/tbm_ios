@@ -9,10 +9,6 @@
 #import "ZZGridActionHandlerEnums.h"
 #import "ZZGridCellViewModel.h"
 
-typedef NS_ENUM(NSInteger, ZZUnlockFeatureType) {
-    ZZUnlockFeatureTypeNone,
-    ZZUnlockFeatureTypeBothCameraEnabled
-};
 
 @protocol ZZFeatureEventObserverDelegate <NSObject>
 

@@ -7,9 +7,11 @@
 //
 
 #import "ZZFeatureEventStrategyInviteeUser.h"
+#import "ZZUserDomainModel.h"
+#import "ZZUserDataProvider.h"
+#import "ZZUserDomainModel.h"
 
 @implementation ZZFeatureEventStrategyInviteeUser
-
 
 #pragma mark - Use Both Cameras
 
@@ -19,11 +21,22 @@
     
     if (![ZZGridActionStoredSettings shared].frontCameraHintWasShown)
     {
+        ZZUserDomainModel *user = [ZZUserDataProvider authenticatedUser];
+        
         NSInteger kUnlockFeatureCounterValue = 2;
         NSInteger kOnceUnlockCounterValue = 1;
         
         NSInteger sendMessageCounter = [[NSUserDefaults standardUserDefaults] integerForKey:kSendMessageCounterKey];
-        if (sendMessageCounter == 0)
+        
+        BOOL shouldUnlockToInvitee = user.isInvitee && sendMessageCounter == 0 &&
+        !model.isCreator;
+        
+        if (shouldUnlockToInvitee)
+        {
+            isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kUnlockFeatureCounterValue];
+        }
+        else if (sendMessageCounter == 0 &&
+            !model.isCreator)
         {
             sendMessageCounter++;
             [[NSUserDefaults standardUserDefaults] setInteger:sendMessageCounter forKey:kSendMessageCounterKey];

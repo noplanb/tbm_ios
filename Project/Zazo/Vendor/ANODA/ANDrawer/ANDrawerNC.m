@@ -190,6 +190,13 @@ static CGFloat const kStatusBarHeight = 20;
     leftSideAnimation.toValue = @(newOffset);
     leftSideAnimation.property = [POPAnimatableProperty mas_offsetProperty];
     leftSideAnimation.springBounciness = 4;
+    leftSideAnimation.completionBlock =   ^(POPAnimation *anim, BOOL finished) {
+        if (finished)
+        {
+            self.isOpen = isOpen;
+        }
+    };
+    
     [self.animatedConstraint pop_addAnimation:leftSideAnimation forKey:@"offset"];
     
     POPSpringAnimation *alphaAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewAlpha];
@@ -225,6 +232,14 @@ static CGFloat const kStatusBarHeight = 20;
     if (recognizer.state == UIGestureRecognizerStateBegan)
     {
         self.startPoint = [recognizer locationInView:self.view];
+        
+        if (!self.isOpen)
+        {
+            if ([self.drawerDelegate respondsToSelector:@selector(drawerControllerWillAppearFromPanGesture:)])
+            {
+                [self.drawerDelegate drawerControllerWillAppearFromPanGesture:self];
+            }
+        }
         
         if (recognizer != self.panGesure)
         {

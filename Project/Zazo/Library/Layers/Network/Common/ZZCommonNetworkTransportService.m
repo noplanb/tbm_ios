@@ -38,7 +38,9 @@
 + (RACSignal*)loadS3Credentials
 {
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-    
+        
+        ZZLogInfo(@"s3 credentials start updating");
+        
         [[ZZCommonNetworkTransport loadS3Credentials] subscribeNext:^(id x) {
             
             FEMObjectMapping* mapping = [ZZS3CredentialsDomainModel mapping];

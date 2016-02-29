@@ -39,6 +39,7 @@
     ZZMenuPresenter* presenter = [ZZMenuPresenter new];
     
     interactor.output = presenter;
+    drawerController.drawerDelegate = presenter;
     
     menuController.eventHandler = presenter;
     
@@ -90,7 +91,6 @@
     if ([ZZAddressBookDataProvider isAccessGranted])
     {
         ANDispatchBlockToMainQueue(^{
-            [self.menuController reset];
             [self.drawerController toggle];
         });
     }
@@ -124,7 +124,10 @@
     [[RACObserve(self.drawerController, isOpen) filter:^BOOL(NSNumber* value) {
         return [value boolValue];
     }] subscribeNext:^(id x) {
-        [self.presenter reloadContactMenuData];
+        ANDispatchBlockToMainQueue(^{
+            [self.menuController reset];
+            [self.presenter reloadContacts];
+        });
     }];
 }
 

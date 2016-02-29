@@ -10,66 +10,145 @@
 #import "MagicalRecord.h"
 #import "TBMFriend.h"
 #import "ZZFriendModelsMapper.h"
-#import "ZZFriendDataProvider.h"
-#import "ZZContentDataAcessor.h"
+#import "ZZFriendDataProvider+Entities.h"
+#import "ZZContentDataAccessor.h"
 #import "ZZVideoStatusHandler.h"
 
 @implementation ZZFriendDataUpdater
 
+#pragma mark Update methods
+
 + (void)updateLastTimeActionFriendWithID:(NSString*)itemID
 {
-    TBMFriend* item = [self _userWithID:itemID];
-    item.timeOfLastAction = [NSDate date];
-    [item.managedObjectContext MR_saveToPersistentStoreAndWait];
-}
-
-+ (ZZFriendDomainModel*)updateConnectionStatusForUserWithID:(NSString *)itemID toValue:(ZZFriendshipStatusType)value
-{
-    TBMFriend* item = [self _userWithID:itemID];
-    item.friendshipStatus = ZZFriendshipStatusTypeStringFromValue(value);
-    [item.managedObjectContext MR_saveToPersistentStoreAndWait];
-    return [ZZFriendModelsMapper fillModel:[ZZFriendDomainModel new] fromEntity:item];
-}
-
-+ (ZZFriendDomainModel*)upsertFriend:(ZZFriendDomainModel*)model
-{
-    TBMFriend* item = [self _userWithID:model.idTbm];
-    
-    if (item)
-    {
-        if ([item.hasApp boolValue] ^ model.hasApp)
-        {
-            ZZLogInfo(@"createWithServerParams: Friend exists updating hasApp only since it is different.");
-            item.hasApp = @(model.hasApp);
-            [item.managedObjectContext MR_saveToPersistentStoreAndWait];
-            [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:model.idTbm];
-        }
-    }
-    else
-    {
-        item = [TBMFriend MR_createEntityInContext:[self _context]];
-        item = [ZZFriendModelsMapper fillEntity:item fromModel:model];
-        [item.managedObjectContext MR_saveToPersistentStoreAndWait];
-        [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:model.idTbm];
-    }
-    
-    if (![item.friendshipStatus isEqualToString:model.friendshipStatus])
-    {
-        item = [ZZFriendModelsMapper fillEntity:item fromModel:model];
-    }
- 
-    return [ZZFriendDataProvider modelFromEntity:item];
-}
-
-+ (void)updateEverSentFreindsWithMkeys:(NSArray*)mKeys
-{
-    [mKeys enumerateObjectsUsingBlock:^(NSString*  _Nonnull mKey, NSUInteger idx, BOOL * _Nonnull stop) {
-        TBMFriend* friend = [ZZFriendDataProvider friendEnityWithMkey:mKey];
-        friend.everSent = @(YES);
-        friend.isFriendshipCreator = @([friend.friendshipCreatorMKey isEqualToString:friend.mkey]);
+    [self _updateFriendWithID:itemID usingBlock:^(TBMFriend *friendEntity) {
+        friendEntity.timeOfLastAction = [NSDate date];
     }];
-    
-    [[self _context] MR_saveToPersistentStoreAndWait];
+}
+
++ (void)updateFriendWithID:(NSString *)friendID setConnectionStatus:(ZZFriendshipStatusType)status
+{
+    [self _updateFriendWithID:friendID usingBlock:^(TBMFriend *friendEntity) {
+        friendEntity.friendshipStatus = ZZFriendshipStatusTypeStringFromValue(status);
+    }];
+}
+
++ (void)updateFriendWithID:(NSString *)friendID setLastIncomingVideoStatus:(ZZVideoIncomingStatus)status
+{
+    [self _updateFriendWithID:friendID usingBlock:^(TBMFriend *friendEntity) {
+        friendEntity.lastIncomingVideoStatus = @(status);
+    }];
+}
+
++ (void)updateFriendWithID:(NSString *)friendID setOutgoingVideoStatus:(ZZVideoOutgoingStatus)status
+{
+    [self _updateFriendWithID:friendID usingBlock:^(TBMFriend *friendEntity) {
+        friendEntity.outgoingVideoStatus = @(status);
+    }];
+}
+
++ (void)updateFriendWithID:(NSString *)friendID setUploadRetryCount:(NSUInteger)count
+{
+    [self _updateFriendWithID:friendID usingBlock:^(TBMFriend *friendEntity) {
+        friendEntity.uploadRetryCount = @(count);
+    }];
+}
+
++ (void)updateFriendWithID:(NSString *)friendID setLastVideoStatusEventType:(ZZVideoStatusEventType)eventType
+{
+    [self _updateFriendWithID:friendID usingBlock:^(TBMFriend *friendEntity) {
+        friendEntity.lastVideoStatusEventType = @(eventType);
+    }];
+}
+
++ (void)updateFriendWithID:(NSString *)friendID setOutgoingVideoItemID:(NSString *)videoID
+{
+    [self _updateFriendWithID:friendID usingBlock:^(TBMFriend *friendEntity) {
+        friendEntity.outgoingVideoId = videoID;
+    }];
+}
+
++ (void)_updateFriendWithID:(NSString *)friendID usingBlock:(void (^)(TBMFriend *friendEntity))updateBlock
+{
+    ANDispatchBlockToMainQueue(^{
+        TBMFriend* friendEntity = [self _userWithID:friendID];
+        updateBlock(friendEntity);
+        [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+    });
+}
+
+#pragma mark Batch updation
+
++ (void)updateEverSentFriendsWithMkeys:(NSArray*)mKeys
+{
+    ANDispatchBlockToMainQueue(^{
+        [mKeys enumerateObjectsUsingBlock:^(NSString*  _Nonnull mKey, NSUInteger idx, BOOL * _Nonnull stop) {
+            TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithMkey:mKey];
+            friendEntity.everSent = @(YES);
+            friendEntity.isFriendshipCreator = @([friendEntity.friendshipCreatorMKey isEqualToString:friendEntity.mkey]);
+        }];
+        
+        [[self _context] MR_saveToPersistentStoreAndWait];
+    });
+}
+
+#pragma mark Upsert
+
++ (ZZFriendDomainModel*)upsertFriend:(ZZFriendDomainModel*)friendModel
+{
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        
+        TBMFriend* friendEntity = [self _userWithID:friendModel.idTbm];
+        
+        if (friendEntity)
+        {
+            if ([friendEntity.hasApp boolValue] ^ friendModel.hasApp)
+            {
+                ZZLogInfo(@"createWithServerParams: Friend exists updating hasApp only since it is different.");
+                friendEntity.hasApp = @(friendModel.hasApp);
+                [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+                [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:friendModel.idTbm];
+            }
+        }
+        else
+        {
+            friendEntity = [TBMFriend MR_createEntityInContext:[self _context]];
+            friendEntity = [ZZFriendModelsMapper fillEntity:friendEntity fromModel:friendModel];
+            [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+            [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:friendModel.idTbm];
+        }
+        
+        if (![friendEntity.friendshipStatus isEqualToString:friendModel.friendshipStatus])
+        {
+            friendEntity = [ZZFriendModelsMapper fillEntity:friendEntity fromModel:friendModel];
+        }
+        
+        return [ZZFriendDataProvider modelFromEntity:friendEntity];
+
+    });
+}
+
+#pragma mark Deletion
+
++ (void)deleteAllFriends
+{
+    ANDispatchBlockToMainQueue(^{
+        [TBMFriend MR_truncateAllInContext:[self _context]];
+        [[self _context] MR_saveToPersistentStoreAndWait];
+    });
+}
+
+
+#pragma mark Migration
+
++ (void)fillEntitiesAfterMigration
+{
+    ANDispatchBlockToMainQueue(^{
+        for (TBMFriend *friendEntity in [TBMFriend MR_findAllInContext:[self _context]])
+        {
+            friendEntity.everSent = @([friendEntity.outgoingVideoStatus integerValue] > ZZVideoOutgoingStatusNone);
+        }
+        [[self _context] MR_saveToPersistentStoreAndWait];
+    });
 }
 
 
@@ -91,18 +170,9 @@
     return item;
 }
 
-+ (void)fillEntitiesAfterMigration
-{
-    for (TBMFriend *friend in [TBMFriend MR_findAllInContext:[self _context]])
-    {
-        friend.everSent = @([friend.outgoingVideoStatus integerValue] > ZZVideoOutgoingStatusNone);
-    }
-    [[self _context] MR_saveToPersistentStoreAndWait];
-}
-
 + (NSManagedObjectContext*)_context
 {
-    return [ZZContentDataAcessor contextForCurrentThread];
+    return [ZZContentDataAccessor mainThreadContext];
 }
 
 @end

@@ -52,9 +52,9 @@
     [self.editFriendListModuleDelegate friendStateWasUpdated:model toVisible:isVisible];
 }
 
-- (void)updatedWithError:(NSError *)error friend:(ZZFriendDomainModel *)model
+- (void)updatedWithError:(NSError *)error friend:(ZZFriendDomainModel *)friendModel
 {
-    [self.tableDataSource updateModelWithFriend:model];
+    [self.tableDataSource updateModelWithFriend:friendModel];
 }
 
 - (NSArray *)_convertToViewModels:(NSArray *)models

@@ -14,6 +14,8 @@
 #import "FEMObjectDeserializer.h"
 #import "ZZFriendDataUpdater.h"
 #import "ZZFriendDataProvider.h"
+#import "ZZUserDomainModel.h"
+#import "ZZUserDataProvider.h"
 
 static const struct
 {
@@ -58,6 +60,31 @@ static const struct
 + (RACSignal*)loadFriendList
 {
     return [[ZZFriendsTransport loadFriendList] map:^id(NSArray* friendsData) {
+        
+        NSArray *sorted = [self sortedFriendsByCreatedOn:friendsData];
+        
+        if (sorted)
+        {
+            ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
+            
+            NSDictionary *firstFriend = sorted.firstObject;
+            
+            if (!firstFriend)
+            {
+                user.isInvitee = NO;
+            }
+            else
+            {
+                NSString *firstFriendCreatorMkey = firstFriend[@"connection_creator_mkey"];
+                NSString *myMkey = user.mkey;
+                user.isInvitee = ![firstFriendCreatorMkey isEqualToString:myMkey];
+            }
+            
+            ANDispatchBlockToBackgroundQueue(^{
+                [ZZUserDataProvider upsertUserWithModel:user];
+            });
+        }
+
         friendsData = [[friendsData.rac_sequence map:^id(id obj) {
             
             if ([obj isKindOfClass:[NSDictionary class]])
@@ -70,21 +97,7 @@ static const struct
             }
             return nil;
         }] array];
-//        
-//        
-//        NSArray *sorted = [self sortedFriendsByCreatedOn:friendsdat];
-//        if (sorted)
-//        {
-//            NSDictionary *firstFriend = sorted.firstObject;
-//            NSString *firstFriendCreatorMkey = firstFriend[@"connection_creator_mkey"];
-//            ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
-//            NSString *myMkey = user.mkey;
-//            user.isInvitee = ![firstFriendCreatorMkey isEqualToString:myMkey];
-//            ANDispatchBlockToBackgroundQueue(^{
-//                [ZZUserDataProvider upsertUserWithModel:user];
-//            });
-//        }
-//        
+        
         return friendsData;
     }];
 }
@@ -145,39 +158,36 @@ static const struct
     return [ZZFriendsTransport inviteUserWithParameters:parameters];
 }
 
++ (NSArray *)sortedFriendsByCreatedOn:(NSArray *)friends
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+    [dateFormatter setLocale:enUSPOSIXLocale];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
 
-//TODO: figure out for what we need invitee field in User Class
+    return [friends sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2)
+            {
 
-//- (NSArray *)sortedFriendsByCreatedOn:(NSArray *)friends
-//{
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//    NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-//    [dateFormatter setLocale:enUSPOSIXLocale];
-//    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
-//
-//    return [friends sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2)
-//            {
-//
-//                NSComparisonResult result = NSOrderedSame;
-//                NSDictionary *dict1 = (NSDictionary *) obj1;
-//                NSDictionary *dict2 = (NSDictionary *) obj2;
-//                NSDate *date1;
-//                NSDate *date2;
-//
-//                if ([dict1 isKindOfClass:[NSDictionary class]] && [dict2 isKindOfClass:[NSDictionary class]])
-//                {
-//
-//                    date1 = [dateFormatter dateFromString:dict1[@"connection_created_on"]];
-//                    date2 = [dateFormatter dateFromString:dict2[@"connection_created_on"]];
-//                }
-//
-//                if (date1 && date2)
-//                {
-//                    result = [date1 timeIntervalSinceDate:date2] > 0 ? NSOrderedDescending : NSOrderedAscending;
-//                }
-//                return result;
-//            }];
-//}
+                NSComparisonResult result = NSOrderedSame;
+                NSDictionary *dict1 = (NSDictionary *) obj1;
+                NSDictionary *dict2 = (NSDictionary *) obj2;
+                NSDate *date1;
+                NSDate *date2;
+
+                if ([dict1 isKindOfClass:[NSDictionary class]] && [dict2 isKindOfClass:[NSDictionary class]])
+                {
+
+                    date1 = [dateFormatter dateFromString:dict1[@"connection_created_on"]];
+                    date2 = [dateFormatter dateFromString:dict2[@"connection_created_on"]];
+                }
+
+                if (date1 && date2)
+                {
+                    result = [date1 timeIntervalSinceDate:date2] > 0 ? NSOrderedDescending : NSOrderedAscending;
+                }
+                return result;
+            }];
+}
 
 
 @end

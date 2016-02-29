@@ -14,6 +14,7 @@
 #import "ZZHintsDomainModel.h"
 #import "ZZGridUIConstants.h"
 #import "ZZGridActionStoredSettings.h"
+#import "ZZFriendDataHelper.h"
 
 
 static CGFloat const kDelayBeforHintHidden = 3.5;
@@ -40,7 +41,7 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
     if (self.hintsView &&
         [self.hintsView hintModel].hintType == ZZHintsTypeRecrodWelcomeHint &&
         ![ZZGridActionStoredSettings shared].holdToRecordAndTapToPlayWasShown &&
-        friendModel.unviewedCount > 0)
+        [ZZFriendDataHelper unviewedVideoCountWithFriendID:friendModel.idTbm] > 0)
     {
         [self hideHintView];
         [ZZGridActionStoredSettings shared].holdToRecordAndTapToPlayWasShown = YES;

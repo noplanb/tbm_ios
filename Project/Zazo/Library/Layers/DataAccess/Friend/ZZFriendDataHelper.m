@@ -7,23 +7,23 @@
 //
 
 #import "ZZFriendDataHelper.h"
-#import "TBMFriend.h"
+#import "ZZFriendDomainModel.h"
 #import "TBMVideo.h"
+#import "TBMFriend.h"
+#import "ZZVideoDomainModel.h"
 #import "MagicalRecord.h"
-#import "ZZVideoDataUpdater.h"
-#import "ZZContentDataAcessor.h"
-#import "ZZVideoStatuses.h"
 #import "ZZFriendDataProvider.h"
 
 @implementation ZZFriendDataHelper
 
 + (BOOL)isUniqueFirstName:(NSString*)firstName friendID:(NSString*)friendID
 {
-    NSArray* friends = [TBMFriend MR_findAll];
-    TBMFriend* friendEnitity = [ZZFriendDataProvider friendEntityWithItemID:friendID];
-    for (TBMFriend *f in friends)
+    NSArray* friends = [ZZFriendDataProvider allFriendsModels];
+    ZZFriendDomainModel* aFriendModel = [ZZFriendDataProvider friendWithItemID: friendID];
+    
+    for (ZZFriendDomainModel *friendModel in friends)
     {
-        if (![friendEnitity isEqual:f] && [firstName isEqualToString:f.firstName])
+        if (![aFriendModel.idTbm isEqual:friendModel.idTbm] && [firstName isEqualToString:friendModel.firstName])
             return NO;
     }
     return YES;
@@ -32,53 +32,26 @@
 
 #pragma mark - Friend video helpers
 
-+ (BOOL)isFriend:(TBMFriend*)friend hasIncomingVideoWithId:(NSString*)videoId
++ (NSUInteger)unviewedVideoCountWithFriendID:(NSString *)friendID
 {
-    BOOL hasVideo = NO;
-    NSArray* videos = [friend.videos.allObjects copy];
-    for (TBMVideo* video in videos)
+    if (!friendID)
     {
-        if ([video.videoId isEqualToString:videoId])
-        {
-            hasVideo = YES;
-        }
+        return 0;
     }
     
-    return hasVideo;
-}
-
-+ (NSInteger)unviewedVideoCountWithFriend:(TBMFriend*)friendModel
-{
-    NSInteger i = 0;
-    for (TBMVideo *v in [friendModel videos])
-    {
-        if (v.statusValue == ZZVideoIncomingStatusDownloaded)
-        {
-            i++;
-        }
-    }
-    return i;
-}
-
-+ (BOOL)hasOutgoingVideoWithFriend:(TBMFriend*)friendModel
-{
-    return !ANIsEmpty(friendModel.outgoingVideoId);
-}
-
-+ (NSArray *)_allEverSentFriends
-{
-    NSPredicate *everSent = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.everSent, @(YES)];
-    NSPredicate *creator = [NSPredicate predicateWithFormat:@"%K = %@", TBMFriendAttributes.isFriendshipCreator, @(NO)];
-    NSPredicate *filter = [NSCompoundPredicate andPredicateWithSubpredicates:@[everSent, creator]];
-    return [TBMFriend MR_findAllWithPredicate:filter inContext:[ZZContentDataAcessor contextForCurrentThread]];
+    NSNumber *count = ZZDispatchOnMainThreadAndReturn(^id{
+        return @([TBMVideo MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"friend.idTbm == %@ && status == %d", friendID, ZZVideoIncomingStatusDownloaded]]);
+    });
+    
+    return count.unsignedIntegerValue;
 }
 
 + (NSArray*)everSentMkeys
 {
     NSMutableArray *result = [NSMutableArray array];
-    for (TBMFriend *friend in [self _allEverSentFriends])
+    for (ZZFriendDomainModel *friendEntity in [ZZFriendDataProvider allEverSentFriends])
     {
-        [result addObject:friend.mkey];
+        [result addObject:friendEntity.mKey];
     }
     return result;
 }

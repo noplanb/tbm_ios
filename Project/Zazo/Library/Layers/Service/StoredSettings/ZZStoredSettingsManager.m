@@ -10,7 +10,7 @@ static NSString* const kZZServerEndpointStateKey = @"kTBMConfigServerStateKey";
 static NSString* const kZZServerURLStringKey = @"kTBMConfigCustomServerURLKey";
 static NSString* const kZZDebugModeEnabledKey = @"kTBMConfigDeviceDebugModeKey";
 
-static NSString* const kZZShouldUseRollBarSDKEnabledKey = @"kZZShouldUseRollBarSDKEnabledKey";
+static NSString* const kZZShouldUseServerLoggingEnabledKey = @"kZZShouldUseServerLoggingEnabledKey";
 
 static NSString* const kZZUserAuthToken = @"kZZUserAuthToken";
 static NSString* const kZZUserItemID = @"kZZUserItemID";
@@ -68,12 +68,12 @@ static NSString* const kZZServerIsPushNotificationEnabled = @"kIsPushNotificatio
 
 - (void)setShouldUseRollBarSDK:(BOOL)shouldUseRollBarSDK
 {
-    [NSObject an_updateBool:shouldUseRollBarSDK forKey:kZZShouldUseRollBarSDKEnabledKey];
+    [NSObject an_updateBool:shouldUseRollBarSDK forKey:kZZShouldUseServerLoggingEnabledKey];
 }
 
 - (BOOL)shouldUseRollBarSDK
 {
-    return [NSObject an_boolForKey:kZZShouldUseRollBarSDKEnabledKey];
+    return [NSObject an_boolForKey:kZZShouldUseServerLoggingEnabledKey];
 }
 
 //serverURL

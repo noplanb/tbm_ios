@@ -31,5 +31,6 @@ extern const struct ZZDebugSettingsStateDomainModelAttributes {
 @property (nonatomic, strong) NSString* lastName;
 @property (nonatomic, strong) NSString* phoneNumber;
 @property (nonatomic, assign) BOOL useRollbarSDK;
+@property (nonatomic, assign) BOOL sendIncorrectFilesize;
 
 @end

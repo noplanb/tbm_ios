@@ -10,9 +10,10 @@
 #import "TBMFriend.h"
 #import "ZZFriendDomainModel.h"
 #import "TBMVideo.h"
-#import "ZZVideoDataProvider.h"
+#import "ZZVideoDataProvider+Entities.h"
 #import "ZZVideoDomainModel.h"
 #import "ZZFriendDataHelper.h"
+#import "ZZFriendDataHelper+Entities.h"
 
 @implementation ZZFriendModelsMapper
 
@@ -31,13 +32,13 @@
     entity.lastVideoStatusEventType = @(model.lastVideoStatusEventType);
 
     entity.outgoingVideoId = model.outgoingVideoItemID;
-    entity.outgoingVideoStatus = @(model.outgoingVideoStatus);
+    entity.outgoingVideoStatusValue = model.lastOutgoingVideoStatus;
+    entity.everSent = @(model.everSent);
     
     entity.timeOfLastAction = model.lastActionTimestamp;
     entity.uploadRetryCount = @(model.uploadRetryCount);
     
     entity.friendshipStatus = model.friendshipStatus;
-    entity.outgoingVideoStatusValue = (int)model.outgoingVideoStatusValue;
     
     entity.friendshipCreatorMKey = model.friendshipCreatorMkey;
     
@@ -63,22 +64,17 @@
         model.lastVideoStatusEventType = [entity.lastVideoStatusEventType integerValue];
         
         model.outgoingVideoItemID = entity.outgoingVideoId;
-        model.outgoingVideoStatus = [entity.outgoingVideoStatus integerValue];
+        model.lastOutgoingVideoStatus = [entity.outgoingVideoStatus integerValue];
+        model.everSent = entity.everSent.boolValue;
         
         model.lastActionTimestamp = entity.timeOfLastAction;
         model.uploadRetryCount = [entity.uploadRetryCount integerValue];
         
         model.friendshipStatus = entity.friendshipStatus;
         
-        model.videos = [[entity.videos.allObjects.rac_sequence map:^id(TBMVideo* value) {
-            ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:value];
-            videoModel.relatedUser = model;
-            return videoModel;
-        }] array];
+        model.videos = [ZZVideoDataProvider sortedIncomingVideosForUserWithID:entity.idTbm];
         
-        model.unviewedCount = [ZZFriendDataHelper unviewedVideoCountWithFriend:entity];
-        model.outgoingVideoStatusValue = entity.outgoingVideoStatusValue;
-        model.hasOutgoingVideo = [ZZFriendDataHelper hasOutgoingVideoWithFriend:entity];
+        model.hasOutgoingVideo = !ANIsEmpty(entity.outgoingVideoId);
         model.friendshipCreatorMkey = entity.friendshipCreatorMKey;
     }
     @catch (NSException *exception)

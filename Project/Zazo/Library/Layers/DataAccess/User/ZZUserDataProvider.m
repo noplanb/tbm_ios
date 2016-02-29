@@ -6,17 +6,19 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import "ZZUserDataProvider.h"
+#import "ZZUserDataProvider+Entities.h"
 #import "ZZUserModelsMapper.h"
 #import "MagicalRecord.h"
-#import "ZZContentDataAcessor.h"
+#import "ZZContentDataAccessor.h"
 
 @implementation ZZUserDataProvider
 
 + (ZZUserDomainModel*)authenticatedUser
 {
-    TBMUser* user = [self _authenticatedEntity];
-    return [self modelFromEntity:user];
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        TBMUser* user = [self _authenticatedEntity];
+        return [self modelFromEntity:user];
+    });
 }
 
 + (TBMUser*)_authenticatedEntity
@@ -41,21 +43,26 @@
 //    return [ZZUserModelsMapper fillEntity:entity fromModel:model];
 //}
 
-+ (ZZUserDomainModel*)modelFromEntity:(TBMUser*)entity
++ (ZZUserDomainModel*)modelFromEntity:(TBMUser*)userEntity
 {
-    return [ZZUserModelsMapper fillModel:[ZZUserDomainModel new] fromEntity:entity];
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        return [ZZUserModelsMapper fillModel:[ZZUserDomainModel new] fromEntity:userEntity];
+    });
 }
 
-+ (ZZUserDomainModel*)upsertUserWithModel:(ZZUserDomainModel*)model
++ (ZZUserDomainModel*)upsertUserWithModel:(ZZUserDomainModel*)userModel
 {
-    TBMUser* entity = [self _authenticatedEntity];
-    if (!entity)
-    {
-        entity = [TBMUser MR_createEntityInContext:[self _context]];
-    }
-    [ZZUserModelsMapper fillEntity:entity fromModel:model];
-    [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
-    return [self modelFromEntity:entity];
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        TBMUser* userEntity = [self _authenticatedEntity];
+        if (!userEntity)
+        {
+            userEntity = [TBMUser MR_createEntityInContext:[self _context]];
+        }
+        [ZZUserModelsMapper fillEntity:userEntity fromModel:userModel];
+        [userEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+        return [self modelFromEntity:userEntity];
+
+    });
 }
 
 
@@ -63,7 +70,8 @@
 
 + (NSManagedObjectContext*)_context
 {
-    return [ZZContentDataAcessor contextForCurrentThread];
+    return [ZZContentDataAccessor mainThreadContext];
+
 }
 
 @end

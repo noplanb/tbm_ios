@@ -7,6 +7,7 @@
     "874C8E8751B34C639A13B0EEFE9B44FC096DF007" : 0,
     "D2D6D892B57F566ED579A107C638881ED0F62DDD" : 0,
     "D5D840A1061AFA800283AD3ACCDEC9D2CDDDC21E" : 0,
+    "FD5B115EE7A3D3F8BA4B7F820F332BCE90919E78" : 0,
     "BFD2DA9980DE67FC7CAB1D16B5598E77285C78EF" : 0,
     "F17204E2A497AE1194AADBFE8F8689D2F990B3FA" : 0
   },
@@ -15,6 +16,7 @@
     "874C8E8751B34C639A13B0EEFE9B44FC096DF007" : "OBFileTransfer\/",
     "D2D6D892B57F566ED579A107C638881ED0F62DDD" : "tbm_ios",
     "D5D840A1061AFA800283AD3ACCDEC9D2CDDDC21E" : "ANODA\/ANTableViews\/",
+    "FD5B115EE7A3D3F8BA4B7F820F332BCE90919E78" : "..\/Forks\/APAddressBook",
     "BFD2DA9980DE67FC7CAB1D16B5598E77285C78EF" : "ANODA\/ANTableController\/",
     "F17204E2A497AE1194AADBFE8F8689D2F990B3FA" : "ANODA\/ANStorage\/"
   },
@@ -46,6 +48,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:anodamobi\/ANStorage.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F17204E2A497AE1194AADBFE8F8689D2F990B3FA"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Alterplay\/APAddressBook.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "FD5B115EE7A3D3F8BA4B7F820F332BCE90919E78"
     }
   ]
 }

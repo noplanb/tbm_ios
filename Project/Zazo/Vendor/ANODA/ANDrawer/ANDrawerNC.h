@@ -5,6 +5,8 @@
 //  Copyright (c) 2014 ANODA. All rights reserved.
 //
 
+@class ANDrawerNC;
+
 typedef NS_ENUM(NSInteger, ANDrawerOpenDirection)
 {
     ANDrawerOpenDirectionFromLeft,
@@ -19,6 +21,12 @@ typedef NS_ENUM(NSInteger, ANDrawerTopPin)
     ANDrawerTopPinCustomOffset,
 };
 
+@protocol ANDrawerNCDelegate <NSObject>
+
+- (void)drawerControllerWillAppearFromPanGesture:(ANDrawerNC *)controller;
+
+@end
+
 @interface ANDrawerNC : UINavigationController
 
 @property (nonatomic, assign) BOOL isOpen;
@@ -31,6 +39,8 @@ typedef NS_ENUM(NSInteger, ANDrawerTopPin)
 
 //initialization
 + (instancetype)drawerWithView:(UIView*)view width:(CGFloat)width direction:(ANDrawerOpenDirection)direction;
+
+@property (nonatomic, weak) id<ANDrawerNCDelegate> drawerDelegate;
 
 //update state
 - (void)toggle;

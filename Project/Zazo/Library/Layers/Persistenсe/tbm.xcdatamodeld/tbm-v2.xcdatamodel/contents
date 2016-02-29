@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="2" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="15B42" minimumToolsVersion="Automatic">
+<model userDefinedModelVersionIdentifier="2" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Automatic">
     <entity name="TBMFriend" representedClassName="TBMFriend" syncable="YES">
         <attribute name="cid" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="ckey" optional="YES" attributeType="String" syncable="YES"/>
@@ -44,8 +44,8 @@
     </entity>
     <elements>
         <element name="TBMFriend" positionX="-18" positionY="2" width="128" height="345"/>
-        <element name="TBMGridElement" positionX="-218" positionY="153" width="128" height="75"/>
-        <element name="TBMUser" positionX="-218" positionY="-0" width="128" height="165"/>
-        <element name="TBMVideo" positionX="171" positionY="-0" width="128" height="103"/>
+        <element name="TBMGridElement" positionX="-209" positionY="153" width="128" height="75"/>
+        <element name="TBMUser" positionX="-216" positionY="-117" width="128" height="165"/>
+        <element name="TBMVideo" positionX="234" positionY="260" width="128" height="105"/>
     </elements>
 </model>

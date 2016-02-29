@@ -8,6 +8,7 @@
 
 #import "TBMAlertControllerVisualStyle.h"
 #import "SDCAlertController.h"
+#import "SDCAlertControllerView.h"
 
 @implementation TBMAlertControllerVisualStyle
 
@@ -32,6 +33,12 @@
 }
 
 - (CGFloat)labelSpacing {
+    
+    if (ANIsEmpty(self.alertControllerView.message))
+    {
+        return 14;
+    }
+    
     return 64;
 }
 
@@ -42,6 +49,12 @@
 #pragma mark - Actions
 
 - (CGFloat)actionViewHeight {
+    
+    if (IS_IPHONE_4 && self.alertControllerView.actions.count > 2)
+    {
+        return 44;
+    }
+    
     return 70;
 }
 

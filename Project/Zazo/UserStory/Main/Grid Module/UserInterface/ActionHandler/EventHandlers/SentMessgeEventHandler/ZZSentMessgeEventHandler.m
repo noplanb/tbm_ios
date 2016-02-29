@@ -7,6 +7,7 @@
 //
 
 #import "ZZSentMessgeEventHandler.h"
+#import "ZZFriendDataHelper.h"
 
 @implementation ZZSentMessgeEventHandler
 
@@ -18,7 +19,7 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
     if (event == ZZGridActionEventTypeMessageDidSent &&
         ![ZZGridActionStoredSettings shared].incomingVideoWasPlayed &&
         [self.delegate frinedsNumberOnGrid] == 1 &&
-        model.unviewedCount > 0)
+        [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.idTbm] > 0)
     {
         [ZZGridActionStoredSettings shared].playHintWasShown = YES;
         if (completionBlock)
@@ -30,7 +31,7 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
     else if (event == ZZGridActionEventTypeMessageDidSent &&
         ![ZZGridActionStoredSettings shared].sentHintWasShown &&
         [self.delegate frinedsNumberOnGrid] == 1 &&
-        model.unviewedCount == 0)
+        [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.idTbm] == 0)
     {
         [ZZGridActionStoredSettings shared].sentHintWasShown = YES;
         

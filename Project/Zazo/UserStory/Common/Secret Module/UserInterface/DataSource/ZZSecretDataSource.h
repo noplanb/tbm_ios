@@ -22,6 +22,7 @@ typedef NS_ENUM(NSInteger, ZZSecretSection)
     ZZSecretSectionTutorial,
     ZZSecretSectionServerOptions,
     ZZSecretSectionLoggingOptions,
+    ZZSecretSectionDuplicateUploads,
     ZZSecretSectionResetData
 };
 
@@ -36,6 +37,8 @@ typedef NS_ENUM(NSInteger, ZZSecrectScreenActionsType)
     ZZSecretScreenActionsTypeEnableAllFeatures,
     
     ZZSecrectScreenActionsTypeDispatchMessage,
+    
+    ZZSecretSectionShouldDuplicateNextUpload,
     
     ZZSecrectScreenActionsTypeClearUserData,
     ZZSecrectScreenActionsTypeDeleteAllDanglingFiles,
@@ -53,6 +56,7 @@ typedef NS_ENUM(NSInteger, ZZSecrectScreenActionsType)
 - (void)updateServerEndpointTypeValueTo:(NSInteger)value;
 - (void)updateCustomServerURLValueTo:(NSString*)value;
 - (void)updatePushNotificationState:(BOOL)state;
+- (void)updateIncorrectFileSizeState:(BOOL)state;
 
 @end
 

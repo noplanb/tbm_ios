@@ -20,9 +20,11 @@
 #import "MagicalRecord.h"
 #import "ZZGridInteractor.h"
 #import "ZZRollbarAdapter.h"
-#import "ZZContentDataAcessor.h"
+#import "ZZContentDataAccessor.h"
 #import "ZZApplicationStateInfoGenerator.h"
 #import "ZZNotificationsHandler.h"
+#import "ZZFriendDataUpdater.h"
+#import "ZZVideoDataUpdater.h"
 
 @implementation ZZSecretInteractor
 
@@ -34,11 +36,13 @@
 
 - (void)dispatchData
 {
-    [[ZZRollbarAdapter shared] logMessage:[ZZApplicationStateInfoGenerator generateSettingsStateMessage]];
+    [[ZZRollbarAdapter shared] logMessage:[ZZApplicationStateInfoGenerator generateSettingsStateMessage] level:ZZDispatchLevelError];
 }
 
 - (void)forceCrash
 {
+    
+    //TODO: the message should be dispatched automatically
     NSString* message = [NSString stringWithFormat:@"CRASH BUTTON EXCEPTION: %@",
                          [ZZApplicationStateInfoGenerator generateSettingsStateMessage]];
     [[ZZRollbarAdapter shared] logMessage:message level:ZZDispatchLevelError];
@@ -63,15 +67,15 @@
 
 - (void)removeAllUserData
 {
-    //TODO: move it to data updaters
-    NSManagedObjectContext* context = [ZZContentDataAcessor contextForCurrentThread];
-    [TBMFriend MR_truncateAllInContext:context];
-    [TBMVideo MR_truncateAllInContext:context];
-    [context MR_saveToPersistentStoreAndWait];
-    
+    [ZZFriendDataUpdater deleteAllFriends];
+    [ZZVideoDataUpdater deleteAllVideos];
     [[NSNotificationCenter defaultCenter] postNotificationName:kResetAllUserDataNotificationKey object:nil];
 }
 
+- (void)shouldDuplicateNextUpload
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kShouldDuplicateNextUploadNotificationKey object:nil];
+}
 
 #pragma mark - Updating Settings
 
@@ -95,7 +99,7 @@
 
 - (void)updateShouldUserSDKForLogging:(BOOL)isEnabled
 {
-    [ZZStoredSettingsManager shared].shouldUseRollBarSDK = isEnabled;
+    [ZZStoredSettingsManager shared].shouldUseServerLogging = !isEnabled;
 }
 
 - (void)updatePushNotificationStateTo:(BOOL)isEnabled
@@ -111,6 +115,11 @@
         [ZZNotificationsHandler disablePushNotifications];
     }
     
+}
+
+- (void)updateIncorrectFileSizeStateTo:(BOOL)isEnabled
+{
+    [ZZStoredSettingsManager shared].shouldSendIncorrectFilesize = isEnabled;
 }
 
 @end

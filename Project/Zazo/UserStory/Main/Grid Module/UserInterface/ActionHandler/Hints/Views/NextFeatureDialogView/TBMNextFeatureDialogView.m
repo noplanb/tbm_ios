@@ -13,6 +13,9 @@ CGFloat const kIconSize = 50.f;
 CGFloat const kElementsVerticalMargin = 15.f;
 CGFloat const kElementsHorizontalMargin = 15.f;
 
+static CGFloat const kNextFeatureDialogAnimationDelay = 6.0f;
+static CGFloat const kNextFeatureAnimationDuration = 0.35f;
+
 @interface TBMNextFeatureDialogView ()
 
 @property(nonatomic, strong) UILabel *headerLabel;
@@ -92,7 +95,9 @@ CGFloat const kElementsHorizontalMargin = 15.f;
     self.frame = [self makeRectWithTop:dialogTop];
     self.alpha = 1;
 
-    [UIView animateWithDuration:.35f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^ {
+    [UIView animateWithDuration:kNextFeatureAnimationDuration
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseInOut animations:^ {
         self.frame = [self makeRectWithTop:correctDialogTop];
     } completion:^(BOOL finished) {
         [self hideAnimated];
@@ -110,7 +115,9 @@ CGFloat const kElementsHorizontalMargin = 15.f;
 {
     CGFloat correctDialogTop = CGRectGetMaxY(self.frame);
 
-    [UIView animateWithDuration:.35f delay:3.f options:UIViewAnimationOptionCurveEaseInOut animations:^
+    [UIView animateWithDuration:kNextFeatureAnimationDuration
+                          delay:kNextFeatureDialogAnimationDelay
+                        options:UIViewAnimationOptionCurveEaseInOut animations:^
             {
                 self.frame = [self makeRectWithTop:correctDialogTop];
                 self.alpha = 0;

@@ -8,77 +8,142 @@
 
 #import "ZZVideoDataUpdater.h"
 #import "TBMVideo.h"
+#import "TBMFriend.h"
 #import "MagicalRecord.h"
-#import "ZZVideoDataProvider.h"
+#import "ZZVideoDataProvider+Entities.h"
+#import "ZZFriendDataProvider+Entities.h"
 #import "ZZThumbnailGenerator.h"
 #import "ZZVideoDomainModel.h"
 #import "ZZVideoModelsMapper.h"
-#import "ZZContentDataAcessor.h"
+#import "ZZContentDataAccessor.h"
+#import "ZZFriendDomainModel.h"
 
 @implementation ZZVideoDataUpdater
 
-//+ (void)deleteItem:(ZZVideoDomainModel*)model
-//{
-//    TBMVideo* entity = [self entityFromModel:model];
-//    [entity MR_deleteEntityInContext:[self _context]];
-//
-//    [[self _context] MR_saveToPersistentStoreAndWait];
-//}
+#pragma mark Update methods
 
-//+ (TBMVideo*)entityWithID:(NSString*)itemID
-//{
-//    TBMVideo* item = nil;
-//    if (!ANIsEmpty(itemID))
-//    {
-//        NSArray* items = [TBMVideo MR_findByAttribute:TBMVideoAttributes.videoId withValue:itemID inContext:[self _context]];
-//        if (items.count > 1)
-//        {
-//            ANLogWarning(@"TBMVideo contains dupples for %@", itemID);
-//        }
-//        item = [items firstObject];
-//    }
-//    return item;
-//}
-
-+ (void)destroy:(TBMVideo *)video
-{
-    NSManagedObjectContext* context = video.managedObjectContext;
-    [video MR_deleteEntity];
-    [context MR_saveToPersistentStoreAndWait];
++ (void)deleteAllVideos {
+    ANDispatchBlockToMainQueue(^{
+        NSManagedObjectContext* context = [ZZContentDataAccessor mainThreadContext];
+        [TBMVideo MR_truncateAllInContext:context];
+        [context MR_saveToPersistentStoreAndWait];
+    });
 }
 
++ (void)updateVideoWithID:(NSString *)videoID setIncomingStatus:(ZZVideoIncomingStatus)videoStatus
+{
+    [self _updateVideoWithID:videoID usingBlock:^(TBMVideo *videoEntity) {
+        videoEntity.statusValue = videoStatus;
+    }];
+}
 
-+ (void)deleteVideoFileWithVideo:(TBMVideo*)video
++ (void)updateVideoWithID:(NSString *)videoID setDownloadRetryCount:(NSUInteger)count
+{
+    [self _updateVideoWithID:videoID usingBlock:^(TBMVideo *videoEntity) {
+        videoEntity.downloadRetryCount = @(count);
+    }];
+}
+
++ (void)_updateVideoWithID:(NSString *)videoID usingBlock:(void (^)(TBMVideo *videoEntity))updateBlock
+{
+    ANDispatchBlockToMainQueue(^{
+        TBMVideo* videoEntity = [ZZVideoDataProvider entityWithID:videoID];
+        updateBlock(videoEntity);
+        [videoEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+    });
+}
+
+#pragma mark - Delete Video Methods
+
++ (void)deleteAllViewedOrFailedVideoWithFriendID:(NSString*)friendID
+{
+    ZZLogInfo(@"deleteAllViewedVideos");
+    
+    NSArray* sortedVideos = [ZZVideoDataProvider sortedIncomingVideosForUserWithID:friendID];
+    
+    for (ZZVideoDomainModel *videoModel in sortedVideos)
+    {
+        if (videoModel.incomingStatusValue == ZZVideoIncomingStatusViewed ||
+            videoModel.incomingStatusValue == ZZVideoIncomingStatusFailedPermanently)
+        {
+            [self _deleteVideo:videoModel];
+        }
+    }
+}
+
++ (void)_deleteVideo:(ZZVideoDomainModel *)videoModel
+{
+    [self _deleteFilesForVideo:videoModel];
+    
+    ANDispatchBlockToMainQueue(^{
+        TBMVideo *videoEntity = [ZZVideoDataProvider entityWithID:videoModel.videoID];
+        TBMFriend *friendEntity = videoEntity.friend;
+        
+        videoEntity.statusValue = ZZVideoIncomingStatusGhost;
+        
+        [self _deleteOutdatedVideosInNeeded];
+        
+        [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+    });
+}
+
++ (void)_deleteOutdatedVideosInNeeded
+{
+    ANDispatchBlockToMainQueue(^{
+        NSPredicate *ghostStatus =
+        [NSPredicate predicateWithFormat:@"%K == %@", TBMVideoAttributes.status, @(ZZVideoIncomingStatusGhost)];
+        
+        NSUInteger ghostCount =
+        [TBMVideo MR_countOfEntitiesWithPredicate:ghostStatus inContext:[self _context]];
+        
+        const NSUInteger MaxGhostCount = 1000;
+        const NSUInteger MaxGhostTolerance = 10;
+        
+        if (ghostCount < MaxGhostCount + MaxGhostTolerance)
+        {
+            return;
+        }
+        
+        ZZLogInfo(@"Deleting outdated videos");
+        
+        NSArray *ghostVideoEntities =
+        [TBMVideo MR_findAllSortedBy:TBMVideoAttributes.videoId
+                           ascending:NO
+                       withPredicate:ghostStatus
+                           inContext:[self _context]];
+        
+        NSUInteger outdatedVideoCount = ghostCount - MaxGhostCount;
+        
+        NSArray *outdatedVideoEntities = [ghostVideoEntities subarrayWithRange:NSMakeRange(MaxGhostCount, outdatedVideoCount)];
+        
+        [outdatedVideoEntities enumerateObjectsUsingBlock:^(TBMVideo *videoEntity, NSUInteger idx, BOOL * _Nonnull stop) {
+            ZZLogDebug(@"Deleting video %@", videoEntity.videoId);
+            [videoEntity.friend removeVideosObject:videoEntity];
+            [videoEntity MR_deleteEntity];
+        }];
+
+    });
+}
+
++ (void)_deleteVideoFileWithVideo:(ZZVideoDomainModel*)videoModel
 {
     ZZLogInfo(@"deleteVideoFile");
     NSFileManager *fm = [NSFileManager defaultManager];
     NSError *error = nil;
-    [fm removeItemAtURL:[ZZVideoDataProvider videoUrlWithVideo:video] error:&error];
+    [fm removeItemAtURL:[ZZVideoDataProvider videoUrlWithVideoModel:videoModel] error:&error];
 }
 
-+ (void)deleteFilesForVideo:(TBMVideo*)video
++ (void)_deleteFilesForVideo:(ZZVideoDomainModel*)videoModel
 {
-    [self deleteVideoFileWithVideo:video];
-    ZZVideoDomainModel* videoModel = [ZZVideoDataProvider modelFromEntity:video];
+    [self _deleteVideoFileWithVideo:videoModel];
     [ZZThumbnailGenerator deleteThumbFileForVideo:videoModel];
 }
-
-//+ (TBMVideo*)entityFromModel:(ZZVideoDomainModel*)model
-//{
-//    TBMVideo* entity = [ZZVideoDataProvider entityWithID:model.videoID];
-//    if (!entity)
-//    {
-//        entity = [TBMVideo MR_createEntityInContext:[self _context]];
-//    }
-//    return [ZZVideoModelsMapper fillEntity:entity fromModel:model];
-//}
-
 
 #pragma mark - Private
 
 + (NSManagedObjectContext*)_context
 {
-    return [ZZContentDataAcessor contextForCurrentThread];
+    return [ZZContentDataAccessor mainThreadContext];
 }
 
 

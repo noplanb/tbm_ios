@@ -54,6 +54,17 @@
     NSString* actionButtonTitle = @"Update";
     NSString* title = @"Update Available";
     
+    ANCodeBlock updateBlock = ^{
+
+        if (!canBeSkipped)
+        {
+            [self _needUpdate:NO];
+        }
+        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kAppstoreURLString]];
+        
+    };
+    
     if (IOS8_OR_HIGHER)
     {
         [ZZAlertBuilder presentAlertWithTitle:@"Update Available"
@@ -62,9 +73,7 @@
                            cancelButtonAction:canBeSkipped ? ^{
 
                            }: nil
-                            actionButtonTitle:@"Update" action:^{
-                                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kAppstoreURLString]];
-                            }];
+                            actionButtonTitle:@"Update" action:updateBlock];
     }
     else
     {
@@ -81,7 +90,7 @@
             
             if ([buttonIndex integerValue] != alertView.cancelButtonIndex)
             {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kAppstoreURLString]];
+                updateBlock();
             }
         }];
     }
@@ -96,6 +105,11 @@
 {
     NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
     return [NSString stringWithFormat:@"Your %@ app is %@. Please update", appName, q];
+}
+
+- (void)presentNetworkTestController
+{
+    [self.wireframe presentNetworkTestController];
 }
 
 @end

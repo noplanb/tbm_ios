@@ -12,11 +12,12 @@
 #import "ZZMenuModuleDelegate.h"
 #import "ZZMenuModuleInterface.h"
 #import "ZZGridModuleDelegate.h"
-
+#import "ANDrawerNC.h"
 
 @interface ZZMenuPresenter : NSObject
 <   ZZMenuInteractorOutput,
-    ZZMenuModuleInterface
+    ZZMenuModuleInterface,
+    ANDrawerNCDelegate
 >
 
 @property (nonatomic, strong) id<ZZMenuInteractorInput> interactor;
@@ -27,5 +28,6 @@
 
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZMenuViewInterface>*)userInterface;
 - (void)reloadContactMenuData;
+- (void)reloadContacts;
 
 @end

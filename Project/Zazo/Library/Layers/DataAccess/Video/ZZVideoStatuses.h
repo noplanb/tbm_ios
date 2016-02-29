@@ -7,6 +7,7 @@
 //
 @class TBMFriend;
 @class TBMVideo;
+@class ZZFriendDomainModel;
 
 typedef NS_ENUM (NSInteger, ZZVideoIncomingStatus) {
     ZZVideoIncomingStatusNew,
@@ -14,6 +15,7 @@ typedef NS_ENUM (NSInteger, ZZVideoIncomingStatus) {
     ZZVideoIncomingStatusDownloaded,
     ZZVideoIncomingStatusViewed,
     ZZVideoIncomingStatusFailedPermanently,
+    ZZVideoIncomingStatusGhost,
 };
 
 typedef NS_ENUM (NSInteger, ZZVideoOutgoingStatus) {
@@ -35,13 +37,7 @@ typedef NS_ENUM(NSInteger, ZZVideoStatusEventType) {
 
 NSString* ZZVideoIncomingStatusShortStringFromEnumValue(ZZVideoIncomingStatus);
 NSString* ZZVideoIncomingStatusStringFromEnumValue(ZZVideoIncomingStatus);
-ZZVideoIncomingStatus ZZVideoIncomingStatusEnumValueFromString(NSString*);
-
-
 NSString* ZZVideoOutgoingStatusStringFromEnumValue(ZZVideoOutgoingStatus);
-ZZVideoOutgoingStatus ZZVideoOutgoingStatusEnumValueFromString(NSString*);
+NSString* ZZVideoStatusStringWithFriendModel(ZZFriendDomainModel* friend);
 
-NSString* ZZVideoStatusStringWithFriend(TBMFriend* friend);
-TBMVideo* ZZNewestIncomingVideoFromFriend(TBMFriend* friend);
-NSString* ZZVideoIncomingStatusStringWithFriend(TBMFriend* friend);
-NSString* ZZVideoOutgoingStatusWithFriend(TBMFriend* friend);
+static NSString* const kDeleteFileNotification = @"fileDeletedNotification";

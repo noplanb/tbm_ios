@@ -12,6 +12,7 @@
 #import "ZZCommonNetworkTransportService.h"
 #import "ZZRollbarConstants.h"
 #import "ZZApplicationStateInfoGenerator.h"
+#import "OBLogger+ZZAdditions.h"
 
 @implementation ZZRollbarAdapter
 
@@ -34,7 +35,7 @@
                                                  selector:@selector(_loggerReceivedError:)
                                                      name:OBLoggerErrorNotification object:nil];
         
-        RollbarConfiguration *config = [RollbarConfiguration configuration];
+        RollbarConfiguration *config = [[RollbarConfiguration alloc] initWithLoadedConfiguration];
         config.crashLevel = @"critical";
         [Rollbar initWithAccessToken:kRollBarToken configuration:config];
         
@@ -44,18 +45,19 @@
             config.environment = ZZDispatchServerStateStringFromEnumValue(serverState);
         }];
         
-        [RACObserve([ZZStoredSettingsManager shared], shouldUseRollBarSDK) subscribeNext:^(NSNumber* x) {
+        [RACObserve([ZZStoredSettingsManager shared], shouldUseServerLogging) subscribeNext:^(NSNumber* x) {
             
-            BOOL shouldUSerSDK = [x boolValue];
-            self.endpointType = shouldUSerSDK ? ZZDispatchEndpointRollbar : ZZDispatchEndpointServer;
+            #ifdef NETTEST
+            self.endpointType = ZZDispatchEndpointRollbar;
+            #else
+                BOOL shouldUseServerLogging = [x boolValue];
+                self.endpointType = shouldUseServerLogging ? ZZDispatchEndpointServer : ZZDispatchEndpointRollbar;
+            #endif
         }];
-//#ifdef DEBUG
+
         [OBLogger instance].writeToConsole = YES;
-//#endif
-        if ([[OBLogger instance] logLines].count > 3000)
-        {
-            [[OBLogger instance] reset];
-        }
+
+        self.enabled = YES;
     }
     return self;
 }
@@ -80,7 +82,7 @@
         message = [NSString stringWithFormat:@"%@\n\n\n%@", [NSObject an_safeString:message], [self _logString]];
     }
     message = [message stringByAppendingFormat:@"\n%@", [ZZApplicationStateInfoGenerator globalStateString]];
-//#ifndef DEBUG
+
     if (self.endpointType == ZZDispatchEndpointServer)
     {
         [[ZZCommonNetworkTransportService logMessage:message] subscribeNext:^(id x) {}];
@@ -90,7 +92,6 @@
         NSString *levelString = ZZDispatchLevelStringFromEnumValue(level);
         [Rollbar logWithLevel:levelString message:message];
     }
-//#endif
 }
 
 
@@ -109,16 +110,8 @@
 
 - (NSString*)_logString
 {
-    NSArray* logLines = [[OBLogger instance] logLines];
-    NSString* line;
-    NSString* r = @"";
-    
-    for (line in logLines)
-    {
-        r = [r stringByAppendingString:line];
-        r = [r stringByAppendingString:@"\n"];
-    }
-    return r;
+    [[OBLogger instance] dropOldLines:1000];
+    return [[[OBLogger instance] logLines] componentsJoinedByString:@"\n"];
 }
 
 @end

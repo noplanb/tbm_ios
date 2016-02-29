@@ -1,0 +1,7 @@
+23/02/16 13:45:03 INFO: Creating a background URLSession
+23/02/16 13:45:03 DEBUG: OBTasks file does not exist so saving current state
+23/02/16 13:45:03 DEBUG: Restored 0 tracked tasks: 
+23/02/16 13:45:03 DEBUG: Created OBFileTransferManager instance
+23/02/16 13:45:03 DEBUG: Saved 0 tracked tasks: 
+23/02/16 13:45:03 INFO: <ZZAppDelegate.m:(43)> applicationDidBecomeActive
+23/02/16 13:45:03 EVENT: APP ENTERED FOREGROUND
