@@ -1,5 +1,5 @@
 //
-//  ZZCircleView.h
+//  ZZRecordButtonView.h
 //  Zazo
 //
 //  Created by Rinat on 25/02/16.
@@ -10,7 +10,7 @@
 
 
 
-@interface ZZCircleView : UIView
+@interface ZZRecordButtonView : UIView
 
 @property (nonatomic, weak) UILabel *textLabel;
 @property (nonatomic, weak) UIImageView *imageView;

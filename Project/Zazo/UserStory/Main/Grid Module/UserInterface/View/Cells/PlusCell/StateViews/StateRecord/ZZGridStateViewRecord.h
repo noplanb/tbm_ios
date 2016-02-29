@@ -8,10 +8,10 @@
 
 #import "ZZGridStateView.h"
 
-@class ZZCircleView;
+@class ZZRecordButtonView;
 
 @interface ZZGridStateViewRecord : ZZGridStateView
 
-@property (nonatomic, strong) ZZCircleView *recordView;
+@property (nonatomic, strong) ZZRecordButtonView *recordView;
 
 @end

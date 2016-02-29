@@ -11,6 +11,6 @@
 
 @interface ZZHoldEffectLayer : CAShapeLayer
 
-- (void)animate:(ZZGridStateViewLayerAnimationType)animationType;
+- (void)animate:(ZZCellEffectType)animationType;
 
 @end

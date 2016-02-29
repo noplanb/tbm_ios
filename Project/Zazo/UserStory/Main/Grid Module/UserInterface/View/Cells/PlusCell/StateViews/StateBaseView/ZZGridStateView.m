@@ -11,7 +11,7 @@
 #import "ZZGridUIConstants.h"
 #import "ZZGridCellGradientView.h"
 #import "ZZLoadingAnimationView.h"
-#import "ZZHoldEffectView.h"
+#import "ZZCellEffectView.h"
 
 @interface ZZGridStateView ()
 
@@ -165,7 +165,7 @@
 
 - (void)showUploadAnimationWithCompletionBlock:(void(^)())completionBlock;
 {
-    [self.holdEffectView animate:ZZGridStateViewLayerAnimationTouchUp];
+    [self.effectView showEffect:ZZCellEffectTypeWaveIn];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.35 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.animationView animateWithType:ZZLoadingAnimationTypeUploading completion:completionBlock];
     });
@@ -420,14 +420,14 @@
     return _backGradientView;
 }
 
-- (ZZHoldEffectView *)holdEffectView
+- (ZZCellEffectView *)effectView
 {
-    if (_holdEffectView)
+    if (_effectView)
     {
-        return _holdEffectView;
+        return _effectView;
     }
     
-    ZZHoldEffectView *holdEffectView = [ZZHoldEffectView new];
+    ZZCellEffectView *holdEffectView = [ZZCellEffectView new];
     [self addSubview:holdEffectView];
     [holdEffectView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
@@ -435,17 +435,34 @@
     [holdEffectView layoutIfNeeded];
     holdEffectView.userInteractionEnabled = NO;
     
-    _holdEffectView = holdEffectView;
+    _effectView = holdEffectView;
     
     return holdEffectView;
-    
-    
 }
+
+- (UIView *)holdView
+{
+    if (_holdView)
+    {
+        return _holdView;
+    }
+    
+    _holdView = [UIView new];
+    
+    [self addSubview:_holdView];
+    
+    [_holdView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo([NSValue valueWithCGSize:CGSizeMake(50, 50)]);
+    }];
+    
+    return _holdView;
+}
+
 #pragma mark Touches
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    [self.holdEffectView animate:ZZGridStateViewLayerAnimationTouchDown];
+    [self.effectView showEffect:ZZCellEffectTypeWaveOut];
     [super touchesBegan:touches withEvent:event];
 }
 

@@ -7,6 +7,6 @@
 //
 
 typedef enum : NSUInteger {
-    ZZGridStateViewLayerAnimationTouchDown,
-    ZZGridStateViewLayerAnimationTouchUp
-} ZZGridStateViewLayerAnimationType;
+    ZZCellEffectTypeWaveOut,
+    ZZCellEffectTypeWaveIn
+} ZZCellEffectType;

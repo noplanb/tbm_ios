@@ -1,23 +1,23 @@
 //
-//  ZZCircleView.m
+//  ZZRecordButtonView.m
 //  Zazo
 //
 //  Created by Rinat on 25/02/16.
 //  Copyright © 2016 No Plan B. All rights reserved.
 //
 
-#import "ZZCircleView.h"
+#import "ZZRecordButtonView.h"
 
 static CGFloat padding = 6.0f;
 static CGFloat diameter = 85.0f;
 
-@interface ZZCircleView ()
+@interface ZZRecordButtonView ()
 {
     BOOL _isAnimating;
 }
 @end
 
-@implementation ZZCircleView
+@implementation ZZRecordButtonView
 
 - (instancetype)init
 {

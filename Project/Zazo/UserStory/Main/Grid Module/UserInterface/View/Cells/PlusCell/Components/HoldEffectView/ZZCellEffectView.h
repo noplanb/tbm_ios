@@ -1,5 +1,5 @@
 //
-//  ZZHoldEffectView.h
+//  ZZCellEffectView.h
 //  Zazo
 //
 //  Created by Rinat on 29/02/16.
@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "ZZHoldEffects.h"
 
-@interface ZZHoldEffectView : UIView
+@interface ZZCellEffectView : UIView
 
-- (void)animate:(ZZGridStateViewLayerAnimationType)animationType;
+- (void)showEffect:(ZZCellEffectType)animationType;
 
 @end

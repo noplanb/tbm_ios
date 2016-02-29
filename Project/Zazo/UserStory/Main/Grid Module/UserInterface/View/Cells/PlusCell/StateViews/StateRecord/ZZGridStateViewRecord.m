@@ -8,7 +8,7 @@
 
 #import "ZZGridStateViewRecord.h"
 #import "ZZGridUIConstants.h"
-#import "ZZCircleView.h"
+#import "ZZRecordButtonView.h"
 
 @interface ZZGridStateViewRecord ()
 
@@ -46,11 +46,11 @@
 
 #pragma mark - Private
 
-- (ZZCircleView *)recordView
+- (ZZRecordButtonView *)recordView
 {
     if (!_recordView)
     {
-        _recordView = [ZZCircleView new];
+        _recordView = [ZZRecordButtonView new];
         _recordView.userInteractionEnabled = YES;
         [self addSubview:_recordView];
         _recordView.tintColor = self.backgroundView.tintColor;

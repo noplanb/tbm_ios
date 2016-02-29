@@ -33,7 +33,7 @@ static CGFloat ZZAnimationDuration = 0.35;
     return self;
 }
 
-- (void)animate:(ZZGridStateViewLayerAnimationType)animationType
+- (void)animate:(ZZCellEffectType)animationType
 {
     if (self.isAnimating)
     {
@@ -47,7 +47,7 @@ static CGFloat ZZAnimationDuration = 0.35;
     });
 
     switch (animationType) {
-        case ZZGridStateViewLayerAnimationTouchUp:
+        case ZZCellEffectTypeWaveIn:
             
             // from:
             self.fillColor = [UIColor colorWithWhite:0 alpha:0].CGColor;
@@ -59,7 +59,7 @@ static CGFloat ZZAnimationDuration = 0.35;
 
             break;
             
-        case ZZGridStateViewLayerAnimationTouchDown:
+        case ZZCellEffectTypeWaveOut:
             
             // from:
             self.path = [UIBezierPath bezierPathWithOvalInRect:[self _stateA]].CGPath;

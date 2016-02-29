@@ -1,21 +1,21 @@
 //
-//  ZZHoldEffectView.m
+//  ZZCellEffectView.m
 //  Zazo
 //
 //  Created by Rinat on 29/02/16.
 //  Copyright © 2016 No Plan B. All rights reserved.
 //
 
-#import "ZZHoldEffectView.h"
+#import "ZZCellEffectView.h"
 #import "ZZHoldEffectLayer.h"
 
-@interface ZZHoldEffectView ()
+@interface ZZCellEffectView ()
 
 @property (nonatomic, readonly) ZZHoldEffectLayer *effectLayer;
 
 @end
 
-@implementation ZZHoldEffectView
+@implementation ZZCellEffectView
 
 @dynamic effectLayer;
 
@@ -29,7 +29,7 @@
     return [ZZHoldEffectLayer class];
 }
 
-- (void)animate:(ZZGridStateViewLayerAnimationType)animationType
+- (void)showEffect:(ZZCellEffectType)animationType
 {
     [self.superview bringSubviewToFront:self];
     [self.effectLayer animate:animationType];

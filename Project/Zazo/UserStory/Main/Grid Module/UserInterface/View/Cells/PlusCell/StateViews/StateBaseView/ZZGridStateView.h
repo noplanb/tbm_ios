@@ -10,7 +10,7 @@
 #import "ANModelTransfer.h"
 #import "ZZUserNameLabel.h"
 
-@class ZZGridCellViewModel, ZZLoadingAnimationView, ZZHoldEffectView;
+@class ZZGridCellViewModel, ZZLoadingAnimationView, ZZCellEffectView;
 
 static CGFloat const kUserNameFontSize = 18;
 
@@ -19,12 +19,8 @@ static CGFloat const kUserNameFontSize = 18;
 @property (nonatomic, strong) UIView* containFriendView;
 
 @property (nonatomic, strong) ZZGridCellViewModel* model;
-//@property (nonatomic, strong) UIImageView* uploadingIndicator;
-//@property (nonatomic, strong) MASConstraint* leftUploadIndicatorConstraint;
 @property (nonatomic, strong) UIView* uploadBarView;
 
-//@property (nonatomic, strong) UIImageView* downloadIndicator;
-//@property (nonatomic, strong) MASConstraint* rightDownloadIndicatorConstraint;
 @property (nonatomic, strong) UIView* downloadBarView;
 @property (nonatomic, strong) UILabel* videoCountLabel;
 @property (nonatomic, strong) UIView* presentedView;
@@ -34,7 +30,8 @@ static CGFloat const kUserNameFontSize = 18;
 @property (nonatomic, strong) UIView *backGradientView;
 @property (nonatomic, strong) ZZLoadingAnimationView *animationView;
 @property (nonatomic, strong) UIImageView* videoViewedView;
-@property (nonatomic, strong) ZZHoldEffectView *holdEffectView;
+@property (nonatomic, strong) ZZCellEffectView *effectView;
+@property (nonatomic, strong) UIView *holdView;
 
 - (instancetype)initWithPresentedView:(UIView*)presentedView;
 
