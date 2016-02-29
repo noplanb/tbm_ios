@@ -49,6 +49,4 @@
     _layer.locations = @[@0.0, @(relativeHeight), @(1-relativeHeight), @1.0];
 }
 
-
-
 @end
