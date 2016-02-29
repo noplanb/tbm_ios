@@ -11,6 +11,7 @@
 #import "ZZGridUIConstants.h"
 #import "ZZGridCellGradientView.h"
 #import "ZZLoadingAnimationView.h"
+#import "ZZHoldEffectView.h"
 
 @interface ZZGridStateView ()
 
@@ -164,7 +165,10 @@
 
 - (void)showUploadAnimationWithCompletionBlock:(void(^)())completionBlock;
 {
-    [self.animationView animateWithType:ZZLoadingAnimationTypeUploading completion:completionBlock];
+    [self.holdEffectView animate:ZZGridStateViewLayerAnimationTouchUp];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.35 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.animationView animateWithType:ZZLoadingAnimationTypeUploading completion:completionBlock];
+    });
 }
 
 - (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock
@@ -294,95 +298,6 @@
 
 }
 
-//- (UIImageView*)uploadingIndicator
-//{
-//    if (!_uploadingIndicator)
-//    {
-//        _uploadingIndicator = [UIImageView new];
-//
-//        CGFloat width = [self _indicatorCalculatedWidth];
-//        CGFloat height = [self _indicatorCalculatedWidth];
-//        UIImage* image = [UIImage imageWithPDFNamed:@"icon_arrow" atHeight:(height/1.5)];
-//        _uploadingIndicator.contentMode = UIViewContentModeCenter;
-//        _uploadingIndicator.image = image;
-//        _uploadingIndicator.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-//        _uploadingIndicator.hidden = YES;
-//        [self addSubview:_uploadingIndicator];
-//        CGFloat aspect = width/height;
-//
-//        [_uploadingIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.top.equalTo(self);
-//            self.leftUploadIndicatorConstraint = make.left.equalTo(self);
-//            make.width.equalTo(@([self _indicatorCalculatedWidth]));
-//            make.height.equalTo(@([self _indicatorCalculatedWidth]/aspect));
-//        }];
-//    }
-//    return _uploadingIndicator;
-//}
-
-//- (UIView*)uploadBarView
-//{
-//    if (!_uploadBarView)
-//    {
-//        _uploadBarView = [UIView new];
-//        _uploadBarView.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-//        _uploadBarView.hidden = YES;
-//        [self addSubview:_uploadBarView];
-//
-//        [_uploadBarView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.top.equalTo(self);
-//            make.height.equalTo(@(kDownloadBarHeight));
-//            make.right.equalTo(self.uploadingIndicator.mas_left);
-//        }];
-//    }
-//
-//    return _uploadBarView;
-//}
-
-//- (UIImageView*)downloadIndicator
-//{
-//    if (!_downloadIndicator)
-//    {
-//        _downloadIndicator = [UIImageView new];
-//
-//        CGFloat width = [self _indicatorCalculatedWidth];
-//        CGFloat height = [self _indicatorCalculatedWidth];
-//        UIImage* image = [UIImage imageWithPDFNamed:@"home-page-arrow-left" atHeight:(height/1.5)];
-//        _downloadIndicator.contentMode = UIViewContentModeCenter;
-//        _downloadIndicator.image = image;
-//        _downloadIndicator.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-//        _downloadIndicator.hidden = YES;
-//        [self addSubview:_downloadIndicator];
-//        CGFloat aspect = width/height;
-//
-//        [_downloadIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.top.equalTo(self);
-//            self.rightDownloadIndicatorConstraint = make.right.equalTo(self).offset(0);
-//            make.width.equalTo(@([self _indicatorCalculatedWidth]));
-//            make.height.equalTo(@([self _indicatorCalculatedWidth]/aspect));
-//        }];
-//    }
-//    return _downloadIndicator;
-//}
-
-//- (UIView*)downloadBarView
-//{
-//    if (!_downloadBarView)
-//    {
-//        _downloadBarView = [UIView new];
-//        _downloadBarView.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-//        _downloadBarView.hidden = YES;
-//        [self addSubview:_downloadBarView];
-//
-//        [_downloadBarView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.right.top.equalTo(self);
-//            make.height.equalTo(@(kDownloadBarHeight));
-//            make.left.equalTo(self.downloadIndicator.mas_right);
-//        }];
-//    }
-//    return _downloadBarView;
-//}
-
 - (UILabel*)videoCountLabel
 {
     if (!_videoCountLabel)
@@ -503,6 +418,35 @@
     }
     
     return _backGradientView;
+}
+
+- (ZZHoldEffectView *)holdEffectView
+{
+    if (_holdEffectView)
+    {
+        return _holdEffectView;
+    }
+    
+    ZZHoldEffectView *holdEffectView = [ZZHoldEffectView new];
+    [self addSubview:holdEffectView];
+    [holdEffectView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
+    }];
+    [holdEffectView layoutIfNeeded];
+    holdEffectView.userInteractionEnabled = NO;
+    
+    _holdEffectView = holdEffectView;
+    
+    return holdEffectView;
+    
+    
+}
+#pragma mark Touches
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.holdEffectView animate:ZZGridStateViewLayerAnimationTouchDown];
+    [super touchesBegan:touches withEvent:event];
 }
 
 @end

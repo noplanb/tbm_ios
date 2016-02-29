@@ -3845,7 +3845,7 @@
 				152158171C84932A00260AFD /* CircleView */,
 				1521581A1C84932A00260AFD /* DateLabel */,
 				1521581D1C84932A00260AFD /* GradientView */,
-				152158201C84932A00260AFD /* GridStateViewLayer */,
+				152158201C84932A00260AFD /* HoldEffectView */,
 				152158231C84932A00260AFD /* UserNameLabel */,
 			);
 			path = Components;
@@ -3878,7 +3878,7 @@
 			path = GradientView;
 			sourceTree = "<group>";
 		};
-		152158201C84932A00260AFD /* GridStateViewLayer */ = {
+		152158201C84932A00260AFD /* HoldEffectView */ = {
 			isa = PBXGroup;
 			children = (
 				152158211C84932A00260AFD /* ZZHoldEffectLayer.h */,
@@ -3887,7 +3887,7 @@
 				1521582C1C84989700260AFD /* ZZHoldEffectView.m */,
 				1521582E1C8498E500260AFD /* ZZHoldEffects.h */,
 			);
-			path = GridStateViewLayer;
+			path = HoldEffectView;
 			sourceTree = "<group>";
 		};
 		152158231C84932A00260AFD /* UserNameLabel */ = {
