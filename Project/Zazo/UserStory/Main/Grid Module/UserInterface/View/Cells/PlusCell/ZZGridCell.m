@@ -11,6 +11,9 @@
 #import "ZZGridStateViewNudge.h"
 #import "ZZGridStateViewRecord.h"
 #import "ZZGridStateViewPreview.h"
+#import "ZZAddContactButton.h"
+
+@class ZZAddContactButton;
 
 static CGFloat ZZCellCornerRadius = 4.0f;
 static CGFloat ZZCellBorderWidth = 4.0f;
@@ -18,7 +21,7 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 @interface ZZGridCell () <ZZGridCellViewModelAnimationDelegate>
 
 @property (nonatomic, strong) ZZGridCellViewModel* model;
-@property (nonatomic, strong) UIButton* plusButton;
+@property (nonatomic, strong) ZZAddContactButton* plusButton;
 @property (nonatomic, strong) UIGestureRecognizer* plusRecognizer;
 @property (nonatomic, strong) ZZGridStateView* stateView;
 @property (nonatomic, assign) ZZGridCellViewModelState currentViewState;
@@ -164,6 +167,13 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 
 - (void)_itemSelected
 {
+    if (self.model.hasActiveContactIcon)
+    {
+        [self _hidePlusButtonAnimated:^{
+            
+        }];
+    }
+    
     [self.model itemSelected];
 }
 
@@ -175,19 +185,12 @@ static CGFloat ZZCellBorderWidth = 4.0f;
     }
 }
 
-- (UIButton*)plusButton
+- (ZZAddContactButton *)plusButton
 {
     if (!_plusButton)
     {
-        _plusButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _plusButton.backgroundColor = [ZZColorTheme shared].gridCellBackgroundColor;
-        _plusButton.adjustsImageWhenHighlighted = NO;
-        _plusButton.showsTouchWhenHighlighted = NO;
-        _plusButton.reversesTitleShadowWhenHighlighted = NO;
-        _plusButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        
-        self.plusButton.contentEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15);
-        
+        _plusButton = [ZZAddContactButton new];
+
         [_plusButton addTarget:self
                         action:@selector(_itemSelected)
               forControlEvents:UIControlEventTouchUpInside];
@@ -200,25 +203,32 @@ static CGFloat ZZCellBorderWidth = 4.0f;
         [_plusButton addGestureRecognizer:longPressRecognizer];
         [self addSubview:_plusButton];
         [self sendSubviewToBack:_plusButton];
-        
+
         [_plusButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self).with.insets([self _defaultInsets]);
         }];
-        
-        UIView *borderView = [UIView new];
-        borderView.userInteractionEnabled = NO;
-        borderView.layer.borderWidth = 2;
-        borderView.layer.borderColor = [ZZColorTheme shared].gridCellBorderColor.CGColor;
-        
-        [_plusButton addSubview:borderView];
-        
-        [borderView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(_plusButton).with.insets(UIEdgeInsetsMake(3, 3, 3, 3));
-        }];
-        
-        
+
+
     }
     return _plusButton;
+}
+
+- (void)_hidePlusButtonAnimated:(ANCodeBlock)completion
+{
+    self.plusButton.transform = CGAffineTransformIdentity;
+    self.plusButton.alpha = 1;
+    
+    [UIView animateWithDuration:1
+                          delay:0
+         usingSpringWithDamping:1
+          initialSpringVelocity:1
+                        options:0
+                     animations:^{
+                         self.plusButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.1f, 0.1f);
+                         self.plusButton.alpha = 0;
+                     } completion:^(BOOL finished) {
+                         completion();
+                     }];
 }
 
 - (void)hideAllAnimations
@@ -229,14 +239,7 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 
 - (void)_updatePlusButtonImage
 {
-    NSString *imageName = self.model.hasActiveContactIcon ? @"contact-button-pink" : @"contact-button-gray";
-    UIImage *image = [UIImage imageNamed:imageName];
-    
-    [self.plusButton setImage:image forState:UIControlStateNormal];
-    
-    self.plusButton.imageEdgeInsets =     // shadow compensation
-    self.model.hasActiveContactIcon ? UIEdgeInsetsMake(-8, -8, -16, -8) : UIEdgeInsetsZero;
-
+    self.plusButton.isActive = self.model.hasActiveContactIcon;
 }
 
 - (UIEdgeInsets)_defaultInsets
