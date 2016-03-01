@@ -80,7 +80,7 @@ PODS:
   - MSSPopMasonry (0.0.2):
     - Masonry
     - pop
-  - OBFileTransfer (0.7.0):
+  - OBFileTransfer (0.8.0):
     - OBLogger
   - OBLogger (0.2.2)
   - PBJVision (0.4.6)
@@ -129,7 +129,7 @@ DEPENDENCIES:
   - MagicalRecord (~> 2.3.0)
   - Masonry (~> 0.6.2)
   - MSSPopMasonry (~> 0.0.1)
-  - OBFileTransfer (= 0.7.0)
+  - OBFileTransfer (= 0.8.0)
   - OBLogger (~> 0.2.2)
   - PBJVision (from `https://github.com/noplanb/PBJVision`, tag `v0.4.6`)
   - Reveal-iOS-SDK (~> 1.6.1)
@@ -177,7 +177,7 @@ SPEC CHECKSUMS:
   MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
   MSSPopMasonry: 65d944fe99051e797d8a1311b0a62bc6090807fa
-  OBFileTransfer: 5185717ed80d68a74ca092de6f650ae29cae857c
+  OBFileTransfer: 2bcd7ca6563f954cd35ab360777cdb21fe3ce9dd
   OBLogger: 52dc3733c54460c3a80d635e47be8556ce6a1312
   PBJVision: 1309d424eb458e0f3f19d496187699bd1f0aa186
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
