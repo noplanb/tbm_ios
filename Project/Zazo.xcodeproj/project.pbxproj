@@ -3842,7 +3842,7 @@
 		152158161C84932A00260AFD /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				152158171C84932A00260AFD /* CircleView */,
+				152158171C84932A00260AFD /* Record button */,
 				1521581A1C84932A00260AFD /* DateLabel */,
 				1521581D1C84932A00260AFD /* GradientView */,
 				152158201C84932A00260AFD /* HoldEffectView */,
@@ -3851,13 +3851,14 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
-		152158171C84932A00260AFD /* CircleView */ = {
+		152158171C84932A00260AFD /* Record button */ = {
 			isa = PBXGroup;
 			children = (
 				152158181C84932A00260AFD /* ZZRecordButtonView.h */,
 				152158191C84932A00260AFD /* ZZRecordButtonView.m */,
 			);
-			path = CircleView;
+			name = "Record button";
+			path = RecordButton;
 			sourceTree = "<group>";
 		};
 		1521581A1C84932A00260AFD /* DateLabel */ = {
@@ -5884,7 +5885,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "a24a50d0-9ddb-4292-9405-67a9d7d8628c";
+				PROVISIONING_PROFILE = "32180b08-f511-4d8f-911e-4e4de5b84e79";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
