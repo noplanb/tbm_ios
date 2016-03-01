@@ -33,6 +33,8 @@
 
 @implementation ZZGridCellViewModel
 
+@dynamic isRecording;
+
 - (instancetype)init
 {
     self = [super init];
@@ -82,6 +84,11 @@
     ANDispatchBlockToMainQueue(^{
        self.usernameLabel.text = [self videoStatusString];
     });
+}
+
+
+- (BOOL)isRecording {
+    return !CGPointEqualToPoint(self.initialRecordPoint, CGPointZero);
 }
 
 - (void)updateRecordingStateTo:(BOOL)isRecording

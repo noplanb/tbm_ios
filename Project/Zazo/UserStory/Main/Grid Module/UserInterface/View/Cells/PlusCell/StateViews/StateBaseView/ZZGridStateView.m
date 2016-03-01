@@ -12,6 +12,7 @@
 #import "ZZGridCellGradientView.h"
 #import "ZZLoadingAnimationView.h"
 #import "ZZCellEffectView.h"
+#import "ZZHoldIndicator.h"
 
 @interface ZZGridStateView ()
 
@@ -34,6 +35,8 @@
 {
     ANDispatchBlockToMainQueue(^{
         self.model = model;
+
+        self.holdIndicatorView.alpha = model.isRecording ? 1 : 0;
 
         // upload video animation
         if (self.model.state & ZZGridCellViewModelStateVideoWasUploaded)
@@ -166,7 +169,7 @@
 - (void)showUploadAnimationWithCompletionBlock:(void(^)())completionBlock;
 {
     [self.effectView showEffect:ZZCellEffectTypeWaveIn];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.35 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.animationView animateWithType:ZZLoadingAnimationTypeUploading completion:completionBlock];
     });
 }
@@ -440,22 +443,25 @@
     return holdEffectView;
 }
 
-- (UIView *)holdView
+- (ZZHoldIndicator *)holdIndicatorView
 {
-    if (_holdView)
+    if (_holdIndicatorView)
     {
-        return _holdView;
+        return _holdIndicatorView;
     }
     
-    _holdView = [UIView new];
+    _holdIndicatorView = [ZZHoldIndicator new];
+
+    [self addSubview:_holdIndicatorView];
     
-    [self addSubview:_holdView];
-    
-    [_holdView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.equalTo([NSValue valueWithCGSize:CGSizeMake(50, 50)]);
+    [_holdIndicatorView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self);
     }];
-    
-    return _holdView;
+
+    [_holdIndicatorView layoutIfNeeded];
+    _holdIndicatorView.userInteractionEnabled = NO;
+
+    return _holdIndicatorView;
 }
 
 #pragma mark Touches

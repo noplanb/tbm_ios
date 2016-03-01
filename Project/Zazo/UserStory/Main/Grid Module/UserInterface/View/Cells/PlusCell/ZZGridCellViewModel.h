@@ -73,7 +73,7 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 @property (nonatomic, assign) BOOL hasDownloadedVideo;
 @property (nonatomic, assign) BOOL hasActiveContactIcon;
 @property (nonatomic, strong) NSDate *lastMessageDate;
-
+@property (nonatomic, assign, readonly) BOOL isRecording;
 @property (nonatomic, weak) UILabel* usernameLabel;
 
 - (void)updateRecordingStateTo:(BOOL)isRecording

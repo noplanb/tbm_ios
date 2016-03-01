@@ -10,7 +10,7 @@
 #import "ANModelTransfer.h"
 #import "ZZUserNameLabel.h"
 
-@class ZZGridCellViewModel, ZZLoadingAnimationView, ZZCellEffectView;
+@class ZZGridCellViewModel, ZZLoadingAnimationView, ZZCellEffectView, ZZHoldIndicator;
 
 static CGFloat const kUserNameFontSize = 18;
 
@@ -31,7 +31,7 @@ static CGFloat const kUserNameFontSize = 18;
 @property (nonatomic, strong) ZZLoadingAnimationView *animationView;
 @property (nonatomic, strong) UIImageView* videoViewedView;
 @property (nonatomic, strong) ZZCellEffectView *effectView;
-@property (nonatomic, strong) UIView *holdView;
+@property (nonatomic, strong) ZZHoldIndicator *holdIndicatorView;
 
 - (instancetype)initWithPresentedView:(UIView*)presentedView;
 
