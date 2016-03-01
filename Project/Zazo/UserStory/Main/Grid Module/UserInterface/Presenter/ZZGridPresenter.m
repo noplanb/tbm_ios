@@ -30,6 +30,7 @@
 #import "RollbarReachability.h"
 #import "ZZVideoDomainModel.h"
 #import "ZZRootStateObserver.h"
+#import "ZZGridDataProvider.h"
 
 @interface ZZGridPresenter ()
 <
@@ -182,6 +183,13 @@
         [self showFriendAnimationWithFriend:model.relatedUser];
         [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventFriendWasAddedToGridWithVideo
                                            notificationObject:nil];
+        
+        // Update first grid cell to let it show active icon
+        ZZGridDomainModel *firstEmpty = [ZZGridDataProvider loadFirstEmptyGridElement];
+        if (firstEmpty)
+        {
+            [self.dataSource updateCellWithModel:firstEmpty];
+        }
     }
 }
 

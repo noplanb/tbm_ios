@@ -169,20 +169,10 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 {
     if (self.model.hasActiveContactIcon)
     {
-        [self _hidePlusButtonAnimated:^{
-            
-        }];
+        [self _hidePlusButtonAnimated];
     }
     
     [self.model itemSelected];
-}
-
-- (void)_itemSelectedWithRecognizer:(UILongPressGestureRecognizer*)recognizer
-{
-    if (recognizer.state == UIGestureRecognizerStateBegan)
-    {
-        [self _itemSelected];
-    }
 }
 
 - (ZZAddContactButton *)plusButton
@@ -195,40 +185,19 @@ static CGFloat ZZCellBorderWidth = 4.0f;
                         action:@selector(_itemSelected)
               forControlEvents:UIControlEventTouchUpInside];
         
-        UILongPressGestureRecognizer* longPressRecognizer =
-        [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                      action:@selector(_itemSelectedWithRecognizer:)];
-        
-        longPressRecognizer.minimumPressDuration = 0.8;
-        [_plusButton addGestureRecognizer:longPressRecognizer];
         [self addSubview:_plusButton];
         [self sendSubviewToBack:_plusButton];
 
         [_plusButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self).with.insets([self _defaultInsets]);
         }];
-
-
     }
     return _plusButton;
 }
 
-- (void)_hidePlusButtonAnimated:(ANCodeBlock)completion
+- (void)_hidePlusButtonAnimated
 {
-    self.plusButton.transform = CGAffineTransformIdentity;
-    self.plusButton.alpha = 1;
-    
-    [UIView animateWithDuration:1
-                          delay:0
-         usingSpringWithDamping:1
-          initialSpringVelocity:1
-                        options:0
-                     animations:^{
-                         self.plusButton.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.1f, 0.1f);
-                         self.plusButton.alpha = 0;
-                     } completion:^(BOOL finished) {
-                         completion();
-                     }];
+    [self.plusButton setPlusViewHidden:YES animated:YES];
 }
 
 - (void)hideAllAnimations
@@ -239,7 +208,9 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 
 - (void)_updatePlusButtonImage
 {
-    self.plusButton.isActive = self.model.hasActiveContactIcon;
+    [UIView animateWithDuration:0.5 animations:^{
+        self.plusButton.isActive = self.model.hasActiveContactIcon;
+    }];
 }
 
 - (UIEdgeInsets)_defaultInsets

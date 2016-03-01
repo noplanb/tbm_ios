@@ -79,6 +79,7 @@ ZZGridCenterCellViewModelDelegate
     if (index != NSNotFound)
     {
         ZZGridCellViewModel* viewModel = [self.models objectAtIndex:index];
+        [self _updateActiveContactIconInModels:@[viewModel]];
         [self _configureCellViewModel:viewModel withDomainModel:model];
         [self _reloadModelAtIndex:index];
     }

@@ -10,4 +10,6 @@
 
 @property(nonatomic, assign) BOOL isActive;
 
+- (void)setPlusViewHidden:(BOOL)hidden animated:(BOOL)flag;
+
 @end
