@@ -43,7 +43,7 @@ static CGFloat const kThumbnailBorderWidth = 2;
         
         [self thumbnailImageView];
         [self userNameLabel];
-        [self containFriendView];
+//        [self containFriendView];
         [self videoViewedView];
         [self dateLabel];
     }

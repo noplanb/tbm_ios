@@ -16,8 +16,6 @@ static CGFloat const kUserNameFontSize = 18;
 
 @interface ZZGridStateView : UIView <ANModelTransfer>
 
-@property (nonatomic, strong) UIView* containFriendView;
-
 @property (nonatomic, strong) ZZGridCellViewModel* model;
 @property (nonatomic, strong) UIView* uploadBarView;
 
@@ -43,4 +41,6 @@ static CGFloat const kUserNameFontSize = 18;
 - (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock;
 - (void)showDownloadViews;
 - (void)hideDownloadViews;
+- (void)showAppearAnimation;
+
 @end

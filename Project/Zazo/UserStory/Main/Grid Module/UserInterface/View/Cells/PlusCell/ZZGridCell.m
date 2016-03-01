@@ -141,6 +141,8 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 
 - (void)setStateView:(ZZGridStateView*)stateView
 {
+    BOOL shouldShowAppearAnimation = self.plusButton.isActive;
+    
     if (_stateView != stateView)
     {
         [_stateView removeFromSuperview];
@@ -150,6 +152,13 @@ static CGFloat ZZCellBorderWidth = 4.0f;
     [stateView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self).with.insets([self _defaultInsets]);
     }];
+    
+    [stateView layoutIfNeeded];
+    
+    if (shouldShowAppearAnimation)
+    {
+        [stateView showAppearAnimation];
+    }
 }
 
 
@@ -197,7 +206,7 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 
 - (void)_hidePlusButtonAnimated
 {
-    [self.plusButton setPlusViewHidden:YES animated:YES];
+    [self.plusButton setPlusViewHidden:YES animated:YES completion:nil];
 }
 
 - (void)hideAllAnimations
@@ -208,9 +217,12 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 
 - (void)_updatePlusButtonImage
 {
-    [UIView animateWithDuration:0.5 animations:^{
+    if (self.model.hasActiveContactIcon)
+    {
+        [self.plusButton setPlusViewHidden:YES animated:NO completion:nil];
         self.plusButton.isActive = self.model.hasActiveContactIcon;
-    }];
+        [self.plusButton setPlusViewHidden:NO animated:YES completion:nil];
+    }
 }
 
 - (UIEdgeInsets)_defaultInsets

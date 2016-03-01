@@ -196,31 +196,36 @@
 //    [self _showUploadIconWithoutAnimation];
 }
 
+- (void)showAppearAnimation
+{
+    
+}
+
 - (void)showContainFriendAnimation
 {
-    ANDispatchBlockToMainQueue(^{
-
-        [self bringSubviewToFront:self.containFriendView];
-
-        [UIView animateWithDuration:kContainFriendAnimationDuration
-                              delay:kContainFreindDelayDuration
-                            options:UIViewAnimationOptionLayoutSubviews animations:^{
-                                self.containFriendView.alpha = 1;
-
-                            } completion:^(BOOL finished) {
-
-                                [self _hideContainFriendAnimation];
-                            }];
-    });
+//    ANDispatchBlockToMainQueue(^{
+//
+//        [self bringSubviewToFront:self.containFriendView];
+//
+//        [UIView animateWithDuration:kContainFriendAnimationDuration
+//                              delay:kContainFreindDelayDuration
+//                            options:UIViewAnimationOptionLayoutSubviews animations:^{
+//                                self.containFriendView.alpha = 1;
+//
+//                            } completion:^(BOOL finished) {
+//
+//                                [self _hideContainFriendAnimation];
+//                            }];
+//    });
 }
 
 - (void)_hideContainFriendAnimation
 {
-    ANDispatchBlockToMainQueue(^{
-        [UIView animateWithDuration:kContainFriendAnimationDuration animations:^{
-            self.containFriendView.alpha = 0;
-        }];
-    });
+//    ANDispatchBlockToMainQueue(^{
+//        [UIView animateWithDuration:kContainFriendAnimationDuration animations:^{
+//            self.containFriendView.alpha = 0;
+//        }];
+//    });
 }
 
 
@@ -239,7 +244,6 @@
 
 - (UIView *)backgroundView
 {
-//TODO: Too slow. Optimize it. 
     
     if (_backgroundView)
     {
@@ -268,26 +272,26 @@
             break;
     }
     
-    switch (arc4random_uniform(5)) {
-        case 0:
-            backgroundView.contentMode = UIViewContentModeTopLeft;
-            break;
-        case 1:
-            backgroundView.contentMode = UIViewContentModeTopRight;
-            break;
-        case 2:
-            backgroundView.contentMode = UIViewContentModeBottomLeft;
-            break;
-        case 3:
-            backgroundView.contentMode = UIViewContentModeBottomRight;
-            break;
-        case 4:
-            backgroundView.contentMode = UIViewContentModeCenter;
-            break;
-            
-        default:
-            break;
-    }
+//    switch (arc4random_uniform(5)) {
+//        case 0:
+//            backgroundView.contentMode = UIViewContentModeTopLeft;
+//            break;
+//        case 1:
+//            backgroundView.contentMode = UIViewContentModeTopRight;
+//            break;
+//        case 2:
+//            backgroundView.contentMode = UIViewContentModeBottomLeft;
+//            break;
+//        case 3:
+//            backgroundView.contentMode = UIViewContentModeBottomRight;
+//            break;
+//        case 4:
+//            backgroundView.contentMode = UIViewContentModeCenter;
+//            break;
+//            
+//        default:
+//            break;
+//    }
     
     [self addSubview:backgroundView];
     [backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -325,21 +329,21 @@
     return _videoCountLabel;
 }
 
-- (UIView*)containFriendView
-{
-    if (!_containFriendView)
-    {
-        _containFriendView = [UIView new];
-        _containFriendView.alpha = 0;
-        _containFriendView.backgroundColor = [UIColor yellowColor];
-        [self addSubview:_containFriendView];
-
-        [_containFriendView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self);
-        }];
-    }
-    return _containFriendView;
-}
+//- (UIView*)containFriendView
+//{
+//    if (!_containFriendView)
+//    {
+//        _containFriendView = [UIView new];
+//        _containFriendView.alpha = 0;
+//        _containFriendView.backgroundColor = [UIColor yellowColor];
+//        [self addSubview:_containFriendView];
+//
+//        [_containFriendView mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.edges.equalTo(self);
+//        }];
+//    }
+//    return _containFriendView;
+//}
 
 - (UIImageView *)videoViewedView
 {

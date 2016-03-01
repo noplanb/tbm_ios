@@ -30,6 +30,8 @@
 
         [self _makeLayout];
         [self _makeLongTapRecognizer];
+        
+        self.isActive = NO;
     }
 
     return self;
@@ -82,11 +84,11 @@
 
     self.imageView.image = image;
 
-    self.imageEdgeInsets =     // shadow compensation
-    isActive ? UIEdgeInsetsMake(-8, -8, -16, -8) : UIEdgeInsetsZero;
+//    self.imageEdgeInsets =     // shadow compensation
+//    isActive ? UIEdgeInsetsMake(-8, -8, -16, -8) : UIEdgeInsetsZero;
 }
 
-- (void)setPlusViewHidden:(BOOL)hidden animated:(BOOL)animated
+- (void)setPlusViewHidden:(BOOL)hidden animated:(BOOL)animated completion:(ANCodeBlock)completion
 {
     ANCodeBlock changes = ^{
         self.imageView.transform =
@@ -100,16 +102,25 @@
     if (!animated)
     {
         changes();
+        if (completion)
+        {
+            completion();
+        }
         return;
     }
     
-    [UIView animateWithDuration:.5
+    [UIView animateWithDuration:0.5f
                           delay:0
          usingSpringWithDamping:1
           initialSpringVelocity:1
                         options:0
                      animations:changes
-                     completion:nil];
+                     completion:^(BOOL finished) {
+                         if (completion)
+                         {
+                             completion();
+                         }
+                     }];
 
 }
 

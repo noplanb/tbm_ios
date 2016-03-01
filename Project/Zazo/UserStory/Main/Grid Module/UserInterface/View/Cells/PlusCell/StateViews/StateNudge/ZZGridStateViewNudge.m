@@ -25,7 +25,7 @@
         [self nudgeButton];
         [self userNameLabel];
         [self recordView];
-        [self containFriendView];
+//        [self containFriendView];
 //        [self uploadingIndicator];
         [self uploadBarView];
 //        [self downloadIndicator];
