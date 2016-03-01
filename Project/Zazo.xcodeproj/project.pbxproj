@@ -1301,7 +1301,7 @@
 		181D1CCA1BC54E6F00044F83 /* ZZGridPresenter+ActionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZZGridPresenter+ActionHandler.m"; sourceTree = "<group>"; };
 		181D1CCD1BC550DE00044F83 /* ZZGridInteractor+ActionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZZGridInteractor+ActionHandler.h"; sourceTree = "<group>"; };
 		181D1CCE1BC550DE00044F83 /* ZZGridInteractor+ActionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZZGridInteractor+ActionHandler.m"; sourceTree = "<group>"; };
-		182255A81C16CA06003885A3 /* Zazo-NetworkTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Zazo-NetworkTest.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		182255A81C16CA06003885A3 /* tbm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tbm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		182255A91C16CA07003885A3 /* Zazo copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Zazo copy-Info.plist"; path = "/Users/anoda/Documents/Development/build-mirror/Project/Zazo copy-Info.plist"; sourceTree = "<absolute>"; };
 		182255DD1C16E08A003885A3 /* ZZNetworkTestInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZNetworkTestInteractor.h; sourceTree = "<group>"; };
 		182255DE1C16E08A003885A3 /* ZZNetworkTestInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZNetworkTestInteractor.m; sourceTree = "<group>"; };
@@ -4391,7 +4391,7 @@
 			children = (
 				220E90251909A18B003C4F82 /* Zazo.app */,
 				220E90451909A18B003C4F82 /* ZazoTests.xctest */,
-				182255A81C16CA06003885A3 /* Zazo-NetworkTest.app */,
+				182255A81C16CA06003885A3 /* tbm.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4542,7 +4542,7 @@
 			);
 			name = "Zazo-NetworkTest";
 			productName = tbm;
-			productReference = 182255A81C16CA06003885A3 /* Zazo-NetworkTest.app */;
+			productReference = 182255A81C16CA06003885A3 /* tbm.app */;
 			productType = "com.apple.product-type.application";
 		};
 		220E90241909A18B003C4F82 /* Zazo */ = {
@@ -5561,8 +5561,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5581,7 +5581,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "a50746b7-d75c-4f57-8cce-38709e930b47";
+				PROVISIONING_PROFILE = "a24a50d0-9ddb-4292-9405-67a9d7d8628c";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -5611,43 +5611,17 @@
 			};
 			name = "Ad-hoc";
 		};
-		182255A51C16CA06003885A3 /* Debug */ = {
+		15A324F91C84C29B006B2E86 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5988C69CC62CF4472CA2040A /* Pods-Zazo.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Zazo/Vendor",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"NETTEST=1",
-				);
-				INFOPLIST_FILE = "Zazo copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "32180b08-f511-4d8f-911e-4e4de5b84e79";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
-				VERSIONING_SYSTEM = "apple-generic";
-				WRAPPER_EXTENSION = app;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = tbm;
 			};
 			name = Debug;
-		182255A61C16CA06003885A3 /* Release */ = {
 		};
+		182255A51C16CA06003885A3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B1860DB43B6E70D5AEF73EF4 /* Pods-Zazo.release.xcconfig */;
 			buildSettings = {
@@ -5816,8 +5790,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5831,7 +5805,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "32180b08-f511-4d8f-911e-4e4de5b84e79";
+				PROVISIONING_PROFILE = "a24a50d0-9ddb-4292-9405-67a9d7d8628c";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -5848,7 +5822,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: No Plan B Productions (DYQN26F8U9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5930,9 +5904,9 @@
 		182255A41C16CA06003885A3 /* Build configuration list for PBXNativeTarget "Zazo-NetworkTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				182255A51C16CA06003885A3 /* Debug */,
-				182255A61C16CA06003885A3 /* Release */,
+				182255A51C16CA06003885A3 /* Release */,
 				182255A71C16CA06003885A3 /* Ad-hoc */,
+				15A324F91C84C29B006B2E86 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
