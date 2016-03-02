@@ -15,7 +15,7 @@
         return [UIFont fontWithName:@"HelveticaNeue-Light" size:size];
     }
 
-    return [UIFont systemFontOfSize:size weight:300];
+    return [UIFont systemFontOfSize:size weight:UIFontWeightLight];
 }
 
 + (UIFont *)zz_regularFontWithSize:(CGFloat)size
@@ -30,7 +30,7 @@
         return [UIFont fontWithName:@"HelveticaNeue-Medium" size:size];
     }
 
-    return [UIFont systemFontOfSize:size weight:500];
+    return [UIFont systemFontOfSize:size weight:UIFontWeightMedium];
 
 }
 
