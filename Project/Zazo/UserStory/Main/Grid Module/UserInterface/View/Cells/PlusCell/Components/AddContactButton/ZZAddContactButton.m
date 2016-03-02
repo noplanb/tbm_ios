@@ -8,12 +8,13 @@
 @interface ZZAddContactButton ()
 
 @property (nonatomic, strong, readonly) UIImageView *imageView;
+@property (nonatomic, strong, readonly) UILabel *textLabel;
 
 @end
 
 @implementation ZZAddContactButton
 
-@synthesize imageView = _imageView;
+@synthesize imageView = _imageView, textLabel = _textLabel;
 
 - (instancetype)init {
     self = [super init];
@@ -51,7 +52,7 @@
 - (void)_makeLayout
 {
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self);
+        make.center.equalTo(self).centerOffset(CGPointMake(0, -16));
     }];
     
     UIView *borderView = [UIView new];
@@ -64,6 +65,8 @@
     [borderView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self).with.insets(UIEdgeInsetsMake(3, 3, 3, 3));
     }];
+    
+    
 }
 
 - (void)_itemSelectedWithRecognizer:(UILongPressGestureRecognizer*)recognizer
@@ -74,7 +77,33 @@
     }
 }
 
-#pragma mark Setters
+#pragma mark Setters & getters
+
+- (UILabel *)textLabel
+{
+    if (_textLabel) {
+        return _textLabel;
+    }
+    
+    _textLabel = [UILabel new];
+    _textLabel.textAlignment = NSTextAlignmentCenter;
+    _textLabel.font = [UIFont zz_boldFontWithSize:16];
+    _textLabel.text = @"Add contact";
+    _textLabel.textColor = [UIColor grayColor];
+    _textLabel.minimumScaleFactor = 0.75;
+    [_textLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    
+    [self addSubview:_textLabel];
+    
+    [_textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self);
+        make.width.equalTo(self).offset(16);
+        make.bottom.equalTo(self).offset(-16);
+    }];
+    
+    
+    return _textLabel;
+}
 
 - (void)setIsActive:(BOOL)isActive {
     _isActive = isActive;
@@ -84,6 +113,8 @@
 
     self.imageView.image = image;
 
+    self.textLabel.hidden = !isActive;
+    
 //    self.imageEdgeInsets =     // shadow compensation
 //    isActive ? UIEdgeInsetsMake(-8, -8, -16, -8) : UIEdgeInsetsZero;
 }
@@ -97,6 +128,7 @@
         CGAffineTransformIdentity;
         
         self.imageView.alpha = hidden ? 0 : 1;
+        self.textLabel.alpha = hidden ? 0 : 1;
     };
     
     if (!animated)

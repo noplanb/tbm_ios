@@ -111,7 +111,7 @@ static CGFloat const kSeparatorHeight = 1;
     if (!_username)
     {
         _username = [UILabel new];
-        _username.font = [UIFont an_lightFontWithSize:18];
+        _username.font = [UIFont systemFontOfSize:18 weight:300];
         _username.textColor = [UIColor an_colorWithHexString:@"a8a294"];
         [self.contentView addSubview:_username];
         

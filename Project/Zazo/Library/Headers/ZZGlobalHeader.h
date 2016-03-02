@@ -40,7 +40,7 @@ static NSString* const kGlobalApplicationVersion = @"43";
 
 //#pragma mark - UI Categories
 
-#import "UIFont+ANAdditions.h"
+#import "UIFont+ZZAdditions.h"
 #import "UIColor+ANAdditions.h"
 #import "UIImage+PDF.h"
 #import "UINavigationItem+ANAdditions.h"

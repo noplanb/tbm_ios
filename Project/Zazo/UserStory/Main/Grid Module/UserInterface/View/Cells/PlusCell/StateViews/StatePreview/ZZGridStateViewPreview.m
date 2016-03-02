@@ -199,8 +199,8 @@ static CGFloat const kThumbnailBorderWidth = 2;
     {
         UILabel *label = [ZZDateLabel new];
         
-        label.font = [UIFont an_meduimFontWithSize:kLayoutConstDateLabelFontSize];
-        label.text = @"12:30 PM";
+        label.font = [UIFont zz_mediumFontWithSize:kLayoutConstDateLabelFontSize];
+        label.text = @"";
         label.textColor = [ZZColorTheme shared].gridCellTextColor;
         
         [self addSubview:label];

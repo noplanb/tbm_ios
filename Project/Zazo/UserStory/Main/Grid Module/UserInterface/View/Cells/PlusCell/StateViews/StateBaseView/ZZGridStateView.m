@@ -316,7 +316,7 @@
         _videoCountLabel.hidden = YES;
         _videoCountLabel.textColor = [UIColor whiteColor];
         _videoCountLabel.textAlignment = NSTextAlignmentCenter;
-        _videoCountLabel.font = [UIFont an_regularFontWithSize:11];
+        _videoCountLabel.font = [UIFont zz_regularFontWithSize:11];
         [self addSubview:_videoCountLabel];
 
         [_videoCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -397,7 +397,7 @@
         _userNameLabel = [ZZUserNameLabel new];
         _userNameLabel.textAlignment = NSTextAlignmentCenter;
         _userNameLabel.textColor = [ZZColorTheme shared].gridCellTextColor;
-        _userNameLabel.font = [UIFont an_regularFontWithSize:kUserNameFontSize];
+        _userNameLabel.font = [UIFont zz_regularFontWithSize:kUserNameFontSize];
 //        _userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellUserNameGrayColor;;
         [self addSubview:_userNameLabel];
 

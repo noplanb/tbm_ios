@@ -434,7 +434,7 @@
     {
         _startButton = [UIButton new];
         _startButton.titleLabel.textColor = [UIColor whiteColor];
-        _startButton.titleLabel.font = [UIFont an_regularFontWithSize:16];
+        _startButton.titleLabel.font = [UIFont zz_regularFontWithSize:16];
         _startButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         _startButton.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
         [_startButton setTitle:NSLocalizedString(@"network-test-view.start.button.title", nil) forState:UIControlStateNormal];
@@ -457,7 +457,7 @@
     {
         _resetRetriesButton = [UIButton new];
         _resetRetriesButton.titleLabel.textColor = [UIColor whiteColor];
-        _resetRetriesButton.titleLabel.font = [UIFont an_regularFontWithSize:16];
+        _resetRetriesButton.titleLabel.font = [UIFont zz_regularFontWithSize:16];
         _resetRetriesButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         _resetRetriesButton.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
         [_resetRetriesButton setTitle:NSLocalizedString(@"network-test-view.reset.retries.button.title", nil) forState:UIControlStateNormal];
@@ -479,7 +479,7 @@
     {
         _resetStatsButton = [UIButton new];
         _resetStatsButton.titleLabel.textColor = [UIColor whiteColor];
-        _resetStatsButton.titleLabel.font = [UIFont an_regularFontWithSize:16];
+        _resetStatsButton.titleLabel.font = [UIFont zz_regularFontWithSize:16];
         _resetStatsButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         _resetStatsButton.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
         [_resetStatsButton setTitle:NSLocalizedString(@"network-test-view.reset.stats.button.title", nil) forState:UIControlStateNormal];

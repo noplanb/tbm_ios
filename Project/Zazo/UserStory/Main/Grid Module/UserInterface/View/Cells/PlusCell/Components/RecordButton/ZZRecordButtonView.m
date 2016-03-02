@@ -63,7 +63,7 @@ static CGFloat diameter = 85.0f;
     // label
     
     UILabel *label = [UILabel new];
-    label.font = [UIFont an_condensedBoldFontWithSize:13];
+    label.font = [UIFont zz_condensedBoldFontWithSize:13];
     label.text = @"HOLD TO\nRECORD";
     label.textAlignment = NSTextAlignmentCenter;
     label.numberOfLines = 2;

@@ -77,7 +77,7 @@
     if (!_nameLabel)
     {
         _nameLabel = [UILabel new];
-        _nameLabel.font = [UIFont an_meduimFontWithSize:17];
+        _nameLabel.font = [UIFont zz_mediumFontWithSize:17];
         _nameLabel.highlightedTextColor = [UIColor whiteColor];
         _nameLabel.textColor = [UIColor an_colorWithHexString:@"202020"];
         _nameLabel.adjustsFontSizeToFitWidth = YES;
@@ -98,7 +98,7 @@
     if (!_phoneNumberLabel)
     {
         _phoneNumberLabel = [UILabel new];
-        _phoneNumberLabel.font = [UIFont an_regularFontWithSize:15];
+        _phoneNumberLabel.font = [UIFont zz_regularFontWithSize:15];
         _phoneNumberLabel.highlightedTextColor = [UIColor whiteColor];
         _phoneNumberLabel.textColor = [UIColor colorWithRed:0.45 green:0.45 blue:0.42 alpha:1];
         [self addSubview:_phoneNumberLabel];
@@ -119,7 +119,7 @@
         _deleteAndRestoreButton = [ANProgressButton buttonWithTheme:[ZZColorTheme shared].editFriendsTheme];
       
         [_deleteAndRestoreButton setTitleColor:[UIColor an_colorWithHexString:@"202020"] forState:UIControlStateNormal];
-        _deleteAndRestoreButton.titleLabel.font = [UIFont an_regularFontWithSize:15];
+        _deleteAndRestoreButton.titleLabel.font = [UIFont zz_regularFontWithSize:15];
         [_deleteAndRestoreButton addTarget:self action:@selector(_deleteButtonSelected) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_deleteAndRestoreButton];
         

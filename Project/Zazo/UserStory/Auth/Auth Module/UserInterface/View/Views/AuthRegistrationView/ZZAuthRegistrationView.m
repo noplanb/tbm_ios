@@ -161,7 +161,7 @@ static CGFloat const kCodeLableLeftPadding = 3;
         _plusLabel = [UILabel new];
         _plusLabel.textColor = [UIColor whiteColor];
         _plusLabel.text = @"+";
-        _plusLabel.font = [UIFont an_lightFontWithSize:18];
+        _plusLabel.font = [UIFont zz_lightFontWithSize:18];
         [self.phoneCodeTextField addSubview:_plusLabel];
     }
     return _plusLabel;
@@ -192,7 +192,7 @@ static CGFloat const kCodeLableLeftPadding = 3;
     {
         _signInButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_signInButton setTitle:NSLocalizedString(@"auth-controller.signIn.button.title", nil) forState:UIControlStateNormal];
-        _signInButton.titleLabel.font = [UIFont an_regularFontWithSize:21];
+        _signInButton.titleLabel.font = [UIFont zz_regularFontWithSize:21];
         _signInButton.backgroundColor = [UIColor an_colorWithHexString:@"#2F2E28"];
         _signInButton.layer.cornerRadius = kSignInButtonCornerRadius;
         _signInButton.accessibilityLabel = @"SignIn";
@@ -224,7 +224,7 @@ static CGFloat const kCodeLableLeftPadding = 3;
         [paragraphStyle setLineSpacing:5];
         [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [titleString length])];
         _countryCodeLabel.attributedText = attributedString;
-        _countryCodeLabel.font = [UIFont an_regularFontWithSize:11];
+        _countryCodeLabel.font = [UIFont zz_regularFontWithSize:11];
         _countryCodeLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_countryCodeLabel];
         

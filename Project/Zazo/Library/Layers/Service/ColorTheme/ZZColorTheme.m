@@ -36,12 +36,6 @@ static CGFloat const kNavigationBarIconHeight = 20;
 
 + (void)setupFonts
 {
-    [UIFont an_addFontName:@"SFUIText-Light" forType:ANFontTypeLight];
-    [UIFont an_addFontName:@"SFUIText" forType:ANFontTypeRegular];
-    [UIFont an_addFontName:@"SFUIText-Medium" forType:ANFontTypeMedium];
-    [UIFont an_addFontName:@"SFUIText-Bold" forType:ANFontTypeBold];
-    [UIFont an_addFontName:@"HelveticaNeue-CondensedBold" forType:ANFontTypeCondensedBold];
-    
     
 }
 
@@ -116,7 +110,7 @@ static CGFloat const kNavigationBarIconHeight = 20;
                                        forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setShadowImage:[UIImage new]];
     NSDictionary* titleAttributes = @{NSForegroundColorAttributeName : self.navBarFontColor,
-                                      NSFontAttributeName            : [UIFont an_regularFontWithSize:17],
+                                      NSFontAttributeName            : [UIFont zz_regularFontWithSize:17],
                                       NSKernAttributeName            : @(2.0)};
     
     [[UINavigationBar appearance] setTitleTextAttributes:titleAttributes];
@@ -149,7 +143,7 @@ static CGFloat const kNavigationBarIconHeight = 20;
         _editFriendsTheme.selectedStateBackground = [UIColor clearColor];
         _editFriendsTheme.disabledStateBackground = [UIColor clearColor];
         _editFriendsTheme.normalStateFontColor = self.baseColor;
-        _editFriendsTheme.font = [UIFont an_regularFontWithSize:18];
+        _editFriendsTheme.font = [UIFont zz_regularFontWithSize:18];
     }
     return _editFriendsTheme;
 }

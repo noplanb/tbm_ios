@@ -63,7 +63,7 @@
     if (!_nudgeButton)
     {
         _nudgeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_nudgeButton.titleLabel setFont:[UIFont an_meduimFontWithSize:15]];
+        [_nudgeButton.titleLabel setFont:[UIFont zz_mediumFontWithSize:15]];
         [_nudgeButton setTitle:NSLocalizedString(@"grid-controller.nudge.title", nil) forState:UIControlStateNormal];
         [_nudgeButton setTitleColor:[ZZColorTheme shared].gridStatusViewNudgeColor forState:UIControlStateNormal];
         [_nudgeButton addTarget:self action:@selector(_nudge) forControlEvents:UIControlEventTouchUpInside];
@@ -87,7 +87,7 @@
         _recordView = [UILabel new];
         _recordView.text = NSLocalizedString(@"grid-controller.record.title", nil);
         _recordView.textColor = [ZZColorTheme shared].gridStatusViewRecordColor;
-        _recordView.font = [UIFont an_meduimFontWithSize:14];
+        _recordView.font = [UIFont zz_mediumFontWithSize:14];
         _recordView.textAlignment = NSTextAlignmentCenter;
         _recordView.backgroundColor = [ZZColorTheme shared].gridStatusViewBlackColor;
         _recordView.userInteractionEnabled = YES;

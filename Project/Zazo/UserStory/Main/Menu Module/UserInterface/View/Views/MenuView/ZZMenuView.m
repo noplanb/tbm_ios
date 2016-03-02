@@ -48,7 +48,7 @@ static CGFloat const kSearchBarHeight = 80;
         [[UISearchBar appearance] setBackgroundImage:[UIImage new]];
         [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil]
          setDefaultTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],
-                                    NSFontAttributeName: [UIFont an_lightFontWithSize:16]}];
+                                    NSFontAttributeName: [UIFont zz_lightFontWithSize:16]}];
         
         [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil]
          setTintColor:[UIColor whiteColor]];

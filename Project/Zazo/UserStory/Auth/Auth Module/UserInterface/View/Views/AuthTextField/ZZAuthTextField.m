@@ -23,7 +23,7 @@ static CGFloat const kFontSize = 21;
         self.layer.borderWidth = KTextFieldBorderWidth / ([UIScreen mainScreen].scale);
         self.layer.borderColor = [UIColor colorWithWhite:1.0 alpha:0.8].CGColor;
         self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.2];
-        self.font = [UIFont an_lightFontWithSize:kFontSize];
+        self.font = [UIFont zz_lightFontWithSize:kFontSize];
     }
     return self;
 }
@@ -46,7 +46,7 @@ static CGFloat const kFontSize = 21;
     if (!ANIsEmpty(placeholder))
     {
         NSDictionary* attributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
-                                     NSFontAttributeName : [UIFont an_lightFontWithSize:kFontSize]};
+                                     NSFontAttributeName : [UIFont zz_lightFontWithSize:kFontSize]};
        
         self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:attributes];
     }

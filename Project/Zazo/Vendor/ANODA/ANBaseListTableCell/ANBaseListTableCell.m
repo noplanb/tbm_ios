@@ -54,7 +54,7 @@
     if (!_titleLabel)
     {
         _titleLabel = [UILabel new];
-        _titleLabel.font = [UIFont an_regularFontWithSize:17];
+        _titleLabel.font = [UIFont zz_regularFontWithSize:17];
         _titleLabel.highlightedTextColor = [UIColor whiteColor];
         _titleLabel.textColor = [ZZColorTheme shared].baseCellTextColor;
         [self addSubview:_titleLabel];
