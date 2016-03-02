@@ -14,6 +14,10 @@
 #import "ZZApplicationStateInfoGenerator.h"
 #import "OBLogger+ZZAdditions.h"
 
+static NSString * ZZRollbarIDKeyName = @"RollbarID";
+static NSString * ZZRollbarUserNameKeyName = @"RollbarUserName";
+static NSString * ZZRollbarEmailKeyName = @"RollbarEmail";
+
 @implementation ZZRollbarAdapter
 
 + (instancetype)shared
@@ -38,6 +42,11 @@
         RollbarConfiguration *config = [[RollbarConfiguration alloc] initWithLoadedConfiguration];
         config.crashLevel = @"critical";
         [Rollbar initWithAccessToken:kRollBarToken configuration:config];
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [self _updateUserFullName:[defaults objectForKey:ZZRollbarUserNameKeyName]
+                            phone:[defaults objectForKey:ZZRollbarEmailKeyName]
+                           itemID:[defaults objectForKey:ZZRollbarIDKeyName]];
         
         [RACObserve([ZZStoredSettingsManager shared], serverEndpointState) subscribeNext:^(NSNumber* x) {
             
@@ -64,10 +73,33 @@
 
 - (void)updateUserFullName:(NSString*)fullName phone:(NSString*)phone itemID:(NSString *)itemID
 {
+    phone = [NSObject an_safeString:phone];
+    itemID = [NSObject an_safeString:itemID];
+    fullName = [NSObject an_safeString:fullName];
+    
+    [self _updateUserFullName:fullName
+                        phone:phone
+                       itemID:itemID];
+    
+    // Have to store to user defaults because Rollbar stores it in Caches folder and may forget
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:phone forKey:ZZRollbarEmailKeyName];
+    [defaults setObject:itemID forKey:ZZRollbarIDKeyName];
+    [defaults setObject:fullName forKey:ZZRollbarUserNameKeyName];
+    
+    [defaults synchronize];
+}
+
+- (void)_updateUserFullName:(NSString*)fullName phone:(NSString*)phone itemID:(NSString *)itemID
+{
     RollbarConfiguration *config = [Rollbar currentConfiguration];
-    [config setPersonId:[NSObject an_safeString:itemID]
-               username:[NSObject an_safeString:fullName]
-                  email:[NSObject an_safeString:phone]];
+    
+    [config setPersonId:itemID
+               username:fullName
+                  email:phone];
+    
 }
 
 - (void)logMessage:(NSString*)message
