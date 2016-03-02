@@ -14,5 +14,6 @@
 - (void)showContainFriendAnimation;
 - (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock;
 - (void)hideAllAnimations;
+- (void)hideActiveBorder;
 
 @end

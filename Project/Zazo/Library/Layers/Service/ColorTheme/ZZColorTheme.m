@@ -100,6 +100,7 @@ static CGFloat const kNavigationBarIconHeight = 20;
 
 - (void)setupAppearance
 {
+    [UIApplication sharedApplication].windows.firstObject.tintColor = [UIColor an_colorWithHexString:@"#1976d2"];
     [self _setupNavigationBar];
     [self _setupNavigationButtons];
 }

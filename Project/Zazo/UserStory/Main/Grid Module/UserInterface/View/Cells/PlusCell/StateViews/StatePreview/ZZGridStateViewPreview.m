@@ -9,6 +9,7 @@
 #import "ZZGridStateViewPreview.h"
 #import "ZZGridUIConstants.h"
 #import "ZZDateLabel.h"
+#import "ZZGridCell.h"
 
 typedef enum : NSUInteger {
     ZZDateFormatTemplateToday,
@@ -34,7 +35,7 @@ static CGFloat const kThumbnailBorderWidth = 2;
 @implementation ZZGridStateViewPreview
 
 
-- (instancetype)initWithPresentedView:(UIView *)presentedView
+- (instancetype)initWithPresentedView:(ZZGridCell *)presentedView
 {
     self = [super initWithPresentedView:presentedView];
     if (self)
@@ -56,7 +57,6 @@ static CGFloat const kThumbnailBorderWidth = 2;
     ANDispatchBlockToMainQueue(^{
         [super updateWithModel:model];
         [self _setupThumbnailWithModel:model];
-        [self _configureGreenBorderIfNeededWithModel:model];
         self.userNameLabel.hidden = NO;
         [self _handleFailedVideoDownloadWithModel:model];
         [self _updateVideoSentDate:model.lastMessageDate];
@@ -108,7 +108,7 @@ static CGFloat const kThumbnailBorderWidth = 2;
 {
     if (model.badgeNumber == 0 && (model.state & ZZGridCellViewModelStateVideoFailedPermanently))
     {
-        [self _hideThumbnailGreenBorder];
+        [self.presentedView hideActiveBorder];
     }
 }
 
@@ -129,32 +129,6 @@ static CGFloat const kThumbnailBorderWidth = 2;
     }
     
     self.thumbnailImageView.image = thumbImage;
-    
-//    [model removeRecordHintRecognizerFromView:self];
-}
-
-- (void)_configureGreenBorderIfNeededWithModel:(ZZGridCellViewModel*)model
-{
-    if (model.state & ZZGridCellViewModelStateNeedToShowGreenBorder)
-    {
-        [self _showThumbnailGreenBorder];
-    }
-    else
-    {
-        [self _hideThumbnailGreenBorder];
-    }
-}
-
-- (void)_showThumbnailGreenBorder
-{
-    self.thumbnailImageView.layer.borderColor = [ZZColorTheme shared].gridCellLayoutGreenColor.CGColor;
-    self.thumbnailImageView.layer.borderWidth = kThumbnailBorderWidth;
-}
-
-- (void)_hideThumbnailGreenBorder
-{
-    self.thumbnailImageView.layer.borderColor = [UIColor clearColor].CGColor;
-    self.thumbnailImageView.layer.borderWidth = 0.0;
 }
 
 - (void)_startVideo:(UITapGestureRecognizer *)recognizer
@@ -162,7 +136,7 @@ static CGFloat const kThumbnailBorderWidth = 2;
     if (!self.superview.isHidden && [self.model isEnablePlayingVideo])
     {
         [self hideAllAnimationViews];
-        [self _hideThumbnailGreenBorder];
+        [self.presentedView hideActiveBorder];
 //        self.userNameLabel.hidden = YES;
         [self.model updateVideoPlayingStateTo:YES];
     }

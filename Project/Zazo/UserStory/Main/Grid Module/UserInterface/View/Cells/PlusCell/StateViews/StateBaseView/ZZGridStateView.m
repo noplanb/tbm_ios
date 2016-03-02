@@ -21,7 +21,7 @@
 
 @implementation ZZGridStateView
 
-- (instancetype)initWithPresentedView:(UIView*)presentedView
+- (instancetype)initWithPresentedView:(ZZGridCell*)presentedView
 {
     self = [super init];
     if (self)

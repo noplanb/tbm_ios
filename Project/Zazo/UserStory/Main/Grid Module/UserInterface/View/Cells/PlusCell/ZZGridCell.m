@@ -91,6 +91,7 @@ static CGFloat ZZCellBorderWidth = 4.0f;
             [self _setupRecordRecognizerWithModel:model];
         }
         
+        [self _configureActiveBorderIfNeededWithModel:model];
         
         if (self.stateView)
         {
@@ -100,6 +101,29 @@ static CGFloat ZZCellBorderWidth = 4.0f;
         
     });
 }
+
+- (void)_configureActiveBorderIfNeededWithModel:(ZZGridCellViewModel*)model
+{
+    if (model.state & ZZGridCellViewModelStateNeedToShowGreenBorder)
+    {
+        [self _showActiveBorder];
+    }
+    else
+    {
+        [self hideActiveBorder];
+    }
+}
+
+- (void)_showActiveBorder
+{
+    self.backgroundColor = self.tintColor;
+}
+
+- (void)hideActiveBorder
+{
+    self.backgroundColor = [UIColor whiteColor];
+}
+
 
 - (BOOL)_isNeedToChangeStateViewWithModel:(ZZGridCellViewModel*)model
 {
