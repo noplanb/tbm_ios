@@ -13,6 +13,7 @@
 #import "ZZLoadingAnimationView.h"
 #import "ZZCellEffectView.h"
 #import "ZZHoldIndicator.h"
+#import "ZZBadge.h"
 
 @interface ZZGridStateView ()
 
@@ -98,8 +99,12 @@
     [self showDownloadAnimationWithCompletionBlock:^{
 //        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
 //        self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-        [self _setupBadgeWithModel:model];
+        
     }];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self _setupBadgeWithModel:model];
+    });
 }
 
 - (void)_setupBadgeWithModel:(ZZGridCellViewModel*)model
@@ -176,19 +181,21 @@
 
 - (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock
 {
+    [self bringSubviewToFront:self.animationView];
+    [self bringSubviewToFront:self.badge];
     [self.animationView animateWithType:ZZLoadingAnimationTypeDownloading completion:completionBlock];
 }
 
 - (void)updateBadgeWithNumber:(NSInteger)badgeNumber
 {
-//    if (badgeNumber > 0)
-//    {
-//        [self _showVideoCountLabelWithCount:badgeNumber];
-//    }
-//    else
-//    {
-//        [self _hideVideoCountLabel];
-//    }
+    if (badgeNumber > 0)
+    {
+        [self _showVideoCountLabelWithCount:badgeNumber];
+    }
+    else
+    {
+        [self _hideVideoCountLabel];
+    }
 }
 
 - (void)showUploadIconWithoutAnimation
@@ -305,28 +312,21 @@
 
 }
 
-- (UILabel*)videoCountLabel
+- (ZZBadge *)badge
 {
-    if (!_videoCountLabel)
+    if (!_badge)
     {
-        _videoCountLabel = [UILabel new];
-        _videoCountLabel.backgroundColor = [UIColor redColor];
-        _videoCountLabel.layer.cornerRadius = kVideoCountLabelWidth/2;
-        _videoCountLabel.clipsToBounds = YES;
-        _videoCountLabel.hidden = YES;
-        _videoCountLabel.textColor = [UIColor whiteColor];
-        _videoCountLabel.textAlignment = NSTextAlignmentCenter;
-        _videoCountLabel.font = [UIFont zz_regularFontWithSize:11];
-        [self addSubview:_videoCountLabel];
+        _badge = [ZZBadge new];
+        [self addSubview:_badge];
 
-        [_videoCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self).offset(3);
-            make.top.equalTo(self).offset(-4);
+        [_badge mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self).offset(9);
+            make.top.equalTo(self).offset(-9);
             make.height.equalTo(@(kVideoCountLabelWidth));
             make.width.equalTo(@(kVideoCountLabelWidth));
         }];
     }
-    return _videoCountLabel;
+    return _badge;
 }
 
 //- (UIView*)containFriendView

@@ -96,7 +96,7 @@ static CGFloat const kUserNameScaleValue = 5;
 static CGFloat const kLayoutConstIndicatorMaxWidth = 40;
 static CGFloat const kLayoutConstIndicatorFractionalWidth = 0.15;
 static CGFloat const kDownloadBarHeight = 2;
-static CGFloat const kVideoCountLabelWidth = 22;
+static CGFloat const kVideoCountLabelWidth = 24;
 
 static CGFloat const kContainFriendAnimationDuration = 0.20;
 static CGFloat const kContainFreindDelayDuration = 0.16;

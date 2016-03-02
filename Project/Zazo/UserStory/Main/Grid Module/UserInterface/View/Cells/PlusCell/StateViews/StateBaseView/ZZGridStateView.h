@@ -11,6 +11,7 @@
 #import "ZZUserNameLabel.h"
 
 @class ZZGridCellViewModel, ZZLoadingAnimationView, ZZCellEffectView, ZZHoldIndicator;
+@class ZZBadge;
 
 static CGFloat const kUserNameFontSize = 18;
 
@@ -20,7 +21,7 @@ static CGFloat const kUserNameFontSize = 18;
 @property (nonatomic, strong) UIView* uploadBarView;
 
 @property (nonatomic, strong) UIView* downloadBarView;
-@property (nonatomic, strong) UILabel* videoCountLabel;
+@property (nonatomic, strong) ZZBadge *badge;
 @property (nonatomic, strong) UIView* presentedView;
 @property (nonatomic, strong) ZZUserNameLabel* userNameLabel;
 

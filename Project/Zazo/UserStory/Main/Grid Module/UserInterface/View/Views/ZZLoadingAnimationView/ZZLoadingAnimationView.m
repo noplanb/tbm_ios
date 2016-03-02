@@ -67,8 +67,6 @@ static CGFloat ZZAnimationDuration = 2.0f;
     
     self.completion = [completion copy];
     
-    [self.superview bringSubviewToFront:self];
-    
     self.imageView.animationImages = [self _framesForAnimationType:type];
     [self _animate];
 }

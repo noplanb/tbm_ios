@@ -38,6 +38,7 @@
 //@property (nonatomic, strong) UIColor* gridCellTintColor4;
 
 @property (nonatomic, strong) UIColor* menuTintColor;
+@property (nonatomic, strong) UIColor* gridCellBadgeColor;
 
 @property (nonatomic, strong) UIColor* gridBackgroundColor;
 @property (nonatomic, strong) UIColor* gridMenuColor;

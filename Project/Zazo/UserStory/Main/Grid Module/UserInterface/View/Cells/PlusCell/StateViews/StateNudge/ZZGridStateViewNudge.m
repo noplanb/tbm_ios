@@ -30,7 +30,7 @@
         [self uploadBarView];
 //        [self downloadIndicator];
         [self downloadBarView];
-        [self videoCountLabel];
+        [self badge];
         [self videoViewedView];
     }
     

@@ -262,6 +262,7 @@
 		152158291C84932A00260AFD /* ZZHoldEffectLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 152158221C84932A00260AFD /* ZZHoldEffectLayer.m */; };
 		1521582A1C84932A00260AFD /* ZZUserNameLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 152158251C84932A00260AFD /* ZZUserNameLabel.m */; };
 		1521582D1C84989700260AFD /* ZZCellEffectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1521582C1C84989700260AFD /* ZZCellEffectView.m */; };
+		152796251C8715290054D3D4 /* ZZGridStateView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CBB1BA49A0100925671 /* ZZGridStateView+Animation.m */; };
 		154C7F4D1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
 		1557CFC01C6E1EB000FE5C57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD81BA49A0100925671 /* Assets.xcassets */; };
 		1557CFC21C6E1FE900FE5C57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD81BA49A0100925671 /* Assets.xcassets */; };
@@ -675,6 +676,8 @@
 		22D3EC5F1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3EC5E1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m */; };
 		22D7D2B51BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m */; };
 		677DB26F0CAB06F7FD8907DD /* ZZAddContactButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBEA772DEFC53B3A5D368 /* ZZAddContactButton.m */; };
+		677DB48B363B8DEFE4DBCECF /* ZZBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB3433ACC9D769CB3E754 /* ZZBadge.m */; };
+		677DB60F315E9CE35B2497D6 /* ZZBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB3433ACC9D769CB3E754 /* ZZBadge.m */; };
 		677DBA7DD9C55B865491A9BA /* UIFont+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB383E3F8392A390FAF95 /* UIFont+ZZAdditions.m */; };
 		677DBE36ED6A86EFF2A08833 /* ZZAddContactButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBEA772DEFC53B3A5D368 /* ZZAddContactButton.m */; };
 		677DBF54457251510DB0FCC2 /* UIFont+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB383E3F8392A390FAF95 /* UIFont+ZZAdditions.m */; };
@@ -1428,7 +1431,9 @@
 		41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		5988C69CC62CF4472CA2040A /* Pods-Zazo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.debug.xcconfig"; sourceTree = "<group>"; };
 		677DB03F566F3F9818E6E44A /* ZZFriendDataHelper+Entities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZZFriendDataHelper+Entities.h"; sourceTree = "<group>"; };
+		677DB3433ACC9D769CB3E754 /* ZZBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZBadge.m; sourceTree = "<group>"; };
 		677DB383E3F8392A390FAF95 /* UIFont+ZZAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+ZZAdditions.m"; sourceTree = "<group>"; };
+		677DB4268BC19F8A577B401C /* ZZBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZBadge.h; sourceTree = "<group>"; };
 		677DB91FC3C9FBEFFA203C34 /* UIFont+ZZAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+ZZAdditions.h"; sourceTree = "<group>"; };
 		677DB932E3B08F622FB31357 /* ZZAddContactButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAddContactButton.h; sourceTree = "<group>"; };
 		677DBEA772DEFC53B3A5D368 /* ZZAddContactButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAddContactButton.m; sourceTree = "<group>"; };
@@ -3861,6 +3866,7 @@
 				152158201C84932A00260AFD /* HoldEffectView */,
 				152158231C84932A00260AFD /* UserNameLabel */,
 				677DB935C55BF8860C917410 /* AddContactButton */,
+				677DBB412785D15DAF365E51 /* Badge */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -4555,6 +4561,15 @@
 				677DB932E3B08F622FB31357 /* ZZAddContactButton.h */,
 			);
 			path = AddContactButton;
+			sourceTree = "<group>";
+		};
+		677DBB412785D15DAF365E51 /* Badge */ = {
+			isa = PBXGroup;
+			children = (
+				677DB3433ACC9D769CB3E754 /* ZZBadge.m */,
+				677DB4268BC19F8A577B401C /* ZZBadge.h */,
+			);
+			path = Badge;
 			sourceTree = "<group>";
 		};
 		79123D701BB032B7007E1CBF /* Hints */ = {
@@ -5509,6 +5524,7 @@
 				07636E311BA49A0100925671 /* ZZVideoDomainModel.m in Sources */,
 				07636EB61BA49A0100925671 /* ZZEditFriendView.m in Sources */,
 				07636EDE1BA49A0100925671 /* ZZStartPresenter.m in Sources */,
+				152796251C8715290054D3D4 /* ZZGridStateView+Animation.m in Sources */,
 				07636EA61BA49A0100925671 /* ZZSecretScreenTextEditCellViewModel.m in Sources */,
 				7997E4F81BAABE85001697D5 /* JFMinimalNotificationArt.m in Sources */,
 				07636E1A1BA49A0100925671 /* main.m in Sources */,
@@ -5593,6 +5609,7 @@
 				07636EB31BA49A0100925671 /* ZZEditFriendListPresenter.m in Sources */,
 				677DBE36ED6A86EFF2A08833 /* ZZAddContactButton.m in Sources */,
 				677DBF54457251510DB0FCC2 /* UIFont+ZZAdditions.m in Sources */,
+				677DB60F315E9CE35B2497D6 /* ZZBadge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5609,6 +5626,7 @@
 				07F0E7F51B8CD7A900036AB2 /* ZZRegistrationWithSMSTest.m in Sources */,
 				677DB26F0CAB06F7FD8907DD /* ZZAddContactButton.m in Sources */,
 				677DBA7DD9C55B865491A9BA /* UIFont+ZZAdditions.m in Sources */,
+				677DB48B363B8DEFE4DBCECF /* ZZBadge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
