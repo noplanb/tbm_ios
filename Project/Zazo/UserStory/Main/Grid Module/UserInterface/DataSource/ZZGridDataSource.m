@@ -10,6 +10,8 @@
 #import "ZZGridDataSource.h"
 #import "ZZFriendDataHelper.h"
 #import "ZZGridDataProvider.h"
+#import "ZZGridDomainModel.h"
+#import "ZZVideoDomainModel.h"
 
 static NSInteger const kGridCenterCellIndex = 4;
 
@@ -122,7 +124,8 @@ ZZGridCenterCellViewModelDelegate
 {
     viewModel.item = model;
     viewModel.delegate = self;
-    viewModel.hasDownloadedVideo = [model.relatedUser hasIncomingVideo];
+    viewModel.hasDownloadedVideo = [model.relatedUser hasIncomingVideo] && model.relatedUser.videos.firstObject.incomingStatusValue > ZZVideoIncomingStatusDownloading;
+    
     viewModel.hasUploadedVideo = [model.relatedUser hasOutgoingVideo];//[value.relatedUser hasIncomingVideo];
     viewModel.isUploadedVideoViewed = (model.relatedUser.lastOutgoingVideoStatus == ZZVideoOutgoingStatusViewed);
     

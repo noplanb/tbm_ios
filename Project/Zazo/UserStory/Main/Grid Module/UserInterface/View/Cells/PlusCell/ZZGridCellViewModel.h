@@ -86,7 +86,7 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 - (NSString*)firstName;
 
 - (UIImage*)videoThumbnailImage;
-- (UIImage*)thumbnailPlaceholderImage;
+//- (UIImage*)thumbnailPlaceholderImage;
 
 - (void)updateVideoPlayingStateTo:(BOOL)isPlaying;
 - (ZZGridCellViewModelState)state;

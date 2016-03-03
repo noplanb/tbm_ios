@@ -112,7 +112,7 @@
         modelState = ZZGridCellViewModelStatePreview | ZZGridCellViewModelStateVideoFailedPermanently;
     }
     else if ((self.item.relatedUser.hasApp && self.hasDownloadedVideo) ||
-             self.item.relatedUser.videos.count > 0)
+             (self.item.relatedUser.videos.count > 0 && self.hasDownloadedVideo))
     {
         modelState = ZZGridCellViewModelStatePreview;
     }
@@ -230,11 +230,11 @@
     return [self _videoThumbnail];
 }
 
-- (UIImage*)thumbnailPlaceholderImage
-{
-    UIImage *image = [UIImage imageOrPDFNamed:@"pattern"];
-    return image;
-}
+//- (UIImage*)thumbnailPlaceholderImage
+//{
+////    UIImage *image = [UIImage imageOrPDFNamed:@"pattern"];
+//    return nil;
+//}
 
 - (void)setupRecorderRecognizerOnView:(UIView*)view
                 withAnimationDelegate:(id <ZZGridCellViewModelAnimationDelegate>)animationDelegate

@@ -118,17 +118,17 @@ static CGFloat const kThumbnailBorderWidth = 2;
     
     if (!thumbImage)
     {
-        self.thumbnailImageView.contentMode = UIViewContentModeCenter;
-        self.thumbnailImageView.backgroundColor = [ZZColorTheme shared].gridStatusViewThumbnailDefaultColor;
-        thumbImage = [model thumbnailPlaceholderImage];
+//        self.thumbnailImageView.contentMode = UIViewContentModeCenter;
+//        self.thumbnailImageView.backgroundColor = [ZZColorTheme shared].gridStatusViewThumbnailDefaultColor;
+//        thumbImage = [model thumbnailPlaceholderImage];
     }
     else
     {
         self.thumbnailImageView.contentMode = UIViewContentModeScaleAspectFill;
-        self.thumbnailImageView.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
+//        self.thumbnailImageView.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
+        self.thumbnailImageView.image = thumbImage;
     }
     
-    self.thumbnailImageView.image = thumbImage;
 }
 
 - (void)_startVideo:(UITapGestureRecognizer *)recognizer
