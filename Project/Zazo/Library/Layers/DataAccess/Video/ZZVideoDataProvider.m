@@ -134,7 +134,7 @@
 {
     NSNumber *count =
     ZZDispatchOnMainThreadAndReturn(^id{
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ != %@", TBMVideoAttributes.status, @(ZZVideoIncomingStatusGhost)];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K != %@", TBMVideoAttributes.status, @(ZZVideoIncomingStatusGhost)];
         return @([TBMVideo MR_countOfEntitiesWithPredicate:predicate inContext:[self _context]]);
     });
     
@@ -146,7 +146,7 @@
     return ZZDispatchOnMainThreadAndReturn(^id{
         
         NSPredicate *friend = [NSPredicate predicateWithFormat:@"%K.idTbm = %@", TBMVideoRelationships.friend, friendID];
-        NSPredicate *statusNotDeleted = [NSPredicate predicateWithFormat:@"%@ != %@", TBMVideoAttributes.status, @(ZZVideoIncomingStatusGhost)];
+        NSPredicate *statusNotDeleted = [NSPredicate predicateWithFormat:@"%K != %@", TBMVideoAttributes.status, @(ZZVideoIncomingStatusGhost)];
         
         NSArray* videos =
         [TBMVideo MR_findAllSortedBy:TBMVideoAttributes.videoId
