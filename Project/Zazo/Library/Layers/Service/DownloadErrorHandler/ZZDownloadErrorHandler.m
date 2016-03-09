@@ -120,8 +120,8 @@
 - (void)_showRetryConfirmationDialog:(void (^)(BOOL needsRetry))completion
 {
     TBMAlertController *alertController =
-            [TBMAlertController alertControllerWithTitle:@"Download error"
-                                                 message:@"Please check your connection and try again"];
+            [TBMAlertController alertControllerWithTitle:@"Download Error"
+                                                 message:@"Problem downloading a Zazo.\nCheck your connection"];
     [alertController addAction:
             [SDCAlertAction actionWithTitle:@"Give up"
                                       style:SDCAlertActionStyleCancel
