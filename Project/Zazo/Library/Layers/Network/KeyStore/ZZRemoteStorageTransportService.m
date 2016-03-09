@@ -78,6 +78,19 @@
         if ([object isKindOfClass:[NSDictionary class]])
         {
             id value = object[ZZRemoteStorageParameters.value];
+            
+            NSData *objectData = [value dataUsingEncoding:NSUTF8StringEncoding];
+            id json = [NSJSONSerialization JSONObjectWithData:objectData
+                                                                 options:NSJSONReadingMutableContainers
+                                                                   error:nil];
+            
+            if ([json isKindOfClass:[NSArray class]])
+            {
+                return json;
+            }
+            
+            // For compatibility
+            // Previosly we used comma-separated string
             return [value componentsSeparatedByString:kRemoteStorageArraySeparator];
         }
         return nil;
@@ -128,7 +141,13 @@
 
 + (RACSignal*)updateRemoteEverSentKVForFriendMkeys:(NSArray *)mkeys forUserMkey:(NSString*)mKey
 {
-    NSString *mkeyArrayString = [mkeys componentsJoinedByString:kRemoteStorageArraySeparator];
+    NSError *error = nil;
+    
+    NSData *keysData = [NSJSONSerialization dataWithJSONObject:mkeys
+                                                       options:0
+                                                         error:&error];
+    
+    NSString *mkeyArrayString = [[NSString alloc] initWithData:keysData encoding:NSUTF8StringEncoding];
     NSString *key = [NSString stringWithFormat:@"%@-WelcomedFriends", mKey];
     
     return [[[self updateKey1:key key2:nil value:mkeyArrayString] doNext:^(id x) {
