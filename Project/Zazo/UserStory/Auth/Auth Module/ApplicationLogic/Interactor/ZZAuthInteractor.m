@@ -46,11 +46,11 @@
 //    user.lastName = @"";
 //    user.mobileNumber = @"";
     
-    NSUInteger num = 116;
+    NSString *num = @"033";
     
-    user.firstName = [NSString stringWithFormat:@"%lu", (unsigned long)num];
-    user.lastName = [NSString stringWithFormat:@"%lu", (unsigned long)num];
-    user.mobileNumber = [NSString stringWithFormat:@"79990000%lu", (unsigned long)num];
+    user.firstName = num;
+    user.lastName = num;
+    user.mobileNumber = [NSString stringWithFormat:@"79990000%@", num];
 
 #endif
 
