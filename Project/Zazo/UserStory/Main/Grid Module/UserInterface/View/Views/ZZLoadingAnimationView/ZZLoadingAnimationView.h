@@ -13,8 +13,12 @@ typedef enum : NSUInteger {
     ZZLoadingAnimationTypeUploading,
 } ZZLoadingAnimationType;
 
+extern CGFloat ZZLoadingAnimationDuration;
+
 @interface ZZLoadingAnimationView : UIView
 
-- (void)animateWithType:(ZZLoadingAnimationType)type completion:(ANCodeBlock)completion;
+- (void)animateWithType:(ZZLoadingAnimationType)type
+                 toView:(UIView *)targetView
+             completion:(ANCodeBlock)completion;
 
 @end

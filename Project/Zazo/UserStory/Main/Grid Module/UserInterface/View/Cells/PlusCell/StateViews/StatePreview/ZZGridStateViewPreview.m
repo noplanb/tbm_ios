@@ -23,7 +23,7 @@ static NSString *ZZDateFormatTemplate[] = {
     @"MMMd"     //ZZDateFormatTemplateYear
 };
 
-static CGFloat const kThumbnailBorderWidth = 2;
+//static CGFloat const kThumbnailBorderWidth = 2;
 
 @interface ZZGridStateViewPreview ()
 
@@ -47,6 +47,11 @@ static CGFloat const kThumbnailBorderWidth = 2;
 //        [self containFriendView];
         [self videoViewedView];
         [self dateLabel];
+        [self animationView];
+        [self holdIndicatorView];
+        [self effectView];
+        [self numberBadge];
+        [self sendBadge];
     }
     
     return self;
@@ -125,8 +130,14 @@ static CGFloat const kThumbnailBorderWidth = 2;
     else
     {
         self.thumbnailImageView.contentMode = UIViewContentModeScaleAspectFill;
-//        self.thumbnailImageView.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
-        self.thumbnailImageView.image = thumbImage;
+        
+        [UIView transitionWithView:self.thumbnailImageView
+                          duration:0.5f
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{
+                            self.thumbnailImageView.image = thumbImage;
+                        } completion:NULL];
+
     }
     
 }

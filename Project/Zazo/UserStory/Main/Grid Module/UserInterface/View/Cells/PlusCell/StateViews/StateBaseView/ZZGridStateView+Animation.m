@@ -7,9 +7,8 @@
 //
 
 #import "ZZGridStateView+Animation.h"
-#import "ZZGridUIConstants.h"
-#import "ANAnimator.h"
-#import "ZZBadge.h"
+#import "ZZNumberBadge.h"
+#import "ZZSendBadge.h"
 
 @implementation ZZGridStateView (Animation)
 
@@ -155,13 +154,22 @@
 - (void)_showVideoCountLabelWithCount:(NSInteger)count
 {
 //    [self _hideAllAnimationViews];
+    self.sendBadge.hidden = YES;
     
-    self.badge.count = count;
+    BOOL shouldAnimate = self.numberBadge.count < count;
+    
+    self.numberBadge.hidden = NO;
+    self.numberBadge.count = count;
+    
+    if (shouldAnimate)
+    {
+        [self.numberBadge animate];
+    }
 }
 
 - (void)_hideVideoCountLabel
 {
-    self.badge.hidden = YES;
+    self.numberBadge.hidden = YES;
 }
 
 //- (void)_hideAllAnimationViews

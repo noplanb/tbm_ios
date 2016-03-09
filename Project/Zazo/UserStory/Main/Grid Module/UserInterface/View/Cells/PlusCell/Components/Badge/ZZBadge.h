@@ -7,7 +7,7 @@
 
 @interface ZZBadge : UIView
 
+@property (nonatomic, weak, readonly) CAShapeLayer *shapeLayer;
 - (void)animate;
-@property (nonatomic, assign) NSUInteger count;
 
 @end

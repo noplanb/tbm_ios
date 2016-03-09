@@ -11,7 +11,7 @@
 @import QuartzCore;
 
 
-static CGFloat ZZAnimationDuration = 0.35;
+static CGFloat ZZHoldEffectAnimationDuration = 0.35;
 
 @interface ZZHoldEffectLayer ()
 
@@ -42,7 +42,7 @@ static CGFloat ZZAnimationDuration = 0.35;
     
     self.isAnimating = YES;
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(ZZAnimationDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(ZZHoldEffectAnimationDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.isAnimating = NO;
     });
 
@@ -81,7 +81,7 @@ static CGFloat ZZAnimationDuration = 0.35;
     {
         CABasicAnimation *animation = [CABasicAnimation animation];
         animation.fromValue = (id)self.path;
-        animation.duration = ZZAnimationDuration;
+        animation.duration = ZZHoldEffectAnimationDuration;
         animation.removedOnCompletion = YES;
         return animation;
     }
@@ -89,7 +89,7 @@ static CGFloat ZZAnimationDuration = 0.35;
     {
         CABasicAnimation *animation = [CABasicAnimation animation];
         animation.fromValue = (id)self.fillColor;
-        animation.duration = ZZAnimationDuration;
+        animation.duration = ZZHoldEffectAnimationDuration;
         animation.removedOnCompletion = YES;
         return animation;
     }

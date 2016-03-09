@@ -6,14 +6,7 @@
 #import "ZZBadge.h"
 #import "ZZGridUIConstants.h"
 
-static CGFloat ZZBadgeAnimationDuration = 0.3f;
-
-@interface ZZBadge ()
-
-@property (nonatomic, weak, readonly) CAShapeLayer *shapeLayer;
-@property (nonatomic, weak, readonly) CATextLayer *textLayer;
-
-@end
+static CGFloat ZZBadgeAnimationDuration = 1.0f;
 
 @implementation ZZBadge
 
@@ -32,31 +25,9 @@ static CGFloat ZZBadgeAnimationDuration = 0.3f;
         shapeLayer.shadowColor = [UIColor blackColor].CGColor;
         shapeLayer.shadowOffset = CGSizeMake(0, 3);
         shapeLayer.path = CGPathCreateWithEllipseInRect(CGRectMake(0, 0, kVideoCountLabelWidth, kVideoCountLabelWidth), nil);
-
-
-        CATextLayer *textLayer = [CATextLayer layer];
-        _textLayer = textLayer;
-        [self.layer addSublayer:textLayer];
-        
-        textLayer.foregroundColor = [UIColor whiteColor].CGColor;
-        textLayer.alignmentMode = kCAAlignmentCenter;
-        textLayer.fontSize = 18;
-        textLayer.font = CFBridgingRetain([UIFont zz_regularFontWithSize:18]);
-        textLayer.contentsScale = [[UIScreen mainScreen] scale];
-        textLayer.frame = CGRectMake(0, 1, kVideoCountLabelWidth, kVideoCountLabelWidth);
-        
-        self.hidden = YES;
-        self.layer.delegate = self;
-        self.count = NSUIntegerMax; // Skip initial count setting animation
     }
 
     return self;
-}
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    
 }
 
 - (void)animate
@@ -64,17 +35,17 @@ static CGFloat ZZBadgeAnimationDuration = 0.3f;
     BOOL delay = NO;
     if (self.hidden)
     {
-        self.transform = CGAffineTransformMakeScale(0.01, 0.01);
+        self.layer.transform = CATransform3DMakeScale(0.01, 0.01, 1);
         self.hidden = NO;
-        delay = YES;
+//        delay = YES;
     }
     else
     {
-        self.transform = CGAffineTransformMakeScale(0.75, 0.75);
+        self.layer.transform = CATransform3DMakeScale(0.7, 0.7, 1);
     }
 
     ANCodeBlock animations = ^{
-        self.transform = CGAffineTransformIdentity;
+        self.layer.transform = CATransform3DIdentity;
     };
 
     if (delay)
@@ -86,20 +57,6 @@ static CGFloat ZZBadgeAnimationDuration = 0.3f;
     else
     {
         animations();
-    }
-}
-
-- (void)setCount:(NSUInteger)count
-{
-    if (count > _count)
-    {
-        [self animate];
-    }
-
-    _count = count;
-
-    {
-        self.textLayer.string = [NSString stringWithFormat:@"%li", (long)count];
     }
 }
 
@@ -116,14 +73,26 @@ static CGFloat ZZBadgeAnimationDuration = 0.3f;
         animation.fromValue = [NSValue valueWithCATransform3D:layer.transform];
         animation.duration = ZZBadgeAnimationDuration;
 
+//        animation.duration = 10
         animation.mass = 1;
-        animation.damping = 10;
+        animation.damping = 5;
         animation.stiffness = 100;
-        animation.initialVelocity = 10;
+        animation.initialVelocity = 0;
+        
         return animation;
     }
 
     return nil;
+}
+
+- (CGSize)intrinsicContentSize
+{
+    return CGSizeMake(kVideoCountLabelWidth, kVideoCountLabelWidth);
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self animate];
 }
 
 @end

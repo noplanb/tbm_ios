@@ -13,7 +13,8 @@
 #import <Masonry.h>
 
 static NSMutableDictionary <NSNumber *, NSArray <UIImage *> *> *AnimationsFramesCache; // to avoid frames loading each time
-static CGFloat ZZAnimationDuration = 2.0f;
+
+CGFloat ZZLoadingAnimationDuration = 2.0f;
 
 @interface ZZLoadingAnimationView ()
 
@@ -40,13 +41,15 @@ static CGFloat ZZAnimationDuration = 2.0f;
 
 - (void)_setupView
 {
+    self.userInteractionEnabled = NO;
+    
     if (!AnimationsFramesCache)
     {
         AnimationsFramesCache = [NSMutableDictionary new];
     }
     
     UIImageView *imageView = [UIImageView new];
-    imageView.animationDuration = ZZAnimationDuration;
+    imageView.animationDuration = ZZLoadingAnimationDuration;
     imageView.animationRepeatCount = 1;
     [self addSubview:imageView];
     
@@ -55,7 +58,9 @@ static CGFloat ZZAnimationDuration = 2.0f;
 
 #pragma mark Animations
 
-- (void)animateWithType:(ZZLoadingAnimationType)type completion:(ANCodeBlock)completion
+- (void)animateWithType:(ZZLoadingAnimationType)type
+                 toView:(UIView *)targetView
+             completion:(ANCodeBlock)completion
 {
     if (self.completion) // this means animation in progress
     {
@@ -68,10 +73,10 @@ static CGFloat ZZAnimationDuration = 2.0f;
     self.completion = [completion copy];
     
     self.imageView.animationImages = [self _framesForAnimationType:type];
-    [self _animate];
+    [self _animateToView:targetView];
 }
 
-- (void)_animate
+- (void)_animateToView:(UIView *)targetView
 {
     [self _prepareBeginState];
     
@@ -91,8 +96,8 @@ static CGFloat ZZAnimationDuration = 2.0f;
                              animations:^{
                                  
                                  [self.imageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                                     make.top.equalTo(@0).offset(-32);
-                                     make.right.equalTo(@0).offset(32);
+                                     make.centerX.equalTo(targetView.mas_centerX);
+                                     make.centerY.equalTo(targetView.mas_centerY);
                                  }];
                                  
                                  [self layoutIfNeeded];
@@ -123,13 +128,12 @@ static CGFloat ZZAnimationDuration = 2.0f;
 
 - (void)_endAnimation
 {
-    [self.superview sendSubviewToBack:self];
     
     if (self.completion)
     {
         ANCodeBlock completion = [self.completion copy];
-        completion = nil;
-        self.completion();
+        completion();
+        self.completion = nil;
     }
 
 }

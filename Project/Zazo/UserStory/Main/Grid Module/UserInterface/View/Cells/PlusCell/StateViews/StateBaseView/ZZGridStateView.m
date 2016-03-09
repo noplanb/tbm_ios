@@ -13,7 +13,8 @@
 #import "ZZLoadingAnimationView.h"
 #import "ZZCellEffectView.h"
 #import "ZZHoldIndicator.h"
-#import "ZZBadge.h"
+#import "ZZNumberBadge.h"
+#import "ZZSendBadge.h"
 
 @interface ZZGridStateView ()
 
@@ -99,7 +100,6 @@
     [self showDownloadAnimationWithCompletionBlock:^{
 //        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
 //        self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-        
     }];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -174,16 +174,29 @@
 - (void)showUploadAnimationWithCompletionBlock:(void(^)())completionBlock;
 {
     [self.effectView showEffect:ZZCellEffectTypeWaveIn];
+
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.animationView animateWithType:ZZLoadingAnimationTypeUploading completion:completionBlock];
+        
+        [self updateSendBadgePosition];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.sendBadge animate];
+        });
+        
+        [self.animationView animateWithType:ZZLoadingAnimationTypeUploading
+                                     toView:self.sendBadge
+                                 completion:^{
+                                     
+                                     completionBlock();
+                                 }];
     });
 }
 
 - (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock
 {
-    [self bringSubviewToFront:self.animationView];
-    [self bringSubviewToFront:self.badge];
-    [self.animationView animateWithType:ZZLoadingAnimationTypeDownloading completion:completionBlock];
+    [self.animationView animateWithType:ZZLoadingAnimationTypeDownloading
+                                 toView:self.numberBadge
+                             completion:completionBlock];
 }
 
 - (void)updateBadgeWithNumber:(NSInteger)badgeNumber
@@ -197,6 +210,7 @@
         [self _hideVideoCountLabel];
     }
 }
+
 
 - (void)showUploadIconWithoutAnimation
 {
@@ -304,29 +318,75 @@
     [backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
-    
-    [self sendSubviewToBack:backgroundView];
-    
+    _backgroundView.hidden = YES;
     _backgroundView = backgroundView;
     return _backgroundView;
 
 }
 
-- (ZZBadge *)badge
+- (ZZNumberBadge *)numberBadge
 {
-    if (!_badge)
+    if (!_numberBadge)
     {
-        _badge = [ZZBadge new];
-        [self addSubview:_badge];
+        _numberBadge = [ZZNumberBadge new];
+        [self addSubview:_numberBadge];
 
-        [_badge mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self).offset(9);
-            make.top.equalTo(self).offset(-9);
-            make.height.equalTo(@(kVideoCountLabelWidth));
-            make.width.equalTo(@(kVideoCountLabelWidth));
+        [_numberBadge mas_makeConstraints:^(MASConstraintMaker *make) {
+            [self makePositionForFirstBadge:make];
         }];
+        
+        [_numberBadge layoutIfNeeded];
     }
-    return _badge;
+    return _numberBadge;
+}
+
+- (ZZSendBadge *)sendBadge
+{
+    if (_sendBadge)
+    {
+        return _sendBadge;
+    }
+    
+    _sendBadge = [ZZSendBadge new];
+    [self addSubview:_sendBadge];
+    _sendBadge.hidden = YES;
+    
+    [self updateSendBadgePosition];
+    
+    return _sendBadge;
+}
+
+- (void)updateSendBadgePosition
+{
+    [self.sendBadge mas_updateConstraints:^(MASConstraintMaker *make) {
+        [self makePositionForSentBadge:make];
+    }];
+    [self.sendBadge layoutIfNeeded];
+
+}
+
+- (void)makePositionForSentBadge:(MASConstraintMaker *)maker
+{
+    if (self.model.badgeNumber > 0)
+    {
+        [self makePositionForSecondBadge:maker];
+    }
+    else
+    {
+        [self makePositionForFirstBadge:maker];
+    }
+}
+
+- (void)makePositionForFirstBadge:(MASConstraintMaker *)maker
+{
+    maker.right.equalTo(self).offset(9);
+    maker.top.equalTo(self).offset(-9);
+}
+
+- (void)makePositionForSecondBadge:(MASConstraintMaker *)maker
+{
+    maker.right.equalTo(self).offset(-20);
+    maker.top.equalTo(self).offset(-9);
 }
 
 //- (UIView*)containFriendView

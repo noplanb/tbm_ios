@@ -364,11 +364,10 @@ static NSString *const kArraySeparator = @",";
     return nil;
 }
 
-+ (NSString *)_welcomedFriendsKey
-{
-    ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
-    return [NSString stringWithFormat:@"%@-WelcomedFriends", model.mkey];
-}
-
+//+ (NSString *)_welcomedFriendsKey
+//{
+//    ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
+//    return [NSString stringWithFormat:@"%@-WelcomedFriends", model.mkey];
+//}
 
 @end

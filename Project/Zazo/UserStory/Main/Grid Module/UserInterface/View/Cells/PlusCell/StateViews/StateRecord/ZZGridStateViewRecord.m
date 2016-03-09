@@ -30,7 +30,10 @@
         [self uploadBarView];
 //        [self downloadIndicator];
         [self downloadBarView];
-        [self badge];
+        [self animationView];
+        [self numberBadge];
+        [self sendBadge];
+        
         [self videoViewedView];
     }
     

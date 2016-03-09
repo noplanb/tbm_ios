@@ -13,4 +13,3 @@
 @property (nonatomic, weak) id<ZZAuthInteractorOutput> output;
 
 @end
-
