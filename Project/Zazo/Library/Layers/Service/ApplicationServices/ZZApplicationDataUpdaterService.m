@@ -42,8 +42,9 @@
 
 - (void)updateApplicationBadge
 {
-    ZZLogInfo(@"setBadgeNumberDownloadedUnviewed = %li", (long)[ZZVideoDataProvider countTotalUnviewedVideos]);
-    [self _setBadgeCount:[ZZVideoDataProvider countTotalUnviewedVideos]];
+    NSUInteger count = [ZZVideoDataProvider countVideosWithStatus:ZZVideoIncomingStatusDownloaded];
+    ZZLogInfo(@"setBadgeNumberDownloadedUnviewed = %li", (long)count);
+    [self _setBadgeCount:count];
 }
 
 

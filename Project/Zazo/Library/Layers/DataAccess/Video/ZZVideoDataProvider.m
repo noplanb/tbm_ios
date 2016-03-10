@@ -53,12 +53,12 @@
     });
 }
 
-+ (NSArray *)downloadingVideos
++ (NSArray <ZZVideoDomainModel *> *)videosWithStatus:(ZZVideoIncomingStatus)status
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
         
         NSArray *downloadingEntities =
-        [TBMVideo MR_findByAttribute:TBMVideoAttributes.status withValue:@(ZZVideoIncomingStatusDownloading)];
+        [TBMVideo MR_findByAttribute:TBMVideoAttributes.status withValue:@(status)];
         
         return [[downloadingEntities.rac_sequence map:^id(id value) {
             return [self modelFromEntity:value];
@@ -98,35 +98,15 @@
 
 #pragma mark - Load
 
-+ (NSUInteger)countDownloadedUnviewedVideos
++ (NSUInteger)countVideosWithStatus:(ZZVideoIncomingStatus)status
 {
     NSNumber *count =
-    ZZDispatchOnMainThreadAndReturn(^id{
-        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMVideoAttributes.status, @(ZZVideoIncomingStatusDownloaded)];
-        return @([TBMVideo MR_countOfEntitiesWithPredicate:predicate inContext:[self _context]]);
+            ZZDispatchOnMainThreadAndReturn(^id{
+                NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMVideoAttributes.status, @(status)];
+                return @([TBMVideo MR_countOfEntitiesWithPredicate:predicate inContext:[self _context]]);
 
-    });
-    
-    return count.unsignedIntegerValue;
-}
+            });
 
-+ (NSUInteger)countDownloadingVideos
-{
-    NSNumber *count =
-    ZZDispatchOnMainThreadAndReturn(^id{
-        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMVideoAttributes.status, @(ZZVideoIncomingStatusDownloading)];
-        return @([TBMVideo MR_countOfEntitiesWithPredicate:predicate inContext:[self _context]]);
-    });
-    
-    return count.unsignedIntegerValue;
-}
-
-+ (NSUInteger)countTotalUnviewedVideos
-{
-    NSNumber *count = ZZDispatchOnMainThreadAndReturn(^id{
-        return @([self countDownloadedUnviewedVideos]);
-    });
-    
     return count.unsignedIntegerValue;
 }
 

@@ -11,6 +11,8 @@ inhibit_all_warnings!
 
 target 'Zazo' do
 
+    link_with 'Zazo', 'Zazo-NetworkTest'
+
     #ANODA
     pod 'ANBaseDomainModel', '~> 1.0'
     pod 'ANHelperFunctions', '~> 1.0.3'

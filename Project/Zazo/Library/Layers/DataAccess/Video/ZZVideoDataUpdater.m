@@ -11,24 +11,13 @@
 #import "TBMFriend.h"
 #import "MagicalRecord.h"
 #import "ZZVideoDataProvider+Entities.h"
-#import "ZZFriendDataProvider+Entities.h"
 #import "ZZThumbnailGenerator.h"
 #import "ZZVideoDomainModel.h"
-#import "ZZVideoModelsMapper.h"
 #import "ZZContentDataAccessor.h"
-#import "ZZFriendDomainModel.h"
 
 @implementation ZZVideoDataUpdater
 
 #pragma mark Update methods
-
-+ (void)deleteAllVideos {
-    ANDispatchBlockToMainQueue(^{
-        NSManagedObjectContext* context = [ZZContentDataAccessor mainThreadContext];
-        [TBMVideo MR_truncateAllInContext:context];
-        [context MR_saveToPersistentStoreAndWait];
-    });
-}
 
 + (void)updateVideoWithID:(NSString *)videoID setIncomingStatus:(ZZVideoIncomingStatus)videoStatus
 {
@@ -55,7 +44,16 @@
 
 #pragma mark - Delete Video Methods
 
-+ (void)deleteAllViewedOrFailedVideoWithFriendID:(NSString*)friendID
++ (void)deleteAllVideos
+{
+    ANDispatchBlockToMainQueue(^{
+        NSManagedObjectContext* context = [ZZContentDataAccessor mainThreadContext];
+        [TBMVideo MR_truncateAllInContext:context];
+        [context MR_saveToPersistentStoreAndWait];
+    });
+}
+
++ (void)deleteAllViewedVideosWithFriendID:(NSString*)friendID
 {
     ZZLogInfo(@"deleteAllViewedVideos");
     
@@ -63,12 +61,25 @@
     
     for (ZZVideoDomainModel *videoModel in sortedVideos)
     {
-        if (videoModel.incomingStatusValue == ZZVideoIncomingStatusViewed ||
-            videoModel.incomingStatusValue == ZZVideoIncomingStatusFailedPermanently)
+        if (videoModel.incomingStatusValue == ZZVideoIncomingStatusViewed)
         {
             [self _deleteVideo:videoModel];
         }
     }
+}
+
++ (void)deleteAllFailedVideos
+{
+    ZZLogEvent(@"deleteAllFailedVideos");
+    ANDispatchBlockToMainQueue(^{
+
+        NSArray <ZZVideoDomainModel *> *downloadingEntities = [ZZVideoDataProvider videosWithStatus:ZZVideoIncomingStatusFailedPermanently]         ;
+
+        [downloadingEntities enumerateObjectsUsingBlock:^(ZZVideoDomainModel *obj, NSUInteger idx, BOOL *stop) {
+            [self _deleteVideo:obj];
+        }];
+    });
+
 }
 
 + (void)_deleteVideo:(ZZVideoDomainModel *)videoModel
@@ -127,7 +138,7 @@
 
 + (void)_deleteVideoFileWithVideo:(ZZVideoDomainModel*)videoModel
 {
-    ZZLogInfo(@"deleteVideoFile");
+    ZZLogInfo(@"deleteVideoFile: %@", videoModel);
     NSFileManager *fm = [NSFileManager defaultManager];
     NSError *error = nil;
     [fm removeItemAtURL:[ZZVideoDataProvider videoUrlWithVideoModel:videoModel] error:&error];

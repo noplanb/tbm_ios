@@ -259,8 +259,11 @@
 		07F0E7F61B8CD7A900036AB2 /* ZZLoadFriendListSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EB1B8CD7A900036AB2 /* ZZLoadFriendListSpec.m */; };
 		07F0E7F71B8CD7A900036AB2 /* ZZLoadFriendListTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EC1B8CD7A900036AB2 /* ZZLoadFriendListTest.m */; };
 		07F0E7F81B8CD7A900036AB2 /* ZZStartScreenTestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */; };
+		0B6F69D89E12D07C3F133C76 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20E41E78697128F1939352F7 /* libPods-Zazo.a */; };
+		0F1616006CECE1A43525C354 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20E41E78697128F1939352F7 /* libPods-Zazo.a */; };
 		154C7F4D1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
 		15718DA61C5BC25F00D9A207 /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
+		157AB4D41C905D1000CB0A73 /* ZZDownloadErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBC3A1ECFBC77257A04EC /* ZZDownloadErrorHandler.m */; };
 		15B6F2F61C24011600148E0F /* ZZDispatchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */; };
 		15FC5BC81C18166B005296C7 /* ZZDispatchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */; };
 		180254A31BB2C5A400138A52 /* ZZVideoStatuses.m in Sources */ = {isa = PBXBuildFile; fileRef = 180254A21BB2C5A400138A52 /* ZZVideoStatuses.m */; };
@@ -552,7 +555,6 @@
 		182255651C16CA06003885A3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902E1909A18B003C4F82 /* CoreData.framework */; };
 		182255661C16CA06003885A3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902C1909A18B003C4F82 /* UIKit.framework */; };
 		182255671C16CA06003885A3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E90281909A18B003C4F82 /* Foundation.framework */; };
-		182255681C16CA06003885A3 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */; };
 		1822556A1C16CA06003885A3 /* camera-icon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7952764D1BA71F2700E506D5 /* camera-icon.pdf */; };
 		1822556B1C16CA06003885A3 /* ZazoTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */; };
 		1822556C1C16CA06003885A3 /* navbar_btn_add.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BF81BA49A0100925671 /* navbar_btn_add.pdf */; };
@@ -670,6 +672,8 @@
 		224101D4190D4180005128F9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 224101D3190D4180005128F9 /* AVFoundation.framework */; };
 		22D3EC5F1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3EC5E1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m */; };
 		22D7D2B51BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m */; };
+		677DBA45928322EF12B662C3 /* ZZDownloadErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBC3A1ECFBC77257A04EC /* ZZDownloadErrorHandler.m */; };
+		677DBEDB16DE54419B7A54C6 /* ZZDownloadErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBC3A1ECFBC77257A04EC /* ZZDownloadErrorHandler.m */; };
 		79123D731BB032C3007E1CBF /* ZZHintsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D721BB032C3007E1CBF /* ZZHintsController.m */; };
 		79123D791BB03359007E1CBF /* ZZHintsConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D781BB03359007E1CBF /* ZZHintsConstants.m */; };
 		79123D861BB14F8E007E1CBF /* ZZHintsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D851BB14F8E007E1CBF /* ZZHintsViewModel.m */; };
@@ -684,8 +688,7 @@
 		7997E4F91BAABE85001697D5 /* NSInvocation+Constructors.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4F21BAABE85001697D5 /* NSInvocation+Constructors.m */; };
 		7997E4FA1BAABE85001697D5 /* UIColor+JFMinimalNotificationColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4F41BAABE85001697D5 /* UIColor+JFMinimalNotificationColors.m */; };
 		7997E4FB1BAABE85001697D5 /* UIView+Round.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4F61BAABE85001697D5 /* UIView+Round.m */; };
-		DE5C223E15BD5A128DAFDAD1 /* libPods-ZazoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0368F3F1AC201E7765B1898F /* libPods-ZazoTests.a */; };
-		F20151DDD1EA1D5CD6D8CB21 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */; };
+		9D908BD5355E8A4F08B97119 /* libPods-ZazoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8286AA07BBD2CA707977544B /* libPods-ZazoTests.a */; };
 		FE7D83281BBE580C00445108 /* ZZHintsArrow.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7D83231BBE580C00445108 /* ZZHintsArrow.m */; };
 		FE7D83291BBE580C00445108 /* ZZHintsGotItView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7D83251BBE580C00445108 /* ZZHintsGotItView.m */; };
 		FE7D832A1BBE580C00445108 /* ZZHintsView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7D83271BBE580C00445108 /* ZZHintsView.m */; };
@@ -745,8 +748,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0368F3F1AC201E7765B1898F /* libPods-ZazoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZazoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Zazo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		00159322A8A39BC248A7DF72 /* Pods-Zazo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.debug.xcconfig"; sourceTree = "<group>"; };
 		070238D61BB430B100B8197E /* ZZApplicationVersionEnumHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZApplicationVersionEnumHelper.h; path = EnumHelpers/ZZApplicationVersionEnumHelper.h; sourceTree = "<group>"; };
 		070238D71BB430B100B8197E /* ZZApplicationVersionEnumHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZApplicationVersionEnumHelper.m; path = EnumHelpers/ZZApplicationVersionEnumHelper.m; sourceTree = "<group>"; };
 		070560FE1BA8824F00C130E0 /* ZZGridActionHandlerEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZGridActionHandlerEnums.h; path = ActionHandler/ZZGridActionHandlerEnums.h; sourceTree = "<group>"; };
@@ -1301,8 +1303,8 @@
 		181D1CCA1BC54E6F00044F83 /* ZZGridPresenter+ActionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZZGridPresenter+ActionHandler.m"; sourceTree = "<group>"; };
 		181D1CCD1BC550DE00044F83 /* ZZGridInteractor+ActionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZZGridInteractor+ActionHandler.h"; sourceTree = "<group>"; };
 		181D1CCE1BC550DE00044F83 /* ZZGridInteractor+ActionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZZGridInteractor+ActionHandler.m"; sourceTree = "<group>"; };
-		182255A81C16CA06003885A3 /* tbm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tbm.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		182255A91C16CA07003885A3 /* Zazo copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Zazo copy-Info.plist"; path = "/Users/anoda/Documents/Development/build-mirror/Project/Zazo copy-Info.plist"; sourceTree = "<absolute>"; };
+		182255A81C16CA06003885A3 /* Zazo-NetworkTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Zazo-NetworkTest.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		182255A91C16CA07003885A3 /* Zazo copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Zazo copy-Info.plist"; path = "/Users/rinat/Documents/XCodeProjects/tbm_ios/Project/Zazo copy-Info.plist"; sourceTree = "<absolute>"; };
 		182255DD1C16E08A003885A3 /* ZZNetworkTestInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZNetworkTestInteractor.h; sourceTree = "<group>"; };
 		182255DE1C16E08A003885A3 /* ZZNetworkTestInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZNetworkTestInteractor.m; sourceTree = "<group>"; };
 		182255DF1C16E08A003885A3 /* ZZNetworkTestInteractorIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZNetworkTestInteractorIO.h; sourceTree = "<group>"; };
@@ -1382,6 +1384,7 @@
 		18F235251C1B0D1E0078F3BF /* ZZNetworkTestStoredManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZNetworkTestStoredManger.m; sourceTree = "<group>"; };
 		18F52E011BFCAB6100042AAC /* ZZContentDataAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContentDataAccessor.h; sourceTree = "<group>"; };
 		18F52E021BFCAB6100042AAC /* ZZContentDataAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContentDataAccessor.m; sourceTree = "<group>"; };
+		20E41E78697128F1939352F7 /* libPods-Zazo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Zazo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2208E8A71A1419D400150C35 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		220E90251909A18B003C4F82 /* Zazo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zazo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		220E90281909A18B003C4F82 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1399,11 +1402,15 @@
 		22D3EC5E1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZKeyStoreOutgoingVideoStatusDomainModel.m; path = KeyStore/ZZKeyStoreOutgoingVideoStatusDomainModel.m; sourceTree = "<group>"; };
 		22D7D2B31BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZKeyStoreIncomingVideoIdsDomainModel.h; path = KeyStore/ZZKeyStoreIncomingVideoIdsDomainModel.h; sourceTree = "<group>"; };
 		22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZKeyStoreIncomingVideoIdsDomainModel.m; path = KeyStore/ZZKeyStoreIncomingVideoIdsDomainModel.m; sourceTree = "<group>"; };
-		2EE3EC5660312AC490BD17BA /* Pods-ZazoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		26E9414C4F22C0BD01F61F8A /* Pods-ZazoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.release.xcconfig"; sourceTree = "<group>"; };
 		41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		41A04DE91AD7CA1C00AD88D5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
-		5988C69CC62CF4472CA2040A /* Pods-Zazo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.debug.xcconfig"; sourceTree = "<group>"; };
+		42EFCFD1416D98D8747479B9 /* Pods-ZazoTests.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.ad-hoc.xcconfig"; sourceTree = "<group>"; };
+		4FC21B5A7A35E4EA460D592B /* Pods-Zazo.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.ad-hoc.xcconfig"; sourceTree = "<group>"; };
 		677DB03F566F3F9818E6E44A /* ZZFriendDataHelper+Entities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZZFriendDataHelper+Entities.h"; sourceTree = "<group>"; };
+		677DBC3A1ECFBC77257A04EC /* ZZDownloadErrorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDownloadErrorHandler.m; sourceTree = "<group>"; };
+		677DBD1A17551D91B4448CF7 /* ZZDownloadErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDownloadErrorHandler.h; sourceTree = "<group>"; };
+		6D0BC5A021BD1CE12D733161 /* Pods-ZazoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		79123D711BB032C3007E1CBF /* ZZHintsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsController.h; sourceTree = "<group>"; };
 		79123D721BB032C3007E1CBF /* ZZHintsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsController.m; sourceTree = "<group>"; };
 		79123D771BB03359007E1CBF /* ZZHintsConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsConstants.h; sourceTree = "<group>"; };
@@ -1432,10 +1439,8 @@
 		7997E4F41BAABE85001697D5 /* UIColor+JFMinimalNotificationColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+JFMinimalNotificationColors.m"; sourceTree = "<group>"; };
 		7997E4F51BAABE85001697D5 /* UIView+Round.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Round.h"; sourceTree = "<group>"; };
 		7997E4F61BAABE85001697D5 /* UIView+Round.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Round.m"; sourceTree = "<group>"; };
-		A0ECBE9A7392F431C5ADE072 /* Pods-ZazoTests.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.ad-hoc.xcconfig"; sourceTree = "<group>"; };
-		B1860DB43B6E70D5AEF73EF4 /* Pods-Zazo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.release.xcconfig"; sourceTree = "<group>"; };
-		C4392BF41AD48118C492A226 /* Pods-Zazo.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.ad-hoc.xcconfig"; sourceTree = "<group>"; };
-		EBC6C0A37344F4BEEFA60089 /* Pods-ZazoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.release.xcconfig"; sourceTree = "<group>"; };
+		8286AA07BBD2CA707977544B /* libPods-ZazoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZazoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		876645398B11246519CD8699 /* Pods-Zazo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zazo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zazo/Pods-Zazo.release.xcconfig"; sourceTree = "<group>"; };
 		FE7D83201BBE57BB00445108 /* ZZGridPart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZGridPart.h; path = Views/ZZGridPart.h; sourceTree = "<group>"; };
 		FE7D83221BBE580C00445108 /* ZZHintsArrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsArrow.h; sourceTree = "<group>"; };
 		FE7D83231BBE580C00445108 /* ZZHintsArrow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsArrow.m; sourceTree = "<group>"; };
@@ -1459,7 +1464,7 @@
 				182255651C16CA06003885A3 /* CoreData.framework in Frameworks */,
 				182255661C16CA06003885A3 /* UIKit.framework in Frameworks */,
 				182255671C16CA06003885A3 /* Foundation.framework in Frameworks */,
-				182255681C16CA06003885A3 /* libPods-Zazo.a in Frameworks */,
+				0B6F69D89E12D07C3F133C76 /* libPods-Zazo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1476,7 +1481,7 @@
 				220E902F1909A18B003C4F82 /* CoreData.framework in Frameworks */,
 				220E902D1909A18B003C4F82 /* UIKit.framework in Frameworks */,
 				220E90291909A18B003C4F82 /* Foundation.framework in Frameworks */,
-				F20151DDD1EA1D5CD6D8CB21 /* libPods-Zazo.a in Frameworks */,
+				0F1616006CECE1A43525C354 /* libPods-Zazo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1487,7 +1492,7 @@
 				220E904A1909A18C003C4F82 /* CoreData.framework in Frameworks */,
 				220E90491909A18C003C4F82 /* UIKit.framework in Frameworks */,
 				220E90481909A18C003C4F82 /* Foundation.framework in Frameworks */,
-				DE5C223E15BD5A128DAFDAD1 /* libPods-ZazoTests.a in Frameworks */,
+				9D908BD5355E8A4F08B97119 /* libPods-ZazoTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2108,6 +2113,7 @@
 				07BAA7151BB1C561009878B9 /* ThumbnailGenerator */,
 				07E09E141BD5770A00A59389 /* RemoteStorage */,
 				071828E81BE5777D00CFF0A5 /* VideoStatusHandler */,
+				677DBAC4781ACC02F2E8ECB3 /* DownloadErrorHandler */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -4380,9 +4386,9 @@
 				07636AE71BA49A0100925671 /* Zazo */,
 				220E90271909A18B003C4F82 /* Frameworks */,
 				220E90261909A18B003C4F82 /* Products */,
-				984D6697D8F62FFA194F39A2 /* Pods */,
 				0732F5031B8B93D3004FD3AF /* ZazoTests */,
 				182255A91C16CA07003885A3 /* Zazo copy-Info.plist */,
+				DAC929F7AB6986D0FE5ABB0F /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -4391,7 +4397,7 @@
 			children = (
 				220E90251909A18B003C4F82 /* Zazo.app */,
 				220E90451909A18B003C4F82 /* ZazoTests.xctest */,
-				182255A81C16CA06003885A3 /* tbm.app */,
+				182255A81C16CA06003885A3 /* Zazo-NetworkTest.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4410,8 +4416,8 @@
 				220E902A1909A18B003C4F82 /* CoreGraphics.framework */,
 				220E902C1909A18B003C4F82 /* UIKit.framework */,
 				220E902E1909A18B003C4F82 /* CoreData.framework */,
-				06E8CE3A1BAA697FBC0A7BAE /* libPods-Zazo.a */,
-				0368F3F1AC201E7765B1898F /* libPods-ZazoTests.a */,
+				20E41E78697128F1939352F7 /* libPods-Zazo.a */,
+				8286AA07BBD2CA707977544B /* libPods-ZazoTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -4434,6 +4440,15 @@
 				22D3EC5E1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m */,
 			);
 			name = KeyStore;
+			sourceTree = "<group>";
+		};
+		677DBAC4781ACC02F2E8ECB3 /* DownloadErrorHandler */ = {
+			isa = PBXGroup;
+			children = (
+				677DBC3A1ECFBC77257A04EC /* ZZDownloadErrorHandler.m */,
+				677DBD1A17551D91B4448CF7 /* ZZDownloadErrorHandler.h */,
+			);
+			path = DownloadErrorHandler;
 			sourceTree = "<group>";
 		};
 		79123D701BB032B7007E1CBF /* Hints */ = {
@@ -4492,15 +4507,15 @@
 			path = JFMinimalNotification;
 			sourceTree = "<group>";
 		};
-		984D6697D8F62FFA194F39A2 /* Pods */ = {
+		DAC929F7AB6986D0FE5ABB0F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5988C69CC62CF4472CA2040A /* Pods-Zazo.debug.xcconfig */,
-				B1860DB43B6E70D5AEF73EF4 /* Pods-Zazo.release.xcconfig */,
-				C4392BF41AD48118C492A226 /* Pods-Zazo.ad-hoc.xcconfig */,
-				2EE3EC5660312AC490BD17BA /* Pods-ZazoTests.debug.xcconfig */,
-				EBC6C0A37344F4BEEFA60089 /* Pods-ZazoTests.release.xcconfig */,
-				A0ECBE9A7392F431C5ADE072 /* Pods-ZazoTests.ad-hoc.xcconfig */,
+				00159322A8A39BC248A7DF72 /* Pods-Zazo.debug.xcconfig */,
+				876645398B11246519CD8699 /* Pods-Zazo.release.xcconfig */,
+				4FC21B5A7A35E4EA460D592B /* Pods-Zazo.ad-hoc.xcconfig */,
+				6D0BC5A021BD1CE12D733161 /* Pods-ZazoTests.debug.xcconfig */,
+				26E9414C4F22C0BD01F61F8A /* Pods-ZazoTests.release.xcconfig */,
+				42EFCFD1416D98D8747479B9 /* Pods-ZazoTests.ad-hoc.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -4527,12 +4542,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 182255A41C16CA06003885A3 /* Build configuration list for PBXNativeTarget "Zazo-NetworkTest" */;
 			buildPhases = (
-				182254541C16CA06003885A3 /* Check Pods Manifest.lock */,
+				C65897B832FC9F932514B44F /* Check Pods Manifest.lock */,
 				182254551C16CA06003885A3 /* Sources */,
 				1822555D1C16CA06003885A3 /* Frameworks */,
 				182255691C16CA06003885A3 /* Resources */,
-				1822559F1C16CA06003885A3 /* Copy Pods Resources */,
 				182255A01C16CA06003885A3 /* Fabric */,
+				7AC5FC390AB99EFD0953D5CF /* Embed Pods Frameworks */,
+				26ACFE91DE8793819D0CEFC7 /* Copy Pods Resources */,
 			);
 			buildRules = (
 				182255A21C16CA06003885A3 /* PBXBuildRule */,
@@ -4542,20 +4558,21 @@
 			);
 			name = "Zazo-NetworkTest";
 			productName = tbm;
-			productReference = 182255A81C16CA06003885A3 /* tbm.app */;
+			productReference = 182255A81C16CA06003885A3 /* Zazo-NetworkTest.app */;
 			productType = "com.apple.product-type.application";
 		};
 		220E90241909A18B003C4F82 /* Zazo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 220E90571909A18C003C4F82 /* Build configuration list for PBXNativeTarget "Zazo" */;
 			buildPhases = (
-				90DCA26FC9A448EB9C5E5879 /* Check Pods Manifest.lock */,
+				C62B28D8A744759F5D74325A /* Check Pods Manifest.lock */,
 				220E90211909A18B003C4F82 /* Sources */,
 				220E90221909A18B003C4F82 /* Frameworks */,
 				220E90231909A18B003C4F82 /* Resources */,
-				F150BE2BD20343D6AD66EF07 /* Copy Pods Resources */,
 				07243CC31B8E4517008E4203 /* Fabric */,
 				150820E11C457F2F0032EC29 /* Set Build Number */,
+				848C0AEB1FF772042DA48478 /* Embed Pods Frameworks */,
+				4E0E279F608C2AE24063C87F /* Copy Pods Resources */,
 			);
 			buildRules = (
 				07F0ED831B8CE79300036AB2 /* PBXBuildRule */,
@@ -4572,11 +4589,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 220E905A1909A18C003C4F82 /* Build configuration list for PBXNativeTarget "ZazoTests" */;
 			buildPhases = (
-				B1464FEE00EB93A39465CD11 /* Check Pods Manifest.lock */,
+				42D36E7BBA032F52FDA5C41B /* Check Pods Manifest.lock */,
 				220E90411909A18B003C4F82 /* Sources */,
 				220E90421909A18B003C4F82 /* Frameworks */,
 				220E90431909A18B003C4F82 /* Resources */,
-				D9E56C582902C6E9D84AF1D0 /* Copy Pods Resources */,
+				F5F1D5677BBF3913FE691F6B /* Embed Pods Frameworks */,
+				02D20D95F19F4E71E3EABD47 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -4770,6 +4788,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		02D20D95F19F4E71E3EABD47 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		07243CC31B8E4517008E4203 /* Fabric */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4798,36 +4831,6 @@
 			shellPath = /bin/sh;
 			shellScript = "git=`sh /etc/profile; which git`\nappBuild=`\"$git\" rev-list --all |wc -l`\nappBranch=`\"$git\" name-rev --name-only HEAD`\n\nif [ \"${CONFIGURATION}\" = \"Ad-hoc\" ]; then\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild' | '$appBranch\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nfi";
 		};
-		182254541C16CA06003885A3 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		1822559F1C16CA06003885A3 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zazo/Pods-Zazo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		182255A01C16CA06003885A3 /* Fabric */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4842,52 +4845,7 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 614db54f91c11edf6117193953fc20467d62cd05 06786661ab10c149ccf35734a13a2efd732d9dd1cb481ab620fc97be50a9ef38";
 		};
-		90DCA26FC9A448EB9C5E5879 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		B1464FEE00EB93A39465CD11 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		D9E56C582902C6E9D84AF1D0 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F150BE2BD20343D6AD66EF07 /* Copy Pods Resources */ = {
+		26ACFE91DE8793819D0CEFC7 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -4900,6 +4858,111 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zazo/Pods-Zazo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		42D36E7BBA032F52FDA5C41B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		4E0E279F608C2AE24063C87F /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zazo/Pods-Zazo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7AC5FC390AB99EFD0953D5CF /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zazo/Pods-Zazo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		848C0AEB1FF772042DA48478 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Zazo/Pods-Zazo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C62B28D8A744759F5D74325A /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C65897B832FC9F932514B44F /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F5F1D5677BBF3913FE691F6B /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -4996,6 +5059,7 @@
 				182254A71C16CA06003885A3 /* ZZGridStateViewRecord.m in Sources */,
 				182254A81C16CA06003885A3 /* ZZGridPresenter+UserDialogs.m in Sources */,
 				182254A91C16CA06003885A3 /* ZZGridPresenter.m in Sources */,
+				157AB4D41C905D1000CB0A73 /* ZZDownloadErrorHandler.m in Sources */,
 				182254AA1C16CA06003885A3 /* ZZCommonModelsGenerator.m in Sources */,
 				182254AB1C16CA06003885A3 /* _TBMFriend.m in Sources */,
 				182254AC1C16CA06003885A3 /* ZZNetworkTransport.m in Sources */,
@@ -5466,6 +5530,7 @@
 				07636E331BA49A0100925671 /* ZZAccountTransportService.m in Sources */,
 				07636EC21BA49A0100925671 /* ZZGridStateView.m in Sources */,
 				07636EB31BA49A0100925671 /* ZZEditFriendListPresenter.m in Sources */,
+				677DBA45928322EF12B662C3 /* ZZDownloadErrorHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5480,6 +5545,7 @@
 				07F0E7F61B8CD7A900036AB2 /* ZZLoadFriendListSpec.m in Sources */,
 				07F0E7F81B8CD7A900036AB2 /* ZZStartScreenTestSpec.m in Sources */,
 				07F0E7F51B8CD7A900036AB2 /* ZZRegistrationWithSMSTest.m in Sources */,
+				677DBEDB16DE54419B7A54C6 /* ZZDownloadErrorHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5554,7 +5620,7 @@
 		};
 		0732F4C21B8B82B3004FD3AF /* Ad-hoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C4392BF41AD48118C492A226 /* Pods-Zazo.ad-hoc.xcconfig */;
+			baseConfigurationReference = 4FC21B5A7A35E4EA460D592B /* Pods-Zazo.ad-hoc.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -5590,7 +5656,7 @@
 		};
 		0732F4C31B8B82B3004FD3AF /* Ad-hoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A0ECBE9A7392F431C5ADE072 /* Pods-ZazoTests.ad-hoc.xcconfig */;
+			baseConfigurationReference = 42EFCFD1416D98D8747479B9 /* Pods-ZazoTests.ad-hoc.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -5612,17 +5678,38 @@
 		};
 		15A324F91C84C29B006B2E86 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 00159322A8A39BC248A7DF72 /* Pods-Zazo.debug.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Zazo/Vendor",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = tbm;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"DEBUG=1",
+					"NETTEST=1",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/Zazo copy-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PODS_ROOT = "${SRCROOT}/Pods";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8dd6cd4b-590d-4e26-a254-9e3ef7553fe0";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		182255A51C16CA06003885A3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B1860DB43B6E70D5AEF73EF4 /* Pods-Zazo.release.xcconfig */;
+			baseConfigurationReference = 876645398B11246519CD8699 /* Pods-Zazo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -5642,7 +5729,7 @@
 					"COCOAPODS=1",
 					"RELEASE=1",
 				);
-				INFOPLIST_FILE = "Zazo copy-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Zazo copy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
@@ -5659,7 +5746,7 @@
 		};
 		182255A71C16CA06003885A3 /* Ad-hoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C4392BF41AD48118C492A226 /* Pods-Zazo.ad-hoc.xcconfig */;
+			baseConfigurationReference = 4FC21B5A7A35E4EA460D592B /* Pods-Zazo.ad-hoc.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -5680,7 +5767,7 @@
 					"AD-HOC=1",
 					"NETTEST=1",
 				);
-				INFOPLIST_FILE = "Zazo copy-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Zazo copy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
@@ -5781,7 +5868,7 @@
 		};
 		220E90581909A18C003C4F82 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5988C69CC62CF4472CA2040A /* Pods-Zazo.debug.xcconfig */;
+			baseConfigurationReference = 00159322A8A39BC248A7DF72 /* Pods-Zazo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -5812,7 +5899,7 @@
 		};
 		220E90591909A18C003C4F82 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B1860DB43B6E70D5AEF73EF4 /* Pods-Zazo.release.xcconfig */;
+			baseConfigurationReference = 876645398B11246519CD8699 /* Pods-Zazo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -5849,7 +5936,7 @@
 		};
 		220E905B1909A18C003C4F82 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2EE3EC5660312AC490BD17BA /* Pods-ZazoTests.debug.xcconfig */;
+			baseConfigurationReference = 6D0BC5A021BD1CE12D733161 /* Pods-ZazoTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -5875,7 +5962,7 @@
 		};
 		220E905C1909A18C003C4F82 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EBC6C0A37344F4BEEFA60089 /* Pods-ZazoTests.release.xcconfig */;
+			baseConfigurationReference = 26E9414C4F22C0BD01F61F8A /* Pods-ZazoTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
