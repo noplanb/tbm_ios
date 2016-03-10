@@ -15,15 +15,10 @@
 #import "ZZRemoteStorageTransportService.h"
 #import "ZZCommonNetworkTransportService.h"
 #import "TBMVideoIdUtils.h"
-#import "ZZStoredSettingsManager.h"
 #import "ZZNotificationsConstants.h"
 #import "ZZRemoteStorageValueGenerator.h"
-#import "ZZVideoNetworkTransportService.h"
-#import "ZZFileTransferMarkerDomainModel.h"
-#import "ZZVideoStatuses.h"
 #import "ZZVideoStatusHandler.h"
 #import "ZZVideoFileHandler.h"
-#import "ZZVideoDataProvider.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZFriendDataHelper.h"
 #import "ZZFriendDomainModel.h"
@@ -74,11 +69,6 @@
 - (void)resetAllTasksCompletion:(void(^)())completion
 {
     [self.fileTransferManager reset:completion];
-}
-
-- (void)updateCredentials
-{
-    [self _updateCredentials];
 }
 
 - (void)_updateCredentials
@@ -154,7 +144,7 @@
         }
         else
         {
-            [self _downloadCompletedWithFriendId:markerModel.friendID videoId:markerModel.videoID error:error];
+            [self _downloadCompletedWithFriendID:markerModel.friendID videoID:markerModel.videoID error:error];
         }
     }
     else
@@ -352,11 +342,18 @@
 //----------------
 // Download events
 //----------------
-- (void)_downloadCompletedWithFriendId:(NSString*)friendId videoId:(NSString *)videoId error:(NSError *)error
+- (void)_downloadCompletedWithFriendID:(NSString *)friendId videoID:(NSString *)videoId error:(NSError *)error
 {
     // Whether successful, failed permanently, or unrecognized video we always want to try to
     // delete the remote video and received kv as we don't ever want to try again.
-    [self _deleteRemoteWithFriendId:friendId videoId:videoId];
+
+    // But we keep S3 files in trobleshooting purposes.
+    // They will be deleted automatically after expiration period
+    BOOL shouldDeleteFromS3 = error == nil;
+
+    [self _deleteRemoteWithFriendID:friendId
+                            videoID:videoId
+                       deleteFromS3:shouldDeleteFromS3];
 
     ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendId];
     ZZVideoDomainModel *videoModel = [ZZVideoDataProvider itemWithID:videoId];
@@ -374,7 +371,7 @@
         
         if (validThumb)
         {
-            [ZZVideoDataUpdater deleteAllViewedOrFailedVideoWithFriendID:friendId];
+            [ZZVideoDataUpdater deleteAllViewedVideosWithFriendID:friendId];
         }
         
         [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloaded friendId:friendId videoId:videoId];
@@ -417,6 +414,16 @@
     }
 }
 
+- (void)restartFailedDownloads
+{
+    [[ZZVideoDataProvider videosWithStatus:ZZVideoIncomingStatusFailedPermanently]
+            enumerateObjectsUsingBlock:^(ZZVideoDomainModel *videoModel, NSUInteger idx, BOOL *stop) {
+
+        [self _queueDownloadWithFriendID:videoModel.relatedUserID
+                         videoId:videoModel.videoID
+                           force:YES];
+    }];
+}
 
 //---------------------
 // HandleStuckDownloads
@@ -434,10 +441,10 @@
 {
     [[self fileTransferManager] currentTransferStateWithCompletionHandler:^(NSArray *allTransferInfo) {
 
-        ZZLogInfo(@"handleStuckDownloads: (%lu)", (unsigned long) [ZZVideoDataProvider countDownloadingVideos]);
+        ZZLogInfo(@"handleStuckDownloads: (%lu)", (unsigned long) [ZZVideoDataProvider countVideosWithStatus:ZZVideoIncomingStatusDownloading]);
          NSArray *allObInfo = [[self fileTransferManager] currentState];
         
-         for (ZZVideoDomainModel *videoModel in [ZZVideoDataProvider downloadingVideos])
+         for (ZZVideoDomainModel *videoModel in [ZZVideoDataProvider videosWithStatus:ZZVideoIncomingStatusDownloading])
          {
              NSDictionary *obInfo = [self infoWithVideo:videoModel isUpload:NO allInfo:allObInfo];
              NSDictionary *transferInfo = [self infoWithVideo:videoModel isUpload:NO allInfo:allTransferInfo];
@@ -571,8 +578,10 @@
             
             if (videoModel.incomingStatusValue == ZZVideoIncomingStatusGhost)
             {
-                ZZLogWarning(@"Ghost video may exist on remote side. Trying to delete itå just in case.");
-                [self _deleteRemoteWithFriendId:friendID videoId:videoID];
+                ZZLogWarning(@"Ghost video may exist on remote side. Trying to delete it just in case.");
+                [self _deleteRemoteWithFriendID:friendID
+                                        videoID:videoID
+                                   deleteFromS3:YES];
             }
         }
         else
@@ -593,7 +602,9 @@
             
                 if (!ANIsEmpty(videoModel))
                 {
-                    [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloading friendId:friendID videoId:videoID];
+                    [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloading
+                                                          friendId:friendID
+                                                           videoId:videoID];
                     
                     ZZFriendDomainModel *relatedUser = [ZZFriendDataProvider friendWithItemID:videoModel.relatedUserID];
                     
@@ -658,7 +669,9 @@
 // Delete
 //-------
 
-- (void)_deleteRemoteWithFriendId:(NSString *)friendID videoId:(NSString *)videoID
+- (void)_deleteRemoteWithFriendID:(NSString *)friendID
+                          videoID:(NSString *)videoID
+                     deleteFromS3:(BOOL)deleteFromS3
 {
     ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
     
@@ -672,14 +685,22 @@
                                                                                        friendCKey:friendModel.cKey
                                                                                           videoId:videoID];
     ANDispatchBlockToBackgroundQueue(^{
-        ZZLogInfo(@"deleteRemoteS3VideoFile: deleting: %@", filename);
-        NSString *full = [NSString stringWithFormat:@"%@/%@", remoteStorageFileTransferDeletePath(), filename];
-        NSError *e = [[self fileTransferManager] deleteFile:full];
-        if (e != nil)
+        if (deleteFromS3)
         {
-            ZZLogError(@"ftmDelete: Error trying to delete remote file %@. This should never happen. %@", full, e);
+            ZZLogInfo(@"deleteRemoteS3VideoFile: deleting: %@", filename);
+            NSString *full = [NSString stringWithFormat:@"%@/%@", remoteStorageFileTransferDeletePath(), filename];
+            NSError *e = [[self fileTransferManager] deleteFile:full];
+            if (e != nil)
+            {
+                ZZLogError(@"ftmDelete: Error trying to delete remote file %@. This should never happen. %@", full, e);
+            }
         }
-        
+        else
+        {
+            ZZLogInfo(@"deleteRemoteS3VideoFile: skipped: %@", filename);
+        }
+
+
         ZZLogInfo(@"deleteRemoteIncomingVideoWithItemID: %@ friendMkey:%@, friendCKey:%@", videoID, friendModel.mKey, friendModel.cKey);
         
         [[ZZRemoteStorageTransportService deleteRemoteIncomingVideoWithItemID:videoID

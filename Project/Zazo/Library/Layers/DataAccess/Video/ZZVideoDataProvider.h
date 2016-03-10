@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
+#import "ZZVideoStatuses.h"
+
 @class ZZVideoDomainModel;
 @class ZZFriendDomainModel;
 
@@ -13,13 +15,11 @@
 
 + (ZZVideoDomainModel*)itemWithID:(NSString*)itemID;
 + (ZZVideoDomainModel*)createIncomingVideoModelForFriend:(ZZFriendDomainModel*)friendModel withVideoID:(NSString*)videoId;
-+ (NSArray *)downloadingVideos;
++ (NSArray <ZZVideoDomainModel *> *)videosWithStatus:(ZZVideoIncomingStatus)status;
 
 #pragma mark - Count
 
-+ (NSUInteger)countDownloadedUnviewedVideos;
-+ (NSUInteger)countDownloadingVideos;
-+ (NSUInteger)countTotalUnviewedVideos;
++ (NSUInteger)countVideosWithStatus:(ZZVideoIncomingStatus)status;
 + (NSUInteger)countAllVideos;
 
 + (NSArray*)sortedIncomingVideosForUserWithID:(NSString *)friendID;

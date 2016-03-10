@@ -13,7 +13,8 @@
 + (void)updateVideoWithID:(NSString *)videoID setIncomingStatus:(ZZVideoIncomingStatus)videoStatus;
 + (void)updateVideoWithID:(NSString *)videoID setDownloadRetryCount:(NSUInteger)count;
 
-+ (void)deleteAllViewedOrFailedVideoWithFriendID:(NSString*)friendId;
++ (void)deleteAllViewedVideosWithFriendID:(NSString*)friendId;
++ (void)deleteAllFailedVideos;
 + (void)deleteAllVideos;
 
 @end

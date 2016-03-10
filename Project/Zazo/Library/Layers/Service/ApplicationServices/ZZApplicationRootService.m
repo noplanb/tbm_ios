@@ -23,8 +23,7 @@
 #import "ZZRootStateObserver.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZVideoStatusHandler.h"
-#import "ZZVideoDataUpdater.h"
-
+#import "ZZDownloadErrorHandler.h"
 
 @interface ZZApplicationRootService ()
 <
@@ -37,6 +36,7 @@
 @property (nonatomic, strong) ZZVideoFileHandler* videoFileHandler;
 @property (nonatomic, strong) ZZApplicationDataUpdaterService* dataUpdater;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier backgroundTaskID;
+@property (nonatomic, strong) ZZDownloadErrorHandler *downloadErrorHandler;
 
 @end
 
@@ -52,7 +52,10 @@
         
         self.dataUpdater = [ZZApplicationDataUpdaterService new];
         self.dataUpdater.delegate = self;
-        
+
+        self.downloadErrorHandler = [ZZDownloadErrorHandler new];
+        self.downloadErrorHandler.videoFileHandler = self.videoFileHandler;
+
         [[ZZRootStateObserver sharedInstance] addRootStateObserver:self];
         [[ZZVideoStatusHandler sharedInstance] addVideoStatusHandlerObserver:self];
         
@@ -121,6 +124,7 @@
             [ZZNotificationsHandler registerToPushNotifications];
             [ZZVideoDataProvider printAll];
             [self.videoFileHandler startService];
+            [self.downloadErrorHandler startService];
         }];
     }
 }
@@ -168,13 +172,6 @@
                                                              videoItemID:videoID
                                                                   status:status from:me] subscribeNext:^(id x) {}];
 }
-
-//TODO: it's for legacy with TBMFriend
-//+ (void)sendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friend videoId:(NSString *)videoId status:(NSString *)status
-//{
-
-//    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider modelFromEntity:friend];
-//}
 
 - (void)updateBadgeCounter
 {
