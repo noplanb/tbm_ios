@@ -32,7 +32,7 @@
         [self downloadBarView];
         [self animationView];
         [self numberBadge];
-        [self sendBadge];
+        [self sentBadge];
         
         [self videoViewedView];
     }

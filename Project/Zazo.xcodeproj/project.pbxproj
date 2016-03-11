@@ -265,7 +265,7 @@
 		1521582A1C84932A00260AFD /* ZZUserNameLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 152158251C84932A00260AFD /* ZZUserNameLabel.m */; };
 		1521582D1C84989700260AFD /* ZZCellEffectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1521582C1C84989700260AFD /* ZZCellEffectView.m */; };
 		152796251C8715290054D3D4 /* ZZGridStateView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CBB1BA49A0100925671 /* ZZGridStateView+Animation.m */; };
-		152796281C8999140054D3D4 /* ZZSendBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 152796271C8999140054D3D4 /* ZZSendBadge.m */; };
+		152796281C8999140054D3D4 /* ZZSentBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 152796271C8999140054D3D4 /* ZZSentBadge.m */; };
 		154C7F4D1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
 		1557CFC01C6E1EB000FE5C57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD81BA49A0100925671 /* Assets.xcassets */; };
 		1557CFC21C6E1FE900FE5C57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD81BA49A0100925671 /* Assets.xcassets */; };
@@ -1278,8 +1278,8 @@
 		1521582B1C84989700260AFD /* ZZCellEffectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZCellEffectView.h; sourceTree = "<group>"; };
 		1521582C1C84989700260AFD /* ZZCellEffectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZCellEffectView.m; sourceTree = "<group>"; };
 		1521582E1C8498E500260AFD /* ZZHoldEffects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZHoldEffects.h; sourceTree = "<group>"; };
-		152796261C8999130054D3D4 /* ZZSendBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSendBadge.h; sourceTree = "<group>"; };
-		152796271C8999140054D3D4 /* ZZSendBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSendBadge.m; sourceTree = "<group>"; };
+		152796261C8999130054D3D4 /* ZZSentBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSentBadge.h; sourceTree = "<group>"; };
+		152796271C8999140054D3D4 /* ZZSentBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSentBadge.m; sourceTree = "<group>"; };
 		1549F9E91C1953E8005AFC95 /* ZZFriendDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZFriendDataProvider+Entities.h"; sourceTree = "<group>"; };
 		154C7F4B1C567EDD00DFA0FD /* OBLogger+ZZAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OBLogger+ZZAdditions.h"; sourceTree = "<group>"; };
 		154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OBLogger+ZZAdditions.m"; sourceTree = "<group>"; };
@@ -4591,8 +4591,8 @@
 			children = (
 				677DB3433ACC9D769CB3E754 /* ZZBadge.m */,
 				677DB4268BC19F8A577B401C /* ZZBadge.h */,
-				152796261C8999130054D3D4 /* ZZSendBadge.h */,
-				152796271C8999140054D3D4 /* ZZSendBadge.m */,
+				152796261C8999130054D3D4 /* ZZSentBadge.h */,
+				152796271C8999140054D3D4 /* ZZSentBadge.m */,
 				677DB27DD35FC30AAB28D584 /* ZZNumberBadge.m */,
 				677DBC3663F023AA5444040D /* ZZNumberBadge.h */,
 			);
@@ -5671,7 +5671,7 @@
 				07636E521BA49A0100925671 /* ZZSecretBaseStrategy.m in Sources */,
 				079E90251BD48C57001A4718 /* ZZDebugFriendStateDomainModel.m in Sources */,
 				07636EB11BA49A0100925671 /* ZZEditFriendEnumsAdditions.m in Sources */,
-				152796281C8999140054D3D4 /* ZZSendBadge.m in Sources */,
+				152796281C8999140054D3D4 /* ZZSentBadge.m in Sources */,
 				07636EE41BA49A0100925671 /* ANBaseListTableCell.m in Sources */,
 				07636F081BA49A0100925671 /* TBMAlertControllerVisualStyle.m in Sources */,
 				07636EC81BA49A0100925671 /* ZZGridCollectionController.m in Sources */,

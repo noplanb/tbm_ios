@@ -14,7 +14,7 @@
 #import "ZZCellEffectView.h"
 #import "ZZHoldIndicator.h"
 #import "ZZNumberBadge.h"
-#import "ZZSendBadge.h"
+#import "ZZSentBadge.h"
 
 @interface ZZGridStateView ()
 
@@ -180,11 +180,11 @@
         [self updateSendBadgePosition];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.sendBadge animate];
+            [self.sentBadge animate];
         });
         
         [self.animationView animateWithType:ZZLoadingAnimationTypeUploading
-                                     toView:self.sendBadge
+                                     toView:self.sentBadge
                                  completion:^{
                                      
                                      completionBlock();
@@ -340,28 +340,28 @@
     return _numberBadge;
 }
 
-- (ZZSendBadge *)sendBadge
+- (ZZSentBadge *)sentBadge
 {
-    if (_sendBadge)
+    if (_sentBadge)
     {
-        return _sendBadge;
+        return _sentBadge;
     }
     
-    _sendBadge = [ZZSendBadge new];
-    [self addSubview:_sendBadge];
-    _sendBadge.hidden = YES;
+    _sentBadge = [ZZSentBadge new];
+    [self addSubview:_sentBadge];
+    _sentBadge.hidden = YES;
     
     [self updateSendBadgePosition];
     
-    return _sendBadge;
+    return _sentBadge;
 }
 
 - (void)updateSendBadgePosition
 {
-    [self.sendBadge mas_updateConstraints:^(MASConstraintMaker *make) {
+    [self.sentBadge mas_updateConstraints:^(MASConstraintMaker *make) {
         [self makePositionForSentBadge:make];
     }];
-    [self.sendBadge layoutIfNeeded];
+    [self.sentBadge layoutIfNeeded];
 
 }
 

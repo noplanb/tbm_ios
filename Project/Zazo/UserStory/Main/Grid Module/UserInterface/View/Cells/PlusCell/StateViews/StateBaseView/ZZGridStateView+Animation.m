@@ -8,7 +8,7 @@
 
 #import "ZZGridStateView+Animation.h"
 #import "ZZNumberBadge.h"
-#import "ZZSendBadge.h"
+#import "ZZSentBadge.h"
 
 @implementation ZZGridStateView (Animation)
 
@@ -154,7 +154,7 @@
 - (void)_showVideoCountLabelWithCount:(NSInteger)count
 {
 //    [self _hideAllAnimationViews];
-    self.sendBadge.hidden = YES;
+    self.sentBadge.hidden = YES;
     
     BOOL shouldAnimate = self.numberBadge.count < count;
     

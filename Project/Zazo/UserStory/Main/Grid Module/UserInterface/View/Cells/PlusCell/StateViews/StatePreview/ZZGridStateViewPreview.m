@@ -51,7 +51,7 @@ static NSString *ZZDateFormatTemplate[] = {
         [self holdIndicatorView];
         [self effectView];
         [self numberBadge];
-        [self sendBadge];
+        [self sentBadge];
     }
     
     return self;

@@ -10,7 +10,7 @@
 #import "ANModelTransfer.h"
 #import "ZZUserNameLabel.h"
 
-@class ZZGridCellViewModel, ZZLoadingAnimationView, ZZCellEffectView, ZZHoldIndicator, ZZGridCell, ZZSendBadge;
+@class ZZGridCellViewModel, ZZLoadingAnimationView, ZZCellEffectView, ZZHoldIndicator, ZZGridCell, ZZSentBadge;
 @class ZZNumberBadge;
 
 static CGFloat const kUserNameFontSize = 18;
@@ -22,7 +22,7 @@ static CGFloat const kUserNameFontSize = 18;
 
 @property (nonatomic, strong) UIView* downloadBarView;
 @property (nonatomic, strong) ZZNumberBadge *numberBadge;
-@property (nonatomic, strong) ZZSendBadge *sendBadge;
+@property (nonatomic, strong) ZZSentBadge *sentBadge;
 
 @property (nonatomic, strong) ZZGridCell* presentedView;
 @property (nonatomic, strong) ZZUserNameLabel* userNameLabel;
