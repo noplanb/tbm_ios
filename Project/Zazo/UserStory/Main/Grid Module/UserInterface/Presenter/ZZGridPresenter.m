@@ -390,7 +390,7 @@
     
     NSString* msg;
     
-    if ([ZZVideoDataProvider countDownloadedUnviewedVideos] > 0)
+    if ([ZZVideoDataProvider countVideosWithStatus:ZZVideoIncomingStatusDownloaded] > 0)
     {
         msg = NSLocalizedString(@"hint.center.cell.tap.friend.to.play", nil);
     }

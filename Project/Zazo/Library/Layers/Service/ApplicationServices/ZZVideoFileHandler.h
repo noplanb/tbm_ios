@@ -38,7 +38,7 @@
 - (void)updateS3CredentialsWithRequest;
 
 - (void)handleStuckDownloadsWithCompletionHandler:(void (^)())handler;
-- (void)updateCredentials;
+- (void)restartFailedDownloads;
 - (void)resetAllTasksCompletion:(void(^)())completion;
 
 #pragma mark - Upload
