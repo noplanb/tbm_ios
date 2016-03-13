@@ -12,14 +12,14 @@
 #import "ZZRootWireframe.h"
 #import "ANCrashlyticsAdapter.h"
 #import "ZZContentDataAccessor.h"
-#import "ZZVideoRecorder.h"
-#import "ZZUserDataProvider.h"
 #import "ZZRollbarAdapter.h"
 #import "ZZNotificationsHandler.h"
 #import "ZZApplicationRootService.h"
 #import "ZZGridActionStoredSettings.h"
-#import "AFNetworkReachabilityManager.h"
 #import "OBLogger+ZZAdditions.h"
+#import "MagicalRecordInternal.h"
+#import "MagicalRecord+Options.h"
+#import "ZZCacheCleaner.h"
 
 @interface ZZAppDependencies ()
 
@@ -37,6 +37,8 @@
                   launchOptions:(NSDictionary*)options
                          window:(UIWindow*)window
 {
+    [ZZCacheCleaner cleanIfNeeded];
+    
     [ANCrashlyticsAdapter start];
     [ZZContentDataAccessor startWithCompletionBlock:^{
         [ZZRollbarAdapter shared];
