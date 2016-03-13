@@ -121,9 +121,9 @@
 {
     TBMAlertController *alertController =
             [TBMAlertController alertControllerWithTitle:@"Download Error"
-                                                 message:@"Problem downloading a Zazo.\nCheck your connection"];
+                                                 message:@"Problem downloading a zazo.\nCheck your connection"];
     [alertController addAction:
-            [SDCAlertAction actionWithTitle:@"Give up"
+            [SDCAlertAction actionWithTitle:@"Discard"
                                       style:SDCAlertActionStyleCancel
                                     handler:^(SDCAlertAction *action) {
                                         completion(NO);
@@ -145,7 +145,8 @@
 {
     ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
 
-    if (friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently)
+    if (friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently &&
+        friendModel.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming)
     {
         [self _showRetryDialog];
     }
