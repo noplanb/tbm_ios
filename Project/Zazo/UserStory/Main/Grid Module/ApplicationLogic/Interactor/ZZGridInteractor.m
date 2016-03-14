@@ -262,7 +262,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         }
         
         gridModel = [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:friendModel];
-        
+        //TODO:
         [self updateLastActionForFriend:gridModel.relatedUser];
         [self.output updateGridWithModel:gridModel isNewFriend:!isUserAlreadyOnGrid];
     }

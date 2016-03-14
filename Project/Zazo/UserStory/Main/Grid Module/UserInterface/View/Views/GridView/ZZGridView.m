@@ -13,18 +13,49 @@
 
 @implementation ZZGridView
 
-- (instancetype)init
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    if (self = [super init])
-    {
+    self = [super initWithFrame:frame];
+    if (self) {
+        
+        ZZSetGridSize([self _containerSizeWithViewSize:frame.size]);
+        
         [self itemsContainerView];
         
         self.isRotationEnabled = YES;
         
         self.maxCellsOffset = (CGFloat) (M_PI * 2);
+
     }
     return self;
 }
+
+- (CGSize)_containerSizeWithViewSize:(CGSize)size
+{
+    return CGSizeMake(size.width - [self _leftInset] - [self _rightInset], size.height - [self _topInset] - [self _bottomInset]);
+}
+
+- (CGFloat)_topInset
+{
+    return 22;
+}
+
+- (CGFloat)_leftInset
+{
+    return kGridItemSpacing();
+}
+
+- (CGFloat)_rightInset
+{
+    return kGridItemSpacing();
+}
+
+- (CGFloat)_bottomInset
+{
+    return kGridItemSpacing();
+}
+
+
 
 - (void)layoutSubviews
 {
@@ -56,22 +87,14 @@
 {
     if (!_itemsContainerView)
     {
-        _itemsContainerView = [[ZZGridContainerView alloc] initWithSegementsCount:9];
+        _itemsContainerView = [[ZZGridContainerView alloc] initWithSegmentsCount:9];
         _itemsContainerView.backgroundColor = [UIColor clearColor];
         [self addSubview:_itemsContainerView];
-        CGFloat topPadding;
-        if (!IS_IPAD)
-        {
-            topPadding = (CGRectGetHeight([UIScreen mainScreen].bounds) - kGridHeight() - kGridHeaderViewHeight)/2;
-        }
-        else
-        {
-            topPadding = (CGRectGetHeight([UIScreen mainScreen].bounds) - kGridHeight());
-        }
         [_itemsContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self).with.offset(topPadding);
-            make.left.right.equalTo(self);
-            make.height.equalTo(@(kGridHeight()));
+            make.top.equalTo(self).offset([self _topInset]);
+            make.bottom.equalTo(self).offset([self _bottomInset]);
+            make.left.equalTo(self).offset([self _leftInset]);
+            make.right.equalTo(self).offset(-[self _rightInset]);
         }];
     }
     return _itemsContainerView;

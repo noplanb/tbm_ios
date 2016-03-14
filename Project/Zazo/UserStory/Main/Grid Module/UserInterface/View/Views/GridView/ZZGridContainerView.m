@@ -13,7 +13,7 @@
 
 @implementation ZZGridContainerView
 
-- (instancetype)initWithSegementsCount:(NSInteger)segmentsCount
+- (instancetype)initWithSegmentsCount:(NSInteger)segmentsCount
 {
     self = [super init];
     if (self)
@@ -25,7 +25,7 @@
         NSInteger numberOfItemsInRow = 3;
         NSInteger numberOfLines = 3;
        
-        __block MASViewAttribute* previousLineViewAttribute = self.mas_top;
+        __block MASViewAttribute* previousLineViewAttribute = nil;
         
         NSMutableArray* items = [NSMutableArray new];
         
@@ -35,7 +35,7 @@
         {
             __block MASViewAttribute* previousViewAttribute = self.mas_left;
             
-            CGFloat leftOffset = (CGRectGetWidth([UIScreen mainScreen].bounds) - (itemSize.width * 3) - (paddingBetweenItems * 2))/2;  //0;
+            CGFloat leftOffset = 0;
             
             for (NSInteger row = 0; row < numberOfItemsInRow; row++)
             {
@@ -47,6 +47,9 @@
                 {
                     view = [ZZGridCell new];
                 }
+                
+                view.accessibilityLabel = [NSString stringWithFormat:@"Cell %ld-%ld", (long)line, (long)row];
+                
                 [self addSubview:view];
 
                 [view mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -59,7 +62,7 @@
                     }
                     else
                     {
-                        make.top.equalTo(self);
+                        make.top.equalTo(self.mas_top);
                     }
                 }];
                 
@@ -72,6 +75,11 @@
         self.items = [items copy];
     }
     return self;
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
 }
 
 @end

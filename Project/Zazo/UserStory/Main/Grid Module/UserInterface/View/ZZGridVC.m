@@ -29,7 +29,7 @@
 {
     if (self = [super init])
     {
-        self.gridView = [ZZGridView new];
+        self.gridView = [[ZZGridView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         self.controller = [ZZGridCollectionController new];
         self.controller.delegate = self;
         
