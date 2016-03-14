@@ -125,7 +125,6 @@
         modelState = ZZGridCellViewModelStateFriendHasNoApp;
     }
     
-    
     modelState = [self _additionalModelStateWithState:modelState];
     
     
@@ -136,9 +135,13 @@
 {
     ZZGridCellViewModelState stateWithAdditionalState = state;
     
-    if (self.hasUploadedVideo &&
-        !self.isUploadedVideoViewed &&
-        self.item.relatedUser.lastVideoStatusEventType != ZZVideoStatusEventTypeIncoming)
+    if (self.isRecording)
+    {
+        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateRecording);
+    }
+    else if (self.hasUploadedVideo &&
+             !self.isUploadedVideoViewed &&
+             self.item.relatedUser.lastVideoStatusEventType != ZZVideoStatusEventTypeIncoming)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoWasUploaded);
     }
@@ -163,7 +166,7 @@
     // green border state
     if (self.badgeNumber > 0)
     {
-        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateNeedToShowGreenBorder);
+        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateNeedToShowBorder);
     }
     else if (self.badgeNumber == 0 &&
              self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)

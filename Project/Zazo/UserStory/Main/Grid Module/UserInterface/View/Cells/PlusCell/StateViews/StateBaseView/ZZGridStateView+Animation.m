@@ -154,7 +154,7 @@
 - (void)_showVideoCountLabelWithCount:(NSInteger)count
 {
 //    [self _hideAllAnimationViews];
-    self.sentBadge.hidden = YES;
+//    self.sentBadge.hidden = YES;
     
     BOOL shouldAnimate = self.numberBadge.count < count;
     
@@ -169,6 +169,7 @@
 
 - (void)_hideVideoCountLabel
 {
+    [self updateSendBadgePosition];
     self.numberBadge.hidden = YES;
 }
 

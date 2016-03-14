@@ -10,7 +10,7 @@
 
 typedef enum : NSUInteger {
     ZZSentBadgeStateSent,
-    ZZSentBadgeViewed
+    ZZSentBadgeStateViewed
 } ZZSentBadgeState;
 
 @interface ZZSentBadge : ZZBadge

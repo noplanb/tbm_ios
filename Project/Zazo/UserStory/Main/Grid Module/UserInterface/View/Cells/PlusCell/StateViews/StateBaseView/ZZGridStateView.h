@@ -30,7 +30,6 @@ static CGFloat const kUserNameFontSize = 18;
 @property (nonatomic, strong) UIView *backgroundView;
 @property (nonatomic, strong) UIView *backGradientView;
 @property (nonatomic, strong) ZZLoadingAnimationView *animationView;
-@property (nonatomic, strong) UIImageView* videoViewedView;
 @property (nonatomic, strong) ZZCellEffectView *effectView;
 @property (nonatomic, strong) ZZHoldIndicator *holdIndicatorView;
 
@@ -38,12 +37,8 @@ static CGFloat const kUserNameFontSize = 18;
 
 - (void)updateBadgeWithNumber:(NSInteger)badgeNumber;
 - (void)showUploadAnimationWithCompletionBlock:(void(^)())completionBlock;
-- (void)showContainFriendAnimation;
-- (void)showUploadIconWithoutAnimation;
-- (void)hideAllAnimationViews;
 - (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock;
-- (void)showDownloadViews;
-- (void)hideDownloadViews;
 - (void)showAppearAnimation;
+- (void)updateSendBadgePosition;
 
 @end

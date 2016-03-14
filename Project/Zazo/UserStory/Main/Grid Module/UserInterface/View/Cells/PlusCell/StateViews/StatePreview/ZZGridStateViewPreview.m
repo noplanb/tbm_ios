@@ -45,13 +45,12 @@ static NSString *ZZDateFormatTemplate[] = {
         [self thumbnailImageView];
         [self userNameLabel];
 //        [self containFriendView];
-        [self videoViewedView];
         [self dateLabel];
         [self animationView];
         [self holdIndicatorView];
         [self effectView];
-        [self numberBadge];
         [self sentBadge];
+        [self numberBadge];
     }
     
     return self;
@@ -146,7 +145,6 @@ static NSString *ZZDateFormatTemplate[] = {
 {
     if (!self.superview.isHidden && [self.model isEnablePlayingVideo])
     {
-        [self hideAllAnimationViews];
         [self.presentedView hideActiveBorder];
 //        self.userNameLabel.hidden = YES;
         [self.model updateVideoPlayingStateTo:YES];

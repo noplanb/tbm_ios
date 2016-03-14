@@ -34,7 +34,6 @@
         [self numberBadge];
         [self sentBadge];
         
-        [self videoViewedView];
     }
     
     return self;

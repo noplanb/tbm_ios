@@ -18,6 +18,8 @@
 
 @interface ZZGridStateView ()
 
+@property (nonatomic, assign) BOOL isSentBadgeShifted;
+
 @end
 
 @implementation ZZGridStateView
@@ -43,24 +45,18 @@
         // upload video animation
         if (self.model.state & ZZGridCellViewModelStateVideoWasUploaded)
         {
-            [self showUploadIconWithoutAnimation];
+            // TODO: implement
+//            [self showUploadIconWithoutAnimation];
         }
 
         model.playerContainerView = self;
 
-        // Upload video was viewed
-        if (self.model.state & ZZGridCellViewModelStateVideoWasViewed)
-        {
-            [self hideAllAnimationViews];
-            self.videoViewedView.hidden = NO;
-        }
-
-        //download video animation
-        [self _setupDownloadAnimationsWithModel:model];
-
         model.usernameLabel = self.userNameLabel;
         [self.model reloadDebugVideoStatus];
 
+        self.sentBadge.state =  model.state & ZZGridCellViewModelStateVideoWasViewed ? ZZSentBadgeStateViewed : ZZSentBadgeStateSent;
+
+        [self _setupDownloadAnimationsWithModel:model];
     });
 }
 
@@ -69,15 +65,14 @@
 
 - (void)_setupDownloadAnimationsWithModel:(ZZGridCellViewModel*)model
 {
+    
     if (self.model.state & ZZGridCellViewModelStateVideoFirstVideoDownloading)
     {
-        [self _setupBadgeWithModel:model];
-        [self _setupDownloadingState];
+//        [self _setupNumberBadgeWithModel:model];
     }
     else if (self.model.state & ZZGridCellViewModelStateVideoDownloading)
     {
-        [self _setupBadgeWithModel:model];
-        [self _setupDownloadingState];
+//        [self _setupNumberBadgeWithModel:model];
     }
     else if (self.model.state & ZZGridCellViewModelStateVideoDownloaded)
     {
@@ -85,46 +80,37 @@
     }
     else
     {
-        [self _setupBadgeWithModel:model];
+        [self _setupNumberBadgeWithModel:model];
     }
-}
-
-- (void)_setupDownloadingState
-{
-    [self hideAllAnimationViews];
-    [self showDownloadViews];
 }
 
 - (void)_setupDownloadedStateWithModel:(ZZGridCellViewModel*)model
 {
     [self showDownloadAnimationWithCompletionBlock:^{
-//        self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-//        self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
+
     }];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self _setupBadgeWithModel:model];
+        [self _setupNumberBadgeWithModel:model];
     });
 }
 
-- (void)_setupBadgeWithModel:(ZZGridCellViewModel*)model
+- (void)_setupNumberBadgeWithModel:(ZZGridCellViewModel*)model
 {
-    [self hideDownloadViews];
-
     if (model.state & ZZGridCellViewModelStateVideoDownloadedAndVideoCountOne)
     {
         if (model.badgeNumber > 0 && ![self.model isVideoPlayed])
         {
-            [self _setupGreenColorsWithModel:model];
+            [self updateBadgeWithNumber:model.badgeNumber];
         }
     }
     else if (model.state & ZZGridCellViewModelStateVideoCountMoreThatOne)
     {
-        [self _setupGreenColorsWithModel:model];
+        [self updateBadgeWithNumber:model.badgeNumber];
     }
-    else if (model.state & ZZGridCellViewModelStateNeedToShowGreenBorder)
+    else if (model.state & ZZGridCellViewModelStateNeedToShowBorder)
     {
-        [self _setupGreenColorsWithModel:model];
+        [self updateBadgeWithNumber:model.badgeNumber];
     }
     else if (model.state & ZZGridCellViewModelStateVideoFirstVideoDownloading)
     {
@@ -133,26 +119,13 @@
     else if ((model.state & ZZGridCellViewModelStatePreview) &&
              (model.state & ZZGridCellViewModelStateVideoDownloading))
     {
-        [self _setupGreenColorsWithModel:model];
+        [self updateBadgeWithNumber:model.badgeNumber];
     }
     else
     {
-        [self _setupGrayColorsWithModel:model];
+        [self updateBadgeWithNumber:model.badgeNumber];
     }
-}
 
-- (void)_setupGreenColorsWithModel:(ZZGridCellViewModel*)model
-{
-//    self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-//    self.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-    [self updateBadgeWithNumber:model.badgeNumber];
-}
-
-- (void)_setupGrayColorsWithModel:(ZZGridCellViewModel*)model
-{
-//    self.userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellUserNameGrayColor;
-//    self.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
-    [self updateBadgeWithNumber:0];
 }
 
 #pragma mark - Animation Views
@@ -165,11 +138,6 @@
 
 
 #pragma mark - Animation part
-
-- (void)hideAllAnimationViews
-{
-//    [self _hideAllAnimationViews];
-}
 
 - (void)showUploadAnimationWithCompletionBlock:(void(^)())completionBlock;
 {
@@ -201,8 +169,14 @@
 
 - (void)updateBadgeWithNumber:(NSInteger)badgeNumber
 {
+    
     if (badgeNumber > 0)
     {
+        if (!self.isSentBadgeShifted)
+        {
+            self.sentBadge.hidden = YES;
+        }
+        
         [self _showVideoCountLabelWithCount:badgeNumber];
     }
     else
@@ -210,56 +184,6 @@
         [self _hideVideoCountLabel];
     }
 }
-
-
-- (void)showUploadIconWithoutAnimation
-{
-//    [self _showUploadIconWithoutAnimation];
-}
-
-- (void)showAppearAnimation
-{
-    
-}
-
-- (void)showContainFriendAnimation
-{
-//    ANDispatchBlockToMainQueue(^{
-//
-//        [self bringSubviewToFront:self.containFriendView];
-//
-//        [UIView animateWithDuration:kContainFriendAnimationDuration
-//                              delay:kContainFreindDelayDuration
-//                            options:UIViewAnimationOptionLayoutSubviews animations:^{
-//                                self.containFriendView.alpha = 1;
-//
-//                            } completion:^(BOOL finished) {
-//
-//                                [self _hideContainFriendAnimation];
-//                            }];
-//    });
-}
-
-- (void)_hideContainFriendAnimation
-{
-//    ANDispatchBlockToMainQueue(^{
-//        [UIView animateWithDuration:kContainFriendAnimationDuration animations:^{
-//            self.containFriendView.alpha = 0;
-//        }];
-//    });
-}
-
-
-- (void)showDownloadViews
-{
-//    [self _showDownloadViews];
-}
-
-- (void)hideDownloadViews
-{
-//    [self _hideDownloadViews];
-}
-
 
 #pragma mark - Lazy Load
 
@@ -349,7 +273,6 @@
     
     _sentBadge = [ZZSentBadge new];
     [self addSubview:_sentBadge];
-    _sentBadge.hidden = YES;
     
     [self updateSendBadgePosition];
     
@@ -361,13 +284,15 @@
     [self.sentBadge mas_updateConstraints:^(MASConstraintMaker *make) {
         [self makePositionForSentBadge:make];
     }];
+    
     [self.sentBadge layoutIfNeeded];
-
 }
 
 - (void)makePositionForSentBadge:(MASConstraintMaker *)maker
 {
-    if (self.model.badgeNumber > 0)
+    self.isSentBadgeShifted = self.model.badgeNumber > 0;
+    
+    if (self.isSentBadgeShifted)
     {
         [self makePositionForSecondBadge:maker];
     }
@@ -387,49 +312,6 @@
 {
     maker.right.equalTo(self).offset(-20);
     maker.top.equalTo(self).offset(-9);
-}
-
-//- (UIView*)containFriendView
-//{
-//    if (!_containFriendView)
-//    {
-//        _containFriendView = [UIView new];
-//        _containFriendView.alpha = 0;
-//        _containFriendView.backgroundColor = [UIColor yellowColor];
-//        [self addSubview:_containFriendView];
-//
-//        [_containFriendView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.edges.equalTo(self);
-//        }];
-//    }
-//    return _containFriendView;
-//}
-
-- (UIImageView *)videoViewedView
-{
-    if (!_videoViewedView)
-    {
-        _videoViewedView = [UIImageView new];
-        CGFloat width = [self _indicatorCalculatedWidth];
-        CGFloat height = [self _indicatorCalculatedWidth];
-
-        UIImage* image = [UIImage imageWithPDFNamed:@"home-page-view" atHeight:(height/2)];
-        _videoViewedView.contentMode = UIViewContentModeCenter;
-        _videoViewedView.image = image;
-        _videoViewedView.backgroundColor = [ZZColorTheme shared].gridCellLayoutGreenColor;
-        _videoViewedView.hidden = YES;
-        [self addSubview:_videoViewedView];
-        CGFloat aspect = width/height;
-
-        [_videoViewedView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self);
-//            self.rightDownloadIndicatorConstraint = make.right.equalTo(self);
-            make.width.equalTo(@([self _indicatorCalculatedWidth]));
-            make.height.equalTo(@(([self _indicatorCalculatedWidth]/aspect)));
-        }];
-    }
-
-    return _videoViewedView;
 }
 
 - (ZZLoadingAnimationView *)animationView

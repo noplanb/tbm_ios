@@ -8,7 +8,7 @@
 
 @interface ZZGridContainerView : UIView
 
-@property (nonatomic, strong) NSArray* items;
+@property (nonatomic, strong) NSArray <UIView *>* items;
 
 - (instancetype)initWithSegementsCount:(NSInteger)segmentsCount;
 

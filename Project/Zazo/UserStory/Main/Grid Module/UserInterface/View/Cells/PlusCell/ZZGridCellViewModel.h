@@ -53,7 +53,9 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
     ZZGridCellViewModelStateVideoWasViewed = 1 << 6,
     ZZGridCellViewModelStateVideoDownloading = 1 << 7,
     ZZGridCellViewModelStateVideoDownloaded = 1 << 8,
-    ZZGridCellViewModelStateNeedToShowGreenBorder = 1 << 9,
+    ZZGridCellViewModelStateNeedToShowBorder = 1 << 9,
+    ZZGridCellViewModelStateRecording = 1 << 14,
+
     //badge state
     ZZGridCellViewModelStateVideoDownloadedAndVideoCountOne = 1 << 10,
     ZZGridCellViewModelStateVideoCountMoreThatOne = 1 << 11,

@@ -145,7 +145,8 @@
 {
     ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
 
-    if (friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently)
+    if (friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently &&
+        friendModel.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming)
     {
         [self _showRetryDialog];
     }

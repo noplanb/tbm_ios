@@ -8,7 +8,7 @@
 
 #import "ZZGridCell.h"
 #import "ZZGridStateView.h"
-#import "ZZGridStateViewNudge.h"
+//#import "ZZGridStateViewNudge.h"
 #import "ZZGridStateViewRecord.h"
 #import "ZZGridStateViewPreview.h"
 #import "ZZAddContactButton.h"
@@ -104,7 +104,7 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 
 - (void)_configureActiveBorderIfNeededWithModel:(ZZGridCellViewModel*)model
 {
-    if (model.state & ZZGridCellViewModelStateNeedToShowGreenBorder)
+    if (model.state & ZZGridCellViewModelStateNeedToShowBorder)
     {
         [self _showActiveBorder];
     }
@@ -143,12 +143,13 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 
 - (void)_setupRecordRecognizerWithModel:(ZZGridCellViewModel *)model
 {
-    if ([self.stateView isKindOfClass:[ZZGridStateViewNudge class]])
-    {
-        ZZGridStateViewNudge* nudgeStateView = (ZZGridStateViewNudge*)self.stateView;
-        [model setupRecorderRecognizerOnView:nudgeStateView.recordView withAnimationDelegate:self];
-    }
-    else if ([self.stateView isKindOfClass:[ZZGridStateViewRecord class]])
+//    if ([self.stateView isKindOfClass:[ZZGridStateViewNudge class]])
+//    {
+//        ZZGridStateViewNudge* nudgeStateView = (ZZGridStateViewNudge*)self.stateView;
+//        [model setupRecorderRecognizerOnView:nudgeStateView.recordView withAnimationDelegate:self];
+//    }
+//    else
+        if ([self.stateView isKindOfClass:[ZZGridStateViewRecord class]])
     {
         ZZGridStateViewRecord* recordStateView = (ZZGridStateViewRecord*)self.stateView;
         [model setupRecorderRecognizerOnView:recordStateView.recordView withAnimationDelegate:self];
@@ -190,7 +191,7 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 
 - (void)showContainFriendAnimation
 {
-    [self.stateView showContainFriendAnimation];
+    //TODO: implement
 }
 
 - (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock
@@ -235,7 +236,7 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 
 - (void)hideAllAnimations
 {
-    [self.stateView hideAllAnimationViews];
+//    [self.stateView hideAllAnimationViews];
     [self.model reloadDebugVideoStatus];
 }
 
@@ -259,10 +260,6 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 - (void)showUploadAnimation
 {
     [self.stateView showUploadAnimationWithCompletionBlock:^{
-        if (self.model.badgeNumber > 0)
-        {
-            [self.stateView updateBadgeWithNumber:self.model.badgeNumber];
-        }
         [self.model reloadDebugVideoStatus];
     }];
 }

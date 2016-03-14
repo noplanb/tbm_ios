@@ -225,7 +225,6 @@
 {
     ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:notificationModel.toUserMKey];
     
-    
     if (friendModel == nil)
     {
         ZZLogInfo(@"handleVideoStatusUPdateNotification: got notification for non existant friend. calling getAndPollAllFriends");

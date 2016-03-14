@@ -166,7 +166,6 @@
 		07636EBE1BA49A0100925671 /* ZZGridCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CB31BA49A0100925671 /* ZZGridCenterCell.m */; };
 		07636EBF1BA49A0100925671 /* ZZGridCenterCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CB51BA49A0100925671 /* ZZGridCenterCellViewModel.m */; };
 		07636EC21BA49A0100925671 /* ZZGridStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CBD1BA49A0100925671 /* ZZGridStateView.m */; };
-		07636EC31BA49A0100925671 /* ZZGridStateViewNudge.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CC01BA49A0100925671 /* ZZGridStateViewNudge.m */; };
 		07636EC41BA49A0100925671 /* ZZGridStateViewPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CC31BA49A0100925671 /* ZZGridStateViewPreview.m */; };
 		07636EC51BA49A0100925671 /* ZZGridStateViewRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CC61BA49A0100925671 /* ZZGridStateViewRecord.m */; };
 		07636EC61BA49A0100925671 /* ZZGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CC81BA49A0100925671 /* ZZGridCell.m */; };
@@ -392,7 +391,6 @@
 		182254B61C16CA06003885A3 /* ANErrorBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D4E1BA49A0100925671 /* ANErrorBuilder.m */; };
 		182254B71C16CA06003885A3 /* PDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA21BA49A0100925671 /* PDFView.m */; };
 		182254B81C16CA06003885A3 /* ZZAuthPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C101BA49A0100925671 /* ZZAuthPresenter.m */; };
-		182254B91C16CA06003885A3 /* ZZGridStateViewNudge.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CC01BA49A0100925671 /* ZZGridStateViewNudge.m */; };
 		182254BA1C16CA06003885A3 /* ZZFeatureEventStrategyInviteeUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1F2FC1BC6AEEA0070ECF1 /* ZZFeatureEventStrategyInviteeUser.m */; };
 		182254BB1C16CA06003885A3 /* ZZNotificationsTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B571BA49A0100925671 /* ZZNotificationsTransport.m */; };
 		182254BC1C16CA06003885A3 /* ZZRemoteStorageConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E161BD5953D00A59389 /* ZZRemoteStorageConstants.m */; };
@@ -5225,7 +5223,6 @@
 				182254B61C16CA06003885A3 /* ANErrorBuilder.m in Sources */,
 				182254B71C16CA06003885A3 /* PDFView.m in Sources */,
 				182254B81C16CA06003885A3 /* ZZAuthPresenter.m in Sources */,
-				182254B91C16CA06003885A3 /* ZZGridStateViewNudge.m in Sources */,
 				182254BA1C16CA06003885A3 /* ZZFeatureEventStrategyInviteeUser.m in Sources */,
 				182254BB1C16CA06003885A3 /* ZZNotificationsTransport.m in Sources */,
 				182254BC1C16CA06003885A3 /* ZZRemoteStorageConstants.m in Sources */,
@@ -5509,7 +5506,6 @@
 				07636EEE1BA49A0100925671 /* ANErrorBuilder.m in Sources */,
 				07636F111BA49A0100925671 /* PDFView.m in Sources */,
 				07636E8F1BA49A0100925671 /* ZZAuthPresenter.m in Sources */,
-				07636EC31BA49A0100925671 /* ZZGridStateViewNudge.m in Sources */,
 				18E1F2FD1BC6AEEA0070ECF1 /* ZZFeatureEventStrategyInviteeUser.m in Sources */,
 				07636E3A1BA49A0100925671 /* ZZNotificationsTransport.m in Sources */,
 				07E09E171BD5953D00A59389 /* ZZRemoteStorageConstants.m in Sources */,
@@ -5808,7 +5804,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "d7c3c46d-718f-4a7f-a014-6a0832aabc9d";
+				PROVISIONING_PROFILE = "7038bf99-2f0f-451f-bc9d-91de4cb6c52b";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -5832,7 +5828,7 @@
 				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.noplanbees.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "8dd6cd4b-590d-4e26-a254-9e3ef7553fe0";
+				PROVISIONING_PROFILE = "5b5270fb-aa6d-4774-b381-346755393fd3";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -5898,7 +5894,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "5b5270fb-aa6d-4774-b381-346755393fd3";
 				SWIFT_OBJC_BRIDGING_HEADER = "Zazo/Library/Layers/Service/Zazo-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
@@ -5936,7 +5932,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d7c3c46d-718f-4a7f-a014-6a0832aabc9d";
+				PROVISIONING_PROFILE = "5b5270fb-aa6d-4774-b381-346755393fd3";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -6053,7 +6049,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "5994ade5-5f00-4c64-a86d-45b17fa9c26f";
+				PROVISIONING_PROFILE = "32180b08-f511-4d8f-911e-4e4de5b84e79";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -6089,7 +6085,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
 				PRODUCT_NAME = Zazo;
-				PROVISIONING_PROFILE = "a24a50d0-9ddb-4292-9405-67a9d7d8628c";
+				PROVISIONING_PROFILE = "a16407cd-5cb6-4afe-87f7-a686c588bb02";
 				SWIFT_OBJC_BRIDGING_HEADER = "Zazo/Library/Layers/Service/Zazo-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
@@ -6118,7 +6114,7 @@
 				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.noplanbees.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "8dd6cd4b-590d-4e26-a254-9e3ef7553fe0";
+				PROVISIONING_PROFILE = "5b5270fb-aa6d-4774-b381-346755393fd3";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -6140,7 +6136,7 @@
 				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.noplanbees.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "8dd6cd4b-590d-4e26-a254-9e3ef7553fe0";
+				PROVISIONING_PROFILE = "5b5270fb-aa6d-4774-b381-346755393fd3";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zazo.app/Zazo";
 				WRAPPER_EXTENSION = xctest;
 			};

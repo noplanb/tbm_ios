@@ -32,32 +32,18 @@ static CGFloat ZZBadgeAnimationDuration = 1.0f;
 
 - (void)animate
 {
-    BOOL delay = NO;
     if (self.hidden)
     {
         self.layer.transform = CATransform3DMakeScale(0.01, 0.01, 1);
         self.hidden = NO;
-//        delay = YES;
     }
     else
     {
         self.layer.transform = CATransform3DMakeScale(0.7, 0.7, 1);
     }
 
-    ANCodeBlock animations = ^{
-        self.layer.transform = CATransform3DIdentity;
-    };
+    self.layer.transform = CATransform3DIdentity;
 
-    if (delay)
-    {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(ZZBadgeAnimationDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            animations();
-        });
-    }
-    else
-    {
-        animations();
-    }
 }
 
 - (nullable id<CAAction>)actionForLayer:(CALayer *)layer forKey:(NSString *)event
