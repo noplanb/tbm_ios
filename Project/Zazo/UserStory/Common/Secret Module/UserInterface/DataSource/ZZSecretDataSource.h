@@ -41,6 +41,7 @@ typedef NS_ENUM(NSInteger, ZZSecrectScreenActionsType)
     ZZSecretSectionShouldDuplicateNextUpload,
     
     ZZSecrectScreenActionsTypeClearUserData,
+    ZZSecrectScreenActionsTypeClearCache,
     ZZSecrectScreenActionsTypeDeleteAllDanglingFiles,
     ZZSecrectScreenActionsTypeCrashApplication
 };

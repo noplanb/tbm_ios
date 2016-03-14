@@ -16,6 +16,7 @@
 - (void)dispatchData;
 - (void)resetHints;
 - (void)removeAllUserData;
+- (void)clearCache;
 - (void)removeAllDanglingFiles;
 - (void)shouldDuplicateNextUpload;
 - (void)updateAllFeaturesToEnabled;
