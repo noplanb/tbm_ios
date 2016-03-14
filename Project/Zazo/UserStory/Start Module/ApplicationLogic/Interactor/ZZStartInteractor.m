@@ -10,6 +10,7 @@
 #import "ZZCommonNetworkTransportService.h"
 #import "ZZUserDataProvider.h"
 #import "RollbarReachability.h"
+#import "ZZRollbarAdapter.h"
 
 @implementation ZZStartInteractor
 
@@ -38,6 +39,9 @@
     #else
         if (user.isRegistered)
         {
+            [[ZZRollbarAdapter shared] updateUserFullName:[user fullName]
+                                                    phone:user.mobileNumber
+                                                   itemID:user.idTbm];
             
             ANDispatchBlockToMainQueue(^{
                 [self.output applicationIsUpToDateAndUserLogged:YES];

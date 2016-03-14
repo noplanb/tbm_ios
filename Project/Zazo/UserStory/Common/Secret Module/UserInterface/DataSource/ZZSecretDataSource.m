@@ -124,9 +124,13 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
             }
             else if (indexPath.row == 1)
             {
-                [self.delegate actionWithType:ZZSecrectScreenActionsTypeDeleteAllDanglingFiles];
+                [self.delegate actionWithType:ZZSecrectScreenActionsTypeClearCache];
             }
             else if (indexPath.row == 2)
+            {
+                [self.delegate actionWithType:ZZSecrectScreenActionsTypeDeleteAllDanglingFiles];
+            }
+            else if (indexPath.row == 3)
             {
                 [self.delegate actionWithType:ZZSecrectScreenActionsTypeCrashApplication];
             }
@@ -299,6 +303,7 @@ typedef NS_ENUM(NSInteger, ZZSecretSectionResetDataIndexes) {
 - (void)_addResetDataSection
 {
     NSArray* items = @[[ZZSecretValueCellViewModel viewModelWithTitle:@"Clear user data (friends, videos)" details:nil],
+                       [ZZSecretValueCellViewModel viewModelWithTitle:@"Clear cache directory & exit" details:nil],
                        [ZZSecretValueCellViewModel viewModelWithTitle:@"Delete all dangling files" details:nil],
                        [ZZSecretValueCellViewModel viewModelWithTitle:@"Crash application" details:nil]];
     

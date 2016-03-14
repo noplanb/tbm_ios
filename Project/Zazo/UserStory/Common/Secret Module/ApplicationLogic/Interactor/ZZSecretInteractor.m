@@ -25,6 +25,7 @@
 #import "ZZNotificationsHandler.h"
 #import "ZZFriendDataUpdater.h"
 #import "ZZVideoDataUpdater.h"
+#import "ZZCacheCleaner.h"
 
 @implementation ZZSecretInteractor
 
@@ -63,6 +64,12 @@
 - (void)removeAllDanglingFiles
 {
     //TODO:
+}
+
+- (void)clearCache
+{
+    [ZZCacheCleaner setNeedsCacheCleaning];
+    [[NSArray new] objectAtIndex:2];
 }
 
 - (void)removeAllUserData

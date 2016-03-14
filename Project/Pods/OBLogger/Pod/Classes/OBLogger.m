@@ -136,6 +136,7 @@
         _formatter = [NSDateFormatter new];
         _formatter.timeStyle = NSDateFormatterMediumStyle;
         _formatter.dateStyle = NSDateFormatterShortStyle;
+        _formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
     });
     return [_formatter stringFromDate:[NSDate date]];
 }

@@ -82,6 +82,10 @@
         {
             [self.interactor removeAllUserData];
         } break;
+        case ZZSecrectScreenActionsTypeClearCache:
+        {
+            [self.interactor clearCache];
+        } break;
         case ZZSecrectScreenActionsTypeDeleteAllDanglingFiles:
         {
             [self.interactor removeAllDanglingFiles];

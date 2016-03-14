@@ -188,6 +188,7 @@
 + (NSArray *)_allNotDeleted
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
+        // TODO: Optimize. Must not fetch ghost videos
         return [[[[TBMVideo MR_findAllInContext:[self _context]].rac_sequence filter:^BOOL(TBMVideo *value) {
             return value.statusValue != ZZVideoIncomingStatusGhost;
         }] map:^id(id value) {

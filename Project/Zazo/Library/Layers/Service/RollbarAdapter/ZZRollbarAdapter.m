@@ -14,10 +14,6 @@
 #import "ZZApplicationStateInfoGenerator.h"
 #import "OBLogger+ZZAdditions.h"
 
-static NSString * ZZRollbarIDKeyName = @"RollbarID";
-static NSString * ZZRollbarUserNameKeyName = @"RollbarUserName";
-static NSString * ZZRollbarEmailKeyName = @"RollbarEmail";
-
 @implementation ZZRollbarAdapter
 
 + (instancetype)shared
@@ -42,11 +38,6 @@ static NSString * ZZRollbarEmailKeyName = @"RollbarEmail";
         RollbarConfiguration *config = [[RollbarConfiguration alloc] initWithLoadedConfiguration];
         config.crashLevel = @"critical";
         [Rollbar initWithAccessToken:kRollBarToken configuration:config];
-        
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [self _updateUserFullName:[defaults objectForKey:ZZRollbarUserNameKeyName]
-                            phone:[defaults objectForKey:ZZRollbarEmailKeyName]
-                           itemID:[defaults objectForKey:ZZRollbarIDKeyName]];
         
         [RACObserve([ZZStoredSettingsManager shared], serverEndpointState) subscribeNext:^(NSNumber* x) {
             
@@ -80,17 +71,7 @@ static NSString * ZZRollbarEmailKeyName = @"RollbarEmail";
     [self _updateUserFullName:fullName
                         phone:phone
                        itemID:itemID];
-    
-    // Have to store to user defaults because Rollbar stores it in Caches folder and may forget
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    [defaults setObject:phone forKey:ZZRollbarEmailKeyName];
-    [defaults setObject:itemID forKey:ZZRollbarIDKeyName];
-    [defaults setObject:fullName forKey:ZZRollbarUserNameKeyName];
-    
-    [defaults synchronize];
-}
+    }
 
 - (void)_updateUserFullName:(NSString*)fullName phone:(NSString*)phone itemID:(NSString *)itemID
 {
@@ -142,7 +123,7 @@ static NSString * ZZRollbarEmailKeyName = @"RollbarEmail";
 
 - (NSString*)_logString
 {
-    [[OBLogger instance] dropOldLines:1000];
+    [[OBLogger instance] dropOldLines:2000];
     return [[[OBLogger instance] logLines] componentsJoinedByString:@"\n"];
 }
 
