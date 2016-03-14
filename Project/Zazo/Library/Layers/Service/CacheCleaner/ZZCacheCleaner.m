@@ -32,9 +32,7 @@ static NSString *ZZCacheCleaningNeededKeyName = @"ZZCacheCleaningNeededKeyName";
 }
 
 + (void)_clearCache
-{
-    [OBLogger instance].writeToConsole = YES;
-    
+{    
     NSFileManager *manager = [NSFileManager defaultManager];
 
     NSString *cacheFolderPath =

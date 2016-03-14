@@ -37,11 +37,13 @@
                   launchOptions:(NSDictionary*)options
                          window:(UIWindow*)window
 {
-    [ZZCacheCleaner cleanIfNeeded];
-    
     [ANCrashlyticsAdapter start];
     [ZZContentDataAccessor startWithCompletionBlock:^{
         [ZZRollbarAdapter shared];
+        
+        [self _logAppLaunch];
+        
+        [ZZCacheCleaner cleanIfNeeded];
         
         ANDispatchBlockToBackgroundQueue(^{
             [ANLogger initializeLogger];
@@ -65,6 +67,16 @@
     }];
 }
 
+- (void)_logAppLaunch
+{
+    NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
+    
+    NSString *appName = bundleInfo[@"CFBundleDisplayName"];
+    NSString *appVersion = bundleInfo[@"CFBundleShortVersionString"];
+    NSString *bundleVersion = bundleInfo[@"CFBundleVersion"];
+    
+    ZZLogInfo(@"App launch: %@ %@ (%@)", appName, appVersion, bundleVersion);
+}
 
 #pragma mark - Application States
 
@@ -94,7 +106,7 @@
 - (void)handleApplicationWillTerminate
 {
     [ZZContentDataAccessor saveDataBase];
-    [[OBLogger instance] dropOldLines:1000];
+    [[OBLogger instance] dropOldLines:2000];
 }
 
 - (void)handleApplicationDidEnterInBackground

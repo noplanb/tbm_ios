@@ -123,7 +123,7 @@
 
 - (NSString*)_logString
 {
-    [[OBLogger instance] dropOldLines:1000];
+    [[OBLogger instance] dropOldLines:2000];
     return [[[OBLogger instance] logLines] componentsJoinedByString:@"\n"];
 }
 

@@ -261,6 +261,7 @@
 		07F0E7F81B8CD7A900036AB2 /* ZZStartScreenTestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */; };
 		0B6F69D89E12D07C3F133C76 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20E41E78697128F1939352F7 /* libPods-Zazo.a */; };
 		0F1616006CECE1A43525C354 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20E41E78697128F1939352F7 /* libPods-Zazo.a */; };
+		153AF2231C96C7D600AB11D9 /* ZZCacheCleaner.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB4FB687187A5E0FF378E /* ZZCacheCleaner.m */; };
 		154C7F4D1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
 		15718DA61C5BC25F00D9A207 /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
 		157AB4D41C905D1000CB0A73 /* ZZDownloadErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBC3A1ECFBC77257A04EC /* ZZDownloadErrorHandler.m */; };
@@ -5229,6 +5230,7 @@
 				182255391C16CA06003885A3 /* ZZMenuDataSource.m in Sources */,
 				1822553A1C16CA06003885A3 /* UIView+Round.m in Sources */,
 				1822553B1C16CA06003885A3 /* ZZHintsConstants.m in Sources */,
+				153AF2231C96C7D600AB11D9 /* ZZCacheCleaner.m in Sources */,
 				1822553C1C16CA06003885A3 /* TBMVideoProcessor.m in Sources */,
 				1822553D1C16CA06003885A3 /* _TBMUser.m in Sources */,
 				1822553E1C16CA06003885A3 /* ZZDebugStateEnumHelper.m in Sources */,
