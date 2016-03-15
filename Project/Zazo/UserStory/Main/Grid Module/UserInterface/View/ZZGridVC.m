@@ -98,6 +98,12 @@
     
 }
 
+- (void)showCameraSwitchAnimation
+{
+    NSInteger centerCellIndex = 4;
+    [self.gridView.items[centerCellIndex] showCameraSwitchAnimation];
+}
+
 - (void)showFriendAnimationWithFriendModel:(ZZFriendDomainModel *)friendModel
 {
      ZZGridCell* animationCell = [self.controller gridCellWithFriendModel:friendModel];

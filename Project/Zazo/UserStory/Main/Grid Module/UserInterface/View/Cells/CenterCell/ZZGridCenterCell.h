@@ -14,5 +14,6 @@
 @property (nonatomic, strong) UIButton* switchCameraButton;
 
 - (void)updataeRecordStateTo:(BOOL)isRecording;
+- (void)showCameraSwitchAnimation;
 
 @end

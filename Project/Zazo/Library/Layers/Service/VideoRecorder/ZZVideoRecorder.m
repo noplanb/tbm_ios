@@ -32,6 +32,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 @property (nonatomic, strong) TBMVideoProcessor* videoProcessor;
 @property (nonatomic, strong) NSDate* recordStartDate;
 @property (nonatomic, copy) void (^completionBlock)(BOOL isRecordingSuccess);
+@property (nonatomic, copy) ANCodeBlock cameraSwitchCompleted;
 @property (nonatomic, assign) BOOL didCancelRecording;
 @property (nonatomic, strong) ZZSoundEffectPlayer *soundPlayer;
 @property (nonatomic, assign) BOOL isSetup;
@@ -191,8 +192,17 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
     [self.recorder isCameraDeviceAvailable:PBJCameraDeviceFront];
 }
 
-- (void)switchCamera
+- (void)switchCamera:(ANCodeBlock)completion
 {
+    if (completion)
+    {
+        self.cameraSwitchCompleted = [completion copy];
+    }
+    else
+    {
+        self.cameraSwitchCompleted = nil;
+    }
+    
     if (self.recorder.cameraDevice == PBJCameraDeviceFront)
     {
         [self.recorder setCameraDevice:PBJCameraDeviceBack];
@@ -379,7 +389,14 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 // device / mode / format
 
 - (void)visionCameraDeviceWillChange:(PBJVision *)vision{}
-- (void)visionCameraDeviceDidChange:(PBJVision *)vision{}
+- (void)visionCameraDeviceDidChange:(PBJVision *)vision
+{
+    if (self.cameraSwitchCompleted)
+    {
+        self.cameraSwitchCompleted();
+        self.cameraSwitchCompleted = nil;
+    }
+}
 
 - (void)visionCameraModeWillChange:(PBJVision *)vision{}
 - (void)visionCameraModeDidChange:(PBJVision *)vision{}

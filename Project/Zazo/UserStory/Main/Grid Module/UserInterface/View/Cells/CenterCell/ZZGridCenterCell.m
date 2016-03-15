@@ -26,6 +26,8 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
 @property (nonatomic, strong) CALayer* recordingOverlay;
 @property (nonatomic, strong) UIView* recordingView;
 @property (nonatomic, strong) ZZCellEffectView *effectView;
+@property (nonatomic, strong) UIView *snapshotView;
+
 
 @end
 
@@ -82,11 +84,32 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
     }
 }
 
+- (void)showCameraSwitchAnimation
+{
+    [UIView transitionFromView:self.snapshotView
+                        toView:self.videoView
+                      duration:.35f
+                       options:UIViewAnimationOptionAllowAnimatedContent | UIViewAnimationOptionTransitionFlipFromLeft | UIViewAnimationOptionShowHideTransitionViews
+                    completion:^(BOOL finished) {
+                        [self.snapshotView removeFromSuperview];
+                    }];
+}
 
 #pragma mark - Private
 
 - (void)_switchCamera
 {
+    if (self.snapshotView)
+    {
+        [self.snapshotView removeFromSuperview];
+    }
+    
+    self.snapshotView = [self.videoView snapshotViewAfterScreenUpdates:YES];
+    
+    [self addSubview:self.snapshotView];
+    self.videoView.hidden = YES;
+    
+    [self.effectView showEffect:ZZCellEffectTypeWaveOut];
     [self.model switchCamera];
 }
 

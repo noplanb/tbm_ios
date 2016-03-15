@@ -25,5 +25,6 @@
 - (BOOL)isGridRotating;
 - (NSInteger)indexOfFriendModelOnGridView:(ZZFriendDomainModel*)friendModel;
 - (void)configureViewPositions;
+- (void)showCameraSwitchAnimation;
 
 @end
